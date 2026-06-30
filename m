@@ -4,144 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63532C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51951C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 13:02:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50DB10E1E1;
-	Tue, 30 Jun 2026 12:58:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 661BC10E1EE;
+	Tue, 30 Jun 2026 13:02:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="NR8XoWNV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jCi+hwfW";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1xQxQlMg";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uP7mQjVf";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ThoULKvY";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F59410E1E1
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:58:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D5D33719E7;
- Tue, 30 Jun 2026 12:58:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782824293; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VTry0q6GcbnFe1RAtyQviCwwb31sORraLMwHy2cHfq4=;
- b=NR8XoWNVDouv0SkIMYbzHltmbvBecvzDfzts5IXOxeODDV4N36SQfa1L50s5cJRKbAMNVw
- 0clY4PmjpqITwudcSkgFrSEPeeWxQY2NZoyhdkwOJ2diQApCmnAkov/mvBFtuXK424fj7i
- Axns+iguHS6TCJP7sA3dRLlFTDtqHMI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782824293;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VTry0q6GcbnFe1RAtyQviCwwb31sORraLMwHy2cHfq4=;
- b=jCi+hwfWdfd+Cb7Tl2ps4XLmEFmdkV1sFM8g/IOgrYsdQH4INJ0T4mPdtqFB331JJsrHsX
- qafgsC71h8Gy4IDw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1xQxQlMg;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uP7mQjVf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782824292; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VTry0q6GcbnFe1RAtyQviCwwb31sORraLMwHy2cHfq4=;
- b=1xQxQlMgk3xi2gMIKO6Njj5ad1ZtnTu7nlxtnpDjrRUfYBcTvKSs3tPbkwomKWn0kzeRok
- GfTVJVbtymJ9DXegimIENaCNtKL5cQN91T9jL35Uf1Q4NMkfTcWqaU3XA5P6dLO0gItGsL
- gBe8/sfrlIl4vG6GA6oYF9dbTY+AIDA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782824292;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=VTry0q6GcbnFe1RAtyQviCwwb31sORraLMwHy2cHfq4=;
- b=uP7mQjVf+o2ak0+5617h2cL0E3cM1JVuMFEJnZ0SB3z5QjybtKcLYCOo3s1vajR2xDPaPV
- 0SA1oiDoSUSYzQAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73815779A8;
- Tue, 30 Jun 2026 12:58:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id rGH+GmS9Q2o9JQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 30 Jun 2026 12:58:12 +0000
-Message-ID: <3e92dfd1-2979-4246-9aac-09e21ec43704@suse.de>
-Date: Tue, 30 Jun 2026 14:58:11 +0200
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E8F10E1EE
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 13:02:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782824501; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=nthbJqtvONO2/nwe8d1zeggxE633bxM3tISdxZ9/g3pG52haAxcpzl35qw67YfktREiapvUBCEGIl/MI9LOSVGlau3P7YZ8h2FMLbNaH/GtiDwfnXSliRfaVfW2BUPdUngYLUCbOJPkhSJXTSOqOxtIp52m66SUhubVeBzCGZZw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782824501;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=p2SG0TMOHZ0GVS52q7Vq5mLYI7uuqPD8eXhp/+nyhfQ=; 
+ b=YXGwCtt4/YRI/DofMoup8Z8X+NXagYhkW/MbG3tCcpb4eI85a/OPWdCGlIDc6Q6MyVJjPcNfKCE+4S2XGf0V8xJ2ORFS0n8wX5jXg+OGriB5dyGnbcR46m6zQwevF0he71C/4IpVmiPhaH6/G46lH80BS2kOnU7DLteJvZ1mk80=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782824501; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:References:Date:Date:Message-Id:Message-Id:Reply-To;
+ bh=p2SG0TMOHZ0GVS52q7Vq5mLYI7uuqPD8eXhp/+nyhfQ=;
+ b=ThoULKvYekyV3DeuAxxxsVsCAhOOFovLRJ8P0ABIKQA40dUVZ2fMGnoyxX9ux856
+ qbf2e4FQxegcTuiHS91L5Fj+W7ioLYiOFJ9RrCRlj2tWUpyySUhOivslZPYaf8sAGhy
+ QtJl4zftHBRDNTRm3qN0V0UyHGz27RwQ13tyejiI=
+Received: by mx.zohomail.com with SMTPS id 1782824498318744.2704169078715;
+ Tue, 30 Jun 2026 06:01:38 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vblank: Don't arm vblank timer with invalid frame
- duration
-To: Roman Ilin <me@romanilin.is>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260613224434.96501-1-me@romanilin.is>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260613224434.96501-1-me@romanilin.is>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: D5D33719E7
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[romanilin.is,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[12]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.com:url, suse.de:mid, suse.de:dkim,
- bootlin.com:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Subject: Re: [PATCH v3 4/4] drm/panthor: Check for sparse binding range
+ overflow
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heiko Stuebner <heiko@sntech.de>, Grant Likely <grant.likely@linaro.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Sashiko <noreply@sashiko.dev>
+In-Reply-To: <20260630102336.0097aef3@fedora-2.home>
+References: <20260629-vm_bind_checks-v3-0-85e6740f6c2e@collabora.com>
+ <20260629-vm_bind_checks-v3-4-85e6740f6c2e@collabora.com>
+ <20260630102336.0097aef3@fedora-2.home>
+Date: Tue, 30 Jun 2026 14:01:33 +0100
+Message-Id: <178282449383.3118423.12729371394612188562.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2951;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=wLaDT5J34qt7Cngw7dzJHK8HWfrTrUtjDpUsFDZdFDk=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqQ74uqChTsgdZm1704Af+31xQx6hwhJBG+AJWj
+ be+TkVPjUuJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCakO+LgAKCRAOJn5M7lND
+ PW0RDACc9eUBsBT7UBCvSEwhXePc4vrgrOD/RzNImpKl0DepfeD1ZCIuUfNVOf+Tp+xxC8KgnDK
+ rufmB8JI89TrUGY5JC6GfAN7yJdjhQVFb2uDp1B5cyq9cPYNB3AWB/fbReQdEzXAQFCk6SfARH0
+ NHTze2QTErZYXWBB+1LM36BSFem2YBSNOGW0qNXjWsawJtrPPz4xB2aDPu1iPNJzQOX+HiZfx67
+ Zj0e2wHfpMXZ3gr4uzkoqE//a538QWICs1a5gNX33fQhSAtbAsSD1B6AxULLpxtYDzvl51L/Qp3
+ pIO+nm7JyvEcERWy2xeMjgRUq54zdb/w1NLCZ32IM9VuK+QcCXQVw6gXLJq5tSMQqmung5K/HDC
+ xP1YeotyxXeKjRRvKS0SaWOK/13Mzp9raBn5fSFI0CwM/j1MQ8KjGtHqaH9nfJpTa5jEZ/78a16
+ 3joa8SRgNE64b8INmITrRntOkQeerERXaYGxBaf5NWOUD27DISGn1X083NVYB0gbqf1Ig=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,127 +88,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(cc Ville)
+On 2026-06-30 10:23:36+02:00, Boris Brezillon wrote:
+> On Mon, 29 Jun 2026 21:17:08 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > This check is being already carried out further down the call stack inside
+> > drm_gpuvm_sm_map -> drm_gpuvm_range_valid, but it's best to fail early in
+> > the driver before GPUVM functions are invoked so that we won't waste time
+> > allocating vm_bind context resources.
+> > 
+> > Reported-by: Sashiko <noreply@sashiko.dev>
+> > Closes: https://sashiko.dev/#/message/20260623204220.CDB1B1F000E9%40smtp.kernel.org
+> > Fixes: 12cf826bf1dd ("drm/panthor: Support sparse mappings")
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_mmu.c | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > index 77fdad4e5166..8bd9b975e5ce 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > @@ -1328,6 +1328,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+> >  	struct drm_gpuvm_bo *preallocated_vm_bo;
+> >  	struct sg_table *sgt = NULL;
+> >  	int ret;
+> > +	u64 end;
+> >  
+> >  	if (!bo)
+> >  		return -EINVAL;
+> > @@ -1353,6 +1354,10 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+> >  	if (is_sparse && (op->bo_handle || op->bo_offset))
+> >  		return -EINVAL;
+> >  
+> > +	/* Protect against sparse VA range overflow */
+> > +	if (is_sparse && check_add_overflow(op->va, op->size, &end))
+> > +		return -EINVAL;
+> 
+> Why should we limit this to sparse? Feels like the overflow check is
+> good to have for non-sparse as well.
 
-Hi,
+You're right, it should be done for all unmaps. On top of that, Sashiko pointed this out:
 
-thanks for addressing the issue.
+New issues:
+- [Low] The newly added overflow check in `panthor_vm_prepare_unmap_op_ctx` is mathematically dead code because the `MAP_SPARSE` flag is explicitly rejected for UNMAP operations.
+- [Low] The overflow check in `panthor_vm_prepare_map_op_ctx` is artificially restricted to sparse mappings, bypassing early protection for non-sparse mappings.
 
-Am 14.06.26 um 00:44 schrieb Roman Ilin:
-> When a CRTC's display mode carries a too small pixel clock,
-> drm_calc_timestamping_constants() computes a frame duration that
-> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
-> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
-> interval, after which vblank events are no longer delivered. Pending
-> page flips never complete and the display appears frozen.
->
-> This could be triggered on virtio-gpu guests that have dynamic resolution
-> enabled: when the SPICE agent or the X server resizes the output, it
-> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
+So it turns out that by limiting the overflow check to sparse unmaps, I've introduced a NOP.
+That also made me think that even though in the uAPI we state the following:
 
-'off by' as in it should be in Hz rather than kHz.
+* @DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE: Sparsely map a virtual memory range
+*
+* Only valid with DRM_PANTHOR_VM_BIND_OP_TYPE_MAP.
 
->
->      clock = 406 kHz, htotal = 3152, vtotal = 2148
->
->      framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns (~16.7 s)
->
-> 16675852216 does not fit into an int and wraps to roughly -504000000.
-> ns_to_ktime() then yields a negative interval and the timer stops working.
->
-> Found by bisection, which pointed at commit a036f5fceedb ("drm/virtgpu:
-> Use vblank timer"). That commit merely made virtio-gpu use the vblank
-> timer and thereby exposed the pre-existing problem in the timer setup
-> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
->
-> Reject a non-positive frame duration in drm_crtc_vblank_start_timer() and
-> return an error. enable_vblank then fails and the driver falls back to
-> sending the vblank event immediately, as it did before the vblank timer
-> was introduced. Valid modes are unaffected, and the timer self-heals on
-> the next mode that has a sane clock.
->
-> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Roman Ilin <me@romanilin.is>
-> ---
-> Notes:
->
-> Based on v7.1-rc7. Tested on 6.19 and 7.1-rc7.
->
-> Open questions:
->
-> This relies on the int overflow producing a negative value. The deeper
-> issue is that drm_calc_timestamping_constants() truncates framedur_ns to
-> int. Would you prefer to widen framedur_ns to s64, or to bound the
-> interval here (e.g. reject framedur_ns above one second) so that any
-> bogus interval is rejected regardless of sign?
+I wrote no checks to validate this for the sparse mappings patch series.
+So for v4 I'll be doing the overflow check unconditionally in panthor_vm_prepare_unmap_op_ctx() and also
+return -EINVAL if DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE is among the op flags.
 
-Generally speaking, I think we should not accept such a bugos mode in 
-the first place. But this would require changes to the mode-setting code 
-that are too invasive for a bug fix.
+Second Sashiko issue isn't relevant because right at the next statement we're clamping limiting mapping
+ranges to the size of BOs.
 
-So, if anything, we should try to detect the problem in 
-drm_calc_timestamping_constants(). Let's make the helper return errno 
-codes instead of failing silently. Within the helper, let's do the 
-following changes:
-
-- declare frame_size an unsigned int
-- declare linedur_ns and framedur_ns of type u64
-
-This should avoid possible overflows in the code.  And before assigning 
-linedur_ns and framedur_ns to the vblank fields, test them against INT_MAX.
-
-Maybe at [1]. Using drm_WARN_ON_ONCE is likely a good idea for future 
-debugging.
-
-if (drm_WARN_ON_ONCE(dev, linedur_ns > INT_MAX) || drm_WARN_ON_ONCE(dev, 
-framedur_ns > INT_MAX))
-    return -EINVAL
-
-[1] 
-https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/drm_vblank.c#L662
-
-
->
-> Should virtio-gpu additionally sanitize the user-supplied clock in its
-> atomic_check (similar to vmwgfx for the clock==0 case) so the
-> vblank-timer throttling is preserved for these resizes, instead of
-> falling back to immediate events?
->
->   drivers/gpu/drm/drm_vblank.c | 7 +++++++
->   1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index f78bf37f1..557cd0bc8 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -2235,7 +2235,13 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->   
->   	drm_calc_timestamping_constants(crtc, &crtc->mode);
->   
-> +	/*
-> +	 * Return an error so the driver falls back to sending vblank events
-> +	 * when a small mode clock yields a frame duration exceeding INT_MAX.
-> +	 */
-> +	if (vblank->framedur_ns <= 0)
-> +		return -EINVAL;
-
-Here, you would just forward the error upwards in the call stack.
-
-Best regards
-Thomas
-
-> +
->   	spin_lock_irqsave(&vtimer->interval_lock, flags);
->   	vtimer->interval = ns_to_ktime(vblank->framedur_ns);
->   	spin_unlock_irqrestore(&vtimer->interval_lock, flags);
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Cheers,
+Adrian
 
 
