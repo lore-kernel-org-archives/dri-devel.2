@@ -4,63 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B253EC43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 05:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF188C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 05:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8DF310E168;
-	Tue, 30 Jun 2026 05:20:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A64610E175;
+	Tue, 30 Jun 2026 05:43:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="isEtJ/Sx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bG2yM5HQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B8010E13A;
- Tue, 30 Jun 2026 05:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782796821; x=1814332821;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Kr/YG75jknEBGygfbdZbiLsmWOHsghWO/YAbsUOCBnA=;
- b=isEtJ/SxG2viFRDptx17SepD3Rb2J9PvUbI+lBZi10lVAaV1pv2JKiet
- tdTBp6eUVZ+RQWe/XPBV7qXechVbTZyD3/lq9b1lBfZkPhVV42RXKl00h
- CF6QEYA1E3YSNH7d/XUYNI/tNGXU0Qqc0V9uGA7bWZwXagb8TQlR5VtRx
- tFRSf/Wvhfl+OA7831WVjlB+qtn/s/933N4XHmjS1x4s3ejcYm4HUGpyI
- tf0vi83KMi1vpikHlK8tfs6lkRj8ibnrUgmAirqoVgKYQ4NsnrJLB91hi
- WyHydtrrEZiLR8J2oh/bYAPixbbpDWpZP2if2UI6V7nC3W0w6n+UjQgZI w==;
-X-CSE-ConnectionGUID: HC3XzVZdRee+VniCNG+rCg==
-X-CSE-MsgGUID: w2KQX7ETQ+yPkFxewxqwTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="94883791"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="94883791"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 22:20:20 -0700
-X-CSE-ConnectionGUID: t9Hv/DrSRa6tVdNCttLtrQ==
-X-CSE-MsgGUID: UHByy7OvTc6B1DVHvZlakg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="252305245"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 22:20:16 -0700
-Date: Tue, 30 Jun 2026 07:20:13 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Riana Tauro <riana.tauro@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, kuba@kernel.org,
- simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
- joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
- shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
- maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
- soham.purkait@intel.com
-Subject: Re: [PATCH v3 3/3] drm/xe/xe_ras: Add error-event support for CRI
-Message-ID: <akNSDXcXa0mtwR5r@black.igk.intel.com>
-References: <20260622101716.3313496-5-riana.tauro@intel.com>
- <20260622101716.3313496-8-riana.tauro@intel.com>
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD16010E17A
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 05:43:01 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-490cf322ed0so28575465e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 22:43:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782798180; x=1783402980; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=l60qb829+b056CbQNBxrBvUbd99a3Y5SxJc1xaAoFIk=;
+ b=bG2yM5HQudHAd6yQG2fwdbXy1JgU4bB6rftQLvHtvKa93UiF29sKxCl9j/7mHvo0OF
+ OHCIobel7mdNwBBvz803eQdYqNJdyCHBfEFDoEFWwk0r1cfnajg0hl6/ibUjRVJF4NxF
+ KYYqCD1YMex/p24mmYYXdT5nJZepB2GDZL/4ZL/Lv7FwN+KAdGeyNE+rQkXLs/SeJXik
+ 6UN2LqUwhZdpugpQvrURJCL07kCIMnqUgOCgEWQePIGK0Pxt6VFJq/8H63z2ouhdgngh
+ KhuCUx1Gk56eMUIQOmwVdt0cCwp9+KpR7hQPJzHCsBLre3aEbV3NqaD8X8TbvvrPMN6o
+ 7JWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782798180; x=1783402980;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l60qb829+b056CbQNBxrBvUbd99a3Y5SxJc1xaAoFIk=;
+ b=StoXiCSS3pGFpmJkHTQC0cL33Kx/dZw1CjwuLlrbw5IIy0uFZOOzHe4mcMhlcIQ0QK
+ dPTjEOzs9S5CmPqXIRJGwiSYm4IGyWrnjDJAbPR6FY2SNMNf1rcWbHWrEhYV7SP/nRtl
+ vmmBIZQ5e6wq1usOIv1bGJJ8bpBHz7DIxypnvnVKY7qOvKdsZzgDYeUzT1syC5uUfEhs
+ wGc7NQQNoDmjbW/T41coDHW48NPGzp/tTlGJK/KIWi8RqFiGGEfdJB6krmbL0VoUxJ4T
+ apwFb3A6nmfIgH9np6/D5HK0rm8aa1hDPvZtd0TIBVwOaHMAt6Hq4vf6umE8LIQtnsUL
+ cIjw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/R7ze1IuPSTtK8xfsRIqdtV0C/DSpKdYOgCb0v81BQev6nnGlNMKY1phAuAMh3mQ1Gqcyhavk2QXE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxePF0vAJHpbb5Q/KnBbSZ57d3Ir0q6dz3J4MQkXVqNocovxGhf
+ +5KM1j7wlnuoUiIof0AtU3yZy2JE7cudNi9ovQKynD2ItVCWcf6tlM7e
+X-Gm-Gg: AfdE7cn17LsISIzIuCJA/KIdhfhUSdzZfL5V0KrRaO/uJltm8D1qEVmwVqEv5kT5PKn
+ cfdNOBYXqNH4bSj9bQtbAPI3S8FW0OhhQdACt8oE6A648hiRZzMhTAVTozeYbS/I9CNc7z+MITa
+ IPs39shcSJCvt2nvW7JV5KZPwKp3WfTjhlfgmCe6faRyZVslY6MXuDBmkKELRu0SyJdl/RMk2//
+ fCykbj4cn3RRJyZzLzPWLzXxW2GDST1qEVoBaYxZ+Zw372iuHvd8HSNKimZIf0X77K7t6iasAdx
+ NDrljS1+xPrRhkLBlxq9x21Ol6Wk+eRA15Vup23uSLclfz9xZMom+2ZBPRCdJeFZlVwh+jSdQ2T
+ 7Bf6m/RbQYL06EBel+0ttzgSLWo4jGOSMx4PXDFNrVInc9N7Xs2+RSnA1116RDWLA37vJ5Sj2zn
+ 6gM0+p0UT179dJ9vpQ13/h+N8KRAyLN0Hnz6Q=
+X-Received: by 2002:a05:600c:1f8f:b0:493:a5d4:3798 with SMTP id
+ 5b1f17b1804b1-493b827f5ffmr33416535e9.1.1782798180072; 
+ Mon, 29 Jun 2026 22:43:00 -0700 (PDT)
+Received: from [192.168.1.10] ([95.43.220.235])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-47563d194bbsm4025453f8f.3.2026.06.29.22.42.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Jun 2026 22:42:59 -0700 (PDT)
+Message-ID: <4cb964d9-524d-40ec-8cd2-d936fff8eb85@gmail.com>
+Date: Tue, 30 Jun 2026 08:42:57 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622101716.3313496-8-riana.tauro@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
+To: Andreas Kemnade <andreas@kemnade.info>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tony Lindgren <tony@atomide.com>
+Cc: Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>,
+ "H. Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>
+References: <20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info>
+Content-Language: en-GB
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +101,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2026 at 03:47:20PM +0530, Riana Tauro wrote:
-> Add error-event support for Correctable errors in CRI.
-> error-event is reported to  userspace for all errors that crossed
-> threshold on receiving an interrupt for correctable errors.
+Hi,
+With this version of the patch I see:
 
-...
+[  102.760894] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  303.860321] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  307.071624] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  307.360626] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  307.671142] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  308.660339] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  308.961059] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  313.191314] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  313.700378] DSI: omapdss DSI error: Failed to set dsi_if_enable to 0
+[  313.980346] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  314.791564] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  315.090362] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  322.850952] DSI: omapdss DSI error: Framedone not received for 250ms!
+[  323.111175] DSI: omapdss DSI error: Framedone not received for 250ms!
 
-> +static void ras_send_error_event(struct xe_device *xe, u8 severity, u8 component)
-> +{
-> +	u8 drm_severity, drm_component;
-> +	u32 value;
-> +	int ret;
-> +
-> +	drm_severity = xe_to_drm_ras_severity(severity);
-> +	if (drm_severity == DRM_XE_RAS_ERR_SEV_MAX)
-> +		return;
-> +
-> +	drm_component = xe_to_drm_ras_component(component);
-> +	if (drm_component == DRM_XE_RAS_ERR_COMP_MAX)
-> +		return;
-> +
-> +	ret = xe_ras_get_counter(xe, severity, component, &value);
-> +	if (ret)
-> +		return;
-> +
-> +	xe_drm_ras_event(xe, drm_component, drm_severity, value, GFP_KERNEL);
-> +}
-> +
->  void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->  				      struct xe_sysctrl_event_response *response)
->  {
-> @@ -152,6 +203,8 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->  		severity = errors[id].common.severity;
->  		component = errors[id].common.component;
->  
-> +		ras_send_error_event(xe, severity, component);
+while scrolling the (hildon)desktop on droid4, so I would say the change 
+broke command mode.
 
-We already have error-value as part of the event, so this looks like
-a lot of redundant duplicate events if threshold is set high enough.
-I'm wondering if we use a local variable as a bitmap for components
-(which we set here) and only send event for_each_set_bit() after the
-loop?
+Regards,
+Ivo
 
-Raag
-
->  		xe_warn(xe, "[RAS]: %s %s detected\n",
->  			comp_to_str(component), sev_to_str(severity));
->  	}
-> -- 
-> 2.47.1
+On 29.06.26 г. 18:50 ч., Andreas Kemnade wrote:
+> Some chips need configuration commands to be sent first, before they can
+> send data. TC358762 for example needs PPI_LPTXTIMECNT configured
+> and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
+> configure such chips, do not send bta sync during writes if no acks are
+> requested. Instead just wait for the packet to be sent to avoid FIFO
+> overflows. There might be more to do about acks, but there seem to be
+> virtually no users of that flag.
+> 
+> This came to light when fiddling with the Epson Moverio BT-200 display
+> which consists of 2 TC358762 bridges with SPI funneled through
+> to the unknown display chip. With that patch the bridge can be accessed,
+> Reading back registers works, when the above-mentioned registers are set.
+> 
+> In Command-Mode update, there was a nop sent, apparently the most
+> relevant part was the bta sync to actually force low power mode.
+> 
+> Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
+> 
+> Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
+> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+> ---
+> Changes in v4:
+> - wait on completition on all packets (was limited to long packets only,
+>    because I had the wrong impression that there is no confirmation on
+>    these)
+> - Link to v3: https://patch.msgid.link/20260628-vm-upstr-v3-1-9e9add93378b@kemnade.info
+> 
+> Changes in v3:
+> 
+> - Link to v2: https://patch.msgid.link/20260529-vm-upstr-v2-1-24c30671719f@kernel.org
+> - fix things mentioned by claude here:
+>    https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch1-20260529-vm-upstr-v2-1-24c30671719f@kernel.org/
+>    - fix typos
+>    - register ISR before sending packet
+>    - check for RX_FIFO_NOT_EMPTY also in for short packets
+> 
+> Changes in v2:
+> - fix commandmode update, need bta sync there
+> - do not wait on short packets
+> - Link to v1: https://patch.msgid.link/20260528-vm-upstr-v1-1-fb93ef8cbe47@kernel.org
+> 
+> To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> To: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>   drivers/gpu/drm/omapdrm/dss/dsi.c | 53 ++++++++++++++++++---------------------
+>   1 file changed, 24 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> index 27fe7bca9e2c..3f22929c36e2 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> @@ -2194,28 +2194,38 @@ static int dsi_vc_send_null(struct dsi_data *dsi, int vc, int channel)
+>   static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
+>   			       const struct mipi_dsi_msg *msg)
+>   {
+> +	DECLARE_COMPLETION_ONSTACK(completion);
+>   	struct dsi_data *dsi = to_dsi_data(dssdev);
+>   	int r;
+>   
+> +	/* wait for IRQ for packet transmission confirmation */
+> +	r = dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
+> +				&completion, DSI_VC_IRQ_PACKET_SENT);
+> +	if (r)
+> +		return r;
+> +
+>   	if (mipi_dsi_packet_format_is_short(msg->type))
+>   		r = dsi_vc_send_short(dsi, vc, msg);
+>   	else
+>   		r = dsi_vc_send_long(dsi, vc, msg);
+>   
+> -	if (r < 0)
+> +	if ((!r) && wait_for_completion_timeout(&completion,
+> +				msecs_to_jiffies(500)) == 0)
+> +		r = -EIO;
+> +
+> +	dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
+> +			      &completion, DSI_VC_IRQ_PACKET_SENT);
+> +	if (r)
+>   		return r;
+>   
+> -	/*
+> -	 * TODO: we do not always have to do the BTA sync, for example
+> -	 * we can improve performance by setting the update window
+> -	 * information without sending BTA sync between the commands.
+> -	 * In that case we can return early.
+> -	 */
+> +	/* TODO: find out if more needs to be done for MIPI_DSI_MSG_REQ_ACK */
+>   
+> -	r = dsi_vc_send_bta_sync(dssdev, vc);
+> -	if (r) {
+> -		DSSERR("bta sync failed\n");
+> -		return r;
+> +	if (msg->flags & MIPI_DSI_MSG_REQ_ACK) {
+> +		r = dsi_vc_send_bta_sync(dssdev, vc);
+> +		if (r) {
+> +			DSSERR("bta sync failed\n");
+> +			return r;
+> +		}
+>   	}
+>   
+>   	/* RX_FIFO_NOT_EMPTY */
+> @@ -3233,21 +3243,6 @@ static int _dsi_update(struct dsi_data *dsi)
+>   	return 0;
+>   }
+>   
+> -static int _dsi_send_nop(struct dsi_data *dsi, int vc, int channel)
+> -{
+> -	const u8 payload[] = { MIPI_DCS_NOP };
+> -	const struct mipi_dsi_msg msg = {
+> -		.channel = channel,
+> -		.type = MIPI_DSI_DCS_SHORT_WRITE,
+> -		.tx_len = 1,
+> -		.tx_buf = payload,
+> -	};
+> -
+> -	WARN_ON(!dsi_bus_is_locked(dsi));
+> -
+> -	return _omap_dsi_host_transfer(dsi, vc, &msg);
+> -}
+> -
+>   static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
+>   {
+>   	struct dsi_data *dsi = to_dsi_data(dssdev);
+> @@ -3268,13 +3263,13 @@ static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
+>   	DSSDBG("dsi_update_channel: %d", vc);
+>   
+>   	/*
+> -	 * Send NOP between the frames. If we don't send something here, the
+> +	 * Transition to LP here. If we don't send something here, the
+>   	 * updates stop working. This is probably related to DSI spec stating
+>   	 * that the DSI host should transition to LP at least once per frame.
+>   	 */
+> -	r = _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
+> +	r = dsi_vc_send_bta_sync(dssdev, vc);
+>   	if (r < 0) {
+> -		DSSWARN("failed to send nop between frames: %d\n", r);
+> +		DSSWARN("failed to send bta sync between frames: %d\n", r);
+>   		goto err;
+>   	}
+>   
+> 
+> ---
+> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> change-id: 20260528-vm-upstr-c8e7634ebf56
+> 
+> Best regards,
+> --
+> Andreas Kemnade <andreas@kemnade.info>
 > 
