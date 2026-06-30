@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7919C43327
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 10:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E540C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 10:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E884C10EC26;
-	Tue, 30 Jun 2026 10:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6084D10E4C7;
+	Tue, 30 Jun 2026 10:48:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nqw/pA79";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LZM2MWzz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC0010E4C7;
- Tue, 30 Jun 2026 10:47:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782816427; x=1814352427;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=E2IZ2NcKyvZ8Ps2OcVQu5ZgaoCJVLbeo45JHCtf8Qnw=;
- b=nqw/pA796ZbLMJQVo4kt3oaQHfT7RoVCdbSkJwG/xUtRo2W054OoUfjB
- RkAqzjnuwdy3iMXn48kRK0A2bc5teAqLLtA+cyPFzvHMtkioGckKLoQEa
- FQviCLtQW2SLrQazcBp6DQc+SmzLbB3q7F1Jf5W0ABy5ZFCe8IY7rAuEa
- m30vuDFgjdZTUTsvIakhWOja0sv1OHVWZHOX92SnO7ZV9LfOE/Np2Nzpy
- 7CVSPKH6+zsfopv5hmuOAhS0rJ0q3PS4L5ghjj9ntKHddgeYvi23hPvR5
- S3lFKy1q79Ao5vlsFTNaKwgderuvvgLA/i8N7g4z4zk6iaF5tDZAtyHfB w==;
-X-CSE-ConnectionGUID: +GUoKjIrQH293G6dH0dPMg==
-X-CSE-MsgGUID: zDU6aN1FSzW871ZuGwHp9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="87438790"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="87438790"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 03:47:07 -0700
-X-CSE-ConnectionGUID: KbJVoEIsR/qc+xI2RqotFQ==
-X-CSE-MsgGUID: qQflYbSETQeeNI6x/UN6NQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="249591986"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.148])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 03:47:03 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: mei.fan.liou@intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "LIOU, Mei Fan" <mei.fan.liou@intel.com>
-Subject: Re: [PATCH] drm/i915: add disable_edp module parameter to skip
- phantom eDP init
-In-Reply-To: <20260630102845.2678707-1-mei.fan.liou@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260630102845.2678707-1-mei.fan.liou@intel.com>
-Date: Tue, 30 Jun 2026 13:47:01 +0300
-Message-ID: <50700395af210f0e5ca0c5e8306cda41b077f43a@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D413C10E4C7
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 10:48:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7964F40995;
+ Tue, 30 Jun 2026 10:48:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9B21F000E9;
+ Tue, 30 Jun 2026 10:48:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782816525;
+ bh=qbyeHVUQ51m6cwk3s9wN9GiWEcVWe2AywLrQ8dKt8dQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LZM2MWzz7qHDeth73NccS7xiAUy0wujYBb015LJ9m6zBk5ui3Qo2kGamGLtXOoKCP
+ ifiR36DDdpjVctMsrK1u4f6EIgaMjS/Esys0ohDIpe45219CzHyNOKceqjv/r08ONb
+ 5eA9ci7KUkRfnDs/Yi1+7yHj6XuKKcAe1fCRsy8F9Tf+gHj8aFCMORVEhy/E3tYHPm
+ SQIy4hu30SaICLdGmVIfMKe0CjcQS8296TnhNZuoQzdZ5CtgcSLCFjcLbyjq0HGqkw
+ E2VBfyMMpC9AoDilisUr8gCbtxp5H5lumvpdpYPTkZvkTvL3MLnbLsUKHwUP1SqoS9
+ BEy7K8zjZ1+Qg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 4/5] drm/gpusvm: move struct drm_gpusvm_pages out of
+ struct drm_gpusvm_range
+To: "Honglei Huang" <honghuan@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260630083307.381909-5-honghuan@amd.com>
+References: <20260630083307.381909-1-honghuan@amd.com>
+ <20260630083307.381909-5-honghuan@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 10:48:44 +0000
+Message-Id: <20260630104845.3C9B21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,108 +54,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 30 Jun 2026, mei.fan.liou@intel.com wrote:
-> From: "LIOU, Mei Fan" <mei.fan.liou@intel.com>
->
-> Some platforms have BIOS/VBT that declares an eDP panel present while
-> no physical panel is connected. This causes intel_edp_init_connector()
-> to spend ~6 seconds waiting on PPS power sequencer and AUX channel
-> timeouts before failing gracefully.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Which platforms? This should not be the case.
+Pre-existing issues:
+- [High] Device memory mapping leak on error path due to late dpagemap assi=
+gnment.
+- [High] System pages are incorrectly passed to device_unmap during mixed m=
+apping cleanup when IOVA is used.
+- [Medium] Direct read of `range->base.flags.migrate_devmem` in `xe_svm_all=
+oc_vram` without `READ_ONCE` can cause a data race.
+--
 
-> Introduce a new boolean module parameter 'disable_edp' (default: false)
-> that allows users to skip eDP connector initialization entirely. When
-> set, the driver logs an informational message and returns false early
-> from intel_edp_init_connector(), bypassing all PPS/AUX probing.
+commit e379316e89e810abd61f491527f08c65a115928f
+Author: Honglei Huang <honghuan@amd.com>
+Subject: drm/gpusvm: move struct drm_gpusvm_pages out of struct drm_gpusvm_=
+range
 
-I'm fine with adding module parameters for *debugging*. I'm not fine
-with adding module parameters for regular use cases. If there are issues
-out there, they should be root caused and fixed, worst case with a
-quirk, but roughly never with a new module parameter.
+This commit separates physical pages and MM VA ranges abstractly by removing
+the embedded pages object from the range structure. It drops range-level pa=
+ge
+wrappers in favor of direct driver usage of drm_gpusvm_pages helpers. The
+documentation is also updated to reflect the new 1:1 and N:1 driver layouts.
 
-You can also disable connectors using the video= parameter and connector
-name, e.g. video=eDP-1:d or something. Making this work (if it doesn't)
-should be preferred over adding new module parameters. And even here,
-root causing and fixing is preferred.
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index b0e9a2db10803..e0fd0b2fcc5ee 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
 
-> This is modeled after the existing 'disable_display' parameter and
-> is intended as a workaround for headless or display-less deployments
-> where the BIOS incorrectly advertises an internal panel.
+[ ... ]
 
-"headless" and "display-less" are super ambiguous, given the amount of
-possible alternatives. You might not have display IP at all, or you
-could have everything except a display connected, or everything in
-between. But VBT advertizing eDP but it not being connected is not a
-scenario that we should have, and either the VBT or the whole setup is
-bonkers.
+> @@ -1638,29 +1695,6 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gpusvm_get_pages);
 
-Please file a bug as described at [1], and be sure to attach the dmesg
-with debugs, and the VBT.
+[Severity: High]
+This is a pre-existing issue, but does drm_gpusvm_get_pages() permanently
+leak device mappings if an error occurs?
 
+When mapping a batch of device pages, if a failure occurs:
 
-BR,
-Jani.
+drm_gpusvm_get_pages()
+    err =3D -EFAULT;
+    goto err_unmap;
 
+The code jumps to err_unmap to rollback, and __drm_gpusvm_unmap_pages()
+checks svm_pages->dpagemap to determine if it should invoke device_unmap.
+However, svm_pages->dpagemap is only assigned at the very end of the
+success path:
 
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+    drm_pagemap_put(svm_pages->dpagemap);
+    svm_pages->dpagemap =3D dpagemap;
 
+Because it is still NULL during the error rollback, will the mapped device
+pages be skipped and leaked?
 
->
-> Signed-off-by: LIOU, Mei Fan <mei.fan.liou@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++
->  drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
->  drivers/gpu/drm/i915/display/intel_dp.c             | 7 +++++++
->  3 files changed, 11 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-> index 2aed110c5b09..8d47d19b1667 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-> @@ -102,6 +102,9 @@ intel_display_param_named_unsafe(force_reset_modeset_test, bool, 0400,
->  intel_display_param_named(disable_display, bool, 0400,
->  	"Disable display (default: false)");
->  
-> +intel_display_param_named(disable_edp, bool, 0400,
-> +	"Disable eDP panel init, skips PPS/AUX probing when VBT declares eDP but no panel is present (default: false)");
-> +
->  intel_display_param_named(verbose_state_checks, bool, 0400,
->  	"Enable verbose logs (ie. WARN_ON()) in case of unexpected hw state conditions.");
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-> index b95ecf728daa..98ab0d753dab 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-> @@ -41,6 +41,7 @@ struct drm_printer;
->  	param(bool, load_detect_test, false, 0600) \
->  	param(bool, force_reset_modeset_test, false, 0600) \
->  	param(bool, disable_display, false, 0400) \
-> +	param(bool, disable_edp, false, 0400) \
->  	param(bool, verbose_state_checks, true, 0400) \
->  	param(bool, nuclear_pageflip, false, 0400) \
->  	param(bool, enable_dp_mst, true, 0600) \
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 85d3aa3b9894..c6293a1b3840 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -7214,6 +7214,13 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
->  	if (!intel_dp_is_edp(intel_dp))
->  		return true;
->  
-> +	if (display->params.disable_edp) {
-> +		drm_info(display->drm,
-> +			 "[ENCODER:%d:%s] eDP disabled by module parameter, skipping init\n",
-> +			 encoder->base.base.id, encoder->base.name);
-> +		return false;
-> +	}
-> +
->  	/*
->  	 * On IBX/CPT we may get here with LVDS already registered. Since the
->  	 * driver uses the only internal power sequencer available for both
+[ ... ]
 
--- 
-Jani Nikula, Intel
+> @@ -1691,29 +1725,6 @@ void drm_gpusvm_unmap_pages(struct drm_gpusvm *gpu=
+svm,
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gpusvm_unmap_pages);
+
+[Severity: High]
+This is a pre-existing issue, but are system pages incorrectly passed to
+device_unmap() during mixed mapping cleanup when IOVA is used?
+
+In __drm_gpusvm_unmap_pages(), the cleanup loop checks system pages:
+
+    if (!use_iova && addr->proto =3D=3D DRM_INTERCONNECT_SYSTEM)
+        dma_unmap_page(...);
+    else if (dpagemap && dpagemap->ops->device_unmap)
+        dpagemap->ops->device_unmap(dpagemap, dev, addr);
+
+If use_iova is true, the first condition evaluates to false for system
+pages, causing them to fall through to the else-if branch. Since dpagemap
+is non-NULL in a mixed mapping, will the driver-specific device_unmap()
+callback be incorrectly executed on the system page?
+
+> diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
+> index 3f38283111cca..2862104aa1b20 100644
+> --- a/include/drm/drm_gpusvm.h
+> +++ b/include/drm/drm_gpusvm.h
+
+[ ... ]
+
+> @@ -189,7 +188,6 @@ struct drm_gpusvm_range {
+>  	struct kref refcount;
+>  	struct interval_tree_node itree;
+>  	struct list_head entry;
+> -	struct drm_gpusvm_pages pages;
+>  	struct drm_gpusvm_range_flags flags;
+>  };
+
+[Severity: Medium]
+This is a pre-existing issue, but can reading flags.migrate_devmem without
+READ_ONCE() cause a data race?
+
+In the xe driver's xe_svm_alloc_vram() function, there is a direct read of
+the bitfield:
+
+    xe_assert(range_to_vm(&range->base)->xe,
+              range->base.flags.migrate_devmem);
+
+The unmapped and partial_unmap flags within the range->base.flags union
+are concurrently updated using WRITE_ONCE() under notifier_lock during MMU
+notifier execution (e.g., drm_gpusvm_range_set_unmapped).
+
+Since xe_assert executes outside the notifier_lock, this compiles to a
+non-atomic load of the underlying word. Could a concurrent WRITE_ONCE() to
+the same word cause a data race or false assertion trigger here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630083307.3819=
+09-1-honghuan@amd.com?part=3D4
