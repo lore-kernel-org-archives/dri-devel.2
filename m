@@ -4,86 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98B64C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5967C43327
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:41:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00DFE10E1AE;
-	Tue, 30 Jun 2026 09:39:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C8B710E1B0;
+	Tue, 30 Jun 2026 09:41:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PWEvTbJJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="apXLlcRX";
 	dkim-atps=neutral
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A07C110E1AE
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:39:57 +0000 (UTC)
-Received: by mail-qk1-f169.google.com with SMTP id
- af79cd13be357-92e533aacf2so103939885a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 02:39:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782812396; cv=none;
- d=google.com; s=arc-20260327;
- b=abiqkH0XATWAP7GYu1scAcQNX2uW8juJPAtG0azZd7u7cyDYTRMlLJgiOOuv7cis+m
- UAMzlpezmhBSD3d5eKdFslwaCCJY/Uat+mtAT/SYSbLP0V4fIXNUabUC/MHxVLy77ZXK
- ElQlQ6PP2M1f8EewfWJ+K62NgM1VbpjFDVIFxGJUWnCaOItyJnRWIGFIyGpbjuJ5Mcvh
- uxFXPR/ZE03hYdv4dSlukyFUw3sovuJenHht2Gn6AYJxKsYxoLkmv1OmNP0thoZz24ys
- zk+09UpV5kIJozQS/VO+JkR/MoCCmYEpbKbHBWSlcZvslUfNQqWnh3yEVNavm5bGx7wL
- rrIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=WhmJgn5ABtUgVDU/zSa0VXvb/9MGdaAwoZfUQ9tWYnE=;
- fh=Q0xCG82AsaxCP/42HieqqRMYIB5Khm2PXsHCtjVZBqQ=;
- b=ESUi5jOB8Q/mkFc3xGCH5KmCDGAgZYqcRTSEElA1QWa3D8ZAX0HYcJYOd4pNJDJr+e
- LNt3/oVU2ZbsAWQeDsp0Z/XqdPSSayp9/dOhhTkO6bMg9I1qNtPsH/aSJmYVA9U7yijO
- uYrvJbLlNGptd2TuFBhIl3q4T1fiikTFb8u0bowIMvEEEghvRzmNRx6cZXcvz0mVOgtX
- ZdMizP3mi5lcOJwZiS040dmqAy7PznGEHNXTS5ZpFVBIRM6Bz3UEpa+lg5q29qS17BSq
- 8tp+mccGvp/jY2dHzn6TODyfI4hikkCeLDPC69UTqnfPhOdl2D3z70IFKX9+YK8s871y
- BR4g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782812396; x=1783417196; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=WhmJgn5ABtUgVDU/zSa0VXvb/9MGdaAwoZfUQ9tWYnE=;
- b=PWEvTbJJcl6O3sVoENrk+0MTAC0rZuE+A3d74BFcTRs2jxUiUO1FX+uFklKaqbeU68
- 0pLdqk61evvQu3gg4Vc13xvGwTA2FzHbbYYJ6wfMADyaUxr8UURRnGc9z7c2spDTxQLN
- Gk3pZOfDA/CnU5xnBSDfnIcOyy/OyMV1ElaRCca41/lUlJWT3pFjKPOXIvNiXfC+fnbJ
- cbpGRtBzLAIr+DLPuVlb3yoEFNR8WwqoWslbCHKbFj/Y5Dmo1GpIZ/rJvp8M2EAKoKwt
- RcC6/9Fkyt9MpviFu5bB4kQqi8IXPetkjALUcEMelynYkAFAtlnl2QH3MTHs0f++muN1
- j4lQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782812396; x=1783417196;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WhmJgn5ABtUgVDU/zSa0VXvb/9MGdaAwoZfUQ9tWYnE=;
- b=dES+8BbuhB1fxpBarXpzkIMTLY06v+XzCF6mcUSZ7kf6TvdMNsun7ANaYELPoSqQMR
- DkynEUtku61a3vFz1bteMcC152QbcMp1c2MzOHkugUNGn2Ax5BA3PcJk7vSMG6WYz2dh
- HvbdVMVSP53V6pU6kzjgzcrX4PJqI4e72kx9xxZrR86AHh3MkgqpII0OOqjQSt9ZxMgy
- Bb9B/YcrcpV4ZrYm0a7iZ69GSoaAzmxNJL247pRYeKNidiUpEBM9FkJDBcmZhOgMrUk0
- ZwYAZdSxHIfg61oksMgI/kVeG+/81LwPJsf14abd/0TAeBjHPBZzmqBqtImF0IoutOVA
- tSqg==
-X-Gm-Message-State: AOJu0YyHpCrkbcCmh0WGoyRga+QTCdN3wXh+q6KDJNC+HWgqW3Uxp/l0
- XrL52k3KUEDmNzc+v+DWFyVlyI67i8JgKqhUbh9HmtRn2U3h/fImB+hQzO5t42LQl2t9mjknpY7
- VXuCalmJVAA8YDjVkxI7j5hhCg/rPQIfq/es4
-X-Gm-Gg: AfdE7cl4AYKoa49U7EkSLCW48UBUm3+B7uB7KR2FNMUjIT1aCKn7hh3nGXz7tw2WoqL
- H24UaW445KYP/iU0EV+4sqq7d8IT7FJQzswC4ysWXeClQpD5jvA3XT70CQ9u4+WScpAHj27j1Dg
- SwdY1UqsrpFhVq7pPolVBGb5zIEKb2FfoaQT54uOFnW+z4O0y1zjo7h5GRA1KhOkBwbxyVpRI5u
- T32VUqvfds0F1bhNv1I1muFwgrlITaDO5bmhMk8yzzXwFPIIG73HyH0Lx2BP+YCRaddOPCZ8pUI
- /o1YhxxtkLtQ1735r20LYEKO0Y+8J7Tyy0OLFQhTbS71ZddkAq2DDNkWlQ==
-X-Received: by 2002:a05:620a:472b:b0:92e:6a8d:38aa with SMTP id
- af79cd13be357-92e6a8d3a82mr105574685a.63.1782812396317; Tue, 30 Jun 2026
- 02:39:56 -0700 (PDT)
-MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 30 Jun 2026 19:39:44 +1000
-X-Gm-Features: AVVi8Cc3QGSSCuaNNy6CRHv4oXZmqcbCBmzFn_369vFtXDugv2Y6mJEAIiwv8H0
-Message-ID: <CAPM=9tyu7JAF9GD8GbSbeb++i-UqX59_OcBVY-cFyDyB4tBO8A@mail.gmail.com>
-Subject: iommu/smmu/PCI ATS + TTM unmaps + nouveau best way forward
-To: dri-devel <dri-devel@lists.freedesktop.org>,
- iommu@lists.linux-foundation.org
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Matthew Brost <matthew.brost@intel.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B397110E1B0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:41:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 967A541083;
+ Tue, 30 Jun 2026 09:41:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597321F000E9;
+ Tue, 30 Jun 2026 09:41:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782812471;
+ bh=nqW2ZwKx0IIdB0uWs0TIrPG22UUaqs1GMeNvP3Cp3m0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=apXLlcRX9gp7JpuQVRIr3ni1NynfkkOEaTbz9AqpfWb4i12VTbpaQnH6uSdcc0a7y
+ KAtxAzbHLqgrGW5gL8K3+PWF8h5D8BuuI9svqFSU3HCeVnaDC648SozxV9iXlwBliK
+ 0v3zlMIzehN4mS5XYAZee1I4Ne5IOdy6q36RHEvWfJRxLkCbXH7KBMUwEF6qjYG3eK
+ rjlEltTboiSehKFoIOkZFOoJERdSr+0WCKeLObgrjPdB1UUchUJ0RlqpI+2Sx1nK4y
+ rVGqmGRiURK9A7RyVYLHaRW/3DsNpO7nI6y8nJOdb38PE1U5ck9uS00wx6KaCu4lJ3
+ oWFTIPHAZ52Aw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] drm/logicvc: Avoid using DRM resources after
+ device is unplugged
+To: "Romain Gantois" <romain.gantois@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260630-logicvc-uaf-v2-2-99e881833860@bootlin.com>
+References: <20260630-logicvc-uaf-v2-0-99e881833860@bootlin.com>
+ <20260630-logicvc-uaf-v2-2-99e881833860@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 09:41:10 +0000
+Message-Id: <20260630094111.597321F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,33 +54,195 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I've been bringing up nouveau on NVIDIA Spark GB10 and fallen down a
-hole of why is the GPU writing to pages I've released back to the CPU
-page allocator. I've wasted a lot of time on GPU L2 cache and explicit
-handling for it, which might be needed but hasn't solved my problem.
-I've also invalidated and flushed the GPU TLB excessively.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Today I finally hit up iommu.strict=1 makes things a lot happier,
-non-strict IOMMU seems to allow a race between dma_unmap_page and
-free_page where the unmap goes into the IOMMU flush queue, where the
-actual unmap are delayed until something triggers a flush later, and
-the ATS translations stay alive past when they should, and after the
-page has been allocated by some subsequent user.
+New issues:
+- [High] Early returns in atomic callbacks and the IRQ handler leak pending=
+ DRM events, which can lead to deadlocks and userspace hangs.
+- [High] Calling `drm_dev_unplug()` before `drm_atomic_helper_shutdown()` p=
+revents the hardware from being properly disabled, leading to resource leak=
+s and potential bus faults.
+- [Medium] The IRQ handler incorrectly returns `IRQ_NONE` after successfull=
+y clearing a valid device interrupt if the device is unplugged.
 
-The options I seem to have: (but I'm probably very wrong)
-1. force my own iommu domain and use iommu_map/unmap explicitly in the
-driver which avoids the flush queue?
-2. split ttm page unmap/free into two stages, and force an iommu
-flush/ATS sync operation after the unmap before the free. (I don't
-think iommu has an interface for this).
-3. force untrusted on the PCI device?
+Pre-existing issues:
+- [High] Missing `drm_dev_enter()` guard in `logicvc_plane_atomic_disable` =
+allows a Use-After-Free of the devm-managed regmap during async commits.
+- [High] Unconditional regmap accesses in the IRQ handler before verifying =
+device presence can cause synchronous external aborts (bus faults).
+--
 
-I just want to see if anyone else has hit this problem before in this
-space and I'm missing something, just feel solving this in the driver
-is a workaround for ttm/dma API impedance mismatch.
+commit 69266e323a62e95eebd5b09b60ba6e1876f02ff5
+Author: Romain Gantois <romain.gantois@bootlin.com>
 
-Thanks,
-Dave.
+drm/logicvc: Avoid using DRM resources after device is unplugged
+
+Some DRM resources such as plane, CRTC or encoder objects could remain in
+use after the DRM device is removed. Use the drm_dev_enter/exit() mechanism
+to ensure that the DRM device is not unplugged before using its resources.
+
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/log=
+icvc/logicvc_crtc.c
+> index 3a4c347eaa648..f3a224a883b2f 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
+> @@ -40,10 +40,15 @@ static void logicvc_crtc_atomic_begin(struct drm_crtc=
+ *drm_crtc,
+>  				      struct drm_atomic_state *state)
+>  {
+>  	struct logicvc_crtc *crtc =3D logicvc_crtc(drm_crtc);
+> -	struct drm_crtc_state *old_state =3D
+> -		drm_atomic_get_old_crtc_state(state, drm_crtc);
+>  	struct drm_device *drm_dev =3D drm_crtc->dev;
+> +	struct drm_crtc_state *old_state;
+>  	unsigned long flags;
+> +	int idx;
+> +
+> +	if (!drm_dev_enter(drm_dev, &idx))
+> +		return;
+
+[Severity: High]
+If the device is unplugged, does this early return bypass the block that
+consumes and clears the pending DRM event? Userspace applications waiting
+for page flip completion events might hang indefinitely if these events
+are stranded.
+
+[ ... ]
+> @@ -155,6 +170,10 @@ static void logicvc_crtc_atomic_disable(struct drm_c=
+rtc *drm_crtc,
+>  {
+>  	struct logicvc_drm *logicvc =3D logicvc_drm(drm_crtc->dev);
+>  	struct drm_device *drm_dev =3D drm_crtc->dev;
+> +	int idx;
+> +
+> +	if (!drm_dev_enter(drm_dev, &idx))
+> +		return;
+
+[Severity: High]
+Similar to the atomic_begin function, does this early return skip signaling
+the leftover event at the end of the function?
+
+Also, when drm_atomic_helper_shutdown() synthesizes a commit to disable the
+display pipeline during unbind, will this check cause the hardware CRTC
+disable routine via drm_crtc_vblank_off() to be skipped entirely?
+
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logi=
+cvc/logicvc_drm.c
+> index bbebf4fc7f51a..2112646386e36 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_drm.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
+> @@ -71,6 +71,7 @@ static irqreturn_t logicvc_drm_irq_handler(int irq, voi=
+d *data)
+>  	struct logicvc_drm *logicvc =3D data;
+>  	irqreturn_t ret =3D IRQ_NONE;
+>  	u32 stat =3D 0;
+> +	int idx;
+> =20
+>  	/* Get pending interrupt sources. */
+>  	regmap_read(logicvc->regmap, LOGICVC_INT_STAT_REG, &stat);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does accessing the hardware
+registers here unconditionally before verifying device presence risk a bus
+fault? Since the IRQ is devm-managed, it might fire in a small window after
+logicvc_clocks_unprepare() has turned off the clocks during teardown,
+leading to synchronous external aborts.
+
+>  	/* Clear all pending interrupt sources. */
+>  	regmap_write(logicvc->regmap, LOGICVC_INT_STAT_REG, stat);
+> =20
+>  	if (stat & LOGICVC_INT_STAT_V_SYNC) {
+> +		/* DRM device could be unplugged. */
+> +		if (!drm_dev_enter(&logicvc->drm_dev, &idx))
+> +			return ret;
+
+[Severity: Medium]
+If the device is unplugged, this returns the initial value of ret (IRQ_NONE)
+even though the interrupt was genuine and just successfully cleared in the
+hardware. Could this cause the kernel's IRQ core to eventually disable a
+shared IRQ line due to repeated spurious interrupt reports?
+
+[Severity: High]
+Additionally, does skipping the vblank handler here leak the stashed event,
+similar to the early returns in the atomic callbacks?
+
+[ ... ]
+> @@ -463,7 +470,7 @@ static void logicvc_drm_remove(struct platform_device=
+ *pdev)
+>  	struct device *dev =3D &pdev->dev;
+>  	struct drm_device *drm_dev =3D &logicvc->drm_dev;
+> =20
+> -	drm_dev_unregister(drm_dev);
+> +	drm_dev_unplug(drm_dev);
+>  	drm_atomic_helper_shutdown(drm_dev);
+
+[Severity: High]
+Does calling drm_dev_unplug() before drm_atomic_helper_shutdown() break the
+hardware disable sequence?
+
+Since drm_dev_unplug() marks the device as unplugged first, the subsequent
+drm_atomic_helper_shutdown() will fail the new drm_dev_enter() checks in
+the disable callbacks. Will this leave hardware CRTCs and external panels
+powered on and active while the driver unbinds?
+
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_interface.c b/drivers/gpu/dr=
+m/logicvc/logicvc_interface.c
+> index 0d037f37b950f..aa13338a29535 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_interface.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_interface.c
+[ ... ]
+> @@ -43,17 +47,25 @@ static void logicvc_encoder_enable(struct drm_encoder=
+ *drm_encoder)
+[ ... ]
+>  static void logicvc_encoder_disable(struct drm_encoder *drm_encoder)
+>  {
+>  	struct logicvc_interface *interface =3D
+>  		logicvc_interface_from_drm_encoder(drm_encoder);
+> +	int idx;
+> +
+> +	if (!drm_dev_enter(drm_encoder->dev, &idx))
+> +		return;
+
+[Severity: High]
+Similar to the CRTC disable path, does this early return skip
+drm_panel_disable() and drm_panel_unprepare() when the encoder is being
+shut down during device unbind?
+
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/lo=
+gicvc/logicvc_layer.c
+> index de1f4a8a61557..51fb68e642adc 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_layer.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
+[ ... ]
+> @@ -230,6 +244,8 @@ static void logicvc_plane_atomic_update(struct drm_pl=
+ane *drm_plane,
+[ ... ]
+>  static void logicvc_plane_atomic_disable(struct drm_plane *drm_plane,
+>  					 struct drm_atomic_state *state)
+>  {
+>  	struct logicvc_layer *layer =3D logicvc_layer(drm_plane);
+>  	struct logicvc_drm *logicvc =3D logicvc_drm(drm_plane->dev);
+>  	u32 index =3D layer->index;
+> =20
+> +	/* No need for drm_dev_enter() here. The regmap outlives the DRM device=
+. */
+> +
+>  	regmap_write(logicvc->regmap, LOGICVC_LAYER_CTRL_REG(index), 0);
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but does this comment make a flawed assumption
+about the resource lifecycle? The regmap is tied to the platform device via
+devres and is freed when remove() returns. If a non-blocking atomic commit
+tail worker executes after remove() has completed, could this unconditional=
+ly
+write to the already-freed regmap, causing memory corruption?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630-logicvc-ua=
+f-v2-0-99e881833860@bootlin.com?part=3D2
