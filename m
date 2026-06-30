@@ -4,56 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A0B7C43638
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:10:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E80D2C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35DC610EBAA;
-	Tue, 30 Jun 2026 09:10:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50CC510E19B;
+	Tue, 30 Jun 2026 09:17:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="SDMMgrOr";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="IYMxaoI8";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C995910EBAC
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:10:27 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 457914E40BAC;
- Tue, 30 Jun 2026 09:10:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1AB6260233;
- Tue, 30 Jun 2026 09:10:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C8E80106F1D11; 
- Tue, 30 Jun 2026 11:10:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782810625; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=yzMvSEdp01rr5KR/5H6RUPCfGWiLJuBQbzlhpv4cr8Q=;
- b=SDMMgrOrvvcwn5MVcoxpRUL4mEdsW27RLBuUnAK78sYHE+eNluzmSa/lHZ2lRa8db42FwY
- YPsfiqM/KKyTEw1RYRthSsKWgMJdO2RYgGcN0Ktpnrp6n7Kz8cTJ1s0irH9uaTMBmHf9ME
- DWkBbg9S2WbDrdsZ42uokQ6esz2YkWvwkc1Zy5O6m8EcQUrSmQpEbzzYsCUn9zrTh8Jfdb
- 9Ra29Z/rtWkIDBupd0bSbSsoW9Whtps22+6PuYy17yYTPyITKy30B1ANxFjeQy3UCE0XcR
- R8ImRkT4TZlKTuzQyBBi2YrwPSo1cXHZn5ZZRLh+TgOxU28CYRAPmVy+uz3MDw==
-From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Tue, 30 Jun 2026 11:10:11 +0200
-Subject: [PATCH v2 2/2] drm/logicvc: Avoid using DRM resources after device
- is unplugged
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D799810E19B
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:17:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1782811022;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=SQjV7ILhB1oO4EWB5BntYJkQ/7T/8cRlQn3mNNHBaBw=;
+ b=IYMxaoI8J1rCH/9sgRVdtL03zSUfCQI7yxvl3ovhBNz4WpEe6znscF0P1aFcDiCFF+OMCv
+ 2znVsOJAgg6/i1QVrZ5Vp6wtiNxCNyqlzBx7fumvV1k71RWJKPdpZr17uWskjE6fwBNPPl
+ tIOYoIrlB09PqmKzGoF7XpCKLCSlM9Y=
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-99-DqIOpp84Mv-vlydTohUbsA-1; Tue, 30 Jun 2026 05:16:59 -0400
+X-MC-Unique: DqIOpp84Mv-vlydTohUbsA-1
+X-Mimecast-MFC-AGG-ID: DqIOpp84Mv-vlydTohUbsA_1782811019
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-845e3ede1f9so2044647b3a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 02:16:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782811019; x=1783415819;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SQjV7ILhB1oO4EWB5BntYJkQ/7T/8cRlQn3mNNHBaBw=;
+ b=VSCgVdq9JHCiCAux1YqpSWP7MbsuPaD9SaoyVascBwY7DLAH81VNz6GkxZwRiVkQwq
+ 6bsJlFiUXicsGvk2Vgc0PNHWa+CVTypQZMrLl2xFrOuVCa5Tggc7M+7scf/NVS+IsV9Y
+ 3IsxnQkC2rGLYfhBYHa+NZsNZKjU+w+HLxosargm4tyPi8JInhGKjHJgXuKgRBhUmU8n
+ 7ncS3kWCaiC9BSeUI1di2lN2EP93iacrWa96eT8imUCofkyJYE65b06mp8k/gchSpzVo
+ 0SvE/mKDcHMU5N/2QNrQS14JX4r0uWIFYNplwKA2SE+ktHrisK02470TdM8qBcu9w9iN
+ ha2w==
+X-Gm-Message-State: AOJu0Yz803iqdYC6WIyx+HgLIPIZ0CotEyY5D+Al0Rt+g75m3OZexinF
+ 7fF4QKTXn6HPdi7oO/afg4GIK2kx+cpLLEiLPr7QFGRrLmMWglcKwpd7HWRDmf1WVLswAHD97qd
+ +Iji1wKAQv8Ig/hZtyEeP/aU0OL57eZr/m2TdwbEwcvxh2HL5J/kAglTn3bjxW6yBHY0CPw==
+X-Gm-Gg: AfdE7cmDETl/W+9mUbhRlB5ba4uiSUba2B5qssJhU6SwyBNbtIvR8m7TUmKiLA8X1jD
+ ZkVyXiKQqlk8Qh9ayyrc6lD/9agKqGlWgbDAmr7DAJynx84zTEEspWZXtcCWtmkTQJiq2zvFvxx
+ BriUeWxNP4F+nyORMGkmx3D1Fw/Xxx/4c+Wepbq2qdjNlRTjmaWB2Ni6Cpb2Grqbs9IyRIYKnuQ
+ 4QgcyH5QExRH/4dAD683zYUbSz5boKftdAA0lCWhqD4qCVSydYPD34VKb2pLzAAcJUyq0yLq5Td
+ MQjI8y3g8/Mi0xoHs8ERCNOD/VHqO6o5niBxvEFsvRhbQCgzrgEi8Rhey9f/8Te6Z+dImQYtBBO
+ +OdtYBq6doPz+hfKqPuh09svPGeJ8oWTFm8y9UB38ZZaIr6xu
+X-Received: by 2002:a05:6a00:9505:b0:847:8f68:e8d7 with SMTP id
+ d2e1a72fcca58-8479ee9a5bdmr2034493b3a.8.1782811018754; 
+ Tue, 30 Jun 2026 02:16:58 -0700 (PDT)
+X-Received: by 2002:a05:6a00:9505:b0:847:8f68:e8d7 with SMTP id
+ d2e1a72fcca58-8479ee9a5bdmr2034475b3a.8.1782811018268; 
+ Tue, 30 Jun 2026 02:16:58 -0700 (PDT)
+Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-847a005af85sm1494569b3a.25.2026.06.30.02.16.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2026 02:16:57 -0700 (PDT)
+From: Ryosuke Yasuoka <ryasuoka@redhat.com>
+Date: Tue, 30 Jun 2026 18:16:42 +0900
+Subject: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
+ avoid deadlock
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260630-logicvc-uaf-v2-2-99e881833860@bootlin.com>
-References: <20260630-logicvc-uaf-v2-0-99e881833860@bootlin.com>
-In-Reply-To: <20260630-logicvc-uaf-v2-0-99e881833860@bootlin.com>
-To: Paul Kocialkowski <paulk@sys-base.io>, 
+Message-Id: <20260630-virtiogpu_syzbot-v1-1-0aa06630750e@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBMsSKqrRETqaLPR0IpKvHvS8
+ i3+TxAxEEYYqwQBL4rkXUFTV6C21VlkpIuh5a3gohnYReEgb/dzic8r/cGkXmXHe2OU7qBke0B
+ D97+c5pw/IIUSo2IAAAA=
+X-Change-ID: 20260619-virtiogpu_syzbot-bdab508ffcd5
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Romain Gantois <romain.gantois@bootlin.com>, 
- Jason Xiang <jx@jasonxiang.net>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Ryosuke Yasuoka <ryasuoka@redhat.com>
+X-Mailer: b4 0.14.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Efa5HuY5g2ieYYhzGKDhPq1R7xGxNoar6x7N4ulcXjo_1782811019
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,308 +107,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some DRM resources such as plane, CRTC or encoder objects could remain in
-use after the DRM device is removed. Use the drm_dev_enter/exit() mechanism
-to ensure that the DRM device is not unplugged before using its resources.
+A probe-time deadlock can occur between the dequeue worker and
+drm_client_register(). During probe, drm_client_register() holds
+clientlist_mutex and calls the fbdev hotplug callback, which triggers an
+atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
+waiting for virtqueue space. The dequeue worker that would free that
+space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
+drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
+to acquire the same clientlist_mutex. Since wake_up() is only called
+after the resp_cb loop, the probe thread is never woken and both threads
+deadlock.
 
-Fixes: efeeaefe9be56 ("drm: Add support for the LogiCVC display controller")                                                                        │
-Cc: stable@vger.kernel.org
-Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+Fix this by deferring the hotplug notification from
+virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
+display data (outputs[i].info) is still updated synchronously in the
+callback, and the deferred work only triggers a re-probe notification to
+DRM clients.
+
+Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
+Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
+Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
+Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
 ---
- drivers/gpu/drm/logicvc/logicvc_crtc.c      | 35 ++++++++++++++++-----
- drivers/gpu/drm/logicvc/logicvc_drm.c       |  9 +++++-
- drivers/gpu/drm/logicvc/logicvc_interface.c | 12 ++++++++
- drivers/gpu/drm/logicvc/logicvc_layer.c     | 48 ++++++++++++++++++++---------
- 4 files changed, 81 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
+ drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
+ drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
+ 3 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/logicvc/logicvc_crtc.c
-index 3a4c347eaa648..f3a224a883b2f 100644
---- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
-@@ -40,10 +40,15 @@ static void logicvc_crtc_atomic_begin(struct drm_crtc *drm_crtc,
- 				      struct drm_atomic_state *state)
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 7449907754a4..27ffa4697ae9 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -264,6 +264,8 @@ struct virtio_gpu_device {
+ 
+ 	struct work_struct config_changed_work;
+ 
++	struct work_struct hotplug_work;
++
+ 	struct work_struct obj_free_work;
+ 	spinlock_t obj_free_lock;
+ 	struct list_head obj_free_list;
+@@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
+ 					uint32_t x, uint32_t y,
+ 					struct virtio_gpu_object_array *objs,
+ 					struct virtio_gpu_fence *fence);
++void virtio_gpu_hotplug_work_func(struct work_struct *work);
+ void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgdev,
+ 					 uint32_t resource_id,
+ 					 uint32_t x, uint32_t y,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index cfde9f573df6..cfb532ba43a4 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 	INIT_WORK(&vgdev->config_changed_work,
+ 		  virtio_gpu_config_changed_work_func);
+ 
++	INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
++
+ 	INIT_WORK(&vgdev->obj_free_work,
+ 		  virtio_gpu_array_put_free_work);
+ 	INIT_LIST_HEAD(&vgdev->obj_free_list);
+@@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
+ 	flush_work(&vgdev->obj_free_work);
+ 	flush_work(&vgdev->ctrlq.dequeue_work);
+ 	flush_work(&vgdev->cursorq.dequeue_work);
++	flush_work(&vgdev->hotplug_work);
+ 	flush_work(&vgdev->config_changed_work);
+ 	virtio_reset_device(vgdev->vdev);
+ 	vgdev->vdev->config->del_vqs(vgdev->vdev);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index 67865810a2e7..084d98f5dc7b 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virtio_gpu_device *vgdev,
+ 	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
+ }
+ 
++void virtio_gpu_hotplug_work_func(struct work_struct *work)
++{
++	struct virtio_gpu_device *vgdev =
++		container_of(work, struct virtio_gpu_device, hotplug_work);
++
++	if (!drm_helper_hpd_irq_event(vgdev->ddev))
++		drm_kms_helper_hotplug_event(vgdev->ddev);
++}
++
+ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+ 					       struct virtio_gpu_vbuffer *vbuf)
  {
- 	struct logicvc_crtc *crtc = logicvc_crtc(drm_crtc);
--	struct drm_crtc_state *old_state =
--		drm_atomic_get_old_crtc_state(state, drm_crtc);
- 	struct drm_device *drm_dev = drm_crtc->dev;
-+	struct drm_crtc_state *old_state;
- 	unsigned long flags;
-+	int idx;
-+
-+	if (!drm_dev_enter(drm_dev, &idx))
-+		return;
-+
-+	old_state = drm_atomic_get_old_crtc_state(state, drm_crtc);
+@@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+ 	spin_unlock(&vgdev->display_info_lock);
+ 	wake_up(&vgdev->resp_wq);
  
- 	/*
- 	 * We need to grab the pending event here if vblank was already enabled
-@@ -58,6 +63,8 @@ static void logicvc_crtc_atomic_begin(struct drm_crtc *drm_crtc,
- 
- 		spin_unlock_irqrestore(&drm_dev->event_lock, flags);
- 	}
-+
-+	drm_dev_exit(idx);
+-	if (!drm_helper_hpd_irq_event(vgdev->ddev))
+-		drm_kms_helper_hotplug_event(vgdev->ddev);
++	schedule_work(&vgdev->hotplug_work);
  }
  
- static void logicvc_crtc_atomic_enable(struct drm_crtc *drm_crtc,
-@@ -65,17 +72,23 @@ static void logicvc_crtc_atomic_enable(struct drm_crtc *drm_crtc,
- {
- 	struct logicvc_crtc *crtc = logicvc_crtc(drm_crtc);
- 	struct logicvc_drm *logicvc = logicvc_drm(drm_crtc->dev);
--	struct drm_crtc_state *old_state =
--		drm_atomic_get_old_crtc_state(state, drm_crtc);
--	struct drm_crtc_state *new_state =
--		drm_atomic_get_new_crtc_state(state, drm_crtc);
--	struct drm_display_mode *mode = &new_state->adjusted_mode;
- 
- 	struct drm_device *drm_dev = drm_crtc->dev;
-+	struct drm_crtc_state *old_state;
-+	struct drm_crtc_state *new_state;
- 	unsigned int hact, hfp, hsl, hbp;
- 	unsigned int vact, vfp, vsl, vbp;
-+	struct drm_display_mode *mode;
- 	unsigned long flags;
- 	u32 ctrl;
-+	int idx;
-+
-+	if (!drm_dev_enter(drm_dev, &idx))
-+		return;
-+
-+	old_state = drm_atomic_get_old_crtc_state(state, drm_crtc);
-+	new_state = drm_atomic_get_new_crtc_state(state, drm_crtc);
-+	mode = &new_state->adjusted_mode;
- 
- 	/* Timings */
- 
-@@ -148,6 +161,8 @@ static void logicvc_crtc_atomic_enable(struct drm_crtc *drm_crtc,
- 		drm_crtc->state->event = NULL;
- 		spin_unlock_irqrestore(&drm_dev->event_lock, flags);
- 	}
-+
-+	drm_dev_exit(idx);
- }
- 
- static void logicvc_crtc_atomic_disable(struct drm_crtc *drm_crtc,
-@@ -155,6 +170,10 @@ static void logicvc_crtc_atomic_disable(struct drm_crtc *drm_crtc,
- {
- 	struct logicvc_drm *logicvc = logicvc_drm(drm_crtc->dev);
- 	struct drm_device *drm_dev = drm_crtc->dev;
-+	int idx;
-+
-+	if (!drm_dev_enter(drm_dev, &idx))
-+		return;
- 
- 	drm_crtc_vblank_off(drm_crtc);
- 
-@@ -180,6 +199,8 @@ static void logicvc_crtc_atomic_disable(struct drm_crtc *drm_crtc,
- 		drm_crtc->state->event = NULL;
- 		spin_unlock_irq(&drm_dev->event_lock);
- 	}
-+
-+	drm_dev_exit(idx);
- }
- 
- static const struct drm_crtc_helper_funcs logicvc_crtc_helper_funcs = {
-diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logicvc/logicvc_drm.c
-index bbebf4fc7f51a..2112646386e36 100644
---- a/drivers/gpu/drm/logicvc/logicvc_drm.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
-@@ -71,6 +71,7 @@ static irqreturn_t logicvc_drm_irq_handler(int irq, void *data)
- 	struct logicvc_drm *logicvc = data;
- 	irqreturn_t ret = IRQ_NONE;
- 	u32 stat = 0;
-+	int idx;
- 
- 	/* Get pending interrupt sources. */
- 	regmap_read(logicvc->regmap, LOGICVC_INT_STAT_REG, &stat);
-@@ -79,8 +80,14 @@ static irqreturn_t logicvc_drm_irq_handler(int irq, void *data)
- 	regmap_write(logicvc->regmap, LOGICVC_INT_STAT_REG, stat);
- 
- 	if (stat & LOGICVC_INT_STAT_V_SYNC) {
-+		/* DRM device could be unplugged. */
-+		if (!drm_dev_enter(&logicvc->drm_dev, &idx))
-+			return ret;
-+
- 		logicvc_crtc_vblank_handler(logicvc);
- 		ret = IRQ_HANDLED;
-+
-+		drm_dev_exit(idx);
- 	}
- 
- 	return ret;
-@@ -463,7 +470,7 @@ static void logicvc_drm_remove(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct drm_device *drm_dev = &logicvc->drm_dev;
- 
--	drm_dev_unregister(drm_dev);
-+	drm_dev_unplug(drm_dev);
- 	drm_atomic_helper_shutdown(drm_dev);
- 
- 	logicvc_mode_fini(logicvc);
-diff --git a/drivers/gpu/drm/logicvc/logicvc_interface.c b/drivers/gpu/drm/logicvc/logicvc_interface.c
-index 0d037f37b950f..aa13338a29535 100644
---- a/drivers/gpu/drm/logicvc/logicvc_interface.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_interface.c
-@@ -34,6 +34,10 @@ static void logicvc_encoder_enable(struct drm_encoder *drm_encoder)
- 	struct logicvc_drm *logicvc = logicvc_drm(drm_encoder->dev);
- 	struct logicvc_interface *interface =
- 		logicvc_interface_from_drm_encoder(drm_encoder);
-+	int idx;
-+
-+	if (!drm_dev_enter(drm_encoder->dev, &idx))
-+		return;
- 
- 	regmap_update_bits(logicvc->regmap, LOGICVC_POWER_CTRL_REG,
- 			   LOGICVC_POWER_CTRL_VIDEO_ENABLE,
-@@ -43,17 +47,25 @@ static void logicvc_encoder_enable(struct drm_encoder *drm_encoder)
- 		drm_panel_prepare(interface->drm_panel);
- 		drm_panel_enable(interface->drm_panel);
- 	}
-+
-+	drm_dev_exit(idx);
- }
- 
- static void logicvc_encoder_disable(struct drm_encoder *drm_encoder)
- {
- 	struct logicvc_interface *interface =
- 		logicvc_interface_from_drm_encoder(drm_encoder);
-+	int idx;
-+
-+	if (!drm_dev_enter(drm_encoder->dev, &idx))
-+		return;
- 
- 	if (interface->drm_panel) {
- 		drm_panel_disable(interface->drm_panel);
- 		drm_panel_unprepare(interface->drm_panel);
- 	}
-+
-+	drm_dev_exit(idx);
- }
- 
- static const struct drm_encoder_helper_funcs logicvc_encoder_helper_funcs = {
-diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
-index de1f4a8a61557..51fb68e642adc 100644
---- a/drivers/gpu/drm/logicvc/logicvc_layer.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
-@@ -10,6 +10,7 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_blend.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_fb_dma_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
-@@ -87,25 +88,32 @@ static int logicvc_plane_atomic_check(struct drm_plane *drm_plane,
- 	struct drm_device *drm_dev = drm_plane->dev;
- 	struct logicvc_layer *layer = logicvc_layer(drm_plane);
- 	struct logicvc_drm *logicvc = logicvc_drm(drm_dev);
--	struct drm_plane_state *new_state =
--		drm_atomic_get_new_plane_state(state, drm_plane);
-+	struct drm_plane_state *new_state;
- 	struct drm_crtc_state *crtc_state;
- 	int min_scale, max_scale;
- 	bool can_position;
--	int ret;
-+	int idx, ret = 0;
-+
-+	if (!drm_dev_enter(drm_dev, &idx))
-+		return -ENODEV;
-+
-+	new_state = drm_atomic_get_new_plane_state(state, drm_plane);
- 
- 	if (!new_state->crtc)
--		return 0;
-+		goto out_exit;
- 
- 	crtc_state = drm_atomic_get_new_crtc_state(new_state->state,
- 						   new_state->crtc);
--	if (WARN_ON(!crtc_state))
--		return -EINVAL;
-+	if (WARN_ON(!crtc_state)) {
-+		ret = -EINVAL;
-+		goto out_exit;
-+	}
- 
- 	if (new_state->crtc_x < 0 || new_state->crtc_y < 0) {
- 		drm_err(drm_dev,
- 			"Negative on-CRTC positions are not supported.\n");
--		return -EINVAL;
-+		ret = -EINVAL;
-+		goto out_exit;
- 	}
- 
- 	if (!logicvc->caps->layer_address) {
-@@ -113,7 +121,7 @@ static int logicvc_plane_atomic_check(struct drm_plane *drm_plane,
- 						      NULL);
- 		if (ret) {
- 			drm_err(drm_dev, "No viable setup for buffer found.\n");
--			return ret;
-+			goto out_exit;
- 		}
- 	}
- 
-@@ -127,12 +135,12 @@ static int logicvc_plane_atomic_check(struct drm_plane *drm_plane,
- 	ret = drm_atomic_helper_check_plane_state(new_state, crtc_state,
- 						  min_scale, max_scale,
- 						  can_position, true);
--	if (ret) {
-+	if (ret)
- 		drm_err(drm_dev, "Invalid plane state\n\n");
--		return ret;
--	}
- 
--	return 0;
-+out_exit:
-+	drm_dev_exit(idx);
-+	return ret;
- }
- 
- static void logicvc_plane_atomic_update(struct drm_plane *drm_plane,
-@@ -141,15 +149,21 @@ static void logicvc_plane_atomic_update(struct drm_plane *drm_plane,
- 	struct logicvc_layer *layer = logicvc_layer(drm_plane);
- 	struct logicvc_drm *logicvc = logicvc_drm(drm_plane->dev);
- 	struct drm_device *drm_dev = &logicvc->drm_dev;
--	struct drm_plane_state *new_state =
--		drm_atomic_get_new_plane_state(state, drm_plane);
- 	struct drm_crtc *drm_crtc = &logicvc->crtc->drm_crtc;
- 	struct drm_display_mode *mode = &drm_crtc->state->adjusted_mode;
--	struct drm_framebuffer *fb = new_state->fb;
- 	struct logicvc_layer_buffer_setup setup = {};
-+	struct drm_plane_state *new_state;
-+	struct drm_framebuffer *fb;
- 	u32 index = layer->index;
-+	int idx;
- 	u32 reg;
- 
-+	if (!drm_dev_enter(drm_dev, &idx))
-+		return;
-+
-+	new_state = drm_atomic_get_new_plane_state(state, drm_plane);
-+	fb = new_state->fb;
-+
- 	/* Layer dimensions */
- 
- 	regmap_write(logicvc->regmap, LOGICVC_LAYER_WIDTH_REG(index),
-@@ -230,6 +244,8 @@ static void logicvc_plane_atomic_update(struct drm_plane *drm_plane,
- 	reg |= LOGICVC_LAYER_CTRL_COLOR_KEY_DISABLE;
- 
- 	regmap_write(logicvc->regmap, LOGICVC_LAYER_CTRL_REG(index), reg);
-+
-+	drm_dev_exit(idx);
- }
- 
- static void logicvc_plane_atomic_disable(struct drm_plane *drm_plane,
-@@ -239,6 +255,8 @@ static void logicvc_plane_atomic_disable(struct drm_plane *drm_plane,
- 	struct logicvc_drm *logicvc = logicvc_drm(drm_plane->dev);
- 	u32 index = layer->index;
- 
-+	/* No need for drm_dev_enter() here. The regmap outlives the DRM device. */
-+
- 	regmap_write(logicvc->regmap, LOGICVC_LAYER_CTRL_REG(index), 0);
- }
- 
+ static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
 
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260619-virtiogpu_syzbot-bdab508ffcd5
+
+Best regards,
 -- 
-2.54.0
+Ryosuke Yasuoka <ryasuoka@redhat.com>
 
