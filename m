@@ -4,130 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D621EC43327
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0716CC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 377E810EADF;
-	Tue, 30 Jun 2026 06:34:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4292E10EAE4;
+	Tue, 30 Jun 2026 06:46:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PmKdbvoY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jI8jpZWh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hDSmK4Es";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3C210EADF
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:34:19 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65U6CIqw1073738
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:34:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=Lkk1aid6VSjCiAh0RBtC69AWGsaj2zmcu8D
- ZktAdjhA=; b=PmKdbvoYoQGt6wie3aKrjDVrvI47ima6lzT04Aznd9GbfdlaeF4
- wbLUBZVHd3yuMJbkZ2XdOvgeTkpbMCoZJ3lo6xkj30XLC9CvHNOaWm5Qhfwmd90D
- S9oztBzB4PT15/qpxqn7NFoiQuolBcy+sUBCk/GxxbMhVLCwwDHRi5XSCeeZdMUE
- mU66hWnt77zqT6n58ZgUIEQAqrC0bOkr+4LW0jamt2QeTcztvhU5y7AGsoV+7CpT
- c5gjKIZ+Z5Wr7zAWJrT6SYYd3JykFRXRWA+gNelZiu3YbydjZUzK2sOTMybEzFY8
- GrMGwQLKDtC9xxnTHMnjwKfYRoi8OT0oHSQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9k1vyg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:34:17 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2ca0331d0b1so23550365ad.3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 23:34:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782801257; x=1783406057;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Lkk1aid6VSjCiAh0RBtC69AWGsaj2zmcu8DZktAdjhA=;
- b=jI8jpZWhvLc7eFrFN0KdwaPrBAtjdgs1Xpj5dZS2MUuhyB3/nnHEyQiX11AqC97g5N
- rJp2wCwCzhUZVHJgrAHo3HhxdYBE3Iv8RTse+JMrTsbdkvbwxCZkO5ICt/I4LsXaTHnI
- sE671yTA9ITbvXaKt1E64yqUfF/1bby4reHhUy8GooT3y5Ml+Y8pApBhOEP14DLx1yRr
- 4kWxYkuMcx6NFgrv5lB5HCAPfY9iIc1Goz6R/XovusIJUZ2Et0U4067KcNRtZ/EZH8r6
- BF9ZW3zlIj9zdxIMxbr4pNgEacIvDYqd638iyH/dwoisvCNpYp94vtLleoHwg4Gdw7Wg
- dyyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782801257; x=1783406057;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Lkk1aid6VSjCiAh0RBtC69AWGsaj2zmcu8DZktAdjhA=;
- b=Z1pwvekPgLKMYvMaVCWeHlg9NIku5mDr2QIaEb43+Z5BNOOTyNCGde79HPH+uYuC0u
- 6fbJ3CWviQOzXi+y8lCYfkJkFEgk9BcSQc5cqS3swLqoSAd/a6HiC9mDoL370/NFsZcX
- +XH478V8SmA34vIqtyUy2xgQs27tvVGX120I5yK3NtwU3XTQrOgACo/g1pjXkegp0X71
- edgaHJFqk9UvxEY74rnsVnpzBMUzijMKWzawi8JSPtCEuHF/6L5xujW8V1kgNfjUtfoS
- yGd35G1TdYnXnrLTEa5RU7tWe282xkh2V5W9EULnIoJS4gAwm2qpFd+bPl3+uo/R39TA
- pKHg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrBrmIxDvWTAdmjlOzEtWBlbkzo9DKblTrLHggm6uLs++vTBq3LUUn29+eluC7v87PFm2ML/3o2X7Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxXdNo8N/r05XdmHlaFm4tCClPyEvwJfUMwEBwSljxuTkiDaVSA
- lZtY9FKwCGLtpoGJL5AYFVqpa6HFVcSjeFssOYRvd7Q7yzqJsNTh9y2xO40t9CE4hD1+LAunkHa
- 826RLiJEu9qrkakJSirrtn6SWbYy+bXFDxz5UCpqyh2Ql0q3g4FJYa6YdLJQW40zWI2X6j+s=
-X-Gm-Gg: AfdE7clHpgrXygyfBLK9z2N/DfxX7TIMJ2aZVEk2kCkRHZb2zl69nHCMBwCyOpSXC8P
- HUQysWM3Df+f7A4GMrLbY1UEf7ZL6O6xOlxaw9IQC2tfzEcDUPWat3mTlwW9kLL/l5C0DlXCF3s
- fZKT2XiCR+cRi2uxHYCzi6i52uQtwQGutRI+qjINCXflQc0CJw6aBEzY6+rg+uvSzg4Av0o1zRB
- ZEaN8MgKTPB8o5PNjD1I74jYKyiO0+b8oiFNVYgKEBeWO3VEv6NMtFD/Ii7hshbCyZPKPGkhfho
- ifj6bBoyrWaXHUceoXVno304blXZWDEBiqrVraYoEPZnEoiarADTOmDErtXYwMuy8pL+LVva1g1
- sfPchx6NgUMAcsgQG81iZgjhws65oRru8bB51MMEVKEvWAe/CsbBzCqs1hd09kTVdo3AngLKPFa
- a9pDzzO1E=
-X-Received: by 2002:a17:903:4b2f:b0:2ca:11fd:659d with SMTP id
- d9443c01a7336-2ca2ea238ccmr19680535ad.34.1782801256820; 
- Mon, 29 Jun 2026 23:34:16 -0700 (PDT)
-X-Received: by 2002:a17:903:4b2f:b0:2ca:11fd:659d with SMTP id
- d9443c01a7336-2ca2ea238ccmr19680235ad.34.1782801256193; 
- Mon, 29 Jun 2026 23:34:16 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com
- (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ca382d0d22sm6646345ad.80.2026.06.29.23.34.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 23:34:15 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Escande <thierry.escande@linaro.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
-Subject: [PATCH v2] misc: fastrpc: fix UAF and kernel panic during cleanup on
- process abort
-Date: Tue, 30 Jun 2026 14:34:09 +0800
-Message-Id: <20260630063409.475-1-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA1NCBTYWx0ZWRfX1d0bieNCa+AY
- OYzVtMuGFEjAfsX7lfvaEVYTaM0AzeB/Vu1lcyy+oTgqYAbqtkMVJxp3nzgKVlRQtWgMlDU8LSL
- v0LKnu6u+m+y3r4w0EaZTgWYdZelKFk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA1NCBTYWx0ZWRfX3tC0uXuWD9Oj
- DIHvEWVfRD3xSCe6f1EOzzKQaC8NjJdluSj+Hb5vnBrhlBWgu14vrxv7c9Zu1MhhHxcQn5MnKHO
- yp5IzLAGdnIXTmafVSqKDq+UN/QoRCXGh4g6CDi+oupzyQ07Wom6RmYZ0CHhIehmZO3gdHSte2i
- B/bgNzy/gvSzHwY0H3wzMvjJ6VUPWF6zz7d9DrAqEiHGmhIBi137GHWtSE++baYyqqtv5hWyTLW
- tlUuhzAxBNtuTKPGZrOJZmK6p381Hf2+FyUMwWd8+cRtzRntMs7wZGSxFnrVS1ZtlORGnYngveB
- ipTvaOzg6FRdxa4Y6csKeDLQDYO2EckXFEiFzo6J39svEOSWt0nPgFysUDQi5ldIwW4soeO/POj
- AOoSLKrqnqvug7GqSCjRHYmPA31Qe/bzRrm1amStpXEw6CGZbA7C1FKkwa+/Gea7V5AItpjqHJ+
- cg03HEzpQo7INEEQ4tA==
-X-Proofpoint-ORIG-GUID: JKsmXkyMYXa5Lvz13YV8SayFtNmR7Faj
-X-Authority-Analysis: v=2.4 cv=TeqmcxQh c=1 sm=1 tr=0 ts=6a436369 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=7UBpWWJXUKeOLZOJV8wA:9 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: JKsmXkyMYXa5Lvz13YV8SayFtNmR7Faj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300054
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E13210EB06
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:46:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D427143DAB;
+ Tue, 30 Jun 2026 06:46:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977561F000E9;
+ Tue, 30 Jun 2026 06:46:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782802011;
+ bh=sUgMqtyi6slRlpsGR1VzJ9Fp1+PTyBy3CqTnk36ntNo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hDSmK4EsPPzzNFYfUttRkDMrYkEU+A+MdfZOI7ENmwI5f0q3pOfjJXdHut6MvnU7W
+ 4eDSez1d7IEonxnLVhvW62tW19yVBBxMZyWjCK6AWkd+Wqjthbr0Oe91UcIKHV8CJ5
+ ee/yq7j9F4eW3oxyR4a0dC9726NloCllhfKBQULw/9JB+ki1K71gsWh2YmHHIBoh8N
+ fkiklMb8HTF407g4Xd4OBZHS+hg3gV2ZzK7Z38ca6p/Ee4QYVfmU0isjR8k6/AqrEh
+ 9r4B8UWmmHOvBLI5+mJhH5bHYjc2qk1XFJfFVuy4DrO/YEQm7tCG37eKN+CX3L3/qm
+ eZi+F57Mno2LA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] misc: fastrpc: fix UAF and kernel panic during
+ cleanup on process abort
+To: "Jianping Li" <jianping.li@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260630063409.475-1-jianping.li@oss.qualcomm.com>
+References: <20260630063409.475-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 06:46:51 +0000
+Message-Id: <20260630064651.977561F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,191 +53,253 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a userspace FastRPC client is abruptly terminated, FastRPC
-cleanup paths can race with device and session teardown.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
 
-This results in kernel panics in different release paths:
-- fastrpc_release() when using remote heap, originating from
-  fastrpc_buf_free()
-- fastrpc_device_release() when using system heap, originating from
-  fastrpc_free_map()
+New issues:
+- [Critical] `fastrpc_cb_remove` locks uninitialized mutexes when matching =
+unallocated sessions.
+- [High] The patch intentionally leaks DMA allocations, dmabufs, and tracki=
+ng structures to avoid a use-after-free on device unbind.
+- [High] The error path in `fastrpc_map_attach` calls `dma_buf_detach` with=
+out holding `fl->sctx->mutex`, circumventing the synchronization intended t=
+o prevent use-after-free.
 
-In addition, fastrpc_map_put() may trigger refcount use-after-free
-due to concurrent cleanup without proper synchronization.
+Pre-existing issues:
+- [High] The error handling path in `fastrpc_map_attach` triggers double-de=
+tach and double-put of dmabufs.
+- [High] Preexisting memory leak in `fastrpc_free_map` during secure memory=
+ assignment failure.
+- [High] Array overwrite and race condition vulnerability due to blind decr=
+ement of `sesscount` in `fastrpc_cb_remove` without array compaction.
+- [High] Probe failure leaves a dangling device pointer in the active sessi=
+on array.
+--
 
-The root cause is that buffer and map cleanup paths may access map
-and buf resources after the associated device or session has
-already been released.
+commit 70c262510b69042fa36e0aa92b5ee69b7cc10c62
+Author: Jianping Li <jianping.li@oss.qualcomm.com>
 
-Fix this by:
-- Introducing mutex protection for map and buf lifetime
-- Serializing buffer and map cleanup against device teardown
-- Skipping buffer and map operations when the device is already gone
+misc: fastrpc: fix UAF and kernel panic during cleanup on process abort
 
-These changes ensure cleanup paths are safe against unexpected
-process aborts and prevent use-after-free and kernel panic scenarios.
+This commit introduces mutex protection for map and buffer lifetimes to fix
+use-after-free issues when a FastRPC client is aborted. It serializes clean=
+up
+against device teardown and skips operations when the device is gone.
 
-Fixes: c68cfb718c8f9 ("misc: fastrpc: Add support for context Invoke method")
-Cc: stable@kernel.org
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 57 ++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 52 insertions(+), 5 deletions(-)
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -335,9 +337,14 @@ static void fastrpc_free_map(struct kref *ref)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index a9b2ae44c06f..3521518f9fe5 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -255,6 +255,8 @@ struct fastrpc_session_ctx {
- 	int sid;
- 	bool used;
- 	bool valid;
-+	bool allocated;
-+	struct mutex mutex;
- };
- 
- struct fastrpc_soc_data {
-@@ -335,9 +337,14 @@ static inline u64 fastrpc_sid_offset(struct fastrpc_channel_ctx *cctx,
- static void fastrpc_free_map(struct kref *ref)
- {
- 	struct fastrpc_map *map;
-+	struct fastrpc_user *fl;
- 
- 	map = container_of(ref, struct fastrpc_map, refcount);
- 
-+	fl = map->fl;
-+	if (!fl)
-+		return;
-+
- 	if (map->table) {
- 		if (map->attr & FASTRPC_ATTR_SECUREMAP) {
- 			struct qcom_scm_vmperm perm;
-@@ -356,10 +363,16 @@ static void fastrpc_free_map(struct kref *ref)
- 				return;
- 			}
- 		}
-+		mutex_lock(&fl->sctx->mutex);
-+		if (!fl->sctx->dev) {
-+			mutex_unlock(&fl->sctx->mutex);
-+			return;
-+		}
- 		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
- 						  DMA_BIDIRECTIONAL);
- 		dma_buf_detach(map->buf, map->attach);
- 		dma_buf_put(map->buf);
-+		mutex_unlock(&fl->sctx->mutex);
- 	}
- 
- 	if (map->fl) {
-@@ -422,9 +435,18 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
- 
- static void fastrpc_buf_free(struct fastrpc_buf *buf)
- {
--	dma_free_coherent(buf->dev, buf->size, buf->virt,
--			  fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr));
--	kfree(buf);
-+	struct fastrpc_user *fl = buf->fl;
-+
-+	if (!fl)
-+		return;
-+	mutex_lock(&fl->sctx->mutex);
-+	if (fl->sctx->dev) {
-+		dma_free_coherent(buf->dev, buf->size, buf->virt,
-+				  fastrpc_ipa_to_dma_addr(buf->fl->cctx,
-+							  buf->dma_addr));
-+		kfree(buf);
-+	}
-+	mutex_unlock(&fl->sctx->mutex);
- }
- 
- static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
-@@ -447,8 +469,11 @@ static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
- 	buf->dev = dev;
- 	buf->raddr = 0;
- 
--	buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
--				       GFP_KERNEL);
-+	mutex_lock(&fl->sctx->mutex);
-+	if (fl->sctx->dev)
-+		buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
-+					       GFP_KERNEL);
-+	mutex_unlock(&fl->sctx->mutex);
- 	if (!buf->virt) {
- 		mutex_destroy(&buf->lock);
- 		kfree(buf);
-@@ -491,6 +516,10 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
- 	struct fastrpc_channel_ctx *cctx;
- 
- 	cctx = container_of(ref, struct fastrpc_channel_ctx, refcount);
-+	for (int i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
-+		if (cctx->session[i].allocated)
-+			mutex_destroy(&cctx->session[i].mutex);
-+	}
- 
- 	kfree(cctx);
- }
-@@ -855,19 +884,28 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 		goto get_err;
- 	}
- 
-+	mutex_lock(&fl->sctx->mutex);
-+	if (!fl->sctx->dev) {
-+		err = -ENODEV;
-+		mutex_unlock(&fl->sctx->mutex);
-+		goto attach_err;
-+	}
- 	map->attach = dma_buf_attach(map->buf, sess->dev);
- 	if (IS_ERR(map->attach)) {
- 		dev_err(sess->dev, "Failed to attach dmabuf\n");
- 		err = PTR_ERR(map->attach);
-+		mutex_unlock(&fl->sctx->mutex);
- 		goto attach_err;
- 	}
- 
- 	table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
- 	if (IS_ERR(table)) {
- 		err = PTR_ERR(table);
-+		mutex_unlock(&fl->sctx->mutex);
- 		goto map_err;
- 	}
- 	map->table = table;
-+	mutex_unlock(&fl->sctx->mutex);
- 
- 	if (attr & FASTRPC_ATTR_SECUREMAP)
- 		map->dma_addr = sg_phys(map->table->sgl);
-@@ -2246,6 +2284,8 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	sess->used = false;
- 	sess->valid = true;
- 	sess->dev = dev;
-+	mutex_init(&sess->mutex);
-+	sess->allocated = true;
- 	dev_set_drvdata(dev, sess);
- 	sess->sid = sid;
- 
-@@ -2260,6 +2300,8 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 				break;
- 			dup_sess = &cctx->session[cctx->sesscount++];
- 			memcpy(dup_sess, sess, sizeof(*dup_sess));
-+			mutex_init(&dup_sess->mutex);
-+			dup_sess->allocated = true;
- 		}
- 	}
- 	spin_unlock_irqrestore(&cctx->lock, flags);
-@@ -2282,6 +2324,11 @@ static void fastrpc_cb_remove(struct platform_device *pdev)
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
- 		if (cctx->session[i].sid == sess->sid) {
-+			spin_unlock_irqrestore(&cctx->lock, flags);
-+			mutex_lock(&cctx->session[i].mutex);
-+			cctx->session[i].dev = NULL;
-+			mutex_unlock(&cctx->session[i].mutex);
-+			spin_lock_irqsave(&cctx->lock, flags);
- 			cctx->session[i].valid = false;
- 			cctx->sesscount--;
- 		}
--- 
-2.43.0
+[ ... ]
 
+>  		if (map->attr & FASTRPC_ATTR_SECUREMAP) {
+>  			struct qcom_scm_vmperm perm;
+
+[ ... ]
+
+>  			err =3D qcom_scm_assign_mem(map->dma_addr, map->len,
+>  				&src_perms, &perm, 1);
+>  			if (err) {
+>  				dev_err(map->fl->sctx->dev,
+>  					"Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
+>  					&map->dma_addr, map->len, err);
+>  				return;
+
+[Severity: High]
+This is a pre-existing issue, but does this early return completely abandon
+the release sequence?
+
+If qcom_scm_assign_mem() fails, it looks like this returns immediately,
+bypassing all subsequent teardown logic and permanently leaking the map on =
+the
+linked list along with the dmabuf references.
+
+>  			}
+>  		}
+> +		mutex_lock(&fl->sctx->mutex);
+> +		if (!fl->sctx->dev) {
+> +			mutex_unlock(&fl->sctx->mutex);
+> +			return;
+
+[Severity: High]
+Can this early return permanently leak the map and dmabuf?
+
+If a process terminates after a device unbinds, fastrpc_cb_remove() sets dev
+to NULL. When fastrpc_free_map() runs, it hits this early return and
+completely bypasses the mandatory resource deallocation such as kfree(),
+list_del(), and dma_buf_put().
+
+> +		}
+>  		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
+>  						  DMA_BIDIRECTIONAL);
+>  		dma_buf_detach(map->buf, map->attach);
+>  		dma_buf_put(map->buf);
+> +		mutex_unlock(&fl->sctx->mutex);
+>  	}
+
+[ ... ]
+
+> @@ -422,9 +435,18 @@ static void fastrpc_buf_free(struct fastrpc_buf *buf)
+>  	struct fastrpc_user *fl =3D buf->fl;
+> =20
+>  	if (!fl)
+>  		return;
+> +	mutex_lock(&fl->sctx->mutex);
+> +	if (fl->sctx->dev) {
+> +		dma_free_coherent(buf->dev, buf->size, buf->virt,
+> +				  fastrpc_ipa_to_dma_addr(buf->fl->cctx,
+> +							  buf->dma_addr));
+> +		kfree(buf);
+> +	}
+> +	mutex_unlock(&fl->sctx->mutex);
+
+[Severity: High]
+Could the absence of an else-branch permanently leak the buffer memory?
+
+Similar to fastrpc_free_map(), if the device is gone, skipping the
+dma_free_coherent() and kfree() leaves the memory permanently leaked
+instead of safely handling the cleanup.
+
+>  }
+
+[ ... ]
+
+> @@ -855,19 +884,28 @@ static int fastrpc_map_attach(struct fastrpc_user *=
+fl, int fd,
+
+[ ... ]
+
+>  	table =3D dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONA=
+L);
+>  	if (IS_ERR(table)) {
+>  		err =3D PTR_ERR(table);
+> +		mutex_unlock(&fl->sctx->mutex);
+>  		goto map_err;
+
+[Severity: High]
+This is a pre-existing issue, but does jumping to map_err cause a double
+detach and put of the dmabuf?
+
+If we take this error path after map->table has been assigned, we execute:
+
+fastrpc_map_attach()
+  goto map_err;
+  map_err:
+    dma_buf_detach(map->buf, map->attach);
+    ...
+    fastrpc_map_put(map);
+
+Because map->table is non-NULL, the kref release function fastrpc_free_map()
+will re-execute dma_buf_detach() and dma_buf_put() on the identical
+structures.
+
+[Severity: High]
+Would unlocking the mutex here expose the error path to a use-after-free?
+
+By explicitly unlocking sctx->mutex before jumping to map_err, dma_buf_deta=
+ch()
+is called completely unprotected. A concurrent fastrpc_cb_remove() can run
+between the unlock and detach, clearing the device and leading to a
+use-after-free in dma_buf_detach() when it accesses attach->dev.
+
+>  	}
+>  	map->table =3D table;
+> +	mutex_unlock(&fl->sctx->mutex);
+
+[ ... ]
+
+> @@ -2246,6 +2284,8 @@ static int fastrpc_cb_probe(struct platform_device =
+*pdev)
+
+[ ... ]
+
+>  	sess =3D &cctx->session[cctx->sesscount++];
+>  	sess->used =3D false;
+>  	sess->valid =3D true;
+>  	sess->dev =3D dev;
+> +	mutex_init(&sess->mutex);
+> +	sess->allocated =3D true;
+
+[Severity: High]
+This is a pre-existing issue, but does appending to sesscount here
+blindly overwrite a trailing active session?
+
+When fastrpc_cb_remove() executes, it decrements sesscount blindly without
+shifting downstream array elements to close the gap. A subsequent probe
+uses the decremented sesscount as an append index, corrupting the active
+session.
+
+With this patch, the newly added mutex_init() will now reinitialize an
+in-use lock on that overwritten session.
+
+>  	dev_set_drvdata(dev, sess);
+>  	sess->sid =3D sid;
+
+[ ... ]
+
+> @@ -2260,6 +2300,8 @@ static int fastrpc_cb_probe(struct platform_device =
+*pdev)
+
+[ ... ]
+
+>  			dup_sess =3D &cctx->session[cctx->sesscount++];
+>  			memcpy(dup_sess, sess, sizeof(*dup_sess));
+> +			mutex_init(&dup_sess->mutex);
+> +			dup_sess->allocated =3D true;
+>  		}
+>  	}
+>  	spin_unlock_irqrestore(&cctx->lock, flags);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does a probe failure
+leave a dangling device pointer in the active session array?
+
+Just below this hunk, dma_set_mask() is called. If that call fails, it
+returns an error and aborts the probe. The driver core will destroy the
+device, but FastRPC has already permanently registered the dangling dev
+pointer into its session array.
+
+> @@ -2282,6 +2324,11 @@ static void fastrpc_cb_remove(struct platform_devi=
+ce *pdev)
+>  	spin_lock_irqsave(&cctx->lock, flags);
+>  	for (i =3D 0; i < FASTRPC_MAX_SESSIONS; i++) {
+>  		if (cctx->session[i].sid =3D=3D sess->sid) {
+> +			spin_unlock_irqrestore(&cctx->lock, flags);
+> +			mutex_lock(&cctx->session[i].mutex);
+
+[Severity: Critical]
+Will this loop lock uninitialized mutexes when matching unallocated session=
+s?
+
+The elements beyond sesscount in cctx->session are zero-initialized.
+If sess->sid is 0 (the default if a DT lacks a 'reg' property), the loop
+condition cctx->session[i].sid =3D=3D sess->sid will match all unused slots.
+
+This attempts to acquire an uninitialized, all-zero mutex, which might
+lead to a panic or lockdep crash. Should this loop check
+cctx->session[i].allocated?
+
+> +			cctx->session[i].dev =3D NULL;
+> +			mutex_unlock(&cctx->session[i].mutex);
+> +			spin_lock_irqsave(&cctx->lock, flags);
+>  			cctx->session[i].valid =3D false;
+>  			cctx->sesscount--;
+
+[Severity: High]
+This is a pre-existing issue, but does decrementing sesscount without
+moving elements create a discrepancy between the index and active entries?
+
+As mentioned earlier, this blind decrement leaves a gap in the array that
+leads to state corruption during the next probe.
+
+>  		}
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630063409.475-=
+1-jianping.li@oss.qualcomm.com?part=3D1
