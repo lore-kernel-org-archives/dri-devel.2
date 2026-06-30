@@ -4,102 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B331C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F9CAC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:13:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4963710EAD7;
-	Tue, 30 Jun 2026 06:09:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8158F10EAED;
+	Tue, 30 Jun 2026 06:13:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QuQ2DFwq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BfPgwQHu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D07BE10EAD7
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:09:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20BFF10EAD9
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:13:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9AF4442E55;
- Tue, 30 Jun 2026 06:09:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B731F000E9;
- Tue, 30 Jun 2026 06:09:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5D41B60008;
+ Tue, 30 Jun 2026 06:13:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3131F000E9;
+ Tue, 30 Jun 2026 06:13:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782799759;
- bh=jj/yDbVpjsdeXQbpyLVzzZOqWFFcPrJsxLXlQd2ry+w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=QuQ2DFwqv2ZqYutP1lZbXPpbmJQzCbydW8FJGk/eOYX4c7YxNsDuzsBCKBoLlKUJ5
- 2lJ2oY4RvXeaGUW49J9RsfaJJkKSj+T0fpJ2hRcnoUJX9LUxsSdiijeGS7oo3sOqys
- knaJwCcPOzLS1Sg2rf0XhXq9/Kxfo6opIpSJihTZd9EBDpI3g6AXQtnRdakAOtSegt
- rwlObEFAMugCVvDUHy6PZ6n9qIbuwKLEiA+3wAkK9W0/qljZ2WpwWcftv4HBXvomBu
- YjCesb2WRP5M4+Cv4aXu1F0GVyqGm8esUkl2QkkvbwL4C/+Bcerc+VNynJgA5yxR3S
- Z0M3Zjc7RTHBg==
-Message-ID: <c3bb6d55-3256-4642-80c9-363b51a9eecd@kernel.org>
-Date: Tue, 30 Jun 2026 08:09:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] Revert "dt-bindings: display: panel: panel-simple:
- Add lg,sw49410 compatible"
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
- Amir Dahan <system64fumo@tuta.io>
-References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
- <20260614-judyln-panel-v3-4-07f4134441bd@postmarketos.org>
- <20260615-jacamar-of-angelic-aurora-1e4cba@quoll>
- <8a0348e5-a6bb-43e3-85e0-aa4673cd3a65@postmarketos.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <8a0348e5-a6bb-43e3-85e0-aa4673cd3a65@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1782800010;
+ bh=Uw4ZJAdx6FC/kj0XgzbLUKpK0E7LlhKETbD0oKxXEmQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BfPgwQHusC2qii19LCVnHLJdCimZ2YPpHbALuEz6qXu9lZ8C22tX0nlDoxaxEr6b7
+ ttCtRZeC5JhOuUahw38/6UsRZ0gx0dzDD5/P9okmCZYAcKp26pumT2tgAlb7PhtH6m
+ FbC68/Q4vfcA0Vp2GqinbJPBZZW5kI4YFV5DaXUMdXwyb8+fyKAO9XZmOdaDIjcotq
+ 77MBGMleDsoO25oPdV4F2oz8+Q8NZgN4VwXKO3BuAHlSrrAXiWsUOGCDSBzUYigbE4
+ Ryq0O8GoAbf9NTjXaPjzNBfUqXIUw7i6fZS9lIuaxEWfV0aUzLv7OV2+68rGpCmeDk
+ Vzxc79BuRGrXA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dma-buf/test: add KUnit case for
+ dma_fence_dedup_array() empty input
+To: "Baineng Shou" <shoubaineng@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260630060436.1527498-1-shoubaineng@gmail.com>
+References: <20260630060436.1527498-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 06:13:29 +0000
+Message-Id: <20260630061329.DE3131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,28 +53,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 28/06/2026 23:23, Paul Sajna wrote:
-> On 2026-06-14 10:40 p.m., Krzysztof Kozlowski wrote:
->> On Sun, Jun 14, 2026 at 05:08:01PM -0700, Paul Sajna wrote:
->>> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
->>>
->>> It isn't actually panel-simple-compatible, and we knew as much by the
->>
->> This is not a separate commit. Your work is non-bisectable - this commit
->> leaves undocumented compatible.
->>
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> Are you suggesting I should squash the revert into it's replacement?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-If this is not a separate commit, obviously it should be part of some
-other commit.
+New issues:
+- [Medium] The newly added test_dedup_empty KUnit test will unconditionally=
+ fail, breaking CI.
 
-Best regards,
-Krzysztof
+Pre-existing issues:
+- [Critical] dma_fence_dedup_array() incorrectly returns 1 for an empty arr=
+ay, causing uninitialized memory dereference in amdgpu_userq_wait_return_fe=
+nce_info().
+--
+
+commit 693b63d34624f1aa69f2c97819d4a6d6655ec6bc
+Author: Baineng Shou <shoubaineng@gmail.com>
+
+dma-buf/test: add KUnit case for dma_fence_dedup_array() empty input
+
+This commit adds a KUnit test case to verify that dma_fence_dedup_array()
+returns 0 when provided with an empty array. The test aims to ensure the
+documented contract is enforced and prevents future regressions.
+
+> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-d=
+ma-fence-unwrap.c
+> index 4e7ee25372ba6..72dea6091d583 100644
+> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+
+[ ... ]
+
+> @@ -370,6 +370,15 @@ static void test_unwrap_merge_seqno(struct kunit *te=
+st)
+>  	dma_fence_put(f1);
+>  }
+> =20
+> +static void test_dedup_empty(struct kunit *test)
+> +{
+> +	struct dma_fence *fence[1] =3D { NULL };
+> +	int ret;
+> +
+> +	ret =3D dma_fence_dedup_array(fence, 0);
+> +	KUNIT_EXPECT_EQ(test, ret, 0);
+
+[Severity: Medium]
+Will this test fail unconditionally on the current tree?
+
+Looking at dma_fence_dedup_array() in drivers/dma-buf/dma-fence-unwrap.c,
+there is no early return for an empty array:
+
+int dma_fence_dedup_array(struct dma_fence **fences, int num_fences)
+{
+        int i, j;
+
+        sort(fences, num_fences, sizeof(*fences), fence_cmp, NULL);
+
+        j =3D 0;
+        for (i =3D 1; i < num_fences; i++) {
+                ...
+        }
+
+        return ++j;
+}
+
+The loop condition i < num_fences is skipped when num_fences is 0, but the
+function ends with return ++j, which returns 1. Since this patch adds a
+KUnit expectation for 0, won't this cause CI to break until the correspondi=
+ng
+fix for dma_fence_dedup_array() is actually applied to the tree?
+
+[Severity: Critical]
+This is a pre-existing issue, but does dma_fence_dedup_array() returning 1
+for empty arrays cause an uninitialized memory dereference in other
+subsystems?
+
+For example, in drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:
+amdgpu_userq_wait_return_fence_info() uses kmalloc_array for the fences arr=
+ay
+and eventually calls dma_fence_dedup_array:
+
+        num_fences =3D dma_fence_dedup_array(fences, num_fences);
+
+        waitq =3D amdgpu_userq_get(userq_mgr, wait_info->waitq_id);
+        if (!waitq) {
+        ...
+        for (i =3D 0, cnt =3D 0; i < num_fences; i++) {
+                struct amdgpu_userq_fence_driver *fence_drv;
+                struct amdgpu_userq_fence *userq_fence;
+                u32 index;
+
+                userq_fence =3D to_amdgpu_userq_fence(fences[i]);
+
+If an unprivileged user triggers a path via ioctl where 0 fences are popula=
+ted
+but dma_fence_dedup_array() is called with num_fences =3D 0, returning 1 wi=
+ll
+cause the subsequent loop to iterate once. Will this dereference an
+uninitialized garbage pointer from kmalloc_array() when to_amdgpu_userq_fen=
+ce()
+evaluates fences[i]?
+
+> +}
+> +
+>  static void test_unwrap_merge_order(struct kunit *test)
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630060436.1527=
+498-1-shoubaineng@gmail.com?part=3D1
