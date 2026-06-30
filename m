@@ -4,57 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF45C43327
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 22:40:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8000FC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 22:49:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C16B410E253;
-	Tue, 30 Jun 2026 22:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93BE510E296;
+	Tue, 30 Jun 2026 22:49:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FjMuuVeD";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="nt3zK1OI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4153910E253;
- Tue, 30 Jun 2026 22:40:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782859202; x=1814395202;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=nuJDEk0xKSigjLZXmihCu1bUuU8bxafXYfj2cIfHzOs=;
- b=FjMuuVeDGj9yuXlDlTOjeeAdkK4Daeec03RpPz388yHPz4lYxwxEH9op
- vbXE2SAaFThAJpQcSXdLRg2LRTk0gyDnBDd8fg55YSbvQD3CJH4N7Ioqr
- fsHgvJLtrkDyZ5lWw4QpT2zl9QyRs6rnQHkHjQ3oVdPSKwoJ15su0M1ms
- sWoPqw7WL5uDMEUByDGPOzgS2wMACFl9+55bOX8Gu71Apwb7G08TmBpjV
- KGmOlaEYslc07eqURnTmPKvk2UoW1n61tvDbl/CwdQ77hqAz/7vjFN/iK
- KW1CuseyUvg3ctpWr4lcPuhFHEsTBp+hp+0qpIzNUd3sRW/mRVzpnzCuy g==;
-X-CSE-ConnectionGUID: YWi0enwGRAaC/lBacl7ILQ==
-X-CSE-MsgGUID: XUFmoCyKSruVVLwSMWIqTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94735795"
-X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; d="scan'208";a="94735795"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 15:40:02 -0700
-X-CSE-ConnectionGUID: It87qCKiRhu7lRuq/OBj5Q==
-X-CSE-MsgGUID: 9kw6xvxyTOSqwk6gnw7fcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; d="scan'208";a="251337802"
-Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.40])
- by orviesa010.jf.intel.com with ESMTP; 30 Jun 2026 15:40:01 -0700
-From: Jia Yao <jia.yao@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Jia Yao <jia.yao@intel.com>, dri-devel@lists.freedesktop.org,
- Shuicheng Lin <shuicheng.lin@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Maciej Plewka <maciej.plewka@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v9] drm/i915/dg2: Add per-context control for Wa_22013059131
-Date: Tue, 30 Jun 2026 22:39:46 +0000
-Message-ID: <20260630223946.2107382-1-jia.yao@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B78D10E296
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 22:49:15 +0000 (UTC)
+Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65ULIN672298380
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:49:14 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=YYkBgAAFNWZDrKwhhTsTLZ1UTmm9m4xo9SJVRgbwcTU=; b=nt3zK1OIj+Kn
+ z1jiSZJBRi3BnCGT3Fq9/s/jHBQgdFWaaPAmAC1ubAW3pkaxPfetEZiGQ1971hvv
+ 3VbLhGDDtSbw+3OAcQsK8keKqVarfVZoQuR9cIaiivoUQETcIbFQ8Fvq6gF69t/0
+ J+lB0/LCJsahuaj5Jrd+0hBLnSJzDkwtG0Cs5dVGPqlIpUoxRitm7f/h5oJDpgPM
+ NdLaIzed94TNrNTeN4mtIvchJ17Hl4TDQY/IQtqm1D11ZA4z2RcKRWHD8/I036vt
+ 17WDgGnI3BiWPDqBvnrpz/MTL4Obvu6sPFJJ988Rm7PipPT9p/5yyDHAEuDB85GH
+ C8imNx4Z+Q==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4f4n3ggxph-4
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:49:14 -0700 (PDT)
+Received: from twshared20751.01.snb2.facebook.com (2620:10d:c0a8:1c::11) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Tue, 30 Jun 2026 22:49:11 +0000
+Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
+ id B583240C59C28; Tue, 30 Jun 2026 15:43:30 -0700 (PDT)
+From: Zhiping Zhang <zhipingz@meta.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
+ Guralnik <michaelgur@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>, Alex Williamson
+ <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
+CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ Zhiping Zhang <zhipingz@meta.com>
+Subject: [PATCH v10 2/4] dma-buf: add optional get_pci_tph() callback
+Date: Tue, 30 Jun 2026 15:42:24 -0700
+Message-ID: <20260630224328.3218796-3-zhipingz@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260630224328.3218796-1-zhipingz@meta.com>
+References: <20260630224328.3218796-1-zhipingz@meta.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDIyMiBTYWx0ZWRfX5+K0HzeNwB1d
+ Dx0mtBaj2oAuUZduYsUqRtAtXNlqSSu2y0s6JvfXlhXYs7X6nbcoJ1ZRhrBXRvVEoDU7/L952e0
+ Gc5azUbuc1p4vxVVafO/Dnu0PRSwVRM=
+X-Proofpoint-ORIG-GUID: bz0o6AIdM74pcp5q9t_YDYkGXE3c6-UL
+X-Authority-Analysis: v=2.4 cv=Rr716imK c=1 sm=1 tr=0 ts=6a4447ea cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=kkcUborcUVj0H7zxAXTl:22 a=VabnemYjAAAA:8 a=NnIffO1M-inhYcDKZaoA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: bz0o6AIdM74pcp5q9t_YDYkGXE3c6-UL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDIyMiBTYWx0ZWRfX3MFvrbvSuHUV
+ GQy3E23utGp8TFn9DV/QoP9tWFPNcgIC8cr43BSiWFLcTZK6kqds+YKEp1zVk9jhWWJJZJoAUdC
+ 0Do2UG+XSHNUAsxaX0IUCpjn8QbOizSEG2twc+jBbJrHuNBH5NhOlsjryBxUT6e1Il84fvzxzSu
+ heaPKpMR6cJImG+U1GkSh+OTRvNPE9gM00X1qn+wk5OtjNsN9KIXIl/43zgXHvbmSdT/Bts3oVp
+ TVlNxsqtU8sMFomDP0DZC0cBJyy+0WX6aIDoQA/HrB42KGDAFss6l4Nfj74VsrhX77BdW4PsZrb
+ wHqg/M9o8insLqQs2nBLpn7/3bRg+SMY1Q8QM+BhAoqKpws/nAUHRShbUNJICU0n5cLYmXVN6uK
+ KwdmCxeVAsJhVsd4td/RwoVCm1Kw5femD+GIvL5ARutgKwnC8z0GXQ3saYw/49crqj1i3HYsn+4
+ mhrFDhA4BfvYZElfcUg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_05,2026-06-26_01,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,243 +94,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
-at engine init, but this is known to cause GPU hangs in certain workloads.
-Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
-workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
-kernel know bit 15 programming is not needed for that context.
+Add an optional dma_buf_ops.get_pci_tph callback and a
+DMA-buf importer wrapper, dma_buf_get_pci_tph().
 
-LSC_CHICKEN_BIT_0 is not context-saved by hardware, so the kernel restores
-the correct value on every context switch via the indirect context
-batchbuffer to avoid leaking state between contexts. The old unconditional
-application of Wa22013059131 in intel_workarounds.c is removed.
+TPH is PCIe TLP Processing Hint. 8-bit ST and 16-bit Extended ST are
+distinct PCIe TPH namespaces, so the importer requests the namespace it
+can emit and the exporter returns the matching ST/PH tuple or
+-EOPNOTSUPP.
 
-v9:
-- Restrict Wa_22013059131 to compute engine only in
-  gen12_emit_indirect_ctx_xcs() (Sashiko)
+dma_buf_get_pci_tph() is the importer entry point. It requires
+&dmabuf->resv to be held while the callback runs and returns
+-EOPNOTSUPP when the exporter does not provide PCI TPH metadata.
 
-v8:
-- Clarify in the uAPI comment that setting this parameter only opts out
-  of LSC_CHICKEN_BIT_0 bit 15 (FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
-  LSC_CHICKEN_BIT_0_UDW MAXREQS_PER_BANK remains unconditionally
-  programmed by the kernel as the other part of Wa_22013059131
+The first user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with
+mlx5 as the first importer.
 
-v7:
-- Reject ioctl with -ENODEV on non-DG2-G11 platforms
-
-v6:
-- Remove excessive blank lines
-
-v5:
-- Remove fix and stable
-
-v4:
-- Add a link of the userspace using this API
-
-v3:
-- Kernel-internal context will not change workaround settings
-
-Bspec: 54833
-Link: https://github.com/intel/compute-runtime/pull/919
-Cc: dri-devel@lists.freedesktop.org
-Cc: Shuicheng Lin <shuicheng.lin@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Maciej Plewka <maciej.plewka@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Acked-by: Maciej Plewka <maciej.plewka@intel.com>
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c   | 14 ++++++
- .../gpu/drm/i915/gem/i915_gem_context_types.h |  1 +
- drivers/gpu/drm/i915/gt/intel_context_types.h |  1 +
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 44 ++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 10 ++---
- include/uapi/drm/i915_drm.h                   | 15 +++++++
- 6 files changed, 79 insertions(+), 6 deletions(-)
+ drivers/dma-buf/dma-buf.c | 25 +++++++++++++++++++++++++
+ include/linux/dma-buf.h   | 22 ++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 6ac0f23570f3..048393264ede 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -911,6 +911,17 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
- 			ret = -EINVAL;
- 		break;
- 
-+	case I915_CONTEXT_PARAM_WA_22013059131:
-+		if (args->size)
-+			ret = -EINVAL;
-+		else if (!IS_DG2_G11(i915))
-+			ret = -ENODEV;
-+		else if (args->value)
-+			pc->user_flags |= BIT(UCONTEXT_WA_22013059131);
-+		else
-+			pc->user_flags &= ~BIT(UCONTEXT_WA_22013059131);
-+		break;
-+
- 	case I915_CONTEXT_PARAM_RECOVERABLE:
- 		if (args->size)
- 			ret = -EINVAL;
-@@ -1003,6 +1014,9 @@ static int intel_context_set_gem(struct intel_context *ce,
- 	if (test_bit(UCONTEXT_LOW_LATENCY, &ctx->user_flags))
- 		__set_bit(CONTEXT_LOW_LATENCY, &ce->flags);
- 
-+	if (test_bit(UCONTEXT_WA_22013059131, &ctx->user_flags))
-+		__set_bit(CONTEXT_WA_22013059131, &ce->flags);
-+
- 	return ret;
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc29..7a4c9b0d5dab 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1144,6 +1144,31 @@ void dma_buf_unpin(struct dma_buf_attachment *atta=
+ch)
  }
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index 0267c924634b..4efc0e758d3b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -338,6 +338,7 @@ struct i915_gem_context {
- #define UCONTEXT_RECOVERABLE		3
- #define UCONTEXT_PERSISTENCE		4
- #define UCONTEXT_LOW_LATENCY		5
-+#define UCONTEXT_WA_22013059131		6
- 
- 	/**
- 	 * @flags: small set of booleans
-diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
-index 10070ee4d74c..84011ce7c84d 100644
---- a/drivers/gpu/drm/i915/gt/intel_context_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
-@@ -133,6 +133,7 @@ struct intel_context {
- #define CONTEXT_EXITING			13
- #define CONTEXT_LOW_LATENCY		14
- #define CONTEXT_OWN_STATE		15
-+#define CONTEXT_WA_22013059131		16
- 
- 	struct {
- 		u64 timeout_us;
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 147d22907960..a35601e6f1e9 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
- 	return cs;
- }
- 
-+static u32 *
-+dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
-+{
-+	/*
-+	 * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
-+	 * other bits of the register will also get overwritten.  The
-+	 * hardware default for all other bits is 0, but any workarounds
-+	 * that adjust the other bits in the lower dword of the register
-+	 * also need to be re-applied here.  At the moment that's just
-+	 * Wa_22014226127, which is always set for DG2-G11 platforms.
-+	 */
-+	u32 val = DISABLE_D8_D16_COASLESCE;
-+
-+	/*
-+	 * Wa_22013059131: only set FORCE_1_SUB_MESSAGE_PER_FRAGMENT for
-+	 * userspace contexts that have not opted out.  Kernel-internal
-+	 * contexts (gem_context == NULL) never run shader workloads that
-+	 * require this workaround, so skip them unconditionally.
-+	 */
-+	if (rcu_access_pointer(ce->gem_context) &&
-+	    !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
-+		val |= FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
-+	}
-+
-+	*cs++ = MI_LOAD_REGISTER_IMM(1);
-+	*cs++ = i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
-+	*cs++ = val;
-+
-+	return cs;
-+}
-+
- static u32 *
- gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
- {
-@@ -1371,6 +1402,10 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
- 	    IS_DG2(ce->engine->i915))
- 		cs = dg2_emit_draw_watermark_setting(cs);
- 
-+	/* Wa_22013059131:dg2 */
-+	if (IS_DG2_G11(ce->engine->i915))
-+		cs = dg2_g11_emit_wa_22013059131(ce, cs);
-+
- 	return cs;
- }
- 
-@@ -1387,7 +1422,14 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
- 						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
- 						    0);
- 
--	return gen12_emit_aux_table_inv(ce->engine, cs);
-+	cs = gen12_emit_aux_table_inv(ce->engine, cs);
-+
-+	/* Wa_22013059131:dg2 */
-+	if (IS_DG2_G11(ce->engine->i915))
-+		if (ce->engine->class == COMPUTE_CLASS)
-+			cs = dg2_g11_emit_wa_22013059131(ce, cs);
-+
-+	return cs;
- }
- 
- static u32 *xehp_emit_fastcolor_blt_wabb(const struct intel_context *ce, u32 *cs)
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 24ea5d8d529c..ef6eea3ab597 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -2840,7 +2840,11 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
- 	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
- 	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
- 	    IS_DG2(i915)) {
--		/* Wa_22014226127 */
-+		/*
-+		 * Wa_22014226127: Note that this workaround also needs to be
-+		 * re-applied in intel_lrc.c when LSC_CHICKEN_BIT_0 is
-+		 * re-written for Wa_22013059131.
-+		 */
- 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
- 	}
- 
-@@ -2867,10 +2871,6 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
- 				     MAXREQS_PER_BANK,
- 				     REG_FIELD_PREP(MAXREQS_PER_BANK, 2));
- 
--		/* Wa_22013059131:dg2 */
--		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
--				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
--
- 		/*
- 		 * Wa_22012654132
- 		 *
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 535cb68fdb5c..dc7e143536ef 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2172,6 +2172,21 @@ struct drm_i915_gem_context_param {
-  * Note that this is a debug API not available on production kernel builds.
-  */
- #define I915_CONTEXT_PARAM_CONTEXT_IMAGE	0xf
-+
-+/*
-+ * I915_CONTEXT_PARAM_WA_22013059131:
+ EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
+=20
++/**
++ * dma_buf_get_pci_tph - Retrieve PCIe TLP Processing Hint (TPH) metadat=
+a
++ * @dmabuf: DMA buffer to query
++ * @extended: false for 8-bit ST, true for 16-bit Extended ST
++ * @steering_tag: returns the raw steering tag for the requested namespa=
+ce
++ * @ph: returns the TPH processing hint
 + *
-+ * Default value 0 means the kernel sets LSC_CHICKEN_BIT_0 bit 15
-+ * (FORCE_1_SUB_MESSAGE_PER_FRAGMENT) for this context as part of
-+ * Wa_22013059131.  Set to 1 to inform the kernel that userspace is
-+ * handling the SLM contention workaround itself (e.g. by limiting SLM
-+ * size), so bit 15 programming is not needed for this context.
++ * Wrapper for the optional &dma_buf_ops.get_pci_tph callback.
 + *
-+ * Note: LSC_CHICKEN_BIT_0_UDW MAXREQS_PER_BANK (bits 39:37) is the
-+ * other part of Wa_22013059131 and remains unconditionally programmed
-+ * by the kernel regardless of this setting.  DG2-G11 only.
++ * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
++ * exporter does not implement the callback or has no metadata for the
++ * requested namespace.
 + */
-+#define I915_CONTEXT_PARAM_WA_22013059131	0x10
- /* Must be kept compact -- no holes and well documented */
- 
- 	/** @value: Context parameter value to be set or queried */
--- 
-2.43.0
++int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
++			u16 *steering_tag, u8 *ph)
++{
++	dma_resv_assert_held(dmabuf->resv);
++
++	if (!dmabuf->ops->get_pci_tph)
++		return -EOPNOTSUPP;
++
++	return dmabuf->ops->get_pci_tph(dmabuf, extended, steering_tag, ph);
++}
++EXPORT_SYMBOL_NS_GPL(dma_buf_get_pci_tph, "DMA_BUF");
++
+ /**
+  * dma_buf_map_attachment - Returns the scatterlist table of the attachm=
+ent;
+  * mapped into _device_ address space. Is a wrapper for map_dma_buf() of=
+ the
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d1203da56fc5..53b2686ad8fc 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -113,6 +113,26 @@ struct dma_buf_ops {
+ 	 */
+ 	void (*unpin)(struct dma_buf_attachment *attach);
+=20
++	/**
++	 * @get_pci_tph:
++	 *
++	 * Retrieve PCIe TLP Processing Hint (TPH) steering metadata for
++	 * this buffer so an importer can program a matching ST/PH hint on
++	 * outbound TLPs targeting the exporter for peer-to-peer DMA.
++	 *
++	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
++	 * @extended: false for 8-bit ST, true for 16-bit Extended ST
++	 * @steering_tag: Returns the raw TPH steering tag for the requested
++	 *                namespace
++	 * @ph: Returns the TPH processing hint (2-bit value)
++	 *
++	 * Optional callback for dma_buf_get_pci_tph(). Called with
++	 * &dma_buf.resv held. Returns 0 on success or -EOPNOTSUPP when
++	 * the exporter has no metadata for the requested namespace.
++	 */
++	int (*get_pci_tph)(struct dma_buf *dmabuf, bool extended,
++			   u16 *steering_tag, u8 *ph);
++
+ 	/**
+ 	 * @map_dma_buf:
+ 	 *
+@@ -563,6 +583,8 @@ void dma_buf_detach(struct dma_buf *dmabuf,
+ 		    struct dma_buf_attachment *attach);
+ int dma_buf_pin(struct dma_buf_attachment *attach);
+ void dma_buf_unpin(struct dma_buf_attachment *attach);
++int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
++			u16 *steering_tag, u8 *ph);
+=20
+ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_inf=
+o);
+=20
+--=20
+2.53.0-Meta
 
