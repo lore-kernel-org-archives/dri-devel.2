@@ -4,89 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5230EC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 00:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05DCDC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 01:19:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F2D710E132;
-	Tue, 30 Jun 2026 00:12:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EF7210E129;
+	Tue, 30 Jun 2026 01:19:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jqp6ovtc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jRoQoixk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4554A10E12B;
- Tue, 30 Jun 2026 00:12:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AE866416C4;
- Tue, 30 Jun 2026 00:12:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE721F000E9;
- Tue, 30 Jun 2026 00:12:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782778329;
- bh=a64RIiIV5g7zUCoZKk0RU0OaXgbT9t9LC605MaLKQjE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jqp6ovtcMAfA2KsMjewBOCot7QpQU+TrwAfxpD4Z2sngOCSXsbtBGzMV9G2ihxMHM
- EzM3eseuwxS3lItVuSkojLNHBqFP3vNnQ7f74LgzTWcF74FCHDNVqjJE/2L0pngBX5
- gHusJa7fgFXjvZ2gr7P7DuPcmzUz2z1vHLvTd/ED0uDeglpI2akCIFXOgpQzRgOQWi
- Q0iY57hEsRtpqz+c/SFniyhcocpVuLTtp2G6H7RrLeqeMiJqBbULCYWQ0A5BmBRBcN
- 23J0bzYvOxk4uOScV4cjUhEepr5EM2xby41+WS7MQIwK59rUYp8rz4o4bmldVkGa/E
- EeHN1s4Rihftg==
-From: SJ Park <sj@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, David Airlie <airlied@gmail.com>,
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8916A10E12E
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 01:19:10 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-8478cc93299so850984b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 18:19:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782782350; x=1783387150; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CG9x15SuRzEgw1/5hGhYCaNcFyGZnCDooTbzdFZHAVE=;
+ b=jRoQoixkfHPr7/ujYjppR/gxroDe/mUv2CiqbCjq0AQxDTI81xoI8eEMWaX5Oji/7W
+ 3UXmMNifd//+UXYmnukgrQEzxQANfjrYqq+1WzTX5F8dohTSs1SNgYKpA+TyyUFei+WX
+ hrwueVQl9x8N7gQH1Nsw/q2Omv2YB2/TkpsN8HWnmBRFvPVbbY7eOCqyZ2QW78Ri+TMe
+ W3C+QCyJf49beP6LnnEp98DL41BEqHh653tACwxAgIW7Eno9CITzt+CQvLyyj+4bmo02
+ 3bqvji2iRul0ss0mPKoEsliPzva0nTjn0KFJyhIMgFcfD3hwxEr61rF5ZoI14VAc5dKV
+ Xu4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782782350; x=1783387150;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CG9x15SuRzEgw1/5hGhYCaNcFyGZnCDooTbzdFZHAVE=;
+ b=NQwuneIi4T07K5EwWTML2opqYO3soXZbnvt7J8Eh7fHcOa4bBKQlFDQzmitl3h68lL
+ qwyYRyFr/bFdXtXMYGB3kHL9EdehKpr3+RvSgsyBbd4YIqPTwQiMLdWXSdvc5X3Azu/v
+ Q6K0FBPn35/CsGEY+Yfp2lxUa9NBeEEvqnMEDfiShwsYurZEIKikz3IynXBe4EFMv6o4
+ EYXyUxiJ+qnD1U8gBAihFr7ubTXb/InjuvoAeMkn8dSrRhNWs6Cg5i7fCU72RdTVciFL
+ eeCt6JI8qH+VHfr879JRTvzfmEQaIyBbZ8hILIpRuNf14DgRk2fC2Lld66IndEyoEoUj
+ hneg==
+X-Gm-Message-State: AOJu0Yyvpi1IQtHVOQpuLZVLTyn0ErEpqjoUPClej8Q5tC3yYFDoO6/x
+ pEr0/ncEcUHFN+br39hR4NYzpVkNuWE3ei8wic/E0t+iU2L7x4ndqoiONISBvNrc
+X-Gm-Gg: AfdE7cmvWHrGj2fmxrEcNq8iwptppp2YoU0HqocmmKhLstrPhHW7TyiBZQlh+/qaNbu
+ 4xqZpN+I3nFunGTaBvTV7edFG3X2IhLqaQhHBf6cTGDCcb4iNHbQTXVWPksStHTZxT9uNNL3eJI
+ rOuUmzaoHUfam2G9C9MYC0GvHAxlPupli6nblAf/HzJg3oWSLNiXApvpEjbS37dzKzwU0g618ho
+ YYl1eCsTxRyETKw2JqxPQPR+koupTE7MJ5TUOijjoiLw8v6LIw8IXXX0rrMJjt3MlqBKZH82KtP
+ aBRYp8JiTIeKGKebQ0wqbKXPxwx54btDqB0l+U+wR38MBB/NSaqv9HTD6x7PhC6uuc6zJ8NWig2
+ QFZxw7yxqT8By2z/5FPghxOyb4X8oqMEaxNWRcQ813b02hN2RwEtTMx1St+rNRpH/ohctXhdO2x
+ LkNbJyFoKWY5mNOVF10i1XwxfG7eTcsFEiP2NRjvVm80B9heWTBHVYW+JiNUPL4SuoLgJt+IHTN
+ Gfcm5fElAb1n1O8CK9g
+X-Received: by 2002:a05:6a00:84c:b0:842:708f:39be with SMTP id
+ d2e1a72fcca58-8479ee9207emr1344406b3a.5.1782782349946; 
+ Mon, 29 Jun 2026 18:19:09 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8479ff8f959sm692014b3a.3.2026.06.29.18.19.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 18:19:09 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, Steven Rostedt <rostedt@goodmis.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, damon@lists.linux.dev,
- Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 16/30] mm/vma: use vma_start_pgoff(),
- linear_page_index() in mm code
-Date: Mon, 29 Jun 2026 17:11:59 -0700
-Message-ID: <20260630001159.140651-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <33d79008948391d30bab38db5ae31072ce12f0a1.1782735110.git.ljs@kernel.org>
-References: 
+ intel-gfx@lists.freedesktop.org (open list:INTEL DRM I915 DRIVER (Meteor Lake,
+ DG2 and old...), linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] drm: i915: use kzalloc_flex
+Date: Mon, 29 Jun 2026 18:19:07 -0700
+Message-ID: <20260630011907.1453253-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -104,38 +90,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 29 Jun 2026 13:23:27 +0100 Lorenzo Stoakes <ljs@kernel.org> wrote:
+Simplifies allocations by using a flexible array member in this struct.
+No need to free separately.
 
-> There are many instances in which linear_page_index() (as well as
-> linear_page_delta()) is open-coded, which is confusing and inconsistent.
-> 
-> Additionally, vma->vm_pgoff doesn't necessarily make it clear that this is
-> the page offset of the start of the VMA range.
-> 
-> Doing so also aids greppability.
-> 
-> So use vma_start_pgoff() in favour of directly accessing vma->vm_pgoff, and
-> linear_page_index() where we can.
-> 
-> This also lays the ground for future changes which will add an anonymous
-> page offset in order to be able to index MAP_PRIVATE-file backed anon
-> folios in terms of their virtual page offset.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  include/linux/huge_mm.h    |  1 +
->  include/linux/hugetlb.h    |  3 +--
->  include/linux/pagemap.h    |  2 +-
->  mm/damon/vaddr.c           |  5 +++--
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gtt.h   |  2 +-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c | 15 +--------------
+ 2 files changed, 2 insertions(+), 15 deletions(-)
 
-I quickly looked only the DAMON part.  Looks nice and cleaner, thank you!
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index f6f223090760..49b2d2d24fd8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -187,7 +187,7 @@ struct i915_page_table {
+ struct i915_page_directory {
+ 	struct i915_page_table pt;
+ 	spinlock_t lock;
+-	void **entry;
++	void *entry[];
+ };
+ 
+ #define __px_choose_expr(x, type, expr, other) \
+diff --git a/drivers/gpu/drm/i915/gt/intel_ppgtt.c b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+index 72d8473a448b..20cc59a005c9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ppgtt.c
+@@ -36,16 +36,10 @@ struct i915_page_directory *__alloc_pd(int count)
+ {
+ 	struct i915_page_directory *pd;
+ 
+-	pd = kzalloc_obj(*pd, I915_GFP_ALLOW_FAIL);
++	pd = kzalloc_flex(*pd, entry, count, I915_GFP_ALLOW_FAIL);
+ 	if (unlikely(!pd))
+ 		return NULL;
+ 
+-	pd->entry = kzalloc_objs(*pd->entry, count, I915_GFP_ALLOW_FAIL);
+-	if (unlikely(!pd->entry)) {
+-		kfree(pd);
+-		return NULL;
+-	}
+-
+ 	spin_lock_init(&pd->lock);
+ 	return pd;
+ }
+@@ -60,7 +54,6 @@ struct i915_page_directory *alloc_pd(struct i915_address_space *vm)
+ 
+ 	pd->pt.base = vm->alloc_pt_dma(vm, I915_GTT_PAGE_SIZE_4K);
+ 	if (IS_ERR(pd->pt.base)) {
+-		kfree(pd->entry);
+ 		kfree(pd);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+@@ -72,12 +65,6 @@ void free_px(struct i915_address_space *vm, struct i915_page_table *pt, int lvl)
+ {
+ 	BUILD_BUG_ON(offsetof(struct i915_page_directory, pt));
+ 
+-	if (lvl) {
+-		struct i915_page_directory *pd =
+-			container_of(pt, typeof(*pd), pt);
+-		kfree(pd->entry);
+-	}
+-
+ 	if (pt->base)
+ 		i915_gem_object_put(pt->base);
+ 
+-- 
+2.54.0
 
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
