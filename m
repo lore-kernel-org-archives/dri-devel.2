@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5CD5C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01204C43602
 	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:40:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C01B10EC5E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2E210EC66;
 	Tue, 30 Jun 2026 12:40:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HVdzR3jV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oUdiIiPu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6846510EC5C
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:40:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5F7710EC5C
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:40:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E1E7D600BB;
- Tue, 30 Jun 2026 12:40:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BEA91F000E9;
- Tue, 30 Jun 2026 12:40:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B04454055C;
+ Tue, 30 Jun 2026 12:40:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF841F00A3A;
+ Tue, 30 Jun 2026 12:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782823210;
- bh=bl3I/86hqMe/n8cOzb0d1IVOtT9qA2YDZh+SKJBsXcI=;
+ s=k20260515; t=1782823212;
+ bh=uKaCbDGpWr5UKHnGgrDO87OukPxEyAP0AwZqhmrej+k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HVdzR3jVlS3D78eDPTu4X5Fw6VazQOmGQrEwliEqgbduF3GAHfkJCsS7o3zQfNXnT
- v650+/AY0+PBpi8xLUDShHWg4i/KI8oj8vnbNZOcKuQSNcmkQM+hSpoRG4Z2bS55se
- LW+MATI0id58rw5+808J9BZhHeM/6O0AGdIkS/WEkByaz2mwCwQow09sYpl1ayQP8o
- L37l2D4tB11K+Lt3RUyn+/BcX6d3ZWNzOReg+D1P3X00Wqzi8hn8tssyyTP7rz/iYO
- /1JjXM//R2/hkZ5WaggRBt/+5OzDcsaNNVubLqxkt4T9jwA1vsxYSrHs1FmFW5cikV
- z1Rh+R0GearSg==
+ b=oUdiIiPupylxAEryQUqh/oTtmWH41ATcBpPUPly+7VRm1yDoidgmy6mktoTVglH7q
+ lCaqvSzRBoETfutMr6ueHJ7jDW6YIawqEXun7ma9Gs47539PZPgrB9nlnQCL9WPRrP
+ 7DKxNmmQoEfqNvOPn4jaj21G7szJdYZXETnd823u3TsjBjRWw/XiDt2WL3V++87/g6
+ woFbxDL5+Z573X6aCkmU802d9b6iEyt5TziDkYdH37Our0bYxe7oc49DYXs49t+4XF
+ mtkiTIWDHSaI9XyK2ok6vi4fnst59UuVcEHXCI3sYGVQUpG46gcuq2ElOkUdK67Zgv
+ Esjd3JfQtW7PQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/11] rust: pci: use `Option<&IdInfo>` for device ID
+Subject: Re: [PATCH v2 04/11] rust: usb: use `Option<&IdInfo>` for device ID
  info
 To: "Gary Guo" <gary@garyguo.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- "Alexandre Courbot" <acourbot@nvidia.com>, robh@kernel.org,
- dri-devel@lists.freedesktop.org, "Danilo
- Krummrich" <dakr@kernel.org>, linux-pci@vger.kernel.org, ojeda@kernel.org
-In-Reply-To: <20260629-id_info-v2-3-56fccbe9c5ef@garyguo.net>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org,
+ "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org, "Danilo
+ Krummrich" <dakr@kernel.org>, ojeda@kernel.org, robh@kernel.org
+In-Reply-To: <20260629-id_info-v2-4-56fccbe9c5ef@garyguo.net>
 References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
- <20260629-id_info-v2-3-56fccbe9c5ef@garyguo.net>
+ <20260629-id_info-v2-4-56fccbe9c5ef@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 12:40:09 +0000
-Message-Id: <20260630124009.6BEA91F000E9@smtp.kernel.org>
+Date: Tue, 30 Jun 2026 12:40:11 +0000
+Message-Id: <20260630124011.CBF841F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,11 +61,10 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> It is possible that `pci_device_id_any` will be passed to the driver, e.g.
-> `driver_override` is used on the device. Therefore, the driver must be ab=
-le
-> to handle the case where `driver_data` is 0. Thus, update the `probe`
-> functions to get `Option`.
+> It is possible that ID without driver_data will be passed to the driver,
+> e.g. `new_id` is used to dynamically create a new ID without data.
+> Therefore, the driver must be able to handle the case where `driver_data`
+> is 0. Thus, update the `probe` functions to get `Option`.
 >=20
 > The current code cannot tell if the info does not exist or is the first
 > entry; however this will be achievable once the code is updated to use a
@@ -77,5 +76,5 @@ Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-id_info-v2=
--0-56fccbe9c5ef@garyguo.net?part=3D3
+-0-56fccbe9c5ef@garyguo.net?part=3D4
 
