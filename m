@@ -4,128 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2732C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EE3C43602
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F259310EB3D;
-	Tue, 30 Jun 2026 07:19:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="a8voR6Ld";
-	dkim-atps=neutral
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA02410E978
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:40:20 +0000 (UTC)
-Received: by mail-qt1-f174.google.com with SMTP id
- d75a77b69052e-519ff1c8b8bso41920471cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:40:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1782747619; x=1783352419; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=VwgemlAWVZOfyfvrJ+7cyHmQGRLai3JgFnH6EFj5//k=;
- b=a8voR6LdSKl9hghp/HvVf7dTLlEroxjunEQDf+Pzon8+E29S5WVLN6aaQd6SOFLHJB
- AdAkm/ig3itONVKBi7Oov3Nx1p/D/dcOG9rhe4HoE39B+fAaMPuFBn/epxZXPHugtGAE
- u+50V1w6yyyM3UXP2lg50pAkYR/T0n6NnRflmmOVc1dxkMENxjD0EZPgdJGzUmTWEz8I
- LiKAYaudkgOsLDwCNA3nhyYGrW5G1LC8tjOhMq1xKtO3JnL8zgdQt6u2TjEGt92DKCUn
- ZKIaCeSmPyOBCy47SVmFILNEAzduY6GH5ZKSFbQ1j6/yYruHfi+ZkNL21Y6fA6DYyK5U
- WOoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782747619; x=1783352419;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VwgemlAWVZOfyfvrJ+7cyHmQGRLai3JgFnH6EFj5//k=;
- b=J+kG4pKz42/YdJJVz002C9yKCExtx0PCf27l2h3xu/Mg+2RIeSXsBl24wma3Vulg1r
- IbyJswq28A6gXZ+GHTW1WfwiOc61TFI44vn2O5V6ZPUZ/pNsiTL7BRY9DMagfuWQHOJm
- KJ5sANRALvDJrZ5eJ+6C6SkouFKKK+EgQfu83WLmckoeoF/bm0LJZc3Tfm/uNfUs8aAu
- DkLmG6icf1VG8gX8KK6fdSIqDMRUjZ6WH2nf2D3ohMu5XQTLORZ+fkE7nDPPgyed2272
- 7psSDD4d/n5e1Web5Pjq/3FOTe8rNV6cEk8eNUy1lRS4GBt03OdK7VQ7Pf1rtVb4rWdH
- Ey7A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9d8nkujOKMgIHpwxs6fHPCOkC7rCODohmhrRDSjosvICSTXRUbyRDsaWLx/JXAZ2E5bR2Awg73SGU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHDL19PSXJPjIjRd82M6SQiEd1iMgu0/+fs6GvyC4f7Bvfk4Af
- Q5zGfjYkrQMNDg2hu+4KYPVekbndV9WZD/Tval54DlfTXQqMBK+y5QKk26u1cyo8530=
-X-Gm-Gg: AfdE7cn3DPD105cBUGlp21SK4SoVrxu9YdclEAbhUUSnVLIasXYPwQU0THb7tkxG/5l
- Ny2/G6miyIaAT5SVBi0wALLj3fiYQkyz9ntsT/QPiMycG39o/rLMz+u6vCauYI0Wb1wEDqigcab
- e0wpxwju5aKGNpAtPqakC/bS9rugt5HiK3vNMGpTV4hYhsQa7hZmvo+wN2rw+CkAet7Q7gCCr7R
- N+n92GYwU5r6Z6D/mgaGvu1o6eI0Phe4e5YBA/vg26CdwRfmi/Xmc2YHwQ74ulOUZplth5h9JjX
- r0EutslsE7o129jM7QZhkSDBSInFb9pLoDjrcinRRJB31xn2GQYAm/tH4nwtV880/XyoX3sZU5U
- koyq2SkgFP/+qjXetiJU9CVVJAFHeDP8TJreTUjfpxLME9tFlAnmkD6TLy6YkXEDQosgst1rTfD
- 4pVWM4AXfovwprHDZ2djaJ6Aci9o27xhPfGy3G3TE1vDcSJpTV2OGOKXwvBiA7GHkACp2Y
-X-Received: by 2002:a05:622a:5987:b0:51b:f635:9aa1 with SMTP id
- d75a77b69052e-51bf6359eadmr68650541cf.48.1782747619393; 
- Mon, 29 Jun 2026 08:40:19 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51a876c888bsm78114501cf.9.2026.06.29.08.40.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 08:40:18 -0700 (PDT)
-Date: Mon, 29 Jun 2026 11:40:13 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B5D210EB41;
+	Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B94A10E178
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:59:36 +0000 (UTC)
+Received: from 0046-drm-bridge-sii902x-validate-I2S-data-lane-values.eml
+ (unknown [111.196.245.140])
+ by APP-05 (Coremail) with SMTP id zQCowABX7RBJaUNqnWMjFg--.11537S2;
+ Tue, 30 Jun 2026 14:59:21 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 03/30] tools/testing/vma: use vma_start_pgoff() in merge
- tests
-Message-ID: <akKR3bFV7393yOUs@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <b501eca378b9d9734e83838102aadc9276590fba.1782735110.git.ljs@kernel.org>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>
+Subject: [PATCH] drm/bridge: sii902x: validate I2S data lane values
+Date: Tue, 30 Jun 2026 14:58:34 +0800
+Message-ID: <2026063007056160.5-ccfa108-0046-drm-bridge-sii902x-validate-pengpeng@iscas.ac.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b501eca378b9d9734e83838102aadc9276590fba.1782735110.git.ljs@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowABX7RBJaUNqnWMjFg--.11537S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtrWUWFy7Zw4fJw1DKw1xZrb_yoWkAFb_uF
+ s8Cr1DZr1YkFZrXF42yw4SvrWIya1UuF4xWa4jq39xt3W7ZF4Iq3yDXFyrZa13GFsrJF4D
+ AF40y3W8Jwn3GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbVkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+ Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY
+ 04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
+ 1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
+ b7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
+ vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
+ cVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kf
+ nxnUUI43ZEXa7VUbtxhJUUUUU==
+X-Originating-IP: [111.196.245.140]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,20 +69,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:14PM +0100, Lorenzo Stoakes wrote:
-> Now we have the vma_start_pgoff() helper, update the merge tests to make
-> use of it for consistency.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+The sil,i2s-data-lanes property count is bounded, but each lane value
+indexes a four-entry lane table.
 
-Question: Should we have primitive tests for vma_*_pgoff() since
-the behavior changes depending on file/anon?
+Reject lane values outside the supported table before building the FIFO
+sequence.
 
-Nice to have the cleanup and clarity. Maybe worth asserting no
-one ever breaks this.
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/gpu/drm/bridge/sii902x.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-for this patch though
+diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+index ea543be..d68f0a5 100644
+--- a/drivers/gpu/drm/bridge/sii902x.c
++++ b/drivers/gpu/drm/bridge/sii902x.c
+@@ -890,9 +890,16 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
+ 	}
+ 	codec_data.max_i2s_channels = 2 * num_lanes;
+ 
+-	for (i = 0; i < num_lanes; i++)
++	for (i = 0; i < num_lanes; i++) {
++		if (lanes[i] >= ARRAY_SIZE(i2s_lane_id)) {
++			dev_err(dev, "%s: invalid i2s data lane %u\n",
++				__func__, lanes[i]);
++			return -EINVAL;
++		}
++
+ 		sii902x->audio.i2s_fifo_sequence[i] |= audio_fifo_id[i] |
+ 			i2s_lane_id[lanes[i]] |	SII902X_TPI_I2S_FIFO_ENABLE;
++	}
+ 
+ 	sii902x->audio.mclk = devm_clk_get_optional(dev, "mclk");
+ 	if (IS_ERR(sii902x->audio.mclk)) {
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
