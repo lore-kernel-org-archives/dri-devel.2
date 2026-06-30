@@ -4,61 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 164AAC43327
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 13:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDE00C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 13:50:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61EC110EC95;
-	Tue, 30 Jun 2026 13:47:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47CAE10EC8F;
+	Tue, 30 Jun 2026 13:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="aSRj2DV0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nhYqmEaN";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8E010EC8D
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 13:47:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782827226; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=OoWMVThAaEBf+XimeM6uyOg5styPf5jlT+Z/x08drkQoSVuL91sP/0Vq41jMYxcFAUGC1+rAr3I8GcEiPdtBgFwOYDalCgHQPcwiwhq3aDl6bSqw8xFk3itplJ3Cfwu0jWH12P0XnCPgYRkh0zRiGMnMBst1FESHMJTnhLzLBuw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782827226;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mCUXX/ZAydApsMqIr6dhQIS1Dx+7cVtH8nR8HttmKjQ=; 
- b=TgyYKGj7jDCQ116sLM/swijp5G9zYHvltMcVWqNmncIVaxBRJdwyuONf9ZbShwhpjY2pAVK9MQDr5eBpv+CTRsSdL9QiqYQMVr17nAdEWCj2zhsG/yvq2svpKh61e/GuoOhkqZHPnsv6Hp6wz+EbKKqi03Dohf7NLQ9M2rmcLKk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782827226; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=mCUXX/ZAydApsMqIr6dhQIS1Dx+7cVtH8nR8HttmKjQ=;
- b=aSRj2DV0SyYFSI0igaf5/ZSylpdHnw2AS+H7JGgV1SMqFM/h0D+ml6c+GS+rHUcy
- nKgUowJ7/MHJkU4TZalvLYKo+u/jAcoqZHBjWBhngSQt7McavP5zf0zmEBg7uzY9YbT
- l+jnCEqqwPhZFCTHGoFC7tvX5kIXT5vw2rvRtcI4=
-Received: by mx.zohomail.com with SMTPS id 1782827223106724.3283705957734;
- Tue, 30 Jun 2026 06:47:03 -0700 (PDT)
-Message-ID: <5aa634c1-7530-4b1f-931a-a5a5ac6c908a@collabora.com>
-Date: Tue, 30 Jun 2026 16:46:58 +0300
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD9110EC8D
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 13:50:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8DB67601C1;
+ Tue, 30 Jun 2026 13:50:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CFF1F000E9;
+ Tue, 30 Jun 2026 13:50:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782827418;
+ bh=r5/XEfDRgRNyeD3IF0mg0cZuaZMASN03u9kVorM3GNI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=nhYqmEaN4wmBNsZUU8bKra5Imi5s/cf3NZTFsYJHnC9ANATTSlzBlyiq15+sOcFBf
+ hH3EEr9IiReV4GshzevMtkVog9DbbxPJbfkLn6q/mhhwLi8qffyASXUGZ9V3Q0YiKG
+ jGmGKjX9qFvlLR3zH6VX8aumoTt9j+QBqVERLcpG5XXaDGjegKba4+2jSCoRLvHuAD
+ 9UPmRGRC3lrVz/FJBPfWWCnzj7EsL3OyzN0p3APlsVDRHRt8Rd8QY8izt/AxXOasor
+ I0/PobwDtqMJEsUy3y8Ls9v9o+AYIxZOOdmTOe5/c3mK2FIy+0fe6eyYy40tP2pp3/
+ oE1970hKzUkzA==
+Date: Tue, 30 Jun 2026 08:50:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: linux-leds@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ Andrew Davis <afd@ti.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: backlight: ti,lp8864: Add backlight
+ class properties
+Message-ID: <20260630135017.GA2948054-robh@kernel.org>
+References: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
+ <20260615120353.3409035-2-alexander.sverdlin@siemens.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260630-virtiogpu_syzbot-v1-1-0aa06630750e@redhat.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260630-virtiogpu_syzbot-v1-1-0aa06630750e@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260615120353.3409035-2-alexander.sverdlin@siemens.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,111 +65,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Mon, Jun 15, 2026 at 02:03:47PM +0200, A. Sverdlin wrote:
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> 
+> Extend the TI LP8864/LP8866 device-tree binding to support backlight
+> class properties alongside the existing LED class child node.
+> 
+> This is a preparatory change for converting the LP8864 driver from a
+> pure LED class driver to additionally register a backlight class device,
 
-On 6/30/26 12:16, Ryosuke Yasuoka wrote:
-> A probe-time deadlock can occur between the dequeue worker and
-> drm_client_register(). During probe, drm_client_register() holds
-> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
-> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
-> waiting for virtqueue space. The dequeue worker that would free that
-> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
-> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
-> to acquire the same clientlist_mutex. Since wake_up() is only called
-> after the resp_cb loop, the probe thread is never woken and both threads
-> deadlock.
+That's fine, but should have little to do with the binding. The h/w is 
+not changing.
+
+> motivated by a use case on a hot-pluggable segment of an I2C bus. The
+> generic led-backlight driver (led_bl.c) is a platform driver and thus
+> inherently non-hotpluggable, which makes it unsuitable for hardware
+> topologies where the backlight controller resides on a hot-pluggable I2C
+> bus segment. By making the LP8864 driver itself register a backlight
+> class device, it becomes a native I2C driver that properly supports
+> hot-plug/unplug events.
 > 
-> Fix this by deferring the hotplug notification from
-> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
-> display data (outputs[i].info) is still updated synchronously in the
-> callback, and the deferred work only triggers a re-probe notification to
-> DRM clients.
+> The binding is updated to:
+> - Reference backlight common.yaml at the top level, making
+>   default-brightness and max-brightness valid optional properties
+> - Make the "led" child node optional rather than required, since the
+>   backlight class device is now the primary interface
+> - Use unevaluatedProperties instead of additionalProperties to properly
+>   allow properties inherited from the referenced common schema
 > 
-> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
-> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
-> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
-> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+> The LED child node is preserved for backward compatibility with existing
+> device-trees. No in-tree device-trees reference this binding, so this
+> change has no impact on existing mainline users.
+> 
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 > ---
->  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
->  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
->  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
->  3 files changed, 16 insertions(+), 2 deletions(-)
+>  .../bindings/leds/backlight/ti,lp8864.yaml       | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> index 7449907754a4..27ffa4697ae9 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
+> index d44232d462bde..11d7e3840c6fb 100644
+> --- a/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
+> +++ b/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
+> @@ -4,7 +4,7 @@
+>  $id: http://devicetree.org/schemas/leds/backlight/ti,lp8864.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
 >  
->  	struct work_struct config_changed_work;
+> -title: Texas Instruments - LP8864/LP8866 4/6-Channel LED Driver family
+> +title: Texas Instruments - LP8864/LP8866 4/6-Channel LED Backlight Driver family
 >  
-> +	struct work_struct hotplug_work;
+>  maintainers:
+>    - Andrew Davis <afd@ti.com>
+> @@ -21,6 +21,9 @@ description: |
+>      https://www.ti.com/product/LP8866-Q1
+>      https://www.ti.com/product/LP8866S-Q1
+>  
+> +allOf:
+> +  - $ref: common.yaml#
 > +
->  	struct work_struct obj_free_work;
->  	spinlock_t obj_free_lock;
->  	struct list_head obj_free_list;
-> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
->  					uint32_t x, uint32_t y,
->  					struct virtio_gpu_object_array *objs,
->  					struct virtio_gpu_fence *fence);
-> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
->  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgdev,
->  					 uint32_t resource_id,
->  					 uint32_t x, uint32_t y,
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> index cfde9f573df6..cfb532ba43a4 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
->  	INIT_WORK(&vgdev->config_changed_work,
->  		  virtio_gpu_config_changed_work_func);
+>  properties:
+>    compatible:
+>      const: ti,lp8864
+> @@ -36,9 +39,15 @@ properties:
+>    vled-supply:
+>      description: LED supply
 >  
-> +	INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
+> +  default-brightness:
+> +    maximum: 65535
 > +
->  	INIT_WORK(&vgdev->obj_free_work,
->  		  virtio_gpu_array_put_free_work);
->  	INIT_LIST_HEAD(&vgdev->obj_free_list);
-> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
->  	flush_work(&vgdev->obj_free_work);
->  	flush_work(&vgdev->ctrlq.dequeue_work);
->  	flush_work(&vgdev->cursorq.dequeue_work);
-> +	flush_work(&vgdev->hotplug_work);
->  	flush_work(&vgdev->config_changed_work);
->  	virtio_reset_device(vgdev->vdev);
->  	vgdev->vdev->config->del_vqs(vgdev->vdev);
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> index 67865810a2e7..084d98f5dc7b 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virtio_gpu_device *vgdev,
->  	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
->  }
->  
-> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
-> +{
-> +	struct virtio_gpu_device *vgdev =
-> +		container_of(work, struct virtio_gpu_device, hotplug_work);
+> +  max-brightness:
+> +    maximum: 65535
 > +
-> +	if (!drm_helper_hpd_irq_event(vgdev->ddev))
-> +		drm_kms_helper_hotplug_event(vgdev->ddev);
-> +}
-> +
->  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
->  					       struct virtio_gpu_vbuffer *vbuf)
->  {
-> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
->  	spin_unlock(&vgdev->display_info_lock);
->  	wake_up(&vgdev->resp_wq);
->  
-> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
-> -		drm_kms_helper_hotplug_event(vgdev->ddev);
-> +	schedule_work(&vgdev->hotplug_work);
->  }
->  
->  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
+>    led:
+>      type: object
+> -    $ref: common.yaml#
+> +    $ref: /schemas/leds/common.yaml#
 
-Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init(), placing it after wait_event_timeout(display_info_pending)? This will avoid additional work_struct that otherwise needs to be cancelled in virtio_gpu_init() on the timeout.
+This was already supporting backlight properties. Changing it to leds is 
+an ABI break.
 
--- 
-Best regards,
-Dmitry
+The binding was designed to have a child node. Make that work for 
+whatever you want to do with the driver. I see no reason to support with 
+*and* without a child node.
+
+Rob
