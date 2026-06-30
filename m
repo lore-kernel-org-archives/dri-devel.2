@@ -4,60 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC4C2C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 14:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B82C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 14:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E12A10E122;
-	Tue, 30 Jun 2026 14:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 184E210E200;
+	Tue, 30 Jun 2026 14:46:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="TYmuFuPU";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jsCIUDvv";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B21F10E122
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 14:42:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782830553; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PD3N0zSWqcHkBLUJXXVo9xmsR9Bk/edTQ1Zj++EMrOPWI5Xxm5PrgRzwbNuVTVWcmsxskMXP7PxX+vXHq2yPXLh4zvVJ84klk1gWwzuRqtnrVfWDlUoP3Kq2wUzFLOXavh0vUDGZdaa5scp4ML+8VEk9oNAUK9ynAjhiaBqiBA4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782830553;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=nDzUCinhqLX/oyWxM4Vcrz12+bJW/6luK783RfqJDio=; 
- b=OQ4YgzWgDZI6jAPQ2gWPmFmpJBsQHyYHKk6d9ahkRqJ00tcgy5pI2lQvJVgSflWuX0r+enjczTGwqD0ndFswcEda/gq8GVkxY+t11hmpIuVcxi2hhkkY7g+XB9CRkbeE+xN+vGmIbYv0+LybnjNUgC2rurn294dniw7EgXj237k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782830553; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=nDzUCinhqLX/oyWxM4Vcrz12+bJW/6luK783RfqJDio=;
- b=TYmuFuPUVvdG4tllhAtGrK7QBv3EHpcLhGuOJreqwQU32VVmelkQjWW0Um30QxAs
- FWFHoFM29a6F7y0Ysa0t1Xj2nmxWynXIswVukT5+J4HwaxMbI+dVDutVdmb1Xuq1pKm
- c6ncUyOlfW6H3NlN5dK19eWUVf6FBcuyozVb/tlU=
-Received: by mx.zohomail.com with SMTPS id 1782830551361970.0532585868376;
- Tue, 30 Jun 2026 07:42:31 -0700 (PDT)
-Message-ID: <857b0af4-968e-4152-96a1-1fa221f0085c@collabora.com>
-Date: Tue, 30 Jun 2026 17:42:26 +0300
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7788B10E200
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 14:46:07 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gqQtz6KCbz9tyS;
+ Tue, 30 Jun 2026 16:46:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1782830763; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=td3tFB9mSbocKcY7wsrXfJgzOu/KGrhFsokIWvDAN8c=;
+ b=jsCIUDvvhEKgYl+MF20FP+zp/TLtbQUxVls8a/aE7NFdWKVYaYgIlHDFJdgBVojaACnt1O
+ P1GdHwCmaodxogBlvs7DoHeB0H4M25ET7o4S6Y5pXgkfvyJ0gr7A6CLkAOHLhRHwXpYAV/
+ NFrS6BBGQtjgI/NGI3LW8egco2Fc5JurYTihQHhoZbhMmsJmc2QHbnyMx1nNbycHydpowg
+ vwmxT4mIbZJP1L7pEt9yMyRn+bcdGUrw97+vku9ytuJ7O9CtlHGPoczdPGdaB2yhc0EqGX
+ zVzqcNoJ9lXvGajnUF1eMWiRh8ox+hZhACP7Li7mLqoW8PjgA/YokK9H80dPnA==
+Message-ID: <11eddeafe60facdeac31779f36a7e4d52967bba3.camel@mailbox.org>
+Subject: Re: [PATCH 03/10] drm/amdgpu: use dma_fence_test_signaled_flag()
+From: Philipp Stanner <phasta@mailbox.org>
+To: christian.koenig@amd.com, phasta@kernel.org, simona@ffwll.ch, 
+ sumit.semwal@linaro.org, tvrtko.ursulin@igalia.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org
+Date: Tue, 30 Jun 2026 16:45:59 +0200
+In-Reply-To: <20260624122917.2483-4-christian.koenig@amd.com>
+References: <20260624122917.2483-1-christian.koenig@amd.com>
+ <20260624122917.2483-4-christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: fail init on display-info timeout
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260625030202.82590-1-pengpeng@iscas.ac.cn>
- <f5c5fc6c-3c6e-4068-80d7-f1acebff7168@collabora.com>
-Content-Language: en-US
-In-Reply-To: <f5c5fc6c-3c6e-4068-80d7-f1acebff7168@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-MBO-RS-META: h6ibeto89pym1n4ypemmh4s8ym4z38jc
+X-MBO-RS-ID: 1559734c5a0b76028f8
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,61 +63,136 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/30/26 16:36, Dmitry Osipenko wrote:
-> On 6/25/26 06:02, Pengpeng Hou wrote:
->> virtio_gpu_init() sends GET_DISPLAY_INFO when scanouts are present and
->> waits for display_info_pending to clear. If the response never arrives,
->> the wait result is ignored and probe still succeeds.
->>
->> Return -ETIMEDOUT on display-info timeout. Because this happens after
->> virtio_device_ready(), reset the device and tear down modesetting before
->> using the existing vbuf and virtqueue cleanup path.
->>
->> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
->> ---
->>  drivers/gpu/drm/virtio/virtgpu_kms.c | 12 ++++++++++--
->>  1 file changed, 10 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
->> index cfde9f573df6..31209bea97ae 100644
->> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
->> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
->> @@ -262,11 +262,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
->>  			virtio_gpu_cmd_get_edids(vgdev);
->>  		virtio_gpu_cmd_get_display_info(vgdev);
->>  		virtio_gpu_notify(vgdev);
->> -		wait_event_timeout(vgdev->resp_wq, !vgdev->display_info_pending,
->> -				   5 * HZ);
->> +		if (!wait_event_timeout(vgdev->resp_wq,
->> +					!vgdev->display_info_pending,
->> +					5 * HZ)) {
->> +			DRM_ERROR("timed out waiting for display info\n");
->> +			ret = -ETIMEDOUT;
->> +			goto err_ready;
->> +		}
->>  	}
->>  	return 0;
->>  
->> +err_ready:
->> +	virtio_reset_device(vgdev->vdev);
->> +	virtio_gpu_modeset_fini(vgdev);
->>  err_scanouts:
->>  	virtio_gpu_free_vbufs(vgdev);
->>  err_vbufs:
-> 
-> Rebased and applied to misc-next, thanks!
+On Wed, 2026-06-24 at 13:13 +0200, Christian K=C3=B6nig wrote:
+> Instead of dma_fence_is_signaled_locked() use
+> dma_fence_test_signaled_flag().
+>=20
+> The extra polling check seems unecessary for those use cases.
 
-Now see [1] having valid point on a leaked memory allocations. It's not
-trivial to free that memory properly. Perhaps best will be to revert
-this change and use wait_event() without timeout, will think further on
-it before proceeding.
+In this [1] recent discussion with Tvrtko I point out that we (i.e.,
+DRM) would really greatly benefit from more verbose commit messages.
+What is completely natural and self-explanatory to us might be far less
+intuitive for those coming in 5 years.
 
-[1]
-https://sashiko.dev/#/patchset/20260625030202.82590-1-pengpeng%40iscas.ac.cn
+You and I, we understand that dma_fence_is_signaled() can actively poll
+a fence. I still think it is not intuitive, but it's a complex API. And
+you personally also understand why an opportunistic poll is not
+necessary for amdgpu. A new contributor, like a hacker who cares about
+gaming on AMD hardware, who wants to help improve your driver, does not
+know that.
 
--- 
-Best regards,
-Dmitry
+Someone git-blaming one of those lines in a few years would just see
+that a function was replaced with a function with a basically identical
+name, and would not understand why the change was made.
+
+The commit simply says "seems unnecessary". Why :)
+
+I think fleshing it out more in the classical pattern (description of
+current situation, description of the problem, then description of the
+action the patch takes) is indeed more work for the author (to whom it
+might appear like a waste of time to describe sth obvious), but would
+also greatly benefit you personally, since it could reduce the amount
+of times we have to tell folks "I don't know, there was a reason =E2=80=93 =
+go
+ask Christian" ;)
+
+
+Gr=C3=BC=C3=9Fe,
+Philipp
+
+
+[1] https://lore.kernel.org/dri-devel/9f7fa57610d3d94324e09dc936f5f7f3c3d39=
+0d3.camel@mailbox.org/
+
+
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 8 ++++----
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 2 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 2 +-
+> =C2=A03 files changed, 6 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fence.c
+> index ea69b1bac7c6..1192b9800ff2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -652,7 +652,7 @@ void amdgpu_fence_driver_set_error(struct amdgpu_ring=
+ *ring, int error)
+> =C2=A0
+> =C2=A0		fence =3D rcu_dereference_protected(drv->fences[i],
+> =C2=A0						=C2=A0 lockdep_is_held(&drv->lock));
+> -		if (fence && !dma_fence_is_signaled_locked(fence))
+> +		if (fence && !dma_fence_test_signaled_flag(fence))
+> =C2=A0			dma_fence_set_error(fence, error);
+> =C2=A0	}
+> =C2=A0	spin_unlock_irqrestore(&drv->lock, flags);
+> @@ -677,7 +677,7 @@ void amdgpu_fence_driver_force_completion(struct amdg=
+pu_ring *ring,
+> =C2=A0
+> =C2=A0		fence =3D rcu_dereference_protected(drv->fences[i],
+> =C2=A0						=C2=A0 lockdep_is_held(&drv->lock));
+> -		if (fence && !dma_fence_is_signaled_locked(fence)) {
+> +		if (fence && !dma_fence_test_signaled_flag(fence)) {
+> =C2=A0			if (fence =3D=3D timedout_fence)
+> =C2=A0				dma_fence_set_error(fence, -ETIME);
+> =C2=A0			else
+> @@ -738,7 +738,7 @@ void amdgpu_ring_set_fence_errors_and_reemit(struct a=
+mdgpu_ring *ring,
+> =C2=A0		rcu_read_lock();
+> =C2=A0		unprocessed =3D rcu_dereference(*ptr);
+> =C2=A0
+> -		if (unprocessed && !dma_fence_is_signaled_locked(unprocessed)) {
+> +		if (unprocessed && !dma_fence_test_signaled_flag(unprocessed)) {
+> =C2=A0			fence =3D container_of(unprocessed, struct amdgpu_fence, base);
+> =C2=A0			is_guilty_fence =3D fence =3D=3D guilty_fence;
+> =C2=A0			is_guilty_context =3D fence->context =3D=3D guilty_fence->contex=
+t;
+> @@ -802,7 +802,7 @@ void amdgpu_ring_backup_unprocessed_commands(struct a=
+mdgpu_ring *ring,
+> =C2=A0		rcu_read_lock();
+> =C2=A0		unprocessed =3D rcu_dereference(*ptr);
+> =C2=A0
+> -		if (unprocessed && !dma_fence_is_signaled(unprocessed)) {
+> +		if (unprocessed && !dma_fence_test_signaled_flag(unprocessed)) {
+> =C2=A0			fence =3D container_of(unprocessed, struct amdgpu_fence, base);
+> =C2=A0
+> =C2=A0			amdgpu_ring_backup_unprocessed_command(ring, fence);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.c
+> index d6bee5c30073..ae9d6a2eefab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -460,7 +460,7 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ri=
+ng, unsigned int vmid,
+> =C2=A0		return false;
+> =C2=A0
+> =C2=A0	dma_fence_lock_irqsave(fence, flags);
+> -	if (!dma_fence_is_signaled_locked(fence))
+> +	if (!dma_fence_test_signaled_flag(fence))
+> =C2=A0		dma_fence_set_error(fence, -ENODATA);
+> =C2=A0	dma_fence_unlock_irqrestore(fence, flags);
+> =C2=A0
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index a41fb72dba94..2cc6552a6399 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -426,7 +426,7 @@ amdgpu_userq_fence_driver_set_error(struct amdgpu_use=
+rq_fence *fence,
+> =C2=A0
+> =C2=A0	f =3D rcu_dereference_protected(&fence->base,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lockdep_is_held(&fence_drv->fenc=
+e_list_lock));
+> -	if (f && !dma_fence_is_signaled_locked(f))
+> +	if (f && !dma_fence_test_signaled_flag(f))
+> =C2=A0		dma_fence_set_error(f, error);
+> =C2=A0	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
+> =C2=A0}
