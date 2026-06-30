@@ -4,94 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E80D2C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:17:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00DE4C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:18:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50CC510E19B;
-	Tue, 30 Jun 2026 09:17:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8E510E1C9;
+	Tue, 30 Jun 2026 09:18:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="IYMxaoI8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LK+H7vXj";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D799810E19B
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:17:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782811022;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=SQjV7ILhB1oO4EWB5BntYJkQ/7T/8cRlQn3mNNHBaBw=;
- b=IYMxaoI8J1rCH/9sgRVdtL03zSUfCQI7yxvl3ovhBNz4WpEe6znscF0P1aFcDiCFF+OMCv
- 2znVsOJAgg6/i1QVrZ5Vp6wtiNxCNyqlzBx7fumvV1k71RWJKPdpZr17uWskjE6fwBNPPl
- tIOYoIrlB09PqmKzGoF7XpCKLCSlM9Y=
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-99-DqIOpp84Mv-vlydTohUbsA-1; Tue, 30 Jun 2026 05:16:59 -0400
-X-MC-Unique: DqIOpp84Mv-vlydTohUbsA-1
-X-Mimecast-MFC-AGG-ID: DqIOpp84Mv-vlydTohUbsA_1782811019
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-845e3ede1f9so2044647b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 02:16:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782811019; x=1783415819;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SQjV7ILhB1oO4EWB5BntYJkQ/7T/8cRlQn3mNNHBaBw=;
- b=VSCgVdq9JHCiCAux1YqpSWP7MbsuPaD9SaoyVascBwY7DLAH81VNz6GkxZwRiVkQwq
- 6bsJlFiUXicsGvk2Vgc0PNHWa+CVTypQZMrLl2xFrOuVCa5Tggc7M+7scf/NVS+IsV9Y
- 3IsxnQkC2rGLYfhBYHa+NZsNZKjU+w+HLxosargm4tyPi8JInhGKjHJgXuKgRBhUmU8n
- 7ncS3kWCaiC9BSeUI1di2lN2EP93iacrWa96eT8imUCofkyJYE65b06mp8k/gchSpzVo
- 0SvE/mKDcHMU5N/2QNrQS14JX4r0uWIFYNplwKA2SE+ktHrisK02470TdM8qBcu9w9iN
- ha2w==
-X-Gm-Message-State: AOJu0Yz803iqdYC6WIyx+HgLIPIZ0CotEyY5D+Al0Rt+g75m3OZexinF
- 7fF4QKTXn6HPdi7oO/afg4GIK2kx+cpLLEiLPr7QFGRrLmMWglcKwpd7HWRDmf1WVLswAHD97qd
- +Iji1wKAQv8Ig/hZtyEeP/aU0OL57eZr/m2TdwbEwcvxh2HL5J/kAglTn3bjxW6yBHY0CPw==
-X-Gm-Gg: AfdE7cmDETl/W+9mUbhRlB5ba4uiSUba2B5qssJhU6SwyBNbtIvR8m7TUmKiLA8X1jD
- ZkVyXiKQqlk8Qh9ayyrc6lD/9agKqGlWgbDAmr7DAJynx84zTEEspWZXtcCWtmkTQJiq2zvFvxx
- BriUeWxNP4F+nyORMGkmx3D1Fw/Xxx/4c+Wepbq2qdjNlRTjmaWB2Ni6Cpb2Grqbs9IyRIYKnuQ
- 4QgcyH5QExRH/4dAD683zYUbSz5boKftdAA0lCWhqD4qCVSydYPD34VKb2pLzAAcJUyq0yLq5Td
- MQjI8y3g8/Mi0xoHs8ERCNOD/VHqO6o5niBxvEFsvRhbQCgzrgEi8Rhey9f/8Te6Z+dImQYtBBO
- +OdtYBq6doPz+hfKqPuh09svPGeJ8oWTFm8y9UB38ZZaIr6xu
-X-Received: by 2002:a05:6a00:9505:b0:847:8f68:e8d7 with SMTP id
- d2e1a72fcca58-8479ee9a5bdmr2034493b3a.8.1782811018754; 
- Tue, 30 Jun 2026 02:16:58 -0700 (PDT)
-X-Received: by 2002:a05:6a00:9505:b0:847:8f68:e8d7 with SMTP id
- d2e1a72fcca58-8479ee9a5bdmr2034475b3a.8.1782811018268; 
- Tue, 30 Jun 2026 02:16:58 -0700 (PDT)
-Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847a005af85sm1494569b3a.25.2026.06.30.02.16.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 02:16:57 -0700 (PDT)
-From: Ryosuke Yasuoka <ryasuoka@redhat.com>
-Date: Tue, 30 Jun 2026 18:16:42 +0900
-Subject: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-MIME-Version: 1.0
-Message-Id: <20260630-virtiogpu_syzbot-v1-1-0aa06630750e@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBMsSKqrRETqaLPR0IpKvHvS8
- i3+TxAxEEYYqwQBL4rkXUFTV6C21VlkpIuh5a3gohnYReEgb/dzic8r/cGkXmXHe2OU7qBke0B
- D97+c5pw/IIUSo2IAAAA=
-X-Change-ID: 20260619-virtiogpu_syzbot-bdab508ffcd5
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Ryosuke Yasuoka <ryasuoka@redhat.com>
-X-Mailer: b4 0.14.3
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Efa5HuY5g2ieYYhzGKDhPq1R7xGxNoar6x7N4ulcXjo_1782811019
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F108710E1C2
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:18:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 10C0260008;
+ Tue, 30 Jun 2026 09:18:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61EF91F000E9;
+ Tue, 30 Jun 2026 09:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782811116;
+ bh=KW1pfKNHEAPg9bjM0z1MQwuwdmRdFhmyw85dKXvLtXo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LK+H7vXjqx8kPtPQsZvFg7rIHK2GerqSgO316aMCFCiBlBpfSQF2VSp4RCXPkKoVP
+ 5NFckVm61lPuDDIC8fUld3UOnCXMmnrkqXiIy0G62pIDILUfYVARGS6pmFRXDVwGqU
+ 3raKqv1ULsWkeVQlDE7GzaSNjUi8g41whXkULAGSRA6W6hoGmZi1+ZfssPOkWjQAPL
+ I3LTzzJLd5FGOsM7Y0NiraeDMu8iqth+vuvfurSNuPfWkn5QZblOddQV5/hmnLIdwc
+ S4PlG5bTF+cz5VYb/H8pPq8Nb5Alkm92h8oKcvPOEPkUonTJsXOkBvEIDLQ22LuiVF
+ QnztqCxzQebBA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/19] i2c: pxa-pci: use platform_device_set_of_node()
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, conor+dt@kernel.org,
+ robh@kernel.org
+In-Reply-To: <20260629-pdev-fwnode-ref-v2-7-8abe2513f96e@oss.qualcomm.com>
+References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
+ <20260629-pdev-fwnode-ref-v2-7-8abe2513f96e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 09:18:35 +0000
+Message-Id: <20260630091836.61EF91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,114 +55,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A probe-time deadlock can occur between the dequeue worker and
-drm_client_register(). During probe, drm_client_register() holds
-clientlist_mutex and calls the fbdev hotplug callback, which triggers an
-atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
-waiting for virtqueue space. The dequeue worker that would free that
-space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
-drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
-to acquire the same clientlist_mutex. Since wake_up() is only called
-after the resp_cb loop, the probe thread is never woken and both threads
-deadlock.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Replacing direct assignment of `pdev->dev.of_node` with `platfor=
+m_device_set_of_node()` introduces an OF node reference leak.
+--
 
-Fix this by deferring the hotplug notification from
-virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
-display data (outputs[i].info) is still updated synchronously in the
-callback, and the deferred work only triggers a re-probe notification to
-DRM clients.
+commit 1020448923f472d3e1acfa19d1b3b2b19a08078e
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
-Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
-Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
-Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
----
- drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
- drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
- drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
- 3 files changed, 16 insertions(+), 2 deletions(-)
+i2c: pxa-pci: use platform_device_set_of_node()
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 7449907754a4..27ffa4697ae9 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -264,6 +264,8 @@ struct virtio_gpu_device {
- 
- 	struct work_struct config_changed_work;
- 
-+	struct work_struct hotplug_work;
-+
- 	struct work_struct obj_free_work;
- 	spinlock_t obj_free_lock;
- 	struct list_head obj_free_list;
-@@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
- 					uint32_t x, uint32_t y,
- 					struct virtio_gpu_object_array *objs,
- 					struct virtio_gpu_fence *fence);
-+void virtio_gpu_hotplug_work_func(struct work_struct *work);
- void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgdev,
- 					 uint32_t resource_id,
- 					 uint32_t x, uint32_t y,
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index cfde9f573df6..cfb532ba43a4 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 	INIT_WORK(&vgdev->config_changed_work,
- 		  virtio_gpu_config_changed_work_func);
- 
-+	INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
-+
- 	INIT_WORK(&vgdev->obj_free_work,
- 		  virtio_gpu_array_put_free_work);
- 	INIT_LIST_HEAD(&vgdev->obj_free_list);
-@@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
- 	flush_work(&vgdev->obj_free_work);
- 	flush_work(&vgdev->ctrlq.dequeue_work);
- 	flush_work(&vgdev->cursorq.dequeue_work);
-+	flush_work(&vgdev->hotplug_work);
- 	flush_work(&vgdev->config_changed_work);
- 	virtio_reset_device(vgdev->vdev);
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 67865810a2e7..084d98f5dc7b 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virtio_gpu_device *vgdev,
- 	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
- }
- 
-+void virtio_gpu_hotplug_work_func(struct work_struct *work)
-+{
-+	struct virtio_gpu_device *vgdev =
-+		container_of(work, struct virtio_gpu_device, hotplug_work);
-+
-+	if (!drm_helper_hpd_irq_event(vgdev->ddev))
-+		drm_kms_helper_hotplug_event(vgdev->ddev);
-+}
-+
- static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
- 					       struct virtio_gpu_vbuffer *vbuf)
- {
-@@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
- 	spin_unlock(&vgdev->display_info_lock);
- 	wake_up(&vgdev->resp_wq);
- 
--	if (!drm_helper_hpd_irq_event(vgdev->ddev))
--		drm_kms_helper_hotplug_event(vgdev->ddev);
-+	schedule_work(&vgdev->hotplug_work);
- }
- 
- static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
+This commit encapsulates the assignment of the OF node for dynamically
+allocated platform devices by replacing direct assignment with the
+platform_device_set_of_node() helper. This change prepares the driver
+for an upcoming rework of the reference counting logic for platform devices.
 
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260619-virtiogpu_syzbot-bdab508ffcd5
+> diff --git a/drivers/i2c/busses/i2c-pxa-pci.c b/drivers/i2c/busses/i2c-px=
+a-pci.c
+> index dbd542300f800..92a0647f08c69 100644
+> --- a/drivers/i2c/busses/i2c-pxa-pci.c
+> +++ b/drivers/i2c/busses/i2c-pxa-pci.c
 
-Best regards,
--- 
-Ryosuke Yasuoka <ryasuoka@redhat.com>
+[ ... ]
 
+> @@ -76,7 +76,8 @@ static struct platform_device *add_i2c_device(struct pc=
+i_dev *dev, int bar)
+>  		goto out;
+>  	}
+>  	pdev->dev.parent =3D &dev->dev;
+> -	pdev->dev.of_node =3D child;
+> +
+> +	platform_device_set_of_node(pdev, child);
+
+[Severity: Medium]
+Does this cause an OF node reference leak in add_i2c_device()?
+
+The for_each_child_of_node() loop earlier in this function acquires a
+reference to the matched child node. Before this patch, the direct assignme=
+nt
+transferred ownership of that reference to the platform device.
+
+Because platform_device_set_of_node() explicitly acquires its own additional
+reference internally, the original reference from the loop iterator appears=
+ to
+be left unreleased.=20
+
+Is an of_node_put(child) needed after this helper call to balance the
+reference count?
+
+> =20
+>  	ret =3D platform_device_add_resources(pdev, res, ARRAY_SIZE(res));
+>  	if (ret)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-pdev-fwnod=
+e-ref-v2-0-8abe2513f96e@oss.qualcomm.com?part=3D7
