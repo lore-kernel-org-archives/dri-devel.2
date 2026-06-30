@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF922C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 02:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2BEBC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 02:37:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14ACE10E14A;
-	Tue, 30 Jun 2026 02:37:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC2610E14D;
+	Tue, 30 Jun 2026 02:37:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JlTW0/mJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JbRTRSB7";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EBD510E14A
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 02:37:10 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-37ff436a048so945808a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 19:37:10 -0700 (PDT)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF55710E14D
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 02:37:20 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2c9b42be8feso22504255ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 19:37:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782787029; x=1783391829; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=21ZT2NLOqak/UmjGCnvaZ01Nfpagn9lBx2F49mLQoMU=;
- b=JlTW0/mJ8G0sF1/HoldmPDHlkJ9BGUC7u1CyUmBi+KptPIAR0V9yR8See2sdP3CK/T
- 4sGv4npK5GfjQXLEJhLcIOPN+XotT2aNyx8jtW4vs1gqcZruaFw6htHeESIo4tLS3LrG
- 8YrDJ8TgiBYpMGhrWr1BFZ0iSYBfXz5EQR2SvYFXC8hjTnzWYVoNThdU8sAFUK9C07Cd
- 4AFMbS357EhV7IjNlKW1Y6APESsL8lU1RIH0PnNL/7ByngxyhNixP0ZmNAysQmwLXKFT
- LYJUpQCJzr02Yi1smlX/+je7UDfRFbVir3eGvjuOgmsrQF0ucEfNUIkCbXV41Ul6krGz
- jzsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782787029; x=1783391829;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1782787040; x=1783391840; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=21ZT2NLOqak/UmjGCnvaZ01Nfpagn9lBx2F49mLQoMU=;
- b=Wo7UHCTOGla/2FiDDl5KDpczuHeP/vF3PiNuRlyhavMrxkCi+6ur825bEsbAZb8IVh
- elxit4UDZD+KSKSooWHE1puUzDIfVhNyfFSYFp1hxMMSqnptSwX415eZWuWxbYPjW6MG
- ifGhE30/ApNVcQRZg2CRWp9aKZ7rCvywrlM1u/kuA78J77HgOHhEvPgIyKkG4khrliVd
- GimkrzVj44EyFXXhkZYTlxc6/5iTYqpxiZl5uNredfwZOYUqMXb6v0OJ7JsqxbxksAc9
- g+9H4gGlopqTcsYkd5ICH+prONrtgWNu9qoJGa/ts6yeQnOalRIuz8d951EWghlXG1vA
- np+w==
-X-Gm-Message-State: AOJu0Ywo6/d/5d8qjBJzhAEhcjwFdgLBCzL7FufolUcyKKvhFWj3Etxg
- lkeLX5dYOCUf2jbqBTxK/G3kCXHkqNeG7lHrwvkUctfsq48WDx86Irb8
-X-Gm-Gg: AfdE7cn22eM2oZbVBZ6ufk2HhdX1WWVDUzz13WrlcGWObHAF/CaDG9MDZu6NATJ9AWt
- 7RRqIUcUOibcxxS6HQnuQIPvEkXNY8xYBhn7AAbTD1M1n6mttImQaxFw55XDaga+NMnmjJY5r99
- dRhVPJ4uq6X/2/pHEw8c5xrWwQPCcGOGL0jsJNcvQF0yPdCLQu8jrUCu9t/Dmegmp+qePebD8h8
- CT2krbjOlLxHP2ufbk4AJ1s7WIDH/SdbFOcVqx51Ilbl5BJBmzVNa9Zk+cZGXrZoF5ythGTdFKJ
- LYSBS6cWD6LzBMXeVXrB8Q/nMDHFwK4uwHkRY+82RsS1LeEJVjtOoicDu4Mp1Av1cP7hhmtmn3I
- rs3bx6N/8Sd7fo2JZItH7zSaX9zuYYAa5XLaloCyP40/HPPbYTwaHKLG6h+X8qjKhIWWALO1hrC
- s+Q4ZqDIHIerc=
-X-Received: by 2002:a17:90b:2ec8:b0:37d:edb2:830d with SMTP id
- 98e67ed59e1d1-3805255b088mr1242206a91.9.1782787029418; 
- Mon, 29 Jun 2026 19:37:09 -0700 (PDT)
+ bh=RIDvIEEjfLAoYUqaVOiOTF/fktMs0pzzICShunhvFN8=;
+ b=JbRTRSB7QtXFBd61Y8YSdfKPvkei7YmURZGXtuC4q7uh2ZOrf53z+B9aMBQ06m13Ht
+ PTSrhiagbtC/uyWop8MSSHhUKiF2StWxvk86gdmy6W629QLHsXdv3PUWyineuWumdxdj
+ 5pbHzDzYhSML0rqVGEsGLrLC6GrE3lJe/kRr7U6l0zX/Gl9xNN6AphGTnbM/ah7n5Pp/
+ 7rLWWAk1u9K3Wni7uCzYTyiGHUbsJb7cmZmQ1J6+C9H28ObYc8ZkEay+/odVA4SAU3Nk
+ MNvgGdxFtuuZUEmnjlLBo2o9ONfc1pveBLRcO6VPoYimNQuUnADAek+dILDm5emSePh4
+ PsAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782787040; x=1783391840;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=RIDvIEEjfLAoYUqaVOiOTF/fktMs0pzzICShunhvFN8=;
+ b=oDrSW+3HmTDgP51r6/Fai918RsAKj3gQCzU0rY07B9OnYlQwaaQdRbdbH0eL9rMbpj
+ kPUvqjuJcW0UfL1FprLxKwdIo+fSBQp0NKR3wpJcDRMfA7Gb4jNCdptqAFebc1nXWc+u
+ QjrPylk03McefNkbtIieopK880jX1kJP1TzHZJ/OBmUQbtAuS+npDf4tELIfI8LWGgFi
+ u18hJiG/w/s8R93I9GI3bEsWLQG+VMKC8O3JRGdpT3hFFZp3Nqf9KMbWe0XQWfB66aO2
+ CjjJkRNEMIXMhBvQbzk2YP7sf2cF5CI0N5eXpjFeuJcup8ZaBYqqEOaMsu7vNICIQuZD
+ isAA==
+X-Gm-Message-State: AOJu0YzXe7nD3ZkHolNMQGd4Eyy8BxHYA7ws/6fGG5sxMyeCIFLqGhQF
+ xWO+DAAsel6hqVmMZRn9cFIP1trGkHsItL3Sl7g0nJz5Vtm4N719PHkU
+X-Gm-Gg: AfdE7cm4bnGOfyIBeWNWuSDKvk8wmpR+I0S3AweMOWq2xFqHLKNhqW5DQZK3EPRWkKl
+ +mzjKrryEHAbUs5UGxUASH1wPAaDEIgjhI+3HkXHnTcdETiT+s6hV0qO0XGwIhV5j5N+GLsZ+63
+ VJM2LdMbD+nLxHBl1/GdcqSopLVT8LlnXmpl0NmSR4EB6TQiShRZFumdFyrmBlD4D0ZDZ2dChpA
+ pLlT4p8cvw5fVOxLYbkgsrGWEXcEsh7pnLDBiM7iZJELgcb6fcdWkjpfl3H7ijlJ4vZSsXOSLSE
+ Ru9GjXtXq6Yv9lnhSVDTQpXJyAaJ5grqYLWwZwDsE/bmZyf5cD6/vQbTD8KrqjgdbP2SiQDBKQk
+ RgGqPRioCuzC+4QSFRn2CUd8UdLvPWnOgBSmH/rBoHnGfG8F2n88fZSkSEwgNn/fA+Yk19wFfJN
+ WW410dhZcc4CQ=
+X-Received: by 2002:a17:903:8c6:b0:2c9:97a8:8c1b with SMTP id
+ d9443c01a7336-2ca2eb32b10mr13789275ad.46.1782787040083; 
+ Mon, 29 Jun 2026 19:37:20 -0700 (PDT)
 Received: from nuvole ([2408:844c:b00:2b2f:398a:8bef:b88c:653a])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ca3828c2fesm3310465ad.49.2026.06.29.19.37.02
+ d9443c01a7336-2ca3828c2fesm3310465ad.49.2026.06.29.19.37.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 19:37:08 -0700 (PDT)
+ Mon, 29 Jun 2026 19:37:19 -0700 (PDT)
 From: Pengyu Luo <mitltlatltl@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -70,10 +71,12 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 0/2] drm/panel: Add Novatek NT36536 panel driver
-Date: Tue, 30 Jun 2026 10:34:37 +0800
-Message-ID: <20260630023439.248861-1-mitltlatltl@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: display: panel: Add Novatek NT36536
+Date: Tue, 30 Jun 2026 10:34:38 +0800
+Message-ID: <20260630023439.248861-2-mitltlatltl@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260630023439.248861-1-mitltlatltl@gmail.com>
+References: <20260630023439.248861-1-mitltlatltl@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,25 +94,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a driver for panels using the Novatek NT36536 Display Driver IC,
-including support for the CSOT PP8807HB1-1, a 10-bit panel found in
-LENOVO Legion Y700 Gen4.
+NT36536 is a driver IC used to drive MIPI-DSI panels. It is found in
+LENOVO Legion Y700 Gen4 with a 10-bit CSOT panel.
 
 Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
-
-Pengyu Luo (2):
-  dt-bindings: display: panel: Add Novatek NT36536
-  drm/panel: Add Novatek NT36536 panel driver
-
- .../display/panel/novatek,nt36536.yaml        |  90 ++++
- drivers/gpu/drm/panel/Kconfig                 |  11 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36536.c | 494 ++++++++++++++++++
- 4 files changed, 596 insertions(+)
+ .../display/panel/novatek,nt36536.yaml        | 90 +++++++++++++++++++
+ 1 file changed, 90 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36536.c
 
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
+new file mode 100644
+index 000000000000..f854fc99ba81
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt36536.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Novatek NT36536 based DSI display Panels
++
++maintainers:
++  - Pengyu Luo <mitltlatltl@gmail.com>
++
++description:
++  The Novatek NT36536 is a generic DSI Panel IC used to drive dsi
++  panels. Support video mode panels from China Star Optoelectronics
++  Technology (CSOT).
++
++allOf:
++  - $ref: panel-common-dual.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - csot,pp8807hb1-1
++      - const: novatek,nt36536
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O source voltage rail
++
++  vsp-supply:
++    description: Positive source voltage rail
++
++  vsn-supply:
++    description: Negative source voltage rail
++
++  backlight: true
++  ports: true
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - reset-gpios
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "csot,pp8807hb1-1", "novatek,nt36536";
++            reg = <0>;
++
++            vddio-supply = <&vreg_iovdd_1p8>;
++            reset-gpios = <&tlmm 98 GPIO_ACTIVE_LOW>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    panel_in_0: endpoint {
++                        remote-endpoint = <&dsi0_out>;
++                    };
++                };
++
++                port@1{
++                    reg = <1>;
++                    panel_in_1: endpoint {
++                        remote-endpoint = <&dsi1_out>;
++                    };
++                };
++            };
++        };
++    };
++
++...
 -- 
 2.54.0
 
