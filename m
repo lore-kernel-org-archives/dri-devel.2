@@ -4,88 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F665C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00432C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D6DB10EBED;
-	Tue, 30 Jun 2026 09:54:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57ADE10EBF2;
+	Tue, 30 Jun 2026 09:56:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b9jRyp0F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OPx2fdtI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4530010EBF0
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:54:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782813292; x=1814349292;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=yFdNZwVFhbbRd/mn/WFs5v2ropeqaVxom/v/MdhKyJ0=;
- b=b9jRyp0FvKLiUwvqF0klS3sZ02dI6OCC3TxkAYkBll5ww/iHjwwjft7X
- cDETrjSAwcLpe74AedeEaOYWt/4bnkW8Pge44enh6gSjQ1yKj41E7GhlO
- hD0JKYOG8Fjrh5sQ0fE9yUXLSbsDLMIb10kX0xwLPqHYuXGSd0+1rgAv2
- KvQGcJqQ9ieCR14LXTtCKr6+OpFgVaT+nxnmuymp/vDeEFgyNwrSdAwou
- bU9ugaQZ8Uzdit1RcP89DLjX1lTFKVPsIPbBV7J8zXya28sgQtN8zna81
- PHEae/EAE5AB8BRxZuVcP6HJhUG8uP80Ye2yY9z79EpEgKUcUNwv9tZlS g==;
-X-CSE-ConnectionGUID: X4C0joX5SGmRik6MSHXWrw==
-X-CSE-MsgGUID: 3VIsjMdQSqmKX88pR+933w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="94121333"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="94121333"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 02:54:52 -0700
-X-CSE-ConnectionGUID: 0hz0Ybo9T4ahdiG68gNfsA==
-X-CSE-MsgGUID: wmd5dzvtSaeoUTNv7c+DrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="254135822"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa004.fm.intel.com with ESMTP; 30 Jun 2026 02:54:44 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
- id 6175195; Tue, 30 Jun 2026 11:54:43 +0200 (CEST)
-Date: Tue, 30 Jun 2026 12:54:41 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Xu Yang <xu.yang_2@oss.nxp.com>, Chaoyi Chen <kernel@airkyi.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>,
- Dragan Simic <dsimic@manjaro.org>, Johan Jonker <jbx6244@gmail.com>,
- Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>,
- Hugh Cole-Baker <sigmaris@gmail.com>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v15 1/9] drm/bridge: Implement generic USB Type-C DP HPD
- bridge
-Message-ID: <akOSYXV7zRY4inSo@kuha>
-References: <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-2-kernel@airkyi.com>
- <erx73m2ueuvbzjteadjli6aki5by4pr3hyertkkqqoqwhaa4v3@5cstmshcercx>
- <56c6abb8-c127-449f-9368-12f94620c2bc@rock-chips.com>
- <k53t2soc3nxhwugncatksektig6agxfgdkogkdwbhrhu2fn2g7@auvsfrv76wxy>
- <b2633b22-da30-4778-8e23-7b5bed9ead07@rock-chips.com>
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B576510E1B8
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:56:18 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4938d5f86f3so2679455e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 02:56:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782813377; x=1783418177; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Pxr0Kr4lzLvN9nvux/U8V8k3z8ULnbsk5lqwt68cCCE=;
+ b=OPx2fdtIOKZu/2dRoWnEHf3i+twIKPBrTax5z572fNMreiiRQiQTlhSavikXqKeE+Z
+ UOz+A9b4Jvg/tN2ZE/M/IWApJ7A11VZ2lSwkZFFOYUo+TDsdP2U7+tQErqjnLEdy8cns
+ dWmc3NacmL7IYbWMS2ifR4BCOyTmETgjOyOHu6me33U6nkk5al2d1VCEup0/cz4YnYyE
+ XH4K0Np7FAl9dXygizRH6aOyEdCVheLofryFm8WqOnXZdb9aQXMx7CROZu10NCHhRMR8
+ XUYtIqo9Qzr4kv6RNtJHe0Soy5ZxQOalBJFDnGOHZEB6RpWks4UqcU87nuC/KyRqENam
+ 2G7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782813377; x=1783418177;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Pxr0Kr4lzLvN9nvux/U8V8k3z8ULnbsk5lqwt68cCCE=;
+ b=Hwk/cSvFL3/ZIxUOS7hvsF/09qeCF0sSdzVoScQeyC4//xCpCGdjx4wZBy5TFg2S00
+ 6WEJF4riK8Sg2wqh26I1NKTll46PEzSI/WH6SSTsaWZW6CRLX6h6m0p2wd0SFO/KwfnH
+ Oyho/lt+bdm1RkHyrOo0GudVuKyV1HYu69B8U0aZGpVqGcjkdDMoYJ/756l5jgitZ+UC
+ cmcsfdWXdSHhmaE30lzBtjaZTYD4d+7TzdQCKPZQtKCrz22vDx3Y8jAQop1HXuC4kJAQ
+ p039SahEeOG99pVerH/+7hKtEEeO4rDUbOf1C9sTywSNVYXIEPI1GfkDEgjgKhLJjA/S
+ jQlQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+XW9BByTdRGLHRNYb+POQMxhSiatSVQO/RdaBZNZgGHaMufmzZESjC/vDed6JxG8FTiQ78HaV6EWY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykvRVXvj1sgB5qUImh9Cjeh3uGRS3QstiIsGD0iw5c2V+inJSl
+ u4bPrVP0mkm/D9ub/hcqbwLsLBMCAIZHVRS7JJYcClnsb+DPQClWv0l2
+X-Gm-Gg: AfdE7cnxAbAzprbj2IAad+fuhMnLdDWd7g1C1GZ+pOG5CnpZCc6dJ2leC8zrkTvIIG0
+ 4FTWsouYgcWq5eheHWYE4R4ddvsQ8fCnVRTYhk7RuUYvophhrJcMRjoRCGkodTqBYCoYbgmnDp9
+ QGyYhcMtDtQoEbtpsMzdtNxCWJ7o4wII0PmLBmDmhYLQ++ll3F8UBQecgqy+guxQdZWoo4CcBoQ
+ 7iEdp+Qv9TEDBsgHuE2bGs+Lx70SxfFD6ennyNd0UADeV3iMgak6SrUHQDG99HlxiHNhv8qNwUy
+ MPbIvxGdYAEBeOP1kbPtEJ6DSMNae/QUgP0HQIvZcExJ8YzAenK/zJfrXw/8Juf++CNmeBdZYMt
+ TFcHl/WEMFEmRuNKNtmJnoOQuDxPJwtbBJiZLzk9yXqFJxULAG/lSH0A3jdW+UafC7JJcy7jPXR
+ wxINzQ8AdcvSlfJjhGZNBddKMOInc=
+X-Received: by 2002:a05:600c:4f55:b0:493:b4a3:5ab0 with SMTP id
+ 5b1f17b1804b1-493bc741b67mr16274405e9.13.1782813376697; 
+ Tue, 30 Jun 2026 02:56:16 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493b8cd8bccsm61379375e9.8.2026.06.30.02.56.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2026 02:56:16 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: javierm@redhat.com
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ sashiko-reviews@lists.linux.dev, simona@ffwll.ch, tzimmermann@suse.de
+Subject: Re: [PATCH 1/3] drm/ssd130x: fix column and row end address in
+ partial updates for ssd132x
+Date: Tue, 30 Jun 2026 12:56:00 +0300
+Message-ID: <20260630095600.8392-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <87mrwdd8t5.fsf@ocarina.mail-host-address-is-not-set>
+References: <87mrwdd8t5.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b2633b22-da30-4778-8e23-7b5bed9ead07@rock-chips.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,25 +91,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> @Heikki, what do you think of the following change?
-> Should we add a new patch for this? Thanks.
-> 
-> diff --git a/drivers/usb/typec/altmodes/Kconfig b/drivers/usb/typec/altmodes/Kconfig
-> index 7867fa7c405d..f89cdf3c949b 100644
-> --- a/drivers/usb/typec/altmodes/Kconfig
-> +++ b/drivers/usb/typec/altmodes/Kconfig
-> @@ -5,6 +5,7 @@ menu "USB Type-C Alternate Mode drivers"
->  config TYPEC_DP_ALTMODE
->         tristate "DisplayPort Alternate Mode driver"
->         depends on DRM
-> +       select DRM_AUX_HPD_BRIDGE 
->         help
->           DisplayPort USB Type-C Alternate Mode allows DisplayPort
->           displays and adapters to be attached to the USB Type-C
+Javier Martinez Canillas <javierm@redhat.com> writes:
+> Sorry, I was on PTO and couldn't take a look to your series. I plan to do
+> it this week.
 
-This look good to me. Please do add the patch for this.
+Thank you for the update and there is no need to apologize.
 
-thanks,
+> One question, though. How did you find these issues and came up with the
+> fixes ?
+>
+> It was just reading the code and the datasheets or were the issues (and
+> fixes?) identified by an LLM? If the latter, then you need to add an
+> Assisted-by tag to your pa+tches.
+
+I found the bug and solution while debugging the ssd1351 extention to ssd130x.
+I used an LLM to make sure my patches made sense and to recheck my patch logically
+and I wasn't sure whether that was enough to warrant the tag.
+I'll submit a v2 of this series with the tag - let me know if you'd prefer it handled
+differently.
 
 -- 
-heikki
+Thanks,
+Amit
