@@ -4,44 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C399C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 08:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE1AC43602
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 08:46:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8586110E186;
-	Tue, 30 Jun 2026 08:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25C4D10EB51;
+	Tue, 30 Jun 2026 08:46:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BN9kaQxI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dCnbgDJw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6344D10E186
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:46:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6A10D60008;
- Tue, 30 Jun 2026 08:46:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F251D1F000E9;
- Tue, 30 Jun 2026 08:46:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782809177;
- bh=LsDgW5y1lXH+ZyD7odtxWf3c81AXB22D5071REMVNMk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BN9kaQxI40xeS3IDS5nU6I4SiMK1cpccAtqSOQkpoIGZ7caT9gli9nhV2oF1/wCVD
- 5k7Uz68TbRRX0AtmrB9+WbzhKhEI6vaCzQuYjXb58SbZFWDpdiTuAp6D6M4NnwXyHu
- RGTxNo5inSPbRKKcV/fxqJNaR9Pg45LAQcc26O7f/o9uIf0JzUdGIFsBG2DXN2Kd0F
- BirdXPZo5uoM9shMp/B2697/8j8qJJvyN7XbLIeR+9sJ/LW5CdBXpvsCxH3xSlqnBV
- /JxF5JMRISa0tLVAPDcfQxr8W8czlDGBxeeL0q9Hyv/aT7FpWbadMZQLLiiA7vKFBI
- hiaH0aZvwgWTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 1/5] drm/gpusvm: split MM state flags out of
- drm_gpusvm_pages_flags
-To: "Honglei Huang" <honghuan@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260630083307.381909-2-honghuan@amd.com>
-References: <20260630083307.381909-1-honghuan@amd.com>
- <20260630083307.381909-2-honghuan@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 08:46:16 +0000
-Message-Id: <20260630084616.F251D1F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A94F010EB44;
+ Tue, 30 Jun 2026 08:46:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782809203; x=1814345203;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=fWhGWkg1sVC+Zopw1ah/LLgRFnq+PnpA3zeYqg1SVDo=;
+ b=dCnbgDJwOofH0T8PwMO2PNH9xdvxxxwbNo1YJTNmRgv89S1hp+eTbAQ2
+ tAKurWWMG5PKl8Iyxc0OPTZ27nDd1ARHuUgE1T789JZ+GwpsBWQA/jKHu
+ yA2+OVe08pRVZJgxeoGzEA/rHnbuT6EKCgzV1FnHekbQ2Fw75sj2asIaP
+ Q3v3PKT9UHy+TfCVg67LpjyplhkzpOgpR/dDrsFkIlvPEM3EZOcIGAPpp
+ lNWIcHIL51+uZwcMKGwweBbjXo8AaPuwK/TWdzzEyRDLAzJbB59psotMC
+ 9IatrqoE5yXP2dEIPb83T6CB+zl1iuvM4HpTVX1EfOJnOAZmED2tZL0mP A==;
+X-CSE-ConnectionGUID: 0h2nS27LSrecIbH3HmeaWA==
+X-CSE-MsgGUID: f/ZeF1xkTcCKGEyqfwtN7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83651073"
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="83651073"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 01:46:42 -0700
+X-CSE-ConnectionGUID: +X9lGev+TKiS7ZuuBWMq9Q==
+X-CSE-MsgGUID: WjPREsZyTKSgs5LuE5kwEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="251799766"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 01:46:39 -0700
+Date: Tue, 30 Jun 2026 10:46:36 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andi Shyti <andi.shyti@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] drm/xe/mcu_i2c: Take over control of the
+ controller enabling
+Message-ID: <akOCbMKgTbzbZI7R@black.igk.intel.com>
+References: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
+ <20260625125939.429078-4-heikki.krogerus@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625125939.429078-4-heikki.krogerus@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,61 +75,24 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing READ_ONCE() when reading the lockless bitfield `migrate_=
-devmem` in `xe_svm_alloc_vram()` causes a data race.
---
+On Thu, Jun 25, 2026 at 02:59:39PM +0200, Heikki Krogerus wrote:
+> Some platforms make an assumption that the i2c controller's
+> enabled state indicates also the power state of the
+> controller. This can create a problem when the controller is
+> in disabled state, because the hardware may assume
+> incorrectly that it is then also in low-power state.
+> 
+> To fix this, the controller is kept enabled by taking over
+> the IC_ENABLE register. The controller has to be disabled
+> when the configuration is updated and when the target
+> address or the slave address are assigned, so disabling it
+> when IC_CON, IC_TAR or IC_SAR registers are programmed, and
+> then re-enabling it again.
 
-commit e500b2422f5c84b340b191071b2b62f1ff1b58ca
-Author: Honglei Huang <honghuan@amd.com>
+I don't have enough context here, so I'll leave this one to the
+maintainers.
 
-drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
-
-This commit splits MM state flags from drm_gpusvm_pages_flags into a new
-drm_gpusvm_range_flags structure. It introduces a union with a __flags
-member to allow WRITE_ONCE and READ_ONCE for lockless readers, aiming
-to keep concurrent bitfield access data-race free.
-
-Link: https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-=
-2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
-
-> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-> --- a/drivers/gpu/drm/xe/xe_svm.c
-> +++ b/drivers/gpu/drm/xe/xe_svm.c
-
-[ ... ]
-
-> @@ -1621,7 +1629,7 @@ int xe_svm_alloc_vram(struct xe_svm_range *range, c=
-onst struct drm_gpusvm_ctx *c
->  	int err, retries =3D 1;
->  	bool write_locked =3D false;
-> =20
-> -	xe_assert(range_to_vm(&range->base)->xe, range->base.pages.flags.migrat=
-e_devmem);
-> +	xe_assert(range_to_vm(&range->base)->xe, range->base.flags.migrate_devm=
-em);
-
-[Severity: Medium]
-Does this plain bitfield read trigger a KCSAN data race warning?
-
-The commit message states that lockless readers should use READ_ONCE() on
-the __flags member. However, xe_svm_alloc_vram() reads the migrate_devmem
-bitfield directly without holding the notifier_lock.
-
-Since drm_gpusvm_range_set_unmapped() modifies this overlapping memory using
-WRITE_ONCE(range->flags.__flags, range_flags.__flags), could this concurrent
-access trigger KCSAN warnings and violate the intended data-race free desig=
-n?
-
->  	range_debug(range, "ALLOCATE VRAM");
-> =20
->  	migration_state =3D drm_gpusvm_scan_mm(&range->base,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630083307.3819=
-09-1-honghuan@amd.com?part=3D1
+Raag
