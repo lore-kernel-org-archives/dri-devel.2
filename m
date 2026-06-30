@@ -4,57 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18EDFC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 10:06:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 351CAC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 10:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C40B10EC13;
-	Tue, 30 Jun 2026 10:06:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5812910EBFA;
+	Tue, 30 Jun 2026 10:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="W8+LwmEt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UoYt1eLp";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF8A10EBF7
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 10:06:52 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gqJhn2GDNz9sl7;
- Tue, 30 Jun 2026 12:06:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1782814009; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lHHdALHFYJG7pNBaHmpNDc9IMidTp6lhFofr75a95j8=;
- b=W8+LwmEt5WKSVKe+0YDgIgVlWLf0hqegpzzh+qAge4EnGTBL/nmC7ekto29tIeINT9cupA
- W5HKNizl5CD2vH+n/mm9OY+vFYUE1bd4mMAIlgXTfPSwYQIh2z4rm/FGcIGfZ5MsfgIZho
- VI23SgqRXsLXpCAjKSTgEJHaS5MaYff4/8PHzHTVHaczKaNSPSIWlHPJ1ytlmfX8YOMRyQ
- NvGRj6ECw30R/k3hy34TeENDEL7LUqFNM12qlecKTFMdLQFXIYqcEl3y2VAO20zirqokQf
- aW09pUyPJJELqzT3pVltj16FXu2z+jXXIuR0IvwoPo9MAZHRqUK4KI6A5FP/7Q==
-Message-ID: <9f7fa57610d3d94324e09dc936f5f7f3c3d390d3.camel@mailbox.org>
-Subject: Re: [PATCH v2] drm/sched: Protect entity->last_scheduled with spinlock
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Philipp Stanner	
- <phasta@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Danilo
- Krummrich	 <dakr@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <ckoenig.leichtzumerken@gmail.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Date: Tue, 30 Jun 2026 12:06:41 +0200
-In-Reply-To: <1941b3c5-2ef1-4da9-aa20-a11d771274f1@igalia.com>
-References: <20260626081942.2122144-2-phasta@kernel.org>
- <1941b3c5-2ef1-4da9-aa20-a11d771274f1@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A74610E184;
+ Tue, 30 Jun 2026 10:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782814385; x=1814350385;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=nbKxiQZBkLSyv9zbCELipya6Wp2jnIfPwPH2sKSWukM=;
+ b=UoYt1eLp5pPHpGRGCom5fn/tSX53F/wpOkojiPm+oteaXr+WKJBkjHBv
+ hMyFvp6JFo/xxFswwe8WlVLyLF78T5tkKPZCBDdt2Sb1+NxrsmO74t4+5
+ 71CHFhpo4kuQBLw3n6Z4l38YeMCEhMudrW9zDTkOArtAOQuCtz/7d9MQJ
+ kfrLwZE98vks7JkCLdQnrKlM3fHv/ae5a7rhXatbsIsC7MDlS4D/mTDBT
+ fO/0tRRC5f33hQR1SCH9CWNN/Dq7DPDHX7gdlNZCQ3yWHolbE0PT0HP0a
+ 5pI2MEHowqBwcIrAIxDMsjH9Ln5rcjaGWs9GsxckBOcsL/Blgq/+vjMWL w==;
+X-CSE-ConnectionGUID: Kk480oTJQjGP7WgvBZw23Q==
+X-CSE-MsgGUID: 2u5qGz+sQ4W4a+sHr4OlRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83580533"
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="83580533"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 03:13:04 -0700
+X-CSE-ConnectionGUID: FIbk5dIJRnWXYR1ml7HQvg==
+X-CSE-MsgGUID: xBfA8ckhQ/WHoTXZnOIVKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="257136787"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.148])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 03:13:02 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: yaolu@kylinos.cn, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
+Subject: Re: [PATCH] drm/i915/display: fix error handling in
+ intel_display_driver_probe_noirq
+In-Reply-To: <20260630031652.67747-1-yaolu@kylinos.cn>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260630031652.67747-1-yaolu@kylinos.cn>
+Date: Tue, 30 Jun 2026 13:12:59 +0300
+Message-ID: <677fb92771df1f9f491226bf006c157a007c16dc@intel.com>
 MIME-Version: 1.0
-X-MBO-RS-ID: 0358df815d185da7b20
-X-MBO-RS-META: bai59bkqca6doojgn198bd7q8yiq6yhh
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,202 +69,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2026-06-30 at 10:23 +0100, Tvrtko Ursulin wrote:
->=20
-> On 26/06/2026 09:19, Philipp Stanner wrote:
-> > The entity->last_scheduled field has always been set and read with
-> > special RCU functions in addition to memory barriers. There is no
-> > obvious reason for that, since the entity lock is available and taken a=
-t
-> > all places that evaluate the last_scheduled field. The only exception i=
-s
-> > drm_sched_entity_error(), which is not performance critical in any way.
->=20
-> I agree this looks odd since all call sites apart from=20
-> drm_sched_entity_error() use=20
-> "rcu_dereference_check(entity->last_scheduled, true);" ie. "ignore" the R=
-CU.
->=20
-> Btw this was added in:
->=20
-> commit 70102d77ff22dd88a0111b1c3bac5099ac5d0425
-> Author: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Date:=C2=A0=C2=A0 Mon Apr 17 17:32:11 2023 +0200
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0 drm/scheduler: add drm_sched_entity_error and us=
-e rcu for=20
-> last_scheduled
->=20
-> You may want to add this as a reference in the commit message.
+On Tue, 30 Jun 2026, yaolu@kylinos.cn wrote:
+> From: Lu Yao <yaolu@kylinos.cn>
+>
+> Fix two bugs in the probe error path:
+>
+> 1. intel_dmc_fini() was called on workqueue alloc failed paths but
+>    intel_dmc_init() had been invoked.  Move the dmc init call advance.
 
-I did git-blame for that commit. It looks like this:
+You can't move intel_dmc_init() before the wq allocation.
 
-    drm/scheduler: add drm_sched_entity_error and use rcu for last_schedule=
-d
-   =20
-    Switch to using RCU handling for the last scheduled job and add a
-    function to return the error code of it.
+BR,
+Jani.
 
-It's a good example of why I think it's so vital to write verbose
-commit messages. The only way to find out why this was added is to ask
-the author, if he's still around [which is the case in this case].
+>
+> 2. If intel_mode_config_init() succeeded, after intel_xxx_init()
+>    failed leaked the resources allocated by drm_mode_config_init().
+>    Add a cleanup_mode_config label.
+>
+> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+> ---
+>  .../drm/i915/display/intel_display_driver.c    | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> index d0729936f681..d69bdfb19efe 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> @@ -223,6 +223,8 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
+>  	if (!HAS_DISPLAY(display))
+>  		return 0;
+>  
+> +	intel_dmc_init(display);
+> +
+>  	display->hotplug.dp_wq = alloc_ordered_workqueue("intel-dp", 0);
+>  	if (!display->hotplug.dp_wq) {
+>  		ret = -ENOMEM;
+> @@ -254,33 +256,31 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
+>  		goto cleanup_wq_cleanup;
+>  	}
+>  
+> -	intel_dmc_init(display);
+> -
+>  	intel_mode_config_init(display);
+>  
+>  	ret = intel_cdclk_init(display);
+>  	if (ret)
+> -		goto cleanup_wq_unordered;
+> +		goto cleanup_mode_config;
+>  
+>  	ret = intel_color_init(display);
+>  	if (ret)
+> -		goto cleanup_wq_unordered;
+> +		goto cleanup_mode_config;
+>  
+>  	ret = intel_dbuf_init(display);
+>  	if (ret)
+> -		goto cleanup_wq_unordered;
+> +		goto cleanup_mode_config;
+>  
+>  	ret = intel_dbuf_bw_init(display);
+>  	if (ret)
+> -		goto cleanup_wq_unordered;
+> +		goto cleanup_mode_config;
+>  
+>  	ret = intel_bw_init(display);
+>  	if (ret)
+> -		goto cleanup_wq_unordered;
+> +		goto cleanup_mode_config;
+>  
+>  	ret = intel_pmdemand_init(display);
+>  	if (ret)
+> -		goto cleanup_wq_unordered;
+> +		goto cleanup_mode_config;
+>  
+>  	intel_init_quirks(display);
+>  
+> @@ -288,6 +288,8 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
+>  
+>  	return 0;
+>  
+> +cleanup_mode_config:
+> +	intel_mode_config_cleanup(display);
+>  cleanup_wq_unordered:
+>  	destroy_workqueue(display->wq.unordered);
+>  cleanup_wq_cleanup:
 
-I can't see the value of adding a link? That commit says "add foo" and
-my commit says "remove foo because it achieves nothing".
-
-> I guess it relied on dma-fence RCU destruction to enable lockless=20
-> lookups from the AMD submit path. Given how many other locks we have in=
-=20
-> those paths it is probably noise to have one more so maybe it is a win=
-=20
-> to remove some barriers and those rcu_dereference_check-true lines. I
-> think Christian will need to comment.
-
-My argument is more that locks are the right tool to use unless there
-is proof to the contrary.
-
->=20
-> > Improve robustness, readability and maintainability by replacing RCU an=
-d
-> > barriers with the lock.
-> >=20
-> > As a preparational step, while at it, also guard spsc_queue_pop() with
-> > the lock, since spsc_queue is deprecated and supposed to be replaced
-> > with a locked list.
->=20
-> You would have said to split the logical changes into separate patches.
-
-Me? :D
-
-In this case, a lock that did not exist is added from nowhere. But I
-tend to think that you are right. We could leave spsc_queue lockless
-for now. That's cleaner.
-
->=20
-> >=20
-
-[=E2=80=A6]
-
-> >=20
-> > =C2=A0 struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_=
-entity *entity)
-> > =C2=A0 {
-> > +	/* Helper to avoid dropping the reference while the entity lock is he=
-ld,
-> > +	 * just to have some more robustness.
-> > +	 */
-> > +	struct dma_fence *prev_last_scheduled;
-> > =C2=A0=C2=A0	struct drm_sched_job *sched_job;
-> > =C2=A0=20
-> > =C2=A0=C2=A0	sched_job =3D drm_sched_entity_queue_peek(entity);
-> > @@ -523,19 +532,20 @@ struct drm_sched_job *drm_sched_entity_pop_job(st=
-ruct drm_sched_entity *entity)
-> > =C2=A0=C2=A0	if (entity->guilty && atomic_read(entity->guilty))
-> > =C2=A0=C2=A0		dma_fence_set_error(&sched_job->s_fence->finished, -ECANC=
-ELED);
-> > =C2=A0=20
-> > -	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
-> > -	rcu_assign_pointer(entity->last_scheduled,
-> > -			=C2=A0=C2=A0 dma_fence_get(&sched_job->s_fence->finished));
-> > +	spin_lock(&entity->lock);
-> > +	prev_last_scheduled =3D entity->last_scheduled;
-> > +	entity->last_scheduled =3D dma_fence_get(&sched_job->s_fence->finishe=
-d);
-> > =C2=A0=20
-> > -	/*
-> > -	 * If the queue is empty we allow drm_sched_entity_select_rq() to
-> > -	 * locklessly access ->last_scheduled. This only works if we set the
-> > -	 * pointer before we dequeue and if we a write barrier here.
-> > +	/* A recent rework required taking the spinlock above. Since spsc_que=
-ue
-> > +	 * is scheduled for removal as per the DRM-TODO-list, we access it he=
-re
-> > +	 * locked already to prepare for that cleanup.
-> > +	 *
-> > +	 * TODO: Fully replace spsc_queue with a locked (h)list.
-> > =C2=A0=C2=A0	 */
-> > -	smp_wmb();
-> > -
-> > =C2=A0=C2=A0	spsc_queue_pop(&entity->job_queue);
-> > +	spin_unlock(&entity->lock);
-> > =C2=A0=20
-> > +	dma_fence_put(prev_last_scheduled);
-> > =C2=A0=C2=A0	drm_sched_rq_pop_entity(entity);
->=20
-> Notice the entity->lock ends up cycled twice for no good reason (second=
-=20
-
-Getting rid of hard to understand barriers + RCU *is* a _very_ good
-reason.
-
-> is in drm_sched_rq_pop_entity()). So I would suggest you somehow reduce=
-=20
-> that to once. Probably just pull out entity->lock out of the=20
-> drm_sched_rq_pop_entity() to drm_sched_entity_pop_job()?
-
-Can you see danger in sense of a significant performance regression
-because of that?
-
->=20
-> I guess if you do that then the "while at it" part of the commit message=
-=20
-> can be "upgraded" to "spsc_queue_pop() being under the lock as a=20
-> consequence of the rework" and then no need to split it.
-
-I agree with you that it should be *downgraded* instead.
-
-
->=20
-> > =C2=A0=20
-> > =C2=A0=C2=A0	/* Jobs and entities might have different lifecycles. Sinc=
-e we're
-> > @@ -561,21 +571,15 @@ void drm_sched_entity_select_rq(struct drm_sched_=
-entity *entity)
-> > =C2=A0=C2=A0	if (spsc_queue_count(&entity->job_queue))
-> > =C2=A0=C2=A0		return;
-> > =C2=A0=20
-> > -	/*
-> > -	 * Only when the queue is empty are we guaranteed that
-> > -	 * drm_sched_run_job_work() cannot change entity->last_scheduled. To
-> > -	 * enforce ordering we need a read barrier here. See
-> > -	 * drm_sched_entity_pop_job() for the other side.
-> > -	 */
-> > -	smp_rmb();
-> > -
-> > -	fence =3D rcu_dereference_check(entity->last_scheduled, true);
-> > +	spin_lock(&entity->lock);
-> > +	fence =3D entity->last_scheduled;
-> > =C2=A0=20
-> > =C2=A0=C2=A0	/* stay on the same engine if the previous job hasn't fini=
-shed */
-> > -	if (fence && !dma_fence_is_signaled(fence))
-> > +	if (fence && !dma_fence_is_signaled(fence)) {
-> > +		spin_unlock(&entity->lock);
->=20
-> Have you tried with lockdep to see if there are any hidden lock=20
-> inversions with this?
-
-As far as I could grep really no one touches the entity lock (which is
-not surprising, since the entire drm_sched design resolves around the
-central philosophy: "NEVER use a spinlock unless you absolutely have
-to". When you look at the old code and documentation, you see that
-locks were really only ever used to protect lists.
-
-Anyways. This is the scheduler's fence. It can never implement any
-callback to someone who might interfere with the entity lock, can it?
-
->=20
-> I also wonder if we could demote this to a flag check only and remove
-> any doubt. I don't think opportunistic signalling matter in this code pat=
-h.
-
-With the new fence API, where we can bypass the ops, that would
-probably be the more canonical code. But that's then indeed something
-for a separate patch.
-
-
-P.
+-- 
+Jani Nikula, Intel
