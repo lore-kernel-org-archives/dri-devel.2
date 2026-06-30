@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1676BC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 954DFC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6598710EC68;
-	Tue, 30 Jun 2026 12:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD96110E20A;
+	Tue, 30 Jun 2026 12:21:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y1Rrhq5y";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bpMjn8CE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IQK1lL4o";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JyfC461u";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 458C110E20A
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:14:39 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AAB410E1EC
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:21:43 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65U9n4kp1508580
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:14:38 GMT
+ 65U9nEg51590709
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:21:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oBbce1WRUs3G2E0RY0k9esyoB3WwxEZLpDwnuzZhw+E=; b=Y1Rrhq5yt8TfNDWs
- EgLGPzpahCcr/ZfG0Sl64RZ5vc1iAyxEEkLH1gVw6YQ3d+itWHbU9H9bJAzAcXKR
- 2/A+vh1LtOvqK7yf5qXmxGPN5wP6RNqQTW6KCTswuEgDz0nX8TYHu5pfcZpPeHup
- CbHdMu7jpW3GsAnLW8YjKvbzZDJ1rn867EzrtM4f7+vPrirw/3bfTvvPIzPMLQz8
- xSE6O3iF/rkQQq8UazZS2apXhMw9Q8sqNUmdOBUiGf3kKrUUD9ga2qbaEJb86ud1
- c/nDhl2v+J03zcyY/JVJF3+Hl7IPjvXeS0+icmcN1p/XJTSwqj/BuM4vw0fbh1fd
- W+wZiw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9j3egk-1
+ OKA9ni/VKYiyOGZbetdw2GUFM0Wy/xcP3QxXwwJdhrk=; b=IQK1lL4oceipm8Q4
+ wpDe0abCYCvbADeNXWX3gj3hyHy7jURTho8WgTcNP0wxHt9iM42a5wd1u/4ra8hi
+ slQfbSxApQbzQkn8/8rw/U5Aie8gnKbUeQo73GyfSHmrz/dWJU0L41C2pCOKK+Ux
+ eQKjyqY08FHK7bPN2E46E1JCFGqBqISg00TgsLFx+NiEjiPYYH01FCuafv6/DTcr
+ zI2JXzR4UsSaslUZH89nqjJ+CIcWpYI258CT3uYhXgutcWX1OsKtcX3nMdwRsr1c
+ 6alJGvFylNA96g1H5P+qcJH/bFmFX/4BL4uCgiQv9zSHsVRPKJgbUp3dwNymm30A
+ 1zcuIQ==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9k3g5k-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:14:38 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-92e68cbeb53so8957885a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 05:14:38 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:21:42 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-96929cba004so119010241.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 05:21:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782821678; x=1783426478;
+ d=oss.qualcomm.com; s=google; t=1782822102; x=1783426902;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=oBbce1WRUs3G2E0RY0k9esyoB3WwxEZLpDwnuzZhw+E=;
- b=bpMjn8CET7YMOygfD7OUX6FaSl7UWqXdafIQJ/atwJkin2i3x37vzV7JkLYnnGG9Eu
- D2gaD0fZGWMS6xRw/xIXa/LZgxLARCi0snYcwR9jzWP+KpJB3Rge/DQbdgQnMYv75aaF
- qBy2WRnHcurESw0NXBalQLEcjldXvlmEqdQT8F5DKUHAr3oevS7fIT9ey66wqwhmZJcG
- t5Ls5XbA9URMnDbT9Bu6KB1+FUc74Mk8Bfga/sMSyK54yWjffRfImptIa1uF1M5CmOMW
- qwGW9qZrb3T6e5pp6a04RvyGjaqJU500JzC0ysCK4vPZsroK3e+bGzX/S/E1dhgUC9PC
- pX/Q==
+ :content-type; bh=OKA9ni/VKYiyOGZbetdw2GUFM0Wy/xcP3QxXwwJdhrk=;
+ b=JyfC461uYCwJN96kBL8V+p5qGM0GoTgn993Ih/guBoJU636NnSXtHQHwtCvuJvmyt0
+ HKwNqbPPOKqB0MzlGVCpD6VEaxeZnKrlydpiTYMKqTYJOO1wzezWnQ2aU2wUTM/sJmDS
+ GTIVrLo2QtXfPkJwRfA/0ntI6cLclKAqytuJGhwASAVBCAFlIW4xn1RWKG2K2eIDmLRQ
+ U4ZViOLJeVaOa606atj2Dc+ZVe7hffTTBdhW6cnoyklExwSU4w8tXHO05+dxK2e3laFu
+ eTWLy8oxppZcQCJbPmsr3ZP5quqY+K8bIcIFDHwJu9TT1dlfE4S+jdoCiYQJWBJMY9pj
+ Tq0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782821678; x=1783426478;
+ d=1e100.net; s=20251104; t=1782822102; x=1783426902;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=oBbce1WRUs3G2E0RY0k9esyoB3WwxEZLpDwnuzZhw+E=;
- b=lpt/rql4dB4SPJ4Yq1CcX1dsEolFuk5lFJp4UyMLBumCXeha4vQnoizDgqmxM7vgk/
- BIrLSOkdqOkt7o+tThAKVg6+WNlS3v7bLa1Q3vyf/ZksTVaW28Yb5mHcP2MZm6hY3M5w
- gu7OsLRiPiW9o2jstZCRekr2J/DKctkD9GQ5HyaysEwZYz2PbTpsXG5LERCt5PXkaNU3
- uuTFYgka9X5EwJVInh8ihPDK0OQZdBhskGzPGEZj1lUAQw8jTpYvL309AgJvNMP8gZht
- tMAtKynXAHxEOHvZdNA5cT/4ERohPbrOmdixw7HVbTptSVxTRv+RIyEEq0olL0Povv6e
- pAgQ==
+ bh=OKA9ni/VKYiyOGZbetdw2GUFM0Wy/xcP3QxXwwJdhrk=;
+ b=M43mXVBt2HbAkwlwIZr1VKd+MQr0cw6NsO91GlgXXbzUKqP+Wvi9VX/0bhTqUWFuzd
+ VrLw86QkqWbhG5vsoztEZ1yJ+1LDM4IgB6t0vexJdl0FrLVLx6hY4mLdPRptLT47qGlu
+ A2qqdt2Tbks9MUVLsO3uREVqvXB3xvhOXspTJxNTHmoYqmLCBAa86+Rh+f7dHEjzpdlh
+ 3VYoH+FRgAXpiZDdnFbvENKg2BgyUxW5GvfhY64fq9eeiZH9c3ORyQQ6Hy6EwB4ky2Im
+ DFpNXXhIziwObfVY9AEKaUnfbD4YZsgf0HoLSV4oFuEG87moO/u0NWEG7cgGGayTRGB3
+ 09MA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+Z0b/l2Z2PrwKSrV8QhuHIELUgg1lmiHTqxiL7aOP376Z1qf8qWLq96GUkf2tI4SKiypesLS1a8ic=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYjfxF+9/dpDSD51qNBsqER0v9xydVJGGhyA2lnTHX7VzRQME6
- 53uWu0sM/NbySTdgTf860L+v9BgmZK4DnFfG5aO5APaq4XH7jhnLmKAhnQBPkHL5mtmi+Hjr/iw
- KvDKFLeclf2/VFDDld6U31fUd1VCk8ofqcqZQhywR0Lr6lqFdkcZpJ4KHC8Lp8a+hT71wrPc=
-X-Gm-Gg: AfdE7cmCopRd9+V5+GAS5ZG7wFm4+GJO++IE1bcUlq2qDpV7J79Nug0Wph8rJfeQ8xI
- DDgsEmUwvTJPFhFzXkbLRaNdQIa51paa2qrCON2N3qKtPkinwENycd4ri17wvdM4LIbzYPmyK0a
- 2mvYFZ/tCQkqzHQEtFoYU5YPEpp/a0qQiOJlXTd8Tg/J5II9TRqbZTBCOl6UKPsDQ5XVULreKxC
- 7K09j6St9QXakgN0YP9pwJ/HtJ5H85jaPr5Wgg/KfXX05H4xiK84BN6Uxr37h1ioGw5WTGdHJks
- YmZpP4iir/Unm0aDpfHULmBJG/+NVw0+i/zwm1E5RtCe0odr2GhkFNtprN5WYbjJuzbrvYJ/xo4
- ocOGs4gyV153g/jGAa0oU1nr1BRT1ixWHNCU=
-X-Received: by 2002:a05:620a:2589:b0:915:7c1a:1388 with SMTP id
- af79cd13be357-92e627e197cmr355400085a.5.1782821677732; 
- Tue, 30 Jun 2026 05:14:37 -0700 (PDT)
-X-Received: by 2002:a05:620a:2589:b0:915:7c1a:1388 with SMTP id
- af79cd13be357-92e627e197cmr355395085a.5.1782821677127; 
- Tue, 30 Jun 2026 05:14:37 -0700 (PDT)
+ AHgh+Rp3JuSo2dWYNOvE6OEOtzIFJ5aqxBdbOU2MxgWzaxoF7Tn/pjuOyI7st+++rTyh9D4ntHwt5CdoQ7w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzrq2bvsQ1IbHN48PXKQWmXHaakANYEvQI78I91ITpykeezRI2a
+ wAlZtlydQxrLAL3Fj+pVnsahJX2YKW0l5YYeCaNFkyRut/Vyl7ql1JY+QL6bKzw6GogQeYaNxYL
+ /415KBQMGCYn9uzBa4TyKSwPqG/G0dG2geE5T0Dm+txBda3eszjgE2O0lE78aRu+Vud68kww=
+X-Gm-Gg: AfdE7clIs3l+MO5ZGpzc2+Tp99NZA7DTT16v0LsY4XIARxXvC4l6QVbPjj5e2Ejf9Ok
+ +lkHAhueU6HXZO1bwsPe8zq6EIyqzmYBw+0gQiWWQt1TUiIi/zylG4+42n5la12bohGYiCj5t73
+ 1+qudMiAahILcgg199zw3CjLv55ojaW2wZChil3ksP6pO33frfmQp6TOya0P+5jScOP2QdyRfsa
+ viw5CLLpgam+8Cmj/KOyCai0yJYmzAsntcH2reIYJQyk0HmeU+sLyoI4qIcDwC19q2jEKPQ7mxD
+ jfYxSmNdvR+wonc05WKMk0KxCUalTc5ac9uRvm9M0V8EcWfOmicbTO2ycJYbbpEhBehwKJB3Rnt
+ IaA3RtwTQokW4G3Jn112kiNw3Rr7F0dqFDTA=
+X-Received: by 2002:a05:6102:5986:b0:739:b7cc:3ce7 with SMTP id
+ ada2fe7eead31-73a3934de72mr535064137.7.1782822101832; 
+ Tue, 30 Jun 2026 05:21:41 -0700 (PDT)
+X-Received: by 2002:a05:6102:5986:b0:739:b7cc:3ce7 with SMTP id
+ ada2fe7eead31-73a3934de72mr535050137.7.1782822101431; 
+ Tue, 30 Jun 2026 05:21:41 -0700 (PDT)
 Received: from [192.168.120.170] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1296b1f9cesm21325366b.16.2026.06.30.05.14.31
+ 4fb4d7f45d1cf-6987c9503f5sm1104309a12.20.2026.06.30.05.21.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 05:14:36 -0700 (PDT)
-Message-ID: <dc7e58d3-4383-4d93-a38e-699888bff903@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 14:14:30 +0200
+ Tue, 30 Jun 2026 05:21:40 -0700 (PDT)
+Message-ID: <bd4080da-0c15-4142-aca0-21bdeaf9eb33@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 14:21:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v8 01/14] firmware: qcom: Add a generic PAS service
@@ -121,33 +121,33 @@ From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 In-Reply-To: <20260626133440.692849-2-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: bpsJ5TOURMtmTMSoSNLYCdmmOrhPr2b1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDExMyBTYWx0ZWRfX9d4O1afI4MMm
- mspmZ8jtY8GlPO73Rociz8tkk6QYTI+3EsSWxoUGw87SdM0W+UT523eboETTDptOpnXVbsmCCXR
- Boa8BlJ1roF4370bn82Ui9VT8jFLGDEOgpb0d06dP8GhT2hw6xjI7pSaq5+fyfojj9YL1Rc/Vct
- UpbMdA1XHh1L01e0IDpOnEq+VQASjvvHcz5BnPCE+a69bZphaK6OBmOS5RlpIGU2ONWptA4HiGX
- PNhg1T2aPUleWCWaqUmEgmb6JxAdKNgB7McEXqpnIziZzL0YZfZ0WafAFh1VhVM5XmvZL3Ayc3K
- UwgZq8MOmKOaeuU77CXwca5DsQQQXdSHNiKR3kCqvCDGw1FuqCH1fQTeW/LEv1vv8PBU/lDdRWE
- vJyEBJ+ZMi3mlQFncKw2xTfO6Wj8qIO4W/7oMjodsMTVoMv2i8l4FS5Mh2gmzXzzb5PgnLzFKk+
- fyzmJvjZwGJD97l+zpw==
-X-Proofpoint-GUID: bpsJ5TOURMtmTMSoSNLYCdmmOrhPr2b1
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDExMyBTYWx0ZWRfX2+178IWojzao
- wJlQhP90Xc0f5HF+SVKLBrfQlMj38jQzBgs+fMZ9uYCB9UTdeHpqUvB5WLzxVL1El8mmpGK1mma
- /EU7ASwBI+D967lhW6Kzim9iDxTn4cQ=
-X-Authority-Analysis: v=2.4 cv=SINykuvH c=1 sm=1 tr=0 ts=6a43b32e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDExNCBTYWx0ZWRfX25ZleeXJfTpD
+ izNAU9iaRWTbe44t66kXMIqxF7d3pd3KZYH2kl58OyU8tLb0FLd3Z8xWNUNEXEAUNxOI1Y9ycyZ
+ WKbMeOD6uoZ3QeVcL4V4rSqanUnjLpM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDExNCBTYWx0ZWRfX9vcBCuHZ8MkA
+ Nw7LnoolNtsD7evFDGqv0/VGmx7BBeLdIagraX6jivXZcur9+kuM3svOolNWcZqH9FgKbZaJWPP
+ Wte9Xf1HNzz3DYrl+OlrUrjs8KwqJoHA9WinHmfMobsrFew5dfflfSo7BL1H0Y94kO05f4GK40U
+ DIvIERSRL+YU6t+Ol713hmGuA8Vrhbhg2lxw2MywKMtl+ao0EXq/WbIdv0kPVt95jLOTsnXeCdU
+ 4l5S1gnxcsRv/iqQ8Y5wMfmSWS+1TCUAfUcHT3kNeDrhZJoDAU5wnleVOPHmY1VUV2SGsgMLvRH
+ h3XGgVdw/eIOwDiiUR/q2SzXvBopH1qNSdRSphiHZFxLSWIBu4W+YVp3BZZqALi8Xhu0utA8EX0
+ wl9f9vB01Y6TUxouetZ2LC74Fx11u/OmjeV1O76JFPdySgnwASCTsjuZrX+KQvDexgAqP1TLZDQ
+ WEWLjdEh2kwTnEeLALw==
+X-Proofpoint-ORIG-GUID: KKkCx1Tb1VCWlsEvZifJxGetRX7XHuCM
+X-Authority-Analysis: v=2.4 cv=TeqmcxQh c=1 sm=1 tr=0 ts=6a43b4d6 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=Ltt3hjjT39zhUWiMmRAA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=DWWpLck2SfFL7czMIZ0A:9 a=QEXdDO2ut3YA:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-GUID: KKkCx1Tb1VCWlsEvZifJxGetRX7XHuCM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0 phishscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300113
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300114
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,14 +170,45 @@ On 6/26/26 3:34 PM, Sumit Garg wrote:
 > splintered over the various kernel drivers. These SCM calls aren't
 > compliant with the standard SMC calling conventions which is a
 > prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> support these non-standard SCM calls. And even for newer architectures
+> using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> calls either with FF-A requirements coming in. And with both OP-TEE
+> and QTEE drivers well integrated in the TEE subsystem, it makes further
+> sense to reuse the TEE bus client drivers infrastructure.
+> 
+> The added benefit of TEE bus infrastructure is that there is support
+> for discoverable/enumerable services. With that client drivers don't
+> have to manually invoke a special SCM call to know the service status.
+> 
+> So enable the generic Peripheral Authentication Service (PAS) provided
+> by the firmware. It acts as the common layer with different TZ
+> backends plugged in whether it's an SCM implementation or a proper
+> TEE bus based PAS service implementation.
+> 
+> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+> Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com> # IPQ9650
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
 
 [...]
 
-> +bool qcom_pas_is_available(void)
+> +struct qcom_pas_context {
+> +	struct device *dev;
+> +	u32 pas_id;
+> +	phys_addr_t mem_phys;
+> +	size_t mem_size;
+> +	void *ptr;
+> +	dma_addr_t phys;
+> +	ssize_t size;
+> +	bool use_tzmem;
+> +};
 
-This is the most important function, for which I would expect
-kerneldoc be present. I think it also wouldn't hurt to add a
-footnote in every other function's kerneldoc saying that this must
-be called first
+Redefining this instead of moving the definition (this is a cross-
+subsystem merge anyway) makes things more difficult, as there are
+patches from another team touching this struct.. hopefully no kaboom..
 
 Konrad
