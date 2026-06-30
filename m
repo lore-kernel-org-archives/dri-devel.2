@@ -4,64 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C92EC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 08:39:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B14DC43602
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 08:43:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A334810E18E;
-	Tue, 30 Jun 2026 08:39:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCDAF10E196;
+	Tue, 30 Jun 2026 08:43:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QMe5WCND";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="MzZetzls";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E18D10E18E;
- Tue, 30 Jun 2026 08:39:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782808786; x=1814344786;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=EUfQGRyasCSbmwp8IOII8FDqfG3pxS91aWxjSPo+AW8=;
- b=QMe5WCNDlT+9NXh0qEUvESOoXUvgRbtyZgp0sHla3LfC2fviDCHcv+Ff
- tGT/fGT0MPm7ilWm3RMIGPOkfAv8bNBVyF9Wj7boi5KijNnmmSe7DzkCX
- jzyVHaZR0aLiYFKyUH3Qe6nYvxx0+SJDxePCBWIRU9LFCZc9fKEphWgfI
- 3aXPMWPWHwDF0tGuG9eh77frJeDf4mMi+nn57rY2GgMD/oiNstG7lLHPw
- boUI+Kl7YAgjH1ze/xcF0mXlCGxP5hlnBUx2R/qrwgjXbRTOB31LuRagK
- 8Yly588bYiIihVv7/EPhYePi3zKA6WH2ANkcXmlIrt6xVtVf9ICegCIjn w==;
-X-CSE-ConnectionGUID: rzU7P5YgQ4KXqA2PaArE6A==
-X-CSE-MsgGUID: w7tJl7QmQXizix9t/NKSPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="71038342"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="71038342"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 01:39:46 -0700
-X-CSE-ConnectionGUID: jlcP/zO/SX+BvGRiA8zevg==
-X-CSE-MsgGUID: GVF3NpmfRRar7SSIHgmKzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="255798935"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 01:39:43 -0700
-Date: Tue, 30 Jun 2026 10:39:39 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Riana Tauro <riana.tauro@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andi Shyti <andi.shyti@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] drm/xe/i2c: Handler for SMBus Alerts
-Message-ID: <akOAy1AhbMkSxdjA@black.igk.intel.com>
-References: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
- <20260625125939.429078-3-heikki.krogerus@linux.intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1510E196;
+ Tue, 30 Jun 2026 08:43:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782808986; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=itvu64uyYDeMZL5jzFV+h038rpP9b3MkBA8N47ZMCA7xS2YYwl7FFK2WnD/kPVQhRCmUX/jsoNSLyKtmzx34cZ6reEVIowBVU4B22kGNJ3mCGMt4Lob7vZY2r4Q8jXhkymPEIKbVojB+4RFaPgVEyGt9SvZxTzWkfHEj4LorJD4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782808986;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=dufAXSONUwo/B9hS1GnhZeSx257k/pmdLJDYuxXDvCc=; 
+ b=QZgEsvn0VE3uoZuIphmBFi89Cbbl/JoTq/nLeW8HfnnS3XShSQ6ADn0aiHToyJFuTxDW8vhXcKTaTEQI5w9lOWjSVR6mJL1xAkN0xP+gAVO8r34jRNeyvD6T0Uu4I1oGMCfMlHXsd37Qo7Nh8SqxeSya0NpeLBx5+k8w9P8DgUo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782808985; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=dufAXSONUwo/B9hS1GnhZeSx257k/pmdLJDYuxXDvCc=;
+ b=MzZetzlskmETFH06K+ecriOu87fICJBQrWKR1OWABCK4v7/nF8extnbCiNS4DUDW
+ 4vIXjFytFi5Oe8b8m+H+UlBNsClZ72VH3muSkZV/46dkUj1bAemEDPFeQA0jE3R2asx
+ eMPxXtWtqmIp9+sA19w0LBAAsQI13nF5tAezeNbg=
+Received: by mx.zohomail.com with SMTPS id 1782808984200397.6004567094453;
+ Tue, 30 Jun 2026 01:43:04 -0700 (PDT)
+From: Robert Mader <robert.mader@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>,
+ Robert Mader <robert.mader@collabora.com>
+Subject: [PATCH v1 0/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE behind
+ driver feature
+Date: Tue, 30 Jun 2026 10:42:25 +0200
+Message-ID: <20260630084229.529682-1-robert.mader@collabora.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625125939.429078-3-heikki.krogerus@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,50 +75,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 02:59:38PM +0200, Heikki Krogerus wrote:
-> Some devices that are attached to the I2C controller use the
-> SMBus Alert signal for example to inform the host about
-> thermal events, so registering the default SMBus Alert
-> device for them. The alert device makes sure that the alert
-> is processed and passed to the correct I2C client driver.
+From the main commit:
 
-...
+The client cap is currently advertised unconditionally, even for drivers that do
+not support plane color pipelines. If clients supporting the later, like Wayland
+compositors and drm_info, enable the client cap on sich drivers they will be
+left without both color pipeline and the legacy properties COLOR_ENCODING and
+COLOR_RANGE, effectively breaking YUV->RGB conversion support.
 
-> +static int xe_i2c_register_smbus_alert(struct xe_i2c *i2c)
-> +{
-> +	struct xe_device *xe = kdev_to_xe_device(i2c->drm_dev);
-> +	struct i2c_client *alert;
-> +
-> +	if (xe->info.platform != XE_CRESCENTISLAND)
+Add a new driver feature and guard the client cap behind it, allowing
+plane color pipeline and legacy YUV->RGB support to co-exist.
 
-Rather, introduce a has_i2c_smbus flag in xe_device_types.h and keep
-things platform agnostic. I think you'll also need it to early return
-from xe_i2c_create_irq().
+In case of VKMS make the client cap depend on the enable_plane_pipeline.
 
-> +		return 0;
-> +
-> +	alert = i2c_new_smbus_alert_device(i2c->adapter, &xe_i2c_smbus_setup);
-> +	if (IS_ERR(alert))
-> +		return PTR_ERR(alert);
-> +
-> +	i2c->client[XE_I2C_CLIENT_ALERT] = alert;
-> +
-> +	return 0;
-> +}
+The series can be easily tested with drm_info >= v2.10.0 and VKMS. Without the
+enable_plane_pipeline option - currently the default - the legacy flags
+COLOR_ENCODING and COLOR_RANGE should be advertised, just like older drm_info
+versions.
 
-...
+---
 
-> @@ -182,7 +222,10 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
->  		return;
->  
->  	/* Forward interrupt to I2C adapter */
-> -	generic_handle_irq_safe(xe->i2c->adapter_irq);
-> +	if (xe->info.platform == XE_CRESCENTISLAND)
+Related series actually implementing the color pipeline replacement for the
+legacy flags:
+https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html
 
-Ditto.
 
-Raag
+Robert Mader (4):
+  drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE behind driver feature
+  drm/amdgpu: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+  drm/i915: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+  drm/vkms: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
 
-> +		xe_i2c_handle_smbus_alert(xe->i2c);
-> +	else
-> +		generic_handle_irq_safe(xe->i2c->adapter_irq);
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+ drivers/gpu/drm/drm_ioctl.c             | 2 ++
+ drivers/gpu/drm/i915/i915_driver.c      | 2 +-
+ drivers/gpu/drm/vkms/vkms_drv.c         | 6 +++++-
+ include/drm/drm_drv.h                   | 6 ++++++
+ 5 files changed, 15 insertions(+), 3 deletions(-)
+
+-- 
+2.54.0
+
