@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FBD7C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:58:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CD8CC43327
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78D1F10E1B2;
-	Tue, 30 Jun 2026 09:58:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A4010E1B8;
+	Tue, 30 Jun 2026 09:59:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y2ALFwmG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZKCJaAfF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9323B10E1B2
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:58:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2166910E1B8
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:59:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782813488; x=1814349488;
+ t=1782813551; x=1814349551;
  h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=kOm2v0nC7noZvRg091VQlCT9kgOiGVUDlosx4XuzZnM=;
- b=Y2ALFwmGP5zr6fXbtkzKQOGeF5BJqIyNCXG5H7Z+G5MCsIqTUQF2DFbg
- FIUTwa0xMKhdr2HW++zpOpXVA6zSrnogdoXssJbqdwgwTJ5ovWOpIuu8O
- kZ4YzUUXic8Rrg8VqSUiI0qbuE+RC9Y9nF3wqXIkOlbONjec7LUYVZgvH
- 4yuTbu7wUaRlMKChRYioN+lQAzPhqQj16bsCH5Ko643iMR/sXwkMF1Rgl
- B5xdKmL+iA5nGurmcdosmPCuKjjn7uXOKq8iybaRjBNL0SMLygvJ7ZRKM
- 76H1M2U8sBikaec4RMuIu6ETNPSdOroIlOV6SV/pSox057VYv4Gqy7llj A==;
-X-CSE-ConnectionGUID: 9OIYt9iYQFOZSW5Va+oNlA==
-X-CSE-MsgGUID: yReHhkOjQtOqOnUVs3JoPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="94174650"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="94174650"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 02:58:08 -0700
-X-CSE-ConnectionGUID: UywBQZDUSdKBc7i5QuBMgw==
-X-CSE-MsgGUID: 2Mh1JB+ATYSPVv1t9VjgiQ==
+ mime-version; bh=Rsxs8aEhUIy/x1lHQPRYTKTCN0exDRoJT27SXy7fmvU=;
+ b=ZKCJaAfF+fQ5KDMR0U57zAWMqbHqIMhs+6oSBZRXUoeiSbwubA+yE3Pg
+ 4VYcf3V/kL8iF/yGYFBeljZ8kXTxSmm/qJhEZlHH1tDaB0yf7DRCcdPSz
+ 8chU5z/QYi3CcliV6j+rnnVWEtgh9UgblCuWuE1D0thYAJIpOw458Ot2l
+ FUVVZLxmtATlNRk82BTy3sqLwzSm5PbDOVThBD6DPeKrc08kyHOCnr5WY
+ RI/EdcATd6QjmnMJYMkWuqJ0cUo3zj70ZRfcwGyB5PFx+A/lFMaPHN2py
+ 0I4PeaMBsV3OHBL1fdWPJF//4wAsxxL3970eUHMYlv0W4lD0o7B52XI7W g==;
+X-CSE-ConnectionGUID: uRd0ufPuRRCSY/OB2UduKQ==
+X-CSE-MsgGUID: Pmq7VSipSa6Yk844WD4XOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83607686"
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="83607686"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 02:59:10 -0700
+X-CSE-ConnectionGUID: eDcivR1wRQKXWlUoVxDlqg==
+X-CSE-MsgGUID: x5yCWH93TmO6qtpgHvv4yg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="276499316"
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="245874724"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.148])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 02:58:07 -0700
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 02:59:08 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/dp: fix kernel-doc for struct drm_dp_vsc_sdp
-In-Reply-To: <73daef55-2f45-4cd5-9de6-7398e86d4f78@suse.de>
+Subject: Re: [PATCH] drm/fixed: fix kernel-doc for drm_sm2fixp()
+In-Reply-To: <085ad62d-ec87-4a3d-9b1f-f3ab3e3dfd2d@suse.de>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260615153027.1899784-1-jani.nikula@intel.com>
- <73daef55-2f45-4cd5-9de6-7398e86d4f78@suse.de>
-Date: Tue, 30 Jun 2026 12:58:04 +0300
-Message-ID: <a069720e1850a401e9c54ad518d4e07c6dd915a4@intel.com>
+References: <20260615153012.1899576-1-jani.nikula@intel.com>
+ <085ad62d-ec87-4a3d-9b1f-f3ab3e3dfd2d@suse.de>
+Date: Tue, 30 Jun 2026 12:59:05 +0300
+Message-ID: <e6691e8737ef8bd01f8f8d0616cfe5249265caff@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,37 +70,37 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Tue, 30 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
 > Am 15.06.26 um 17:30 schrieb Jani Nikula:
->> Add the missing coasting_vtotal kernel-doc member documentation for
->> struct drm_dp_vsc_sdp.
+>> Fix the kernel-doc comment for drm_sm2fixp().
 >>
 >> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 >
-> With the title fixed as mentioned by Sashiko:
->
 > Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Thanks, pushed to drm-misc-fixes with the commit message fixed.
+Thanks, pushed to drm-misc-fixes.
 
 BR,
 Jani.
 
+
 >
 >> ---
->>   include/drm/display/drm_dp_helper.h | 1 +
->>   1 file changed, 1 insertion(+)
+>>   include/drm/drm_fixed.h | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
 >>
->> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
->> index 8c2d77a032f0..ab16c1be3900 100644
->> --- a/include/drm/display/drm_dp_helper.h
->> +++ b/include/drm/display/drm_dp_helper.h
->> @@ -115,6 +115,7 @@ struct drm_dp_vsc_sdp {
->>    * @duration_decr_ms: Successive frame duration decrease
->>    * @target_rr_divider: Target refresh rate divider
->>    * @mode: Adaptive Sync Operation Mode
->> + * @coasting_vtotal: Coasting vtotal
->>    */
->>   struct drm_dp_as_sdp {
->>   	unsigned char sdp_type;
+>> diff --git a/include/drm/drm_fixed.h b/include/drm/drm_fixed.h
+>> index 33de514a5221..21d822aeed55 100644
+>> --- a/include/drm/drm_fixed.h
+>> +++ b/include/drm/drm_fixed.h
+>> @@ -79,7 +79,8 @@ static inline u32 dfixed_div(fixed20_12 A, fixed20_12 B)
+>>   #define DRM_FIXED_ALMOST_ONE	(DRM_FIXED_ONE - DRM_FIXED_EPSILON)
+>>   
+>>   /**
+>> - * @drm_sm2fixp
+>> + * drm_sm2fixp() - convert signed-magnitude to fixed point
+>> + * @a: 1.31.32 signed-magnitude fixed point
+>>    *
+>>    * Convert a 1.31.32 signed-magnitude fixed point to 32.32
+>>    * 2s-complement fixed point
 
 -- 
 Jani Nikula, Intel
