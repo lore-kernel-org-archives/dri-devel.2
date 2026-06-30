@@ -4,72 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40B41C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:28:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DB4BC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:32:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0C510E21C;
-	Tue, 30 Jun 2026 16:28:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3A410E208;
+	Tue, 30 Jun 2026 16:32:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="YqSSo22m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OjboBIWY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZgFV4lBo";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rKa8cQVC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oln6Gp+a";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K6CUKJRx";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oln6Gp+a";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K6CUKJRx";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C96EB10ECC8
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:28:28 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F4D10E208
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:32:11 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CF42375862;
- Tue, 30 Jun 2026 16:28:26 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1EAD071583;
+ Tue, 30 Jun 2026 16:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782836907; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1782837130; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fpGfQAlLw3qzT5ysYw+w7SeZRvoxB0S7yzln6WQZvac=;
- b=YqSSo22mhojVHr5KaetPiVoKsOWpADcKQk4SCGwzHCD8c91TO93c7qH1Hu/3Iu+C8qEW18
- VBut15wgg3j+TREb3l4ryyZLhMjfVgvJJPfYNovcFJzQIcEEvgSYiOYPF64P5plftbzoOc
- i75gg2QntCUc2dXLmYWRfa0fZtiUR58=
+ bh=bj46aHd3P0qP06KPPng/jA7xnMpRZKdrlFaZk5YHEUI=;
+ b=oln6Gp+aZqEobfrbzku3yTI5LCsxkNY8CGU+44JjCaJ6YrK5aoDytJfuOdF42/DkFL0oqf
+ +YJ6aGJ7A+InPvaWE3SaEAscugLUHr6UwmbeHzjX9sqqGmUgtOf35OjYiotEkSd9rXGyvd
+ /AYl53jRW5BNSqyLj1+svAGG5barEag=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782836907;
+ s=susede2_ed25519; t=1782837130;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fpGfQAlLw3qzT5ysYw+w7SeZRvoxB0S7yzln6WQZvac=;
- b=OjboBIWYV6zQ1rxvwd5uWsW03NJA0+xMVpxxKl5/JCx9KhJuvl0yKBodabIAdWEdEvS9xh
- 9uWMIehk6x4zh3CA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZgFV4lBo;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rKa8cQVC
+ bh=bj46aHd3P0qP06KPPng/jA7xnMpRZKdrlFaZk5YHEUI=;
+ b=K6CUKJRxqfsSaluzpcBH1ATyfDref91sgi1JY9lMK3i3ebN+kNzleEv1r+ctX8m1sl67BO
+ LnuXVEjWKJAX9HCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782836906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1782837130; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fpGfQAlLw3qzT5ysYw+w7SeZRvoxB0S7yzln6WQZvac=;
- b=ZgFV4lBoUGsQDPFviUEZwCb5BwvFn9qMsh2J0ogEmmwQS+pxrmwiLkr9M9DoShzjh0Zfh/
- DBPpsMG60OIr589X+rITcBxdJnLkKJL4828uid3F84GFeGCB30hiPbc+yKJ/8PKcvVzNYs
- 6J/Rz50dxf3wqRpA64eLH4S0f8go2Ww=
+ bh=bj46aHd3P0qP06KPPng/jA7xnMpRZKdrlFaZk5YHEUI=;
+ b=oln6Gp+aZqEobfrbzku3yTI5LCsxkNY8CGU+44JjCaJ6YrK5aoDytJfuOdF42/DkFL0oqf
+ +YJ6aGJ7A+InPvaWE3SaEAscugLUHr6UwmbeHzjX9sqqGmUgtOf35OjYiotEkSd9rXGyvd
+ /AYl53jRW5BNSqyLj1+svAGG5barEag=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782836906;
+ s=susede2_ed25519; t=1782837130;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fpGfQAlLw3qzT5ysYw+w7SeZRvoxB0S7yzln6WQZvac=;
- b=rKa8cQVC+8ZRtQgsEQclbwO5qC7aomSV+ez16gryVhI/I40x6yq3EpaTh17haLc1Dd6kXE
- dOK0Gmj5eCbIhcCw==
+ bh=bj46aHd3P0qP06KPPng/jA7xnMpRZKdrlFaZk5YHEUI=;
+ b=K6CUKJRxqfsSaluzpcBH1ATyfDref91sgi1JY9lMK3i3ebN+kNzleEv1r+ctX8m1sl67BO
+ LnuXVEjWKJAX9HCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EE806779A8;
- Tue, 30 Jun 2026 16:28:21 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 91BCC779A8;
+ Tue, 30 Jun 2026 16:32:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id RLl5NqXuQ2qudgAAD6G6ig
- (envelope-from <pfalcato@suse.de>); Tue, 30 Jun 2026 16:28:21 +0000
-Date: Tue, 30 Jun 2026 17:28:20 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 91GlH4XvQ2qregAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Tue, 30 Jun 2026 16:32:05 +0000
+Date: Tue, 30 Jun 2026 17:32:03 +0100
 From: Pedro Falcato <pfalcato@suse.de>
 To: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -119,38 +117,31 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  damon@lists.linux.dev, 
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 08/30] mm/rmap: rename vma_interval_tree_*() to
- mapping_interval_tree_*()
-Message-ID: <akPtjuele4I7iqTQ@pedro-suse.lan>
+Subject: Re: [PATCH 09/30] mm/rmap: parameterise anon_vma_interval_tree_*()
+ by anon_vma
+Message-ID: <akPvI4r1rnxxSbzW@pedro-suse.lan>
 References: <cover.1782735110.git.ljs@kernel.org>
- <f95462457025370efd047b9dfb039e76bbddf58b.1782735110.git.ljs@kernel.org>
+ <1c1df7b905ef340cbf2effef769a4e770a8e0eb1.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f95462457025370efd047b9dfb039e76bbddf58b.1782735110.git.ljs@kernel.org>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+In-Reply-To: <1c1df7b905ef340cbf2effef769a4e770a8e0eb1.1782735110.git.ljs@kernel.org>
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,pedro-suse.lan:mid];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+];
  FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_TLS_ALL(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ MISSING_XM_UA(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_SOME(0.00)[];
  TAGGED_RCPT(0.00)[]; RCPT_COUNT_GT_50(0.00)[75];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, pedro-suse.lan:mid, suse.de:dkim]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: CF42375862
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, imap1.dmz-prg2.suse.org:helo,
+ pedro-suse.lan:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,32 +157,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:19PM +0100, Lorenzo Stoakes wrote:
-> The family of vma_interval_tree_() functions manipulate the
-> address_space (which, of course, is generally referred to as 'mapping')
-> reverse mapping, but are named the 'VMA' interval tree.
+On Mon, Jun 29, 2026 at 01:23:20PM +0100, Lorenzo Stoakes wrote:
+> Similar to what we did with mapping_interval_tree*(), let's declare
+> anon_vma_interval_tree*() in terms of anon_vma rather than rb_root_cached.
 > 
-> VMAs may be mapped by an anon_vma, an address_space, or both. Therefore
-> calling the mapping interval tree a 'VMA' interval tree is rather
-> confusing.
+> In each case the rb tree referenced is &anon_vma->rb_root, so just pass
+> anon_vma and the functions can figure this out themselves.
 > 
-> This is also inconsistent with the anon_vma_interval_tree_*() functions
-> which explicitly reference the rmap object to which they pertain.
+> Additionally, rename 'node' to 'avc', 'index' to 'pgoff_start', and 'last'
+> to 'pgoff_last' to make clear what is being passed.
 > 
-> Rename the vma_interval_tree_*() functions to mapping_interval_tree_*() to
-> correct this.
+> Finally express page offsets in terms of pgoff_t to be consistent.
 > 
 > No functional change intended.
 > 
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-I'll have to nitpick this and say that I prefer [1] file_rmap_tree_, or
-mapping_rmap_tree. Or possibly even better - mapping_ (so
-mapping_for_each_vma, mapping_insert_vma, etc).
+Yay!
 
-A bit of bikeshedding never hurts ;)
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-[1] locally I was naming things file_rmap, but I never actually got to
-churn these names away
+I have a vaguely similar comment as for the file part (names could be
+simpler, doesn't really matter whether it's an interval tree or possibly
+even a tree), but I care less strongly about anon rmap :)
+
 -- 
 Pedro
