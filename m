@@ -4,81 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61DA1C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 14:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5C7BC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 14:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F16E10E038;
-	Tue, 30 Jun 2026 14:05:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9DE010E0E7;
+	Tue, 30 Jun 2026 14:05:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ktFvD4jo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FhwUknK4";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D26810E038
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 14:05:23 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-4629051c9d1so2638433f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 07:05:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782828322; x=1783433122; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=O6LhOb8EsOqkumof6PN234kRqnlpHLJfaxXGP2ixv0M=;
- b=ktFvD4jo/sTluWyzOKiQpihi1Z7fPYsRRPbUqKvOjLQNKl+h9aYEH8JXQeM/Y3vnLI
- UaybV3Iu5X1igKdbaTDVYX3qB1AxzxIFY4i74TQni2fxlyS5ZCIRnk1PDvt+BJsoXvMI
- 1CTA/vdQFD3IF7VEETQ/TavosjUl6Fc8I5SDziA2V/Lh5LOp2Ncc9C3xDg0qhfRVoItN
- SzkGe1HaEJfBNypj0I0PwIJIAHyTHkWQe+65bOSlEoEQAkqhnpfodPkW+19SMloH8u/6
- 3YNzJ/zpcSfuSU8yax/qSd5cVl/WRAHtDrwZI72GsfX5xe6O4oFlIEry3lGodfhksJ1s
- Lkkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782828322; x=1783433122;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=O6LhOb8EsOqkumof6PN234kRqnlpHLJfaxXGP2ixv0M=;
- b=ZEzKo5z25FkhaR9qktb7QxNuqs3u6N5Zs/gjwN2G0h81uYjzoJippglhP7LZv97CXK
- LIS+YIrHIw9MKxrgs2U3Y5ZqKrIhKmUTHYqVG2vGVuT2BF5JN1wM9yvMXUbWu6o6t1cg
- hMRahjBLx0l4mpQlKgynOUd1A4I+Isx+7optysk23iFLqENJEAYTk3S2fc/mZj/bmsBD
- WJ2cr/hYIixXB1wLpiA7KIesNp5ecI2rL7DDZAIUaiHNoNSoiBfrre9sZ1MOh2+/mfI3
- wXjw1dU8qsEbQ0Kq/X+q1/mdLOXFV9qiu/uB2Nru/7hfNfHgkByqzDyjYpL919sGeucq
- BwcA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro9KEvL0MGsvzaBs8i9+aVTSy+KOlxrv79dcXft07k9x0j8peJVJryfufS62Es3YqVoksiqiP9mtZ8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx9pKqpFhGiB592AwjtY9QAlDSOMjMgMdZQhl0EleTxEkdCakyK
- ciUGaYDT63wwEyxC0WXgcingF3FFHxTql0SZ6umemEayMz2/gb8W4/oz
-X-Gm-Gg: AfdE7cn3BEsFGrp4LrzdujBY68737X5Lt4xhU/Kgy37iVW/0HcAQ8d57ljA2e+p6xH/
- jygLYjUNqCzPINsWs09NgD+pbdPnmvs66hTMLgX9aL4k/GsZ+qxA9UQ6OHWOkVNgwAolhoaAAYG
- 20p+6axNMpb0V8s9hsG8nf2SbaZungCUmvDsWfWAEIAdSZguBihUGrXcd3QlQK7B0tsnsQ9o6D5
- kJ1CWLHZeiPzsHfgvvOkFpLIhNaCVGz1kY9CmdHaeI3CNx+N50FdGhZdabg7Qo/q2MIw0Rzryrg
- gFfeKGNyoU3yOTP+YEu6iuWBe5BDOsRaR1fW5P28okkhLSsDS3j2kA2rbdjUpIfhcb1XHQjwZl/
- xJgbWiFzEmIilhBkM8pA+TK0t5VqH20N8rMHshQY/4vRiIWxyFgs4OvTtqGqyt3rP17GJUnKvtC
- GS0mmj7PWwoPX2WNPUks+4UF3+h+M=
-X-Received: by 2002:a05:6000:2510:b0:475:f0f0:9ed0 with SMTP id
- ffacd0b85a97d-475f0f0a0d6mr2897097f8f.59.1782828319713; 
- Tue, 30 Jun 2026 07:05:19 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4756778f015sm8456382f8f.31.2026.06.30.07.05.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 07:05:19 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: javierm@redhat.com
-Cc: airlied@gmail.com, andy@kernel.org, azuddinadam@gmail.com,
- chintanlike@gmail.com, conor+dt@kernel.org, deller@gmx.de,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- gregkh@linuxfoundation.org, krzk+dt@kernel.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-staging@lists.linux.dev, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de
-Subject: Re: [PATCH v2 2/4] drm/ssd130x: Add RGB565 support to SSD133X family
-Date: Tue, 30 Jun 2026 17:04:53 +0300
-Message-ID: <20260630140453.78029-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <87jyrhd58b.fsf@ocarina.mail-host-address-is-not-set>
-References: <87jyrhd58b.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 547FB10E0E7
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 14:05:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 63CA1601C1;
+ Tue, 30 Jun 2026 14:05:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA981F000E9;
+ Tue, 30 Jun 2026 14:05:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782828337;
+ bh=eNY2Xxxk//2WsyShuqS54lgOiU6FNy/a02RLRWW4u7M=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FhwUknK4nDDHFILp/n5YWaVrOb6ojyj1LjnDJ6WrWsy5CwGQ3/EcAcMKSjJqaZsCq
+ L90HC5HrJy6Rmd4gVElfhzebH6UevAf4LIzBo7Pfcy9Cb1dQTF8PViXry1QdPleJcj
+ yiTaOIy9CKHQtE+fKkG1UGUJrnipCgpBj/ju09g1cPp+b1n6ldoNICT0Nrw4YoX4dP
+ Kuj7KCf+Rl/yUd2fZ2S7D1U0CwP3ao8kSxpQqyeB58K6Y9B99PsYHBPMfGCxFH0/Vz
+ Wsehpnc3p8NgPBnhs1QTkiqfbDLiCMXM99qN42i4zqUAlJDJxPuQPO4grP23x4zhlr
+ XbDneWk7RjkAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] drm/xe: Avoid using stolen memory for DPT.
+To: "Maarten Lankhorst" <dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260630135523.1775379-2-dev@lankhorst.se>
+References: <20260630135523.1775379-1-dev@lankhorst.se>
+ <20260630135523.1775379-2-dev@lankhorst.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 Jun 2026 14:05:36 +0000
+Message-Id: <20260630140536.EEA981F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,16 +53,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Javier Martinez Canillas <javierm@redhat.com> writes:
-> Given that we don't have that, I suppose that we could just get rid of the
-> DRM_FORMAT_RGB332 support for SSD133X and just default to DRM_FORMAT_RGB565.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I see your point. In v3 I'll remove the format_rgb565 option and just make RGB565 
-compatible screens (ssd133x and ssd135x) use the higher color depth.
+New issues:
+- [Medium] The refactoring inadvertently removes the SYSTEM memory fallback=
+ for Display Page Tables (DPTs) on discrete graphics (DGFX).
 
+Pre-existing issues:
+- [High] Integer truncation of the GEM object size leads to an undersized D=
+isplay Page Table (DPT) allocation, allowing the display engine to read out=
+-of-bounds physical memory.
 --
-Thanks,
-Amit
+
+commit 45b977ae39cb9d3ad37f33363c230cce698f7958
+Author: Maarten Lankhorst <dev@lankhorst.se>
+
+drm/xe: Avoid using stolen memory for DPT.
+
+On systems with media GT, extra latency is added when accessing stolen
+memory when the GT is in MC6. Since we additionally aren't counting how
+much memory is used for stolen and we could in theory fill up the
+entire stolen area with DPT's, avoid using stolen and only use the
+default memory region.
+
+Additionally, this may also result in random system hangs under load.
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+
+> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/=
+display/xe_fb_pin.c
+> index f93c98bec5b5f..86013ef532fd7 100644
+> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> @@ -146,8 +146,8 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object =
+*obj,
+>  			       const struct intel_fb_pin_params *pin_params,
+>  			       struct i915_vma *vma)
+>  {
+>  	struct xe_device *xe =3D to_xe_device(obj->dev);
+>  	struct xe_tile *tile0 =3D xe_device_get_root_tile(xe);
+>  	struct xe_ggtt *ggtt =3D tile0->mem.ggtt;
+>  	const struct i915_gtt_view *view =3D pin_params->view;
+>  	struct xe_bo *bo =3D gem_to_xe_bo(obj), *dpt;
+>  	u32 dpt_size, size =3D bo->ttm.base.size;
+
+[Severity: High]
+This is a pre-existing issue, but does assigning the 64-bit bo->ttm.base.si=
+ze
+to a 32-bit size variable in __xe_pin_fb_vma_dpt() cause integer truncation?
+
+If a BO larger than 4GB is allocated by a userspace attacker and used as a
+normal framebuffer, the size could be truncated (e.g., 5GB becomes 1GB),
+leading to an undersized DPT allocation. When the display engine scans out
+the framebuffer, could this cause it to read past the undersized DPT and
+potentially leak arbitrary physical memory contents to the screen?
+
+[ ... ]
+
+> @@ -164,31 +164,14 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_objec=
+t *obj,
+>  		dpt_size =3D ALIGN(intel_rotation_info_size(&view->rotated) * 8,
+>  				 XE_PAGE_SIZE);
+> =20
+> -	if (IS_DGFX(xe))
+> -		dpt =3D xe_bo_create_pin_map_at_novm(xe, tile0,
+> -						   dpt_size, ~0ull,
+> -						   ttm_bo_type_kernel,
+> -						   XE_BO_FLAG_VRAM0 |
+> -						   XE_BO_FLAG_GGTT |
+> -						   XE_BO_FLAG_PAGETABLE,
+> -						   pin_params->alignment, false);
+> -	else
+> -		dpt =3D xe_bo_create_pin_map_at_novm(xe, tile0,
+> -						   dpt_size,  ~0ull,
+> -						   ttm_bo_type_kernel,
+> -						   XE_BO_FLAG_STOLEN |
+> -						   XE_BO_FLAG_GGTT |
+> -						   XE_BO_FLAG_PAGETABLE,
+> -						   pin_params->alignment, false);
+> -	if (IS_ERR(dpt))
+> -		dpt =3D xe_bo_create_pin_map_at_novm(xe, tile0,
+> -						   dpt_size,  ~0ull,
+> -						   ttm_bo_type_kernel,
+> -						   XE_BO_FLAG_SYSTEM |
+> -						   XE_BO_FLAG_GGTT |
+> -						   XE_BO_FLAG_PAGETABLE |
+> -						   XE_BO_FLAG_FORCE_WC,
+> -						   pin_params->alignment, false);
+> +	dpt =3D xe_bo_create_pin_map_at_novm(xe, tile0,
+> +					   dpt_size,  ~0ull,
+> +					   ttm_bo_type_kernel,
+> +					   XE_BO_FLAG_VRAM_IF_DGFX(tile0) |
+> +					   XE_BO_FLAG_GGTT |
+> +					   XE_BO_FLAG_PAGETABLE |
+> +					   XE_BO_FLAG_FORCE_WC,
+> +					   pin_params->alignment, false);
+>  	if (IS_ERR(dpt))
+>  		return PTR_ERR(dpt);
+
+[Severity: Medium]
+Does removing the if (IS_ERR(dpt)) fallback to XE_BO_FLAG_SYSTEM
+inadvertently break DPT allocations on discrete graphics (DGFX) under memory
+pressure?
+
+If VRAM is full during normal operations, it seems the allocation would now
+just fail rather than falling back to SYSTEM memory, which could cause mode=
+sets
+to fail on DGFX. The commit message only mentions avoiding STOLEN memory on
+integrated graphics.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630135523.1775=
+379-1-dev@lankhorst.se?part=3D1
