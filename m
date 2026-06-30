@@ -4,73 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA7A9C43638
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6192C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07B9E10EB4C;
-	Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F0910EB27;
+	Tue, 30 Jun 2026 07:19:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EmUNDOPm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="es5WTbVe";
 	dkim-atps=neutral
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00C4110E0C5
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:07:17 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-30c591fb1cbso5387073eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:07:17 -0700 (PDT)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C551810E0AD
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:04:45 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-37e11438c66so1637315a91.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 23:04:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782745637; x=1783350437; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782799485; x=1783404285; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=nBucK9BctEyorzwpXgdpAjl0JFGTNYaAkDM1NigzWIU=;
- b=EmUNDOPmmAAOf/FvO2J5ouTtp09o+3NhN51xu30je2k/ufTIpuQRl+6K6zn0VSXlqa
- na5/M7CKE6ew2b5x2ZT6fDD1h8e+AY80uI/zb6kf+q9IxhNO0U1ioH3+uKpEZtWJHF9h
- nPyKq7guEpnOsPwPyORiE+2ux/B/0D62xVl07Yt1FBVmo1ASH4BcFGL50heDnJiHHZ+D
- R4p0bPvwIyKnHaEN3tfyVsMRNhwm23cRVmpDGrJ533l9wGs8EcyOjprYKsEMzswhZcXI
- rDGtUlx4ZaDiqtUJsl2dvy4W9RmoZJlM5/3kMZFa8UYCZyjGOLwi3Qll+x/sQXT/peT0
- GJfw==
+ bh=10B4i4oL/7/zv30DqERWrYljWa6g0AJAQ99ZS+xoTjU=;
+ b=es5WTbVeF+1OtLgq3NFoXpTfuwbe/VhceEMtNmtSK35j3STmrvlGCHS/1k+s55pwhf
+ sKxz5hUPELNPnT+auMFATzaO5f8hl5rxdw87sP7my4U/SB6EHugoMD57RN1oxsSwTaku
+ rqsRXLKTOyNTCEbNT5tclineHP6B/q+VOM11qaHph7MLa3NgAPcYBkfXuSYNcPua8LSb
+ Li4xDs8Ferwmw9APSc0PuIGpTew/EV91/43sjEP2FbqVQEzrMNh+Og70/e1VF5XBZh9K
+ zfuDKH7qxb7EKP1pvo/3/klHrTbonhPBNMn5psTi3CkpesqYvktUK4+OgfUnRDd96kP1
+ ZkfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782745637; x=1783350437;
+ d=1e100.net; s=20251104; t=1782799485; x=1783404285;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nBucK9BctEyorzwpXgdpAjl0JFGTNYaAkDM1NigzWIU=;
- b=LXrL+q+sMi9Tg9faxXMm5cESlMZAGKl5MlVf/6D11QnT/vnTEYz6cQpJzoBXHv6DS0
- Bau/CmnpI5I0MTxxOeOJPILz34yPXth625EwE2g8uzAkKkmffXh2R26Q1JIPLsOK2Aa1
- 18IDYJJh2otZaZFbXt5ugWU8rh1sZ7T4+d+EJ30+1RWt7uEQ3iCp8hBP8Pv2ENDN8EZl
- PFryxTEB4TJWBjybdonzyWPjymihuKa7Y0/ZXvfUCMYDxUZVaCtKc4xEqsW1iGQWVbrd
- 7HAX+tBjIggJTNUnbsVR5sH8wigcoUPBB6vcTWSjlLNut4OMt/FXBMSm+Z6oIrCGr3R8
- SNtg==
-X-Gm-Message-State: AOJu0Yw/BGoSYCHL6mTnv2QeH4CTwjHiDhluWh8T1/UX8A/p7B2yo77m
- hwAqYERVTdJpRDTaAU9qEs5HKgfxDpuen1L9Dq1bLxKJLsvBOatFhQ+r
-X-Gm-Gg: AfdE7cmqUzZmodFw0SIRTx5oWj5Sps4sjyUn1ZFQ6UlqmmdhFvyCxN3/TsXVh8P7qnH
- tSw2eVO7DSSGzuW5c7ptRnewYdqoQCsU0NALbZihFqSeecoFPbPkeLpp4MgpoHjjBkQW77jnVE2
- uQl7Zs/eefujB4Q4mruYoRE04mVZ2cggntkAM1cUGd8ZtINpIPk44iTen0RF8PlbGIQ6jKTv6Di
- TsRJUByZE1zfUcWYgwHIhyGEkJd/eRq+ODsU+V3RjLFT7kxVKqY660Z8LYLzVmhGMzB3El/wm9e
- MKpOyBR7vWEzrNzckKD2nZRWmhwXMyPAcEvFc8bw5SeAaCx8ueL0BpQJTVfWTci0sEG0vKD8QhW
- RVSflUaIk36Tew6Wovyg0/zsAb0+2VIZDlvKrU5PLiTQCouX70etawLfUYpO00+ccyjp4Qdju2r
- 9W+zeZlXHCQTUbSEh5LzO5mheZwRA=
-X-Received: by 2002:a05:7301:3807:b0:30b:ed93:5cdc with SMTP id
- 5a478bee46e88-30c84df4aa2mr14269685eec.31.1782745636954; 
- Mon, 29 Jun 2026 08:07:16 -0700 (PDT)
-Received: from evo.www.tendawifi.com ([103.98.7.180])
+ bh=10B4i4oL/7/zv30DqERWrYljWa6g0AJAQ99ZS+xoTjU=;
+ b=WGoQnA2UU/IOevIyBTjv0Z78M1lJP/xAuV3VY/U0p89bXlY//9W38EQYB8AlCKoL5U
+ jnbxacVVRtWKGgEhbIHOoUw5v2mXLaX5Pg0J8znx/3VNxuUbVJrvTVh4QPQhUTLFzH2y
+ 4g0Lf10XaujKpbufOW64NwZNTdnu3F9pgv4MmUPa9HxirqWKOvc0cgqvcsBs3DJekU0x
+ wygfz0BWcoL6tVPULCjMeoX7azoBFgQk1o+SUiuW/X7Z6+0GrQmMqcCpKl37g/jYfA1a
+ j9yO6xFW3EcKQpL0uCAv0yBeWmyjGT0tIxuYGbuJKfvr7d08VLQ1pg96dUXUrOvf6Xng
+ HIww==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RopDJwbVrJYO2H/BlTuLWvwtmSVkT8yXQd/kdpWBSMHXcYqjTw3a56sGJPNZaygyF1wFK6ESBfFVpE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5UX1SFtRFluYP/RPGTughFuiuHhZXsFmOi+e7N7vWhu9l5gkK
+ XOdtFI3+1j/v3BZCrpkE4DHwM73Q7Ke3oxBom08Ax5OEOxKwb1iGbKri
+X-Gm-Gg: AfdE7cm4vLyeZoqMm01qvZwPmp1V479piEY3gZtDl9m52kzZzDULNlxWu6uMiDZ4JGa
+ r8XtLgI50IyddKs9JjseD/119DtuJazjGuS+4NB/hPIqCTZnWXsPUHX3ao9aFUHiv8BpMC+2Jch
+ aLkYB71I72RyJyO03D3dHIOkBpmuFdbN+mEFKkPp0Ih4xCWErg6H26zROMXhpipE0bYmu6Gi4e8
+ +NPnSQzFE/YHBHbcYqq+zMevMHEGVNoyzpiRsMTa8fIyv3/dSaaF0lG2kMlZiXQvHBCasn0e3z2
+ OnEaj6iHIqzrVVeV9Uc//ClshGcaEfkIipS0v7YMIbSYX6IJqox8Ji4GIBt4p3pVrutLvQcjgFp
+ dKX8T2w/tWiVPro+ezg0eUFvTSGKA7mrVuJpUDrRkyuEHDepQmdayKFKlDInNCt9wU10C6WF9Kd
+ /YLSptL30aujt6BP693w7Xy7YDtTBx0vyAgsNpEhuemHSouhvXf290Lw==
+X-Received: by 2002:a17:90b:510b:b0:37f:eda5:5169 with SMTP id
+ 98e67ed59e1d1-380526d0477mr1902250a91.13.1782799485253; 
+ Mon, 29 Jun 2026 23:04:45 -0700 (PDT)
+Received: from localhost.localdomain ([45.67.201.99])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30ec79d4746sm14838131eec.13.2026.06.29.08.07.14
+ 98e67ed59e1d1-380532d4563sm988387a91.6.2026.06.29.23.04.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 08:07:16 -0700 (PDT)
-From: Archit More <architmore303@gmail.com>
-To: lizhi.hou@amd.com,
-	mamin506@gmail.com,
-	ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Archit More <architmore303@gmail.com>
-Subject: [RFC PATCH] accel/amdxdna: Replace sprintf() with sysfs_emit() in
- sysfs show functions
-Date: Mon, 29 Jun 2026 20:37:03 +0530
-Message-Id: <20260629150703.71734-1-architmore303@gmail.com>
+ Mon, 29 Jun 2026 23:04:44 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ phasta@kernel.org, tursulin@ursulin.net, akash.goel@arm.com,
+ Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH] dma-buf/test: add KUnit case for dma_fence_dedup_array()
+ empty input
+Date: Tue, 30 Jun 2026 14:04:36 +0800
+Message-Id: <20260630060436.1527498-1-shoubaineng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,51 +92,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Documentation/filesystems/sysfs.rst recommends using sysfs_emit()
-instead of sprintf() in sysfs show() callbacks.
+Add a KUnit case verifying that dma_fence_dedup_array() returns 0,
+not 1, when called with num_fences == 0. This locks down the
+contract documented in the kernel-doc and prevents a regression
+of commit 77a9298741f8 ("dma-fence: Make dma_fence_dedup_array()
+robust against 0-count input").
 
-Replace the remaining sprintf() calls in amdxdna_sysfs.c with
-sysfs_emit(). There is no functional change.
-
-Signed-off-by: Archit More <architmore303@gmail.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 ---
- drivers/accel/amdxdna/amdxdna_sysfs.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/dma-buf/st-dma-fence-unwrap.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_sysfs.c b/drivers/accel/amdxdna/amdxdna_sysfs.c
-index d9e359ee8182..8b4749e6c380 100644
---- a/drivers/accel/amdxdna/amdxdna_sysfs.c
-+++ b/drivers/accel/amdxdna/amdxdna_sysfs.c
-@@ -18,9 +18,9 @@ static ssize_t vbnv_show(struct device *dev, struct device_attribute *attr, char
- 	struct amdxdna_dev *xdna = dev_get_drvdata(dev);
- 
- 	if (!xdna->vbnv)
--		return sprintf(buf, "\n");
-+		return sysfs_emit(buf, "\n");
- 
--	return sprintf(buf, "%s\n", xdna->vbnv);
-+	return sysfs_emit(buf, "%s\n", xdna->vbnv);
+diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+index 4e7ee25372ba..72dea6091d58 100644
+--- a/drivers/dma-buf/st-dma-fence-unwrap.c
++++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+@@ -370,6 +370,15 @@ static void test_unwrap_merge_seqno(struct kunit *test)
+ 	dma_fence_put(f1);
  }
- static DEVICE_ATTR_RO(vbnv);
  
-@@ -28,7 +28,7 @@ static ssize_t device_type_show(struct device *dev, struct device_attribute *att
++static void test_dedup_empty(struct kunit *test)
++{
++	struct dma_fence *fence[1] = { NULL };
++	int ret;
++
++	ret = dma_fence_dedup_array(fence, 0);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++}
++
+ static void test_unwrap_merge_order(struct kunit *test)
  {
- 	struct amdxdna_dev *xdna = dev_get_drvdata(dev);
+ 	struct dma_fence *fence, *f1, *f2, *a1, *a2, *c1, *c2;
+@@ -595,6 +604,7 @@ static struct kunit_case dma_fence_unwrap_cases[] = {
+ 	KUNIT_CASE(test_unwrap_merge_order),
+ 	KUNIT_CASE(test_unwrap_merge_complex),
+ 	KUNIT_CASE(test_unwrap_merge_complex_seqno),
++	KUNIT_CASE(test_dedup_empty),
+ 	{}
+ };
  
--	return sprintf(buf, "%d\n", xdna->dev_info->device_type);
-+	return sysfs_emit(buf, "%d\n", xdna->dev_info->device_type);
- }
- static DEVICE_ATTR_RO(device_type);
- 
-@@ -36,7 +36,7 @@ static ssize_t fw_version_show(struct device *dev, struct device_attribute *attr
- {
- 	struct amdxdna_dev *xdna = dev_get_drvdata(dev);
- 
--	return sprintf(buf, "%d.%d.%d.%d\n", xdna->fw_ver.major,
-+	return sysfs_emit(buf, "%d.%d.%d.%d\n", xdna->fw_ver.major,
- 		       xdna->fw_ver.minor, xdna->fw_ver.sub,
- 		       xdna->fw_ver.build);
- }
 -- 
 2.34.1
 
