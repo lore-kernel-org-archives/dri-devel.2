@@ -4,128 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57BAFC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16649C43327
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC94F10EB49;
-	Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC5510EB4E;
+	Tue, 30 Jun 2026 07:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="gE6AmtIv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QrPl1+xD";
 	dkim-atps=neutral
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
- [209.85.219.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C42810E8F2
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:54:54 +0000 (UTC)
-Received: by mail-qv1-f52.google.com with SMTP id
- 6a1803df08f44-8de412e58edso34595716d6.3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:54:54 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCE1910EAD9
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 07:08:13 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-37fc01881f2so2520928a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 00:08:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1782748493; x=1783353293; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4r3nyg8MsZ+G0ckW9OOGJtlL6QAvCNLsDtm+wiwuKtE=;
- b=gE6AmtIvcAnrlmZuI2aTmjZSxErSrnEYPlEPX9q2ha1PmxVGlbdO2UIOg+5NJq4eax
- Mn7FbKdlb8O+cvz4GVvMM/bspGiAf/Miba15t3xlQMZYME/epZqPMNGmRuXk5142454K
- dUzGvP+Me4truIYF3NCN1vqelXgLelf6Cl72xzhknyB7YLLuoXwpMamTCJvaHxSdm9AH
- yo9s/Jd2DwRMrIGpcamamto6hfkRfSr8/WQouAkSQUC13NPYKJSU8G7NO82yT7hGB5Rx
- bVYU74BJBL98NiGPh/5c8ClH8tnMQFMbeGdbbS927Kk7mtwGl0L6zz2dTB8PSKncSAwg
- CwHQ==
+ d=gmail.com; s=20251104; t=1782803293; x=1783408093; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tyLQLQryK7/S92ya5PLfuOu/W+JvCTVmwNrWVc0CbCI=;
+ b=QrPl1+xDFwb8f9WqE9x8fkCPfdT88kT71vpDf2u/UbXDtkdbufyuWfOy5/V4XLYSA6
+ oMYqv+0Z20tQuSxcK3ncgyhkjCTXD1Y1U3uMQxhMLMhH9VfarVbl9sUz18q9WlNb/h4h
+ MReN9tm6QjFEDRBRzb1HBSMV8g9YqtUlC6w2eIKB9OKcvuSl+Cq2zaQrb6M0DETJ0Z+S
+ DhlwZau2jim8DmEGt0Sh0cQzMII1WY54YDztADJZhBemTzqiERo/260BxDhyGpaZYrEN
+ 5mLhfbpf2cmS1w6LCLUrI6hsKocoBRAYAKCdXMMda/MIIC7X+4KdPRPlaQUVQrZcWE4t
+ N4kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782748493; x=1783353293;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4r3nyg8MsZ+G0ckW9OOGJtlL6QAvCNLsDtm+wiwuKtE=;
- b=Afacwgxs/eyv7MxOAu2lVhE6FqhXUWS7+9EFNePggzK1kC34Jf7tM3+zrwiTQf07WD
- cc0L8y/Lz/4SLAfXr0HljrxWQowi5r35BAg8MkuCgPhcL5IB9EoiTl/HzBtXAtHaQ9A2
- q+Oppiz4Y7vVfvskGIrfIubRF2vP7cnfsnLjqKUWWq5xrkNJYA9V1dsGbk2cQ1g6oTqh
- qZzURVSquxDRwY8KULQEHyePqXE5vqh220dz9RHS3M7gycIxNIMz7EcbknEN1q7AN9nD
- 9ULTVALjc5S+GVkCmD4L548L3wGqmEaQy9itAPxQ/83O7OKG7k7e8BZgdfzXDbMUthuF
- LA5Q==
+ d=1e100.net; s=20251104; t=1782803293; x=1783408093;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=tyLQLQryK7/S92ya5PLfuOu/W+JvCTVmwNrWVc0CbCI=;
+ b=HMQ2SwYgfDKoW23t1EDe5LJvpwbj/VkcG9m2J+mzdxFfuFN46HaDB7OqITxEt6yfLL
+ 3R4FHhrU6eUuS9u21eab0eh1lDRhTZWsaJxtFMwNgIZiejE3ANCwDY8plYAoxaOWOXHS
+ TgbtC+g/+kNOu1k/bkx0S0RPkuzKCJHVY4t5Hp9VCroHcoDwXNDz87OQh9CQINLyDbhf
+ vIE7YBcvXPEMZsBWaVLtKOVia5+ilwTxJOKmYziAnrxQbeeeri1fsPsVaV4+AJ9dgFp2
+ V6pzDenFSQiVuK9sx35PpwzEaFH1VTG9ZvgCQowTthByBuu0BhzndcCwXvPD9IEGFilW
+ 5EOA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqTpE07hchAwskFA6F8UD8+sothVGlDyBv2nTY7Cdvig5XNDIcd24lJ/tkydceblUYEvAJDVP+vs1w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzuwBCfdHFwRHfyO92MpcOHGx6I2YDUsdYts9A2zIhp/KfPjiZ2
- 4dDGnGFfLCYKL4Kvh1GT8FmlRpaqw7nGAmEPpokeRxD7J7DJn9gQ9iogOwIbPYQuxLg=
-X-Gm-Gg: AfdE7cmPsa77XiI7+QDWUfLpWXFqXOPoychh2fn4s/xA6xCCQRmQYbCwQIUvew8HILP
- VNeOfJ21WcJre/QdXol4jGATKmLDfv6u6bPPhzllbsLs6shFG9EFR9+ay45JopEQjo1HBHnrnkN
- PLkk4Nfi3jh0LU/TpvbdyKB02O/0gGKCAV8zQ4sMlYPfyaelS3BZY8J3SAfeiVlaquiW1LjUT/0
- Ca7aRe9mO7LAYPqipkrEVSwulr0jI/HtcAICvjlYb51Zskno1/3tJfReCeHwhiNfxQTzQibHbnB
- JfTuctOzQ4rkVQKvLcUtsrPydsdc70dWR/swKH7g3JVkJZDtwMK9w1MsOFV2P9rMNZ7aNDlAn4S
- MgnN2/pfOgQhxfTcqF8bR6uYGiiQhbhVFNIZOryoyVCW3yG+2VGdGa/BvqAES8T24h0mXhOZtWc
- 1lQVUB7J1lwnZclSPOXpH8h32f4zX+uPxFBueU/4YwBDlb19q5rUjoERpUhwFhEEUn8IJbCuCjX
- mxempo=
-X-Received: by 2002:a05:6214:c65:b0:8f0:5b55:1f6c with SMTP id
- 6a1803df08f44-8f05b552223mr58558406d6.43.1782748492988; 
- Mon, 29 Jun 2026 08:54:52 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8f1a26f1b34sm1726396d6.3.2026.06.29.08.54.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 08:54:52 -0700 (PDT)
-Date: Mon, 29 Jun 2026 11:54:47 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 04/30] mm: introduce and use vma_end_pgoff()
-Message-ID: <akKVR2wNSjbLDt1-@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <e379a1cb6a897126ad96e3a263fdb91d6c11f6cb.1782735110.git.ljs@kernel.org>
+ AFNElJ8ywhMUbm6lVJK9+2XE5GIddaCNsJIwiW4wx+XGk3IJhnGseUH21FEf/UFMe8tH8pdwoOrjROT9y90=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+wBhyLrgz/th3h7sz3C1T+/xePGnSsGvuOPRFwAGuxEWYj2h9
+ FLQgwoYwgVWMujbGtrI6IWL7diXTL0aggqJu7FJITwOao8U/bDHytv5F
+X-Gm-Gg: AfdE7cm9FFXJq/d1GTVZJ+qvVdheIofZD8Akkq6PGwWmOAtA4ogIhobr6iGu3wYS2jS
+ GRzfiXyhtCHIFuc/gOzSC1TvwmAivsILQog2YomXPCtrSou1PnZL5l3NBtbtDPVcu0RsFCqy1mL
+ c2UoQgcPrLdJEQcen0VfCwgq4wETA46tzYZNq347zKMZUFEuaRavD/Hnwow1nqgw3rn2v5+3Swk
+ V7DZLAdbR3Ve0wntQz4n6hqTMtAba90+YGOWQXSoyxjchLxUn6peOQho8zUezir80Wy/oNmSVA2
+ 0Ig3QkFUc3fdFnPw07euneHwGMM2dcdli8Tov5YuwCK/XMuwMzYy6t6PNbuip5rInnKME6jARaT
+ hnfFCt2e0LGnfbiJcOAh65HjufqpOPs+YjAOpwxEFIgVX4bbMrI6PmKqZqgajgk/ym/2HqxU7td
+ r9VUI7/swLL0v9iQ+q/rp7FCU3iM6hHVx+s7cIKNPVvBmcKATC+JzKj0ZxHiNDXRDVpA==
+X-Received: by 2002:a05:6a20:4393:b0:3bf:c28f:8afd with SMTP id
+ adf61e73a8af0-3bfc5275c9cmr2386643637.31.1782803293270; 
+ Tue, 30 Jun 2026 00:08:13 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c9bb9fdbe64sm996296a12.0.2026.06.30.00.08.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jun 2026 00:08:12 -0700 (PDT)
+Message-ID: <54fd4b86-d978-4f21-8634-292ecbe484ed@gmail.com>
+Date: Tue, 30 Jun 2026 15:08:06 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e379a1cb6a897126ad96e3a263fdb91d6c11f6cb.1782735110.git.ljs@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
+ for single-output variants
+To: Conor Dooley <conor@kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-2-a0987203069@gmail.com>
+ <20260625-bobbing-annotate-d1c4d6874ee2@spud>
+ <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
+ <20260626-astrology-mural-853d3860e048@wendy>
+ <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
+ <20260626-everybody-epilogue-8fb298a54981@wendy>
+ <9456bde5059bea3aac1ed64355e3f017dd9bd3e5.camel@iscas.ac.cn>
+ <b3b7a0f8-93a8-4965-a2f3-3ca1552a25d6@gmail.com>
+ <80ae28925a67b7bee3b8873db3c113111437e717.camel@iscas.ac.cn>
+ <20260629-chevron-awhile-7cf456a768a0@spud>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <20260629-chevron-awhile-7cf456a768a0@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,19 +109,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:15PM +0100, Lorenzo Stoakes wrote:
-> We already have vma_last_pgoff() which retrieves the last page offset
-> within a VMA.
-> 
-> However, code often wishes to span a page offset range, which requires the
-> exclusive end of this range.
-> 
-> So provide this in vma_end_pgoff() and update vma_last_pgoff() to use this
-> function.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
+On 6/29/2026 11:02 PM, Conor Dooley wrote:
+> On Mon, Jun 29, 2026 at 01:31:46PM +0800, Icenowy Zheng wrote:
+>>>>>>>>>> +
+>>>>>>>>>> +        resets:
+>>>>>>>>>> +          minItems: 1
+>>>>>>>>>> +          maxItems: 1
+>>>>>>>>>> +
+>>>>>>>>>> +        reset-names:
+>>>>>>>>>> +          items:
+>>>>>>>>>> +            - const: core
+>>>>>>>>> This is just maxItems: 1.
+>>>>>>>> Well the implicit rules of DT binding schemas are quite
+>>>>>>>> weird...
+>>>>>>> I don't think it is that strange, as the binding has
+>>>>>>>     reset-names:
+>>>>>>>       items:
+>>>>>>>         - const: core
+>>>>>>>         - const: axi
+>>>>>>>         - const: ahb
+>>>>>> Ah does the list constraint the order of items? If it
+>>>>>> constrains
+>>>>>> the
+>>>>> It does, yes.
+>>>>> Alternatively, using an enum permits free ordering.
+>>>> Ah in this case this should be converted to an enum, I think.
+>>>>
+>>>> Should I send a patch for converting it?
+>>>>
+>>>> Thanks,
+>>>> Icenowy
+>>> Thank you all for the detailed review and discussion, it really
+>>> helped
+>>> clarify the right approach.
+>>>
+>>> Since I will supply all four clocks with the same phandle for
+>>> core/axi/ahb,
+>>> and only one reset "core" for MA35D1, the ordering constraint in the
+>>> `items` list is not a problem, "core" is already the first entry.
+>>> There
+>>> is no need to convert to an enum.
+>>>
+>>> Regarding the clock situation for the MA35D1: I agree with supplying
+>>> all
+>>> four clocks (core, axi, ahb, pix0) in the devicetree, even though the
+>>> MA35D1 clock controller gates core/axi/ahb with a single bit. The DT
+>>> will
+>>> use the same clock phandle for core, axi, and ahb:
+>>>
+>>>     clocks = <&clk X>, <&clk X>, <&clk X>, <&pix_clk Y>;
+>>>     clock-names = "core", "axi", "ahb", "pix0";
+>>>
+>>> This correctly models the hardware topology. Since all three names
+>> No, this doesn't correctly model the hardware topology -- this will
+>> lead to clk_get_rate() return the rate of DC core clock when checking
+>> the AXI clock rate, which is problematic because both clocks are
+>> limiting the performance of the DC.
+You are right. The current MA35D1 clock driver does not correctly reflect
+the real AXI/AHB clock rates, and I think it needs a more comprehensive
+review and rework. I will address this in a separate clock driver patch
+series in the future.
 
+For this DRM patch series, the AXI and AHB clocks are shared system bus
+clocks fixed by the SoC clock tree and are not managed by the display
+driver. The driver does not query their frequencies for mode validation
+or bandwidth decisions. Therefore, driver correctness is independent of
+the reported AXI/AHB clock rates, meaning it will remain unaffected when
+the clock driver is later reworked.
+>>> resolve
+>>> to the same underlying clock node, the CCF's standard enable
+>>> refcounting
+>>> handles the shared gate correctly without any custom implementation
+>>> needed.
+>>> I will also revert the change in patch 4/7 that made axi and ahb
+>>> clocks
+>>> optional, since they will now always be provided in the devicetree.
+>>>
+>>> Regarding moving `resets` and `reset-names` to the top-level
+>>> `required:`,
+>>> I will wait for Icenowy's patch to land before sending v6 to avoid
+>>> duplicating the work.
+>> The patch is sent.
+Got it.
+>>> In v6 I will update patch 1/7 with:
+>>> - Update the subject to "dt-bindings: display: verisilicon,dc: add
+>>>     support for nuvoton,ma35d1-dcu"
+>>> - Lower `clocks`/`clock-names` `minItems` to 4 at the top level
+>>> - Remove the `thead,th1520-dc8200` conditional block entirely
+>> I think this conditional block will still be needed, because it will
+>> need to constrain the minItems to ensure all clocks / resets are
+>> populated.
+> Correct. When the outer constraints are relaxed to deal with the new
+> device the conditional block for the th1520 becomes required. Or having
+> an else, but if all devices are likely to be different in terms of
+> configuration specific conditional blocks is better.
+Understood. I will keep the `thead,th1520-dc8200` conditional block.
