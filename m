@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84956C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:19:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B25C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:20:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBA8210EBCD;
-	Tue, 30 Jun 2026 09:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF07110E1C2;
+	Tue, 30 Jun 2026 09:20:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CZ+HiLWF";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pTSAv86M";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8553010EBB6
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:18:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF4510E1C2
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:20:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6EA9B43D1E;
- Tue, 30 Jun 2026 09:18:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E340E1F00A3D;
- Tue, 30 Jun 2026 09:18:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782811121;
- bh=3HbL/bxS5NfZBSjM72YgGg9R81gM7YXM63shB1q8IO0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CZ+HiLWFguKIZEf7sUxf0OJBO9Xufj4qK4XGI2WfBZeeAwX/AUR7eGHBZQOzzRjxY
- CoHaJJyvJEWy4/17aMeKYMBU08FNeYJbuxc7zjKZKxi7y7YeTUgrX6XYlQBXYPMyPE
- URoThKT7lMZRu8NRFfmZLK/LaVvlNR0ixY+XASrRLqnL0Jb8e9mmo5DWEWo2lf/O0D
- Cl1ehmAsNrUWMOU9VL21Y8b18/obmKV/StAsQQFQCU9+DCAQUrozk+WK7pEYo4t8D4
- WY7A5UUfyqZCyY9g3mrY2sVkXdwZQ34+/Y8axaeeE8v5Qnhb4CYfp91xIAAYyaS0Uc
- bWkrG6XZWhEPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 14/19] drm/xe/i2c: use platform_device_set_fwnode()
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev,
- Frank.Li@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260629-pdev-fwnode-ref-v2-14-8abe2513f96e@oss.qualcomm.com>
-References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
- <20260629-pdev-fwnode-ref-v2-14-8abe2513f96e@oss.qualcomm.com>
+ by tor.source.kernel.org (Postfix) with ESMTP id 1275360008;
+ Tue, 30 Jun 2026 09:20:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393B21F000E9;
+ Tue, 30 Jun 2026 09:20:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1782811200;
+ bh=P8y26ICau+Zq5nbRu9rFDpHLmiN9lzN8YryMUBW4Z8g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=pTSAv86MxiMhodCWxanIEFDXajdaw9kKMMAvHEU73DCrhG7+mnBvVResPe4mgebXr
+ c7XNC3u+9iar1gPM5/MH3SBlueeV0XoKt+oCP+UTr77JX4q+2ZxJso/SzltJVCllyn
+ LvwBEEMAYnTzsp0hYbxFfbg8SC4LOJWCNHQ87sMg=
+Date: Tue, 30 Jun 2026 11:19:56 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: thierry.reding@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ jonathanh@nvidia.com, WenTao Liang <vulab@iscas.ac.cn>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/tegra: fix host1x_bo_pin leak in tegra_dc_pin
+ error path
+Message-ID: <2026063044-multiple-lion-95fe@gregkh>
+References: <20260628150228.47948-1-vulab@iscas.ac.cn>
+ <6iIwnfniQ6-oslWmeLae0A@nvidia.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 09:18:40 +0000
-Message-Id: <20260630091840.E340E1F00A3D@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6iIwnfniQ6-oslWmeLae0A@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,77 +56,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Mon, Jun 29, 2026 at 02:59:05PM +0900, Mikko Perttunen wrote:
+> On Monday, June 29, 2026 12:02 AM WenTao Liang wrote:
+> > When map->chunks > 1 triggers an error, the function jumps to unpin
+> > before storing the current map in state->map[i]. The unpin loop only
+> > cleans up previously pinned planes (indices 0 through i-1), so the
+> > current mapping returned by host1x_bo_pin is never released via
+> > host1x_bo_unpin.
+> > 
+> > Suggested-by: Greg KH <gregkh@linuxfoundation.org>
+> > Fixes: c6aeaf56f468 ("drm/tegra: Implement correct DMA-BUF semantics")
+> 
+> This patch changes the code around the line, but doesn't look like it's
+> the origin of the bug. Rather, I think commit
+> 
+>   49f821919bb9d45de7f1cde6072de01d36235b5d
+> 
+> is the origin.
+> 
+> Aside from that,
+> 
+> Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
-Pre-existing issues:
-- [High] Missing cancel_work_sync() in driver teardown and error paths allo=
-ws a pending background work to execute after the 'xe_i2c' structure is fre=
-ed.
---
-
-commit 1ceae3ee709a0fb69c698acf7a00cab2a5e1829c
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-
-drm/xe/i2c: use platform_device_set_fwnode()
-
-Ahead of reworking the reference counting logic for platform devices,
-encapsulate the assignment of the firmware node for dynamically allocated
-platform devices with the provided helper.
-
-> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> index 706783863d07d..af4ebd93ad8e6 100644
-> --- a/drivers/gpu/drm/xe/xe_i2c.c
-> +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> @@ -123,7 +123,7 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
->  	}
-> =20
->  	pdev->dev.parent =3D i2c->drm_dev;
-> -	pdev->dev.fwnode =3D fwnode;
-> +	platform_device_set_fwnode(pdev, fwnode);
->  	i2c->adapter_node =3D fwnode;
->  	i2c->pdev =3D pdev;
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential use-after-free
-involving the background work item in this file.
-
-If platform_device_add() (called just below this block) triggers the bus
-notifier but ultimately fails, the asynchronously scheduled i2c->work remai=
-ns
-pending.
-
-When xe_i2c_probe() handles the error by unregistering the notifier and
-returning, devres immediately frees the i2c structure. Later, when the work
-executes, could it write to i2c->client[0] in freed memory?
-
-The xe_i2c_probe() error path currently does this:
-
-err_unregister_notifier:
-	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-
-	return ret;
-
-A similar scenario appears to exist in the standard teardown path, as
-xe_i2c_remove() does not cancel the pending work:
-
-static void xe_i2c_remove(void *arg)
-{
-	...
-	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-	xe_i2c_unregister_adapter(i2c);
-	xe_i2c_remove_irq(i2c);
-}
-
-Should cancel_work_sync(&i2c->work) be added to both the probe error path
-and the remove function to ensure the work item doesn't execute after the
-structure is freed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-pdev-fwnod=
-e-ref-v2-0-8abe2513f96e@oss.qualcomm.com?part=3D14
+I did not suggest this, so please do not accept this patch.
