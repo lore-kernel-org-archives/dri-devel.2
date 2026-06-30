@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AFCBC43327
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 15:29:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 728ACC43602
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 15:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51F0910E9B4;
-	Tue, 30 Jun 2026 15:29:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF56F10EAA7;
+	Tue, 30 Jun 2026 15:31:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZawjOD7C";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="RAOJsIzB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5E710E21B;
- Tue, 30 Jun 2026 15:28:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C73BE43D05;
- Tue, 30 Jun 2026 15:28:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091F61F000E9;
- Tue, 30 Jun 2026 15:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782833338;
- bh=eNRcZHEi+sWqrXaKp2YiEZpqdRAdOI0YpmVUfOV8GSo=;
- h=Date:From:To:Cc:Subject;
- b=ZawjOD7CoeB1Iepwoghw9ZxRQZouq+Nph6w8mM+Y5ujCrrefwfYz3gBegx+8q7u4P
- CUWG7fwPcRPo8Z36zuZ6Feyvs6CJHZXl/o5hYjJ6AFJSJP7Vd5nHTL7ElD772kbncm
- s8OqmYDdq/B7pkN+lK7e+/4LXI/H+1hk1P7G4gBOXTlByTul2L1FMzJHNXuX1fEmQX
- rCxK6jAULnkGheVOwWJWxsQIP84nUKzm3N4N9SXQH4qU6qFEB4carE1Q0Ntd1A5o/Y
- r+EeBOIKmzGR1oxQcsfNPquqgCvuDUMlxyfhz8pYa1209Pug11HKmVcBrtR7nFfBk2
- MLFwciH3eHwBQ==
-Date: Tue, 30 Jun 2026 16:28:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: duplicate patch in the drm-intel tree
-Message-ID: <akPgtvG9EP6wBnBt@sirena.org.uk>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4187A10EAA7
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:31:38 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 230541691
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:31:33 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 5CE7E3F66F
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:31:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782833497; bh=rNbjfDj1k6OstSpu4SYFzo8zIash85lDWLIy8NJh+1I=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RAOJsIzBPsMtIJNq8FnIUrMEaBDBXSQaXel25Q81tkWbCDJ5dlwBaYciogsgczwt2
+ nGjqvd/0MCbaBl6GLa0pqnJH5O2CHY68uy8cNDLWTO1IV3rXB1ILoyN/NGiG5gfVoz
+ nSmgKjsXysTwry0k451ZBf+EyFnJwh/1eKKusrlw=
+Date: Tue, 30 Jun 2026 16:31:34 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Akash Goel <akash.goel@arm.com>
+Cc: boris.brezillon@collabora.com, steven.price@arm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
+Subject: Re: [PATCH v2] drm/panthor: Fix NPD issue on partial unmap of an
+ evicted BO
+Message-ID: <akPhVnAaotapXe6A@e142607>
+References: <20260623130119.2737003-1-akash.goel@arm.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Zp3p2AqqPMtFQbFK"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260623130119.2737003-1-akash.goel@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,31 +59,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Jun 23, 2026 at 02:01:19PM +0100, Akash Goel wrote:
+> This commit fixes the NULL pointer dereference issue that would have
+> happened on the split of GPU mapping due to partial unmap of an evicted
+> BO. There is a logic to handle the partial unmap of huge pages when the
+> GPU mapping is split. That logic was not being completely skipped for
+> the VMA of an evicted BO and that resulted in a NPD possibility for the
+> 'bo->backing.pages' pointer, which is set to NULL when pages of a
+> BO are released on eviction.
+> 
+> Following dump was seen when a partial unmap was exercised for an
+> evicted BO.
+> Unable to handle kernel paging request at virtual address 0000000000002000
+> Mem abort info:
+>   ESR = 0x0000000096000004
+>   EC = 0x25: DABT (current EL), IL = 32 bits
+>   SET = 0, FnV = 0
+>   EA = 0, S1PTW = 0
+>   FSC = 0x04: level 0 translation fault
+> Data abort info:
+>   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+>   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+>   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+> user pgtable: 4k pages, 48-bit VAs, pgdp=00000008842e8000
+> [0000000000002000] pgd=0000000000000000, p4d=0000000000000000
+> Internal error: Oops: 0000000096000004 [#1]  SMP
+> <snip>
+> pstate: 20000005 (nzCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : iova_mapped_as_huge_page+0x20/0x68 [panthor]
+> lr : panthor_gpuva_sm_step_remap+0x39c/0x498 [panthor]
+> sp : ffff800086193920
+> x29: ffff800086193920 x28: ffff800086193a18 x27: ffff800086193b80
+> x26: 0000000000400000 x25: 0000000000810000 x24: 0000000000400000
+> x23: ffff000808af1800 x22: 0000000000a00000 x21: ffff800086193a00
+> x20: ffff000806fd3f00 x19: 0000000000410000 x18: 00000000ffffffff
+> x17: 0000000000000000 x16: 0000000000000000 x15: ffff800083ce2d83
+> x14: 0000000000000000 x13: 3120646574636976 x12: 6520303030303138
+> x11: 2d30303030313420 x10: ffff8000836e6c80 x9 : ffff80007bfc889c
+> x8 : 3fffffffffffefff x7 : ffff8000836e6c80 x6 : 0000000000000000
+> x5 : ffff00097ef19088 x4 : 0000000000000000 x3 : 0000000000000000
+> x2 : 0000000000010000 x1 : 0000000000000400 x0 : 0000000000000000
+> Call trace:
+>  iova_mapped_as_huge_page+0x20/0x68 [panthor] (P)
+>  op_remap_cb.isra.0+0x70/0xb0
+>  __drm_gpuvm_sm_unmap+0xf8/0x1c0
+>  drm_gpuvm_sm_unmap+0x40/0x60
+>  panthor_vm_exec_op+0xa0/0x168 [panthor]
+>  panthor_vm_bind_exec_sync_op+0x8c/0xb8 [panthor]
+>  panthor_ioctl_vm_bind+0xbc/0x170 [panthor]
+>  drm_ioctl_kernel+0xc0/0x140
+>  drm_ioctl+0x20c/0x500
+>  __arm64_sys_ioctl+0xb4/0x118
+>  invoke_syscall+0x5c/0x120
+>  el0_svc_common.constprop.0+0x48/0xf8
+>  do_el0_svc+0x28/0x40
+>  el0_svc+0x38/0x128
+>  el0t_64_sync_handler+0xa0/0xe8
+>  el0t_64_sync+0x198/0x1a0
+> Code: 8b030021 cb020021 f940b800 d34cfc21 (f8617801)
+> ---[ end trace 0000000000000000 ]---
+> 
+> v2: Fix indentation
+> 
+> Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
+> Signed-off-by: Akash Goel <akash.goel@arm.com>
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
---Zp3p2AqqPMtFQbFK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pushed to drm-misc-next.
 
-Hi all,
+Best regards,
+Liviu
 
-The following commit is also in Linus Torvalds' tree as a different commit
-(but the same patch):
 
-  3f9de66f8acbf (drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable)
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 26 +++++++++++++-------------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 31cc57029c12..7c99cd422add 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2358,20 +2358,20 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+>  	 */
+>  	panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
+>  
+> -	/*
+> -	 * ARM IOMMU page table management code disallows partial unmaps of huge pages,
+> -	 * so when a partial unmap is requested, we must first unmap the entire huge
+> -	 * page and then remap the difference between the huge page minus the requested
+> -	 * unmap region. Calculating the right start address and range for the expanded
+> -	 * unmap operation is the responsibility of the following function.
+> -	 */
+> -	unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
+> -
+> -	/* If the range changed, we might have to lock a wider region to guarantee
+> -	 * atomicity. panthor_vm_lock_region() bails out early if the new region
+> -	 * is already part of the locked region, so no need to do this check here.
+> -	 */
+>  	if (!unmap_vma->evicted) {
+> +		/*
+> +		 * ARM IOMMU page table management code disallows partial unmaps of huge pages,
+> +		 * so when a partial unmap is requested, we must first unmap the entire huge
+> +		 * page and then remap the difference between the huge page minus the requested
+> +		 * unmap region. Calculating the right start address and range for the expanded
+> +		 * unmap operation is the responsibility of the following function.
+> +		 */
+> +		unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
+> +
+> +		/* If the range changed, we might have to lock a wider region to guarantee
+> +		 * atomicity. panthor_vm_lock_region() bails out early if the new region
+> +		 * is already part of the locked region, so no need to do this check here.
+> +		 */
+>  		panthor_vm_lock_region(vm, unmap_start, unmap_range);
+>  		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
+>  	}
+> -- 
+> 2.25.1
+> 
 
---Zp3p2AqqPMtFQbFK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpD4LUACgkQJNaLcl1U
-h9AuWgf/dK31r/B4goGnc8moZhRjkkDDyiStkkmSu2MhHOycRrqbAiAB3uhULmbA
-IglqFpNkrko4Rb3kr9z3hNJq55Z9/LCjQeXbYSq8/utC/cBkv1AlV4vygM9h7QvY
-N05rdGFsp9NBvEkKCtbgbMwdRIfip/WbIwvpHXSOTSio9P/p1FhFEEwQdXAo3C5l
-vK1KxIRoaRmS1GN7yRf9wIhfH/g3ncvvPIbOQ05ZnaDbN1/O1VSxajk/eT47rl15
-pmFiAKaOKwrLmEloq1C3W1IbzO+7ifJPlJYkL3D8t83wR33hIOKrYCSOctzu6lB+
-PTWgC+K3G0vLtL522Lr05noZz/MR0Q==
-=6/WV
------END PGP SIGNATURE-----
-
---Zp3p2AqqPMtFQbFK--
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
