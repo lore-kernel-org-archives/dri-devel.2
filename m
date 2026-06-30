@@ -4,115 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A82C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 20:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F4A6C43327
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 20:45:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90C9D10E260;
-	Tue, 30 Jun 2026 20:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F7B210E1A5;
+	Tue, 30 Jun 2026 20:45:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=zytor.com header.i=@zytor.com header.b="K5lFI3Zq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a6iRVBeO";
 	dkim-atps=neutral
-X-Greylist: delayed 591 seconds by postgrey-1.36 at gabe;
- Tue, 30 Jun 2026 20:33:50 UTC
-Received: from terminus.zytor.com (terminus.zytor.com [198.137.202.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 234EF10E260
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 20:33:50 +0000 (UTC)
-Received: from [IPV6:2601:646:8081:7da1:c71f:dfcf:59c7:993c]
- ([IPv6:2601:646:8081:7da1:c71f:dfcf:59c7:993c])
- (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 65UK6ofd3661806
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Tue, 30 Jun 2026 13:06:51 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 65UK6ofd3661806
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
- s=2026062701; t=1782850020;
- bh=i2G6UAafySOmb8rY0Of+scGPJBnbme4rl6a4zKkZXos=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=K5lFI3Zq4F/mIozRU6/PLoKoYWvuV/6E6cXfs0gd3x7InpQddwy7n7lCqU9zTol6p
- iERjS1DYHe87ViLOQDzm87qe53A2nTT739eUJgh3GED1sB/6THV4FmbnfKfjF+gZM6
- V3hs8AlxsrgKHqVEonk0hhP6kKL9gYgNa+4EuHtRIhIHX/70mvzshRnY18tWCCdI5w
- Ll1EMcK2sxp8iMYsZYSnfeyWpSYeZ1t3FhRicQwouhz9KMqYRLpgCuNpQxbhJ9r8I9
- ZsFBJMIoIbws3i0Y3H2zHi5XFwogldA2J2JWZnvAJa/cf38a+7JjgFWPQpcUApHU2I
- YRs6tPbYTSHfg==
-Message-ID: <ccd35c56-08ac-46b1-9c76-2554d5a234a9@zytor.com>
-Date: Tue, 30 Jun 2026 13:06:44 -0700
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E979310E1A5
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 20:45:24 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-92c7a0a7059so329734285a.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 13:45:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782852324; cv=none;
+ d=google.com; s=arc-20260327;
+ b=cBylDRp8SmXZRyY1DWu7I/5WSjEsfUhSL67UKpGiUWr1duiXmQZUcl1VdgXgR56lEn
+ zHLBEjJ+Pb9R0W898g+UOEvH9j7qin2Z8sglJlFsg4tXofb6zGf0uvmatz/oA7CrZqUg
+ USsSqS7CNDR83LVJHBD4FTKyY8W6Zhb10KXOLUD+ZvOamhC0i5RncOgyLCY+ZMEcyIX9
+ TNjMpb7iGQF6z4If+krS4GeIuqemPjB33Ky1kRjnvaAWmOU4AL8fNzl5NavgewiFOlkq
+ 7GRH5wCBikOO3PMoeeAYRQYEw/NRs/0/Mnb+hIDW5pXlyOVQVO9tNXYOklxQ0SOnlNco
+ Fkuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=XbiwBbZPLTstEkkk4C8AvTs+JOgY/jyCAE3KLvaKzTE=;
+ fh=qFtw+MakEgHQHXWgXlkPxpmPhHtsQ9O9sYMpY+5+7vM=;
+ b=MPug8NPAcE5ohi/uana1H/9pHS08qbMddETcORQwjSOoh/64ehNor7EKZXygEyb+g8
+ Q8996Wyp2MlXk3Umk4h+4d/7dXU2bEoXTDaQ0L+qdt1iJcXFM9l0CmtT0/xS1sVOn+cI
+ n3tXCRZbX99hIzg8sgUAUBV93a09CKz29LlpHg8kkiuRY1m+qVi04DSfcfZy+2Cpb+iI
+ X0rxLbnduOjxASxSntV5IWC+G17KcnpzHy+luLg4iJ24w3lv6SCB15YDFeziUCUNt/su
+ JJiqzBfKS/Q1IWDej4inhZaDHShAyY9sFsfjcZQeAxquXGA1izpSgDQ0Tw+ll325MWft
+ G/EQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782852324; x=1783457124; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XbiwBbZPLTstEkkk4C8AvTs+JOgY/jyCAE3KLvaKzTE=;
+ b=a6iRVBeOsLHCQnpB6jyANOyVNQnimqOGB6/u17h0wRz6XO/aFWDtc1AGblnWirvmx7
+ +fOoBd6N+tScIwGTIXY4n1TuadmR4qX0JZJvEFvHwzXpKCjCqiX3MW9Fno0Fad0FpgI7
+ IXrOJjpNGaZ0xMqKY6Tn9D/iD4Jtp72+SSPxpsc02e90KirfNhZpslG0mOyGOhEc0ILQ
+ 5e1vFLHOcWhR1C7MpTFGQZKaeOmYfYppLahOjG61JlHwSuZ3FSMVI4rZYGaVXeElVlxE
+ voaIprpAo8/k8jYCQi7kYeFWhfMpWDtSQnaOukuemfCjEG4iGsDsV691lGccu31jKcZ+
+ FlbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782852324; x=1783457124;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=XbiwBbZPLTstEkkk4C8AvTs+JOgY/jyCAE3KLvaKzTE=;
+ b=CItMGv71KwksnIR3ZnymcsYqRkielFOT5rrcC9hUtNuuV3BEd/md2+bmLN+6aJr7+q
+ wQJijSCh25BuSS+0Bt/XY8+QbMnJwUQjr+Odb5LfJw7BIcpgntOt3T4Q8gQujMcB3zWC
+ IYa0QTMdt3WR3Q74iM7ZVYHQywzscwhrmb3zLHctjJolksIeJ5FzMDGa9Ubzbwa9QXbD
+ P1taDhZAtZ7yTfxyvJhtz8j7cySGFz3BNBRSNc8B83mQG+ZmiyMf7r3TNW2fTIC8e3Ck
+ xuAeo0VnhkDo3JYAnECGZItJxH7H0oEWF2Jm2Nhp9FLHZVxz8VVCiRN3XN6pH/A+HC5K
+ c5GQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9Tevqm4CSJPelzLDw0tpPzFSHFpxRo06zPUzl7sa5bBCCBrlho8m0nqT2+QLB9QA9Tqs8PQw/njA8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNbKnBLmUEQYgl4k76xq23pp7m0QvyCLvzZugE15vSvP6GejRE
+ ze38vaYcQy2pVpmDTecU3Kx6AncH3049jao5Mtpr3VRw5I0s/Cteh9XB9Bx8xV1S7V6hpEJTOML
+ e+hSMelzPkpHk/2zKGwKLv5pTQe4ngRg=
+X-Gm-Gg: AfdE7cmSU6umcpPXyYfYJ31YKF6T/iPaDYbsE4ICou4bxmGbkCLE7YOmk+wjMC8bWRi
+ H1FoF1cWAoaliRsrzElvpa/nZrRHVCh7Alj7fNzUU6SsDEXqrj6wu+86NxODBpy8frpmkpBgO5h
+ Yy9q4BA5zU5kNJyBtM3u0d1ifrHd6+CkNXMNpON2NnqqoAEebwYCY1PvIPqZxoZywOt58zvftmb
+ JR5br2fspe03NcxIMG0EOx1Xs2TGNMt3lkoMxowPhhshOmw+EmS5QhpMZqFxmAG3hIdddK+dvQ1
+ j2ZbjBhdugacVUsf3tEQq4klA/QmkyoIPHRSdidnXPr7srxkOHtahwjyFA==
+X-Received: by 2002:a05:620a:1b95:b0:92b:67e6:8ab8 with SMTP id
+ af79cd13be357-92e6282238amr889475985a.66.1782852323511; Tue, 30 Jun 2026
+ 13:45:23 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
-To: Arnd Bergmann <arnd@arndb.de>, Juergen Gross <jgross@suse.com>,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- x86@kernel.org, linux-acpi@vger.kernel.org, kvm@vger.kernel.org,
- linux-coco@lists.linux.dev, linux-pci@vger.kernel.org,
- virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-crypto@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
- platform-driver-x86@vger.kernel.org
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>,
- "lukasz.luba@arm.com" <lukasz.luba@arm.com>, Jason Baron
- <jbaron@akamai.com>, Borislav Petkov <bp@alien8.de>,
- Tony Luck <tony.luck@intel.com>, Yazen Ghannam <yazen.ghannam@amd.com>,
- Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, "Kirill A. Shutemov" <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, Pu Wen <puwen@hygon.cn>,
- Bjorn Helgaas <bhelgaas@google.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Dave Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Guenter Roeck <linux@roeck-us.net>, Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
-References: <20260629060526.3638272-1-jgross@suse.com>
- <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
- <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
- <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
- <9acced19-573d-4923-9329-8be408d2e555@suse.com>
- <d315e0a8-e4e9-4f7e-80a9-7c236849eabd@app.fastmail.com>
-Content-Language: en-US, sv-SE
-From: "H. Peter Anvin" <hpa@zytor.com>
-In-Reply-To: <d315e0a8-e4e9-4f7e-80a9-7c236849eabd@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAPM=9tyu7JAF9GD8GbSbeb++i-UqX59_OcBVY-cFyDyB4tBO8A@mail.gmail.com>
+ <8702af7f-47b2-4dcd-bed2-9fa64a8fee9b@amd.com>
+ <20260630115150.GD7481@nvidia.com>
+In-Reply-To: <20260630115150.GD7481@nvidia.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Wed, 1 Jul 2026 06:45:11 +1000
+X-Gm-Features: AVVi8CfCtojzmr55RgOQ3zsbIasTHb3f-VmKjr6k8e1tiX4l21aFj_4vIX8bILU
+Message-ID: <CAPM=9tyajYEV7tN+J9oG0wrJfx6Sy-ydB8-ZS+izBEpDJdT0CA@mail.gmail.com>
+Subject: Re: iommu/smmu/PCI ATS + TTM unmaps + nouveau best way forward
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, iommu@lists.linux-foundation.org, 
+ Alistair Popple <apopple@nvidia.com>, Matthew Brost <matthew.brost@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,71 +108,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-29 01:38, Arnd Bergmann wrote:
->>
->> There is no RDMSRQ instruction on any x86 CPU. Are you mixing this up with
->> WRMSRNS/RDMSR using an immediate for addressing the MSR?
-> 
-> Yes, I was just confused about the exact definition here and assumed
-> the single-register output version was actually called rdmsrq.
-> 
-So just to be clear:
+On Tue, 30 Jun 2026 at 21:51, Jason Gunthorpe <jgg@nvidia.com> wrote:
+>
+> On Tue, Jun 30, 2026 at 01:24:57PM +0200, Christian K=C3=B6nig wrote:
+>
+> > > Today I finally hit up iommu.strict=3D1 makes things a lot happier,
+> > > non-strict IOMMU seems to allow a race between dma_unmap_page and
+> > > free_page where the unmap goes into the IOMMU flush queue, where the
+> > > actual unmap are delayed until something triggers a flush later, and
+> > > the ATS translations stay alive past when they should, and after the
+> > > page has been allocated by some subsequent user.
+> >
+> > Try disabling ATS, that was a common source of problems during HW
+> > bringup for us in the past.
+>
+> The spark HW cannot run without ATS.
+>
+> > > 2. split ttm page unmap/free into two stages, and force an iommu
+> > > flush/ATS sync operation after the unmap before the free. (I don't
+> > > think iommu has an interface for this).
+> >
+> > Yeah that idea already came up on similar issues as well. I
+> > certainly wouldn't be opposed to that.
+>
+> Only for debugging, it is completely wrong to rely on this for
+> functionality.
+>
+> > You either have to use memory fences which use the same path as the
+> > DMA operations itself
+>
+> Yes, in a PCIe system generally something like the GPU TLB
+> invalidation command will complete and flush the fabric path to quiet
+> the DMAs. That won't be true on spark though.
+>
+> Dave could be facing a fabric issue. AFAIK the ATS invalidation that
+> the iommu=3Dstrict pushses should fence the fabric so would resolve a
+> missing fabric fence. I suppose if you don't see any evidence of a
+> non-present ATS response explosion with strict then this would be a
+> really good theory.
 
-There are three instructions(*):
+It's definitely a fabric issue, the iommu ATS invalidation is what
+"fixes" it, but I'm not figuring out how to flush it from the GPU
+side, and I'm not seeing where the official driver does this either,
+guess I have to keep digging. Maybe Alistair knows something.
 
-	wrmsr		- implicit form only
-	wrmsrns		- implicit or immediate
-	rdmsr		- implicit or immediate
+>
+> However, the GPU must have another way to inject a fabric fence. The
+> production driver does not rely on ATS fencing to synchronize memory
+> operations!
+>
+> > So far the record for grace periods you need after a TLB flush is 6
+> > seconds on production HW with up to 10 seconds on engineering
+> > samples (because of HW bugs).
+>
+> Yeah, if the HW mechanism to fence the fabric don't work spark would
+> need similar times to guarentee a fabric drain.
 
-The implicit form are the same on 32 and 64 bits (and, in fact, 16 bits): they
-take a MSR register address in %ecx and the data as two 32-bit words in
-%edx:%eax. This interface predates x86-64 by about a decade, and the Linux MSR
-interfaces were designed when Linux was 32-bit only, so it made sense at the
-time to treat them as two halves, especially since MSRs often are various
-kinds of bitfields. It didn't help that gcc at the time was extremely
-inefficient in its handling of multiword arithmetic (it is much better now),
-so using a u64 would have made for much worse code.
+From the ubuntu kernel this thing ships with:
+https://bugs.launchpad.net/ubuntu/+source/linux-nvidia-6.14/+bug/2132033
 
-The immediate forms are 64-bit only and use a single arbitrary 64-bit
-register; the MSR address is kept in an immediate in the instruction, just
-like they are for most other register types. The only thing that is "special"
-there is that the possible register address space is very large (2^32)
-although in practice a very small fraction of that is (currently) used.
+"Add two more Spark iGPU IDs for the existing iommu quirk "
 
-The immediate forms are expected to be faster, and provide for further
-performance improvements in future microarchitectures. This is important,
-because it provides a fine-grain uniform architecture for supervisor-only
-state, instead of having to give a bulk ISA (XSAVES/XRSTORS) that is different
-from the fine-grained architecture, and still get good performance. This gives
-the kernel very fine level control over the context switch flows, for one thing.
+diff -u linux-nvidia-6.14-6.14.0/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.=
+c
+linux-nvidia-6.14-6.14.0/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+--- linux-nvidia-6.14-6.14.0/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ linux-nvidia-6.14-6.14.0/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -3654,7 +3654,9 @@
+  if (IS_HISI_PTT_DEVICE(pdev))
+  return IOMMU_DOMAIN_IDENTITY;
 
-WRMSRNS is a non-serializing form of WRMSR, which is defined as an
-architecturally hard-serializing instruction, although some MSRs have been
-retconned as non-serializing (and the set is different between vendors.) We
-want to switch that over to the model where the kernel explicitly opts in to
-nonserialization, but that means using alternatives since not all CPUs have
-the WRMSRNS instruction.
-
-Furthermore, we want to use alternatives so we can make use of the
-immediate-format instructions when the MSR address is known at compile time,
-which it is in *nearly* all cases. If we are smart about it we can also use
-this to let the tracing framework be specific about what MSRs to trace, since
-some MSRs are frequently accessed, but many are set at startup and then
-rarely, if ever, touched.
+- if (pdev->vendor =3D=3D PCI_VENDOR_ID_NVIDIA && pdev->device =3D=3D 0x2E1=
+2)
++ if (pdev->vendor =3D=3D PCI_VENDOR_ID_NVIDIA &&
++    (pdev->device =3D=3D 0x2E12 || pdev->device =3D=3D 0x2E2A ||
++     pdev->device =3D=3D 0x2E2B))
+  return IOMMU_DOMAIN_DMA;
+  }
 
 
-(*) There are actually two more instructions:
+I should probably work out if anything upstream does this or if I can
+mess up the production driver against an upstream kernel.
 
-	RDMSRLIST
-	WRMSRLIST
-
-... which are bulk versions of RDMSR and WRMSRNS respectively. They can be
-useful to save and restore entire groups of MSRs in one shot, such as
-performance counter configurations. By architecturally allowing the memory
-operations and MSR operations to operate asynchronously, they give some of the
-pipeline benefits of the immediate MSR operations without requiring the MSR
-set to have been set at compile time or code to be dynamically generated.
-
-However, they expose an entirely different programming model, whereas the
-immediate- and -NS instruction choices can be entirely hidden at the C level.
-
+Dave.
