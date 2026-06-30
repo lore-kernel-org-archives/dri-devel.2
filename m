@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65460C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 21:05:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8A42C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 21:50:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 985F510E262;
-	Tue, 30 Jun 2026 21:05:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3126A10E258;
+	Tue, 30 Jun 2026 21:50:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ne1obNUa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="REkTOOmL";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10ACD10E262
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 21:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782853501;
- bh=+cbhdqNensUJxiX/smKQ0OfprDwHcpCabVotqLwQDkA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ne1obNUaObnlr8ZmJZyL/XaSJfHHSMdoCLb2zySqY5GgBqLhShRTbZ7azjMIsEVSn
- JVY8b6UBcoV/NkooefXk0k4DvPqO4fX3eeV2ehXwZ7MrQrLQj0HwDALvgtkVRpOdE0
- lssdyQewQk0QxfO9t//7NsAfkhhPxMdxI0D9pVtO7JghfO2nKxn60FLD+RVNm37sNO
- 4O5Jb3I1kddyOtT3UntjptZ00khZP1aKOJN5duvLD1koAhVKHJlNc/dEstzDA6hcvn
- +kIdQTzTE1Pu57xcPFK+zUvS3diNJ7bv/JNsvl+GeE6+6/th5KTAO98Fwe2Fn0eu5f
- rDXM5MZOpOIcA==
-Message-ID: <2021ac83-3f17-4a77-94ec-5156618c00fe@lankhorst.se>
-Date: Tue, 30 Jun 2026 23:05:33 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4F3910E258
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 21:50:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782856202; x=1814392202;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qLfOYcmcLo2kaYbXrwUssewGxfp5PDviBq5Pbno+seM=;
+ b=REkTOOmLvMmNFpslfO0i7vSX1qp8J6hFv02JP6ElgW13gyBXpFGU9/xU
+ 4V+gzF6TALv7yV1lrrKCExtNSKnnExNcsHdG3LRVdC2PYkgvmjn+dTSn8
+ F5886G91zBZXlhGq80T0wjT6w8hK2B8En5ePkW6WHHUjR39KMuT8KSlSS
+ i/6dB7Virx+f9eDVS/u1XTwHKabCIOwBqf3bMwQL9gIrRBUIgqIIjvibw
+ 7hWuEQ/AxTdQ4WF3kKJ9zQ2IC5IwxqART0s1VybwXyqfl/qBqoal63Mqe
+ SlgwQc9ittIPh9+x6umXR+9Uxz4QNaXR7LOZ0W0FApirsV6DN6rl7v9hc w==;
+X-CSE-ConnectionGUID: aJ6LU/lIStWtKD3M9jelRA==
+X-CSE-MsgGUID: RKi9y/TgRwiwxh+86xi9UQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="71104115"
+X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; d="scan'208";a="71104115"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 14:50:01 -0700
+X-CSE-ConnectionGUID: /yM0pKr9TeWNVnuUZChVlQ==
+X-CSE-MsgGUID: cK7heMICRYuOypHmb7UWZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,234,1774335600"; d="scan'208";a="252498253"
+Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 14:49:58 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: alex.zuo@intel.com, jonathan.cavitt@intel.com, tobias.hector@amd.com,
+ jason@jlekstrand.net, airlied@redhat.com, chris@chris-wilson.co.uk,
+ christian.koenig@amd.com, david1.zhou@amd.com,
+ lionel.g.landwerlin@intel.com
+Subject: [PATCH] drm/syncobj: Reformat kmalloc for chains
+Date: Wed,  1 Jul 2026 05:49:54 +0800
+Message-ID: <20260630214954.1406447-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] cgroup/dmem: add per-region event counters
-To: Hongfu Li <lihongfu@kylinos.cn>, Natalie Vock <natalie.vock@gmx.de>,
- tj@kernel.org
-Cc: cgroups@vger.kernel.org, corbet@lwn.net, dri-devel@lists.freedesktop.org, 
- hannes@cmpxchg.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- mkoutny@suse.com, mripard@kernel.org, skhan@linuxfoundation.org,
- hongfu.li@linux.dev
-References: <ajwnf0uzT4PMHYZx@slm.duckdns.org>
- <20260625021053.488107-1-lihongfu@kylinos.cn>
- <b549422c-7c35-434d-ad4a-49a4676970ac@gmx.de>
- <c645a8df-1d76-4e4d-bb97-47c539f7a205@kylinos.cn>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <c645a8df-1d76-4e4d-bb97-47c539f7a205@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -60,56 +69,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+We should use sizeof(*chains) instead of sizeof(void *) when performing
+the kmalloc for chains in drm_syncobj_timeline_signal_ioctl,
+stylistically speaking.  Also, wrap the line to match how the variable
+points is allocated.
 
-On 6/25/26 12:21, Hongfu Li wrote:
-> Hi,
-> 
-> On 6/25/26 4:57 PM, Natalie Vock wrote:
->> Hi,
->>
->> On 6/25/26 04:10, Hongfu Li wrote:
->>> Hi, Tejun
->>> Thanks for the review comments.
->>>
->>>>> Add dmem.events to report hierarchical low/max event counts per DMEM
->>>>> region.  Increment counters on dmem.max allocation failures and
->>>>> dmem.low protection events.  The file is available for non-root cgroups
->>>>> only.
->>>>
->>>> Please don't double space in descs or comments. Also, maybe it's obvious but
->>>> it'd help if you list why and how this is useful. Why do we want to add
->>>> this?
->>>
->>> I'll fix the double spacing in the commit message and comments.
->>>
->>> As for the motivation: dmem already exposes per-region limits and current
->>> usage, but not how often those limits actually matter at runtime. Without
->>> event counters, it's hard to tell whether allocation failures come from
->>> this cgroup, a parent limit, or pressure elsewhere in the hierarchy.
->>> dmem.events provides that visibility for tuning dmem.low/dmem.max and
->>> diagnosing recurring device memory pressure.
->>
->> Shouldn't you be able to deduce this rather trivially from just looking at the current usage together with the low/max limits you already set? I'm not sure I really see anything this events file provides that analysis of current usage and set limits doesn't? If your usage is highly variable, the separately-developed dmem.peak file might also suit your needs, but still, not sure what you can do with dmem.events that you can't already do with these tools. 
-> Thanks for the question.
-> 
-> Besides exposing counters, dmem.events notifies userspace on changes via
-> cgroup_file_notify(). This allows tools to monitor limit-related events
-> (for example, allocation failures or low-protection fallbacks) asynchronously,
-> without the need to periodically poll dmem.current against the limits. While
-> you could infer some conditions from current usage and limits, polling is
-> inefficient and cannot capture transient events in real time. dmem.peak only
-> records the highest usage, not these specific events.
-> 
-> So dmem.events provides both lower overhead and richer, actionable information.
+Concern caught by static analysis.
 
-Agreed, they're separate but both useful.
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: Tobias Hector <Tobias.Hector@amd.com>
+Cc: Jason Ekstrand <jason@jlekstrand.net>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Chunming Zhou <david1.zhou@amd.com>
+Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+---
+ drivers/gpu/drm/drm_syncobj.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-The peak tells you what the maximum memory consumption is.
-The events are sent when a limit is reached, but more will also count how often limit is reached and reclaim needs to happen.
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index c9dbf64c0c9f..d4c5b97403ee 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -1619,7 +1619,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
+ 		goto err_points;
+ 	}
+ 
+-	chains = kmalloc_array(args->count_handles, sizeof(void *), GFP_KERNEL);
++	chains = kmalloc_array(args->count_handles, sizeof(*chains),
++			       GFP_KERNEL);
+ 	if (!chains) {
+ 		ret = -ENOMEM;
+ 		goto err_points;
+-- 
+2.53.0
 
-So if you have 4 cgroups, and 1 of them sends a lot of events, that tells you that you may want
-to increase that cgroup's limits dynamically to have a more performant system.
-
-Kind regards,
-~Maarten Lankhorst
