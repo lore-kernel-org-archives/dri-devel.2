@@ -4,165 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F249EC43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D621EC43327
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A9CE10EAE0;
-	Tue, 30 Jun 2026 06:26:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 377E810EADF;
+	Tue, 30 Jun 2026 06:34:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QRAZsje3";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PmKdbvoY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jI8jpZWh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE45D10E19A;
- Tue, 30 Jun 2026 06:26:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782800800; x=1814336800;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=XKAeDVovabBX7yoykvxHTUB//jK4K/EWc8BHkA9q5LA=;
- b=QRAZsje33TvwklKpciE8wxb9DdzqYN6sE9WGDpD3q6Ppr9hpA12l/nif
- qTN3NVZvNo43pjKkcqVcUD/EDvVeYIwjDbax6oj4nTRT6KhSrz9AUQ++K
- 0onwsH6WhQZqKUevEFReTn/e0Ie0lrDYb9tddAogbwrU1lgxVEMHn373l
- nVp78XnMJo6tWhXJHTzuddvjqP90+pEDG0/+k0Ta0h6gOodWUZz2mkB/t
- 5yS1BBTNNo7/ZHAkRJsU3JKZ9zpzB0IpRAqnMF5Ngk/os4QOrj0imOjMR
- DCYp3RTrCQDtVXfwAeGXPVxw1QSpUuAYl0Dfc/EQ85ayjzwMks3BkZAhq w==;
-X-CSE-ConnectionGUID: Lf+8q0AARlKmGrbozIPLFA==
-X-CSE-MsgGUID: KiJKQ3wCTPStRS8Y2fmgLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="94887804"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="94887804"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 23:26:39 -0700
-X-CSE-ConnectionGUID: rbs4/AhIRwaQU13TMwo8FQ==
-X-CSE-MsgGUID: z48sOQsyQ0mzCbZna1g32Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="256107773"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 23:26:39 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 29 Jun 2026 23:26:38 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Mon, 29 Jun 2026 23:26:38 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.45)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 29 Jun 2026 23:26:37 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mYUkd3kCEIgy/QEXK1ceNO7xPOTx2hEaV9fcocPQebUFZbKgwiWXv3zxQ0LUDrh2fjDzQyQkrWagZssesfhXRw2H1MIzQ/4uvo776gd0Sl/eqjvBKf5wF6mYV8ghjDQzpMJ3OtFKM6a29IJfM/ymTDOiC/Qx/Hy2B57/2iPbor2GR9CTq58q6FHu7cPLXdplq+HxEJm3zt9w0PRNsj1zZx8P4r3WhFjzXfGgASF/zFeJoaAGJQF3ftARrIsvC41JsCTDNqCxVwSITbrgjFWNLmoBOvGQwY4/dln2hPm8STK/odEB7XDAfECCsnBjZrqrYQ5Y4ZpHOXQIwqcUObJ/gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OxHfuFlyTkWfkmZK14vlZhKlFpAvSnLCQ+iAtdmZ0o0=;
- b=sq+7FRUYAIlnSwCI3YRaSOxWVdSWhuWxSiwrw4o2ReJuVMHkvq68itK9+8iAxOj99fn8dy8wrHaS5hJlkLPjWWHACFtkGifKIKshH5cKHGIbOxMVN5OnxNr3vv2ZpLfVDTD7VuuzUa3CXWWxW46rPEZHrYlCUDfd4H3O7+wd8wG2yU3yuF5X3cCDwW07/41ETQjE6XcSwc2zZUXF0T/QV7Yvwa4mZhnbLfzTCjsi7P12zdDr9Dr12LOIWGSiC5AtwUF84+2jLKS0NinJgHFziPDhPRhk6ACpeeIY4f8PTJJlgtRGW8an6fL9I+mCCE/RQnKz3GJ6iBRVee22t82bCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- CHAPR11MB9680.namprd11.prod.outlook.com (2603:10b6:610:300::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 06:26:36 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0181.008; Tue, 30 Jun 2026
- 06:26:36 +0000
-Message-ID: <75557566-b1c8-42e6-a88d-a35bd5c63ce5@intel.com>
-Date: Tue, 30 Jun 2026 11:56:25 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] drm/xe/xe_ras: Add error-event support for CRI
-To: Raag Jadav <raag.jadav@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <netdev@vger.kernel.org>, <aravind.iddamsetty@linux.intel.com>,
- <anshuman.gupta@intel.com>, <rodrigo.vivi@intel.com>,
- <joonas.lahtinen@linux.intel.com>, <kuba@kernel.org>,
- <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <pratik.bari@intel.com>,
- <joshua.santosh.ranjan@intel.com>, <ashwin.kumar.kulkarni@intel.com>,
- <shubham.kumar@intel.com>, <ravi.kishore.koppuravuri@intel.com>,
- <maarten.lankhorst@linux.intel.com>, <mallesh.koujalagi@intel.com>,
- <soham.purkait@intel.com>
-References: <20260622101716.3313496-5-riana.tauro@intel.com>
- <20260622101716.3313496-8-riana.tauro@intel.com>
- <akNSDXcXa0mtwR5r@black.igk.intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <akNSDXcXa0mtwR5r@black.igk.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0012.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:80::11) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3C210EADF
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:34:19 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65U6CIqw1073738
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:34:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=Lkk1aid6VSjCiAh0RBtC69AWGsaj2zmcu8D
+ ZktAdjhA=; b=PmKdbvoYoQGt6wie3aKrjDVrvI47ima6lzT04Aznd9GbfdlaeF4
+ wbLUBZVHd3yuMJbkZ2XdOvgeTkpbMCoZJ3lo6xkj30XLC9CvHNOaWm5Qhfwmd90D
+ S9oztBzB4PT15/qpxqn7NFoiQuolBcy+sUBCk/GxxbMhVLCwwDHRi5XSCeeZdMUE
+ mU66hWnt77zqT6n58ZgUIEQAqrC0bOkr+4LW0jamt2QeTcztvhU5y7AGsoV+7CpT
+ c5gjKIZ+Z5Wr7zAWJrT6SYYd3JykFRXRWA+gNelZiu3YbydjZUzK2sOTMybEzFY8
+ GrMGwQLKDtC9xxnTHMnjwKfYRoi8OT0oHSQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3y9k1vyg-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:34:17 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2ca0331d0b1so23550365ad.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 23:34:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1782801257; x=1783406057;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Lkk1aid6VSjCiAh0RBtC69AWGsaj2zmcu8DZktAdjhA=;
+ b=jI8jpZWhvLc7eFrFN0KdwaPrBAtjdgs1Xpj5dZS2MUuhyB3/nnHEyQiX11AqC97g5N
+ rJp2wCwCzhUZVHJgrAHo3HhxdYBE3Iv8RTse+JMrTsbdkvbwxCZkO5ICt/I4LsXaTHnI
+ sE671yTA9ITbvXaKt1E64yqUfF/1bby4reHhUy8GooT3y5Ml+Y8pApBhOEP14DLx1yRr
+ 4kWxYkuMcx6NFgrv5lB5HCAPfY9iIc1Goz6R/XovusIJUZ2Et0U4067KcNRtZ/EZH8r6
+ BF9ZW3zlIj9zdxIMxbr4pNgEacIvDYqd638iyH/dwoisvCNpYp94vtLleoHwg4Gdw7Wg
+ dyyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782801257; x=1783406057;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Lkk1aid6VSjCiAh0RBtC69AWGsaj2zmcu8DZktAdjhA=;
+ b=Z1pwvekPgLKMYvMaVCWeHlg9NIku5mDr2QIaEb43+Z5BNOOTyNCGde79HPH+uYuC0u
+ 6fbJ3CWviQOzXi+y8lCYfkJkFEgk9BcSQc5cqS3swLqoSAd/a6HiC9mDoL370/NFsZcX
+ +XH478V8SmA34vIqtyUy2xgQs27tvVGX120I5yK3NtwU3XTQrOgACo/g1pjXkegp0X71
+ edgaHJFqk9UvxEY74rnsVnpzBMUzijMKWzawi8JSPtCEuHF/6L5xujW8V1kgNfjUtfoS
+ yGd35G1TdYnXnrLTEa5RU7tWe282xkh2V5W9EULnIoJS4gAwm2qpFd+bPl3+uo/R39TA
+ pKHg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrBrmIxDvWTAdmjlOzEtWBlbkzo9DKblTrLHggm6uLs++vTBq3LUUn29+eluC7v87PFm2ML/3o2X7Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxXdNo8N/r05XdmHlaFm4tCClPyEvwJfUMwEBwSljxuTkiDaVSA
+ lZtY9FKwCGLtpoGJL5AYFVqpa6HFVcSjeFssOYRvd7Q7yzqJsNTh9y2xO40t9CE4hD1+LAunkHa
+ 826RLiJEu9qrkakJSirrtn6SWbYy+bXFDxz5UCpqyh2Ql0q3g4FJYa6YdLJQW40zWI2X6j+s=
+X-Gm-Gg: AfdE7clHpgrXygyfBLK9z2N/DfxX7TIMJ2aZVEk2kCkRHZb2zl69nHCMBwCyOpSXC8P
+ HUQysWM3Df+f7A4GMrLbY1UEf7ZL6O6xOlxaw9IQC2tfzEcDUPWat3mTlwW9kLL/l5C0DlXCF3s
+ fZKT2XiCR+cRi2uxHYCzi6i52uQtwQGutRI+qjINCXflQc0CJw6aBEzY6+rg+uvSzg4Av0o1zRB
+ ZEaN8MgKTPB8o5PNjD1I74jYKyiO0+b8oiFNVYgKEBeWO3VEv6NMtFD/Ii7hshbCyZPKPGkhfho
+ ifj6bBoyrWaXHUceoXVno304blXZWDEBiqrVraYoEPZnEoiarADTOmDErtXYwMuy8pL+LVva1g1
+ sfPchx6NgUMAcsgQG81iZgjhws65oRru8bB51MMEVKEvWAe/CsbBzCqs1hd09kTVdo3AngLKPFa
+ a9pDzzO1E=
+X-Received: by 2002:a17:903:4b2f:b0:2ca:11fd:659d with SMTP id
+ d9443c01a7336-2ca2ea238ccmr19680535ad.34.1782801256820; 
+ Mon, 29 Jun 2026 23:34:16 -0700 (PDT)
+X-Received: by 2002:a17:903:4b2f:b0:2ca:11fd:659d with SMTP id
+ d9443c01a7336-2ca2ea238ccmr19680235ad.34.1782801256193; 
+ Mon, 29 Jun 2026 23:34:16 -0700 (PDT)
+Received: from QCOM-SocCW5bzXR.qualcomm.com
+ (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ca382d0d22sm6646345ad.80.2026.06.29.23.34.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 23:34:15 -0700 (PDT)
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thierry Escande <thierry.escande@linaro.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
+Subject: [PATCH v2] misc: fastrpc: fix UAF and kernel panic during cleanup on
+ process abort
+Date: Tue, 30 Jun 2026 14:34:09 +0800
+Message-Id: <20260630063409.475-1-jianping.li@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|CHAPR11MB9680:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb72caa4-691c-4342-27b6-08ded6708915
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Ilz3uuUUUbnrKChYQ6XtpibjjKScpyKTzzKZOzfAx7s4/deM+GHOKVc1nl40E4qGSJo8br0UitIxJ8U75tVuU1wwvjS2+GavEKduXEHpQ8xQ8+BPZ8gfuTkbGN8p7VOrUKwHsGoaPdP4pnWSFV+ULUMHBvv0RhXdMg4UJafEey5T134Bvqf4iOwnoUbSH2bw4NAUjLP8XvuLtmO+9QnkMAarRbHQHezP0Fy8aHiK+2YfY8C5uUvTDRu/HIQJRTsh/Y44U2AZ7Az7BUYj+Qv40s4/WcZ8GBCKbnQXbCkohzdziL6t4l+5uyGXDt96qZYtr7HAVFXdmHVr4sSuNRoj74pe4+Q2a8eCKCeqzt16Qf94pXTT0HDR0xdIGAunsq3BJx42bYMkeAjKOvyrfbQtel9l6pX3zYY24cU1oZSf/P2tu2R4oNLjvRPyoYyjSdCKxEyk0D0zhYRgg6RTB168EnvDvIXgmtQGUAvFppLXM9wUCZDFwU96ruHKy5aslilhgfzqQzR8XQsfFmsP2U/fis7DkQpYgxo1UMHhTrZJMb0xsHc7cCDXD5BcvbeR5ItWNQN4J6sAPH4wqAsl5dtUyeryD6nfyo29MZjRgAjWiR9uk0VFSYn/lXS1QOSfc/jiB4LBj83JhjVcyAV0X7QRmIaifAx0LDn873jpcjgHH+k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3ZCNCtmK0t5NERvbExUbW9JSlMzNmF3ZlhDcUJia0dmSTZKR1VMWkw0L2pi?=
- =?utf-8?B?blZCZWxkeTZuUCt2WHBVWXpINlJpSExWaTQzNDdIdDM3YmFXcUpvcHlPaFBC?=
- =?utf-8?B?dlRxbEFWR1dwd1NGWUhBdWI0c09ubHBzYnFIK2ZPZ202MkV4S29YTERvQVVn?=
- =?utf-8?B?d3hISTRmSjRuK2d2M0dRZ0kzTHZLVG1QeUEwZFlMTFU2WXVCcUFrVXFyR3NR?=
- =?utf-8?B?RTc5bHRQU1hzL3RpcWZCVlhkQ0VRNG1VL1dPY1owR0F1VzNOVkFaTTl0Y2k4?=
- =?utf-8?B?K0lzMm1lZytPL293dWFrNUdGRG5jYXg0d1hBOTdMVjE4R0g2blFLaWU2ai8w?=
- =?utf-8?B?NUNEVFVZQkhKTmdOQnBEUHF3YkhaalY2c0k0NWFxdWY4Y01yblhGY2hvRmVN?=
- =?utf-8?B?c2NnUVdiU0NvWEdqZHpqR1FiYjNDMWZ5V2ZtVDZpY3Z2RTF6N01veWhBcVlr?=
- =?utf-8?B?bDllN3UrdzZBQUozZGJGUmZnYWhTVkh2eHpRVWw2bHJnQVp3dzlvdlpJMDF0?=
- =?utf-8?B?RzB1V0pNN2V0R1h1QTVIMU8rYUo0elBuWEpzQ2pnQndtN2dqNzhxcm1aemtX?=
- =?utf-8?B?cEYrOHRYbE45NTl1SkVpQzNiUndnaGd6eVpoaXpyZ1lhc0NoUkh5TmRidnlp?=
- =?utf-8?B?bjhKdkFLc0lubFZQUHJraitya1JFOEdzWGtneHBPTEVITGpURTdWNHdtMUpu?=
- =?utf-8?B?RDFNRHBxbjJ1aTM2UTZSUHU4VVJrMUN1U0xoMU1zWmE2THd0WUFuZWpQYkdK?=
- =?utf-8?B?d3F4a0xacTFyVmNpZ0V6elB0WFI1M3NZb3lRZG9MNzVER2daakZEVlVlYTZH?=
- =?utf-8?B?dy9vL0M5aCtWNEFJbDhhWmxqWlVvOXlYM2w2bEcyb3crN2NEcTgrODVzTFNu?=
- =?utf-8?B?QVJ3UlVmTkZ5Y29rRTNKcnB6QkhIUENkeGZMemFWcWUwdThXNlo4cGIwQ1JP?=
- =?utf-8?B?UGdFSFQ0b3d1OWx2aU1VWHM0Q0xKZTErNWRxbkJzTlpjemdMRHI0dzBPTFAw?=
- =?utf-8?B?K1BJc1lUVkJsMFh4UE9iakZrNzV2Wk05RmlTaXFFck1XS3BBRmxnS0czclNw?=
- =?utf-8?B?QVJpZU4zY0xncEV4eTFJVXBxMGlmUjBHdnBEakJORi9HbWZ0RWI5akpvTFhN?=
- =?utf-8?B?NS91V0wwOFdzcnpRcTNDOHEwRUhuSkhnZzFuZ2g5UWM2QWhzNThMZmo3MzN6?=
- =?utf-8?B?UlM3QWtuYmtnQjZwekNtWld0R1lQZFBvTUpJaDhUb3lhQ2VlZ3pabTNmZzky?=
- =?utf-8?B?RUtOYUVDNDF1NkRHMGZmRDZpVWs4ZXYrZHJBSVMzV1dwOUtMZ090OXl6QU5j?=
- =?utf-8?B?aXhHaEtQaVk2djc5cytKRlVueDU5b1JJZXZSWkRhMy9nbHJHMno2U0RWMHJC?=
- =?utf-8?B?L2lPRytQc0xQTFE1Y05yNTl3ZGc1eUI5cmgxZDhzUUdDQUtYcUtUTkFGS0NQ?=
- =?utf-8?B?cEduMXltRDdCbVR3K1h5T2ppdHo1cjk2WDNka1VaMzVMS2tTT3lCWkxkTnNH?=
- =?utf-8?B?Y0xDRUxka29XQ216TnQ4MHd5RDR6RE1CcXgybVErNWlaU2RDVm54U1FldmhH?=
- =?utf-8?B?aElVRmNhQXVaZGpIdFE5ZHhQUzJmdEVMNkxneW01MHBxR1pDOUsvUFEySEtS?=
- =?utf-8?B?NnRPQ01XbzZwaFM1d3F1RW1EWG4rekxkaWNTczFKaksvN2xGVmFoLy83eFcr?=
- =?utf-8?B?WWJEQWEyR1VzTWN3aHNkd1Qxam5sdXBGd0ozU01RemFINXk5ZmFvMmtMWElX?=
- =?utf-8?B?STBrNzIzYVkxb3Q5UGsrVGxCNHZFZ0VVb2Z2OTloTU5yUzRnbk9YM0d4dmo4?=
- =?utf-8?B?OTRtUUZVWUpESExHVTlOSEwwZllNSGVhVXA4QTFuY2F6L1NuVDMyekFOcGo2?=
- =?utf-8?B?L1JhNkRzWnVYR3VOdm1GSS8wMCt3RGpNdTRxaU1yY3R6bVBjMC9YbVg2MDAv?=
- =?utf-8?B?TjN1emRSLzRCbVhoMU5qMXBGM0drdVBpV0tDUE5lZHFIYnBvR0N0dVI1akc1?=
- =?utf-8?B?b2RBUzY5YzNoQWJUZ3pPSm1WU2kxY1RjeG9mbVFTbGN6bnBnWHE4OFFuNVMr?=
- =?utf-8?B?SkZrWldNQjZkbVY4ZE1JdElhaEVnRmVKV2lGZjZXRFNkVU5LY0tEUXVGVTJY?=
- =?utf-8?B?Q2ZnOC9zTk5mbVJxV1hmTy9SQms0amV0L2hkTGtRN1ZDamRTNUVNdFdFRHpx?=
- =?utf-8?B?bFFEdERRQzRhVnQ1Y1EvWkIyTUVPWlZ5Wkozckw4WFlkTDdRdVcvb204bmg3?=
- =?utf-8?B?ZXVSNWJKTGdkaVM5aXVFUzRBZlpxYXBRTzdSM3dOcEtzSHVYQnhySHlFYWhF?=
- =?utf-8?B?NUxIZVJiczA1L1BuQ1V0WWpmUjIwOXNzNUdyYVRONi9HdTYxdFpDQT09?=
-X-Exchange-RoutingPolicyChecked: Fl/zhdX6Pj/eRYd31jlc2ugGYuCqlwSeJ0dTOO3ur8RPAfE6dnEQbNvJWvJFPni+0Capsg+bwVtWBhSfUMG6T212JA/m3CUg+1meelhZOnGxkVWIZzuwnw9LBD41C92jKkWo0z+pNGbhi0otEkEKiISmrTvVO7lxUnxoCkVuIaeo0mzpVA4URHLH+1ByxGZUiguEwbaXanICH+F/W5iug/vmVJ+28evdgyfIFoXzktYZS16rqc2uLtMw6jiT9/hV1Do+uaW8dBuoUIpPhcYHUsy4CTb2zoCIzKoVDfaX1UOpYnVM+3zuSJIh6WC/GYcX2M2EXHcrmJiUU6cI19CAYg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb72caa4-691c-4342-27b6-08ded6708915
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 06:26:36.1486 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /OH1lZsJa6KilaKFMwYkNR+wKRYYRuHGItCfpm45oEzuN1U86TgfTyy10lTHoy7ys2ZBSHhYkn1lK9tzabKp0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR11MB9680
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA1NCBTYWx0ZWRfX1d0bieNCa+AY
+ OYzVtMuGFEjAfsX7lfvaEVYTaM0AzeB/Vu1lcyy+oTgqYAbqtkMVJxp3nzgKVlRQtWgMlDU8LSL
+ v0LKnu6u+m+y3r4w0EaZTgWYdZelKFk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA1NCBTYWx0ZWRfX3tC0uXuWD9Oj
+ DIHvEWVfRD3xSCe6f1EOzzKQaC8NjJdluSj+Hb5vnBrhlBWgu14vrxv7c9Zu1MhhHxcQn5MnKHO
+ yp5IzLAGdnIXTmafVSqKDq+UN/QoRCXGh4g6CDi+oupzyQ07Wom6RmYZ0CHhIehmZO3gdHSte2i
+ B/bgNzy/gvSzHwY0H3wzMvjJ6VUPWF6zz7d9DrAqEiHGmhIBi137GHWtSE++baYyqqtv5hWyTLW
+ tlUuhzAxBNtuTKPGZrOJZmK6p381Hf2+FyUMwWd8+cRtzRntMs7wZGSxFnrVS1ZtlORGnYngveB
+ ipTvaOzg6FRdxa4Y6csKeDLQDYO2EckXFEiFzo6J39svEOSWt0nPgFysUDQi5ldIwW4soeO/POj
+ AOoSLKrqnqvug7GqSCjRHYmPA31Qe/bzRrm1amStpXEw6CGZbA7C1FKkwa+/Gea7V5AItpjqHJ+
+ cg03HEzpQo7INEEQ4tA==
+X-Proofpoint-ORIG-GUID: JKsmXkyMYXa5Lvz13YV8SayFtNmR7Faj
+X-Authority-Analysis: v=2.4 cv=TeqmcxQh c=1 sm=1 tr=0 ts=6a436369 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=7UBpWWJXUKeOLZOJV8wA:9 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: JKsmXkyMYXa5Lvz13YV8SayFtNmR7Faj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300054
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,60 +143,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+When a userspace FastRPC client is abruptly terminated, FastRPC
+cleanup paths can race with device and session teardown.
 
-On 30-06-2026 10:50, Raag Jadav wrote:
-> On Mon, Jun 22, 2026 at 03:47:20PM +0530, Riana Tauro wrote:
->> Add error-event support for Correctable errors in CRI.
->> error-event is reported to  userspace for all errors that crossed
->> threshold on receiving an interrupt for correctable errors.
-> ...
->
->> +static void ras_send_error_event(struct xe_device *xe, u8 severity, u8 component)
->> +{
->> +	u8 drm_severity, drm_component;
->> +	u32 value;
->> +	int ret;
->> +
->> +	drm_severity = xe_to_drm_ras_severity(severity);
->> +	if (drm_severity == DRM_XE_RAS_ERR_SEV_MAX)
->> +		return;
->> +
->> +	drm_component = xe_to_drm_ras_component(component);
->> +	if (drm_component == DRM_XE_RAS_ERR_COMP_MAX)
->> +		return;
->> +
->> +	ret = xe_ras_get_counter(xe, severity, component, &value);
->> +	if (ret)
->> +		return;
->> +
->> +	xe_drm_ras_event(xe, drm_component, drm_severity, value, GFP_KERNEL);
->> +}
->> +
->>   void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->>   				      struct xe_sysctrl_event_response *response)
->>   {
->> @@ -152,6 +203,8 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->>   		severity = errors[id].common.severity;
->>   		component = errors[id].common.component;
->>   
->> +		ras_send_error_event(xe, severity, component);
-> We already have error-value as part of the event, so this looks like
-> a lot of redundant duplicate events if threshold is set high enough.
+This results in kernel panics in different release paths:
+- fastrpc_release() when using remote heap, originating from
+  fastrpc_buf_free()
+- fastrpc_device_release() when using system heap, originating from
+  fastrpc_free_map()
 
-Yeah makes sense based on testing. Will add it once per error type.
+In addition, fastrpc_map_put() may trigger refcount use-after-free
+due to concurrent cleanup without proper synchronization.
 
-Thanks
-Riana
+The root cause is that buffer and map cleanup paths may access map
+and buf resources after the associated device or session has
+already been released.
 
-> I'm wondering if we use a local variable as a bitmap for components
-> (which we set here) and only send event for_each_set_bit() after the
-> loop?
->
-> Raag
->
->>   		xe_warn(xe, "[RAS]: %s %s detected\n",
->>   			comp_to_str(component), sev_to_str(severity));
->>   	}
->> -- 
->> 2.47.1
->>
+Fix this by:
+- Introducing mutex protection for map and buf lifetime
+- Serializing buffer and map cleanup against device teardown
+- Skipping buffer and map operations when the device is already gone
+
+These changes ensure cleanup paths are safe against unexpected
+process aborts and prevent use-after-free and kernel panic scenarios.
+
+Fixes: c68cfb718c8f9 ("misc: fastrpc: Add support for context Invoke method")
+Cc: stable@kernel.org
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+---
+ drivers/misc/fastrpc.c | 57 ++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 52 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index a9b2ae44c06f..3521518f9fe5 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -255,6 +255,8 @@ struct fastrpc_session_ctx {
+ 	int sid;
+ 	bool used;
+ 	bool valid;
++	bool allocated;
++	struct mutex mutex;
+ };
+ 
+ struct fastrpc_soc_data {
+@@ -335,9 +337,14 @@ static inline u64 fastrpc_sid_offset(struct fastrpc_channel_ctx *cctx,
+ static void fastrpc_free_map(struct kref *ref)
+ {
+ 	struct fastrpc_map *map;
++	struct fastrpc_user *fl;
+ 
+ 	map = container_of(ref, struct fastrpc_map, refcount);
+ 
++	fl = map->fl;
++	if (!fl)
++		return;
++
+ 	if (map->table) {
+ 		if (map->attr & FASTRPC_ATTR_SECUREMAP) {
+ 			struct qcom_scm_vmperm perm;
+@@ -356,10 +363,16 @@ static void fastrpc_free_map(struct kref *ref)
+ 				return;
+ 			}
+ 		}
++		mutex_lock(&fl->sctx->mutex);
++		if (!fl->sctx->dev) {
++			mutex_unlock(&fl->sctx->mutex);
++			return;
++		}
+ 		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
+ 						  DMA_BIDIRECTIONAL);
+ 		dma_buf_detach(map->buf, map->attach);
+ 		dma_buf_put(map->buf);
++		mutex_unlock(&fl->sctx->mutex);
+ 	}
+ 
+ 	if (map->fl) {
+@@ -422,9 +435,18 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
+ 
+ static void fastrpc_buf_free(struct fastrpc_buf *buf)
+ {
+-	dma_free_coherent(buf->dev, buf->size, buf->virt,
+-			  fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr));
+-	kfree(buf);
++	struct fastrpc_user *fl = buf->fl;
++
++	if (!fl)
++		return;
++	mutex_lock(&fl->sctx->mutex);
++	if (fl->sctx->dev) {
++		dma_free_coherent(buf->dev, buf->size, buf->virt,
++				  fastrpc_ipa_to_dma_addr(buf->fl->cctx,
++							  buf->dma_addr));
++		kfree(buf);
++	}
++	mutex_unlock(&fl->sctx->mutex);
+ }
+ 
+ static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
+@@ -447,8 +469,11 @@ static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
+ 	buf->dev = dev;
+ 	buf->raddr = 0;
+ 
+-	buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
+-				       GFP_KERNEL);
++	mutex_lock(&fl->sctx->mutex);
++	if (fl->sctx->dev)
++		buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
++					       GFP_KERNEL);
++	mutex_unlock(&fl->sctx->mutex);
+ 	if (!buf->virt) {
+ 		mutex_destroy(&buf->lock);
+ 		kfree(buf);
+@@ -491,6 +516,10 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
+ 	struct fastrpc_channel_ctx *cctx;
+ 
+ 	cctx = container_of(ref, struct fastrpc_channel_ctx, refcount);
++	for (int i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
++		if (cctx->session[i].allocated)
++			mutex_destroy(&cctx->session[i].mutex);
++	}
+ 
+ 	kfree(cctx);
+ }
+@@ -855,19 +884,28 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 		goto get_err;
+ 	}
+ 
++	mutex_lock(&fl->sctx->mutex);
++	if (!fl->sctx->dev) {
++		err = -ENODEV;
++		mutex_unlock(&fl->sctx->mutex);
++		goto attach_err;
++	}
+ 	map->attach = dma_buf_attach(map->buf, sess->dev);
+ 	if (IS_ERR(map->attach)) {
+ 		dev_err(sess->dev, "Failed to attach dmabuf\n");
+ 		err = PTR_ERR(map->attach);
++		mutex_unlock(&fl->sctx->mutex);
+ 		goto attach_err;
+ 	}
+ 
+ 	table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(table)) {
+ 		err = PTR_ERR(table);
++		mutex_unlock(&fl->sctx->mutex);
+ 		goto map_err;
+ 	}
+ 	map->table = table;
++	mutex_unlock(&fl->sctx->mutex);
+ 
+ 	if (attr & FASTRPC_ATTR_SECUREMAP)
+ 		map->dma_addr = sg_phys(map->table->sgl);
+@@ -2246,6 +2284,8 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+ 	sess->used = false;
+ 	sess->valid = true;
+ 	sess->dev = dev;
++	mutex_init(&sess->mutex);
++	sess->allocated = true;
+ 	dev_set_drvdata(dev, sess);
+ 	sess->sid = sid;
+ 
+@@ -2260,6 +2300,8 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+ 				break;
+ 			dup_sess = &cctx->session[cctx->sesscount++];
+ 			memcpy(dup_sess, sess, sizeof(*dup_sess));
++			mutex_init(&dup_sess->mutex);
++			dup_sess->allocated = true;
+ 		}
+ 	}
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
+@@ -2282,6 +2324,11 @@ static void fastrpc_cb_remove(struct platform_device *pdev)
+ 	spin_lock_irqsave(&cctx->lock, flags);
+ 	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
+ 		if (cctx->session[i].sid == sess->sid) {
++			spin_unlock_irqrestore(&cctx->lock, flags);
++			mutex_lock(&cctx->session[i].mutex);
++			cctx->session[i].dev = NULL;
++			mutex_unlock(&cctx->session[i].mutex);
++			spin_lock_irqsave(&cctx->lock, flags);
+ 			cctx->session[i].valid = false;
+ 			cctx->sesscount--;
+ 		}
+-- 
+2.43.0
+
