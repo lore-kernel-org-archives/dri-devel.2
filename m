@@ -4,94 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E111EC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E148CC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:42:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4389A10EC6C;
-	Tue, 30 Jun 2026 12:41:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E67610EC76;
+	Tue, 30 Jun 2026 12:42:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PZsvIHOw";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kAZTKQhI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FDALlAFD";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d0HFXhwL";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1D3610EC6C
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:41:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E904D10EC76
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:42:33 +0000 (UTC)
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65U9mnbd1541498
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:41:28 GMT
+ 65U9mm6c1541441
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:42:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 81yQnZbApfVfIiH8t8XJoiy0NXKJCRUaF/krfaGmans=; b=PZsvIHOwGcpw1Si8
- mjM5tSeCEW73QMW3pin7A9aNwjptzuikOdaZziRc9EWb+Lwj8nI/lcJb7cE6za6h
- cLx9tEcWyKYljPLsaJkqt1rhRwJpacz3La/f77wc05T8v2A9GTcBWr9dJtX341vN
- bUqEp5fLEOESTWBWc8CY8zeqUKgJqBiaG9dsmhBfd0CJHqYaEq/2IrW/rwR53imk
- STlC6MpL8J2CK4lIgUtWLqlG8+r4dS8XU1CHJMlU1ZY7OU5Cvf5uHI9dn6uDylJI
- C/7DwbOC/0Viob79NGAGUiYF4EqwK0c1g1SpktXNREopXQ82rQFYORYlJIwhpBe2
- jS7SEA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f44wp2fkn-1
+ vqgiAyPpNCB0A0IntH53l4iOkxkfpMU8dkDpi4Z9XyI=; b=FDALlAFDR7huBxwd
+ WpIQ6SpAtlJNosB/BjBaKCGSCxBr9UYGDgxAea5BPhA/iJxfpFmvJ7NPOpawWx90
+ pSel/yL0Hy9QAJ85bUk+hw0x7kvr04y2alpgbaiqNd3LoZygWGn3rcAfEMyWuuQS
+ AaPFT6C5b+WfoAzB2ITk9au9cNNvVTfsSpFdP+zhh9thg3RcFEqDJlKYgwufpqxO
+ +44/GUDjNzNBntgDtsGCCSZe53+bCRnzDu2qDe+sLpFixkaqrd1yKCNbNQyysm/V
+ Rtn5XnXLAFjqIECmh2rqZt1brTWzVH5CiDI1CUZi9idMKEpcEz8dvnZfx8DK6af4
+ 7fbMVQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f44wp2fqj-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:41:28 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-92e69a569ffso2748585a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 05:41:28 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:42:33 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-51a8ee253caso5231381cf.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 05:42:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782823287; x=1783428087;
+ d=oss.qualcomm.com; s=google; t=1782823352; x=1783428152;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=81yQnZbApfVfIiH8t8XJoiy0NXKJCRUaF/krfaGmans=;
- b=kAZTKQhIbHKMbVbdgzc5TEArrNyoROuo0joMDn+t0LV3ncY2RAsnPq7HSOEhgiN11J
- rax2HwQZG4LioJghSPxAw1vPSvwZ76dvRePlrOwL/YmutImcshLvZ7KjR5tmI0n/kyAQ
- OVMqtZ82A1nJ0UDQGj0pcNJNI8YaryhVDIWKup79l964gsFOKeliFJBFyF77mb/A0kmL
- AGjCct9FMaR1VAD+s6l2rgNNqTvIZUfhHnLDMk7wV2elV7Tfb0z0yEjQEdChgueMQ5RX
- 51pGWknJFb3D/FG2gn51m442QaF58Vjyn1foN+EaAKUnYYt38dJ1ZK4wYxqPUrkqtVxJ
- 1COw==
+ :content-type; bh=vqgiAyPpNCB0A0IntH53l4iOkxkfpMU8dkDpi4Z9XyI=;
+ b=d0HFXhwLYjHZGarxIeyj3x4vVUtRm/nYcVqn33c1MlRrElJ3UjVrYxyLSucSNB8gXt
+ fraDplrh8Ja2K0FZjZTMxWyCm4pRqjJHf53M2V0OIKebSSw+H9ugLqo/Cr/vCeHCrA34
+ H9TLNZtWTCNO2LOqB+VNMfVM1zp5GzJdDgwU/Rd8X0rCum8p3pS3mUWgpbDh6HoOvmKa
+ YJxhudELeadP2h1bwfvus5zscPHvgIZyA0JdKDNVjr84wjafRQ5h3trBoNOLvnR6p4QF
+ 5GrQ8vssWo6jNJWUucI3NSqF2TfugAHNBn+d5nxJ9xxQlMQ9Wi5ISBvFJI2jwLwm8pwO
+ qoeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782823287; x=1783428087;
+ d=1e100.net; s=20251104; t=1782823352; x=1783428152;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=81yQnZbApfVfIiH8t8XJoiy0NXKJCRUaF/krfaGmans=;
- b=BV7hGZyRkDQrcSlJPc65VBZOmE31CVQio8cm1tLjnfBZO3/XYjoNHKcK8VgZNmE7IH
- eK2vqczyFGp646FszUgI/lL28DQeOI3Func2f4gWqkKrNH0KhPtV0GtDZhckjfCqdpqL
- Qd5WLB/9uo9EPw9SvtEGFHtzXQdc1iSd+wyZCP7xN1YwoRzFCUpskAGqbLcbirURySoP
- aPKK9PTKo+SyRZZ8b1GAvJs3HEBLZl8D2vfGrt3kyTczwCkLoi9c8cNW101KPzTIUiDm
- U/Xa2wQ/3TEgYb+u87GkKkY8BSpFObdYYqsk75+/TMSSLxagiqqKDRFnpCATmSyD6C33
- M93Q==
+ bh=vqgiAyPpNCB0A0IntH53l4iOkxkfpMU8dkDpi4Z9XyI=;
+ b=gDMLEnd/8dty2LOrGCHZ/g+lQUMhI1RbiecdlXdFL+cURrd/6Lhn+Dpli8REHGap2d
+ B25OOIDPZ2b0A4opLiYqQk19oWIrZG6VFRBZyfVXsSUxYUuWLOi1hpODt9WxNVtb2WKO
+ KGGOOx3I+E0TqLPwHGWglgNrrmzbTgBiHqOlKDUXCFF+BgVaD86frdhzilvu7iKO0PDn
+ uALt9c4vS/hNu+F0qGOU1vmhaqHnqDLMlxdm07iQujGg8o67iVRBWxK8D3PVs4vwlfNt
+ QlWR9jAXqXVqsLjAYhTo9xWrccIaZ/vZQXJS35sSLsaMnaK0tzuiSLQRnegdV/jpNPZu
+ 5kzw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8Vo3lCCOrEWJ49cJ5df7hsz+FDGAJaDWSPd0U+Fsw1dgC2jgXbGjlYHnukl2OcRvPoqQKMCatnNG4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVp6X3iliBRF4joXSsOVf2Xx0aN1lvWApQK375eg3gPDlFGQJ+
- Mfw0vVjozO+BXwiYWVuRbByXdgfz4ToUDEqs5LCnOYOCtgKthjqYmLjH/wDlXtGy41VknOi+Kfu
- QV2Nyeru5UjQFVrY7iYjV1IP1sZwILOtjpJh1unqufswIkLeYLA14d2+YOecTKXErPsAXPws=
-X-Gm-Gg: AfdE7cl7ueUXihdNlJaXfYGSiDYWwSsZCjf0wquUl9wzAWq5Ny1YKnxIDB5ZyJw6sX3
- BhywhAG4y9B8JRTKGX0e1qKB1GLeVNeQKjovcosSue2fAcAyPqGA06gHIRVMelyr7r2zdlda3BH
- oxbr0zMzQqmm0KybUrdSB9WqKNXypraZfIQywVZ5NL1ymRUMDvRSp3Et/RbSjudiic/l/+d7oh1
- KQPe/G5uXb720llWwVv85SQes8M4oAqktv0Y3HKun1gYMqQ9+iLh3Obe2LtLXSUjNbUkgqNcxnK
- A4T9EbO3YxNAOLJFRyQl5CmCDx3x0UbJd19CQLCzc1PJidpM4w/MM6sY7tkCNjUxhS4vc0ka55b
- v51XLyrj22qp78YpNlsYkGLI7vHWHkDK2MHQ=
-X-Received: by 2002:a05:620a:8813:b0:915:4ca0:1210 with SMTP id
- af79cd13be357-92e62689c4amr349006185a.3.1782823287466; 
- Tue, 30 Jun 2026 05:41:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:8813:b0:915:4ca0:1210 with SMTP id
- af79cd13be357-92e62689c4amr348998285a.3.1782823286896; 
- Tue, 30 Jun 2026 05:41:26 -0700 (PDT)
+ AFNElJ+qqQq5mvBrPw+S9hr2GfUhJAgcD+6fp2QCysfCH/O2YdVJ4fmMhOUVT1UVdmmbc64zaghWidp8eVY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxk5A3UypLT0jw1TirDT3I68MyMppPialtM/hNJDLILwSXEOXwm
+ rBbx2Ny++I6vFQqWFKNs6CEUOaZcroAtD4KCP31yC9zNUHdY+GTdtBiPnQHxJsTlmLSo8uaUtjj
+ NACTgvDp+xS2Dx5ulIvUdMlA8Mm0t4QY6pAqzWVmaaqErAk2PP2/NGAbsI03FWZldAPRXYxY=
+X-Gm-Gg: AfdE7cnBDCZ5jQWWwgaqGUjiWU1fv4D0a20IePr1olTdyPSFctscyTTLS1WbjhZwBwR
+ +FxVclc4xj3aIUFIZ1wjpdIQTvSJ6i5UBpABx4+vJV0yyjH4eOQULetPKhbowRwpixxw3F8/6jo
+ Dn8thW8tu7/5WWYjMmPZKPWLLpNec2FkB7+jJmDtjNXuxDWiaz8Lw53/X/xJv5FjeePW6og/DuH
+ BeP0q6egZU/pLUEeFfFMGg41Po6zCF/fApj1jy0OP9Ke9sNdwL1Ar/GKJ/3MlZVi3WoDmaJe1Sv
+ l6xMIxRsjZnlIcbqs3DrRXJfuMElsE42rLOxPgT9UlQlaKkN8DMW1hXs8/u4v+rubTNPDBtZxXv
+ Fymn3oXQn/kNCZ3XBn2mXOuBhNx0Wy2ssU3k=
+X-Received: by 2002:ac8:7fc9:0:b0:51c:215:3e81 with SMTP id
+ d75a77b69052e-51c10754ef1mr27550211cf.4.1782823352475; 
+ Tue, 30 Jun 2026 05:42:32 -0700 (PDT)
+X-Received: by 2002:ac8:7fc9:0:b0:51c:215:3e81 with SMTP id
+ d75a77b69052e-51c10754ef1mr27549891cf.4.1782823351774; 
+ Tue, 30 Jun 2026 05:42:31 -0700 (PDT)
 Received: from [192.168.120.170] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1288d18735sm121211466b.6.2026.06.30.05.41.20
+ a640c23a62f3a-c1288f4c19esm118502566b.51.2026.06.30.05.42.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 05:41:25 -0700 (PDT)
-Message-ID: <ba22eda5-bc7b-4ac3-92e8-c14c4dc13483@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 14:41:19 +0200
+ Tue, 30 Jun 2026 05:42:30 -0700 (PDT)
+Message-ID: <c251430d-2184-4ecc-8d05-9cb47533e5ec@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 14:42:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 09/14] media: qcom: Switch to generic PAS TZ APIs
+Subject: Re: [PATCH v8 10/14] media: qcom: Pass proper PAS ID to
+ set_remote_state API
 To: Sumit Garg <sumit.garg@kernel.org>, andersson@kernel.org
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
@@ -114,31 +115,31 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
  Sumit Garg <sumit.garg@oss.qualcomm.com>
 References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-10-sumit.garg@kernel.org>
+ <20260626133440.692849-11-sumit.garg@kernel.org>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260626133440.692849-10-sumit.garg@kernel.org>
+In-Reply-To: <20260626133440.692849-11-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: RzDv7HWjwASNanSeStVolX4eDs7Ce_2S
-X-Authority-Analysis: v=2.4 cv=AtDeGu9P c=1 sm=1 tr=0 ts=6a43b978 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-GUID: UCi04kpS-bnwpmnvzzey6zbmX4L8wypj
+X-Authority-Analysis: v=2.4 cv=AtDeGu9P c=1 sm=1 tr=0 ts=6a43b9b9 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=GN6ll2GKXf5L_uNS5a4A:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: RzDv7HWjwASNanSeStVolX4eDs7Ce_2S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDExNiBTYWx0ZWRfX0k3Lge0A693Q
- qJx7GHAkkiJ3XmH42jvPhkUjFAeApKs3Mj67e2OS5LC7oJmeb5ix5GxukMKMmE4kmxgs4XoylJp
- jMLnG7oTggUqlGP9IGGpyPQtcwidPWq2Mn8WOqNQwwUlsHTxy5EBn4KKc4HyLmDW8HzN32WaEal
- eOADpB3PxX20CuYwdikj30uHWIiSH70BqwSYrtBp4vtES1U7dQdfyY/QlGBy1XPZWOJGQgLBLXb
- rddolD5IBctPQlRFZ1jAVziCOC+yINbAy7H9xvnc99X7Dk10doIRVjxUyXmTgU7cKZWTSl2f6VM
- ra+D4amOxgghqdM9G6sD85rQbyUQ0XAGUA0tAtbEq09DX5j1smbvKumgXUESaZIkFC9C7smF9PA
- a7AO6KxC++A/hG4uZOi0cL13gY9etzm2VPiu/dunELvBXUf9csCU8CoosRcek9nAwvsW94gdVwV
- CJ0H3k4NXwg6ARDd4ng==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDExNiBTYWx0ZWRfX3X33sF3uQqmx
- zJiRwaeTMccRowL8Ezpmhrnthyt3AHA2HzKDgF3kN4VPYS+JMB8MY2qBiIuKolhYWLvaHHTHO9v
- /33WOxz7LYT/I/BMqQ6ueIgLJvaCPjU=
+ a=EUspDBNiAAAA:8 a=XI7qjyBPQyksM17I1wMA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: UCi04kpS-bnwpmnvzzey6zbmX4L8wypj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDExNiBTYWx0ZWRfX+FET3OkdyOx/
+ HJX/XcPm08MuqEfrITqIEUysUYnLLfCuLYiW0jX84gA4CjGLf+ExJym5qvuSRUSkKLzbW5dsYJn
+ gE7egzBitcwoCfU38A8GglpbwibJDpjGgYm2c/gFcdGwPz0B+9s/tQCG/dSZf3OHFvvonB94C+o
+ QhklyMyTBAJd3CaRezRiwrbdyLEzH0gY7S2ykILEZkkWfKo+FRcAViaGAW17/Jx47w2ET143T5W
+ PC0dKnrDl7SKdqJ/x0noprwEyP+zghSS0A18BPnveq7KSqcfmVG0UtHo9wbPdLqlJPNBPEhoyQq
+ zR21bDHQPrnXfQVdaeMfYQhRyK4kMoCBBZo8N4JkDvpd0F+DqtFMn2fVQ3TzL/6pqfb/xX2mZlV
+ R17rYM1heNzDopiBA7935bVybOWn0NgcX3ExPpLWQGFPAQ2c14BDS6SKtWjwnfygOdGn67I4V+q
+ ernizHos1v7dkqIv9HA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDExNiBTYWx0ZWRfX12VUfNn3HSQ2
+ +5yocd+L9XtI4bMRlGpwOgCKOTITIumTpIF9n0WqjrHJU6u/LIy8UUWP+7LYDTH0zT54u665B9h
+ T1zb2cJhOM5Mkq+T2UOWBgxj0TiK5Jk=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
@@ -165,45 +166,43 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On 6/26/26 3:34 PM, Sumit Garg wrote:
 > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > 
-> Switch qcom media client drivers over to generic PAS TZ APIs. Generic PAS
-> TZ service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
+> As per testing the SCM backend just ignores it while OP-TEE makes
+> use of it to for proper book keeping purpose.
 > 
 > Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 > Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > ---
+>  drivers/media/platform/qcom/iris/iris_firmware.c | 2 +-
+>  drivers/media/platform/qcom/venus/firmware.c     | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+> index ea9654dd679e..d2e7ba4f37e3 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -110,5 +110,5 @@ int iris_fw_unload(struct iris_core *core)
+>  
+>  int iris_set_hw_state(struct iris_core *core, bool resume)
+>  {
+> -	return qcom_pas_set_remote_state(resume, 0);
+> +	return qcom_pas_set_remote_state(resume, IRIS_PAS_ID);
+>  }
+> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
+> index 3a38ff985822..3c0727ea137d 100644
+> --- a/drivers/media/platform/qcom/venus/firmware.c
+> +++ b/drivers/media/platform/qcom/venus/firmware.c
+> @@ -59,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
+>  	int ret;
+>  
+>  	if (core->use_tz) {
+> -		ret = qcom_pas_set_remote_state(resume, 0);
+> +		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
 
-[...]
-
->  config VIDEO_QCOM_IRIS
-> -        tristate "Qualcomm iris V4L2 decoder driver"
-> -        depends on VIDEO_DEV
-> -        depends on ARCH_QCOM || COMPILE_TEST
-> -        select V4L2_MEM2MEM_DEV
-> -        select QCOM_MDT_LOADER
-> -        select QCOM_SCM
-> -        select QCOM_UBWC_CONFIG
-> -        select VIDEOBUF2_DMA_CONTIG
-> -        help
-> -          This is a V4L2 driver for Qualcomm iris video accelerator
-> -          hardware. It accelerates decoding operations on various
-> -          Qualcomm SoCs.
-> -          To compile this driver as a module choose m here.
-> +	tristate "Qualcomm iris V4L2 decoder driver"
-> +	depends on VIDEO_DEV
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	select V4L2_MEM2MEM_DEV
-> +	select QCOM_MDT_LOADER
-> +	select QCOM_SCM
-> +	select QCOM_PAS
-
-Hidden NOP addition
-
-otherwise
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This should not be in the middle of a mildly related series..
+The PAS IDs should be centralized into a single header. And the
+name of the driver shouldn't be part of the define. I would guesstimate
+that on the secure side it's probably called VPU or VIDEO
 
 Konrad
-
