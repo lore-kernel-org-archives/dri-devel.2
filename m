@@ -4,57 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14FE8C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 13:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3CAC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 13:21:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7078310EC98;
-	Tue, 30 Jun 2026 13:17:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 312D010E094;
+	Tue, 30 Jun 2026 13:21:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="SoZFKDcP";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="UpVxaQTZ";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D094110E212
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 13:17:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782825458; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=FfUKkEaCXJeFEQNUxbJo3AZ1UNgYjnFvHWqO2RjDUFGEkoj1L10m5n9f5Zh1rs42wGR/YL2KNjuPD9VNC/DiBuK3BTq/QKVzeOFbOFcg6TI6Vao9sccNXENsI6zJcRXq/atYzSQvQTFALmrAuvtlh3FlbQbehuFySZBPoFKpFqY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782825458;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=l/Gb2r1RUizRn8tgbt0oiaU7MKiOg59aENHKzJck/80=; 
- b=AMz/8tr1qyWeZOnaQWpo6WmLkdI0PhCcuHXVTtfO/SLGbhJ5TaptPMjNu0bJ0VSiKmNbLNVYSpjxnKWcZY7rYh1+OrqrKLXcqv/sV5p/k9rU6venxvskiipDvHhywTFG5Nx2Mhn9Y1Ol0JlSofUxluHmkyLYtNejHyQdGP2ctLk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782825458; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=l/Gb2r1RUizRn8tgbt0oiaU7MKiOg59aENHKzJck/80=;
- b=SoZFKDcP3STBZcAKh3qM2yEjfpRJmHCFcNOk7/PlRTeh4yJbcq/haBtVU8LVn98y
- TO+qrudh+y9PlHZnDoHsoEDQJZbZ2wVVEUp0+jlq+R2fqLCaMkPZGt1K6PTPMuGeKtq
- UY6MfNe4YK75XMSyQZAlyi1MVxMigaxYskOGUOfI=
-Received: by mx.zohomail.com with SMTPS id 1782825456755695.4332253165277;
- Tue, 30 Jun 2026 06:17:36 -0700 (PDT)
-Message-ID: <36a2a25f-c73c-491f-b889-5a0c4662bced@collabora.com>
-Date: Tue, 30 Jun 2026 16:17:32 +0300
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9D01A10E094
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 13:21:02 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6828416F8
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:20:57 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 987A83F673
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:21:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782825661; bh=AUW140M7pPSScS+h1z4tF9OaZG7H6Ra98dGhhECl/TY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UpVxaQTZNEhk5oNl8FQtFtBZIg6UKZjI04TwNQjqRURuN2X/CpAdL39+5rAQRigJ2
+ HTIaOLigGSm2kagfXgwc8Gn8Y3mMAPTO4mlCYYcjjEKzsRF0dOAvjHyDRrbG/gu6lX
+ XbSExSZifufIqT/G0hRuZ7QZyxu+e8yhG4HtXlaY=
+Date: Tue, 30 Jun 2026 14:20:51 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: Re: [PATCH 06/11] drm/panthor: Don't overrule pending immediate
+ ticks in sched_resume_tick()
+Message-ID: <akPCs8qSQJEKIo7D@e142607>
+References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
+ <20260625-panthor-misc-fixes-v1-6-b67ed973fea6@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: bound EDID block reads to the response buffer
-To: hexlabsecurity@proton.me, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev
-References: <20260620-b4-disp-22bba7bf-v1-1-b95924cee742@proton.me>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260620-b4-disp-22bba7bf-v1-1-b95924cee742@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260625-panthor-misc-fixes-v1-6-b67ed973fea6@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,44 +65,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/21/26 05:43, Bryam Vargas via B4 Relay wrote:
-> From: Bryam Vargas <hexlabsecurity@proton.me>
+On Thu, Jun 25, 2026 at 02:40:32PM +0200, Boris Brezillon wrote:
+> We schedule immediate ticks when we need to process events on CSGs,
+> but those immediate ticks don't change the resched_target because we
+> want the other groups to stay scheduled for the remaining of the GPU
+> timeslot they were given. Make sure these immediate ticks don't get
+> overruled by a sched_queue_delayed_work() that would delay the tick
+> execution.
 > 
-> virtio_get_edid_block() validates the read offset only against the
-> device-supplied resp->size field, never against the fixed-size resp->edid
-> array. The EDID block index is driven by the device-supplied extension
-> count, so a malicious virtio-gpu backend can advertise a large size
-> together with a high block count and read far past the array into adjacent
-> kernel memory, which is then surfaced in the parsed EDID (an out-of-bounds
-> read / info leak).
-> 
-> Also reject any read whose end exceeds the size of the edid array.
-> Conforming EDID responses stay within the array and are unaffected.
-> 
-> Fixes: b4b01b4995fb ("drm/virtio: add edid support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_vq.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> index 67865810a2e7..c8b9475a7472 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -897,7 +897,8 @@ static int virtio_get_edid_block(void *data, u8 *buf,
->  	struct virtio_gpu_resp_edid *resp = data;
->  	size_t start = block * EDID_LENGTH;
->  
-> -	if (start + len > le32_to_cpu(resp->size))
-> +	if (start + len > le32_to_cpu(resp->size) ||
-> +	    start + len > sizeof(resp->edid))
->  		return -EINVAL;
->  	memcpy(buf, resp->edid + start, len);
->  	return 0;
+> Fixes: 99820b4b7e50 ("drm/panthor: Make sure we resume the tick when new jobs are submitted")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com?part=9
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Applied to misc-fixes, thanks!
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 8fd4d97b062e..ab3e13e44a26 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -2667,7 +2667,14 @@ static void sched_resume_tick(struct panthor_device *ptdev)
+>  	else
+>  		delay_jiffies = 0;
+>  
+> -	sched_queue_delayed_work(sched, tick, delay_jiffies);
+> +	/* We schedule immediate ticks when we need to process events on CSGs,
+> +	 * but those don't change the resched_target because we want the other
+> +	 * groups to stay scheduled for the remaining of the GPU timeslot they
+> +	 * were given. Make sure those immediate ticks don't get overruled by
+> +	 * a sched_queue_delayed_work() that would delay the tick execution.
+> +	 */
+> +	if (!delayed_work_pending(&sched->tick_work))
+> +		sched_queue_delayed_work(sched, tick, delay_jiffies);
+>  }
+>  
+>  static void group_schedule_locked(struct panthor_group *group, u32 queue_mask)
+> 
+> -- 
+> 2.54.0
+> 
 
 -- 
-Best regards,
-Dmitry
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
