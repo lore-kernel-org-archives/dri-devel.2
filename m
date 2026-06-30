@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 935BFC43638
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B56C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5C0D10EBC8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8FF210EBCC;
 	Tue, 30 Jun 2026 09:18:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nDN4GIX1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ey4GOTrF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 607D810EBB6
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:18:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35DBB10EBB6
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:18:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4929F43DD4;
- Tue, 30 Jun 2026 09:18:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE2F1F00A3D;
- Tue, 30 Jun 2026 09:18:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AE55E60008;
+ Tue, 30 Jun 2026 09:18:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 013AA1F00A3A;
+ Tue, 30 Jun 2026 09:18:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782811123;
- bh=9OH3q4zyN12p0WjlOzyD0rZl+9v/3ZiPP5Jehec6diA=;
+ s=k20260515; t=1782811120;
+ bh=/sckeJZcNQD0sYt7C1pNbjU0qMEki24aBgd1V8kmJ1g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nDN4GIX1F8Ob8rJfntIJzBUXdUCidFseMnZzWe1UROIM5t3UT7nvTjlmbJjc7OQTS
- 93CtTLqvn3ZliBHtch3PXjK4+jGUdQU8ggMQnVAz/W2Kk9JkCYzrvUKIu1XuP6BV66
- MoPPDwSFyzhZTymBdQjenZhBqg9zfEGsh2capCVE6hyjiGU3emFVUWYnAFcT85fa4S
- aX8Xc/oqlUoF1i/EK7/uUtRT8SbbPHnJExYnxaJP4upobPORw4NY21GnaAPmUHpKD2
- eG1oTyZqlQaC5p35ANR9+8vQipvIyIs3h/tpgufOhtaz1MIRL5ctKi2IW1MgbBGU+0
- ZUEXbUHfzDPrw==
+ b=ey4GOTrFLtGfWLYRdGZZ+9PbzDM92QkzPkfx5HAwEW56NkF1edDxE3hPHA60S++Pl
+ SRTejMZfMl5FA7CT+YfDD7N1GRnhiGgPswsnz1lWicb36Z7Aa9vQtWyDdna8ReuyZf
+ C2gG30E99oiUbM7uFAYqQu0NHXm/NmHIhS2udOZkTedFL8cz6qFiRAnG2QFY1uTp0L
+ OumB5DtbmQwzuSEgjE++QMTVCjgo/93H8ehCcVZ/gmkowoH9nICHcndTohNvY2YNaD
+ vQGSKkOuA8Wnfe1McRj20rpgTq5G+K7DZFn+8s3x+M/u55OeezjebVJJQHRM3ijooh
+ TTCyFbblQNc6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 19/19] driver core: platform: count references to all
- kinds of firmware nodes
+Subject: Re: [PATCH v2 10/19] pmdomain: imx: use platform_device_set_of_node()
 To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev
-In-Reply-To: <20260629-pdev-fwnode-ref-v2-19-8abe2513f96e@oss.qualcomm.com>
+Cc: Frank.Li@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260629-pdev-fwnode-ref-v2-10-8abe2513f96e@oss.qualcomm.com>
 References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
- <20260629-pdev-fwnode-ref-v2-19-8abe2513f96e@oss.qualcomm.com>
+ <20260629-pdev-fwnode-ref-v2-10-8abe2513f96e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 09:18:42 +0000
-Message-Id: <20260630091842.BCE2F1F00A3D@smtp.kernel.org>
+Date: Tue, 30 Jun 2026 09:18:39 +0000
+Message-Id: <20260630091840.013AA1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,68 +60,74 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Memory leak of `of_node` references in platform device release
-- [High] Refcount underflow and use-after-free of software nodes on platfor=
-m device release
+
+New issues:
+- [Medium] OF node reference leak introduced by replacing direct assignment=
+ with platform_device_set_of_node().
+
+Pre-existing issues:
+- [High] Missing cleanup of dynamically allocated child platform devices ca=
+uses Use-After-Free on probe error and remove paths.
 --
 
-commit f2aa250a52f31d368fee3251e58597913170101a
+commit f80cbf40e80bb2e67469b487f2abcc9652b28cb1
 Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-driver core: platform: count references to all kinds of firmware nodes
-   =20
-This patch switches to counting references for all kinds of firmware nodes =
-by
-replacing the of_node_put with fwnode_handle_put in platform device release.
-It also updates platform device setup helpers to properly acquire fwnode
-references.
+pmdomain: imx: use platform_device_set_of_node()
 
-> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-> index f24a5f406746b..bb5f5bddd047d 100644
-> --- a/drivers/base/platform.c
-> +++ b/drivers/base/platform.c
-> @@ -599,7 +599,7 @@ static void platform_device_release(struct device *de=
-v)
->  	struct platform_object *pa =3D container_of(dev, struct platform_object,
->  						  pdev.dev);
+Ahead of reworking the reference counting logic for platform devices,
+encapsulate the assignment of the OF node for dynamically allocated
+platform devices with the provided helper.
+
+> diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
+> index 42e50c9b4fb9f..abca5f449a226 100644
+> --- a/drivers/pmdomain/imx/gpc.c
+> +++ b/drivers/pmdomain/imx/gpc.c
+> @@ -487,8 +487,7 @@ static int imx_gpc_probe(struct platform_device *pdev)
+>  			domain->ipg_rate_mhz =3D ipg_rate_mhz;
 > =20
-> -	of_node_put(pa->pdev.dev.of_node);
-> +	fwnode_handle_put(pa->pdev.dev.fwnode);
+>  			pd_pdev->dev.parent =3D &pdev->dev;
+> -			pd_pdev->dev.of_node =3D of_node_get(np);
+> -			pd_pdev->dev.fwnode =3D of_fwnode_handle(np);
+> +			platform_device_set_of_node(pd_pdev, np);
+
+[Severity: Medium]
+Does replacing direct assignment with platform_device_set_of_node()
+introduce an OF node reference leak?
+
+In drivers/i2c/busses/i2c-pxa-pci.c:add_i2c_device(), the function acquires
+an OF node reference via the for_each_child_of_node iterator and then calls
+platform_device_set_of_node(pdev, child) on success.
+
+Before this patch series, pdev->dev.of_node =3D child directly transferred
+ownership of the reference to the platform device, which released it upon
+destruction. Because the new helper platform_device_set_of_node()
+explicitly increments the reference count internally, and there is no
+of_node_put(child) added after the helper call, does this permanently leak
+the original iterator reference on both success and error paths?
+
+> =20
+>  			ret =3D platform_device_add(pd_pdev);
+>  			if (ret) {
 
 [Severity: High]
-Does replacing of_node_put() here cause a memory leak of of_node references?
+This is a pre-existing issue, but does the missing cleanup of dynamically
+allocated child platform devices cause a use-after-free on probe error and
+remove paths?
 
-Many drivers and core APIs manually acquire an of_node reference and assign
-it directly to pdev->dev.of_node without setting pdev->dev.fwnode. For
-example, in drivers/base/core.c:device_set_of_node_from_dev():
+In imx_gpc_probe(), child devices (pd_pdev) are dynamically allocated and
+registered in a loop. If a subsequent iteration fails and returns here,
+the function returns immediately without unregistering the previously added
+children.
 
-	of_node_put(dev->of_node);
-	dev->of_node =3D of_node_get(dev2->of_node);
+Furthermore, in imx_gpc_remove(), when using the new device tree binding
+(pgc_node is present), it exits without unregistering any child devices.
 
-When a platform device set up this way is released, fwnode_handle_put() will
-operate on a NULL or unrelated fwnode, failing to drop the of_node referenc=
-e.
-
-[Severity: High]
-Can this fwnode_handle_put() cause a refcount underflow for software nodes?
-
-Platform drivers often inherit their parent's fwnode without taking an
-additional reference. For example, in drivers/gpio/gpio-arizona.c:
-
-	device_set_node(&pdev->dev, dev_fwnode(pdev->dev.parent));
-
-Before this patch, calling of_node_put(dev->of_node) on a software node was
-a safe no-op (as of_node was NULL). Unconditionally calling
-fwnode_handle_put() here will now invoke software_node_put() and decrement
-the unacquired reference, potentially leading to a use-after-free when the
-device is unregistered.
-
->  	kfree(pa->pdev.dev.platform_data);
->  	kfree(pa->pdev.mfd_cell);
->  	kfree(pa->pdev.resource);
-
-[ ... ]
+Since the child devices remain registered, their bound drivers (imx-pgc-pd)
+stay active. When the parent devres cleanup frees the regmap, won't any
+subsequent power state transition by the active child domains dereference
+the freed domain->regmap, resulting in a use-after-free crash?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-pdev-fwnod=
-e-ref-v2-0-8abe2513f96e@oss.qualcomm.com?part=3D19
+e-ref-v2-0-8abe2513f96e@oss.qualcomm.com?part=3D10
