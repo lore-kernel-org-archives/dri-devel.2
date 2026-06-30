@@ -4,75 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81148C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7BBC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:03:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC1F10EDD8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9532F10EDDB;
 	Wed,  1 Jul 2026 07:03:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LAYe0Maa";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="QzIwKAaR";
 	dkim-atps=neutral
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com
- [209.85.216.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E05B10EB39
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 07:28:59 +0000 (UTC)
-Received: by mail-pj1-f65.google.com with SMTP id
- 98e67ed59e1d1-37de961d1bfso3247189a91.0
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 00:28:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782804539; x=1783409339; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ul3/ISJIxQCHD0fhKywsEwyygt0y3z6uVSVG5ItbopQ=;
- b=LAYe0MaaDPouoMXfRg4Nlvzwm3f9JQ9BVL21g+3LcehYE1xpGRIh/eMzncghPmgKYL
- 02sSuDer9d4CBl6oTp7IZfkmgpShxTU7Sx7r2dGDULXN2KxLi3+BgD7S4eYesOxtHBJ/
- 7dYnLyB+ThG2Br2N3Z1zGbNL2WCObnLl5p9mKvsyOJEQHyretnOnnNRIoT93mP60MYY6
- S/XJ/Cm4gcyn0cboAFYCRaD9zBgU4dU6YM6WDaetK7nex2h64IX170pEgkR1MhIi7E3p
- ZN9iJS5PYJ3iMp4Q8B8dTGUneI56yA53Ghouwi8WZQKVnxZeKzLmp9+PDfjAGBXrN8qq
- H62A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782804539; x=1783409339;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ul3/ISJIxQCHD0fhKywsEwyygt0y3z6uVSVG5ItbopQ=;
- b=oMCMEW5yuJUZGBa3B6L/NDBvtCb4jNZW0fHWLuPtEvQGcD71DQbLt8MvIyJKvwufIO
- 5IjQQQown2zKdWcQEMFjONcWy+eeWciBZbMfIGhYqQIEaOzhXAdxbcTIfk2BLPQS60CN
- hAew1FGydcTfXEui98h26GuWPViiHxH7j5KotneEZwRfgEu+iCRGnCOuXt6X02vDrLUT
- Idb3iJlVeZEUzs8vqQEYKAKvxZ5nMHKKfWzoXSH+S1gJIBuUPeZDA6neUAde8Lfg9Dj9
- uRGNvtr5J2r/+R0MQOnCUjfBAAKHD71f3MWFKp03tZzw4aElm6Bws4wxCiI5EgOrLAN/
- ax/Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq3WWE67He6UGQ0lJFRvL65liYpIYSuE18gS2IXEZnZcmvTVj/VHz3OT+gBb+iNuB6av56dyDqFQew=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2RnRxUNQBaY5sBPaljKL6VXAHDRVFpYYGIy9ENE8/pC7CaCk+
- Echn7uurJSXyGFtOsa1DBaEEB0r20GOyCK0OPea1ii3XJmar+aBp7h3l
-X-Gm-Gg: AfdE7clK2euLvSC8WtvIxQJ9nkZC4b15OzpR4Y5E/bWleBCYOIMrWkPJNM/somu/V0X
- YoWqUGZV32CPxw2v0ioEqmRQflPp1FhGAzt47LIYfJ2Ow0S2REqJDXlP8WcFI3kHLPgr8Eh203N
- LFzf8x6Y96y00IY3RYsOB8mPVmOWQieYbIre5583FvpvC9XSkvRk8Gh5Zvg38cQc56GO01aWOQ/
- cHkK18B5Nlg5Dv6Y05Tj/5xLQyR+y+nE5MoBWZjzyUIk+Se3zHGp1ouaeAFgL2HOB2jWDREANQ1
- 4CHQgyl4cWBzMl+y3o7x/wheqIBKRhjd1jeVtL4CDEHTnpfvQyYAkwOjZEJdy6ZHrjP1IOfna8N
- 2AsJ16UcDNCWzTcLfKvryIk47AtH3YVrHs169CA/+PVPZVxhFBTdU4fZn55mbJZnttFMZ36TxWH
- fHmQF0bwlbTX6gvPJY0O/YAB+gYv/kGw==
-X-Received: by 2002:a17:90b:1d02:b0:37f:9ce1:cda9 with SMTP id
- 98e67ed59e1d1-380527daa2dmr1895486a91.31.1782804539506; 
- Tue, 30 Jun 2026 00:28:59 -0700 (PDT)
-Received: from SH-PF5NDYD6.Hygon.cn ([112.64.138.194])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38052f32869sm1137101a91.11.2026.06.30.00.28.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 00:28:59 -0700 (PDT)
-From: Ke Zhao <ke.zhao.kernel@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, pierre-eric.pelloux-prayer@amd.com, lijo.lazar@amd.com,
- felix.kuehling@amd.com, srinivasan.shanmugam@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, ke.zhao.kernel@gmail.com
-Subject: [PATCH] drm/amdgpu: Fix typo in comment
-Date: Tue, 30 Jun 2026 15:28:38 +0800
-Message-ID: <20260630072838.67086-1-ke.zhao.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E592610ECC7;
+ Tue, 30 Jun 2026 16:30:53 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65UFdtVm1938441; Tue, 30 Jun 2026 17:30:49 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=m
+ Y1WVLVJ/dgEoX7UxR57TKVMoRVvs5I3SAStzsNRQN8=; b=QzIwKAaR4HM1AUvUP
+ 6WsdHkugUkg6psnlIbpGy6obDg9HMJcNERiSsQ9MW9RsUfXncJkaz1myixuJZFjm
+ CA1eRGES7elObZze5rksNUeGGY7GvTIJPU+tD88Xpid+0uO/0q42N+XmAEh2Ys2+
+ SGqkys1yovHjZLJ6lh/qm4qFSTOs+o73XzyTdNwkQQIk3unEzg1wV9H4RgEb3/tX
+ 1n00g3MSvWVDh3KCMyjFfTsggreko8AmFTkNWY34NudXDbhtZ0+3n+BM6avwGnEg
+ bd6we3rHsAmJhXQ/gwINkM00SVR/iw6NF60iZe/ubK2bJGyx+3bc8QGlavwJwoh/
+ o9Xrg==
+Received: from hhmail02.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4f24snu4d3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Jun 2026 17:30:49 +0100 (BST)
+Received: from HHMAIL03.hh.imgtec.org (10.44.0.121) by HHMAIL02.hh.imgtec.org
+ (10.100.10.20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 30 Jun
+ 2026 17:30:48 +0100
+Received: from
+ 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
+ (172.25.6.219) by HHMAIL03.hh.imgtec.org (10.44.0.121) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 30 Jun 2026 17:30:48 +0100
+From: Matt Coster <matt.coster@imgtec.com>
+To: <imagination@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Matt
+ Coster" <opensource@mtcoster.net>
+CC: Conor Dooley <conor@kernel.org>, Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, Frank Binns
+ <frank.binns@imgtec.com>, Brajesh Gupta <brajesh.gupta@imgtec.com>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>
+In-Reply-To: <20260626-maintainer-updates-v2-0-e1b3f246c44c@imgtec.com>
+References: <20260626-maintainer-updates-v2-0-e1b3f246c44c@imgtec.com>
+Subject: Re: [PATCH v2 0/3] drm/imagination: Maintainer updates
+Message-ID: <178283704798.38259.15521402242247163422.b4-ty@b4>
+Date: Tue, 30 Jun 2026 17:30:47 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-Originating-IP: [172.25.6.219]
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDE1NyBTYWx0ZWRfX7o0T6EUnvP+w
+ Fsjiqo7YCKiWwXmo4nWFXPKsyvJYkLfzeIgO7Uu7XvI4hBK212blkNi4D2b0b2NBs3eVw2ipC6N
+ 2KJ+mgt4gXc/5DA4FiHkRlgbxB0B/JY=
+X-Authority-Analysis: v=2.4 cv=We48rUhX c=1 sm=1 tr=0 ts=6a43ef39 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=UteWFfMXGp8A:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=r_1tXGB3AAAA:8 a=JrClNxu6BE0UwtG5BMwA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: p0KVK9gUsO73QH_w4shMCzo_wLhlJe1p
+X-Proofpoint-GUID: p0KVK9gUsO73QH_w4shMCzo_wLhlJe1p
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDE1NyBTYWx0ZWRfXxUrHlq0qGzBW
+ 48Ea+/X61i2Mv1gKp/XucoRl/aRkyd5eLGGNYrOrhDBayi+WMztzVqKpULQaO62EW9x3r1CBQP2
+ fQKFzHHpRmI7Z/0EvivlP37g+0ceX6AdUGrhOh9mhiDbsYADLHSgxwSHQbiABxxc9iGU+GHNIj5
+ x0r7eIDpmm4LHFiJrlshvlBH+oDGMb35cSI7IUirQ3oqn78kfHDncpG4Og/5uQ7ELZHSWPvyCDY
+ 7WHv6UiJyb5r79mbUfnj1sjaK1Qa6Va8555QpyaN0iHvkP/BB6Fd7QO5fgZEMKH3/UBV2R5G6xg
+ nrgZnVHgiGHumPj5P8ZGIx9uYql+UiRyyh6D+rD08OQWC39+nrFtZ16B5/HCsc34Nkt0XqbfoRz
+ zX+jzowsDw3CAoPYzfnp/fGrsy1n2HTdJEF9vtIXdH7XA/EA2ED9jMvQvRmQnPTTmk6A3MxAMSU
+ ggu/uINl+fOehS5dQzw==
 X-Mailman-Approved-At: Wed, 01 Jul 2026 07:03:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,26 +96,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It should be doorbell.
 
-Signed-off-by: Ke Zhao <ke.zhao.kernel@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Fri, 26 Jun 2026 13:43:09 +0100, Matt Coster wrote:
+> We've got some new people stepping up to help out with maintainership of
+> the imagination driver, so let's take this opportunity to unify the
+> maintainer list where it appears across multiple files.
+> 
+> There are also some new resources (mailing list, patchwork, IRC) that
+> didn't previously exist and had not yet been added, so let's do that now
+> as well.
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 16c060badaee..b7be28d74e83 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2187,7 +2187,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
--	/* Create a boorbell page for kernel usages */
-+	/* Create a doorbell page for kernel usages */
- 	r = amdgpu_doorbell_create_kernel_doorbells(adev);
- 	if (r) {
- 		dev_err(adev->dev, "Failed to initialize kernel doorbells.\n");
+Applied, thanks!
+
+[1/3] MAINTAINERS: Update imagination details
+      commit: e3ed8c959d68e5103078d649aabac12bfcf05385
+[2/3] MAINTAINERS: Update imagination maintainers
+      commit: a10b7aa4c2a7b36f292678368c2ae0baec798516
+[3/3] dt-bindings: gpu: img,powervr-*: Add maintainer entries
+      commit: 8fca3d8dbebf8d960dad7b10db3cb4a61139454b
+
+Best regards,
 -- 
-2.43.0
+Matt Coster <matt.coster@imgtec.com>
 
