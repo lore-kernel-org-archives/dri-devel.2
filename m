@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4053EC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 23:08:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6158DC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 23:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89A7510E2C0;
-	Tue, 30 Jun 2026 23:08:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A401310E2B1;
+	Tue, 30 Jun 2026 23:12:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BasXIBhI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SzVMxtqi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FAF310E2C0
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 23:08:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CAA310ECF0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 23:12:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 138916001D;
- Tue, 30 Jun 2026 23:08:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4C51F000E9;
- Tue, 30 Jun 2026 23:08:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0253D43A53;
+ Tue, 30 Jun 2026 23:12:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F8E1F000E9;
+ Tue, 30 Jun 2026 23:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782860921;
- bh=E9FuaoOJzCGZBbZKMbcQWsELlnnFjqrAYZ4zRijrd48=;
+ s=k20260515; t=1782861119;
+ bh=YouuZLEIEO5m2YlgfAG02ZFNT62OJ7IdcU08Y0jQvzM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BasXIBhIznEyleLufZSQKEe3/m/9U0UssRw/bMzftb/bLoO2RVnMARF5ley+dUonL
- x2AtfdFjz/FWrjqAdxvS7jHByBguJDONIt+GuoDhB5GnAuDZPu/KznLxk5inBFUVFK
- +k6A4kGan94PZpUDjthUOtUHjtCltbbG1SCZGdq2H2u3ZzV8GVsBdacWngsBLTsnOS
- YlBXg0fRDp0VSbupSX4PP5/QnNfBK3xySF8rTTpRQfvTwZXbnVX0X8bqkYtLvSLQvd
- JgRzVHRHnTWuKlFEoxXe3ud74f+7HmnnRCjid9lhWg6d8ZgUf0JhaBbKUoDMr49edZ
- O7OF2yGZgrsxQ==
+ b=SzVMxtqip/rJUliRR038d9RAA0FCcpgF6HkBqJeAZ4y5MtONJKEM8i/YEhtnSHkt7
+ Qd26cnG4AQfv2ITuISIUtpgXv+pWhRuEwCKGs0FXNjTD+JstCIdw0F5hb/6s4Mr3jW
+ raxRnPerBpIN9PhIIOr/kdjrEwrZ/OG2aT89IrbRzvBi6PukFE4ahJQan5giK5o6WK
+ NeR4a7XsaPiCSTRRtw7+FcRVb9cP3n4OdBdpub6AlGUNo7Ci0TFh+106+hZrXDKdjK
+ 3frdZqViiyfRepU77kF+aJ0Rr9PQ/a5CNefoRBzTouIGGo61ueEGLjUaz6kfOSuBIc
+ QRoS8eeVIRFgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/4] vfio/pci: implement get_pci_tph and DMA_BUF_TPH
- feature
+Subject: Re: [PATCH v10 4/4] RDMA/mlx5: get tph for p2p access when
+ registering dma-buf mr
 To: "Zhiping Zhang" <zhipingz@meta.com>
-Cc: kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260630224328.3218796-4-zhipingz@meta.com>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kvm@vger.kernel.org
+In-Reply-To: <20260630224328.3218796-5-zhipingz@meta.com>
 References: <20260630224328.3218796-1-zhipingz@meta.com>
- <20260630224328.3218796-4-zhipingz@meta.com>
+ <20260630224328.3218796-5-zhipingz@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 23:08:41 +0000
-Message-Id: <20260630230841.7E4C51F000E9@smtp.kernel.org>
+Date: Tue, 30 Jun 2026 23:11:59 +0000
+Message-Id: <20260630231159.A1F8E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,106 +59,48 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Lockless plain load of `priv->vdev` races with concurrent modificat=
-ion in cleanup path.
-- [Low] Missing `WRITE_ONCE()` for `priv->revoked` leads to data race with =
-`READ_ONCE()`.
+
+Pre-existing issues:
+- [High] Memory leak of `struct mlx5_st_idx_data` in `mlx5_st_dealloc_index=
+()` when its refcount reaches 0.
 --
 
-commit d524eab36e9482385fe1c1a6c6280e667bf56a9c
+Note: Due to system recitation restrictions, this review report cannot quote
+the original patch diff inline. The findings are provided as a free-form
+summary below.
+
+commit 9ada3f634918f1f6bc02c86bed9350c775185dbc
 Author: Zhiping Zhang <zhipingz@meta.com>
-Subject: vfio/pci: implement get_pci_tph and DMA_BUF_TPH feature
+Subject: RDMA/mlx5: get tph for p2p access when registering dma-buf mr
 
-This commit implements dma-buf get_pci_tph for vfio-pci exported
-dma-bufs and adds VFIO_DEVICE_FEATURE_DMA_BUF_TPH. This allows
-userspace to publish TPH metadata for a VFIO-owned device.
+This commit wires up mlx5_ib to query dma-buf TPH metadata at MR registrati=
+on
+time to program requester-side TPH on the outbound mkey. It translates
+exporter-provided steering tags into local ST entries and ties the extra
+ST-table reference to the MR lifetime.
 
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
-ci_dmabuf.c
-> index c16f460c01d68..8de72f9e75024 100644
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> @@ -30,7 +38,7 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmab=
-uf,
->  	if (!attachment->peer2peer)
->  		return -EOPNOTSUPP;
-> =20
-> -	if (priv->revoked)
-> +	if (READ_ONCE(priv->revoked))
+[Severity: High]
+This is a pre-existing issue, but I noticed something while reviewing the
+surrounding code in drivers/net/ethernet/mellanox/mlx5/core/lib/st.c.
 
-[Severity: Low]
-Since this updates the read of priv->revoked to use READ_ONCE(), should the
-corresponding writers in vfio_pci_dma_buf_move() also be updated to use
-WRITE_ONCE()?
+In the mlx5_st_dealloc_index() function, when the usecount refcount drops to
+zero, the code calls xa_erase() to remove the element from the xarray.
+However, it appears the dynamically allocated memory for the idx_data
+structure itself is never freed.
 
-For example, when a concurrent state change like a device reset writes to
-this field:
+Could this lead to an unbounded memory leak when a user-space application
+repeatedly registers and deregisters a dma-buf MR with a TPH tag? During
+registration, mlx5_st_alloc_index_by_tag() allocates a new struct
+mlx5_st_idx_data via kzalloc_obj(). If deregistration drops the reference
+count to zero and removes the pointer from the xarray but fails to free the
+structure, could this be triggered in a loop by an unprivileged user-space
+process to deplete kernel memory?
 
-vfio_pci_dma_buf_move() {
-        ...
-        priv->revoked =3D true;
-        ...
-}
-
-Will the lack of WRITE_ONCE() here trigger KCSAN data race warnings when
-evaluated concurrently by the new READ_ONCE() check?
-
->  		return -ENODEV;
-> =20
->  	if (!dma_buf_attach_revocable(attachment))
-
-[ ... ]
-
-> @@ -333,6 +362,72 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_co=
-re_device *vdev, u32 flags,
->  	return ret;
->  }
-> =20
-> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> +				      u32 flags,
-> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				      size_t argsz)
-> +{
-
-[ ... ]
-
-> +	dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
-> +	if (IS_ERR(dmabuf))
-> +		return PTR_ERR(dmabuf);
-> +
-> +	if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
-> +		ret =3D -EINVAL;
-> +		goto out_put;
-> +	}
-> +
-> +	priv =3D dmabuf->priv;
-> +	if (priv->vdev !=3D vdev) {
-
-[Severity: Low]
-Can this lockless read of priv->vdev race with concurrent modifications in
-the cleanup path?
-
-If userspace calls the VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl on device A,
-passing a dmabuf_fd belonging to device B, while device B is concurrently
-being closed, could this race with vfio_pci_dma_buf_cleanup()?
-
-vfio_pci_dma_buf_cleanup() {
-        ...
-        priv->vdev =3D NULL;
-        ...
-}
-
-Will this concurrent plain store trigger KCSAN warnings during the pointer
-equality check?
-
-> +		ret =3D -EINVAL;
-> +		goto out_put;
-> +	}
-> +
-> +	ret =3D dma_resv_lock_interruptible(dmabuf->resv, NULL);
+Would it make sense to add a kfree() for the idx_data structure immediately
+after the xa_erase() call in the refcount_dec_and_test() block?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630224328.3218=
-796-1-zhipingz@meta.com?part=3D3
+796-1-zhipingz@meta.com?part=3D4
