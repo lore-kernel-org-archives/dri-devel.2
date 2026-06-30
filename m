@@ -4,44 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF21EC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 08:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7099C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 09:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28F3210EB42;
-	Tue, 30 Jun 2026 08:58:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA2D10EAC5;
+	Tue, 30 Jun 2026 09:10:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V+69oScx";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GxpqxXDp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A0E10EB42
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:58:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F3545417C8;
- Tue, 30 Jun 2026 08:58:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACA671F000E9;
- Tue, 30 Jun 2026 08:58:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782809882;
- bh=SQzmjj6XGxGp5/L+noMpxJBSDxqHjA5F2QoFOSEyxN0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V+69oScxRF8fF+70oQSPjoMVbeOG4yQ4h4+qlDkfG3UJLLleiBPNLpdMuBzF4IGu7
- bKi16kibQjP8coWNNFk2mwANyujUqx/AJk9aMqtTMDY0gc0y1chvOQr/McxpBv6OTu
- UQ20pKEUtduP/RnPYhJ8dsdjGqvFn/Idn1CYy4FuMpRT36y29iEnMZErnl2Ssxojaj
- uBX5KcZikFviE035VdkAjcTCIKuG0MTvm5xc3XB+G8TE40gDCTE5S/pRthwd6WkXu5
- CsxI90Ro/Ccmzwb63PZKjvJjTmlxx3pwGzs6BmwsTNikNekENYinEyXLfqNn8Vt/bP
- nAnuNaJEgPH0A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/4] drm/amdgpu: Add DRIVER_PLANE_COLOR_PIPELINE
- driver feature
-To: "Robert Mader" <robert.mader@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260630084229.529682-3-robert.mader@collabora.com>
-References: <20260630084229.529682-1-robert.mader@collabora.com>
- <20260630084229.529682-3-robert.mader@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 08:58:02 +0000
-Message-Id: <20260630085802.ACA671F000E9@smtp.kernel.org>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B18810EAC5
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:10:25 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id B1DC5C51478;
+ Tue, 30 Jun 2026 09:10:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 2F64B60233;
+ Tue, 30 Jun 2026 09:10:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id B42A0102F185C; 
+ Tue, 30 Jun 2026 11:10:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1782810622; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=dZdLesb8krrDYgxGMjqiPjbumEIUWTpnSwN04EP1YKE=;
+ b=GxpqxXDpPxmCqzRlMbO2QcpMK6SNcxnuvR6+EiSxziugKhlT4mpsw7/JBJrm9Zgbg90Zdp
+ 13wAVPSUhRvhD1ZqGvPAar4lFcDpLyDflfGG8Oi0BHPWvndkiKrAk0+qTy8OsvjTwx+I+y
+ W2EXa2S9MzafZi/2i7BpzF/JG/hjmhx9V3MQwBWKUyOJSEZyP67NUoLjSDoQ8WsmYiWB6n
+ SDxjkT/wWEpphNiJWNHzGYIp5rRkq2Dq64RX+RvYvCvhQBR1b9fI/344YNgKb9xDKlQVlU
+ Dh+OqADZOECOV/V4vb/+QOyEQqW+VvwtmbI15eFjyRrXnsIrvWuSJyS5upYLmg==
+From: Romain Gantois <romain.gantois@bootlin.com>
+Subject: [PATCH v2 0/2] drm/logicvc: Avoid UAF in DRM object management
+Date: Tue, 30 Jun 2026 11:10:09 +0200
+Message-Id: <20260630-logicvc-uaf-v2-0-99e881833860@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6CMBBFr0JmbU1bhIgr72FYtMMAY5CaFhoN4
+ e4WWLl8yfvvLxDIMwW4ZQt4ihzYjQn0KQPszdiR4CYxaKlLWehSDK5jjChm0woyVsm8lY1sCNL
+ i7anlz1571AeH2T4Jpy2xGT2HyfnvfhfV5h3lUqq/clRCiStWaAqbX3SFd+vcNPB4RveCel3XH
+ 3IUiiO6AAAA
+X-Change-ID: 20260526-logicvc-uaf-eab103f0d0de
+To: Paul Kocialkowski <paulk@sys-base.io>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Romain Gantois <romain.gantois@bootlin.com>, 
+ Jason Xiang <jx@jasonxiang.net>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,67 +67,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unconditional advertisement of DRIVER_PLANE_COLOR_PIPELINE breaks =
-legacy YUV-to-RGB conversion on pre-DCN 3.0 hardware.
---
+Hi everyone, this is version two of my series which fixes some memory
+management issues in the logicvc-drm driver.
 
-commit 0f146a9591dc47b975ea73aa0e04b2950fb4ede5
-Author: Robert Mader <robert.mader@collabora.com>
+Patch 1/2 migrates the driver to drmm to avoid accessing DRM objects after
+they have been freed by devm.
 
-drm/amdgpu: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+Patch 2/2 uses the unplug mechanism to ensure that DRM objects aren't
+accessed after the DRM device is removed.
 
-Adds the DRIVER_PLANE_COLOR_PIPELINE feature to the AMDGPU kms driver
-structure to satisfy requirements for DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE.
+Best Regards,
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -3092,7 +3092,7 @@ static const struct drm_driver amdgpu_kms_driver =
-=3D {
->  	    DRIVER_ATOMIC |
->  	    DRIVER_GEM |
->  	    DRIVER_RENDER | DRIVER_MODESET | DRIVER_SYNCOBJ |
-> -	    DRIVER_SYNCOBJ_TIMELINE,
-> +	    DRIVER_SYNCOBJ_TIMELINE | DRIVER_PLANE_COLOR_PIPELINE,
+Romain
 
-[Severity: High]
-Does advertising this feature unconditionally break legacy YUV-to-RGB conve=
-rsion
-on pre-DCN 3.0 hardware?
+Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+---
+Changes in v2:
+- Added protection of DRM device resources after removal using drm_dev_enter()
+- Link to v1: https://patch.msgid.link/20260601-logicvc-uaf-v1-1-8c9ca5b3429c@bootlin.com
 
-When a DRM client enables DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE based on this
-flag, the DRM core hides the legacy COLOR_ENCODING and COLOR_RANGE properti=
-es.
+To: Paul Kocialkowski <paulk@sys-base.io>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: Jason Xiang <jx@jasonxiang.net>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
 
-However, looking at dm_plane_init_colorops(), the actual COLOR_PIPELINE
-property is only initialized for newer hardware:
+---
+Romain Gantois (2):
+      drm/logicvc: Avoid use-after-free with devm_kzalloc()
+      drm/logicvc: Avoid using DRM resources after device is unplugged
 
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c:dm_plane_init_color=
-ops()
-    ...
-    if (dc->ctx->dce_version >=3D DCN_VERSION_3_0) {
-        ret =3D amdgpu_dm_initialize_default_pipeline(plane, &pipelines[len=
-]);
-    ...
+ drivers/gpu/drm/logicvc/logicvc_crtc.c      |  52 ++++++----
+ drivers/gpu/drm/logicvc/logicvc_drm.c       |   9 +-
+ drivers/gpu/drm/logicvc/logicvc_interface.c |  61 +++++------
+ drivers/gpu/drm/logicvc/logicvc_layer.c     | 153 +++++++++++++++-------------
+ 4 files changed, 156 insertions(+), 119 deletions(-)
+---
+base-commit: 44e151be23deb788d9f6124de93823faf6e04e99
+change-id: 20260526-logicvc-uaf-eab103f0d0de
 
-If the replacement COLOR_PIPELINE property is not attached on older hardware
-(like Polaris or Vega), and the legacy properties are hidden, userspace will
-have no way to configure YUV-to-RGB conversion.=20
+Best regards,
+--  
+Romain Gantois <romain.gantois@bootlin.com>
 
-Should this capability only be exposed when the underlying hardware actually
-supports and attaches the new pipeline properties?
-
->  	.open =3D amdgpu_driver_open_kms,
->  	.postclose =3D amdgpu_driver_postclose_kms,
->  	.ioctls =3D amdgpu_ioctls_kms,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630084229.5296=
-82-1-robert.mader@collabora.com?part=3D2
