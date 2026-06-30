@@ -4,51 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 123C4C43327
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 14:33:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC4C2C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 14:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DEC310E1FD;
-	Tue, 30 Jun 2026 14:33:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E12A10E122;
+	Tue, 30 Jun 2026 14:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iMYjVUNt";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="TYmuFuPU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D13D510E122;
- Tue, 30 Jun 2026 14:33:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8257941678;
- Tue, 30 Jun 2026 14:33:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9591F000E9;
- Tue, 30 Jun 2026 14:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782829989;
- bh=9cuy7lk5rNB9ZhHqRD+Vl3cVGdgfWsb157w8wga2ThU=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=iMYjVUNtefm4X23CkoLXpK2X/IjrUyzA5uFcK1DYOIfNX60vOQr+djGJBjh9s0WZK
- xWcwGgToDKfvdSJVUtAuF/BsNpXbBHthrNNB/OqwEnBax4MSi64XhKWEjdNhB2HTOl
- mkEX0UIBYcYgS5tE8Q47pERpTu7GRh+JqvhZSLZMJyANNVGOUUd0lBMbwS8APfPKkB
- 6USv1YIhzFXPS585M/4aa1YnQrYJC/BbLNzVQNmgR0pgUjwi138Yp7MDKQVAM7plfa
- 7EFharRUUu/Km5UQu/mdtfE5LWYA36z6EvDeZ290yYM8YB5F7sbcYJ6spjw0/2njFw
- jzalZJhqGZ8dg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B21F10E122
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 14:42:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782830553; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PD3N0zSWqcHkBLUJXXVo9xmsR9Bk/edTQ1Zj++EMrOPWI5Xxm5PrgRzwbNuVTVWcmsxskMXP7PxX+vXHq2yPXLh4zvVJ84klk1gWwzuRqtnrVfWDlUoP3Kq2wUzFLOXavh0vUDGZdaa5scp4ML+8VEk9oNAUK9ynAjhiaBqiBA4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782830553;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=nDzUCinhqLX/oyWxM4Vcrz12+bJW/6luK783RfqJDio=; 
+ b=OQ4YgzWgDZI6jAPQ2gWPmFmpJBsQHyYHKk6d9ahkRqJ00tcgy5pI2lQvJVgSflWuX0r+enjczTGwqD0ndFswcEda/gq8GVkxY+t11hmpIuVcxi2hhkkY7g+XB9CRkbeE+xN+vGmIbYv0+LybnjNUgC2rurn294dniw7EgXj237k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782830553; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=nDzUCinhqLX/oyWxM4Vcrz12+bJW/6luK783RfqJDio=;
+ b=TYmuFuPUVvdG4tllhAtGrK7QBv3EHpcLhGuOJreqwQU32VVmelkQjWW0Um30QxAs
+ FWFHoFM29a6F7y0Ysa0t1Xj2nmxWynXIswVukT5+J4HwaxMbI+dVDutVdmb1Xuq1pKm
+ c6ncUyOlfW6H3NlN5dK19eWUVf6FBcuyozVb/tlU=
+Received: by mx.zohomail.com with SMTPS id 1782830551361970.0532585868376;
+ Tue, 30 Jun 2026 07:42:31 -0700 (PDT)
+Message-ID: <857b0af4-968e-4152-96a1-1fa221f0085c@collabora.com>
+Date: Tue, 30 Jun 2026 17:42:26 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: fail init on display-info timeout
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, David Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260625030202.82590-1-pengpeng@iscas.ac.cn>
+ <f5c5fc6c-3c6e-4068-80d7-f1acebff7168@collabora.com>
+Content-Language: en-US
+In-Reply-To: <f5c5fc6c-3c6e-4068-80d7-f1acebff7168@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 30 Jun 2026 16:33:04 +0200
-Message-Id: <DJMGHGBIJTOI.3FTGPA92WVGC6@kernel.org>
-Subject: Re: [PATCH v10 0/5] drm/gpusvm: split MM and device state across
- gpusvm/range/pages
-Cc: "Honglei Huang" <honghuan@amd.com>, <sima@ffwll.ch>,
- <rodrigo.vivi@intel.com>, <thomas.hellstrom@linux.intel.com>,
- <intel-xe@lists.freedesktop.org>, <aliceryhl@google.com>,
- <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>,
- <Junhua.Shen@amd.com>, <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-To: "Matthew Brost" <matthew.brost@intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260630102127.392396-1-honghuan@amd.com>
- <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
-In-Reply-To: <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,15 +73,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jun 30, 2026 at 4:26 PM CEST, Matthew Brost wrote:
-> If we merge the patches in drm-xe-next and pick them up via a rebase in t=
-he
-> AMD trees, that works.
+On 6/30/26 16:36, Dmitry Osipenko wrote:
+> On 6/25/26 06:02, Pengpeng Hou wrote:
+>> virtio_gpu_init() sends GET_DISPLAY_INFO when scanouts are present and
+>> waits for display_info_pending to clear. If the response never arrives,
+>> the wait result is ignored and probe still succeeds.
+>>
+>> Return -ETIMEDOUT on display-info timeout. Because this happens after
+>> virtio_device_ready(), reset the device and tear down modesetting before
+>> using the existing vbuf and virtqueue cleanup path.
+>>
+>> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+>> ---
+>>  drivers/gpu/drm/virtio/virtgpu_kms.c | 12 ++++++++++--
+>>  1 file changed, 10 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> index cfde9f573df6..31209bea97ae 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> @@ -262,11 +262,19 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+>>  			virtio_gpu_cmd_get_edids(vgdev);
+>>  		virtio_gpu_cmd_get_display_info(vgdev);
+>>  		virtio_gpu_notify(vgdev);
+>> -		wait_event_timeout(vgdev->resp_wq, !vgdev->display_info_pending,
+>> -				   5 * HZ);
+>> +		if (!wait_event_timeout(vgdev->resp_wq,
+>> +					!vgdev->display_info_pending,
+>> +					5 * HZ)) {
+>> +			DRM_ERROR("timed out waiting for display info\n");
+>> +			ret = -ETIMEDOUT;
+>> +			goto err_ready;
+>> +		}
+>>  	}
+>>  	return 0;
+>>  
+>> +err_ready:
+>> +	virtio_reset_device(vgdev->vdev);
+>> +	virtio_gpu_modeset_fini(vgdev);
+>>  err_scanouts:
+>>  	virtio_gpu_free_vbufs(vgdev);
+>>  err_vbufs:
+> 
+> Rebased and applied to misc-next, thanks!
 
-IIUC what your are proposing this will create duplicate commits, which shou=
-ld be
-avoided.
+Now see [1] having valid point on a leaked memory allocations. It's not
+trivial to free that memory properly. Perhaps best will be to revert
+this change and use wait_event() without timeout, will think further on
+it before proceeding.
 
-If the series is needed in multiple trees it is better to pick a common bas=
-e and
-share via a tag that can be merged in all relevant trees.
+[1]
+https://sashiko.dev/#/patchset/20260625030202.82590-1-pengpeng%40iscas.ac.cn
+
+-- 
+Best regards,
+Dmitry
