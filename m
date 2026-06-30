@@ -4,90 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F174C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:42:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B12C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 12:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D7410EC77;
-	Tue, 30 Jun 2026 12:42:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E716C10EC79;
+	Tue, 30 Jun 2026 12:43:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ZpHACfw0";
+	dkim=pass (1024-bit key; secure) header.d=grimler.se header.i=@grimler.se header.b="F8Rw5xWG";
 	dkim-atps=neutral
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
- [209.85.222.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A929010EC77
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:42:55 +0000 (UTC)
-Received: by mail-qk1-f178.google.com with SMTP id
- af79cd13be357-9217d13c276so321068285a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 05:42:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1782823374; x=1783428174; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=DQO+LwB4rlmVUEVrQLIA/Kr74YcNiyTBCzOFtX1NQKY=;
- b=ZpHACfw0Ly0Kyvir5DBWTTxacTps7g1TFlW1gaZqEm5s/xL77fJiUJFacElYWhXDVx
- GGcTUobjNQ0IrfeTRij83LpkjGc+nYFoJUaJRISPrOusrk1f+2eZcR+3ZSp15/v+CjW3
- wL8r7VygY51FrdNLUcdGGm/cR7QGqAUh65vPr48RcKm3TkHEKbCK4vbI5hsHmAHZtkOe
- 0lFRfX2GLix6b95tmpvjc+JdTGsDUGQHDxCV71kmV/ccsd68iEcY8uYDuGxikGnXkqtj
- BkLPonwzx2KvXiufhhohwQQ1a90SfHjStlEx4SuOCloa1UdwGV504CD4DlSGgAWVzdJX
- okhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782823374; x=1783428174;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DQO+LwB4rlmVUEVrQLIA/Kr74YcNiyTBCzOFtX1NQKY=;
- b=Xp/mpHYccYXd3BdEbcraR6xR3Y85ULBOoqF1BXa/4pHBh7LC1M5tESb/0vlm/UhDZx
- ZjR7ZCKMnT3iBcg1q3Z2nOupbRfGUckjQnWM6vWrtbh1rtnwrtpSNnCEf95VWhF7UuEx
- XV3PsVp3PQLpfMOyxgSw/yrSZWy56Ko4+jPmFW4+/CAp+QEY6POe28I2IXTOA0KHkRPY
- we3tO3b7xU1MUHOMqY9euj8bRaIRo9LnT2dAFmZ+g7HTEQvMzv/CjxS/HyP3jd2F31be
- hpK7p6HpMaY6LyeZDqoOaHawQ8M+oU2aWSDhDn6BaO17KGeyrzudKRHI1Nu/A8W5FaHE
- yiqA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ865c9oBWVTgZGCKsbnzQS+xs+FbXK4RbuNhaq4tYtV+iCBLps9d4xbFoZrh9PsQ47AcVeyorYdsvo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzz35APU56hqa5HKwzO5+oE9qZDx55EtkLHlIaWcKaGEPEj5ldc
- 5h2TzgdW+q16u4odhgo3ago1BoGPvrEgs4nuh8J4pCZHJezq4OmFzPjNvZVMjqZlMs4=
-X-Gm-Gg: AfdE7cn3CkTRk+OHA8WTLY7rpLqydv+YZ/sQ3u9xFHvI+h4hWbNksHvpM1h6gD8G51H
- cFVd8V+Iz89t6aJDjMTaty5zQ9nFRbnfOxccrpGxgD3IEyL542NtafzlN3w8JbqgCEb2exWcMCB
- e/KSshOiWi/rknHxcjqJjIQVhTM0qzHYwCuOQkBCbtnCtoUMFIvK0QACZOzzVMWoQ1pJw6TzB6m
- pihJvGeboE08RC9BMHb+h6sfcn71bGmqtlUpyN3nyZyDYDUnaXXhBfaObyPEjX/XbF9LJGTy3s/
- Ka3bicROGjGkvWjTGwMa+zlQdr6L4Vbc88zwfZnQE6Wt30UwrApxfqT54uaWnI+gID8EbzwHvmA
- 2RzQ1cpNLmSFis7Gdgslg0+l8Sp9A3K6QqtrN8tcqLS+6MIU3cuw3adFJZqkViVWtHE3dHqQ1cn
- OeuzEvh8Kk6B3HFFwy9C2QtAjh23n0tsBi2xsj31iFLX4xgLOyg93JZ+QIKfNBNO/8Lw4=
-X-Received: by 2002:a05:620a:8391:b0:92e:4867:95af with SMTP id
- af79cd13be357-92e62af0f9amr515174185a.73.1782823374078; 
- Tue, 30 Jun 2026 05:42:54 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-92e6234dc50sm226634685a.39.2026.06.30.05.42.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 05:42:53 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1weXng-00000001qgI-3Vni;
- Tue, 30 Jun 2026 09:42:52 -0300
-Date: Tue, 30 Jun 2026 09:42:52 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Pranjal Shrivastava <praan@google.com>, David Hu <xuehaohu@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Nicolin Chen <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- jmoroni@google.com, kpberry@google.com, chriscli@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
-Message-ID: <20260630124252.GD7525@ziepe.ca>
-References: <20260621222130.1667453-1-xuehaohu@google.com>
- <20260623015459.1153884-1-xuehaohu@google.com>
- <20260623094446.4a8fc2ed@pumpkin> <ajryxMaT5evDUxaq@google.com>
- <20260623235350.6540eaa2@pumpkin>
+Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com
+ [91.218.175.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3615D10EC78
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 12:43:12 +0000 (UTC)
+Date: Tue, 30 Jun 2026 14:43:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grimler.se; s=key1;
+ t=1782823390;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Nex/RRO5Ai+er398OAIER7iHNhBcGonnMTqkZOJ75Og=;
+ b=F8Rw5xWGpw+DYic48f1q6n6F1n1XyMtM7m+pEBMShkzn1hWP5BCD5kXeD8TOyNkSZ1VCiC
+ Zyjb/gV2vWGvaRiTXSE42kC/GVe/Ctm1A9s9qxOA5ft2zBF8DEBKjhXmun8ZLJGiZgk3Ij
+ b+tvD/i6cV3rJTSZCEn3wTxMb1GR+yk=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Henrik Grimler <henrik@grimler.se>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v4 0/3] drm/bridge: sii9234: use extcon to detect
+ cable attachment
+Message-ID: <20260630124301.GA4736@localhost>
+References: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260623235350.6540eaa2@pumpkin>
+In-Reply-To: <20260602-exynos4-sii9234-driver-v4-0-9b2fc38e104a@grimler.se>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,42 +65,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 11:53:50PM +0100, David Laight wrote:
+Hello,
 
-> > If we restrict incoming dmabuf transfers to fit within VFS-centric 
-> > limits (2GB), we impose unnecessary overhead on the RDMA stack, forcing
-> > it to manage a significantly higher number of memory registrations. By 
-> > cleanly splitting these massive contiguous device buffers into 
-> > page-aligned SGL entries, we directly improve the efficiency of P2P 
-> > transfers and memory registration.
+Friendly ping! This series has been reviewed/tested and still applies
+cleanly on drm-misc-next, could it be merged?
+
+Best regards,
+Henrik Grimler
+
+On Tue, Jun 02, 2026 at 08:36:47PM +0200, Henrik Grimler wrote:
+> Hi,
 > 
-> But a divide by '4G - PAGE_SIZE' is also non-trivial and (I think affects
-> a lot of io) when the quotient is always 1.
-> Splitting into 2G chunks is a lot cheaper.
-
-Doesn't matter this isn't fast path stuff. It is better to use fewer
-SGL entries, IHMO.
-
-> > Since this change doesn't seem to have a negative impact on standard file
-> > I/O or break existing VFS constraints, I'm curious why we shouldn't 
-> > support splitting these >4GB P2P transfers? Am I missing something?
+> This series fixes so HDMI through the sii9234 MHL chip works when
+> cable is hotplugged, by making the MHL chip use extcon cable detection
+> functions. Patch 3, that actually implements the extcon parts, is heavily
+> inspired by commit 688838442147 ("drm/bridge/sii8620: use micro-USB
+> cable detection logic to detect MHL") by Maciej Purski.
 > 
-> I was only wondering whether it was needed...
-> It does bring up the question of why the >4GB transfers even need splitting.
-> But that is another question.
-
-SGL can only store an unsigned int size, so any large physical range
-has to be split down.
-
-rdma now a days has code to process the sgl and restore back the > 4G
-sizes since mode RDMA HW can accept that.
-
-commit 486055f5e09df959ad4e3aa4ee75b5c91ddeec2e
-Author: Michael Margolin <mrgolin@amazon.com>
-Date:   Mon Feb 17 14:16:23 2025 +0000
-
-    RDMA/core: Fix best page size finding when it can cross SG entries
-    
-So whatever this produces needs to be compatible with that to undo it.
-
-Jason
+> Before these changes, HDMI only worked if cable was plugged in before
+> booting. If no cable was connected, then wlr-randr still showed HDMI
+> as connected, with 0x0 px, which confused at least some UIs (phosh)
+> and caused problems:
+> https://gitlab.gnome.org/World/Phosh/phosh/-/issues/828
+> 
+> Tested on exynos4412-i9305.
+> 
+> Best regards,
+> Henrik Grimler
+> 
+> Signed-off-by: Henrik Grimler <henrik@grimler.se>
+> ---
+> Changes in v4:
+> - Collect tags
+> - Link to v3: https://lore.kernel.org/r/20250824-exynos4-sii9234-driver-v3-0-80849e716a37@grimler.se
+> 
+> Changes in v3:
+> - Fix return of dev_err_probe in patch 2 and patch 3, spotted by
+>   Dmitry and Marek respectively.
+> - Change to depends on EXTCON || !EXTCON instead of select
+> - Collect tags for patch 1 (not 3 since there were (minor) changes)
+> - Link to v2: https://lore.kernel.org/r/20250724-exynos4-sii9234-driver-v2-0-faee244f1d40@grimler.se
+> 
+> Changes in v2:
+> - Add dependency on extcon in patch 3. Issue reported by kernel test robot <lkp@intel.com>
+> - Link to v1: https://lore.kernel.org/r/20250721-exynos4-sii9234-driver-v1-0-2e47ed02f677@grimler.se
+> 
+> ---
+> Henrik Grimler (3):
+>       drm/bridge: sii9234: fix some typos in comments and messages
+>       drm/bridge: sii9234: use dev_err_probe where applicable
+>       drm/bridge: sii9234: use extcon cable detection logic to detect MHL
+> 
+>  drivers/gpu/drm/bridge/Kconfig   |   1 +
+>  drivers/gpu/drm/bridge/sii9234.c | 124 +++++++++++++++++++++++++++++++--------
+>  2 files changed, 102 insertions(+), 23 deletions(-)
+> ---
+> base-commit: a87fef0880c4f52769b5a3c2fc1b2d73aaa04eb3
+> change-id: 20231218-exynos4-sii9234-driver-d817d4b511d5
+> 
+> Best regards,
+> -- 
+> Henrik Grimler <henrik@grimler.se>
+> 
