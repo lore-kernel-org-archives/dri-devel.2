@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 728ACC43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 15:31:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD90C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 15:32:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF56F10EAA7;
-	Tue, 30 Jun 2026 15:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A688810EB48;
+	Tue, 30 Jun 2026 15:32:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="RAOJsIzB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJJIyeMh";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4187A10EAA7
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:31:38 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 230541691
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:31:33 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 5CE7E3F66F
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:31:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1782833497; bh=rNbjfDj1k6OstSpu4SYFzo8zIash85lDWLIy8NJh+1I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RAOJsIzBPsMtIJNq8FnIUrMEaBDBXSQaXel25Q81tkWbCDJ5dlwBaYciogsgczwt2
- nGjqvd/0MCbaBl6GLa0pqnJH5O2CHY68uy8cNDLWTO1IV3rXB1ILoyN/NGiG5gfVoz
- nSmgKjsXysTwry0k451ZBf+EyFnJwh/1eKKusrlw=
-Date: Tue, 30 Jun 2026 16:31:34 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Akash Goel <akash.goel@arm.com>
-Cc: boris.brezillon@collabora.com, steven.price@arm.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
-Subject: Re: [PATCH v2] drm/panthor: Fix NPD issue on partial unmap of an
- evicted BO
-Message-ID: <akPhVnAaotapXe6A@e142607>
-References: <20260623130119.2737003-1-akash.goel@arm.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7865510EB48;
+ Tue, 30 Jun 2026 15:32:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 87C2560018;
+ Tue, 30 Jun 2026 15:32:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4991F000E9;
+ Tue, 30 Jun 2026 15:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782833538;
+ bh=B3E/VMQCEgyj/nixWkmIaQ5sXftrXDwGEkHIWsF2cz4=;
+ h=Date:From:To:Cc:Subject;
+ b=JJJIyeMhqC5QLBZ3U6PW+xxJNgI3SHGOm8bOo5YQu2f2RcG5Wehs7ygVd4dgOt9qu
+ 6picrqxCwv5Sgqv3+Hjbk4tvWsza4GnmtdaCs7LyN0g+XPaCFZK2R7JEq6JiaE+FhE
+ JLe26ExWavZD12qf6o2rnr1NUFZsKH69JBB2Q0UMmCwT/SdipdlJvoEpAJiD3Z84dO
+ u7JOnvT7R4im8Wgg5JSjbA+rA5XnD0J5+N6RL3eIcaAA+N/Dvr0Bewh48Aw1I27xSx
+ wsFE3nWnVihUurMjfng5iv9yLU3XpouqDPUqstfQHeT7NzJ6PKxJ75K33sEZQUB/Hi
+ ukdt/8YJAvviA==
+Date: Tue, 30 Jun 2026 16:32:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Subject: linux-next: manual merge of the drm-intel tree with the origin tree
+Message-ID: <akPhfS7S4guPimFF@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="x8wgJNr9N82r5WRp"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260623130119.2737003-1-akash.goel@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,130 +62,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 02:01:19PM +0100, Akash Goel wrote:
-> This commit fixes the NULL pointer dereference issue that would have
-> happened on the split of GPU mapping due to partial unmap of an evicted
-> BO. There is a logic to handle the partial unmap of huge pages when the
-> GPU mapping is split. That logic was not being completely skipped for
-> the VMA of an evicted BO and that resulted in a NPD possibility for the
-> 'bo->backing.pages' pointer, which is set to NULL when pages of a
-> BO are released on eviction.
-> 
-> Following dump was seen when a partial unmap was exercised for an
-> evicted BO.
-> Unable to handle kernel paging request at virtual address 0000000000002000
-> Mem abort info:
->   ESR = 0x0000000096000004
->   EC = 0x25: DABT (current EL), IL = 32 bits
->   SET = 0, FnV = 0
->   EA = 0, S1PTW = 0
->   FSC = 0x04: level 0 translation fault
-> Data abort info:
->   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
->   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
->   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-> user pgtable: 4k pages, 48-bit VAs, pgdp=00000008842e8000
-> [0000000000002000] pgd=0000000000000000, p4d=0000000000000000
-> Internal error: Oops: 0000000096000004 [#1]  SMP
-> <snip>
-> pstate: 20000005 (nzCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> pc : iova_mapped_as_huge_page+0x20/0x68 [panthor]
-> lr : panthor_gpuva_sm_step_remap+0x39c/0x498 [panthor]
-> sp : ffff800086193920
-> x29: ffff800086193920 x28: ffff800086193a18 x27: ffff800086193b80
-> x26: 0000000000400000 x25: 0000000000810000 x24: 0000000000400000
-> x23: ffff000808af1800 x22: 0000000000a00000 x21: ffff800086193a00
-> x20: ffff000806fd3f00 x19: 0000000000410000 x18: 00000000ffffffff
-> x17: 0000000000000000 x16: 0000000000000000 x15: ffff800083ce2d83
-> x14: 0000000000000000 x13: 3120646574636976 x12: 6520303030303138
-> x11: 2d30303030313420 x10: ffff8000836e6c80 x9 : ffff80007bfc889c
-> x8 : 3fffffffffffefff x7 : ffff8000836e6c80 x6 : 0000000000000000
-> x5 : ffff00097ef19088 x4 : 0000000000000000 x3 : 0000000000000000
-> x2 : 0000000000010000 x1 : 0000000000000400 x0 : 0000000000000000
-> Call trace:
->  iova_mapped_as_huge_page+0x20/0x68 [panthor] (P)
->  op_remap_cb.isra.0+0x70/0xb0
->  __drm_gpuvm_sm_unmap+0xf8/0x1c0
->  drm_gpuvm_sm_unmap+0x40/0x60
->  panthor_vm_exec_op+0xa0/0x168 [panthor]
->  panthor_vm_bind_exec_sync_op+0x8c/0xb8 [panthor]
->  panthor_ioctl_vm_bind+0xbc/0x170 [panthor]
->  drm_ioctl_kernel+0xc0/0x140
->  drm_ioctl+0x20c/0x500
->  __arm64_sys_ioctl+0xb4/0x118
->  invoke_syscall+0x5c/0x120
->  el0_svc_common.constprop.0+0x48/0xf8
->  do_el0_svc+0x28/0x40
->  el0_svc+0x38/0x128
->  el0t_64_sync_handler+0xa0/0xe8
->  el0t_64_sync+0x198/0x1a0
-> Code: 8b030021 cb020021 f940b800 d34cfc21 (f8617801)
-> ---[ end trace 0000000000000000 ]---
-> 
-> v2: Fix indentation
-> 
-> Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
-> Signed-off-by: Akash Goel <akash.goel@arm.com>
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Pushed to drm-misc-next.
+--x8wgJNr9N82r5WRp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
-Liviu
+Hi all,
 
+Today's linux-next merge of the drm-intel tree got a conflict in:
 
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 26 +++++++++++++-------------
->  1 file changed, 13 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 31cc57029c12..7c99cd422add 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2358,20 +2358,20 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
->  	 */
->  	panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
->  
-> -	/*
-> -	 * ARM IOMMU page table management code disallows partial unmaps of huge pages,
-> -	 * so when a partial unmap is requested, we must first unmap the entire huge
-> -	 * page and then remap the difference between the huge page minus the requested
-> -	 * unmap region. Calculating the right start address and range for the expanded
-> -	 * unmap operation is the responsibility of the following function.
-> -	 */
-> -	unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
-> -
-> -	/* If the range changed, we might have to lock a wider region to guarantee
-> -	 * atomicity. panthor_vm_lock_region() bails out early if the new region
-> -	 * is already part of the locked region, so no need to do this check here.
-> -	 */
->  	if (!unmap_vma->evicted) {
-> +		/*
-> +		 * ARM IOMMU page table management code disallows partial unmaps of huge pages,
-> +		 * so when a partial unmap is requested, we must first unmap the entire huge
-> +		 * page and then remap the difference between the huge page minus the requested
-> +		 * unmap region. Calculating the right start address and range for the expanded
-> +		 * unmap operation is the responsibility of the following function.
-> +		 */
-> +		unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
-> +
-> +		/* If the range changed, we might have to lock a wider region to guarantee
-> +		 * atomicity. panthor_vm_lock_region() bails out early if the new region
-> +		 * is already part of the locked region, so no need to do this check here.
-> +		 */
->  		panthor_vm_lock_region(vm, unmap_start, unmap_range);
->  		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
->  	}
-> -- 
-> 2.25.1
-> 
+  drivers/gpu/drm/i915/display/intel_cdclk.c
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+between commit:
+
+  2ee8dbd880b14 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full =
+PLL re-enable")
+
+=66rom the origin tree and commits:
+
+  3f9de66f8acbf ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full =
+PLL re-enable")
+  795e90164a3b8 ("drm/i915/cdclk: Print the reason for the CDCLK sanitizati=
+on")
+  67d77d9472c66 ("drm/i915/cdclk: Introduce bxt_cdclk_cd2x_pipe_mask() and =
+use it")
+  8984b402e02ff ("drm/i915/cdclk: Use the TGL+ CD2x pipe select bits also o=
+n ICL")
+
+=66rom the drm-intel tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/i915/display/intel_cdclk.c
+index 7bc9b956554ba,d3c5e3438d192..0000000000000
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@@ -1229,23 -1229,28 +1229,28 @@@ static void skl_set_cdclk(struct intel_
+ =20
+  static void skl_sanitize_cdclk(struct intel_display *display)
+  {
+- 	u32 cdctl, expected;
++ 	u32 cdctl, expected, swf18;
+ =20
+  	/*
+  	 * check if the pre-os initialized the display
+  	 * There is SWF18 scratchpad register defined which is set by the
+  	 * pre-os which can be used by the OS drivers to check the status
+  	 */
+- 	if ((intel_de_read(display, SWF_ILK(0x18)) & 0x00FFFFFF) =3D=3D 0)
++ 	swf18 =3D intel_de_read(display, SWF_ILK(0x18));
++ 	if ((swf18 & 0x00FFFFFF) =3D=3D 0) {
++ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to SWF18 0x%x\n", swf18=
+);
+  		goto sanitize;
++ 	}
+ =20
+  	intel_update_cdclk(display);
+  	intel_cdclk_dump_config(display, &display->cdclk.hw, "Current CDCLK");
+ =20
+  	/* Is PLL enabled and locked ? */
+  	if (display->cdclk.hw.vco =3D=3D 0 ||
+- 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass)
++ 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass) {
++ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to PLL not enabled/lock=
+ed\n");
+  		goto sanitize;
++ 	}
+ =20
+  	/* DPLL okay; verify the cdclock
+  	 *
+@@@ -1261,8 -1266,11 +1266,11 @@@
+  		cdctl &=3D ~CDCLK_FREQ_DECIMAL_MASK;
+  		cdctl |=3D expected & CDCLK_FREQ_DECIMAL_MASK;
+ =20
+- 		if (cdctl !=3D expected)
++ 		if (cdctl !=3D expected) {
++ 			drm_dbg_kms(display->drm, "Sanitizing CDCLK due to CDCLK_CTL 0x%x, exp=
+ected 0x%x)\n",
++ 				    intel_de_read(display, CDCLK_CTL), expected);
+  			goto sanitize;
++ 		}
+ =20
+  		drm_dbg_kms(display->drm, "Sanitizing CDCLK decimal divider (CDCLK_CTL =
+0x%x, expected 0x%x)\n",
+  			    intel_de_read(display, CDCLK_CTL), expected);
+@@@ -1274,8 -1282,6 +1282,6 @@@
+  	return;
+ =20
+  sanitize:
+- 	drm_dbg_kms(display->drm, "Sanitizing cdclk programmed by pre-os\n");
+-=20
+  	/* force cdclk programming */
+  	display->cdclk.hw.cdclk =3D 0;
+  	/* force full PLL disable + enable */
+@@@ -1938,14 -1944,17 +1944,17 @@@ static void adlp_cdclk_pll_crawl(struc
+  	display->cdclk.hw.vco =3D vco;
+  }
+ =20
++ static u32 bxt_cdclk_cd2x_pipe_mask(struct intel_display *display)
++ {
++ 	if (DISPLAY_VER(display) >=3D 11)
++ 		return ICL_CDCLK_CD2X_PIPE_MASK;
++ 	else
++ 		return BXT_CDCLK_CD2X_PIPE_MASK;
++ }
++=20
+  static u32 bxt_cdclk_cd2x_pipe(struct intel_display *display, enum pipe p=
+ipe)
+  {
+- 	if (DISPLAY_VER(display) >=3D 12) {
+- 		if (pipe =3D=3D INVALID_PIPE)
+- 			return TGL_CDCLK_CD2X_PIPE_NONE;
+- 		else
+- 			return TGL_CDCLK_CD2X_PIPE(pipe);
+- 	} else if (DISPLAY_VER(display) >=3D 11) {
++ 	if (DISPLAY_VER(display) >=3D 11) {
+  		if (pipe =3D=3D INVALID_PIPE)
+  			return ICL_CDCLK_CD2X_PIPE_NONE;
+  		else
+@@@ -2340,18 -2349,24 +2349,24 @@@ static void bxt_sanitize_cdclk(struct i
+  	intel_cdclk_dump_config(display, &display->cdclk.hw, "Current CDCLK");
+ =20
+  	if (display->cdclk.hw.vco =3D=3D 0 ||
+- 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass)
++ 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass) {
++ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to PLL not enabled/lock=
+ed\n");
+  		goto sanitize;
++ 	}
+ =20
+  	/* Make sure this is a legal cdclk value for the platform */
+  	cdclk =3D bxt_calc_cdclk(display, display->cdclk.hw.cdclk);
+- 	if (cdclk !=3D display->cdclk.hw.cdclk)
++ 	if (cdclk !=3D display->cdclk.hw.cdclk) {
++ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to bad CDCLK frequency\=
+n");
+  		goto sanitize;
++ 	}
+ =20
+  	/* Make sure the VCO is correct for the cdclk */
+  	vco =3D bxt_calc_cdclk_pll_vco(display, cdclk);
+- 	if (vco !=3D display->cdclk.hw.vco)
++ 	if (vco !=3D display->cdclk.hw.vco) {
++ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to bad VCO frequency\n"=
+);
+  		goto sanitize;
++ 	}
+ =20
+  	/*
+  	 * Some BIOS versions leave an incorrect decimal frequency value and
+@@@ -2366,7 -2381,7 +2381,7 @@@
+  	 * dividers both syncing to an active pipe, or asynchronously
+  	 * (PIPE_NONE).
+  	 */
+- 	cdctl &=3D ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++ 	cdctl &=3D ~bxt_cdclk_cd2x_pipe_mask(display);
+  	cdctl |=3D bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
+ =20
+  	if (cdctl !=3D expected) {
+@@@ -2375,8 -2390,11 +2390,11 @@@
+  			cdctl |=3D expected & CDCLK_FREQ_DECIMAL_MASK;
+  		}
+ =20
+- 		if (cdctl !=3D expected)
++ 		if (cdctl !=3D expected) {
++ 			drm_dbg_kms(display->drm, "Sanitizing CDCLK due to CDCLK_CTL 0x%x, exp=
+ected 0x%x\n",
++ 				    intel_de_read(display, CDCLK_CTL), expected);
+  			goto sanitize;
++ 		}
+ =20
+  		drm_dbg_kms(display->drm, "Sanitizing CDCLK decimal divider (CDCLK_CTL =
+0x%x, expected 0x%x)\n",
+  			    intel_de_read(display, CDCLK_CTL), expected);
+@@@ -2388,8 -2406,6 +2406,6 @@@
+  	return;
+ =20
+  sanitize:
+- 	drm_dbg_kms(display->drm, "Sanitizing cdclk programmed by pre-os\n");
+-=20
+  	/* force cdclk programming */
+  	display->cdclk.hw.cdclk =3D 0;
+ =20
+
+--x8wgJNr9N82r5WRp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpD4X0ACgkQJNaLcl1U
+h9AHHAgAg/xTOJhr4KpYkVV76PdaIRcu+SDjoT33tRNzWROFnxi3EfcJQ7vqDowb
+i7X1mNsKtwc6zekQSS8xk8qu73hGtj4BiumyOHZFLu8+wjQn46XAd6FFdCzGYzWE
+wy88QDHkx9BMmWxd1PATJxandxsyhhcX7Hx+xvIqXr5WDYOWvao07OZPv+M1FtiS
+bEnVHXwzHMgqCaVYObPiCLaCRCHstwQjEIAmdvxA9uadA0htI+UY7v9OpdEkTN8X
+6U+ZCfJz+O7R4O2zC9DpeW4xX8UfytCYh8U8+5qMtZS0j0VMJntU7BBATJyD83HN
+H5vuxjsZGK0M9MYTvQzMa6N/TwUKRg==
+=hqN6
+-----END PGP SIGNATURE-----
+
+--x8wgJNr9N82r5WRp--
