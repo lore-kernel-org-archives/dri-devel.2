@@ -4,83 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D784C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4990C43602
 	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 839D510EDF5;
-	Wed,  1 Jul 2026 07:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE6A810EDF7;
+	Wed,  1 Jul 2026 07:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="XhlFHzvk";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dO0g/co7";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="dfJnc/NP";
 	dkim-atps=neutral
-Received: from flow-a5-smtp.messagingengine.com
- (flow-a5-smtp.messagingengine.com [103.168.172.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16AA210E25E
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 02:53:13 +0000 (UTC)
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
- by mailflow.phl.internal (Postfix) with ESMTP id 4078A13803B3;
- Tue, 30 Jun 2026 22:53:12 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-11.internal (MEProxy); Tue, 30 Jun 2026 22:53:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
- cc:cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to; s=fm1; t=1782874392; x=1782877992; bh=rR6+t+iWOk7mVPpVV+GyV
- 4t11N+kVWdaCDWy92lLmfc=; b=XhlFHzvkioXyau3TYyE5k6ifsFuEwvjXYqp1X
- RoBjco/CVLkviJ/tu3F3VfJcWg8OsZUWLHMEQJOOXQSWklgCZpi8exPoopvZF4Fn
- qAY8uB6UpNzuCmbOgR4vBnsp0q3Cu+vD/U1cJRmzlbCCH3mKseUow5EDpST4qllY
- bPYbnyY7QayVlXR9YZwgdtsD6Vrqz9kNFpS4E7EJGgr8fOsy3R896wm/ktTHA2v/
- cg/cR9sSGvmstQnl3JBgVg8NsMXee2bdi6vdPmwXsd9oWeds86aEnstY53EHC53G
- FsyP98DXXifgMXfTrOLtZnzOpaemMDPqmBlFw9UglWaVQgHCA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
- 1782874392; x=1782877992; bh=rR6+t+iWOk7mVPpVV+GyV4t11N+kVWdaCDW
- y92lLmfc=; b=dO0g/co7Skc4jCyDJxD+iZl/28Lwo64f5AIG7Z3bXOJ9gImyw2J
- WIQsRRTGxdfTLTyOxxFdNIf1RE8p867GC+rv+GVuRuOgVHUK9MiRgCMslI9C6ahh
- IzFWblh3uwHUCYDUtymclb7wwys0DtTu/WiU/oQ7A0wCr0MCULTbzz2JlYO46LH4
- U0f6+YM+iubvEfLJsTBLii1jWvUm1Dh4czCL30NNan+t2o2XI7ks5aLzs+OYcWB/
- ywXLKz4TNsl69sWbWnfxWRO8ZkHqMx/D96gsG/LO6MYcGOAOs+p3HLDn+CyCu7qV
- vTPwt8YxKhU5FOerejsE25unx208h4sr0Cw==
-X-ME-Sender: <xms:FoFEah_D3_4AQar4I7gvdAU0IByY_iJuKZbtS2ymuEnCjYTilMRvZw>
- <xme:FoFEahhZWQ4U0ge3HNZUDhebu1VY9V4GqoO1qwUGJH0hjFsbpiOSxNFD7ZUa9-nD2
- Ds_FFA1nneLaGOyXLLmV_hOuwGPeW2oJi5aaR51eFmkF5TBDWg3Ow>
-X-ME-Received: <xmr:FoFEaqa4hxzelgeHA1kqsFxU2YBD9Z7eY1wnn0F6Mtafs0mWpAhgbt4b>
-X-ME-Proxy-Cause: dmFkZTEuWPbgG5OA3E5wK/GuEwks3AjSaOGHnjmn1Nr+lPAkrwCgUsg6PP+tENFUZaJgls
- 0qniAEOqXwrci2gK23JXVDEq7bpW7aC1o9mf4YRi7TfxQt1OtVplBuO7DR6xw+zezieA45
- IIHhRGI6m5/MN2mEIrcnWKz2jS63qVhOB3RIec6aHLl89b/Ti4/SH2MViqBx13dlA53Bjn
- IafBvUfNM9bvP7/b3wMAavOciU7yQGYBgOMxnQyouO5arzLOrkeT9GRMuAdTA4WqocScWg
- lB8Q3FcyjDQGExXhePrNy8rUhbIQrT4NkkoDlXCwvQG0U85F/wnFfCrqbBJHygLGRArEp2
- Mg0I0en/fegBtXws/as8Qw4ZW+jvr/RZRixyEGteOzyVdTYvU17TPaBBk6jfTXv7iuTTn4
- V8HAPMcEkXSeBQ/K3d32CqyA0BT9fUzuCfLJ6qLFp/7FpkvgDBV11U3UxTnlRrSRg8fhXc
- HewgBvhCce9awssuTcVHc9oYcOsyKk2OwQ8eKO1nBY+/Cu3W9K7KqONhUlbKmCPSB0qR3N
- kEzlHxYi9hTIaq25v8WZARj+gD4PxhZF9l8rGHSGpWt7mPsBUrDyPvsLhYAbwcA9PmqMw4
- U4b/NhkzxfvicXmktFzm1xQr2KWE2FWbXDmhLuODICBkk0qS5v4wdpUVqfrw
-X-ME-Proxy: <xmx:FoFEau__ZHXEEKS2YjTvfg-uxWhAnp17ZkrmmMzg88qTuhOWJU1VYw>
- <xmx:FoFEakNJ0DJp6xai0hbtMCrBcl03OoPvAzwAiYV2kA29_TqAitodMQ>
- <xmx:FoFEajE1RJO7x5ArC-AFvribB1MATVzK3FWp2xlf3BDBF9rY-WCBmQ>
- <xmx:FoFEaqy5mUzu9ylaoJ-RojOQGoY4N_99VPe-fXiW5s1dPlofcorO-w>
- <xmx:GIFEatEK62fslu88Luf57A4p7OilGS5bsRCVmDSkatsY1dghW98NfBIZ>
-Feedback-ID: i9dce4b48:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 Jun 2026 22:53:08 -0400 (EDT)
-From: Baran Tuna <barant@fastmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-doc@vger.kernel.org (open list:DOCUMENTATION),
- linux-kernel@vger.kernel.org (open list)
-Cc: Baran Tuna <barant@fastmail.com>
-Subject: [PATCH] docs: Fix typos under GPU TODO
-Date: Wed,  1 Jul 2026 05:52:33 +0300
-Message-ID: <20260701025233.594162-1-barant@fastmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBCC610E1C4
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 20:55:53 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-30edbb0dc5fso4056064eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 13:55:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1782852953; x=1783457753; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q15Zw2luJWYA16XSjllrT6+cPa1JqXGGEaoXxQ4s5kU=;
+ b=dfJnc/NPECC2Y+r+sWzyDXH/R4v4ZvqFwGmRpCf+INRg+xhH5+aLOkAZt1KW/ANiMs
+ vMsneIXqtbe/sq/aNQdvYVSTrh429VRA/xzZ8N2msxtg3Jcr8+CmvCkVcAj8fqZaFJLV
+ /ehJWRWWQt/SiyLPjRBMSk6eGiZO/2JlI/n9NNZGdTgQ7M7+YTefEZQxGwA7dl9g0otR
+ dQY5HXVTwJE5HTaEjMkmrSbtOCnIlsiiEWEuqRDg+hozUA5U18uCBECBz76RpdnDNIPx
+ zf9dDgJOBFzhFFgS2EVhoNMCUAih4VOjIfGylEi2VtbCODUTeaan1OjGGM9G8y8ZZPCO
+ HO4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782852953; x=1783457753;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q15Zw2luJWYA16XSjllrT6+cPa1JqXGGEaoXxQ4s5kU=;
+ b=BHUnXsVUK6/KrFizuWPrBpdoAfdjA5RvxQ+f1NYQQCM7rIkveyVXVTMdPzLkQNWKJa
+ XrYa3UtKCu3y0zDFOvR6m02WrMQXYOmcS/xId3OdPJbptGbhTrF7COs3h7AWgHPCnAI0
+ Qi6dUgtv5FvoyDOW0DgNX5307b1GmOXNbrRy5ZaLe/9rBNsrK7JHzTFKHT+Ut/Xh8An0
+ QSwhaG55kbYCnkVs0r0au5d3GyK3/umaqkEa4cFRUI6oRn4ISXzqHWJPgSe6KZkWMALG
+ SkmgqnAtiniY1540A8JHwSHLKVm0LeGX1F6xAc5UviCSQ4z2V0vhY/atyPjfUZzUOkbN
+ wv5w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rogid8eEn802DnVDs5sZuO1xpO2639F9cFZT7aD/gD4HeFHA+tPEY6PljyW0qvPC+jvGHMK9zf7o6U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxfGnlZ1l0BajSQ8zH1mzHrHH0vLR82pvn6M/riLgxcUSfbB90y
+ E58+RKV2JwDHYpXJUycYO7WgbSOxmrxZlsx4I86Rzflgkieup1sG5y6jTddo9vQY1iY=
+X-Gm-Gg: AfdE7ckuyg2sodO/8imOhR2MdgCs34U97HPVa3LBqlFoO5egyy385Vn+WuKazEy/PFQ
+ P85O2LgheIE4LlovWfhM4zUqQXSAPZA1k7qZmlvvzxqI/ZaV7Gf2TZK+h5VTREewNa7rTh4lXLg
+ K8r/qE388O/SosKjoibqDOKgtvopvp93zFsNOiQkgfZm0YxhRv+0Gwo1hlLBG0wMGrXM5YhuJg2
+ XCJW/vl6c0qLQwBXfg4/o7g9CQ3lqEKPqV1djNRzefPbY6zTYrd+GAqh6qgquM/EQ6Ci4fPtHXG
+ ziC5doUyguiswiZWKOMnSCKuuyCT7PbxF8xEXTMVG6nor0EBH6PMh7tQTJBvqXh1asZ3Aa+/Cyb
+ LJACe7/XAeHbgsnTLbyhsI/2qJbPdsp0+gDh4mzAhn7FY+bqGuR0hAT6h4A5tLm1Hr7q0pymHAd
+ d8A4+8bJN9eEzb0nsHTWKpNZjyng==
+X-Received: by 2002:a05:7300:6401:b0:30c:38ed:46b0 with SMTP id
+ 5a478bee46e88-30ee135837emr3998893eec.16.1782852952717; 
+ Tue, 30 Jun 2026 13:55:52 -0700 (PDT)
+Received: from localhost.localdomain ([179.100.109.21])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30ee327cea7sm12321464eec.31.2026.06.30.13.55.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2026 13:55:52 -0700 (PDT)
+From: Ulisses Paixao <ulissespaixao@usp.br>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Ulisses Paixao <ulissespaixao@usp.br>, Felipe Sousa <felipesousa@usp.br>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH v4] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
+ gfx_v12
+Date: Tue, 30 Jun 2026 17:55:45 -0300
+Message-Id: <20260630205545.23920-1-ulissespaixao@usp.br>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 07:03:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,54 +90,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix minor spelling mistakes in GPU TODO section of documentation.
-No functional changes.
+The functions gfx_v11_0_handle_priv_fault and
+gfx_v12_0_handle_priv_fault share the same logic for searching and
+triggering a scheduler fault on a ring. This patch moves the shared
+ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
+in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
+the version-specific files to maintain proper architectural separation.
 
-Signed-off-by: Baran Tuna <barant@fastmail.com>
+Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
+Co-developed-by: Felipe Sousa <felipesousa@usp.br>
+Signed-off-by: Felipe Sousa <felipesousa@usp.br>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- Documentation/gpu/todo.rst | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Note that v2 was already reviewed by Christian.
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index cdddf8db35f5..3b9999319829 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe. The task here is to
- convert them to use regular atomic helpers. Search for a driver that calls
- drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_helper.c
- into the driver, such that no simple-KMS interfaces are required. Please also
--rename all inlined fucntions according to driver conventions.
-+rename all inlined functions according to driver conventions.
+v4:
+Restore the adev->gfx.disable_kq check to prevent falsely triggering
+scheduler faults on idle kernel rings when MES is managing user queues.
+
+v3:
+Return early if the ring is found in the gfx rings loop.
+
+v2:
+Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
+Remove the redundant check for adev->gfx.disable_kq.
+Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
+all gfx and compute rings without a switch statement.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 36 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 27 +------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 27 +------------------
+ 4 files changed, 40 insertions(+), 52 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index b8ca87669..98035129a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -830,6 +830,42 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
+ 	return r;
+ }
  
- Contact: Thomas Zimmermann, respective driver maintainer
++/**
++ * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
++ *
++ * @adev: amdgpu_device pointer
++ * @me_id: micro-engine ID of the faulty ring
++ * @pipe_id: pipe ID of the faulty ring
++ * @queue_id: queue ID of the faulty ring
++ *
++ * This function handles privileged instruction faults by identifying
++ * the faulty ring (gfx or compute) and triggering a scheduler fault
++ */
++void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
++					u8 me_id, u8 pipe_id, u8 queue_id)
++{
++	struct amdgpu_ring *ring;
++	int i;
++	
++	if (!adev->gfx.disable_kq) {
++		for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
++			ring = &adev->gfx.gfx_ring[i];
++			if (ring->me == me_id && ring->pipe == pipe_id &&
++			    ring->queue == queue_id) {
++				drm_sched_fault(&ring->sched);
++				return;
++			}
++		}
++	
++		for (i = 0; i < adev->gfx.num_compute_rings; i++) {
++			ring = &adev->gfx.compute_ring[i];
++			if (ring->me == me_id && ring->pipe == pipe_id &&
++			    ring->queue == queue_id)
++				drm_sched_fault(&ring->sched);
++		}
++	}
++}
++
+ static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
+ 				   bool no_delay)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index a0cf0a3b4..0b2f6ce85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -611,6 +611,8 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struct amdgpu_device *adev,
+ 						struct amdgpu_ring *ring);
+ bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
+ 				    int pipe, int queue);
++void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
++					u8 me_id, u8 pipe_id, u8 queue_id);
+ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
+ int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 2c6f1e25c..888c9f3c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6688,37 +6688,12 @@ static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
+ 					struct amdgpu_iv_entry *entry)
+ {
+ 	u8 me_id, pipe_id, queue_id;
+-	struct amdgpu_ring *ring;
+-	int i;
  
-@@ -278,7 +278,7 @@ Various hold-ups:
-   valid formats for atomic drivers.
+ 	me_id = (entry->ring_id & 0x0c) >> 2;
+ 	pipe_id = (entry->ring_id & 0x03) >> 0;
+ 	queue_id = (entry->ring_id & 0x70) >> 4;
  
- - Many drivers subclass drm_framebuffer, we'd need a embedding compatible
--  version of the varios drm_gem_fb_create functions. Maybe called
-+  version of the various drm_gem_fb_create functions. Maybe called
-   drm_gem_fb_create/_with_dirty/_with_funcs as needed.
+-	if (!adev->gfx.disable_kq) {
+-		switch (me_id) {
+-		case 0:
+-			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+-				ring = &adev->gfx.gfx_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id)
+-					drm_sched_fault(&ring->sched);
+-			}
+-			break;
+-		case 1:
+-		case 2:
+-			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+-				ring = &adev->gfx.compute_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id)
+-					drm_sched_fault(&ring->sched);
+-			}
+-			break;
+-		default:
+-			BUG();
+-			break;
+-		}
+-	}
++	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
+ }
  
- Contact: Simona Vetter
-@@ -303,7 +303,7 @@ everything after it has done the write-protect/mkwrite trickery:
+ static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 6baac533a..3f0d29372 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -5019,37 +5019,12 @@ static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
+ 					struct amdgpu_iv_entry *entry)
+ {
+ 	u8 me_id, pipe_id, queue_id;
+-	struct amdgpu_ring *ring;
+-	int i;
  
-       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
+ 	me_id = (entry->ring_id & 0x0c) >> 2;
+ 	pipe_id = (entry->ring_id & 0x03) >> 0;
+ 	queue_id = (entry->ring_id & 0x70) >> 4;
  
--- Set the mkwrite and fsync callbacks with similar implementions to the core
-+- Set the mkwrite and fsync callbacks with similar implementations to the core
-   fbdev defio stuff. These should all work on plain ptes, they don't actually
-   require a struct page.  uff. These should all work on plain ptes, they don't
-   actually require a struct page.
-@@ -891,7 +891,7 @@ Querying errors from drm_syncobj
- ================================
+-	if (!adev->gfx.disable_kq) {
+-		switch (me_id) {
+-		case 0:
+-			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+-				ring = &adev->gfx.gfx_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id)
+-					drm_sched_fault(&ring->sched);
+-			}
+-			break;
+-		case 1:
+-		case 2:
+-			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+-				ring = &adev->gfx.compute_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id)
+-					drm_sched_fault(&ring->sched);
+-			}
+-			break;
+-		default:
+-			BUG();
+-			break;
+-		}
+-	}
++	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
+ }
  
- The drm_syncobj container can be used by driver independent code to signal
--complection of submission.
-+completion of submission.
- 
- One minor feature still missing is a generic DRM IOCTL to query the error
- status of binary and timeline drm_syncobj.
+ static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
 -- 
-2.54.0
+2.34.1
 
