@@ -4,130 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E060C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:03:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09279C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:03:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B315210EDE1;
-	Wed,  1 Jul 2026 07:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CF510EDED;
+	Wed,  1 Jul 2026 07:03:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="TBOq91MZ";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="qVc5S4w8";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="eoDINymA";
 	dkim-atps=neutral
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEDE910E21A
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:55:19 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-51c1d487f2cso3267391cf.1
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:55:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1782834918; x=1783439718; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=BHpENWZilS5aqo8aP9kraE35F/fs2tmonTK7cFttpS4=;
- b=TBOq91MZlPJZus6gnhaB7YFR23gswu104GSCPtVX1IdNf3Y43Nt8+UY7ZA0kGwg4tM
- a0MhoXVACeWDXbZ2X0m4SliNjuv6Y7rQ5N3R/GwT1bRf7BtaXNC+WcYhui55Q79KdhKf
- KHhDNBkV8xzCkq9tWsNpeI+qVsTpnVTMpe7u674uOnt5ttDMink7MyEQ9CuQrzcCO/fX
- hHNq5XC7AnNCB/jjVKPHZ5v95Tuh1+1A3OZRemKRDylm7aGyljtf9yHMvcPHq7+n2ycg
- h64os+QwcS85rmadorgoDUOBesoAbMdwdL86qm72VprVe65YhIuRExoj2p1eO1uQscR0
- VJfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782834918; x=1783439718;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=BHpENWZilS5aqo8aP9kraE35F/fs2tmonTK7cFttpS4=;
- b=dmRtecarm18yz5T6r/1A2wQYGoMYr8JoXcljC6tUIJ7OBZ1zupYHOxNzy1Eh0B5G5C
- bDpj9I2UMEY3OirF05BNa+RDvx+VTtWv0GbzPOg2iMRyrq2ZcJEZc64Vcb9butcPv797
- cuCzL7G/ZO7/VshgIS1ElvhLKXQXLD/L1kxvWEJIHNU0LerPU2fp7kcWNu/l/EygldP7
- bkEFTNBW5szSVPSmeEHaFUqd1ggQjNBCqbSuGv9Gcb/GRvUymUR5EOa4YT/z6xFRHqxN
- P4NefVWITl3KThii03T/ljWHbuQogzOA6xl3AN6N+1iuD1BCQjSmESXFay8bxBe97ZWq
- RtZg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ862jxp9TjFCaBbDphoAyNhWhtQcGGKMa5tRi1H5yVkQicQWDibSw5a91PNNxZqsdM/IMhSG5qNZ0M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8CnNri6SCqhsF0FZYaEwluYY95Pl+iTWVBlq/QR2iDeucYAVo
- 5IW1EqYVgT+aPq1C1gbBDvOGa2zo77yCasw+uv+stBDHZgHcvo1SGrPcJod0X/cNEbs=
-X-Gm-Gg: AfdE7cmPkXN0xkGP2mEWXk7InlqiasDz+crFx9pW+ocpFArYDuR18vRe3o3KgTXnspn
- gmr1l+kXgEpWXOU/Gyp7d5HjMhxAr2dmcizhwaN77qa6QL9zmegOs5/qqt37XJCAUD/nk5RDvJ2
- 0r4tso/2AKBWCO/FjxamjmXM1BaXGeYlq/XjQwAJk+Gww+q9z51YsgbI0gnTlb3uO6elY8Jo8pA
- HXYWx8oR35/I6WBbuvUpRNA+BOdJztAT5yj7yLYETpr+g51wqnxXM7/sp8r/zAUQ7/xvHR1IWtw
- v69xG40j63vYr4EAVzo3lVI2L/EhlGR8tQULn16VdABftKWCVQ93mKU26CRYnhvWldPrr0MOx++
- eRFRfzWpWaKyG/nlKngKWNWoloCgpUxBXrjO5eLgwPeLWjmCp3lfI2mWrSkPn5Q3CYLF/bhy1kN
- qdKxAvMwuUqpzuywz1eq774qlHABS7QQABLO+fQfk2v0nvy8pg3OR88pjVvQik7lJMet1/
-X-Received: by 2002:a05:622a:586:b0:51a:8c97:fb94 with SMTP id
- d75a77b69052e-51c10911601mr53620781cf.61.1782834918282; 
- Tue, 30 Jun 2026 08:55:18 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-51c1080d149sm23102481cf.1.2026.06.30.08.55.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 08:55:17 -0700 (PDT)
-Date: Tue, 30 Jun 2026 11:55:12 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 09/30] mm/rmap: parameterise anon_vma_interval_tree_*()
- by anon_vma
-Message-ID: <akPm4FlwTj0FsZU9@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <1c1df7b905ef340cbf2effef769a4e770a8e0eb1.1782735110.git.ljs@kernel.org>
- <akPk5o_gHD1SxX_0@gourry-fedora-PF4VCD3F>
- <akPlUrNWzl1ZPw1S@lucifer>
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com
+ [148.163.150.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC66910EC18
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 11:03:41 +0000 (UTC)
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+ by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 65U9lIdT235867;
+ Tue, 30 Jun 2026 05:26:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=
+ content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=proofpoint-05-2026; bh=QOvN4MaKm9qYc
+ WOmSYrgoCuQJ5a7GAfSVtNykHypN58=; b=qVc5S4w8QUCAm1kuL/r3mnP7aRfBj
+ Un7T+yvsco7WjVNISYPcViBzB6Fjj7Oe5B1oD4m3tw8VexZaLniWQpxYkNyjBFyn
+ h4aiv1DzJjVP7+bZbYyx9gSOFhtTV6aOKluL/yA1oQ1F25L8kLhnabPAHcMgL204
+ FzJlP4V3dgMgAk/wKAdlGn8iyhUaDzDpZePxDPC0KfzjYn3+t/tjzPX4LnhbnSBF
+ JnWvoOmaqYl9cVytu6zplJDv3MJRh3R4PgrgiUV+gkM7ktdP6RiU6iVD0jTnQfox
+ 7jjPOzEQBHqX6sBxYDAweIvQRS4L0WfpqBqhIcsucRdMtS+Eii1a7qs3g==
+Received: from sa9pr02cu001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013069.outbound.protection.outlook.com
+ [40.93.196.69])
+ by m0384305.ppops.net (PPS) with ESMTPS id 4f3yhsx258-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Tue, 30 Jun 2026 05:26:51 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TZ1KuJmjAOdJc+PtB7+Qh4anoSJz+06B2Q41kljFv4/O6pOPjyi8UwuGet1Q7CrlFb5kBduVryihKIjJuj4a2V+2hCAOifX8fmGdvY1aql6HZwX0LQSal69IKRVKeI9uL+sw+bSwgBDclDpatXyva+OqloJGOyt3dg5aJcTIUKmf9ANdk1XyxysdKihHXWdWNgdDS1O2LPIHdMa2vZijGwQUm65SBb/31LqdN0HXhonBKgt3ivNUaX5CpzJ7cRQQwniPDsKqhed6AngJ64bmqL+5QQNoCVrf73qYl3U8kSqllUscbtu+xUVgiaWCtBSEJuuEgbBeZ0hRHml0ibpRtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QOvN4MaKm9qYcWOmSYrgoCuQJ5a7GAfSVtNykHypN58=;
+ b=OomEGueGRWcGxyPTQ3JNb75m9U7KArxrWYeRik45DbCtRxbbDGbk01zr306gOZcQb8zrzuZKYSUdI+7lii1A+zXEmZBSP22IsabadqzW1UYbxf5RF2y7PAlXNrff2G3C2M+kIMtDOLeG4Vx/avcpmqYJyB5l6cYyhZc5LiBZmwZRKK1TjwcbHAeg54ZkY9VqbOr8NKTP10TXLQC067dwdMKJqc4nxRXptoTWRDs2DNkuehIeXeyXfiZNsPVVTJmsRWwjG+xAHhN/rIxj1wkIdReYV5xutO/gYCRcuFtaDnCT3uP9Yg2AgzhjSwOBDk29jjKc9Gbvf6Ba2EAhvBXebQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QOvN4MaKm9qYcWOmSYrgoCuQJ5a7GAfSVtNykHypN58=;
+ b=eoDINymA4dojKl8ADmV6s+TUWzlRxU1mNny7fp5NHStg9W7a5HYtF9iqQkDXS/9pOIw1lTLcHbtNVBOyIRtgSEGFrxm8oZE3sVMyyAPYFof258pPepppoLNLpMhSCb3LI9q2oRYC6R/17G7G3GS+wKUQEtRuQohW6ble8KyQ+XQ=
+Received: from DS1PR05CA0011.namprd05.prod.outlook.com (2603:10b6:8:457::12)
+ by PH7PR10MB6651.namprd10.prod.outlook.com (2603:10b6:510:20a::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
+ 2026 10:26:47 +0000
+Received: from DS1PEPF00017096.namprd05.prod.outlook.com
+ (2603:10b6:8:457:cafe::94) by DS1PR05CA0011.outlook.office365.com
+ (2603:10b6:8:457::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Tue, 30
+ Jun 2026 10:26:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 10:26:45 +0000
+Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 30 Jun
+ 2026 05:26:44 -0500
+Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 30 Jun
+ 2026 05:26:44 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 30 Jun 2026 05:26:44 -0500
+Received: from yashas.dhcp.ti.com (yashas.dhcp.ti.com [10.24.53.80])
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65UAQaCM2273511;
+ Tue, 30 Jun 2026 05:26:36 -0500
+From: Yashas D <y-d@ti.com>
+To: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+ <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <tomi.valkeinen@ideasonboard.com>, <dmitry.baryshkov@oss.qualcomm.com>,
+ <kees@kernel.org>, <xiqi2@huawei.com>, <r-ravikumar@ti.com>,
+ <sjakhade@cadence.com>, <yamonkar@cadence.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <y-d@ti.com>, <u-kumar1@ti.com>,
+ <devarsht@ti.com>, <s-jain1@ti.com>, <d-mittal@ti.com>, <b-padhi@ti.com>
+Subject: [PATCH v4 0/2] drm: bridge: cdns-mhdp8546: Add support for no-hpd
+Date: Tue, 30 Jun 2026 15:56:08 +0530
+Message-ID: <20260630102610.1849902-1-y-d@ti.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akPlUrNWzl1ZPw1S@lucifer>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|PH7PR10MB6651:EE_
+X-MS-Office365-Filtering-Correlation-Id: 291e6464-1e45-4b99-8f13-08ded692163e
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|7416014|36860700016|23010399003|6133799003|18002099003|56012099006|13003099007|921020;
+X-Microsoft-Antispam-Message-Info: 7URlDBzfk5WfsEtoc45R/Gv8YOYOw8I9DYSnabaGAR+MvdNBhD64EKzBq/7XJ89P3k/fKuk98NaYTYzzXtKUo1I6sSV4yJcTs/lcgHmWUUA0o9uDGQy4Fozs/eNjxfO+UmDFbiU2qD2CMnpYi106PW0xYkzYQJ/q7nnYZpFMQTXRfLYjS0FXeupFLJcMsS3OkIUkjhsSc9l9uKPw4xGIJrX5FNyf/NxSXeSuvz/Ky4KfRzcQE0G//SsSyDv7xZglXPUt4PivW4LKH563R/3p9fw+OKvDTrTybjDAKNjIOChGPhqbvjvwv3MyrHbsRNtPScUI9ahQMnjd3aDNbLD3y4i5BXuOl1OD3S21kPwh6UNpA8N6yrid9RHOqqJapZMhamTDRYTuMaOSVjGDn8ZxUxUOKVVf1pxPzW2Sy/MPvrE8LJKlXcoV1oDVpIRxSJIOoDylShljSbfFxcQhX1Z7H1IgiGqxuFWkrj3rdPCDqFJgbCPOW4gVjDhg3RvyUp+NKD7KXz0IrHalYh4X5WWE8SZFJFziqdk3GVe4IYdNF2unv1c4J/Xr9XV1eN7lTAF5FIcJIf66t3hfSyzY34qNPknFClkxYSCMYi28LdFKdMU4q/Fkq9KBuCO5XuGaAPGeh0fjxS08Y1/cDN2PjcqYVcKwS+H3BcS8GZOjkkbtFLI0JjXqQEudaXclH/pMBo3lhzzST+SDuV82D8EI6Hx+keMMqP5977NVFKqXBgJ4C239fjFPXAt2hnjZgl0leBnS
+X-Forefront-Antispam-Report: CIP:198.47.21.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet200.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(7416014)(36860700016)(23010399003)(6133799003)(18002099003)(56012099006)(13003099007)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: sy4wnAqyx7S2bGSBloOKbcnlFlZrXC/qcY3JanZ2u79EQAIZIyQyNyIieyYGu7qYhVEsClP4MKU1K9I6Qs1VxBpfFXEEXoe8yNSlVlUF/qduV9V260pSknEiqnDFjHZVrAy86JJavDnMjI2TAedhePrbhvLCvBCgcH0k59TKJHuSxuvXmHC9atsAcpcwEE+ZcemP7/GvTwrL0tgy5ezU1iZ3WLDjIuOLU/hedRxauXGfFkeyM/KyrTllul9kmomU6Wd8z4i/sn/8S5lgHPgjq8wmvk9g15lvdjRYbVR2ZDFKpooHR7RGZ6kZ99xFYS9B/kmLxXvRu10eiUdcQerl/EoUn0SYSQ2ZB9Sv3ONCO6Y3Z4v4CnrtLr3v0+Eq4CTiXrWBLvHDl2wrkV9qvnW5iC128D2BZllREnbvENdhG00UzVSv45alWS11n4dABhl2
+X-Exchange-RoutingPolicyChecked: VitDMAnyHqGYvPrJ+Mn2o7BwV+UoFg08+msK5nr3uPMzObd3IMQcrjzx9jfM44dY6ZIM9jcQpuTGIHgk1nrOxNG2I7fZzQsuKZKWIpNAYDgiE7vfoz4kQGEVLVByBa9rfaGrKDsda52uHtCD78Oz/vDVca+xNFCaC0mWTcec4I6Kmfeej4KkQlywFm2+Ym7oVQDucjVhISyb5bOJpOMjuFa+h9P2QI60Hq6xQNUk/yZPofz1PjVXa5JesjWuWHFq5IkiR7VhP0Bnv19IFq4BIYQXnn4pT6gI6/DxDO7H55YyedSxTndZLSeO6GIR1Pz4Az9Wg9irrUZPzlYkw+T0qA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 10:26:45.8911 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 291e6464-1e45-4b99-8f13-08ded692163e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.194];
+ Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017096.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB6651
+X-Authority-Analysis: v=2.4 cv=Q+viJY2a c=1 sm=1 tr=0 ts=6a4399eb cx=c_pps
+ a=M0SbpEVZuc+hi5PQWquR3w==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=FelO9ux0wxsA:10 a=V5UXEbMT0ywA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
+ a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=XmebuRCEXRnHvRW6EeIA:9
+X-Proofpoint-GUID: s2b2YCu_7z34el3ChSAC0SioHJ0UERgW
+X-Proofpoint-ORIG-GUID: s2b2YCu_7z34el3ChSAC0SioHJ0UERgW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDA5NCBTYWx0ZWRfX0Xz8XBSQHH4W
+ SQqRAtLrKGEdFOo2QFUCP4n8Fxq8YPb0wyZMhz5X81YB9EkbAqRVoFrGwamiHDVTcQJeRd90zBO
+ 9npOvAsZVuJv4wkPpA+yK2NWooq+smEqgUael1hVqMcZ8bZTbTCPOVVsO+ocRdKle4Jlj8Isk/n
+ 9yfmYmyCjc/1ip6GSUsvt+pITSaSg525VKofgi9Jec6V/e4h3z+RAtfeEcLobt4l0RyHBKgt1qe
+ VaahlLq2MKjn8N22cbjDWXmQYX/9Etnpl1fEYqGRsqSvZszr3zJ4tS44Mxbga2d0u8crnMPZ2gx
+ rLxz/jpOeHUmMCLQIl1WN8Mv+b8t3QU7clypROMs1oKbiXt8ZM0FdoXixddZMdiAQvrZNVL6FB/
+ L1GMh0TukhUcTwiICQmn8dkwZiwSN5ur/RtLBQxX0gM7po/TAOFw+6f6jUZA8doy1IpY5EsVWmR
+ c1BSB6U7FDv0dYFH0/A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDA5NCBTYWx0ZWRfX0j9ZN+Zi6fPj
+ MQ0aUqVcLMn6HkFIicRSJFjhPORTUovB/xoI+eEPfm+OH7oUsrFGtKq4Y5gfA0dj48zYDzL04Nq
+ vT1jbxaMLB353yQQeEZJLuuuyS77m90=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1011 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606300094
 X-Mailman-Approved-At: Wed, 01 Jul 2026 07:03:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,33 +175,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 30, 2026 at 04:49:45PM +0100, Lorenzo Stoakes wrote:
-> On Tue, Jun 30, 2026 at 11:46:46AM -0400, Gregory Price wrote:
-> > On Mon, Jun 29, 2026 at 01:23:20PM +0100, Lorenzo Stoakes wrote:
-> > > Similar to what we did with mapping_interval_tree*(), let's declare
-> > > anon_vma_interval_tree*() in terms of anon_vma rather than rb_root_cached.
-> > >
-> > > In each case the rb tree referenced is &anon_vma->rb_root, so just pass
-> > > anon_vma and the functions can figure this out themselves.
-> > >
-> > > Additionally, rename 'node' to 'avc', 'index' to 'pgoff_start', and 'last'
-> > > to 'pgoff_last' to make clear what is being passed.
-> > >
-> >
-> > would it be possible to split the pure rename changes out from the
-> > changed function declarations?  It's hard to pick out this as something
-> > that needs to be looked at as more than just a %s/x/y/
-> 
-> Hmmm do I have to? :P 
+This series adds 'no-hpd' device tree property support to the Cadence
+MHDP8546 bridge driver for boards where the HPD line cannot be used for
+hotplug detection.
 
-I mean, no :]
+On TI J721S2 EVMs, the HPD signal is routed to SoC pin AA24
+(MCASP1_ACLKX/DP0_HPD). This pin is muxed with the McASP1 audio bit
+clock; selecting DP0_HPD breaks audio. There is no alternative pin
+carrying the HPD signal which makes it impossible to use HPD
+without loosing the audio capabilities.
 
-> I mean sure I can on a respin potentially, but it is a
-> pretty trivial change? Just mechnically as above.
-> 
+When 'no-hpd' is set, DRM_BRIDGE_OP_HPD is omitted so the framework
+falls back to polling .detect() every ~10 seconds. Monitor presence is
+determined via AUX DPCD reads instead of firmware HPD status registers.
+The .detect() callback drives cdns_mhdp_update_link_status() on each
+poll to keep mhdp->plugged current. At attach time, the driver waits
+for firmware to be ready before performing the initial AUX poll since
+no interrupt will trigger it.
 
-And yeah certainly not worth a respin.  Just learning some of the
-friction points of reviewing as I spend a little more time doing it
-every day.
+Changes since v3:
+  - DPCD read log level is now dev_dbg only in no-hpd path; HPD path
+    keeps dev_err 
+  - Added blank line and code comment in cdns_mhdp_attach()
+  - Property name changed to 'no-hpd' without vendor prefix
+  - Cleaned up the manual polling in detect since the framework
+    already does it when OP_HPD is disabled
+  - HPD detection and notification to userspace and drm clients 
+    now happen through the framework callbacks
 
-~Gregory
+Link to v3: https://lore.kernel.org/all/20250205115025.3133487-1-h-shenoy@ti.com/
+
+Rahul T R (2):
+  dt-bindings: display/bridge: cdns-mhdp8546: Add no-hpd property to the
+    cadence bridge
+  drm: bridge: cdns-mhdp8546: Add no-hpd property
+
+ .../display/bridge/cdns,mhdp8546.yaml         | 11 ++++
+ .../drm/bridge/cadence/cdns-mhdp8546-core.c   | 58 ++++++++++++++++---
+ .../drm/bridge/cadence/cdns-mhdp8546-core.h   |  1 +
+ 3 files changed, 63 insertions(+), 7 deletions(-)
+
+-- 
+2.34.1
+
