@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD90C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 15:32:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C18FFC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 15:33:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A688810EB48;
-	Tue, 30 Jun 2026 15:32:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2CD10EC21;
+	Tue, 30 Jun 2026 15:33:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJJIyeMh";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="cj9kS8AZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7865510EB48;
- Tue, 30 Jun 2026 15:32:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 87C2560018;
- Tue, 30 Jun 2026 15:32:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4991F000E9;
- Tue, 30 Jun 2026 15:32:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782833538;
- bh=B3E/VMQCEgyj/nixWkmIaQ5sXftrXDwGEkHIWsF2cz4=;
- h=Date:From:To:Cc:Subject;
- b=JJJIyeMhqC5QLBZ3U6PW+xxJNgI3SHGOm8bOo5YQu2f2RcG5Wehs7ygVd4dgOt9qu
- 6picrqxCwv5Sgqv3+Hjbk4tvWsza4GnmtdaCs7LyN0g+XPaCFZK2R7JEq6JiaE+FhE
- JLe26ExWavZD12qf6o2rnr1NUFZsKH69JBB2Q0UMmCwT/SdipdlJvoEpAJiD3Z84dO
- u7JOnvT7R4im8Wgg5JSjbA+rA5XnD0J5+N6RL3eIcaAA+N/Dvr0Bewh48Aw1I27xSx
- wsFE3nWnVihUurMjfng5iv9yLU3XpouqDPUqstfQHeT7NzJ6PKxJ75K33sEZQUB/Hi
- ukdt/8YJAvviA==
-Date: Tue, 30 Jun 2026 16:32:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Subject: linux-next: manual merge of the drm-intel tree with the origin tree
-Message-ID: <akPhfS7S4guPimFF@sirena.org.uk>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 035AE10EC21
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:33:31 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2961C1595
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:33:26 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 561303F66F
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782833610; bh=cK1Lk/xzt+rFMF2bnVB/6vwqC0ncgtXq+k7LZjMzEGE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cj9kS8AZWZUPb0sUnyjxgedi6P3WN/I53EVXbaBhC2vT6GldaMoCof1o4qWzOEDWp
+ 9+zhw4/1yH0TRlrOKMpTn3TuzBA/fBqU64NWA8f6T07hpHhXlEpZHcmxA7FpgeR6DT
+ x8LwBYzR0GCLuBODktWZql4UvE/+c8rKxIIQ+3io=
+Date: Tue, 30 Jun 2026 16:33:20 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: Re: [PATCH 00/11] drm/panthor: Misc fixes for bugs found by shashiko
+Message-ID: <akPhwOBDjvgDaw4X@e142607>
+References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="x8wgJNr9N82r5WRp"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,208 +63,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Jun 25, 2026 at 02:40:26PM +0200, Boris Brezillon wrote:
+> This is a collection of fixes for bugs found by shashiko during
+> the review of [1] and the previous iterations. Because shashiko
+> keeps finding new issues at each new submission, I decided to
+> extract the fixes out of this series.
+> 
+> [1]https://lore.kernel.org/dri-devel/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com/
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+> Boris Brezillon (11):
+>       drm/panthor: Always use the IRQ-safe variant when acquiring the fence lock
+>       drm/panthor: Keep the reset work disabled until everything is initialized
+>       drm/panthor: Fix UAF on works queued to panthor_cleanup_wq
+>       drm/panthor: Fix potential invalid pointer deref in group_process_tiler_oom()
+>       drm/panthor: Fix theoretical IOMEM access in suspended state
+>       drm/panthor: Don't overrule pending immediate ticks in sched_resume_tick()
+>       drm/panthor: Fix panthor_pwr_unplug()
+>       drm/panthor: Drop a needless check in panthor_fw_unplug()
+>       drm/panthor: Fix a leak when a group is evicted before the tiler OOM is serviced
+>       drm/panthor: Interrupt group start/resumption if group_bind_locked() fails
+>       drm/panthor: Keep interrupts masked until they are needed
+> 
+>  drivers/gpu/drm/panthor/panthor_device.c |   9 +++
+>  drivers/gpu/drm/panthor/panthor_device.h |  17 +++--
+>  drivers/gpu/drm/panthor/panthor_fw.c     |   6 +-
+>  drivers/gpu/drm/panthor/panthor_gpu.c    |   3 +-
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |   9 ++-
+>  drivers/gpu/drm/panthor/panthor_pwr.c    |  10 +--
+>  drivers/gpu/drm/panthor/panthor_sched.c  | 108 +++++++++++++++++--------------
+>  7 files changed, 97 insertions(+), 65 deletions(-)
+> ---
+> base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
+> change-id: 20260625-panthor-misc-fixes-e3241ce6ef00
+> 
+> Best regards,
+> -- 
+> Boris Brezillon <boris.brezillon@collabora.com>
+> 
 
---x8wgJNr9N82r5WRp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Except for [3/11] I've pushed the series into drm-misc-fixes.
 
-Hi all,
+Best regards,
+Liviu
 
-Today's linux-next merge of the drm-intel tree got a conflict in:
-
-  drivers/gpu/drm/i915/display/intel_cdclk.c
-
-between commit:
-
-  2ee8dbd880b14 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full =
-PLL re-enable")
-
-=66rom the origin tree and commits:
-
-  3f9de66f8acbf ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full =
-PLL re-enable")
-  795e90164a3b8 ("drm/i915/cdclk: Print the reason for the CDCLK sanitizati=
-on")
-  67d77d9472c66 ("drm/i915/cdclk: Introduce bxt_cdclk_cd2x_pipe_mask() and =
-use it")
-  8984b402e02ff ("drm/i915/cdclk: Use the TGL+ CD2x pipe select bits also o=
-n ICL")
-
-=66rom the drm-intel tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/i915/display/intel_cdclk.c
-index 7bc9b956554ba,d3c5e3438d192..0000000000000
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@@ -1229,23 -1229,28 +1229,28 @@@ static void skl_set_cdclk(struct intel_
- =20
-  static void skl_sanitize_cdclk(struct intel_display *display)
-  {
-- 	u32 cdctl, expected;
-+ 	u32 cdctl, expected, swf18;
- =20
-  	/*
-  	 * check if the pre-os initialized the display
-  	 * There is SWF18 scratchpad register defined which is set by the
-  	 * pre-os which can be used by the OS drivers to check the status
-  	 */
-- 	if ((intel_de_read(display, SWF_ILK(0x18)) & 0x00FFFFFF) =3D=3D 0)
-+ 	swf18 =3D intel_de_read(display, SWF_ILK(0x18));
-+ 	if ((swf18 & 0x00FFFFFF) =3D=3D 0) {
-+ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to SWF18 0x%x\n", swf18=
-);
-  		goto sanitize;
-+ 	}
- =20
-  	intel_update_cdclk(display);
-  	intel_cdclk_dump_config(display, &display->cdclk.hw, "Current CDCLK");
- =20
-  	/* Is PLL enabled and locked ? */
-  	if (display->cdclk.hw.vco =3D=3D 0 ||
-- 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass)
-+ 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass) {
-+ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to PLL not enabled/lock=
-ed\n");
-  		goto sanitize;
-+ 	}
- =20
-  	/* DPLL okay; verify the cdclock
-  	 *
-@@@ -1261,8 -1266,11 +1266,11 @@@
-  		cdctl &=3D ~CDCLK_FREQ_DECIMAL_MASK;
-  		cdctl |=3D expected & CDCLK_FREQ_DECIMAL_MASK;
- =20
-- 		if (cdctl !=3D expected)
-+ 		if (cdctl !=3D expected) {
-+ 			drm_dbg_kms(display->drm, "Sanitizing CDCLK due to CDCLK_CTL 0x%x, exp=
-ected 0x%x)\n",
-+ 				    intel_de_read(display, CDCLK_CTL), expected);
-  			goto sanitize;
-+ 		}
- =20
-  		drm_dbg_kms(display->drm, "Sanitizing CDCLK decimal divider (CDCLK_CTL =
-0x%x, expected 0x%x)\n",
-  			    intel_de_read(display, CDCLK_CTL), expected);
-@@@ -1274,8 -1282,6 +1282,6 @@@
-  	return;
- =20
-  sanitize:
-- 	drm_dbg_kms(display->drm, "Sanitizing cdclk programmed by pre-os\n");
--=20
-  	/* force cdclk programming */
-  	display->cdclk.hw.cdclk =3D 0;
-  	/* force full PLL disable + enable */
-@@@ -1938,14 -1944,17 +1944,17 @@@ static void adlp_cdclk_pll_crawl(struc
-  	display->cdclk.hw.vco =3D vco;
-  }
- =20
-+ static u32 bxt_cdclk_cd2x_pipe_mask(struct intel_display *display)
-+ {
-+ 	if (DISPLAY_VER(display) >=3D 11)
-+ 		return ICL_CDCLK_CD2X_PIPE_MASK;
-+ 	else
-+ 		return BXT_CDCLK_CD2X_PIPE_MASK;
-+ }
-+=20
-  static u32 bxt_cdclk_cd2x_pipe(struct intel_display *display, enum pipe p=
-ipe)
-  {
-- 	if (DISPLAY_VER(display) >=3D 12) {
-- 		if (pipe =3D=3D INVALID_PIPE)
-- 			return TGL_CDCLK_CD2X_PIPE_NONE;
-- 		else
-- 			return TGL_CDCLK_CD2X_PIPE(pipe);
-- 	} else if (DISPLAY_VER(display) >=3D 11) {
-+ 	if (DISPLAY_VER(display) >=3D 11) {
-  		if (pipe =3D=3D INVALID_PIPE)
-  			return ICL_CDCLK_CD2X_PIPE_NONE;
-  		else
-@@@ -2340,18 -2349,24 +2349,24 @@@ static void bxt_sanitize_cdclk(struct i
-  	intel_cdclk_dump_config(display, &display->cdclk.hw, "Current CDCLK");
- =20
-  	if (display->cdclk.hw.vco =3D=3D 0 ||
-- 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass)
-+ 	    display->cdclk.hw.cdclk =3D=3D display->cdclk.hw.bypass) {
-+ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to PLL not enabled/lock=
-ed\n");
-  		goto sanitize;
-+ 	}
- =20
-  	/* Make sure this is a legal cdclk value for the platform */
-  	cdclk =3D bxt_calc_cdclk(display, display->cdclk.hw.cdclk);
-- 	if (cdclk !=3D display->cdclk.hw.cdclk)
-+ 	if (cdclk !=3D display->cdclk.hw.cdclk) {
-+ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to bad CDCLK frequency\=
-n");
-  		goto sanitize;
-+ 	}
- =20
-  	/* Make sure the VCO is correct for the cdclk */
-  	vco =3D bxt_calc_cdclk_pll_vco(display, cdclk);
-- 	if (vco !=3D display->cdclk.hw.vco)
-+ 	if (vco !=3D display->cdclk.hw.vco) {
-+ 		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to bad VCO frequency\n"=
-);
-  		goto sanitize;
-+ 	}
- =20
-  	/*
-  	 * Some BIOS versions leave an incorrect decimal frequency value and
-@@@ -2366,7 -2381,7 +2381,7 @@@
-  	 * dividers both syncing to an active pipe, or asynchronously
-  	 * (PIPE_NONE).
-  	 */
-- 	cdctl &=3D ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-+ 	cdctl &=3D ~bxt_cdclk_cd2x_pipe_mask(display);
-  	cdctl |=3D bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
- =20
-  	if (cdctl !=3D expected) {
-@@@ -2375,8 -2390,11 +2390,11 @@@
-  			cdctl |=3D expected & CDCLK_FREQ_DECIMAL_MASK;
-  		}
- =20
-- 		if (cdctl !=3D expected)
-+ 		if (cdctl !=3D expected) {
-+ 			drm_dbg_kms(display->drm, "Sanitizing CDCLK due to CDCLK_CTL 0x%x, exp=
-ected 0x%x\n",
-+ 				    intel_de_read(display, CDCLK_CTL), expected);
-  			goto sanitize;
-+ 		}
- =20
-  		drm_dbg_kms(display->drm, "Sanitizing CDCLK decimal divider (CDCLK_CTL =
-0x%x, expected 0x%x)\n",
-  			    intel_de_read(display, CDCLK_CTL), expected);
-@@@ -2388,8 -2406,6 +2406,6 @@@
-  	return;
- =20
-  sanitize:
-- 	drm_dbg_kms(display->drm, "Sanitizing cdclk programmed by pre-os\n");
--=20
-  	/* force cdclk programming */
-  	display->cdclk.hw.cdclk =3D 0;
- =20
-
---x8wgJNr9N82r5WRp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpD4X0ACgkQJNaLcl1U
-h9AHHAgAg/xTOJhr4KpYkVV76PdaIRcu+SDjoT33tRNzWROFnxi3EfcJQ7vqDowb
-i7X1mNsKtwc6zekQSS8xk8qu73hGtj4BiumyOHZFLu8+wjQn46XAd6FFdCzGYzWE
-wy88QDHkx9BMmWxd1PATJxandxsyhhcX7Hx+xvIqXr5WDYOWvao07OZPv+M1FtiS
-bEnVHXwzHMgqCaVYObPiCLaCRCHstwQjEIAmdvxA9uadA0htI+UY7v9OpdEkTN8X
-6U+ZCfJz+O7R4O2zC9DpeW4xX8UfytCYh8U8+5qMtZS0j0VMJntU7BBATJyD83HN
-H5vuxjsZGK0M9MYTvQzMa6N/TwUKRg==
-=hqN6
------END PGP SIGNATURE-----
-
---x8wgJNr9N82r5WRp--
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
