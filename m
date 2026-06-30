@@ -4,127 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9987CC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 18:59:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98FA5C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 20:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA6B110E23C;
-	Tue, 30 Jun 2026 18:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AAF010ED3C;
+	Tue, 30 Jun 2026 20:28:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="MQIZ8dE/";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="hDkJ7NDP";
 	dkim-atps=neutral
-Received: from mail-pl1-f202.google.com (mail-pl1-f202.google.com
- [209.85.214.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A67C10E23C
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 18:59:03 +0000 (UTC)
-Received: by mail-pl1-f202.google.com with SMTP id
- d9443c01a7336-2c7f385887bso80357575ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 11:59:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782845943; x=1783450743;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=e+HRXjFGgcPzOleYtd12nce6K890KkClpjKYcrzynFs=;
- b=MQIZ8dE/D6pL0hOtb35OeH0Bju1oQSJoF7OTWoIKGya+j8MVryQrl8CcyW7CWe7EC+
- 6Lk9dRFiQe6vw/CBSMMe41WGVIbfc49gkcHkWjb3bNSvRYztnpCxnrI2xpJ8bM60LzQP
- G00f+suvlbTk/u6Dl+IB9GyWMtLlsVQGLhmAsAspHjjxDATY95Ql2tSDuoeqyl36J3iY
- K2KLsKLl5qgDE77r+N8gL0KHDnYAG6IGuiAfi+1dX4/sRSDOPcJ0iooPH9TSPWKstI2B
- baAkiymPGLlcQgCO2AAk39LyR0xDp8vyS/eRJZxok2xSaM6NIok++YyndsdqkCyqmQ5S
- GlOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782845943; x=1783450743;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=e+HRXjFGgcPzOleYtd12nce6K890KkClpjKYcrzynFs=;
- b=DZedaJbRac4DmAc+jTs0998/WlcWXrDJH9OPNnv4LJgfwTG5aHb5Rl5CArDMKKXXaD
- yKXSL97GXlFcNMfSgbNLs7HYom19GnVZt0JDZ8WBYS/K/xm5b2F9rsBnayUcBxMsmliK
- RQdSBWeiW+GST/r6hNgKZm9+KNNrWmZuHHiZVydnta+7t+WZ2puKTZmz3KK6lICeryg/
- HEcY83Os/l+uWkIqgBZPQw/R4ONlhNRNG7L0IK48f4qw+4KyfWDnyctRBYA4dAoyJxK8
- YFnE0vNIfAOsCmNzb+ItwUUV7MBY8dn2ExvTtv1qHO2VmNS/ehdUtOn+vVYreYGRoP2w
- DAUA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqzFmd53DdX+7yFbXGJYix9VsV2HYWnm1ZF0lvHUk4hSJG5IOPCqas9Q70U+WChCaQU8e6BiLjkEDA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8DgmS00wfCKpRzLpy7M2g8tQQwSATvEI+aLUGwsXGROEFWSR2
- BcnTAbiOaS36h84ZdB2iwbxiiG5e7wdjExB9VqbDMi41Iw4466JN9ciU5BaffyaX1m8mUZjvJ7H
- 0apq4Xg==
-X-Received: from plbko12.prod.google.com ([2002:a17:903:7cc:b0:2c6:9f66:d581])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:acd:b0:2c9:c517:d075
- with SMTP id d9443c01a7336-2ca5a581ab5mr15124165ad.15.1782845942348; Tue, 30
- Jun 2026 11:59:02 -0700 (PDT)
-Date: Tue, 30 Jun 2026 11:59:01 -0700
-In-Reply-To: <akJUz0kYkEBdLSZ3@gmail.com>
-Mime-Version: 1.0
-References: <20260629060526.3638272-1-jgross@suse.com>
- <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
- <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
- <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
- <akJUz0kYkEBdLSZ3@gmail.com>
-Message-ID: <akQR9YMtMHReJTfB@google.com>
-Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
-From: Sean Christopherson <seanjc@google.com>
-To: Ingo Molnar <mingo@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Juergen Gross <jgross@suse.com>,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, 
- kvm@vger.kernel.org, linux-coco@lists.linux.dev, linux-pci@vger.kernel.org, 
- virtualization@lists.linux.dev, linux-ide@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-crypto@vger.kernel.org, 
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hyperv@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org, 
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Zhang Rui <rui.zhang@intel.com>, "lukasz.luba@arm.com" <lukasz.luba@arm.com>, 
- Jason Baron <jbaron@akamai.com>, Borislav Petkov <bp@alien8.de>,
- Tony Luck <tony.luck@intel.com>, 
- Yazen Ghannam <yazen.ghannam@amd.com>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
- Paolo Bonzini <pbonzini@redhat.com>, "Kirill A. Shutemov" <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, Pu Wen <puwen@hygon.cn>, 
- Bjorn Helgaas <bhelgaas@google.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
- Alexey Makhalov <alexey.makhalov@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Viresh Kumar <viresh.kumar@linaro.org>,
- Reinette Chatre <reinette.chatre@intel.com>, 
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>, 
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>, 
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Dave Airlie <airlied@redhat.com>, 
- Helge Deller <deller@gmx.de>, linux-geode@lists.infradead.org, 
- Olivia Mackall <olivia@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
- Guenter Roeck <linux@roeck-us.net>, Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, 
- Andy Lutomirski <luto@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Huang Rui <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
- "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>, 
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
- Vignesh Raghavendra <vigneshr@ti.com>, Ashok Raj <ashok.raj.linux@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- "Ilpo =?utf-8?B?SsOkcnZpbmVu?=" <ilpo.jarvinen@linux.intel.com>, 
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="us-ascii"
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D11210E258
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 20:28:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782851296; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=gf1VlwcwRWWiEnsmQxQtf0fObsfP61Pj9TP9cNVg+eoFp76qCebO78hP3ntoBKcyEVaW60j2Yr0FbYIWB5iC127M4clnmsLCGtHeeoiiYpiKh87jBqkSQmyutRm20+7rE1aIjWVDM58jzwI5737YH+p11UxWldij8Cp5x7jiiVA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782851296;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=/xxStwIF61bn3ZqA6+M8xNVE8MJdolxYpTE31ogRu80=; 
+ b=U+y+Y8JNztHz6TU0ZIFHslaBWm+fIK7AtsFkKTlJGq8dtCz62QginpyHE8kUFGNmqAHbreAYv8Po0TxjGMtipstN3XTtIJzae/Cu1vfItWaegs+k7fWS/C2tauH5dWfaqJpmYtZ0SSki0GcCjsDapOoc0zIHBb8j7WVc0AGaV5w=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782851296; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=/xxStwIF61bn3ZqA6+M8xNVE8MJdolxYpTE31ogRu80=;
+ b=hDkJ7NDPQt854wNiNBmBC/IdWCBXr+odeXcAn4ERWY2zw5gVTpjQrhfL3HMlxLTH
+ tak1H611kWzf5B1KYjqXXLUaHlOkPXeUyQ9EaVDzHmswWZKvBovzUZDtElacGF8blfo
+ HkdZ3oyxTaHFDBbF0tuQh0efQqQyy6qGWaB4qM7k=
+Received: by mx.zohomail.com with SMTPS id 1782851293849807.4045988828807;
+ Tue, 30 Jun 2026 13:28:13 -0700 (PDT)
+Message-ID: <1a8c811a419c4ae0c96a47df86cfbde32719b168.camel@collabora.com>
+Subject: Reminder: Call for Proposals closing soon for XDC 2026!
+From: Mark Filion <mark.filion@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Date: Tue, 30 Jun 2026 16:28:13 -0400
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+MIME-Version: 1.0
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,35 +62,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026, Ingo Molnar wrote:
-> * Arnd Bergmann <arnd@arndb.de> wrote:
-> 
-> > >>> Note that most patches of this series are independent from each other.
-> > >>> Only the patches removing a specific interface (patches 7, 15, 26 and
-> > >>> 30) and the last two patches of the series depend on all previous
-> > >>> patches.
-> > >> 
-> > >> It looks like you are touching most files twice or more here, to
-> > >> first convert from rdmsr to rdmsrq and then to change the
-> > >> two-argument rdmsrq() macro to a single-argument inline. If you
-> > >> introduce the inline version of rdmsrq() first, you should be
-> > >> able to skip the second step (patch 31) as they could be able
-> > >> to coexist.
-> > >
-> > > I've discussed how to structure the series with Ingo Molnar before [1]. The
-> > > current approach was his preference.
-> > 
-> > Ok.
-> 
-> Note that the individual patches are IMO significantly easier to review
-> through the actual 32-bit => 64-bit variable assignment changes done
-> in isolation (which sometimes include minor cleanups), while
-> the Coccinelle semantic patch:
-> 
->    { a(b,c) => c = a(b) }
-> 
-> which changes both the function signature and the order of terms as
-> well, is just a single add-on treewide patch.
+Hello!
 
-Is the plan for subsystem maintainers to pick up the relevant patches, and then
-do the treewide change one release cycle later?
+Reminder - The deadline for submissions for XDC 2026 is this coming
+Friday, 3 July 2026.
+
+    https://xdc2026.x.org
+
+While any serious proposal will be gratefully considered, topics of
+interest to X.Org and freedesktop.org developers are encouraged. The
+program focus is on new development, ongoing challenges and anything
+else that will spark discussions among attendees in the hallway track.
+
+We are open to talks across all layers of the graphics stack, from the
+kernel to desktop environments / graphical applications and about how
+to make things better for the developers who build them. Head to the
+CfP page to learn more!
+ =20
+As usual, the conference is free of charge and open to the general
+public. If you plan on attending, please make sure to register as early
+as possible!
+
+Best,
+
+Mark
