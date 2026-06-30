@@ -4,43 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7CD0C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 22:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CFAFC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 22:55:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3018A10E2AD;
-	Tue, 30 Jun 2026 22:53:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C2710E668;
+	Tue, 30 Jun 2026 22:55:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IWQb58ix";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="Ma7itR4j";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8AC810E2AD
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 22:53:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 175B86001D;
- Tue, 30 Jun 2026 22:53:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984AB1F000E9;
- Tue, 30 Jun 2026 22:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782860029;
- bh=8B3q/thG54EUfuEZ/08rJh6xLnB9H4fTaqPZ+inN2gI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IWQb58ixPyCL5W5FtmVBTEfP7J9cvedLN/UbqpKORYc42y6+eK4pTfDOOVVn7shsj
- aos2736jb4ncatGi+qvZgvdz08+lZ26EwLcHrUptIQBBrGYmB3R6mugp5U0FVNiiOx
- PTHcZ/MkSFwV8Ket+ME2rqPCUEISxHO0LkaUYLHDIrBL2ZX8lzt4YDKaBwhNB3QrDZ
- RFftQMCBTr803XPjt4NAF0+D1HGKVI+eClO6ovQJGbgpeKtruBuhX2y01Rrt3wDM1J
- cwnD9JmrHHfg45KUzJwy7NMcK2CklLfVPKb9LH/KyXpkMCyA8T/Izy9iUFXtISYpR1
- 3ROAC+tAN3MqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9] drm/i915/dg2: Add per-context control for
- Wa_22013059131
-To: "Jia Yao" <jia.yao@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260630223946.2107382-1-jia.yao@intel.com>
-References: <20260630223946.2107382-1-jia.yao@intel.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9833B10E2C0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 22:55:06 +0000 (UTC)
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65ULINl42144490
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:55:05 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=c+52n3BiXtabeuCT1iAGuCHlet7dZQTs9EbDARTGZG4=; b=Ma7itR4ju7zG
+ mjFs6wEwItP030oZPrgAOYfK70U8u12WwQBvbftTGyPIknxULyHTzkSiYZaMW/fa
+ NVxUGhUPC0Ob6cI62FCpMwAichDUcXi5PJE+Lk3ar7/2rqEivPny6yMyvHHFJsRl
+ o16H8Jb50qpiutrXW7mCFDlKEyY0Q/9ClLfnAcLs3ZWRJ69Fpulkd2ieKYMWAfad
+ 16Es/JK805eTx5ygchluy58sxpgFHFMgNIu3Hy6EhiHZWabJaPCdcEAtMWBWm/pv
+ UXu8SFTTLATh3aLBt80mfaVX09esI+yuvn/8zZDX0VxdfpWQpSoENbGbY0LNODuj
+ MI3zCsoxGQ==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4f47r3y7aw-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 15:55:05 -0700 (PDT)
+Received: from twshared11639.02.snb2.facebook.com (2620:10d:c0a8:1b::30) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Tue, 30 Jun 2026 22:55:04 +0000
+Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
+ id 193BC40C59C38; Tue, 30 Jun 2026 15:43:31 -0700 (PDT)
+From: Zhiping Zhang <zhipingz@meta.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
+ Guralnik <michaelgur@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>, Alex Williamson
+ <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
+CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ Zhiping Zhang <zhipingz@meta.com>
+Subject: [PATCH v10 4/4] RDMA/mlx5: get tph for p2p access when registering
+ dma-buf mr
+Date: Tue, 30 Jun 2026 15:42:26 -0700
+Message-ID: <20260630224328.3218796-5-zhipingz@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260630224328.3218796-1-zhipingz@meta.com>
+References: <20260630224328.3218796-1-zhipingz@meta.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 22:53:49 +0000
-Message-Id: <20260630225349.984AB1F000E9@smtp.kernel.org>
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDIyMyBTYWx0ZWRfXxMrudSqOqL4U
+ J8BnvzmfP6k5QQxrQ/rh6YIXqg6WGHt/N0nSPZb8j1tIrGFLdg8QBcRJB8n6uZ+OjZLApk0mBX/
+ ZCz9uRlB49FAodRCb6n7FV5PJpeJYD1fUTn+qHdRxHzgpgIWq3CtDGUaGp6dsDNNLzXvBBOjz4V
+ zjV+d1n3tCYWs7INuznVf64T7bYHAY3MMCg7hDSG+KhzwO1beE6UBmWNOx2XdD8TOnuX5lKyRAT
+ 2WY7iQycDNdXTnK+7M87dlitTl3liugLMaIie86dzsUeejuJrVPP5cZtAwFWWCJBX2wn478HKb9
+ TeYRMNuGHM5xaZHRUewnUtf0LU2iKHI/QUx8lQHWh7hnQ8dnc/HLkJL3V2eCeu3/2xYB3dkeUyN
+ t6AbgSNCNNOPBArtyowSouIAZbzc4+tWoaUHr9SfpEBeWBwujl0pngPGTxLfNuk34pLGq9Ok6J0
+ Jh5iORSDykf16h4oGlQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDIyMyBTYWx0ZWRfX9CRxAEDR3USc
+ kip+MBmcTgnOcyDtrUOk9EkgqXtMRnFm1OdJnRD9Kmjx/4XrmUwdWzKy4mx5BnA6zAzaqGsoJ5U
+ 2rMMUbVfp64ZexN4O2xzLIEFEqxxZWM=
+X-Proofpoint-GUID: 5mNEckMCiVB3jlXAL2PG_-DR0CfSWeLl
+X-Proofpoint-ORIG-GUID: 5mNEckMCiVB3jlXAL2PG_-DR0CfSWeLl
+X-Authority-Analysis: v=2.4 cv=Q6ziJY2a c=1 sm=1 tr=0 ts=6a444949 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=wpfVPzegXHpEFt3DAXn9:22 a=VabnemYjAAAA:8 a=CbDCq_QkAAAA:8
+ a=b6nn37b5_VcVdO3q4OwA:9 a=gKebqoRLp9LExxC7YDUY:22 a=1qrBK16LubpBFNPVNq2M:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_05,2026-06-26_01,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,92 +92,404 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Dynamically modifying the globally shared MCR register LSC_CHICKEN=
-_BIT_0 per-context causes a race condition when contexts execute concurrent=
-ly on different engines, leading to L3 cache state corruption and GPU hangs.
---
+Peer-to-peer DMA between a mlx5 NIC and a foreign PCIe endpoint
+(typically a GPU or a vfio-pci passthrough device) traverses the host
+PCIe fabric. The endpoint exporting the dma-buf knows which PCIe TLP
+Processing Hint (TPH) Steering Tag yields the best placement for the
+traffic it will sink: per-endpoint hint selection lets the root complex
+or switch direct DMA to a specific cache slice / NUMA node, cutting
+cross-socket snoop traffic and DRAM pressure under sustained p2p
+workloads.
 
-commit aa5554c571fd6ea50b4b1d107d0ba27eeae18a7c
-Author: Jia Yao <jia.yao@intel.com>
+Until now the mlx5 importer had no way to learn the exporter's chosen
+ST tag, so dma-buf MRs were registered without TPH and ran with the
+default (no-hint) routing. With dma_buf_get_pci_tph() in place this
+patch wires up mlx5_ib to query that metadata at MR registration time
+for p2p access and use it to program requester-side TPH on the outbound
+mkey. If the exporter has no metadata, fall back to the existing
+no-TPH path so behavior for non-TPH-aware exporters is unchanged.
 
-drm/i915/dg2: Add per-context control for Wa_22013059131
+Use mlx5_st_alloc_index_by_tag() to translate exporter-provided
+steering tags into local ST entries when table mode is active, and add
+mlx5_st_get_index() for DMAH-backed flows that already carry an ST
+index.
 
-This commit introduces a per-context opt-out for Wa_22013059131 on DG2-G11
-platforms, allowing userspace to manage LSC_CHICKEN_BIT_0 bit 15 itself.
-It applies this workaround conditionally during indirect context batchbuffer
-execution rather than globally at engine init.
+For TPH-backed FRMRs, keep the extra ST-table reference tied to MR
+lifetime rather than pooled mkey lifetime. Acquire the ref before MR
+creation and release it again when the MR is returned to the pool or
+the backing mkey is destroyed, while leaving the generic FRMR pool
+core unchanged.
 
-Link: https://github.com/intel/compute-runtime/pull/919
+Import the DMA_BUF namespace for the new dma_buf_get_pci_tph() call so
+modular mlx5_ib builds link cleanly.
 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/g=
-t/intel_lrc.c
-> index 147d22907960b..a35601e6f1e90 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+---
+ drivers/infiniband/hw/mlx5/main.c             |   1 +
+ drivers/infiniband/hw/mlx5/mr.c               | 116 +++++++++++++++++-
+ .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 ++++++--
+ include/linux/mlx5/driver.h                   |  15 +++
+ 4 files changed, 167 insertions(+), 14 deletions(-)
 
-[ ... ]
-
-> @@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
->  	return cs;
->  }
-> =20
-> +static u32 *
-> +dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
-> +{
-> +	/*
-> +	 * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
-> +	 * other bits of the register will also get overwritten.  The
-> +	 * hardware default for all other bits is 0, but any workarounds
-> +	 * that adjust the other bits in the lower dword of the register
-> +	 * also need to be re-applied here.  At the moment that's just
-> +	 * Wa_22014226127, which is always set for DG2-G11 platforms.
-> +	 */
-> +	u32 val =3D DISABLE_D8_D16_COASLESCE;
-> +
-> +	/*
-> +	 * Wa_22013059131: only set FORCE_1_SUB_MESSAGE_PER_FRAGMENT for
-> +	 * userspace contexts that have not opted out.  Kernel-internal
-> +	 * contexts (gem_context =3D=3D NULL) never run shader workloads that
-> +	 * require this workaround, so skip them unconditionally.
-> +	 */
-> +	if (rcu_access_pointer(ce->gem_context) &&
-> +	    !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
-> +		val |=3D FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
-> +	}
-> +
-
-[Severity: High]
-Does dynamically modifying LSC_CHICKEN_BIT_0 per-context cause a race condi=
-tion
-when contexts execute concurrently on different engines?
-
-LSC_CHICKEN_BIT_0 is a globally shared MCR register affecting the L3 cache,
-which is shared across all render and compute engines on DG2. Modifying it =
-via
-MI_LOAD_REGISTER_IMM broadcasts the change to all L3 banks.
-
-If Context A (which requires the workaround) runs on RCS0, and Context B (w=
-hich
-opts out) switches in on CCS0, CCS0's context switch executes this indirect
-batchbuffer and clears bit 15 globally. This could dynamically alter the st=
-ate
-for Context A on RCS0, potentially disabling the workaround and causing a G=
-PU
-hang.
-
-> +	*cs++ =3D MI_LOAD_REGISTER_IMM(1);
-> +	*cs++ =3D i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
-> +	*cs++ =3D val;
-> +
-> +	return cs;
-> +}
-
+diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/ml=
+x5/main.c
+index 02809114fc79..a2b497f6b16b 100644
+--- a/drivers/infiniband/hw/mlx5/main.c
++++ b/drivers/infiniband/hw/mlx5/main.c
+@@ -60,6 +60,7 @@
+ MODULE_AUTHOR("Eli Cohen <eli@mellanox.com>");
+ MODULE_DESCRIPTION("Mellanox 5th generation network adapters (ConnectX s=
+eries) IB driver");
+ MODULE_LICENSE("Dual BSD/GPL");
++MODULE_IMPORT_NS("DMA_BUF");
+=20
+ struct mlx5_ib_event_work {
+ 	struct work_struct	work;
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
+/mr.c
+index e6b74955d95d..55216ae63761 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -39,6 +39,7 @@
+ #include <linux/delay.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-resv.h>
++#include <linux/pci-tph.h>
+ #include <rdma/frmr_pools.h>
+ #include <rdma/ib_umem_odp.h>
+ #include "dm.h"
+@@ -167,6 +168,39 @@ static int get_unchangeable_access_flags(struct mlx5=
+_ib_dev *dev,
+ #define MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK GENMASK_ULL(23, 16)
+ #define MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK GENMASK_ULL(15, 0)
+=20
++static u8 mlx5_ib_tph_key_ph(u8 ph)
++{
++	if (ph =3D=3D MLX5_IB_NO_PH || ph =3D=3D 0)
++		ph ^=3D MLX5_IB_NO_PH;
++
++	return ph;
++}
++
++static int mlx5_ib_get_st_handle_ref(struct mlx5_ib_dev *dev, u16 st_ind=
+ex)
++{
++	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
++		return 0;
++
++	return mlx5_st_get_index(dev->mdev, st_index);
++}
++
++static void mlx5_ib_put_st_index_ref(struct mlx5_ib_dev *dev, u16 st_ind=
+ex)
++{
++	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
++		return;
++
++	mlx5_st_dealloc_index(dev->mdev, st_index);
++}
++
++static void mlx5_ib_put_st_handle_ref(struct mlx5_ib_dev *dev,
++				      u64 kernel_vendor_key)
++{
++	u16 st_index =3D FIELD_GET(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK,
++				 kernel_vendor_key);
++
++	mlx5_ib_put_st_index_ref(dev, st_index);
++}
++
+ static struct mlx5_ib_mr *
+ _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, struct ib_umem *umem,
+ 		      int access_flags, int access_mode,
+@@ -189,13 +223,10 @@ _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, stru=
+ct ib_umem *umem,
+ 			MLX5_FRMR_POOLS_KEY_ACCESS_MODE_KSM_MASK :
+ 			0;
+=20
+-	/* Normalize ph: swap 0 and MLX5_IB_NO_PH */
+-	if (ph =3D=3D MLX5_IB_NO_PH || ph =3D=3D 0)
+-		ph ^=3D MLX5_IB_NO_PH;
+-
+ 	mr->ibmr.frmr.key.kernel_vendor_key =3D
+ 		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK, st_index) |
+-		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK, ph);
++		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK,
++			   mlx5_ib_tph_key_ph(ph));
+ 	err =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr);
+ 	if (err) {
+ 		kfree(mr);
+@@ -218,7 +249,9 @@ struct mlx5_ib_mr *mlx5_mr_cache_alloc(struct mlx5_ib=
+_dev *dev,
+ 				      0 :
+ 				      MLX5_FRMR_POOLS_KEY_ACCESS_MODE_KSM_MASK,
+ 		.num_dma_blocks =3D ndescs,
+-		.kernel_vendor_key =3D 0, /* no PH and no ST index */
++		.kernel_vendor_key =3D
++			FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK,
++				   MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX),
+ 	};
+ 	struct mlx5_ib_mr *mr;
+ 	int ret;
+@@ -557,6 +590,10 @@ static struct mlx5_ib_mr *reg_create(struct ib_pd *p=
+d, struct ib_umem *umem,
+ 	mr->ibmr.pd =3D pd;
+ 	mr->access_flags =3D access_flags;
+ 	mr->page_shift =3D order_base_2(page_size);
++	mr->ibmr.frmr.key.kernel_vendor_key =3D
++		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK, st_index) |
++		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK,
++			   mlx5_ib_tph_key_ph(ph));
+=20
+ 	inlen =3D MLX5_ST_SZ_BYTES(create_mkey_in);
+ 	if (populate)
+@@ -753,6 +790,12 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd=
+, struct ib_umem *umem,
+ 			st_index =3D mdmah->st_index;
+ 	}
+=20
++	err =3D mlx5_ib_get_st_handle_ref(dev, st_index);
++	if (err) {
++		ib_umem_release(umem);
++		return ERR_PTR(err);
++	}
++
+ 	xlt_with_umr =3D mlx5r_umr_can_load_pas(dev, umem->length);
+ 	if (xlt_with_umr) {
+ 		mr =3D alloc_cacheable_mr(pd, umem, iova, access_flags,
+@@ -769,6 +812,7 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd,=
+ struct ib_umem *umem,
+ 		mutex_unlock(&dev->slow_path_mutex);
+ 	}
+ 	if (IS_ERR(mr)) {
++		mlx5_ib_put_st_index_ref(dev, st_index);
+ 		ib_umem_release(umem);
+ 		return ERR_CAST(mr);
+ 	}
+@@ -903,6 +947,52 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_atta=
+ch_ops =3D {
+ 	.invalidate_mappings =3D mlx5_ib_dmabuf_invalidate_cb,
+ };
+=20
++static void get_pci_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_bu=
+f *dmabuf,
++				  u16 *st_index, u8 *ph)
++{
++	u16 local_st_index;
++	u16 steering_tag;
++	u8 local_ph;
++	bool extended;
++	int ret;
++
++	switch (pcie_tph_enabled_req_type(dev->mdev->pdev)) {
++	case PCI_TPH_REQ_TPH_ONLY:
++		extended =3D false;
++		break;
++	case PCI_TPH_REQ_EXT_TPH:
++		extended =3D true;
++		break;
++	default:
++		return;
++	}
++
++	dma_resv_lock(dmabuf->resv, NULL);
++	ret =3D dma_buf_get_pci_tph(dmabuf, extended, &steering_tag, &local_ph)=
+;
++	dma_resv_unlock(dmabuf->resv);
++	if (ret) {
++		if (ret !=3D -EOPNOTSUPP)
++			mlx5_ib_dbg(dev, "get_pci_tph failed (%d)\n", ret);
++		return;
++	}
++
++	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag,
++					 &local_st_index);
++	if (ret) {
++		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
++		return;
++	}
++
++	*st_index =3D local_st_index;
++	*ph =3D local_ph;
++}
++
++static void mlx5_ib_mr_put_st_handle_ref(struct mlx5_ib_mr *mr)
++{
++	mlx5_ib_put_st_handle_ref(mr_to_mdev(mr),
++				  mr->ibmr.frmr.key.kernel_vendor_key);
++}
++
+ static struct ib_mr *
+ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+ 		   u64 offset, u64 length, u64 virt_addr,
+@@ -945,12 +1035,22 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device=
+ *dma_device,
+ 		ph =3D dmah->ph;
+ 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
+ 			st_index =3D mdmah->st_index;
++
++		err =3D mlx5_ib_get_st_handle_ref(dev, st_index);
++		if (err) {
++			ib_umem_release(&umem_dmabuf->umem);
++			return ERR_PTR(err);
++		}
++	} else {
++		get_pci_tph_mr_dmabuf(dev, umem_dmabuf->attach->dmabuf,
++				      &st_index, &ph);
+ 	}
+=20
+ 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
+ 				access_flags, access_mode,
+ 				st_index, ph);
+ 	if (IS_ERR(mr)) {
++		mlx5_ib_put_st_index_ref(dev, st_index);
+ 		ib_umem_release(&umem_dmabuf->umem);
+ 		return ERR_CAST(mr);
+ 	}
+@@ -1405,6 +1505,7 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
+_mr *mr)
+ 	if (mr->ibmr.frmr.pool) {
+ 		if (!mlx5_umr_revoke_mr_with_lock(mr)) {
+ 			ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr);
++			mlx5_ib_mr_put_st_handle_ref(mr);
+ 			return 0;
+ 		}
+ 	}
+@@ -1432,6 +1533,9 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
+_mr *mr)
+ 	if (mr->ibmr.frmr.pool && !ret)
+ 		ib_frmr_pool_drop(&mr->ibmr);
+=20
++	if (!ret)
++		mlx5_ib_mr_put_st_handle_ref(mr);
++
+ 	return ret;
+ }
+=20
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
+et/ethernet/mellanox/mlx5/core/lib/st.c
+index 7cedc348790d..877b37b4e639 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
+ 	kfree(st);
+ }
+=20
+-int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
+-			unsigned int cpu_uid, u16 *st_index)
++int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
++			       u16 *st_index)
+ {
+ 	struct mlx5_st_idx_data *idx_data;
+ 	struct mlx5_st *st =3D dev->st;
+ 	unsigned long index;
+ 	u32 xa_id;
+-	u16 tag;
+-	int ret;
++	int ret =3D 0;
+=20
+ 	if (!st)
+ 		return -EOPNOTSUPP;
+=20
+-	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
+-	if (ret)
+-		return ret;
+-
+ 	if (st->direct_mode) {
+ 		*st_index =3D tag;
+ 		return 0;
+@@ -152,8 +147,46 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
+num tph_mem_type mem_type,
+ 	mutex_unlock(&st->lock);
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
++
++int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
++			unsigned int cpu_uid, u16 *st_index)
++{
++	u16 tag;
++	int ret;
++
++	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
++	if (ret)
++		return ret;
++
++	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
++}
+ EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
+=20
++int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index)
++{
++	struct mlx5_st_idx_data *idx_data;
++	struct mlx5_st *st =3D dev->st;
++	int ret =3D 0;
++
++	if (!st)
++		return -EOPNOTSUPP;
++
++	if (st->direct_mode)
++		return 0;
++
++	mutex_lock(&st->lock);
++	idx_data =3D xa_load(&st->idx_xa, st_index);
++	if (WARN_ON_ONCE(!idx_data))
++		ret =3D -EINVAL;
++	else
++		refcount_inc(&idx_data->usecount);
++	mutex_unlock(&st->lock);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(mlx5_st_get_index);
++
+ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
+ {
+ 	struct mlx5_st_idx_data *idx_data;
+diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
+index b1871c0821d0..d26e5744c843 100644
+--- a/include/linux/mlx5/driver.h
++++ b/include/linux/mlx5/driver.h
+@@ -1182,16 +1182,31 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
+dev, enum mlx5_sw_icm_type type
+ 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
+=20
+ #ifdef CONFIG_PCIE_TPH
++int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
++			       u16 *st_index);
++int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index);
+ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
+ 			unsigned int cpu_uid, u16 *st_index);
+ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
+ #else
++static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
++					     u16 tag, u16 *st_index)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_in=
+dex)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
+ 				      enum tph_mem_type mem_type,
+ 				      unsigned int cpu_uid, u16 *st_index)
+ {
+ 	return -EOPNOTSUPP;
+ }
++
+ static inline int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 s=
+t_index)
+ {
+ 	return -EOPNOTSUPP;
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630223946.2107=
-382-1-jia.yao@intel.com?part=3D1
+2.53.0-Meta
+
