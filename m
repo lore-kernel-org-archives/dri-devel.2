@@ -4,154 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 492CAC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:36:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E0C6C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:57:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A646110ECC8;
-	Tue, 30 Jun 2026 16:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4859E10E221;
+	Tue, 30 Jun 2026 16:57:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Csm/0TAQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SuTooq+C";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Csm/0TAQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SuTooq+C";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="VQ4fQe9P";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26F3710ECD8
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:36:26 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9459571654;
- Tue, 30 Jun 2026 16:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782837384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zwtvYcpEu3U9PLHqG7OTydVnRKJe82b04p0UFeAYHjA=;
- b=Csm/0TAQDKcAqPahjvJm4t6wIygBvouh4o3HLWaKsgyk698bUArVP/FODSuGjNHcARgLTj
- CJc2gPmeHEfliGZdWDOcmZZZ0vZ9z95eXBkXNuiEMJpmpW8Tp01B9gZwKHKhDLyJoN2tn+
- chGgPP4YUFkHsmNHRAZUF9xPb+SnjMo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782837384;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zwtvYcpEu3U9PLHqG7OTydVnRKJe82b04p0UFeAYHjA=;
- b=SuTooq+CQho1YfxuTrEUMCh69pnVtR5UtZwMeH7IAZfA6dmdObdMjx1/u2fLm2dXcH2Fos
- 1ruN1lCKBfY39zDg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="Csm/0TAQ";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=SuTooq+C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782837384; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zwtvYcpEu3U9PLHqG7OTydVnRKJe82b04p0UFeAYHjA=;
- b=Csm/0TAQDKcAqPahjvJm4t6wIygBvouh4o3HLWaKsgyk698bUArVP/FODSuGjNHcARgLTj
- CJc2gPmeHEfliGZdWDOcmZZZ0vZ9z95eXBkXNuiEMJpmpW8Tp01B9gZwKHKhDLyJoN2tn+
- chGgPP4YUFkHsmNHRAZUF9xPb+SnjMo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782837384;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zwtvYcpEu3U9PLHqG7OTydVnRKJe82b04p0UFeAYHjA=;
- b=SuTooq+CQho1YfxuTrEUMCh69pnVtR5UtZwMeH7IAZfA6dmdObdMjx1/u2fLm2dXcH2Fos
- 1ruN1lCKBfY39zDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E748F779A8;
- Tue, 30 Jun 2026 16:36:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id GZUpNYPwQ2qifgAAD6G6ig
- (envelope-from <pfalcato@suse.de>); Tue, 30 Jun 2026 16:36:19 +0000
-Date: Tue, 30 Jun 2026 17:36:18 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 12/30] mm/vma: clean up anon_vma_compatible()
-Message-ID: <akPwbHbGiF1FxL6m@pedro-suse.lan>
-References: <cover.1782735110.git.ljs@kernel.org>
- <5a7a07bd2a774989849b0fea84f758059ed914df.1782735110.git.ljs@kernel.org>
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF61E10E221
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:57:28 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4939a809b24so31613495e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:57:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1782838646; x=1783443446;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=uEo+9Zz+UY153YLkrXrSlWNjLycg0uT83eoca1ucsBE=;
+ b=VQ4fQe9PHT1N2f1sDWef8jwh3mYCIpBxAxADGBU7UR+P87OTWSBfRyXJ1t8f+Iy+Dp
+ nQG0ZrmyInXVB865TOcIkEv0X+lXMZVLdlT3EyyW/D0veR0HO9X6IjW8QZ5aSRZ7nlwL
+ ZEekEptBtsJKOdEBLUjfToHSWScnYsrVNaXHoxM//YmS6TJ9Rv2/QJuOhfjrTG0OrHrX
+ GlAfmbtqPz9ofFRu88u6en0cd4bU0oNNU4rc7u16Bdn9sAE+/z2uPm5A21BA99uyq6VB
+ roaQEgRcAsdUltcNA8E5tMvapSc2X14SyUlvdJvw2jDXHICUPkeUVPW+cykqJUtI2HeL
+ /kZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782838646; x=1783443446;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uEo+9Zz+UY153YLkrXrSlWNjLycg0uT83eoca1ucsBE=;
+ b=KFIKi7ihZ6OqAt7Q5jew3MkhRULgBVs3InVEslyxWcYcm1WnulAuoHEJRPlIjYBZ6E
+ ++gsQm8QeF+lkECTkvq7NK54wN8rBu51LG4QRUoKckQj6fWeOjJZVYOwoppzMNraYHR3
+ Tea8TJkfE0VADADbFmxCpa3H5dDQ2sKC70aD94r8Q622q4DRVpJK0a4hhxigBGVEi5n2
+ G7NIVVxRt0r94D2dd7aB1DPut+kNt2ptZpkSDDhLbjUfZUGITGF5cy+n3POYAokmxzR4
+ q1zZarTdPP21ffYHuC4Miprtms2+YMcTkOVeKrt4gi0F8tS4NBW6BvsyJG5GOomM9tB2
+ nP+w==
+X-Gm-Message-State: AOJu0Yy5BqN1wvn4PnuEN/ikYm27u6U7rYZ4xiF6iREUh8I/lqlTUoP+
+ dAaz2qCeWlX9N/u6rFVwfFF2GtfyyTCjPkUc4LoZNxQc2KKjDbtRRsWUEAF7x1j7d30=
+X-Gm-Gg: AfdE7cmNgprvS3FX4g/i5kA8/o43eTgC2wtYcteiW7YVqDQ1kPeCJQfbn8kpQjN8jXn
+ 8uYVla+gfIIpJg0A75WSOJxa9q2vrDGuKMi0ZR8k4gZnhFWdyG2znytXnuEvVQwQ/R5vvMmFtwo
+ uWUCz0iukofvQaWvrCpe0KK9q699+iGzzSj2j/F4W1QzQacDJu6CGtEoAQXc4TSl6nX8JZ6+Kj2
+ ie+eguUaXii6eTGeAObPrWqkatM9FxIAo6E6RYk8fsVb6+slhQVBk353dYrVxaDLEqfBbTutGIz
+ QNpklNTrvWd4YMoO75ubDyBgO/3D6d/Ud/DGmPBGTILa5zb9cl5Cyps2b6PTFuWoej716N4Qxkq
+ TCY5xlupKqIyk7qDTtVZQ3eXCIJOMmby3jm5FXOiSHVMRCgdMTl3YooGfhqitxXIdNnI7z4wYJL
+ pvKc9R+SZa2OL7Zl8wJrnZ19npMENy2PXbTMf3dMZ9Ee5IW7HAiShqpNmqVJ5gjJ8Dbn4pTtX6I
+ Tdu
+X-Received: by 2002:a05:600c:8b72:b0:490:bd1d:4732 with SMTP id
+ 5b1f17b1804b1-493bda9e99cmr21000895e9.23.1782838646492; 
+ Tue, 30 Jun 2026 09:57:26 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db042a9b551def0a6b94.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:2a9b:551d:ef0a:6b94])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-493be4d2945sm8754325e9.4.2026.06.30.09.57.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2026 09:57:25 -0700 (PDT)
+Date: Tue, 30 Jun 2026 18:57:24 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: mohit.dsor@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ boss@oss.qualcomm.com, qc-display-maintainer@oss.qualcomm.com
+Subject: Re: [PATCH] drm: bridge: add support for lontium LT9611UXD bridge
+Message-ID: <akP09iE5qbwSbUDQ@monoceros>
+References: <20260627204125.3334834-1-mohit.dsor@oss.qualcomm.com>
+ <20260627204125.3334834-2-mohit.dsor@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5vsqiqdgcn4awnen"
 Content-Disposition: inline
-In-Reply-To: <5a7a07bd2a774989849b0fea84f758059ed914df.1782735110.git.ljs@kernel.org>
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 9459571654
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- DKIM_TRACE(0.00)[suse.de:+];
- R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
- MISSING_XM_UA(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_GT_50(0.00)[75]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.de:email, suse.de:dkim, pedro-suse.lan:mid]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+In-Reply-To: <20260627204125.3334834-2-mohit.dsor@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,53 +92,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:23PM +0100, Lorenzo Stoakes wrote:
-> Break up the existing very large conditional, add comments and use
-> vma_[start/end]_pgoff() to make clearer what we're doing here.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  mm/vma.c | 21 ++++++++++++++++-----
->  1 file changed, 16 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/vma.c b/mm/vma.c
-> index b60375c6c5c3..6296acecf3b7 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -1967,14 +1967,25 @@ static int anon_vma_compatible(struct vm_area_struct *a, struct vm_area_struct *
->  {
->  	vma_flags_t diff = vma_flags_diff_pair(&a->flags, &b->flags);
->  
-> +	/* Ignore flags that mprotect() can change. */
->  	vma_flags_clear_mask(&diff, VMA_ACCESS_FLAGS);
-> +	/* Ignore flags that do not impact merging. */
->  	vma_flags_clear_mask(&diff, VMA_IGNORE_MERGE_FLAGS);
->  
-> -	return a->vm_end == b->vm_start &&
-> -		mpol_equal(vma_policy(a), vma_policy(b)) &&
-> -		a->vm_file == b->vm_file &&
-> -		vma_flags_empty(&diff) &&
-> -		b->vm_pgoff == a->vm_pgoff + ((b->vm_start - a->vm_start) >> PAGE_SHIFT);
-> +	/* Must be adjacent. */
-> +	if (a->vm_end != b->vm_start)
-> +		return false;
-> +	/* Must have matching policy. */
-> +	if (!mpol_equal(vma_policy(a), vma_policy(b)))
-> +		return false;
-> +	/* Must both be anon or map the same file (MAP_PRIVATE case). */
-> +	if (a->vm_file != b->vm_file)
-> +		return false;
-> +	/* Flags must be equivalent modulo mprotect(). */
-> +	if (!vma_flags_empty(&diff))
-> +		return false;
-> +	/* Page offset must align. */
-> +	return vma_end_pgoff(a) == vma_start_pgoff(b);
 
-Very nice.
+--5vsqiqdgcn4awnen
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH] drm: bridge: add support for lontium LT9611UXD bridge
+MIME-Version: 1.0
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Hello,
 
--- 
-Pedro
+On Sun, Jun 28, 2026 at 02:11:16AM +0530, mohit.dsor@oss.qualcomm.com wrote:
+> +static const struct i2c_device_id lt9611uxd_id[] = {
+> +	{ "lontium,lt9611uxd" },
+> +	{ /* sentinel */ }
+> +};
+
+Please use a named initializer here, i.e.
+
+	static const struct i2c_device_id lt9611uxd_id[] = {
+		{ .name = "lontium,lt9611uxd" },
+		{ /* sentinel */ }
+	};
+
+See
+https://lore.kernel.org/lkml/20260515103150.164887-2-u.kleine-koenig@baylibre.com/
+for a rationale.
+
+Best regards
+Uwe
+
+--5vsqiqdgcn4awnen
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpD9W4ACgkQj4D7WH0S
+/k5lVwf/YgUXANMDowgGfUpS5Ztlvcj8jy7P6tDSJ+Ap3AIMSeF/f5KfRXVwKlgq
+6YBq+34UTSGNU47BpLezdfQls1Y9dr9ovFhIgAr2P5+BdSzpLJuxXVdon2ivpueg
+SmeQu9Rfg9zBJUAgzaPxDhlw8YWWrpPGU667rZuNmf1pmPZso7GOD39aS8hTB+G7
+MPiPDheORy25dcDjoMwf/Z7uMZq0H62Sb0KKM8vUlvpEd0SfinOQahgwSM7oZPeR
+a3mk90Yi9MeaX1NrJRnRWDHP72/MplhKkbo5xedW70N0sTMFPIKlptDx4dMo2G5i
+WOWIRw2t/tstAhMaS9d97lVKtWg+Hg==
+=hRGa
+-----END PGP SIGNATURE-----
+
+--5vsqiqdgcn4awnen--
