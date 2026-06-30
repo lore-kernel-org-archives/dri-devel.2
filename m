@@ -4,72 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FD8C43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE95C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:12:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB7F10ECDD;
-	Tue, 30 Jun 2026 16:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B3D410ECB1;
+	Tue, 30 Jun 2026 16:12:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oJEZDtyz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="P+CEYhK7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oJEZDtyz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="P+CEYhK7";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="IScDJw93";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ORLdVwHL";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pE501suj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5khlqeX8";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55DFC10ECB1
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:11:54 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A53A10ECB1
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:12:34 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9B10575E44;
- Tue, 30 Jun 2026 16:11:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DDFF471B6F;
+ Tue, 30 Jun 2026 16:12:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782835912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1782835953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SY5THPpUuMSWi33cp4QWQJ7vrkyhd4o1Sg5j5DYwZDk=;
- b=oJEZDtyzkYQkrGhwnxtGHnhOo7bYxdA63QTPwsyrnm2UE7Nio/E1aTyLgCLXErhnWpp8Rx
- 49g0c9VzvexG5exp+lAUzk7TUXJQ/jz1fRShUVKtzbsgifT5/ALPxZa6cVO60DX/IPm4aC
- byBKPweYI61NYpfgX78jqKkE1emVXx8=
+ bh=VmoXTjYHNW6fEkwTOVqrfzFYBz/Pk+L1OlG8eUPMS+E=;
+ b=IScDJw93PvTgItBHE/tZLJ0dHILMkLtL4CoHQRpJlOmOTEmI4MraRl+UYKUgkaoFz+Q1rZ
+ xKGHBe5XCAVKnB+cmZcniY8WGchkcDjM2gf25M6llAdnCfwMRIbcQHqB8H2iOcAFQTXTC7
+ 8Z/Dotoo/7tF1IX8iP2hoRz8k3x18Zg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782835912;
+ s=susede2_ed25519; t=1782835953;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SY5THPpUuMSWi33cp4QWQJ7vrkyhd4o1Sg5j5DYwZDk=;
- b=P+CEYhK7lXDMGc7eHblLRCTsoajxG0CXQcjaWlDFgN4q8j7Gn4WmnVTevaOpJBs5PHImQL
- 0qLG6lFj4DIFjtDA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oJEZDtyz;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=P+CEYhK7
+ bh=VmoXTjYHNW6fEkwTOVqrfzFYBz/Pk+L1OlG8eUPMS+E=;
+ b=ORLdVwHLlcAxk3pomO43lH3edNfnTnGE4BX7hXDRqlcFkjhYztEL28ZzCsEr3/uO4LXIkx
+ 3MsoovGRHUbXSfCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782835912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1782835951; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SY5THPpUuMSWi33cp4QWQJ7vrkyhd4o1Sg5j5DYwZDk=;
- b=oJEZDtyzkYQkrGhwnxtGHnhOo7bYxdA63QTPwsyrnm2UE7Nio/E1aTyLgCLXErhnWpp8Rx
- 49g0c9VzvexG5exp+lAUzk7TUXJQ/jz1fRShUVKtzbsgifT5/ALPxZa6cVO60DX/IPm4aC
- byBKPweYI61NYpfgX78jqKkE1emVXx8=
+ bh=VmoXTjYHNW6fEkwTOVqrfzFYBz/Pk+L1OlG8eUPMS+E=;
+ b=pE501sujFQ4sE7TyM1f0sanxmlsNc0WhBH50LIYnI5f3zrxRnsI9UMAvqymIlLWfWK+T9Q
+ R7k+Eo5U3K5fSceD71CK2awK2Me0N/dFMRGFq0dLVTDR6Nfawl5ZOcGpPqm3sIXfzsqUH+
+ ewBeQjjH595mCAm+bw9KrGzfF4oA9O4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782835912;
+ s=susede2_ed25519; t=1782835951;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SY5THPpUuMSWi33cp4QWQJ7vrkyhd4o1Sg5j5DYwZDk=;
- b=P+CEYhK7lXDMGc7eHblLRCTsoajxG0CXQcjaWlDFgN4q8j7Gn4WmnVTevaOpJBs5PHImQL
- 0qLG6lFj4DIFjtDA==
+ bh=VmoXTjYHNW6fEkwTOVqrfzFYBz/Pk+L1OlG8eUPMS+E=;
+ b=5khlqeX840GFNxsFksacPRH+yDfGG0TSn9iobZxVq0iZQzRfoTsD3cgLMeQXz/4StOoVdz
+ OcPg64NLZZ1WrSAw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2E9B7779A8;
- Tue, 30 Jun 2026 16:11:48 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5FC41779A8;
+ Tue, 30 Jun 2026 16:12:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id a3EWCMTqQ2qpZgAAD6G6ig
- (envelope-from <pfalcato@suse.de>); Tue, 30 Jun 2026 16:11:48 +0000
-Date: Tue, 30 Jun 2026 17:11:46 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oKQYFOvqQ2rcZgAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Tue, 30 Jun 2026 16:12:27 +0000
+Date: Tue, 30 Jun 2026 17:12:25 +0100
 From: Pedro Falcato <pfalcato@suse.de>
 To: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -119,39 +117,30 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  damon@lists.linux.dev, 
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 02/30] mm: add kdoc comments for vma_start/last_pgoff()
-Message-ID: <akPqry2BSCU858M7@pedro-suse.lan>
+Subject: Re: [PATCH 03/30] tools/testing/vma: use vma_start_pgoff() in merge
+ tests
+Message-ID: <akPq1JCkD5JBkFT5@pedro-suse.lan>
 References: <cover.1782735110.git.ljs@kernel.org>
- <8c618dfd7de419e3b797b8bd1cd921d4c5b8878b.1782735110.git.ljs@kernel.org>
+ <b501eca378b9d9734e83838102aadc9276590fba.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8c618dfd7de419e3b797b8bd1cd921d4c5b8878b.1782735110.git.ljs@kernel.org>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+In-Reply-To: <b501eca378b9d9734e83838102aadc9276590fba.1782735110.git.ljs@kernel.org>
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
  SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
+ TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
  FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- DKIM_TRACE(0.00)[suse.de:+];
- R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
- MISSING_XM_UA(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_GT_50(0.00)[75]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, pedro-suse.lan:mid]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 9B10575E44
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
+ R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_GT_50(0.00)[75];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
+ pedro-suse.lan:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,12 +156,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:13PM +0100, Lorenzo Stoakes wrote:
-> Describe what vma_start_pgoff() and vma_last_pgoff() actually provide in
-> detail.
-> 
-> This is in order that we can differentiate this between functions that will
-> be added in a subsequent patch which provide a different page offset.
+On Mon, Jun 29, 2026 at 01:23:14PM +0100, Lorenzo Stoakes wrote:
+> Now we have the vma_start_pgoff() helper, update the merge tests to make
+> use of it for consistency.
 > 
 > No functional change intended.
 > 
