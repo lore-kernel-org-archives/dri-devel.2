@@ -4,42 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3DFFC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D850EC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:17:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C51410ECC5;
-	Tue, 30 Jun 2026 16:15:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88F4C10ECC6;
+	Tue, 30 Jun 2026 16:17:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CaRmRkNM";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sJ3ZcnD0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ez7nu8R1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sJ3ZcnD0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ez7nu8R1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA95110ECBF
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:15:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2373C600BB;
- Tue, 30 Jun 2026 16:15:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3B181F000E9;
- Tue, 30 Jun 2026 16:15:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782836106;
- bh=CHjwnecqoO3vJpRCs/gnrFnXhM7TYwx/uD7z9BtnrbI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CaRmRkNMillvb7kvX5utvqR77bUzG3UbVuJl/7oumajicLDBVOp+PoLNfWJtsMY0u
- XK01YEs9J77RtS2J82rZRuUABQMAe1FJtUGPTl9cAWc7NJHGvYYJtxvbvna3bN2mog
- oRQda29K+IC1sVrrMhxrRMpELni3m84dIpyiG0ihF5XCp0yrH/g9V8LfM/OZzuZneo
- HUXe6YqzOygfn27Ew8cPzBKZ25/z+p7Dp6nErWbvNgKnTb5Y8mXVLDmB+DMbToFnkd
- cUBUmoXGtb/dtWvC+mrp2JAGB/f+DkBb05PakhxFPAdAE55CXH95BJa4mqzVnKwfGl
- WMK833kULImgw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dma_buf: change unsigned int and int types into size_t
-To: "Shahyan Soltani" <shahyan.soltani@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260630160401.67544-1-shahyan.soltani@amd.com>
-References: <20260630160401.67544-1-shahyan.soltani@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 Jun 2026 16:15:06 +0000
-Message-Id: <20260630161506.A3B181F000E9@smtp.kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D402010ECC6
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:16:58 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 75AC3759EE;
+ Tue, 30 Jun 2026 16:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782836217; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tJoAvYhq93KYCzjaxFWoitVi4doOxRa03N6I4a85wxg=;
+ b=sJ3ZcnD04vfuWg15fYumkN4Z5BLAEG5OnvVU6Bka7MAyaat5LqwR9IVSPmnXInsXtwqN51
+ b89OFcITXKZzIiyvIGZWoIgArrvUYfzlcEon6pgA6x1Dw72IWcn2X4CKeyscQC3mVuG/VG
+ uH288u/SS5kzDZxzCA+LJ7BF9msmT1k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782836217;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tJoAvYhq93KYCzjaxFWoitVi4doOxRa03N6I4a85wxg=;
+ b=Ez7nu8R11lxDQwLyZgdyYikD5oOap9w7bVhI6cDXjd5zwHEzIYIEVh0Txv2+5yqC2aktsj
+ tJS7DQ6Lv6+a+tAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=sJ3ZcnD0;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Ez7nu8R1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782836217; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tJoAvYhq93KYCzjaxFWoitVi4doOxRa03N6I4a85wxg=;
+ b=sJ3ZcnD04vfuWg15fYumkN4Z5BLAEG5OnvVU6Bka7MAyaat5LqwR9IVSPmnXInsXtwqN51
+ b89OFcITXKZzIiyvIGZWoIgArrvUYfzlcEon6pgA6x1Dw72IWcn2X4CKeyscQC3mVuG/VG
+ uH288u/SS5kzDZxzCA+LJ7BF9msmT1k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782836217;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tJoAvYhq93KYCzjaxFWoitVi4doOxRa03N6I4a85wxg=;
+ b=Ez7nu8R11lxDQwLyZgdyYikD5oOap9w7bVhI6cDXjd5zwHEzIYIEVh0Txv2+5yqC2aktsj
+ tJS7DQ6Lv6+a+tAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F01F6779A8;
+ Tue, 30 Jun 2026 16:16:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KG5RN/TrQ2rNawAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Tue, 30 Jun 2026 16:16:52 +0000
+Date: Tue, 30 Jun 2026 17:16:51 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 05/30] mm/rmap: update mm/interval_tree.c comments
+Message-ID: <akPrTU96BwQJoygw@pedro-suse.lan>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <80d482a927b2e9862487b812e0ab48ebc1289a70.1782735110.git.ljs@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <80d482a927b2e9862487b812e0ab48ebc1289a70.1782735110.git.ljs@kernel.org>
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 75AC3759EE
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ DKIM_TRACE(0.00)[suse.de:+];
+ R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
+ MISSING_XM_UA(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_GT_50(0.00)[75]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:email, suse.de:dkim, pedro-suse.lan:mid]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,92 +164,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Mon, Jun 29, 2026 at 01:23:16PM +0100, Lorenzo Stoakes wrote:
+> Update the file comment to clarify that both file-backed and anonymous
+> interval trees are provided, referencing the relevant data types for
+> clarity.
+> 
+> Also add comments to indicate which parts of the file apply to each.
+> 
+> While we're here, convert the VM_BUG_ON_VMA() to VM_WARN_ON_ONCE_VMA().
+> 
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Pre-existing issues:
-- [Critical] dma_fence_dedup_array() incorrectly returns 1 when called with=
- an empty array (num_fences =3D=3D 0), causing callers to read uninitialize=
-d memory.
---
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-commit 49edb87cad117674d9feb38e78cfaf85af7320cb
-Author: Shahyan Soltani <shahyan.soltani@amd.com>
+This is fine for now, but I'm wondering if it doesn't make sense to, in the
+long term, have:
 
-dma_buf: change unsigned int and int types into size_t
+mm/rmap.c - common rmap mechanisms
+mm/anon_rmap.c - anon rmap gunk
+mm/file_rmap.c - file rmap gunk
 
-This commit changes the integer types of variables in dma_fence_dedup_array=
-()
-and __dma_fence_unwrap_merge() to size_t to resolve inconsistencies. It also
-updates the return type of dma_fence_dedup_array() accordingly.
+or even something like mm/rmap/{core,anon,file,ksm??}.c
 
-> diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fen=
-ce-unwrap.c
-> index 53bb40e70b277..65e87d263c3ac 100644
-> --- a/drivers/dma-buf/dma-fence-unwrap.c
-> +++ b/drivers/dma-buf/dma-fence-unwrap.c
-> @@ -93,9 +93,9 @@ static int fence_cmp(const void *_a, const void *_b)
->   *
->   * Return: Number of unique fences remaining in the array.
->   */
-> -int dma_fence_dedup_array(struct dma_fence **fences, int num_fences)
-> +size_t dma_fence_dedup_array(struct dma_fence **fences, size_t num_fence=
-s)
->  {
-> -	int i, j;
-> +	size_t i, j;
+While working on my file rmap patches I noticed there's so much stuff just
+splurged all over rmap.c - interval_tree.c - fs.h - fs/inode.c.
+It's a little silly.
 
-[Severity: Critical]
-This is a pre-existing issue, but does dma_fence_dedup_array() return the
-wrong value when called with an empty array?
-
-If num_fences is 0, the loop condition (i < num_fences) is false and skippe=
-d.
-The function then unconditionally returns ++j, which evaluates to 1 instead
-of 0:
-
-drivers/dma-buf/dma-fence-unwrap.c:dma_fence_dedup_array() {
-	...
-	j =3D 0;
-	for (i =3D 1; i < num_fences; i++) {
-		if (fences[i]->context =3D=3D fences[j]->context)
-			dma_fence_put(fences[i]);
-		else
-			fences[++j] =3D fences[i];
-	}
-
-	return ++j;
-}
-
-Could this lead to an uninitialized memory dereference in callers?
-
-For example, in amdgpu_userq_wait_return_fence_info(), if=20
-wait_info->num_fences is 1 but zero handles are provided, it can pass a
-1-element uninitialized fences array with num_fences =3D 0.
-
-The caller relies on the return value of dma_fence_dedup_array() to know how
-many fences to process:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:amdgpu_userq_wait_return_fe=
-nce_info() {
-	...
-	num_fences =3D dma_fence_dedup_array(fences, num_fences);
-	...
-	for (i =3D 0, cnt =3D 0; i < num_fences; i++) {
-		userq_fence =3D to_amdgpu_userq_fence(fences[i]);
-		...
-}
-
-If dma_fence_dedup_array() returns 1 when passed 0, the caller will iterate
-and dereference the uninitialized kmalloc memory at fences[0], which could
-trigger a kernel panic.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630160401.6754=
-4-1-shahyan.soltani@amd.com?part=3D1
+-- 
+Pedro
