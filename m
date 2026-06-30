@@ -4,59 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C8B2C43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C81D0C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 16:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5596410ECD4;
-	Tue, 30 Jun 2026 16:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3367410ECDA;
+	Tue, 30 Jun 2026 16:59:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="e4brlJz0";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Ohvj0n3K";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C040510E23B;
- Tue, 30 Jun 2026 16:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Qrq29s1UmcG3ZbaxpiVVbSt+a5Mn05Ll4PFR7ojZOso=; b=e4brlJz0fiay1/iAA2Rhi9OPP6
- bG1+8VfWCnz87sz/T3sHuxkBBAvZTYVhPfUSomlqxkdTb1ClIs2bYzESk3aCB0MzEn3ATF+MT6J1S
- kWOG8t6zQAH0fcG/cEVfNm+FApVGSBv9R8Dhq/RX8hfxZTrMxiwBkmnVlW9TzRkisJ8g/A5x8lWkx
- /wPzHsZUJ0Cg/MYxa/2XhUCtds4mL5VJ5oDscP5DWiHTnlLL1AcW55JtlbSmWOVPvD3E+9mYWI+O5
- 0zCN6nt6qgioPyGVxuaQH7lfxwrsQz4BrOORt6KFrKnOSjbjH2eIFPsDbVpkH/TK1YRk0r0MIObGN
- U0Ca56SQ==;
-Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
- helo=[192.168.1.128]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1webm3-007Bke-Tz; Tue, 30 Jun 2026 18:57:27 +0200
-Message-ID: <0570d22d-bf3c-4c17-b50e-58f522f25ffb@igalia.com>
-Date: Tue, 30 Jun 2026 18:57:20 +0200
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
+ [209.85.222.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B041510ECDA
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 16:58:59 +0000 (UTC)
+Received: by mail-qk1-f178.google.com with SMTP id
+ af79cd13be357-92e50c5d14cso158736585a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:58:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1782838738; x=1783443538;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4Hla1N3iLWuVGDovRb/Td4EjEutJfNb9E/3Bx7pTshg=;
+ b=Ohvj0n3KVEb8YTXJ0pZpGFXmrVDIcBPisLT5h65eVx0Gtkw2TwMAc99Y5V1lWma8pc
+ rpm6iWivdDSMyK8Nildbo6dWQVVMS+kN+gU8L8FnkHgtdKWlTvGBQS16hJJgx1/Jwf7y
+ hdwHuAsQuZb3ngw0hCE4toKq7ZNT6SYWV4HCc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782838738; x=1783443538;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=4Hla1N3iLWuVGDovRb/Td4EjEutJfNb9E/3Bx7pTshg=;
+ b=d8vM0pRejTG4fM/YABeGcP/bT3GjbEz74lm48xAcrTqHBrnPE91O06hpgfpkq3oTMb
+ rYOxDLLyJT+ivDRbNked1j2KeGB4MxcUBO0U19tjv/CsJoxFTxiUcz7B05DoWiMoWGlA
+ WQQHa8qtPo6gNUFPzEQuG9hPlVgN9PIUuQC3C2zekYJR3lLPwmTVjwytiQkfc8iXx0TZ
+ j5hr2sOVJcrZhtKCwZ798Fe1ov1j1UrcYnfR64YGHBFzWTRWS5ikULN9E8849DwiC3l1
+ pI6CjFNeuKrqs+nZT9ijU9E3rwyZX6+VVKtzvCoxGcbWBLHNrmwc7zhlW27WHX2U7g9z
+ I/cA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9omszQ6MiN9//t2dWNdQdcRlUnJnx1D1IhdZJ1mbQz/G3wpsbr9ZLe49fu/HLuFnUcPI+V9sHeF8M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwqmI1+La/m/bwApcSULHq0srUGlbF8RYYgHe3dboj9Nv6W2HEc
+ FNTi/dEHVxHcSBNsb7IkxDU205vj0jhvLWN82jJH8a1wJoOHoQaQBQEL3ws2lSlmmDrvAr/gypD
+ 4NiA=
+X-Gm-Gg: AfdE7ckKrsOk7nFXmUZEB5wpz95fu1gKV+gvFEePoi1/PMteutTml9WXm8ZZGydYlXu
+ 4pwI2RoEGk6ZlHu5nggh+EEScfuJadifvqzh8E9E4ppBe1Ht0J/DNmfS/eIj7IXWtAC851cJgZa
+ sbRSr5iNxPOWD60KTVi/zP2qZeLRzoiESHFPoMQ+egJSKoebd94PBlf1iJlslBOtolrEfQTENOP
+ YPoDtVxzYYiaBtou3Tpzpe9UAKQ7vBxLVPkHtqvocmNSFdi1Q5mX9u+V2o9slBrnnzLvkfvPZOQ
+ xo3xQ6UzcC3ep0kda1bcs2DATe3wgtaH8pbW9VUk0PPSn0D5kpP04YItlXmngI53O+i2DAozr+u
+ 9peJl4Jm7R9sgqQaNR5jIbllOtk0aZ09/OPlyHi0yRWRAxTRl5mLl8RYN1PDeDYtomR5Xp8W+wO
+ QEf3ke3o19Ul/UxiVEUIUc81BMecZ8JaeDv3JZDO6xjPrQnaruJv0=
+X-Received: by 2002:a05:620a:2904:b0:92b:6805:91a4 with SMTP id
+ af79cd13be357-92e62a94b8bmr705467785a.60.1782838738488; 
+ Tue, 30 Jun 2026 09:58:58 -0700 (PDT)
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com.
+ [209.85.219.42]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-92e622e87a7sm294565685a.28.2026.06.30.09.58.56
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jun 2026 09:58:58 -0700 (PDT)
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-8f0e5e36912so16867466d6.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 09:58:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrNyjDfnsYDz3WOmc5zY8JsNLtMKXf1TD9iDI4Y+zazbM1OCU00fI75rrs5hILjAL6zby6faO/+xEU=@lists.freedesktop.org
+X-Received: by 2002:a05:6214:8097:b0:8ef:91c5:8edf with SMTP id
+ 6a1803df08f44-8f1ba59f354mr55990886d6.21.1782838735273; Tue, 30 Jun 2026
+ 09:58:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
- behind driver feature
-To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260630084229.529682-1-robert.mader@collabora.com>
- <20260630084229.529682-2-robert.mader@collabora.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260630084229.529682-2-robert.mader@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260625071916.744686-1-damon.ding@rock-chips.com>
+In-Reply-To: <20260625071916.744686-1-damon.ding@rock-chips.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 30 Jun 2026 09:58:44 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VFmSe8DcUYkxuvcs=OAHX34wSmWVSNcC36GSfeaPnzbA@mail.gmail.com>
+X-Gm-Features: AVVi8CfI6AR_CrqOUzHEt_NUG1m_PuLe797jXm8_GYkF3H7SjTcNh9lhrISWZQA
+Message-ID: <CAD=FV=VFmSe8DcUYkxuvcs=OAHX34wSmWVSNcC36GSfeaPnzbA@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/panel-edp: Add BOE NE160QDM-NY1 panel
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Andy Yan <andy.yan@rock-chips.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,64 +104,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
-
-On 30/06/2026 10:42, Robert Mader wrote:
-> The client cap is currently advertised unconditionally, even for drivers that do
-> not support plane color pipelines. If clients supporting the later, like Wayland
-> compositors and drm_info, enable the client cap on sich drivers they will be
-> left without both color pipeline and the legacy properties COLOR_ENCODING and
-> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
+On Thu, Jun 25, 2026 at 12:20=E2=80=AFAM Damon Ding <damon.ding@rock-chips.=
+com> wrote:
 >
-> Add a new driver feature and guard the client cap behind it, allowing
-> plane color pipeline and legacy YUV->RGB support to co-exist.
-
-Ouch, that's indeed a problem. Nice catch!
-
-I'm not sure if this is the right way to go because plane color pipeline 
-can be supported per plane and per hw family.
-My suggestion would be to only deprecate COLOR_ENCODING and COLOR_RANGE 
-in drm_mode_object_get_properties() if a plane COLOR_PIPELINE property 
-is attached.
-WDYT?
-
-Melissa
-
+> Add an entry for the BOE NE160QDM-NY1 eDP panel. The panel's AUX
+> backlight functionality is verified and working on the RK3576 EVB1
+> board.
 >
-> Signed-off-by: Robert Mader <robert.mader@collabora.com>
+> edid-decode (hex):
+>
+> 00 ff ff ff ff ff ff 00 09 e5 85 09 00 00 00 00
+> 1c 1e 01 04 b5 22 15 78 03 7c e5 a4 55 4c 9f 26
+> 0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 6b 6e 00 a0 a0 40 84 60 30 20
+> 36 00 58 d7 10 00 00 1a 00 00 00 fd 0c 3c a5 1f
+> 1f 4e 01 0a 20 20 20 20 20 20 00 00 00 fe 00 42
+> 4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fe
+> 00 4e 45 31 36 30 51 44 4d 2d 4e 59 31 0a 01 ed
+>
+> 02 03 1d 00 e3 05 80 00 e6 06 05 01 6a 6a 24 6d
+> 1a 00 00 02 03 3c a5 00 04 6a 24 6a 24 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ff
+>
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 > ---
->   drivers/gpu/drm/drm_ioctl.c | 2 ++
->   include/drm/drm_drv.h       | 6 ++++++
->   2 files changed, 8 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index ff193155129e..96fda92e31b9 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -374,6 +374,8 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->   		file_priv->supports_virtualized_cursor_plane = req->value;
->   		break;
->   	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-> +		if (!drm_core_check_feature(dev, DRIVER_PLANE_COLOR_PIPELINE))
-> +			return -EOPNOTSUPP;
->   		if (!file_priv->atomic)
->   			return -EINVAL;
->   		if (req->value > 1)
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index e09559495c5b..108ddd2c8d30 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -116,6 +116,12 @@ enum drm_driver_feature {
->   	 * the cursor planes to work correctly).
->   	 */
->   	DRIVER_CURSOR_HOTSPOT           = BIT(9),
-> +	/**
-> +	 * @DRIVER_PLANE_COLOR_PIPELINE:
-> +	 *
-> +	 * Driver supports PLANE_COLOR_PIPELINE.
-> +	 */
-> +	DRIVER_PLANE_COLOR_PIPELINE	= BIT(10),
->   
->   	/* IMPORTANT: Below are all the legacy flags, add new ones above. */
->   
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+Pushed to drm-misc-next:
+
+[1/1] drm/panel-edp: Add BOE NE160QDM-NY1 panel
+      commit: be4f10d44757211fd656fa57f37034657f26c883
