@@ -4,123 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 298F8C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 11:25:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FBA1C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 11:30:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2524D10E164;
-	Tue, 30 Jun 2026 11:25:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ACC510E1D5;
+	Tue, 30 Jun 2026 11:30:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gG/FCCqT";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FCuqERbN";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xie1n+/S";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5059D10E164
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 11:25:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v8t5hT16N9q57q2hfipsRR66hVpPND5Lltlf29NuQSVY9F2puD8KVRZiTKA4F2XfNwSXjz5+hzw+ohZB0iQjhAuCOGd7SDw0l7dlmJzys0//mvQMhTbqzq4B5zS3MHdsFR1tg1kSD9Vm6ia4mgKR8YsRUTQ0ngF3QHl8E2JOdLB41gt8oKhPo0wmrAfDTWYvowccaSYatZ2rzf6gM8eP5lh++INSSuFVuFim73DNAZ3plirerwY0htbq69AHL5YSukbet4POR0bZxqf0xVqAnuYpOr84vI358ZQRR/UmC4PcmmTbcEQhvh6fjA8tVJc3RGa0B2rkyjl3OsHM+B5HGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6CC8UnV73CgySyWMIo3hoITcj3SpEEgrHmLNde4MkjQ=;
- b=VcSHlYRAmyzLMe9BemG3NCcRjatyK2389wI9EmR7f/l/JpfGgrJnyI0RZ3/yg3DdFGLDUBVDHTfboaXFixy3aAs9P1Po+JX7xy0STR35+z+P3EMm157l/AopZdU1CF1Tf6m6vBOAvurK1aF/LX8miu3K4NvLPUOpMk0AdCmbv9AGJ1SZhUePzEM+TSiks8TUNgmx/UHV5BaJFP3ggLgLeoO5I7eqvLIFZutMqmak4JjsKto9FlhHdgl/lb0QMqcjpSs/XyFrikDgCP731Gvp40cGSCxiZHGdAKL2NDaetpz3u1cwQo+eWXbLS9P9gbL9Ce3AWLURtu/tn5jWW9qnPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6CC8UnV73CgySyWMIo3hoITcj3SpEEgrHmLNde4MkjQ=;
- b=gG/FCCqTveRbKOZRoszd4PY0RtMd2d4jQBFsEdGg0Lr2pvyRm5EpUJLZGhvpCtCP4jQdSIgR7atIkrWyNMbjCRSSxezngyj56va3mhXgS9Rj32FBpL9oaeygaabh60HQ9t2bWnRrabme43zAlMkW8mDCIobZ1X+qTyQCk1s+ZF4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB9446.namprd12.prod.outlook.com (2603:10b6:8:192::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
- 2026 11:25:02 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
- 11:25:01 +0000
-Message-ID: <8702af7f-47b2-4dcd-bed2-9fa64a8fee9b@amd.com>
-Date: Tue, 30 Jun 2026 13:24:57 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: iommu/smmu/PCI ATS + TTM unmaps + nouveau best way forward
-To: Dave Airlie <airlied@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, iommu@lists.linux-foundation.org
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>
-References: <CAPM=9tyu7JAF9GD8GbSbeb++i-UqX59_OcBVY-cFyDyB4tBO8A@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAPM=9tyu7JAF9GD8GbSbeb++i-UqX59_OcBVY-cFyDyB4tBO8A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0390.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54DF010E1E0
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 11:30:21 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65U9mrlh1542070
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 11:30:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Jxuf7nHCMmQB8RVfIW4EjJ6Gc6YS8vbqMU2TjN+Z8FA=; b=FCuqERbNxnT4KjtB
+ MhUUyYQlAUeUCim8gETqZ/WBhgJsxN3zYuWqdktUu8aNWighfDNfckvnxphx7P6I
+ luuMfpCqcJ5Kg6DZfW8F+V2f+YLI2ew1Vja/b7ESPBYF28jCX2LG5Qg1K7oCkPHE
+ P5loEpmpUTDoTXFmXtMlmsLWx7j8jhD4x67m1Tb/Bq61IesRRhMO386pNfv7+q7g
+ c7prZqpNaJXiMsyPOZLPmloUxHwupsEqa47vUDoRDuz70uKrSZubkBtXJGFW37ZY
+ Yhe6WE8mbl9ScB1bxShQbI8uubHr4oh51Dlbq31Hxudl5k1vLg0GwVHhMDPmdh7J
+ U0zBvQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f44v4j6fy-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 11:30:20 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-8479cc04d8fso1671685b3a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 04:30:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1782819020; x=1783423820;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Jxuf7nHCMmQB8RVfIW4EjJ6Gc6YS8vbqMU2TjN+Z8FA=;
+ b=Xie1n+/SiidjdsydmFbyn8n0YoYZMCth9cQyS0VCh5gr+JBmXpmiP62xLKaJuF0Kdv
+ NJN+ruebnVqOehJ6NujkPNG9XV3iIUpjAuwYHQ6SxwC2I8I7sbWyTFqVE5R7H7qcE4P6
+ W9lAbRzx95p/SjMpCC4WFJvlbiPe94v2qafbTkGr8vps6jOUj2ZwVLARVWs3hvmJRYIy
+ 0gkIJjYI4JOnLTYNII4yyCGEAidQp8OxCVxwlB5i0hEt62EtHf7pMpOezEgMb2Z94u6U
+ 68O577Kr7SZG0KNmJUCmlZnm2FedvCuO5kPF9C6gt07c4fW+3DraAPLKiwKI2hXtGuOu
+ nhAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782819020; x=1783423820;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Jxuf7nHCMmQB8RVfIW4EjJ6Gc6YS8vbqMU2TjN+Z8FA=;
+ b=jcNwTaSfYc5ruqN3Ou+e7v5sLbVdReC7ku7sEgcf/62iR29//3jC32dT2clSJ9Y+3I
+ fX8cFaCjuy1DL3PT1X2VkrwxafSFTA7az03Um7PApqI0Y6Kd8wbYw2z4KApXh4dx3UJV
+ JhHdTUfVTHacrS1rSaoKqWt/M77ESzp9Z1n0Av9Yz5r3dwg9wQeD/ZZaQ3D8zXlqWmLS
+ nEPKqWyrNE8vntNGC6szIXWXVMo9F4K1YeIddG3zNFFcbeCZyvF9UFE9DZPwKY/CAe29
+ HkJ2fHFgWNsihRCp4vey/mSqnSyXRk/DKPYFGx0lgdr0M5R0m6PspPme0FNUyRy6tzvF
+ QHRA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ92t19gZQY85uK1bKvzMrGd3FH2lq8HrMh45mVhUre/Xzw5JrAYRvm3jGz1FFU3BEHYBmYpgN8I/Bk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKrvOBcL28Z1qgQnKwVqAp+aofplQQBWDcE//Wr58RWH30YBS4
+ hzK5yH39sDiOwiilMxZK6+5qfiQ74siYU1E/xCPFYjmMLEnekXXaSeH/ZWMpxsRWMNpyE64Qb6r
+ o+d/PKnyN25DgNPc70aAayfHUhPcSvTYbIg/X1ppfyl6XWIEOUtdHrwySzsYGS3jARkqHqXA=
+X-Gm-Gg: AfdE7ck8hGSLypk+Z3nwUVauopUIphaV8FrLNNphUB41hz5nC94LxpTmnXgNYzWl4+y
+ Tjm8Bpe04tncPgFAscEtjAGw/AI6gNCgX54X1oYkWNE6qq6jBxg69coO+EBjovcYcBEOdzHjNYz
+ pQSyBME6kJk4KQ6RXRknSWDA7+9HWxY8FIP2jfokktCNayuqQm633vzwwKjKMLd05ZMXj7hFNBG
+ 4Q4h7jHiYaYoVL+NMl2mXanfh6kVzkOVZ5vp89sznBLZOQTVzndoMhw6Psu+hFDvT9QCdLHC7M7
+ 2SNAnY3nwp7+HNkrbh73r9ZIUZ58B5MlgqB7FrSgyetSLyGeSEd42gdWDgJ2JEt+RMoE3U7/jSc
+ RYXvfTj0Z3IPEEtgBqr5iur4GmYKFWF6rMPQBlV9cvX+GS9mud6BdMGCc2PUVCmXeaAz4jBn1oO
+ 01u4oR
+X-Received: by 2002:a05:6a00:22c7:b0:842:5a8d:303a with SMTP id
+ d2e1a72fcca58-847adea9b55mr270147b3a.37.1782819019935; 
+ Tue, 30 Jun 2026 04:30:19 -0700 (PDT)
+X-Received: by 2002:a05:6a00:22c7:b0:842:5a8d:303a with SMTP id
+ d2e1a72fcca58-847adea9b55mr270094b3a.37.1782819019374; 
+ Tue, 30 Jun 2026 04:30:19 -0700 (PDT)
+Received: from [10.133.33.5] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-847a039f2c4sm1796908b3a.54.2026.06.30.04.30.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jun 2026 04:30:18 -0700 (PDT)
+Message-ID: <12f549f8-6365-47ed-9334-7cfdf201cc5a@oss.qualcomm.com>
+Date: Tue, 30 Jun 2026 19:30:11 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB9446:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad94564b-bfd1-47ef-c6c3-08ded69a39ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|6133799003|22082099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: 095wVuLtFH2jG8Y5bbOIjlFdaCfqC0DA3RCKHlYVIu68s5go8da5EcIcJLYuqZitCOx/5/mYckXZsXceE5VhM5EQUPNK9jjat72s92bU2Rd34rExXwfb9BrGZLe3uEVdZ0FJ9oU4FA5w1LAGICu/BB9RApk5itGnUiXb/B4XoTMT4KjTR+lGqJJ25WWjpj/MH42r3rAHbstb21NLdZLwFtcnNbcC5QOYFmZ3MVs8qgg1b3ikvuEKklw+gvYXTcJ1joEf5G7yqhzxKhMj4O5f5Coj3c/rnPWyZf1kkNVOVpmUtsr2uj204XaITEVACYuRykFCqilVyNr5CfkJP5CZ83eLAwFcYmjCAXmfe3ZsSnrsorfAz7sobneCcSc02j4k+4iaJgbt0ym2EaISeiwLYtVALEl9VRqRofb2pG9K7fZNqzdptsSyESk0VNHT7hpSCELMrvq/9tk/Yqwh8D48Y+n6zkfPvVmrQjm4OeYEVUacAu9CTAibaXn24Z6uo2K5ixbmLUC1OmaQY8OzgV5ZUkuyeb9FGgWINj4ahi02X9W4E0wI/UPuglElHiYFO9cQa3U88pCZ6bvF8t7Sq+CoXg49nUYB4AFQP7l4iMK4gIAyDcSSssQVjN+6RxrKcCBmBSdtmLuolBXenDP89QIpgc17bQqxwQFzvFiKWdWdPJs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(6133799003)(22082099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDlzZ1A5a2NvdVAwUkFvRCtJcU9zYitvT1Ntd1VqZjVwMVVnb0Evc3VYZURB?=
- =?utf-8?B?TVhseW1HaFZZMEZ5cHhtU09qVzJscG82N2lDMDBkaFpVSVByWEdsTWU3RW1I?=
- =?utf-8?B?N3Q2WHA3YkpRWkhxVkk3VjBOeVVacThlbWUzejY1ei9qZ3VQRzZNNWtYL3Zv?=
- =?utf-8?B?azd4ZFo3Q3F6ZDUybGcyWUY5UVdoR2s2Z2NENTBxQzN3d0tEK3Y2Z01oMmxn?=
- =?utf-8?B?d2VKOUVURnFDY0FvN3BnbTdVZ3ZGMHpFMStqRXNLck5XdXBMZHZ5OWtETGtk?=
- =?utf-8?B?WWt1OW9qLzl6K1dVSU5CNjRjNTJlOEdzWVZUS25kQUlRWXJlR2NyVlBRRVB4?=
- =?utf-8?B?djFWRGxQWE94cEtETUhuZG5ObTZmZzh4Lyt6SmFDN280LytaakdQV3JLMmxC?=
- =?utf-8?B?WG53NFVINnVHK0hyQThFOXVSNjNGbHcvVGp2YTEzbXpGUTV1UWNxR2tEbGhw?=
- =?utf-8?B?TGdiZEtIaStKVk9BbVAzMDBncTMxSHpjSzBnLzI5T3RXUXJ2ZmlMMExiQzYr?=
- =?utf-8?B?WHhqVFZzRjNDUjNBUXdqdnVKeVJRaURjMDdNVVRiTVp4VGpxYVlHb29XRzQ1?=
- =?utf-8?B?TjZpeWNqVXloWEpWajR1Q0gvZjdZNzZnalVEc2JRUXRjdXVLUzNoT29VYWI0?=
- =?utf-8?B?U2w5K1FBS0w5ZVF6a1NDT002azN6TXVEalQ4WTJMZGJCYzM2WCtpMWI3bzMr?=
- =?utf-8?B?dFRWM0pldlExWS9KRURhWmVVczVMWkd4UnRBYTR5b2RNUXpibU9leXR5eUNV?=
- =?utf-8?B?djRobW1scllIcGJmbk9ja0k5ckNtL1Ayd0c3RGR3VmVnZGZ2VU0xUklySDQ2?=
- =?utf-8?B?cHFVSG90a0pNdUJNMkdidmVxRWNVMExCOTlvTTVoUWZrRVd5a2NkYWJFOVVC?=
- =?utf-8?B?Zkt5M0prQVlqWWJQc3RjWkFteXhrdTg2Mk1HU1EwUjU5NmdzekhPMDNNdlMx?=
- =?utf-8?B?SzhNSnVnMC82RG1pekFYeTAwUXYzVjN1STJsenRzendVMnkyTTBTbE9yeFhx?=
- =?utf-8?B?VEE4OVhTcDVHb1pOYmJaWVNrVHNJQjExbS9yMjEvZFFncDNucHoxcWw3a0lI?=
- =?utf-8?B?RHpPZ0VVUS9tRXU0SWlZaG1JMnlsYWtnYVZMcmNQUXYzbkJMVEpRRzF6ejlE?=
- =?utf-8?B?dkI1RkpZa0YvMXlMSGxXaHNta09QS1Zqc0NkREE4QlpxUHN1NVQxVEQvNVY3?=
- =?utf-8?B?anBTbVA0RHYrc2R6Tm1UaTYzVnpVM3E2OURxYSt4ZVhqOTVkUTdpZHVaSHJn?=
- =?utf-8?B?Vjh6djZVbkFML1pnRzV4MGU5Y1BmalNyR2JTNmF2MXJXRm81WmFNN0JOcU5K?=
- =?utf-8?B?c29RWE5PZys0dnNNUDB0NTcrUW5Jbm03TEloZkRtMnUwOGRxY0t5MDVWeFNS?=
- =?utf-8?B?dms5Y0g0NFMzc1pWOU40UEtzTk1QU2tMNExHa1JMbWVFVVlWUWIreGlUb2sw?=
- =?utf-8?B?ODJWNnRpL212ZkptTDA3djdkUVB0WUp2c1AxSGRrMWhnM1lvQmRBWmk1YTlH?=
- =?utf-8?B?RzNiMGI2bDc1TTdBTEUzNjFPYVI2YVEwZS9Ha0FJMVFHdmowS25MWFg4c2tW?=
- =?utf-8?B?bTZGUWVQMHRMRHgvZUZKK25vb2lIQ3JHTEQxRFRKTEdDMVhQT1QzQ3JhdU04?=
- =?utf-8?B?VkhuTXRDUVg1OEg1dUtOaDZpV08zSFlJS2FSN3llY0dzN0NTNVVRZk9MSGlY?=
- =?utf-8?B?RXU2UVZvR3pGMFllOXoyWllCU3ZFNHpVejBOeHBWQ0U2Z1JaZjI4YUQwdDVJ?=
- =?utf-8?B?clgrRHJialA3amxNZ3M4amhFcGV1WGJmcnVlR3RQbkJqMGRrNDFaMkZGSUZ2?=
- =?utf-8?B?SWtmbmFjWjJ3L0F1bnBpN3o4bmlWZlBvY3lhNlFlUzlnZnllaUdjWmV0ME1O?=
- =?utf-8?B?cGEvdjEvbnc3N3I1N0tKc1p6Z3Q0OHQzdmFnRUJOTU9ReUxlamVBREJzS1Ux?=
- =?utf-8?B?L1NpTEJHYkhYeEZRaEo0ZFJRRzdZVEZ4MVJSQlFNQ29xR3pPL2c5d2FmWUZu?=
- =?utf-8?B?dmFvKy9hUGh4bHZwam5NTjQ2cTdidk94OUQvL3JGNnZZeHB3V1pLRUI5Sjlm?=
- =?utf-8?B?cHoybHRwblBJZmNWTVRiRUJBdmJzTWxxS1kwU1E0UmZOQmVJNFg1OE14ckFl?=
- =?utf-8?B?TTNuZXRYVjlheG0xZStuWUs2Uk90cDJBQU1YUkt2b3MyeEU2UStNSzVwTGp3?=
- =?utf-8?B?elo0bHE5Q0tGZ2RXM1RkQ05OcWxCdzJKaklPekNlZGowVVl0cGM1NVJQUXky?=
- =?utf-8?B?ZWZyMkZ1SDREdVNPR1VvZHVDWVRGUTkrMVRBN0x4eUxvb1IwZ25vQVJ0Z1Fp?=
- =?utf-8?Q?LoxKRhuv2LDFlaNCoV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad94564b-bfd1-47ef-c6c3-08ded69a39ce
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 11:25:01.7382 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l7ukk4tUgMZIxg1Nt2U8BKN9luUv97oF/4SZVRZwI7X5gW8aDUfPlaSS84V+BeQ1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9446
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dp: Skip push_idle in atomic_disable if display
+ is not powered on
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sankeerth Billakanti <quic_sbillaka@quicinc.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260511-edp_suspend-v1-1-128555968d7c@oss.qualcomm.com>
+ <mnpara7zwt6ahqkb44mxjtengjodutek35dzax72xuf5i4puzd@tvxhgefvpdqk>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <mnpara7zwt6ahqkb44mxjtengjodutek35dzax72xuf5i4puzd@tvxhgefvpdqk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: gOZI0LXj3MjuI9Bmnec65v0aWExYohul
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDEwNSBTYWx0ZWRfX37inkvdR17Zb
+ bJH39Efp16lliGe2L/Qa26n74IFq0zFIMu5GW8u2xdvIsaOzan6s1BdAl+BCK3EzClBT1EHenYr
+ PvOC8dHYsJetto7w4TJCKwuz4KQfIT4=
+X-Authority-Analysis: v=2.4 cv=JI0LdcKb c=1 sm=1 tr=0 ts=6a43a8cc cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=Fa2nlc_RI4ObidiIHNgA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: gOZI0LXj3MjuI9Bmnec65v0aWExYohul
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDEwNSBTYWx0ZWRfXwiJfVcR6FSki
+ Kl9cP3Xo0KieqxfYGfo29vBwMTVQ04f7apXlSjAL3pSQ4OGA/R34Ncq//V46xnMxvgMVuxG+qvJ
+ 9KT2OmV1CXxHTSogYRGLunD8YMF9pe8ZIZp74+lDbch6HITLhgH+EKPFrnSSt259PwKlLW1LZzs
+ ozd1b2M9dxUmTkAaDXOj7HT7MMk/A6VswyiPhCT66RW8qYP7Zhv3wGbSAAF7zPDfbNomj4K8a4U
+ qdTLFK4HEYF/xIsdCoBKIpPXwQcit6b1lF7IGHBHmq2HXVqJrmHeJ5o3N69z5N1/JHkqa0sXLOA
+ RP9mOEEp7SzNnYhnFgcAHsbZ9x2+jIhbwR/nMDA6bNKrKhxizLLmuEIisbeeKqGjugdWITn/eeV
+ SsrKWod4jwBtqm47aJKjeK8pf7FbBAgxwP07LuSM/ZGbICur9nkkFktSi+jnkXoSdxGNgff1bG3
+ /Tk5Ie1RrmFf8KBVfNA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ spamscore=0 bulkscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606300105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,53 +156,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/30/26 11:39, Dave Airlie wrote:
-> I've been bringing up nouveau on NVIDIA Spark GB10 and fallen down a
-> hole of why is the GPU writing to pages I've released back to the CPU
-> page allocator. I've wasted a lot of time on GPU L2 cache and explicit
-> handling for it, which might be needed but hasn't solved my problem.
-> I've also invalidated and flushed the GPU TLB excessively.
 
-How does nouveau make sure that all DMA transactions have completed (e.g. caches flushed etc...)?
 
-> Today I finally hit up iommu.strict=1 makes things a lot happier,
-> non-strict IOMMU seems to allow a race between dma_unmap_page and
-> free_page where the unmap goes into the IOMMU flush queue, where the
-> actual unmap are delayed until something triggers a flush later, and
-> the ATS translations stay alive past when they should, and after the
-> page has been allocated by some subsequent user.
-
-Try disabling ATS, that was a common source of problems during HW bringup for us in the past.
-
-It obviously cripples the performance, but when the problem doesn't happen any more you have at least an additional data point to narrow things down.
-
-> The options I seem to have: (but I'm probably very wrong)
-> 1. force my own iommu domain and use iommu_map/unmap explicitly in the
-> driver which avoids the flush queue?
-> 2. split ttm page unmap/free into two stages, and force an iommu
-> flush/ATS sync operation after the unmap before the free. (I don't
-> think iommu has an interface for this).
-
-Yeah that idea already came up on similar issues as well. I certainly wouldn't be opposed to that.
-
-> 3. force untrusted on the PCI device?
+On 5/13/2026 9:28 PM, Dmitry Baryshkov wrote:
+> On Mon, May 11, 2026 at 04:36:03PM +0800, Yongxing Mou wrote:
+>> On eDP interfaces with no panel connected, panel-simple-dp-aux fails to
+>> read DPCD over AUX during probe, leaving hpd_state at ST_DISCONNECTED.
+>> msm_dp_bridge_atomic_enable() exits early as a result, so
 > 
-> I just want to see if anyone else has hit this problem before in this
-> space and I'm missing something, just feel solving this in the driver
-> is a workaround for ttm/dma API impedance mismatch.
-
-Yeah we have fought with stuff like that on basic every AMD GPU HW generation.
-
-From experience I would say that both MMU implementations inside GPUs/accelerators as well as well as IOMMU are really hard to get 100% reliable in preventing random memory writes.
-
-You either have to use memory fences which use the same path as the DMA operations itself or you have extra heavyweight TLB flushes with just insane overhead or grace periods to make sure that all transactions have actually reached system memory.
-
-So far the record for grace periods you need after a TLB flush is 6 seconds on production HW with up to 10 seconds on engineering samples (because of HW bugs).
-
-Regards,
-Christian.
-
+> Why is atomic_enable() called for disconnected bridge?
 > 
-> Thanks,
-> Dave.
+Sorry, I wasn't very clear. What I meant is that the hpd_state is 
+ST_DISCONNECTED when no eDP panel is connected. However, the eDP 
+connector is always reported as connected because it does not implement 
+a .detect() callback and assumes that the panel is always present.
+>> msm_dp_display_enable() is never called and power_on remains false with
+>> link clocks never enabled.
+>>
+>> During system suspend, drm_atomic_helper_suspend() still invokes
+>> atomic_disable() for all registered bridges. The resulting write to
+>> REG_DP_STATE_CTRL against an unpowered controller triggers a NoC slave
+>> error, causing a fatal crash.
+>>
+>> Guard push_idle with a power_on check to skip the register access when the
+>> display was never enabled.
+>>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> 
+> Fixes?
+> 
+Got it.
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 1b3cbf4016ef..51b60eb9c2df 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -1660,6 +1660,13 @@ void msm_dp_bridge_atomic_disable(struct drm_bridge *drm_bridge,
+>>   
+>>   	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
+>>   
+>> +	/*
+>> +	 * push_idle accesses link registers which require link clocks to be on.
+>> +	 * Skip if the display was never powered on (e.g. eDP with no panel).
+>> +	 */
+>> +	if (!dp->power_on)
+>> +		return;
+>> +
+>>   	msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
+>>   }
+>>   
+>>
+>> ---
+>> base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+>> change-id: 20260511-edp_suspend-0e45d0110633
+>>
+>> Best regards,
+>> -- 
+>> Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>>
+> 
 
