@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 852DEC43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:08:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B331C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 06:09:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAFF410E0AD;
-	Tue, 30 Jun 2026 06:08:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4963710EAD7;
+	Tue, 30 Jun 2026 06:09:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EdIdRv5H";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QuQ2DFwq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 417AC10E0AD
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:08:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D07BE10EAD7
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:09:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 68A4F60008;
- Tue, 30 Jun 2026 06:08:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0260E1F000E9;
- Tue, 30 Jun 2026 06:08:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9AF4442E55;
+ Tue, 30 Jun 2026 06:09:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B731F000E9;
+ Tue, 30 Jun 2026 06:09:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782799706;
- bh=4gS5jds0ZpNGoIUY+8xUjtTszKGzCM4hu7l+8DUmO+8=;
+ s=k20260515; t=1782799759;
+ bh=jj/yDbVpjsdeXQbpyLVzzZOqWFFcPrJsxLXlQd2ry+w=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=EdIdRv5HSxbeK50KD4q7NW+DM9Pw82OVp87GNtWe+Rb6PM8uuIeMPxW/9iDPn5Hu/
- rqI5sDi3hELho48A+02LXeQciC2xVjwanIlmGeLYKbyv1d0QmFj/7sWmdDDACkmy5v
- 5LZZ7FOgNiFruhMvDrMhMlKlaYapqRd0Nd1sAF6YCGa0VLm3qdBcRX6h6eNJ55zQSE
- kHPQDVbVmwqVNJsOg2STfk5PzVjh8ubfIIGVA95YGBwIlgPzJbzGe+xVajDnimGqAs
- U1rfheegPmJ+xVYjdvVzLjy83yDmRdvBmFM4zWNuNaLk1eBROKZbFaFcUOdbaJaPC8
- QoR2DJv2UA3RQ==
-Message-ID: <c95b84af-08ff-4448-a496-766db90589d9@kernel.org>
-Date: Tue, 30 Jun 2026 08:08:17 +0200
+ b=QuQ2DFwqv2ZqYutP1lZbXPpbmJQzCbydW8FJGk/eOYX4c7YxNsDuzsBCKBoLlKUJ5
+ 2lJ2oY4RvXeaGUW49J9RsfaJJkKSj+T0fpJ2hRcnoUJX9LUxsSdiijeGS7oo3sOqys
+ knaJwCcPOzLS1Sg2rf0XhXq9/Kxfo6opIpSJihTZd9EBDpI3g6AXQtnRdakAOtSegt
+ rwlObEFAMugCVvDUHy6PZ6n9qIbuwKLEiA+3wAkK9W0/qljZ2WpwWcftv4HBXvomBu
+ YjCesb2WRP5M4+Cv4aXu1F0GVyqGm8esUkl2QkkvbwL4C/+Bcerc+VNynJgA5yxR3S
+ Z0M3Zjc7RTHBg==
+Message-ID: <c3bb6d55-3256-4642-80c9-363b51a9eecd@kernel.org>
+Date: Tue, 30 Jun 2026 08:09:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] dt-bindings: display: panel: Add documentation for
- lg,sw49410-lh609qh1
-To: David Heidelberg <david@ixit.cz>, Paul Sajna <sajattack@postmarketos.org>
+Subject: Re: [PATCH v3 4/4] Revert "dt-bindings: display: panel: panel-simple:
+ Add lg,sw49410 compatible"
+To: Paul Sajna <sajattack@postmarketos.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -46,12 +46,12 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
+ David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+ Amir Dahan <system64fumo@tuta.io>
 References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
- <20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org>
- <20260615-thick-trout-of-inquire-4e4251@quoll>
- <0ca65209-0b03-4458-a11a-24e750d10bd3@postmarketos.org>
- <c364a9fb-59c6-41bd-bb91-620c96e7ab8b@ixit.cz>
+ <20260614-judyln-panel-v3-4-07f4134441bd@postmarketos.org>
+ <20260615-jacamar-of-angelic-aurora-1e4cba@quoll>
+ <8a0348e5-a6bb-43e3-85e0-aa4673cd3a65@postmarketos.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -97,9 +97,9 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <c364a9fb-59c6-41bd-bb91-620c96e7ab8b@ixit.cz>
+In-Reply-To: <8a0348e5-a6bb-43e3-85e0-aa4673cd3a65@postmarketos.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,34 +115,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/06/2026 19:55, David Heidelberg wrote:
-> On 28/06/2026 23:22, Paul Sajna wrote:
->> On 2026-06-14 10:38 p.m., Krzysztof Kozlowski wrote:
->>>> +properties:
->>>> +  compatible:
->>>> +    items:
->>>> +      - const: lg,sw49410
->>>> +      - const: lg,sw49410-lh609qh1
+On 28/06/2026 23:23, Paul Sajna wrote:
+> On 2026-06-14 10:40 p.m., Krzysztof Kozlowski wrote:
+>> On Sun, Jun 14, 2026 at 05:08:01PM -0700, Paul Sajna wrote:
+>>> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
 >>>
->>> This is very confusing - why two compatibles and why same devices - both
->>> sw49410 - are compatible with each other?
+>>> It isn't actually panel-simple-compatible, and we knew as much by the
 >>
->> Hi Krzysztof, yes they are both compatible. One with DDIC and one with
->> DDIC+Panel. David Heidelberg suggested I include the panel.
->> Is this the correct style for both compatible?
+>> This is not a separate commit. Your work is non-bisectable - this commit
+>> leaves undocumented compatible.
 >>
->> properties:
->>    compatible:
->>      items:
->>        - enum:
->>            lg,sw49410-lh609qh1
->>        - const: lg,sw49410
+>>
+>> Best regards,
+>> Krzysztof
 >>
 > 
-> Better, but since `lg,sw49410` is contained in the compatible string with the 
-> panel itself, I guess `lg,sw49410-lh609qh1` should be enough.
+> Are you suggesting I should squash the revert into it's replacement?
 
-Yes, just keep one of them.
+If this is not a separate commit, obviously it should be part of some
+other commit.
 
 Best regards,
 Krzysztof
