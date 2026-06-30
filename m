@@ -4,65 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEE1AC43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 08:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87457C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 08:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25C4D10EB51;
-	Tue, 30 Jun 2026 08:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFC610EBB3;
+	Tue, 30 Jun 2026 08:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dCnbgDJw";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="IkElTmWd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A94F010EB44;
- Tue, 30 Jun 2026 08:46:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782809203; x=1814345203;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=fWhGWkg1sVC+Zopw1ah/LLgRFnq+PnpA3zeYqg1SVDo=;
- b=dCnbgDJwOofH0T8PwMO2PNH9xdvxxxwbNo1YJTNmRgv89S1hp+eTbAQ2
- tAKurWWMG5PKl8Iyxc0OPTZ27nDd1ARHuUgE1T789JZ+GwpsBWQA/jKHu
- yA2+OVe08pRVZJgxeoGzEA/rHnbuT6EKCgzV1FnHekbQ2Fw75sj2asIaP
- Q3v3PKT9UHy+TfCVg67LpjyplhkzpOgpR/dDrsFkIlvPEM3EZOcIGAPpp
- lNWIcHIL51+uZwcMKGwweBbjXo8AaPuwK/TWdzzEyRDLAzJbB59psotMC
- 9IatrqoE5yXP2dEIPb83T6CB+zl1iuvM4HpTVX1EfOJnOAZmED2tZL0mP A==;
-X-CSE-ConnectionGUID: 0h2nS27LSrecIbH3HmeaWA==
-X-CSE-MsgGUID: f/ZeF1xkTcCKGEyqfwtN7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83651073"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="83651073"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 01:46:42 -0700
-X-CSE-ConnectionGUID: +X9lGev+TKiS7ZuuBWMq9Q==
-X-CSE-MsgGUID: WjPREsZyTKSgs5LuE5kwEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="251799766"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 01:46:39 -0700
-Date: Tue, 30 Jun 2026 10:46:36 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Riana Tauro <riana.tauro@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andi Shyti <andi.shyti@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] drm/xe/mcu_i2c: Take over control of the
- controller enabling
-Message-ID: <akOCbMKgTbzbZI7R@black.igk.intel.com>
-References: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
- <20260625125939.429078-4-heikki.krogerus@linux.intel.com>
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2608410EBB7
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 08:47:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782809236; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=hItVkCbc3M3PPq824qURxGXz2Ojpqn4LGpxrD2QB0o+5RJbWBOHR8KirciQhXVcpkw4RRgxVYI9GAGVgzN2OPrRDb9xiuZsz1S2v/n+vsorzTZSHLKcMzm5aYVOARN56p1XyYqvcgSrnEeRLTYWu5M9p49tq2HfHPtDc/eeAAn0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782809236;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=A3dtHr7mxgHpX1rKpHtNynPWWBnhXQvlt03hbu/0Ias=; 
+ b=eF8K7nTBhyNN4AXoCl6u1avGMe23X+2hiiY0HUdF5bOC2ip83FN5rPQaOPfka0GYbTei92SxHauCT04rTLIaJDsfpVi48DbT/luwAuDLdU0yfmzxmlrIw1tFBpP+7m0cFhcYckOV4xunkKm68+eEYQQDH+FyA+BGv1ggDihIyFQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782809236; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=A3dtHr7mxgHpX1rKpHtNynPWWBnhXQvlt03hbu/0Ias=;
+ b=IkElTmWd4U4XZPHeDczjOCa43fdJl/9n8Hngdors59YwRWGtgWXfGuo3X5gK8wVE
+ v1p2SoqZr1DVN/KCMGlaQJ2CZzlQNhdTdv7JwLrp9xPy3sqHdgmEBF67BQAAmFpp0aX
+ 9rQJfpAyQF07eZfR85xIDv2F9+2e83Djn3MvX7zM=
+Received: by mx.zohomail.com with SMTPS id 1782809235908225.79567794510842;
+ Tue, 30 Jun 2026 01:47:15 -0700 (PDT)
+Message-ID: <7f28f870-6792-4820-9dcd-ccb2a731edd9@collabora.com>
+Date: Tue, 30 Jun 2026 10:47:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625125939.429078-4-heikki.krogerus@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+ behind driver feature
+To: dri-devel@lists.freedesktop.org
+References: <20260630084229.529682-1-robert.mader@collabora.com>
+ <20260630084229.529682-2-robert.mader@collabora.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260630084229.529682-2-robert.mader@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,21 +66,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 02:59:39PM +0200, Heikki Krogerus wrote:
-> Some platforms make an assumption that the i2c controller's
-> enabled state indicates also the power state of the
-> controller. This can create a problem when the controller is
-> in disabled state, because the hardware may assume
-> incorrectly that it is then also in low-power state.
-> 
-> To fix this, the controller is kept enabled by taking over
-> the IC_ENABLE register. The controller has to be disabled
-> when the configuration is updated and when the target
-> address or the slave address are assigned, so disabling it
-> when IC_CON, IC_TAR or IC_SAR registers are programmed, and
-> then re-enabling it again.
+On 30.06.26 10:42, Robert Mader wrote:
+> The client cap is currently advertised unconditionally, even for drivers that do
+> not support plane color pipelines. If clients supporting the later, like Wayland
+> compositors and drm_info, enable the client cap on sich drivers they will be
+> left without both color pipeline and the legacy properties COLOR_ENCODING and
+> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
+>
+> Add a new driver feature and guard the client cap behind it, allowing
+> plane color pipeline and legacy YUV->RGB support to co-exist.
+>
+> Signed-off-by: Robert Mader <robert.mader@collabora.com>
+> ---
+>   drivers/gpu/drm/drm_ioctl.c | 2 ++
+>   include/drm/drm_drv.h       | 6 ++++++
+>   2 files changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index ff193155129e..96fda92e31b9 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -374,6 +374,8 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+>   		file_priv->supports_virtualized_cursor_plane = req->value;
+>   		break;
+>   	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
+> +		if (!drm_core_check_feature(dev, DRIVER_PLANE_COLOR_PIPELINE))
+> +			return -EOPNOTSUPP;
+>   		if (!file_priv->atomic)
+>   			return -EINVAL;
+>   		if (req->value > 1)
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index e09559495c5b..108ddd2c8d30 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -116,6 +116,12 @@ enum drm_driver_feature {
+>   	 * the cursor planes to work correctly).
+>   	 */
+>   	DRIVER_CURSOR_HOTSPOT           = BIT(9),
+> +	/**
+> +	 * @DRIVER_PLANE_COLOR_PIPELINE:
+> +	 *
+> +	 * Driver supports PLANE_COLOR_PIPELINE.
 
-I don't have enough context here, so I'll leave this one to the
-maintainers.
+Sorry, forgot to append a change here. This would be
 
-Raag
+* Driver supports plane color pipelines.
+
+in v2 (unless somebody requests another change).
+
+> +	 */
+> +	DRIVER_PLANE_COLOR_PIPELINE	= BIT(10),
+>   
+>   	/* IMPORTANT: Below are all the legacy flags, add new ones above. */
+>   
+
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
