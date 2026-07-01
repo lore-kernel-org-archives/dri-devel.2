@@ -4,128 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 292CDC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:53:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1786CC43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 18:05:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 614D410E1A1;
-	Wed,  1 Jul 2026 17:53:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C53410E042;
+	Wed,  1 Jul 2026 18:05:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="te9NKp0K";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="XLqsbGBN";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0018010E1A1
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:53:39 +0000 (UTC)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 661GqUbC512041
- for <dri-devel@lists.freedesktop.org>; Wed, 1 Jul 2026 10:53:39 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=e7kmcvrJXFeA+SwUp+Q4JZ9GBs/Tu0VczqJ6zfGHtFQ=; b=te9NKp0KSuAB
- gJAStcqVmXyO90PdrOMhuz1QH+omYd4+Mw3B8TEdXPLJtkYQrsX/45BVNWyEblz+
- JCUQhK20eJ/NvICPYCtpkvbiKi0EHSaSmpoWEug8KslbHuTVqxo1Cyiq8npvWq8O
- iWJN4c+SNKe9prCgyypFFuDT+2fW//iCpWAfn5FZiHT3Ma+UfgQldfxu1JwL3wjT
- puoEMSaFB2J+gLTdLoKhlZdm4JHFAsQvSKn60MMl3h0pRepyXYCBK4DH/emUGdVP
- 7d65A6CTugo700ojlRhKudPV6DZBXhMFm8x8LUWJmnAbgYzkzF4XYX6nodZkJ3HT
- F2Y7Da8ekA==
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4f48k5p588-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:53:38 -0700 (PDT)
-Received: by mail-ot1-f69.google.com with SMTP id
- 46e09a7af769-7e9f6f0240eso1062066a34.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:53:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782928418; cv=none;
- d=google.com; s=arc-20260327;
- b=Is9GJ+GlTjBFkyJBgtHmUj2tXO8kcOKp4Jxuge1HEIepO0RFiEjBTpRBqYphuCbLDZ
- DYFrMIOonUeM/lE5GtWntZPN+v2dGy8Bkk2e5YrJeAGLLzfwCFChHAEvH5ZPKHJj7msl
- htXb5RsU85WIWa0AYieD+EPD80oUWnuKop0/I3K3qkSJk0BM19Ag7nz3MMqROeoNMucM
- Lx3kVrn/BsmvXzBXzDc2YWrMurYspJYqgg/BiE/X18q1xVgbUvdyjBdc1otraEEmyhAI
- P9QBXADSd+NzAzjsUTIFARU4WESOFtTF/LZJN+sKzCnwuZglvAA9dqpAKHhNYWc85KtC
- ptVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=e7kmcvrJXFeA+SwUp+Q4JZ9GBs/Tu0VczqJ6zfGHtFQ=;
- fh=zBKKKA/dVI9wpLbxJm31KMnvJS6KZPITw+KRlzZD80M=;
- b=RC/SZnpXUrSLYdmq4lUqpfCuNaBrchWqX3rWYMUYcUlFvA8/BMFhSVANxiiRTRVBK4
- pGYuOLtXs/dXDst4SnZ9DM9/bsvRBtlJdTZizycYXc1Qv5FBgYzYZJmB9Mf6A97Pce/Q
- yZYUrBNesuMKoLbOxBnB5tdph3lQ/w1SbRyWsL2Ld6HMb9LpnCTSJEeFyTJ52GFfgGkx
- EBPa7s+PTWWPV4DGpzQ0pxgCQk+suXmt0+jnES1UrYuBAhSFOhjtz3HxqpgqHyXVutTr
- umbnu4PbXHhB6CYZDXH1nsU9rTcU2hfffzmAIK7wsepHiADHcoM+KoOzhqtYMslrFMON
- qodQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF3610F0A3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:05:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1782929112;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=OODTaDnvsDCSyQDqhi+9lLSiHjNYGjnSHMMEy2JQgew=;
+ b=XLqsbGBNNYxz8/xVpUxAIwaANxaCcg3BI9XebbIyfd9vsaR0aKwIdmbotrN2Q/U2pUwpWE
+ rtNl0H4247LX85Q3V26J4F/SPRx6tkB4/sxPhuMGLKUc9FytZqZeKTvouJXAci8qIGD2P4
+ kWmVOaWBympPAo8zc6uZX/QQVn3aJgk=
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-53-TofXNON7PMSFweFpq1tVCw-1; Wed, 01 Jul 2026 14:05:09 -0400
+X-MC-Unique: TofXNON7PMSFweFpq1tVCw-1
+X-Mimecast-MFC-AGG-ID: TofXNON7PMSFweFpq1tVCw_1782929109
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-9674fae89e9so66564241.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 11:05:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782928418; x=1783533218;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=e7kmcvrJXFeA+SwUp+Q4JZ9GBs/Tu0VczqJ6zfGHtFQ=;
- b=pdQaYWM9LUqdu2hC03CqeRkMeKHu8sCaeCevmYw0IVuHNZ3G5ynai5oTZO5MH22W5p
- i5fIsnGszBD/abPsP1UZhwHCgN0zZjBfQD1ii9mSERR17sA9jazuSMHsUp3zmTLqNU4T
- Vk8IXQDTQ5WZEN1x6uhmysSSF/XMmlnglf94l1wh3u9FhqDAgA3V2yD7l3y8Uqscr87V
- W3Knz1IApeo05T/zpbe3hHGrEe9NL+rNl0z4X3+ukpO8X6nFxKUPX2/LsFfxsjR2kDFh
- 32cQCtyU1ADwFmgCAGFRD/2UssaxgDh0lRghVSZMtN+XZZIGAKLm2xMx4kwN9tURCDCo
- h3Bg==
+ d=1e100.net; s=20251104; t=1782929109; x=1783533909;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OODTaDnvsDCSyQDqhi+9lLSiHjNYGjnSHMMEy2JQgew=;
+ b=KkiBG9X/1bxN8PjGkvliWKjGLLXqu+LpJeGsY0fSBpIDG1GTuzY83RxvxTyYC4X8da
+ 9COezLDTZWHvr0s5RrN3Mo0y7PM9oXjjKqFkJEEu2kC1v1gx8k04lblM2kYT9LUp+nuY
+ WJkMMlLWxPNirb/P/GvOigdxMG7yxURc6Zd/9W6+E6egz/D0PVAxeJKZ9Oe7sJUh8oQJ
+ vpVMootpPwGqNUA84loY3RZS0hK9xDB+sQ7dgD2qf5/gh7eepUG5j/yB4HwOPCd8RWiZ
+ 01fMgTxM8XA3PVUiYBr4wSL4/gqNQ7SKR9gnm445dOvebvWVOo3tk6EEJJgiTYE1ycqK
+ mYug==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Phw0oIz2ss+id++WvYSl9i+QY7HhY6ZEnoKG8aHG3ecVQUaxlMY5fpHlhYywCbQNDcTb14mfPie0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzhlKuw989h4cOxMJHU7S2DVoAJ/6ySD+RYWITTqrUv39/aQZj5
- fXDc/d8DHc2+fm6y7lfJ1poaNNt1qx0AFb3HoIZHVciWLA2/auKCsiAP26KZWaLRaPRoRrQvBEh
- SElATPhNA971B/OQi5xwfhWZlJ9r/oRuxC8sj5lV311v4iq4etlCRN89aScWmLF0pGwSqBfU6RS
- 7F72ZYB1CUYbBCDRRaq4aamWmvndJFwG467EWc2ms9t3w=
-X-Gm-Gg: AfdE7cmCg7lT/48tiSA1KKkfDOkNKQMzuzPMTpOYUZYjhehmrNWOVKGIl4ycyC5LO+6
- SVm3KqZbk6T4d+L1bldq2xARNJ0lrclOXmwiHZuPPBJACPyBQiZvVuTfAAqZS0EwQqUbQ8LXu8M
- vg12D4uBfJQBSzJgaO86xniRgHD+U1zQpeDf2JxbLBb9bSueOytC5G+2RWC2LX5knOzsIz9AW6G
- n/bWJPXKA==
-X-Received: by 2002:a05:6830:348f:b0:7e7:62f:727e with SMTP id
- 46e09a7af769-7eb505175d6mr1172075a34.22.1782928418037; 
- Wed, 01 Jul 2026 10:53:38 -0700 (PDT)
-X-Received: by 2002:a05:6830:348f:b0:7e7:62f:727e with SMTP id
- 46e09a7af769-7eb505175d6mr1172044a34.22.1782928417437; Wed, 01 Jul 2026
- 10:53:37 -0700 (PDT)
+ AHgh+RoNujhAvO6gMGZ5hG3EXh/90ElZlMjp4erOlUX8lxvYAsAtOtnNRmJCJqcN8w1tVh0GmKaNAZcupiY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOLUndj3xTEBahCJ3eRUwodHBaNknKvlfTGoLVmGszu5sfIWhQ
+ vTQJXuAwLl65d2aHrkTm2U8xxPO/GmqnnSKGVcigjlOI0uQ/QaZmGHOT54GCNvXCWSmooynXsQZ
+ XYqK1x6PfwKVB+mWgVgl0IgYfo9EcA2YDsCHKTz/3xkn5vCS+vfFP42pPg5AeizRcMgioIA==
+X-Gm-Gg: AfdE7clwF8r393tJfnkqU+uY335Avk8rwtufMU1lI9dNKX3zrvEWUL6ZJwvyayexDN9
+ ykpZnDF0DOND1haKGgoEIzU62/ID4kz3L1MSy7YLqGsh5P2SgL/81CXb3OK79F7PC9Mfx6IafAn
+ QPyICpG8jQuN0engUMh1O82VtRAdH8IfK6YnDXPME2f9X/UnZHhrXPhxDHNfa2U2rA5bgpU4Ooj
+ v/G0zt/lgzDauicxufSezidhI241jUxpi1BwcqNMBJ6lVO1LBxUcjgbOhJm1Z9o/kuHYPMgZX2l
+ jHid/Wvc0o0rvmb7DzIOC/E3ei+2grBDsPGdfB81dcR0QeF5GzalWWMcPWcWY9FeQLy+A1vcpbg
+ 6RNPjv7M=
+X-Received: by 2002:a05:6102:161e:b0:739:8c52:f2b with SMTP id
+ ada2fe7eead31-73dab0e55b1mr1293971137.18.1782929109020; 
+ Wed, 01 Jul 2026 11:05:09 -0700 (PDT)
+X-Received: by 2002:a05:6102:161e:b0:739:8c52:f2b with SMTP id
+ ada2fe7eead31-73dab0e55b1mr1293859137.18.1782929108349; 
+ Wed, 01 Jul 2026 11:05:08 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8f46e371bdfsm3587256d6.1.2026.07.01.11.05.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2026 11:05:07 -0700 (PDT)
+Message-ID: <a364263867ac16831a93e3ca3a5e4125da347c91.camel@redhat.com>
+Subject: Re: [PATCH v2 0/4] drm/nouveau/gsp/r570: Fix runtime PM
+From: lyude@redhat.com
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>, Dave Airlie	
+ <airlied@redhat.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Ben Skeggs <bskeggs@nvidia.com>, Kees
+ Cook <kees@kernel.org>, Simona Vetter <simona@ffwll.ch>, David Airlie
+ <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard
+ <mripard@kernel.org>, Mel Henning <mhenning@darkrefraction.com>, Danilo
+ Krummrich <dakr@kernel.org>
+Date: Wed, 01 Jul 2026 14:05:06 -0400
+In-Reply-To: <akOthKT6XeaUnhH6@ashevche-desk.local>
+References: <20260629224350.2870201-1-lyude@redhat.com>
+ <akOthKT6XeaUnhH6@ashevche-desk.local>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-References: <20260630224328.3218796-1-zhipingz@meta.com>
- <20260630224328.3218796-3-zhipingz@meta.com>
- <e132eb91-554e-493f-9da2-aff5a538da6a@amd.com>
-In-Reply-To: <e132eb91-554e-493f-9da2-aff5a538da6a@amd.com>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Wed, 1 Jul 2026 10:53:26 -0700
-X-Gm-Features: AVVi8CfUmWw3yG8Q376o8lxaFsAzKao0Cd3LEJcq9dJNu4sURoDLmPjujqACaso
-Message-ID: <CAH3zFs2tkxA9w-oCr0N4ixe2VupXXQF-cA2o8-fToj6uFyuMJQ@mail.gmail.com>
-Subject: Re: [PATCH v10 2/4] dma-buf: add optional get_pci_tph() callback
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Michael Guralnik <michaelgur@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Alex Williamson <alex@shazbot.org>,
- Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: jreMsJffU7VI68CVi94RBq0zQkrTNmvEPLcucxbTDyY_1782929109
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDE5MSBTYWx0ZWRfX4BIFLPgoQ7EZ
- z5eVWNX7/DyY1NB3lOyyUsGS8bBB+C8A+3cfpKRx4as7cO1eDsryGQn26ul1p+ORaC1CAO3GuHW
- KldjeRI2G5plo5KD3ZB/P1/6e46dnh8=
-X-Proofpoint-ORIG-GUID: 9thTD7X2rMF7AFr_0zSxrFgxmifKFHJK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDE5MSBTYWx0ZWRfX2jEbJJo0LPpP
- iBMQ2mbubNOPF4bn7O4tSVTIsPyyisEERWhQeMVdpTHbKVP9VmTeEVYwenAioBCnZ9Hjdgi1+jl
- 5QUIwUMSoQKrW+3zecRYP6Ccnnnx+VthEnDHJ8sxKLDO6i/oO0R1I3t9/X6pI6fqKYVtduI1DfM
- Ej93OPC/3GvpV+We0YhdbuC3pWd7TKpMpAnRVZBWS7KiZK8CdqUolLPp+2VlLITskhax/SJ8fyQ
- rxXwDdsZnYLkPdztQ/eKcGgOWI56V9PYRRyDgoyA5R1GC/g/BiBuaaSAEzAlhnK5BLhjTUUXWOw
- 0OINcMjSBzkfrBFoRltHoyty8BGWAm/OsJ+hvagWFrnAO807+h+aZojBmUXP53UUvUQzEFeXzU0
- +gs8Ov13XzhZcDyMi6UPi0DyHsTgwPIoAcuQ0Ip9OPEwZlaRMF+SUsV3alFQNCud3Nx+G1cGrca
- x2vdLDniCafElS3SP4g==
-X-Proofpoint-GUID: 9thTD7X2rMF7AFr_0zSxrFgxmifKFHJK
-X-Authority-Analysis: v=2.4 cv=QMtYgALL c=1 sm=1 tr=0 ts=6a455422 cx=c_pps
- a=z9lCQkyTxNhZyzAvolXo/A==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=crHB47gyY4rKiduisYu9:22
- a=I4J65MU22ScPYueRrkgA:9 a=QEXdDO2ut3YA:10 a=EyFUmsFV_t8cxB2kMr4A:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_04,2026-06-26_01,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,55 +106,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index d504c636dc29..7a4c9b0d5dab 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -1144,6 +1144,31 @@ void dma_buf_unpin(struct dma_buf_attachment *at=
-tach)
-> >  }
-> >  EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
-> >
-> > +/**
-> > + * dma_buf_get_pci_tph - Retrieve PCIe TLP Processing Hint (TPH) metad=
-ata
-> > + * @dmabuf: DMA buffer to query
-> > + * @extended: false for 8-bit ST, true for 16-bit Extended ST
-> > + * @steering_tag: returns the raw steering tag for the requested names=
-pace
-> > + * @ph: returns the TPH processing hint
-> > + *
-> > + * Wrapper for the optional &dma_buf_ops.get_pci_tph callback.
-> > + *
-> > + * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
-> > + * exporter does not implement the callback or has no metadata for the
-> > + * requested namespace.
->
-> Please add something like this:
->
-> * The returned information is only valid till the next invalidate_mapping=
-s() callback from the exporter and should be re-queried when a new mapping =
-is created after invalidation.
->
+I forgot to link to the previous series:
 
-Thanks, Will do in v11!
+https://patchwork.freedesktop.org/series/169227/
 
-> Apart from that it looks good to me, but I still think we need some kind =
-of example that this works for other DMA-buf users as well.
->
-> Just demonstrating that this also works with some simple FPGA or similar =
-PCIe endpoint should be sufficient.
->
-> Regards,
-> Christian.
->
+I also thought i hadn't sent a cover letter for it, but apparently I
+did - I would have reused that if I realized, whoops.
 
-On v10, I have validated a second importer: another vendor's NIC
-(driver not upstream yet, so locally patched to
-call dma_buf_get_pci_tph). A PCIe analyzer confirms the TLP steering
-tag matches the exporter's for both mlx5/ConnectX-8
-and this second NIC =E2=80=94 two unrelated importer drivers exercising the
-API end-to-end.
+Regardless: I'll be sending out a V3 today, since after doing a lot of
+testing I came to the conclusion we should drop the change from LEVEL_3
+to LEVEL_4 but keep pretty much everything else for now.
 
-Thanks,
-Zhiping
+On Tue, 2026-06-30 at 14:50 +0300, Andy Shevchenko wrote:
+> On Mon, Jun 29, 2026 at 06:42:32PM -0400, Lyude Paul wrote:
+> > Runtime PM has been kind of unreliable with GSP for a while. It
+> > works
+> > well enough to shut the GPU off and turn it back on, but more often
+> > then
+> > not it ends up leaving the GPU in a broken state on resume - which
+> > makes
+> > it impossible to really do anything else with it.
+> >=20
+> > Recently however, I discovered that it's been failing much harder
+> > on
+> > some ampere systems. This lead me down a rabbit hole that lead me
+> > to
+> > figure out one of our previous fixes for runtime PM wasn't correct.
+> > After fixing that and combining it with some fixes we had tried in
+> > the
+> > past without success, I finally managed to get nouveau to handle
+> > runtime
+> > PM with the GSP perfectly. These are those fixes.
+> >=20
+> > Tested on a Lenovo P16 G1 (100 runtime PM cycles!), and RTX4000.
+>=20
+> This is v2, and no changelog. What's going on?
+
