@@ -4,65 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4BFCC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 05:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1550BC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 06:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED29910E2F0;
-	Wed,  1 Jul 2026 05:37:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C978410E2FC;
+	Wed,  1 Jul 2026 06:28:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cvu3oWYo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qTElyHCL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0801A10E2F0;
- Wed,  1 Jul 2026 05:37:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BF2E0413C1;
- Wed,  1 Jul 2026 05:37:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE451F000E9;
- Wed,  1 Jul 2026 05:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782884226;
- bh=AxpIkGUR3B/YQ+use+jlgeTg1Rp3sEV28YNx2zBhiBo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=cvu3oWYo7MvnOYf+fng4McUfNgKTxtvvPTsKPCovTBnop/zsHeV+5xoq0S0wGuQZo
- NDZ/50FVKK/c7equFbh2mTBsm3B29ywpsQc7MUicYWLPOHp8ftk9d9ou6Zv0h4vwHa
- ugxgIZwqihSxbLQza8Y2Nn5x9szQNgH9/m5QPvQqhqn3FzhFRIfZfYWnjNOof6axQ1
- 2x/nCi1CTOmOHj9Qw8wI7wirCSVR4hautUVK6XcunMFvOL2XkSU1vdll90oJhAKJQJ
- cEJNcPPoUNVKPx85p8uZdSen2xELIsFevFn4unA0DyKIxqgE8XgZ71e8f/yYhQLTLT
- mJp/klMAcBY8A==
-Date: Wed, 1 Jul 2026 11:06:49 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
- mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
- mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v8 07/14] remoteproc: qcom: Select QCOM_PAS generic service
-Message-ID: <akSncWwMc9tntyD4@sumit-xelite>
-References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-8-sumit.garg@kernel.org>
- <64e425ab-dddc-4221-81d3-3283e2961bea@oss.qualcomm.com>
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010052.outbound.protection.outlook.com
+ [52.101.193.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBB3C10E2FC;
+ Wed,  1 Jul 2026 06:28:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TM76kpATZRYvL6o/KeCf2doHQMP9th6HZtTFHRLZlNcyWr39ngYADgTLRW3M7hbrL/6BgEReNXUjxnMViRfrkAGqMDA8Pxwk2o9OrrZlubZHWPW4nbGWoHe3Qf4Uie1l9YvCz3rIJ96WX1eJGqJjyiQz+gwBcrogNXernVJVwhQjbeb8h9yu4pFLpBA1tlc1crxqxBWKsMrH2HC7UCCKsYr+cn6dMk7rLuf/8RE37n4db9PwEmqoWKJ9clXS5ulX4qDRujtVTfMY6+m1oBRc/2FFjHV8AeC8z/0vTNwJmoGXfcIRIeNrMdoOuyMbVao66liu4qZ8tGjEYgIWVC9GJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YimKKcZxXCK5Z2bOjLneMcn3XX+4Gf9m2i33BS4EUN4=;
+ b=mRnjEaPREdFsHMZfWm9zc4TYbcJE3b/G6OzhY/uXDwdGG06Z3JygC3piZIjhBMO4XP1H3JqmcWp9N4AEnHPc8b+LEWhHE+1vJbxizcOrLRJeot0JgDSfcbmyaA+RVJQEDF6m54tmTPL28BTh6xXreqPa2gIob42zn7HfNs2GgdFjRxkAwvkPEHNTJkj7nzer/e5g4Ef73lTH/zgqtSVu6p3ZzvsHtjU7XChyB8PgllcSqPBXIWH/Fa3sI9T31g3WCuJ+JZU9ACIwqQtu1apSdyrGF80TW0tRXRpF22PhCfG+fWd5ZT6dNsX/IUt//L1Xo7hqGxlh5A+lEkxdR6juNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YimKKcZxXCK5Z2bOjLneMcn3XX+4Gf9m2i33BS4EUN4=;
+ b=qTElyHCL602Fe6+sgRXgEinTXaQpt8CYO52vRBqS0u/uu6wklI7FpSU75jrIvj6gaRiBeC1bP8PCJcmXsdLOijg9esvDWOAc9Z4fOvtA+5Gey6KViBAqpouzV75b247TLQ5tcg5LXFGZUVCELVusHkRdxFmp5Ua0vFqbJx5lTJI=
+Received: from CH2PR14CA0039.namprd14.prod.outlook.com (2603:10b6:610:56::19)
+ by SJ0PR12MB7475.namprd12.prod.outlook.com (2603:10b6:a03:48d::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
+ 06:28:15 +0000
+Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
+ (2603:10b6:610:56:cafe::c) by CH2PR14CA0039.outlook.office365.com
+ (2603:10b6:610:56::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Wed, 1
+ Jul 2026 06:28:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Wed, 1 Jul 2026 06:28:14 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 1 Jul
+ 2026 01:28:12 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
+ <intel-xe@lists.freedesktop.org>
+CC: <Ray.Huang@amd.com>, <dri-devel@lists.freedesktop.org>, <honghuan@amd.com>
+Subject: [PATCH v4 0/3] drm/gpusvm: fix IOVA/DMA unmap leaks in
+ __drm_gpusvm_unmap_pages()
+Date: Wed, 1 Jul 2026 14:27:57 +0800
+Message-ID: <20260701062800.409248-1-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <64e425ab-dddc-4221-81d3-3283e2961bea@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|SJ0PR12MB7475:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77ba85f2-fd13-4332-9ed0-08ded739ee4a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: mSO3sikSykB5EYBbblskg7oEAbM9R9ypmlKfuWzu9gdNrqexGIGQiiRzFMpi4Ao/uGCzFdAcazqSxLqJtkelumPeoYLjiGGsc9XtglfZWbO+8Fv/q+pmPhGwczhes/MlwhRjCZXIUmkiV/kAoCMTQfOYTzkDjUo2dTuqgvkV/iOTpIcm5Fmv/qnBed6BvnFD9PnYvkx18KzQ18eB1MwdFh2634g0WELFu1BDWvpyDOOzKEJ2TvmOecc4Yl2WnCPLPZvJ/k2vJ6/+Xfs5uKvGcS1iL+TYgfmmlaWszBmL+4tOMHw1zfSHK6AF/rWug4CYxZMXqWhWsVDHdBhp1gBucCvMDkYTMA6vn0UZrdnS8ROAdN6OHWjUURns34bBnmKIFEOwblt4nGlZtKCHROq/fZEqRcYJXAhSi7fOZbu+gN6n+OqNgzMtqRAO7oOpgOYdYvw7WnvSzFAq6DF8CdCVefJiCLh4dUtW1coU5eKxZHbUnvAOZa/wOWDFSFdkKBmV0EHG73sqk5+5+BpPem3L2gf6RS8HdB6e6kyx8UIdx5O6YyqC4MrPqfQCDInpRulqjStmLIVcsI1Vu5INvqci8cs6nftBZiWfhvLy7UHKRLPRBumve4/JK9KxoOqUUVTlnJ/s2i7Sp3oK+SDXNbdJnSuQEYplQ6TY9fm7Ci/Hl314tHRNybD90+tYFdEYvHa+BMvzU/bvrQXj2YB5CiNcLg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ESzZmaStR5GBPNm07SBNKUIIe0wwdawBEDBXi9gN28dg2u5LPUGc0d1ukF6CKfVNMCMQU7xsVzbDwwx1oaNIzdmpqh0YdQqT0eHgQBdNQYI+lB/Aa+7IAecw6B8bEkoMX7b+UELa/oQ6XPM+XZmkCqgGrDLoahKevmCCL57ym6eAcqqVl2xatWXK3HhIzAZjGBpH77CdjQkJfuseGY3O4FTINNEVIMaPUmVyADNuQW5OzeD56LCnnVspSDJ/ogZqJ7jFe2imVnihSibaU8dyib77NGDQDApVRCu1CqreryY8vzXxxREAN9VYs49u8ImDOp5bcTWW5GrPFikhcRXNBLMrV5MRN8KzqFQTTi2RqOsIIgOPFiPMXNJgcYbgo4UfJgONwCqBzvgtNTONpx0gexg/kaQlSW6eCd8TZtlBpxRPNYYpegr0pUeE5n43aZlN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 06:28:14.3773 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77ba85f2-fd13-4332-9ed0-08ded739ee4a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000000A0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7475
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,71 +112,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Konrad,
+Three small fixes for the IOVA/DMA unmap path in
+__drm_gpusvm_unmap_pages() and the get_pages() error path, all spotted by
+AI review:
 
-On Tue, Jun 30, 2026 at 02:37:59PM +0200, Konrad Dybcio wrote:
-> On 6/26/26 3:34 PM, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Select PAS generic service driver to enable support for multiple PAS
-> > backends like OP-TEE in addition to SCM.
-> > 
-> > Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-> > Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com> # IPQ9650
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/remoteproc/Kconfig | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> > index c521c744e7db..65befdbfa5f7 100644
-> > --- a/drivers/remoteproc/Kconfig
-> > +++ b/drivers/remoteproc/Kconfig
-> > @@ -210,6 +210,7 @@ config QCOM_Q6V5_MSS
-> >  	select QCOM_Q6V5_COMMON
-> >  	select QCOM_RPROC_COMMON
-> >  	select QCOM_SCM
-> > +	select QCOM_PAS
-> 
-> This is a NOP, SCM already requires QCOM_PAS
+  - Free the whole IOVA reservation on unmap. In a mixed range only the
+    system pages are linked, so freeing just the linked part leaks the
+    IOVA reserved for the device pages. Unlink the linked portion and
+    free the whole reservation. On the get_pages() error path
+    state_offset is 0, so skip the unlink, also avoiding the
+    uninitialised dma_addr[0].dir read, allocate dma_addr with the
+    zeroing kvzalloc_objs().
+  - Do not route system pages to device_unmap() on the IOVA path. Branch
+    off addr->proto so only real device pages reach device_unmap().
+  - Publish dpagemap early to avoid leaking device mappings on the
+    get_pages() error path. It was only stored on success, so a mid-way
+    failure left svm_pages->dpagemap NULL and skipped device_unmap().
+    Assign it when the first device page is mapped.
 
-That's true but I think we should rather have explicit modules
-dependencies whose APIs are being used by their clients. QCOM_SCM is a
-special module in this case exporting direct SCM calls apart from being
-the backend for the PAS service.
+All three issues are preexisting and independent of the gpusvm MM/device
+state split series; they were surfaced by the AI review of that series,
+so this series addresses them separately.
 
-I would prefer explicit dependencies but let me know if you feel
-strongly otherwise.
+V4:
+  - Add reviewed-by for Matt's review.
 
-> 
-> >  	help
-> >  	  Say y here to support the Qualcomm self-authenticating modem
-> >  	  subsystem based on Hexagon V5. The TrustZone based system is
-> > @@ -230,6 +231,7 @@ config QCOM_Q6V5_PAS
-> >  	select QCOM_Q6V5_COMMON
-> >  	select QCOM_RPROC_COMMON
-> >  	select QCOM_SCM
-> > +	select QCOM_PAS
-> 
-> Likewise
-> 
-> >  	help
-> >  	  Say y here to support the TrustZone based Peripheral Image Loader for
-> >  	  the Qualcomm remote processors. This is commonly used to control
-> > @@ -282,7 +284,7 @@ config QCOM_WCNSS_PIL
-> >  	select QCOM_MDT_LOADER
-> >  	select QCOM_PIL_INFO
-> >  	select QCOM_RPROC_COMMON
-> > -	select QCOM_SCM
-> > +	select QCOM_PAS
-> 
-> This is OK
-> 
-> _however_
-> 
-> It leads to a situation where no back-ends can be enabled
+V3:
+  - Add fixes for all patches, add Cc stable.
+  - Add reviewed by in patch 1.
+  - Move AI review note into commit message instead of reported by.
 
-The TEE backend is enabled by default if ARCH_QCOM is enabled, if you
-agree then we can similarly enable SCM backend too.
+V2:
+  - patch 1: extend the uninitialized dma_addr[0].dir fix into freeing
+    the whole IOVA reservation, fixing the IOVA leak for mixed ranges
+    (the earlier version only guarded the direction argument).
+  - add patch 3: publish dpagemap early to fix the device-mapping leak on
+    the get_pages() error path.
 
--Sumit
+Honglei Huang (3):
+  drm/gpusvm: free the whole IOVA reservation on unmap
+  drm/gpusvm: do not route system pages to device_unmap() on IOVA unmap
+  drm/gpusvm: publish dpagemap early to avoid device mapping leak on
+    error
+
+ drivers/gpu/drm/drm_gpusvm.c | 53 +++++++++++++++++++++++++-----------
+ 1 file changed, 37 insertions(+), 16 deletions(-)
+
+-- 
+2.34.1
+
