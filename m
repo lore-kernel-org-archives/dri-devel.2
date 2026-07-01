@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A54AAC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33EBBC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:45:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C966010EF89;
-	Wed,  1 Jul 2026 12:39:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB2710E368;
+	Wed,  1 Jul 2026 12:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o1GXLvg8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NY3GhXKW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4228310EF8B
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:39:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F3E10E368
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:45:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A1E2260138;
- Wed,  1 Jul 2026 12:39:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97BD1F000E9;
- Wed,  1 Jul 2026 12:39:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E6A0439D4;
+ Wed,  1 Jul 2026 12:45:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18101F000E9;
+ Wed,  1 Jul 2026 12:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782909547;
- bh=KQxD+BDucLd1j70ef6LoNzXEdO8IcXi/OcuAmbgGP9E=;
+ s=k20260515; t=1782909952;
+ bh=1GO6ydZbEiHirUzvJuXmFMdY6V9tQKNrQJlx+7Dg8Wc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=o1GXLvg8bWxPNq/IZqiGTy+27SX67f/viurF+m0Muguxdf3ovdcWTANQ4bHoZla1M
- 3xwJuFiZu3mARxdLyFUWraZ4+680Z3GWbdO3vabKtAYmRm5wWQpF21VGzXAHrBFRsd
- 54OypaoZ7k8xvIESxk3jC0u5JNRAIQYlG6Wcfft3D1HN1SM4QovS/IqafQxbjkIKYI
- foC8xTrkcy1Ianndzm2SpeJk8qyekPUPT7btsT3gIzNg0byhmyIC2M31H51qxczxti
- LI8EMdjYJnc+GXR88u7EF6cneNVVyVJ0FHZ4+Cz7AmAZZNarM7dlzEYQxz013pB0JK
- bRuz2a6mnmxXg==
+ b=NY3GhXKWxKbP8dUQH7uZ1WC/akCdmzTiykRqxN8+IsZByOLjfCgHoiLZKyfE7B8Tu
+ NfZ/KEhoZjLUBoiTvhCwmICNbM5c4HVH5Uq7FonSUhnYZ9SPxy6CUo6T9TWjLCf8kT
+ QL5RHFDawyt+MwNhSckF9SJQ4WvWM4SR4kuk6pt8qqNdPTBeKhEbk9k6Vch4mJqHF/
+ XJzIrOkeWcebnXoVN6X44ft3ga23tW3WAzq+e50EYIC9peEHMMj33MeEzCtmsWxyzL
+ qOPs1jiOL48g7NvezIknNOn/+hbSNb3x5BMXR1wm+7/mKtBsZypTiHPJB3eP6fUwST
+ OuyFOalOtV1Ag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/12] phy: phy-mtk-dp: Implement power_on and power_off
- PHY callbacks
+Subject: Re: [PATCH 05/11] drm/mediatek: mtk_dp: Rework register offsets for
+ proper PHY usage
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, vkoul@kernel.org, neil.armstrong@linaro.org,
- olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260701122008.19509-6-angelogioacchino.delregno@collabora.com>
-References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
- <20260701122008.19509-6-angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260701122024.19557-6-angelogioacchino.delregno@collabora.com>
+References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
+ <20260701122024.19557-6-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:39:06 +0000
-Message-Id: <20260701123906.D97BD1F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 12:45:52 +0000
+Message-Id: <20260701124552.A18101F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,98 +61,108 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The power_on and power_off callbacks use the digital register layo=
-ut array to look up an analog register offset, causing register operations =
-to modify the wrong hardware offset.
-- [Medium] The error path in `mtk_dp_phy_power_on()` fails to unwind previo=
-usly applied hardware state if a subsequent step fails, leaking power state.
+- [High] Writes to PHY registers are incorrectly offset by `legacy_regoff` =
+(0x2000), corrupting DP IP registers and breaking PHY configuration.
+- [Medium] Removed bit shifts from PIXEL_ENCODE_FORMAT enums cause YCbCr co=
+lor formats to silently fall back to RGB.
 --
 
-commit db1c6c4d46cae7dc24770e2f52553b8292fbfbc9
+commit ef9afa51895ca44a0e35947eba008bc8a9868897
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-phy: phy-mtk-dp: Implement power_on and power_off PHY callbacks
+drm/mediatek: mtk_dp: Rework register offsets for proper PHY usage
 
-Add .power_on() and .power_off() callbacks to mtk_dp_phy_dev_ops
-to be able to call those with phy_power_on() and phy_power_off()
-API in the DisplayPort driver to be able to stop using all of
-those hardcoded register writes in that external driver.
+This commit subtracts the DP PHY register range from the MediaTek DisplayPo=
+rt
+IP register range. It prepares the driver for PHY registration from devicet=
+ree
+by moving the top offset into the driver structure and out of the legacy re=
+gmap
+configuration.
 
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
--mtk-dp.c
-> index ce33f6812bae6..586e727956332 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index f551c4543f4ee..97bce8966a1f3 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
 [ ... ]
-
-> @@ -200,6 +236,53 @@ static int mtk_dp_phy_configure(struct phy *phy, uni=
-on phy_configure_opts *opts)
->  	return 0;
->  }
+> @@ -424,7 +448,7 @@ static u32 mtk_dp_read(struct mtk_dp *mtk_dp, u32 off=
+set)
 > =20
-> +static int mtk_dp_phy_power_on(struct phy *phy)
-> +{
-> +	struct mtk_dp_phy *dp_phy =3D phy_get_drvdata(phy);
-> +	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
-> +	const u8 *regs =3D pdata->regs_dig_glb;
-> +	int ret;
-> +
-> +	/* Enable AUX Channel with RX De-Glitch and input clock detection */
-> +	ret =3D regmap_write(dp_phy->regmap,
-> +			   pdata->off_dig_glb + regs[DP_PHYD_AUX_RX_CTL],
-> +			   PHYD_DIG_DPAUX_RX_EN |
-> +			   PHYD_DIG_XTP_GLB_CKDET_EN |
-> +			   PHYD_DIG_DPAUX_RX_DEGLITCH_EN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_clear_bits(dp_phy->regmap,
-> +				pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_1],
+>  static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 offset, u32 val)
+>  {
+> -	int ret =3D regmap_write(mtk_dp->regs, offset, val);
+> +	int ret =3D regmap_write(mtk_dp->regs, offset + mtk_dp->legacy_regoff, =
+val);
+> =20
+>  	if (ret)
+>  		dev_err(mtk_dp->dev,
+> @@ -436,7 +460,7 @@ static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 of=
+fset, u32 val)
+>  static int mtk_dp_update_bits(struct mtk_dp *mtk_dp, u32 offset,
+>  			      u32 val, u32 mask)
+>  {
+> -	int ret =3D regmap_update_bits(mtk_dp->regs, offset, mask, val);
+> +	int ret =3D regmap_update_bits(mtk_dp->regs, offset + mtk_dp->legacy_re=
+goff, mask, val);
+[ ... ]
+> @@ -1401,7 +1425,7 @@ static void mtk_dp_power_enable(struct mtk_dp *mtk_=
+dp)
+>  			   SW_RST_B_PHYD, SW_RST_B_PHYD);
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
+>  			   DP_PWR_STATE_BANDGAP_TPLL, DP_PWR_STATE_MASK);
+> -	mtk_dp_write(mtk_dp, MTK_DP_1040,
+> +	mtk_dp_write(mtk_dp, DP_PHY_AUX_RX_CTL,
+>  		     RG_DPAUX_RX_VALID_DEGLITCH_EN | RG_XTP_GLB_CKDET_EN |
+>  		     RG_DPAUX_RX_EN);
 
 [Severity: High]
-Here regs points to the digital register array pdata->regs_dig_glb, but it =
-is
-being indexed with DP_PHYA_GLB_FORCE_CTRL_1, which is an analog register
-enum. Does this result in reading the wrong offset (fetching the offset for
-DP_PHYD_BIT_RATE instead of DP_PHYA_GLB_FORCE_CTRL_1) and corrupting the
-bitrate configuration?
+Does this code inadvertently misdirect PHY register accesses and corrupt
+encoder state?
 
-> +				CKM_CKTX0_EN_FORCE_MODE);
-> +	if (ret)
-> +		return ret;
+When legacy devicetrees are used, mtk_dp->legacy_regoff is set to 0x2000.
+Because the accessor functions like mtk_dp_write() and mtk_dp_update_bits()
+now unconditionally add mtk_dp->legacy_regoff, calls using legacy PHY
+registers will be offset incorrectly.
+
+For example, when mtk_dp_power_enable() calls mtk_dp_write() with
+DP_PHY_AUX_RX_CTL (which is 0x1040), the write will actually go to 0x3040.
+This leaves the PHY unconfigured and silently overwrites the DP encoder
+register MTK_DP_ENC0_P0_3040 instead.
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/medi=
+atek/mtk_dp_reg.h
+> index 8ad7a9cc259eb..616ea6440b08d 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
+[ ... ]
+> @@ -130,34 +106,36 @@
+>  #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_8BIT		(3 << 8)
+>  #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_6BIT		(4 << 8)
+>  #define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK		GENMASK(14, 12)
+> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		(0 << 12)
+> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422		(1 << 12)
+> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420		(2 << 12)
+> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		0
+> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422	1
+> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420	2
+> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YONLY		3
+> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RAW		4
 
 [Severity: Medium]
-If regmap_clear_bits() fails here, the function returns the error without
-unwinding the previous successful write to DP_PHYD_AUX_RX_CTL. Since the PHY
-core will not call phy_power_off() if phy_power_on() returns an error, does
-this leave the RX channel and clock detection permanently enabled?
+Will this change cause YCbCr color formats to silently fall back to RGB?
 
-> +
-> +	return 0;
-> +}
-> +
-> +static int mtk_dp_phy_power_off(struct phy *phy)
-> +{
-> +	struct mtk_dp_phy *dp_phy =3D phy_get_drvdata(phy);
-> +	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
-> +	const u8 *regs =3D pdata->regs_dig_glb;
-> +	int ret;
-> +
-> +	ret =3D regmap_set_bits(dp_phy->regmap,
-> +				pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_1],
+The bit shifts were removed from these format definitions, but the usage
+site in mtk_dp_set_color_format() passes these values directly to
+mtk_dp_update_bits() alongside the PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK,
+which is GENMASK(14, 12).
 
-[Severity: High]
-Similarly to mtk_dp_phy_power_on(), this uses the digital register array
-regs indexed with the analog enum DP_PHYA_GLB_FORCE_CTRL_1. Should this use
-pdata->regs_ana_glb instead to avoid writing to the wrong hardware offset?
-
-> +				CKM_CKTX0_EN_FORCE_MODE);
-> +	if (ret)
-> +		return ret;
-
-[ ... ]
+Because regmap_update_bits() internally applies the mask to the value, an
+unshifted value like PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422 (1) combined
+with the mask (0x7000) evaluates to 0. This clears the color format bits
+entirely and forces the hardware to output in RGB mode.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
-9-1-angelogioacchino.delregno@collabora.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
+7-1-angelogioacchino.delregno@collabora.com?part=3D5
