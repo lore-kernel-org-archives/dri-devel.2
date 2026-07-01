@@ -4,115 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A9FAC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:13:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFF5C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F29E10EEFD;
-	Wed,  1 Jul 2026 11:13:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE8C10EEE6;
+	Wed,  1 Jul 2026 11:16:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HIk+5ig0";
+	dkim=pass (2048-bit key; unprotected) header.d=alyssa.is header.i=@alyssa.is header.b="QW+57uW9";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="eSiSydMD";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A83E10EEE6
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:13:20 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 661A90Af753610; Wed, 1 Jul 2026 11:12:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=dhzeSQip8Gjy3p4Lm10/yF
- WnFdFOU+tDXO7CBNq76zo=; b=HIk+5ig0YwzADAhR534s27zEFn4sJ9cZi4PGSd
- apIQt5FUhsgBddBDm+EdZSucB0lxraGbpsG9wZtjI7xxPlfzRISjcuiL9L92aLNd
- ptraL8U0PdVYSxl5+NWOd7/kXWgg+Jky1WeDvd2eI9YL3lENPgb/b0xJhTyhmitL
- t5XCTSW36tpYXftPbPidtN9SAv4RPd1FpRBsz06uKqp7+0ZuKUyJq4u/fVPCY75/
- A1RGCVWXqYK/dqYoniZb0Ay1MgXyq1Rrq9A+h3B2EKnLCapc+arjcUl1EU3dFn06
- 7pa+8ZrCD3FeR7aVZDL++mLmmVoXV+BvTTGRjyfC5FUj4S8A==
-Received: from apblrppmta01.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4rsy2cfy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Jul 2026 11:12:55 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 661BCqWs031719; 
- Wed, 1 Jul 2026 11:12:52 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4f27kk0333-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Jul 2026 11:12:52 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 661BCpMM031702;
- Wed, 1 Jul 2026 11:12:51 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com
- [10.147.248.17])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 661BCp6b031697
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Jul 2026 11:12:51 +0000 (GMT)
-Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
- by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id ACE7F631;
- Wed,  1 Jul 2026 16:42:50 +0530 (+0530)
-From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Subject: [PATCH v4 0/2] drm/panel: add support for Ilitek ILI7807S DSI panels
-Date: Wed, 01 Jul 2026 16:42:48 +0530
-Message-Id: <20260701-ili7807s-v4-0-c7d76d4780a5@oss.qualcomm.com>
+X-Greylist: delayed 329 seconds by postgrey-1.36 at gabe;
+ Wed, 01 Jul 2026 11:16:04 UTC
+Received: from fhigh-b7-smtp.messagingengine.com
+ (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680EB10EEE6
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:16:04 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 7ED137A00C5;
+ Wed,  1 Jul 2026 07:10:34 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Wed, 01 Jul 2026 07:10:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm3; t=1782904234; x=1782990634; bh=aV1udWJKCU
+ U1GwPfHpaZ60j3LSXApxKguDyoKA/vmos=; b=QW+57uW9HkfmdAevZYO6hNk7MU
+ UJ5sUmzE8fkopzZhgRGj+luurUcYgCvd3qZFha/IXpF0cLdE/oIKeb6sZ5i46YCj
+ 5emNlfzej2MAwN3QY7s/8NkdSGhMOo4AAizT5BYwo2NguJXSk8c1qkV211JgYXh2
+ jSq3zVEkai0h2sVv1BwzKc3DOcoZyQSLtkSwFz6BFoglb0QIhCjZpzxs/ltwpaIE
+ fjChZA1uhE1kAezoEOXdPcweATd4paWCMi+CwfNAanD6V24Kslq6TPIxhLJAWV+G
+ MuNrDnVeixwfMpfNkoZ21A+UCl9oAUz0P+9VmuSXuxktNiiUEkZOuRDC1ygQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+ 1782904234; x=1782990634; bh=aV1udWJKCUU1GwPfHpaZ60j3LSXApxKguDy
+ oKA/vmos=; b=eSiSydMDQX+CowDdO1PT2dJ4kfskM1dFh0Doj9OX0OCYOAihpXF
+ ZeibHsZFyz87p9Em1hrHeX0DroYFK0wHCFX3JopmBEn+KeGbJOrMo+PEsXQVPFVl
+ fGVlee6qQuvAD/f0e2Q4MYK4Ae9yl+Gp96gSwmZQp0FTSjOI34zGDJ1uvtArd+6G
+ J7k+wPfwq+pJ0aqDNAQh1ptzhDj4lXoEkwGDgrGTyADks6RZ1q/5grIMiiqMtcUE
+ nufXuPtczzs7piIA15Hwo2wTIr12uFH93G6vbUuoLxib+JKeETLhFpyvu/yDozE0
+ y+Nz1S5YSVJcGtBuIBCzb5xEhsdPZF1PZcw==
+X-ME-Sender: <xms:qfVEatKm1aXXEHE303YNA2PUrc25rodnYQor9-iRvo29jooz1FNI3A>
+ <xme:qfVEaqpPUjgJIq3_47vyuMnQ00TESnC8o_JTItLbgikeGQ3wEMPyW6OKOKPhGd1is
+ ZA4Q_vAafTa4oQF1RLhh172o07K50-iokaJJBr4swezozSDM5wCAFo>
+X-ME-Received: <xmr:qfVEajWA_O2-QqAFaqCpU9FwyaS0-MLmm10c1G7vfC9NzwwHgjZsjw3o43MnJHlcjNaqMy-21VCXrGKI796p_s1VZKPy>
+X-ME-Proxy-Cause: dmFkZTERqKoBfc/660oCSojHU9/SahCQW6mKBxxdeYT0+nBWOqFVsHBZmsJVHvgH4XIkH0
+ WVE49E+VTNq9R+eiYDJYve2ZKe6OZIhKglB1jc3zmSAueayuV8HqfK6ZyQ9nt2QhlXWvja
+ LHP3ghuQ3l9SohPnRuM/K8LPcGydiCqCY4Vw4L+NZIeiHsNPp8VGvk5HzCpLsdiuHRtIOj
+ ZYDq5fWPjOZ8cv+ZCPV2BZLsGD2H5KZVMBTCcPT//PmmhmenrhZQygy5ZD0374FLiZhAvT
+ Rk0QWiG1Ajx/VqzISEaV4Fwb/mdDeP37Qg0xv7GKXNJpvHvcolnHvTam+Flc4B5H9btkab
+ oZTeeANG0QjuSES8h0etk+NW8ahCKDrnKAMEzABd+abkZCgAJnGC4ZZ36JQhULfyz4t/R/
+ Mid+zwmSywn8KeGSdwZi1IT62S+KmP+15qYQ8Rq/4WA7lLdQwmRDy06DLKxk4P1WrbW/c4
+ I11UbytksuyooyzSnwPWJdxKhtip9iWCdjr8oY3+NkyDYOOeNWp1DHIm6X0wOh2Srq4iWf
+ C7TA2ugoLtXz7XwJ0qSGgyuv7sN5jdzNqg0ltNLS+z1brLS25CN1K1NZa46X4OOLqlixvH
+ 1XbGVoPDVwDjq01s+R9TtrKnqDUUPVZkUqv9JyKNIGioq7GaG4BXqirMsf0w
+X-ME-Proxy: <xmx:qfVEal3nTWN5TeHEG8lJcMKhZmFjdIUnjVJqjVz9ZesWMrNGP_tRIA>
+ <xmx:qfVEak2s7dLo9JoXzMqVXr3HeEzUb6YuUPva27Jl_Ew_9Qqg5Rbbww>
+ <xmx:qfVEakmqmj9felDYsy4LsvwqHjenJ7HmQCbCU1kQkoPXZ7zAY1c2sQ>
+ <xmx:qfVEalOuPrV8Fj1nrihgDT9rnUcMOcAag_Abwml9jtxPROrHnwfdDA>
+ <xmx:qvVEavcuy1T6xkNV9ogLod16gd1KlQstRTavPeXIyOhz6dCbRLho-zz->
+Feedback-ID: i12284293:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 1 Jul 2026 07:10:33 -0400 (EDT)
+Received: by mbp.qyliss.net (Postfix, from userid 1000)
+ id C540B842E150; Wed, 01 Jul 2026 13:10:30 +0200 (CEST)
+Date: Wed, 1 Jul 2026 13:10:30 +0200
+From: Alyssa Ross <hi@alyssa.is>
+To: Sergio Lopez <slp@redhat.com>
+Cc: Chia-I Wu <olvaffe@gmail.com>, Jason Wang <jasowang@redhat.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Gerd Hoffmann <kraxel@redhat.com>, virtualization@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
+Message-ID: <akT1XEW766c7Imst@mbp.qyliss.net>
+References: <20260428194450.518296-1-slp@redhat.com>
+ <20260428194450.518296-3-slp@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADD2RGoC/22NzQ6DIBCEX8VwLgYXf3vqezQ9AGIlUbBgiY3x3
- Qs2TT30ssnszDezIietkg6dkxVZ6ZVTRgeRnxIkeqbvEqs2aAQESlJmBVaDqmpSOTwxLQcUcpw
- 5ibllWvQxqeUy408caPQnKzu17BvXW9C9crOxr33SQ/x+2+tfuwdMMKcdERlpeEbgYpxLH082C
- DOOaTgodnl64CE/8DTwbdvRihTAoG7+8Nu2vQHd6jbfAAEAAA==
-X-Change-ID: 20260615-ili7807s-panel
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: arpit.saini@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
- rajeevny@qti.qualcomm.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782904370; l=2350;
- i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
- bh=5FrAyB/XyQAjH/KpqVQfvZUYk852wAlTGT371rCbJQI=;
- b=Vw776Mt+81eIsITAPIuu8eyNmb6W+801G9ZBsK/83NwgtP10Dmam/l0d+5IajvikzwMywfKE7
- Y7gKplkrA/qBfOwn2yq9M0EdxlxwXljhk54B69Fk6MLcCQAHvBMv8Iv
-X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
- pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: 0KsCgq6Q0jIC-7MS-sl1QVrn-dH6buMN
-X-Authority-Analysis: v=2.4 cv=fLgJG5ae c=1 sm=1 tr=0 ts=6a44f638 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=7NJfoTriyfkdjGHd6h8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDExOCBTYWx0ZWRfXyLv+0xsG2nii
- 3VWzuht3SOjImwW4aD/R3fElfmbsMJPUcUw1ZGgPmSH0Rz6iK2vhbsb2mT3Brsg2L9N+8zbZ/Sx
- qHYopwlN02nVeCjfF8Z0Bmo1ylFW4NHE6hefFrR7YTTZk01DdpHDneRXtx7PGAN/DluBD0Til8f
- oOk1vGZQkXsz5hRfNJdRb8tfPL0G3njFiwEKv8Nr55lE7VwDVx9eBndMsPs6arXkWZzwsWhwHV6
- EbLGz9V8GNMdnYh9veRbR4h54xiHZHEPc/0Fz7eIL5HQLIUsyQXL6WXCdQ/yUI4p2TdNkJcUUES
- QEjLaTtt5MeJQlnEO2337t9sx3R1yZiqYLuuCJ+oWAoJOgxwV46OSSs8UIuvo44MiQwON/OVHdp
- uJlSonFa7i1lMKiu8T+4tzimAOvbz1FLl8rxl56nf3n7/pIb+m1sMHd0Zt3CRemGsUNIAs5TTcv
- MIbMF/D3XmSg7+TXHSg==
-X-Proofpoint-ORIG-GUID: 0KsCgq6Q0jIC-7MS-sl1QVrn-dH6buMN
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDExOCBTYWx0ZWRfX96JmCICWrt5M
- pDt/hvQGZ3omXUwLMALb/qUUu7UKSSP5NcdpKby3CGdy2Y3jA/GQXaUhQFSOH4wB1b+d4noBsUH
- IQPfRSUosgZLehJYakpmpPUcOqdexRA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010118
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wobtd2eeewguko6j"
+Content-Disposition: inline
+In-Reply-To: <20260428194450.518296-3-slp@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,54 +109,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add DT bindings and a DRM panel driver for panels based on the Ilitek
-ILI7807S display controller. The first supported panel is the DLC
-DLC0697 1080x1920@60Hz MIPI DSI panel.
 
-Changes in v4:
-- Use active-low reset GPIO semantics: define reset-gpios as active-low
-  in DT and use hold=1/drop=0 in the driver (Dmitry Baryshkov)
-- Replace raw DCS writes with proper helpers: mipi_dsi_dcs_set_tear_on_multi(),
-  MIPI_DCS_SET_CABC_MIN_BRIGHTNESS, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-  MIPI_DCS_WRITE_POWER_SAVE (Dmitry Baryshkov)
-- Use mipi_dsi_dcs_set_display_brightness_multi() with 0x1fff initial
-  brightness (Dmitry Baryshkov)
-- Move MIPI_DSI_MODE_LPM to probe(), drop toggling in on()/off()
-  (Dmitry Baryshkov)
-- Express .clock as arithmetic expression for clarity (Dmitry Baryshkov)
-- Update panel physical dimensions width_mm/height_mm (Dmitry Baryshkov)
-- Link to v3: https://lore.kernel.org/r/20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com
+--wobtd2eeewguko6j
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
+MIME-Version: 1.0
 
-Changes in v3:
-- Return devm_mipi_dsi_attach() directly (Neil Armstrong)
-- Link to v2: https://lore.kernel.org/all/20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com/
+On Tue, Apr 28, 2026 at 09:44:49PM +0200, Sergio Lopez wrote:
+> If VIRTIO_GPU_F_BLOB_ALIGNMENT has been negotiated, blob size must be
+> aligned to blob_alignment. Validate this in verify_blob() so that
+> invalid requests are rejected early.
+>
+> Signed-off-by: Sergio Lopez <slp@redhat.com>
 
-Changes in v2:
-- Drop MAINTAINERS entry (Dmitry Baryshkov)
-- Use devm_drm_panel_add() instead of drm_panel_add() to avoid
-  manual drm_panel_remove() in the error path (Dmitry Baryshkov)
-- Rework backlight: call drm_panel_of_backlight() first and fall back
-  to creating a DCS backlight device if panel->backlight is still NULL
-  (Dmitry Baryshkov)
-- Remove backlight-en-gpios from the binding (Dmitry Baryshkov)
-- Fix mode_flags LPM not restored on backlight update error path
-- Link to v1 : https://lore.kernel.org/all/20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com/
+FYI: this change breaks crosvm, which is squatting the 5 and 6 values
+of VIRTIO_GPU_F_* with different meanings.  I've reported it as a
+crosvm bug, so hopefully it can be taken care of there.
 
----
-Arpit Saini (2):
-      dt-bindings: display: panel: add Ilitek ILI7807S panel controller
-      drm/panel: add Ilitek ILI7807S panel driver
+https://issuetracker.google.com/issues/529852979
 
- .../bindings/display/panel/ilitek,ili7807s.yaml    |  71 +++++
- drivers/gpu/drm/panel/Kconfig                      |  12 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili7807s.c      | 285 +++++++++++++++++++++
- 4 files changed, 369 insertions(+)
----
-base-commit: 4e5dfb7c84012007c3c7061126491bbc92d71bf1
-change-id: 20260615-ili7807s-panel
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> index c33c057365f8..d0c4edf1eaf4 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+> @@ -489,6 +489,11 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+>  	params->size = rc_blob->size;
+>  	params->blob = true;
+>  	params->blob_flags = rc_blob->blob_flags;
+> +
+> +	if (vgdev->has_blob_alignment &&
+> +	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+> +		return -EINVAL;
+> +
+>  	return 0;
+>  }
+>
+> --
+> 2.53.0
+>
 
-Best regards,
--- 
-Arpit Saini <arpit.saini@oss.qualcomm.com>
+--wobtd2eeewguko6j
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRV/neXydHjZma5XLJbRZGEIw/wogUCakT1pAAKCRBbRZGEIw/w
+opdTAP9Jg7Ks4gxxyhXN2k9emUgJfzKrC6SUa2yUEFCWEcE1LwD/UUuIJbEO4Vd3
+IH8EBm8oektUqbiYA9e0FT8+x9oKCA4=
+=g71s
+-----END PGP SIGNATURE-----
+
+--wobtd2eeewguko6j--
