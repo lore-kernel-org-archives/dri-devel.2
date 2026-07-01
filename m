@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B06C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD0CC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 573D210EF53;
-	Wed,  1 Jul 2026 12:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 355BF10EF5E;
+	Wed,  1 Jul 2026 12:21:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="diUt3IVb";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LLSwJXIN";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30A0010EF52
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:21:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F59810EF5E
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:21:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908472;
- bh=9sW7/WYIQNZP8ib2JmNGP1gW5e0ortSb9dvpqYzBlAg=;
+ s=mail; t=1782908473;
+ bh=dgIW5F8hcEp7JDgooypSvLbWNF1e1X2mYaV32rWjqhM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=diUt3IVbhMdHX+APtzS13b9Y9O7l/wrGMBG4QV4dvI8pHhUXaScoBOPtkiAjb94LE
- nfktNzNhtevWnAkczo7Pg6Y+J89FRHLvOL5vX0u7t9U+v2slyI0NdG+moaUw16TxQH
- wkqrMKAvu0Uj4BUnIeo9DIp/dh3xmGWkYwR6ZDqm+nzZIOKHNQehbJWZzdlCZCl4fg
- OgicnZ40/0QeQH6azruj+UUxxr6W6ssttSBwqbmfgLOl0zptA2tAyvIsqi1Ku6KZfC
- DS656bFxxdMz3JkU3NQp/Xvz1Eu/5mliAfU1IQ7Lp63feBaeql4rzK2zIWFs3t+kJ6
- oF4IHwihcImyw==
+ b=LLSwJXINwsLXrln1+MuDYLOVpNVKOWCVcnEMuoZ9IFICveXwzUasvI+RNyPmUiSuI
+ +nJUd1lugkigzu5C9LSMMHCSkQISChIzGKtmij55qh5zx9IrWusHduQdl/Jzb2VTGO
+ YLM9/p5aFfOr853vfY5YdfFyzEU0JjOBL0P40eMjU+ENUJzsPWKAgscSMpb/iyTUmy
+ g8FwTqXw5tkmiIYBOLXtf8mouvDmBUtjCSUxJy8xEQ3Jpr2/vuqmseygz84kLm5aoj
+ 9+3EZhPM55WO6AKfPbMpdW7MG7MbGtcHSZiQUMM+tKvUq3+sMCtBkGjSRmev4PxCqJ
+ waZl1sBmL50kw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 35CB117E0CD4;
- Wed,  1 Jul 2026 14:21:10 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 211AB17E35CD;
+ Wed,  1 Jul 2026 14:21:12 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH 09/42] drm/mediatek: Introduce and use path/comp definition
- structures
-Date: Wed,  1 Jul 2026 14:20:24 +0200
-Message-ID: <20260701122057.19648-10-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 10/42] drm/mediatek: Create new mtk_drm_legacy and move
+ deprecated code
+Date: Wed,  1 Jul 2026 14:20:25 +0200
+Message-ID: <20260701122057.19648-11-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
 References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
@@ -66,277 +66,396 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In preparation for a bigger restructuring of Display Controller
-HW sub-component handing and path building, introduce two new
-mtk_drm_comp_definition and mtk_drm_path definition structures,
-meant to replace all of the {main,ext,third}_path pointers and
-supportive length variables.
+Since mediatek-drm shifted from hardcoded per-SoC-per-Board path
+definitions for the display controller to devicetree graph based
+path building, the first ones are used less and less, and those
+are also decreasing ease of code browsability (hence, readability)
+in the mtk_drm_drv.c file.
 
-Obviously, also change all of the functions that were previously
-using the old path array pointers to use the new structures.
+This means that those big arrays are almost irrelevant now (for
+modern code, of course).
 
-This made possible to loop through the path definition structures,
-shortening various code paths and hence improving readability but,
-as a nice side effect, now it is possible to easily extend the
-maximum number of outputs that are supported by the driver.
-Of course, even though that could be done by simply extending the
-already present mtk_crtc_path enumeration (which now also indexes
-the mtk_drm_path_definition array in mtk_mmsys_driver_data), doing
-so will increase the memory footprint for all platforms (even the
-ones with a single output): this is currently left unresolved, but
-this change makes performing a future optimization to add dynamic
-CRTC output indexing(/numbers) way easier than before.
+Seen the need to keep compatibility with older devicetrees, then,
+move all of the deprecated arrays in new mtk_drm_legacy files and
+add a big warning to those, explaining that no new SoCs must be
+implemented like so, and making it clear that it shall exclusively
+contain legacy and deprecated code.
+
+Also, especially with the restructuring work that is currently in
+progress (with MuteX finally getting trigger-sources support and
+other changes that will follow), it is expected to see more code
+being moved in the mtk_drm_legacy territory.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_crtc.c     |  21 +-
- drivers/gpu/drm/mediatek/mtk_crtc.h     |   4 +-
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c |  51 +--
- drivers/gpu/drm/mediatek/mtk_ddp_comp.h |   2 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.c  | 573 +++++++++++++-----------
- drivers/gpu/drm/mediatek/mtk_drm_drv.h  |  17 +-
- 6 files changed, 359 insertions(+), 309 deletions(-)
+ drivers/gpu/drm/mediatek/Makefile         |   1 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c    | 277 +------------------
+ drivers/gpu/drm/mediatek/mtk_drm_legacy.c | 309 ++++++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_legacy.h |  28 ++
+ 4 files changed, 339 insertions(+), 276 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_drm_legacy.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_drm_legacy.h
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index 3f4d6ab1bfc2..5e243550d35e 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-  * Copyright (c) 2015 MediaTek Inc.
-+ * Copyright (c) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-  */
- 
- #include <linux/clk.h>
-@@ -1025,12 +1027,13 @@ struct device *mtk_crtc_dma_dev_get(struct drm_crtc *crtc)
- 	return mtk_crtc->dma_dev;
- }
- 
--int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
--		    unsigned int path_len, int priv_data_index,
-+int mtk_crtc_create(struct drm_device *drm_dev,
-+		    enum mtk_crtc_path path_sel, int priv_data_index,
- 		    const struct mtk_drm_route *conn_routes,
- 		    unsigned int num_conn_routes)
- {
- 	struct mtk_drm_private *priv = drm_dev->dev_private;
-+	const struct mtk_drm_path_definition *output_path;
- 	struct device *dev = drm_dev->dev;
- 	struct mtk_ddp_comp *dma_comp;
- 	struct mtk_crtc *mtk_crtc;
-@@ -1042,16 +1045,14 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
- 	struct drm_crtc *tmp;
- 	int crtc_i = 0;
- 
--	if (!path)
--		return 0;
--
- 	priv = priv->all_drm_private[priv_data_index];
-+	output_path = &priv->data->output_paths[path_sel];
- 
- 	drm_for_each_crtc(tmp, drm_dev)
- 		crtc_i++;
- 
--	for (i = 0; i < path_len; i++) {
--		enum mtk_ddp_comp_id comp_id = path[i];
-+	for (i = 0; i < output_path[i].len; i++) {
-+		enum mtk_ddp_comp_id comp_id = output_path->comp[i].type;
- 		struct device_node *node;
- 		struct mtk_ddp_comp *comp;
- 
-@@ -1079,7 +1080,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
- 		return -ENOMEM;
- 
- 	mtk_crtc->mmsys_dev = priv->mmsys_dev;
--	mtk_crtc->ddp_comp_nr = path_len;
-+	mtk_crtc->ddp_comp_nr = output_path->len;
- 	mtk_crtc->ddp_comp = devm_kcalloc(dev,
- 					  mtk_crtc->ddp_comp_nr + (conn_routes ? 1 : 0),
- 					  sizeof(*mtk_crtc->ddp_comp),
-@@ -1095,7 +1096,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
- 	}
- 
- 	for (i = 0, j = 0; i < mtk_crtc->ddp_comp_nr; i++, j++) {
--		unsigned int comp_id = path[i];
-+		unsigned int comp_id = output_path->comp[i].type;
- 		struct mtk_ddp_comp *comp;
- 
- 		comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
-@@ -1141,7 +1142,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
- 	 * In the case of ovl_adaptor sub driver, it needs to use the
- 	 * dma_dev_get function to get representative dma dev.
- 	 */
--	dma_comp = mtk_ddp_comp_find_by_id(&priv->hlist, path[0]);
-+	dma_comp = mtk_ddp_comp_find_by_id(&priv->hlist, output_path->comp[0].type);
- 	if (dma_comp == NULL) {
- 		dev_err(dev, "Could not find appropriate DMA device!\n");
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.h b/drivers/gpu/drm/mediatek/mtk_crtc.h
-index a6b8697cca97..5a18b6bfa06b 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.h
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.h
-@@ -15,8 +15,8 @@
- #define MTK_MIN_BPC	3
- 
- void mtk_crtc_commit(struct drm_crtc *crtc);
--int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
--		    unsigned int path_len, int priv_data_index,
-+int mtk_crtc_create(struct drm_device *drm_dev,
-+		    enum mtk_crtc_path path_sel, int priv_data_index,
- 		    const struct mtk_drm_route *conn_routes,
- 		    unsigned int num_conn_routes);
- int mtk_crtc_plane_check(struct drm_crtc *crtc, struct drm_plane *plane,
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-index f7103e20abe5..b0d38646ca03 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-@@ -495,17 +495,13 @@ static bool mtk_ddp_find_comp_dev_in_table(const struct mtk_drm_comp_list *hlist
- }
- 
- static bool mtk_ddp_comp_find(struct device *dev,
--			      const unsigned int *path,
--			      unsigned int path_len,
-+			      const struct mtk_drm_path_definition *output_path,
- 			      const struct mtk_drm_comp_list *hlist)
- {
- 	unsigned int i;
- 
--	if (path == NULL)
--		return false;
--
--	for (i = 0U; i < path_len; i++)
--		if (mtk_ddp_find_comp_dev_in_table(hlist, path[i], dev))
-+	for (i = 0U; i < output_path->len; i++)
-+		if (mtk_ddp_find_comp_dev_in_table(hlist, output_path->comp[i].type, dev))
- 			return true;
- 
- 	return false;
-@@ -528,21 +524,17 @@ static int mtk_ddp_comp_find_in_route(struct device *dev,
- 	return -ENODEV;
- }
- 
--static bool mtk_ddp_path_available(const unsigned int *path,
--				   unsigned int path_len,
-+static bool mtk_ddp_path_available(const struct mtk_drm_path_definition *output_path,
- 				   struct device_node **comp_node)
- {
- 	unsigned int i;
- 
--	if (!path || !path_len)
--		return false;
--
--	for (i = 0U; i < path_len; i++) {
-+	for (i = 0U; i < output_path->len; i++) {
- 		/* OVL_ADAPTOR doesn't have a device node */
--		if (path[i] == DDP_COMPONENT_DRM_OVL_ADAPTOR)
-+		if (output_path->comp[i].type == DDP_COMPONENT_DRM_OVL_ADAPTOR)
- 			continue;
- 
--		if (!comp_node[path[i]])
-+		if (!comp_node[output_path->comp[i].type])
- 			return false;
- 	}
- 
-@@ -576,31 +568,14 @@ int mtk_find_possible_crtcs(struct drm_device *drm, struct device *dev)
- 		priv_n = private->all_drm_private[j];
- 		data = priv_n->data;
- 
--		if (mtk_ddp_path_available(data->main_path, data->main_len,
--					   priv_n->comp_node)) {
--			if (mtk_ddp_comp_find(dev, data->main_path,
--					      data->main_len,
--					      &priv_n->hlist))
--				return BIT(i);
--			i++;
--		}
--
--		if (mtk_ddp_path_available(data->ext_path, data->ext_len,
--					   priv_n->comp_node)) {
--			if (mtk_ddp_comp_find(dev, data->ext_path,
--					      data->ext_len,
--					      &priv_n->hlist))
--				return BIT(i);
--			i++;
--		}
-+		for (i = 0; i < MAX_CRTC; i++) {
-+			if (!data->output_paths[i].len)
-+				continue;
- 
--		if (mtk_ddp_path_available(data->third_path, data->third_len,
--					   priv_n->comp_node)) {
--			if (mtk_ddp_comp_find(dev, data->third_path,
--					      data->third_len,
--					      &priv_n->hlist))
-+			ret = mtk_ddp_comp_find(dev, &data->output_paths[i],
-+						&priv_n->hlist);
-+			if (ret)
- 				return BIT(i);
--			i++;
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.h b/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-index 58a06add1368..76a2b649516d 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.h
-@@ -15,6 +15,8 @@
- 
- #include <drm/drm_modes.h>
- 
-+#define MTK_DISP_CONTROLLER_MAX_COMP_PER_PATH		24
-+
- struct device;
- struct device_node;
- struct drm_crtc;
+diff --git a/drivers/gpu/drm/mediatek/Makefile b/drivers/gpu/drm/mediatek/Makefile
+index 8079962597c8..f40ad5565716 100644
+--- a/drivers/gpu/drm/mediatek/Makefile
++++ b/drivers/gpu/drm/mediatek/Makefile
+@@ -13,6 +13,7 @@ mediatek-drm-y := mtk_crtc.o \
+ 		  mtk_disp_rdma.o \
+ 		  mtk_disp_wdma.o \
+ 		  mtk_drm_drv.o \
++		  mtk_drm_legacy.o \
+ 		  mtk_dsi.o \
+ 		  mtk_dpi.o \
+ 		  mtk_ethdr.o \
 diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 18683aee61ff..09c7d038348d 100644
+index 09c7d038348d..1396cbc65627 100644
 --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
 +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -2,6 +2,10 @@
- /*
-  * Copyright (c) 2015 MediaTek Inc.
-  * Author: YT SHEN <yt.shen@mediatek.com>
-+ *
-+ * Major rework
-+ * Copyright (c) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-  */
+@@ -35,6 +35,7 @@
+ #include "mtk_ddp_comp.h"
+ #include "mtk_disp_drv.h"
+ #include "mtk_drm_drv.h"
++#include "mtk_drm_legacy.h"
  
- #include <linux/aperture.h>
-@@ -59,239 +63,326 @@ static const struct drm_mode_config_funcs mtk_drm_mode_config_funcs = {
+ #define DRIVER_NAME "mediatek"
+ #define DRIVER_DESC "Mediatek SoC DRM"
+@@ -63,282 +64,6 @@ static const struct drm_mode_config_funcs mtk_drm_mode_config_funcs = {
  	.atomic_commit = drm_atomic_helper_commit,
  };
  
--static const unsigned int mt2701_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_BLS,
--	DDP_COMPONENT_DSI0,
+-static const struct mtk_drm_comp_definition mt2701_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_BLS },
+-	{ DDP_COMPONENT_DSI0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt2701_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_RDMA1 },
+-	{ DDP_COMPONENT_DPI0 },
+-};
+-
+-struct mtk_drm_path_definition mt2701_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt2701_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt2701_mtk_ddp_main),
+-	},
+-	[CRTC_EXT] = {
+-		.comp = mt2701_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt2701_mtk_ddp_ext),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt2712_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_OD0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_DPI0 },
+-	{ DDP_COMPONENT_PWM0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt2712_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_OVL1 },
+-	{ DDP_COMPONENT_COLOR1 },
+-	{ DDP_COMPONENT_AAL1 },
+-	{ DDP_COMPONENT_OD1 },
+-	{ DDP_COMPONENT_RDMA1 },
+-	{ DDP_COMPONENT_DPI1 },
+-	{ DDP_COMPONENT_PWM1 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt2712_mtk_ddp_third[] = {
+-	{ DDP_COMPONENT_RDMA2 },
+-	{ DDP_COMPONENT_DSI3 },
+-	{ DDP_COMPONENT_PWM2 },
+-};
+-
+-struct mtk_drm_path_definition mt2712_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt2712_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt2712_mtk_ddp_main),
+-	},
+-	[CRTC_EXT] = {
+-		.comp = mt2712_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt2712_mtk_ddp_ext),
+-	},
+-	[CRTC_THIRD] = {
+-		.comp = mt2712_mtk_ddp_third,
+-		.len = ARRAY_SIZE(mt2712_mtk_ddp_third),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt7623_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_BLS },
+-	{ DDP_COMPONENT_DPI0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt7623_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_RDMA1 },
+-	{ DDP_COMPONENT_DSI0 },
+-};
+-
+-struct mtk_drm_path_definition mt7623_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt7623_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt7623_mtk_ddp_main),
+-	},
+-	[CRTC_EXT] = {
+-		.comp = mt7623_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt7623_mtk_ddp_ext),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt8167_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_CCORR },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_GAMMA },
+-	{ DDP_COMPONENT_DITHER0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_DSI0 },
+-};
+-
+-struct mtk_drm_path_definition mt8167_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt8167_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt8167_mtk_ddp_main),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt8173_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_OD0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_UFOE },
+-	{ DDP_COMPONENT_DSI0 },
+-	{ DDP_COMPONENT_PWM0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt8173_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_OVL1 },
+-	{ DDP_COMPONENT_COLOR1 },
+-	{ DDP_COMPONENT_GAMMA },
+-	{ DDP_COMPONENT_RDMA1 },
+-	{ DDP_COMPONENT_DPI0 },
+-};
+-
+-struct mtk_drm_path_definition mt8173_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt8173_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt8173_mtk_ddp_main),
+-	},
+-	[CRTC_EXT] = {
+-		.comp = mt8173_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt8173_mtk_ddp_ext),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt8183_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_OVL_2L0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_CCORR },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_GAMMA },
+-	{ DDP_COMPONENT_DITHER0 },
+-	{ DDP_COMPONENT_DSI0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt8183_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_OVL_2L1 },
+-	{ DDP_COMPONENT_RDMA1 },
+-	{ DDP_COMPONENT_DPI0 },
+-};
+-
+-struct mtk_drm_path_definition mt8183_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt8183_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt8183_mtk_ddp_main),
+-	},
+-	[CRTC_EXT] = {
+-		.comp = mt8183_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt8183_mtk_ddp_ext),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt8186_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_CCORR },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_GAMMA },
+-	{ DDP_COMPONENT_POSTMASK0 },
+-	{ DDP_COMPONENT_DITHER0 },
+-	{ DDP_COMPONENT_DSI0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt8186_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_OVL_2L0 },
+-	{ DDP_COMPONENT_RDMA1 },
+-	{ DDP_COMPONENT_DPI0 },
+-};
+-
+-struct mtk_drm_path_definition mt8186_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt8186_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt8186_mtk_ddp_main),
+-	},
+-	[CRTC_EXT] = {
+-		.comp = mt8186_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt8186_mtk_ddp_ext),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt8188_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_CCORR },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_GAMMA },
+-	{ DDP_COMPONENT_POSTMASK0 },
+-	{ DDP_COMPONENT_DITHER0 },
+-};
+-
+-struct mtk_drm_path_definition mt8188_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt8188_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt8188_mtk_ddp_main),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt8192_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_OVL_2L0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_CCORR },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_GAMMA },
+-	{ DDP_COMPONENT_POSTMASK0 },
+-	{ DDP_COMPONENT_DITHER0 },
+-	{ DDP_COMPONENT_DSI0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt8192_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_OVL_2L2 },
+-	{ DDP_COMPONENT_RDMA4 },
+-	{ DDP_COMPONENT_DPI0 },
+-};
+-
+-struct mtk_drm_path_definition mt8192_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt8192_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt8192_mtk_ddp_main),
+-	},
+-	[CRTC_EXT] = {
+-		.comp = mt8192_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt8192_mtk_ddp_ext),
+-	},
+-};
+-
+-static const struct mtk_drm_comp_definition mt8195_mtk_ddp_main[] = {
+-	{ DDP_COMPONENT_OVL0 },
+-	{ DDP_COMPONENT_RDMA0 },
+-	{ DDP_COMPONENT_COLOR0 },
+-	{ DDP_COMPONENT_CCORR },
+-	{ DDP_COMPONENT_AAL0 },
+-	{ DDP_COMPONENT_GAMMA },
+-	{ DDP_COMPONENT_DITHER0 },
+-	{ DDP_COMPONENT_DSC0 },
+-	{ DDP_COMPONENT_MERGE0 },
+-	{ DDP_COMPONENT_DP_INTF0 },
+-};
+-
+-static const struct mtk_drm_comp_definition mt8195_mtk_ddp_ext[] = {
+-	{ DDP_COMPONENT_DRM_OVL_ADAPTOR },
+-	{ DDP_COMPONENT_MERGE5 },
+-	{ DDP_COMPONENT_DP_INTF1 },
+-};
+-
+-struct mtk_drm_path_definition mt8195_vdo0_legacy_paths[MAX_CRTC] = {
+-	[CRTC_MAIN] = {
+-		.comp = mt8195_mtk_ddp_main,
+-		.len = ARRAY_SIZE(mt8195_mtk_ddp_main),
+-	},
+-};
+-
+-struct mtk_drm_path_definition mt8195_vdo1_legacy_paths[MAX_CRTC] = {
+-	[CRTC_EXT] = {
+-		.comp = mt8195_mtk_ddp_ext,
+-		.len = ARRAY_SIZE(mt8195_mtk_ddp_ext),
+-	},
+-};
+-
+ static const struct mtk_mmsys_driver_data mt2701_mmsys_driver_data = {
+ 	.output_paths = mt2701_legacy_paths,
+ 	.shadow_register = true,
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_legacy.c b/drivers/gpu/drm/mediatek/mtk_drm_legacy.c
+new file mode 100644
+index 000000000000..623e510de9ff
+--- /dev/null
++++ b/drivers/gpu/drm/mediatek/mtk_drm_legacy.c
+@@ -0,0 +1,309 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Compatibility layer for legacy mediatek-drm
++ *
++ * Copyright (c) 2026 Collabora Ltd.
++ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++ *
++ * All (or most of) MediaTek SoCs released since around year 2014 onwards
++ * have got a new Multimedia System (and Display Controller) architecture,
++ * featuring an extreme flexibility on the connection of all of the various
++ * multimedia-related hardware components (or sub-IPs).
++ *
++ * Many different boards based on those SoCs are using different displays,
++ * different outputs, hence wildly different display pipelines: for this,
++ * a solution based on a devicetree graph (OF Graph) was chosen for setting
++ * up the correct pipeline for each device.
++ *
++ * However, removing the hardcoded display controller paths would break all
++ * of the devices using the new display driver on an old devicetree.
++ *
++ * This compatibility layer makes possible to keep the display controller
++ * functionality working when a board/device:
++ *  - Uses an old devicetree with no OF Graph; and
++ *  - Uses a new kernel with the new mediatek-drm graph-based pipeline
++ *    building code.
++ *
++ *                            ** WARNING **
++ * This exists only to avoid ABI breakages and no new SoC should ever be
++ * added to this file.
++ */
++
++#include "mtk_drm_drv.h"
++#include "mtk_drm_legacy.h"
++
 +static const struct mtk_drm_comp_definition mt2701_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_RDMA0 },
 +	{ DDP_COMPONENT_COLOR0 },
 +	{ DDP_COMPONENT_BLS },
 +	{ DDP_COMPONENT_DSI0 },
- };
- 
--static const unsigned int mt2701_mtk_ddp_ext[] = {
--	DDP_COMPONENT_RDMA1,
--	DDP_COMPONENT_DPI0,
++};
++
 +static const struct mtk_drm_comp_definition mt2701_mtk_ddp_ext[] = {
 +	{ DDP_COMPONENT_RDMA1 },
 +	{ DDP_COMPONENT_DPI0 },
- };
- 
--static const unsigned int mt7623_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_BLS,
--	DDP_COMPONENT_DPI0,
++};
++
 +struct mtk_drm_path_definition mt2701_legacy_paths[MAX_CRTC] = {
 +	[CRTC_MAIN] = {
 +		.comp = mt2701_mtk_ddp_main,
@@ -346,11 +465,8 @@ index 18683aee61ff..09c7d038348d 100644
 +		.comp = mt2701_mtk_ddp_ext,
 +		.len = ARRAY_SIZE(mt2701_mtk_ddp_ext),
 +	},
- };
- 
--static const unsigned int mt7623_mtk_ddp_ext[] = {
--	DDP_COMPONENT_RDMA1,
--	DDP_COMPONENT_DSI0,
++};
++
 +static const struct mtk_drm_comp_definition mt2712_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_COLOR0 },
@@ -359,16 +475,8 @@ index 18683aee61ff..09c7d038348d 100644
 +	{ DDP_COMPONENT_RDMA0 },
 +	{ DDP_COMPONENT_DPI0 },
 +	{ DDP_COMPONENT_PWM0 },
- };
- 
--static const unsigned int mt2712_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_OD0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_DPI0,
--	DDP_COMPONENT_PWM0,
++};
++
 +static const struct mtk_drm_comp_definition mt2712_mtk_ddp_ext[] = {
 +	{ DDP_COMPONENT_OVL1 },
 +	{ DDP_COMPONENT_COLOR1 },
@@ -377,26 +485,14 @@ index 18683aee61ff..09c7d038348d 100644
 +	{ DDP_COMPONENT_RDMA1 },
 +	{ DDP_COMPONENT_DPI1 },
 +	{ DDP_COMPONENT_PWM1 },
- };
- 
--static const unsigned int mt2712_mtk_ddp_ext[] = {
--	DDP_COMPONENT_OVL1,
--	DDP_COMPONENT_COLOR1,
--	DDP_COMPONENT_AAL1,
--	DDP_COMPONENT_OD1,
--	DDP_COMPONENT_RDMA1,
--	DDP_COMPONENT_DPI1,
--	DDP_COMPONENT_PWM1,
++};
++
 +static const struct mtk_drm_comp_definition mt2712_mtk_ddp_third[] = {
 +	{ DDP_COMPONENT_RDMA2 },
 +	{ DDP_COMPONENT_DSI3 },
 +	{ DDP_COMPONENT_PWM2 },
- };
- 
--static const unsigned int mt2712_mtk_ddp_third[] = {
--	DDP_COMPONENT_RDMA2,
--	DDP_COMPONENT_DSI3,
--	DDP_COMPONENT_PWM2,
++};
++
 +struct mtk_drm_path_definition mt2712_legacy_paths[MAX_CRTC] = {
 +	[CRTC_MAIN] = {
 +		.comp = mt2712_mtk_ddp_main,
@@ -410,45 +506,21 @@ index 18683aee61ff..09c7d038348d 100644
 +		.comp = mt2712_mtk_ddp_third,
 +		.len = ARRAY_SIZE(mt2712_mtk_ddp_third),
 +	},
- };
- 
--static unsigned int mt8167_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_CCORR,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_GAMMA,
--	DDP_COMPONENT_DITHER0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_DSI0,
++};
++
 +static const struct mtk_drm_comp_definition mt7623_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_RDMA0 },
 +	{ DDP_COMPONENT_COLOR0 },
 +	{ DDP_COMPONENT_BLS },
 +	{ DDP_COMPONENT_DPI0 },
- };
- 
--static const unsigned int mt8173_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_OD0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_UFOE,
--	DDP_COMPONENT_DSI0,
--	DDP_COMPONENT_PWM0,
++};
++
 +static const struct mtk_drm_comp_definition mt7623_mtk_ddp_ext[] = {
 +	{ DDP_COMPONENT_RDMA1 },
 +	{ DDP_COMPONENT_DSI0 },
- };
- 
--static const unsigned int mt8173_mtk_ddp_ext[] = {
--	DDP_COMPONENT_OVL1,
--	DDP_COMPONENT_COLOR1,
--	DDP_COMPONENT_GAMMA,
--	DDP_COMPONENT_RDMA1,
--	DDP_COMPONENT_DPI0,
++};
++
 +struct mtk_drm_path_definition mt7623_legacy_paths[MAX_CRTC] = {
 +	[CRTC_MAIN] = {
 +		.comp = mt7623_mtk_ddp_main,
@@ -458,18 +530,8 @@ index 18683aee61ff..09c7d038348d 100644
 +		.comp = mt7623_mtk_ddp_ext,
 +		.len = ARRAY_SIZE(mt7623_mtk_ddp_ext),
 +	},
- };
- 
--static const unsigned int mt8183_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_OVL_2L0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_CCORR,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_GAMMA,
--	DDP_COMPONENT_DITHER0,
--	DDP_COMPONENT_DSI0,
++};
++
 +static const struct mtk_drm_comp_definition mt8167_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_COLOR0 },
@@ -479,29 +541,15 @@ index 18683aee61ff..09c7d038348d 100644
 +	{ DDP_COMPONENT_DITHER0 },
 +	{ DDP_COMPONENT_RDMA0 },
 +	{ DDP_COMPONENT_DSI0 },
- };
- 
--static const unsigned int mt8183_mtk_ddp_ext[] = {
--	DDP_COMPONENT_OVL_2L1,
--	DDP_COMPONENT_RDMA1,
--	DDP_COMPONENT_DPI0,
++};
++
 +struct mtk_drm_path_definition mt8167_legacy_paths[MAX_CRTC] = {
 +	[CRTC_MAIN] = {
 +		.comp = mt8167_mtk_ddp_main,
 +		.len = ARRAY_SIZE(mt8167_mtk_ddp_main),
 +	},
- };
- 
--static const unsigned int mt8186_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_CCORR,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_GAMMA,
--	DDP_COMPONENT_POSTMASK0,
--	DDP_COMPONENT_DITHER0,
--	DDP_COMPONENT_DSI0,
++};
++
 +static const struct mtk_drm_comp_definition mt8173_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_COLOR0 },
@@ -511,29 +559,16 @@ index 18683aee61ff..09c7d038348d 100644
 +	{ DDP_COMPONENT_UFOE },
 +	{ DDP_COMPONENT_DSI0 },
 +	{ DDP_COMPONENT_PWM0 },
- };
- 
--static const unsigned int mt8186_mtk_ddp_ext[] = {
--	DDP_COMPONENT_OVL_2L0,
--	DDP_COMPONENT_RDMA1,
--	DDP_COMPONENT_DPI0,
++};
++
 +static const struct mtk_drm_comp_definition mt8173_mtk_ddp_ext[] = {
 +	{ DDP_COMPONENT_OVL1 },
 +	{ DDP_COMPONENT_COLOR1 },
 +	{ DDP_COMPONENT_GAMMA },
 +	{ DDP_COMPONENT_RDMA1 },
 +	{ DDP_COMPONENT_DPI0 },
- };
- 
--static const unsigned int mt8188_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_CCORR,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_GAMMA,
--	DDP_COMPONENT_POSTMASK0,
--	DDP_COMPONENT_DITHER0,
++};
++
 +struct mtk_drm_path_definition mt8173_legacy_paths[MAX_CRTC] = {
 +	[CRTC_MAIN] = {
 +		.comp = mt8173_mtk_ddp_main,
@@ -543,11 +578,8 @@ index 18683aee61ff..09c7d038348d 100644
 +		.comp = mt8173_mtk_ddp_ext,
 +		.len = ARRAY_SIZE(mt8173_mtk_ddp_ext),
 +	},
- };
- 
--static const struct mtk_drm_route mt8188_mtk_ddp_main_routes[] = {
--	{0, DDP_COMPONENT_DP_INTF0},
--	{0, DDP_COMPONENT_DSI0},
++};
++
 +static const struct mtk_drm_comp_definition mt8183_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_OVL_2L0 },
@@ -575,19 +607,8 @@ index 18683aee61ff..09c7d038348d 100644
 +		.comp = mt8183_mtk_ddp_ext,
 +		.len = ARRAY_SIZE(mt8183_mtk_ddp_ext),
 +	},
- };
- 
--static const unsigned int mt8192_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_OVL_2L0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_CCORR,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_GAMMA,
--	DDP_COMPONENT_POSTMASK0,
--	DDP_COMPONENT_DITHER0,
--	DDP_COMPONENT_DSI0,
++};
++
 +static const struct mtk_drm_comp_definition mt8186_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_RDMA0 },
@@ -598,29 +619,14 @@ index 18683aee61ff..09c7d038348d 100644
 +	{ DDP_COMPONENT_POSTMASK0 },
 +	{ DDP_COMPONENT_DITHER0 },
 +	{ DDP_COMPONENT_DSI0 },
- };
- 
--static const unsigned int mt8192_mtk_ddp_ext[] = {
--	DDP_COMPONENT_OVL_2L2,
--	DDP_COMPONENT_RDMA4,
--	DDP_COMPONENT_DPI0,
++};
++
 +static const struct mtk_drm_comp_definition mt8186_mtk_ddp_ext[] = {
 +	{ DDP_COMPONENT_OVL_2L0 },
 +	{ DDP_COMPONENT_RDMA1 },
 +	{ DDP_COMPONENT_DPI0 },
- };
- 
--static const unsigned int mt8195_mtk_ddp_main[] = {
--	DDP_COMPONENT_OVL0,
--	DDP_COMPONENT_RDMA0,
--	DDP_COMPONENT_COLOR0,
--	DDP_COMPONENT_CCORR,
--	DDP_COMPONENT_AAL0,
--	DDP_COMPONENT_GAMMA,
--	DDP_COMPONENT_DITHER0,
--	DDP_COMPONENT_DSC0,
--	DDP_COMPONENT_MERGE0,
--	DDP_COMPONENT_DP_INTF0,
++};
++
 +struct mtk_drm_path_definition mt8186_legacy_paths[MAX_CRTC] = {
 +	[CRTC_MAIN] = {
 +		.comp = mt8186_mtk_ddp_main,
@@ -630,12 +636,8 @@ index 18683aee61ff..09c7d038348d 100644
 +		.comp = mt8186_mtk_ddp_ext,
 +		.len = ARRAY_SIZE(mt8186_mtk_ddp_ext),
 +	},
- };
- 
--static const unsigned int mt8195_mtk_ddp_ext[] = {
--	DDP_COMPONENT_DRM_OVL_ADAPTOR,
--	DDP_COMPONENT_MERGE5,
--	DDP_COMPONENT_DP_INTF1,
++};
++
 +static const struct mtk_drm_comp_definition mt8188_mtk_ddp_main[] = {
 +	{ DDP_COMPONENT_OVL0 },
 +	{ DDP_COMPONENT_RDMA0 },
@@ -715,421 +717,41 @@ index 18683aee61ff..09c7d038348d 100644
 +		.comp = mt8195_mtk_ddp_ext,
 +		.len = ARRAY_SIZE(mt8195_mtk_ddp_ext),
 +	},
- };
- 
- static const struct mtk_mmsys_driver_data mt2701_mmsys_driver_data = {
--	.main_path = mt2701_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt2701_mtk_ddp_main),
--	.ext_path = mt2701_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt2701_mtk_ddp_ext),
-+	.output_paths = mt2701_legacy_paths,
- 	.shadow_register = true,
- 	.mmsys_dev_num = 1,
- };
- 
--static const struct mtk_mmsys_driver_data mt7623_mmsys_driver_data = {
--	.main_path = mt7623_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt7623_mtk_ddp_main),
--	.ext_path = mt7623_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt7623_mtk_ddp_ext),
--	.shadow_register = true,
-+static const struct mtk_mmsys_driver_data mt2712_mmsys_driver_data = {
-+	.output_paths = mt2712_legacy_paths,
- 	.mmsys_dev_num = 1,
- };
- 
--static const struct mtk_mmsys_driver_data mt2712_mmsys_driver_data = {
--	.main_path = mt2712_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt2712_mtk_ddp_main),
--	.ext_path = mt2712_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt2712_mtk_ddp_ext),
--	.third_path = mt2712_mtk_ddp_third,
--	.third_len = ARRAY_SIZE(mt2712_mtk_ddp_third),
-+static const struct mtk_mmsys_driver_data mt7623_mmsys_driver_data = {
-+	.output_paths = mt7623_legacy_paths,
-+	.shadow_register = true,
- 	.mmsys_dev_num = 1,
- };
- 
- static const struct mtk_mmsys_driver_data mt8167_mmsys_driver_data = {
--	.main_path = mt8167_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt8167_mtk_ddp_main),
-+	.output_paths = mt8167_legacy_paths,
- 	.mmsys_dev_num = 1,
- };
- 
- static const struct mtk_mmsys_driver_data mt8173_mmsys_driver_data = {
--	.main_path = mt8173_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt8173_mtk_ddp_main),
--	.ext_path = mt8173_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt8173_mtk_ddp_ext),
-+	.output_paths = mt8173_legacy_paths,
- 	.mmsys_dev_num = 1,
- };
- 
- static const struct mtk_mmsys_driver_data mt8183_mmsys_driver_data = {
--	.main_path = mt8183_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt8183_mtk_ddp_main),
--	.ext_path = mt8183_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt8183_mtk_ddp_ext),
-+	.output_paths = mt8183_legacy_paths,
- 	.mmsys_dev_num = 1,
- };
- 
- static const struct mtk_mmsys_driver_data mt8186_mmsys_driver_data = {
--	.main_path = mt8186_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt8186_mtk_ddp_main),
--	.ext_path = mt8186_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt8186_mtk_ddp_ext),
-+	.output_paths = mt8186_legacy_paths,
- 	.mmsys_dev_num = 1,
- };
- 
-+static const struct mtk_drm_route mt8188_mtk_ddp_main_routes[] = {
-+	{ 0, DDP_COMPONENT_DP_INTF0 },
-+	{ 0, DDP_COMPONENT_DSI0 },
 +};
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_legacy.h b/drivers/gpu/drm/mediatek/mtk_drm_legacy.h
+new file mode 100644
+index 000000000000..a87741ec0dcd
+--- /dev/null
++++ b/drivers/gpu/drm/mediatek/mtk_drm_legacy.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Support for legacy mediatek-drm display paths
++ *
++ * Please read mtk_drm_legacy.c for more information.
++ *
++ * Copyright (c) 2026 Collabora Ltd.
++ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++ */
 +
- static const struct mtk_mmsys_driver_data mt8188_vdosys0_driver_data = {
--	.main_path = mt8188_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt8188_mtk_ddp_main),
-+	.output_paths = mt8188_legacy_paths,
- 	.conn_routes = mt8188_mtk_ddp_main_routes,
- 	.num_conn_routes = ARRAY_SIZE(mt8188_mtk_ddp_main_routes),
- 	.mmsys_dev_num = 2,
-@@ -301,16 +392,12 @@ static const struct mtk_mmsys_driver_data mt8188_vdosys0_driver_data = {
- };
- 
- static const struct mtk_mmsys_driver_data mt8192_mmsys_driver_data = {
--	.main_path = mt8192_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt8192_mtk_ddp_main),
--	.ext_path = mt8192_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt8192_mtk_ddp_ext),
-+	.output_paths = mt8192_legacy_paths,
- 	.mmsys_dev_num = 1,
- };
- 
- static const struct mtk_mmsys_driver_data mt8195_vdosys0_driver_data = {
--	.main_path = mt8195_mtk_ddp_main,
--	.main_len = ARRAY_SIZE(mt8195_mtk_ddp_main),
-+	.output_paths = mt8195_vdo0_legacy_paths,
- 	.mmsys_dev_num = 2,
- 	.max_width = 8191,
- 	.min_width = 1,
-@@ -318,8 +405,7 @@ static const struct mtk_mmsys_driver_data mt8195_vdosys0_driver_data = {
- };
- 
- static const struct mtk_mmsys_driver_data mt8195_vdosys1_driver_data = {
--	.ext_path = mt8195_mtk_ddp_ext,
--	.ext_len = ARRAY_SIZE(mt8195_mtk_ddp_ext),
-+	.output_paths = mt8195_vdo1_legacy_paths,
- 	.mmsys_id = 1,
- 	.mmsys_dev_num = 2,
- 	.max_width = 8191,
-@@ -384,6 +470,7 @@ static bool mtk_drm_get_all_drm_priv(struct device *dev)
- 	int i, j;
- 
- 	for_each_child_of_node(phandle->parent, node) {
-+		const struct mtk_drm_path_definition *output_path;
- 		struct platform_device *pdev;
- 
- 		of_id = of_match_node(mtk_drm_of_ids, node);
-@@ -404,12 +491,14 @@ static bool mtk_drm_get_all_drm_priv(struct device *dev)
- 		if (!temp_drm_priv)
- 			continue;
- 
--		if (temp_drm_priv->data->main_len)
--			all_drm_priv[CRTC_MAIN] = temp_drm_priv;
--		else if (temp_drm_priv->data->ext_len)
--			all_drm_priv[CRTC_EXT] = temp_drm_priv;
--		else if (temp_drm_priv->data->third_len)
--			all_drm_priv[CRTC_THIRD] = temp_drm_priv;
-+		for (i = 0; i < MAX_CRTC; i++) {
-+			output_path = &temp_drm_priv->data->output_paths[i];
++#ifndef MTK_DRM_LEGACY_H
++#define MTK_DRM_LEGACY_H
 +
-+			if (!output_path->len)
-+				continue;
++struct mtk_drm_path_definition;
 +
-+			all_drm_priv[i] = temp_drm_priv;
-+		}
- 
- 		if (temp_drm_priv->mtk_drm_bound)
- 			cnt++;
-@@ -433,27 +522,23 @@ static bool mtk_drm_get_all_drm_priv(struct device *dev)
- 
- static bool mtk_drm_find_mmsys_comp(struct mtk_drm_private *private, int comp_id)
- {
--	const struct mtk_mmsys_driver_data *drv_data = private->data;
--	int i;
-+	const struct mtk_mmsys_driver_data *data = private->data;
-+	int i, j;
- 
--	if (drv_data->main_path)
--		for (i = 0; i < drv_data->main_len; i++)
--			if (drv_data->main_path[i] == comp_id)
--				return true;
-+	for (i = 0; i < MAX_CRTC; i++) {
-+		const struct mtk_drm_path_definition *output_path = &data->output_paths[i];
- 
--	if (drv_data->ext_path)
--		for (i = 0; i < drv_data->ext_len; i++)
--			if (drv_data->ext_path[i] == comp_id)
--				return true;
-+		for (j = 0; j < output_path->len; j++) {
-+			if (output_path->comp[j].type != comp_id)
-+				continue;
- 
--	if (drv_data->third_path)
--		for (i = 0; i < drv_data->third_len; i++)
--			if (drv_data->third_path[i] == comp_id)
--				return true;
-+			return true;
-+		}
-+	}
- 
--	if (drv_data->num_conn_routes)
--		for (i = 0; i < drv_data->num_conn_routes; i++)
--			if (drv_data->conn_routes[i].route_ddp == comp_id)
-+	if (data->num_conn_routes)
-+		for (i = 0; i < data->num_conn_routes; i++)
-+			if (data->conn_routes[i].route_ddp == comp_id)
- 				return true;
- 
- 	return false;
-@@ -525,30 +610,15 @@ static int mtk_drm_kms_init(struct drm_device *drm)
- 			if (priv_n->data->min_height)
- 				drm->mode_config.min_height = priv_n->data->min_height;
- 
--			if (i == CRTC_MAIN && priv_n->data->main_len) {
--				ret = mtk_crtc_create(drm, priv_n->data->main_path,
--						      priv_n->data->main_len, j,
--						      priv_n->data->conn_routes,
--						      priv_n->data->num_conn_routes);
--				if (ret)
--					goto err_component_unbind;
--
-+			if (!priv_n->data->output_paths[i].len)
- 				continue;
--			} else if (i == CRTC_EXT && priv_n->data->ext_len) {
--				ret = mtk_crtc_create(drm, priv_n->data->ext_path,
--						      priv_n->data->ext_len, j, NULL, 0);
--				if (ret)
--					goto err_component_unbind;
- 
--				continue;
--			} else if (i == CRTC_THIRD && priv_n->data->third_len) {
--				ret = mtk_crtc_create(drm, priv_n->data->third_path,
--						      priv_n->data->third_len, j, NULL, 0);
--				if (ret)
--					goto err_component_unbind;
-+			ret = mtk_crtc_create(drm, i, j,
-+					      priv_n->data->conn_routes,
-+					      priv_n->data->num_conn_routes);
- 
--				continue;
--			}
-+			if (ret)
-+				goto err_component_unbind;
- 		}
- 	}
- 
-@@ -847,7 +917,8 @@ static int mtk_drm_of_get_ddp_comp_type(struct device_node *node, enum mtk_ddp_c
- 
- static int mtk_drm_of_get_ddp_ep_cid(struct device_node *node,
- 				     int output_port, enum mtk_crtc_path crtc_path,
--				     struct device_node **next, unsigned int *cid)
-+				     struct device_node **next,
-+				     struct mtk_drm_comp_definition *comp_def)
- {
- 	struct device_node *ep_dev_node, *ep_out;
- 	enum mtk_ddp_comp_type comp_type;
-@@ -875,7 +946,7 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device_node *node,
- 	ret = mtk_drm_of_get_ddp_comp_type(ep_dev_node, &comp_type);
- 	if (ret) {
- 		if (mtk_ovl_adaptor_is_comp_present(ep_dev_node)) {
--			*cid = (unsigned int)DDP_COMPONENT_DRM_OVL_ADAPTOR;
-+			comp_def->type = DDP_COMPONENT_DRM_OVL_ADAPTOR;
- 			return 0;
- 		}
- 		return ret;
-@@ -886,7 +957,7 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device_node *node,
- 		return ret;
- 
- 	/* All ok! Pass the Component ID to the caller. */
--	*cid = (unsigned int)ret;
-+	comp_def->type = ret;
- 
- 	return 0;
- }
-@@ -895,8 +966,7 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device_node *node,
-  * mtk_drm_of_ddp_path_build_one - Build a Display HW Pipeline for a CRTC Path
-  * @dev:          The mediatek-drm device
-  * @cpath:        CRTC Path relative to a VDO or MMSYS
-- * @out_path:     Pointer to an array that will contain the new pipeline
-- * @out_path_len: Number of entries in the pipeline array
-+ * @out_path:     Pointer to the structure that will contain the new pipeline
-  *
-  * MediaTek SoCs can use different DDP hardware pipelines (or paths) depending
-  * on the board-specific desired display configuration; this function walks
-@@ -910,20 +980,19 @@ static int mtk_drm_of_get_ddp_ep_cid(struct device_node *node,
-  * * %-ENOMEM - Failure to allocate pipeline array to pass to the caller
-  */
- static int mtk_drm_of_ddp_path_build_one(struct device *dev, enum mtk_crtc_path cpath,
--					 const unsigned int **out_path,
--					 unsigned int *out_path_len)
-+					 struct mtk_drm_path_definition *out_path)
- {
-+	struct mtk_drm_comp_definition temp_path[MTK_DISP_CONTROLLER_MAX_COMP_PER_PATH];
- 	struct device_node *next = NULL, *prev, *vdo = dev->parent->of_node;
--	unsigned int temp_path[DDP_COMPONENT_DRM_ID_MAX] = { 0 };
--	unsigned int *final_ddp_path;
--	unsigned short int idx = 0;
- 	bool ovl_adaptor_comp_added = false;
-+	unsigned short int idx = 0;
-+	size_t final_comp_sz;
- 	int ret;
- 
- 	/* Get the first entry for the temp_path array */
- 	ret = mtk_drm_of_get_ddp_ep_cid(vdo, 0, cpath, &next, &temp_path[idx]);
- 	if (ret) {
--		if (next && temp_path[idx] == DDP_COMPONENT_DRM_OVL_ADAPTOR) {
-+		if (next && temp_path[idx].type == DDP_COMPONENT_DRM_OVL_ADAPTOR) {
- 			dev_dbg(dev, "Adding OVL Adaptor for %pOF\n", next);
- 			ovl_adaptor_comp_added = true;
- 		} else {
-@@ -957,7 +1026,7 @@ static int mtk_drm_of_ddp_path_build_one(struct device *dev, enum mtk_crtc_path
- 		 * to probe that component master driver of which only one instance
- 		 * is needed and possible.
- 		 */
--		if (temp_path[idx] == DDP_COMPONENT_DRM_OVL_ADAPTOR) {
-+		if (temp_path[idx].type == DDP_COMPONENT_DRM_OVL_ADAPTOR) {
- 			if (!ovl_adaptor_comp_added)
- 				ovl_adaptor_comp_added = true;
- 			else
-@@ -973,7 +1042,7 @@ static int mtk_drm_of_ddp_path_build_one(struct device *dev, enum mtk_crtc_path
- 		return ret;
- 
- 	/* If the last entry is not a final display output, the configuration is wrong */
--	switch (temp_path[idx - 1]) {
-+	switch (temp_path[idx - 1].type) {
- 	case DDP_COMPONENT_DP_INTF0:
- 	case DDP_COMPONENT_DP_INTF1:
- 	case DDP_COMPONENT_DPI0:
-@@ -985,30 +1054,31 @@ static int mtk_drm_of_ddp_path_build_one(struct device *dev, enum mtk_crtc_path
- 		break;
- 	default:
- 		dev_err(dev, "Invalid display hw pipeline. Last component: %d (ret=%d)\n",
--			temp_path[idx - 1], ret);
-+			temp_path[idx - 1].type, ret);
- 		return -EINVAL;
- 	}
- 
--	final_ddp_path = devm_kmemdup(dev, temp_path, idx * sizeof(temp_path[0]), GFP_KERNEL);
--	if (!final_ddp_path)
-+	/* Pipeline built! */
-+	out_path->len = idx;
-+	final_comp_sz = out_path->len * sizeof(out_path->comp[0]);
-+	out_path->comp = devm_kmemdup(dev, temp_path, final_comp_sz, GFP_KERNEL);
-+	if (!out_path->comp)
- 		return -ENOMEM;
- 
- 	dev_dbg(dev, "Display HW Pipeline built with %d components.\n", idx);
- 
--	/* Pipeline built! */
--	*out_path = final_ddp_path;
--	*out_path_len = idx;
--
- 	return 0;
- }
- 
- static int mtk_drm_of_ddp_path_build(struct device *dev, struct device_node *node,
- 				     struct mtk_mmsys_driver_data *data)
- {
-+	struct mtk_drm_path_definition *output_paths;
- 	struct device_node *ep_node;
- 	struct of_endpoint of_ep;
- 	bool output_present[MAX_CRTC] = { false };
--	int ret;
-+	u8 num_outputs_present = 0;
-+	int i, ret;
- 
- 	for_each_endpoint_of_node(node, ep_node) {
- 		ret = of_graph_parse_endpoint(ep_node, &of_ep);
-@@ -1024,33 +1094,30 @@ static int mtk_drm_of_ddp_path_build(struct device *dev, struct device_node *nod
- 		}
- 
- 		output_present[of_ep.id] = true;
-+		num_outputs_present++;
- 	}
-+	if (ret == 0 && num_outputs_present == 0)
-+		ret = dev_err_probe(dev, -ENXIO, "No display outputs found.\n");
- 
- 	if (ret) {
- 		of_node_put(ep_node);
- 		return ret;
- 	}
- 
--	if (output_present[CRTC_MAIN]) {
--		ret = mtk_drm_of_ddp_path_build_one(dev, CRTC_MAIN,
--						    &data->main_path, &data->main_len);
--		if (ret && ret != -ENODEV)
--			return ret;
--	}
-+	/* This can be optimized after making CRTC numbers dynamic */
-+	output_paths = devm_kcalloc(dev, MAX_CRTC, sizeof(*output_paths), GFP_KERNEL);
-+	if (!output_paths)
-+		return -ENOMEM;
- 
--	if (output_present[CRTC_EXT]) {
--		ret = mtk_drm_of_ddp_path_build_one(dev, CRTC_EXT,
--						    &data->ext_path, &data->ext_len);
--		if (ret && ret != -ENODEV)
--			return ret;
--	}
-+	for (i = 0; i < MAX_CRTC; i++) {
-+		if (!output_present[i])
-+			continue;
- 
--	if (output_present[CRTC_THIRD]) {
--		ret = mtk_drm_of_ddp_path_build_one(dev, CRTC_THIRD,
--						    &data->third_path, &data->third_len);
-+		ret = mtk_drm_of_ddp_path_build_one(dev, i, &output_paths[i]);
- 		if (ret && ret != -ENODEV)
- 			return ret;
- 	}
-+	data->output_paths = output_paths;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.h b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-index a171126d580e..7dc208669c2e 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-@@ -33,13 +33,18 @@ struct mtk_drm_route {
- 	const unsigned int route_ddp;
- };
- 
-+struct mtk_drm_comp_definition {
-+	enum mtk_ddp_comp_id type;
-+};
++extern struct mtk_drm_path_definition mt2701_legacy_paths[];
++extern struct mtk_drm_path_definition mt2712_legacy_paths[];
++extern struct mtk_drm_path_definition mt7623_legacy_paths[];
++extern struct mtk_drm_path_definition mt8167_legacy_paths[];
++extern struct mtk_drm_path_definition mt8173_legacy_paths[];
++extern struct mtk_drm_path_definition mt8183_legacy_paths[];
++extern struct mtk_drm_path_definition mt8186_legacy_paths[];
++extern struct mtk_drm_path_definition mt8188_legacy_paths[];
++extern struct mtk_drm_path_definition mt8192_legacy_paths[];
++extern struct mtk_drm_path_definition mt8195_vdo0_legacy_paths[];
++extern struct mtk_drm_path_definition mt8195_vdo1_legacy_paths[];
 +
-+struct mtk_drm_path_definition {
-+	const struct mtk_drm_comp_definition *comp;
-+	u8 len;
-+};
-+
- struct mtk_mmsys_driver_data {
--	const unsigned int *main_path;
--	unsigned int main_len;
--	const unsigned int *ext_path;
--	unsigned int ext_len;
--	const unsigned int *third_path;
--	unsigned int third_len;
-+	struct mtk_drm_path_definition *output_paths;
-+	u8 num_output_paths;
- 	const struct mtk_drm_route *conn_routes;
- 	unsigned int num_conn_routes;
- 
++#endif /* MTK_DRM_LEGACY_H */
 -- 
 2.54.0
 
