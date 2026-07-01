@@ -4,70 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB1BC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 18:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F5AAC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 18:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D0E10F0AB;
-	Wed,  1 Jul 2026 18:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D597A10F08E;
+	Wed,  1 Jul 2026 18:39:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ftWl5oVs";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="Du660YPo";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47F3310F0AB
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782930569;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Bd0zjAt31uHijlzNz/qtp2d5hkCpWAc/XD0nGOg/LzE=;
- b=ftWl5oVszTzg2IiJQpNgl/gzVTl35g75hGrnSl4aZrVwBuh9DTuLWkKwHL1DY2a37LYNGM
- uolXIZlmHfLEmzv9NSqlEYHei8A0sDylWChIKFs7Y5j6yUIIICLNtufSszovF6bHiXg1vJ
- nyWdGRN8rdVQxfL15zxefMCY3RpmvWw=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-_n_ciy7-M5igDLrg3se7Hg-1; Wed,
- 01 Jul 2026 14:29:24 -0400
-X-MC-Unique: _n_ciy7-M5igDLrg3se7Hg-1
-X-Mimecast-MFC-AGG-ID: _n_ciy7-M5igDLrg3se7Hg_1782930562
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B2F851879581; Wed,  1 Jul 2026 18:29:21 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.89.127])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 705D1180056E; Wed,  1 Jul 2026 18:29:19 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, "Timur Tabi" <ttabi@nvidia.com>,
- "Dave Airlie" <airlied@redhat.com>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Ben Skeggs" <bskeggs@nvidia.com>, "Kees Cook" <kees@kernel.org>,
- "Simona Vetter" <simona@ffwll.ch>, "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Mel Henning" <mhenning@darkrefraction.com>,
- "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v3 3/3] drm/nouveau/gsp/r570: Add missing state flags to GSP
- resume arguments
-Date: Wed,  1 Jul 2026 14:17:35 -0400
-Message-ID: <20260701182857.190713-4-lyude@redhat.com>
-In-Reply-To: <20260701182857.190713-1-lyude@redhat.com>
-References: <20260701182857.190713-1-lyude@redhat.com>
+Received: from mail-ua1-f100.google.com (mail-ua1-f100.google.com
+ [209.85.222.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E59F210F08E
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:39:19 +0000 (UTC)
+Received: by mail-ua1-f100.google.com with SMTP id
+ a1e0cc1a2514c-9667ea2fc22so270019241.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 11:39:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782931159; x=1783535959;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=S/JxzyIbMWOBgcLE6PUDXiCIrbfQPnTTq4sO8ZawTQs=;
+ b=sZCWE3CTUyHX3tTXoVvnv4ZlXjzQX4yj4vco/jhlKqqFTnDIKZRd5Ee1e3dViHb+eo
+ vU7VoEt9/ARWT5Sk6nW6YISsynEsPPkFU65Cq3MbA4XFuVkv5sQubyevwiL/rJDwmGcl
+ xpE5F92vHz1g+tqluRpR24W1sJbSkyNvq03o8cJPLwGMy/TRI7l/v1CnfjID1L4B2KOC
+ qilk1O2gRvwYYMS5Wx1ENwBKTzJxxcN91xf9ujVGku5JskiK9PrmhGzJL1a8Rceb78sR
+ 6Juk/SOg3j7YAnNLElyWOcalZX2nBrfnIxV6ytLActk1+u5cBv7CyWyO8Cfv4MD3Zh3G
+ b8mQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoVd8RBceIYQJ0fKTltgrwrVarb6PgkaXmbtdIj/havBFEc6TIDvoNnt3AjmdjSVJ2USscHxYKH+EM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7QkML3spQDS+DzQfNhx9sYMcK4vt2fZ/fDnifAY4LTsUgZrQB
+ 7AYXsilNu6LdqKOpn0jrwct1BE/wwRt6N5LjuRWvcAtCcHnB6aOe+dby/qa1H/Ni0ClQTFMEE/x
+ I9zFbcgXjkD7rG3aDuK3uStOwmMDcladMf43609dwGu/fdnWljabO7zqRlEPVy5qdqud5mUF4Er
+ hHeo3fn2UK+U7qTvqBOviSpzISn53UqBf24SUvXXDCdH/sHt4v65y8dkl1JsydPPKy3ZyxwnhBs
+ +3QAjAExtMX/5ppJWevRTp29Yrb
+X-Gm-Gg: AfdE7clww5BWNaDle4Y4Hda7IeG0ti7aRRFES3KyymDeUZ+9Kj/eEbmUEZ9mxQXSSD7
+ sYl15X0pZi2huzoiMmDs46bEGSKPUDdkgssZQy1eDJDhzu4PXCDtgw56gLr/nrvCB7aQ81Aja97
+ NqaxcA3jGuZk3LSyW4wKexUhUSJ9BtICkBjkq5BrXWoU2+rNmdRCk7v21SattdyeS1fCnfabKsV
+ FJyMjbozDGEJg2Yo3pohRkKiw/puYl8/zoE6/mTrkZwCz1gjbi6AozbRiveELPsZXhgyGsOIzbW
+ pcDGjuQSLKJrQ3sxjVVTNlxWRTm+9krqg1Q67jl/VO59S6B3AUXBffcIFSo6qhhSR50Ga2Wa8Bb
+ zimDNA0xB+FQ83a9+iFOX7sq5LNb6Sa9JRNRCIp0gkpT2PQT4LjHjq6pTbutjl6+HyLK10klyDG
+ LQDvdNmYj6F8CckU2FXkXBH/+9bnEj9nSonCdDV5iGL10mAeigyE4=
+X-Received: by 2002:a05:6102:80a5:b0:631:2dc6:2f5c with SMTP id
+ ada2fe7eead31-73dba87f7fcmr1182913137.0.1782931158654; 
+ Wed, 01 Jul 2026 11:39:18 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-77.dlp.protect.broadcom.com. [144.49.247.77])
+ by smtp-relay.gmail.com with ESMTPS id
+ a1e0cc1a2514c-969839b5e80sm2423241.4.2026.07.01.11.39.18
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 01 Jul 2026 11:39:18 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-4960487333eso1299269b6e.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 11:39:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1782931158; x=1783535958;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=S/JxzyIbMWOBgcLE6PUDXiCIrbfQPnTTq4sO8ZawTQs=;
+ b=Du660YPo5DGV4k2wqpFKw8r/1ZqGVvX7swkRMGdLpAK9QlDs3Ab0ej4TS+4jFoec0n
+ WgW99w8EdioufJneN1NOxWa2zwFAhqUrCv4/AQFNIbnR0FC0yKcrWkrqQShK7yDzjNTc
+ bDFTKECtKXzj2eLKXsFH0MvZp+mXH3N/o34+Q=
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+SYREuOYStamgzAKFQPuMeCMw/tLD2KQzaUdiMmja1aLnEmmf/dqdx0mg3Um6d3fBv2Pl2ft9ZZV4=@lists.freedesktop.org
+X-Received: by 2002:a05:6808:190c:b0:48c:4c00:596a with SMTP id
+ 5614622812f47-4962d70ee64mr1114603b6e.5.1782931157915; 
+ Wed, 01 Jul 2026 11:39:17 -0700 (PDT)
+X-Received: by 2002:a05:6808:190c:b0:48c:4c00:596a with SMTP id
+ 5614622812f47-4962d70ee64mr1114533b6e.5.1782931156582; 
+ Wed, 01 Jul 2026 11:39:16 -0700 (PDT)
+Received: from [10.211.247.235] ([192.19.50.250])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-49606ad4774sm1995857b6e.9.2026.07.01.11.39.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Jul 2026 11:39:16 -0700 (PDT)
+Message-ID: <11cd2e26-1af5-4085-a589-060b96a51076@broadcom.com>
+Date: Wed, 1 Jul 2026 11:43:34 -0700
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: joCneVQmFyQ5ueJMVTi0CekL2DTU_prGVe6RQ-Ozf7s_1782930562
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vmwgfx: Fix NULL vs error pointer bug in
+ vmw_prime_import_sg_table()
+To: Dan Carpenter <error27@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Martin Krastev <martin.krastev@broadcom.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+References: <akIR3WlKLCiCTb5T@stanley.mountain>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <akIR3WlKLCiCTb5T@stanley.mountain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,52 +121,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When resuming the GPU, we need to let GSP know that we need it to avoid
-destructive state transitions when bringing the GPU back up. Otherwise, we
-will end up with a plethora of strange behavior after coming out of resume
-- such as push buffers timing out whenever we try to do rendering.
+On 6/28/26 11:34 PM, Dan Carpenter wrote:
+> The vmw_prime_import_sg_table() function is expected to return error
+> pointers on error and not NULL.  Otherwise it leads to a NULL dereference
+> in the caller drm_gem_prime_import_dev().
+> 
+> Change the NULL to ERR_PTR(-ENOMEM).
+> 
+> Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> index 39f8c46550c2..f25db04f8777 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> @@ -184,7 +184,7 @@ struct drm_gem_object *vmw_prime_import_sg_table(struct drm_device *dev,
+>  {
+>  	int ret;
+>  	struct vmw_private *dev_priv = vmw_priv(dev);
+> -	struct drm_gem_object *gem = NULL;
+> +	struct drm_gem_object *gem = ERR_PTR(-ENOMEM);
+>  	struct vmw_bo *vbo;
+>  	struct vmw_bo_params params = {
+>  		.domain = (dev_priv->has_mob) ? VMW_BO_DOMAIN_SYS : VMW_BO_DOMAIN_VRAM,
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
-Cc: <stable@vger.kernel.org> # v6.16+
----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c     | 3 ++-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h    | 8 ++++++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
+LGTM!
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index 996941c668ba9..3e391646d8f7d 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -198,7 +198,8 @@ r570_gsp_set_rmargs(struct nvkm_gsp *gsp, bool resume)
- 		args->srInitArguments.bInPMTransition = 0;
- 	} else {
- 		args->srInitArguments.oldLevel = NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3;
--		args->srInitArguments.flags = 0;
-+		args->srInitArguments.flags =
-+			GPU_STATE_FLAGS_PRESERVING | GPU_STATE_FLAGS_PM_TRANSITION;
- 		args->srInitArguments.bInPMTransition = 1;
- 	}
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-index b6075021e74f5..c458569af9d72 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-@@ -523,6 +523,14 @@ typedef struct
- 
- #define NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3            (0x00000003U)
- 
-+#define GPU_STATE_FLAGS_PRESERVING         BIT(0)  // GPU state is preserved
-+#define GPU_STATE_FLAGS_VGA_TRANSITION     BIT(1)   // To be used with GPU_STATE_FLAGS_PRESERVING.
-+#define GPU_STATE_FLAGS_PM_TRANSITION      BIT(2)   // To be used with GPU_STATE_FLAGS_PRESERVING.
-+#define GPU_STATE_FLAGS_PM_SUSPEND         BIT(3)
-+#define GPU_STATE_FLAGS_PM_HIBERNATE       BIT(4)
-+#define GPU_STATE_FLAGS_GC6_TRANSITION     BIT(5)  // To be used with GPU_STATE_FLAGS_PRESERVING.
-+#define GPU_STATE_FLAGS_FAST_UNLOAD        BIT(6)  // Used during windows restart, skips stateDestroy steps
-+
- typedef struct
- {
-     // Magic for verification by secure ucode
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+
 -- 
-2.54.0
-
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
