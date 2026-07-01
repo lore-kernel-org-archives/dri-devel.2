@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CAF5C44508
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:19:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B98CC44506
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:19:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 852E610E361;
-	Wed,  1 Jul 2026 12:19:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83EFF10E372;
+	Wed,  1 Jul 2026 12:19:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KfyfZ5Wo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="a5Nb6P7H";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD8AF8995F
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:19:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0F8910E372
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:19:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908380;
- bh=nHdq4sACfaen1lszlAEX4azrNBQFgvGnb2q8yuUsZtI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KfyfZ5WoV6k+RAHtg5o67Q2xIg2xMFfLZufa8d33WlCsqL4F/gAZ0g9sFuRjaQhKN
- GXqWkP+0xHxqx7M/sjRKtiouEcn57D+Zho8GmIn8QUyxw9ctxAdJo8mXgyVexRdfd/
- ouyWZsRuMQ53B3fwfQtTTnvzlnj25k4bf9d0ma5SsclaCPx3octUG2mlLLZW+W3jXx
- mKaWnJUt6NkI0ytrhKEhbyYeP9MgKRDbrDe9Q4fIowG0iSijni6kY0ntwudRfFdy5/
- 3oJhBZaB6hpFqYI6huXZzTQvLnlFnmo0Ct7SXPkX7S0wAL5hJtMTg4gxe01VeUo2a9
- ssM4fKpENbknw==
+ s=mail; t=1782908385;
+ bh=WHNLQXstaSvjQdtLEGq0x2xw4W1yDu+40Hx7BUf5Ka0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=a5Nb6P7HAMAR8J+o5SeNHedbaW/J1cflADtkC3n7wABnLDuZpvWJhV7h5lRvZFXfH
+ RGISveZDwvbLMJS7W/BMQCqKxFFgYiLxvYGpujZp/jRcpg44a/k9xxYho+kHBhYzPP
+ 8Wab1UoVZRKZ5Iz0uI1896OFIgv6yyHrJH4JXHp9dG2pAqOHFEe8UYg6MY3lzmYISj
+ N2mzEHmYjiSucS9CcEg1U7lIWsIPpRlg2wFrWbht1RoXYVBxOPv86zXF+40odX8js1
+ 2T/nW65OucG5yIvRC1FZcvs09DUrxKdp7mxf37HjHuNEgcZxfViw2x7alXC0ehJQPl
+ GtA6D3P5nvjVQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DD6B217E0CD4;
- Wed,  1 Jul 2026 14:19:39 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C840E17E0909;
+ Wed,  1 Jul 2026 14:19:44 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
-Cc: p.zabel@pengutronix.de, chunkuang.hu@kernel.org, vkoul@kernel.org,
- neil.armstrong@linaro.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, granquet@baylibre.com,
- justin.yeh@mediatek.com, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, justin.yeh@mediatek.com,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  kernel@collabora.com
-Subject: [PATCH 2/2] phy: mediatek: phy-mtk-hdmi-mt8195: Fix TMDS clk bit
- ratio setting
-Date: Wed,  1 Jul 2026 14:19:36 +0200
-Message-ID: <20260701121936.19407-3-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 0/2] PHY: Add support for MT8196 DSI PHY
+Date: Wed,  1 Jul 2026 14:19:41 +0200
+Message-ID: <20260701121943.19430-1-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260701121936.19407-1-angelogioacchino.delregno@collabora.com>
-References: <20260701121936.19407-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -65,57 +63,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The comment in the mtk_phy_tmds_clk_ratio() function clearly and
-correctly explains that the TMDS ratio has to be 1/10 for data
-rates under 3.4Gbps, and 1/40 over that.
+This series adds support for the DSI PHY found in the newer MediaTek
+Dimensity 9400 (MT6991), Genio Pro 5100 (MT8894) and Kompanio Ultra
+(MT8196) SoCs.
 
-Unfortunately though, the TXC_DIV register setting was wrong, as
-in value 3 means to divide by 8 and, in order to achieve the in
-spec 1/40 (tmds) data rate, this has to divide by 4 instead!
-In order to achieve the correct 1/40 (tmds) data rate, this has
+AngeloGioacchino Del Regno (2):
+  dt-bindings: phy: mediatek,dsi-phy: Add support for MT8196
+  phy: mediatek: Add support for MT8196 MIPI DSI PHY
 
-Add definitions for the TXC_DIV register values clearly explaining
-the meanings (DIV2, DIV4, DIV8), and program the correct, DIV 4,
-value to the register in mtk_phy_tmds_clk_ratio().
+ .../bindings/phy/mediatek,dsi-phy.yaml        |   1 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ .../phy/mediatek/phy-mtk-mipi-dsi-mt8196.c    | 196 ++++++++++++++++++
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.c       |   1 +
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.h       |   2 +-
+ 5 files changed, 200 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
 
-This fixes out of spec clocking and, with this change, SoCs using
-the MT8195 class HDMI PHYs can now successfully be configured to
-output 3840x2160@60Hz over HDMI.
-
-Fixes: 45810d486bb4 ("phy: mediatek: add support for phy-mtk-hdmi-mt8195")
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c | 2 +-
- drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h | 3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-index e6ee8e080022..a4bc1268946d 100644
---- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-+++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-@@ -36,7 +36,7 @@ mtk_phy_tmds_clk_ratio(struct mtk_hdmi_phy *hdmi_phy, bool enable)
- 	 * clock bit ratio 1:40, under 3.4Gbps, clock bit ratio 1:10
- 	 */
- 	if (enable)
--		mtk_phy_update_field(regs + HDMI20_CLK_CFG, REG_TXC_DIV, 3);
-+		mtk_phy_update_field(regs + HDMI20_CLK_CFG, REG_TXC_DIV, VAL_TXC_DIV4);
- 	else
- 		mtk_phy_clear_bits(regs + HDMI20_CLK_CFG, REG_TXC_DIV);
- }
-diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h
-index e26caaf4d104..58800d7659ca 100644
---- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h
-+++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h
-@@ -17,6 +17,9 @@
- 
- #define HDMI20_CLK_CFG 0x70
- #define REG_TXC_DIV GENMASK(31, 30)
-+#define VAL_TXC_DIV2 1
-+#define VAL_TXC_DIV4 2
-+#define VAL_TXC_DIV8 3
- 
- #define HDMI_1_CFG_0 0x00
- #define RG_HDMITX21_DRV_IBIAS_CLK GENMASK(10, 5)
 -- 
 2.54.0
 
