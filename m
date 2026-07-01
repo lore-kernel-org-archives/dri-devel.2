@@ -4,88 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66EADC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 13:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA2C8C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 13:24:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86F3710E16F;
-	Wed,  1 Jul 2026 13:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0659110E228;
+	Wed,  1 Jul 2026 13:24:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="M/X2u51W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QxZd/CQz";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E367F10E16F
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 13:23:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782912199;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=POBMS69xaTAlDO61cGtQgpgznOnVcF/ICKu09umviWw=;
- b=M/X2u51WWZo68HjOG3/sj9DApOwnM2DpscoxQB651UPfHigvl6Ltt9K90Sa4V/HWsqVTVS
- nwDxzPqChmXwl1sYKFWJr0So8kL5VAN2CIPlF7UK86OqIfsqE3yPI/GVBECsmIHUY5wrXC
- Lvcm6cTeZaXKB9cA1VjrLfkDzEdRL3E=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-428-Qn8fbkMQOcaRjrUP50xvIQ-1; Wed, 01 Jul 2026 09:23:18 -0400
-X-MC-Unique: Qn8fbkMQOcaRjrUP50xvIQ-1
-X-Mimecast-MFC-AGG-ID: Qn8fbkMQOcaRjrUP50xvIQ_1782912197
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-473de38dcfaso432575f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 06:23:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782912197; x=1783516997;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=POBMS69xaTAlDO61cGtQgpgznOnVcF/ICKu09umviWw=;
- b=XWaZG124H0B3BW2ZR6QmckBhAQvG1zhTAae/OAcg5iYds8sbu62Ejl2nx0qjsHCznL
- OiAfKu3c0E++9ZriybgZcR/JqJYvFuDw2qqfkANpEBRlvrbJajh47qgo3W3V5UcWnY1j
- roTEp6UkDQSl2jlxN4jhn7km3MqhRigu2WgFGsSGjU/H90muOVfnUiZhRMH3ioGJkCGv
- VSkqlk9g2vdrwZDdHxSEXErZe9/1xLA69Uc+QlGHFEXFrCzqO/fg/lkZ6z/XXJ6rJssa
- wjXsWl1k2KHmU2uOriRr5pHqP7MDnfwQKtMckzL9bTohZkAPQP6/21KE382E8SGc+8A2
- WGxg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqX3C3QigGXq1FghZ5vS6N5nffgUSk/ueDO1UUH3AY63HrKDr9UTz1TVF5+Irrk5TZ70u6kMopgh4s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzdAuT4XBHgYzku22xoBDgIfWWZ1Zf9t/NRf/UdhDvdNWMaR950
- rDu/lvOQrhNO6VQ5sPhGxyZ5TCvnZPfqSiB3C4cVqmZNNC5xjVbANznpa35K3JX1Oy7ZmPOZJ4l
- yLglrQWOePo0odohvm1AUXV0XGmOpEfmthopOOmBvMRiLK4sH9Y5CsYE3OytJ5SNJGOahEQ==
-X-Gm-Gg: AfdE7ck4heL08TC8sWJb1IOKAstxOGg+OhamawqQVqO4NOG2qlv3wWbosYdp7HEL6uF
- XQwvbvBGKC1ER6+DLnNNzatfO5Au1pNBZ/0NhiPfAb3S7YJlzTiZ3IeFkjfFG98wEWqvJxFaXbA
- Cbio+5LfZWCTWTSoI05vujR08EBtpwjfjXWLnskdOIKvVYK02k0qra1+aO0TP76JQblAVj3mxAj
- saXlJHDHSoyuwYii7H6G79hvTPGpR6UcXTPn8kWGEaWS5O4IWVFAN/Hv+ykpDhkcZaMGBVT35Vm
- +/HCfjMvu9SJVz2CJVwLX4YzW+w80NPEPgk0+SOz092ib6qEsK4/wU3v7Bp24KtU79mTn00WVYI
- Z1KfjCr4XVuWsrxLtSJTEGvElmSLYCL8P47eBTsMd/jCDSDQwYIZ8VhrvWPzzTaOyNC321w==
-X-Received: by 2002:a05:6000:18a4:b0:465:ba53:a006 with SMTP id
- ffacd0b85a97d-477588e7d03mr2696730f8f.23.1782912197078; 
- Wed, 01 Jul 2026 06:23:17 -0700 (PDT)
-X-Received: by 2002:a05:6000:18a4:b0:465:ba53:a006 with SMTP id
- ffacd0b85a97d-477588e7d03mr2696673f8f.23.1782912196607; 
- Wed, 01 Jul 2026 06:23:16 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4756636cdccsm15726626f8f.24.2026.07.01.06.23.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 06:23:15 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: Re: [PATCH 0/3] drm/ssd130x: fix column and row end address in
- partial updates of ssd132x and ssd133x devices
-In-Reply-To: <20260622122604.32500-1-amit.barzilai22@gmail.com>
-References: <20260622122604.32500-1-amit.barzilai22@gmail.com>
-Date: Wed, 01 Jul 2026 15:23:08 +0200
-Message-ID: <875x2ydetf.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: iP3095cbw1sRsbmXT45yM9fN2yKkfY7w1Z6Jx72_JpY_1782912197
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D6010E228
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 13:24:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 295466001D;
+ Wed,  1 Jul 2026 13:24:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4101F000E9;
+ Wed,  1 Jul 2026 13:23:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782912239;
+ bh=hxINaZdd5WNwb91hB9QG/kg8hx5cJOCzkdcNNFjjjR4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QxZd/CQzMdz6MxM9ZsfTVu+HKVQS74iWR8Kx9A5iEofAnuRF401ng/V+PeEsAeZ3p
+ TWZdZhdvFKXeiRzx1w1IUDsep517PIzfT7rab/ufbwqog51EUdFvDa8UsKWBTIb+u8
+ T3fXjFhiiQ5+8aAOnHXjcc7sCSu+t3KoatS1TBfYOw4yCkQMX+elKydzRAcpb+LboF
+ N+vZ7GuoIpqG7UPqfRasXsHifj+7GjmCAsK9/5pzSQ0tOX3JWh7AQ1metYldDEyzBY
+ pmOwYg2IJrOj9+wOqwkDu/3BGxeGgSHmTfrAAA1UYN9Z6WGb6Hk3yfdtZa0khR5kjZ
+ 23G0SGY1X9Ekw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/display: Handle struct
+ drm_plane_state.ignore_damage_clips
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701130929.234695-1-tzimmermann@suse.de>
+References: <20260701130929.234695-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 13:23:59 +0000
+Message-Id: <20260701132359.BE4101F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,57 +53,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm_atomic_helper_check_plane_damage() is placed too late in the a=
+tomic check pipeline and conditionally bypassed, breaking the damage clippi=
+ng contract during modesets.
+--
 
-Hello Amit,
+commit 5c79bcf5010895b431b3c2135c7b80a5163d8e9f
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-Thanks for your patches.
+drm/i915/display: Handle struct drm_plane_state.ignore_damage_clips
 
-> While working on adding SSD1351 support to the ssd130x driver - I
-> noticed that the area of the cursor was refreshing in a weird state.
-> I would fill the screen red while the flashing cursor was on the screen,
-> but the screen wouldn't refresh the entire 8x8 rectangle each flash. 
->
-> After reading the SSD1351, SSD1331 and SSD132x manuals and manual
-> testing on the SSD1351, I was able to be sure that the problem was the
-> end addresses of "Set Column/Row Address" being sent as relative addresses
-> instead of absolute addresses.
->
+This commit introduces a call to drm_atomic_helper_check_plane_damage() in
+intel_psr2_sel_fetch_update() to selectively ignore damage clipping in cert=
+ain
+framebuffer changes.
 
-Indeed.
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i=
+915/display/intel_psr.c
+> index 92af21d823a37..5a155f60110fb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+[ ... ]
+> @@ -2949,6 +2949,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic=
+_state *state,
+>  		src =3D drm_plane_state_src(&new_plane_state->uapi);
+>  		drm_rect_fp_to_int(&src, &src);
+> =20
+> +		/* Prepare plane-damage state before using it */
+> +		drm_atomic_helper_check_plane_damage(&state->base, &new_plane_state->u=
+api);
+> +
+>  		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
 
-> I assume these bugs went under the radar because testing would usually
-> be done where the dirty rectangles would start from the 0,0 coordinates.
-> In these situations, the bug would be invisable, since adresses relative
-> to 0 are the same as their absolute value.
->
+[Severity: High]
+Is this call to drm_atomic_helper_check_plane_damage() placed too late in t=
+he
+atomic check pipeline?
 
-Yes, I believe that was the case. Thanks a lot for fixing these issues!
+By placing it here in intel_psr2_sel_fetch_update() (which runs during the =
+CRTC
+check phase), intel_plane_atomic_check() has already run and called
+intel_plane_copy_uapi_plane_damage(). That means new_plane_state->damage was
+already calculated using the unsanitized fb_damage_clips before this check
+could clear them during a full modeset.
 
-> It is important to note that I didn't test these changes on a SSD132x 
-> scree0n or a SSD133x screens, only on an SSD1351. Manual testing is
-> advised.
->
-> This series contains the fix for ssd132x_update_rect, a simple clean-up
-> patch for ssd132x_update_rect to keep the function clean, and the same
-> fix on ssd133x_update_rect.
->
+Additionally, this loop selectively skips planes on non-PSR2 CRTCs or planes
+with changed visibility (e.g. via the continue statements earlier in the lo=
+op).
+Doesn't this mean the damage state is left unsanitized for those skipped
+planes, potentially causing visual corruption when restricted clip rectangl=
+es
+are used instead of updating the full plane?
 
-For the whole series:
-
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
-I plan to push them to drm-misc-next rather than to drm-misc-fixes, since
-these have been long standing bugs and the changes are likely to conflict
-with your SSD1351 patches that are in-flight.
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701130929.2346=
+95-1-tzimmermann@suse.de?part=3D1
