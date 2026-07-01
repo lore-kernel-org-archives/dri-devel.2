@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB5DC43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50219C44502
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD1A510EF46;
-	Wed,  1 Jul 2026 12:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA8110EF4B;
+	Wed,  1 Jul 2026 12:20:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UdHzJ3oK";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Uu9+yMvR";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07E5610EF46
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3567D10EF4B
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908446;
- bh=m6sJ153mTEtGqqARntkJHomU856d72WMcKy3EMNBfdA=;
- h=From:To:Cc:Subject:Date:From;
- b=UdHzJ3oKReCUM8CMjgYobeK2cYD0xqTaw9zVy9oOW3jjlQ8dli3+zy7x6/FrKbNIC
- F6DKQVvkx8hl8FMqpY7/7MNEpwFaEVOu+XvIFD13MRWW9hGQ30sRRZf2faShcOZNTP
- 6uZdv4d2uYiO0PKtTI7QQF58ZuT1hIK1MGl9uqbAPr4h2mFz6FwBjzLtbycO+Xh1Qe
- zI2xEsMa1XUDENfAEOWl3tUuFbQr6sczfbOixO6NQ1lJqRZFQcjZNe2TugkBhQw0h3
- SEHLwpCkJBG8XMMDbCar3ZE7CT/31SzfVT9rVc9fvOIMmdw6wq2rnVwLvy46dWmMxZ
- NoBlTHgqlhLhA==
+ s=mail; t=1782908448;
+ bh=10CwvtT4kY3WD8DU6fNrUFwHds9K/lWQ7/9XIIUig4s=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Uu9+yMvRjGLMKFl9yW+/o2Vic+6LDilccI6IflxLeP2DCne9qMZqxR0PSBjnRW51d
+ vv2L5JmyVP7yDZUqFi1E2Ltg20qiPBYVzY/5SVcsCN1f+/xz6F+SdCEPEO1oepjrJ9
+ 6AMVIVO25Ntbrp4NUK/dnOemc17i0YE7fhnbLnRkCCEqYTfdGFW5MAISY4pKL3NYvV
+ Lk5LqfKjYJawd1dRKqfZvdFjbsSMoON4+HLUpNIUywTUv5ZKTqejaY4YnHDDIzqvyU
+ vl9EkdBex3Czq9sFxiVVeYUXhWLPjPklNlOsN4zxaM0jIjLv6+xtCrNU1dNCbw9fR2
+ fzRKWxUbdJNaQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BC1D817E0857;
- Wed,  1 Jul 2026 14:20:45 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id EC2C217E0F44;
+ Wed,  1 Jul 2026 14:20:46 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -46,10 +46,13 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH 0/6] MediaTek MMSYS/Mute-X new-style part 1
-Date: Wed,  1 Jul 2026 14:20:37 +0200
-Message-ID: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 1/6] dt-bindings: soc: mediatek: mutex: Improve title and
+ description
+Date: Wed,  1 Jul 2026 14:20:38 +0200
+Message-ID: <20260701122043.19612-2-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
+References: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,105 +70,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series part 1 of a huge restructuring of the entire multimedia
-part of MediaTek SoCs, especially mediatek-drm, and contains only a
-set of changes that don't require any simultaneous updates in the
-mediatek-drm driver.
+Improve both the title and the description of this hardware to
+disambiguate its functionality from a hardware mutex and/or from
+a hwspinlock.
 
-This adds support for correctly advertising the MediaTek Mute-X IP
-as a source of trigger signals (because that's what it is), hence
-for adding #trigger-source-cells in the Mute-X devicetree node and
-for specifying a Mute-X trigger-source in all of the MTK Display
-Controller components supporting or requiring one, as previously
-it was kind of hacked up as a static array in the Mute-X driver,
-for both MDP and DISP components, which is, well, depending on the
-point of view, actually wrong.
+Though in datasheets this is called "DISP_MUTEX", the meaning is
+is "Mute-X" (where "X" means "any hardware trigger signal") really
+as this is what this piece of hardware does: muting or unmuting of
+signals in each sub-IP of the display or other multimedia related
+controllers.
 
-Moreover, this goes on with the first part for a rework of MediaTek
-MMSYS, which is a requirement for the upcoming huge restructuring
-of the mediatek-drm driver; this starts adding boilerplate required
-for setting up MMSYS entries with decoupling of "component type" to
-"component instance number".
+Based on that, also clarify the description text, as to make sure
+that the information is actually accurate.
 
-As of now, all of the components in MediaTek DRM, hence also in the
-MMSYS driver, are thrown in a catch-all enumeration that does not
-make any distinction between Type-Instance relationship, and it is
-like so (mock-up names ahead):
+While at it, also avoid forcing literal blocks in the description
+as there is nothing in there needing that (no ascii graph or other
+stuff that needs a literal block anyway), and add myself in the
+list of maintainers.
 
-DISPLAY_DITHER0
-DISPLAY_DITHER1
-DISPLAY_DSI0
-DISPLAY_DSI1
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../bindings/soc/mediatek/mediatek,mutex.yaml   | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-... and so on.
-
-Since the number of components is now becoming uncontrollably large,
-the catch-all enumeration poses a big issue as the mediatek-drm driver
-is allocating a huge array that will be only half full (optimistically,
-because usually it's way less than half full) and with repeated ops
-assignment for each and every instance of the very same Sub-IP,
-effectively treating every instance of a Sub-IP like it is completely
-different from one another (for example, like DSI0 and DSI1 are as
-different as DITHER0 and DSI1).
-
-This has to change. It had to change months ago, but now it has become
-not only a maintenance burden, but also a... (sorry) big mess.
-
-And well, that... especially looking forward to add support for newer
-SoCs, using even more components in one pipeline, and using different
-and newer components (of new types...), making the catch-all enum to
-grow of another ~20 entries or more.
-
-So, this is PART 1 of this huge restructuring, which will impact many
-drivers, including soc/mediatek's mutex and mmsys, most of drm/mediatek
-and, in the future, also media/mediatek/mtk-mdp3 (and eventually its
-firmwareless implementation which, for components handling, will be
-as complicated as mediatek-drm and, without this restructuring, would
-be yet another boulder).
-
-AngeloGioacchino Del Regno (6):
-  dt-bindings: soc: mediatek: mutex: Improve title and description
-  dt-bindings: soc: mediatek: mutex: Allow #trigger-source-cells
-  dt-bindings: display: mediatek: Allow trigger-sources on relevant HW
-  soc: mediatek: mtk-mutex: Add new functions to add/remove triggers
-  soc: mediatek: mtk-mmsys: Rework routes to specify component ID
-  soc: mediatek: mtk-mmsys: Use MMSYS_ROUTE() in default routing table
-
- .../display/mediatek/mediatek,aal.yaml        |   3 +
- .../display/mediatek/mediatek,ccorr.yaml      |   3 +
- .../display/mediatek/mediatek,color.yaml      |   3 +
- .../display/mediatek/mediatek,dither.yaml     |   3 +
- .../display/mediatek/mediatek,dp.yaml         |   3 +
- .../display/mediatek/mediatek,dpi.yaml        |   3 +
- .../display/mediatek/mediatek,dsc.yaml        |   3 +
- .../display/mediatek/mediatek,dsi.yaml        |   3 +
- .../display/mediatek/mediatek,ethdr.yaml      |   3 +
- .../display/mediatek/mediatek,gamma.yaml      |   3 +
- .../display/mediatek/mediatek,merge.yaml      |   3 +
- .../display/mediatek/mediatek,od.yaml         |   3 +
- .../display/mediatek/mediatek,ovl-2l.yaml     |   3 +
- .../display/mediatek/mediatek,ovl.yaml        |   3 +
- .../display/mediatek/mediatek,padding.yaml    |   3 +
- .../display/mediatek/mediatek,postmask.yaml   |   3 +
- .../display/mediatek/mediatek,rdma.yaml       |   3 +
- .../display/mediatek/mediatek,split.yaml      |   3 +
- .../display/mediatek/mediatek,ufoe.yaml       |   3 +
- .../display/mediatek/mediatek,wdma.yaml       |   3 +
- .../bindings/soc/mediatek/mediatek,mutex.yaml |  21 +-
- drivers/soc/mediatek/mt6893-mmsys.h           |  34 +-
- drivers/soc/mediatek/mt8167-mmsys.h           |  21 +-
- drivers/soc/mediatek/mt8173-mmsys.h           |  28 +-
- drivers/soc/mediatek/mt8183-mmsys.h           |  14 +-
- drivers/soc/mediatek/mt8186-mmsys.h           |  22 +-
- drivers/soc/mediatek/mt8188-mmsys.h           |  78 ++---
- drivers/soc/mediatek/mt8192-mmsys.h           |  20 +-
- drivers/soc/mediatek/mt8195-mmsys.h           | 181 +++++------
- drivers/soc/mediatek/mt8365-mmsys.h           |  20 +-
- drivers/soc/mediatek/mtk-mmsys.h              | 299 ++++++++----------
- drivers/soc/mediatek/mtk-mutex.c              |  60 ++++
- include/linux/soc/mediatek/mtk-mutex.h        |   6 +
- 33 files changed, 474 insertions(+), 390 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+index 5267cfe92572..1ba086ad749d 100644
+--- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
++++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+@@ -4,18 +4,21 @@
+ $id: http://devicetree.org/schemas/soc/mediatek/mediatek,mutex.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Mediatek mutex
++title: MediaTek Mute-X
+ 
+ maintainers:
++  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+   - Chun-Kuang Hu <chunkuang.hu@kernel.org>
+   - Philipp Zabel <p.zabel@pengutronix.de>
+ 
+-description: |
+-  Mediatek mutex, namely MUTEX, is used to send the triggers signals called
+-  Start Of Frame (SOF) / End Of Frame (EOF) to each sub-modules on the display
+-  data path or MDP data path.
+-  In some SoC, such as mt2701, MUTEX could be a hardware mutex which protects
+-  the shadow register.
++description:
++  MediaTek Mute-X, namely MUTEX, is used to "mute" or "unmute" trigger signals
++  like Start Of Frame (SOF), End Of Frame (EOF), Tearing Effect (TE / VSYNC)
++  and others to each hardware sub-modules in the Display Controller IP or in
++  the Media Data Path (MDP) IP.
++  In some SoCs like MT2701, this hardware module may feature functionality
++  to, for example, protect shadow registers by blocking auto write triggers
++  upon operation (usually frame push) completion.
+   MUTEX device node must be siblings to the central MMSYS_CONFIG node.
+   For a description of the MMSYS_CONFIG binding, see
+   Documentation/devicetree/bindings/arm/mediatek/mediatek,mmsys.yaml
 -- 
 2.54.0
 
