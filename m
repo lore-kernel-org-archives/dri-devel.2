@@ -4,60 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03EC4C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:45:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF34C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0C310EF0C;
-	Wed,  1 Jul 2026 11:45:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D934410E350;
+	Wed,  1 Jul 2026 11:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MPBrgAU6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PBVOA/Ja";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11D7E10EF0A;
- Wed,  1 Jul 2026 11:45:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F69110E1EF;
+ Wed,  1 Jul 2026 11:57:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782906327; x=1814442327;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=yY++beBrEYp8b4rwSg/82vP/T0D2SHR5CaVAZG/7az4=;
- b=MPBrgAU64VnLMcAo8043Qg8nnjLPyPNR8Gn7mnDXzaTJikinwY+nhdNP
- ayTwbuvW4Dt3oC6Bn5Kp3bU6yqUc2MEGVTn73sjL0HWAf7pcVQu5Nfoa3
- TXyGn2FkdrBHxNMyJCSAK33QUs8G7qNIu/hQarm9NuPKI5VeRLqLftypm
- VUSzW6GmgSihTgSfOejWSoi+sEPmGUMqsWgH0YSlBhNCt8aC9zQwlmWXr
- PQsn2/oU53htOtJ0anj1xfH6KCzcQYVJE9p8PoZZVKbUC0Jx5Go9VCqq8
- /d+ORGPzGb9tlZiHjKG9vtpFvcwQEbGOgyHuTrcZTj2pQO8LzOTtm6R0N g==;
-X-CSE-ConnectionGUID: NJxtw3twQiet/8JKtgmP4g==
-X-CSE-MsgGUID: r769DAeJSnm3uswVieRxog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="95020790"
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="95020790"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 04:45:26 -0700
-X-CSE-ConnectionGUID: txcxdr6OQl+SOyVeOyJJZA==
-X-CSE-MsgGUID: pZg1y71zTeOU2DrmG8tHGQ==
+ t=1782907066; x=1814443066;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=0tp+7zcgSFtQPXo/HXnwjHM5gwirR7Xv/ZQ/pXHyyFY=;
+ b=PBVOA/Jalt1Y6t7HJyMIQQV6YcCED/If84Pc92Wz2cGRzhO32jrBIy6o
+ oXa7jLk2pNU1yyrvzc5Kvpe+Zcsv5JHSqRf0QeTMJgLRF6e4Cc+X4vyZO
+ tf2AB0erYoKghv1qb1McuKxaeh/N0D45X4XzPIPYFLQ8gsobHF7BVp7Xq
+ uUH6WiFDw6M0jajA/BVPBOh1ucXXexp9l8BF9wLRmxAYSQJp8INOvhb6M
+ vvneqg8CeEg9haPYpUNL1UrW8/v+LwRLijhgG2yUKTaHEWViJBX53OC0l
+ mOG75xznpu9T0rXbG8VLT0aNOfaJDQ/Hdyl3ejmDYVH9LGLcksmBPMTi4 g==;
+X-CSE-ConnectionGUID: wsz0vb14QOWKS7NJ9y8CKA==
+X-CSE-MsgGUID: vMGJunjESbGgF5+PrS2TzQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="87473375"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="87473375"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 04:57:45 -0700
+X-CSE-ConnectionGUID: OnZszanzTmCFLiGuL2vzrQ==
+X-CSE-MsgGUID: 1UKXULCjQTGzTjjPWtXVOA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="282622128"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.25])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 04:45:23 -0700
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Intel graphics driver community testing & development
- <intel-gfx@lists.freedesktop.org>
-Cc: Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Martin Hodo <martin.hodo@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: Fix NULL deref on sched_engine alloc failure
-Date: Wed,  1 Jul 2026 14:45:13 +0300
-Message-ID: <20260701114513.221254-1-joonas.lahtinen@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="249899986"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.120])
+ ([10.245.244.120])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 04:57:42 -0700
+Message-ID: <d2558fc5240d47d08d6b7d35fdeeb50f9b78a292.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/ttm: Account for NULL pages in ttm_pool_backup
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
+ <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 01 Jul 2026 13:57:28 +0200
+In-Reply-To: <20260626074653.1326683-1-matthew.brost@intel.com>
+References: <20260626074653.1326683-1-matthew.brost@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,81 +76,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Avoid using intel_context_put() before intel_context_init() in
-execlists_create_virtual() as the kref_put() inside would lead
-to NULL deref on the IOCTL path when sched_engine allocation fails.
+Hi, Matt
 
-Discovered using AI-assisted static analysis confirmed by
-Intel Product Security.
+On Fri, 2026-06-26 at 00:46 -0700, Matthew Brost wrote:
+> Pages in ttm_pool_backup can be NULL, and set_pages_array_wb() cannot
+> handle NULL entries. Switch to set_pages_wb() after checking for NULL
+> pages.
+>=20
+> Fixes the following oops:
+>=20
+> Oops: general protection fault, kernel NULL pointer dereference 0x0:
+> 0000 [#1] SMP NOPTI
+> RIP: 0010:__cpa_process_fault+0xf8/0x770
+> RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
+> RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
+> RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
+> RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
+> R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
+> R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
+> FS:=C2=A0 0000000000000000(0000) GS:ffff8884ec840000(0000)
+> knlGS:0000000000000000
+> CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
+> PKRU: 55555554
+> Call Trace:
+> =C2=A0<TASK>
+> =C2=A0__change_page_attr_set_clr+0x989/0xe90
+> =C2=A0? __purge_vmap_area_lazy+0x6c/0x3a0
+> =C2=A0? _vm_unmap_aliases+0x250/0x2a0
+> =C2=A0set_pages_array_wb+0x7f/0x120
+> =C2=A0ttm_pool_backup+0x4c9/0x5b0 [ttm]
+> =C2=A0? dma_resv_wait_timeout+0x3b/0xf0
+> =C2=A0ttm_tt_backup+0x32/0x60 [ttm]
+> =C2=A0ttm_bo_shrink+0x66/0x110 [ttm]
+> =C2=A0xe_bo_shrink_purge+0x12b/0x1b0 [xe]
+> =C2=A0xe_bo_shrink+0xbb/0x270 [xe]
+> =C2=A0__xe_shrinker_walk+0xf7/0x160 [xe]
+> =C2=A0xe_shrinker_walk+0x9d/0xc0 [xe]
+> =C2=A0xe_shrinker_scan+0x11f/0x210 [xe]
+> =C2=A0do_shrink_slab+0x13b/0x270
+> =C2=A0shrink_slab+0xf1/0x400
+> =C2=A0shrink_node+0x352/0x8a0
+> =C2=A0balance_pgdat+0x32c/0x700
+> =C2=A0kswapd+0x205/0x2f0
+> =C2=A0? __pfx_autoremove_wake_function+0x10/0x10
+> =C2=A0? __pfx_kswapd+0x10/0x10
+> =C2=A0kthread+0xd1/0x110
+> =C2=A0? __pfx_kthread+0x10/0x10
+> =C2=A0ret_from_fork+0x1b1/0x200
+> =C2=A0? __pfx_kthread+0x10/0x10
+> =C2=A0ret_from_fork_asm+0x1a/0x30
+> =C2=A0</TASK>
+>=20
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
+> shrink pages")
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 49 +++++++++++++++++--------------=
+-
+> --
+> =C2=A01 file changed, 24 insertions(+), 25 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
+> b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 682ae4f40424..ea14447411a6 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -1064,34 +1064,33 @@ long ttm_pool_backup(struct ttm_pool *pool,
+> struct ttm_tt *tt,
+> =C2=A0	=C2=A0=C2=A0=C2=A0 ttm_pool_uses_dma_alloc(pool) ||
+> ttm_tt_is_backed_up(tt))
+> =C2=A0		return -EBUSY;
+> =C2=A0
+> -#ifdef CONFIG_X86
+> -	/* Anything returned to the system needs to be cached. */
+> -	if (tt->caching !=3D ttm_cached)
+> -		set_pages_array_wb(tt->pages, tt->num_pages);
+> -#endif
+> +	for (i =3D 0; i < tt->num_pages; i +=3D num_pages) {
+> +		unsigned int order;
+> =C2=A0
+> -	if (tt->dma_address || flags->purge) {
+> -		for (i =3D 0; i < tt->num_pages; i +=3D num_pages) {
+> -			unsigned int order;
+> +		page =3D tt->pages[i];
+> +		if (unlikely(!page)) {
+> +			num_pages =3D 1;
+> +			continue;
+> +		}
+> =C2=A0
+> -			page =3D tt->pages[i];
+> -			if (unlikely(!page)) {
+> -				num_pages =3D 1;
+> -				continue;
+> -			}
+> +		order =3D ttm_pool_page_order(pool, page);
+> +		num_pages =3D 1UL << order;
+> =C2=A0
+> -			order =3D ttm_pool_page_order(pool, page);
+> -			num_pages =3D 1UL << order;
+> -			if (tt->dma_address)
+> -				ttm_pool_unmap(pool, tt-
+> >dma_address[i],
+> -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages);
+> -			if (flags->purge) {
+> -				shrunken +=3D num_pages;
+> -				page->private =3D 0;
+> -				__free_pages_gpu_account(page,
+> order, false);
+> -				memset(tt->pages + i, 0,
+> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages * sizeof(*tt-
+> >pages));
+> -			}
+> +#ifdef CONFIG_X86
+> +		/* Anything returned to the system needs to be
+> cached. */
+> +		if (tt->caching !=3D ttm_cached)
+> +			set_pages_wb(page, 1 << order);
+> +#endif
 
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: 3e28d37146db ("drm/i915: Move priolist to new i915_sched_engine object")
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: <stable@vger.kernel.org> # v5.15+
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
----
- .../drm/i915/gt/intel_execlists_submission.c  | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+As discussed otherwise, this causes one IPI per page when TLB flushing,
+whereas set_pages_array_wb() causes one per array. IPIs are quite
+costly, and
+set_pages_array_wb() has been tailor-made to only issue one per array,
+so we would want to call it on subarrays in case there are NULL
+pointers and always call it in case there are no NULL pointers.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 1359fc9cb88e..e693b0c9d2a3 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3932,11 +3932,11 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 	struct drm_i915_private *i915 = siblings[0]->i915;
- 	struct virtual_engine *ve;
- 	unsigned int n;
--	int err;
-+	int err = -ENOMEM;
- 
- 	ve = kzalloc_flex(*ve, siblings, count);
- 	if (!ve)
--		return ERR_PTR(-ENOMEM);
-+		goto err;
- 
- 	ve->base.i915 = i915;
- 	ve->base.gt = siblings[0]->gt;
-@@ -3968,10 +3968,8 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 	intel_engine_init_execlists(&ve->base);
- 
- 	ve->base.sched_engine = i915_sched_engine_create(ENGINE_VIRTUAL);
--	if (!ve->base.sched_engine) {
--		err = -ENOMEM;
--		goto err_put;
--	}
-+	if (!ve->base.sched_engine)
-+		goto err_noput;
- 	ve->base.sched_engine->private_data = &ve->base;
- 
- 	ve->base.cops = &virtual_context_ops;
-@@ -3987,10 +3985,8 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 	intel_context_init(&ve->context, &ve->base);
- 
- 	ve->base.breadcrumbs = intel_breadcrumbs_create(NULL);
--	if (!ve->base.breadcrumbs) {
--		err = -ENOMEM;
-+	if (!ve->base.breadcrumbs)
- 		goto err_put;
--	}
- 
- 	for (n = 0; n < count; n++) {
- 		struct intel_engine_cs *sibling = siblings[n];
-@@ -4065,8 +4061,13 @@ execlists_create_virtual(struct intel_engine_cs **siblings, unsigned int count,
- 	virtual_engine_initial_hint(ve);
- 	return &ve->context;
- 
-+err_noput:
-+	kfree(ve);
-+	goto err;
-+
- err_put:
- 	intel_context_put(&ve->context);
-+err:
- 	return ERR_PTR(err);
- }
- 
--- 
-2.54.0
+/Thomas
 
+
+> +
+> +		if (tt->dma_address)
+> +			ttm_pool_unmap(pool, tt->dma_address[i],
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages);
+> +		if (flags->purge) {
+> +			shrunken +=3D num_pages;
+> +			page->private =3D 0;
+> +			__free_pages_gpu_account(page, order,
+> false);
+> +			memset(tt->pages + i, 0,
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num_pages * sizeof(*tt->pages));
+> =C2=A0		}
+> =C2=A0	}
+> =C2=A0
