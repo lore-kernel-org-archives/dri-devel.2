@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A51AC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23545C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B44C610EEE0;
-	Wed,  1 Jul 2026 10:53:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5963A10EEDA;
+	Wed,  1 Jul 2026 10:57:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UZbXMUJP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R8nGF1z4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A481F10EEE0
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 10:53:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22F8210EEDA
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 10:57:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8DA0940DFC;
- Wed,  1 Jul 2026 10:53:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E501F000E9;
- Wed,  1 Jul 2026 10:53:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6132160138;
+ Wed,  1 Jul 2026 10:57:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7D21F000E9;
+ Wed,  1 Jul 2026 10:57:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782903195;
- bh=CgzRgOKLURTpeJWV/j8krqyG2ED/Gq+ur/AKckBwiS0=;
+ s=k20260515; t=1782903424;
+ bh=uMs7ZrKUBHMIdvgQb5xByxM3HmzwaX/i4GCT7VuDIm0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UZbXMUJPYJ5fhHyvk+Vc2saLIiZ2e9PqeK962/hHax4fN5xg/G34f2plTl5FMIo32
- +zV4BGwJjv6E69m621ywVjkZJ0ZiVF1HKpBs5EaAvcz3W4HOqkHrSyUYATIGxERJkD
- sdL1R2Tu+8AUzylDCuFgZD1XiCowLJ/2pkVHJs/Uvj+WP2vFy4pl6zBwzjYt050p6e
- fzlv4LqPMho75ng09ZUfOwFYkF0MLCdyMkoCkX6POi78GIVZxhvyWO/xVj7Lmybozr
- lG+TFozDGai2O2TE/OcbEx5afUoZT01uFo65XF5yzfwgolRc+j9tMioqc2JCRtecYc
- 8H4Ltc7BUl42A==
+ b=R8nGF1z4+WMn3om4kbchg2UB5vc90NouE6v8DDOzoII8bRCk/3s5j7yAxNEE7QB3O
+ VZoSbVU0iXaJyt6UGs+xyGEhQ2m4K8pRbLJkd59dgFIcxdRvFHJ3Via4XuNOpHxt0L
+ 0O5tqTnqq1ElpJMFr7jRfSZvMQAkcOqGYYaYCd18m4Eh4Jrkgoo7snUq6o4SMoeEPB
+ j9OaqpXetC5Az96erjhpVbXYC0BWOxF/njz7iwHBaG8jQTG6edrR4vuYXWv5uwiwS0
+ LbVoB+RnNyJ7KKMl1j0xNC+0JRXKoAuy3P7E1ZUiaxSx2DZJhP4RBMrWPAY0vRGqVF
+ Z222GJbrAcZ5Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/7] bus: mhi: Add QDU100 Sahara variant and firmware
- fallback
+Subject: Re: [PATCH v6 5/7] bus: mhi: Load DDR training data using device
+ serial number
 To: "Kishore Batta" <kishore.batta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701-sahara_protocol_new_v2-v6-4-3a78362c4741@oss.qualcomm.com>
+In-Reply-To: <20260701-sahara_protocol_new_v2-v6-5-3a78362c4741@oss.qualcomm.com>
 References: <20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com>
- <20260701-sahara_protocol_new_v2-v6-4-3a78362c4741@oss.qualcomm.com>
+ <20260701-sahara_protocol_new_v2-v6-5-3a78362c4741@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 10:53:14 +0000
-Message-Id: <20260701105315.46E501F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 10:57:03 +0000
+Message-Id: <20260701105703.ED7D21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,141 +58,130 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] The firmware fallback mechanism inadvertently changes the behavi=
-or for existing AIC100 and AIC200 devices, bypassing their explicit allowli=
-st and contradicting the commit message.
-- [Low] The `dev_err` statement in the fallback error path uses a signed fo=
-rmat specifier `%d` to print an unsigned 32-bit integer.
-
 Pre-existing issues:
-- [High] A malicious or malfunctioning device can trigger a NULL pointer de=
-reference or Use-After-Free by requesting an image transfer with `image_id`=
- equal to `SAHARA_IMAGE_ID_NONE` (0xFFFFFFFF).
-- [High] Missing cancellation of `read_data_work` during driver removal lea=
-ds to a Use-After-Free of `context` and `context->firmware`.
-- [High] Lockless concurrency between `fw_work` and `read_data_work` allows=
- a device-triggered Use-After-Free during firmware streaming.
+- [Critical] On 32-bit systems, `dump_length` is truncated during `vzalloc`=
+, leading to a massive heap buffer overflow when parsing memory dumps.
+- [High] Lack of synchronization between `fw_work` and `read_data_work` all=
+ows a malicious or misbehaving device to trigger a Use-After-Free of firmwa=
+re data.
+- [High] Missing `cancel_work_sync` for `read_data_work` during driver remo=
+val leads to a Use-After-Free.
 --
 
-commit e80f9e2e7047bfa82528957f04343840159ae175
+commit 089e41c25a9507e0cb3ce33fb65d0e86f16f5c04
 Author: Kishore Batta <kishore.batta@oss.qualcomm.com>
 
-bus: mhi: Add QDU100 Sahara variant and firmware fallback
+bus: mhi: Load DDR training data using device serial number
 
-Extend the probe time variant selection to match the SAHARA MHI channel for
-QDU100 devices. Add a firmware lookup fallback to provision images dynamica=
-lly
-if they aren't explicitly listed in the image table.
+This commit extends the firmware loading logic to first attempt loading a=20
+per-device DDR training image derived from the device's serial number. It
+falls back to the default image if the per-device one is missing.
 
 > diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/m=
 hi/host/clients/sahara/sahara.c
-> index e339c67e236af..9adbd84859073 100644
 > --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
 > +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-> @@ -189,6 +189,7 @@ static bool is_streaming(struct sahara_context *conte=
-xt)
-> =20
->  static int sahara_find_image(struct sahara_context *context, u32 image_i=
-d)
->  {
-> +	char *fw_path;
->  	int ret;
-> =20
->  	if (image_id =3D=3D context->active_image_id)
+> @@ -226,6 +227,27 @@ static int sahara_find_image(struct sahara_context *=
+context, u32 image_id)
 >  		return 0;
-
-[Severity: High]
-This is a pre-existing issue, but can a malicious or malfunctioning device
-trigger a NULL pointer dereference or use-after-free here?
-
-If a device requests an image transfer with image_id equal to
-SAHARA_IMAGE_ID_NONE (0xFFFFFFFF), context->active_image_id is initialized =
-and
-reset to this value. sahara_find_image() would return success (0) without
-acquiring firmware.
-
-Later, sahara_read_data() unconditionally dereferences context->firmware->s=
-ize,
-which would be NULL or a dangling pointer.
-
+>  	}
+> =20
+> +	/* DDR training special case: Try per-serial number file first */
+> +	if (image_id =3D=3D SAHARA_DDR_TRAINING_IMG_ID && context->fw_folder) {
+> +		u32 serial_num =3D context->mhi_dev->mhi_cntrl->serial_number;
+> +
+> +		fw_path =3D kasprintf(GFP_KERNEL,
+> +				    "qcom/%s/mdmddr_0x%x.mbn",
+> +				    context->fw_folder, serial_num);
 [ ... ]
 
-> @@ -201,8 +202,28 @@ static int sahara_find_image(struct sahara_context *=
-context, u32 image_id)
->  	}
-> =20
->  	if (image_id >=3D context->table_size || !context->image_table[image_id=
-]) {
-> -		dev_err(&context->mhi_dev->dev, "request for unknown image: %d\n", ima=
-ge_id);
-> -		return -EINVAL;
-> +		if (!context->fw_folder) {
-> +			dev_err(&context->mhi_dev->dev,
-> +				"Request for unknown image: %u (no fw folder)\n", image_id);
-> +			return -EINVAL;
-> +		}
-
-[Severity: Medium]
-The commit message states this change does not affect behavior for existing
-AIC100 and AIC200 devices. However, legacy AIC devices populate fw_folder at
-probe time.
-
-Since this check relies on !context->fw_folder instead of matching against =
-the
-SAHARA channel, will legacy AIC devices fall through to the VFS lookup via
-firmware_request_nowarn() instead of immediately returning -EINVAL?
-
-> +
-> +		fw_path =3D kasprintf(GFP_KERNEL, "qcom/%s/%u",
-> +				    context->fw_folder, image_id);
-> +		if (!fw_path)
-> +			return -ENOMEM;
-> +
-> +		ret =3D firmware_request_nowarn(&context->firmware,
-> +					      fw_path,
-> +					      &context->mhi_dev->dev);
-> +		kfree(fw_path);
-> +		if (ret) {
-> +			dev_err(&context->mhi_dev->dev,
-> +				"request for unknown image: %d\n", image_id);
-
-[Severity: Low]
-Is %d the correct format specifier here? image_id is a u32, so if the
-requested ID is greater than INT_MAX, it will be printed as a negative numb=
-er.
-
-> +			return -EINVAL;
-> +		}
-> +		context->active_image_id =3D image_id;
-> +		return 0;
->  	}
+While reviewing this driver, I noticed a few pre-existing issues in the same
+file that might need attention.
 
 [Severity: High]
-This is a pre-existing issue, but does device teardown systematically omit
-canceling read_data_work?
+This is a pre-existing issue, but is there a lack of synchronization between
+fw_work and read_data_work that could allow a use-after-free of the firmware
+data?
 
-When the driver is unbound, sahara_mhi_remove() calls cancel_work_sync() for
-fw_work and dump_work, but fails to cancel read_data_work. If read_data_work
-is pending or executing, it can run after remove() returns, leading to a
-use-after-free of the devres-managed context.
+If a compromised device sends an end of image packet while streaming data,
+fw_work executes sahara_end_of_image() and calls sahara_release_image(),
+which frees the firmware:
+
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_release_image() {
+    ...
+    release_firmware(context->firmware);
+    ...
+}
+
+Concurrently, read_data_work streams data using read_data_helper(), which
+copies from the freed context->firmware->data:
+
+drivers/bus/mhi/host/clients/sahara/sahara.c:read_data_helper() {
+    ...
+    memcpy(context->tx[buf_index],
+           &context->firmware->data[context->read_data_offset],
+           pkt_data_len);
+    ...
+}
+
+Could this lead to memory corruption if a malicious device sends out-of-ord=
+er
+protocol packets?
+
 
 [Severity: High]
-This is a pre-existing issue, but is there lockless concurrency between
-fw_work and read_data_work that allows a device-triggered use-after-free?
+This is a pre-existing issue, but does sahara_mhi_remove() fail to cancel
+read_data_work before the context is freed?
 
-During firmware streaming, sahara_read_data() schedules read_data_work. If a
-device sends a SAHARA_END_OF_IMAGE_CMD immediately after a read request, the
-command is processed by fw_work which calls sahara_release_image() to free
-context->firmware.
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_mhi_remove() {
+    ...
+    sahara_release_image(context);
+    mhi_unprepare_from_transfer(mhi_dev);
+    ...
+}
 
-Because these are independent work items without synchronization, could an
-untrusted MHI device deliberately race the EOI command against the executing
-streaming task?
+Since read_data_work is not canceled with cancel_work_sync(), can it contin=
+ue
+to execute concurrently after the device is removed?
+
+The context structure is allocated with devm_kzalloc and will be freed when
+the remove function returns, potentially resulting in a use-after-free if t=
+he
+driver is unbound or the device is removed while streaming data.
+
+
+[Severity: Critical]
+This is a pre-existing issue, but on 32-bit systems, does this code truncate
+dump_length during allocation?
+
+In sahara_parse_dump_table(), dump_length is a 64-bit value representing the
+total size of memory dumps:
+
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_parse_dump_table() {
+    ...
+    context->mem_dump_sz =3D dump_length;
+    context->mem_dump =3D vzalloc(dump_length);
+    ...
+}
+
+Because vzalloc() takes a 32-bit unsigned long on 32-bit systems, a length
+greater than 4GB will be silently truncated.
+
+However, the driver then proceeds to stream the full 64-bit length of data
+from the device, copying it into the under-allocated buffer:
+
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_parse_dump_image() {
+    ...
+    memcpy(context->mem_dump_freespace, context->rx, context->rx_size);
+    ...
+}
+
+Could a compromised MHI peripheral providing a crafted dump table trigger a
+heap buffer overflow?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-sahara_pro=
-tocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com?part=3D4
+tocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com?part=3D5
