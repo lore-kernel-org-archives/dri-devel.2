@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 627E7C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:19:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E03C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6CFC10F06E;
-	Wed,  1 Jul 2026 17:19:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2103F10F06F;
+	Wed,  1 Jul 2026 17:19:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="0AyW6O5s";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MO3Sunbl";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A74810F06E
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:19:48 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F31F10F06F
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:19:51 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 59386C4FECB;
- Wed,  1 Jul 2026 17:19:57 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id C267E1A0DC1;
+ Wed,  1 Jul 2026 17:19:49 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 529555FD9D;
- Wed,  1 Jul 2026 17:19:46 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 95C3B5FD9D;
+ Wed,  1 Jul 2026 17:19:49 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DC56B104C9688; 
- Wed,  1 Jul 2026 19:19:40 +0200 (CEST)
+ with ESMTPSA id 726A0104C948E; 
+ Wed,  1 Jul 2026 19:19:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782926385; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=jYw8Rmlz5BDw6Yw7doVXKZlh7sRJ/4pZqN/ZhMLruEs=;
- b=0AyW6O5sbig9nwgUu0AiJ6Jb0iqlUiDtZA5/ZM2NF2lIYCeRAic5evxbIXLUACrJG0fsO7
- t+AKsv0ZZXi/wj3SR+5GmZjxsjiiq+cBNYa+F/e/Boy5ILpc4V3IPPny+ZrwKuP5OvW+mx
- D9MEMzhFMy4TZSVfQtxLtwEuTP4zB9tTJUJtzllCiNTqwXUWCZ0HNMJ1Cvke0Vg5u+uPVx
- 8ieKBleIPg+r1iox8WBGYgahC8OsRNVun5UWObOuO1TtrJNBpIiDvZ0Vmve9rHPFybHl7Q
- 0a4jZ16lIehtLoBdfkkkahJiEezhjshsbB7r2iWWyvGRJTuxPf29XrCTkawe2A==
+ t=1782926388; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=/VkaAA+a78sL/L5XhJhL2XVfDGKFCrDanUkXyRodub0=;
+ b=MO3SunblCQWGlwkKGDGdB3rjKzwq0fdfsBAlq9mrJQbyZ0IUmMNjLiCi37eXRiQovmwvNi
+ k8OwkTzM1w5nYqYFtOFxeMKxuKkMAmmT52JuVaQrqIT54Ed7tZUoGwqapi624dYXvrnUJw
+ X2jXCHj+/Wco5xuatTbmkuVxL49tApvC27IV0730K7m7FObLTeSUaG4bhjtnRVic+UyCTs
+ FzcQ9gXiXTNn9eJmTevqHahNpkV129nw6DmH/MpVpmfRKWW8DnfAXVXTIcHrS1OwsdSLFp
+ +wq5MxGqm8L+4KgY/MPX3SqluNVov4NoZI9silD43FmvHg/CQ/9O3zU/rUUkQw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH 0/3] drm/bridge: fix wording in comment about graph
-Date: Wed, 01 Jul 2026 19:19:37 +0200
-Message-Id: <20260701-drm-fix-graph-wording-v1-0-295605c5777b@bootlin.com>
+Date: Wed, 01 Jul 2026 19:19:38 +0200
+Subject: [PATCH 1/3] drm: of: fix wording in comment
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWXcgKt76KsVFmoxxhEaZqC1I3
- r1Rlx+c8x8QSJgCPLMDhHYOPPuE/JGBGbV3hGyToVBFrRqVo5UPDvxDJ3oZ8TuLZe+wo25oqCp
- VpVtI30Uoja7uq78dtvdEZj1jEOMfhj4o6nkAAAA=
-X-Change-ID: 20260701-drm-fix-graph-wording-9e9f7e5305a8
+Message-Id: <20260701-drm-fix-graph-wording-v1-1-295605c5777b@bootlin.com>
+References: <20260701-drm-fix-graph-wording-v1-0-295605c5777b@bootlin.com>
+In-Reply-To: <20260701-drm-fix-graph-wording-v1-0-295605c5777b@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -74,27 +73,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-These patche fix the (almost) same grammar error in a comment, in all
-places where this comment is duplicated.
+Fix a comment according to English grammar.
 
+Link: https://lore.kernel.org/all/DI9ZFQUNMSBU.214AU8467OK76@bootlin.com/
+Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
-Luca Ceresoli (3):
-      drm: of: fix wording in comment
-      drm/bridge: samsung-dsim: fix wording in comment
-      drm/bridge: fix wording in comment
+ drivers/gpu/drm/drm_of.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/bridge/samsung-dsim.c | 2 +-
- drivers/gpu/drm/drm_bridge.c          | 2 +-
- drivers/gpu/drm/drm_of.c              | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
----
-base-commit: 844e71ba7d7a50c5ffa29d147afaeaafb19b39e4
-change-id: 20260701-drm-fix-graph-wording-9e9f7e5305a8
+diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+index d03ada82eac9..4fcdb6944155 100644
+--- a/drivers/gpu/drm/drm_of.c
++++ b/drivers/gpu/drm/drm_of.c
+@@ -253,7 +253,7 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
+ 	/*
+ 	 * of_graph_get_remote_node() produces a noisy error message if port
+ 	 * node isn't found and the absence of the port is a legit case here,
+-	 * so at first we silently check whether graph presents in the
++	 * so at first we silently check whether a graph is present in the
+ 	 * device-tree node.
+ 	 */
+ 	if (!of_graph_is_present(np))
 
-Best regards,
---  
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.54.0
 
