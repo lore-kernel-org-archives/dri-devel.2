@@ -4,68 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42EF7C44503
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:19:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6A9C44502
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E60410E38A;
-	Wed,  1 Jul 2026 12:19:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2009910EEC3;
+	Wed,  1 Jul 2026 12:19:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jtFKcyyZ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LmECkaI8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30F4E10E35A;
- Wed,  1 Jul 2026 12:19:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A5B2341E8B;
- Wed,  1 Jul 2026 12:19:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7A51F00A3A;
- Wed,  1 Jul 2026 12:19:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782908389;
- bh=VEtKY19/199sq5hBEK8vvyifwBLgNYHuvPBHa8OeONM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jtFKcyyZbtAmVVr+fjAxI0mN12qeBbZGTuUw9k9BXdiEiT6bA/LMEPDeHMMdvoAvt
- kXrgEn+QCk7kmuFJLiy8pfRdMmQE1MM0azpxyJhvk+ND3rXxhq37jO/aS/w3DkRAYB
- Yqib/iB/7fYJ/QRLpHsQqhAum5lS8ZiA39ewOynpW1hfKl/peb/UheJYM1BKEBR+zF
- KbgWdMRPPFSJ6dUqpLNUfnsNm9MdiQxnS/H+zUrOSwoQW/+ddPaWE2+IKllaKJ2jTL
- Pt79dgBU+Vjv+rcT/UjKjLAhEg30YCwfroYzWb5zRrtHvvm0jvgAmjc3XY0LBR0w68
- M6TAGF0pGPmYw==
-Date: Wed, 1 Jul 2026 17:49:32 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
- mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
- mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v8 10/14] media: qcom: Pass proper PAS ID to
- set_remote_state API
-Message-ID: <akUF1EDmDNPrgaKh@sumit-xelite>
-References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-11-sumit.garg@kernel.org>
- <c251430d-2184-4ecc-8d05-9cb47533e5ec@oss.qualcomm.com>
- <akTFZgKBQYQUYxx4@sumit-xelite>
- <c93b47af-e291-4a6a-ae4b-cc46f25c422b@oss.qualcomm.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D612A10EEC3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:19:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782908392;
+ bh=tpdx3d9lVe+qNRkoeJfOrvoQbcLTXbuez+FunS1tz9A=;
+ h=From:To:Cc:Subject:Date:From;
+ b=LmECkaI8QO7YDdjP24JLe9N3YTdNVQl9YlgzjKTDXg/Di6Wj59My/CffJdvZaCLAm
+ Sj3bz+xjXDw5ZrKFxqmc+xuvuq/vxiiyOfutITZdkSUs8LHUjNwwiaCoKgGxYx9Fjk
+ Q6g0rGpq+Jpb0hhaqx3+DLwp9UXO8vn4i4HrRBd4lm61VfxgGB3cKov7Om9SEpSONf
+ a395OFB/p+pHQk/sma1bAFcNFyd/wup+s36RMxgws00xkXSh09ujecJ/oq3Q0ul3sC
+ hoFrNMnpr4KlW5G+JwwiMp9JF/OGXmdZd0MnFp09kI8iQX0b416aNojz6/uNqOMUP3
+ vbmG4Yufn638A==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id AD9CE17E0909;
+ Wed,  1 Jul 2026 14:19:51 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
+Subject: [PATCH 00/10] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
+Date: Wed,  1 Jul 2026 14:19:40 +0200
+Message-ID: <20260701121950.19454-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c93b47af-e291-4a6a-ae4b-cc46f25c422b@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,70 +63,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 01, 2026 at 01:01:52PM +0200, Konrad Dybcio wrote:
-> On 7/1/26 9:44 AM, Sumit Garg wrote:
-> > On Tue, Jun 30, 2026 at 02:42:25PM +0200, Konrad Dybcio wrote:
-> >> On 6/26/26 3:34 PM, Sumit Garg wrote:
-> >>> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> >>>
-> >>> As per testing the SCM backend just ignores it while OP-TEE makes
-> >>> use of it to for proper book keeping purpose.
-> >>>
-> >>> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> >>> Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-> >>> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> >>> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> >>> ---
-> >>>  drivers/media/platform/qcom/iris/iris_firmware.c | 2 +-
-> >>>  drivers/media/platform/qcom/venus/firmware.c     | 2 +-
-> >>>  2 files changed, 2 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> >>> index ea9654dd679e..d2e7ba4f37e3 100644
-> >>> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> >>> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> >>> @@ -110,5 +110,5 @@ int iris_fw_unload(struct iris_core *core)
-> >>>  
-> >>>  int iris_set_hw_state(struct iris_core *core, bool resume)
-> >>>  {
-> >>> -	return qcom_pas_set_remote_state(resume, 0);
-> >>> +	return qcom_pas_set_remote_state(resume, IRIS_PAS_ID);
-> >>>  }
-> >>> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
-> >>> index 3a38ff985822..3c0727ea137d 100644
-> >>> --- a/drivers/media/platform/qcom/venus/firmware.c
-> >>> +++ b/drivers/media/platform/qcom/venus/firmware.c
-> >>> @@ -59,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
-> >>>  	int ret;
-> >>>  
-> >>>  	if (core->use_tz) {
-> >>> -		ret = qcom_pas_set_remote_state(resume, 0);
-> >>> +		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
-> >>
-> >> This should not be in the middle of a mildly related series..
-> >> The PAS IDs should be centralized into a single header. And the
-> >> name of the driver shouldn't be part of the define. I would guesstimate
-> >> that on the secure side it's probably called VPU or VIDEO
-> > 
-> > I agree with your comments, this is something I would also like to
-> > consolidate on OP-TEE side as well: see discussion here [1].
-> > 
-> > However, the patch itself was needed to do book keeping on OP-TEE side
-> > but I can drop it since anyhow the video isn't functional yet in
-> > upstream dependent on the proper IOMMU support.
-> 
-> For this patch.. I think QCTZ may be ignoring the argument so it
-> may not matter.. on a second thought you already have it reviewed
-> and it's already a cross-subsys merge so might as well pull it in,
-> worst case scenario it'll revert cleanly
+This series adds support for:
+ - Display Stream Compression (DSC) for DSI and DisplayPort for both
+   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
+ - Write DMA (WDMA) Engine (for legacy only at this time) as a step
+   to enable Writeback support (coming later with a restructuring of
+   the entire mediatek-drm driver)
+ - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
 
-Thanks, I will keep it then.
+AngeloGioacchino Del Regno (10):
+  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
+  drm/mediatek: Implement Display Stream Compression support
+  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
+  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
+  drm/mediatek: mtk_dsi: Add support for MT8189
+  drm/mediatek: mtk_dsi: Add support for MT8196
+  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
 
-> 
-> Once this lands, please move all PAS defines to.. hmm.. qcom_pas.h
-> sounds like a good candidate?
+ .../display/mediatek/mediatek,dsc.yaml        |   4 +-
+ .../display/mediatek/mediatek,dsi.yaml        |   2 +
+ .../display/mediatek/mediatek,wdma.yaml       |   5 +
+ drivers/gpu/drm/mediatek/Makefile             |   2 +
+ drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  29 +
+ drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 435 +++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 611 +++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |   8 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
+ drivers/gpu/drm/mediatek/mtk_dsi.c            | 733 ++++++++++++++----
+ 13 files changed, 1741 insertions(+), 184 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
 
-Sure, I will propose that as a follow-up change. We have to agree on
-common naming there.
+-- 
+2.54.0
 
--Sumit
