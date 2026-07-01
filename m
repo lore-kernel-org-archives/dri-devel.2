@@ -4,88 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A60D2C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C2BAC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 13:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 152EB10F006;
-	Wed,  1 Jul 2026 12:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC30810F01C;
+	Wed,  1 Jul 2026 13:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ZQ3/grps";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h26Qf/2s";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16F0A10F006
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:59:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782910751;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Ur8MN4EUxYcSiX5fbETtL9qCHrgMOm/kmA+W0CQuFpI=;
- b=ZQ3/grpsECYQexc3hXQcNoJAlD2FBoMa53j96SY8oSGTASYj4KntK9ulTEGe1crR8yBpa0
- 3xgua7hg60XAICths+pVsGcyOZTNs8dMB3WA3qjBjVe9xpXizbR1i2bYfvNZzXMya296pQ
- l28xSxO/3nSxom+RViF4J0S9hyG1f0Q=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-553-UZwKDvX_PPmWO4YAEmfxuA-1; Wed, 01 Jul 2026 08:59:10 -0400
-X-MC-Unique: UZwKDvX_PPmWO4YAEmfxuA-1
-X-Mimecast-MFC-AGG-ID: UZwKDvX_PPmWO4YAEmfxuA_1782910749
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-473e18559b2so428140f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 05:59:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782910749; x=1783515549;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ur8MN4EUxYcSiX5fbETtL9qCHrgMOm/kmA+W0CQuFpI=;
- b=m37oOwBiYKBdR+OfRgjBdf6cK85IC7QJuzf71pgH3geRGd5tqLgbc2ByHdnZRHbgmq
- eBLP10rEPIDd4Q0DbrfiZkNYRvymVIU58jctJphhzHaKG3DIgVgH0mUW/bqyZLdjunDE
- V5nxy9rYwWXG9NdR5w7bRt0NwUx+qxt2ZGC7RXzxQIbDyQmoQSd725JA4/gwcTuU36kv
- 1lACf6+tXQM4hM0UubDC9HBruFt+94QGX+xud71ZXAoGMCgiDp4NkUPlU/elYDBHSMMQ
- JLJyZ6vQD7fHuy3UegSvRdrxBcYuar+fymMSFHJai+4SGyHzgnDw7w0asZZYrjCg4TVd
- jZcA==
-X-Gm-Message-State: AOJu0YyGfEjy+8YRhnTRf2Oo7HiRaJ5+iiFkpCTCNqBb80JL44sqxBnO
- A/dKKXuLTX4o0p6zG65yKP7qP/Fj46azZz0QxtzqXH86HlbDXCZAQQ8UfYjjTKsUPRUdhA8oATz
- 5wZ9xmMkjVvjXhAGE9tNZUefylRFjyAj7fR1zfIAHB+YcBgHgX3ibCXjgyxLSTDzsGHRv6Q==
-X-Gm-Gg: AfdE7cm82XcYoFim1zHd9WMm2s36j9Tf1ikuC9XyJ0HL8VIPuwPiBdap41hbO3NUhqD
- pvHE0seESGuuHdx2DP6wExlCQ5LZ4Z5PXOoiC8aQEGa1o4s+kDkv7QyPKqGxsi7v4c6gm6E6/ko
- NowgjCkR7WAnvprxjl/vdAUA1GHAe1NMgVccRdTCa0F59rDPhEYyjvVWYbdlt0FulAoSSJy3Yf6
- 9x49r1ZizjcGOPahcHxB/S8h8pxX5Ug6iZKg9so3eyAJFCL/szarWrAwlUUlVhF1JrZsDdgRM8M
- QTE14GMkyFWZlrCvJwjaj9RGukaTZeuh7yItr2UDrFmUriwctymMa6AoGcP/USPy5KBYaS3p+1m
- dzhPNBZVuY2XZ0W9m6fu8aAfP6dRq45+yRTp6y5HCgEMrsJRfOgbuosMHJcwGUkEb8/UNnA==
-X-Received: by 2002:a05:6000:460e:b0:45e:eaed:afd2 with SMTP id
- ffacd0b85a97d-477b075db6fmr722961f8f.0.1782910748713; 
- Wed, 01 Jul 2026 05:59:08 -0700 (PDT)
-X-Received: by 2002:a05:6000:460e:b0:45e:eaed:afd2 with SMTP id
- ffacd0b85a97d-477b075db6fmr722908f8f.0.1782910748219; 
- Wed, 01 Jul 2026 05:59:08 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4756636cde2sm17027364f8f.20.2026.07.01.05.59.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 05:59:07 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, treding@nvidia.com,
- neil.armstrong@linaro.org, jesszhan0024@gmail.com, dianders@chromium.org,
- megi@xff.cz, igor@reznichenko.net, mwalle@kernel.org,
- dario.binacchi@amarulasolutions.com, jagan@edgeble.ai,
- laurent.pinchart@ideasonboard.com, lujianhua000@gmail.com,
- agx@sigxcpu.org, kernel@puri.sm, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v4 3/3] drm/panel: Use drm_of_get_panel_orientation()
-In-Reply-To: <20260701121055.192475-4-tzimmermann@suse.de>
-References: <20260701121055.192475-1-tzimmermann@suse.de>
- <20260701121055.192475-4-tzimmermann@suse.de>
-Date: Wed, 01 Jul 2026 14:59:06 +0200
-Message-ID: <878q7udfxh.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: fX-oFjmDERyhjFkrMsDP3j1tCrgY_1x9ZO-jf7oSJpc_1782910749
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0BFB10F00F
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 13:01:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D017F601E0;
+ Wed,  1 Jul 2026 13:01:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048FF1F000E9;
+ Wed,  1 Jul 2026 13:01:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782910907;
+ bh=/6s17sWw2U7DvJbiMh+7Uzrpjv0Cj2ixXONGdYVjlyk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h26Qf/2sie84Kt2Lq5qJm2beqhQV7Hp6ljbhgPu42bsctKhi0fKNWeqFDRWIN0EnC
+ xvBKg3sORBitLD0cnuto34hmpUD9SGOjcYzzdNm3utFwhvJOMwOiw8SUCZxelpmtb4
+ 70Jr8HaQTrtXVKCb+DkcLa10Dtt66vJVay0nxgo0N6RCdEGNtKKWyGN73uOA4Ccc+w
+ 2qMhK+R95t1Lp0/Ct4n+R/A458X/zYFDjg3MFPPncJlN0tXDKr8KSqVtbjZ1dMkmDY
+ yTti4iFKWe/vcbmB7HUFWIktZRBGmHpbPAlQmDlNtU1zTIxDHFbVjAmatpPdaPFkXl
+ STur2eZrh6CMQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ olteanv@gmail.com, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701122008.19509-13-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-13-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 13:01:46 +0000
+Message-Id: <20260701130147.048FF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,31 +55,162 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-> From: Thierry Reding <treding@nvidia.com>
->
-> The old of_drm_get_panel_orientation() function was replaced by the
-> drm_of_get_panel_orientation() in the core DRM OF helpers. Replace all
-> uses of the old helper and remove it.
->
-> Changes in v4:
-> - also convert anbernic, chipone and ili9488 panels
-> Changes in v2:
-> - include drm_of.h in all drivers to make sure the new symbol is defined
->
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
+New issues:
+- [High] The MT8196 layout places DP_PHYD_LAN_DRIVING_FORCE at an offset th=
+at is overwritten by a contiguous bulk write to the driving parameters.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Pre-existing issues:
+- [High] Lane disabling logic incorrectly clears the wrong register bits, l=
+eaving upper lanes powered on and corrupting adjacent lanes.
+- [High] Analog register offsets are mistakenly fetched from the digital re=
+gister array, causing writes to the wrong address.
+- [High] Missing shift for analog calibration parameters passed to regmap_u=
+pdate_bits() zeroes out hardware fields.
+--
 
--- 
-Best regards,
+commit 25701726cdcf8525c87349866f69aa298517187f
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: phy: phy-mtk-dp: Add support for MT8196 eDP PHY
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+The MT8196 SoC features an updated PHY IP compared to the older ones, and
+there is one that is specific to Embedded DisplayPort. This patch adds
+support for the eDP PHY found in the MediaTek MT8196 SoC and all of its
+variants.
 
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index f067acef222f7..998ac34466678 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+
+[ ... ]
+
+> @@ -178,6 +190,11 @@ static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN=
+_MAX] =3D {
+>  	[DP_PHYD_LAN_DRIVING_PARAM_0] =3D 0x2c,
+>  };
+> =20
+> +static const u8 mt8196_phy_dig_lane_regs[DP_PHYD_LAN_MAX] =3D {
+> +	[DP_PHYD_LAN_DRIVING_FORCE] =3D 0x30,
+> +	[DP_PHYD_LAN_DRIVING_PARAM_0] =3D 0x2c,
+> +};
+
+[Severity: High]
+Could this regression corrupt the driving force configuration?
+
+In mtk_dp_phy_set_digital_drv_params(), there is a bulk write of 9 contiguo=
+us
+32-bit registers starting at DP_PHYD_LAN_DRIVING_PARAM_0:
+
+    ret =3D regmap_bulk_write(dp_phy->regmap,
+                            pdata->off_dig_lane[i] + reg,
+                            pdata->driving_params,
+                            ARRAY_SIZE(pdata->driving_params));
+
+Since the bulk write starts at 0x2c, driving_params[1] will be written to 0=
+x30,
+which overlaps with DP_PHYD_LAN_DRIVING_FORCE.
+
+> +
+>  static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] =3D {
+
+[ ... ]
+
+> @@ -751,8 +784,39 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_d=
+ata =3D {
+>  	},
+>  };
+> =20
+> +static const struct mtk_dp_phy_pdata mt8196_edp_phy_data =3D {
+> +	.off_ana_glb =3D 0x400,
+> +	.off_ana_lane =3D (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
+> +	.off_dig_glb =3D 0x1400,
+> +	.off_dig_lane =3D (const u16[]) { 0x1000, 0x1100, 0x1200, 0x1300 },
+> +	.regs_ana_glb =3D mt8195_phy_ana_glb_regs,
+> +	.regs_ana_lane =3D mt8195_phy_ana_lane_regs,
+> +	.regs_dig_glb =3D mt8196_phy_dig_glb_regs,
+
+[Severity: High]
+This is a pre-existing issue, but do mtk_dp_phy_power_on() and
+mtk_dp_phy_power_off() fetch analog register offsets using this digital reg=
+ister
+array?
+
+Both functions use the analog enum DP_PHYA_GLB_FORCE_CTRL_1 to access the
+digital array:
+
+    const u8 *regs =3D pdata->regs_dig_glb;
+    ...
+    ret =3D regmap_set_bits(dp_phy->regmap,
+                          pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_=
+1],
+                          CKM_CKTX0_EN_FORCE_MODE);
+
+Accessing index 4 (DP_PHYA_GLB_FORCE_CTRL_1) of the digital array returns
+DP_PHYD_AUX_RX_CTL (0x40) instead of the intended analog offset (0x34).
+
+Does this overwrite incorrect memory mapped register offsets?
+
+> +	.regs_dig_lane =3D mt8196_phy_dig_lane_regs,
+> +	.mask_dig_tx_ln =3D PHYD_TX_LN_EN_V2,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the lane disabling logi=
+c in
+mtk_dp_phy_disable_all_lanes() use this mask incorrectly?
+
+It computes lane_num as a raw index and passes it to field_prep():
+
+    ret =3D regmap_clear_bits(dp_phy->regmap,
+                            pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0],
+                            field_prep(pdata->mask_dig_tx_ln, lane_num));
+
+Because field_prep() shifts the raw value, passing 3 instead of BIT(3) will
+shift 0b11 into the mask, clearing bits 4 and 5 instead of bit 7 (or bits 0=
+ and
+1 instead of bit 3 for V2).
+
+Should this be using BIT(lane_num) instead?
+
+> +	.val_dig_bitrate =3D mt8196_edp_phy_dig_bitrate_val,
+> +	.ana_bias_r =3D 15,
+> +	.ana_cktx_imp =3D 8,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but are these calibration parame=
+ters
+unconditionally cleared to zero in the hardware?
+
+In mtk_dp_phy_set_analog_calibration_params(), these values are passed
+directly to regmap_update_bits():
+
+    ret =3D regmap_update_bits(dp_phy->regmap,
+                             pdata->off_ana_glb + regs_ana_glb[DP_PHYA_GLB_=
+BIAS_GEN_0],
+                             XTP_GLB_BIAS_INT_R_CTRL, pdata->ana_bias_r);
+
+Because regmap_update_bits() expects a pre-shifted value and applies a mask
+(e.g., GENMASK(20, 16)), an unshifted raw value like 15 masked against the =
+upper
+bits yields 0.
+
+Should a macro like FIELD_PREP() be used to properly shift these values into
+place?
+
+> +	.ana_lanes_imp =3D {
+> +		.pmos =3D 8,
+> +		.nmos =3D 8,
+> +	},
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
+9-1-angelogioacchino.delregno@collabora.com?part=3D12
