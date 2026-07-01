@@ -4,103 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7AF8C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 15:56:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12FCFC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A6FE10EE48;
-	Wed,  1 Jul 2026 15:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6649C10EAA3;
+	Wed,  1 Jul 2026 16:08:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dSg45mjE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DGttkpt2";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011046.outbound.protection.outlook.com [52.101.52.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6942810EE48
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 15:56:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XMAO5Xmn3lo1rLkjCpDRGR824hglpH/mH+58cgWD9Q14uuOEYXLEY/SUx6BmEMZqdxyznx8ZRGcXJQGjocU8W/GfAb6XsgCwPxPZNTUdBrVT4CXbPGFvVj1i/Q13Ks52SU/lOGeyVTA2RIm0ourFhoGvJmE9TsT8++9dCGXbyX88qVJsRx2AVat+d8AJCgfICV2CNXOzaeD50KcsVPEDSRMwopnZxqSZuQ+XHoM5xI6XBspTwaGaNBKWEt+Ox5JCbABURtczR+Aol3ItUwlxw4rbuhWSnwkTy5bU1Gik6lEXHHaRz0AXd+NxOT79aD9peEuKyZdkNHfcfpfzAfq+1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5yYQK15DElm/m0IzugfYfYLP9MNzklphGFhC5HlHZdg=;
- b=vl9PjNheuf6pm0lvARIDPFnGUqkxPd73xofwuiOMsNx2gJ3WckxW/e6VesXorrEoJ1oYe2f6j0Txw5XzCq6onrauJQp1uXvggGgOLG3I+B/RXyP+6ul0PAALbsAiZCJ8JY8GzgCatlQS11MzKaK9vLxmkWsdVBDLlmUayOaI81SNbZK2Oc8Gl1VD+0oNNKSdpQ5v4jkk1H+JeX2dHHdTn6lTUpfy4JLcgu//VkdPxV+mz7+dFoEaUlcI/LKTP5EfVbLjVbJ49zS+BehwFgX1tEqU4ueYGGjzcExsW3KjBirc0ZGQfqGt2eWHyO2ASjiHPHup7oRBO73E+ur/cgs7/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5yYQK15DElm/m0IzugfYfYLP9MNzklphGFhC5HlHZdg=;
- b=dSg45mjEwuKYJ9M406Ft3kJZ2eiOzvzcRc1JKzmw7+WMDjbvkHx2XDH8Kh/U8tSAiC3516RX2aGR+d/Amo5DTDDWyxmwDY7jgzV4sJhHmazTwdVlDdPBKplwa2U4AJXoe/Ic7jsUooCaHa8yfN8BZ8lVLL11DZGqVC77KFDVvJo=
-Received: from SA1P222CA0118.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c5::6)
- by SN7PR12MB7202.namprd12.prod.outlook.com (2603:10b6:806:2a9::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
- 2026 15:56:15 +0000
-Received: from SN1PEPF0002BA4B.namprd03.prod.outlook.com
- (2603:10b6:806:3c5:cafe::1) by SA1P222CA0118.outlook.office365.com
- (2603:10b6:806:3c5::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.9 via Frontend Transport; Wed, 1
- Jul 2026 15:56:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF0002BA4B.mail.protection.outlook.com (10.167.242.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Wed, 1 Jul 2026 15:56:14 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 1 Jul
- 2026 10:56:06 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 1 Jul
- 2026 10:56:06 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 1 Jul 2026 10:56:05 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <shuvampandey1@gmail.com>, <karol.wachowski@linux.intel.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <max.zhen@amd.com>, <sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Fix use-after-free in debug BO command
- handling
-Date: Wed, 1 Jul 2026 08:55:56 -0700
-Message-ID: <20260701155556.663541-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F02D10EAA3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 16:08:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 80C1843975;
+ Wed,  1 Jul 2026 16:08:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4031F000E9;
+ Wed,  1 Jul 2026 16:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782922121;
+ bh=yhKbdhzWpnCFtUyKxv59KV9t7EFGFM4f9xMCP7qFEVc=;
+ h=From:Subject:Date:To:Cc;
+ b=DGttkpt2Q8nKCRV6vNcCihSl2s2P3sXQXJneb2lgwIMp0raQkYNBn0B1iX9JZDkVQ
+ k4dG+eTP0xET6M0xHtUZMmPygZeNasR7NNqEs8Ao4tGxxBHVQT0dN0j35xqWlq9F3D
+ 7TsLhvMtgoml/volx9enNoXRvNhfnq/UzStbhMITnm9bZ/xCkB/ptpFu6MST6Do92a
+ Bo7rV46eIb+rv+nHPcgdEpykB73R3FFnK2I3Ad0Q6npJcf291MYux1yByzq3FPIUbv
+ xnwNoo5N03lozMT4svu7Zev3XAoIVv3pMjNXbAUDMNWq26FygDt4YyuolIWjGdjhAx
+ 3kDaMQyK3Hasw==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH v3 00/11] dma-buf: heaps: Add support for Tegra VPR
+Date: Wed, 01 Jul 2026 18:08:11 +0200
+Message-Id: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4B:EE_|SN7PR12MB7202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ccbf868-b903-4a35-95f2-08ded78947d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 0FH71POez39BgTDPDuh5TwToj7AVQ34IjfABBZFpHJJnnZw4G0NjmcuXH1PTekDc0Zyux0nbxYwHrtVqryi44ORJFWMKxjhmVs+UBFdfm7/YfEJzwt5+elNArVIbgN3WCqExT+850EqPpyqwwrdM26AlaY7GRXlE9JE4LPXHCFyW5sa64DCIfEjqzi3B2T3GiQySk3sAktrvAf94Ad7EZgucsm8NQo3/LBHgk46/vc225G1kq0l1eq0/hu618c9ccFJjIAZx+lIbnzJxRbDuRLLQri6uak1c6iMZRBhza0nFy6xMHmzPiq/Lnrcm35jk7OxGhLztSKF6zEQlBUKHzWgnne6vB7JjoJaK32aUl6yETzWTuYmeYeh02xtSvUypNo0Nq6UW99PLSO5oKyukTtzHJImhWQ1HTu4cypOx/BGvze8AAHCsw90aMUSd1qX72nt3/oj82Q/TvCEeAl1rTrX6asY/3G1Hule37xY2vO+ezh+GTzNkD53jDTPlo1KSEXzcJA07XA9RAuWQUQjsHTx9dIMRf62La0sYMXhshx8Xq0mIUAkfE7Fa5wB1Ahw7AmWxDEjUImSwCrVvN5XzuMGNJVeC+YPLp9AACHrz6A/b3BR2PbEpFtjO5ge2fsNNzITxG3CtFR9ghich3CJ7QZrMPjbl+/pjL1Wxs8ghhU7GKzDODCOUqMlpx9J8iitCe6veG/v/1PktwnLfGfJG3A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: mjmjwFl4jF3YyIBK5oDyCW+DW8P2h+r7BOfhcclYcNLbEKqYcnt9z2uQ4z4osCaqrU11D4kOLmFLh0YC+kyivz11tMo2PGdP+vPts2kdlYH+lBuCcnTmoIuMcV89owkzujLNanLN908CL6hMYkiXter0NYWEWBVBDPNd/0Vme9dh780Lo2MDQDBniXyX6P2XenDiq2crvS5ni0dVYVBbgu3Va59bR4RMjIedfvYSYzMx+fiwBpK2HJ3V6UCRy0n32D1rVC1cAGS/gawO1CUs91hTCY+OUyRC7PvM4XVxigGL5TiW6KubSfuXrsMD0s/aSQj0nGMfStxViACUgohlPM0WhK3dhHWVd+QjpQQIPkborPrMaVQsahugv9jCdki8zTsKbQZgQhGLrHqqJZuNLPUfcSbma9O9h50RWfrX/xYRhJgtzRDyexPi6OoEkoPp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 15:56:14.8446 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ccbf868-b903-4a35-95f2-08ded78947d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7202
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNQQ6CMBBFr2K6ts20lFpceQ/jAstYRgXMFInGc
+ HepxpXLl7z//kskZMIktquXYJwo0dAvUKxXIrR1H1FSs7AwYByUsJEjRq7ldGMZGnsMpoQq2CA
+ W/8Z4osentT98Od2PZwxjDmSjpTQO/PycTTp7ubsUwOjSugKUhcJU3kotx5aQ+akYG+rjLnY1X
+ VUYOpHTk/mNHWhjtNMAlSq8K733/+MLco9XNXAUh3me32psPPb1AAAA
+X-Change-ID: 20260507-tegra-vpr-cd4bc2509c4c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
+ Chun Ng <chunn@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4551; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=mcbAkcbsEVWURkcAPa5vFsKErSyQeSmcgEUMd7efj+4=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqRTuFxsKTwjOCtR5nhntJn2yLMnMlfh6zt+LAH
+ 7ky+Ynu4rmJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCakU7hQAKCRDdI6zXfz6z
+ oQwoD/0TQ8Z6/cD6v/Zn3dSTI8WYQWxtO0vPJo49co9ceBSk7rvwa7sDWVnkq/aSR1DWCnjdTxy
+ MLbFDy8d42e7a8WASPwcb+qxk6A2DE+rORTT8tNXAHjZazxr1zUSNcD7bWpsgKSCx5aPWC1mqKr
+ Qd/jKd8UnMS98mbljjkzPqeLPL+YhkPEpJJP8DVT1i9YQMwxmEaGSZCLxuhhgKgyc30NbeIG/3q
+ RvqF9uzJW+aC+WeXK7CXK/zLuEYuBQWl2Q/o0khZFV5ky9mLOsc/5WLPo1OnbyRnV/MRyFgKLu0
+ 9bgqlw4SvKJ8pCjuf23uADlEoQG7f/dJiiftMDDtoEU8bv0k0MY18tWKYDhHo25E4op4WnnWmTY
+ dT8fZaVl4l76093yChzqBXvDxzh2Z1ScWIvcKyJ7rXameRAxhIOBNUH1fKZSvMHxnwLiu6sz6L+
+ jMDvSC6DYoDG3PkaCo5EHIRC4VLIEaDzOx4W9++lDj28rsNMbaxrT7E4/eaxGxaTxs+GSyK9OuH
+ 75g4ungRoFK/zaOhqHYK6clVpUjduhNhuGaqldgN40zWkEDO5NdGEghVx/3uGHLT0L8XOaUpm1c
+ jYi+cqYAfuQpQnJQ8c3JrVv3P4AeO1rlBm5cvphmRxQRD23EP0kUoWFgxy+eVF+WUSDoRjnyb4X
+ wTi/+K/io8cd7EQ==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,183 +112,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a debug BO command completes, job->drv_cmd may already have been
-freed. Accessing it from aie2_sched_drvcmd_resp_handler() can result in
-a use-after-free and memory corruption.
+This series adds support for the video protection region (VPR) used on
+Tegra SoC devices. It's a special region of memory that is protected
+from accesses by the CPU and used to store DRM protected content (both
+decrypted stream data as well as decoded video frames).
 
-Fix this by introducing reference counting for drv_cmd objects and
-transferring ownership to the job while it is in flight. This ensures
-that the command remains valid until the completion handler finishes
-processing it.
+Patches 1 through 3 add DT binding documentation for the VPR and add the
+VPR to the list of memory-region items for display, host1x and NVDEC.
 
-Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+New set_memory_device() and set_memory_normal() helpers are defined in
+patch 4 and will subsequently be used to set the memory type of the VPR
+to make sure it won't be accessed by the CPU once it's made part of the
+protected region.
+
+Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
+but works on sizes that are not a power of two.
+
+Patch 6 introduces new APIs needed by the Tegra VPR implementation that
+allow CMA areas to be dynamically created at runtime rather than using
+the fixed, system-wide list. This is used in this driver specifically
+because it can use an arbitrary number of these areas (though they are
+currently limited to 4).
+
+Patch 7 adds some infrastructure for DMA heap implementations to provide
+information through debugfs.
+
+The Tegra VPR implementation is added in patch 8. See its commit message
+for more details about the specifics of this implementation.
+
+Finally, patches 9-11 add the VPR placeholder node on Tegra234 and
+Tegra264 and hook it up to the host1x node so that it can make use of
+this region.
+
+Changes in v3:
+- Link to v2: https://patch.msgid.link/20260122161009.3865888-1-thierry.reding@kernel.org
+- introduce set_memory_device() and set_memory_normal()
+- rename VPR nodes to "protected"
+- add Tegra264 placeholder nodes
+
+Changes in v2:
+- Link to v1: https://patch.msgid.link/20250902154630.4032984-1-thierry.reding@gmail.com
+- Tegra VPR implementation is now more optimized to reduce the number of
+  (very slow) resize operations, and allows cross-chunk allocations
+- dynamic CMA areas are now trackd separately from static ones, but the
+  global number of CMA pages accounts for all areas
+
+Thierry
+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
 ---
- drivers/accel/amdxdna/aie2_ctx.c    | 68 +++++++++++++++++++++--------
- drivers/accel/amdxdna/amdxdna_ctx.h |  1 +
- 2 files changed, 51 insertions(+), 18 deletions(-)
+Chun Ng (1):
+      arm64/mm: Add set_memory_device() and set_memory_normal()
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 55eb29dece5b..8ec8a4d69b14 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -59,6 +59,18 @@ static bool aie2_tdr_detect(struct amdxdna_dev *xdna)
- 	return false;
- }
- 
-+static void aie2_cmd_release(struct kref *ref)
-+{
-+	struct amdxdna_drv_cmd *drv_cmd = container_of(ref, struct amdxdna_drv_cmd, refcnt);
-+
-+	kfree(drv_cmd);
-+}
-+
-+static void aie2_cmd_put(struct amdxdna_drv_cmd *drv_cmd)
-+{
-+	kref_put(&drv_cmd->refcnt, aie2_cmd_release);
-+}
-+
- static void aie2_job_release(struct kref *ref)
- {
- 	struct amdxdna_sched_job *job;
-@@ -70,6 +82,8 @@ static void aie2_job_release(struct kref *ref)
- 	wake_up(&job->hwctx->priv->job_free_wq);
- 	if (job->out_fence)
- 		dma_fence_put(job->out_fence);
-+	if (job->drv_cmd)
-+		aie2_cmd_put(job->drv_cmd);
- 	kfree(job->aie2_job_health);
- 	kfree(job);
- }
-@@ -901,7 +915,7 @@ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
- {
- 	struct amdxdna_client *client = hwctx->client;
- 	struct amdxdna_dev *xdna = client->xdna;
--	struct amdxdna_drv_cmd cmd = { 0 };
-+	struct amdxdna_drv_cmd *cmd;
- 	struct amdxdna_gem_obj *abo;
- 	u64 seq;
- 	int ret;
-@@ -912,32 +926,39 @@ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
- 		return -EINVAL;
- 	}
- 
-+	cmd = kzalloc_obj(*cmd);
-+	if (!cmd) {
-+		ret = -ENOMEM;
-+		goto put_obj;
-+	}
-+	kref_init(&cmd->refcnt);
-+
- 	if (attach) {
- 		if (abo->assigned_hwctx != AMDXDNA_INVALID_CTX_HANDLE) {
- 			ret = -EBUSY;
--			goto put_obj;
-+			goto put_cmd;
- 		}
--		cmd.opcode = ATTACH_DEBUG_BO;
-+		cmd->opcode = ATTACH_DEBUG_BO;
- 	} else {
- 		if (abo->assigned_hwctx != hwctx->id) {
- 			ret = -EINVAL;
--			goto put_obj;
-+			goto put_cmd;
- 		}
--		cmd.opcode = DETACH_DEBUG_BO;
-+		cmd->opcode = DETACH_DEBUG_BO;
- 	}
- 
--	ret = amdxdna_cmd_submit(client, &cmd, AMDXDNA_INVALID_BO_HANDLE,
-+	ret = amdxdna_cmd_submit(client, cmd, AMDXDNA_INVALID_BO_HANDLE,
- 				 &bo_hdl, 1, hwctx->id, &seq);
- 	if (ret) {
- 		XDNA_ERR(xdna, "Submit command failed");
--		goto put_obj;
-+		goto put_cmd;
- 	}
- 
- 	aie2_cmd_wait(hwctx, seq);
--	if (cmd.result) {
--		XDNA_ERR(xdna, "Response failure 0x%x", cmd.result);
-+	if (cmd->result) {
-+		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
- 		ret = -EINVAL;
--		goto put_obj;
-+		goto put_cmd;
- 	}
- 
- 	if (attach)
-@@ -947,6 +968,8 @@ static int aie2_hwctx_cfg_debug_bo(struct amdxdna_hwctx *hwctx, u32 bo_hdl,
- 
- 	XDNA_DBG(xdna, "Config debug BO %d to %s", bo_hdl, hwctx->name);
- 
-+put_cmd:
-+	aie2_cmd_put(cmd);
- put_obj:
- 	amdxdna_gem_put_obj(abo);
- 	return ret;
-@@ -974,25 +997,32 @@ int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl)
- {
- 	struct amdxdna_client *client = hwctx->client;
- 	struct amdxdna_dev *xdna = client->xdna;
--	struct amdxdna_drv_cmd cmd = { 0 };
-+	struct amdxdna_drv_cmd *cmd;
- 	u64 seq;
- 	int ret;
- 
--	cmd.opcode = SYNC_DEBUG_BO;
--	ret = amdxdna_cmd_submit(client, &cmd, AMDXDNA_INVALID_BO_HANDLE,
-+	cmd = kzalloc_obj(*cmd);
-+	if (!cmd)
-+		return -ENOMEM;
-+	kref_init(&cmd->refcnt);
-+
-+	cmd->opcode = SYNC_DEBUG_BO;
-+	ret = amdxdna_cmd_submit(client, cmd, AMDXDNA_INVALID_BO_HANDLE,
- 				 &debug_bo_hdl, 1, hwctx->id, &seq);
- 	if (ret) {
- 		XDNA_ERR(xdna, "Submit command failed");
--		return ret;
-+		goto put_cmd;
- 	}
- 
- 	aie2_cmd_wait(hwctx, seq);
--	if (cmd.result) {
--		XDNA_ERR(xdna, "Response failure 0x%x", cmd.result);
--		return -EINVAL;
-+	if (cmd->result) {
-+		XDNA_ERR(xdna, "Response failure 0x%x", cmd->result);
-+		ret = -EINVAL;
- 	}
- 
--	return 0;
-+put_cmd:
-+	aie2_cmd_put(cmd);
-+	return ret;
- }
- 
- static int aie2_populate_range(struct amdxdna_gem_obj *abo)
-@@ -1139,6 +1169,8 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 		dma_resv_add_fence(job->bos[i]->resv, job->out_fence, DMA_RESV_USAGE_WRITE);
- 	job->seq = hwctx->priv->seq++;
- 	kref_get(&job->refcnt);
-+	if (job->drv_cmd)
-+		kref_get(&job->drv_cmd->refcnt);
- 	drm_sched_entity_push_job(&job->base);
- 
- 	*seq = job->seq;
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-index aaae16430466..b6bef3af7dab 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.h
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-@@ -132,6 +132,7 @@ enum amdxdna_job_opcode {
- struct amdxdna_drv_cmd {
- 	enum amdxdna_job_opcode	opcode;
- 	u32			result;
-+	struct kref		refcnt;
- };
- 
- struct app_health_report;
--- 
-2.34.1
+Thierry Reding (10):
+      dt-bindings: reserved-memory: Document Tegra VPR
+      dt-bindings: display: tegra: Document memory regions
+      dt-bindings: gpu: host1x: Document memory-regions for NVDEC
+      bitmap: Add bitmap_allocate() function
+      mm/cma: Allow dynamically creating CMA areas
+      dma-buf: heaps: Add debugfs support
+      dma-buf: heaps: Add support for Tegra VPR
+      arm64: tegra: Add VPR placeholder node on Tegra234
+      arm64: tegra: Hook up VPR to host1x
+      arm64: tegra: Add VPR placeholder node on Tegra264
+
+ .../display/tegra/nvidia,tegra124-vic.yaml         |    8 +
+ .../bindings/display/tegra/nvidia,tegra186-dc.yaml |   10 +
+ .../bindings/display/tegra/nvidia,tegra20-dc.yaml  |   10 +-
+ .../display/tegra/nvidia,tegra20-host1x.yaml       |    7 +
+ .../bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml |    8 +
+ .../nvidia,tegra-video-protection-region.yaml      |   76 ++
+ arch/arm/mm/dma-mapping.c                          |    2 +-
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi           |   45 +
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           |   33 +
+ arch/arm64/include/asm/set_memory.h                |    2 +
+ arch/arm64/mm/pageattr.c                           |   16 +
+ arch/s390/mm/init.c                                |    2 +-
+ drivers/dma-buf/dma-heap.c                         |   56 +
+ drivers/dma-buf/heaps/Kconfig                      |    7 +
+ drivers/dma-buf/heaps/Makefile                     |    1 +
+ drivers/dma-buf/heaps/tegra-vpr.c                  | 1242 ++++++++++++++++++++
+ include/linux/bitmap.h                             |   25 +-
+ include/linux/cma.h                                |    8 +-
+ include/linux/dma-heap.h                           |    2 +
+ include/linux/set_memory.h                         |   11 +
+ include/trace/events/tegra_vpr.h                   |   57 +
+ kernel/dma/contiguous.c                            |    2 +-
+ mm/cma.c                                           |  187 ++-
+ mm/cma.h                                           |    5 +-
+ 24 files changed, 1775 insertions(+), 47 deletions(-)
+---
+base-commit: 703daa6d046136affd69f2a2e08f36ac4a7d5b2c
+change-id: 20260507-tegra-vpr-cd4bc2509c4c
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
 
