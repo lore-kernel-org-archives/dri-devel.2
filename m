@@ -4,96 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFF5C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E112C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCE8C10EEE6;
-	Wed,  1 Jul 2026 11:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3BE10E0A9;
+	Wed,  1 Jul 2026 11:19:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=alyssa.is header.i=@alyssa.is header.b="QW+57uW9";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="eSiSydMD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LZsDic2C";
 	dkim-atps=neutral
-X-Greylist: delayed 329 seconds by postgrey-1.36 at gabe;
- Wed, 01 Jul 2026 11:16:04 UTC
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 680EB10EEE6
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:16:04 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 7ED137A00C5;
- Wed,  1 Jul 2026 07:10:34 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Wed, 01 Jul 2026 07:10:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm3; t=1782904234; x=1782990634; bh=aV1udWJKCU
- U1GwPfHpaZ60j3LSXApxKguDyoKA/vmos=; b=QW+57uW9HkfmdAevZYO6hNk7MU
- UJ5sUmzE8fkopzZhgRGj+luurUcYgCvd3qZFha/IXpF0cLdE/oIKeb6sZ5i46YCj
- 5emNlfzej2MAwN3QY7s/8NkdSGhMOo4AAizT5BYwo2NguJXSk8c1qkV211JgYXh2
- jSq3zVEkai0h2sVv1BwzKc3DOcoZyQSLtkSwFz6BFoglb0QIhCjZpzxs/ltwpaIE
- fjChZA1uhE1kAezoEOXdPcweATd4paWCMi+CwfNAanD6V24Kslq6TPIxhLJAWV+G
- MuNrDnVeixwfMpfNkoZ21A+UCl9oAUz0P+9VmuSXuxktNiiUEkZOuRDC1ygQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
- 1782904234; x=1782990634; bh=aV1udWJKCUU1GwPfHpaZ60j3LSXApxKguDy
- oKA/vmos=; b=eSiSydMDQX+CowDdO1PT2dJ4kfskM1dFh0Doj9OX0OCYOAihpXF
- ZeibHsZFyz87p9Em1hrHeX0DroYFK0wHCFX3JopmBEn+KeGbJOrMo+PEsXQVPFVl
- fGVlee6qQuvAD/f0e2Q4MYK4Ae9yl+Gp96gSwmZQp0FTSjOI34zGDJ1uvtArd+6G
- J7k+wPfwq+pJ0aqDNAQh1ptzhDj4lXoEkwGDgrGTyADks6RZ1q/5grIMiiqMtcUE
- nufXuPtczzs7piIA15Hwo2wTIr12uFH93G6vbUuoLxib+JKeETLhFpyvu/yDozE0
- y+Nz1S5YSVJcGtBuIBCzb5xEhsdPZF1PZcw==
-X-ME-Sender: <xms:qfVEatKm1aXXEHE303YNA2PUrc25rodnYQor9-iRvo29jooz1FNI3A>
- <xme:qfVEaqpPUjgJIq3_47vyuMnQ00TESnC8o_JTItLbgikeGQ3wEMPyW6OKOKPhGd1is
- ZA4Q_vAafTa4oQF1RLhh172o07K50-iokaJJBr4swezozSDM5wCAFo>
-X-ME-Received: <xmr:qfVEajWA_O2-QqAFaqCpU9FwyaS0-MLmm10c1G7vfC9NzwwHgjZsjw3o43MnJHlcjNaqMy-21VCXrGKI796p_s1VZKPy>
-X-ME-Proxy-Cause: dmFkZTERqKoBfc/660oCSojHU9/SahCQW6mKBxxdeYT0+nBWOqFVsHBZmsJVHvgH4XIkH0
- WVE49E+VTNq9R+eiYDJYve2ZKe6OZIhKglB1jc3zmSAueayuV8HqfK6ZyQ9nt2QhlXWvja
- LHP3ghuQ3l9SohPnRuM/K8LPcGydiCqCY4Vw4L+NZIeiHsNPp8VGvk5HzCpLsdiuHRtIOj
- ZYDq5fWPjOZ8cv+ZCPV2BZLsGD2H5KZVMBTCcPT//PmmhmenrhZQygy5ZD0374FLiZhAvT
- Rk0QWiG1Ajx/VqzISEaV4Fwb/mdDeP37Qg0xv7GKXNJpvHvcolnHvTam+Flc4B5H9btkab
- oZTeeANG0QjuSES8h0etk+NW8ahCKDrnKAMEzABd+abkZCgAJnGC4ZZ36JQhULfyz4t/R/
- Mid+zwmSywn8KeGSdwZi1IT62S+KmP+15qYQ8Rq/4WA7lLdQwmRDy06DLKxk4P1WrbW/c4
- I11UbytksuyooyzSnwPWJdxKhtip9iWCdjr8oY3+NkyDYOOeNWp1DHIm6X0wOh2Srq4iWf
- C7TA2ugoLtXz7XwJ0qSGgyuv7sN5jdzNqg0ltNLS+z1brLS25CN1K1NZa46X4OOLqlixvH
- 1XbGVoPDVwDjq01s+R9TtrKnqDUUPVZkUqv9JyKNIGioq7GaG4BXqirMsf0w
-X-ME-Proxy: <xmx:qfVEal3nTWN5TeHEG8lJcMKhZmFjdIUnjVJqjVz9ZesWMrNGP_tRIA>
- <xmx:qfVEak2s7dLo9JoXzMqVXr3HeEzUb6YuUPva27Jl_Ew_9Qqg5Rbbww>
- <xmx:qfVEakmqmj9felDYsy4LsvwqHjenJ7HmQCbCU1kQkoPXZ7zAY1c2sQ>
- <xmx:qfVEalOuPrV8Fj1nrihgDT9rnUcMOcAag_Abwml9jtxPROrHnwfdDA>
- <xmx:qvVEavcuy1T6xkNV9ogLod16gd1KlQstRTavPeXIyOhz6dCbRLho-zz->
-Feedback-ID: i12284293:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 1 Jul 2026 07:10:33 -0400 (EDT)
-Received: by mbp.qyliss.net (Postfix, from userid 1000)
- id C540B842E150; Wed, 01 Jul 2026 13:10:30 +0200 (CEST)
-Date: Wed, 1 Jul 2026 13:10:30 +0200
-From: Alyssa Ross <hi@alyssa.is>
-To: Sergio Lopez <slp@redhat.com>
-Cc: Chia-I Wu <olvaffe@gmail.com>, Jason Wang <jasowang@redhat.com>, 
- "Michael S. Tsirkin" <mst@redhat.com>,
- Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Gerd Hoffmann <kraxel@redhat.com>, virtualization@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
-Message-ID: <akT1XEW766c7Imst@mbp.qyliss.net>
-References: <20260428194450.518296-1-slp@redhat.com>
- <20260428194450.518296-3-slp@redhat.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C020210E0A9;
+ Wed,  1 Jul 2026 11:19:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782904773; x=1814440773;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=vEEKLJlOZE7ycVNjS78Qg1dFqDS/f56RKZhlhNIuyNI=;
+ b=LZsDic2CN42n+Qgllcg21PKSZGhfDe/Jumtej/00trlDA8cam6FvCfyP
+ 4hq6gkrREEjesNYGFKpYvVNh3DNGP6K3z7a83TnULr0UMINhWHaAe7N/m
+ oLdN9cZvilDMx8BIJEK+KJ2FSU9dfdLx/9mnbWKmYGLkXpF9CldF/q4v+
+ 3sX/gyPLiwwdQGOy4tWlP1P2d8bikD0qDzULR+ahHmhow/hN+akJnV+vX
+ n5242FkDUbgo+ESuOsNSR7uEwHxr5T0AuHzgOCMIdxZswEWie9WeOnekK
+ yMNNbJe8tGjTd8PI/+uqAjraOb00PdsBYJ85EoNMSRiFdlaPH+r962ixo A==;
+X-CSE-ConnectionGUID: CaE9zj+cSrm06G9aFyCcbA==
+X-CSE-MsgGUID: 6kQG+H7QT6qYeZpgaA2AAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="87547641"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="87547641"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 04:19:32 -0700
+X-CSE-ConnectionGUID: p9AUZjeBTH6qkXwNuR8G8w==
+X-CSE-MsgGUID: 8K+QDoDJRVi22E9oE9voGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="252667741"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.244.98])
+ ([10.245.244.98])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 04:19:31 -0700
+Message-ID: <334874ba-a0e9-4b6d-b148-e8173786fd9a@linux.intel.com>
+Date: Wed, 1 Jul 2026 13:20:03 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wobtd2eeewguko6j"
-Content-Disposition: inline
-In-Reply-To: <20260428194450.518296-3-slp@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/gem: Do not leak siblings[] on proto context
+ error
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Intel graphics driver community testing & development
+ <intel-gfx@lists.freedesktop.org>
+Cc: Direct Rendering Infrastructure - Development
+ <dri-devel@lists.freedesktop.org>, Martin Hodo <martin.hodo@intel.com>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, stable@vger.kernel.org
+References: <20260701073030.44850-1-joonas.lahtinen@linux.intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20260701073030.44850-1-joonas.lahtinen@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,59 +77,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
---wobtd2eeewguko6j
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
-MIME-Version: 1.0
-
-On Tue, Apr 28, 2026 at 09:44:49PM +0200, Sergio Lopez wrote:
-> If VIRTIO_GPU_F_BLOB_ALIGNMENT has been negotiated, blob size must be
-> aligned to blob_alignment. Validate this in verify_blob() so that
-> invalid requests are rejected early.
->
-> Signed-off-by: Sergio Lopez <slp@redhat.com>
-
-FYI: this change breaks crosvm, which is squatting the 5 and 6 values
-of VIRTIO_GPU_F_* with different meanings.  I've reported it as a
-crosvm bug, so hopefully it can be taken care of there.
-
-https://issuetracker.google.com/issues/529852979
-
+On 7/1/26 09:30, Joonas Lahtinen wrote:
+> After a successful BALANCE/PARALLEL_SUBMIT extension on context
+> creation, error during processing of next user extension leaks
+> the siblings[] array. Fix that.
+> 
+> Discovered using AI-assisted static analysis confirmed by
+> Intel Product Security.
+> 
+> Reported-by: Martin Hodo <martin.hodo@intel.com>
+> Fixes: d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle create parameters (v5)")
+> Cc: Faith Ekstrand <faith.ekstrand@collabora.com>
+> Cc: Simona Vetter <simona.vetter@ffwll.ch>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: <stable@vger.kernel.org> # v5.15+
+> Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 > ---
->  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> index c33c057365f8..d0c4edf1eaf4 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> @@ -489,6 +489,11 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
->  	params->size = rc_blob->size;
->  	params->blob = true;
->  	params->blob_flags = rc_blob->blob_flags;
-> +
-> +	if (vgdev->has_blob_alignment &&
-> +	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
-> +		return -EINVAL;
-> +
+>  drivers/gpu/drm/i915/gem/i915_gem_context.c | 22 +++++++++++++--------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> index aeafe1742d30..87fce2adfeef 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> @@ -769,8 +769,8 @@ static int set_proto_ctx_engines(struct drm_i915_file_private *fpriv,
+>  		struct intel_engine_cs *engine;
+>  
+>  		if (copy_from_user(&ci, &user->engines[n], sizeof(ci))) {
+> -			kfree(set.engines);
+> -			return -EFAULT;
+> +			err = -EFAULT;
+> +			goto err;
+>  		}
+>  
+>  		memset(&set.engines[n], 0, sizeof(set.engines[n]));
+> @@ -786,8 +786,8 @@ static int set_proto_ctx_engines(struct drm_i915_file_private *fpriv,
+>  			drm_dbg(&i915->drm,
+>  				"Invalid engine[%d]: { class:%d, instance:%d }\n",
+>  				n, ci.engine_class, ci.engine_instance);
+> -			kfree(set.engines);
+> -			return -ENOENT;
+> +			err = -ENOENT;
+> +			goto err;
+>  		}
+>  
+>  		set.engines[n].type = I915_GEM_ENGINE_TYPE_PHYSICAL;
+> @@ -800,15 +800,21 @@ static int set_proto_ctx_engines(struct drm_i915_file_private *fpriv,
+>  					   set_proto_ctx_engines_extensions,
+>  					   ARRAY_SIZE(set_proto_ctx_engines_extensions),
+>  					   &set);
+> -	if (err) {
+> -		kfree(set.engines);
+> -		return err;
+> -	}
+> +	if (err)
+> +		goto err_extensions;
+>  
+>  	pc->num_user_engines = set.num_engines;
+>  	pc->user_engines = set.engines;
+>  
 >  	return 0;
+> +
+> +err_extensions:
+> +	for (n = 0; n < set.num_engines; n++)
+> +		kfree(set.engines[n].siblings);
+> +err:
+> +	kfree(set.engines);
+> +
+> +	return err;
 >  }
->
-> --
-> 2.53.0
->
+>  
+>  static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
 
---wobtd2eeewguko6j
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRV/neXydHjZma5XLJbRZGEIw/wogUCakT1pAAKCRBbRZGEIw/w
-opdTAP9Jg7Ks4gxxyhXN2k9emUgJfzKrC6SUa2yUEFCWEcE1LwD/UUuIJbEO4Vd3
-IH8EBm8oektUqbiYA9e0FT8+x9oKCA4=
-=g71s
------END PGP SIGNATURE-----
-
---wobtd2eeewguko6j--
