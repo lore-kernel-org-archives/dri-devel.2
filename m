@@ -4,56 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0214FC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BDC8C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:21:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E9B110EEC6;
-	Wed,  1 Jul 2026 16:16:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B99A810E3C2;
+	Wed,  1 Jul 2026 16:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="aRoOH5ea";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nEuo82w6";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C44610EEC6
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 16:16:51 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 8C2B21A0D48;
- Wed,  1 Jul 2026 16:16:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5E2B85FD9D;
- Wed,  1 Jul 2026 16:16:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9022C104C967E; 
- Wed,  1 Jul 2026 18:16:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782922608; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=5xUzCUMwudjcrjeuf4Ro11z6f8Fck9gPbmbBrXhR1wA=;
- b=aRoOH5eadpS+BCrG7A8ye9YbrBoID1TN75pWnAM16WkIiXHVspl92Oa0waIVUXIx/U45A7
- 5EltMrnorTYoSGX2Jtu8nGGs0Kd+Yr1rWmMREsx5rqitmbbIcNav5tPDcPbeed0XWZYwFY
- Q10yaROBQdcqdgLF/l4V0SoKlMq/fgBT1N4P+K4tkiWanIaSUOT8DNcNGqkcV3N34BBZ0H
- CDX2u1gz0aF9rDtlLHklW65qdpAv1GSlJOWulYNu5ynqLTXQGTMTMP38r5m+wJlHf+dzLr
- lEGzXJGuCd5V5SMcWfiyzNhTLCrIA6AstEAR03CWVm25ngQYRoe7VK42Q8NxJw==
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013020.outbound.protection.outlook.com
+ [40.93.201.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0637910E3C2
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 16:21:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kcqNsgOCQb3tP6uXzFiv1rXdHxAibVFWIfULosifQdcR7g+QOw15USoK49+UOUaO7ljAfd+eV23qprVGTEkrVuUnDuyZB5AdxHCCoMq6EqOap/E8FK1DXF/G73ud1pggCpJ/ynN0tB1Nqc7Vp3UX2xyTHl1crAZnz41KjiaF1KElBexR7IVqKqOtm56I6TuEhP29vDTmFt/E5KOuxDIWYjFSErzzO8rF4yKkyJSrN7joV3fZB42AeHeVo2qPSnqg70vrrEYco5Is7FT5pFPvs3IR0HwhJjKV+WyveQtZZMBrJJ/Z7IuTgsVKjdXUnDpInnJjpCdi+bpIcEBnW616hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CET8Mz6euu6w+3O/juMqJgTKj22Z6fBqXulX6FLkLqM=;
+ b=S6qMca+Ie+kXZseJKCQUZKLSm+H3OoAWgYse72jb9HAaqtdJlKn1Lj1eR0O//tTvXDtyqUKIiYjb/RyISUg/cmCuRxVmnf6xiWewrYViqbTnPEqvzAgPqTYGhwyE1Z/vVjsYweq305W9l7lmb2MQBo0CIBiGpbodUArTnOw9/qZd4hfm1vhOtSk4Fj4GvYBYixA6u/9urVFGDc3Y0kqZu0oNzOsZGGk0M0/tcPVZ80FFfE5CD+CuMi2I4g6ptUn6WTswJJbHlKl/aOAB763/x9UtP5ZbHTfI0HAxbi/q/WY/t1PF0hSfNULlzlW1meqLf3Clvlr6a0snebnf9wI1oQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CET8Mz6euu6w+3O/juMqJgTKj22Z6fBqXulX6FLkLqM=;
+ b=nEuo82w6kXvXBDMCoasiMcPrxjOW+74f8v3aW4ZB0sDGzO+j14YjAslaLd6DuXfqFTDrPWgyrtP2qTzuqrlVDy2j1xK53oJ7X8h9APc5b8S4+0UiUpC9ecft4hhiZe8hjodIAYGFrtn7fry/LJusQuuGHm7OfWgp9mX8zw345hXSf/EE8Voq9bp7o/B4hkSm+ax9K7nPMRluByg8hJIBCqAv8VCsxQkboMgt+sbEtdd+Cp6L+OKW79llmdE75e1VyeFMDCS8+h0Yx6zbWoQdhkfS0y0Jx4uT2gc75AU2zTR1DeiadcRpaCKjzgidzUa7hm/bLCT/pAl7GcsExCV0Og==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH0PR12MB8488.namprd12.prod.outlook.com (2603:10b6:610:18d::18)
+ by IA1PR12MB8261.namprd12.prod.outlook.com (2603:10b6:208:3f7::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
+ 16:21:49 +0000
+Received: from CH0PR12MB8488.namprd12.prod.outlook.com
+ ([fe80::c565:c0e5:2c8b:c315]) by CH0PR12MB8488.namprd12.prod.outlook.com
+ ([fe80::c565:c0e5:2c8b:c315%5]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
+ 16:21:49 +0000
+Date: Wed, 1 Jul 2026 18:21:41 +0200
+From: Thierry Reding <treding@nvidia.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: javierm@redhat.com, neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+ dianders@chromium.org, megi@xff.cz, igor@reznichenko.net, mwalle@kernel.org, 
+ dario.binacchi@amarulasolutions.com, jagan@edgeble.ai,
+ laurent.pinchart@ideasonboard.com, 
+ lujianhua000@gmail.com, agx@sigxcpu.org, kernel@puri.sm, mripard@kernel.org, 
+ maarten.lankhorst@linux.intel.com, airlied@gmail.com, simona@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v4 1/3] drm/of: Implement drm_of_get_panel_orientation()
+Message-ID: <akU-hXYt4tBKpMWF@orome>
+X-NVConfidentiality: public
+References: <20260701121055.192475-1-tzimmermann@suse.de>
+ <20260701121055.192475-2-tzimmermann@suse.de>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sl7jxsyk2jgyclzk"
+Content-Disposition: inline
+In-Reply-To: <20260701121055.192475-2-tzimmermann@suse.de>
+X-ClientProxiedBy: VIUP296CA0102.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:351::14) To CH0PR12MB8488.namprd12.prod.outlook.com
+ (2603:10b6:610:18d::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] drm/bridge: sii902x: validate I2S data lane values
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <2026063007056160.5-ccfa108-0046-drm-bridge-sii902x-validate-pengpeng@iscas.ac.cn>
-References: <2026063007056160.5-ccfa108-0046-drm-bridge-sii902x-validate-pengpeng@iscas.ac.cn>
-Date: Wed, 01 Jul 2026 18:16:38 +0200
-Message-Id: <178292259841.3242678.14628738606093717332.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR12MB8488:EE_|IA1PR12MB8261:EE_
+X-MS-Office365-Filtering-Correlation-Id: 312e5e28-52ea-48f4-b506-08ded78cda4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|7416014|376014|366016|1800799024|18002099003|22082099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: Ej1bg+4HoYCLnixCWZv8BTUWH777FajEHIsZ2ewNpxGn/JaEJfB37+hc1FcyuyRo2rOw31hNBhiNP4RLqbHTgR9V44h7GY7PAKnS4BRSRtvfKPOoG90vdYySsRWb6QV6Q+LmvykAZgD+6zyWYB/i6RfmJUIYp4pzZlQtuOCcVyO2M4sHEkfP6AwoHhFAF51fWQhxypmbIZ44Qk10QYbQ8S3fGxFU8AEZNkPtFRwtNCJ1r/ROQG8tY3SkxokijO4vygVGBSELz1J7YgpCf7zwLBpWlL0FPxdRAv3c5GXU8rcTYLdB2wAbgZZm74RTvSdsQvCR3KYpmb7aQF7rc8LW9c3vxRfA6S0wRWCi7XjDZ0iHqCF508qKcZwGgElZlN9CNvKwaGrXI6daY2ARMPrkBbFUSWH89/4AaGm01icYwDsL+rgpStDL7kXcU+0C4VI9sf7atC5MZs7lFnrj4Fm1btrCIAiLCy6Hj+pog8lL6voq9SVcmU7f0TzT2z9CKc+vG8vP+loP+eKyCvf+f1s3JEVNc81co5yIuoUI+TnrjzZzUpGeAx4+JTP9dsJ4WAZBnJPH0p7XIqxhfpQKB4bEM+ZCZq0GVJJM9DXQCD0jCkdfneZQpri1GEf0gCzKtQ88bsIa5O5sEmxMilJ60LQDn8FChDaLFRdl6GvNPYArLmE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB8488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/sG4JW6ZuZL7JwjP6llV9f1JHOQi8UZKuRkL3cokZwQld/Dxzut2waUWX38Q?=
+ =?us-ascii?Q?gSjumj8Dc+xxEde85W7sIMtlcpSOYkDGRI9Fa/sDWZvUrTDFwC2+OR8WgrPp?=
+ =?us-ascii?Q?Ga71LaCh2cvSyApRti692N2gqs932n4Qpyy16HNyUucjevHSXxRtRM7vdibA?=
+ =?us-ascii?Q?Qv/WvHqlIqo8q6sKVHrc+wGKfVHq/uR03rJ5u24jy3blbpsQ/K5VqafdJjur?=
+ =?us-ascii?Q?GgguqIVb8bwQNY6GF3qCDYNDlaKjVVAZcy64oGhfP/5RdLlVmjxql5xIC58s?=
+ =?us-ascii?Q?j9nx9t+gOnktX8B05rWEjOrM1mtQfbUz0HCfcpq6PgJZ4cR7BDQgRFq3PC6K?=
+ =?us-ascii?Q?mViQiDl5/VQqNnt13u6mPCOxupIv2X79yn2b1U+i7e2uuzezFs45ojpokD1A?=
+ =?us-ascii?Q?S8Qc7PNdJxpTBUv3YZxWkK1oipdGN3bIzwbEnLyap0S/GSFMcve1DEKJPA3s?=
+ =?us-ascii?Q?SkrmJ57wuCsEVRHRCoedkZqvA8+HcqQvF/pUe2q3mPpmmSXsdZwDbrLLgd3S?=
+ =?us-ascii?Q?7QhVxnkrrUZvPdGci6S/liNNhotljXsyV2CoOMJcLfr5htt99sKtIPjnLE/Y?=
+ =?us-ascii?Q?ALS/HpUnIXzkEY4yzUIE2HxIDdMR/zHB7ovqMn0vUcdQGZFSQ0j5kSzfDpS2?=
+ =?us-ascii?Q?ckTcYL7pKynreoAMLtYkm4ZqiKi7urQUc7ZPyzWOJp3/txAx8P9t3RY8ODhV?=
+ =?us-ascii?Q?aqEuHUx3lv529caIazbF+1nFYpnLBuraRPTAU8B3YzpjOl0SNTvgRRdt16EF?=
+ =?us-ascii?Q?x3ui/dTq9x5fUINsBhs45ipojbQGxJka0FUZefk6ib19eOMsXDw41n/QQS5K?=
+ =?us-ascii?Q?oxXZ9XZDizslUnKrK2feyVGskhZGdc7nO62vmCqmiAHYT++VRB3Yc2UtzGaC?=
+ =?us-ascii?Q?JlbjrJz1rj2gSEchU74GG31QDFtNkkk281kPfWv8S5gNyKZAP+eaAH7uDKOf?=
+ =?us-ascii?Q?sg1bY4UdzDYCI7XrCikvW7/v2j8KaRMCZH/fQ+q3kQhBx76KtN7EOQa5KrmH?=
+ =?us-ascii?Q?Agsi80vacoTkHOlWuVjoKUQNLUwtBS4AwcaiSdQKr6GcMGyKhwIC+1NO/8Vc?=
+ =?us-ascii?Q?/qeKxfrCGgXlfRLhq12QsTsbmmAqAWcvjZyL1Jc+fyGsvnomYK1N04gfrsCR?=
+ =?us-ascii?Q?/K3KrfD9qmqyyqym0rIr8vi6wPW2fqkq0yIj+2GJDtElrHvDCOyA+bUEzRDj?=
+ =?us-ascii?Q?clO6XSCsUD/zA/RWvB9s+iB9QZr7OfnJOegpQTnd1O789++1HJmBxd7Kpvw1?=
+ =?us-ascii?Q?rIwvt5n5LHk6Q15Rv9cll7QBwdSiC1OWY+7w8qXBrM+IU7Cx8xVMy6eIqMvU?=
+ =?us-ascii?Q?9YNQivBNv+9KTXzqMc/i++NLoInc9IhDWmgkmnYHBXQLsi/ituCQbeIGZN9o?=
+ =?us-ascii?Q?Fyv7xlb0oT+Yi22ddoLKVF1B2OXYXEzzY566XXa7i56cwCOMk7LrCzT9HG/r?=
+ =?us-ascii?Q?8C/QC7ojxYRb3UebKbfCbm8D9mJqrtrHYCNHlzU/W/eqKsFwGHG+tjLfiT3/?=
+ =?us-ascii?Q?kokYYmlr5AgP1rHM/2Ch2e/nFkrSGisJ1Rtlss6Zg2492XXtUxxVGiJJushL?=
+ =?us-ascii?Q?Mmhg60iE5TjcpHoPYixnfwd2blcX39hTkSjRzdoKXqGDaxrMdoo6nXRKk/8j?=
+ =?us-ascii?Q?Zt+UJ0FtkNKIGrZiD9aF1QANIKbV1vI7kQLU9iZirjLn9Ehj+Cx3kpVoBpLE?=
+ =?us-ascii?Q?L8cGfhgtvUtAS1h/CXNgktQ33Rwv5Pep0DQUJIGEpfE8UQQA7HBTzsTJ1HPx?=
+ =?us-ascii?Q?NNUjlo5WKOO6nhYQ8phwJFeQ5wpnfMT2WEorx6eFDB8zE8KpRAoUqB1+A9KJ?=
+X-MS-Exchange-AntiSpam-MessageData-1: SRzsNj7UXhFvew==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 312e5e28-52ea-48f4-b506-08ded78cda4c
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8488.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 16:21:49.3315 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jP7+/dANe+t6c1lpa9QPtSaNesaJty3cPuE8u36sQs7P1wmzucxtTrjoIEYQMdPwU2HouWbwhydMbAV+YGg7IQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8261
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,41 +135,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 30 Jun 2026 14:58:34 +0800, Pengpeng Hou <pengpeng@iscas.ac.cn> wrote:
+--sl7jxsyk2jgyclzk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 1/3] drm/of: Implement drm_of_get_panel_orientation()
+MIME-Version: 1.0
 
-Hello Pengpeng,
+On Wed, Jul 01, 2026 at 02:03:18PM +0200, Thomas Zimmermann wrote:
+> Implement drm_of_get_panel_orientation() to retrieve a panel's
+> rotation property as enum drm_panel_orientation. The code has
+> been taken from of_drm_get_panel_orientation(), so convert that
+> helper over. Callers of the old helper can be converted as well.
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Maxime Ripard <mripard@kernel.org>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> ---
+>  drivers/gpu/drm/drm_of.c    | 44 +++++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_panel.c | 26 ++--------------------
+>  include/drm/drm_of.h        | 11 ++++++++++
+>  3 files changed, 57 insertions(+), 24 deletions(-)
 
->
-> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-> index f575b2dbe32b..1d0649611f53 100644
-> --- a/drivers/gpu/drm/bridge/sii902x.c
-> +++ b/drivers/gpu/drm/bridge/sii902x.c
-> @@ -890,9 +890,16 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
->  	}
->  	codec_data.max_i2s_channels = 2 * num_lanes;
->  
-> -	for (i = 0; i < num_lanes; i++)
-> +	for (i = 0; i < num_lanes; i++) {
-> +		if (lanes[i] >= ARRAY_SIZE(i2s_lane_id)) {
-> +			dev_err(dev, "%s: invalid i2s data lane %u\n",
-> +				__func__, lanes[i]);
-> +			return -EINVAL;
-> +		}
+Reviewed-by: Thierry Reding <treding@nvidia.com>
 
-Looks generally good, but please use dev_err_probe().
+--sl7jxsyk2jgyclzk
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Also, even though it's done elsewhere in this file, I don't think printing
-the function name would be very useful. Instead the incorrect property name
-would be very useful, pointing to where the issue is, so I'd rather
-suggest:
+-----BEGIN PGP SIGNATURE-----
 
-      if (...)
-      	 return dev_err_probe(dev, -EINVAL, "invalid sil,i2s-data-lanes value %u\n", lanes[i]);
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpFPpQACgkQ3SOs138+
+s6GbrQ//X631pXvMQ1QRygoGfnRKb2JvZxpamGWuq5g/Duqb9jfkdVVOTlVanPXT
+mHuQ7ZHBJHC5ru9gX6XF50ksi0G3FJebx8u0T99aojSJXwZY9zD/cBsQfSYRN9RQ
+Jn99qmK2TzZ6yod3fy4NN+s5kSLgx6mehlulPr2nTMz9bqOGN88T3BAIIRrjVtFX
+nUXTmEbNoOio8gCAS5DCLKS6ogS6umDMDDI4oID8p1+AJX4sYSRPMCTWzTvOvn8n
+cAYUnNsJAehRP8oyWtDzbk/qpw9o0UEq4YacWaY9g70Q8HzeFMG5Nn/OOUUynANB
+IWmNmZvSdtDzo3s4QOQvo9MsjBLL/v4CvOO2KOl7XRULMYnrJRk+rLXcMx/okgRa
+P5p/7XA7MUaPVVZNJUq7QwwJ06M2qVL9GW6Hx/ypMlbnAWWkVZK+U1iB3p88d6qS
+nDwqpEswoh+N1M5ACOuQZpz6Hs2zvAELTh3XdtSveZmZ+ZR/uqBDIoWsuBHkcnt4
+uUlxphzQBZa2hpFp0iKCkSask6yjr3TnFwWWu/w2jkM4YjJvwyro5UpQc/xdkWvh
+OngWk0oEzCW4MfwTvgDnMghLHwgJH08AxBpHIcJcq9O9+CTX+twRXhl4XMp5Cp2N
+NX+Nlj0pDyY/2APNsUWy0BsGjtLywNKytaXqFP1A1AV+4X1ogNU=
+=Wd45
+-----END PGP SIGNATURE-----
 
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+--sl7jxsyk2jgyclzk--
