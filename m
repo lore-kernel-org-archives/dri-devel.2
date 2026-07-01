@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFBF0C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 13:45:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD4A7C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 13:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7792F10E241;
-	Wed,  1 Jul 2026 13:45:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0B310E35C;
+	Wed,  1 Jul 2026 13:46:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="n40xO7D+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XwAwChjV";
 	dkim-atps=neutral
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com
- [91.218.175.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D056B10E241
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 13:45:17 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782913166;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=omlfr8grDNGfvojgouDHF79/mYKrbd83gvLmW6Qk2F8=;
- b=n40xO7D+m9+wraOUGGIAVuBeNYupi4LNm/E4/olVXZEEsNdfCuUS0bVcMpiaME0TygCPj1
- E1jpPHZt8YqW9W2ZKM/FLEB1l5RcDIht6YNwcUT3nHqj5jNo26uAsOfojwaSBUyHcYSIsl
- ToB+EJbUqt4TfXKcaKgDmDYGOGR3j0Y=
-From: Junjie Cao <junjie.cao@linux.dev>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- caojunjie650@gmail.com, junjie.cao@linux.dev,
- Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 1/2] backlight: aw99706: Fix DT property names to match binding
-Date: Wed,  1 Jul 2026 21:39:17 +0800
-Message-ID: <20260701133918.33487-1-junjie.cao@linux.dev>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B37710E35C
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 13:46:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C2D96001D;
+ Wed,  1 Jul 2026 13:46:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 106791F000E9;
+ Wed,  1 Jul 2026 13:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782913588;
+ bh=8q9xG+BgfX5ktGEGbjGuAUcOotYACZyorYTf/6K/qcQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XwAwChjVMX1qO2qi60/D/N0gZ59DbbX9Cg/SUUuWDYqzdgp/rKLyArqvP/kkYBOB9
+ jXRdORukThO3RiI0cczDdtm37+AzJv1fy5rJUuwkGLHZ/RRbj5A6x3PJocrHF2fYW4
+ 5YhahOG3WH7YclXv28L1qYCYXWutSGmD867O+X2gS+neWfjpHmWMDSivW0+xr8pDJW
+ 55SVE1K5EeeGi/XwGMmkFvu7qfRIYbcuutSK1bUwhAJaDPGPUO8mEyKk8QOkyohqNn
+ 5j8A3rzBI/ZhXWFScV/uz9+s1AfepcuJaeaoAL36wRfwAFqe8QlW9jhvk1DY6bQgXG
+ 2MpVDopySFSVA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/11] drm/mediatek: mtk_dp: Add support for HotPlug
+ Detection in DP AUX
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260701122024.19557-10-angelogioacchino.delregno@collabora.com>
+References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
+ <20260701122024.19557-10-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 13:46:27 +0000
+Message-Id: <20260701134628.106791F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,62 +55,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The driver reads four tuning properties without the unit suffixes that
-the binding mandates: "awinic,sw-freq" instead of "awinic,sw-freq-hz",
-"awinic,sw-ilmt" instead of "awinic,sw-ilmt-microamp", "awinic,iled-max"
-instead of "awinic,iled-max-microamp", and "awinic,uvlo-thres" instead
-of "awinic,uvlo-thres-microvolt".
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unmapped hardware interrupt status bits from AUX HPD corrupt the H=
+PD event handler logic, misclassifying interrupts.
+- [Medium] Missing `legacy_regoff` when polling `MTK_DP_AUX_P0_364C` via `r=
+egmap_read_poll_timeout`.
+--
 
-As a result, device_property_read_u32() never finds these properties in
-a binding-conformant device tree and silently falls back to the compiled-in
-defaults for switching frequency, switching current limit, max LED current,
-and UVLO threshold.
+commit 01574255cf70f390467f27095e6af27a1759e430
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+drm/mediatek: mtk_dp: Add support for HotPlug Detection in DP AUX
 
-Fix by aligning the property name strings in aw99706_dt_props[] with the
-binding. No value/range changes are needed since both sides already use
-the same units and enumerations.
+This patch adds support for using the DP AUX channel to perform hotplug
+detection (HPD) on newer MediaTek DisplayPort IPs. It enables configuring
+and performing HPD in AUX, checking the correct HPD strategy with a new
+platform data variable.
 
-Fixes: 147b38a5ad06 ("backlight: aw99706: Add support for Awinic AW99706 backlight")
-Signed-off-by: Junjie Cao <junjie.cao@linux.dev>
----
- drivers/video/backlight/aw99706.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index 5272e717bfda0..2d58eacb3d3e6 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
 
-diff --git a/drivers/video/backlight/aw99706.c b/drivers/video/backlight/aw99706.c
-index 938f352aaab7..abacf5a6c8ae 100644
---- a/drivers/video/backlight/aw99706.c
-+++ b/drivers/video/backlight/aw99706.c
-@@ -130,23 +130,23 @@ static const struct aw99706_dt_prop aw99706_dt_props[] = {
- 		AW99706_CFG0_REG, AW99706_DIM_MODE_MASK, 1,
- 	},
- 	{
--		"awinic,sw-freq", aw99706_dt_property_lookup,
-+		"awinic,sw-freq-hz", aw99706_dt_property_lookup,
- 		aw99706_sw_freq_tbl, ARRAY_SIZE(aw99706_sw_freq_tbl),
- 		AW99706_CFG1_REG, AW99706_SW_FREQ_MASK, 750000,
- 	},
- 	{
--		"awinic,sw-ilmt", aw99706_dt_property_lookup,
-+		"awinic,sw-ilmt-microamp", aw99706_dt_property_lookup,
- 		aw99706_sw_ilmt_tbl, ARRAY_SIZE(aw99706_sw_ilmt_tbl),
- 		AW99706_CFG1_REG, AW99706_SW_ILMT_MASK, 3000000,
- 	},
- 	{
--		"awinic,iled-max", aw99706_dt_property_iled_max_convert,
-+		"awinic,iled-max-microamp", aw99706_dt_property_iled_max_convert,
- 		NULL, 0,
- 		AW99706_CFG2_REG, AW99706_ILED_MAX_MASK, 20000,
- 
- 	},
- 	{
--		"awinic,uvlo-thres", aw99706_dt_property_lookup,
-+		"awinic,uvlo-thres-microvolt", aw99706_dt_property_lookup,
- 		aw99706_ulvo_thres_tbl, ARRAY_SIZE(aw99706_ulvo_thres_tbl),
- 		AW99706_CFG2_REG, AW99706_UVLOSEL_MASK, 2200000,
- 	},
--- 
-2.43.0
+> [ ... ]
 
+> @@ -1046,7 +1047,21 @@ static u32 mtk_dp_swirq_get_clear(struct mtk_dp *m=
+tk_dp)
+>  	return irq_status;
+>  }
+> =20
+> -static u32 mtk_dp_hwirq_get_clear(struct mtk_dp *mtk_dp)
+> +static u32 mtk_dp_aux_hwirq_get_clear(struct mtk_dp *mtk_dp)
+> +{
+> +	u32 irq_status =3D mtk_dp_read(mtk_dp, MTK_DP_AUX_TX_P0_INT_STA);
+> +
+> +	if (irq_status) {
+> +		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_TX_P0_INT_CLR,
+> +				   irq_status, irq_status);
+> +		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_TX_P0_INT_CLR,
+> +				   0, irq_status);
+> +	}
+> +
+> +	return irq_status;
+> +}
+
+[Severity: High]
+Is it safe to return the raw hardware interrupt bits here without mapping t=
+hem
+to the expected software constants?
+
+In mtk_dp_hpd_event(), the returned irq_status is checked against software
+constants like MTK_DP_HPD_INTERRUPT, which is defined as BIT(3):
+
+	if (irq_status & MTK_DP_HPD_INTERRUPT)
+		mtk_dp->irq_thread_handle |=3D MTK_DP_THREAD_HPD_EVENT;
+
+	/* Cable state is changed. */
+	if (irq_status !=3D MTK_DP_HPD_INTERRUPT) {
+		mtk_dp->irq_thread_handle |=3D MTK_DP_THREAD_CABLE_STATE_CHG;
+		cable_sta_chg =3D true;
+	}
+
+However, HPD_INTERRUPT_EVENT read from MTK_DP_AUX_TX_P0_INT_STA is BIT(2).
+
+If we return the raw BIT(2) here, won't it fail the check for
+MTK_DP_HPD_INTERRUPT and incorrectly fall into the cable state change path?
+Could this misclassify short HPD pulses as cable state changes, potentially
+causing spurious link teardowns?
+
+> [ ... ]
+
+> @@ -2125,10 +2194,15 @@ static int mtk_dp_wait_hpd_asserted(struct drm_dp=
+_aux *mtk_aux, unsigned long wa
+>  	u32 val;
+>  	int ret;
+> =20
+> -	ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> -				       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> -				       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> -				       wait_us / 100, wait_us);
+> +	if (mtk_dp->data->aux_hpd_supported)
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs, MTK_DP_AUX_P0_364C,
+> +					       val, !!(val & HPD_STATUS_DP_AUX_TX_P0_MASK),
+> +					       wait_us / 100, wait_us);
+
+[Severity: Medium]
+Should this regmap_read_poll_timeout() call include mtk_dp->legacy_regoff?
+
+The trans HPD path below adds mtk_dp->legacy_regoff to the register offset,
+and standard mtk_dp_read() calls also apply it.
+
+If a platform uses the legacy DT binding but has aux_hpd_supported enabled,
+could omitting the offset cause reads from the wrong hardware address?
+
+> +	else
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> +					       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> +					       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> +					       wait_us / 100, wait_us);
+>  	if (ret) {
+>  		mtk_dp->train_info.cable_plugged_in =3D false;
+>  		return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
+7-1-angelogioacchino.delregno@collabora.com?part=3D9
