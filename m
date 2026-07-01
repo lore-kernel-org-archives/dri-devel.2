@@ -4,99 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77788C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57611C43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07B0510F1DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32F3110F1E4;
 	Thu,  2 Jul 2026 07:51:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="hyWVuM6L";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="WZZ2ZKvj";
 	dkim-atps=neutral
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2300510E3E3
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:14:54 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5aebfa21c62so1061012e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 11:14:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782929693; cv=none;
- d=google.com; s=arc-20260327;
- b=GmhXIQnUa5gcdaoAb7F1Job+82tKGwdY2VLYGMqHO3C+XlVEo9XXBe8cpumUUwRo0G
- 2anC0c8VhvAxMo/18QpOuLjrukTaky/xFNLAAXLWqnEtAftt30FK9RJtJ0NnxQ8zVY3+
- fFJBtWq2oAUj8gD0FCyF1BbVLxyfayN6wPEIzqEk85wmhlF1TXeCmAxcrt/OjSpWTJ8P
- Evz1Bc7CabtjJmgQYsH2E7uml6KBKakXszyTF2Nq8TYPka9U8PxvPSRY6G5BILnBhPI4
- 4+uDUm7ku2brsrnPHfN28ndva7VnuMGd0JwIJ/Q55f5Vr4DIGHIh2M36zBiLwyypEiIN
- gKyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Ho4dYzPzvHEFLwOI8+yqAprMuP6uwFHEAkeRfcmKHsY=;
- fh=caQUtV2yAYXGDM4PDnT4okSpmM6/dZ4QcXIy8mXP/Tc=;
- b=JY8u+WXgLs1AoWPe1eIJHz3fsHP+uudpsBgg3HLCl6pMZiS4nTmGKCK7Aj1AtQ3hzK
- TYP7AG45n+/vuALpUzbXjkzq+xI4gQelZEPsfdCdg/lFsS5P+nDtMZzDSSr1hjGLZu2r
- GvRxWxi76kbgj0ca+wem/gAVBkEWORY8W6bPLjrjfYFMPLqkines1M4Lzhd3SmzTX9qe
- L6aTIZvMdGkH7OqTe6SmOU2yEgt96iQMCDURaQbe5t9JZglihlJ8tqYQAPQhUtjVgMzm
- 47zS3d8EclFIl6aTq8/nNItHbIpVl2K3oiecFx9Tvf6WEe7TzIlTDVIGqL0+AfM3HEev
- EwoQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4BF810E0A3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:41:21 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-8478a25f268so545472b3a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:41:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782929693; x=1783534493; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=usp.br; s=usp-google; t=1782927681; x=1783532481; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ho4dYzPzvHEFLwOI8+yqAprMuP6uwFHEAkeRfcmKHsY=;
- b=hyWVuM6LLXE7x/C3yIiWPFg94VTeFypfesqYKCM/qd34t8gddcBQfbDHbfJlW+V9oT
- ENun9w+ZFAUH9Q7ILuuaOP60AwC5sL8KIvUuRQRQv4IzNsAkY/LgV3Xg5G9mAtLMAEIx
- 89U+Ggc8k8T1U6JWXNwipqqixsEDdonO8STwRRAGSLwys9+AGOlfvj4PmSBidKtHCz7k
- 9y5ho9+XvPfVbF9tCuLd29Z73LnTJgIk8OacqndwcZYdvAIQOGgDKUIO0k3g/+bwa743
- TVW7TcDk251zCrc8cZR99rurhQ3uBuVdOKbb9WolNX1R5hqd9Lu8w2M585Sx8BU4DSpB
- qe1Q==
+ bh=KFceAFuK036YUVrKWQ2ER28PIOKf2Yja+50h/9H1BAo=;
+ b=WZZ2ZKvjFFVLVmEboMGU+g9PPiaSNBwxh9mE38H9UGIsJ1hXnYfDaa+YD54rqncwuv
+ GHxArAsbiiqmxLMHE0CEiqr/EmYAHbPBbiz+MF6RgeE7MfP7UHep34n1z3JwXtB9rFaw
+ fCOPsxq5Sgk1PUDu0ICBpo2bX4OxEdrxIEVTYlFJngCZ+G3zpO5Wu3jsu7Aj0FZToi59
+ sxLKs2EdpSbrmiEujxly1c3tCQz/UrKfe5cpS0mlw8axblMBPIa3Dqms3j65XUoNjNVX
+ R8IhxbAWoUohcPC63m+pGzIBoHQxgqGABOLqhShqoBR8ucYC8/+3yc0Qy0CoSH6aWhHG
+ cJzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782929693; x=1783534493;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1782927681; x=1783532481;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Ho4dYzPzvHEFLwOI8+yqAprMuP6uwFHEAkeRfcmKHsY=;
- b=KJP23zvYHRzcMJcy6WskNPrmg1D5KngEr4aOJx69HxooWtaCsp8fgbvw6a9rXr2Hv1
- COmaycFZfHtyQAcZFYt3FM0J5Bzh7UbKGqLgRbM9XqD7IKiLM17xgENq4HWlnYaMX5yr
- ERt2b54G3EQiKNvuOtzCOG0qFE6Qx0cPhlzhnbotodaoO0JKz5+QxVSjQQx75Bk4NumF
- CM8p0af2qd7ppA70N/wEy66Iw2E3dNADo76TZbEMmZgRgNPXNV60FA9mwkO+FtAoLSbN
- dCdXRuQ77uztPuAVqnw6Y5MSax+JmmJ72XGPBMdw1Eaix940eG1b7qEevMVNZV+P7+Yw
- sORg==
+ bh=KFceAFuK036YUVrKWQ2ER28PIOKf2Yja+50h/9H1BAo=;
+ b=B8pqme4pwX2gPmEsYLsKkMLD+KRy2kUiy2LU0hXsKTEJwxn2Mk1OLcBn2fTt3Xh+vB
+ aqRklZI/T0AMVWLsTTHNOqBtJiPmevTN2ztPpDqNaYibd3FTe8x+jbB1Huuz6leSL2+A
+ DeKkl3Cqv+n8C5IU2eMcqMvVYyrPEipv/scsOyPf9VLM4/kEYpzYMh7oylsnMPQav3H7
+ QA16fG5uyaRYI0IlC2rHv/mXx7alKk2EslmWMGgEbkUmYRu3It/XNAL6vP33DEjeiKxM
+ ZXbmIvDtck9LVQJscE9qXdqkzKWDhYNpx6uOjxyYcMC45VkY1XtqPU3cm2YeVryZ0z8K
+ G8xg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoVKOui4RATzJ3l+LqF/mrOUJu1GvOAtKbGYKbCtQGjFjnShw6Onj+BqaXQB7YVc21+CDmS0658TGY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlnwXU1Kb1qKWaP/xY9BTWFCtpMSXsSBWH/QR7F1WT++32TAzS
- dHjghVU2dT3saURUeol44sGmVQQVMDzC7RcKBy4j+I4e8ilGsAHf59XlmbB+K5QaKJhG+VsDHOS
- ekp3WtuZorQ/AI97jVAckpPvVakjZkP74EF251tEEIg==
-X-Gm-Gg: AfdE7cl3yT2GBJz0rD1ZKRHbscyxfhKbD4O9hUf4Zizsl+nKnScOo/GzhibnpQ4IYC0
- O8uE266YOTqOBSy/VJOhXMtDI0spoo/rEtWbllI71F33GAH0uEyZXfHwa+3nQTVjyKJJd04WDiT
- Sm/LTlzxLyIMV8RSK3wF9vNYYp5Wa5PFBD0YXd4UnSNellLklivp8SR8df3huwSnZkqITBEFfZQ
- jQzopFYhw7BBFLtekEiEh2f1sx4ftSxqEu8rLbHXVEvVki2TUqd5RwwYuFB96tJZboKVKB0GhVd
- UFY6Lwo/nlybfFIi5XuL0MI/dMINhLmeD1UH6ET+n6YilYwZveWnWL0w
-X-Received: by 2002:a05:6512:6887:b0:5ae:c210:1a24 with SMTP id
- 2adb3069b0e04-5aec679794dmr446560e87.6.1782929693093; Wed, 01 Jul 2026
- 11:14:53 -0700 (PDT)
+ AHgh+RojIwGPi8y0txZbUMQ5eWy5V/1M0h11K8rtC5+iqqR0cL1Qe0+3PmNQiB/e4UK6Kd9iVULDYK9OJJs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwI+Hz+FOvUzLsJd4/1u/aNdNhIT1EXlrGXEbIfynYfvLCw93r+
+ AsTHTTMZdufnJnvsaHhBCNAYJYtBvY2HtgPBdyqHCkup8nuTVngiUegUMa7oXen3190=
+X-Gm-Gg: AfdE7cnEcp+2qsmZk/mBFjyESMJFntI4i6rdPVk26DQzi2aTUp1ZE7wXoOKE7nTHPQD
+ rRxe48CWk/FNc74O+QW4nFGCgJasgtZzzZM0MBtZ18XlhrRJ4UPjAwSx8cfqrvnlkUZ50hvijfg
+ JUtPBy8mZ+l06VRlfqqXLbtR7U5JyCM4D/uf/d5R87OmuAVj5YS7LgQ16PWL6FVAO9wdTxhc8Mn
+ BeRa+KhAaksDAvbqOqURGpfnuUb22vWFvfQZ7E/blObggawHwfAG90ZSeTnyLMtTGtZOxebIb0g
+ fm5yRfJzQnaoCbn1B7PTa9CnCTHlmnMyoOaAMDVOgNmDF4avn1CABI/C4zZjxhUpBjGYS29d8TG
+ tJaP+gn8GjUY2Fc0DrsVDGTUWIjMby63hNceWrrVB7482twhzlchfgNOB8f54ccCtPa8p7JBMl4
+ owH1Ei1GZ7MWaccs8=
+X-Received: by 2002:a05:6a00:194b:b0:847:78ad:e1e3 with SMTP id
+ d2e1a72fcca58-847c5182f69mr1755324b3a.41.1782927680927; 
+ Wed, 01 Jul 2026 10:41:20 -0700 (PDT)
+Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-847cb6dc4d0sm150943b3a.3.2026.07.01.10.41.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2026 10:41:20 -0700 (PDT)
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
+X-Google-Original-From: Pedro Yudi Honda
+To: dakr@kernel.org,
+	acourbot@nvidia.com,
+	apopple@nvidia.com
+Cc: nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ rust-for-linux@vger.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
+Subject: [PATCH v2 3/5] drm/nova: use `zerocopy` in fwsec.rs
+Date: Wed,  1 Jul 2026 14:40:54 -0300
+Message-Id: <20260701174056.12604-4-niyudi.honda@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260701174056.12604-1-niyudi.honda@gmail.com>
+References: <20260701174056.12604-1-niyudi.honda@gmail.com>
 MIME-Version: 1.0
-References: <20260626030013.20569-1-tiagodourado@usp.br>
- <20260626030013.20569-2-tiagodourado@usp.br>
- <104c8e60-11f5-4c08-86ca-51ca5c8bf57b@amd.com>
- <CADnq5_PWN4a0-64xTvQE=Ri=es7NRyY7hMqEu7+pjmoEvwf5FA@mail.gmail.com>
-In-Reply-To: <CADnq5_PWN4a0-64xTvQE=Ri=es7NRyY7hMqEu7+pjmoEvwf5FA@mail.gmail.com>
-From: Tiago Gomes Dourado de Oliveira <tiagodourado@usp.br>
-Date: Wed, 1 Jul 2026 15:14:41 -0300
-X-Gm-Features: AVVi8Cfz28S6QQpc728eGJ7jRF7I_P-iT0Kc_pfoJctYsb4JGLeCjJvMKVsUn_A
-Message-ID: <CAJRPy2G-X_uaHZWLWjXVBUFJsZ4Xq-mWmRrmsTPrFs7NyPdXow@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu/jpeg: deduplicate jpeg_v3_0
- process_interrupt
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- kernel@lists.ime.usp.br, airlied@gmail.com, alexander.deucher@amd.com, 
- simona@ffwll.ch, "Liu, Leo" <Leo.Liu@amd.com>, 
- Luiz Fernandes <luiz.f.f.fernandes@usp.br>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 02 Jul 2026 07:51:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,134 +94,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 26, 2026 at 6:49=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Fri, Jun 26, 2026 at 8:14=E2=80=AFAM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> >
-> > On 6/26/26 04:59, Tiago Dourado wrote:
-> > > The jpeg_v3_0_process_interrupt function is identical to
-> > > jpeg_v2_0_process_interrupt. Remove the duplicate implementation
-> > > in jpeg_v3_0 and assign the jpeg_v2_0 version directly to the irq_fun=
-cs struct.
-> > > Export jpeg_v2_0_process_interrupt through jpeg_v2_0.h to allow
-> > > cross-version reuse.
-> >
-> > Usually we intentionally don't do any cross IP version reuse, that has =
-cause tons of problems in the past.
-> >
-> > @Leo any particular reason why we don't have a separate SRCID file for =
-VCN3?
-> >
-> > My educated guess is that nothing changed compared to VCN2 and nobody c=
-ared to re-generate the file from the HW definition.
-> >
->
-> I think it's the same so no need for a separate one.  There are a
-> number of existing places where VCN or jpeg use one function
-> implementation across multiple generations.
->
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
 
-Thanks for the feedback. Given what both of you pointed out, what do
-you suggest that we can do?
+In firmware/fwsec.rs, replace the following `transmute` traits with
+their `zerocopy` equivalents:
 
-Regards,
-Tiago
+- `transmute::FromBytes` -> `zerocopy::FromBytes`
+- `transmute::AsBytes` -> `zerocopy::IntoBytes`
+- add `zerocopy::KnownLayout` where necessary
 
-> Alex
->
-> > Regards,
-> > Christian.
-> >
-> > >
-> > > Signed-off-by: Tiago Dourado <tiagodourado@usp.br>
-> > > Co-developed-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
-> > > Signed-off-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
-> > > ---
-> > >
-> > > v2:
-> > > - Assigned function directly to irq_funcs instead of using a macro.
-> > >
-> > >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c |  2 +-
-> > >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h |  4 ++++
-> > >  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 21 +--------------------
-> > >  3 files changed, 6 insertions(+), 21 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm=
-/amd/amdgpu/jpeg_v2_0.c
-> > > index 9fe8d10ab..9006fc57e 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-> > > @@ -747,7 +747,7 @@ static int jpeg_v2_0_set_interrupt_state(struct a=
-mdgpu_device *adev,
-> > >       return 0;
-> > >  }
-> > >
-> > > -static int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
-> > > +int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
-> > >                                     struct amdgpu_irq_src *source,
-> > >                                     struct amdgpu_iv_entry *entry)
-> > >  {
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h b/drivers/gpu/drm=
-/amd/amdgpu/jpeg_v2_0.h
-> > > index 654e43e83..4f400fb47 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h
-> > > @@ -58,6 +58,10 @@ void jpeg_v2_0_dec_ring_emit_vm_flush(struct amdgp=
-u_ring *ring,
-> > >  void jpeg_v2_0_dec_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t=
- reg, uint32_t val);
-> > >  void jpeg_v2_0_dec_ring_nop(struct amdgpu_ring *ring, uint32_t count=
-);
-> > >
-> > > +int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
-> > > +                             struct amdgpu_irq_src *source,
-> > > +                             struct amdgpu_iv_entry *entry);
-> > > +
-> > >  extern const struct amdgpu_ip_block_version jpeg_v2_0_ip_block;
-> > >
-> > >  #endif /* __JPEG_V2_0_H__ */
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm=
-/amd/amdgpu/jpeg_v3_0.c
-> > > index 98f5e0622..2f3a5a17e 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-> > > @@ -539,25 +539,6 @@ static int jpeg_v3_0_set_interrupt_state(struct =
-amdgpu_device *adev,
-> > >       return 0;
-> > >  }
-> > >
-> > > -static int jpeg_v3_0_process_interrupt(struct amdgpu_device *adev,
-> > > -                                   struct amdgpu_irq_src *source,
-> > > -                                   struct amdgpu_iv_entry *entry)
-> > > -{
-> > > -     DRM_DEBUG("IH: JPEG TRAP\n");
-> > > -
-> > > -     switch (entry->src_id) {
-> > > -     case VCN_2_0__SRCID__JPEG_DECODE:
-> > > -             amdgpu_fence_process(adev->jpeg.inst->ring_dec);
-> > > -             break;
-> > > -     default:
-> > > -             DRM_ERROR("Unhandled interrupt: %d %d\n",
-> > > -                       entry->src_id, entry->src_data[0]);
-> > > -             break;
-> > > -     }
-> > > -
-> > > -     return 0;
-> > > -}
-> > > -
-> > >  static int jpeg_v3_0_ring_reset(struct amdgpu_ring *ring,
-> > >                               unsigned int vmid,
-> > >                               struct amdgpu_fence *timedout_fence)
-> > > @@ -629,7 +610,7 @@ static void jpeg_v3_0_set_dec_ring_funcs(struct a=
-mdgpu_device *adev)
-> > >
-> > >  static const struct amdgpu_irq_src_funcs jpeg_v3_0_irq_funcs =3D {
-> > >       .set =3D jpeg_v3_0_set_interrupt_state,
-> > > -     .process =3D jpeg_v3_0_process_interrupt,
-> > > +     .process =3D jpeg_v2_0_process_interrupt,
-> > >  };
-> > >
-> > >  static void jpeg_v3_0_set_irq_funcs(struct amdgpu_device *adev)
-> >
+Update call sites accordingly.
+
+Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+---
+ drivers/gpu/nova-core/firmware/fwsec.rs | 49 ++++++-------------------
+ 1 file changed, 12 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/firmware/fwsec.rs b/drivers/gpu/nova-core/firmware/fwsec.rs
+index 95e0dd77746b..1b75cdc02256 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec.rs
+@@ -19,11 +19,7 @@
+         self,
+         Device, //
+     },
+-    prelude::*,
+-    transmute::{
+-        AsBytes,
+-        FromBytes, //
+-    },
++    prelude::*, //
+ };
+ 
+ use crate::{
+@@ -49,26 +45,22 @@
+ const NVFW_FALCON_APPIF_ID_DMEMMAPPER: u32 = 0x4;
+ 
+ #[repr(C)]
+-#[derive(Debug)]
++#[derive(Debug, FromBytes)]
+ struct FalconAppifHdrV1 {
+     version: u8,
+     header_size: u8,
+     entry_size: u8,
+     entry_count: u8,
+ }
+-// SAFETY: Any byte sequence is valid for this struct.
+-unsafe impl FromBytes for FalconAppifHdrV1 {}
+ 
+ #[repr(C, packed)]
+-#[derive(Debug)]
++#[derive(Debug, FromBytes)]
+ struct FalconAppifV1 {
+     id: u32,
+     dmem_base: u32,
+ }
+-// SAFETY: Any byte sequence is valid for this struct.
+-unsafe impl FromBytes for FalconAppifV1 {}
+ 
+-#[derive(Debug)]
++#[derive(Debug, FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
+ #[repr(C, packed)]
+ struct FalconAppifDmemmapperV3 {
+     signature: u32,
+@@ -89,12 +81,8 @@ struct FalconAppifDmemmapperV3 {
+     ucode_cmd_mask1: u32,
+     multi_tgt_tbl: u32,
+ }
+-// SAFETY: Any byte sequence is valid for this struct.
+-unsafe impl FromBytes for FalconAppifDmemmapperV3 {}
+-// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
+-unsafe impl AsBytes for FalconAppifDmemmapperV3 {}
+ 
+-#[derive(Debug)]
++#[derive(Debug, FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
+ #[repr(C, packed)]
+ struct ReadVbios {
+     ver: u32,
+@@ -103,12 +91,8 @@ struct ReadVbios {
+     size: u32,
+     flags: u32,
+ }
+-// SAFETY: Any byte sequence is valid for this struct.
+-unsafe impl FromBytes for ReadVbios {}
+-// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
+-unsafe impl AsBytes for ReadVbios {}
+ 
+-#[derive(Debug)]
++#[derive(Debug, FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
+ #[repr(C, packed)]
+ struct FrtsRegion {
+     ver: u32,
+@@ -117,22 +101,15 @@ struct FrtsRegion {
+     size: u32,
+     ftype: u32,
+ }
+-// SAFETY: Any byte sequence is valid for this struct.
+-unsafe impl FromBytes for FrtsRegion {}
+-// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
+-unsafe impl AsBytes for FrtsRegion {}
+ 
+ const NVFW_FRTS_CMD_REGION_TYPE_FB: u32 = 2;
+ 
+ #[repr(C, packed)]
++#[derive(FromBytes, IntoBytes, zerocopy_derive::KnownLayout)]
+ struct FrtsCmd {
+     read_vbios: ReadVbios,
+     frts_region: FrtsRegion,
+ }
+-// SAFETY: Any byte sequence is valid for this struct.
+-unsafe impl FromBytes for FrtsCmd {}
+-// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
+-unsafe impl AsBytes for FrtsCmd {}
+ 
+ const NVFW_FALCON_APPIF_DMEMMAPPER_CMD_FRTS: u32 = 0x15;
+ const NVFW_FALCON_APPIF_DMEMMAPPER_CMD_SB: u32 = 0x19;
+@@ -151,11 +128,9 @@ pub(crate) enum FwsecCommand {
+ 
+ /// A single signature that can be patched into a FWSEC image.
+ #[repr(transparent)]
++#[derive(FromBytes)]
+ pub(crate) struct Bcrt30Rsa3kSignature([u8; BCRT30_RSA3K_SIG_SIZE]);
+ 
+-/// SAFETY: A signature is just an array of bytes.
+-unsafe impl FromBytes for Bcrt30Rsa3kSignature {}
+-
+ impl From<[u8; BCRT30_RSA3K_SIG_SIZE]> for Bcrt30Rsa3kSignature {
+     fn from(sig: [u8; BCRT30_RSA3K_SIG_SIZE]) -> Self {
+         Self(sig)
+@@ -228,7 +203,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
+ 
+         let hdr = ucode
+             .get(hdr_offset..)
+-            .and_then(FalconAppifHdrV1::from_bytes_prefix)
++            .and_then(|b| FalconAppifHdrV1::read_from_prefix(b).ok())
+             .ok_or(EINVAL)?
+             .0;
+ 
+@@ -246,7 +221,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
+ 
+             let app = ucode
+                 .get(entry_offset..)
+-                .and_then(FalconAppifV1::from_bytes_prefix)
++                .and_then(|b| FalconAppifV1::read_from_prefix(b).ok())
+                 .ok_or(EINVAL)?
+                 .0;
+ 
+@@ -263,7 +238,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
+ 
+             let dmem_mapper = ucode
+                 .get_mut(dmem_mapper_offset..)
+-                .and_then(FalconAppifDmemmapperV3::from_bytes_mut_prefix)
++                .and_then(|b| FalconAppifDmemmapperV3::mut_from_prefix(b).ok())
+                 .ok_or(EINVAL)?
+                 .0;
+ 
+@@ -281,7 +256,7 @@ fn new_fwsec(bios: &Vbios, cmd: FwsecCommand) -> Result<Self> {
+ 
+             let frts_cmd = ucode
+                 .get_mut(frts_cmd_offset..)
+-                .and_then(FrtsCmd::from_bytes_mut_prefix)
++                .and_then(|b| FrtsCmd::mut_from_prefix(b).ok())
+                 .ok_or(EINVAL)?
+                 .0;
+ 
+-- 
+2.34.1
+
