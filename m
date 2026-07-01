@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93192C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEC2AC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:13:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFDE710F055;
-	Wed,  1 Jul 2026 17:13:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40F8210F053;
+	Wed,  1 Jul 2026 17:13:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="IsvcSkQB";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="FoKRHzqb";
 	dkim-atps=neutral
 Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 899FD10F055
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:13:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E832A10F05D
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:13:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1782925986;
- bh=4xWJwm8T18OeKGBb/rZPmIYYmLN8EHML9V847m096Pg=;
+ s=201707; t=1782925990;
+ bh=21YoWpaREF69wPZR+ZwSgS++Z1CmuvRdIfMGPu6N1ec=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IsvcSkQBy+WumukFTheuV09mevAeEXbqHZjYzHbgS3DqJJUaBJPWgHTmK71j1BRni
- VjvneU4CwOPVNceUsvXcDE69BeKL5A89a+kLw0eK6HAEKKn/syTF4cPe05Vq6MvwDY
- WQh4kHsCYitRb+sKMOSrKBbD9DOtWxuCmjnxx8UeA8Ex0z6PZmT+ZE9J7SLU4JZiOX
- C7xiQNqVU+xZeNdtdTeinmRG7uMAhKjHkeI4z3twKP3brNKyzJZqWqK26sA5b0YWxe
- cXL2ncxCa6YCtCuT61L9iwQfegdyrAOmQQNFJUmRi60JIbw3plLP0rg0hy0Fxqm/Ma
- dlHi6aU31UGLQ==
+ b=FoKRHzqbJ9ZWqUNJgs8NK2LPGtOR9SHm0ll3PMkiK4t73p3mfSJmg2Et7jpdHg5OX
+ zo+rbHtIqDQCW0k0Fmzq4SkWIiHMIcQs5MlGM6xCx/KMoL9j1+BXnr97Jhi6gu7Nul
+ 4TAHC40hIDXQCt3hCEzXdK6km419FHrDz/EsN+xZ59ypStrsuVReckXcydVmCdPo65
+ B0DYlBGuxM7xU6J7BELDYlAN2he0VSuNI68AJJkRKeSnljg4sAG9TgSylIpHiUhi6p
+ 3jt7EEMlyeoVw1TZQfJWch0G6yDiMbelO/3RFlTwv3SRghtiktqbQcMyg6r90H9c1R
+ 97tFE543UhJ+w==
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4gr6691wcVz58lX;
- Thu, 02 Jul 2026 03:13:05 +1000 (AEST)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gr66F4nhkz4wq4;
+ Thu, 02 Jul 2026 03:13:09 +1000 (AEST)
 From: Matt Evans <matt@ozlabs.org>
 To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
  Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
@@ -45,9 +45,9 @@ Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
  linux-pci@vger.kernel.org
-Subject: [PATCH v4 02/10] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Date: Wed,  1 Jul 2026 18:12:14 +0100
-Message-ID: <20260701171245.90111-3-matt@ozlabs.org>
+Subject: [PATCH v4 03/10] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Date: Wed,  1 Jul 2026 18:12:15 +0100
+Message-ID: <20260701171245.90111-4-matt@ozlabs.org>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260701171245.90111-1-matt@ozlabs.org>
 References: <20260701171245.90111-1-matt@ozlabs.org>
@@ -68,444 +68,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The P2PDMA code currently provides two features under the same
-CONFIG_PCI_P2PDMA option:
+Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+find a PFN.
 
- 1.  Locate providers via pcim_p2pdma_provider()
- 2.  Manage actual P2P DMA
+This supports multi-range DMABUFs, which typically would be used to
+represent scattered spans but might even represent overlapping or
+aliasing spans of PFNs.
 
-Some drivers (such as vfio-pci) depend on (1), without having a hard
-dependency on (2).
-
-A future vfio-pci commit will rely on pcim_p2pdma_provider() always
-being present.  If that depended on CONFIG_PCI_P2PDMA, it would make
-vfio-pci only available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit
-systems), even when P2P is not needed.
-
-To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
-basic provider functionality into a new p2pdma_core.c file.  This is
-available even if the CONFIG_PCI_P2PDMA feature is disabled (or
-unavailable due to !CONFIG_ZONE_DEVICE), satisfying (1).
-
-Then, when the original CONFIG_PCI_P2PDMA is set, drivers have access
-to the additional P2P features of (2).  This still depends on
-CONFIG_ZONE_DEVICE.
+Because this is intended to be used in vfio_pci_core.c, we also need
+to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
 
 Signed-off-by: Matt Evans <matt@ozlabs.org>
 ---
- MAINTAINERS                |   2 +-
- drivers/pci/Kconfig        |  10 ++--
- drivers/pci/Makefile       |   1 +
- drivers/pci/p2pdma.c       | 107 +--------------------------------
- drivers/pci/p2pdma.h       |  29 +++++++++
- drivers/pci/p2pdma_core.c  | 118 +++++++++++++++++++++++++++++++++++++
- include/linux/pci-p2pdma.h |  24 ++++----
- include/linux/pci.h        |   2 +-
- 8 files changed, 171 insertions(+), 122 deletions(-)
- create mode 100644 drivers/pci/p2pdma.h
- create mode 100644 drivers/pci/p2pdma_core.c
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
+ drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+ 2 files changed, 160 insertions(+), 13 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c8d4b913f26c..713861af4484 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20626,7 +20626,7 @@ B:	https://bugzilla.kernel.org
- C:	irc://irc.oftc.net/linux-pci
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
- F:	Documentation/driver-api/pci/p2pdma.rst
--F:	drivers/pci/p2pdma.c
-+F:	drivers/pci/p2pdma*
- F:	include/linux/pci-p2pdma.h
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index 1a177ce7de54..2e9adc3fe0f7 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -9,19 +9,6 @@
  
- PCI POWER CONTROL
-diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-index 33c88432b728..59d70bc84cc9 100644
---- a/drivers/pci/Kconfig
-+++ b/drivers/pci/Kconfig
-@@ -206,11 +206,7 @@ config PCIE_TPH
- config PCI_P2PDMA
- 	bool "PCI peer-to-peer transfer support"
- 	depends on ZONE_DEVICE
--	#
--	# The need for the scatterlist DMA bus address flag means PCI P2PDMA
--	# requires 64bit
--	#
--	depends on 64BIT
-+	select PCI_P2PDMA_CORE
- 	select GENERIC_ALLOCATOR
- 	select NEED_SG_DMA_FLAGS
- 	help
-@@ -226,6 +222,10 @@ config PCI_P2PDMA
+ MODULE_IMPORT_NS("DMA_BUF");
  
- 	  If unsure, say N.
- 
-+config PCI_P2PDMA_CORE
-+	default n
-+	bool
-+
- config PCI_LABEL
- 	def_bool y if (DMI || ACPI)
- 	select NLS
-diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
-index 41ebc3b9a518..0b32572d57a1 100644
---- a/drivers/pci/Makefile
-+++ b/drivers/pci/Makefile
-@@ -30,6 +30,7 @@ obj-$(CONFIG_PCI_SYSCALL)	+= syscall.o
- obj-$(CONFIG_PCI_STUB)		+= pci-stub.o
- obj-$(CONFIG_PCI_PF_STUB)	+= pci-pf-stub.o
- obj-$(CONFIG_PCI_ECAM)		+= ecam.o
-+obj-$(CONFIG_PCI_P2PDMA_CORE)	+= p2pdma_core.o
- obj-$(CONFIG_PCI_P2PDMA)	+= p2pdma.o
- obj-$(CONFIG_XEN_PCIDEV_FRONTEND) += xen-pcifront.o
- obj-$(CONFIG_VGA_ARB)		+= vgaarb.o
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index a5a1baebc34e..50b1a7daf55c 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -21,12 +21,7 @@
- #include <linux/seq_buf.h>
- #include <linux/xarray.h>
- 
--struct pci_p2pdma {
--	struct gen_pool *pool;
--	bool p2pmem_published;
--	struct xarray map_types;
--	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
+-struct vfio_pci_dma_buf {
+-	struct dma_buf *dmabuf;
+-	struct vfio_pci_core_device *vdev;
+-	struct list_head dmabufs_elm;
+-	size_t size;
+-	struct phys_vec *phys_vec;
+-	struct p2pdma_provider *provider;
+-	u32 nr_ranges;
+-	struct kref kref;
+-	struct completion comp;
+-	u8 revoked : 1;
 -};
-+#include "p2pdma.h"
- 
- struct pci_p2pdma_pagemap {
- 	struct dev_pagemap pgmap;
-@@ -226,8 +221,7 @@ static const struct dev_pagemap_ops p2pdma_pgmap_ops = {
- 	.folio_free = p2pdma_folio_free,
+-
+ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+ 				   struct dma_buf_attachment *attachment)
+ {
+@@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+ 	.release = vfio_pci_dma_buf_release,
  };
  
--static void pci_p2pdma_release_pool(struct pci_dev *pdev,
--				    struct pci_p2pdma *p2pdma)
-+void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
- {
- 	if (!p2pdma->pool)
- 		return;
-@@ -237,103 +231,6 @@ static void pci_p2pdma_release_pool(struct pci_dev *pdev,
- 	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
- }
- 
--static void pci_p2pdma_release(void *data)
--{
--	struct pci_dev *pdev = data;
--	struct pci_p2pdma *p2pdma;
--
--	p2pdma = rcu_dereference_protected(pdev->p2pdma, 1);
--	if (!p2pdma)
--		return;
--
--	/* Flush and disable pci_alloc_p2p_mem() */
--	pdev->p2pdma = NULL;
--	pci_p2pdma_release_pool(pdev, p2pdma);
--	xa_destroy(&p2pdma->map_types);
--}
--
--/**
-- * pcim_p2pdma_init - Initialise peer-to-peer DMA providers
-- * @pdev: The PCI device to enable P2PDMA for
-- *
-- * This function initializes the peer-to-peer DMA infrastructure
-- * for a PCI device. It allocates and sets up the necessary data
-- * structures to support P2PDMA operations, including mapping type
-- * tracking.
-- */
--int pcim_p2pdma_init(struct pci_dev *pdev)
--{
--	struct pci_p2pdma *p2p;
--	int i, ret;
--
--	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
--	if (p2p)
--		return 0;
--
--	p2p = devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
--	if (!p2p)
--		return -ENOMEM;
--
--	xa_init(&p2p->map_types);
--	/*
--	 * Iterate over all standard PCI BARs and record only those that
--	 * correspond to MMIO regions. Skip non-memory resources (e.g. I/O
--	 * port BARs) since they cannot be used for peer-to-peer (P2P)
--	 * transactions.
--	 */
--	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
--		if (!(pci_resource_flags(pdev, i) & IORESOURCE_MEM))
--			continue;
--
--		p2p->mem[i].owner = &pdev->dev;
--		p2p->mem[i].bus_offset =
--			pci_bus_address(pdev, i) - pci_resource_start(pdev, i);
--	}
--
--	ret = devm_add_action_or_reset(&pdev->dev, pci_p2pdma_release, pdev);
--	if (ret)
--		goto out_p2p;
--
--	rcu_assign_pointer(pdev->p2pdma, p2p);
--	return 0;
--
--out_p2p:
--	devm_kfree(&pdev->dev, p2p);
--	return ret;
--}
--EXPORT_SYMBOL_GPL(pcim_p2pdma_init);
--
--/**
-- * pcim_p2pdma_provider - Get peer-to-peer DMA provider
-- * @pdev: The PCI device to enable P2PDMA for
-- * @bar: BAR index to get provider
-- *
-- * This function gets peer-to-peer DMA provider for a PCI device. The lifetime
-- * of the provider (and of course the MMIO) is bound to the lifetime of the
-- * driver. A driver calling this function must ensure that all references to the
-- * provider, and any DMA mappings created for any MMIO, are all cleaned up
-- * before the driver remove() completes.
-- *
-- * Since P2P is almost always shared with a second driver this means some system
-- * to notify, invalidate and revoke the MMIO's DMA must be in place to use this
-- * function. For example a revoke can be built using DMABUF.
-- */
--struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar)
--{
--	struct pci_p2pdma *p2p;
--
--	if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM))
--		return NULL;
--
--	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
--	if (WARN_ON(!p2p))
--		/* Someone forgot to call to pcim_p2pdma_init() before */
--		return NULL;
--
--	return &p2p->mem[bar];
--}
--EXPORT_SYMBOL_GPL(pcim_p2pdma_provider);
--
- static int pci_p2pdma_setup_pool(struct pci_dev *pdev)
- {
- 	struct pci_p2pdma *p2pdma;
-diff --git a/drivers/pci/p2pdma.h b/drivers/pci/p2pdma.h
-new file mode 100644
-index 000000000000..946383809981
---- /dev/null
-+++ b/drivers/pci/p2pdma.h
-@@ -0,0 +1,29 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * PCI peer-to-peer DMA support.
-+ */
-+
-+#ifndef _PCI_P2PDMA_H
-+#define _PCI_P2PDMA_H
-+
-+#include <linux/genalloc.h>
-+#include <linux/pci-p2pdma.h>
-+#include <linux/xarray.h>
-+
-+struct pci_p2pdma {
-+	struct gen_pool *pool;
-+	bool p2pmem_published;
-+	struct xarray map_types;
-+	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
-+};
-+
-+#ifdef CONFIG_PCI_P2PDMA
-+void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma);
-+#else
-+static inline void pci_p2pdma_release_pool(struct pci_dev *pdev,
-+					   struct pci_p2pdma *p2pdma)
++int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
++			      struct vm_area_struct *vma,
++			      unsigned long fault_addr,
++			      unsigned int order,
++			      unsigned long *out_pfn)
 +{
-+}
-+#endif
-+
-+#endif
-diff --git a/drivers/pci/p2pdma_core.c b/drivers/pci/p2pdma_core.c
-new file mode 100644
-index 000000000000..bb2138bf2bc7
---- /dev/null
-+++ b/drivers/pci/p2pdma_core.c
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * PCI peer-to-peer DMA support core, providing a bare-bones
-+ * pcim_p2pdma_provider() interface to drivers even if full P2PDMA
-+ * isn't present.  The full P2PDMA feature is in p2pdma.c (see
-+ * CONFIG_PCI_P2PDMA).
-+ *
-+ * Copyright (c) 2016-2018, Logan Gunthorpe
-+ * Copyright (c) 2016-2017, Microsemi Corporation
-+ * Copyright (c) 2017, Christoph Hellwig
-+ * Copyright (c) 2018, Eideticom Inc.
-+ */
-+
-+#define pr_fmt(fmt) "pci-p2pdma: " fmt
-+#include <linux/ctype.h>
-+#include <linux/genalloc.h>
-+#include <linux/memremap.h>
-+#include <linux/pci-p2pdma.h>
-+#include <linux/xarray.h>
-+
-+#include "p2pdma.h"
-+
-+static void pci_p2pdma_release(void *data)
-+{
-+	struct pci_dev *pdev = data;
-+	struct pci_p2pdma *p2pdma;
-+
-+	p2pdma = rcu_dereference_protected(pdev->p2pdma, 1);
-+	if (!p2pdma)
-+		return;
-+
-+	/* Flush and disable pci_alloc_p2p_mem() */
-+	pdev->p2pdma = NULL;
-+	pci_p2pdma_release_pool(pdev, p2pdma);
-+	xa_destroy(&p2pdma->map_types);
-+}
-+
-+/**
-+ * pcim_p2pdma_init - Initialise peer-to-peer DMA providers
-+ * @pdev: The PCI device to enable P2PDMA for
-+ *
-+ * This function initializes the peer-to-peer DMA infrastructure
-+ * for a PCI device. It allocates and sets up the necessary data
-+ * structures to support P2PDMA operations, including mapping type
-+ * tracking.
-+ */
-+int pcim_p2pdma_init(struct pci_dev *pdev)
-+{
-+	struct pci_p2pdma *p2p;
-+	int i, ret;
-+
-+	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-+	if (p2p)
-+		return 0;
-+
-+	p2p = devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
-+	if (!p2p)
-+		return -ENOMEM;
-+
-+	xa_init(&p2p->map_types);
 +	/*
-+	 * Iterate over all standard PCI BARs and record only those that
-+	 * correspond to MMIO regions. Skip non-memory resources (e.g. I/O
-+	 * port BARs) since they cannot be used for peer-to-peer (P2P)
-+	 * transactions.
++	 * Given a VMA (start, end, pgoffs) and a fault address,
++	 * search the corresponding DMABUF's phys_vec[] to find the
++	 * range representing the address's offset into the VMA, and
++	 * its PFN.
++	 *
++	 * The phys_vec[] ranges represent contiguous spans of VAs
++	 * upwards from the buffer offset 0; the actual PFNs might be
++	 * in any order, overlap/alias, etc.  Calculate an offset of
++	 * the desired page given VMA start/pgoff and address, then
++	 * search upwards from 0 to find which span contains it.
++	 *
++	 * On success, a valid PFN for a page sized by 'order' is
++	 * returned into out_pfn.
++	 *
++	 * Failure occurs if:
++	 * - A hugepage would cross the edge of the VMA,
++	 * - A hugepage isn't entirely contained within a range
++	 *   (including where it straddles the boundary between
++	 *   ranges),
++	 * - We find a range, but the final PFN isn't aligned to the
++	 *   requested order.
++	 *
++	 * Upon failure, -EAGAIN is returned and the caller is
++	 * expected to try again with a smaller order, which will
++	 * eventually succeed (order=0 will always work).
++	 *
++	 * It's suboptimal if DMABUFs are created with neighbouring
++	 * ranges that are physically contiguous, since hugepages
++	 * can't straddle range boundaries.  (The construction of the
++	 * ranges should merge them in this case.)
++	 *
++	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
++	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
++	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
++	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
++	 * To avoid double-offsetting in this scenario, subtracting
++	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
++	 * the effective offset.
 +	 */
-+	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-+		if (!(pci_resource_flags(pdev, i) & IORESOURCE_MEM))
-+			continue;
 +
-+		p2p->mem[i].owner = &pdev->dev;
-+		p2p->mem[i].bus_offset =
-+			pci_bus_address(pdev, i) - pci_resource_start(pdev, i);
++	const unsigned long pagesize = PAGE_SIZE << order;
++	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
++				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
++	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
++	unsigned long rounded_page_end = rounded_page_addr + pagesize;
++	unsigned long fault_offset;
++	unsigned long fault_offset_end;
++	unsigned long range_start_offset = 0;
++	unsigned int i;
++	int ret;
++
++	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
++		if (order > 0)
++			return -EAGAIN;
++
++		/* A fault address outside of the VMA is absurd. */
++		dev_warn_ratelimited(
++			&priv->vdev->pdev->dev,
++			"Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
++			fault_addr, vma->vm_start, vma->vm_end);
++		return -EFAULT;
 +	}
 +
-+	ret = devm_add_action_or_reset(&pdev->dev, pci_p2pdma_release, pdev);
-+	if (ret)
-+		goto out_p2p;
++	/*
++	 * fault_offset[_end] is the span within the DMABUF
++	 * corresponding to the faulting page:
++	 */
++	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
++					vma_off, &fault_offset) ||
++		     check_add_overflow(fault_offset, pagesize,
++					&fault_offset_end)))
++		return -EFAULT;
 +
-+	rcu_assign_pointer(pdev->p2pdma, p2p);
-+	return 0;
++	/*
++	 * Iterate over ranges in the buffer, summing their lengths:
++	 * range_start_offset represents the current range's starting
++	 * offset in the buffer (from 0 upwards).
++	 *
++	 * A failure for order == 0 is unexpected, and triggers a
++	 * fault/warn.
++	 */
++	ret = (order == 0) ? -EFAULT : -EAGAIN;
 +
-+out_p2p:
-+	devm_kfree(&pdev->dev, p2p);
++	for (i = 0; i < priv->nr_ranges; i++) {
++		size_t range_len = priv->phys_vec[i].len;
++
++		/* Early exit if range starts after the page end */
++		if (fault_offset_end <= range_start_offset)
++			break;
++
++		if (fault_offset >= range_start_offset &&
++		    fault_offset_end <= range_start_offset + range_len) {
++			/*
++			 * The faulting page is wholly contained
++			 * within the span represented by this range,
++			 * so validate PFN alignment for the order.
++			 * The if() condition ensures the pfn
++			 * arithmetic won't overflow.
++			 */
++			unsigned long pfn =
++				((fault_offset - range_start_offset) +
++				 priv->phys_vec[i].paddr) >> PAGE_SHIFT;
++
++			if (IS_ALIGNED(pfn, 1 << order)) {
++				*out_pfn = pfn;
++				ret = 0;
++			}
++			/*
++			 * Else order > 0; EAGAIN retries with smaller
++			 * order
++			 */
++			break;
++		}
++		range_start_offset += range_len;
++	}
++
++	if (order == 0 && ret != 0)
++		/*
++		 * The address fell outside of the span represented by
++		 * the (concatenated) ranges.  As setup of a mapping
++		 * ensures that the VMA is <= the total size of the
++		 * ranges this should never happen.  If it does, warn
++		 * and SIGBUS.
++		 */
++		dev_warn_ratelimited(
++			&priv->vdev->pdev->dev,
++			"No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
++			fault_addr, order, vma->vm_start, vma->vm_end,
++			vma->vm_pgoff, priv->nr_ranges, priv->size);
++
 +	return ret;
 +}
-+EXPORT_SYMBOL_GPL(pcim_p2pdma_init);
 +
-+/**
-+ * pcim_p2pdma_provider - Get peer-to-peer DMA provider
-+ * @pdev: The PCI device to enable P2PDMA for
-+ * @bar: BAR index to get provider
-+ *
-+ * This function gets peer-to-peer DMA provider for a PCI device. The lifetime
-+ * of the provider (and of course the MMIO) is bound to the lifetime of the
-+ * driver. A driver calling this function must ensure that all references to the
-+ * provider, and any DMA mappings created for any MMIO, are all cleaned up
-+ * before the driver remove() completes.
-+ *
-+ * Since P2P is almost always shared with a second driver this means some system
-+ * to notify, invalidate and revoke the MMIO's DMA must be in place to use this
-+ * function. For example a revoke can be built using DMABUF.
-+ */
-+struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar)
-+{
-+	struct pci_p2pdma *p2p;
-+
-+	if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM))
-+		return NULL;
-+
-+	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-+	if (WARN_ON(!p2p))
-+		/* Someone forgot to call to pcim_p2pdma_init() before */
-+		return NULL;
-+
-+	return &p2p->mem[bar];
-+}
-+EXPORT_SYMBOL_GPL(pcim_p2pdma_provider);
-diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
-index 873de20a2247..4c42a7b2ee85 100644
---- a/include/linux/pci-p2pdma.h
-+++ b/include/linux/pci-p2pdma.h
-@@ -67,9 +67,22 @@ enum pci_p2pdma_map_type {
- 	PCI_P2PDMA_MAP_THRU_HOST_BRIDGE,
+ /*
+  * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
+  * It allows the two co-operating drivers to exchange the physical address of
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+index fca9d0dfac90..c8f6f959056a 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -23,6 +23,20 @@ struct vfio_pci_ioeventfd {
+ 	bool			test_mem;
  };
  
--#ifdef CONFIG_PCI_P2PDMA
-+#ifdef CONFIG_PCI_P2PDMA_CORE
- int pcim_p2pdma_init(struct pci_dev *pdev);
- struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar);
-+#else
-+static inline int pcim_p2pdma_init(struct pci_dev *pdev)
-+{
-+	return -EOPNOTSUPP;
-+}
-+static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
-+							   int bar)
-+{
-+	return NULL;
-+}
-+#endif
++struct vfio_pci_dma_buf {
++	struct dma_buf *dmabuf;
++	struct vfio_pci_core_device *vdev;
++	struct list_head dmabufs_elm;
++	size_t size;
++	struct phys_vec *phys_vec;
++	struct p2pdma_provider *provider;
++	u32 nr_ranges;
++	struct kref kref;
++	struct completion comp;
++	unsigned long vma_pgoff_adjust;
++	u8 revoked : 1;
++};
 +
-+#ifdef CONFIG_PCI_P2PDMA
- int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar, size_t size,
- 		u64 offset);
- int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
-@@ -89,15 +102,6 @@ ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
- enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 					     struct device *dev);
- #else /* CONFIG_PCI_P2PDMA */
--static inline int pcim_p2pdma_init(struct pci_dev *pdev)
--{
--	return -EOPNOTSUPP;
--}
--static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
--							   int bar)
--{
--	return NULL;
--}
- static inline int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar,
- 		size_t size, u64 offset)
- {
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 2c4454583c11..531aec355686 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -557,7 +557,7 @@ struct pci_dev {
- 	u16		pasid_cap;	/* PASID Capability offset */
- 	u16		pasid_features;
- #endif
--#ifdef CONFIG_PCI_P2PDMA
-+#ifdef CONFIG_PCI_P2PDMA_CORE
- 	struct pci_p2pdma __rcu *p2pdma;
- #endif
- #ifdef CONFIG_PCI_DOE
+ bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
+ void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
+ 
+@@ -114,6 +128,12 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+ 	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
+ }
+ 
++int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
++			      struct vm_area_struct *vma,
++			      unsigned long address,
++			      unsigned int order,
++			      unsigned long *out_pfn);
++
+ #ifdef CONFIG_VFIO_PCI_DMABUF
+ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 				  struct vfio_device_feature_dma_buf __user *arg,
 -- 
 2.50.1 (Apple Git-155)
 
