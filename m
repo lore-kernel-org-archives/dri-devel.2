@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B654C44502
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E30C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C6F10F1D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F199B10F1D1;
 	Thu,  2 Jul 2026 07:51:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="bq8sF/Le";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LZacTikc";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C91F10F084
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:37:47 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-37fa06b39b4so599987a91.2
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:37:47 -0700 (PDT)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D04A10E3F4
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 23:43:02 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5aec201b582so1220172e87.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 16:43:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782927467; x=1783532267; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=g62Dxf6SMlDovUW02yTNltfYRMA0PsQgdavrAfTkmdA=;
- b=bq8sF/LeC9o0OkpAaysXjoTJiHiOkbf+u0sfEUZ8QBwbVbyg8i2UfAnYOsXTmtrQIs
- 31uc9Uod+hDy5tRZv7A0tLVO3BdtO+4WIyrYovzKAqrZaasweYssyViqHAYyhFybeeLB
- +gHAMNs3xt67r6pk1R8kwOp/N08wbaVP3XXVeemi/CN7NOjY0v36xkxP6GR/65Q7H4D8
- LcuvGu+6iF3FGfeaBwWpM+q3JEH9nfN6vNF6LzGhbIfPcBPMJLRlwTw9rtQipRBcIQS5
- lkGo0xd/p5D0eETn5mzrXI9QV+xOTmheLLcmQ8bl/Iyp2CM/NI5e15Twdstwjo4NuK39
- h01A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782927467; x=1783532267;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1782949381; x=1783554181; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=g62Dxf6SMlDovUW02yTNltfYRMA0PsQgdavrAfTkmdA=;
- b=SgGpa4fpGqhYJ7IAgU1Njj3BZBvFldHbHzQPNchG7YdteOhDjcx44nbrN8/lIsvEX1
- m2q3bPtysTJAvmQXtapBywNH9k2T0J5nb7Y8iUbL7Bt9Ur/xL5SXJP7hI8SEe3rn+SzF
- 5+B1u8EyuvPPBPy3lkk/dcmTfSNMTHE4djuHpXpBswD+2cUq67v2HtbDrapEd5T+R1Oq
- i2u+pjliTAaMuTxnlWoMsUenejMjmSHKk9fRbvnSa0t6Em3kcUk5Ped3yRcdc5Hwz+MV
- ltvCqZwHBT1243xTMRQMdk7HDBNi+SxhTkYH5KpcvN2RjWNuRFAVMXPDWTx16nmn07cM
- M87Q==
+ bh=/M9QqAmY7Pg8H8gQnrUHA/IfrEsurxPK03ttJdgNJSc=;
+ b=LZacTikcuYnMfGOZYLqJ7/WfMjXCHjoLZ9Uojvxp+oflapRKuEdzxAQMrpUSl9RFVg
+ oJlKzEAI4SRp+VSyrk+yB+tVhbQHYwBN8pgqbf4kQsbzw/noO1jZl75vuaiLI0SYfq7T
+ 7hwlxqA8WUIACtwRcRg5OHgEi1OtsTVKhf02Of9aAO5WZZWAlYEWQ4cvtOYUyq8fBztt
+ uRtBrMtLE8C7Z7QM/ZRUM+CHmqXHEmb75uOC5VJITnC/jHqKLZPLxICBquqQCjnhkIYp
+ ZwILUupRNtIx4wGk22kxcV58DB1Mz1BIg8C3JRnaZADzGcMNbIDCQ2wUCfEhR3kH5wmH
+ ydKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782949381; x=1783554181;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=/M9QqAmY7Pg8H8gQnrUHA/IfrEsurxPK03ttJdgNJSc=;
+ b=YckntLzC5yhHKrh3N/Yh5t0l1FpQTD/PaUy5P2MdApu3lTrKvffFZTHrwnoxDYitvd
+ iOudUS+Az0BesxrGxQ87sb9xATPFDqeWH++5UxyAJjD4CMAbYA4/4CfJIgEph48VuRTi
+ h+ovmNmYyzh1MuG3XN0YuSPTqdQwhJUknvdQKtaxUN7vHNR9AejNmNzWtrkzD1htPJU2
+ aMLESeC94RqB6LsR7Vv0WxUrY+DgAOq/xeq0nvAocMju/0l0L4i8mz/UcR+gIgi/pb9f
+ qy3PAluo9molas2FRefLy0omxVnR0jeHFAID9iMpA93Zm8WBrOraU9LA9fTABRR0aCVg
+ 2JDQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp9UkZoT98w6j06EL2wu0QZS6CA3R5MrQgU1XPcHcuBegsJjbzQo1wUApVvtKd/bYKjUlfG/Mj8t7s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx51PObcMYQByfLS1zpDQV+KRiIxPDmyM6GXsabWQWvfNikzIUs
- xgm/Sn2qnxFNlkkWKNYbfER4G35hAgtXryBxB5dywt1WOyI4W4rBskyYBdZGWDzsTOo=
-X-Gm-Gg: AfdE7cmkCeL4DsY5xGg4iuDtEeqRKEmjbqUWarjzNVNIJAU8ITjfCZsC937mFTHG7aK
- O1M1cne5umIqjY+OZ8e3OCRv/CSzqJ0GjB+J+/L3LzCVSIUj8a1veYK0iWcQiI/GsY7tFEx1Ebp
- Nh+fVwxjf8fzjI755JSXfvEp3rtdigfFLCOEIQny3oDZwlo0eW6XVqqc+3ool/pjc0Bqkz2ZrRv
- 45mVfTj9EqsL+NY+yaNuu+x9PgUCfJEt2ekTM5LszuWR74eUFRoy9/5BS3H/JwfIjRkAbYwBx9r
- K5EdQbmdpBu1VpjSb1iEQN4QajwjFFFTlpDh9OdYdUkYtoC64omWvg2lm6uBOO//+wjZcaVgcFV
- wRRiJKCE/sCLVeT3WsVbqYHkQG2I2Mudvu00WvK2DK3XkmLoxMS9YTTfw+EUtlMss5LHjkxi9JJ
- EIUbyVxqndaZFgBx1tKiDbxSgy3jGFWg==
-X-Received: by 2002:a17:90b:4c48:b0:37f:db06:228f with SMTP id
- 98e67ed59e1d1-380aa0be8b5mr2225408a91.14.1782927467044; 
- Wed, 01 Jul 2026 10:37:47 -0700 (PDT)
-Received: from todd.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
+ AHgh+RrMXu6rAS+5eyRPIoKR/GmzUDJ6T3OTEbUa1m7cfaHJqLFZmIZzF29t3EosDN8/bB8CX/tyrmHdA+c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxDKWNA3N32PXQkPPwKDPWJVc9UnFmD8hSt/hQ1dGUhrvKRi1V
+ 2Fiqgk6Igg9fg5DQ9E4C40OMm/oq6Ta/tmDf4Uv+fQvyQvQPBCkQN/QG
+X-Gm-Gg: AfdE7ckWOHEFSRZ2LEmeUF4OvoHW9lujzZPkockZORmh3z7YJfoGvq7pITtBwxl6CA9
+ mP32GYwhZcgdb5oskUg9joGgzSwy1/3p26JFgnmpU2C3ZN4/r7WsieamLNIKOtS3Ye5daPIt0t6
+ p3QZq42RAXLhpoXD1icE7GLFcy/FmB14EtRILdGSw7q5IFMOAD0K8rmRDAE/GjGDVeS2r4lTum7
+ G8XPYotJfCtB4APf7gURaadD99YrdVcbggr8kK/F58Ymf6OGaoiHmwmrUfyi2yeFKbNW1q2auWe
+ ZEF+A+09ibv7oMtxqedozwlHLlmeqR3dRbxXCul5KwAp1gb/4WFsTuckk4HKVN9/hqu+0Tjy9pS
+ ob2dwwTDy+/J8UXFgQKb2c1PdS790Rx75CL+vqpnCliLNB9eUXSbQdHsRhpHZ8rKLlKEYWyELPN
+ 5ArjSMak1BR639kMNM+jo2BLJYQg5NGO8=
+X-Received: by 2002:a05:6512:66c1:10b0:5aa:8822:b1ee with SMTP id
+ 2adb3069b0e04-5aec68b7f97mr677361e87.48.1782949380696; 
+ Wed, 01 Jul 2026 16:43:00 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:4f9:2a:1c13::2])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f0b7b9a8asm34228eec.2.2026.07.01.10.37.44
+ 38308e7fff4ca-39b37fda160sm2836261fa.29.2026.07.01.16.42.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 10:37:46 -0700 (PDT)
-From: Ulisses Paixao <ulissespaixao@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Ulisses Paixao <ulissespaixao@usp.br>, Felipe Sousa <felipesousa@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v5] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
- gfx_v12
-Date: Wed,  1 Jul 2026 14:37:41 -0300
-Message-Id: <20260701173741.39177-1-ulissespaixao@usp.br>
-X-Mailer: git-send-email 2.34.1
+ Wed, 01 Jul 2026 16:42:58 -0700 (PDT)
+From: Melbin K Mathew <mlbnkm1@gmail.com>
+To: deller@gmx.de
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Melbin K Mathew <mlbnkm1@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH v3 3/3] fbdev: serialize mode sysfs access with lock_fb_info()
+Date: Thu,  2 Jul 2026 01:42:48 +0200
+Message-Id: <20260701234248.236023-4-mlbnkm1@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260701231706.234715-1-mlbnkm1@gmail.com>
+References: <20260701231706.234715-1-mlbnkm1@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 02 Jul 2026 07:51:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,190 +91,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The functions gfx_v11_0_handle_priv_fault and
-gfx_v12_0_handle_priv_fault share the same logic for searching and
-triggering a scheduler fault on a ring. This patch moves the shared
-ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
-in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
-the version-specific files to maintain proper architectural separation.
+show_mode(), show_modes(), and store_mode() access fb_info->modelist
+and fb_info->mode without holding lock_fb_info(). store_modes() takes
+lock_fb_info() while replacing the modelist and freeing the old one.
 
-Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
-Co-developed-by: Felipe Sousa <felipesousa@usp.br>
-Signed-off-by: Felipe Sousa <felipesousa@usp.br>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+A concurrent reader or writer can load a pointer to an old modelist
+entry before store_modes() frees it, then dereference freed memory or
+store a stale freed pointer in fb_info->mode.
+
+Take lock_fb_info() in show_mode(), show_modes(), and store_mode() to
+serialize with store_modes(). In show_mode(), copy the mode to the
+stack and format after dropping the lock. In store_mode(), split
+activate() into a _locked variant to avoid double-locking, and hold
+the locks for the modelist walk, mode conversion, activation, and
+fb_info->mode assignment together.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Melbin K Mathew <mlbnkm1@gmail.com>
 ---
-v5:
-Return early on adv->gfx.disable_kq check.
+ drivers/video/fbdev/core/fbsysfs.c | 46 ++++++++++++++++++++++++------
+ 1 file changed, 38 insertions(+), 8 deletions(-)
 
-v4:
-Restore the adev->gfx.disable_kq check to prevent falsely triggering
-scheduler faults on idle kernel rings when MES is managing user queues.
-
-v3:
-Return early if the ring is found in the gfx rings loop.
-
-v2:
-Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
-Remove the redundant check for adev->gfx.disable_kq.
-Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
-all gfx and compute rings without a switch statement.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 40 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 27 +----------------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 27 +----------------
- 4 files changed, 44 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index b8ca87669..ca85072f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -830,6 +830,46 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
- 	return r;
- }
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
+index af21dc5052..d3d60c555b 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+@@ -12,19 +12,24 @@
+ #include "fb_internal.h"
+ #include "fbcon.h"
  
-+/**
-+ * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @me_id: micro-engine ID of the faulty ring
-+ * @pipe_id: pipe ID of the faulty ring
-+ * @queue_id: queue ID of the faulty ring
-+ *
-+ * This function handles privileged instruction faults by identifying
-+ * the faulty ring (gfx or compute) and triggering a scheduler fault
-+ */
-+void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-+					u8 me_id, u8 pipe_id, u8 queue_id)
++static int activate_locked(struct fb_info *fb_info,
++			    struct fb_var_screeninfo *var)
 +{
-+	struct amdgpu_ring *ring;
-+	int i;
-+
-+	/* The scheduler only handles kernel queues so this is a no-op 
-+	without them. */
-+	if (!adev->gfx.disable_kq) {
-+		return;
-+	}
-+
-+	for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
-+		ring = &adev->gfx.gfx_ring[i];
-+		if (ring->me == me_id && ring->pipe == pipe_id &&
-+		    ring->queue == queue_id) {
-+			drm_sched_fault(&ring->sched);
-+			return;
-+		}
-+	}
-+	
-+	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
-+		ring = &adev->gfx.compute_ring[i];
-+		if (ring->me == me_id && ring->pipe == pipe_id &&
-+		    ring->queue == queue_id)
-+			drm_sched_fault(&ring->sched);
-+	}
++	var->activate |= FB_ACTIVATE_FORCE;
++	return fb_set_var_from_user(fb_info, var);
 +}
 +
- static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
- 				   bool no_delay)
+ static int activate(struct fb_info *fb_info, struct fb_var_screeninfo *var)
  {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index a0cf0a3b4..0b2f6ce85 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -611,6 +611,8 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struct amdgpu_device *adev,
- 						struct amdgpu_ring *ring);
- bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
- 				    int pipe, int queue);
-+void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-+					u8 me_id, u8 pipe_id, u8 queue_id);
- void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
- void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
- int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 2c6f1e25c..888c9f3c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -6688,37 +6688,12 @@ static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
- 					struct amdgpu_iv_entry *entry)
- {
- 	u8 me_id, pipe_id, queue_id;
--	struct amdgpu_ring *ring;
--	int i;
+ 	int err;
  
- 	me_id = (entry->ring_id & 0x0c) >> 2;
- 	pipe_id = (entry->ring_id & 0x03) >> 0;
- 	queue_id = (entry->ring_id & 0x70) >> 4;
- 
--	if (!adev->gfx.disable_kq) {
--		switch (me_id) {
--		case 0:
--			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
--				ring = &adev->gfx.gfx_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		case 1:
--		case 2:
--			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--				ring = &adev->gfx.compute_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		default:
--			BUG();
--			break;
--		}
--	}
-+	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
+-	var->activate |= FB_ACTIVATE_FORCE;
+ 	console_lock();
+ 	lock_fb_info(fb_info);
+-	err = fb_set_var_from_user(fb_info, var);
++	err = activate_locked(fb_info, var);
+ 	unlock_fb_info(fb_info);
+ 	console_unlock();
+-	if (err)
+-		return err;
+-	return 0;
++
++	return err;
  }
  
- static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 6baac533a..3f0d29372 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -5019,37 +5019,12 @@ static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
- 					struct amdgpu_iv_entry *entry)
- {
- 	u8 me_id, pipe_id, queue_id;
--	struct amdgpu_ring *ring;
--	int i;
+ static int mode_string(char *buf, size_t size, unsigned int offset,
+@@ -65,6 +70,9 @@ static ssize_t store_mode(struct device *device, struct device_attribute *attr,
  
- 	me_id = (entry->ring_id & 0x0c) >> 2;
- 	pipe_id = (entry->ring_id & 0x03) >> 0;
- 	queue_id = (entry->ring_id & 0x70) >> 4;
+ 	memset(&var, 0, sizeof(var));
  
--	if (!adev->gfx.disable_kq) {
--		switch (me_id) {
--		case 0:
--			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
--				ring = &adev->gfx.gfx_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		case 1:
--		case 2:
--			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--				ring = &adev->gfx.compute_ring[i];
--				if (ring->me == me_id && ring->pipe == pipe_id &&
--				    ring->queue == queue_id)
--					drm_sched_fault(&ring->sched);
--			}
--			break;
--		default:
--			BUG();
--			break;
--		}
--	}
-+	amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
++	console_lock();
++	lock_fb_info(fb_info);
++
+ 	list_for_each_entry(modelist, &fb_info->modelist, list) {
+ 		mode = &modelist->mode;
+ 		i = mode_string(mstr, sizeof(mstr), 0, mode);
+@@ -72,12 +80,22 @@ static ssize_t store_mode(struct device *device, struct device_attribute *attr,
+ 
+ 			var = fb_info->var;
+ 			fb_videomode_to_var(&var, mode);
+-			if ((err = activate(fb_info, &var)))
++			err = activate_locked(fb_info, &var);
++			if (err) {
++				unlock_fb_info(fb_info);
++				console_unlock();
+ 				return err;
++			}
+ 			fb_info->mode = mode;
++			unlock_fb_info(fb_info);
++			console_unlock();
+ 			return count;
+ 		}
+ 	}
++
++	unlock_fb_info(fb_info);
++	console_unlock();
++
+ 	return -EINVAL;
  }
  
- static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
+@@ -85,11 +103,20 @@ static ssize_t show_mode(struct device *device, struct device_attribute *attr,
+ 			 char *buf)
+ {
+ 	struct fb_info *fb_info = dev_get_drvdata(device);
++	struct fb_videomode mode;
++	bool have_mode = false;
+ 
+-	if (!fb_info->mode)
++	lock_fb_info(fb_info);
++	if (fb_info->mode) {
++		mode = *fb_info->mode;
++		have_mode = true;
++	}
++	unlock_fb_info(fb_info);
++
++	if (!have_mode)
+ 		return 0;
+ 
+-	return mode_string(buf, PAGE_SIZE, 0, fb_info->mode);
++	return mode_string(buf, PAGE_SIZE, 0, &mode);
+ }
+ 
+ static ssize_t store_modes(struct device *device,
+@@ -137,12 +164,15 @@ static ssize_t show_modes(struct device *device, struct device_attribute *attr,
+ 	const struct fb_videomode *mode;
+ 
+ 	i = 0;
++	lock_fb_info(fb_info);
+ 	list_for_each_entry(modelist, &fb_info->modelist, list) {
+ 		mode = &modelist->mode;
+ 		i += mode_string(buf, PAGE_SIZE, i, mode);
+ 		if (i >= PAGE_SIZE - 1)
+ 			break;
+ 	}
++	unlock_fb_info(fb_info);
++
+ 	return i;
+ }
+ 
 -- 
-2.34.1
+2.39.5
 
