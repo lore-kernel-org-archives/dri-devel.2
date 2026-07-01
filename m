@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75FC4C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF1DC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:35:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7580210EF80;
-	Wed,  1 Jul 2026 12:33:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B0F10EF7F;
+	Wed,  1 Jul 2026 12:35:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GtV9vcWe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZnbgQ2v3";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F6710EF80
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:32:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 091DB10EF7F
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:35:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9C9696001D;
- Wed,  1 Jul 2026 12:32:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264E41F000E9;
- Wed,  1 Jul 2026 12:32:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 39F8E6001D;
+ Wed,  1 Jul 2026 12:35:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5DA1F000E9;
+ Wed,  1 Jul 2026 12:35:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782909178;
- bh=8Wqg6vwaB2WZcRomvBZS2whfJdMLY3bMu1eEIH5uhrc=;
+ s=k20260515; t=1782909336;
+ bh=CJQNdIVi/Q1P74CPDcCp+i08uA+8nWhJngkcnx8r1s0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GtV9vcWeJa0Nq6CgkhRbuoYd0UToILJgOt6KFUCQXj249tPrBcwd0SVv6ZIFmXNab
- OHydU4ZvDxmvOCYo+qlP2hTrkFAmJHIWcCSn8rOaJKBIDslsFYgCcuY5U3t/g9rPYq
- 5lIqyvlPsC/BsbLnStMYX4OnCSfWh9iuUy4mp1g/4OjKhapzhQ3YXFFnRIytikXIuD
- UGGYsLwrsEGCvR/Mwgo0H4eX0QWLlP9goTLkbzKuLjbQhzUIv6vvHhsEzXAG/T5EK4
- zjrBX6h9Ss+dAfqXybFL4cu/58vg9zq3UG2R3FfzA8Ploqoqd5hcf3CyHLMXYxEzue
- WuktBJtzqUW/w==
+ b=ZnbgQ2v3lT+qQ8RE3rnxpKNplm6LDhKyyS0bOdfJ+wSgvN5VUNh87jjG6K5p7xsdt
+ HPrwlv5Y8eitA7X/0pP0E4qmwzxVEDHIdfNPKqleIheBfLaZPDR4W6ly5CI1MkNh8o
+ Uo4BDxO6fj4Iaeo63Ih3bUBKCj8tBiCztQ0XbNFr1ow6Vg/jX+nRdU1pb9pQvZprPP
+ dUmbvuhhGU/LJPHxMgUUWf6TIjyynKljYeyA+z6u3GnXqlPae37KyD4ug8bRZXI2qo
+ t6I9K6ADE/fOwkCrTuy6yEJ4nZy7yBhafyMlMnsu6eNstwJ3Fcc1pSP9Y4XA0W4/6O
+ 57C6/LrFWlwdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and phy
- driver unregistration
+Subject: Re: [PATCH 06/12] phy: phy-mtk-dp: Support set_lanes in configure
+ and properly cleanup
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701122024.19557-4-angelogioacchino.delregno@collabora.com>
-References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
- <20260701122024.19557-4-angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ neil.armstrong@linaro.org, olteanv@gmail.com, vkoul@kernel.org
+In-Reply-To: <20260701122008.19509-7-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-7-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:32:57 +0000
-Message-Id: <20260701123258.264E41F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 12:35:35 +0000
+Message-Id: <20260701123536.6C5DA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,120 +62,91 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Double unregister of platform device in error paths causes Use-Aft=
-er-Free
-- [Medium] Incorrect pointer passed to devm_add_action_or_reset causes reso=
-urce leak of audio platform device
+- [High] Unconditional do-while loop in `mtk_dp_phy_disable_all_lanes` caus=
+es an out-of-bounds bitwise shift and undefined behavior when no lanes are =
+initially enabled.
+- [High] `mtk_dp_phy_disable_all_lanes` passes a bit index instead of a bit=
+mask to `FIELD_PREP`, failing to disable the correct lanes.
 --
 
-commit 2bc8391d481088826fa13d96d05225e5c15e6457
+commit 25cdd51bd1ac4d69a49e77d93a6b1374ba46dd3c
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
+phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
 
-This commit introduces devm actions to unregister the HDMI Codec and
-DisplayPort PHY platform devices, preventing multiple instantiations
-during probe deferrals.
+Add support for enabling a specifically requested number of lanes
+in the .configure() callback and disable all lanes in power off
+and reset callbacks for proper hardware cleanup.
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index eefbc7e0f9c8d..2c738c16dafab 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index 586e727956332..a2cd22b9da066 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
 [ ... ]
-
-> @@ -2680,18 +2687,29 @@ static int mtk_dp_register_audio_driver(struct de=
-vice *dev)
->  		.data =3D mtk_dp,
->  		.no_capture_mute =3D 1,
->  	};
-> +	int ret;
-> =20
->  	mtk_dp->audio_pdev =3D platform_device_register_data(dev,
->  							   HDMI_CODEC_DRV_NAME,
->  							   PLATFORM_DEVID_AUTO,
->  							   &codec_data,
->  							   sizeof(codec_data));
-> -	return PTR_ERR_OR_ZERO(mtk_dp->audio_pdev);
-> +	if (IS_ERR(mtk_dp->audio_pdev))
-> +		return PTR_ERR(mtk_dp->audio_pdev);
-> +
-> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
-phy_dev);
-
-[Severity: Medium]
-Is the correct platform device pointer being passed here?
-
-This registers a cleanup action using mtk_dp->phy_dev rather than the
-newly created mtk_dp->audio_pdev. This will likely leak the audio device on
-probe deferral or driver unbind, and may attempt to unregister the PHY devi=
-ce
-at the wrong time instead.
-
-> +	if (ret) {
-> +		platform_device_unregister(mtk_dp->audio_pdev);
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to add codec unregister devm action");
-> +	}
-> +	return 0;
+> @@ -261,6 +267,35 @@ static int mtk_dp_phy_power_on(struct phy *phy)
+>  	return 0;
 >  }
 > =20
->  static int mtk_dp_register_phy(struct mtk_dp *mtk_dp)
->  {
->  	struct device *dev =3D mtk_dp->dev;
+> +static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
+> +{
+> +	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
+> +	const u8 *regs =3D pdata->regs_dig_glb;
 > +	int ret;
-> =20
->  	mtk_dp->phy_dev =3D platform_device_register_data(dev, "mediatek-dp-phy=
-",
->  							PLATFORM_DEVID_AUTO,
-> @@ -2701,6 +2719,13 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_=
-dp)
->  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy_dev),
->  				     "Failed to create device mediatek-dp-phy\n");
-> =20
-> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
-phy_dev);
-> +	if (ret) {
-> +		platform_device_unregister(mtk_dp->phy_dev);
-
-[Severity: High]
-Could this cause a use-after-free?
-
-When devm_add_action_or_reset() fails, it automatically executes the cleanup
-action, which calls platform_device_unregister() on mtk_dp->phy_dev. Calling
-platform_device_unregister() a second time here would double-free the devic=
-e.
-
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to add phy unregister devm action");
-> +	}
+> +	u32 val;
 > +
->  	mtk_dp_get_calibration_data(mtk_dp);
-> =20
->  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+> +	ret =3D regmap_read(dp_phy->regmap, pdata->off_dig_glb + regs[DP_PHYD_T=
+X_CTL_0], &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Get mask of currently enabled lane */
+> +	val =3D FIELD_GET(PHYD_TX_LN_EN, val);
+> +
+> +	/* Disable all lanes (needs to be done one by one, from last to first) =
+*/
+> +	do {
+> +		u32 lane_num =3D fls(val) - 1;
+> +		val &=3D ~BIT(lane_num);
+                 ^^^^^^^^^^^^^^^^^^^^
 
 [Severity: High]
-Can the error path for devm_phy_get() also trigger a double-free?
+Does this cause undefined behavior if val is initially 0?
 
-Looking at the rest of mtk_dp_register_phy() just below this diff:
+If the PHY register reports 0 enabled lanes (which can happen after a
+hardware reset or during initial boot), val will be 0. Since this is an
+unconditional do-while loop, fls(0) will return 0, leading to lane_num
+evaluating to UINT_MAX.
 
-mtk_dp_register_phy() {
-    ...
-    mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
-    if (IS_ERR(mtk_dp->phy)) {
-        platform_device_unregister(mtk_dp->phy_dev);
-        return dev_err_probe(dev, PTR_ERR(mtk_dp->phy), "Failed to get phy\=
-n");
-    }
-    ...
-}
+The subsequent BIT(lane_num) attempt would result in an out-of-bounds
+bitwise shift. Could this be changed to a while loop, or check if val is 0
+before entering the loop?
 
-Since the devm unregister action was successfully registered above, returni=
-ng
-an error here will trigger the devm unwind loop. That will unregister the
-device a second time after this explicit platform_device_unregister() call.
+> +
+> +		ret =3D regmap_clear_bits(dp_phy->regmap,
+> +					pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0],
+> +					FIELD_PREP(PHYD_TX_LN_EN, lane_num));
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Does this clear the correct lanes in the register?
+
+It looks like the bit index lane_num is passed directly to FIELD_PREP here
+instead of the bitmask BIT(lane_num), which was correctly used in
+mtk_dp_phy_configure().
+
+If lane_num is 3, FIELD_PREP(GENMASK(7, 4), 3) will generate 0x30, which
+clears lanes 0 and 1 instead of 0x80 (which would clear lane 3). This seems
+like it might repeatedly attempt to clear the wrong lanes and leave higher
+lanes enabled.
+
+> +		if (ret)
+> +			return ret;
+> +	} while (val);
+> +
+> +	return 0;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
-7-1-angelogioacchino.delregno@collabora.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
+9-1-angelogioacchino.delregno@collabora.com?part=3D6
