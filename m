@@ -4,59 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3317C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:38:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1436EC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDAE210EE80;
-	Wed,  1 Jul 2026 09:38:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DBE110EE85;
+	Wed,  1 Jul 2026 09:43:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lr1yvTGC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NMvirreP";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFF8D10EE80
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 09:38:53 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gqw2138s3z9tyS;
- Wed,  1 Jul 2026 11:38:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1782898729; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6lLxWwm2ec6TjhN1sKZlPI0XtM2PK8Ut5JL5Jjbj3qs=;
- b=lr1yvTGCneGTgWvHzocgbEa3X9Cc+RSxPIv1QRAjU5QfhiiLMQt/FrTiOUpAAdBCy8a0ms
- 88FPTilhuyKAvQepybbnQZBTcq0Mg3JU5zu8QwxJF8I8M7o6gchNXdLRmkca23arQW1IoT
- +K5ztSNyzhtTkcV8xvZ/8+lNvFa5aYJRyo1jxvgMQRBg0KzEutK1zHGcb/Q5iKQkvjJdb9
- Q7dfVzoMZb8ylqmUEEdAf8UqNIW+ropTFymGXSLTPz/b/pb7GUFN14EyEbHoyMoblFawlk
- nFQPmFkmtqoDXElUGbbsRC+lyQomb0ToqhpCwyqXbUb5JzyHc7COZjzl+dYp0A==
-Message-ID: <5ea5741e6cb618f6c66adeaaae9565f8debd796e.camel@mailbox.org>
-Subject: Re: [PATCH 5/5] drm/sched: Remove entity->entity_idle
-From: Philipp Stanner <phasta@mailbox.org>
-To: Philipp Stanner <phasta@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Marco Pagani <marco.pagani@linux.dev>, Tvrtko
- Ursulin	 <tvrtko.ursulin@igalia.com>, Boris Brezillon
- <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Date: Wed, 01 Jul 2026 11:38:40 +0200
-In-Reply-To: <20260701085920.3253248-7-phasta@kernel.org>
-References: <20260701085920.3253248-2-phasta@kernel.org>
- <20260701085920.3253248-7-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 165A410EE84;
+ Wed,  1 Jul 2026 09:43:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 889EE418C7;
+ Wed,  1 Jul 2026 09:43:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C261F000E9;
+ Wed,  1 Jul 2026 09:42:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782898984;
+ bh=yD2RrJDZdDL6RXjT+lWLw24YuDCa/4sSWtW/fyWFcdQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=NMvirreP+CX8s1HLyn6zgBtUDz2oDbR9gIrXRS6YaNTcLZcnF2rsBWbQVm+Jl25Sr
+ A8lJ4z61L/giXcR/ptNpe3o3puYpqxx0hsQHO+85EjYqDjCEIO/1lP13eBb0n33jbM
+ UqdM041iHE/nTaNAA42LQ7VXM81xgA3Bi0FchvCuGazRU+YOdfKqe2mJyLfx4J0AJ1
+ B3RyYF4D778BuLdBJm0jXf0mSpjvs1QuEQapPlpQ8TZMICq6soqt5v87zbEEbs2TAJ
+ FdEluByUsfWooss92oIM/tmJ0RAV1NPZbvuLQEU3DJQZvF/ZXYqF3+AFDc5BkN379N
+ fKMeFEDS7Kh+w==
+Date: Wed, 1 Jul 2026 10:42:43 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 01/30] mm: move vma_start_pgoff() into mm.h and clean up
+Message-ID: <akTfDTjDnnZ-8zwE@lucifer>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <b28b698df4c009e85c4728446ca5863d8e633164.1782735110.git.ljs@kernel.org>
+ <akPqIfmQLOs4gI7h@pedro-suse.lan>
 MIME-Version: 1.0
-X-MBO-RS-META: on3uiyyneea4wy3tajn8aazoxccnp7rp
-X-MBO-RS-ID: ca2de0c17790b5f71d5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akPqIfmQLOs4gI7h@pedro-suse.lan>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,39 +101,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-07-01 at 10:59 +0200, Philipp Stanner wrote:
-> The completion entity->entity_idle only existed because the entity was
-> not properly locked through it's spinlock. The completion served to
-> inform waiters about whether the entity is actually idle, which is
-> something locking (previously added to drm_sched_entity_is_idle()) can
-> fully achieve.
->=20
-> Remove the surplus completion.
->=20
+On Tue, Jun 30, 2026 at 05:10:55PM +0100, Pedro Falcato wrote:
+> On Mon, Jun 29, 2026 at 01:23:12PM +0100, Lorenzo Stoakes wrote:
+> > vma_last_pgoff() already lives there, so it's a bit odd to keep
+> > vma_start_pgoff() in mm/interval_tree.c. Move them together.
+>
+> Hmm, a part of me wonders if this is the part where we should start cleaning
+> up mm.h into vma.h or something. Probably not, it would be extra churn right
+> now.
 
-[=E2=80=A6]
+Yeah the issue is there's some confusion about vma.h - mm.h should be for
+stuff that is used outside of mm, and these helpers are definitely like
+that.
 
-> -	/* Make sure this entity is not used by the scheduler at the moment */
-> -	wait_for_completion(&entity->entity_idle);
+vma.h is purely for internal mm vma stuff, and most people should be accessing
+that via internal.h (I address that in patch 27).
 
+I do wonder if that could be done more nicely but punt that to another time.
 
-Alright, my bad, turns out I had a bit too much steam on the kettle and
-we cannot remove it because of the drm_sched_entity_flush() being able
-to perform an asynchronous kill while the scheduler work item is still
-running.
+But also probably worth doing a pass over some of the defines, I have a
+bunch of series chur^W changing stuff lately so can do a follow up on that
+maybe.
 
+>
+> >
+> > These each return unsigned long, which pgoff_t is typedef'd to. Make this
+> > consistent and have these functions return pgoff_t instead.
+> >
+> > Additionally, express vma_last_pgoff() in terms of vma_start_pgoff(), since
+> > we wrap the vma->vm_pgoff access, we may as well use it here.
+> >
+> > Also while we're here, const-ify the VMA and cleanup a bit.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-But I think we could probably put Tvrtko's flush_work() [1] here to get
-the same result.
+Thanks!
 
-Opinions?
+>
+> > ---
+> >  include/linux/mm.h | 9 +++++++--
+> >  mm/interval_tree.c | 5 -----
+> >  2 files changed, 7 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 485df9c2dbdd..059144435729 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -4278,9 +4278,14 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
+> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
+> >  }
+> >
+> > -static inline unsigned long vma_last_pgoff(struct vm_area_struct *vma)
+> > +static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
+> >  {
+> > -	return vma->vm_pgoff + vma_pages(vma) - 1;
+> > +	return vma->vm_pgoff;
+> > +}
+> > +
+> > +static inline pgoff_t vma_last_pgoff(const struct vm_area_struct *vma)
+> > +{
+> > +	return vma_start_pgoff(vma) + vma_pages(vma) - 1;
+> >  }
+> >
+> >  static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
+> > diff --git a/mm/interval_tree.c b/mm/interval_tree.c
+> > index 32bcfbfcf15f..344d1f5946c7 100644
+> > --- a/mm/interval_tree.c
+> > +++ b/mm/interval_tree.c
+> > @@ -10,11 +10,6 @@
+> >  #include <linux/rmap.h>
+> >  #include <linux/interval_tree_generic.h>
+> >
+> > -static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
+> > -{
+> > -	return v->vm_pgoff;
+> > -}
+> > -
+> >  INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
+> >  		     unsigned long, shared.rb_subtree_last,
+> >  		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
+> > --
+> > 2.54.0
+> >
+>
+> --
+> Pedro
 
-P.
-
-
-[1] https://lore.kernel.org/dri-devel/20260611123423.39819-1-tvrtko.ursulin=
-@igalia.com/
+Cheers, Lorenzo
