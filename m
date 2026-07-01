@@ -4,100 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29CC6C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 06:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A87C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 06:30:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C5DE10E31C;
-	Wed,  1 Jul 2026 06:28:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43C0610EDCF;
+	Wed,  1 Jul 2026 06:30:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="udA3ZurH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eaqCiZi0";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010046.outbound.protection.outlook.com [52.101.56.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EDA210E2FF;
- Wed,  1 Jul 2026 06:28:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nx/nf3mevFfhmRztV5oFB5Wy5/4TOFKTuc39TRmIEymolqyk8D2twzELa6wJyxbWCunylRxs6TgjcDeTkxa1BfRUeeUdTbZzEob4mWf9Q+DaE6EA+CBMfhUfDJM8TgqiFDMr31+Q2czHHVu+VY6r0Ezkxv4sMLn0fztWkY+oYg6WeuOhGhdMVbkDHvs2mXpxU+EIZwH++bNdlUCP4NzqI/ULPGm/HJOA3F1CU1q/S2tPFu26040XTxgT7nayHizGchF7rI8+TIbbKkwYhPEPCPjdnV3bNDAaLVFZWO6/AfC4VrJPaD49QT/MLpKSY9PiFi1s6J+kul08OpKJWJHSvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ngbR43pKY8YTZJlF1LsFcIm3cpyWyFPxSk095iCe8zk=;
- b=QYrzMk2ZlcMLdVeyKpyZiLwjd8Fz0xw+G1//Wsr3I04yeeBGfkgO931oAQ5mOohRmai+MsRC1PYwbDz1x1a4fuyDoNhIXYKGoRLyxnrWPrXsotFx9Ypy/lfhM81O2tJnoyZP4kUcL6daBLp1OYz3PvbuDZXg+SP4IC51/DIDNnPJx9t9MWUmHsjCAghlNOWSNiS6WGPg/dNtEIf1H8ILFGWoh7CSrCcqVoBdYu/WfUv+gZfPJA6+47gcQzpsNtw6lm/4FGkGGM9z+yzoYe7Mdkt3KadldpEFxTx+SJ1Htl3Y9ST6Crh0iH/D1TtHOYhMnIwlG600Wbl44AoEZu0DEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ngbR43pKY8YTZJlF1LsFcIm3cpyWyFPxSk095iCe8zk=;
- b=udA3ZurH2k4QC8mMH9mEjz6qpDbqpPwRxcwjcECMTYRLAy5E6rVoV+EYkufZdbKhn3yrxeznxjfxX+xuYX8M0rcu1veMGysaNSAyaw2Hyf1+0+jMqmH3aSefoekWYCtPAkRPy+NHbWM3R5ZDmaVhK0X7eTjNgkuzTR/RDkjbJU4=
-Received: from CH2PR14CA0031.namprd14.prod.outlook.com (2603:10b6:610:56::11)
- by CH2PR12MB9543.namprd12.prod.outlook.com (2603:10b6:610:27f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
- 06:28:19 +0000
-Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
- (2603:10b6:610:56:cafe::5d) by CH2PR14CA0031.outlook.office365.com
- (2603:10b6:610:56::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Wed, 1
- Jul 2026 06:28:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Wed, 1 Jul 2026 06:28:19 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 1 Jul
- 2026 01:28:16 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
- <intel-xe@lists.freedesktop.org>
-CC: <Ray.Huang@amd.com>, <dri-devel@lists.freedesktop.org>, <honghuan@amd.com>
-Subject: [PATCH v4 2/3] drm/gpusvm: do not route system pages to
- device_unmap() on IOVA unmap
-Date: Wed, 1 Jul 2026 14:27:59 +0800
-Message-ID: <20260701062800.409248-3-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260701062800.409248-1-honghuan@amd.com>
-References: <20260701062800.409248-1-honghuan@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|CH2PR12MB9543:EE_
-X-MS-Office365-Filtering-Correlation-Id: c08ee8c2-1072-4687-908e-08ded739f126
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: uhCRaBS6Lx2mJbeU/tsy6e1dGhsK0R8prm8EWfubPbRQj5UDJgvkasgCMC77P7aHhGB+rlnxQUFcckcSUy5w5TNpJ1vEl5CoTwD/ICH90LkSIBrQBXXpWLPlefVYjaK91YF9NGTvrLJOq7y4y5O9LOzGInelG8JWWoipriDQgqUirpmT/1sriUfzbTsclyqVlYvvDsbzQ9sr/KWdHTebv3M76MQWQ+yxX4oUsDbKqh/c0cUeuGScksAGkESI+DXBRMVMw/UOPtRhSH4oNex7MWjrXw9/bp1802sZaGwoDIIMo1AxsGnvxViQn9w+C4/p4RitcLV7j9P4nJn3RkY5cJNQPXgdpH3LJSCXaB44NxUaX7en85uvI6Cm/YiXU33pKoWHj7IL8GzxjMHgGEe0OsHMh5kBy6gMatEn4y5HKrr4DfLHFSDAjQ8Wxzp3OnHVeJ4mM+h3FRCyEmO1yKRgckOUIL9q4w0gMpj9FVLONFfciGrKNh2YIZSOy0QM3FSoH9eZrsT4BpVNX74Ev00xke0lnh7urN5FfbB7RQdMrq2/eX9S8X+cFhMdvexOduz/f41nQxgnu+fNSkBDvI393xUrQlVfg62A3yhcxVt3E9ozOecxpDSeBYrulWeHN2sqy0uTSfZHQoUI7KoD+EGzK0atkH5PVQVuS93WQ1y/dBG9IPqfwvXIBSResEqLHFTMqoKEe4FVhiZqKv3fnQYFow==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(18002099003)(22082099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: PIyUmFZiwMSdcdM2+wdjWsIxlVjnTmujTj+ILh818oR+fb+RGUX+tYNr4/52FAxndp9L/6oWsF/25iWxIVZIy6NA6qySxecGyb1wp2KLImWtwES/KBvW8eVyXYfwvDCif5Mhn8sqz3KTcHsHFyUTI+pAplOIRI0u9jIglLpSWInhKOrG6wi2DsJDzTyefdH1QDu5mkPB2O0b5uRUDlk+XKyTR2XBHaIWhRVThVuqV9CL2JhsDeRaD5s+XJJBEwWOo8KFpG7pHBWekQJnGxBldS81UgKBRiUIjEysR+VdfOw5fbm7assGv/3qYdlZGHR70Fd3bAsfiZn30G9ZnTCWzXHXn0/VyfuE8PEkUy/WAUy/JQH6P8F7lKS3UyUZiCb1pRxIKGSQy7lu3Y8STd+exg0V0itQKXLHvVcLktTyYOF1LHS42wmWwkGeVNGziPlX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 06:28:19.1592 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c08ee8c2-1072-4687-908e-08ded739f126
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000000A0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9543
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9770C10EDDB
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 06:30:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D36943829;
+ Wed,  1 Jul 2026 06:30:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154741F000E9;
+ Wed,  1 Jul 2026 06:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782887452;
+ bh=hpLpFB5nyp3U+NOpXyCwZcfhYtvAgRYs0WuvhJRE7OY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eaqCiZi0KtcGot81bqO8cLfYlL9luzK7gq0/B+x1wK8L3hxJywhhTcyNZlF5xSIiz
+ QJuVKIzA6EDm8fI7scsDdv0Fas9PFJLwmWkVYyqadF/t3JapZGPSfocdsxiuw0SYUD
+ ypCZOFQ1IwSxCFCoCiIgdzD8rAL1p2Bud2sN87xna0pfJTlgqBqt68o0Re0kN0mlXV
+ Vkvdk4wc9JJxB5AxtYgOQ12cIj1btbg0x2ZKy4e11xyumL5ZkFYgMN2rFGgAa6eu3o
+ CfYkmymk5HkCLHyzJ2f5d/I9DnVS4UG5b5FgXSv/DirGByOQqaW+CdLhlBZhl4HG3N
+ udJXWQ/BspzvQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 1/2] Documentation: accel: Add NPAC client driver
+ documentation
+To: "Jaspinder Budhal" <j-budhal@ti.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701062505.1091840-2-j-budhal@ti.com>
+References: <20260701062505.1091840-1-j-budhal@ti.com>
+ <20260701062505.1091840-2-j-budhal@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 06:30:51 +0000
+Message-Id: <20260701063052.154741F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,65 +54,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In a mixed range: ctx->allow_mixed dpagemap is not NULL while some entries
-are system pages. The unmap loop used:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The proposed design violates kernel architecture by bypassing the =
+standard networking stack and misusing the compute accelerator (accel/DRM) =
+subsystem for network packet processing and ACL offloads.
+- [Low] Usage of deprecated, non-inclusive terminology ('blacklisted').
+- [Low] Grammatical error in the documentation regarding command pluralizat=
+ion.
+--
 
-        dma_unmap_page(...);
-    else if (dpagemap && dpagemap->ops->device_unmap)
-        dpagemap->ops->device_unmap(...);
+commit 76a459f24739ffcc1e2f6fc248380fee0d5af75f
+Author: Jaspinder Budhal <j-budhal@ti.com>
 
-When use_iova is true the first condition is false for system pages,
-so they fall through to device_unmap() and a system DMA address is
-handed to the device specific unmap callback, risking invalid accesses
-or state corruption.
+Documentation: accel: Add NPAC client driver documentation
 
-Key the branch off addr->proto instead: system pages only need an explicit
-dma_unmap_page() in the non IOVA case, IOVA system pages are already torn
-down by the single dma_iova_destroy(), and only genuine device pages
-reach device_unmap().
+This commit adds documentation for the Texas Instruments NPAC (Network Pack=
+et
+ACcelerator) client driver. It details the accelerator's purpose of offload=
+ing
+network packet processing tasks like ACL rule enforcement. The documentation
+also outlines its userspace interface and RPMsg communication model.
 
-This issue was found by Sashiko AI review.
+> diff --git a/Documentation/accel/npac.rst b/Documentation/accel/npac.rst
+> new file mode 100644
+> index 0000000000000..fba6ddd0cfd2c
+> --- /dev/null
+> +++ b/Documentation/accel/npac.rst
+[ ... ]
+> +When the NPAC host driver announces the NPAC RPMsg service endpoint, the
+> +RPMsg core matches the announced service against the registered NPAC cli=
+ent
+> +driver and invokes the driver probe callback.
+> +
+> +Offload command received from userspace are formatted into RPMsgs and se=
+nt
 
-Fixes: 37ad039fb367 ("drm/gpusvm: Use dma-map IOVA alloc, link, and sync API in GPU SVM")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/drm_gpusvm.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+[Severity: Low]
+This isn't a bug, but there is a grammatical error here. Should "command" be
+pluralized to "commands" to match the plural verb "are"?
 
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index 3145d55cd86..44bb19658dd 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -1163,12 +1163,18 @@ static void __drm_gpusvm_unmap_pages(struct drm_gpusvm *gpusvm,
- 		for (i = 0, j = 0; i < npages; j++) {
- 			struct drm_pagemap_addr *addr = &svm_pages->dma_addr[j];
- 
--			if (!use_iova && addr->proto == DRM_INTERCONNECT_SYSTEM)
--				dma_unmap_page(dev,
--					       addr->addr,
--					       PAGE_SIZE << addr->order,
--					       addr->dir);
--			else if (dpagemap && dpagemap->ops->device_unmap)
-+			if (addr->proto == DRM_INTERCONNECT_SYSTEM) {
-+				/*
-+				 * Linked IOVA pages were already torn down by
-+				 * the dma_iova_unlink()/dma_iova_free() above;
-+				 * only the non-IOVA mappings need unmap here.
-+				 */
-+				if (!use_iova)
-+					dma_unmap_page(dev,
-+						       addr->addr,
-+						       PAGE_SIZE << addr->order,
-+						       addr->dir);
-+			} else if (dpagemap && dpagemap->ops->device_unmap)
- 				dpagemap->ops->device_unmap(dpagemap,
- 							    dev, addr);
- 			i += 1 << addr->order;
--- 
-2.34.1
+> +to the NPAC Host Driver.
+> +
+> +NPAC Host Driver responses are received through RPMsg callbacks.
+> +
+> +ACL Rule Offload
+> +----------------
+> +
+> +ACL (Access Control List) rules are packet filtering policies that defin=
+e how
+> +network traffic should be handled =E2=80=94 for example, dropping packet=
+s from a
+> +blacklisted source IP or allowing traffic only from trusted MAC addresse=
+s.
 
+[Severity: Low]
+This isn't a bug, but the Linux kernel coding style guidelines recommend us=
+ing
+inclusive terminology. Could "blacklisted" be replaced with "blocklisted" or
+"denylisted"?
+
+[ ... ]
+> +IOCTL Commands
+> +~~~~~~~~~~~~~~
+> +
+> +DRM_IOCTL_NPAC_ACL_ADD_RULE
+> +
+> +  This IOCTL allows userspace to add an ACL rule to the accelerator. The
+
+[Severity: High]
+Does this UAPI design bypass the established Linux networking subsystem APIs
+for packet filtering?
+
+The accel subsystem is generally intended for generic compute, ML, and AI
+workloads. Introducing a custom UAPI for network packet filtering via
+/dev/accel/accel* and DRM_IOCTL_NPAC_ACL_ADD_RULE bypasses standard
+interfaces like tc-flower (via ndo_setup_tc) or netfilter hardware offload.
+
+This custom interface would prevent standard networking utilities such as tc
+or nftables from managing these ACLs, and it removes the standard software
+fallback path. Should this driver integrate with the standard networking st=
+ack
+instead of implementing custom DRM IOCTLs?
+
+> +  call will forward the rule to the NPAC host driver for hardware progra=
+mming.
+> +  The NPAC Host Driver is responsible for validating the rule and applyi=
+ng it to
+> +  the NPAC hardware.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701062505.1091=
+840-1-j-budhal@ti.com?part=3D1
