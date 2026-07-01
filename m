@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D645C44503
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B76AEC43458
 	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC54210EEC5;
-	Wed,  1 Jul 2026 12:19:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 054E510EECC;
+	Wed,  1 Jul 2026 12:19:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dSy+ldQ+";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="V/ClS8iv";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A841610EEC5
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:19:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9765A10EEC5
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908393;
- bh=1Xktl+tViKcSMcXwqlJWLud9f63zaG5zSnYbWqZ1CJY=;
+ s=mail; t=1782908396;
+ bh=QNH1iHvpfMsQ+pWPD1R8m5fZdLcwcye2yv1zfGln2d8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dSy+ldQ+EXnqS5mp18wZ7I7kwDNBDfOKP2wrwZsIiwjFfih8IoDAARrSloZjX13TW
- wenuw6saMxvap6p3+L5r5PlpD7kbaCxS+zCSb2ty5YZl4ODQBS2X0Ku/w7Q2dfSyTr
- FCyCsXCHpfqkjMUhZ1+V4uSQTArlMknJ8yri4tL1lpjB0Novnv4GhOD23F2ZNwwPmo
- NjLb0cWQLgfo19cgK7AgZXbqOE79dhyIRjG1f5ZjoB5Jf4b27rZ7N4tRCOJ42tEiFZ
- v/u2TPqvlvLFqc49G7LsIjY22IGA7RauFTe3DmqkysnpcZQJw+86lK2IDNHzPVtX+M
- V8vrL9TokLlyQ==
+ b=V/ClS8ivY1drh/w9FmbWjnaaetdBufT0lQbWm06DnxGLb3C0wXbzFgC6R9iLUjJcD
+ /eqVd7uIQ9EeHfxF0Y01XMmfXYZqLnJSxsBvIMakMz0V5+ZLEbv0vcNcTDv2svtsWt
+ UEtMRLCbKMGVYTUxQ97bnIWztxTAOJnbu3cBW45Ezh48dJVIC78OCCW2YXwYyupLDQ
+ XfPnt7gcMZxzaBzaN3XbaP7ccMRfuZpZauuZzKsIXKALgQcPmAB4w9gA9A6Y0yikYD
+ Fo2tmzllDGc8ITHWXpC/55gVV/OwJBTb8K4EhRxVCyndlldwcseusFoL+CKx6T5ZQc
+ hefF2r8crZ0GQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9EAA217E0CA2;
- Wed,  1 Jul 2026 14:19:52 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 94D7617E0CD4;
+ Wed,  1 Jul 2026 14:19:55 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
  linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: [PATCH 01/10] dt-bindings: display: mediatek: dsc: Add MT8196
- compatible
-Date: Wed,  1 Jul 2026 14:19:41 +0200
-Message-ID: <20260701121950.19454-2-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 03/10] dt-bindings: display: mediatek: dsi: Document MT8189
+ and MT8196
+Date: Wed,  1 Jul 2026 14:19:43 +0200
+Message-ID: <20260701121950.19454-4-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701121950.19454-1-angelogioacchino.delregno@collabora.com>
 References: <20260701121950.19454-1-angelogioacchino.delregno@collabora.com>
@@ -66,31 +66,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add compatible for the Display Stream Compression (DSC) IP found
-in the display controller of the MT8196 SoC.
-
-This IP is compatible with the one found in MT8195.
+Add compatible strings for MT8189 and MT8196 SoCs.
+These are compatible with the DSI IPs found in the MT8188/95 and
+others, but with differences making them not fully compatible.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dsc.yaml    | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/display/mediatek/mediatek,dsi.yaml      | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-index a5b88eb97e3b..c8b3e86943e4 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
-@@ -23,7 +23,9 @@ properties:
-       - enum:
-           - mediatek,mt8195-disp-dsc
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+index 27ffbccc2a08..b5cdfe0eaca4 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+@@ -30,6 +30,8 @@ properties:
+           - mediatek,mt8183-dsi
+           - mediatek,mt8186-dsi
+           - mediatek,mt8188-dsi
++          - mediatek,mt8189-dsi
++          - mediatek,mt8196-dsi
        - items:
--          - const: mediatek,mt8188-disp-dsc
-+          - enum:
-+              - mediatek,mt8188-disp-dsc
-+              - mediatek,mt8196-disp-dsc
-           - const: mediatek,mt8195-disp-dsc
- 
-   reg:
+           - enum:
+               - mediatek,mt6795-dsi
 -- 
 2.54.0
 
