@@ -4,91 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544BEC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:23:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A46C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:33:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A552E10E328;
-	Wed,  1 Jul 2026 09:23:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB11710E33E;
+	Wed,  1 Jul 2026 09:33:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="V96s/K/S";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KX/VdJNn";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8696B10E328
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 09:23:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782897796;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=ujysy+ydPxBsX1pWUIjvfD6kA9LpBP3ShklG8JNE8wg=;
- b=V96s/K/SM1yWkFmYnuljbZiNgvcO/LjwH72OJWrkDV/SmneDq+66M9styzc8pS8Mq7zkZQ
- x/MkJlQ39ePe7m1sWqqbw9j5nRw4fx0glL5ruBHMS86EW8MF5npXDtSJkrPFRnuLUtNnyq
- H4n4dy6i0HflAWLX53kfWpg0BtZaF00=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-370-uPow6SPQOb-4M-HH4X-FgA-1; Wed, 01 Jul 2026 05:23:13 -0400
-X-MC-Unique: uPow6SPQOb-4M-HH4X-FgA-1
-X-Mimecast-MFC-AGG-ID: uPow6SPQOb-4M-HH4X-FgA_1782897792
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-37fc0aaa94cso462906a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 02:23:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782897792; x=1783502592;
- h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=WwNeizDBR0L7D6u80TuuTOjUtXht3070o55b7PDf+lc=;
- b=sjltPBWaS4vE0gtz6IJlvoPaBRM23ikzEXn/L33Uc9oQgIT9+/vVorZ1aIcFpuTCjV
- i8Kvx4qaGkNfp0n2L6ugXNJ9plTig6g5YcwjEL41mwI7VrkroLN+bLAHJ7xW+xuqfqQI
- FSZmkf2ZpIXpVgRKl7dQTyNt+FXqL5Pr17rzQJwEzKtUT36bldE7rh9u/kaamz99Xldd
- ml2/QZPrV6NYXRidf6RETBxZNWYxjH4ObTj1G9B+xA9WVyoNgV7CZrSbJHWK2pJFibya
- myw6ETDt/2+P8MeFbckNDHoo3PWOK+J4VElcYO8KdpEwGMYrHVJK4fw2D8pYtXaiYuRg
- 9+xw==
-X-Gm-Message-State: AOJu0Yxau7TTy2o8tu7oMz6+rWt7L5ATrW3+tL8Krvu/EYWqBF1FmJi/
- Yrppd3Af4dZYMvGTfuy7pp2QfEkBNaEFIeZePfQ5s+8Prt0fxYdlZ7tc3a0ZsgLBViMjiZQu+Ha
- QXKXnrTkuKKxwvfqYXayIJTmQxpklNgfSlIR9csj17WJlUQEo/B24y48kH7d4ZjdvSFFdvw==
-X-Gm-Gg: AfdE7cmNXWZXzTFU+sNZjQd8DW5dZ466yRurdI8r9RMSJbO+0Ojt7w37n+MhUgKhGnE
- wa/KS5AOpydeLbXwcPCFwL6SHxEvf5IqoXRr64ZA+1uN8W62j5NKiYmDzyXr8McFczlZ/HiFGS+
- yp1jilQ0yHcDNdaUe+dZIp0CUEbbTwtBE4l84XPR6LFiq8hlv6n5lMPtqvL6EtU2ScsQfjpC14q
- TYidLnE6vqdGpHV6mM5sT4eTsaEJ1EBXi8btl6SkDdWMAX+FNfEOUVa7vxjZetUtkd30c16W1oj
- zKQrvvGnj018INP7S/Rzkv9K7AOiKOZlm3iTr1qvFSXCsFJFuK2MqPBsjLCi8V6m+tUtuUMV2z7
- lSjdnuDWm1aO91vgnW5+5G4SHMzZ37BP1EmMX1k4VrupSOH7F
-X-Received: by 2002:a17:90b:3a45:b0:37f:9cdf:f0ac with SMTP id
- 98e67ed59e1d1-380aa234f58mr758674a91.27.1782897792169; 
- Wed, 01 Jul 2026 02:23:12 -0700 (PDT)
-X-Received: by 2002:a17:90b:3a45:b0:37f:9cdf:f0ac with SMTP id
- 98e67ed59e1d1-380aa234f58mr758663a91.27.1782897791674; 
- Wed, 01 Jul 2026 02:23:11 -0700 (PDT)
-Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38095d46b9esm1493384a91.2.2026.07.01.02.23.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 02:23:11 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D32310E33E
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 09:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=lm2Lg0hziBPY14rNCyh+OlmQO8mTF2pGDV9lHYkkkSw=; b=KX/VdJNnQ0IWoRI8RlRbfGpInE
+ 7aC6wxDtZNSnwF/1iEyDH21N5CMR/+Lpco0mzVAxxyAOBBdE8iw37SEydgRNK3oKLduLsALL/wxZx
+ oHTBJvg+O10p1V9TRuSBA7NMUPmwJgA6zkVbvp7DuZuidR1m8qMMXz+/OwfnhJIbMXZtEpVCn6iwy
+ IrmQCM5E73J5lqw4jBUcoWkNXxMbDZ3S6CohGeds2sYw4UUvMcKWMNHEbpzMnN7myb0wvoiBDa+Sy
+ x+MiRQi9NWST2pKnShCfvcG0fANhBmcsoDQ4nmX3p6RrPRLzLvrdZXuPc3Leuc65SFLlqK6AwEUms
+ LuOUNcgA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1werJM-007Udi-K1; Wed, 01 Jul 2026 11:32:52 +0200
+Message-ID: <2c80b1d3-88f1-414d-a401-29ba56a6132b@igalia.com>
+Date: Wed, 1 Jul 2026 10:32:51 +0100
 MIME-Version: 1.0
-From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
-To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
- "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
- "Gurchetan Singh" <gurchetansingh@chromium.org>, 
- "Chia-I Wu" <olvaffe@gmail.com>, 
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, 
- "Maxime Ripard" <mripard@kernel.org>, 
- "Thomas Zimmermann" <tzimmermann@suse.de>, 
- "Simona Vetter" <simona@ffwll.ch>, "Dmitry Baryshkov" <lumag@kernel.org>, 
- "Javier Martinez Canillas" <javierm@redhat.com>
-In-Reply-To: <5aa634c1-7530-4b1f-931a-a5a5ac6c908a@collabora.com>
-Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-Message-ID: <18be2016e26ade27.a6e9e2496bc1f978.9bc3a62421115997@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Date: Wed, 1 Jul 2026 09:23:05 +0000
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: mSZPZVE3Tvdc4FTJ0PrvLDV6qyKt0HYFud3pNpU53mk_1782897792
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] dma-buf: remove dma_fence_is_signaled_locked()
+To: christian.koenig@amd.com, phasta@kernel.org, simona@ffwll.ch,
+ sumit.semwal@linaro.org, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260624122917.2483-1-christian.koenig@amd.com>
+ <20260624122917.2483-8-christian.koenig@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260624122917.2483-8-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,174 +64,78 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+On 24/06/2026 12:13, Christian König wrote:
+> Finally remove one of the biggest trouble makers in the dma_fence
+> handling.
+> 
+> The signaled callback is now consistently called without holding the
+> dma_fence lock.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   include/linux/dma-fence.h | 36 ------------------------------------
+>   1 file changed, 36 deletions(-)
+> 
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index 803e10ca76e3..ad69acbea218 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -493,40 +493,6 @@ dma_fence_test_signaled_flag(struct dma_fence *fence)
+>   	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+>   }
+>   
+> -/**
+> - * dma_fence_is_signaled_locked - Return an indication if the fence
+> - *                                is signaled yet.
+> - * @fence: the fence to check
+> - *
+> - * Returns true if the fence was already signaled, false if not. Since this
+> - * function doesn't enable signaling, it is not guaranteed to ever return
+> - * true if dma_fence_add_callback(), dma_fence_wait() or
+> - * dma_fence_enable_sw_signaling() haven't been called before.
+> - *
+> - * This function requires &dma_fence.lock to be held.
+> - *
+> - * See also dma_fence_is_signaled().
+> - */
+> -static inline bool
+> -dma_fence_is_signaled_locked(struct dma_fence *fence)
+> -{
+> -	const struct dma_fence_ops *ops;
+> -
+> -	if (dma_fence_test_signaled_flag(fence))
+> -		return true;
+> -
+> -	rcu_read_lock();
+> -	ops = rcu_dereference(fence->ops);
+> -	if (ops && ops->signaled && ops->signaled(fence)) {
+> -		rcu_read_unlock();
+> -		dma_fence_signal_locked(fence);
+> -		return true;
+> -	}
+> -	rcu_read_unlock();
+> -
+> -	return false;
+> -}
+> -
+>   /**
+>    * dma_fence_is_signaled - Return an indication if the fence is signaled yet.
+>    * @fence: the fence to check
+> @@ -540,8 +506,6 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+>    * operation is complete, it makes it possible to prevent issues from
+>    * wraparound between time of issue and time of use by checking the return
+>    * value of this function before calling hardware-specific wait instructions.
+> - *
+> - * See also dma_fence_is_signaled_locked().
+>    */
+>   static inline bool
+>   dma_fence_is_signaled(struct dma_fence *fence)
 
-On 30/06/2026 16:46, Dmitry Osipenko wrote:
-> Hi,
->=20
-> On 6/30/26 12:16, Ryosuke Yasuoka wrote:
->> A probe-time deadlock can occur between the dequeue worker and
->> drm_client_register(). During probe, drm_client_register() holds
->> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
->> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
->> waiting for virtqueue space. The dequeue worker that would free that
->> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
->> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
->> to acquire the same clientlist_mutex. Since wake_up() is only called
->> after the resp_cb loop, the probe thread is never woken and both threads
->> deadlock.
->>=20
->> Fix this by deferring the hotplug notification from
->> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
->> display data (outputs[i].info) is still updated synchronously in the
->> callback, and the deferred work only triggers a re-probe notification to
->> DRM clients.
->>=20
->> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a=
- client")
->> Closes: https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406e45=
-c1c6e549453f224
->> Closes: https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4cf7b=
-af376cc873a922e
->> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
->> ---
->>  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
->>  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
->>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
->>  3 files changed, 16 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virt=
-io/virtgpu_drv.h
->> index 7449907754a4..27ffa4697ae9 100644
->> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
->> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
->> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
->> =20
->>  =09struct work_struct config_changed_work;
->> =20
->> +=09struct work_struct hotplug_work;
->> +
->>  =09struct work_struct obj_free_work;
->>  =09spinlock_t obj_free_lock;
->>  =09struct list_head obj_free_list;
->> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virti=
-o_gpu_device *vgdev,
->>  =09=09=09=09=09uint32_t x, uint32_t y,
->>  =09=09=09=09=09struct virtio_gpu_object_array *objs,
->>  =09=09=09=09=09struct virtio_gpu_fence *fence);
->> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
->>  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgde=
-v,
->>  =09=09=09=09=09 uint32_t resource_id,
->>  =09=09=09=09=09 uint32_t x, uint32_t y,
->> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virt=
-io/virtgpu_kms.c
->> index cfde9f573df6..cfb532ba43a4 100644
->> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
->> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
->> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, stru=
-ct drm_device *dev)
->>  =09INIT_WORK(&vgdev->config_changed_work,
->>  =09=09  virtio_gpu_config_changed_work_func);
->> =20
->> +=09INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
->> +
->>  =09INIT_WORK(&vgdev->obj_free_work,
->>  =09=09  virtio_gpu_array_put_free_work);
->>  =09INIT_LIST_HEAD(&vgdev->obj_free_list);
->> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
->>  =09flush_work(&vgdev->obj_free_work);
->>  =09flush_work(&vgdev->ctrlq.dequeue_work);
->>  =09flush_work(&vgdev->cursorq.dequeue_work);
->> +=09flush_work(&vgdev->hotplug_work);
->>  =09flush_work(&vgdev->config_changed_work);
->>  =09virtio_reset_device(vgdev->vdev);
->>  =09vgdev->vdev->config->del_vqs(vgdev->vdev);
->> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virti=
-o/virtgpu_vq.c
->> index 67865810a2e7..084d98f5dc7b 100644
->> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
->> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
->> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virti=
-o_gpu_device *vgdev,
->>  =09virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
->>  }
->> =20
->> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
->> +{
->> +=09struct virtio_gpu_device *vgdev =3D
->> +=09=09container_of(work, struct virtio_gpu_device, hotplug_work);
->> +
->> +=09if (!drm_helper_hpd_irq_event(vgdev->ddev))
->> +=09=09drm_kms_helper_hotplug_event(vgdev->ddev);
->> +}
->> +
->>  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device=
- *vgdev,
->>  =09=09=09=09=09       struct virtio_gpu_vbuffer *vbuf)
->>  {
->> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struc=
-t virtio_gpu_device *vgdev,
->>  =09spin_unlock(&vgdev->display_info_lock);
->>  =09wake_up(&vgdev->resp_wq);
->> =20
->> -=09if (!drm_helper_hpd_irq_event(vgdev->ddev))
->> -=09=09drm_kms_helper_hotplug_event(vgdev->ddev);
->> +=09schedule_work(&vgdev->hotplug_work);
->>  }
->> =20
->>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device =
-*vgdev,
->=20
+Assuming the rest of the series plays out to this point:
 
-Hi,
-Thank you for your review.
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init()=
-, placing it after wait_event_timeout(display_info_pending)? This will avoi=
-d additional work_struct that otherwise needs to be cancelled in virtio_gpu=
-_init() on the timeout.
+Regards,
 
-IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
-into virtio_gpu_init() after wait_event_timeout() would not prevent the
-issue.
-
-Looking at the syzbot call traces[1][2], the deadlock occurs during
-drm_client_setup(), which runs after virtio_gpu_init() has already
-returned. The display_info_cb that triggers the deadlock is called from
-the dequeue worker while drm_client_register() holds clientlist_mutex.
-
-Thread A:
-virtio_gpu_probe()
- -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
- -> drm_dev_register()
- -> drm_client_setup()   // deadlock happens HERE
-     -> drm_client_register()   // holds clientlist_mutex
-     ...
-     -> virtio_gpu_queue_fenced_ctrl_buffer()
-         -> wait_event() // waits for free space
-
-Thread B:
-virtio_gpu_dequeue_ctrl_func()
- -> reclaim_vbufs()   // make free space
- -> resp_cb()
-     -> virtio_gpu_cmd_get_display_info_cb
-         -> drm_helper_hpd_irq_event()
-         -> drm_kms_helper_hotplug_event()
-             -> drm_client_dev_hotplug() // need to lock clientlist_mutex
- -> wake_up()   // never reached
-
-IIUC the hotplug notification in display_info_cb is needed because it
-notifies DRM after updating by the callback with fresh data from the host.
-
-This work_struct ensures display_info_cb never blocks on
-clientlist_mutex in the dequeue worker, while preserving the hotplug
-notification with fresh data.
-
-[1] https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406e45c1c6e54=
-9453f224
-[2] https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4cf7baf376cc=
-873a922e
-
-Best regards,
-Ryosuke
+Tvrtko
 
