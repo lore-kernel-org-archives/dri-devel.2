@@ -4,44 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF758C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 06:44:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 398EBC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 06:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E46ED10EDC1;
-	Wed,  1 Jul 2026 06:44:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47CC810EDC6;
+	Wed,  1 Jul 2026 06:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ebe/ZxvY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pKiG/dnn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A6210EDC1
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 06:44:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B68894045C;
- Wed,  1 Jul 2026 06:44:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70C1A1F000E9;
- Wed,  1 Jul 2026 06:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782888276;
- bh=a4Nympn5Mueu+P11aHHm23p1iTRbD/UfVjMr6mDWRDg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ebe/ZxvYX5xLjc3g7XsSSfLRBR42YqcslRQamCSUqXsPyjMarHoQ1ja9XZnga50JM
- eBJS1kyTdmaQ78X4k2iTpz5o/9sT/Sei3bjtKPJAerq8odwBrNlxWqjnP7kwab1ieW
- ieNhEqYltjPJbvHNVbC2znapKy/Vs81E8WuvwK2lpgY9WZ/N1aV0vpOKC9VWga9kjZ
- 1/emGoijZHu3N534d1cnLC3yqgQNbuTi7AOSVbMnZPlV2bKoC5BgPdzulOL+7+iApk
- 9UIkVIg11Z3pbNAs23QrfaW8m71qMk8B6t152Hc65zb4CTXY9Q4P6efYixOsSn693o
- +TP4xDWDHqk9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] drm/gpusvm: free the whole IOVA reservation on
- unmap
-To: "Honglei Huang" <honghuan@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701062800.409248-2-honghuan@amd.com>
-References: <20260701062800.409248-1-honghuan@amd.com>
- <20260701062800.409248-2-honghuan@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 06:44:35 +0000
-Message-Id: <20260701064436.70C1A1F000E9@smtp.kernel.org>
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9F110EDC6
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 06:44:47 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-8478cc93299so148813b3a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 23:44:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782888287; x=1783493087; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Zr+rNtK43qtc1F/vQgzrjcPmk3IPAkJ24rsdBVmNakY=;
+ b=pKiG/dnnGqRUICEeNJTFcqaASqL0U2SkEs+l0lwPZTmSaRxgaNB3rRTjZP5kDD+jHS
+ 5rscxEnERuhSJODg0Px7vukvppbXCEVorMQdIgm6aQNyboE3quEoyfBf+z1VvlHe82fm
+ rCGxAyvrl8HsvJ3r+tWa9BV9HWwQMJTd/qmuOcszXWHWQsnxuefyoRC5vppuT099K+mi
+ 9Mro0gBNsa+vPdXXjzu6J7mAYOtc9wv/NNHntYEBZ5YZsN3LJqSC3Y7cdGmx1n3/lbpL
+ h3cnFwRpPRefdH/wPKrvduWSEC7j/U4nABSi1aAF514izoPA2+/Nnt+lhglDI/bvKk2P
+ tQUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782888287; x=1783493087;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Zr+rNtK43qtc1F/vQgzrjcPmk3IPAkJ24rsdBVmNakY=;
+ b=XEfTZwfbPztbu1gm5+SMYt2L/pljLY3mVeBsm1y/TSROmrpvH7dKzzav3rOC2Om5Tv
+ Z8OOFLICZ/64dRcHKTIiVGBxnbPzqW2/EDfHLP+eVb4hOlum5emEPARAWOTncGRd2djZ
+ 9EuhwwCYfERrTWm70NScAvuukyhDKHVPUYowSvGq8x2Eol7eeDWhtR3rOdLEffmmVz40
+ oigHo4uly91jzS70upX7O2seQ5yEj18RgN2UAxwtTGrbzRCKLW7ZW8PIaZ0qzrQ+1gQn
+ kZ4dpxAtHnOhfofVHlEqEXE2voUx1gbjirnbddkdkPE+j7cQ8krOqKHEz4oTPLDc8AoC
+ g0lg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq8oWVYMyi0nwVAY0JwjN1P5lAICcCwsR1q5FNQ6y1/BDYyXq/FyLgcllXAGwWG8EbelfBQxT5UAyc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLJIXKuaVLsN0hPBpMehisS7IU9dJoRBnpczy0DujLpYT8SYnR
+ pw3F1sf6Hm7c+/ColVs1qIPtdUwymc+kBfTwjcmR4leYVu+zRey/rERn
+X-Gm-Gg: AfdE7clwMhEXV0p9yD7hkLMV7rRhSMyxflVrjt/Gz/RSm9aIZ88QjEbXecBzg73fs2R
+ k3lhmc3oqG2NOeXpERoU5H/umEfEGdigHXKw446BhuCXRmVd9Gmt2mKc/luIbMol+X/snaYyVnk
+ HEvyl6Q+b0LeDmvb6vdFYwh3Y1ZonhfOfvhScTdylrd3COzfxylN60Fm8oaOoCISM+ELMyEH/1x
+ f5TuEZRK0XXXuEqqnqzES8bgwNs8qHuGgFdNkRsGc3l3VnCjj+FYCBtNuHx0zQBjeLVkiV1/1eW
+ 7MjHFQf4RJZaPs0WOf9G+wM6DZ46yah+UONUOz4H1lih/LN95Ns6We5Cxwd/tXGEka8ICIfWZc5
+ CnIlxMreR+EJRS16tSkGFFtuRwiqfcmRVEq1sZiSr0NE6HJAfnPVU/uH7ad6AzWfctP8pv9yb/K
+ euAPiNqWm6NPqydyEECHc75Sr6oso+7rbZUFDNDVz8uy5ygaxd
+X-Received: by 2002:a05:6a00:1302:b0:847:9565:7a58 with SMTP id
+ d2e1a72fcca58-847c0948eb1mr253384b3a.48.1782888286685; 
+ Tue, 30 Jun 2026 23:44:46 -0700 (PDT)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-847a033a7aesm3381170b3a.46.2026.06.30.23.44.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2026 23:44:46 -0700 (PDT)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
+Cc: Kaixuan Li <kaixuan.li@ntu.edu.sg>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: tc358767: clamp the reported AUX read size to the
+ request
+Date: Wed,  1 Jul 2026 14:44:40 +0800
+Message-Id: <20260701064440.1541418-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,102 +88,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+tc_aux_transfer() clamps an AUX read to the payload limit:
 
-Pre-existing issues:
-- [High] The `dma_iova_destroy()` API violates its contract by failing to f=
-ree the entire IOVA reservation, causing leaks across multiple subsystems.
---
+	size_t size = min_t(size_t, DP_AUX_MAX_PAYLOAD_BYTES - 1, msg->size);
 
-commit 2502141c3a5e40996ab0b0ebb511ee9346f04740
-Author: Honglei Huang <honghuan@amd.com>
-Subject: drm/gpusvm: free the whole IOVA reservation on unmap
+After the transfer it replaces size with the byte count the controller
+reports in AUX_BYTES:
 
-This commit fixes an IOVA space leak in drm_gpusvm by replacing a call
-to dma_iova_destroy() with dma_iova_unlink() and dma_iova_free(). The
-issue occurred because dma_iova_destroy() only freed the linked portion
-of the reservation.
+	if (size)
+		size = FIELD_GET(AUX_BYTES, auxstatus);
 
-Cc: stable@vger.kernel.org
+AUX_BYTES is GENMASK(15, 8), so it can be up to 255. Nothing clamps it
+back to the request. tc_aux_read_data() reads that many bytes into the
+16-byte auxrdata stack buffer, then copies them into the caller buffer. A
+reported count of 255 makes the read run to 256 bytes and overruns both.
 
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 958cb605aedd5..3145d55cd860b 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -1146,10 +1146,19 @@ static void __drm_gpusvm_unmap_pages(struct drm_g=
-pusvm *gpusvm,
->  		};
->  		bool use_iova =3D dma_use_iova(&svm_pages->state);
-> =20
-> -		if (use_iova)
-> -			dma_iova_destroy(dev, &svm_pages->state,
-> -					 svm_pages->state_offset,
-> -					 svm_pages->dma_addr[0].dir, 0);
+The controller should never report more than it was asked to transfer, so
+this is defense in depth rather than a live hole. The reported count is
+only lightly trusted, and the check is cheap. Clamp it back to the request,
+the same way ti-sn65dsi86 does in commit aca58eac52b8 ("drm/bridge:
+ti-sn65dsi86: Never store more than msg->size bytes in AUX xfer").
 
-[Severity: High]
-This is a pre-existing issue, but does dma_iova_destroy() violate its contr=
-act
-across the kernel by failing to free the entire IOVA reservation?
+Fixes: 12dfe7c4d9c5 ("drm/bridge: tc358767: Use reported AUX transfer size")
+Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+---
+ drivers/gpu/drm/bridge/tc358767.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-While this patch correctly works around the leak in drm_gpusvm by using
-dma_iova_unlink() and dma_iova_free(), the underlying dma_iova_destroy()
-implementation still appears to use mapped_len to determine how much to fre=
-e:
+diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
+index 4097fef4b8..26ba5a6c1b 100644
+--- a/drivers/gpu/drm/bridge/tc358767.c
++++ b/drivers/gpu/drm/bridge/tc358767.c
+@@ -527,7 +527,7 @@ static ssize_t tc_aux_transfer(struct drm_dp_aux *aux,
+ 	 * address-only transfer
+ 	 */
+ 	if (size)
+-		size = FIELD_GET(AUX_BYTES, auxstatus);
++		size = min_t(size_t, size, FIELD_GET(AUX_BYTES, auxstatus));
+ 	msg->reply = FIELD_GET(AUX_STATUS, auxstatus);
+ 
+ 	switch (request) {
+-- 
+2.34.1
 
-drivers/iommu/dma-iommu.c:dma_iova_destroy() {
-    ...
-    __iommu_dma_iova_unlink(dev, state, 0, mapped_len, dir, attrs, true);
-    ...
-}
-
-If mapped_len is smaller than state->__size, the rest of the IOVA space is
-leaked, eventually exhausting the IOVA space and causing DMA mapping failur=
-es.
-This appears to affect other subsystems as well. For example, if pages are
-skipped during migration:
-
-drivers/gpu/drm/drm_pagemap.c:drm_pagemap_migrate_unmap_pages() {
-    ...
-    dma_iova_destroy(dev, &state->dma_state, state->offset, dir, 0);
-    ...
-}
-
-It also seems reachable in error paths where a mapping fails halfway:
-
-drivers/dma-buf/dma-buf-mapping.c:dma_buf_phys_vec_to_sgt() {
-    ...
-    dma_iova_destroy(attach->dev, dma->state, mapped_len, dir, DMA_ATTR_MMI=
-O);
-    ...
-}
-
-Would it be better to fix dma_iova_destroy() centrally so it always frees t=
-he
-entire IOVA space regardless of the mapped_len parameter, rather than
-open-coding the fix here?
-
-> +		/*
-> +		 * IOVA is reserved for the whole range but only the linked
-> +		 * system pages (state_offset bytes) need unlinking; free the
-> +		 * entire reservation to avoid leaking the device-page part.
-> +		 * On the error path state_offset is 0, so just free it.
-> +		 */
-> +		if (use_iova) {
-> +			if (svm_pages->state_offset)
-> +				dma_iova_unlink(dev, &svm_pages->state, 0,
-> +						svm_pages->state_offset,
-> +						svm_pages->dma_addr[0].dir, 0);
-> +			dma_iova_free(dev, &svm_pages->state);
-> +		}
-> =20
->  		for (i =3D 0, j =3D 0; i < npages; j++) {
->  			struct drm_pagemap_addr *addr =3D &svm_pages->dma_addr[j];
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701062800.4092=
-48-1-honghuan@amd.com?part=3D1
