@@ -4,91 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C154C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B209DC43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63F3210E36A;
-	Wed,  1 Jul 2026 10:20:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA3010EEA6;
+	Wed,  1 Jul 2026 10:20:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cuGMmNGU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R/YYM08L";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8217210E36A;
- Wed,  1 Jul 2026 10:20:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 69CE6601DE;
- Wed,  1 Jul 2026 10:20:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7771F000E9;
- Wed,  1 Jul 2026 10:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782901223;
- bh=D5+bWR29OngXVj5rwG1+zYSN1WwMk4/7ECM6WfNh2uI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=cuGMmNGU7E65Dg68eYFJaoaIWAAXeqkJUg8FZQJgjFh+i1j9q01MpEqRw5mq7z2rO
- rkXRZR9NGSQ9sII7fZOwfSIwzleA8JRMW111/zeCE0qmHsxiY/HLQ0Dm8xGge55Nbo
- /rPxBfTmGORtHvvZPyK97uPKTZnGWvFXgU7p2RkSdlG4PEyzwi19N3lXnrYxEkZX5b
- zl9UvB9/CJ8gR1giihtd/aBTGzdpN/Ulj4oApN/i9Aqbvc2Mp6sFjuGNqa0yzOHDgG
- nR1WDpWllVqYqSGN3pkdhjkgYYrs6JaUJqiQNQpkXzrrwNWf/Am7VMbc8hwnba0Luf
- /Q1TqhzeWdoGA==
-Date: Wed, 1 Jul 2026 11:20:01 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 12/30] mm/vma: clean up anon_vma_compatible()
-Message-ID: <akTpyNqkh6W1SmhI@lucifer>
-References: <cover.1782735110.git.ljs@kernel.org>
- <5a7a07bd2a774989849b0fea84f758059ed914df.1782735110.git.ljs@kernel.org>
- <akPwbHbGiF1FxL6m@pedro-suse.lan>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCA0F10EE84;
+ Wed,  1 Jul 2026 10:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782901241; x=1814437241;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ysQL7mBz3LPaVkWQolNqpTwwqRcyqrOiwcOJRHMF1UI=;
+ b=R/YYM08LyqNURiPvYzu+EcGDyOsmHbFN3zKse1Cm5Qv6kemiCHyLw3KS
+ eskMwwxUZsncNVs9lnujtoPCI88ONtVmqyETp4HsxLGJYlGS63lk9tNhM
+ NZLS8e3pXAFtYn/HnPNFsaV7j0s/2VvpXETGoPgYGfm+75qYOr3X48ZDE
+ dj1tTuvAEhKtHA3KnnUkxm0+BrxBB/DmE5SCjQYa3U9HMbbpf62cc2vom
+ Od8f1YCG31RDWEiZiJ5Tp5R0zN4u4tgjmFbvx3ebQruc1s0mKgPsYiOWz
+ uHCr2A+M1CcPpo4L5Fij+o8KCTxi1VMh32dc14yZX+ausQxiil0M0AJEz w==;
+X-CSE-ConnectionGUID: glTXLrqFQ3eEhRd4ZmUdlA==
+X-CSE-MsgGUID: VVnG9XZuSieql9H4dOZHnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="83717289"
+X-IronPort-AV: E=Sophos;i="6.24,141,1774335600"; d="scan'208";a="83717289"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 03:20:40 -0700
+X-CSE-ConnectionGUID: 7rCA9o7tQoCgloOu2RwZjQ==
+X-CSE-MsgGUID: pR596+y3QLCy2CKtRF/TUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,141,1774335600"; d="scan'208";a="282602323"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO [10.245.244.86])
+ ([10.245.244.86])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 03:20:40 -0700
+Message-ID: <60d5a5c7-e6a0-4d99-ba73-485a42121e73@intel.com>
+Date: Wed, 1 Jul 2026 11:20:37 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akPwbHbGiF1FxL6m@pedro-suse.lan>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/xe: Avoid using stolen memory for DPT.
+To: Maarten Lankhorst <dev@lankhorst.se>, intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+References: <20260630135523.1775379-1-dev@lankhorst.se>
+ <20260630135523.1775379-2-dev@lankhorst.se>
+ <55a8612b-65af-4e15-ae5d-a27a55064f84@intel.com>
+ <6e41bc45-82a2-4cd3-a666-ade919acd26b@lankhorst.se>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <6e41bc45-82a2-4cd3-a666-ade919acd26b@lankhorst.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,59 +73,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 30, 2026 at 05:36:18PM +0100, Pedro Falcato wrote:
-> On Mon, Jun 29, 2026 at 01:23:23PM +0100, Lorenzo Stoakes wrote:
-> > Break up the existing very large conditional, add comments and use
-> > vma_[start/end]_pgoff() to make clearer what we're doing here.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> > ---
-> >  mm/vma.c | 21 ++++++++++++++++-----
-> >  1 file changed, 16 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index b60375c6c5c3..6296acecf3b7 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -1967,14 +1967,25 @@ static int anon_vma_compatible(struct vm_area_struct *a, struct vm_area_struct *
-> >  {
-> >  	vma_flags_t diff = vma_flags_diff_pair(&a->flags, &b->flags);
-> >
-> > +	/* Ignore flags that mprotect() can change. */
-> >  	vma_flags_clear_mask(&diff, VMA_ACCESS_FLAGS);
-> > +	/* Ignore flags that do not impact merging. */
-> >  	vma_flags_clear_mask(&diff, VMA_IGNORE_MERGE_FLAGS);
-> >
-> > -	return a->vm_end == b->vm_start &&
-> > -		mpol_equal(vma_policy(a), vma_policy(b)) &&
-> > -		a->vm_file == b->vm_file &&
-> > -		vma_flags_empty(&diff) &&
-> > -		b->vm_pgoff == a->vm_pgoff + ((b->vm_start - a->vm_start) >> PAGE_SHIFT);
-> > +	/* Must be adjacent. */
-> > +	if (a->vm_end != b->vm_start)
-> > +		return false;
-> > +	/* Must have matching policy. */
-> > +	if (!mpol_equal(vma_policy(a), vma_policy(b)))
-> > +		return false;
-> > +	/* Must both be anon or map the same file (MAP_PRIVATE case). */
-> > +	if (a->vm_file != b->vm_file)
-> > +		return false;
-> > +	/* Flags must be equivalent modulo mprotect(). */
-> > +	if (!vma_flags_empty(&diff))
-> > +		return false;
-> > +	/* Page offset must align. */
-> > +	return vma_end_pgoff(a) == vma_start_pgoff(b);
->
-> Very nice.
->
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+On 01/07/2026 11:14, Maarten Lankhorst wrote:
+> Hello,
+> 
+> On 6/30/26 16:10, Matthew Auld wrote:
+>> On 30/06/2026 14:55, Maarten Lankhorst wrote:
+>>> On systems with media GT, extra latency is added when accessing stolen
+>>> memory when the GT is in MC6. Since we additionally aren't counting how
+>>> much memory is used for stolen and we could in theory fill up the
+>>> entire stolen area with DPT's, avoid using stolen and only use the
+>>> default memory region.
+>>>
+>>> Additionally, this may also result in random system hangs under load.
+>>>
+>>> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+>>> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+>>
+>> Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
+>> Cc: <stable@vger.kernel.org> # v6.12+
+>>
+>> ?
+>>
+>>> ---
+>>>    drivers/gpu/drm/xe/display/xe_fb_pin.c | 33 +++++++-------------------
+>>>    1 file changed, 8 insertions(+), 25 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>>> index 5f4a0cd8deca0..73469ea5f333d 100644
+>>> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>>> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>>> @@ -164,31 +164,14 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
+>>>            dpt_size = ALIGN(intel_rotation_info_size(&view->rotated) * 8,
+>>>                     XE_PAGE_SIZE);
+>>>    -    if (IS_DGFX(xe))
+>>> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>>> -                           dpt_size, ~0ull,
+>>> -                           ttm_bo_type_kernel,
+>>> -                           XE_BO_FLAG_VRAM0 |
+>>> -                           XE_BO_FLAG_GGTT |
+>>> -                           XE_BO_FLAG_PAGETABLE,
+>>> -                           pin_params->alignment, false);
+>>> -    else
+>>> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>>> -                           dpt_size,  ~0ull,
+>>> -                           ttm_bo_type_kernel,
+>>> -                           XE_BO_FLAG_STOLEN |
+>>> -                           XE_BO_FLAG_GGTT |
+>>> -                           XE_BO_FLAG_PAGETABLE,
+>>> -                           pin_params->alignment, false);
+>>> -    if (IS_ERR(dpt))
+>>> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>>> -                           dpt_size,  ~0ull,
+>>> -                           ttm_bo_type_kernel,
+>>> -                           XE_BO_FLAG_SYSTEM |
+>>> -                           XE_BO_FLAG_GGTT |
+>>> -                           XE_BO_FLAG_PAGETABLE |
+>>> -                           XE_BO_FLAG_FORCE_WC,
+>>> -                           pin_params->alignment, false);
+>>
+>> Technically this changes the behaviour for dgpu, where it looks like it will fall back to system memory? Surprised that would even work though, and not get a bunch of pipe errors? I would assume VRAM is a requirement.
+> 
+> I just tried it out to answer the question, turns out this fails spectacularly!
+> It gives a pipe fault error on every vblank on my bmg.
 
-Thanks :)
+hah, thanks for confirming.
 
->
-> --
-> Pedro
+> 
+> It probably never worked, but as long as we never fall back it never was an issue.
+> The new behavior is correct, I'll update the wording of the commit message for this.
 
-Cheers, Lorenzo
+Maybe also change the commit title to "fix DPT path" or similar, or just 
+split that out. Might need a different fixes tag. Or I guess so long as 
+this lands in 6.12+, we should be good.
+
+> 
+>> Either keeping the same behaviour, or updating the commit to mention this change, or splitting that out (maybe needs a separate fixes?),
+>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+>>
+> Can I extend that to patch 2 and 3 too?
+
+Will look at those now.
+
+> 
+>>> +    dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>>> +                       dpt_size,  ~0ull,
+>>> +                       ttm_bo_type_kernel,
+>>> +                       XE_BO_FLAG_VRAM_IF_DGFX(tile0) |
+>>> +                       XE_BO_FLAG_GGTT |
+>>> +                       XE_BO_FLAG_PAGETABLE |
+>>> +                       XE_BO_FLAG_FORCE_WC,
+>>> +                       pin_params->alignment, false);
+>>>        if (IS_ERR(dpt))
+>>>            return PTR_ERR(dpt);
+>>>    
+>>
+> 
+
