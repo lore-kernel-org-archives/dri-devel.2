@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85724C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:30:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97623C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:30:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6A4E10EEF8;
-	Wed,  1 Jul 2026 11:30:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE27510EF01;
+	Wed,  1 Jul 2026 11:30:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="jmgLopFi";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RQrSVr5q";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010033.outbound.protection.outlook.com
- [40.93.198.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 814AB10EEF8
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:30:04 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010071.outbound.protection.outlook.com [52.101.46.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B5D10EF01
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:30:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zi4z08A8A9gkcYLyCaijGKhdlgwGB9PorrYp7GUV+zLuc/n4BC72qjHYSlHnoi99NXb/dCdtVCZRe3mVVxKfDtkRmKGYca95p3M8rl683cRgQVP+FpZ0qe93sDaUYb1HWAO4PuNEJsQYguOBdt/NU+zVQRvnVpSn/n7KLlAcoNYLIYMuykCZ+RuFON9Zu8bNwnpJdZz7GjqpV7hDA1Z3Yb7JQ87Wkz2FBzoRM+sUebpwHqWQWfjGxQidy4MmxbQjwDX9Kwecqdl5qbKkcQk8EyHhzJu7IJ70ZarsWv7pVTzlhMWWj65iaF13RKRJeG74MWoJySg3Dv6tNUw+r+Xf2A==
+ b=rrb6Q4Qn8vs6mMWAgCk/baK9dfte6e1ZhrQ5ujzATs2ANofRrgI+iRhcIt5hdGbdaWyK3Jl1W7RPLn/CQJg6JP7BWbiRS7Auno6NzObGiSf25gZgLpA2LDfFSZazkIfQaXyU2+m5VGy/whIfRq71dIbPe6uyjYY21bJ5bnxCGPyOUQR6TJGoWuRxOTn77EGrzNmLHeiMkSMCa3AXxQuUVVJ5k04I1jFCD8Y8iclLvuM6Pltl6DlfWSnUj9JrI0luY8nczG4BktthcRSOWwSdh4zI7F7WoW1y2BYkhZ54+bMkp48gssPAzxucqc/rHg+b3OS55TSWe4GE73Fy/zwX3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qut/8/buukTgFxBR/0qOsVc3PWZ/ybQK5y36DRU7pm4=;
- b=qyxxzfEnar+MR6vG2//I/jT4ax4bEzwBtbH+v1mfDYjstAFl03pQE+zFmY1e5bZAbLh2zns9Z6AILmluph+BK26YJ3q/4jvi9fSY9E5f1hgs7DaSD3yIKL7fIO1RLKFL+6p392I01vNDTskSlDbH28Ux92pcoNhjK/bVGQ34dr7UUE5+fwYkDAO+QdsK+Ood7w90g/n6otnvtxl/LAanVC8rkEBubNAkJzjbveLWC4zAg8rmbFbIJnfvUUPhBG8xX3Eg5HczikYSrTPaHV8OFZKKSpC2E9wt7SWWagGuBPNTZALaLGiccdpBq/NFRGkddRRa6TOTiYQ0z6AqSazlhw==
+ bh=T5JFsPDCMgc4jskOTnyG5/Qs8wAT2Nqzm/TMwhjUX8Y=;
+ b=hqg6aG/30/1l9bMtCB3Fq7Gw9OayKLcC9DJVtHj87R6JoEptV0zCsFm7QeZ0uw+gt6vOIzKfEVx1OgszwJQ1ZmeyEQ1bnAV0Opv1LLCeS06buHsXLAt+KLZtjz/ufukYGnrUiap1FMrSAlBpqXyvz0/K2an0u2Tbi02D517DWIPxrsrjIBJIRrBipacTULoS4bJVFKq1v8gP+G0ndiopWSUSieY1gk7T1brtlB46/EFnRH5E7YuYmMpRsR0P21OhNOumemrAR+JS+H6DPQzG3wwb2MesK2/1qxKkX99hFkhmnbfQ/lkT7b1pR3qaFyR+rezO3UhPIB1Ph6XSyzE3yA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qut/8/buukTgFxBR/0qOsVc3PWZ/ybQK5y36DRU7pm4=;
- b=jmgLopFi+GkvbL9LFr+PcW/Dbs0tisAc3tEGgq6azCE6T67CCLcT1FIiAD2EKhhk9jAtUrCdtLgRAYb4soaCmtEg4l78JfY+2n0ig4ztQAtnq0UCjtktOeeP7OYljpO4y4m/p+/FD5Ej36HSC4tigPMfI6Dxq8crndBXW2ecyefjvxWyzninoDdpNh9QyqwltHIbfllCV4DdMhbfNVAbF8NUppxsgoPjhVxFGb/5VsnSkvF+QwNtwg2++dQdekNvAsFadtRoECKR5Hsrvq/I5nKnkz+a6OWJ4QlsPeWdFFs0DERjJpwvttfMk2DPuBu1YQNVdrKLL/tJ9J8WYiAh/g==
+ bh=T5JFsPDCMgc4jskOTnyG5/Qs8wAT2Nqzm/TMwhjUX8Y=;
+ b=RQrSVr5quv1N0xt/+xWUkykqLDj/mRixDRyD63cu3e4QD50whP/o3A+uZj6yxAT3X1kpty6jRNI8kmSQoGEGKMsmAPkfXhNwY/S8PDz6X048fMQWJSwFIdOhdrZButxutSZe2svPFmFaCAtTB/9nl9qx2tvJ3wAfwjveed9L/B96EBzEWxNxiN4wnzA3eqG+Kx28pUtjVOQLFpvUrzicczzSE96OLQlGbAehCzI2KKNapY0ScqWyCCfmOwJVQ10Z0hBgPAMtMe3mBdm8JOuh4AE7GHVh6/74KC+t3qG2gqNAhzw6TZj+xr1d01EKHjkxeBcYJpfO7sYzxRL6LF+K2w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
  by MW4PR12MB6997.namprd12.prod.outlook.com (2603:10b6:303:20a::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Wed, 1 Jul
- 2026 11:30:00 +0000
+ 2026 11:30:07 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
- 11:30:00 +0000
+ 11:30:07 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 01 Jul 2026 20:29:56 +0900
-Message-Id: <DJN77RU2Y70X.2H74VN10ZPXKO@nvidia.com>
-Subject: Re: [PATCH v5 02/19] rust: drm: rename Uninit DeviceContext to Normal
+Date: Wed, 01 Jul 2026 20:30:03 +0900
+Message-Id: <DJN77VD45F7T.2UKN9BKJCOMUU@nvidia.com>
 From: "Alexandre Courbot" <acourbot@nvidia.com>
 To: "Danilo Krummrich" <dakr@kernel.org>
 Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
@@ -57,77 +55,79 @@ Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
  <lyude@redhat.com>, <driver-core@lists.linux.dev>,
  <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
  <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v5 03/19] rust: faux: add Device type with AsBusDevice
+ support
 Content-Transfer-Encoding: quoted-printable
 References: <20260628145406.2107056-1-dakr@kernel.org>
- <20260628145406.2107056-3-dakr@kernel.org>
-In-Reply-To: <20260628145406.2107056-3-dakr@kernel.org>
-X-ClientProxiedBy: OS7PR01CA0052.jpnprd01.prod.outlook.com
- (2603:1096:604:254::7) To CH2PR12MB3990.namprd12.prod.outlook.com
+ <20260628145406.2107056-4-dakr@kernel.org>
+In-Reply-To: <20260628145406.2107056-4-dakr@kernel.org>
+X-ClientProxiedBy: OS7PR01CA0097.jpnprd01.prod.outlook.com
+ (2603:1096:604:256::7) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MW4PR12MB6997:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7f0e96a-4502-4295-5c71-08ded764163d
+X-MS-Office365-Filtering-Correlation-Id: d88968f5-ca2c-4153-16e7-08ded7641a4f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|10070799003|23010399003|366016|1800799024|7416014|376014|18002099003|22082099003|4143699003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: zaD9sc+O5ReOqL3bhlmutepxOXuOe+KKH6sMg456nr9U1xWHdnegwcNSACFJKdz3rU8qvReI0/hoU2ObhKPRDlSOGAwTcpHQv6YJKzr8J8dGgZ6Mn8+UkSvb4QSsHKm1+wJObX9DhMKrkcAugM+Oz7oM4QumHYIE3FIGcgcaQmcHXeyPV4EyFDO7optKb0/0VXV+2nnhW8zqDThuPwrx+pDxO2RK8RRb5QMYt6ncXTpWWENbYaFQZYzphQ5jof9eHeJ+T3H0v19MiFNF1+yZexUwomL4QUQg67ZFPeyT+PLBOtSEL9qwCyRcVMJxF/zykyJod5t6hA6Vmg3m1GL26EjNLCBm6WqGMN96jJUxdu09U5uVFv/c+5aozaHyKM0Si4AGrGjHocCDk/Dh+qtbe1SSgnnvCSMx9FN7MnRB3ZjLPwaz9W++2oGITpL/c/0GaK9xYsImRfivus0WLgeBVmdDmUOWw7uh3MPKhwq/fPG3rFNPuI1YNj0UhavPSCgwdMS/iApXL+8i5HI64EkFR7bmSmZJI552dUnxsf32I5frHU98v5TWflydtOwYkfOAvMBK6OekkiXTOXPPfseIE1Ip3yMB1xUiZMV/6E8R/xN9D3yaMjrtMqD97ZfvuFyKsMt5yD/TOHnirg0dd/x0P8CEpiQbagaxm9ImxbBe9VE=
+X-Microsoft-Antispam-Message-Info: 8v+mQKXeMj/pJc0jcrzQrqxmTUkBmjO1H9+nKGUmLS+QCCCfz16q5FJ0Kf0q22KNXGsxt9Q84LRoS9HUzsgxqQ5weddtZ4dzVsQpC/93RjOm+G3uBqUaozGhUbo5ozfW9bw/TLepdYOzWwiHfJKFClMVzXCePsNE3ogcv4tKIRi9yg94EKyg/6T6h0K4VmJtnRJxCrVtVZarS8Rl5MRMgCXmDmvarYPjQFh712OLlN82BlElml2GCI73eAIsq5G7aJWJGyPcj0tNIqSKvb9CFmX2KB03QsMKBGb6Fya0D8vY3zGsIis/14/qcbqHT537Sh2H5huWigf2mypFO+HXtm/CLzRmk7CDUBlqEXxlmJA3j9BbHvFhedUdnJxEVj5NtfEc2kX+XY5SQ3HOlywhEB1XK0J2+kIfHv2pKarg2g5xv4hIiu9FRIZ2HeA5JRFZT6XbJqP+S5gJMvlpmAksnQYz1pIpurY/ekDlq5gXKZEnSX3v2OskOX5DawJUhAdNzeP5g+uUKYTV5w9vlmAm4jnC1WuhUdXT1gn+mh0LD+EQTnXTFUaH02YhcrTM1BzkDXgQqARfrpDrntOCvnF+xz73CLHAkORTo4fW60MVeRGJ3GoF/IgOky2RR0EMYeWQltxsNDDTVWA360ZsHFI21MNh7l2dCesix9jDXkzunrY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(10070799003)(23010399003)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N042alNUQ01JMTUyNmlBNVZYSU9iZXpUcVFHcjhQcHdabll4RE9kMGVvc1RC?=
- =?utf-8?B?YklrblBNVStiVUZwbXhnWGtlcUQ4T3loaUlyU29Nd3NkZjFWM1MwR3o0RjZw?=
- =?utf-8?B?SGZJdmIxU3YyaXpVdVRlZ3JwemNwVkZKTURQdlZHYjdyTDJocDdrdWRuazhx?=
- =?utf-8?B?VXg0ZDJFYlBISlc4ZDkybkxRTVlIejZNellCbndVSW5jUnU3Zk9RNm42UUtr?=
- =?utf-8?B?ZytyUzE2SUh5Y0JaYmNNNWw4ZjEreThPa0poQ0FFRThKYjUrWXh5L3NCTSsx?=
- =?utf-8?B?OEVOUEExZVZVTTZqdVFPWmt0ZTlnZEx1QVBzWE1aRjV4aXVObmlUcnpVbW1S?=
- =?utf-8?B?QU9DMVZCeHRUcEIxZU9jUHo3RHVQeDhBTlI4OWNMRWFaQkdjYlBTbjVHejll?=
- =?utf-8?B?emRrUkxCSE9SeVkrNmNId3Fleno4KzkrK0Ftam9Oem9wZHc1a3FJbXN6aXFv?=
- =?utf-8?B?MWxTM2s0YkF0UTNveEptUVdJdWxmL2NBOU9rMDd2amdoeFhLK1BUelRza0tP?=
- =?utf-8?B?YUF3amNUNFJ6OGE4NUViWkhVNUJFTGYrL3QxWU16SFRnU3JEMUVJYkIrWmc5?=
- =?utf-8?B?cWtSaGN5QW5kOXBDZ1VZL1BDcGZESVBjNm5DMlVqRWVyQjU5UVB1djdPMnor?=
- =?utf-8?B?ZURaVHlTR01YdEhHa0w0OEl4QjdFWFpvNGJQL0RHb3dWYlk1TEFTTWJOQkRU?=
- =?utf-8?B?MkhvSnRUWlhvY3dHdXN2a3U5eWtFb0VXUW1XRHZnOGJVdDRLZVZVL1RCN0Nh?=
- =?utf-8?B?czk1TEp1SUd5OGlwVG5SR3J2Z1J1SURhTHVTdlN2ZEJBT2FVVEJISnJSQXdy?=
- =?utf-8?B?cEdKYUp5ekpHVEE3anZkQllGbXVpM2ZIaHZxa1VxRVVBNFhYZ0hZQ0xnVDlj?=
- =?utf-8?B?djlsVUVSK3RoMTRWTEtQM3FsMzlVN1RyOXFPL0lwa2kwWStvVXdDMGpkSlM1?=
- =?utf-8?B?T1ZKVnYrNkUzMjZyditITVo1ZXpZSXZwTXZBYnplNlpEYWJNTUZ2VzRpMHUv?=
- =?utf-8?B?ZHJLdkw2cE5Vdk9WUXRsd2JzekttNi9NcmtYOUR5cXZNOWtvY3FqZUpkaGh4?=
- =?utf-8?B?Sk10dXF6bERxT3JtUlZDZVhQc2xvYStmbjFlYU1hbHJ6U3N4d0NKRlhqWGZo?=
- =?utf-8?B?WFVKU1VQYWVYcDJGYlMxb3o3ZnhOMEY5YzBjL1hJdERYWEF1MEFhR2JwVm9k?=
- =?utf-8?B?anRxckRXRTJMNFlaSnlNaEZ4bExpcUpWelhWREhIdVhueDg1ZGdXZ2lxYWpn?=
- =?utf-8?B?Z0pIcHlJL25BNUhEaXRyd3UxNmkwQXVpOHloNHp2c2J0dkpZMk1mcThuWW1m?=
- =?utf-8?B?aU1JRWVGZkNNRWlwSUJnaGpSTU5HMW1rNDR5UlRRcjYybjE2K3o0elpXcXRV?=
- =?utf-8?B?WXkzc0l1bThlZS84eHFhNFhubGUxb1FPVzgwSld1QVdIUm9teGZVQXNHMWpj?=
- =?utf-8?B?ZFVrbmoxSm9Lakp3TmI4N0JvTnhLWTByQ1VtRllVVGpySGN0QUpRWmkzTXVi?=
- =?utf-8?B?MitpRmViNEZQUlpHN3N3K3RCV040ZEJOTlFlMmRpbWw3ZjNCQmszbGxTU1VK?=
- =?utf-8?B?bnZRQnRvRmlIMFdVTWVCWXJDeEdPYmlZZFl0TU01M3UzbnRvZEo2dFBKbnRM?=
- =?utf-8?B?RGFTM01tQWhLUDc5WEl3U0ppVHl1VElub0YvRTFoL2VIVEo0d0FIQ1dpQlJy?=
- =?utf-8?B?Y0hMNUYzdXNRQllaUDhqVkFMQWsrTW45VGQ5N1d4djZMV2o4NjdDSFNBclpz?=
- =?utf-8?B?SENUdnRIQkpjVVlyRnRaZnNsemFZK2g5T1VITUlpM1lDSHh2SjQwdHBIYXd2?=
- =?utf-8?B?emIwVysyZkpPTHlUZ0EwSkxvd2pBTnNLTEo3SmVGaW1zM0ZFWlprOGsvME1z?=
- =?utf-8?B?NjUwdDBhQ1lZQlR4cTZkcGpWOE9HSU9tYWt2bkxyTG5QUG12dHFXWElMYVZs?=
- =?utf-8?B?L3JiUWJiY01xeXZiMVFRNVBCMXM3cEZhUTVrUWU2NFBhMXhKMGFIMWJld29R?=
- =?utf-8?B?bmYxcHR3bVA5cGdXSmQ1ek9QbitjaVhZa2Q2eGZCYVFmZ2JxN1R1VkdYVWc4?=
- =?utf-8?B?SVhEaG5kWkl3VnpSakxKWGE0dG9lcCthVjFaYUlxaUkzS0owMW9HWUxEYXUv?=
- =?utf-8?B?dzNEeXBQWXh5eWVkL1hTaVR1TzBrOEtvcEpmSVR5TjBrcmhpRVNFd3VPdjRY?=
- =?utf-8?B?RHZHcUxYdm5DQVZzdmFlZ3NxQ1pvemZoMEh4S1hWTThCaE5qVklEYWJUbDlN?=
- =?utf-8?B?UzhjekhqT1BNN00ydnJFaHVoc01kTlA2cmtwVjNGeFNHRDhVcXRjU3k3bTRX?=
- =?utf-8?B?QXpMQ3RIQ2xmY2YyL3pnZm15R0JCSTljWHFRSG14K0o1NTBFdmFoWjUwQkpq?=
- =?utf-8?Q?18qGcYIdSMmGwQSn0Z+vvvWYioSFjt4St1DNAu2Ux/aKI?=
-X-MS-Exchange-AntiSpam-MessageData-1: cq6dSUvpU3Bb6A==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STJ4SWYyajJKRk9YemhuRUJHanZTMVBkRUVXektqZkwzSkpiWTY5V0pJYzFv?=
+ =?utf-8?B?UE01TWh5cUQvQ2h1NXhNVXRLSjlkTXFYVGNSdnhkcTZXVXlaMSs4ZVVzd2RL?=
+ =?utf-8?B?UUdVMFhETFZKQm9uMHpDNlZFTFVJdGxVWlRLc0RBSUNuQzErZnQvYzZudU5C?=
+ =?utf-8?B?aEloNzdQbldnQzc0MHNBclNYRDdBSnUrZVJ5c3RVTHFCc1pLaVNoWm93aUZ1?=
+ =?utf-8?B?RDA2cTZGS3JMZDdZbG1PMUJYeE5EVjdrS21oMmdQUXpFVlNTd0pYM3R4RzNG?=
+ =?utf-8?B?VTUvd2ZnbkhNNFkzSVNVMmtITXJJTDRiMUFGcU5pdGNIZnRkY0NNRExuNVRD?=
+ =?utf-8?B?Y0ZSZThSYnhybTVKMWdkUWQ2c2F5YkIzVFZvTGRDZ3ZZK1RvNk9mSDlzVUlW?=
+ =?utf-8?B?VEp4bHVWalJ6UWRpdUt5YTFHUEp4UEw2SHEwQ3ZnRENhTFRqYWVleGdaeTZl?=
+ =?utf-8?B?TUw5ajRBVHVOM2FFdk42YW9weXRxZDM4RW5ic00xaktJeTlFTmtyMVlYTkJC?=
+ =?utf-8?B?ZGNRQmVLK0EzcmFEckIxUHFrWlpMYStQMElkN2ZHWXhZd2gwQzJKMk1RT2FF?=
+ =?utf-8?B?Z2ZBbXlvei9iUlBCd2xqZ2ZIOXBqeVlQYi8yOFJpaWxVZU44dEdVbGh6d1hj?=
+ =?utf-8?B?V1Zwdk0zUVFkQnFtSlZSaEsvTmZwTk1xMExMUTh1N2c4bWlLVnNUNUJNa1dF?=
+ =?utf-8?B?dFp1SEJQS0tIT0VHT2pqKythUkxXUTUvVERmRXphWFlGUVVEN2ZENjdCQVM2?=
+ =?utf-8?B?cjFNK2RYNlViN2V6UmpJRHY2UkwvOVpMWjNySXdKUHFJVXdvTEVma090Z2J0?=
+ =?utf-8?B?cWx1bno2ZkFUeGt1VzF2cDhuREFpMlFVRGxaOEN0ZDZaa2tVOWNZaExnWVFQ?=
+ =?utf-8?B?TXJ2dEdLV3FNUTkxTHlvVFJxUG1NenV5UGVQRlRPTTAxRi9idXRja1RhdFRp?=
+ =?utf-8?B?bzZ1Y3RhTWM4ZGNXQnFxcDc2VjZaU3Znam5LTGJKKytWVitjZkFSaDZaZ2F3?=
+ =?utf-8?B?K3JyQWQyOXhkcmlYcFN5NWhWeXdWNEcvSzNqaGM2YzVTRkdNeEU3V1h4bTdG?=
+ =?utf-8?B?N1AwcnlQYmdSS1l3VFhTZVFCbFM5VUFNOURILzlDZlR4NG9FT2pTNFdMU2pC?=
+ =?utf-8?B?NXh0bjhpMDFyaDhNK011Z1RyanRiYWRJY0dZRXFmSWowVFZWb28wVUJSWG5D?=
+ =?utf-8?B?UU5PVWo4TW5kQjVSVytQTWNJci9sRFQ1ejJPRG1pQjlGSm5lb01TbTlmd0Vu?=
+ =?utf-8?B?emlsZkNYM290TlJ5ZXVCREdYQ1VTR1Y3bkgxU25tZGN5VHBaZ01NVkVBMk5J?=
+ =?utf-8?B?RllsbjdPRDIzSTNXQXJNZ200RUY2UGwrSndZVWE5bS8xQXpvdVJxTHVuY2tN?=
+ =?utf-8?B?NTAxOEVFbGJjcVhCTGNlZlNJeXgwUUVSSHkyenNHY3BZTFd4MlJ6MWxGT3Ft?=
+ =?utf-8?B?TXVFaGZTNmRBSGhlWVF5T05LZDdXT0ZtYXRMakkwcUNScXFkeFY3eHkvUDlr?=
+ =?utf-8?B?aTYybnVIUGJOVFBkZklub3U0YXQwbnV0S2dKUjlkR0d6VFZmeEhjZHNZTElJ?=
+ =?utf-8?B?Q3FndkpPdnJQVlhvQnhaQ0tXckRBZysrOUNQRFVnODhOYW4wbi9hbVNRdjBK?=
+ =?utf-8?B?UG9RY1ZHNmg2dEgwVFc4OU5KVWg4ZnUydDNjTHFSQnhIbFg0Mm1GSHJYdGxL?=
+ =?utf-8?B?N1dHQjVDekhvK1hnMVpkQ0JScVd1UzltbzU4SEw0MlhrM3hMSDRhcjZYM0tB?=
+ =?utf-8?B?MTBoVXVqN1BWbjVqRWJLaHhwOVJPbTVvY1grSEhFL2c4YTk5WjJURHE2b09w?=
+ =?utf-8?B?czkrcnRQN296cFdPOWlWbExvVEpqM3RzVjAyYkhkTFZFbTU3Q1RIbXdibXI1?=
+ =?utf-8?B?dnVIS0xQWlpYbFlrUmNaaGpxbDVqMlVzT284NHBYK1BrM3l6Q0xNVmxQaG1X?=
+ =?utf-8?B?WDRueXZuRkxzN0I0dllkMlNOWUgzNnEyYzB3WnZkNEtFOFhJVTVDcXQ2U0RK?=
+ =?utf-8?B?b3hHUmF5TWYveUVpMTdrQ0lOdFAydkljczNQME9Oc2lmUUVTQVFhNnd1TDA4?=
+ =?utf-8?B?NU9RSHFjbFRDLzYxV0s2RjcrZ0lPK0ZaVmRkdDkxUHBDdDNJNU02QWEwWVRu?=
+ =?utf-8?B?OGZod2J5TUI3WnplUkNRR2NWRWJYUVZydlAwMjN0QWU1VlJpOXZoOEJkUTlV?=
+ =?utf-8?B?M1lmWTlud29KcTlCa3lEOW5nazUvSDNwMnR4TGNkZVB4ZlB2TVhJU0ViclFy?=
+ =?utf-8?B?Y1dKWjdPaVc3VVNmOFg1TjRQQk1ieUE2bFkyV21FbnBHS2RSc1VRajB1V2Zk?=
+ =?utf-8?B?eGtINW1Fd1F0UVluN2k1WU9jMEwwQWtuLytxWUJTUEQvQUJhRmMxSG1LWDVx?=
+ =?utf-8?Q?Xzj5q8czWT5x48Kt965641y+BWVJQFPITix8ilLLYmH57?=
+X-MS-Exchange-AntiSpam-MessageData-1: pt0/Hy/AIIB1DQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7f0e96a-4502-4295-5c71-08ded764163d
+X-MS-Exchange-CrossTenant-Network-Message-Id: d88968f5-ca2c-4153-16e7-08ded7641a4f
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 11:30:00.4651 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 11:30:07.3174 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ose+aRNMkSV5MYAC4giJV6X0xdR2140YnFXUUmO7T/lDL+C/rxf9ZJhbH9/B8J9L+63bAGmMC7QAV1ohAa4AFw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0fQH81D8uzOaKtEoSDPu4AH8GReEgl7E+IURV9YQkOzqMTbgbVlZYhwLMYa+ADNliCFiyaODdbHn1Om27x380w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6997
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,21 +145,110 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Sun Jun 28, 2026 at 11:53 PM JST, Danilo Krummrich wrote:
-> Rename the Uninit DeviceContext to Normal to better reflect its purpose
-> as the general-purpose, reference-counted device context. The Uninit
-> name was a leftover from when DRM device private data initialization was
-> planned to split across UnregisteredDevice::new() and
-> Registration::new(); with the subsequent introduction of
-> RegistrationData, this distinction is no longer needed.
+> Add a faux::Device type that wraps struct faux_device and implements
+> AsBusDevice, enabling faux devices to be used as parent devices for
+> subsystems that require a bus device, such as DRM.
 >
-> This also simplifies the DeviceContext documentation, trimming the
-> multi-stage initialization description that no longer applies.
-> Subsequent patches will refine the semantics of the Registered context
-> accordingly.
+> Update Registration to return &faux::Device<Bound> via AsRef.
 >
-> No functional change.
->
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
 > Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
 Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+
+(one small comment below)
+
+> ---
+>  rust/kernel/drm/gem/shmem.rs     | 11 +++--
+>  rust/kernel/faux.rs              | 69 +++++++++++++++++++++++++++-----
+>  samples/rust/rust_driver_faux.rs |  3 +-
+>  3 files changed, 68 insertions(+), 15 deletions(-)
+>
+> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> index 3ee19ef6264e..52de59b14dad 100644
+> --- a/rust/kernel/drm/gem/shmem.rs
+> +++ b/rust/kernel/drm/gem/shmem.rs
+> @@ -692,10 +692,12 @@ impl drm::Driver for KunitDriver {
+>      fn create_drm_dev() -> Result<(faux::Registration, UnregisteredDevic=
+e<KunitDriver>)> {
+>          // Create a faux DRM device so we can test gem object creation.
+>          let data =3D try_pin_init!(KunitData {});
+> -        let dev =3D faux::Registration::new(c"Kunit", None)?;
+> -        let drm =3D UnregisteredDevice::new(dev.as_ref(), data)?;
+> +        let reg =3D faux::Registration::new(c"Kunit", None)?;
+> +        let fdev =3D reg.as_ref();
+> +        let dev =3D fdev.as_ref();
+> +        let drm =3D UnregisteredDevice::new(dev, data)?;
+> =20
+> -        Ok((dev, drm))
+> +        Ok((reg, drm))
+>      }
+> =20
+>      #[test]
+> @@ -755,7 +757,8 @@ fn vmap_io() -> Result {
+>      #[test]
+>      fn fail_sg_table_on_wrong_dev() -> Result {
+>          let (_dev, drm) =3D create_drm_dev()?;
+> -        let wrong_dev =3D faux::Registration::new(c"EvilKunit", None)?;
+> +        let reg =3D faux::Registration::new(c"EvilKunit", None)?;
+> +        let wrong_dev =3D reg.as_ref();
+> =20
+>          let obj =3D Object::<KunitObject, _>::new(&drm, PAGE_SIZE, Objec=
+tConfig::default(), ())?;
+> =20
+> diff --git a/rust/kernel/faux.rs b/rust/kernel/faux.rs
+> index 36c92ae2943c..cd0724af446b 100644
+> --- a/rust/kernel/faux.rs
+> +++ b/rust/kernel/faux.rs
+> @@ -9,15 +9,63 @@
+>  use crate::{
+>      bindings,
+>      device,
+> -    prelude::*, //
+> +    prelude::*,
+> +    types::Opaque, //
+>  };
+> -use core::ptr::{
+> -    addr_of_mut,
+> -    null,
+> -    null_mut,
+> -    NonNull, //
+> +use core::{
+> +    marker::PhantomData,
+> +    ptr::{
+> +        null,
+> +        null_mut,
+> +        NonNull, //
+> +    },
+>  };
+> =20
+> +/// A faux device.
+> +///
+> +/// A faux device is a virtual device backed by the faux bus, primarily =
+used for scenarios where a
+> +/// real hardware device is not available or for testing.
+> +///
+> +/// # Invariants
+> +///
+> +/// The underlying `struct faux_device` is valid and the embedded `struc=
+t device` is initialized.
+> +#[repr(transparent)]
+> +pub struct Device<Ctx: device::DeviceContext =3D device::Normal>(
+> +    Opaque<bindings::faux_device>,
+> +    PhantomData<Ctx>,
+> +);
+> +
+> +impl<Ctx: device::DeviceContext> Device<Ctx> {
+> +    #[inline]
+> +    fn as_raw(&self) -> *mut bindings::faux_device {
+> +        self.0.get()
+> +    }
+> +
+> +    /// # Safety
+> +    ///
+> +    /// `ptr` must be a valid pointer to a `struct faux_device`.
+
+The invariant for `Device` also says: "... and the embedded `struct
+device` is valid". IIUC this requirement should also be mentioned here,
+unless we consider that a valid `struct faux_device` also implies that
+its embedded `struct device` is initialized, in which case that bit can
+be removed from the invariant section of `Device`.
