@@ -4,82 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D19C5C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A60D2C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAEAE10EFE0;
-	Wed,  1 Jul 2026 12:57:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 152EB10F006;
+	Wed,  1 Jul 2026 12:59:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HeiKKlkd";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ZQ3/grps";
 	dkim-atps=neutral
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE6C710EF9D
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:56:32 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-30bf8b2bd20so1150705eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 05:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782910592; x=1783515392; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=mYJA6PpUkT+r3Z/CP3V9ISI0QPawCrDu4twxjtK9E90=;
- b=HeiKKlkdtnGIMTAg8mKr+pjTz6dZMwIabCue6odeCL4S7u0MhsyYt17taQeBig6Pwd
- +0uf2pyMirNicScw1Mc/2JFmlnHnT9dC7QNtWgCLfd6y0USakD7oNLO3Vm0+XX0VOz8R
- tsyY10fgf9ftQbog34c+YlZOnnDAiz76X97YbB4YJ37UKxncDiXwZpTTxi/cdcnUTecC
- cGN2w1tMAGA4nooHUNddyqjAcN9He1Nxpje2ildKNWRZNvthivlSaHWVECNLHvkTyqji
- 5TnjMh3H4rrD5EIvCJp3Qh29VL9nJWa+bO2Cf68oY1S9PFfaTQB91PwZQq5Lk/BCYd6P
- S3zQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16F0A10F006
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:59:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1782910751;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ur8MN4EUxYcSiX5fbETtL9qCHrgMOm/kmA+W0CQuFpI=;
+ b=ZQ3/grpsECYQexc3hXQcNoJAlD2FBoMa53j96SY8oSGTASYj4KntK9ulTEGe1crR8yBpa0
+ 3xgua7hg60XAICths+pVsGcyOZTNs8dMB3WA3qjBjVe9xpXizbR1i2bYfvNZzXMya296pQ
+ l28xSxO/3nSxom+RViF4J0S9hyG1f0Q=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-553-UZwKDvX_PPmWO4YAEmfxuA-1; Wed, 01 Jul 2026 08:59:10 -0400
+X-MC-Unique: UZwKDvX_PPmWO4YAEmfxuA-1
+X-Mimecast-MFC-AGG-ID: UZwKDvX_PPmWO4YAEmfxuA_1782910749
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-473e18559b2so428140f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 05:59:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782910592; x=1783515392;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mYJA6PpUkT+r3Z/CP3V9ISI0QPawCrDu4twxjtK9E90=;
- b=eoqThUiwg4gnqG1D9beP5/muo3AxfMZAZRWCDNWZY4KOEFJyNlCY3V3Ex9ynwlC0Em
- GppluQHT/1crQHDDNg7zNcAoNXJd0TL0PGKOD3M49fD2sT6Bldu6qLHcQwFncEy2pRoU
- DtcqJpm1WBM4vPcjpB/jPfAqdNJaxZh+Wcvoy67iY06t7Z7ZQvbqL02NlQwR8Wl6+nzd
- 0ktK9+ggIUIUUXtPHCT8uCBW5N1A8sYQ8AR62aJy7HzjHiSdWjQmqUoVFe7bP5VAuoA4
- PADx4A7PflDwjnFppq01l+MPi7qQco+5bXiH+z9OWnP/Hv2yFQ6CARoJrUji8JFBUBUJ
- nbTQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr217sCmnWX2C+I1kTEDu/JfGPmjkqqlltQdBsfoWZTFhvg3NqScMMOy3u3PG4dLzESMHtrE4n1jqM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzbK3+CeMm1wzF6C8ElnifYXik3EjF2s9g1CJvojFiNVmt3fj/8
- G2ON6vKMiphn/hOECKrsyWL+T5t5ug06asuswuP8B5sbaL3fOiE+an4=
-X-Gm-Gg: AfdE7clQy0VOONg9GAWMtHwecS6l5JS0nl5qIe+S9vT8QrUyANtuiVydNuADGVG/Quv
- yWzEmbTuQ0/FoBNmhQhKPf9NoXi+rmkkKqAGPYrV6zQTV8i/QqQa30PRka0GgTGZ4CNTEoQtM38
- /PhdivE8RxGUwCtAhqLohhV908zB9LwlErU5hsXU4Y/wyjOE5YOYHFmLxYiXK+0uf6Wbvj1JVvU
- GL8ASiUocW9tuzjUmJeClrn44XefmbxGn7hmGEYLHUFXNzJJW2GB9tcn7X9rZW59HTjArF0D5Kp
- o9EknhMgEDjH1h3+Db8jWzD7FIaYXt1hFqOwBqGus9bPIV2nfee6o1IOMsiCahMhQPI1Zqo+A0Y
- +TvuGNdmh7ExO1EAQoM920b9DjZyqkJVHhfvaYe0ZD7CAb/oU92/r6wFxG3mQQBznwgwLI4I9vG
- Cg+GxIixFH/WJUM1ETSXk/UjKrACKWOmGpDvNWgOa8mKRDphv4pQn7ybzwd6r7Ybg+
-X-Received: by 2002:a05:7300:2307:b0:2ea:3370:6e51 with SMTP id
- 5a478bee46e88-30eff0524cfmr1743055eec.4.1782910592041; 
- Wed, 01 Jul 2026 05:56:32 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
+ d=1e100.net; s=20251104; t=1782910749; x=1783515549;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ur8MN4EUxYcSiX5fbETtL9qCHrgMOm/kmA+W0CQuFpI=;
+ b=m37oOwBiYKBdR+OfRgjBdf6cK85IC7QJuzf71pgH3geRGd5tqLgbc2ByHdnZRHbgmq
+ eBLP10rEPIDd4Q0DbrfiZkNYRvymVIU58jctJphhzHaKG3DIgVgH0mUW/bqyZLdjunDE
+ V5nxy9rYwWXG9NdR5w7bRt0NwUx+qxt2ZGC7RXzxQIbDyQmoQSd725JA4/gwcTuU36kv
+ 1lACf6+tXQM4hM0UubDC9HBruFt+94QGX+xud71ZXAoGMCgiDp4NkUPlU/elYDBHSMMQ
+ JLJyZ6vQD7fHuy3UegSvRdrxBcYuar+fymMSFHJai+4SGyHzgnDw7w0asZZYrjCg4TVd
+ jZcA==
+X-Gm-Message-State: AOJu0YyGfEjy+8YRhnTRf2Oo7HiRaJ5+iiFkpCTCNqBb80JL44sqxBnO
+ A/dKKXuLTX4o0p6zG65yKP7qP/Fj46azZz0QxtzqXH86HlbDXCZAQQ8UfYjjTKsUPRUdhA8oATz
+ 5wZ9xmMkjVvjXhAGE9tNZUefylRFjyAj7fR1zfIAHB+YcBgHgX3ibCXjgyxLSTDzsGHRv6Q==
+X-Gm-Gg: AfdE7cm82XcYoFim1zHd9WMm2s36j9Tf1ikuC9XyJ0HL8VIPuwPiBdap41hbO3NUhqD
+ pvHE0seESGuuHdx2DP6wExlCQ5LZ4Z5PXOoiC8aQEGa1o4s+kDkv7QyPKqGxsi7v4c6gm6E6/ko
+ NowgjCkR7WAnvprxjl/vdAUA1GHAe1NMgVccRdTCa0F59rDPhEYyjvVWYbdlt0FulAoSSJy3Yf6
+ 9x49r1ZizjcGOPahcHxB/S8h8pxX5Ug6iZKg9so3eyAJFCL/szarWrAwlUUlVhF1JrZsDdgRM8M
+ QTE14GMkyFWZlrCvJwjaj9RGukaTZeuh7yItr2UDrFmUriwctymMa6AoGcP/USPy5KBYaS3p+1m
+ dzhPNBZVuY2XZ0W9m6fu8aAfP6dRq45+yRTp6y5HCgEMrsJRfOgbuosMHJcwGUkEb8/UNnA==
+X-Received: by 2002:a05:6000:460e:b0:45e:eaed:afd2 with SMTP id
+ ffacd0b85a97d-477b075db6fmr722961f8f.0.1782910748713; 
+ Wed, 01 Jul 2026 05:59:08 -0700 (PDT)
+X-Received: by 2002:a05:6000:460e:b0:45e:eaed:afd2 with SMTP id
+ ffacd0b85a97d-477b075db6fmr722908f8f.0.1782910748219; 
+ Wed, 01 Jul 2026 05:59:08 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30efaadc5bfsm7411392eec.28.2026.07.01.05.56.28
+ ffacd0b85a97d-4756636cde2sm17027364f8f.20.2026.07.01.05.59.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 05:56:31 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
- Brigham Campbell <me@brighamcampbell.com>,
- David Airlie <airlied@gmail.com>, Douglas Anderson <dianders@chromium.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH] drm/panel: novatek-nt37801: Use mipi_dsi_*_multi() functions
-Date: Wed,  1 Jul 2026 09:56:06 -0300
-Message-ID: <20260701125624.199786-1-nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ Wed, 01 Jul 2026 05:59:07 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, treding@nvidia.com,
+ neil.armstrong@linaro.org, jesszhan0024@gmail.com, dianders@chromium.org,
+ megi@xff.cz, igor@reznichenko.net, mwalle@kernel.org,
+ dario.binacchi@amarulasolutions.com, jagan@edgeble.ai,
+ laurent.pinchart@ideasonboard.com, lujianhua000@gmail.com,
+ agx@sigxcpu.org, kernel@puri.sm, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v4 3/3] drm/panel: Use drm_of_get_panel_orientation()
+In-Reply-To: <20260701121055.192475-4-tzimmermann@suse.de>
+References: <20260701121055.192475-1-tzimmermann@suse.de>
+ <20260701121055.192475-4-tzimmermann@suse.de>
+Date: Wed, 01 Jul 2026 14:59:06 +0200
+Message-ID: <878q7udfxh.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: fX-oFjmDERyhjFkrMsDP3j1tCrgY_1x9ZO-jf7oSJpc_1782910749
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,51 +101,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace mipi_dsi_* functions with their non-deprecated mipi_dsi_*_multi
-counterparts. This change reduces error-checking boilerplate and improves
-readability.
+Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
----
-Note: I Compile-tested this patch since I don't own the panel to test it.
+> From: Thierry Reding <treding@nvidia.com>
+>
+> The old of_drm_get_panel_orientation() function was replaced by the
+> drm_of_get_panel_orientation() in the core DRM OF helpers. Replace all
+> uses of the old helper and remove it.
+>
+> Changes in v4:
+> - also convert anbernic, chipone and ili9488 panels
+> Changes in v2:
+> - include drm_of.h in all drivers to make sure the new symbol is defined
+>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
 
- drivers/gpu/drm/panel/panel-novatek-nt37801.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-index d6a37d7e0cc6..daa356bbc182 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
-@@ -128,7 +128,8 @@ static int novatek_nt37801_off(struct novatek_nt37801 *ctx)
- static int novatek_nt37801_prepare(struct drm_panel *panel)
- {
- 	struct novatek_nt37801 *ctx = to_novatek_nt37801(panel);
--	struct device *dev = &ctx->dsi->dev;
-+	struct mipi_dsi_device *dsi = ctx->dsi;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
- 	struct drm_dsc_picture_parameter_set pps;
- 	int ret;
+-- 
+Best regards,
 
-@@ -145,15 +146,10 @@ static int novatek_nt37801_prepare(struct drm_panel *panel)
-
- 	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-
--	ret = mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
--	if (ret < 0) {
--		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
--		goto err;
--	}
--
--	ret = mipi_dsi_compression_mode(ctx->dsi, true);
--	if (ret < 0) {
--		dev_err(dev, "failed to enable compression mode: %d\n", ret);
-+	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-+	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
-+	if (dsi_ctx.accum_err) {
-+		ret = dsi_ctx.accum_err;
- 		goto err;
- 	}
-
---
-2.47.3
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
