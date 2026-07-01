@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36721C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E540C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:33:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65B4210EE84;
-	Wed,  1 Jul 2026 10:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6681D10EEB7;
+	Wed,  1 Jul 2026 10:33:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WhVQWLDT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ECoaTzTp";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 721E810E332;
- Wed,  1 Jul 2026 10:28:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF8410EEB7;
+ Wed,  1 Jul 2026 10:33:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782901707; x=1814437707;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=kAK9weZsqxS2bAQAvkWLHMzfV9MxXyT3aba2Cm8LaH4=;
- b=WhVQWLDTTWjTj8P7tEt086iCyqFWMUhkNDB8hYVv7yw/WaJgAYHLhfrQ
- XOt5NY3EIxIoV8mqacpX9olvnavZFIA9kxZCLS+XZcdPWK20X6D2/03Wl
- JIV5aA8XSV8+Ukj9sani6XkfcQBpJBBY08yDM41q7nYivrqk6T2OWw0xj
- xKKnHCvfJEAtV/q+fDOtF1gY2mVtrO648R19Hv5IcetvTavYtiD8u8Ayg
- 3X31d0Hvr9Zc3ll2vU6azY2mXcD6DbgeYlb8yPFxQ8w11zGUmHBezvGL3
- Wq+q4RoZ9ywpebP8cdGvpHzPifxK94Y+fWgnwQ4epzGL5s2uPD0LMmlus w==;
-X-CSE-ConnectionGUID: 44YkLOnDSiiB7+lQWE9gKw==
-X-CSE-MsgGUID: t1AkUnKSTEiBQpsU2dQSWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="101173238"
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="101173238"
+ t=1782902035; x=1814438035;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=l2X9mO+zhcfhMk+7+AdQB+baUA2fHIBJYRO5p3euPV4=;
+ b=ECoaTzTpLv61AkmKVg/rPv1iEGpHNxS3I28HlDphix3djpafYuqHh7W4
+ RK9MmnW7C6h+MkZMQqzu2RKNPrcP2KGLfwkL+xvVAM36HijRBq4lfGU9y
+ yrYzWa52lrJxaPIRnaX7hbUdCpK5ANKbVqJyIkrQo47GsTt4k0Q6CM4U7
+ EgcuqCqG8qBTegM/p9UEGugfxEDOONJ/uk2P4vbOPauj/3JsoIuVXGBSG
+ 1YxDwURCF+MRU/lM/z5c0Kg3YsjeFq99/U894jQJttUieDU1AF/yhSb/R
+ ZcrfTnrR/LgSTOARkcMk+iycDLS3PKFx8mR1vFLk+Y1lQz+4ODVvsgvn8 w==;
+X-CSE-ConnectionGUID: lmYaMwaxQbmH3XU2UtRp3g==
+X-CSE-MsgGUID: SXD/WDJkRuWDL/yegHGUWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="101173570"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="101173570"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 03:28:26 -0700
-X-CSE-ConnectionGUID: 4SzPP/+VQBGXQr+XOttBPg==
-X-CSE-MsgGUID: JsInsb0PQKGnEAzQCLxC9w==
+ 01 Jul 2026 03:33:55 -0700
+X-CSE-ConnectionGUID: CA6BjeK4SwayZv4nf/dPEg==
+X-CSE-MsgGUID: QwXRXagXRoWrHw6oYLeDpw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="246171427"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="246172846"
 Received: from vpanait-mobl.ger.corp.intel.com (HELO [10.245.244.86])
  ([10.245.244.86])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 03:28:25 -0700
-Message-ID: <63241399-5b71-4961-907f-59621dcef843@intel.com>
-Date: Wed, 1 Jul 2026 11:28:23 +0100
+ 01 Jul 2026 03:33:54 -0700
+Message-ID: <9c677ba6-eb09-443e-8fbe-7bfc4efae913@intel.com>
+Date: Wed, 1 Jul 2026 11:33:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/xe/display: Avoid using stolen memory for
- framebuffer when media gt exists.
-From: Matthew Auld <matthew.auld@intel.com>
+Subject: Re: [PATCH 3/3] drm/xe/display: Do not allocate into stolen for new
+ framebuffers.
 To: Maarten Lankhorst <dev@lankhorst.se>, intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 References: <20260630135523.1775379-1-dev@lankhorst.se>
- <20260630135523.1775379-3-dev@lankhorst.se>
- <06860a7f-0df8-4e8d-b4ff-c6ebabc5fa4c@intel.com>
+ <20260630135523.1775379-4-dev@lankhorst.se>
 Content-Language: en-GB
-In-Reply-To: <06860a7f-0df8-4e8d-b4ff-c6ebabc5fa4c@intel.com>
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260630135523.1775379-4-dev@lankhorst.se>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,55 +72,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01/07/2026 11:27, Matthew Auld wrote:
-> On 30/06/2026 14:55, Maarten Lankhorst wrote:
->> On systems with media GT, extra latency is added when accessing stolen
->> memory when the GT is in MC6.
->>
->> Simply disable allocating stolen memory for framebuffers when media gt
->> is found.
->>
->> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
->> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
->> ---
->>   drivers/gpu/drm/xe/display/xe_display_bo.c | 7 +++++++
->>   1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/ 
->> drm/xe/display/xe_display_bo.c
->> index 8953da0136dcb..677ae3af9ac0c 100644
->> --- a/drivers/gpu/drm/xe/display/xe_display_bo.c
->> +++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
->> @@ -131,6 +131,13 @@ bool xe_display_bo_fbdev_prefer_stolen(struct 
->> xe_device *xe, unsigned int size)
->>       if (IS_DGFX(xe))
->>           return false;
->> +    /*
->> +     * Avoid stolen memory when the media_gt exists,
->> +     * because a lot of latency is added when media gt is in MC6
->> +     */
->> +    if (xe_device_get_root_tile(xe)->media_gt)
->> +        return false;
->> +
->>       if (XE_DEVICE_WA(xe, 22019338487_display))
->>           return false;
+On 30/06/2026 14:55, Maarten Lankhorst wrote:
+> Prefer to use system memory for global framebuffers, and reserve
+> the space for FBC use only.
 > 
-> There is also the question for why this WA only applies to LNL, but the 
-> GT side of the WA applies even to PTL+, which seems highly suspect. 
-> Might be worth mentioning that in the commit. Also wondering if can now 
-> just drop 22019338487_display?
-> 
-> Also not sure if should just go with platform check here:
-> 
-> if (info.platform >= LNL)
-> 
-> ?
-> 
-> Either way:
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> Now that multiple CRTC's can use FBC's, the simple heuristic
+> of using less than half of stolen is no longer sufficient.
 
-Also should this have the same Fixes: ?
+I think worth mentioning that we have major issues around stolen + CPU 
+access on xe2+?
 
 > 
+> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+> ---
+>   drivers/gpu/drm/xe/display/xe_display_bo.c | 33 ++++------------------
+>   1 file changed, 6 insertions(+), 27 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
+> index 677ae3af9ac0c..04d4204b37a53 100644
+> --- a/drivers/gpu/drm/xe/display/xe_display_bo.c
+> +++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
+> @@ -154,33 +154,12 @@ static struct drm_gem_object *xe_display_bo_fbdev_create(struct drm_device *drm,
+>   	struct xe_device *xe = to_xe_device(drm);
+>   	struct xe_bo *obj;
+>   
+> -	obj = ERR_PTR(-ENODEV);
+> -
+> -	if (xe_display_bo_fbdev_prefer_stolen(xe, size)) {
+> -		obj = xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe),
+> -						size,
+> -						ttm_bo_type_kernel,
+> -						XE_BO_FLAG_FORCE_WC |
+> -						XE_BO_FLAG_STOLEN |
+> -						XE_BO_FLAG_GGTT,
+> -						false);
+> -		if (!IS_ERR(obj))
+> -			drm_info(&xe->drm, "Allocated fbdev into stolen\n");
+> -		else
+> -			drm_info(&xe->drm, "Allocated fbdev into stolen failed: %li\n", PTR_ERR(obj));
+> -	} else {
+> -		drm_info(&xe->drm, "Allocating fbdev: Stolen memory not preferred.\n");
+> -	}
+> -
+> -	if (IS_ERR(obj)) {
+> -		obj = xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe), size,
+> -						ttm_bo_type_kernel,
+> -						XE_BO_FLAG_FORCE_WC |
+> -						XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
+> -						XE_BO_FLAG_GGTT,
+> -						false);
+> -	}
+> -
+> +	obj = xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe), size,
+> +					ttm_bo_type_kernel,
+> +					XE_BO_FLAG_FORCE_WC |
+> +					XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
+> +					XE_BO_FLAG_GGTT,
+> +					false);
+>   	if (IS_ERR(obj)) {
+>   		drm_err(&xe->drm, "failed to allocate framebuffer (%pe)\n", obj);
+>   		return ERR_PTR(-ENOMEM);
 
