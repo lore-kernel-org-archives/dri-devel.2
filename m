@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC8DBC44506
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EB91C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0904A10EF3D;
-	Wed,  1 Jul 2026 12:20:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93E9F10EF3E;
+	Wed,  1 Jul 2026 12:20:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="J2F5AiBL";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fuR3pcFc";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA76910EF38
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8596B10EF3E
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908421;
- bh=SsEv4HUjzMP31Uo3xUXfdlmMJAqMBigQdM4DtACefG0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J2F5AiBLW4wGnRpdSMEBFeT0o0Iy05ATkx45vlm6mIBmza0Lcj8FNjALaPdpDOB5J
- 0MR3AY1JHoRB1HIDgRw8U0Gvly80aD9X0S/6ZckhwzfkRu4dXaqDg2I82fc7u6SljZ
- UpxCfvHmNSgp1QYv5AjwTAU8f+UZqClJTsH5QYS4Ua5tSdEl4fX3F3frI6Mwlp0z6R
- 36Z0l4mv4RU5cPD+i8kDNTZAwgjPtRytbjm1+g46UTfG9jE6sPBdKMKwshdm23wpw4
- 4+ld2cJEaoLYuKeDXRBDXMI3g9094hcGPOp7fZ3mR869GvKr7Y/c5FMwvBcWHKu6Ms
- NRF3ztrxIzcfg==
+ s=mail; t=1782908427;
+ bh=YiQRmpkPEVko95Om7e8QPlfXmNnYeuIzUXWZksvRNHI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=fuR3pcFcrtxCGetw60V5hrOFXHBqssz0EwaJt0eNfTef0j/pI9L2YJQF4m6RBnZ5n
+ waxpMV5SBeDDKxqrdxOj+u/fC+lvX3P6/IXOshaiyMbR+Q2bSdKDjZQijP00zMp8Th
+ UF4hmdGKHaGSKc86ZKm7N1hFPKI+8fK/SbmKKkB4GezevxY/0Br/f+AJI5F8HH8ryk
+ SMz4rBO1by4gEovc4zzT2Ni+RBBwvWa3+6tY/Lgw8Q64KJ1eQgI6Eq2HQNpRwjGGr1
+ zEiJMZhb8LroQjaODn/tkjVx1bi/PLRTq9FpOG3n/BLhQJATtkM/D+RRLySBTXVR7/
+ BtBuXEPVoACDA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id ECC8217E0CA0;
- Wed,  1 Jul 2026 14:20:20 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 56F4817E0CF4;
+ Wed,  1 Jul 2026 14:20:26 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunfeng.yun@mediatek.com
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chunkuang.hu@kernel.org,
- p.zabel@pengutronix.de, justin.yeh@mediatek.com,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com
-Subject: [PATCH 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
-Date: Wed,  1 Jul 2026 14:20:08 +0200
-Message-ID: <20260701122008.19509-13-angelogioacchino.delregno@collabora.com>
+To: chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ jitao.shi@mediatek.com, granquet@baylibre.com, rex-bc.chen@mediatek.com,
+ dmitry.osipenko@collabora.com, ck.hu@mediatek.com, amergnat@baylibre.com,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com
+Subject: [PATCH 00/11] drm: MediaTek DisplayPort cleanups and MT8196 eDP
+Date: Wed,  1 Jul 2026 14:20:13 +0200
+Message-ID: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
-References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -65,145 +65,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The MT8196 SoC features an updated PHY IP compared to the older
-ones, and there is one that is specific to Embedded DisplayPort.
+This series performs some very much needed cleanups to the MediaTek
+DisplayPort driver, including a fix for the audio codec and PHY driver
+unregistration, a refactor to finally correctly use the PHY (!) and
+introduces support for the Embedded DisplayPort (eDP) IP in MT8196.
 
-Add support for the eDP PHY found in the MediaTek MT8196 SoC and
-all of its variants.
+Note that this deprecates the nvmem related properties in this driver
+because those are NOT related to the DisplayPort IP, but rather to the
+DisplayPort PHY, and were therefore transferred there instead (code in
+a different series, updating the PHY driver).
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/phy/mediatek/phy-mtk-dp.c | 66 ++++++++++++++++++++++++++++++-
- 1 file changed, 65 insertions(+), 1 deletion(-)
+On legacy devices, this driver was carefully tested with both NEW and
+OLD devicetrees, so both with the new, proper PHY usage, and with the
+old platform device registration strategy and eFuse retrieval from DP
+instead of PHY driver.
 
-diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index 2c402b416683..c8abc4a2af0a 100644
---- a/drivers/phy/mediatek/phy-mtk-dp.c
-+++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -5,7 +5,7 @@
-  * Copyright (c) 2022, BayLibre Inc.
-  * Copyright (c) 2022, MediaTek Inc.
-  *
-- * Major refactoring
-+ * Major refactoring and new SoCs support
-  * Copyright (c) 2026, Collabora Ltd.
-  *                     AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-  */
-@@ -41,6 +41,7 @@
- #define TPLL_SSC_EN			BIT(3)
- 
- /* DP_PHYD_BIT_RATE */
-+#define PHYD_DIG_RG_BIT_RATE_V2		GENMASK(3, 0)
- #define PHYD_DIG_RG_BIT_RATE		GENMASK(1, 0)
- 
- /* DP_PHYD_SW_RST */
-@@ -57,6 +58,7 @@
- 
- /* DP_PHYD_TX_CTL_0 */
- #define PHYD_TX_LN_EN			GENMASK(7, 4)
-+#define PHYD_TX_LN_EN_V2		GENMASK(3, 0)
- 
- /* DP_PHYD_DRIVING_FORCE */
- #define PHYD_DP_TX_FORCE_VOLT_SWING_EN	BIT(0)
-@@ -123,6 +125,16 @@
- #define MT8195_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 6, 12, 0)
- #define MT8195_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(8, 0)
- 
-+/* MT8196/MT6991: Logic State Change Point (LC TX C) */
-+#define MT8196_DRIVING_PARAM_3_DEFAULT	BUILD_DRIVING_PARAM_0( 10, 12, 14, 17)
-+#define MT8196_DRIVING_PARAM_4_DEFAULT	BUILD_DRIVING_PARAM_12(14, 17, 18, 18)
-+#define MT8196_DRIVING_PARAM_5_DEFAULT	BUILD_DRIVING_PARAM_23(21, 24)
-+
-+/* MT8196/MT6991: Positive Edge (LC TX CP) */
-+#define MT8196_DRIVING_PARAM_6_DEFAULT	BUILD_DRIVING_PARAM_0( 0, 2, 4, 7)
-+#define MT8196_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 3, 6, 0)
-+#define MT8196_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(3, 0)
-+
- enum mtk_dp_phya_ana_glb_regidx {
- 	DP_PHYA_GLB_BIAS_GEN_0,
- 	DP_PHYA_GLB_BIAS_GEN_1,
-@@ -178,6 +190,11 @@ static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
- 	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
- };
- 
-+static const u8 mt8196_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
-+	[DP_PHYD_LAN_DRIVING_FORCE] = 0x30,
-+	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
-+};
-+
- static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
- 	[DP_PHYD_PLL_CTL_0] = 0x10,
- 	[DP_PHYD_PLL_CTL_1] = 0x14,
-@@ -187,6 +204,15 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
- 	[DP_PHYD_TX_CTL_0] = 0x44,
- };
- 
-+static const u8 mt8196_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
-+	[DP_PHYD_PLL_CTL_0] = 0x10,
-+	[DP_PHYD_PLL_CTL_1] = 0x14,
-+	[DP_PHYD_SW_RST] = 0x38,
-+	[DP_PHYD_BIT_RATE] = 0x3c,
-+	[DP_PHYD_AUX_RX_CTL] = 0x40,
-+	[DP_PHYD_TX_CTL_0] = 0x74,
-+};
-+
- static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
- 	[DP_PHYD_BIT_RATE_RBR] = 0,
- 	[DP_PHYD_BIT_RATE_HBR] = 1,
-@@ -194,6 +220,13 @@ static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
- 	[DP_PHYD_BIT_RATE_HBR3] = 3
- };
- 
-+static const u8 mt8196_edp_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
-+	[DP_PHYD_BIT_RATE_RBR] = 1,
-+	[DP_PHYD_BIT_RATE_HBR] = 4,
-+	[DP_PHYD_BIT_RATE_HBR2] = 7,
-+	[DP_PHYD_BIT_RATE_HBR3] = 9
-+};
-+
- /**
-  * struct mtk_dp_phya_imp_sel - Per-Lane Impedance Selection
-  * @pmos: Impedance selection for P-Channel MOSFET
-@@ -751,8 +784,39 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
- 	},
- };
- 
-+static const struct mtk_dp_phy_pdata mt8196_edp_phy_data = {
-+	.off_ana_glb = 0x400,
-+	.off_ana_lane = (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
-+	.off_dig_glb = 0x1400,
-+	.off_dig_lane = (const u16[]) { 0x1000, 0x1100, 0x1200, 0x1300 },
-+	.regs_ana_glb = mt8195_phy_ana_glb_regs,
-+	.regs_ana_lane = mt8195_phy_ana_lane_regs,
-+	.regs_dig_glb = mt8196_phy_dig_glb_regs,
-+	.regs_dig_lane = mt8196_phy_dig_lane_regs,
-+	.mask_dig_tx_ln = PHYD_TX_LN_EN_V2,
-+	.val_dig_bitrate = mt8196_edp_phy_dig_bitrate_val,
-+	.ana_bias_r = 15,
-+	.ana_cktx_imp = 8,
-+	.ana_lanes_imp = {
-+		.pmos = 8,
-+		.nmos = 8,
-+	},
-+	.driving_params = (const u32[]) {
-+		[0] = 0,
-+		[1] = 0,
-+		[2] = 0,
-+		[3] = MT8196_DRIVING_PARAM_3_DEFAULT,
-+		[4] = MT8196_DRIVING_PARAM_4_DEFAULT,
-+		[5] = MT8196_DRIVING_PARAM_5_DEFAULT,
-+		[6] = MT8196_DRIVING_PARAM_6_DEFAULT,
-+		[7] = MT8196_DRIVING_PARAM_7_DEFAULT,
-+		[8] = MT8196_DRIVING_PARAM_8_DEFAULT
-+	},
-+};
-+
- static const struct of_device_id mtk_dp_phy_of_match[] = {
- 	{ .compatible = "mediatek,mt8195-dp-phy", .data = &mt8195_dp_phy_data },
-+	{ .compatible = "mediatek,mt8196-edp-phy", .data = &mt8196_edp_phy_data },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mtk_dp_phy_of_match);
+This was also successfully (manually) tested in a kernel that misses
+the PHY driver updates on devices using old devicetrees (mt8195/88)
+and no regressions were experienced.
+
+AngeloGioacchino Del Regno (11):
+  dt-bindings: display: mediatek: dp: Deprecate nvmem efuse data
+  dt-bindings: display: mediatek: dp: Add compatible for MT8196 eDP
+  drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
+  drm/mediatek: mtk_dp: Clarify SMC eDP/DP video unmute commands
+  drm/mediatek: mtk_dp: Rework register offsets for proper PHY usage
+  drm/mediatek: mtk_dp: Use PHY API for PHY power sequences
+  drm/mediatek: mtk_dp: Add support for PHY from devicetree
+  drm/mediatek: mtk_dp: Move max link rate to SoC specific data
+  drm/mediatek: mtk_dp: Add support for HotPlug Detection in DP AUX
+  drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC
+  drm/mediatek: mtk_dp: Clarify XTAL freq and Debounce registers
+
+ .../display/mediatek/mediatek,dp.yaml         |   5 +-
+ drivers/gpu/drm/mediatek/mtk_dp.c             | 576 +++++++++++++++---
+ drivers/gpu/drm/mediatek/mtk_dp_reg.h         | 328 +++++-----
+ 3 files changed, 691 insertions(+), 218 deletions(-)
+
 -- 
 2.54.0
 
