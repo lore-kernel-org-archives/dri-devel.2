@@ -4,78 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D512EC44500
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD401C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7209010F1CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67D8D10F1C8;
 	Thu,  2 Jul 2026 07:51:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="OqeLqi7P";
+	dkim=permerror (0-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="rD8WSX0D";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e6T9RzQu";
 	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80A6210E0A3
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:41:25 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-8424b00710aso686143b3a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:41:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782927685; x=1783532485; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UGgdNIxUjLSQ4UNZW/FdSoJV4OLj/5NQZw2raQ+vfnI=;
- b=OqeLqi7PGJhVTPvddICbzxZGK+syav9PSllo1lnARyrcVgKUV3HTUVOd4VchVrPOMY
- fUVFsbS/90Im//fEUfWQdj+1ZJivRmRNgwy3stWOxDCQ1Rzab0KeGbbKauv5v4TI5z0H
- FqTsdJH9j/G88NmFWx/TLgJKdTQHOfkW4466FKKgqsLv/CCRoFvIUGl6R0hEkoZFDAih
- cPcD3NI2qxx3ahTAx/2+7xir+hQAa55DtpEEt66i8uyI0cGAek6w5itoUeL1DrsIZ6xl
- O8mscI66PD3ANbWg7tDy+uvMVe2Fg565NlT5CqW56jnfXVF+K7NorCrzClMpnwmnlG7l
- patA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782927685; x=1783532485;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=UGgdNIxUjLSQ4UNZW/FdSoJV4OLj/5NQZw2raQ+vfnI=;
- b=hi8xzqhGOxQKxXlhJ6ycydiosvdOZXdBdwlPnEsFJzoYe5YQMygt4Dy+ppdPRkkr1w
- EpqeapOIq2e0MYP/aUAAwVWIREOCF9koWsVKVRJn4Ql4hV7gr7Mf3gw7uj30dSfZ3ZVY
- qOsRxUq6TR65QmLflqAQI4Iicnwpw7U1kPURTNrJV3Qab3VR7Rvup1fp485G2l4maMgT
- jY5PAa+QYgsBClFbigT//AvjOypatqfil0s+Jm3DWzFt2bPqSe9u+yLsq5t0TH69OmMI
- FK4N/jPvcPqfb/YzqK5d4TqolwIg56z2Nlm8Z5M8KiHqjzxPv32Ttd38AzJgf3dcoAxc
- TWQg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrE3Zfp1EpEuwGK29dV03zAeu7gLe9zlOXb16pGWNTM5fnvpo9E5q8fgdfmWBkyA2nrZb/8XpS+LhI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx64mYq9uIF6P6pcInbwlVUGhsFZeR2T0RjpTtZjNrBxg8vGaal
- UOKe0V0jqt0gKqEWMgTr0WB7Dmk/ZvBFH+Kbp1vXW3SROe+8X/4/5Mq5dcIFESe3qL8=
-X-Gm-Gg: AfdE7cn0SWRojtt54alGDllGjc2oJHxb/8raMPIUl0M5f43/04FErVdNqyGKc9ZFsz+
- gDw8zIoi4Ov4ap+P4cQIzo9xFclk+lauD9yzCz/1VT7ijWvkT29sjzEs+zVk0LP5MDWlr0M4KSv
- r/SGcsiLKXRPu9aV2kPj9woGDPmqvrMr1UPjAzbuA4z7Py0poy1Mqz9Rf71Ah45xzCHKAdvbRDE
- bOrYc6XV0/9fl/cy6FQZNt+dX91h3H2u+gSlYbtsTJSUiC7YPFFkn+KLfN8buFeQTloKx/Uzwmn
- KU3ESNSktNKsABLIVIP5YwcFq8bLIG3rmJ4dPxyYbkB7SrYFDUFUAFFr+saOQ3CjnqCotItaqFw
- rFvbWfx0RxX2O1Y1uzRy+xQrkRSs5D4QKr+sy3WAi9UDUxaqQMRVCqviKN+LIPOrk09MgkOGti/
- u3gp8oeGoDIRUbhRPmUzH71R4qcg==
-X-Received: by 2002:a05:6a00:806:b0:847:7a61:e692 with SMTP id
- d2e1a72fcca58-847c5141198mr1623689b3a.41.1782927684998; 
- Wed, 01 Jul 2026 10:41:24 -0700 (PDT)
-Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847cb6dc4d0sm150943b3a.3.2026.07.01.10.41.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 10:41:24 -0700 (PDT)
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
-X-Google-Original-From: Pedro Yudi Honda
-To: dakr@kernel.org,
-	acourbot@nvidia.com,
-	apopple@nvidia.com
-Cc: nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
-Subject: [PATCH v2 4/5] drm/nova: use `zerocopy` in bootloader.rs
-Date: Wed,  1 Jul 2026 14:40:55 -0300
-Message-Id: <20260701174056.12604-5-niyudi.honda@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260701174056.12604-1-niyudi.honda@gmail.com>
-References: <20260701174056.12604-1-niyudi.honda@gmail.com>
+Received: from flow-a1-smtp.messagingengine.com
+ (flow-a1-smtp.messagingengine.com [103.168.172.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D799A10E368
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:43:28 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailflow.phl.internal (Postfix) with ESMTP id 266B0138003F;
+ Wed,  1 Jul 2026 08:43:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Wed, 01 Jul 2026 08:43:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm1; t=1782909808; x=
+ 1782913408; bh=hCwzeqiZqQn1EeYlAWoOxLI45HYxj+0NX1TXbYFjUzw=; b=r
+ D8WSX0DqJbUdVz6AHBANjrmqDRkZc5VPtN43qTs/l4g4FbmQ5ZNUhXHyUxTW5a8Y
+ mwQNE/fAFil76hhDIRE2bl2rP018JTTf2up0OWj3fKZFXWvSD1TTJYXoZcwbUL9e
+ N8mhhlFkhZDv/6daIsHEV6cjlwUDHiO7Djorc3maReyyHci3smWnPJgEwXP+5/YY
+ RLc5A/cdTRt21PcRZ1fyAZxD0rQOlOEkMn5qiOUak/9hNxNvK7KuGy1QeR/Q19kZ
+ 7ep47fhIHtdXlMEMfioWzVT9ZgALg1XuhA/6PGkZ2wPGl9BAs+hcuWtDojS1aaDX
+ E2TdL81IBtmxrcm76wSEQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; t=1782909808; x=1782913408; bh=h
+ CwzeqiZqQn1EeYlAWoOxLI45HYxj+0NX1TXbYFjUzw=; b=e6T9RzQuQ+I8UBQTW
+ hK5sN8FkEBKswUHmZADrc7HYz141TSunuSm0Ltk7KfsSHywxsJKM6FiOlloXeesv
+ Nz8/ikOxJibwkEGJotHqcYv7extfpVHNBiG7m58p/1XDA2o8M4EUKs2PMTDW6fYj
+ ph5dA5nXfzmqIMFliMhIoqCeVydBiezKGBSF8ALjSzdeQhYxt8naXsaM0oOYkiVK
+ NzhBe6bq+eH5iKYqYfjw/Vkx1rrXPoo/c7g8BFitl3h3fiYr600XEZ2aGqSCRoQ7
+ /aYlIVXJcNI/RvS0zuWXaOClVUPq9NUeLRe6oWAeX5DkWI2xje1IhmjtOcWWX7Bo
+ 0nrBg==
+X-ME-Sender: <xms:bwtFakFc93EQo32GPTamIwyMo15cpW4yXdOzJuQ490gK4ZbGV1QP_A>
+ <xme:bwtFajssi38r77oeM_nZjUW3kj9vNcOBCAb2aVrdXzjUayg15pYf01URb087tqx8b
+ aaTos902Z78KAah6Y-iOYrO-XFLXlBfPU_cwafaRJ6yhHyvRrVAHSw>
+X-ME-Received: <xmr:bwtFaqb4UsVkTTrUxhfHOTvaeq3qm4oYArIAgYaD-DqFpbU8ZUPKjHX->
+X-ME-Proxy-Cause: dmFkZTGBq7gKXug1IiWhHduKANkZDifvXsa10TKTCAkjtHbpw+32P+uDSNsh7UkqvDQz35
+ 5GsHfrpOhzNQ1YRMDLdtqkOKtNwAwX1eLMORyfL/k5Bv0/h3xMPq24mqgBlnnW8okBxo49
+ osinnLxNinneVAeoo0euooMolnMfXRKLx9mOA7Ss2txEYNyheFI/9Kz5qGOBqwW1sTiJ1O
+ NGHLHrFzxgzZEsteBMU+UgtmSy0K5UPUyve8VnY5EyBP2gFc6UCU/NWsqHftDntCABhJO3
+ q+i4+j3A4csrukzVj2fTKrlpDZ5cL1beypvxpyUHK5JKJ7qqdrnCdx/RDBFzK8sd0MvTQ2
+ b6tx4BWzeTxZCDDwqPet4r4u4VOMJPIEHG8KeWRWTnyDQiIDKwfhOyD35FPvjJo/fF4Dja
+ oFv9NvtVaNCz7/CyCHmkrUB5DVuEfyRZsMRrKZrpeGY+8fNeX+So2Oq7yUokfyCFfe9cbV
+ DR+Bm9SGLnZA1NU+e9ZN732JieVRyWPFTqXtSorON0ESvsu3svlaYKmx7UzOa+sG1gHBaD
+ quBZ6qBwr/9cIsLX/QEs0udoJXjywOnAX3HK13DiqFdqhDgDY6Y2NzLHCd06vRlpE2U4EA
+ 8uDzq3K1h70plC4Lb+r0eLwID2YFChNe5w17lDWvaW0TYiF5RxHUHireU+UQ
+X-ME-Proxy: <xmx:bwtFaj6iLiK-9MEumjjtE1fJfcbrcdkK_EbXMv1NbH30RojajsfYQQ>
+ <xmx:bwtFai_TsGE6KhYgsquBnJlVhSiTiL75VlJKXapyb0m8HEPtJybDVg>
+ <xmx:bwtFavZwBPUPChVBH9uUZ1U6k4H0bsUFuUJjzPpNc3sIZCYakHfviA>
+ <xmx:bwtFar7_FkGf7EJV5h5wOH1JzcZmZzv7E8xaYwiZkZOabmmGdkFCag>
+ <xmx:cAtFaheSxioz6neWGl0J38gnpNquBZl-HzMHqRRqmeAgFuY9Ov-f6PVJ>
+Feedback-ID: i9dce4b48:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 1 Jul 2026 08:43:22 -0400 (EDT)
+From: Baran Tuna <barant@fastmail.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Baran Tuna <barant@fastmail.com>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH v2] docs: Fix typos under GPU TODO
+Date: Wed,  1 Jul 2026 15:42:39 +0300
+Message-ID: <20260701124239.9713-1-barant@fastmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <01433E06-1132-4580-93FD-D6E82341A041@infradead.org>
+References: <01433E06-1132-4580-93FD-D6E82341A041@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 02 Jul 2026 07:51:30 +0000
@@ -94,87 +103,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
+Fix minor spelling mistakes in GPU TODO section of documentation.
+No functional changes.
 
-In firmware/fwsec/bootloader.rs, replace the following `transmute`
-traits with their `zerocopy` equivalents:
-
-- `transmute::FromBytes` -> `zerocopy::FromBytes`
-- `transmute::AsBytes` -> `zerocopy::IntoBytes`
-- add `zerocopy::Immutable` where necessary
-
-Update call sites accordingly.
-
-Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+Signed-off-by: Baran Tuna <barant@fastmail.com>
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 ---
- .../gpu/nova-core/firmware/fwsec/bootloader.rs | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ Documentation/gpu/todo.rst | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index 66b9f4d1b41c..03d3090bd9ef 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -18,15 +18,9 @@
-         Alignable,
-         Alignment, //
-     },
--    sizes,
--    transmute::{
--        AsBytes,
--        FromBytes, //
--    },
-+    sizes, //
- };
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index cdddf8db35f5..b8c01e3fb655 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe. The task here is to
+ convert them to use regular atomic helpers. Search for a driver that calls
+ drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_helper.c
+ into the driver, such that no simple-KMS interfaces are required. Please also
+-rename all inlined fucntions according to driver conventions.
++rename all inlined functions according to driver conventions.
  
--use zerocopy::FromBytes as _;
--
- use crate::{
-     driver::Bar0,
-     falcon::{
-@@ -57,7 +51,7 @@
- ///
- /// Most of its fields appear to be legacy and carry incorrect values, so they are left unused.
- #[repr(C)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, FromBytes)]
- struct BootloaderDesc {
-     /// Starting tag of bootloader.
-     start_tag: u32,
-@@ -73,15 +67,13 @@ struct BootloaderDesc {
-     /// Size of data section in the image. Unused as we build the data section ourselves.
-     _data_size: u32,
- }
--// SAFETY: any byte sequence is valid for this struct.
--unsafe impl FromBytes for BootloaderDesc {}
+ Contact: Thomas Zimmermann, respective driver maintainer
  
- /// Structure used by the boot-loader to load the rest of the code.
- ///
- /// This has to be filled by the GPU driver and copied into DMEM at offset
- /// [`BootloaderDesc.dmem_load_off`].
- #[repr(C, packed)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, IntoBytes, zerocopy_derive::Immutable)]
- struct BootloaderDmemDescV2 {
-     /// Reserved, should always be first element.
-     reserved: [u32; 4],
-@@ -120,8 +112,6 @@ struct BootloaderDmemDescV2 {
-     /// Arguments to be passed to the target firmware being loaded.
-     argv: u32,
- }
--// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
--unsafe impl AsBytes for BootloaderDmemDescV2 {}
+@@ -277,8 +277,8 @@ Various hold-ups:
+ - Need to switch to drm_gem_fb_create(), as now drm_gem_fb_create() checks for
+   valid formats for atomic drivers.
  
- /// Wrapper for [`FwsecFirmware`] that includes the bootloader performing the actual load
- /// operation.
-@@ -160,7 +150,7 @@ pub(crate) fn new(
+-- Many drivers subclass drm_framebuffer, we'd need a embedding compatible
+-  version of the varios drm_gem_fb_create functions. Maybe called
++- Many drivers subclass drm_framebuffer, we'd need an embedding compatible
++  version of the various drm_gem_fb_create functions. Maybe called
+   drm_gem_fb_create/_with_dirty/_with_funcs as needed.
  
-             fw.data()
-                 .get(desc_offset..)
--                .and_then(BootloaderDesc::from_bytes_copy_prefix)
-+                .and_then(|b| BootloaderDesc::read_from_prefix(b).ok())
-                 .ok_or(EINVAL)?
-                 .0
-         };
+ Contact: Simona Vetter
+@@ -303,7 +303,7 @@ everything after it has done the write-protect/mkwrite trickery:
+ 
+       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
+ 
+-- Set the mkwrite and fsync callbacks with similar implementions to the core
++- Set the mkwrite and fsync callbacks with similar implementations to the core
+   fbdev defio stuff. These should all work on plain ptes, they don't actually
+   require a struct page.  uff. These should all work on plain ptes, they don't
+   actually require a struct page.
+@@ -891,7 +891,7 @@ Querying errors from drm_syncobj
+ ================================
+ 
+ The drm_syncobj container can be used by driver independent code to signal
+-complection of submission.
++completion of submission.
+ 
+ One minor feature still missing is a generic DRM IOCTL to query the error
+ status of binary and timeline drm_syncobj.
 -- 
-2.34.1
+2.54.0
 
