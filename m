@@ -4,80 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1840DC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 19:53:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70DFCC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 20:05:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B596C10E20F;
-	Wed,  1 Jul 2026 19:53:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6EF910EFEC;
+	Wed,  1 Jul 2026 20:05:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dVQu4w7P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CbVYFDl4";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E23110E20F
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 19:53:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 221B310EFEC
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 20:05:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 12DEE601DF;
- Wed,  1 Jul 2026 19:53:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4A41F00A3A;
- Wed,  1 Jul 2026 19:53:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1D9416001D;
+ Wed,  1 Jul 2026 20:05:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E33A1F000E9;
+ Wed,  1 Jul 2026 20:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782935592;
- bh=fzFM+3fnKG0YLEDmBIloyOG/31SnlMJCbijzwmUNu+0=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject;
- b=dVQu4w7P3dCUJ5KBUDAc4q3L1wAsQVNP/nKMxUpjt8ZiS/3HdSIMwTOljW8/JVMl0
- DD5yfBvXaIX6yid82xMVg80tHH93ROwQVaAxzACoOABqbDYaCrwrCdnMp9yQjhfmtv
- yM/CK/nD1+sWbi/uI5coRQ1PFmO6naJBOghjrbGdQihcbAPR/R2fxRSZsHfL3/gAe1
- dMrlH6WU1wKStdUEBTtzKgxEFvCZ0V/P2NzUQYLEfQBmrAPn+66TFX5UaD09Y1Jc/x
- xn/7dzGPjhWgaqehG2ONJtZ4IjW23B2TJGgOkXsKOGFoAeMGU/E2Pcw/2APB/MHO/i
- qx3e+GdTEgJqA==
-Date: Wed, 01 Jul 2026 14:53:11 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1782936340;
+ bh=g7/A390eY5J9OJzf+cYzH6TGGqISp3TPh1uGKzUtdKY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=CbVYFDl4Shd272uwnCiHpQE1ttFBPprzn5qjetkapaoNjn5iNWiFmCLK1GtLc9av2
+ vIK63933K01L7Bza6tkk4xdRXCuhFrvKe1cOXCWgKO2ZR2Droc4143XPqph1crI5+v
+ soVnzcks2sZOCwZwBZ1y6LmdB0DNCI4VzPfOf2YBaFm6tb8fZho/2ujsIv4gWGkgLw
+ jlet6LVoU/9Amn0GXS+BRTm2IOSwN2bOAqq8NBlOLn0riWiyOAkzljqSbEH1qgxeXB
+ UmlfKSgrW0nFTAEZ3bGaaeDXlxrBkC3ygQpSuOJZgiC8/PDJ0JcghWFKp+tKYh6ko/
+ EWHV451NN+b/A==
+Message-ID: <bb91ed5e-0fe9-4317-b73d-b28b593d4c25@kernel.org>
+Date: Wed, 1 Jul 2026 21:05:37 +0100
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linaro-mm-sig@lists.linaro.org, Lorenzo Stoakes <ljs@kernel.org>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Yury Norov <yury.norov@gmail.com>, 
- linux-media@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Jonathan Hunter <jonathanh@nvidia.com>, linux-s390@vger.kernel.org, 
- Masami Hiramatsu <mhiramat@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
- David Hildenbrand <david@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Simona Vetter <simona@ffwll.ch>, Mike Rapoport <rppt@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Robin Murphy <robin.murphy@arm.com>, Russell King <linux@armlinux.org.uk>, 
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Brian Starkey <Brian.Starkey@arm.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- John Stultz <jstultz@google.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- linux-arm-kernel@lists.infradead.org, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org, 
- Sumit Semwal <sumit.semwal@linaro.org>, Will Deacon <will@kernel.org>, 
- Thierry Reding <treding@nvidia.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- "Liam R. Howlett" <liam@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, linux-tegra@vger.kernel.org, 
- Conor Dooley <conor+dt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
- "T.J. Mercier" <tjmercier@google.com>, David Airlie <airlied@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-In-Reply-To: <20260701-tegra-vpr-v3-2-d80f7b871bb4@nvidia.com>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-2-d80f7b871bb4@nvidia.com>
-Message-Id: <178293559078.1610192.17087150631381044391.robh@kernel.org>
-Subject: Re: [PATCH v3 02/11] dt-bindings: display: tegra: Document memory
- regions
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] misc: fastrpc: reject overflowing invoke buffer ranges
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+References: <20260624174410.6074-1-alhouseenyousef@gmail.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260624174410.6074-1-alhouseenyousef@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,58 +64,91 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Wed, 01 Jul 2026 18:08:13 +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
+
+On 6/24/26 6:44 PM, Yousef Alhouseen wrote:
+> fastrpc_get_buff_overlaps() builds end addresses from user ranges.
 > 
-> Add the memory-region and memory-region-names properties to the bindings
-> for the display controllers and the host1x engine found on various Tegra
-> generations. These memory regions are used to access firmware-provided
-> framebuffer memory as well as the video protection region.
+> A wrapped end can understate the payload size.
 > 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> It can also feed bad ranges into the invoke metadata.
+> 
+> Reject invoke buffers whose pointer plus length overflows.
+> 
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+You have sent 11 patches independently, I would prefer it to be sent as
+single series.
+
+Are these patches fixing anything that your usecases are hitting?
+
+Have you looked at the patches in the mailing list which fixes some of
+these issues?
+
+Or
+
+Is AI generating these patches ?
+
+
+--srini
+
+
 > ---
-> Changes in v3:
-> - document properties for VIC
-> ---
->  .../devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml |  8 ++++++++
->  .../devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml  | 10 ++++++++++
->  .../devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml   | 10 +++++++++-
->  .../bindings/display/tegra/nvidia,tegra20-host1x.yaml          |  7 +++++++
->  4 files changed, 34 insertions(+), 1 deletion(-)
+>  drivers/misc/fastrpc.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
 > 
-
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names: 'anyOf' conditional failed, one must be fixed:
-	'maxitems' is not one of ['$ref', 'additionalItems', 'additionalProperties', 'allOf', 'anyOf', 'const', 'contains', 'default', 'dependencies', 'dependentRequired', 'dependentSchemas', 'deprecated', 'description', 'else', 'enum', 'exclusiveMaximum', 'exclusiveMinimum', 'items', 'if', 'minItems', 'minimum', 'maxItems', 'maximum', 'multipleOf', 'not', 'oneOf', 'pattern', 'patternProperties', 'properties', 'required', 'then', 'typeSize', 'unevaluatedProperties', 'uniqueItems']
-	'type' was expected
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names:items: {'enum': ['framebuffer', 'protected']} is not of type 'array'
-	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names: Additional properties are not allowed ('maxitems' was unexpected)
-	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names:items: {'enum': ['framebuffer', 'protected']} is not of type 'array'
-	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names: Additional properties are not allowed ('maxitems' was unexpected)
-	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260701-tegra-vpr-v3-2-d80f7b871bb4@nvidia.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index f3a493845..ba4ade874 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/module.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of.h>
+> +#include <linux/overflow.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/sort.h>
+>  #include <linux/of_platform.h>
+> @@ -607,14 +608,17 @@ static int olaps_cmp(const void *a, const void *b)
+>  	return st == 0 ? ed : st;
+>  }
+>  
+> -static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
+> +static int fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
+>  {
+>  	u64 max_end = 0;
+>  	int i;
+>  
+>  	for (i = 0; i < ctx->nbufs; ++i) {
+>  		ctx->olaps[i].start = ctx->args[i].ptr;
+> -		ctx->olaps[i].end = ctx->olaps[i].start + ctx->args[i].length;
+> +		if (check_add_overflow(ctx->olaps[i].start,
+> +				       ctx->args[i].length,
+> +				       &ctx->olaps[i].end))
+> +			return -EOVERFLOW;
+>  		ctx->olaps[i].raix = i;
+>  	}
+>  
+> @@ -641,6 +645,8 @@ static void fastrpc_get_buff_overlaps(struct fastrpc_invoke_ctx *ctx)
+>  			max_end = ctx->olaps[i].end;
+>  		}
+>  	}
+> +
+> +	return 0;
+>  }
+>  
+>  static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+> @@ -675,7 +681,13 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+>  			return ERR_PTR(-ENOMEM);
+>  		}
+>  		ctx->args = args;
+> -		fastrpc_get_buff_overlaps(ctx);
+> +		ret = fastrpc_get_buff_overlaps(ctx);
+> +		if (ret) {
+> +			kfree(ctx->olaps);
+> +			kfree(ctx->maps);
+> +			kfree(ctx);
+> +			return ERR_PTR(ret);
+> +		}
+>  	}
+>  
+>  	/* Released in fastrpc_context_put() */
 
