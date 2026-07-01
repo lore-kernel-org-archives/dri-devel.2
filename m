@@ -4,45 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DEA2C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D784C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E69610E30B;
-	Wed,  1 Jul 2026 07:04:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 839D510EDF5;
+	Wed,  1 Jul 2026 07:04:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=139.com header.i=@139.com header.b="OkEdim73";
+	dkim=permerror (0-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="XhlFHzvk";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dO0g/co7";
 	dkim-atps=neutral
-Received: from n169-113.mail.139.com (n169-113.mail.139.com [120.232.169.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAA5A10ED6B
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 01:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=139.com; s=dkim; l=0;
- h=from:subject:message-id:to:cc:mime-version;
- bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=OkEdim73gipXr02xQpiakZCFh4LjJwk6doPC4VZHil8eP/5wGaq/0y+nt2JTdUKjJ4/rrINkyiHRD
- Zfg11cQhGqBCyFtNX8S3c3RekxAjFIddrAU6lHi0H0r5ylstck/NE+TSf5ctx/pwIEziWCPEwqPzFv
- 3TS9wqK/cMiQ5AS0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM: 
-X-RM-SPAM-FLAG: 00000000
-Received: from [IPv6:240e:404:b730:7fdc:9e83:47b8:5acf:73d0]
- (unknown[240E:404:B730:7FDC:9E83:47B8:5ACF:73D0])
- by rmsmtp-lg-appmail-36-12050 (RichMail) with SMTP id 2f126a44714f608-01618;
- Wed, 01 Jul 2026 09:45:54 +0800 (CST)
-X-RM-TRANSID: 2f126a44714f608-01618
-Message-ID: <792c4a4e145a7aaa289b6d3bc8bb8c6996591152.camel@139.com>
-Subject: Re: [PATCH] drm/amd/display:Check
- dp_128b_132b_supported_link_rates.raw before link_rate setting
-From: Jackie Dong <xy-jackie@139.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Date: Wed, 01 Jul 2026 09:45:50 +0800
-In-Reply-To: <20260630151147.CB9631F000E9@smtp.kernel.org>
-References: <20260630145955.13994-1-xy-jackie@139.com>
- <20260630151147.CB9631F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+Received: from flow-a5-smtp.messagingengine.com
+ (flow-a5-smtp.messagingengine.com [103.168.172.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16AA210E25E
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 02:53:13 +0000 (UTC)
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+ by mailflow.phl.internal (Postfix) with ESMTP id 4078A13803B3;
+ Tue, 30 Jun 2026 22:53:12 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Tue, 30 Jun 2026 22:53:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to; s=fm1; t=1782874392; x=1782877992; bh=rR6+t+iWOk7mVPpVV+GyV
+ 4t11N+kVWdaCDWy92lLmfc=; b=XhlFHzvkioXyau3TYyE5k6ifsFuEwvjXYqp1X
+ RoBjco/CVLkviJ/tu3F3VfJcWg8OsZUWLHMEQJOOXQSWklgCZpi8exPoopvZF4Fn
+ qAY8uB6UpNzuCmbOgR4vBnsp0q3Cu+vD/U1cJRmzlbCCH3mKseUow5EDpST4qllY
+ bPYbnyY7QayVlXR9YZwgdtsD6Vrqz9kNFpS4E7EJGgr8fOsy3R896wm/ktTHA2v/
+ cg/cR9sSGvmstQnl3JBgVg8NsMXee2bdi6vdPmwXsd9oWeds86aEnstY53EHC53G
+ FsyP98DXXifgMXfTrOLtZnzOpaemMDPqmBlFw9UglWaVQgHCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+ 1782874392; x=1782877992; bh=rR6+t+iWOk7mVPpVV+GyV4t11N+kVWdaCDW
+ y92lLmfc=; b=dO0g/co7Skc4jCyDJxD+iZl/28Lwo64f5AIG7Z3bXOJ9gImyw2J
+ WIQsRRTGxdfTLTyOxxFdNIf1RE8p867GC+rv+GVuRuOgVHUK9MiRgCMslI9C6ahh
+ IzFWblh3uwHUCYDUtymclb7wwys0DtTu/WiU/oQ7A0wCr0MCULTbzz2JlYO46LH4
+ U0f6+YM+iubvEfLJsTBLii1jWvUm1Dh4czCL30NNan+t2o2XI7ks5aLzs+OYcWB/
+ ywXLKz4TNsl69sWbWnfxWRO8ZkHqMx/D96gsG/LO6MYcGOAOs+p3HLDn+CyCu7qV
+ vTPwt8YxKhU5FOerejsE25unx208h4sr0Cw==
+X-ME-Sender: <xms:FoFEah_D3_4AQar4I7gvdAU0IByY_iJuKZbtS2ymuEnCjYTilMRvZw>
+ <xme:FoFEahhZWQ4U0ge3HNZUDhebu1VY9V4GqoO1qwUGJH0hjFsbpiOSxNFD7ZUa9-nD2
+ Ds_FFA1nneLaGOyXLLmV_hOuwGPeW2oJi5aaR51eFmkF5TBDWg3Ow>
+X-ME-Received: <xmr:FoFEaqa4hxzelgeHA1kqsFxU2YBD9Z7eY1wnn0F6Mtafs0mWpAhgbt4b>
+X-ME-Proxy-Cause: dmFkZTEuWPbgG5OA3E5wK/GuEwks3AjSaOGHnjmn1Nr+lPAkrwCgUsg6PP+tENFUZaJgls
+ 0qniAEOqXwrci2gK23JXVDEq7bpW7aC1o9mf4YRi7TfxQt1OtVplBuO7DR6xw+zezieA45
+ IIHhRGI6m5/MN2mEIrcnWKz2jS63qVhOB3RIec6aHLl89b/Ti4/SH2MViqBx13dlA53Bjn
+ IafBvUfNM9bvP7/b3wMAavOciU7yQGYBgOMxnQyouO5arzLOrkeT9GRMuAdTA4WqocScWg
+ lB8Q3FcyjDQGExXhePrNy8rUhbIQrT4NkkoDlXCwvQG0U85F/wnFfCrqbBJHygLGRArEp2
+ Mg0I0en/fegBtXws/as8Qw4ZW+jvr/RZRixyEGteOzyVdTYvU17TPaBBk6jfTXv7iuTTn4
+ V8HAPMcEkXSeBQ/K3d32CqyA0BT9fUzuCfLJ6qLFp/7FpkvgDBV11U3UxTnlRrSRg8fhXc
+ HewgBvhCce9awssuTcVHc9oYcOsyKk2OwQ8eKO1nBY+/Cu3W9K7KqONhUlbKmCPSB0qR3N
+ kEzlHxYi9hTIaq25v8WZARj+gD4PxhZF9l8rGHSGpWt7mPsBUrDyPvsLhYAbwcA9PmqMw4
+ U4b/NhkzxfvicXmktFzm1xQr2KWE2FWbXDmhLuODICBkk0qS5v4wdpUVqfrw
+X-ME-Proxy: <xmx:FoFEau__ZHXEEKS2YjTvfg-uxWhAnp17ZkrmmMzg88qTuhOWJU1VYw>
+ <xmx:FoFEakNJ0DJp6xai0hbtMCrBcl03OoPvAzwAiYV2kA29_TqAitodMQ>
+ <xmx:FoFEajE1RJO7x5ArC-AFvribB1MATVzK3FWp2xlf3BDBF9rY-WCBmQ>
+ <xmx:FoFEaqy5mUzu9ylaoJ-RojOQGoY4N_99VPe-fXiW5s1dPlofcorO-w>
+ <xmx:GIFEatEK62fslu88Luf57A4p7OilGS5bsRCVmDSkatsY1dghW98NfBIZ>
+Feedback-ID: i9dce4b48:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 30 Jun 2026 22:53:08 -0400 (EDT)
+From: Baran Tuna <barant@fastmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-doc@vger.kernel.org (open list:DOCUMENTATION),
+ linux-kernel@vger.kernel.org (open list)
+Cc: Baran Tuna <barant@fastmail.com>
+Subject: [PATCH] docs: Fix typos under GPU TODO
+Date: Wed,  1 Jul 2026 05:52:33 +0300
+Message-ID: <20260701025233.594162-1-barant@fastmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 07:03:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,142 +98,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2026-06-30 at 15:11 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> - [High] Checking `dp_128b_132b_supported_link_rates.raw` before it
-> is read from the DPCD register completely disables DP 2.0 UHBR
-> support.
-> --
->=20
-> commit 11d06153280ec5dae6682a402606818b4f84b79d
-> Author: Jackie Dong <xy-jackie@139.com>
->=20
-> drm/amd/display:Check dp_128b_132b_supported_link_rates.raw before
-> link_rate setting
->=20
-> This patch modifies the DP 128b/132b capability check to also verify
-> that
-> dp_128b_132b_supported_link_rates.raw is non-zero before attempting
-> to read
-> and parse the specific UHBR link rates.
->=20
-> > diff --git
-> > a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.
-> > c
-> > b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.
-> > c
-> > ---
-> > a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.
-> > c
-> > +++
-> > b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.
-> > c
-> > @@ -2079,7 +2079,8 @@ static bool retrieve_link_cap(struct dc_link
-> > *link)
-> > =C2=A0	if (!dpcd_read_sink_ext_caps(link))
-> > =C2=A0		link->dpcd_sink_ext_caps.raw =3D 0;
-> > =C2=A0
-> > -	if (link-
-> > >dpcd_caps.channel_coding_cap.bits.DP_128b_132b_SUPPORTED) {
-> > +	if (link-
-> > >dpcd_caps.channel_coding_cap.bits.DP_128b_132b_SUPPORTED &&
-> > +			link-
-> > >dpcd_caps.dp_128b_132b_supported_link_rates.raw) {
->=20
-> [Severity: High]
-> Will this change completely disable DP 2.0 UHBR support?=20
->=20
-> In retrieve_link_cap() in
-> drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c,
-> dp_128b_132b_supported_link_rates.raw is now checked before it is
-> actually=20
-> read from the DPCD register. Since the dc_link struct is zero-
-> initialized and
-> the read hasn't occurred yet, won't this raw value always evaluate to
-> 0 upon
-> connection of any DP 2.0 monitor?=20
->=20
-> This would cause the if condition to always fail, bypassing the
-> actual read
-> block below and permanently preventing UHBR feature detection.
->=20
-Hi Sashiko,
- I have verified it as below. To add
-dp_128b_132b_supported_link_rates.raw  as a new judgment doesn's impact
-the value of dp_128b_132b_supported_link_rates.raw. If the monitor can
-support UHBR and it can be into feature detection and assigned the
-right UHBR rate.
+Fix minor spelling mistakes in GPU TODO section of documentation.
+No functional changes.
 
-root@yoga-Yoga-Pro-7-15ASH11:/media/yoga/Data/git/linux-502d801f0ab03-
-20260622# grep -B23 "Invalid RX 128b_132b_supported_link_rates"
-drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-=20
-	//if (link-
->dpcd_caps.channel_coding_cap.bits.DP_128b_132b_SUPPORTED) {
-	link->dpcd_caps.dp_128b_132b_supported_link_rates.raw =3D 0x10;
-	pr_info("Jackie %x is SUPPORTED, %x: RX
-128b_132b_supported_link_rates.raw\n", link-
->dpcd_caps.channel_coding_cap.bits.DP_128b_132b_SUPPORTED, link-
->dpcd_caps.dp_128b_132b_supported_link_rates.raw) ;
-	//pr_info("Jackie  %x: RX
-128b_132b_supported_link_rates.raw\n", link-
->dpcd_caps.dp_128b_132b_supported_link_rates.raw) ;
-	//pr_info("Jackie RX 128b_132b_supported_link_rates.raw\n") ;
-	if ( (link-
->dpcd_caps.channel_coding_cap.bits.DP_128b_132b_SUPPORTED) && (link-
->dpcd_caps.dp_128b_132b_supported_link_rates.raw) ) {
-		DC_LOG_DP2("128b/132b encoding is supported at link
-%d", link->link_index);
-=20
-		/* Read 128b/132b suppoerted link rates */
-		core_link_read_dpcd(link,
-				DP_128B132B_SUPPORTED_LINK_RATES,
-&link->dpcd_caps.dp_128b_132b_supported_link_rates.raw,
-				sizeof(link-
->dpcd_caps.dp_128b_132b_supported_link_rates.raw));
-		if (link-
->dpcd_caps.dp_128b_132b_supported_link_rates.bits.UHBR20) {
-			pr_info("Jackie RX
-128b_132b_supported_link_rates is UHBR20\n") ;
-			link->reported_link_cap.link_rate =3D
-LINK_RATE_UHBR20;
-		} else if (link-
->dpcd_caps.dp_128b_132b_supported_link_rates.bits.UHBR13_5)
-			link->reported_link_cap.link_rate =3D
-LINK_RATE_UHBR13_5;
-		else if (link-
->dpcd_caps.dp_128b_132b_supported_link_rates.bits.UHBR10)
-			link->reported_link_cap.link_rate =3D
-LINK_RATE_UHBR10;
-		else
-			//link->reported_link_cap.link_rate =3D
-LINK_RATE_UHBR10;//Jackie Add
-			dm_error("%s: Invalid RX
-128b_132b_supported_link_rates\n", __func__);
-root@yoga-Yoga-Pro-7-15ASH11:/media/yoga/Data/git/linux-502d801f0ab03-
-20260622# dmesg |grep -i "fail\|error\|Jackie"
-[    0.025954] KHO: Failed to reserve lowmem scratch buffer
-[    0.025956] KHO: Failed to reserve scratch area, disabling kexec
-handover
-[    1.731523] RAS: Correctable Errors collector initialized.
-[    7.629667] Jackie 1 is SUPPORTED, 10: RX
-128b_132b_supported_link_rates.raw
-[    7.630067] [drm:retrieve_link_cap [amdgpu]] *ERROR*
-retrieve_link_cap: Invalid RX 128b_132b_supported_link_rates
+Signed-off-by: Baran Tuna <barant@fastmail.com>
+---
+ Documentation/gpu/todo.rst | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Above is my verified source code and test result, FYR.
-
-Thanks for your comments.
-
-> > =C2=A0		DC_LOG_DP2("128b/132b encoding is supported at
-> > link %d", link->link_index);
-> > =C2=A0
-> > =C2=A0		/* Read 128b/132b suppoerted link rates */
-> > =C2=A0		core_link_read_dpcd(link,
-> > =C2=A0				DP_128B132B_SUPPORTED_LINK_RATES,
-> > =C2=A0				&link-
-> > >dpcd_caps.dp_128b_132b_supported_link_rates.raw,
->=20
-
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index cdddf8db35f5..3b9999319829 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -55,7 +55,7 @@ There are still drivers that use drm_simple_display_pipe. The task here is to
+ convert them to use regular atomic helpers. Search for a driver that calls
+ drm_simple_display_pipe_init() and inline all helpers from drm_simple_kms_helper.c
+ into the driver, such that no simple-KMS interfaces are required. Please also
+-rename all inlined fucntions according to driver conventions.
++rename all inlined functions according to driver conventions.
+ 
+ Contact: Thomas Zimmermann, respective driver maintainer
+ 
+@@ -278,7 +278,7 @@ Various hold-ups:
+   valid formats for atomic drivers.
+ 
+ - Many drivers subclass drm_framebuffer, we'd need a embedding compatible
+-  version of the varios drm_gem_fb_create functions. Maybe called
++  version of the various drm_gem_fb_create functions. Maybe called
+   drm_gem_fb_create/_with_dirty/_with_funcs as needed.
+ 
+ Contact: Simona Vetter
+@@ -303,7 +303,7 @@ everything after it has done the write-protect/mkwrite trickery:
+ 
+       vma->vm_page_prot = pgprot_wrprotect(vma->vm_page_prot);
+ 
+-- Set the mkwrite and fsync callbacks with similar implementions to the core
++- Set the mkwrite and fsync callbacks with similar implementations to the core
+   fbdev defio stuff. These should all work on plain ptes, they don't actually
+   require a struct page.  uff. These should all work on plain ptes, they don't
+   actually require a struct page.
+@@ -891,7 +891,7 @@ Querying errors from drm_syncobj
+ ================================
+ 
+ The drm_syncobj container can be used by driver independent code to signal
+-complection of submission.
++completion of submission.
+ 
+ One minor feature still missing is a generic DRM IOCTL to query the error
+ status of binary and timeline drm_syncobj.
+-- 
+2.54.0
 
