@@ -4,76 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EED00C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F82DC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:24:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF1E10EEF5;
-	Wed,  1 Jul 2026 11:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6D6810EEF7;
+	Wed,  1 Jul 2026 11:24:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OseNEJlb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dHQywz4h";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5A2310EEF5
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:21:54 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-37de8008910so291574a91.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 04:21:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782904914; x=1783509714; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=OS0LsnXAxJQ3vwP/NL/yX7kz0UHQjnYhTFVyVOyFmPo=;
- b=OseNEJlbZWui5jqYj+H+BSlIMLfQDaxmMgX2O2aLfe9mwl96bk+n96YHj/dTseNU8G
- 32JigcC98AgaPrw1i77IbNIvneV10CW2RfYUG9EQF8hVBlOk5tQjF1UPqwH5YAHtOtsy
- gjvRT4vkWYxihf4tVZJwvm5T5oRFGPmo3cyjVQbYI9ySuCE4Xz8c33pscq0wrWuO+oOt
- l3Mlvdg1Tw9RoVhT2PNXQIA9zM8a1qi3BZfTIE+EkuKwzNhsoy27FWXm3kbmOL9ZlF5Y
- UpwI2HONdC+LL8QG05fiFXeTWABPyW4GgS0E4E9qoV4PbFsEHFJl4a8/7WovotGyy+1Y
- +chA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782904914; x=1783509714;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OS0LsnXAxJQ3vwP/NL/yX7kz0UHQjnYhTFVyVOyFmPo=;
- b=jSZQAiIoaifJHy7FAxUyFryjGrVqTwmIsXv/5iuPD95laVqY3jyjCbJxQdcBCmNfxo
- PjClCSnpxGiC2c6JEuN0Dnwe5cHJ+JOjGMqD26rVv9Z44d9lR+TimlAlhUpwB2dc64YK
- 5WlQSYDfN+ImKUpxiMuJ5ikqDDkwYrVCAA9d1srY/EZNY2t4/XHGdXue/F65HxpkNPve
- jWewWT2NoYAgh6laN6s0DO8Nhvs+9BK4JBwIjTWiOzdomvOfjlPVvGpExy1Y8YV2NR24
- Z4+nopbAfuxc6vNn9XaVLrR3AbyD7zcPUHZ4SVWExzdgptfEdp0P2CB+3evO1gWyUWVu
- B8Yg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Roh9BhwzKP6egpQjsp2+3ZHQdBWSaq5uFVICRLJiFNaAEL+iqxvMsYLnQfhFBLcaupOEhHBMkQzmnA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywj8orTCcfHGJJ4ODZw4RIKaY5/jS7kweM6OgyJIXVGopuypFPn
- PmozejFDJ39LsLCexaTFVFfhYeHbqlvm0YTSS1JdXv031WyrSGTkIQE=
-X-Gm-Gg: AfdE7clno88nf06Rq+IbKeodHiTvmkntNUD60GZLg9QNDuWvfA8z8oChLEOPpubsksg
- z1qlNqWMiO6tnJUteaWa6EH6Bdh+O3XobauliTKWkQp/p5LeTbnUnmubbdEaEAmNE90b8EoFCpr
- Y9292GQaRxXJXUTxmE8fuJKkZ2PV6pivVo8L3iJ+5VBxPxGSKN2eo1FCMJ8RWKUY4RRB+fsu5/P
- gcNq1kmUUwxfZLQNiARGZwCVaXl6aOaJha2bSS+O9YgMwgB7FYQqOZXIOLrscfyzKGY0YNBXKjc
- lf8KXP7+8CbQmaz+38YU0q39rpKiHRW/gadpg2K9073G2CsY7+H2ZsSs6L6+t18fiK60LlfHih0
- 7XMDQu/We39BwWcTZ68omibuiJL3Bx+Qi/PgSzDQVbhRhS/rvk8+7cVQPvR5Kpr4NJA95xnntRc
- d7Tm1xPSshGYe1d7xGxmvU77vLEi/F7SY6qJ5pk2N5GfNY0UB1kZ2CCMtepkIXPtIljfZedGQRY
- //FM3lCjaN0H38aLu/RlR7sUShgyoaI5tXgIeBL+H3ZEuyHaQ==
-X-Received: by 2002:a17:902:e811:b0:2c9:fec5:ae82 with SMTP id
- d9443c01a7336-2ca7e8b3a8cmr13662355ad.44.1782904914264; 
- Wed, 01 Jul 2026 04:21:54 -0700 (PDT)
-Received: from localhost.localdomain ([14.5.152.27])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ca37c738easm30622375ad.20.2026.07.01.04.21.51
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 01 Jul 2026 04:21:53 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Myeonghun Pak <mhun512@gmail.com>,
- Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] fbdev: tdfxfb: fix PCI enable cleanup with
- pcim_enable_device()
-Date: Wed,  1 Jul 2026 20:21:47 +0900
-Message-Id: <20260701112147.55048-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E2F10EEF7
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:24:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E0F2F4346C;
+ Wed,  1 Jul 2026 11:24:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6481F00A3A;
+ Wed,  1 Jul 2026 11:24:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782905071;
+ bh=nanPuof1c8ymSBvvlFLauqbhi+CTDhvUl1IyT6FPRyY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dHQywz4hQKASSkiPLgjGgq3knIjP1bssZsbSAC9ND+j8U5TZ+9ZLYBeWea3mE2t6n
+ ynK84DGJe1GBxqmAuxfkEB7uN096QcinQjQKH95g7gvKnYQu52mIb/B0OBe43cSNde
+ Jo1x/KVk96ZESdiEn9Ry+2KWCyrC784wGZGmexFs+GBtQY3OMKdv+Ze9QPcHK7N9Xy
+ UbNHlpdu02/YN+9cMd+CkR+zw00ffkvyCRRoqbQQ+2/KtrLqMIYaJVB0r4QOi73vFK
+ 0ESQnpDEf6yhVbOoMtOwPRtxAYoaxmTC6Z4EW/9VJdEyweMKSkykMEkzvR7yl9s7X2
+ 5jmWBNs86W5kA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] drm/panel: add Ilitek ILI7807S panel driver
+To: "Arpit Saini" <arpit.saini@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260701-ili7807s-v4-2-c7d76d4780a5@oss.qualcomm.com>
+References: <20260701-ili7807s-v4-0-c7d76d4780a5@oss.qualcomm.com>
+ <20260701-ili7807s-v4-2-c7d76d4780a5@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 11:24:30 +0000
+Message-Id: <20260701112431.3F6481F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,46 +54,125 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-tdfxfb_probe() enables the PCI device with pci_enable_device(), but
-several failure paths after that point return without disabling it. The
-framebuffer_alloc() failure path returns -ENOMEM directly, and the later
-shared out_err path releases the framebuffer and returns -ENXIO without
-balancing the PCI enable state.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Conflicting MIPI DCS brightness functions send payload with mismat=
+ched endianness
+- [High] Incorrect devres registration order causes DSI to detach before pa=
+nel teardown
+- [High] Unconditional DSI hardware access in backlight update callback whi=
+le panel is unpowered
+- [Medium] Hardcoded brightness in initialization sequence desynchronizes p=
+hysical and logical state
+--
 
-The successful probe path has the same imbalance because tdfxfb_remove()
-releases the framebuffer, mappings and regions, but never calls
-pci_disable_device().
+commit 225e11adf3557eed6e400ee38411cadcbb543985
+Author: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Subject: drm/panel: add Ilitek ILI7807S panel driver
 
-Use pcim_enable_device() so the PCI device is disabled automatically on
-probe failure and driver detach.
+Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI panel ba=
+sed
+on the Ilitek ILI7807S display controller.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/=
+drm/panel/panel-ilitek-ili7807s.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+[ ... ]
+> +static void dlc0697_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+[ ... ]
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x78, 0x07, 0x00);
+> +	mipi_dsi_dcs_set_tear_on_multi(dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_CABC_MIN_BRIGHTNESS,=
+ 0x09, 0x99);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0=
+x24);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x01);
+> +	mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x1fff);
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/video/fbdev/tdfxfb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[Severity: Medium]
+Will hardcoding the brightness to 0x1fff during initialization cause the
+screen to flash at maximum brightness on system resume?
 
-diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
-index cc6a074f3165..7f7c268c3b0d 100644
---- a/drivers/video/fbdev/tdfxfb.c
-+++ b/drivers/video/fbdev/tdfxfb.c
-@@ -1385,7 +1385,7 @@ static int tdfxfb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	if (err)
- 		return err;
- 
--	err = pci_enable_device(pdev);
-+	err = pcim_enable_device(pdev);
- 	if (err) {
- 		printk(KERN_ERR "tdfxfb: Can't enable pdev: %d\n", err);
- 		return err;
--- 
-2.47.1
+The brightness will remain maxed out until the subsequent enable path trigg=
+ers
+a backlight update. Does it make sense to restore the user's configured
+brightness level from the backlight device here instead?
 
+[Severity: High]
+Does the panel hardware expect the 16-bit brightness payload in Little Endi=
+an
+or Big Endian byte order?
+
+This initialization sequence uses mipi_dsi_dcs_set_display_brightness_multi=
+(),
+which sends a Little Endian payload. However, the backlight update callback
+ili7807s_bl_update_status() uses mipi_dsi_dcs_set_display_brightness_large(=
+),
+which sends a Big Endian payload:
+
+ili7807s_bl_update_status() {
+    ...
+    ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+}
+
+Since these serialize the value with opposite endianness, one of these paths
+might send a corrupted value to the hardware, potentially causing incorrect
+backlight levels or initialization failures.
+
+[ ... ]
+> +static int ili7807s_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> +	u16 brightness =3D backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+
+[Severity: High]
+Can a userspace process writing to the backlight sysfs brightness attribute
+cause a DSI host timeout if the panel is currently asleep?
+
+The backlight device is registered in ili7807s_probe() and exposed to users=
+pace
+asynchronously from the display pipeline state. Because ili7807s_bl_update_=
+status()
+transmits DCS commands without checking if the panel is actually powered on
+(for example, by checking a prepared flag), attempting to communicate over =
+the
+DSI bus while unpowered can cause the host controller to wait indefinitely.
+
+[ ... ]
+> +static int ili7807s_probe(struct mipi_dsi_device *dsi)
+> +{
+[ ... ]
+> +	ret =3D devm_drm_panel_add(dev, &ctx->panel);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to add panel\n");
+> +
+> +	return devm_mipi_dsi_attach(dev, dsi);
+> +}
+
+[Severity: High]
+Could the devres registration order here cause DSI transmission errors duri=
+ng
+driver unbind?
+
+Since devres actions execute in LIFO order, devm_mipi_dsi_attach() will be
+undone (detaching the DSI device) before devm_drm_panel_add() is undone.
+When the DRM subsystem subsequently tears down the display pipeline and
+invokes the panel's unprepare callback, the DCS commands sent to power down
+the panel will fail because the DSI device is no longer attached to the hos=
+t.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-ili7807s-v=
+4-0-c7d76d4780a5@oss.qualcomm.com?part=3D2
