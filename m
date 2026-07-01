@@ -4,91 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1436EC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:43:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC68C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:44:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DBE110EE85;
-	Wed,  1 Jul 2026 09:43:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC09B10EE8B;
+	Wed,  1 Jul 2026 09:44:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NMvirreP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MoLLrXMb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 165A410EE84;
- Wed,  1 Jul 2026 09:43:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 889EE418C7;
- Wed,  1 Jul 2026 09:43:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C261F000E9;
- Wed,  1 Jul 2026 09:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782898984;
- bh=yD2RrJDZdDL6RXjT+lWLw24YuDCa/4sSWtW/fyWFcdQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NMvirreP+CX8s1HLyn6zgBtUDz2oDbR9gIrXRS6YaNTcLZcnF2rsBWbQVm+Jl25Sr
- A8lJ4z61L/giXcR/ptNpe3o3puYpqxx0hsQHO+85EjYqDjCEIO/1lP13eBb0n33jbM
- UqdM041iHE/nTaNAA42LQ7VXM81xgA3Bi0FchvCuGazRU+YOdfKqe2mJyLfx4J0AJ1
- B3RyYF4D778BuLdBJm0jXf0mSpjvs1QuEQapPlpQ8TZMICq6soqt5v87zbEEbs2TAJ
- FdEluByUsfWooss92oIM/tmJ0RAV1NPZbvuLQEU3DJQZvF/ZXYqF3+AFDc5BkN379N
- fKMeFEDS7Kh+w==
-Date: Wed, 1 Jul 2026 10:42:43 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 01/30] mm: move vma_start_pgoff() into mm.h and clean up
-Message-ID: <akTfDTjDnnZ-8zwE@lucifer>
-References: <cover.1782735110.git.ljs@kernel.org>
- <b28b698df4c009e85c4728446ca5863d8e633164.1782735110.git.ljs@kernel.org>
- <akPqIfmQLOs4gI7h@pedro-suse.lan>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 086A010E327;
+ Wed,  1 Jul 2026 09:44:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782899068; x=1814435068;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=SzGRVUx/UhtxQKhzuRLWM4IPr618Vp/qg2rRXZPAo/Y=;
+ b=MoLLrXMbC7MJSfkvxYekEsYlI7eVelDH4zevQcdgy0TKpAvftlrgXJJA
+ OvOE1WzW3Lpl8FixbeAAy6iE9SCwn6C/qm/l/HybSjvrXZx30aDYa/o/R
+ hRvlVjNBIMFIApMBJLQBKiPNaN9LB0mcfNqdBv38mMujDnYqe/EUFXqEL
+ t8WLrtDPUdwe57nProSZGQiDEJKwRwHP73zOQ99jFcNzHzwxqYTFuVMKw
+ Rvb1GRu/xydC9ENeYBHMa9F2Hi+ra3xS+gqqk38RF6YmL7W0VsPU4REog
+ klMOPn4iJY8uNlYc9+ExaJx+eZDMEOi/2fwjsKkYvVtk758TPuI96wJ41 g==;
+X-CSE-ConnectionGUID: Dgc6klktTfCSXn+6k/P6kA==
+X-CSE-MsgGUID: UFAsumVQRKGhEq79pStmng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94781476"
+X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="94781476"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 02:44:28 -0700
+X-CSE-ConnectionGUID: +jivjYheSgWCzNpYgbKnag==
+X-CSE-MsgGUID: CEixi99XQIaiteWcAOxlsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="248541380"
+Received: from rtauro-desk.iind.intel.com ([10.190.238.50])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 02:44:21 -0700
+From: Riana Tauro <riana.tauro@intel.com>
+To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org
+Cc: aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, kuba@kernel.org,
+ simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
+ joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
+ shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
+ raag.jadav@intel.com, maarten.lankhorst@linux.intel.com,
+ mallesh.koujalagi@intel.com, soham.purkait@intel.com,
+ Riana Tauro <riana.tauro@intel.com>
+Subject: [PATCH v4 0/3] Add drm_ras netlink error event support
+Date: Wed,  1 Jul 2026 15:14:10 +0530
+Message-ID: <20260701094409.129131-5-riana.tauro@intel.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akPqIfmQLOs4gI7h@pedro-suse.lan>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,94 +73,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 30, 2026 at 05:10:55PM +0100, Pedro Falcato wrote:
-> On Mon, Jun 29, 2026 at 01:23:12PM +0100, Lorenzo Stoakes wrote:
-> > vma_last_pgoff() already lives there, so it's a bit odd to keep
-> > vma_start_pgoff() in mm/interval_tree.c. Move them together.
->
-> Hmm, a part of me wonders if this is the part where we should start cleaning
-> up mm.h into vma.h or something. Probably not, it would be extra churn right
-> now.
+Define a new netlink event 'error-event' and a new multicast group
+'error-report' in drm_ras. Each event contains device name, node and
+error information to identify the error triggering the event.
 
-Yeah the issue is there's some confusion about vma.h - mm.h should be for
-stuff that is used outside of mm, and these helpers are definitely like
-that.
+Add drm_ras_nl_error_event() to trigger an event from the driver.
+Wire this support to xe drm_ras to notify userspace whenever a GT or
+SoC error occurs in PVC. Also add support for correctable errors in
+CRI.
 
-vma.h is purely for internal mm vma stuff, and most people should be accessing
-that via internal.h (I address that in patch 27).
+$ sudo ynl --family drm_ras --output-json --subscribe error-report
 
-I do wonder if that could be done more nicely but punt that to another time.
+{
+    "name": "error-event",
+     "msg": {
+         "device-name": "0000:03:00.0",
+         "node-id": 1,
+         "node-name": "uncorrectable-errors",
+         "error-id": 1,
+         "error-name": "core-compute",
+         "error-value": 1
+     }
+}
 
-But also probably worth doing a pass over some of the defines, I have a
-bunch of series chur^W changing stuff lately so can do a follow up on that
-maybe.
+Rev2: use ynl in document and commit message
+      fix cosmetic review comments
+      simplify caller 
 
->
-> >
-> > These each return unsigned long, which pgoff_t is typedef'd to. Make this
-> > consistent and have these functions return pgoff_t instead.
-> >
-> > Additionally, express vma_last_pgoff() in terms of vma_start_pgoff(), since
-> > we wrap the vma->vm_pgoff access, we may as well use it here.
-> >
-> > Also while we're here, const-ify the VMA and cleanup a bit.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Rev3: replace error-event with error-report
+      had has_drm_ras check 
+      add support for correctable errors in CRI
 
-Thanks!
+Rev4: send an event at most once per component for each interrupt
+      add xe_warn for unexpected values from firmware
+      fix sashiko reported issues
+       
+Riana Tauro (3):
+  drm/drm_ras: Add drm_ras netlink error event
+  drm/xe/xe_drm_ras: Add error-event support for PVC
+  drm/xe/xe_ras: Add error-event support for CRI
 
->
-> > ---
-> >  include/linux/mm.h | 9 +++++++--
-> >  mm/interval_tree.c | 5 -----
-> >  2 files changed, 7 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > index 485df9c2dbdd..059144435729 100644
-> > --- a/include/linux/mm.h
-> > +++ b/include/linux/mm.h
-> > @@ -4278,9 +4278,14 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
-> >  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
-> >  }
-> >
-> > -static inline unsigned long vma_last_pgoff(struct vm_area_struct *vma)
-> > +static inline pgoff_t vma_start_pgoff(const struct vm_area_struct *vma)
-> >  {
-> > -	return vma->vm_pgoff + vma_pages(vma) - 1;
-> > +	return vma->vm_pgoff;
-> > +}
-> > +
-> > +static inline pgoff_t vma_last_pgoff(const struct vm_area_struct *vma)
-> > +{
-> > +	return vma_start_pgoff(vma) + vma_pages(vma) - 1;
-> >  }
-> >
-> >  static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
-> > diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-> > index 32bcfbfcf15f..344d1f5946c7 100644
-> > --- a/mm/interval_tree.c
-> > +++ b/mm/interval_tree.c
-> > @@ -10,11 +10,6 @@
-> >  #include <linux/rmap.h>
-> >  #include <linux/interval_tree_generic.h>
-> >
-> > -static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
-> > -{
-> > -	return v->vm_pgoff;
-> > -}
-> > -
-> >  INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
-> >  		     unsigned long, shared.rb_subtree_last,
-> >  		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
-> > --
-> > 2.54.0
-> >
->
-> --
-> Pedro
+ Documentation/gpu/drm-ras.rst            | 21 ++++++
+ Documentation/netlink/specs/drm_ras.yaml | 48 +++++++++++++
+ drivers/gpu/drm/drm_ras.c                | 87 ++++++++++++++++++++++++
+ drivers/gpu/drm/drm_ras_nl.c             |  6 ++
+ drivers/gpu/drm/drm_ras_nl.h             |  4 ++
+ drivers/gpu/drm/xe/xe_drm_ras.c          | 32 +++++++++
+ drivers/gpu/drm/xe/xe_drm_ras.h          |  3 +
+ drivers/gpu/drm/xe/xe_hw_error.c         |  5 +-
+ drivers/gpu/drm/xe/xe_ras.c              | 75 ++++++++++++++++++++
+ include/drm/drm_ras.h                    |  5 ++
+ include/uapi/drm/drm_ras.h               | 15 ++++
+ 11 files changed, 300 insertions(+), 1 deletion(-)
 
-Cheers, Lorenzo
+-- 
+2.47.1
+
