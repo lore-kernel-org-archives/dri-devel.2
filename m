@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7397FC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18537C44501
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F4B10EF23;
-	Wed,  1 Jul 2026 12:20:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0585A10EF35;
+	Wed,  1 Jul 2026 12:20:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aOIecFkZ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ztp9vqbS";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D37A010EF25
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B411610EF25
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908415;
- bh=bRMKMGSLcucjrOoiYuWObf4Zp9x+zEQ+vrSfpZkz6bQ=;
+ s=mail; t=1782908416;
+ bh=GZx1BpRsJ1/r23jIc+VNsKGA3T7ArkhsjieJzJ25f8s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aOIecFkZxG6Y53vyVc3B5TPA0fYPr7qM+F8g+ipsy0fTT8XJCtDOyrAHuplciZl1Z
- 5/7plM+JEv5SxM+0PotMgSfXZ1sOh8t4u9a/Fx9n8oqgQCDZBgxK+DePAdjdLXMYQi
- 0/GmQ4PQEWLaQbYqrStbgAYZDpFp5HBK/mFKzKslYrp5PSRcXH8YDx08riuK543mmt
- Q4N7K9YlytVITgsT6tHexuK71Mx+oTVT1zpPmPI3TtZbDgrNLuwz+B2zYqyTQJbLk4
- QgQDDpbxZZ8RDND4COjp6c5wkh2ho+iwjb39E8rBhiHbW+EqkW/TEqhdVoOibpyeBm
- wgkOv6duxSx0Q==
+ b=Ztp9vqbSRIwEWQQfxHbnTRyB8eBxPlyEbbpzZqsSXyziUL1IbUj1VfJ0KiqkjJ8w5
+ lvfg0x63LuzHxzeR0+/c3b60YtqYx+ynyMN/2ufnTIwJYutZrl+s7si+h7XKhdhBRv
+ XrnWQGQJRp7V/fquuaCYMzBrEK5ZaDkhRC1/LAU/NtFZzIb90f1mBZRk+04NcTdAOv
+ wXoKldWhKYtgggVALplYBkNhC3ftuIyGtIXMjQrKz7uU18ESu3yqTREsP70sfHAVJL
+ 8TfBdiAUTnINp7Z8tYfxqlmrsngg1yzSTTGuv+Fyjh3m4gYT0iz0rWpI8+Hlenq5Fa
+ PoPqSstZnUWoA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E35F817E116D;
- Wed,  1 Jul 2026 14:20:14 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C312717E1553;
+ Wed,  1 Jul 2026 14:20:15 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
 Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
@@ -42,10 +42,10 @@ Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
  linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  kernel@collabora.com
-Subject: [PATCH 05/12] phy: phy-mtk-dp: Implement power_on and power_off PHY
- callbacks
-Date: Wed,  1 Jul 2026 14:20:01 +0200
-Message-ID: <20260701122008.19509-6-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 06/12] phy: phy-mtk-dp: Support set_lanes in configure and
+ properly cleanup
+Date: Wed,  1 Jul 2026 14:20:02 +0200
+Message-ID: <20260701122008.19509-7-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
 References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
@@ -66,190 +66,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add .power_on() and .power_off() callbacks to mtk_dp_phy_dev_ops
-to be able to call those with phy_power_on() and phy_power_off()
-API in the DisplayPort driver to be able to stop using all of
-those hardcoded register writes in that external driver.
+Add support for enabling a specifically requested number of lanes
+in the .configure() callback and disable all lanes in power off
+and reset callbacks for proper hardware cleanup.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/phy/mediatek/phy-mtk-dp.c | 87 +++++++++++++++++++++++++++++++
- 1 file changed, 87 insertions(+)
+ drivers/phy/mediatek/phy-mtk-dp.c | 49 ++++++++++++++++++++++++++++++-
+ 1 file changed, 48 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index ce33f6812bae..586e72795633 100644
+index 586e72795633..a2cd22b9da06 100644
 --- a/drivers/phy/mediatek/phy-mtk-dp.c
 +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -20,6 +20,9 @@
+@@ -45,6 +45,9 @@
+ #define PHYD_DIG_XTP_GLB_CKDET_EN	BIT(1)
+ #define PHYD_DIG_DPAUX_RX_DEGLITCH_EN	BIT(2)
  
- #define MTK_DP_PHY_MAX_LANES		4
- 
-+/* DP_PHYA_GLB_FORCE_CTRL_1 */
-+#define CKM_CKTX0_EN_FORCE_MODE		BIT(10)
-+
- /* DP_PHYD_PLL_CTL_1 */
- #define TPLL_SSC_EN			BIT(3)
- 
-@@ -37,6 +40,11 @@
- #  define DP_GLB_SW_RST_XTAL_CLK	BIT(2)
- #  define DP_GLB_SW_RST_MAIN_LINK	BIT(3)
- 
-+/* DP_PHYD_AUX_RX_CTL */
-+#define PHYD_DIG_DPAUX_RX_EN		BIT(0)
-+#define PHYD_DIG_XTP_GLB_CKDET_EN	BIT(1)
-+#define PHYD_DIG_DPAUX_RX_DEGLITCH_EN	BIT(2)
++/* DP_PHYD_TX_CTL_0 */
++#define PHYD_TX_LN_EN			GENMASK(7, 4)
 +
  #define XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT	BIT(4)
  #define XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT	(BIT(10) | BIT(12))
  #define XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT	GENMASK(20, 19)
-@@ -83,6 +91,12 @@
- #define DRIVING_PARAM_8_DEFAULT	(XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
- 
-+enum mtk_dp_phya_ana_glb_regidx {
-+	DP_PHYA_GLB_FORCE_CTRL_0,
-+	DP_PHYA_GLB_FORCE_CTRL_1,
-+	DP_PHYA_GLOBAL_MAX
-+};
-+
- enum mtk_dp_phyd_dig_lane_regidx {
- 	DP_PHYD_LAN_DRIVING_PARAM_0,
- 	DP_PHYD_LAN_MAX
-@@ -93,9 +107,15 @@ enum mtk_dp_phyd_dig_glb_regidx {
- 	DP_PHYD_PLL_CTL_1,
+@@ -108,6 +111,7 @@ enum mtk_dp_phyd_dig_glb_regidx {
  	DP_PHYD_SW_RST,
  	DP_PHYD_BIT_RATE,
-+	DP_PHYD_AUX_RX_CTL,
+ 	DP_PHYD_AUX_RX_CTL,
++	DP_PHYD_TX_CTL_0,
  	DP_PHYD_GLOBAL_MAX
  };
  
-+static const u8 mt8195_phy_ana_glb_regs[DP_PHYA_GLOBAL_MAX] = {
-+	[DP_PHYA_GLB_FORCE_CTRL_0] = 0x30,
-+	[DP_PHYA_GLB_FORCE_CTRL_1] = 0x34,
-+};
-+
- static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
- 	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
- };
-@@ -105,21 +125,26 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
- 	[DP_PHYD_PLL_CTL_1] = 0x14,
+@@ -126,6 +130,7 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
  	[DP_PHYD_SW_RST] = 0x38,
  	[DP_PHYD_BIT_RATE] = 0x3c,
-+	[DP_PHYD_AUX_RX_CTL] = 0x40,
+ 	[DP_PHYD_AUX_RX_CTL] = 0x40,
++	[DP_PHYD_TX_CTL_0] = 0x44,
  };
  
  /**
-  * struct mtk_dp_phy_pdata - Platform data and defaults for MediaTek DP/eDP PHY
-+ * @off_ana_glb:    Base offset for dptx_phyd_sifslv_ana_glb
-  * @off_dig_glb:    Base offset for dptx_phyd_sifslv_dig_glb
-  * @off_dig_lane:   Base offsets for dptx_phyd_sifslv_dig_lan (for each lane)
-+ * @regs_ana_glb:   Register (layout) offsets for ana_glb
-  * @regs_dig_glb:   Register (layout) offsets for dig_glb
-  * @regs_dig_lane:  Register (layout) offsets for dig_lan
-  */
- struct mtk_dp_phy_pdata {
- 	/* Register offsets */
-+	u16 off_ana_glb;
- 	u16 off_dig_glb;
- 	u16 off_dig_lane[MTK_DP_PHY_MAX_LANES];
+@@ -192,6 +197,7 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
+ 	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
+ 	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
+ 	u32 val;
++	int i;
  
- 	/* Register maps */
-+	const u8 *regs_ana_glb;
- 	const u8 *regs_dig_glb;
- 	const u8 *regs_dig_lane;
- };
-@@ -193,6 +218,17 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
- 		regmap_write(dp_phy->regmap, pdata->off_dig_glb + reg_bit_rate, val);
- 	}
+ 	if (opts->dp.set_rate) {
+ 		const u32 reg_bit_rate = pdata->regs_dig_glb[DP_PHYD_BIT_RATE];
+@@ -223,7 +229,7 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
  
-+	if (opts->dp.set_lanes) {
-+		const u32 reg_dig_tx_ctl = pdata->regs_dig_glb[DP_PHYD_TX_CTL_0];
-+
-+		val = 0;
-+		for (i = 0; i < opts->dp.lanes; i++)
-+			val |= FIELD_PREP(PHYD_TX_LN_EN, i);
-+
-+		regmap_update_bits(dp_phy->regmap, pdata->off_dig_glb + reg_dig_tx_ctl,
-+				   PHYD_TX_LN_EN, val);
-+	}
-+
- 	regmap_update_bits(dp_phy->regmap,
- 			   pdata->off_dig_glb + pdata->regs_dig_glb[DP_PHYD_PLL_CTL_1],
- 			   TPLL_SSC_EN, opts->dp.ssc ? TPLL_SSC_EN : 0);
-@@ -200,6 +236,53 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
+ 		val = 0;
+ 		for (i = 0; i < opts->dp.lanes; i++)
+-			val |= FIELD_PREP(PHYD_TX_LN_EN, i);
++			val |= FIELD_PREP(PHYD_TX_LN_EN, BIT(i));
+ 
+ 		regmap_update_bits(dp_phy->regmap, pdata->off_dig_glb + reg_dig_tx_ctl,
+ 				   PHYD_TX_LN_EN, val);
+@@ -261,6 +267,35 @@ static int mtk_dp_phy_power_on(struct phy *phy)
  	return 0;
  }
  
-+static int mtk_dp_phy_power_on(struct phy *phy)
++static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
 +{
-+	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
 +	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
 +	const u8 *regs = pdata->regs_dig_glb;
 +	int ret;
++	u32 val;
 +
-+	/* Enable AUX Channel with RX De-Glitch and input clock detection */
-+	ret = regmap_write(dp_phy->regmap,
-+			   pdata->off_dig_glb + regs[DP_PHYD_AUX_RX_CTL],
-+			   PHYD_DIG_DPAUX_RX_EN |
-+			   PHYD_DIG_XTP_GLB_CKDET_EN |
-+			   PHYD_DIG_DPAUX_RX_DEGLITCH_EN);
++	ret = regmap_read(dp_phy->regmap, pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0], &val);
 +	if (ret)
 +		return ret;
 +
-+	ret = regmap_clear_bits(dp_phy->regmap,
-+				pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_1],
-+				CKM_CKTX0_EN_FORCE_MODE);
-+	if (ret)
-+		return ret;
++	/* Get mask of currently enabled lane */
++	val = FIELD_GET(PHYD_TX_LN_EN, val);
++
++	/* Disable all lanes (needs to be done one by one, from last to first) */
++	do {
++		u32 lane_num = fls(val) - 1;
++		val &= ~BIT(lane_num);
++
++		ret = regmap_clear_bits(dp_phy->regmap,
++					pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0],
++					FIELD_PREP(PHYD_TX_LN_EN, lane_num));
++		if (ret)
++			return ret;
++	} while (val);
 +
 +	return 0;
 +}
 +
-+static int mtk_dp_phy_power_off(struct phy *phy)
-+{
-+	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
-+	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
-+	const u8 *regs = pdata->regs_dig_glb;
-+	int ret;
-+
-+	ret = regmap_set_bits(dp_phy->regmap,
-+				pdata->off_ana_glb + regs[DP_PHYA_GLB_FORCE_CTRL_1],
-+				CKM_CKTX0_EN_FORCE_MODE);
-+	if (ret)
-+		return ret;
-+
-+	/* Disable RX */
-+	ret = regmap_write(dp_phy->regmap,
-+			   pdata->off_dig_glb + regs[DP_PHYD_AUX_RX_CTL], 0);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
- static int mtk_dp_phy_reset(struct phy *phy)
+ static int mtk_dp_phy_power_off(struct phy *phy)
  {
  	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
-@@ -220,6 +303,8 @@ static int mtk_dp_phy_reset(struct phy *phy)
+@@ -280,6 +315,12 @@ static int mtk_dp_phy_power_off(struct phy *phy)
+ 	if (ret)
+ 		return ret;
  
- static const struct phy_ops mtk_dp_phy_dev_ops = {
- 	.init = mtk_dp_phy_init,
-+	.power_on = mtk_dp_phy_power_on,
-+	.power_off = mtk_dp_phy_power_off,
- 	.configure = mtk_dp_phy_configure,
- 	.reset = mtk_dp_phy_reset,
- 	.owner = THIS_MODULE,
-@@ -305,8 +390,10 @@ static int mtk_dp_phy_probe(struct platform_device *pdev)
++	ret = mtk_dp_phy_disable_all_lanes(dp_phy);
++	if (ret) {
++		dev_err(dp_phy->dev, "Could not disable lanes for poweroff!\n");
++		return ret;
++	}
++
+ 	return 0;
  }
  
- static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
-+	.off_ana_glb = 0x0,
- 	.off_dig_glb = 0x1000,
- 	.off_dig_lane = (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
-+	.regs_ana_glb = mt8195_phy_ana_glb_regs,
- 	.regs_dig_glb = mt8195_phy_dig_glb_regs,
- 	.regs_dig_lane = mt8195_phy_dig_lane_regs,
- };
+@@ -288,6 +329,7 @@ static int mtk_dp_phy_reset(struct phy *phy)
+ 	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
+ 	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
+ 	const u32 reg_rst = pdata->regs_dig_glb[DP_PHYD_SW_RST];
++	int ret;
+ 
+ 	/* Clearing bits sets reset state */
+ 	regmap_clear_bits(dp_phy->regmap, pdata->off_dig_glb + reg_rst, DP_GLB_SW_RST_PHYD);
+@@ -298,6 +340,11 @@ static int mtk_dp_phy_reset(struct phy *phy)
+ 	/* Setting bits means go out of reset */
+ 	regmap_set_bits(dp_phy->regmap, pdata->off_dig_glb + reg_rst, DP_GLB_SW_RST_PHYD);
+ 
++	/* Disable all lanes and continue reset even if this fails, but notify */
++	ret = mtk_dp_phy_disable_all_lanes(dp_phy);
++	if (ret)
++		dev_err(dp_phy->dev, "Could not disable lanes during reset!\n");
++
+ 	return 0;
+ }
+ 
 -- 
 2.54.0
 
