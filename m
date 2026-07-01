@@ -4,51 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98520C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 14:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88D77C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 14:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90FAF10E3D5;
-	Wed,  1 Jul 2026 14:23:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2F8910E3A2;
+	Wed,  1 Jul 2026 14:26:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CW81gr08";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U1uHbPDN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E4310E3A9
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 14:23:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 69FBB4172F;
- Wed,  1 Jul 2026 14:23:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288F71F00AC4;
- Wed,  1 Jul 2026 14:23:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782915824;
- bh=L+MQqoMdTb10quuKjj21cquQc2SQagarqLqHoeQ9/rY=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject;
- b=CW81gr08/6J3xgLYZqeMUjS5S8MAX27dufuEN6oZM/k/TED4PyD+vkkGZ5DmD5J1E
- uZ49HNe3o4iDB9XKWBlELTolRsUaDMTt2jKlaHfXCFlZT/INQEHZXNozYwNlQsQZe4
- JvKjXqzgOt0iq62BIusGQ+anmtq8f3FxDStbZNW5HbIHEIeOuqjUgZ4bgqauiZa3MD
- 9gWB9X1JR8kU37EUKr08+s4nmL363X43JW/sB2tjC3MQINmycor97RpJFo1oGicYB/
- Zt0jNTBcVsnBh+bhF4RTtFBQTau7XUnFQlnezMZwBZDt7ryWbew0RO/wyYBoNrQkzH
- bdtra1G8tBtPA==
-Date: Wed, 01 Jul 2026 09:23:43 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C09E410E3A2;
+ Wed,  1 Jul 2026 14:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782916014; x=1814452014;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=LeJ4Etb/bs+mMpVgZ7+XfiR2eSv6eMXWa+iNgsnuWZs=;
+ b=U1uHbPDNr3bOc575KKRyvexuthKtNR0I3/F+u4357wFCqcp5m/fCr3Uy
+ gkph2v3ljqmvBft9D++FuyamcGsuJQAxzey2Ej1AL/7anC8tQVqaB1j50
+ dsTzjXdoDqembHGEoIRJgbe+B03qqQS/7YT3lkJD0jN3abqkJZQdGAenP
+ CVIX/4zQ+GLFFGKTOn+4EVn0HhR6g9feMDLeYdceuByBLOWOSye03Cu19
+ l8xZx/5lGDTSmwUl/AESXbVm0492v9PvRG3/TRISCDe+RjdF2fjNq1ein
+ pvhA+E4+qG0EyDdFgyno1hB/zkHQiHpQxTVfEitvgfmXGwjbPaVDWl9eW w==;
+X-CSE-ConnectionGUID: e3j28ry/Tt2ajIPcHYo3uw==
+X-CSE-MsgGUID: VJLz7q3oSlWKJXtlZnmL+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83426283"
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="83426283"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 07:26:53 -0700
+X-CSE-ConnectionGUID: z2oPJFEWTwmjm8Ns9riNdA==
+X-CSE-MsgGUID: yWS2qhZITMeQi1FbaIgtCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="256162220"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.244.143])
+ ([10.245.244.143])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 07:26:47 -0700
+Message-ID: <853a147c-6565-4286-ba4f-60decd3b23e0@linux.intel.com>
+Date: Wed, 1 Jul 2026 16:26:45 +0200
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, chunkuang.hu@kernel.org, 
- matthias.bgg@gmail.com, mripard@kernel.org, jason-jh.lin@mediatek.com, 
- kernel@collabora.com, devicetree@vger.kernel.org, justin.yeh@mediatek.com, 
- simona@ffwll.ch, p.zabel@pengutronix.de, tzimmermann@suse.de, 
- conor+dt@kernel.org, airlied@gmail.com, maarten.lankhorst@linux.intel.com, 
- dri-devel@lists.freedesktop.org, krzk+dt@kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260701122057.19648-39-angelogioacchino.delregno@collabora.com>
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
- <20260701122057.19648-39-angelogioacchino.delregno@collabora.com>
-Message-Id: <178291581802.4116105.6915436352274822148.robh@kernel.org>
-Subject: Re: [PATCH 38/42] dt-bindings: display: mediatek: Introduce MT8196
- 2D Sharpness Processor
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+ behind driver feature
+To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Stone
+ <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260630084229.529682-1-robert.mader@collabora.com>
+ <3bc9d27b-2886-48df-a897-7e73f14a88a2@linux.intel.com>
+ <11792a51-aeeb-428f-a793-607ff09558f3@collabora.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <11792a51-aeeb-428f-a793-607ff09558f3@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,41 +84,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hey,
 
-On Wed, 01 Jul 2026 14:20:53 +0200, AngeloGioacchino Del Regno wrote:
-> Add documentation for the Two-Dimension Sharpness Processor, or
-> "TDSHP", found in many MediaTek SoCs including MT8196 and its
-> variants.
+
+On 7/1/26 15:32, Robert Mader wrote:
+> Hi Maarten,
 > 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  .../mediatek/mediatek,mt8196-tdshp.yaml       | 98 +++++++++++++++++++
->  1 file changed, 98 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-tdshp.yaml
+> On 01.07.26 12:41, Maarten Lankhorst wrote:
+>> Hello,
+>>
+>> All you have to do is iterate over all planes at runtime until
+>> one is found that has the pipeline property attached, it's not
+>> a performance sensitive area and no locking is required for
+>> testing if plane->color_pipeline_property is NULL.
 > 
+> that's correct - I checked that before and while the amount of code changes necessary to support such a "check-planes-with-cap-enabled-and-reinitialize-without-cap-otherwise" is not big (AFAICS it should be possible with under 100 lines in Weston), it would need to be replicated in various Wayland compositors and lots of apps with native DRM backend (drm_info, Gstreamer KMS sink, MPV, Kodi etc.). The small change proposed here seems like a more elegant solution to me.
+> 
+> In a previous chat Pekka and Simon seemed to agree, quoting: "< emersion> pq, you mean the cap is advertised regardless of driver support? that sounds like a bug".
 
-My bot found errors running 'make dt_binding_check' on your patch:
+You misunderstand my comment, I meant this from the kernel side.
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-tdshp.yaml: ignoring, error in schema: properties: compatible
-Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-tdshp.example.dtb: /example-0/tdshp@321e0000: failed to match any schema with compatible: ['mediatek,mt8196-disp-tdshp']
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260701122057.19648-39-angelogioacchino.delregno@collabora.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+>> You can also make drm_plane_create_color_pipeline_property set
+>> the flag in drm_device::driver_features that the cap is supported.
+> Automatically enabling the driver feature sounds like a reasonable improvement - I'll try that, thanks!
+>>
+>> But the cap setting code's not really performance sensitive, it will
+>> be called only a few times during boot at most. Perhaps check whether
+>> the first crtc->primary plane has the cap is also sufficient.
+>>
+>> If you want to continue with a special driver cap, then please set
+>> the flag for the xe driver too.
+> Indeed, will do in case the approach mentioned above doesn't work out for some reason.
+>> Kind regards,
+>> ~Maarten Lankhorst
+> 
+> Regards and thanks for the feedback!e
+>>
+>> On 6/30/26 10:42, Robert Mader wrote:
+>>>  From the main commit:
+>>>
+>>> The client cap is currently advertised unconditionally, even for drivers that do
+>>> not support plane color pipelines. If clients supporting the later, like Wayland
+>>> compositors and drm_info, enable the client cap on sich drivers they will be
+>>> left without both color pipeline and the legacy properties COLOR_ENCODING and
+>>> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
+>>>
+>>> Add a new driver feature and guard the client cap behind it, allowing
+>>> plane color pipeline and legacy YUV->RGB support to co-exist.
+>>>
+>>> In case of VKMS make the client cap depend on the enable_plane_pipeline.
+>>>
+>>> The series can be easily tested with drm_info >= v2.10.0 and VKMS. Without the
+>>> enable_plane_pipeline option - currently the default - the legacy flags
+>>> COLOR_ENCODING and COLOR_RANGE should be advertised, just like older drm_info
+>>> versions.
+>>>
+>>> ---
+>>>
+>>> Related series actually implementing the color pipeline replacement for the
+>>> legacy flags:
+>>> https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html
+>>>
+>>>
+>>> Robert Mader (4):
+>>>    drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE behind driver feature
+>>>    drm/amdgpu: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>>    drm/i915: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>>    drm/vkms: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>>
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+>>>   drivers/gpu/drm/drm_ioctl.c             | 2 ++
+>>>   drivers/gpu/drm/i915/i915_driver.c      | 2 +-
+>>>   drivers/gpu/drm/vkms/vkms_drv.c         | 6 +++++-
+>>>   include/drm/drm_drv.h                   | 6 ++++++
+>>>   5 files changed, 15 insertions(+), 3 deletions(-)
+>>>
 
