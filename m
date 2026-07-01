@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0911C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD788C44500
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:50:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0216E10E393;
-	Wed,  1 Jul 2026 12:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3CC10EF8B;
+	Wed,  1 Jul 2026 12:50:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kv2csqmE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kp1AG33T";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECFA310E393
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:49:35 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 544AA10EF8D
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:50:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5BF696001D;
- Wed,  1 Jul 2026 12:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953791F000E9;
- Wed,  1 Jul 2026 12:49:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2A0BF43CD8;
+ Wed,  1 Jul 2026 12:50:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27181F00A3A;
+ Wed,  1 Jul 2026 12:50:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782910175;
- bh=v3UgTfSxwXblzsiR2gHqjASTi3JdJQyKR9vyVzveb/4=;
+ s=k20260515; t=1782910219;
+ bh=ogQceqQ808YsZTT5xDvMfw/Hxp/6gRHLqBYleisECB4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kv2csqmEoVUHDDv3UiqHvXgnVh1j9XywRdUunm0vj3xd5PoS4NLSEB/tHsFSNby7r
- t0ESCSHc7ZJ/KaIZVm8qlcD/iWdR44/ivDxy/LHsL6ws2AVbSRq15FPdyxOJkcUNYj
- +/Hslr72fBxIrUa7JIJRnS+l20/ySl5YUnk9kNg3S3JfgBTVshNl6DGt0LrJOD3yA2
- IVNDYnDotI6H4OLka1H754eX8duRdMARUWIcI1udiTlGx1C69aeb04TibDbXfYoCCr
- HhAqvomsBPE0yOa0wycCIdTsgTs4TavYD8W9L2+/ApmngZXVMgWP5mLHlPQoTXLEqa
- XhWEfb7hWscRg==
+ b=kp1AG33TiMj1MOOaPTrHbySOB1SFehS0ILSJ7TceQ+aea/ThrhP+ELIB8SSAD7/dG
+ yxiWNflGVKZWYwm4Mza9zuHdhXkhtU0q+Ky3GcmNfhHgIEEx8SH96dIxnKtPr2XJAx
+ c735uhAP+PJ2ir/8CB5/FLIsd/fub+Q1Xm1OiFFQFiLimb13hBddXFN09jCFqXdbnt
+ hAHFoXMfqcrtPo5ayIIeYQUvTQsa/ELKgdvk5t10Pw0j/gcBfIHvaJjItJL9Xkmm5X
+ QcM9uwtwEYwIniG08wz32riltIH8AmYOo99vcYL/OrxG2cQiw1PP36fHZa7LdmvvSR
+ xUQChCvVXRiHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/12] phy: phy-mtk-dp: Support setting volt swing and
- preemphasis values
+Subject: Re: [PATCH 09/12] phy: phy-mtk-dp: Rewrite and document default
+ driving param macros
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: neil.armstrong@linaro.org, devicetree@vger.kernel.org, robh@kernel.org,
- vkoul@kernel.org, olteanv@gmail.com, dri-devel@lists.freedesktop.org,
- linux-phy@lists.infradead.org, conor+dt@kernel.org
-In-Reply-To: <20260701122008.19509-8-angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, vkoul@kernel.org,
+ neil.armstrong@linaro.org, conor+dt@kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, olteanv@gmail.com
+In-Reply-To: <20260701122008.19509-10-angelogioacchino.delregno@collabora.com>
 References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
- <20260701122008.19509-8-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-10-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:49:33 +0000
-Message-Id: <20260701124934.953791F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 12:50:15 +0000
+Message-Id: <20260701125017.E27181F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,139 +60,163 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-New issues:
-- [High] The newly added PHYD_DP_TX_FORCE_VOLT_SWING_EN bit is never set or=
- cleared, causing the hardware to likely ignore the configured voltage swin=
-g and pre-emphasis values.
-- [High] Undefined behavior in `mtk_dp_phy_disable_all_lanes` when no lanes=
- are currently enabled.
-
-Pre-existing issues:
-- [High] Missing `.remove` callback leads to Use-After-Free and unbalanced =
-PM runtime states on module unload.
+- [High] The refactoring introduces incorrect integer values for two Displa=
+yPort PHY driving parameters, silently altering the underlying hardware con=
+figuration.
+- [High] Integer underflow and undefined behavior in mtk_dp_phy_disable_all=
+_lanes when no lanes are enabled.
+- [High] Flawed PM runtime initialization, race condition, and unhandled er=
+rors in probe.
+- [Medium] Incorrect endianness conversion by pointer aliasing a u16 as a u=
+8*.
 --
 
-commit 3443073c225a00d56dcccbe80409c8537773ab64
+commit 3ae397642076d659c70475bdbefbc3286e0e7c1f
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: phy: phy-mtk-dp: Rewrite and document default driving param macros
 
-phy: phy-mtk-dp: Support setting volt swing and preemphasis values
-
-Add support for honoring the set_voltages request to set the voltage swing
-and preemphasis values in the .configure() callback. It also updates the
-.reset() callback to clean up the newly configured values.
+This patch uses FIELD_PREP_CONST and adds definitions and macros to build
+the default driving parameters for the PHY. It also adds comments explaining
+what they are supposed to set in the PHY.
 
 > diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
 -mtk-dp.c
-> index a2cd22b9da066..17d871530ccaf 100644
+> index d7024a1443358..1d73a622ef322 100644
 > --- a/drivers/phy/mediatek/phy-mtk-dp.c
 > +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-> @@ -235,6 +242,28 @@ static int mtk_dp_phy_configure(struct phy *phy, uni=
-on phy_configure_opts *opts)
->  				   PHYD_TX_LN_EN, val);
->  	}
-> =20
-> +	if (opts->dp.set_voltages) {
-> +		const u32 reg_drv_force =3D pdata->regs_dig_lane[DP_PHYD_LAN_DRIVING_F=
-ORCE];
-> +
-> +		if (opts->dp.lanes > 4) {
-> +			dev_err(&phy->dev, "Wrong lanes config %u\n", opts->dp.lanes);
-> +			return -EINVAL;
-> +		}
-> +
-> +		for (i =3D 0; i < opts->dp.lanes; i++) {
-> +			const u32 off_dig_lane =3D pdata->off_dig_lane[i];
-> +			u32 val;
-> +
-> +			val =3D FIELD_PREP(PHYD_DP_TX_FORCE_VOLT_SWING_VAL, opts->dp.voltage[=
-i]);
-> +			val |=3D FIELD_PREP(PHYD_DP_TX_FORCE_PRE_EMPH_VAL, opts->dp.pre[i]);
-> +
-> +			regmap_update_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
-> +					   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
-> +					   PHYD_DP_TX_FORCE_PRE_EMPH_VAL,
-> +					   val);
-
-[Severity: High]
-Does this override hardware configuration actually take effect?
-
-Since PHYD_DP_TX_FORCE_VOLT_SWING_EN is not included in the update mask or
-set in the value here, the hardware force enable bit remains unset. Will
-the hardware ignore these override values without the enable bit being
-asserted?
-
-> +		}
-> +	}
-> +
->  	regmap_update_bits(dp_phy->regmap,
 [ ... ]
-> @@ -345,6 +375,15 @@ static int mtk_dp_phy_reset(struct phy *phy)
->  	if (ret)
->  		dev_err(dp_phy->dev, "Could not disable lanes during reset!\n");
-> =20
+> +/* MT8195: Logic State Change Point (LC TX C) */
+> +#define MT8195_DRIVING_PARAM_3_DEFAULT	BUILD_DRIVING_PARAM_0( 16, 20, 24=
+, 32)
+> +#define MT8195_DRIVING_PARAM_4_DEFAULT	BUILD_DRIVING_PARAM_12(24, 30, 60=
+, 32)
 
 [Severity: High]
-Is it possible for the loop in mtk_dp_phy_disable_all_lanes() to execute
-with val initially set to 0?
+Does this unintentionally change the default for SW1_PRE2?
 
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_disable_all_lanes() {
-    ...
-    /* Get mask of currently enabled lane */
-    val =3D FIELD_GET(PHYD_TX_LN_EN, val);
+The conversion to macros incorrectly alters the sw1_pre2 value. The
+original macro XTP_LN_TX_LCTXC0_SW1_PRE2_DEFAULT was (BIT(18) | BIT(21)),
+which evaluates to 36 (0x24) when shifted. This macro now sets it to
+60 (0x3c).
 
-    /* Disable all lanes (needs to be done one by one, from last to first) =
+> +#define MT8195_DRIVING_PARAM_5_DEFAULT	BUILD_DRIVING_PARAM_23(8, 48)
+
+[Severity: High]
+Is there a similar issue with the default for SW2_PRE1?
+
+The original value was 40 (0x28), but this is now passing 8 (0x08), which
+drops BIT(5). These altered driving parameters can degrade signal integrity
+and cause connection instability.
+
+[ ... ]
+> +static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
+> +{
+> +	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
+> +	const u8 *regs =3D pdata->regs_dig_glb;
+> +	int ret;
+> +	u32 val;
+> +
+> +	ret =3D regmap_read(dp_phy->regmap, pdata->off_dig_glb + regs[DP_PHYD_T=
+X_CTL_0], &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Get mask of currently enabled lane */
+> +	val =3D FIELD_GET(PHYD_TX_LN_EN, val);
+> +
+> +	/* Disable all lanes (needs to be done one by one, from last to first) =
 */
-    do {
-        u32 lane_num =3D fls(val) - 1;
-        val &=3D ~BIT(lane_num);
-    ...
-}
-
-If no lanes are currently enabled, fls(0) - 1 evaluates to -1, which can
-cause undefined behavior when shifting ~BIT(-1). Should this be a
-while (val) loop instead of do { ... } while (val)?
-
-> +	/* Reset Voltage Swing and Preemphasis values */
-> +	for (i =3D 0; i < MTK_DP_PHY_MAX_LANES; i++) {
-> +		const u32 off_dig_lane =3D pdata->off_dig_lane[i];
+> +	do {
+> +		u32 lane_num =3D fls(val) - 1;
+> +		val &=3D ~BIT(lane_num);
 > +
-> +		regmap_clear_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
-> +				   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
-> +				   PHYD_DP_TX_FORCE_PRE_EMPH_VAL);
+> +		ret =3D regmap_clear_bits(dp_phy->regmap,
+> +					pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0],
+> +					FIELD_PREP(PHYD_TX_LN_EN, lane_num));
+> +		if (ret)
+> +			return ret;
+> +	} while (val);
 
 [Severity: High]
-Does this correctly clear the override state?
+Can this do-while loop execute with val initially at 0?
 
-Similar to the configuration above, this clears the swing and pre-emphasis
-values but leaves the PHYD_DP_TX_FORCE_VOLT_SWING_EN bit untouched. If
-the force mode was enabled elsewhere, could it remain active after reset?
+If the PHY is already fully disabled when this is called, val will be 0.
+The loop blindly executes once, fls(0) returns 0, and lane_num underflows
+to 0xffffffff.
 
-> +	}
+Using ~BIT(0xffffffff) invokes undefined behavior, and passing 0xffffffff
+to FIELD_PREP() extracts unpredictable bits, causing a spurious out-of-boun=
+ds
+register write when clearing the PHY control registers.
+
 > +
->  	return 0;
->  }
+> +	return 0;
+> +}
+[ ... ]
+> +static int mtk_dp_phy_get_one_cal_para(struct device *dev, const char *n=
+ame, u8 max_val)
+> +{
+> +	u16 buf =3D 0;
+> +	int ret;
+> +
+> +	/*
+> +	 * All of the calibrations are always max 8 bits long, but some may
+> +	 * be split between two different 8-bits cells: handle this corner
+> +	 * case by retrying reading as u16.
+> +	 */
+> +	ret =3D nvmem_cell_read_u8(dev, name, (u8 *)&buf);
 
+[Severity: Medium]
+Will this lead to an endianness violation on Big Endian platforms?
+
+Casting a u16 buffer pointer to (u8 *) will cause the single byte to be
+written into the most significant byte of buf instead of the least
+significant byte on Big Endian architectures.
+
+For instance, reading 0x0F would result in buf holding 0x0F00 (3840), which
+would falsely trigger the subsequent if (buf > max_val) validation check.
+
+> +	if (ret)
+> +		ret =3D nvmem_cell_read_u16(dev, name, &buf);
+[ ... ]
+> +static int mtk_dp_phy_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	phy_set_drvdata(phy, dp_phy);
+> +
+> +	provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+> +	if (IS_ERR(provider))
+> +		return PTR_ERR(provider);
 
 [Severity: High]
-This is a pre-existing issue, but I noticed the platform driver lacks a
-.remove callback:
+Could registering the provider before enabling PM runtime cause a race cond=
+ition?
 
-static struct platform_driver mtk_dp_phy_driver =3D {
-	.probe =3D mtk_dp_phy_probe,
-	.driver =3D { ... },
-};
+Exposing the PHY to consumers here means a consumer could claim the PHY and
+attempt to power it on before pm_runtime_enable() is called below. This
+would return -EACCES and break the consumer initialization.
 
-During probe, pm_runtime_enable() and pm_runtime_get_sync() are called, and
-a phy_lookup structure is dynamically allocated via phy_create_lookup().
+> +
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_get_sync(dev);
 
-Because there is no .remove callback, unloading the module leaves PM runtime
-unbalanced and leaks the phy_lookup struct, which remains on the global phys
-list while pointing to a devres-freed phy device. Could this lead to a
-use-after-free on subsequent lookups?
+[Severity: High]
+Should the return value of pm_runtime_get_sync(dev) be checked?
+
+Ignoring the return value means the probe silently succeeds even if the
+hardware cannot be powered.
+
+Additionally, this driver lacks a .remove callback. Since
+pm_runtime_get_sync() increases the usage counter without it ever being
+released, and pm_runtime_disable() is never called, unloading the module
+permanently leaks the PM reference and breaks PM runtime for this device.
+
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
-9-1-angelogioacchino.delregno@collabora.com?part=3D7
+9-1-angelogioacchino.delregno@collabora.com?part=3D9
