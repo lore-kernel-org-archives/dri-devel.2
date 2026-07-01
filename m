@@ -4,66 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 525B3C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:09:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EEDCC43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:11:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80D4110E335;
-	Wed,  1 Jul 2026 08:09:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2BD10EE2A;
+	Wed,  1 Jul 2026 08:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="eJQGLOs5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VXqZRPo9";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFDDC10E2FF;
- Wed,  1 Jul 2026 08:09:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782893364; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Cq5Z5pVOzanHef+40NoTyNT7q6AVitj63I+EMJ4EkHUSf7f2Yjy+c0iuKCLC0y26ACMFaXTpzGUnlp4ucIdx4ho5aL4MKeoVowqiMJn4gPWQB9+kRFK0uMNw5k2WDQLlkXHMFzBhBsDMcjCTIpAsUONEUzdYd6QwCg3Z2dFd0x4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782893364;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=0jUdYf3Jpsqpg7AGrjGxXVn5l4AHY7WYmNW7iTVyHF4=; 
- b=fSACafJUjZZfxlQT7zJ+Bsm0ZeSh9g3oP2cDRgJKyLGiBIOobuz9A9bjCLy5aKkJCuibIa+sDjhWrtf49bzAcNeMZynIIiY54W8fZeoTSiAat1BdG2CcUxTmRyQ0WzRbg5qmPPLKBHVLTfkYUz/maoVRWxGYQ+3MefUQQSkRB8k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782893364; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Content-Type:Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:References:Cc:Cc:From:From:In-Reply-To:Message-Id:Reply-To;
- bh=0jUdYf3Jpsqpg7AGrjGxXVn5l4AHY7WYmNW7iTVyHF4=;
- b=eJQGLOs5RGlA+b0IUVho9pCfmphpjp10DYPC55nIsXPoivRwDIioQ4Y0e58nRIZ3
- 7jnpxhXH4fs1JJfGKzksSbO/kLsoIqQM50hsXhymq1Wp55w+QargE0Zv36kqx51W7pP
- gvJm/jSCfiSfqgXs9D2k+tn5dDn7t2IGZbE2Cwsk=
-Received: by mx.zohomail.com with SMTPS id 1782893362327461.10843289133913;
- Wed, 1 Jul 2026 01:09:22 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------MrgBLpczX1AiTYcmsbtV2Cqf"
-Message-ID: <267deaf4-55ec-492d-8646-e16a9b4bfb65@collabora.com>
-Date: Wed, 1 Jul 2026 10:09:16 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB67F10EE29;
+ Wed,  1 Jul 2026 08:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782893491; x=1814429491;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=ZVV2hjY9ay7iumIfLUlyzYe4GywTvBJ7/pC6zjq9+8s=;
+ b=VXqZRPo9EMUM46LVZBP8wBAH2w29ZeYfBu9j2tl49Y2k1pwOtT6p4LVN
+ DLvqoe3wiMdey1qgg/5TwiqMx4LdNWbOt+tmL36/Z1FHjN11n7Pyu1QJh
+ XWpxTA7jLeIlECwXtPemODCB/+tkbykieRFOkVu9k+ooCWUek2enyC8GH
+ 0BEvEBdp5dZSULdFNiIVdeyEo8ZJ9k13Vb+5vP5wkIKcJxALSdqRY/S3Y
+ vLJgRz41/QDz2XgdVuxtUPNMPmFfnxeAyvcq+cHif8dQ9vVvWWnNuxHA8
+ LfX8/oIC7ANF35QaLRS/5p4om508MzW9VDs0ql98B26OKNhdpG+RlPags A==;
+X-CSE-ConnectionGUID: 67fk4z5STJ+GMXq107SBag==
+X-CSE-MsgGUID: Cg/HBOh8Rs+7q804FPNoIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94772611"
+X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="94772611"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 01:08:53 -0700
+X-CSE-ConnectionGUID: 8UFmS5fRQiuB5i3UYg20qw==
+X-CSE-MsgGUID: Eo5z0S5iRCWWQbbtLv9j+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="252078510"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.25])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 01:08:50 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
- behind driver feature
-To: Melissa Wen <mwen@igalia.com>, dri-devel@lists.freedesktop.org
-References: <20260630084229.529682-1-robert.mader@collabora.com>
- <20260630084229.529682-2-robert.mader@collabora.com>
- <0570d22d-bf3c-4c17-b50e-58f522f25ffb@igalia.com>
- <9eb18964-fcca-4fce-9fb9-f36d762ac23e@collabora.com>
-Content-Language: en-US, de-DE
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <9eb18964-fcca-4fce-9fb9-f36d762ac23e@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260701074137.84A9B1F000E9@smtp.kernel.org>
+References: <20260701073030.44850-1-joonas.lahtinen@linux.intel.com>
+ <20260701074137.84A9B1F000E9@smtp.kernel.org>
+Subject: Re: [PATCH] drm/i915/gem: Do not leak siblings[] on proto context
+ error
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+To: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev
+Date: Wed, 01 Jul 2026 11:08:47 +0300
+Message-ID: <178289332700.56387.13946790938701225803@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,168 +71,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------MrgBLpczX1AiTYcmsbtV2Cqf
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Quoting sashiko-bot@kernel.org (2026-07-01 10:41:36)
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+>=20
+> Pre-existing issues:
+> - [Critical] Unchecked NULL pointer dereference of `pe->engine` in `set_p=
+roto_ctx_sseu()`.
+> --
+>=20
+> commit 65a99ba2c873d452c04e00448f3e025e69552b68
+> Author: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>=20
+> drm/i915/gem: Do not leak siblings[] on proto context error
+>=20
+> This commit fixes a memory leak in the context creation error path.
+> It ensures the siblings[] array is properly freed if an error happens
+> while processing user extensions.
+>=20
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/=
+drm/i915/gem/i915_gem_context.c
+> > index aeafe1742d308..87fce2adfeefb 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+> [ ... ]
+> > @@ -800,15 +800,21 @@ static int set_proto_ctx_engines(struct drm_i915_=
+file_private *fpriv,
+> >                                          set_proto_ctx_engines_extensio=
+ns,
+> >                                          ARRAY_SIZE(set_proto_ctx_engin=
+es_extensions),
+> >                                          &set);
+> [ ... ]
+> > +err_extensions:
+> > +     for (n =3D 0; n < set.num_engines; n++)
+> > +             kfree(set.engines[n].siblings);
+> > +err:
+> > +     kfree(set.engines);
+> > +
+> > +     return err;
+> >  }
+> > =20
+> >  static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
+>=20
+> [Severity: Critical]
+> This is a pre-existing issue, but could this cause a NULL pointer
+> dereference later in set_proto_ctx_sseu()?
+>=20
+> If a user creates a proto-context and uses I915_CONTEXT_PARAM_ENGINES to
+> set an engine array with an I915_ENGINE_CLASS_INVALID entry,
+> set_proto_ctx_engines() initializes the slot to 0 and skips setting
+> pe->engine.
+>=20
+> If the user then calls I915_CONTEXT_PARAM_SSEU and specifies the index of
+> that invalid engine, set_proto_ctx_sseu() executes this:
+>=20
+>     idx =3D array_index_nospec(idx, pc->num_user_engines);
+>     pe =3D &pc->user_engines[idx];
+>=20
+>     /* Only render engine supports RPCS configuration. */
+>     if (pe->engine->class !=3D RENDER_CLASS)
+>         return -EINVAL;
+>=20
+> Does pe->engine need to be checked for NULL before dereferencing it here,=
+ to
+> prevent a panic?
 
-On 01.07.26 09:35, Robert Mader wrote:
-> On 30.06.26 18:57, Melissa Wen wrote:
->>
->>
->> On 30/06/2026 10:42, Robert Mader wrote:
->>> The client cap is currently advertised unconditionally, even for 
->>> drivers that do
->>> not support plane color pipelines. If clients supporting the later, 
->>> like Wayland
->>> compositors and drm_info, enable the client cap on sich drivers they 
->>> will be
->>> left without both color pipeline and the legacy properties 
->>> COLOR_ENCODING and
->>> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
->>>
->>> Add a new driver feature and guard the client cap behind it, allowing
->>> plane color pipeline and legacy YUV->RGB support to co-exist.
->>
->> Ouch, that's indeed a problem. Nice catch!
->>
->> I'm not sure if this is the right way to go because plane color 
->> pipeline can be supported per plane and per hw family.
->> My suggestion would be to only deprecate COLOR_ENCODING and 
->> COLOR_RANGE in drm_mode_object_get_properties() if a plane 
->> COLOR_PIPELINE property is attached.
->> WDYT?
->
-> Hi Melissa!
->
-> I don't think we need or should use the legacy properties for drivers 
-> and clients that supports the new API. Once Harrys YUV conversion 
-> colorop series(1) lands, every plane on every hardware currently 
-> supporting COLOR_ENCODING and COLOR_RANGE could express that with the 
-> colorop API as well - even if not supporting any other operations. It 
-> would look roughly like this:
->
-> └───"COLOR_PIPELINE" (atomic): enum {Bypass, YUV Pipeline 123} = Bypass
->      ├───Bypass
->      └───YUV Pipeline 123
->          └───Color Operation 123
->              └───Properties
->                  ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
->                  ├───"BYPASS" (atomic): range [0, 1] = 1
->                  ├───"NEXT" (atomic, immutable): object colorop = 465
->                  └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
->
-> Doing so will be nicer for compositors/clients going forward as they'd 
-> only need to support a single API if they don't care about legacy 
-> drivers (and we can adapt all in-tree drivers).
->
-> Do you agree?
->
-> Best regards
->
-> Robert
->
-> 1: https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html
->
-P.S.: sorry for the noise, just resending with all to/cc headers to make 
-sure it doesn't get lost - and wanted to add that I'm currently working 
-on the Weston implementation for the YUV conversion colorop to get it 
-over the line.
+There is a fix submitted for this already at [1] given the issue was
+already taken note of.
 
--- 
-Robert Mader
-Consultant Software Developer
+Regards, Joonas
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+[1] https://lore.kernel.org/intel-gfx/20260701075555.52142-1-joonas.lahtine=
+n@linux.intel.com/
 
---------------MrgBLpczX1AiTYcmsbtV2Cqf
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 01.07.26 09:35, Robert Mader wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:9eb18964-fcca-4fce-9fb9-f36d762ac23e@collabora.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <div class="moz-cite-prefix">On 30.06.26 18:57, Melissa Wen wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:0570d22d-bf3c-4c17-b50e-58f522f25ffb@igalia.com"> <br>
-        <br>
-        On 30/06/2026 10:42, Robert Mader wrote: <br>
-        <blockquote type="cite">The client cap is currently advertised
-          unconditionally, even for drivers that do <br>
-          not support plane color pipelines. If clients supporting the
-          later, like Wayland <br>
-          compositors and drm_info, enable the client cap on sich
-          drivers they will be <br>
-          left without both color pipeline and the legacy properties
-          COLOR_ENCODING and <br>
-          COLOR_RANGE, effectively breaking YUV-&gt;RGB conversion
-          support. <br>
-          <br>
-          Add a new driver feature and guard the client cap behind it,
-          allowing <br>
-          plane color pipeline and legacy YUV-&gt;RGB support to
-          co-exist. <br>
-        </blockquote>
-        <br>
-        Ouch, that's indeed a problem. Nice catch! <br>
-        <br>
-        I'm not sure if this is the right way to go because plane color
-        pipeline can be supported per plane and per hw family. <br>
-        My suggestion would be to only deprecate COLOR_ENCODING and
-        COLOR_RANGE in drm_mode_object_get_properties() if a plane
-        COLOR_PIPELINE property is attached. <br>
-        WDYT? <br>
-      </blockquote>
-      <p>Hi Melissa!</p>
-      <p>I don't think we need or should use the legacy properties for
-        drivers and clients that supports the new API. Once Harrys YUV
-        conversion colorop series(1) lands, every plane on every
-        hardware currently supporting COLOR_ENCODING and COLOR_RANGE
-        could express that with the colorop API as well - even if not
-        supporting any other operations. It would look roughly like
-        this:</p>
-      <pre>└───"COLOR_PIPELINE" (atomic): enum {Bypass, YUV Pipeline 123} = Bypass
-    ├───Bypass
-    └───YUV Pipeline 123
-        └───Color Operation 123
-            └───Properties
-                ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                ├───"BYPASS" (atomic): range [0, 1] = 1
-                ├───"NEXT" (atomic, immutable): object colorop = 465
-                └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB</pre>
-      <p>Doing so will be nicer for compositors/clients going forward as
-        they'd only need to support a single API if they don't care
-        about legacy drivers (and we can adapt all in-tree drivers).</p>
-      <p>Do you agree?</p>
-      <p>Best regards</p>
-      <p>Robert</p>
-      <p>1: <a class="moz-txt-link-freetext"
-href="https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html"
-          moz-do-not-send="true">https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html</a></p>
-    </blockquote>
-    <p>P.S.: sorry for the noise, just resending with all to/cc headers
-      to make sure it doesn't get lost - and wanted to add that I'm
-      currently working on the Weston implementation for the YUV
-      conversion colorop to get it over the line.</p>
-    <pre class="moz-signature" cols="72">-- 
-Robert Mader
-Consultant Software Developer 
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England &amp; Wales, no. 5513718</pre>
-  </body>
-</html>
-
---------------MrgBLpczX1AiTYcmsbtV2Cqf--
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701073030.44=
+850-1-joonas.lahtinen@linux.intel.com?part=3D1
