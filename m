@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D4AFC43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10429C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:52:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC0E10E12D;
-	Wed,  1 Jul 2026 10:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4D810EED2;
+	Wed,  1 Jul 2026 10:52:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EeXzFbop";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HzC+80HU";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B55D10E12D
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 10:51:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D87610EED2
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 10:52:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3199440C52;
- Wed,  1 Jul 2026 10:51:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E927D1F000E9;
- Wed,  1 Jul 2026 10:51:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D2AB42D51;
+ Wed,  1 Jul 2026 10:52:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008FC1F000E9;
+ Wed,  1 Jul 2026 10:52:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782903080;
- bh=+0Rk2xjOlHfPf8RkWULG5IReAEtYLGkkCSfukqTke/s=;
+ s=k20260515; t=1782903169;
+ bh=Z7cMtgTQgMlORW/Hj+HecTAZ4L9FuJf+Q4Ciu9e9w3A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EeXzFbopYVo08o010FMmJnAVn8UzFgxr2s0hUOJGwe6OzQtj+s9aPT696Y4ihvBhN
- 3HnTsDxrfh35/l8DwPieD/PbKQvTOEUlZzzkcOyFRTfIk1sBU72D4n0wmIdIxBSvCR
- NrUrG7+Z4JtVsRgXnNoRFb2BghnPFIWemRmq4K/XppKAPmb0H3UwH9vGN81bCMHPdZ
- z19btTjyYQSoIApF6EZv1GtrBKzvUXf2UbXkm6ZQZCV124G9riy8C4yZawLadEoJU/
- ndc6PV9jT7ik9hhvU4Z7pzgGw54rY03E5q7ZpEkO8Z4FImw1G7LT7SMROn+KcN5URP
- tKo3KtLNnTGOA==
+ b=HzC+80HUNje3x1grYUgZd35KmsVRTSJwOfkP92PHUd9tjmuCl4AX4QCiAWL4/Hhjv
+ fX6R7KGzLsjAi+1NloDrISx91yA4pTfuX5kgI6bcsr79mbUPdIgON5EkheIB4hZHUu
+ yQ5L5sHLSihWYD5SUZ0zhFVTrpa45QOVPQwI6QFs973tB526DZxSFBg6Gl+wvYj647
+ 8cB3Yh0zbC3iQY2V5HiRYvhVOn5EFmOP0HBEZrcjtLpSWJ6z9fWsBfS6JM3avW6ht6
+ UUntaJA/qzNk8WvK9lXdlqG8wpvJP7hQDnXumy/K4fv+ozLo/s+dgYg7kForIzQ+oU
+ ZIofk6aZBHnLw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 6/7] bus: mhi: Capture DDR training data via command
- mode
+Subject: Re: [PATCH v6 7/7] bus: mhi: Expose DDR training data via
+ controller sysfs
 To: "Kishore Batta" <kishore.batta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701-sahara_protocol_new_v2-v6-6-3a78362c4741@oss.qualcomm.com>
+In-Reply-To: <20260701-sahara_protocol_new_v2-v6-7-3a78362c4741@oss.qualcomm.com>
 References: <20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com>
- <20260701-sahara_protocol_new_v2-v6-6-3a78362c4741@oss.qualcomm.com>
+ <20260701-sahara_protocol_new_v2-v6-7-3a78362c4741@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 10:51:19 +0000
-Message-Id: <20260701105119.E927D1F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 10:52:48 +0000
+Message-Id: <20260701105249.008FC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,342 +58,224 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
 
 New issues:
-- [High] The MHI downlink completion callback acquires a mutex and makes a =
-GFP_KERNEL allocation while in a tasklet context.
-- [High] The driver limits the number of queued RX buffers for the training=
- payload but never requeues them, stalling the protocol and creating an inc=
-omplete MHI chain.
-- [High] Sequential MHI commands concurrently overwrite the shared `context=
-->tx[0]` buffer before the asynchronous MHI DMA can process them.
-- [High] Attaching devres to the parent controller device without explicitl=
-y cleaning it up during module unload leads to a use-after-free kernel pani=
-c.
-- [High] A data race on `context->training_nbuf` causes the DL callback to =
-miss training buffers, dropping data and re-processing stale control packet=
-s.
-- [High] Inadequate state tracking risks misinterpreting raw command list d=
-ata as a protocol packet.
-- [High] Concurrent devres allocation can lead to multiple training data st=
-ructures and memory leaks.
-- [Medium] The validation check for negative response length is tautologica=
-lly false due to an unsigned integer comparison.
-- [Medium] A zero-length training data response causes the driver state mac=
-hine to hang permanently.
-- [Medium] The sysfs node exposes uninitialized or zero-padded data to user=
-space during an active MHI transfer.
+- [Critical] Module lifetime mismatch leads to Use-After-Free for sysfs att=
+ribute and devres release callback.
+- [High] Devres LIFO teardown ordering causes Use-After-Free during sysfs r=
+ead.
+- [High] Sysfs read callback returns incomplete or zero-padded data during =
+ongoing transfers.
 
 Pre-existing issues:
-- [High] The driver cancels workqueues before stopping the MHI channel, cre=
-ating a race condition that leads to a use-after-free.
+- [Critical] Module lifetime mismatch leads to Use-After-Free for pre-exist=
+ing training data devres.
+- [High] Sleeping in atomic context during MHI download transfer callback.
+- [High] Missing cancellation of `read_data_work` causes Use-After-Free on =
+removal.
+- [Medium] TOCTOU race condition in `sahara_cntrl_training_get()` causes me=
+mory leak.
 --
 
-commit 3f86759313db40d3845a0cb024dac27dcf18f52b
+commit 35f2a6a6ec964ce87d79329b526efc1e44cf02b8
 Author: Kishore Batta <kishore.batta@oss.qualcomm.com>
 
-bus: mhi: Capture DDR training data via command mode
-   =20
-During early boot, devices may perform DDR training and produce training
-data that can be reused on subsequent boots to reduce initialization
-time. The Sahara protocol provides a command mode flow to transfer this
-training data to the host, but the driver currently does not handle
-command mode and drops the training payload.
+bus: mhi: Expose DDR training data via controller sysfs
+
+This commit exposes captured DDR training data to userspace via a read-only=
+=20
+binary sysfs attribute on the MHI controller device. It adds a sysfs read=20
+callback to serve data from the controller-scoped storage and manages the=20
+attribute's lifetime using devres.
 
 > diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/m=
 hi/host/clients/sahara/sahara.c
-> index b5ca6353540dc..07bc743aa061d 100644
+> index 07bc743aa061d..72ac751c302a9 100644
 > --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
 > +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-[ ... ]
-> @@ -181,6 +206,24 @@ struct sahara_context {
->  	bool				is_mem_dump_mode;
->  	bool				non_streaming;
->  	const char			*fw_folder;
-> +	bool				is_cmd_mode;
-> +	bool				receiving_training_data;
-> +	size_t				training_size;
-> +	size_t				training_rcvd;
-> +	u32				training_nbuf;
-> +	char				*cmd_buff[SAHARA_NUM_CMD_BUF];
-> +};
-> +
-> +/*
-> + * Controller-scoped training data store (per MHI controller device).
-> + * Stored as devres resource on mhi_dev->mhi_cntrl->mhi_dev->dev.
-> + */
-> +struct sahara_cntrl_training_data {
-> +	struct mutex lock;	/* Protects data, size, copied and receiving */
-> +	void *data;
-> +	size_t size;
-> +	size_t copied;
-> +	bool receiving;
->  };
+> @@ -273,6 +273,66 @@ static struct sahara_cntrl_training_data *sahara_cnt=
+rl_training_get(struct devic
+>  	return ct;
+>  }
 
-[Severity: Medium]
-Does the sysfs node expose uninitialized or zero-padded data to userspace
-during an active MHI transfer?
+[Severity: Critical]
+This is a pre-existing issue, but does sahara_cntrl_training_get() have a
+module lifetime mismatch?
 
-The sysfs read function ddr_training_data_read() serves up to ct->size
-bytes of ct->data. Because ct->size is set to the full expected response
-length before the data is actually received, and the read function does
-not check if the transfer is complete (e.g., via ct->receiving) or limit the
-copy to ct->copied, a userspace process reading concurrently could receive
-uninitialized memory.
+When sahara_cntrl_training_get() allocates and attaches a devres structure =
+to
+the parent MHI controller device:
 
->  static bool is_streaming(struct sahara_context *context)
-[ ... ]
-> +static struct sahara_cntrl_training_data *sahara_cntrl_training_get(stru=
-ct device *dev)
-> +{
-> +	struct sahara_cntrl_training_data *ct;
-> +
-> +	ct =3D devres_find(dev, sahara_cntrl_training_release,
-> +			 sahara_cntrl_training_match, NULL);
-> +	if (ct)
-> +		return ct;
-> +
-> +	ct =3D devres_alloc(sahara_cntrl_training_release, sizeof(*ct), GFP_KER=
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_cntrl_training_get() {
+    ...
+    ct =3D devres_alloc(sahara_cntrl_training_release, sizeof(*ct), GFP_KER=
 NEL);
+    ...
+    devres_add(dev, ct);
+}
+
+If the Sahara module is unloaded, the release callback function pointer
+sahara_cntrl_training_release becomes dangling. When the controller device =
+is
+eventually removed, will the driver core execute the dangling devres release
+function and cause a use-after-free?
 
 [Severity: High]
-Can concurrent calls to this function lead to multiple training data
-structures and memory leaks?
+This is a pre-existing issue, but can sahara_cntrl_training_get() be called
+from an atomic context?
 
-Because devres_find() and devres_alloc() are used in a check-and-add pattern
-without locking, if this is called concurrently from the sysfs read callback
-and the MHI DL callback, both threads could see a NULL result, allocate
-their own structures, and add them. Would this result in multiple entries in
-the devres list and inconsistent states?
+The MHI subsystem invokes the dl_xfer_cb callback in an atomic SoftIRQ/task=
+let
+context, and it calls sahara_cntrl_training_get():
 
-> +	if (!ct)
-> +		return NULL;
-> +
-> +	mutex_init(&ct->lock);
-> +	ct->data =3D NULL;
-> +	ct->size =3D 0;
-> +	ct->copied =3D 0;
-> +	ct->receiving =3D false;
-> +
-> +	devres_add(dev, ct);
-> +	return ct;
-> +}
-[ ... ]
-> +static void sahara_command_execute_resp(struct sahara_context *context)
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_mhi_dl_xfer_cb() {
+    ...
+    ct =3D sahara_cntrl_training_get(dev);
+    ...
+    mutex_lock(&ct->lock);
+}
+
+Since sahara_cntrl_training_get() uses GFP_KERNEL unconditionally, and
+mutex_lock() can sleep, will this cause a scheduling while atomic panic when
+DDR training data is received?
+
+[Severity: Medium]
+This is a pre-existing issue, but is there a race condition in
+sahara_cntrl_training_get() when setting up the devres structure?
+
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_cntrl_training_get() {
+    ...
+    ct =3D devres_find(dev, sahara_cntrl_training_release,
+                     sahara_cntrl_training_match, NULL);
+    if (ct)
+        return ct;
+
+    ct =3D devres_alloc(sahara_cntrl_training_release, sizeof(*ct), GFP_KER=
+NEL);
+    ...
+    devres_add(dev, ct);
+}
+
+If a sysfs reader and the MHI receive path call this concurrently, couldn't
+both observe NULL and allocate separate structures? Because devres_find()
+searches in reverse, the later allocation would shadow the earlier one, cau=
+sing
+the earlier one to leak memory and lose its lock/data state.
+
+> +static ssize_t ddr_training_data_read(struct file *filp, struct kobject =
+*kobj,
+> +				      const struct bin_attribute *attr, char *buf,
+> +				      loff_t offset, size_t count)
 > +{
-> +	struct device *dev =3D &context->mhi_dev->mhi_cntrl->mhi_dev->dev;
+> +	struct device *dev =3D kobj_to_dev(kobj);
 > +	struct sahara_cntrl_training_data *ct;
-> +	u32 client_cmd, resp_len;
-> +	int ret;
-> +	u64 remaining;
-> +	u32 i;
+> +	size_t available;
 > +
-> +	if (le32_to_cpu(context->rx->length) !=3D SAHARA_COMMAND_EXEC_RESP_LENG=
-TH ||
-> +	    le32_to_cpu(context->rx->command_execute_resp.response_length) < 0)=
- {
-
-[Severity: Medium]
-Is this negative response length check tautologically false?
-
-Since le32_to_cpu() returns an unsigned 32-bit integer, this condition
-always evaluates to false. Could a malicious or malfunctioning device
-send a massive length, causing a large kzalloc() attempt to fail?
-
-> +		dev_err(&context->mhi_dev->dev,
-> +			"Malformed command execute resp packet - length %d\n",
-> +			le32_to_cpu(context->rx->length));
-> +		return;
-> +	}
+> +	ct =3D sahara_cntrl_training_get(dev);
+> +	if (!ct)
+> +		return -ENODEV;
 > +
-> +	client_cmd =3D le32_to_cpu(context->rx->command_execute_resp.client_com=
-mand);
-> +	resp_len =3D le32_to_cpu(context->rx->command_execute_resp.response_len=
-gth);
-> +
-> +	sahara_command_execute_data(context, client_cmd);
-> +
-> +	if (client_cmd =3D=3D SAHARA_EXEC_CMD_GET_COMMAND_ID_LIST) {
-> +		sahara_command_execute(context, SAHARA_EXEC_CMD_GET_TRAINING_DATA);
-> +		return;
-> +	}
+> +	mutex_lock(&ct->lock);
 
 [Severity: High]
-Will these sequential commands overwrite the shared buffer before transmiss=
-ion?
+Can ct be freed while we are trying to acquire the lock?
 
-sahara_command_execute_data() populates context->tx[0] and queues it via
-mhi_queue_buf() which schedules an asynchronous DMA transfer. Immediately
-afterward, sahara_command_execute() overwrites the exact same context->tx[0]
-buffer. Does this corrupt the outgoing protocol messages and queue the same
-virtual address into the MHI ring twice?
+Devres resources are freed in Last-In-First-Out (LIFO) order. Since the sys=
+fs
+devres is added during probe, and the training data devres (ct) is added la=
+ter
+during transfer, ct is freed first on controller removal, and the sysfs file
+is removed second.
+
+If userspace reads the sysfs file concurrently with device removal, could t=
+he
+read callback retrieve the ct pointer just before it is freed by
+devres_release_all, leading to a use-after-free when attempting to acquire
+mutex_lock(&ct->lock)?
+
+> +	/* No data yet or offset past end */
+> +	if (!ct->data || offset >=3D ct->size) {
+> +		mutex_unlock(&ct->lock);
+> +		return 0;
+> +	}
+> +
+> +	available =3D ct->size - offset;
+> +	count =3D min(count, available);
+> +	memcpy(buf, (u8 *)ct->data + offset, count);
 
 [Severity: High]
-Is there a risk of misinterpreting raw command list data as a protocol pack=
-et?
+Does this correctly bound the read size during an ongoing transfer?
 
-For SAHARA_EXEC_CMD_GET_COMMAND_ID_LIST, the device streams the command list
-raw data into context->rx. Since receiving_training_data is only set for ID
-9 later in this function, does sahara_command_processing() process the raw
-command list data as protocol packets?
+This logic uses ct->size (the expected total size) rather than ct->copied
+(actual received bytes), and ignores ct->receiving.
 
-> +
-> +	if (client_cmd !=3D SAHARA_EXEC_CMD_GET_TRAINING_DATA)
-> +		return;
+Since the buffer is zero-filled by kzalloc(), if userspace reads the file
+before the transfer completes, won't it successfully read the unwritten
+portion as zeroes? This could cause the userspace tooling to persist a
+truncated or corrupted DDR training image.
+
 [ ... ]
-> +	context->training_size =3D resp_len;
-> +	context->training_rcvd =3D 0;
-> +	context->receiving_training_data =3D true;
+> +static void sahara_sysfs_create(struct mhi_device *mhi_dev)
+> +{
+> +	struct device *dev =3D &mhi_dev->mhi_cntrl->mhi_dev->dev;
+> +	void *cookie;
+> +	int ret;
 > +
-> +	remaining =3D resp_len;
-> +	for (i =3D 0; i < SAHARA_NUM_CMD_BUF && remaining; i++) {
-
-[Severity: Medium]
-Does a zero-length response cause the driver state machine to hang?
-
-If resp_len is 0, the queuing loop is skipped entirely because remaining
-is 0. With receiving_training_data set to true, context->rx won't be
-re-queued in sahara_command_processing(). Does this mean no buffers are
-queued in hardware, preventing the driver from ever receiving an event to
-exit command mode?
-
-> +		size_t pkt =3D min_t(size_t, remaining, SAHARA_PACKET_MAX_SIZE);
+> +	if (devres_find(dev, sahara_sysfs_devres_release, NULL, NULL))
+> +		return;
 > +
-> +		ret =3D mhi_queue_buf(context->mhi_dev, DMA_FROM_DEVICE,
-> +				    context->cmd_buff[i], pkt,
-> +				    (remaining <=3D pkt) ? MHI_EOT : MHI_CHAIN);
-> +		if (ret)
-> +			break;
-> +
-> +		remaining -=3D pkt;
+> +	ret =3D device_create_bin_file(dev, &bin_attr_ddr_training_data);
+> +	if (ret) {
+> +		dev_warn(&mhi_dev->dev,
+> +			 "Failed to create DDR training sysfs node (%d)\n", ret);
+> +		return;
 > +	}
 > +
-> +	context->training_nbuf =3D i;
+> +	cookie =3D devres_alloc(sahara_sysfs_devres_release, 1, GFP_KERNEL);
+> +	if (!cookie) {
+> +		device_remove_bin_file(dev, &bin_attr_ddr_training_data);
+> +		return;
+> +	}
+> +
+> +	devres_add(dev, cookie);
 > +}
 
-[Severity: High]
-Could a data race on context->training_nbuf cause the DL callback to miss
-training buffers?
+[Severity: Critical]
+Since sahara is a loadable module, what happens if the module is unloaded?
 
-This loop queues cmd_buff receive buffers, but context->training_nbuf is
-updated only after the loop completes. If the device responds quickly,
-the DL callback for the first buffer might fire concurrently. Since
-training_nbuf would still be 0, the callback's loop would skip matching
-the training buffer and incorrectly fall through to the control packet
-path.
+If the Sahara module is unloaded, the client device unbinds and the module
+memory is freed. But since dev points to the parent MHI controller device, =
+the
+sysfs file and devres hook remain active on the controller device.
+
+Will a subsequent userspace read of the sysfs file dereference
+bin_attr_ddr_training_data and execute ddr_training_data_read in unmapped
+memory, leading to a use-after-free?
 
 [ ... ]
-> @@ -885,6 +1140,7 @@ static void sahara_mhi_remove(struct mhi_device *mhi=
-_dev)
-> =20
->  	cancel_work_sync(&context->fw_work);
->  	cancel_work_sync(&context->dump_work);
-> +	cancel_work_sync(&context->cmd_work);
->  	vfree(context->mem_dump);
->  	sahara_release_image(context);
->  	mhi_unprepare_from_transfer(mhi_dev);
 
 [Severity: High]
-This is a pre-existing issue, but does the inverted cleanup order here
-create a race condition leading to a use-after-free?
+This is a pre-existing issue, but does sahara_mhi_remove() fail to cancel
+read_data_work?
 
-The driver synchronously cancels all works before calling
-mhi_unprepare_from_transfer(mhi_dev). Because the MHI channel is still
-active, an incoming DL completion can trigger the DL callback and
-reschedule a work item after the cancellation. When module removal
-completes, context is freed, and the scheduled work will access freed memor=
-y.
+drivers/bus/mhi/host/clients/sahara/sahara.c:sahara_mhi_remove() {
+    ...
+    cancel_work_sync(&context->fw_work);
+    cancel_work_sync(&context->dump_work);
+    cancel_work_sync(&context->cmd_work);
+    vfree(context->mem_dump);
+    ...
+}
 
-[Severity: High]
-Does the module removal function exit without unregistering the persistent
-devres structures from the controller?
-
-The driver allocates a devres struct sahara_cntrl_training_data on the
-MHI controller device to outlive the Sahara channel. However, the release
-callbacks are defined in the sahara module. If sahara_mhi_remove() does
-not remove these controller-bound resources, will the kernel attempt to
-execute the devres callbacks located in freed module memory when the
-controller is later destroyed?
-
-> @@ -901,15 +1157,71 @@ static void sahara_mhi_ul_xfer_cb(struct mhi_devic=
-e *mhi_dev, struct mhi_result
->  static void sahara_mhi_dl_xfer_cb(struct mhi_device *mhi_dev, struct mhi=
-_result *mhi_result)
->  {
->  	struct sahara_context *context =3D dev_get_drvdata(&mhi_dev->dev);
-> +	struct sahara_cntrl_training_data *ct;
-> +	struct device *dev;
-> +	size_t copy;
-> +	int ret;
-> +	u32 i;
-> +
-> +	if (mhi_result->transaction_status)
-> +		return;
-> +
-> +	/*
-> +	 * Raw training payload completions arrive for cmd_buff[] buffers.
-> +	 * Do not schedule cmd_work for those.
-> +	 */
-> +	if (context->is_cmd_mode && context->receiving_training_data &&
-> +	    mhi_result->buf_addr !=3D context->rx) {
-> +		dev =3D &context->mhi_dev->mhi_cntrl->mhi_dev->dev;
-> +		ct =3D sahara_cntrl_training_get(dev);
-> +		if (!ct)
-> +			return;
-
-[Severity: High]
-Does this callback acquire a sleeping lock and perform blocking memory
-allocation while in an atomic context?
-
-sahara_mhi_dl_xfer_cb() is executed by the MHI core in an atomic context
-(typically a tasklet). However, it calls sahara_cntrl_training_get(dev)
-which allocates memory with GFP_KERNEL, and directly calls mutex_lock(&ct->=
-lock)
-below. Will this trigger a 'BUG: scheduling while atomic' kernel panic duri=
-ng
-normal training data reception?
-
-> =20
-> -	if (!mhi_result->transaction_status) {
-> -		context->rx_size =3D mhi_result->bytes_xferd;
-> -		if (context->is_mem_dump_mode)
-> -			schedule_work(&context->dump_work);
-> -		else
-> -			schedule_work(&context->fw_work);
-> +		for (i =3D 0; i < context->training_nbuf; i++) {
-> +			if (mhi_result->buf_addr =3D=3D context->cmd_buff[i]) {
-> +				mutex_lock(&ct->lock);
-> +				copy =3D min_t(size_t, mhi_result->bytes_xferd,
-> +					     ct->size - ct->copied);
-> +				memcpy((u8 *)ct->data + ct->copied,
-> +				       mhi_result->buf_addr, copy);
-> +				ct->copied +=3D copy;
-> +				mutex_unlock(&ct->lock);
-> +
-> +				context->training_rcvd +=3D copy;
-> +
-> +				if (context->training_rcvd >=3D context->training_size) {
-
-[Severity: High]
-If the response requires more buffers than initially queued, does the
-transfer stall permanently?
-
-In sahara_command_execute_resp(), the driver queues up to SAHARA_NUM_CMD_BUF
-buffers. If the response size exceeds the total capacity, the loop finishes
-with the last buffer incorrectly flagged with MHI_CHAIN. When those buffers
-complete, this callback accumulates training_rcvd but fails to requeue
-additional buffers. Will training_rcvd never reach training_size, leaving
-the MHI channel hung waiting for the chain to complete?
-
-> +					mutex_lock(&ct->lock);
-> +					ct->receiving =3D false;
-> +					mutex_unlock(&ct->lock);
-> +
-> +					context->receiving_training_data =3D false;
-> +					context->is_cmd_mode =3D false;
+The driver initializes context->read_data_work and schedules it asynchronou=
+sly
+in sahara_mhi_ul_xfer_cb(). Since cancel_work_sync(&context->read_data_work)
+is omitted during removal, if the work is scheduled just before device remo=
+val
+completes, will the workqueue execute on the devm-freed context memory?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-sahara_pro=
-tocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com?part=3D6
+tocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com?part=3D7
