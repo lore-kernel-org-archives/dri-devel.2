@@ -4,74 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC6F0C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE8DC43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E007710F1C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8705210F1B6;
 	Thu,  2 Jul 2026 07:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bu0Tn7yt";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="EVYic/H6";
 	dkim-atps=neutral
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C27D10E3E2
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 23:17:11 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5aea9d606f0so1074551e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 16:17:10 -0700 (PDT)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0854D10E0A3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:41:12 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-847921eed4aso775225b3a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:41:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782947829; x=1783552629; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1782927671; x=1783532471; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BlV+b2hyTXngEK/PbvCEICZBOhLaT4J0DD/N8TVmLnU=;
- b=Bu0Tn7ytLHilxLpVYqQBPydXL4FYB7Q9qarpIENMYrGCZLoFHT1/5+ny6f8G52qKV+
- o1ZzLLYuWJDASZLwM7u1cnpq7ENFMBaOOtA86qc9uOGcC3kob37PY5RIH1v4oat/LnlE
- pgY1X20BmpTqGdgZ9mw/Km/iJhOWr6YVral8L2GvThu34Wd4cmH1PvspwZ7Pc2saYNtK
- rFhRPDYd00/Y3w3NzfkyCba4UpNVn3xJlQiKxb64dXV6RseLD9H+/+Z2FvQVjmyyEf2F
- NNhwy7Df+PuGlJG4uwCfllDflWY+wHmYD08oWuUqxctyvzlMy8I8VJf4n1ggj3mOkY/d
- dYNA==
+ bh=1Xv536fNaoYEArBq1hqEwEiGIOw+jADuSEkc+GlzLZk=;
+ b=EVYic/H6HIr0suDFFfNoHMGk7EhHkINLkWZwHcB3wvUdE9SZO8ze+IwT2gOLrxT9BB
+ 99RLFjR1wgGCRD4Oy7/oddNM4KDwrkgh4BIZqYsrFOOi+YuqNmCgYEo2b3WBKsmkIPJA
+ jMxtMG8M/saINRTcUtVXfN5MhrXK7ISi9A7bmESyWuiGRw5boSvir+raX+6E81cBXAbE
+ ppHBom6hvkBvUODgghnJlrpY1GmaftzTOffO+t8IwhNOT2NSuVYZ+HvahDdkiQwg7kvK
+ O65d2a1dBfwcFqssOjxzwFi8XmR6Za+9IBe0yREpgnGdS+8sYVUqIcp+CFLG20oAMpCr
+ nQ8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782947829; x=1783552629;
+ d=1e100.net; s=20251104; t=1782927671; x=1783532471;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=BlV+b2hyTXngEK/PbvCEICZBOhLaT4J0DD/N8TVmLnU=;
- b=hWrH+GPCBl38exbI4i3QjIFMbMOcEpcnaAMFSStSqhB/KbN5ALxNu+XOyvUjviEuJ7
- FtVem/6u3p9970I0SUHP6E0P2yfuml736O2eY1F1wBil9kuQKcTKHeU5h2pLR6zD4SDT
- Eu+4CiplAlHglUpxnaPaurbfjA0jo5ALCByOylM+PqZSdkHEZLqFfrWkwQJ0jDoUbSUc
- g2WSurraetT7Dkz7Jarp3EOtupX1LkR3PR0POYPrtBtEVxypg8TNuW91TcpqbQcRfrUg
- OW2l+2AAFWwrbjNvO8hrIHe22hYv2kIAVWFVScAvqH9eV+44VltbrvJeVuniQj+jJp0H
- pPsw==
+ bh=1Xv536fNaoYEArBq1hqEwEiGIOw+jADuSEkc+GlzLZk=;
+ b=EgHf5a5fjiNGtWDK8wjmc5/D6KRI7KiHA3bhWSC/nA6yuzDcni3U4QUaydicOgwh6E
+ F49f4VZubmglzv+FBrybdPGsvlHfZuknH5eXaL2ep6a2XjvxvgaXKd3h+ExSMIQU4e73
+ Pb8vwNz15TJtGeMZiLo0iWlX28Ti3HNzNn9RwB70GG8Wilpspwdak+rGskXCFHptQpP0
+ MpB7TQULGqqRJy+7n0DkVJnCGYD6l5GY5fHnvf+rMVKh64UzloG/yl07QsWrdcCKQAcl
+ YKeBj6elCQQBAMpMRne7FbezrpFNAYuM6p+ABcrIqo7v7Ym8PeDq0jdfLpxFvMAoqe6z
+ csUQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqslIAXx9Z+SCCdPI4K5+8XGU7H3AhmyX4c4FOIOSZyE9AeqBmRdlsdTTdIWGUHsUAMDmPTeEBMkbM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxDuYxUELobSKR/+r0u6yC/MIL30EgbewDDhtVWnOpK1jNL0SYr
- G4HQyubUDs1SxIEivPTPWc5aJ0PdrpkO3kE1XHIK4Vy2QeTSz5C36aB9
-X-Gm-Gg: AfdE7cnAoEjZxUhirLk77zk0GoGvY9k3+/y0g+2Sw4FWsL6r58oHCTT0XwSOn4Mf21O
- QGri36sGAuhpTNCNo3XKLuEyllhWtpG3Q5YGS7U6oo+d9aOmui5IPDaq0s7jW+pEDb0+x0WSI0y
- Y/putA8ZtL65gpk+fTkIA7SmJivXGr7F9z2TF1IDrGZBvxPGsAPFvY8BlsCNp7UpdE8G+M2Mboi
- 3pabkqyfycibUt7CBJqf6u5AkBgeNUXnY38tc6YlmzrchiiSyBfp7Zr0hzmU5U5u8MlGLCckHWg
- uEYDs1P4TJ3H+dUopBGWQ2GgPS9ULildhW9n2H01U1UnShWPZQO10fkUwp2QWf1e68m321il5Lo
- 49zSo1rfWhbZsLPF7abRsHkypoMqLU95FlS1gnHkfiDRDe47oUcpVdpDH60EnKrQndabmQ9R/5k
- TUfZmwavQj+UrXsQ8+ckSoz2fdM3Tzv8o=
-X-Received: by 2002:a05:6512:4501:b0:5ae:b260:cf47 with SMTP id
- 2adb3069b0e04-5aec6795b38mr793205e87.10.1782947828852; 
- Wed, 01 Jul 2026 16:17:08 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:4f9:2a:1c13::2])
+ AFNElJ9o5ZUDjyIjrREZFDtONgZFqIuOjmNfFFmBmOlXR6RqAoSpH8kckSgP09msWokaJNNTeNwbZH5Nlyg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxF3GbfafOTODfyESpEtb5D6V82sfRgbYhELgmyIM001TRfVc8C
+ J7o9EiEShgSJ88DgI/NqydiuxExl+gROuZUDOu4iA1ehgaHjaFlgDJ13x8GHSetAInM=
+X-Gm-Gg: AfdE7ck+qJsflcCZSVMe7hLWnFBxjSBE7SJGoNlJmzxNFvnqKoQw+Zcv/J9el4MxfFH
+ 9cHWJ3/6XB80vzsAjN4UpkAFI60IkhSTNGX106+zp/kZH6j0BQwOB9dvrJF2rhxYpy7CrGoGk3T
+ 8eW+DfrrIhvrSh0eFVCWowCBHL/7/NgqxtqPbucuYJFtaDaa3Pui8UlBTSiQlKRFsOeU+QH1rm4
+ 4I5G/B8zY4CXSJizbFTy4BiVzUMhYL9V1q1Wvlc85OY6nzIdyfXDLeHYkVDKVCWGSh5Zy39lA7I
+ IOHCHQ1JQblSPGsQnpHQjpaedMPUpTWzAWg8tq3Vr6kTfBciwr/lCUdfka/P5V8XPL0FJRpMIeF
+ iOhrQxnhmXNAL55eqPI3zPXUQTEAsFrLZLFeV1o09nXNr+Qmo+1JaSG/hvdQkbpNX2T3Qe//mdb
+ EDT4AEvA7lT9Jy/JM=
+X-Received: by 2002:a05:6a00:1787:b0:847:7f38:27c2 with SMTP id
+ d2e1a72fcca58-847c516d6demr1852632b3a.50.1782927671425; 
+ Wed, 01 Jul 2026 10:41:11 -0700 (PDT)
+Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aec8991974sm308950e87.4.2026.07.01.16.17.06
+ d2e1a72fcca58-847cb6dc4d0sm150943b3a.3.2026.07.01.10.41.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 16:17:06 -0700 (PDT)
-From: Melbin K Mathew <mlbnkm1@gmail.com>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Melbin K Mathew <mlbnkm1@gmail.com>
-Subject: [PATCH v2 0/2] fbdev: fix mode sysfs lifetime and bounds issues
-Date: Thu,  2 Jul 2026 01:17:04 +0200
-Message-Id: <20260701231706.234715-1-mlbnkm1@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260701221757.231490-1-mlbnkm1@gmail.com>
-References: <20260701221757.231490-1-mlbnkm1@gmail.com>
+ Wed, 01 Jul 2026 10:41:11 -0700 (PDT)
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
+X-Google-Original-From: Pedro Yudi Honda
+To: dakr@kernel.org,
+	acourbot@nvidia.com,
+	apopple@nvidia.com
+Cc: nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ rust-for-linux@vger.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
+Subject: [PATCH v2 1/5] drm/nova: use `zerocopy` in firmware.rs
+Date: Wed,  1 Jul 2026 14:40:52 -0300
+Message-Id: <20260701174056.12604-2-niyudi.honda@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260701174056.12604-1-niyudi.honda@gmail.com>
+References: <20260701174056.12604-1-niyudi.honda@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 02 Jul 2026 07:51:30 +0000
@@ -90,31 +94,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This v2 addresses the remaining fbdev mode sysfs lifetime issues noted
-during review.
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
 
-Patch 1 bounds mode sysfs output so show_modes() cannot advance the
-sysfs buffer offset past PAGE_SIZE. mode_string() is given a size
-parameter and switched to scnprintf().
+In firmware.rs, replace the following `transmute` traits with their
+`zerocopy` equivalents:
 
-Patch 2 serializes mode sysfs access with lock_fb_info(), including
-store_mode(), show_mode(), and show_modes(), so these paths cannot race
-with store_modes() while it replaces and frees the old modelist.
+- `transmute::FromBytes` -> `zerocopy::FromBytes`
 
-Changes in v2:
-- Add bounds handling for mode_string()/show_modes().
-- Extend locking to store_mode() via activate_locked().
-- Keep show_mode() using a stack copy after dropping lock_fb_info().
-- Avoid overclaiming unprivileged impact in the commit text.
+Update call sites accordingly.
 
+Note that the module `elf` is untouched, as the bindings generated by
+bindgen do not implement `FromBytes` for the structs.
 
-Melbin K Mathew (2):
-  fbdev: bound mode sysfs output to the sysfs buffer
-  fbdev: serialize mode sysfs access with lock_fb_info()
+Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+---
+ drivers/gpu/nova-core/firmware.rs                  | 10 +++-------
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  4 +++-
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
- drivers/video/fbdev/core/fbsysfs.c | 59 ++++++++++++++++++++++++------
- 1 file changed, 47 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
+index a94820a3b335..80ce0df244a8 100644
+--- a/drivers/gpu/nova-core/firmware.rs
++++ b/drivers/gpu/nova-core/firmware.rs
+@@ -11,8 +11,7 @@
+     device,
+     firmware,
+     prelude::*,
+-    str::CString,
+-    transmute::FromBytes, //
++    str::CString, //
+ };
+ 
+ use crate::{
+@@ -347,7 +346,7 @@ fn no_patch_signature(self) -> FirmwareObject<F, Signed> {
+ 
+ /// Header common to most firmware files.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct BinHdr {
+     /// Magic number, must be `0x10de`.
+     bin_magic: u32,
+@@ -363,9 +362,6 @@ struct BinHdr {
+     data_size: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for BinHdr {}
+-
+ // A firmware blob starting with a `BinHdr`.
+ struct BinFirmware<'a> {
+     hdr: BinHdr,
+@@ -381,7 +377,7 @@ fn new(fw: &'a firmware::Firmware) -> Result<Self> {
+ 
+         fw.get(0..size_of::<BinHdr>())
+             // Extract header.
+-            .and_then(BinHdr::from_bytes_copy)
++            .and_then(|b| BinHdr::read_from_bytes(b).ok())
+             // Validate header.
+             .filter(|hdr| hdr.bin_magic == BIN_MAGIC)
+             .map(|hdr| Self { hdr, fw })
+diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+index d9fafd2eea5b..66b9f4d1b41c 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+@@ -25,6 +25,8 @@
+     },
+ };
+ 
++use zerocopy::FromBytes as _;
++
+ use crate::{
+     driver::Bar0,
+     falcon::{
+@@ -150,7 +152,7 @@ pub(crate) fn new(
+         let hdr = fw
+             .data()
+             .get(0..size_of::<BinHdr>())
+-            .and_then(BinHdr::from_bytes_copy)
++            .and_then(|b| BinHdr::read_from_bytes(b).ok())
+             .ok_or(EINVAL)?;
+ 
+         let desc = {
 -- 
-2.39.5
+2.34.1
 
