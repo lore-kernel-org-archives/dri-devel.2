@@ -4,59 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40C4C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C149C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D70A10F074;
-	Wed,  1 Jul 2026 17:19:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C2F210E3F0;
+	Wed,  1 Jul 2026 17:25:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="s7HwLQCH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LLA7bDaX";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1AFD10F074
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:19:56 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id C05C71A0DC5;
- Wed,  1 Jul 2026 17:19:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 94C0B5FD9D;
- Wed,  1 Jul 2026 17:19:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 18828104C969C; 
- Wed,  1 Jul 2026 19:19:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782926394; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=WfxWurxRN2G3tAL0XLwHSBY4KaKNfPn6BGFjAiB7bQc=;
- b=s7HwLQCHUnIid9fPk2fEk4SplOE7hkNn0axvkg77fMPQrh0FumU8/z7zPHMzolS9tZBzor
- /eJY6MAbid9Pykhm+is+YOFZ4SskrSBGIH7SUsnh42pynUupP5HowPI+yroiHE8Px+gKfi
- AjT/vXNTWJstB0iimPgadqYBusWwtBrtC5C65Nb1ROxL0oLJm+SbwzablhUpXJxlqgYIZ6
- OODq2MUJaQ9h1qEAOwd6tSu0iCOZk3y5OZ1fK3O2RIJ28QYhDdnc1wfW3w/wXXVYmz9hHA
- 9de12FqhaZg3PDd1JgimZPiGeXhrhnyjQa57kUhMqgG2vyyBJY6xCDjwYZXmHw==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 01 Jul 2026 19:19:40 +0200
-Subject: [PATCH 3/3] drm/bridge: fix wording in comment
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2654510F088
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:25:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782926704; x=1814462704;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ympMIIZM9+k3tJ/2m23PbDeDXtK8Iyz3+cVVZHmxmhM=;
+ b=LLA7bDaXaPnBEmEaBWqdnlLQB/kWZLZPNfihoIBFnQxPR+WBANCIRfef
+ UjeByGlbyyIDBkQZ2GwWyPvTFqXvjmeO2vajOAUjr0B7y1jghT5Dzu10t
+ fn4HnhqXaAFRqrzCU68VjTEZyVDsXceHr5xFRc6Ec7qaq4LCRqCQNavN5
+ IcVwsyMN66IcnKQ1eCmveUCoiRfFb8v6CiobfcYg8F0oQwFm5ftxQHsm3
+ a1H9/xP4dpySNMShhmhbEMoeBEC3e0iGZsrWoBEZ2ZBCTZlLxlLs1Dva/
+ 6XwOg4FMxXitHBcsKSJcdclIS6PYauf3x2UR/A/4f4p8ktms01OSTqcOO A==;
+X-CSE-ConnectionGUID: Nz9YVMs+RgKvWtBIsMC6qg==
+X-CSE-MsgGUID: qg1f5WtEQVC+XaBT6yQG+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83542220"
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="83542220"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 10:25:03 -0700
+X-CSE-ConnectionGUID: Kgegkl2HR5mXDJ9/0s1Bcw==
+X-CSE-MsgGUID: VaTa8WmISK+0S0w2V1CSFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="250907831"
+Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 10:25:02 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: alex.zuo@intel.com, jonathan.cavitt@intel.com, robdclark@chromium.org,
+ christian.koenig@amd.com
+Subject: [PATCH] drm/exec: Use kvmalloc_objs for exec->objects
+Date: Thu,  2 Jul 2026 01:24:58 +0800
+Message-ID: <20260701172458.1416930-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-drm-fix-graph-wording-v1-3-295605c5777b@bootlin.com>
-References: <20260701-drm-fix-graph-wording-v1-0-295605c5777b@bootlin.com>
-In-Reply-To: <20260701-drm-fix-graph-wording-v1-0-295605c5777b@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,27 +67,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix a comment according to English grammar.
+Use kvmalloc_objs instead of kvmalloc_array when initializing
+exec->objects in drm_exec_init.
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Concern caught by static analysis.
+
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: Rob Clark <robdclark@chromium.org>
+Cc: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 2 +-
+ drivers/gpu/drm/drm_exec.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 6ead9b75ae3d..38afa3bc2b7c 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1717,7 +1717,7 @@ struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
- 	/*
- 	 * of_graph_get_remote_node() produces a noisy error message if port
- 	 * node isn't found and the absence of the port is a legit case here,
--	 * so at first we silently check whether graph is present in the
-+	 * so at first we silently check whether a graph is present in the
- 	 * device-tree node.
- 	 */
- 	if (!of_graph_is_present(np))
-
+diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+index 7988f5e7d56a..fa923852fae4 100644
+--- a/drivers/gpu/drm/drm_exec.c
++++ b/drivers/gpu/drm/drm_exec.c
+@@ -79,7 +79,7 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr)
+ 		nr = PAGE_SIZE / sizeof(void *);
+ 
+ 	exec->flags = flags;
+-	exec->objects = kvmalloc_array(nr, sizeof(void *), GFP_KERNEL);
++	exec->objects = kvmalloc_objs(*exec->objects, nr, GFP_KERNEL);
+ 
+ 	/* If allocation here fails, just delay that till the first use */
+ 	exec->max_objects = exec->objects ? nr : 0;
 -- 
-2.54.0
+2.53.0
 
