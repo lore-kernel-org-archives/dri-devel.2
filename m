@@ -4,87 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75828C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB7BC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:47:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB0110F069;
-	Wed,  1 Jul 2026 16:38:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FDD910F04D;
+	Wed,  1 Jul 2026 16:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="CnjZ9Lzy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c2NKdvCb";
 	dkim-atps=neutral
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8995610F069
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 16:38:52 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-59cd803792aso462583e0c.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 09:38:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1782923931; x=1783528731;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2wqbqqnz7xSZo8cxkrKdPTuR1WFDOkJv6SeG+ZwdR8o=;
- b=CnjZ9Lzydo05Qb+1RPE4Vxht1D2OZ4ciuM7DpQEzvee7o11FPMnab0AZlNdCYbk/LR
- OyI7H1v0vh883bKTF8WWYbWneT8pEJH7e/5SBJzYsGHxu6asmMeVQvXcQIr9LLATVMGU
- PAWq6HGRGa+dfr/JrvISymJymvhlKowj7TQy0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782923931; x=1783528731;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=2wqbqqnz7xSZo8cxkrKdPTuR1WFDOkJv6SeG+ZwdR8o=;
- b=WDaXjDC3Auc+z+Ye/WszoxcOEtqzROVDWiU57HJCLRgINxmvsrmqDQu/0NVIpNfx7e
- yzguXLrNX3UD2DcQXxOQJQr3M6SF9Od/K4hjRemsEREhJxa2LTyS+O8VcSlpZ2BoU0G7
- fEGd0SPInr1ZHlJeXvZWiyf1YKedxeqUD53YlsWdCZLQsw5xnK2Xdgbe3ZIbAL5ie8Zg
- pQ2f8p+n5nOvqI2BT4qTGlEZrSDEmH9t7E079MPtozfmLyRjS84c0SQIVPmKNFsdIBUv
- lMHgx+wQIiVzPsWq8Avem40n8y66TuPXCPk/4Iag1E6Kl2ruzMkPiK1pf9tBW2+qPD4r
- idQg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrKczcyofuLyuR/UUxNLp8nLgjICen+ZMP6aI2kzgKH1JVf5hJmUoScovYRweNfZnqV/djwXjG26kw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyo753I52DwTopbdCwbXeN7HM8Z5LAYCmbNhCHHuKIqnJ9fQzoA
- zPCwMirDrRA6QQVJRCRC4f2yumpoKRPeHhujl/KZv1t6ciN4NCGfPNXjQSGoOze6WRKYSCKuvZY
- b9gI=
-X-Gm-Gg: AfdE7ck6F9GI18XdaX/LUUnhH5i57hbSiHiewAm/VroJpG8QPAMoznMk771Ty2AMfNm
- hOzsbgUgjYNo0NflW1Y3JvQCx0wp8FYUJGlanjBcxLXkI3IlrNJ+tQfJaW4duc/K5EmT/gR18OX
- bdwmttTdIFarZfliawqvtxBPgIttq//UeueO8K82po924BtUwy5Yle5gpvdmHeZeD+d0gjr5ESK
- oxXjBpSu67/NNOusfqZungB/g2wTXxfUJb9ZeWw5yW6VHtdVVCramWKQtVcS3NOQIT/yCxcadSk
- mgw+2ypgJHj4qDpTiEvsGkXn08wS0py+MuCPJjdxxRKozvMjuDUEjYDuInPS8n7oXRV+DJ0gIrY
- rp/+m6s7Kg69JXRo1jdOxDfrq1pcDKq8zJYs8ZqVRZPEFLznAeNpNKEKl7OoxAA64BORZfB2d0l
- I6SJ9qx7t3MJg6gD13XppHyhmOz1JmTT3tm1tv5js3dJqgp9WBskQ=
-X-Received: by 2002:a05:6122:2888:b0:5bd:7fbd:ecec with SMTP id
- 71dfb90a1353d-5bddf707342mr1111171e0c.13.1782923931354; 
- Wed, 01 Jul 2026 09:38:51 -0700 (PDT)
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com.
- [209.85.222.47]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bdc1a8d94esm3729655e0c.9.2026.07.01.09.38.49
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2026 09:38:49 -0700 (PDT)
-Received: by mail-ua1-f47.google.com with SMTP id
- a1e0cc1a2514c-96730906293so448029241.2
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 09:38:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RrVLSHl96z5fa2THf6bu1p7909eb5sx9uTAiI9LmumHJW3VcOLW2HnbQOKRHjl+2BlZeFkETY6xO3M=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:5a97:b0:738:5e0:b40c with SMTP id
- ada2fe7eead31-73da9f0cca9mr1181664137.24.1782923928552; Wed, 01 Jul 2026
- 09:38:48 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC8110F04D;
+ Wed,  1 Jul 2026 16:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782924451; x=1814460451;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=Eg0d6mEjYoCwZN6wDgOQtSayaI45/eybca/GwSK9Bt8=;
+ b=c2NKdvCbJWHKdZBNfbnpjWAaXmlomXRXuy8oCVjxYLGZnXlkdmnHJGE3
+ /lqnVZKG7x4V9afDHQ6eqZ7NNXCrGwQ5yUwuNjLm4F9lEsl1l74nOE3Gw
+ fGj2JXR0V6cqTi83++ssLMF/B+RWNpAF5PxVsx663FGa9oEtDNopkzLIE
+ GeiRhoAp8bPurGML82jzKsQUYpcHvCgCQK5hUqQxs6rKcJth1bYijZBma
+ 5sv3GcXJ7XAZV3+knwOqTRFOcWK/wKppQyEVzPyVNgtzZXkzpoWU+maIj
+ 8EQlQDcBbTLNW4bBhLzbkWKppafgA+RZYyUs3V3+TykcdJmYgUfxOkCc9 w==;
+X-CSE-ConnectionGUID: NgtgYa1YQh69aiD69fIibQ==
+X-CSE-MsgGUID: AiZdrse1RRexLvOb+cWnsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83697597"
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="83697597"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 09:47:31 -0700
+X-CSE-ConnectionGUID: dLk0VwoqRQqbIjwu9ugsNA==
+X-CSE-MsgGUID: IYy8J8tES9iqzBx+/CmOAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="250899661"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.25])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 09:47:29 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20260701013018.2621972-1-zhouhaikun5@huaqin.corp-partner.google.com>
-In-Reply-To: <20260701013018.2621972-1-zhouhaikun5@huaqin.corp-partner.google.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 1 Jul 2026 09:38:37 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XTJPqLTqM0r1-HvtCz6DJoK96vwsBssw1ABNRh3d6hMA@mail.gmail.com>
-X-Gm-Features: AVVi8CfZHCw-UQf19BKpT_zKYKBvYRTHd89rS7PH6CBFrBIn0Ephvcs-SFbXqKs
-Message-ID: <CAD=FV=XTJPqLTqM0r1-HvtCz6DJoK96vwsBssw1ABNRh3d6hMA@mail.gmail.com>
-Subject: Re: [PATCH V2] drm/panel-edp: Support MB116AS01'3 edp panel
-To: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Cc: neil.armstrong@linaro.org, sam@ravnborg.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- daniel@ffwll.ch, airlied@gmail.com
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <178290749714.224587.15234445443946207851@jlahtine-mobl>
+References: <20260630223946.2107382-1-jia.yao@intel.com>
+ <20260630225349.984AB1F000E9@smtp.kernel.org>
+ <178290749714.224587.15234445443946207851@jlahtine-mobl>
+Subject: Re: [PATCH v9] drm/i915/dg2: Add per-context control for
+ Wa_22013059131
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Matt Roper <matthew.d.roper@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+To: Jia Yao <jia.yao@intel.com>, sashiko-bot@kernel.org,
+ sashiko-reviews@lists.linux.dev
+Date: Wed, 01 Jul 2026 19:47:21 +0300
+Message-ID: <178292444166.273574.16738251742448073960@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,38 +74,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+(+ intel-gfx for real this time)
 
-On Tue, Jun 30, 2026 at 6:30=E2=80=AFPM Haikun Zhou
-<zhouhaikun5@huaqin.corp-partner.google.com> wrote:
->
-> MB116AS01'3 raw edid:
-> 00 ff ff ff ff ff ff 00 21 63 03 12 00 00 00 00
-> 00 23 01 04 95 1a 0e 78 23 e7 05 9c 5b 56 93 27
-> 21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 36 1c 56 92 50 00 1c 30 60 18
-> a8 00 00 90 10 00 00 18 00 00 00 fd 00 28 3c 30
-> 30 07 01 0a 20 20 20 20 20 20 00 00 00 fe 00 48
-> 4b 43 20 4d 59 20 20 20 20 0a 20 20 00 00 00 fe
-> 00 4d 42 31 31 36 41 53 30 31 27 33 20 20 01 cb
->
-> 70 20 79 02 00 22 00 14 1c 1a 01 84 55 05 91 00
-> 5f 00 17 00 ff 02 1b 00 09 00 07 00 2b 00 06 27
-> 00 28 3b 00 00 81 00 13 72 1a 00 00 03 01 28 3c
-> 00 00 00 00 00 00 3c 00 00 00 00 25 01 09 1c 1a
-> 01 1c 1a 01 28 3c 80 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 e7 90
->
-> Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-Pushed to drm-misc-next:
-
-[1/1] drm/panel-edp: Support MB116AS01'3 edp panel
-      commit: 844e71ba7d7a50c5ffa29d147afaeaafb19b39e4
+Quoting Joonas Lahtinen (2026-07-01 15:04:57)
+> (+ intel-gfx, Matt and Tvrtko)
+>=20
+> Quoting sashiko-bot@kernel.org (2026-07-01 01:53:49)
+> > Thank you for your contribution! Sashiko AI review found 1 potential is=
+sue(s) to consider:
+> > - [High] Dynamically modifying the globally shared MCR register LSC_CHI=
+CKEN_BIT_0 per-context causes a race condition when contexts execute concur=
+rently on different engines, leading to L3 cache state corruption and GPU h=
+angs.
+> > --
+> >=20
+> > commit aa5554c571fd6ea50b4b1d107d0ba27eeae18a7c
+> > Author: Jia Yao <jia.yao@intel.com>
+> >=20
+> > drm/i915/dg2: Add per-context control for Wa_22013059131
+> >=20
+> > This commit introduces a per-context opt-out for Wa_22013059131 on DG2-=
+G11
+> > platforms, allowing userspace to manage LSC_CHICKEN_BIT_0 bit 15 itself.
+> > It applies this workaround conditionally during indirect context batchb=
+uffer
+> > execution rather than globally at engine init.
+> >=20
+> > Link: https://github.com/intel/compute-runtime/pull/919
+> >=20
+> > > diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i9=
+15/gt/intel_lrc.c
+> > > index 147d22907960b..a35601e6f1e90 100644
+> > > --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
+> > > +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+> >=20
+> > [ ... ]
+> >=20
+> > > @@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
+> > >       return cs;
+> > >  }
+> > > =20
+> > > +static u32 *
+> > > +dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
+> > > +{
+> > > +     /*
+> > > +      * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
+> > > +      * other bits of the register will also get overwritten.  The
+> > > +      * hardware default for all other bits is 0, but any workarounds
+> > > +      * that adjust the other bits in the lower dword of the register
+> > > +      * also need to be re-applied here.  At the moment that's just
+> > > +      * Wa_22014226127, which is always set for DG2-G11 platforms.
+> > > +      */
+> > > +     u32 val =3D DISABLE_D8_D16_COASLESCE;
+> > > +
+> > > +     /*
+> > > +      * Wa_22013059131: only set FORCE_1_SUB_MESSAGE_PER_FRAGMENT for
+> > > +      * userspace contexts that have not opted out.  Kernel-internal
+> > > +      * contexts (gem_context =3D=3D NULL) never run shader workload=
+s that
+> > > +      * require this workaround, so skip them unconditionally.
+> > > +      */
+> > > +     if (rcu_access_pointer(ce->gem_context) &&
+> > > +         !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
+> > > +             val |=3D FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
+> > > +     }
+> > > +
+> >=20
+> > [Severity: High]
+> > Does dynamically modifying LSC_CHICKEN_BIT_0 per-context cause a race c=
+ondition
+> > when contexts execute concurrently on different engines?
+> >=20
+> > LSC_CHICKEN_BIT_0 is a globally shared MCR register affecting the L3 ca=
+che,
+> > which is shared across all render and compute engines on DG2. Modifying=
+ it via
+> > MI_LOAD_REGISTER_IMM broadcasts the change to all L3 banks.
+> >=20
+> > If Context A (which requires the workaround) runs on RCS0, and Context =
+B (which
+> > opts out) switches in on CCS0, CCS0's context switch executes this indi=
+rect
+> > batchbuffer and clears bit 15 globally. This could dynamically alter th=
+e state
+> > for Context A on RCS0, potentially disabling the workaround and causing=
+ a GPU
+> > hang.
+>=20
+> The fact that we expect compute and Mesa to align across their own
+> contexts sharing single address space today is one thing, but I think
+> we should be enforcing that. Currently nothing preventing RCS and CCS
+> sharing one address space from fighting over the variable.
+>=20
+> This makes me doubt if modelling this as a per-context variable was
+> the right choice.
+>=20
+> Maybe we should instead be making it DRM client wide property and
+> inheriting it to all contexts?
+>=20
+> Regards, Joonas
+>=20
+> >=20
+> > > +     *cs++ =3D MI_LOAD_REGISTER_IMM(1);
+> > > +     *cs++ =3D i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
+> > > +     *cs++ =3D val;
+> > > +
+> > > +     return cs;
+> > > +}
+> >=20
+> > --=20
+> > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630223946.=
+2107382-1-jia.yao@intel.com?part=3D1
