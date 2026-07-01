@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4204C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85E36C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00F6C10E32B;
-	Wed,  1 Jul 2026 08:45:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2F010EE6B;
+	Wed,  1 Jul 2026 08:59:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CNK8dPCz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WCQghcL8";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 104E310E315
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 08:45:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Vcr9hDLfN5srlwZ5qfiqQl9LSdudUQDmJHBwn+BWzxc=; b=CNK8dPCzUY0KTxowYj9l/wPf5V
- Xq4Lh9DqMwr/uiu0tjxHrFyffPmPDpMlIQ0woTTCjARljDZaocyLZ/4bfNEMG+92YQ5X7QtBHGt+Z
- ekSNdDbXziQzudZ8pDOSDjkPJZUY0q5IDh2E+IYHn6NC6DwDs37HFtIvp4Jh9qobyZG6epO1SUSf+
- Fcku8rZcAme5wPNLexwQHBEiJQ3+C5KstkLiklRE1FKM5ySzcWTSrolioRughWoWWxl7l9QpFObQU
- ybpv9aBxSgoxOe8hSI5EZir4Ski7mJ6HmdHV18l/FPYq4njK14Xwe5mdPCi+qBiJhHhso+dTLbPU3
- Ut03HdTg==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1weqYt-007Tf1-I4; Wed, 01 Jul 2026 10:44:51 +0200
-Message-ID: <d30b496e-2971-429d-b49d-4fe6e15a1830@igalia.com>
-Date: Wed, 1 Jul 2026 09:44:50 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A59B10EE6B
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 08:59:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 530B7600AB;
+ Wed,  1 Jul 2026 08:59:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499651F000E9;
+ Wed,  1 Jul 2026 08:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782896375;
+ bh=w5ZcDaSIWJHhsB2aS76I+S5sLCFLK36Re5/LClq2P3s=;
+ h=From:To:Cc:Subject:Date;
+ b=WCQghcL8Gyoc7pTau3w1rhDbGRntu0Ul5m1QW5vCJYrmLPaPYBTKgD8G2Yw97mg+d
+ a3lZBYQ0v9ua4cDTmHBgXA93vHell+O5yM8CqxoyBovHk3xTf1rvRZ1+bwJR5tSRVO
+ RqgH8q0Z3xiH0fWma3aYUgx/tLtxDXN8Xe0FEJa5K+7BPt9DdGPPMzHoGLZnR/XnwI
+ n5sFHhkloKzA3SzailwtIA9qgVgf9Qlxt4t6bOdzVhUMFlWc5iNdlvzwg4l1LMJ0ev
+ oPJq7nC62rTzFXRBP2/GOuoWn8QlnTUW4SnbLvi9a5y7hOouB2dQN83sRzvUcUZN9s
+ FUyavMb0Et3ag==
+From: Philipp Stanner <phasta@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Marco Pagani <marco.pagani@linux.dev>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: [PATCH 0/5] drm/sched: Introduce the miracle of locking to entity
+Date: Wed,  1 Jul 2026 10:59:16 +0200
+Message-ID: <20260701085920.3253248-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/10] dma-buf: use dma_fence_test_signaled_flag()
-To: christian.koenig@amd.com, phasta@kernel.org, simona@ffwll.ch,
- sumit.semwal@linaro.org, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260624122917.2483-1-christian.koenig@amd.com>
- <20260624122917.2483-3-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260624122917.2483-3-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,69 +64,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Both Tvrtko [1] and I [2] have recently proposed some improvals for
+drm_sched.
 
-On 24/06/2026 12:13, Christian König wrote:
-> Instead of dma_fence_is_signaled_locked() use
-> dma_fence_test_signaled_flag().
-> 
-> The extra polling check seems unecessary for those use cases.
+While taking Tvrtko's feedback into account for my patch, I realized
+that both his and my patch can be fully replaced with a bigger and far
+more beautiful series.
 
-I echo the comment that better commit messages are needed in this 
-series. Also, the patch affects two really different areas so should be 
-split in two.
+If I am not mistaken, it turns out that the entire entity->entity_idle
+completion is also nothing but a workaround around the grave mistake of
+not using the greatest helper with parallel programming that exists in
+computer science: Locking.
 
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/dma-buf/sw_sync.c | 2 +-
->   include/linux/dma-fence.h | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-> index 8df20b0218a9..243991bc1506 100644
-> --- a/drivers/dma-buf/sw_sync.c
-> +++ b/drivers/dma-buf/sw_sync.c
-> @@ -262,7 +262,7 @@ static struct sync_pt *sync_pt_create(struct sync_timeline *obj,
->   	INIT_LIST_HEAD(&pt->link);
->   
->   	spin_lock_irq(&obj->lock);
-> -	if (!dma_fence_is_signaled_locked(&pt->base)) {
-> +	if (!dma_fence_test_signaled_flag(&pt->base)) {
->   		struct rb_node **p = &obj->pt_tree.rb_node;
->   		struct rb_node *parent = NULL;
->   
+This series adds locking to the last_scheduled field and all checks
+related to detect the idleness of the entity. As before, the
+job_scheduled event queue causes the periodic checks.
 
-I am not familiar with the implementation but this looks safe to me. It 
-appears the point is to just not allow userspace inserting past fences 
-into the internal tracking structures.
+This way, we can get rid of memory barriers, RCU, a few lines of code,
+make things more readable, understandable...
 
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 158cd609f103..803e10ca76e3 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -658,7 +658,7 @@ static inline struct dma_fence *dma_fence_later(struct dma_fence *f1,
->    */
->   static inline int dma_fence_get_status_locked(struct dma_fence *fence)
->   {
-> -	if (dma_fence_is_signaled_locked(fence))
-> +	if (dma_fence_test_signaled_flag(fence))
->   		return fence->error ?: 1;
->   	else
->   		return 0;
 
-This one has more callers.
+Tested with drm-sched-unit tests. I'm a bit busy right now, but wanted
+to show you guys the idea. Before merging I'd test it more exhaustively
+with Nouveau.
 
-1. sync_fence - should be fine.
-2. amdgpu - Smallish false positive race on reset? But possibly okay. 
-Your call.
-3. Selftests - single threaded so okay.
-4. Nouveau - looks like some sort of a last gasp check for signaled 
-status when wait expired. It's a 15 second timeout so I guess fine as well.
+Greetings,
+Philipp
 
-So in summary, changes look fine to me. But I would split sw_sync and 
-get_status and improve the commit message for both.
+[1] https://lore.kernel.org/dri-devel/20260611123423.39819-1-tvrtko.ursulin@igalia.com/
+[2] https://lore.kernel.org/dri-devel/20260626081942.2122144-2-phasta@kernel.org/
 
-Regards,
 
-Tvrtko
+Philipp Stanner (5):
+  drm/sched: Protect entity->last_scheduled with spinlock
+  drm/sched: Lock spsc_queue in drm_sched_entity_pop_job()
+  drm/sched: Avoid lock cycle for sched_entity
+  drm/sched: Lock drm_sched_entity_is_idle()
+  drm/sched: Remove entity->entity_idle
+
+ drivers/gpu/drm/scheduler/sched_entity.c | 75 +++++++++++-------------
+ drivers/gpu/drm/scheduler/sched_main.c   |  2 -
+ drivers/gpu/drm/scheduler/sched_rq.c     |  5 +-
+ include/drm/gpu_scheduler.h              | 16 ++---
+ 4 files changed, 41 insertions(+), 57 deletions(-)
+
+
+base-commit: be4f10d44757211fd656fa57f37034657f26c883
+-- 
+2.54.0
 
