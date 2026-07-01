@@ -4,43 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4908CC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38873C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 07:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50C610EE04;
-	Wed,  1 Jul 2026 07:13:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BA010EE0C;
+	Wed,  1 Jul 2026 07:17:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mqvi2MnN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nSBETdRo";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA06C10EE04
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 07:13:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70ECE10EE07;
+ Wed,  1 Jul 2026 07:17:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 87EE24168D;
- Wed,  1 Jul 2026 07:13:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7201F000E9;
- Wed,  1 Jul 2026 07:13:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5443643427;
+ Wed,  1 Jul 2026 07:17:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C482A1F00A3A;
+ Wed,  1 Jul 2026 07:17:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782890013;
- bh=zj4kVnbHdT/JpJV3pJpSsdUh2JAzlXxLvJVxNKheY+8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mqvi2MnNs/RhxED6dECi12pLvQjgyZMW0NU0mWO7Y8ZQVZ6WwL694HHIxCma1TzPh
- 7w5Mi6R4OfjvFr0Zwf5UK3mlofiv+5oxy7rzkA0aMA358D+nJ5RjLAVGEojR8JWqzs
- 1+QHntLM+4sfTwHdzZyDt0xESb4i6mJoyYEBmNm9yZG1Bx7LWFyu13nC+Tv2IWwrBR
- wdzxgzyhNtV6IYoAeQEif0dT7r8JhQ3sz7VntEQFoV+Y0y5uOQoGiMVCc1Oyw2rfPI
- oZsUUt6G7bNp/XEzwtodrpFaV+19e21xMuoMJAhqikR9pBunxTTf13iFK4JnVoXZvD
- WnQBLjXQuFUOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] drm/amd/amdgpu: remove duplicated code in gfx_v11
- and gfx_v12
-To: "Ulisses Paixao" <ulissespaixao@usp.br>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260630205545.23920-1-ulissespaixao@usp.br>
-References: <20260630205545.23920-1-ulissespaixao@usp.br>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 07:13:32 +0000
-Message-Id: <20260701071333.0E7201F000E9@smtp.kernel.org>
+ s=k20260515; t=1782890277;
+ bh=bZyuXeywd+lw/R/9JrIOGEdzbOE8NvZv2e8JZJqiMXQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=nSBETdRogeR8MHyqq0tQ7kwPggPv+npkmZ8Q1LMqWxByDcjboUJr2oEBlMEx+O5V+
+ vSW6k030dDQusRdwbl1fHjMJQm2Ib8/SJYez/hReuxinfpAkmWB6T7T6eay7CSaXy0
+ Ysce7YgcKUZ/LgHPOjEle37ctrasPoSzHg8Il2vl5siGgtfmDypD3dttt7Cb+Y6I2O
+ JXj1QsbsW4t+he0qYUHbtxso40EtCb1kIkvX0BRs/I98WcV4q3iQboVu9ZLEeXEPjR
+ ZKnEZjXdpswkB88L1IUhPu6jRs0rq0LUu09Nc32/TMuAtfXp2ziKW/GlET9ddH8HYz
+ ZrrFxGHiWYbTw==
+Date: Wed, 1 Jul 2026 12:47:38 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+ mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+ mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Harshal Dev <harshal.dev@oss.qualcomm.com>
+Subject: Re: [PATCH v8 01/14] firmware: qcom: Add a generic PAS service
+Message-ID: <akS_Ep0ZgRjclzKV@sumit-xelite>
+References: <20260626133440.692849-1-sumit.garg@kernel.org>
+ <20260626133440.692849-2-sumit.garg@kernel.org>
+ <dc7e58d3-4383-4d93-a38e-699888bff903@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dc7e58d3-4383-4d93-a38e-699888bff903@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,100 +76,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The generic helper `amdgpu_gfx_handle_priv_fault` lacks an `xcc_=
-id` parameter and hardcodes array indexing for a single-XCC configuration, =
-breaking multi-XCC support.
-- [Low] Missing early return in the `compute_ring` search loop causes unnec=
-essary iteration.
---
+On Tue, Jun 30, 2026 at 02:14:30PM +0200, Konrad Dybcio wrote:
+> On 6/26/26 3:34 PM, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> [...]
+> 
+> > +bool qcom_pas_is_available(void)
+> 
+> This is the most important function, for which I would expect
+> kerneldoc be present. I think it also wouldn't hurt to add a
+> footnote in every other function's kerneldoc saying that this must
+> be called first
 
-commit 249c05a6da6280bb2499d0d7191928c66dd35d25
-Author: Ulisses Paixao <ulissespaixao@usp.br>
+Will add in the next spin.
 
-drm/amd/amdgpu: remove duplicated code in gfx_v11 and gfx_v12
-
-This patch moves the shared ring-searching logic for handling privileged
-instruction faults into a common function amdgpu_gfx_handle_priv_fault.
-Hardware-specific decoding remains in the version-specific files.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 0506b90f318e4..25a4b33f42a81 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-[ ... ]
-> @@ -855,6 +855,42 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev=
-, int xcc_id)
->  	return r;
->  }
-> =20
-> +/**
-> + * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @me_id: micro-engine ID of the faulty ring
-> + * @pipe_id: pipe ID of the faulty ring
-> + * @queue_id: queue ID of the faulty ring
-> + *
-> + * This function handles privileged instruction faults by identifying
-> + * the faulty ring (gfx or compute) and triggering a scheduler fault
-> + */
-> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
-> +					u8 me_id, u8 pipe_id, u8 queue_id)
-> +{
-> +	struct amdgpu_ring *ring;
-> +	int i;
-> +
-> +	if (!adev->gfx.disable_kq) {
-> +		for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
-> +			ring =3D &adev->gfx.gfx_ring[i];
-
-[Severity: Medium]
-Does this logic fully support multi-XCC configurations?
-
-In multi-XCC setups, the gfx_ring array contains rings for all XCCs
-continuously. Iterating only up to adev->gfx.num_gfx_rings (the per-XCC
-count) strictly searches the rings belonging to XCC 0.
-
-If a privileged instruction fault occurs on a ring belonging to an XCC
-other than 0, will it fail to find the matching ring because the search
-isn't offset by the xcc_id?
-
-> +			if (ring->me =3D=3D me_id && ring->pipe =3D=3D pipe_id &&
-> +			    ring->queue =3D=3D queue_id) {
-> +				drm_sched_fault(&ring->sched);
-> +				return;
-> +			}
-> +		}
-> +
-> +		for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
-> +			ring =3D &adev->gfx.compute_ring[i];
-
-[Severity: Medium]
-Will this also miss compute rings for XCC > 0, similar to the gfx_ring
-loop above?
-
-> +			if (ring->me =3D=3D me_id && ring->pipe =3D=3D pipe_id &&
-> +			    ring->queue =3D=3D queue_id)
-> +				drm_sched_fault(&ring->sched);
-
-[Severity: Low]
-Is there a missing return statement here?
-
-The loop for gfx_ring above added an early return once a match is found,
-but this loop continues iterating through the remaining compute rings
-needlessly after the target ring is handled.
-
-> +		}
-> +	}
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630205545.2392=
-0-1-ulissespaixao@usp.br?part=3D1
+-Sumit
