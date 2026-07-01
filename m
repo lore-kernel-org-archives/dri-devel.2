@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C8FAC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 14:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EFABC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 14:23:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE7B10E3B9;
-	Wed,  1 Jul 2026 14:23:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F391510E3BE;
+	Wed,  1 Jul 2026 14:23:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FxVipIBS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dm+ezxjK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F88710E3A9
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 14:23:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7672E10E3B9
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 14:23:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 970C76001D;
- Wed,  1 Jul 2026 14:23:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ABAE1F00A3A;
- Wed,  1 Jul 2026 14:23:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5ED8C42A47;
+ Wed,  1 Jul 2026 14:23:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF011F00ACF;
+ Wed,  1 Jul 2026 14:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782915823;
- bh=2V+HjW9ElpL7ECEz75a1IxwaSKDSfgglgGt1uUHIBkA=;
+ s=k20260515; t=1782915825;
+ bh=yM8HcAoywZQROnbGbiMNPlQQuS/3De3vvYBkNdJ6Ssw=;
  h=Date:From:Cc:To:In-Reply-To:References:Subject;
- b=FxVipIBSl0INiw/d1Xggb98V51/4xC143q4iV9rZ0QG7aioYir5bE962k9UeD6hpA
- RlAlKvZP2g3SjdoK0wfba3WhzkxuI468VoorxjoCcTWyXVS2QAESISITshdbGvw9lw
- ls9Tgdnea98jtyn8BVJOpiSNXQqIiWHfJGAZg3O8tTsuqcEhhUhjs7LvESd8hZPIP7
- rQf13gt9oO0D1lzYT10zH8eyow4pPJjoeDP2HAc7Dpuvasp4O0RwCDSGrrfaxSCJ0Q
- mcWhuNMev9EPn1rye/U8i54imcK8BuzG6Kjcoa0/FCqDKWRB7KIZxd6CPZnHHXK4M9
- fHMNoNsRYcLcA==
-Date: Wed, 01 Jul 2026 09:23:42 -0500
+ b=dm+ezxjK6+6YX6PEsusjTDfb3QpL0aI6bc4m2j4IIuhZcA5kuFU5OmJecyRnYSudt
+ RWt8/QEs82rbWzGasUdJzfrtb0tGuMGTH7qlNqzeeVDtRdIVgPeB8s6Vf2id9P0x5c
+ YK2+LemCD/pK5dDwILNNRHzfaaL4ySljWEmvNGzLtN+xC2XqhUuAWJLCW/OMvk8ZG5
+ Ucq8jv5gUx1IeNk6dkBdwaWSx2jPISueSh/HQ3jUMsLjKaCMsuNSZkTNdkRdeoxRQ3
+ ouvVvXC9pRjlAbKM3+Wq2JohCdCuNVni31Y0PjWBiMZbOtnSpKIuO2HH3A4TIgfqhf
+ pbKgkUNtjcL8A==
+Date: Wed, 01 Jul 2026 09:23:44 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, matthias.bgg@gmail.com, 
- jason-jh.lin@mediatek.com, airlied@gmail.com, 
- maarten.lankhorst@linux.intel.com, conor+dt@kernel.org, mripard@kernel.org, 
- kernel@collabora.com, tzimmermann@suse.de, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, chunkuang.hu@kernel.org, simona@ffwll.ch, 
- linux-arm-kernel@lists.infradead.org, p.zabel@pengutronix.de, 
- justin.yeh@mediatek.com, linux-mediatek@lists.infradead.org, 
- krzk+dt@kernel.org
+Cc: dri-devel@lists.freedesktop.org, p.zabel@pengutronix.de, 
+ tzimmermann@suse.de, justin.yeh@mediatek.com, krzk+dt@kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kernel@collabora.com, mripard@kernel.org, chunkuang.hu@kernel.org, 
+ maarten.lankhorst@linux.intel.com, conor+dt@kernel.org, 
+ matthias.bgg@gmail.com, linux-mediatek@lists.infradead.org, 
+ jason-jh.lin@mediatek.com, devicetree@vger.kernel.org, airlied@gmail.com, 
+ simona@ffwll.ch
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260701122057.19648-31-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260701122057.19648-41-angelogioacchino.delregno@collabora.com>
 References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
- <20260701122057.19648-31-angelogioacchino.delregno@collabora.com>
-Message-Id: <178291581667.4115901.7713251613629751021.robh@kernel.org>
-Subject: Re: [PATCH 30/42] dt-bindings: display: mediatek: Introduce MT8196
- Output Processor
+ <20260701122057.19648-41-angelogioacchino.delregno@collabora.com>
+Message-Id: <178291581931.4116323.2079243136968676585.robh@kernel.org>
+Subject: Re: [PATCH 40/42] dt-bindings: display: mediatek: Introduce MT8196
+ Image Resizer
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,16 +66,15 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Wed, 01 Jul 2026 14:20:45 +0200, AngeloGioacchino Del Regno wrote:
-> Add documentation for the Overlay Output Processor IP found in
-> the newer Generation SoCs like MT8196, MT8894, MT6991, and their
-> variants.
+On Wed, 01 Jul 2026 14:20:55 +0200, AngeloGioacchino Del Regno wrote:
+> Add documentation for the Image Resizer "RSZ" Scaler block found
+> in the MT8196 SoC and its variants.
 > 
 > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > ---
->  .../mediatek/mediatek,mt8196-outproc.yaml     | 107 ++++++++++++++++++
->  1 file changed, 107 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-outproc.yaml
+>  .../display/mediatek/mediatek,mt8196-rsz.yaml | 97 +++++++++++++++++++
+>  1 file changed, 97 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-rsz.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -83,12 +82,12 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-outproc.yaml: ignoring, error in schema: properties: compatible
-Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-outproc.example.dtb: /example-0/outproc@32970000: failed to match any schema with compatible: ['mediatek,mt8196-disp-outproc']
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-rsz.yaml: ignoring, error in schema: properties: compatible
+Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-rsz.example.dtb: /example-0/scaler@329d0000: failed to match any schema with compatible: ['mediatek,mt8196-disp-rsz']
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260701122057.19648-31-angelogioacchino.delregno@collabora.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260701122057.19648-41-angelogioacchino.delregno@collabora.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
