@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F614C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75FC4C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:33:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8AD310EF7A;
-	Wed,  1 Jul 2026 12:31:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7580210EF80;
+	Wed,  1 Jul 2026 12:33:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xn5hvw/o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GtV9vcWe";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DEB210EF7A
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:31:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34F6710EF80
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:32:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A3F1F60138;
- Wed,  1 Jul 2026 12:31:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5801F00A3E;
- Wed,  1 Jul 2026 12:31:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C9696001D;
+ Wed,  1 Jul 2026 12:32:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264E41F000E9;
+ Wed,  1 Jul 2026 12:32:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782909066;
- bh=RkQ36NxwB4OetEFBmYuS4HB1Opd6PUWhQXPYbKioANU=;
+ s=k20260515; t=1782909178;
+ bh=8Wqg6vwaB2WZcRomvBZS2whfJdMLY3bMu1eEIH5uhrc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xn5hvw/oqq+7IC3C7UNKMgZKnrWvmtyreWPMpXlcQf29+OljmiAqDyY9xYdGtxdH8
- nIg1vppVv3q280yoFZ2p6kCwDpFJ8d6NOqwD0DLkePT/ZPa9iZMtjjWmsWM4B/Ge4p
- bdzfmmr7v8PIbL34J5Gnm7hMzG5m/7iCGoEJ5cPQovKWa7J3nyDUWfidYv8zxpGVuo
- qK08qGhEYzX08PRUz5BKI1WG+OLYbhGdwOZFF6zpWMMwqsQU7WDGx94zidm3N3zAQq
- 7Xx5u0umuYRvdXBi0mFNmDY09Pigujrho0OBdK+wXhxbYHeBu+o/4XmQKrMmmMjpPE
- huiij0UE0+vsw==
+ b=GtV9vcWeJa0Nq6CgkhRbuoYd0UToILJgOt6KFUCQXj249tPrBcwd0SVv6ZIFmXNab
+ OHydU4ZvDxmvOCYo+qlP2hTrkFAmJHIWcCSn8rOaJKBIDslsFYgCcuY5U3t/g9rPYq
+ 5lIqyvlPsC/BsbLnStMYX4OnCSfWh9iuUy4mp1g/4OjKhapzhQ3YXFFnRIytikXIuD
+ UGGYsLwrsEGCvR/Mwgo0H4eX0QWLlP9goTLkbzKuLjbQhzUIv6vvHhsEzXAG/T5EK4
+ zjrBX6h9Ss+dAfqXybFL4cu/58vg9zq3UG2R3FfzA8Ploqoqd5hcf3CyHLMXYxEzue
+ WuktBJtzqUW/w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] phy: mediatek: phy-mtk-hdmi-mt8195: Fix PLL calc
- divisor overflow
+Subject: Re: [PATCH 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and phy
+ driver unregistration
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, olteanv@gmail.com, vkoul@kernel.org,
- linux-phy@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20260701121936.19407-2-angelogioacchino.delregno@collabora.com>
-References: <20260701121936.19407-1-angelogioacchino.delregno@collabora.com>
- <20260701121936.19407-2-angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701122024.19557-4-angelogioacchino.delregno@collabora.com>
+References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
+ <20260701122024.19557-4-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:31:05 +0000
-Message-Id: <20260701123106.1B5801F00A3E@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 12:32:57 +0000
+Message-Id: <20260701123258.264E41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,70 +59,122 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Calculations using `14835 * MEGA`, `5 * GIGA`, and `12 * GIGA` sil=
-ently overflow 32-bit `unsigned long` types on 32-bit architectures, comple=
-tely breaking clock tiering and boundary checks.
+- [High] Double unregister of platform device in error paths causes Use-Aft=
+er-Free
+- [Medium] Incorrect pointer passed to devm_add_action_or_reset causes reso=
+urce leak of audio platform device
 --
 
-commit 8179a32cf1dac8f1d080e57bbce79246661b50eb
+commit 2bc8391d481088826fa13d96d05225e5c15e6457
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-phy: mediatek: phy-mtk-hdmi-mt8195: Fix PLL calc divisor overflow
+drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
 
-This commit fixes an issue where calculating a PLL rate for high display
-resolutions results in a pixel clock exceeding 32 bits, but the digital
-clock divider calculation uses div_u64(), which expects a 32-bit divisor.
-It resolves this by using div64_u64() instead to prevent overflow.
+This commit introduces devm actions to unregister the HDMI Codec and
+DisplayPort PHY platform devices, preventing multiple instantiations
+during probe deferrals.
 
-> diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c b/drivers/phy/med=
-iatek/phy-mtk-hdmi-mt8195.c
-> index 1426a2db984d5..e6ee8e0800222 100644
-> --- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-> +++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-> @@ -290,7 +290,7 @@ static int mtk_hdmi_pll_calc(struct mtk_hdmi_phy *hdm=
-i_phy, struct clk_hw *hw,
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index eefbc7e0f9c8d..2c738c16dafab 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+
+[ ... ]
+
+> @@ -2680,18 +2687,29 @@ static int mtk_dp_register_audio_driver(struct de=
+vice *dev)
+>  		.data =3D mtk_dp,
+>  		.no_capture_mute =3D 1,
+>  	};
+> +	int ret;
+> =20
+>  	mtk_dp->audio_pdev =3D platform_device_register_data(dev,
+>  							   HDMI_CODEC_DRV_NAME,
+>  							   PLATFORM_DEVID_AUTO,
+>  							   &codec_data,
+>  							   sizeof(codec_data));
+> -	return PTR_ERR_OR_ZERO(mtk_dp->audio_pdev);
+> +	if (IS_ERR(mtk_dp->audio_pdev))
+> +		return PTR_ERR(mtk_dp->audio_pdev);
+> +
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+
+[Severity: Medium]
+Is the correct platform device pointer being passed here?
+
+This registers a cleanup action using mtk_dp->phy_dev rather than the
+newly created mtk_dp->audio_pdev. This will likely leak the audio device on
+probe deferral or driver unbind, and may attempt to unregister the PHY devi=
+ce
+at the wrong time instead.
+
+> +	if (ret) {
+> +		platform_device_unregister(mtk_dp->audio_pdev);
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add codec unregister devm action");
+> +	}
+> +	return 0;
+>  }
+> =20
+>  static int mtk_dp_register_phy(struct mtk_dp *mtk_dp)
+>  {
+>  	struct device *dev =3D mtk_dp->dev;
+> +	int ret;
+> =20
+>  	mtk_dp->phy_dev =3D platform_device_register_data(dev, "mediatek-dp-phy=
+",
+>  							PLATFORM_DEVID_AUTO,
+> @@ -2701,6 +2719,13 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_=
+dp)
+>  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy_dev),
+>  				     "Failed to create device mediatek-dp-phy\n");
+> =20
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+> +	if (ret) {
+> +		platform_device_unregister(mtk_dp->phy_dev);
 
 [Severity: High]
-This is a pre-existing issue, but do the constants in this function silently
-overflow on 32-bit architectures?
+Could this cause a use-after-free?
 
-Earlier in mtk_hdmi_pll_calc(), there are tier threshold calculations like:
+When devm_add_action_or_reset() fails, it automatically executes the cleanup
+action, which calls platform_device_unregister() on mtk_dp->phy_dev. Calling
+platform_device_unregister() a second time here would double-free the devic=
+e.
 
-    else if ((tmds_clk * 100) >=3D 14835 * MEGA && (tmds_clk * 10) < 2967 *=
- MEGA)
-
-and later boundary checks:
-
-    if (ns_hdmipll_ck >=3D 5 * GIGA &&
-        ns_hdmipll_ck <=3D 12 * GIGA)
-
-If MEGA and GIGA evaluate as 32-bit types on 32-bit systems, a multiplicati=
-on
-like 14835 * MEGA evaluates to 14,835,000,000, which wraps around modulo 2^=
-32
-to 1,950,098,112 before being promoted to u64 for the comparison against
-tmds_clk * 100.
-
-Similarly, 5 * GIGA and 12 * GIGA would overflow, potentially rendering the
-valid PLL clock range mathematically unreachable and forcing the function to
-always return -EINVAL on 32-bit builds.
-
-Should these constants be explicitly typed or cast to u64 to ensure the
-comparisons work correctly on 32-bit kernels?
-
->  	posdiv2 =3D 1;
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add phy unregister devm action");
+> +	}
+> +
+>  	mtk_dp_get_calibration_data(mtk_dp);
 > =20
->  	/* Digital clk divider, max /32 */
-> -	digital_div =3D div_u64(ns_hdmipll_ck, posdiv1 * posdiv2 * pixel_clk);
-> +	digital_div =3D div64_u64(ns_hdmipll_ck, posdiv1 * posdiv2 * pixel_clk);
->  	if (!(digital_div <=3D 32 && digital_div >=3D 1))
->  		return -EINVAL;
->
+>  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+
+[Severity: High]
+Can the error path for devm_phy_get() also trigger a double-free?
+
+Looking at the rest of mtk_dp_register_phy() just below this diff:
+
+mtk_dp_register_phy() {
+    ...
+    mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+    if (IS_ERR(mtk_dp->phy)) {
+        platform_device_unregister(mtk_dp->phy_dev);
+        return dev_err_probe(dev, PTR_ERR(mtk_dp->phy), "Failed to get phy\=
+n");
+    }
+    ...
+}
+
+Since the devm unregister action was successfully registered above, returni=
+ng
+an error here will trigger the devm unwind loop. That will unregister the
+device a second time after this explicit platform_device_unregister() call.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701121936.1940=
-7-1-angelogioacchino.delregno@collabora.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122024.1955=
+7-1-angelogioacchino.delregno@collabora.com?part=3D3
