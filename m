@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3DFBC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 20:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 880EAC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 20:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11F2210EFF0;
-	Wed,  1 Jul 2026 20:09:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF0210E3F1;
+	Wed,  1 Jul 2026 20:21:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EXBCJmcb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gy8FXnjR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0B7C10EFF0
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 20:09:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9E7310E3F1
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 20:21:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A4004011B;
- Wed,  1 Jul 2026 20:09:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC83F1F000E9;
- Wed,  1 Jul 2026 20:08:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DF8D760138;
+ Wed,  1 Jul 2026 20:21:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79931F000E9;
+ Wed,  1 Jul 2026 20:21:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782936541;
- bh=96jvHTeDCxR7+XirD0BwNbewxZDFsoQe83dAJZ5Y+5s=;
+ s=k20260515; t=1782937263;
+ bh=I1MrHWNoePasAF89bOFkx3E+DQzJNV1VoJf4OgB1Qys=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=EXBCJmcbAvYPFqFcBHQO2r6ZqZwgwUddvkI9gPT7NLVOsImpXL3HDd6PrstGD6Lq6
- cfeIDkj7dEFVZZULAW1dTbFQgzx4rZ6/4XVBr2FGMh/+FXIJJK5eGDawPCpu9s4Igq
- xs/iIq1X3Kr0xmjXsu0VyJTzyoMYM82kK8fG3PEZY+u5s9depmm8O3qbqysSt+ocJJ
- TTqq456rc5j7FcKAE/rky5u4fYHgdJxR8KfO0YiJFiqoOufCKaqvfwNyku7A9KJyVu
- /JxdFoi85x2DKjjGOO4Az4XTjjI36aglvg+YymUKsPxDtSMaNdhSvAByUIAGf+fRON
- Gu9WbdAhClKXA==
-Message-ID: <a176e929-9e2b-4123-ad86-0aec712c3cb1@kernel.org>
-Date: Wed, 1 Jul 2026 21:08:58 +0100
+ b=gy8FXnjRj2EIDzXAefjnJ+gxN1nxuartvvuZijND8toXIyijlieTf93gnuO/zyl21
+ SDrHBf+HBAe5pIhmFjtdIlmDWOs7cs+kciFy6t4UujoXrOgd+G8Hyi3J7iN5k4padx
+ IA6dqBqqKvP+0MkK6H/EmTDLrluICUEJOO8VjvLXrIVIKBs9rFVDVSeNxYlrglZbrJ
+ ejK1AWp1lJ639oJi8hnuygEcF5coDuVzWpT1gN2RrJF7VuRSj0zJK4W3ZUgNCzlyyl
+ LhKnZIu7lind/cU1E86YCdlf62pTuAazNPCBjnGAAeLm/p3t2HgkQbo7tPmtRDdNEv
+ ifENFzG3opwag==
+Message-ID: <6a7e3394-9dc7-4371-9935-47f3be8a59f4@kernel.org>
+Date: Wed, 1 Jul 2026 21:21:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: release pending invoke refs on rpmsg
- removal
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+Subject: Re: [PATCH] misc: fastrpc: create duplicate sessions after all CB
+ probing
+To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
  Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260624192700.5388-1-alhouseenyousef@gmail.com>
- <c1984f80-f8a8-4ee2-a087-c49ad3ad1e39@oss.qualcomm.com>
- <CAMuQ4bXSG5piN9nwLoTcAOCRoZppmJegcPwghikdbQWGuGS+sg@mail.gmail.com>
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+References: <20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com>
 Content-Language: en-US
 From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <CAMuQ4bXSG5piN9nwLoTcAOCRoZppmJegcPwghikdbQWGuGS+sg@mail.gmail.com>
+In-Reply-To: <20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,43 +67,126 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 6/25/26 10:07 AM, Yousef Alhouseen wrote:
-> Hi Konrad,
+On 6/9/26 11:33 AM, Vinayak Katoch wrote:
+> For ADSP, only a limited number of FastRPC context banks (CBs) are
+> available. Each CB supports a single session, which means only a few
+> processes can run on ADSP simultaneously. If all sessions are consumed
+> by fastrpc daemons, no session remains available when a user application
+> starts, causing the application to fail.
 > 
-> You're right. These touch related FastRPC lifetime and bounds paths,
-> and several of them depend on the same state cleanup. I grouped the
-> follow-up fixes I still think are valid into a small series, and I'll
-> keep any further FastRPC changes batched instead of sending more
-> standalone threads.
+> To address this limitation, a Device Tree change was used till now:
+>   qcom,nsessions = <5>;
+> 
+You should mark this property as deprecated in dt bindings.
+Which should discourage people to use this property.
 
-I also like to understand how are these patches tested?
 
---srini
+> However, feedback from the upstream community indicated that this change
+> should not be made in the Device Tree. Instead, it was recommended to
+> handle this as a driver-level change.
+
+Changing it in driver will make it applicable for all the SoCs.
+
 > 
-> Thanks,
-> Yousef
+> Instead of duplicating sessions inline during fastrpc_cb_probe() using
+> the qcom,nsessions DT property, defer duplication until after
+> of_platform_populate() returns in fastrpc_rpmsg_probe(), at which point
+> all compute-CB child nodes have been probed and the session array is
+> fully populated.
 > 
-> On Thu, 25 Jun 2026 09:40:53 +0200, Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->> On 6/24/26 9:27 PM, Yousef Alhouseen wrote:
->>> fastrpc_rpmsg_remove() wakes pending invoke waiters when the rpmsg device
->>> is removed, but it does not release the send references taken before each
->>> request was submitted. Those references normally disappear only when a DSP
->>> reply arrives, which cannot be relied on after endpoint removal.
->>>
->>> Walk the channel IDR during removal, mark in-flight contexts completed,
->>> and schedule the send-reference put while waking waiters with -EPIPE. This
->>> prevents disconnected channels from pinning invoke contexts indefinitely.
->>>
->>> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
->>> ---
->>
->> You sent ~10 patches to fastrpc as separate threads, do they have
->> any sort of co-dependence? Can they be applied in random order?
->>
->> Generally if your changes are even vaguely related, it's best to
->> send them in a single series, if only to reduce the possibility of
->> a merge conflict
->>
->> Konrad
+> For the ADSP domain, append FASTRPC_DUP_SESSIONS (4) copies of the
+> last probed session once of_platform_populate() succeeds. This keeps
+> the per-CB probe path simple and ensures duplicates are always derived
+> from a stable, fully-initialised session state.
+> 
+> The qcom,nsessions DT property is no longer consumed by the driver; the
+> binding and DT sources are left unchanged.
+> 
+> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 31 ++++++++++++++++++-------------
+>  1 file changed, 18 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 1080f9acf70a..46afbae9c234 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -30,6 +30,7 @@
+>  #define CDSP_DOMAIN_ID (3)
+>  #define GDSP_DOMAIN_ID (4)
+>  #define FASTRPC_MAX_SESSIONS	14
+> +#define FASTRPC_DUP_SESSIONS	4
+>  #define FASTRPC_MAX_VMIDS	16
+>  #define FASTRPC_ALIGN		128
+>  #define FASTRPC_MAX_FDLIST	16
+> @@ -2195,7 +2196,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+>  	struct fastrpc_channel_ctx *cctx;
+>  	struct fastrpc_session_ctx *sess;
+>  	struct device *dev = &pdev->dev;
+> -	int i, sessions = 0;
+>  	unsigned long flags;
+>  	int rc;
+>  	u32 dma_bits;
+> @@ -2204,8 +2204,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+>  	if (!cctx)
+>  		return -EINVAL;
+>  
+> -	of_property_read_u32(dev->of_node, "qcom,nsessions", &sessions);
+> -
+>  	spin_lock_irqsave(&cctx->lock, flags);
+>  	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
+>  		dev_err(&pdev->dev, "too many sessions\n");
+> @@ -2225,16 +2223,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
+>  	if (of_property_read_u32(dev->of_node, "reg", &sess->sid))
+>  		dev_info(dev, "FastRPC Session ID not specified in DT\n");
+>  
+> -	if (sessions > 0) {
+> -		struct fastrpc_session_ctx *dup_sess;
+> -
+> -		for (i = 1; i < sessions; i++) {
+> -			if (cctx->sesscount >= FASTRPC_MAX_SESSIONS)
+> -				break;
+> -			dup_sess = &cctx->session[cctx->sesscount++];
+> -			memcpy(dup_sess, sess, sizeof(*dup_sess));
+> -		}
+> -	}
+>  	spin_unlock_irqrestore(&cctx->lock, flags);
+>  	rc = dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
+>  	if (rc) {
+> @@ -2445,6 +2433,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  	if (err)
+>  		goto err_deregister_fdev;
+>  
+> +	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
+> +		struct fastrpc_session_ctx *last_sess;
+> +		struct fastrpc_session_ctx *dup_sess;
+> +		unsigned long flags;
+> +		int i;
+> +
+> +		spin_lock_irqsave(&data->lock, flags);
+> +		last_sess = &data->session[data->sesscount - 1];
+
+Why only for last session?
+
+This is now un conditionally done for ADSP which changes the whole
+behaviour.
+
+> +		for (i = 0; i < FASTRPC_DUP_SESSIONS; i++) {
+> +			if (data->sesscount >= FASTRPC_MAX_SESSIONS)
+> +				break;
+> +			dup_sess = &data->session[data->sesscount++];
+> +			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
+> +		}
+> +		spin_unlock_irqrestore(&data->lock, flags);
+> +	}
+> +
+>  	return 0;
+>  
+>  err_deregister_fdev:
+> 
+> ---
+> base-commit: 97e797263a5e963da3d1e66e743fd518567dfe37
+> change-id: 20260609-dup-sessions-ea2acaac1994
+> 
+> Best regards,
 
