@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DC1BC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:29:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E22CC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:30:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B221310EF77;
-	Wed,  1 Jul 2026 12:29:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8E8B10EF78;
+	Wed,  1 Jul 2026 12:30:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XJfKcoTZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fHwzDOgx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0821010EF77
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:29:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F71810EF78
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:30:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DC716001D;
- Wed,  1 Jul 2026 12:29:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E7B1F000E9;
- Wed,  1 Jul 2026 12:29:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E875413B8;
+ Wed,  1 Jul 2026 12:30:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B65211F000E9;
+ Wed,  1 Jul 2026 12:30:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782908976;
- bh=iUpFgLeb06YeTcU+DB6rOQqDIVRGSbEfP+/YlJuD05A=;
+ s=k20260515; t=1782909004;
+ bh=p/Ltph7WWF2KDaFV2op4D3gJpqRALqGdOM9Gv3W8WeQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XJfKcoTZzBb192FAEr9Z2W203f1uirEyWwoZ/tFs15BUFc0z14IXalCCaf1H4w77u
- SGh5wAbhl2Zx7NKL/c7LfYlgpTG8VSh3XqP2ZTFoXa4M2nAqplbukTBAf5lTDyzJ1L
- wCfhpb9MAXpQIAqX11uzLdQddDE9pMeN3XFR/o78Wt8kZn6V/j3dxRxe1UVrPVh+5v
- WvWTLbsNfKabbQJnikcc/NT3bPS0cmr8fbb3WzUVeApzA+xaV6vYKen/fld1axZmVn
- hUMQ6OcyYD5/JlcS8TlO/S1IBiI/paZnSO2xOqjN4Lylyl3Yho+u0XzqJDANaxzdh4
- 3SWlpbS2RkWuQ==
+ b=fHwzDOgxbOKw/V1SMc/+aZnecLypCRVbcTaY3+V03yNMZd90Zk6V7xzEXVo5YIpdV
+ y4FfwpeCKFvhFz8+HreE8DMw+CF+fVr9MJB6mqYvVYG0tgIxiVu0ca24S+9LY5hF+x
+ 1rXYXogTKejG8oVVzugfhAyFz087KSrhGKBWLJRyrk5OPxfiBMGshRADyeIdEVmLlF
+ 2c59A7XUigU7yYeAm/FTGgCf2fMLQxePzMvMpqovSwckqH+4iMgprZprNNR3GoiYhb
+ 8N1eErELMv9vr2RVGIbEVmhXM2WkITzhYibFQRum6LxvzRMF3op862J2K9eYcdEjjq
+ njzk20pc1Zdgg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY
+Subject: Re: [PATCH 03/12] phy: phy-mtk-dp: Allow probing with devicetree match
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: olteanv@gmail.com, neil.armstrong@linaro.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org, vkoul@kernel.org,
- linux-phy@lists.infradead.org, conor+dt@kernel.org
-In-Reply-To: <20260701121943.19430-3-angelogioacchino.delregno@collabora.com>
-References: <20260701121943.19430-1-angelogioacchino.delregno@collabora.com>
- <20260701121943.19430-3-angelogioacchino.delregno@collabora.com>
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, olteanv@gmail.com, robh@kernel.org,
+ conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701122008.19509-4-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-4-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:29:35 +0000
-Message-Id: <20260701122936.58E7B1F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 12:30:03 +0000
+Message-Id: <20260701123003.B65211F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,124 +59,142 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Calling usleep_range() inside a clk_ops->enable callback will trig=
-ger a 'scheduling while atomic' BUG.
-- [Medium] The PLL rate is clamped to a maximum of 1.6 GHz, rendering the n=
-ew high-speed voltage logic for rates >=3D 2.0 GHz completely unreachable.
+
+New issues:
+- [High] The return value of `pm_runtime_get_sync()` is ignored, which can =
+lead to hardware register accesses on an unpowered device.
+- [Medium] Missing `.remove` callback leaves PM runtime enabled and usage c=
+ounter unbalanced on driver unbind.
+
+Pre-existing issues:
+- [High] Missing `phy_remove_lookup()` causes a memory leak and a dangling =
+pointer in the global PHY lookup list.
+- [High] Unconditional dereference of `dev->platform_data` before validatin=
+g it.
 --
 
-commit af99b6688956e76bb38344e38d2af3b56056ec47
+commit e3a3844cc6f977665174375e23735f789c04a772
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-phy: mediatek: Add support for MT8196 MIPI DSI PHY
+phy: phy-mtk-dp: Allow probing with devicetree match
 
-Add support for the MIPI DSI PHY found in the MediaTek MT8196 SoC
-and its variants. This initial driver only adds support for basic
-functionality that is necessary to drive MIPI DSI displays as a D-PHY.
+This commit introduces a devicetree match table to decouple the DP PHY driv=
+er
+from the DP IP driver. It adds an OF PHY provider and MMIO regmap registrat=
+ion
+for the devicetree case, while maintaining a legacy probe path for older
+devicetrees without a separate PHY node.
 
-> diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c b/drivers/phy=
-/mediatek/phy-mtk-mipi-dsi-mt8196.c
-> new file mode 100644
-> index 0000000000000..273f236fa7e9e
-> --- /dev/null
-> +++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index bf7b3a95e72d2..98e05fe05ce3b 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
 
 [ ... ]
 
-> +static int mtk_mipi_tx_pll_enable(struct clk_hw *hw)
+> @@ -160,43 +161,92 @@ static const struct phy_ops mtk_dp_phy_dev_ops =3D {
+>  	.owner =3D THIS_MODULE,
+>  };
+> =20
+> +static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct =
+mtk_dp_phy *dp_phy)
 > +{
-> +	struct mtk_mipi_tx *mipi_tx =3D mtk_mipi_tx_from_clk_hw(hw);
-> +	void __iomem *base =3D mipi_tx->regs;
-> +	u32 voltage =3D RG_DSI_PRD_REF_MINI;
-> +	u32 pres =3D MIPITX_PRESERVED_MINI;
-> +	unsigned long long pcw_calc;
-> +	unsigned int txdiv, txdiv0;
-> +	u32 pcw;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct phy *phy;
 > +
-> +	dev_dbg(mipi_tx->dev, "enable: %u bps\n", mipi_tx->data_rate);
-> +
-> +	if (mipi_tx->data_rate >=3D 2000000000) {
-> +		/* Select higher signaling voltage for fast data rates */
-
-[Severity: Medium]
-Will this condition ever be met?
-
-Further down in this patch, mtk_mipi_tx_pll_determine_rate() unconditionally
-clamps the requested rate to a maximum of 1.6 GHz.
-
-Since the framework passes this clamped rate to the set_rate callback, won't
-this high-speed logic for 2.0 GHz become unreachable dead code?
-
-> +		voltage =3D RG_DSI_PRD_REF_DEF;
-> +		pres =3D MIPITX_PRESERVED_DEF;
-> +		txdiv =3D 1;
-> +		txdiv0 =3D 0;
-> +	} else if (mipi_tx->data_rate >=3D 1000000000) {
-
-[ ... ]
-
-> +	mtk_phy_update_field(base + MIPITX_VOLTAGE_SEL, RG_DSI_PRD_REF_SEL, vol=
-tage);
-> +	writel(pres, base + MIPITX_PRESERVED);
-> +
-> +	mtk_phy_set_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_PWR_ON);
-> +	mtk_phy_clear_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-> +	usleep_range(30, 60);
+> +	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
 
 [Severity: High]
-Is it safe to sleep here?
+This is a pre-existing issue, but does this code unconditionally dereference
+dev->platform_data before verifying it is not NULL?
 
-The Common Clock Framework invokes clk_ops->enable callbacks with the
-enable_lock spinlock held and local interrupts disabled.
+If the platform device is instantiated without platform data, would this
+dereference cause a kernel panic before the subsequent check for
+!dp_phy->regmap can execute?
 
-Because mtk_mipi_tx_pll_enable() is registered as the .enable callback,
-won't calling usleep_range() here in an atomic context trigger a
-scheduling while atomic BUG?
-
-Should this use udelay() instead, or could this logic be moved to the
-.prepare callback where sleeping is permitted?
-
+> +	if (!dp_phy->regmap)
+> +		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
 > +
-> +	mtk_phy_clear_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_ISO_EN);
-> +	writel(pcw, base + MIPITX_PLL_CON0);
-> +	mtk_phy_update_field(base + MIPITX_PLL_CON1, RG_DSI_PLL_POSDIV, txdiv0);
-> +	usleep_range(30, 60);
+> +	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
+> +	if (IS_ERR(phy))
+> +		return dev_err_probe(dev, PTR_ERR(phy),
+> +				     "Failed to create DP PHY\n");
 > +
-> +	mtk_phy_set_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-> +	usleep_range(30, 60);
+> +	phy_set_drvdata(phy, dp_phy);
+> +	phy_create_lookup(phy, "dp", dev_name(dev));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this leak the lookup
+entry and create a dangling pointer?
+
+phy_create_lookup() dynamically allocates a phy_lookup structure and links =
+it
+into the global phys list. Since there is no driver .remove callback calling
+phy_remove_lookup(), when the driver unbinds, the devres-managed phy is fre=
+ed
+while still in the global list, which could cause a use-after-free when oth=
+er
+drivers call phy_find().
+
 > +
 > +	return 0;
 > +}
+> +
 
 [ ... ]
 
-> +static int mtk_mipi_tx_pll_determine_rate(struct clk_hw *hw,
-> +					  struct clk_rate_request *req)
-> +{
-> +	req->rate =3D clamp_val(req->rate, 125000000, 1600000000);
+>  static int mtk_dp_phy_probe(struct platform_device *pdev)
+>  {
+
+[ ... ]
+
+> +	provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+> +	if (IS_ERR(provider))
+> +		return PTR_ERR(provider);
+> +
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_get_sync(dev);
+
+[Severity: High]
+Is it safe to ignore the return value of pm_runtime_get_sync() here?
+
+If the generic power domain or clock fails to enable, pm_runtime_get_sync()
+will return a negative error code. Without checking this, the PHY provider =
+is
+registered even if the hardware is off, which could lead to a synchronous
+external abort when attempting to write to the MMIO registers later.
+
+> =20
+>  	return 0;
+>  }
+> =20
+> +static const struct of_device_id mtk_dp_phy_of_match[] =3D {
+> +	{ .compatible =3D "mediatek,mt8195-dp-phy" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, mtk_dp_phy_of_match);
+> +
+>  static struct platform_driver mtk_dp_phy_driver =3D {
+>  	.probe =3D mtk_dp_phy_probe,
+>  	.driver =3D {
+>  		.name =3D "mediatek-dp-phy",
+> +		.of_match_table =3D mtk_dp_phy_of_match,
+>  	},
+>  };
 
 [Severity: Medium]
-Is this maximum rate intentional for the MT8196?
+Does this driver need a .remove callback to clean up the PM runtime state?
 
-This limits the rate to 1.6 GHz, which prevents the 2.0 GHz signaling
-voltage logic in mtk_mipi_tx_pll_enable() from ever executing.
+Since pm_runtime_enable() and pm_runtime_get_sync() are called in probe
+without devm_ handlers or registered teardown actions, unbinding the driver
+appears to leak the usage counter and leave PM runtime permanently enabled.
 
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct clk_ops mtk_mipi_tx_pll_ops =3D {
-> +	.enable =3D mtk_mipi_tx_pll_enable,
-> +	.disable =3D mtk_mipi_tx_pll_disable,
-> +	.determine_rate =3D mtk_mipi_tx_pll_determine_rate,
-> +	.set_rate =3D mtk_mipi_tx_pll_set_rate,
-> +	.recalc_rate =3D mtk_mipi_tx_pll_recalc_rate,
-> +};
-
-[ ... ]
+>  module_platform_driver(mtk_dp_phy_driver);
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701121943.1943=
-0-1-angelogioacchino.delregno@collabora.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
+9-1-angelogioacchino.delregno@collabora.com?part=3D3
