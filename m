@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C60C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF606C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F8610F1AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB2D10F1B9;
 	Thu,  2 Jul 2026 07:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I0HAfOnG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TrOAspuE";
 	dkim-atps=neutral
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A8E10E3F4
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 23:42:57 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5aeb6d00883so974876e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 16:42:56 -0700 (PDT)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 280F910E3E2
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 23:17:14 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-5aeba09900bso1034484e87.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 16:17:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782949375; x=1783554175; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782947832; x=1783552632; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
+ :message-id:reply-to;
  bh=HjOEsE0qEDjFyTwl3K+CtParcmWNsl4rWJyxgaM5lGk=;
- b=I0HAfOnGcHTrorpDXludyr+GKv+V+QhIAeZbcyet9i+CvRJGxLB0ZHHC2jzedbT1em
- 0ScilbSThwd0Qv+WXUtZzklj4V0NnidnSEz4ObHspQcUiYYU+kHnMUXKjdNkFYhY+xBI
- HrhN8YXBiu7h9FvK0JA0Ezau2bc2Q+3cYNwWZcHmNaz73tFEdpvl6Ujnj97RWhSVeSbf
- c5l+H9m8SdgJeuoxKodACfhS2roQBEw7n4doubv8kF0gsJ+7/TxlnhlmLDuT8RZH0OVa
- e3zEtGDTDz9KL7AW4xsowokfxD3p0OnnqnIcreF/1Aocv2Sz/nrl06Cqm/qvOO5LD5YN
- lVYA==
+ b=TrOAspuEE8d/RuIdpsAInZaIw4yPyozh5YxbTEFrcrAGtgyzbw90S6ESm6PxEfujvm
+ oS2yGvrCVhslY552c16dOGbc7pfmq4fUkDxddbiozr2ysFN0pMMleZNdhL7D0kjGxRuU
+ qkFFan29Jov0V6LlrR7kWE03/iop5vH8keQuHJDPDVoHTX0t9fCuTkhtWuzHJPrusvi3
+ cRjny8a4DeZRDeU0dkqbHob3sWoozSKWGOOERFo/xvgDQ6zzZW2jH8zzErdB+FEvauQd
+ LN2flPcFgQlh6t62KzZ0SA4JfYQWTxsHrRowyDrE9Tv8o6yjueZTf4VaU32G8ZsiZlud
+ tSTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782949375; x=1783554175;
+ d=1e100.net; s=20251104; t=1782947832; x=1783552632;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
+ :to:cc:subject:date:message-id:reply-to;
  bh=HjOEsE0qEDjFyTwl3K+CtParcmWNsl4rWJyxgaM5lGk=;
- b=ZDgj4xGOUnnP6sAMtc8n0FUqst4GvF4d62kskmV/90cyPjcWUABW438qZlCQxFiYoG
- SF5nGPwMFqPM75Ez7wGWclyGBJqG0hyqw55EHs6612w3l+oNOE1AVgOMBp3jVR4f20K5
- zFwajCVUPWnMX6seTzvyH1O1Rs2+bH4KURUhw0seWSgUxCGo+DB+JqkLrfM/dQfAOxoe
- 2VLU88RssGTV4VQl05cTZwkXL742XWywxk4Ovoj7pVabU6tKJBZ0ig6svv4QJUm9RfDJ
- TUuED+YbXbIHbJ+NnFT/gSbB3YUm0BPlg2KQeX8oY6Jy/Rcvd8peop2jZ2xptQPDJ1c2
- n0Kw==
+ b=iB0WJ+KkNPTqCS1bY/3zf0EgNT2PliuU916QiPsyyyJXulhxt8Sdej/Q/gCF9vI9Sj
+ ZzGaas+JgY0JF0x72O3m+cWIsn3WMSBoE1bVyoCroGv8FnqIa/XxmPrexSxVUhRyDueR
+ NNwKwEAGou4v1yju8g/InqlX1G++cQla1sbUmPKrnxyob8f+FPFRAaurcaDrCiQCoe+d
+ OXBM4oSiB2Mqza0C+Boa0ZtDJ6j7f6WeZL+W+LdQtwZ0eUOCAPhM8JLBGUjvyw4+m5Ny
+ ijO/mrcfv4DecNmioITlxEqyFPXN14YUUr1c/pxOpTzqU+jZRuKLtXUyYVEpAZ8n/h0y
+ FgFA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpZG0jYLT89F1uaA0RbtgtLWtFOoqr3Dhp7+PghBlNiJppogm1iKda3Ku07R+yN4xqDyILGbwvze1Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy2G92eDsmqq+G/U2Qs3+smzrWEiOMDB7aZ8SLDhuZNxMA4QB8P
- QZW5WjGSmNTvN3A5Co4gi1KXc8VhMDlz/Je/PNrb5oPsXS8+bIs1zI+5
-X-Gm-Gg: AfdE7ckTPrJqxIGdYjWLCW0bA8e7RbWozGe2DMP1FlK2Ze1+RiW7QLcGTgN+bGx8z3L
- 0P4I5a86Bif/VvH4bJ8Q5M6NiRyfSJggAZ13QcohRfXDsgApD9PXvda+NYGZFxuzIEDAEF9yQkq
- 8xGG3QoUqoDkwm3nkPRkQzSKBPTVpUK7muuYpxEaKYhFdE37tm/jQl938vbU2Jo/Sx9zMRXh2zm
- Lx6b4VH+cL3tSDcQkyG8UGnMKjWPZjiKPKZZjwVofHHnCODw71qgHH+DY5++Gumrg8Yfiwzt9KT
- Tw3zKt+JEszf7t+xlPE3K1i+z0brE06mWcQPSqMXEFMQSOvflzHiyLKMJBlnIMpiBOmwngqcwCm
- 4abG3/QzwJypctHC0Ht7VY5lwnuCzvdpYMgpNVTxl6upViL66+onT5p/e94T5LKpC4pF9oLBQEp
- 1inWDc8CaIeFVMhJIk7RkLzKqLOj4fVR0z3/PttE7rCg==
-X-Received: by 2002:a05:6512:4481:b0:5ae:c201:c3d7 with SMTP id
- 2adb3069b0e04-5aec801063cmr603820e87.8.1782949374962; 
- Wed, 01 Jul 2026 16:42:54 -0700 (PDT)
+ AHgh+RpKB5ZFv7qaHlWLOxtilmpSK4lIDz2/5T84cAJ4mAXwmE/a8dbtMcVs06hZB3vyxQ4XNebBE1s0Nv0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx56y1uk7ALqxx5DPyVJyNuNZON02SINLovcI7Af/Ojok/tEnHI
+ TfJDq7bOpecbwQK3LrytkDcxCczybDzOOGf8EGEDYdx0VstVaIgwVH7T
+X-Gm-Gg: AfdE7cnKQdTL/xnOfJ8fdAtqfJwJmsCnKt67A8hEyIv+m0VagPWAcQmbtwVQqQO91GQ
+ EDB7UGHoNFpWy5elRir/SWeZhghysl6ZDUhRY6o/ec/ZgbXunG0BMA6vo04rylHJ9cKbQE5b9uc
+ GIwtPNhrkSi4R2hgS2xMXgoxJXD48nVoypgGp5AnnVkBypfY5SX8DwHex2q8AsHA8kZT/2NkV5B
+ PhlAtJxNAFecnR3nN8vJ8YG4nxl95YQNITm73gAS5wG1eBiEOKd1ZxmokxsqOwXGgaqLttXmtod
+ bM8L7A/UiO7Da6VyuQ6trXzDvZuKaVFZQDyN6R9npa9fga/WWDkzdoEXtTtOtDn6TZAvbSs8Sc0
+ 5EgrzbKxZqxBHPgdvbQ/yV5TYDRokm/K4mC2EVZQt3AFofMqTO0LBsxWOL+3liZ9i56Yn3jWK+r
+ DYWd7KLRs8posRBq15UQ++BEoM3hcTDJVoR9uIZu1xug==
+X-Received: by 2002:a05:6512:8387:b0:5ae:9c19:165c with SMTP id
+ 2adb3069b0e04-5aec7fe9d35mr502903e87.7.1782947832122; 
+ Wed, 01 Jul 2026 16:17:12 -0700 (PDT)
 Received: from localhost.localdomain ([2a01:4f9:2a:1c13::2])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-39b37fda160sm2836261fa.29.2026.07.01.16.42.52
+ 2adb3069b0e04-5aec8991974sm308950e87.4.2026.07.01.16.17.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 16:42:53 -0700 (PDT)
+ Wed, 01 Jul 2026 16:17:10 -0700 (PDT)
 From: Melbin K Mathew <mlbnkm1@gmail.com>
 To: deller@gmx.de
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Melbin K Mathew <mlbnkm1@gmail.com>,
  stable@vger.kernel.org
-Subject: [PATCH v3 1/3] fbdev: bound mode sysfs output to the sysfs buffer
-Date: Thu,  2 Jul 2026 01:42:46 +0200
-Message-Id: <20260701234248.236023-2-mlbnkm1@gmail.com>
+Subject: [PATCH v2 1/2] fbdev: bound mode sysfs output to the sysfs buffer
+Date: Thu,  2 Jul 2026 01:17:05 +0200
+Message-Id: <20260701231706.234715-2-mlbnkm1@gmail.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260701231706.234715-1-mlbnkm1@gmail.com>
-References: <20260701231706.234715-1-mlbnkm1@gmail.com>
+In-Reply-To: <20260701221757.231490-1-mlbnkm1@gmail.com>
+References: <20260701221757.231490-1-mlbnkm1@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 02 Jul 2026 07:51:30 +0000
