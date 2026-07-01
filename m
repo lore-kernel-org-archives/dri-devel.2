@@ -4,56 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56519C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 14:31:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95852C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 14:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B792710E5CD;
-	Wed,  1 Jul 2026 14:31:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9521510E4C1;
+	Wed,  1 Jul 2026 14:38:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jIq/Onj+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B6xyVSEr";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25FF110E4C1
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 14:31:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782916277; x=1814452277;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Hz1Mgg9oMRCWopbV+9hgoxGte1BihnXtyhFtydMHWVk=;
- b=jIq/Onj+kALBS5I6yu1IjoutsiWsza3Y6JR5+HniI+6nFApzJj1ssW7L
- tpiJnUKPAYS417GJxQzyN1oFs7E8MLEgaGjh8NwPXG2bQHk51LBrCoglM
- bAc5SjU0Zzxb5O7r80HcjVuBI/X/D1oAdtknLticjxNMl7sJXBsY3W2iT
- ZvN9ofc+9Q9Zkxf2aWZid/WTyQDMYA1ZZod6R8Wi6JlatZesN06A7dVX/
- Ao4WfMBAuLz15q5VtbQp5xP2EY4ptkB7EF/saUZA+5V5uZeDamwBPc9W+
- CdxqR/PEqw12vXYiM5fvzumA7wSkhQLGNCePOyj9E0+FZ88bl1W484VTx w==;
-X-CSE-ConnectionGUID: bAzTYvxOTWyD32sDw/SH0Q==
-X-CSE-MsgGUID: NQaS0jSFSEK07//5pi8XTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="94249933"
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="94249933"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 07:31:17 -0700
-X-CSE-ConnectionGUID: us/NUwmhT2ukmNr9+9KisA==
-X-CSE-MsgGUID: 3Y25KWDWRpu/BiwrCGmvdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,141,1779174000"; d="scan'208";a="253233806"
-Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 07:31:15 -0700
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: alex.zuo@intel.com, jonathan.cavitt@intel.com, tobias.hector@amd.com,
- jason@jlekstrand.net, airlied@redhat.com, chris@chris-wilson.co.uk,
- christian.koenig@amd.com, david1.zhou@amd.com,
- lionel.g.landwerlin@intel.com
-Subject: [PATCH] drm/syncobj: Use kmalloc_objs for chains
-Date: Wed,  1 Jul 2026 22:31:11 +0800
-Message-ID: <20260701143111.1410442-1-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.53.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E740A10E3B1;
+ Wed,  1 Jul 2026 14:38:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2464D60138;
+ Wed,  1 Jul 2026 14:38:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9A51F000E9;
+ Wed,  1 Jul 2026 14:38:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782916703;
+ bh=FCJc8Y4JmEOreL4L+vTlFLlPE/nMLhzyI1DM8YdqDxY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=B6xyVSErGQCC8QTMJYXKkOjLc7Mv9Rv2B6Ifr7ClnfKg36JsUPDYDajR/pLRNaXuJ
+ 8DIyBokdUdMBU6UbRRrEdjbUWCytV2AxOQuI6NViO5B4xKkDxo7+9Qi0Iu4MCoqBH2
+ Nkew2CpAno/k2fyqTTt57p8FX+zsY0EWkxmv6+Gz5+BZOkiCytNHyIWS9xPtXj2CO6
+ pKKfgW0Fg4Yr+G9SlUm2vb5zyzayQ2C+Xb1OI4EjEKGu6z3hqR2aWEFDQZ7DopzOUW
+ bGTNsAD8D6mgksC/d2TZbjZG97hJH+jsP67CDPe6n7TARhzTc/YcrL9t6o5K9WNTsN
+ OL/pwav2TNtSg==
+Date: Wed, 1 Jul 2026 16:38:11 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v2 1/3] drm/i915/gem: split shared memory allocation
+ table logic
+Message-ID: <akUibf3NyThHnXco@zenone.zhora.eu>
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-2-krzysztof.karas@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701104437.236979-2-krzysztof.karas@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,36 +64,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use kmalloc_objs instead of kmalloc_array when initializing chains in
-drm_syncobj_timeline_signal_ioctl.
+Hi Krzysztof,
 
-Concern caught by static analysis.
+On Wed, Jul 01, 2026 at 10:44:35AM +0000, Krzysztof Karas wrote:
+> shmem_sg_alloc_table is a complex and hard to read function.
+> Split its logic into smaller pieces to improve readability and
+> reduce indentation. Change the main "for" loop into "while" to
+> get rid of obscure iterator "i" and be more explicit in
+> traversing scatterlist.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Cc: Tobias Hector <Tobias.Hector@amd.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Chunming Zhou <david1.zhou@amd.com>
-Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
----
- drivers/gpu/drm/drm_syncobj.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+any chance we can split this cleanup into smaller pieces?
 
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index c9dbf64c0c9f..2fa170a29a62 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -1619,7 +1619,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		goto err_points;
- 	}
- 
--	chains = kmalloc_array(args->count_handles, sizeof(void *), GFP_KERNEL);
-+	chains = kmalloc_objs(*chains, args->count_handles, GFP_KERNEL);
- 	if (!chains) {
- 		ret = -ENOMEM;
- 		goto err_points;
--- 
-2.53.0
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
 
+...
+
+> +static struct folio *shmem_shrink_get_folio(struct address_space *mapping,
+> +					    unsigned long folio_index,
+> +					    gfp_t gfp, unsigned int pages_left,
+> +					    struct drm_i915_private *i915)
+> +{
+> +#define MAX_READS 2
+
+This MAX_READS here is very ugly! Just use 2 and explain it in a
+comment. In the 'if' below you can check out of "if (... || i)"
+and still explain it in a comment.
+
+> +	struct folio *folio;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < MAX_READS; i++) {
+> +		cond_resched();
+> +		folio = shmem_read_folio_gfp(mapping, folio_index, gfp);
+> +		if (!IS_ERR(folio) || i == MAX_READS - 1)
+> +			return folio;
+> +
+> +		i915_gem_shrink(NULL, i915, 2 * pages_left, NULL,
+
+/pages_left/page_count/
+
+> +				I915_SHRINK_BOUND | I915_SHRINK_UNBOUND);
+> +
+
+...
+
+> +	}
+> +
+> +	/* Should never happen */
+> +	WARN_ON_ONCE(1);
+
+no need.
+
+Thanks,
+Andi
+
+> +	return ERR_PTR(-EINVAL);
+> +}
