@@ -4,94 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA8D3C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 13:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66EADC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 13:23:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0D0F10E3E8;
-	Wed,  1 Jul 2026 13:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86F3710E16F;
+	Wed,  1 Jul 2026 13:23:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JIYPd0Nr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QR3r83Z2";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JIYPd0Nr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QR3r83Z2";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="M/X2u51W";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD5710E3A6
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 13:09:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 859C373BE5;
- Wed,  1 Jul 2026 13:09:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782911375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=JIYPd0NrDESaEC0NmfQ+rZ5XyecpBvPWMDTxc6jV6/+1pUSOzxREXC2J1e55hXlxiyZc5r
- sfPKKWwvoyQiUBcavtmdAQ0aws6VuR0NjZKGm2/vVRh0GMx+rA8y9jnycbb+0bNQDMPKb9
- TYiEVN9LntdlVhuL6qz2vCWaQCLZYO0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782911375;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=QR3r83Z2uF0BF+d9qP9zrIfvuNV4aYpVVBpNOWgFn+sQkkZf1pmkdFEnJj+B5VwcIkRsno
- KWrVa8WKhZyZOCBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782911375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=JIYPd0NrDESaEC0NmfQ+rZ5XyecpBvPWMDTxc6jV6/+1pUSOzxREXC2J1e55hXlxiyZc5r
- sfPKKWwvoyQiUBcavtmdAQ0aws6VuR0NjZKGm2/vVRh0GMx+rA8y9jnycbb+0bNQDMPKb9
- TYiEVN9LntdlVhuL6qz2vCWaQCLZYO0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782911375;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=QR3r83Z2uF0BF+d9qP9zrIfvuNV4aYpVVBpNOWgFn+sQkkZf1pmkdFEnJj+B5VwcIkRsno
- KWrVa8WKhZyZOCBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A22F779AA;
- Wed,  1 Jul 2026 13:09:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id HduLDI8RRWrucwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 01 Jul 2026 13:09:35 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH] drm/i915/display: Handle struct
- drm_plane_state.ignore_damage_clips
-Date: Wed,  1 Jul 2026 15:07:23 +0200
-Message-ID: <20260701130929.234695-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E367F10E16F
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 13:23:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1782912199;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=POBMS69xaTAlDO61cGtQgpgznOnVcF/ICKu09umviWw=;
+ b=M/X2u51WWZo68HjOG3/sj9DApOwnM2DpscoxQB651UPfHigvl6Ltt9K90Sa4V/HWsqVTVS
+ nwDxzPqChmXwl1sYKFWJr0So8kL5VAN2CIPlF7UK86OqIfsqE3yPI/GVBECsmIHUY5wrXC
+ Lvcm6cTeZaXKB9cA1VjrLfkDzEdRL3E=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-428-Qn8fbkMQOcaRjrUP50xvIQ-1; Wed, 01 Jul 2026 09:23:18 -0400
+X-MC-Unique: Qn8fbkMQOcaRjrUP50xvIQ-1
+X-Mimecast-MFC-AGG-ID: Qn8fbkMQOcaRjrUP50xvIQ_1782912197
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-473de38dcfaso432575f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 06:23:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782912197; x=1783516997;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=POBMS69xaTAlDO61cGtQgpgznOnVcF/ICKu09umviWw=;
+ b=XWaZG124H0B3BW2ZR6QmckBhAQvG1zhTAae/OAcg5iYds8sbu62Ejl2nx0qjsHCznL
+ OiAfKu3c0E++9ZriybgZcR/JqJYvFuDw2qqfkANpEBRlvrbJajh47qgo3W3V5UcWnY1j
+ roTEp6UkDQSl2jlxN4jhn7km3MqhRigu2WgFGsSGjU/H90muOVfnUiZhRMH3ioGJkCGv
+ VSkqlk9g2vdrwZDdHxSEXErZe9/1xLA69Uc+QlGHFEXFrCzqO/fg/lkZ6z/XXJ6rJssa
+ wjXsWl1k2KHmU2uOriRr5pHqP7MDnfwQKtMckzL9bTohZkAPQP6/21KE382E8SGc+8A2
+ WGxg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqX3C3QigGXq1FghZ5vS6N5nffgUSk/ueDO1UUH3AY63HrKDr9UTz1TVF5+Irrk5TZ70u6kMopgh4s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdAuT4XBHgYzku22xoBDgIfWWZ1Zf9t/NRf/UdhDvdNWMaR950
+ rDu/lvOQrhNO6VQ5sPhGxyZ5TCvnZPfqSiB3C4cVqmZNNC5xjVbANznpa35K3JX1Oy7ZmPOZJ4l
+ yLglrQWOePo0odohvm1AUXV0XGmOpEfmthopOOmBvMRiLK4sH9Y5CsYE3OytJ5SNJGOahEQ==
+X-Gm-Gg: AfdE7ck4heL08TC8sWJb1IOKAstxOGg+OhamawqQVqO4NOG2qlv3wWbosYdp7HEL6uF
+ XQwvbvBGKC1ER6+DLnNNzatfO5Au1pNBZ/0NhiPfAb3S7YJlzTiZ3IeFkjfFG98wEWqvJxFaXbA
+ Cbio+5LfZWCTWTSoI05vujR08EBtpwjfjXWLnskdOIKvVYK02k0qra1+aO0TP76JQblAVj3mxAj
+ saXlJHDHSoyuwYii7H6G79hvTPGpR6UcXTPn8kWGEaWS5O4IWVFAN/Hv+ykpDhkcZaMGBVT35Vm
+ +/HCfjMvu9SJVz2CJVwLX4YzW+w80NPEPgk0+SOz092ib6qEsK4/wU3v7Bp24KtU79mTn00WVYI
+ Z1KfjCr4XVuWsrxLtSJTEGvElmSLYCL8P47eBTsMd/jCDSDQwYIZ8VhrvWPzzTaOyNC321w==
+X-Received: by 2002:a05:6000:18a4:b0:465:ba53:a006 with SMTP id
+ ffacd0b85a97d-477588e7d03mr2696730f8f.23.1782912197078; 
+ Wed, 01 Jul 2026 06:23:17 -0700 (PDT)
+X-Received: by 2002:a05:6000:18a4:b0:465:ba53:a006 with SMTP id
+ ffacd0b85a97d-477588e7d03mr2696673f8f.23.1782912196607; 
+ Wed, 01 Jul 2026 06:23:16 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4756636cdccsm15726626f8f.24.2026.07.01.06.23.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2026 06:23:15 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>
+Subject: Re: [PATCH 0/3] drm/ssd130x: fix column and row end address in
+ partial updates of ssd132x and ssd133x devices
+In-Reply-To: <20260622122604.32500-1-amit.barzilai22@gmail.com>
+References: <20260622122604.32500-1-amit.barzilai22@gmail.com>
+Date: Wed, 01 Jul 2026 15:23:08 +0200
+Message-ID: <875x2ydetf.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.990];
- MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch];
- RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_TWELVE(0.00)[12];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: iP3095cbw1sRsbmXT45yM9fN2yKkfY7w1Z6Jx72_JpY_1782912197
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,42 +101,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
-helpers to ignore damage clips") introduced ignore_damage_clips to
-selectively ignore damage clipping in certain framebuffer changes. The
-mode-setting pipeline can disabled damage clippings for an atomic commit
-by setting ignore_damage_clips in struct drm_plane_state. The atomic
-commit will then do a full display update.
+Amit Barzilai <amit.barzilai22@gmail.com> writes:
 
-Although the i915 driver does not modify the flag, DRM's damage iterator
-will soon rely on it. Calling drm_atomic_helper_check_plane_damage() right
-before drm_atomic_helper_damage_merged() guarantees that it has the correct
-state. The i915 driver does not do this elsewhere so far.
+Hello Amit,
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Thanks for your patches.
+
+> While working on adding SSD1351 support to the ssd130x driver - I
+> noticed that the area of the cursor was refreshing in a weird state.
+> I would fill the screen red while the flashing cursor was on the screen,
+> but the screen wouldn't refresh the entire 8x8 rectangle each flash. 
+>
+> After reading the SSD1351, SSD1331 and SSD132x manuals and manual
+> testing on the SSD1351, I was able to be sure that the problem was the
+> end addresses of "Set Column/Row Address" being sent as relative addresses
+> instead of absolute addresses.
+>
+
+Indeed.
+
+> I assume these bugs went under the radar because testing would usually
+> be done where the dirty rectangles would start from the 0,0 coordinates.
+> In these situations, the bug would be invisable, since adresses relative
+> to 0 are the same as their absolute value.
+>
+
+Yes, I believe that was the case. Thanks a lot for fixing these issues!
+
+> It is important to note that I didn't test these changes on a SSD132x 
+> scree0n or a SSD133x screens, only on an SSD1351. Manual testing is
+> advised.
+>
+> This series contains the fix for ssd132x_update_rect, a simple clean-up
+> patch for ssd132x_update_rect to keep the function clean, and the same
+> fix on ssd133x_update_rect.
+>
+
+For the whole series:
+
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
----
-Taken with minor updates to the commit description from the series at
 
-  https://lore.kernel.org/dri-devel/20260610152505.260172-1-tzimmermann@suse.de/
----
- drivers/gpu/drm/i915/display/intel_psr.c | 3 +++
- 1 file changed, 3 insertions(+)
+I plan to push them to drm-misc-next rather than to drm-misc-fixes, since
+these have been long standing bugs and the changes are likely to conflict
+with your SSD1351 patches that are in-flight.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 92af21d823a3..5a155f60110f 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2949,6 +2949,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 		src = drm_plane_state_src(&new_plane_state->uapi);
- 		drm_rect_fp_to_int(&src, &src);
- 
-+		/* Prepare plane-damage state before using it */
-+		drm_atomic_helper_check_plane_damage(&state->base, &new_plane_state->uapi);
-+
- 		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
- 						     &new_plane_state->uapi, &damaged_area))
- 			continue;
 -- 
-2.54.0
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
