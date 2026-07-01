@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 533D3C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F210C43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:05:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C85D10E3E0;
-	Wed,  1 Jul 2026 17:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8511B10E3EB;
+	Wed,  1 Jul 2026 17:05:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="QDB1m3hw";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="BapJZe9B";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 896D310E3EB
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:05:41 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-493bf73ec2aso5288715e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:05:41 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5D8510E3EB
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:05:42 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-472326ca506so703610f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:05:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1782925540; x=1783530340;
+ d=baylibre.com; s=google; t=1782925541; x=1783530341;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6gf3UKUdDckwJ0S32IeJydKrzo8cm0OFmgo0J+PNmpU=;
- b=QDB1m3hwnVzEa3jLtNdz/YcRoYSERhYdRYy4Q0KNt5g/sjnz52PqjrsecQYTyOIvES
- a/0XHm2t87cVs9idbEL10lJVgHyyNFVa6XvZuc2dz6Qy96aRMv3LqV30eHXNkyF7uNpO
- uhEU5D5HrOWwYb2WpRDrBds/g2MeXGaPj/+Ir1aWNLo96kHMwsdVirDUvf3LztQAQrrs
- 9ySAgqWRQMa8n08kMyjxghDthTKV61ziRrDYoAChBHHKJt2kAmlFV+1U/5VuQe0gARQD
- usJ9+xmd1T4Kfo7pOZaxtTKkEKIyA0SK5huifDKpUf8pLMOcXMGdRImm3TiD8XVjrZMn
- sGSw==
+ bh=RvMe6A/UgVrym2bRYUnF2aCflCH0pJThY0gdvMKUcgc=;
+ b=BapJZe9BMc6ts6ICPMZ+WbocKLhTmJuypInEOXIWyYxHexyFhvVc5pspN8/SUbKx8i
+ EXyOQ4T+Zbx9EtI+h7QfDo5T/bjRTKL0mC9PEgxzpRuuQ6vs9uwtIU/60iWj/J5jSgKz
+ bzJvhG1Nk5UCzqu9GFJEB/c9a++t2Qnyh/W+i2cmjhRlfyoulmT6WWn5XBpOclQ/bJn6
+ aPOAg4Q3NCE/sNbTcLwCLv5gp3T6BTey4j+KxGQIeRuFFP6rWZbQGcI4Rn/cG5eWK99s
+ Wq2raXE4KNb/JXaOQ6y67praULXKx3CxGvmE2Cv2fmsf0PaZu7HZI+PTbR2cGbxIcuvL
+ w5pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782925540; x=1783530340;
+ d=1e100.net; s=20251104; t=1782925541; x=1783530341;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6gf3UKUdDckwJ0S32IeJydKrzo8cm0OFmgo0J+PNmpU=;
- b=UebRFmnGvmbrDGfjhyG27y03jNPdbdkJ2zzFkZsLHJ2YlbdAduDRDQsEbgfpy4qVWX
- VvOCvwzsY9CgUuRLXLQs+V3k01ZOzFxj9gzEUpjlC7T/rJHh7Ki9ScZMNj5SGhTxFQwb
- 6jdbMyhbWLqXdjXijH2oUB80XdPdgP5azG/X+f0/3keG4/qNZNwFSBR5GeLO3zbDTxvJ
- ybPhGQGytnRuhfYqAlZNycgo5B/mgck7QUrpU5CAvJL5M2dsgr2VH4UMdr8kVgjFtL3i
- p9zhNSv5hwJkBD+qbtOsAh8X4c/TaGWZDqwyTfxWzC3brMBczKXPd1fXxCj5nEXPrTfZ
- PZnA==
+ bh=RvMe6A/UgVrym2bRYUnF2aCflCH0pJThY0gdvMKUcgc=;
+ b=Gd6um72kX+vNIW+VcU5Mw5HONPFFosflez5RZ0uje8h1h3Xe82DVcFjamXvgHvt9lN
+ Re5srPr6DLEo6ZeJwOau5WkYyXvWkihICU157fo3/7CCzx85/E9qvE3PHypL+ntMJ/jQ
+ uHQYOqDubPJwgDGo+PZ9fYDFu9+Lj870Y412LhDXISfEM1Y967ts5NSdU9t77ZD1ZXij
+ uFrt4CLCDrSO3RZMd5hCZ4Czs8ry6CERMi90QWcefzN20rL0v9LEavgXuVRV+gjny8NS
+ Cf7jN4NHZ9B8PVH3hgSPkCBEyngCamJdfjjLrt4tHX4Yh+R0fFRUVjMTo/BNJq9OTKRt
+ Rn1g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8ShgOHiiZ1x/mzKQSM7WlxjsFYqAbsUn+STc9DkWimWyjuV/8SXH5D079GL49E4gS9TK/sUmmUaZA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6tAuy6FjF5/jrjMmz2QLjcdjXPSHlpZxV9oLf1A15GXdCXmL0
- 9Igp+U0bfEo6lO6M1JpYmag1WrfLfWYsYDF9hDlR2wPX6C3q55+4dV3FQvc/6aKw87g=
-X-Gm-Gg: AfdE7clv2Sk5GbVsSnsaSQzcolFXT46NoJI+IwcIM/cqIqudhq69+oNueTOjhaRTC6f
- 8l32c6CMdAlmMtgV0vJnNDVOqA122erDYI8RiFAMkctUmqsMmiXdhEJrwuCQHWWKY3PKaODNvQp
- sYMCsn2NbLFqa1mlc2tXIiL9TgCS59A/TIYwfTzJWjqZFEIBk6RfRf4zIoft+ZUb1MpTyLZaeKs
- XleRQYfwwXBYlOqKhGLD7KDyZCzbYdY3sywR1lpK6hhbVZVhucLlieOW1zUw6GLuSZxTeRz0mI9
- m2w2lRiI0/ygULVIDfPihYv5LNszFAOGnBtGdFJr1Fhwo2sOX8fMyC8N1o4HsyUWlcW14IH8U4x
- 7iniaUGsm48TFXpq5AN1zuQqU7ZSJ694TCGi40v9dJjdEm+KrcRsEul0kTFfhHu0FNh+l0aW1Eh
- /9NMfz0QSz2WSNm0CSuFSNbMmZX9ZdB+sjyS837fSF8q98yEp8Tdp8LJgB52yRhEOneacS6+b4z
- Rhe
-X-Received: by 2002:a05:600c:6d0f:b0:493:b6c2:cd96 with SMTP id
- 5b1f17b1804b1-493c2b4aaddmr23283325e9.12.1782925539685; 
- Wed, 01 Jul 2026 10:05:39 -0700 (PDT)
+ AHgh+Ro8DaMPcasi6q9ejeQZiQLEpRfDCqVIL9WGSeuxdHKBRXlI1GP2QLnfOfBf6MnlY/dEqEmJuAstUoA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzyj3wp/IluRW0w6rmFbcEgK2Cg4SKjfoIkYTW/tyePv0NFjDWy
+ jnx1kerUh0Di3xgsZ5/rX92K4O2EtspBsYqg5hMgzGQ++LquZfHodiI4ijPINjIIBbk=
+X-Gm-Gg: AfdE7ckVOuTO4tq1X++XURF3GFG60fzZqc0UPE/QXZOv1IPXPe5zmAE29yYZRFD0oGb
+ zE15RIj9yNMTu0jeKYHNPa/9unXoWP0t/0DcLTCFzgFcqYKqZLCapNKNdqxoYDlLDYzv+tAWuAZ
+ YsRbL+AfxrgjzyhRdwwVaRQfy+74RVb/sjRTYX2erLrPx23dpthiy5oNEstKyFovCEAmK+b5ReP
+ 6fkGO7SSJXAhk8HBa0DAeuM/eMkEatPi5sTt7BYpqOomKEZzkQfwTXs0ehJTzADwkLmTqgUewlF
+ ItvMTbkINSLgjomi6ZF0HgVOOHG/eB9iHde1MIll+uD3SXDqMK4391pKD5cEXtTs1fbgi6MAGbP
+ 8Y9aelgO/0MqHp1jUmTAJwuzIvWwl5vxbMohcDjhG4OryZEAqjCT3V35KIIcpODZnFDHk3Rks17
+ lvqGRvziS7edeD1jRczuriQum+E8ZJ67qjVY3tfVu9/T9WLEVc/iet69u+g2sGAZ7T+bC0H6g97
+ PZf
+X-Received: by 2002:a05:6000:25e3:b0:475:f0f0:9eec with SMTP id
+ ffacd0b85a97d-4775ac9f5a1mr3984906f8f.49.1782925541284; 
+ Wed, 01 Jul 2026 10:05:41 -0700 (PDT)
 Received: from localhost
  (p200300f65f47db044d4849b7c2d3c964.dip0.t-ipconnect.de.
  [2003:f6:5f47:db04:4d48:49b7:c2d3:c964])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-493bef1807asm58557995e9.1.2026.07.01.10.05.38
+ ffacd0b85a97d-477db3dbb79sm1334344f8f.2.2026.07.01.10.05.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 10:05:39 -0700 (PDT)
+ Wed, 01 Jul 2026 10:05:40 -0700 (PDT)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
  <u.kleine-koenig@baylibre.com>
 To: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
@@ -76,25 +76,24 @@ To: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/4] drm/hyperv: Explicitly set subvendor and subdevice for
- pci match array
-Date: Wed,  1 Jul 2026 19:05:20 +0200
-Message-ID: <019450ffb519d02821364afca32b9f48bcd8d2b6.1782925276.git.u.kleine-koenig@baylibre.com>
+Subject: [PATCH v1 3/4] drm/hyperv: Drop useless empty remove callback
+Date: Wed,  1 Jul 2026 19:05:21 +0200
+Message-ID: <8a85b5f4a5ed8ec35b5a213423d4be40e34f9cb9.1782925276.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.55.0.11.g153666a7d9bb
 In-Reply-To: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
 References: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1041;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1197;
  i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=i6kOt2YoYOTS3UNjaVCpuG2OLA3vhViUK1uSLAS/Pz4=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqRUjThIFqHXG9zdoMtK7kK980Ppa+ht6Sofbha
- 6k2UnGDf8eJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCakVI0wAKCRCPgPtYfRL+
- Tg0pCAC4VMts/wpBY1P1Xxjfc9pRZSMqPVzxiIewQ940MT0UEQZeWMqEfHkODhvzG2CoNrvfO1M
- UvGG5vGQ4G7ulx0zL4RqwpGVqRGwv6ZzlVpgMazmBe/w5GT+nktfRYWRMJ5vp/95INopyieXodq
- 1lQCn9sKvrivaSqbVwEnDNbwdGGBwtkT+TdiAeD4lYen2tGPALvhoB6xuBm5OHIuVCzs6pJOk0x
- AywmPpLzK2VUbIwPHGVcLo18+BuJFLACqKjxiYo604o9XSdEB3DmnrpnCQEDGuT4FaqvEXnyzno
- lvyx+0i5U1dYo4NqHKStyrbfxz867rFHc4xDDjh3XexFr4hM
+ bh=fUoDHGx0vIkRkk7bgRX+e2vp2YXY3RA6x0vlWQS8YwE=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqRUjWB9MX8EzJiYV20ypG8q4ZDwRP5fPJyrHEQ
+ K+R6HWFg9aJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCakVI1gAKCRCPgPtYfRL+
+ TsuzB/wLTW0/yBRqnX/rTnGSm2/wzLrOc1svn/RdtcUCCJqJJzoUpA0vstagpmv7W4YnUc9LGd7
+ Hau4gP9XyAG8CPZKqFmp+oQTm88dXMrM/Qjy2OTvns3CA19E4DqZNQ9vL33gsAYJPvh79+snr9a
+ hbVrK5asZIuftv9GiRBDYxyVZuWmHYGVNoxzNzFDS7H0g9mj9JQ58eKQrcUv2JLhZ+in6mkw6Nu
+ CHi+E21bFzIKBdKj/f9njge+6nU66Q84o1QQgggkaonc3bkrMrnpn/e5/g3SkIp0zgtKjWTDY/l
+ s4tpFj4e/dCWYBnwFf0z8eWtcYT5921cDp+PtzW7bwr5p2LT
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
  fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
@@ -113,33 +112,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-.subvendor and .subdevice were set to 0 implicitly, so only devices with
-these two values set to 0 in hardware can probe automatically. Make this
-requirement explicit.
+Having an empty remove callback is equivalent to no remove callback.
+(The only minor difference is that with an empty remove callback
+pm_runtime_get_sync() and pm_runtime_put_noidle() are called.)
 
-While touching this array item, also make use of the pci macro designed
-for that case.
+Drop this useless function.
 
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-index 2e75fb793495..e766d87b7a9d 100644
+index e766d87b7a9d..e3f41336a831 100644
 --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
 +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-@@ -51,8 +51,8 @@ static void hv_drm_pci_remove(struct pci_dev *pdev)
+@@ -45,10 +45,6 @@ static int hv_drm_pci_probe(struct pci_dev *pdev,
+ 	return 0;
+ }
  
+-static void hv_drm_pci_remove(struct pci_dev *pdev)
+-{
+-}
+-
  static const struct pci_device_id hv_drm_pci_tbl[] = {
  	{
--		.vendor = PCI_VENDOR_ID_MICROSOFT,
--		.device = PCI_DEVICE_ID_HYPERV_VIDEO,
-+		PCI_VDEVICE_SUB(MICROSOFT, PCI_DEVICE_ID_HYPERV_VIDEO,
-+				0, 0),
- 	},
- 	{ /* end of list */ }
+ 		PCI_VDEVICE_SUB(MICROSOFT, PCI_DEVICE_ID_HYPERV_VIDEO,
+@@ -64,7 +60,6 @@ static struct pci_driver hv_drm_pci_driver = {
+ 	.name =		KBUILD_MODNAME,
+ 	.id_table =	hv_drm_pci_tbl,
+ 	.probe =	hv_drm_pci_probe,
+-	.remove =	hv_drm_pci_remove,
  };
+ 
+ static int hv_drm_setup_vram(struct hv_drm_device *hv,
 -- 
 2.55.0.11.g153666a7d9bb
 
