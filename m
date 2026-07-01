@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05002C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DD5BC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:59:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 371EC10EE79;
-	Wed,  1 Jul 2026 08:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9F3E10EE88;
+	Wed,  1 Jul 2026 08:59:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CETJ7gX6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FS3Ejs7T";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57AFB10EE79
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 08:59:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23F8210EE7B
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 08:59:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 401FD4401A;
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C6DD601D8;
+ Wed,  1 Jul 2026 08:59:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BDAE1F000E9;
  Wed,  1 Jul 2026 08:59:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590441F00A3D;
- Wed,  1 Jul 2026 08:59:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782896392;
- bh=6pYIN2YqJMmrthBPue021Qa1ABPy6rMhZOJ/H9QgS6c=;
+ s=k20260515; t=1782896396;
+ bh=sq9yVGjU7Aarfc6/TDWlud/Yv0zasvTjRqyAyAYsNn8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=CETJ7gX6hGI9ozgiHscGMmVToBNdT8eFOFnk42ccTe/Vsisl7n2uRKnNrDyTiYINe
- bAzVpUTje+cA5/SS6TsJKqd94HQLh73OO0qgzkg2mzudTdsd+NrOVmTWEU9jNpMlqu
- LEPpt3v3j6jFgkf9WimVvPXf2kvNUVUvSZ2Dnoqtm7uw8nSXnD4PwcPY/IZB0byIs1
- 0bm2XEa6KOzlTcu1yZ6VlDv1V08xZxuHN9EE/lkZHz7GqmBNB795TwJ3FaapOoqqix
- r1d0rS3IiPl/FMBagGzvGjm+GB2xeV38Fq7ccixKQRu9EZHWZlRTWkUQrhbA/tIlyH
- aUTyxcxSxTBGQ==
+ b=FS3Ejs7TaXikZXz8JLom3RSefBMT3XBVPlGPTXvLeXtyZUzWj+4NsQCLhY5PtnSit
+ PojGDW5OawhX02JGW8tT7ydJpl+PEDueaHbP5NaUpxAExsk97vmKW1YZWx8d/Zmkus
+ UDFmmAPMVqXhSRse5AMD0vpyzb9GQCbSgujG8vYWhbhcr+hAmKzoUvzGZcA/Kn4fp3
+ 1IsHiz6/kdnP74rgQ9HbTqyYhrKrvVCm7ETD2JGZuh+K52k63QS90MSt46vDPVyivM
+ P/M/oAlZ9LxYFoG97BQQsY2KsA/s6zQGcs7S2otWihWlN1sEGT66nGAinRfaxRZgaA
+ kOJDXt2R5v+xQ==
 From: Philipp Stanner <phasta@kernel.org>
 To: Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
@@ -43,9 +43,9 @@ To: Matthew Brost <matthew.brost@intel.com>,
  Boris Brezillon <boris.brezillon@collabora.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 4/5] drm/sched: Lock drm_sched_entity_is_idle()
-Date: Wed,  1 Jul 2026 10:59:20 +0200
-Message-ID: <20260701085920.3253248-6-phasta@kernel.org>
+Subject: [PATCH 5/5] drm/sched: Remove entity->entity_idle
+Date: Wed,  1 Jul 2026 10:59:21 +0200
+Message-ID: <20260701085920.3253248-7-phasta@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701085920.3253248-2-phasta@kernel.org>
 References: <20260701085920.3253248-2-phasta@kernel.org>
@@ -66,47 +66,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_sched_entity_is_idle() contains a badly documented memory barrier
-and an invalid lockless access to entity->stopped.
+The completion entity->entity_idle only existed because the entity was
+not properly locked through it's spinlock. The completion served to
+inform waiters about whether the entity is actually idle, which is
+something locking (previously added to drm_sched_entity_is_idle()) can
+fully achieve.
 
-This function is in no way performance critical, so it is safer, more
-readable and more maintainable to take the spinlock. This also enables
-future cleanup work where the entity can be fully synchronized via its
-spinlock.
-
-Add locking to drm_sched_entity_is_idle().
+Remove the surplus completion.
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c | 9 ---------
+ drivers/gpu/drm/scheduler/sched_main.c   | 2 --
+ drivers/gpu/drm/scheduler/sched_rq.c     | 1 -
+ include/drm/gpu_scheduler.h              | 7 -------
+ 4 files changed, 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 0fc1213a0d3f..cb03d6a36578 100644
+index cb03d6a36578..23536dcfa96a 100644
 --- a/drivers/gpu/drm/scheduler/sched_entity.c
 +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -178,14 +178,18 @@ EXPORT_SYMBOL(drm_sched_entity_modify_sched);
+@@ -136,10 +136,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+ 	entity->rq = &sched_list[0]->rq;
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+-	init_completion(&entity->entity_idle);
+-
+-	/* We start in an idle state. */
+-	complete_all(&entity->entity_idle);
  
- static bool drm_sched_entity_is_idle(struct drm_sched_entity *entity)
- {
--	rmb(); /* for list_empty to work without lock */
-+	bool idle = false;
-+
-+	spin_lock(&entity->lock);
+ 	spin_lock_init(&entity->lock);
+ 	spsc_queue_init(&entity->job_queue);
+@@ -285,12 +281,7 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
+ 	spin_lock(&entity->lock);
+ 	entity->stopped = true;
+ 	drm_sched_rq_remove_entity(entity->rq, entity);
+-	spin_unlock(&entity->lock);
  
- 	if (list_empty(&entity->list) ||
- 	    spsc_queue_count(&entity->job_queue) == 0 ||
- 	    entity->stopped)
--		return true;
-+		idle = true;
+-	/* Make sure this entity is not used by the scheduler at the moment */
+-	wait_for_completion(&entity->entity_idle);
+-
+-	spin_lock(&entity->lock);
+ 	prev = entity->last_scheduled;
+ 	dma_fence_get(prev);
+ 	spin_unlock(&entity->lock);
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index d2ca01b31ee4..b90220794a14 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -997,7 +997,6 @@ static void drm_sched_run_job_work(struct work_struct *w)
  
--	return false;
-+	spin_unlock(&entity->lock);
-+
-+	return idle;
- }
+ 	sched_job = drm_sched_entity_pop_job(entity);
+ 	if (!sched_job) {
+-		complete_all(&entity->entity_idle);
+ 		drm_sched_run_job_queue(sched);
+ 		return;
+ 	}
+@@ -1013,7 +1012,6 @@ static void drm_sched_run_job_work(struct work_struct *w)
+ 	 * refcount has been incremented for the scheduler already.
+ 	 */
+ 	fence = sched->ops->run_job(sched_job);
+-	complete_all(&entity->entity_idle);
+ 	drm_sched_fence_scheduled(s_fence, fence);
  
- /**
+ 	if (!IS_ERR_OR_NULL(fence)) {
+diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+index 97363f9ef8bc..54aba1ef0d7a 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -373,7 +373,6 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+ 				return ERR_PTR(-ENOSPC);
+ 			}
+ 
+-			reinit_completion(&entity->entity_idle);
+ 			break;
+ 		}
+ 	}
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 176ff1f936cd..55260cbe880a 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -221,13 +221,6 @@ struct drm_sched_entity {
+ 	 */
+ 	bool 				stopped;
+ 
+-	/**
+-	 * @entity_idle:
+-	 *
+-	 * Signals when entity is not in use, used to sequence entity cleanup in
+-	 * drm_sched_entity_fini().
+-	 */
+-	struct completion		entity_idle;
+ 
+ 	/**
+ 	 * @oldest_job_waiting:
 -- 
 2.54.0
 
