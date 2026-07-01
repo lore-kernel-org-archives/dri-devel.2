@@ -4,44 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B55C0C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 18:41:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF86EC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 18:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1962510F0A6;
-	Wed,  1 Jul 2026 18:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 403FA10F09F;
+	Wed,  1 Jul 2026 18:44:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fUBwvTx0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KZyLsvqd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D3710F0A6
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:41:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E0806001D;
- Wed,  1 Jul 2026 18:41:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDC71F000E9;
- Wed,  1 Jul 2026 18:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782931263;
- bh=7Z+Ti0ipwjkcuht/kUHiiOcGjNWBOkb1iJlINNxmVPA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fUBwvTx08OCd5sLTrg3Ce5du/fUq4ZHievHCJBUbVWzEibSVuWdZ9yk3iux6yTqc1
- kt4AF2C+kAoLtIKMPZXix8d6HGl/wDTMkFe/1AVPoadVsPRlzsqh6zDQNS/bwEAJa8
- hDIop+WImqZ3uu3RD5QA+Rprabe+q8lJq8sCgZKn/ni/qrRIbxiw3lgiFwxqR3DAU7
- dSKPHWjrCsAuTCUAERFRwfY7oM29SCHgUUQfvMmlNxP2hEacMjr6V8ti38CZlZ8fQ0
- ehlKu5NqGb/wKxdmsLTJwmQMRU6ap6B27Gr4LbPotZo0ZsDYwBYyXZRV4XDqAzc8l1
- DdEf3o4PRxUoA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] Revert "nouveau/gsp: fix suspend/resume
- regression on r570 firmware"
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701182857.190713-2-lyude@redhat.com>
-References: <20260701182857.190713-1-lyude@redhat.com>
- <20260701182857.190713-2-lyude@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 18:41:02 +0000
-Message-Id: <20260701184102.CCDC71F000E9@smtp.kernel.org>
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA5D10F09F
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:44:35 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-37e1607f7faso661203a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 11:44:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782931475; x=1783536275; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:subject:cc:to:from:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=ban9nVUuk4Kjsoscd1xTKmaJVwsIyHeDMlfeDJiaGMA=;
+ b=KZyLsvqdXVG08AKKr060ahqMfO3XAH0a6w0rEebjk+8oY6f7diBSJ14sr94vfoykR/
+ O4I9lB+kOTlmiqUe0147Wd/Db12fCZ334EFcMXXrjn5t3kOw1i4s83D0E+hWvTWjOzhs
+ qefNjvdvB/BPA0WWDmROAKNHUDGKqlseM/tg1gHdM3Av3S4+/Bj6U6lXzVwG1em/2jMk
+ BXp6nyzgj4Vm5vehWTVBhBkMxbH2bmmFGhHxm3NsQVnjg3WrDvgyFhxqLxApfGuzRaym
+ zkGEyoxkuJ4GLSVJmWdxXdM3iRYfMhmPJ6M9IRmMUgNqSFWAcrIrAPmSpNtg0GdU4vVu
+ TXzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782931475; x=1783536275;
+ h=content-transfer-encoding:mime-version:subject:cc:to:from:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ban9nVUuk4Kjsoscd1xTKmaJVwsIyHeDMlfeDJiaGMA=;
+ b=mruigyz2tkT6RlBiWns5V7XiYnSyL9b+RiuAt6VRZJlw/vTqlPBq3eS/t7i1cQLpDG
+ GG/VQsHORlrO0nzZ0RZhqLwsLRIVFn+LblwCaT9mxJ6dcw1l2xso1T5A8ulv0otGjHTs
+ V2BM0lEoUPZ7/aKZlFO6exVSFUXmGF7JuvbDljSlzitwezt4LCx16FZbsKLUS6Ed0E4R
+ dQJU727J3KQoZ1ksmFB4+fz5Kf8ID9MPz04vlLUz0VXpx029a7gflv+GLmqHRJiZEsm1
+ KulGDX2S2f5p3IoQiacg3mBC9yMqWc5he+kvsyMDoSh1gyPyFZXhlXoCFFzZ8B+qXm49
+ +RIQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoN2132z+oCpE3wiVwQ3T3/LyqhwHm34i0OXyaSjKUhxVXtCuv+hODEiQM2znavezFM+pSdvOcK/ok=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQbnOYn84havfT9tu8bZu+SSZ11y1S/7QeTI9ZE296W+u4yLHo
+ /hqF1/B2tSl70Sl7Zw9EPkB0eVbAfLMYm2HPeAY+rbCJ7KO0a7f0g9yY
+X-Gm-Gg: AfdE7ckQoEn2McEZPJOBreKQuSDdeSqlP0vpKNK/rAQXDvCiYb8Wtucr0FFwFoC9q9a
+ UuSxkm8b2fPoaFmQTwuLjvpSXfpY5DzWwYVPPlt77Nqb/bzEUEVbAE4MCaocI1DTONbw8y6+Hd0
+ UTlhN7gLcdf60Viwei3CiccXgCVBXab4OidUjz2P89F5D+f+R4FrwAxdf5msN9Z/XZJwQzcXFOZ
+ gV0vaRDXc1KORa7cNODaMWskIxGyPS62e2Gv2tMcZylHsDJYs+cxtjvGXSIKGkDyvIIf9J/wc+W
+ +ujcsacldknE/Vlpqr9LpeQMUgiUoCKCnb0O3swrvBnKSJQAEqvsqH7/LoDVoP0TXUxoDKyvn9o
+ KBWF4gUjC70rk1D2AXbCT0lUNs94+dUy4jLxM8sCzT3IG2hn3OJ609MNGWQjZ782i56IZfoX7AW
+ hlFhWEcEI7JmlBM85W5AaUQ3kbTCaBwhi9V0KHyS53RrguEPDPyP/ard4wGTB/Tj4NmXtg1Jo3x
+ +BZRmLi5qXUkBfJwasT6C7yp2MxZ2WnmwJ8a6zNZdILyuPPITR/i5OcK7aL9Si1sBvl+w4JeXed
+ 8g7svXFS8Q==
+X-Received: by 2002:a17:90a:d647:b0:369:a359:b181 with SMTP id
+ 98e67ed59e1d1-380aa221bf1mr2580207a91.23.1782931474540; 
+ Wed, 01 Jul 2026 11:44:34 -0700 (PDT)
+Received: from
+ 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
+ ([2407:1400:aa40:6780:6462:8b0c:2576:642b])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30f0bb843fasm393406eec.18.2026.07.01.11.44.29
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 01 Jul 2026 11:44:34 -0700 (PDT)
+Message-ID: <6a456012.eb165e5c.113c2a.b71d@mx.google.com>
+Date: Wed, 01 Jul 2026 11:44:34 -0700 (PDT)
+From: Shuvam Pandey <shuvampandey1@gmail.com>
+To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Donald Robson <donald.robson@imgtec.com>,
+ Sarah Walker <sarah.walker@imgtec.com>,
+ Alessio Belle <alessio.belle@imgtec.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] drm/imagination: Fix user array stride in
+ pvr_set_uobj_array()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,113 +93,61 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+pvr_set_uobj_array() copies an array of kernel objects to a userspace
+array whose element size is described by out->stride. When out->stride
+is different from the kernel object size, the slow path advances the
+userspace pointer by the kernel object size and the kernel pointer by the
+userspace stride.
 
-Pre-existing issues:
-- [High] Missing cleanup of RM object (memlist) on error paths in FBSR init=
-ialization.
-- [High] Error paths in `r570_fbsr_suspend()` leave GPU channel scheduling =
-and BAR2 in a broken state.
---
+This reverses the intended layout. For larger userspace strides, later
+copies read from the wrong kernel addresses. For smaller userspace
+strides, later copies are written at the wrong userspace offsets. The
+padding clear is also done only for the first element instead of the
+padding area for each element.
 
-commit 7d63de5b70c2db9e57a30fb5f72d5fa08bb0b6fa
-Author: Lyude Paul <lyude@redhat.com>
-Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+Advance the userspace pointer by out->stride and the kernel pointer by
+obj_size, and clear per-element padding while the current userspace
+pointer is still available.
 
-This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18. It turns out
-this looked like the right fix on some systems, but it causes runtime PM to
-fail on many laptops.
+Fixes: f99f5f3ea7ef ("drm/imagination: Add GPU ID parsing and firmware loading")
+Cc: stable@vger.kernel.org # v6.8+
+Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+---
+v2:
+- Fix From header to include name and email.
+- Add Alessio's Reviewed-by tag.
 
-Cc: <stable@vger.kernel.org> # v6.19+
+ drivers/gpu/drm/imagination/pvr_drv.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/dri=
-vers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> index 8ef8b4f655883..2945d5b4e5707 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-> @@ -81,7 +81,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *s=
-gt, u64 size, bool runtim
->  	ctrl->hClient =3D gsp->internal.client.object.handle;
->  	ctrl->hSysMem =3D memlist.handle;
->  	ctrl->sysmemAddrOfSuspendResumeData =3D gsp->sr.meta.addr;
-> -	ctrl->bEnteringGcoffState =3D runtime ? 1 : 0;
-> +	ctrl->bEnteringGcoffState =3D 1;
-> =20
->  	ret =3D nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
->  	if (ret)
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this error path leak the
-memlist RM object?
-
-If nvkm_gsp_rm_ctrl_wr() fails here, we return early without calling
-nvkm_gsp_rm_free(&memlist).
-
-Because the object uses a hardcoded handle (0xcaf00003), leaking it could
-cause subsequent suspend attempts to fail with a name collision error. A
-similar leak seems to exist just above this for nvkm_gsp_rm_ctrl_get()
-failures, and also in the r535 backend in fbsr_init().
-
->  		return ret;
-> =20
->  	nvkm_gsp_rm_free(&memlist);
->  	return 0;
->  }
-> =20
->  static int
-> -r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
-> +r570_fbsr_suspend(struct nvkm_gsp *gsp)
->  {
->  	struct nvkm_subdev *subdev =3D &gsp->subdev;
->  	struct nvkm_device *device =3D subdev->device;
-
-[ ... ]
-
-> @@ -133,7 +133,7 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
->  		return ret;
-> =20
->  	/* Initialise FBSR on RM. */
-> -	ret =3D r570_fbsr_init(gsp, &gsp->sr.fbsr, size, runtime);
-> +	ret =3D r570_fbsr_init(gsp, &gsp->sr.fbsr, size);
->  	if (ret) {
->  		nvkm_gsp_sg_free(device, &gsp->sr.fbsr);
->  		return ret;
-
-[Severity: High]
-This is a pre-existing issue, but does this return leave the GPU channel
-scheduling and BAR2 in a broken state?
-
-Earlier in r570_fbsr_suspend(), we disable channel scheduling and BAR2 acce=
-ss:
-
-r570_fbsr_suspend() {
-    ...
-	/* Stop channel scheduling. */
-	r570_fbsr_suspend_channels(gsp, true);
-    ...
-	/* Disable BAR2 access. */
-	device->bar->bar2 =3D false;
-    ...
-}
-
-If r570_fbsr_init() (or the earlier nvkm_gsp_sg and nvkm_instobj_save calls)
-fails, we return the error without restoring channel scheduling or BAR2 acc=
-ess.
-
-Since the suspend callback returns an error, the kernel PM core will abort =
-the
-suspend process and not invoke the corresponding resume callback, potential=
-ly
-leaving the GPU in a broken, half-suspended state.
-
->  	}
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701182857.1907=
-13-1-lyude@redhat.com?part=3D1
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
+index 268900464ab6..0a68a9c32361 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -1252,14 +1252,13 @@ pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32 obj_
+ 			if (copy_to_user(out_ptr, in_ptr, cpy_elem_size))
+ 				return -EFAULT;
+ 
+-			out_ptr += obj_size;
+-			in_ptr += out->stride;
+-		}
++			if (out->stride > obj_size &&
++			    clear_user(out_ptr + cpy_elem_size, out->stride - obj_size)) {
++				return -EFAULT;
++			}
+ 
+-		if (out->stride > obj_size &&
+-		    clear_user(u64_to_user_ptr(out->array + obj_size),
+-			       out->stride - obj_size)) {
+-			return -EFAULT;
++			out_ptr += out->stride;
++			in_ptr += obj_size;
+ 		}
+ 	}
+ 
+-- 
+2.34.1
