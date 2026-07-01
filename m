@@ -4,94 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74082C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 01:16:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA3BC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 01:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB66C10E2CA;
-	Wed,  1 Jul 2026 01:16:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2EB510E2C4;
+	Wed,  1 Jul 2026 01:22:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="AF1cwD8O";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="cY5TEfE6";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="CWDlA1L9";
 	dkim-atps=neutral
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
- [209.85.161.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5B5C10E2CA
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 01:16:46 +0000 (UTC)
-Received: by mail-oo1-f43.google.com with SMTP id
- 006d021491bc7-69e9b037d82so102766eaf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 18:16:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782868605; cv=none;
- d=google.com; s=arc-20260327;
- b=ZfdkFyRK6J0xuF1e9Raee0c8pxL2NDsLEhETxHRLgJndYvH4FIvpGSFXh37JvxajpI
- AQph2Ggen4/Q1m6Jyt5csE67+DJMw4fdnKs8E8NMf4ymNUdTQKxw5h0l+Fejf9FDs9ql
- YJA4tOLmhZkMPMoGpMyhoUk1sZ6idg1/IUuOR+M482JEnicmd6vKgUopjISe6sb4vplX
- 0YY9fREQ6LIdVtq7mEmO/iCvVYHC1lpW5PMuYnC0IYQiS4unkndTtjEVQG3TGYQ6v8WI
- LzORm7knmy8a5MPfpCrv2zSdWu5I2yw2TBNiFYoe/3lsIqd+9bQLKC/4wl9kcJtybBsq
- yDsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=JCAHsvWeryAOa0Vnzt9FOFM8CAiOiK/er9PdNLtoWJY=;
- fh=TcxjOKydRUw6oup4PLrEZdNc1tDqnD7LCYvd1JM/UAI=;
- b=ZlyfC7BIc+zq4hwo83PPDgN3matA+beILlZ9u/ddgpl6iXuXqn75ZIBZYgiAU3JKsx
- cMoiS417tKm17KeaIOyAxbCZxbPVrAyF00aTJriYTbcI6JCTUe6cH6pkBt5KtXlzXv4N
- 3KFsp5MTZ2ctkGIvjuMNA1t3aHZWGUKDEVL8wZ6GZR3VdpJ2Xpql4p9C9oe8ZkEWXug6
- bXrEofRVXMb1vXmxPYw3LPm/awe08ABxU9QvuFgkQnpP3jPkKZ6U9z400ndGfgdUDTyJ
- wRiC1xHXFpZF7iB/pVGFsevHFxBlihjS8LwQPq9URdEG47lu3ROY3P9iMCLPihZeujKB
- 69Cw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782868605; x=1783473405;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JCAHsvWeryAOa0Vnzt9FOFM8CAiOiK/er9PdNLtoWJY=;
- b=AF1cwD8Ob4qjP4PzvZ8R8VJP8PGQC7sbReXVgxRmI/BJ3DmEYJhv8wBaC71P2zdxKX
- HplrwjqB/TdLMDToBjegHRSM9Yv4nk8wPiyrPx7YViWIhAQ0Q0nTjNookhXGpU8Y+pPt
- P/AMorV1Nw56mQa52Ln6U44Mrs+hxhcqji0DU7dcgcgvQVCNLB7FA7uY15jeBt5GaYLj
- vuHNIdsMAuMvEl2vdIxMK6yDv6iqg9aiEUbWvNtIX5mruPCkNTIp4SThQUhiBr8hMJzr
- H3kBswfrkff7frmH8rQFlFtV0Ai3Rz21291kGrLT893DbsueEHw2aH+7z40Ff2oTnpRz
- IsqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782868605; x=1783473405;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=JCAHsvWeryAOa0Vnzt9FOFM8CAiOiK/er9PdNLtoWJY=;
- b=WilEew5wO0BfOTEb88uWXT30bb5Q3pG2Qx5yCTSWpurxlsOYqrHZ69i/xC6MdWAb7a
- Me5vpd2HgrO6YaJ/F55R1qh20kNIpsLTNcAgm9Sq1/u1OXYhl/viC9mcK8lOiPdkC6G0
- Qu6Ef3OcuNYg03hyOzi9sk2he7WxSRTcmwZivDA4KHmQ90gmcXKWwFTN25N+EnPml3LC
- Kc8PLu1cLhFI0PtdAkix/ld1b7Qu2d7b6waTxuWkbhARE0SCzme7iZKy7zLgS3zG/kPo
- thYS7ud00a+OiP3zhpKsvXuPn9v9ybV7nTBv2c0EvDyeImYCyjjcx1LLv8EyAsEiE9jn
- MAXQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8GkNh8ULLt0CRxrWt9PSP23KGziUtFdPT/gCTjxQrJjrmbqLXgZje6w943IKFzxCQU3QC4UWSvwXg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxa5JL4lnP33jvvVMzDuIYHX0ko2ossMuqO8MOg1ddFYQbsmT2b
- Vtzf3yaDjDHLi1boW4lkrV4FKi7+WdZGgyjGwHhopxUs8m6Et2UCd+VYbLHVuwIQdm+AXq1xMtr
- 9CRqCyb3e0A/Yans09Op4ivpHyIPI2OkLUjrMVVX8sA==
-X-Gm-Gg: AfdE7clGLt7tRG5lhdqLm9nNHLwSOjuQdqD/ZlLKA9jmsDGN3mIoDTrIMF09NP/go9b
- FGCeyRQcEeuG4QSQnsmOULVeBr6YyjHpYi0Zc+Cj+DZJVm9iSgItd/EYIJOZfa5V9hDj5TrAeFc
- DOC+sDxnhPwU+K8ZkL7UONK5sA6GZXQpTdZye/u/X3EUNan7lRKMioS7IxUnJpMLWe4YQYO/mkj
- HiG5K5UBgnXooTdLDSOkWtq4Sbe7y0E6QTAjNTdvQlLou//YHhm248jjMgy0J5gHkrXgWJY+A==
-X-Received: by 2002:a05:6820:559b:b0:69e:3d6d:375b with SMTP id
- 006d021491bc7-6a1890c3320mr3007486eaf.27.1782868605594; Tue, 30 Jun 2026
- 18:16:45 -0700 (PDT)
+Received: from sendmail.purelymail.com (sendmail.purelymail.com
+ [34.202.193.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA11E10E2C4
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 01:22:11 +0000 (UTC)
+Authentication-Results: purelymail.com; auth=pass
+DKIM-Signature: a=rsa-sha256;
+ b=cY5TEfE6AXUENknDiPE5GUfaWMaCpae8IgWdtuUuKJAwyEN4L8f2kF3/UfGSymKniV0Ii7Zf83cHCivNBSlHnZEPCju6rjInu0NOaXKTA2mRMpgl/2xMOPdz4P9jSbzRRDc2/KxVmEKVrLmBf1qug7dO0/HG2MZ76T6XehUoPTjEztokDlf2F/nG4Gj9vbpzuSXawkleZ81I2518h3vf0MWHkZHpHE7/84f66kiR/2dhAS6Mzoqv2nRCJSGbfNdv/y6TNYGmEoRn42oNeNmGgQ/FST81IQQ0YB7WbEKAYDvG+pZf8B1XufpqDYuXOOiot9pfZM7/hd5lN/aDFZcGWA==;
+ s=purelymail2; d=rcpassos.me; v=1;
+ bh=b9Lc5ANznPsadDX0Lpk40jsOORthKNT3ENHScNXKTHE=;
+ h=Received:From:To:Subject:Date; 
+DKIM-Signature: a=rsa-sha256;
+ b=CWDlA1L95vUATAxDjikT8ipA6OG17MGPpxv42xu3Kh+Ej4g/hG/5R4v8266n2O+Ia+SqIhZa/Gt1T+1lLTOB0PL9WiijEZDEBQmAd/UyagMWgXovq5IasKnJ1vHbVWYD9y0xIJ/Q2RdH9700BaN7K06xu+2QrgbTORB39m0362PWEJv3bHyi1VGJNpmRlhE6AO4fzBoDv+6cVkHFsCtl4lp0ft6cCE+4sfgszx1FGSk5vRNqajLubxap/jl2F83gt6Ew0IMSBHt1Iw8fAeQ3i/eku30IfZhq6RQZtWHicrTgD/wLWzTD/M/avkc2Qaa5PlY5P+yh9oxNvwMEbjsqHw==;
+ s=purelymail2; d=purelymail.com; v=1;
+ bh=b9Lc5ANznPsadDX0Lpk40jsOORthKNT3ENHScNXKTHE=;
+ h=Feedback-ID:Received:From:To:Subject:Date; 
+Feedback-ID: 45355:7809:null:purelymail
+X-Pm-Original-To: dri-devel@lists.freedesktop.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -604878159; 
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Wed, 01 Jul 2026 01:21:25 +0000 (UTC)
+From: Rafael Passos <rafael@rcpassos.me>
+To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de
+Cc: Rafael Passos <rafael@rcpassos.me>, Randy Dunlap <rdunlap@infradead.org>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH RESEND v2] Documentation: xe_drm: fix chars used for subsection
+Date: Tue, 30 Jun 2026 22:20:58 -0300
+Message-ID: <20260701012141.167868-1-rafael@rcpassos.me>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260629030930.379879-1-zhouhaikun5@huaqin.corp-partner.google.com>
- <CAD=FV=XoDLOwva_tnUWujgGHCJbe1h6YqX7hO6vdD4f9dbc8UQ@mail.gmail.com>
-In-Reply-To: <CAD=FV=XoDLOwva_tnUWujgGHCJbe1h6YqX7hO6vdD4f9dbc8UQ@mail.gmail.com>
-From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Date: Wed, 1 Jul 2026 09:16:34 +0800
-X-Gm-Features: AVVi8CeyTEH3SdMZBGENUQjyl6rye6EcA13QIf-38WH8-KOxtU4l030l3i1klMk
-Message-ID: <CAKDRTegZxEsE36qpebdg0hAFek0NN1py1aLt4SWPVD8S7S-nbw@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: Change the KD116N2930A15 panel enable delay
-To: Doug Anderson <dianders@chromium.org>
-Cc: neil.armstrong@linaro.org, sam@ravnborg.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- daniel@ffwll.ch, airlied@gmail.com
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+Content-Type: text/plain; charset=UTF-8
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,44 +62,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Doug, thank you very much for your reply,
+Fixes "ERROR: A level 2 section cannot be used here".
+Equal signs are reserved for document titles.
+This file docs gets imported by driver-uapi.rst,
+and the page title is defined there.
 
-On Wed, Jul 1, 2026 at 1:33=E2=80=AFAM Doug Anderson <dianders@chromium.org=
-> wrote:
->
-> Hi,
->
-> On Sun, Jun 28, 2026 at 8:09=E2=80=AFPM Haikun Zhou
-> <zhouhaikun5@huaqin.corp-partner.google.com> wrote:
-> >
-> > Due to panel characteristics, when the panel wakes up from the S3, the
-> > main link data is not yet ready when the backlight turns on, causing
-> > a garbage appearance on the screen. Delaying the backlight by 1000ms
-> > can avoid this issue.
-> >
-> > Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-> > ---
-> >  drivers/gpu/drm/panel/panel-edp.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> This really doesn't feel right; it seems like a hack papering over a
-> problem whose root cause hasn't been found. If nothing else, what does
-> "S3" have to do with anything? The panel isn't left powered on during
-> S3, right? So, as far as the panel is concerned, S3 should be the same
-> as S5. Why would you see this noise only coming out of S3?
->
-> -Doug
 
-Yes, this screen issue isn't limited to the S3; the backlight turning
-on first and then
-displaying garbage isn't limited to this issue. On Chromebooks, the
-same phenomenon occurs
-when the backlight is completely turned off and then back on.
-Measurements with EE revealed
-that when the backlight is on, the main link data is already being
-transmitted but is still unstable.
-Turning on the backlight at this time causes the screen to display garbage.
-We had to add sufficient backlight delay to fix this issue, and while
-we could modify it in the DTS
-settings, since this is a screen-related problem, we wanted to fix it
-from the driver.
+Signed-off-by: Rafael Passos <rafael@rcpassos.me>
+---
+Hi, I send the v1 for this patch only for the linux-doc list.
+The v2 fixes this, and has improvements to the commit message.
+
+It was reviewed and tested by Randy Dunlap.
+I decided to re-send since the original emails was not in picked by lore (n=
+ot sure why).
+https://lore.kernel.org/intel-xe/1a20e4bf-fd7f-453e-b7a8-c7feb0b077c6@infra=
+dead.org/
+
+In case it helps, here are the tags Randy added in my first send:
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+
+Thanks,
+Rafael Passos
+
+ include/uapi/drm/xe_drm.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+index 48e9f1fdb78d..4dfb30e6c8a8 100644
+--- a/include/uapi/drm/xe_drm.h
++++ b/include/uapi/drm/xe_drm.h
+@@ -2537,21 +2537,21 @@ struct drm_xe_exec_queue_set_property {
+  * Refer to Documentation/netlink/specs/drm_ras.yaml for complete interfac=
+e specification.
+  *
+  * Node Registration
+- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++ * -----------------
+  *
+  * The driver registers DRM RAS nodes for each error severity level.
+  * enum drm_xe_ras_error_severity defines the node-id, while DRM_XE_RAS_ER=
+ROR_SEVERITY_NAMES maps
+  * node-id to node-name.
+  *
+  * Error Classification
+- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++ * --------------------
+  *
+  * Each node contains a list of error counters. Each error is identified b=
+y a error-id and
+  * an error-name. enum drm_xe_ras_error_component defines the error-id, wh=
+ile
+  * DRM_XE_RAS_ERROR_COMPONENT_NAMES maps error-id to error-name.
+  *
+  * User Interface
+- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++ * --------------
+  *
+  * To retrieve error values of a error counter, userspace applications sho=
+uld
+  * follow the below steps:
+--=20
+2.53.0
+
