@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3DBC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD8B8C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20D7B10E3C1;
-	Wed,  1 Jul 2026 17:31:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1432D10F083;
+	Wed,  1 Jul 2026 17:39:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lpZzH4rr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IUo9tZMI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9764A10E3C1
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:31:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D273A10F083
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:39:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6261F43659;
- Wed,  1 Jul 2026 17:31:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3A11F000E9;
- Wed,  1 Jul 2026 17:31:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A148C401D5;
+ Wed,  1 Jul 2026 17:39:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2651F000E9;
+ Wed,  1 Jul 2026 17:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782927116;
- bh=ZTiWlRU/XU17RgzltMmxXgIeRB7WRdZeniy9OFPxDzA=;
+ s=k20260515; t=1782927549;
+ bh=10iNWCLpMgb8foNVPMty0hSaht82IwM6JRWBPVNHFP8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lpZzH4rro739rU+4pQS2RUTaLuohmmIk8p47PjW0EyE7woqlL08WrqkfxBrRNVRpu
- uxtNnPrbt9ldM7TzxehncQemf4B3JsYewP1327eeu52Xw75/4yg0w7vo819OKd155M
- O/zUtBYiY8wJr2sQrGWMmKDpzr8JZyX+s0u78hJSQTMbEMmnU4yx1+fdrFvcwm/plW
- B7wgqItobEMnrvDu2UCNnHDBPd7LISotOpDFLJKloSGbXPSD81Rfc4xNOQ5FnBcyuE
- cDywrKXqXVk7IKyWQMsC+EFf33A4MwV8HUCpIQXMAwvXu+FHheeA+45B2un1sPXLsI
- 8ny1ISSaicRFQ==
+ b=IUo9tZMISjsUCGQZ4fUmr71+V3Ui/8a8wYfo8GiSCiPtPKG2/SdMUoeE9Ru+mCopV
+ WJhM2dlGGKRpPiXbWlnCK8GFYhltUfj4faaON1Ob+Oe86SKdiKwz33RLOQlyPg19tA
+ 6zX8nmcnc4/4LDiqdym2d2OwLcvhSTwkbaNcdGaGJ5VLUhywMqyD+aBC5e28EsKAI0
+ SHysKpz39N50lC5KS38kNZRMY9Y92Pse30csYUPvS58gmyw2SXSMr1oxMPPqANEbt/
+ hnl50mlV2eobCG4PUjs7BVbf+AeAOY3oe5fO9/MpSTV0W9wV8siGkCsV20PKrcWBET
+ OYnB+MP2GDM8Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/rocket: initialize job domain before cleanup paths
-To: "Shuvam Pandey" <shuvampandey1@gmail.com>
+Subject: Re: [PATCH 1/1] udmabuf: reject unknown UDMABUF_CREATE flags
+To: =?utf-8?b?SXbDoW4gRXplcXVpZWwgUm9kcmlndWV6?= <ivanrwcm25@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <6a454b48.6a8fa39a.27019b.984b@mx.google.com>
-References: <6a454b48.6a8fa39a.27019b.984b@mx.google.com>
+In-Reply-To: <20260701172159.270872-2-ivanrwcm25@gmail.com>
+References: <20260701172159.270872-1-ivanrwcm25@gmail.com>
+ <20260701172159.270872-2-ivanrwcm25@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 17:31:55 +0000
-Message-Id: <20260701173156.1B3A11F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 17:39:08 +0000
+Message-Id: <20260701173909.5A2651F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,104 +57,82 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Missing NULL check after `kvmalloc_array()` leads to an immedi=
-ate kernel panic via `memcpy()`.
-- [High] Calling `drm_sched_job_cleanup()` on an already-armed scheduler jo=
-b violates the DRM scheduler API contract and leaks a sequence number.
-- [High] Failure to attach the execution fence to input BOs causes a read-w=
-rite data race.
-- [High] Early error returns in `rocket_job_run()` leak PM runtime usage co=
-unters and return an unsignaled fence, hanging the DRM scheduler.
+- [High] Integer overflow in `lsize` calculation in `udmabuf_ioctl_create_l=
+ist` allows out-of-bounds heap memory access if `list_limit` is misconfigur=
+ed.
 --
 
-commit 6d28e47f76bcafb92f750ef15d6a214c957e5c54
-Author: Shuvam Pandey <shuvampandey1@gmail.com>
+commit 0bd9a7c7e5bbe2cbc29a0cdc4dcdb2763d2b20e1
+Author: Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com>
 
-accel/rocket: initialize job domain before cleanup paths
-   =20
-This patch moves the job domain initialization earlier in the job
-submission process to prevent a NULL pointer dereference during error
-cleanup. It also clears the task array pointer after freeing it to
-avoid double-free issues.
+udmabuf: reject unknown UDMABUF_CREATE flags
 
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 2f1861f960ccb..2b7222afc1975 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-[ ... ]
-> @@ -573,8 +575,6 @@ static int rocket_ioctl_submit_job(struct drm_device =
-*dev, struct drm_file *file
+This patch updates udmabuf_create() to reject unknown flags by checking
+against UDMABUF_FLAGS_CLOEXEC and returning -EINVAL. It also documents
+the flag semantics in udmabuf.h and adds a selftest.
+
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index bced421c0d658..fb36c0d9ffe72 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -358,6 +358,9 @@ static long udmabuf_create(struct miscdevice *device,
+>  	long ret =3D -EINVAL;
+>  	u32 i, flags;
 > =20
->  	rjob->out_bo_count =3D job->out_bo_handle_count;
-> =20
-> -	rjob->domain =3D rocket_iommu_domain_get(file_priv);
-> -
->  	ret =3D rocket_job_push(rjob);
-
-[Severity: Critical]
-This is a pre-existing issue, but can this cause a kernel panic?
-
-Looking at rocket_job_push(), if kvmalloc_array() fails and returns NULL,
-would the subsequent memcpy() try to write to a NULL destination?
-
-rocket_job_push():
-    bos =3D kvmalloc_array(job->in_bo_count + job->out_bo_count, sizeof(voi=
-d *),
-                         GFP_KERNEL);
-    memcpy(bos, job->in_bos, job->in_bo_count * sizeof(void *));
-
-
+> +	if (head->flags & ~UDMABUF_FLAGS_CLOEXEC)
+> +		return -EINVAL;
+> +
 [Severity: High]
-This isn't a bug introduced by this patch, but does this violate the DRM
-scheduler API contract?
+This is a pre-existing issue, but can this code trigger an out-of-bounds
+heap read if the list limit is misconfigured?
 
-In rocket_job_push(), drm_sched_job_arm() is called before the fallible
-rocket_acquire_object_fences(). If fence acquisition fails, does cleaning
-up the already-armed job leave a gap in the fence timeline sequence?
+If an administrator sets the module parameter list_limit to a negative
+value (like -1 to mean unlimited), a large head.count from userspace
+can bypass the limit check in udmabuf_ioctl_create_list() because
+head.count is an unsigned u32 and list_limit is promoted to unsigned
+for the comparison.
 
-rocket_job_push():
-    drm_sched_job_arm(&job->base);
+If a user calls ioctl(UDMABUF_CREATE_LIST) with a crafted head.count
+of 0x20000001, the allocation size calculation in
+udmabuf_ioctl_create_list() overflows:
+
+drivers/dma-buf/udmabuf.c:udmabuf_ioctl_create_list() {
     ...
-    ret =3D rocket_acquire_object_fences(job->in_bos, job->in_bo_count,
-                                       &job->base, false);
-    if (ret)
-        goto err_unlock;
+    lsize =3D sizeof(struct udmabuf_create_item) * head.count;
+    list =3D memdup_user((void __user *)(arg + sizeof(head)), lsize);
+}
 
+The size calculation evaluates to 0x300000018, which is truncated to 24
+bytes when assigned to the u32 lsize variable. memdup_user() then
+allocates a 24-byte buffer for the list.
 
-[Severity: High]
-This is a pre-existing issue, but does this cause a read-write data race?
+When execution reaches udmabuf_create(), the loop iterates head->count
+times:
 
-In rocket_job_push(), rocket_attach_object_fences() is only called for
-out_bos. Should the inference_done_fence also be attached to in_bos as a
-read dependency so subsequent jobs don't write to them while they are
-still being read?
+drivers/dma-buf/udmabuf.c:udmabuf_create() {
+    ...
+    for (i =3D 0; i < head->count; i++) {
+        pgoff_t subpgcnt;
 
-rocket_job_push():
-    rocket_attach_object_fences(job->out_bos, job->out_bo_count,
-                                job->inference_done_fence);
+        if (!PAGE_ALIGNED(list[i].offset))
+            goto err_noinit;
+    ...
+}
 
+Since the list buffer is only 24 bytes long but the loop iterates
+0x20000001 times, does this result in out-of-bounds reads on the kernel
+heap that could trigger a page fault and kernel oops?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this early return in
-rocket_job_run() leak the PM runtime usage counter and hang the scheduler?
+>  	ubuf =3D kzalloc(sizeof(*ubuf), GFP_KERNEL);
+>  	if (!ubuf)
+>  		return -ENOMEM;
 
-If pm_runtime_get_sync() fails, it still increments the runtime PM
-counter. Does returning an unsignaled fence instead of an error pointer
-cause the DRM scheduler to wait indefinitely?
-
-rocket_job_run():
-    ret =3D pm_runtime_get_sync(core->dev);
-    if (ret < 0)
-        return fence;
-
->  	if (ret)
->  		goto out_cleanup_job;
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/6a454b48.6a8fa39a.2=
-7019b.984b@mx.google.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701172159.2708=
+72-2-ivanrwcm25@gmail.com?part=3D1
