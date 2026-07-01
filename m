@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1303C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 22:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B27CC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 22:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDAFE10EF9B;
-	Wed,  1 Jul 2026 22:30:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4687A10E425;
+	Wed,  1 Jul 2026 22:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M5Y3S2Wu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KmBDm51+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6555310EF9B
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 22:30:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D73F410E425
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 22:46:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CD26C43A3B;
- Wed,  1 Jul 2026 22:30:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CC6E1F000E9;
- Wed,  1 Jul 2026 22:30:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 16A6D6001D;
+ Wed,  1 Jul 2026 22:46:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EB5E1F000E9;
+ Wed,  1 Jul 2026 22:46:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782945033;
- bh=rxaZl1iNZt5ANy1KMZUBn5YsbnoowvqTaCw1xC/QJKU=;
+ s=k20260515; t=1782945977;
+ bh=+5J55zaBIGnIi7rBGFws0TyqXQXJrDn55RBwF2gWBhY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M5Y3S2WuUuaNC6kP/tmWzKOxn5U/uPHSzoOq2WcX9md86+/ZvIdD0Wl+WS2sfFfg7
- OXlfiNL/D80pE7LWNx3kk3mBA0w2E6pLszmnL476MgONOuSCOdYoijuOxkzbR1QkuC
- Lai18R2CSV8Bd65MnVzzYwLpSt7eiqJ+wl4LFdmwxQLAb6KCvbIIMJrH2OouhrX/IZ
- BhZsJ9isNqAutqkh4dTuhV0bkOeRoyPRGhTdLWm7BMXTsFHPuezPX5uujtj1Ml+Dtl
- LvO8rPZdV0UveiXZYXjKYDFOC6GTZk/Gtqb2ESiArMxMQOhGDkjAjkgWFvRJqPML1d
- gRHZn7GZgrPIw==
+ b=KmBDm51+oHFm+hYlW3v2tPtatoUeE8GJsh8IG7/1yHx1ugO7ZI5J3c9qRen90Rsc1
+ JBtIzgFpN2tO1Z6+itO+OcsRP75zvqSvFZeX0CNFK3db3+jGqUJNqxIgZYqubS3rGZ
+ 62ByZURFYW47p+y0gVDiFGhQThjjvS/Nl2nYmqtNmGo+U6UGeR8BEaNKTwjh8PZy3I
+ KaND1SWY1GQ653UReIBEQDf0HdI+hu9RXqRcjvedpLqmckbE1Krsi1Fv+MAY5MNSOG
+ FJw7nWiSf98nG9pRQAzvwFOxkY1hnbWBrnbzw2P2Bjw798UTp7PaG92cFBSnOme3TN
+ A3i+sWzlzar5Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbdev: protect mode sysfs reads with lock_fb_info()
-To: "Melbin K Mathew" <mlbnkm1@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701221757.231490-1-mlbnkm1@gmail.com>
-References: <20260701221757.231490-1-mlbnkm1@gmail.com>
+Subject: Re: [PATCH v3 10/11] arm64: tegra: Hook up VPR to host1x
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: conor+dt@kernel.org, "Alexander Gordeev" <agordeev@linux.ibm.com>,
+ devicetree@vger.kernel.org, robh@kernel.org, "Heiko
+ Carstens" <hca@linux.ibm.com>, dri-devel@lists.freedesktop.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, linux-s390@vger.kernel.org
+In-Reply-To: <20260701-tegra-vpr-v3-10-d80f7b871bb4@nvidia.com>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-10-d80f7b871bb4@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 22:30:32 +0000
-Message-Id: <20260701223033.5CC6E1F000E9@smtp.kernel.org>
+Date: Wed, 01 Jul 2026 22:46:16 +0000
+Message-Id: <20260701224617.4EB5E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,114 +60,123 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The patch fails to resolve the local kernel Use-After-Free because=
- it misses lockless traversal and assignment in `store_mode()`.
-- [High] Unprivileged local DoS via WARN_ON_ONCE triggered by snprintf size=
- underflow in show_modes().
+- [High] Missing explicit `of_reserved_mem_device_init()` API call for VPR =
+devices.
+- [High] Omitted `memory-region` assignment on the `host1x` parent node.
+- [Low] Dead self-assignment of a zero-initialized pointer member in `tegra=
+_vpr_attach()`.
 --
 
-commit 781c0f45188865f8a46896496380e20ca20b9af8
-Author: Melbin K Mathew <mlbnkm1@gmail.com>
+commit d66858609809fa2e5e478b229dab43684ed2e277
+Author: Thierry Reding <treding@nvidia.com>
 
-fbdev: protect mode sysfs reads with lock_fb_info()
+arm64: tegra: Hook up VPR to host1x
 
-This commit adds lock_fb_info() around mode sysfs reads to protect
-against concurrent modifications to the modelist by store_modes().
+This commit adds the memory-region property to the vic and nvdec device
+tree nodes in tegra234.dtsi. It intends to hook up the video protection
+region to host1x and its clients.
 
-> diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/cor=
-e/fbsysfs.c
-> index ea196603c7a87..6bdb25f7be018 100644
-> --- a/drivers/video/fbdev/core/fbsysfs.c
-> +++ b/drivers/video/fbdev/core/fbsysfs.c
-
-[ ... ]
-
-> @@ -82,11 +82,20 @@ static ssize_t show_mode(struct device *device, struc=
-t device_attribute *attr,
->  			 char *buf)
->  {
->  	struct fb_info *fb_info =3D dev_get_drvdata(device);
-> +	struct fb_videomode mode;
-> +	bool have_mode =3D false;
-> =20
-> -	if (!fb_info->mode)
-> +	lock_fb_info(fb_info);
-> +	if (fb_info->mode) {
-> +		mode =3D *fb_info->mode;
-> +		have_mode =3D true;
-> +	}
-> +	unlock_fb_info(fb_info);
+> The host1x needs access to the VPR region, so make sure to reference it
+> via the memory-region property.
 
 [Severity: High]
-This is a pre-existing issue, but does store_mode() also need similar locki=
-ng
-protection to fully prevent the use-after-free?
+Are we missing the memory-region assignment on the host1x parent node?
 
-While this patch protects show_mode() and show_modes(), store_mode() still
-traverses the modelist locklessly:
+The commit message explicitly states that host1x needs access to the vpr
+region and should reference it via the memory-region property. However,
+this commit omits adding the memory-region property to the host1x@13e00000
+parent node itself, only applying it to the child nodes (vic and nvdec).
 
-drivers/video/fbdev/core/fbsysfs.c:store_mode() {
-    ...
-    list_for_each_entry(modelist, &fb_info->modelist, list) {
-    ...
-}
+Since the host1x dma engines fetch command streams from memory, if those
+command buffers reside in the vpr region, host1x must be tracked as a vpr
+device and frozen during vpr resizes. Omitting the property prevents host1x
+from being added to the vpr devices list, leaving the system vulnerable to
+hardware crashes if a resize is triggered.
 
-If store_modes() concurrently clears and frees the modelist, could
-store_mode() traverse freed list elements?
-
-Additionally, store_mode() locklessly assigns the mode pointer:
-
-drivers/video/fbdev/core/fbsysfs.c:store_mode() {
-    ...
-    fb_info->mode =3D mode;
-    ...
-}
-
-If store_modes() freed the old modelist in the interim, could this resurrect
-a dangling pointer into fb_info->mode and bypass the fix for subsequent
-readers?
-
-[ ... ]
-
-> @@ -134,10 +143,13 @@ static ssize_t show_modes(struct device *device, st=
-ruct device_attribute *attr,
->  	const struct fb_videomode *mode;
-> =20
->  	i =3D 0;
-> +	lock_fb_info(fb_info);
->  	list_for_each_entry(modelist, &fb_info->modelist, list) {
->  		mode =3D &modelist->mode;
->  		i +=3D mode_string(buf, i, mode);
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but can this loop trigger a WARN_ON_ONCE
-due to integer underflow if the modelist is large?
-
-If the accumulated length in i exceeds PAGE_SIZE (for example, with a very
-large modelist), the size calculation in mode_string() appears to underflow:
-
-drivers/video/fbdev/core/fbsysfs.c:mode_string() {
-    ...
-    return snprintf(&buf[offset], PAGE_SIZE - offset, "%c:%dx%d%c-%d\n",
-                    m, mode->xres, mode->yres, v, mode->refresh);
-}
-
-Since offset is unsigned, PAGE_SIZE - offset would become a massive positive
-value, which vsnprintf() detects as exceeding INT_MAX and triggers a
-WARN_ON_ONCE. Could an unprivileged local user trigger a kernel panic on
-systems with panic_on_warn=3D1 by repeatedly reading the modes sysfs file?
-
-> +	unlock_fb_info(fb_info);
+> diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/d=
+ts/nvidia/tegra234.dtsi
+> index 52ff11873580d..38637e8e6fc92 100644
+> --- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
+> +++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
+> @@ -4479,6 +4479,9 @@ vic@15340000 {
+>  				interconnect-names =3D "dma-mem", "write";
+>  				iommus =3D <&smmu_niso1 TEGRA234_SID_VIC>;
+>  				dma-coherent;
 > +
->  	return i;
->  }
->
+> +				memory-region =3D <&vpr>;
+> +				memory-region-names =3D "protected";
+
+[Severity: High]
+Does this node assignment lack the explicit of_reserved_mem_device_init()
+call required in the driver?
+
+The generic of_dma_configure_id() logic only automatically invokes
+of_reserved_mem_device_init_by_idx() for reserved regions compatible with
+restricted-dma-pool. Since the vpr region uses
+nvidia,tegra-video-protection-region, this automatic initialization is
+skipped.
+
+The drivers for vic and nvdec do not explicitly call
+of_reserved_mem_device_init() to initialize the reserved memory. As a resul=
+t,
+the tegra_vpr_device_init() callback is never triggered, and the devices are
+never added to the vpr->devices list.
+
+Since they are missing from the list, they will not be suspended by
+tegra_vpr_resize() during vpr resizing. Because untrusted userspace
+applications can allocate memory from the vpr dma-buf heap to trigger a
+resize, an active hardware workload on the gpu, vic, or nvdec during the
+resize will lead to memory corruption, hardware faults, or a system crash.
+
+>  			};
+> =20
+>  			nvdec@15480000 {
+> @@ -4497,6 +4500,9 @@ nvdec@15480000 {
+>  				iommus =3D <&smmu_niso1 TEGRA234_SID_NVDEC>;
+>  				dma-coherent;
+> =20
+> +				memory-region =3D <&vpr>;
+> +				memory-region-names =3D "protected";
+> +
+
+[Severity: High]
+Could this assignment also lead to a hardware crash for similar reasons?
+
+The generic of_dma_configure_id() logic skips automatic initialization for
+nvidia,tegra-video-protection-region. The nvdec driver does not explicitly
+call of_reserved_mem_device_init(), so the device is never added to the
+vpr->devices list and will not be suspended during vpr resizes, leading to
+potential hardware faults or crashes when the region is resized.
+
+>  				nvidia,memory-controller =3D <&mc>;
+
+Additionally, looking at the driver changes introduced in this series, there
+is a regression in tegra_vpr_attach():
+
+drivers/dma-buf/heaps/tegra-vpr.c:tegra_vpr_attach() {
+[ ... ]
+	if (err < 0)
+		goto free;
+
+	attach->dev =3D attach->dev;
+	INIT_LIST_HEAD(&attach->list);
+[ ... ]
+}
+
+[Severity: Low]
+Is this intended to capture attachment->dev instead?
+
+tegra_vpr_attach() allocates the attach structure using kzalloc_obj(),
+which zero-initializes the memory. It then executes the dead assignment
+attach->dev =3D attach->dev, which effectively assigns null to the struct
+member.
+
+While this doesn't cause an immediate crash because the driver uses
+attachment->dev directly in tegra_vpr_map_dma_buf() and leaves the member
+unread, it appears to be a logic flaw introduced by this patch series.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701221757.2314=
-90-1-mlbnkm1@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-tegra-vpr-=
+v3-0-d80f7b871bb4@nvidia.com?part=3D10
