@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB68DC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:21:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BB9C43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:21:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19FD010EF5F;
-	Wed,  1 Jul 2026 12:21:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 872D610EF60;
+	Wed,  1 Jul 2026 12:21:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="d3k+IANN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aGppXzUp";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CF4710EF64
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:21:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2F0710EF60
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:21:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908480;
- bh=OryipZnNxhLlRdm+3lpvG6AyEh4fSf3cynz+sCxHUWc=;
+ s=mail; t=1782908487;
+ bh=IFQMzo5MMk1S1Mty+oUI7UnGCWEBa2j8dJeUROqw7Cs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d3k+IANNLCAne8Gd7yxoL5LTjOwfFJDx1bCV6CD6QtRYxbM7o2kwvATbE1QJBl70C
- aCRACDUW1fI2IrZrnl2PuZSaeftr58GFp3d82bAqSGSDR6W2uYMZKJZqsldspnDTAo
- bHokN1VLgXKs9Ypl+A9P8tgl3J/tGYJfnn32p9FurZehjWWUiHB4sGVvEzffaJNSdI
- RXi2CskVXYiaHN+5qX/0w9VrTCtqTWx9C97yXi2AYU7yvkLUa+vYequuiMztXCwRM8
- wwWrIZUJnJN/3IrwttMiIbXB1SYTD5E4Rn9fjC3B3D8g6XdXCmxYd8kVMGttSmEKMQ
- JlrQYTBQN2k5A==
+ b=aGppXzUpwXh3xOiHnUCnfrLjloFRcsANxhSqm2gShnzUS72hqQVUifwzj0dtKIwBy
+ GGC9H6Oo1ZKLiH16+XxNAg6Wl01LLLF9Jg1IK/VZTcCOgydwgvP90ANKwGyScCIkK/
+ Gnjc9yn9vfmxDip2P0aDhz/NJxGqCAjCxtbt+TKL9GjnkyzyvL5646Fo+Nhm1A1o/K
+ cOsnw6fIEUnGssA2vXfH9sN5JYJ88tLmKjLYagxrM84sqJi/wHkVhlu/8EwiGD63zL
+ ZIRN8OldB6nurRqL/SBEoz7gKik4Jph1scDHNxv0Xyvq2q1RMiPd0qlTiwcl4sqnf4
+ jNoLtzVdQIqtw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 21E3317E116D;
- Wed,  1 Jul 2026 14:21:20 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9D15017E0F44;
+ Wed,  1 Jul 2026 14:21:26 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH 16/42] drm/mediatek: mtk_crtc: Minimize spinlocked time in
- cmdq callback
-Date: Wed,  1 Jul 2026 14:20:31 +0200
-Message-ID: <20260701122057.19648-17-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 20/42] drm/mediatek: mtk_dpi: Pass parameters with new
+ mtk_dpi_sync structure
+Date: Wed,  1 Jul 2026 14:20:35 +0200
+Message-ID: <20260701122057.19648-21-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
 References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
@@ -66,67 +66,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In ddp_cmdq_cb (the CMDQ mailbox callback), the config_lock spin
-lock is being locked to read the config_updating variable in the
-mtk_crtc structure, as, if configuration is updating, the callback
-function shall not run (or shall run at a later time).
+In preparation for moving common code between DPI and DVO into a
+new mtk_dpi_common library, add a new mtk_dpi_sync structure which
+contains all of the sync parameters, such as HSYNC and Left/Right
+Odd and Even VSYNC.
 
-It is therefore unnecessary to keep the spinlock until the end of
-the function, in case pending config, planes, or async planes
-bools need to be updated.
+This is now passed as parameter of mtk_dpi_set_display_mode() and
+stack initialized in mtk_dpi_bridge_enable(): future preparation
+changes will add abstraction for hardware specific configuration
+which purpose will be to interpret the generic parameters to write
+those to the hardware specific registers.
 
-Though the cmdq callback is not a performance path in this case,
-this may be running for each frame that is pushed to the display,
-so from 30 (or less) up to 144 times (or more) per second.
-
-Add a temporary "cfg_updating" variable to aid with readability,
-and unlock the spinlock as soon as the config_updating variable
-read operation is done as a micro-optimization.
+This brings no functional change.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_crtc.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_dpi.c | 76 +++++++++++++++---------------
+ 1 file changed, 39 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index e543fae9c580..35e78ece899a 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -287,6 +287,7 @@ static void ddp_cmdq_cb(struct mbox_client *cl, void *mssg)
- 	struct mtk_crtc_state *state;
- 	unsigned int i;
- 	unsigned long flags;
-+	bool cfg_updating;
+diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
+index cc6d74ce8b5e..ecd13ea782c2 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dpi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
+@@ -112,6 +112,14 @@ struct mtk_dpi_sync_param {
+ 	bool shift_half_line;
+ };
  
- 	/* release GCE HW usage and start autosuspend */
- 	pm_runtime_mark_last_busy(cmdq_cl->chan->mbox->dev);
-@@ -298,7 +299,10 @@ static void ddp_cmdq_cb(struct mbox_client *cl, void *mssg)
- 	state = to_mtk_crtc_state(mtk_crtc->base.state);
- 
- 	spin_lock_irqsave(&mtk_crtc->config_lock, flags);
--	if (mtk_crtc->config_updating)
-+	cfg_updating = mtk_crtc->config_updating;
-+	spin_unlock_irqrestore(&mtk_crtc->config_lock, flags);
++struct mtk_dpi_sync {
++	struct mtk_dpi_sync_param hsync;
++	struct mtk_dpi_sync_param vsync_l_odd;
++	struct mtk_dpi_sync_param vsync_l_even;
++	struct mtk_dpi_sync_param vsync_r_odd;
++	struct mtk_dpi_sync_param vsync_r_even;
++};
 +
-+	if (cfg_updating)
- 		goto ddp_cmdq_cb_out;
- 
- 	state->pending_config = false;
-@@ -328,14 +332,11 @@ static void ddp_cmdq_cb(struct mbox_client *cl, void *mssg)
- 	}
- 
- ddp_cmdq_cb_out:
--
- 	if (mtk_crtc->pending_needs_vblank) {
- 		mtk_crtc_finish_page_flip(mtk_crtc);
- 		mtk_crtc->pending_needs_vblank = false;
- 	}
- 
--	spin_unlock_irqrestore(&mtk_crtc->config_lock, flags);
--
- 	mtk_crtc->cmdq_vblank_cnt = 0;
- 	wake_up(&mtk_crtc->cb_blocking_queue);
+ struct mtk_dpi_yc_limit {
+ 	u16 y_top;
+ 	u16 y_bottom;
+@@ -600,14 +608,10 @@ static void mtk_dpi_set_pixel_clk(struct mtk_dpi *dpi, struct videomode *vm, int
  }
+ 
+ static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
++				    struct mtk_dpi_sync *sync,
+ 				    struct drm_display_mode *mode)
+ {
+ 	struct mtk_dpi_polarities dpi_pol;
+-	struct mtk_dpi_sync_param hsync;
+-	struct mtk_dpi_sync_param vsync_lodd = { 0 };
+-	struct mtk_dpi_sync_param vsync_leven = { 0 };
+-	struct mtk_dpi_sync_param vsync_rodd = { 0 };
+-	struct mtk_dpi_sync_param vsync_reven = { 0 };
+ 	struct videomode vm = { 0 };
+ 
+ 	drm_display_mode_to_videomode(mode, &vm);
+@@ -624,42 +628,39 @@ static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
+ 
+ 	/*
+ 	 * Depending on the IP version, we may output a different amount of
+-	 * pixels for each iteration: divide the clock by this number and
+-	 * adjust the display porches accordingly.
++	 * pixels for each iteration: adjust the display porches accordingly.
+ 	 */
+-	hsync.sync_width = vm.hsync_len / dpi->conf->pixels_per_iter;
+-	hsync.back_porch = vm.hback_porch / dpi->conf->pixels_per_iter;
+-	hsync.front_porch = vm.hfront_porch / dpi->conf->pixels_per_iter;
+-
+-	hsync.shift_half_line = false;
+-	vsync_lodd.sync_width = vm.vsync_len;
+-	vsync_lodd.back_porch = vm.vback_porch;
+-	vsync_lodd.front_porch = vm.vfront_porch;
+-	vsync_lodd.shift_half_line = false;
+-
+-	if (vm.flags & DISPLAY_FLAGS_INTERLACED &&
+-	    mode->flags & DRM_MODE_FLAG_3D_MASK) {
+-		vsync_leven = vsync_lodd;
+-		vsync_rodd = vsync_lodd;
+-		vsync_reven = vsync_lodd;
+-		vsync_leven.shift_half_line = true;
+-		vsync_reven.shift_half_line = true;
+-	} else if (vm.flags & DISPLAY_FLAGS_INTERLACED &&
+-		   !(mode->flags & DRM_MODE_FLAG_3D_MASK)) {
+-		vsync_leven = vsync_lodd;
+-		vsync_leven.shift_half_line = true;
+-	} else if (!(vm.flags & DISPLAY_FLAGS_INTERLACED) &&
+-		   mode->flags & DRM_MODE_FLAG_3D_MASK) {
+-		vsync_rodd = vsync_lodd;
++	sync->hsync.sync_width = vm.hsync_len / dpi->conf->pixels_per_iter;
++	sync->hsync.back_porch = vm.hback_porch / dpi->conf->pixels_per_iter;
++	sync->hsync.front_porch = vm.hfront_porch / dpi->conf->pixels_per_iter;
++	sync->hsync.shift_half_line = false;
++
++	sync->vsync_l_odd.sync_width = vm.vsync_len;
++	sync->vsync_l_odd.back_porch = vm.vback_porch;
++	sync->vsync_l_odd.front_porch = vm.vfront_porch;
++	sync->vsync_l_odd.shift_half_line = false;
++
++	if (vm.flags & DISPLAY_FLAGS_INTERLACED) {
++		sync->vsync_l_even = sync->vsync_l_odd;
++		sync->vsync_l_even.shift_half_line = true;
++
++		if (mode->flags & DRM_MODE_FLAG_3D_MASK) {
++			sync->vsync_r_odd = sync->vsync_l_odd;
++			sync->vsync_r_even = sync->vsync_l_odd;
++			sync->vsync_r_even.shift_half_line = true;
++		}
++	} else if (mode->flags & DRM_MODE_FLAG_3D_MASK) {
++		sync->vsync_r_odd = sync->vsync_l_odd;
+ 	}
++
+ 	mtk_dpi_sw_reset(dpi, true);
+ 	mtk_dpi_config_pol(dpi, &dpi_pol);
+ 
+-	mtk_dpi_config_hsync(dpi, &hsync);
+-	mtk_dpi_config_vsync_lodd(dpi, &vsync_lodd);
+-	mtk_dpi_config_vsync_rodd(dpi, &vsync_rodd);
+-	mtk_dpi_config_vsync_leven(dpi, &vsync_leven);
+-	mtk_dpi_config_vsync_reven(dpi, &vsync_reven);
++	mtk_dpi_config_hsync(dpi, &sync->hsync);
++	mtk_dpi_config_vsync_lodd(dpi, &sync->vsync_l_odd);
++	mtk_dpi_config_vsync_rodd(dpi, &sync->vsync_r_odd);
++	mtk_dpi_config_vsync_leven(dpi, &sync->vsync_l_even);
++	mtk_dpi_config_vsync_reven(dpi, &sync->vsync_r_even);
+ 
+ 	mtk_dpi_config_3d(dpi, !!(mode->flags & DRM_MODE_FLAG_3D_MASK));
+ 	mtk_dpi_config_interface(dpi, !!(vm.flags &
+@@ -863,12 +864,13 @@ static void mtk_dpi_bridge_disable(struct drm_bridge *bridge)
+ static void mtk_dpi_bridge_enable(struct drm_bridge *bridge)
+ {
+ 	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
++	struct mtk_dpi_sync sync = { 0 };
+ 
+ 	if (dpi->pinctrl && dpi->pins_dpi)
+ 		pinctrl_select_state(dpi->pinctrl, dpi->pins_dpi);
+ 
+ 	mtk_dpi_power_on(dpi);
+-	mtk_dpi_set_display_mode(dpi, &dpi->mode);
++	mtk_dpi_set_display_mode(dpi, &sync, &dpi->mode);
+ 	mtk_dpi_enable(dpi);
+ }
+ 
 -- 
 2.54.0
 
