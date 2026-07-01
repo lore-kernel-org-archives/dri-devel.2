@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABCBCC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB85C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:14:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 050EE10E325;
-	Wed,  1 Jul 2026 09:09:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 141F910EE7F;
+	Wed,  1 Jul 2026 09:14:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cHewyQdB";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DsTVFV9J";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8966F10E325
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 09:09:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4E2994401A
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 09:09:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0808D1F000E9;
- Wed,  1 Jul 2026 09:09:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782896970;
- bh=JN+VrH5Wvnu4KZ51wcbk+KEnUtjBBM5xp6bf8sJ7vvM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cHewyQdB8AXXUtistorwIPAGWmPjtMpxQbteU+rqX5fS7R+rWIhSttgY+mmEQnW48
- xW3RNQ60QmSRgZj9iflXu/kNWzOz5tiYIhWeL6UYPqoC9NtpRzeGd+VSsWISbenqcV
- wlyEtrbjwufWjgncRUBwolM/eNnH+ftoAGoMBqRhSx7Q0BDmIDWS9Yx2q1ESK6CTcI
- f6AftIpxSxDV3P0mEl91qQMWeBC0f0hg+EtAy6EO4w7xjIzZnmN9VCK+l//L/zfv/7
- odzm7svgfVqThpVRdK+g9gcxy6jzjplR2Zk3ucL52/uyp32sx+c6QePxGhBRcPi7qS
- YeQRWdz3RalZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] drm/sched: Remove entity->entity_idle
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701085920.3253248-7-phasta@kernel.org>
-References: <20260701085920.3253248-2-phasta@kernel.org>
- <20260701085920.3253248-7-phasta@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 09:09:29 +0000
-Message-Id: <20260701090930.0808D1F000E9@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D311410EE80
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 09:14:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1TYMgFbsZk3C4VsIV6cOCwS3sYW9gqVKz0hDjm9HJmM=; b=DsTVFV9JoWtCweWr6kX9IAi8At
+ PwNORQnTyasxMakqw37DYc/UVQ78O17cKXNxZ78IJt58z4QiyS+D7s8qeiICGF/rV/U3sjRAitSk7
+ 9X6TxB4wf3rOtAEoHXcXYVDtq3RBpjRxQfIfyJ2qXMhyCu40vQL23TqECUXg6F7pIE6KsFz9gpNW5
+ IeG225lYq2xAtjbZXpVKALwhGO6x+Go/V3cMnbAWcTONjC6CL72iB4Gohkcwl/+jLpbKEvzMh9lmc
+ +zqeRXiFunlgCIalJED+qTMcV8VJm4GlbsCHSQRmAbsMn2DQpAN6g0nIrTkcS1LULjrvKYOjkYqbz
+ E+jl5jLA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wer1C-007UF9-1h; Wed, 01 Jul 2026 11:14:06 +0200
+Message-ID: <6f4a8e96-db41-4609-8c84-54d847911857@igalia.com>
+Date: Wed, 1 Jul 2026 10:14:05 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/10] drm/amdgpu: use dma_fence_test_signaled_flag()
+To: christian.koenig@amd.com, phasta@kernel.org, simona@ffwll.ch,
+ sumit.semwal@linaro.org, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260624122917.2483-1-christian.koenig@amd.com>
+ <20260624122917.2483-4-christian.koenig@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260624122917.2483-4-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,80 +60,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Removing the `entity_idle` completion introduces a critical ra=
-ce condition between the scheduler worker thread and the entity teardown pa=
-th, leading to Use-After-Free (UAF) vulnerabilities and SPSC queue corrupti=
-on.
---
 
-commit f72f2810652760301a56b6a9cbcac8c26715a4a4
-Author: Philipp Stanner <phasta@kernel.org>
+On 24/06/2026 12:13, Christian König wrote:
+> Instead of dma_fence_is_signaled_locked() use
+> dma_fence_test_signaled_flag().
+> 
+> The extra polling check seems unecessary for those use cases.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c       | 8 ++++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c        | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 2 +-
+>   3 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index ea69b1bac7c6..1192b9800ff2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -652,7 +652,7 @@ void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error)
+>   
+>   		fence = rcu_dereference_protected(drv->fences[i],
+>   						  lockdep_is_held(&drv->lock));
+> -		if (fence && !dma_fence_is_signaled_locked(fence))
+> +		if (fence && !dma_fence_test_signaled_flag(fence))
+>   			dma_fence_set_error(fence, error);
+>   	}
+>   	spin_unlock_irqrestore(&drv->lock, flags);
+> @@ -677,7 +677,7 @@ void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring,
+>   
+>   		fence = rcu_dereference_protected(drv->fences[i],
+>   						  lockdep_is_held(&drv->lock));
+> -		if (fence && !dma_fence_is_signaled_locked(fence)) {
+> +		if (fence && !dma_fence_test_signaled_flag(fence)) {
+>   			if (fence == timedout_fence)
+>   				dma_fence_set_error(fence, -ETIME);
+>   			else
+> @@ -738,7 +738,7 @@ void amdgpu_ring_set_fence_errors_and_reemit(struct amdgpu_ring *ring,
+>   		rcu_read_lock();
+>   		unprocessed = rcu_dereference(*ptr);
+>   
+> -		if (unprocessed && !dma_fence_is_signaled_locked(unprocessed)) {
+> +		if (unprocessed && !dma_fence_test_signaled_flag(unprocessed)) {
+>   			fence = container_of(unprocessed, struct amdgpu_fence, base);
+>   			is_guilty_fence = fence == guilty_fence;
+>   			is_guilty_context = fence->context == guilty_fence->context;
+> @@ -802,7 +802,7 @@ void amdgpu_ring_backup_unprocessed_commands(struct amdgpu_ring *ring,
+>   		rcu_read_lock();
+>   		unprocessed = rcu_dereference(*ptr);
+>   
+> -		if (unprocessed && !dma_fence_is_signaled(unprocessed)) {
+> +		if (unprocessed && !dma_fence_test_signaled_flag(unprocessed)) {
+>   			fence = container_of(unprocessed, struct amdgpu_fence, base);
+>   
+>   			amdgpu_ring_backup_unprocessed_command(ring, fence);
 
-drm/sched: Remove entity->entity_idle
+No fence->ops->signaled so all good.
 
-The completion entity->entity_idle only existed because the entity was
-not properly locked through it's spinlock. The completion served to
-inform waiters about whether the entity is actually idle, which is
-something locking (previously added to drm_sched_entity_is_idle()) can
-fully achieve.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index d6bee5c30073..ae9d6a2eefab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -460,7 +460,7 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring, unsigned int vmid,
+>   		return false;
+>   
+>   	dma_fence_lock_irqsave(fence, flags);
+> -	if (!dma_fence_is_signaled_locked(fence))
+> +	if (!dma_fence_test_signaled_flag(fence))
+>   		dma_fence_set_error(fence, -ENODATA);
+>   	dma_fence_unlock_irqrestore(fence, flags);
 
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index cb03d6a36578b..23536dcfa96a9 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-[ ... ]
-> @@ -285,12 +281,7 @@ void drm_sched_entity_kill(struct drm_sched_entity *=
-entity)
->  	spin_lock(&entity->lock);
->  	entity->stopped =3D true;
->  	drm_sched_rq_remove_entity(entity->rq, entity);
-> -	spin_unlock(&entity->lock);
-> =20
-> -	/* Make sure this entity is not used by the scheduler at the moment */
-> -	wait_for_completion(&entity->entity_idle);
-> -
-> -	spin_lock(&entity->lock);
+A bit of an odd function? With this change it becomes:
 
-[Severity: High]
-Does removing this completion introduce a regression involving a race condi=
-tion
-between the scheduler worker thread and the entity teardown path?
+	dma_fence_lock_irqsave(fence, flags);
+	if (!dma_fence_test_signaled_flag(fence))
+		dma_fence_set_error(fence, -ENODATA);
+	dma_fence_unlock_irqrestore(fence, flags);
 
-If a userspace application submits gpu jobs and is simultaneously killed wi=
-th
-a fatal signal, wait_event_killable() in drm_sched_entity_flush() can return
--ERESTARTSYS immediately, bypassing the idle wait.
+	while (!dma_fence_is_signaled(fence) &&
+	       ktime_to_ns(ktime_sub(deadline, ktime_get())) > 0)
+		ring->funcs->soft_recovery(ring, vmid);
 
-Then drm_sched_entity_kill() executes and returns without waiting for the
-worker thread, allowing the entity to be freed while the scheduler worker
-thread is concurrently extracting a job.
+	ret = dma_fence_is_signaled(fence);
 
-This could lead to concurrent spsc_queue_pop() calls in
-drm_sched_entity_pop_job() violating spsc queue invariants.
+Does this flow make sense?
 
-It could also lead to a use-after-free when the worker thread accesses the
-freed entity pointer:
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index a41fb72dba94..2cc6552a6399 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -426,7 +426,7 @@ amdgpu_userq_fence_driver_set_error(struct amdgpu_userq_fence *fence,
+>   
+>   	f = rcu_dereference_protected(&fence->base,
+>   				      lockdep_is_held(&fence_drv->fence_list_lock));
+> -	if (f && !dma_fence_is_signaled_locked(f))
+> +	if (f && !dma_fence_test_signaled_flag(f))
+>   		dma_fence_set_error(f, error);
+>   	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
+>   }
 
-drivers/gpu/drm/scheduler/sched_main.c:drm_sched_run_job_work() {
-    ...
-    sched_job =3D drm_sched_entity_pop_job(entity);
-    if (!sched_job) {
-    ...
-    trace_drm_sched_job_run(sched_job, entity);
-    ...
-}
+amdgpu_userq_fence_signaled does exists so is there any scope for this 
+to open a false positive window?
 
->  	prev =3D entity->last_scheduled;
->  	dma_fence_get(prev);
->  	spin_unlock(&entity->lock);
+Regards,
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701085920.3253=
-248-2-phasta@kernel.org?part=3D5
+Tvrtko
+
