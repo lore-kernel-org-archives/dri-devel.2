@@ -4,119 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7E93C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 01:23:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A30FC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 01:30:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 075B610E2D2;
-	Wed,  1 Jul 2026 01:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5074F10ED60;
+	Wed,  1 Jul 2026 01:30:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BLUACkqV";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nN7lL40j";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010010.outbound.protection.outlook.com [52.101.201.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3171210E2D2
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 01:23:06 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012035.outbound.protection.outlook.com
+ [40.93.195.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C76610E2E0
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 01:30:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uvDxIpekV8KzoK8GHWgVzwKYnf+ZPQHAZQNPNwYRQ3UK28YrSfd2HiWWWnC6ZlYJMR4mV2Mzfvg8WdW7ACu5mbLOY/+6CbDMXul+HTMGibZRiPtjkp6qMP4LtLRQvjwGBYxN8fTVPOIUExQVogsqpq6sLNs4WwKhW9If184yubn2MZqnbPPDlYd3NolsBa+CcMNzQqXx3vD8SmydB9OLUIX1RzyPbHLgNyQgaqXtxUkY1I87kobGRi/Ad3lrHjaZif5LNEfyrRnyzdfO5yl/F2kOzNJUMrhv7B1+nhX6PhFflMTItLe0mzHLPc9i9euzj9ENkQOHtYrj+cUfKYaqRA==
+ b=fdUxL27OiQQBORid6APUfsO100jODnA2rYw8fgqaJhYRrjJ0JWKlNEPHdepQ66RjSxJcf0i4vyLqYNu9T12oovf8RdpbSIza9jZVHQr5acHT88HVJYs9E/sDYQHhVNrcxY5uIaZzuLKUZbEfdU2XxccxS/adkOFAL+ZLh7kw01sZKg8C65mI6rwFFR3bXWHgxdST4dQdwGaaRigP+cwHIsv8cn879qruCB8lhgJwisrZ1SZxl514NmtppAJmW+a9cHjzPNXuyV7fTWiC8m+X5kJM21s2XxNY/Lcp7J1JMJ1bYjQEqxn/JTGnVZxal0YCi3DlLUR1EcEurKzoR6sm5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nkRN2rWL+H6lHfAUlXZEWdQfJtLXCTjFWVrBXkfRwJA=;
- b=Db7lg+1UGoHbEV+mK/uTp0cxlVVURsyNRO0JOumc0DA4E626fdhXlA6UoH06QbRISdqh1Fv2x1DgccHXsW3pTbid5cwHlYvlzAfeQetXBL1JKEhvvm2XM8TPYnXkd+jaa1yfMASLqUl0KD5julJP7vVI+NoYEfQWovOvfM4gZIdyI6d7qwwkvL16PDn9EcEatY5Vcki0Us1MZSiq8Tvi16jhCn4iXdX+F0jQY5Hk3Cn21HgHJpEoT3Vzu9gSDKCnZQIERM2LvvDUx+9Z73q2zGbqRKX5RcSpBGzAH7d1blFYnc0o9cVGvZ7AvKEmMRJeqar7dfa5WRD5MjQoIb0NAA==
+ bh=vS3Kqr3Hcdspmb41FTVCWwiESViU6dGZuOKyvCjiNMw=;
+ b=tztDcuv4ZCSfWE+tVJhWnD0kdN9p3iahx/QSroyahsG3ec4NSYU/FwH8AV7zWfRqXdz3O8DpxC24r/qW3kJ8PGPd3oA7JyMxU7FlBfeIpY12F3+bm7oU1ZPvJuW/KpMQJ2JwyNVOfJekSSfcAjp7XJe/+wO1itFQWA+aFsB5QjTM/KJiLdaCiGewFg1ofsqetjS/+Nk6Zj9iLk8lY8TcUmAZBFw6OdnRq3B9Hh2LtHOyehMBrXQLyZFjmzefKSN/lwdaG9VkllNkDwhxIYMLE78qGO1nly5EyaNA+LWOHRQwwygwwbMf205bqS9eVQsgiYUv/0xYEBAwhS8P7lcafA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nkRN2rWL+H6lHfAUlXZEWdQfJtLXCTjFWVrBXkfRwJA=;
- b=BLUACkqV3ioNYhkuBx3LuXA5aowfSXtjyg62n+RlYOpho9uGv9ySTAJ4LriXA7oqdVH5/WsKWD57yG77N8+dp7inxjGaBUNZaOzeJMIhAleR78rZe2rgcuFN+lxPuBgLM177Dqi8O0wpl/8SgKca+3r2Rr1/EXULuEUe06X/dN//ZfuGF66XVvVSUfi7pwAbrO3Zm/QfuoWvlbKW7p1hSKHDuuoQzp7pNw2yp5xMN8iOJrnF/ZDkbXDNECB2bjir1S1HzcmmbXQwA79uZpmRta6hE9tfdJ7CNyyFpwbi+zSiYo4MZiT5OLUg5h6009PPlhOkWA6yGe0r0AfxWEshYQ==
+ bh=vS3Kqr3Hcdspmb41FTVCWwiESViU6dGZuOKyvCjiNMw=;
+ b=nN7lL40jRU3sM+TNkcsyXRFZkIGcBnR5T3ISLjlLDFoZehmSaSkLx0lZ/jChbtgkBM1ptnKZIAerAQsxIQja9NkV4bbmTVZFB2x0J3AuQ24ijSeq85YZIDVXPadev0iUeVYkKq6i0SkZ6/zroDpjxO1ntj4h3e0ICFFMMwirw0m+LTE+ybg7m3wW7KlSoQXPTKRL9R9xhNcCd1OOOvybsv1BiAeZ5OrUEyHYxNuS73ggqwyvo4N8HklqJcg6nedKf6Z9L1VR0EnPaKzkrlk03had+G8MFheyiJG+HxxwwU0fCP0wKWvBCNMSjVfTEQBbyWz7KW+MfdRuXX9yYCxuNA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- SA1PR12MB8968.namprd12.prod.outlook.com (2603:10b6:806:388::10) with
+ MN2PR12MB4487.namprd12.prod.outlook.com (2603:10b6:208:264::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
- 01:23:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 1 Jul
+ 2026 01:30:12 +0000
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0159.018; Wed, 1 Jul 2026
- 01:22:57 +0000
-Date: Wed, 1 Jul 2026 11:22:51 +1000
+ 01:30:12 +0000
+Date: Wed, 1 Jul 2026 11:30:08 +1000
 From: Alistair Popple <apopple@nvidia.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Dave Airlie <airlied@gmail.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- dri-devel <dri-devel@lists.freedesktop.org>, 
- iommu@lists.linux-foundation.org, Matthew Brost <matthew.brost@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Dave Airlie <airlied@gmail.com>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, iommu@lists.linux-foundation.org, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 Subject: Re: iommu/smmu/PCI ATS + TTM unmaps + nouveau best way forward
-Message-ID: <akRqSz3lrKHh_GV5@nvdebian.thelocal>
+Message-ID: <akRsELMbwJmUKWek@nvdebian.thelocal>
 References: <CAPM=9tyu7JAF9GD8GbSbeb++i-UqX59_OcBVY-cFyDyB4tBO8A@mail.gmail.com>
- <8702af7f-47b2-4dcd-bed2-9fa64a8fee9b@amd.com>
- <20260630115150.GD7481@nvidia.com>
- <CAPM=9tyajYEV7tN+J9oG0wrJfx6Sy-ydB8-ZS+izBEpDJdT0CA@mail.gmail.com>
- <CAPM=9ty=fiCTrfwE4VUGUDak7paNcKwVo9t171FyYP4VyGM=4A@mail.gmail.com>
- <20260701001702.GI7481@nvidia.com>
+ <20260630113919.GC7481@nvidia.com>
+ <akRPkj5iNaNgIqNk@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260701001702.GI7481@nvidia.com>
-X-ClientProxiedBy: SY5PR01CA0051.ausprd01.prod.outlook.com
- (2603:10c6:10:1fc::11) To DS0PR12MB7726.namprd12.prod.outlook.com
+In-Reply-To: <akRPkj5iNaNgIqNk@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: SY6PR01CA0042.ausprd01.prod.outlook.com
+ (2603:10c6:10:e9::11) To DS0PR12MB7726.namprd12.prod.outlook.com
  (2603:10b6:8:130::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|SA1PR12MB8968:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd2b052d-6052-4138-9fc9-08ded70f481c
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|MN2PR12MB4487:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5952b8d-a78b-4e2c-9563-08ded7104be6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|56012099006|4143699003|11063799006|5023799004|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: nfO9+yN7EMfiQHCYGkBvEzyhGyRWVKAlUA17V4+iOK66jtoVI2fssI4eAdNz2eDAXSv7rp7KzlxHw/PgSrDXS6xDZ+ofUQdRSgHA5U+lVlJbwcowXbdiNEDEiIlMIt3so0G5K9T3Airr9kBKI9NvwqzHsCWWhVuK8/No6K1dz78pWDRFiJQE6e11Z6lYr4BQc3FVAk8aRNSn/1QLHaEEUuAIVV/2TaJeWOpCweVzNNCnZgr9Apf9YAo6mcwKwqObFElrsdFvWOntaaUq3auOpVB9z6qs4bzwu3Ikm9mxYCHNBh1gJSpM39D61oJOYiL1s+vr/wGZv9aVRlWW9pQHFzYKy/++arA0h5nXVbAxXM9TI8hNK2RWw1FsafuPVzNBeSx9cze96gOvnoaT/RO6CEv+vxPwo2VqZLB2wvQiZyO3onX7e6yDEiszR5Oec79b7Z4A4XUtaoaNikFclgXLQ5tbG/6y5ivC7beZ4o0PalwwPaCfXTMU8/hc8vVvyriy+aMZWBe0VeMIUYY5Z0q213+CXoDQ7bbTB60Lw1tpTiP//pWzwC2gY/KnT7ZKQz5cGHMSN46E0YLagseBM2FvrsoOrcXCCckLhtRMCKORh+ca0lJQ/P0micS2OqvobbRdmjMphoOstaA7l8Kd25fFn3xCW3nbj0Rg4tJ9habsNzo=
+ ARA:13230040|376014|23010399003|1800799024|366016|6133799003|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: K5ASB3j/RNc3zFWk9deTE0+2hreNKOA118imwDlgAn/nso8d5shVE2+in5fwtiQ52/XuThO0nsjgVoqLuchMMticsZmEmW9EN4YVuuTeIbD232Iogk4H0UcgkjTV5J1aYZKnOtK0sS70Um2f3BF8FU6ku5ikX1bbR9PHO+MVHSov8Mzd9kwIzytpeIm2mhBrwhoLxRF0zZfYKWbfPpAMAAFbO2kA982+DrqX6vDzniPWCXHuVPADosv3zPWMiCeXv89CHy4+jMQUOu4rp09+oc1rsd0XX1jo9k9lNiez0h095d0iUc9mvZL6yE/0RopwP0IEl8q1V05j8UlTXX9gPsAVPj2jSXny8YdmXEr073cTZRx5suHZZJpP+jXDwnuZybkb6CtW/v+1h7hQ4ppU9FTQML0bXsDZ0HaF2tZ3m93Rynzin5Mfy4dH2wHk1AsNaH83kPU7uid3HTotpZnkWU4wEDyfTPy4/+INdKw46NpAGCHt0ClbZDT5q9BX6hNW4OkVnYMvaj36h+t/u/Zo5v9OMMfUAHny79NVsZ9TTZdZn7LoOivdr6RXTw1hNbX2Y3Qpk97BcEDkwRgLfy7qX4CqE/OGtgefB9EPa5QrxgnBiemhFHn+ksokfvDd2Gavyw3xlwgVuxLOwUllMCh+k0TT82SSoo6cgriA1WQWQWI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(5023799004)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Xjunan4yO/Nz7kZDpw4z5eeL9vvlpH6mjfZbo/ZqtkJWxEeJBqPppJlQeRNH?=
- =?us-ascii?Q?S/0JOM/Ln+D8c7cdkoc0j43CNoZbl2i9/2fUu6ioIlcuIEi5MqTrhAnJKKxd?=
- =?us-ascii?Q?DD4rQQusBmTWoC5e2uAOMl1BdGUt6UCJZ3Q+xldttVdg7uC+ovgJBKuuZlSy?=
- =?us-ascii?Q?Khd0uLMCecmcPSA0nOLPFPMnPGUqkkodM7vOb+uz/AQVlvrzM93QX5YVPJ3C?=
- =?us-ascii?Q?n/wP27ryr9m+hu5OyVwZzoUFxbph3uzwIszZHdrXB3MS9/gRUXAP+g0qJ7oU?=
- =?us-ascii?Q?/yP5RC4VsUd8qARiXUfQC9M7ZK9XqNmDtqHbokENp9Yf26C4FXD7BYTGQWlz?=
- =?us-ascii?Q?fWp/cmEJHknhQb/mZnZK5Hl26VjCXkdsDfbBDcuQK1AGLWYJ0aEEMJ0qYZdD?=
- =?us-ascii?Q?Q2LNBW9LrYkITCpiOUaFJSJqqniuzfwiLWKXX1Tee5MxKfCRhGqm3qXdj424?=
- =?us-ascii?Q?qOHmYFd2XZ0S2UPYeQKu9Uc3vZxpb5LT5Kzj8loN4xNDY8GrXW4YfnT9Iu7t?=
- =?us-ascii?Q?GOJziAsarRT5AJ8kzwV1j/KaXZiZGko4ah4cA37cFjte2YEtUQQAJb5TjtjY?=
- =?us-ascii?Q?q3SxyB9O/GoS0hPWy58n7tJpx0/CSEhlN4McYWFT1nEerPnuuJmux+vSK3TG?=
- =?us-ascii?Q?SJA2BaCaEYPuwlet20Ebi2yyFXImZlq/C7S95UtfAwilG4tYJHL0nl9RPu5z?=
- =?us-ascii?Q?6CH26cw59E+qp9rUKGMAWLnmmPIhTNqCzooaZcmmOEiTRs4mTpLeyMNnCJHK?=
- =?us-ascii?Q?jJU3PmBmqhTXkbmctEqa6qauTYUr/jz4d4n5weZzpXPzy9jk3x/zUvILW3uj?=
- =?us-ascii?Q?TI5WuK1Pkr8bk+Y/fIkBVGWtNWnLeck6UpzfO2qeAal8Wepf7/hCQyFhl+Tq?=
- =?us-ascii?Q?V18D4fk6tkIvwW3OfiSkm9YpD4DJKCZ/ECrPpYlkYPdFlqcGu1/7oXj3F7ZU?=
- =?us-ascii?Q?glSFfosVtyPONbT2gzT9kAL/7hz40TZYg+/MD426XyDxk0L8gQkIp+ePIP2N?=
- =?us-ascii?Q?S5cEqlXly5JmYoX4zxNhmGXCryBXtH+p8qlCYvlaXaw4YGlFj4Q3Sl6/uJLN?=
- =?us-ascii?Q?cxoi/Y/jmuGILIkRzLdb76K072WYtiixf8gHnSdWBN4E0pzwuK8cfJ5OjNso?=
- =?us-ascii?Q?HKr2MldeLxHgz/+Tf8jIMq+0Rn7vJZOHW7bOUcxLr6+RiYQOuSwHvL/31JbU?=
- =?us-ascii?Q?OR+kaDrhMIGqY+AOR1ixsS6FeGJFGQurarpbjmP3475QKhwsKp+UOIvUtA+D?=
- =?us-ascii?Q?mJQgo4Hd29PuhqWpSfX73f7kEYimzhg97CiYrlsX7hBz0HqMNR6bZG4HOVG/?=
- =?us-ascii?Q?1UOOwSmddlcMQXsUER4HYgAPSIWRFCtVsOcGuDsiiYwlyhMLryP9hILMX1cm?=
- =?us-ascii?Q?eMKUAIqTYuMUS4W1PvFQS8AM7vWvf8YCxMnQu3CvIfGOAY+yS7Y0VsKEWixv?=
- =?us-ascii?Q?ulm0QImaVTBs+ZlydqE0Yx7FFoyiztXl27s5BLoJ4lXOAj+Pl0un9L1a1F7i?=
- =?us-ascii?Q?m0M9mGC6NS3574IQN3jFzEZlerkggUo1t589Fm++QL0FuFIETVQYyYByL19c?=
- =?us-ascii?Q?EGrxKkvPLHg7nMXB7tqdywZ+Fp9pUEFJMZZhq4vWSCMCnwdbxHBg/O99SVD+?=
- =?us-ascii?Q?KZGKLX7EAbrf9r8hrjP2wzUIqZtPBMgUJpVfYINzfwfY10E5zpt2rB57qHjK?=
- =?us-ascii?Q?U1IjkS5kJ/15x/sE++2qhnd+EffG0gzm+ofUVYzOLC2NVwJAm0ma5hEBhAeR?=
- =?us-ascii?Q?lplYi+aEJQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pdAdYZNqjMKA77M83Ja5RzWoLwXkXo1cpCpxMh1wJgBxWHK5NBrIHsVGNQin?=
+ =?us-ascii?Q?wmr4GZt6TCeRiBgHb+n4Z/mMkvh4qHwF0un/qIKoAuqNOavaDV87w1HZe5CP?=
+ =?us-ascii?Q?lFr00MUsN6YL7uinUpUbxXNt8csSmcKlTEVWk5jerw/VCExf1VCI+50G1UXe?=
+ =?us-ascii?Q?z7wujzdxP+3qHwi5KX1tambDf+zv9B5Yhskd3PxaJoBSnBDryBCo2ItfZBrn?=
+ =?us-ascii?Q?4Gcz79sTq9XGOiDKiVzUkuA8GiQTlFgbhXXHm+j5HsVc7zbYBgh2149huyQe?=
+ =?us-ascii?Q?PKKpiAsU+Y9LQfCppL1defwY0m+NBXGekT+/ppGCgGGiu/SqdBFVfIHXEXjX?=
+ =?us-ascii?Q?mVr17L0Ybli4TwgnA+WJOZRD2l7qfqZkMza562epvRJR6h0R3ZYFWjjG4PL+?=
+ =?us-ascii?Q?9jyYqgJv7GIyQgLljVfhjacehnT+cgKyM6ANx2Jd2Fg5J8L7NYC5cshGsDOt?=
+ =?us-ascii?Q?fGq/PyEBF8FlJtSI4zXbgVWOAWkjqmwTQtwXZddAi6y5PY6NseF4gNIjWe7d?=
+ =?us-ascii?Q?2qj1nKOhImAA2rHFucq6b3+QErWUe5o0HYGvHh+b2NOsPQ0osu0LhmWVT8y7?=
+ =?us-ascii?Q?JyrohnNrmgYryq53Ufmjctu1lEEaDoLFachENyXBqB+as2kd3vuDkfBZY7AS?=
+ =?us-ascii?Q?fFIt6rBrnIlfcxaZJaDQ9D5SqfLhSLGlCEuaSLUrfYQhgfOC3WPWFLd5Mfz/?=
+ =?us-ascii?Q?cAIGcjoGz0vKmL9DxCwV44D6czshOvxRn8nXX8/YC0RG3dkFq9ynISu70yYt?=
+ =?us-ascii?Q?/9taGDjmilpIWfEc3EEL7vNthRlGnY8s4A//QGxRn77o3o/LD3oXR+YBzRkM?=
+ =?us-ascii?Q?wFs6yo0qIxqyGr0zL0WM9u4ehvoZlD4G62/g4xL7M0ZKWrhsuw7i1o/l2uzn?=
+ =?us-ascii?Q?A3WvrMF7zf7cmpGyFlPzC6P7pXywPI45ilO56b0zFx4SV9jEkVqtVuaq458R?=
+ =?us-ascii?Q?/bMGI4zoVnNRrvNh09U0rEQwxmuZzI2wI9RWUo4Rp3OH5j8yFP3oHmadqTqP?=
+ =?us-ascii?Q?rnEt1kjWLLKPyCIi07u1ppZfIrEYzlEyPx1mswj75wZKCc+JxrB5dgrYbkNe?=
+ =?us-ascii?Q?sZnCKGKxQF/QqGS1hwxK7d7+CJK6jgX7S/QSwxKZc1Gu+aw8oSxslMuRMNNb?=
+ =?us-ascii?Q?T0dDcSu2hYNn0xkOhZIlqKWo8bTyuGn0hJVKJfRVWhTg70kyX6p4Pu5iW9Fq?=
+ =?us-ascii?Q?BD//sYepgNKDhpyLFetNN6RXKefnovK5wA2RqhrXy4eRE0v5wxsJMqsGvObq?=
+ =?us-ascii?Q?giFLNUmPcygLJ154CZMTfstTLCPLnKvF3CgYgnD6QyGK4zANUkxitrPrUBpo?=
+ =?us-ascii?Q?rmZ7vzX2wGOf6Ta9nhrIXWCosKwPBmlHSpqzvlI1sYrjPDUhnbPMOJNlf363?=
+ =?us-ascii?Q?139Ej6WQecAFd2WEOQIXdkbgJeQqFdRCqSh4bre9AAhKbVwfJg5XvPZuSC6m?=
+ =?us-ascii?Q?X/kff9AcfoKOgbdy6FBrm/mKv1wI+nJkOdt+E1Mser/O4T8MfEKSXod6p6d3?=
+ =?us-ascii?Q?St57rAN5ITfAuAIqZ/f7bOzItJxIFs9sf37aRIQYZC8FYj1JOBpN3I+w76WL?=
+ =?us-ascii?Q?molXtsWvjL/b/AAsr+UZsIkdC5gF7KgaImMU+fg1sDRyXw3NUSuoz+s1KtCv?=
+ =?us-ascii?Q?d1Ob6LCBnMGzo5CQ5JLX6k2ZA6ud2tAje0e4l5weY8znvj84zvUrdQsbhA9k?=
+ =?us-ascii?Q?ifZJ9p5BipiBwN6j1PdmhBY4NX8SlyxxDlxbu7qlGyhsNJKSegdb3NvZvUgZ?=
+ =?us-ascii?Q?BTqJZuJ1Hg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd2b052d-6052-4138-9fc9-08ded70f481c
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5952b8d-a78b-4e2c-9563-08ded7104be6
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 01:22:56.9224 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 01:30:12.7787 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G+eW2eJUu2nwRCtO3OO9NBQgPDdDSJqlO2DB1n7n1O7UpSAcVIDEeQ78fJM3CjBe/eE+ZoT+cah1hf0A5PQ9Sg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8968
+X-MS-Exchange-CrossTenant-UserPrincipalName: BB/jqLluMizbVBy21YGa/aoRxb8fHAxdW8waNInJIaIKaFKizERvv8ydUiqFennZhOMQtTBS8kEtZuSflFZ70A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4487
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,29 +129,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-07-01 at 10:17 +1000, Jason Gunthorpe <jgg@nvidia.com> wrote...
-> On Wed, Jul 01, 2026 at 07:00:01AM +1000, Dave Airlie wrote:
+On 2026-07-01 at 09:21 +1000, Matthew Brost <matthew.brost@intel.com> wrote...
+> On Tue, Jun 30, 2026 at 08:39:19AM -0300, Jason Gunthorpe wrote:
+> > On Tue, Jun 30, 2026 at 07:39:44PM +1000, Dave Airlie wrote:
+> > > I've been bringing up nouveau on NVIDIA Spark GB10 and fallen down a
+> > > hole of why is the GPU writing to pages I've released back to the CPU
+> > > page allocator. I've wasted a lot of time on GPU L2 cache and explicit
+> > > handling for it, which might be needed but hasn't solved my problem.
+> > > I've also invalidated and flushed the GPU TLB excessively.
+> > >
+> > > Today I finally hit up iommu.strict=1 makes things a lot happier,
+> > > non-strict IOMMU seems to allow a race between dma_unmap_page and
+> > > free_page where the unmap goes into the IOMMU flush queue, where the
+> > > actual unmap are delayed until something triggers a flush later, and
+> > > the ATS translations stay alive past when they should, and after the
+> > > page has been allocated by some subsequent user.
+> > 
+> > It is a driver/device bug if it continues to DMA to memory after
+> > dma_unmap is called. Strict mode is intended to increase security
+> > against malicious devices and to aid debugging buggy drivers, it must
+> > not be relied upon to have any functional effect on a correct driver.
+> > 
 > 
-> > From the production driver, there definitely was some issues in the
-> > past, however this seems possibly fixed with mmu notifiers, but for
-> > these memory allocations I'm doing I'm not using MMU notifiers at all.
+> I think I agree here. In Xe, AFAIK, we never call dma_unmap until all
+> fences have been signaled (dma-fence or preempt-fence mode), after which
+> GPU translations are rebuilt before the next fence is installed, or
+> until the GPU page tables have been invalidated (GPU page faults). TTM
+> is a little harder to reason about, as we DMA-unmap via
+> ->ttm_tt_unpopulate(), but I just audited the call sites and TTM looks
+> correct.
 > 
-> Well, the comment on that is this:
+> > This is not an API issue or an impedence mismatch, you have to follow
+> > the DMA API contract when using the DMA API - meaning before unmap is
+> > called the device is not doing DMA any more. It is a purely a
+> > driver/device bug that the device is not quieted prior to unmapping.
+> > 
+> > You cannot fix this with any of your proposed hacks, the driver must
+> > have control over the device and it must know when the device is done
+> > DMA. Presumably there is a missing flush or fence that is allowing the
+> > GPU to continue to DMA even after the OS thinks it has told it to
+> > stop. There are many unique things about the coherent GPUs, I would
+> > not be surprised if the driver needs some additional fencing
+> > operations to clear the fabric beyond simple cache invalidation, but I
+> > don't know.
+> > 
+> > Normally strict would convert these bugs from quiet corruptions into
+> > noisy IOMMU logging, however in this case the GPU is using ATS and the
+> > IOMMU does not log non-present ATS responses. Instead the GPU's
+> > internal attempt to DMA will fail and the GPU will do whatever it does
+> > to propogate that failure. Probably the driver has not noticed the
+> > fall out, or it ignored it.
 > 
-> // Fix for Bug 4130089: [GH180][r535] WAR for kernel not issuing SMMU
-> // TLB invalidates on read-only to read-write upgrades
+> Right. We only have ATS enabled in Xe for experimentation, but whenever
+> we've had issues with dma_unmap ordering in Xe without ATS, they have
+> resulted in DMAR-related dmesg spam.
 > 
-> And the upstream kernel has that issue fixed, so it looks like that
-> whole disaster compiles out.
+> So TL;DR I'm guessing Nouveau has dma_unmap before GPU idle bug
+> somewhere.
 
-Yeah that whole disaster is something we should never have tried to work around
-in the driver. However I don't think anything ATS in UVM is related to the
-problem your trying to debug. UVM ATS deals specifically with SAM/SVM - ie. the
-ability for the GPU to directly access system allocated memory (think userspace
-mmap/malloc). This has nothing to do with dma_map/unmap() as these aren't needed
-for PASID ATS. We're also not using mmu notifiers to workaround any issues like
-what you have described.
+Agree with most of the above and this seems the most likely explaination. ATS
+doesn't change much here - most of our driver still goes via dma_map/unmap to
+access host memory via an IOMMU IOVA so non-present entries there would be fatal
+at the IOMMU level. So even with ATS enabled a non-present DMA mapping should
+still result in noisy IOMMU faults.
 
  - Alistair
 
-> Jason
+> Matt
+> 
+> > 
+> > Jason
