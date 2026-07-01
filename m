@@ -4,92 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B13FC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 09:57:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A3FC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:14:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C812310EE94;
-	Wed,  1 Jul 2026 09:56:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12CA010E347;
+	Wed,  1 Jul 2026 10:14:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DZVMXwNQ";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="fCJ5ImEc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A4C310E347;
- Wed,  1 Jul 2026 09:56:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 475BE60138;
- Wed,  1 Jul 2026 09:56:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3460C1F000E9;
- Wed,  1 Jul 2026 09:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782899816;
- bh=ce5x8VsOSihGimDX+E2xZ9QKUoBE10Bad77hJiyAQ1E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=DZVMXwNQ7Qas5su8LVUpZ9nJZzyP2uBxeA7y69zzPN45RtVQlQlUbn6BqoVClF8OQ
- cdNO1iGygY8gO12qIOso81h2/ovQrZtecs/m5aFsflX56hjaVdJn1UW1oDVl1Yio6K
- KRPnQX2cEF4iykCZPLFviJvZsj0dccJ/OtNrkWrmrDfd+Zc2DCw82CITQK1lp0tyWe
- FVO7hLYRhosCJheK7GEd0ZzB4RBxZA6em2G+SdpL6ItiqRo5WAo8LiBboh0bVEWu86
- sAwvz0MgMFy71FvJ0/B44EaogV7h2VMnc/A+pYGBJOKud9YpmG/8lNeNdIQphF8zxv
- fOupSSuKidQxA==
-Date: Wed, 1 Jul 2026 10:56:34 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 06/30] mm/rmap: parameterise vma_interval_tree_*() by
- address_space
-Message-ID: <akTkRC7gPzdibXhU@lucifer>
-References: <cover.1782735110.git.ljs@kernel.org>
- <43050b10b53cdfc3627440e6b14ae2a9730b2a5c.1782735110.git.ljs@kernel.org>
- <akPsGrmaOd3JMlC2@pedro-suse.lan>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43D8510E347;
+ Wed,  1 Jul 2026 10:13:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1782900837;
+ bh=ZQWJyLX7UxBynIft5IW9JjFWP9zLMapOq6iJxTycB+4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fCJ5ImEcsiawkGgGikQX8rOnygvRp/uOTc2As7CXH3Oi2hlwHgaVjHBRFsxTGHhQF
+ TPKz9cLcbWBZNNNPveWkVr3IQmtVDqOunNgESKXQ4ml21oUynrGNJVY5tORB1/P6hx
+ AHOdNqsyqWEqsxueuY8Z+w9JybdBDrUww+HtttRgj+m8CNl8wKjtnqLs50QzV3Jykt
+ awilGXOkjJa4+6HzIf6lmzFQejIfac1sa7sGtfsC7vZZgKzIlScIBSE+T47DuWDpLK
+ 4lVFLZYn3jb+1S+FO78ygWgvRsn6QBXmXnZc+m5ste94lMHrH99Z6e7rrqD3gJJQtG
+ 4UcPdnPuk3C5w==
+Message-ID: <6e41bc45-82a2-4cd3-a666-ade919acd26b@lankhorst.se>
+Date: Wed, 1 Jul 2026 12:14:31 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akPsGrmaOd3JMlC2@pedro-suse.lan>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/xe: Avoid using stolen memory for DPT.
+To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+References: <20260630135523.1775379-1-dev@lankhorst.se>
+ <20260630135523.1775379-2-dev@lankhorst.se>
+ <55a8612b-65af-4e15-ae5d-a27a55064f84@intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <55a8612b-65af-4e15-ae5d-a27a55064f84@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,41 +55,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 30, 2026 at 05:19:16PM +0100, Pedro Falcato wrote:
-> On Mon, Jun 29, 2026 at 01:23:17PM +0100, Lorenzo Stoakes wrote:
-> > The file-backed mapping interval tree functions vma_interval_tree_*()
-> > accept a raw rb_root_cached pointer to determine the tree in which they are
-> > operating.
-> >
-> > However, in each case, this is always associated with an address_space data
-> > type.
-> >
-> > So simply pass a pointer to that instead to simplify the code, and more
-> > clearly differentiate between these operations and those concerning
-> > anonymous mappings.
-> >
-> > While we're here, make the generated interval tree functions static as they
-> > do not need to be used externally (any previously existing external users
-> > have now been removed).
-> >
-> > We also rename VMA parameters from 'node' to 'vma' as calling this a node
-> > is simply confusing, update the input index types to pgoff_t since they
-> > reference page offsets and rename the parameters to pgoff_start and
-> > pgoff_last.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->
-> 1) This is fantastic
-> 2) I need to rebase my local work :)
->
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->
-> --
-> Pedro
+Hello,
 
-1) thanks :)
-2) sorry :P
+On 6/30/26 16:10, Matthew Auld wrote:
+> On 30/06/2026 14:55, Maarten Lankhorst wrote:
+>> On systems with media GT, extra latency is added when accessing stolen
+>> memory when the GT is in MC6. Since we additionally aren't counting how
+>> much memory is used for stolen and we could in theory fill up the
+>> entire stolen area with DPT's, avoid using stolen and only use the
+>> default memory region.
+>>
+>> Additionally, this may also result in random system hangs under load.
+>>
+>> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
+>> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+> 
+> Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
+> Cc: <stable@vger.kernel.org> # v6.12+
+> 
+> ?
+> 
+>> ---
+>>   drivers/gpu/drm/xe/display/xe_fb_pin.c | 33 +++++++-------------------
+>>   1 file changed, 8 insertions(+), 25 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>> index 5f4a0cd8deca0..73469ea5f333d 100644
+>> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+>> @@ -164,31 +164,14 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
+>>           dpt_size = ALIGN(intel_rotation_info_size(&view->rotated) * 8,
+>>                    XE_PAGE_SIZE);
+>>   -    if (IS_DGFX(xe))
+>> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>> -                           dpt_size, ~0ull,
+>> -                           ttm_bo_type_kernel,
+>> -                           XE_BO_FLAG_VRAM0 |
+>> -                           XE_BO_FLAG_GGTT |
+>> -                           XE_BO_FLAG_PAGETABLE,
+>> -                           pin_params->alignment, false);
+>> -    else
+>> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>> -                           dpt_size,  ~0ull,
+>> -                           ttm_bo_type_kernel,
+>> -                           XE_BO_FLAG_STOLEN |
+>> -                           XE_BO_FLAG_GGTT |
+>> -                           XE_BO_FLAG_PAGETABLE,
+>> -                           pin_params->alignment, false);
+>> -    if (IS_ERR(dpt))
+>> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>> -                           dpt_size,  ~0ull,
+>> -                           ttm_bo_type_kernel,
+>> -                           XE_BO_FLAG_SYSTEM |
+>> -                           XE_BO_FLAG_GGTT |
+>> -                           XE_BO_FLAG_PAGETABLE |
+>> -                           XE_BO_FLAG_FORCE_WC,
+>> -                           pin_params->alignment, false);
+> 
+> Technically this changes the behaviour for dgpu, where it looks like it will fall back to system memory? Surprised that would even work though, and not get a bunch of pipe errors? I would assume VRAM is a requirement.
 
-Cheers, Lorenzo
+I just tried it out to answer the question, turns out this fails spectacularly!
+It gives a pipe fault error on every vblank on my bmg.
+
+It probably never worked, but as long as we never fall back it never was an issue.
+The new behavior is correct, I'll update the wording of the commit message for this.
+
+> Either keeping the same behaviour, or updating the commit to mention this change, or splitting that out (maybe needs a separate fixes?),
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> 
+Can I extend that to patch 2 and 3 too?
+
+>> +    dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+>> +                       dpt_size,  ~0ull,
+>> +                       ttm_bo_type_kernel,
+>> +                       XE_BO_FLAG_VRAM_IF_DGFX(tile0) |
+>> +                       XE_BO_FLAG_GGTT |
+>> +                       XE_BO_FLAG_PAGETABLE |
+>> +                       XE_BO_FLAG_FORCE_WC,
+>> +                       pin_params->alignment, false);
+>>       if (IS_ERR(dpt))
+>>           return PTR_ERR(dpt);
+>>   
+> 
+
