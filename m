@@ -4,61 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFB7BC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 680B1C43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:53:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FDD910F04D;
-	Wed,  1 Jul 2026 16:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C31F610E3C5;
+	Wed,  1 Jul 2026 16:53:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c2NKdvCb";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="foSZak7+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC8110F04D;
- Wed,  1 Jul 2026 16:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782924451; x=1814460451;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=Eg0d6mEjYoCwZN6wDgOQtSayaI45/eybca/GwSK9Bt8=;
- b=c2NKdvCbJWHKdZBNfbnpjWAaXmlomXRXuy8oCVjxYLGZnXlkdmnHJGE3
- /lqnVZKG7x4V9afDHQ6eqZ7NNXCrGwQ5yUwuNjLm4F9lEsl1l74nOE3Gw
- fGj2JXR0V6cqTi83++ssLMF/B+RWNpAF5PxVsx663FGa9oEtDNopkzLIE
- GeiRhoAp8bPurGML82jzKsQUYpcHvCgCQK5hUqQxs6rKcJth1bYijZBma
- 5sv3GcXJ7XAZV3+knwOqTRFOcWK/wKppQyEVzPyVNgtzZXkzpoWU+maIj
- 8EQlQDcBbTLNW4bBhLzbkWKppafgA+RZYyUs3V3+TykcdJmYgUfxOkCc9 w==;
-X-CSE-ConnectionGUID: NgtgYa1YQh69aiD69fIibQ==
-X-CSE-MsgGUID: AiZdrse1RRexLvOb+cWnsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83697597"
-X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="83697597"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 09:47:31 -0700
-X-CSE-ConnectionGUID: dLk0VwoqRQqbIjwu9ugsNA==
-X-CSE-MsgGUID: IYy8J8tES9iqzBx+/CmOAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="250899661"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.25])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 09:47:29 -0700
-Content-Type: text/plain; charset="utf-8"
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6018D10E3C5
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 16:53:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782924811;
+ bh=F3uHPVS1XECBg+1FJgBsfQzbfVfb5e4T+gqzbMq2A5Q=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=foSZak7+BxtLEwRYgivu+0IOUXwZ3OQ04aj+NCtX/mR7oZk0d2+9TLw6JHLv9hqvH
+ gD+XAmcBQwF9Oo0c9klBThjh/SCCPAsGPNYZvpyVx+o+lBUT9/m3TPgWlvBT64AESc
+ 1VYYtkRp2dAH/mYKaR93afRjTL1tHfoNvFgEK3LH0j/n6D8lm89ZeViVFCEzORlOM+
+ NO6a2s0LYpYd1YW3iAgo9LPKspHAlUFw/CVSibbOudHrMQUoG3fqEVt3205ewyFn69
+ a+j72Ht3QSFWjtbjkcndWh+WwsAmy/6BqWzY3mmuyvE8chms1hnDugSMwuCq/S4Le6
+ LfnTMMuWfCOpQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A56B317E0CA2;
+ Wed,  1 Jul 2026 18:53:30 +0200 (CEST)
+Message-ID: <f56fcbae-3ff5-46c3-bbe7-7eac462f7dd2@collabora.com>
+Date: Wed, 1 Jul 2026 18:53:30 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <178290749714.224587.15234445443946207851@jlahtine-mobl>
-References: <20260630223946.2107382-1-jia.yao@intel.com>
- <20260630225349.984AB1F000E9@smtp.kernel.org>
- <178290749714.224587.15234445443946207851@jlahtine-mobl>
-Subject: Re: [PATCH v9] drm/i915/dg2: Add per-context control for
- Wa_22013059131
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Matt Roper <matthew.d.roper@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-To: Jia Yao <jia.yao@intel.com>, sashiko-bot@kernel.org,
- sashiko-reviews@lists.linux.dev
-Date: Wed, 01 Jul 2026 19:47:21 +0300
-Message-ID: <178292444166.273574.16738251742448073960@jlahtine-mobl>
-User-Agent: alot/0.13.dev2+g40c57d620
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 23/42] dt-bindings: display: mediatek: Introduce Digital
+ Video Output HW
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: krzk+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, p.zabel@pengutronix.de, kernel@collabora.com,
+ tzimmermann@suse.de, chunkuang.hu@kernel.org, simona@ffwll.ch,
+ linux-arm-kernel@lists.infradead.org, jason-jh.lin@mediatek.com,
+ airlied@gmail.com, conor+dt@kernel.org, maarten.lankhorst@linux.intel.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ mripard@kernel.org, devicetree@vger.kernel.org, justin.yeh@mediatek.com
+References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
+ <20260701122057.19648-24-angelogioacchino.delregno@collabora.com>
+ <178291581273.4115171.8214844308967079622.robh@kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <178291581273.4115171.8214844308967079622.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,114 +69,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(+ intel-gfx for real this time)
+On 7/1/26 16:23, Rob Herring (Arm) wrote:
+> 
+> On Wed, 01 Jul 2026 14:20:38 +0200, AngeloGioacchino Del Regno wrote:
+>> Add documentation for the Digital Video Output (DVO) IP found in
+>> the newer generation SoCs MT8196, MT8189 and their variants.
+>>
+>> This is effectively a more capable block replacing the DisplayPort
+>> Interface (DPI/DP_INTF) one found in older SoCs.
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   .../display/mediatek/mediatek,mt8196-dvo.yaml | 142 ++++++++++++++++++
+>>   1 file changed, 142 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
 
-Quoting Joonas Lahtinen (2026-07-01 15:04:57)
-> (+ intel-gfx, Matt and Tvrtko)
->=20
-> Quoting sashiko-bot@kernel.org (2026-07-01 01:53:49)
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [High] Dynamically modifying the globally shared MCR register LSC_CHI=
-CKEN_BIT_0 per-context causes a race condition when contexts execute concur=
-rently on different engines, leading to L3 cache state corruption and GPU h=
-angs.
-> > --
-> >=20
-> > commit aa5554c571fd6ea50b4b1d107d0ba27eeae18a7c
-> > Author: Jia Yao <jia.yao@intel.com>
-> >=20
-> > drm/i915/dg2: Add per-context control for Wa_22013059131
-> >=20
-> > This commit introduces a per-context opt-out for Wa_22013059131 on DG2-=
-G11
-> > platforms, allowing userspace to manage LSC_CHICKEN_BIT_0 bit 15 itself.
-> > It applies this workaround conditionally during indirect context batchb=
-uffer
-> > execution rather than globally at engine init.
-> >=20
-> > Link: https://github.com/intel/compute-runtime/pull/919
-> >=20
-> > > diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i9=
-15/gt/intel_lrc.c
-> > > index 147d22907960b..a35601e6f1e90 100644
-> > > --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-> > > +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-> >=20
-> > [ ... ]
-> >=20
-> > > @@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
-> > >       return cs;
-> > >  }
-> > > =20
-> > > +static u32 *
-> > > +dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
-> > > +{
-> > > +     /*
-> > > +      * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
-> > > +      * other bits of the register will also get overwritten.  The
-> > > +      * hardware default for all other bits is 0, but any workarounds
-> > > +      * that adjust the other bits in the lower dword of the register
-> > > +      * also need to be re-applied here.  At the moment that's just
-> > > +      * Wa_22014226127, which is always set for DG2-G11 platforms.
-> > > +      */
-> > > +     u32 val =3D DISABLE_D8_D16_COASLESCE;
-> > > +
-> > > +     /*
-> > > +      * Wa_22013059131: only set FORCE_1_SUB_MESSAGE_PER_FRAGMENT for
-> > > +      * userspace contexts that have not opted out.  Kernel-internal
-> > > +      * contexts (gem_context =3D=3D NULL) never run shader workload=
-s that
-> > > +      * require this workaround, so skip them unconditionally.
-> > > +      */
-> > > +     if (rcu_access_pointer(ce->gem_context) &&
-> > > +         !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
-> > > +             val |=3D FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
-> > > +     }
-> > > +
-> >=20
-> > [Severity: High]
-> > Does dynamically modifying LSC_CHICKEN_BIT_0 per-context cause a race c=
-ondition
-> > when contexts execute concurrently on different engines?
-> >=20
-> > LSC_CHICKEN_BIT_0 is a globally shared MCR register affecting the L3 ca=
-che,
-> > which is shared across all render and compute engines on DG2. Modifying=
- it via
-> > MI_LOAD_REGISTER_IMM broadcasts the change to all L3 banks.
-> >=20
-> > If Context A (which requires the workaround) runs on RCS0, and Context =
-B (which
-> > opts out) switches in on CCS0, CCS0's context switch executes this indi=
-rect
-> > batchbuffer and clears bit 15 globally. This could dynamically alter th=
-e state
-> > for Context A on RCS0, potentially disabling the workaround and causing=
- a GPU
-> > hang.
->=20
-> The fact that we expect compute and Mesa to align across their own
-> contexts sharing single address space today is one thing, but I think
-> we should be enforcing that. Currently nothing preventing RCS and CCS
-> sharing one address space from fighting over the variable.
->=20
-> This makes me doubt if modelling this as a per-context variable was
-> the right choice.
->=20
-> Maybe we should instead be making it DRM client wide property and
-> inheriting it to all contexts?
->=20
-> Regards, Joonas
->=20
-> >=20
-> > > +     *cs++ =3D MI_LOAD_REGISTER_IMM(1);
-> > > +     *cs++ =3D i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
-> > > +     *cs++ =3D val;
-> > > +
-> > > +     return cs;
-> > > +}
-> >=20
-> > --=20
-> > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260630223946.=
-2107382-1-jia.yao@intel.com?part=3D1
+Those errors on literally all bindings are quite embarassing. Oops.
+
+Already fixed locally, but since this is a huge series, I will allow some time
+for reviews before compulsively pushing a v2.
+
+Cheers,
+Angelo
+
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: ignoring, error in schema: properties: compatible
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> 	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
+> Traceback (most recent call last):
+>    File "/usr/local/bin/dt-doc-validate", line 8, in <module>
+>      sys.exit(main())
+>               ~~~~^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
+>      ret |= check_doc(f)
+>             ~~~~~~~~~^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
+>      dtsch.check_schema_refs()
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 242, in check_schema_refs
+>      self._check_schema_refs(resolver, self)
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
+>      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>                              has_constraint=has_constraint)
+>                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
+>      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
+>      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>                              has_constraint=has_constraint)
+>                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
+>      ref_sch = resolver.lookup(schema['$ref']).contents
+>                ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
+>      retrieved = self._registry.get_or_retrieve(uri)
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
+>      registry = self.crawl()
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
+>      id = resource.id()
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
+>      id = self._specification.id_of(self.contents)
+>    File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
+>      return contents.get("$id")
+>             ^^^^^^^^^^^^
+> AttributeError: 'list' object has no attribute 'get'
+> Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.example.dtb: /example-0/dvo@324c0000: failed to match any schema with compatible: ['mediatek,mt8196-edp-dvo']
+> 
+> doc reference errors (make refcheckdocs):
+> 
+> See https://patchwork.kernel.org/project/devicetree/patch/20260701122057.19648-24-angelogioacchino.delregno@collabora.com
+> 
+> The base for the series is generally the latest rc1. A different dependency
+> should be noted in *this* patch.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your schema.
+> 
+
