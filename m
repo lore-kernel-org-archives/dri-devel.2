@@ -4,96 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E05C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 629A4C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEE5010F03F;
-	Wed,  1 Jul 2026 16:09:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BDB810E3DC;
+	Wed,  1 Jul 2026 16:10:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MRqxn+xA";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="XkiCTJN6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92A3F10F03F
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 16:09:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 15F4A601DF;
- Wed,  1 Jul 2026 16:09:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135A41F00A3E;
- Wed,  1 Jul 2026 16:09:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782922152;
- bh=NZ1ua092sFPJbERnBLwgyQPXHI/AIXZthh7+PsUJfz0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=MRqxn+xAkXOJJLLhdGBoaVL0dEVa/CDsnQMn9qp9ZF1Oujk8XW+LUtpt68psqUmu4
- oZWoT7wSka6UJCE6aAuTR36fM9bmBCjZECh3RENSfvxEpKTaYpfZ66aJp7RGiQh7pS
- o6b8e7u0SpgKxF6jINcLov7ZVqNcrDrycMit6hs33UvOKY2ILCzwpQhm74Fw5YGNNf
- VUwKeQeL2qtN7xY11U8I3dePTm6oxTceB5XCBD6bLgiKYHyvBCo0hVdGXzyYVFLKyH
- f8voI1pinD/fjU4aEO5A6KaxA9PeQKuCDylB75Nn0J0dmTxTRql8V2lPTv+7B9ACEV
- cojxbCS4VzmrA==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Wed, 01 Jul 2026 18:08:22 +0200
-Subject: [PATCH v3 11/11] arm64: tegra: Add VPR placeholder node on
- Tegra264
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14D7A10E1DD;
+ Wed,  1 Jul 2026 16:10:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782922228; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=D+DgbiLr5kexcx+lrub8/HrLRUgxgKUhBJDeeapRywpp7TFyGKClfXuuspUUN+mXBjxfFZ2Pcn6voS8py0L+fvBDY9KM6YVv8g6h6GZZpXA6mWo0viisyrIYF6HaQhLigmTYAxlSzrFh+xSLGg1rSUHK1xL6EkEliifobmA/UIg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782922228;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=KDVZueUcLft5Z4nd96BM/LR5QgkNIeejRUglXYj5hQI=; 
+ b=Cbza1F6zd4b8eNrJm6QQZnWbaXGROnXNwZE4X/KUxnMKjdmJ6T6TkOejYrBCzrWWvIlOUu54Ydz/4xgWeLqxSMF/yooELkyr78xPmfuwJvKgV7vO2CBt1ICyW7ytNIjzsUEwf2/uTyk4dRMnsPANa/i2aeG4VvTmkJUOR8lKGkk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782922228; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=KDVZueUcLft5Z4nd96BM/LR5QgkNIeejRUglXYj5hQI=;
+ b=XkiCTJN6wZKvA/ALm8VS69i5BEgdDsDd6ybgh5VgMYpBWF2gc6f6h4hAo6gnff5E
+ 0XEvNcWLyFO1ZU1NHpR4NwtQ02jfo0K+29nSOp+Mge7+9gEDVyyHgOeStZfvdmhkxtM
+ gjeL3fFmTfFQMeAebRZi22D3qFJ10DKK+8RXNZj8=
+Received: by mx.zohomail.com with SMTPS id 1782922226555993.1991732003413;
+ Wed, 1 Jul 2026 09:10:26 -0700 (PDT)
+Message-ID: <52afa800-5b29-45d1-9418-19ae30122a30@collabora.com>
+Date: Wed, 1 Jul 2026 18:10:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+ behind driver feature
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Stone
+ <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260630084229.529682-1-robert.mader@collabora.com>
+ <3bc9d27b-2886-48df-a897-7e73f14a88a2@linux.intel.com>
+ <11792a51-aeeb-428f-a793-607ff09558f3@collabora.com>
+ <853a147c-6565-4286-ba4f-60decd3b23e0@linux.intel.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <853a147c-6565-4286-ba4f-60decd3b23e0@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-tegra-vpr-v3-11-d80f7b871bb4@nvidia.com>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
-In-Reply-To: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2208; i=treding@nvidia.com;
- h=from:subject:message-id; bh=UDPMoi7c/r2YYc7KMYasNvRmmrFnb+/8WQEYBHJoT9o=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqRTuGsc2UqwsB18Ps0JNikBH538NWGoIW6yQyT
- jBWP077JiKJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCakU7hgAKCRDdI6zXfz6z
- oWYQD/4zNJzhF0ziH/cfp++YEWF2QzkCBtNhxlib5GS0I1XV2iIewgNdcCwyxmX5iJepLKIfpTF
- MI8uKdvbIH/rmjtfgZhLdieCQdJqxJjnUWpEPpHNDezJRFN5KAGFBa0JyDU8TwgpPWetpMpVjoi
- JtOdfDqoTulUptfcs2SnD464Cc7ULfNYO9pqD/zJ1inq5qNZeBpC/WV29fMPwNgyTk33TcYZgTh
- JQMlIV9KsjBq9UGt3g5as6AyxLkK4n870/MrIjOTAlIlG0s3dMb3TuRSRseoAZzMatNsLKoBfDv
- 3LqE29PjChBqoRhBF+74YxKk1M6vUz1Xk6hntBgcKMnATrZrXQTm9RCgqSx+E0sFxBbO5wkwl4A
- HQWbmwu0/nCUYjnSHWE7QqKWaoDnl7RvUNNkfxKA/JMlXG6qtNpGC0NsOfOBKauSfg/4MVcKd7v
- x3kBNBh+1yJMVNl5dD9HFy3hOs7EDlz5B8wD3o7taIbseFcbfLfuneSlHkB9Ar8bWAqnMQDdNZf
- qvh5iEwypLCoSYFLV96TaHcV80M8qqmGoU7nPSjhbaGLuqtx2VOyK4Lg68R3+G3zfF7XOHOzpGM
- nLfJbw6vtU4JZFhzyD3NXUzQ/3xSUuHcS7uGJf6i4/ph51+s+Zh4Ik7+mTAn6T48fzuMV/Vq6km
- 8q9G/imB3ixEDzQ==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,73 +81,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thierry Reding <treding@nvidia.com>
+Hey Maarten,
 
-This node contains two sets of properties, one for the case where the
-VPR is resizable (in which case the VPR region will be dynamically
-allocated at boot time) and another case where the VPR is fixed in size
-and initialized by early firmware.
+On 01.07.26 16:26, Maarten Lankhorst wrote:
+> Hey,
+>
+>
+> On 7/1/26 15:32, Robert Mader wrote:
+>> Hi Maarten,
+>>
+>> On 01.07.26 12:41, Maarten Lankhorst wrote:
+>>> Hello,
+>>>
+>>> All you have to do is iterate over all planes at runtime until
+>>> one is found that has the pipeline property attached, it's not
+>>> a performance sensitive area and no locking is required for
+>>> testing if plane->color_pipeline_property is NULL.
+>> that's correct - I checked that before and while the amount of code changes necessary to support such a "check-planes-with-cap-enabled-and-reinitialize-without-cap-otherwise" is not big (AFAICS it should be possible with under 100 lines in Weston), it would need to be replicated in various Wayland compositors and lots of apps with native DRM backend (drm_info, Gstreamer KMS sink, MPV, Kodi etc.). The small change proposed here seems like a more elegant solution to me.
+>>
+>> In a previous chat Pekka and Simon seemed to agree, quoting: "< emersion> pq, you mean the cap is advertised regardless of driver support? that sounds like a bug".
+> You misunderstand my comment, I meant this from the kernel side.
 
-The firmware running on the device is responsible for updating the node
-with the real physical address for the fixed VPR case and remove the
-properties needed only for resizable VPR. Similarly, if the VPR is
-resizable, the firmware should remove the "reg" property since it is no
-longer needed.
+Ouch, you are right - and iterating over all planes in 
+`drm_setclientcap()` with `drm_for_each_plane()` indeed looks like the 
+much easier and cleaner solution. Will send out a v2 doing that and 
+ditching the new cap again.
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
-Changes in v3:
-- comment out fixed VPR properties, assume resizable by default
-- rename node to "protected"
----
- arch/arm64/boot/dts/nvidia/tegra264.dtsi | 33 ++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-index 4c701abd25a8..85a18d99d643 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-@@ -24,6 +24,39 @@ shmem_bpmp: shmem@86070000 {
- 			reg = <0x0 0x86070000 0x0 0x2000>;
- 			no-map;
- 		};
-+
-+		vpr: protected {
-+			compatible = "nvidia,tegra-video-protection-region";
-+			status = "disabled";
-+
-+			/*
-+			 * Two variants exist for this. For fixed VPR, the
-+			 * firmware is supposed to update the "reg" property
-+			 * with the fixed memory region configured as VPR.
-+			 *
-+			 * For resizable VPR we don't care about the exact
-+			 * address and instead want a reserved region to be
-+			 * allocated with a certain size and alignment at
-+			 * boot time.
-+			 *
-+			 * The below assumes resizable VPR by default. If the
-+			 * firmwares sets up fixed VPR, it is responsible for
-+			 * adding the missing "reg" property, removing any of
-+			 * the unused properties, as well as adding a unit-
-+			 * address matching the "reg" property.
-+			 */
-+
-+			/* fixed VPR */
-+			/*
-+			reg = <0x0 0x0 0x0 0x0>;
-+			no-map;
-+			*/
-+
-+			/* resizable VPR */
-+			size = <0x0 0x70000000>;
-+			alignment = <0x0 0x100000>;
-+			reusable;
-+		};
- 	};
- 
- 	/* SYSTEM MMIO */
+Thanks!
 
 -- 
-2.54.0
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
