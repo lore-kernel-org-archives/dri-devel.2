@@ -4,56 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 680B1C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 16:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC8ACC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C31F610E3C5;
-	Wed,  1 Jul 2026 16:53:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 459F210E1E6;
+	Wed,  1 Jul 2026 17:05:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="foSZak7+";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="g0vdzVS5";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6018D10E3C5
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 16:53:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782924811;
- bh=F3uHPVS1XECBg+1FJgBsfQzbfVfb5e4T+gqzbMq2A5Q=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=foSZak7+BxtLEwRYgivu+0IOUXwZ3OQ04aj+NCtX/mR7oZk0d2+9TLw6JHLv9hqvH
- gD+XAmcBQwF9Oo0c9klBThjh/SCCPAsGPNYZvpyVx+o+lBUT9/m3TPgWlvBT64AESc
- 1VYYtkRp2dAH/mYKaR93afRjTL1tHfoNvFgEK3LH0j/n6D8lm89ZeViVFCEzORlOM+
- NO6a2s0LYpYd1YW3iAgo9LPKspHAlUFw/CVSibbOudHrMQUoG3fqEVt3205ewyFn69
- a+j72Ht3QSFWjtbjkcndWh+WwsAmy/6BqWzY3mmuyvE8chms1hnDugSMwuCq/S4Le6
- LfnTMMuWfCOpQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A56B317E0CA2;
- Wed,  1 Jul 2026 18:53:30 +0200 (CEST)
-Message-ID: <f56fcbae-3ff5-46c3-bbe7-7eac462f7dd2@collabora.com>
-Date: Wed, 1 Jul 2026 18:53:30 +0200
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9403910E1E6
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:05:38 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-47721cd669cso233861f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:05:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1782925537; x=1783530337;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=HrG3PRlY2nI3ihDFK93hWp4oS9XsKzt4hSWU1Z2kul8=;
+ b=g0vdzVS5tqOLGw1RKE4vD2O6wAqQuXOXwaR5IuFmGaXJMqw2kR9q+x9hOjyeGevLtJ
+ 1C83SljLgF1reqFBumEJ+NDbdLFv+576sWNcruKLFDeuOK5lJNISKpfOvuroX+dvzvgy
+ s5NpIjkFmfkl7wEzkBpnOtWATFasfhTO6NC5jX6BNVWTpvww7Vn8H3uHjap9JNCBm0Zv
+ PELp9YIppgNf8L4tgWXcgJakKZWNG3Gsmpdw7MMDSqxVKIxnBwFp8t2OA4aXNP3sHhvz
+ oKetvkg1iuDpXbmn0Iwjp2XeBXTKe0rwTlTLP0dUtvHzNeqYm62AnQUv20ijUcxMArp+
+ XNoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782925537; x=1783530337;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HrG3PRlY2nI3ihDFK93hWp4oS9XsKzt4hSWU1Z2kul8=;
+ b=Bsn4yXFpuiDzkFFIjD1+/nHi4458ERo//dX6G60+Zk2c//sGonK5opfekBsVLwjjeR
+ a+cGIKi4wqDZeo37GdttZdCXoOEKfbiJNT7Db/aiSnfH9bxOwEX2l984x//N/gs8RZQa
+ g8u6bfTFe3GAslj4BO8fR+NP70sYR0cO0inclkfs62m1P5TxuFpgxrWLk1QkFtu2a7IJ
+ LejRDFPOvLQ2DVAI7LAGiWj11AClR5Wk12N4xgCbgrEjJzyL24exrNrWMb0/aS6S2uEc
+ A0FN+WaXDR1WzEPdf0Mmz1u3z2SDS6MGG53jVy3UrhiBITeL1R09XWcCvgTT6Yf0VSBp
+ 3sCQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RovS5/5bsoru+SbvsmlyS6T41kLePl15pGEPRD+NHZttJGeQ4Gx9+ejR9j+w9k/b4UuyUbqsbENVjw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzMx1Wahpsi6sPkzLa9tUXq2dKg4FLEqdNtKiiE3o6td+sBk2DS
+ hRe3+6SZ9qyAgQl6NFdNpOvn+oaXXlduEbl6TfvMgGzVl9EJaw2pa+cgAFe+W3lTUOPUzXI6jkm
+ +/xVLynvK1Q==
+X-Gm-Gg: AfdE7cnNAlwEfmCi03w/egSZ2Zg4OKMWhob3X3b1VKUf2mG5qhpsCxXkCEyuOuoqNLX
+ VcJvJptmu7T2b6dycJR3+JRLvbJNxOzOvEQjT8Ar6dcAevsI1IFDW6eTrvzT+tdL86gXeFL9BuQ
+ cb04ajzFrfq4c/QpnxrdRBmvJOvO1APiGRJ0lv7ggkRwEU6E4NwzT85IxrYmoHCscI/9MsKoWXv
+ Gf1w1YJpiE1iCLGf+dd9qcys8gBkbG2phvJyEEEqstV+rzU7oxkp7B+wRw5XiEGVJvr7MPont7N
+ r2PuE+DFL8zwfOwrzUjY5vUCDctqAj2BmDOmNP94Y0GY7K2EqQQYKOp4g7Tzs4/YSzYNVp5LAk8
+ aVeGSgH43LV3ial2HebgCFFW1gfF0TIf7CuhpSsSdFkqBRWjwQ/btgfJKwIRqUNF4GnP+ti9MIT
+ PWzXV5ibhKwVp1ReeyKYQYGm6L2aBWqBgN2jM/fSpFLsJEwcQzm8v8Rj6hb1ykFk9BNXJKY2hkw
+ XRD
+X-Received: by 2002:a05:6000:178d:b0:46f:7127:9f70 with SMTP id
+ ffacd0b85a97d-477b3889564mr2285598f8f.18.1782925536585; 
+ Wed, 01 Jul 2026 10:05:36 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db044d4849b7c2d3c964.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:4d48:49b7:c2d3:c964])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-477db3dba0esm1205869f8f.7.2026.07.01.10.05.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2026 10:05:36 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Deepak Rawat <drawat.floss@gmail.com>
+Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/4] drm/hyperv: A fix and a few cleanups
+Date: Wed,  1 Jul 2026 19:05:18 +0200
+Message-ID: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.55.0.11.g153666a7d9bb
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/42] dt-bindings: display: mediatek: Introduce Digital
- Video Output HW
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: krzk+dt@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, p.zabel@pengutronix.de, kernel@collabora.com,
- tzimmermann@suse.de, chunkuang.hu@kernel.org, simona@ffwll.ch,
- linux-arm-kernel@lists.infradead.org, jason-jh.lin@mediatek.com,
- airlied@gmail.com, conor+dt@kernel.org, maarten.lankhorst@linux.intel.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- mripard@kernel.org, devicetree@vger.kernel.org, justin.yeh@mediatek.com
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
- <20260701122057.19648-24-angelogioacchino.delregno@collabora.com>
- <178291581273.4115171.8214844308967079622.robh@kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <178291581273.4115171.8214844308967079622.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=830;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=rwvGk64/KqGl/3VwHg3DfEAfs9Xz+w5wS4bol/ORnhA=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqRUjORN26Upk1BzKM8GBO2F3OHSluAPF8+Oom2
+ Ia+fLtfEJGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCakVIzgAKCRCPgPtYfRL+
+ TmZJB/9MIsOpFCpH2Rs80TZubgLNnhh/OdPfNkjQEQ54y8TfXuR6VUxMRhZzPjOQiuXPs49rQm+
+ z1ivVlCY/u6Is6tVLa3+Carp56kKNfUwFVsbHUiBrn+s2k4zcwED+S1Z/S3njUeulnGjoZ1dubU
+ 6FwB/Qd+ttLWD/n4yolloc3o+EQUW5krvjPnJLZHaTQiN7Ncj8oULnqRf+6e+725pHwNtxNXCaE
+ qlGu3muHkBBH8cXpua7Csfpoiv1xNfNfE3gPtLjjXyAyAwYpNsZe4jqjVH8ME6rseUD5YOtI6VY
+ bslewLxFNQYDzbrqHi+0Dn6wZ+/u+jri4Az/aJxLA8I5ZxDH
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,101 +110,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/1/26 16:23, Rob Herring (Arm) wrote:
-> 
-> On Wed, 01 Jul 2026 14:20:38 +0200, AngeloGioacchino Del Regno wrote:
->> Add documentation for the Digital Video Output (DVO) IP found in
->> the newer generation SoCs MT8196, MT8189 and their variants.
->>
->> This is effectively a more capable block replacing the DisplayPort
->> Interface (DPI/DP_INTF) one found in older SoCs.
->>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->> ---
->>   .../display/mediatek/mediatek,mt8196-dvo.yaml | 142 ++++++++++++++++++
->>   1 file changed, 142 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml
->>
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
+Hello,
 
-Those errors on literally all bindings are quite embarassing. Oops.
+while working on a tree-wide cleanup I found a few issues in the
+drm/hyperv driver that are addressed here.
 
-Already fixed locally, but since this is a huge series, I will allow some time
-for reviews before compulsively pushing a v2.
+While the first patch is a fix, the issue is so old (from 2021, included
+in v5.14-rc1) that applying the series during the next merge window is
+probably the right choice.
 
-Cheers,
-Angelo
+Best regards
+Uwe
 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: ignoring, error in schema: properties: compatible
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> 	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.yaml: properties:compatible: [{'const': 'mediatek,mt8189-dp-dvo'}, {'const': 'mediatek,mt8189-edp-dvo'}, {'const': 'mediatek,mt8196-edp-dvo'}] is not of type 'object', 'boolean'
-> Traceback (most recent call last):
->    File "/usr/local/bin/dt-doc-validate", line 8, in <module>
->      sys.exit(main())
->               ~~~~^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
->      ret |= check_doc(f)
->             ~~~~~~~~~^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
->      dtsch.check_schema_refs()
->      ~~~~~~~~~~~~~~~~~~~~~~~^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 242, in check_schema_refs
->      self._check_schema_refs(resolver, self)
->      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
->      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
->      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->                              has_constraint=has_constraint)
->                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
->      self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
->      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->                              has_constraint=has_constraint)
->                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
->      ref_sch = resolver.lookup(schema['$ref']).contents
->                ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
->      retrieved = self._registry.get_or_retrieve(uri)
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
->      registry = self.crawl()
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
->      id = resource.id()
->    File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
->      id = self._specification.id_of(self.contents)
->    File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
->      return contents.get("$id")
->             ^^^^^^^^^^^^
-> AttributeError: 'list' object has no attribute 'get'
-> Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-dvo.example.dtb: /example-0/dvo@324c0000: failed to match any schema with compatible: ['mediatek,mt8196-edp-dvo']
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.kernel.org/project/devicetree/patch/20260701122057.19648-24-angelogioacchino.delregno@collabora.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
+Uwe Kleine-König (The Capable Hub) (4):
+  drm/hyperv: Unregister pci driver in error path before module unload
+  drm/hyperv: Explicitly set subvendor and subdevice for pci match array
+  drm/hyperv: Drop useless empty remove callback
+  drm/hyperv: Move MODULE_DEVICE_TABLE to the device_id arrays
+
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
+
+
+base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
+-- 
+2.55.0.11.g153666a7d9bb
 
