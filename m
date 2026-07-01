@@ -4,88 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1889C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 18:07:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6BA9C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 18:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4FB10E09D;
-	Wed,  1 Jul 2026 18:07:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D856810E3E3;
+	Wed,  1 Jul 2026 18:16:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="gcvbEmFN";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="iOcyrwU5";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Ra3F39Ti";
 	dkim-atps=neutral
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C4010E09D
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:07:04 +0000 (UTC)
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
- by mailfout.phl.internal (Postfix) with ESMTP id 27344EC00FB;
- Wed,  1 Jul 2026 14:07:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-09.internal (MEProxy); Wed, 01 Jul 2026 14:07:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1782929224;
- x=1783015624; bh=pcS+lZQq4yNpKC+RPjg+DV+HTSzs32SQph4KqdacYYM=; b=
- gcvbEmFNUOYmmRZUCYW4lLbB7Gx8bs4E60P5PsjgsM6G4bhqQ0YXuoFNICto7csV
- 1KZu49kueMvqznGIi6M6ov/7xmapCpCsy5dBFleuZ0dXJBPaEsU9dBS/kC5l4W1t
- Dcmu9dgAKOK1x/mDq19yML9GsM7qbz6zvYFcIc9CqYXtSzrZNMh2VwTvHQtizUX6
- NP3ElZbO5e17bWlIbfRtK8R6KE8w1yB4xLf0mcL3tH4MdaQBtezH6qF1ZCLBVFqP
- sN0OJcE1aLBTJxq2epQ4vqfaCxXUbFFFd42JOfggPnYf/snzCK9Je9gyTjPX4Omj
- SjpElNkQuk3Qr7lN+K7sLA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782929224; x=
- 1783015624; bh=pcS+lZQq4yNpKC+RPjg+DV+HTSzs32SQph4KqdacYYM=; b=i
- OcyrwU5TIggvOJieta1y+pnDr8IlLsmAMmizOzvLsoGY4N/+S1NAsm5Fx/zcPQCY
- vjRanoGRTjSafIixteb4e3c8TlBNrJiZ2MGa9y3MKov9Zy0m0+RYBky/+WZjbfrv
- RMeUlV3lc6XSIzMN+RPMEOpIjSVCS63FI4e2LeBbraG+ooAt/sHS+U94XyqGmZ8q
- 8gBPVozyj5bgQretznAMq3fbEPoEZ1WLLnPbqh1PbMlrcEeWSVcN4sSenJWjumRj
- Ya/gwRGbP+/XKJ4w2xhSGvy1vtU6qd8OBFZtSTdN2mozNrZxIg+Q+AsFKMIe6xnR
- pQFSDFsY+n+jEtTsavSlA==
-X-ME-Sender: <xms:R1dFavy1rllvAqheCszWFioW3E1RJBsDYYwuG-d6Mgx_-arp5ulQbQ>
- <xme:R1dFatpinsUib8YbOcw7vSTTZ7UJf6iNEiPGRKqVBHjcUZttSgv4gSxMcDLnLvFGj
- ZCWzgscG2aRAehvi5YIGCUbiFCkgm1G19dGSizX0w7PolR6-IOr>
-X-ME-Received: <xmr:R1dFalkUKBvnMGvUugt8UqwipjHBZpPl90E01aId7HiTTWIY6F4XbKWTsws>
-X-ME-Proxy-Cause: dmFkZTEsqF3YcRMX1ZByFD9HqbYscsOK9I0FwN8j50pdfvmv36eqfHTwa4zN5nAQHA4qYk
- nPHLEFUu9x60BiC3L9ob5nuN7E3/c8akgg0Ie5g3eL7MpluAS/YEI81k0QPgOtmixhZ81T
- 26gai6XxLr3SHT8j+tvMCFvHaOnK53LAUjqFN5ATPC1f+pac0e0HrR/0r9CHe77/OaIAQk
- ZGSmzgNY8j2m7cmK7kDESiGn3Z97yYDSB32vUMKD2SGVK7n4zbMJNLLIr9jgmBtR2AMrt/
- RdgmXmbfLC+ObQ2R83VT1Bu+PayFWHslz/SQmcMSjp34LRzvSLpXV2Rf3SCKgJLiCU0+qE
- uwYGBFspkiu6Yv6H1Dow08w9FnCa6Nn6J2wJPQn/mF5GbAkYUgwUvBQ8CMjwr4makqJTLH
- h8EOBsFy7ajCUOu9o50KtUD6DrWLr81ryvxzEBznUfO9271AKTRV7vX+A7ytkQYQ29FaiV
- YGDr+ZwndSGqrdsGZfJ6pDT4u7llRzaFmnqLQm6WSclAhJKBTl3gTr2ye8v75vm0Rhop89
- zLmTRkQUy3ZiOMLWuMYJxlQNFM2KzTLBRVfMAX1fdC5zMAjVJg7C9Wju+cxdJEghdA4FAn
- 2J7hWB3AEn5WIBYtkg2gbojz2jXDEmyLh7mfI4fkjM0Wz1B7U2nl31ZZbloA
-X-ME-Proxy: <xmx:R1dFanU_0ufR96_JOPu5jgonk_ZVxbfGoPQk31DYqoROb_zdFYGkGA>
- <xmx:R1dFapotTiiSf1Z1RHsjVw9R_vfbjkjZnizKXa77sk2YhJWOqA7T7g>
- <xmx:R1dFaoUS5AlUKIVQ7cjM_h5kfq__panLvdy4efT4EaDW7WtdbOF3kQ>
- <xmx:R1dFaqFDSQFuYaYkCih5eMAQCNN1zTtxQxW-uVVm4Tti6ZgMxr9OrQ>
- <xmx:SFdFahcwd0hPubhQt8LEeu4CzGRyQxeZc0n1ImdCnfgxJQC48l_ls4qj>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 1 Jul 2026 14:07:02 -0400 (EDT)
-Date: Wed, 1 Jul 2026 12:07:00 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Michael Guralnik <michaelgur@nvidia.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, alex@shazbot.org
-Subject: Re: [PATCH v10 3/4] vfio/pci: implement get_pci_tph and DMA_BUF_TPH
- feature
-Message-ID: <20260701120700.58bcafa1@shazbot.org>
-In-Reply-To: <20260630224328.3218796-4-zhipingz@meta.com>
-References: <20260630224328.3218796-1-zhipingz@meta.com>
- <20260630224328.3218796-4-zhipingz@meta.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF04F10E3E3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 18:16:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1782929764;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SQoEdvMv6/pXDC6SALGlSvWerPwNr5G1/PmjYcz5yCE=;
+ b=Ra3F39TiGqhhX6QbHdhBIGR0QqwTTOCytwVbYmF6Po+rRJxlIL3XhRm5nsFDmVXFlU9fFt
+ 9eZcOf6UOn4L95M2CfxevtufBqxipn/+VApAtTe/O6jKIRRzDHuP4aNvbxvjPGuDiC+iZj
+ OVHdchxts7xzW1BoauTERTxtGCGSk+Q=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-677-07lXfMMgP2WWzaIgWcitwg-1; Wed, 01 Jul 2026 14:16:03 -0400
+X-MC-Unique: 07lXfMMgP2WWzaIgWcitwg-1
+X-Mimecast-MFC-AGG-ID: 07lXfMMgP2WWzaIgWcitwg_1782929763
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-51c1d7886cdso15919321cf.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 11:16:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782929763; x=1783534563;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SQoEdvMv6/pXDC6SALGlSvWerPwNr5G1/PmjYcz5yCE=;
+ b=NSRu2K7yjQ/KnIUTTwhoThV/JLRDAmW4zlsquoKi2DtvuSl39X+b49yNW7n4VfzK+s
+ r7S8Ww2SPsf6+6oFmUA53OV1MuGaxOMbt89AVlYJaSUMSdm8/z/i3rX7/jvhsweo8n4L
+ wL0gtErNKzI41RUvU62CQhhNB+aBRPRdohDEzeQgv5E3VPGm3c2ZsFiYAV+cCEYZZqeX
+ oj3RzjjzaSSf6oQj2yU74JWHBWV/x1v2LDpy0ghRHSSeKgXs99GYBJRzLrpesPedZdaw
+ NW052NExYdJAXTab095gW/495Vbc5o7PmLO/5zeaO27249+3/Foxm8ExRSGl3gHyFuZm
+ r92g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9lk+nOe/fd29ju2Bb7RpBISGve14r9IXZHjKoiKFHRwgdZiiQHf+3dYbYCakOpdquslhF0/CAlAG4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7BMf6N6vxyq4zjDivdF48j8RTSoWvHQFEU1e/W4VudkcWmYKm
+ sSPPA2ben0oad1SoPWHN4+JNhHBW8u5wu51NevqJX01LvEW78CDGofQR0S5d+e5vhEfiQYDeVBe
+ FSmFWotdVb+Wy7OwXmF9iwl2OaHRIUHIRfVNOCBXUdIq0quRRplvl1JdX/P7HSrOhP0hS9w==
+X-Gm-Gg: AfdE7cmtg1ykRy31/I2U6b/dn0Qu/PYhqUENqpw1VAZXF0ssH7+Hi+A2ySwx6aBqaFH
+ 4U8fcxZ1PjAFUJasCz7EM5G5rFnqFZwiwD4vUDd4aPcH1l8MZiKJf8IQtjyfhuAPs4CFzJYm/Uw
+ 778RqzKlmzC5qUMiJvHPT8Gj4H8aOQFtv6lwU0GfsBYxrl+XWknL2GNpZ3PEF9qnGNF795IcK1n
+ hOjwTNCAl+vi/5/PusadGsr3C/krjSsGHoifrt7kkY1YgGxdPqEAXrqLSP4ZDcOq35gdAScwpc2
+ zqwH+O0EvBL3u83KGquSokB+qbl6H9dMIkC7XnzNf6rw8ObFaeWTN8Qs8wZsvmEqV3NAzfoFbYY
+ f4LMi3RQ=
+X-Received: by 2002:a05:622a:997:b0:51c:a70:5ed with SMTP id
+ d75a77b69052e-51c26a7ea3fmr38528921cf.30.1782929762923; 
+ Wed, 01 Jul 2026 11:16:02 -0700 (PDT)
+X-Received: by 2002:a05:622a:997:b0:51c:a70:5ed with SMTP id
+ d75a77b69052e-51c26a7ea3fmr38528451cf.30.1782929762509; 
+ Wed, 01 Jul 2026 11:16:02 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-51c10a360e0sm51905511cf.30.2026.07.01.11.16.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2026 11:16:01 -0700 (PDT)
+Message-ID: <b23948367e3580f45c1d6d61db6e38b582f219db.camel@redhat.com>
+Subject: Re: [PATCH v2 1/4] Revert "nouveau/gsp: fix suspend/resume
+ regression on r570 firmware"
+From: lyude@redhat.com
+To: Danilo Krummrich <dakr@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Timur Tabi
+ <ttabi@nvidia.com>,  Dave Airlie <airlied@redhat.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Ben Skeggs	 <bskeggs@nvidia.com>, Kees
+ Cook <kees@kernel.org>, Simona Vetter <simona@ffwll.ch>,  David Airlie
+ <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard
+ <mripard@kernel.org>,  Mel Henning <mhenning@darkrefraction.com>
+Date: Wed, 01 Jul 2026 14:16:00 -0400
+In-Reply-To: <DJMIGDHFYCIA.271V0T10TID2J@kernel.org>
+References: <20260629224350.2870201-1-lyude@redhat.com>
+ <20260629224350.2870201-2-lyude@redhat.com>
+ <akOuPQ37-zxIJWWH@ashevche-desk.local>
+ <DJMIGDHFYCIA.271V0T10TID2J@kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: YcHbgpsCBYjpt6-6lZAsl9RC6FcmH4rGTZ29Z5XrTtY_1782929763
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,103 +109,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 30 Jun 2026 15:42:25 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
+Sounds good to me - will update the patches with this on the next
+respin, which should get sent out in a moment.
 
-> Implement dma-buf get_pci_tph for vfio-pci exported dma-bufs and add
-> VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can publish TPH metadata
-> for a VFIO-owned device.
+On Tue, 2026-06-30 at 18:05 +0200, Danilo Krummrich wrote:
+> On Tue Jun 30, 2026 at 1:53 PM CEST, Andy Shevchenko wrote:
+> > On Mon, Jun 29, 2026 at 06:42:33PM -0400, Lyude Paul wrote:
+> > > This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18.
+> > >=20
+> > > It turns out this looked like the right fix on some systems, but
+> > > it's not -
+> > > as this causes runtime PM to actually fail on many a laptop.
+> > >=20
+> > > [I have set the fixes to an older commit then the one that is
+> > > reverted
+> > > here, because when applied with the other patches in this series,
+> > > this
+> > > appears to /fully/ fix runtime PM in addition to the regression]
+> >=20
+> > No need to have this in the commit message, move it to the comment
+> > block...
+> >=20
+> > > Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
+> >=20
+> > I'm not sure, actually, that this is a correct approach. You can't
+> > revert
+> > something that never appeared (in time range between 53dac0623853
+> > and
+> > 8302d0afeaec). Have you consulted with the stable kernel process
+> > documentation
+> > and/or respective maintainers?
 >=20
-> 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
-> uAPI carries both with explicit validity flags, and get_pci_tph()
-> returns the value matching the importer's requested namespace or
-> -EOPNOTSUPP.
+> I think it should be as simple as picking
 >=20
-> Publish and read the TPH descriptor under dmabuf->resv, matching the
-> locking used for other importer-visible dma-buf state. The SET ioctl
-> takes dma_resv_lock_interruptible(), while the callback runs under
-> DMA-buf's asserted resv lock.
+> Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on
+> r570 firmware")
+> Cc: <stable@vger.kernel.org> # v6.19+
 >=20
-> Reject requests the device cannot consume as a completer:
-> pcie_tph_completer_type() must report at least
-> PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY, and Extended ST requires
-> PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH. Make PROBE follow the same hardware
-> gate so the feature only probes as supported when the device can really
-> consume it.
+> for this commit and keep patches 2, 3 and 4 as they are.
 >=20
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->  drivers/vfio/pci/vfio_pci_core.c   |  3 +
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 99 +++++++++++++++++++++++++++++-
->  drivers/vfio/pci/vfio_pci_priv.h   | 12 ++++
->  include/uapi/linux/vfio.h          | 43 +++++++++++++
->  4 files changed, 155 insertions(+), 2 deletions(-)
+> The commit message of this revert can then explain that the commit
+> that was
+> attempted to fix with this revert, i.e. commit 53dac0623853
+> ("drm/nouveau/gsp:
+> add support for 570.144") is fixed with a different, subsequent
+> approach.
 >=20
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci=
-_core.c
-> index a28f1e99362c..c7d6902bc61b 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1572,6 +1572,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device =
-*device, u32 flags,
->  		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
->  	case VFIO_DEVICE_FEATURE_DMA_BUF:
->  		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
-> +	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-> +		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-> +							 argsz);
->  	default:
->  		return -ENOTTY;
->  	}
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
-ci_dmabuf.c
-> index c16f460c01d6..8de72f9e7502 100644
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> @@ -3,6 +3,7 @@
->   */
->  #include <linux/dma-buf-mapping.h>
->  #include <linux/pci-p2pdma.h>
-> +#include <linux/pci-tph.h>
->  #include <linux/dma-resv.h>
-> =20
->  #include "vfio_pci_priv.h"
-> @@ -19,7 +20,14 @@ struct vfio_pci_dma_buf {
->  	u32 nr_ranges;
->  	struct kref kref;
->  	struct completion comp;
-> -	u8 revoked : 1;
-> +
-> +	/* Protected by dmabuf->resv. */
-> +	u16 tph_st_ext;
-> +	u8 tph_st;
-> +	bool revoked;
-> +	u8 tph_st_valid:1;
-> +	u8 tph_st_ext_valid:1;
-> +	u8 tph_ph:2;
+> This seems correct, as reverting a bad fix does not claim to solve
+> the original
+> problem.
+>=20
+> Thanks,
+> Danilo
 
-Since it seems there will be a v11, note again the comment made here on
-v9:
-
-On Tue, 23 Jun 2026 22:24:54 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
-> On Tue, Jun 23, 2026 at 11:17=E2=80=AFAM Alex Williamson <alex@shazbot.or=
-g> wrote:
-> >
-> > Nit, it would be more accurate to say:
-> >
-> >         /*
-> >          * Updates protected by dmabuf->resv, @revoked additionally
-> >          * protected by memory_lock.
-> >          */
-> >
-> > revoked also has an unprotected read, but it's previously existing and
-> > benign, and likely just needs a READ_ONCE() annotation.
-> > =20
->=20
-> Agreed, I'll update the comment and add READ_ONCE() as well.
-
-The READ_ONCE was added, but the comment remains as in v9.  The
-READ_ONCE rationale should be described in the commit log too.  Thanks,
-
-Alex
