@@ -4,42 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A3FC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:14:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38515C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 10:14:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12CA010E347;
-	Wed,  1 Jul 2026 10:14:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5974A10E349;
+	Wed,  1 Jul 2026 10:14:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="fCJ5ImEc";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Jq3n2/W2";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43D8510E347;
- Wed,  1 Jul 2026 10:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782900837;
- bh=ZQWJyLX7UxBynIft5IW9JjFWP9zLMapOq6iJxTycB+4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=fCJ5ImEcsiawkGgGikQX8rOnygvRp/uOTc2As7CXH3Oi2hlwHgaVjHBRFsxTGHhQF
- TPKz9cLcbWBZNNNPveWkVr3IQmtVDqOunNgESKXQ4ml21oUynrGNJVY5tORB1/P6hx
- AHOdNqsyqWEqsxueuY8Z+w9JybdBDrUww+HtttRgj+m8CNl8wKjtnqLs50QzV3Jykt
- awilGXOkjJa4+6HzIf6lmzFQejIfac1sa7sGtfsC7vZZgKzIlScIBSE+T47DuWDpLK
- 4lVFLZYn3jb+1S+FO78ygWgvRsn6QBXmXnZc+m5ste94lMHrH99Z6e7rrqD3gJJQtG
- 4UcPdnPuk3C5w==
-Message-ID: <6e41bc45-82a2-4cd3-a666-ade919acd26b@lankhorst.se>
-Date: Wed, 1 Jul 2026 12:14:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/xe: Avoid using stolen memory for DPT.
-To: Matthew Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-References: <20260630135523.1775379-1-dev@lankhorst.se>
- <20260630135523.1775379-2-dev@lankhorst.se>
- <55a8612b-65af-4e15-ae5d-a27a55064f84@intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <55a8612b-65af-4e15-ae5d-a27a55064f84@intel.com>
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3713910E349
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 10:14:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=MUaCqF1q3dPMZyHX/FvBhYePfpljaSOgbae4IlMl/7c=; b=J
+ q3n2/W2PE1G0ufaQUuEkb5PGNvOxo4xyyS0B3CURISeHriJ2lMxYGB+srByyRNDx
+ iJFxhhW8R+M561q/PGL/pRC7XvFNwN50kb8xsjAEehWUSmRRrJT/9OKF3VB0apsY
+ EfbfnQ9B96v5S1l8a4n0uU84KVqcelHQZ02mU8frUg=
+Received: from andyshrk$163.com ( [61.154.14.86] ) by
+ ajax-webmail-wmsvr-40-131 (Coremail) ; Wed, 1 Jul 2026 18:13:31 +0800 (CST)
+X-Originating-IP: [61.154.14.86]
+Date: Wed, 1 Jul 2026 18:13:31 +0800 (CST)
+From: "Andy Yan" <andyshrk@163.com>
+To: "Chen Ni" <nichen@iscas.ac.cn>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ jonas@kwiboo.se
+Subject: Re:[PATCH] drm/rockchip: dw_hdmi: Fix error handling for
+ drm_atomic_get_bridge_state()
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260701030835.2662123-1-nichen@iscas.ac.cn>
+References: <20260701030835.2662123-1-nichen@iscas.ac.cn>
+X-NTES-SC: AL_Qu2TAPWbv0Aq5yacY+kcnkYbhuw6X8K4uPwi2YFec84Fnjzh1Ss4TW5lMHLQ/8G2MB+vkQS3bB510sl0Q6Z0V/lizlQLR1ziFtXzwkB7yA==
+Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Message-ID: <20bd25ba.8f5d.19f1d2b6786.Coremail.andyshrk@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: gygvCgD3f71L6ERqef8UAA--.5696W
+X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbCxQv3VmpE6EvGTQAA3p
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,86 +61,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
-
-On 6/30/26 16:10, Matthew Auld wrote:
-> On 30/06/2026 14:55, Maarten Lankhorst wrote:
->> On systems with media GT, extra latency is added when accessing stolen
->> memory when the GT is in MC6. Since we additionally aren't counting how
->> much memory is used for stolen and we could in theory fill up the
->> entire stolen area with DPT's, avoid using stolen and only use the
->> default memory region.
->>
->> Additionally, this may also result in random system hangs under load.
->>
->> Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
->> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-> 
-> Fixes: 775d0adc01a5 ("drm/xe/fbdev: Limit the usage of stolen for LNL+")
-> Cc: <stable@vger.kernel.org> # v6.12+
-> 
-> ?
-> 
->> ---
->>   drivers/gpu/drm/xe/display/xe_fb_pin.c | 33 +++++++-------------------
->>   1 file changed, 8 insertions(+), 25 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
->> index 5f4a0cd8deca0..73469ea5f333d 100644
->> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
->> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
->> @@ -164,31 +164,14 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
->>           dpt_size = ALIGN(intel_rotation_info_size(&view->rotated) * 8,
->>                    XE_PAGE_SIZE);
->>   -    if (IS_DGFX(xe))
->> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
->> -                           dpt_size, ~0ull,
->> -                           ttm_bo_type_kernel,
->> -                           XE_BO_FLAG_VRAM0 |
->> -                           XE_BO_FLAG_GGTT |
->> -                           XE_BO_FLAG_PAGETABLE,
->> -                           pin_params->alignment, false);
->> -    else
->> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
->> -                           dpt_size,  ~0ull,
->> -                           ttm_bo_type_kernel,
->> -                           XE_BO_FLAG_STOLEN |
->> -                           XE_BO_FLAG_GGTT |
->> -                           XE_BO_FLAG_PAGETABLE,
->> -                           pin_params->alignment, false);
->> -    if (IS_ERR(dpt))
->> -        dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
->> -                           dpt_size,  ~0ull,
->> -                           ttm_bo_type_kernel,
->> -                           XE_BO_FLAG_SYSTEM |
->> -                           XE_BO_FLAG_GGTT |
->> -                           XE_BO_FLAG_PAGETABLE |
->> -                           XE_BO_FLAG_FORCE_WC,
->> -                           pin_params->alignment, false);
-> 
-> Technically this changes the behaviour for dgpu, where it looks like it will fall back to system memory? Surprised that would even work though, and not get a bunch of pipe errors? I would assume VRAM is a requirement.
-
-I just tried it out to answer the question, turns out this fails spectacularly!
-It gives a pipe fault error on every vblank on my bmg.
-
-It probably never worked, but as long as we never fall back it never was an issue.
-The new behavior is correct, I'll update the wording of the commit message for this.
-
-> Either keeping the same behaviour, or updating the commit to mention this change, or splitting that out (maybe needs a separate fixes?),
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> 
-Can I extend that to patch 2 and 3 too?
-
->> +    dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
->> +                       dpt_size,  ~0ull,
->> +                       ttm_bo_type_kernel,
->> +                       XE_BO_FLAG_VRAM_IF_DGFX(tile0) |
->> +                       XE_BO_FLAG_GGTT |
->> +                       XE_BO_FLAG_PAGETABLE |
->> +                       XE_BO_FLAG_FORCE_WC,
->> +                       pin_params->alignment, false);
->>       if (IS_ERR(dpt))
->>           return PTR_ERR(dpt);
->>   
-> 
-
+Ckhp77yMCgoKQXQgMjAyNi0wNy0wMSAxMTowODozNSwgIkNoZW4gTmkiIDxuaWNoZW5AaXNjYXMu
+YWMuY24+IHdyb3RlOgo+VGhlIGRybV9hdG9taWNfZ2V0X2JyaWRnZV9zdGF0ZSgpIGZ1bmN0aW9u
+IHJldHVybnMgYW4gZXJyb3IgcG9pbnRlciBvbgo+ZmFpbHVyZSwgbm90IE5VTEwuIEZpeCB0aGUg
+Y2hlY2sgdG8gdXNlIElTX0VSUigpIHRvIGNvcnJlY3RseSBoYW5kbGUKPmFsbG9jYXRpb24gZmFp
+bHVyZXMuCj4KPkZpeGVzOiBkYzcwMjcyY2MxODQgKCJkcm0vcm9ja2NoaXA6IGR3X2hkbWk6IFBy
+b3BhZ2F0ZSBidXMgZm9ybWF0IHRvIGRpc3BsYXkgZHJpdmVyIikKPlNpZ25lZC1vZmYtYnk6IENo
+ZW4gTmkgPG5pY2hlbkBpc2Nhcy5hYy5jbj4KCgogICBSZXZpZXdlZC1iee+8mkFuZHkgWWFuIDxh
+bmR5c2hya0AxNjMuY29tPgoKPi0tLQo+IGRyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19oZG1p
+LXJvY2tjaGlwLmMgfCAyICstCj4gMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRl
+bGV0aW9uKC0pCj4KPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvZHdfaGRt
+aS1yb2NrY2hpcC5jIGIvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2R3X2hkbWktcm9ja2NoaXAu
+Ywo+aW5kZXggY2ZmYzBhZjUxOTBmLi43NjZjZjIxYTRiZTcgMTAwNjQ0Cj4tLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vcm9ja2NoaXAvZHdfaGRtaS1yb2NrY2hpcC5jCj4rKysgYi9kcml2ZXJzL2dwdS9k
+cm0vcm9ja2NoaXAvZHdfaGRtaS1yb2NrY2hpcC5jCj5AQCAtMjg3LDcgKzI4Nyw3IEBAIHN0YXRp
+YyB1MzIgZHdfaGRtaV9yb2NrY2hpcF9nZXRfYnVzX2Zvcm1hdChzdHJ1Y3QgZHJtX2VuY29kZXIg
+KmVuY29kZXIsCj4gCQlyZXR1cm4gMDsKPiAKPiAJYnJpZGdlX3N0YXRlID0gZHJtX2F0b21pY19n
+ZXRfYnJpZGdlX3N0YXRlKGNvbm5fc3RhdGUtPnN0YXRlLCBicmlkZ2UpOwo+LQlpZiAoIWJyaWRn
+ZV9zdGF0ZSkKPisJaWYgKElTX0VSUihicmlkZ2Vfc3RhdGUpKQo+IAkJcmV0dXJuIDA7Cj4gCj4g
+CWlmIChicmlkZ2Vfc3RhdGUtPmlucHV0X2J1c19jZmcuZm9ybWF0ICE9IE1FRElBX0JVU19GTVRf
+RklYRUQpCj4tLSAKPjIuMjUuMQo+Cj4KPl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCj5MaW51eC1yb2NrY2hpcCBtYWlsaW5nIGxpc3QKPkxpbnV4LXJvY2tj
+aGlwQGxpc3RzLmluZnJhZGVhZC5vcmcKPmh0dHA6Ly9saXN0cy5pbmZyYWRlYWQub3JnL21haWxt
+YW4vbGlzdGluZm8vbGludXgtcm9ja2NoaXAK
