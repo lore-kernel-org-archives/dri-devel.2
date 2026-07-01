@@ -4,53 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5656C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:22:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6B62C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:27:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB4910EF76;
-	Wed,  1 Jul 2026 12:22:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB0C10E36B;
+	Wed,  1 Jul 2026 12:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Pqz3I5hF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YMX46vOG";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF8010EF7F
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:21:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908517;
- bh=uu8wJ1s5TWs2lno7lmR5awOKX1/OE5RoeHGMPhn0IuQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Pqz3I5hFJsi0cdI86xdAiBVhN0NtAe+ilBgw6glokfvpo8r7iwqBuW3vR8fX1OWpL
- nKgo6k8GfGHLODhfYp52nwQS8edL5pslfMJI1Zj0ec+n5BnAKiK8Lb9A4beidPz92u
- lUIE/Zwk8HIBwHVNBT1yRp1CO9Ts1qJzHbfUadwEsXxaCZwaN8dsadgHLpcZ96BeG2
- YDDtTiW0oK9W60Oho25EYrWSz0fvYPgiSGKM7uKiLhn8H9Hye8NA/qos859qJy00ii
- y1/lUimaZOiRcoybVfAtnR5izy8ISH+ItGXISVbcfyklQUZT0S5SeyvaAsdBLIFHco
- OZuR6w99I0CNg==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 21C8717E0F44;
- Wed,  1 Jul 2026 14:21:57 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH 42/42] drm/mediatek: mtk_drm_drv: Fail init only if all paths
- are invalid
-Date: Wed,  1 Jul 2026 14:20:57 +0200
-Message-ID: <20260701122057.19648-43-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 158C210E36B
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:26:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CA821417D1;
+ Wed,  1 Jul 2026 12:26:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 307E21F000E9;
+ Wed,  1 Jul 2026 12:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782908818;
+ bh=52TWOxi0a9pzDOPVJc9NbYPQ8WvoOLt636S3MKAbHJA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YMX46vOGtug9PRPhaH8+H3L/5/KdufZTz7PM5e2MY4oETmZAvnVYqLv2bcaIMiV1c
+ 185urfMN9u5KoQo7IamVLySokmd0AMTJrlbag6A6ilUyW4Wa6YRh/cyNPsLhNDil1J
+ gj6SZsmezNXYB3La4yiM+5mLoRVJaHbQ3bMYV9RQFIz7/3XrT+vf1PpMWaCsxd1H1v
+ o5+bFg8JZM5+RDVXjcY69jNUYF6OwIA9G3qm8cOL0mcf72CxTh6QB8xDCPDWArDp9w
+ WBvKt5DYeDLvxYgYIStdw/mR7Mkm24Nq2tFDGLbuHEAk5tKO3UaqsbAOoEKMHiM8UM
+ sZvd//fWXmbvQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 02/12] phy: phy-mtk-dp: Rename regs to regmap in struct
+ mtk_dp_phy
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
+ olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260701122008.19509-3-angelogioacchino.delregno@collabora.com>
+References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
+ <20260701122008.19509-3-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 12:26:57 +0000
+Message-Id: <20260701122658.307E21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,76 +56,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Up until now, if not all display controller paths were valid, the
-driver would fail probing and refuse to bind components: while
-that was a good idea before, now that mediatek-drm gained much
-more flexibility, it is finally possible to gracefully handle
-this situation and register only the valid paths while leaving
-the invalid ones unregistered, without any crash.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Count how many output paths are found, and then count how many
-have failed probing: if there is at least one valid path, avoid
-erroring out, so that at least some outputs will just work.
+Pre-existing issues:
+- [High] Missing NULL check for `dev->platform_data` before dereferencing.
+- [High] Missing `remove` callback to clean up PHY lookup leads to a memory=
+ leak and use-after-free.
+--
 
-Of course, any path failing is not a clean situation and must be
-resolved: in this case, function mtk_crtc_create() still prints
-error messages so, even though some output works, that will not
-go unnoticed, as a quick check in kmsg will show the errors that
-made a certain path not to register.
+commit a1a96e429cf3345472aae1b06f6ffe5b31edee81
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index f5c9fe1588d0..65a891815408 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -379,6 +379,8 @@ static int mtk_drm_kms_init(struct drm_device *drm)
- 	struct mtk_drm_private *priv_n;
- 	struct device *dma_dev = NULL;
- 	struct drm_crtc *crtc;
-+	int num_failed = 0;
-+	int num_paths = 0;
- 	int ret, i, j;
- 
- 	if (drm_firmware_drivers_only())
-@@ -445,15 +447,29 @@ static int mtk_drm_kms_init(struct drm_device *drm)
- 			if (!priv_n->data->output_paths[i].len)
- 				continue;
- 
-+			num_paths++;
-+
-+			dev_vdbg(drm->dev,
-+				 "[CTRL%d-CRTC%d] Path Len:%d, Controller Order:%u\n",
-+				 j, i, priv_n->data->output_paths[i].len,
-+				 priv_n->data->output_paths[i].order);
-+
- 			ret = mtk_crtc_create(drm, i, j,
- 					      priv_n->data->conn_routes,
- 					      priv_n->data->num_conn_routes);
-+			if (ret == 0)
-+				break;
- 
--			if (ret)
--				goto err_component_unbind;
-+			num_failed++;
- 		}
- 	}
- 
-+	if (num_failed == num_paths) {
-+		dev_err(drm->dev, "No valid Display Controller path! Going out.\n");
-+		ret = -ENODEV;
-+		goto err_component_unbind;
-+	}
-+
- 	/* IGT will check if the cursor size is configured */
- 	drm->mode_config.cursor_width = 512;
- 	drm->mode_config.cursor_height = 512;
--- 
-2.54.0
+In preparation to perform further cleanups and to extend the driver to
+support more SoCs, rename the regs member to regmap to improve readability,
+as this is a common name across many kernel drivers for a struct regmap.
 
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index d7024a1443358..bf7b3a95e72d2 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+[ ... ]
+> @@ -176,7 +176,7 @@ static int mtk_dp_phy_probe(struct platform_device *p=
+dev)
+
+[Severity: High]
+This is a pre-existing issue, but is it possible for dev->platform_data to =
+be
+NULL here?
+
+Earlier in mtk_dp_phy_probe(), dev->platform_data is dereferenced directly
+without a check:
+
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
+	...
+	struct regmap *regs;
+
+	regs =3D *(struct regmap **)dev->platform_data;
+	if (!regs)
+	...
+}
+
+If the driver is manually bound via sysfs (or otherwise instantiated without
+platform data), dev->platform_data will be NULL.
+
+Should the code validate that dev->platform_data is not NULL before
+dereferencing it to avoid a kernel panic?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this driver leak the
+phy_lookup struct and leave a dangling pointer if it gets unbound?
+
+In mtk_dp_phy_probe(), when !dev->of_node is true, a lookup entry is
+registered:
+
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
+	...
+	if (!dev->of_node)
+		phy_create_lookup(phy, "dp", dev_name(dev));
+
+	return 0;
+}
+
+However, mtk_dp_phy_driver does not have a .remove callback to call
+phy_remove_lookup():
+
+drivers/phy/mediatek/phy-mtk-dp.c:
+static struct platform_driver mtk_dp_phy_driver =3D {
+	.probe =3D mtk_dp_phy_probe,
+	.driver =3D {
+		.name =3D "mediatek-dp-phy",
+	},
+};
+
+If the driver is unbound, the phy_lookup struct is leaked and remains linked
+in the global phys list. Since the phy struct gets freed by the
+device-managed subsystem, subsequent device probes iterating the PHY lookup
+list would trigger a use-after-free.
+
+Could a .remove callback be added to unregister the lookup and prevent this?
+
+>  	if (!dp_phy)
+>  		return -ENOMEM;
+> =20
+> -	dp_phy->regs =3D regs;
+> +	dp_phy->regmap =3D regs;
+>  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
+>  	if (IS_ERR(phy))
+>  		return dev_err_probe(dev, PTR_ERR(phy),
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
+9-1-angelogioacchino.delregno@collabora.com?part=3D2
