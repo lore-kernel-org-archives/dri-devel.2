@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 880EAC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 20:21:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79AFAC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 20:37:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF0210E3F1;
-	Wed,  1 Jul 2026 20:21:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C922510E1ED;
+	Wed,  1 Jul 2026 20:37:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gy8FXnjR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TaE2Ugtk";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9E7310E3F1
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 20:21:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D835E10E1ED
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 20:37:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DF8D760138;
- Wed,  1 Jul 2026 20:21:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79931F000E9;
- Wed,  1 Jul 2026 20:21:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 13CF46001D;
+ Wed,  1 Jul 2026 20:37:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965FA1F000E9;
+ Wed,  1 Jul 2026 20:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782937263;
- bh=I1MrHWNoePasAF89bOFkx3E+DQzJNV1VoJf4OgB1Qys=;
+ s=k20260515; t=1782938231;
+ bh=Vvzu3M0LAD2HvaolwPB3u1iNI2rvumIyUYoThaPm/A8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=gy8FXnjRj2EIDzXAefjnJ+gxN1nxuartvvuZijND8toXIyijlieTf93gnuO/zyl21
- SDrHBf+HBAe5pIhmFjtdIlmDWOs7cs+kciFy6t4UujoXrOgd+G8Hyi3J7iN5k4padx
- IA6dqBqqKvP+0MkK6H/EmTDLrluICUEJOO8VjvLXrIVIKBs9rFVDVSeNxYlrglZbrJ
- ejK1AWp1lJ639oJi8hnuygEcF5coDuVzWpT1gN2RrJF7VuRSj0zJK4W3ZUgNCzlyyl
- LhKnZIu7lind/cU1E86YCdlf62pTuAazNPCBjnGAAeLm/p3t2HgkQbo7tPmtRDdNEv
- ifENFzG3opwag==
-Message-ID: <6a7e3394-9dc7-4371-9935-47f3be8a59f4@kernel.org>
-Date: Wed, 1 Jul 2026 21:21:00 +0100
+ b=TaE2UgtkKBTr05/BlrEGAFgS3CVNRK9DIzlM54tlgpONGYSn590NoJCp+aVuesHUO
+ xsUCaaaIpGHmnf2eClrszjCEp1H0a/tRPBK2EFeikk18gxW2oGa0aMun7z/lWazh+w
+ jIda0mgAGPfYd/V6ZHs3UDbylInL8+ydhfi+9iY03c/PLr+zKFmkojFKqyP7GTJXlh
+ nVHBq17M73Rh6RF73DA4u+k62BxybQRPLb3QtT8Kv56UmfVTrd3z/ZdztLHrVF/AXV
+ k+NBi01V0UUDpv5YPl1ZS/nTTJr8XVPljNEfgQcA4qoNZBzaWZ07adgXTzl+3JN9eC
+ FSfOJuL/eGYHw==
+Message-ID: <cca276af-3e6a-44d3-a1b6-c2bc401a28cc@kernel.org>
+Date: Wed, 1 Jul 2026 21:37:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: create duplicate sessions after all CB
- probing
-To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+Subject: Re: [PATCH v8 3/4] misc: fastrpc: Allocate entire reserved memory for
+ Audio PD in probe
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
  Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-References: <20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com>
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>,
+ Jorge Ramirez-Ortiz <jorge.ramirez-ortiz@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, ekansh.gupta@oss.qualcomm.com,
+ quic_chennak@quicinc.com, stable@kernel.org
+References: <20260609025938.457-1-jianping.li@oss.qualcomm.com>
+ <20260609025938.457-4-jianping.li@oss.qualcomm.com>
 Content-Language: en-US
 From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com>
+In-Reply-To: <20260609025938.457-4-jianping.li@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,126 +70,234 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 6/9/26 11:33 AM, Vinayak Katoch wrote:
-> For ADSP, only a limited number of FastRPC context banks (CBs) are
-> available. Each CB supports a single session, which means only a few
-> processes can run on ADSP simultaneously. If all sessions are consumed
-> by fastrpc daemons, no session remains available when a user application
-> starts, causing the application to fail.
+On 6/9/26 3:59 AM, Jianping Li wrote:
+> Allocating and freeing Audio PD memory from userspace is unsafe because
+> the kernel cannot reliably determine when the DSP has finished using the
+> memory. Userspace may free buffers while they are still in use by the DSP,
+> and remote free requests cannot be safely trusted.
 > 
-> To address this limitation, a Device Tree change was used till now:
->   qcom,nsessions = <5>;
+> Additionally, the current implementation allows userspace to repeatedly
+> grow the Audio PD heap, but does not support shrinking it. This can lead
+> to unbounded memory usage over time, effectively causing a memory leak.
 > 
-You should mark this property as deprecated in dt bindings.
-Which should discourage people to use this property.
-
-
-> However, feedback from the upstream community indicated that this change
-> should not be made in the Device Tree. Instead, it was recommended to
-> handle this as a driver-level change.
-
-Changing it in driver will make it applicable for all the SoCs.
-
+> Fix this by allocating the entire Audio PD reserved-memory region during
+> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+> userspace-controlled alloc/free and ensures that memory is reclaimed only
+> when the DSP process is torn down.
 > 
-> Instead of duplicating sessions inline during fastrpc_cb_probe() using
-> the qcom,nsessions DT property, defer duplication until after
-> of_platform_populate() returns in fastrpc_rpmsg_probe(), at which point
-> all compute-CB child nodes have been probed and the session array is
-> fully populated.
+> Add explicit validation for remote_heap presence and size before sending
+> the memory to DSP, and fail early if the reserved-memory region is
+> missing or incomplete.
 > 
-> For the ADSP domain, append FASTRPC_DUP_SESSIONS (4) copies of the
-> last probed session once of_platform_populate() succeeds. This keeps
-> the per-CB probe path simple and ensures duplicates are always derived
-> from a stable, fully-initialised session state.
-> 
-> The qcom,nsessions DT property is no longer consumed by the driver; the
-> binding and DT sources are left unchanged.
-> 
-> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 > ---
->  drivers/misc/fastrpc.c | 31 ++++++++++++++++++-------------
->  1 file changed, 18 insertions(+), 13 deletions(-)
+>  drivers/misc/fastrpc.c | 112 ++++++++++++++++++++++-------------------
+>  1 file changed, 59 insertions(+), 53 deletions(-)
 > 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 1080f9acf70a..46afbae9c234 100644
+> index 517884000331..1942e74535e5 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-> @@ -30,6 +30,7 @@
->  #define CDSP_DOMAIN_ID (3)
->  #define GDSP_DOMAIN_ID (4)
->  #define FASTRPC_MAX_SESSIONS	14
-> +#define FASTRPC_DUP_SESSIONS	4
->  #define FASTRPC_MAX_VMIDS	16
->  #define FASTRPC_ALIGN		128
->  #define FASTRPC_MAX_FDLIST	16
-> @@ -2195,7 +2196,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	struct fastrpc_channel_ctx *cctx;
->  	struct fastrpc_session_ctx *sess;
->  	struct device *dev = &pdev->dev;
-> -	int i, sessions = 0;
->  	unsigned long flags;
->  	int rc;
->  	u32 dma_bits;
-> @@ -2204,8 +2204,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	if (!cctx)
->  		return -EINVAL;
+> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
+>  	struct kref refcount;
+>  	/* Flag if dsp attributes are cached */
+>  	bool valid_attributes;
+> +	/* Flag if audio PD init mem was allocated */
+> +	bool audio_init_mem;
+>  	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+>  	struct fastrpc_device *secure_fdevice;
+>  	struct fastrpc_device *fdevice;
+> @@ -1341,15 +1343,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  	struct fastrpc_init_create_static init;
+>  	struct fastrpc_invoke_args *args;
+>  	struct fastrpc_phy_page pages[1];
+> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
+>  	char *name;
+>  	int err;
+> -	bool scm_done = false;
+>  	struct {
+>  		int client_id;
+>  		u32 namelen;
+>  		u32 pageslen;
+>  	} inbuf;
+>  	u32 sc;
+> +	unsigned long flags;
+> +
+> +	if (!cctx->remote_heap || !cctx->remote_heap->dma_addr ||
+> +	    !cctx->remote_heap->size) {
+> +		err = -ENOMEM;
+> +		dev_err(fl->sctx->dev,
+> +			"remote heap memory region is not added\n");
+> +		return err;
+> +	}
 >  
-> -	of_property_read_u32(dev->of_node, "qcom,nsessions", &sessions);
+>  	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+>  	if (!args)
+> @@ -1373,31 +1384,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  	inbuf.client_id = fl->client_id;
+>  	inbuf.namelen = init.namelen;
+>  	inbuf.pageslen = 0;
+> -	if (!fl->cctx->remote_heap) {
+> -		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+> -						&fl->cctx->remote_heap);
+> -		if (err)
+> -			goto err_name;
 > -
->  	spin_lock_irqsave(&cctx->lock, flags);
->  	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
->  		dev_err(&pdev->dev, "too many sessions\n");
-> @@ -2225,16 +2223,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	if (of_property_read_u32(dev->of_node, "reg", &sess->sid))
->  		dev_info(dev, "FastRPC Session ID not specified in DT\n");
->  
-> -	if (sessions > 0) {
-> -		struct fastrpc_session_ctx *dup_sess;
+> -		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
+> -		if (fl->cctx->vmcount) {
+> -			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
 > -
-> -		for (i = 1; i < sessions; i++) {
-> -			if (cctx->sesscount >= FASTRPC_MAX_SESSIONS)
-> -				break;
-> -			dup_sess = &cctx->session[cctx->sesscount++];
-> -			memcpy(dup_sess, sess, sizeof(*dup_sess));
+> -			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+> -							(u64)fl->cctx->remote_heap->size,
+> -							&src_perms,
+> -							fl->cctx->vmperms, fl->cctx->vmcount);
+> -			if (err) {
+> -				dev_err(fl->sctx->dev,
+> -					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+> -					&fl->cctx->remote_heap->dma_addr,
+> -					fl->cctx->remote_heap->size, err);
+> -				goto err_map;
+> -			}
+> -			scm_done = true;
+> -			inbuf.pageslen = 1;
 > -		}
 > -	}
->  	spin_unlock_irqrestore(&cctx->lock, flags);
->  	rc = dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
->  	if (rc) {
-> @@ -2445,6 +2433,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  	if (err)
->  		goto err_deregister_fdev;
 >  
-> +	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
-> +		struct fastrpc_session_ctx *last_sess;
-> +		struct fastrpc_session_ctx *dup_sess;
-> +		unsigned long flags;
-> +		int i;
+>  	fl->pd = USER_PD;
+>  
+> @@ -1409,8 +1395,17 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  	args[1].length = inbuf.namelen;
+>  	args[1].fd = -1;
+>  
+> -	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+> -	pages[0].size = fl->cctx->remote_heap->size;
+> +	spin_lock_irqsave(&cctx->lock, flags);
+> +	if (!cctx->audio_init_mem) {
+> +		pages[0].addr = cctx->remote_heap->dma_addr;
+> +		pages[0].size = cctx->remote_heap->size;
+> +		cctx->audio_init_mem = true;
+> +		inbuf.pageslen = 1;
+> +	} else {
+> +		pages[0].addr = 0;
+> +		pages[0].size = 0;
+
+What is the expected behavoiur in this case?
+
+> +	}
+> +	spin_unlock_irqrestore(&cctx->lock, flags);
+>  
+>  	args[2].ptr = (u64)(uintptr_t) pages;
+>  	args[2].length = sizeof(*pages);
+> @@ -1428,27 +1423,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  
+>  	return 0;
+>  err_invoke:
+> -	if (fl->cctx->vmcount && scm_done) {
+> -		u64 src_perms = 0;
+> -		struct qcom_scm_vmperm dst_perms;
+> -		u32 i;
+> -
+> -		for (i = 0; i < fl->cctx->vmcount; i++)
+> -			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
+> -
+> -		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+> -		dst_perms.perm = QCOM_SCM_PERM_RWX;
+> -		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+> -						(u64)fl->cctx->remote_heap->size,
+> -						&src_perms, &dst_perms, 1);
+> -		if (err)
+> -			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
+> -				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
+> -	}
+> -err_map:
+> -	fastrpc_buf_free(fl->cctx->remote_heap);
+> -	fl->cctx->remote_heap = NULL;
+> -err_name:
+> +	cctx->audio_init_mem = false;
+this can race.
+
+>  	kfree(name);
+>  err:
+>  	kfree(args);
+> @@ -2415,12 +2390,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		}
+>  	}
+>  
+> -	if (domain_id == SDSP_DOMAIN_ID) {
+> +	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
+>  		struct resource res;
+>  		u64 src_perms;
+>  
+>  		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
+>  		if (!err) {
+> +			if (domain_id == ADSP_DOMAIN_ID) {
+> +				data->remote_heap =
+> +					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
+> +				if (!data->remote_heap) {
+> +					err = -ENOMEM;
+> +					goto err_free_data;
+> +				}
 > +
-> +		spin_lock_irqsave(&data->lock, flags);
-> +		last_sess = &data->session[data->sesscount - 1];
-
-Why only for last session?
-
-This is now un conditionally done for ADSP which changes the whole
-behaviour.
-
-> +		for (i = 0; i < FASTRPC_DUP_SESSIONS; i++) {
-> +			if (data->sesscount >= FASTRPC_MAX_SESSIONS)
-> +				break;
-> +			dup_sess = &data->session[data->sesscount++];
-> +			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
-> +		}
-> +		spin_unlock_irqrestore(&data->lock, flags);
+> +				data->remote_heap->dma_addr = res.start;
+> +				data->remote_heap->size = resource_size(&res);
+> +			}
+>  			src_perms = BIT(QCOM_SCM_VMID_HLOS);
+>  
+>  			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
+> @@ -2428,7 +2414,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  			if (err)
+>  				goto err_free_data;
+>  		}
+> -
+>  	}
+>  
+>  	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+> @@ -2487,6 +2472,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		misc_deregister(&data->secure_fdevice->miscdev);
+>  
+>  err_free_data:
+> +	kfree(data->remote_heap);
+>  	kfree(data);
+>  	return err;
+>  }
+> @@ -2509,6 +2495,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+>  	struct fastrpc_buf *buf, *b;
+>  	struct fastrpc_user *user;
+>  	unsigned long flags;
+> +	int err;
+>  
+>  	/* No invocations past this point */
+>  	spin_lock_irqsave(&cctx->lock, flags);
+> @@ -2526,8 +2513,27 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+>  	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+>  		list_del(&buf->node);
+>  
+> -	if (cctx->remote_heap)
+> -		fastrpc_buf_free(cctx->remote_heap);
+> +	if (cctx->remote_heap && cctx->vmcount) {
+> +		u64 src_perms = 0;
+> +		struct qcom_scm_vmperm dst_perms;
+> +
+> +		for (u32 i = 0; i < cctx->vmcount; i++)
+> +			src_perms |= BIT(cctx->vmperms[i].vmid);
+> +
+> +		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+> +		dst_perms.perm = QCOM_SCM_PERM_RWX;
+> +
+> +		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
+> +					  cctx->remote_heap->size, &src_perms,
+> +					  &dst_perms, 1);
+> +		if (err)
+> +			dev_err(&rpdev->dev,
+> +				"Failed to assign memory back to HLOS: dma_addr %pad size %#llx err %d\n",
+> +				&cctx->remote_heap->dma_addr, cctx->remote_heap->size, err);
 > +	}
 > +
->  	return 0;
+> +	kfree(cctx->remote_heap);
+> +	cctx->remote_heap = NULL;
 >  
->  err_deregister_fdev:
-> 
-> ---
-> base-commit: 97e797263a5e963da3d1e66e743fd518567dfe37
-> change-id: 20260609-dup-sessions-ea2acaac1994
-> 
-> Best regards,
+>  	of_platform_depopulate(&rpdev->dev);
+>  
 
