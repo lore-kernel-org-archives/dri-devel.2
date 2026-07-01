@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68619C43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:22:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5656C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:22:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2160C10EF83;
-	Wed,  1 Jul 2026 12:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB4910EF76;
+	Wed,  1 Jul 2026 12:22:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eQRtzP2W";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Pqz3I5hF";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31F7E10EF7F
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:21:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF8010EF7F
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:21:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1782908517;
- bh=lEDe4ORE+LlmZXkgjItIKio8yYndkmek8VU5o9Rq0/A=;
+ bh=uu8wJ1s5TWs2lno7lmR5awOKX1/OE5RoeHGMPhn0IuQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eQRtzP2W8GOf/spLJJfaSavMUN9TmC3pbw+PJPS0XZynUB6nmo34mtzsQg4nss4aJ
- FB3ruvcSROlg42idEjIaqfM+nTjXlZwl68HBoz+MN9h5nC2vhJrd5uLc+hM99rG/Z/
- nhPciGrafMXgTOl/9t+1UWWDI/xcWvI6j733YpPcBn2vRlHru7EmHZjkpiHjmfqD8h
- 25f9Ehg8sza7n5qu64Hc/6ItUhOf1eyLZIMqjSAMmVAz6bx/hW2p3SuSKVe77LWRog
- Uq8pDnbiOhYppxNp83Hu6aidy5vRyJHZfb1GcjhTWfVfYHNJMHKHmijEND9/Nwtixg
- pfK1rVr/33tAg==
+ b=Pqz3I5hFJsi0cdI86xdAiBVhN0NtAe+ilBgw6glokfvpo8r7iwqBuW3vR8fX1OWpL
+ nKgo6k8GfGHLODhfYp52nwQS8edL5pslfMJI1Zj0ec+n5BnAKiK8Lb9A4beidPz92u
+ lUIE/Zwk8HIBwHVNBT1yRp1CO9Ts1qJzHbfUadwEsXxaCZwaN8dsadgHLpcZ96BeG2
+ YDDtTiW0oK9W60Oho25EYrWSz0fvYPgiSGKM7uKiLhn8H9Hye8NA/qos859qJy00ii
+ y1/lUimaZOiRcoybVfAtnR5izy8ISH+ItGXISVbcfyklQUZT0S5SeyvaAsdBLIFHco
+ OZuR6w99I0CNg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2E8CC17E35FB;
- Wed,  1 Jul 2026 14:21:56 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 21C8717E0F44;
+ Wed,  1 Jul 2026 14:21:57 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -42,10 +42,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
  jason-jh.lin@mediatek.com, kernel@collabora.com
-Subject: [PATCH 41/42] drm/mediatek: Add support for Display Image Resizer
- (Scaler)
-Date: Wed,  1 Jul 2026 14:20:56 +0200
-Message-ID: <20260701122057.19648-42-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 42/42] drm/mediatek: mtk_drm_drv: Fail init only if all paths
+ are invalid
+Date: Wed,  1 Jul 2026 14:20:57 +0200
+Message-ID: <20260701122057.19648-43-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
 References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
@@ -66,94 +66,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add basic support for the Image Resizer hardware found in some
-MediaTek Display Controller IPs, like the one found in MT8196.
+Up until now, if not all display controller paths were valid, the
+driver would fail probing and refuse to bind components: while
+that was a good idea before, now that mediatek-drm gained much
+more flexibility, it is finally possible to gracefully handle
+this situation and register only the valid paths while leaving
+the invalid ones unregistered, without any crash.
 
-This is currently set in bypass mode and used to pass the frame
-buffer from a RSZ input component to supported RSZ outputs.
-Full implementation of hardware-accelerated DRM scaling will be
-done later.
+Count how many output paths are found, and then count how many
+have failed probing: if there is at least one valid path, avoid
+erroring out, so that at least some outputs will just work.
+
+Of course, any path failing is not a clean situation and must be
+resolved: in this case, function mtk_crtc_create() still prints
+error messages so, even though some output works, that will not
+go unnoticed, as a quick check in kmsg will show the errors that
+made a certain path not to register.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 22 ++++++++++++++++++++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c  |  2 ++
- 2 files changed, 24 insertions(+)
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-index ea09af8d4705..453a4a9ad565 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-@@ -56,6 +56,10 @@
- #define POSTMASK_RELAY_MODE				BIT(0)
- #define DISP_REG_POSTMASK_SIZE			0x0030
- 
-+#define DISP_REG_RSZ_EN				0x0000
-+#define DISP_REG_RSZ_INPUT_SIZE			0x0010
-+#define DISP_REG_RSZ_OUTPUT_SIZE		0x0014
-+
- #define DISP_REG_UFO_START			0x0000
- #define UFO_BYPASS				BIT(2)
- 
-@@ -230,6 +234,16 @@ static void mtk_postmask_stop(struct device *dev)
- 	writel_relaxed(0x0, priv->regs + DISP_REG_POSTMASK_EN);
- }
- 
-+static void mtk_rsz_config(struct mtk_ddp_comp *comp, unsigned int w,
-+			   unsigned int h, unsigned int vrefresh,
-+			   unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(comp->dev);
-+
-+	mtk_ddp_write(cmdq_pkt, 0, &priv->cmdq_reg, priv->regs, DISP_REG_RSZ_INPUT_SIZE);
-+	mtk_ddp_write(cmdq_pkt, 0, &priv->cmdq_reg, priv->regs, DISP_REG_RSZ_OUTPUT_SIZE);
-+}
-+
- static void mtk_ufoe_start(struct device *dev)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
-@@ -414,6 +428,12 @@ static const struct mtk_ddp_comp_funcs ddp_rdma = {
- 	.get_num_formats = mtk_rdma_get_num_formats,
- };
- 
-+static const struct mtk_ddp_comp_funcs ddp_rsz = {
-+	.clk_enable = mtk_ddp_clk_enable,
-+	.clk_disable = mtk_ddp_clk_disable,
-+	.config = mtk_rsz_config,
-+};
-+
- static const struct mtk_ddp_comp_funcs ddp_tdshp = {
- 	.clk_enable = mtk_tdshp_clk_enable,
- 	.clk_disable = mtk_tdshp_clk_disable,
-@@ -489,6 +509,7 @@ static const char * const mtk_ddp_comp_stem[MTK_DDP_COMP_TYPE_MAX] = {
- 	[MTK_DISP_POSTMASK] = "postmask",
- 	[MTK_DISP_PWM] = "pwm",
- 	[MTK_DISP_RDMA] = "rdma",
-+	[MTK_DISP_RSZ] = "resizer",
- 	[MTK_DISP_TDSHP] = "tdshp",
- 	[MTK_DISP_UFOE] = "ufoe",
- 	[MTK_DISP_WDMA] = "wdma",
-@@ -517,6 +538,7 @@ static const struct mtk_ddp_comp_funcs *mtk_ddp_funcs[MTK_DDP_COMP_TYPE_MAX] = {
- 	[MTK_DISP_POSTMASK]		= &ddp_postmask,
- 	[MTK_DISP_PWM]			= NULL,
- 	[MTK_DISP_RDMA]			= &ddp_rdma,
-+	[MTK_DISP_RSZ]			= &ddp_rsz,
- 	[MTK_DISP_TDSHP]		= &ddp_tdshp,
- 	[MTK_DISP_UFOE]			= &ddp_ufoe,
- 	[MTK_DISP_WDMA]			= &ddp_wdma,
 diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index b96cf2f435e5..f5c9fe1588d0 100644
+index f5c9fe1588d0..65a891815408 100644
 --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
 +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -699,6 +699,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8195-disp-rdma",
- 	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8196-disp-rsz",
-+	  .data = (void *)MTK_DISP_RSZ },
- 	{ .compatible = "mediatek,mt8196-disp-tdshp",
- 	  .data = (void *)MTK_DISP_TDSHP },
- 	{ .compatible = "mediatek,mt8173-disp-ufoe",
+@@ -379,6 +379,8 @@ static int mtk_drm_kms_init(struct drm_device *drm)
+ 	struct mtk_drm_private *priv_n;
+ 	struct device *dma_dev = NULL;
+ 	struct drm_crtc *crtc;
++	int num_failed = 0;
++	int num_paths = 0;
+ 	int ret, i, j;
+ 
+ 	if (drm_firmware_drivers_only())
+@@ -445,15 +447,29 @@ static int mtk_drm_kms_init(struct drm_device *drm)
+ 			if (!priv_n->data->output_paths[i].len)
+ 				continue;
+ 
++			num_paths++;
++
++			dev_vdbg(drm->dev,
++				 "[CTRL%d-CRTC%d] Path Len:%d, Controller Order:%u\n",
++				 j, i, priv_n->data->output_paths[i].len,
++				 priv_n->data->output_paths[i].order);
++
+ 			ret = mtk_crtc_create(drm, i, j,
+ 					      priv_n->data->conn_routes,
+ 					      priv_n->data->num_conn_routes);
++			if (ret == 0)
++				break;
+ 
+-			if (ret)
+-				goto err_component_unbind;
++			num_failed++;
+ 		}
+ 	}
+ 
++	if (num_failed == num_paths) {
++		dev_err(drm->dev, "No valid Display Controller path! Going out.\n");
++		ret = -ENODEV;
++		goto err_component_unbind;
++	}
++
+ 	/* IGT will check if the cursor size is configured */
+ 	drm->mode_config.cursor_width = 512;
+ 	drm->mode_config.cursor_height = 512;
 -- 
 2.54.0
 
