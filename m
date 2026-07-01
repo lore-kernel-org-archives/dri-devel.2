@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F56C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 23:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEF7DC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 23:54:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C67D10E3F6;
-	Wed,  1 Jul 2026 23:52:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 382F310EFFF;
+	Wed,  1 Jul 2026 23:54:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=sina.com header.i=@sina.com header.b="iCkV6Jbj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lkV2fQl5";
 	dkim-atps=neutral
-X-Greylist: delayed 537 seconds by postgrey-1.36 at gabe;
- Wed, 01 Jul 2026 23:52:52 UTC
-Received: from r3-18.sinamail.sina.com.cn (r3-18.sinamail.sina.com.cn
- [202.108.3.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F011610E3F6
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 23:52:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208;
- t=1782949973; bh=xQ23ltzGIx0al3TzodxktcL0AEOqsC47kRrB7dugiMI=;
- h=From:Subject:Date:Message-ID;
- b=iCkV6JbjprlQ15IuGcKxslak+c9iEBfb2FxrZNxMBF2ogZWFmLjwnhsCtL+LIv+x9
- Sx+xoHs96lbShUsmqPsULPgCIEBqNr5TteUDRat3dXkiwLm0RkBMOAnzRJuX7hrEjq
- kTE7mFVb5Xl3hN8aNeZylWrjNC/+cF5Ax+1By0Gs=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.144])
- by sina.com (10.54.253.32) with ESMTP
- id 6A45A60F00003880; Wed, 2 Jul 2026 07:43:14 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com; spf=none smtp.mailfrom=hdanton@sina.com;
- dkim=none header.i=none;
- dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 6550824456920
-X-SMAIL-UIID: DBFA2DA1DDDE481C94AB2F6835CD65D8-20260702-074314-1
-From: Hillf Danton <hdanton@sina.com>
-To: Ryosuke Yasuoka <ryasuoka@redhat.com>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-Date: Thu,  2 Jul 2026 07:43:00 +0800
-Message-ID: <20260701234301.361-1-hdanton@sina.com>
-In-Reply-To: <18be2016e26ade27.a6e9e2496bc1f978.9bc3a62421115997@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-References: 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53E7410EFFF
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 23:54:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 78827600AF;
+ Wed,  1 Jul 2026 23:54:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018891F000E9;
+ Wed,  1 Jul 2026 23:54:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782950089;
+ bh=5D/xHDvSnKBaNLZcV2OCYRMrnZhWCJHmaO6KEaQuTJw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=lkV2fQl5ZqPk4ybj7nILCqU1ZZs5h4k7vXEr2MRxQogaLNAAx+wvK8gOWtW6hVX8s
+ IHHF6JcqFviCX35JQrldIezWaMZz0gY02DN5/9QV5SbfumipYn9PTMmkEC/2ZbJ651
+ XHtlEWhburZ2EgIlvQF+DEJgdDlo6bicI2PCrCIS3PCffkYmukOF1Ei3/wDR7ooz/U
+ ArgLxLIrLy4MwIShEkUy3KT/SS3JWs8YT9DdkN0yOUf+7z9tluQMKYjs3pIUDjloHJ
+ 9kmOLNA1V1p9KuYfmHP+fQPc4xP1iIQOpY+zFTP78O/+S0P/vu1IFB0fCbGuivI9bR
+ mxR1bw87A4APQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] fbdev: bound mode sysfs output to the sysfs buffer
+To: "Melbin K Mathew" <mlbnkm1@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701234248.236023-2-mlbnkm1@gmail.com>
+References: <20260701231706.234715-1-mlbnkm1@gmail.com>
+ <20260701234248.236023-2-mlbnkm1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 01 Jul 2026 23:54:48 +0000
+Message-Id: <20260701235449.018891F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,58 +53,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 1 Jul 2026 09:23:05 +0000 Ryosuke Yasuoka wrote:
->On 30/06/2026 16:46, Dmitry Osipenko wrote:
->> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init(),
->> placing it after wait_event_timeout(display_info_pending)? This will avoid
->> additional work_struct that otherwise needs to be cancelled in
->> virtio_gpu_init() on the timeout.
->
->IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
->into virtio_gpu_init() after wait_event_timeout() would not prevent the
->issue.
->
->Looking at the syzbot call traces[1][2], the deadlock occurs during
->drm_client_setup(), which runs after virtio_gpu_init() has already
->returned. The display_info_cb that triggers the deadlock is called from
->the dequeue worker while drm_client_register() holds clientlist_mutex.
->
->Thread A:
->virtio_gpu_probe()
-> -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
-> -> drm_dev_register()
-> -> drm_client_setup()   // deadlock happens HERE
->     -> drm_client_register()   // holds clientlist_mutex
->     ...
->     -> virtio_gpu_queue_fenced_ctrl_buffer()
->         -> wait_event() // waits for free space
->
->Thread B:
->virtio_gpu_dequeue_ctrl_func()
-> -> reclaim_vbufs()   // make free space
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-I wonder if the deadlock could be cured by alternatively adding a wakeup
-before the responce cb, given that free space is available.
+Pre-existing issues:
+- [High] Unprotected value copy of large `fb_info->var` struct leads to tor=
+n reads and state corruption in sysfs store functions.
+--
 
-> -> resp_cb()
->     -> virtio_gpu_cmd_get_display_info_cb
->         -> drm_helper_hpd_irq_event()
->         -> drm_kms_helper_hotplug_event()
->             -> drm_client_dev_hotplug() // need to lock clientlist_mutex
-> -> wake_up()   // never reached
->
->IIUC the hotplug notification in display_info_cb is needed because it
->notifies DRM after updating by the callback with fresh data from the host.
->
->This work_struct ensures display_info_cb never blocks on
->clientlist_mutex in the dequeue worker, while preserving the hotplug
->notification with fresh data.
->
->[1] https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
->[2] https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
->
->Best regards,
->Ryosuke
+commit 03248859e392cd00678961d93e5c27717ac23498
+Author: Melbin K Mathew <mlbnkm1@gmail.com>
+
+fbdev: bound mode sysfs output to the sysfs buffer
+
+This commit updates mode_string() to take a size parameter and use scnprint=
+f()
+to prevent buffer overruns when generating sysfs output. It also modifies
+show_modes() to stop accumulating mode strings once the sysfs buffer is ful=
+l.
+
+> diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/cor=
+e/fbsysfs.c
+> index ea196603c7a87..af21dc5052df3 100644
+> --- a/drivers/video/fbdev/core/fbsysfs.c
+> +++ b/drivers/video/fbdev/core/fbsysfs.c
+[ ... ]
+> @@ -64,7 +67,7 @@ static ssize_t store_mode(struct device *device, struct=
+ device_attribute *attr,
+> =20
+>  	list_for_each_entry(modelist, &fb_info->modelist, list) {
+>  		mode =3D &modelist->mode;
+> -		i =3D mode_string(mstr, 0, mode);
+> +		i =3D mode_string(mstr, sizeof(mstr), 0, mode);
+>  		if (strncmp(mstr, buf, max(count, i)) =3D=3D 0) {
+> =20
+>  			var =3D fb_info->var;
+
+[Severity: High]
+This is a pre-existing issue, but seeing the struct copy here prompted a
+question about other sysfs store functions in this file.
+
+In store_mode(), var =3D fb_info->var; is protected by lock_fb_info(fb_info)
+acquired earlier in the function. However, other store functions in this fi=
+le
+perform this same large struct copy locklessly before acquiring the lock:
+
+drivers/video/fbdev/core/fbsysfs.c:store_bpp() {
+    ...
+    var =3D fb_info->var;
+    ...
+}
+
+Similar unprotected copies occur in store_rotate(), store_virtual(), and
+store_pan().
+
+Can these unprotected copies lead to torn reads if executed concurrently wi=
+th
+an ioctl or another sysfs write that modifies the display state?
+
+If a torn read occurs and a single field is updated before passing the torn
+structure to activate(), could this commit corrupted state back to the
+hardware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701231706.2347=
+15-1-mlbnkm1@gmail.com?part=3D1
