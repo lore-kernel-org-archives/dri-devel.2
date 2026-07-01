@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F8B4C44502
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB5DC43602
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:20:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A70B810EF3B;
-	Wed,  1 Jul 2026 12:20:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD1A510EF46;
+	Wed,  1 Jul 2026 12:20:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oCJSw/o0";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UdHzJ3oK";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D8C410EF3B
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07E5610EF46
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:20:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908441;
- bh=81GBBUpbjdjDXr0NDYQet5Q9bU5Yyjhgqm78JS+U1hw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oCJSw/o0r///ZUQmMs1u69z1eYFz8jFgM2klmphNLc41GPGofLcXDLqKD2BQwZjxb
- TEVmlzQHdNIj1LHUALdGJ/sFIo/rJ/GR3AioBm+AV8gykQJF6VhB1OILg8NxkKiJBv
- 5Z0hbrlw9eFDApWuZ39vkuHg5SP2ncPi+fl8fsJO780r612SC/gQMh354UddEmU6Mt
- B9CLenkQWTyLALWdXmaLMbXv/mN0MKv83AjENWvX8sQ3+4mNXLVFe4Vzd0xMm+02+i
- RuhIZo+eKIRSPjMESuroKtJGTHxoTT0KKjF69z1ucS17BeGklMWdszGFt+Oco5EwSR
- sBkmldVTxKKWg==
+ s=mail; t=1782908446;
+ bh=m6sJ153mTEtGqqARntkJHomU856d72WMcKy3EMNBfdA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=UdHzJ3oKReCUM8CMjgYobeK2cYD0xqTaw9zVy9oOW3jjlQ8dli3+zy7x6/FrKbNIC
+ F6DKQVvkx8hl8FMqpY7/7MNEpwFaEVOu+XvIFD13MRWW9hGQ30sRRZf2faShcOZNTP
+ 6uZdv4d2uYiO0PKtTI7QQF58ZuT1hIK1MGl9uqbAPr4h2mFz6FwBjzLtbycO+Xh1Qe
+ zI2xEsMa1XUDENfAEOWl3tUuFbQr6sczfbOixO6NQ1lJqRZFQcjZNe2TugkBhQw0h3
+ SEHLwpCkJBG8XMMDbCar3ZE7CT/31SzfVT9rVc9fvOIMmdw6wq2rnVwLvy46dWmMxZ
+ NoBlTHgqlhLhA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CBEDD17E0CF4;
- Wed,  1 Jul 2026 14:20:40 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BC1D817E0857;
+ Wed,  1 Jul 2026 14:20:45 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- jitao.shi@mediatek.com, granquet@baylibre.com, rex-bc.chen@mediatek.com,
- dmitry.osipenko@collabora.com, ck.hu@mediatek.com, amergnat@baylibre.com,
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ andi.shyti@kernel.org, djakov@kernel.org, broonie@kernel.org,
+ jitao.shi@mediatek.com, ck.hu@mediatek.com,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com
-Subject: [PATCH 11/11] drm/mediatek: mtk_dp: Clarify XTAL freq and Debounce
- registers
-Date: Wed,  1 Jul 2026 14:20:24 +0200
-Message-ID: <20260701122024.19557-12-angelogioacchino.delregno@collabora.com>
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
+ jason-jh.lin@mediatek.com, kernel@collabora.com
+Subject: [PATCH 0/6] MediaTek MMSYS/Mute-X new-style part 1
+Date: Wed,  1 Jul 2026 14:20:37 +0200
+Message-ID: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
-References: <20260701122024.19557-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,104 +67,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Clarify the meaning of the sub-fields in the crystal frequency and
-transmitter interrupt debounce registers, with the only purpose of
-increasing human readability.
+This series part 1 of a huge restructuring of the entire multimedia
+part of MediaTek SoCs, especially mediatek-drm, and contains only a
+set of changes that don't require any simultaneous updates in the
+mediatek-drm driver.
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/gpu/drm/mediatek/mtk_dp.c     | 35 ++++++++++++++++-----------
- drivers/gpu/drm/mediatek/mtk_dp_reg.h |  6 +++--
- 2 files changed, 25 insertions(+), 16 deletions(-)
+This adds support for correctly advertising the MediaTek Mute-X IP
+as a source of trigger signals (because that's what it is), hence
+for adding #trigger-source-cells in the Mute-X devicetree node and
+for specifying a Mute-X trigger-source in all of the MTK Display
+Controller components supporting or requiring one, as previously
+it was kind of hacked up as a static array in the Mute-X driver,
+for both MDP and DISP components, which is, well, depending on the
+point of view, actually wrong.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index 605ead7fa9bf..b861a5df9316 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -1204,9 +1204,15 @@ static void mtk_dp_initialize_settings_v2p1(struct mtk_dp *mtk_dp)
- 
- static void mtk_dp_initialize_settings(struct mtk_dp *mtk_dp)
- {
-+	/*
-+	 * Set DP XTAL freq to 26MHz and accumulator to 1.
-+	 * Valid values for XTAL freq are 12 and 26.
-+	 */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_342C,
--			   XTAL_FREQ_DP_TRANS_P0_DEFAULT,
--			   XTAL_FREQ_DP_TRANS_P0_MASK);
-+			   FIELD_PREP_CONST(XTAL_FREQ_DP_ACCUM_NUM_MASK, 1) |
-+			   FIELD_PREP_CONST(XTAL_FREQ_DP_CLOCK_MHZ_MASK, 26),
-+			   XTAL_FREQ_DP_ACCUM_NUM_MASK | XTAL_FREQ_DP_CLOCK_MHZ_MASK);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3540,
- 			   FEC_CLOCK_EN_MODE_DP_TRANS_P0,
- 			   FEC_CLOCK_EN_MODE_DP_TRANS_P0);
-@@ -1248,28 +1254,29 @@ static void mtk_dp_initialize_aux_hpd_detect_settings(struct mtk_dp *mtk_dp)
- 
- static void mtk_dp_initialize_hpd_detect_settings(struct mtk_dp *mtk_dp)
- {
--	u32 val;
--
- 	/* Mask AUX TOP interrupt, as this uses transmitter for HPD */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
- 			   AUX_TOP_IRQ_MSK, AUX_TOP_IRQ_MSK);
- 
--	/* Debounce threshold */
-+	/* Set Hotplug debounce threshold time: xtal_period * deb_thd */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
- 			   8, HPD_DEB_THD_DP_TRANS_P0_MASK);
- 
--	val = (HPD_INT_THD_DP_TRANS_P0_LOWER_500US |
--	       HPD_INT_THD_DP_TRANS_P0_UPPER_1100US) << 4;
--	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
--			   val, HPD_INT_THD_DP_TRANS_P0_MASK);
--
- 	/*
--	 * Connect threshold 1.5ms + 5 x 0.1ms = 2ms
--	 * Disconnect threshold 1.5ms + 5 x 0.1ms = 2ms
-+	 * Set interrupt debounce threshold time
-+	 * VAL  |  0     1     2     3  INT_THD
-+	 * Low  | 100   300   500   700 uS
-+	 * High | 700   900  1100  1300 uS
- 	 */
--	val = (5 << 8) | (5 << 12);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
--			   val,
-+			   FIELD_PREP_CONST(HPD_INT_LOW_THD_DP_TRANS_P0_MASK, 2) |
-+			   FIELD_PREP_CONST(HPD_INT_HIGH_THD_DP_TRANS_P0_MASK, 2),
-+			   HPD_INT_THD_DP_TRANS_P0_MASK);
-+
-+	/* Connection and Disconnection thresholds: 1.5ms + (5 x 0.1) ms = 2ms */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
-+			   FIELD_PREP_CONST(HPD_DISC_THD_DP_TRANS_P0_MASK, 5) |
-+			   FIELD_PREP_CONST(HPD_CONN_THD_DP_TRANS_P0_MASK, 5),
- 			   HPD_DISC_THD_DP_TRANS_P0_MASK |
- 			   HPD_CONN_THD_DP_TRANS_P0_MASK);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3430,
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-index 9caf743f4fe6..418a2318c656 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-+++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-@@ -253,6 +253,8 @@
- #define MTK_DP_TRANS_P0_3410				0x1410
- #define HPD_DEB_THD_DP_TRANS_P0_MASK				GENMASK(3, 0)
- #define HPD_INT_THD_DP_TRANS_P0_MASK				GENMASK(7, 4)
-+#define HPD_INT_HIGH_THD_DP_TRANS_P0_MASK			GENMASK(3, 2)
-+#define HPD_INT_LOW_THD_DP_TRANS_P0_MASK			GENMASK(1, 0)
- #define HPD_INT_THD_DP_TRANS_P0_LOWER_500US			(2 << 4)
- #define HPD_INT_THD_DP_TRANS_P0_UPPER_1100US			(2 << 6)
- #define HPD_DISC_THD_DP_TRANS_P0_MASK				GENMASK(11, 8)
-@@ -267,8 +269,8 @@
- #define IRQ_MASK_DP_TRANS_P0_INT_IRQ				(BIT(3) << 4)
- #define IRQ_STATUS_DP_TRANS_P0_MASK				GENMASK(15, 12)
- #define MTK_DP_TRANS_P0_342C				0x142c
--#define XTAL_FREQ_DP_TRANS_P0_DEFAULT				(BIT(0) | BIT(3) | BIT(5) | BIT(6))
--#define XTAL_FREQ_DP_TRANS_P0_MASK				GENMASK(7, 0)
-+#define XTAL_FREQ_DP_ACCUM_NUM_MASK				GENMASK(1, 0)
-+#define XTAL_FREQ_DP_CLOCK_MHZ_MASK				GENMASK(7, 2)
- #define MTK_DP_TRANS_P0_3430				0x1430
- #define HPD_INT_THD_ECO_DP_TRANS_P0_MASK			GENMASK(1, 0)
- #define HPD_INT_THD_ECO_DP_TRANS_P0_HIGH_BOUND_EXT		BIT(1)
+Moreover, this goes on with the first part for a rework of MediaTek
+MMSYS, which is a requirement for the upcoming huge restructuring
+of the mediatek-drm driver; this starts adding boilerplate required
+for setting up MMSYS entries with decoupling of "component type" to
+"component instance number".
+
+As of now, all of the components in MediaTek DRM, hence also in the
+MMSYS driver, are thrown in a catch-all enumeration that does not
+make any distinction between Type-Instance relationship, and it is
+like so (mock-up names ahead):
+
+DISPLAY_DITHER0
+DISPLAY_DITHER1
+DISPLAY_DSI0
+DISPLAY_DSI1
+
+... and so on.
+
+Since the number of components is now becoming uncontrollably large,
+the catch-all enumeration poses a big issue as the mediatek-drm driver
+is allocating a huge array that will be only half full (optimistically,
+because usually it's way less than half full) and with repeated ops
+assignment for each and every instance of the very same Sub-IP,
+effectively treating every instance of a Sub-IP like it is completely
+different from one another (for example, like DSI0 and DSI1 are as
+different as DITHER0 and DSI1).
+
+This has to change. It had to change months ago, but now it has become
+not only a maintenance burden, but also a... (sorry) big mess.
+
+And well, that... especially looking forward to add support for newer
+SoCs, using even more components in one pipeline, and using different
+and newer components (of new types...), making the catch-all enum to
+grow of another ~20 entries or more.
+
+So, this is PART 1 of this huge restructuring, which will impact many
+drivers, including soc/mediatek's mutex and mmsys, most of drm/mediatek
+and, in the future, also media/mediatek/mtk-mdp3 (and eventually its
+firmwareless implementation which, for components handling, will be
+as complicated as mediatek-drm and, without this restructuring, would
+be yet another boulder).
+
+AngeloGioacchino Del Regno (6):
+  dt-bindings: soc: mediatek: mutex: Improve title and description
+  dt-bindings: soc: mediatek: mutex: Allow #trigger-source-cells
+  dt-bindings: display: mediatek: Allow trigger-sources on relevant HW
+  soc: mediatek: mtk-mutex: Add new functions to add/remove triggers
+  soc: mediatek: mtk-mmsys: Rework routes to specify component ID
+  soc: mediatek: mtk-mmsys: Use MMSYS_ROUTE() in default routing table
+
+ .../display/mediatek/mediatek,aal.yaml        |   3 +
+ .../display/mediatek/mediatek,ccorr.yaml      |   3 +
+ .../display/mediatek/mediatek,color.yaml      |   3 +
+ .../display/mediatek/mediatek,dither.yaml     |   3 +
+ .../display/mediatek/mediatek,dp.yaml         |   3 +
+ .../display/mediatek/mediatek,dpi.yaml        |   3 +
+ .../display/mediatek/mediatek,dsc.yaml        |   3 +
+ .../display/mediatek/mediatek,dsi.yaml        |   3 +
+ .../display/mediatek/mediatek,ethdr.yaml      |   3 +
+ .../display/mediatek/mediatek,gamma.yaml      |   3 +
+ .../display/mediatek/mediatek,merge.yaml      |   3 +
+ .../display/mediatek/mediatek,od.yaml         |   3 +
+ .../display/mediatek/mediatek,ovl-2l.yaml     |   3 +
+ .../display/mediatek/mediatek,ovl.yaml        |   3 +
+ .../display/mediatek/mediatek,padding.yaml    |   3 +
+ .../display/mediatek/mediatek,postmask.yaml   |   3 +
+ .../display/mediatek/mediatek,rdma.yaml       |   3 +
+ .../display/mediatek/mediatek,split.yaml      |   3 +
+ .../display/mediatek/mediatek,ufoe.yaml       |   3 +
+ .../display/mediatek/mediatek,wdma.yaml       |   3 +
+ .../bindings/soc/mediatek/mediatek,mutex.yaml |  21 +-
+ drivers/soc/mediatek/mt6893-mmsys.h           |  34 +-
+ drivers/soc/mediatek/mt8167-mmsys.h           |  21 +-
+ drivers/soc/mediatek/mt8173-mmsys.h           |  28 +-
+ drivers/soc/mediatek/mt8183-mmsys.h           |  14 +-
+ drivers/soc/mediatek/mt8186-mmsys.h           |  22 +-
+ drivers/soc/mediatek/mt8188-mmsys.h           |  78 ++---
+ drivers/soc/mediatek/mt8192-mmsys.h           |  20 +-
+ drivers/soc/mediatek/mt8195-mmsys.h           | 181 +++++------
+ drivers/soc/mediatek/mt8365-mmsys.h           |  20 +-
+ drivers/soc/mediatek/mtk-mmsys.h              | 299 ++++++++----------
+ drivers/soc/mediatek/mtk-mutex.c              |  60 ++++
+ include/linux/soc/mediatek/mtk-mutex.h        |   6 +
+ 33 files changed, 474 insertions(+), 390 deletions(-)
+
 -- 
 2.54.0
 
