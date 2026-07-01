@@ -4,46 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97116C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF73C43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 12:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCA3E10EF84;
-	Wed,  1 Jul 2026 12:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 731AE10EF87;
+	Wed,  1 Jul 2026 12:37:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Td8ZAtgs";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="VN/bf7rv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53A0F10EF84
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:36:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1680C40BF7;
- Wed,  1 Jul 2026 12:36:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717A71F000E9;
- Wed,  1 Jul 2026 12:36:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782909406;
- bh=C1+20SB3grYbbLQ4hKEaqQJTlwwxHdQUc0LGvzYz11k=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Td8ZAtgsLCmlbpLm4pVtiur9FeHkTmvl0ANVtHBBG/129J6sK/ABeK/Fm/mH8k9I/
- Pza0aYQHde7eB0Ag07QB5T2+lqrW407pQ5J/MNzhkpgHI6v3iBXSS3vg4iiOkr5ooP
- c78i6KjwPpwwuB+06zGgPPYTA/7UaQMj9ra9U15ABVk9Uza2WVGdZu6HhZFBZFNThj
- CFU9csh7UgNo0Y7xfHU1wEwZiKMNU6ANy8Y93NCScS23LkSynW62DPFJpX1vh6tZte
- sJ1Wtd7uY/62EGDPIGhmHSP8ICJbWqWZbpm2PGFx/znEZ/4Qf4scHIs+fJ57IOJC5+
- CMcCJA5y4Yp/Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/12] phy: phy-mtk-dp: Migrate register offsets to SoC
- specific pdata
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org,
- conor+dt@kernel.org, vkoul@kernel.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com
-In-Reply-To: <20260701122008.19509-5-angelogioacchino.delregno@collabora.com>
-References: <20260701122008.19509-1-angelogioacchino.delregno@collabora.com>
- <20260701122008.19509-5-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
+ [109.224.244.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F22810EF87
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 12:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail; t=1782909429; x=1783168629;
+ bh=vd+JtZoymPGMmIm+DJ/AcnDJyGa66n9Fi50sV46bo4k=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=VN/bf7rv+s0EQF2y73L/Gpa9MHcVLpKerpXyF3cN+NQvQp9XKZVBU/ohAalS2S9V8
+ 0LVBYcRNeZn0PB4BGViLGAZyu1ZAvSyhWlPzPgsnmurqYFIg4LC9ezIpF1hbhYtz+y
+ ZV7kqCh2vljlzAO363d8gd+29MoeAUu4gdvddGh9akZZszymrKHITRVuJBgK1uGi5y
+ jlPH/DcvuHvnzKP4UdjT7zd3zhiEuQ5A+oh1FF4veu653uCvq1mV00Gmo91+WIJ/bg
+ 3wYkZ+hHvVgTFvoJzlRN5P0az4ZygP3GwjmbIJVA+cLPs0zXxie4QeRTd/8SY6M7hO
+ W4Fzz2vOLvKIw==
+X-Pm-Submission-Id: 4gqzzj4kWcz2Scdd
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: Re: [PATCH] gpu: nova: fix rust-analyzer generation
+Date: Wed,  1 Jul 2026 15:36:50 +0300
+Message-ID: <20260701123703.152958-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260701-nova-rust-analyzer-v1-1-5209f486f10d@nvidia.com>
+References: <20260701-nova-rust-analyzer-v1-1-5209f486f10d@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Jul 2026 12:36:45 +0000
-Message-Id: <20260701123645.717A71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,166 +65,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Missing NULL pointer check for `device_get_match_data()` return va=
-lue leads to kernel panic.
-- [Low] Build failure due to invalid initialization of an array field with =
-a compound literal.
-
-Pre-existing issues:
-- [High] Missing driver `.remove` callback leads to unbalanced runtime PM u=
-sage counter and resource leak.
-- [High] Dangling `phy_lookup` entry in the global list causes a Use-After-=
-Free upon driver unbind.
-- [High] Unconditional dereference of `dev->platform_data` before validatin=
-g it for NULL.
---
-
-commit 2a851e9d237369ac4340bdce02183defb68c9865
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
-
-This patch migrates the hardcoded register offsets in the MediaTek DP PHY d=
-river
-to SoC-specific platform data. It assigns this platform data for both Devic=
-eTree
-and platform probing. It also loops through lanes to clean up the writing of
-driving parameters.
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
--mtk-dp.c
-> index 98e05fe05ce3b..ce33f6812bae6 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-[ ... ]
-> @@ -161,11 +225,18 @@ static const struct phy_ops mtk_dp_phy_dev_ops =3D {
->  	.owner =3D THIS_MODULE,
->  };
-> =20
-> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data;
-> +
->  static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct =
-mtk_dp_phy *dp_phy)
->  {
->  	struct device *dev =3D &pdev->dev;
->  	struct phy *phy;
-> =20
-> +	/*
-> +	 * If legacy platform driver probe, assume this is MT8195 or compatible
-> +	 * with a devicetree that was not migrated to the new, proper bindings.
-> +	 */
-> +	dp_phy->pdata =3D &mt8195_dp_phy_data;
->  	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
-
-[Severity: High]
-This is a pre-existing issue, but does this code unconditionally dereference
-dev->platform_data before checking if it is NULL?
-
-If the platform device is probed through the legacy path without an of_node=
- and
-without platform_data provided (which can happen by manually binding an
-arbitrary compatible device via sysfs), could this lead to a kernel panic?
-
->  	if (!dp_phy->regmap)
->  		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
-[ ... ]
-> @@ -214,6 +285,8 @@ static int mtk_dp_phy_probe(struct platform_device *p=
-dev)
->  	if (IS_ERR(dp_phy->regmap))
->  		return PTR_ERR(dp_phy->regmap);
-> =20
-> +	dp_phy->pdata =3D device_get_match_data(dev);
-> +
-
-[Severity: High]
-Can device_get_match_data() return NULL here?
-
-If a user with privileges to write to sysfs binds the device manually using
-/sys/bus/platform/drivers/.../bind, or the device is instantiated via platf=
-orm
-name matching while having an of_node, device_get_match_data() will return
-NULL.
-
-Could this lead to a NULL pointer dereference resulting in a kernel panic w=
-hen
-dp_phy->pdata is accessed later?
-
->  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
->  	if (IS_ERR(phy))
->  		return dev_err_probe(dev, PTR_ERR(phy),
-[ ... ]
-> @@ -231,8 +304,15 @@ static int mtk_dp_phy_probe(struct platform_device *=
-pdev)
->  	return 0;
->  }
-> =20
-> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data =3D {
-> +	.off_dig_glb =3D 0x1000,
-> +	.off_dig_lane =3D (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
-
-[Severity: Low]
-Will this fail to compile under standard C compilers?
-
-The off_dig_lane field is declared as an array
-u16 off_dig_lane[MTK_DP_PHY_MAX_LANES], but it is being initialized using a
-pointer from a compound literal cast (const u16[]) { ... }.
-
-Assigning an explicitly cast compound literal to an array field is
-syntactically invalid and could prevent the driver from building.
-
-> +	.regs_dig_glb =3D mt8195_phy_dig_glb_regs,
-> +	.regs_dig_lane =3D mt8195_phy_dig_lane_regs,
-> +};
-
-[Severity: High]
-This is a pre-existing issue, but does the mtk_dp_phy_driver missing a .rem=
-ove
-callback lead to unbalanced runtime PM usage?
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
-    ...
-    pm_runtime_enable(dev);
-    pm_runtime_get_sync(dev);
-
-    return 0;
-}
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_driver {
-    .probe =3D mtk_dp_phy_probe,
-    .driver =3D {
-        .name =3D "mediatek-dp-phy",
-        .of_match_table =3D mtk_dp_phy_of_match,
-    },
-};
-
-Without a .remove implementation to handle unbinding the driver, could the
-device remain permanently powered on and fail to cleanly suspend or unbind?
-
-[Severity: High]
-This is also a pre-existing issue, but is the phy_lookup entry left danglin=
-g in
-the global list when the driver is unbound?
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_legacy_probe() {
-    ...
-    phy_create_lookup(phy, "dp", dev_name(dev));
-    ...
-}
-
-Because there is no .remove callback, phy_remove_lookup() is never called.
-
-Could a subsequent phy_get() call traversing the list access the freed
-pointer, resulting in a Use-After-Free since devres automatically frees the
-struct phy?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701122008.1950=
-9-1-angelogioacchino.delregno@collabora.com?part=3D4
+On Wed, 01 Jul 2026 15:40:51 +0900=0D
+Alexandre Courbot <acourbot@nvidia.com> wrote:=0D
+=0D
+> The rust-analyzer generator script recognizes a crate when its=0D
+> corresponding `.o` appears in the Rust source file's immediate `Makefile`=
+=0D
+> or `Kbuild` file.=0D
+> =0D
+> Commit ca524e273c43 ("gpu: build nova-core and nova-drm from=0D
+> drivers/gpu/Makefile") moves the build rules for `nova-core` and=0D
+> `nova-drm` into `drivers/gpu/Makefile`, which results in the generator=0D
+> script ignoring these crates.=0D
+=0D
+So this regression shows that generate_rust_analyzer.py should probably han=
+dle=0D
+this case better e.g. by checking and understanding parent build rules too.=
+=0D
+=0D
+> =0D
+> Fix this by naming the crates' module as a comment in their respective=0D
+> `Makefile`; this is enough for the script to pick them up and restore=0D
+> `rust-analyzer` functionality on them.=0D
+> =0D
+> Fixes: ca524e273c43 ("gpu: build nova-core and nova-drm from drivers/gpu/=
+Makefile")=0D
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>=0D
+=0D
+That said, this is a reasonable quick fix for the current generator as it f=
+ixes=0D
+the rust-analyzer functionality for nova, so:=0D
+=0D
+Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+=0D
+> ---=0D
+>  drivers/gpu/drm/nova/Makefile  | 1 +=0D
+>  drivers/gpu/nova-core/Makefile | 1 +=0D
+>  2 files changed, 2 insertions(+)=0D
+> =0D
+> diff --git a/drivers/gpu/drm/nova/Makefile b/drivers/gpu/drm/nova/Makefil=
+e=0D
+> index b9fad3956358..6355f7502c48 100644=0D
+> --- a/drivers/gpu/drm/nova/Makefile=0D
+> +++ b/drivers/gpu/drm/nova/Makefile=0D
+> @@ -1,2 +1,3 @@=0D
+>  # SPDX-License-Identifier: GPL-2.0=0D
+>  # nova-drm is built from drivers/gpu/Makefile.=0D
+> +# nova.o (rust-analyzer marker - DO NOT REMOVE).=0D
+> diff --git a/drivers/gpu/nova-core/Makefile b/drivers/gpu/nova-core/Makef=
+ile=0D
+> index 4c15729704a1..216329760a5b 100644=0D
+> --- a/drivers/gpu/nova-core/Makefile=0D
+> +++ b/drivers/gpu/nova-core/Makefile=0D
+> @@ -1,2 +1,3 @@=0D
+>  # SPDX-License-Identifier: GPL-2.0=0D
+>  # nova-core is built from drivers/gpu/Makefile.=0D
+> +# nova_core.o (rust-analyzer marker - DO NOT REMOVE).=0D
+> =0D
+> ---=0D
+> base-commit: 431f10ba13a964c146ae05728e42e4074bf735ab=0D
+> change-id: 20260701-nova-rust-analyzer-8dd146dc53a3=0D
+> =0D
+> Best regards,=0D
+> --  =0D
+> Alexandre Courbot <acourbot@nvidia.com>=0D
+> =0D
