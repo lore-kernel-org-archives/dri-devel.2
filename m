@@ -4,49 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF05EC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 21:07:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEFC9C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 21:08:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB92210F0CC;
-	Wed,  1 Jul 2026 21:07:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F7F210E411;
+	Wed,  1 Jul 2026 21:08:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TQHxpVkP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R05xdlt9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C27C310E411
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 21:07:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D2610E411
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 21:08:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 47FC6600B0;
- Wed,  1 Jul 2026 21:07:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FBB31F00A3A;
- Wed,  1 Jul 2026 21:07:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AEDB84121C;
+ Wed,  1 Jul 2026 21:08:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA721F000E9;
+ Wed,  1 Jul 2026 21:07:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782940056;
- bh=sfG7s89mfvljYpVWOaNelZwNwYWXPtSU+euAa/rOwBg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date;
- b=TQHxpVkPsNmamdUSK8oPd9dm5DS5uPpgVkAwzNTKuIbqMZZ8ZnWnsm6AMKtb1iS1y
- 3Cz4zryUD0GoJhSmJTWhCOaj1OOXIcbCQB+WtRxB9vDegQwGJqR48js2hxU2fT9QEK
- 6vOF8hBRdxLT76ATSgb6X2K9KKO72RF9dXSfYpa+MNH/s5Pm8YM5E09HSJeRwfEqJ1
- LY16ji3IAKaYOd0zr7F4atjLAyrkoIo+uvPK0eZOHlqHIf/iK5dBz1M9Xoy8PgyHq0
- fZnTzCc7c05K4YnyYnrz3WV3GsMShP/aKJzTe2rhL0NxwZH8UQ4TejpjZa81if9YuS
- RM1SLLJILhtDA==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: linux-arm-msm@vger.kernel.org, 
- Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com, 
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, 
- dri-devel@lists.freedesktop.org, arnd@arndb.de, 
- ekansh.gupta@oss.qualcomm.com, stable@kernel.org
-In-Reply-To: <20260525085340.2734738-1-anandu.e@oss.qualcomm.com>
-References: <20260525085340.2734738-1-anandu.e@oss.qualcomm.com>
-Subject: Re: [PATCH v1] misc: fastrpc: fix channel ctx ref leak when
- session alloc fails
-Message-Id: <178294005408.13032.9633451619945550985.b4-ty@kernel.org>
-Date: Wed, 01 Jul 2026 22:07:34 +0100
+ s=k20260515; t=1782940083;
+ bh=n7TjrDqsTEXkjC3PhmRlxBihqIlnrgHLtJxV5VcmAZc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=R05xdlt97pe/ijbd4CsvgRrK3H0zhwdCFNuSbe6tD5xKdsTmrD9W4UCWmZVq/7G9j
+ inXtguiQCUbXXibB4KnH2J5ljgNUpz/Tu3LEUb74Dl8pu7Ym/bbiGSdHXrsYgU6L7x
+ dWnOAGypLXu3rwDjK9dIvj3+wnOOCDXb1jUUugyEBANR7nQ8nwcq2U7MBV6OR4dnax
+ +A6EbAbdURYNYmNwgEHXawdT3JnfgFCxjszQJum1+FGFDsumdwFeb7//fPO2hgSYWU
+ ishEv9Y/n/IV0oeEZ7W4bB5BNxIGYGUBIbvKocmzEQ+r65BA7XMez+qq9nswkMK+rr
+ nlfRkqfeMc9pg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Gary Guo <gary@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH] gpu: nova-core: remove `#[allow(non_snake_case)]`
+Date: Wed,  1 Jul 2026 23:07:57 +0200
+Message-ID: <20260701210757.334789-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260612123401.2684025-1-gary@kernel.org>
+References: <20260612123401.2684025-1-gary@kernel.org>
+X-Patch-Reply: applied
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,21 +67,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Mon, 25 May 2026 14:23:40 +0530, Anandu Krishnan E wrote:
-> fastrpc_channel_ctx_get() is called in fastrpc_device_open() before
-> fastrpc_session_alloc(). If session alloc fails, the error path
-> returns -EBUSY without calling fastrpc_channel_ctx_put(), leaking
-> the reference. Fix by adding the missing put.
-> 
-> 
+On Fri, 12 Jun 2026 13:34:00 +0100, Gary Guo wrote:
+> [PATCH] gpu: nova-core: remove `#[allow(non_snake_case)]`
 
 Applied, thanks!
 
-[1/1] misc: fastrpc: fix channel ctx ref leak when session alloc fails
-      commit: c48eabae708407d4f26eeb81f9fe8215741b78fb
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-Best regards,
--- 
-Srinivas Kandagatla <srini@kernel.org>
+[1/1] gpu: nova-core: remove `#[allow(non_snake_case)]`
+      commit: 24d2581fd911
 
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patch is queued up for the upcoming merge window for the next major kernel
+release.
