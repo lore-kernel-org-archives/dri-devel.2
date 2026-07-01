@@ -4,50 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB4A1C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 15:37:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EBCCC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 15:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C5F10F007;
-	Wed,  1 Jul 2026 15:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75BB110EA6E;
+	Wed,  1 Jul 2026 15:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ktR4M2kx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CLEsIiWM";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCFDB10F007;
- Wed,  1 Jul 2026 15:36:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id ECE9D6001D;
- Wed,  1 Jul 2026 15:36:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9531F000E9;
- Wed,  1 Jul 2026 15:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782920218;
- bh=7PMyPj49ff92f1DaqsDh3uAzfXfDvH/ocFqvDS3U5Sc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ktR4M2kx8zAi2arn+ibq69x76kDkmaMWw0nujrGJ0ZgnUjvN6n+VCsnXdyx4TBxqc
- y2Q//eJ7God84zRv3Orgod57tsmFoVMzQfoEDMms+XVkq0XXwIOJh8WqW+gXehTtB+
- Cjk03q6cKspXSJcv2K+LnLdnrR9o8h80yDFLX52Jq13FpDh9vzvIAmH2HNPAthbjkE
- gZS6ZDZfK1ZsJ0xWKN2dt8OpU5sdV+0A9wqfRZqwp7bGfJiot3fFpP22rzVdaTGCLB
- MxMh7rIrqu7M0fhNiwc2MXgEMrO8Dl1VMF/KH43+1SBAG7/S2jEvxlMca91OhC3b91
- sx5FA2P/PV5eQ==
-Date: Wed, 1 Jul 2026 17:36:54 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
- =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v2 0/3] drivers: Improve memory management for large
- object allocations when i915/shmem is used with iommu
-Message-ID: <akUzCar-MMOMGtGB@zenone.zhora.eu>
-References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F68410EA6E;
+ Wed,  1 Jul 2026 15:56:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782921376; x=1814457376;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=afwJd+S6lP1l2dk3kI5UOr04xPYFcO5Q8UB0L68b/y4=;
+ b=CLEsIiWMvZ5GKR/8pgMo+DVmAyxVAqr4QKa0vL+SFEpW6c8w8ApHaiYf
+ A8zM5KvAkGwzTNh/3zlenEMOT1u5+6lJt+fjW3QPhClXiICOgnwUCLX0A
+ sKJpLM6gXSh8oam134T7JOcOlCo6gFod3NMWM+kCT/Mx39DOOm5MSn4Ce
+ HBRmkfUi1dqoLNIm2VdcXadMy2eS3We3eIUUKohyMbtMY2swALA2fBUYC
+ U2cL5kpTbfmCqP7EJsTIsh/K+bxBG9W/+ADgzXmIXeFepxpZcXqjrz3sS
+ euKVYjLmmce9FU0jelZk6yi73JKRujchesXg3+mHFwEziNyJPCyQDrAaS A==;
+X-CSE-ConnectionGUID: C11Z6hNCQoijcalVRy39oQ==
+X-CSE-MsgGUID: MAZJE2Q/R4q+B8C8280xDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="87571900"
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="87571900"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 08:56:15 -0700
+X-CSE-ConnectionGUID: FsdKxxFaRS+2fJ35CrDePw==
+X-CSE-MsgGUID: Tqp34GmNTRmi31OCCvlsug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,142,1779174000"; d="scan'208";a="256938068"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.120])
+ ([10.245.244.120])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 08:56:10 -0700
+Message-ID: <6f612bb912271b0dabb86c10e4f81dfbd4c4d31c.camel@linux.intel.com>
+Subject: Re: [PATCH v10 0/5] drm/gpusvm: split MM and device state across
+ gpusvm/range/pages
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>
+Cc: Honglei Huang <honghuan@amd.com>, sima@ffwll.ch, rodrigo.vivi@intel.com,
+ intel-xe@lists.freedesktop.org, aliceryhl@google.com,
+ Alexander.Deucher@amd.com, 	Felix.Kuehling@amd.com,
+ Christian.Koenig@amd.com, Ray.Huang@amd.com, 	Lingshan.Zhu@amd.com,
+ Junhua.Shen@amd.com, Yiru.Ma@amd.com, 	amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Date: Wed, 01 Jul 2026 17:56:07 +0200
+In-Reply-To: <DJMGHGBIJTOI.3FTGPA92WVGC6@kernel.org>
+References: <20260630102127.392396-1-honghuan@amd.com>
+ <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
+ <DJMGHGBIJTOI.3FTGPA92WVGC6@kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701104437.236979-1-krzysztof.karas@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,25 +78,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Hi Danilo,
 
-> Krzysztof Karas (3):
->   drm/i915/gem: split shared memory allocation table logic
->   drm/i915/shmem: Count mapped pages in a folio
+On Tue, 2026-06-30 at 16:33 +0200, Danilo Krummrich wrote:
+> On Tue Jun 30, 2026 at 4:26 PM CEST, Matthew Brost wrote:
+> > If we merge the patches in drm-xe-next and pick them up via a
+> > rebase in the
+> > AMD trees, that works.
+>=20
+> IIUC what your are proposing this will create duplicate commits,
+> which should be
+> avoided.
+>=20
+> If the series is needed in multiple trees it is better to pick a
+> common base and
+> share via a tag that can be merged in all relevant trees.
 
-Please move the refactoring after the fix. We don't want to
-create a dependency between a fix and a code refactoring, as
-that makes it harder for maintainers to backport the fix.
+Our standard workflow if we need commits merged elsewhere in the DRM
+tree is to wait for it to appear in drm-next and then backmerge drm-
+next into our branch. It sounds like that's what Matthew is proposing
+here? And it wouldn't create duplicate commits?
 
 Thanks,
-Andi
+Thomas
 
->   drivers/iommu: Catch scatterlist length overflows
-> 
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 191 +++++++++++++---------
->  drivers/iommu/dma-iommu.c                 |  14 +-
->  2 files changed, 129 insertions(+), 76 deletions(-)
-> 
-> -- 
-> 2.34.1
-> 
