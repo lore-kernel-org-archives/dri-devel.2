@@ -4,170 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D46BFC43327
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1D26C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 08:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 042FE10EE42;
-	Wed,  1 Jul 2026 08:28:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE9AF10EE49;
+	Wed,  1 Jul 2026 08:32:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bShJLh8O";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="pk4AtDVr";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="aPVd6uLE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B04810EE3F;
- Wed,  1 Jul 2026 08:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782894522; x=1814430522;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=e6HcanYcNtF7T5xJTaK+i/MkN8Tc9vt6YszTTXVkMeU=;
- b=bShJLh8O1l0bI2QdFddrzBGVVexNZSx15HyGWfc8u+ZmKKMivpN675ju
- JVHSQN1UUbBFa+dTb4FYC2vJam9LvkAxbxgJ4v3qbs2VreoI8l95h5iXi
- 9B81vi+t0zwPBRhvy7Dhg9LHzoq2X6yCfGOoi23xYV0J/197ueqpxCMqA
- +brfIKZeQaUKX7j8lc+x4tVfuW0LpbZIGeIJ6CQsw3AKe34Eyb922DgH2
- J/HMUt4D1c8yTdzh7DUZBI/d63LzJkOFJsaZ5Stm+2xmhuiHEQpQB6h9D
- 7fX/rYN1XxY+qXcwRk5kZLoqV92gscGVhQQs7YqkuPCvEddllezCjkb1r g==;
-X-CSE-ConnectionGUID: w+T7az5sR1ePHyRnPGcIWQ==
-X-CSE-MsgGUID: cJR4y6oeQqa+vncUxU8qgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="87454400"
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="87454400"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 01:28:41 -0700
-X-CSE-ConnectionGUID: 0w7aQMyMR7WLz6Pw+vDdJQ==
-X-CSE-MsgGUID: OAy7hJlzRSG75ZuvpH3jOQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="275727910"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 01:28:40 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 1 Jul 2026 01:28:39 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Wed, 1 Jul 2026 01:28:39 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.31) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 1 Jul 2026 01:28:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oJHIrhH66d48LXDc7/iGyBdaKP6Vl3KV0YtuDX/3eXqAGPRPvs13k2iyxr/vbsgc9p+2onTnUKgPU2E027cTKuKnhe0X4ziZN7PvmV4nJhFJPIuEPtOmzjYiaBHjrQJpdCl8EajeHtySm0sV+P7bDOAw0kCmK2YBTDc8iV3AyWpm2GHLz6W7vrla3c8kFX9HPS5pbPTnQggu1piMkX/DifW2Cw9hvN1t4GXwb402zmXXkRqmdo0Ci1r8XEOI2KHGtowY+jJyMYawmepvjumb4VFmlBij3ng6IYDHVJ6P0Uamp6RBAcaIb5bu+P24wkoxDhPUXnI3Y9nDzi6pIGtTLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h64HFFyY/dbr0uJsrN6HVWqIkropEG0Tnkk/3r5/BNI=;
- b=fhx6Jg7L+k1qEWU7sy0xABZrx5TzeFDAItha3hSoG+/wL5FSRG5BF6GwP7FCwRhcvqUsQlGbTrDcaB2eOip+xB2NWykq/XEAGKolco9BHaA1s+Vl7kyVFB7/AP5r6qUkJycuJ6o8M9QjtMXR5wfnQakWABE0rLuuO+3n4e2ylpSlZWRCz0W4l+arwgMgb7j45e8m2Sisea7Io8yHGSGCFaSINXOg2ZRA7U+YqnmpMgFC7mXRVQwYnBvuveMQOIdppFUdcQSNbDwIoc5+09Iao1CulM429pR4RWRL73/5UIcZcnXaU+Go+drdQ7GhSdlpzujQ96VYpEUQ5EWMNznLUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
- by SN7PR11MB7537.namprd11.prod.outlook.com (2603:10b6:806:348::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
- 08:28:17 +0000
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
- 08:28:17 +0000
-Message-ID: <fccd9cd9-ca51-48e1-b564-528848a40b1f@intel.com>
-Date: Wed, 1 Jul 2026 13:58:06 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
- behind driver feature
-To: Robert Mader <robert.mader@collabora.com>, Melissa Wen <mwen@igalia.com>, 
- <dri-devel@lists.freedesktop.org>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, Harry Wentland <harry.wentland@amd.com>,
- Daniel Stone <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, Leandro Ribeiro
- <leandro.ribeiro@collabora.com>
-References: <20260630084229.529682-1-robert.mader@collabora.com>
- <20260630084229.529682-2-robert.mader@collabora.com>
- <0570d22d-bf3c-4c17-b50e-58f522f25ffb@igalia.com>
- <9eb18964-fcca-4fce-9fb9-f36d762ac23e@collabora.com>
- <267deaf4-55ec-492d-8646-e16a9b4bfb65@collabora.com>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <267deaf4-55ec-492d-8646-e16a9b4bfb65@collabora.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0177.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1af::10) To PH0PR11MB7636.namprd11.prod.outlook.com
- (2603:10b6:510:26f::13)
+Received: from flow-a3-smtp.messagingengine.com
+ (flow-a3-smtp.messagingengine.com [103.168.172.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC4D810EE49
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 08:32:19 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.phl.internal (Postfix) with ESMTP id 10A071380095;
+ Wed,  1 Jul 2026 04:32:19 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+ by phl-compute-04.internal (MEProxy); Wed, 01 Jul 2026 04:32:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1782894739;
+ x=1782901939; bh=VCjnwi8QfYnO+8yzfpol694kVs5T+6OkOnlzLTl6vgw=; b=
+ pk4AtDVr7X0Ga3ZeWprkuDgz4D0ADwYPDjiF6dJpeDjRBJwKFomQfgV1i2cUPfwS
+ YGG7oxHtxzxWOI/oCF1vTenXM/Bxnl+jzvqa2o4Uav3luge6v1KsVb0Z58Ux10SH
+ ihh0bvVj3hWOmrddUlZbKOAN4x35MKqgbBPgbBV3RnkOt941tQlZLmtzA0NS1gVa
+ wZi+BX1NBKmJrTAwiAoLRjtW42OtB7SEAhpJrWi1lBjP1k7jAL8lyCFZnVDg89+r
+ yq3ugkbXbTZjzlXrAoPV90L435jnotEuAcLSM1fiUThBWAv5FA+0Gj5gsyx2KLQ7
+ ZckqFzlkSmSQZ4fn81X3Mw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782894739; x=
+ 1782901939; bh=VCjnwi8QfYnO+8yzfpol694kVs5T+6OkOnlzLTl6vgw=; b=a
+ PVd6uLEv7fU/TFcABcQ+6PpHoMr8BHiJ+7VXlOffrKOqC36QNz/tVpyV3NvzfTod
+ D12qmE6PIf6WHNeISxeR2PjY2027TmvjNXrFxvtY38cmVNKGAlsBHfYZaEPMldtj
+ Lx4aKKaBkPRT88prowJPqxRuZQHVZjBoqJ5QCw0xSe6s44p1rQ086mjOsoX28TPW
+ 9xsDJn/pATFSr1374Jh2BlzoBgdD3L6Pec9oMRKCmjzb9eZyHTCmKVWo3RDAktE8
+ tNkami4hj34GWAN2LivncENYiAdNktm7yzF+45KtV6dfaEprjLbvQJRIJu7kUuvb
+ iayg2SwCno/GXgKqzIgsQ==
+X-ME-Sender: <xms:ktBEau0GTKniJ8UB3YIuVYzf3eXVLN7QylKoL2Bg3MvVCc4pVtvVDA>
+ <xme:ktBEar60oidT1BA9rF5zAoFVaPJxONWxBjLfRIadX_dUCe2QqF-rSuhjZX7RPcIt0
+ McilfieaxXTrUq93k9EhmP2DAH4aUXqX6JoopoRear13Gt0vfqWdww>
+X-ME-Proxy-Cause: dmFkZTG0B4Rq0E7HZkR0pnZ163rac2T7w/EKBvk1H137+LZ1DDmAdSv9ox5RZtU3ubf1at
+ u6WZgpkWy1yZ+xPhMEysBiXHkI/FAG+tA+IsC7Ro0iyP9baBdW/Gqq+MlndGYuJGyVzQes
+ sd0BE3aLNH4YSDGlgFLBNAaYaG4sOQZZhfVJ0T/DQs+GdE4ZINEDpFh6AD1t6CMHbDFHDW
+ Dyb4WNYJUZVB9C+3CFefMMbkInAN2w2O60GzAhBejddPbYdKqDE8euqw5cyFrUqYL7HsI0
+ R+mzjjbALXsHGc4CbyBPpSyrrc7KFjZiKMINe5pj5pPVKzR16ORlRpADFkdNJmxEZmU+Hi
+ ynyy/p0s3wJ+5wEoNPryrkVk9wTT8gYX2NL2ziGtuHO0uNldRlrz3biDchZ5dvxLIoQPIf
+ 4Ys0zoOwEAUJHKft5OKDDA9H2IMg5sfzB6cDfIpFIN0QNKHe1GarKKRW9xzRvvwFTC0xOM
+ y4BJJZ5HI/iFaCrklCySRsAU30y83NuxwPgF9nAHDnQAYLQGdVKWf6ZBWmjRbJTc4RScn0
+ PuPIT1IbJ8nqZLck0tWGST4XHneH+nQKFfqBV2Q8vd0Qp009muP0neRLplYkqbtscaQsro
+ HqRhq0vRLrdvrrofCQK3xJLqp8yB0cEt3pLS1D0HPb/YWgaYMdL06KmwXiqQ
+X-ME-Proxy: <xmx:ktBEaqLzev-1LnQpM8aDMtsrxpbXI8sZxIxM5-kJ2egQIJ0_s1wuwQ>
+ <xmx:ktBEaituhqNUPSQSy6pSO_Qxs07LiQTb2hOujvou545SdGJ0hWLeNQ>
+ <xmx:ktBEajm5fZl4R56Cjs77mdXM8OA19dWCSOQIvEyWIusUmQRiQ2DdOA>
+ <xmx:ktBEaplfx6UlRi6-9Vko4Drjuya6hEFHgk8ptOVgSj4h5IyVGGcNBQ>
+ <xmx:k9BEalsyhw0QnIjnuvZrS58BD58_C1KJuzD7-U3z5P3C3pb2O69T_it9>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 1786E182007E; Wed,  1 Jul 2026 04:32:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|SN7PR11MB7537:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef759acc-7f2f-4fd6-e3a6-08ded74ab338
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|23010399003|56012099006|4143699003|22082099003|11063799006|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info: qHQbh1y7O8IF4RUr8VtQYIaWRtJQRC/qaTs3PW3fIUo9xBYlyA32UkweDnwaBRLFEpA2oCH9pFegwR4kw2ketlDHf8ZXQqTYloepi5pPpFkKy/uitWvcySAasUfxT4WIMTiI9axnBQ8iIUGvGujGlksnfgs+NPvKBGN1XTZWF3ga3VK/GW4juz9DQ5hzo1hPkgSiGigXuPw0kXYYMvl3+IqSkaUwFHpbrpoy1JRDKeG57lQcSnQhSXDutuY0xlpagD2sh939L3YnsdEXBDMvvA/9yeiLsKm9GtWRUTWWJw1XHaUGOR4Vtx6hoSWy8GGPWFJcVJoeQ2vsnrXIMrLKFbWSk/yXeZNlKBcwRrvGfnkF5ZMf6V41RPhP/GOAzDCRFhQ86D0SPPYTRXgT3E5kWyIb6IxXouEzHYFlXvAIp1L1P+qp2Qr5kIhYjW6SW5eHg3kfarT8Kc31ZzlppD5pfKvMzuaa2cR4r4klioD9wwLYyTS/JOMfqLX0aLxedEsbbhmVFJJwrUbUpDl/pug1Pu6mfIGn5tFClSm9ekAYheLiESnONPlcNtaCTNHZPT9TcyCwEMP4tc3Vjmsgvb7I+q5JDg7o0wWISrX3UzdvcZ3wqvzLaVSIY6f0DjAe6F+d
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7636.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(56012099006)(4143699003)(22082099003)(11063799006)(6133799003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clRsNGpCR2N1VDVYSlpiUGpBL2o2UmtLOUtvOFc5Q2N1bktxTkxpaFgrajZN?=
- =?utf-8?B?ckQ4QzAzT3hvYUwyZXRqMUZJbXNQSEU2YjczWVBXdkRuQzVUZ2JYc1ArWnFs?=
- =?utf-8?B?eGxnZVRTYk8wVUxtalU2SHE4bTY1NE1weGJLN2N2SlJmZGhYWG9ZV29sS05l?=
- =?utf-8?B?enU5VjZGS3JMNEZiY2Q4S3BnQ1hoWGpZTDA4WGlPM0l1dVdMcEhNZkZEME1G?=
- =?utf-8?B?b3lHZW40eE4yOUNBdll1YkpSU2JxanhRRFlVVGxtOHBNZkllNEw3aFB6djcy?=
- =?utf-8?B?dE02Si80cWZVSXZNbzBhY1ZzR1EzaFNwNHhLcHRFa0JoUVZla2daS2U2OUVC?=
- =?utf-8?B?K1I0OFU3Q2lDZ1A2NkRuK3BqNGhZaDNjSDA4VnFwcWx1ckp1OHFBb01EQ3ps?=
- =?utf-8?B?U2pLUmpWM1k4Q2o2WUZJc1J1MWlyTmlPemZMYitSalRIOVgyanU3bXFrem1I?=
- =?utf-8?B?T2ZXWGU5UWxmWDg0b3UycjJkV0FOTlhnZ29vMXR5Njk5Q1d5T0VDakpkc3ZO?=
- =?utf-8?B?OTBNMzh3Q2x0OVluRkRtNU9DOWJHSmVIOUJHNkJpUWJlOGVZdzZxaUN0YThW?=
- =?utf-8?B?K2VpY2M0Z01HcUdCdlRLNTA3WFRDaG9WZlZuRWxrbXhYeWhhQ3pMeUlGSjF2?=
- =?utf-8?B?enJ0MFNvNkxnTnhsZEtvZy9GSWV4VGEvOWZUcnRuVzBLd1lJajFkQmlpMWhs?=
- =?utf-8?B?OFloSVZhNjA3RkE0OUVadkhCZU5rUHVrQWdiRlEvYXhncmxLKy8xZFNtN2Rr?=
- =?utf-8?B?eStRZVlManRyNjNZR0tSR2FRQXhLVnNLMGZOQ29MaFR2bVhrR2o2b01yNDFv?=
- =?utf-8?B?T3NJdTJSbXBzU2U4WCs5WFlrZG4rb01PaDJpT0FQdG81dUtCOXd1S1IxZ3cv?=
- =?utf-8?B?OEdwMmdOZklCdlFjdlEwd3NrSkgxeGVRNHN1azhXWVdsWGJWeHJrUUlIYkY5?=
- =?utf-8?B?aVkxQlZTKzNscWdFN0NjRWdSSzFzODFOYzlaRGN4aWljLzFOeUtJZlFVRW1x?=
- =?utf-8?B?S3g2WitzZk05VlEzZ2MrNmRZeHdMTmxDeVUxUlp0Q0taaFFkN2g4d2VBWEV4?=
- =?utf-8?B?TGlPZ1RueGJMS0h3R2hJelNIOXN1Qm1nR2YxaXZpK1NDdUlCUGw4ZUVCNDJn?=
- =?utf-8?B?T2RyeG9XZTFJSDRLaHpKZzVkMWtyM2pnRE5FVWxuMk50Vm41NzJhQU9NSnJr?=
- =?utf-8?B?UlJNd0kxWGI4TWtsNnBpVFd3UDN3SkQ0QmxKQXFsS3hoY0IvR0MzaUxqa2Uw?=
- =?utf-8?B?OXdxUnRrTFF4UkNGNU9MS2RQU2krVjV5U1I5UkRud0NVZXJOTC85MU5mMk5o?=
- =?utf-8?B?aGlUdkM2N2ZRNi8xQmx4b3FhcXZ3YVNCd3R2bjJETHFkbTF5NXcwYW5qaGtu?=
- =?utf-8?B?b3ZQbTVnWDZrdG1SUGlVdmwyenloT2FEQTBRWlF2c3RTTSt2VU9QL0lubkpY?=
- =?utf-8?B?L1BPZXNyZGJzQ3A5bmxnK1kxOHhxOHpwWlowcTRoOHprQkdYWnFGWExiVkNu?=
- =?utf-8?B?VWt0TUN3Z3pUTTUwTjZtQ3Q3SDhLSDAzbDRHaFRBUUtzWDYrZUQ5VzZnVWM0?=
- =?utf-8?B?QW80a1BmSnJLcUJRYjEyUHVhSUxoaitma2Y0aXpLUE1mRkp4U2lmWGR6dDdV?=
- =?utf-8?B?QVdxTGZNSVFnZVhrOUloUFJQT0tJVE9sYllNZ0ZuTGFvdzJiekdQOUxSdTQv?=
- =?utf-8?B?UDJya1JDR294dXJwdjZWeU04TDFMWEZ5R2ExVUd2OFo1OEExSjJtbFlNc0I2?=
- =?utf-8?B?K1dFTUxKQVdLakRlS0FmMTVNcGgyazN4YTBQTE5WTlN2WWNLOHJUTHFLQnd6?=
- =?utf-8?B?dlpPbGZTK0xubTd6dnVpelBiMDd5eUwwOUtwSm9qcDRVZ3BIejhHUENqRGNW?=
- =?utf-8?B?Qnoxek11aHY3eVNCek9TMHNKa2VXYU5xV0VlZGhta1RCbEpwNVRDWTFNazZJ?=
- =?utf-8?B?aXZ1NmVTZXZMNG9YQ2ZTeW8zdFV6aFVDbTN4dU5wSVYybjUwSmxZSFY3SVUw?=
- =?utf-8?B?NVBiQzhBZVJlREVUUTJxcTQ5MFJJV2JSNzlDUWt3bzA5QTlESlpidUJWNksy?=
- =?utf-8?B?d0lhL1JEc3RxRHR5Um45MVpOUWxsaGNkYzVlZ3pFL3k1V0lGUk1UT3VLNER2?=
- =?utf-8?B?Q1NHWmgweTJ0Z2l5UUZCdkJqVVlFUmh1Y1RqWDdUeFoyNTNjWGlkQVluS3Z2?=
- =?utf-8?B?Ylp3NFFGNlJ2ZVB4UTBJWndBWFA2bVdKTWd0MTgrVjAzUCswbHUvTkhZYVBp?=
- =?utf-8?B?djlkb1NQRzZ5cG5QaHI4THUvdTVBL1ZabGZFQzRaNG95VkdCNHpaWi9sd2Z3?=
- =?utf-8?B?bmVpa1RRSkt0a3ZZeXBtSTBjVG1vMjl4eWp1MnAxRUxVbHNGQ1g5TGlHWkhJ?=
- =?utf-8?Q?oNK4E7vWes23hO6o=3D?=
-X-Exchange-RoutingPolicyChecked: TlYpJNe77qAKOdpQ42+qeq1ksoAUuccMLfdiXrdTTrjzYLIWy2bocdUS4irDgM+F/6c4ToxYXJbvaU5iuCou5A2IeJXhvGNZF24fDEp6Gy6KBQ68SN0VSgBvdeKM771jHhWpJh4cJ8Mkh7InyI6AUTkEbVjgFrwNgam03rkGQbrDRMh/XpvmtfLi1Je7YoSKDchrTJIBWwzIme2vt1e1suDu5NTk1pHW1fkjd/6Ekyscxw16mIkjZooVfewZC7vnaoz5APyFfOBMR7UPx8jGlTVHaEKjlt8ADssuPm6CbaQCa/08GUPmjKCmLIbIjsUmP9eimmT+YQZbqf3nmXmYZA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef759acc-7f2f-4fd6-e3a6-08ded74ab338
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 08:28:17.1612 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PyZCFj0v4ocHB6JLUnwu28hwkOE/BlgBAxJxxO61+WpBJycP7O6ApmPyolFQFS2Y7BGEhUHy6gaHQKqyktVH8nh2+TZ64hmh0kGRxkGgdYo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7537
-X-OriginatorOrg: intel.com
+X-ThreadId: A045QOfflcQ7
+Date: Wed, 01 Jul 2026 10:31:37 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>
+Cc: "Arnd Bergmann" <arnd@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>,
+ "Marcel Holtmann" <marcel@holtmann.org>,
+ "MyungJoo Ham" <myungjoo.ham@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "Andy Shevchenko" <andy@kernel.org>,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Ulf Hansson" <ulfh@kernel.org>, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ "linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-usb@vger.kernel.org
+Message-Id: <72746bd8-8ba3-4369-a2e9-60795f183813@app.fastmail.com>
+In-Reply-To: <CAMuHMdWhv8i6tkmOJU_ee9LAV7mMcQHe9FXgqTHCjGiEMWvn8Q@mail.gmail.com>
+References: <20260629135917.1308621-1-arnd@kernel.org>
+ <CAMuHMdXhsM4JzArRuB=A46N-Ogbn2Fans+PVJVA-hEytFq=DeQ@mail.gmail.com>
+ <ff4d7043-1929-4fa1-ba5e-f28403ad6fcc@app.fastmail.com>
+ <CAMuHMdWhv8i6tkmOJU_ee9LAV7mMcQHe9FXgqTHCjGiEMWvn8Q@mail.gmail.com>
+Subject: Re: [PATCH] [RFC] gpiolib: introduce gpio_name() helper
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,96 +113,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Jun 30, 2026, at 18:01, Geert Uytterhoeven wrote:
+> On Mon, 29 Jun 2026 at 19:54, Arnd Bergmann <arnd@arndb.de> wrote:
+>> On Mon, Jun 29, 2026, at 17:29, Geert Uytterhoeven wrote:
 
+>> > Same results for instantiation using sysfs or configfs[1], although
+>> > the latter does have optional support for specifying the name.
+>>
+>> I wonder how many of the other instances have the same problem
+>> then. Would it be appropriate for gpiochip_fwd_desc_add() to set
+>> a name itself to address this one?
+>
+> I don't think it would be appropriate for the GPIO aggregator to set
+> that name.  What we want to print here (for debugging) is the physical
+> GPIO that an aggregator's GPIO is mapped to, not some consumer or line
+> name (which is not guaranteed to be unique).
 
-On 7/1/2026 1:39 PM, Robert Mader wrote:
-> On 01.07.26 09:35, Robert Mader wrote:
->> On 30.06.26 18:57, Melissa Wen wrote:
->>>
->>>
->>> On 30/06/2026 10:42, Robert Mader wrote:
->>>> The client cap is currently advertised unconditionally, even for 
->>>> drivers that do
->>>> not support plane color pipelines. If clients supporting the later, 
->>>> like Wayland
->>>> compositors and drm_info, enable the client cap on sich drivers they 
->>>> will be
->>>> left without both color pipeline and the legacy properties 
->>>> COLOR_ENCODING and
->>>> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
->>>>
->>>> Add a new driver feature and guard the client cap behind it, allowing
->>>> plane color pipeline and legacy YUV->RGB support to co-exist.
->>>
->>> Ouch, that's indeed a problem. Nice catch!
->>>
->>> I'm not sure if this is the right way to go because plane color 
->>> pipeline can be supported per plane and per hw family.
->>> My suggestion would be to only deprecate COLOR_ENCODING and 
->>> COLOR_RANGE in drm_mode_object_get_properties() if a plane 
->>> COLOR_PIPELINE property is attached.
->>> WDYT?
->>
->> Hi Melissa!
->>
->> I don't think we need or should use the legacy properties for drivers 
->> and clients that supports the new API. Once Harrys YUV conversion 
->> colorop series(1) lands, every plane on every hardware currently 
->> supporting COLOR_ENCODING and COLOR_RANGE could express that with the 
->> colorop API as well - even if not supporting any other operations.
+Ok.
 
-Is it a concern then that v6.19 will have COLOR PIPELINE advertised 
-without YUV support in AMD and still not allow legacy properties to be 
-used? If it is, then the nuanced approach that Melissa suggested might help.
+> E.g. "<chip-name>.<offset>" would be fine.  As gpiod_name() can only
+> return a fixed string or an existing string, it can't return such a
+> formatted string, though. And consumers don't have access to chip info?
 
-In Intel's case, currently the COLOR PIPELINE is exposed with a CTM 
-block which can in theory be used for the YUV -> RGB conversion but we 
-do have a dedicated programmable input CSC for this which we plan to 
-expose in the near future. [1]
+The gpiod_hwgpio() function is exported to consumers, so they can
+already print that instead of desc_to_gpio() if the local number
+is sufficient. If we really care about the <chip-name> portion for
+any of the debug prints, we could export another function that
+returns maybe gpiod_to_chip(gpiod)->label or
+dev_name(&gpiod_to_gpio_device(gpiod)->dev), which are both
+constant strings we can print.
 
-==
-Chaitanya
+It looks like we can also replace most of the remaining callers
+of desc_to_gpio() with gpiod_hwgpio().
 
-[1] Note: This is in addition to the fixed matrix block that we are 
-exposing for our SDR planes in
-
-https://lore.kernel.org/intel-gfx/20260617090819.1735153-1-chaitanya.kumar.borah@intel.com/
-It
->> would look roughly like this:
->>
->> └───"COLOR_PIPELINE" (atomic): enum {Bypass, YUV Pipeline 123} = Bypass
->>      ├───Bypass
->>      └───YUV Pipeline 123
->>          └───Color Operation 123
->>              └───Properties
->>                  ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
->>                  ├───"BYPASS" (atomic): range [0, 1] = 1
->>                  ├───"NEXT" (atomic, immutable): object colorop = 465
->>                  └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
->>
->> Doing so will be nicer for compositors/clients going forward as they'd 
->> only need to support a single API if they don't care about legacy 
->> drivers (and we can adapt all in-tree drivers).
->>
->> Do you agree?
->>
->> Best regards
->>
->> Robert
->>
->> 1: https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html
->>
-> P.S.: sorry for the noise, just resending with all to/cc headers to make 
-> sure it doesn't get lost - and wanted to add that I'm currently working 
-> on the Weston implementation for the YUV conversion colorop to get it 
-> over the line.
-> 
-> -- 
-> Robert Mader
-> Consultant Software Developer
-> 
-> Collabora Ltd.
-> Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-> Registered in England & Wales, no. 5513718
-> 
-
+       Arnd
