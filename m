@@ -4,54 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64527C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:13:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A7BC43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 17:15:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B334C10F07D;
-	Wed,  1 Jul 2026 17:13:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9200210E195;
+	Wed,  1 Jul 2026 17:15:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="cwAGTMui";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EfbvvJ8D";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D6910F074
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:13:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1782926021;
- bh=Q7wMHC5wMXi79xSQJq1oa0JMjZtGpyIKwT+h3qHie/U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cwAGTMui8KAgKIqS2zh/hMf2NpJ6Igjw5IT0UAZBRm8BXsqGyTjs+kdns6POc5EMM
- j+p8ubTR9CxHTK9qYU6UB5yZHMa/IpIGY2avWkfEvO7VmJN+iZcfSCAw+nnC5SDZQm
- 8mBWN+CJsV8HfDYesVlHp3WdAaU6lWfwhOAUP6YIXgns9qanLf9uXRCUfjhGAWt2p1
- DcFYvcyGUFWQdX0ECMysGsN6UMkP0TmF73t2Fkyw+ppNhfyfqfANe7D5cEDEtdBNRH
- OPiKejWu6Dj2Cuzo59AQesh2id+S4WmLKo9HCd1fCqcRnIc3EVI1hoJ+3N64tBKNpZ
- 0zhrBSVM2ccxA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4gr66r10vmz4wgb;
- Thu, 02 Jul 2026 03:13:40 +1000 (AEST)
-From: Matt Evans <matt@ozlabs.org>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-Subject: [PATCH v4 10/10] vfio/pci: Add mmap() attributes to DMABUF feature
-Date: Wed,  1 Jul 2026 18:12:22 +0100
-Message-ID: <20260701171245.90111-11-matt@ozlabs.org>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260701171245.90111-1-matt@ozlabs.org>
-References: <20260701171245.90111-1-matt@ozlabs.org>
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 149BD10E195
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 17:15:54 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2c9b1edf2bdso6390625ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 10:15:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782926153; x=1783530953; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:subject:cc:to:from:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=kXHKpeSyKt3/ctGA9pi3psIMZ/frqZMmTniR+Nhu24E=;
+ b=EfbvvJ8DIGYc4+WCNszibX5TU3wdMyKsZu5M4PJ3YeOIpgNCo0we5FnFfheQMSHjAl
+ wF3owX/FmCBvZzLOypUy6Q9r79zp6keGPL5K4eJKHiO+Lx5YPGKMLbN9yYoRBufADUln
+ y2CTYTulE8/b4aFiTlHTD2cHnoVUnNwzj5hFOeLtUmbONzYmwE1bDkzs71fVrz8bWl1o
+ COyYbTO/t20bxnJl7GN0f1mHt0wrBHfXCiStnDDxRvBTOW5PI9EmDfPZY4mPbVcSr2/v
+ 15eoQEsLiDrI75+LWaWfvZUIx1+1lDM4pvVgg5JVsjT8DpJOOFIOLjxcAP/5jujoLazv
+ WHsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782926153; x=1783530953;
+ h=content-transfer-encoding:mime-version:subject:cc:to:from:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kXHKpeSyKt3/ctGA9pi3psIMZ/frqZMmTniR+Nhu24E=;
+ b=nTec9ZO99Vkm+Svx5qbvHRUVyfAvjUSQxsjxzZorN7luuLhs/TNwuwvRxUtw2+G0j8
+ eIPijQa6VTxo8P/5aRzwVbLr9tqBn03R4Y7R9Z5aj1nO4K1H7yIBBhklVp/Cp5j/9swd
+ TpkEqtdXbiUMsyUz/+m7asYnSKuKCS12kZ4e+xjK4c/Nm0PRn8XDpIAvgpQtv7bloqnq
+ ll/OSMPwVmqNxcY3W/KmWxM5LbTGOP+ckPjGDpha/hXVE1h67pLydnWEOZ2twM0AzjCZ
+ qgA99Z1uzah88anlv70HKsDuUvZhIND2v6pe4WukJB4zzxjQnFXAXvR79b29yZNTOtJt
+ gf/g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq4ldn51a4SVG0guy4QCMaH1KL8ZdGDaP/TiYysmjxJ3FRCZYUhA5dwjuP2cHnUtOv1I/CNOP0ELU8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwC4QPk3VRA8EiR1r3hZCB2W6wPJ7WU/pSjBiLoRkCj/kCGTLkG
+ o1hEtulHH7x+e3gIU0TtiS0DZXS+b4TY/9uvyojiGIKDKHWAJeekHGmi6MU09LCZrs0FvA==
+X-Gm-Gg: AfdE7clr/kkXrixxNHgsBKo2f6Pc1ph7Zg9PBcHvde9NOrAEwXBh/pDRxlv3w2gQrmF
+ P7l6fQ0bkq8F67C7iYL+dKddMknRSR7uOnQ2ZcyXRnngwQY95CSXfwqx8t/nHO8ecC/nxT3B8nA
+ WhFP0nuCiTHr7BUpC1JROlXuImmTb2kVyz37Oi+z1kfMszCcsngReshMxKkZzs7T4qZ+LxqTRrA
+ vLZhx/UKjCM2JPVAVC/XGU0a0ZxM7ZovNyiKTsv9nPD64hRJ7Pr5mmbCuoUT0CNIvN97BVB8R83
+ algRm81l8YMZBSd0yZQ5WRxPxcnw7WBiwjggReD7EWoksGqyT5vj8uk7woX1PN14Uxt/ZZH7aqt
+ 9SpFTUzNTN5vip6etCRiUqJisZzyHZVSO0+Ofusn5PcMUIK2Atq2nZhSmzwg6Ox04MbZgIb7G7B
+ 7Gg5xUsSBzgvEPDa33KCBcrFvXVy9tEI0pxbwMZnlkE3q0x1AJAGZiIBnh7S35owf4Cu7UXVdFc
+ 9J/6HJJojASAZWk+Z6K
+X-Received: by 2002:a17:903:3c50:b0:2ca:e5c:7fcf with SMTP id
+ d9443c01a7336-2ca7e654686mr28663675ad.3.1782926153257; 
+ Wed, 01 Jul 2026 10:15:53 -0700 (PDT)
+Received: from Shuvs-MacBook-Air.local
+ ([2407:1400:aa40:6780:6462:8b0c:2576:642b])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ca9aa38fc5sm1121895ad.4.2026.07.01.10.15.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jul 2026 10:15:52 -0700 (PDT)
+Message-ID: <6a454b48.6a8fa39a.27019b.984b@mx.google.com>
+Date: Wed, 01 Jul 2026 10:15:52 -0700 (PDT)
+From: Shuvam Pandey <shuvampandey1@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] accel/rocket: initialize job domain before cleanup paths
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,204 +88,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A new VFIO feature, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR, is added to
-set CPU-facing memory type attributes for a DMABUF exported from
-vfio-pci.  These are used for subsequent mmap()s of the buffer.
+rocket_ioctl_submit_job() releases rjob through rocket_job_put() on
+allocation error paths. rocket_job_cleanup() unconditionally calls
+rocket_iommu_domain_put(job->domain), but job->domain is assigned only
+after task copying and BO lookups. A failure before that assignment can
+therefore clean up a job with a NULL domain pointer.
 
-There are two attributes supported:
- - The default, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC
- - VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC, which results in WC
-   PTEs for the DMABUF's BAR region.
+Take the per-file domain reference before the first error path can release
+rjob. Also clear rjob->tasks after freeing it in rocket_copy_tasks(), so
+the common cleanup path cannot free the task array again after a task-copy
+error.
 
-Signed-off-by: Matt Evans <matt@ozlabs.org>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c   |  2 ++
- drivers/vfio/pci/vfio_pci_dmabuf.c | 57 +++++++++++++++++++++++++++++-
- drivers/vfio/pci/vfio_pci_priv.h   | 14 ++++++++
- include/uapi/linux/vfio.h          | 27 ++++++++++++++
- 4 files changed, 99 insertions(+), 1 deletion(-)
+ drivers/accel/rocket/rocket_job.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index ebdf9ec30517..0059c176d627 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1579,6 +1579,8 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
- 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
- 	case VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE:
- 		return vfio_pci_core_feature_dma_buf_revoke(vdev, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR:
-+		return vfio_pci_core_feature_dma_buf_memattr(vdev, flags, arg, argsz);
- 	default:
- 		return -ENOTTY;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index cfca820b767a..31fbad93f89b 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -49,7 +49,10 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
- 	if ((vma->vm_flags & VM_SHARED) == 0)
- 		return -EINVAL;
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 2f1861f960cc..2b7222afc197 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -102,6 +102,7 @@ rocket_copy_tasks(struct drm_device *dev,
  
--	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-+	if (READ_ONCE(priv->memattr) == VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC)
-+		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
-+	else
-+		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
- 
- 	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
-@@ -482,6 +485,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- 	priv->vdev = vdev;
- 	priv->nr_ranges = get_dma_buf.nr_ranges;
- 	priv->size = length;
-+	priv->memattr = VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC;
- 	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
- 					     get_dma_buf.region_index,
- 					     priv->phys_vec, dma_ranges,
-@@ -759,6 +763,57 @@ int vfio_pci_core_feature_dma_buf_revoke(
- 		}
- 	}
- 
-+out_put_buf:
-+	dma_buf_put(dmabuf);
-+
-+	return ret;
-+}
-+
-+int vfio_pci_core_feature_dma_buf_memattr(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_memattr __user *arg,
-+	size_t argsz)
-+{
-+	struct vfio_device_feature_dma_buf_memattr db_attr;
-+	struct vfio_pci_dma_buf *priv;
-+	struct dma_buf *dmabuf;
-+	int ret;
-+
-+	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
-+		return -EOPNOTSUPP;
-+
-+	ret = vfio_check_feature(flags, argsz,
-+				 VFIO_DEVICE_FEATURE_SET,
-+				 sizeof(db_attr));
-+	if (ret != 1)
-+		return ret;
-+
-+	if (copy_from_user(&db_attr, arg, sizeof(db_attr)))
-+		return -EFAULT;
-+
-+	dmabuf = dma_buf_get(db_attr.dmabuf_fd);
-+	if (IS_ERR(dmabuf))
-+		return PTR_ERR(dmabuf);
-+
-+	/* Verify DMABUF: see comments in vfio_pci_dma_buf_revoke() */
-+	priv = dmabuf->priv;
-+	if (dmabuf->ops != &vfio_pci_dmabuf_ops ||
-+	    READ_ONCE(priv->vdev) != vdev) {
-+		ret = -ENODEV;
-+		goto out_put_buf;
-+	}
-+
-+	switch (db_attr.memattr) {
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC:
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC:
-+		WRITE_ONCE(priv->memattr, db_attr.memattr);
-+		ret = 0;
-+		break;
-+
-+	default:
-+		ret = -ENOENT;
-+	}
-+
- out_put_buf:
- 	dma_buf_put(dmabuf);
- 
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index 8741abd04461..b3c72df002c4 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -41,6 +41,7 @@ struct vfio_pci_dma_buf {
- 	struct kref kref;
- 	struct completion comp;
- 	unsigned long vma_pgoff_adjust;
-+	u32 memattr;
- 	enum vfio_pci_dma_buf_status status;
- };
- 
-@@ -157,6 +158,10 @@ int vfio_pci_core_feature_dma_buf_revoke(
- 	struct vfio_pci_core_device *vdev, u32 flags,
- 	struct vfio_device_feature_dma_buf_revoke __user *arg,
- 	size_t argsz);
-+int vfio_pci_core_feature_dma_buf_memattr(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_memattr __user *arg,
-+	size_t argsz);
- #else
- static inline int
- vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
-@@ -165,6 +170,7 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
- {
- 	return -ENOTTY;
+ fail:
+ 	kvfree(rjob->tasks);
++	rjob->tasks = NULL;
+ 	return ret;
  }
-+
- static inline int vfio_pci_core_feature_dma_buf_revoke(
- 	struct vfio_pci_core_device *vdev, u32 flags,
- 	struct vfio_device_feature_dma_buf_revoke __user *arg,
-@@ -172,6 +178,14 @@ static inline int vfio_pci_core_feature_dma_buf_revoke(
- {
- 	return -ENOTTY;
- }
-+
-+static inline int vfio_pci_core_feature_dma_buf_memattr(
-+	struct vfio_pci_core_device *vdev, u32 flags,
-+	struct vfio_device_feature_dma_buf_memattr __user *arg,
-+	size_t argsz)
-+{
-+	return -ENOTTY;
-+}
- #endif
  
- #endif
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index 697c0bb4b9bc..ab30b89399d0 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1554,6 +1554,33 @@ struct vfio_device_feature_dma_buf_revoke {
- 	__s32	dmabuf_fd;
- };
+@@ -548,6 +549,7 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 	kref_init(&rjob->refcount);
  
-+/**
-+ * Given a dma_buf fd previously created by
-+ * VFIO_DEVICE_FEATURE_DMA_BUF, SET the memory attribute that will be
-+ * used by future mmap()s of that fd.  SETting a new attribute does
-+ * not affect existing VMAs.
-+ *
-+ * The default, if no previous SET has been performed, is NC.
-+ *
-+ * Return: 0 on success, -1 and errno is set on failure:
-+ *
-+ *  EBADF, EINVAL: dmabuf_fd is not a DMABUF fd.
-+ *  ENODEV: The dmabuf_fd does not match this VFIO device.
-+ *  ENOENT: The given memattr is not supported.
-+ */
-+#define VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR 14
-+
-+/* Valid memory attributes for the memattr field */
-+enum vfio_device_dma_buf_memattr {
-+	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC = 0, /* pgprot_noncached */
-+	VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC = 1, /* pgprot_writecombine */
-+};
-+
-+struct vfio_device_feature_dma_buf_memattr {
-+	__s32	dmabuf_fd;
-+	__u32	memattr;
-+};
-+
- /* -------- API for Type1 VFIO IOMMU -------- */
+ 	rjob->rdev = rdev;
++	rjob->domain = rocket_iommu_domain_get(file_priv);
  
- /**
--- 
-2.50.1 (Apple Git-155)
-
+ 	ret = drm_sched_job_init(&rjob->base,
+ 				 &file_priv->sched_entity,
+@@ -573,8 +575,6 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 
+ 	rjob->out_bo_count = job->out_bo_handle_count;
+ 
+-	rjob->domain = rocket_iommu_domain_get(file_priv);
+-
+ 	ret = rocket_job_push(rjob);
+ 	if (ret)
+ 		goto out_cleanup_job;
