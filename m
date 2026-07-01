@@ -4,79 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F5F9C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:08:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 569E4C43327
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Jul 2026 11:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2619B10E33B;
-	Wed,  1 Jul 2026 11:08:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD49D10EEE5;
+	Wed,  1 Jul 2026 11:10:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="QRnvYhKi";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EiVY6z7c";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e0KiE+Hy";
 	dkim-atps=neutral
-Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com
- [91.218.175.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71DD110E33B
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:08:24 +0000 (UTC)
-Message-ID: <0efcc0a9-a51d-4de8-8406-b8fa536a91b7@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782904099;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ieMgPSS1eIBfAPTWcoeMePMwN2vKLGAwkXUol+yS3JM=;
- b=QRnvYhKi7ifn2CAOqwrrTALRRhFuKdBNRY4USBSzQESgxOH79yyPbWsw+wvjxJGm9pDQu3
- 75wHltVABewcdEultw97xVO9Srux+vxmHLrM1y3qkyY8Qi8RlcbW/19L2d+jmEkSOqKAw5
- 8d3ZpLHm3o4fEt3mWUbZ+Ie+mvfoBxk=
-Date: Wed, 1 Jul 2026 19:07:22 +0800
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 257BD10EEE5
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Jul 2026 11:10:58 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 661A8uAZ755504
+ for <dri-devel@lists.freedesktop.org>; Wed, 1 Jul 2026 11:10:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ n5nBOf/Ov1F+rraEj62zHawTRB/8BjMFTvGV2tnm9N4=; b=EiVY6z7c4AclhJxv
+ IjydyH+Cf8APmGkuVaT66N2cKfurEuN4IifGkWx74mHARak9ukggNmPfdqugDsc/
+ jbMa3p+k64vQkZ76ffbcdebzndLfIVYO0bnFRSykzIvsd8t+mQmKLWuAowNrWiIu
+ o2kSM8Vs8TO+emdmY3tkXQEku/1WkpkUYKJCyoE+FVfZlzIur/hxrub8JBCNXlPj
+ L3caq2QjgybbdwaC1QRAGosiePnSltCTrmJozbzWw3+EUbdZWH2ljPtchgjGssHm
+ muLzoeFipStVoy+j7zPbClKblFd6XHlaLLivvkoVXLUWnGFBhw4wURAD0a7wHw0d
+ a1wavg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f50sqr9t4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 11:10:57 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-51bfe75b7dbso1172071cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 04:10:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1782904256; x=1783509056;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=n5nBOf/Ov1F+rraEj62zHawTRB/8BjMFTvGV2tnm9N4=;
+ b=e0KiE+HyJ1Xq5ZTWH14X32GHUcbd0Z5UoOV7YYMCTAbxxOEvO3CahBAhc79lbertTL
+ eXIKP9yHXSP5ymBlHawuFAjUqqzWV4CFQh6JazJac/AAxsmWN6W+igVNZeQlc601JpW6
+ ufWPzfwR//0sLHFBySIzbCwh/lNa9irzRFkkuBCCtTbBH9Yh1qMo/MCeiYp/looqWZWe
+ tP6hOsQyBpzh6loomPTXvxBtf2tyL3vxSrxJsQfR//iebNkPplW10Nt1b2JwpWXEa8nb
+ FUlwZSzNk1dcu/9vUVpOHVPIpctqHGgN1Ao6HguXMM4ZmqBX8/sXgE1qp6snwxbtkDE+
+ Btew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782904256; x=1783509056;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=n5nBOf/Ov1F+rraEj62zHawTRB/8BjMFTvGV2tnm9N4=;
+ b=M3o3MlA2KDVr9Xk+AGMlEYIiIdQ09+Yzx3zc6+2jF8VIF/sNiAcibophdpNUbTSi4g
+ uYIGwO0lRpUkfQ++MlPouwFyoEjW/BWmDgOqhEoyF0qK0zC3AjszFZ8u3WQNFE6qo0JN
+ FSZ0WLFU5XZWej3+Lj/HtIFKYRpYPwtKZqO5fPn4XoGy0+HYrdxDdFrwGf+GSLmpnbT+
+ sirX1OV5htTlt/RFupPaRs4glj/2eToUskqkQk1e/VsjOaQAPiThY40a7aRnXSuJF1P1
+ Vl9Ev7oLTkMftfBQNv3X1Hx3JXiA/3deJ34WI+jJEGMUVhcoAY5dKkGN+5HQjtcxuXe1
+ n83g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9y5kz+JxAy0M0wpAiKKR6IEshcb+cj0XLWNUO06Oar5U8JWO1PVNhwd3PSUZGPvq9eMii5gI7OBu8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtEHqVcnzzt5cRs2GxYiD+YGT/l9ElC+D9Dhtq9NimqSGAf1/F
+ 98eI2SiA7HpFEXE+5Meg+DU62NJJDGjMNaMC5j1ZwGsS6dwDUX0blSl0dgLTDtgT5RCcxbtmI/C
+ S+BWtkEuS3UfBGNyBjanAjctHMFHCC0aFIlVOXKhNWxUd/XvAYCxa1RH/oYlRRei/Tw8wLIk=
+X-Gm-Gg: AfdE7cmnwS8bs/dkimXK1OwoUcImvjUFUJYzrFIXLrpilJ2RmyT9DzWRTQqd4rTS2BW
+ lhmuPm4R4CkGOMOHJ+c3rWKS3Ox5lcTpr3N/e2lZgSiiCYeWFprdpDrnNbjx4yj/JBZfHDheqeU
+ 0sG4lA+c9zMAZF7QgQRD9Gwg0wt+12i5akj1dDhfrXuIvgUxEySfQjSvkFIo9NvLI2G8IGutKRL
+ RiSF1NPAQYfUnKxf89tWv8sEg97MWyh4dv40w7TTq0qVUtKZ/ChVGs4ZHG0Q9hK72AsYVID4flF
+ OVAmywQyBiH+2y2Yibdg4wt3w9qmO4JRbgXbQeOCu54GhqbmKBypyZsJRm8f372XafssoyGX2gu
+ +hDTTcoretUDuIgkrZZfK860RTU4vrTpgWws=
+X-Received: by 2002:a05:622a:164f:b0:51c:d16:b498 with SMTP id
+ d75a77b69052e-51c26b4ff5cmr8481671cf.10.1782904256284; 
+ Wed, 01 Jul 2026 04:10:56 -0700 (PDT)
+X-Received: by 2002:a05:622a:164f:b0:51c:d16:b498 with SMTP id
+ d75a77b69052e-51c26b4ff5cmr8481381cf.10.1782904255890; 
+ Wed, 01 Jul 2026 04:10:55 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6987c3b5ba9sm2553522a12.7.2026.07.01.04.10.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Jul 2026 04:10:55 -0700 (PDT)
+Message-ID: <392d38bd-8bc8-4567-a79c-dca7a1bb8e34@oss.qualcomm.com>
+Date: Wed, 1 Jul 2026 13:10:50 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 1/7] list: Add mutable iterator variants
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- David Laight <david.laight.linux@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Tejun Heo <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Paul Moore <paul@paul-moore.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, David Howells <dhowells@redhat.com>,
- Simona Vetter <simona.vetter@ffwll.ch>, Randy Dunlap
- <rdunlap@infradead.org>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-ntfs-dev@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, audit@vger.kernel.org, bpf@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- kexec@lists.infradead.org, live-patching@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org, rcu@vger.kernel.org, sched-ext@lists.linux.dev,
- linux-mm@kvack.org, virtualization@lists.linux.dev, damon@lists.linux.dev,
- llvm@lists.linux.dev, Kaitao Cheng <chengkaitao@kylinos.cn>,
- Muchun Song <muchun.song@linux.dev>
-References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
- <20260622040533.29824-2-kaitao.cheng@linux.dev>
- <20260622094242.64531b9a@pumpkin>
- <351a6b67-b394-4c58-aee2-88b6c8089ad5@linux.dev>
- <cf8467c7-b98f-44a5-9cf9-60b43b5da711@amd.com>
- <20260624152324.3def88ce@pumpkin>
- <0ed6b5c3-e955-46e2-9fc6-075a0dfd1c4f@linux.dev>
- <734f66ca51485ee3ec9788c0eaaead681e00664b@intel.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <734f66ca51485ee3ec9788c0eaaead681e00664b@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] firmware: qcom: scm: add missing IRQ_DOMAIN select to
+ QCOM_SCM
+To: Julian Braha <julianbraha@gmail.com>, andersson@kernel.org
+Cc: sumit.garg@kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+ mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+ mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ sumit.garg@oss.qualcomm.com, harshal.dev@oss.qualcomm.com
+References: <20260701110344.1999068-1-julianbraha@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260701110344.1999068-1-julianbraha@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-Proofpoint-GUID: yRzuaeBTbfasPoG4ThL0QMlPeiW0Lcca
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDExNyBTYWx0ZWRfXzwviZgZDyj1f
+ u0Y88luCv8Z5OscVPMN33vMWb6gFLHZS/neHQqGWaAcg2X8fvyxOxbCBV6M1a9Oj1en9nZ1FQFN
+ EY/bQg/hi2manjj8Cw4vl41juCMfvUs=
+X-Proofpoint-ORIG-GUID: yRzuaeBTbfasPoG4ThL0QMlPeiW0Lcca
+X-Authority-Analysis: v=2.4 cv=ceHiaHDM c=1 sm=1 tr=0 ts=6a44f5c1 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=46PZNAZc7cL1ucK_2EcA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDExNyBTYWx0ZWRfX8VRyO7jKag1O
+ shgtLr/dVBE6URGWoub2o+LQ8gR2IUZfloZl00j+bF/7BMrqN0rQdQdJTgCkE4sZgSG6qxkLrgY
+ lQ6LnGA18iQPFu/o6yLhwHkNWtjLPE8Dk3KZOswcr+J9xitO9rM0VFJAREcagtbdkpCyUDCfxLW
+ 6VaZg120e8VkUlbVPkb6xOFDG9iGeolf8h7RUivBoLl9XcC+K07me61M8dHmR5VMfye81rnhc7C
+ wUIHo1tXSdnLTCSthII84a4CC33dfscMnrc/3wCaOenfNJ5mibawqQhWyF9XZJzLkFGrcUGUnIS
+ BzRg8o5jKR6ZUpX82R3xNfD7YUgoam8HKviNT6Og7omzsZhN/9RK6cbkfiPc7DxNMhkxszGIcDO
+ 9Pt9BYwbMhwMnV1HVSDz/bvR9tUcQdxGcQRnLY9EQuRPwCTEgZxtGf41RhXee83+edwuBgFq13s
+ +UGNf/cT8lGfYKxMdXQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-01_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010117
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,235 +163,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-在 2026/6/25 19:00, Jani Nikula 写道:
-> On Thu, 25 Jun 2026, Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
->> 在 2026/6/24 22:23, David Laight 写道:
->>> On Wed, 24 Jun 2026 15:23:47 +0200
->>> Christian König <christian.koenig@amd.com> wrote:
->>>> On 6/24/26 15:14, Kaitao Cheng wrote:
->>>>> 在 2026/6/22 16:42, David Laight 写道:  
->>>>>> On Mon, 22 Jun 2026 12:05:31 +0800
->>>>>> Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
->>>>>>  
->>>>>>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
->>>>>>>
->>>>>>> The list_for_each*_safe() helpers are used when the loop body may
->>>>>>> remove the current entry.  Their API exposes the temporary cursor at
->>>>>>> every call site, even though most users only need it for the iterator
->>>>>>> implementation and never reference it in the loop body.
->>>>>>>
->>>>>>> Add *_mutable() variants for list and hlist iteration.  The new helpers
->>>>>>> support both forms: callers may keep passing an explicit temporary cursor
->>>>>>> when they need to inspect or reset it, or omit it and let the helper use
->>>>>>> a unique internal cursor.  
->>>>>>
->>>>>> I'm not really sure 'mutable' means anything either.
->>>>>> It is possible to make it valid for the loop body (or even other threads)
->>>>>> to delete arbitrary list items - but that needs significant extra overheads.
->>>>>>
->>>>>> It might be worth doing something that doesn't need the extra variable,
->>>>>> but there is little point doing all the churn just to rename things.
->>>>>>  
->>>>>>>
->>>>>>> This makes call sites that only mutate the list through the current entry
->>>>>>> less noisy, while keeping the existing *_safe() helpers available for
->>>>>>> compatibility.
->>>>>>>
->>>>>>> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
->>>>>>> ---
->>>>>>>  include/linux/list.h | 269 +++++++++++++++++++++++++++++++++++++------
->>>>>>>  1 file changed, 231 insertions(+), 38 deletions(-)
->>>>>>>
->>>>>>> diff --git a/include/linux/list.h b/include/linux/list.h
->>>>>>> index 09d979976b3b..1081def7cea9 100644
->>>>>>> --- a/include/linux/list.h
->>>>>>> +++ b/include/linux/list.h
->>>>>>> @@ -7,6 +7,7 @@
->>>>>>>  #include <linux/stddef.h>
->>>>>>>  #include <linux/poison.h>
->>>>>>>  #include <linux/const.h>
->>>>>>> +#include <linux/args.h>
->>>>>>>  
->>>>>>>  #include <asm/barrier.h>
->>>>>>>  
->>>>>>> @@ -763,28 +764,72 @@ static inline void list_splice_tail_init(struct list_head *list,
->>>>>>>  #define list_for_each_prev(pos, head) \
->>>>>>>  	for (pos = (head)->prev; !list_is_head(pos, (head)); pos = pos->prev)
->>>>>>>  
->>>>>>> -/**
->>>>>>> - * list_for_each_safe - iterate over a list safe against removal of list entry
->>>>>>> - * @pos:	the &struct list_head to use as a loop cursor.
->>>>>>> - * @n:		another &struct list_head to use as temporary storage
->>>>>>> - * @head:	the head for your list.
->>>>>>> +/*
->>>>>>> + * list_for_each_safe is an old interface, use list_for_each_mutable instead.
->>>>>>>   */
->>>>>>>  #define list_for_each_safe(pos, n, head) \
->>>>>>>  	for (pos = (head)->next, n = pos->next; \
->>>>>>>  	     !list_is_head(pos, (head)); \
->>>>>>>  	     pos = n, n = pos->next)
->>>>>>>  
->>>>>>> +#define __list_for_each_mutable_internal(pos, tmp, head)		\
->>>>>>> +	for (typeof(pos) tmp = (pos = (head)->next)->next;		\  
->>>>>>
->>>>>> Use auto
->>>>>>  
->>>>>>> +	     !list_is_head(pos, (head));				\
->>>>>>> +	     pos = tmp, tmp = pos->next)
->>>>>>> +
->>>>>>> +#define __list_for_each_mutable1(pos, head)				\
->>>>>>> +	__list_for_each_mutable_internal(pos, __UNIQUE_ID(next), head)
->>>>>>> +
->>>>>>> +#define __list_for_each_mutable2(pos, next, head)			\
->>>>>>> +	list_for_each_safe(pos, next, head)
->>>>>>> +
->>>>>>>  /**
->>>>>>> - * list_for_each_prev_safe - iterate over a list backwards safe against removal of list entry
->>>>>>> + * list_for_each_mutable - iterate over a list safe against entry removal
->>>>>>>   * @pos:	the &struct list_head to use as a loop cursor.
->>>>>>> - * @n:		another &struct list_head to use as temporary storage
->>>>>>> - * @head:	the head for your list.
->>>>>>> + * @...:	either (head) or (next, head)
->>>>>>> + *
->>>>>>> + * next:	another &struct list_head to use as optional temporary storage.
->>>>>>> + *		The temporary cursor is internal unless explicitly supplied by
->>>>>>> + *		the caller.
->>>>>>> + * head:	the head for your list.
->>>>>>> + */
->>>>>>> +#define list_for_each_mutable(pos, ...)					\
->>>>>>> +	CONCATENATE(__list_for_each_mutable, COUNT_ARGS(__VA_ARGS__))	\
->>>>>>> +		(pos, __VA_ARGS__)  
->>>>>>
->>>>>> The variable argument count logic really just slows down compilation.
->>>>>> Maybe there aren't enough copies of this code to make that significant.
->>>>>> But just because you can do it doesn't mean it is a gooD idea.
->>>>>> I'm also not sure it really adds anything to the readability.
->>>>>>
->>>>>> And, it you are going to make the middle argument optional there is
->>>>>> no need to change the macro name.  
->>>>>
->>>>> Christian König and Jani Nikula also disagree with the variadic-argument
->>>>> implementation approach. If we abandon that method, it means we will
->>>>> inevitably need to add some new macros. If mutable is not a good name,
->>>>> suggestions for better alternatives would be welcome; coming up with a
->>>>> suitable name is indeed rather tricky.  
->>>>
->>>> I don't think you need to add a new macro for the specific use case that people want to modify the next element of the iteration.
->>>>
->>>> If I remember your numbers correctly that is a really corner case and keeping using the existing *_safe() macros for that sounds perfectly fine to me.
->>>
->>> IIRC currently you have a choice of either:
->>> 	define               Item that can't be deleted
->>> 	list_for_each()	     The current item.
->>> 	list_for_each_safe() The next item.
->>> There is also likely to be code that updates the variables to allow
->>> for other scenarios.
->>>
->>> Note that if increase a reference count and release a lock then list_for_each()
->>> is likely safer than list_for_each_safe() :-)
->>>
->>> list.h has 9 variants of the 'safe' loop.
->>> The bloat of another 9 is getting excessive.
->>>
->>> It has to be said that this is one of my least favourite type of list...
->>
->> Hi Christian König, David Laight, Jani Nikula, David Hildenbrand,
->> Andy Shevchenko, Alexei Starovoitov
->>
->> For ease of discussion, I need to summarize the currently possible
->> approaches and briefly describe their respective pros and cons,
->> using the list_for_each_entry* interfaces as examples.
->>
->> 1. Add list_for_each_entry_mutable, while keeping list_for_each_entry
->> and list_for_each_entry_safe unchanged. list_for_each_entry_mutable
->> would be used specifically for safe deletion scenarios that do not
->> need to expose the temporary cursor externally. The code can refer to
->> the v1 version.
->>
->> Pros: Does not depend on immediate per-subsystem adaptation and can be
->>       merged directly.
->> Cons: Requires adding a whole set of mutable interfaces, which makes the
->>       code somewhat redundant.
+On 7/1/26 1:03 PM, Julian Braha wrote:
+> 'drivers/firmware/qcom/qcom_scm.c' calls 'irq_create_fwspec_mapping'
+> so it will fail to compile if IRQ_DOMAIN is disabled:
 > 
-> Seems fine, and the original _safe naming is ambiguous anyway.
+> drivers/firmware/qcom/qcom_scm.c: In function ‘qcom_scm_get_waitq_irq’:
+>   drivers/firmware/qcom/qcom_scm.c:2512:16: error: implicit declaration
+> of function ‘irq_create_fwspec_mapping’; did you mean
+> ‘irq_create_of_mapping’? [-Wimplicit-function-declaration]
+>    2512 |         return irq_create_fwspec_mapping(&fwspec);
+>         |                ^~~~~~~~~~~~~~~~~~~~~~~~~
+>         |                irq_create_of_mapping
 > 
->> 2. Directly optimize away the temporary cursor in list_for_each_entry_safe
->> and define it inside the loop instead, changing the interface from four
->> arguments to three.
->>
->> Pros: Does not add redundant interfaces.
->> Cons: (1) Users need to manually update special cases that use the
->>       traversal variable of list_for_each_entry_safe, the new
->>       list_for_each_entry_safe would no longer apply there and would
->>       need to be open-coded.
->>       (2) Because the macro arguments changes, all list_for_each_entry_safe
->>       callers would need to be modified and merged together, making it
->>       difficult to merge such a large amount of code at once.
+> A patch-set in review proposes making QCOM_SCM visible in the kconfig
+> frontend, so let's ensure that it's safe for users to enable:
+> https://lore.kernel.org/lkml/akS_6izxrhgK-I22@sumit-xelite/
 > 
-> This won't fly because there are literally thousands of
-> list_for_each_entry_safe() users.
-> 
->> 3. Use a variadic macro approach to optimize list_for_each_entry_safe,
->> so that it supports both three and four arguments.
->>
->> Pros: (1) Does not add redundant interfaces.
->>       (2) Does not depend on immediate per-subsystem adaptation and can
->>       be merged directly.
->> Cons: (1) Increases compile time.
->>       (2) Makes the interface harder for users to use.
-> 
-> Basically I'm against any variadic macro tricks where the optional
-> argument is not the last argument. That's just way too surprising, and
-> goes against common practice in just about all other languages.
-> 
->> 4. Optimize list_for_each_entry by defining the temporary cursor internally,
->> making it compatible with the functionality of list_for_each_entry_safe.
->> The code can refer to the v2 version.
->>
->> Pros: (1) Does not add redundant interfaces.
->>       (2) The number of externally visible arguments of list_for_each_entry
->>       remains unchanged, still three.
->> Cons: (1) list_for_each_entry and list_for_each_entry_safe would be merged
->>       into one, and list_for_each_entry_safe would gradually be deprecated.
->>       (2) Users need to manually update special cases that use the traversal
->>       variable of list_for_each_entry, the new list_for_each_entry would no
->>       longer apply there and would need to be open-coded. There are 15 such
->>       cases in total.
-> 
-> This sounds good to me, though I take it there's some code size increase
-> and/or performance penalty?
-> 
-> Maybe the 15 cases are questionable anyway?
-> 
->> 5. Use a variadic macro approach to optimize list_for_each_entry, so that
->> it supports both three and four arguments.
->>
->> Pros: (1) Does not add redundant interfaces.
->>       (2) Does not depend on immediate per-subsystem adaptation and can be
->>       merged directly.
->> Cons: (1) Increases compile time.
->>       (2) list_for_each_entry and list_for_each_entry_safe would be merged
->>       into one, and list_for_each_entry_safe would gradually be deprecated.
-> 
-> Please don't do the macro tricks.
-> 
->> 6. Make no changes, keep the current logic unchanged, and close the current
->> email discussion.
-> 
-> I like hiding the temporary stuff when possible.
-> 
-> BR,
-> Jani.
+> Signed-off-by: Julian Braha <julianbraha@gmail.com>
+> ---
 
-Hi all,
-If there are no objections, I will make the changes using the first approach.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-
-Hi David Laight,
-You previously expressed a different opinion. Do you have any further comments
-on the current proposed approach?
-
--- 
-Thanks
-Kaitao Cheng
-
+Konrad
