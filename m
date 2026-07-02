@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AFB8C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 752FAC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC5510F421;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55ED310F411;
 	Thu,  2 Jul 2026 14:46:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fYkawl1j";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bYq/jjt9";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C03710F40D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A50D10F3F7
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003596;
- bh=uFU9sq3wcK+aVr4VsVljOiTboVowPyqp4I52GKzQlr8=;
+ s=mail; t=1783003593;
+ bh=62ezjJKvz2Gj85vyfh7W4AzrLamHIuxXzzUjS74+Ghc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fYkawl1jPP2cKjFOkSldH7+dDgHcSW6MBHxwsRlOne+dHggv/p6yUjeodWpeNM70V
- wIPS+7ILRr6OY2ygeHkeYhvjYRkv7Iz29s4ii3767qcrVq66L+2UuopYhEnhW17c3K
- 9ywHEbn3iWssjJWkVZT9nRShqLL9smI+U8MBzVpto7vO9Cfpo1zCdIDi75xaxcxtib
- bO9MR7hTRKHzHvRMPKR5h276HPoQCgaN05C86TOL7zR2WIeZe+EpyQkxMdeAj/0uCr
- B9Ut6MpMxQxV0POC8vzEJilt55nIXNHaUDL973+NP9BgC5mCQaSjPfuweqv+prKS8E
- +zIFy30J4ptrA==
+ b=bYq/jjt9r9MtH8Dwz2pb+EeIhzs0/CjIo3T/JJNwsJC1HlwPZ18I58N5TWQJd7Mkf
+ h21TY58DEF71aQ/moPJhayGzmMeU3ew1NBSL/KswPvDzfmRPmmq/UC1RpULwxaQ0/l
+ xErtsKSyjkZCJNitGDt8rIYrtZKRw1HPKN32RSBIxz7jHKLmXPYF7xIBGj4MaWi1mZ
+ twjacVNEpCrSW2DCNy3hX01KjYNOREVH1efkwXfPVd6cOV6H0SkeQl4NvyUxrgrTVo
+ UfZunXPEs3DBQtCq26wghRKkHNdS3g36XuNvlACFV+iIRBjZHFGAHmsOB33ZxgAP2n
+ poluuGHqZRBFA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id EE57417E1411;
- Thu,  2 Jul 2026 16:46:35 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B5B5117E0FAA;
+ Thu,  2 Jul 2026 16:46:33 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:19 +0300
-Subject: [PATCH v8 06/39] drm/display: scdc-helper: Add helper to set SCDC
- version information
+Date: Thu, 02 Jul 2026 17:46:16 +0300
+Subject: [PATCH v8 03/39] drm/display: bridge_connector: Pass HDMI
+ capabilities through caps struct
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-6-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-3-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,108 +75,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HDMI 2.x specs mandate that compliant Sink devices report their SCDC
-version in the Sink Version register, which reads as 1 on any
-SCDC-capable sink.
+Switch drm_bridge_connector_init() to
+drmm_connector_hdmi_init_with_caps(), collecting the bridge's HDMI
+properties into a stack drm_connector_hdmi_caps so future HDMI 2.x
+capabilities can be plumbed without growing the argument list.
 
-There is also a dedicated Source Version register.  Writing it is not
-compulsory, but the spec advises that compliant Source devices do so, in
-which case the value must be 1.
-
-Add drm_scdc_set_source_version() to follow this recommendation.  The
-Sink Version register is read first, both to log the advertised SCDC
-version and to guard against non-conformant devices: a sink reporting
-version 0 is either not SCDC-version-aware or broken, so writing the
-source version gains nothing and risks upsetting such hardware.  In that
-case the write is skipped.
-
-The source version is passed as a parameter rather than hardcoded, as
-future spec revisions may define additional rules for the allowable
-version values.  The written value is additionally clamped to the sink's
-reported version so the source never advertises a version the sink does
-not understand.
+Introduce struct drm_bridge::supported_hdmi_ver to let bridges declare
+the HDMI specification version they are conformant with, and forward it
+to the connector layer through the new caps struct so HDMI 2.x features
+can be gated on real source capability rather than guesswork.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_scdc_helper.c | 46 ++++++++++++++++++++++++++++++-
- include/drm/display/drm_scdc_helper.h     |  2 ++
- 2 files changed, 47 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 29 ++++++++++++++------------
+ include/drm/drm_bridge.h                       |  6 ++++++
+ 2 files changed, 22 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-index cb6632346aad..6d804ee19420 100644
---- a/drivers/gpu/drm/display/drm_scdc_helper.c
-+++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-@@ -21,10 +21,11 @@
-  * DEALINGS IN THE SOFTWARE.
-  */
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 92f8a2d7aab4..796069dbf1a1 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -823,8 +823,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	struct drm_connector *connector;
+ 	struct i2c_adapter *ddc = NULL;
+ 	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
+-	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
+-	unsigned int max_bpc = 8;
++	struct drm_connector_hdmi_caps caps = {
++		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++		.max_bpc = 8,
++	};
+ 	bool support_hdcp = false;
+ 	int connector_type;
+ 	int ret;
+@@ -885,6 +887,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 		if (bridge->ops & DRM_BRIDGE_OP_HDMI) {
+ 			if (bridge_connector->bridge_hdmi)
+ 				return ERR_PTR(-EBUSY);
++
+ 			if (!bridge->funcs->hdmi_write_avi_infoframe ||
+ 			    !bridge->funcs->hdmi_clear_avi_infoframe ||
+ 			    !bridge->funcs->hdmi_write_hdmi_infoframe ||
+@@ -908,10 +911,12 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
  
-+#include <linux/delay.h>
- #include <linux/export.h>
- #include <linux/i2c.h>
-+#include <linux/minmax.h>
- #include <linux/slab.h>
--#include <linux/delay.h>
+ 			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
  
- #include <drm/display/drm_scdc_helper.h>
- #include <drm/drm_connector.h>
-@@ -270,3 +271,46 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
- 	return true;
- }
- EXPORT_SYMBOL(drm_scdc_set_high_tmds_clock_ratio);
-+
-+/**
-+ * drm_scdc_set_source_version - set SCDC source version on the sink
-+ * @connector: connector
-+ * @ver: source version to advertise (per spec, 1)
-+ *
-+ * Reads the sink version for diagnostics and as a guard, then writes
-+ * the source version unless the sink reports version 0.
-+ *
-+ * Returns:
-+ * 0 on success or when skipped; a negative error code when either
-+ * the read or the write failed.
-+ */
-+int drm_scdc_set_source_version(struct drm_connector *connector, u8 ver)
-+{
-+	u8 sink_ver;
-+	int ret;
-+
-+	ret = drm_scdc_readb(connector->ddc, SCDC_SINK_VERSION, &sink_ver);
-+	if (ret) {
-+		drm_scdc_dbg(connector, "Failed to read SCDC_SINK_VERSION: %d\n", ret);
-+		return ret;
-+	}
-+
-+	drm_scdc_dbg(connector, "Sink reported SCDC ver. %u\n", sink_ver);
-+
-+	/*
-+	 * Only advertise our source version to sinks that report a
-+	 * non-zero sink version.  A sink reporting version 0 is either
-+	 * not SCDC-version-aware or non-conformant; writing the source
-+	 * version gains nothing and may upset broken hardware.
++			if (bridge->supported_hdmi_ver)
++				caps.supported_hdmi_ver = bridge->supported_hdmi_ver;
+ 			if (bridge->supported_formats)
+-				supported_formats = bridge->supported_formats;
++				caps.supported_formats = bridge->supported_formats;
+ 			if (bridge->max_bpc)
+-				max_bpc = bridge->max_bpc;
++				caps.max_bpc = bridge->max_bpc;
+ 		}
+ 
+ 		if (bridge->ops & DRM_BRIDGE_OP_HDMI_AUDIO) {
+@@ -994,7 +999,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 
+ 	if (bridge_connector->bridge_hdmi) {
+ 		if (!connector->ycbcr_420_allowed)
+-			supported_formats &= ~BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
++			caps.supported_formats &= ~BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
+ 
+ 		bridge_connector->hdmi_funcs = drm_bridge_connector_hdmi_funcs;
+ 
+@@ -1010,14 +1015,12 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			bridge_connector->hdmi_funcs.spd =
+ 				drm_bridge_connector_hdmi_spd_infoframe;
+ 
+-		ret = drmm_connector_hdmi_init(drm, connector,
+-					       bridge_connector->bridge_hdmi->vendor,
+-					       bridge_connector->bridge_hdmi->product,
+-					       &drm_bridge_connector_funcs,
+-					       &bridge_connector->hdmi_funcs,
+-					       connector_type, ddc,
+-					       supported_formats,
+-					       max_bpc);
++		ret = drmm_connector_hdmi_init_with_caps(drm, connector,
++							 bridge_connector->bridge_hdmi->vendor,
++							 bridge_connector->bridge_hdmi->product,
++							 &drm_bridge_connector_funcs,
++							 &bridge_connector->hdmi_funcs,
++							 connector_type, ddc, &caps);
+ 		if (ret)
+ 			return ERR_PTR(ret);
+ 	} else {
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 18f3db367dc1..2d8b5e4c64ba 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -1176,6 +1176,12 @@ struct drm_bridge {
+ 	 */
+ 	const char *product;
+ 
++	/**
++	 * @supported_hdmi_ver: HDMI version the bridge is conformant with.
++	 * This is only relevant if @DRM_BRIDGE_OP_HDMI is set.
 +	 */
-+	if (sink_ver) {
-+		ret = drm_scdc_writeb(connector->ddc, SCDC_SOURCE_VERSION,
-+				      min_t(u8, sink_ver, ver));
-+		if (ret)
-+			drm_scdc_dbg(connector,
-+				     "Failed to write SCDC_SOURCE_VERSION: %d\n", ret);
-+	}
++	enum hdmi_version supported_hdmi_ver;
 +
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_scdc_set_source_version);
-diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-index 34600476a1b9..90b0828364c2 100644
---- a/include/drm/display/drm_scdc_helper.h
-+++ b/include/drm/display/drm_scdc_helper.h
-@@ -77,4 +77,6 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector);
- bool drm_scdc_set_scrambling(struct drm_connector *connector, bool enable);
- bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector, bool set);
- 
-+int drm_scdc_set_source_version(struct drm_connector *connector, u8 ver);
-+
- #endif
+ 	/**
+ 	 * @supported_formats: Bitmask of @drm_output_color_format listing
+ 	 * supported output formats. This is only relevant if
 
 -- 
 2.54.0
