@@ -4,63 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 258F6C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 10:48:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED82BC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 10:49:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7434C10F2B5;
-	Thu,  2 Jul 2026 10:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3768D10F2CF;
+	Thu,  2 Jul 2026 10:49:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BrVp59r+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ehRl1qrh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E203810F2AF;
- Thu,  2 Jul 2026 10:48:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782989299; x=1814525299;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=k+6/Z2gs9cVAAhPHygjW4k5IBm479qlyxmM2Tyng3a0=;
- b=BrVp59r+FTTu494SrsP6YnzNcXlOprMtp8Q3MF/2VMkvFdtBlXWggoez
- OHPdZEGfcr7EbgTbAnz8C65WZDgCkaJKBVENdbStzKbwtaI4KF522IEio
- IbLojHF8jw2lo9t79Rk4wZnDkv8u784j0GSEHYBSTTvKIMDiqkNp2R2Cd
- J5bK8+LbHbPUh+IrDuKlflDHAFYQLpBPurcuIkfFSHjR8CW5Zn9Fs5SCe
- ZHUc3UVstOeOjPJJdNV3iMub7/QMzWe9vDlLzyZWwiTD4ltO/y/qOtm+q
- y38ge2m2uTKem2rF1dTN7bIydY6UVS9jY3K8ajMGCwK49EYz5e7dJqk5h Q==;
-X-CSE-ConnectionGUID: 0nuLj8ttQwGIKKW1KUyDHw==
-X-CSE-MsgGUID: yrUZSfyjTmmJlid7nr/+dA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="94340598"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="94340598"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 03:48:19 -0700
-X-CSE-ConnectionGUID: OSSGdLzfTSae19ANyeWZrg==
-X-CSE-MsgGUID: urzn876CTMaIgaRj9LGwYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="250174105"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.242])
- ([10.245.244.242])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 03:48:16 -0700
-Message-ID: <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
-Date: Thu, 2 Jul 2026 11:48:14 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16CFC10F2BD;
+ Thu,  2 Jul 2026 10:49:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4971960103;
+ Thu,  2 Jul 2026 10:49:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0CBA1F000E9;
+ Thu,  2 Jul 2026 10:49:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782989389;
+ bh=PVxJrEfQsXPQX1baTkLT/w1gQ14jFIcsHbRcLw3FERA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ehRl1qrhylAe9ofHdw1uy6YCIvZpbl7YPRZ4CkgQorWifVv4m3a8Frk+KpW1OWNqB
+ W5Mt0U4LzndlakymF8EBw78EGZWrzE3KlOp0pFy8YavkCJqwRLWZUPQFgQys3vfaPH
+ bTMUz4RRFiIvMwxiQIu7Fk8dPwiz2pFu2EBdR33NrlR5z10UNCrkNmqGD7YAUa8uEr
+ AlsmjkuHEjFCLGB6zV/S/C2QItxIy8OqiHtbryGaNt6Uy8xajwWaiky+0DlN0gAJVQ
+ 2jyUc5P1J1BsxSlw2ZnaryGL4v5EjiZqEd84yVjUJ4WyP5g+g4irqvRMSbuDxjuayZ
+ B6/qpVMFwJ4tg==
+Date: Thu, 2 Jul 2026 11:49:27 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 16/30] mm/vma: use vma_start_pgoff(), linear_page_index()
+ in mm code
+Message-ID: <akZCKKOiXBaHrbya@lucifer>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <33d79008948391d30bab38db5ae31072ce12f0a1.1782735110.git.ljs@kernel.org>
+ <akZAwT-QWhA1wdA9@pedro-suse.lan>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
- cannot be honoured
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
- stable@vger.kernel.org
-References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akZAwT-QWhA1wdA9@pedro-suse.lan>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,135 +105,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
-> The try_harder contiguous fallback could return a range whose start
-> offset did not match the caller's min_block_size. When a candidate's
-> start is misaligned, realign it: free the misaligned run and reallocate
-> exactly @size at the next lower min_block_size boundary. This keeps the
-> returned size unchanged with no surplus to trim, and rejects the request
-> only when no aligned candidate fits.
-> 
-> v2: align misaligned candidates down to min_block_size instead of
->      bailing out, for both the RHS and LHS paths (Matthew).
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Timur Kristóf <timur.kristof@gmail.com>
-> Cc: John Olender <john.olender@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On Thu, Jul 02, 2026 at 11:47:10AM +0100, Pedro Falcato wrote:
+> small nit: perhaps the subject should simply have mm: as it hits mm in general
+>
+> On Mon, Jun 29, 2026 at 01:23:27PM +0100, Lorenzo Stoakes wrote:
+> > There are many instances in which linear_page_index() (as well as
+> > linear_page_delta()) is open-coded, which is confusing and inconsistent.
+> >
+> > Additionally, vma->vm_pgoff doesn't necessarily make it clear that this is
+> > the page offset of the start of the VMA range.
+> >
+> > Doing so also aids greppability.
+> >
+> > So use vma_start_pgoff() in favour of directly accessing vma->vm_pgoff, and
+> > linear_page_index() where we can.
+> >
+> > This also lays the ground for future changes which will add an anonymous
+> > page offset in order to be able to index MAP_PRIVATE-file backed anon
+> > folios in terms of their virtual page offset.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> > ---
+> >  include/linux/huge_mm.h    |  1 +
+> >  include/linux/hugetlb.h    |  3 +--
+> >  include/linux/pagemap.h    |  2 +-
+> >  mm/damon/vaddr.c           |  5 +++--
+> >  mm/debug.c                 |  2 +-
+> >  mm/filemap.c               |  7 ++++---
+> >  mm/huge_memory.c           |  2 +-
+> >  mm/hugetlb.c               | 11 ++++-------
+> >  mm/internal.h              | 24 ++++++++++++++----------
+> >  mm/khugepaged.c            |  3 ++-
+> >  mm/madvise.c               |  6 +++---
+> >  mm/mapping_dirty_helpers.c |  2 +-
+> >  mm/memory.c                | 25 +++++++++++++------------
+> >  mm/mempolicy.c             | 13 +++++++------
+> >  mm/mremap.c                | 12 ++++--------
+> >  mm/msync.c                 |  4 ++--
+> >  mm/nommu.c                 |  7 ++++---
+> >  mm/pagewalk.c              |  2 +-
+> >  mm/shmem.c                 |  9 +++++----
+> >  mm/userfaultfd.c           |  4 ++--
+> >  mm/util.c                  |  4 ++--
+> >  mm/vma.c                   | 15 +++++++--------
+> >  mm/vma_exec.c              |  4 ++--
+> >  mm/vma_init.c              |  2 +-
+> >  24 files changed, 86 insertions(+), 83 deletions(-)
+> >
+> > diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+> > index ad20f7f8c179..653b81d08fe7 100644
+> > --- a/include/linux/huge_mm.h
+> > +++ b/include/linux/huge_mm.h
+> > @@ -230,6 +230,7 @@ static inline bool thp_vma_suitable_order(struct vm_area_struct *vma,
+> >
+> >  	/* Don't have to check pgoff for anonymous vma */
+> >  	if (!vma_is_anonymous(vma)) {
+> > +		/* vma_start_pgoff() in mm.h so not available. */
+>
+> Yay for gigaheaders...
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Yup C headers are a constant pain :)
 
-> ---
->   drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
->   1 file changed, 44 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index dc81fe0301ce..3c73ae87f3c5 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
->   			     blocks, total_allocated_on_err);
->   }
->   
-> +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
-> +					u64 unaligned_offset,
-> +					u64 size,
-> +					u64 min_block_size,
-> +					struct list_head *blocks)
-> +{
-> +	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
-> +
-> +	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
-> +}
-> +
->   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   				     u64 size,
->   				     u64 min_block_size,
->   				     struct list_head *blocks)
->   {
-> -	u64 rhs_offset, lhs_offset, lhs_size, filled;
-> +	u64 rhs_offset, lhs_offset, filled;
->   	struct gpu_buddy_block *block;
->   	unsigned int tree, order;
-> -	LIST_HEAD(blocks_lhs);
-> -	unsigned long pages;
->   	u64 modify_size;
->   	int err;
->   
->   	modify_size = rounddown_pow_of_two(size);
-> -	pages = modify_size >> ilog2(mm->chunk_size);
-> -	order = fls(pages) - 1;
-> +	order = ilog2(modify_size) - ilog2(mm->chunk_size);
->   	if (order == 0)
->   		return -ENOSPC;
->   
-> @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   		while (iter) {
->   			block = rbtree_get_free_block(iter);
->   
-> -			/* Allocate blocks traversing RHS */
->   			rhs_offset = gpu_buddy_block_offset(block);
-> +
-> +			/* Allocate blocks traversing RHS */
->   			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
->   						       &filled, blocks);
-> -			if (!err || err != -ENOSPC)
-> +			if (err && err != -ENOSPC)
->   				return err;
-> +			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-> +				return 0;
-> +			if (!err) {
-> +				/* Allocate the unaligned RHS offset using round_down */
-> +				gpu_buddy_free_list_internal(mm, blocks);
-> +				err = __alloc_contig_aligned_retry(mm, rhs_offset,
-> +								   size,
-> +								   min_block_size,
-> +								   blocks);
-> +				if (!err)
-> +					return 0;
-> +				if (err != -ENOSPC) {
-> +					gpu_buddy_free_list_internal(mm, blocks);
-> +					return err;
-> +				}
-> +				goto next;
-> +			}
->   
-> -			lhs_size = max((size - filled), min_block_size);
-> -			if (!IS_ALIGNED(lhs_size, min_block_size))
-> -				lhs_size = round_up(lhs_size, min_block_size);
-> +			if (size - filled > rhs_offset)
-> +				goto next;
->   
-> -			/* Allocate blocks traversing LHS */
-> -			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
-> -			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
-> -						       NULL, &blocks_lhs);
-> -			if (!err) {
-> -				list_splice(&blocks_lhs, blocks);
-> +			lhs_offset = rhs_offset - (size - filled);
-> +
-> +			/* Allocate the unaligned LHS offset using round_down */
-> +			gpu_buddy_free_list_internal(mm, blocks);
-> +			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
-> +							   min_block_size, blocks);
-> +			if (!err)
->   				return 0;
-> -			} else if (err != -ENOSPC) {
-> +			if (err != -ENOSPC) {
->   				gpu_buddy_free_list_internal(mm, blocks);
->   				return err;
->   			}
-> -			/* Free blocks for the next iteration */
-> +next:
->   			gpu_buddy_free_list_internal(mm, blocks);
-> -
->   			iter = rb_prev(iter);
->   		}
->   	}
-> 
-> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
+>
+> >  		if (!IS_ALIGNED((vma->vm_start >> PAGE_SHIFT) - vma->vm_pgoff,
+> >  				hpage_size >> PAGE_SHIFT))
+> >  			return false;
+> > diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+> > index 2abaf99321e9..8390f50604d6 100644
+> > --- a/include/linux/hugetlb.h
+> > +++ b/include/linux/hugetlb.h
+> > @@ -792,8 +792,7 @@ static inline pgoff_t hugetlb_linear_page_index(struct vm_area_struct *vma,
+> >  {
+> >  	struct hstate *h = hstate_vma(vma);
+> >
+> > -	return ((address - vma->vm_start) >> huge_page_shift(h)) +
+> > -		(vma->vm_pgoff >> huge_page_order(h));
+> > +	return linear_page_index(vma, address) >> huge_page_order(h);
+> >  }
+> >
+>
+> Anyway, nothing jumped out at me.
+>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
+Thanks!
+
+>
+>
+> --
+> Pedro
+
+Cheers, Lorenzo
