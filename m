@@ -4,61 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B33C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:26:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CCE5C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:27:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E64910E4BE;
-	Thu,  2 Jul 2026 11:26:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D726710F2F4;
+	Thu,  2 Jul 2026 11:27:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="h00WJWw/";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tj5Dk7Ro";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uK3kfRK0";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tj5Dk7Ro";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uK3kfRK0";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF6BD10E4BE
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:26:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782991599; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=EDKJJhlBINNT1vxCG8OEK9BYYIyXR5Mh41//Lag9Rroo20MZtA8lzMgDi9IzRdD9i27YEeQfxXFgxUkR7Jw9ae7vP8+in0brMdFCLzDWC9LN9bPbULyI3tQRzx/7j9bewYvR7p7Ku/VJsNEhu1IMbPBFHpSXi0qSXS/Jcmhw7XY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782991599;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=0aw8iQoDL0PZGbrvM+lsHMIacXFtw0OFknX+zuhfhZg=; 
- b=OKno8uP1vFFcjZLnu2olIfFeW4bQ0kHDmEsYnbQ0d8NOPXwalh6f+2r4Y7myRbIVSwh+UBnGKqJ9HQzdWaGfMM/Q6wMKcUShp3PStUKQR8oax/ZalCD7wC21nbGfmD1KMFgaF4PynjEhYT8TunllOlHiPiDxrLiDqd7OrS4X/9Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782991599; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=0aw8iQoDL0PZGbrvM+lsHMIacXFtw0OFknX+zuhfhZg=;
- b=h00WJWw/miemeZn9LXLxu8I5pqoDC5E3z03yySrVzVFMnvI/t6IkTGq/HqMWTsZb
- bmTeCvA8slHJkiMwDzHwNFRsvyefXawR0AbMwFASsoFUaiPm2BXGAmJS2Wcx92/+QMn
- yWewwENmbSuiQghW6Z0Yk7OQAkIBNgcuweNOYymM=
-Received: by mx.zohomail.com with SMTPS id 17829915957361018.9546216599139;
- Thu, 2 Jul 2026 04:26:35 -0700 (PDT)
-Message-ID: <1b56e514-17b5-4da1-9ebd-4534e3204ea4@collabora.com>
-Date: Thu, 2 Jul 2026 14:26:30 +0300
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFF410F2F1
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:27:26 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8B3DD75B23;
+ Thu,  2 Jul 2026 11:27:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782991644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
+ b=tj5Dk7RoUt1ijWeVifPADjhK0GiEOOWzEuvGpdj75nOdoSwX98HoUqB4wr8Ho2JsHW5SHW
+ HPrKrc4+41VhBpaAocKDM+AHPyORt/Db6Paxc6So7PiXer9MlI8A5OJk+tZ2fmeLW9Dak0
+ 8TOIBgYbvgjV4te2fpqk8t8wZU65dUU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782991644;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
+ b=uK3kfRK0Eixye7LZkjD/qQXZ+V091ezkBFUwzfacFBGBsXjHpCJc7Ncnh2K0CzOpFUkeq9
+ +ezTMmjxs6X6gNBg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tj5Dk7Ro;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uK3kfRK0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782991644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
+ b=tj5Dk7RoUt1ijWeVifPADjhK0GiEOOWzEuvGpdj75nOdoSwX98HoUqB4wr8Ho2JsHW5SHW
+ HPrKrc4+41VhBpaAocKDM+AHPyORt/Db6Paxc6So7PiXer9MlI8A5OJk+tZ2fmeLW9Dak0
+ 8TOIBgYbvgjV4te2fpqk8t8wZU65dUU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782991644;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
+ b=uK3kfRK0Eixye7LZkjD/qQXZ+V091ezkBFUwzfacFBGBsXjHpCJc7Ncnh2K0CzOpFUkeq9
+ +ezTMmjxs6X6gNBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 342F7779AA;
+ Thu,  2 Jul 2026 11:27:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id N/hJCRhLRmoGdAAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Thu, 02 Jul 2026 11:27:20 +0000
+Date: Thu, 2 Jul 2026 12:27:18 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 24/30] mm/vma: update vma_shrink() to not pass
+ unnecessary pgoff parameter
+Message-ID: <akZLBmwDfGyzKThV@pedro-suse.lan>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <6dd744d57d778f94d2fef8fd623d7c4ed8010d93.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <18be2016e26ade27.a6e9e2496bc1f978.9bc3a62421115997@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <18be2016e26ade27.a6e9e2496bc1f978.9bc3a62421115997@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6dd744d57d778f94d2fef8fd623d7c4ed8010d93.1782735110.git.ljs@kernel.org>
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MISSING_XM_UA(0.00)[]; RCPT_COUNT_GT_50(0.00)[75];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, pedro-suse.lan:mid, suse.de:email, suse.de:dkim]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 8B3DD75B23
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,138 +169,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/1/26 12:23, Ryosuke Yasuoka wrote:
+On Mon, Jun 29, 2026 at 01:23:35PM +0100, Lorenzo Stoakes wrote:
+> vma_shrink() does not need to adjust vma->vm_pgoff, we were passing this
+> parameter solely to satisfy vma_set_range()'s requirement for pgoff being
+> specified.
 > 
+> Since vma_set_range() is now isolated to vma.c, we can simply introduce
+> __vma_set_range() which sets only vma->vm_[start, end], and invoke this
+> instead, removing pgoff from vma_shrink() altogether.
 > 
-> On 30/06/2026 16:46, Dmitry Osipenko wrote:
->> Hi,
->>
->> On 6/30/26 12:16, Ryosuke Yasuoka wrote:
->>> A probe-time deadlock can occur between the dequeue worker and
->>> drm_client_register(). During probe, drm_client_register() holds
->>> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
->>> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
->>> waiting for virtqueue space. The dequeue worker that would free that
->>> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
->>> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
->>> to acquire the same clientlist_mutex. Since wake_up() is only called
->>> after the resp_cb loop, the probe thread is never woken and both threads
->>> deadlock.
->>>
->>> Fix this by deferring the hotplug notification from
->>> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
->>> display data (outputs[i].info) is still updated synchronously in the
->>> callback, and the deferred work only triggers a re-probe notification to
->>> DRM clients.
->>>
->>> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
->>> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
->>> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
->>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
->>> ---
->>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
->>>  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
->>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
->>>  3 files changed, 16 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> index 7449907754a4..27ffa4697ae9 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
->>>  
->>>  	struct work_struct config_changed_work;
->>>  
->>> +	struct work_struct hotplug_work;
->>> +
->>>  	struct work_struct obj_free_work;
->>>  	spinlock_t obj_free_lock;
->>>  	struct list_head obj_free_list;
->>> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
->>>  					uint32_t x, uint32_t y,
->>>  					struct virtio_gpu_object_array *objs,
->>>  					struct virtio_gpu_fence *fence);
->>> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
->>>  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgdev,
->>>  					 uint32_t resource_id,
->>>  					 uint32_t x, uint32_t y,
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
->>> index cfde9f573df6..cfb532ba43a4 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
->>> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
->>>  	INIT_WORK(&vgdev->config_changed_work,
->>>  		  virtio_gpu_config_changed_work_func);
->>>  
->>> +	INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
->>> +
->>>  	INIT_WORK(&vgdev->obj_free_work,
->>>  		  virtio_gpu_array_put_free_work);
->>>  	INIT_LIST_HEAD(&vgdev->obj_free_list);
->>> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
->>>  	flush_work(&vgdev->obj_free_work);
->>>  	flush_work(&vgdev->ctrlq.dequeue_work);
->>>  	flush_work(&vgdev->cursorq.dequeue_work);
->>> +	flush_work(&vgdev->hotplug_work);
->>>  	flush_work(&vgdev->config_changed_work);
->>>  	virtio_reset_device(vgdev->vdev);
->>>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> index 67865810a2e7..084d98f5dc7b 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virtio_gpu_device *vgdev,
->>>  	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
->>>  }
->>>  
->>> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
->>> +{
->>> +	struct virtio_gpu_device *vgdev =
->>> +		container_of(work, struct virtio_gpu_device, hotplug_work);
->>> +
->>> +	if (!drm_helper_hpd_irq_event(vgdev->ddev))
->>> +		drm_kms_helper_hotplug_event(vgdev->ddev);
->>> +}
->>> +
->>>  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
->>>  					       struct virtio_gpu_vbuffer *vbuf)
->>>  {
->>> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
->>>  	spin_unlock(&vgdev->display_info_lock);
->>>  	wake_up(&vgdev->resp_wq);
->>>  
->>> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
->>> -		drm_kms_helper_hotplug_event(vgdev->ddev);
->>> +	schedule_work(&vgdev->hotplug_work);
->>>  }
->>>  
->>>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
->>
+> No functional change intended.
 > 
-> Hi,
-> Thank you for your review.
-> 
->> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init(), placing it after wait_event_timeout(display_info_pending)? This will avoid additional work_struct that otherwise needs to be cancelled in virtio_gpu_init() on the timeout.
-> 
-> IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
-> into virtio_gpu_init() after wait_event_timeout() would not prevent the
-> issue.
-> 
-> Looking at the syzbot call traces[1][2], the deadlock occurs during
-> drm_client_setup(), which runs after virtio_gpu_init() has already
-> returned. The display_info_cb that triggers the deadlock is called from
-> the dequeue worker while drm_client_register() holds clientlist_mutex.
-> 
-> Thread A:
-> virtio_gpu_probe()
->  -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-You mean that the timeout happens and it's again syzkaller report for a
-broken host. A day ago I applied [1] that should fix this "bogus"
-syzkaller report.
-
-[1] https://patchwork.freedesktop.org/patch/735301/
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
 -- 
-Best regards,
-Dmitry
+Pedro
