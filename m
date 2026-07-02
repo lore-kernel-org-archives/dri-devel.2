@@ -4,90 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F938C44500
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6463AC43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F67010F665;
-	Fri,  3 Jul 2026 07:04:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D8910F661;
+	Fri,  3 Jul 2026 07:04:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c9ffWLnU";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="DQjR6Cyv";
 	dkim-atps=neutral
 Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
  [209.85.217.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B76C10E513
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 16:47:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3CC10E4A9
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:05:48 +0000 (UTC)
 Received: by mail-vs1-f46.google.com with SMTP id
- ada2fe7eead31-73b7c3791dbso995777137.1
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 09:47:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783010847; cv=none;
- d=google.com; s=arc-20260327;
- b=dQxpznuhkOj4usE3Hi3qKFE3zRmcnw6ECQ0Nk0HiaXAvyUw8bcAejBhyX2Ozf1TXGT
- KcqhjEiFzxmVTjCkNcN7NXsMvi+fHq2/0naKC5ma1YqFLhy9bayZGo7si/v6iwqiTVvG
- vahQdX+/nTvIxyJ0YMGjbYl5K67w3Q5C3iRfS1VpX+ZkqWQZDb34jqmlRoEXlcB4vViv
- 07UiDBywDF3HPl8hA2orIrsrUHAYW8lyIdXEf4252FmCtwM9+AChJvpDf1YyTWQRHpn8
- GdK1QXDAcf0ttAKNj/9JpqrYpyOnifFDn+6k7SpIekJrJOLJW+SIlIsxorCh67ugjoAO
- Vpxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=ie81aLVv5rplvRbk1tFHNU5us0g7vXN2hC9pBjGPXyg=;
- fh=a/gwJS66QQP3ThnQVnFRh735tk7h5TL3YBUj46xN22E=;
- b=pt5rWBuUwQ4bXJRG06ZiO2dls+umJOrLhKA7nNXc7Xs3ImSAuHHqhTx/JfY3VK92wT
- VFvDduJX8m00o5S0YXr8v742V9LlrcoFdoRC1/zzziXH8ZhkFLcmk44zByxTc8f2rqmg
- R+LlZrf03jA7sqzXF8TvZZUkbG/vVH9VNs8O/LxAorGkYrUvFbZgUfAOzVuW/V/V5oCV
- DYu6DyGUGt+8UG1pnmB0emg4wJvi5eXONg+atsXo46xEOj0CopfGpqGGbls03rMER9Fd
- By1yxHZV9uoDOL04YKGNA5cwspK0Towhqf6opunOHBoLBQY1w9S67WIXGQwG4BGyRa0v
- gcmQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ ada2fe7eead31-737de525d2eso992736137.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 05:05:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783010847; x=1783615647; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=ie81aLVv5rplvRbk1tFHNU5us0g7vXN2hC9pBjGPXyg=;
- b=c9ffWLnUGJtbz5bn/sF+2FSGGfiSs6ArHy6TJRWs+eBYukDaTN8twhH7aBoVibsgvf
- P9gdn0bBt4M+/HbJ4CIGjk5yk+YJf5OP2tCbbcf/74tMtEFnqrnK/Z+jtMW5YdbljM1z
- AUrUMJgh09l7/0bsp4dLgXXYGGdfnjWZQlk2Yh+l1LCJRyRt77CHKkwGJTYbNbUXSVR8
- BffiTbWbgjeUQ2Z/6Vf/pyYgxE2EHYLrHwIJRtItMXPTVAYq+rDF5JazGp0BPF5QT7vY
- 4u69gy0tFNDv/29EQjIZ4ig0Nvi3RwxgOStTI159jZYZEdYY1tNQtEcOPDf+sJlxV2wm
- edhQ==
+ d=usp.br; s=usp-google; t=1782993947; x=1783598747; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZzHdYWFcDkZu4PsS/Wd20QSDadRqyTQZHFMjtpnEEdU=;
+ b=DQjR6CyvVsByHfGB6as5y55tlZkZSGgzk0o2BX9Fv/siAgwUXhbv9SOOGDv5TMh6JI
+ bxVtKeZcnmwrpO7niMHDrYyPs9voInUsNrN87f6hhrNZEHR9AXkt06yZbQxOo3UVcb88
+ u5D/1L+6TDqTZC5I5ULDu5Ew6wmVqHxGBOjT+CWEufOtExR72Wh1j9QhpMA2JMAzaAcM
+ RneAGdrEDj2NhcaW95qkhoJf21XOHohCBAA46iKVj1U/b5ygqmOH+OfSMM6auteX2vCs
+ Fubpp4YTmd5EsDSDxWD++TIXDIUCHTSQ3JYfYa9GstGAWXstcSER1d7rPbHGP1dzFhrD
+ S9yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783010847; x=1783615647;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ie81aLVv5rplvRbk1tFHNU5us0g7vXN2hC9pBjGPXyg=;
- b=d2HIB3qa8u8P21lQaCYNKNcF3OAnHkTAB5GqRBp4rZZkEW7TT3J/kQ5nawstkOoDsD
- 0m4nHdOvIEnPxYbHIodEutKrazw9kY69u0y+GweAWiyQk2FCYfuPdd7w2uhHSJp1LMPO
- V2ochBNGuETeIfaKEjaJfCRc9rHKzpcKzV4b+R0zML4XwNOLEQ3ZxPpbbwomRzpsIsMO
- tHlmtNCycxuzX4zPT7CoEhXvBWY58CixegROg0E5KeDIFtUlTkMCf2QL8qUtBLmMJTmR
- fC1+tvAlso0V7NxGKCZn5PntVfhKKpGdhdYSZqFetIYjcReYGgkNZzEi2uMzHa3jYh1g
- 3zcA==
+ d=1e100.net; s=20251104; t=1782993947; x=1783598747;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ZzHdYWFcDkZu4PsS/Wd20QSDadRqyTQZHFMjtpnEEdU=;
+ b=X+mmLrLNOHcLTuYOGn7BJKMxNJLCu46thEsT7Bj3Kh4SusoHbJAbREY8Xsn5hW2lKa
+ 9kJudqQFw0ap5eYmQ1ZtA9AP2Yq9hGgTelM6gZZFTHB8HFCKyDrG8d8WwkfD3LFZBI25
+ mM8QPdSuJxmcRSe3oGYaeBjSQWgXQCTOyfcSYWgOScgwZManQA5JFa3UdAZP0hbOauqT
+ 7cOCwC9/1FLCXQyehNBTbo+LxocN8NT/YKReCfB2FkzDnyXX5kzgJWrbzu5k52hkpCZW
+ kKHAnI50f/Fvezvpcz4rnsBMc6aY6cWJFHzR5l9oy3Oev/ds1eJ3vbMWKNlYbgVt6txd
+ RpHQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpy4fESStO+ICAi+2NIpqutm+7d8RqIjDNir6ta0PIme5c66x7GdTSMhpNX6BK65/m3KgPvjuiZbIo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzM2rYvnYmovk1IHrCCnga5cDtEHatxSo3tbYWc2q+Ut7t8tNPs
- nNwXO7QbVdEqdpAUSWI8gF9IrSGotNM6qgcv3wD6bo3Vdk8zIPjGilxl364jsFv4OKkw8HhCVHV
- HKexacpg0HC10RffG0bH0t4H6fYim5Jk=
-X-Gm-Gg: AfdE7cliE/xzCMigd6+/MktbB2JUPtjII4m4Z1fZh/djbxn6L8gRizagE/ZiT3VM2tT
- loLWwv2Vua6/G3SLG7v934fjOF0ticdV+sLde9cNNl/Q+fW3ZSMfwFDr8JhrpfoTylkTUx/JsuX
- xquxpttW6xcNuf1f07w83MCv8VfGEPyjgUFH2sDCvdjIuMapCRDIGdeGntIyhQDeE1vjDCJizuG
- BVhSW3m12Ft51xvYuH4oZkwY00Yf9a84SlcUkH6YApkFgV2yWJy7DUQfvEnmI+deHzk2KA=
-X-Received: by 2002:a05:6102:3746:b0:631:2624:e5e7 with SMTP id
- ada2fe7eead31-73da95b0c21mr3024647137.14.1783010847014; Thu, 02 Jul 2026
- 09:47:27 -0700 (PDT)
+ AHgh+RpDidi0U8wIP3VgUqFE4WZou/F1FLrea0p3eMjaOloxpxKx5NExqROllpm81/F1V0u32e/ydcNMcLI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOdqI5edRnt1rY8R/lDksOKWygOCc8cX6s0yRbw0pxUtn6rFH+
+ m+CmzhtU5VVmzFmYCRSEUJgD5sO4lDsXChW6QsoZ5TvJdq1LdN1nCWqk/MtFpfGZcvg=
+X-Gm-Gg: AfdE7cmJ7herdH27M/KyP5WmncBH/kgHAxB4AHbdYzF1/NQS9LQKtdboLasfWXLpdLk
+ aHixaOjYK9IH+vc9opKyXFY9LTRRVaa85bIpy/hfH5gGYZRhIVL6gdWxMfxgH7HPCZnogfI29By
+ W58v8jkN0aXvMwxU06RQJEjfknDnJekuBbZBUlqHtprKGsNyAsWAWAAQXWoUw6pVRFnLS5bCjei
+ sfMnN7EFhNaP9wiie0ro6CwFgPNYoR+Cs/U0lNNpT0wG1Z4HKKt3XTZWwtgR5NF3PGruTz/ZnUM
+ 5ikOkyfvRGKBa/CnrDqlv2dUCgmhekjidZQOjA6Umh1uvprzTaWBsj1JDhlL7TwCnV3z82GCckL
+ IBrdEd675CKVOmd2pTY07d5p2XPHhfqy0cbiTzcc/MEdRmh3hcVluTRcZH7c3ghN7LE8ssMQdDc
+ +p2+ZMqyLA4fmLnqI=
+X-Received: by 2002:a05:6102:5125:b0:737:2ce5:7b2d with SMTP id
+ ada2fe7eead31-73da8a57499mr2742053137.9.1782993946770; 
+ Thu, 02 Jul 2026 05:05:46 -0700 (PDT)
+Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
+ by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-73e1caf43casm1182470137.11.2026.07.02.05.05.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 05:05:46 -0700 (PDT)
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
+X-Google-Original-From: Pedro Yudi Honda
+To: dakr@kernel.org,
+	acourbot@nvidia.com,
+	apopple@nvidia.com
+Cc: nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
+ Pedro Yudi Honda <niyudi.honda@usp.br>
+Subject: [PATCH v2 2/5] drm/nova: use `zerocopy` in booter.rs
+Date: Thu,  2 Jul 2026 09:03:21 -0300
+Message-Id: <20260702120324.40388-3-niyudi.honda@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260702120324.40388-1-niyudi.honda@gmail.com>
+References: <20260702120324.40388-1-niyudi.honda@gmail.com>
 MIME-Version: 1.0
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Date: Thu, 2 Jul 2026 22:32:15 +0545
-X-Gm-Features: AVVi8CeRylz-oDkHxsCwGBMgPGrq0oECdovFWqUnWEMqcrKiSG-gl24s856m9lA
-Message-ID: <CAMyXUJmSvWv0WoBqvBScEXHnz70Nn_WUcu371s64j6HrB-6c9A@mail.gmail.com>
-Subject: [PATCH] drm/panel: samsung-s6d16d0: Power off on prepare failure
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: inus Walleij <linusw@kernel.org>, dri-devel@lists.freedesktop.org, 
- inux-kernel@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Content-Type: multipart/alternative; boundary="0000000000002ac27b0655a39089"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,86 +95,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000002ac27b0655a39089
-Content-Type: text/plain; charset="UTF-8"
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
 
-If enabling tearing mode or exiting sleep mode fails after the
-regulator is enabled, s6d16d0_prepare() returns without asserting
-reset or disabling the supply. Since the DRM panel core leaves the
-panel unprepared, a later unprepare call skips the driver callback
-and the supply remains enabled.
+In firmware/booter.rs, replace the following `transmute` traits with
+their `zerocopy` equivalents:
 
-Assert reset and disable the supply before returning the DSI command error.
+- `transmute::FromBytes` -> `zerocopy::FromBytes`
 
-Fixes: ac1d6d74884e ("drm/panel: Add driver for Samsung S6D16D0 panel")
-Assisted-by: Codex:gpt-5
-Signed-off-by:acharyalaxman8848@gmail.com
+Update call sites accordingly.
+
+Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
 ---
- drivers/gpu/drm/panel/panel-samsung-s6d16d0.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/nova-core/firmware/booter.rs | 26 +++++++-----------------
+ 1 file changed, 7 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-index ba1a02000..04e19b5f2 100644
---- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-@@ -89,16 +89,22 @@ static int s6d16d0_prepare(struct drm_panel *panel)
-        MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-  if (ret) {
-  dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
-- return ret;
-+ goto err_power_off;
-  }
-  /* Exit sleep mode and power on */
-  ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
-  if (ret) {
-  dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
-- return ret;
-+ goto err_power_off;
-  }
-
-  return 0;
-+
-+err_power_off:
-+ gpiod_set_value_cansleep(s6->reset_gpio, 1);
-+ regulator_disable(s6->supply);
-+
-+ return ret;
+diff --git a/drivers/gpu/nova-core/firmware/booter.rs b/drivers/gpu/nova-core/firmware/booter.rs
+index acb7f4d8a532..fe9389b84b90 100644
+--- a/drivers/gpu/nova-core/firmware/booter.rs
++++ b/drivers/gpu/nova-core/firmware/booter.rs
+@@ -10,8 +10,7 @@
+ use kernel::{
+     device,
+     dma::Coherent,
+-    prelude::*,
+-    transmute::FromBytes, //
++    prelude::*, //
+ };
+ 
+ use crate::{
+@@ -43,7 +42,7 @@ fn frombytes_at<S: FromBytes + Sized>(slice: &[u8], offset: usize) -> Result<S>
+     let end = offset.checked_add(size_of::<S>()).ok_or(EINVAL)?;
+     slice
+         .get(offset..end)
+-        .and_then(S::from_bytes_copy)
++        .and_then(|b| S::read_from_bytes(b).ok())
+         .ok_or(EINVAL)
  }
-
- static int s6d16d0_enable(struct drm_panel *panel)
+ 
+@@ -52,7 +51,7 @@ fn frombytes_at<S: FromBytes + Sized>(slice: &[u8], offset: usize) -> Result<S>
+ /// Such firmwares have an application-specific payload that needs to be patched with a given
+ /// signature.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct HsHeaderV2 {
+     /// Offset to the start of the signatures.
+     sig_prod_offset: u32,
+@@ -75,9 +74,6 @@ struct HsHeaderV2 {
+     header_size: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsHeaderV2 {}
+-
+ /// Heavy-Secured Firmware image container.
+ ///
+ /// This provides convenient access to the fields of [`HsHeaderV2`] that are actually indices to
+@@ -144,6 +140,7 @@ fn signatures_iter(&'a self) -> Result<impl Iterator<Item = BooterSignature<'a>>
+ 
+ /// Signature parameters, as defined in the firmware.
+ #[repr(C)]
++#[derive(FromBytes)]
+ struct HsSignatureParams {
+     /// Fuse version to use.
+     fuse_ver: u32,
+@@ -153,9 +150,6 @@ struct HsSignatureParams {
+     ucode_id: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsSignatureParams {}
+-
+ impl HsSignatureParams {
+     /// Returns the signature parameters contained in `hs_fw`.
+     ///
+@@ -170,14 +164,14 @@ fn new(hs_fw: &HsFirmwareV2<'_>) -> Result<Self> {
+         hs_fw
+             .fw
+             .get(start..end)
+-            .and_then(Self::from_bytes_copy)
++            .and_then(|b| Self::read_from_bytes(b).ok())
+             .ok_or(EINVAL)
+     }
+ }
+ 
+ /// Header for code and data load offsets.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct HsLoadHeaderV2 {
+     // Offset at which the code starts.
+     os_code_offset: u32,
+@@ -191,9 +185,6 @@ struct HsLoadHeaderV2 {
+     num_apps: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsLoadHeaderV2 {}
+-
+ impl HsLoadHeaderV2 {
+     /// Returns the load header contained in `hs_fw`.
+     ///
+@@ -205,7 +196,7 @@ fn new(hs_fw: &HsFirmwareV2<'_>) -> Result<Self> {
+ 
+ /// Header for app code loader.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct HsLoadHeaderV2App {
+     /// Offset at which to load the app code.
+     offset: u32,
+@@ -213,9 +204,6 @@ struct HsLoadHeaderV2App {
+     len: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsLoadHeaderV2App {}
+-
+ impl HsLoadHeaderV2App {
+     /// Returns the [`HsLoadHeaderV2App`] for app `idx` of `hs_fw`.
+     ///
 -- 
-2.51.2
+2.34.1
 
---0000000000002ac27b0655a39089
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">If enabling tearing mode or exiting sleep mode fails after=
- the<br>regulator is enabled, s6d16d0_prepare() returns without asserting<b=
-r>reset or disabling the supply. Since the DRM panel core leaves the<br>pan=
-el unprepared, a later unprepare call skips the driver callback<br>and the =
-supply remains enabled.<br><br>Assert reset and disable the supply before r=
-eturning the DSI command error.<br><br>Fixes: ac1d6d74884e (&quot;drm/panel=
-: Add driver for Samsung S6D16D0 panel&quot;)<br>Assisted-by: Codex:gpt-5<d=
-iv><a href=3D"mailto:Signed-off-by%3Aacharyalaxman8848@gmail.com">Signed-of=
-f-by:acharyalaxman8848@gmail.com</a><br>---<br>=C2=A0drivers/gpu/drm/panel/=
-panel-samsung-s6d16d0.c | 10 ++++++++--<br>=C2=A01 file changed, 8 insertio=
-ns(+), 2 deletions(-)<br><br>diff --git a/drivers/gpu/drm/panel/panel-samsu=
-ng-s6d16d0.c b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c<br>index ba1a0=
-2000..04e19b5f2 100644<br>--- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0=
-.c<br>+++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c<br>@@ -89,16 +89,=
-22 @@ static int s6d16d0_prepare(struct drm_panel *panel)<br>=C2=A0				 =C2=
-=A0 =C2=A0 =C2=A0 MIPI_DSI_DCS_TEAR_MODE_VBLANK);<br>=C2=A0	if (ret) {<br>=
-=C2=A0		dev_err(s6-&gt;dev, &quot;failed to enable vblank TE (%d)\n&quot;, =
-ret);<br>-		return ret;<br>+		goto err_power_off;<br>=C2=A0	}<br>=C2=A0	/* =
-Exit sleep mode and power on */<br>=C2=A0	ret =3D mipi_dsi_dcs_exit_sleep_m=
-ode(dsi);<br>=C2=A0	if (ret) {<br>=C2=A0		dev_err(s6-&gt;dev, &quot;failed =
-to exit sleep mode (%d)\n&quot;, ret);<br>-		return ret;<br>+		goto err_pow=
-er_off;<br>=C2=A0	}<br>=C2=A0<br>=C2=A0	return 0;<br>+<br>+err_power_off:<b=
-r>+	gpiod_set_value_cansleep(s6-&gt;reset_gpio, 1);<br>+	regulator_disable(=
-s6-&gt;supply);<br>+<br>+	return ret;<br>=C2=A0}<br>=C2=A0<br>=C2=A0static =
-int s6d16d0_enable(struct drm_panel *panel)<br>-- <br>2.51.2<br><div><br></=
-div></div></div>
-
---0000000000002ac27b0655a39089--
