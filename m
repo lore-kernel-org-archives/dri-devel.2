@@ -4,37 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3744C43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A92E4C43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D0F10E097;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6F1D10F17C;
 	Thu,  2 Jul 2026 07:21:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ClW4kagO";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="TZcvPhhB";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B20C510E097;
- Thu,  2 Jul 2026 07:21:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B20B10F164;
+ Thu,  2 Jul 2026 07:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782976882;
- bh=SUeYEWvwLNnE6mZVedeWtrDvYb9EDhTCTdkSZZ3MxL8=;
- h=From:To:Cc:Subject:Date:From;
- b=ClW4kagOm7dguxmAIsr5/D3pZMzLdfOXap7nsRSH9wYntl9yAx0JJ5BpYfmUazdU1
- oUjI2/9mMSNEXm9n2KTORJfH7a2hTZnMgXIiIANeBS6HZ5q/1iO3t6kkNvka+zFZxl
- ZxYLYgOWRfXbRc5MP095ls94Ugy9pS3jlPD6PCo4PWgFg0QxSmn3j2zH7magUtL9pX
- 1JWgHvDLhhns0lziYLvXAz1cvP5fyZwk8/3wkUrircqPmlBq1fxR2cs6+CKOa20W2+
- OJS2AdPc20dpQ6g6qFYvfsCoIStVUssX3qqvqj5gNENKfpRGHhpphoFdnIrBXFhunD
- wC9vRonQ+AALg==
+ s=default; t=1782976883;
+ bh=x/pMnmGlf0E1qkYHnHqsVenD9HzTf66a+fzX4nCRg38=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=TZcvPhhBNBG0rFniP2iWy5vTcV5Xqhhsou1Ixdm54UTThxNCcitDDQ8WeoPC0utey
+ TsNlsFKQ6QveOoJwRf0EO0bB1U+ijIxXOJI72eCZKIK/1uCsy3/BSbMx6nFXOZyA3b
+ JWRKVxyJI4k9uFzQIOIKa3AIaid2OW4/pgp5o9pGOJvOTcyNLAZxdcqHgaqi5KtCdj
+ evMVlNfKxTNjqTSWnsbq/nhn47cIlBI7Od089rrPrZyRqYWOTKISdtZHrm6/h53LXN
+ Jspp1uAEE4MwvFmtDfMgnX5dRJCUvwlyTnZWpBuHM1oMBb/BbRwTrFkHzNZruLgMjz
+ ZDgr2Ii5wUlMA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 00/10] drm/intel/display: Changes required to make vblank
- evasion PREEMPT_RT safe.
-Date: Thu,  2 Jul 2026 09:21:43 +0200
-Message-ID: <20260702072154.171324-1-dev@lankhorst.se>
+Subject: [PATCH 02/10] drm/vblank: Add a 2-stage version of
+ drm_crtc_arm_vblank_event
+Date: Thu,  2 Jul 2026 09:21:45 +0200
+Message-ID: <20260702072154.171324-3-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260702072154.171324-1-dev@lankhorst.se>
+References: <20260702072154.171324-1-dev@lankhorst.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -52,50 +54,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CONFIG_PREEMPT_RT requires code to be as deterministic as possible,
-and codes with interrupts disabled cannot use spinlocks.
+When trying to fix the hardware programming in intel/display, I had
+to take all the vblank locks with local_irqs_disabled(). This
+required converting the entire vblank code to raw spinlocks.
 
-In order to handle this correctly, we ensure any locking requirements
-are handled before disabling interrupts, and only start locking again
-after interrupts are re-enabled and timing sensitive path completed.
+In the alternative approach, do all preparations in advance, and only
+enable the vblank_event with interrupts disabled, this requires only
+a simple write and prevents a complete re-architecture of the code.
 
-This also has the benefit of making the vblank evasion code more
-deterministic; without locking there's much less jitter.
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+ drivers/gpu/drm/drm_vblank.c | 64 +++++++++++++++++++++++++++++++++++-
+ include/drm/drm_vblank.h     | 14 +++++++-
+ 2 files changed, 76 insertions(+), 2 deletions(-)
 
-Previously, we scheduled vblank work on completion.
-This is now handled by scheduling the vblank in advance, only arming
-it upon completion without locks.
-
-Maarten Lankhorst (9):
-  drm/vblank_work: Add methods to schedule vblank_work in 2 stages
-  drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
-  drm/intel/display: Make intel_crtc_arm_vblank_event static
-  drm/intel/display: Convert vblank event handling to 2-stage arming
-  drm/i915/display: Move vblank put until after critical section
-  drm/i915/display: Remove locking from intel_vblank_evade critical
-    section
-  drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
-    too
-  drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
-  drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
-
-Mike Galbraith (1):
-  drm/i915: Use preempt_disable/enable_rt() where recommended
-
- drivers/gpu/drm/drm_vblank.c                  |  64 +++++++++-
- drivers/gpu/drm/drm_vblank_work.c             | 110 +++++++++++++----
- drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
- drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
- drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
- drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
- drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
- drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
- .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
- include/drm/drm_vblank.h                      |  14 ++-
- include/drm/drm_vblank_work.h                 |  12 ++
- 12 files changed, 324 insertions(+), 128 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f90fb2d13e423..b52e0215312f8 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -1127,12 +1127,71 @@ void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+ 
+ 	assert_spin_locked(&dev->event_lock);
+ 
++	WARN_ON(e->postponed);
+ 	e->pipe = pipe;
+ 	e->sequence = drm_crtc_accurate_vblank_count(crtc) + 1;
+ 	list_add_tail(&e->base.link, &dev->vblank_event_list);
+ }
+ EXPORT_SYMBOL(drm_crtc_arm_vblank_event);
+ 
++/**
++ * drm_crtc_prepare_arm_vblank_event - arm vblank event *before* pageflip.
++ * @crtc: the source CRTC of the vblank event
++ * @e: the event to send
++ *
++ * See drm_crtc_arm_vblank_event(). This function is a 2-stage version of
++ * that call. This function is called *BEFORE* programming the hardware.
++ *
++ * After programming, call drm_crtc_arm_prepared_vblank_event() and the
++ * event will be scheduled on the next vblank.
++ *
++ * This is mainly useful for code that has to run on PREEMPT_RT kernels,
++ * with interrupts disabled, since all vblank spinlocks are converted to
++ * rtmutexes, and code running with irqs disabled cannot take any vblank lock.
++ *
++ * It also increases determinism for any hardware
++ * programming, since no vblank related locks are taking when arming.
++ */
++void drm_crtc_prepare_arm_vblank_event(struct drm_crtc *crtc,
++				       struct drm_pending_vblank_event *e)
++{
++	drm_crtc_arm_vblank_event(crtc, e);
++
++	/* Set the flag, so that the event is not fired yet */
++	e->postponed = true;
++}
++EXPORT_SYMBOL(drm_crtc_prepare_arm_vblank_event);
++
++/**
++ * drm_crtc_arm_prepared_vblank_event - arm prepared vblank event *after* pageflip.
++ * @crtc: the source CRTC of the vblank event
++ * @e: the event to send
++ *
++ * See drm_crtc_prepare_arm_vblank_event(). This function is a 2-stage version of
++ * that call. This function is called directly *AFTER* programming the hardware.
++ *
++ * Before this function is called, drm_crtc_prepare_arm_vblank_event() should be
++ * called instead.
++ *
++ * This is mainly useful for code that has to run on PREEMPT_RT kernels,
++ * with interrupts disabled, since all vblank spinlocks are converted to
++ * rtmutexes, and code running with irqs disabled cannot take any vblank lock.
++ *
++ * It also increases determinism for any hardware
++ * programming, since no vblank related locks are taking when arming.
++ */
++void drm_crtc_arm_prepared_vblank_event(struct drm_pending_vblank_event *e)
++{
++	WARN_ON(!e->postponed);
++
++	/* Ensure previous writes are visible */
++	smp_wmb();
++
++	/* remove the flag to be processed as a normal event */
++	WRITE_ONCE(e->postponed, false);
++}
++EXPORT_SYMBOL(drm_crtc_arm_prepared_vblank_event);
++
+ /**
+  * drm_crtc_send_vblank_event - helper to send vblank event after pageflip
+  * @crtc: the source CRTC of the vblank event
+@@ -1390,6 +1449,8 @@ void drm_crtc_vblank_off(struct drm_crtc *crtc)
+ 	list_for_each_entry_safe(e, t, &dev->vblank_event_list, base.link) {
+ 		if (e->pipe != pipe)
+ 			continue;
++
++		WARN_ON(e->postponed);
+ 		drm_dbg_core(dev, "Sending premature vblank event on disable: "
+ 			     "wanted %llu, current %llu\n",
+ 			     e->sequence, seq);
+@@ -1892,7 +1953,8 @@ static void drm_handle_vblank_events(struct drm_device *dev, unsigned int pipe)
+ 	seq = drm_vblank_count_and_time(dev, pipe, &now);
+ 
+ 	list_for_each_entry_safe(e, t, &dev->vblank_event_list, base.link) {
+-		if (e->pipe != pipe)
++		/* Matches WRITE_ONCE in drm_crtc_arm_prepared_vblank_event() */
++		if (e->pipe != pipe || READ_ONCE(e->postponed))
+ 			continue;
+ 		if (!drm_vblank_passed(seq, e->sequence))
+ 			continue;
+diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+index 2fcef9c0f5b1b..956d5621eb7f9 100644
+--- a/include/drm/drm_vblank.h
++++ b/include/drm/drm_vblank.h
+@@ -53,6 +53,13 @@ struct drm_pending_vblank_event {
+ 	 * @sequence: frame event should be triggered at
+ 	 */
+ 	u64 sequence;
++
++	/**
++	 * @postponed: whether drm_crtc_prepare_arm_vblank_event() is called,
++	 * and drm_crtc_arm_prepared_vblank_event has yet to be called to arm.
++	 */
++	bool postponed;
++
+ 	/**
+ 	 * @event: Actual event which will be sent to userspace.
+ 	 */
+@@ -294,7 +301,12 @@ int drm_crtc_next_vblank_start(struct drm_crtc *crtc, ktime_t *vblanktime);
+ void drm_crtc_send_vblank_event(struct drm_crtc *crtc,
+ 			       struct drm_pending_vblank_event *e);
+ void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+-			      struct drm_pending_vblank_event *e);
++			       struct drm_pending_vblank_event *e);
++
++void drm_crtc_prepare_arm_vblank_event(struct drm_crtc *crtc,
++				       struct drm_pending_vblank_event *e);
++void drm_crtc_arm_prepared_vblank_event(struct drm_pending_vblank_event *e);
++
+ void drm_vblank_set_event(struct drm_pending_vblank_event *e,
+ 			  u64 *seq,
+ 			  ktime_t *now);
 -- 
 2.53.0
 
