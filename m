@@ -4,158 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67682C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:25:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD25BC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9AAA10F379;
-	Thu,  2 Jul 2026 13:25:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E229D10E4CD;
+	Thu,  2 Jul 2026 13:46:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m+UnS1hs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bXx3Ps4Z";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D395C10F377;
- Thu,  2 Jul 2026 13:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782998750; x=1814534750;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=wIy1JkviQ18VK6kBApZFI/kj2hbmF7ZPtK5C9MH0K8Y=;
- b=m+UnS1hs/LkqPZ/LkLpZIoVweuiuWgdlbcEYJZLtbAREEc94qaaiVcGu
- 96NrMGMDhYFLgchLK+i2vlHoHj59yjEYtJjPSXwWJIRolDinLSL8FnP+G
- lMFb0VT2+Wgsnxy3qz10XQwSWMUVywY3mSo2b/z6vwSYS817nL0KjpSim
- /s4JrN5X0T6GBUaAappw39K0zv9ErzVsh9q3dBEhMz1pQxjft+iNgVv44
- bvi8zabVp441ULokvJh+pOxZObMkllf5VQ7BVZneC4sn0FVVOZv7JvakJ
- rUt1eEs8dCA5s6vBcCZ5Mdu1WnLUtbSk9pKr770fqXMbyezQU/5IQAgzX w==;
-X-CSE-ConnectionGUID: S2B/Fh3sRBy5BvzpGDnCZA==
-X-CSE-MsgGUID: Fjq/5gibRWK7OmpQfjA15w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83784186"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="83784186"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 06:25:49 -0700
-X-CSE-ConnectionGUID: lKQ2lkLiRGmjAo+cJl+CBg==
-X-CSE-MsgGUID: ofetJKnTSY6BnW5gW4VMYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="253524852"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 06:25:50 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 06:25:49 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 2 Jul 2026 06:25:49 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.17) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 06:25:48 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TRZlA5jL+Th1JA5SK6HG86mtT59+ec7cI/SwKkElQ2T7U62f//hKyzZ1NZbx6VkMi0iR1j4zM/VfONgrrCL/OmpkfcGyXH7gSUSSOQeFwhxCBK/UIn6cQmRnVfLNCLnfb9cI+FgwrXVwNcnXKcC4kGqTGI/SBAPd2GVlGj6BNUYOBt1rl60Mb5Ry607WsaN2/m1voOSRs7PnoQhhfhVL/nGdKNJW3JCn4hU6ezgrSCTzRjgLeKFuNHf47Pd7wsO7fSB+aw7M1mhsG5O2pdnGWV3ErjjUOqHRSt4tsl8xfRHFROcU5bfvyMisvhZL8GHQe+shIg/v9Fd1zo+ydaeMqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+W0grW1V4pIcbPIbshziSql8g2W7pbcJC4iE9o2TGO0=;
- b=nTLAD5zyrhcmz/Z5FrmeZMxIiiY1tKLIwOsJljrhihrkNcC9ymIlL59VQDo3g7yoLkuG6h5ievfHL8HIkNSok0ifAY+guB+6gwSJoDFOmIMqFw37qF4V4tBFgfeeI84zEBMaepTUq+gNJ7zt/UbWkDifVMr8VkqyNnfXV6jeBZ8PQTbvbNXLPwKLHW0fpxdNSD75UBzNQR6ZvXY1XT124voavnB7+QN1crlejCFPt9nyP0AhHndthXPGZ2rAm5qlu/GfWSipW1B4ds0ugiGyCyEuudv/SxtkgNcMxx7cpvBwpsHM2TexXY/fG0z2NywbSRPvvkM2t/SlmEt3NEeYdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
- by MW4PR11MB6692.namprd11.prod.outlook.com (2603:10b6:303:20e::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
- 13:25:44 +0000
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
- 13:25:43 +0000
-Date: Thu, 2 Jul 2026 09:25:36 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-CC: John Hubbard <jhubbard@nvidia.com>, Matthew Brost
- <matthew.brost@intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, David Airlie <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar
- <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-perf-users@vger.kernel.org>, LKML
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/2] perf/core: out-of-line and export
- perf_allow_cpu/tracepoint()
-Message-ID: <akZm0HrMzwarUX1E@intel.com>
-References: <20260523013326.129491-1-jhubbard@nvidia.com>
- <20260523013326.129491-2-jhubbard@nvidia.com>
- <87fr3dv83t.wl-ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <87fr3dv83t.wl-ashutosh.dixit@intel.com>
-X-ClientProxiedBy: BY1P220CA0040.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:59e::16) To CO1PR11MB5073.namprd11.prod.outlook.com
- (2603:10b6:303:92::23)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C53210F398
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 13:46:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 90C5041A3B;
+ Thu,  2 Jul 2026 13:46:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E281F00A3D;
+ Thu,  2 Jul 2026 13:46:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783000007;
+ bh=3qJMtAUXDn9RpNt1LPF4J3Xl09oLERq9LyVPGpSghqc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=bXx3Ps4ZOSZ9QseiOa68Wf2XJmIG2ypp21x4BlQ2u1RNq02WvSk5T2wvMjOzuXzXf
+ 7cTcGLIEYZQm1Gjz0wLs73YzT6tT58oeXXlaBAi2Zv0iiaFv343Z2f8B5s3vPSxLH8
+ Mui8YUY799Sax7adHs66K3/OcHFYtFKMOoaKiZKcm3riW6fptEqT8boSIs/pQN3Llo
+ 7hf1CgvOctaXCqje50lEm02Iq9dOG7KrdF+l1Z6s+Zjk6lg/POZHITm9ImODz1kZ9+
+ ab26w1b0e6otPoVcF8jeDXwO20FJ5FHMGOLGRLY3dR8uSWir/iUY+p4VdhyqXJAP3V
+ ZWinGwYzXbAZQ==
+Date: Thu, 2 Jul 2026 15:46:44 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <akZkuwktaXFTrASP@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|MW4PR11MB6692:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5653f793-bdca-47d6-624c-08ded83d6ad8
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|1800799024|376014|23010399003|4143699003|5023799004|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: VqS8TluSEx1m+PW4GGJ6/ta5tT7TWP36B+Qs1IwKNqG3Why5WObLl2b3jREbUgk+6bbfshZP4mMXITvgTb1ROmP+MQjXNjgj3p5QcMDjcnfyI1EPAUBRNwe+0Pbtwg5F5rCo2eb1lanNgZC19fW7hN+7TRP4ES4RamR/gYQHLujiXksk1zKB0L2FC9CduG5oHxHPFDaqdZdOMtQ6C6CQGAQIUP0a6I2yOwVaF3h0u8HcPa99gfmL5o65wUBncZCeaDDhLUh+ngvqu7JKIowP3zuuM2Z4rpMqn+3kNHvcQM+EBp3kbBSoeqnYhqHzOl4VkKMjjP0amBjhf2QLD8SUJNWx9PlTgz0pcwyqxQKqlr+5kWdNE+mp7Q8xz5yvQYY6sO/xpUsplCfobDl92oXYtbVDH4sPLCrCh+1g04A1Q4l4w7wfg5PdqQ70rLgdntTEfFeyW/ZgJfB9kslXz8dFPKTcGKYhJlWWZiaG2TIWjlSUK1qeIr60uBWAXv0nViLmGO3W8K9erkUcnRJesB+ys7St+Hk8ZOtiLv+PlH4fpXE/S/j6ChJSi5LSK6hrHxffxexAB6JUd599On6mngNxtm21gMUzH819HyNk6PnS/vNw0OaHh7VdgXV3hlzCInoDl8cj/IEVGsRDqO+tHoM+XjHL9MRnv63XZ5ie7co7N94=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(4143699003)(5023799004)(11063799006)(18002099003)(22082099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ttMXkpNzRSqOkUOFy32Z0cJ0wX4oH9az67mz9897gJPMp5BCsUZY21hFsQIg?=
- =?us-ascii?Q?S4HMOtXV0/OCSa8eRsGB8tVurBFB0u3fbyUCIaQVb94/7UsTCt2jGNXZ120J?=
- =?us-ascii?Q?Ar9WtiaqvEeoOzDajYKbe373pVENXp8hWiv8j7FBEQke4EiCohHRsNIm12iP?=
- =?us-ascii?Q?iHSUPCp6CNAH2crhl6WhdXKg1KpTgObuZo9fna6Xo2q5z0PUZGcrmYqqZQh2?=
- =?us-ascii?Q?IXWJXMtwHhWz5aAEmCrenB4ONILf/qY4OGdVQZC9w3dAIK28c0yB282/LPZt?=
- =?us-ascii?Q?DLN9Goj5BrVFcisW0T/XLvHKw1penVOqmgMSwJoMRp3ZwZ2F+CRHbnerYvhI?=
- =?us-ascii?Q?3m2l1SgflIKV3NkC19i7mKQ6JkhE3HkGKY7PU6eBtKrzYb+ImS4MYZeYLQiX?=
- =?us-ascii?Q?akBcxNQ/jPhd9xBXbQJPbqI/v26QR9t0EOfrC/HGz+JvVtJZ06QaemK4ruL4?=
- =?us-ascii?Q?uQxUerH4+bUg/fMGAgX+DrnozpnPbL1XAmNhaswjjc8soAMd41NH6HZGYI41?=
- =?us-ascii?Q?k8pTqkUn0bL1prIYiW74zCVbyh5lmu8hqHMjaBYHrEAYh7iz/fHK3/EfOCyp?=
- =?us-ascii?Q?gdNly/Q+z4ol9Bbl/6H25fH5/xDdfvwCzvp4nEZpVwNISXMnSkJAhBacwQhv?=
- =?us-ascii?Q?0XRT1BYN8XPledrfOFf6H4MEj/znXpmhSQ4CxL0YyxHAdW5m6GX2Fg+f8WcY?=
- =?us-ascii?Q?3lPDbfrafiTdpmxufQw3NbPYeQ1K64xAxUHpG0O5cddR28LzATG5zwx/d2ke?=
- =?us-ascii?Q?PQoRC1p3aOoeWupY4gy/FydOIrPrp1ppsiXLeh6MQCIssa3iWf7h4UxBwCOg?=
- =?us-ascii?Q?arEPb4E0HeY2JKgD3J322PY5B32b668h/OBg8JY35KuUe4MBUAEE19RQFO1b?=
- =?us-ascii?Q?YLy/p0hrBOZLNBjjraaqgZHxshvi7VtgMIHrq34Ow8JkLtbnGNYORk54tdei?=
- =?us-ascii?Q?uELN+T331KDNvhpjk7DvfOIMDxT50h2c+reSFl2MIV6OkhsRNtgBz+Wp3BIg?=
- =?us-ascii?Q?YV87/1Fd0yBPqLdedB1/ZCk1sVjMQ0RWwCXL1gCovp2dmmIRxsjJ8mWAljES?=
- =?us-ascii?Q?NGY9XJqMxz6bhlX56awZVQf7c+Q5BHrj5SCcZBbX7ok+wz37xA/03+lT3q2S?=
- =?us-ascii?Q?HozED6HCpRv7BKcW+hP+3Q+C1+bz8crOR3PxaD4WbA1kgRXLVLEdHVqH6doc?=
- =?us-ascii?Q?t/o6bz6yubbrpqW6q0CVS6wszE8zseUwvesVVpvFP+B4pfmMdEOPhXmpeG80?=
- =?us-ascii?Q?5t5FAlcxREQRp++9yZGx/nleyhwwHSnQTv9Yl7iWGXvLwzB2gqO97TPI1ATP?=
- =?us-ascii?Q?Lv2CKEL9RrPqtsyQvElDd+r9fC2B5JzMEZxLiajHCmclAejB4EVKExihieKg?=
- =?us-ascii?Q?tUfKbL/DPMVY1F2kaz78jHuKekST6NvOEaSZH370CLXhKfet7pbhd1w1qYc1?=
- =?us-ascii?Q?QFPGtHlt0uBxF5a09q3e8zeXsEL2OoAX+jIalYDjrpe5XUrRts/gvyax8zK0?=
- =?us-ascii?Q?tP25CwqQzBTovpDTjw7stLqRyzACuKcjlSqAc4LD3yOFxCpH8PGd2jDIbjgt?=
- =?us-ascii?Q?TLWWTjfJqAggAVDXXTtabeDNTZEdsM0+kcfGv/WEg7MISvw6x3Hm31e4kbGt?=
- =?us-ascii?Q?Wnt+5BFfcC/DmhYrGhHmR8AobSqJ8LRXmFz8n3zv4042dM0EeDr+Y/5ECZgj?=
- =?us-ascii?Q?jJehyVpg3HXSrixcjRL/UHkEBT53oPv5myH2ELULjqMsY9FGPQEGRwk9NxU1?=
- =?us-ascii?Q?9eYPPE4okw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: K+krLiMDTIDpSGCXlYshu5UKwWiGk2+XSSwEuSC10Ws7xB709bmx7SYvZsEmHIhYj2dbtVxi8IIQoMnkl+oRpjKwE1WU8sPc/aSon3QswC4653bALP5tPZw3smoV3KAxQQA4D1o6WzUX0fqg0SwkI+Kc2dbKD5q2W67ElII44boaIaoKcTIwXHrjKZbn61Hskds93+kynMrzCK+R7h3xPE6ONFZROoOGGHK76uedTSdcqiuhMXa6v0cgFgUGIrw2r3AwYylbNCLpcWzropLjjDgUNkPDP6e+4uw//6ZvSVFAqA4t7qBUtoMb0TOKn3uZyyMBOPv6xOY407mESKXjFQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5653f793-bdca-47d6-624c-08ded83d6ad8
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 13:25:43.6113 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LAmkbzii0GZqjCipM1hsaqJwyRQVA7Q/EaZLRhIZNzTrKXNW/CiCmb4kSjiyuCDUiVajq1mR7ia+bB6bn+lT+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6692
-X-OriginatorOrg: intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="kdpw3ftelwhct6ta"
+Content-Disposition: inline
+In-Reply-To: <akYs91INHMXMTI-t@willie-the-truck>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,118 +98,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 26, 2026 at 08:34:14PM -0700, Dixit, Ashutosh wrote:
-> On Fri, 22 May 2026 18:33:25 -0700, John Hubbard wrote:
-> >
-> > These helpers are static inline in <linux/perf_event.h> and reach
-> > into sysctl_perf_event_paranoid and security_perf_event_open(),
-> > neither of which is itself exported. The perf_allow_* trio is
-> > therefore asymmetric: built-in callers can use any of the three, but
-> > modular code can only call perf_allow_kernel().
-> >
-> > Move both bodies into kernel/events/core.c next to perf_allow_kernel()
-> > and export them with EXPORT_SYMBOL_GPL, following the shape of
-> > commit 5e9629d0ae97 ("drivers/perf: arm_spe: Use perf_allow_kernel()
-> > for permissions"). Existing in-tree callers live in built-in arch and
-> > tracing code, so the change is invisible to them.
-> >
-> > Provide !CONFIG_PERF_EVENTS stubs that fall back to perfmon_capable(),
-> > so the helpers stay callable when perf is compiled out.
-> >
-> > Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> 
-> Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> 
-> > ---
-> >  include/linux/perf_event.h | 31 +++++++++++++++----------------
-> >  kernel/events/core.c       | 18 ++++++++++++++++++
 
-Peter, Ingo or any other perf maintainer, ack on this patch and on
-propagating this through drm trees?
+--kdpw3ftelwhct6ta
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+MIME-Version: 1.0
 
-Thanks,
-Rodrigo.
+On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
+> On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
+> > From: Chun Ng <chunn@nvidia.com>
+> >=20
+> > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protection bits
+> > on a kernel-linear-map range.
+>=20
+> That sounds like a really terrible idea. Why is this necessary and how
+> does it interact with things like load_unaligned_zeropad()?
 
-> >  2 files changed, 33 insertions(+), 16 deletions(-)
-> >
-> > diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-> > index 48d851fbd8ea..5842552294c1 100644
-> > --- a/include/linux/perf_event.h
-> > +++ b/include/linux/perf_event.h
-> > @@ -1791,22 +1791,8 @@ static inline int perf_is_paranoid(void)
-> >  }
-> >
-> >  extern int perf_allow_kernel(void);
-> > -
-> > -static inline int perf_allow_cpu(void)
-> > -{
-> > -	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
-> > -		return -EACCES;
-> > -
-> > -	return security_perf_event_open(PERF_SECURITY_CPU);
-> > -}
-> > -
-> > -static inline int perf_allow_tracepoint(void)
-> > -{
-> > -	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
-> > -		return -EPERM;
-> > -
-> > -	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
-> > -}
-> > +extern int perf_allow_cpu(void);
-> > +extern int perf_allow_tracepoint(void);
-> >
-> >  extern int perf_exclude_event(struct perf_event *event, struct pt_regs *regs);
-> >
-> > @@ -2023,6 +2009,19 @@ perf_event_pause(struct perf_event *event, bool reset)			{ return 0; }
-> >  static inline int
-> >  perf_exclude_event(struct perf_event *event, struct pt_regs *regs)	{ return 0; }
-> >
-> > +static inline int perf_allow_kernel(void)
-> > +{
-> > +	return perfmon_capable() ? 0 : -EACCES;
-> > +}
-> > +static inline int perf_allow_cpu(void)
-> > +{
-> > +	return perfmon_capable() ? 0 : -EACCES;
-> > +}
-> > +static inline int perf_allow_tracepoint(void)
-> > +{
-> > +	return perfmon_capable() ? 0 : -EPERM;
-> > +}
-> > +
-> >  #endif /* !CONFIG_PERF_EVENTS */
-> >
-> >  #if defined(CONFIG_PERF_EVENTS) && defined(CONFIG_CPU_SUP_INTEL)
-> > diff --git a/kernel/events/core.c b/kernel/events/core.c
-> > index 7935d5663944..cb13f3ad11a3 100644
-> > --- a/kernel/events/core.c
-> > +++ b/kernel/events/core.c
-> > @@ -14731,6 +14731,24 @@ int perf_allow_kernel(void)
-> >  }
-> >  EXPORT_SYMBOL_GPL(perf_allow_kernel);
-> >
-> > +int perf_allow_cpu(void)
-> > +{
-> > +	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
-> > +		return -EACCES;
-> > +
-> > +	return security_perf_event_open(PERF_SECURITY_CPU);
-> > +}
-> > +EXPORT_SYMBOL_GPL(perf_allow_cpu);
-> > +
-> > +int perf_allow_tracepoint(void)
-> > +{
-> > +	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
-> > +		return -EPERM;
-> > +
-> > +	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
-> > +}
-> > +EXPORT_SYMBOL_GPL(perf_allow_tracepoint);
-> > +
-> >  /*
-> >   * Inherit an event from parent task to child task.
-> >   *
-> > --
-> > 2.54.0
-> >
+This is necessary because once the memory controller has walled off the
+new memory region the CPU must not access it under any circumstances or
+it'll cause the CPU to lock up (I think technically it'll hit an SError
+but in practice that just means it'll freeze, as far as I can tell).
+
+Probably doesn't interact well at all with load_unaligned_zeropad().
+
+> I think you should unmap the memory from the linear map and memremap()
+> it instead.
+
+Given that the memory can never be accessed by the CPU after the memory
+controller locks it down, I don't think we'll even need memremap(). The
+only thing we really need is the sg_table we hand out via the DMA BUFs
+so that they can be used by device drivers to program their DMA engines
+internally.
+
+Looking through some of the architecture code around this, shouldn't we
+simply be using set_memory_encrypted() and set_memory_decrypted() for
+this? While they might've been created for slightly other use-cases,
+they seem to be doing exactly what we want (i.e. remove the page range
+=66rom the linear mapping and flushing it, or restoring the valid bit and
+standard permissions, respectively).
+
+Thierry
+
+--kdpw3ftelwhct6ta
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpGa8AACgkQ3SOs138+
+s6GyRxAAoXRwCQvIsIZ5khXDx6SMkmNAcO9Cg8l493HodYcUGDpoLnzmSZIuBH6O
+7EzGu627WVHBzlzvdm7rW4Dix6iPF+U3Ehyr8iAUivu1yot53889neKKrC1eq9PD
++6Sz4xi37yCt4pfcPy/EWe9YYafql6PLeE3Hw0T0Tt151D1INADFoGoxNpoVcIih
+Ycz/Fn0urZbUgme+pxUKTIi9ZA6mbGsQvkAVVgV7FS6NoeBO7XXr/JuLf9SdRQEj
+wqGLPjfEi5yGiOAzPf5ooFKfZeczBJYU1nVrP7Pick0O8xErv2/yM51/zGFj+ZEg
+9t6g/PfZ5EecBc3eS/6GNUwBG2hiV3d41NiQT1YeLHEUAqdDOJpU2pV+kIUHDH0f
+cOyYPNKAAHm6yWdq4BXm+sZeIO9ULQYZfu6S4tZERgdSECiTUNFQjWcp4GXta/ag
+SkK60DzHjQDDOeQ+NwA/bXJ02cVI3RMS7K/vdkbHlKrnU3gQrWNy3e2sUvl3oiuz
+7gDzuZsnqiCPflZLPmYgwF4wvANcCBXsSn1QliB12LV03+muKxvZA662AtFMeiea
+J+c9tkznLG8FBRWbhAyS3835rmwnxvIAte6vZsQBWnVpJQtig0tnJGkRICAS6l+E
+oJ5FhyWV+jtHiSiExs+MuqQX8qR1sGnVKd7UwksFFMecrO7KvIw=
+=m+eo
+-----END PGP SIGNATURE-----
+
+--kdpw3ftelwhct6ta--
