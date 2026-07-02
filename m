@@ -4,85 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51FDEC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4051C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:01:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F05310E477;
-	Thu,  2 Jul 2026 08:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18AF610F251;
+	Thu,  2 Jul 2026 09:01:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="ZgDkGxEH";
+	dkim=pass (2048-bit key; unprotected) header.d=alyssa.is header.i=@alyssa.is header.b="pT4c3POm";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="PuTN4PSe";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1696F10E477
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 08:52:34 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-4758b2a9e2aso1005299f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 01:52:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1782982352; x=1783587152;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=aElLLGay9xB16xeANMb8tta8IpzpcumQhgPLm7WpnQE=;
- b=ZgDkGxEHRS4EEqPmXlL6ElFcEB1m8cM53cK6ZfyhLPtamtjg/xLmJNnnZe8cOFxDBz
- LfNUfp8A0T9t4k0C55hMKRiJH6KLCSvPgE39bWMtbDtiHOoNwTsh8zW4GVZlXB5kMd1V
- u+/xJ3WoBwiQhzxzd4PYQ7onLjIP904HOeNnxKWplZsMh54MfaiH/11n96E2KIpAlswb
- H8mqtAaOfu3DLaoOBNDOsWR2Njuwrymd2j42JxoCRvc6wSQEutOTC/ay2ynfJfigyNau
- 9GFJLuEPfne0mjx1fftQ2tOdaHePVg5XryAISJLBH3sZMh0dWHuMZODUDO5hdDJmQSkV
- mbqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782982352; x=1783587152;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aElLLGay9xB16xeANMb8tta8IpzpcumQhgPLm7WpnQE=;
- b=Wwd0+vMKFafb/nytjGZCnznc7llLqP446R4iUy9stNssi+KXYRbfDQyU43SyoThFw0
- WvJfD2g8e0ex9HppczFdr14IlpUWcTDfrh3t8Keja0XCNY4HwlGA8rJO6X6d0Mzq9phd
- DOybzFHvRNkKsXUwGFhhvCfuLriH4+xulbFBg+ssMvmQSNcI0VGvoaA1tdBkv7s3nH97
- x6U3pNg6ADeWWGtWmd5cNa1MieSJ12F9Vg7ReUW1wNoleW0E1NPnrRZo40DHaVMeBuO6
- Hn9f/McvytB9ixGTnwtlfm4mm1FkQBUZuvnCYR4CQYOjt+qHoDaJa1DFZJ1gxeazdr5J
- kdqQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ror2dVlywrThQ0Pu/9KrP+vMn3rL7skK0AHNaB60/SSBXu/Sqo/N06ejiNv5rHI8GXf74aDXe3TnrQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyOOsIRPst+pA9RvFu5964y3VnsiWQ5g6eGkHK7DdVBmM1P+k5U
- TQtgLm7C8jgjGrCvGa8Uyn/R5mcg1Qpy2BtSszJQAsxEhHPORKpfIZSBWZX+ZFOVbh4=
-X-Gm-Gg: AfdE7cl6qWuHcT9Nk+NtMzsWZjMeONxpLTHrPn7NsI9V0RhR03HAkpM5/ANJT87n2lI
- nRaSdbefSWx0ISxjPN4syJedYIzj83APNtfm3EYcbsZGZ2wkFbHBXlbyqvZ6waxxO93Zal3mMBl
- rqPRPiAXn2JQ2RRp34aerra23muYWZHMHu0Pubs+BirxAWZOz1gosawGua/RfYs3ej7ppLtTAIn
- J1rfAVTGDuF+JB4PDVukRwEQ00v/ZfP3g4H7XHNRYAs16CCXb6A8yeXm4kOI7eVqtlW0bbFyGw1
- MgvRGuASgXhzShOw2RiYVquQg+EgDq3A+XmwSmmscxxBKyGqtL18dlWua7Nvl1d7d0xOb42sroI
- Yg6jDj6FQmMKQyrGj5gVPeYaEHI6H7KP/Rf6YJwAsEl/UCKnsobaMbO9mh6yzTGnuAd74FutD6f
- 1IttG+W0gpzG2aGvU36A==
-X-Received: by 2002:a05:6000:260c:b0:475:f0c2:5b05 with SMTP id
- ffacd0b85a97d-4775b64ba1emr7587656f8f.59.1782982352189; 
- Thu, 02 Jul 2026 01:52:32 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-477dd94c829sm6684131f8f.24.2026.07.02.01.52.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 01:52:31 -0700 (PDT)
-Date: Thu, 2 Jul 2026 10:52:29 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/4] drm/hyperv: Explicitly set subvendor and
- subdevice for pci match array
-Message-ID: <akYkWQzXIo-y3n4J@monoceros>
-References: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
- <019450ffb519d02821364afca32b9f48bcd8d2b6.1782925276.git.u.kleine-koenig@baylibre.com>
- <7a747d47-d275-48ad-a4ea-1e4897df1d28@suse.de>
+X-Greylist: delayed 422 seconds by postgrey-1.36 at gabe;
+ Thu, 02 Jul 2026 09:01:09 UTC
+Received: from fhigh-a8-smtp.messagingengine.com
+ (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA3110F255
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:01:09 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id C14CC14000EE;
+ Thu,  2 Jul 2026 04:54:06 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Thu, 02 Jul 2026 04:54:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm1; t=1782982446; x=1783068846; bh=j55qvLlvef
+ mz0mgcVLcPw9qKtGv4J9U0lwmNoDlYuKI=; b=pT4c3POmmIeP6to0Zj66Bt9Qau
+ m06MzJXF2gGfXPKY1sBTgZZ7Y+9rUKJ8UncBTZsSutmIL0/WlXTYzRNhlArESOMW
+ TUSGY8+V/TvJtL2X/dDYdaXHC4PUWDlhOZ9XUUHp2uKz03N05fAsKkNF0PZB6zk2
+ qixcx6SDuvEYKCFNrcQd+ghQHIhFJrMDfPcQXEwFzssXa5FQBvLeigQ8L5rz6dgc
+ lqU4oCyEvExFRXicv20awbWcFvXEhTNmb3jkRMvJQ4/MuIUljG5oxSVe+D/dWpD6
+ 2WDGp19TrA3tVlzXSdmk4TJAg8DmmuiuhV9zV2wIJwEYQ3jYguTQyA8yHllQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1782982446; x=1783068846; bh=j55qvLlvefmz0mgcVLcPw9qKtGv4J9U0lwm
+ NoDlYuKI=; b=PuTN4PSeOMGZAJ6mhiCwSWXiB4rWkFe1voJVGa926kPuKEACVkn
+ 5X6FFt5Vwb4Jlej0N3av57CFaMnH0UKjK8K3K4CMvOWlC33gLm5d1Xpoqng+geFG
+ 8jsjgz3vbA4LOh0QaL6OqyKyx/jCV9wKJN5Fn+klXiPEZn1ARhiQHtfSiaXVGXb5
+ ynq4jEMiYYnNh8uh0O1weAAUOquAuriq60fy8ONct4aWu8D7KL4lycppi/wNOlFt
+ j8NjkD0hUYfHxhprzQGd3sRrMoldO7iuVhHgRLlik7xHKmG9x3plZPtBHfDSN4f9
+ EfMLwE225XCjD+Vh1B8FQbhpGOuHBKwBDMw==
+X-ME-Sender: <xms:LSdGaqJ6s_sDa6DdZOdaKTb6HybJ6md_I7t2CqjyIt9r5xxIbXpfkQ>
+ <xme:LSdGauGBNT6kL5i0i5X2BlIv7P7dsGsiq_Vttd5OISaK3UKVYOh79P8f3_Ba2U-FS
+ GSDhWvSEM6VaPaTlquaYH3Ly6fgk9TWlPWs4k2mxFegPYPmZCV0kw>
+X-ME-Received: <xmr:LSdGag0PxissU8RT60Rsiw9nggrnTt7HE90mfcA_Ibe6DaJuVH__lkl7aD3D5zSVxshysvepz8_VlmaOpR6TA-hxM-HKlw>
+X-ME-Proxy-Cause: dmFkZTEHCignYgB5W3814u/dYlkAnitiAGoUnu08MpyCR+DPgCOX37U/aCvuiPMeDa7Z8C
+ zdzohmwS/vVrc4QRDt9AJpK7O+PEwujd2Zvqh+Tc23Gt+iQK3tTVXQiUSd0tWwpTdeS4ID
+ vMkgb9EuKZTRZDm6wE1doDsjbiDndFhKH9kzsqVTBzmE8H/XffdKNDUpFY46e75ugw1QoJ
+ iY8knN0OAUdA2Erv9QW4w7DTd9d+5TU6wRGgdGxOtgm1DctIUWacqF3Dxq7DJfK5M6ulpf
+ 2AnmTUF+5b+8a6b7lmqo4nMFSg4ekjcYD0VqkdKkLqATsD9PUnxrqQcGPm+8SNGRhVn5Yw
+ hkOxgE22qur5b6dmyWD0rpefZzcRrPPHITYqH94IRdA5T/0xR/KlnNYQ12siugELptFQrz
+ GPsudgJ845YP9jNYkWI3uoYqcFl0LTNBAMpHbbmVvO1m9CXOhP3NcwQk94IjdE5XyLKVCW
+ K4fGRHcI/P7UbI1Va1tDtI+cCnyw4HaOGDJEiPjeBbRwlHa95l3FA5nTarKRYIAcOSsTw9
+ HPaODK0w1sO2cN+h0ySe0XesTv663rJiVyu8p2lF1L+4Pst3Jyt2rm55LAh7JkplF3lu30
+ zJaIpHY8DFFk0Rfb980wHFi1EYUyyozxuUVDGa5BcTYC28WYwtoO2TCUp9Ag
+X-ME-Proxy: <xmx:LSdGalzve92v4Y03J23F8M0wmvsps6Yp7qytQvoTDpQHnZy7Kq1krQ>
+ <xmx:LSdGavhEYSSjr2IJfa-By6b_lHSMaTdLS8U49wxGcTB3cE4VS-aOgA>
+ <xmx:LSdGakzJKSPGQ6e8g9vCBkVUKxjBCAjkjG9tb048TOqJNyzbd8hj0g>
+ <xmx:LSdGatwcVEid3e0SItT_9LF0YJ6NVmacAXZb3m7RPeWIueo_l8b7zw>
+ <xmx:LidGagIdHB9mNYAhpB2lE4rtRGRci_OlEuJSfMc5gjPOnoRdJjzFJ-lm>
+Feedback-ID: i12284293:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Jul 2026 04:54:05 -0400 (EDT)
+Received: by fw12.qyliss.net (Postfix, from userid 1000)
+ id E5154BE01643; Thu, 02 Jul 2026 10:54:02 +0200 (CEST)
+From: Alyssa Ross <hi@alyssa.is>
+To: Gurchetan Singh <gurchetansingh@chromium.org>, "Michael S. Tsirkin"
+ <mst@redhat.com>
+Cc: Sergio Lopez <slp@redhat.com>, Chia-I Wu <olvaffe@gmail.com>, Jason Wang
+ <jasowang@redhat.com>, Eugenio =?utf-8?Q?P=C3=A9rez?=
+ <eperezma@redhat.com>, Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>, linux-kernel@vger.kernel.org, Simona Vetter
+ <simona@ffwll.ch>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, Thomas
+ Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>, Gerd
+ Hoffmann <kraxel@redhat.com>, virtualization@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
+In-Reply-To: <20260702000144-mutt-send-email-mst@kernel.org>
+References: <20260428194450.518296-1-slp@redhat.com>
+ <20260428194450.518296-3-slp@redhat.com> <akT1XEW766c7Imst@mbp.qyliss.net>
+ <20260702000144-mutt-send-email-mst@kernel.org>
+Date: Thu, 02 Jul 2026 10:53:58 +0200
+Message-ID: <87tsqhai1l.fsf@alyssa.is>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sqfonh6coq5d6ttj"
-Content-Disposition: inline
-In-Reply-To: <7a747d47-d275-48ad-a4ea-1e4897df1d28@suse.de>
+Content-Type: multipart/signed; boundary="=-=-=";
+ micalg=pgp-sha512; protocol="application/pgp-signature"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,74 +107,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
---sqfonh6coq5d6ttj
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
+--=-=-=
+Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 2/4] drm/hyperv: Explicitly set subvendor and
- subdevice for pci match array
-MIME-Version: 1.0
 
-Hallo Thomas,
+"Michael S. Tsirkin" <mst@redhat.com> writes:
 
-On Thu, Jul 02, 2026 at 08:43:32AM +0200, Thomas Zimmermann wrote:
-> Am 01.07.26 um 19:05 schrieb Uwe Kleine-K=F6nig (The Capable Hub):
-> > .subvendor and .subdevice were set to 0 implicitly, so only devices with
-> > these two values set to 0 in hardware can probe automatically. Make this
-> > requirement explicit.
-> >=20
-> > While touching this array item, also make use of the pci macro designed
-> > for that case.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
-ylibre.com>
-> > ---
-> >   drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/=
-hyperv/hyperv_drm_drv.c
-> > index 2e75fb793495..e766d87b7a9d 100644
-> > --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> > @@ -51,8 +51,8 @@ static void hv_drm_pci_remove(struct pci_dev *pdev)
-> >   static const struct pci_device_id hv_drm_pci_tbl[] =3D {
-> >   	{
-> > -		.vendor =3D PCI_VENDOR_ID_MICROSOFT,
-> > -		.device =3D PCI_DEVICE_ID_HYPERV_VIDEO,
-> > +		PCI_VDEVICE_SUB(MICROSOFT, PCI_DEVICE_ID_HYPERV_VIDEO,
-> > +				0, 0),
->=20
-> IDK, but it looks like an oversight to me.=A0 Setting the sub-fields to A=
-NY
-> seems like the better fix.
+> On Wed, Jul 01, 2026 at 01:10:30PM +0200, Alyssa Ross wrote:
+>> On Tue, Apr 28, 2026 at 09:44:49PM +0200, Sergio Lopez wrote:
+>> > If VIRTIO_GPU_F_BLOB_ALIGNMENT has been negotiated, blob size must be
+>> > aligned to blob_alignment. Validate this in verify_blob() so that
+>> > invalid requests are rejected early.
+>> >
+>> > Signed-off-by: Sergio Lopez <slp@redhat.com>
+>>=20
+>> FYI: this change breaks crosvm, which is squatting the 5 and 6 values
+>> of VIRTIO_GPU_F_* with different meanings.  I've reported it as a
+>> crosvm bug, so hopefully it can be taken care of there.
+>>=20
+>> https://issuetracker.google.com/issues/529852979
+>
+> Move fast and beak things, then it takes a wile to fix them)
+> Do you understand who uses it maybe? Maybe if there's a PR
+> for both sides it will be handled faster.
 
-That was my initial reflex, too. However while writing the commit log
-for that change I noticed that since commit d750785f305e ("Staging: hv:
-fix hv_utils module to properly autoload") from 2010 (applied to
-v2.6.35-rc4) the driver never worked for hardware with .subvendor !=3D 0
-or .subdevice !=3D 0. I cannot believe that something like that is
-discovered 16 years later by chance during a rework by someone who
-didn't try to run that hardware. And if I understand correctly, this is
-emulated hardware and so I guess used quite a lot.
+I have no idea where the device side is.  Doesn't seem to be in the
+Chromium kernel tree, nor are there any patches for it in Chromium
+Gerrit.  Maybe Gurchetan can shed some light?
 
-Best regards
-Uwe
-
---sqfonh6coq5d6ttj
+--=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpGJssACgkQj4D7WH0S
-/k55cwf/UJBZ26bD2BNncRiKxBadwLt7x6gNyMi02vNafvcP5U6SmmmXCVTWPNxg
-21tfbjDQBmk+B4wGTrcyLJLNWhh04x0o3nvE3aGMX4BjXOJR5LCdexnIuby3mLKU
-A8JQTJKyHu2WdtRT4aLITjAE/4g5rYoRzH7UV970O4k1JjRYCJivjRMTpLzNQLYC
-ZUA8AkZ9eFlVbt1yPzcrR/lpzk1V8zWQWRHjK16ZGVZpdFA7v2/GNcZTvoYcvZCP
-e4jtKrKnSJr3Wwp8sfcEjLHtXlo2EL0GjatENsnFYdb7oyrQxXoLQ0G4EBxy9I37
-JtoxY9CMlHLAsBUDt0gv/ecgN9xosg==
-=QzVa
+iHUEARYKAB0WIQQGoGac7QfI+H5ZtFCZddwkt31pFQUCakYnJwAKCRCZddwkt31p
+FRB4AP9r4exFXbswzWQ1hhpnbMXRJzsC7nKw2Y3TyAaPQkSSTgD/fMa+jGE0X1HF
+N1j7OIDzSBwZrrxiZ2FuGUgYS4A5ygs=
+=adGR
 -----END PGP SIGNATURE-----
-
---sqfonh6coq5d6ttj--
+--=-=-=--
