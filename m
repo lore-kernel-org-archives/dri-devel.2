@@ -4,81 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73E21C44500
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60462C43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A5CB10F669;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB70210F66B;
 	Fri,  3 Jul 2026 07:04:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ASrJMy1P";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="pyCAMLny";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4D2B10F58F
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 19:48:45 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2caa0551d8bso2437805ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 12:48:45 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
+ [209.85.217.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7AE510E4A9
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:05:42 +0000 (UTC)
+Received: by mail-vs1-f41.google.com with SMTP id
+ ada2fe7eead31-73b7c3791dbso841340137.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 05:05:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783021725; x=1783626525; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1782993942; x=1783598742; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=68hLmhb2rJT6HC8MF+9I9bjhr7Jl54P+QNhqjh8bKmw=;
- b=ASrJMy1P7XOgl9qrEGeBSCZqd3v/LmpovEkiMTk08pAtDMt7EmZHxYGowtaMsxAy+M
- pomP2poBnkRnvNRZ0uhN4WcnzX6ceg7yTTjutu6RapC35xdPsdnqiziih7CpMFmy8Jl/
- XSsgCRLiQMZuHWz4z0X3ssSYjLqZkdtE66r4cCBAApjclKjx5oLr2s7WHAaFIIpHE7vu
- UhE4lw4d9msD0fl93cePz1RTqhlx48GNS+0ijM1osiIp34/4/rrSctAyILcKZvNuN8U/
- l8QVlJC/20AVvS5ID3itDf6pl0gU1ppesJwjoTxXLUnwpyFxzRk/+mrKnxmjO3y6tiaZ
- yGyw==
+ :message-id:reply-to;
+ bh=1Xv536fNaoYEArBq1hqEwEiGIOw+jADuSEkc+GlzLZk=;
+ b=pyCAMLnyG4ouN8kJTFzC9IK9/FYu7RdFbyWOAnl/4CybYs6SullfHK1WwKjATogI6m
+ hy1sas1D/l1AnzQv/wgaTo6Fuc4sbAN2mIUJJugWFcoWSG9HitnQ9UXKqoNQ0iWGoJtw
+ QyZkYyqHQDfKUPnCLolNXfPFsil6CPLx3siVBk/MpPDQvZ8ma2tpk0nSIsOb1lKVP/Jf
+ Y74WqCByoV8EoAIFU/NabTifcmOBzOQ6bh3l+Mip0lMkbxCmu7NdR/Jrn8GsbG26YI0r
+ 4QTkKN2R+wE8w+hjoLoEOVucpOloGrLg9ObgFcEaMFGD9+woSXPtIHBNZ4/ho2ghoAyz
+ pnzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783021725; x=1783626525;
+ d=1e100.net; s=20251104; t=1782993942; x=1783598742;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=68hLmhb2rJT6HC8MF+9I9bjhr7Jl54P+QNhqjh8bKmw=;
- b=SoJZBgQaXCSRuizaAXf5Yu6aPlcMtuUGJfPt61R89U+22HrYPV0GhTBH+gZwjWMjJM
- pBp6eeYzAl4Bxc3aKR6PcnLl+bnEAUDaTHoZCI6uymjN27FNZnceFW5bQsEG7/CrZ5rx
- ZR6ZLOuvaFbFze85mU2Grrqqftc2qiDBFqig3jq5daPEDriufcRxujSb8UO0OrBfcPmQ
- IvtOYs+9TYF7AaIUhI/uzl5bU3TF4vdoUoJ0nDFfsSydrDW5yhfpQJP4fhtBVfvZ/HU0
- U/VHemD+4Y65QCd9G4TuMts/ex1FzsRl4uatORY916KutCN5AJnK+FAxz49f+3eGO1RD
- 3UbA==
+ :to:cc:subject:date:message-id:reply-to;
+ bh=1Xv536fNaoYEArBq1hqEwEiGIOw+jADuSEkc+GlzLZk=;
+ b=nfP2X21rDcrw4IxRtwtp4fCDyZ8HLNkHmsMZ0eLVACTN2sMFpA758JVgIWCEr+AOA5
+ jLiHTT9eRB/IKhi8LCrw80Z3+SDQ96THF7gbSFlBslveMt2Ozdl/AitMOzj+13BVUKxx
+ ACDup7Vr1r1dapZN6xKFv8zDtIs/MdHLj5ZfXThFRxNnuVUkqUKswt9hNuba7fnyU3RF
+ m6xTS8HeQUWXnhIz7gRUwagh+FcNbrbcWWAtktRLLxuqV4PwVvVe6tw6E8CKA/nPMk82
+ mV/LEt3Zlkod7GaJJ+tvL5RuWFRivWCO2J+XzkHz4SZffSL85Q1KzVu2mkxo/kFFXIhn
+ BljQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrag2OikZLYhFdSOEmw6YU+afgJJpQvTi06TtDgooklzq6jbWWIGyBIsXuLhQrj31wv+XTR7OW8HcY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxURVGi5HcXI+q1D80anhTqwYgBop7vp9bAHi7ViF/FmDqEpBs6
- 02XL9iW2CRkcAHoiAZaXvETNLwhwBWtL6pwMerIAlCrOEwgNfuw0nSVs
-X-Gm-Gg: AfdE7cknYe8WouunZKIYbfaXTN1wcsqZEpetvVcRj7e/iNjmo50MWdbDEAZzbsGJuPJ
- dfoN85CZDw4e4zqx9io2UJbz8HmBL3xTp3wIMtyYCa+y5/Hi6St2GhME8+XmSJYsgOuvnLdP1lj
- /JcClBoft8hd1YWAZbMmZWFLtM2Cfmt/+nKOrhjnbiej5LS3omlzyctH1IKFz4grGtOeZb0zr0R
- pkH63x7WyojK4HjtEeh28w6Ro90BgYM4EAdn3hT6jpPAt1x7/gi+gHQQ2O2wONXr6leaesb71bI
- 0EN0quN6Qve4JcG7bWOPSzAGoogZ7RuQ7cN9rIjKrEjY516SnCu1BKPJ7SQprdGRaU2RrHpy9nb
- um3Onc6cocInyzXPXrbU6oujNKbcN5PvOwlqJ6yOnEtdAcQ3xNAB7yruK22uok75HcUdZVAyHBL
- kzxHkh/psn1QQwDFm3N1P/PGc+iIGbKefSDaw/eTwZYqAK3yQzqm5IGjiQJ4E5zhfVtuNOUc46p
- D1pYjE1v6nfE36lqju7oWz5u8egqY5MmH9BuoVjTpb0h5lm+rIrC978Qn6Ma9p2WP/r1R3cxyds
- e1iRO0cEyD72PNdJ9Tx4Jrrdr2nCqVGACVoPoA==
-X-Received: by 2002:a17:902:d490:b0:2c4:397:dd7a with SMTP id
- d9443c01a7336-2ca7e8cf2e3mr46822875ad.4.1783021725266; 
- Thu, 02 Jul 2026 12:48:45 -0700 (PDT)
-Received: from midnightair ([2401:4900:1c94:62e8:bc10:77d0:2fda:415d])
+ AHgh+RoazCH2J5jTvbSQmOm9/ycQly2yb6cXiLHffVtyLTpt7hTe4SlTvm96lzwUAdOjGkUIz01wTkeSTlw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJEHM1G3hGGO73AaPJNF4iExbb6NNju0zxGqFqqfUxnwZ9zz3Z
+ ZjT60YMxi7UQ2hVzuG718zh5jYuJ79fI9nL1X1LgaxeKNX3Wei1KwCsLxVVAcaqZAHk=
+X-Gm-Gg: AfdE7cml9lwKD/jJ3Z7mKAcHwn5lEoWzrKMM4KfmMOMMT4t9m7lFr2Rmi8Vj/CRSRdL
+ X1U5wnPmHg8tlI22kciooR1qBZD4Z463g+m2Iy7uG3xyvkACmGj3ghj5pV6VPvgIubSBa594WSl
+ wCw/gg3RuMT872Sq+d0GbUYi/sTQPfR/G4LOE2VfCzDVtTUHWKoWXvX74gYB2PHgeScTLUUYZHF
+ TUuUAjMpcZ7SWHVoCFzDMTb79G8gXdzpwrxCqB3IKhuK3lAMi1Fs2VHunFIb5O95ddYcVpViWwe
+ szKbAbagY/gIHOpWb971ES/ESSuz5ihZQMlsUq865ryhvMH8ACC1QTICxw2fLNjljDBIBfAf7UV
+ O6Wf52+pWpm79iBbcO4s9FzVm52HdDaFp9VkNFTS7JZDwxmWZCwOGDJryUGeAbbY8BhiAr5bkjE
+ KRVse5kcWlIlQ3wtY=
+X-Received: by 2002:a05:6102:441c:b0:729:1a8d:b2d9 with SMTP id
+ ada2fe7eead31-73da9cf0b77mr2617416137.22.1782993941774; 
+ Thu, 02 Jul 2026 05:05:41 -0700 (PDT)
+Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13b3c7ef5b3sm16339527c88.1.2026.07.02.12.48.41
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 02 Jul 2026 12:48:44 -0700 (PDT)
-From: Anas Khan <anxkhn28@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Peichen Huang <PeiChen.Huang@amd.com>, Chen Ni <nichen@iscas.ac.cn>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Anas Khan <anxkhn28@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: remove duplicate link_dp_panel_replay.h
- include
-Date: Fri,  3 Jul 2026 01:18:38 +0530
-Message-ID: <20260702194838.66361-1-anxkhn28@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260702112828.34698-1-anxkhn28@gmail.com>
-References: <20260702112828.34698-1-anxkhn28@gmail.com>
+ ada2fe7eead31-73e1caf43casm1182470137.11.2026.07.02.05.05.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 05:05:41 -0700 (PDT)
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
+X-Google-Original-From: Pedro Yudi Honda
+To: dakr@kernel.org,
+	acourbot@nvidia.com,
+	apopple@nvidia.com
+Cc: nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
+ Pedro Yudi Honda <niyudi.honda@usp.br>
+Subject: [PATCH v2 1/5] drm/nova: use `zerocopy` in firmware.rs
+Date: Thu,  2 Jul 2026 09:03:20 -0300
+Message-Id: <20260702120324.40388-2-niyudi.honda@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260702120324.40388-1-niyudi.honda@gmail.com>
+References: <20260702120324.40388-1-niyudi.honda@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
@@ -97,12 +95,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Please disregard this patch. I did not notice that Chen Ni had already
-posted the identical change back in February:
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
 
-  https://lore.kernel.org/all/20260211021953.2504249-1-nichen@iscas.ac.cn/
+In firmware.rs, replace the following `transmute` traits with their
+`zerocopy` equivalents:
 
-Sorry for the duplicate.
+- `transmute::FromBytes` -> `zerocopy::FromBytes`
 
-Thanks,
-Anas
+Update call sites accordingly.
+
+Note that the module `elf` is untouched, as the bindings generated by
+bindgen do not implement `FromBytes` for the structs.
+
+Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+---
+ drivers/gpu/nova-core/firmware.rs                  | 10 +++-------
+ drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  4 +++-
+ 2 files changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
+index a94820a3b335..80ce0df244a8 100644
+--- a/drivers/gpu/nova-core/firmware.rs
++++ b/drivers/gpu/nova-core/firmware.rs
+@@ -11,8 +11,7 @@
+     device,
+     firmware,
+     prelude::*,
+-    str::CString,
+-    transmute::FromBytes, //
++    str::CString, //
+ };
+ 
+ use crate::{
+@@ -347,7 +346,7 @@ fn no_patch_signature(self) -> FirmwareObject<F, Signed> {
+ 
+ /// Header common to most firmware files.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct BinHdr {
+     /// Magic number, must be `0x10de`.
+     bin_magic: u32,
+@@ -363,9 +362,6 @@ struct BinHdr {
+     data_size: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for BinHdr {}
+-
+ // A firmware blob starting with a `BinHdr`.
+ struct BinFirmware<'a> {
+     hdr: BinHdr,
+@@ -381,7 +377,7 @@ fn new(fw: &'a firmware::Firmware) -> Result<Self> {
+ 
+         fw.get(0..size_of::<BinHdr>())
+             // Extract header.
+-            .and_then(BinHdr::from_bytes_copy)
++            .and_then(|b| BinHdr::read_from_bytes(b).ok())
+             // Validate header.
+             .filter(|hdr| hdr.bin_magic == BIN_MAGIC)
+             .map(|hdr| Self { hdr, fw })
+diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+index d9fafd2eea5b..66b9f4d1b41c 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
+@@ -25,6 +25,8 @@
+     },
+ };
+ 
++use zerocopy::FromBytes as _;
++
+ use crate::{
+     driver::Bar0,
+     falcon::{
+@@ -150,7 +152,7 @@ pub(crate) fn new(
+         let hdr = fw
+             .data()
+             .get(0..size_of::<BinHdr>())
+-            .and_then(BinHdr::from_bytes_copy)
++            .and_then(|b| BinHdr::read_from_bytes(b).ok())
+             .ok_or(EINVAL)?;
+ 
+         let desc = {
+-- 
+2.34.1
+
