@@ -4,104 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77CA8C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D715C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:31:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD62B10F354;
-	Thu,  2 Jul 2026 12:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87D2210F350;
+	Thu,  2 Jul 2026 12:31:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="r3vYmhGD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RivaN+R6";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jNYlmtMu";
 	dkim-atps=neutral
-Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
- [209.85.221.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF3510F361
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:30:50 +0000 (UTC)
-Received: by mail-wr1-f73.google.com with SMTP id
- ffacd0b85a97d-476d52b13d7so1609091f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 05:30:50 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C191610F34F
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:31:54 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6628BmE93009447
+ for <dri-devel@lists.freedesktop.org>; Thu, 2 Jul 2026 12:31:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=f+dyP/KejBAaN80AUuoYjKUW
+ 9BvdcKtcvdbJ90bFZOc=; b=RivaN+R61L7Li8hv2lio5WLDjAZPz1nFRNiAKMA4
+ L73Y1/vxoR5jfsjGvAWDofGs8mOMGHpZcZQqTF2ZxNsJ3KQ3S1F7FWpaGm3hyhRv
+ /UgV4e7uoMRsPq3nRNzytkLTMFsRSh5HVdqPv+pWkPks4t48v5xu6mahP22DN4Ir
+ ERWjlhiEBnwGkXFqHHIj314skAUuMK4IgaMOMOUbS5GS4IWb2yAzsH+iYhH+BycG
+ PD8+xs8/3pIRtWjv43Ch3B23KJ+n2uuHlaIM4A4s6Fi2B3QVOor7tZC3Ja8ArPOm
+ meHim6VlFzpX79JwkMYcVCoa39ZRuB3b0ktXsPkuFS/Zdg==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f579rv055-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 12:31:53 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-966a617821aso472166241.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 05:31:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782995449; x=1783600249;
+ d=oss.qualcomm.com; s=google; t=1782995513; x=1783600313;
  darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=RrMfiqbd6hCjOYXN72r62QGA0IFm58xogXStbDF1kNw=;
- b=r3vYmhGDy9qQcBQdqFRW/LcLYT9CiZGqP7ElrhOb2FsJ1L1xYUSDja9PwrsEVQrKWo
- A0sr8pcQmtBTnjmM/rUzzDFOn9bTSFD9uuFhlhZHkGC84WGQE7gIvMJKLpUweQJq8Kc9
- vR4B9+qHb0f1UhwrMForbVsy0gdMPNzdb8HiGoVMezYrQ3jideZAxN4VxS3dRjReK9FP
- UEzAOrucvT/++kBCU1Q1z/FyVdVA6iyzzgbvU9w19aKzuUYYrr01pFUdiWvIClo5bqTc
- Bx8KBdZERsTWq0tbwZD6WTDvCVuYZfav1PVhoJXD6J3HW0w8CCtzL1D6s46+R8Yn9UPR
- b4mQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=f+dyP/KejBAaN80AUuoYjKUW9BvdcKtcvdbJ90bFZOc=;
+ b=jNYlmtMuLcLcnudP8v90pAzEGmZIpFlwvmRPSf6bof/51A96VaTE58nE+BLgIhqb0+
+ l3ecCdhPAX7k1O16F05hT41vpXhLupSj7cD7aCtvOxB9wgMAKPe13Kb59VTlRVjXFUhb
+ eZ2Y0O7NAshbR8LzgoO8xee0qCir8qqYSCupM8u6gnyPG4dfFAT7S5VsXIDONPNDwqRQ
+ urMwnno1ZOoz78OabEUm8buEn+9eIKCsEJfADdz6atuYiOkbwzH7qfPN7cRHbomgIIDf
+ AFlxsPBhkb4TquKxT7pwHXVpnIhgXgpnONgsnXgp8HiKy8HIbXaKBOpqBw3Q75en7Kgy
+ vPtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782995449; x=1783600249;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RrMfiqbd6hCjOYXN72r62QGA0IFm58xogXStbDF1kNw=;
- b=FTKb3inkw9ftXsX9OjGW++4eZxy6/WFgUn9OFeck/2l8JvN+Gvasx4KqyVaIDDGr65
- pCJCfDx8C6KGeyCiXU69mVXaeJ/bsCgOXpoTlZi9XOiMkAmUwvAqAxcCofO9kEEra0le
- EAd/SxwJQDTNgVjtZN3tJglWJzuUG8E8PLF4io+c3hGGLtAMoqytrRyUdJxkUnR+8N6p
- n0awBib2eBcA/7iLkZvX207CF78EIEdqMjx1fq4g9umZX3f2vZFZtWfZIcnWDncxekWt
- jdq40Qd8mZ8oyvQPpeNBtu1c83J6H0QjBsEvaRrPFZNl6R84ZoqoHLqjy6nTqiOqBSz9
- 9exg==
+ d=1e100.net; s=20251104; t=1782995513; x=1783600313;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=f+dyP/KejBAaN80AUuoYjKUW9BvdcKtcvdbJ90bFZOc=;
+ b=KK90aAlnPxtw6sXzfq35GVpIcHP6zOrwn3e/5WWWhJVR+YmYlxUrlkl86Z0kdcu2C9
+ QGsllzdqm34xwqnVxTESjXGZbrlsegdDquZo1Lt0IlJHX2TJ9iep8Or7XUMiBVLw5FYJ
+ C4FMaaH+5xHHmk+9Y6K7xckwApQLx3kxOqgXTw8bQ76fwYBznPdN3Cw9REB6MQ3GubPL
+ c2A8qihcmc6v13JLZH6//U4JkGioHyfkBl3uLiDI8Dmx2hNGhaexLYS/Ia6Tc0PgYGSd
+ 7orfFyoJHoHJg6sTIFeabrLwjUc6kphUZhOeNOUCRjrEVg1ElHk2BVEXw3ZPUCVJlrDz
+ 6PpA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro8U9uEp1ZsqQOrNW7RuaGpKmOe7nBrfLIZiAersGDm8Oi5a1kXhQKRc91xvgZpDCDF1OdTLFl568A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbFxnJWZiGrwh+Yaldu07nNBy4OKhBaLw7USxEOiDTSGXupVGT
- SqEHjM9Q61hmAQ9tbMHqY89ZphgHraghquLnmCeq2UeuD6XogDFQf5H7d2snFkkT2Khnz3MOIHk
- LVmk4YD7yjUInxYAKhw==
-X-Received: from wrtw7.prod.google.com ([2002:a5d:6087:0:b0:470:574e:bae8])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2385:b0:478:4de8:9b91 with SMTP id
- ffacd0b85a97d-4784de89c96mr3758201f8f.41.1782995448179; 
- Thu, 02 Jul 2026 05:30:48 -0700 (PDT)
-Date: Thu, 02 Jul 2026 12:30:36 +0000
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAOxZRmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDcwMjILckMSknVbcoNS8xN1U3sbigpEjXODXRJMUy1djCyMJcCai1oCg
- 1LbMCbGx0bG0tAPbrYuVmAAAA
-X-Change-Id: 20260702-idtable-rename-asptr-3ea4d9e38287
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
- fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8496; i=aliceryhl@google.com; 
- h=from:subject:message-id;
- bh=C+BZUEyORz6QoR2m/WsI+x0Fii3IAfQl0eSruO5ZbkM=; 
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqRlnw+DRylJLBwhs+3nU9neeSdrA6DdNOu+qj9
- peUYyeOW5+JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCakZZ8AAKCRAEWL7uWMY5
- RjebD/97zGh61lP+anp0sAq3Q/HzACu9oLC8KZD8KAZ9W25z8zJD0lSv/I4gT+ins8Ql6QJLzyQ
- 3g5kEkLQDXoIjVuWIcRpkCFOJYeZP3Aa8RGgLS//SoqrNYtJfzzC/6mNrn2dglGGxPJK5AR5XF/
- 7P/HVZuH2VrKe0E0QWo2mptcraKFGPfG8G6YDT+VWolgsDt/CACoADLG1gClg0SHk9q3b5B9/M3
- iOLIuHZOg74lT1Ak2IFOPitOx4ykvU7uE0HtYysNbaANDLumNzXJuML4dYkDtVDrO8yQj+lQolf
- okCQkhbcFhFEouXOnVgUDa3MPxHI0s0YPUrNHf+vincGRJyJ2rxGTAfLYGwFCDmcoODBWSUN8xE
- WAOzQXuKYyI8b1bLshBllxNMNA5NSFVqlQSnVGqff+dFUNNwLdhM4hU1GrbrYrWtZsJEQhejFtk
- tfwzifri/XMOCgxkW7W6EymbDTAaQBLsJixE4N6tM67P8Cig2F+QoNGUa3KaQI3q01vzyBPCBKX
- +8IBIpd/g1iToWa8iTrnmCRHbgZbWsspc+ovXkz7KtDKq7CCTxVb2oHrJ8tKgE+JmQ6lGCjKHCN
- qAOxg1xplYeYSzwGerpb5/dPq7YOsiZ4YXcEpTSgSNFzcBs8oAZM0rxt8wtXQjLXnFSlZfiJE0N
- zpi/pzt5RcsjucQ==
-X-Mailer: b4 0.14.3
-Message-ID: <20260702-idtable-rename-asptr-v1-1-e0927273c71a@google.com>
-Subject: [PATCH] rust: device_id: rename IdTable::as_ptr to as_raw_id_table()
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Dave Ertman <david.m.ertman@intel.com>, Ira Weiny <iweiny@kernel.org>, 
- Leon Romanovsky <leon@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
- Igor Korotin <igor.korotin@linux.dev>, Bjorn Helgaas <bhelgaas@google.com>, 
- "=?utf-8?q?Krzysztof_Wilczy=C5=84ski?=" <kwilczynski@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, 
- "=?utf-8?q?Christian_K=C3=B6nig?=" <christian.koenig@amd.com>,
- driver-core@lists.linux.dev, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+ AHgh+Rq4Tm2yin7t3GBNpp+zHZqFYGhsHqCVPaFHoku7xONQolep+OBKQWZRR5+cexEGPnB1WybiRGUiozI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywxlrg2EIz1vpWOg1DF43MwKwf2tUL8jAw0UB2cQvKkS0JHg+t7
+ BcWopvcphroST5pzBBBFc4F4/IJisQAPnbHfpcOm0N4OGQ+fA5QuoTcBtlmZXZW7NB9d1L7+230
+ cHev6IjuOGDezJ0xu9hSt0Sj+eelrkQ30vxzhYiD8j2BvIN81kJPRHopLJglu/+0Dn4M5UDzCEO
+ wCIfk=
+X-Gm-Gg: AfdE7cmXuCQcPahvUssVapPi6KRVUIY9igTBoDHT2gcwpI3fVNIpU57dmwfDR0hV4iV
+ hXX70KDceMNmmelsCHuykZn9GJ5W2nQfzJkjpb2uRlU0T6b36AAN4/p14pf5QP/gnAWVu+YnEC5
+ J7SUmFwgmtZgSbWKHKhAMs3VKj3EkodHGrEZObJj+rExNHvWwRVZXV0oRyfmhaZJseePXYX2WJg
+ A/GxfqrQyQTgsFNmsPAPgw5CRxdFcKig0/N97kKrorVi1CNPPJV8QipkmVtWntqyeFTf2pmnKFX
+ +qcZlref8VW/btgE68dMUqbed+v1jGtoXQNJ5ij9w4df3wEa0Uyp4QgSrRa3IGWGMk3Vh84nuSS
+ W0vQLHMVa88Ye2qpfGK0eRyag3MnWYgSG4WxzUczaCOGPeuQTBcWCKlZ4G7NRm3qgY0G2bDHbAq
+ jOT+lqTQ04dfq60SAtS4PVPxZ+
+X-Received: by 2002:a05:6122:660d:b0:5bb:74c1:e2fe with SMTP id
+ 71dfb90a1353d-5bddf7181a7mr2298604e0c.13.1782995512854; 
+ Thu, 02 Jul 2026 05:31:52 -0700 (PDT)
+X-Received: by 2002:a05:6122:660d:b0:5bb:74c1:e2fe with SMTP id
+ 71dfb90a1353d-5bddf7181a7mr2298596e0c.13.1782995512414; 
+ Thu, 02 Jul 2026 05:31:52 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aec89dc55esm654980e87.66.2026.07.02.05.31.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 05:31:51 -0700 (PDT)
+Date: Thu, 2 Jul 2026 15:31:49 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/2] drm/msm/hdmi_bridge: Simplify register bit updates
+Message-ID: <f4vlbpxv3tuxv3hbko3t2qgtht5ofeyqiculq4ri6k44b4cznn@wqhzvj534m7o>
+References: <20260702-drm-msm-hdmi-cleanup-v2-0-a4a4f0e8895b@oss.qualcomm.com>
+ <20260702-drm-msm-hdmi-cleanup-v2-1-a4a4f0e8895b@oss.qualcomm.com>
+ <20260702094921.3DC7D1F00A3D@smtp.kernel.org>
+ <01cafc67-adb4-4240-9c45-af835c4269e0@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <01cafc67-adb4-4240-9c45-af835c4269e0@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDEzMSBTYWx0ZWRfXzgZiHqXmdAlO
+ w9ol+mYaEvEkpBaI5SBnkCAg7/fJRq7hHqRC1p4uL0FdbJTUn8TWwiSuN6m7qIh0/okamJ5P9oe
+ 4oMghN9PAsYaqvDPMPirVr4z3i4kOXI0N//WAe7MB0o3k68b2h02ITxmyOWZeXYMV80FjPdltij
+ wNxfTYkQSM4f0LpuVXCcfDN8RiR9KBZDsgUY6DHh8np8qbZYlrcfpEtQ6WKmJLallne9LiBiyyf
+ vFjtUTlOOeGeHAFw85oW46u4zjat2ok7JXKWKjKVes/0Lu5s9mbsRB5qB2NrVYWm5jt/I5GMYvz
+ ijs68nT3hqgBHYuA8wsBHl7pp/8da7bRqJhx2kyiD2V9tOgmmeTn2JFXxeWscg5UeNQx8bEBCfw
+ KFh4gfynw1t2QFBi06n2gNDp8S5EYRiJLDu0wxnXfeZj7XdEdngUVEpZwT1K/lPUnLVLsh3sIIH
+ W884QHOjnemaOAcWTcw==
+X-Authority-Analysis: v=2.4 cv=X8pi7mTe c=1 sm=1 tr=0 ts=6a465a39 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=7LRuesX3pLBna_ijODoA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-GUID: md9MQGg5Uf55S18FICUTF-YxqZ8kWVtU
+X-Proofpoint-ORIG-GUID: md9MQGg5Uf55S18FICUTF-YxqZ8kWVtU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDEzMSBTYWx0ZWRfX+Fpqrr6JLgxL
+ b77r2jUAEgTeDxRfAKsMdh/0Jg9VVJ3/GhYYp/NDOlWzIC+GGB81iJvAlSmiFfoZwmGrlObCgbA
+ JVDd57UQvl+ACTrBdmQv80Ixc8q6mmM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020131
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,192 +143,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The current name of `as_ptr` is very generic, and if you attempt to
-invoke `foo.as_ptr()` on a type for which this method is missing, then
-an error along these lines will be printed:
+On Thu, Jul 02, 2026 at 11:59:07AM +0200, Krzysztof Kozlowski wrote:
+> On 02/07/2026 11:49, sashiko-bot@kernel.org wrote:
+> 
+> > 
+> > Because HDMI_GEN_PKT_CTRL_GENERIC1_LINE() generates a multi-bit field,
+> > passing the data value as the mask means any zero bits in the computed
+> > value will not be cleared from the register during the update.
+> > 
+> > This works in the current code because the register is cleared earlier
+> > in msm_hdmi_bridge_clear_spd_infoframe(), but does passing the data as
+> > the mask defeat the purpose of the hdmi_update_bits API?
+> 
+> The code is correct but I could make it more obvious or intentional by
+> using here in the mask HDMI_GEN_PKT_CTRL_GENERIC1_LINE__MASK.
+> 
+> OTOH, existing code is very simple and obvious, so not sure if worth.
+> 
+> Dmitry, you reviewed it, so let me know if I should change it to
+> dedicated mask following above tool review.
+> 
 
-	error[E0599]: no method named `as_ptr` found for reference `&DmaBuf` in the current scope
-	   --> linux/rust/kernel/dma_buf/buf.rs:54:38
-	    |
-	 54 |         ptr::eq(self.as_ptr(), other.as_ptr())
-	    |                                      ^^^^^^ method not found in `&DmaBuf`
-	    |
-	    = help: items from traits can only be used if the trait is implemented and in scope
-	note: `device_id::IdTable` defines an item `as_ptr`, perhaps you need to implement it
-	   --> linux/rust/kernel/device_id.rs:165:1
-	    |
-	165 | pub trait IdTable<T: RawDeviceId, U> {
-	    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+I htink it's correct and fine.
 
-Suggesting the IdTable trait when an as_ptr() method is missing is not
-useful. Renaming it to `as_raw_id_table` makes the method name unique to
-this trait and avoids these bad suggestions.
-
-Assisted-by: Antigravity:Gemini
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
- rust/kernel/auxiliary.rs | 2 +-
- rust/kernel/device_id.rs | 4 ++--
- rust/kernel/driver.rs    | 8 +++++---
- rust/kernel/i2c.rs       | 8 ++++----
- rust/kernel/pci.rs       | 2 +-
- rust/kernel/platform.rs  | 4 ++--
- rust/kernel/usb.rs       | 2 +-
- 7 files changed, 16 insertions(+), 14 deletions(-)
-
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index c42928d5a239..fd6940577e0d 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -64,7 +64,7 @@ unsafe fn register(
-             (*adrv.get()).name = name.as_char_ptr();
-             (*adrv.get()).probe = Some(Self::probe_callback);
-             (*adrv.get()).remove = Some(Self::remove_callback);
--            (*adrv.get()).id_table = T::ID_TABLE.as_ptr();
-+            (*adrv.get()).id_table = T::ID_TABLE.as_raw_id_table();
-         }
- 
-         // SAFETY: `adrv` is guaranteed to be a valid `DriverType`.
-diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
-index 8e9721446014..821da02540b1 100644
---- a/rust/kernel/device_id.rs
-+++ b/rust/kernel/device_id.rs
-@@ -164,7 +164,7 @@ impl<T: RawDeviceId + RawDeviceIdIndex, U, const N: usize> IdArray<T, U, N> {
- /// `IdArray` doesn't matter.
- pub trait IdTable<T: RawDeviceId, U> {
-     /// Obtain the pointer to the ID table.
--    fn as_ptr(&self) -> *const T::RawType;
-+    fn as_raw_id_table(&self) -> *const T::RawType;
- 
-     /// Obtain the pointer to the bus specific device ID from an index.
-     fn id(&self, index: usize) -> &T::RawType;
-@@ -174,7 +174,7 @@ pub trait IdTable<T: RawDeviceId, U> {
- }
- 
- impl<T: RawDeviceId, U, const N: usize> IdTable<T, U> for IdArray<T, U, N> {
--    fn as_ptr(&self) -> *const T::RawType {
-+    fn as_raw_id_table(&self) -> *const T::RawType {
-         // This cannot be `self.ids.as_ptr()`, as the return pointer must have correct provenance
-         // to access the sentinel.
-         core::ptr::from_ref(self).cast()
-diff --git a/rust/kernel/driver.rs b/rust/kernel/driver.rs
-index bf5ba0d27553..69068adcbdae 100644
---- a/rust/kernel/driver.rs
-+++ b/rust/kernel/driver.rs
-@@ -341,7 +341,8 @@ fn acpi_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
-             // SAFETY:
-             // - `table` has static lifetime, hence it's valid for read,
-             // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
--            let raw_id = unsafe { bindings::acpi_match_device(table.as_ptr(), dev.as_raw()) };
-+            let raw_id =
-+                unsafe { bindings::acpi_match_device(table.as_raw_id_table(), dev.as_raw()) };
- 
-             if raw_id.is_null() {
-                 None
-@@ -374,7 +375,8 @@ fn of_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
-             // SAFETY:
-             // - `table` has static lifetime, hence it's valid for read,
-             // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
--            let raw_id = unsafe { bindings::of_match_device(table.as_ptr(), dev.as_raw()) };
-+            let raw_id =
-+                unsafe { bindings::of_match_device(table.as_raw_id_table(), dev.as_raw()) };
- 
-             if !raw_id.is_null() {
-                 // SAFETY: `DeviceId` is a `#[repr(transparent)]` wrapper of `struct of_device_id`
-@@ -404,7 +406,7 @@ fn of_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
-             // - `adev` is a valid pointer to `acpi_device` or is null. It is guaranteed to be
-             //   valid as long as `dev` is alive.
-             // - `table` has static lifetime, hence it's valid for read.
--            if unsafe { acpi_of_match_device(adev, table.as_ptr(), &raw mut raw_id) } {
-+            if unsafe { acpi_of_match_device(adev, table.as_raw_id_table(), &raw mut raw_id) } {
-                 // SAFETY:
-                 // - the function returns true, therefore `raw_id` has been set to a pointer to a
-                 //   valid `of_device_id`.
-diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
-index 624b971ca8b0..920794d4089d 100644
---- a/rust/kernel/i2c.rs
-+++ b/rust/kernel/i2c.rs
-@@ -116,17 +116,17 @@ unsafe fn register(
-         );
- 
-         let i2c_table = match T::I2C_ID_TABLE {
--            Some(table) => table.as_ptr(),
-+            Some(table) => table.as_raw_id_table(),
-             None => core::ptr::null(),
-         };
- 
-         let of_table = match T::OF_ID_TABLE {
--            Some(table) => table.as_ptr(),
-+            Some(table) => table.as_raw_id_table(),
-             None => core::ptr::null(),
-         };
- 
-         let acpi_table = match T::ACPI_ID_TABLE {
--            Some(table) => table.as_ptr(),
-+            Some(table) => table.as_raw_id_table(),
-             None => core::ptr::null(),
-         };
- 
-@@ -208,7 +208,7 @@ fn i2c_id_info(dev: &I2cClient) -> Option<&'static <Self as driver::Adapter>::Id
-         // SAFETY:
-         // - `table` has static lifetime, hence it's valid for reads
-         // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
--        let raw_id = unsafe { bindings::i2c_match_id(table.as_ptr(), dev.as_raw()) };
-+        let raw_id = unsafe { bindings::i2c_match_id(table.as_raw_id_table(), dev.as_raw()) };
- 
-         if raw_id.is_null() {
-             return None;
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 5071cae6543f..311b4716800b 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -81,7 +81,7 @@ unsafe fn register(
-             (*pdrv.get()).name = name.as_char_ptr();
-             (*pdrv.get()).probe = Some(Self::probe_callback);
-             (*pdrv.get()).remove = Some(Self::remove_callback);
--            (*pdrv.get()).id_table = T::ID_TABLE.as_ptr();
-+            (*pdrv.get()).id_table = T::ID_TABLE.as_raw_id_table();
-         }
- 
-         // SAFETY: `pdrv` is guaranteed to be a valid `DriverType`.
-diff --git a/rust/kernel/platform.rs b/rust/kernel/platform.rs
-index 9b362e0495d3..f6a48f7750da 100644
---- a/rust/kernel/platform.rs
-+++ b/rust/kernel/platform.rs
-@@ -63,12 +63,12 @@ unsafe fn register(
-         module: &'static ThisModule,
-     ) -> Result {
-         let of_table = match T::OF_ID_TABLE {
--            Some(table) => table.as_ptr(),
-+            Some(table) => table.as_raw_id_table(),
-             None => core::ptr::null(),
-         };
- 
-         let acpi_table = match T::ACPI_ID_TABLE {
--            Some(table) => table.as_ptr(),
-+            Some(table) => table.as_raw_id_table(),
-             None => core::ptr::null(),
-         };
- 
-diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
-index 7aff0c82d0af..14e0602c3f03 100644
---- a/rust/kernel/usb.rs
-+++ b/rust/kernel/usb.rs
-@@ -58,7 +58,7 @@ unsafe fn register(
-             (*udrv.get()).name = name.as_char_ptr();
-             (*udrv.get()).probe = Some(Self::probe_callback);
-             (*udrv.get()).disconnect = Some(Self::disconnect_callback);
--            (*udrv.get()).id_table = T::ID_TABLE.as_ptr();
-+            (*udrv.get()).id_table = T::ID_TABLE.as_raw_id_table();
-         }
- 
-         // SAFETY: `udrv` is guaranteed to be a valid `DriverType`.
-
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260702-idtable-rename-asptr-3ea4d9e38287
-
-Best regards,
 -- 
-Alice Ryhl <aliceryhl@google.com>
-
+With best wishes
+Dmitry
