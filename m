@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 752FAC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46334C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55ED310F411;
-	Thu,  2 Jul 2026 14:46:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1958410F3F7;
+	Thu,  2 Jul 2026 14:46:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bYq/jjt9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="I45xClyZ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A50D10F3F7
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4852110F40C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003593;
- bh=62ezjJKvz2Gj85vyfh7W4AzrLamHIuxXzzUjS74+Ghc=;
+ s=mail; t=1783003599;
+ bh=c+X7KYcJ0x+hDbr0ifb6EmCP7ZEzo/GJLuiaJ5gbEJk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=bYq/jjt9r9MtH8Dwz2pb+EeIhzs0/CjIo3T/JJNwsJC1HlwPZ18I58N5TWQJd7Mkf
- h21TY58DEF71aQ/moPJhayGzmMeU3ew1NBSL/KswPvDzfmRPmmq/UC1RpULwxaQ0/l
- xErtsKSyjkZCJNitGDt8rIYrtZKRw1HPKN32RSBIxz7jHKLmXPYF7xIBGj4MaWi1mZ
- twjacVNEpCrSW2DCNy3hX01KjYNOREVH1efkwXfPVd6cOV6H0SkeQl4NvyUxrgrTVo
- UfZunXPEs3DBQtCq26wghRKkHNdS3g36XuNvlACFV+iIRBjZHFGAHmsOB33ZxgAP2n
- poluuGHqZRBFA==
+ b=I45xClyZw/5RRkvwvZGHXKZFmR+HJCgAv1E1aNqLiarznASqiWaq8GZENPqWtIBnH
+ RDjdj6us9w849OjMLgMC2wSgBL2IQr9GJn2lGTFcKyle3Bmrs8GbYjqKRh9c2UNWKk
+ od1NPL+jz/kpwza7FJWd3tzoBX5hfjZ3H2cDBjcJiMjx80grFsLO2aAZEd6TpiDu2D
+ /JziI0cExBlf26k1cOMxJM3fIhesn/CAlc4zizo6M52G9U8VofmOYXQq/TiTGaZ2CR
+ Qq/9PJk1+BKG0KBCP2YB+M5aZPfpUb2sMoXS4EToXPBHtrABbsmxpH4L0b+RGd+Aml
+ Q6oETCs/M4Log==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B5B5117E0FAA;
- Thu,  2 Jul 2026 16:46:33 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E784017E15DA;
+ Thu,  2 Jul 2026 16:46:38 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:16 +0300
-Subject: [PATCH v8 03/39] drm/display: bridge_connector: Pass HDMI
- capabilities through caps struct
+Date: Thu, 02 Jul 2026 17:46:23 +0300
+Subject: [PATCH v8 10/39] drm/display: hdmi-state-helper: Sync SCDC state
+ on hotplug
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-3-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-10-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,109 +75,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Switch drm_bridge_connector_init() to
-drmm_connector_hdmi_init_with_caps(), collecting the bridge's HDMI
-properties into a stack drm_connector_hdmi_caps so future HDMI 2.x
-capabilities can be plumbed without growing the argument list.
+drm_atomic_helper_connector_hdmi_hotplug() does not currently
+synchronize SCDC status on hotplug events, leaving the scrambler state
+potentially inconsistent after (re)connect.
 
-Introduce struct drm_bridge::supported_hdmi_ver to let bridges declare
-the HDMI specification version they are conformant with, and forward it
-to the connector layer through the new caps struct so HDMI 2.x features
-can be gated on real source capability rather than guesswork.
+Hook drm_connector_hdmi_sync_scdc() into both the connect and disconnect
+paths, replacing the existing TODOs around missing scrambler handling.
+
+SCDC synchronization may require a CRTC reset, which in turn needs a
+modeset acquire context for correct locking.  Therefore, extend
+drm_atomic_helper_connector_hdmi_hotplug() and
+drm_atomic_helper_connector_hdmi_update() to take a
+drm_modeset_acquire_ctx argument.  Additionally, change their return
+type from void to int, allowing propagation of errors, such as -EDEADLK
+from lock contention.
+
+Update existing callers to pass NULL for the acquire context, preserving
+current behavior.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 29 ++++++++++++++------------
- include/drm/drm_bridge.h                       |  6 ++++++
- 2 files changed, 22 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c  |  3 ++-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 28 +++++++++++++++++--------
+ drivers/gpu/drm/vc4/vc4_hdmi.c                  |  2 +-
+ include/drm/display/drm_hdmi_state_helper.h     |  6 ++++--
+ 4 files changed, 26 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 92f8a2d7aab4..796069dbf1a1 100644
+index 796069dbf1a1..46104506fe32 100644
 --- a/drivers/gpu/drm/display/drm_bridge_connector.c
 +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -823,8 +823,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	struct drm_connector *connector;
- 	struct i2c_adapter *ddc = NULL;
- 	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
--	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
--	unsigned int max_bpc = 8;
-+	struct drm_connector_hdmi_caps caps = {
-+		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-+		.max_bpc = 8,
-+	};
- 	bool support_hdcp = false;
- 	int connector_type;
- 	int ret;
-@@ -885,6 +887,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 		if (bridge->ops & DRM_BRIDGE_OP_HDMI) {
- 			if (bridge_connector->bridge_hdmi)
- 				return ERR_PTR(-EBUSY);
-+
- 			if (!bridge->funcs->hdmi_write_avi_infoframe ||
- 			    !bridge->funcs->hdmi_clear_avi_infoframe ||
- 			    !bridge->funcs->hdmi_write_hdmi_infoframe ||
-@@ -908,10 +911,12 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+@@ -221,7 +221,8 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
+ 		status = detect->funcs->detect(detect, connector);
  
- 			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
+ 		if (hdmi)
+-			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
++			drm_atomic_helper_connector_hdmi_hotplug(connector, status,
++								 NULL);
  
-+			if (bridge->supported_hdmi_ver)
-+				caps.supported_hdmi_ver = bridge->supported_hdmi_ver;
- 			if (bridge->supported_formats)
--				supported_formats = bridge->supported_formats;
-+				caps.supported_formats = bridge->supported_formats;
- 			if (bridge->max_bpc)
--				max_bpc = bridge->max_bpc;
-+				caps.max_bpc = bridge->max_bpc;
- 		}
- 
- 		if (bridge->ops & DRM_BRIDGE_OP_HDMI_AUDIO) {
-@@ -994,7 +999,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 
- 	if (bridge_connector->bridge_hdmi) {
- 		if (!connector->ycbcr_420_allowed)
--			supported_formats &= ~BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
-+			caps.supported_formats &= ~BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
- 
- 		bridge_connector->hdmi_funcs = drm_bridge_connector_hdmi_funcs;
- 
-@@ -1010,14 +1015,12 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			bridge_connector->hdmi_funcs.spd =
- 				drm_bridge_connector_hdmi_spd_infoframe;
- 
--		ret = drmm_connector_hdmi_init(drm, connector,
--					       bridge_connector->bridge_hdmi->vendor,
--					       bridge_connector->bridge_hdmi->product,
--					       &drm_bridge_connector_funcs,
--					       &bridge_connector->hdmi_funcs,
--					       connector_type, ddc,
--					       supported_formats,
--					       max_bpc);
-+		ret = drmm_connector_hdmi_init_with_caps(drm, connector,
-+							 bridge_connector->bridge_hdmi->vendor,
-+							 bridge_connector->bridge_hdmi->product,
-+							 &drm_bridge_connector_funcs,
-+							 &bridge_connector->hdmi_funcs,
-+							 connector_type, ddc, &caps);
- 		if (ret)
- 			return ERR_PTR(ret);
+ 		drm_bridge_connector_hpd_notify(connector, status);
  	} else {
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 18f3db367dc1..2d8b5e4c64ba 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1176,6 +1176,12 @@ struct drm_bridge {
- 	 */
- 	const char *product;
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index db76699093e8..69ccfbf123fe 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -1198,18 +1198,20 @@ drm_atomic_helper_connector_hdmi_clear_audio_infoframe(struct drm_connector *con
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_clear_audio_infoframe);
  
-+	/**
-+	 * @supported_hdmi_ver: HDMI version the bridge is conformant with.
-+	 * This is only relevant if @DRM_BRIDGE_OP_HDMI is set.
-+	 */
-+	enum hdmi_version supported_hdmi_ver;
+-static void
++static int
+ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+-					enum drm_connector_status status)
++					enum drm_connector_status status,
++					struct drm_modeset_acquire_ctx *ctx)
+ {
+ 	const struct drm_edid *drm_edid;
++	int ret = 0;
+ 
+ 	if (status == connector_status_disconnected) {
+-		// TODO: also handle scramber, HDMI sink disconnected.
++		ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
+ 		drm_connector_hdmi_audio_plugged_notify(connector, false);
+ 		drm_edid_connector_update(connector, NULL);
+ 		drm_connector_cec_phys_addr_invalidate(connector);
+-		return;
++		return ret;
+ 	}
+ 
+ 	if (connector->hdmi.funcs->read_edid)
+@@ -1222,24 +1224,32 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+ 	drm_edid_free(drm_edid);
+ 
+ 	if (status == connector_status_connected) {
+-		// TODO: also handle scramber, HDMI sink is now connected.
++		ret = drm_connector_hdmi_sync_scdc(connector, true, ctx);
+ 		drm_connector_hdmi_audio_plugged_notify(connector, true);
+ 		drm_connector_cec_phys_addr_set(connector);
+ 	}
 +
- 	/**
- 	 * @supported_formats: Bitmask of @drm_output_color_format listing
- 	 * supported output formats. This is only relevant if
++	return ret;
+ }
+ 
+ /**
+  * drm_atomic_helper_connector_hdmi_hotplug - Handle the hotplug event for the HDMI connector
+  * @connector: A pointer to the HDMI connector
+  * @status: Connection status
++ * @ctx: Lock acquisition context to be used for resetting CRTC
+  *
+  * This function should be called as a part of the .detect() / .detect_ctx()
+  * callbacks for all status changes.
++ *
++ * Returns:
++ * Zero on success, error code on failure.
++ * If @ctx is set, it might also return -EDEADLK.
+  */
+-void drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
+-					      enum drm_connector_status status)
++int drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
++					     enum drm_connector_status status,
++					     struct drm_modeset_acquire_ctx *ctx)
+ {
+-	drm_atomic_helper_connector_hdmi_update(connector, status);
++	return drm_atomic_helper_connector_hdmi_update(connector, status, ctx);
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
+ 
+@@ -1254,6 +1264,6 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
+  */
+ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector)
+ {
+-	drm_atomic_helper_connector_hdmi_update(connector, connector->status);
++	drm_atomic_helper_connector_hdmi_update(connector, connector->status, NULL);
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_force);
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 74dce4be0c00..e165f604939b 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -375,7 +375,7 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+ 	 * the lock for now.
+ 	 */
+ 
+-	drm_atomic_helper_connector_hdmi_hotplug(connector, status);
++	drm_atomic_helper_connector_hdmi_hotplug(connector, status, NULL);
+ 
+ 	if (status != connector_status_connected)
+ 		return;
+diff --git a/include/drm/display/drm_hdmi_state_helper.h b/include/drm/display/drm_hdmi_state_helper.h
+index 13375bd0f4ae..0619cd7c435e 100644
+--- a/include/drm/display/drm_hdmi_state_helper.h
++++ b/include/drm/display/drm_hdmi_state_helper.h
+@@ -7,6 +7,7 @@ struct drm_atomic_commit;
+ struct drm_connector;
+ struct drm_connector_state;
+ struct drm_display_mode;
++struct drm_modeset_acquire_ctx;
+ struct hdmi_audio_infoframe;
+ 
+ enum drm_connector_status;
+@@ -22,8 +23,9 @@ int drm_atomic_helper_connector_hdmi_update_audio_infoframe(struct drm_connector
+ int drm_atomic_helper_connector_hdmi_clear_audio_infoframe(struct drm_connector *connector);
+ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *connector,
+ 						       struct drm_atomic_commit *state);
+-void drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
+-					      enum drm_connector_status status);
++int drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
++					     enum drm_connector_status status,
++					     struct drm_modeset_acquire_ctx *ctx);
+ void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector);
+ 
+ enum drm_mode_status
 
 -- 
 2.54.0
