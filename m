@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D016C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:19:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29454C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:24:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D9B10F22E;
-	Thu,  2 Jul 2026 08:19:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6433410E475;
+	Thu,  2 Jul 2026 08:24:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n8kva+81";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JGNCdQJF";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB51910F22E
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 08:19:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81B1010E475
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 08:24:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E198360120;
- Thu,  2 Jul 2026 08:19:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5591F000E9;
- Thu,  2 Jul 2026 08:19:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AA7C26001D;
+ Thu,  2 Jul 2026 08:24:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021A11F000E9;
+ Thu,  2 Jul 2026 08:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782980352;
- bh=FpwQ3yWLXtt7sZKtMM0MrQ1r1M4n/nvKM3WIVk0Nqa0=;
+ s=k20260515; t=1782980691;
+ bh=LX5J8Pfr2YEfi2wal6Vl+98+IxyS1kQpWEexH1DUOBQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=n8kva+81/uRHVqYDMwXK9zMWr5mFjn+n8TNQL0h4BAD2dfaaNHzCbvnXMzpCRHFCi
- MjnISb/mPJfO/KC97lqjqL+ooTbiRxWqxMdvicObIQfZ+nXGjKKFOWLo9lMub2g5Y3
- kqOCzNIqaNZsLWd8Yvm3aFbt5RGTKVfNAZykcPpwVZm+dZ8iGWRfnIh8NLbGxoEsdl
- N7yXpcuX8t1DBbGTlIYzdMhHcl9orwInNYqRiayx93YSSHfNbhLqP9HkfMTlK4ZZTa
- Wn9tALTIx10Y7sftlaxZUqLo6DKK1Gf3NIFZbTTamYIZuSfERWFaPml9xTV0VByyyg
- 1Z3pLCBKPOI8w==
+ b=JGNCdQJFycWNKkwhle7JNzlqbM7ia6Nf18xXPXZgs3MXHiat6iFWiJEGJug948tyD
+ SGSBvZffdf3r45Tv/2iRGXouaYz+5jyuq4UaCO0WQvIphSm9bbnmDCF3NiduECKN32
+ eYhbg8hiPZaQKvbyvOuWqN2xT7iw5cbATVrhio7qOVcDzKWkrOR2gVai3+YezlX6Ct
+ /fyjTPAqN1EOjpRk5wc4rpOPkawDShAZaoNP71V8ibywAyPi8hKUvNTmzJR6UfN9h/
+ fHYQ3eTdrP1SPQ4wUr9Oep7Shu8HP+ToEMfE26cSLQ0lqLy5GuBYgohp4OMKL+PiFB
+ QJX/FA8nZhedQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/i915/display: Make set_pipeconf use the fw
- variants
+Subject: Re: [PATCH 7/7] drm/i915/gt: Add a spinlock to prevent starvation
+ of irq_work.
 To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702080346.431508-5-dev@lankhorst.se>
-References: <20260702080346.431508-1-dev@lankhorst.se>
- <20260702080346.431508-5-dev@lankhorst.se>
+In-Reply-To: <20260702080913.434121-8-dev@lankhorst.se>
+References: <20260702080913.434121-1-dev@lankhorst.se>
+ <20260702080913.434121-8-dev@lankhorst.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 08:19:11 +0000
-Message-Id: <20260702081912.6C5591F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 08:24:50 +0000
+Message-Id: <20260702082451.021A11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +60,65 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] vlv_atomic_update_fifo() takes a sleepable spinlock (uncore->lock)=
- inside a hardware-interrupt-disabled critical section, leading to a 'sleep=
-ing function called from invalid context' BUG on PREEMPT_RT.
+- [High] Acquiring `b->signaler_active_sync` with `spin_lock()` in `intel_c=
+ontext_remove_breadcrumbs()` without disabling interrupts creates a deadloc=
+k vulnerability and Lockdep splat on non-RT kernels.
 --
 
-commit 5a85aa91d02b113ff09052cce4d68e8a6b54e2ce
-Author: Maarten Lankhorst <dev@lankhorst.se>
+commit b2f8f390d7421e899486c8f32c2c91c29a783338
+Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-drm/i915/display: Make set_pipeconf use the fw variants
+drm/i915/gt: Add a spinlock to prevent starvation of irq_work.
 
-This commit changes i9xx_set_pipeconf() and ilk_set_pipeconf() to use the
-_fw variants of register read/write functions. This prevents sleepable locks
-from being taken inside the interrupt-disabled critical section, which was
-causing a BUG on PREEMPT_RT.
+This commit introduces a new spinlock, signaler_active_sync, to prevent
+starvation of irq-work. It acquires this lock in both signal_irq_work()
+and intel_context_remove_breadcrumbs() to force completion and synchronize
+signaler state.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index f5dac380aa7ff..deb93d26e0e94 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -3030,8 +3030,9 @@ void i9xx_set_pipeconf(const struct intel_crtc_stat=
-e *crtc_state)
+> diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/dr=
+m/i915/gt/intel_breadcrumbs.c
+> --- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+> @@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
+>  		intel_breadcrumbs_disarm_irq(b);
 > =20
->  	val |=3D TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
-> =20
-> -	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
-> -	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
-> +	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
-> +	/* posting read */
-> +	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the explicit acquisition
-of a sleepable spinlock inside an interrupt-disabled critical section in
-vlv_atomic_update_fifo() violate PREEMPT_RT locking rules?
-
-drivers/gpu/drm/i915/display/i9xx_wm.c:vlv_atomic_update_fifo() {
-	...
-	/*
-	 * intel_pipe_update_start() has already disabled interrupts
-	 * for us, so a plain spin_lock() is sufficient here.
-	 */
-	spin_lock(&uncore->lock);
-	...
-}
-
-Taking a standard spinlock (which acts as a sleeping rt_mutex on PREEMPT_RT)
-after local interrupts have been disabled causes a kernel BUG splat 'sleepi=
-ng
-function called from invalid context'.
-
-The vblank evasion critical section initiated by intel_pipe_update_start()
-disables local interrupts. Inside this critical section,
-commit_pipe_pre_planes() calls intel_atomic_update_watermarks(), which on
-VLV/CHV maps to vlv_atomic_update_fifo(). This function explicitly acquires
-spin_lock(&uncore->lock).
-
-Since this patch fixes the same locking violation in i9xx_set_pipeconf()
-and ilk_set_pipeconf() by using the _fw variants, is it possible this
-instance in the exact same critical section was missed?
+>  	rcu_read_lock();
+> +	spin_lock(&b->signaler_active_sync);
+>  	atomic_inc(&b->signaler_active);
+>  	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
 
 [ ... ]
 
+> @@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_c=
+ontext *ce,
+>  	if (release)
+>  		intel_context_put(ce);
+> =20
+> -	while (atomic_read(&b->signaler_active))
+> +	while (atomic_read(&b->signaler_active)) {
+> +		spin_lock(&b->signaler_active_sync);
+> +		spin_unlock(&b->signaler_active_sync);
+
+[Severity: High]
+Can this cause a deadlock on non-RT kernels?
+
+Because signal_irq_work() runs in hardirq context as an irq_work callback,
+acquiring signaler_active_sync here in intel_context_remove_breadcrumbs()=20
+without disabling interrupts creates a window for a self-deadlock.
+
+If a hardware interrupt occurs on the same CPU while this spinlock is=20
+momentarily held, the local irq_work will trigger and signal_irq_work()=20
+will try to acquire the already-held lock. Lockdep will also flag this as=20
+an inconsistent lock state (HARDIRQ-ON-W vs IN-HARDIRQ-W) on its first=20
+execution.
+
+Does this need to use spin_lock_irq() or spin_lock_irqsave() to safely=20
+synchronize against the irq_work?
+
+>  		cpu_relax();
+> +	}
+>  }
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702080346.4315=
-08-1-dev@lankhorst.se?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702080913.4341=
+21-1-dev@lankhorst.se?part=3D7
