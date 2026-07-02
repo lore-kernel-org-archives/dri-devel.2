@@ -4,94 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95ED0C43602
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1EF2C44501
 	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E011A10F503;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E188810F504;
 	Thu,  2 Jul 2026 16:41:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ODzI0an+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UbIxVhIT";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EF6010F503
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECEA610F503
  for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 16:41:26 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-6a15ca0d761so1387055eaf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 09:41:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783010485; x=1783615285; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Kg5EcJIb7/NbC+BTLvTpewRkCYpge7iehUzwDyOw0vo=;
- b=ODzI0an+X/RlRIm19x0Cr24L1LVI97dMcGqxr6M49OJTgwBLZ4P0ysdjy2KFYKXeuw
- t+KAXxSM+N4Ajchhf1vE9x+FyGgFzoUA1qRYvGUVJVZ4ta04X5Ynvy46LefVt4hiB0Gs
- UetgXTLENtrrMkQqsX5emefFHEZ2VJqA/McZM4d4LpT+mi/0cGY3RSCYIRAFFDPWaS1/
- Eo2NS0yxBwM932rDoMs0JcM718qosPBEBqhSKpC0MIEquETPmZGn34pZ4HYB6l5EW3XQ
- lmB/4zjcW2xHYch2b0b2/eyv4eJDmmniYpQJpmS2Io6l9SS3CUNcFG7eZP67Eko+e/iT
- /+tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783010485; x=1783615285;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Kg5EcJIb7/NbC+BTLvTpewRkCYpge7iehUzwDyOw0vo=;
- b=rdMDKeONqd26pfh3iaDBnWjSpTO/YDgmdbBgal5WakdYPFfpNm8i1F+3y0iWWRRddl
- GF8uDZ0h4c/TOGOG5CRZORZ8uGJc6nEvwYi/F6vSCpsenY2ntc7PbKaE10AB+V4BxTP7
- +KuJipT7L4OQsd/+JAGHTdff+dVP9FPh0M5XBpio9BvIVduy1NzJvKYRkHc/GK+k6URi
- PEcA6QdSPR1tMt2ge4iuUiyaAyE0h7IDh5dcFavnosAaJCKn3YIY6F7P3hDgcp8YWWCF
- 4UBUSzkeU5uIYkloO3Aqdhkr/hZ3u2yQRpVGTE4qX7H4gTugVnBMNhPDV1R53JUzQFkS
- H4CA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8jbgjWVuA3qCbzRROyCPs/rd8ESodxAMi7wp8pmG095ALPl3EHqKBjaQ8mJVijiv4ApouuJzq/BRk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzASJCo+XeioLGa2+QhfxEe352NV8XQuCPuzLpixSnbvHNosp+W
- rVldI83cxtXw8I4O2piQTupC53xCQCoEdCrA8qiCp4Abm/5esYZFOQrZ
-X-Gm-Gg: AfdE7clr9uLq1TNcnhG6u5mKjJu6tODxkDx3cm1R4QRQIrCxbHIULpLsPmpOmGdvxQn
- uXAvr2SYIuQ+++vbOTz1Ok9Hu+Q36l63q58DXuWIYVx8ghMkb8zzxnotBkkHHY2L4uAav52aA0b
- VOKfc6hKVzjreK+c/+HI03C8azN5HwSg6n0jWPcKpx/pqQL3ms5AdOaiOTehdbNt7DpC9tDXAqS
- qQV4Y8kmLFpcFGH8UAtZww5sa6aFnt0dMPT9MvEDslKe0B5Me24TwMRiRTw2XTUnpUCAEfYndMo
- EAqr5WIeNJX8j+cTQN8ig052jbYbaej3RGhLjK67Rm9TS03Kw0uk+D3G1KU/2UpOlqKwWA5YHyl
- 3Ot7kMTdMC5V0W0YUPXu0EZR9SxQK1ORDxmzo0HTu59kEo8IxQ0Rzt4UeR3zZh+Q1SPNLFwQV4X
- PVoxiCi4Huq+5VFY+k3g30w62W3bB2b3G8bPLYlEitVB13KwTXMGY=
-X-Received: by 2002:a05:6820:199b:b0:6a1:5847:3dda with SMTP id
- 006d021491bc7-6a30d8ac0c4mr3660257eaf.48.1783010485438; 
- Thu, 02 Jul 2026 09:41:25 -0700 (PDT)
-Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-44cbec93702sm3189652fac.12.2026.07.02.09.41.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 09:41:25 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 02 Jul 2026 10:40:59 -0600
-Subject: [PATCH v5 07/18] dyndbg: reduce verbose/debug clutter
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dd-maint-2-v5-7-24f22b052bf2@gmail.com>
-References: <20260702-dd-maint-2-v5-0-24f22b052bf2@gmail.com>
-In-Reply-To: <20260702-dd-maint-2-v5-0-24f22b052bf2@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2583060204;
+ Thu,  2 Jul 2026 16:41:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3321D1F00ACF;
+ Thu,  2 Jul 2026 16:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783010485;
+ bh=4TcPpM0BZaoJj/LKE0Ry2kWPQZbK+NaW1FTfGXp6Qn4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=UbIxVhIT3k+L2Rvex870aYp4emZYvycrMzgT/l80VxrbTxWvxI9JRKpnaUNMEjG3G
+ ZoVLWczTG/g9HyZAgZ70twW/ylV0EE7XLdG/sgXmKLnHisy8AsEYlfbd5niKzqz1lY
+ ws98cZTWJqeFnp3vSJLG17/qF3Ge/moCJxFQuACsKCwbcRvPFAWF7LSujuvl0ZguAd
+ 0Ey5CbVzfmKHTGGtoQsv7zUESob5GM+jQi/nn4i0YwCIBp/b1yxTiqFNMy4jhvtD5D
+ q7w26HLWMKTd+xN5EbSr27iexWuWelP+dlG+S+pGinCthmp6iUYPrtV/RBEn+6x6na
+ +pBQI4mIXDTaw==
+Date: Thu, 2 Jul 2026 18:41:23 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>
-Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, Louis Chauvet <louis.chauvet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783010473; l=5280;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=yIjUo04fS9hFhZVQqd7QNfMx8c7rakFHpoauTbqrYcM=;
- b=7XTGzlwc+qQjDmQhNpjyATyUsQF5hxsmAXqfHagY5YutP/SAIko8Y0nf1YEus2ocx5lasClDz
- IvHgRcyfvh+CxmkXlsh2+poPVCyXyPLinEqHzFcsXWzhHTNxYCP1byo
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <akaSJ5D98w2cHqb6@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="a4brqgkdrivfh2ns"
+Content-Disposition: inline
+In-Reply-To: <akZkuwktaXFTrASP@orome>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,162 +98,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-currently, for verbose=3, these are logged (blank lines for clarity):
 
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+--a4brqgkdrivfh2ns
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+MIME-Version: 1.0
 
- dyndbg: op='+'
- dyndbg: flags=0x1
- dyndbg: *flagsp=0x1 *maskp=0xffffffff
+On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
+> On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
+> > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
+> > > From: Chun Ng <chunn@nvidia.com>
+> > >=20
+> > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protection bits
+> > > on a kernel-linear-map range.
+> >=20
+> > That sounds like a really terrible idea. Why is this necessary and how
+> > does it interact with things like load_unaligned_zeropad()?
+>=20
+> This is necessary because once the memory controller has walled off the
+> new memory region the CPU must not access it under any circumstances or
+> it'll cause the CPU to lock up (I think technically it'll hit an SError
+> but in practice that just means it'll freeze, as far as I can tell).
+>=20
+> Probably doesn't interact well at all with load_unaligned_zeropad().
+>=20
+> > I think you should unmap the memory from the linear map and memremap()
+> > it instead.
+>=20
+> Given that the memory can never be accessed by the CPU after the memory
+> controller locks it down, I don't think we'll even need memremap(). The
+> only thing we really need is the sg_table we hand out via the DMA BUFs
+> so that they can be used by device drivers to program their DMA engines
+> internally.
+>=20
+> Looking through some of the architecture code around this, shouldn't we
+> simply be using set_memory_encrypted() and set_memory_decrypted() for
+> this? While they might've been created for slightly other use-cases,
+> they seem to be doing exactly what we want (i.e. remove the page range
+> from the linear mapping and flushing it, or restoring the valid bit and
+> standard permissions, respectively).
 
- dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: no matches for query
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
+Ah... I guess we can't do it because we're not in a realm world and so
+the early checks in __set_memory_enc_dec() would return early and turn
+it into a no-op.
 
-That is excessive, so this patch:
- - shrinks 3 lines of 2nd stanza to single line
- - drops 1st 2 lines of 3rd stanza
-   3rd line is like 1st, with result, not procedure.
-   2nd line is just status, retold in 4th, with more info.
+How about if I extract a common helper and provide set_memory_p() and
+set_memory_np() in terms of those. Those are available on x86 and
+PowerPC as well, so fairly standard. I suppose at that point we're
+closer to set_memory_valid().
 
-New output:
+Thierry
 
- dyndbg: query 0: "class DRM_UT_CORE +p"
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
- dyndbg: op='+' flags=0x1 maskp=0xffffffff
- dyndbg: processed 1 queries, with 0 matches, 0 errs
+--a4brqgkdrivfh2ns
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Also drop several verbose=3 messages in ddebug_add_module.  When
-modprobing a module, dyndbg currently logs/says "add-module", and then
-"skipping" if the module has no prdbgs.  Instead just check 1st and
-return quietly.
+-----BEGIN PGP SIGNATURE-----
 
-Unmatched query diagnostics are intentionally restricted to verbose
-level 3 (v3pr_info_dq) to reduce dmesg output clutter on standard
-verbose levels (verbose=1 and verbose=2), aligning with the overall
-de-cluttering of dynamic debug logging.
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpGlK8ACgkQ3SOs138+
+s6HETA//VE10mlKmDkMPw7oOS2GPLTn9mVHksFDOn28PMBlC2qgyv4CyznGj3Rfw
+WHIYoNb0rxntAbxQkh6SV5FCCi76fm/uTR3z2an8FI8W7KwiVfDiaIv3cmlG6TVd
+XcCj42QUsUHU7iFHzfSVkW33626MSfyeD+w00yxmT14U2Utl4X/+V+EQF6tRStJZ
+eLJUAyxrArCx98MI79QW13QB5MilfaFjtY6IxwXr+0hW2qnXGbNWJ5x1Z5kbC6wD
+6yOAfi8QY0nqau5GKgo/+dkYUq1zAc65a7QdRu5KW383NDcLhRbtrwBoA6TYFriL
+c2GJiV1ch4N8Dsr694Lmn4jNHUUqPLcPY8it6qMkUNVrc5XjK24C0intns2AFR4i
+7ca82YvaTCuql87GjgBkz9NptVtmqVdZxnrtVYAH9mbvfczVpAEEsacYrMwtqBPM
+crTqcMLjkLxVZdnsvwT3Je73FolwTnxNsBlTaA24I64kQCW9QUIRy6WltcFdimPM
+2K40ULhVg3dNDSaGsQaIvDv8kpgBJiX4sf3kIjK71Dgo9/HKS4IBZx3kfKUxxURj
+RD51dxPOiDXPwIzDZxbERJ2rZx4NxSTj2FjLET7Vs6nbKwvC+K/XiLOtEIXbfwdD
+w9Hih0fRPiPrhG+uab8J6u+Jsaj9KI/DnuqDrIZL+ciFm4MVaNc=
+=9S6h
+-----END PGP SIGNATURE-----
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
-v4: rename vpr_dq_info to v3pr_dq_info to tell its active logging level
-    adjust some vX levels per doc'd intentions
-v2: RvB after SoB
-
-trivial change to verbose-debug output line to output the actual
-"module" keyword rather than "mod:", and do so only when the module is
-constrained by the callchain (ie as part of a modprobe).
-
- was:   query X: "(keyword value)* [+-=]flags" mod:*
- now:   query X: "(keyword value)* [+-=]flags"
-   or   query X: module FOO "keyword value)* [+-=]flags"
-
-IOW, adjust output to reflect the input grammar more closely.
-
-drop-info-parsed
-
-vinfo-applied-nomatch
-
-dyndbg: tweak verbose-levels per doc
----
- lib/dynamic_debug.c | 24 ++++++++++--------------
- 1 file changed, 10 insertions(+), 14 deletions(-)
-
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index efe12fac6363..2e321b7eb957 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -128,7 +128,7 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
- 
--static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
-+static void v3pr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
- 	int fmtlen = 0;
-@@ -280,9 +280,6 @@ static int ddebug_change(const struct ddebug_query *query,
- 	}
- 	mutex_unlock(&ddebug_lock);
- 
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
--
- 	return nfound;
- }
- 
-@@ -491,7 +488,6 @@ static int ddebug_parse_query(char *words[], int nwords,
- 		 */
- 		query->module = modname;
- 
--	vpr_info_dq(query, "parsed");
- 	return 0;
- }
- 
-@@ -515,7 +511,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
- 		return -EINVAL;
- 	}
--	v3pr_info("op='%c'\n", op);
- 
- 	for (; *str ; ++str) {
- 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
-@@ -529,7 +524,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 			return -EINVAL;
- 		}
- 	}
--	v3pr_info("flags=0x%x\n", modifiers->flags);
- 
- 	/* calculate final flags, mask based upon op */
- 	switch (op) {
-@@ -545,7 +539,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		modifiers->flags = 0;
- 		break;
- 	}
--	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
-+	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
- 
- 	return 0;
- }
-@@ -574,7 +568,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	}
- 	/* actually go and implement the change */
- 	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
-+	v3pr_info_dq(&query, nfound ? "applied" : "no-match");
- 
- 	return nfound;
- }
-@@ -597,7 +591,10 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 		if (!query || !*query || *query == '#')
- 			continue;
- 
--		vpr_info("query %d: \"%s\" mod:%s\n", i, query, modname ?: "*");
-+		if (modname)
-+			v2pr_info("query %d: module %s \"%s\"\n", i, modname, query);
-+		else
-+			v2pr_info("query %d: \"%s\"\n", i, query);
- 
- 		rc = ddebug_exec_query(query, modname);
- 		if (rc < 0) {
-@@ -1163,11 +1160,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
- 
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
-+
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
- 
- 	dt = kzalloc_obj(*dt);
- 	if (dt == NULL) {
-
--- 
-2.54.0
-
+--a4brqgkdrivfh2ns--
