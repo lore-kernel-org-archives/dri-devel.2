@@ -4,103 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B417C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E331CC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:56:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961E810F42A;
-	Thu,  2 Jul 2026 14:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A9710E455;
+	Thu,  2 Jul 2026 14:56:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="k98AlkJ8";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KwA2eahD";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="k98AlkJ8";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KwA2eahD";
+	dkim=pass (2048-bit key; unprotected) header.d=mechasystems.com header.i=@mechasystems.com header.b="lU7+TRth";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C04F10F42A
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:50:27 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BBFC975A7E;
- Thu,  2 Jul 2026 14:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783003825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
- b=k98AlkJ8ifYQq6btglhE0cy2746Q3h1DDC2pLCWkCmdDAohoMm/XKB4NcoxXzaX41ss1G3
- zpIwwyWwGNZLlLNxpNFBBUsKYVSEux4sz20KpfWrvOR93/hx7iRJ0J3T8Bj0VPzvFFflXV
- iSdjq+tOBgrUifLpcsW2/5O92WTOA7M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783003825;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
- b=KwA2eahD19PvrSQfjvuGLE+QhDwDGWkv4zWU0z6OG2BZXsXc+B4CesqIACSSOM/Xd4Ew6O
- qRELAVUmjwJDo7Bw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=k98AlkJ8;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KwA2eahD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783003825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
- b=k98AlkJ8ifYQq6btglhE0cy2746Q3h1DDC2pLCWkCmdDAohoMm/XKB4NcoxXzaX41ss1G3
- zpIwwyWwGNZLlLNxpNFBBUsKYVSEux4sz20KpfWrvOR93/hx7iRJ0J3T8Bj0VPzvFFflXV
- iSdjq+tOBgrUifLpcsW2/5O92WTOA7M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783003825;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
- b=KwA2eahD19PvrSQfjvuGLE+QhDwDGWkv4zWU0z6OG2BZXsXc+B4CesqIACSSOM/Xd4Ew6O
- qRELAVUmjwJDo7Bw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5B68C779AA;
- Thu,  2 Jul 2026 14:50:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id PzUVFbF6RmogRgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 02 Jul 2026 14:50:25 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: hns@goldelico.com, zhengxingda@iscas.ac.cn, jani.nikula@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, akemnade@kernel.org, javierm@redhat.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v4] drm/fb-helper: Only consider active CRTCs for vblank sync
-Date: Thu,  2 Jul 2026 16:50:13 +0200
-Message-ID: <20260702145021.226932-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E52210E455
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:56:56 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-37f7a5a217fso1623105a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 07:56:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783004216; cv=none;
+ d=google.com; s=arc-20260327;
+ b=R/qHn7wLK8GJMofpa6fLclQUTzK7naujPYo+/K+OJ9FZgy+GYgE7WOzjxg3ss6FTYO
+ giYDRIcNSiUd3Xk8OrCmv/PbPPxDbn7359gR3OeaVtzqBhW5pnaXY7Wd2f3CW2ZiwiC7
+ 9sqTDqzhgz3KBhLsncpoJzrVe8WYPG5A2Aisd4Zbn2UY4ix9PN0WLAkx2U7WX+dnEbkx
+ Sjwa0W6OJm0MYKp2+oO5OX+PKC/5XAwl+TiSabxaLgZUv/Jp9v3Z/30QSuJbOSq+mhTb
+ CxXbm+J3/xwwvIO7tLAJn5vzM94xTZHuAfTjnarL+8QlCMmY0NgpWDmBw9VKA8hLSf3Q
+ 9u8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=JHkjhNKJER8sAB9/1Vki9x5X0XUDAJyIWw5fzOAe7Xc=;
+ fh=35vpW5YY5u/Ar++SpfKdvMIv96PIEo4xamQojqOaGa0=;
+ b=Q62kVxHmVf8PcWlr8fhHyVN3F7mfgtHQwhtyGhMypKsfrNJ8+vfUYB9InEPxhXUW8c
+ drbQjY6wCQXJh0RbozaJbZDHNJbu0d2ZpR6bqel2LKQpffVbyixgKTPKbgWFbnr5P/GL
+ 7WofoIxSrNzgi6Sg/DY8IeuuNjDMWJ7TawYOoYJQRapzmlN9QnIxiSWM3gHwrGzXRjt3
+ YGzFpbvf6DzCrxipjrPqgsClCiGPVml8l94xREkNMlILQxckdXyMh4qM51cDbQq9T29J
+ jtMULRUdwAh1xyko4IkS+x9/cZvVYYORmyFxxXobeonuNm3XC0AhNtrPklaimPNFYzPy
+ FTuw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mechasystems.com; s=google; t=1783004216; x=1783609016;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=JHkjhNKJER8sAB9/1Vki9x5X0XUDAJyIWw5fzOAe7Xc=;
+ b=lU7+TRthZz8H5Oi5/vHAMO5DMvkkwsD715em9OigEz80yvwK5R9ZYFSc8vos3m9Qr3
+ E/cU3tu/rs4nXLFACscoy539ENW2M7fZUEzeJmBSDYS9vqQgfaOqj9hdlJIWje4ss52M
+ Fi6JWcyhvD5F1aEA9RJUMIs4EKRSk8/a09dQ4lZJkdZsLhqsz4SLPLOIKJA7v2dyK9H8
+ qXcq/w6WMp//Fs8TIvy8RpA0nHYX82h+zLHF7ICfeUlqcy/ubGyZgWvTj5pWN8Mpk7io
+ ovXhw9+/RrxnRZ67zt92uVn9CTzqNZB/zMF1NMlWvzeplyFqa38LBlwa3i3leUeZ78O7
+ 2JZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783004216; x=1783609016;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=JHkjhNKJER8sAB9/1Vki9x5X0XUDAJyIWw5fzOAe7Xc=;
+ b=YqOwu9aJI00yMHNdfimwBO1HAocJF64Gs0X+9cQUXoEqgGJ1gJ7dwRFlMIRhYbQXuv
+ RjAvVEaAfgDnc+7dn0PIv9FJTpifCj/KUdCsG6bXszO5yRbFLzrVQ5Cz1dnRf3QFoIm7
+ w8jYfIzDSFdZhQjUnvl1Fwf9jhFwcFMTQ7j/PcjwS7JpNATm1jTIzcd7DELZWv+ixDG+
+ Ors4T0BtG1/18Fu6AAHeSp21FG2j6vyqzmfSKO8Ciw/4+L0YDZhH3/C3kE5vdEJywkID
+ 8ITND8XGW0nIf+DNMH3mKJnD/Jol4NFdT1cjVDO0+TWBA+qIphbV5w7gRxZkdtrucECA
+ 8CyQ==
+X-Gm-Message-State: AOJu0YxRaI6h3uSzb+pOmBXnWjD9LO5OrENkK5fTzHKZphhGt61k09x7
+ riRmabbA0dqxXdHz5iY5gyy8fmYLFArS8wBEY9O4YiJzpu4aQ8wzjlCAO/quZk1YTSChV38l0o5
+ Q3Y1RWMxNHQmu/eDuCEalR+MRu2E+huXE0+96ozlXTkv7NlhfeCq9Cc8=
+X-Gm-Gg: AfdE7clLdgcGxLacKC2H90hR4DdzNY1XoOTfrFITChHOYG1wCdv6XE8aYRibb6axCHi
+ JAtgfWhQ2318fAQIhbxLt5LgcbN6VUopcpURXFuk39noCOetbAju9UUVokY1GC+lIz0+aYqK0lY
+ GNLwxBB8Bk25DOBsI80PfJ0hWng+q8oH2P+UDOR+ZAosKldKW61hpD1K0N/EpNJbuNkrU5jbJ6E
+ H/y5vD1YtL5xFoQW/DJhdBeLcTLeyefFSkOxUGJI2PMXUM2wHzAhHg4ffb3YXCDX/ubkS0V
+X-Received: by 2002:a05:6a21:3a83:b0:3bf:63af:85d with SMTP id
+ adf61e73a8af0-3bff40a528emr7452735637.18.1783004215639; Thu, 02 Jul 2026
+ 07:56:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: BBFC975A7E
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[goldelico.com,iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com];
- MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCPT_COUNT_TWELVE(0.00)[15]; ARC_NA(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+From: Advait Dhamorikar <advaitd@mechasystems.com>
+Date: Thu, 2 Jul 2026 20:26:44 +0530
+X-Gm-Features: AVVi8CdrbPmqZHpEyIuAPX2PkM2XbR8i9SzzA2jTyPb_3KNw5_HOoaEHXWdNuVo
+Message-ID: <CAAPs2HR3mqy_duZS1q3eb1OH3tnPuDa0-h6GQYuc8FuTZmYXSA@mail.gmail.com>
+Subject: drm/bridge: samsung-dsim: questions about command mode enable
+ sequencing
+To: dri-devel@lists.freedesktop.org
+Cc: inki.dae@samsung.com, jagan@amarulasolutions.com, m.szyprowski@samsung.com,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ mwalle@kernel.org, frieder.schrempf@kontron.de, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,154 +101,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Only synchronize fbdev output to the vblank of an active CRTC. Go over
-the list of CRTCs and pick the first that matches. Fixes warnings as
-the one shown below
+Hi all,
 
-[   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
-[   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
+I'm working on bringing up a command-mode MIPI DSI panel (CH13726A)
+on an i.MX8MP using the samsung-dsim bridge, and I'm seeing what
+appears to be a timing-dependent issue during the enable sequence.
+I'm hoping someone familiar with the DSIM hardware can clarify
+whether my understanding is correct.
 
-This currently happens if the fbdev output is not on CRTC 0.
+Using the upstream driver without any changes causes my panel to come
+up only once every 5-6 boots. While I know command mode does not yet
+support TE IRQ synchronization for my setup, I expected the panel to
+at least come
+up every boot even without VSYNC synchronization.
 
-Atomic and non-atomic drivers require distinct code paths. As for other
-fbdev operations, implement both and select the correct one at runtime.
+Immediately before samsung_dsim_set_display_enable(), a working boot
+shows:
 
-Not finding an active CRTC is not a bug. Do not wait in this case, but
-flush the display update as before.
+    STATUS   = 0x8010010f
+    FIFOCTRL = 0x0155551f
 
-v4:
-- avoid possible deadlocks with locking context (Sashiko)
-v3:
-- drop excessive state validation (Jani)
-- acquire plane and CRTC mutices (Sashiko)
-v2:
-- move look-up code into separate helper
-- support drivers with legacy modesetting
-v1:
-- see https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de/
+while a failing boot consistently shows:
 
-Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Tested-by: H. Nikolaus Schaller <hns@goldelico.com>
-Closes: https://bugs.debian.org/1138033
----
- drivers/gpu/drm/drm_fb_helper.c | 92 ++++++++++++++++++++++++++++++++-
- 1 file changed, 91 insertions(+), 1 deletion(-)
+    STATUS   = 0x8010040f
+    FIFOCTRL = 0x0155541f
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 3316bb00a662..d4664ed468b2 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -225,16 +225,106 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
- 	console_unlock();
- }
- 
-+static int find_crtc_index_atomic(struct drm_fb_helper *helper)
-+{
-+	struct drm_device *dev = helper->dev;
-+	int crtc_index = -EINVAL;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_plane *plane;
-+	int ret = 0;
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+retry:
-+	drm_for_each_plane(plane, dev) {
-+		const struct drm_plane_state *plane_state;
-+
-+		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
-+			continue;
-+
-+		ret = drm_modeset_lock(&plane->mutex, &ctx);
-+		if (ret)
-+			goto err_drm_modeset_lock;
-+		plane_state = plane->state;
-+
-+		if (plane_state->fb == helper->fb && plane_state->crtc) {
-+			struct drm_crtc *crtc = plane_state->crtc;
-+
-+			ret = drm_modeset_lock(&crtc->mutex, &ctx);
-+			if (ret)
-+				goto err_drm_modeset_lock;
-+			if (crtc->state->active)
-+				crtc_index = crtc->index;
-+			drm_modeset_unlock(&crtc->mutex);
-+		}
-+		drm_modeset_unlock(&plane->mutex);
-+
-+		if (crtc_index >= 0)
-+			break;
-+	}
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	return crtc_index;
-+
-+err_drm_modeset_lock:
-+	if (ret == -EDEADLK) {
-+		drm_modeset_backoff(&ctx);
-+		goto retry;
-+	}
-+	return ret;
-+}
-+
-+static int find_crtc_index_legacy(struct drm_fb_helper *helper)
-+{
-+	struct drm_device *dev = helper->dev;
-+	struct drm_crtc *crtc;
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		struct drm_plane *plane = crtc->primary;
-+
-+		if (!crtc->enabled)
-+			continue;
-+		if (!plane || plane->fb != helper->fb)
-+			continue; /* CRTC doesn't display fbdev emulation */
-+
-+		return crtc->index;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int drm_fb_helper_find_crtc_index(struct drm_fb_helper *helper)
-+{
-+	struct drm_device *dev = helper->dev;
-+	int crtc_index;
-+
-+	mutex_lock(&dev->mode_config.mutex);
-+
-+	if (drm_drv_uses_atomic_modeset(dev))
-+		crtc_index = find_crtc_index_atomic(helper);
-+	else
-+		crtc_index = find_crtc_index_legacy(helper);
-+
-+	mutex_unlock(&dev->mode_config.mutex);
-+
-+	return crtc_index;
-+}
-+
- static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
- {
- 	struct drm_device *dev = helper->dev;
- 	struct drm_clip_rect *clip = &helper->damage_clip;
- 	struct drm_clip_rect clip_copy;
-+	int crtc_index;
- 	unsigned long flags;
- 	int ret;
- 
- 	mutex_lock(&helper->lock);
--	drm_client_modeset_wait_for_vblank(&helper->client, 0);
-+	crtc_index = drm_fb_helper_find_crtc_index(helper);
-+	if (crtc_index >= 0)
-+		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index);
- 	mutex_unlock(&helper->lock);
- 
- 	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
--- 
-2.54.0
+From the register definitions, my understanding is that the working
+case indicates the clock lane is in STOP state (LP11) before
+enabling video output, while the failing case indicates the controller
+has already left STOP state and the HS clock is already active. The
+FIFO contents also differ between the two cases.
 
+To experiment with this, I added a loop that waits until the
+controller reports
+
+    (status & 0xf) == 0xf &&
+    (status & DSIM_STOP_STATE_CLK)
+
+before proceeding with the remainder of
+samsung_dsim_set_display_enable(). Waiting for this condition
+significantly improves the success rate of panel initialization.
+
+Noticing that samsung_dsim_set_display_enable() sets the
+DSIM_MAIN_STAND_BY bit, I also tried toggling that bit. Surprisingly,
+doing so causes the panel to initialize almost every time, although it
+often initially displays a white, purple or green screen before
+eventually rendering the framebuffer correctly.
+
+The following hack, combined with the polling loop above, increases
+the panel bring-up success rate and makes it work almost always:
+
+    reg |= DSIM_MAIN_STAND_BY;
+    samsung_dsim_write(dsi, DSIM_MDRESOL_REG, reg);
+    msleep(20);
+
+    reg &= ~DSIM_MAIN_STAND_BY;
+    samsung_dsim_write(dsi, DSIM_MDRESOL_REG, reg);
+    msleep(20);
+
+    reg |= DSIM_MAIN_STAND_BY;
+    samsung_dsim_write(dsi, DSIM_MDRESOL_REG, reg);
+    msleep(20);
+
+    timeout = 10000;
+
+    do {
+            reg = samsung_dsim_read(dsi, DSIM_STATUS_REG);
+
+            if ((reg & 0xf) == 0xf &&
+                (reg & DSIM_STOP_STATE_CLK))
+                    break;
+
+            usleep_range(1000, 1500);
+    } while (--timeout);
+
+This is obviously just an experiment and not something I'd propose
+upstream. I was only trying to understand the hardware behavior.
+
+What surprised me is that toggling DSIM_MAIN_STAND_BY appears to make
+the panel initialize much more reliably than simply setting the bit
+once. This made me wonder whether toggling DSIM_MAIN_STAND_BY causes
+the DSIM to restart or resynchronize some internal state machine, or
+perhaps flush or reinitialize some internals, rather than merely
+enabling video output as I originally assumed.
+
+My main question is: what hardware event is expected before
+samsung_dsim_set_display_enable() is called so that the display
+can start up normally every time?
+
+Is there already an expected synchronization point in the enable
+sequence that I should be waiting for instead of polling
+DSIM_STATUS_REG, or does this behavior suggest that I'm
+misunderstanding the intended initialization sequence?
+
+Thanks for your time and consideration.
+
+Best regards,
+Advait
