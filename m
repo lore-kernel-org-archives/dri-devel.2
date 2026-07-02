@@ -4,89 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0687BC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83E1FC44500
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4640510E2BB;
-	Thu,  2 Jul 2026 09:28:11 +0000 (UTC)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com
- [209.85.217.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4543610E2BB
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:28:10 +0000 (UTC)
-Received: by mail-vs1-f47.google.com with SMTP id
- ada2fe7eead31-738bcf9a573so483840137.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 02:28:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782984489; x=1783589289;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9xiqnp7i51oc7KGFElhrnKuIK1In1osntTe68gEGmGg=;
- b=QnYWDTG0GowJcIsTNmbIT4q25ghAmsIjInexGcnnqg31fpvsXgwt82OyMSduM+kff3
- dbQwNmq14lYQOp+HM2IZe6DvL6MCVGezWDMOWH/Tx9F0VBAPeQRzE7CSvEwhakzkJxPk
- uFhqLkYwqxy1/lmLAGL26y4DhvU0ctSi80JPcCXnSAx6bICuWGLgU/cMCy1oX468RLKn
- HNCfXxciT1hhtep2HDum5jF08OXVR0PPqPxnege/21VE8osn6NsnUmgGfc1kMmnl0Wvl
- OrHbSwLANIfRY7TWpO9PqIX4YngPtFu83501JXhnmCnIpgFeEEkm3At+lW1jW3FNKjq1
- DwTg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr9O0axYhw8QRNV51K7CDBeK2N2zS1W5+oGQh721xj/PBREJF9FMB/uaY442NThFJDXp/eu1SwqRL4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHdPH+1GueIVJXjQQWQDaoc+kAl1xkV/J+jcP8mJk/IYbDJ12a
- tFd81l8g28cui3StmiVUGI76p1XbaIbOHtEBmOGf6OIZBe5NeGAVJL3p1MCku9a5vIM=
-X-Gm-Gg: AfdE7cnoS6Bi+AQakGoSExoFstbCJugrmNVpJSVkz0clMVqEyrTwJsDONkPlPRSiDR/
- RAAWfnIOBAuVeNK0P5tsLozgLx29FLR9T9Q3dichdbp52wYZBuOUeUbTuFYQ9pL3wA2+i+lMaVB
- N5Va99wkeRhfugb8nDiqru3Gk3fRXAFUrxglLnVD1NPyRekjyFcaeVHNjZQxhd47ar7cz0zGaF6
- iR9Q29tcNfwp+wqgd2iQTtv97azpIJVgpHF3WDN4ObT4RrMoG2Xd5TB7XEPBalmd8fHqTA5HAj9
- 94gPrx5dz5tiQ9whD8A+JFFAZVMYcsRMqqtpFSYc9TtABjySVTYGFaVFuNEyqI58/QldRQ/sHxt
- H9NJFKbGJk2lt0zrQOmqlfnO5DXWaligJuDi1uE/54Hh9yzavmEp8RkjTyWSU+TFkNRoU0qd3Oy
- 2kAH+KmhcND6bCdIJMJc4Hj+ExhQ8VWGjSapIWRNYibivP3jRjdQ==
-X-Received: by 2002:a05:6102:f87:b0:738:ff1b:942 with SMTP id
- ada2fe7eead31-73daa9bb6c7mr2129752137.22.1782984488944; 
- Thu, 02 Jul 2026 02:28:08 -0700 (PDT)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com.
- [209.85.217.49]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-73e19f3f781sm1016544137.2.2026.07.02.02.28.07
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 02:28:08 -0700 (PDT)
-Received: by mail-vs1-f49.google.com with SMTP id
- ada2fe7eead31-738f3419eedso432534137.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 02:28:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq2JVzrCY1//5n4KuiMzs9NwWypB74hBy4c5klcwCK0GgzcOIhWkE7JluydTCbTt5PXdNixcSeX8p8=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:dd4:b0:650:aa33:5dd7 with SMTP id
- ada2fe7eead31-73da8519caamr2375794137.2.1782984487236; Thu, 02 Jul 2026
- 02:28:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3B7E10E4A5;
+	Thu,  2 Jul 2026 09:31:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="jwyULO8r";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF4F10E48C;
+ Thu,  2 Jul 2026 09:31:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782984682; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PfKFG9RhyxZ/Be5OuN+QqF3/BpbnmA1csy44z/dMcd+YIjvJgwvmOHOiJ+2KRMKxIOoQur2T9f+dCn79aiGf3rgs9pzZr/ieS/mvwK9ldHDTosm8k6kLHgd9ZEmlWkBnbQVFNBuhOybf15R8spj3zeYcFN+FZfz3YHoCfLe2aJE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782984682;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=RDz1VrwgVY8/yTgdWqaKJKdhG6xDvuE7IeCeMPv1hQs=; 
+ b=HKOyBhxVPEBNIYCvY/Bipj1MqKUWcdyEq8GnntQKERrMfWcXg2ssZowkS2zK7JmVaooGdCka67TEXs9BjIuxT/LkSuJAjjeXngQEITJzTzXKcAjzUuN/eDLjjD0Tjl0E+AdBiRIVaC64WS6USM3mvCEZZS4VOBMUN5TEDnCSs/s=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782984681; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=RDz1VrwgVY8/yTgdWqaKJKdhG6xDvuE7IeCeMPv1hQs=;
+ b=jwyULO8rOuk48YoiNDxc+VCzbqUHPa1j1hZ0oj9GR9HkLwLwJf6lKsn7fiuFgCUg
+ zCEtXPryDIhrGcXJOeO7hG/GTDwB2SYMuML5kDKujK2SPmgHJZGEdT0zzTmzsWX4yX1
+ qzq44EBPrqgeGC1FAcPx4qxVjHnw72bHee+88p0s=
+Received: by mx.zohomail.com with SMTPS id 1782984679497750.7953951953009;
+ Thu, 2 Jul 2026 02:31:19 -0700 (PDT)
+Message-ID: <0f495406-a3c9-4c72-8419-a647a864e0fb@collabora.com>
+Date: Thu, 2 Jul 2026 11:31:14 +0200
 MIME-Version: 1.0
-References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
- <20260615-rcar-du-dsc-v5-3-aed1a28610e4@ideasonboard.com>
-In-Reply-To: <20260615-rcar-du-dsc-v5-3-aed1a28610e4@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 2 Jul 2026 11:27:56 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUoR_dUG9gHKpaR_53EcS5gm68=gqF3UE3aNApBZ5Wd_g@mail.gmail.com>
-X-Gm-Features: AVVi8Ccj1J5pvkR0bSkeR64npr1GsYH8otXyCLdk_qEnm1EVAcQxHJFY-QII4Ko
-Message-ID: <CAMuHMdUoR_dUG9gHKpaR_53EcS5gm68=gqF3UE3aNApBZ5Wd_g@mail.gmail.com>
-Subject: Re: [PATCH v5 3/7] drm/rcar-du: dsc: Add rudimentary Renesas R-Car
- V4H DSC driver
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Stone
+ <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260702081641.22990-1-robert.mader@collabora.com>
+ <83f324a2-abe1-4b32-8782-439569f651d2@linux.intel.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <83f324a2-abe1-4b32-8782-439569f651d2@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,51 +78,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomi,
+Hi,
 
-On Mon, 15 Jun 2026 at 15:12, Tomi Valkeinen
-<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+On 02.07.26 10:34, Maarten Lankhorst wrote:
+> Hello,
+<snip>
+> On 7/2/26 10:16, Robert Mader wrote:
+>> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+>> index e2df4becce62..b2c0234eaf14 100644
+>> --- a/drivers/gpu/drm/drm_ioctl.c
+>> +++ b/drivers/gpu/drm/drm_ioctl.c
+>> @@ -373,13 +373,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+>>   			return -EINVAL;
+>>   		file_priv->supports_virtualized_cursor_plane = req->value;
+>>   		break;
+>> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
+>> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
+>> +		struct drm_plane *plane;
+>> +		bool has_plane_with_color_pipeline = false;
+>> +
+>> +		drm_for_each_plane(plane, dev) {
+>> +			if (plane->color_pipeline_property) {
+>> +				has_plane_with_color_pipeline = true;
+>> +				break;
+>> +			}
+>> +		}
+>> +		if (!has_plane_with_color_pipeline)
+>> +			return -EOPNOTSUPP;
+>> +
+>>   		if (!file_priv->atomic)
+>>   			return -EINVAL;
+>>   		if (req->value > 1)
+>>   			return -EINVAL;
+>>   		file_priv->plane_color_pipeline = req->value;
+>>   		break;
+>> +	}
+> Perhaps put the most specific check (is there a plane with color pipeline?)
+> last, and return -EINVAL, as that is the default before
+> DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE was added.
 >
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->
-> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> 8k or 400 Mpixel/s. Add rudimentary driver, which currently acts as a
-> pass-through bridge and allows DSI1 to be operational on R-Car V4H.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: use bridge->next_bridge, minor changes]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> --- /dev/null
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-
-> +static const struct drm_bridge_funcs rcar_dsc_bridge_ops = {
-> +       .attach = rcar_dsc_attach,
-> +       .atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-> +       .atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +       .atomic_reset = drm_atomic_helper_bridge_reset,
-
-As of commit 57acfbe5bbc16624 ("drm/atomic-state-helper: Remove
-drm_atomic_helper_bridge_reset()") in drm-misc/for-linux-next, this
-no longer builds:
-
--       .atomic_reset = drm_atomic_helper_bridge_reset,
-+       .atomic_create_state = drm_atomic_helper_bridge_create_state,
-
-> +       .atomic_enable = rcar_dsc_atomic_enable,
-> +       .atomic_disable = rcar_dsc_atomic_disable,
-> +       .mode_valid = rcar_dsc_bridge_mode_valid,
-> +};
-
-Gr{oetje,eeting}s,
-
-                        Geert
+> Kind regards,
+> ~Maarten Lankhorst
+Thanks, will do so in v3. Will wait a bit more for further feedback and 
+send it out tomorrow.
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Robert Mader
+Consultant Software Developer
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
