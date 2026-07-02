@@ -4,142 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE6CEC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 10:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A040C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 10:43:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3509E10F2AB;
-	Thu,  2 Jul 2026 10:42:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD06810F29C;
+	Thu,  2 Jul 2026 10:43:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="eigjpOMw";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="q/U++tzx";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xlurvhJZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ocZhQyCC";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="GIGFSadI";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50E8510F29C
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 10:42:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AFC4375C30;
- Thu,  2 Jul 2026 10:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782988968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+OYrOKm2y+IPf/TBhdY0t5WTGZpGwCxFj/S/SQ8488Y=;
- b=eigjpOMwCHKsp0QlLdPpMcF8x8YrayWRnzfHfvODR/6dKqPHXZeHbV2DT2pzAJBMhbbx7R
- tRqfZH/GB7TsawNocniLPKO5thhoAuLefpdWz6JPkkbhDKSclWKmPx6OSaDelU4gjdkjpj
- woNSZwMKF7Peh7/oytZxet39XgfaEKI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782988968;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+OYrOKm2y+IPf/TBhdY0t5WTGZpGwCxFj/S/SQ8488Y=;
- b=q/U++tzx8qa4+x8Gw0MJz+jWu6UgS3xyNKaGGAp0e1ENNcATjqwPM7L3HqhNmP44yrB48y
- klgKNCvbJQYufPBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782988966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+OYrOKm2y+IPf/TBhdY0t5WTGZpGwCxFj/S/SQ8488Y=;
- b=xlurvhJZQ3mXJVSo1TGr3+U+3s9Vs5K2A4PLjDUJTyS7sdye00+88JiCTHcDK31v3CPcnO
- rrlQggGBy8ydvRJqbp1is2vaoX5PEnsGFPKY5x2CF6Prckml+vOKnHwE1X41ykbTTFp1YJ
- n8OTQIpaFUh76Xa+jBzkMSjZDsIis6I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782988966;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+OYrOKm2y+IPf/TBhdY0t5WTGZpGwCxFj/S/SQ8488Y=;
- b=ocZhQyCCg0SKk6258qbQxFVliDRRnDd+DmM7Yozj9Lje550bddc/c7rMNDRlb+kdfKrUos
- MK/fXnZdrHKeKcAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4CA29779AA;
- Thu,  2 Jul 2026 10:42:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CLF3D6JARmqSRwAAD6G6ig
- (envelope-from <pfalcato@suse.de>); Thu, 02 Jul 2026 10:42:42 +0000
-Date: Thu, 2 Jul 2026 11:42:40 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 15/30] mm: introduce and use linear_page_delta()
-Message-ID: <akZAhI3Ims6hUPhS@pedro-suse.lan>
-References: <cover.1782735110.git.ljs@kernel.org>
- <eedf589778aaab33e6df2ad6556dcde536e13460.1782735110.git.ljs@kernel.org>
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2280E10F29C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 10:43:31 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6626MvDr1931364; Thu, 2 Jul 2026 11:43:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=E
+ T8EzdBqy9srmOkq0lSzLi+wjQ+SbWBFKHkUtNhwEWI=; b=GIGFSadISBwdmm//3
+ gm0gq/mZSEctTDB3lvwiTz6wGhOyzdB9gVcUJWtwI3DUqbp8XRh30/DKrFwljV77
+ n7MDkChnIE0pocHHrY/D7vieyOegMW/NFHb/hgVlSKOgoLY4kMv88W7kIBtwRuqU
+ TLmlch+UyOJHItiutVhdtEf0fuxJJ0AYzlrOWXCiwRZNnTa5ULtTluvHUASFQWXS
+ egVjstwM48UI1mYQQNW2g4tpgMxw9NvGk8LZdqODTH355JRoIiEbqTILGbKm8TXq
+ 88OsSIaIYp7YPJTfq8nCKbXfRRdpgF2zw/jLnnzP4TCWeLx236t6ojaksOr+23JE
+ yHzGg==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f26kunakn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Jul 2026 11:43:20 +0100 (BST)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 2 Jul
+ 2026 11:43:18 +0100
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Alessio Belle <Alessio.Belle@imgtec.com>,
+ "Alexandru Dadu" <alexandru.dadu@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Brajesh Gupta <brajesh.gupta@imgtec.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+In-Reply-To: <20260630-b4-sched_fix-v7-1-71aa39c62627@imgtec.com>
+References: <20260630-b4-sched_fix-v7-1-71aa39c62627@imgtec.com>
+Subject: Re: [PATCH v7] drm/imagination: Fix double call to
+ drm_sched_entity_fini()
+Message-ID: <178298899887.102946.11369640491479366582.b4-ty@imgtec.com>
+Date: Thu, 2 Jul 2026 11:43:18 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eedf589778aaab33e6df2ad6556dcde536e13460.1782735110.git.ljs@kernel.org>
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
- R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_GT_50(0.00)[75];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
- pedro-suse.lan:mid]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Originating-IP: [172.25.4.9]
+X-Authority-Analysis: v=2.4 cv=epXvCIpX c=1 sm=1 tr=0 ts=6a4640c8 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=ZX3hCQfB1uyMSPSD_xEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: tfFj7ORyzaS3sce9NutG9QM9J_bHkCN2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfX58l+kKVjVcDZ
+ QpWz4rrbOcgXz5FoRRZAdrVtwM0APCYIqqTIQ0my+VYlaxeNB8KnIIn8nN21lf41162oMKhE1c/
+ H/x/Mvzk5o1fuGvJWeyMsRxWq8xOLtFn1I913tnu9Uaw7aPrQhsV+FKUdbSayrN57thHX09AP0C
+ FCoKF7TQ8iiGMIJ6Luk0DFyoQyd93Tu6rD4YsaAsm+6RC18ZQwo6mhD2kD72IDyY125SquUohMk
+ J5V2dKpdz91vfLu7Yq1d9F90g5+G7LdJAffQZcdEPeCEIiHluD6Dou/1KXek77zLISoUyL4aoIy
+ uIWzHCqpSBeHWKCy9s9zVDCg9flov2R6zgyMf0b+3DegWbTUhDsJn75b/gVp/gtEa+N3kEIeGdJ
+ RC22BQnHgZaUhq7vU13xVMt6EZYr1nqpcLh/I8x6pbhTTR24ECYGlIu74EKdCczneO+gp6hTQYV
+ lJB4djxcQMLAy0DAQvw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfXy1V+AZBmHUlB
+ NJepOofJFboyJi2uV8l+gv65XVSoUE8Dain0y3tIRguJV6Gg7LKqPVUF+TIYi5xK++UW4SOhwwi
+ oZdecGdBmnwOr14rRVjP4b4BWCoBOJg=
+X-Proofpoint-GUID: tfFj7ORyzaS3sce9NutG9QM9J_bHkCN2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,20 +94,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:26PM +0100, Lorenzo Stoakes wrote:
-> It's often useful to obtain the number of pages a given address lies at
-> within a VMA.
-> 
-> Add linear_page_delta() to determine this and update linear_page_index() to
-> make use of it.
-> 
-> Add comments to describe both linear_page_delta() and linear_page_index().
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+On Tue, 30 Jun 2026 21:10:07 +0530, Brajesh Gupta wrote:
+> Call sequence of double call:
+> pvr_context_destroy
+>   pvr_context_kill_queues
+>     pvr_queue_kill
+>       drm_sched_entity_destroy
+>         drm_sched_entity_fini // here
+>   pvr_context_put
+>     kref_put(..., pvr_context_release)
+>       pvr_context_destroy_queues
+>         pvr_queue_destroy
+>           drm_sched_entity_fini // here
+> 
+> [...]
 
+Applied, thanks!
+
+[1/1] drm/imagination: Fix double call to drm_sched_entity_fini()
+      commit: 4af24c27a39ba147a613a09e10b9e0f7294524c0
+
+Best regards,
 -- 
-Pedro
+Alessio Belle <alessio.belle@imgtec.com>
+
