@@ -4,79 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37549C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1959CC44500
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A2E10F66D;
-	Fri,  3 Jul 2026 07:04:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A07E910F66E;
+	Fri,  3 Jul 2026 07:04:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="xaJR77It";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lsv+b7d2";
 	dkim-atps=neutral
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com
- [209.85.222.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656B010E4A9
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:06:02 +0000 (UTC)
-Received: by mail-ua1-f50.google.com with SMTP id
- a1e0cc1a2514c-9670c11410cso722453241.1
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 05:06:02 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A133D10F58D
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 19:45:47 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-37e1657510bso262324a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 12:45:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782993961; x=1783598761; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9cVZWX31i00/Q+AQyz7DVfvfVMzM7hxRZQOP4HWyMgo=;
- b=xaJR77ItDcPFTzTMHZbHzQ05nr+qGkrgM8H8TxYUJOW6EfqCHjnl2IhpmCXXZmBLY5
- IaYCZUt/eFX2CwjKo5Kn+4plt4zarDMmF7K45jpuWZRr8TXByVhxX7lPXzpLdi9LnHdV
- 4XAEI8/TCpKVVW0kpZFQUcbinRwDLKTanywBRkWOJNnE3tto+nhaIt1fnM2ChegTgcqa
- I8XeQ/xQ+I3/8Af5qYUVacPxjw4q+HbGy7wiIeti49cRektuHG0jX20moj+Iy92gQcF3
- 921XHpZHCksHMBD6vU56xqnilpKz4uMfFsjkGSOqhPaGQFxV282xQmNqKL3Mn8XN2Bs9
- 2GAg==
+ d=gmail.com; s=20251104; t=1783021547; x=1783626347; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cly/nd+WtRjsO5TA3lU7g6oCqpic1LOhtM2jPoyTuQk=;
+ b=Lsv+b7d2fGYvWRIU+v84/0i4zb7u5Ux4eay+Z7CEG3/bNxE3ve12H+HVFG2mzK77K3
+ WGHKUxrA3mXZmnAXnb/zaNiS+JeqDIefgYlZ0PY4i7bBaInL6wJBYtYDAodBANkp6L3I
+ ypsi2OyQ8BU+cjMZNEeHO7HxSi02eBBTrTEtCtiZrLxZZE89WhAGbAtzCsulSOjkjeHT
+ NlGFSJme1ddmfaB5MuczKwWMIDSH4rzz22kkUZZeofrg1igh8VnslEllmCjlEvnKydQo
+ r9lcFbtfPX65jqbyZEo+xGLZic/ukeTD+EmCs/CwDTeVNMvFZPyqfWLCbVazUmLK2Ttx
+ Pd+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782993961; x=1783598761;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9cVZWX31i00/Q+AQyz7DVfvfVMzM7hxRZQOP4HWyMgo=;
- b=aIQOsFvQ4Q/4IuVSSoGnojnXa/mYK+Vkilh08B/+bZcS3ZH41253ROsE8x/9DpWEiM
- 13ytl+xMPloecDQ9XN6YWsKPhPTaxLkh2DiSC/qHn416iI6rjCfPTmezvBhJbk7GEMv2
- 0GF3kLCiUjR5QlOR3rjVqKBK3QZendOf2JEttEThyaD+k9Uet0aACYlpUmLLssIp0O0w
- w22znUg465h+0WRQrvOVun22kOGFnwKUa7Jlcf0LifLEL+IuN8TccWHc+8FxJYHZ4/+r
- S0DE9RIfb0F3JtNQT2WhJs5BA6Vl6zZEDk0B1uN+v5DJ5Xnef8wwXmhIaJ5mM8Oecl2R
- vuAg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr4HibDZTON30qNeHAIFWc+Gdoq9QTW/YNABD09LeJbvtYHm3dkr/EfAU4ppZtuEUU2JpDtJyAaEiE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3THf5oVdqcWQ5786z9XA+dq7vLv59JtQS+nW8rbLzW14VGrFX
- yY3zMOjDq748N38Phx9QdvKO5vl9iMAyClMInVM/TZnTvewdSxHjmvM9tF/VrY1kQh4=
-X-Gm-Gg: AfdE7ckS3bvIbAxFj0W+e5XmrVvMMsUfqt1/Y+nP2kja/JB873iVUs/1vqDP6dAWWup
- n77MdEtdz0nDgYDfe82Gh8y3PzH0QBNgF3lKUcK5QAh5S+GzoJk30eC9clBDycaaXDeZYi8iCk/
- ttDJjlKM0vVytn5P5OjDH0wOexi5HdaO7/AARTAEW6dnReUImZG0C7/KBE+KiRjp8flB2wNM5Bx
- nQrMwMTEcVSMN5K/eQ0Oc5/wZp0o1irp6cGm16nHd58Dl2aVsmkjCHsY3K1YIr9SFbMz9ZM4yWH
- B+IFBcO/Gw9ZqT6q6W2PczcCWB3JICdnHXeQ0Mr8gqk/uxRiEVgGDjngmvdFo0iMtzrFdXZW9MR
- I23NX5pQENt7y/d1vDUEMt6xK4mVc4FVtLKe1+OayXJA8G+9puJeuFL8jMTt0Ef0jV2GhoMoWGQ
- tNAxJJYaFj4+Z+8kA=
-X-Received: by 2002:a05:6102:304c:b0:737:783d:1912 with SMTP id
- ada2fe7eead31-73dbe560d03mr2566154137.12.1782993960866; 
- Thu, 02 Jul 2026 05:06:00 -0700 (PDT)
-Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
+ d=1e100.net; s=20251104; t=1783021547; x=1783626347;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cly/nd+WtRjsO5TA3lU7g6oCqpic1LOhtM2jPoyTuQk=;
+ b=fmFDG6CiHl2H1ivv0gNHMTi+68P+4zLMo/9fB1K1gZTVEfHfz1ZCYEiJUBTx/Mjsuc
+ yTuhHOCPzHWXJTAIQ8MdhuQ1+bj8zNVwLRpbzgIQtlBCTuL7nULXC3lIHBdcZNIbX1jz
+ l0XfTYfmRkrT6jyJAMVtOYoTXCK4HIZ6NoRw5jtranroCdd9UeJMb9UE5pYzGB5phqzP
+ lTLFkHCqKGTnLhVSX7B9ecmQERWmhn8Fsf3z2aFpbc/6jOTVMcQe7TS4K5Gjtb/s5eqV
+ GSdeS317987S6zsXdYN9ldaoj/ArjCs8CZ7K/eY93SkOigLtngglSHtawmskczpdBfUH
+ BWSA==
+X-Gm-Message-State: AOJu0YwjkAQ6KKmBGkxnjKJZiV7R1ledxYjlDP76s3I4ru0kDEGskYPz
+ xg/WCzuIAv/iip96tr9JS9+EIbcDJzkdadJNnVkyIgJjQX1ybKABUPdi
+X-Gm-Gg: AfdE7cmpKJo5BmpRsJ+XwnXQHTaL42jICGUTo9QnYSv5A+HC8MZJNJ+8q//2yRxM/e2
+ Y/ZloJpX/jAY3dyHH0BObyKt0xcr8ttoSVCIGKLHJizpWTlJcfVrnscv+r8PoD6oCNRNGPdhlfa
+ 7bc1QUUdv3XF5FD6cMg/L2QtYXmOdqNvoPoJ08EeA5orlVNOECcGUgT/tupX2ydsFOksYj4RI+4
+ AHknpiRmpu+bKzfhcDU7MXIljYNEgc8XY65+knpAUj/idgd5xVV/Ba3zY1zBJxuegVOkOJZumrL
+ un411ti6Kc03w1xMa0+rBmkfD3V6qck2prG3qWWEwrYjUcDHz+rZOFSZWhRY6wuFw1AonJgw2DY
+ z6FSXwsv64flad0Ug7DuYt1hmObKf2kZLlSf1Sw9ioLvqbRfMkykZM0QZf0r/aWI6Dzr5siUmOE
+ N4GlN8pUYJibh1ZfTS7ylxATK9KzUHxCYpmTr6gBqAp1ZCDQuVl68uGIj0d5lSdA4kptuBj2bne
+ c+1U/QASTlYnQU8z3waR+H5otLiJHwHgbE6usCQOmrVH1OiHPg0Yys9MXYWCDovI4Psio3/MNOb
+ M4PtcFXmfW84BAeuyKkppPaVHJbsIw19nA6KH5tjR+jebfBZ
+X-Received: by 2002:a17:90b:2791:b0:36d:de94:f31 with SMTP id
+ 98e67ed59e1d1-380aa1f87b9mr4934895a91.7.1783021546906; 
+ Thu, 02 Jul 2026 12:45:46 -0700 (PDT)
+Received: from midnightair ([2401:4900:1c94:62e8:bc10:77d0:2fda:415d])
  by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-73e1caf43casm1182470137.11.2026.07.02.05.05.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 05:06:00 -0700 (PDT)
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
-X-Google-Original-From: Pedro Yudi Honda
-To: dakr@kernel.org,
-	acourbot@nvidia.com,
-	apopple@nvidia.com
-Cc: nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
- Pedro Yudi Honda <niyudi.honda@usp.br>
-Subject: [PATCH v2 5/5] drm/nova: use `zerocopy` in riscv.rs
-Date: Thu,  2 Jul 2026 09:03:24 -0300
-Message-Id: <20260702120324.40388-6-niyudi.honda@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260702120324.40388-1-niyudi.honda@gmail.com>
-References: <20260702120324.40388-1-niyudi.honda@gmail.com>
+ 5a478bee46e88-30f0b85de12sm12578844eec.12.2026.07.02.12.45.44
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 02 Jul 2026 12:45:46 -0700 (PDT)
+From: Anas Khan <anxkhn28@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Anas Khan <anxkhn28@gmail.com>
+Subject: [PATCH] drm/nouveau/therm: remove unreachable fan update branch
+Date: Fri,  3 Jul 2026 01:15:40 +0530
+Message-ID: <20260702194540.65127-1-anxkhn28@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
@@ -95,62 +88,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
+The fan re-scheduling logic sits inside an "if (target != duty)" block,
+so by the time the inner if/else-if chain runs, duty can never equal
+target. The "else if (duty == target)" branch is therefore dead code and
+has been since it was introduced. Drop it; the two reachable cases
+(duty > target and duty < target) are unchanged, so behaviour is
+identical.
 
-In riscv.rs, replave the following `transmute` traits with their
-`zerocopy` equivalents:
-
-- `transmute::FromBytes` -> `zerocopy::FromBytes`
-
-Update call sites accordingly.
-
-Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+Signed-off-by: Anas Khan <anxkhn28@gmail.com>
 ---
- drivers/gpu/nova-core/firmware/riscv.rs | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/riscv.rs b/drivers/gpu/nova-core/firmware/riscv.rs
-index 2afa7f36404e..ba56bc7d4188 100644
---- a/drivers/gpu/nova-core/firmware/riscv.rs
-+++ b/drivers/gpu/nova-core/firmware/riscv.rs
-@@ -7,8 +7,7 @@
-     device,
-     dma::Coherent,
-     firmware::Firmware,
--    prelude::*,
--    transmute::FromBytes, //
-+    prelude::*, //
- };
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c
+index f8fa43c8a7d2..c4aaf7473065 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c
+@@ -90,8 +90,6 @@ nvkm_fan_update(struct nvkm_fan *fan, bool immediate, int target)
  
- use crate::{
-@@ -18,7 +17,7 @@
+ 		if (duty > target)
+ 			delay = slow_down_period;
+-		else if (duty == target)
+-			delay = min(bump_period, slow_down_period) ;
+ 		else
+ 			delay = bump_period;
  
- /// Descriptor for microcode running on a RISC-V core.
- #[repr(C)]
--#[derive(Debug)]
-+#[derive(Debug, FromBytes)]
- struct RmRiscvUCodeDesc {
-     version: u32,
-     bootloader_offset: u32,
-@@ -36,9 +35,6 @@ struct RmRiscvUCodeDesc {
-     monitor_code_size: u32,
- }
- 
--// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
--unsafe impl FromBytes for RmRiscvUCodeDesc {}
--
- impl RmRiscvUCodeDesc {
-     /// Interprets the header of `bin_fw` as a [`RmRiscvUCodeDesc`] and returns it.
-     ///
-@@ -50,7 +46,7 @@ fn new(bin_fw: &BinFirmware<'_>) -> Result<Self> {
-         bin_fw
-             .fw
-             .get(offset..end)
--            .and_then(Self::from_bytes_copy)
-+            .and_then(|b| Self::read_from_bytes(b).ok())
-             .ok_or(EINVAL)
-     }
- }
 -- 
-2.34.1
+2.54.0
 
