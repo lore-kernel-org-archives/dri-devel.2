@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED64C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F6CC43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:46:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E718A10F483;
-	Thu,  2 Jul 2026 15:40:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB0710F491;
+	Thu,  2 Jul 2026 15:46:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z8vOAtQO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mynx6GD6";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDE710F475;
- Thu,  2 Jul 2026 15:40:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1426F10F37E;
+ Thu,  2 Jul 2026 15:46:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C7EA7601CA;
- Thu,  2 Jul 2026 15:40:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8E41F00A3E;
- Thu,  2 Jul 2026 15:40:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2EBA4601EE;
+ Thu,  2 Jul 2026 15:46:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90EC61F000E9;
+ Thu,  2 Jul 2026 15:46:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783006838;
- bh=gNLYS8EYE6bJ5KaXF7DR9fRu4urDF+a7laqqF8q0hcA=;
+ s=k20260515; t=1783007187;
+ bh=jvE9wSqWBUCbGMsJG9svgBUezevNvrm1MrcHHSCChso=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Z8vOAtQOT+iGTiy4xQ3GfxWy9CpR6iieY1qxm1fyBJSvxEFV2aEwGeTLwIZE4UbYF
- sH6QvDHKQJHBXcc/JYlecYNDNZBJEw63vn2taYjOLxg3iNlePJRLcm76SDX3qcqqpf
- OAzUHT+NRGQHyZOOfos5EJuVfaKEWfkdr4crDOBp2KFX/hKeIetGWLc1I64/oz6RHQ
- NC8RA6ivq/IEW4DV1d+3Z0k229cWnviqo6Svky+UHUgnyeaFy3m0xyIovRQ1UfVX8n
- wqqP9ts5FpBy46j7HS+G+te0/D/3BLeS388iQo+wLiLJCSDRdl7jDwGFy3vdpkllGJ
- NUUDfmqseIbQg==
-Date: Thu, 2 Jul 2026 16:40:15 +0100
+ b=Mynx6GD6LkebsGmUnF9MjOYGoc5t/kjVRBAa3y4hDMiI7/vl1tQdkpNYaMYBglDKt
+ PpjOhV7WkyGWbA6148JfY40EHSUewPFem4EcHLSNtrDL52P+m6uRZFhhXV+p8drDP5
+ krlXhtnXXcRAzWJ2KFYq3Hh8rhTgMNWOvfDO5ubcScHxjko5fhA5/oYXfBSBTm3FYZ
+ q91+d//PbttUXOxvDyYYUNz2FFsT7LJ6pIAF99pcS/rpWlpmF6qsZCGqK6q0R7Cu6u
+ A7jMMvK5AtByO3p0pYtd9gulxJxBI42o3AQ7j7VXEvArqPbpGQYUH4EuymRAwVZamK
+ 6IrFtw9w61Ysg==
+Date: Thu, 2 Jul 2026 16:46:04 +0100
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Lance Yang <lance.yang@linux.dev>
 Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, 
@@ -67,14 +67,15 @@ Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de,
  linux-fbdev@vger.kernel.org, 
  linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
  linux-sound@vger.kernel.org
-Subject: Re: [PATCH 08/13] mm: introduce vma_get_page_prot() and use it
-Message-ID: <akaGOiLz-3Zx6kDs@lucifer>
-References: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
- <20260702123845.95316-1-lance.yang@linux.dev>
+Subject: Re: [PATCH 10/13] mm/vma: convert miscellaneous uses of VMA flags in
+ core mm
+Message-ID: <akaGxiTaJreEQn8T@lucifer>
+References: <1e7d834c887b6a65627d730addcff13d458c6268.1782760670.git.ljs@kernel.org>
+ <20260702131233.59026-1-lance.yang@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260702123845.95316-1-lance.yang@linux.dev>
+In-Reply-To: <20260702131233.59026-1-lance.yang@linux.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,48 +91,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 08:38:45PM +0800, Lance Yang wrote:
+On Thu, Jul 02, 2026 at 09:12:33PM +0800, Lance Yang wrote:
 >
-> On Mon, Jun 29, 2026 at 08:25:31PM +0100, Lorenzo Stoakes wrote:
-> >There's a large number of vm_get_page_prot(vma->vm_flags) invocations. Make
-> >life easier by introducing vma_get_page_prot() parameterised by the VMA.
+> On Mon, Jun 29, 2026 at 08:25:33PM +0100, Lorenzo Stoakes wrote:
+> >Update various uses of legacy flags in vma.c and mmap.c to the new
+> >vma_flags_t type, updating comments alongside them to be consistent.
 > >
-> >This also makes converting vm_get_page_prot() to vma_flags_t easier.
-> >
-> >Also update the userland VMA tests to reflect the change.
-> >
-> >No functional change intended.
+> >Also update __install_special_mapping() to rearrange things slightly to
+> >accommodate the changes.
 > >
 > >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 > >---
-> > drivers/gpu/drm/drm_gem.c                   |  2 +-
-> > drivers/gpu/drm/drm_gem_dma_helper.c        |  2 +-
-> > drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
-> > drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  2 +-
-> > drivers/gpu/drm/exynos/exynos_drm_gem.c     |  6 +++---
-> > drivers/gpu/drm/i915/gem/i915_gem_mman.c    | 12 ++++++------
-> > drivers/gpu/drm/msm/msm_gem.c               |  2 +-
-> > drivers/gpu/drm/nouveau/nouveau_gem.c       |  2 +-
-> > drivers/gpu/drm/omapdrm/omap_fbdev.c        |  2 +-
-> > drivers/gpu/drm/omapdrm/omap_gem.c          |  6 +++---
-> > drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  2 +-
-> > drivers/gpu/drm/tegra/gem.c                 |  2 +-
-> > drivers/gpu/drm/virtio/virtgpu_vram.c       |  2 +-
-> > drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |  2 +-
-> > drivers/gpu/drm/xe/xe_device.c              |  2 +-
-> > drivers/gpu/drm/xe/xe_mmio_gem.c            |  2 +-
-> > drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
-> > drivers/video/fbdev/core/fb_io_fops.c       |  2 +-
+> [...]
+> >diff --git a/mm/vma.c b/mm/vma.c
+> >index b81c05e67a61..ab2ef0f04420 100644
+> >--- a/mm/vma.c
+> >+++ b/mm/vma.c
+> >@@ -3417,23 +3417,27 @@ struct vm_area_struct *__install_special_mapping(
+> > 	vm_flags_t vm_flags, void *priv,
+> > 	const struct vm_operations_struct *ops)
+> > {
+> >-	int ret;
+> >+	vma_flags_t vma_flags = legacy_to_vma_flags(vm_flags);
+> > 	struct vm_area_struct *vma;
+> >+	int ret;
+> >
+> > 	vma = vm_area_alloc(mm);
+> >-	if (unlikely(vma == NULL))
+> >+	if (unlikely(!vma))
+> > 		return ERR_PTR(-ENOMEM);
+> >
+> >-	vma_set_range(vma, addr, addr + len, 0);
+> >-	vm_flags |= vma_flags_to_legacy(mm->def_vma_flags) | VM_DONTEXPAND;
+> >+	vma_flags_set_mask(&vma_flags, mm->def_vma_flags);
+> >+	vma_flags_set(&vma_flags, VMA_DONTEXPAND_BIT);
+> > 	if (pgtable_supports_soft_dirty())
+> >-		vm_flags |= VM_SOFTDIRTY;
+> >-	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
+> >+		vma_flags_set(&vma_flags, VMA_SOFTDIRTY_BIT);
+> >+	vma_flags_clear_mask(&vma_flags, VMA_LOCKED_MASK);
+> >+	vma->flags = vma_flags;
 >
-> One missed?
+> Maybe worth a vma_flags_init() helper here to mirror vm_flags_init()?
+> With this open-coded, we lose the soft-dirty WARN_ON_ONCE sanity check.
 >
-> drivers/gpu/drm/panthor/panthor_gem.c still has:
->
-> 	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
->
-> Can use vma_get_page_prot(vma) too.
+> Might be nicer to keep that check in one place ;)
 
-Oops! Will respin and update. Good spot!
+I really hate all the VMA flag accessors, they conflate things horribly - we
+should be explicitly taking VMA write locks when we need to (and often killable
+ones actually) not assuming that a VMA flags accessor does (they should at most
+assert).
+
+This case is even more terribly egregious - you are setting flags at an
+arbitrary time, why are we asserting something about softdirty?
+
+You may update them as part of initialisation, maybe not. It's far from a
+guarantee and feels like a lazy place to put it.
+
+BUT obviously it's an oversight not to open code that here, so I'll update the
+patch to do that!
+
+I want VMA flags to be a clean stateless thing, other than the flags
+themselves. Implicit, unrelated, asserts or lock acquisitions in general should
+be done separately IMO.
 
 >
 > [...]
