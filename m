@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12226C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9337C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:34:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4198510F1A4;
-	Thu,  2 Jul 2026 07:32:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EA5510F1AA;
+	Thu,  2 Jul 2026 07:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h7oeX840";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z6nFOvNz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A97A010F1A4
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 07:32:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9AD910F1AC
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 07:34:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7448B43A1E;
- Thu,  2 Jul 2026 07:32:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413D61F000E9;
- Thu,  2 Jul 2026 07:32:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 093276001D;
+ Thu,  2 Jul 2026 07:34:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 939C71F000E9;
+ Thu,  2 Jul 2026 07:34:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782977538;
- bh=wbajQ4simsNInqwjwkXf6RfflKw/sO/s2NbgH9WTRPg=;
+ s=k20260515; t=1782977667;
+ bh=NRXv0donPn67T1qUm6CCx+4X4BQelaLxXfd/ltCNQeY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=h7oeX840TQYi85dhLkHVzgYKWcLySiBwUHJUNySu7Rm+PmY7IGRFKLCKpuGHFBmRo
- zSx/6zmUPbhEqZlgNd1VvmDKl9qGllu141Yd2v6vTSCUhmWJpm3BLqtfcCuGv+5OqS
- W+Mum2EzsZQEPYW0tPYQ46E64b++lVCQ6VM4V7pjcBY7i1aen9Rn5p/vLKrkTfNSc9
- 7y6ToYLBYxcCj4soYgsRSQModHKrF4VAaMa2/aCTQI7llItBNqvlOmjuXPmqJ9kSfB
- vlCJwrCLKqK/yox7q0KGV5YAK5sNdtY8StlCWWl43h76nfPHQUz1lG5RvJtoFhLqIs
- e4ZHCF7vcrwAQ==
+ b=Z6nFOvNz1pEZu/59SIBBhzBlCMvnEKGfc2bXfP/CWNvVN0qLwqLlTZ85H1Eh01eWW
+ yNErysUDm2RzVmq0riMYhUlE6KDcOwAeHL0O+NE7ZVTC/ryK3xG1AQTBmLgfJU6m3h
+ 03YFgCr2rD7qhhCX4gtqHljL2LLUAvjFPiro3aGebv4cYRqnvF/ZxLB2COoLuYfvTZ
+ /xaCUOIJ+4nB3XpTrDW5gzjk83iSH3FIPnK8uSvdZJN65IEKgJ+dknFoXJTNE1E8Fs
+ CguvR7MOiT3WtqygEQ8Ai74cipwiA5vK35byFOYNJaCZdXYGZemZkUhIkM5kS/H+Xu
+ r9kC5VulxENAA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/10] drm/vblank_work: Add methods to schedule
- vblank_work in 2 stages
+Subject: Re: [PATCH 05/10] drm/i915/display: Move vblank put until after
+ critical section
 To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702072154.171324-2-dev@lankhorst.se>
+In-Reply-To: <20260702072154.171324-6-dev@lankhorst.se>
 References: <20260702072154.171324-1-dev@lankhorst.se>
- <20260702072154.171324-2-dev@lankhorst.se>
+ <20260702072154.171324-6-dev@lankhorst.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 07:32:17 +0000
-Message-Id: <20260702073218.413D61F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 07:34:27 +0000
+Message-Id: <20260702073427.939C71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,123 +58,79 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Missing read memory barrier (`smp_rmb` or `smp_load_acquire`) when=
- reading `work->armed` in `drm_handle_vblank_works` breaks transitive order=
-ing.
-- [Medium] `drm_vblank_work_schedule` early return logic fails to arm a dis=
-abled work if the target vblank count is identical.
-
 Pre-existing issues:
-- [High] Use-after-free risk due to calling `list_del_init(&work->node)` af=
-ter `kthread_queue_work()`.
+- [High] The fix for moving `drm_crtc_vblank_put()` out of the time-sensiti=
+ve critical section was only applied to the legacy cursor update, leaving t=
+he identical anti-pattern in the main atomic update path.
 --
 
-commit 2d70bdfd10b5fd90f1bf2ecac514ae3f86ae65ba
+commit 43066708128be1b281ea9a6a390e979ec4569021
 Author: Maarten Lankhorst <dev@lankhorst.se>
 
-drm/vblank_work: Add methods to schedule vblank_work in 2 stages
+    drm/i915/display: Move vblank put until after critical section
 
-In case of vblank evasion in intel/display, it's necessary to
-perform some work in advance, so the critical section will always run in
-constant time on PREEMPT_RT.
+This commit moves drm_crtc_vblank_put() after the time-sensitive critical
+section in intel_legacy_cursor_update() to avoid acquiring locks with
+interrupts disabled. It also introduces a flag to defer putting the vblank
+reference until programming is completed.
 
-> diff --git a/drivers/gpu/drm/drm_vblank_work.c b/drivers/gpu/drm/drm_vbla=
-nk_work.c
-> index 70f0199251ea0..ed62c189fe041 100644
-> --- a/drivers/gpu/drm/drm_vblank_work.c
-> +++ b/drivers/gpu/drm/drm_vblank_work.c
-> @@ -54,7 +54,8 @@ void drm_handle_vblank_works(struct drm_vblank_crtc *vb=
-lank)
->  	assert_spin_locked(&vblank->dev->event_lock);
-> =20
->  	list_for_each_entry_safe(work, next, &vblank->pending_work, node) {
-> -		if (!drm_vblank_passed(count, work->count))
-> +		/* READ_ONCE pairs with WRITE_ONCE in drm_vblank_work_enable() */
-> +		if (!READ_ONCE(work->armed) || !drm_vblank_passed(count, work->count))
->  			continue;
-
-[Severity: High]
-Does this READ_ONCE() need a corresponding read memory barrier like
-smp_rmb() or smp_load_acquire() to establish transitive ordering?
-
-Since drm_vblank_work_enable() uses an smp_wmb() before writing to
-work->armed, if the reader just uses READ_ONCE() here without an acquire
-barrier before transferring the work via kthread_queue_work(), the memory
-model doesn't guarantee the writer's data updates will be transitively
-visible to the worker thread.
-
-Could the kthread end up reading stale driver state as a result?
+> diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/dr=
+m/i915/display/intel_cursor.c
+> index 88384dea868b4..68b44a00567e4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cursor.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
 
 [ ... ]
 
-> @@ -139,6 +118,7 @@ int drm_vblank_work_schedule(struct drm_vblank_work *=
-work,
->  		rescheduling =3D true;
+> @@ -922,8 +925,6 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+>  		local_irq_disable();
+> =20
+>  		intel_vblank_evade(&evade);
+> -
+> -		drm_crtc_vblank_put(&crtc->base);
+>  	} else {
+>  		local_irq_disable();
 >  	}
+> @@ -939,6 +940,9 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
 > =20
-> +	work->armed =3D armed;
->  	work->count =3D count;
-
-[Severity: Medium]
-Does the early return logic in __drm_vblank_work_schedule() break if a work
-item is first scheduled disabled, and then re-scheduled to be armed with the
-exact same target count?
-
-Earlier in __drm_vblank_work_schedule(), if work->count =3D=3D count, the f=
-unction
-takes an early return:
-
-	} else if (work->count =3D=3D count) {
-		/* Already scheduled w/ same vbl count */
-		goto out;
-	} else {
-
-If a driver uses drm_vblank_work_schedule_disabled() to schedule the work,
-and later calls drm_vblank_work_schedule() with the exact same count to arm=
- it,
-doesn't the early return bypass this new work->armed =3D armed assignment?
-
-Could this leave the work permanently disabled and never executed?
-
-[ ... ]
-
-> @@ -147,7 +127,7 @@ int drm_vblank_work_schedule(struct drm_vblank_work *=
-work,
->  			     "crtc %d vblank %llu already passed (current %llu)\n",
->  			     vblank->pipe, count, cur_vbl);
+>  	intel_psr_unlock(crtc_state);
 > =20
-> -	if (!nextonmiss && passed) {
-> +	if (!nextonmiss && passed && armed) {
->  		drm_vblank_put(dev, vblank->pipe);
->  		ret =3D kthread_queue_work(vblank->worker, &work->base);
-> =20
+> +	if (has_vblank)
+> +		drm_crtc_vblank_put(&crtc->base);
+> +
 
 [Severity: High]
-This is a pre-existing issue, but is there a use-after-free risk here when
-rescheduling a work item that has already passed?
+This isn't a bug introduced by this patch, but should the same fix be appli=
+ed
+to the main atomic update path in intel_pipe_update_start()?
 
-If rescheduling is true, the code right below this in
-__drm_vblank_work_schedule() does:
+If the kernel parameter drm.vblankoffdelay < 0 is set, dropping the vblank
+reference synchronously takes dev->vbl_lock inside vblank_disable_fn().
+On PREEMPT_RT kernels, acquiring this spinlock (rt_mutex) with hardware
+interrupts disabled causes a "BUG: sleeping function called from invalid
+context" panic. Even on non-RT kernels, taking locks here causes jitter
+that can disrupt hardware programming.
 
-		ret =3D kthread_queue_work(vblank->worker, &work->base);
+drivers/gpu/drm/i915/display/intel_crtc.c:intel_pipe_update_start() {
+    ...
+	local_irq_disable();
 
-		if (rescheduling) {
-			list_del_init(&work->node);
-			wake =3D true;
-		}
+	crtc->debug.min_vbl =3D evade.min;
+	crtc->debug.max_vbl =3D evade.max;
+	trace_intel_pipe_update_start(crtc);
 
-Since kthread_queue_work() immediately places the work on the worker's queu=
-e,
-could the worker thread run concurrently and execute the work before
-list_del_init() is called on the current CPU?
+	scanline =3D intel_vblank_evade(&evade);
 
-If the work is freed by the executing kthread, the list_del_init() call
-would then access freed memory.
+	drm_crtc_vblank_put(&crtc->base);
+    ...
+}
+
+Could drm_crtc_vblank_put() also be moved out of the IRQ-disabled section
+here?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702072154.1713=
-24-1-dev@lankhorst.se?part=3D1
+24-1-dev@lankhorst.se?part=3D5
