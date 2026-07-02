@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2322EC43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 18:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07A14C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 18:22:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77E9510F559;
-	Thu,  2 Jul 2026 18:16:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35DDA10E09A;
+	Thu,  2 Jul 2026 18:22:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="HSNZ0lfV";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="hWww6BiM";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC1A510F554
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:16:17 +0000 (UTC)
-Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34D5110E09A
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:22:08 +0000 (UTC)
+Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 662GoDVA3610654
- for <dri-devel@lists.freedesktop.org>; Thu, 2 Jul 2026 11:16:17 -0700
+ 662Goctp3691292
+ for <dri-devel@lists.freedesktop.org>; Thu, 2 Jul 2026 11:22:07 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=GPg/dQpQdENuktA3H+tEQWWA4K7/QnNtIBjRw3S75wk=; b=HSNZ0lfV7A+h
- sF2kfsS98GhBL2eV+5oXpUKgTUe/hDSyTUFPAQsZp8zQt3ceE1qdArGVFQ0QEcR2
- Wgs+eeBHWNYK8P6L5c2E+ll18RCgW8qqTCnNwe+M3fk7ZI+LrCB35K/lMsqumB/u
- FkHuocpSf73VFcWZBWRfHzSUHK7vktG5DS9qady43K93Gh/Q7srigjmVTfWgcg2W
- u0fK/jdvgZFbS5aSlgyQFSsdBPStn7qOGTEqxZTQyiFgKLNJHEgSMSB/eSbLbF6L
- r5CL8X2WYKT+Jo2oE2mM3JdqBNMhU33UlE3hxjupyjwcqNZdAFOpsxJhfjQQ8C3m
- xMRgFUueLw==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4f5apmfksd-6
+ bh=c+52n3BiXtabeuCT1iAGuCHlet7dZQTs9EbDARTGZG4=; b=hWww6BiMf+5d
+ +55BYcanTK7WynYiZct8WLphEfFgoFXbMhZBtzi/CY94cUv4WUmM/1jIQo0ONDPI
+ jM+mqlFDUXZ3aF9AzJ7I49whaVdNiV55QaXvT9FMF2Om2TjdltCJh0tedzw/vKk+
+ 0nmvPdvljyqjky4OMJYLrXA2XGHMkg8VZ2I1XouS23Jcrazzoa+OP+I4KoKZhjUW
+ UF1XHpK4MwSnLPOMZRxg29TefRa6o2YHxpDCuJ8pLXsCqxIrAbXX7sgk3kLG73Ld
+ cJ2Qjb2a8K0CuGAiQ5MGQrYroQqw1kYbPal7AqLcNfibCzJAEFWVW+rdOQo1sUEg
+ RUZEoFkCFg==
+Received: from mail.thefacebook.com ([163.114.134.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4f5ta81k1x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 11:16:17 -0700 (PDT)
-Received: from twshared5491.04.frc1.facebook.com (2620:10d:c0a8:1b::30) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 11:22:06 -0700 (PDT)
+Received: from twshared96086.14.frc2.facebook.com (2620:10d:c085:108::150d) by
+ mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP
+ Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Thu, 2 Jul 2026 18:16:13 +0000
+ 15.2.2562.41; Thu, 2 Jul 2026 18:22:05 +0000
 Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id B1C5B40EEE7AC; Thu,  2 Jul 2026 11:10:28 -0700 (PDT)
+ id DA65240EEE7C9; Thu,  2 Jul 2026 11:10:31 -0700 (PDT)
 From: Zhiping Zhang <zhipingz@meta.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
  Guralnik <michaelgur@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -48,9 +49,10 @@ To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
 CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
  <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v11 2/4] dma-buf: add optional get_pci_tph() callback
-Date: Thu, 2 Jul 2026 11:10:15 -0700
-Message-ID: <20260702181025.2694961-3-zhipingz@meta.com>
+Subject: [PATCH v11 4/4] RDMA/mlx5: get tph for p2p access when registering
+ dma-buf mr
+Date: Thu, 2 Jul 2026 11:10:17 -0700
+Message-ID: <20260702181025.2694961-5-zhipingz@meta.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260702181025.2694961-1-zhipingz@meta.com>
 References: <20260702181025.2694961-1-zhipingz@meta.com>
@@ -58,24 +60,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-FB-Internal: Safe
 Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDE5MSBTYWx0ZWRfX1/mkrFCb9wqK
- kk1Ljn8ZNpzwyC4MkCkz3uZUg9tWHVXsbokAYdmFsjN5Tjhd9HTmyoUvl/AvGi/WWVrazGlqxYW
- wlb0xGuregXj95ZXTOQIeh2ZwSGSk8e/ySA6p3YrObHk07bhpd6NUv5Eta+vTZnBYSHbc2Rb4Sa
- YTyjka3wI1rYWPDUjtGIgFI1GiQOytw9v+K50w07JhkL8u8fCkPszWKsO88HDmSJiYLy91pK7aF
- Y62aBd/y+FXuYu/zIgV4cCPg8ZUioFsYRgFn03j6zWCCaChoSXV3DbzQhTbPbZGpYoP9l33V6zv
- krJmDspVLsC4J8DAXL6eoCOud7tQqMbWxcV9shmQXtqAsdyTHH7Glyx2EL0c3gy8UQiMIuk9mwb
- EKiocYhgDwyvR+Jncxe0YrOZa9b1RVBQ89XClwiYLEJid+I3l5/DfvA98ysBjfT7g1gwJds1eKk
- 2b7JEh4Yq0reqHOab2g==
-X-Authority-Analysis: v=2.4 cv=NJjlPU6g c=1 sm=1 tr=0 ts=6a46aaf1 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDE5MyBTYWx0ZWRfX8gAX/vtx36kZ
+ kLi8AGNJlnaPyyTyTYOVNK2qiYjpUpIiAKD764ctF5zh0SmDTxKUow/1lekjXStvNnoCTISpRaZ
+ 76lqpWg9z5AuRVideq+WfpzICQstO7dRsu/ONgAZcAxd+KDnowFAlJugl2DpTeAkLOCDjLNlp+O
+ aCCu26FAZSgm2FU25ml0FW4Onqi+aD4pijODLZEt4iljJrI2rdvz9/HZ0X/DdZS7NkiGKSoAXDE
+ Om7cOat9F9f8brI9qv2rAVnPGN6rak0uL3uSDK2zsIOM8HbyfUzjEqqwSLngGwUXVv4dza+YPBw
+ JmEBJuP7VW0IbTRcBdRNjojuEj87NvwH+8pWYwVOgyf8Tuvr71hYKLSjHdWcnP+2E3fn8jWQFNV
+ NOXudnkr0psZgYn5k/jrXLh6WidGfn/Mgfa4R1aitBziva6uiPArVu/Q2dh6fQ26YrxfJ6ivVHg
+ cc77j0eEBpKjCEqETcg==
+X-Authority-Analysis: v=2.4 cv=apOCzyZV c=1 sm=1 tr=0 ts=6a46ac4f cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
  a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=4h92JMTCafKA-fb_NiOh:22 a=VabnemYjAAAA:8 a=mECi3VIRXVL5EC2FsE4A:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: Z10_rMRSC0UVzl_ke6zMWpLBJupKQtUu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDE5MSBTYWx0ZWRfX0Xb/SVn2MyKP
- tFtdmI9w9uzOvV8G2cPiZ4ex0G049AG4nQH78DQSZEejO3wLkkiq8jicMCdF5KiRBG1zhQZDiFP
- qFmJN7Af4AhD0xHj1eyEZ7x/15Ucnos=
-X-Proofpoint-GUID: Z10_rMRSC0UVzl_ke6zMWpLBJupKQtUu
+ a=kkcUborcUVj0H7zxAXTl:22 a=VabnemYjAAAA:8 a=CbDCq_QkAAAA:8
+ a=b6nn37b5_VcVdO3q4OwA:9 a=gKebqoRLp9LExxC7YDUY:22 a=1qrBK16LubpBFNPVNq2M:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDE5MyBTYWx0ZWRfX9r/7FAjrvnyQ
+ ufjhXc8flhS6stqmzQRXeN+hLr2IuYc3UkwHdNJhqyPUC7OFEqdf4AhrLmdfi0u2/nRQaDT9dJK
+ jaLywCxyN91ZhOWlIBYNmCi3Cf1sAH8=
+X-Proofpoint-GUID: VlJM76bvJ-ETW0hxu-4oc54CjXDqTYLB
+X-Proofpoint-ORIG-GUID: VlJM76bvJ-ETW0hxu-4oc54CjXDqTYLB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-02_02,2026-06-26_01,2025-10-01_01
@@ -94,137 +96,401 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add an optional dma_buf_ops.get_pci_tph callback and a
-DMA-buf importer wrapper, dma_buf_get_pci_tph().
+Peer-to-peer DMA between a mlx5 NIC and a foreign PCIe endpoint
+(typically a GPU or a vfio-pci passthrough device) traverses the host
+PCIe fabric. The endpoint exporting the dma-buf knows which PCIe TLP
+Processing Hint (TPH) Steering Tag yields the best placement for the
+traffic it will sink: per-endpoint hint selection lets the root complex
+or switch direct DMA to a specific cache slice / NUMA node, cutting
+cross-socket snoop traffic and DRAM pressure under sustained p2p
+workloads.
 
-TPH is PCIe TLP Processing Hint. 8-bit ST and 16-bit Extended ST are
-distinct PCIe TPH namespaces, so the importer requests the namespace it
-can emit and the exporter returns the matching ST/PH tuple or
--EOPNOTSUPP.
+Until now the mlx5 importer had no way to learn the exporter's chosen
+ST tag, so dma-buf MRs were registered without TPH and ran with the
+default (no-hint) routing. With dma_buf_get_pci_tph() in place this
+patch wires up mlx5_ib to query that metadata at MR registration time
+for p2p access and use it to program requester-side TPH on the outbound
+mkey. If the exporter has no metadata, fall back to the existing
+no-TPH path so behavior for non-TPH-aware exporters is unchanged.
 
-dma_buf_get_pci_tph() is the importer entry point. It requires
-&dmabuf->resv to be held while the callback runs and returns
--EOPNOTSUPP when the exporter does not provide PCI TPH metadata.
+Use mlx5_st_alloc_index_by_tag() to translate exporter-provided
+steering tags into local ST entries when table mode is active, and add
+mlx5_st_get_index() for DMAH-backed flows that already carry an ST
+index.
 
-The first user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with
-mlx5 as the first importer.
+For TPH-backed FRMRs, keep the extra ST-table reference tied to MR
+lifetime rather than pooled mkey lifetime. Acquire the ref before MR
+creation and release it again when the MR is returned to the pool or
+the backing mkey is destroyed, while leaving the generic FRMR pool
+core unchanged.
+
+Import the DMA_BUF namespace for the new dma_buf_get_pci_tph() call so
+modular mlx5_ib builds link cleanly.
 
 Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 ---
- drivers/dma-buf/dma-buf.c | 32 ++++++++++++++++++++++++++++++++
- include/linux/dma-buf.h   | 25 +++++++++++++++++++++++++
- 2 files changed, 57 insertions(+)
+ drivers/infiniband/hw/mlx5/main.c             |   1 +
+ drivers/infiniband/hw/mlx5/mr.c               | 116 +++++++++++++++++-
+ .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 ++++++--
+ include/linux/mlx5/driver.h                   |  15 +++
+ 4 files changed, 167 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc29..e8314ed240d3 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -939,6 +939,7 @@ dma_buf_pin_on_map(struct dma_buf_attachment *attach)
-  *     - dma_buf_unmap_attachment()
-  *     - dma_buf_vmap()
-  *     - dma_buf_vunmap()
-+ *     - dma_buf_get_pci_tph()
-  *
-  * 2. Importers must not hold the dma-buf reservation lock when calling =
-these
-  *    functions:
-@@ -979,6 +980,7 @@ dma_buf_pin_on_map(struct dma_buf_attachment *attach)
-  *     - &dma_buf_ops.unmap_dma_buf()
-  *     - &dma_buf_ops.vmap()
-  *     - &dma_buf_ops.vunmap()
-+ *     - &dma_buf_ops.get_pci_tph()
-  *
-  * 3. Exporters must hold the dma-buf reservation lock when calling thes=
-e
-  *    functions:
-@@ -1144,6 +1146,36 @@ void dma_buf_unpin(struct dma_buf_attachment *atta=
-ch)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
+diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/ml=
+x5/main.c
+index 02809114fc79..a2b497f6b16b 100644
+--- a/drivers/infiniband/hw/mlx5/main.c
++++ b/drivers/infiniband/hw/mlx5/main.c
+@@ -60,6 +60,7 @@
+ MODULE_AUTHOR("Eli Cohen <eli@mellanox.com>");
+ MODULE_DESCRIPTION("Mellanox 5th generation network adapters (ConnectX s=
+eries) IB driver");
+ MODULE_LICENSE("Dual BSD/GPL");
++MODULE_IMPORT_NS("DMA_BUF");
 =20
-+/**
-+ * dma_buf_get_pci_tph - Retrieve PCIe TLP Processing Hint (TPH) metadat=
-a
-+ * @dmabuf: DMA buffer to query
-+ * @extended: false for 8-bit ST, true for 16-bit Extended ST
-+ * @steering_tag: returns the raw steering tag for the requested namespa=
-ce
-+ * @ph: returns the TPH processing hint
-+ *
-+ * Wrapper for the optional &dma_buf_ops.get_pci_tph callback.
-+ *
-+ * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
-+ * exporter does not implement the callback or has no metadata for the
-+ * requested namespace.
-+ *
-+ * The returned steering tag and processing hint are only valid until th=
-e
-+ * exporter invalidates the current mapping (signalled to the importer v=
-ia
-+ * &dma_buf_attach_ops.move_notify). Importers must re-query after a new
-+ * mapping is established following invalidation.
-+ */
-+int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
-+			u16 *steering_tag, u8 *ph)
+ struct mlx5_ib_event_work {
+ 	struct work_struct	work;
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
+/mr.c
+index e6b74955d95d..55216ae63761 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -39,6 +39,7 @@
+ #include <linux/delay.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-resv.h>
++#include <linux/pci-tph.h>
+ #include <rdma/frmr_pools.h>
+ #include <rdma/ib_umem_odp.h>
+ #include "dm.h"
+@@ -167,6 +168,39 @@ static int get_unchangeable_access_flags(struct mlx5=
+_ib_dev *dev,
+ #define MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK GENMASK_ULL(23, 16)
+ #define MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK GENMASK_ULL(15, 0)
+=20
++static u8 mlx5_ib_tph_key_ph(u8 ph)
 +{
-+	dma_resv_assert_held(dmabuf->resv);
++	if (ph =3D=3D MLX5_IB_NO_PH || ph =3D=3D 0)
++		ph ^=3D MLX5_IB_NO_PH;
 +
-+	if (!dmabuf->ops->get_pci_tph)
++	return ph;
++}
++
++static int mlx5_ib_get_st_handle_ref(struct mlx5_ib_dev *dev, u16 st_ind=
+ex)
++{
++	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
++		return 0;
++
++	return mlx5_st_get_index(dev->mdev, st_index);
++}
++
++static void mlx5_ib_put_st_index_ref(struct mlx5_ib_dev *dev, u16 st_ind=
+ex)
++{
++	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
++		return;
++
++	mlx5_st_dealloc_index(dev->mdev, st_index);
++}
++
++static void mlx5_ib_put_st_handle_ref(struct mlx5_ib_dev *dev,
++				      u64 kernel_vendor_key)
++{
++	u16 st_index =3D FIELD_GET(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK,
++				 kernel_vendor_key);
++
++	mlx5_ib_put_st_index_ref(dev, st_index);
++}
++
+ static struct mlx5_ib_mr *
+ _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, struct ib_umem *umem,
+ 		      int access_flags, int access_mode,
+@@ -189,13 +223,10 @@ _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, stru=
+ct ib_umem *umem,
+ 			MLX5_FRMR_POOLS_KEY_ACCESS_MODE_KSM_MASK :
+ 			0;
+=20
+-	/* Normalize ph: swap 0 and MLX5_IB_NO_PH */
+-	if (ph =3D=3D MLX5_IB_NO_PH || ph =3D=3D 0)
+-		ph ^=3D MLX5_IB_NO_PH;
+-
+ 	mr->ibmr.frmr.key.kernel_vendor_key =3D
+ 		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK, st_index) |
+-		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK, ph);
++		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK,
++			   mlx5_ib_tph_key_ph(ph));
+ 	err =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr);
+ 	if (err) {
+ 		kfree(mr);
+@@ -218,7 +249,9 @@ struct mlx5_ib_mr *mlx5_mr_cache_alloc(struct mlx5_ib=
+_dev *dev,
+ 				      0 :
+ 				      MLX5_FRMR_POOLS_KEY_ACCESS_MODE_KSM_MASK,
+ 		.num_dma_blocks =3D ndescs,
+-		.kernel_vendor_key =3D 0, /* no PH and no ST index */
++		.kernel_vendor_key =3D
++			FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK,
++				   MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX),
+ 	};
+ 	struct mlx5_ib_mr *mr;
+ 	int ret;
+@@ -557,6 +590,10 @@ static struct mlx5_ib_mr *reg_create(struct ib_pd *p=
+d, struct ib_umem *umem,
+ 	mr->ibmr.pd =3D pd;
+ 	mr->access_flags =3D access_flags;
+ 	mr->page_shift =3D order_base_2(page_size);
++	mr->ibmr.frmr.key.kernel_vendor_key =3D
++		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK, st_index) |
++		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK,
++			   mlx5_ib_tph_key_ph(ph));
+=20
+ 	inlen =3D MLX5_ST_SZ_BYTES(create_mkey_in);
+ 	if (populate)
+@@ -753,6 +790,12 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd=
+, struct ib_umem *umem,
+ 			st_index =3D mdmah->st_index;
+ 	}
+=20
++	err =3D mlx5_ib_get_st_handle_ref(dev, st_index);
++	if (err) {
++		ib_umem_release(umem);
++		return ERR_PTR(err);
++	}
++
+ 	xlt_with_umr =3D mlx5r_umr_can_load_pas(dev, umem->length);
+ 	if (xlt_with_umr) {
+ 		mr =3D alloc_cacheable_mr(pd, umem, iova, access_flags,
+@@ -769,6 +812,7 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd,=
+ struct ib_umem *umem,
+ 		mutex_unlock(&dev->slow_path_mutex);
+ 	}
+ 	if (IS_ERR(mr)) {
++		mlx5_ib_put_st_index_ref(dev, st_index);
+ 		ib_umem_release(umem);
+ 		return ERR_CAST(mr);
+ 	}
+@@ -903,6 +947,52 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_atta=
+ch_ops =3D {
+ 	.invalidate_mappings =3D mlx5_ib_dmabuf_invalidate_cb,
+ };
+=20
++static void get_pci_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_bu=
+f *dmabuf,
++				  u16 *st_index, u8 *ph)
++{
++	u16 local_st_index;
++	u16 steering_tag;
++	u8 local_ph;
++	bool extended;
++	int ret;
++
++	switch (pcie_tph_enabled_req_type(dev->mdev->pdev)) {
++	case PCI_TPH_REQ_TPH_ONLY:
++		extended =3D false;
++		break;
++	case PCI_TPH_REQ_EXT_TPH:
++		extended =3D true;
++		break;
++	default:
++		return;
++	}
++
++	dma_resv_lock(dmabuf->resv, NULL);
++	ret =3D dma_buf_get_pci_tph(dmabuf, extended, &steering_tag, &local_ph)=
+;
++	dma_resv_unlock(dmabuf->resv);
++	if (ret) {
++		if (ret !=3D -EOPNOTSUPP)
++			mlx5_ib_dbg(dev, "get_pci_tph failed (%d)\n", ret);
++		return;
++	}
++
++	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag,
++					 &local_st_index);
++	if (ret) {
++		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
++		return;
++	}
++
++	*st_index =3D local_st_index;
++	*ph =3D local_ph;
++}
++
++static void mlx5_ib_mr_put_st_handle_ref(struct mlx5_ib_mr *mr)
++{
++	mlx5_ib_put_st_handle_ref(mr_to_mdev(mr),
++				  mr->ibmr.frmr.key.kernel_vendor_key);
++}
++
+ static struct ib_mr *
+ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+ 		   u64 offset, u64 length, u64 virt_addr,
+@@ -945,12 +1035,22 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device=
+ *dma_device,
+ 		ph =3D dmah->ph;
+ 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
+ 			st_index =3D mdmah->st_index;
++
++		err =3D mlx5_ib_get_st_handle_ref(dev, st_index);
++		if (err) {
++			ib_umem_release(&umem_dmabuf->umem);
++			return ERR_PTR(err);
++		}
++	} else {
++		get_pci_tph_mr_dmabuf(dev, umem_dmabuf->attach->dmabuf,
++				      &st_index, &ph);
+ 	}
+=20
+ 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
+ 				access_flags, access_mode,
+ 				st_index, ph);
+ 	if (IS_ERR(mr)) {
++		mlx5_ib_put_st_index_ref(dev, st_index);
+ 		ib_umem_release(&umem_dmabuf->umem);
+ 		return ERR_CAST(mr);
+ 	}
+@@ -1405,6 +1505,7 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
+_mr *mr)
+ 	if (mr->ibmr.frmr.pool) {
+ 		if (!mlx5_umr_revoke_mr_with_lock(mr)) {
+ 			ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr);
++			mlx5_ib_mr_put_st_handle_ref(mr);
+ 			return 0;
+ 		}
+ 	}
+@@ -1432,6 +1533,9 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
+_mr *mr)
+ 	if (mr->ibmr.frmr.pool && !ret)
+ 		ib_frmr_pool_drop(&mr->ibmr);
+=20
++	if (!ret)
++		mlx5_ib_mr_put_st_handle_ref(mr);
++
+ 	return ret;
+ }
+=20
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
+et/ethernet/mellanox/mlx5/core/lib/st.c
+index 7cedc348790d..877b37b4e639 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
+ 	kfree(st);
+ }
+=20
+-int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
+-			unsigned int cpu_uid, u16 *st_index)
++int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
++			       u16 *st_index)
+ {
+ 	struct mlx5_st_idx_data *idx_data;
+ 	struct mlx5_st *st =3D dev->st;
+ 	unsigned long index;
+ 	u32 xa_id;
+-	u16 tag;
+-	int ret;
++	int ret =3D 0;
+=20
+ 	if (!st)
+ 		return -EOPNOTSUPP;
+=20
+-	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
+-	if (ret)
+-		return ret;
+-
+ 	if (st->direct_mode) {
+ 		*st_index =3D tag;
+ 		return 0;
+@@ -152,8 +147,46 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
+num tph_mem_type mem_type,
+ 	mutex_unlock(&st->lock);
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
++
++int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
++			unsigned int cpu_uid, u16 *st_index)
++{
++	u16 tag;
++	int ret;
++
++	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
++	if (ret)
++		return ret;
++
++	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
++}
+ EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
+=20
++int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index)
++{
++	struct mlx5_st_idx_data *idx_data;
++	struct mlx5_st *st =3D dev->st;
++	int ret =3D 0;
++
++	if (!st)
 +		return -EOPNOTSUPP;
 +
-+	return dmabuf->ops->get_pci_tph(dmabuf, extended, steering_tag, ph);
++	if (st->direct_mode)
++		return 0;
++
++	mutex_lock(&st->lock);
++	idx_data =3D xa_load(&st->idx_xa, st_index);
++	if (WARN_ON_ONCE(!idx_data))
++		ret =3D -EINVAL;
++	else
++		refcount_inc(&idx_data->usecount);
++	mutex_unlock(&st->lock);
++
++	return ret;
 +}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_get_pci_tph, "DMA_BUF");
++EXPORT_SYMBOL_GPL(mlx5_st_get_index);
 +
- /**
-  * dma_buf_map_attachment - Returns the scatterlist table of the attachm=
-ent;
-  * mapped into _device_ address space. Is a wrapper for map_dma_buf() of=
- the
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..14e8eb61a62c 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -113,6 +113,29 @@ struct dma_buf_ops {
- 	 */
- 	void (*unpin)(struct dma_buf_attachment *attach);
+ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
+ {
+ 	struct mlx5_st_idx_data *idx_data;
+diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
+index b1871c0821d0..d26e5744c843 100644
+--- a/include/linux/mlx5/driver.h
++++ b/include/linux/mlx5/driver.h
+@@ -1182,16 +1182,31 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
+dev, enum mlx5_sw_icm_type type
+ 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
 =20
-+	/**
-+	 * @get_pci_tph:
-+	 *
-+	 * Retrieve PCIe TLP Processing Hint (TPH) steering metadata for
-+	 * this buffer so an importer can program a matching ST/PH hint on
-+	 * outbound TLPs targeting the exporter for peer-to-peer DMA.
-+	 *
-+	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
-+	 * @extended: false for 8-bit ST, true for 16-bit Extended ST
-+	 * @steering_tag: Returns the raw TPH steering tag for the requested
-+	 *                namespace
-+	 * @ph: Returns the TPH processing hint (2-bit value)
-+	 *
-+	 * Optional callback for dma_buf_get_pci_tph(). Called with
-+	 * &dma_buf.resv held. Returns 0 on success or -EOPNOTSUPP when
-+	 * the exporter has no metadata for the requested namespace.
-+	 *
-+	 * Returned metadata follows the lifetime rules documented for
-+	 * dma_buf_get_pci_tph().
-+	 */
-+	int (*get_pci_tph)(struct dma_buf *dmabuf, bool extended,
-+			   u16 *steering_tag, u8 *ph);
+ #ifdef CONFIG_PCIE_TPH
++int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
++			       u16 *st_index);
++int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index);
+ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
+_type,
+ 			unsigned int cpu_uid, u16 *st_index);
+ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
+ #else
++static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
++					     u16 tag, u16 *st_index)
++{
++	return -EOPNOTSUPP;
++}
 +
- 	/**
- 	 * @map_dma_buf:
- 	 *
-@@ -563,6 +586,8 @@ void dma_buf_detach(struct dma_buf *dmabuf,
- 		    struct dma_buf_attachment *attach);
- int dma_buf_pin(struct dma_buf_attachment *attach);
- void dma_buf_unpin(struct dma_buf_attachment *attach);
-+int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
-+			u16 *steering_tag, u8 *ph);
-=20
- struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_inf=
-o);
-=20
++static inline int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_in=
+dex)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
+ 				      enum tph_mem_type mem_type,
+ 				      unsigned int cpu_uid, u16 *st_index)
+ {
+ 	return -EOPNOTSUPP;
+ }
++
+ static inline int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 s=
+t_index)
+ {
+ 	return -EOPNOTSUPP;
 --=20
 2.53.0-Meta
 
