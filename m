@@ -4,94 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EFE3C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78CC9C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45C6410E58F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EEC510E595;
 	Fri,  3 Jul 2026 07:04:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XR5hJwoN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="onYtxrSR";
 	dkim-atps=neutral
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com
- [209.85.222.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 550C310E16C
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 17:11:33 +0000 (UTC)
-Received: by mail-ua1-f49.google.com with SMTP id
- a1e0cc1a2514c-966d70b9e1cso1218858241.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 10:11:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783012292; cv=none;
- d=google.com; s=arc-20260327;
- b=BWxzzdYyzEX1gZzQfQIdqMx/O4WRyyxBrBWglJSoma+dTkzYKeEQPAXN0W4Iu0UzHB
- iSnFl2OdW0VroPyu4mLY/2iMGPlHTQ28LxeSxFO0Mfld6M4rz5kHZbgaIkUqfNxiOfZu
- EgCKafsOxSkkgKNRytqjeCUOMAKm22Ja2EDPXHVeya6Hs812z3WdwBNEt+t2DZWC+X1t
- MVzDFd8tlJBOn2Kna/h+TAGMujzdBI86REZQTFr9xwQ+I36JlagArVCgx4q1wD+O2sLX
- YHSGfHwn4vYzNG7sMpSmoYAveg0H2WOIK4DozTnilgnXQYnTXPW2uR5ioldphI5x08j8
- DOzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=xT24BOKILPClevCNHWgQxdCLW2n9JQ1bqT7flNRwYzc=;
- fh=SI74a/gGeUQBCRe1p4PRWixmH9HF2wbFBNTUg/t3vDw=;
- b=Cgxk5+X6Lm+dwTKk8YF10FncYMpIoJP10jdziR5ZMH37e+Kj+B18+PBH0ixrsak1kx
- ozpbCqDBgWRZ3htfISdU78pNc7fnfIs8fYbS7O9Em1ZYdILXk181ep160cLcIdJB9iCt
- 7mTtAXx2fXXmA7bVI6WiVUE0uwG4CXGJb2XIxAN2CVtHs07GnSXtgJtT0fEGIRZ+zkVB
- WO5qXRnOrXcUaVfKk0WEleM6pR3zs0QvvorXPmouIAVE0g39VyZ+wz7aNNnzyhxfbAPb
- 3LCyYQMMCrQPhXyO0VduM+579Be5EaCghhMYvx0podEKuOC4qNB85+Ts9lQoepRUqMJj
- UTrg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00B5010F1BC
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 07:25:46 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-845537740ddso979479b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 00:25:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783012292; x=1783617092; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=xT24BOKILPClevCNHWgQxdCLW2n9JQ1bqT7flNRwYzc=;
- b=XR5hJwoNlnYbUUSUedzj58D7Gkwxq/SB2CMP8B9CMjr69V8qwLEeQ4N+CbpbZgi/Lp
- nef9RfjrqBCytR4IKBF0XTiHbBVv4/p0oNQtmdvA1Ky9dG94wd5HZ8XTPqINgDbhHZaV
- 0aXmjANnZTu4PB/4Flo3vJpFqcVVK/5uS0iMJhVA6ndOqAIz1GPut6Dh7a1mh86zi5pC
- pOWpBoqCizBopEcuMUXD0gykgegzWxfnFy7amabnEF8UodqxJLo7DBsqRxBrPaGCJZMw
- MqRve2X1WA3rTp9AsSzZsn/u+qb8Z4nTK6yEugjARdCAfYYW2Q4Aa+Z5rrP5vtRwGXpB
- EtQA==
+ d=gmail.com; s=20251104; t=1782977146; x=1783581946; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=FCmxnXldFzmagzY4ubPmQ/onPJKAAsxLFT7eh00Vk4s=;
+ b=onYtxrSRIYePtOyLfhIrcK2xsmUPAPhvSJzDMn1jb790E3aY1lsT8KS3rAo+jqXs9Q
+ RwlZ8+TdETPFCMPQ2X79H/WfJ44yN6p2iREm4kCkJKxhTjGN+dz0CcL1GSnr8rQCSNiA
+ ce9BRstaMyYMhIE59i09bq1HY+i3W/9fw05ZF4Ewj6QEK0npjGXBfbTBjmrhs7c1JMd9
+ DjBtvPx50SwnChYjReVvbb6W54qisW+qW+M23gTJSWhuFtbEJw2A8zpIE9DqCjP7zWmg
+ 4y7uFTpwwJLr/FeOJilB7cvXFLczoW4NqojAi8UEWdOCm5DR3fr1iFfeUg0+loaqsjoo
+ Kx0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783012292; x=1783617092;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xT24BOKILPClevCNHWgQxdCLW2n9JQ1bqT7flNRwYzc=;
- b=oRDKmECSjFW8kjo5Q/amjaEaG43Qsldc93mT5sd5KbrBmF3HR6i161pjYmSUWu+XvC
- Bc/qhzb+RpQd+yHi4hiXj+Ifg4lkIm+jRBeNFJ0Jlj3OZBXzcWqT6MWl0ikaq5ikS+dt
- +0b/YCpL7R8vuW9SP9YbtWT49DUWyKEK6nSRc7ZLcX3G/S+dNza0A28pqQOuWQOw3BZn
- IE4acYIUqoQguYOSirnK5zNuSWfU5CpYZQ7uU8QPHRnGws8evn4QKp147lKgH+PyxQ7g
- f4pNZgxyt0kD6suGR/556ZtXtFaXspqUnOeLzAyZrkMnwZVlAWOPZA1OVGVKxsDvbbZK
- MPgQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RryumrACPakIkAVM7tFirVO0lFEsQ3QX9XKg7OPifHvY+v9Ym4hk1gdhWeGlO3O9n2np0Dqb193ubU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKSgBucx3I98rGyw5vdAfZMEVmWigz2OA+cNTvBeVGfOX3AFyg
- UAKpS+yRozKx8OzQbLdarwmziGXoC5eAsKDg4YkrGhUzGjMyPULZrb1RZLtTOMpIXZq75SxNGZb
- 5fp/9T3kUBqtBGy/UtKhe/VtpGzbzJDk=
-X-Gm-Gg: AfdE7ckF3T7luPtkAWFwUVT3lJvYmTCtao1ZYo7trj44Qla/hCwieIgUngQj8zKX4M/
- Trmi6uDa4N1xhr3vQ6bkAsHsBFFiUdybBYMlcXxRTaHXuRRGzY583ggXUcl2VqyaRwkKtDjK0Ga
- foY5eN6RT9UG1lUFc5PmFCx95kXp/jHlfOWyvGlA9WsbF5ck1kUKPn8WsZqoHJVAFDn7ZV0m8jb
- 6NIHAS/qgCPfkbOFZp3HSepAt5IcV/ukmLSolWXgc8KQt5B+QuC1mVj1HBHRzAjeRLf1t0=
-X-Received: by 2002:a05:6102:7009:b0:73e:9fae:5845 with SMTP id
- ada2fe7eead31-73e9fae5bd4mr915588137.0.1783012291847; Thu, 02 Jul 2026
- 10:11:31 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1782977146; x=1783581946;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=FCmxnXldFzmagzY4ubPmQ/onPJKAAsxLFT7eh00Vk4s=;
+ b=exHU5S2dQ0jeWat6YBbUWZ0l9NOORXJ0HFYloXo1Oan5HEGDm5pb0NIuERQHRRLnEb
+ ek2jqg3CQr+f872/YeuiAeB+txRM87TQ5cq2khxC/vcxTgAHnBk7JrrE/nfTcBgrQV3U
+ dVcvW8L9xaXSeOALz5/DecTUuopV/Llgx7lM0T2koZO3gTZecQdXgJ1t5wfrQ6hKMuc9
+ z61nuLQTv1GP84RZUiyWJiigJpR/ny8Mz9QtZ3kM1byw2ZoKHiGolIZzqdDkclbjWbXU
+ fDNLqnIjOAdujzYTvU9ec/P48fac/vI/O4YGWW+6jDYnPpxzHrfb4m/13/J4bpizd1fg
+ LkdA==
+X-Gm-Message-State: AOJu0Yzxrt17YaoJPpZ0LaYi0oQf5ZDI7zELrp5I+PN1zyB9fcfaUhVO
+ Sn1MYHv1rMNh5wHkS5QHi2i1lddOZAUFRaCQ3/zsV7anaA5t6a9UPP7w
+X-Gm-Gg: AfdE7cldg1nrvaoMvdw20wWGUUGEpyxk75e5GXw/jfqOOLfjgpOsXPtlETK0ed4XY+3
+ rzE18NymRllVs1j/1DR81ze/iOoMBVkHtoFYQuu5GRfpiUJdqZiMWptS0wDGKcjdYQOYIA+qsde
+ WGTsTC6AIxUJWanD5457ytOZtRUM5Q1FuMKlmrcZ7CWep5++eYq1covljzlc4xoPInBQ+5iIK3z
+ Lwk+XYq4EDKqDonXql6ox04TX932O3sS+k3y8fj58rH+aHt8OSE/968S7XZFm6pHApG9TCLLfi6
+ aBiJZs0rWPDrug8+XmWGbjcDurJ1YfihwTPtoy77I5VYw4KAOFQaho4ImjVeUfuA6BO9blF0BC8
+ cBhM9yAhQ5LKZmjiUuMWevdMIQiPewKULajaEzhtzHHYpf81/rW5ltYbtVMnYpRuHIChqUAZb5o
+ K9bg6KO8xsHnGDgksXhW7Tk5R9tA==
+X-Received: by 2002:a05:6a20:b786:b0:3b5:489c:7bb5 with SMTP id
+ adf61e73a8af0-3bff422d1cbmr5285217637.28.1782977146282; 
+ Thu, 02 Jul 2026 00:25:46 -0700 (PDT)
+Received: from lenovo-thinkbook.. ([114.143.209.22])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13b3c7fa33asm6415252c88.5.2026.07.02.00.25.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 00:25:45 -0700 (PDT)
+From: Jhonraushan <raushan.jhon@gmail.com>
+To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jhonraushan <raushan.jhon@gmail.com>
+Subject: [PATCH] accel/amdxdna: Fix double drm_gem_object_put() in dma-buf
+ mmap error path
+Date: Thu,  2 Jul 2026 12:55:40 +0530
+Message-ID: <20260702072540.2183601-1-raushan.jhon@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <CAMyXUJmSvWv0WoBqvBScEXHnz70Nn_WUcu371s64j6HrB-6c9A@mail.gmail.com>
-In-Reply-To: <CAMyXUJmSvWv0WoBqvBScEXHnz70Nn_WUcu371s64j6HrB-6c9A@mail.gmail.com>
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Date: Thu, 2 Jul 2026 22:56:20 +0545
-X-Gm-Features: AVVi8CdQTMC6trh0hJiTLYEEJYF_ziqLGjvSWiszf25Z51ZAMNy13LDBOyKEVlw
-Message-ID: <CAMyXUJnMCW4uha1g9fhYupf+sWUiZBcpmm=xOB5ECwWLAPCNOw@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: samsung-s6d16d0: Power off on prepare failure
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: inus Walleij <linusw@kernel.org>, dri-devel@lists.freedesktop.org, 
- inux-kernel@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Content-Type: multipart/alternative; boundary="000000000000492b630655a3e6c5"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,101 +87,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000492b630655a3e6c5
-Content-Type: text/plain; charset="UTF-8"
+amdxdna_gem_dmabuf_mmap() takes a reference with drm_gem_object_get()
+and, on the vm_insert_pages() failure path, jumps to close_vma which
+calls vma->vm_ops->close(). For a shmem GEM object vm_ops is
+drm_gem_shmem_vm_ops, whose .close (drm_gem_shmem_vm_close ->
+drm_gem_vm_close) already drops that reference. Execution then falls
+through to put_obj and drops it a second time.
 
-Apologies, I mistyped the LKML address. I have resent the patch to the
-correct address.
+This underflows the GEM object refcount and frees it prematurely while
+the dma-buf still references it, leading to a use-after-free.
 
-On Thu, 2 Jul 2026 at 22:32, Laxman Acharya Padhya <
-acharyalaxman8848@gmail.com> wrote:
+Return directly after vm_ops->close() instead of falling through to the
+extra drm_gem_object_put(), matching the sibling amdxdna_insert_pages()
+error path.
 
-> If enabling tearing mode or exiting sleep mode fails after the
-> regulator is enabled, s6d16d0_prepare() returns without asserting
-> reset or disabling the supply. Since the DRM panel core leaves the
-> panel unprepared, a later unprepare call skips the driver callback
-> and the supply remains enabled.
->
-> Assert reset and disable the supply before returning the DSI command error.
->
-> Fixes: ac1d6d74884e ("drm/panel: Add driver for Samsung S6D16D0 panel")
-> Assisted-by: Codex:gpt-5
-> Signed-off-by:acharyalaxman8848@gmail.com
-> ---
->  drivers/gpu/drm/panel/panel-samsung-s6d16d0.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-> b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-> index ba1a02000..04e19b5f2 100644
-> --- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-> @@ -89,16 +89,22 @@ static int s6d16d0_prepare(struct drm_panel *panel)
->         MIPI_DSI_DCS_TEAR_MODE_VBLANK);
->   if (ret) {
->   dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
-> - return ret;
-> + goto err_power_off;
->   }
->   /* Exit sleep mode and power on */
->   ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
->   if (ret) {
->   dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
-> - return ret;
-> + goto err_power_off;
->   }
->
->   return 0;
-> +
-> +err_power_off:
-> + gpiod_set_value_cansleep(s6->reset_gpio, 1);
-> + regulator_disable(s6->supply);
-> +
-> + return ret;
->  }
->
->  static int s6d16d0_enable(struct drm_panel *panel)
-> --
-> 2.51.2
->
->
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jhonraushan <raushan.jhon@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
---000000000000492b630655a3e6c5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 891112c2cddf..3ac8c345b25b 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -526,7 +526,12 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
+ 	return 0;
+ 
+ close_vma:
++	/* vm_ops->close() drops the reference taken by drm_gem_object_get()
++	 * above, so return directly instead of falling through to put_obj
++	 * and dropping it a second time.
++	 */
+ 	vma->vm_ops->close(vma);
++	return ret;
+ put_obj:
+ 	drm_gem_object_put(gobj);
+ 	return ret;
+-- 
+2.43.0
 
-<div dir=3D"ltr">Apologies, I mistyped the LKML address. I have resent the =
-patch to the correct address.<br></div><br><div class=3D"gmail_quote gmail_=
-quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, 2 Jul 2026 a=
-t 22:32, Laxman Acharya Padhya &lt;<a href=3D"mailto:acharyalaxman8848@gmai=
-l.com">acharyalaxman8848@gmail.com</a>&gt; wrote:<br></div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex"><div dir=3D"ltr">If enabling tearing mode=
- or exiting sleep mode fails after the<br>regulator is enabled, s6d16d0_pre=
-pare() returns without asserting<br>reset or disabling the supply. Since th=
-e DRM panel core leaves the<br>panel unprepared, a later unprepare call ski=
-ps the driver callback<br>and the supply remains enabled.<br><br>Assert res=
-et and disable the supply before returning the DSI command error.<br><br>Fi=
-xes: ac1d6d74884e (&quot;drm/panel: Add driver for Samsung S6D16D0 panel&qu=
-ot;)<br>Assisted-by: Codex:gpt-5<div><a href=3D"mailto:Signed-off-by%3Aacha=
-ryalaxman8848@gmail.com" target=3D"_blank">Signed-off-by:acharyalaxman8848@=
-gmail.com</a><br>---<br>=C2=A0drivers/gpu/drm/panel/panel-samsung-s6d16d0.c=
- | 10 ++++++++--<br>=C2=A01 file changed, 8 insertions(+), 2 deletions(-)<b=
-r><br>diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/=
-gpu/drm/panel/panel-samsung-s6d16d0.c<br>index ba1a02000..04e19b5f2 100644<=
-br>--- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c<br>+++ b/drivers/gpu=
-/drm/panel/panel-samsung-s6d16d0.c<br>@@ -89,16 +89,22 @@ static int s6d16d=
-0_prepare(struct drm_panel *panel)<br>=C2=A0				 =C2=A0 =C2=A0 =C2=A0 MIPI_=
-DSI_DCS_TEAR_MODE_VBLANK);<br>=C2=A0	if (ret) {<br>=C2=A0		dev_err(s6-&gt;d=
-ev, &quot;failed to enable vblank TE (%d)\n&quot;, ret);<br>-		return ret;<=
-br>+		goto err_power_off;<br>=C2=A0	}<br>=C2=A0	/* Exit sleep mode and powe=
-r on */<br>=C2=A0	ret =3D mipi_dsi_dcs_exit_sleep_mode(dsi);<br>=C2=A0	if (=
-ret) {<br>=C2=A0		dev_err(s6-&gt;dev, &quot;failed to exit sleep mode (%d)\=
-n&quot;, ret);<br>-		return ret;<br>+		goto err_power_off;<br>=C2=A0	}<br>=
-=C2=A0<br>=C2=A0	return 0;<br>+<br>+err_power_off:<br>+	gpiod_set_value_can=
-sleep(s6-&gt;reset_gpio, 1);<br>+	regulator_disable(s6-&gt;supply);<br>+<br=
->+	return ret;<br>=C2=A0}<br>=C2=A0<br>=C2=A0static int s6d16d0_enable(stru=
-ct drm_panel *panel)<br>-- <br>2.51.2<br><div><br></div></div></div>
-</blockquote></div>
-
---000000000000492b630655a3e6c5--
