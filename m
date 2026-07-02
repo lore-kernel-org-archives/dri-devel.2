@@ -4,62 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C6B7C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 21:02:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB223C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 21:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C3D910E50A;
-	Thu,  2 Jul 2026 21:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2185F10E308;
+	Thu,  2 Jul 2026 21:24:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RxT5fF5O";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IBPp5alA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D039410E50A
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:02:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 49FBC43726
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:02:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2352EC19425
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1783026142;
- bh=ZnHC+evi7eWWC8wZsnIpF1pPaOv0E92RsZf0FNHKT8k=;
- h=From:To:Subject:Date:From;
- b=RxT5fF5OzBFhRvMtMJAfxMOnb9tEirdsWVwBrrda/rplDdP0ETX+PwXPAzSTp8VoK
- M0PfpuhWWhwSktm4fMOUT0j4tS8762ehD8hWy/0HlSUoF4n47MVHISUFbuXseZRp8Q
- 3Y7VWpyRwCWQjlZX4oWeFJy72lQilxfjOTuxcD1wpZNb3p2qhD0VoCiIIbe/bUb39Y
- Sun4d+tJxvSf5zTmqf7iwTgDzazJttfFWjP9TjKcJPThBBRmGHQ8bVvdJEu3eFw8qs
- EoEi7XG66km6orYma+SRtyV410I1qVV3qKeYAGXnN5MZj3S/0WHrrq5Jii1IXTuwe+
- rdERsf7hKy1aQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 03F63C41613; Thu,  2 Jul 2026 21:02:22 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221714] New: AMDGPU: Firmware issue on Teros TE-2476G monitor
- causes black screen/instability with FreeSync and invalid EDID.
-Date: Thu, 02 Jul 2026 21:02:21 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: MANCHOIG@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-221714-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C3A710E51C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:24:27 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8EEE3517;
+ Thu,  2 Jul 2026 23:23:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1783027419;
+ bh=7h8p5JymaPl6j2G50UYplFLnTLxP1bHA5e/xdPIdqPo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=IBPp5alAe2KGTmJ2fOV0p9hAaIyV+xM2eG0an2/7GOgZRazZE1wqoU6V32WJnZEmn
+ d68yhWXdD95YPckw68EKGX0RM6wZ5emQgqlWkai+pL35nMYeF6jvjxECVM1hkeHEGV
+ gBdsxA5V7Tsp4EpIfEyp7C1pvH9o9yszsdLpZQ4Y=
+Date: Fri, 3 Jul 2026 00:24:23 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Message-ID: <20260702212423.GA3662157@killaraus.ideasonboard.com>
+References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
+ <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,63 +71,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221714
+Hi Tomi,
 
-            Bug ID: 221714
-           Summary: AMDGPU: Firmware issue on Teros TE-2476G monitor
-                    causes black screen/instability with FreeSync and
-                    invalid EDID.
-           Product: Drivers
-           Version: 2.5
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P3
-         Component: Video(DRI - non Intel)
-          Assignee: drivers_video-dri@kernel-bugs.osdl.org
-          Reporter: MANCHOIG@gmail.com
-        Regression: No
+Thank you for the patch.
 
-Description:
-The Teros TE-2476G monitor (23.8" 144Hz) fails to properly initialize on the
-amdgpu driver. The monitor firmware appears to report a null serial number
-(00000000) and fails to negotiate high refresh rates (144Hz) when FreeSync =
-is
-active. This results in intermittent black screens or a fallback to 60Hz.
+On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
+> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> crtc, when enabling the crtc.
+> 
+> With DSC (added in upcoming patch) in the pipeline, between the DU and
+> the DSI, the above call path is broken as the crtc tries to call
+> rcar_mipi_dsi_pclk_enable() on the DSC.
+> 
+> To solve this problem, make sure we store the DSI bridge to the
+> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
+> (which can be DCS), by checking the bridge's bridge->type.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> ---
+>  drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
+>  drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
+>  2 files changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> index db2088529b48..ac85838ab3b8 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+>  				drm_bridge_get(bridge);
+>  
+>  		if (output == RCAR_DU_OUTPUT_DSI0 ||
+> -		    output == RCAR_DU_OUTPUT_DSI1)
+> +		    output == RCAR_DU_OUTPUT_DSI1) {
+> +			struct drm_bridge *dsi_bridge;
+> +
+> +			/*
+> +			 * When we have a DSC block between the DU and the DSI,
+> +			 * the "bridge" points to the DSC. Detect the DSC by looking
+> +			 * at the bridge type, and skip the DSC if the bridge is not
+> +			 * the DSI bridge.
+> +			 */
+> +
+> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
+> +						     bridge :
+> +						     bridge->next_bridge;
 
-System Info:
+The indentation looks weird.
 
-    GPU: AMD Radeon RX 580
+			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
+				   ? bridge : bridge->next_bridge;
 
-    Driver: amdgpu
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-    Kernel:  7.1.2-3-cachyos
+> +
+>  			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] =
+> -				drm_bridge_get(bridge);
+> +				drm_bridge_get(dsi_bridge);
+> +		}
+>  	}
+>  
+>  	/*
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> index aaafee1c060b..f429f03a380c 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> @@ -957,6 +957,7 @@ static int rcar_mipi_dsi_host_attach(struct mipi_dsi_host *host,
+>  
+>  	/* Initialize the DRM bridge. */
+>  	dsi->bridge.of_node = dsi->dev->of_node;
+> +	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+>  	drm_bridge_add(&dsi->bridge);
+>  
+>  	return 0;
 
-    Distribution: Arch Linux / CachyOS
+-- 
+Regards,
 
-Steps to reproduce:
-
-    Connect Teros TE-2476G via DisplayPort.
-
-    Enable default FreeSync/VRR settings.
-
-    System fails to consistently maintain 144Hz link or causes display sign=
-al
-loss.
-
-Workaround:
-The issue is mitigated by disabling FreeSync via kernel parameter
-(amdgpu.freesync_video=3D0) and forcing the monitor mode using
-video=3DDP-1:1920x1080@144 in the bootloader command line.
-
-Expected behavior:
-The amdgpu driver should handle the monitor's invalid EDID gracefully or
-provide a "quirk" to ignore the missing serial number and allow stable 144Hz
-operation without requiring manual cmdline overrides.
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Laurent Pinchart
