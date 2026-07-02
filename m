@@ -4,51 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBC3C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93255C43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:22:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECCD410F348;
-	Thu,  2 Jul 2026 12:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 850D410E4B3;
+	Thu,  2 Jul 2026 12:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="vK6IYk9g";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="lN0+Boa2";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id BDFFD10F34B;
- Thu,  2 Jul 2026 12:17:38 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9CA01D15;
- Thu,  2 Jul 2026 05:17:33 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A4353F905;
- Thu,  2 Jul 2026 05:17:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1782994658; bh=Wnn2Ksvw76sAIUTT1KSmFOtvZNloFjX2aZnafzdf1UQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=vK6IYk9gGV1YLFWdtmNJ138PGUigoXO6KoGAs2xhe8xYj4Ie8oxMHU7qkepIguElP
- keKbPz8EWxK01r1MWaM243c/uNeghukm+UWDWB2botZRsvuycY5oypm60m1JLQns60
- R3uaSZGvWVURylQgZg0iJQivMo/r2FericMoXnDM=
-Message-ID: <73b486cb-e082-4c3e-a193-6629960efede@arm.com>
-Date: Thu, 2 Jul 2026 13:17:23 +0100
+Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com
+ [91.218.175.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CF9E10F337
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:22:04 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1782994911;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=flDoJiJgtgGf3x2zlQX9jaS5nhFTdBgmSXvfG9PiFjA=;
+ b=lN0+Boa2ASIcCLc47EPvtXVMZuYaw78VJ/wVLmRpCeGudutYAguuVxwIGwqQDa2oDibvGW
+ bIpbbgc5ew0Ij3QtFyyGuneAdXTOrpkXqfYfNRMzfKjFKxKgZCy8wM/iRDCenl6trdMYJz
+ +LOdf87J+2yAD0n3s3yNqonkzwm6x4w=
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, lyude@redhat.com, dakr@kernel.org,
+ tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
+ andy.yan@rock-chips.com, thierry.reding@kernel.org, mperttunen@nvidia.com,
+ jonathanh@nvidia.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+ zack.rusin@broadcom.com, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
+ deller@gmx.de, bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, hughd@google.com, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de,
+ kees@kernel.org, perex@perex.cz, tiwai@suse.com,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH 06/13] mm/vma: convert vm_pgprot_modify() to use
+ vma_flags_t and rename
+Date: Thu,  2 Jul 2026 20:21:16 +0800
+Message-Id: <20260702122116.65642-1-lance.yang@linux.dev>
+In-Reply-To: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
+References: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Andi Shyti <andi.shyti@linux.intel.com>,
- =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-References: <20260701104437.236979-1-krzysztof.karas@intel.com>
- <20260701104437.236979-4-krzysztof.karas@intel.com>
- <b65c0f9f-184e-42fb-85dd-aa6c06dc91d8@arm.com>
- <bbh4gbq6eolkqwhcuou2fufcbpthxklb2nmawglhhxdzea6tpg@2j7xekrl64pj>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <bbh4gbq6eolkqwhcuou2fufcbpthxklb2nmawglhhxdzea6tpg@2j7xekrl64pj>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,98 +86,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 02/07/2026 7:22 am, Krzysztof Karas wrote:
-> Hi Robin,
-> 
-> thanks for a quick response!
-> 
-> On 2026-07-01 at 12:59:29 +0100, Robin Murphy wrote:
->> On 01/07/2026 11:44 am, Krzysztof Karas wrote:
->>> It is possible, when a very large mapping uses a single
->>> scatterlist, that padding overflows scatterlist's length field.
->>> This results in:
->>>    1) silently wrapping the value
->>>    2) smaller than desired mappings produced by iommu_map_sg
->>>    3) leaving mapped bytes in memory (no iommu_unmap)
->>>
->>> Address this issue by adding overflow detection for previous
->>> scatterlist length field.
->>
->> Awesome, thanks for figuring it out! Looks like this must date all the way
->> back:
->>
->> Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
-> Okay, thanks for pinpointing this commit, I'll add the tag in
-> the next version of this series.
-> 
->>
->>> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
->>> ---
->>> v2:
->>>    * Address overflows instead of unmapping erroneously mapped
->>>    memory (Robin).
->>>    * Put this patch last for easier reproduction of the issue.
->>>
->>>    drivers/iommu/dma-iommu.c | 14 ++++++++++++--
->>>    1 file changed, 12 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
->>> index 9abaec0703ef..c403057577df 100644
->>> --- a/drivers/iommu/dma-iommu.c
->>> +++ b/drivers/iommu/dma-iommu.c
->>> @@ -1493,8 +1493,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->>>    		 *   time through here (i.e. before it has a meaningful value).
->>>    		 */
->>>    		if (pad_len && pad_len < s_length - 1) {
->>> -			prev->length += pad_len;
->>> -			iova_len += pad_len;
->>> +			if (overflows_type(prev->length + pad_len, prev->length)) {
->>> +				/*
->>> +				 * For large mappings spanning multiple GBs we
->>> +				 * may not be able to fit all needed padding into
->>> +				 * sg->length.
->>> +				 */
->>> +				ret = -EOVERFLOW;
->>> +				goto out_restore_sg;
->>> +			} else {
->>
->> Nit: we don't really need an "else" after a goto, but it's hardly a big deal
->> (however if you did want to respin, note also that the preferred title tag
->> here is "iommu/dma: ...").
-> I'll be making another version anyway, so I can remove the
-> "else" and change the title :)
 
-Cool :)
-
->> Either way,
->>
->> Reviewed-by: Robin Murphy <robin.murphy@arm.com>
-> Thanks!
+On Mon, Jun 29, 2026 at 08:25:29PM +0100, Lorenzo Stoakes wrote:
+>Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
+>rename to vma_pgprot_modify() accordingly.
+>
+>This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
+>order to eliminate the arbitrary limit of the number of bits in a system
+>word on available VMA flags.
+>
+>Update VMA userland tests accordingly, updating vma_set_page_prot() to no
+>longer inline vma_pgprot_modify(), rather we can simply define
+>vma_pgprot_modify() as a static inline function and the tests will pick it
+>up from vma.h.
+>
+>No functional change intended.
+>
+>Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>---
+[...]
+>diff --git a/mm/vma.h b/mm/vma.h
+>index bcf0c2773449..6a8abb8ae937 100644
+>--- a/mm/vma.h
+>+++ b/mm/vma.h
+>@@ -522,9 +522,11 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
+> }
 > 
-> would this r-b still hold after above minor changes, or would
-> you prefer to have one final look at the finished change and
-> then decide whether you give your r-b?
+> #ifdef CONFIG_MMU
+>-static inline pgprot_t vm_pgprot_modify(pgprot_t oldprot, vm_flags_t vm_flags)
+>+static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
+> {
+>-	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
+>+	const pgprot_t prot = vma_get_page_prot(vma_flags);
+>+
+>+	return pgprot_modify(oldprot, prot);
 
-Indeed if it's just those tweaks then feel free to keep it, that's 
-usually what I mean by "either way".
+Nit: could this just stay as a single return? something like:
 
-Cheers,
-Robin.
+return pgprot_modify(oldprot, vma_get_page_prot(vma_flags));
 
-> 
->>
->> I'd imagine Joerg can take this as an IOMMU fix, but FWIW if you did want an
->> ack to take it through drm-fixes to keep it with the i915 patches, I
->> wouldn't foresee any significant risk of conflicts.
->>
->> Thanks,
->> Robin.
->>
->>> +				prev->length += pad_len;
->>> +				iova_len += pad_len;
->>> +			}
->>>    		}
->>>    		iova_len += s_length;
->>
-> 
+Otherwise, LGTM, feel free to add: 
 
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+[...]
