@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2452DC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 813AEC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 813F310E4F5;
-	Thu,  2 Jul 2026 15:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1EAE10E506;
+	Thu,  2 Jul 2026 15:03:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F3x7IFJR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CaD00utj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92E3B10E4F5
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:03:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D7C10E506
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:03:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C5B541A25;
- Thu,  2 Jul 2026 15:03:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 332C81F000E9;
- Thu,  2 Jul 2026 15:03:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3AEC2601CA;
+ Thu,  2 Jul 2026 15:03:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60AB1F000E9;
+ Thu,  2 Jul 2026 15:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783004594;
- bh=zftApm7FiOdtnsjh+Wpou39W/UU5Ntnq8nnRUOya3/A=;
+ s=k20260515; t=1783004620;
+ bh=ow3K1mtgPPALUIgeRDaKPLTMvtcgTYHMUQe9yqYtpg4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F3x7IFJRKYVQxYb8CPynifCejHcp54AgjJf3NLxxg2l1ag4X0OZLharzTk3JLB0AR
- C2qMEoChmcozVQgRV1p7jKjO2UCHkgBOAticKnwc+g1e3syARcwqq4/h3uTClnKaOZ
- kVPdeONWBg6bvRtli2UrSZqv9Rj1424Owa7JLmQyMPODiiYNWr+hITWZKv7SgS/cSI
- t1d3QEXYk9OPXd9j0fYCLyRMaUaHk/3KoIq28sxS/W4VaLx4XJtL1RSDCTS7TlPTll
- 1oL6Eu6eFOG9+k/0DaQKhp0A/yJHphb9vnjj6w0Ft2Jw0c4hnH9LxqnSatt7YHGbN8
- 86ES7jFHGTreg==
+ b=CaD00utjgKRBuFL0D28j2WqhDNLoXz7sLtBkNQu1clwdjlGCDPqirNJpVKeMkKUth
+ skUCEXwYf0EQcYHTnVtICreJLzlmLBJAG3aZp+KphOoZvsxf8Oa+/JpBhI5763Rv3h
+ ohSN74puC0/Z4iMSjt71whGb8FlFMik4dUddiEgitwzgpBIe5VNGyQjWvh2TW1aHYL
+ JuK7WGCidRZDQt/753p/xMJhFTnwvn7QByO1kFJGDIu/3igeitgSihJpNWi+u56e/a
+ gtVBxrSnQ4fKsyYibnttLLkIE481iGbbzfll62Z7t3pzzcFDWJvMJLi64JhwOt6aDY
+ FHVtahLn2bwHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 20/39] drm/bridge: dw-hdmi-qp: Provide
- dw_hdmi_qp_hpd_notify() helper
+Subject: Re: [PATCH v8 22/39] drm/rockchip: dw_hdmi_qp: Use local dev
+ variable consistently in bind()
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-20-d79890d00b6a@collabora.com>
+In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-22-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-20-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-22-d79890d00b6a@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 15:03:13 +0000
-Message-Id: <20260702150314.332C81F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 15:03:40 +0000
+Message-Id: <20260702150340.C60AB1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,84 +60,77 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unprotected double-read of `hdmi->curr_conn` causes a Time-Of-Chec=
-k to Time-Of-Use (TOCTOU) data race, leading to a potential NULL pointer de=
-reference.
+
+Pre-existing issues:
+- [High] Component bind/unbind lifetime mismatch leading to Use-After-Free =
+and resource leaks.
 --
 
-commit 8041d212a61ef15cbf004795e5f7dc2a8f5f69ad
+commit 53ed72bcdde7f86deb352e52bb664f24f880b84c
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/bridge: dw-hdmi-qp: Provide dw_hdmi_qp_hpd_notify() helper
+drm/rockchip: dw_hdmi_qp: Use local dev variable consistently in bind()
 
-This commit introduces the dw_hdmi_qp_hpd_notify() helper to allow platform
-drivers to report hot-plug detection events directly to the affected
-connector. It ensures the detect context is invoked on reconnection events
-by using drm_connector_helper_hpd_irq_event() when the display pipeline is
-active.
+This patch updates dw_hdmi_qp_rockchip_bind() to use the local dev paramete=
+r=20
+instead of indirect struct device accesses. This improves consistency and=20
+readability throughout the function.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
-rm/bridge/synopsys/dw-hdmi-qp.c
-> index 07b274f76e53e..4d41ad7319a58 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 7bd0f6dcbe5dc..d2fcfa70ed168 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+
 [ ... ]
-> @@ -1429,6 +1430,36 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform=
-_device *pdev,
->  }
->  EXPORT_SYMBOL_GPL(dw_hdmi_qp_bind);
+
+> @@ -671,7 +670,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *de=
+v, struct device *master,
+>  	if (irq < 0)
+>  		return irq;
 > =20
-> +/**
-> + * dw_hdmi_qp_hpd_notify() - Notify a hot-plug detection event
-[ ... ]
-> +void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi)
-> +{
-> +	enum drm_connector_status status;
-> +
-> +	status =3D hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
-> +	dev_dbg(hdmi->dev, "%s status=3D%d\n", __func__, status);
-> +
-> +	/*
-> +	 * When the display pipeline has been already active, switch to
-> +	 * drm_connector_helper_hpd_irq_event() to ensure .detect_ctx()
-> +	 * gets invoked, i.e. via drm_helper_probe_detect(), because
-> +	 * drm_bridge_hpd_notify() defers to a delayed hotplug path in
-> +	 * this case.
-> +	 */
-> +	if (hdmi->curr_conn && status =3D=3D connector_status_connected)
-> +		drm_connector_helper_hpd_irq_event(hdmi->curr_conn);
+> -	ret =3D devm_request_threaded_irq(hdmi->dev, irq,
+> +	ret =3D devm_request_threaded_irq(dev, irq,
+>  					cfg->ctrl_ops->hardirq_callback,
+>  					cfg->ctrl_ops->irq_callback,
+>  					IRQF_SHARED, "dw-hdmi-qp-hpd",
+>  					hdmi);
 
 [Severity: High]
-Could this double-read of hdmi->curr_conn lead to a NULL pointer dereference
-due to a Time-Of-Check to Time-Of-Use race?
+This is a pre-existing issue, but could this lifetime mismatch between the=
+=20
+component device and the DRM master lead to a use-after-free?
 
-If an HPD interrupt or workqueue executes dw_hdmi_qp_hpd_notify()
-concurrently with dw_hdmi_qp_bridge_atomic_disable() during a modeset, could
-the modeset thread clear hdmi->curr_conn locklessly?=20
+The hdmi context is allocated earlier in dw_hdmi_qp_rockchip_bind() using=20
+drmm_kzalloc(), which ties its lifetime to the DRM master device:
 
-Thread 1 (HPD notify):
-    if (hdmi->curr_conn && ...) // Evaluates to true
+    hdmi =3D drmm_kzalloc(drm, sizeof(*hdmi), GFP_KERNEL);
 
-Thread 2 (Modeset disable):
-    dw_hdmi_qp_bridge_atomic_disable() {
-        ...
-        hdmi->curr_conn =3D NULL;
-    }
+However, the HPD interrupt is requested using devm_request_threaded_irq()=20
+with the component device (dev).
 
-Thread 1 (HPD notify resumes):
-    drm_connector_helper_hpd_irq_event(hdmi->curr_conn); // Passes NULL
+If the master DRM device is unbound, the hdmi context will be freed=20
+automatically. Looking at dw_hdmi_qp_rockchip_unbind(), it only cancels the=
+=20
+delayed work but lacks manual cleanup of the IRQ:
 
-If the compiler emits a second read of the pointer for the argument, it
-would pass NULL to drm_connector_helper_hpd_irq_event(), which
-unconditionally dereferences the connector pointer. Would it be safer to use
-READ_ONCE() or a local variable to cache the connector pointer before
-checking and passing it?
+static void dw_hdmi_qp_rockchip_unbind(struct device *dev,
+				       struct device *master,
+				       void *data)
+{
+	struct rockchip_hdmi_qp *hdmi =3D dev_get_drvdata(dev);
 
-> +	else
-> +		drm_bridge_hpd_notify(&hdmi->bridge, status);
-> +}
-> +EXPORT_SYMBOL_GPL(dw_hdmi_qp_hpd_notify);
+	cancel_delayed_work_sync(&hdmi->hpd_work);
+}
+
+If the HPD interrupt fires after the master DRM device is unbound but befor=
+e=20
+the component device is unbound, the dangling interrupt handler will execut=
+e=20
+with a freed hdmi pointer. Is it possible to tie the IRQ lifetime to the DR=
+M=20
+master or explicitly free it in the unbind path?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-dw-hdmi-qp=
--scramb-v8-0-d79890d00b6a@collabora.com?part=3D20
+-scramb-v8-0-d79890d00b6a@collabora.com?part=3D22
