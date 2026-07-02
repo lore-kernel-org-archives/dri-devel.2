@@ -4,44 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE37EC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:27:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE631C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:27:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F34110E4A4;
-	Thu,  2 Jul 2026 08:27:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE8210F231;
+	Thu,  2 Jul 2026 08:27:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZSSfaaK2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HNhqFxgq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A56610E4A4
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 08:27:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4CA5F4060B;
- Thu,  2 Jul 2026 08:27:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3781F00A3D;
- Thu,  2 Jul 2026 08:27:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782980827;
- bh=IOfaXTno552t6PJwBzn/wQ/Xg7QgGCI+d2jK0TvZJ0o=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZSSfaaK2mdrQEx6dg7MlLwRyi4N2SrlQG0G9xvPbNSXrzcxU8pr3Spah0lrLO0RX3
- OxXFZWOhZpYbRImAkP47EQR0fVQxxOTTMRcUFiymCjSXuNtBmk3c66n2dBsTp3BDvH
- mfMJ7zmZqQoAvQp/tFHFFrRWOhyWtKtUZq3xPlGy3kVAaoaDye404DK5GQSAhdwFsD
- QJLOCphJAADVAUDiQMw3nqTYTdvHub0w8drw0lyLW5WDlZ0WrPl4p1mP1OHo8ynMFo
- 8BkZTxHj4CJPuhGLqw/YhGCe2qHhDvDQ0hgE6x70pfQ6GcTn16qlgWPW0nGydsq4QI
- TOiQhwmS+uiTg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/7] drm/i915/gt: Use spin_lock_irq() instead of
- local_irq_disable() + spin_lock()
-To: "Maarten Lankhorst" <dev@lankhorst.se>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702080913.434121-2-dev@lankhorst.se>
-References: <20260702080913.434121-1-dev@lankhorst.se>
- <20260702080913.434121-2-dev@lankhorst.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 08:27:06 +0000
-Message-Id: <20260702082707.0F3781F00A3D@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6915B10F230;
+ Thu,  2 Jul 2026 08:27:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782980862; x=1814516862;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=l9ruhvFSYqkoWruuhV72DO4aLyvjkW3Muv3iPgWyt44=;
+ b=HNhqFxgqNYvRMIJ8dqY6ZXuFWzpP/J6HQfO14atFueimJJJP1MN3FETy
+ N2kJrTsKdm1CWUHKr9zeJFY2pXKh9UFIQmPrIpZMshKEC1GlP61pGnxwg
+ rSewGRPEqYfYAoOB+PECsDUeXJoB/WneSm6Tg/4oUxjQoW/NV1RX1Bbvd
+ 332SbDJE8JhWs70U79LafsLgQbHNFCnm+xXeOdQ4kXvSblHOnaW+hQ21r
+ xBhVqX1pXdwRLMOw+5kr6906Ce6fF6gbehT9AZ0i1t3Qe0bRZxvlhKyCq
+ RPnMOaxBtDNXRMGuZjt4hSBlyhF+pcUGErwkuCFddWYA4FBqAfA3IdJRW w==;
+X-CSE-ConnectionGUID: k8Uil0PgRG+mebREIAELzg==
+X-CSE-MsgGUID: cEJVPSc8SmC8V47rTiTe5A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="94083684"
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="94083684"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 01:27:42 -0700
+X-CSE-ConnectionGUID: YME+UwnASW+PhAGsNCJCIA==
+X-CSE-MsgGUID: 8+Ggm9/4T0iCxgSN2rCswQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="257138064"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.209])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 01:27:40 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maarten Lankhorst <dev@lankhorst.se>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: Re: [PATCH 1/4] drm/i915/display: Make icl_dsi_frame_update use _fw
+ too
+In-Reply-To: <20260702080346.431508-2-dev@lankhorst.se>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260702080346.431508-1-dev@lankhorst.se>
+ <20260702080346.431508-2-dev@lankhorst.se>
+Date: Thu, 02 Jul 2026 11:27:37 +0300
+Message-ID: <7d7cf653c4be0d88e69486e224c781bf4e73c730@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,78 +70,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Request submission to the ELSP hardware is executed with interrupt=
-s enabled, violating hardware constraints for tightly packed MMIO sequences=
- and risking GPU hangs.
---
+On Thu, 02 Jul 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
+> Don't use the dmc lock inside the vblank critical section,
+> not even as last call.
 
-commit 03bdcff0829362b8c38fdcf058920884f728b511
-Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() + spin_lock=
-()
+The commit message should explain the why.
 
-This commit replaces the local_irq_disable() wrapper around
-execlists_dequeue() with spin_lock_irq() inside the function, to resolve a
-PREEMPT_RT incompatibility.
-
-> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drive=
-rs/gpu/drm/i915/gt/intel_execlists_submission.c
-> index 1359fc9cb88ef..e11db81dca9c5 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-[ ... ]
-> @@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_c=
-s *engine)
->  	 */
->  	sched_engine->queue_priority_hint =3D queue_prio(sched_engine);
->  	i915_sched_engine_reset_on_empty(sched_engine);
-> -	spin_unlock(&sched_engine->lock);
-> +	spin_unlock_irq(&sched_engine->lock);
-> =20
->  	/*
->  	 * We can skip poking the HW if we ended up with exactly the same set
-> @@ -1614,13 +1614,6 @@ static void execlists_dequeue(struct intel_engine_=
-cs *engine)
->  	}
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/icl_dsi.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+> index ea0cdb7822f39..f1ccbc5efd6ea 100644
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -242,8 +242,8 @@ void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)
+>  	else
+>  		return;
+>  
+> -	intel_de_rmw(display, DSI_CMD_FRMCTL(port), 0,
+> -		     DSI_FRAME_UPDATE_REQUEST);
+> +	intel_de_rmw_fw(display, DSI_CMD_FRMCTL(port), 0,
+> +			DSI_FRAME_UPDATE_REQUEST);
 >  }
-> =20
-> -static void execlists_dequeue_irq(struct intel_engine_cs *engine)
-> -{
-> -	local_irq_disable(); /* Suspend interrupts across request submission */
-> -	execlists_dequeue(engine);
-> -	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
-> -}
+>  
+>  static void dsi_program_swing_and_deemphasis(struct intel_encoder *encoder)
 
-[Severity: High]
-Does removing the local_irq_disable() wrapper leave the hardware submission
-sequence exposed to interruptions?
-
-In the original code, local_irq_disable() inside execlists_dequeue_irq()
-protected the entire execlists_dequeue() function. Now that
-spin_unlock_irq() is used instead, interrupts are re-enabled before the
-function finishes:
-
-	spin_unlock_irq(&sched_engine->lock);
-
-	/* ... */
-	if (submit && ...) {
-		/* ... */
-		execlists_submit_ports(engine);
-	}
-
-Because interrupts are now enabled prior to calling execlists_submit_ports(=
-),
-an interrupt or thread preemption event could occur during the ELSP MMIO
-writes. Since the ELSP hardware requires tightly packed writes without
-excessive delays, could this interruption cause a hardware state machine
-timeout and result in a GPU hang?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702080913.4341=
-21-1-dev@lankhorst.se?part=3D1
+-- 
+Jani Nikula, Intel
