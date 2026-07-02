@@ -4,89 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15B69C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:12:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507F7C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 07:18:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7040910E472;
-	Thu,  2 Jul 2026 07:12:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2BE310E08E;
+	Thu,  2 Jul 2026 07:18:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VvjZ932v";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="koxLJQ7X";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E904D10F162
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 07:12:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782976371;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=hxdCQj6NzsZ0fMBpIQu3pY1Ddr/TRKQeJvgNYNHVEJc=;
- b=VvjZ932vnv0LhP9eynVXbFTPPT5lCpBhRGGttsCDm2nKIVgyQrxvM4DEWK4Gg9TNq9yfHu
- UaQ1xpNkaGteHubsAcuLF9i3l3w/OwAYq7bCO36j3iLzbgB1h3WL3hn7rdxcDPzjc3IXtZ
- KVsbPX7QPlC3tDIIuIUeLaxMhTqHQkc=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-594-PeYPgTgwMT2UfDQDZHfuNA-1; Thu, 02 Jul 2026 03:12:49 -0400
-X-MC-Unique: PeYPgTgwMT2UfDQDZHfuNA-1
-X-Mimecast-MFC-AGG-ID: PeYPgTgwMT2UfDQDZHfuNA_1782976369
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-380b630c4e9so1112756a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 00:12:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782976369; x=1783581169;
- h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=PhGng+hd9qECLzQceD/9OUpAsw5HRAD3GeuzTLZHbzY=;
- b=hHUpFiLr+V17jR5y74DpJIsWkZu+wXYnsWvoElGJjkAeViCoDjdo5f7qWNycj4FTdf
- hXHVx8uWzIQGOdgEQPeZbSsJNpjRwOK00LY0/TW1qtGmaIp/I0TKDZaJEQhX2ZJyPJvd
- kFBNIGL0yfVwuOWTxcFS5LZG6CXu6AJY9aqsO/NBQuvrthW0DmSkTcjcUIughPCDTkzD
- OJxMMBwO9U9PAmaxnzm62R9PGJHOhhusO3qqiV7krtGwp+06O5ZGZUwWx/D2K+vvoF2u
- 8qX7xDDlt7x0ARf6WigIiGFpwEk9olQjmSsvTzhsTWYlChhPQV/Y0A80ibUB9UvDpKtc
- 9qVg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rql+dDadJvto+3uiqCKJ6E3T/kRjohnR84dhoPmgFLc3MEyORDESWLsrMTzVWX8b9acht79FezxEuI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzyA5CfLtaI9q7nCqL6yj2zODpqAgJfeGhCD+J9nl/bUqJEy4Tc
- m5AYhkXKIzDAVmLiG353srseBI5eSdaZUGGG922msxL8rrZglEzoyoHA8XhOGNZ+6dMVTapZwNr
- y5TYTov3pd3ztaEMN5jTAgmKMvJwrVG6RnkqD9R+DxCUB3TPccczOPJxgze/bTeUxW+1uak3EZl
- NGjh/FNIdwfYa/tpBAU3kq6c3Gk7E2SFz0oCJnf93/R7V8Fv7yUsvjTmaN
-X-Gm-Gg: AfdE7ck35yZWRZYUO3CxqSkdktws5hHK3eFlhccLSfwzS7uyHj5GGzHlLpR0+xG4iA1
- NOM7Mo/5PjlwUuIyG35RV38/rWRqa66VAnTPKnzFWG5GEc2yqyTjbMLvLPp1VmHEQU29cPGpcn1
- jqLFM/FyeScjnVi3fENDejUffwRfAfA0+6Jsdv4pQJzWhiBMEgSWvDliEGXAm1JbpidwiV7tKXU
- btneKtc1F5QEQCxYGNr4pq3Y9L8X9sWC7acUn0DdJwVvI4s/MEOqxsfkBED6axxpNg1OIL//0dJ
- n2NVcW0a346xJqqkT3JyzOtysP7w+7fRKm77ZtWutb8ZLlr+GiQhcdwpidonlwsMvUrwu2Fr3ac
- QbwrPgCSKneSAeLj/7Q1IRthsb5a+bLeUqMQRMPAJtkIN/Y3T
-X-Received: by 2002:a17:90b:5148:b0:380:21b7:e727 with SMTP id
- 98e67ed59e1d1-380ba8d0fd6mr4293599a91.14.1782976368660; 
- Thu, 02 Jul 2026 00:12:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:5148:b0:380:21b7:e727 with SMTP id
- 98e67ed59e1d1-380ba8d0fd6mr4293543a91.14.1782976367846; 
- Thu, 02 Jul 2026 00:12:47 -0700 (PDT)
-Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-380e17cb4b7sm577673a91.13.2026.07.02.00.12.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 00:12:47 -0700 (PDT)
-MIME-Version: 1.0
-From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
-To: "Hillf Danton" <hdanton@sina.com>
-In-Reply-To: <20260701234301.361-1-hdanton@sina.com>
-Cc: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
- "Dmitry Baryshkov" <lumag@kernel.org>, 
- "Javier Martinez Canillas" <javierm@redhat.com>, 
- <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-Message-ID: <18be678e97322160.8f56a0770e5621ab.8d175eba8a62d6be@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Date: Thu, 2 Jul 2026 07:12:44 +0000
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: DpFlMeieRNZ_W-7jnkr7ebxMVvN-ESe6Qxk4RMUC12o_1782976369
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013027.outbound.protection.outlook.com
+ [40.93.201.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F91E10E08E
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 07:18:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HoKI6SIwBADvE0NbsHBH9noyoz07ryG0Qs2B9/cgXPZKlA3OlUGKhbPUNNaGjZ/btf/1SQw0AbEEwutQgN2ns1hN8DPZ+zd8B4eRP01XCDADaHBeKxKmRrH870POMCpENvFfSx1iZy6rgKCNeqbLigPq3kiE/ViltY3c4Tdj7lFZkj3DJUsyMcjTjIChLSBh0dAq0stdf8Ap9sTuuIABxp5HykewYaIWi5Lb2BJDkIh7N8LmzaeMqqMfUXjK0h9C5NsyPoi7W89q02DRNo8XL0IOgJ1V4/2+AZCONKnYD2EM1xfx1gWIOQQ1OVH4DssEAKwWfkUBQK7dA0qQi/EKQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tho7tB/n4PWVqoRXsxMA8wFkHYfC/9K75SSToBobNWA=;
+ b=RHPyJItsECIHBxy5c/aOqd9mUxyyxSJsiOYNvBVeI2zyrNM+e9FgY46Pf8ZcyL7geUdszDCCiyQI0pu4/fVmghN1krnmGbM0z3I9wd8S3zasZCVEmXRCRXNjog937iH4RAZpqEfMrNzm1PLx/aB0MD3f8beY0fN6URCg0xji/dyhmJy25iAK0tc763u6yYMn6DmE2QxLnS/UuzYKq0ZoCFJIyTKj1hFkInaPI+lcBynOBOvDFLP2CxsjJQlYWG+jaLVjVcBWLOe6PGRNJtt7Wy1LW6HDsAvcxInW4a7S4jbTvPJduKdCUfv02JjUrDH4tRqLNW7sHFXIj2bq0Et4FA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tho7tB/n4PWVqoRXsxMA8wFkHYfC/9K75SSToBobNWA=;
+ b=koxLJQ7X6eUVVZOUawZH3wRj0vzRP0+ncsV8WSJqdUP6SSNzMzq/LuZuXGiQoSvGLEIpX7F/UtIGEPVQ1veWSdf+m4ukWUrQaoHwsp8FnQ2vNVng/0SVTsC4MvghhrYR/3D30KejLIKjQKI0vWs4ZDPAFf+DfYVTUcLs6EwezRWFRlEuEGXmHEbhJkZZXwElsXlBIQxA409Z/V2eW8Xg23UqGh2txN/ljKV1yq1oBZ5Pg+PLgYvPzF9gCjElpALfs639hvUOtrlCEK+3xH5LU1pEd8Bdu8F4M6YeRNWQW2/Au514MTkqie/6vCutkWxIOCYApxgrKnsv/5m/5PdULg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DM4PR12MB6639.namprd12.prod.outlook.com (2603:10b6:8:be::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
+ 2026 07:18:35 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
+ 07:18:35 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Jul 2026 16:18:31 +0900
+Message-Id: <DJNWHTGYG1T0.3LNIHIL24WDRI@nvidia.com>
+Subject: Re: [PATCH v5 17/19] rust: drm: Add RegistrationData to drm::Driver
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
+ <ecourtney@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
+ <lyude@redhat.com>, <driver-core@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
 Content-Transfer-Encoding: quoted-printable
+References: <20260628145406.2107056-1-dakr@kernel.org>
+ <20260628145406.2107056-18-dakr@kernel.org>
+In-Reply-To: <20260628145406.2107056-18-dakr@kernel.org>
+X-ClientProxiedBy: TY4PR01CA0086.jpnprd01.prod.outlook.com
+ (2603:1096:405:37d::14) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB6639:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b5a8b86-3d57-4136-d254-08ded80a20d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|23010399003|10070799003|6133799003|4143699003|18002099003|56012099006|11063799006|22082099003;
+X-Microsoft-Antispam-Message-Info: B+ZdfZeRsLtVmc6/wyDcAeAZKo47PI9t5qKkNCttl+X275i1oekd+qCHUsNqpUcAyiTQnq7Jsa+SNLAbVCGzXv28GduxedeSl96axygYaOHQLGviM/cOqvtzGLFUde01l4ySr6fS3trKPxxHxg8cuEc/tE+LwWZEBvWrDIl2gSt9dQbqd4qKREk2/lvUqPqYXyH2or3kfcmv+YxUH7Mda7J+OLhKd0w0O/BSBmByjUXHEdYT00XQ4eXAsVsXbpNgaGwXoQuNAUJdbrLOfHeXrnykgaJ53FOEZRrbGhyDcURTw2aNNU+Y7O0I/MTMlfj8mA+EkZmlcU+/NoojFoTqa3c3I6/xX2w0eU/ncQUeZ4b7FsXBqPR/1fZHjdEGBzf5aX6blszdDuHVnawVkWKDh0bvoVezGCCOx26mU1QXUrYSvt+KW07v8uHdZ6446d9APTsrEUa4BZXO6Gg48csC41KJopSMwSZaBYjG8373QZkgSfxvIM6UVIxPYNjPr5aU2nSmhGdQLdskMOpmJsO+o5c+dT8yDn9+bO8oQBdTG7i5M6OhwDI+c/oEOskq3Kasnj5pePby97tZh8O6sS8v7fnhEDOkfKYFrI19J5Z82MRP0XFEXh45TFA0A0s5VAlimxu/EDa6orJnvzFrs9JFpX4ssIfllWPutCws9gxyBDY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10070799003)(6133799003)(4143699003)(18002099003)(56012099006)(11063799006)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmM2citmWDdLc2NVYmpRZGlkekJzSUNmMkMxdmMvWVNhdDRqNUFSbEdtTVZ0?=
+ =?utf-8?B?MWRzd0k2TFEyUlNJOWhEK1pibVJqZldkUG5FZmVwdU5SZXRvOWJ3Vk1IZzRK?=
+ =?utf-8?B?cFd6NGhtVTBsTGtpa3VjeWVNa2lHQ2ZvYU1NWTF3WFlyWm5GNm1DTUFoM00v?=
+ =?utf-8?B?RGo3NFV1VGRFaDZKenhxWlFqUzZzZDN4T3BqWSs5cHFlMzc5am0rMDAxUzdP?=
+ =?utf-8?B?SStwanhvWFFISSttbDk2QkIwbUI5YldTNzU4Y1preGVyMklPbldmU3pBMlRG?=
+ =?utf-8?B?MngxN3l4VEwvQWNSL2FKSGhORGFHZSt0OWpjeGU4dXFHeUE3OGZRNnlybndD?=
+ =?utf-8?B?c1hpdFMwSlA2STNlQVJkcHlIMW9yS1FLejVrMmdpaVhpeCtjYUdWQldGbTJS?=
+ =?utf-8?B?QWFHR1Z4TGxva0k1T3pCOUVTYWNTcVprNWZxcU5oNTNRVTRubmlRMm1WZnc3?=
+ =?utf-8?B?cWRQSkorOEozTGRWK3NQajlNWmQxTTNUNEMvbWIrYWRkSmhrVXNMWVNxYU1P?=
+ =?utf-8?B?T081UVF3MmkvZi92Y2d4VURoc2RpZXo2VncyeHV3Wnp1U0pCUU0vWExBdnRN?=
+ =?utf-8?B?cWQwQitTeUhWR29WZXBUczVPZG5wUFdXR2dDODRhNDZlTGxaRzNmZENVTmR0?=
+ =?utf-8?B?YnFkbFJqVjJFaUx0TzdncFVpcXNmRTViTU52SzBaaVZPcEZBcFovYVZzeWpv?=
+ =?utf-8?B?aXltcUFtbUpCaWpEZ1VKZXlrandmbXE3Tkx5YzRtUUNVeHpIcnZZSEluSE1o?=
+ =?utf-8?B?dlVCODcwYkdVYWdIckFzc3h5VENXZGQ4Vi9yN0llRWoyaU5CUi9Ddyt5clpn?=
+ =?utf-8?B?VlNGZURkaEJvdzkwek9aSWJ5amtibFBYSFhjQzNDZWhiaFlCRExXUG9obDB4?=
+ =?utf-8?B?M0ExbEw3UHo2Q3VRczNKcXZnYldubjV6SHNrTTNiclpNZCt0Qng4MlpRYnVM?=
+ =?utf-8?B?YTNwNmxVWXlHbzE1UE1YNGh3UERiMzJlbVkzMlVnUmlVWFRUVklrQzNPSXo4?=
+ =?utf-8?B?WVlsU1VDY3lDVkZBdjVxdmgxNUxSWkZIOFZzczd6QWdKVTdmWTlrNERsRE8y?=
+ =?utf-8?B?aThRZFo3bkRDcWVmQ3czT2RDUDlPKzJSUE1RaDRWTlVpaFZYVVJ5Tmg3K0hF?=
+ =?utf-8?B?SWM1R2dwam1XcXY3TDNkbVUxSllINWFFUm1tblFEREtpQjgxZW55QS9NQlNm?=
+ =?utf-8?B?Wkp0MGhSSXZkN3cxZGJvclA4NVFzQWgybEdyaElubmhXT2hKRmg3UFA0dlBK?=
+ =?utf-8?B?dnowNU9Zcyt4Y081OExIekc3S3M5amVNbXp0YXpydS9sd1hReGlubDhDaFl4?=
+ =?utf-8?B?dEl5TWJGZEFrSVNJaGdPdm5ZUHdEcGpCMjkySlVLc1VLUGtlWTJHMVk1VGRk?=
+ =?utf-8?B?UEU5aUFVNW1NRDJHWlRuNnFNTEFnbmxYQkhpY2RBOElya1lzMmg0SEhaNHFn?=
+ =?utf-8?B?dy9XUTZHM243TVZIbGNlSGdYTVoxS2EvS1dlS3JTTUkxN214MzdhYm5ldzRy?=
+ =?utf-8?B?R2FVQlMzcXczZUthZDltZTloT3ZSMnZzMkNEaHQxVFlzWDFhRE1wVUFRK01x?=
+ =?utf-8?B?QnBRbmhic3U1OUdwTFdsQmFiNXZ5cG9vbElQTFh3bFZmU2pGQ0RoVkxaWGI3?=
+ =?utf-8?B?VDBMZUNmOUEwUjdZekQ3aXlCZjI1dDVzcHlENGVuSEVZUTh6UUhqcHVDcHlH?=
+ =?utf-8?B?UUhoWnJOOVQ0Zk13L25oRlJoQ2NNQTZtcWtnWS9wczlZVG9NNzFxQ3h3WHRo?=
+ =?utf-8?B?QXRzNk8rQjc0bjZ5NXdHQzNRWld1b0ttMmlpS2ROUFRXeXJhRDUvaVhZRS85?=
+ =?utf-8?B?dW9yZHBmbjY3NXhvcnU3Z0MyT1MzU0I1eDZaMGZNci9aS0JxSFVycGdJQy9w?=
+ =?utf-8?B?WnY5RnNvaEV4TEsrTTJHa0tBQ1pLQllnbmJBeURncUNwbEZLbVBYWGlyRHlG?=
+ =?utf-8?B?MkpscEV4OEpqbDRncVNlbHVKVnNpQVFvMDBQWG51ZWEwbU9sWmVMRXd3OVpP?=
+ =?utf-8?B?YmtROXVuZGRrL1J5ZkRVZW9ZT3B0ZkJtWUowY3BsRW5VUzIwWDZGSkFOdnZH?=
+ =?utf-8?B?QUF1eENDRWtsenIvN0dJTm95VkFMTG9yOW9RaDFpQ2pKZFBvMnZaaFF6QkE2?=
+ =?utf-8?B?dC9DeFpSd0NxZk9ZbWRFQlNhQ2FSY0pFclpvUk8zWEwrTlpmdVVxaWxQOFdY?=
+ =?utf-8?B?STM5ODZIeE90V1Vrc1hCVzRvS2JRZzZvZ3JZVHA1UlZ5TlF0M1RHOVd5Z2lj?=
+ =?utf-8?B?bTdBMXhQUnllcm9wZ2NZZHJIZm9ydkNobHVIYlJJNE1MbUJWbkdpNGFQL2F3?=
+ =?utf-8?B?T21sRGpHc1daVElLNThSMDBKQ0NSQ2VQUGorTGREZ3Z6c0dlbTVBVlVwbUcr?=
+ =?utf-8?Q?dyRLw5vi28ilt3avYUD1BmKeiNBW6EJ+hh4D2NNduOCmf?=
+X-MS-Exchange-AntiSpam-MessageData-1: OrYvIJck3GnSTA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b5a8b86-3d57-4136-d254-08ded80a20d1
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 07:18:34.8866 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ft3oLIvbQ7+nSek/zjZa6GSeD7xKkR1oNN21iKBZ2nA2xZj9xuDQ6zufm9SqoSDreLncQ7tUGrzDWv4zQhGKrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6639
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,93 +144,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Sun Jun 28, 2026 at 11:53 PM JST, Danilo Krummrich wrote:
+<...>
+> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> index 5e8b75dab0a6..7a3a0e21e955 100644
+> --- a/rust/kernel/drm/device.rs
+> +++ b/rust/kernel/drm/device.rs
+> @@ -32,6 +32,7 @@
+>  };
+>  use core::{
+>      alloc::Layout,
+> +    cell::UnsafeCell,
+>      marker::PhantomData,
+>      mem,
+>      ops::Deref,
+> @@ -247,6 +248,9 @@ pub fn new(
+>          // SAFETY: `drm_dev` is still private to this function.
+>          unsafe { (*drm_dev).driver =3D const { &Self::VTABLE } };
+> =20
+> +        // SAFETY: `raw_drm` is valid; no concurrent access before regis=
+tration.
+> +        unsafe { (*raw_drm.as_ptr()).registration_data =3D UnsafeCell::n=
+ew(NonNull::dangling()) };
+> +
+>          // SAFETY: The reference count is one, and now we take ownership=
+ of that reference as a
+>          // `drm::Device`.
+>          // INVARIANT: We just created the device above, but have yet to =
+call `drm_dev_register`.
+> @@ -270,6 +274,7 @@ pub fn new(
+>  pub struct Device<T: drm::Driver, C: DeviceContext =3D Normal> {
+>      dev: Opaque<bindings::drm_device>,
+>      data: T::Data,
+> +    pub(super) registration_data: UnsafeCell<NonNull<T::RegistrationData=
+<'static>>>,
+>      _ctx: PhantomData<C>,
+>  }
+> =20
+> @@ -278,6 +283,28 @@ pub(crate) fn as_raw(&self) -> *mut bindings::drm_de=
+vice {
+>          self.dev.get()
+>      }
+> =20
+> +    /// Returns a reference to the registration data with lifetime short=
+ened from `'static`.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The caller must ensure that:
+> +    ///
+> +    /// - The parent bus device is bound (e.g. by holding an active `drm=
+_dev_enter()` critical
+> +    ///   section via [`RegistrationGuard`]).
 
-
-On 02/07/2026 07:43, Hillf Danton wrote:
-> On Wed, 1 Jul 2026 09:23:05 +0000 Ryosuke Yasuoka wrote:
->>On 30/06/2026 16:46, Dmitry Osipenko wrote:
->>> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init=
-(),
->>> placing it after wait_event_timeout(display_info_pending)? This will av=
-oid
->>> additional work_struct that otherwise needs to be cancelled in
->>> virtio_gpu_init() on the timeout.
->>
->>IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
->>into virtio_gpu_init() after wait_event_timeout() would not prevent the
->>issue.
->>
->>Looking at the syzbot call traces[1][2], the deadlock occurs during
->>drm_client_setup(), which runs after virtio_gpu_init() has already
->>returned. The display_info_cb that triggers the deadlock is called from
->>the dequeue worker while drm_client_register() holds clientlist_mutex.
->>
->>Thread A:
->>virtio_gpu_probe()
->> -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
->> -> drm_dev_register()
->> -> drm_client_setup()   // deadlock happens HERE
->>     -> drm_client_register()   // holds clientlist_mutex
->>     ...
->>     -> virtio_gpu_queue_fenced_ctrl_buffer()
->>         -> wait_event() // waits for free space
->>
->>Thread B:
->>virtio_gpu_dequeue_ctrl_func()
->> -> reclaim_vbufs()   // make free space
->=20
-> I wonder if the deadlock could be cured by alternatively adding a wakeup
-> before the responce cb, given that free space is available.
-
-Thanks for your comment. I agree that moving wake_up() before response
-cb would help in most cases, and I think it is a reasonable aproach.
-However, there are a few rare scenarios where the deadlock can still
-occur:
-
-1. If reclaim_vbufs() does not free enough slots to satisfy
-num_free >=3D elemcnt, wake_up() fires but the wait_event() condition
-evaluates false. Thread A remains asleep holding clientlist_mutex, and
-the dequeue worker proceeds to display_info_cb which blocks on
-clientlist_mutex.
-2. Even if enough slots are freed, there is a small window between
-wait_event() returning and Thread A acquiring spin_lock(&qlock) at the
-"goto again" path in virtio_gpu_queue_ctrl_sgs(). Another thread can
-consume the freed slots during this window, causing Thread A to loop=20
-back to wait_event() still holding clientlist_mutex.
-3. Reordering wake_up() before resp_cb inverts the natural "process
-response, then signal completion" pattern, which could introduce subtle
-issues if a future resp_cb depends on side effects that should happen
-after wake_up(), I believe.
-
-These scenarios are likely rare in practice, but the schedule_work()
-approach avoids all of them entirely by ensuring the dequeue worker
-never touches clientlist_mutex. It also follows the same pattern
-already used by config_changed_work in this driver.
-
-Best regards
-Ryosuke
-
->=20
->> -> resp_cb()
->>     -> virtio_gpu_cmd_get_display_info_cb
->>         -> drm_helper_hpd_irq_event()
->>         -> drm_kms_helper_hotplug_event()
->>             -> drm_client_dev_hotplug() // need to lock clientlist_mutex
->> -> wake_up()   // never reached
->>
->>IIUC the hotplug notification in display_info_cb is needed because it
->>notifies DRM after updating by the callback with fresh data from the host=
-.
->>
->>This work_struct ensures display_info_cb never blocks on
->>clientlist_mutex in the dequeue worker, while preserving the hotplug
->>notification with fresh data.
->>
->>[1] https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406e45c1c6e=
-549453f224
->>[2] https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4cf7baf376=
-cc873a922e
->>
->>Best regards,
->>Ryosuke
-
+In practice, `registration_data_unchecked` is only ever called from a
+`Registered` context, so can't we move its definition to an `impl<T>
+Device<T, Registered>` block so this invariant is enforced by the type
+system?
