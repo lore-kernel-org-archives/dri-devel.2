@@ -4,83 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02293C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 18:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7209C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 18:23:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5877710F557;
-	Thu,  2 Jul 2026 18:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 151C810F554;
+	Thu,  2 Jul 2026 18:23:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="hmj/X4M1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UfpRJ7wc";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4928B10F557
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:22:11 +0000 (UTC)
-Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 662Goctu3691292
- for <dri-devel@lists.freedesktop.org>; Thu, 2 Jul 2026 11:22:10 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=o6FFhPbwIawOuSi37VsnK8qaSNi6AEC+q+2bkFHQhdk=; b=hmj/X4M1FA+v
- UiPRY4m+oLnRVqYtkF7xLBTjayw4u1JXljeFJ9NHi1N02KRIZQGRrqLYq5tOJZQl
- g8RtosGnR7EdPg5lBT+EK/VDdHfInu9r112+j2Yzb55IvQFIpGxXZ6cG0lcHrLuv
- O0/qzJIX2XClP/ssK+j96pEosOQvYc29Eat8BzPy3RgVuFj+vX8Vf9LBPmeBiz33
- R8qmxyuLx+keLJbTYLkssWYqvPYI73U/FTpaVt8o/2v1ZZggj2atoJXdLfb/Uypt
- +Gp8pGjybocP9CzK0WiR1kbY5bnRilmFPXvmVKpYhBbOLXsvDJYdTiVZcfVR+9Kf
- yyYiYuZE8g==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4f5ta81k1x-6
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 11:22:10 -0700 (PDT)
-Received: from twshared20751.01.snb2.facebook.com (2620:10d:c085:108::150d) by
- mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Thu, 2 Jul 2026 18:22:06 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id C4CF040EEE7B5; Thu,  2 Jul 2026 11:10:30 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
- Guralnik <michaelgur@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>, Alex Williamson
- <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v11 3/4] vfio/pci: implement get_pci_tph and DMA_BUF_TPH
- feature
-Date: Thu, 2 Jul 2026 11:10:16 -0700
-Message-ID: <20260702181025.2694961-4-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260702181025.2694961-1-zhipingz@meta.com>
-References: <20260702181025.2694961-1-zhipingz@meta.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1751A10F554
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:23:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0A5A1601CA;
+ Thu,  2 Jul 2026 18:23:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E541F000E9;
+ Thu,  2 Jul 2026 18:23:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783016585;
+ bh=hQPGTBO7BbHvPwkGXu3jmxAP0JkMtpnzCEyh7M3dW+A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UfpRJ7wcJUUJe+AvjFFgEQDa3Ra1nVg/wvzi30SuxQsj24btQgIfLnqO1cHtWF3O3
+ RO5x2Q5j6aQDze0XoY7BQ9kVMUrADnUu4hBgOWbG5PphBREi4u3MchXjtc5PPUxBlc
+ bXzFL5pEKj70kDfQRM0FnMD5g4ZHLIHYPVuGDoLx20ziYxWcbzYcDCw9ERhS6wBJhC
+ WhTmd9xiz52en+deNCBp38TNv+I0QBnaMA5mViEEILzR8cmRKsdBLdIOqa7twmNDG9
+ 1pGU02WOz0kjbFO5lh/JqApw/kQOIhImJDNohc4qZQADDgzAzBg4azVtUGaBUIAwlj
+ pxemaz8ddIdJw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid
+ frame duration
+To: "Roman Ilin" <me@romanilin.is>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260702181027.98526-1-me@romanilin.is>
+References: <20260613224434.96501-1-me@romanilin.is>
+ <20260702181027.98526-1-me@romanilin.is>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDE5MyBTYWx0ZWRfX967BLJGCbqEH
- Mhn8FDSWrKvUddUl4HxI6zL6DwskmqO9iQt4jd0ItBlNHC+U+R5IGuhqzDEkOIef/DKZAsAFv49
- J2H7Aj/7or18uUkeWnDQ67VMSIMVB4pJTB+Pz2dWnPgv88h9w1S1TRlldBZ2335rkgpzslxR/Rm
- TH1C7qP3tRuYRQ1vZeRTTQzBrmsoooUxKwi7d8/kCSXoWUq+SIy64T0ZQypjrSXt+MogCVIngIU
- b13ulgbggYvPHnz2FEbtsjlgy+gtyYyIs2WBkgqQWC84VV+DY1QLl53mJwEB6IQEvtIB5FFek51
- a7olRSlDqJwGgXCJKn9cx7WWyUh+ygz/MLObSveFL9sSpUyMHtLqcMQfz8dqIXIQ45EdvLQN53B
- UJPy2FxiNQMBRf720fhMfy6oKO6a0iLLGpgsD8QpwBZYzZJvnqKmMbU40EDC4SLU8VdqUmPM/83
- CjfpvkmUDoJGHBCkb4A==
-X-Authority-Analysis: v=2.4 cv=apOCzyZV c=1 sm=1 tr=0 ts=6a46ac52 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=kkcUborcUVj0H7zxAXTl:22 a=VabnemYjAAAA:8 a=jp8Fuoutt1YJt9GT4a8A:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDE5MyBTYWx0ZWRfX/vbBKC2vmLlp
- xK1MhP1FDmLADabVdelwsoUc6rutiv3ILyQPWVobi+iXAkxUdKY/XEliNTvUECROU6IecBodQ/E
- rhzxK55yoVfd0dXFu3f9oNjV9xYWoS0=
-X-Proofpoint-GUID: uu62KcpqkaBxn5OnZTMgx0wPuIvOkFA3
-X-Proofpoint-ORIG-GUID: uu62KcpqkaBxn5OnZTMgx0wPuIvOkFA3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_02,2026-06-26_01,2025-10-01_01
+Date: Thu, 02 Jul 2026 18:23:04 +0000
+Message-Id: <20260702182305.04E541F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,313 +54,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement dma-buf get_pci_tph for vfio-pci exported dma-bufs and add
-VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can publish TPH metadata
-for a VFIO-owned device.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
-uAPI carries both with explicit validity flags, and get_pci_tph()
-returns the value matching the importer's requested namespace or
--EOPNOTSUPP.
+Pre-existing issues:
+- [Critical] drm_crtc_vblank_start_timer() deadlocks when synchronously spi=
+nning on hrtimer cancellation if the timer callback is concurrently running.
+--
 
-Publish and read the TPH descriptor under dmabuf->resv, matching the
-locking used for other importer-visible dma-buf state. The SET ioctl
-takes dma_resv_lock_interruptible(), while the callback runs under
-DMA-buf's asserted resv lock.
+commit ea5cbfbf25c3ea02070a1ec1d83634d5505e475b
+Author: Roman Ilin <me@romanilin.is>
 
-The attach path reads @revoked without holding memory_lock. Annotate it
-with READ_ONCE() to document this intentional lockless access: the read
-is a benign early-out, and a racing revocation is re-checked under
-dmabuf->resv in vfio_pci_dma_buf_map() before any mapping is handed out.
-The annotation only needs to keep the access well-formed against the
-memory_lock-protected writers.
+drm/vblank: Don't arm vblank timer with invalid frame duration
 
-Reject requests the device cannot consume as a completer:
-pcie_tph_completer_type() must report at least
-PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY, and Extended ST requires
-PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH. Make PROBE follow the same hardware
-gate so the feature only probes as supported when the device can really
-consume it.
+This commit fixes a bug where an extremely small pixel clock results in a
+computed frame duration that wraps to a negative value, causing the vblank
+hrtimer to fail and stall pending page flips. It updates the calculation to
+use u64 and adds overflow checks, returning an error to fall back to
+immediate vblank events.
 
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
----
- drivers/vfio/pci/vfio_pci_core.c   |   3 +
- drivers/vfio/pci/vfio_pci_dmabuf.c | 102 ++++++++++++++++++++++++++++-
- drivers/vfio/pci/vfio_pci_priv.h   |  12 ++++
- include/uapi/linux/vfio.h          |  43 ++++++++++++
- 4 files changed, 158 insertions(+), 2 deletions(-)
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index f90fb2d13e423..629b9fcc7a52d 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci=
-_core.c
-index a28f1e99362c..c7d6902bc61b 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1572,6 +1572,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device =
-*device, u32 flags,
- 		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
- 	case VFIO_DEVICE_FEATURE_DMA_BUF:
- 		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
-+	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-+		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-+							 argsz);
- 	default:
- 		return -ENOTTY;
- 	}
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
-ci_dmabuf.c
-index c16f460c01d6..5351839c1338 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -3,6 +3,7 @@
-  */
- #include <linux/dma-buf-mapping.h>
- #include <linux/pci-p2pdma.h>
-+#include <linux/pci-tph.h>
- #include <linux/dma-resv.h>
-=20
- #include "vfio_pci_priv.h"
-@@ -19,7 +20,17 @@ struct vfio_pci_dma_buf {
- 	u32 nr_ranges;
- 	struct kref kref;
- 	struct completion comp;
--	u8 revoked : 1;
-+
-+	/*
-+	 * Updates protected by dmabuf->resv, @revoked additionally
-+	 * protected by memory_lock.
-+	 */
-+	u16 tph_st_ext;
-+	u8 tph_st;
-+	bool revoked;
-+	u8 tph_st_valid:1;
-+	u8 tph_st_ext_valid:1;
-+	u8 tph_ph:2;
- };
-=20
- static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
-@@ -30,7 +41,7 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmab=
-uf,
- 	if (!attachment->peer2peer)
- 		return -EOPNOTSUPP;
-=20
--	if (priv->revoked)
-+	if (READ_ONCE(priv->revoked))
- 		return -ENODEV;
-=20
- 	if (!dma_buf_attach_revocable(attachment))
-@@ -69,6 +80,26 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attach=
-ment,
- 	return ret;
- }
-=20
-+static int vfio_pci_dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool ext=
-ended,
-+					u16 *steering_tag, u8 *ph)
-+{
-+	struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
-+
-+	dma_resv_assert_held(dmabuf->resv);
-+
-+	if (extended) {
-+		if (!priv->tph_st_ext_valid)
-+			return -EOPNOTSUPP;
-+		*steering_tag =3D priv->tph_st_ext;
-+	} else {
-+		if (!priv->tph_st_valid)
-+			return -EOPNOTSUPP;
-+		*steering_tag =3D priv->tph_st;
-+	}
-+	*ph =3D priv->tph_ph;
-+	return 0;
-+}
-+
- static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment=
-,
- 				   struct sg_table *sgt,
- 				   enum dma_data_direction dir)
-@@ -101,6 +132,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *=
-dmabuf)
-=20
- static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
- 	.attach =3D vfio_pci_dma_buf_attach,
-+	.get_pci_tph =3D vfio_pci_dma_buf_get_pci_tph,
- 	.map_dma_buf =3D vfio_pci_dma_buf_map,
- 	.unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
- 	.release =3D vfio_pci_dma_buf_release,
-@@ -333,6 +365,72 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_co=
-re_device *vdev, u32 flags,
- 	return ret;
- }
-=20
-+int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-+				      u32 flags,
-+				      struct vfio_device_feature_dma_buf_tph __user *arg,
-+				      size_t argsz)
-+{
-+	struct vfio_device_feature_dma_buf_tph set_tph;
-+	struct vfio_pci_dma_buf *priv;
-+	struct dma_buf *dmabuf;
-+	u8 comp;
-+	int ret;
-+
-+	comp =3D pcie_tph_completer_type(vdev->pdev);
-+	if (comp =3D=3D PCI_EXP_DEVCAP2_TPH_COMP_NONE)
-+		return -EOPNOTSUPP;
-+
-+	ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-+				 sizeof(set_tph));
-+	if (ret !=3D 1)
-+		return ret;
-+
-+	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-+		return -EFAULT;
-+
-+	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
-+		return -EINVAL;
-+
-+	if (set_tph.ph & ~0x3)
-+		return -EINVAL;
-+
-+	if ((set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT) &&
-+	    comp !=3D PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH)
-+		return -EOPNOTSUPP;
-+
-+	dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
-+	if (IS_ERR(dmabuf))
-+		return PTR_ERR(dmabuf);
-+
-+	if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
-+		ret =3D -EINVAL;
-+		goto out_put;
-+	}
-+
-+	priv =3D dmabuf->priv;
-+	if (priv->vdev !=3D vdev) {
-+		ret =3D -EINVAL;
-+		goto out_put;
-+	}
-+
-+	ret =3D dma_resv_lock_interruptible(dmabuf->resv, NULL);
-+	if (ret)
-+		goto out_put;
-+
-+	priv->tph_st         =3D set_tph.steering_tag;
-+	priv->tph_st_ext     =3D set_tph.steering_tag_ext;
-+	priv->tph_ph         =3D set_tph.ph;
-+	priv->tph_st_valid   =3D !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
-+	priv->tph_st_ext_valid =3D
-+		!!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
-+	dma_resv_unlock(dmabuf->resv);
-+	ret =3D 0;
-+
-+out_put:
-+	dma_buf_put(dmabuf);
-+	return ret;
-+}
-+
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
-ed)
- {
- 	struct vfio_pci_dma_buf *priv;
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci=
-_priv.h
-index fca9d0dfac90..c58f369be4b3 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *p=
-dev)
- int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32=
- flags,
- 				  struct vfio_device_feature_dma_buf __user *arg,
- 				  size_t argsz);
-+int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-+				      u32 flags,
-+				      struct vfio_device_feature_dma_buf_tph __user *arg,
-+				      size_t argsz);
- void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
- void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revok=
-ed);
- #else
-@@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_d=
-evice *vdev, u32 flags,
- {
- 	return -ENOTTY;
- }
-+
-+static inline int
-+vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32=
- flags,
-+				  struct vfio_device_feature_dma_buf_tph __user *arg,
-+				  size_t argsz)
-+{
-+	return -ENOTTY;
-+}
- static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device =
-*vdev)
- {
- }
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index 5de618a3a5ee..4c1c70aac150 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -1534,6 +1534,49 @@ struct vfio_device_feature_dma_buf {
-  */
- #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
-=20
-+/**
-+ * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) met=
-adata
-+ * with a vfio-exported dma-buf. The dma-buf must have been created by
-+ * VFIO_DEVICE_FEATURE_DMA_BUF on this device, and the device must repor=
-t
-+ * TPH Completer support in Device Capabilities 2 (bits 13:12); requests
-+ * carrying VFIO_DMA_BUF_TPH_ST_EXT additionally require the device to
-+ * report the Extended TPH Completer encoding. Otherwise the ioctl
-+ * returns -EOPNOTSUPP.
-+ *
-+ * @dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA=
-_BUF.
-+ *
-+ * 8-bit ST (@steering_tag) and 16-bit Extended ST (@steering_tag_ext) a=
-re
-+ * distinct namespaces. @flags is the authoritative validity mask for th=
-e
-+ * two namespaces: VFIO_DMA_BUF_TPH_ST marks @steering_tag valid and
-+ * VFIO_DMA_BUF_TPH_ST_EXT marks @steering_tag_ext valid. An importer
-+ * requests one namespace and receives the matching value.
-+ *
-+ * Each SET fully replaces the dma-buf's TPH state for future queries
-+ * only. A namespace whose flag bit is clear is reported as unsupported
-+ * to future importers; an importer that has already retrieved a value
-+ * is unaffected. @flags =3D=3D 0 leaves both namespaces unsupported for
-+ * future importers.
-+ *
-+ * @ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
-+ *
-+ * Undefined @flags and @ph bits must always be zero.
-+ *
-+ * Userspace must configure TPH before handing the dma-buf fd to an
-+ * importer.
-+ */
-+#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
-+
-+#define VFIO_DMA_BUF_TPH_ST		(1 << 0)
-+#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)
-+
-+struct vfio_device_feature_dma_buf_tph {
-+	__s32	dmabuf_fd;
-+	__u32	flags;
-+	__u16	steering_tag_ext;
-+	__u8	steering_tag;
-+	__u8	ph;
-+};
-+
- /* -------- API for Type1 VFIO IOMMU -------- */
-=20
- /**
+[ ... ]
+
+> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *cr=
+tc)
+>  	struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+>  	struct drm_vblank_crtc_timer *vtimer =3D &vblank->vblank_timer;
+>  	unsigned long flags;
+> +	int ret;
+> =20
+>  	if (!vtimer->crtc) {
+>  		/*
+> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *cr=
+tc)
+>  			hrtimer_try_to_cancel(&vtimer->timer);
+>  	}
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does this busy-wait loop
+cause a deadlock if the timer callback is running concurrently?
+
+When drm_vblank_enable() is called, it takes dev->vblank_time_lock before
+calling down to __enable_vblank(), which eventually calls
+drm_crtc_vblank_start_timer().
+
+If the timer fires on another CPU at this exact moment, this loop will spin
+indefinitely waiting for the callback to finish. However, the timer callback
+executes drm_handle_vblank(), which tries to acquire dev->vblank_time_lock:
+
+drm_vblank_timer_function() -> drm_handle_vblank() {
+    ...
+    spin_lock(&dev->vblank_time_lock);
+}
+
+Could this result in a deadlock between the spinning thread holding
+vblank_time_lock and the timer callback trying to acquire it?
+
+> -	drm_calc_timestamping_constants(crtc, &crtc->mode);
+> +	ret =3D drm_calc_timestamping_constants(crtc, &crtc->mode);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	spin_lock_irqsave(&vtimer->interval_lock, flags);
+
 --=20
-2.53.0-Meta
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702181027.9852=
+6-1-me@romanilin.is?part=3D1
