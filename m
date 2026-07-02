@@ -4,72 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0058FC43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:21:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67682C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:25:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 316FD10F396;
-	Thu,  2 Jul 2026 13:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9AAA10F379;
+	Thu,  2 Jul 2026 13:25:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="lItd+RyL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m+UnS1hs";
 	dkim-atps=neutral
-Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com
- [91.218.175.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50D3E10F396
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 13:21:52 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782998499;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JUypSg4x3H5Npdac5Q/QNTHcczAl9LnBdMVXVWinEec=;
- b=lItd+RyL3jRAHkpl0dxrPEWed2AY0HWUHX4RwICujMLfpbUgWjWjW+ARImTVfb6PHm9Sny
- y6V8i67fWjOA8LCWLGCzxRy43+gvonIsLNLIP4rLaMNI+LWR2I1BadswAi+4/7c6z/eUrS
- IlFVPIdu28UO/M5UjVs/++abx0FKfS4=
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, lyude@redhat.com, dakr@kernel.org,
- tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com, thierry.reding@kernel.org, mperttunen@nvidia.com,
- jonathanh@nvidia.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
- zack.rusin@broadcom.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
- deller@gmx.de, bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
- muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, hughd@google.com, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de,
- kees@kernel.org, perex@perex.cz, tiwai@suse.com,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-sound@vger.kernel.org
-Subject: Re: [PATCH 11/13] mm/mlock: convert mlock code to use vma_flags_t
-Date: Thu,  2 Jul 2026 21:21:07 +0800
-Message-Id: <20260702132107.73727-1-lance.yang@linux.dev>
-In-Reply-To: <2db16db81538355ca65f778c246d2381c673cad4.1782760670.git.ljs@kernel.org>
-References: <2db16db81538355ca65f778c246d2381c673cad4.1782760670.git.ljs@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D395C10F377;
+ Thu,  2 Jul 2026 13:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782998750; x=1814534750;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=wIy1JkviQ18VK6kBApZFI/kj2hbmF7ZPtK5C9MH0K8Y=;
+ b=m+UnS1hs/LkqPZ/LkLpZIoVweuiuWgdlbcEYJZLtbAREEc94qaaiVcGu
+ 96NrMGMDhYFLgchLK+i2vlHoHj59yjEYtJjPSXwWJIRolDinLSL8FnP+G
+ lMFb0VT2+Wgsnxy3qz10XQwSWMUVywY3mSo2b/z6vwSYS817nL0KjpSim
+ /s4JrN5X0T6GBUaAappw39K0zv9ErzVsh9q3dBEhMz1pQxjft+iNgVv44
+ bvi8zabVp441ULokvJh+pOxZObMkllf5VQ7BVZneC4sn0FVVOZv7JvakJ
+ rUt1eEs8dCA5s6vBcCZ5Mdu1WnLUtbSk9pKr770fqXMbyezQU/5IQAgzX w==;
+X-CSE-ConnectionGUID: S2B/Fh3sRBy5BvzpGDnCZA==
+X-CSE-MsgGUID: Fjq/5gibRWK7OmpQfjA15w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83784186"
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="83784186"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 06:25:49 -0700
+X-CSE-ConnectionGUID: lKQ2lkLiRGmjAo+cJl+CBg==
+X-CSE-MsgGUID: ofetJKnTSY6BnW5gW4VMYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="253524852"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 06:25:50 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 2 Jul 2026 06:25:49 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 2 Jul 2026 06:25:49 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.17) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 2 Jul 2026 06:25:48 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TRZlA5jL+Th1JA5SK6HG86mtT59+ec7cI/SwKkElQ2T7U62f//hKyzZ1NZbx6VkMi0iR1j4zM/VfONgrrCL/OmpkfcGyXH7gSUSSOQeFwhxCBK/UIn6cQmRnVfLNCLnfb9cI+FgwrXVwNcnXKcC4kGqTGI/SBAPd2GVlGj6BNUYOBt1rl60Mb5Ry607WsaN2/m1voOSRs7PnoQhhfhVL/nGdKNJW3JCn4hU6ezgrSCTzRjgLeKFuNHf47Pd7wsO7fSB+aw7M1mhsG5O2pdnGWV3ErjjUOqHRSt4tsl8xfRHFROcU5bfvyMisvhZL8GHQe+shIg/v9Fd1zo+ydaeMqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+W0grW1V4pIcbPIbshziSql8g2W7pbcJC4iE9o2TGO0=;
+ b=nTLAD5zyrhcmz/Z5FrmeZMxIiiY1tKLIwOsJljrhihrkNcC9ymIlL59VQDo3g7yoLkuG6h5ievfHL8HIkNSok0ifAY+guB+6gwSJoDFOmIMqFw37qF4V4tBFgfeeI84zEBMaepTUq+gNJ7zt/UbWkDifVMr8VkqyNnfXV6jeBZ8PQTbvbNXLPwKLHW0fpxdNSD75UBzNQR6ZvXY1XT124voavnB7+QN1crlejCFPt9nyP0AhHndthXPGZ2rAm5qlu/GfWSipW1B4ds0ugiGyCyEuudv/SxtkgNcMxx7cpvBwpsHM2TexXY/fG0z2NywbSRPvvkM2t/SlmEt3NEeYdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
+ by MW4PR11MB6692.namprd11.prod.outlook.com (2603:10b6:303:20e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
+ 13:25:44 +0000
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
+ 13:25:43 +0000
+Date: Thu, 2 Jul 2026 09:25:36 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+CC: John Hubbard <jhubbard@nvidia.com>, Matthew Brost
+ <matthew.brost@intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar
+ <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+ <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-perf-users@vger.kernel.org>, LKML
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/2] perf/core: out-of-line and export
+ perf_allow_cpu/tracepoint()
+Message-ID: <akZm0HrMzwarUX1E@intel.com>
+References: <20260523013326.129491-1-jhubbard@nvidia.com>
+ <20260523013326.129491-2-jhubbard@nvidia.com>
+ <87fr3dv83t.wl-ashutosh.dixit@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <87fr3dv83t.wl-ashutosh.dixit@intel.com>
+X-ClientProxiedBy: BY1P220CA0040.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:59e::16) To CO1PR11MB5073.namprd11.prod.outlook.com
+ (2603:10b6:303:92::23)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|MW4PR11MB6692:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5653f793-bdca-47d6-624c-08ded83d6ad8
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|1800799024|376014|23010399003|4143699003|5023799004|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: VqS8TluSEx1m+PW4GGJ6/ta5tT7TWP36B+Qs1IwKNqG3Why5WObLl2b3jREbUgk+6bbfshZP4mMXITvgTb1ROmP+MQjXNjgj3p5QcMDjcnfyI1EPAUBRNwe+0Pbtwg5F5rCo2eb1lanNgZC19fW7hN+7TRP4ES4RamR/gYQHLujiXksk1zKB0L2FC9CduG5oHxHPFDaqdZdOMtQ6C6CQGAQIUP0a6I2yOwVaF3h0u8HcPa99gfmL5o65wUBncZCeaDDhLUh+ngvqu7JKIowP3zuuM2Z4rpMqn+3kNHvcQM+EBp3kbBSoeqnYhqHzOl4VkKMjjP0amBjhf2QLD8SUJNWx9PlTgz0pcwyqxQKqlr+5kWdNE+mp7Q8xz5yvQYY6sO/xpUsplCfobDl92oXYtbVDH4sPLCrCh+1g04A1Q4l4w7wfg5PdqQ70rLgdntTEfFeyW/ZgJfB9kslXz8dFPKTcGKYhJlWWZiaG2TIWjlSUK1qeIr60uBWAXv0nViLmGO3W8K9erkUcnRJesB+ys7St+Hk8ZOtiLv+PlH4fpXE/S/j6ChJSi5LSK6hrHxffxexAB6JUd599On6mngNxtm21gMUzH819HyNk6PnS/vNw0OaHh7VdgXV3hlzCInoDl8cj/IEVGsRDqO+tHoM+XjHL9MRnv63XZ5ie7co7N94=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(4143699003)(5023799004)(11063799006)(18002099003)(22082099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ttMXkpNzRSqOkUOFy32Z0cJ0wX4oH9az67mz9897gJPMp5BCsUZY21hFsQIg?=
+ =?us-ascii?Q?S4HMOtXV0/OCSa8eRsGB8tVurBFB0u3fbyUCIaQVb94/7UsTCt2jGNXZ120J?=
+ =?us-ascii?Q?Ar9WtiaqvEeoOzDajYKbe373pVENXp8hWiv8j7FBEQke4EiCohHRsNIm12iP?=
+ =?us-ascii?Q?iHSUPCp6CNAH2crhl6WhdXKg1KpTgObuZo9fna6Xo2q5z0PUZGcrmYqqZQh2?=
+ =?us-ascii?Q?IXWJXMtwHhWz5aAEmCrenB4ONILf/qY4OGdVQZC9w3dAIK28c0yB282/LPZt?=
+ =?us-ascii?Q?DLN9Goj5BrVFcisW0T/XLvHKw1penVOqmgMSwJoMRp3ZwZ2F+CRHbnerYvhI?=
+ =?us-ascii?Q?3m2l1SgflIKV3NkC19i7mKQ6JkhE3HkGKY7PU6eBtKrzYb+ImS4MYZeYLQiX?=
+ =?us-ascii?Q?akBcxNQ/jPhd9xBXbQJPbqI/v26QR9t0EOfrC/HGz+JvVtJZ06QaemK4ruL4?=
+ =?us-ascii?Q?uQxUerH4+bUg/fMGAgX+DrnozpnPbL1XAmNhaswjjc8soAMd41NH6HZGYI41?=
+ =?us-ascii?Q?k8pTqkUn0bL1prIYiW74zCVbyh5lmu8hqHMjaBYHrEAYh7iz/fHK3/EfOCyp?=
+ =?us-ascii?Q?gdNly/Q+z4ol9Bbl/6H25fH5/xDdfvwCzvp4nEZpVwNISXMnSkJAhBacwQhv?=
+ =?us-ascii?Q?0XRT1BYN8XPledrfOFf6H4MEj/znXpmhSQ4CxL0YyxHAdW5m6GX2Fg+f8WcY?=
+ =?us-ascii?Q?3lPDbfrafiTdpmxufQw3NbPYeQ1K64xAxUHpG0O5cddR28LzATG5zwx/d2ke?=
+ =?us-ascii?Q?PQoRC1p3aOoeWupY4gy/FydOIrPrp1ppsiXLeh6MQCIssa3iWf7h4UxBwCOg?=
+ =?us-ascii?Q?arEPb4E0HeY2JKgD3J322PY5B32b668h/OBg8JY35KuUe4MBUAEE19RQFO1b?=
+ =?us-ascii?Q?YLy/p0hrBOZLNBjjraaqgZHxshvi7VtgMIHrq34Ow8JkLtbnGNYORk54tdei?=
+ =?us-ascii?Q?uELN+T331KDNvhpjk7DvfOIMDxT50h2c+reSFl2MIV6OkhsRNtgBz+Wp3BIg?=
+ =?us-ascii?Q?YV87/1Fd0yBPqLdedB1/ZCk1sVjMQ0RWwCXL1gCovp2dmmIRxsjJ8mWAljES?=
+ =?us-ascii?Q?NGY9XJqMxz6bhlX56awZVQf7c+Q5BHrj5SCcZBbX7ok+wz37xA/03+lT3q2S?=
+ =?us-ascii?Q?HozED6HCpRv7BKcW+hP+3Q+C1+bz8crOR3PxaD4WbA1kgRXLVLEdHVqH6doc?=
+ =?us-ascii?Q?t/o6bz6yubbrpqW6q0CVS6wszE8zseUwvesVVpvFP+B4pfmMdEOPhXmpeG80?=
+ =?us-ascii?Q?5t5FAlcxREQRp++9yZGx/nleyhwwHSnQTv9Yl7iWGXvLwzB2gqO97TPI1ATP?=
+ =?us-ascii?Q?Lv2CKEL9RrPqtsyQvElDd+r9fC2B5JzMEZxLiajHCmclAejB4EVKExihieKg?=
+ =?us-ascii?Q?tUfKbL/DPMVY1F2kaz78jHuKekST6NvOEaSZH370CLXhKfet7pbhd1w1qYc1?=
+ =?us-ascii?Q?QFPGtHlt0uBxF5a09q3e8zeXsEL2OoAX+jIalYDjrpe5XUrRts/gvyax8zK0?=
+ =?us-ascii?Q?tP25CwqQzBTovpDTjw7stLqRyzACuKcjlSqAc4LD3yOFxCpH8PGd2jDIbjgt?=
+ =?us-ascii?Q?TLWWTjfJqAggAVDXXTtabeDNTZEdsM0+kcfGv/WEg7MISvw6x3Hm31e4kbGt?=
+ =?us-ascii?Q?Wnt+5BFfcC/DmhYrGhHmR8AobSqJ8LRXmFz8n3zv4042dM0EeDr+Y/5ECZgj?=
+ =?us-ascii?Q?jJehyVpg3HXSrixcjRL/UHkEBT53oPv5myH2ELULjqMsY9FGPQEGRwk9NxU1?=
+ =?us-ascii?Q?9eYPPE4okw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: K+krLiMDTIDpSGCXlYshu5UKwWiGk2+XSSwEuSC10Ws7xB709bmx7SYvZsEmHIhYj2dbtVxi8IIQoMnkl+oRpjKwE1WU8sPc/aSon3QswC4653bALP5tPZw3smoV3KAxQQA4D1o6WzUX0fqg0SwkI+Kc2dbKD5q2W67ElII44boaIaoKcTIwXHrjKZbn61Hskds93+kynMrzCK+R7h3xPE6ONFZROoOGGHK76uedTSdcqiuhMXa6v0cgFgUGIrw2r3AwYylbNCLpcWzropLjjDgUNkPDP6e+4uw//6ZvSVFAqA4t7qBUtoMb0TOKn3uZyyMBOPv6xOY407mESKXjFQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5653f793-bdca-47d6-624c-08ded83d6ad8
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 13:25:43.6113 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LAmkbzii0GZqjCipM1hsaqJwyRQVA7Q/EaZLRhIZNzTrKXNW/CiCmb4kSjiyuCDUiVajq1mR7ia+bB6bn+lT+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6692
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,55 +171,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Mon, Jun 29, 2026 at 08:25:34PM +0100, Lorenzo Stoakes wrote:
->Replace use of the legacy vm_flags_t flags with vma_flags_t values
->throughout the mlock logic.
->
->Additionally update comments to reflect the changes to be consistent.
->
->No functional change intended.
->
->Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->---
-
-Nothing scary jumped out at me. Just one tiny nit below ;)
-
-[...]
->@@ -466,24 +466,23 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
->  */
-> static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
-> 	       struct vm_area_struct **prev, unsigned long start,
->-	       unsigned long end, vm_flags_t newflags)
->+	       unsigned long end, vma_flags_t *new_vma_flags)
-> {
->-	vma_flags_t new_vma_flags = legacy_to_vma_flags(newflags);
-> 	const vma_flags_t old_vma_flags = vma->flags;
-> 	struct mm_struct *mm = vma->vm_mm;
-> 	int nr_pages;
-> 	int ret = 0;
+On Tue, May 26, 2026 at 08:34:14PM -0700, Dixit, Ashutosh wrote:
+> On Fri, 22 May 2026 18:33:25 -0700, John Hubbard wrote:
+> >
+> > These helpers are static inline in <linux/perf_event.h> and reach
+> > into sysctl_perf_event_paranoid and security_perf_event_open(),
+> > neither of which is itself exported. The perf_allow_* trio is
+> > therefore asymmetric: built-in callers can use any of the three, but
+> > modular code can only call perf_allow_kernel().
+> >
+> > Move both bodies into kernel/events/core.c next to perf_allow_kernel()
+> > and export them with EXPORT_SYMBOL_GPL, following the shape of
+> > commit 5e9629d0ae97 ("drivers/perf: arm_spe: Use perf_allow_kernel()
+> > for permissions"). Existing in-tree callers live in built-in arch and
+> > tracing code, so the change is invisible to them.
+> >
+> > Provide !CONFIG_PERF_EVENTS stubs that fall back to perfmon_capable(),
+> > so the helpers stay callable when perf is compiled out.
+> >
+> > Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 > 
->-	if (vma_flags_same_pair(&old_vma_flags, &new_vma_flags) ||
->+	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
-> 	    vma_is_secretmem(vma) || !vma_supports_mlock(vma)) {
-> 		/*
->-		 * Don't set VM_LOCKED or VM_LOCKONFAULT and don't count.
->+		 * Don't set VMA_LOCKED_BIT or VM_LOCKONFAULT and don't count.
-
-s/VM_LOCKONFAULT/VMA_LOCKONFAULT_BIT/
-
-Otherwise LGTM. Feel free to add:
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-
-> 		 * For secretmem, don't allow the memory to be unlocked.
-> 		 */
-> 		goto out;
-> 	}
+> Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 > 
->-	vma = vma_modify_flags(vmi, *prev, vma, start, end, &new_vma_flags);
->+	vma = vma_modify_flags(vmi, *prev, vma, start, end, new_vma_flags);
-> 	if (IS_ERR(vma)) {
-> 		ret = PTR_ERR(vma);
-> 		goto out;
-[...]
+> > ---
+> >  include/linux/perf_event.h | 31 +++++++++++++++----------------
+> >  kernel/events/core.c       | 18 ++++++++++++++++++
+
+Peter, Ingo or any other perf maintainer, ack on this patch and on
+propagating this through drm trees?
+
+Thanks,
+Rodrigo.
+
+> >  2 files changed, 33 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+> > index 48d851fbd8ea..5842552294c1 100644
+> > --- a/include/linux/perf_event.h
+> > +++ b/include/linux/perf_event.h
+> > @@ -1791,22 +1791,8 @@ static inline int perf_is_paranoid(void)
+> >  }
+> >
+> >  extern int perf_allow_kernel(void);
+> > -
+> > -static inline int perf_allow_cpu(void)
+> > -{
+> > -	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
+> > -		return -EACCES;
+> > -
+> > -	return security_perf_event_open(PERF_SECURITY_CPU);
+> > -}
+> > -
+> > -static inline int perf_allow_tracepoint(void)
+> > -{
+> > -	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
+> > -		return -EPERM;
+> > -
+> > -	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
+> > -}
+> > +extern int perf_allow_cpu(void);
+> > +extern int perf_allow_tracepoint(void);
+> >
+> >  extern int perf_exclude_event(struct perf_event *event, struct pt_regs *regs);
+> >
+> > @@ -2023,6 +2009,19 @@ perf_event_pause(struct perf_event *event, bool reset)			{ return 0; }
+> >  static inline int
+> >  perf_exclude_event(struct perf_event *event, struct pt_regs *regs)	{ return 0; }
+> >
+> > +static inline int perf_allow_kernel(void)
+> > +{
+> > +	return perfmon_capable() ? 0 : -EACCES;
+> > +}
+> > +static inline int perf_allow_cpu(void)
+> > +{
+> > +	return perfmon_capable() ? 0 : -EACCES;
+> > +}
+> > +static inline int perf_allow_tracepoint(void)
+> > +{
+> > +	return perfmon_capable() ? 0 : -EPERM;
+> > +}
+> > +
+> >  #endif /* !CONFIG_PERF_EVENTS */
+> >
+> >  #if defined(CONFIG_PERF_EVENTS) && defined(CONFIG_CPU_SUP_INTEL)
+> > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > index 7935d5663944..cb13f3ad11a3 100644
+> > --- a/kernel/events/core.c
+> > +++ b/kernel/events/core.c
+> > @@ -14731,6 +14731,24 @@ int perf_allow_kernel(void)
+> >  }
+> >  EXPORT_SYMBOL_GPL(perf_allow_kernel);
+> >
+> > +int perf_allow_cpu(void)
+> > +{
+> > +	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
+> > +		return -EACCES;
+> > +
+> > +	return security_perf_event_open(PERF_SECURITY_CPU);
+> > +}
+> > +EXPORT_SYMBOL_GPL(perf_allow_cpu);
+> > +
+> > +int perf_allow_tracepoint(void)
+> > +{
+> > +	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
+> > +		return -EPERM;
+> > +
+> > +	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
+> > +}
+> > +EXPORT_SYMBOL_GPL(perf_allow_tracepoint);
+> > +
+> >  /*
+> >   * Inherit an event from parent task to child task.
+> >   *
+> > --
+> > 2.54.0
+> >
