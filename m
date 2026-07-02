@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1464CC43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:17:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D016C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE7210F220;
-	Thu,  2 Jul 2026 08:17:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D9B10F22E;
+	Thu,  2 Jul 2026 08:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="Geisr4Ww";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n8kva+81";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE20A10F220;
- Thu,  2 Jul 2026 08:17:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782980259; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=UQ4N3uoTpLdHqGqeyN6bP31boYEYbJk7nNKzBUi5UAzHO64mnh7++NtNIct+RRm7qcF8xCT5MvlrEO1RCoyEFTS5GU0U/tMU/oU9fdUwZYLyCPDWkGbCs8tVlqHqao4O3u+Q5DQye2g0cM91EGHlayR20QkHYUF4Ajh+FPQmVNY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782980259;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wn/JhRLP/kw9OT3tYgqPgKSK7xYfFVe48gW5Umt2FKA=; 
- b=F0k5PoQ6m7wK49IAyXZLL7cze/9rSRUfw3GXTqsIm2YYYE9C2AgacsXc+EEcxIGiw7pSCWz+L25ElUFWs3OWx2JZQpvUc8FpjYGP8cgjV6bUYbS52HiDSKvxbUToxXYS1BsPT90YUnEl7IzdNweJvBdUlSwYNjEI/QwiDTSdcP8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782980259; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=wn/JhRLP/kw9OT3tYgqPgKSK7xYfFVe48gW5Umt2FKA=;
- b=Geisr4Wwqy5yLjY/Puu8gfYpHnElb+k2YKKM+wJf8reqnJ+D3z/eqcKSGhQzx+e8
- 2YCXEVcPVAVwmEX3nu4B9WEBuaT3MAFO/qYTd0i43APBucyK7JWSh83HmQF2PLSgDX6
- fdMV+4rO75ihHE+ReAwif8x6Nxtt7Ou2d9CF9PCo=
-Received: by mx.zohomail.com with SMTPS id 1782980257337423.760676344912;
- Thu, 2 Jul 2026 01:17:37 -0700 (PDT)
-From: Robert Mader <robert.mader@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>,
- Robert Mader <robert.mader@collabora.com>
-Subject: [PATCH v2] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-Date: Thu,  2 Jul 2026 10:16:41 +0200
-Message-ID: <20260702081641.22990-1-robert.mader@collabora.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB51910F22E
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 08:19:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E198360120;
+ Thu,  2 Jul 2026 08:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5591F000E9;
+ Thu,  2 Jul 2026 08:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782980352;
+ bh=FpwQ3yWLXtt7sZKtMM0MrQ1r1M4n/nvKM3WIVk0Nqa0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=n8kva+81/uRHVqYDMwXK9zMWr5mFjn+n8TNQL0h4BAD2dfaaNHzCbvnXMzpCRHFCi
+ MjnISb/mPJfO/KC97lqjqL+ooTbiRxWqxMdvicObIQfZ+nXGjKKFOWLo9lMub2g5Y3
+ kqOCzNIqaNZsLWd8Yvm3aFbt5RGTKVfNAZykcPpwVZm+dZ8iGWRfnIh8NLbGxoEsdl
+ N7yXpcuX8t1DBbGTlIYzdMhHcl9orwInNYqRiayx93YSSHfNbhLqP9HkfMTlK4ZZTa
+ Wn9tALTIx10Y7sftlaxZUqLo6DKK1Gf3NIFZbTTamYIZuSfERWFaPml9xTV0VByyyg
+ 1Z3pLCBKPOI8w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] drm/i915/display: Make set_pipeconf use the fw
+ variants
+To: "Maarten Lankhorst" <dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260702080346.431508-5-dev@lankhorst.se>
+References: <20260702080346.431508-1-dev@lankhorst.se>
+ <20260702080346.431508-5-dev@lankhorst.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 08:19:11 +0000
+Message-Id: <20260702081912.6C5591F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,72 +54,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The client cap is currently advertised unconditionally, even for drivers
-that do not support plane color pipelines. If clients supporting the later,
-like Wayland compositors or tools like drm_info, enable the client cap on
-such drivers they will be left without both color pipeline and the legacy
-properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
-conversion support.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Prevent that by only marking the cap supported if there are actually planes
-with color pipelines.
+Pre-existing issues:
+- [High] vlv_atomic_update_fifo() takes a sleepable spinlock (uncore->lock)=
+ inside a hardware-interrupt-disabled critical section, leading to a 'sleep=
+ing function called from invalid context' BUG on PREEMPT_RT.
+--
 
-Note: while the color pipeline replacement for the legacy properties is
-still under review (1), we can assume that it will work as a drop-in
-replacement. That means any plane on any hardware currently supporting
-the legacy properties will be able to offer a functionally equal color
-pipeline and there will be no technical reason keep using the legacy
-properties if both the driver and the client support the new API.
+commit 5a85aa91d02b113ff09052cce4d68e8a6b54e2ce
+Author: Maarten Lankhorst <dev@lankhorst.se>
 
-1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
+drm/i915/display: Make set_pipeconf use the fw variants
 
-Signed-off-by: Robert Mader <robert.mader@collabora.com>
+This commit changes i9xx_set_pipeconf() and ilk_set_pipeconf() to use the
+_fw variants of register read/write functions. This prevents sleepable locks
+from being taken inside the interrupt-disabled critical section, which was
+causing a BUG on PREEMPT_RT.
 
----
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
+rm/i915/display/intel_display.c
+> index f5dac380aa7ff..deb93d26e0e94 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -3030,8 +3030,9 @@ void i9xx_set_pipeconf(const struct intel_crtc_stat=
+e *crtc_state)
+> =20
+>  	val |=3D TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
+> =20
+> -	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
+> -	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
+> +	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
+> +	/* posting read */
+> +	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
+>  }
 
-Changes in v2:
- - Replace the driver feature with a simple check (suggested by Maarten
-   Lankhorst <maarten.lankhorst@linux.intel.com>)
- - Expand the commit message slightly and change the title
----
- drivers/gpu/drm/drm_ioctl.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+[Severity: High]
+This isn't a bug introduced by this patch, but does the explicit acquisition
+of a sleepable spinlock inside an interrupt-disabled critical section in
+vlv_atomic_update_fifo() violate PREEMPT_RT locking rules?
 
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index e2df4becce62..b2c0234eaf14 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -373,13 +373,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 			return -EINVAL;
- 		file_priv->supports_virtualized_cursor_plane = req->value;
- 		break;
--	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-+	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
-+		struct drm_plane *plane;
-+		bool has_plane_with_color_pipeline = false;
-+
-+		drm_for_each_plane(plane, dev) {
-+			if (plane->color_pipeline_property) {
-+				has_plane_with_color_pipeline = true;
-+				break;
-+			}
-+		}
-+		if (!has_plane_with_color_pipeline)
-+			return -EOPNOTSUPP;
-+
- 		if (!file_priv->atomic)
- 			return -EINVAL;
- 		if (req->value > 1)
- 			return -EINVAL;
- 		file_priv->plane_color_pipeline = req->value;
- 		break;
-+	}
- 	default:
- 		return -EINVAL;
- 	}
--- 
-2.55.0
+drivers/gpu/drm/i915/display/i9xx_wm.c:vlv_atomic_update_fifo() {
+	...
+	/*
+	 * intel_pipe_update_start() has already disabled interrupts
+	 * for us, so a plain spin_lock() is sufficient here.
+	 */
+	spin_lock(&uncore->lock);
+	...
+}
 
+Taking a standard spinlock (which acts as a sleeping rt_mutex on PREEMPT_RT)
+after local interrupts have been disabled causes a kernel BUG splat 'sleepi=
+ng
+function called from invalid context'.
+
+The vblank evasion critical section initiated by intel_pipe_update_start()
+disables local interrupts. Inside this critical section,
+commit_pipe_pre_planes() calls intel_atomic_update_watermarks(), which on
+VLV/CHV maps to vlv_atomic_update_fifo(). This function explicitly acquires
+spin_lock(&uncore->lock).
+
+Since this patch fixes the same locking violation in i9xx_set_pipeconf()
+and ilk_set_pipeconf() by using the _fw variants, is it possible this
+instance in the exact same critical section was missed?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702080346.4315=
+08-1-dev@lankhorst.se?part=3D4
