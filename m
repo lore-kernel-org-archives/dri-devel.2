@@ -4,153 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FB5C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 22:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A8D8C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 22:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D7F910E2A3;
-	Thu,  2 Jul 2026 22:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4C510E51B;
+	Thu,  2 Jul 2026 22:46:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kicC8qly";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="WIykmeWL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2270D10E2A3;
- Thu,  2 Jul 2026 22:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783030918; x=1814566918;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=qakWhJh0yITDW0PU3tZdddOeAmOY1eKvH/8O1EI+2Qg=;
- b=kicC8qly6+Il4BTmOSD8qgonPPj3BHF/05NUC5El2eUY5AEQtKn50yJZ
- j5BG2BjqbQ3KhJQs1e4e9Q9uW9yJcYaoz/v0PuODX7er4rIDBR4D89bzc
- AxKV9IYVT236vQMH+VSU16keZ87iDj2HvHK0lQsuoGfd7Aa3oFMtNiivo
- Qj+RSZEPbn64I8mPjiMTdyt/vgTMxmvqiVq1SGvE6skHWOER+YC5K5w52
- 4K4E1/aEhyOPDEiHcjaBzopJ/kChwVFizKfGeIl6SKSiJi94cvXcZ18pT
- T3HLt7h1WaCO0FWONKHbCSNi889AdI7PqDUQTW5A3UmE1o18jGnE4Yxpv A==;
-X-CSE-ConnectionGUID: Wzq7WDL+SrurAfwWWfLCrg==
-X-CSE-MsgGUID: TUm6w5SmROOoUAjflGE2tQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="95292872"
-X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="95292872"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 15:21:57 -0700
-X-CSE-ConnectionGUID: mVtya0qtTfyJhTcf55gvEA==
-X-CSE-MsgGUID: u6uoPWa9TeqQsIo7XjVc+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="277287028"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 15:21:58 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 15:21:57 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 2 Jul 2026 15:21:57 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.35)
- by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 15:21:56 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010062.outbound.protection.outlook.com [52.101.46.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12D3010E51B;
+ Thu,  2 Jul 2026 22:46:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dsogkA+fkPOEkRaWFly9ouOkvdgfu8lDU/apZawf0pwhG8iUDEUtTMRUAwNlHbo90H4zucBfHZVCfgFC7N4c+ANdMNRthm94YVreBJPxBNW1ZnKuXjOzkxA0SOCTLFeQ2+soau1d03O8ZkICZNE3ayUBnrl7ODeGVG0ohYIYpjtnYtG7pFCeZix1UmfsjtJ1G3gSOmYtToO7B5AQiZcqtjzjJQ2POdlOvu50SuRfxARW2UUL5GdkmT5/GQ88vM0adO14xT3xZjTHm+uuUVzM30fIVQYbFmYUomr9t8EJBJNOhs9AOz/3WJiMirLPvJ+YfJQ8mMTCYKoD2JGHyZ2E5Q==
+ b=mFBrbhzm3Lmd33S63qUKo62KlY6PctrI9zGeo28e7QVRB3yXHIQKuSqRiibavZ76kBr5NIJvQdB/cCq/LV9y2PBAi/zzlY8axbZXeCxaeFHexkYsW1Vl5EtOs7oX7XSazMR0x25eiY5veO90mws7G+tsGpnISyzaIRSDfwv0WHCqVAqp5LhtkSwbRRHvnNz1SaxsYfkl6km9IIMc2l8nDarm/xCovYGGgWz8ufZ5fA3k0slHuUKzF1aiHfXU+f1bMQuLL+MFKl+llmcyriAAdZzyUX354sRpNHBIpCLjY706kzQxGIpSMUizlX8f86BxU7E8lUjcnwzADMB1VOv7NA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wovZ0mZuR/97jAFpqad52QzFJq9SFyl18+zeFJ+8G5s=;
- b=FGszewrdHApYqetV13q66JVzg8UjgPRR3772Q3xSzQcV+35lu3cjcBkSy4wcXDGZwJCTgk/L48jmfdyWe6ePK7YHcAUG3iQEwvMnDwPFpdqkN9pZGE7X/DbCuUacyT8CYkhMcs0OXI6t3oLFfA6G+5n1vfTXSZG+kL4Rqofe9qu1uAZl485SP81mmjChBjqwbANO2bnKGnaZjRoJoHEXfkzrYHlFQBGtxd7Gk3d5rAWztIks+QSDWY8j8DR9APi0sqNLAijn/HhVcwFw7KPFYuJgUBezCg4Tv9CfmAwISX61OnagngqwEqHj6Cvz/llAJ+4PfYpixiZiWMEhtTckaQ==
+ bh=kuqGSuteo9cyCm3zEcNY0Y8Qu+jtc+fdBCC/c39Yu48=;
+ b=iMdiszQK+8Q2vJir11M3qMKsSbhkxKDDUoOD0Ehv1hyPikWLOAvcy3mGxi95xH3pRy8kdkuwDdshtpQtTGVQbK6fsbz6zoC7zoiRSFm3iGv4hJB9QldQSM7jkWYrMvjYg7VAcsjCs+IFIVvz64YmhZ8cCz/FJZ+rJUERjn4ZrhmLEYlQUbMFfeidB+lC44WkyDfblfhG7vfibD/TM97IOG1dr9vV7YHtABUPpmGm7P/BgwkM3cCSOmu7IoA8nlfQxiJIgu0KkeKzP22dOf3iFeoCRWocnBw1N9AxaEJaVOriv9h94vDvX5WOJhn0SAy0lL3ntezzmUQOorp6d5IndA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kuqGSuteo9cyCm3zEcNY0Y8Qu+jtc+fdBCC/c39Yu48=;
+ b=WIykmeWLZN0paTI1RBWD2mdDubrn9y5gqerbfDuJCNBayFVsNBzmVVLx4Ltk5l6XyiEY42YWLoyTOGiDIjis2jh1wqn2Of5FcO0z+8MC9RHZP+/ZbS3re5oxoArz/kzka1xdNvTjDTK63eUzeB6K9agd2f+leiTBQbnOa4k1hc6g/oQKGmr2sQqWmSKVk1e9JHTVIGwocVd/4Sp0htPeLaBdYlBCu/VMA7sPuTsXaG4J+YMrqIWTi8EcN3YTIXQQZW822fYnfZagoEBiAax+nlgGfmPDbKlQ26KXH6NmzqxTV5cKEcOAiqaI1aH7JzrPewUdU7r8/ZI8BVwIoaWneA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by IA1PR11MB7679.namprd11.prod.outlook.com (2603:10b6:208:3f1::5)
- with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ PH7PR12MB7139.namprd12.prod.outlook.com (2603:10b6:510:1ef::21) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
- 22:21:47 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0159.018; Thu, 2 Jul 2026
- 22:21:47 +0000
-Date: Thu, 2 Jul 2026 15:21:43 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/ttm: Account for NULL pages in ttm_pool_backup
-Message-ID: <akbkdxHY19rP8A1B@gsse-cloud1.jf.intel.com>
-References: <20260626074653.1326683-1-matthew.brost@intel.com>
- <d2558fc5240d47d08d6b7d35fdeeb50f9b78a292.camel@linux.intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+ 22:46:30 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
+ 22:46:30 +0000
+Message-ID: <b5d08cfe-aead-45f2-937d-6e9ef4dfea50@nvidia.com>
+Date: Thu, 2 Jul 2026 12:46:26 -1000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] drm/nouveau/gsp/r570: Never enter Gcoff state
+To: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@redhat.com>
+Cc: Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Timur Tabi <ttabi@nvidia.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Kees Cook <kees@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Mel Henning <mhenning@darkrefraction.com>
+References: <20260701182857.190713-1-lyude@redhat.com>
+ <20260701182857.190713-3-lyude@redhat.com>
+ <DJNNQVO96RR1.141CE7TKF6MZP@kernel.org>
+ <CAMwc25qA6GFb1Q=VHTa8BcM85B2dr22RrgdJcHTz70P5Xjj_bA@mail.gmail.com>
+ <DJNO6SIE8T88.1F0ZUILIRVDJC@kernel.org>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <DJNO6SIE8T88.1F0ZUILIRVDJC@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d2558fc5240d47d08d6b7d35fdeeb50f9b78a292.camel@linux.intel.com>
-X-ClientProxiedBy: MW4PR04CA0376.namprd04.prod.outlook.com
- (2603:10b6:303:81::21) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+X-ClientProxiedBy: SJ0PR13CA0020.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c0::25) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|IA1PR11MB7679:EE_
-X-MS-Office365-Filtering-Correlation-Id: 288c02f8-ef18-4472-926a-08ded8884dd7
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH7PR12MB7139:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35a15242-7a76-4f56-cc43-08ded88bc1fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|23010399003|20046099003|22082099003|18002099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: qk443UY+9VW5/IKoIidtwTZGC4J47Gq5wEXPQh1y2cFKT1m0ol879x30gHcLkTSo4hJhzwb7f9GtIGupjbHBapUuTTm11Xlyb1dkmWGW3J7WD+Glh14FGVDQIyIGNrTURrxWe16AIJUe9b3qtiiGf7wk5S42DCFGbdLJOnvVcCrRoYvr/HkCQh8Z7VU/6XUV+dEmMX2Kvrp/emFHOWxZkZWuRn51GuDXyWBFdFKK5HuC76Y1N8noEVklNb7OW/uyIKCe2F2xHGbu/UCZ3D3VsJhmcvep310vAs+Nk1+1xuYp2dkHN3TO6PU2U+gn4/5akgm1KTD/2UPn2U6b18xc4fPzwe0RIeW41TGH7u2uv/fFjjwt/g/q1/i7jg3NdmWdKeGKvZ7d8cNpH56koIZOtfDEWKjn+r4exqb7GKye2Pk6ecpSFo18domlmfuZvG0UMAfAfL89+dQ0+NL+5bHJ+/kGwC3+trZvAnYD0bi/I6FekIwBWSYE49k6xivqGXRV0b2vn+RhgpyHUu9fH9uLnhHA4PLWVmNeoqqzWV1xz51v4SWaBNuYiRQPX+KRs2I5395bGWAsjLgEp3BcA9V3yML+1xwVl40CCqvngbql+moS9Ly/o92Ed3VAylCdhz6Dky9NtVjopAC6dr/xcXoR85HnBI1J/7FGyDM2U/2BszE=
+ ARA:13230040|366016|376014|1800799024|7416014|23010399003|5023799004|11063799006|4143699003|56012099006|6133799003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: J9PmG+Rj5p/dWsI43M8+DPwaVX3LJPDfG0TZQoSOV3DT+uo9GVAoypHT0/YxxUFERSBul4nLmzJQql8jFDXMZwAC1pYd6egaMK4zfp1ZIi6sT/+45c9EMTKZL1ZpvpfhgV8VfnGdsQGdEWpQBelgZEafceWr0H2OB6yus0iq37lz5AMDHJtpiWmU6nUy8Bzn/I+ZZqfrV/uwAeGoHZycxEd5Aepm6B696QN6fEmwc3RZrsfXoB5PRkL+nZ8+XyiaL+nTjvFlsQwlMzCmhEeGd9hByDvdDVOZybaAEyWbhSE2fOqkTy7bUOkpWeh4xf8ardDbMSTcHRsMEEdU3VGmAeiwZAFj+FRr/TeN9up8WzEKoUpyBaJh0j2xiztzDrV9Kx8mZ7LgDIztRk7hZKBJlhp59uh2QOQfIqcGPkCv97NtlidimVX1UorQjoaljlsnO2F5/ycpok8LX2VQ5dy0BOWXfYDfdSf9cligGG6p86t0vqwjQPFTsejCwmbuN+0xveMAGic+pD5E4hkGsVgivFq2QZ6Eyb/luPiF2dhIk2DT9yaWKSihbIKEsHtoMWGNwJDp9Q/URhNy+6s8u0aJh6jVJvDVTaNFArDw1V+eZ1WbwlzZUJn/GRRYKsEHVY35/Y0hVxoFibpP7f+z6t7tDbsTk/VwA18AQmaOPifaAcc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(20046099003)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7416014)(23010399003)(5023799004)(11063799006)(4143699003)(56012099006)(6133799003)(3023799007)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?vo8f2i5a0XNIhPxiNb6lvBJiXJPf6zFVs8CYA+WVXmtuLoeBdo9pSGu0lt?=
- =?iso-8859-1?Q?/33wrhDXy0ECGntXavwtzw64lIa4z8PpXov3kepHFFe3GWURVu/wvQyhvA?=
- =?iso-8859-1?Q?ELLKVDjg/nzbmBuS/jJNT8Bnl6iXTu0XlKy0uZ4f4zZwAB1j22J3n9s3n5?=
- =?iso-8859-1?Q?M6Ac2NbX7hdKqjGcDc+i07ClRpY/eEA7mdP6KU9YAmBrVn0kG1wcamPuvt?=
- =?iso-8859-1?Q?WiykCTCqct/lGjcW54dsw0vLRRlBZfQGWBT14chkM2P+meEoIBKMcfooQL?=
- =?iso-8859-1?Q?YCEecCjeZdgSrKbqYmU4ULcG2wcB9vt47ypfSCOXdR/JKge5iBZRi/TcVU?=
- =?iso-8859-1?Q?Sqx+qVqDOnk3aTXaXZbbS23ETXYIRvemBWMuJXKwu5OMlVCP9Fa9RsiZVB?=
- =?iso-8859-1?Q?3ldB1hJy3DWRo1YKRoycGCnrgYb4w3u1qonWn3mLaEJJn2UFAY5anlTlEQ?=
- =?iso-8859-1?Q?valFOAOGW9gy2aoZZeQuZ2/hlcpi2mvMQ9nZFeZ2yiftU2Lw9ywURmpxov?=
- =?iso-8859-1?Q?RQrPKcHd3R487sUOJUV5JLz+PuLWb9Oh3e1FIfCINZAf9xu9XM3WXK8vrF?=
- =?iso-8859-1?Q?9dFULNFnP2KNW7VDPwEgDuKk6EKpurdATyM7wfWg/FucGp/yPbQR47XNDL?=
- =?iso-8859-1?Q?ZCgjxs6p/6E8qKyAKhMZJijt+ms4zpEHhi0g8FHpbpGXOSUS0cp71Fz3lv?=
- =?iso-8859-1?Q?m4Xi6w3KKxLUbpi67dxbngvlPm6uySyD5JADHQfR5dbDj6ymSw9AJAqPQX?=
- =?iso-8859-1?Q?djrW7Lkk+v2jGwv9LvT8zpXKcPmFVxHHaUa27/3RAwO2zmsCD4xLUsbQkp?=
- =?iso-8859-1?Q?L0Ssu51MerL2RmNaYzhoeCtDM+AvBeR132VL8iON4FyXLMYJQxBIgmUqRW?=
- =?iso-8859-1?Q?+1OZzwVx2rTN+yehH0Z7+KAprFiBQUgl3/7qyGl85fO+bFqTIbYaLfvYMZ?=
- =?iso-8859-1?Q?QOxbeDXgZnPh8l6WCtYGYlpte7a6rzaRLtV+JsPdh18E6lU8n97zeJ/gpY?=
- =?iso-8859-1?Q?VKMgNdnoP5j6cNrc83xoAvgHUhu+RrbdVkSKfc+mcy55mCrszUCCRbXxSg?=
- =?iso-8859-1?Q?A5nQEZy59l25QZZ/HTWdY7+/vPawhWtH/v6vPDxCpM7NDbqI2ABh51KNcX?=
- =?iso-8859-1?Q?QwRw01yVYNyD30CQACW7ixe3XMFkNdzHI9h7PYr9eKpanUdDPY1WcaGeNn?=
- =?iso-8859-1?Q?YuaaQNidciw2YVZAH+0/uTVpyBXzgeYQCU5rYGHTrt1WpaMVZGFfIIMAnA?=
- =?iso-8859-1?Q?EDWO8EYmwSMMHUE79q1yoyq8ZQqCwHi6Kkm3qMmjPiREy9JgO4PkaetnHj?=
- =?iso-8859-1?Q?f6jKbirC+qxuR9WmWjpXrZYMLr9Dk5Q/Xj4VNvLr1T6R1OuEPX98KX7vNe?=
- =?iso-8859-1?Q?Wtbo2UXAsA1Gf1DyHY/Gq5aETHsO+hJDyqSxe87ty7+BRmIUm4dHMT5nww?=
- =?iso-8859-1?Q?Jlcx7IdDfdHINSdM6HRCTDpLrlGbpslblprjAwkKjpTJKXXkRhnbDaRLHi?=
- =?iso-8859-1?Q?DAeRNlniknDXsCcy+GdYWDf920N5fzHAhga4XEwXynIZNlnHwAavhLTZxm?=
- =?iso-8859-1?Q?IyRdgZf4ZNZIRHQf8g7wlOzLi0eW0bUf3iQ9AgCtgndzSuTV/NyrjdStBA?=
- =?iso-8859-1?Q?hkhXOcrXXISud5KhQNDDUjnXRbnOpEwnSFb73a/erI4qwymcXGsNbJmcid?=
- =?iso-8859-1?Q?llkKihNxZUa9h/N97e++24HQprSPCbdhvgUFabjIUtEWS60h37LRNHqmG1?=
- =?iso-8859-1?Q?P6einHG1cDH+gbPyfwwr3HcV0CthxcwkCbPJ0/qHiyccRTHThUifNUendj?=
- =?iso-8859-1?Q?1D+8IsKoIQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: H4CD2KTXAowMB/HQJoe+kFT+g77U2wbyNEtGDzYNZ7f+AOPMOQROoyfoFnkPJWJwZ8C/dUiOXhdTy8vw/usdqecAA8UUUDv3oLea2cuEqZI7qho4dXSv9Zu351bo+LOn5My61w5ewsKdrczRLJ2nriNdFMMLPDpPqnPoPQV1B+E7FUg3XDZqVZtF9qd5DTjRnUBdVSltwePdlTf9RBmodcSExbyywsHcNvhFxXZWiTxhBCxf0QNfIxUd4kaqlFCQKpbuOu5Ug8dDedT8Qf9VaKosBOt1OuHzoS+JCO0Mszy1NhoppXXiG8kJPc6gwpoqKf94XhOUpmPH0zLX83XyDA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 288c02f8-ef18-4472-926a-08ded8884dd7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RFhNWHF2a2cvdEFiTS9iM1djWW1QeXpGUFg2b2x5cStoa0NGcStsNWp4VHA5?=
+ =?utf-8?B?SXV5Z20yeFl3UkVFamRBZldOMldsT084dVNCL25jQW5CTGUra1NvYldmM3ow?=
+ =?utf-8?B?ZDRoaVhIVm1ZOE5UVElETjc5OUxld3hIS2tzck5mWUpHWGRaYTg1cGJnVVdE?=
+ =?utf-8?B?V3o1QjNhVWVEUEdhdVJzS3Flc2RkZVhCblRWaFZ3UzE3bVdUWUtMckM2OUhP?=
+ =?utf-8?B?QmhEZjJ2UjNkdnIzdC82RHVETFFFTnp3cTZPbU5LMnMveldvei9hMUlodDZY?=
+ =?utf-8?B?MGRwWi9QZll0eFdEODRmaEI1K1VGMjVPU3Irc2sxSlducWdQYWJvdXZsdkpY?=
+ =?utf-8?B?K3dsK04weWNtUEtNd2dFcUdxQld6cDRHR1lkRHErSnNEL1BaYnEyM3AyWWs0?=
+ =?utf-8?B?dHY4UmczWitKNitEbm1GQWZWeUVldDVvOTlnMFZBL0c1TmZlcGh3U1RLM2NZ?=
+ =?utf-8?B?eDJpZHdnbmNmb2Y4MWM2cnowSWk3bzlJcHQ4ZmFwaVFpZTdWNkdUYk1hYmU4?=
+ =?utf-8?B?RFJhNVcxRktQS1BRMmM3WXkzcGRhZTk1RUlGWTZrb0pmS0Y1dkw5dGxFd0hH?=
+ =?utf-8?B?bEw0TWtod3czNnE4NEhPMmI0SktPTktlV3AxSG9KeG1rdGZmamFmNTRmMmRX?=
+ =?utf-8?B?Z2FzR0w4NzZ0YlRaU0F3NDYvbUFiaWpmZU9CNzNtazNTbjRrZmp1VU15cWtu?=
+ =?utf-8?B?OFRqNEZpZ1hmTjN4T1NzYkhhZFk2NkNwY1lsd3ZqTEc3Uk9hOG1pelMxY29N?=
+ =?utf-8?B?WE91QWk1bERhdUtzbE5MdHhvMHp4dmxIa3VtbzdPQ3pmanJaQUtyZXM3SmJz?=
+ =?utf-8?B?anM3dkVXVy9pRDVrTmljS2xSL2VuTkduTzZBZWJDVGRtV2MxTnRVTFJjaSto?=
+ =?utf-8?B?QmZUL29VY3B1R2FmN0J0WXRCemJTQTJPNCtuSzRWcjhGVVovNi82MncvbG1N?=
+ =?utf-8?B?VTI1UEcxTHBVVy94d3NZOVYyVVM2VTgwTWkySTdkZjYwU3RWZW41cnJpNTdF?=
+ =?utf-8?B?UGpKT0RoNWNVbXdYSlhUVkpkMmdaYXpicTFHTmFNVHZtaXZYUytPaE1mMldz?=
+ =?utf-8?B?QXYrNHppME95Mjh2bmNVdUd2MDRxM2RyMm9FVjZvZ2dWakpZNEs2YVFsZ2d6?=
+ =?utf-8?B?SDRuWXNqeHVFTk1HMWNBaFV1SmZzUFZPaGZ2bVVFOS9acGpTY0g2NG8vUU9t?=
+ =?utf-8?B?WEFraEtOMUtsOGhKa2ZKREtjZEQ5Q1BlQWNiYjNGaHZ0UVIzUm0xZmc4SmVv?=
+ =?utf-8?B?b3M2ZFAwLzBHa2pxK3RuYkxyYkJWN2prVlorQlFJdldadE9iaWROak5icEU4?=
+ =?utf-8?B?VUwxUE1rbDlkUU9DV0JCck5OUk1MWnRGNjFOVDBGNHQ0U1JpeGFUalVLYXd2?=
+ =?utf-8?B?NHNqb3JXVXJURWlJQWxsSzIyNTNGUmJUa0hLMnk1cDYrZnJnaUhWbFk1WkFJ?=
+ =?utf-8?B?OEtkZ1R6a3prMWMvd2RLNFIvd3FkTTJPaDhLMGhVaVRWck5uNThKTnFHamJv?=
+ =?utf-8?B?aFF6ZTNlTGtrbElES005NHltYUhheDh1VTR1S0hCUEFiTDN6VXFPb3NMblFp?=
+ =?utf-8?B?RXFZdmgwYU9LQTRtVUZ6QS8xQWd0RHJSWEVuWDFtc1VnVEtWOFBkeDhpWlpq?=
+ =?utf-8?B?MVErdlVINDZoWXRQeGFhc0xIZjlLbEY1MEVBVk92Yk54NTc1SjJYSEVmNjQx?=
+ =?utf-8?B?L0VFTXc5NmVWYTYvZmFTbEIyS1hMRnJ3RnIrdmFQRkh6RVVLM0Foa2dJcTNj?=
+ =?utf-8?B?OW0wMnBXbkh5aU5WQ1VmdzJzQjMwSDdoNmowK0lXT0EvTVpwd21NZW95ajlE?=
+ =?utf-8?B?K0NGWjdQc2tTRG5GMjg1QXdyOS8zS3FiTDNLbWhiTlRuVEVBYkduOGFWV0d2?=
+ =?utf-8?B?TVdweG5wdS9Bak5ISjZRWVk2WmVYWlEzWnVGRkQ2emJaUUtnajBlczNreFBT?=
+ =?utf-8?B?dS9OVUt6QVlkMUpkSGVGSmxaUFhPVHRlbXlZbTVuSlFCdEwyTGh0NVRKK2Fi?=
+ =?utf-8?B?VVpkVC84YzdJUVcyVndMMGJpU1lPdCtnbHlPMHk3WXFjdEg5YnVKVFFGb2pu?=
+ =?utf-8?B?bURlSXBnb2JuOGh1eGNtUk4xdEMzcnNyayt1TlJPQU90L2g2MXlpT3hNZDhq?=
+ =?utf-8?B?TytUKzM5bVowK2RuRVZjWEJIUHpXWXNhb0pGdElQNVRSR1IraW5RS2tNcldZ?=
+ =?utf-8?B?M1VoMjdMcUhvYnVqTEVDbTNtL0J1Q215eERQemNxWk1FZGNZbEx4R1RPTjZY?=
+ =?utf-8?B?SE53VFc2VHFNMGowK0N2QUdhaXo3S3U5bGRLRkZ3TEVQY2FWczBwb0V0RE1M?=
+ =?utf-8?B?U0JBUkF6NncySkZkREZoTEhVM3NlYnpDcUNoVHNJSHl4REVFcE9rQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35a15242-7a76-4f56-cc43-08ded88bc1fe
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 22:21:47.0553 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 22:46:30.1950 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: frvoj6Nb9XTxFiRlRpeP3E9HBKBpwXOBi3LnCIcL/MxBweOOzVJ0p2MNDYM9myNZJ+DCa01pidmksvswj3xgSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7679
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: DnipVT8qzJY6gI2998wryKsO6xInfARtjJBtCDbR+LkLIqA4Es8VnJiWwHJ+GkFWhsdHSx/7oZegwZCD5885Xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7139
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,165 +146,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 01, 2026 at 01:57:28PM +0200, Thomas Hellström wrote:
-> Hi, Matt
-> 
-> On Fri, 2026-06-26 at 00:46 -0700, Matthew Brost wrote:
-> > Pages in ttm_pool_backup can be NULL, and set_pages_array_wb() cannot
-> > handle NULL entries. Switch to set_pages_wb() after checking for NULL
-> > pages.
-> > 
-> > Fixes the following oops:
-> > 
-> > Oops: general protection fault, kernel NULL pointer dereference 0x0:
-> > 0000 [#1] SMP NOPTI
-> > RIP: 0010:__cpa_process_fault+0xf8/0x770
-> > RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
-> > RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
-> > RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
-> > RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
-> > R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
-> > R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
-> > FS:  0000000000000000(0000) GS:ffff8884ec840000(0000)
-> > knlGS:0000000000000000
-> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
-> > PKRU: 55555554
-> > Call Trace:
-> >  <TASK>
-> >  __change_page_attr_set_clr+0x989/0xe90
-> >  ? __purge_vmap_area_lazy+0x6c/0x3a0
-> >  ? _vm_unmap_aliases+0x250/0x2a0
-> >  set_pages_array_wb+0x7f/0x120
-> >  ttm_pool_backup+0x4c9/0x5b0 [ttm]
-> >  ? dma_resv_wait_timeout+0x3b/0xf0
-> >  ttm_tt_backup+0x32/0x60 [ttm]
-> >  ttm_bo_shrink+0x66/0x110 [ttm]
-> >  xe_bo_shrink_purge+0x12b/0x1b0 [xe]
-> >  xe_bo_shrink+0xbb/0x270 [xe]
-> >  __xe_shrinker_walk+0xf7/0x160 [xe]
-> >  xe_shrinker_walk+0x9d/0xc0 [xe]
-> >  xe_shrinker_scan+0x11f/0x210 [xe]
-> >  do_shrink_slab+0x13b/0x270
-> >  shrink_slab+0xf1/0x400
-> >  shrink_node+0x352/0x8a0
-> >  balance_pgdat+0x32c/0x700
-> >  kswapd+0x205/0x2f0
-> >  ? __pfx_autoremove_wake_function+0x10/0x10
-> >  ? __pfx_kswapd+0x10/0x10
-> >  kthread+0xd1/0x110
-> >  ? __pfx_kthread+0x10/0x10
-> >  ret_from_fork+0x1b1/0x200
-> >  ? __pfx_kthread+0x10/0x10
-> >  ret_from_fork_asm+0x1a/0x30
-> >  </TASK>
-> > 
-> > Cc: Christian Koenig <christian.koenig@amd.com>
-> > Cc: Huang Rui <ray.huang@amd.com>
-> > Cc: Matthew Auld <matthew.auld@intel.com>
-> > Cc: Matthew Brost <matthew.brost@intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: David Airlie <airlied@gmail.com>
-> > Cc: Simona Vetter <simona@ffwll.ch>
-> > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: stable@vger.kernel.org
-> > Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
-> > shrink pages")
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > ---
-> >  drivers/gpu/drm/ttm/ttm_pool.c | 49 +++++++++++++++++---------------
-> > --
-> >  1 file changed, 24 insertions(+), 25 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> > b/drivers/gpu/drm/ttm/ttm_pool.c
-> > index 682ae4f40424..ea14447411a6 100644
-> > --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> > @@ -1064,34 +1064,33 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> > struct ttm_tt *tt,
-> >  	    ttm_pool_uses_dma_alloc(pool) ||
-> > ttm_tt_is_backed_up(tt))
-> >  		return -EBUSY;
-> >  
-> > -#ifdef CONFIG_X86
-> > -	/* Anything returned to the system needs to be cached. */
-> > -	if (tt->caching != ttm_cached)
-> > -		set_pages_array_wb(tt->pages, tt->num_pages);
-> > -#endif
-> > +	for (i = 0; i < tt->num_pages; i += num_pages) {
-> > +		unsigned int order;
-> >  
-> > -	if (tt->dma_address || flags->purge) {
-> > -		for (i = 0; i < tt->num_pages; i += num_pages) {
-> > -			unsigned int order;
-> > +		page = tt->pages[i];
-> > +		if (unlikely(!page)) {
-> > +			num_pages = 1;
-> > +			continue;
-> > +		}
-> >  
-> > -			page = tt->pages[i];
-> > -			if (unlikely(!page)) {
-> > -				num_pages = 1;
-> > -				continue;
-> > -			}
-> > +		order = ttm_pool_page_order(pool, page);
-> > +		num_pages = 1UL << order;
-> >  
-> > -			order = ttm_pool_page_order(pool, page);
-> > -			num_pages = 1UL << order;
-> > -			if (tt->dma_address)
-> > -				ttm_pool_unmap(pool, tt-
-> > >dma_address[i],
-> > -					       num_pages);
-> > -			if (flags->purge) {
-> > -				shrunken += num_pages;
-> > -				page->private = 0;
-> > -				__free_pages_gpu_account(page,
-> > order, false);
-> > -				memset(tt->pages + i, 0,
-> > -				       num_pages * sizeof(*tt-
-> > >pages));
-> > -			}
-> > +#ifdef CONFIG_X86
-> > +		/* Anything returned to the system needs to be
-> > cached. */
-> > +		if (tt->caching != ttm_cached)
-> > +			set_pages_wb(page, 1 << order);
-> > +#endif
-> 
-> As discussed otherwise, this causes one IPI per page when TLB flushing,
-> whereas set_pages_array_wb() causes one per array. IPIs are quite
-> costly, and
-> set_pages_array_wb() has been tailor-made to only issue one per array,
-> so we would want to call it on subarrays in case there are NULL
-> pointers and always call it in case there are no NULL pointers.
-> 
+On 7/1/26 2:47 PM, Danilo Krummrich wrote:
+> On Thu Jul 2, 2026 at 2:30 AM CEST, David Airlie wrote:
+>> On Thu, Jul 2, 2026 at 10:27â€¯AM Danilo Krummrich <dakr@kernel.org> wrote:
+>>>
+>>> (Cc: John)
 
-Thanks, fixing this another rev. Also is possible for a page to be a
-backup ptr, so folding that fix as well into the following revs.
 
-Matt
+Also Cc: Aaron Plattner. I've provided answers below, but Aaron
+has actual experience in debugging suspend-resume on our Linux
+drivers.
 
-> /Thomas
+These answers are the result of my moderately long session with
+our best AI tools, using Open RM, GSP-RM, and Nouveau sources
+as a reference. I'm not actually experienced in this suspend-resume
+area, much, but this makes sense from what anecdotal things I've
+seen before.
+
+>>>
+>>> On Wed Jul 1, 2026 at 8:17 PM CEST, Lyude Paul wrote:
+>>>> It turns out that the only reason our previous fixes looked like they
+>>>> worked for this was because we would occasionally set the Gcoff state to 0
+>>>> in the normal S3 path, which fixed suspend/resume on desktops - but not on
+>>>> machines using runtime suspend.
+>>>>
+>>>> The proper fix is to just never set this flag. Our current guess for the
+>>>> reasoning behind this is that Gcoff likely coincides with GC6, and not
+>>>> literally power off.
+>>>
+>>> I don't think GcOff coincides with GC6, it should actually be a power off.
+
+You're right, it's the other way around from the commit message guess.
+In the RM sources GC6 and GCOFF are two distinct GCx targets. GC6 keeps
+video memory alive in self-refresh. GCOFF is a full power-off where
+video memory content is lost, so RM copies the used framebuffer out to
+sysmem before entering it, and it reports vidmem power as off while in
+GCOFF. GCOFF is the power-off case, GC6 is not.
+
+>>>
+>>>  From a quick glance in OpenRM, it seems that with bEnteringGcoffState = 1 it
+>>> also saves off buffers flagged as MEMDESC_FLAGS_LOST_ON_SUSPEND.
+
+That matches what I see, and it's the key point. bEnteringGcoffState is
+not a GC6-versus-off selector at the FBSR layer. It becomes the
+PDB_PROP_GPU_GCOFF_STATE_ENTERING property on the RM side, and that
+property widens the set of allocations RM saves and restores across
+suspend (memmgrAddMemNodes, through its bSaveAllRmAllocations argument).
+
+With it set:
+   * RM reserved regions get saved, unless they are LOST_ON_SUSPEND.
+   * RM channel-context and kernel-client buffers get saved even when
+     they are LOST_ON_SUSPEND.
+
+With it clear, the reserved regions are skipped and the channel and
+kernel-client buffers are saved only when they are not LOST_ON_SUSPEND.
+So =1 is a strict superset of =0, and it does include the
+LOST_ON_SUSPEND buffers you found.
+
+The part that matters for nouveau: in the full driver that property is
+never just a standalone flag. RM sets it only when it has decided to do
+a GCOFF as part of its own RTD3 policy, after it has reserved correctly
+sized sysmem for the save and turned on comptag backing-store
+preservation for the state unload and load. Setting the flag in the
+FBSR init RPC on its own, the way nouveau does, gives GSP the wider save
+and restore set without any of that surrounding GCOFF handling.
+
+So I would adjust the guess slightly. It is not that nouveau never
+saved those buffers or never had them. nouveau provides the sysmem and
+GSP-RM does the copy into it. The problem is the reverse: with =1, GSP
+saves and then restores buffers that were meant to be reinitialized on
+resume, and it does so without the comptag and state-load handling a
+real GCOFF pairs with them. So the accurate framing is "buffers that
+should have been reinitialized get restored instead", not "buffers
+nouveau never saved".
+
+>>>
+>>> My guess would be that with bEnteringGcoffState = 1, GSP's resume path expects
+>>> certain kernel-driver-allocated buffers to still be in place that nouveau didn't
+>>> save off, or rather never had in the first place.
+>>>
+>>> John, do you have some details about this?
+>>>
+>>
+>> In nouveau we have the INST_SR_LOST target, for buffers that aren't
+>> preserved, I wonder did something change between 535 and 570 around
+>> what needs to be kept around.
 > 
-> 
-> > +
-> > +		if (tt->dma_address)
-> > +			ttm_pool_unmap(pool, tt->dma_address[i],
-> > +				       num_pages);
-> > +		if (flags->purge) {
-> > +			shrunken += num_pages;
-> > +			page->private = 0;
-> > +			__free_pages_gpu_account(page, order,
-> > false);
-> > +			memset(tt->pages + i, 0,
-> > +			       num_pages * sizeof(*tt->pages));
-> >  		}
-> >  	}
-> >  
+> The r535 code never set bEnteringGcoffState in the first place. In r535 OpenRM
+> seems to do the exact same thing.
+
+The set of buffers did not change. The FBSR client ABI did. In 535
+nouveau enumerates the exact VRAM regions and sends them to RM one at a
+time, and it never sets the gcoff field, so the flag is a no-op on 535.
+
+In 570 nouveau passes RM a single sysmem buffer for the whole heap and
+lets GSP build the region list itself, and the gcoff flag is the only
+control nouveau has over which regions GSP picks. Forcing it to 0 makes
+the 570 GSP-built set match what 535 effectively saved, which is why 535
+looks like it does the same thing. So 0 is the right value for how
+nouveau drives suspend today. RM derives this per transition from its
+RTD3 policy, and 570 setting it to 1 was the deviation, not 0.
+
+On patch 3 (the resume state flags), I looked at that as well, and here
+is what the firmware actually does with it. In the 570 GSP firmware the
+resume state load already runs with GPU_STATE_FLAGS_PRESERVING |
+GPU_STATE_FLAGS_PM_TRANSITION. That is set unconditionally in the resume
+path, and it is gated on the bInPMTransition field of the SR init
+arguments, which nouveau already sets on resume. The firmware does not
+derive those flags from srInitArguments.flags. That field is read in
+only one place on the resume path, an unrelated display workaround gated
+on the PM_SUSPEND bit. Neither 0 nor PRESERVING | PM_TRANSITION sets
+that bit. And the value the open driver itself puts in that field on a
+standby or RTD3 resume is GPU_STATE_FLAGS_PM_SUSPEND, which is a PM-type
+indicator, not the state-load flags.
+
+So from the 570 sources I do not see a path by which patch 3 changes
+what the firmware does on resume. That points to patches 1 and 2, the
+revert plus never entering the gcoff save path, as what actually fixes
+the push-buffer timeouts. Your 100-cycle RTD3 result is consistent with
+that: those two are what stop GSP from doing the wide GCOFF-style save
+and restore.
+
+I want to be clear about the limits of what I checked. I confirmed the
+resume-side firmware behavior against the 570 release (latest) sources 
+rather
+than the exact 570.144 build, so I am not claiming patch 3 is provably
+inert on 570.144, only that I do not see how it changes behavior. And I
+have the mechanism for the =1 breakage but not the single allocation
+behind the timeout. I can see that =1 restores LOST_ON_SUSPEND RM
+buffers that should have been reinitialized, without the matching
+state-load handling, but I have not isolated the exact buffer that
+produces the failure.
+
+My bottom line: patch 2 (=0) is correct and is the right value for how
+nouveau drives suspend today, and patch 1 is needed with it. Patch 3 is
+harmless, and from the sources I do not expect it to change anything on
+570.144.
+
+Assisted-by: Cursor :)
+
+thanks,
+-- 
+John Hubbard
+
