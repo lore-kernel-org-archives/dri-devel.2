@@ -4,74 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1959CC44500
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A6AC44501
 	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A07E910F66E;
-	Fri,  3 Jul 2026 07:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B2F10F679;
+	Fri,  3 Jul 2026 07:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lsv+b7d2";
+	dkim=pass (2048-bit key; unprotected) header.d=romanilin.is header.i=@romanilin.is header.b="Au0yVDvk";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A133D10F58D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 19:45:47 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-37e1657510bso262324a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 12:45:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783021547; x=1783626347; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=cly/nd+WtRjsO5TA3lU7g6oCqpic1LOhtM2jPoyTuQk=;
- b=Lsv+b7d2fGYvWRIU+v84/0i4zb7u5Ux4eay+Z7CEG3/bNxE3ve12H+HVFG2mzK77K3
- WGHKUxrA3mXZmnAXnb/zaNiS+JeqDIefgYlZ0PY4i7bBaInL6wJBYtYDAodBANkp6L3I
- ypsi2OyQ8BU+cjMZNEeHO7HxSi02eBBTrTEtCtiZrLxZZE89WhAGbAtzCsulSOjkjeHT
- NlGFSJme1ddmfaB5MuczKwWMIDSH4rzz22kkUZZeofrg1igh8VnslEllmCjlEvnKydQo
- r9lcFbtfPX65jqbyZEo+xGLZic/ukeTD+EmCs/CwDTeVNMvFZPyqfWLCbVazUmLK2Ttx
- Pd+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783021547; x=1783626347;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cly/nd+WtRjsO5TA3lU7g6oCqpic1LOhtM2jPoyTuQk=;
- b=fmFDG6CiHl2H1ivv0gNHMTi+68P+4zLMo/9fB1K1gZTVEfHfz1ZCYEiJUBTx/Mjsuc
- yTuhHOCPzHWXJTAIQ8MdhuQ1+bj8zNVwLRpbzgIQtlBCTuL7nULXC3lIHBdcZNIbX1jz
- l0XfTYfmRkrT6jyJAMVtOYoTXCK4HIZ6NoRw5jtranroCdd9UeJMb9UE5pYzGB5phqzP
- lTLFkHCqKGTnLhVSX7B9ecmQERWmhn8Fsf3z2aFpbc/6jOTVMcQe7TS4K5Gjtb/s5eqV
- GSdeS317987S6zsXdYN9ldaoj/ArjCs8CZ7K/eY93SkOigLtngglSHtawmskczpdBfUH
- BWSA==
-X-Gm-Message-State: AOJu0YwjkAQ6KKmBGkxnjKJZiV7R1ledxYjlDP76s3I4ru0kDEGskYPz
- xg/WCzuIAv/iip96tr9JS9+EIbcDJzkdadJNnVkyIgJjQX1ybKABUPdi
-X-Gm-Gg: AfdE7cmpKJo5BmpRsJ+XwnXQHTaL42jICGUTo9QnYSv5A+HC8MZJNJ+8q//2yRxM/e2
- Y/ZloJpX/jAY3dyHH0BObyKt0xcr8ttoSVCIGKLHJizpWTlJcfVrnscv+r8PoD6oCNRNGPdhlfa
- 7bc1QUUdv3XF5FD6cMg/L2QtYXmOdqNvoPoJ08EeA5orlVNOECcGUgT/tupX2ydsFOksYj4RI+4
- AHknpiRmpu+bKzfhcDU7MXIljYNEgc8XY65+knpAUj/idgd5xVV/Ba3zY1zBJxuegVOkOJZumrL
- un411ti6Kc03w1xMa0+rBmkfD3V6qck2prG3qWWEwrYjUcDHz+rZOFSZWhRY6wuFw1AonJgw2DY
- z6FSXwsv64flad0Ug7DuYt1hmObKf2kZLlSf1Sw9ioLvqbRfMkykZM0QZf0r/aWI6Dzr5siUmOE
- N4GlN8pUYJibh1ZfTS7ylxATK9KzUHxCYpmTr6gBqAp1ZCDQuVl68uGIj0d5lSdA4kptuBj2bne
- c+1U/QASTlYnQU8z3waR+H5otLiJHwHgbE6usCQOmrVH1OiHPg0Yys9MXYWCDovI4Psio3/MNOb
- M4PtcFXmfW84BAeuyKkppPaVHJbsIw19nA6KH5tjR+jebfBZ
-X-Received: by 2002:a17:90b:2791:b0:36d:de94:f31 with SMTP id
- 98e67ed59e1d1-380aa1f87b9mr4934895a91.7.1783021546906; 
- Thu, 02 Jul 2026 12:45:46 -0700 (PDT)
-Received: from midnightair ([2401:4900:1c94:62e8:bc10:77d0:2fda:415d])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f0b85de12sm12578844eec.12.2026.07.02.12.45.44
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 02 Jul 2026 12:45:46 -0700 (PDT)
-From: Anas Khan <anxkhn28@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Anas Khan <anxkhn28@gmail.com>
-Subject: [PATCH] drm/nouveau/therm: remove unreachable fan update branch
-Date: Fri,  3 Jul 2026 01:15:40 +0530
-Message-ID: <20260702194540.65127-1-anxkhn28@gmail.com>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mail.romanilin.is (mail.romanilin.is [146.185.235.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A72C610F554
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:23:04 +0000 (UTC)
+Received: from smtpclient.apple (unknown [188.134.85.196])
+ by mail.romanilin.is (Postfix) with ESMTPSA id 7293D600D0;
+ Thu,  2 Jul 2026 21:23:01 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=romanilin.is;
+ s=default; t=1783016581;
+ bh=TJZHJ2lItDnmrmXplUKEWZ+YkwqEOkOypk8rxLxs++A=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To;
+ b=Au0yVDvkleYpQpfeZvIhcVsp5ebvXoY2zFNxC5Q8OZgdNFCxvrwj/XztRM2UNQglj
+ EabRo7YzPVn0FV3o/2rxu6pPbTf3krXBbk2P0khpzsIwmwpo1knUSgCGLxBMyvKxnA
+ f87ffBVnh6U8RmlcIGRv8o6icAwB0/cuLIJp0gbzPsgUoQzA6YGx78OV23kueQ3e07
+ b+BFO+in+JLcOaOlhMOamkRLBYnMNsp7LnJzsJ56deYxV/pk+KXH0p3vrf/o/xDCHx
+ f6SspR9SIfdZ9T14tfmHyCnAOvqJs/lqQMDy3EX/CcIlhEYil1sTI1HW+UulXzbgbT
+ sgK1NFeFuXRSQ==
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+From: Roman Ilin <me@romanilin.is>
+In-Reply-To: <20260702181027.98526-1-me@romanilin.is>
+Date: Thu, 2 Jul 2026 21:23:02 +0300
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ =?utf-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Peter Arnesen <peter.m.arnesen@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
+References: <20260613224434.96501-1-me@romanilin.is>
+ <20260702181027.98526-1-me@romanilin.is>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,31 +69,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The fan re-scheduling logic sits inside an "if (target != duty)" block,
-so by the time the inner if/else-if chain runs, duty can never equal
-target. The "else if (duty == target)" branch is therefore dead code and
-has been since it was introduced. Drop it; the two reachable cases
-(duty > target and duty < target) are unchanged, so behaviour is
-identical.
+Apologies, I accidentally fired off send-email before saving my final
+changelog notes. Please ignore the changelog and notes in the original
+v3 email.
 
-Signed-off-by: Anas Khan <anxkhn28@gmail.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c | 2 --
- 1 file changed, 2 deletions(-)
+The actual changes in v3 are:
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c
-index f8fa43c8a7d2..c4aaf7473065 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/fan.c
-@@ -90,8 +90,6 @@ nvkm_fan_update(struct nvkm_fan *fan, bool immediate, int target)
- 
- 		if (duty > target)
- 			delay = slow_down_period;
--		else if (duty == target)
--			delay = min(bump_period, slow_down_period) ;
- 		else
- 			delay = bump_period;
- 
--- 
-2.54.0
+- Changed the WARN_ON_ONCE to drm_dbg_kms (to avoid user-triggerable
+  panics).
+- Updated drm_calc_timestamping_constants with the goto error fallback
+  to clear the stale state.
+
+Also, an automated review bot pointed out an AB-BA deadlock in
+drm_crtc_vblank_start_timer(). But I am leaving this out of the patch to
+keep the fixes orthogonal.
+
+Sorry for the noise.
+
+> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
+>=20
+> When a CRTC's display mode carries a too small pixel clock,
+> drm_calc_timestamping_constants() computes a frame duration that
+> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
+> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
+> interval, after which vblank events are no longer delivered. Pending
+> page flips never complete and the display appears frozen.
+>=20
+> This could be triggered on virtio-gpu guests that have dynamic =
+resolution
+> enabled: when the SPICE agent or the X server resizes the output, it
+> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
+>=20
+>    clock =3D 406 kHz, htotal =3D 3152, vtotal =3D 2148
+>=20
+>    framedur_ns =3D 3152 * 2148 * 1000000 / 406 =3D 16675852216 ns =
+(~16.7 s)
+>=20
+> 16675852216 does not fit into an int and wraps to roughly -504000000.
+> ns_to_ktime() then yields a negative interval and the timer stops =
+working.
+>=20
+> Found by bisection, which pointed at commit a036f5fceedb =
+("drm/virtgpu:
+> Use vblank timer"). That commit merely made virtio-gpu use the vblank
+> timer and thereby exposed the pre-existing problem in the timer setup
+> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
+>=20
+> To fix this, modify drm_calc_timestamping_constants() to use u64 for
+> calculations, check for INT_MAX overflows, and return an error code.
+> drm_crtc_vblank_start_timer() will then propagate the error, enabling
+> the driver to fall back to immediate vblank events. Valid modes are
+> unaffected, and the timer self-heals on the next mode with a sane =
+clock.
+>=20
+> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Signed-off-by: Roman Ilin <me@romanilin.is>
+> ---
+> Changes in v3:
+>=20
+> - Changed the WARN_ON_ONCE to drm_err_once
+>=20
+> Notes:
+>=20
+>=20
+>=20
+> drivers/gpu/drm/drm_vblank.c | 71 +++++++++++++++++++++++-------------
+> include/drm/drm_vblank.h     |  4 +-
+> 2 files changed, 48 insertions(+), 27 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_vblank.c =
+b/drivers/gpu/drm/drm_vblank.c
+> index f90fb2d13..629b9fcc7 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>  * drm_crtc_vblank_helper_get_vblank_timestamp(). They are derived =
+from
+>  * CRTC's true scanout timing, so they take things like panel scaling =
+or
+>  * other adjustments into account.
+> + *
+> + * Returns:
+> + * 0 on success, or a negative errno code otherwise.
+>  */
+> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+> -     const struct drm_display_mode *mode)
+> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+> +    const struct drm_display_mode *mode)
+> {
+> struct drm_device *dev =3D crtc->dev;
+> unsigned int pipe =3D drm_crtc_index(crtc);
+> struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> - int linedur_ns =3D 0, framedur_ns =3D 0;
+> + u64 linedur_ns, framedur_ns;
+> int dotclock =3D mode->crtc_clock;
+> + unsigned int frame_size;
+>=20
+> if (!drm_dev_has_vblank(dev))
+> - return;
+> + return 0;
+>=20
+> if (drm_WARN_ON(dev, pipe >=3D dev->num_crtcs))
+> - return;
+> + return -EINVAL;
+>=20
+> - /* Valid dotclock? */
+> - if (dotclock > 0) {
+> - int frame_size =3D mode->crtc_htotal * mode->crtc_vtotal;
+> + if (dotclock <=3D 0) {
+> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock =3D =
+%d!\n",
+> + crtc->base.id, dotclock);
+> + goto error;
+> + }
+>=20
+> - /*
+> - * Convert scanline length in pixels and video
+> - * dot clock to line duration and frame duration
+> - * in nanoseconds:
+> - */
+> - linedur_ns  =3D div_u64((u64) mode->crtc_htotal * 1000000, =
+dotclock);
+> - framedur_ns =3D div_u64((u64) frame_size * 1000000, dotclock);
+> + frame_size =3D (unsigned int)mode->crtc_htotal * (unsigned =
+int)mode->crtc_vtotal;
+>=20
+> - /*
+> - * Fields of interlaced scanout modes are only half a frame duration.
+> - */
+> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+> - framedur_ns /=3D 2;
+> - } else {
+> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock =3D =
+0!\n",
+> - crtc->base.id);
+> + /*
+> + * Convert scanline length in pixels and video dot clock to line =
+duration
+> + * and frame duration in nanoseconds.
+> + */
+> + linedur_ns  =3D div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
+> + framedur_ns =3D div_u64((u64)frame_size * 1000000, dotclock);
+> +
+> + /*
+> + * Fields of interlaced scanout modes are only half a frame duration.
+> + */
+> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+> + framedur_ns /=3D 2;
+> +
+> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
+> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock too =
+small!\n",
+> +    crtc->base.id);
+> + goto error;
+> }
+>=20
+> vblank->linedur_ns  =3D linedur_ns;
+> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct =
+drm_crtc *crtc,
+>     crtc->base.id, mode->crtc_htotal,
+>     mode->crtc_vtotal, mode->crtc_vdisplay);
+> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
+> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
+> +     crtc->base.id, dotclock,
+> +     vblank->framedur_ns, vblank->linedur_ns);
+> +
+> + return 0;
+> +
+> +error:
+> + vblank->linedur_ns  =3D 0;
+> + vblank->framedur_ns =3D 0;
+> + drm_mode_copy(&vblank->hwmode, mode);
+> + return -EINVAL;
+> }
+> EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>=20
+> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc =
+*crtc)
+> struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> struct drm_vblank_crtc_timer *vtimer =3D &vblank->vblank_timer;
+> unsigned long flags;
+> + int ret;
+>=20
+> if (!vtimer->crtc) {
+> /*
+> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc =
+*crtc)
+> hrtimer_try_to_cancel(&vtimer->timer);
+> }
+>=20
+> - drm_calc_timestamping_constants(crtc, &crtc->mode);
+> + ret =3D drm_calc_timestamping_constants(crtc, &crtc->mode);
+> + if (ret)
+> + return ret;
+>=20
+> spin_lock_irqsave(&vtimer->interval_lock, flags);
+> vtimer->interval =3D ns_to_ktime(vblank->framedur_ns);
+> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+> index 2fcef9c0f..d99772dfa 100644
+> --- a/include/drm/drm_vblank.h
+> +++ b/include/drm/drm_vblank.h
+> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
+> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
+> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+>=20
+> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+> -     const struct drm_display_mode *mode);
+> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+> +    const struct drm_display_mode *mode);
+> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
+> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
+>   u32 max_vblank_count);
+> --=20
+> 2.54.0
+>=20
 
