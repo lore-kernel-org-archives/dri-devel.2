@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7950C44503
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:47:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87AB6C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:47:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EFEE10F428;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F10810F426;
 	Thu,  2 Jul 2026 14:47:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HzSuOdMN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="l1njuegi";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F9BE10F420
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B422210F420
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003614;
- bh=oRJHiv5Xy3cWFXF7zc+DVt+6QfSJIYgjTTfVBK1Rmho=;
+ s=mail; t=1783003615;
+ bh=ErNbqFbp7a4/yqeZSy6M5+9biF0lii/908gxc+ojHhA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HzSuOdMNPppul9DcAK+K7kew4gF0ghNPBWe++u72F8SEau+MmCHX6Si/2uSKTdGx2
- NKc9wRmlgQoaQ4ZCWKb7aDHabxNy6bC2/fZuBnwNl0MZS3U/P+kODSNG/iGkW2QBD2
- AmCgEyX8cjqNP+1TeIAtZLqI2i5ADL3XLoc880Q8kRzlXmxO9N7KgJhk/C+N9TdLQC
- 6OqjndIWUM5JiLTvoMQIwAUP6K7M6ZxiPpUfcud6MDBmOw9moBSj+SY5CsS7fUH30h
- hPpMm6VgV8DNhhnf68iQU75Ik1asgx599AUFneEQ5DX326w0vhO0DFXqq3InToBqoC
- vFBN1QUi6D80g==
+ b=l1njuegi+Se0r7l29lVASUMtUQY61RBVLd5ImrY70KhMXltgY7lGOszoOEaqaQCFK
+ fHQ0GolzM4WVVF6HbgUYUMQdpmHev2nWbUseffC/s2r6p3n6OHWNa+uNVOuzxrVlIL
+ XAy4H93LH28B8C6PvsiA/v1UjpTF32nDRv/RO7JNsU1NoeluptYeDLyeta/qRfMFIn
+ 22ocxML4/GUNmCDd5iJ314m/VKMLBQjeHVammJAO78DKv8n2ldzDPWsV2le/LeA7FQ
+ 17b/wWs/D1HSKbyBhqSoJAAVrq9qcpAI7eGOxB1fV/+DOkwajLwKs9vlHqg0liyOft
+ 5jSat+1EC4H9w==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D045917E3667;
- Thu,  2 Jul 2026 16:46:53 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5835617E3670;
+ Thu,  2 Jul 2026 16:46:55 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:43 +0300
-Subject: [PATCH v8 30/39] drm/vc4: hdmi: Switch to
- drm_hdmi_mode_needs_scrambling()
+Date: Thu, 02 Jul 2026 17:46:45 +0300
+Subject: [PATCH v8 32/39] drm/tests: connector: Add HDMI caps-based init
+ coverage
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-30-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-32-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,65 +75,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The VC4 HDMI driver has a local helper to check whether a mode requires
-scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
-use the common helper instead.
-
-No functional change intended.
+Add KUnit tests for drmm_connector_hdmi_init_with_caps() covering NULL
+caps rejection, the max_tmds_char_rate inferred from each advertised
+HDMI specification version, and the validation of a driver-provided
+max_tmds_char_rate against the version-inferred limit: override below,
+accept at, reject above, reject when no version is advertised.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/tests/drm_connector_test.c | 189 +++++++++++++++++++++++++++++
+ 1 file changed, 189 insertions(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index fbdb0448aa2b..e7b0f0f2e350 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -130,15 +130,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
- 	return true;
- }
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index beb1d50a6646..1fb1d83aec1a 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -1254,6 +1254,188 @@ KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_type_invalid,
+ 		  drm_connector_hdmi_init_type_invalid_tests,
+ 		  drm_connector_hdmi_init_type_desc);
  
--static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
--					   unsigned int bpc,
--					   enum drm_output_color_format fmt)
--{
--	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
--
--	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
--}
--
- static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
- {
- 	struct drm_debugfs_entry *entry = m->private;
-@@ -313,7 +304,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
- 		return 0;
- 	}
++/*
++ * Test that the registration of an HDMI connector with a NULL caps fails.
++ */
++static void drm_test_connector_hdmi_init_null_caps(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	ret = drmm_connector_hdmi_init_with_caps(&priv->drm, &priv->connector,
++						 "Vendor", "Product",
++						 &dummy_funcs,
++						 &dummy_hdmi_funcs,
++						 DRM_MODE_CONNECTOR_HDMIA,
++						 &priv->ddc,
++						 NULL);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
++/*
++ * Test that the registration of an HDMI connector without an explicit max TMDS
++ * character rate being provided succeeds, and the connector limit is inferred
++ * from the advertised HDMI specification version.
++ */
++struct drm_connector_hdmi_init_max_tmds_rate_inferred_case {
++	const char *desc;
++	enum hdmi_version ver;
++	unsigned long long expected;
++};
++
++static void drm_test_connector_hdmi_init_max_tmds_rate_inferred(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *param =
++		test->param_value;
++	struct drm_connector_hdmi_caps caps = {
++		.supported_hdmi_ver = param->ver,
++		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++		.max_bpc = 8,
++	};
++	int ret;
++
++	ret = drmm_connector_hdmi_init_with_caps(&priv->drm, &priv->connector,
++						 "Vendor", "Product",
++						 &dummy_funcs,
++						 &dummy_hdmi_funcs_scrambler,
++						 DRM_MODE_CONNECTOR_HDMIA,
++						 &priv->ddc,
++						 &caps);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			param->expected);
++}
++
++static const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case
++drm_connector_hdmi_init_max_tmds_rate_inferred_tests[] = {
++	{ "unknown",	HDMI_VERSION_UNKNOWN,	0 },
++	{ "1.0",	HDMI_VERSION_1_0,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.2",	HDMI_VERSION_1_2,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.3",	HDMI_VERSION_1_3,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.4",	HDMI_VERSION_1_4,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "2.0",	HDMI_VERSION_2_0,	HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ },
++};
++
++static void drm_connector_hdmi_init_max_tmds_rate_inferred_desc(
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *t,
++	char *desc)
++{
++	strscpy(desc, t->desc, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_max_tmds_rate_inferred,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_tests,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_desc);
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate strictly below the version-inferred limit succeeds, and
++ * the connector limit is overridden.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_override(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	struct drm_connector_hdmi_caps caps = {
++		.supported_hdmi_ver = HDMI_VERSION_2_0,
++		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++		.max_bpc = 8,
++		.max_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
++	};
++	int ret;
++
++	ret = drmm_connector_hdmi_init_with_caps(&priv->drm, &priv->connector,
++						 "Vendor", "Product",
++						 &dummy_funcs,
++						 &dummy_hdmi_funcs_scrambler,
++						 DRM_MODE_CONNECTOR_HDMIA,
++						 &priv->ddc,
++						 &caps);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate equal to the version-inferred limit succeeds.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_at_limit(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	struct drm_connector_hdmi_caps caps = {
++		.supported_hdmi_ver = HDMI_VERSION_2_0,
++		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++		.max_bpc = 8,
++		.max_tmds_char_rate = HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
++	};
++	int ret;
++
++	ret = drmm_connector_hdmi_init_with_caps(&priv->drm, &priv->connector,
++						 "Vendor", "Product",
++						 &dummy_funcs,
++						 &dummy_hdmi_funcs_scrambler,
++						 DRM_MODE_CONNECTOR_HDMIA,
++						 &priv->ddc,
++						 &caps);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate that exceeds the limit inferred from the advertised HDMI
++ * specification version fails.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_exceeds(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	struct drm_connector_hdmi_caps caps = {
++		.supported_hdmi_ver = HDMI_VERSION_1_4,
++		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++		.max_bpc = 8,
++		.max_tmds_char_rate = HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
++	};
++	int ret;
++
++	ret = drmm_connector_hdmi_init_with_caps(&priv->drm, &priv->connector,
++						 "Vendor", "Product",
++						 &dummy_funcs,
++						 &dummy_hdmi_funcs,
++						 DRM_MODE_CONNECTOR_HDMIA,
++						 &priv->ddc,
++						 &caps);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a non-zero max
++ * TMDS character rate without an HDMI specification version fails, as the
++ * version-inferred limit defaults to zero and any positive override would
++ * exceed it.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_no_version(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	struct drm_connector_hdmi_caps caps = {
++		.supported_hdmi_ver = HDMI_VERSION_UNKNOWN,
++		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++		.max_bpc = 8,
++		.max_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
++	};
++	int ret;
++
++	ret = drmm_connector_hdmi_init_with_caps(&priv->drm, &priv->connector,
++						 "Vendor", "Product",
++						 &dummy_funcs,
++						 &dummy_hdmi_funcs,
++						 DRM_MODE_CONNECTOR_HDMIA,
++						 &priv->ddc,
++						 &caps);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
+ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_valid),
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_bpc_8),
+@@ -1278,6 +1460,13 @@ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 			 drm_connector_hdmi_init_type_valid_gen_params),
+ 	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_type_invalid,
+ 			 drm_connector_hdmi_init_type_invalid_gen_params),
++	KUNIT_CASE(drm_test_connector_hdmi_init_null_caps),
++	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_max_tmds_rate_inferred,
++			 drm_connector_hdmi_init_max_tmds_rate_inferred_gen_params),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_override),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_at_limit),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_exceeds),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_no_version),
+ 	{ }
+ };
  
--	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
-+	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
- 							   vc4_hdmi->output_bpc,
- 							   vc4_hdmi->output_format);
- 	if (!scrambling_needed) {
-@@ -443,7 +434,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
- 		const struct drm_display_mode *mode;
- 
- 		list_for_each_entry(mode, &connector->probed_modes, head) {
--			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
-+			if (drm_hdmi_mode_needs_scrambling(mode, 8,
-+							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
- 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
- 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
- 			}
-@@ -802,7 +794,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
- 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
- 		return;
- 
--	if (!vc4_hdmi_mode_needs_scrambling(mode,
-+	if (!drm_hdmi_mode_needs_scrambling(mode,
- 					    vc4_hdmi->output_bpc,
- 					    vc4_hdmi->output_format))
- 		return;
 
 -- 
 2.54.0
