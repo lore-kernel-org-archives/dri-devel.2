@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 304B4C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A8FC4450F
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB5A10F419;
-	Thu,  2 Jul 2026 14:46:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C58F10F41C;
+	Thu,  2 Jul 2026 14:46:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UUiJ41GM";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HyGNoXeA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6388610F409
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1DF310F41A
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003605;
- bh=VrYv7txJCAPPleChH5NsonFVJtR0LAt1QXJvtoOGkzI=;
+ s=mail; t=1783003609;
+ bh=OsQwPHB1y8GzS7DXXJGCMzNkZ1Qoag1JACZx1Z36Qgk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=UUiJ41GMccZKVq5emhL2rbppt4Eccczcstldx65pa9hXmo1T4zDU+9OzCfmOGEKk7
- R71BIHWPPkYuLvwdzwkHfPkM7hiFaHQ35lXVF1TPOSurfRfFiE0dmrVa3PjIUYhXEh
- 0mCEXgKd6p3PqnZ7aYNsFctA5XUGxEzXVAfA65pn5kPFwJce0DcDkzMV2nINrY7F9o
- z6C9mYge+h+QJic7p38L8aCVhhViixompxGbhUHkUq0/G+HXn7X7wYnby+Het9U8Pl
- SOKlMxtVscq/WPmN8Qb/nyZVfBzryZkGB/X7lr+5upKeCIrxSyXJE24vI/g8ux/v8b
- PvSm0w6dxbXHg==
+ b=HyGNoXeARDVg5QrhPUq8zTN6u7UiRuYbq4mLmuPqlptveOJOCJLTbVehihNAEP2cS
+ +t77wDWCv1gPVFE0YeQBBWUrSP6HlaUobbo4veOz6NBeDy5qChdmB8WoHOJogIFMZ2
+ VJDMRO9nd16jHimWCIBqdVP2RNG52twbo4SILxVpslg9OCHF/ODV6RbotEPZuodD1E
+ IA/wBUL7DlhcHEyd3EcqdhOuT+uLFKhUi3LN28qmVlxX5ya3wAKNtXeqHSWvr3jYkL
+ ISmIeb7/ed7tyKexs9Gs0hjanR7DmlXeaYemcNk9Xs6j8piD/0djPw1no1d2LuwMEG
+ EY2SF4FEgDL6Q==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0051817E3602;
- Thu,  2 Jul 2026 16:46:45 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7AF7E17E362D;
+ Thu,  2 Jul 2026 16:46:49 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:31 +0300
-Subject: [PATCH v8 18/39] drm/bridge: dw-hdmi-qp: Provide
- .{enable|disable}_hpd() PHY ops
+Date: Thu, 02 Jul 2026 17:46:37 +0300
+Subject: [PATCH v8 24/39] drm/rockchip: dw_hdmi_qp: Defer HPD IRQ enable
+ until after connector setup
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-18-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-24-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,7 +58,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
+ linux-rockchip@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,69 +76,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement the .hpd_enable() and .hpd_disable() bridge callbacks and
-extend dw_hdmi_qp_phy_ops with corresponding hooks.
+Request the HPD IRQ early in bind() with IRQF_NO_AUTOEN, keeping it
+disabled until all DRM resources are fully initialized, at which point
+enable_irq() arms it.  This prevents premature interrupt delivery
+without forcing devm_request_threaded_irq() to the very end of the
+initialization sequence, which would complicate error unwinding.
 
-This enables the DRM core to control when HPD interrupts are armed,
-which is needed to prevent premature interrupt delivery before the
-connector is fully initialized, and to properly quiesce HPD during
-suspend.
+Note that IRQF_NO_AUTOEN is incompatible with IRQF_SHARED; the latter is
+dropped as this IRQ has no other users.
 
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 18 ++++++++++++++++++
- include/drm/bridge/dw_hdmi_qp.h              |  2 ++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 7475b6b71836..a0613f0d2ebc 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -1189,6 +1189,22 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
- #define dw_hdmi_qp_cec_transmit NULL
- #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 33036f194e34..3de4b3e6ea85 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -672,7 +672,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	ret = devm_request_threaded_irq(dev, irq,
+ 					cfg->ctrl_ops->hardirq_callback,
+ 					cfg->ctrl_ops->irq_callback,
+-					IRQF_SHARED, "dw-hdmi-qp-hpd",
++					IRQF_NO_AUTOEN, "dw-hdmi-qp-hpd",
+ 					hdmi);
+ 	if (ret)
+ 		return ret;
+@@ -694,6 +694,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(dev, PTR_ERR(connector),
+ 				     "Failed to init bridge connector\n");
  
-+static void dw_hdmi_qp_bridge_hpd_enable(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++	enable_irq(irq);
 +
-+	if (hdmi->phy.ops->enable_hpd)
-+		hdmi->phy.ops->enable_hpd(hdmi, hdmi->phy.data);
-+}
-+
-+static void dw_hdmi_qp_bridge_hpd_disable(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+
-+	if (hdmi->phy.ops->disable_hpd)
-+		hdmi->phy.ops->disable_hpd(hdmi, hdmi->phy.data);
-+}
-+
- static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
- 	.atomic_get_output_bus_fmts = drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-@@ -1197,6 +1213,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
- 	.atomic_enable = dw_hdmi_qp_bridge_atomic_enable,
- 	.atomic_disable = dw_hdmi_qp_bridge_atomic_disable,
- 	.detect = dw_hdmi_qp_bridge_detect,
-+	.hpd_enable = dw_hdmi_qp_bridge_hpd_enable,
-+	.hpd_disable = dw_hdmi_qp_bridge_hpd_disable,
- 	.edid_read = dw_hdmi_qp_bridge_edid_read,
- 	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
- 	.hdmi_clear_avi_infoframe = dw_hdmi_qp_bridge_clear_avi_infoframe,
-diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
-index 6ea9c561cfef..b80fceffc315 100644
---- a/include/drm/bridge/dw_hdmi_qp.h
-+++ b/include/drm/bridge/dw_hdmi_qp.h
-@@ -17,6 +17,8 @@ struct dw_hdmi_qp_phy_ops {
- 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
- 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
-+	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
-+	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- };
+ 	return 0;
+ }
  
- struct dw_hdmi_qp_plat_data {
 
 -- 
 2.54.0
