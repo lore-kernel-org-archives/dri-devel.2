@@ -4,65 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83E1FC44500
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:31:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC92C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:32:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B7E10E4A5;
-	Thu,  2 Jul 2026 09:31:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51BD010F25B;
+	Thu,  2 Jul 2026 09:32:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="jwyULO8r";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="N6gxHG4I";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="h6aft0XD";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF4F10E48C;
- Thu,  2 Jul 2026 09:31:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782984682; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PfKFG9RhyxZ/Be5OuN+QqF3/BpbnmA1csy44z/dMcd+YIjvJgwvmOHOiJ+2KRMKxIOoQur2T9f+dCn79aiGf3rgs9pzZr/ieS/mvwK9ldHDTosm8k6kLHgd9ZEmlWkBnbQVFNBuhOybf15R8spj3zeYcFN+FZfz3YHoCfLe2aJE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782984682;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=RDz1VrwgVY8/yTgdWqaKJKdhG6xDvuE7IeCeMPv1hQs=; 
- b=HKOyBhxVPEBNIYCvY/Bipj1MqKUWcdyEq8GnntQKERrMfWcXg2ssZowkS2zK7JmVaooGdCka67TEXs9BjIuxT/LkSuJAjjeXngQEITJzTzXKcAjzUuN/eDLjjD0Tjl0E+AdBiRIVaC64WS6USM3mvCEZZS4VOBMUN5TEDnCSs/s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782984681; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=RDz1VrwgVY8/yTgdWqaKJKdhG6xDvuE7IeCeMPv1hQs=;
- b=jwyULO8rOuk48YoiNDxc+VCzbqUHPa1j1hZ0oj9GR9HkLwLwJf6lKsn7fiuFgCUg
- zCEtXPryDIhrGcXJOeO7hG/GTDwB2SYMuML5kDKujK2SPmgHJZGEdT0zzTmzsWX4yX1
- qzq44EBPrqgeGC1FAcPx4qxVjHnw72bHee+88p0s=
-Received: by mx.zohomail.com with SMTPS id 1782984679497750.7953951953009;
- Thu, 2 Jul 2026 02:31:19 -0700 (PDT)
-Message-ID: <0f495406-a3c9-4c72-8419-a647a864e0fb@collabora.com>
-Date: Thu, 2 Jul 2026 11:31:14 +0200
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D00F010F25B
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:32:43 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4grWrT691Yz8v1m;
+ Thu, 02 Jul 2026 11:32:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1782984761;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7WfiE+s2SeFtrvoI9W5dFWeRHJeYSPRvC61ln8/YJkw=;
+ b=N6gxHG4Ibu3Kwf+GC6iRb5iG4g7Grp79KHjyx032PRnXj2kmA2EvPZicVoXSvVWqjTAwI1
+ f9+Tb48u1gmMeq+YqFYXUcY56/STl4v10H09w3yhUJ4/WeHlaujKZG5eJw4qhLZzGJC6Y2
+ ZmBGfFYNJjqSOtR1IMm14UEcJB+w6LKAaM3YlwGZqaE+2B0hES24+3znWkVZP9k46/q0nH
+ q0OoJTiNUPPcNR2R883Jzm6yoCeg7H3oxALJkWpG68JbMfkuH3PJJXvuj9qW6d/ouTLw5k
+ csZzyUbtU29qIZToVtxUv99OC9NlgLkPxljbZK93+XnSvGYXYf7U6zvmzNmBaA==
+Authentication-Results: outgoing_mbo_mout;
+ dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=h6aft0XD;
+ spf=pass (outgoing_mbo_mout: domain of mhi@mailbox.org designates
+ 2001:67c:2050:b231:465::102 as permitted sender)
+ smtp.mailfrom=mhi@mailbox.org
+From: Maurice Hieronymus <mhi@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1782984759;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=7WfiE+s2SeFtrvoI9W5dFWeRHJeYSPRvC61ln8/YJkw=;
+ b=h6aft0XDzkcsGgpru5LYT1t1N7T9WTEIB61jVC2qH42PnEdf1j+H7Trqc+SjLWHUY3bAum
+ Jfv3orGYhlNqCqB0oha6LIxYCm0OFUmvuhV5jolxmIe2Qynzp02myn8NrDCWqrWIljU0th
+ tnZ9fY4CrYBvF6u03mv8ziAYbl88MGCOx2v4mmooFnWEW/7rnqtFl/T/mO/+uSO19Ma/KN
+ AGMwYep2BWK9LMUBfOC4aGJrfqMOREg/chDZISoUCc4lUUzplmxgdPWfeJYXjNuEjrLDmG
+ U7w2MS9gqBDlnp/0FjfebnLUNXQA6aDpbQ9N3gkPAEYisT5I5MqDcJQeS8+E7g==
+Date: Thu, 02 Jul 2026 11:32:27 +0200
+Subject: [PATCH] rust: pci: rework device enabling API
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Daniel Stone
- <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260702081641.22990-1-robert.mader@collabora.com>
- <83f324a2-abe1-4b32-8782-439569f651d2@linux.intel.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <83f324a2-abe1-4b32-8782-439569f651d2@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-rust-pci-enable-device-managed-v1-1-75bc4ff2935c@mailbox.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQqEMBAEvyJzdiBGorJfWTzEpNUBNyuJiiD+3
+ eCxDlV1UUIUJPoUF0UckuQfMlRlQW62YQKLz0xa6Ua1SnPc08arE0awwwL2WXLgnw12gufKGAz
+ Go2tUTTmyRoxyvoNvf98PTCRLBXAAAAA=
+X-Change-ID: 20260702-rust-pci-enable-device-managed-155eb5de8603
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Maurice Hieronymus <mhi@mailbox.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782984751; l=4837;
+ i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
+ bh=e/KR3pjg8xMYjHFY5YReM2UoqngO3ghQki9OUFn+GLU=;
+ b=L4D2Uch8jcxc6wBza26Cc7mWCSkWEjGOkGFaqzPwjHOVQag7JY9G7O9l0MWlN6WtfCdo6AHiZ
+ qnLBzBmb5mvCfJVwOC1+c5myvNVk2MJlE6NW2uLLbH1AVO80yxMmX5t
+X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
+ pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
+X-MBO-RS-ID: 2b212682885282a8313
+X-MBO-RS-META: agoaqz13tinhriczj5a1doagmd63so6b
+X-Rspamd-Queue-Id: 4grWrT691Yz8v1m
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,55 +101,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+`enable_device_mem()` wraps the unmanaged `pci_enable_device_mem()` and has
+no disable counterpart, so the enable count is leaked on driver unbind.
 
-On 02.07.26 10:34, Maarten Lankhorst wrote:
-> Hello,
-<snip>
-> On 7/2/26 10:16, Robert Mader wrote:
->> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
->> index e2df4becce62..b2c0234eaf14 100644
->> --- a/drivers/gpu/drm/drm_ioctl.c
->> +++ b/drivers/gpu/drm/drm_ioctl.c
->> @@ -373,13 +373,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->>   			return -EINVAL;
->>   		file_priv->supports_virtualized_cursor_plane = req->value;
->>   		break;
->> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
->> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
->> +		struct drm_plane *plane;
->> +		bool has_plane_with_color_pipeline = false;
->> +
->> +		drm_for_each_plane(plane, dev) {
->> +			if (plane->color_pipeline_property) {
->> +				has_plane_with_color_pipeline = true;
->> +				break;
->> +			}
->> +		}
->> +		if (!has_plane_with_color_pipeline)
->> +			return -EOPNOTSUPP;
->> +
->>   		if (!file_priv->atomic)
->>   			return -EINVAL;
->>   		if (req->value > 1)
->>   			return -EINVAL;
->>   		file_priv->plane_color_pipeline = req->value;
->>   		break;
->> +	}
-> Perhaps put the most specific check (is there a plane with color pipeline?)
-> last, and return -EINVAL, as that is the default before
-> DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE was added.
->
-> Kind regards,
-> ~Maarten Lankhorst
-Thanks, will do so in v3. Will wait a bit more for further feedback and 
-send it out tomorrow.
+Replace it with:
 
+- `enable_device_managed()`, wrapping `pcim_enable_device()`, which
+  registers a `pci_disable_device()` cleanup that runs on unbind; this
+  is what drivers should normally call in `probe()`.
+
+- an unmanaged `enable_device()`/`disable_device()` pair, wrapping
+  `pci_enable_device()`/`pci_disable_device()`, e.g. for runtime PM
+  paths.
+
+Unlike `pci_enable_device_mem()`, both variants enable I/O and memory
+resources.
+
+Convert nova-core and the rust_driver_pci sample, the only users of
+`enable_device_mem()`, to `enable_device_managed()`; besides gaining the
+automatic cleanup they now also enables I/O resources.
+
+This is a prerequisite for the EDU PCI sample driver series [1], as
+requested by Danilo in its review [2]; that series will be rebased on
+top of this patch.
+
+Link: https://lore.kernel.org/r/20260620-b4-rust-pci-edu-driver-v2-0-6fd6684f2c14@mailbox.org [1]
+Link: https://lore.kernel.org/rust-for-linux/DJEPMYC7J6ZG.D0ODUD4YGFCT@kernel.org/ [2]
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
+---
+Replace pci::Device::enable_device_mem() with a managed
+enable_device_managed() plus an unmanaged enable_device()/
+disable_device() pair, and convert the two users (nova-core and the
+rust_driver_pci sample).
+
+Requested by Danilo [2] while reviewing the EDU PCI sample driver
+series [1]; that series will be rebased on top of this one.
+
+[1] https://lore.kernel.org/r/20260620-b4-rust-pci-edu-driver-v2-0-6fd6684f2c14@mailbox.org
+[2] https://lore.kernel.org/rust-for-linux/DJEPMYC7J6ZG.D0ODUD4YGFCT@kernel.org
+---
+ drivers/gpu/nova-core/driver.rs |  2 +-
+ rust/kernel/pci.rs              | 26 +++++++++++++++++++++++---
+ samples/rust/rust_driver_pci.rs |  2 +-
+ 3 files changed, 25 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 5738d4ac521b..b0711d98033b 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -75,7 +75,7 @@ fn probe<'bound>(
+         pin_init::pin_init_scope(move || {
+             dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+ 
+-            pdev.enable_device_mem()?;
++            pdev.enable_device_managed()?;
+             pdev.set_master();
+ 
+             Ok(try_pin_init!(NovaCore {
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 5071cae6543f..a408b3412077 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -453,10 +453,30 @@ pub fn pci_class(&self) -> Class {
+ }
+ 
+ impl<'a> Device<device::Core<'a>> {
+-    /// Enable memory resources for this device.
+-    pub fn enable_device_mem(&self) -> Result {
++    /// Enable I/O and memory resources for this device.
++    ///
++    /// This function is unmanaged and does not perform any cleanup when the device is unbound.
++    /// For a managed function take a look at [`Device::enable_device_managed`].
++    #[inline]
++    pub fn enable_device(&self) -> Result {
++        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
++        to_result(unsafe { bindings::pci_enable_device(self.as_raw()) })
++    }
++
++    /// Disable I/O and memory resources for this device.
++    ///
++    /// This function is the counterpart to [`Device::enable_device`].
++    #[inline]
++    pub fn disable_device(&self) {
++        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
++        unsafe { bindings::pci_disable_device(self.as_raw()) }
++    }
++
++    /// Enable I/O and memory resources for this device, with automatic cleanup.
++    #[inline]
++    pub fn enable_device_managed(&self) -> Result {
+         // SAFETY: `self.as_raw` is guaranteed to be a pointer to a valid `struct pci_dev`.
+-        to_result(unsafe { bindings::pci_enable_device_mem(self.as_raw()) })
++        to_result(unsafe { bindings::pcim_enable_device(self.as_raw()) })
+     }
+ 
+     /// Enable bus-mastering for this device.
+diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
+index 1aa8197d8698..213ef14386ca 100644
+--- a/samples/rust/rust_driver_pci.rs
++++ b/samples/rust/rust_driver_pci.rs
+@@ -154,7 +154,7 @@ fn probe<'bound>(
+             pdev.device_id()
+         );
+ 
+-        pdev.enable_device_mem()?;
++        pdev.enable_device_managed()?;
+         pdev.set_master();
+ 
+         let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?;
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260702-rust-pci-enable-device-managed-155eb5de8603
+
+Best regards,
 -- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+Maurice Hieronymus <mhi@mailbox.org>
 
