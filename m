@@ -4,140 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96E1C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 06:45:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF308C43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 06:46:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04BCD10E46F;
-	Thu,  2 Jul 2026 06:45:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA8110E484;
+	Thu,  2 Jul 2026 06:46:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="taD4FyRz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FN+86iVr";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0lsJCwvs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V9yYXKkn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RJ3h/KPe";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 780F310E46F
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 06:45:48 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F281672E42;
- Thu,  2 Jul 2026 06:45:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782974747; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
- b=taD4FyRz1xTnj1lV0wqCvFw8r+z37tDJJEc1o2TjR7rMmKsLSACHem77gm9M+1TWCiuuUh
- Y8On0BUADh8ZFokcq7/eghvvXYvE6uyJjJLdVJi47meEyWVHTcBQRVKPhAPbTWyFdDzF+r
- 5ddWwFpGCPQcVFBqC5j7qnRDuOa7i6c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782974747;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
- b=FN+86iVrRC5+wxGeZ3LvDghXC8OZECP2qUO0E0J510cG+DOJQzR5hbPHJ3LNw7r5O0d5Qo
- ONvFYJfsvhD/wxAQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0lsJCwvs;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=V9yYXKkn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782974746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
- b=0lsJCwvs5+cumbcsLy/fgqB0L4l9bPCeyGVJsJJekzAjehxAt8+ZMWQb6DdOeKxrITvXFO
- SYTJvvMJmbVSVSd1/XCY0mkfgBM8JJ2dAjofyoh4SBrlTrHx1MNY00z6wygtcskl9dvHpx
- MlWjJ9JscelM7ZY43t/oRS/+hii/uJw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782974746;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
- b=V9yYXKkneIHX8W8f4FIodJJcouf+7/tnz8m3fGWyjGfrFtbW5BCGfOKp7GqyJHJ47maSle
- EImNg547Lc1wZCCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8C922779AA;
- Thu,  2 Jul 2026 06:45:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id S+vZIBoJRmqVVgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 02 Jul 2026 06:45:46 +0000
-Message-ID: <7f514198-d47d-4b73-900e-1e7cd26c3a21@suse.de>
-Date: Thu, 2 Jul 2026 08:45:46 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70DA910E484
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 06:46:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A601C601EF;
+ Thu,  2 Jul 2026 06:46:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856DE1F000E9;
+ Thu,  2 Jul 2026 06:46:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782974782;
+ bh=AD8tasXyN/lhxwoWmvOAqfCV0TTermi5k/ZYYd4C0Og=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=RJ3h/KPe9Ckf3zjaojadowu7ZZWn7KYNjLvHZePNlZZxzQdxndvZJLHX7PcH6vK9D
+ k5mL8KaqFhKqGxlzUMbmqj1fELpv3HAiUoVShP5BubHrtyLGYd2HI7CrQJgz1Vz7Y0
+ SSxrBaBFrhdrno6avLqnaUOPSieiFaUl1oAVdoF6FRT4q3bCZSYpUQzuUJt7PaYRGT
+ JkxlFXAOco5A6ahqlUVC0ZmzbgqAHm5ldIaP//sUjxzepiKKhI7BgvCj8ItO/m60xj
+ JoYLPA74Ne4aBudLHUwp7qbQ4EeEApqi45kcYmysn3d+km9NpiIq8FiOSwjFiV+MCZ
+ hO+Zlgs5TrqUg==
+Message-ID: <51bad771-aa21-4394-8243-2fa7f275cb36@kernel.org>
+Date: Thu, 2 Jul 2026 07:46:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 4/4] drm/hyperv: Move MODULE_DEVICE_TABLE to the
- device_id arrays
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Saurabh Sengar
- <ssengar@linux.microsoft.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
- <7f9d4a239c76b6bb384048ea5591a21ed87d9b0e.1782925276.git.u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v8 3/4] misc: fastrpc: Allocate entire reserved memory for
+ Audio PD in probe
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Jianping Li <jianping.li@oss.qualcomm.com>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>,
+ Jorge Ramirez-Ortiz <jorge.ramirez-ortiz@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
+References: <20260609025938.457-1-jianping.li@oss.qualcomm.com>
+ <20260609025938.457-4-jianping.li@oss.qualcomm.com>
+ <cca276af-3e6a-44d3-a1b6-c2bc401a28cc@kernel.org>
+ <a79182b2-2582-4c77-a859-b4d013b700f3@oss.qualcomm.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7f9d4a239c76b6bb384048ea5591a21ed87d9b0e.1782925276.git.u.kleine-koenig@baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: F281672E42
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCPT_COUNT_SEVEN(0.00)[11];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[baylibre.com,microsoft.com,linux.microsoft.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,baylibre.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <a79182b2-2582-4c77-a859-b4d013b700f3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,54 +72,41 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 01.07.26 um 19:05 schrieb Uwe Kleine-König (The Capable Hub):
-> It matches the usual coding style to have the MODULE_DEVICE_TABLE macro
-> directly after the respective arrays.
->
-> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+On 7/2/26 5:02 AM, Ekansh Gupta wrote:
+>>> @@ -1409,8 +1395,17 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>>>  	args[1].length = inbuf.namelen;
+>>>  	args[1].fd = -1;
+>>>  
+>>> -	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+>>> -	pages[0].size = fl->cctx->remote_heap->size;
+>>> +	spin_lock_irqsave(&cctx->lock, flags);
+>>> +	if (!cctx->audio_init_mem) {
+>>> +		pages[0].addr = cctx->remote_heap->dma_addr;
+>>> +		pages[0].size = cctx->remote_heap->size;
+>>> +		cctx->audio_init_mem = true;
+>>> +		inbuf.pageslen = 1;
+>>> +	} else {
+>>> +		pages[0].addr = 0;
+>>> +		pages[0].size = 0;
+>> What is the expected behavoiur in this case?
+> Audio daemon is expected to take the memory information to DSP audio PD
+> only the first time it goes and attaches there.
+> 
+> This is the case where daemon was killed but audio PD session is still
+> running. In such cases, daemon is not expected to take any memory
+> information to audio PD as the earlier shared information is already
+> there with audio PD which it is using irrespective of daemon state.>
+Wow, this behavior is not documented or pl consider adding a comment
+here, Can we not query the dsp before creating new audiopd service?
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-> ---
->   drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> index e3f41336a831..6a28048f687b 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> @@ -52,6 +52,7 @@ static const struct pci_device_id hv_drm_pci_tbl[] = {
->   	},
->   	{ /* end of list */ }
->   };
-> +MODULE_DEVICE_TABLE(pci, hv_drm_pci_tbl);
->   
->   /*
->    * PCI stub to support gen1 VM.
-> @@ -219,6 +220,7 @@ static const struct hv_vmbus_device_id hv_drm_vmbus_tbl[] = {
->   	{HV_SYNTHVID_GUID},
->   	{}
->   };
-> +MODULE_DEVICE_TABLE(vmbus, hv_drm_vmbus_tbl);
->   
->   static struct hv_driver hv_drm_hv_driver = {
->   	.name = KBUILD_MODNAME,
-> @@ -260,8 +262,6 @@ static void __exit hv_drm_exit(void)
->   module_init(hv_drm_init);
->   module_exit(hv_drm_exit);
->   
-> -MODULE_DEVICE_TABLE(pci, hv_drm_pci_tbl);
-> -MODULE_DEVICE_TABLE(vmbus, hv_drm_vmbus_tbl);
->   MODULE_LICENSE("GPL");
->   MODULE_AUTHOR("Deepak Rawat <drawat.floss@gmail.com>");
->   MODULE_DESCRIPTION("DRM driver for Hyper-V synthetic video device");
+Does it make sense to attach instead of creating?
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+--srini
 
+>>> +	}
+>>> +	spin_unlock_irqrestore(&cctx->lock, flags);
+>>>  
+>>>  	args[2].ptr = (u64)(uintptr_t) pages;
+>>>  	args[2].length = sizeof(*pages);
 
