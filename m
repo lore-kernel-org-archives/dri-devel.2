@@ -4,58 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB223C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 21:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F03C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 21:25:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2185F10E308;
-	Thu,  2 Jul 2026 21:24:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 518AD10E3CB;
+	Thu,  2 Jul 2026 21:25:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IBPp5alA";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ksuHuPKh";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C3A710E51C
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:24:27 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8EEE3517;
- Thu,  2 Jul 2026 23:23:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1783027419;
- bh=7h8p5JymaPl6j2G50UYplFLnTLxP1bHA5e/xdPIdqPo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IBPp5alAe2KGTmJ2fOV0p9hAaIyV+xM2eG0an2/7GOgZRazZE1wqoU6V32WJnZEmn
- d68yhWXdD95YPckw68EKGX0RM6wZ5emQgqlWkai+pL35nMYeF6jvjxECVM1hkeHEGV
- gBdsxA5V7Tsp4EpIfEyp7C1pvH9o9yszsdLpZQ4Y=
-Date: Fri, 3 Jul 2026 00:24:23 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010043.outbound.protection.outlook.com
+ [40.93.198.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA3E10E3CB
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:25:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RdMYOlYw5JvCq5zJ8UTmthId1rC3E6c9qBdOr8/2YVpoW/f2hpyZErom4PiGZB/h4f/eAcImOLgVVQNehpCEzRTHqULzFOtDsIAhePVk/WJSQJRRzvKjDpO2vaxXEegLAxeYBakIH06wxUirmTWXnSOZasQJfdcGxNR8IUn/Rbr/sFXGJRGUFapzFUiB4mboGSkHMbteYyfm8CgwRSjsfyX52uBKyG93OKdVX9zMlksGYDHifmyV/6Y4I79yeVjr+prweCx2G1OFAmqxVA9s525LFP4rQuR1EuTXA0qPAHNcUjC1yu3bTxCwgUFmVOV67cZi2eO+iZPcwIkNofkWhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XvuwNlRboyC/oMNkt2MaNQaodDRbWhyXj3VHeQZ9TiA=;
+ b=m+xHLg3iYn/ETAH2xAee/rdpBzgkBxhvJAljorF5+LEAK1aaI3PXmBwTsucCiknAkiUgIe1AP8iu1Tyd9mY9iORE7xO6QCOasVfrWkBFpi39U5NSAuMy+bBvakEXbqcoqgN3n91pyF4YpA5jZgoCgCrLS24Q7dyRYsNc9AGOxZcgA9Sh/H6X2Oq7IyO15A6Mu6KXXiy7I3L9nU38MXMyN86jVf4W3QlGzhuiA2gXW8qDA6tM+OgbCckmZ1Ri9QcA6aB13Cc4h5cjuT0aNiJzy4tkfPwcv/0avRoPqYULEOrzcllrZiNQy+qUu55E34TTR+oB7ElFnx1b/DY55lewDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XvuwNlRboyC/oMNkt2MaNQaodDRbWhyXj3VHeQZ9TiA=;
+ b=ksuHuPKhufLZHM3CtfxHIYzUSukV0EACSoTGbN4jSCdvojDKuABe+tvEa4l0ucHZgVwjCQoP6bsnFJvotmCMiDdVszPiENZFGwgcSXsO8IiDyYc7Y6pUNOZuu8xn1PXcrj3ckzyKQ4LnxoXdLcXBNWnd5BGeZ9cnKsBjOGIqW3JNbLVOUbruLClWcVldKU4ynYvSxkvrohqR+uVaF21E1BXUXNO10A5a6TIDoWcmgqoJ5kAHkxO5m+PNnGqnPWXQnsxnBG6A1BTyyVzCyiuCuKn6iFG47ABHT3LrIULwGPKu1nN0Npp5JPDFpmxgkaxdF2S6TeqXTL+lS3UlJKYtcA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB4168.namprd12.prod.outlook.com (2603:10b6:610:a8::7)
+ by IA1PR12MB6257.namprd12.prod.outlook.com (2603:10b6:208:3e7::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
+ 2026 21:25:34 +0000
+Received: from CH2PR12MB4168.namprd12.prod.outlook.com
+ ([fe80::762:c8d0:c9ed:ebcd]) by CH2PR12MB4168.namprd12.prod.outlook.com
+ ([fe80::762:c8d0:c9ed:ebcd%5]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
+ 21:25:31 +0000
+From: Jonah Walker <jonahw@nvidia.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-Message-ID: <20260702212423.GA3662157@killaraus.ideasonboard.com>
-References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
- <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-api@vger.kernel.org, Jonah Walker <jonahw@nvidia.com>
+Subject: [PATCH] drm/fourcc: Add P212, P410 and P412 formats
+Date: Thu,  2 Jul 2026 21:23:55 +0000
+Message-ID: <20260702212355.1072804-1-jonahw@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0292.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e::27) To CH2PR12MB4168.namprd12.prod.outlook.com
+ (2603:10b6:610:a8::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4168:EE_|IA1PR12MB6257:EE_
+X-MS-Office365-Filtering-Correlation-Id: d06a900c-2083-47a3-b6cc-08ded88071fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: n19336n1r8NtP0irk2hz6a+cSsGL8gAVbpJmQexjLtRptw15JCD9tazdJfG0dcta2QBKG89cLnsCfHaT8VGATz9c9YOpgcZqTEVryLd//ODdJQLDj5UILiGJYYff+P/6Vs7yf5t4OJiLEBaIfcxyaOXHtXOeYr3YUfefs+nNPRTfG8mMNYD/z1g6dOA5aW8DWstzI979TKjn+I/t9p+jkDb2pcvignUFjyWVTAKI/V9Jf/2x5CTFG/8Pk/hSUEAotGhJMm4yPjn7NElMP3M8jkSfIFSTf9dj8gcpqmHPV0m2jSJB8LxA6HW+gPYiSu/eoCtHbmIuBRK6wzftbuc3f+qXzBpp9S+r2lzFlsrhTut71Hcxo5cm4m/fLGqwYHUgqCJyo03zyC2hjr5BSCYxwD5LoSYzXJZom5u5iT7KS7LZWhgom00bHmhkR2X6hmw3OcU6Snc7Bh4K9EghPSXsbTqErHBDZD7KJaaDF+QDvM/U6T2K22QATNEo/jE7ebSjolIPXgAR5tm23dls+gJmJkbSiGs03mNH4Z0vwIojS83Rogfq0v79+PHG8pvJ3DBX6A7Cn3rrXyWyWaQVyMO68RTRG8bOd8JmD0CjkxAB1z7sVVqUZF8DxeeTWSK8eU0myx2mZvfbRklHcYifwOqL1mtxKGF2lxjrEAYbRz2yEwE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4168.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6ivj7Lwa6nVXHq8AP0y7c/Gdji/ZyLi94/p4AsxLHMgQJdCGe7tZJZubg8Ec?=
+ =?us-ascii?Q?lGfqm5zXBzm1+Q1Cw5EOHgoL6XpNk48vLC44jVrZTaBIQanuuWUWwxuvaoM0?=
+ =?us-ascii?Q?QvU+N739pmaIlImii9Bhzwn+LGggQQMb3JMSFwVMhUlGEhIeTBqghm8YtuDU?=
+ =?us-ascii?Q?L+NWQ5sf/bkNhSJJBml2UYgUj4H7I23rGFHsXOzBhjWcx90BVj7FahgUrUwM?=
+ =?us-ascii?Q?JDDX6xeGlv5Cc10iYClGRTx4einCl87rcCRP9crhPAzaxQi1j9QWX1PQ/pRh?=
+ =?us-ascii?Q?uwqUhNzgrXM9UJXxHi14W+IyV9hnlMlM5YWxJvFRNQFuZxtuhYlPHl5RT48V?=
+ =?us-ascii?Q?FhI4eElO4BvPrdPhu6qNBfoxCWxZ5P7CKzumOgQqwQ8ccuxY2/YQmUPJUi/f?=
+ =?us-ascii?Q?1/0KEKOixfoK2qR2dsVmR8tZTEUAt1jTmTHrKVwG0e+ASAv/pHonprra+X5T?=
+ =?us-ascii?Q?qGn8c45DFY8haK0XRI8pFs5XDFpVuI9An8dm4G+0pSHdJfXV6d0wiQjXgME3?=
+ =?us-ascii?Q?LdjoGdE/VlBm4p8IzXCMVGC/DSTk9ycybz89s1W1f8ISWjLI2Cnya1FqeXrO?=
+ =?us-ascii?Q?uJ3UKs+zT5zZPQhCIo5KcN4OPC7Awohb8z8YF8fzql6xsvN+KafTI3HXNv8f?=
+ =?us-ascii?Q?YjhtXMfs7rx8Dc5joXoBqOrMKEJihmQu+vL6A0hSye9xrqJoZPvqYtvsJHGx?=
+ =?us-ascii?Q?4UAcdd8XiGVirVLzOGL6lGEygo/epiJFMS7LiSkF48iEelvTNA8ioJzwGTXZ?=
+ =?us-ascii?Q?A48/FkRuvi4q8BKCqO7pBBqSkLRdLhQfw/AQIEKYK3UNHYUWACqqZ8/k9wLy?=
+ =?us-ascii?Q?tp54QL7hhl9VXq7FDmuYBQpX+096WQfyDr/gL8c58+mX2nB2UUYzlEGTpU5N?=
+ =?us-ascii?Q?Vv/KODDQvp/zn6QLJ4q+O+FtQB5J4y3FhEcXgp8XMND8iieB5Pm0r+9L+CYZ?=
+ =?us-ascii?Q?T7OHStEB2szlx6vx+DiIwPXer3LEoAQ8kkeD748/BQiuTXV0DDYpHghrbdZJ?=
+ =?us-ascii?Q?lpMxmzAsdTmiUPzvNbrc93vyVxAaoZzZV4KfBtZiVZGV5NGL/HzNkz228jx6?=
+ =?us-ascii?Q?ravFtuTF2pq9EhDCpjg0jBB2uRuneLOFiwuBVQ9IthqtujIXR+eOlZEBr14D?=
+ =?us-ascii?Q?Jw/RBJnqemvNJ5frKOiM7/PJwq0/vSs/ASUFxkabQLkJpNHSKYcfTVOLimdD?=
+ =?us-ascii?Q?VY0Q8t0ru25+uh6kDEYwmpkc6eTFfX4tKA6oxU99MUosZe6r+udNF9WdhmYi?=
+ =?us-ascii?Q?34qWrPjChX7M0y1+YRc3Be5msDZSDTT3QJfgu3QRsUrU+VhBw6c0Lxmua69u?=
+ =?us-ascii?Q?yc4x2EDPceSsAxdwqpWM9sRQzVlbpbjcaURFmNOiKIxg0aaOlos0/B3k7WiG?=
+ =?us-ascii?Q?FvI5tUVsuYTvSdkRim8sx74BkxCcbS27eq5kgZB9tDn7nfqIkcM/BDdXmLX1?=
+ =?us-ascii?Q?Y9dmKdH7gKCzaYSuA5Ynaz9R/giBEI/9XS8GpHFnOnve/C9Qkp+J/lIY7TGp?=
+ =?us-ascii?Q?7Y4r+0SVfDU07wvq7Bd8MjPNg/q8XA6k8hRMLlcavLjboZW5UXHPJAgr7kTk?=
+ =?us-ascii?Q?KTGPFBzmVm8jGgdU3gc7oTGY8irY7UxUx7i8ThA8rQUqjJNnbyOd8ZCrE/yA?=
+ =?us-ascii?Q?4bSfVsgjMzK1CfwcT16r9P7Tk2N6gzgFyxHwy5AJ7QtF4Kgp9cbpoc16UMoP?=
+ =?us-ascii?Q?hgDlH5MKO5JDebfQvAX0bqVbMTYjx+FKyHqkgbCVOcZZke/ZdNPU2qUaPA88?=
+ =?us-ascii?Q?Q/BCmLsvyg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d06a900c-2083-47a3-b6cc-08ded88071fe
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4168.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 21:25:31.4576 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fmX9ckR7d2GUCz43U8nq+zWjRfTCvRGqckPzs0xUGySR4oEEaNiTiv63HjZ4PJHYXc0cltTxXwvt7WnGayTigw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6257
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,81 +128,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomi,
+Add P212, P410 and P412 formats, including their FourCC codes and
+drm_format_info entries.
 
-Thank you for the patch.
+  - P212 is a two-plane, 12-bit, 4:2:2 YCbCr format
+  - P410 is a two-plane, 10-bit, 4:4:4 YCbCr format
+  - P412 is a two-plane, 12-bit, 4:4:4 YCbCr format
 
-On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
-> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-> crtc, when enabling the crtc.
-> 
-> With DSC (added in upcoming patch) in the pipeline, between the DU and
-> the DSI, the above call path is broken as the crtc tries to call
-> rcar_mipi_dsi_pclk_enable() on the DSC.
-> 
-> To solve this problem, make sure we store the DSI bridge to the
-> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
-> (which can be DCS), by checking the bridge's bridge->type.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
->  drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
->  2 files changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> index db2088529b48..ac85838ab3b8 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
->  				drm_bridge_get(bridge);
->  
->  		if (output == RCAR_DU_OUTPUT_DSI0 ||
-> -		    output == RCAR_DU_OUTPUT_DSI1)
-> +		    output == RCAR_DU_OUTPUT_DSI1) {
-> +			struct drm_bridge *dsi_bridge;
-> +
-> +			/*
-> +			 * When we have a DSC block between the DU and the DSI,
-> +			 * the "bridge" points to the DSC. Detect the DSC by looking
-> +			 * at the bridge type, and skip the DSC if the bridge is not
-> +			 * the DSI bridge.
-> +			 */
-> +
-> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
-> +						     bridge :
-> +						     bridge->next_bridge;
+Assisted-by: Cursor:GPT-5.5
+Signed-off-by: Jonah Walker <jonahw@nvidia.com>
+---
+ drivers/gpu/drm/drm_fourcc.c  | 12 ++++++++++++
+ include/uapi/drm/drm_fourcc.h | 21 +++++++++++++++++++++
+ 2 files changed, 33 insertions(+)
 
-The indentation looks weird.
+diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
+index 60cd02b7e..31558a212 100644
+--- a/drivers/gpu/drm/drm_fourcc.c
++++ b/drivers/gpu/drm/drm_fourcc.c
+@@ -324,6 +324,18 @@ const struct drm_format_info *__drm_format_info(u32 format)
+ 		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
+ 		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 2,
+ 		  .vsub = 1, .is_yuv = true },
++		{ .format = DRM_FORMAT_P212,		.depth = 0,
++		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
++		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 2,
++		  .vsub = 1, .is_yuv = true },
++		{ .format = DRM_FORMAT_P410,		.depth = 0,
++		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
++		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 1,
++		  .vsub = 1, .is_yuv = true },
++		{ .format = DRM_FORMAT_P412,		.depth = 0,
++		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
++		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 1,
++		  .vsub = 1, .is_yuv = true },
+ 		{ .format = DRM_FORMAT_VUY101010,	.depth = 0,
+ 		  .num_planes = 1, .cpp = { 0, 0, 0 }, .hsub = 1, .vsub = 1,
+ 		  .is_yuv = true },
+diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+index 3a4d4dc63..d4a6463d2 100644
+--- a/include/uapi/drm/drm_fourcc.h
++++ b/include/uapi/drm/drm_fourcc.h
+@@ -334,6 +334,27 @@ extern "C" {
+  */
+ #define DRM_FORMAT_P210		fourcc_code('P', '2', '1', '0') /* 2x1 subsampled Cr:Cb plane, 10 bit per channel */
+ 
++/*
++ * 2 plane YCbCr MSB aligned
++ * index 0 = Y plane, [15:0] Y:x [12:4] little endian
++ * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [12:4:12:4] little endian
++ */
++#define DRM_FORMAT_P212		fourcc_code('P', '2', '1', '2') /* 2x1 subsampled Cr:Cb plane 12 bits per channel */
++
++/*
++ * 2 plane YCbCr MSB aligned
++ * index 0 = Y plane, [15:0] Y:x [10:6] little endian
++ * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [10:6:10:6] little endian
++ */
++#define DRM_FORMAT_P410		fourcc_code('P', '4', '1', '0') /* non-subsampled Cr:Cb plane 10 bits per channel */
++
++/*
++ * 2 plane YCbCr MSB aligned
++ * index 0 = Y plane, [15:0] Y:x [12:4] little endian
++ * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [12:4:12:4] little endian
++ */
++#define DRM_FORMAT_P412		fourcc_code('P', '4', '1', '2') /* non-subsampled Cr:Cb plane 12 bits per channel */
++
+ /*
+  * 2 plane YCbCr MSB aligned
+  * index 0 = Y plane, [15:0] Y:x [10:6] little endian
 
-			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
-				   ? bridge : bridge->next_bridge;
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> +
->  			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] =
-> -				drm_bridge_get(bridge);
-> +				drm_bridge_get(dsi_bridge);
-> +		}
->  	}
->  
->  	/*
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> index aaafee1c060b..f429f03a380c 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> @@ -957,6 +957,7 @@ static int rcar_mipi_dsi_host_attach(struct mipi_dsi_host *host,
->  
->  	/* Initialize the DRM bridge. */
->  	dsi->bridge.of_node = dsi->dev->of_node;
-> +	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
->  	drm_bridge_add(&dsi->bridge);
->  
->  	return 0;
-
+base-commit: cff96362794a5c1f3adb013b4a46c7233149a629
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
