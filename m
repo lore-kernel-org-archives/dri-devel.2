@@ -4,157 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C29C44500
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:16:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A2CC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4607910F2EE;
-	Thu,  2 Jul 2026 11:16:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE7710F2E0;
+	Thu,  2 Jul 2026 11:20:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rb57LxzT";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PgCpqqxi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oeEsfdun";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PgCpqqxi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oeEsfdun";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8057910F2EA;
- Thu,  2 Jul 2026 11:16:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782991003; x=1814527003;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=lbNTG3mD4ANxd7bvrMio5KVab1dOFPBUoQIUEWCOzxk=;
- b=Rb57LxzTWDMsUrah48LusR55lbu4KNJqxy05fj/+R9ebLOpgbH4yZimD
- m5jsA4BAQL3nK4nsuahxPNlJi3a+4kIKj0iWTNZwjQfS0Qf5bP+Y1pISc
- /yqeNZdqaaqG1kV6od8b0X9n1ufaxuv21/uyU8NjtxgoloRvy48zgYCQz
- +7yEGmDXuQvpUZxHiTKcZ0STvxEe1LKYRgSqf1AGkzekIqpnz8mr6FCap
- cRwuPmQOHJVPBWYKphoJt0aMe7g6YEygRtZEhBCQ/5gqjW50LJP7pEiSe
- g+KDJaoXhkBvmwr7qJH/6kvbCxNLWmyJHWXCrTxSoWsaW6jDA6uU47ZiQ A==;
-X-CSE-ConnectionGUID: g8aoR+4/TmSVAFzwpLpofw==
-X-CSE-MsgGUID: HcjnREBWQh+H4Yyfc5DMSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="109292121"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="109292121"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 04:16:42 -0700
-X-CSE-ConnectionGUID: ZBho4+DZQxyK28Rpamnc9A==
-X-CSE-MsgGUID: n3+eXbu5SJGPjYRK1+uF1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="257173520"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 04:07:32 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 04:07:31 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 2 Jul 2026 04:07:31 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.8) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 04:07:28 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SSdO6lzo7ma+hIEGtJY9kgQEun7GbQLxN1HoLsJG/dcjfJ+6tAPN8tgvTos0+2v0/hw6uSk2QzykcXE1iS9LjSaXz0qJxOqHA69H/PLEbABQgoG832akjvUZ0XsV3Q9tzth/v5tQP5Lbewar1HNjWDdiMqWbAqV9BeE/Hzqj12MWGIQxdZHLQT79zzB7dqvbf+VLhwvZ3520JthvA776Sg6X4Yu/sKB1YAmXGq420pYz3PVUACjqdDe3zAEPeDEYA0fviCMQVupxbH6ZdrLYW3UedIK2+zvmiptvHA5WEuIhtTakzMgM4FN11s6ce6LJgUBUvJg0vDGQflQK/Whlsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v2yvFWnIW0TBoryf9q8S8hI9RyewlZFn4lNXN8DQOd0=;
- b=eNoW7ovPFhSVVcVksX8pmiuUQe3sibkKxiPnmK1rBSm3BH0xy6g94wbatYXkNAbqky4wMCsCVkDUpHjiVcBrAbwPrdHjhm+x47kNVNQ/drPI3HnHuizcY/zdNfY8Ux80wrlfExErN1E3gqt7Gtkuu/UMsGLEUM0dVJBGOigHsL/kTJrYOq91NplfBxyhwcFlCiAX6WbrRvbVWRL39pXbP2rrscmPv0hbxJikLYa+MqDB3C6uDSq8I1sWlEi0Hn2bBqGcYtskkZewNXbhHt3uXah830ZT4ayZB3F0Io9v4BEHyVIeqxjvzI+cYzKcB2HzWFFZBVMojfetOquMnhA2eQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SA1PR11MB7130.namprd11.prod.outlook.com (2603:10b6:806:29f::10)
- by DS7PR11MB6294.namprd11.prod.outlook.com (2603:10b6:8:96::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
- 11:07:24 +0000
-Received: from SA1PR11MB7130.namprd11.prod.outlook.com
- ([fe80::fc98:7fe:bac0:f2d4]) by SA1PR11MB7130.namprd11.prod.outlook.com
- ([fe80::fc98:7fe:bac0:f2d4%4]) with mapi id 15.21.0159.016; Thu, 2 Jul 2026
- 11:07:23 +0000
-From: "Liou, Mei Fan" <mei.fan.liou@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, "Vivi, Rodrigo"
- <rodrigo.vivi@intel.com>
-CC: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "Dutta, Ranjan" <ranjan.dutta@intel.com>,
- "Chang, Junxiao" <junxiao.chang@intel.com>
-Subject: RE: [PATCH] drm/i915: add disable_edp module parameter to skip
- phantom eDP init
-Thread-Topic: [PATCH] drm/i915: add disable_edp module parameter to skip
- phantom eDP init
-Thread-Index: AQHdCHmft1f+xfmfmkuPmXMD81iljLZW6pyAgAHQZLA=
-Date: Thu, 2 Jul 2026 11:07:23 +0000
-Message-ID: <SA1PR11MB71300AD7CBCA15C7E410E852D8F52@SA1PR11MB7130.namprd11.prod.outlook.com>
-References: <20260630102845.2678707-1-mei.fan.liou@intel.com>
- <50700395af210f0e5ca0c5e8306cda41b077f43a@intel.com>
-In-Reply-To: <50700395af210f0e5ca0c5e8306cda41b077f43a@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR11MB7130:EE_|DS7PR11MB6294:EE_
-x-ms-office365-filtering-correlation-id: 07a6fbf9-3b5b-4dd6-e66c-08ded82a180f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|38070700021|5023799004|4143699003|56012099006|18002099003|22082099003|11063799006|3023799007|6133799003;
-x-microsoft-antispam-message-info: vDuDINNowK5j6y7Lr0rassKB+YL+BA9ofQfC2m3HIgKVQ+cZrUnOElWicOUvrd7U6tOG5BE1lBtZXN0w4UN5qkUEqzsHWgj474LGVlkAXPQlJszJWo1b1FbwZgffoWIipviWBHt+Zlr9p2mms4vJkbC8JPL5XyEe94CCPT0t4xLdsGwYnKZSRBBGUtTGI2Fv5jMv6XC+7NfEBPPEUwR5R5HgQ2XwAAednUy1r70DZumS5sGGcy39+D3gAJQAsNepwsePY6q0V+JWhNSm3mvhTvIYKT3SPzN3XdwmrvhVvqJ+PD8w2OsXRGeuDs0xNcgKG6bj8+kpJ3gBPHFO+IuoDB7XabYPkL3Qc5KOuQy3QnwqdmQS3/T9EwUDghSSOQ0vjgs5Y+lHRm6Ur5N3Z0O6Ra6i1ZwemFOJD4qxR9dDcwy4d+/7PHamR/dmLBi+svcE/GOhiaYsLn6l8GIgdPbUby3oI0iTMMWUJA9i8MZj6TEtlDB5VC4YnU3+uxkV/Hw/5YDGaBWdcQoBkQe2nmzyI9MF3bMtKHtpbubxaE8d/iLrkTjw6zdg37xlrUXz1zduXY0I11eHFUjRN+C6mrPPZenwtS2y7LNAnBr9JvyXV39ChWCkSDg6G9vU6HtFbrZKMMU3Paug/F68DW7iX1t/w6fKZsxLMAOgy/zy7d5mgr0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR11MB7130.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(5023799004)(4143699003)(56012099006)(18002099003)(22082099003)(11063799006)(3023799007)(6133799003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?z1Vkl0ogyZOIN3j4IB+zaFmWPo0LvAZabwROGgWeugOo1hDMY0cp2w0wyquQ?=
- =?us-ascii?Q?amV9KEKVBtFxpk045io0zjuQ2d2qVz9b/5rQ4nBFgatk44d38P9JAXSVaTbI?=
- =?us-ascii?Q?fBDe8urBBWJAL+1X7IQf/zMz9+geRDn+S0cBdsgZ4jG13Df5H7Op0Yu/KP3m?=
- =?us-ascii?Q?BcP1AsIecEU8ivtjsiKfBOKdF5WI70iudwLvTcWtZ3w9lpzuh3HpdzMSnUNG?=
- =?us-ascii?Q?Xv0PtCs8Y5LAMk+YRYqrQ+1wu+80qBQTUYbDcOXFPADFx4FX4Ja/wZZLSwRo?=
- =?us-ascii?Q?tVobT0uVtzlVEfKrVMpAhqwoppQjN3afaqvUSzTWIJARgSxtVB2GRHRUtAr5?=
- =?us-ascii?Q?duMQBotMMfznzz19TqkPACUkhF4QPNyzX2fIQUjJfHiqWtDntlNa5bR/iVHi?=
- =?us-ascii?Q?4zA4W5+wVPJOAUTQTv9BSBtHDaumqrO+XFVemx3TuK7UxyL0FjBC/knJM94k?=
- =?us-ascii?Q?FuQZRpItZmBxFzc2amLZMpuAY7nmO8ZBxKeg8hsVKVbixUkkWbYpC5lXRr1g?=
- =?us-ascii?Q?E6ehjnVbmOHcocdrrivRnvfjgd/RaJw9lC2tsZ6DiMLkSa3jbu2oTKGurKIq?=
- =?us-ascii?Q?/QYwqDLk3/PiTon/Y4WsjjjdhdqX2wa7S82/lKKXMiV/xy4uOZwEvRNymnjM?=
- =?us-ascii?Q?iXwgS4AgWzFdczyIuRQM5EtK5k4vptrf2wSSLgnNpoXLqZ+p9arraFJ+0BP4?=
- =?us-ascii?Q?Fucst2cI9Keb9N42/Wz8BYSnNnrVlyOH+rrRfRKCdzlL24XZ/S/EDVruAkKO?=
- =?us-ascii?Q?l7npAuPlLDfgB/jy4IFHNxwZcW1S+A2Lm7EFeleW67vVjI5/h0i6iuzgsqFa?=
- =?us-ascii?Q?XCh9fYLqIqLZDexbP+Gq6m4ycbs3L6IAXTvA790+/BIivyGWKA8pP0ckJ+cj?=
- =?us-ascii?Q?s6PPw79guoLwLW+ABP2lq3XYH1wbtOVGhKWv64XVM4vZPelQ5J01OhZxOruA?=
- =?us-ascii?Q?QFkMBMElVu1AL/1j9P3VpJl9rgo5um5+HahdGDm5mZsnbRHrlc9uWLzq4EVe?=
- =?us-ascii?Q?jJHGCvU24rNrO9Y1z5Ic3Tp8hdqBVd5Pj1Xufr9Wo0+A4yVKL1iMObLeF0Rf?=
- =?us-ascii?Q?UM77dPX7qu86eZf9CQqJpUp2QDwActYsNG3Q+iwNoktAZLRZGfdUYncVevyz?=
- =?us-ascii?Q?0fJii+L+dAkhk10a2XlijxIg+QLyutxxsjV4m2bW2okzR5Wmtb5uCr8AytOy?=
- =?us-ascii?Q?4h/uWfgIx2n7ldekO9lReJqKpGK0XKVsgF9sBghE67wv89qr7/AGv33wvyzg?=
- =?us-ascii?Q?rfOk22RhRMOT2KgqVUO97z3zQT/t50kChKCFl4WLFZ/tdMcI+5YMAHvBgaWJ?=
- =?us-ascii?Q?27TpIyPqdxkLWDUGzmLmP9aCkdiq8201KKnSpssUa7r3Z+XwjDOoMkE6JcuG?=
- =?us-ascii?Q?IyDZZXK/yL5c07eLHpiSAbmMG4zB2eAG1WDQU+YuoDHqakaaMHAwgli14vNK?=
- =?us-ascii?Q?u+x/REcEpIRNXyJlLAlFLSPOhleZ0KgosPyzPtOrkt21EFvr2fvMbae2kydQ?=
- =?us-ascii?Q?/X2GB47ZaeEFIfCy5SVR+7ddcY1wDY8APM86cQCUjM6h6nafp4AQKV3WFS9F?=
- =?us-ascii?Q?ZB5bqcK9GqvaWPwZPTwJg8GWJcT7y2ZDwmKFYakgGJF4h1FFODWMZZyMkrEQ?=
- =?us-ascii?Q?P7pXQDoL/SmM3u8hEBoTdTgRRMEHh9CBVYuJndBqnFAEkg1VMO2z5+gvMh3u?=
- =?us-ascii?Q?bREKa6CXFVxYdCe3/gKSUg3AqqLP9EGxAnRuvDHiJu3tkbrv?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75BC310E4A8
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:20:18 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4BB0E74173;
+ Thu,  2 Jul 2026 11:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782991216; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=j9HqakDIjcCcTQyUF2MV7bxyTIX1upg8T2CXHTGbmPY=;
+ b=PgCpqqxie7t8+CkwpPP13NW6wQohMzurOqQ3M60mxkSvPUID4ZQOKndTpBXqeUuVhdKIfx
+ t+2FJW3O/MNyOgFxUfD/N1cfpHLCK8FHDiqwUFTQFndqACbeCmnNWvqmGlEefRvEf4d7hB
+ IQhWnkSLQ2dpEmnyOFJPaliYHOfjrfE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782991216;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=j9HqakDIjcCcTQyUF2MV7bxyTIX1upg8T2CXHTGbmPY=;
+ b=oeEsfdunpBw1BldK/9+YFlfUYsk4g2GKuSeX7pnNOrhZYXAOuDPvAQY6PG7s0cv9YpWemp
+ mWdG22AvAmx0j3Cw==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PgCpqqxi;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=oeEsfdun
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782991216; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=j9HqakDIjcCcTQyUF2MV7bxyTIX1upg8T2CXHTGbmPY=;
+ b=PgCpqqxie7t8+CkwpPP13NW6wQohMzurOqQ3M60mxkSvPUID4ZQOKndTpBXqeUuVhdKIfx
+ t+2FJW3O/MNyOgFxUfD/N1cfpHLCK8FHDiqwUFTQFndqACbeCmnNWvqmGlEefRvEf4d7hB
+ IQhWnkSLQ2dpEmnyOFJPaliYHOfjrfE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782991216;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=j9HqakDIjcCcTQyUF2MV7bxyTIX1upg8T2CXHTGbmPY=;
+ b=oeEsfdunpBw1BldK/9+YFlfUYsk4g2GKuSeX7pnNOrhZYXAOuDPvAQY6PG7s0cv9YpWemp
+ mWdG22AvAmx0j3Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6F00779AA;
+ Thu,  2 Jul 2026 11:20:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id RDeaLGtJRmoSbQAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Thu, 02 Jul 2026 11:20:11 +0000
+Date: Thu, 2 Jul 2026 12:20:10 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 21/30] mm/vma: add and use vma_[add/sub]_pgoff()
+Message-ID: <akZI0n1U32Ptd0ye@pedro-suse.lan>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <794044881e454fd8ac13e59d5ff5fc86fca08b03.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: bLxssl0pUJFfULSnFb69ZbRl4XFyAse8FGbEAa5k5sJptBGNzwW6YPBHf6sdEaF5xCZhTGtyYmXuvccEwOiYYFniRuN8uC4eXjneQ2U36LWOHUf14a8qhTCZiPflH6B5Ct5e2brIJHK6TJ1skXdCTbxFCASRVW5/UQJHntsNUMO5k9qWl/KsqtLBTYe7fvnCcgE80u1T89E/63R7JGbxliTZgwEUezB2vLqDPchFb+M/PLqg2h/rotlnXi8fZxBaZZw6VhL7MWTpy3xStXdVmMCzdhRH1muM657kJiDI3XaCEXwgzpmNboVsrMkqgAmTpx+T63cEXhijkEot6hbbxw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB7130.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07a6fbf9-3b5b-4dd6-e66c-08ded82a180f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jul 2026 11:07:23.6519 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5oHyXo+sg9CCSgxst8lasLM3mUTPppL8TEEk/FRW5Hg+c4Vqke98AIeDV9zs8Q6cua17aQzP2VT3T3aKYkCttw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6294
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <794044881e454fd8ac13e59d5ff5fc86fca08b03.1782735110.git.ljs@kernel.org>
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 4BB0E74173
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MISSING_XM_UA(0.00)[]; RCPT_COUNT_GT_50(0.00)[75];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, pedro-suse.lan:mid, suse.de:email, suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,162 +168,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jani,
-
-Thank you for the feedback.
-
-> Which platforms? This should not be the case.
-
-The platform in question is a BTL-S RVP - a desktop board with no internal =
-eDP panel physically wired. The BIOS/VBT incorrectly declares an eDP connec=
-tor present, causing intel_edp_init_connector() to repeatedly time out on A=
-UX A before giving up. This is confirmed by i915_display_info (no eDP conne=
-ctor listed) and dmesg ( several AUX A errors, ending with "failed to retri=
-eve link info, disabling eDP").
-
-> I'm not fine with adding module parameters for regular use cases. If ther=
-e are issues out there, they should be root caused and fixed, worst case wi=
-th a quirk.
-> You can also disable connectors using the video=3D parameter and connecto=
-r name.
-
-Point taken. I will drop the new module parameter. The VBT is clearly a mis=
-match for this board.
-Rather than adding a new module parameter or DMI quirk, I would like to pur=
-sue your suggestion of fixing the existing video=3DeDP-1:d path (tested: no=
-t working for this case).=20
-May I rework that?
-
-> Please file a bug as described at [1], and be sure to attach the dmesg wi=
-th debugs, and the VBT.
-
-Bug filed with dmesg and raw VBT. https://gitlab.freedesktop.org/drm/i915/k=
-ernel/-/work_items/16546
-
-Thanks again for the direction.
-
-Best regards,
-Mei Fan=20
-
------Original Message-----
-From: Jani Nikula <jani.nikula@linux.intel.com>=20
-Sent: Tuesday, 30 June 2026 6:47 pm
-To: Liou, Mei Fan <mei.fan.liou@intel.com>; Vivi, Rodrigo <rodrigo.vivi@int=
-el.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>; Tvrtko Ursulin <turs=
-ulin@ursulin.net>; David Airlie <airlied@gmail.com>; Simona Vetter <simona@=
-ffwll.ch>; intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org;=
- dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Liou, Mei F=
-an <mei.fan.liou@intel.com>
-Subject: Re: [PATCH] drm/i915: add disable_edp module parameter to skip pha=
-ntom eDP init
-
-On Tue, 30 Jun 2026, mei.fan.liou@intel.com wrote:
-> From: "LIOU, Mei Fan" <mei.fan.liou@intel.com>
->
-> Some platforms have BIOS/VBT that declares an eDP panel present while=20
-> no physical panel is connected. This causes intel_edp_init_connector()=20
-> to spend ~6 seconds waiting on PPS power sequencer and AUX channel=20
-> timeouts before failing gracefully.
-
-Which platforms? This should not be the case.
-
-> Introduce a new boolean module parameter 'disable_edp' (default:=20
-> false) that allows users to skip eDP connector initialization=20
-> entirely. When set, the driver logs an informational message and=20
-> returns false early from intel_edp_init_connector(), bypassing all PPS/AU=
-X probing.
-
-I'm fine with adding module parameters for *debugging*. I'm not fine with a=
-dding module parameters for regular use cases. If there are issues out ther=
-e, they should be root caused and fixed, worst case with a quirk, but rough=
-ly never with a new module parameter.
-
-You can also disable connectors using the video=3D parameter and connector =
-name, e.g. video=3DeDP-1:d or something. Making this work (if it doesn't) s=
-hould be preferred over adding new module parameters. And even here, root c=
-ausing and fixing is preferred.
-
-> This is modeled after the existing 'disable_display' parameter and is=20
-> intended as a workaround for headless or display-less deployments=20
-> where the BIOS incorrectly advertises an internal panel.
-
-"headless" and "display-less" are super ambiguous, given the amount of poss=
-ible alternatives. You might not have display IP at all, or you could have =
-everything except a display connected, or everything in between. But VBT ad=
-vertizing eDP but it not being connected is not a scenario that we should h=
-ave, and either the VBT or the whole setup is bonkers.
-
-Please file a bug as described at [1], and be sure to attach the dmesg with=
- debugs, and the VBT.
-
-
-BR,
-Jani.
-
-
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
->
-> Signed-off-by: LIOU, Mei Fan <mei.fan.liou@intel.com>
+On Mon, Jun 29, 2026 at 01:23:32PM +0100, Lorenzo Stoakes wrote:
+> Add helpers for adding or subtracting to a VMA's page offset, exposed
+> internally for VMA users within mm in mm/vma.h.
+> 
+> This is to lay the foundations for tracking anonymous page offset for
+> MAP_PRIVATE file-backed mappings, where adding and subtracting from this
+> value must be reflected in both the file and anonymous offsets.
+> 
+> These are used on VMA split and downward stack expansion.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 > ---
->  drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++ =20
-> drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
->  drivers/gpu/drm/i915/display/intel_dp.c             | 7 +++++++
->  3 files changed, 11 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c=20
-> b/drivers/gpu/drm/i915/display/intel_display_params.c
-> index 2aed110c5b09..8d47d19b1667 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-> @@ -102,6 +102,9 @@=20
-> intel_display_param_named_unsafe(force_reset_modeset_test, bool, 0400,  i=
-ntel_display_param_named(disable_display, bool, 0400,
->  	"Disable display (default: false)");
-> =20
-> +intel_display_param_named(disable_edp, bool, 0400,
-> +	"Disable eDP panel init, skips PPS/AUX probing when VBT declares eDP=20
-> +but no panel is present (default: false)");
+>  mm/nommu.c                      |  6 ++++--
+>  mm/vma.c                        |  6 +++---
+>  mm/vma.h                        | 12 ++++++++++++
+>  tools/testing/vma/include/dup.h | 13 ++++++++++++-
+>  4 files changed, 31 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/nommu.c b/mm/nommu.c
+> index 7333d855e974..c7fafcd87c14 100644
+> --- a/mm/nommu.c
+> +++ b/mm/nommu.c
+> @@ -41,6 +41,7 @@
+>  #include <asm/tlbflush.h>
+>  #include <asm/mmu_context.h>
+>  #include "internal.h"
+> +#include "vma.h"
+>  
+>  unsigned long highest_memmap_pfn;
+>  int heap_stack_gap = 0;
+> @@ -1338,7 +1339,8 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  		region->vm_top = region->vm_end = new->vm_end = addr;
+>  	} else {
+>  		region->vm_start = new->vm_start = addr;
+> -		region->vm_pgoff = new->vm_pgoff += npages;
+> +		vma_add_pgoff(new, npages);
+> +		region->vm_pgoff = vma_start_pgoff(new);
+>  	}
+>  
+>  	vma_iter_config(vmi, new->vm_start, new->vm_end);
+> @@ -1355,7 +1357,7 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  	delete_nommu_region(vma->vm_region);
+>  	if (new_below) {
+>  		vma->vm_region->vm_start = vma->vm_start = addr;
+> -		vma->vm_pgoff += npages;
+> +		vma_add_pgoff(vma, npages);
+>  		vma->vm_region->vm_pgoff = vma_start_pgoff(vma);
+>  	} else {
+>  		vma->vm_region->vm_end = vma->vm_end = addr;
+> diff --git a/mm/vma.c b/mm/vma.c
+> index 185d07397ca6..cb7222e20c93 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -517,7 +517,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  		new->vm_end = addr;
+>  	} else {
+>  		new->vm_start = addr;
+> -		new->vm_pgoff += linear_page_delta(vma, addr);
+> +		vma_add_pgoff(new, linear_page_delta(vma, addr));
+>  	}
+>  
+>  	err = -ENOMEM;
+> @@ -556,7 +556,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  
+>  	if (new_below) {
+>  		vma->vm_start = addr;
+> -		vma->vm_pgoff += (addr - new->vm_start) >> PAGE_SHIFT;
+> +		vma_add_pgoff(vma, (addr - new->vm_start) >> PAGE_SHIFT);
+>  	} else {
+>  		vma->vm_end = addr;
+>  	}
+> @@ -3305,7 +3305,7 @@ int expand_downwards(struct vm_area_struct *vma, unsigned long address)
+>  				vm_stat_account(mm, vma->vm_flags, grow);
+>  				anon_vma_interval_tree_pre_update_vma(vma);
+>  				vma->vm_start = address;
+> -				vma->vm_pgoff -= grow;
+> +				vma_sub_pgoff(vma, grow);
+>  				/* Overwrite old entry in mtree. */
+>  				vma_iter_store_overwrite(&vmi, vma);
+>  				anon_vma_interval_tree_post_update_vma(vma);
+> diff --git a/mm/vma.h b/mm/vma.h
+> index 2342516ce00e..47fe35e5307e 100644
+> --- a/mm/vma.h
+> +++ b/mm/vma.h
+> @@ -247,6 +247,18 @@ static inline pgoff_t vmg_end_pgoff(const struct vma_merge_struct *vmg)
+>  	return vmg_start_pgoff(vmg) + vmg_pages(vmg);
+>  }
+>  
+> +static inline void vma_add_pgoff(struct vm_area_struct *vma, pgoff_t delta)
+> +{
+> +	vma_assert_can_modify(vma);
+> +	vma->vm_pgoff += delta;
+> +}
 > +
->  intel_display_param_named(verbose_state_checks, bool, 0400,
->  	"Enable verbose logs (ie. WARN_ON()) in case of unexpected hw state=20
-> conditions.");
-> =20
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h=20
-> b/drivers/gpu/drm/i915/display/intel_display_params.h
-> index b95ecf728daa..98ab0d753dab 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_params.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-> @@ -41,6 +41,7 @@ struct drm_printer;
->  	param(bool, load_detect_test, false, 0600) \
->  	param(bool, force_reset_modeset_test, false, 0600) \
->  	param(bool, disable_display, false, 0400) \
-> +	param(bool, disable_edp, false, 0400) \
->  	param(bool, verbose_state_checks, true, 0400) \
->  	param(bool, nuclear_pageflip, false, 0400) \
->  	param(bool, enable_dp_mst, true, 0600) \ diff --git=20
-> a/drivers/gpu/drm/i915/display/intel_dp.c=20
-> b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 85d3aa3b9894..c6293a1b3840 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -7214,6 +7214,13 @@ static bool intel_edp_init_connector(struct intel_=
-dp *intel_dp,
->  	if (!intel_dp_is_edp(intel_dp))
->  		return true;
-> =20
-> +	if (display->params.disable_edp) {
-> +		drm_info(display->drm,
-> +			 "[ENCODER:%d:%s] eDP disabled by module parameter, skipping init\n",
-> +			 encoder->base.base.id, encoder->base.name);
-> +		return false;
-> +	}
+> +static inline void vma_sub_pgoff(struct vm_area_struct *vma, pgoff_t delta)
+> +{
+> +	vma_assert_can_modify(vma);
+> +	vma->vm_pgoff -= delta;
+> +}
 > +
->  	/*
->  	 * On IBX/CPT we may get here with LVDS already registered. Since the
->  	 * driver uses the only internal power sequencer available for both
+>  #define VMG_STATE(name, mm_, vmi_, start_, end_, vma_flags_, pgoff_)	\
+>  	struct vma_merge_struct name = {				\
+>  		.mm = mm_,						\
+> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+> index 7ed165c8d9bc..41fea90a344d 100644
+> --- a/tools/testing/vma/include/dup.h
+> +++ b/tools/testing/vma/include/dup.h
+> @@ -1163,6 +1163,11 @@ static inline struct vm_area_struct *vma_next(struct vma_iterator *vmi)
+>  	return mas_find(&vmi->mas, ULONG_MAX);
+>  }
+>  
+> +static inline bool vma_is_attached(struct vm_area_struct *vma)
+> +{
+> +	return refcount_read(&vma->vm_refcnt);
+> +}
+> +
+>  /*
+>   * WARNING: to avoid racing with vma_mark_attached()/vma_mark_detached(), these
+>   * assertions should be made either under mmap_write_lock or when the object
+> @@ -1170,7 +1175,13 @@ static inline struct vm_area_struct *vma_next(struct vma_iterator *vmi)
+>   */
+>  static inline void vma_assert_attached(struct vm_area_struct *vma)
+>  {
+> -	WARN_ON_ONCE(!refcount_read(&vma->vm_refcnt));
+> +	WARN_ON_ONCE(!vma_is_attached(vma));
+> +}
+> +
+> +static inline void vma_assert_can_modify(struct vm_area_struct *vma)
+> +{
+> +	if (vma_is_attached(vma))
+> +		vma_assert_write_locked(vma);
+>  }
 
---
-Jani Nikula, Intel
+These hunks in dup.h look lost. Should perhaps be on the previous patch
+(adding the helpers).
+
+Anyway, Obviously Correct(tm).
+
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+
+-- 
+Pedro
