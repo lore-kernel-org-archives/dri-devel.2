@@ -4,97 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12515C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 04:03:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1892C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 04:10:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5441510E41B;
-	Thu,  2 Jul 2026 04:03:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4934210E41C;
+	Thu,  2 Jul 2026 04:10:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="cL811s0F";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Gn8hCnCn";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1461D10E41B
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 04:03:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782965017;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kuaTEjeYBWxwOkgYoO9Z5VTdSu33mHKEAQ6hsmDBY08=;
- b=cL811s0FmW1iHDS93q1EbLuGFO+dRcNPA1e0NqrNRBNaDbLZuOnAAG8GDQE6Mzc7MkeFxt
- Es8Vn0q30xWL2S0OFrLO7dAyskQT9S5Q8D3tBEGkfpB9hZ2+V+NXv4e6PJAo1U6wXwBjv9
- KnZ3OI5nZYp8ClHUcfXJAf1lBrzCsz4=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-159-3XM3HyW6NxOIhUmvSl8sBA-1; Thu, 02 Jul 2026 00:03:35 -0400
-X-MC-Unique: 3XM3HyW6NxOIhUmvSl8sBA-1
-X-Mimecast-MFC-AGG-ID: 3XM3HyW6NxOIhUmvSl8sBA_1782965014
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-493b21b1fe8so10590615e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 21:03:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782965014; x=1783569814;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kuaTEjeYBWxwOkgYoO9Z5VTdSu33mHKEAQ6hsmDBY08=;
- b=bNs6aT6w1QVm/Sb18HrobMY/Y7aJg5g70sELGLUdai9lDHWEw52zEpTqRyhsxUQtG/
- CcObUBGEpah0q3+XtUBsl+FeC2DsGAr5pUNlXcsUEy1dvQ8n2J8cCa2YW6Wk/2TBUamR
- iOE8NkKTnNYYfCDu8qQ0S7M5QoyfejcuxV+J3Xo4foutbBuPAy+Dh04+Xsa0V9lUDQgI
- eoz4dzfSqRkl1VpV6xdhSgG5JxS7cT0K1Wi0dZSbbWNJTbidRsW5HL/BiVg1bGNTPqhA
- 1+Vt7fqJWmkj8cfKjQv3mSigBcFA0bJeVo3i55/y//RIp9Fu2qCh5rsAfRV5j4biSCLl
- /fjQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+UOr4ZZPSUv5RtPg9NGdTABBqV31fkLEeF5HDrhhNgZV8pbIRMfQx6PSWG2d/erAnNRaknO/xAXJ0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzI0qWvAzG8Uo+bkomkwMo9STXbelqVk851bPpTvQYhdO/31pzP
- tFoVsT5dSfXTcZ6xnksVTVYdZFhGZ/T3Z479ywKjwc2fBbttPkiVZt9yPNSOQzr01V0QxeGzm/i
- OfyqzLLxg2WeM1GZug89NpS4myhCNSsZL2g8tHAR38s5S/QfIsFvRzHYjcmADuaga8r6VgA==
-X-Gm-Gg: AfdE7clB/JiKKF/zkmbbgU0RioySP5hDseHunw8TrS6M2LH9kxmzZWe1fgR4KquZDXo
- mj40lKO5CEj14DwvPLqR7ewEatznbg9bIp4xQYT7izi5KC0BklHZFzx4vk/fhFyKusCWpBxwnUx
- FI+e2PdfFLQGZNX0ba+JrDIjNazZW20fp7PzChZztzuXrMKw28qoQftBQggdIQYZnOrLoEquB+N
- 3uAjr2F72QhH/4NUG8W0dscxfEbeKnoD992z032OJ9jkGpUtnHa/4iYcpJgyF+J2ieUD2j9AWHG
- C5TDV99yYZxSDYKyIvDAP8hzvTlwkDCpdkiBCWUgIbpWSbA63uFtwzqFVeK0t4dGy7GfDSEQ2qQ
- tnLbNUV48Wbie0ijCfdW67RD3+pD4lQG7
-X-Received: by 2002:a05:600c:60a:b0:492:68bc:3237 with SMTP id
- 5b1f17b1804b1-493c3cf8cc5mr31230625e9.32.1782965014440; 
- Wed, 01 Jul 2026 21:03:34 -0700 (PDT)
-X-Received: by 2002:a05:600c:60a:b0:492:68bc:3237 with SMTP id
- 5b1f17b1804b1-493c3cf8cc5mr31230455e9.32.1782965013999; 
- Wed, 01 Jul 2026 21:03:33 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-68-31.inter.net.il. [80.230.68.31])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493c63b6f8csm11868245e9.11.2026.07.01.21.03.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 21:03:32 -0700 (PDT)
-Date: Thu, 2 Jul 2026 00:03:28 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Alyssa Ross <hi@alyssa.is>
-Cc: Sergio Lopez <slp@redhat.com>, Chia-I Wu <olvaffe@gmail.com>,
- Jason Wang <jasowang@redhat.com>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Gerd Hoffmann <kraxel@redhat.com>, virtualization@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
-Message-ID: <20260702000144-mutt-send-email-mst@kernel.org>
-References: <20260428194450.518296-1-slp@redhat.com>
- <20260428194450.518296-3-slp@redhat.com>
- <akT1XEW766c7Imst@mbp.qyliss.net>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010046.outbound.protection.outlook.com [52.101.61.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF51110E41C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 04:10:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ctbXXkx2CsDyj180Xae4hl4Rqfvcnt3AetjkrEDErBHh9kTxYaLuceu8YkgNUr1gfcPgIW70U6n8bgYLwdvLOBYsl2pxP+7c95A+Mv0x1fozIXgto9sGYj7I5gnFFJ+58EPzD9vQkvzKEy8cMskBE0PVhsepgf7RSC/x6ub0cKXFonT/dkVM0AI1YssjNMDxp0ml63JzdD/aNdcTh9ol8Dugbo1jnqR2a0Bk372G34GEyPPynIRbH4ICkTAXnyeZxg4RPa5s4xFI1F8JBC5BZDP/XErCNbuXXPg7CE6wfrRL8B1LHqJJBlmFPrqfD9CTjISBlCIJ8c9POqqcyia9Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BWl5bZKRPAi7rfT/L5gNdSgVLsFmMH3IiLSujIH7L2Q=;
+ b=XzEq1UdvpRnupo5SLpL0GJKM11X3dYIFWAtrI6l+1dqWPZfPutJVudSu4moEh428rPH6q22h3ugp/HmqcskCsaW+NMYvAHBvEt5KarI7Ngky8Kc6erWm+GniAbBI+Qa0mA4Yfupv24rEy6xuB5CZn4xUNjG/PWwzeSBf1Gyq6nPK5oEs3iBBDQw8Zo3Y2M/tPqzDpysN9cid84EcrIQ3IpJzyzMqlNuhn2DVy/6FKp7PmL3jmCUfqJYWpaJG1800Wjna7uXbnFGjf4EpoySyHEA3p68KznMl01NlydCDuEaMtiW6yOyOgtDrnkv9rryaPw5hruOFBBW2mqtR2ussHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BWl5bZKRPAi7rfT/L5gNdSgVLsFmMH3IiLSujIH7L2Q=;
+ b=Gn8hCnCnq7TsNfEF+DfppTFGZ7VQMtv/snnRUiN35XLBGF1Cwgg9kKilJJVYTItnHVTWjvj1OBHBRtKIe76O7T/Qeqm1r9acNHFNTB586Vx0mKOKu0HOwBjUizVUX2ZakNAlW7XDqAOF8Z9ZleBAU64mSRTdabDwk8ojjUThTJAhQR9KywbcriYBrNFetfgR7sCciF0asMYin/896M+e/xWRp0fwCUhh0i2SXFhg6Tf0qExe72YyNWI5WPgwnQNXF560MYiKRaspryMQ2cIQj9RQYArLAebaOyQndTCWw5RJ3Al297nPEP//TaKhOUpvONuDpmqLGA73x6iMDH31Uw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by PH0PR12MB7864.namprd12.prod.outlook.com (2603:10b6:510:26c::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
+ 2026 04:10:52 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
+ 04:10:52 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+Subject: [PATCH v2 0/4] Support partitioned Host1x
+Date: Thu, 02 Jul 2026 13:10:25 +0900
+Message-Id: <20260702-host1x-nohv-v2-0-e6d88bac0af6@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1XMSw7CIBSF4a00dyyGSyxYR+7DdIA85A4EAw2pa
+ di7tDOH/0nOt0FxmVyB27BBdpUKpdhDnAYwQceXY2R7g+Bi5BNOLKSy4MpiCpVxhc4qI7W5eOi
+ PT3ae1kN7zL0DlSXl74FX3NfdkVwK8edUZJzJ8WnkVWiJyt9jJUv6bNIb5tbaD4GfbXqnAAAA
+X-Change-ID: 20250919-host1x-nohv-071ed7c6ac4f
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mikko Perttunen <mperttunen@nvidia.com>
+X-Mailer: b4 0.16-dev
+X-ClientProxiedBy: TYCP301CA0050.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:384::14) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 MIME-Version: 1.0
-In-Reply-To: <akT1XEW766c7Imst@mbp.qyliss.net>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: H3hkRx9RDiICLWVJnNaUGm4grSte_hRFz8JA--JGLoI_1782965014
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH0PR12MB7864:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e4675ea-9ebb-44f8-d039-08ded7efe7eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|921020|56012099006|11063799006|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: br645FBy+u6g9TeYWaRcYKYHxaAypVJfPnxqNO7oslJyV+Ueou/bxAo9FMg8NUYp3T9d4g0MsuyUYNmRMh7gxV2gWWAzBOojcFiQQ/7sPUr5yx3D/MsnPjxLTF8td/+oQW+jOCC9ZDyPJX6VSYyYsYIlvuZXdDjC8CMtVuRI7LlXf3PqYqeYLVjUHDJGboGHrdO9wXclRprv15AY94jbjnNgkBb+x2cVIF+pmGtwkKXiuX/el3pZRUWwfRicAZDAQ3Y3SrSMp6ICmVxjVQX6EBZppZ5dyKUabdasu3P0PM7h9AHzTM2xcziuLfeSmaXvO2eLYSAhsHBIEiDPto0FoVELe1xiYiZpr4Wyg5QHwhEYV+OyPEaZ9w5lnUMbHf0e5QYucU1BSZPDb1U1akXQM4lFk19Hbo4Cw9R2ikKPQwhDVMeowcBLo+20Tj7OMCMGtnIJwgFy0MI0+2q25BAzbXzIYT6+WPkfK+015scfQ1OtlYlRvxyqa2+HAC0rRYrK2b5z4qA4I105rqCOkKTD8S5YJqaTMgAthQ0LvjgoFI+5lgg2dACImV0q80VquHeis9PWIZeypNX7DgxetDBtMMFBigefNZr5qucQAH+PqqVedlcrwKA2Tq9VTsHBK29o3xv/leyvHLnuoaQNimb1+MA9GkmW5c4lnK3xZ3cNtdPyD+J7TA65CQsZeVRcgP/ffICDqtz5E4WujwlRnZIT2w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(921020)(56012099006)(11063799006)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGRzWk5rMzA5SXp2R0M0SThrTURqU2J2L2NMbDBqV2R0VHRRdWdDbU96YmVx?=
+ =?utf-8?B?R21zNDdFa2R2YjJSOGVqR2FiQU8rNzlNN1U3R29TNXhPMFYrK29sNVJidUJ1?=
+ =?utf-8?B?M2FyYXVvM2pzSldsZmpOeWJibXpLNnhHbGkwVm1xYzAvMmpSSmk3aTg5NC9x?=
+ =?utf-8?B?ckhpWXIzbEV1SHhwaTNVNG1TU2Z6U0xBRnhzV3REYm96TzhMZ1BzWWhlaUtR?=
+ =?utf-8?B?ZHgxTG1wTGRtSEFhQkRiWTFzbE9XblRsbXBFUjhTN0w4L2ZSU3FSdGYxOHlM?=
+ =?utf-8?B?ZXRFbnpWUWJOd1BJTjhERUVmQXBFWTRvck5JMlN2MEtuSXlEWDFvdU1taUxi?=
+ =?utf-8?B?RUFXTGhnMWlIdDRrS054akxOMkJnUWNIMHlmL2JZNTFhSUxkSlFmMHQ1RVo1?=
+ =?utf-8?B?L1Jaa1JKbGVGRzdzN1hLK3R5QWE5cEwwR1FrQTFDREJ5RFFwaytyVjRDT1Z6?=
+ =?utf-8?B?VmU2TXdTTE40NDRQdTkrMnZnZ1gvZVQxMzMrR0dsWElGWDlvUW9ncU1yOEFR?=
+ =?utf-8?B?UnNoNXF3SUt3azdQRkMyOXlFRXZnTTZsc3lzMVBZTnZwdEFtWFhJNkIrS1VY?=
+ =?utf-8?B?ODRpemdXUi82b1ZWUzRHdlFKZEVsaVdLYWRFUXBVREtjdGxoVnM3clJVU2tj?=
+ =?utf-8?B?SG9WQ2ZWSVhXbFcyc3NnRE9tMVFuV0s0L3U1bFZHb05maTBNblBnaTJ1cWM3?=
+ =?utf-8?B?NG5uOFMwOGxSTGl4RTJIZVJUY0hsd0dIem9hZXVZSmluNU5idlMwcEhyY2ph?=
+ =?utf-8?B?VStXRExJTWV3SU42azB6L2xiQXU4QVJxamQwSXNzclBMTjFnVkFEdjQ3ZjFv?=
+ =?utf-8?B?cGVZZDJRdGJDZjh5Z2wvQVNKbkJ2NXo5Ly94aXVhZ0R3elY3TlBKeHU3b01L?=
+ =?utf-8?B?RC9vcjNYdURuTDhGVHJ1NkpqaHcyK3VXYU5WMXFDRXgwMTFHYlMvZkUySTR5?=
+ =?utf-8?B?ZzdmU0JlVmV5TzJETmoxWHFMM0s0THZUaTl5T0psQzg3YUk4b3c3ZndKSG45?=
+ =?utf-8?B?aHVYa3hKMnlGUmNzbUlQUjNGYnNCaytISUN0TGExdVgvMWRSVEV1bWpLbitP?=
+ =?utf-8?B?OUROY3phYTcxVUwzTGpWWERVWG90SG1lMTJncXZmdzNOUWlsbXZ5TlBsT1RM?=
+ =?utf-8?B?bkJmcm9XRTZqRWp6SEdiNVp4MTd0ZFdPVVYyb3R3NHBvU0kvWFVLTEl0TkVp?=
+ =?utf-8?B?WlhET1NBR1M2YTloSXZGQmNlUW1MRE5oSXB4RWZzWXVhcWh5NElTQWo1Y01w?=
+ =?utf-8?B?QjJPUEl3U1JsN3hab3BHZktPNTlyQVlVVko4UmZFVDBvcnRqbldhSmg5OE1a?=
+ =?utf-8?B?M3VyV1IrQTN5MG1YWWRnaE96NnlKNHc4YS91d1FlRmkvZUNEZ1dObFBKeUYr?=
+ =?utf-8?B?R2pnWWxtZ0JoOU1MSTJUMGpTZUhsUUpLb21BM0wyWjVDMTBNYStiY2kxb2gy?=
+ =?utf-8?B?VG94Rk4zWlp2dEdEUmdIbmcwQjh0WWxDTFB1eFcrdTRjRHR6YVpkVmJaOUtr?=
+ =?utf-8?B?M2Ntd0tEOVFtLy9BSThFMWhmeWFPSEgxeWExM1o1RjlQM01LNUw3YktDajVl?=
+ =?utf-8?B?NTVvRnd6bnYxUkcvc0J5YlRPNU5CMmVoRk9GMVFQa0d5dUdva2RlNlVQTVFX?=
+ =?utf-8?B?OGYyeGZqanV3UzdNdFJQYmhRVXBpOGIrWDJTNVFSSDlHc0hnbkdjcnMwdDVs?=
+ =?utf-8?B?Rzg5MGl2V2JuK205Sk1ackh4NHBDWVBjNUJYU3A5SE8relVROTNmMWJjMUlZ?=
+ =?utf-8?B?MzMwSGdWNGpPTWlCSnF0T1BJcjVmazY5Q1U3Z3MrSDNsTzBPMU0vc0FUTmxk?=
+ =?utf-8?B?ZEJPMnFOVkcyVTlHeWZnSTdKMEl2b1pQWnQ5NVg1SGNLUjV0SENTdUlTbmVM?=
+ =?utf-8?B?MWZ3TVN2SG1iNVpOTkRrUzFPaURCS0pQL3MzdDNhT1FSL1dBYnZGSktnaDll?=
+ =?utf-8?B?Uy9uZzR1dW83Z3I2TVJYU2FnWnNNYlp1Rk5pKzRVSkxiU0VnNzV0aTUyS1c5?=
+ =?utf-8?B?N2lMWi9FWDJXTUc4c0lMVkhEOHFDYm0reW92TlpMZ29qbkNvZnZ6NnMxNFpI?=
+ =?utf-8?B?WjdOTlhQZGlVRGRhRnZDTlp1a3kxd3RMMi9NMC9ucEQyM28vOFhXK2tlQnRh?=
+ =?utf-8?B?aHZHMTNEWnpXNVFTRXoxTmloZEtkY0I5cUZkUkNQdkxJSFhlT1E0dFNyam96?=
+ =?utf-8?B?UmFweHBNck5JdXZHOUUyTTc3cUJHOU1pdzBCQnh1UnZwRW01dHdIT3dyQjlG?=
+ =?utf-8?B?aFNhZEFLaTJCLzRjaUJHTjRsVVZuTitaT21kTXU3aXlNR1JsN1JiQ2RNN1Nk?=
+ =?utf-8?B?RkdFVWlUczFaTUQ3eUJZRDFUSytRMHY2N2hwVmdJSFFEbytTc1crQ3F2VWs4?=
+ =?utf-8?Q?0M84W0uc95ZZbRPWmlUJeP140NAc3FJeuJ56ITvhwBdBj?=
+X-MS-Exchange-AntiSpam-MessageData-1: 2+0wTC7AzP22zw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e4675ea-9ebb-44f8-d039-08ded7efe7eb
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 04:10:52.4164 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vrCNAB8tQnUa3KvvRHmXTED4iu8QAQdbJ+PstwWO75I7kriNJblWZXF0WRmChA02N0YkmfCBDT36UadIeCQlGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7864
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,46 +146,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 01, 2026 at 01:10:30PM +0200, Alyssa Ross wrote:
-> On Tue, Apr 28, 2026 at 09:44:49PM +0200, Sergio Lopez wrote:
-> > If VIRTIO_GPU_F_BLOB_ALIGNMENT has been negotiated, blob size must be
-> > aligned to blob_alignment. Validate this in verify_blob() so that
-> > invalid requests are rejected early.
-> >
-> > Signed-off-by: Sergio Lopez <slp@redhat.com>
-> 
-> FYI: this change breaks crosvm, which is squatting the 5 and 6 values
-> of VIRTIO_GPU_F_* with different meanings.  I've reported it as a
-> crosvm bug, so hopefully it can be taken care of there.
-> 
-> https://issuetracker.google.com/issues/529852979
+The resources (channels, syncpoints) provided by Host1x can be split 
+into multiple independent partitions similar to e.g. PCIe VFs, which can 
+be assigned to virtual machines, non-CPU embedded controllers, or other 
+bus masters.
 
-Move fast and beak things, then it takes a wile to fix them)
-Do you understand who uses it maybe? Maybe if there's a PR
-for both sides it will be handled faster.
+Each partition has its own MMIO register region and interrupts through 
+which the set of channels and syncpoints assigned to it can be accessed. 
+This set is configured via the hypervisor MMIO region earlier during 
+boot.
 
-> > ---
-> >  drivers/gpu/drm/virtio/virtgpu_ioctl.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> > index c33c057365f8..d0c4edf1eaf4 100644
-> > --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> > +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> > @@ -489,6 +489,11 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
-> >  	params->size = rc_blob->size;
-> >  	params->blob = true;
-> >  	params->blob_flags = rc_blob->blob_flags;
-> > +
-> > +	if (vgdev->has_blob_alignment &&
-> > +	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
-> > +		return -EINVAL;
-> > +
-> >  	return 0;
-> >  }
-> >
-> > --
-> > 2.53.0
-> >
+This series adds device tree bindings and support in the driver to 
+function when Host1x has been partitioned in this way, by making the 
+driver work without access to the hypervisor region and with a limited 
+set of channels and syncpoints.
 
+Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+---
+Changes in v2:
+- Updated commit messages to clarify software view of registers
+- Minor rewording of schema description for channels/syncpoints
+  properties
+- Rebased on v7.2-rc1
+- Link to v1: https://patch.msgid.link/20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com
+
+---
+Mikko Perttunen (4):
+      dt-bindings: display: tegra: Make non-vm registers optional
+      dt-bindings: display: tegra: Add channel/syncpoint range properties
+      gpu: host1x: Support running without hv/common registers
+      gpu: host1x: Allow limiting usable channel and syncpoint ranges
+
+ .../display/tegra/nvidia,tegra20-host1x.yaml       | 52 ++++++++++++++++------
+ drivers/gpu/host1x/channel.c                       |  6 +--
+ drivers/gpu/host1x/dev.c                           | 52 +++++++++++++++++++---
+ drivers/gpu/host1x/dev.h                           |  3 ++
+ drivers/gpu/host1x/hw/cdma_hw.c                    |  3 ++
+ drivers/gpu/host1x/hw/debug_hw_1x06.c              |  3 ++
+ drivers/gpu/host1x/syncpt.c                        | 21 +++++----
+ 7 files changed, 110 insertions(+), 30 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20250919-host1x-nohv-071ed7c6ac4f
 
