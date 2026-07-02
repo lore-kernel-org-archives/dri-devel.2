@@ -4,64 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BB26C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:03:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A889CC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:05:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C30E10F4CC;
-	Thu,  2 Jul 2026 16:03:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15DE910F4AD;
+	Thu,  2 Jul 2026 16:05:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i5aUimyt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NhdwKROA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 480AB10F4B2;
- Thu,  2 Jul 2026 16:03:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783008201; x=1814544201;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=exkHYHECHqDlMqIjl0X4BPoFtQ7ZzKHm7dymCwYLvOw=;
- b=i5aUimyt5AVm8CPT26isLcZVR/xuFw1S3J/V7bJH7mTnerZLfpWGRQDD
- 98Qk2h5qYtZUGPUi7HQK08v7QosfMp+YwJYoaX7zTwvIQ6s15jiGvDa6u
- ZA4mM1FjlJK14ZdRa+N+1YpPOBC8u4SiSzIm0wRmOGZmenwLPWzNS5bSh
- V8txkKexVJQovzm4FjwBJSH84YtWhrvIKw2RliTQW74f91Bksdxx3XLUc
- Xt4C487AqJSEoPQclZXoRTVHovH4ymw/BKphooQaNx77/BceQ+wY/p1iE
- 4h4p6c0zed7UlspjH2dsTx8vw8py435Qb9zrgYFtQZ39kL4O3lg3XpAR6 Q==;
-X-CSE-ConnectionGUID: 9UE3fA5URSq77MXz4FTo6g==
-X-CSE-MsgGUID: ii8CURpaS0GjX8aCmwP6Tg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="95145552"
-X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="95145552"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 09:03:20 -0700
-X-CSE-ConnectionGUID: cU54ZtguQaW53lLLwiSDXw==
-X-CSE-MsgGUID: Dag2sMFrS9WqX1kYKbBekg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="253053939"
-Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.245.47])
- ([10.245.245.47])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 09:03:17 -0700
-Message-ID: <786bdc92-0ce3-4c0f-9668-b0fa8a0047ea@linux.intel.com>
-Date: Thu, 2 Jul 2026 18:03:51 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
-Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PULL] drm-misc-fixes
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D9B610F4AD
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 16:05:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9F873601EE;
+ Thu,  2 Jul 2026 16:05:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340B11F000E9;
+ Thu,  2 Jul 2026 16:05:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783008341;
+ bh=X+a2ynDNyWNMFBrH1rBckhb61px7ZqNYhHrVo1Uct5g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NhdwKROAvXtpk9WbdYp2Tqo3V3Pn+YBWeqBZiBXBQbhKdrHoVnqzn7Q9R/n0jyK87
+ tx1HA2dGX0wTLerCBRvd8khJ5nsYRs66hLhL71Hwiw5B5GSpUD4BecehVgAR4bix7f
+ eq+3vTfgmka+/TkiyutuFi894EHMoG5CRBCSSP4SOCMDrAvNYGO0OnkVybof0+9QQF
+ aIut/XdZRQ9OsZZfIaNpqKzjUhbdUeSHey10yg5cvEDuaUzT3/oJBtwAswkqLikA+A
+ ibrVvaKQX2GTxXbZxXUeFCG/k1E5fYZBs7XDCYqT17zRsiZ5F8xHTc11p1tYLLTqoL
+ 3IEfevymQXsyA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fb: omap2: dsi: do not copy isr table
+To: "Andreas Kemnade" <andreas@kemnade.info>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260702-fbomap-uaf-fix-v1-1-6417edf9d3e7@kemnade.info>
+References: <20260702-fbomap-uaf-fix-v1-1-6417edf9d3e7@kemnade.info>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 16:05:40 +0000
+Message-Id: <20260702160541.340B11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,145 +52,132 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-drm-misc-fixes for v7.2-rc2!
+Pre-existing issues:
+- [High] The identical use-after-free vulnerability fixed in the fbdev OMAP=
+ DSI driver remains unpatched in the equivalent DRM driver.
+- [High] The Use-After-Free vulnerability fixed in the DSI driver is identi=
+cally present in the DISPC hardware interrupt demultiplexer.
+- [High] The driver fails to cancel the delayed work `framedone_timeout_wor=
+k` and `te_timer` in its unbind/teardown path, causing a Use-After-Free.
+--
 
-Kind regards,
-~Maarten Lankhorst
+commit c84d1fd5cdf35436c608e4883f1ea5ab4237c8b4
+Author: Andreas Kemnade <andreas@kemnade.info>
 
-drm-misc-fixes-2026-07-02:
-drm-misc-fixes for v7.2-rc2:
-- Fix potential null pointer dereference in dma-buf.
-- Handle 0 in dma_fence_dedup_array.
-- Use the correct callback in dma_fence_timeline_name.
-- Fix device removal handling in amdxdna.
-- kernel-doc fixes.
-- Include header fix for drm_ras.h
-- Handle edids better in virtio.
-- Use the clk_bulk api for error handling in malidp.
-- More clk handling fixes for komeda.
-- panthor scheduler block fallout fixes.
-- panthor unplug fixes.
-- other panthor fixes.
-- Fix unnecessary WARN_ON in topology probe after teardown.
-- Add refcount to amdxdna job to fix use-after free.
-- Fix increasing args->size in ioctl's of drm/imagination.
-- Handle stride correctly in pvr_set_uobj_array.
-- Only call imagination's drm_sched_entity_fini once.
-The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
+fb: omap2: dsi: do not copy isr table
+   =20
+This commit prevents a use-after-free in the omap2 dsi driver by no longer
+copying the ISR table and dropping the lock before executing handlers.
+This avoids a race condition where a stack-allocated object could be freed
+while the lockless ISR copy is still being processed.
 
-  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+> diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/f=
+bdev/omap2/omapfb/dss/dsi.c
+> index 330d9fb7d2b00..d98db01fdd39c 100644
+> --- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
+> +++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
+[ ... ]
+> @@ -838,15 +836,10 @@ static irqreturn_t omap_dsi_irq_handler(int irq, vo=
+id *arg)
+>  		timer_delete(&dsi->te_timer);
 
-are available in the Git repository at:
+[Severity: High]
+This is a pre-existing issue, but does the driver fail to cancel this timer
+and related work queues during teardown?
 
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-07-02
+Looking at dsi_unbind(), it returns without cancelling pending work or time=
+rs:
 
-for you to fetch changes up to 8dc8f3f4c2382fb7d1b1986ba8f33a2466cd3d7a:
+drivers/video/fbdev/omap2/omapfb/dss/dsi.c:dsi_unbind() {
+    ...
+    of_platform_depopulate(&dsidev->dev);
+    WARN_ON(dsi->scp_clk_refcount > 0);
+    dss_pll_unregister(&dsi->pll);
+    dsi_uninit_output(dsidev);
+    pm_runtime_disable(&dsidev->dev);
+    ...
+}
 
-  drm/imagination: Fix user array stride in pvr_set_uobj_array() (2026-07-02 11:16:18 +0100)
+If framedone_timeout_work or te_timer expires after the driver is unbound a=
+nd
+the devres subsystem frees the dsi structure, will this result in a
+use-after-free?
 
-----------------------------------------------------------------
-drm-misc-fixes for v7.2-rc2:
-- Fix potential null pointer dereference in dma-buf.
-- Handle 0 in dma_fence_dedup_array.
-- Use the correct callback in dma_fence_timeline_name.
-- Fix device removal handling in amdxdna.
-- kernel-doc fixes.
-- Include header fix for drm_ras.h
-- Handle edids better in virtio.
-- Use the clk_bulk api for error handling in malidp.
-- More clk handling fixes for komeda.
-- panthor scheduler block fallout fixes.
-- panthor unplug fixes.
-- other panthor fixes.
-- Fix unnecessary WARN_ON in topology probe after teardown.
-- Add refcount to amdxdna job to fix use-after free.
-- Fix increasing args->size in ioctl's of drm/imagination.
-- Handle stride correctly in pvr_set_uobj_array.
-- Only call imagination's drm_sched_entity_fini once.
+>  #endif
+> =20
+> -	/* make a copy and unlock, so that isrs can unregister
+> -	 * themselves */
+> -	memcpy(&dsi->isr_tables_copy, &dsi->isr_tables,
+> -		sizeof(dsi->isr_tables));
+> =20
+> +	dsi_handle_isrs(&dsi->isr_tables, irqstatus, vcstatus, ciostatus);
+>  	spin_unlock(&dsi->irq_lock);
 
-----------------------------------------------------------------
-André Draszik (1):
-      dma-fence: use correct callback in dma_fence_timeline_name()
+[Severity: High]
+This isn't a bug introduced by this patch, but it appears the identical
+use-after-free vulnerability you are fixing here remains unpatched in the
+equivalent DRM driver.
 
-Baineng Shou (1):
-      dma-fence: Make dma_fence_dedup_array() robust against 0-count input
+Does drivers/gpu/drm/omapdrm/dss/dsi.c:omap_dsi_irq_handler() need the same
+fix? It still copies the table and drops the lock:
 
-Boris Brezillon (10):
-      drm/panthor: Always use the IRQ-safe variant when acquiring the fence lock
-      drm/panthor: Keep the reset work disabled until everything is initialized
-      drm/panthor: Fix potential invalid pointer deref in group_process_tiler_oom()
-      drm/panthor: Fix theoretical IOMEM access in suspended state
-      drm/panthor: Don't overrule pending immediate ticks in sched_resume_tick()
-      drm/panthor: Fix panthor_pwr_unplug()
-      drm/panthor: Drop a needless check in panthor_fw_unplug()
-      drm/panthor: Fix a leak when a group is evicted before the tiler OOM is serviced
-      drm/panthor: Interrupt group start/resumption if group_bind_locked() fails
-      drm/panthor: Keep interrupts masked until they are needed
+drivers/gpu/drm/omapdrm/dss/dsi.c:omap_dsi_irq_handler() {
+    ...
+    memcpy(&dsi->isr_tables_copy, &dsi->isr_tables, sizeof(dsi->isr_tables)=
+);
+    spin_unlock(&dsi->irq_lock);
+    dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
+    ...
+}
 
-Brajesh Gupta (2):
-      drm/imagination: Fix double call to drm_sched_entity_fini()
-      drm/imagination: Fix returned size for DRM_IOCTL_PVR_DEV_QUERY
+This could still race with a timeout in dsi_sync_vc_vp(), which creates a
+completion on the stack:
 
-Bryam Vargas (1):
-      drm/virtio: bound EDID block reads to the response buffer
+drivers/gpu/drm/omapdrm/dss/dsi.c:dsi_sync_vc_vp() {
+    DECLARE_COMPLETION_ONSTACK(completion);
+    ...
+}
 
-Gustavo Kenji Mendonça Kaneko (2):
-      drm/arm/malidp: use clk_bulk API in runtime PM resume and suspend
-      drm/arm/komeda: fix error handling for clk_prepare_enable() and callers
+[Severity: High]
+This is also a pre-existing issue, but this same vulnerability pattern seems
+to be present in the DISPC hardware interrupt demultiplexer.
 
-Jani Nikula (3):
-      drm/dp: fix kernel-doc for struct drm_dp_as_sdp
-      drm/fixed: fix kernel-doc for drm_sm2fixp()
-      drm/ras: include linux/types.h in drm_ras.h
+Does drivers/video/fbdev/omap2/omapfb/dss/dispc-compat.c:omap_dispc_irq_han=
+dler()
+need to be updated? It makes a similar lockless copy:
 
-Lizhi Hou (4):
-      accel/amdxdna: Fix amdxdna_client lifetime race during device removal
-      accel/amdxdna: Fix notifier_wq lifetime race during device removal
-      accel/amdxdna: Fix iommu domain lifetime race during device removal
-      accel/amdxdna: Fix use-after-free in debug BO command handling
+drivers/video/fbdev/omap2/omapfb/dss/dispc-compat.c:omap_dispc_irq_handler(=
+) {
+    ...
+    memcpy(registered_isr, dispc_compat.registered_isr, sizeof(registered_i=
+sr));
+    spin_unlock(&dispc_compat.irq_lock);
+    ...
+}
 
-Luca Coelho (1):
-      drm/dp_mst: Handle torn-down topology gracefully in drm_dp_mst_topology_queue_probe()
+This could race with dispc_mgr_disable_lcd_out(), which registers a
+stack-allocated completion as an ISR and waits for a timeout:
 
-Maarten Lankhorst (1):
-      Merge drm/drm-fixes into drm-misc-fixes
+drivers/video/fbdev/omap2/omapfb/dss/dispc-compat.c:dispc_mgr_disable_lcd_o=
+ut() {
+    DECLARE_COMPLETION_ONSTACK(framedone_compl);
+    ...
+}
 
-Philipp Stanner (1):
-      dma-buf: dma-fence: Fix potential NULL pointer dereference
+> =20
+> -	dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
+> -
+>  	dsi_handle_irq_errors(dsidev, irqstatus, vcstatus, ciostatus);
+> =20
+>  	dsi_collect_irq_stats(dsidev, irqstatus, vcstatus, ciostatus);
 
-Shuvam Pandey (1):
-      drm/imagination: Fix user array stride in pvr_set_uobj_array()
-
- drivers/accel/amdxdna/aie2_ctx.c                |  68 +++++++++++----
- drivers/accel/amdxdna/amdxdna_ctx.h             |   1 +
- drivers/accel/amdxdna/amdxdna_iommu.c           |  43 +++++++---
- drivers/accel/amdxdna/amdxdna_pci_drv.c         |  38 ++++-----
- drivers/accel/amdxdna/amdxdna_pci_drv.h         |   1 +
- drivers/dma-buf/dma-fence-unwrap.c              |   3 +
- drivers/dma-buf/dma-fence.c                     |   6 +-
- drivers/gpu/drm/arm/display/komeda/komeda_dev.c |   6 +-
- drivers/gpu/drm/arm/display/komeda/komeda_drv.c |  14 +--
- drivers/gpu/drm/arm/malidp_drv.c                |  22 +++--
- drivers/gpu/drm/display/drm_dp_mst_topology.c   |   4 +-
- drivers/gpu/drm/imagination/pvr_context.c       |  18 ++--
- drivers/gpu/drm/imagination/pvr_drv.c           |  19 +++--
- drivers/gpu/drm/imagination/pvr_queue.c         |   6 +-
- drivers/gpu/drm/imagination/pvr_queue.h         |   2 +-
- drivers/gpu/drm/imagination/pvr_vm.c            |   6 +-
- drivers/gpu/drm/panthor/panthor_device.c        |   4 +
- drivers/gpu/drm/panthor/panthor_device.h        |  17 ++--
- drivers/gpu/drm/panthor/panthor_fw.c            |   6 +-
- drivers/gpu/drm/panthor/panthor_gpu.c           |   3 +-
- drivers/gpu/drm/panthor/panthor_mmu.c           |   9 +-
- drivers/gpu/drm/panthor/panthor_pwr.c           |  10 ++-
- drivers/gpu/drm/panthor/panthor_sched.c         | 108 +++++++++++++-----------
- drivers/gpu/drm/virtio/virtgpu_vq.c             |   3 +-
- include/drm/display/drm_dp_helper.h             |   1 +
- include/drm/drm_fixed.h                         |   3 +-
- include/drm/drm_ras.h                           |   2 +
- 27 files changed, 265 insertions(+), 158 deletions(-)
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-fbomap-uaf=
+-fix-v1-1-6417edf9d3e7@kemnade.info?part=3D1
