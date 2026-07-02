@@ -4,133 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E48C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 06:48:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E10B8C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 06:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FA9610E48A;
-	Thu,  2 Jul 2026 06:48:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B91610F156;
+	Thu,  2 Jul 2026 06:57:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="JsRHgTfD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VGZQ0C+w";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012047.outbound.protection.outlook.com
- [40.107.200.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0B5B10E48A
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 06:48:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jZJtwp5M2M4z9sUJY/DYaFjOJiJGJnZ+kGIdgFVwqNDxtag9sg+7nhNI2g0Ok5h4+h4BN4kqVkLe/Fy0RQrVkI/VO7Tvoq93UfWtQ2kJAVwLmjhOWZaaot6Nl+CvBV2UWTMIjNUH2ka/SGrI5L8hfp4l06ZT1Lxkr4Vgt8YnrMDlw5KsIfCeXHRueYgCLswC589FKygWGm/1w8fxhFLZclcnlxE7jyKoImFBcF4DAyGxuE4bppWS/RxbWqkRWfk9daJxc7f83CJiqDRVuCO0IYGuyXJCvnDiYVZ0Xe8fdVEw/+IoHfJJgxeIMn/XnsiQDYIuwhv6bH79lSSdPn163Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CHkprptK9+0iCBrunEcaSA0uEzvNVQfThEsX3Aayv+8=;
- b=d/8lMXSyClh257yiA7C2GOgky+5aO73Kq1FkEh2nUm3ddC1cLIMjojPnzyjZ7ygubZhaYnpvs+Y5fbYeE6zDCryLTKVvtFAqrprDaUngLs2jSHp0ISbku5+hgInO822dYmhLrJYidRBgIpVw3VDY5LFDpwGYnVFnPhrCFqfWpmv6caoS2gAD3BTK4BOIb+cgfkwhgc9ihyY8UZuLs8QO3G1DSqa+fM5pFTGrUA6gIyk0bvq3ql3WtK7yNFHM264DD8P6XOVup53SlWWxUCouNaiysEUnyPchkqdWh5LD93nBXLmauExbK+WIe9uIjQTTY1ZHIYFuk2Zh72rtojvmSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CHkprptK9+0iCBrunEcaSA0uEzvNVQfThEsX3Aayv+8=;
- b=JsRHgTfDQ1zmbEFUIfKvRt2bGLB13kWbmQyJkOL2N8ROtBV331nZnUlFDedzKwLkoMDXCsPeKpKVpBOBYGmXR4/NwivxRqYZt3TCF09q+lBwIR9Y10ZnMjPMWCcsLO97UMMAA0EE0bHzqv6z8t1bEriXt4wAf0p1dpaceNeTCKbjeKMrqtVVytE6EhyRNgeTMdR8k3gqwzyCYNDlLQbWJZZj8+aASsWtF/BsAZTJ6KypLJyZzlmnarbltfanyL85uGRV8EQLZrbh9YpNeADEOAlOjAV7hEjaxkbBssPgQDviTcni5jaIHIIp0qhYG9oFwxn2UfschW1iXNExsEQEgA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by PH7PR12MB8039.namprd12.prod.outlook.com (2603:10b6:510:26a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
- 06:48:16 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
- 06:48:13 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 02 Jul 2026 15:48:09 +0900
-Message-Id: <DJNVUKOX0FW1.1KD99NL4NTW6I@nvidia.com>
-Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
- <ecourtney@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
- <lyude@redhat.com>, <driver-core@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <stable@vger.kernel.org>, <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v5 16/19] drm: fix race between partial
- drm_dev_register() failure and ioctl
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260628145406.2107056-1-dakr@kernel.org>
- <20260628145406.2107056-17-dakr@kernel.org>
-In-Reply-To: <20260628145406.2107056-17-dakr@kernel.org>
-X-ClientProxiedBy: TY4PR01CA0006.jpnprd01.prod.outlook.com
- (2603:1096:405:26e::13) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7317610E459;
+ Thu,  2 Jul 2026 06:57:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782975445; x=1814511445;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=Wby2xh2SHoZaRyG4RXixcOB6t/4d0RxplKwjCtFpIlg=;
+ b=VGZQ0C+wsCdcAqpbhfnU4up3/L49pyNtbnZ5XsdWbV0FHwZ7g4S+U/r0
+ QXH0yj4J8C1LYHAauEb7JRsu5SVhOpu83k0JpsBpRfIIIVuXtZ/RekU0w
+ efzSB0AJEjXa01kvLzCpEmNpMv8mik5hK5OygvYRZuS7qs+2HRvWePj2+
+ 6bf/Nn9c0l4Zhq5f24e4Vcr/u0AZ8R/oqDFd9KK38JAo26wPryq5BaHAT
+ zt7MPNDJGTQ15dX1N0NN9bkA5LoEDGr+hpSkYBxonPNbpI9amptESUign
+ rckA6xkKXuiz54jgaPp7yajOF12hWwdVanUBe24xC2YDzcrOQEVf/auZj w==;
+X-CSE-ConnectionGUID: grjFhF5QTe2eF0SyJuVjtw==
+X-CSE-MsgGUID: RgrJe5MITiaFii/xWaTLWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="83587982"
+X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="83587982"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 23:57:17 -0700
+X-CSE-ConnectionGUID: LFUnjvcbT2eLuPNfyIMqAw==
+X-CSE-MsgGUID: 6WTj3a7CTOO/Llzf0h6IQw==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.199])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 23:57:11 -0700
+Date: Thu, 2 Jul 2026 09:57:08 +0300
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-intel-fixes
+Message-ID: <akYLxDea3kEyHqJA@jlahtine-mobl>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB8039:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e26de3e-b9d8-42a8-26ad-08ded805e31d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|10070799003|7416014|376014|23010399003|18002099003|22082099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: o3ZjDwo251JN4lVOtoFaOo/sZOmGILBVzijmGmXod9yW+2LuweSML/7j7xmq60I6m7r6RbrN+Pg6iJg4hsJl80ANezrD2XEKC7yeBN5wwo0YfohNqx3sr7I1BDMQTrf4q4yNBno2hkdpo3Qt7w5WIZ+Slxrjh+rog0u/HN3XYaahR+Fg8Q7ZEvEmnr6Q5uwvMJ55CQeJR1bQsiaOFviGxuIkB3JXmijgYuJEVcY8wsl0Pi6r9M8Vo0LqPREkLGtbKJk9RUeBODRf0MjYXqa8wJOuG6pGTpFD3UFbsqXGndUQuqT6cI5i4hXkTWF+sMTb63qSWWczqPpoTOu7JyX7vD9zUM3BrZYs+TjzlaSc0h2COKj1y4/gNKZN/HS+HROgtB741wWQ2TV4f7i8Yn9urHIMi1xD1iBvAoTkeT2+7uwmAxGytSc8ENobzmmEFvWq6aBTtLBc/mqnOfSsiiqBfLcoaqZCwKFWzWTvTeIXFBRtFcUsEKcuxCEmy10del2GersWHjfk/roQ0e/GU7+Wi4YS7gS4NkGi2XiNRUVaBa9WaldbQ1xrzvNx/3K2Elufq/Np7pYCoxENX+WUrwOPc8c5/tiSxAvLrsCPtTBH7ab6SICArEtb9NYbPMCt+f54sHY7f0VZqfkEdBE83PRLC8riFSxk5Ac5zWagtbTODFA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qk9jMEs0ZHFBQ2w3VlpwR2JMNHFMVTR4Q2pjVUxLTFk0cTI3WHJrUHhCYVc4?=
- =?utf-8?B?dFVVL2hMMlZoWFdSYmptWDNoeTcvV1NUck5mUHc3OGdnS2pLZytMeGpHMEYy?=
- =?utf-8?B?Tyt2Tk5hdFUrelpxUkh4cmpoYVFlejdEK29sakhFM3ZGWjlMWUk5eTJHVnor?=
- =?utf-8?B?RnI1bW8xclRFUmVWQlcvWW1BTXoweW1RSThndmlWcmcyR0wwbjRHdXFBVWFZ?=
- =?utf-8?B?Q3BtTW8weERZLzF3TlZHaWtzNTQ2ZTROQzZnajl3WXEzRjlUQlZXYlA0Zlln?=
- =?utf-8?B?cGlEc2oyY1lhTngzYWNYaTJyeHlvMlNMQzdlZnQxNzRCS2lDazdGaExJcjhW?=
- =?utf-8?B?QUppdXNNdWJBaVhnNUNUR1B5OElRQzFWdzBmYWF0SUdFWStTOUU4dktiMVNQ?=
- =?utf-8?B?cWVyNFdXMmVtcTFhcmkrZTlWcmJrR3FKOW1VOGFqUDNzU20wOUhFOVd2bE5C?=
- =?utf-8?B?VVBnU2E1OEg4Zk5iQWpyYmQ5SmhLaGhrQ0NPOW0vWXFoWFhxY1lRcUFFaERG?=
- =?utf-8?B?TXRieUR1NmZNWm1RcFJrNEs5MjdxWlUwUUhlQlBDQnVuVTdESlZRUzhkTDBn?=
- =?utf-8?B?VGtQM1BBWjQzM3ZsSGk0L21IVVVtQkJzQWRSSEdTQVBJRjRMY1VLRHgyQkxu?=
- =?utf-8?B?Rk13czRrOFhVRWY4TWgxMzFOT3l0U0xhSVBRQStlem1zTVU3dGF4T21XVUY0?=
- =?utf-8?B?RVFRWHpxWC9RWmdldDc4N21sc2pqZG5zWWhrbForbVQvRWVURzMzaURhdnZM?=
- =?utf-8?B?RnRQVVBZTkozTE0ycUN4aVFmczJwemtjR2xmOXFndVNuTHY5S2tmdXJTV2d6?=
- =?utf-8?B?cmNlZStSc21ZczE0bnQ4UDBGdFU0RmJTbnk0NSt1djJBdUFFMnJWeHpZdUFq?=
- =?utf-8?B?VlVuSWJwRTR4N1ZNV3M5OWJzOHB2TE9uU3g1UjNGbzIvNjk4dmRINnFOczRq?=
- =?utf-8?B?UGRsWDNrb0ZwUkk1WGZSQWlscnBLQmliTjJLMGo5TFVhNGIxd3cyQWxSMjg5?=
- =?utf-8?B?U1JkMC9EM0k2R0NBRlJKQTgrV0NTbnh0TnJGZlRqUXFWTGNrY1lhWE96YVNO?=
- =?utf-8?B?TThPT2xJSEI1ZnU5TTNYQVIyWTFJbHBJL0xMOUkxOFFZWTVEK3ZvakYxZEZT?=
- =?utf-8?B?U080bnRNY3FheVVhMjdCdUNYRk4vY1BESk0vZlFiRU5oNVRnTW05TU4vR0xT?=
- =?utf-8?B?RFZwOHRGTTdnQlBERU5Qc0RpVEhGc3llM3NoM0pYYk5TaGlvUlNvZkNOZGZi?=
- =?utf-8?B?a1F0VVdnVHM5VEZmVU5TSXZHMFBQQzQ3eWZMcWtyQXloc3cxb0FQMkFyRzBx?=
- =?utf-8?B?THBnMkx5QjhpWjNGTzdWQjNJbkJnNzd5WHRYdmpBVlhVQ202WEdYQTQ1QjM3?=
- =?utf-8?B?MzV4aGliekUzelZUdkxUV3JTUWl2bUdWOExHdit4NCttR1N0ZzNONFFid3I1?=
- =?utf-8?B?QW8xeElGUGpBWDgwcWtla21QdGVFV1JMWHRmSFZocThVVzcxN08rTUhTUjdY?=
- =?utf-8?B?VkVEUDJHVmhHTFdLYjh2dHFyNmh5SWJZWmxBbVVZaHhiNXpDUDF1QzlvZks3?=
- =?utf-8?B?Y3lMWDNWZTQrRjlQdVYzcGsvYy9NUzB4ZzZGN1hsOU8xdjg4SEo1Q04yeUlV?=
- =?utf-8?B?SUlBaStLOEFWeWhUUHgyQ256V1BPVEFYbDJ6SGxiWW4wQjBQQVJmd2JvY0dO?=
- =?utf-8?B?dHhHTnhqM0dnQXpHYmtJV3YzdDJ5SStiT1RuMzZlREVqcUxXdVV5S29LZ0hB?=
- =?utf-8?B?bzhIcitJZ3QvV1FERG02L0ZxQ0xzT3d1aEg3dkdwSjVZMVV5V0xsWmpHamNP?=
- =?utf-8?B?RVFMazJZb1ZaOW1ac0RKektYTFE1RE4wcVo3R1ltTWNXVFpLSHJ0dks4K0cr?=
- =?utf-8?B?cnJMT3RvZ2NNQUZPN2lVZ2tneUx6UEcrcVNaVCs5WGZUWFdqcUE1SEUrV2pt?=
- =?utf-8?B?cWd5YWk3eHZCTFgyKzB5THZWd0dhZnVnbWJsYVMwUGFUL3VyMXlPY2hBcWtx?=
- =?utf-8?B?Y1JlVW9ZM0JqazZCamZ3Q1NFS0lPSkJKc1dKbFMrYnBHekFma045amhJTmJR?=
- =?utf-8?B?ZVEwR1NiSTFFL05jLzd0TXcrTHBlbVdxZXVHcG0vNU9ySEdmdHpkZWN0Z21I?=
- =?utf-8?B?ZTFOZ3UwYzgvK3piODJSWUZ3YlllREF2RFVmTFBKTWUrQ0R1ZW1qa0lwY0pQ?=
- =?utf-8?B?dGcvME8vR1libVNtdXYxZ0cwL3JYS25PNVI3NlpOK1I4NnhUc2VTQWdkV0Zj?=
- =?utf-8?B?NURBQXh4bDlDM3hXamROOXlXZnBqblBKdmxETnlPZVorVkdYQXBmaHNJQTRs?=
- =?utf-8?B?WmE3ODhPR0ZHQ3NRc1ZsajlkR0ltWG5LT3dKejZGTllYSjB2bE5TY0dubnRD?=
- =?utf-8?Q?k0uRLZVK/4XzKT/51jYpMcQzdhpY6Gs2tFdJurlcNTcSR?=
-X-MS-Exchange-AntiSpam-MessageData-1: 8TCvInc/8YdRFw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e26de3e-b9d8-42a8-26ad-08ded805e31d
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 06:48:13.8205 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B3aRr8GSRVJlDmPYnCxfsnjMOIoVNYOuasYI0rW2zsytaxdmS6pnf9SAYnaRIqySmYMxdwAVPymwzq9MCf91Ug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8039
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,23 +75,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun Jun 28, 2026 at 11:53 PM JST, Danilo Krummrich wrote:
-> If drm_dev_register() fails after registering a minor (e.g. render minor
-> registered, primary minor fails), userspace could have opened the first
-> minor and entered a drm_dev_enter() critical section. Since the
-> unplugged flag was never set, the ioctl proceeds while the error path
-> tears down device resources.
->
-> Fix this by introducing drm_dev_synchronize_unplug(), which sets the
-> unplugged flag and waits for the SRCU barrier, ensuring all in-flight
-> drm_dev_enter() critical sections complete before cleanup proceeds; call
-> it on the error path of drm_dev_register().
->
-> Fixes: bee330f3d672 ("drm: Use srcu to protect drm_device.unplugged")
-> Cc: stable@vger.kernel.org
-> Reported-by: sashiko-bot@kernel.org
-> Closes: https://lore.kernel.org/all/20260620190648.2E9F61F000E9@smtp.kern=
-el.org/
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Hi Dave & Sima,
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Here goes drm-intel-fixes PR towards v5.2-rc2.
+
+One near-NULL deref fix for GFP_ATOMIC OOM, couple of HDCP robustness
+fixes and two input validation fixes for BIOS data and EDID.
+
+Noteworthy, all of the bugs were reported with help from AI-assisted
+static analysis. And there are more on the mailing list.
+
+Regards, Joonas
+
+***
+
+drm-intel-fixes-2026-07-02:
+
+- Input validation fixes for BIOS and EDID (Jani)
+- Fix HDCP code buffer overflow and seq_num_v monotonic increase check (Jani)
+- Fix near-NULL deref in i915_active during GFP_ATOMIC exhaustion (Joonas)
+
+The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
+
+  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-07-02
+
+for you to fetch changes up to 2084503f2d087bf956198e7f6eb25b03a7049cb2:
+
+  drm/i915/bios: range check LFP Data Block panel_type2 (2026-07-01 09:12:33 +0300)
+
+----------------------------------------------------------------
+- Input validation fixes for BIOS and EDID (Jani)
+- Fix HDCP code buffer overflow and seq_num_v monotonic increase check (Jani)
+- Fix near-NULL deref in i915_active during GFP_ATOMIC exhaustion (Joonas)
+
+----------------------------------------------------------------
+Jani Nikula (4):
+      drm/i915/hdcp: check streams[] bounds before overflow
+      drm/i915/hdcp: require monotonically increasing seq_num_v
+      drm/i915/vrr: require valid min/max vfreq for VRR
+      drm/i915/bios: range check LFP Data Block panel_type2
+
+Joonas Lahtinen (1):
+      drm/i915: Return NULL on error in active_instance
+
+ drivers/gpu/drm/i915/display/intel_bios.c | 36 ++++++++++++++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 12 +++++++----
+ drivers/gpu/drm/i915/display/intel_vrr.c  |  4 ++++
+ drivers/gpu/drm/i915/i915_active.c        |  7 +++++-
+ 4 files changed, 46 insertions(+), 13 deletions(-)
