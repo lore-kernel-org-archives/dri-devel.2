@@ -4,42 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8DDBC43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:40:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED64C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4540610E0D8;
-	Thu,  2 Jul 2026 15:40:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E718A10F483;
+	Thu,  2 Jul 2026 15:40:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JovWHn6P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z8vOAtQO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE84910E0D8
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:40:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDE710F475;
+ Thu,  2 Jul 2026 15:40:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 56EF943EBE;
- Thu,  2 Jul 2026 15:40:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC991F000E9;
- Thu,  2 Jul 2026 15:40:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C7EA7601CA;
+ Thu,  2 Jul 2026 15:40:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8E41F00A3E;
+ Thu,  2 Jul 2026 15:40:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783006820;
- bh=v7sz6V6G0TkujYMQ8Cj4niLBJ58e/JTkgA6O/2YMpEU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JovWHn6PagMdCc6/MkoE934HcY6drY3+gvsfr9uIc4hVsPqhjzbICrDqSucEP73Sh
- wlrUVQcbIm+59jrqWDw2vhwmw9xV+lGDnjYaro2R1xiqW+KJYjFU9Ib9SUyp+xTN4J
- alC7X7JLcK1LiuXMFEWO+L0v0uCKFKFImsvBmx/NDkx+bt0RwjPxzgCm1maDfvLC/X
- Y6yloRW5ie+ttk77zUXUDnz/HG4twlOO9jljVhz7Hnwk+J+Y+cN4PxzpC69x9spcNr
- 25IxzO7W3Hw4K7dQzN1lmK2bj6FMYy6/sdnb8EugKqqWzHzoTp6CKPfmhTjOlH8cWn
- M52mc57r1/CAA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/omap: dsi: do not copy isr table
-To: "Andreas Kemnade" <andreas@kemnade.info>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702-dsi-uaf-v2-1-dbb4aa0f0b8e@kemnade.info>
-References: <20260702-dsi-uaf-v2-1-dbb4aa0f0b8e@kemnade.info>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 15:40:19 +0000
-Message-Id: <20260702154020.0DC991F000E9@smtp.kernel.org>
+ s=k20260515; t=1783006838;
+ bh=gNLYS8EYE6bJ5KaXF7DR9fRu4urDF+a7laqqF8q0hcA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Z8vOAtQOT+iGTiy4xQ3GfxWy9CpR6iieY1qxm1fyBJSvxEFV2aEwGeTLwIZE4UbYF
+ sH6QvDHKQJHBXcc/JYlecYNDNZBJEw63vn2taYjOLxg3iNlePJRLcm76SDX3qcqqpf
+ OAzUHT+NRGQHyZOOfos5EJuVfaKEWfkdr4crDOBp2KFX/hKeIetGWLc1I64/oz6RHQ
+ NC8RA6ivq/IEW4DV1d+3Z0k229cWnviqo6Svky+UHUgnyeaFy3m0xyIovRQ1UfVX8n
+ wqqP9ts5FpBy46j7HS+G+te0/D/3BLeS388iQo+wLiLJCSDRdl7jDwGFy3vdpkllGJ
+ NUUDfmqseIbQg==
+Date: Thu, 2 Jul 2026 16:40:15 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, 
+ maddy@linux.ibm.com, mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com, 
+ kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org, 
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, 
+ tursulin@ursulin.net, robin.clark@oss.qualcomm.com, lumag@kernel.org,
+ lyude@redhat.com, 
+ dakr@kernel.org, tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, 
+ heiko@sntech.de, andy.yan@rock-chips.com, thierry.reding@kernel.org, 
+ mperttunen@nvidia.com, jonathanh@nvidia.com, kraxel@redhat.com, 
+ dmitry.osipenko@collabora.com, zack.rusin@broadcom.com, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
+ deller@gmx.de, bcrl@kvack.org, 
+ viro@zeniv.linux.org.uk, brauner@kernel.org, muchun.song@linux.dev,
+ osalvador@suse.de, 
+ david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
+ liam@infradead.org, npache@redhat.com, ryan.roberts@arm.com, dev.jain@arm.com, 
+ baohua@kernel.org, hughd@google.com, vbabka@kernel.org, rppt@kernel.org, 
+ surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de, 
+ kees@kernel.org, perex@perex.cz, tiwai@suse.com, linux-mips@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ virtualization@lists.linux.dev, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, 
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH 08/13] mm: introduce vma_get_page_prot() and use it
+Message-ID: <akaGOiLz-3Zx6kDs@lucifer>
+References: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
+ <20260702123845.95316-1-lance.yang@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260702123845.95316-1-lance.yang@linux.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,75 +87,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, Jul 02, 2026 at 08:38:45PM +0800, Lance Yang wrote:
+>
+> On Mon, Jun 29, 2026 at 08:25:31PM +0100, Lorenzo Stoakes wrote:
+> >There's a large number of vm_get_page_prot(vma->vm_flags) invocations. Make
+> >life easier by introducing vma_get_page_prot() parameterised by the VMA.
+> >
+> >This also makes converting vm_get_page_prot() to vma_flags_t easier.
+> >
+> >Also update the userland VMA tests to reflect the change.
+> >
+> >No functional change intended.
+> >
+> >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> >---
+> > drivers/gpu/drm/drm_gem.c                   |  2 +-
+> > drivers/gpu/drm/drm_gem_dma_helper.c        |  2 +-
+> > drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
+> > drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  2 +-
+> > drivers/gpu/drm/exynos/exynos_drm_gem.c     |  6 +++---
+> > drivers/gpu/drm/i915/gem/i915_gem_mman.c    | 12 ++++++------
+> > drivers/gpu/drm/msm/msm_gem.c               |  2 +-
+> > drivers/gpu/drm/nouveau/nouveau_gem.c       |  2 +-
+> > drivers/gpu/drm/omapdrm/omap_fbdev.c        |  2 +-
+> > drivers/gpu/drm/omapdrm/omap_gem.c          |  6 +++---
+> > drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  2 +-
+> > drivers/gpu/drm/tegra/gem.c                 |  2 +-
+> > drivers/gpu/drm/virtio/virtgpu_vram.c       |  2 +-
+> > drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |  2 +-
+> > drivers/gpu/drm/xe/xe_device.c              |  2 +-
+> > drivers/gpu/drm/xe/xe_mmio_gem.c            |  2 +-
+> > drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
+> > drivers/video/fbdev/core/fb_io_fops.c       |  2 +-
+>
+> One missed?
+>
+> drivers/gpu/drm/panthor/panthor_gem.c still has:
+>
+> 	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+>
+> Can use vma_get_page_prot(vma) too.
 
-Pre-existing issues:
-- [High] Missed fix / Use-After-Free in fbdev omapfb driver
---
+Oops! Will respin and update. Good spot!
 
-commit 84bfbe9de64eb5f62f575283f7f6c859c07c8287
-Author: Andreas Kemnade <andreas@kemnade.info>
+>
+> [...]
 
-drm/omap: dsi: do not copy isr table
-
-This commit stops copying the ISR table in the OMAP DSI interrupt handler
-to prevent potential use-after-free vulnerabilities. By directly handling
-ISRs with the original table, it avoids accessing stack-allocated objects
-that might have been unregistered and destroyed.
-
-> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/=
-dss/dsi.c
-> index 27fe7bca9e2cf..70cfb779d6ae5 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
-> @@ -455,15 +455,10 @@ static irqreturn_t omap_dsi_irq_handler(int irq, vo=
-id *arg)
->  		timer_delete(&dsi->te_timer);
->  #endif
-> =20
-> -	/* make a copy and unlock, so that isrs can unregister
-> -	 * themselves */
-> -	memcpy(&dsi->isr_tables_copy, &dsi->isr_tables,
-> -		sizeof(dsi->isr_tables));
-> +	dsi_handle_isrs(&dsi->isr_tables, irqstatus, vcstatus, ciostatus);
-
-[Severity: High]
-This is a pre-existing issue, but does the same vulnerability still exist
-in the fbdev omapfb driver?
-
-Looking at drivers/video/fbdev/omap2/omapfb/dss/dsi.c in omap_dsi_irq_handl=
-er(),
-it still contains the copied table pattern:
-
-	/* make a copy and unlock, so that isrs can unregister
-	 * themselves */
-	memcpy(&dsi->isr_tables_copy, &dsi->isr_tables,
-		sizeof(dsi->isr_tables));
-
-	spin_unlock(&dsi->irq_lock);
-
-	dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
-
-If a timed-out waiter unregisters its ISR and its on-stack completion object
-is destroyed, could the interrupt handler still access it via the copied
-isr_tables_copy table?
-
-Should this fix be applied to the fbdev driver as well?
-
-> =20
->  	spin_unlock(&dsi->irq_lock);
-> =20
-> -	dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
-> -
->  	dsi_handle_irq_errors(dsi, irqstatus, vcstatus, ciostatus);
-> =20
->  	dsi_collect_irq_stats(dsi, irqstatus, vcstatus, ciostatus);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-dsi-uaf-v2=
--1-dbb4aa0f0b8e@kemnade.info?part=3D1
+Thanks, Lorenzo
