@@ -4,132 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09030C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 02:22:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950BFC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 02:29:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A23C10E29E;
-	Thu,  2 Jul 2026 02:22:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A7D10E2AC;
+	Thu,  2 Jul 2026 02:29:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OFfJ0o1f";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="elNml9Uj";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="UkAWpIm5";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8D0B10E29E
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 02:22:24 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6621Keog3047884
- for <dri-devel@lists.freedesktop.org>; Thu, 2 Jul 2026 02:22:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=WuJiALMC/BGgUNf5qTrrae
- 7IiC6Qqo1y/5Q35LNS3FM=; b=OFfJ0o1fNPdox08dfjsyHo7ZgIA2iIMIX3hTR/
- t1xpdTN8Z0FD3Tm5caJs+CRwmmsgUbuHgecd2WMA4YqAHpLiDsYqqtIBvCUgwmoc
- CByM1he21y8/0IZZ9DhLZjaelZS9TUWkbrViTqKExJ3YuNLOroj/ls2a7DEiGUG8
- S5dVViHPYAjlw7BYuoYJM4U03Njd7w/1ig65s8eYCQlflDGOcUw/j7940sDa17k2
- QXg04zAulHAwn4cR65qYi6d1S9CHyW7uXh0AjFcavGaejGp1jwsjOnUY/8Ei3YUq
- qIqy4ZzK4CjGX5NOOU2KQAr93Lj+DOH3G4iEDHCG9HjNMI8Q==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f50squs8d-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 02:22:23 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2c354050c34so13954165ad.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 19:22:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782958942; x=1783563742;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=WuJiALMC/BGgUNf5qTrrae7IiC6Qqo1y/5Q35LNS3FM=;
- b=elNml9UjDLYksbBs3GEG0UFq2VHpVnlOjJEmkCxo564ozLRT/aQF0LLsceGEBXQ5st
- NtSsRl9EF0bn0cAWGN9oztTDUZu7vvDNoTigHtap7jXTxYgdpq1YzwIgY4TOjOFCaZZY
- dZu2MzwWkN0uUfc9PmlgICpPBE6I5OvLuPs2i6dqliTIgeZmNlmgtEubOIwFGdne63rM
- eyTugDPRRSuYZ7vH+TctDko0CygRvWIl9YxFG/RncP8EGM93dn4JbjwI9mcdZG8smI4j
- a1b4GSGT+cYy1+sJo+wcvnHLeyKcv8PK1ihqWWMIIRMFP7PQEWJ5a537bMMeWRhemJ3R
- 67AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782958942; x=1783563742;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WuJiALMC/BGgUNf5qTrrae7IiC6Qqo1y/5Q35LNS3FM=;
- b=qPDUhBYc6BmBvCikFWTEvD+WtpSJRo4z8BZOQADpZG2xjinlqrYQ654yOy1CdFomJB
- oHpq0mQYPXGnaKRCdljpcohXZ1Ky5YWzvBITdmmO09dqs7U4NqMpVy2MYqcqAedI2H+4
- NHasvcfrxvjAcIWg7dSxtjtcPPU9PfhDFFEqxT/nwc904ATwG7MJiKI+1dZbbrLRiiFp
- Y50IIHgN1ufZXBJfKbEiMRyIQf2xbiXZeEj+KCbZagTl6Nks9jGfrY7JeGpz5yTeCscI
- XoQsUneVoJwfNgCS0u2duuabO3JpcvnmHgDPL/Vn0laShmmB9l6p5bFkAz1rzPbFCCpf
- 26dQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpPql5eHKo5szvLY7tepbKV6hC4NBwZonEe3oEHiztfvYlWc0VOxVPVZmqeq8kKrcDPdcjft31jSgY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzs64FiDmdQmwQpIQN41ZjTSlS8Ed/4k03WDGrnbnMNR8/0DFo7
- T88+QNLdxnQ3TUI1A5bW3dg/h2KCUe88q9WCDEevm4m7lup6tLQNb3Ug4ZydhSZKPGO3y3nXvVf
- S3N6MCIbiJnChRqNxXD1Yh8kUPvIkF2f7iwS/QmCOgXpDdvGzVpcZWHGYyvwGWwFeWvlPuSs=
-X-Gm-Gg: AfdE7ck5RelU+QYx6leoa/bG6zaZkopITVaJZi/nv7GGIKZDbhBxMwlrxv89TMmauwE
- Re2qEGQ4n5QpNg8EyOv0vSxGbSwgt16FC3mnxLx0mj5cdjeTCGWGysjzMXttWy+W/zngzB2hv03
- 1KQaU2iNjmHqzv2uBK5CfLgDQdJOEr7GbTeJ91JC8ZtqqGllycMPbaACsrkPAdFCEhqyldUD4l3
- T+4Jscrc8UJJYz5qfGCW243LBVhVGc77FLANe5iHUfQTd84Natv0LVP3tCi+4rKsRucY23b9RV7
- nAm98kuS4XzWwXImhoUUVMn1tKn44o0ZBiYtydYhwcxf3wqzfKzOIsHwIEzTt1d4+Bapnz8hNko
- qc2FLd0jDInBZMK7HbqctkJhMoAp6zG+Gs3XpcS78ncFtJEJ/nc56/CNEUAY=
-X-Received: by 2002:a17:903:3883:b0:2c9:97a7:b1ec with SMTP id
- d9443c01a7336-2ca7e9348f2mr45316005ad.43.1782958942324; 
- Wed, 01 Jul 2026 19:22:22 -0700 (PDT)
-X-Received: by 2002:a17:903:3883:b0:2c9:97a7:b1ec with SMTP id
- d9443c01a7336-2ca7e9348f2mr45315615ad.43.1782958941741; 
- Wed, 01 Jul 2026 19:22:21 -0700 (PDT)
-Received: from hu-yutlin-lv.qualcomm.com (Global_NAT1.qualcomm.com.
- [129.46.96.20]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13b3c7fa65asm3279918c88.6.2026.07.01.19.22.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Jul 2026 19:22:20 -0700 (PDT)
-From: Eddie Lin <eddie.lin@oss.qualcomm.com>
-Date: Wed, 01 Jul 2026 19:21:59 -0700
-Subject: [PATCH v3] misc: fastrpc: fix memory leak in fastrpc_channel_ctx_free
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F57910E2AC;
+ Thu,  2 Jul 2026 02:29:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lhd3cCnJi9DMGOYFKzMApZTDfttX048xR7QfzefwOhAMHAxySjFivhYIJLrcaBF4qKBroamxlYUjghnVwVXdJDGuPQPeXBHyk4/nbYry12NgYQtN8Pua0h829Zv8ICNOCjeTDAWQLWKgVc+iDm9kL2gXSyV4mkg/DADdbZJ7WsFdFH54lULcWFzp4Lje815ysbHhhDH0aifB2P4hTf5GgBCOWyWaNpq/kpioD6GqHlgEK4Jf6S1CP+HdvyOfhn23NdfuawdjRVhl5W8YOvgNuUrlX2xo067Jm1qPFliGs7fBZL8r0NPifgRoCRP63bp0DkdZ2m+nfzPykH2Gh/IGqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vzr3v9Ieye9/KCi97AdKNsmax8KjbENDDi9IKxxB20I=;
+ b=eAHnw7L+fR1ssRuJw2Vy2M2eqyALbtesCM8tbxseFTLqQEb8yMtAOr8ccagNtJgRts5+Z8+rJ1VIwoX8QYiyJrO3WzaZ7zsLX/StjeNu05ZzWzjTvQswN6bc3B9WocnG82HY4ZQLHhEKcyqrv56XxCfODnqU7xJrLUc8ZFKig3mrNF58yLuYbuNVFvOuO6buaGqGgkTYzV10u3DZGLDaAUUt5VbfB6Nc0AsrU/f54h98Se1nulvl64AYws7r/DeHC12IoIWAznX5E4va4hGZzmZElQTgaUfxWjFUI54pMogVSubLBqp4rvAiJ3qmoprX9sL9KYuFLqnSE9YkFvOejw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vzr3v9Ieye9/KCi97AdKNsmax8KjbENDDi9IKxxB20I=;
+ b=UkAWpIm5k3pPVhz73d2mc7P3xsCB2CjtD7D16P+6NjYgjd7j/JFhBXcHPidPrwV3872Fk0AtturI+fyOkMULFmNgDtkVwrxiq7lxzNSpY4qWg0K40tH+pOc8B089NRtSmlFYDdc8VIs4aQE+l2bc6ZrqYcd/NwdsBldTWNDNP6H6HoUe2aMa/LQghLXH9rxkBP+7tWZd03X83niHcn6X89DbnHQ74uIzDK35hVBzOzleNme5AfBd4ij902vqpW/ZEdUvrKjwRI9C4ZHOE5boYMx707B8kiKRHoLT+RPBYQfwfqCEgvQT8+nAsH71qDPPUuwy9R7v7qoIY/5Qww7a2w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by MN0PR12MB6367.namprd12.prod.outlook.com (2603:10b6:208:3d3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
+ 02:28:55 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
+ 02:28:55 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Jul 2026 11:28:51 +0900
+Message-Id: <DJNQC1A84TF0.17HUBQBCRGFZ4@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v4 09/13] gpu: nova-core: introduce GspBootMethod
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260629-nova-bootcontext-v4-0-5539d8469590@nvidia.com>
+ <20260629-nova-bootcontext-v4-9-5539d8469590@nvidia.com>
+In-Reply-To: <20260629-nova-bootcontext-v4-9-5539d8469590@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0089.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:369::11) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-fastrpc-cctx-cleanup-v3-1-3a73c2e4ce1a@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAEbLRWoC/4WNQQ6CMBBFr0K6tqRTCaAr72FclGGQGqTYFoIh3
- N0WNy40biZ5yZ/3FubIanLsmCzM0qSdNn2A/S5h2Kr+SlzXgZkUMhc5AG+U83ZAjuhnjh2pfhx
- 41dRSKFVUpRIsvA6WGj1v2vPlzW6sboQ+uuKi1c4b+9y6E8Tdn8QEHLgsxaHIsgwgx5NxLn2Mq
- kNzv6fhsFia5Ker+OGSwVVRWaCQAJCpL651XV+IpGprHQEAAA==
-X-Change-ID: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Eddie Lin <eddie.lin@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: P2UH4k5aYwuGKRpW7VJG6CWudc9u01PH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDAyMSBTYWx0ZWRfX9zJcyeGwiKv3
- KMjlkJo93OpxuL5DE19rQwGZ5xNvE6NnZX6Wr3UolWQQNfECu51mZCY8FaJrrXwGLdY0aALcSZ2
- qC/MF/qh8rEhzOjxFpmAPYMJ+cbPCUM=
-X-Proofpoint-ORIG-GUID: P2UH4k5aYwuGKRpW7VJG6CWudc9u01PH
-X-Authority-Analysis: v=2.4 cv=ceHiaHDM c=1 sm=1 tr=0 ts=6a45cb5f cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Rsn1OCey0fvCUy5VNe4A:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDAyMSBTYWx0ZWRfX7onJ/TXDiYTb
- Z0ZG2kRwLU9t0I76s4tlZjPnPvjMIqG0FzJsSfv/jMCKvA0LBq9SK517kT8XLBMLgzb5/vRlLCR
- 5DgMrIxgVEIB0k+QR76Bg8SECdBrpRfUkAcBhrxixXkLRPxT9exQroge5N6ly8kWJn8fHA8RuYK
- VwSuXdAbB4Euh7hBSrq0V66xqe0mTCcMbK+GbLPJjaoyzOIvs2wWbJI7EJ5D2OsqnAYsQh/Hpek
- 18d1YgO7rtFBzMeqVF5m2ivraqq38unjquKDKJeNtNnqQYbeEG03AGvp/HkyKSryqhUxytIiqQJ
- u8S9T+APfuWOmONnaaJI5WFw+nWoRbNXdNZNnTUfABfeYd8bt1Nl30ScgNeuj07D1GqMxBrz/Kb
- 7VN8udSK4OY66mJSTgLeFxyTJc/yRHHtT6JLFbYwSvaCBRp9O00/Lb/nANUT7ABJbzpGgkRtHII
- F7Kd1RKo9Yhws4DQGBQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-02_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0 spamscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607020021
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|MN0PR12MB6367:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cfcf4bd-b40c-4aed-6d5f-08ded7e1a9fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|23010399003|376014|7416014|6133799003|22082099003|4143699003|18002099003|11063799006|56012099006|921020;
+X-Microsoft-Antispam-Message-Info: nAKS1OzZTEprnJzKzKxSI/iroFtUuUfBFiEwPM584UrrrFLCQ7+hLwF6aevZe31+I8OMgP0DQAbNgo4OU9TuPLgnFlwVI6S7O5IjKaFdkL+knwIPk3XU2W4ec2GuIhnF2Af716+tEzjdXIDgl7Vl8bHuHcFd6GTNi8OXbQVdNvhSS8gbcaJKDI5EmvH9sFvfFZIKqf9LMdZmSf+uRFXfS5Rs09Bk55yG8WJCjSjSeCFwo8c/+oIYZduQDHfIHvYZWIMu+yo5mZa+x3ZciaqWOKZ+iW1lGYui81Ad2hkqQFlf61d+basvwfdaLhVtiXI9MsvuyMclDZbDUGAMFZfLni5YvfLRfEPZoGj8ofwb41sfooMdFX5XFg9Hgld0Cqd0JGHjFseCGl40mEYpon86NxEleSr+7xe9uOTkg++v8esFCqclp/kCJ1N7+4D9mlzXMeoZ5dv8Pc8XTqJAgC3ResLey+KDfz2MqHQUN7kvGpaaRIuQggtveykjhZfun7Rg6rfvitqBWhQCg5PystRa4ArwCzSP9Zu2agTLQ9AKXIe9fiJcBUNUZKTX4gZFfFnDTDZ2xOxxNq873DB0t+IeV5xT8fuBqX5PgckQ2Wc2ngYyQCobWpZhVqjeNFfamj66iRaWK+cFJQ0xnlouIBSwtr29sIjOaSt0y/f7ut1n+bDP9DRRXWEl/bk++8gSB6jSsY0WvHNL/DP/df3BkovFOg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(376014)(7416014)(6133799003)(22082099003)(4143699003)(18002099003)(11063799006)(56012099006)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WW1IZ25JVnNsUUc2Ymh2Q0RGcVp0T3ZYaXQxaVM1UW5zNG94RDNVZHlGOEdP?=
+ =?utf-8?B?NzZ0RmRYSVhXV2FTaXUyRExhQlI4WmVzYmZTUGtEc1lrUDVDemQ1K1RFZlZo?=
+ =?utf-8?B?ZjYxZmFoTmw1SFlxNGswYUljd1hjblc0c1VzcDJCdzBWTmNVNkszNWEyMFZ2?=
+ =?utf-8?B?UEpYcFA2QzVYU0xpNllOQVZyMXpsN3k2a3pOcnRXQ011WUIzUFU2bXlWSWlE?=
+ =?utf-8?B?aUk4NVU0TzZ1KzFSbE1ncGZLMlBLdDdzb2l3M0ZUTG9SbmlsQmFUY2lrS1Ra?=
+ =?utf-8?B?MGZ2SGE4d0hFZ3FhVExHTXpBaDh3SXB2a1l4Z295R2lHQnVZZ2RMTUFNbnVM?=
+ =?utf-8?B?d3ViQ0J5YzdnaG9qRVNFTEg3cjhKUmZlUkhGMG04U1hReGU3elYvT2NVSnYx?=
+ =?utf-8?B?Z3lHWHdyZXpOTGs1clFrWGdTYkY0OHdXV0I5ditHczJOU204SXAwejRpdjhh?=
+ =?utf-8?B?eGFEcjZ3QjlySERQWFVwQ2hLYjhMVkZjVHVNUGl2M3ZGditVYXAvbjVaYUVl?=
+ =?utf-8?B?NG0vSzRYbnpkNnpxcHQ5SWhuYWMyVHdFV1lpeWZLTkEzZ3FjQ0padHQybTRw?=
+ =?utf-8?B?aUFzRTdEWDJTQS82MG84cFRaSXhFdjVpNVMwZUdMSGx1clpMYUVTbVpJSEQ0?=
+ =?utf-8?B?Q1B5WjhLOGdIblVMUTViQW1ZM1ZqUW9NaXNZeU1JYUkxcVN0VXg2OVJINkZ4?=
+ =?utf-8?B?WGliVHh1L0l5MXRaS052SkZVUXJrKzE3ZzFkVC8vaWc3ZVNBeWZmT3MvK0tn?=
+ =?utf-8?B?NXNnQ2ZqSzUxdGxGTVVzY0NZaHFMVnRnMGk2aGtsbFVGcDh4b2NjVWZtZnR4?=
+ =?utf-8?B?N2RLUW5kTXVGeWJuMFhuUXd1MkplY1V2c3JPSTlZdjFTd3dNOE9QREZkRDVl?=
+ =?utf-8?B?U3owa1NwY0lLT0dZU0h3T3VHVWUwZmF1RXJQR2NGU1c5bFhBZU5LaGVVeWl2?=
+ =?utf-8?B?WFZFeHVoeTRXd1d6cUhsOW1WVUxvNzdoNHBGUUMyWlVpMDJ6THpCblFxdHVj?=
+ =?utf-8?B?UnlTSFRsRExSR1k2ZWIrR29oWWZua2g0bXU1Z3VLN1diMHRxOU5pMStkalBs?=
+ =?utf-8?B?a1lzU2NUUEZGKzMzNDhmcHdBSjl3SG9vRUpncTNYblJna1ZpOWVqcFN4V1hm?=
+ =?utf-8?B?Mm40WC85aWMzSDlaRis4MmhvdUlBMnc0TE1sRlNKODF0U2lsRGEvS1FqdHZy?=
+ =?utf-8?B?eno1aCt0NWcvb1QxMGY0V2ZZN2FQU1pER2Q4cVpGbktkNXhmNENWSWtDNkFa?=
+ =?utf-8?B?T2FhY2ZodEZvb2twT0Uzcll6cEQzU2FyTEVRVmtqalQzV2xLa3ZVQ3ZYcGhq?=
+ =?utf-8?B?V1gzT0tpSGVWQk9mcmhpWXRJdE5DRE5mNlhVOW1JTE9LNldIRzY0Yi9VT0V3?=
+ =?utf-8?B?RVVCcG1XQ1VyVFo3bXczblhtV1dZcGhMTHB0dkNIZjlpbElvQ1U2eFEyNWFr?=
+ =?utf-8?B?VVN6WlJxRjhMYUs4K0c1elFnekhTQWhxQjBGeWoyMlRrWFluZnVLd2Y5WjNV?=
+ =?utf-8?B?SFZvSzVBbWl6ZXJuSms3TGo4cUdEMW8xTTc1QVpIZHFPL1VUSEhycGZkWWE2?=
+ =?utf-8?B?aHNaeXh3a3UyUzF0ODhvUWZGUDhMQ01Lb1BMUm1tVGFvZEluOG1OWWNDUURo?=
+ =?utf-8?B?NU1GcEU4c1ZrKzVYN2Q4UzFsV3FXUmdDcE8zQzdjMzgrWk1lU3JYRG5hM1hv?=
+ =?utf-8?B?Tk1lU28rVkh4Qis1Ny91TmtKalF0Y3RPUGg3UEJocUFKQlpNakhOQXZDN28r?=
+ =?utf-8?B?Z3NubXdERWt2MHlTb2tvaDQ4NkNSVlBxR2hQT3ByWTJBOUVpbXhFTGdLL0pj?=
+ =?utf-8?B?aWdidGIrc3BKb25QSjRsVU9UVkRmTWxaWGRxNHJCZWFIdDl6R1hoVkd5WHZN?=
+ =?utf-8?B?QUY3ZDFmOUljVkd3VFFLN1lvbjBNSCsvaC9ad3B5SlFYNzcvUFBNVDJhUU1l?=
+ =?utf-8?B?MFh2QmhRY01CTHdzOG9HWHg5Q0w2dEtXSWV4ajlxOGNzUmhLeFdlSDVPZXM3?=
+ =?utf-8?B?U0I2UnNrS0dySktSR3lsaHVSMzd2VTRjT2E1cTl3STRVbEF1ajRXOGNlS1RK?=
+ =?utf-8?B?aGFOQkg5QkhhVVBDQ3BudDA2eCtEOFdLemxDKzdVdFhlZ2dXbm5CTjd6VFUy?=
+ =?utf-8?B?Q1VMYjAwcHQwYmN5ZjZBS2h5b09nM0Q0VXVFdElDc2ZhRHB6Tm1KdVVkMXl1?=
+ =?utf-8?B?L2pWbFplTkFnMTNmSjZVQWhKSFpHd2ZJYmpMcG9ROFNQTitQUnpwUVA1d2tx?=
+ =?utf-8?B?TGJKN3poUTFMRXcvcjUxL2RoOVZ1T3ZCRmtqVkM5bFhWMWZEVnpSNFBWcXhx?=
+ =?utf-8?B?N2lkRVdNZlJUcDVQZXV2dVlpWitZSWhadzhMQUdQeGFUY0Y1M3FKZWxhM2lL?=
+ =?utf-8?Q?nZMQpGExjn1hdCGobABCFq7ZuIFF5g9N6zHAEwN0wG/WB?=
+X-MS-Exchange-AntiSpam-MessageData-1: GAvQC62XUjIsZA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cfcf4bd-b40c-4aed-6d5f-08ded7e1a9fc
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 02:28:55.4840 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /pe4all8VBSXGODlxX5NMDXf4S4DMC/h/MmUaRbU9jSIozum003BbVVaLGjd/JhfJWTaUW5F4S1hUcXtbgiRqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6367
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,45 +144,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The 'ctx_idr' is initialized but never destroyed when
-the channel context is freed, leading to a memory leak.
-Add idr_destroy() to properly clean up the IDR resources.
+On Mon Jun 29, 2026 at 11:09 PM JST, Alexandre Courbot wrote:
+> The GSP boot method is currently determined by two ad-hoc methods of
+> `Chipset`: `uses_fsp` (a boolean telling whether to use the FSP boot
+> path or the Sec2 Booter one) and `needs_fwsec_bootloader` (another
+> boolean valid only for the Sec2 Booter method that tells whether the
+> FWSEC bootloader must be used).
+>
+> This is neither extensible nor sound: the combination `uses_fsp &&
+> needs_fwsec_bootloader` is invalid, but can still be expressed.
+>
+> Thus, unify these two predicates into a single `gsp_boot_method` method
+> that returns an enum type unambiguously describing the boot method to
+> use. This ensures that no invalid combination can be expressed, which
+> makes matching sounder.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eddie Lin <eddie.lin@oss.qualcomm.com>
----
-Changes in v3:
-- Remove duplicate description from cover letter.
-- Link to v2: https://patch.msgid.link/20260617-fastrpc-cctx-cleanup-v2-1-be87c021114a@oss.qualcomm.com
+Ideally we would not need to expose bootloader details (needs fwsec
+bootloader, mapping of architecture to GspBootMethod) outside of the
+HAL, and also not have to duplicate the logic for determining
+`needs_fwsec_bootloader` in both the HAL and Chipset. One thing
+preventing keeping all this in the HALs is that we need to know the set
+of firmware files in a const context, which can't go through the &dyn
+for HALs. I also find it a bit odd to go Chipset->GspBootMethod->HAL
+which relies on the GSP HAL being entirely determined by the boot method
+which doesn't feel generally correct to me.
 
-Changes in v2:
-- Added Fixes tag.
-- Added Cc: stable@vger.kernel.org.
-- Removed duplicate description from cover letter.
-- Link to v1: https://patch.msgid.link/20260611-fastrpc-cctx-cleanup-v1-1-28097444116c@oss.qualcomm.com
----
- drivers/misc/fastrpc.c | 1 +
- 1 file changed, 1 insertion(+)
+What if we added a const fn n gsp/hal.rs called like boot_firmware_files
+( or whatever) which returns the extra firmware files needed to boot the
+GSP based on the architecture. Then we don't need to expose details like
+`needs_fwsec_bootloader` or `GspBootMethod` outside of the HALs. We
+still need another set of matches but it's unavoidable AFAICT without
+being able to know the HAL type in a const context, at least it's
+consolidated and in the HAL this way. In the future we might consider
+type parameterising `Gpu` with the chipset and types that it uses with
+the minimal set of strategies that it needs (e.g. sec2 vs fsp boot) then
+we could even make the HALs not use dyn and push a bunch of stuff into
+associated types.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index a9b2ae44c06f..7727850e9240 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -492,6 +492,7 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
- 
- 	cctx = container_of(ref, struct fastrpc_channel_ctx, refcount);
- 
-+	idr_destroy(&cctx->ctx_idr);
- 	kfree(cctx);
+That looks like this (on top of patch 8):
+
+WDYT?
+
+diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firm=
+ware.rs
+index 80e948bf7511..1c02d80de7bc 100644
+--- a/drivers/gpu/nova-core/firmware.rs
++++ b/drivers/gpu/nova-core/firmware.rs
+@@ -423,24 +423,19 @@ const fn make_entry_file(self, chipset: &str, fw: &st=
+r) -> Self {
+     const fn make_entry_chipset(self, chipset: gpu::Chipset) -> Self {
+         let name =3D chipset.name();
+=20
+-        let this =3D self
++        let mut this =3D self
+             .make_entry_file(name, "bootloader")
+             .make_entry_file(name, "gsp");
+=20
+-        // FSP-based chipsets (Hopper, Blackwell and later) boot the GSP v=
+ia the FMC image loaded by
+-        // FSP. Older chipsets use the SEC2 booter instead.
+-        let this =3D if chipset.uses_fsp() {
+-            this.make_entry_file(name, "fmc")
+-        } else {
+-            this.make_entry_file(name, "booter_load")
+-                .make_entry_file(name, "booter_unload")
+-        };
+-
+-        if chipset.needs_fwsec_bootloader() {
+-            this.make_entry_file(name, "gen_bootloader")
+-        } else {
+-            this
++        // Add the firmware files specific to the GSP boot method of `chip=
+set`.
++        let boot_files =3D crate::gsp::boot_firmware_files(chipset);
++        let mut i =3D 0;
++        while i < boot_files.len() {
++            this =3D this.make_entry_file(name, boot_files[i]);
++            i +=3D 1;
+         }
++
++        this
+     }
+=20
+     pub(crate) const fn create(
+diff --git a/drivers/gpu/nova-core/firmware/fwsec.rs b/drivers/gpu/nova-cor=
+e/firmware/fwsec.rs
+index 95e0dd77746b..7a931f22f629 100644
+--- a/drivers/gpu/nova-core/firmware/fwsec.rs
++++ b/drivers/gpu/nova-core/firmware/fwsec.rs
+@@ -385,9 +385,8 @@ pub(crate) fn new(
+=20
+     /// Loads the FWSEC firmware into `falcon` and execute it.
+     ///
+-    /// This must only be called on chipsets that do not need the FWSEC bo=
+otloader (i.e., where
+-    /// [`Chipset::needs_fwsec_bootloader()`](crate::gpu::Chipset::needs_f=
+wsec_bootloader) returns
+-    /// `false`). On chipsets that do, use [`bootloader::FwsecFirmwareWith=
+Bl`] instead.
++    /// This must only be called on chipsets that do not need the FWSEC bo=
+otloader. On chipsets
++    /// where the bootloader is required, use [`bootloader::FwsecFirmwareW=
+ithBl`] instead.
+     pub(crate) fn run(&self, dev: &Device<device::Bound>, falcon: &Falcon<=
+'_, Gsp>) -> Result<()> {
+         // Reset falcon, load the firmware, and run it.
+         falcon
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 32bfa0be2357..c04706b60ba8 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -133,22 +133,6 @@ pub(crate) const fn arch(self) -> Architecture {
+         }
+     }
+=20
+-    /// Returns `true` if this chipset requires the PIO-loaded bootloader =
+in order to boot FWSEC.
+-    ///
+-    /// This includes all chipsets < GA102.
+-    pub(crate) const fn needs_fwsec_bootloader(self) -> bool {
+-        matches!(self.arch(), Architecture::Turing) || matches!(self, Self=
+::GA100)
+-    }
+-
+-    /// Returns `true` if this chipset boots via FSP (Hopper and later), w=
+hich requires the FMC
+-    /// firmware image.
+-    pub(crate) const fn uses_fsp(self) -> bool {
+-        matches!(
+-            self.arch(),
+-            Architecture::Hopper | Architecture::BlackwellGB10x | Architec=
+ture::BlackwellGB20x
+-        )
+-    }
+-
+     /// Returns the address range of the PCI config mirror space.
+     pub(crate) fn pci_config_mirror_range(self) -> Range<u32> {
+         hal::gpu_hal(self).pci_config_mirror_range()
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index b4ac4156056e..d5cca3c8350a 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -30,6 +30,7 @@
+     GspFwWprMeta,
+     LibosParams, //
+ };
++pub(crate) use hal::boot_firmware_files;
+=20
+ use crate::{
+     driver::Bar0,
+diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp/h=
+al.rs
+index eddb4e8bf510..9da078dd1059 100644
+--- a/drivers/gpu/nova-core/gsp/hal.rs
++++ b/drivers/gpu/nova-core/gsp/hal.rs
+@@ -57,6 +57,25 @@ fn post_boot(&self, _gsp: &Gsp, _ctx: &GspBootContext<'_=
+>, _gsp_fw: &GspFirmware
+     }
  }
- 
-
----
-base-commit: abe651837cb394f76d738a7a747322fca3bf17ba
-change-id: 20260611-fastrpc-cctx-cleanup-bfd20aa7b8a0
-
-Best regards,
---  
-Eddie Lin <eddie.lin@oss.qualcomm.com>
+=20
++/// Returns the names of the firmware files required to boot the GSP of `c=
+hipset`, in addition to
++/// the "bootloader" and "gsp" images required by all chipsets.
++pub(crate) const fn boot_firmware_files(chipset: Chipset) -> &'static [&'s=
+tatic str] {
++    match chipset.arch() {
++        // Turing chipsets boot the GSP via the SEC2 Booter, and require t=
+he FWSEC bootloader.
++        Architecture::Turing =3D> &["booter_load", "booter_unload", "gen_b=
+ootloader"],
++        // GA100 also requires the FWSEC bootloader.
++        Architecture::Ampere if matches!(chipset, Chipset::GA100) =3D> {
++            &["booter_load", "booter_unload", "gen_bootloader"]
++        }
++        // Other Ampere chipsets, as well as Ada chipsets, run FWSEC direc=
+tly.
++        Architecture::Ampere | Architecture::Ada =3D> &["booter_load", "bo=
+oter_unload"],
++        // Hopper and later chipsets boot the GSP via the FMC image loaded=
+ by FSP.
++        Architecture::Hopper | Architecture::BlackwellGB10x | Architecture=
+::BlackwellGB20x =3D> {
++            &["fmc"]
++        }
++    }
++}
++
+ /// Returns the GSP HAL to be used for `chipset`.
+ pub(super) fn gsp_hal(chipset: Chipset) -> &'static dyn GspHal {
+     match chipset.arch() {
 
