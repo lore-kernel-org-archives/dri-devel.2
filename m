@@ -4,79 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87C6AC43602
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AEDEC44501
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E94710F67C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43E1210F677;
 	Fri,  3 Jul 2026 07:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="pT6Y0ydl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EcGPNAat";
 	dkim-atps=neutral
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3B610E4A9
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:05:57 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id
- a1e0cc1a2514c-966d70b9e1cso1013321241.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 05:05:57 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF5AB10F2F5
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:28:34 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-37c5d42ba2aso161374a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 04:28:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782993956; x=1783598756; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UGgdNIxUjLSQ4UNZW/FdSoJV4OLj/5NQZw2raQ+vfnI=;
- b=pT6Y0ydlIARskgr1RNjxbnRZ/5D60xkOQhP21Wlv/KfOe3L2InTAVoAQTSWBmxkRnW
- osQodml6KWfh9ZpdGY8fFHk4IuK1oq/L+qylu5xcqhMXdqjPZvgkVF1HrOy0/GsoiriC
- IEZZym9VbOkhx5bFX1nalflp5sYGy2UyVU/NqJxrNHalJ7xCnrCPfFHTh9LoPXDzprQC
- +o1Wp33wbg9vpb3Nx/CzTZ5Z1RXJaVZfbH8gnUPEhC/UIWYbcoGnyaoqaeHcT2OlMlCh
- eu8f3GWpCkw/bIUNS+LGYoGfv5rUGp/ixoIb5DtE97zfZjobst08caaMJjq1fRCN6Dqj
- XN6A==
+ d=gmail.com; s=20251104; t=1782991714; x=1783596514; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vwpv11A8Wqk34ZvqVFhL1Yv/Rbg0bjinwLUWjlhF31w=;
+ b=EcGPNAat4oLuA406gmVGA7c4OaI7UU7Nlr4iz/qLZNnz3xvCPxTfXSIltLoxJIpo+3
+ 7U2Lmzxf4fTNgrJmTScdBlkcLRT+m9Ul0VlvYHTGVe7xFstGeqxx4bPX1UYpepr+Jj5P
+ jMida/VmgbS2kksHtTBFYxkAyNaAYLpq9Ha2s0ACDzKxO1XdMw4yQMdNvSOX64lDKzfo
+ SXv5hg/Du/wbDOWmvWr6cClG5are6tDUFNS/kK9SX3zJ5Cn2TvvtywAh98ofmo95aVtA
+ aQq5DifiG63DyGHEXLpzMc8nbi7jIFs9Z11d/DsCLdBgk6v1/7uedUR2b3k0U5zYtvsL
+ c8aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782993956; x=1783598756;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=UGgdNIxUjLSQ4UNZW/FdSoJV4OLj/5NQZw2raQ+vfnI=;
- b=eLhRR1sJuGx4RKnSQvstGyuXzlP2iSpF/0RlEN57I6GbU4WsJoI5R18d5reUIJUmnw
- r4wEFEQbNMLQBeRDK6UwBgM5/aTTvnJ91bECN6Pdlacfvhd/gWkg7/bodG/PJQ46C9TP
- oFvrawZ4HfIyFyesR5cS4OwA1LCRzXVpQ/mdTk+KU2D/725yzBN5jTq/h0iASf3f6m78
- LHKsC0m2ADBPGmj8lDdSFrOgKeWVCyUJaf3QnYs69BHEOXK50Fy2ev73UCBPVXkk2u6i
- MF4ZzaIdRV4zyaiP8deXEDJBHx7BXceB2qGtzHXhfJS8oVlWWuR/+IsPZ1eCrY92IvSr
- POcg==
+ d=1e100.net; s=20251104; t=1782991714; x=1783596514;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vwpv11A8Wqk34ZvqVFhL1Yv/Rbg0bjinwLUWjlhF31w=;
+ b=dLeC5tmz7872bZAVaJykJWOCBp9056fDU3s396R3GEC5Kmhi1yrHofPmLJR3uGokTH
+ T1ttmma8thHSYRe8JewZsfJT23nNdiV7fbFkuJeYocQs+H/Wl6KxqultJi6528dn0upP
+ ckl1NYE+s75esRM+DmwPU7uxlvw8sga/FbcGyan+MgmkmC89ZLam8+PjrMye/l7fL2/A
+ u8TdSpT4jTLrhT50nE16fAJRsN2g1RrNSl3ZWuojoEvZgdg6Se3yd0WatEX2X7xUr3Pq
+ 6isxiC8ALtkIu0Z4AeYZAsNu4GgnofOuBZb2l6GXSY4Yv7f226xpGRCO7u60X9qZca2O
+ iRDg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqlrkeZudfnMRHwfLWxpBhjU4VuHsShW3L3dISE1toMg6POBsPgHhX8BJyVgHve6bV3xia6JHaVxb4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy3EVgTpwRRX3q3pq2f4/oTZLN8+IrhD3kRsr99EjuZ0Nj+6Mx7
- I1bYsN+cOrYcKazaIEQ9UD1QbCwWLH6r6/TNVRHqHxsYnn8G9ksKW2Sc84GxShxUvNg=
-X-Gm-Gg: AfdE7clVxADTESfJ5lR6FELrPn/WjQxHQwJCLcVVgTzX4oeJKDVujv/IVzXUv16LeSb
- Jk1l/q0ZFSvSMIY5Nr+aoyl57QzpYcSrAtC80J3u9qg8C7ELfoiCEtca3ULVhwHBv1pLVqfNu5h
- MmvTHeQKwDgvleAyu+z2d+TYsJwMP/IPVMUc6hdgmZN86SN0mXshZkvjDMJX8E/ZGyQeQ1scISG
- IpFXA46uvJsnplay9IqOSNJA9MOw56LNSCLrLfEDEIuBWDm2gbU4pGmsyq+xn+X9kmu9ykarnh4
- Zwu3twmQvuI5NBxD9ky27KizYqaJo+KDHomHUhGcBqPvv4rYxrg2Hgb0nfBD+5K8hgk4PhIYEZD
- t/b52KkgAqTPLkkEqkaunBEylmMW7llTo/zTdrVSbrDYYUEXf1bu3TrxJNCyYxbVBjJhrpATTot
- 537tlBVHg1nvT3QBQ=
-X-Received: by 2002:a67:e95b:0:b0:73e:8694:c6da with SMTP id
- ada2fe7eead31-73e8694ccf7mr500231137.24.1782993956039; 
- Thu, 02 Jul 2026 05:05:56 -0700 (PDT)
-Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
+ AHgh+Rq+Xn4RBCMsExlT6iJJNa0LkjZscrdoMIanj0Beca9PioBfa0ly46kkJgcTP+WxDDuVWBavvdgKXN0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxthuNYZMVecvGu6jXOcGF481r0zbk7wFT2qpOh2w0FdJ9V9QtG
+ b3EEkwwX17nC4CL2c27aHOXMFTGYRcm0wMdwaFmOf5nGJfb0vET4GuDZC0ZbmR0/y6EolA==
+X-Gm-Gg: AfdE7ckimdk7NO+5P3/d3oizc5E8hG9HIu8NnwwMuGzOIhT51dyMnZ9Ty2tm362LpAv
+ CHSkmTZkDMjDRblZy0bZOs8oUBPhJY9AkQxQ6b1GVRlmcM/QUQrkGPB5UbWy5OYlO4HrWZQLxiv
+ V/YdnYWpusVPn7FhpWooj0BumV5KNA952KK2B0JLapMYFPWidLJn99lrqikazGkA6dgpQFATSpY
+ ZUpNdJ1fFHwbSRsRo3POz9b911KdAGN4BQQVDU8JE1siUobQZCBzCGycd+etBhua2wSHPYT3p8s
+ zqawNNtXPbAZbWZfmfVkQjKBg4GSXY/VubfkvEv0OrC84if0uCVQe9ed44/1q2O9wxIyCFJ8vrA
+ /X71RUjiEI5MSXXWSaTkV8oF+YP0aSXGexKFxSQS/kt1DOO77mnUHuwUEIztYtjYNggwmbewJJG
+ ie4CuP7kydj9GfIk+vpVcj+oaamwbBpIb2rOThS5JcJb7bbxAi8PwlPZxhnvL7OUX0EEJLI6pH2
+ b4js8L1OSGWpkzoauwYWARtREFInpvNiTfISFddIGG3lahgRNaJbwyIo8Udh3Luoas8G5MF7vAZ
+ ONxNYf9sbFj/4/kBGyoEe0+FZ2CQIVZOA/+YriQtC5dhEUTU
+X-Received: by 2002:a17:90b:258c:b0:37d:f70f:fbf8 with SMTP id
+ 98e67ed59e1d1-380a9e471dcmr3852595a91.0.1782991714179; 
+ Thu, 02 Jul 2026 04:28:34 -0700 (PDT)
+Received: from midnightair ([2401:4900:1c94:62e8:bc10:77d0:2fda:415d])
  by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-73e1caf43casm1182470137.11.2026.07.02.05.05.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 05:05:55 -0700 (PDT)
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
-X-Google-Original-From: Pedro Yudi Honda
-To: dakr@kernel.org,
-	acourbot@nvidia.com,
-	apopple@nvidia.com
-Cc: nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
- Pedro Yudi Honda <niyudi.honda@usp.br>
-Subject: [PATCH v2 4/5] drm/nova: use `zerocopy` in bootloader.rs
-Date: Thu,  2 Jul 2026 09:03:23 -0300
-Message-Id: <20260702120324.40388-5-niyudi.honda@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260702120324.40388-1-niyudi.honda@gmail.com>
-References: <20260702120324.40388-1-niyudi.honda@gmail.com>
+ 98e67ed59e1d1-380e1636a03sm954793a91.1.2026.07.02.04.28.31
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 02 Jul 2026 04:28:33 -0700 (PDT)
+From: Anas Khan <anxkhn28@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Peichen Huang <PeiChen.Huang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Anas Khan <anxkhn28@gmail.com>
+Subject: [PATCH] drm/amd/display: remove duplicate link_dp_panel_replay.h
+ include
+Date: Thu,  2 Jul 2026 16:58:28 +0530
+Message-ID: <20260702112828.34698-1-anxkhn28@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
@@ -95,87 +94,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
+link_dp_irq_handler.c includes "link_dp_panel_replay.h" twice. Drop the
+redundant second include; this is a non-functional cleanup flagged by
+scripts/checkincludes.pl.
 
-In firmware/fwsec/bootloader.rs, replace the following `transmute`
-traits with their `zerocopy` equivalents:
-
-- `transmute::FromBytes` -> `zerocopy::FromBytes`
-- `transmute::AsBytes` -> `zerocopy::IntoBytes`
-- add `zerocopy::Immutable` where necessary
-
-Update call sites accordingly.
-
-Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+Fixes: 1e5cd4adfc54 ("drm/amd/display: move panel replay out from edp")
+Signed-off-by: Anas Khan <anxkhn28@gmail.com>
 ---
- .../gpu/nova-core/firmware/fwsec/bootloader.rs | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ .../gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c  | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index 66b9f4d1b41c..03d3090bd9ef 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -18,15 +18,9 @@
-         Alignable,
-         Alignment, //
-     },
--    sizes,
--    transmute::{
--        AsBytes,
--        FromBytes, //
--    },
-+    sizes, //
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
+index 54ce768ae6ad..da679fb7d89c 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
+@@ -39,7 +39,6 @@
+ #include "link/link_dpms.h"
+ #include "dm_helpers.h"
+ #include "link_dp_dpia_bw.h"
+-#include "link_dp_panel_replay.h"
  
--use zerocopy::FromBytes as _;
--
- use crate::{
-     driver::Bar0,
-     falcon::{
-@@ -57,7 +51,7 @@
- ///
- /// Most of its fields appear to be legacy and carry incorrect values, so they are left unused.
- #[repr(C)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, FromBytes)]
- struct BootloaderDesc {
-     /// Starting tag of bootloader.
-     start_tag: u32,
-@@ -73,15 +67,13 @@ struct BootloaderDesc {
-     /// Size of data section in the image. Unused as we build the data section ourselves.
-     _data_size: u32,
- }
--// SAFETY: any byte sequence is valid for this struct.
--unsafe impl FromBytes for BootloaderDesc {}
- 
- /// Structure used by the boot-loader to load the rest of the code.
- ///
- /// This has to be filled by the GPU driver and copied into DMEM at offset
- /// [`BootloaderDesc.dmem_load_off`].
- #[repr(C, packed)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, IntoBytes, zerocopy_derive::Immutable)]
- struct BootloaderDmemDescV2 {
-     /// Reserved, should always be first element.
-     reserved: [u32; 4],
-@@ -120,8 +112,6 @@ struct BootloaderDmemDescV2 {
-     /// Arguments to be passed to the target firmware being loaded.
-     argv: u32,
- }
--// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
--unsafe impl AsBytes for BootloaderDmemDescV2 {}
- 
- /// Wrapper for [`FwsecFirmware`] that includes the bootloader performing the actual load
- /// operation.
-@@ -160,7 +150,7 @@ pub(crate) fn new(
- 
-             fw.data()
-                 .get(desc_offset..)
--                .and_then(BootloaderDesc::from_bytes_copy_prefix)
-+                .and_then(|b| BootloaderDesc::read_from_prefix(b).ok())
-                 .ok_or(EINVAL)?
-                 .0
-         };
+ #define DC_LOGGER \
+ 	link->ctx->logger
 -- 
-2.34.1
+2.54.0
 
