@@ -4,100 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26385C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 18:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7794C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 18:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC2C10E4F1;
-	Thu,  2 Jul 2026 18:42:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D70F10F56E;
+	Thu,  2 Jul 2026 18:42:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="H8cJh/sV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oay3GZcq";
 	dkim-atps=neutral
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com
- [209.85.221.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7017610E4F1
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:42:10 +0000 (UTC)
-Received: by mail-vk1-f177.google.com with SMTP id
- 71dfb90a1353d-59ebde7d704so761624e0c.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 11:42:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1783017729; x=1783622529;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=L3E5kcG8MECRQ9InLZ8jdmT4IN0BYDghhEZtFSV6UR0=;
- b=H8cJh/sV3DuGoZbSzzhWJhK+DUvDS0G9j/0oHpvK1L9+ABdgKHhsJjItCWsotymHy/
- ye2ojM5bFoI12ZcUnHkf6BZzeUf/8DI7ijpA3Hc0ZotsYqKXV3fG/reqvSo5nQmIx0tF
- lOa0thcHBhLInux2MhzXkIzm1HB6eoWj5cWbg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783017729; x=1783622529;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=L3E5kcG8MECRQ9InLZ8jdmT4IN0BYDghhEZtFSV6UR0=;
- b=djTXcIkWea2JLBst1OSu8Fjdb3OZStyhOA8h8x8gsneEdkpHoJtq+wxT08p1LsMmaW
- Vv3RkEj96F5tUdGj6l+4eP313gNk7PWqupYWTNOI3OLB3126t5LuMysP4vmo4swUy8gI
- NeJdBrqyzabpJv0U3Ed5D3CprD++7qnV1Es8e8hxgVozigVHJX05HAfTqYqv+AnozqF8
- QzFzZ7Ak3aSOni3i0gDfMmBCg8tomcRT1cXfohQ+zdpF7mx07ldXcmHCNfi+oeb9YOma
- KDrgtOZ6cehS/rW3UhTtHWn90vjvcYE1KwnvaS+BiSBKHYULn5ETbqeUi4gKwjVAgCaW
- DJhw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoOn9gL4rI71+EGu6gVhOUG5pxmbDXrP1GrqiJSDnD7cQYrQKyhEou5FXFo3GXpaDVhoVjDBQ151SM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7q9HJdKFVK0l2USlYPDlWGWT7rGQl3/Oya2RzxNX6VvNy90Pt
- mfJWuRlnUT0k7kxOMT5GnHZrI9HgJUCjRDfRbKDiIBrDDM3icxP8wF2oaydCQN7EJM/vkp23Stv
- cHXU=
-X-Gm-Gg: AfdE7clnQVQ/5Qf2rsdoap/6c3WzYvxDGg2C/5zi5Mk7N+bkt1gU0nevJbdVg5ssufW
- K9YlVlb6JURMFCOk58y5INvhBU4gL4GMJ2LOsj4PQzV0h5AvgqI5xljmjZTQTINibhWjJZkDU/U
- 7s7OIB/1xk3eVgJXIOPWshwXS6WAKa8XZWsrgWFRkUusuWwKpOwgvJZygacOOG37VreaNoFRDlP
- 98d7wa2IRTYZ7QdH8MDjvW6L0wiOuR2AcNIfhhFKy9VzKcjRzVBOPh68vhMH4GLHE4e603e/soD
- KmZDGlXaeFRZCepkSe+Q+SSYJGEnqrIoUgmdy/2poUS73eq+C9fu5M/xcHEVu1fIVwF+JTRZWdV
- aUVIFeQ1kp6I7R1u1Ez0HBvIrjvp/U4ktrSQP0wujjX06Bq5lRudYmDI1bk4zwwsby3HYFK0ACX
- s4jxzFysA8WaduZadKRqPe+6vBaDEecipgpr7WKOwLmoQPME6Otc0=
-X-Received: by 2002:a05:6122:4683:b0:5bd:ddab:59a7 with SMTP id
- 71dfb90a1353d-5bde3b0d5d6mr2324114e0c.10.1783017729208; 
- Thu, 02 Jul 2026 11:42:09 -0700 (PDT)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com.
- [209.85.217.51]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bdec7790aesm1366882e0c.11.2026.07.02.11.42.08
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 11:42:09 -0700 (PDT)
-Received: by mail-vs1-f51.google.com with SMTP id
- ada2fe7eead31-73770fd1b65so640766137.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 11:42:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RpvG9jhXvo4tAeMOzRnTmn0/qogMMd8lHTqHCU3b9BFGL6oW1N2yrmZ1W41V/53QBuRJnZ2+xfPwBk=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:e0b:b0:737:ba2e:8a29 with SMTP id
- ada2fe7eead31-73dc05b5f94mr2611709137.27.1783017727894; Thu, 02 Jul 2026
- 11:42:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org>
- <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-2-8570e692143e@linaro.org>
-In-Reply-To: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-2-8570e692143e@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 2 Jul 2026 11:41:56 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VauZ=yPjkza9U0QEu2L6tMJb6BSC532mTwa-sqjRhAdg@mail.gmail.com>
-X-Gm-Features: AVVi8CdHOFq8qwj17FSviMXPODi_RZqregPjBSkwFRL55bEIPJ8qnk_xiGuXBg8
-Message-ID: <CAD=FV=VauZ=yPjkza9U0QEu2L6tMJb6BSC532mTwa-sqjRhAdg@mail.gmail.com>
-Subject: Re: [PATCH v8 2/2] drm: panel: add support for the Renesas R63419
- based dual-DSI video mode Display Panels
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- KancyJoe <kancy2333@outlook.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0463010F56E
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:42:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 32FA7601CB;
+ Thu,  2 Jul 2026 18:42:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD1161F00A3D;
+ Thu,  2 Jul 2026 18:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783017732;
+ bh=mSNaagGrGaEd7SbyyZ4Ns3brb6JZz2ddeOYEpwPmzWc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Oay3GZcqNn4Hv7Y+UbdXvC9TLgQHkXU1MI5/GIq6rHdjdLK6WHdhLhzu5xv99F2Wy
+ yQa0u1n5rN2ZcoXnC/3iqvoAFvBcNN6bPbzQkUDEUeSCUkDjTzKGAy2sKKweuLNEOm
+ XG/Ux3fxLGY9aiXj9Bs5adOOB/dJta7Je7U0j351CPpSilM99sBgXbcFAG2A0DoLlZ
+ oEjiCvYbfLdT3GCEiRB/uUvZLwVR33An3+6ioc4scujTp1GnvyJ7hMldpbP+Zia1PZ
+ 39nMe9qmBJ2ZhoRhYtPDhsDV4DTlDLK4zdXTfe80OyzV4nORI0Y9KTR/8jACJMpXUZ
+ nFeQwF+aL0Mew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 4/4] RDMA/mlx5: get tph for p2p access when
+ registering dma-buf mr
+To: "Zhiping Zhang" <zhipingz@meta.com>
+Cc: dri-devel@lists.freedesktop.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260702181025.2694961-5-zhipingz@meta.com>
+References: <20260702181025.2694961-1-zhipingz@meta.com>
+ <20260702181025.2694961-5-zhipingz@meta.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 02 Jul 2026 18:42:12 +0000
+Message-Id: <20260702184212.AD1161F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,28 +55,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Thu, Jun 25, 2026 at 2:29=E2=80=AFAM Neil Armstrong
-<neil.armstrong@linaro.org> wrote:
->
-> From: KancyJoe <kancy2333@outlook.com>
->
-> Implement support for the Renesas 63419 based dual-DSI video mode
-> Display Panels found in the Ayaneo gaming handled devices.
->
-> Signed-off-by: KancyJoe <kancy2333@outlook.com>
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  drivers/gpu/drm/panel/Kconfig                |  12 +
->  drivers/gpu/drm/panel/Makefile               |   1 +
->  drivers/gpu/drm/panel/panel-renesas-r63419.c | 350 +++++++++++++++++++++=
-++++++
->  3 files changed, 363 insertions(+)
+New issues:
+- [Medium] Failure to re-query PCIe TPH metadata upon DMA-buf invalidation
 
-This looks pretty nice to me now.
+Pre-existing issues:
+- [High] Memory leak of struct mlx5_st_idx_data in mlx5_st_dealloc_index()
+--
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+commit e39795c3bd224c81bae70b87815075c4489e3f9e
+Author: Zhiping Zhang <zhipingz@meta.com>
+Subject: RDMA/mlx5: get tph for p2p access when registering dma-buf mr
+
+This commit allows the mlx5 importer to query a dma-buf exporter's chosen
+PCIe TLP Processing Hint (TPH) Steering Tag. It updates MR registration to
+use this metadata for p2p access and program requester-side TPH on the
+outbound mkey, falling back to no-TPH routing if unavailable.
+
+> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
+/mr.c
+> index e6b74955d95dc..55216ae637614 100644
+> --- a/drivers/infiniband/hw/mlx5/mr.c
+> +++ b/drivers/infiniband/hw/mlx5/mr.c
+[ ... ]
+> @@ -903,6 +947,52 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_atta=
+ch_ops =3D {
+>  	.invalidate_mappings =3D mlx5_ib_dmabuf_invalidate_cb,
+>  };
+> =20
+> +static void get_pci_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_bu=
+f *dmabuf,
+> +				  u16 *st_index, u8 *ph)
+
+[Severity: Medium]
+When an unpinned DMA-buf MR is invalidated and then subsequently faulted ba=
+ck
+in via pagefault_dmabuf_mr() in drivers/infiniband/hw/mlx5/odp.c, the driver
+calls ib_umem_dmabuf_map_pages() to map the pages, but it doesn't seem to
+re-query the TPH metadata using get_pci_tph_mr_dmabuf() or
+dma_buf_get_pci_tph().
+
+Since the exporter might move the memory and change the preferred TPH steer=
+ing
+tag, does the driver need to re-evaluate the TPH metadata upon invalidation
+and re-mapping to ensure DMA traffic isn't sent to a stale or suboptimal
+NUMA node?
+
+> +{
+> +	u16 local_st_index;
+> +	u16 steering_tag;
+[ ... ]
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
+et/ethernet/mellanox/mlx5/core/lib/st.c
+> index 997be91f0a135..bf14a7a6df15e 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+[ ... ]
+> @@ -152,8 +147,46 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
+num tph_mem_type mem_type,
+>  	mutex_unlock(&st->lock);
+>  	return ret;
+>  }
+> +EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
+[ ... ]
+> +EXPORT_SYMBOL_GPL(mlx5_st_get_index);
+> +
+>  int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
+>  {
+>  	struct mlx5_st_idx_data *idx_data;
+
+[Severity: High]
+This is a pre-existing issue, but I noticed it while reviewing this patch
+since this patch broadens its exposure.
+
+In mlx5_st_dealloc_index(), when the use count reaches zero:
+
+	if (refcount_dec_and_test(&idx_data->usecount)) {
+		xa_erase(&st->idx_xa, st_index);
+		/* We leave PCI config space as was before, no mkey will refer to it */
+	}
+
+Is there a memory leak here? The dynamically allocated idx_data is erased f=
+rom
+the xarray but does not appear to be passed to kfree().
+
+Since unprivileged users can repeatedly create and destroy MRs, could this
+lead to kernel memory exhaustion over time?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702181025.2694=
+961-1-zhipingz@meta.com?part=3D4
