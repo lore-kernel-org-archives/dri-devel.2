@@ -4,62 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF3D9C43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B417C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0651F10F42E;
-	Thu,  2 Jul 2026 14:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 961E810F42A;
+	Thu,  2 Jul 2026 14:50:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="GAoiG5AC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="k98AlkJ8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KwA2eahD";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="k98AlkJ8";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KwA2eahD";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F1110F3FA
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003618;
- bh=K+hssXEZuCN5/AiuluNaVFl3n7R7A4Y+wFpBw1xF/bc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GAoiG5AC/TRYVnSQBTYsC5CYafh0VoMgpNVGwo/ezqLWODAQGg9cqZ9gjCT2ALzF3
- M/UQPhSelkzpWEXBcRIi+9HLVgYlsby1u0amXAIZ2UVdZy0dWTMTfWO84/ZpqqSbJR
- etglQi+6U4ERuINZVdLiQsKXSFSH7+K6mG1FSX1GGKDLmHzvwJGgZ/T9Lm15vYpbPY
- sJs+mXXgL1NNj8+dyL5FScmXRhfGQWjWZpsLoaSyNJenISVPv5EVP54AqzpMAWoCBi
- uJ/1rNm0nQee7yCG0UPWIEg9NJhl7dmcf8pkc9FW4ibQGF7LPyHUiEoweoFUsQa2Zg
- +FLQmWIoohXDw==
-Received: from localhost (unknown [100.64.0.241])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C04F10F42A
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:50:27 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 43F0D17E368D;
- Thu,  2 Jul 2026 16:46:58 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:49 +0300
-Subject: [PATCH v8 36/39] drm/tests: edid: Add 4K@60Hz EDID with 600MHz
- TMDS
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BBFC975A7E;
+ Thu,  2 Jul 2026 14:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783003825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
+ b=k98AlkJ8ifYQq6btglhE0cy2746Q3h1DDC2pLCWkCmdDAohoMm/XKB4NcoxXzaX41ss1G3
+ zpIwwyWwGNZLlLNxpNFBBUsKYVSEux4sz20KpfWrvOR93/hx7iRJ0J3T8Bj0VPzvFFflXV
+ iSdjq+tOBgrUifLpcsW2/5O92WTOA7M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783003825;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
+ b=KwA2eahD19PvrSQfjvuGLE+QhDwDGWkv4zWU0z6OG2BZXsXc+B4CesqIACSSOM/Xd4Ew6O
+ qRELAVUmjwJDo7Bw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=k98AlkJ8;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=KwA2eahD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783003825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
+ b=k98AlkJ8ifYQq6btglhE0cy2746Q3h1DDC2pLCWkCmdDAohoMm/XKB4NcoxXzaX41ss1G3
+ zpIwwyWwGNZLlLNxpNFBBUsKYVSEux4sz20KpfWrvOR93/hx7iRJ0J3T8Bj0VPzvFFflXV
+ iSdjq+tOBgrUifLpcsW2/5O92WTOA7M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783003825;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=wuWvwrjJDFlMuTbtt7HXIdhoOURhmEZyHA0xpm6e+l4=;
+ b=KwA2eahD19PvrSQfjvuGLE+QhDwDGWkv4zWU0z6OG2BZXsXc+B4CesqIACSSOM/Xd4Ew6O
+ qRELAVUmjwJDo7Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5B68C779AA;
+ Thu,  2 Jul 2026 14:50:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id PzUVFbF6RmogRgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 02 Jul 2026 14:50:25 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: hns@goldelico.com, zhengxingda@iscas.ac.cn, jani.nikula@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, akemnade@kernel.org, javierm@redhat.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v4] drm/fb-helper: Only consider active CRTCs for vblank sync
+Date: Thu,  2 Jul 2026 16:50:13 +0200
+Message-ID: <20260702145021.226932-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-36-d79890d00b6a@collabora.com>
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
-In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: BBFC975A7E
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[goldelico.com,iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com];
+ MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_TWELVE(0.00)[15]; ARC_NA(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,200 +116,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new test EDID advertising the following capabilities:
+Only synchronize fbdev output to the vblank of an active CRTC. Go over
+the list of CRTCs and pick the first that matches. Fixes warnings as
+the one shown below
 
-Max resolution: 3840x2160@60Hz with RGB, YUV444, YUV422, YUV420
-Max BPC:        16
-Max TMDS clock: 600 MHz
+[   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
+[   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
 
-This is needed to exercise the new HDMI infrastructure that decides
-whether scrambling needs to be enabled for a given display mode and
-to validate that high-rate modes are properly rejected/accepted
-depending on the source/sink scrambling capability.
+This currently happens if the fbdev output is not on CRTC 0.
 
-The EDID is derived from test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz
-with the following changes:
+Atomic and non-atomic drivers require distinct code paths. As for other
+fbdev operations, implement both and select the correct one at runtime.
 
-- Upgraded the first DTD from 3840x2160@30 (297 MHz) to 3840x2160@60
-  (594 MHz).  The H/V totals (4400x2250) and porches already match the
-  HDMI 2.0 4K@60Hz standard timing, so only the pixel clock had to be
-  bumped.
-- Widened Display Range Limits descriptor to cover the new timing, i.e.
-  24-140 kHz H, max dotclock 600 MHz.
-- Updated CTA-861 Video Data Block to advertise VIC 97 (4K@60Hz) instead
-  of VIC 95 (4k30).
-- Bumped HF-VSDB Max TMDS Character Rate to 600 MHz, keeping
-  SCDC_Present set so that the sink advertises scrambling support.
-- Cleared HDMI VSDB Max TMDS clock byte, as required by HDMI 2.0 when
-  the HF-VSDB declares a Max TMDS Character Rate above 340 MHz.
-- Provided a Video Capability Data Block advertising selectable RGB and
-  YCC quantization range plus underscan for IT/CE formats; also set the
-  'IT Video Formats Underscanned' bit in the CTA-861 extension header to
-  match.
-- Aligned base block image size with the DTD (160x90 cm) and replaced
-  the bogus 'Week of Manufacture = 0xff' with the Model Year code, both
-  fixing inherited EDID conformity warnings.
-- Dropped the empty YCbCr 4:2:0 Video Data Block inherited from the
-  parent EDID, which is flagged as a failure by edid-decode v1.33.0
+Not finding an active CRTC is not a bug. Do not wait in this case, but
+flush the display update as before.
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+v4:
+- avoid possible deadlocks with locking context (Sashiko)
+v3:
+- drop excessive state validation (Jani)
+- acquire plane and CRTC mutices (Sashiko)
+v2:
+- move look-up code into separate helper
+- support drivers with legacy modesetting
+v1:
+- see https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de/
+
+Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Tested-by: H. Nikolaus Schaller <hns@goldelico.com>
+Closes: https://bugs.debian.org/1138033
 ---
- drivers/gpu/drm/tests/drm_kunit_edid.c | 129 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tests/drm_kunit_edid.h |   1 +
- 2 files changed, 130 insertions(+)
+ drivers/gpu/drm/drm_fb_helper.c | 92 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 91 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.c b/drivers/gpu/drm/tests/drm_kunit_edid.c
-index c807ae0d9faa..673a0ea8c2ae 100644
---- a/drivers/gpu/drm/tests/drm_kunit_edid.c
-+++ b/drivers/gpu/drm/tests/drm_kunit_edid.c
-@@ -990,6 +990,135 @@ const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
- };
- EXPORT_SYMBOL(test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 3316bb00a662..d4664ed468b2 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -225,16 +225,106 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+ 	console_unlock();
+ }
  
-+/*
-+ * Max resolution: 3840x2160@60Hz with RGB, YUV444, YUV422, YUV420
-+ * Max BPC:        16 for all modes
-+ * Max TMDS clock: 600 MHz
-+ *
-+ * edid-decode (hex):
-+ *
-+ * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
-+ * 00 23 01 03 80 a0 5a 78 0f ee 91 a3 54 4c 99 26
-+ * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
-+ * 01 01 01 01 01 01 08 e8 00 30 f2 70 5a 80 b0 58
-+ * 8a 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
-+ * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
-+ * 55 18 8c 3c 00 0a 20 20 20 20 20 20 00 00 00 10
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 a9
-+ *
-+ * 02 03 28 b1 41 61 6c 03 0c 00 10 00 78 00 20 00
-+ * 00 01 03 6d d8 5d c4 01 78 80 07 00 00 00 00 00
-+ * 00 e2 00 ca e3 0f 01 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-+ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 54
-+ *
-+ * ----------------
-+ *
-+ * Block 0, Base EDID:
-+ *   EDID Structure Version & Revision: 1.3
-+ *   Vendor & Product Identification:
-+ *     Manufacturer: LNX
-+ *     Model: 52
-+ *     Made in: 2025
-+ *   Basic Display Parameters & Features:
-+ *     Digital display
-+ *     Maximum image size: 160 cm x 90 cm
-+ *     Gamma: 2.20
-+ *     RGB color display
-+ *     Default (sRGB) color space is primary color space
-+ *     First detailed timing is the preferred timing
-+ *     Supports GTF timings within operating range
-+ *   Color Characteristics:
-+ *     Red  : 0.6396, 0.3300
-+ *     Green: 0.2998, 0.5996
-+ *     Blue : 0.1503, 0.0595
-+ *     White: 0.3125, 0.3291
-+ *   Established Timings I & II:
-+ *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
-+ *   Standard Timings: none
-+ *   Detailed Timing Descriptors:
-+ *     DTD 1:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz (1600 mm x 900 mm)
-+ *                  Hfront  176 Hsync  88 Hback  296 Hpol P
-+ *                  Vfront    8 Vsync  10 Vback   72 Vpol P
-+ *     Display Product Name: 'Test EDID'
-+ *     Display Range Limits:
-+ *       Monitor ranges (GTF): 24-85 Hz V, 24-140 kHz H, max dotclock 600 MHz
-+ *     Dummy Descriptor:
-+ *   Extension blocks: 1
-+ * Checksum: 0xa9
-+ *
-+ * ----------------
-+ *
-+ * Block 1, CTA-861 Extension Block:
-+ *   Revision: 3
-+ *   Underscans IT Video Formats by default
-+ *   Supports YCbCr 4:4:4
-+ *   Supports YCbCr 4:2:2
-+ *   Native detailed modes: 1
-+ *   Video Data Block:
-+ *     VIC  97:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz
-+ *   Vendor-Specific Data Block (HDMI), OUI 00-0C-03:
-+ *     Source physical address: 1.0.0.0
-+ *     DC_48bit
-+ *     DC_36bit
-+ *     DC_30bit
-+ *     DC_Y444
-+ *     Maximum TMDS clock: 0 MHz
-+ *     Extended HDMI video details:
-+ *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
-+ *     Version: 1
-+ *     Maximum TMDS Character Rate: 600 MHz
-+ *     SCDC Present
-+ *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
-+ *     VRRmin: 0 Hz
-+ *     VRRmax: 0 Hz
-+ *   Video Capability Data Block:
-+ *     YCbCr quantization: Selectable (via AVI YQ)
-+ *     RGB quantization: Selectable (via AVI Q)
-+ *     PT scan behavior: No Data
-+ *     IT scan behavior: Always Underscanned
-+ *     CE scan behavior: Always Underscanned
-+ *   YCbCr 4:2:0 Capability Map Data Block:
-+ *     VIC  97:  3840x2160   60.000000 Hz  16:9    135.000 kHz    594.000000 MHz
-+ * Checksum: 0x54  Unused space in Extension Block: 87 bytes
-+ *
-+ * ----------------
-+ *
-+ * edid-decode 1.33.0
-+ *
-+ * EDID conformity: PASS
-+ */
-+const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz[] = {
-+	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x23, 0x01, 0x03, 0x80, 0xa0, 0x5a, 0x78,
-+	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
-+	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x08, 0xe8, 0x00, 0x30, 0xf2, 0x70,
-+	0x5a, 0x80, 0xb0, 0x58, 0x8a, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
-+	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
-+	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
-+	0x55, 0x18, 0x8c, 0x3c, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-+	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xa9, 0x02, 0x03, 0x28, 0xb1,
-+	0x41, 0x61, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x00, 0x20, 0x00,
-+	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x78, 0x80, 0x07, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0xe2, 0x00, 0xca, 0xe3, 0x0f, 0x01, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	0x00, 0x00, 0x00, 0x54,
-+};
-+EXPORT_SYMBOL(test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz);
++static int find_crtc_index_atomic(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	int crtc_index = -EINVAL;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_plane *plane;
++	int ret = 0;
 +
- MODULE_AUTHOR("Maxime Ripard <mripard@kernel.org>");
- MODULE_DESCRIPTION("EDID Definitions for KUnit tests");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.h b/drivers/gpu/drm/tests/drm_kunit_edid.h
-index 28b4df93a555..fb5b0295e35e 100644
---- a/drivers/gpu/drm/tests/drm_kunit_edid.h
-+++ b/drivers/gpu/drm/tests/drm_kunit_edid.h
-@@ -12,5 +12,6 @@ extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[256];
- extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[256];
- extern const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[256];
- extern const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[256];
-+extern const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz[256];
++	drm_modeset_acquire_init(&ctx, 0);
++
++retry:
++	drm_for_each_plane(plane, dev) {
++		const struct drm_plane_state *plane_state;
++
++		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
++			continue;
++
++		ret = drm_modeset_lock(&plane->mutex, &ctx);
++		if (ret)
++			goto err_drm_modeset_lock;
++		plane_state = plane->state;
++
++		if (plane_state->fb == helper->fb && plane_state->crtc) {
++			struct drm_crtc *crtc = plane_state->crtc;
++
++			ret = drm_modeset_lock(&crtc->mutex, &ctx);
++			if (ret)
++				goto err_drm_modeset_lock;
++			if (crtc->state->active)
++				crtc_index = crtc->index;
++			drm_modeset_unlock(&crtc->mutex);
++		}
++		drm_modeset_unlock(&plane->mutex);
++
++		if (crtc_index >= 0)
++			break;
++	}
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	return crtc_index;
++
++err_drm_modeset_lock:
++	if (ret == -EDEADLK) {
++		drm_modeset_backoff(&ctx);
++		goto retry;
++	}
++	return ret;
++}
++
++static int find_crtc_index_legacy(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	struct drm_crtc *crtc;
++
++	drm_for_each_crtc(crtc, dev) {
++		struct drm_plane *plane = crtc->primary;
++
++		if (!crtc->enabled)
++			continue;
++		if (!plane || plane->fb != helper->fb)
++			continue; /* CRTC doesn't display fbdev emulation */
++
++		return crtc->index;
++	}
++
++	return -EINVAL;
++}
++
++static int drm_fb_helper_find_crtc_index(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	int crtc_index;
++
++	mutex_lock(&dev->mode_config.mutex);
++
++	if (drm_drv_uses_atomic_modeset(dev))
++		crtc_index = find_crtc_index_atomic(helper);
++	else
++		crtc_index = find_crtc_index_legacy(helper);
++
++	mutex_unlock(&dev->mode_config.mutex);
++
++	return crtc_index;
++}
++
+ static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
+ {
+ 	struct drm_device *dev = helper->dev;
+ 	struct drm_clip_rect *clip = &helper->damage_clip;
+ 	struct drm_clip_rect clip_copy;
++	int crtc_index;
+ 	unsigned long flags;
+ 	int ret;
  
- #endif // DRM_KUNIT_EDID_H_
-
+ 	mutex_lock(&helper->lock);
+-	drm_client_modeset_wait_for_vblank(&helper->client, 0);
++	crtc_index = drm_fb_helper_find_crtc_index(helper);
++	if (crtc_index >= 0)
++		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index);
+ 	mutex_unlock(&helper->lock);
+ 
+ 	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
 -- 
 2.54.0
 
