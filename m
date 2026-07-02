@@ -4,55 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A6AC44501
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE1A8C44502
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44B2F10F679;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6400010F67D;
 	Fri,  3 Jul 2026 07:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=romanilin.is header.i=@romanilin.is header.b="Au0yVDvk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HwBJsJmt";
 	dkim-atps=neutral
-Received: from mail.romanilin.is (mail.romanilin.is [146.185.235.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A72C610F554
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 18:23:04 +0000 (UTC)
-Received: from smtpclient.apple (unknown [188.134.85.196])
- by mail.romanilin.is (Postfix) with ESMTPSA id 7293D600D0;
- Thu,  2 Jul 2026 21:23:01 +0300 (MSK)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=romanilin.is;
- s=default; t=1783016581;
- bh=TJZHJ2lItDnmrmXplUKEWZ+YkwqEOkOypk8rxLxs++A=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To;
- b=Au0yVDvkleYpQpfeZvIhcVsp5ebvXoY2zFNxC5Q8OZgdNFCxvrwj/XztRM2UNQglj
- EabRo7YzPVn0FV3o/2rxu6pPbTf3krXBbk2P0khpzsIwmwpo1knUSgCGLxBMyvKxnA
- f87ffBVnh6U8RmlcIGRv8o6icAwB0/cuLIJp0gbzPsgUoQzA6YGx78OV23kueQ3e07
- b+BFO+in+JLcOaOlhMOamkRLBYnMNsp7LnJzsJ56deYxV/pk+KXH0p3vrf/o/xDCHx
- f6SspR9SIfdZ9T14tfmHyCnAOvqJs/lqQMDy3EX/CcIlhEYil1sTI1HW+UulXzbgbT
- sgK1NFeFuXRSQ==
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
- duration
-From: Roman Ilin <me@romanilin.is>
-In-Reply-To: <20260702181027.98526-1-me@romanilin.is>
-Date: Thu, 2 Jul 2026 21:23:02 +0300
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- =?utf-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Peter Arnesen <peter.m.arnesen@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
-References: <20260613224434.96501-1-me@romanilin.is>
- <20260702181027.98526-1-me@romanilin.is>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6821610F2BA
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 10:48:35 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-c9ef3e1337fso353065a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 03:48:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782989315; x=1783594115; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
+ b=HwBJsJmtVOdhGxRNi09qvDyaiNo7a+xqWKN+aAs5hrf89eBC7vkpEwzFnUkNYgU2/p
+ Wfdz72FtE0zqblqE8RzhpdVhpEEanoXQq+W5ahSOR0t76LQPCxAiQEtLJuREKi/6LGGy
+ nN3SJlSHI6DF+fHhmcEKQj/Na1ooiabkpoup/cvSbA9oFhBI+kL+RCU/k+IcB65MKw+J
+ a4rvvvFtqendmp6+Itcn3osUSxmoi52GcYHzhzXo+6K/FNJSCDfb313of8vdComkcvjY
+ AhIN6CprAcF3BYA3YcECxc2R3D/0yXZoXJRJ9h/WGhAVz4VI/WAOVGp0FnEmiu/MZfyq
+ /Yzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782989315; x=1783594115;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
+ b=jwKcBPoTQHgx1a/vecqvTri9CC+HZAs6o8poPyv9bPYU0fs97kSaDUTg2Zd0N5mmqC
+ VwKaATnyKZV397GNsXhfMPjyjoeggNWnM5sH9E4DCMjnBcsLhLN3aUmrq8/MkOjWmOdu
+ mLr2J+T/lLhLkwGVWJ2P81m0RxpQVpSS/blXw/YE1a76ABx8/YVQ+fQM5cjnQeL0Z0s/
+ ANlq8kUiXHx2cAg/FsMUudi9jw/vpLRZoKwcISlcdHbclEb+loHGUAvlIB7aBXFrU7kQ
+ Rq0DOGr9qbarTvJt6Cs40FtHzo6XpSk7V+GTsLUuQBtuQQLcZbkyaGL6fKXatURnuteI
+ Y2vw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9i0Kt0u0Ws6O6xU7Tx3erMSEAEy6bx62OKowzt1V2Rp/Mu/v2EdaIga9wa5AYZz8wBHZqH/E4+IMQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymTw4NNH5Dd6+41Q4F44DW2YoRL/gf09qgvt0N/1+r80gozCOL
+ ThX/moGP3JyJZBWTOs5WJTBH2I0j+gkpPdZhAZqvoaCmwyR3Xaj3rzht
+X-Gm-Gg: AfdE7cmdti1cBoUET8xWdfjDF4tqAUWL44NnwsOvB5ocU1M1agBE1xdi7zEAG01pFl2
+ 9u4NuDQlMh+INkB2MuiIRtQ8v+T30NDGE0iMZUUnH7B0uxewYXeuOuJ+zeGoOBHo8JQe7Kt6zlo
+ 7q7FXlphCQvRWZcE9CrJTHAJPe6GnQv/wdS1kr2ip/rRuZyctE89pJckHPixOMeyYji58UvCXoe
+ PpZ8C4CdYaGT2bKKZq5cmOi/NAmF6d4uAOVK1usfJHXVg7Knz/LioDYnBvH1Ise/fRTcoyFZs58
+ JKs977IN63h2WdEjEhEcT4YxqeW1+m1gBW0h+Tz/27POEPh+TjWQwIHsV4pjXK8qj6hUoh9RDTO
+ KY5kTzTT1T/YsOw3eS+gK/Nf80lNzyhi6EW65t+bo2IAP/6Agsagbzn4FbiONPiN5CIxAgXq7aP
+ mT9BhQEtTCI+y/D7MsTjkBoRnmzVSOo0gysViFOq0PjMPEPFh0x56CQIgbrxY6VaZPLEaAxJiqS
+ qnDbzwVVCr3yrSbfiVddtGaPGcdGqjC4MSGGLgAmtw=
+X-Received: by 2002:a05:6a20:e20f:b0:3b4:669c:ee32 with SMTP id
+ adf61e73a8af0-3bfed3b26edmr7042853637.37.1782989314653; 
+ Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
+Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br.
+ [201.68.197.145]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30f116065c5sm5936815eec.11.2026.07.02.03.48.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: louis.chauvet@bootlin.com
+Cc: airlied@gmail.com, bparrot@ti.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, jsarha@ti.com,
+ jyri.sarha@iki.fi, kristo@kernel.org, krzk+dt@kernel.org, lee@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, nm@ti.com,
+ robh@kernel.org, sam@ravnborg.org, simona@ffwll.ch, stable@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, tomi.valkeinen@ideasonboard.com,
+ tomi.valkeinen@ti.com, tzimmermann@suse.de, vigneshr@ti.com
+Subject: Re: [PATCH 4/4] drm/tidss: Fix sampling edge configuration
+Date: Thu,  2 Jul 2026 07:48:01 -0300
+Message-ID: <20260702104817.1219078-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
+References: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,219 +97,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Apologies, I accidentally fired off send-email before saving my final
-changelog notes. Please ignore the changelog and notes in the original
-v3 email.
+Hello,
 
-The actual changes in v3 are:
+We tested this patch and it introduces a regression on our panel.
 
-- Changed the WARN_ON_ONCE to drm_dbg_kms (to avoid user-triggerable
-  panics).
-- Updated drm_calc_timestamping_constants with the goto error fallback
-  to clear the stale state.
+On our board, a Toshiba TC358768 DPI-to-DSI bridge is connected to the parallel
+RGB output. The bridge requires data to be driven on the negative edge, and
+this is also reflected by the `ipc` variable in `dispc_vp_enable()`, which is
+set to `1`.
 
-Also, an automated review bot pointed out an AB-BA deadlock in
-drm_crtc_vblank_start_timer(). But I am leaving this out of the patch to
-keep the fixes orthogonal.
+With this patch applied, however, data is driven on the positive edge instead.
 
-Sorry for the noise.
+According to SPRUIV7C, both `MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8]` and
+`DSS_VP1_POL_FREQ[14] IPC` should be programmed consistently. However, if we
+follow the actual bit descriptions, and ignore the sentence saying that the two
+programmed values should be the same, the data is driven on the requested edge.
 
-> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
->=20
-> When a CRTC's display mode carries a too small pixel clock,
-> drm_calc_timestamping_constants() computes a frame duration that
-> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
-> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
-> interval, after which vblank events are no longer delivered. Pending
-> page flips never complete and the display appears frozen.
->=20
-> This could be triggered on virtio-gpu guests that have dynamic =
-resolution
-> enabled: when the SPICE agent or the X server resizes the output, it
-> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
->=20
->    clock =3D 406 kHz, htotal =3D 3152, vtotal =3D 2148
->=20
->    framedur_ns =3D 3152 * 2148 * 1000000 / 406 =3D 16675852216 ns =
-(~16.7 s)
->=20
-> 16675852216 does not fit into an int and wraps to roughly -504000000.
-> ns_to_ktime() then yields a negative interval and the timer stops =
-working.
->=20
-> Found by bisection, which pointed at commit a036f5fceedb =
-("drm/virtgpu:
-> Use vblank timer"). That commit merely made virtio-gpu use the vblank
-> timer and thereby exposed the pre-existing problem in the timer setup
-> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
->=20
-> To fix this, modify drm_calc_timestamping_constants() to use u64 for
-> calculations, check for INT_MAX overflows, and return an error code.
-> drm_crtc_vblank_start_timer() will then propagate the error, enabling
-> the driver to fall back to immediate vblank events. Valid modes are
-> unaffected, and the timer self-heals on the next mode with a sane =
-clock.
->=20
-> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
-> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Roman Ilin <me@romanilin.is>
-> ---
-> Changes in v3:
->=20
-> - Changed the WARN_ON_ONCE to drm_err_once
->=20
-> Notes:
->=20
->=20
->=20
-> drivers/gpu/drm/drm_vblank.c | 71 +++++++++++++++++++++++-------------
-> include/drm/drm_vblank.h     |  4 +-
-> 2 files changed, 48 insertions(+), 27 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_vblank.c =
-b/drivers/gpu/drm/drm_vblank.c
-> index f90fb2d13..629b9fcc7 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
->  * drm_crtc_vblank_helper_get_vblank_timestamp(). They are derived =
-from
->  * CRTC's true scanout timing, so they take things like panel scaling =
-or
->  * other adjustments into account.
-> + *
-> + * Returns:
-> + * 0 on success, or a negative errno code otherwise.
->  */
-> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> -     const struct drm_display_mode *mode)
-> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> +    const struct drm_display_mode *mode)
-> {
-> struct drm_device *dev =3D crtc->dev;
-> unsigned int pipe =3D drm_crtc_index(crtc);
-> struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
-> - int linedur_ns =3D 0, framedur_ns =3D 0;
-> + u64 linedur_ns, framedur_ns;
-> int dotclock =3D mode->crtc_clock;
-> + unsigned int frame_size;
->=20
-> if (!drm_dev_has_vblank(dev))
-> - return;
-> + return 0;
->=20
-> if (drm_WARN_ON(dev, pipe >=3D dev->num_crtcs))
-> - return;
-> + return -EINVAL;
->=20
-> - /* Valid dotclock? */
-> - if (dotclock > 0) {
-> - int frame_size =3D mode->crtc_htotal * mode->crtc_vtotal;
-> + if (dotclock <=3D 0) {
-> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock =3D =
-%d!\n",
-> + crtc->base.id, dotclock);
-> + goto error;
-> + }
->=20
-> - /*
-> - * Convert scanline length in pixels and video
-> - * dot clock to line duration and frame duration
-> - * in nanoseconds:
-> - */
-> - linedur_ns  =3D div_u64((u64) mode->crtc_htotal * 1000000, =
-dotclock);
-> - framedur_ns =3D div_u64((u64) frame_size * 1000000, dotclock);
-> + frame_size =3D (unsigned int)mode->crtc_htotal * (unsigned =
-int)mode->crtc_vtotal;
->=20
-> - /*
-> - * Fields of interlaced scanout modes are only half a frame duration.
-> - */
-> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> - framedur_ns /=3D 2;
-> - } else {
-> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock =3D =
-0!\n",
-> - crtc->base.id);
-> + /*
-> + * Convert scanline length in pixels and video dot clock to line =
-duration
-> + * and frame duration in nanoseconds.
-> + */
-> + linedur_ns  =3D div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
-> + framedur_ns =3D div_u64((u64)frame_size * 1000000, dotclock);
-> +
-> + /*
-> + * Fields of interlaced scanout modes are only half a frame duration.
-> + */
-> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> + framedur_ns /=3D 2;
-> +
-> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
-> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock too =
-small!\n",
-> +    crtc->base.id);
-> + goto error;
-> }
->=20
-> vblank->linedur_ns  =3D linedur_ns;
-> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct =
-drm_crtc *crtc,
->     crtc->base.id, mode->crtc_htotal,
->     mode->crtc_vtotal, mode->crtc_vdisplay);
-> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
-> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
-> +     crtc->base.id, dotclock,
-> +     vblank->framedur_ns, vblank->linedur_ns);
-> +
-> + return 0;
-> +
-> +error:
-> + vblank->linedur_ns  =3D 0;
-> + vblank->framedur_ns =3D 0;
-> + drm_mode_copy(&vblank->hwmode, mode);
-> + return -EINVAL;
-> }
-> EXPORT_SYMBOL(drm_calc_timestamping_constants);
->=20
-> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc =
-*crtc)
-> struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
-> struct drm_vblank_crtc_timer *vtimer =3D &vblank->vblank_timer;
-> unsigned long flags;
-> + int ret;
->=20
-> if (!vtimer->crtc) {
-> /*
-> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc =
-*crtc)
-> hrtimer_try_to_cancel(&vtimer->timer);
-> }
->=20
-> - drm_calc_timestamping_constants(crtc, &crtc->mode);
-> + ret =3D drm_calc_timestamping_constants(crtc, &crtc->mode);
-> + if (ret)
-> + return ret;
->=20
-> spin_lock_irqsave(&vtimer->interval_lock, flags);
-> vtimer->interval =3D ns_to_ktime(vblank->framedur_ns);
-> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
-> index 2fcef9c0f..d99772dfa 100644
-> --- a/include/drm/drm_vblank.h
-> +++ b/include/drm/drm_vblank.h
-> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
-> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
-> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
->=20
-> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> -     const struct drm_display_mode *mode);
-> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> +    const struct drm_display_mode *mode);
-> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
-> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
->   u32 max_vblank_count);
-> --=20
-> 2.54.0
->=20
+From SPRUIV7C (https://www.ti.com/lit/ug/spruiv7b/spruiv7c.pdf):
 
+MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8] (DPI0_CLK_CTRL_DATA_CLK_INVDIS):
+
+        Clock edge select for DPI0 data outputs
+
+        Note that this value should be the same as the programmed value of
+        DSS_POL_FREQ[14] IPC.
+
+        Reset Source: mod_por_rst_n
+
+        0 DATA and DE are driven on the falling edge of clk
+        1 DATA and DE are driven on the rising edge of clk
+
+
+    DSS_VP1_POL_FREQ[14] (IPC)
+
+        Invert pixel clock
+
+        To set data to pixel clock relationship, CTRL_MMR_DPI0_CLK_CTRL[8]
+        DPI0_CLK_CTRL_DATA_CLK_INVDIS setting should be the same as the [14]
+        IPC setting.
+
+        0 Data is driven on the LCD data lines on the rising-edge of the pixel clock
+        1 Data is driven on the LCD data lines on the falling-edge of the pixel clock
+
+So, the proposed fix to this patch is:
+
+```diff
+- regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x100 : 0x000);
++ regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x000 : 0x100);
+```
+
+Reverting the patch also makes the Toshiba bridge work correctly again.
+However, we can confirm that the patch is needed, otherwise only the
+positive-edge case (our case) works correctly.
+
+In other words, the two registers need to match semantically, not numerically.
