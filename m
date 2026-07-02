@@ -4,79 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D4FCC43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 10:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06C7CC43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 10:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86F1C10F2A8;
-	Thu,  2 Jul 2026 10:43:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA5B10F2B2;
+	Thu,  2 Jul 2026 10:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="iToWrsHh";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="GrWovErJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ehHkiWmD";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="GrWovErJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ehHkiWmD";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE1710F28C
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 10:43:31 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6626MvDs1931364; Thu, 2 Jul 2026 11:43:20 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=9
- d3DFK2ES30GSYFM9u4usLVNMyRKmU0KqwT5xpaKKik=; b=iToWrsHhcx+t7m5GL
- Fy2JcU0aWCPwVQ0QBCxQaMQtZeTNTdSNd/ekeOnn/KxRMsZc7hktVEuVgnsjyRXs
- Kdj3gFwZ9v/BnX0AGSoT2LkYkl+evhfqDM4fHH9ZniOmYv+t/eXsTHX9ReCwNArj
- MUGslezVUlgoeWqitjwGKK7KILQM4UBWpNE7+fpWRb7UgELXwsk6DDOWOj58HTpX
- kO6/8deW+B2/euMJKy1aUEz3WF/7K19ARxf0FhaKwh7OlTHrWdk1XJn7/sCkNGzR
- /3zzfR16WR5jafMrZeVsOv02HFFKTOv1PqXmtlxk0bUyvlzaeirfkTDGt6ileuhQ
- DB/nQ==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f26kunakn-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 02 Jul 2026 11:43:20 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 2 Jul
- 2026 11:43:19 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Alexandru Dadu
- <Alexandru.Dadu@imgtec.com>,
- Luigi Santivetti <Luigi.Santivetti@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Brajesh Gupta
- <brajesh.gupta@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-In-Reply-To: <20260701-b4-b4-query-v2-1-a1b491387875@imgtec.com>
-References: <20260701-b4-b4-query-v2-1-a1b491387875@imgtec.com>
-Subject: Re: [PATCH v2] drm/imagination: Fix returned size for
- DRM_IOCTL_PVR_DEV_QUERY
-Message-ID: <178298899929.102946.7502055249222283682.b4-ty@imgtec.com>
-Date: Thu, 2 Jul 2026 11:43:19 +0100
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17DEC10F2AF
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 10:47:18 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5203D760B7;
+ Thu,  2 Jul 2026 10:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782989236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9NfWo2weclINUw6MV5FDK701ZBILS+CvN5hySDNslMU=;
+ b=GrWovErJ6rL052dcQVQCMeo/4/pT3HWmf1zMvdaqhHDBMQqV0tWAjESSUHoWWawRQ6evNv
+ tkpd9Z7MdT2r0gEiK+IWZltCy7DbsJUk16Lreal3m3UxFoO4EIC6ff62RmaDINN7BOgmsb
+ eocg6AnTWQBQGSyKtZBLwm2Pi83twWM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782989236;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9NfWo2weclINUw6MV5FDK701ZBILS+CvN5hySDNslMU=;
+ b=ehHkiWmD7EKwIXxqiIsorHMs6eVrAYCvS5eAMtlXCKRjYVubi1uur1JxBJ4PJxW/RCoVhn
+ aHP2Oo1+he86bfAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782989236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9NfWo2weclINUw6MV5FDK701ZBILS+CvN5hySDNslMU=;
+ b=GrWovErJ6rL052dcQVQCMeo/4/pT3HWmf1zMvdaqhHDBMQqV0tWAjESSUHoWWawRQ6evNv
+ tkpd9Z7MdT2r0gEiK+IWZltCy7DbsJUk16Lreal3m3UxFoO4EIC6ff62RmaDINN7BOgmsb
+ eocg6AnTWQBQGSyKtZBLwm2Pi83twWM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782989236;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9NfWo2weclINUw6MV5FDK701ZBILS+CvN5hySDNslMU=;
+ b=ehHkiWmD7EKwIXxqiIsorHMs6eVrAYCvS5eAMtlXCKRjYVubi1uur1JxBJ4PJxW/RCoVhn
+ aHP2Oo1+he86bfAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C8A84779AA;
+ Thu,  2 Jul 2026 10:47:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oRJLLa9BRmoRTAAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Thu, 02 Jul 2026 10:47:11 +0000
+Date: Thu, 2 Jul 2026 11:47:10 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 16/30] mm/vma: use vma_start_pgoff(), linear_page_index()
+ in mm code
+Message-ID: <akZAwT-QWhA1wdA9@pedro-suse.lan>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <33d79008948391d30bab38db5ae31072ce12f0a1.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Originating-IP: [172.25.4.9]
-X-Authority-Analysis: v=2.4 cv=epXvCIpX c=1 sm=1 tr=0 ts=6a4640c8 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=8z9WBaoFjqkDh8H9ZXoA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: DX_KPo1I1H9UdHS1Lo0cNm6s19xc8fMP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfXznmfC7bGntUM
- LI+YWVzPIuPt68DaN5/L1yYlt9eVB1EDC6eVV5zkr3roTapIxmGxbE7ZN863dTChdFr9Badpm3m
- 4dgFfQ2Cuh/JeYo1Ipr+yL+PO0k40WkEKTCEsbGsnbbd3N8jIR/8P6eZk2mIN9h2zpfh47QOS6e
- 70Mj5CP4yCGzdEiqrDh5ZoLQ1WPizB8AGpq2CNwQnLKnQlWSGmZPAQaD0SHR0LBNZc0scl+QUXi
- vUQoYNK1zo2O9Vn41+SesKorXHC1H0cfBfgiWH8HHkfsRTPcRQTmfrF4YnbHn+ex9OY0VL6Ge8s
- AdwR26LTd/bq2msB7sFhDqmjGL1hj5ZnnlskivhoiHq5MCUbSkEdWO9kacvx8Yw1AIS/IS28PMr
- TL9sl5NjKuw5HE1f1fb6w1hLajWkUHOzTGcyrZzabBWH49WOQlq9JQOqTqwJ9ojosxghWkBdU2s
- ZMAQm3Ie1qVwppzJxoQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAyMDExMSBTYWx0ZWRfX/HJgbQ7dqxdP
- gE+RzZExyTBOcre4tc6F3yQJKduOvxMtRsZ3gLqnDiaeD0W1+kiWyMYEvqUTtOvRUB1eCQRJ1Uy
- DseeiFEUORR5nWEANGV/e7d1gIz2HYs=
-X-Proofpoint-GUID: DX_KPo1I1H9UdHS1Lo0cNm6s19xc8fMP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <33d79008948391d30bab38db5ae31072ce12f0a1.1782735110.git.ljs@kernel.org>
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MISSING_XM_UA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
+ R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_GT_50(0.00)[75];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[pedro-suse.lan:mid,suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,26 +155,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+small nit: perhaps the subject should simply have mm: as it hits mm in general
 
-On Wed, 01 Jul 2026 10:49:30 +0530, Brajesh Gupta wrote:
-> For a few subtypes of DRM_IOCTL_PVR_DEV_QUERY, driver was overriding
-> the returned size unconditionally. This would have resulted in
-> increase of reported size beyond the amount of data returned to
-> userspace when args->size < size of query structure.
+On Mon, Jun 29, 2026 at 01:23:27PM +0100, Lorenzo Stoakes wrote:
+> There are many instances in which linear_page_index() (as well as
+> linear_page_delta()) is open-coded, which is confusing and inconsistent.
 > 
-> Updated behaviour matches with the description of
-> drm_pvr_ioctl_dev_query_args.size and written byte length.
-> None of the structures of DRM_IOCTL_PVR_DEV_QUERY changed after addition,
-> so change will not break any compatibility with earlier version.
+> Additionally, vma->vm_pgoff doesn't necessarily make it clear that this is
+> the page offset of the start of the VMA range.
 > 
-> [...]
+> Doing so also aids greppability.
+> 
+> So use vma_start_pgoff() in favour of directly accessing vma->vm_pgoff, and
+> linear_page_index() where we can.
+> 
+> This also lays the ground for future changes which will add an anonymous
+> page offset in order to be able to index MAP_PRIVATE-file backed anon
+> folios in terms of their virtual page offset.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> ---
+>  include/linux/huge_mm.h    |  1 +
+>  include/linux/hugetlb.h    |  3 +--
+>  include/linux/pagemap.h    |  2 +-
+>  mm/damon/vaddr.c           |  5 +++--
+>  mm/debug.c                 |  2 +-
+>  mm/filemap.c               |  7 ++++---
+>  mm/huge_memory.c           |  2 +-
+>  mm/hugetlb.c               | 11 ++++-------
+>  mm/internal.h              | 24 ++++++++++++++----------
+>  mm/khugepaged.c            |  3 ++-
+>  mm/madvise.c               |  6 +++---
+>  mm/mapping_dirty_helpers.c |  2 +-
+>  mm/memory.c                | 25 +++++++++++++------------
+>  mm/mempolicy.c             | 13 +++++++------
+>  mm/mremap.c                | 12 ++++--------
+>  mm/msync.c                 |  4 ++--
+>  mm/nommu.c                 |  7 ++++---
+>  mm/pagewalk.c              |  2 +-
+>  mm/shmem.c                 |  9 +++++----
+>  mm/userfaultfd.c           |  4 ++--
+>  mm/util.c                  |  4 ++--
+>  mm/vma.c                   | 15 +++++++--------
+>  mm/vma_exec.c              |  4 ++--
+>  mm/vma_init.c              |  2 +-
+>  24 files changed, 86 insertions(+), 83 deletions(-)
+> 
+> diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+> index ad20f7f8c179..653b81d08fe7 100644
+> --- a/include/linux/huge_mm.h
+> +++ b/include/linux/huge_mm.h
+> @@ -230,6 +230,7 @@ static inline bool thp_vma_suitable_order(struct vm_area_struct *vma,
+>  
+>  	/* Don't have to check pgoff for anonymous vma */
+>  	if (!vma_is_anonymous(vma)) {
+> +		/* vma_start_pgoff() in mm.h so not available. */
 
-Applied, thanks!
+Yay for gigaheaders...
 
-[1/1] drm/imagination: Fix returned size for DRM_IOCTL_PVR_DEV_QUERY
-      commit: d431b4012fd22920523dbd2806da663c1048e386
+>  		if (!IS_ALIGNED((vma->vm_start >> PAGE_SHIFT) - vma->vm_pgoff,
+>  				hpage_size >> PAGE_SHIFT))
+>  			return false;
+> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+> index 2abaf99321e9..8390f50604d6 100644
+> --- a/include/linux/hugetlb.h
+> +++ b/include/linux/hugetlb.h
+> @@ -792,8 +792,7 @@ static inline pgoff_t hugetlb_linear_page_index(struct vm_area_struct *vma,
+>  {
+>  	struct hstate *h = hstate_vma(vma);
+>  
+> -	return ((address - vma->vm_start) >> huge_page_shift(h)) +
+> -		(vma->vm_pgoff >> huge_page_order(h));
+> +	return linear_page_index(vma, address) >> huge_page_order(h);
+>  }
+>  
 
-Best regards,
+Anyway, nothing jumped out at me.
+
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+
+
 -- 
-Alessio Belle <alessio.belle@imgtec.com>
-
+Pedro
