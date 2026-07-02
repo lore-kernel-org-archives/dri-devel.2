@@ -4,70 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D656CC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 20:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3EDAC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 20:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24A8B10E49B;
-	Thu,  2 Jul 2026 20:35:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F41F210F5B8;
+	Thu,  2 Jul 2026 20:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="cU4+yxkJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bj1sgP2k";
 	dkim-atps=neutral
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0D5710E49B
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 20:35:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
- MIME-Version:Date:Message-ID:content-disposition;
- bh=JzUSZhPWqNWNKTHl/0jMtxGhpz8F8LscUgrhOQUpk4Y=; b=cU4+yxkJdxAeS4yui7R8BmYTUJ
- DRYWdLNFmn4IzYyA8GI4JMvn5I+ao4YCJoKHqHlZBXELhVQOR7+rbnR5az5v/BkfQgJToWwrgHqdK
- bkyzMrds8fKOwiAy9eQt43KyjnGykPEVoAe3We6O105RJ3FqGfgbPe2c3N//eYM+RF2KlpkmplnRX
- ZyFUAT2Yl+gEox2QjrPI7AH2qNf8wELNWJcyEDHIcdGl009phubiaMKzFVqgmjyy33HlREsTWdv3X
- 6RaWLz4M8MAKVnPl1dKbctoJ3kYc+JvbGJAMeQtwUQhSvSUPSEtpYv4AZtpLxXiHnJMSl2eirkvTa
- pSPZ8pZQ==;
-Received: from [104.157.31.28] (helo=[192.168.1.251])
- by ale.deltatee.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
- (envelope-from <logang@deltatee.com>) id 1wfO8O-000000071tG-1qho;
- Thu, 02 Jul 2026 14:35:45 -0600
-Message-ID: <1cd1b832-082c-4f9c-ab68-706110ddcb25@deltatee.com>
-Date: Thu, 2 Jul 2026 14:34:25 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>
-Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260701171245.90111-1-matt@ozlabs.org>
- <20260701171245.90111-3-matt@ozlabs.org>
- <26f74cf0-8892-4672-b0e1-1f1a385c42bb@deltatee.com>
- <aecbbc66-c154-4439-a6ae-84dc012b0f8d@ozlabs.org>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <aecbbc66-c154-4439-a6ae-84dc012b0f8d@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 104.157.31.28
-X-SA-Exim-Rcpt-To: matt@ozlabs.org, alex@shazbot.org, leon@kernel.org,
- jgg@nvidia.com, amastro@fb.com, christian.koenig@amd.com, bhelgaas@google.com,
- kevin.tian@intel.com, praan@google.com, mngyadam@amazon.de,
- dmatlack@google.com, bjorn@kernel.org, sumit.semwal@linaro.org,
- ankita@nvidia.com, apopple@nvidia.com, vivek.kasireddy@intel.com,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-Subject: Re: [PATCH v4 02/10] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 843BF10F5B8;
+ Thu,  2 Jul 2026 20:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783025893; x=1814561893;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version;
+ bh=G2/gDmu4JcaZegDuQwkSPamNJlHrTUeYD7oXbtRFJrM=;
+ b=bj1sgP2kLu7Sl0G2Ebu1X2MtrQsBEH7iaoc3QC0iQBQv2K79B4pX0iBi
+ GrbtO445r+kfKw8CrbxI14sopHGFj0X5COo85IIBd7x9U9QAFZEBisN/v
+ jv5zrGhPdvUy1OuPBi3XPSzVU1bP4/vCsBSMjC7ry12JL5/CfFJ8djkPe
+ 0UnV98tSkZFGR95NiZRiRAwMXKP6O4aKE+bZwWrV7xXiWWaRAUsLGfvUq
+ lk4srMc79LTcyja1oqvtNVoqS/Zs15WT70cOfuzNfwbguc5kwfkqyeum5
+ VpE4mrxzuzaE14jyCDIZUS8uI6O4eiFs6nrfcddkjTVCp5hOsTRobRtt+ Q==;
+X-CSE-ConnectionGUID: kxQ51Bu8ROeLbsxyoW0Baw==
+X-CSE-MsgGUID: wzWywadySKS3qfD1IwRLbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83876096"
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="83876096"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 13:58:12 -0700
+X-CSE-ConnectionGUID: R6DSk37BTz2vE2vITQoNOg==
+X-CSE-MsgGUID: hUKDnsR6Se6FGiIsTvWFFA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="257292258"
+Received: from chouchen-mobl.amr.corp.intel.com (HELO adixit-MOBL3.intel.com)
+ ([10.125.25.27])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 13:58:12 -0700
+Date: Thu, 02 Jul 2026 13:58:04 -0700
+Message-ID: <877bndjehv.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: John Hubbard <jhubbard@nvidia.com>,	Matthew Brost
+ <matthew.brost@intel.com>,	Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>,	David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,	Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>,	Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,	Jiri Olsa
+ <jolsa@kernel.org>,	Ian Rogers <irogers@google.com>,	Adrian Hunter
+ <adrian.hunter@intel.com>,	James Clark
+ <james.clark@linaro.org>,<intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>,<linux-perf-users@vger.kernel.org>,	LKML
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/2] perf/core: out-of-line and export
+ perf_allow_cpu/tracepoint()
+In-Reply-To: <akZm0HrMzwarUX1E@intel.com>
+References: <20260523013326.129491-1-jhubbard@nvidia.com>
+ <20260523013326.129491-2-jhubbard@nvidia.com>
+ <87fr3dv83t.wl-ashutosh.dixit@intel.com>
+ <akZm0HrMzwarUX1E@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,29 +85,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, 02 Jul 2026 06:25:36 -0700, Rodrigo Vivi wrote:
+>
+> On Tue, May 26, 2026 at 08:34:14PM -0700, Dixit, Ashutosh wrote:
+> > On Fri, 22 May 2026 18:33:25 -0700, John Hubbard wrote:
+> > >
+> > > These helpers are static inline in <linux/perf_event.h> and reach
+> > > into sysctl_perf_event_paranoid and security_perf_event_open(),
+> > > neither of which is itself exported. The perf_allow_* trio is
+> > > therefore asymmetric: built-in callers can use any of the three, but
+> > > modular code can only call perf_allow_kernel().
+> > >
+> > > Move both bodies into kernel/events/core.c next to perf_allow_kernel()
+> > > and export them with EXPORT_SYMBOL_GPL, following the shape of
+> > > commit 5e9629d0ae97 ("drivers/perf: arm_spe: Use perf_allow_kernel()
+> > > for permissions"). Existing in-tree callers live in built-in arch and
+> > > tracing code, so the change is invisible to them.
+> > >
+> > > Provide !CONFIG_PERF_EVENTS stubs that fall back to perfmon_capable(),
+> > > so the helpers stay callable when perf is compiled out.
+> > >
+> > > Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> >
+> > Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> >
+> > > ---
+> > >  include/linux/perf_event.h | 31 +++++++++++++++----------------
+> > >  kernel/events/core.c       | 18 ++++++++++++++++++
+>
+> Peter, Ingo or any other perf maintainer, ack on this patch and on
+> propagating this through drm trees?
 
+Sorry, Rodrigo, I should have recorded  Peter's ack, it is here:
 
-On 2026-07-02 10:44 a.m., Matt Evans wrote:
->> So maybe at this point it's fine to enable this on 32bit systems and we
->> can remove this requirement. However, I think we should do that
->> explicitly in its own patch, not hide it in this refactoring patch.
-> 
-> Your question does prove it's too stealthy as-is. :)  PCI_P2PDMA still
-> can't be enabled on 32-bit systems because of its ZONE_DEVICE -> 
-> MEMORY_HOTPLUG -> 64BIT dependency.  So we're not enabling 32-bit 
-> support for PCI_P2PDMA here, but it's not obvious and so I'll re-add the 
-> `depends on 64BIT`.  At least then it won't be enabled without intention 
-> if someone enables ZONE_DEVICE on 32-bit systems...
+https://lore.kernel.org/intel-xe/20260527163014.GI3102624@noisy.programming.kicks-ass.net/
 
-Ok, that all makes sense to me. I would be good with removing the 64BIT
-dependency (as it is is a bit confusing as is) but I think adding
-another patch would be appropriate with some of the commit message notes
-you mentioned in your emails.
-
-Besides that, I think you can add to this patch:
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-
-Thanks,
-
-Logan
+>
+> > >  2 files changed, 33 insertions(+), 16 deletions(-)
+> > >
+> > > diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+> > > index 48d851fbd8ea..5842552294c1 100644
+> > > --- a/include/linux/perf_event.h
+> > > +++ b/include/linux/perf_event.h
+> > > @@ -1791,22 +1791,8 @@ static inline int perf_is_paranoid(void)
+> > >  }
+> > >
+> > >  extern int perf_allow_kernel(void);
+> > > -
+> > > -static inline int perf_allow_cpu(void)
+> > > -{
+> > > -	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
+> > > -		return -EACCES;
+> > > -
+> > > -	return security_perf_event_open(PERF_SECURITY_CPU);
+> > > -}
+> > > -
+> > > -static inline int perf_allow_tracepoint(void)
+> > > -{
+> > > -	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
+> > > -		return -EPERM;
+> > > -
+> > > -	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
+> > > -}
+> > > +extern int perf_allow_cpu(void);
+> > > +extern int perf_allow_tracepoint(void);
+> > >
+> > >  extern int perf_exclude_event(struct perf_event *event, struct pt_regs *regs);
+> > >
+> > > @@ -2023,6 +2009,19 @@ perf_event_pause(struct perf_event *event, bool reset)			{ return 0; }
+> > >  static inline int
+> > >  perf_exclude_event(struct perf_event *event, struct pt_regs *regs)	{ return 0; }
+> > >
+> > > +static inline int perf_allow_kernel(void)
+> > > +{
+> > > +	return perfmon_capable() ? 0 : -EACCES;
+> > > +}
+> > > +static inline int perf_allow_cpu(void)
+> > > +{
+> > > +	return perfmon_capable() ? 0 : -EACCES;
+> > > +}
+> > > +static inline int perf_allow_tracepoint(void)
+> > > +{
+> > > +	return perfmon_capable() ? 0 : -EPERM;
+> > > +}
+> > > +
+> > >  #endif /* !CONFIG_PERF_EVENTS */
+> > >
+> > >  #if defined(CONFIG_PERF_EVENTS) && defined(CONFIG_CPU_SUP_INTEL)
+> > > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > > index 7935d5663944..cb13f3ad11a3 100644
+> > > --- a/kernel/events/core.c
+> > > +++ b/kernel/events/core.c
+> > > @@ -14731,6 +14731,24 @@ int perf_allow_kernel(void)
+> > >  }
+> > >  EXPORT_SYMBOL_GPL(perf_allow_kernel);
+> > >
+> > > +int perf_allow_cpu(void)
+> > > +{
+> > > +	if (sysctl_perf_event_paranoid > 0 && !perfmon_capable())
+> > > +		return -EACCES;
+> > > +
+> > > +	return security_perf_event_open(PERF_SECURITY_CPU);
+> > > +}
+> > > +EXPORT_SYMBOL_GPL(perf_allow_cpu);
+> > > +
+> > > +int perf_allow_tracepoint(void)
+> > > +{
+> > > +	if (sysctl_perf_event_paranoid > -1 && !perfmon_capable())
+> > > +		return -EPERM;
+> > > +
+> > > +	return security_perf_event_open(PERF_SECURITY_TRACEPOINT);
+> > > +}
+> > > +EXPORT_SYMBOL_GPL(perf_allow_tracepoint);
+> > > +
+> > >  /*
+> > >   * Inherit an event from parent task to child task.
+> > >   *
+> > > --
+> > > 2.54.0
+> > >
