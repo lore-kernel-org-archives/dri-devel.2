@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93298C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:50:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A640C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:51:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F021810F4A5;
-	Thu,  2 Jul 2026 15:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E682510F4B7;
+	Thu,  2 Jul 2026 15:51:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="cD5JuBT2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lbQiMxaz";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4993E10F4A5
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:50:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=hQsAfX1ZrVjd1qBgp6WovB6FVpvfR1qOWtzov+lIbew=; t=1783007443; x=1784217043; 
- b=cD5JuBT24PEO8wG+DQ2/d0UqqGHXETDxOAs1kcmukhdOQslKKCJk/iiZge+ok0GihNQKcYVWBsI
- V6LgF4zPC7fkR1bP3u9ohkx6m/Rn1UNAGP9I8for+8/EU+98z9asv6OKgKCh/YDyruRsfv8ERTLM5
- 8KDQmKrtTPBOwVoGnaUGAXbZIYIs3m26L8QZv+8c4eTOW5rIx9gY8VZLpzHlIiTU7Ydvyix6f/JgN
- GMstWMP5fW+qG5zll8yu/EMT9MpnbCzfZ64Eb7zOZRYMrTjcsx4MyT/W7dR4yyFDuBThOdFhvrLnN
- Q8GiwdJJr8bIU/7HBa4LonaLswuB9KBhaBJQ==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Date: Thu, 02 Jul 2026 17:50:35 +0200
-Subject: [PATCH] fb: omap2: dsi: do not copy isr table
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E27310F4AA
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:51:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 21A8B40D56;
+ Thu,  2 Jul 2026 15:51:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B85E1F000E9;
+ Thu,  2 Jul 2026 15:51:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783007480;
+ bh=BGqmxq2YKT75uEs34RuTcEtmv5NEzmCyZjVvAGYL7sM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=lbQiMxazOvEStfHXVX0RjB3/hJKvru6uz9ayl7ooWC2epwOMrmzYgYomx0eAutIxg
+ DwQfKgeanczazH2uMcqToe3XjLOrFmJiNhxXNgxYF6QNZ7Dm9QX2rijDs5SSoaiqEZ
+ /9eAebNo3WyB3yVWYUIPQ8emltYcsNF7CX6bouJdAxKx1PHvrVV0BtypAkRd2kbrDd
+ m3/sqru0IOMReNgOYhZrsJ4Bj8S3wwb0qZoV4aLcjnqI7VHl5TG5wHdpv66Xpo9Hxn
+ VpxSQGZFG78BtfAoMO+DMCdb44fzvdX/Zi4foFSXARqbnhKZWpacXweROcSGcNqLjR
+ pg5CKFCztwlKQ==
+Date: Thu, 2 Jul 2026 16:51:13 +0100
+From: Lee Jones <lee@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ dmaengine@vger.kernel.org
+Subject: Re: [PATCH 09/11] regulator: db8500-prcmu: Remove EPOD regulators
+Message-ID: <20260702155113.GW2108533@google.com>
+References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
+ <20260618-ux500-power-domains-v7-1-v1-9-eb5e50b1a588@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-fbomap-uaf-fix-v1-1-6417edf9d3e7@kemnade.info>
-X-B4-Tracking: v=1; b=H4sIAMuIRmoC/yXMywqAIBCF4VeJWTdgBiq9SrTQGmuCLmhFEL17V
- svvwPkviBSYIlTZBYEOjrzMCUWeQTvYuSfkLhmkkEpoIdG7ZbIr7taj5xMLpakz1jhfGkinNVC
- av2Dd/I67G6nd3grc9wOZSoJacgAAAA==
-X-Change-ID: 20260702-fbomap-uaf-fix-167ed8a8bf38
-To: Helge Deller <deller@gmx.de>
-Cc: linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- sashiko-bot@kernel.org, Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1934; i=andreas@kemnade.info; 
- h=from:subject:message-id;
- bh=FqDrGw5R4E8czJm4KoZVWMrrolruAjzN3fbEGxsWOAg=; 
- b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFluHRfitNy1PhSqCMQn6RslZk28PPfXAa6seF59y4T/0
- 10/HI/sKGVhEONikBVTZPllreD2SeVZbvDUCHuYOaxMIEMYuDgFYCKTlzMydKi8CptQtoRljvn0
- 4r/zs9d299ofSO93ipvf9bzNl7tkM8P/9Jc81ZbJ97jrXJkcq0o9HmqbL0pifRX10+pmTEjM1c1
- cAA==
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-9-eb5e50b1a588@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +67,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To te able to unregister stuff from isrs, the corresponding table was
-copied.  Nobody seems to unregister stuff that way, so it does not help.
-But there are stack-allocated objects passed to these isrs giving chances
-of UAF of these objects if irqs are unregistered while they are handled,
-so better do not copy that table.
+On Thu, 18 Jun 2026, Linus Walleij wrote:
 
-Suggested-by: sashiko-bot@kernel.org
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
-Fix for drm variant fo driver:
-https://lore.kernel.org/lkml/20260702-dsi-uaf-v2-1-dbb4aa0f0b8e@kemnade.info/
----
- drivers/video/fbdev/omap2/omapfb/dss/dsi.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+> Remove the obsolete DB8500 PRCMU regulator drivers.
+> 
+> Drop the regulator build hooks now that EPODs are power domains.
+> 
+> Keep the MFD cell around because a later patch reuses it for a
+> small compatibility regulator driver.
+> 
+> Assisted-by: Codex:gpt-5-5
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  drivers/mfd/db8500-prcmu.c             | 239 +---------------
+>  drivers/regulator/Kconfig              |  12 -
+>  drivers/regulator/Makefile             |   2 -
+>  drivers/regulator/db8500-prcmu.c       | 501 ---------------------------------
+>  drivers/regulator/dbx500-prcmu.c       | 155 ----------
+>  drivers/regulator/dbx500-prcmu.h       |  55 ----
+>  include/linux/regulator/db8500-prcmu.h |  38 ---
+>  7 files changed, 1 insertion(+), 1001 deletions(-)
 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-index 330d9fb7d2b0..d98db01fdd39 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-@@ -326,8 +326,6 @@ struct dsi_data {
- 
- 	spinlock_t irq_lock;
- 	struct dsi_isr_tables isr_tables;
--	/* space for a copy used by the interrupt handler */
--	struct dsi_isr_tables isr_tables_copy;
- 
- 	int update_channel;
- #ifdef DSI_PERF_MEASURE
-@@ -838,15 +836,10 @@ static irqreturn_t omap_dsi_irq_handler(int irq, void *arg)
- 		timer_delete(&dsi->te_timer);
- #endif
- 
--	/* make a copy and unlock, so that isrs can unregister
--	 * themselves */
--	memcpy(&dsi->isr_tables_copy, &dsi->isr_tables,
--		sizeof(dsi->isr_tables));
- 
-+	dsi_handle_isrs(&dsi->isr_tables, irqstatus, vcstatus, ciostatus);
- 	spin_unlock(&dsi->irq_lock);
- 
--	dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
--
- 	dsi_handle_irq_errors(dsidev, irqstatus, vcstatus, ciostatus);
- 
- 	dsi_collect_irq_stats(dsidev, irqstatus, vcstatus, ciostatus);
+Any deps?
 
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260702-fbomap-uaf-fix-167ed8a8bf38
-
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
-
+-- 
+Lee Jones
