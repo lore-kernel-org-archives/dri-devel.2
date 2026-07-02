@@ -4,44 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FDA8C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:50:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93298C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:50:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1E310E500;
-	Thu,  2 Jul 2026 15:49:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F021810F4A5;
+	Thu,  2 Jul 2026 15:50:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hg24F+Nv";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="cD5JuBT2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F37C10F4A6
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:49:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A5567601F0;
- Thu,  2 Jul 2026 15:49:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F96F1F00A3A;
- Thu,  2 Jul 2026 15:49:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783007397;
- bh=7EETzgEdGiW3GI+WOAmrdvxHIMvBIDziFh3SwcPz1NU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Hg24F+NvK8qvX4tH1+Kv0etyHpTkt6aPPiDDbsmcohsmmianjTVn9ZJhcA4xZTHnj
- skHqpGSJKgZltyquBejquZrxeQ/7OvwZhkpnKn0IkgSkVp3CIJhmLOXHgd5cR06gxT
- gVPDTQxRue2m/a4yK138fBhj1EmjZugm+OgErzxsmXjZcLhm7CZnENsLDzmscaFj36
- O0PVluq8vUFjWBQc4G49LGgXRNJJ64igLXr5oWxJ6uq4FrGXtOIVHrZCv162z084XM
- k69ZS5WJj2sSgEzmP2P4cnw3xTJ7jybGZ06WXkwvPz0ykXJ++3OJvefWkU3Dxri8N1
- L7i99tsCc0vzw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/vblank: Don't arm vblank timer with invalid
- frame duration
-To: "Roman Ilin" <me@romanilin.is>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702152356.45045-1-me@romanilin.is>
-References: <20260613224434.96501-1-me@romanilin.is>
- <20260702152356.45045-1-me@romanilin.is>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 15:49:56 +0000
-Message-Id: <20260702154957.2F96F1F00A3A@smtp.kernel.org>
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4993E10F4A5
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=hQsAfX1ZrVjd1qBgp6WovB6FVpvfR1qOWtzov+lIbew=; t=1783007443; x=1784217043; 
+ b=cD5JuBT24PEO8wG+DQ2/d0UqqGHXETDxOAs1kcmukhdOQslKKCJk/iiZge+ok0GihNQKcYVWBsI
+ V6LgF4zPC7fkR1bP3u9ohkx6m/Rn1UNAGP9I8for+8/EU+98z9asv6OKgKCh/YDyruRsfv8ERTLM5
+ 8KDQmKrtTPBOwVoGnaUGAXbZIYIs3m26L8QZv+8c4eTOW5rIx9gY8VZLpzHlIiTU7Ydvyix6f/JgN
+ GMstWMP5fW+qG5zll8yu/EMT9MpnbCzfZ64Eb7zOZRYMrTjcsx4MyT/W7dR4yyFDuBThOdFhvrLnN
+ Q8GiwdJJr8bIU/7HBa4LonaLswuB9KBhaBJQ==;
+From: Andreas Kemnade <andreas@kemnade.info>
+Date: Thu, 02 Jul 2026 17:50:35 +0200
+Subject: [PATCH] fb: omap2: dsi: do not copy isr table
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260702-fbomap-uaf-fix-v1-1-6417edf9d3e7@kemnade.info>
+X-B4-Tracking: v=1; b=H4sIAMuIRmoC/yXMywqAIBCF4VeJWTdgBiq9SrTQGmuCLmhFEL17V
+ svvwPkviBSYIlTZBYEOjrzMCUWeQTvYuSfkLhmkkEpoIdG7ZbIr7taj5xMLpakz1jhfGkinNVC
+ av2Dd/I67G6nd3grc9wOZSoJacgAAAA==
+X-Change-ID: 20260702-fbomap-uaf-fix-167ed8a8bf38
+To: Helge Deller <deller@gmx.de>
+Cc: linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ sashiko-bot@kernel.org, Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1934; i=andreas@kemnade.info; 
+ h=from:subject:message-id;
+ bh=FqDrGw5R4E8czJm4KoZVWMrrolruAjzN3fbEGxsWOAg=; 
+ b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFluHRfitNy1PhSqCMQn6RslZk28PPfXAa6seF59y4T/0
+ 10/HI/sKGVhEONikBVTZPllreD2SeVZbvDUCHuYOaxMIEMYuDgFYCKTlzMydKi8CptQtoRljvn0
+ 4r/zs9d299ofSO93ipvf9bzNl7tkM8P/9Jc81ZbJ97jrXJkcq0o9HmqbL0pifRX10+pmTEjM1c1
+ cAA==
+X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
+ fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,155 +61,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+To te able to unregister stuff from isrs, the corresponding table was
+copied.  Nobody seems to unregister stuff that way, so it does not help.
+But there are stack-allocated objects passed to these isrs giving chances
+of UAF of these objects if irqs are unregistered while they are handled,
+so better do not copy that table.
 
-New issues:
-- [High] The patch adds `drm_WARN_ON_ONCE` for overflow checks, allowing un=
-privileged userspace to trigger kernel warnings and potential panics via cr=
-afted display modes.
-- [High] `drm_calc_timestamping_constants()` returns `-EINVAL` early on inv=
-alid clock or overflow, but most callers ignore the error, leaving `hwmode`=
- and duration fields in a stale state.
+Suggested-by: sashiko-bot@kernel.org
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+---
+Fix for drm variant fo driver:
+https://lore.kernel.org/lkml/20260702-dsi-uaf-v2-1-dbb4aa0f0b8e@kemnade.info/
+---
+ drivers/video/fbdev/omap2/omapfb/dss/dsi.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-Pre-existing issues:
-- [High] Open-coded synchronous timer cancellation in `drm_crtc_vblank_star=
-t_timer()` creates an AB-BA deadlock with the timer callback.
---
+diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
+index 330d9fb7d2b0..d98db01fdd39 100644
+--- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
++++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
+@@ -326,8 +326,6 @@ struct dsi_data {
+ 
+ 	spinlock_t irq_lock;
+ 	struct dsi_isr_tables isr_tables;
+-	/* space for a copy used by the interrupt handler */
+-	struct dsi_isr_tables isr_tables_copy;
+ 
+ 	int update_channel;
+ #ifdef DSI_PERF_MEASURE
+@@ -838,15 +836,10 @@ static irqreturn_t omap_dsi_irq_handler(int irq, void *arg)
+ 		timer_delete(&dsi->te_timer);
+ #endif
+ 
+-	/* make a copy and unlock, so that isrs can unregister
+-	 * themselves */
+-	memcpy(&dsi->isr_tables_copy, &dsi->isr_tables,
+-		sizeof(dsi->isr_tables));
+ 
++	dsi_handle_isrs(&dsi->isr_tables, irqstatus, vcstatus, ciostatus);
+ 	spin_unlock(&dsi->irq_lock);
+ 
+-	dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
+-
+ 	dsi_handle_irq_errors(dsidev, irqstatus, vcstatus, ciostatus);
+ 
+ 	dsi_collect_irq_stats(dsidev, irqstatus, vcstatus, ciostatus);
 
-commit 6d4b57b75f1f23141c8e01d2b53c4658b23ed07f
-Author: Roman Ilin <me@romanilin.is>
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260702-fbomap-uaf-fix-167ed8a8bf38
 
-drm/vblank: Don't arm vblank timer with invalid frame duration
+Best regards,
+--  
+Andreas Kemnade <andreas@kemnade.info>
 
-This commit adds validation to drm_calc_timestamping_constants() to check
-for INT_MAX overflows with small pixel clocks, returning an error instead
-of arming the timer with negative values. It modifies the return type from
-void to int and adds an error check in drm_crtc_vblank_start_timer().
-
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index f90fb2d13e423..b6a342e48601a 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-[ ... ]
-> @@ -631,43 +631,50 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
-[ ... ]
-> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> -				     const struct drm_display_mode *mode)
-> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> +				    const struct drm_display_mode *mode)
->  {
-[ ... ]
-> +	if (dotclock <=3D 0) {
-> +		drm_err(dev, "crtc %u: Can't calculate constants, dotclock =3D %d!\n",
-> +			crtc->base.id, dotclock);
-> +		return -EINVAL;
-> +	}
-
-[Severity: High]
-Could returning early here leave the vblank state stale?
-
-When drm_calc_timestamping_constants() returns early on an invalid clock
-or overflow, it now bypasses the updates to vblank->hwmode and duration
-fields.
-
-Since existing external callers don't check the new return value:
-
-drm_atomic_helper_calc_timestamping_constants() {
-    if (new_crtc_state->enable)
-        drm_calc_timestamping_constants(crtc, &new_crtc_state->adjusted_mod=
-e);
-}
-
-Will they continue using stale hardware state from the previously active
-display mode instead of zeroed out values?
-
-> -		/*
-> -		 * Convert scanline length in pixels and video
-> -		 * dot clock to line duration and frame duration
-> -		 * in nanoseconds:
-> -		 */
-> -		linedur_ns  =3D div_u64((u64) mode->crtc_htotal * 1000000, dotclock);
-> -		framedur_ns =3D div_u64((u64) frame_size * 1000000, dotclock);
-> +	/*
-> +	 * Convert scanline length in pixels and video dot clock to line durati=
-on
-> +	 * and frame duration in nanoseconds.
-> +	 */
-> +	linedur_ns  =3D div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
-> +	framedur_ns =3D div_u64((u64)frame_size * 1000000, dotclock);
-> +
-> +	/*
-> +	 * Fields of interlaced scanout modes are only half a frame duration.
-> +	 */
-> +	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> +		framedur_ns /=3D 2;
-> +
-> +	if (drm_WARN_ON_ONCE(dev, linedur_ns > INT_MAX) ||
-> +	    drm_WARN_ON_ONCE(dev, framedur_ns > INT_MAX))
-> +		return -EINVAL;
-
-[Severity: High]
-Does adding drm_WARN_ON_ONCE() here allow unprivileged userspace to trigger
-kernel warnings?
-
-If a virtualized SPICE agent or X server submits a display mode with a very
-small pixel clock and large dimensions via KMS atomic modeset APIs, the
-computed framedur_ns can exceed INT_MAX.
-
-Since this is user-triggerable, could it lead to log spam or a kernel panic
-if panic_on_warn is enabled?
-
-[ ... ]
-> @@ -2221,6 +2231,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *cr=
-tc)
-[ ... ]
->  	} else {
->  		/*
->  		 * Timer should not be active. If it is, wait for the
->  		 * previous cancel operations to finish.
->  		 */
->  		while (hrtimer_active(&vtimer->timer))
->  			hrtimer_try_to_cancel(&vtimer->timer);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this open-coded
-cancellation loop create a potential AB-BA deadlock?
-
-If drm_vblank_enable() is called, it acquires dev->vblank_time_lock and
-calls down to drm_crtc_vblank_start_timer().
-
-If the hrtimer fires concurrently, drm_vblank_timer_function() begins
-execution on another CPU and waits to acquire dev->vblank_time_lock via
-drm_handle_vblank():
-
-drm_handle_vblank()
-   spin_lock(&dev->vblank_time_lock);
-
-Meanwhile, drm_crtc_vblank_start_timer() enters this while loop:
-
-drm_crtc_vblank_start_timer()
-   while (hrtimer_active(&vtimer->timer))
-       hrtimer_try_to_cancel(&vtimer->timer);
-
-Will this spin loop never terminate because the callback is blocked waiting
-for the lock held by the caller?
-
->  	}
-> =20
-> -	drm_calc_timestamping_constants(crtc, &crtc->mode);
-> +	ret =3D drm_calc_timestamping_constants(crtc, &crtc->mode);
-> +	if (ret)
-> +		return ret;
-> =20
->  	spin_lock_irqsave(&vtimer->interval_lock, flags);
->  	vtimer->interval =3D ns_to_ktime(vblank->framedur_ns);
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702152356.4504=
-5-1-me@romanilin.is?part=3D1
