@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6094BC43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:30:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF9BFC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:30:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1D7210F4DE;
-	Thu,  2 Jul 2026 16:29:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5565B10F4DD;
+	Thu,  2 Jul 2026 16:29:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="Xi2/p22H";
+	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="Z4I2NWrM";
 	dkim-atps=neutral
+X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
+ Thu, 02 Jul 2026 16:29:55 UTC
 Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB4910F4DE;
- Thu,  2 Jul 2026 16:29:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F355C10F496;
+ Thu,  2 Jul 2026 16:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1783009482; bh=xtfEKNw6wJCBOVy7WR/hQK9kzhH/JkuJxV7BK+/tQEg=;
- h=Date:In-Reply-To:References:Subject:From:To:Cc:From;
- b=Xi2/p22HDNkf9hsbUGrRhYTbZIWuuLON7SqzXHNmMSIGL9uc3fLzsxSIsYyySHIOA
- xW6BTR+g2j5Hqn0Vzo2StBM952H4DQEd/mB5XCeX0RHe6wSxExMxQ6cT4Q9zHgZmCM
- pp7wvTmPoXWdMV/7buFDKk4YMeNhG/gtFZJx2px1a9Sh01dhJkSSfmKs0d8Wp+tofx
- Ai4eCeaVjgVdHakIQJQOxS+8nC/h4D8AUSAnV9c6ktSrgoCMMugVzaArvm0m5NX4GP
- iBq9craGKulxnO7o3iG8N5+RCEF3ssumI4aSpcucK2LL1IuRucZf2X2oStBLASLeDP
- bAcnrGEM3Ss7A==
+ t=1783009479; bh=IY5C6F1/QEO/Tb6bgJrWUfZwUAuddxbrXqk1mvKaQME=;
+ h=Date:Subject:From:To:Cc:From;
+ b=Z4I2NWrMuK7o6dkdA3eom/gnVJMtzM+pHTiA+poVFlYWJRbtobsG4Xv4rZx79uHxi
+ yCC2zVVXuHk3djLK1MOBT1AsabhBlDHL1d1H3vGz76lKp8B4AN+8gvodq44Bf7jK7x
+ IZDm3svpa4fuBFJW7XUC3nqcpFBE777f4RwKZopIQawIIgxf4+6v+TFpgaqVKVVrDq
+ fZgIj44mMOMkyH6OxHuW/lq+AaBUuG7IcFMEda7wgP9a6sshAHk4pn26+q8SKlTJUJ
+ HKd97VMEV/a5PcniZobXzDEISnH7QGuO2gOoURezeYSW9EUGV0JRrwMfoLQjhMtIpQ
+ iXnDd0VEzjyaQ==
 Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzt35GnzZr;
- Thu, 02 Jul 2026 18:24:42 +0200 (CEST)
+ by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzp0HGWzBL;
+ Thu, 02 Jul 2026 18:24:37 +0200 (CEST)
 X-Virus-Status: Clean
 X-Virus-Scanned: clamav-milter 1.4.3 at mail
-Date: Thu, 02 Jul 2026 18:24:41 +0200
-Message-ID: <982728e51afbb9d400372e98676ad76335a56410.1783009338.git.mirq-linux@rere.qmqm.pl>
-In-Reply-To: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-References: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-Subject: [PATCH 5/5] drm/amdgpu: debugfs: avoid extra EOLs in amdgpu_gem_info
+Date: Thu, 02 Jul 2026 18:24:37 +0200
+Message-ID: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
+Subject: [PATCH 0/5] Random debugging quality-of-life improvements
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -60,26 +60,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+This is a set of small improvements to debugging and error handling in
+amdgpu driver. Please consider each patch independently.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 4dd7c712b8c3..9ee894e0dbe2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1696,8 +1696,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
- 	if (dma_resv_trylock(bo->tbo.base.resv)) {
- 		dma_resv_describe(bo->tbo.base.resv, m);
- 		dma_resv_unlock(bo->tbo.base.resv);
-+	} else {
-+		seq_puts(m, "\n");
- 	}
--	seq_puts(m, "\n");
- 
- 	return size;
- }
+Michał Mirosław (5):
+  drm/amd/display/amdgpu_dm: show error names
+  drm/amd/pm/smu7: make SMU message reports more readable
+  drm/amd/pm/smu7: return error on message send failure
+  drm/amd/amdgpu/cgs: Avoid redundant copying of firmware filename
+  drm/amdgpu: debugfs: avoid extra EOLs in amdgpu_gem_info
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c       | 54 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  3 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 40 +++++++-------
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 20 +++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +++--
+ .../drm/amd/pm/powerplay/smumgr/smu7_smumgr.c | 25 ++++-----
+ 6 files changed, 76 insertions(+), 78 deletions(-)
+
 -- 
 2.47.3
 
