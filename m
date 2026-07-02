@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 325B4C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2BCC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94ACC10F496;
-	Thu,  2 Jul 2026 16:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9110110F4D9;
+	Thu,  2 Jul 2026 16:29:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="Wj1Kl427";
+	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="kxGeIi2i";
 	dkim-atps=neutral
 Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0602C10F4D9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC7610F4DD;
  Thu,  2 Jul 2026 16:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1783009481; bh=shapZa4PeOLDWV2+6Nr+r+UxCdsZGjmFO3BjFyalYx0=;
+ t=1783009480; bh=YuJVkhEfcgaku4wOWS2SXkCc3/Q3CpYqNBhzmDhas60=;
  h=Date:In-Reply-To:References:Subject:From:To:Cc:From;
- b=Wj1Kl427QYSRFjx+TbjCp9sFHY1ZtmARQ7KCBNFld7eS5ndnJsQo9LUWh92DAbSUn
- 9TTLMwF+PW95MrKG6G5GzCXR5GVd9e/CIA9v+piYCn7AYtldkx3Ij8KAnln6IvKIaQ
- PbzBsZG88OIoTwn9QDxqlbXhFJzf4meeaVbtj4GdhmP37uhb3dYaUhX1CfShKy6qRH
- NaMKvjDdaUjhxtuAvJAQZ3OswPUKbZnBu3zqPEq27gxpwCV5sUGkaqTGa5JJm4gkIE
- C7Cj32ehZL6SBvixZTMHrxBOr72HvmICNRGNr5twAVW02NF5DShxbpq41pMQyxhsvx
- kjNPATJ/EoZTg==
+ b=kxGeIi2i5d+7183oVQFPlU5HR5zElNsysUWUX15VK+2bpHCaVuK5+xqdIOCMQPd/O
+ doqppXRegZ3Wz9TiPB/GnC6D2l9mhTCcFJALiMFVdvo9IiDsJK7MDwT9DHlqzoNh4r
+ cvSdKk4CXDng/MuCmctHz4jxY3t7mdCTKO/CQ7CkCA4pXwBsulPIr0wtdprmFJaB0G
+ nl2BAJlCyNP+2ceOdFlpCYzv0fu2ivJQ8l8q6yCQUfLjsV1E/XYAxEfNlKCiDxBat0
+ xyeXkXLGC+7vLCTbLkzpNm1HK5eeP7XtAu67QJjhX+mdxa15HNrFqBVuEWQSZ1hktQ
+ 8ghJX7fK+c9Dw==
 Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzs3SgSzYT;
- Thu, 02 Jul 2026 18:24:41 +0200 (CEST)
+ by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzr1yCgzKq;
+ Thu, 02 Jul 2026 18:24:40 +0200 (CEST)
 X-Virus-Status: Clean
 X-Virus-Scanned: clamav-milter 1.4.3 at mail
 Date: Thu, 02 Jul 2026 18:24:40 +0200
-Message-ID: <9a1df651e8c340e2f8fd44078641cc7f23242c72.1783009338.git.mirq-linux@rere.qmqm.pl>
+Message-ID: <df3064b3a250a694e39adedd96b9f2133eb3dcf6.1783009338.git.mirq-linux@rere.qmqm.pl>
 In-Reply-To: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
 References: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-Subject: [PATCH 4/5] drm/amd/amdgpu/cgs: Avoid redundant copying of firmware
- filename
+Subject: [PATCH 2/5] drm/amd/pm/smu7: make SMU message reports more readable
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -61,158 +60,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While at it, remove redundant error message - request_firmware() will
-log a failure anyway.
+Make the lines greppable by removing an extra EOL and report the
+status only once - after the reply is detected.
 
 Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 54 ++++++++++++-------------
- 1 file changed, 26 insertions(+), 28 deletions(-)
+ .../gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c   | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-index 09c8942c22d3..a43cd4980d44 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-@@ -241,7 +241,7 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
- 		info->fw_version = amdgpu_get_firmware_version(cgs_device, type);
- 		info->feature_version = (uint16_t)le32_to_cpu(header->ucode_feature_version);
- 	} else {
--		char fw_name[30] = {0};
-+		const char *fw_name = NULL;
- 		int err = 0;
- 		uint32_t ucode_size;
- 		uint32_t ucode_start_address;
-@@ -257,17 +257,17 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
- 					(adev->pdev->revision == 0x81) ||
- 					(adev->pdev->device == 0x665f)) {
- 					info->is_kicker = true;
--					strscpy(fw_name, "amdgpu/bonaire_k_smc.bin");
-+					fw_name = "bonaire_k_smc.bin";
- 				} else {
--					strscpy(fw_name, "amdgpu/bonaire_smc.bin");
-+					fw_name = "bonaire_smc.bin";
- 				}
- 				break;
- 			case CHIP_HAWAII:
- 				if (adev->pdev->revision == 0x80) {
- 					info->is_kicker = true;
--					strscpy(fw_name, "amdgpu/hawaii_k_smc.bin");
-+					fw_name = "hawaii_k_smc.bin";
- 				} else {
--					strscpy(fw_name, "amdgpu/hawaii_smc.bin");
-+					fw_name = "hawaii_smc.bin";
- 				}
- 				break;
- 			case CHIP_TOPAZ:
-@@ -277,76 +277,76 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
- 				    ((adev->pdev->device == 0x6900) && (adev->pdev->revision == 0xD1)) ||
- 				    ((adev->pdev->device == 0x6900) && (adev->pdev->revision == 0xD3))) {
- 					info->is_kicker = true;
--					strscpy(fw_name, "amdgpu/topaz_k_smc.bin");
-+					fw_name = "topaz_k_smc.bin";
- 				} else
--					strscpy(fw_name, "amdgpu/topaz_smc.bin");
-+					fw_name = "topaz_smc.bin";
- 				break;
- 			case CHIP_TONGA:
- 				if (((adev->pdev->device == 0x6939) && (adev->pdev->revision == 0xf1)) ||
- 				    ((adev->pdev->device == 0x6938) && (adev->pdev->revision == 0xf1))) {
- 					info->is_kicker = true;
--					strscpy(fw_name, "amdgpu/tonga_k_smc.bin");
-+					fw_name = "tonga_k_smc.bin";
- 				} else
--					strscpy(fw_name, "amdgpu/tonga_smc.bin");
-+					fw_name = "tonga_smc.bin";
- 				break;
- 			case CHIP_FIJI:
--				strscpy(fw_name, "amdgpu/fiji_smc.bin");
-+				fw_name = "fiji_smc.bin";
- 				break;
- 			case CHIP_POLARIS11:
- 				if (type == CGS_UCODE_ID_SMU) {
- 					if (ASICID_IS_P21(adev->pdev->device, adev->pdev->revision)) {
- 						info->is_kicker = true;
--						strscpy(fw_name, "amdgpu/polaris11_k_smc.bin");
-+						fw_name = "polaris11_k_smc.bin";
- 					} else if (ASICID_IS_P31(adev->pdev->device, adev->pdev->revision)) {
- 						info->is_kicker = true;
--						strscpy(fw_name, "amdgpu/polaris11_k2_smc.bin");
-+						fw_name = "polaris11_k2_smc.bin";
- 					} else {
--						strscpy(fw_name, "amdgpu/polaris11_smc.bin");
-+						fw_name = "polaris11_smc.bin";
- 					}
- 				} else if (type == CGS_UCODE_ID_SMU_SK) {
--					strscpy(fw_name, "amdgpu/polaris11_smc_sk.bin");
-+					fw_name = "polaris11_smc_sk.bin";
- 				}
- 				break;
- 			case CHIP_POLARIS10:
- 				if (type == CGS_UCODE_ID_SMU) {
- 					if (ASICID_IS_P20(adev->pdev->device, adev->pdev->revision)) {
- 						info->is_kicker = true;
--						strscpy(fw_name, "amdgpu/polaris10_k_smc.bin");
-+						fw_name = "polaris10_k_smc.bin";
- 					} else if (ASICID_IS_P30(adev->pdev->device, adev->pdev->revision)) {
- 						info->is_kicker = true;
--						strscpy(fw_name, "amdgpu/polaris10_k2_smc.bin");
-+						fw_name = "polaris10_k2_smc.bin";
- 					} else {
--						strscpy(fw_name, "amdgpu/polaris10_smc.bin");
-+						fw_name = "polaris10_smc.bin";
- 					}
- 				} else if (type == CGS_UCODE_ID_SMU_SK) {
--					strscpy(fw_name, "amdgpu/polaris10_smc_sk.bin");
-+					fw_name = "polaris10_smc_sk.bin";
- 				}
- 				break;
- 			case CHIP_POLARIS12:
- 				if (ASICID_IS_P23(adev->pdev->device, adev->pdev->revision)) {
- 					info->is_kicker = true;
--					strscpy(fw_name, "amdgpu/polaris12_k_smc.bin");
-+					fw_name = "polaris12_k_smc.bin";
- 				} else {
--					strscpy(fw_name, "amdgpu/polaris12_smc.bin");
-+					fw_name = "polaris12_smc.bin";
- 				}
- 				break;
- 			case CHIP_VEGAM:
--				strscpy(fw_name, "amdgpu/vegam_smc.bin");
-+				fw_name = "vegam_smc.bin";
- 				break;
- 			case CHIP_VEGA10:
- 				if ((adev->pdev->device == 0x687f) &&
- 					((adev->pdev->revision == 0xc0) ||
- 					(adev->pdev->revision == 0xc1) ||
- 					(adev->pdev->revision == 0xc3)))
--					strscpy(fw_name, "amdgpu/vega10_acg_smc.bin");
-+					fw_name = "vega10_acg_smc.bin";
- 				else
--					strscpy(fw_name, "amdgpu/vega10_smc.bin");
-+					fw_name = "vega10_smc.bin";
- 				break;
- 			case CHIP_VEGA12:
--				strscpy(fw_name, "amdgpu/vega12_smc.bin");
-+				fw_name = "vega12_smc.bin";
- 				break;
- 			case CHIP_VEGA20:
--				strscpy(fw_name, "amdgpu/vega20_smc.bin");
-+				fw_name = "vega20_smc.bin";
- 				break;
- 			default:
- 				drm_err(adev_to_drm(adev), "SMC firmware not supported\n");
-@@ -355,10 +355,8 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+index 0d4cbe4113a0..ffe3ce87d907 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
+@@ -134,14 +134,6 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
  
- 			err = amdgpu_ucode_request(adev, &adev->pm.fw,
- 						   AMDGPU_UCODE_REQUIRED,
--						   "%s", fw_name);
-+						   "amdgpu/%s", fw_name);
- 			if (err) {
--				drm_err(adev_to_drm(adev),
--					"Failed to load firmware \"%s\"\n", fw_name);
- 				amdgpu_ucode_release(&adev->pm.fw);
- 				return err;
- 			}
+ 	PHM_WAIT_FIELD_UNEQUAL(hwmgr, SMC_RESP_0, SMC_RESP, 0);
+ 
+-	ret = PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
+-
+-	if (ret == 0xFE)
+-		dev_dbg(adev->dev, "last message was not supported\n");
+-	else if (ret != 1)
+-		dev_info(adev->dev,
+-			"\nlast message was failed ret is %d\n", ret);
+-
+ 	cgs_write_register(hwmgr->device, mmSMC_RESP_0, 0);
+ 	cgs_write_register(hwmgr->device, mmSMC_MESSAGE_0, msg);
+ 
+@@ -150,10 +142,9 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
+ 	ret = PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
+ 
+ 	if (ret == 0xFE)
+-		dev_dbg(adev->dev, "message %x was not supported\n", msg);
++		dev_dbg(adev->dev, "SMU message %#x was not supported\n", msg);
+ 	else if (ret != 1)
+-		dev_dbg(adev->dev,
+-			"failed to send message %x ret is %d \n",  msg, ret);
++		dev_info(adev->dev, "SMU message %#x failed: response is %d\n", msg, ret);
+ 
+ 	return 0;
+ }
 -- 
 2.47.3
 
