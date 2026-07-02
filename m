@@ -4,44 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC80C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 17:06:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF13C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 17:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0655810E4CE;
-	Thu,  2 Jul 2026 17:06:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A6010F51E;
+	Thu,  2 Jul 2026 17:12:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ddzc6MFg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jgkuW8qP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E58910E4CE
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 17:06:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 006FA41B06;
- Thu,  2 Jul 2026 17:06:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7481F000E9;
- Thu,  2 Jul 2026 17:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783012012;
- bh=v+s8J6qBl0tr0zYR9XW8bFC4iyd5nl8iVHUhP0GFeDU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ddzc6MFg1r/voIlwbWjWEeELismUTkA1hZ5C8YL9Jvc+xMmrONInmnz31j25BGq0b
- LrNTC3cShB1wWE1QcIWs+xtPAwA45Xz+Zbj2BVhqi7P3NRx2WLujyY17ltgR9M9NCM
- szMCxw6RnnO4tbDCvRg3Z8aQMnKC0TPDTMwMYCLhf1Env4LWmRE/xBJ8py/Wnvn1YV
- d2HzG30tzovtIfWJVW9P0pfuMWvRMtbLe0AU6aIGSeom/+O1UGvrM8uQmlhLNt2VMn
- pIXgYMlnjRw+Kwz5NItYDpIoYEouTUrve/EVzxqzpPT5cN6JxATaCrvxHyvyUWnhCa
- yJ7FcKydjesKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] drm/amdgpu: debugfs: avoid extra EOLs in
- amdgpu_gem_info
-To: =?utf-8?b?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <982728e51afbb9d400372e98676ad76335a56410.1783009338.git.mirq-linux@rere.qmqm.pl>
-References: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
- <982728e51afbb9d400372e98676ad76335a56410.1783009338.git.mirq-linux@rere.qmqm.pl>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 17:06:52 +0000
-Message-Id: <20260702170652.AB7481F000E9@smtp.kernel.org>
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD9BD10F521
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 17:12:45 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-c96c92c0980so1055545a12.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 10:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783012365; x=1783617165; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=STd5MQvh0NQAJtVTzJOmHeJBNZHmtcn+Q1hAWhkb67w=;
+ b=jgkuW8qPc3ghVqzrNXWUoKjSxMq7xjiWHw9tjH/OCUbDDy0K7EEZqX1nVAjjrcVkp7
+ 9ZgwuWF2vy+a4bu0TVpy5Y5bOnwCIOc11sYr7nK6Xnia/QFAbeCEPglmiARWKtPT33+U
+ SlMPNDqy4/VsWd8y4llZLAJb+eys7rb2yn2PJ+OEoqKMPu0hFXV0OUvIIhxcNMwUioKP
+ D3QpYe/FqX4CG+LU8l4piuPavtewoFuoYV4i5Vr3LC7WCH4D3ccfly/xT8xYiTAM/90m
+ ruCgesXlLAWn6TLDHiXHk2P8q6mTIEakzvFvmH/Rsc2jiYusT/h22U6FdwKKPK+jIK3X
+ T4ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783012365; x=1783617165;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=STd5MQvh0NQAJtVTzJOmHeJBNZHmtcn+Q1hAWhkb67w=;
+ b=qVexiDSQ1X3TFjlB4gFEVsKlet7IpekzN1Eu6JmJNudtWXdEHQe+kNMDP7/4JE/4eE
+ K2GlRGqBXdJekNsG64Xk5CUM6RBvqCHooRH2ZgUpk03zhKRvZzH5FglXIwfu7wHvt3zq
+ 40/31vrkLYTyDBm268BHc7GpA0DAUCodvoxnvGy6pbBafLeSwEuuizM3fsvicFL9Nrx/
+ aQZKEvou4g5gvDBXgQMNSD858b7qYFyKB6RhxgzbR9J0HoeEcprTOAUp7n9OiUcrwkbR
+ udOoPzmtVV6R+Mawg+Eb8gdJYc9KYaQNN51g1RT1i+Q3tMyVnjV+cD3mU1keop2hZfCm
+ NT/g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/iqryCUlVRnpetKXH4JgaYZgkhDGP4DpSfNYc0gEKQOz3gxO1g67ifVjqGWl0XoYB4uWrKwEIaA3s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yza1q1Rgiu+51yDP+J4w4fwwOdI6cRpZSstfYhsPL1un2vOEcdC
+ ruJVqlApxeBMYXtY8KCg/UIDQP0LvHkD8kmippYLL5I60tMPw8BKJlA=
+X-Gm-Gg: AfdE7cmruGCV3+0bWD/ctv681KeJezl9UgjWCrn15AHsTR9mWz10sMODM16kLSfb9Vt
+ uiY2bc3yaZiHu8MW2p0CSQob7z1rugEGv8R/gYym28XjM+QvCkiSgCr+BqzkM8FKmEtq3p4jgyM
+ Mc1GCd4yj6cd/mlJrPNdGthbY7fxjaIX4XHFwktSNbUaWrdOw+UUnKfKA8+eOFxnev0ITUYC51o
+ aqvkafNaou8ekgiJGpzfV2AFnZvPVYP+Bnby4qvNb5LWTMzWZtjKK+9uTQJfz13vJ4p0wgpKgM8
+ UAF6V5EqQlYskHd7fcqyQVnG0x/ebiZ5L3Bwd7EeW22x4F7HxtPZ05v9Y1jXFl+OiHdrPySLt7p
+ UuBqYQT+a5xMKo2wX6tgmqiQEv1b1+tk5mGft95zupWAg8nFpLQMEUWrseUmHQg8jzFNOjJmUkD
+ GvNXjOMtkqdjMRTbBZh8qsaISVnCAorMrI6n2SeP7T7Jyt++4CqmCmcp2BNiGspj3s
+X-Received: by 2002:a05:6a21:d84:b0:3bf:7189:2d1f with SMTP id
+ adf61e73a8af0-3bff422a1c2mr6819657637.31.1783012365278; 
+ Thu, 02 Jul 2026 10:12:45 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c9e8eb0ef50sm1644370a12.6.2026.07.02.10.12.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 10:12:44 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] dma-buf: docs: remove invalid struct member
+Date: Thu,  2 Jul 2026 14:12:31 -0300
+Message-ID: <20260702171234.31030-1-nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,70 +87,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing newline in debugfs output for buffer objects without fen=
-ces.
+In the structs dma_fence_array and dma_fence_chain, the field 'lock'
+has been removed, but its documentation comment remained. Remove the
+stale descriptions to clear up the following kernel-doc warnings:
+
+WARNING: ./include/linux/dma-fence-array.h:47 Excess struct member 'lock' description in 'dma_fence_array'
+WARNING: ./include/linux/dma-fence-array.h:47 Excess struct member 'lock' description in 'dma_fence_array'
+WARNING: ./include/linux/dma-fence-chain.h:48 Excess struct member 'lock' description in 'dma_fence_chain'
+WARNING: ./include/linux/dma-fence-chain.h:48 Excess struct member 'lock' description in 'dma_fence_chain'
+
+Fixes: 5943243914b9 ("dma-buf: use inline lock for the dma-fence-array")
+Fixes: a408c0ca0c41 ("dma-buf: use inline lock for the dma-fence-chain")
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+---
+ include/linux/dma-fence-array.h | 1 -
+ include/linux/dma-fence-chain.h | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
+index 1b1d87579c38..0c49d7ccefb6 100644
+--- a/include/linux/dma-fence-array.h
++++ b/include/linux/dma-fence-array.h
+@@ -28,7 +28,6 @@ struct dma_fence_array_cb {
+ /**
+  * struct dma_fence_array - fence to represent an array of fences
+  * @base: fence base class
+- * @lock: spinlock for fence handling
+  * @num_fences: number of fences in the array
+  * @num_pending: fences in the array still pending
+  * @fences: array of the fences
+diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-chain.h
+index df3beadf1515..42289f505164 100644
+--- a/include/linux/dma-fence-chain.h
++++ b/include/linux/dma-fence-chain.h
+@@ -20,7 +20,6 @@
+  * @prev: previous fence of the chain
+  * @prev_seqno: original previous seqno before garbage collection
+  * @fence: encapsulated fence
+- * @lock: spinlock for fence handling
+  */
+ struct dma_fence_chain {
+ 	struct dma_fence base;
 --
+2.47.3
 
-commit 642a225a01d32a7d60ac3ca80f3eb6f52693b3f4
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-
-drm/amdgpu: debugfs: avoid extra EOLs in amdgpu_gem_info
-
-This commit aims to avoid printing extra newlines in the amdgpu_gem_info
-debugfs output. It does this by moving the newline into the lock failure
-path when attempting to dump buffer object fences.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1696,8 +1696,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *=
-bo, struct seq_file *m)
->  	if (dma_resv_trylock(bo->tbo.base.resv)) {
->  		dma_resv_describe(bo->tbo.base.resv, m);
->  		dma_resv_unlock(bo->tbo.base.resv);
-> +	} else {
-> +		seq_puts(m, "\n");
->  	}
-> -	seq_puts(m, "\n");
-> =20
->  	return size;
->  }
-
-[Severity: Medium]
-Will this cause garbled debugfs output for buffer objects that do not have
-any fences attached?
-
-When dma_resv_trylock() succeeds, amdgpu_bo_print_info() calls
-dma_resv_describe(). Looking at dma_resv_describe() in
-drivers/dma-buf/dma-resv.c:
-
-void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq)
-{
-	...
-	dma_resv_for_each_fence(&cursor, obj, DMA_RESV_USAGE_READ, fence) {
-		seq_printf(seq, "\t%s fence:", ...);
-		dma_fence_describe(fence, seq);
-	}
-}
-
-If there are no fences, dma_resv_describe() iterates zero times and prints
-nothing. Because the unconditional newline was moved to the lock-failure
-branch, the success path for a fenceless buffer object now prints nothing
-at all.
-
-This means the next item dumped in the debugfs file will be concatenated on=
-to
-the same line, breaking readability and parsing tools. Should a newline sti=
-ll
-be printed when the lock succeeds but no fences are present?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783009338.gi=
-t.mirq-linux@rere.qmqm.pl?part=3D5
