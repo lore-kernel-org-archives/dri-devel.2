@@ -4,43 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7EC2C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72A04C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:16:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 552D610F2D4;
-	Thu,  2 Jul 2026 11:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E09D210E4AB;
+	Thu,  2 Jul 2026 11:16:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FNqtpt+Z";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="SNO+TI3y";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E2D410F2CB
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:04:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5605842A2D;
- Thu,  2 Jul 2026 11:04:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164E91F0155F;
- Thu,  2 Jul 2026 11:04:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782990280;
- bh=Bq03anLMCHT33HJ7S1NqbZzqCJ8qcgVqyBO+LmRFi+A=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FNqtpt+ZmO2yztk7/I3uBjLZsK6lcKAUcsIAajdFoKwdiUhOOb6czmHKdNtzDusg1
- t720YqdH5kv0Ds+FnPO4/ikw8jHi9e0wo/ejWLlnC/bj74T+c9+o/uIS2Cm86opHq1
- mFKVSVNfJIbkIBpZWgj+SmUi+0Vlvq44KWaoq1/QUUoZof/dDgLJ8h6SHDvyzW3OBz
- DuqMAZU2vFULzZRAGhQx1IUogTFivPzcU9uYIYFyt+JlEddGQdrN1nBUT23DiLiYVb
- qaRtRVJwbxzZuHrEvjtPjFSkazqZr7U9tL+oiI/LkwYpj2Xp97/iOfaDyYyBDnQUxW
- SjpKr3YgWqT7w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] firmware: qcom: scm: add missing IRQ_DOMAIN select to
- QCOM_SCM
-To: "Julian Braha" <julianbraha@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701110344.1999068-1-julianbraha@gmail.com>
-References: <20260701110344.1999068-1-julianbraha@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 11:04:39 +0000
-Message-Id: <20260702110440.164E91F0155F@smtp.kernel.org>
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com
+ [91.218.175.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEFB010E4AB
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:16:05 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1782990951;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=MXoiAeiZxppUV0bbr36tbNoILtIVkAZHXOhXlmlq9aE=;
+ b=SNO+TI3ysBG4+DhR3hPTF1SvhO32c4IR52yjAPmkR78MakGGmD/cQOYIcE8MmMX2BXfJ/B
+ PngJwUk8MPDHueMWfaVQgxbOjSa6VTjHZniUa88SClGCvA5JNzJYRen32CdMAokXiIgXtC
+ 8TVZTPLK3UhpO1X2vjoT/Jd84+uq0gc=
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, lyude@redhat.com, dakr@kernel.org,
+ tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
+ andy.yan@rock-chips.com, thierry.reding@kernel.org, mperttunen@nvidia.com,
+ jonathanh@nvidia.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+ zack.rusin@broadcom.com, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
+ deller@gmx.de, bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, hughd@google.com, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de,
+ kees@kernel.org, perex@perex.cz, tiwai@suse.com,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH 02/13] mm/vma: update do_mmap() to use vma_flags_t
+Date: Thu,  2 Jul 2026 19:15:31 +0800
+Message-Id: <20260702111531.64883-1-lance.yang@linux.dev>
+In-Reply-To: <e0ac58ad2b88ff7e2f0024e3286b2e786f79ca32.1782760670.git.ljs@kernel.org>
+References: <e0ac58ad2b88ff7e2f0024e3286b2e786f79ca32.1782760670.git.ljs@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,66 +82,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] `qcom_scm_get_waitq_irq()` returns 0 on failure, but `qcom_scm_pro=
-be()` only checks `if (irq < 0)`. This causes the driver to skip the fallba=
-ck `platform_get_irq_optional()` and incorrectly attempt to request IRQ 0, =
-leading to a probe failure.
---
-
-commit a810ba9e83e9707877b7e2fd4e5099068b665038
-Author: Julian Braha <julianbraha@gmail.com>
-
-firmware: qcom: scm: add missing IRQ_DOMAIN select to QCOM_SCM
-
-This commit adds the missing select for IRQ_DOMAIN to the QCOM_SCM kconfig.
-This ensures the driver will compile successfully since it relies on
-irq_create_fwspec_mapping().
-
-> diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
-> index b477d54b495a6..9d137fa2aa232 100644
-> --- a/drivers/firmware/qcom/Kconfig
-> +++ b/drivers/firmware/qcom/Kconfig
-> @@ -7,6 +7,7 @@
->  menu "Qualcomm firmware drivers"
-> =20
->  config QCOM_SCM
-> +	select IRQ_DOMAIN
-
-[Severity: High]
-This is a pre-existing issue, but since this patch ensures the code
-using irq_create_fwspec_mapping() is compiled, I noticed a potential
-regression in how its return value is handled.
-
-In drivers/firmware/qcom/qcom_scm.c:qcom_scm_get_waitq_irq():
-
-	return irq_create_fwspec_mapping(&fwspec);
-
-If irq_create_fwspec_mapping() fails, it returns 0. However, when
-checked in qcom_scm_probe():
-
-	irq =3D qcom_scm_get_waitq_irq(scm);
-	if (irq < 0)
-		irq =3D platform_get_irq_optional(pdev, 0);
-
-Since 0 is not less than 0, the check misses the failure. Does this cause
-the driver to skip the fallback path and incorrectly attempt to request
-irq 0, resulting in a probe failure?
-
-Should this check be updated to if (irq <=3D 0) to properly trigger the
-fallback path?
-
->  	select QCOM_TZMEM
->  	tristate
+On Mon, Jun 29, 2026 at 08:25:25PM +0100, Lorenzo Stoakes wrote:
+>The core do_mmap() function accepts a vm_flags_t parameter which it then
+>manipulates before passing to mmap_region() to do the heavy lifting of the
+>memory mapping.
 >
+>Update do_mmap() to instead accept a vma_flags_t parameter, and adjust all
+>the logic within do_mmap() to manipulate this instead.
+>
+>This is as part of the ongoing effort to convert VMA flags from a system
+>word size to a bitmap type which allows us to unrestrict the number of VMA
+>flags, as well as gain control over how VMA flag manipulation occurs.
+>
+>We do not cascade these changes to all functions which accept vm_flags_t,
+>but rather use vma_flags_to_legacy() where necessary, specifically
+>deferring converting calc_vm_prot_bits(), calc_vm_flag_bits() and
+>__get_unmapped_area() to vma_flags_t.
+>
+>Also utilise the new vma_flags_can_grow() predicate which correctly handles
+>the case of architectures without upward growing stacks.
+>
+>As part of this change, introduce VMA_SHADOW_STACK so we can correctly
+>handle the case of the shadow stack not being defined.
+>
+>No functional change intended.
+>
+>Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>---
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701110344.1999=
-068-1-julianbraha@gmail.com?part=3D1
+Not exactly a small one :) I stared at this patch for a while, hopefully
+don't miss anythig ...
+
+Just one tiny nit below. Overall, LGTM, feel free to add:
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+[...]
+>diff --git a/mm/mmap.c b/mm/mmap.c
+>index 46174e706bbe..547352183214 100644
+>--- a/mm/mmap.c
+>+++ b/mm/mmap.c
+[...]
+>@@ -488,23 +496,27 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+> 		 * Check to see if we are violating any seals and update VMA
+> 		 * flags if necessary to avoid future seal violations.
+> 		 */
+>-		err = memfd_check_seals_mmap(file, &vm_flags);
+>+		err = memfd_check_seals_mmap(file, &vma_flags);
+> 		if (err)
+> 			return (unsigned long)err;
+> 	} else {
+> 		switch (flags & MAP_TYPE) {
+> 		case MAP_SHARED:
+>-			if (vm_flags & (VM_GROWSDOWN|VM_GROWSUP))
+>+			if (vma_flags_can_grow(&vma_flags))
+> 				return -EINVAL;
+> 			/*
+> 			 * Ignore pgoff.
+> 			 */
+> 			pgoff = 0;
+>-			vm_flags |= VM_SHARED | VM_MAYSHARE;
+>+			vma_flags_set(&vma_flags, VMA_SHARED_BIT, VMA_MAYSHARE_BIT);
+> 			break;
+>-		case MAP_DROPPABLE:
+>-			if (VM_DROPPABLE == VM_NONE)
+>+		case MAP_DROPPABLE: {
+>+			vma_flags_t droppable = VMA_DROPPABLE;
+>+
+>+			if (vma_flags_empty(&droppable))
+> 				return -EOPNOTSUPP;
+>+			vma_flags_set_mask(&vma_flags, droppable);
+>+
+> 			/*
+> 			 * A locked or stack area makes no sense to be droppable.
+> 			 *
+>@@ -515,23 +527,24 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+> 			 */
+> 			if (flags & (MAP_LOCKED | MAP_HUGETLB))
+> 			        return -EINVAL;
+>-			if (vm_flags & (VM_GROWSDOWN | VM_GROWSUP))
+>+			if (vma_flags_can_grow(&vma_flags))
+> 			        return -EINVAL;
+> 
+>-			vm_flags |= VM_DROPPABLE;
+
+Old code checked VM_GROWSDOWN|VM_GROWSUP before seting VM_DROPPABLE. New
+code flips that around. Hmm, shouldn't master, just made me look twice ;)
+
+Maybe keep old order?
+
+Cheers, Lance
+
+>-
+> 			/*
+> 			 * If the pages can be dropped, then it doesn't make
+> 			 * sense to reserve them.
+> 			 */
+>-			vm_flags |= VM_NORESERVE;
+>+			vma_flags_set(&vma_flags, VMA_NORESERVE_BIT);
+> 
+> 			/*
+> 			 * Likewise, they're volatile enough that they
+> 			 * shouldn't survive forks or coredumps.
+> 			 */
+>-			vm_flags |= VM_WIPEONFORK | VM_DONTDUMP;
+>+			vma_flags_set(&vma_flags, VMA_WIPEONFORK_BIT,
+>+				      VMA_DONTDUMP_BIT);
+>+
+> 			fallthrough;
+>+		}
+> 		case MAP_PRIVATE:
+> 			/*
+> 			 * Set pgoff according to addr for anon_vma.
+[...]
