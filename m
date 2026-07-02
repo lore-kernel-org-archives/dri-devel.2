@@ -4,94 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4051C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1282C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18AF610F251;
-	Thu,  2 Jul 2026 09:01:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 536DA10F24D;
+	Thu,  2 Jul 2026 09:15:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=alyssa.is header.i=@alyssa.is header.b="pT4c3POm";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="PuTN4PSe";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="nppHb3Bt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kqtcr/iD";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nppHb3Bt";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kqtcr/iD";
 	dkim-atps=neutral
-X-Greylist: delayed 422 seconds by postgrey-1.36 at gabe;
- Thu, 02 Jul 2026 09:01:09 UTC
-Received: from fhigh-a8-smtp.messagingengine.com
- (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDA3110F255
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:01:09 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id C14CC14000EE;
- Thu,  2 Jul 2026 04:54:06 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Thu, 02 Jul 2026 04:54:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1782982446; x=1783068846; bh=j55qvLlvef
- mz0mgcVLcPw9qKtGv4J9U0lwmNoDlYuKI=; b=pT4c3POmmIeP6to0Zj66Bt9Qau
- m06MzJXF2gGfXPKY1sBTgZZ7Y+9rUKJ8UncBTZsSutmIL0/WlXTYzRNhlArESOMW
- TUSGY8+V/TvJtL2X/dDYdaXHC4PUWDlhOZ9XUUHp2uKz03N05fAsKkNF0PZB6zk2
- qixcx6SDuvEYKCFNrcQd+ghQHIhFJrMDfPcQXEwFzssXa5FQBvLeigQ8L5rz6dgc
- lqU4oCyEvExFRXicv20awbWcFvXEhTNmb3jkRMvJQ4/MuIUljG5oxSVe+D/dWpD6
- 2WDGp19TrA3tVlzXSdmk4TJAg8DmmuiuhV9zV2wIJwEYQ3jYguTQyA8yHllQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1782982446; x=1783068846; bh=j55qvLlvefmz0mgcVLcPw9qKtGv4J9U0lwm
- NoDlYuKI=; b=PuTN4PSeOMGZAJ6mhiCwSWXiB4rWkFe1voJVGa926kPuKEACVkn
- 5X6FFt5Vwb4Jlej0N3av57CFaMnH0UKjK8K3K4CMvOWlC33gLm5d1Xpoqng+geFG
- 8jsjgz3vbA4LOh0QaL6OqyKyx/jCV9wKJN5Fn+klXiPEZn1ARhiQHtfSiaXVGXb5
- ynq4jEMiYYnNh8uh0O1weAAUOquAuriq60fy8ONct4aWu8D7KL4lycppi/wNOlFt
- j8NjkD0hUYfHxhprzQGd3sRrMoldO7iuVhHgRLlik7xHKmG9x3plZPtBHfDSN4f9
- EfMLwE225XCjD+Vh1B8FQbhpGOuHBKwBDMw==
-X-ME-Sender: <xms:LSdGaqJ6s_sDa6DdZOdaKTb6HybJ6md_I7t2CqjyIt9r5xxIbXpfkQ>
- <xme:LSdGauGBNT6kL5i0i5X2BlIv7P7dsGsiq_Vttd5OISaK3UKVYOh79P8f3_Ba2U-FS
- GSDhWvSEM6VaPaTlquaYH3Ly6fgk9TWlPWs4k2mxFegPYPmZCV0kw>
-X-ME-Received: <xmr:LSdGag0PxissU8RT60Rsiw9nggrnTt7HE90mfcA_Ibe6DaJuVH__lkl7aD3D5zSVxshysvepz8_VlmaOpR6TA-hxM-HKlw>
-X-ME-Proxy-Cause: dmFkZTEHCignYgB5W3814u/dYlkAnitiAGoUnu08MpyCR+DPgCOX37U/aCvuiPMeDa7Z8C
- zdzohmwS/vVrc4QRDt9AJpK7O+PEwujd2Zvqh+Tc23Gt+iQK3tTVXQiUSd0tWwpTdeS4ID
- vMkgb9EuKZTRZDm6wE1doDsjbiDndFhKH9kzsqVTBzmE8H/XffdKNDUpFY46e75ugw1QoJ
- iY8knN0OAUdA2Erv9QW4w7DTd9d+5TU6wRGgdGxOtgm1DctIUWacqF3Dxq7DJfK5M6ulpf
- 2AnmTUF+5b+8a6b7lmqo4nMFSg4ekjcYD0VqkdKkLqATsD9PUnxrqQcGPm+8SNGRhVn5Yw
- hkOxgE22qur5b6dmyWD0rpefZzcRrPPHITYqH94IRdA5T/0xR/KlnNYQ12siugELptFQrz
- GPsudgJ845YP9jNYkWI3uoYqcFl0LTNBAMpHbbmVvO1m9CXOhP3NcwQk94IjdE5XyLKVCW
- K4fGRHcI/P7UbI1Va1tDtI+cCnyw4HaOGDJEiPjeBbRwlHa95l3FA5nTarKRYIAcOSsTw9
- HPaODK0w1sO2cN+h0ySe0XesTv663rJiVyu8p2lF1L+4Pst3Jyt2rm55LAh7JkplF3lu30
- zJaIpHY8DFFk0Rfb980wHFi1EYUyyozxuUVDGa5BcTYC28WYwtoO2TCUp9Ag
-X-ME-Proxy: <xmx:LSdGalzve92v4Y03J23F8M0wmvsps6Yp7qytQvoTDpQHnZy7Kq1krQ>
- <xmx:LSdGavhEYSSjr2IJfa-By6b_lHSMaTdLS8U49wxGcTB3cE4VS-aOgA>
- <xmx:LSdGakzJKSPGQ6e8g9vCBkVUKxjBCAjkjG9tb048TOqJNyzbd8hj0g>
- <xmx:LSdGatwcVEid3e0SItT_9LF0YJ6NVmacAXZb3m7RPeWIueo_l8b7zw>
- <xmx:LidGagIdHB9mNYAhpB2lE4rtRGRci_OlEuJSfMc5gjPOnoRdJjzFJ-lm>
-Feedback-ID: i12284293:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Jul 2026 04:54:05 -0400 (EDT)
-Received: by fw12.qyliss.net (Postfix, from userid 1000)
- id E5154BE01643; Thu, 02 Jul 2026 10:54:02 +0200 (CEST)
-From: Alyssa Ross <hi@alyssa.is>
-To: Gurchetan Singh <gurchetansingh@chromium.org>, "Michael S. Tsirkin"
- <mst@redhat.com>
-Cc: Sergio Lopez <slp@redhat.com>, Chia-I Wu <olvaffe@gmail.com>, Jason Wang
- <jasowang@redhat.com>, Eugenio =?utf-8?Q?P=C3=A9rez?=
- <eperezma@redhat.com>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>, linux-kernel@vger.kernel.org, Simona Vetter
- <simona@ffwll.ch>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, Thomas
- Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>, Gerd
- Hoffmann <kraxel@redhat.com>, virtualization@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] drm/virtio: honor blob_alignment requirements
-In-Reply-To: <20260702000144-mutt-send-email-mst@kernel.org>
-References: <20260428194450.518296-1-slp@redhat.com>
- <20260428194450.518296-3-slp@redhat.com> <akT1XEW766c7Imst@mbp.qyliss.net>
- <20260702000144-mutt-send-email-mst@kernel.org>
-Date: Thu, 02 Jul 2026 10:53:58 +0200
-Message-ID: <87tsqhai1l.fsf@alyssa.is>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E523D10F24D
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:15:16 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4E5D8740C9;
+ Thu,  2 Jul 2026 09:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782983715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gcIRMuJdnWxglX282uJMGMsZpqjvVtk2oVuBKv4zAdg=;
+ b=nppHb3Btq527MN16+7kiZ8Vogss2BzKVTjeiOzlIqC/WfmsUSHdbdzWKBtpymHwHRQOxGi
+ Qi7CJppS37VMKptdrygSmj3jHUbakQAdmIy0Nd19SornnIldWCSskLFv6J3P5lwP7pP2C0
+ T9tftyw9nXUUEgPEJ73A44HsKp+NbMU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782983715;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gcIRMuJdnWxglX282uJMGMsZpqjvVtk2oVuBKv4zAdg=;
+ b=kqtcr/iDCyLq64uvcEBrzOqq264UoE/k5WQBfjx8/m6a0r8ZGkjQbCoBlb5q8H55x+aZ7G
+ rRqn4JceZkU9bnDg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=nppHb3Bt;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="kqtcr/iD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782983715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gcIRMuJdnWxglX282uJMGMsZpqjvVtk2oVuBKv4zAdg=;
+ b=nppHb3Btq527MN16+7kiZ8Vogss2BzKVTjeiOzlIqC/WfmsUSHdbdzWKBtpymHwHRQOxGi
+ Qi7CJppS37VMKptdrygSmj3jHUbakQAdmIy0Nd19SornnIldWCSskLFv6J3P5lwP7pP2C0
+ T9tftyw9nXUUEgPEJ73A44HsKp+NbMU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782983715;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gcIRMuJdnWxglX282uJMGMsZpqjvVtk2oVuBKv4zAdg=;
+ b=kqtcr/iDCyLq64uvcEBrzOqq264UoE/k5WQBfjx8/m6a0r8ZGkjQbCoBlb5q8H55x+aZ7G
+ rRqn4JceZkU9bnDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 01D16779AA;
+ Thu,  2 Jul 2026 09:15:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id hz3QOiIsRmq4awAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 02 Jul 2026 09:15:14 +0000
+Message-ID: <4e421c5a-1ecc-4155-8262-69c163af9624@suse.de>
+Date: Thu, 2 Jul 2026 11:15:14 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
- micalg=pgp-sha512; protocol="application/pgp-signature"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/4] drm/hyperv: Explicitly set subvendor and subdevice
+ for pci match array
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+Cc: Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
+ <019450ffb519d02821364afca32b9f48bcd8d2b6.1782925276.git.u.kleine-koenig@baylibre.com>
+ <7a747d47-d275-48ad-a4ea-1e4897df1d28@suse.de> <akYkWQzXIo-y3n4J@monoceros>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <akYkWQzXIo-y3n4J@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-5.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[microsoft.com,linux.microsoft.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[11]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:mid, suse.de:dkim, baylibre.com:email]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4E5D8740C9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,42 +157,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+Hi
 
-"Michael S. Tsirkin" <mst@redhat.com> writes:
-
-> On Wed, Jul 01, 2026 at 01:10:30PM +0200, Alyssa Ross wrote:
->> On Tue, Apr 28, 2026 at 09:44:49PM +0200, Sergio Lopez wrote:
->> > If VIRTIO_GPU_F_BLOB_ALIGNMENT has been negotiated, blob size must be
->> > aligned to blob_alignment. Validate this in verify_blob() so that
->> > invalid requests are rejected early.
->> >
->> > Signed-off-by: Sergio Lopez <slp@redhat.com>
->>=20
->> FYI: this change breaks crosvm, which is squatting the 5 and 6 values
->> of VIRTIO_GPU_F_* with different meanings.  I've reported it as a
->> crosvm bug, so hopefully it can be taken care of there.
->>=20
->> https://issuetracker.google.com/issues/529852979
+Am 02.07.26 um 10:52 schrieb Uwe Kleine-König (The Capable Hub):
+> Hallo Thomas,
 >
-> Move fast and beak things, then it takes a wile to fix them)
-> Do you understand who uses it maybe? Maybe if there's a PR
-> for both sides it will be handled faster.
+> On Thu, Jul 02, 2026 at 08:43:32AM +0200, Thomas Zimmermann wrote:
+>> Am 01.07.26 um 19:05 schrieb Uwe Kleine-König (The Capable Hub):
+>>> .subvendor and .subdevice were set to 0 implicitly, so only devices with
+>>> these two values set to 0 in hardware can probe automatically. Make this
+>>> requirement explicit.
+>>>
+>>> While touching this array item, also make use of the pci macro designed
+>>> for that case.
+>>>
+>>> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+>>> ---
+>>>    drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 4 ++--
+>>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+>>> index 2e75fb793495..e766d87b7a9d 100644
+>>> --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+>>> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+>>> @@ -51,8 +51,8 @@ static void hv_drm_pci_remove(struct pci_dev *pdev)
+>>>    static const struct pci_device_id hv_drm_pci_tbl[] = {
+>>>    	{
+>>> -		.vendor = PCI_VENDOR_ID_MICROSOFT,
+>>> -		.device = PCI_DEVICE_ID_HYPERV_VIDEO,
+>>> +		PCI_VDEVICE_SUB(MICROSOFT, PCI_DEVICE_ID_HYPERV_VIDEO,
+>>> +				0, 0),
+>> IDK, but it looks like an oversight to me.  Setting the sub-fields to ANY
+>> seems like the better fix.
+> That was my initial reflex, too. However while writing the commit log
+> for that change I noticed that since commit d750785f305e ("Staging: hv:
+> fix hv_utils module to properly autoload") from 2010 (applied to
+> v2.6.35-rc4) the driver never worked for hardware with .subvendor != 0
+> or .subdevice != 0. I cannot believe that something like that is
+> discovered 16 years later by chance during a rework by someone who
+> didn't try to run that hardware. And if I understand correctly, this is
+> emulated hardware and so I guess used quite a lot.
 
-I have no idea where the device side is.  Doesn't seem to be in the
-Chromium kernel tree, nor are there any patches for it in Chromium
-Gerrit.  Maybe Gurchetan can shed some light?
+I wouldn't be surprised. To my knowledge, there's just one 
+implementation of this device, which is Windows. If they clear their 
+host-side structures to 0 and pass them to the guest, no one would ever 
+notice the issue. But let's see what the driver maintainers can comment 
+on the issue.
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards
+Thomas
 
------BEGIN PGP SIGNATURE-----
+>
+> Best regards
+> Uwe
 
-iHUEARYKAB0WIQQGoGac7QfI+H5ZtFCZddwkt31pFQUCakYnJwAKCRCZddwkt31p
-FRB4AP9r4exFXbswzWQ1hhpnbMXRJzsC7nKw2Y3TyAaPQkSSTgD/fMa+jGE0X1HF
-N1j7OIDzSBwZrrxiZ2FuGUgYS4A5ygs=
-=adGR
------END PGP SIGNATURE-----
---=-=-=--
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
