@@ -4,78 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6595C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 06:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96E1C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 06:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35DEE10E46E;
-	Thu,  2 Jul 2026 06:45:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04BCD10E46F;
+	Thu,  2 Jul 2026 06:45:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="h/Xr9hcW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FzNHR3f2";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WVCFPNKN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aic2NIuu";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="taD4FyRz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FN+86iVr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0lsJCwvs";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V9yYXKkn";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19B4310E46E
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 06:45:18 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 780F310E46F
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 06:45:48 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6DE4475AF9;
- Thu,  2 Jul 2026 06:45:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F281672E42;
+ Thu,  2 Jul 2026 06:45:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782974716; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1782974747; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mfu2k4FXErdZDQ9bdFmvwlGMeeFPsZf5v5nHeEcXfow=;
- b=h/Xr9hcWYjp5MFf8UGEmmghsrxS0sG9bHRvmWqj+D9q6V4LV+g8ugRbgzycX71b1XsjoMh
- mBS+rPWDEmLcjwgkuASxQ2QpiSjC9AgVoZoRBZP1nLZxwFK+tAB5LA6gJRRT901s0rF9Gn
- NVsvxZOgBKDzvrj33FsekCCfhLBQJsA=
+ bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
+ b=taD4FyRz1xTnj1lV0wqCvFw8r+z37tDJJEc1o2TjR7rMmKsLSACHem77gm9M+1TWCiuuUh
+ Y8On0BUADh8ZFokcq7/eghvvXYvE6uyJjJLdVJi47meEyWVHTcBQRVKPhAPbTWyFdDzF+r
+ 5ddWwFpGCPQcVFBqC5j7qnRDuOa7i6c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782974716;
+ s=susede2_ed25519; t=1782974747;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mfu2k4FXErdZDQ9bdFmvwlGMeeFPsZf5v5nHeEcXfow=;
- b=FzNHR3f2TIzbZj0xUxLowjLchxe4bDjfkgNlaxOIR7s/zkLibzw4ekmDqZybfaYN9HmPj9
- yAlJDrnW+bGsymCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
+ bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
+ b=FN+86iVrRC5+wxGeZ3LvDghXC8OZECP2qUO0E0J510cG+DOJQzR5hbPHJ3LNw7r5O0d5Qo
+ ONvFYJfsvhD/wxAQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0lsJCwvs;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=V9yYXKkn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782974715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1782974746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mfu2k4FXErdZDQ9bdFmvwlGMeeFPsZf5v5nHeEcXfow=;
- b=WVCFPNKN7g2yge0Yg6OWgiKUtFDv82q+I9LfPCJaOKCBigDneS7OyzgcBvtbZWceNWQvl8
- unlf+/qZpeVUrtfhi6zybXBdUF3MFkFA6psaX0+NX/3F3bu8gXvSxUl7boAIIT55pgEMPg
- NntwOlBqLNapa1sqHDVvC4XyBLbxyOI=
+ bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
+ b=0lsJCwvs5+cumbcsLy/fgqB0L4l9bPCeyGVJsJJekzAjehxAt8+ZMWQb6DdOeKxrITvXFO
+ SYTJvvMJmbVSVSd1/XCY0mkfgBM8JJ2dAjofyoh4SBrlTrHx1MNY00z6wygtcskl9dvHpx
+ MlWjJ9JscelM7ZY43t/oRS/+hii/uJw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782974715;
+ s=susede2_ed25519; t=1782974746;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Mfu2k4FXErdZDQ9bdFmvwlGMeeFPsZf5v5nHeEcXfow=;
- b=aic2NIuun8yQkk8/bSmqDxTwA98tbblp/ZUfzyVNKJvjrZPUoQMs8mZ0RsUlYZmOLSWcjY
- i39i97KrpkNoDHBw==
+ bh=pedP7+S1v83Jgr0YfdV3XzjtZJmb6ChRPKDp4rx28ZA=;
+ b=V9yYXKkneIHX8W8f4FIodJJcouf+7/tnz8m3fGWyjGfrFtbW5BCGfOKp7GqyJHJ47maSle
+ EImNg547Lc1wZCCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 26709779AA;
- Thu,  2 Jul 2026 06:45:15 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8C922779AA;
+ Thu,  2 Jul 2026 06:45:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NoU+CPsIRmpuVQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 02 Jul 2026 06:45:15 +0000
-Message-ID: <56983c6a-6459-4145-bf6a-909d2f3ee9a4@suse.de>
-Date: Thu, 2 Jul 2026 08:45:14 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id S+vZIBoJRmqVVgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 02 Jul 2026 06:45:46 +0000
+Message-ID: <7f514198-d47d-4b73-900e-1e7cd26c3a21@suse.de>
+Date: Thu, 2 Jul 2026 08:45:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] drm/hyperv: Drop useless empty remove callback
+Subject: Re: [PATCH v1 4/4] drm/hyperv: Move MODULE_DEVICE_TABLE to the
+ device_id arrays
 To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
  <u.kleine-koenig@baylibre.com>, Dexuan Cui <decui@microsoft.com>,
  Long Li <longli@microsoft.com>, Saurabh Sengar
@@ -86,7 +89,7 @@ To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
 Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 References: <cover.1782925276.git.u.kleine-koenig@baylibre.com>
- <8a85b5f4a5ed8ec35b5a213423d4be40e34f9cb9.1782925276.git.u.kleine-koenig@baylibre.com>
+ <7f9d4a239c76b6bb384048ea5591a21ed87d9b0e.1782925276.git.u.kleine-koenig@baylibre.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -113,24 +116,28 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <8a85b5f4a5ed8ec35b5a213423d4be40e34f9cb9.1782925276.git.u.kleine-koenig@baylibre.com>
+In-Reply-To: <7f9d4a239c76b6bb384048ea5591a21ed87d9b0e.1782925276.git.u.kleine-koenig@baylibre.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: F281672E42
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+];
+ MX_GOOD(-0.01)[]; RCPT_COUNT_SEVEN(0.00)[11];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
  FREEMAIL_TO(0.00)[baylibre.com,microsoft.com,linux.microsoft.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
  FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[11];
- MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[baylibre.com:email, imap1.dmz-prg2.suse.org:helo,
- suse.de:mid, suse.com:url]
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,baylibre.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,50 +153,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+
 
 Am 01.07.26 um 19:05 schrieb Uwe Kleine-König (The Capable Hub):
-> Having an empty remove callback is equivalent to no remove callback.
-> (The only minor difference is that with an empty remove callback
-> pm_runtime_get_sync() and pm_runtime_put_noidle() are called.)
->
-> Drop this useless function.
+> It matches the usual coding style to have the MODULE_DEVICE_TABLE macro
+> directly after the respective arrays.
 >
 > Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
 > ---
->   drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 5 -----
->   1 file changed, 5 deletions(-)
+>   drivers/gpu/drm/hyperv/hyperv_drm_drv.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> index e766d87b7a9d..e3f41336a831 100644
+> index e3f41336a831..6a28048f687b 100644
 > --- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
 > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
-> @@ -45,10 +45,6 @@ static int hv_drm_pci_probe(struct pci_dev *pdev,
->   	return 0;
->   }
->   
-> -static void hv_drm_pci_remove(struct pci_dev *pdev)
-> -{
-
-It would be better to call drm_dev_unplug() from here.  With a bit more 
-work, the driver can have hot-unplug functionality.
-
-Best regards
-Thomas
-
-> -}
-> -
->   static const struct pci_device_id hv_drm_pci_tbl[] = {
->   	{
->   		PCI_VDEVICE_SUB(MICROSOFT, PCI_DEVICE_ID_HYPERV_VIDEO,
-> @@ -64,7 +60,6 @@ static struct pci_driver hv_drm_pci_driver = {
->   	.name =		KBUILD_MODNAME,
->   	.id_table =	hv_drm_pci_tbl,
->   	.probe =	hv_drm_pci_probe,
-> -	.remove =	hv_drm_pci_remove,
+> @@ -52,6 +52,7 @@ static const struct pci_device_id hv_drm_pci_tbl[] = {
+>   	},
+>   	{ /* end of list */ }
 >   };
+> +MODULE_DEVICE_TABLE(pci, hv_drm_pci_tbl);
 >   
->   static int hv_drm_setup_vram(struct hv_drm_device *hv,
+>   /*
+>    * PCI stub to support gen1 VM.
+> @@ -219,6 +220,7 @@ static const struct hv_vmbus_device_id hv_drm_vmbus_tbl[] = {
+>   	{HV_SYNTHVID_GUID},
+>   	{}
+>   };
+> +MODULE_DEVICE_TABLE(vmbus, hv_drm_vmbus_tbl);
+>   
+>   static struct hv_driver hv_drm_hv_driver = {
+>   	.name = KBUILD_MODNAME,
+> @@ -260,8 +262,6 @@ static void __exit hv_drm_exit(void)
+>   module_init(hv_drm_init);
+>   module_exit(hv_drm_exit);
+>   
+> -MODULE_DEVICE_TABLE(pci, hv_drm_pci_tbl);
+> -MODULE_DEVICE_TABLE(vmbus, hv_drm_vmbus_tbl);
+>   MODULE_LICENSE("GPL");
+>   MODULE_AUTHOR("Deepak Rawat <drawat.floss@gmail.com>");
+>   MODULE_DESCRIPTION("DRM driver for Hyper-V synthetic video device");
 
 -- 
 --
