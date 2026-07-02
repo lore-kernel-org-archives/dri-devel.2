@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7472EC44506
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21752C4450A
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8465710F408;
-	Thu,  2 Jul 2026 14:46:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5668E10F3FD;
+	Thu,  2 Jul 2026 14:46:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ZHsKlmxy";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LWYPW9Ww";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1501E10F3F7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C425010F3F7
  for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003599;
- bh=bqHd/XL8Tdc6hdL1EJXhhEuzGoPKiDau7n5UEB05RMQ=;
+ s=mail; t=1783003600;
+ bh=QCn0pWH6R490QoGfBT3a1Vn0/GvOOWVICGTR08194MA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZHsKlmxypGtq4+iTESZfbKQ6E2BJA0CBA9TaIhZrNE7OFZTztAdhJyV/eRMUjjTQ8
- 5bHpnQiyrS2xX76BoxHnBoLhy1ayagGNmaiUPtZ1H4jZupxdO05QhQS/RfiHYyJ8PB
- +ZQNEIsYtAPUP18V6BHWbM0VmjdWdjrTkUcxL38iHqcpd1oQbWn8z81GMjlqkWCAnY
- roActHzwDjfwnJwjAg9is8hvzrMgBR8whN0/om+nM89lxWdBR/wNa8m7r4PZ3ZHLNd
- lFiZsXrWtI825OEvGKhusTEs337/WI144dc1v/LrtZTA2xekGQheahEjXnHTO2+ACF
- OhJQKnCOdSXqQ==
+ b=LWYPW9Ww0AbpqzFgzNNEQ9LWXyxHGyREaR3817xNgE68gdxl8yTuccII9hX2HV7fX
+ +5vBHkI7AYAz5+gReN5bLfYx/HZZ/3hlWg5exUXsKN/s8XRliCvyo+shc1ZrhEeH2D
+ Vr/wEV4h4ou0elezTCg6wkSJHrywtC0HrdbUBr6aKzyDJXFRh6mytDhfwN14KIOJBP
+ Ocd9SmEryD6IHjw3Eu3QMP6bUTFudcL8XJdmSxa56SlKO0Dq1+Z4rH2J3gQdrTkQPW
+ 6GSYNEbW1XzVuIVvQd3m1cqFbeRgZZ2O7xzogCBliPg0OMFR1pIGV0u+Sy3Hc6qLG/
+ N9SYMXcXEUYrg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A516C17E35CB;
- Thu,  2 Jul 2026 16:46:39 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6EA9117E35CD;
+ Thu,  2 Jul 2026 16:46:40 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:24 +0300
-Subject: [PATCH v8 11/39] drm/display: hdmi-state-helper: Set HDMI
- scrambling requirement
+Date: Thu, 02 Jul 2026 17:46:25 +0300
+Subject: [PATCH v8 12/39] drm/bridge: Remove redundant error check in
+ drm_bridge_helper_reset_crtc()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-11-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-12-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,7 +58,8 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
+ linux-rockchip@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,30 +76,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set drm_connector_hdmi_state.scrambler_needed when the computed TMDS
-character rate exceeds the HDMI 1.3 maximum TMDS character rate.
+Remove the no-op error check after drm_atomic_helper_reset_crtc() since
+the goto target is the immediately following label and the return value
+is already propagated correctly without it.
 
-HDMI 2.0 requires scrambling above 340 MHz.  Centralize that clock-based
-requirement in the HDMI state helper so drivers do not need to open-code
-the threshold check.
-
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_bridge_helper.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index 69ccfbf123fe..34e48e04d971 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -592,6 +592,7 @@ hdmi_compute_clock(const struct drm_connector *connector,
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/drm_bridge_helper.c b/drivers/gpu/drm/drm_bridge_helper.c
+index 420f29cf3e54..0a3c8fee66b3 100644
+--- a/drivers/gpu/drm/drm_bridge_helper.c
++++ b/drivers/gpu/drm/drm_bridge_helper.c
+@@ -50,8 +50,6 @@ int drm_bridge_helper_reset_crtc(struct drm_bridge *bridge,
  
- 	conn_state->hdmi.tmds_char_rate = clock;
-+	conn_state->hdmi.scrambler_needed = (clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ);
+ 	crtc = connector->state->crtc;
+ 	ret = drm_atomic_helper_reset_crtc(crtc, ctx);
+-	if (ret)
+-		goto out;
  
- 	return 0;
- }
+ out:
+ 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
 
 -- 
 2.54.0
