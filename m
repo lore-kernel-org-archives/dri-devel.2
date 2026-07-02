@@ -4,60 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8678FC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0CDC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4A9E10F355;
-	Thu,  2 Jul 2026 12:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7B610F341;
+	Thu,  2 Jul 2026 12:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gLJy0gXr";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="F4ZVf9Bv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CFBD10F341
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:42:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782996173; x=1814532173;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=c0/yUQydlr95Z1SOUW3TktxGdz202D9d68WsPQNDvCo=;
- b=gLJy0gXrr2TbAIb/kjivldPkkdAgZ1Q3QvZ9srTgUYF+6VAHHqqbNfKb
- J80y2p4Sj41dKXcciNzwWPStHnXd8AKfBd5XbkeQ1V1wQvHWPqAKwOfCV
- wUn4m+yBhX3VK/XJJ1CTATT3NJllRcA6MYoo2hNBZzsgUwfIxbb2pAfc5
- AGpXCWYpEHM1Cbm1CZRziI8ZC3IpKWzIAJSqQgi6QWrruzTjpkZdAXZqa
- db9opx7fC/90LqeHTuJkeNXlkoIsf1V/VwPOdK07u5I0FyzoIeiuCRB4b
- Ru/wy5+Gp5ZUukrzQfagBO5t3b/buQlBEoEBYDJn4PUR5zSNu+K1Ijo9Y Q==;
-X-CSE-ConnectionGUID: zUr1XFdBTbGBReQAM9kaTQ==
-X-CSE-MsgGUID: mk/FUkDxQ3qCkMmkrTljGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11834"; a="101173310"
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="101173310"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 05:42:53 -0700
-X-CSE-ConnectionGUID: QZyPcHG8RMWXbphCJ2E5aQ==
-X-CSE-MsgGUID: MkYCJsCBTOKMZ7LMobPsmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,143,1779174000"; d="scan'208";a="248875447"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.19])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 05:42:50 -0700
-Date: Thu, 2 Jul 2026 14:42:46 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joel Fernandes <joelagnelf@nvidia.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Subject: Re: [PATCH 0/2] GPU buddy allocator test fixes
-Message-ID: <akZcxufIc16r-NYH@ashyti-mobl2.lan>
-References: <20260618152331.36763-1-krzysztof.niemiec@intel.com>
+Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com
+ [95.215.58.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB15710E4BB;
+ Thu,  2 Jul 2026 12:51:29 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1782996675;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KCmq1hZLLl7GOyWtL6cRPjjbHfWJ5jvpchLdwXolxL8=;
+ b=F4ZVf9BvB+hLAf9gQChbe4sRNb4sLCrUWRBNFM0pPt8IAzUbVhXxDEH/DvD8axflIDk2vm
+ 3zmwuSmbnQ/BvpRKYzyKP8V+Wt7x4/jYspjeo/Nuwy87WFjjbKm5Us6Gqkc64N1S5Bi0bl
+ Qu3WpSOCEMC/DqM+tZU+hrTjGqJDt6Q=
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, lyude@redhat.com, dakr@kernel.org,
+ tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
+ andy.yan@rock-chips.com, thierry.reding@kernel.org, mperttunen@nvidia.com,
+ jonathanh@nvidia.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+ zack.rusin@broadcom.com, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
+ deller@gmx.de, bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, hughd@google.com, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de,
+ kees@kernel.org, perex@perex.cz, tiwai@suse.com,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH 09/13] mm/vma: update create_init_stack_vma() to use
+ vma_flags_t
+Date: Thu,  2 Jul 2026 20:50:52 +0800
+Message-Id: <20260702125052.19248-1-lance.yang@linux.dev>
+In-Reply-To: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
+References: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260618152331.36763-1-krzysztof.niemiec@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,11 +86,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Krzysztof Niemiec (2):
->   gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST
->   gpu/tests: Add a dedicated .kunitconfig
 
-Dave, Sima, could you please take a look here?
+On Mon, Jun 29, 2026 at 08:25:32PM +0100, Lorenzo Stoakes wrote:
+>Replace use of the legacy vm_flags_t flags with vma_flags_t values in
+>create_init_stack_vma().
+>
+>As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
+>vma_flags_t defines, and slightly rework create_init_stack_vma() for
+>clarity.
+>
+>No functional change intended.
+>
+>Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>---
 
-Thanks,
-Andi
+Nothing looks off to me ;) Feel free to add:
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
