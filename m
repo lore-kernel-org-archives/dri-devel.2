@@ -4,156 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CCE5C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:27:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31A04C43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 11:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D726710F2F4;
-	Thu,  2 Jul 2026 11:27:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83F8F10F2F2;
+	Thu,  2 Jul 2026 11:29:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tj5Dk7Ro";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uK3kfRK0";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tj5Dk7Ro";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uK3kfRK0";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="kePSWf1P";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFF410F2F1
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:27:26 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8B3DD75B23;
- Thu,  2 Jul 2026 11:27:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782991644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
- b=tj5Dk7RoUt1ijWeVifPADjhK0GiEOOWzEuvGpdj75nOdoSwX98HoUqB4wr8Ho2JsHW5SHW
- HPrKrc4+41VhBpaAocKDM+AHPyORt/Db6Paxc6So7PiXer9MlI8A5OJk+tZ2fmeLW9Dak0
- 8TOIBgYbvgjV4te2fpqk8t8wZU65dUU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782991644;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
- b=uK3kfRK0Eixye7LZkjD/qQXZ+V091ezkBFUwzfacFBGBsXjHpCJc7Ncnh2K0CzOpFUkeq9
- +ezTMmjxs6X6gNBg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tj5Dk7Ro;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uK3kfRK0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782991644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
- b=tj5Dk7RoUt1ijWeVifPADjhK0GiEOOWzEuvGpdj75nOdoSwX98HoUqB4wr8Ho2JsHW5SHW
- HPrKrc4+41VhBpaAocKDM+AHPyORt/Db6Paxc6So7PiXer9MlI8A5OJk+tZ2fmeLW9Dak0
- 8TOIBgYbvgjV4te2fpqk8t8wZU65dUU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782991644;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=KAQAEf/v/SEpGgzAQIiF8hC6EzOMWIZE37jZNk2Z8Eg=;
- b=uK3kfRK0Eixye7LZkjD/qQXZ+V091ezkBFUwzfacFBGBsXjHpCJc7Ncnh2K0CzOpFUkeq9
- +ezTMmjxs6X6gNBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 342F7779AA;
- Thu,  2 Jul 2026 11:27:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id N/hJCRhLRmoGdAAAD6G6ig
- (envelope-from <pfalcato@suse.de>); Thu, 02 Jul 2026 11:27:20 +0000
-Date: Thu, 2 Jul 2026 12:27:18 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 24/30] mm/vma: update vma_shrink() to not pass
- unnecessary pgoff parameter
-Message-ID: <akZLBmwDfGyzKThV@pedro-suse.lan>
-References: <cover.1782735110.git.ljs@kernel.org>
- <6dd744d57d778f94d2fef8fd623d7c4ed8010d93.1782735110.git.ljs@kernel.org>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F1A810F2F2;
+ Thu,  2 Jul 2026 11:29:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1782991747;
+ bh=rCxBw/VGd3l54sFh0psSmFyhdYRQVmOCSC3kVN6PhyY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=kePSWf1POTVQee8IjNRDZt2yYLCptTIfA3mBtXcBglGgiUQelEKWo0WvcYQzGG+7a
+ hDL1D3I/5WhR5Hn6+rTPJkijWg2AwisQgkiA8qzp8hy5lBXhh6Y+39D4WC1QWFwTUu
+ c+oJkhxJelv6hXG5I22r9SC5Ee4a6wJ+SJpmDdsT5lGTBJmtYpc1CL/e5rxgzxUC+t
+ uE3neNuWYxZPFPVXnjNjtybXJT9AjPs5E6ydW7Td9fMul2MYQdbi/lR9B6GJTvpl/a
+ c9oPUrtDnzAdpxCtVpTwwjG3Yi8FAgA3PiYSrMjc0FAsf/1pVJ87Ji7JCmM/5GE8XG
+ 8hpEiw+6qxU3Q==
+Message-ID: <8690d35f-e63c-4eb4-979a-52528896a1f7@lankhorst.se>
+Date: Thu, 2 Jul 2026 13:29:42 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6dd744d57d778f94d2fef8fd623d7c4ed8010d93.1782735110.git.ljs@kernel.org>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[];
- FREEMAIL_CC(0.00)[linux-foundation.org,armlinux.org.uk,kernel.org,siemens-energy.com,hansenpartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,mev.co.uk,visionengravers.com,pengutronix.de,gmail.com,ffwll.ch,suse.de,oss.qualcomm.com,ideasonboard.com,nvidia.com,amd.com,shazbot.org,zeniv.linux.org.uk,linux.dev,google.com,infradead.org,samsung.com,goodmis.org,huawei.com,vger.kernel.org,lists.infradead.org,lists.freedesktop.org,lists.linux.dev,kvack.org,googlegroups.com,surriel.com];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MISSING_XM_UA(0.00)[]; RCPT_COUNT_GT_50(0.00)[75];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, pedro-suse.lan:mid, suse.de:email, suse.de:dkim]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 8B3DD75B23
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] drm/i915/display: Use intel_de_write_fw in
+ intel_pipe_fastset
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+References: <20260702080346.431508-1-dev@lankhorst.se>
+ <20260702080346.431508-4-dev@lankhorst.se>
+ <ce83da3144dca9033d78c03bcc4e9a7c9ba3f9f5@intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <ce83da3144dca9033d78c03bcc4e9a7c9ba3f9f5@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,20 +57,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:35PM +0100, Lorenzo Stoakes wrote:
-> vma_shrink() does not need to adjust vma->vm_pgoff, we were passing this
-> parameter solely to satisfy vma_set_range()'s requirement for pgoff being
-> specified.
-> 
-> Since vma_set_range() is now isolated to vma.c, we can simply introduce
-> __vma_set_range() which sets only vma->vm_[start, end], and invoke this
-> instead, removing pgoff from vma_shrink() altogether.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+Hello,
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+On 7/2/26 10:44, Jani Nikula wrote:
+> On Thu, 02 Jul 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
+>> intel_set_pipe_src_size(), hsw_set_linetime_wm(),
+>> intel_cpu_transcoder_set_m1_n1() and intel_set_transcoder_timings_lrr()
+>> are called from an atomic context on PREEMPT_RT, and should be using the
+>> _fw functions.
+> 
+> Why is intel_pipe_fastset() called in atomic context on PREEMPT_RT in
+> the first place?
+> 
+> I have no idea how to maintain this.
+> 
+> It is *hard* for people to figure out when to use regular or _fw
+> variants.
+> 
+> The _fw variant usage spreads all over the place with this, and you'll
+> end up with folks cargo culting one or the other at random. Someone
+> looking at, say, intel_vrr.c won't know why one or the other is being
+> used.
+> 
+> I have given similar feedback before, and the response was like, "it's
+> not that hard". I disagree.
+> 
+> I think we'll need either 1) a mechanism in non-PREEMPT_RT to flag the
+> issues in CI, or 2) PREEMPT_RT runs in CI. I don't think either is going
+> to be trivial to achieve.
+> 
+> 
+> BR,
+> Jani.
 
--- 
-Pedro
+Ideally we'd stop using the implicit DMC lock, and replace those with explicit
+DMC calls like the xe_forcewake_get/put pairs, together with the approximate
+region those calls cover. I'd love to either take the DMC wakelock for the
+entirety of a modeset so we can stop using the per-register notations,
+and use those register accesses only for warning.
+
+A lot of the register writes during vblank evasion use the
+intel_de_write_dsb variant, which mostly does the right thing already.
+
+This is purely about registers updated in the fastset case, which don't use the
+dsb argument.
+
+The option to flag for !PREEMPT_RT can be achieved in lockdep by adding a fake
+vblank evasion lockdep lock, together with a might_lock() in the non-fw calls.
+
+Kind regards,
+~Maarten Lankhorst
