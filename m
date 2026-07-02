@@ -4,63 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07DE0C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:01:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85F26C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5448B10F31D;
-	Thu,  2 Jul 2026 12:01:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCCC010F321;
+	Thu,  2 Jul 2026 12:01:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CGG1Tw5Y";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="O5la7sBy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE3FF10F31B;
- Thu,  2 Jul 2026 12:01:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 96349439FD;
- Thu,  2 Jul 2026 12:01:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215241F000E9;
- Thu,  2 Jul 2026 12:00:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782993661;
- bh=TJQ+szvJd3RvuPi3UpEIfVNiYJsDF67ub0WT7W9Uctk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=CGG1Tw5Y3cX1Ey1MGoULoVo4folY6vibdanBwnXDBdR1dCq3MlTzAl2ckCwW452xQ
- tXeMFbbbsymoIyA/lEStvwC3hvCRSI+deq+5KtVH0d1L9jufu/ydacNS4ak1ccqpT/
- jPjhpBK4CAJ+q7QSSmdfzHzf50alhCoSmBCffyV2V020AvwBM1SV5u1Q08tTfzoCXD
- 2TBJwYI22VFS3VZIErRYGd0RDYmq8hwtM9aJt0MlVbBZqHFJfqAqqfkyuFurRxjZU5
- 5rqu1RgoKbJvF979wcoaCJeIFJvtBWOphHY0aCDMuVY32cBLuy6DehReb0nUzetesr
- AafRl2snQT6NQ==
-From: Sumit Garg <sumit.garg@kernel.org>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jenswi@kernel.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v9 08/14] drm/msm: Switch to generic PAS TZ APIs
-Date: Thu,  2 Jul 2026 17:28:24 +0530
-Message-ID: <20260702115835.167602-9-sumit.garg@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260702115835.167602-1-sumit.garg@kernel.org>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8D3A410F320;
+ Thu,  2 Jul 2026 12:01:11 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98D0D1655;
+ Thu,  2 Jul 2026 05:01:06 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9EAAB3F85F;
+ Thu,  2 Jul 2026 05:01:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782993671; bh=Q++t6UDjEPmAM1sRpwFz4r69sHx9kEtoP4L1SoBqxGQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=O5la7sBy9fpG9oKdnfnA7d5kfya6c7tw+A6LroXoItQlVAf1iyPXjjgCxSHX0d7Vg
+ hIP+jrTnvTVFjlgfnrVCEIHoqJlHVFsg8UBSu4eTTScJh7rW6PCoFFGvCBZiVSLMHe
+ tpk4DdMS5+Pi+vpx5n7NY+ZVX92QhgW61o7a2Ubc=
+Message-ID: <50d61140-15e2-471e-8a07-d4a3752ddcbc@arm.com>
+Date: Thu, 2 Jul 2026 13:01:06 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] drm/i915/gem: split shared memory allocation table
+ logic
+To: Krzysztof Karas <krzysztof.karas@intel.com>,
+ Andi Shyti <andi.shyti@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, =?UTF-8?Q?Micha=C5=82_Grzelak?=
+ <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-2-krzysztof.karas@intel.com>
+ <akUibf3NyThHnXco@zenone.zhora.eu>
+ <5yosfyp4yuvix56sc7uzsbelndiph2ibzzg747lyrklqjy4bxr@mbbbcvl2cczk>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <5yosfyp4yuvix56sc7uzsbelndiph2ibzzg747lyrklqjy4bxr@mbbbcvl2cczk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,95 +66,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+On 02/07/2026 7:18 am, Krzysztof Karas wrote:
+> Hi Andi,
+> 
+> thanks for reviewing!
+> 
+> On 2026-07-01 at 16:38:11 +0200, Andi Shyti wrote:
+>> Hi Krzysztof,
+>>
+>> On Wed, Jul 01, 2026 at 10:44:35AM +0000, Krzysztof Karas wrote:
+>>> shmem_sg_alloc_table is a complex and hard to read function.
+>>> Split its logic into smaller pieces to improve readability and
+>>> reduce indentation. Change the main "for" loop into "while" to
+>>> get rid of obscure iterator "i" and be more explicit in
+>>> traversing scatterlist.
+>>
+>> any chance we can split this cleanup into smaller pieces?
+> Yeah, I'll work something out.
+> 
+>>
+>>> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+>>
+>> ...
+>>
+>>> +static struct folio *shmem_shrink_get_folio(struct address_space *mapping,
+>>> +					    unsigned long folio_index,
+>>> +					    gfp_t gfp, unsigned int pages_left,
+>>> +					    struct drm_i915_private *i915)
+>>> +{
+>>> +#define MAX_READS 2
+>>
+>> This MAX_READS here is very ugly! Just use 2 and explain it in a
+>> comment. In the 'if' below you can check out of "if (... || i)"
+>> and still explain it in a comment.
+> If we are on the topic of personal preferences, I'd prefer
+> moving this to a variable instead of leaving a magic number
+> buried in the code. The comment is unnecessary if you figure out
+> what this loop does and in the end "2" is just a number somebody
+> picked way back.
 
-Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
-TZ service allows to support multiple TZ implementation backends like QTEE
-based SCM PAS service, OP-TEE based PAS service and any further future TZ
-backend service.
+FWIW since I'm looking at the thread - indeed if it's just a retry loop 
+and the actual index value isn't significant, then often a count-down 
+loop can be the most self-explanatory, e.g.:
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/Kconfig             |  1 +
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  4 ++--
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++-----
- 3 files changed, 9 insertions(+), 7 deletions(-)
+	int retries = 2;
 
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index 250246f81ea9..09469d56513b 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -21,6 +21,7 @@ config DRM_MSM
- 	select SHMEM
- 	select TMPFS
- 	select QCOM_SCM
-+	select QCOM_PAS
- 	select QCOM_UBWC_CONFIG
- 	select WANT_DEV_COREDUMP
- 	select SND_SOC_HDMI_CODEC if SND_SOC
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 2c0bbac43c52..57135acc8e2c 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -5,7 +5,7 @@
- #include <linux/kernel.h>
- #include <linux/types.h>
- #include <linux/cpumask.h>
--#include <linux/firmware/qcom/qcom_scm.h>
-+#include <linux/firmware/qcom/qcom_pas.h>
- #include <linux/pm_opp.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/slab.h>
-@@ -653,7 +653,7 @@ static int a5xx_zap_shader_resume(struct msm_gpu *gpu)
- 	if (adreno_is_a506(adreno_gpu))
- 		return 0;
- 
--	ret = qcom_scm_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
-+	ret = qcom_pas_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
- 	if (ret)
- 		DRM_ERROR("%s: zap-shader resume failed: %d\n",
- 			gpu->name, ret);
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index c62c45bb0ddb..489462065ea9 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/ascii85.h>
- #include <linux/interconnect.h>
-+#include <linux/firmware/qcom/qcom_pas.h>
- #include <linux/firmware/qcom/qcom_scm.h>
- #include <linux/kernel.h>
- #include <linux/of_reserved_mem.h>
-@@ -146,10 +147,10 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
- 		goto out;
- 
- 	/* Send the image to the secure world */
--	ret = qcom_scm_pas_auth_and_reset(pasid);
-+	ret = qcom_pas_auth_and_reset(pasid);
- 
- 	/*
--	 * If the scm call returns -EOPNOTSUPP we assume that this target
-+	 * If the pas call returns -EOPNOTSUPP we assume that this target
- 	 * doesn't need/support the zap shader so quietly fail
- 	 */
- 	if (ret == -EOPNOTSUPP)
-@@ -175,9 +176,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
- 	if (!zap_available)
- 		return -ENODEV;
- 
--	/* We need SCM to be able to load the firmware */
--	if (!qcom_scm_is_available()) {
--		DRM_DEV_ERROR(&pdev->dev, "SCM is not available\n");
-+	/* We need PAS to be able to load the firmware */
-+	if (!qcom_pas_is_available()) {
-+		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
- 		return -EPROBE_DEFER;
- 	}
- 
--- 
-2.53.0
+	while (retries--) {
+		...
+	}
+
+Or perhaps in this case:
+
+	do {
+		folio = shmem_read_folio();
+		if (IS_ERR(folio))
+			i915_gem_shrink();
+	while (!IS_ERR(folio) && --retries);
+	return folio;
+
+Cheers,
+Robin.
+
+>>
+>>> +	struct folio *folio;
+>>> +	unsigned int i;
+>>> +
+>>> +	for (i = 0; i < MAX_READS; i++) {
+>>> +		cond_resched();
+>>> +		folio = shmem_read_folio_gfp(mapping, folio_index, gfp);
+>>> +		if (!IS_ERR(folio) || i == MAX_READS - 1)
+>>> +			return folio;
+>>> +
+>>> +		i915_gem_shrink(NULL, i915, 2 * pages_left, NULL,
+>>
+>> /pages_left/page_count/
+> I mean, sure, but is there a reason for using "count" instead of
+> "left"?
+> 
+>>
+>>> +				I915_SHRINK_BOUND | I915_SHRINK_UNBOUND);
+>>> +
+>>
+>> ...
+>>
+>>> +	}
+>>> +
+>>> +	/* Should never happen */
+>>> +	WARN_ON_ONCE(1);
+>>
+>> no need.
+> Okay, I'll remove it.
+> 
+>>
+>> Thanks,
+>> Andi
+>>
+>>> +	return ERR_PTR(-EINVAL);
+>>> +}
+> 
 
