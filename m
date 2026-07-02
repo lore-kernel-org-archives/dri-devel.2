@@ -4,62 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5BFCC43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 17:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8913EC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 17:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 985C110F51F;
-	Thu,  2 Jul 2026 17:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFEEA10E0C1;
+	Thu,  2 Jul 2026 17:38:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O15agd2b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h1nX/r04";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8994310E0C1;
- Thu,  2 Jul 2026 17:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783013055; x=1814549055;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LaUQ9bRmxRfkWosUyAGlizvqcaE5rCrIc0QK779Xjso=;
- b=O15agd2bP8EmUGsIsn82K7IHQ6ToxXkOafLpUq6seGBbNmvLjj9Oqdmq
- 6tgDjMuI6xXi6VtRcdRFirxMNkutKK3se2e4/7US/oWZ3aabElmv8iGho
- vx/uCrWXfOCF9OK+iSnNyskRUlOvCGnW3ZrzSBgln7TqIJMYG19jMIvS2
- Bc4MNCqgc5Qphck9kleRVufySD40ic4Hs5U3ExAia/Jcy6wCTTinTLR+8
- zYuD/zKGa4HXbM0E3N/Y+pCWM7Se/bD0lhd6cOiI05ywe0ozlHubOuOHR
- I28aG4nvrbkqVrfA6Q5FKvUokbZ4sM1K395OEoDUQwbISMhnwh/QF2LM/ w==;
-X-CSE-ConnectionGUID: vZ083v9lTcGN3zzRZ+0XSQ==
-X-CSE-MsgGUID: HICltLgjSt6Ois26UDDi+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83760205"
-X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="83760205"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 10:24:15 -0700
-X-CSE-ConnectionGUID: GMcmcC3ERtq2XQmNwNMYPQ==
-X-CSE-MsgGUID: 3bRV//bzSqeps+AzK/qheg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="249572788"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.54])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 10:24:10 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-next
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Date: Thu, 02 Jul 2026 20:24:07 +0300
-Message-ID: <934cacdbf2a37856eb5cd6337d8774b449405bd8@intel.com>
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013002.outbound.protection.outlook.com
+ [40.107.201.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 736D410E0C1
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 17:38:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pFESYDwYzTcdyRY52cSNetBN19yjoaQUxhq9bNTTbPaw5tNPD+NrQGrpM1pVK7BWSWyhl4vumcN0Hc/F3V93GZ7MbM1nSNDLKXec82SpGXxNuKIy4ESrnMHG7efJfgrlm7g0QGwfNFWLtpted9KiF7iBBpIE02H7n4Ym0qXdY0Ito+ToUlJ6p5waxzg2GBTAxSAqUNYyYFm8QnOFCGuw+OMCQwYxQ1pREY/mD1PqsQ5kNeg7IcUDaRDNXhtECPkHf+sA/4bqyDU4R6g16c7EV6ytO+AUalDj11N45r5K3LViBDfc6dCBHO/tbgXiD0v8gkH5sAFIyFOZh3zTiOz+OA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b6wSSTwMjt5bQQB1e1/hnWJQ9SLyeDeXDodfdXIF2Ug=;
+ b=auy7V9ADUY07oZRSoizRsZrLCZXZ0nfBqs2Gi+5yGwuZdYpGpGprmMBA4Bs0YktZJlcjDIT//pvZOnezlL+SEB0AyUjZoGtws24M1QWULXdq/t/Vj9F0jClFFcAA13ql2ZyYlzZB74JkKDyN7jugV4c7iKCwjy6u7RIlq+SAvevPg31i5+I4cFSsvK4MSbSp94ZmjI0bGIvhj690ppTlfDpQVqbGmTJFC+dAvg5kWMptsF4YKMksyy3GQPaq8/iX2059XVnHs+V2FftPvKIMfWqF4w1kvEioCuonklIGlEoQ2IKxFqH1CB0hQ9mnJjYSg+xh281sqQ2HBqtz0tgEow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=iscas.ac.cn smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b6wSSTwMjt5bQQB1e1/hnWJQ9SLyeDeXDodfdXIF2Ug=;
+ b=h1nX/r04JgSqZeK1TTY2U7w7/Aj8AYMQry6acjhAHXu9fRCoeLZx+LzQdvXwSfMHiPWv/eSv4UCu9MqE6EcdJhwojPSHrF3pZso9zZ8sHQpbvAU4Q9/gPrhVNwED0DrJuJILmrb/DXG/47lAteL2Q999StrHZ4e8YncOKYVgA3k=
+Received: from MW4PR03CA0131.namprd03.prod.outlook.com (2603:10b6:303:8c::16)
+ by MW4PR12MB6974.namprd12.prod.outlook.com (2603:10b6:303:207::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
+ 2026 17:38:11 +0000
+Received: from MWH0EPF000C618A.namprd02.prod.outlook.com
+ (2603:10b6:303:8c:cafe::2a) by MW4PR03CA0131.outlook.office365.com
+ (2603:10b6:303:8c::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.9 via Frontend Transport; Thu, 2
+ Jul 2026 17:38:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C618A.mail.protection.outlook.com (10.167.249.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 2 Jul 2026 17:38:10 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 2 Jul
+ 2026 12:38:10 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 2 Jul 2026 12:38:10 -0500
+Message-ID: <b54fae05-4e8f-90c1-ab4c-59a6c2e02833@amd.com>
+Date: Thu, 2 Jul 2026 10:38:09 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Fix use-after-free in
+ amdxdna_gem_dmabuf_mmap()
+Content-Language: en-US
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, <mamin506@gmail.com>,
+ <ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+References: <20260625113239.49764-1-vulab@iscas.ac.cn>
+ <cb0d1d74-2be5-8b54-4638-4c9629b15055@amd.com>
+In-Reply-To: <cb0d1d74-2be5-8b54-4638-4c9629b15055@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618A:EE_|MW4PR12MB6974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21135994-eaba-45b6-3db2-08ded860afbb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: XxgCjjDFWu0wN4SZNgEb8o7voKrGfG7q5cli0HL0Seb9Y0kruVoi89zmdVKfXwfWjDeUloMQeGt+lBOZt3+4w+o2uAQR4sqjyC12VvJ5IDE277fD+lL/lTl4hzpGV0umfifX8RRkIS6Lhje1Pn7v2kllaeUZKf2G8HoX3jjuwL0RCiPr5MOCfCWGsaOrLYuPihEyY1I9G8aHqLC74I7W2SFKFATtKmVvWcyzrl3X4CvbRrb7p1vnDHf1e7RUTYBuILdsBMXAO6iknffqtqMf4goO0FpMMDE0juAW//BisDXZQwW6tNcJmFHW152mn/4+n6SzP92sNk8kkM3H7/gOK8LrmzeuWK0WhQzuBSjuLoZtYPW/fjDK6VSrvg4pShN5GuGjR5FjtYRrFatMStjZPZow++pd9GzhQeXqn5lq0DJ2XXRjua1h6M4PcVTdzd2o75dERToK3dpRX2WZJdhMKGcaa650roZC/sCFcyxJU3Ntm2Ot64QlAZ7bOJWKJRU1TRhq9LcvAyNTc8+rLFm5F38UMURZWckOwWAy/EvJ1xPxAb5HbIYVCIuu0+kvbhX1vxLMMODq16QW1PV1WWN0uuj55R9u5YNpsq9+745jIFSxOHyz52Ot2St9hQApTnc+/AprrOydB/aMgwgv+JkTsp3trFabOfcGUWLVjb7ZI/qqu128hPxJy7PUhdFKyzio12j+WaUQ5HE1ZFOw/AZK/g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ADvJwDi94yuEEc75lqmiLqHZAyn8dZRYKtERSvYUahiMxr0ZUjeGRcCjD5C1YZgEXHmH/k2Iv2qxqIzknI3GmPPjb/z8midDr0JFMDjK+4MYObFXtReRW0Xs7hSyrl198TZwU13hf/dnctg2AnI5YeKFj3IG4If18AcTCDHHZhuwAnXd9BfwN4TubY0fC78t08Ie+XpuUTC7jpUiljqMZqW2ZMyyz+NR2qKRsDO33Cnff5PFXV4kgZhnJ3hfrklyNd2NQwzIN/6rDKzYinmbDump+in+e/gIeojWYFpxEDxVfxB2ut8XeBiLZsnLpkqh/L6HquTkFlQcPaDq8u1srCss6RfnqAmsCbG5o9XLPFdGENNFwY3qH3NAMo3E4nGWfoaAzjV9FWUFAc2En1SOn10D6k0co2uIXWFnH8zkCXFp7jK3rYS0s73TseM1iles
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 17:38:10.9120 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21135994-eaba-45b6-3db2-08ded860afbb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6974
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,481 +117,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Applied to drm-misc-fixes
 
-Hi Dave & Sima -
-
-The first i915 feature pull towards v7.3.
-
-I'll be out for a bit, and Rodrigo will cover for me. I should be back
-in time for the final feature pull request for v7.3, though.
-
-BR,
-Jani.
-
-
-drm-intel-next-2026-07-02:
-drm/i915 feature pull for v7.3:
-
-Features and functionality:
-- Novalake (NVL, display versio 35) Common Mode Timing Generator (CMTG) ena=
-bling (Animesh)
-- NVL DC3CO enabling (Dibin)
-
-Refactoring and cleanups:
-- Refactor and document DP link recovery and capability tracking (Imre)
-- i915 and xe driver display probe/remove/suspend/resume/shutdown cleanup a=
-nd unification (Jani)
-- Clean up bandwidth/SAGV code (Ville)
-- Streamline Pre/Post-CSC LUT loops (Jani)
-- Remove unused TGL DC3DO support (Dibin)
-- Make read-only array rates static const (Colin Ian King)
-- CDCLK sanitization improvements and cleanups (Ville)
-- Break i915 and xe panic dependency on struct intel_framebuffer (Jani)
-- GPIO pin renames and cleanups (Ville)
-- Unify generic irq handler error messages (Jonathan)
-
-Fixes:
-- Various color pipeline fixes (Chaitanya)
-- Fix step discontinuity in Pre/Post-CSC Gamma LUT (Sean Paul)
-- Improve refresh rate changes without full modeset on VRR capable eDP (Vil=
-le)
-- Display suspend/resume fixes (Imre)
-- Fix LPE audio irq for PREEMPT-RT (Maarten)
-- Fix HDMI scrambling enable (Jerome Tollet)
-- LNL bandwidth buddy programming update (Vinod)
-- Streamline display register wait timeouts (Ville)
-- Fix DP MSA VTotal (Mitul)
-- Fix LTPHY SSC enabling (Suraj)
-- Fix LOBF requirements with optimized guardband (Ankit)
-- Avoid full modeset for LRR vsync changes (Ankit)
-- Fix vtotal-vsync distance when adjusting vtotal for lower refresh rate (A=
-nkit)
-- Extend VRR safe window wait for default VRR timing generator usage (Ankit)
-
-Merges:
-- Backmerge for v7.2-rc1 (Jani)
-
-BR,
-Jani.
-
-The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
-
-  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-20=
-26-07-02
-
-for you to fetch changes up to 8e27f752037e72ccee9c4a7c4a6202ecf3daf603:
-
-  drm/i915/ltphy: Fix SSC Enablement bit in PORT_CLOCK_CTL (2026-07-02 09:1=
-9:23 +0530)
-
-----------------------------------------------------------------
-drm/i915 feature pull for v7.3:
-
-Features and functionality:
-- Novalake (NVL, display versio 35) Common Mode Timing Generator (CMTG) ena=
-bling (Animesh)
-- NVL DC3CO enabling (Dibin)
-
-Refactoring and cleanups:
-- Refactor and document DP link recovery and capability tracking (Imre)
-- i915 and xe driver display probe/remove/suspend/resume/shutdown cleanup a=
-nd unification (Jani)
-- Clean up bandwidth/SAGV code (Ville)
-- Streamline Pre/Post-CSC LUT loops (Jani)
-- Remove unused TGL DC3DO support (Dibin)
-- Make read-only array rates static const (Colin Ian King)
-- CDCLK sanitization improvements and cleanups (Ville)
-- Break i915 and xe panic dependency on struct intel_framebuffer (Jani)
-- GPIO pin renames and cleanups (Ville)
-- Unify generic irq handler error messages (Jonathan)
-
-Fixes:
-- Various color pipeline fixes (Chaitanya)
-- Fix step discontinuity in Pre/Post-CSC Gamma LUT (Sean Paul)
-- Improve refresh rate changes without full modeset on VRR capable eDP (Vil=
-le)
-- Display suspend/resume fixes (Imre)
-- Fix LPE audio irq for PREEMPT-RT (Maarten)
-- Fix HDMI scrambling enable (Jerome Tollet)
-- LNL bandwidth buddy programming update (Vinod)
-- Streamline display register wait timeouts (Ville)
-- Fix DP MSA VTotal (Mitul)
-- Fix LTPHY SSC enabling (Suraj)
-- Fix LOBF requirements with optimized guardband (Ankit)
-- Avoid full modeset for LRR vsync changes (Ankit)
-- Fix vtotal-vsync distance when adjusting vtotal for lower refresh rate (A=
-nkit)
-- Extend VRR safe window wait for default VRR timing generator usage (Ankit)
-
-Merges:
-- Backmerge for v7.2-rc1 (Jani)
-
-----------------------------------------------------------------
-Animesh Manna (21):
-      drm/i915/cmtg: Add intel_cmtg_is_allowed() for CMTG
-      drm/i915/cmtg: Set CMTG clock select
-      drm/i915/cmtg: Add CMTG transcoder offset in struct _device_info
-      drm/i915/display: Pass target transcoder to intel_set_transcoder_timi=
-ngs()
-      drm/i915/display: Rename cpu_transcoder parameter to transcoder
-      drm/i915/display: Skip DP_MIN_HBLANK_CTL programming for CMTG transco=
-ders
-      drm/i915/display: Pass transcoder to intel_set_transcoder_timings_lrr=
-()
-      drm/i915/display: Rename cpu_transcoder parameter to transcoder in LR=
-R path
-      drm/i915/cmtg: Set timings for CMTG by using transcoder timing helpers
-      drm/i915/vrr: Pass transcoder to intel_vrr_set_fixed_rr_timings()
-      drm/i915/display: Rename cpu_transcoder parameter to transcoder in VR=
-R fixed-rr path
-      drm/i915/cmtg: Program VRR fixed-rate timings for CMTG transcoder
-      drm/i915/cmtg: Program VRR control register for CMTG transcoder
-      drm/i915/cmtg: Set link M/N for CMTG transcoder
-      drm/i915/cmtg: Add hook to enable CMTG with sync to port
-      drm/i915/cmtg: Add a hook to make eDP transcoder secondary
-      drm/i915/cmtg: Add trigger to enable/disable cmtg
-      drm/i915/cmtg: Restore CMTG after DC6 exit
-      drm/i915/cmtg: Add CMTG interrupt handling
-      drm/i915/display: Guard CMTG disable with intel_cmtg_is_allowed()
-      drm/i915/cmtg: Warn on invalid CMTG transcoder in intel_cmtg_disable()
-
-Ankit Nautiyal (6):
-      drm/i915/display: Handle VSYNC timing in LRR path
-      drm/i915/panel: Preserve Vtotal-Vsync distance while adjusting vtotal
-      drm/i915/alpm: Move the check for PSR and Fixed RR in compute_config_=
-late
-      drm/i915/dsb: shift delayed-vblank DSL wait start by one scanline
-      drm/i915/dsb: Use safe window path when VRR TG is used
-      Revert "drm/i915/psr: Allow SCL=3D0 on platforms with always-on VRR T=
-G"
-
-Chaitanya Kumar Borah (3):
-      drm/i915/display: Don=E2=80=99t use atomic state back-pointer to deri=
-ve color pipeline
-      drm/i915: Avoid programming color HW blocks for NV12 Y planes
-      drm/i915: Fix color blob reference handling in intel_plane_state
-
-Colin Ian King (1):
-      drm/i915/display: make read-only array rates static const
-
-Dibin Moolakadan Subrahmanian (20):
-      drm/i915/cmtg: Modify existing hook to disable CMTG
-      drm/i915/cmtg: Add CMTG HWGB programming
-      drm/i915/cmtg: Add CMTG scan line programming
-      drm/i915/display: Remove TGL DC3CO support
-      drm/i915/display: Switch DC3CO enable from standalone bit to DC level=
- encoding
-      drm/i915/display: Use FIELD_PREP() for DC state enable bits
-      drm/i915/display: Add DC3CO DC_STATE enable/disable support
-      drm/i915/display: Add HAS_DC3CO() macro
-      drm/i915/display: Add DC3CO support check
-      drm/i915/psr: Add psr2 deep sleep helper API
-      drm/i915/display: Add DC3CO compute and set target state in commit ta=
-il
-      drm/i915/display: Store DC3CO eligibility in PSR state
-      drm/i915/display: PSR2: Set idle_frames to 0 for DC3CO
-      drm/i915/display: Enable DC3CO idle protocol in ALPM
-      drm/i915/display: PSR Add delayed work to exit DC3CO
-      drm/i915/display: Add helper to enable DC counter
-      drm/i915/display: Add DC3CO count and residency in dmc debugfs
-      drm/i915/display: Guard CMTG function calls
-      drm/i915/display: Enable DC3CO DC state
-      drm/i915/display: Mask RO bits in gen9_write_dc_state()
-
-Guangshuo Li (1):
-      drm/i915: clear CRTC color blob pointers after dropping refs
-
-Imre Deak (53):
-      drm/i915: Keep display IRQs enabled for encoder suspend/shutdown
-      drm/i915/xe: Enable HPD polling later during system resume
-      drm/i915/dp_link_training: Introduce link training state struct
-      drm/i915/dp_link_training: Factor out link training state reset helper
-      drm/i915/dp_link_training: Flush commits in debugfs entries
-      drm/i915/dp_link_training: Move link training helpers to link trainin=
-g code
-      drm/i915/dp_link_training: Use link_training as base pointer in debug=
-fs
-      drm/i915/dp_link_training: Add helpers to access force retrain state
-      drm/i915/dp_link_training: Move link recovery/debug state to link_tra=
-ining
-      drm/i915/dp_link_training: Prevent repeated autoretrain attempts
-      drm/i915/dp_link_training: Clamp sequential link training failure cou=
-nter
-      drm/i915/dp_link_training: Check for pending autoretrain explicitly
-      drm/i915/dp_link_training: Add helper to query pending autoretrain
-      drm/i915/dp_link_training: Add helper to query allowed autoretrain
-      drm/i915/dp_link_training: Add helper to mark link training failure
-      drm/i915/dp_link_training: Add helper to reset link recovery state
-      drm/i915/dp_link_training: Track link recovery state with an enum
-      drm/i915/dp_link_training: Add no-fallback link recovery state
-      drm/i915/display: Factor out a helper to modeset a pipe with atomic s=
-tate
-      drm/i915/display: Simplify intel_modeset_commit_pipes_for_atomic_stat=
-e()
-      drm/i915/dp_link_training: Allocate atomic state for autoretrain mode=
-set
-      drm/i915/dp_link_training: Disallow autoretrains after failed modeset
-      drm/i915/dp_link_training: Fix kernel-doc of intel_dp_init_lttpr_and_=
-dprx_caps()
-      drm/i915/dp_link_training: Document DP link recovery logic
-      drm/i915/mtl+: Enable PPS before PLL
-      drm/i915/dp: Rename intel_dp_link_config to intel_dp_link_config_entry
-      drm/i915/dp: Add struct intel_dp_link_config
-      drm/i915/dp_link_caps: Introduce DP link capability module
-      drm/i915/dp_link_caps: Move common rate helpers to link caps
-      drm/i915/dp_link_caps: Move forced link param helpers to link caps
-      drm/i915/dp: Simplify querying of forced link parameters
-      drm/i915/dp_link_caps: Move forced and max link debugfs entries to li=
-nk caps
-      drm/i915/dp_link_training: Use helpers to get forced link params
-      drm/i915/dp_link_caps: Move forced link params to link_caps
-      drm/i915/dp_link_caps: Move link config helpers to link caps
-      drm/i915/dp_link_caps: Move link config tracking to link_caps
-      drm/i915/dp_link_caps: Rename helper updating the link configurations
-      drm/i915/dp: Factor out helper to get link rate capabilities
-      drm/i915/dp_link_caps: Pass supported link rates to link caps update
-      drm/i915/dp_link_caps: Add helper to print all supported link rates
-      drm/i915/dp_link_caps: Add helper to get the number of supported link=
- rates
-      drm/i915/dp_link_caps: Add helper to get common rate index
-      drm/i915/dp_link_caps: Move tracking of common rates to link_caps str=
-uct
-      drm/i915/dp_link_caps: Track max common lane count in link_caps
-      drm/i915/dp_link_caps: Use max common lane count from link_caps
-      drm/i915/dp_link_caps: Add helpers to get max link limits
-      drm/i915/dp_link_caps: Add helpers to set max link limits
-      drm/i915/dp_link_caps: Add helper to reset max link limits
-      drm/i915/dp_link_caps: Add helper to reset link_caps state
-      drm/i915/dp_link_caps: Move max link limits to link_caps
-      drm/i915/dp_link_caps: Pass link_caps to static functions
-      drm/i915/dp_link_caps: Pass link_caps to config update/lookup helpers
-      drm/i915/dp_link_caps: Pass link_caps to common rate helpers
-
-Jani Nikula (41):
-      drm/i915: add flush_workqueue(display->wq.cleanup) on shutdown
-      drm/xe/display: remove intel_display_flush_cleanup_work() calls on su=
-spend/shutdown
-      drm/xe/display: drop duplicate intel_dp_mst_suspend() call
-      drm/i915/display: add "pm" to intel_display_driver_{suspend, resume}(=
-) names
-      drm/xe/display: rename xe_display_pm_shutdown*() to xe_display_shutdo=
-wn*()
-      drm/xe/display: relocate the xe_display_shutdown*() functions
-      drm/xe/display: relocate the xe_display_pm_runtime_*() functions
-      drm/{i915, xe}: move more calls inside intel_display_driver_pm_suspen=
-d()
-      drm/{i915, xe}: move more calls inside intel_display_driver_pm_resume=
-()
-      drm/{i915, xe}: add intel_display_driver_pm_{suspend_late, resume_ear=
-ly}()
-      drm/{i915,xe}: add intel_display_driver_shutdown_late()
-      drm/i915: add intel_display_driver_shutdown()
-      drm/i915/display: deduplicate suspend and shutdown a bit
-      drm/xe/display: use intel_display_driver_pm_shutdown()
-      drm/{i915, xe}: move more stuff to __intel_display_driver_pm_suspend()
-      drm/i915/color: clean up variables in xelpd_program_plane_pre_csc_lut=
-()
-      drm/i915/color: clean up variables in xelpd_program_plane_post_csc_lu=
-t()
-      drm/i915/color: reduce indent in xelpd_program_plane_pre_csc_lut()
-      drm/i915/color: reduce indent in xelpd_program_plane_post_csc_lut()
-      drm/i915/color: join loops in xelpd_program_plane_pre_csc_lut()
-      drm/i915/color: join loops in xelpd_program_plane_post_csc_lut()
-      drm/i915/color: deduplicate loops in xelpd_program_plane_pre_csc_lut()
-      drm/i915/color: deduplicate loops in xelpd_program_plane_post_csc_lut=
-()
-      drm/intel: drop driver include from mchbar_regs.h
-      drm/i915/panic: split out i915_gem_panic.[ch]
-      drm/i915/panic: squash i915_panic.c into i915_gem_panic.c
-      drm/i915/panic: remove the extra layer from panic hooks
-      drm/{i915,xe}/panic: pass obj to panic setup
-      drm/xe/panic: store fb bo in struct intel_panic
-      drm/{i915, xe}/panic: drop dependency on struct intel_framebuffer
-      drm/i915: move intel_display_device_probe() call a level higher
-      drm/i915: remove superfluous checks for pdev->msi_enabled
-      drm/{i915, xe}: move opregion/dram/bw init to intel_display_driver_pr=
-obe_noirq()
-      drm/xe/display: change order of intel_display_driver_remove_{nogem, n=
-oirq}() calls
-      drm/{i915, xe}: move opregion cleanup to intel_display_driver_remove_=
-nogem()
-      drm/{i915, xe}: move intel_hpd_cancel_work() to intel_display_driver_=
-remove_noirq()
-      drm/i915/hdcp: check streams[] bounds before overflow
-      drm/i915/hdcp: require monotonically increasing seq_num_v
-      drm/i915/vrr: require valid min/max vfreq for VRR
-      drm/i915/bios: range check LFP Data Block panel_type2
-      Merge drm/drm-next into drm-intel-next
-
-Jerome Tollet (1):
-      drm/i915/hdmi: Poll for 200 msec for TMDS_Scrambler_Status
-
-Jonathan Cavitt (1):
-      drm/i915: Refactor generic_handle_irq_safe() error messages
-
-Maarten Lankhorst (1):
-      drm/i915/display: Fix intel_lpe_audio_irq_handler for PREEMPT-RT
-
-Micha=C5=82 Grzelak (1):
-      drm/i915/dp_link_caps: s/lc/lce/
-
-Mitul Golani (1):
-      drm/i915/display: Program TRANS_VTOTAL from mode vtotal
-
-Nikita Zhandarovich (1):
-      drm/i915/edp: Check supported link rates DPCD read
-
-Sean Paul (2):
-      drm/i915/color: Fix step discontinuity in Post-CSC Gamma LUT
-      drm/i915/color: Fix step discontinuity in Pre-CSC Gamma LUT
-
-Suraj Kandpal (3):
-      drm/i915/cx0: Remove unnecessary hdmi link rate function declaration
-      drm/i915/ltphy: Readout ssc_enabled for LT PHY
-      drm/i915/ltphy: Fix SSC Enablement bit in PORT_CLOCK_CTL
-
-Ville Syrj=C3=A4l=C3=A4 (29):
-      drm/i915/de: Remove the 2 usec fast timeout
-      drm/i915/bw: Don't memcpy() pointlessly
-      drm/i915/bw: Streamline dg2_get_bw_info()
-      drm/i915/bw: Initialize num_planes sensibly for the first plane group=
- in TGL+
-      drm/i915/bw: Move 'bi_next' to tighter scope
-      drn/i915/bw: s/num_points/num_qgv_points/
-      drm/i915/bw: Move num_{qgv,psf}_points out from the plane group
-      drm/i915/bw: Move psf_bw[] out from the plane group
-      drm/i915/bw: Move peakbw[] out from the plane group
-      drm/i915/bw: Print derated bandwidth numbers for DG2
-      drm/i915/bw: Use icl_qgv_bw()
-      drm/i915/bw: Simplify the best max_data_rate search
-      drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable
-      drm/i915/cdclk: Print the reason for the CDCLK sanitization
-      drm/i915/cdclk: Clean up CDCLK_CTL defines
-      drm/i915/cdclk: Document CDCLK_CTL bits
-      drm/i915/cdclk: Introduce bxt_cdclk_cd2x_pipe_mask() and use it
-      drm/i915/cdclk: Use the TGL+ CD2x pipe select bits also on ICL
-      drm/i915/panel: Split VRR vs. fixed refresh rate fixed mode selection=
- into separate stages
-      drm/modes: Add DRM_MODE_MATCH_TIMINGS_VRR
-      drm/i915: Pass the full atomic state to .compute_config()
-      drm/i915/panel: Adjust intel_panel_compute_config() calling convention
-      drm/i915/panel: Attempt VRR based refresh rate change for !allow_mode=
-set
-      drm/i915/gmbus: Rename GPIO pins
-      drm/i915/gmbus: s/gmbus_pins_bdw/gmbus_pins_lpt/
-      drm/i915/gmbus: Add gmbus_pins_lpt_lp[]
-      drm/i915/gmbus: s/gmbus_pins_skl/gmbus_pins_spt/
-      drm/i915/gmbus: Drop the platform suffixes from GMBUS pins
-      drm/i915/hdmi: Remove CNP port F leftovers
-
-Vinod Govindapillai (1):
-      drm/i915/display: update to the BW buddy configuration
-
- .../gpu/intel-display/dp-link-training.rst         |    8 +
- Documentation/gpu/intel-display/index.rst          |    1 +
- drivers/gpu/drm/drm_modes.c                        |   23 +
- drivers/gpu/drm/i915/Makefile                      |    5 +-
- drivers/gpu/drm/i915/display/g4x_dp.c              |   15 +-
- drivers/gpu/drm/i915/display/g4x_hdmi.c            |    4 +-
- drivers/gpu/drm/i915/display/icl_dsi.c             |    5 +-
- drivers/gpu/drm/i915/display/intel_alpm.c          |   15 +-
- drivers/gpu/drm/i915/display/intel_bios.c          |   98 +-
- drivers/gpu/drm/i915/display/intel_bw.c            |  168 ++-
- drivers/gpu/drm/i915/display/intel_cdclk.c         |   54 +-
- drivers/gpu/drm/i915/display/intel_cmtg.c          |  280 ++++-
- drivers/gpu/drm/i915/display/intel_cmtg.h          |   19 +-
- drivers/gpu/drm/i915/display/intel_cmtg_regs.h     |   24 +-
- drivers/gpu/drm/i915/display/intel_color.c         |  115 +-
- drivers/gpu/drm/i915/display/intel_crt.c           |    9 +-
- drivers/gpu/drm/i915/display/intel_cursor.c        |    2 +-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c       |   11 +
- drivers/gpu/drm/i915/display/intel_cx0_phy.h       |    1 -
- drivers/gpu/drm/i915/display/intel_ddi.c           |   29 +-
- drivers/gpu/drm/i915/display/intel_de.c            |   40 +-
- drivers/gpu/drm/i915/display/intel_display.c       |  170 +--
- drivers/gpu/drm/i915/display/intel_display.h       |    7 +
- drivers/gpu/drm/i915/display/intel_display_core.h  |   14 +-
- .../gpu/drm/i915/display/intel_display_debugfs.c   |    2 +
- .../gpu/drm/i915/display/intel_display_device.c    |   14 +
- .../gpu/drm/i915/display/intel_display_device.h    |    3 +-
- .../gpu/drm/i915/display/intel_display_driver.c    |  131 ++-
- .../gpu/drm/i915/display/intel_display_driver.h    |    9 +-
- drivers/gpu/drm/i915/display/intel_display_irq.c   |   19 +
- drivers/gpu/drm/i915/display/intel_display_irq.h   |    2 +
- .../gpu/drm/i915/display/intel_display_limits.h    |    2 +
- drivers/gpu/drm/i915/display/intel_display_power.c |  185 +++-
- drivers/gpu/drm/i915/display/intel_display_power.h |   40 +
- .../drm/i915/display/intel_display_power_well.c    |   76 +-
- .../drm/i915/display/intel_display_power_well.h    |    1 +
- drivers/gpu/drm/i915/display/intel_display_regs.h  |   46 +-
- drivers/gpu/drm/i915/display/intel_display_types.h |   57 +-
- drivers/gpu/drm/i915/display/intel_dmc.c           |   15 +-
- drivers/gpu/drm/i915/display/intel_dmc_regs.h      |    2 +
- drivers/gpu/drm/i915/display/intel_dmc_wl.c        |    2 +-
- drivers/gpu/drm/i915/display/intel_dp.c            |  496 ++-------
- drivers/gpu/drm/i915/display/intel_dp.h            |   16 +-
- drivers/gpu/drm/i915/display/intel_dp_link_caps.c  |  675 ++++++++++++
- drivers/gpu/drm/i915/display/intel_dp_link_caps.h  |   47 +
- .../gpu/drm/i915/display/intel_dp_link_training.c  | 1093 +++++++++++++++-=
-----
- .../gpu/drm/i915/display/intel_dp_link_training.h  |   15 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |    8 +-
- drivers/gpu/drm/i915/display/intel_dp_test.c       |    7 +-
- drivers/gpu/drm/i915/display/intel_dp_tunnel.c     |    6 +-
- drivers/gpu/drm/i915/display/intel_dsb.c           |   32 +-
- drivers/gpu/drm/i915/display/intel_dvo.c           |    5 +-
- drivers/gpu/drm/i915/display/intel_gmbus.c         |  148 +--
- drivers/gpu/drm/i915/display/intel_gmbus.h         |   22 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c          |   12 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c          |   71 +-
- drivers/gpu/drm/i915/display/intel_hdmi.h          |    2 +
- drivers/gpu/drm/i915/display/intel_initial_plane.c |    2 +-
- drivers/gpu/drm/i915/display/intel_lpe_audio.c     |    4 +-
- drivers/gpu/drm/i915/display/intel_lt_phy.c        |   20 +-
- drivers/gpu/drm/i915/display/intel_lvds.c          |    5 +-
- drivers/gpu/drm/i915/display/intel_panel.c         |  170 ++-
- drivers/gpu/drm/i915/display/intel_panel.h         |    6 +-
- drivers/gpu/drm/i915/display/intel_parent.c        |    6 +-
- drivers/gpu/drm/i915/display/intel_parent.h        |    4 +-
- drivers/gpu/drm/i915/display/intel_plane.c         |   52 +-
- drivers/gpu/drm/i915/display/intel_plane.h         |    5 +-
- drivers/gpu/drm/i915/display/intel_psr.c           |  267 ++---
- drivers/gpu/drm/i915/display/intel_psr.h           |    1 +
- drivers/gpu/drm/i915/display/intel_psr_regs.h      |    1 +
- drivers/gpu/drm/i915/display/intel_sdvo.c          |    7 +-
- drivers/gpu/drm/i915/display/intel_tv.c            |    5 +-
- drivers/gpu/drm/i915/display/intel_vrr.c           |   33 +-
- drivers/gpu/drm/i915/display/intel_vrr.h           |    4 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c             |    5 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.h         |    7 -
- drivers/gpu/drm/i915/gem/i915_gem_pages.c          |  128 ---
- drivers/gpu/drm/i915/gem/i915_gem_panic.c          |  147 +++
- drivers/gpu/drm/i915/gem/i915_gem_panic.h          |   11 +
- drivers/gpu/drm/i915/gt/intel_gsc.c                |    2 +-
- drivers/gpu/drm/i915/gvt/edid.c                    |   14 +-
- drivers/gpu/drm/i915/i915_driver.c                 |  123 +--
- drivers/gpu/drm/i915/i915_panic.c                  |   35 -
- drivers/gpu/drm/i915/i915_panic.h                  |    9 -
- drivers/gpu/drm/xe/Makefile                        |    1 +
- drivers/gpu/drm/xe/display/xe_display.c            |  244 ++---
- drivers/gpu/drm/xe/display/xe_display.h            |   10 +-
- drivers/gpu/drm/xe/display/xe_panic.c              |   26 +-
- drivers/gpu/drm/xe/xe_device.c                     |    4 +-
- include/drm/drm_modes.h                            |    1 +
- include/drm/intel/display_parent_interface.h       |    4 +-
- include/drm/intel/mchbar_regs.h                    |    2 -
- 92 files changed, 3736 insertions(+), 2007 deletions(-)
- create mode 100644 Documentation/gpu/intel-display/dp-link-training.rst
- create mode 100644 drivers/gpu/drm/i915/display/intel_dp_link_caps.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_dp_link_caps.h
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_panic.c
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_panic.h
- delete mode 100644 drivers/gpu/drm/i915/i915_panic.c
- delete mode 100644 drivers/gpu/drm/i915/i915_panic.h
-
---=20
-Jani Nikula, Intel
+On 6/26/26 09:47, Lizhi Hou wrote:
+>
+> On 6/25/26 04:32, Wentao Liang wrote:
+>> When vm_insert_pages() fails, the error path calls 
+>> vma->vm_ops->close(vma)
+>> which internally calls drm_gem_vm_close() → drm_gem_object_put(),
+>> releasing the GEM object reference acquired at the start of the 
+>> function.
+>> However, the close_vma label then falls through to put_obj, which calls
+>> drm_gem_object_put() a second time on the same object.
+>>
+>> If the first put releases the last reference, the object is freed and 
+>> the
+>> second put accesses freed memory, causing a use-after-free.
+>>
+>> Fix by returning directly from close_vma instead of falling through to
+>> put_obj, since the close handler already performs all necessary cleanup
+>> including the object put.
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+>> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+>> ---
+>>   drivers/accel/amdxdna/amdxdna_gem.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
+>> b/drivers/accel/amdxdna/amdxdna_gem.c
+>> index 6e367ddb9e1b..fec9763c518c 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>> @@ -469,6 +469,7 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf 
+>> *dma_buf, struct vm_area_struc
+>>     close_vma:
+>>       vma->vm_ops->close(vma);
+>> +    return ret;
+> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>>   put_obj:
+>>       drm_gem_object_put(gobj);
+>>       return ret;
