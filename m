@@ -4,47 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EABEAC43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9901C43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 16:31:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5EE10F4EC;
-	Thu,  2 Jul 2026 16:30:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D073110F4E3;
+	Thu,  2 Jul 2026 16:31:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl header.b="SsZUx1jS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FpMAF901";
 	dkim-atps=neutral
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32EB010F4D9;
- Thu,  2 Jul 2026 16:29:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1783009480; bh=xYz8IsIbgJ2pPSj19g3xtCx6A7aGJCN0ZFyKL/P6/8U=;
- h=Date:In-Reply-To:References:Subject:From:To:Cc:From;
- b=SsZUx1jSEp2BtBWZnGydCsR9uJgrP41ZXNH0a9qrZqozAcPYilTr4inXcV/UUnxWw
- PIoPPLLzfePBSvhPjvMHw6jVkkcHOFtr5uF7cNTwgGtPgDQ0Zv12fPisfomJo7VGag
- TWfVwoqFaSVuG8u2TP4wi09+IZHvi9BS67b+8l2WkV5kD6vTGmgQHcyD5GihwkFcJV
- fnLJszXRJ8D32gyM2iXDMR1nmyS8ofTYGqL6iRPEPemhxOhKc8rbwCoz3kCFJfWZlY
- XllEfYkH8IJnT0V9gMVi8Sv+vwEt4b8Nc6cQ+cvKQ3NU+TulD8h5ie18TpsVJHcLJ7
- 0CovN6xvTqj0A==
-Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with UTF8SMTPSA id 4grhzr54H1zP4;
- Thu, 02 Jul 2026 18:24:40 +0200 (CEST)
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 1.4.3 at mail
-Date: Thu, 02 Jul 2026 18:24:40 +0200
-Message-ID: <b284acc0dd71b46fbb402ed60f1da23604259e0a.1783009338.git.mirq-linux@rere.qmqm.pl>
-In-Reply-To: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-References: <cover.1783009338.git.mirq-linux@rere.qmqm.pl>
-Subject: [PATCH 3/5] drm/amd/pm/smu7: return error on message send failure
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD4D10F4E1
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 16:31:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1640E601E3;
+ Thu,  2 Jul 2026 16:31:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82AB1F000E9;
+ Thu,  2 Jul 2026 16:31:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783009906;
+ bh=RzzfmIogOoChfCuB1Ba9o2vBi864tKCQNnuaaTtA2d0=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=FpMAF901KOCXsLd9Peup0g2nFxlws6YELsM6AeOcDUdHrNZTxBbYwbFPemRHFOrPm
+ WeoMU7b24n0MLm0SN62gtXKt6cOaVz1trQF1m6P6xawmpvqbHMtuekkcUE2BKRN8oy
+ iNtPaMFUFktzbSTbZSgrhOaVguNpvX0/clrZNEZoRJ0UeEkYhXB6HmPh5Q6K/0Tn2w
+ dlbUR0TG0l/hGuupWcYnV6+Ze6hQtoQIOx0dbDSduHKInlWJ5HkcVqY8dh6h1xsZp8
+ 1SO7zYM2TcWCJjyBxxdwyQ66uyj2W11jhZ3BZHot3XYroQmTM1PHfj2EoYrca9LoZL
+ U6evvTzS2aACA==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260529-topic-sm8650-ayaneo-pocket-s2-sy7758-v5-0-03aacd49747c@linaro.org>
+References: <20260529-topic-sm8650-ayaneo-pocket-s2-sy7758-v5-0-03aacd49747c@linaro.org>
+Subject: Re: [PATCH v5 0/2] backlight: Add SY7758 6-channel High Efficiency
+ LED Driver support
+Message-Id: <178300990349.2239788.13080024963462152507.b4-ty@b4>
+Date: Thu, 02 Jul 2026 17:31:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.16-dev-ad80c
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,36 +65,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
----
- .../gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c    | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+On Fri, 29 May 2026 21:23:07 +0200, Neil Armstrong wrote:
+> Implement support for the Silergy SY7758 6-channel High Efficiency LED Driver
+> used for backlight brightness control in the Ayaneo Pocket S2 dual-DSI panel.
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-index ffe3ce87d907..2e6dfe864306 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/smu7_smumgr.c
-@@ -141,12 +141,16 @@ int smu7_send_msg_to_smc(struct pp_hwmgr *hwmgr, uint16_t msg)
- 
- 	ret = PHM_READ_FIELD(hwmgr->device, SMC_RESP_0, SMC_RESP);
- 
--	if (ret == 0xFE)
-+	switch (ret) {
-+	case 1:
-+		return 0;
-+	case 0xFE:
- 		dev_dbg(adev->dev, "SMU message %#x was not supported\n", msg);
--	else if (ret != 1)
-+		return -EOPNOTSUPP;
-+	default:
- 		dev_info(adev->dev, "SMU message %#x failed: response is %d\n", msg, ret);
--
--	return 0;
-+		return ret != 0xFFFF ? -EIO : -ENXIO;
-+	}
- }
- 
- int smu7_send_msg_to_smc_with_parameter(struct pp_hwmgr *hwmgr, uint16_t msg, uint32_t parameter)
--- 
-2.47.3
+Applied, thanks!
+
+[1/2] dt-bindings: leds: backlight: document the SY7758 6-channel High Efficiency LED Driver
+      commit: 2019a2a7268f6f7387f052110558b9f90b500324
+[2/2] backlight: Add SY7758 6-channel High Efficiency LED Driver support
+      commit: 110d67699a430daf0316f941254c46221e3f0914
+
+--
+Lee Jones [李琼斯]
 
