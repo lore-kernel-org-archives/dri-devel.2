@@ -4,73 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0CDC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:51:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACD2EC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:58:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7B610F341;
-	Thu,  2 Jul 2026 12:51:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B5510F356;
+	Thu,  2 Jul 2026 12:58:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="F4ZVf9Bv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kO4usZ5Q";
 	dkim-atps=neutral
-Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com
- [95.215.58.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB15710E4BB;
- Thu,  2 Jul 2026 12:51:29 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782996675;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=KCmq1hZLLl7GOyWtL6cRPjjbHfWJ5jvpchLdwXolxL8=;
- b=F4ZVf9BvB+hLAf9gQChbe4sRNb4sLCrUWRBNFM0pPt8IAzUbVhXxDEH/DvD8axflIDk2vm
- 3zmwuSmbnQ/BvpRKYzyKP8V+Wt7x4/jYspjeo/Nuwy87WFjjbKm5Us6Gqkc64N1S5Bi0bl
- Qu3WpSOCEMC/DqM+tZU+hrTjGqJDt6Q=
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, lyude@redhat.com, dakr@kernel.org,
- tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com, thierry.reding@kernel.org, mperttunen@nvidia.com,
- jonathanh@nvidia.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
- zack.rusin@broadcom.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
- deller@gmx.de, bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
- muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, hughd@google.com, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de,
- kees@kernel.org, perex@perex.cz, tiwai@suse.com,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-sound@vger.kernel.org
-Subject: Re: [PATCH 09/13] mm/vma: update create_init_stack_vma() to use
- vma_flags_t
-Date: Thu,  2 Jul 2026 20:50:52 +0800
-Message-Id: <20260702125052.19248-1-lance.yang@linux.dev>
-In-Reply-To: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
-References: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B15BA10F356
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 12:58:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C126843D50;
+ Thu,  2 Jul 2026 12:58:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC311F000E9;
+ Thu,  2 Jul 2026 12:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782997116;
+ bh=E/1DCNOv6BvGR9MJ9FvUvqyYS0lnKrQcbwU1VR2yiNw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kO4usZ5QxTv0KTmHTZC/qASNpRJK/tbL1yjometAkq37XaVoiPj9yYNJYSMa/miOy
+ WDumAgPKPoA6O+ZAhZknNP5uy3myN2YtroWwxIDDh/D9adoYaQBir+NbjrazmpzPB/
+ G26xcrXk1KhYilWa5NJdthwc2uJy3iDeefPoHZlhdFDGTm+nZ6/SJsuST7sAsnkvJn
+ dXE7Zj7K2yahM8tyC7aM0z9NdoTfrtRX0iFx9IZ2s+glDcBGyXLo+A5UHqZ60T2grQ
+ plqvfAsOE08WmETjdkeuGfJSTD3aYifZvi/nV1eTiyVSnRKxXP1QYtapabLU1eTAKw
+ hZ6pAM4+B/9zQ==
+Date: Thu, 2 Jul 2026 14:58:33 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, dri-devel@lists.freedesktop.org, 
+ David Hildenbrand <david@kernel.org>, Yury Norov <yury.norov@gmail.com>,
+ linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-trace-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ linux-mm@kvack.org, Russell King <linux@armlinux.org.uk>, 
+ Will Deacon <will@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ linaro-mm-sig@lists.linaro.org, 
+ Heiko Carstens <hca@linux.ibm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Thierry Reding <treding@nvidia.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Brian Starkey <Brian.Starkey@arm.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Michal Hocko <mhocko@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Suren Baghdasaryan <surenb@google.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ devicetree@vger.kernel.org, 
+ "Liam R. Howlett" <liam@infradead.org>, linux-tegra@vger.kernel.org, 
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrew Morton <akpm@linux-foundation.org>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ iommu@lists.linux.dev, Mike Rapoport <rppt@kernel.org>, 
+ Sven Schnelle <svens@linux.ibm.com>
+Subject: Re: [PATCH v3 01/11] dt-bindings: reserved-memory: Document Tegra VPR
+Message-ID: <akZde-8lFvf8rPji@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-1-d80f7b871bb4@nvidia.com>
+ <178293558945.1610040.13281502080616690110.robh@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jt3c4zsxeledpb4t"
+Content-Disposition: inline
+In-Reply-To: <178293558945.1610040.13281502080616690110.robh@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,19 +95,82 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Mon, Jun 29, 2026 at 08:25:32PM +0100, Lorenzo Stoakes wrote:
->Replace use of the legacy vm_flags_t flags with vma_flags_t values in
->create_init_stack_vma().
->
->As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
->vma_flags_t defines, and slightly rework create_init_stack_vma() for
->clarity.
->
->No functional change intended.
->
->Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->---
+--jt3c4zsxeledpb4t
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 01/11] dt-bindings: reserved-memory: Document Tegra VPR
+MIME-Version: 1.0
 
-Nothing looks off to me ;) Feel free to add:
+On Wed, Jul 01, 2026 at 02:53:10PM -0500, Rob Herring (Arm) wrote:
+>=20
+> On Wed, 01 Jul 2026 18:08:12 +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > The Video Protection Region (VPR) found on NVIDIA Tegra chips is a
+> > region of memory that is protected from CPU accesses. It is used to
+> > decode and play back DRM protected content.
+> >=20
+> > It is a standard reserved memory region that can exist in two forms:
+> > static VPR where the base address and size are fixed (uses the "reg"
+> > property to describe the memory) and a resizable VPR where only the
+> > size is known upfront and the OS can allocate it wherever it can be
+> > accomodated.
+> >=20
+> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > ---
+> > Changes in v2:
+> > - add examples for fixed and resizable VPR
+> > ---
+> >  .../nvidia,tegra-video-protection-region.yaml      | 76 ++++++++++++++=
+++++++++
+> >  1 file changed, 76 insertions(+)
+> >=20
+>=20
+> My bot found errors running 'make dt_binding_check' on your patch:
+>=20
+> yamllint warnings/errors:
+>=20
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/r=
+eserved-memory/nvidia,tegra-video-protection-region.example.dtb: protected@=
+2a8000000 (nvidia,tegra-video-protection-region): reg: [[2, 2818572288], [0=
+, 1879048192]] is too long
+> 	from schema $id: http://devicetree.org/schemas/reserved-memory/nvidia,te=
+gra-video-protection-region.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/r=
+eserved-memory/nvidia,tegra-video-protection-region.example.dtb: protected@=
+2a8000000 (nvidia,tegra-video-protection-region): Unevaluated properties ar=
+e not allowed ('no-map', 'reg' were unexpected)
+> 	from schema $id: http://devicetree.org/schemas/reserved-memory/nvidia,te=
+gra-video-protection-region.yaml
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Any ideas why that second error shows up? It turns out that it goes away
+when the first one is fixed (which admittedly is a stupid mistake), but
+I spent quite a bit of time looking for a fix before realizing that it's
+only a side-effect of the first.
+
+Thierry
+
+--jt3c4zsxeledpb4t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpGYHcACgkQ3SOs138+
+s6FXSg/8DETX0ZuK2IIeUJbIHp/syjqHI0/Rww4Pal6HHyPG1Nmh7Mw8aUeTurgJ
+joGwb1v3IfLcjn3lMb2FCqe/oBcRBhmc8WlGWIiqiFfoTtXAPo8Rg64dg0l2ndIV
+u9BZrRKqkWLAjjq8uSoXf/8ub0GjtRGMSEiRqa4adYKV0VAUPUbQjEzfikHg91aU
+kSrCvilTLa1KSh268wVWvSEKjraNsiSBq+IoZ3L641ddHo9unPIuXnoFTZzFam4o
+xj7cgpnuBO79MYgpv5vlyz3Rz9W1twGkNdysDqEVRuh8kHJLNsaFrWhMEOeoTcMX
+iCyp3WySjGD1yBTs7VM2RXj9RvBllF0DYKc142VSpEPhsy49wMcjv8Bag05Zwzys
+LHSKvs1SF/dN62tw1x2kZs+Jd4+QcwlTfGDQbtf3Xtf88MP6QcXUUWXB+VMcWumA
+K4mrmfHiRpBrk7IW3c+b4lGwZ6Tl72Z1c6LI07ju7x3DohTXat7hYT2+iDZI1xfA
+s47ub8HQS6xthrn9/xco8ZPWOOjizZiMRSe7l/2gbvrymb1LINSe8uL0W6CFPCJ6
+G37Ad7PfTI1b60hHNGhEGteQtvty4ZuUr126ehR9qrhkvpzYWRUT/ml5MeCYjsOY
+hJrS/jVvbJcphwokdb+6MUfkHN1EC7gbyLCALmMVjSqAec+7Ds0=
+=yG1A
+-----END PGP SIGNATURE-----
+
+--jt3c4zsxeledpb4t--
