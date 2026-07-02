@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC81CC43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:48:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F801C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:48:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22D9910F272;
-	Thu,  2 Jul 2026 09:48:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A43EA10F273;
+	Thu,  2 Jul 2026 09:48:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QoeeyLmC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gutlxfz2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F8910F272
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:48:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F346A10F272
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:48:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6A59960120;
+ by sea.source.kernel.org (Postfix) with ESMTP id BAD6043AF7;
+ Thu,  2 Jul 2026 09:48:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C191F000E9;
  Thu,  2 Jul 2026 09:48:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F295D1F000E9;
- Thu,  2 Jul 2026 09:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782985713;
- bh=xMqEDlo1rK6ONO5MhPeeVPZoyzbriY+sDXyj7maPDb8=;
+ s=k20260515; t=1782985714;
+ bh=pZOCz896+1h3J3ireaYjTWn981ZBHIZhmjtwt7A2VbQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QoeeyLmC5tju6MoiUhZZsrgjTezX7+LtxM74pEzOEAG5GyseWXNyJcCrO+iaWVMWf
- g1+3RyVLADJQQPjks28950zhqvuGc3+o7fi8C9gg8ynbHbc+mwAjqTCVQSxW2icpKh
- 0uEpt8NLEGEUOHWkhg6eQLmeKo2KKlnrrMnuOqo4ZrBgtgHcPrAjQESnBIe3H8+Osd
- y5zUcHqwQmsjncf/gfg4tsMeV0PGVw1SocY2vrGLM4SO4G8xIE+YjPd8+L7hgqCo3X
- kRJ8wMFw1pdcSw6IYI5Lz9vRfusq9X0Ds6BVIYq2q0EOd2Y76Lo/l8n2E7YcHcZ1i2
- 5VoLnn5w7KFDg==
+ b=Gutlxfz2Spx1UTIEGR4tzpu88HG5kFPngCScslSOeY+9D0PR1mMFreMDVKm+pQtSA
+ JXVIWeP2S8IEZ+FD3IJwOdA7V0HgOhpoNDlO+z/Jp2xGpK1RyQAdCpOuOgBdg43Joa
+ sRncBMe9Pt6KqUD7/u+f8hvM648UNFcEFDC1KONLMQ1gEy4HFOe+CBa56jH3krYjxo
+ 3E+ECFcSiiU6ha5ltfExlwLpkJXJTZaQMbBtTcM21rU6ffwbxLEKJsaVevG+At+gEf
+ u8Ty9I0CJ4n7qCVuWhM3MpqNW1Y8yVRpAw362UwMuY52Qd0gli+sc7/IR/FBxr6VPo
+ DFnzr7RxJJ2GA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] drm/xe/xe_drm_ras: Add error-event support for PVC
+Subject: Re: [PATCH v4 1/3] drm/drm_ras: Add drm_ras netlink error event
 To: "Riana Tauro" <riana.tauro@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260701094409.129131-7-riana.tauro@intel.com>
+In-Reply-To: <20260701094409.129131-6-riana.tauro@intel.com>
 References: <20260701094409.129131-5-riana.tauro@intel.com>
- <20260701094409.129131-7-riana.tauro@intel.com>
+ <20260701094409.129131-6-riana.tauro@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:48:32 +0000
-Message-Id: <20260702094832.F295D1F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 09:48:33 +0000
+Message-Id: <20260702094834.71C191F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,73 +57,105 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Unconditional emission of spurious zero-delta RAS netlink events=
- for unsupported or uncounted errors.
+- [Medium] Multicast hardware error events are restricted to `init_net` des=
+pite the netlink family supporting multiple network namespaces (`.netnsok =
+=3D true`).
+- [Medium] Multicast group 'error-report' does not require net-admin privil=
+eges, leaking restricted error data to unprivileged users.
 --
 
-commit 64cb8a4b396dc586545ef894e855aeb177686e56
+commit 6e5a626b76568687a02f046e7898ab55e1095ab9
 Author: Riana Tauro <riana.tauro@intel.com>
 
-drm/xe/xe_drm_ras: Add error-event support for PVC
+drm/drm_ras: Add drm_ras netlink error event
 
-This patch reports drm_ras error events to userspace when an error occurs.
-It also adds support for core-compute and SoC errors in PVC.
+Define a new netlink event error-event and a new multicast group
+error-report in drm_ras. Each event contains device name, node and
+error information to identify the error triggering the event.
 
-> diff --git a/drivers/gpu/drm/xe/xe_hw_error.c b/drivers/gpu/drm/xe/xe_hw_=
-error.c
-> index 4a4b363fc844b..a833cecc74ec5 100644
-> --- a/drivers/gpu/drm/xe/xe_hw_error.c
-> +++ b/drivers/gpu/drm/xe/xe_hw_error.c
+> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+> index d6eab29a1394c..77f912a4d101f 100644
+> --- a/drivers/gpu/drm/drm_ras.c
+> +++ b/drivers/gpu/drm/drm_ras.c
+
 [ ... ]
-> @@ -495,6 +495,9 @@ static void hw_error_source_handler(struct xe_tile *t=
-ile, const enum hardware_er
->  			gt_hw_error_handler(tile, hw_err, error_id);
->  		if (err_bit =3D=3D XE_SOC_ERROR)
->  			soc_hw_error_handler(tile, hw_err, error_id);
+
+> @@ -222,6 +255,60 @@ static int doit_reply_value(struct genl_info *info, =
+u32 node_id,
+
+[ ... ]
+
+> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, cons=
+t char *error_name,
+> +			   u32 value, gfp_t flags)
+> +{
+> +	struct genl_info info;
+> +	struct sk_buff *msg;
+> +	struct nlattr *hdr;
+> +	int ret;
 > +
-> +		value =3D atomic_read(&info[error_id].counter);
-> +		xe_drm_ras_event(xe, error_id, severity, value, GFP_ATOMIC);
+> +	if (!error_name)
+> +		return -EINVAL;
+> +
+> +	if (!genl_has_listeners(&drm_ras_nl_family, &init_net, DRM_RAS_NLGRP_ER=
+ROR_REPORT))
 
 [Severity: Medium]
-Does this unconditionally emit spurious zero-delta RAS netlink events for
-unsupported or uncounted errors?
+Since the generic netlink family explicitly supports multiple network
+namespaces by setting .netnsok =3D true, will hardcoding init_net here
+prevent listeners in non-init namespaces from receiving error events?
 
-When gt_hw_error_handler() or soc_hw_error_handler() are called, they might
-not increment the error counter. For example, gt_hw_error_handler() returns
-early for non-PVC platforms:
+> +		return 0;
+> +
+> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
+> +
+> +	msg =3D genlmsg_new(NLMSG_GOODSIZE, flags);
 
-drivers/gpu/drm/xe/xe_hw_error.c:gt_hw_error_handler() {
-	...
-	if (xe->info.platform !=3D XE_PVC)
-		return;
-	...
-}
+[ ... ]
 
-Similarly, soc_hw_error_handler() skips counter increments for correctable
-errors:
+> +	genlmsg_end(msg, hdr);
+> +	genlmsg_multicast(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_REPOR=
+T, flags);
 
-drivers/gpu/drm/xe/xe_hw_error.c:soc_hw_error_handler() {
-	...
-	if (hw_err =3D=3D HARDWARE_ERROR_CORRECTABLE) {
-		xe_mmio_write32(mmio, SOC_GLOBAL_ERR_STAT_REG(master, hw_err), REG_GENMAS=
-K(31, 0));
-		...
-		goto unmask_gsysevtctl;
-	}
-	...
-}
+[Severity: Medium]
+Similar to the listener check above, does using genlmsg_multicast() route
+the message exclusively to the init_net namespace?
 
-In these cases, xe_drm_ras_event() is still called with the unchanged count=
-er
-value. Could this cause userspace to receive confusing zero-delta event
-updates?
+Any containerized user trying to listen to these events may silently fail
+to receive them if the events are artificially restricted to init_net.
 
->  	}
+> +	return 0;
+> +
+> +cancel_msg:
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+> index dea1c1b2494e8..9d3123cc9f9ca 100644
+> --- a/drivers/gpu/drm/drm_ras_nl.c
+> +++ b/drivers/gpu/drm/drm_ras_nl.c
+> @@ -58,6 +58,10 @@ static const struct genl_split_ops drm_ras_nl_ops[] =
+=3D {
+>  	},
+>  };
 > =20
->  clear_reg:
+> +static const struct genl_multicast_group drm_ras_nl_mcgrps[] =3D {
+> +	[DRM_RAS_NLGRP_ERROR_REPORT] =3D { "error-report", },
+
+[Severity: Medium]
+Should this multicast group require net-admin privileges?
+
+The get and list commands for drm_ras enforce GENL_ADMIN_PERM, but this
+multicast group definition omits capability flags like GENL_UNS_ADMIN_PERM.
+Will this allow unprivileged users to subscribe to the group and receive
+hardware error data that they are otherwise restricted from querying?
+
+> +};
+> +
+>  struct genl_family drm_ras_nl_family __ro_after_init =3D {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701094409.1291=
-31-5-riana.tauro@intel.com?part=3D2
+31-5-riana.tauro@intel.com?part=3D1
