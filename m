@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38A39C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7F6C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9455910F28D;
-	Thu,  2 Jul 2026 09:49:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B579810E2C9;
+	Thu,  2 Jul 2026 09:51:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OZ6YuWqR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mLh4SkpK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E18C10F28F
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:49:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1206A10E2C9
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:51:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86FDF416C8;
- Thu,  2 Jul 2026 09:49:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC7D1F00A3D;
- Thu,  2 Jul 2026 09:49:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7807C60122;
+ Thu,  2 Jul 2026 09:51:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033B01F00A3A;
+ Thu,  2 Jul 2026 09:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782985761;
- bh=/v+CunAD9v1LG3x0CSGUKrfAIyVu2CPBbGUmx3CagcA=;
+ s=k20260515; t=1782985884;
+ bh=BLkxOlRGq6e0nx77zhS8+swIaGWbcDYB2PxoNZ/HSZk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OZ6YuWqRXdKrbQEiOLVh5C3PmeyNLpqfm8zTOLWgqk75SmEJunWFMeUcVf/P7C6i8
- k8KOmCw5+uYVFgtGySK85f30ePwK+6zf8l6/qm2zhlG7vyshUwlpwzyg+KxVWPzW8I
- FJjyR/yNLE+ssV1WzhzXHO+IDrXuJjBD1mSG3WbdE3O3WxWPrHdvUgKXKOSkyQCdD9
- Qo5WTuZTALWJBt/8l1kAykcoHfojwbZqnAZsAEc8oP84oTr8hNtmexXDHIr6U9NAnf
- FLra+/sRm3bm0++I92EZ6Oc5JhmSntp/TEcFrQiVImeu3LC+wfphJju9v1K3BdIgUf
- JnvvKFj6xwcUQ==
+ b=mLh4SkpKNjg5JAu9u444PWjv8a5FJPIluOu02Q540Hl+EYekKlzBPfS/QWVAE5OzI
+ qH1PTKt5y3ujF6lrcmSqgbDQ3FOSSe/h+3QuEIlwq/yHg4Vz7U9TZ9Vq/ZafseV9y7
+ 8XXinOnggRRdhQScismsc7hHPcApoFYhw8r/DVsV8H4nxBJRwTmiGP2Dfoa20HPyDj
+ QTB9gCaJqrCQoHiBILBIJGfZVz4r2eowag29yYiuvKAUc1VDHXw8ZqoG02fVJVBcfn
+ PX7QxFxsVemw5SxK43mv4LZAXCCWT7roa89b4UHHMZ1fG/ui/076SxCE/hEYj7/MM+
+ U41OcEOC7A+4w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] drm/msm/hdmi_bridge: Simplify register bit updates
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] drm/panel: Enable DSC for Visionox VTDR6130 panel
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702-drm-msm-hdmi-cleanup-v2-1-a4a4f0e8895b@oss.qualcomm.com>
-References: <20260702-drm-msm-hdmi-cleanup-v2-0-a4a4f0e8895b@oss.qualcomm.com>
- <20260702-drm-msm-hdmi-cleanup-v2-1-a4a4f0e8895b@oss.qualcomm.com>
+In-Reply-To: <20260702-topic-sm8x50-vtdr6130-dsc-v3-1-db881a3fc026@linaro.org>
+References: <20260702-topic-sm8x50-vtdr6130-dsc-v3-0-db881a3fc026@linaro.org>
+ <20260702-topic-sm8x50-vtdr6130-dsc-v3-1-db881a3fc026@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:49:20 +0000
-Message-Id: <20260702094921.3DC7D1F00A3D@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 09:51:23 +0000
+Message-Id: <20260702095124.033B01F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,78 +57,88 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] hdmi_update_bits() is incorrectly called with the update value as t=
-he mask argument for multi-bit fields, defeating the purpose of the API.
+- [High] Dangling pointer `dsi->dsc` causes a Use-After-Free if the panel i=
+s unbound or fails to probe.
+- [Low] Typo in Kconfig keyword (`selecy` instead of `select`) causes Kconf=
+ig syntax errors and unmet dependencies.
 --
 
-commit 21923da02c72e54abf3a47df112e97f9d67ce903
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit e86a9d725d9bec9f842cd9809e7110af265ae958
+Author: Jun Nie <jun.nie@linaro.org>
+Subject: drm/panel: Enable DSC for Visionox VTDR6130 panel
 
-drm/msm/hdmi_bridge: Simplify register bit updates
+This commit enables display compression (DSC v1.2) for the 1080x2400 Vision=
+ox
+VTDR6130 AMOLED DSI panel. It configures the DSC parameters during probe and
+sends the PPS payload when turning on the display.
 
-This commit introduces wrapper functions to simplify register updates by
-using read-apply-mask-write steps. It updates multiple infoframe setup
-functions to use these new helpers to prevent reading and writing to
-different registers.
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index c0cc2bb4a3eb7..d4e6535f35957 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -1352,6 +1352,8 @@ config DRM_PANEL_VISIONOX_VTDR6130
+>  	depends on OF
+>  	depends on DRM_MIPI_DSI
+>  	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_DSC_HELPER
+> +	selecy DRM_DISPLAY_HELPER
 
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
-/hdmi/hdmi_bridge.c
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+[Severity: Low]
+This isn't a bug, but is there a typo here with "selecy" instead of "select=
+"?
+This will cause a Kconfig syntax error and leave dependencies unmet.
 
 [ ... ]
 
-> @@ -231,11 +217,10 @@ static int msm_hdmi_bridge_write_spd_infoframe(stru=
-ct drm_bridge *bridge,
->  	for (i =3D 0; i < ARRAY_SIZE(buf); i++)
->  		hdmi_write(hdmi, REG_HDMI_GENERIC1(i), buf[i]);
-> =20
-> -	val =3D hdmi_read(hdmi, REG_HDMI_GEN_PKT_CTRL);
-> -	val |=3D HDMI_GEN_PKT_CTRL_GENERIC1_SEND |
-> -		 HDMI_GEN_PKT_CTRL_GENERIC1_CONT |
-> -		 HDMI_GEN_PKT_CTRL_GENERIC1_LINE(SPD_IFRAME_LINE_NUMBER);
-> -	hdmi_write(hdmi, REG_HDMI_GEN_PKT_CTRL, val);
-> +	val =3D HDMI_GEN_PKT_CTRL_GENERIC1_SEND |
-> +	      HDMI_GEN_PKT_CTRL_GENERIC1_CONT |
-> +	      HDMI_GEN_PKT_CTRL_GENERIC1_LINE(SPD_IFRAME_LINE_NUMBER);
-> +	hdmi_update_bits(hdmi, REG_HDMI_GEN_PKT_CTRL, val, val);
-
-[Severity: Low]
-Is val intended to be passed as the mask argument here?
-
-Because HDMI_GEN_PKT_CTRL_GENERIC1_LINE() generates a multi-bit field,
-passing the data value as the mask means any zero bits in the computed
-value will not be cleared from the register during the update.
-
-This works in the current code because the register is cleared earlier
-in msm_hdmi_bridge_clear_spd_infoframe(), but does passing the data as
-the mask defeat the purpose of the hdmi_update_bits API?
+> diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gp=
+u/drm/panel/panel-visionox-vtdr6130.c
+> index 97a79411e1ecd..0cdcdbbc766da 100644
+> --- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+> +++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
 
 [ ... ]
 
-> @@ -269,12 +254,11 @@ static int msm_hdmi_bridge_write_hdmi_infoframe(str=
-uct drm_bridge *bridge,
->  	for (i =3D 0; i < ARRAY_SIZE(buf); i++)
->  		hdmi_write(hdmi, REG_HDMI_GENERIC0(i), buf[i]);
+> @@ -269,6 +277,16 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_d=
+evice *dsi)
+>  	ctx->dsi =3D dsi;
+>  	mipi_dsi_set_drvdata(dsi, ctx);
 > =20
-> -	val =3D hdmi_read(hdmi, REG_HDMI_GEN_PKT_CTRL);
-> -	val |=3D HDMI_GEN_PKT_CTRL_GENERIC0_SEND |
-> -		 HDMI_GEN_PKT_CTRL_GENERIC0_CONT |
-> -		 HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE |
-> -		 HDMI_GEN_PKT_CTRL_GENERIC0_LINE(VENSPEC_IFRAME_LINE_NUMBER);
-> -	hdmi_write(hdmi, REG_HDMI_GEN_PKT_CTRL, val);
-> +	val =3D HDMI_GEN_PKT_CTRL_GENERIC0_SEND |
-> +	      HDMI_GEN_PKT_CTRL_GENERIC0_CONT |
-> +	      HDMI_GEN_PKT_CTRL_GENERIC0_UPDATE |
-> +	      HDMI_GEN_PKT_CTRL_GENERIC0_LINE(VENSPEC_IFRAME_LINE_NUMBER);
-> +	hdmi_update_bits(hdmi, REG_HDMI_GEN_PKT_CTRL, val, val);
+> +	ctx->dsc.dsc_version_major =3D 0x1;
+> +	ctx->dsc.dsc_version_minor =3D 0x2;
+> +	ctx->dsc.slice_height =3D 40;
+> +	ctx->dsc.slice_width =3D 540;
+> +	ctx->dsc.slice_count =3D 2;
+> +	ctx->dsc.bits_per_component =3D 8;
+> +	ctx->dsc.bits_per_pixel =3D 8 << 4;
+> +	ctx->dsc.block_pred_enable =3D true;
+> +
+> +	dsi->dsc =3D &ctx->dsc;
 
-[Severity: Low]
-Similarly, does this code misuse the API by passing the data value as
-the mask argument instead of using HDMI_GEN_PKT_CTRL_GENERIC0_LINE__MASK?
+[Severity: High]
+Does this code leave a dangling pointer if the probe function fails later o=
+r=20
+if the driver is unbound?
+
+In visionox_vtdr6130_probe(), dsi->dsc is assigned to &ctx->dsc, where ctx
+is allocated using devm_drm_panel_alloc(). If devm_drm_panel_add() or
+devm_mipi_dsi_attach() fail later in the probe function, or if the panel
+driver is unbound via sysfs, devres will automatically free ctx.
+
+However, since the mipi_dsi_device outlives the panel driver binding, dsi->=
+dsc
+is never cleared and becomes a dangling pointer. If the DSI subsystem or ho=
+st
+driver attempts to use it, it could result in a use-after-free.
+
+Should dsi->dsc be explicitly cleared in the probe error paths and in a
+driver remove callback?
+
+>  	dsi->lanes =3D 4;
+>  	dsi->format =3D MIPI_DSI_FMT_RGB888;
+>  	dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-drm-msm-hd=
-mi-cleanup-v2-0-a4a4f0e8895b@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-topic-sm8x=
+50-vtdr6130-dsc-v3-0-db881a3fc026@linaro.org?part=3D1
