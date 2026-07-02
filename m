@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CEEFC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:48:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC81CC43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 09:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C0D10F268;
-	Thu,  2 Jul 2026 09:48:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22D9910F272;
+	Thu,  2 Jul 2026 09:48:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vxys6CA/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QoeeyLmC";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF59E10F268
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:48:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5F8910F272
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 09:48:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B81156001D;
- Thu,  2 Jul 2026 09:48:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7122C1F000E9;
- Thu,  2 Jul 2026 09:48:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A59960120;
+ Thu,  2 Jul 2026 09:48:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F295D1F000E9;
+ Thu,  2 Jul 2026 09:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782985707;
- bh=dWfRdZnjVTFhH+ZyDc3dOTwbPQ/tWnrY7lyUJDYUYM4=;
+ s=k20260515; t=1782985713;
+ bh=xMqEDlo1rK6ONO5MhPeeVPZoyzbriY+sDXyj7maPDb8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Vxys6CA/IE4ll6KbNvM8N2HTlE4rJDENik4NTyfnwUVgOymkkXsBRGswq8Y77CNiT
- 5WT9evf7tsgQZ1tJaIgAHsgUBsu3Ud1cxVDoKQztGw7gDY+D5LcdHzIEqbkTigQyzD
- yE+Ooo2aTQaBjN5oHJXmCx1yEWMgjSQYgOMqhMq1uGn0yqzkmZ6UsbyYwm6+gzKBoC
- sXNxd58BupQ7sXVYBrJ66u0yxUczeFBm0V9YishN+FqBV8CB8MeFwnztPJJcTC1eaa
- v3htzZVGa4S/e7Oc9xHUp0BqzA0NVk75wtEQu22m6ONLlXIhNW9D01dXzT6R676Qot
- U2a729Rtg2cZg==
+ b=QoeeyLmC5tju6MoiUhZZsrgjTezX7+LtxM74pEzOEAG5GyseWXNyJcCrO+iaWVMWf
+ g1+3RyVLADJQQPjks28950zhqvuGc3+o7fi8C9gg8ynbHbc+mwAjqTCVQSxW2icpKh
+ 0uEpt8NLEGEUOHWkhg6eQLmeKo2KKlnrrMnuOqo4ZrBgtgHcPrAjQESnBIe3H8+Osd
+ y5zUcHqwQmsjncf/gfg4tsMeV0PGVw1SocY2vrGLM4SO4G8xIE+YjPd8+L7hgqCo3X
+ kRJ8wMFw1pdcSw6IYI5Lz9vRfusq9X0Ds6BVIYq2q0EOd2Y76Lo/l8n2E7YcHcZ1i2
+ 5VoLnn5w7KFDg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] rust: pci: rework device enabling API
-To: "Maurice Hieronymus" <mhi@mailbox.org>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, "Alexandre
- Courbot" <acourbot@nvidia.com>, linux-pci@vger.kernel.org
-In-Reply-To: <20260702-rust-pci-enable-device-managed-v1-1-75bc4ff2935c@mailbox.org>
-References: <20260702-rust-pci-enable-device-managed-v1-1-75bc4ff2935c@mailbox.org>
+Subject: Re: [PATCH v4 2/3] drm/xe/xe_drm_ras: Add error-event support for PVC
+To: "Riana Tauro" <riana.tauro@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701094409.129131-7-riana.tauro@intel.com>
+References: <20260701094409.129131-5-riana.tauro@intel.com>
+ <20260701094409.129131-7-riana.tauro@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 09:48:25 +0000
-Message-Id: <20260702094826.7122C1F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 09:48:32 +0000
+Message-Id: <20260702094832.F295D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,103 +57,73 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The new `enable_device_managed` API uses `pcim_enable_device()`, w=
-hich activates legacy automatic IRQ management that conflicts with Rust's `=
-alloc_irq_vectors()` and violates a documented kernel API contract, leading=
- to double-free issues.
-- [High] `disable_device` and `enable_device` are exposed as safe functions=
-, allowing safe Rust code to unbalance the PCI device's `enable_cnt` refere=
-nce count, causing soundness holes that lead to DMA-after-free.
+- [Medium] Unconditional emission of spurious zero-delta RAS netlink events=
+ for unsupported or uncounted errors.
 --
 
-commit 47e71534c620f329a7271d6914a49b70de710719
-Author: Maurice Hieronymus <mhi@mailbox.org>
-Subject: rust: pci: rework device enabling API
+commit 64cb8a4b396dc586545ef894e855aeb177686e56
+Author: Riana Tauro <riana.tauro@intel.com>
 
-This commit replaces enable_device_mem() with enable_device_managed() to
-provide automatic cleanup on unbind via pcim_enable_device(). It also
-introduces an unmanaged enable_device()/disable_device() pair for paths
-like runtime PM, enabling both I/O and memory resources.
+drm/xe/xe_drm_ras: Add error-event support for PVC
 
-Link: https://lore.kernel.org/r/20260620-b4-rust-pci-edu-driver-v2-0-6fd668=
-4f2c14@mailbox.org [1]
-Link: https://lore.kernel.org/rust-for-linux/DJEPMYC7J6ZG.D0ODUD4YGFCT@kern=
-el.org/ [2]
+This patch reports drm_ras error events to userspace when an error occurs.
+It also adds support for core-compute and SoC errors in PVC.
 
+> diff --git a/drivers/gpu/drm/xe/xe_hw_error.c b/drivers/gpu/drm/xe/xe_hw_=
+error.c
+> index 4a4b363fc844b..a833cecc74ec5 100644
+> --- a/drivers/gpu/drm/xe/xe_hw_error.c
+> +++ b/drivers/gpu/drm/xe/xe_hw_error.c
 [ ... ]
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index 5071cae6543fd..a408b34120777 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -453,10 +453,30 @@ pub fn pci_class(&self) -> Class {
->  }
+> @@ -495,6 +495,9 @@ static void hw_error_source_handler(struct xe_tile *t=
+ile, const enum hardware_er
+>  			gt_hw_error_handler(tile, hw_err, error_id);
+>  		if (err_bit =3D=3D XE_SOC_ERROR)
+>  			soc_hw_error_handler(tile, hw_err, error_id);
+> +
+> +		value =3D atomic_read(&info[error_id].counter);
+> +		xe_drm_ras_event(xe, error_id, severity, value, GFP_ATOMIC);
+
+[Severity: Medium]
+Does this unconditionally emit spurious zero-delta RAS netlink events for
+unsupported or uncounted errors?
+
+When gt_hw_error_handler() or soc_hw_error_handler() are called, they might
+not increment the error counter. For example, gt_hw_error_handler() returns
+early for non-PVC platforms:
+
+drivers/gpu/drm/xe/xe_hw_error.c:gt_hw_error_handler() {
+	...
+	if (xe->info.platform !=3D XE_PVC)
+		return;
+	...
+}
+
+Similarly, soc_hw_error_handler() skips counter increments for correctable
+errors:
+
+drivers/gpu/drm/xe/xe_hw_error.c:soc_hw_error_handler() {
+	...
+	if (hw_err =3D=3D HARDWARE_ERROR_CORRECTABLE) {
+		xe_mmio_write32(mmio, SOC_GLOBAL_ERR_STAT_REG(master, hw_err), REG_GENMAS=
+K(31, 0));
+		...
+		goto unmask_gsysevtctl;
+	}
+	...
+}
+
+In these cases, xe_drm_ras_event() is still called with the unchanged count=
+er
+value. Could this cause userspace to receive confusing zero-delta event
+updates?
+
+>  	}
 > =20
->  impl<'a> Device<device::Core<'a>> {
-> -    /// Enable memory resources for this device.
-> -    pub fn enable_device_mem(&self) -> Result {
-> +    /// Enable I/O and memory resources for this device.
-> +    ///
-> +    /// This function is unmanaged and does not perform any cleanup when=
- the device is unbound.
-> +    /// For a managed function take a look at [`Device::enable_device_ma=
-naged`].
-> +    #[inline]
-> +    pub fn enable_device(&self) -> Result {
-> +        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a vali=
-d `struct pci_dev`.
-> +        to_result(unsafe { bindings::pci_enable_device(self.as_raw()) })
-> +    }
-> +
-> +    /// Disable I/O and memory resources for this device.
-> +    ///
-> +    /// This function is the counterpart to [`Device::enable_device`].
-> +    #[inline]
-> +    pub fn disable_device(&self) {
-
-[Severity: High]
-Is it safe to expose these as safe Rust functions?=20
-
-Since they directly modify the underlying PCI device's enable_cnt reference
-count, safe Rust code could call them in an unbalanced way. For instance,
-calling enable_device() multiple times would inflate the count.=20
-
-During driver unload, the cleanup path would only decrement it once, leaving
-bus-mastering enabled and potentially leading to DMA-after-free when memory
-buffers are freed. Should these be marked unsafe, or require an RAII guard
-to track the enable count?
-
-> +        // SAFETY: `self.as_raw` is guaranteed to be a pointer to a vali=
-d `struct pci_dev`.
-> +        unsafe { bindings::pci_disable_device(self.as_raw()) }
-> +    }
-> +
-> +    /// Enable I/O and memory resources for this device, with automatic =
-cleanup.
-> +    #[inline]
-> +    pub fn enable_device_managed(&self) -> Result {
->          // SAFETY: `self.as_raw` is guaranteed to be a pointer to a vali=
-d `struct pci_dev`.
-> -        to_result(unsafe { bindings::pci_enable_device_mem(self.as_raw()=
-) })
-> +        to_result(unsafe { bindings::pcim_enable_device(self.as_raw()) })
->      }
-
-[Severity: High]
-Will wrapping pcim_enable_device() cause double-free issues with IRQ vector=
-s?
-
-This function activates legacy C devres management for the device by setting
-pdev->is_managed =3D true. If a driver later calls alloc_irq_vectors(), dev=
-res
-will automatically register pcim_msi_release() as a cleanup action.
-
-However, Rust's IrqVectorRegistration object also explicitly calls
-pci_free_irq_vectors() on Drop. When the driver is unbound, Rust will drop
-the registration (freeing the vectors), and then the devres subsystem will
-execute pcim_msi_release(), attempting to free them again.
+>  clear_reg:
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-rust-pci-e=
-nable-device-managed-v1-1-75bc4ff2935c@mailbox.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701094409.1291=
+31-5-riana.tauro@intel.com?part=3D2
