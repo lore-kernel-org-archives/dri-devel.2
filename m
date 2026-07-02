@@ -4,139 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E535AC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:48:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9774C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4605310F398;
-	Thu,  2 Jul 2026 13:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3170A10F39A;
+	Thu,  2 Jul 2026 13:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="GsDJ0hul";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="SBk2LGdo";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021128.outbound.protection.outlook.com [52.101.100.128])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192B410F398
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 13:48:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LpZ+KR3V66RGMPM9fYsHNkxYrVf5mtCl/hOfolJEkPiSlQ/636iSaiTg8dC4zdvPzXNBjPh2ZdfSPDRE88nA2srp9lg8dCVKvk7FcBsHKTawmAGg1kFZy+uieLzwQb6IcALslN/FoDl0iM2Na+G1TrDUsLjeagGJJCPfoal6KHhQGo266v0KJJxiJLoiYXyD9+1F1+1sDGKreQy93uW3wgKpgjbDN4sooe3Nc3NGJgiUeNzI22kiystFcljD2TxsuceRBEsRPXu+1F93B72OPW0Gx3bhtGdKQIjGC/KWda9WhE0DKM+kVTz8UVnr5HhA90I6qxVY7QFEls+T0wwx6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3WFmK/PUwr7tOYtt8EE+QFkxm0zMzsrNNwnQrAO2Mh4=;
- b=Wi8x3WDVpVUlGipS3/Fz/RRUxZ5LjHCO2stO+UwFhaNYH1mtTeOZt39o1ubJUqqhlyJX9p3eZ7AOBvG1jLKWA0HJen3fWUjpxckRwniD7DQ1cNQYNizxkzceMee0XrZUS4IS1kT8drf0cy71xmc+RkcjUAKATWItXxV7DSgr/72glzhJLPHKed0nN/u2JU9TYRMKg4uc8i91+MMfXO5e++RsQ2X0nqpMAryYyPghuWaVGVJ03uQWrzYIrqxrBN/5oz4xePrlxtrxOvjuwuRYX5MSdvbei8AVo2rR1YhalMiDnbzSgiE1ufPFxyYHSOQ1fdTnaESD+WadM//V3wUQhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3WFmK/PUwr7tOYtt8EE+QFkxm0zMzsrNNwnQrAO2Mh4=;
- b=GsDJ0hulK0q5qtehrRzE3r5y51KERyESCp0CyxxL9BDsDrrPAF9J3kuMHajCJIxfbNritNkNmgVpIDVWGM8ftTiyM8NhWo7sgh656c+FmWPVW8Q3Jt7HxyhIgSrDemUpRQJOVlBLubCdkIFSiTVGEoX+n+asXm9lxuO7C0ShcdI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOCP265MB8693.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b5::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Thu, 2 Jul 2026
- 13:48:25 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Thu, 2 Jul 2026
- 13:48:24 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 02 Jul 2026 14:48:24 +0100
-Message-Id: <DJO4SC0M6BCM.B7RP36WUWCM9@garyguo.net>
-Cc: "Dave Ertman" <david.m.ertman@intel.com>, "Ira Weiny"
- <iweiny@kernel.org>, "Leon Romanovsky" <leon@kernel.org>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Igor Korotin"
- <igor.korotin@linux.dev>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>
-Subject: Re: [PATCH] rust: device_id: rename IdTable::as_ptr to
- as_raw_id_table()
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alice Ryhl" <aliceryhl@google.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260702-idtable-rename-asptr-v1-1-e0927273c71a@google.com>
-In-Reply-To: <20260702-idtable-rename-asptr-v1-1-e0927273c71a@google.com>
-X-ClientProxiedBy: LO4P123CA0034.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:151::21) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com
+ [91.218.175.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B060D10F39A
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 13:50:21 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1783000216;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=n7JedrMMFsZ3SA9xp8Er9WQ7Q5NWmS7gMbpQ8O+PQSg=;
+ b=SBk2LGdo8O2Fh816oQbqXrmhKAQAYAxHqV6r2z//9k66SRzp2XfssdY3VkdvqTHoJEhhne
+ KBLV5b7WimMmbUd67b8UpLhwJTAsCl8UHKUpcr3XwD//YOwU43JswyAPjZ9yhLgdwnTOAg
+ TszqN8wOwdlDLsXMvuRT5nF6gC9LQmA=
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, lyude@redhat.com, dakr@kernel.org,
+ tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
+ andy.yan@rock-chips.com, thierry.reding@kernel.org, mperttunen@nvidia.com,
+ jonathanh@nvidia.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
+ zack.rusin@broadcom.com, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
+ deller@gmx.de, bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, hughd@google.com, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de,
+ kees@kernel.org, perex@perex.cz, tiwai@suse.com,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH 13/13] mm/mremap: convert mremap code to use vma_flags_t
+Date: Thu,  2 Jul 2026 21:49:47 +0800
+Message-Id: <20260702134947.25189-1-lance.yang@linux.dev>
+In-Reply-To: <380f761d35a3faa4370f8b3f92e3d4af3d4c7110.1782760670.git.ljs@kernel.org>
+References: <380f761d35a3faa4370f8b3f92e3d4af3d4c7110.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOCP265MB8693:EE_
-X-MS-Office365-Filtering-Correlation-Id: f741e582-a89c-48a1-b08e-08ded8409669
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|6133799003|5023799004|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: vRlL7tNz8TlR9mgPhUj8zOu7zSmPgzueAASaQpLRq1CuLobdWZKVaCZz9vd7Olh5+LZQI1Xga/tM+W3AG1d8ehEGBAIfmDa7ADvAQUWxj5dhTaTj+Gapg0qsZy2V7EXv7Zra8vRG94+cG3tUtxlmsbWc2f3fPakR0aXRyfW0XbG0jgAw9nKflqOY0rX5zYBWqjG7hu4S2AKlQ0V3jhJyw+Jx0jtqmJKIA/W1ErYT/oT9K+7a7T4afa6HFSCfCdpsWT/Ecm2F2EFCu64LbUFakPbH93Y++xdTYiwKWiJ55vlPFAWSgYtHMvFb4xXdvd5Eit03IY+gzR2+wMb3KyuMwkbulkzoo+v4V5BUPI11i6svdPJ70AKiWwglR1+HvF3TGPl/Pn9OcbAPdDNf66NsRSxpf/8zfAjUMdXQ4sEwZHOtb6TBfgQR0ks9eesQRiwK4hHqSSOLdib68AuoVOaX4m+eDrdTCCyV5GdbkSReeib4wXwAhBOHQV7zBiljcaaVTMPmxtcQfC72uVD5ap5BGWoi1WgDdJ1HOprDoB9VXHmGOulwUYhWEt27P7W1ffQf+Lf29gyaB4rNbbYf0aM1UqCZyp/khqOKgXdYiJvqHH/Mg4A/qB4SX7agYJ1sXvvV1eNLfKvtbyjZ4uOoKYljS+C96KycbmmE4x8GiqJy7Ao=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(5023799004)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yk1RSG5JVlpnYWcwNlhCcXNkNVBJbE9LWTJqbnVKYTdJQ2RFWlBJcHljSlFp?=
- =?utf-8?B?KzE0VVJDL2FiVlVmNTMvVXBTTDduQURHWitIUzRzS1JvallwMDdsTWFqUzVL?=
- =?utf-8?B?aGJnbXdQaFNMQ3Fkd0x4Sk9xci9KUktnM3BoK3Y0L3BRakE5QzRLblVrRWh1?=
- =?utf-8?B?YUJxVEozVjlaek9DdGk0RHRPRkpwa09yalJySTEvUVN0dDRON3Q4OXRla0Fs?=
- =?utf-8?B?UzN2ZE83SE9iSFJKL1AvUjkzM0U2WXVGdU9nQTY4WGg5ekFHU0IzV3kxSjd2?=
- =?utf-8?B?YXNmSlpvS053YU81TlB0SXhyYm43Z3RpWTM4RHptNldROGYrKzA5Z0x4KzY2?=
- =?utf-8?B?YWRQb1p2VHAwQjQ2NGp6YXVERmhyMTFDKzVDZXhWOGRLaFp4b0ZVNWJSbjJa?=
- =?utf-8?B?VTVnZjNzc20xTFk3RjR2bjZXZHZsSFVMS3FsWTNrcmxFNXdKcUlXVzlXOVdo?=
- =?utf-8?B?Zy9pUjg4bzhpckduL1pHa2pObHYrWStnd1lRcjdKTFB5UTErdXAxL2lIdkVk?=
- =?utf-8?B?dUN1cVpyd05mb0hZTjhWdUVLSEN0dG5NV0pxKzlKSW5XMHFFaUtnaitZN2R0?=
- =?utf-8?B?TWZib211eGhvYzgzZXpjcUVFUFVRMDJ6MFFYdmZTeWdZMU5SeHlVMlNOdWF3?=
- =?utf-8?B?Q1Q2Y293blh3aHRoK2xqaFpuTWNIM1ZDT0JtV3dKNnE0Z0sxTkpQUFpNcmQ1?=
- =?utf-8?B?ZlF6d2QxakZhWXdNM2NCY1ZMSWMzSVQ1WTVpYnIvTjloTmJOWU1mcWxWZHMy?=
- =?utf-8?B?MmludVkySnU0VHVDTXZMa3BuWEZTMDhsd1c1UGhsRy9JTlFkMUVxU2d6TkVJ?=
- =?utf-8?B?eEJwYklSK0crdVM4QjNyVS8xbFFOSmhZSXpwU3ZBOWNwL1k3NkVxZG1CL1Er?=
- =?utf-8?B?anBScEQwZnc4U2NMeU5NVXFNTjQvQ0xUSW11U21BR0t5SURsdWIrakNGRjVV?=
- =?utf-8?B?TTZuQVVRNU1VSTRKSVZaMmtUQTVzZVBFTk5VNktwKzhLOUs4TFRLalNkdzlE?=
- =?utf-8?B?MFNmb0g4dUJOVlhqVnVuNytheWtvZGlsUFJLdCtKYmNFZjdkdmpWYkF4QkdX?=
- =?utf-8?B?V2o5VUFQODdERTE2ZWlRQkpaNXl4TjFsdGxKN0RkbGZnTFpxbHdqd3Y0QnYv?=
- =?utf-8?B?U1BDVENmR0JIZU9Ob1VMbW85SzR6VlJORzRYazA0ZWNRNy92ZjcvR2t3dTIr?=
- =?utf-8?B?amU2K2JRUEprRWtJeW14MWFubjZnWEJyUnpJQ2IzT2IxYSs0bXU2T1pZUjlZ?=
- =?utf-8?B?Y09JOUNSUFZpOEZNT2t6NDl3M1h4TFMwU0VybmtQRkRZeC9sOUpTU291K1ZF?=
- =?utf-8?B?YnN6S3lFTUpiQVdVUWUvNW5WbXoyQzJCT2NnUCtqellXSTd1T2dJa3NlR3Bs?=
- =?utf-8?B?YnJ4dmJQKzZTQW5HbkFFYVRncEFMZEczQlh3K1doSG9ka2g2NXFBRnhPNUU0?=
- =?utf-8?B?UjZLZE9sZGFNWkVHbnMrazZJOHBNQTJiWVNxbUdwK2ZJeENEYTNLNWYzOTRJ?=
- =?utf-8?B?QmRtV3lrWTQwUjdURmsrcGFENTkwQ3ZGa0h4VXJ2ZVlKQXJ2b0N3LzBjOXl6?=
- =?utf-8?B?S0N4dFpzL2Y4b2FYemYzZjBWUlFBTGRFSnEzTEZFTmtkelVGM0YvcXUwSGhU?=
- =?utf-8?B?Sm9xZ041ZjFicjRQVDU2dm9Lb0NIcHc3L20rblIxUzdaSzRxOUY1U3hRRzMv?=
- =?utf-8?B?M1NrNHJNOXlCZTlUeXhrZ3FMYjFkOGdVc2d3RG15K3hXZzhCWW9NNWhFdjJp?=
- =?utf-8?B?bTZ4cmt1a2tnTEw0dHN3TlZVb01MQTd3NGdGdVMxcldVc08yQmZSVVZ4ZTA0?=
- =?utf-8?B?OEt5WEpLSjgrcEUzNzRLQU5vR1RpYmhWYnJhQ3E1U3dVazczSW9sMWl2RUI4?=
- =?utf-8?B?TDdpWWtQTG1yNjZTZXpQeXRTVXBHU2NocnZhcW5oQkl4VnNkcVhnZGhKQW5q?=
- =?utf-8?B?WnRHWEttWmRvaDRyYnNFMzB5OFZ5ZDJDUk5yeHlYK2RWa3pOcDJxbHFRak5s?=
- =?utf-8?B?RWdWMEI4SGpUUHVueGpKYU1CY2JWOEJQTWhpVFRyemRFeU5xTitMbTlVWFcy?=
- =?utf-8?B?ajY5SWcwL2cyK3NydzYyVE45V2xqbUQ0OVlIM1pnNGRmRThZdWdlQlB6QmVY?=
- =?utf-8?B?dGlTaVJLTUZyVWMrc0hscE92MFVydVFNd2l4SWlxUTdnQ3pnQnFoUXcwSHd2?=
- =?utf-8?B?ZkpLOFVwdmRpbGhBZWZheUxJTkl6ZWJobVZGOHl6WmVBNWdwZHNMSVYwTllH?=
- =?utf-8?B?L1BscWNvMmk0Zis4b21ITGNkTm9lTGZCZmhCT096TFE5UG5rMjNkTit6S0dk?=
- =?utf-8?B?c0NLV1FPVjJONnRKL1BoeEJQNWcwbm1sNVJDc0xZTUtaNlFVWUVFUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: f741e582-a89c-48a1-b08e-08ded8409669
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 13:48:24.7653 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WJE8S8gfvGSP5K65JyKyvqoG4cRMsqzEyWDBPsKTzdOKlvcb0dBK682xtQX7JhcDj3dQmTBO0A7dJKyHsawJTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOCP265MB8693
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,53 +85,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jul 2, 2026 at 1:30 PM BST, Alice Ryhl wrote:
-> The current name of `as_ptr` is very generic, and if you attempt to
-> invoke `foo.as_ptr()` on a type for which this method is missing, then
-> an error along these lines will be printed:
+
+On Mon, Jun 29, 2026 at 08:25:36PM +0100, Lorenzo Stoakes wrote:
+>Replace use of the legacy vm_flags_t flags with vma_flags_t values
+>throughout the mremap logic.
 >
-> 	error[E0599]: no method named `as_ptr` found for reference `&DmaBuf` in =
-the current scope
-> 	   --> linux/rust/kernel/dma_buf/buf.rs:54:38
-> 	    |
-> 	 54 |         ptr::eq(self.as_ptr(), other.as_ptr())
-> 	    |                                      ^^^^^^ method not found in `&=
-DmaBuf`
-> 	    |
-> 	    =3D help: items from traits can only be used if the trait is impleme=
-nted and in scope
-> 	note: `device_id::IdTable` defines an item `as_ptr`, perhaps you need to=
- implement it
-> 	   --> linux/rust/kernel/device_id.rs:165:1
-> 	    |
-> 	165 | pub trait IdTable<T: RawDeviceId, U> {
-> 	    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>Additionally update comments to reflect the changes to be consistent.
 >
-> Suggesting the IdTable trait when an as_ptr() method is missing is not
-> useful. Renaming it to `as_raw_id_table` makes the method name unique to
-> this trait and avoids these bad suggestions.
-
-I think the name is fine. Functions of this sort is named `as_ptr()` and I =
-don't
-see why it should differ just because it's on traits.
-
-I'd rather say this is a Rust deficiency. Perhaps there needs to be a
-improvement of `#[diagnostic::do_not_recommend]` so it can be sticked to me=
-thods
-or traits as well.
-
-Best,
-Gary
-
+>No functional change intended.
 >
-> Assisted-by: Antigravity:Gemini
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-> ---
->  rust/kernel/auxiliary.rs | 2 +-
->  rust/kernel/device_id.rs | 4 ++--
->  rust/kernel/driver.rs    | 8 +++++---
->  rust/kernel/i2c.rs       | 8 ++++----
->  rust/kernel/pci.rs       | 2 +-
->  rust/kernel/platform.rs  | 4 ++--
->  rust/kernel/usb.rs       | 2 +-
->  7 files changed, 16 insertions(+), 14 deletions(-)
+>Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+>---
+
+The vm_flags_set() cases below spell out vma_start_write(), but the
+vm_flags_clear() cases don't?
+
+Thanks, Lance
+
+> mm/mremap.c | 38 ++++++++++++++++++++------------------
+> 1 file changed, 20 insertions(+), 18 deletions(-)
+>
+>diff --git a/mm/mremap.c b/mm/mremap.c
+>index 079a0ba0c4a7..0ea43302b7ed 100644
+>--- a/mm/mremap.c
+>+++ b/mm/mremap.c
+>@@ -68,7 +68,7 @@ struct vma_remap_struct {
+> 	bool populate_expand;		/* mlock()'d expanded, must populate. */
+> 	enum mremap_type remap_type;	/* expand, shrink, etc. */
+> 	bool mmap_locked;		/* Is mm currently write-locked? */
+>-	unsigned long charged;		/* If VM_ACCOUNT, # pages to account. */
+>+	unsigned long charged;		/* If VMA_ACCOUNT_BIT, # pgs to account */
+> 	bool vmi_needs_invalidate;	/* Is the VMA iterator invalidated? */
+> };
+> 
+>@@ -954,7 +954,7 @@ static unsigned long vrm_set_new_addr(struct vma_remap_struct *vrm)
+> 
+> 	if (vrm->flags & MREMAP_FIXED)
+> 		map_flags |= MAP_FIXED;
+>-	if (vma->vm_flags & VM_MAYSHARE)
+>+	if (vma_test(vma, VMA_MAYSHARE_BIT))
+> 		map_flags |= MAP_SHARED;
+> 
+> 	res = get_unmapped_area(vma->vm_file, new_addr, vrm->new_len, pgoff,
+>@@ -976,7 +976,7 @@ static bool vrm_calc_charge(struct vma_remap_struct *vrm)
+> {
+> 	unsigned long charged;
+> 
+>-	if (!(vrm->vma->vm_flags & VM_ACCOUNT))
+>+	if (!vma_test(vrm->vma, VMA_ACCOUNT_BIT))
+> 		return true;
+> 
+> 	/*
+>@@ -1003,7 +1003,7 @@ static bool vrm_calc_charge(struct vma_remap_struct *vrm)
+>  */
+> static void vrm_uncharge(struct vma_remap_struct *vrm)
+> {
+>-	if (!(vrm->vma->vm_flags & VM_ACCOUNT))
+>+	if (!vma_test(vrm->vma, VMA_ACCOUNT_BIT))
+> 		return;
+> 
+> 	vm_unacct_memory(vrm->charged);
+>@@ -1023,7 +1023,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
+> 	struct vm_area_struct *vma = vrm->vma;
+> 
+> 	vm_stat_account(mm, vma->vm_flags, pages);
+>-	if (vma->vm_flags & VM_LOCKED)
+>+	if (vma_test(vma, VMA_LOCKED_BIT))
+> 		mm->locked_vm += pages;
+> }
+> 
+>@@ -1167,7 +1167,7 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
+> 	 * arose, in which case we _do_ wish to unmap the _new_ VMA, which means
+> 	 * we actually _do_ want it be unaccounted.
+> 	 */
+>-	bool accountable_move = (vma->vm_flags & VM_ACCOUNT) &&
+>+	bool accountable_move = vma_test(vma, VMA_ACCOUNT_BIT) &&
+> 		!(vrm->flags & MREMAP_DONTUNMAP);
+> 
+> 	/*
+>@@ -1186,7 +1186,7 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
+> 	 * portions of the original VMA that remain.
+> 	 */
+> 	if (accountable_move) {
+>-		vm_flags_clear(vma, VM_ACCOUNT);
+>+		vma_clear_flags(vma, VMA_ACCOUNT_BIT);
+> 		/* We are about to split vma, so store the start/end. */
+> 		vm_start = vma->vm_start;
+> 		vm_end = vma->vm_end;
+>@@ -1211,8 +1211,8 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
+> 	 * |             |
+> 	 * |-------------|
+> 	 *
+>-	 * Having cleared VM_ACCOUNT from the whole VMA, after we unmap above
+>-	 * we'll end up with:
+>+	 * Having cleared VMA_ACCOUNT_BIT from the whole VMA, after we unmap
+>+	 * above we'll end up with:
+> 	 *
+> 	 *    addr  end
+> 	 *     |     |
+>@@ -1232,13 +1232,15 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
+> 		if (vm_start < addr) {
+> 			struct vm_area_struct *prev = vma_prev(&vmi);
+> 
+>-			vm_flags_set(prev, VM_ACCOUNT); /* Acquires VMA lock. */
+>+			vma_start_write(prev);
+>+			vma_set_flags(prev, VMA_ACCOUNT_BIT);
+> 		}
+> 
+> 		if (vm_end > end) {
+> 			struct vm_area_struct *next = vma_next(&vmi);
+> 
+>-			vm_flags_set(next, VM_ACCOUNT); /* Acquires VMA lock. */
+>+			vma_start_write(next);
+>+			vma_set_flags(next, VMA_ACCOUNT_BIT);
+> 		}
+> 	}
+> }
+>@@ -1321,8 +1323,8 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+> 	unsigned long old_start = vrm->vma->vm_start;
+> 	unsigned long old_end = vrm->vma->vm_end;
+> 
+>-	/* We always clear VM_LOCKED[ONFAULT] on the old VMA. */
+>-	vm_flags_clear(vrm->vma, VM_LOCKED_MASK);
+>+	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+>+	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
+> 
+> 	/*
+> 	 * anon_vma links of the old vma is no longer needed after its page
+>@@ -1758,14 +1760,14 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+> 	 * based on the original.  There are no known use cases for this
+> 	 * behavior.  As a result, fail such attempts.
+> 	 */
+>-	if (!old_len && !(vma->vm_flags & (VM_SHARED | VM_MAYSHARE))) {
+>+	if (!old_len && !vma_test_any(vma, VMA_SHARED_BIT, VMA_MAYSHARE_BIT)) {
+> 		pr_warn_once("%s (%d): attempted to duplicate a private mapping with mremap.  This is not supported.\n",
+> 			     current->comm, current->pid);
+> 		return -EINVAL;
+> 	}
+> 
+> 	if ((vrm->flags & MREMAP_DONTUNMAP) &&
+>-			(vma->vm_flags & (VM_DONTEXPAND | VM_PFNMAP)))
+>+	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
+> 		return -EINVAL;
+> 
+> 	/*
+>@@ -1795,7 +1797,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+> 		return 0;
+> 
+> 	/* We are expanding and the VMA is mlock()'d so we need to populate. */
+>-	if (vma->vm_flags & VM_LOCKED)
+>+	if (vma_test(vma, VMA_LOCKED_BIT))
+> 		vrm->populate_expand = true;
+> 
+> 	/* Need to be careful about a growing mapping */
+>@@ -1803,10 +1805,10 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+> 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
+> 		return -EINVAL;
+> 
+>-	if (vma->vm_flags & (VM_DONTEXPAND | VM_PFNMAP))
+>+	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
+> 		return -EFAULT;
+> 
+>-	if (!mlock_future_ok(mm, vma->vm_flags & VM_LOCKED, vrm->delta))
+>+	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
+> 		return -EAGAIN;
+> 
+> 	if (!may_expand_vm(mm, &vma->flags, vrm->delta >> PAGE_SHIFT))
+>-- 
+>2.54.0
+>
+>
