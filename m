@@ -4,84 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B73C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E535AC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 13:48:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 282D610F37D;
-	Thu,  2 Jul 2026 13:47:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4605310F398;
+	Thu,  2 Jul 2026 13:48:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nFPIDQwI";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="GsDJ0hul";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2495A10F37D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 13:47:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0976240169;
- Thu,  2 Jul 2026 13:47:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7AFA1F00A3A;
- Thu,  2 Jul 2026 13:47:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783000064;
- bh=7+4RPXWq0sLT4EC9giNUS42X6L6ymGhyY95vN1pSoHs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=nFPIDQwIPH19qZY0KdZIF0OqTnY30f1TYEmARp3ZaCpQ9jfD6iYoKRcGHpf9dmS3/
- edR8ZSu+zdQq6Dvcq1lBcJSgfVriFf5auqL7ebJU8tffvnfbRBm3ZYwUjfjtALVCty
- ZLYuAobaRM1h6UGAdDFcGBrwV1nvHMKNR5Esk1crHtrt2z4UITnu0PYV999TKPCSuo
- SCtNHCIYFGCzJq2b2NJCfti4LL5z+GI/0+IqYFp4TEynUdL5YfVhonCcxefDmm5klY
- h6hiQYiHPqP0wJNLOE6DwgkIExj1ta6AG4wkPKVu3yLjBWlTIPxaQj+ws+QBGcKsbV
- nLvgFGreL0ACQ==
-Date: Thu, 2 Jul 2026 15:47:41 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linaro-mm-sig@lists.linaro.org, Lorenzo Stoakes <ljs@kernel.org>, 
- Sven Schnelle <svens@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Yury Norov <yury.norov@gmail.com>,
- linux-media@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-s390@vger.kernel.org, 
- Masami Hiramatsu <mhiramat@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
- David Hildenbrand <david@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>,
- Mike Rapoport <rppt@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Russell King <linux@armlinux.org.uk>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Brian Starkey <Brian.Starkey@arm.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- John Stultz <jstultz@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- linux-arm-kernel@lists.infradead.org,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org,
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Will Deacon <will@kernel.org>, Thierry Reding <treding@nvidia.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, linux-tegra@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, 
- Michal Hocko <mhocko@suse.com>, "T.J. Mercier" <tjmercier@google.com>, 
- David Airlie <airlied@gmail.com>
-Subject: Re: [PATCH v3 02/11] dt-bindings: display: tegra: Document memory
- regions
-Message-ID: <akZr1mzrkyidju53@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-2-d80f7b871bb4@nvidia.com>
- <178293559078.1610192.17087150631381044391.robh@kernel.org>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021128.outbound.protection.outlook.com [52.101.100.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 192B410F398
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 13:48:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LpZ+KR3V66RGMPM9fYsHNkxYrVf5mtCl/hOfolJEkPiSlQ/636iSaiTg8dC4zdvPzXNBjPh2ZdfSPDRE88nA2srp9lg8dCVKvk7FcBsHKTawmAGg1kFZy+uieLzwQb6IcALslN/FoDl0iM2Na+G1TrDUsLjeagGJJCPfoal6KHhQGo266v0KJJxiJLoiYXyD9+1F1+1sDGKreQy93uW3wgKpgjbDN4sooe3Nc3NGJgiUeNzI22kiystFcljD2TxsuceRBEsRPXu+1F93B72OPW0Gx3bhtGdKQIjGC/KWda9WhE0DKM+kVTz8UVnr5HhA90I6qxVY7QFEls+T0wwx6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3WFmK/PUwr7tOYtt8EE+QFkxm0zMzsrNNwnQrAO2Mh4=;
+ b=Wi8x3WDVpVUlGipS3/Fz/RRUxZ5LjHCO2stO+UwFhaNYH1mtTeOZt39o1ubJUqqhlyJX9p3eZ7AOBvG1jLKWA0HJen3fWUjpxckRwniD7DQ1cNQYNizxkzceMee0XrZUS4IS1kT8drf0cy71xmc+RkcjUAKATWItXxV7DSgr/72glzhJLPHKed0nN/u2JU9TYRMKg4uc8i91+MMfXO5e++RsQ2X0nqpMAryYyPghuWaVGVJ03uQWrzYIrqxrBN/5oz4xePrlxtrxOvjuwuRYX5MSdvbei8AVo2rR1YhalMiDnbzSgiE1ufPFxyYHSOQ1fdTnaESD+WadM//V3wUQhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3WFmK/PUwr7tOYtt8EE+QFkxm0zMzsrNNwnQrAO2Mh4=;
+ b=GsDJ0hulK0q5qtehrRzE3r5y51KERyESCp0CyxxL9BDsDrrPAF9J3kuMHajCJIxfbNritNkNmgVpIDVWGM8ftTiyM8NhWo7sgh656c+FmWPVW8Q3Jt7HxyhIgSrDemUpRQJOVlBLubCdkIFSiTVGEoX+n+asXm9lxuO7C0ShcdI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LOCP265MB8693.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b5::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Thu, 2 Jul 2026
+ 13:48:25 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Thu, 2 Jul 2026
+ 13:48:24 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Jul 2026 14:48:24 +0100
+Message-Id: <DJO4SC0M6BCM.B7RP36WUWCM9@garyguo.net>
+Cc: "Dave Ertman" <david.m.ertman@intel.com>, "Ira Weiny"
+ <iweiny@kernel.org>, "Leon Romanovsky" <leon@kernel.org>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Igor Korotin"
+ <igor.korotin@linux.dev>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>
+Subject: Re: [PATCH] rust: device_id: rename IdTable::as_ptr to
+ as_raw_id_table()
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alice Ryhl" <aliceryhl@google.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260702-idtable-rename-asptr-v1-1-e0927273c71a@google.com>
+In-Reply-To: <20260702-idtable-rename-asptr-v1-1-e0927273c71a@google.com>
+X-ClientProxiedBy: LO4P123CA0034.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:151::21) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qagealkznxwhby33"
-Content-Disposition: inline
-In-Reply-To: <178293559078.1610192.17087150631381044391.robh@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOCP265MB8693:EE_
+X-MS-Office365-Filtering-Correlation-Id: f741e582-a89c-48a1-b08e-08ded8409669
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|6133799003|5023799004|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: vRlL7tNz8TlR9mgPhUj8zOu7zSmPgzueAASaQpLRq1CuLobdWZKVaCZz9vd7Olh5+LZQI1Xga/tM+W3AG1d8ehEGBAIfmDa7ADvAQUWxj5dhTaTj+Gapg0qsZy2V7EXv7Zra8vRG94+cG3tUtxlmsbWc2f3fPakR0aXRyfW0XbG0jgAw9nKflqOY0rX5zYBWqjG7hu4S2AKlQ0V3jhJyw+Jx0jtqmJKIA/W1ErYT/oT9K+7a7T4afa6HFSCfCdpsWT/Ecm2F2EFCu64LbUFakPbH93Y++xdTYiwKWiJ55vlPFAWSgYtHMvFb4xXdvd5Eit03IY+gzR2+wMb3KyuMwkbulkzoo+v4V5BUPI11i6svdPJ70AKiWwglR1+HvF3TGPl/Pn9OcbAPdDNf66NsRSxpf/8zfAjUMdXQ4sEwZHOtb6TBfgQR0ks9eesQRiwK4hHqSSOLdib68AuoVOaX4m+eDrdTCCyV5GdbkSReeib4wXwAhBOHQV7zBiljcaaVTMPmxtcQfC72uVD5ap5BGWoi1WgDdJ1HOprDoB9VXHmGOulwUYhWEt27P7W1ffQf+Lf29gyaB4rNbbYf0aM1UqCZyp/khqOKgXdYiJvqHH/Mg4A/qB4SX7agYJ1sXvvV1eNLfKvtbyjZ4uOoKYljS+C96KycbmmE4x8GiqJy7Ao=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(5023799004)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yk1RSG5JVlpnYWcwNlhCcXNkNVBJbE9LWTJqbnVKYTdJQ2RFWlBJcHljSlFp?=
+ =?utf-8?B?KzE0VVJDL2FiVlVmNTMvVXBTTDduQURHWitIUzRzS1JvallwMDdsTWFqUzVL?=
+ =?utf-8?B?aGJnbXdQaFNMQ3Fkd0x4Sk9xci9KUktnM3BoK3Y0L3BRakE5QzRLblVrRWh1?=
+ =?utf-8?B?YUJxVEozVjlaek9DdGk0RHRPRkpwa09yalJySTEvUVN0dDRON3Q4OXRla0Fs?=
+ =?utf-8?B?UzN2ZE83SE9iSFJKL1AvUjkzM0U2WXVGdU9nQTY4WGg5ekFHU0IzV3kxSjd2?=
+ =?utf-8?B?YXNmSlpvS053YU81TlB0SXhyYm43Z3RpWTM4RHptNldROGYrKzA5Z0x4KzY2?=
+ =?utf-8?B?YWRQb1p2VHAwQjQ2NGp6YXVERmhyMTFDKzVDZXhWOGRLaFp4b0ZVNWJSbjJa?=
+ =?utf-8?B?VTVnZjNzc20xTFk3RjR2bjZXZHZsSFVMS3FsWTNrcmxFNXdKcUlXVzlXOVdo?=
+ =?utf-8?B?Zy9pUjg4bzhpckduL1pHa2pObHYrWStnd1lRcjdKTFB5UTErdXAxL2lIdkVk?=
+ =?utf-8?B?dUN1cVpyd05mb0hZTjhWdUVLSEN0dG5NV0pxKzlKSW5XMHFFaUtnaitZN2R0?=
+ =?utf-8?B?TWZib211eGhvYzgzZXpjcUVFUFVRMDJ6MFFYdmZTeWdZMU5SeHlVMlNOdWF3?=
+ =?utf-8?B?Q1Q2Y293blh3aHRoK2xqaFpuTWNIM1ZDT0JtV3dKNnE0Z0sxTkpQUFpNcmQ1?=
+ =?utf-8?B?ZlF6d2QxakZhWXdNM2NCY1ZMSWMzSVQ1WTVpYnIvTjloTmJOWU1mcWxWZHMy?=
+ =?utf-8?B?MmludVkySnU0VHVDTXZMa3BuWEZTMDhsd1c1UGhsRy9JTlFkMUVxU2d6TkVJ?=
+ =?utf-8?B?eEJwYklSK0crdVM4QjNyVS8xbFFOSmhZSXpwU3ZBOWNwL1k3NkVxZG1CL1Er?=
+ =?utf-8?B?anBScEQwZnc4U2NMeU5NVXFNTjQvQ0xUSW11U21BR0t5SURsdWIrakNGRjVV?=
+ =?utf-8?B?TTZuQVVRNU1VSTRKSVZaMmtUQTVzZVBFTk5VNktwKzhLOUs4TFRLalNkdzlE?=
+ =?utf-8?B?MFNmb0g4dUJOVlhqVnVuNytheWtvZGlsUFJLdCtKYmNFZjdkdmpWYkF4QkdX?=
+ =?utf-8?B?V2o5VUFQODdERTE2ZWlRQkpaNXl4TjFsdGxKN0RkbGZnTFpxbHdqd3Y0QnYv?=
+ =?utf-8?B?U1BDVENmR0JIZU9Ob1VMbW85SzR6VlJORzRYazA0ZWNRNy92ZjcvR2t3dTIr?=
+ =?utf-8?B?amU2K2JRUEprRWtJeW14MWFubjZnWEJyUnpJQ2IzT2IxYSs0bXU2T1pZUjlZ?=
+ =?utf-8?B?Y09JOUNSUFZpOEZNT2t6NDl3M1h4TFMwU0VybmtQRkRZeC9sOUpTU291K1ZF?=
+ =?utf-8?B?YnN6S3lFTUpiQVdVUWUvNW5WbXoyQzJCT2NnUCtqellXSTd1T2dJa3NlR3Bs?=
+ =?utf-8?B?YnJ4dmJQKzZTQW5HbkFFYVRncEFMZEczQlh3K1doSG9ka2g2NXFBRnhPNUU0?=
+ =?utf-8?B?UjZLZE9sZGFNWkVHbnMrazZJOHBNQTJiWVNxbUdwK2ZJeENEYTNLNWYzOTRJ?=
+ =?utf-8?B?QmRtV3lrWTQwUjdURmsrcGFENTkwQ3ZGa0h4VXJ2ZVlKQXJ2b0N3LzBjOXl6?=
+ =?utf-8?B?S0N4dFpzL2Y4b2FYemYzZjBWUlFBTGRFSnEzTEZFTmtkelVGM0YvcXUwSGhU?=
+ =?utf-8?B?Sm9xZ041ZjFicjRQVDU2dm9Lb0NIcHc3L20rblIxUzdaSzRxOUY1U3hRRzMv?=
+ =?utf-8?B?M1NrNHJNOXlCZTlUeXhrZ3FMYjFkOGdVc2d3RG15K3hXZzhCWW9NNWhFdjJp?=
+ =?utf-8?B?bTZ4cmt1a2tnTEw0dHN3TlZVb01MQTd3NGdGdVMxcldVc08yQmZSVVZ4ZTA0?=
+ =?utf-8?B?OEt5WEpLSjgrcEUzNzRLQU5vR1RpYmhWYnJhQ3E1U3dVazczSW9sMWl2RUI4?=
+ =?utf-8?B?TDdpWWtQTG1yNjZTZXpQeXRTVXBHU2NocnZhcW5oQkl4VnNkcVhnZGhKQW5q?=
+ =?utf-8?B?WnRHWEttWmRvaDRyYnNFMzB5OFZ5ZDJDUk5yeHlYK2RWa3pOcDJxbHFRak5s?=
+ =?utf-8?B?RWdWMEI4SGpUUHVueGpKYU1CY2JWOEJQTWhpVFRyemRFeU5xTitMbTlVWFcy?=
+ =?utf-8?B?ajY5SWcwL2cyK3NydzYyVE45V2xqbUQ0OVlIM1pnNGRmRThZdWdlQlB6QmVY?=
+ =?utf-8?B?dGlTaVJLTUZyVWMrc0hscE92MFVydVFNd2l4SWlxUTdnQ3pnQnFoUXcwSHd2?=
+ =?utf-8?B?ZkpLOFVwdmRpbGhBZWZheUxJTkl6ZWJobVZGOHl6WmVBNWdwZHNMSVYwTllH?=
+ =?utf-8?B?L1BscWNvMmk0Zis4b21ITGNkTm9lTGZCZmhCT096TFE5UG5rMjNkTit6S0dk?=
+ =?utf-8?B?c0NLV1FPVjJONnRKL1BoeEJQNWcwbm1sNVJDc0xZTUtaNlFVWUVFUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: f741e582-a89c-48a1-b08e-08ded8409669
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 13:48:24.7653 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WJE8S8gfvGSP5K65JyKyvqoG4cRMsqzEyWDBPsKTzdOKlvcb0dBK682xtQX7JhcDj3dQmTBO0A7dJKyHsawJTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOCP265MB8693
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,98 +152,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu Jul 2, 2026 at 1:30 PM BST, Alice Ryhl wrote:
+> The current name of `as_ptr` is very generic, and if you attempt to
+> invoke `foo.as_ptr()` on a type for which this method is missing, then
+> an error along these lines will be printed:
+>
+> 	error[E0599]: no method named `as_ptr` found for reference `&DmaBuf` in =
+the current scope
+> 	   --> linux/rust/kernel/dma_buf/buf.rs:54:38
+> 	    |
+> 	 54 |         ptr::eq(self.as_ptr(), other.as_ptr())
+> 	    |                                      ^^^^^^ method not found in `&=
+DmaBuf`
+> 	    |
+> 	    =3D help: items from traits can only be used if the trait is impleme=
+nted and in scope
+> 	note: `device_id::IdTable` defines an item `as_ptr`, perhaps you need to=
+ implement it
+> 	   --> linux/rust/kernel/device_id.rs:165:1
+> 	    |
+> 	165 | pub trait IdTable<T: RawDeviceId, U> {
+> 	    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>
+> Suggesting the IdTable trait when an as_ptr() method is missing is not
+> useful. Renaming it to `as_raw_id_table` makes the method name unique to
+> this trait and avoids these bad suggestions.
 
---qagealkznxwhby33
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 02/11] dt-bindings: display: tegra: Document memory
- regions
-MIME-Version: 1.0
+I think the name is fine. Functions of this sort is named `as_ptr()` and I =
+don't
+see why it should differ just because it's on traits.
 
-On Wed, Jul 01, 2026 at 02:53:11PM -0500, Rob Herring (Arm) wrote:
->=20
-> On Wed, 01 Jul 2026 18:08:13 +0200, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > Add the memory-region and memory-region-names properties to the bindings
-> > for the display controllers and the host1x engine found on various Tegra
-> > generations. These memory regions are used to access firmware-provided
-> > framebuffer memory as well as the video protection region.
-> >=20
-> > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > ---
-> > Changes in v3:
-> > - document properties for VIC
-> > ---
-> >  .../devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml |  8 ++=
-++++++
-> >  .../devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml  | 10 ++=
-++++++++
-> >  .../devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml   | 10 ++=
-+++++++-
-> >  .../bindings/display/tegra/nvidia,tegra20-host1x.yaml          |  7 ++=
-+++++
-> >  4 files changed, 34 insertions(+), 1 deletion(-)
-> >=20
->=20
-> My bot found errors running 'make dt_binding_check' on your patch:
->=20
-> yamllint warnings/errors:
->=20
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/d=
-isplay/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names: 'anyOf=
-' conditional failed, one must be fixed:
-> 	'maxitems' is not one of ['$ref', 'additionalItems', 'additionalProperti=
-es', 'allOf', 'anyOf', 'const', 'contains', 'default', 'dependencies', 'dep=
-endentRequired', 'dependentSchemas', 'deprecated', 'description', 'else', '=
-enum', 'exclusiveMaximum', 'exclusiveMinimum', 'items', 'if', 'minItems', '=
-minimum', 'maxItems', 'maximum', 'multipleOf', 'not', 'oneOf', 'pattern', '=
-patternProperties', 'properties', 'required', 'then', 'typeSize', 'unevalua=
-tedProperties', 'uniqueItems']
-> 	'type' was expected
-> 	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/d=
-isplay/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names:items: =
-{'enum': ['framebuffer', 'protected']} is not of type 'array'
-> 	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/d=
-isplay/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names: Additi=
-onal properties are not allowed ('maxitems' was unexpected)
-> 	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/d=
-isplay/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names:items: =
-{'enum': ['framebuffer', 'protected']} is not of type 'array'
-> 	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/d=
-isplay/tegra/nvidia,tegra20-dc.yaml: properties:memory-region-names: Additi=
-onal properties are not allowed ('maxitems' was unexpected)
-> 	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
+I'd rather say this is a Rust deficiency. Perhaps there needs to be a
+improvement of `#[diagnostic::do_not_recommend]` so it can be sticked to me=
+thods
+or traits as well.
 
-Ugh... looks like these are all because I mistyped maxItems as maxitems.
-Oh well. Sorry for the noise.
+Best,
+Gary
 
-Thierry
-
---qagealkznxwhby33
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpGa/wACgkQ3SOs138+
-s6FjYBAAiIaBIWdZjFXo82rzspIHpvGgfQhSt4a55q2oojIy6N1UmTKiAcJDv5oW
-g8aamgHNh028eD+y5O//mo8BgJnGgvSRFyZ5oH94ydn2FQyK09IRUTJVHXmZzij2
-+yZ9kKvyJ8LNB08ozD6+GiG4mxobGEPJile7TvkPBR1IIHTcj72lUtBx1CmXMh2b
-vkf7mcrVS0SdxnSoB3SOQGuGp0DV3apzKI/1ufoc+D0N/OfGuORq+/94WVM6HoP7
-jORXz/xD1A49PqM9SzGgcVzd2Lm1Latg393tFhznCSVdaPw+OJ4ckF75rTIHAh7t
-l95RTj9kj1PhQGZogzjAlCPm9hAWJdHu+GRkO2SY0wGPb4TD2/dLEgUr9Cckce1Y
-V7yOCjHLpTgLS33V5O0Bx0NrtOJSs96jUl3pXjSGH1hvb3oZT1WjIA5PzlW44COY
-uFHhHIvff1c156UMtRj5zlO5CnKXUKEoYhIrLkFyGrJKRiKh9OS33SAkvkoV1y7s
-+BOjmuSA/MHXq6cg6S7Kg6NUGFo/c2KJs9t/5z787NDvmCMYlFgzkjIMFoIh21P9
-gHRn3FS98btWp0qlVqv0R6N3sg/suUVCNco6ZMbhEDGafxejqTNRdwipjnb+hxNp
-/rlf42/+2WRXWgWDUy0h+bRrMtgHxa6OTPo57aAfd7QkWrSM8tk=
-=AE/S
------END PGP SIGNATURE-----
-
---qagealkznxwhby33--
+>
+> Assisted-by: Antigravity:Gemini
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+> ---
+>  rust/kernel/auxiliary.rs | 2 +-
+>  rust/kernel/device_id.rs | 4 ++--
+>  rust/kernel/driver.rs    | 8 +++++---
+>  rust/kernel/i2c.rs       | 8 ++++----
+>  rust/kernel/pci.rs       | 2 +-
+>  rust/kernel/platform.rs  | 4 ++--
+>  rust/kernel/usb.rs       | 2 +-
+>  7 files changed, 16 insertions(+), 14 deletions(-)
