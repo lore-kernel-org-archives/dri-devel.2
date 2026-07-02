@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CA53C43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 304B4C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2516710F415;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBB5A10F419;
 	Thu,  2 Jul 2026 14:46:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BBR9xXPo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UUiJ41GM";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A341410F40D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6388610F409
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003607;
- bh=CDurYRUaH9AEjX42H0gscQnkKL12uCNpayAmCgkFvbE=;
+ s=mail; t=1783003605;
+ bh=VrYv7txJCAPPleChH5NsonFVJtR0LAt1QXJvtoOGkzI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=BBR9xXPoDSA7ILvU7uy/Op3PVAu28lQ9+U/r0xZZdh4jkTuXbiwofYAruPFaboK1N
- sFYJHb5lK1I6cKc7751yBL4wSgpamWLN/wrX04d8U5KIZCYg3McOH62xTNlQbwYl/e
- L34cFjMIOzOZsgxtPUHhSF5TLGJYWYHMdDpVn207nJ86iEeNtoB0HqFNCpRAfiXdwO
- EdoySTeLQ3HqEZr0hZrE+b6gJKSEyMYmPmNho/krHLI2XAmGtCayK4GFtLGV7yoPRt
- W8RKq4UOWUqa2efpewyBtufvyCpyDSnSd/QglMCDlWtH+TydOgWwo6fWvFwnRNr9CR
- 9GBaz8Xcp/Byg==
+ b=UUiJ41GMccZKVq5emhL2rbppt4Eccczcstldx65pa9hXmo1T4zDU+9OzCfmOGEKk7
+ R71BIHWPPkYuLvwdzwkHfPkM7hiFaHQ35lXVF1TPOSurfRfFiE0dmrVa3PjIUYhXEh
+ 0mCEXgKd6p3PqnZ7aYNsFctA5XUGxEzXVAfA65pn5kPFwJce0DcDkzMV2nINrY7F9o
+ z6C9mYge+h+QJic7p38L8aCVhhViixompxGbhUHkUq0/G+HXn7X7wYnby+Het9U8Pl
+ SOKlMxtVscq/WPmN8Qb/nyZVfBzryZkGB/X7lr+5upKeCIrxSyXJE24vI/g8ux/v8b
+ PvSm0w6dxbXHg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4B5CD17E3620;
- Thu,  2 Jul 2026 16:46:47 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0051817E3602;
+ Thu,  2 Jul 2026 16:46:45 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:34 +0300
-Subject: [PATCH v8 21/39] drm/rockchip: dw_hdmi_qp: Add missing newlines in
- dev_err_probe() messages
+Date: Thu, 02 Jul 2026 17:46:31 +0300
+Subject: [PATCH v8 18/39] drm/bridge: dw-hdmi-qp: Provide
+ .{enable|disable}_hpd() PHY ops
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-21-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-18-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,38 +75,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the missing trailing newlines to a couple of dev_err_probe() calls
-in dw_hdmi_qp_rockchip_bind().
+Implement the .hpd_enable() and .hpd_disable() bridge callbacks and
+extend dw_hdmi_qp_phy_ops with corresponding hooks.
 
-Fixes: b6736a4ea3fa ("drm/rockchip: dw_hdmi_qp: Improve error handling with dev_err_probe()")
-Fixes: e1f7b7cbd74c ("drm/rockchip: dw_hdmi_qp: Switch to drmm_encoder_init()")
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+This enables the DRM core to control when HPD interrupts are armed,
+which is needed to prevent premature interrupt delivery before the
+connector is fully initialized, and to properly quiesce HPD during
+suspend.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 18 ++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  2 ++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 815f9ea7bcbe..7bd0f6dcbe5d 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -682,14 +682,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
- 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret)
--		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
-+		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 7475b6b71836..a0613f0d2ebc 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -1189,6 +1189,22 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #define dw_hdmi_qp_cec_transmit NULL
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
  
- 	platform_set_drvdata(pdev, hdmi);
++static void dw_hdmi_qp_bridge_hpd_enable(struct drm_bridge *bridge)
++{
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++
++	if (hdmi->phy.ops->enable_hpd)
++		hdmi->phy.ops->enable_hpd(hdmi, hdmi->phy.data);
++}
++
++static void dw_hdmi_qp_bridge_hpd_disable(struct drm_bridge *bridge)
++{
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++
++	if (hdmi->phy.ops->disable_hpd)
++		hdmi->phy.ops->disable_hpd(hdmi, hdmi->phy.data);
++}
++
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.atomic_get_output_bus_fmts = drm_atomic_helper_bridge_get_hdmi_output_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+@@ -1197,6 +1213,8 @@ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
+ 	.atomic_enable = dw_hdmi_qp_bridge_atomic_enable,
+ 	.atomic_disable = dw_hdmi_qp_bridge_atomic_disable,
+ 	.detect = dw_hdmi_qp_bridge_detect,
++	.hpd_enable = dw_hdmi_qp_bridge_hpd_enable,
++	.hpd_disable = dw_hdmi_qp_bridge_hpd_disable,
+ 	.edid_read = dw_hdmi_qp_bridge_edid_read,
+ 	.hdmi_tmds_char_rate_valid = dw_hdmi_qp_bridge_tmds_char_rate_valid,
+ 	.hdmi_clear_avi_infoframe = dw_hdmi_qp_bridge_clear_avi_infoframe,
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index 6ea9c561cfef..b80fceffc315 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -17,6 +17,8 @@ struct dw_hdmi_qp_phy_ops {
+ 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
+ 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ 	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
++	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
++	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
+ };
  
- 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
- 	if (IS_ERR(hdmi->hdmi))
- 		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
--				     "Failed to bind dw-hdmi-qp");
-+				     "Failed to bind dw-hdmi-qp\n");
- 
- 	connector = drm_bridge_connector_init(drm, encoder);
- 	if (IS_ERR(connector))
+ struct dw_hdmi_qp_plat_data {
 
 -- 
 2.54.0
