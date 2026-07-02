@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D8AC44509
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CA53C43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9751110F417;
-	Thu,  2 Jul 2026 14:46:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2516710F415;
+	Thu,  2 Jul 2026 14:46:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iEjJpUGN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BBR9xXPo";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95C0910F40C
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A341410F40D
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003604;
- bh=OTsco3tAKBQ5tEHqN9eKT+EsJVWfSxYjGFkdCwj0SiA=;
+ s=mail; t=1783003607;
+ bh=CDurYRUaH9AEjX42H0gscQnkKL12uCNpayAmCgkFvbE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=iEjJpUGNt85AeIrQ4al0W/Oyd2eqeRnDoH7qUoUgnPzeaPFol2LMne0afv1Wld+7z
- JlU3TPS5ygJjTkxgoGysvN8uf2stQcntQS0qWfHNaeROeNUqS9WZsgUtQTn9PYEkbZ
- RG+bpi1cPHCnRPFXuuy6ueosb75EvSyqsOTs9LnBRX/CHak26CG0cDEClfPkGzI3v4
- 8GEajZVmlqnWtLDrVPoQ9jDvREE7hTt114fVPKaDhI9cNfEk8WKeQ32AStgJE6nXlV
- VqGDUxj61uZAVDj2lXfAgpSQ3vxYTwaiFxIOsGu2u8lVv1RKfvi7y3pmXE5LnUoZZ4
- s3Oka/uww60MQ==
+ b=BBR9xXPoDSA7ILvU7uy/Op3PVAu28lQ9+U/r0xZZdh4jkTuXbiwofYAruPFaboK1N
+ sFYJHb5lK1I6cKc7751yBL4wSgpamWLN/wrX04d8U5KIZCYg3McOH62xTNlQbwYl/e
+ L34cFjMIOzOZsgxtPUHhSF5TLGJYWYHMdDpVn207nJ86iEeNtoB0HqFNCpRAfiXdwO
+ EdoySTeLQ3HqEZr0hZrE+b6gJKSEyMYmPmNho/krHLI2XAmGtCayK4GFtLGV7yoPRt
+ W8RKq4UOWUqa2efpewyBtufvyCpyDSnSd/QglMCDlWtH+TydOgWwo6fWvFwnRNr9CR
+ 9GBaz8Xcp/Byg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2F20317E35FD;
- Thu,  2 Jul 2026 16:46:44 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4B5CD17E3620;
+ Thu,  2 Jul 2026 16:46:47 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:30 +0300
-Subject: [PATCH v8 17/39] drm/bridge: dw-hdmi-qp: Rate limit i2c read error
- messages
+Date: Thu, 02 Jul 2026 17:46:34 +0300
+Subject: [PATCH v8 21/39] drm/rockchip: dw_hdmi_qp: Add missing newlines in
+ dev_err_probe() messages
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-17-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-21-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,45 +75,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-During EDID reads, repeated i2c errors can flood the kernel log:
+Add the missing trailing newlines to a couple of dev_err_probe() calls
+in dw_hdmi_qp_rockchip_bind().
 
-[   25.361716] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
-[   25.363376] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
-...
-[   25.368671] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
-[   25.369440] dwhdmiqp-rockchip fde80000.hdmi: failed to get edid
-
-Switch to dev_err_ratelimited() in dw_hdmi_qp_i2c_read() to reduce log
-spam while still reporting the condition.
-
+Fixes: b6736a4ea3fa ("drm/rockchip: dw_hdmi_qp: Improve error handling with dev_err_probe()")
+Fixes: e1f7b7cbd74c ("drm/rockchip: dw_hdmi_qp: Switch to drmm_encoder_init()")
 Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 4 ++--
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index cfd1b18c06e6..7475b6b71836 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -561,7 +561,7 @@ static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
- 				dev_dbg_ratelimited(hdmi->dev,
- 						    "i2c read timed out\n");
- 			else
--				dev_err(hdmi->dev, "i2c read timed out\n");
-+				dev_err_ratelimited(hdmi->dev, "i2c read timed out\n");
- 			dw_hdmi_qp_write(hdmi, 0x01, I2CM_CONTROL0);
- 			return -EAGAIN;
- 		}
-@@ -572,7 +572,7 @@ static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
- 				dev_dbg_ratelimited(hdmi->dev,
- 						    "i2c read error\n");
- 			else
--				dev_err(hdmi->dev, "i2c read error\n");
-+				dev_err_ratelimited(hdmi->dev, "i2c read error\n");
- 			dw_hdmi_qp_write(hdmi, 0x01, I2CM_CONTROL0);
- 			return -EIO;
- 		}
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 815f9ea7bcbe..7bd0f6dcbe5d 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -682,14 +682,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
+ 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret)
+-		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
++		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
+ 
+ 	platform_set_drvdata(pdev, hdmi);
+ 
+ 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
+ 	if (IS_ERR(hdmi->hdmi))
+ 		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
+-				     "Failed to bind dw-hdmi-qp");
++				     "Failed to bind dw-hdmi-qp\n");
+ 
+ 	connector = drm_bridge_connector_init(drm, encoder);
+ 	if (IS_ERR(connector))
 
 -- 
 2.54.0
