@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEF31C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 643B6C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58D3810F44C;
-	Thu,  2 Jul 2026 15:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B52E410F43F;
+	Thu,  2 Jul 2026 15:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JDwDrwHN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QjVqHHqy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2653110F445
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:11:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F096210F43F
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:13:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EB3E141A0F;
- Thu,  2 Jul 2026 15:11:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2BDC1F000E9;
- Thu,  2 Jul 2026 15:11:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4E331601C6;
+ Thu,  2 Jul 2026 15:13:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E286F1F000E9;
+ Thu,  2 Jul 2026 15:13:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783005117;
- bh=ACmnxgF8Un/EPDp0TwEadhkVrz3GTaUov59BzUFBg6U=;
+ s=k20260515; t=1783005185;
+ bh=QWtEhBNlVU1TTnwCgwDWQ9MeEzmT6op8hGgRZtwULtw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JDwDrwHNe7S3TGd05dFb01SxPlzSJXZOS0vdpUL2OT6apywNq85n49qm5rMdhzgqk
- 7AEw9y0NvxeAxr2v69YVd41vHzf+1vbM6UKtC2j6MTlgqCWQX45j/nuriSNofAKEUu
- GrbWRyDT0Ig2Q1kGKfVOQP3Za1K9fbPE8ivtnPo2xTVIuDVhdmXODvoQDvGcFWB/E3
- p9tPfcNcs61duKNvgyGMjF1Qj5QVmOvl8CLlMO70SakHt3R0T5ZlHQhyJbmu862Tcy
- fr1Le59UgcV4ExuuypEVuRALZt8PkvC4UIkUTBGLCzKaztPCRzIjN+rMsWoVygCgpg
- H6repj2C7wtjw==
+ b=QjVqHHqyGb8ZNrfXn6VeTcDMWtz3thdWXSmaLB6kPneotg3RPno7/R+O6MkXWxtXd
+ 0hJfbLaHCj2jS5fIjimJWM99Rlf4F+Xc+ukLHFNXyfpcwCDgphBVi6HwGxpzCSZAa3
+ OYgO46hQ486sc6JdLcQCVNenU2gXXwzvK/NI0DhXclUsTLdm9HxodP4/NF+YziVoRt
+ KdEKVnubZ13vqliEA/INHbAdXngu/iKYbvSo/vxxTxuAiRfvodJUYfDcARhGj+Brj7
+ VgkM+MGLuQ1Api93S0tGywtOOuK1yppdiZDhX9M91U2Qir6hiVIE6NjG58D/5118UR
+ 2/Zb+MLB38uEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 24/39] drm/rockchip: dw_hdmi_qp: Defer HPD IRQ enable
- until after connector setup
+Subject: Re: [PATCH v8 07/39] drm/display: hdmi: Add HDMI 2.0 scrambling
+ management helpers
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-24-d79890d00b6a@collabora.com>
+In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-7-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-24-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-7-d79890d00b6a@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 15:11:57 +0000
-Message-Id: <20260702151157.A2BDC1F000E9@smtp.kernel.org>
+Date: Thu, 02 Jul 2026 15:13:04 +0000
+Message-Id: <20260702151304.E286F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,68 +58,207 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing `disable_irq()` or `devm_free_irq()` in component `unbind(=
-)` leaves the HPD IRQ enabled, causing a Use-After-Free of the `hdmi` struc=
-t if an interrupt fires after the DRM device is torn down.
+- [High] The `scdc_work` delayed work item is initialized but never explici=
+tly canceled during connector cleanup, risking a Use-After-Free.
+- [High] The SCDC configuration helpers attempt to execute I2C transfers wi=
+thout verifying that `connector->ddc` is not NULL, leading to a NULL pointe=
+r dereference.
+- [High] The newly added HDMI scrambling helpers invoke sleeping functions =
+in atomic context.
+- [Medium] The SCDC scrambling monitor delayed work fails to reschedule its=
+elf under normal conditions or upon recovery failure, breaking the intended=
+ periodic polling.
 --
 
-commit ed0ca175c20c7a0b231242e1a45aec15890b9c5d
+commit 8b2652a7b68d13a84c5a135061f33fe6fdd00be1
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/rockchip: dw_hdmi_qp: Defer HPD IRQ enable until after connector setup
+drm/display: hdmi: Add HDMI 2.0 scrambling management helpers
 
-This commit defers enabling the HPD IRQ until the end of the initialization
-sequence by using IRQF_NO_AUTOEN and calling enable_irq() later. It also
-removes the incompatible IRQF_SHARED flag.
+Add helpers to manage the full lifecycle of HDMI 2.0 SCDC scrambling on
+both source and sink sides:
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 33036f194e348..3de4b3e6ea85e 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+- drm_hdmi_mode_needs_scrambling(): checks whether a mode, bits per
+  component and output format combination requires scrambling, which is
+  needed when the resulting TMDS character rate exceeds the HDMI 1.3
+  maximum of 340 MHz
 
+- drm_connector_hdmi_enable_scrambling(): configures SCDC scrambling and
+  high TMDS clock ratio and starts a periodic work item that monitors
+  the sink's SCDC scrambling status, retrying setup when the sink loses
+  state
+
+- drm_connector_hdmi_disable_scrambling(): tears down scrambling on both
+  sides and cancels the monitoring work
+
+- drm_connector_hdmi_sync_scdc(): triggers a CRTC reset on reconnection
+  to restore SCDC state lost during sink disconnects within an active
+  display pipeline
+
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/=
+display/drm_hdmi_helper.c
+> index 5cb0b033b1713..7c96cccf683d4 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
 [ ... ]
-
-> @@ -694,6 +694,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *de=
-v, struct device *master,
->  		return dev_err_probe(dev, PTR_ERR(connector),
->  				     "Failed to init bridge connector\n");
-> =20
-> +	enable_irq(irq);
+> +static int drm_scdc_try_scrambling_setup(struct drm_connector *connector)
+> +{
+> +	bool done;
 > +
->  	return 0;
->  }
+> +	done =3D drm_scdc_set_high_tmds_clock_ratio(connector, true);
+> +	if (!done)
+> +		return -EIO;
+> +
+> +	done =3D drm_scdc_set_scrambling(connector, true);
+> +	if (!done)
+> +		return -EIO;
+> +
+> +	if (READ_ONCE(connector->hdmi.scrambler_enabled))
+> +		schedule_delayed_work(&connector->hdmi.scdc_work,
+> +				      msecs_to_jiffies(DRM_HDMI_SCDC_POLL_DELAY_MS));
+> +
+> +	return 0;
+> +}
+> +
+> +static void drm_scdc_monitor_scrambler(struct drm_connector *connector)
+> +{
+> +	if (READ_ONCE(connector->hdmi.scrambler_enabled) &&
+> +	    !drm_scdc_get_scrambling_status(connector))
+> +		drm_scdc_try_scrambling_setup(connector);
+> +}
+
+[Severity: Medium]
+Does this periodic monitoring loop stop unintentionally?
+
+If drm_scdc_get_scrambling_status() returns true to indicate normal status,
+or if drm_scdc_try_scrambling_setup() fails and returns early without
+rescheduling, the delayed work is never scheduled again.
+
+This appears to break the intended periodic polling loop in both the
+success and persistent-failure paths.
 
 [Severity: High]
-This is a pre-existing issue, but does the hardware IRQ remain enabled after
-component unbind?
+Is the scdc_work delayed work item explicitly cancelled when the connector
+is destroyed?
 
-Since the IRQ is requested with devm_request_threaded_irq(), it won't be
-freed until driver detach. However, when the component is unbound
-(e.g., via sysfs), dw_hdmi_qp_rockchip_unbind() is called:
+If a connector is destroyed abruptly while the work is pending, it seems
+drm_connector_cleanup() will clear the connector structure using memset
+without first calling cancel_delayed_work_sync(&connector->hdmi.scdc_work).
 
-static void dw_hdmi_qp_rockchip_unbind(struct device *dev, ...)
-{
-        struct rockchip_hdmi_qp *hdmi =3D dev_get_drvdata(dev);
+Could this leave a corrupted entry in the timer list, leading to a panic
+when the timer fires?
 
-        cancel_delayed_work_sync(&hdmi->hpd_work);
-}
+[ ... ]
+> +int drm_connector_hdmi_enable_scrambling(struct drm_connector *connector,
+> +					 const struct drm_connector_state *conn_state)
+> +{
+> +	struct drm_connector_hdmi *hdmi =3D &connector->hdmi;
+> +	struct drm_device *dev =3D connector->dev;
+> +	int ret;
+> +
+> +	if (!conn_state)
+> +		return -EINVAL;
+> +
+> +	if (!conn_state->hdmi.scrambler_needed)
+> +		return 0;
+> +
+> +	if (!hdmi->scrambler_supported) {
+> +		drm_dbg_kms(dev, "Source doesn't support scrambling.\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (!drm_scdc_sink_supports_scrambling(connector)) {
+> +		drm_dbg_kms(dev, "Sink doesn't support scrambling.\n");
+> +		return -EINVAL;
+> +	}
 
-This cancels the delayed work but does not disable the IRQ. After unbind,
-the DRM master completes teardown and frees the hdmi struct (which was
-allocated via drmm_kzalloc).
+[Severity: High]
+Is it possible for connector->ddc to be NULL here?
 
-If a physical HDMI hotplug event occurs after unbind, could the hardirq
-handler dw_hdmi_qp_rk3588_hardirq() execute and dereference the freed
-hdmi->regmap, causing a use-after-free?
+If an EDID advertising SCDC is forced on a connector that physically lacks
+an I2C DDC bus, drm_scdc_sink_supports_scrambling() might pass because it
+only checks the EDID capabilities.
 
-Should dw_hdmi_qp_rockchip_unbind() include a matching disable_irq() or
-devm_free_irq() to prevent the interrupt from firing after teardown?
+This would lead to a NULL pointer dereference when I2C transfers are
+attempted later in the function.
+
+> +
+> +	drm_dbg_kms(dev, "Enabling scrambling\n");
+> +
+> +	hdmi->scdc_cb =3D drm_scdc_monitor_scrambler;
+> +	WRITE_ONCE(hdmi->scrambler_enabled, true);
+> +
+> +	ret =3D drm_scdc_try_scrambling_setup(connector);
+> +	if (!ret)
+> +		ret =3D hdmi->funcs->scrambler_enable(connector);
+> +
+> +	if (ret) {
+> +		WRITE_ONCE(hdmi->scrambler_enabled, false);
+> +		cancel_delayed_work_sync(&hdmi->scdc_work);
+
+[Severity: High]
+Are sleeping functions being called from an atomic context here?
+
+These scrambling helpers appear to be invoked from encoder and bridge
+atomic enable/disable paths where sleeping is strictly forbidden.
+
+However, drm_scdc_try_scrambling_setup() indirectly uses usleep_range(),
+and cancel_delayed_work_sync() can also sleep.
+
+Could this cause deadlocks or system instability during modesets?
+
+[ ... ]
+> +int drm_connector_hdmi_disable_scrambling(struct drm_connector *connecto=
+r)
+> +{
+> +	struct drm_connector_hdmi *hdmi =3D &connector->hdmi;
+> +	struct drm_device *dev =3D connector->dev;
+> +
+> +	if (!READ_ONCE(hdmi->scrambler_enabled))
+> +		return 0;
+> +
+> +	drm_dbg_kms(dev, "Disabling scrambling\n");
+> +
+> +	WRITE_ONCE(hdmi->scrambler_enabled, false);
+> +	cancel_delayed_work_sync(&hdmi->scdc_work);
+
+[Severity: High]
+Could this cancel_delayed_work_sync() call sleep in an atomic disable path?
+
+Like the enable path, this disable helper uses a synchronization function
+that can sleep. This violates the requirement that atomic disable callbacks
+must not sleep.
+
+[ ... ]
+> +int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool p=
+lugged,
+> +				 struct drm_modeset_acquire_ctx *ctx)
+> +{
+> +	struct drm_connector_hdmi *hdmi =3D &connector->hdmi;
+> +	struct drm_device *dev =3D connector->dev;
+> +	struct drm_connector_state *conn_state;
+> +	struct drm_crtc *crtc;
+> +	u8 config;
+> +	int ret;
+[ ... ]
+> +	if (!drm_scdc_sink_supports_scrambling(connector))
+> +		return 0;
+> +
+> +	if (conn_state->commit &&
+> +	    !try_wait_for_completion(&conn_state->commit->hw_done))
+> +		return 0;
+> +
+> +	ret =3D drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
+
+[Severity: High]
+Does this code need to verify connector->ddc before using it?
+
+Similar to the enable path, if the connector lacks a physical I2C bus but
+SCDC is supported by the EDID, reading from connector->ddc here without
+a NULL check will result in a kernel panic.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702-dw-hdmi-qp=
--scramb-v8-0-d79890d00b6a@collabora.com?part=3D24
+-scramb-v8-0-d79890d00b6a@collabora.com?part=3D7
