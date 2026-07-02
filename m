@@ -4,115 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F03C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 21:25:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDC5C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 21:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 518AD10E3CB;
-	Thu,  2 Jul 2026 21:25:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B43A10E394;
+	Thu,  2 Jul 2026 21:47:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ksuHuPKh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YxFTIjT0";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010043.outbound.protection.outlook.com
- [40.93.198.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA3E10E3CB
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:25:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RdMYOlYw5JvCq5zJ8UTmthId1rC3E6c9qBdOr8/2YVpoW/f2hpyZErom4PiGZB/h4f/eAcImOLgVVQNehpCEzRTHqULzFOtDsIAhePVk/WJSQJRRzvKjDpO2vaxXEegLAxeYBakIH06wxUirmTWXnSOZasQJfdcGxNR8IUn/Rbr/sFXGJRGUFapzFUiB4mboGSkHMbteYyfm8CgwRSjsfyX52uBKyG93OKdVX9zMlksGYDHifmyV/6Y4I79yeVjr+prweCx2G1OFAmqxVA9s525LFP4rQuR1EuTXA0qPAHNcUjC1yu3bTxCwgUFmVOV67cZi2eO+iZPcwIkNofkWhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XvuwNlRboyC/oMNkt2MaNQaodDRbWhyXj3VHeQZ9TiA=;
- b=m+xHLg3iYn/ETAH2xAee/rdpBzgkBxhvJAljorF5+LEAK1aaI3PXmBwTsucCiknAkiUgIe1AP8iu1Tyd9mY9iORE7xO6QCOasVfrWkBFpi39U5NSAuMy+bBvakEXbqcoqgN3n91pyF4YpA5jZgoCgCrLS24Q7dyRYsNc9AGOxZcgA9Sh/H6X2Oq7IyO15A6Mu6KXXiy7I3L9nU38MXMyN86jVf4W3QlGzhuiA2gXW8qDA6tM+OgbCckmZ1Ri9QcA6aB13Cc4h5cjuT0aNiJzy4tkfPwcv/0avRoPqYULEOrzcllrZiNQy+qUu55E34TTR+oB7ElFnx1b/DY55lewDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XvuwNlRboyC/oMNkt2MaNQaodDRbWhyXj3VHeQZ9TiA=;
- b=ksuHuPKhufLZHM3CtfxHIYzUSukV0EACSoTGbN4jSCdvojDKuABe+tvEa4l0ucHZgVwjCQoP6bsnFJvotmCMiDdVszPiENZFGwgcSXsO8IiDyYc7Y6pUNOZuu8xn1PXcrj3ckzyKQ4LnxoXdLcXBNWnd5BGeZ9cnKsBjOGIqW3JNbLVOUbruLClWcVldKU4ynYvSxkvrohqR+uVaF21E1BXUXNO10A5a6TIDoWcmgqoJ5kAHkxO5m+PNnGqnPWXQnsxnBG6A1BTyyVzCyiuCuKn6iFG47ABHT3LrIULwGPKu1nN0Npp5JPDFpmxgkaxdF2S6TeqXTL+lS3UlJKYtcA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB4168.namprd12.prod.outlook.com (2603:10b6:610:a8::7)
- by IA1PR12MB6257.namprd12.prod.outlook.com (2603:10b6:208:3e7::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
- 2026 21:25:34 +0000
-Received: from CH2PR12MB4168.namprd12.prod.outlook.com
- ([fe80::762:c8d0:c9ed:ebcd]) by CH2PR12MB4168.namprd12.prod.outlook.com
- ([fe80::762:c8d0:c9ed:ebcd%5]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
- 21:25:31 +0000
-From: Jonah Walker <jonahw@nvidia.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, Jonah Walker <jonahw@nvidia.com>
-Subject: [PATCH] drm/fourcc: Add P212, P410 and P412 formats
-Date: Thu,  2 Jul 2026 21:23:55 +0000
-Message-ID: <20260702212355.1072804-1-jonahw@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0292.namprd03.prod.outlook.com
- (2603:10b6:a03:39e::27) To CH2PR12MB4168.namprd12.prod.outlook.com
- (2603:10b6:610:a8::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4168:EE_|IA1PR12MB6257:EE_
-X-MS-Office365-Filtering-Correlation-Id: d06a900c-2083-47a3-b6cc-08ded88071fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: n19336n1r8NtP0irk2hz6a+cSsGL8gAVbpJmQexjLtRptw15JCD9tazdJfG0dcta2QBKG89cLnsCfHaT8VGATz9c9YOpgcZqTEVryLd//ODdJQLDj5UILiGJYYff+P/6Vs7yf5t4OJiLEBaIfcxyaOXHtXOeYr3YUfefs+nNPRTfG8mMNYD/z1g6dOA5aW8DWstzI979TKjn+I/t9p+jkDb2pcvignUFjyWVTAKI/V9Jf/2x5CTFG/8Pk/hSUEAotGhJMm4yPjn7NElMP3M8jkSfIFSTf9dj8gcpqmHPV0m2jSJB8LxA6HW+gPYiSu/eoCtHbmIuBRK6wzftbuc3f+qXzBpp9S+r2lzFlsrhTut71Hcxo5cm4m/fLGqwYHUgqCJyo03zyC2hjr5BSCYxwD5LoSYzXJZom5u5iT7KS7LZWhgom00bHmhkR2X6hmw3OcU6Snc7Bh4K9EghPSXsbTqErHBDZD7KJaaDF+QDvM/U6T2K22QATNEo/jE7ebSjolIPXgAR5tm23dls+gJmJkbSiGs03mNH4Z0vwIojS83Rogfq0v79+PHG8pvJ3DBX6A7Cn3rrXyWyWaQVyMO68RTRG8bOd8JmD0CjkxAB1z7sVVqUZF8DxeeTWSK8eU0myx2mZvfbRklHcYifwOqL1mtxKGF2lxjrEAYbRz2yEwE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB4168.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6ivj7Lwa6nVXHq8AP0y7c/Gdji/ZyLi94/p4AsxLHMgQJdCGe7tZJZubg8Ec?=
- =?us-ascii?Q?lGfqm5zXBzm1+Q1Cw5EOHgoL6XpNk48vLC44jVrZTaBIQanuuWUWwxuvaoM0?=
- =?us-ascii?Q?QvU+N739pmaIlImii9Bhzwn+LGggQQMb3JMSFwVMhUlGEhIeTBqghm8YtuDU?=
- =?us-ascii?Q?L+NWQ5sf/bkNhSJJBml2UYgUj4H7I23rGFHsXOzBhjWcx90BVj7FahgUrUwM?=
- =?us-ascii?Q?JDDX6xeGlv5Cc10iYClGRTx4einCl87rcCRP9crhPAzaxQi1j9QWX1PQ/pRh?=
- =?us-ascii?Q?uwqUhNzgrXM9UJXxHi14W+IyV9hnlMlM5YWxJvFRNQFuZxtuhYlPHl5RT48V?=
- =?us-ascii?Q?FhI4eElO4BvPrdPhu6qNBfoxCWxZ5P7CKzumOgQqwQ8ccuxY2/YQmUPJUi/f?=
- =?us-ascii?Q?1/0KEKOixfoK2qR2dsVmR8tZTEUAt1jTmTHrKVwG0e+ASAv/pHonprra+X5T?=
- =?us-ascii?Q?qGn8c45DFY8haK0XRI8pFs5XDFpVuI9An8dm4G+0pSHdJfXV6d0wiQjXgME3?=
- =?us-ascii?Q?LdjoGdE/VlBm4p8IzXCMVGC/DSTk9ycybz89s1W1f8ISWjLI2Cnya1FqeXrO?=
- =?us-ascii?Q?uJ3UKs+zT5zZPQhCIo5KcN4OPC7Awohb8z8YF8fzql6xsvN+KafTI3HXNv8f?=
- =?us-ascii?Q?YjhtXMfs7rx8Dc5joXoBqOrMKEJihmQu+vL6A0hSye9xrqJoZPvqYtvsJHGx?=
- =?us-ascii?Q?4UAcdd8XiGVirVLzOGL6lGEygo/epiJFMS7LiSkF48iEelvTNA8ioJzwGTXZ?=
- =?us-ascii?Q?A48/FkRuvi4q8BKCqO7pBBqSkLRdLhQfw/AQIEKYK3UNHYUWACqqZ8/k9wLy?=
- =?us-ascii?Q?tp54QL7hhl9VXq7FDmuYBQpX+096WQfyDr/gL8c58+mX2nB2UUYzlEGTpU5N?=
- =?us-ascii?Q?Vv/KODDQvp/zn6QLJ4q+O+FtQB5J4y3FhEcXgp8XMND8iieB5Pm0r+9L+CYZ?=
- =?us-ascii?Q?T7OHStEB2szlx6vx+DiIwPXer3LEoAQ8kkeD748/BQiuTXV0DDYpHghrbdZJ?=
- =?us-ascii?Q?lpMxmzAsdTmiUPzvNbrc93vyVxAaoZzZV4KfBtZiVZGV5NGL/HzNkz228jx6?=
- =?us-ascii?Q?ravFtuTF2pq9EhDCpjg0jBB2uRuneLOFiwuBVQ9IthqtujIXR+eOlZEBr14D?=
- =?us-ascii?Q?Jw/RBJnqemvNJ5frKOiM7/PJwq0/vSs/ASUFxkabQLkJpNHSKYcfTVOLimdD?=
- =?us-ascii?Q?VY0Q8t0ru25+uh6kDEYwmpkc6eTFfX4tKA6oxU99MUosZe6r+udNF9WdhmYi?=
- =?us-ascii?Q?34qWrPjChX7M0y1+YRc3Be5msDZSDTT3QJfgu3QRsUrU+VhBw6c0Lxmua69u?=
- =?us-ascii?Q?yc4x2EDPceSsAxdwqpWM9sRQzVlbpbjcaURFmNOiKIxg0aaOlos0/B3k7WiG?=
- =?us-ascii?Q?FvI5tUVsuYTvSdkRim8sx74BkxCcbS27eq5kgZB9tDn7nfqIkcM/BDdXmLX1?=
- =?us-ascii?Q?Y9dmKdH7gKCzaYSuA5Ynaz9R/giBEI/9XS8GpHFnOnve/C9Qkp+J/lIY7TGp?=
- =?us-ascii?Q?7Y4r+0SVfDU07wvq7Bd8MjPNg/q8XA6k8hRMLlcavLjboZW5UXHPJAgr7kTk?=
- =?us-ascii?Q?KTGPFBzmVm8jGgdU3gc7oTGY8irY7UxUx7i8ThA8rQUqjJNnbyOd8ZCrE/yA?=
- =?us-ascii?Q?4bSfVsgjMzK1CfwcT16r9P7Tk2N6gzgFyxHwy5AJ7QtF4Kgp9cbpoc16UMoP?=
- =?us-ascii?Q?hgDlH5MKO5JDebfQvAX0bqVbMTYjx+FKyHqkgbCVOcZZke/ZdNPU2qUaPA88?=
- =?us-ascii?Q?Q/BCmLsvyg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d06a900c-2083-47a3-b6cc-08ded88071fe
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4168.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 21:25:31.4576 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fmX9ckR7d2GUCz43U8nq+zWjRfTCvRGqckPzs0xUGySR4oEEaNiTiv63HjZ4PJHYXc0cltTxXwvt7WnGayTigw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6257
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8444510E394
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 21:47:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D17CA436B9;
+ Thu,  2 Jul 2026 21:47:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED501F000E9;
+ Thu,  2 Jul 2026 21:47:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783028833;
+ bh=KT5HdsNfDV/GF6jjLE9pPi+2j+UMB4nG5h2CmRBqWMo=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=YxFTIjT0Owbu7L6cLqITHQ3wj+b1b7kmmi1DGamwmMCBXFIJhjUUU1pJaym7fFb4D
+ aT9lsziOwhoBrCXO4M/hIe5S4uLx6MEzltbv7WL0fITNQr3XFD1h33YryHjapOCCgU
+ 5gxBqgp398u8cTy4abPLdXPR1EKKEAqgGRCAVEzcplvjZ/nmtlooxVI5w+TVaHQm/B
+ fbpDhUYCdHQOAXByoz1UDdYCRcz844a3i9M91z+CxR7Xe7zgpl+OOriZP4SubAfVQC
+ +eXP+3YaXf5VX6F9OtN8RipaKCYNy/iLT1poUHpbTk06wFbFS9uywdgqNrCahLGBM/
+ eXSF8a0yDvAcQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Jul 2026 23:47:07 +0200
+Message-Id: <DJOEYVBS17MJ.1YD3TNGQBWHNK@kernel.org>
+To: "Maurice Hieronymus" <mhi@mailbox.org>, "Bjorn Helgaas"
+ <bhelgaas@google.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] rust: pci: rework device enabling API
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, "Beata Michalska"
+ <beata.michalska@arm.com>
+References: <20260702-rust-pci-enable-device-managed-v1-1-75bc4ff2935c@mailbox.org>
+In-Reply-To: <20260702-rust-pci-enable-device-managed-v1-1-75bc4ff2935c@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,77 +70,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add P212, P410 and P412 formats, including their FourCC codes and
-drm_format_info entries.
+(Cc: Beata, runtime PM consideration at the end)
 
-  - P212 is a two-plane, 12-bit, 4:2:2 YCbCr format
-  - P410 is a two-plane, 10-bit, 4:4:4 YCbCr format
-  - P412 is a two-plane, 12-bit, 4:4:4 YCbCr format
+On Thu Jul 2, 2026 at 11:32 AM CEST, Maurice Hieronymus wrote:
+> - `enable_device_managed()`, wrapping `pcim_enable_device()`, which
+>   registers a `pci_disable_device()` cleanup that runs on unbind; this
+>   is what drivers should normally call in `probe()`.
 
-Assisted-by: Cursor:GPT-5.5
-Signed-off-by: Jonah Walker <jonahw@nvidia.com>
----
- drivers/gpu/drm/drm_fourcc.c  | 12 ++++++++++++
- include/uapi/drm/drm_fourcc.h | 21 +++++++++++++++++++++
- 2 files changed, 33 insertions(+)
+The concern pointed out by Sashiko that pcim_enable_device() silently also =
+sets
+pdev->is_managed =3D true, which also influences the behavior of other unma=
+nged
+PCI paths is valid.
 
-diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
-index 60cd02b7e..31558a212 100644
---- a/drivers/gpu/drm/drm_fourcc.c
-+++ b/drivers/gpu/drm/drm_fourcc.c
-@@ -324,6 +324,18 @@ const struct drm_format_info *__drm_format_info(u32 format)
- 		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
- 		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 2,
- 		  .vsub = 1, .is_yuv = true },
-+		{ .format = DRM_FORMAT_P212,		.depth = 0,
-+		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
-+		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 2,
-+		  .vsub = 1, .is_yuv = true },
-+		{ .format = DRM_FORMAT_P410,		.depth = 0,
-+		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
-+		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 1,
-+		  .vsub = 1, .is_yuv = true },
-+		{ .format = DRM_FORMAT_P412,		.depth = 0,
-+		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
-+		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 1,
-+		  .vsub = 1, .is_yuv = true },
- 		{ .format = DRM_FORMAT_VUY101010,	.depth = 0,
- 		  .num_planes = 1, .cpp = { 0, 0, 0 }, .hsub = 1, .vsub = 1,
- 		  .is_yuv = true },
-diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-index 3a4d4dc63..d4a6463d2 100644
---- a/include/uapi/drm/drm_fourcc.h
-+++ b/include/uapi/drm/drm_fourcc.h
-@@ -334,6 +334,27 @@ extern "C" {
-  */
- #define DRM_FORMAT_P210		fourcc_code('P', '2', '1', '0') /* 2x1 subsampled Cr:Cb plane, 10 bit per channel */
- 
-+/*
-+ * 2 plane YCbCr MSB aligned
-+ * index 0 = Y plane, [15:0] Y:x [12:4] little endian
-+ * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [12:4:12:4] little endian
-+ */
-+#define DRM_FORMAT_P212		fourcc_code('P', '2', '1', '2') /* 2x1 subsampled Cr:Cb plane 12 bits per channel */
-+
-+/*
-+ * 2 plane YCbCr MSB aligned
-+ * index 0 = Y plane, [15:0] Y:x [10:6] little endian
-+ * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [10:6:10:6] little endian
-+ */
-+#define DRM_FORMAT_P410		fourcc_code('P', '4', '1', '0') /* non-subsampled Cr:Cb plane 10 bits per channel */
-+
-+/*
-+ * 2 plane YCbCr MSB aligned
-+ * index 0 = Y plane, [15:0] Y:x [12:4] little endian
-+ * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [12:4:12:4] little endian
-+ */
-+#define DRM_FORMAT_P412		fourcc_code('P', '4', '1', '2') /* non-subsampled Cr:Cb plane 12 bits per channel */
-+
- /*
-  * 2 plane YCbCr MSB aligned
-  * index 0 = Y plane, [15:0] Y:x [10:6] little endian
+Of course, we could easily overcome this if we have to, but on second thoug=
+ht I
+think it would be nice to just not have the managed version at all.
 
-base-commit: cff96362794a5c1f3adb013b4a46c7233149a629
--- 
-2.43.0
+(Note that I also have a patch in my queue to convert IrqVectorRegistration=
+ to
+use lifetimes instead of Devres, which will also address the topic in [1].)
 
+The advantage of not having to store another object in the bus device priva=
+te
+data is minor, and a lifetime annotated guard is the more idiomatic solutio=
+n
+anyway.
+
+	pub struct DeviceEnableGuard<'a> {
+	    dev: &'a pci::Device<Bound>,
+	}
+
+Note that obtaining this guard would still require a &Device<Core>, but dro=
+pping
+it can only be ensured from a bound scope, which &'a pci::Device<Bound> ens=
+ures.
+
+This is the tricky part, as this would imply that pci_disable_device() can =
+be
+called concurrently with another DeviceEnableGuard being acquired and
+concurrently with pci_set_master() and pci_clear_master(), etc., which give=
+n the
+current implementation on the C side would be UB.
+
+It would be interesting to dig into this and see if we can find a solution =
+to
+this problem (which might also include improvements on the C side).
+
+For instance, struct pci_dev has a C bitfield that also includes the
+is_busmaster field, which can race with all the other bits being accessed i=
+n the
+same bitfield.
+
+I think (most of) the fields should be in the same locking domain (the devi=
+ce
+lock, which is held in bus callbacks and in Rust represented by the Core de=
+vice
+context state).
+
+But there might already be issues with this, e.g. it seems to me that
+block_cfg_access is protected through a different locking domain, the same =
+goes
+for a few other fields I think.
+
+Bjorn, any insights on this?
+
+(We had a similar C bitfield in the driver core, which we recently replaced=
+ by
+using bitops, as there were subtle race conditions.)
+
+> - an unmanaged `enable_device()`/`disable_device()` pair, wrapping
+>   `pci_enable_device()`/`pci_disable_device()`, e.g. for runtime PM
+>   paths.
+
+If we could find a solution to the above, we could probably avoid having "r=
+aw"
+accessors that can potentially lead to an unbalanced enable count and inste=
+ad
+could consider something like a DeviceDisableGuard<'a> which could be deriv=
+ed
+from a DeviceEnableGuard<'a> for the duration of a suspend.
+
+The runtime PM Rust infrastructure could provide a storage container which
+lifetime wise spans suspend =3D> resume, where this guard (and other data t=
+hat
+must be restored on resume) could be stored.
+
+[1] https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/top=
+ic/Re-configuring.20interrupt.20vectors/with/577596401
