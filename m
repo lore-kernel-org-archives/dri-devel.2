@@ -4,53 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BFFFC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:38:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0BC7C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 976A010F3F1;
-	Thu,  2 Jul 2026 14:38:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD8C10E0C9;
+	Thu,  2 Jul 2026 14:39:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lmIAZTGR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UqkfyZOT";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0221810E4F0
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:38:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=vmxc0CZcnwLkh5/z/wNqGZVmt0CsIWECgnDeDapyqCI=; b=lmIAZTGR4UlZxsj91pQXuhhdUQ
- /F7BZN2VeC1vQUBzvTsH48m9DcSEO114LIFNbthWeLilyFr6vz9SRM5b1ZMxMG50BC6bLWLgGBBdk
- WbLhRCp69o+4Wv8R7dU8aUubJrN7vDKfKWfp+doF8Mm9Hcf0Ot9iV5bYAitJFcF+aaHnIECvWftBB
- onSTJeegCEC5oW7FonjxKc/FHf+QIaLfpcbe+suhjEn40qwdSnTtCaSwzqgc0weTIk6c6Z7L2z8sn
- 9PmQy6XtNoxS+445jMNymi4TazuIghOG34MyPoapymMUMKqpQHMMqhTtlYNW2RhSd7YabaUXUsMUt
- EBjZOfxw==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wfIYC-0084Xe-FD; Thu, 02 Jul 2026 16:38:00 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [RFC 4/8] drm/xe: Convert to per gt scheduler workers
-Date: Thu,  2 Jul 2026 15:37:41 +0100
-Message-ID: <20260702143745.79293-5-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C49C10E4F9
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:39:25 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-45fd464d51fso953682f8f.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 07:39:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783003163; x=1783607963; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=A/i+wfnz4csbIqOFspyRymSD9kSCFdpRJiOKiIAQ2eo=;
+ b=UqkfyZOTbCikOxf5eLiGLkeXNuGOsf0MJSJAdYK//cbKSjg35+hwen2SGIxjFp0V03
+ tEzgsK1Zdiz2TE0yMIfagvY+iznGLMn97Nl3bDYSLmfzAssSrqVTkN6aQ0CxqdKPul9m
+ H63F5oiAuuk2fPAqXk6LdKGkFSla/8rQOOc8l1zJMx3CVCQ/Qmg1gnSwpVVRCcP/bOeK
+ IUAs2IqgWsJlUoLeuzj5kyFRU0ivU44WeG5D4PBn8+jVDt8kpZH+AiJWvvTtQfidgY6Y
+ Qc9GfWIxaRy2yNxp2NBq24GexNtZ7FHE1ViHvZwlB+0yVy1bBBEBswy9GFjzosEpGJ0c
+ k31A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783003163; x=1783607963;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=A/i+wfnz4csbIqOFspyRymSD9kSCFdpRJiOKiIAQ2eo=;
+ b=h00GKwPlNkyd/7ZEpzYeJq4WesTf5IizYt+Ov4wyTglonv+v6a7QwkZaDsaPfzvFVc
+ bVmpKOns3Xa/SF8fI5jCSyduVC0ssb9P/P7s5UwW1F9rGmxfA1Gt8zrXwdvn8lmOZXi4
+ iVp7xEh+nWuARP73ESVaqVVuDaVkfS23HnOlLN0iXl4WsbNnboTDliAsArWjeePgK+fY
+ zR03k8rtxGgfJ0lmXG3rhIeF2U+hT1hwRXxzXVhupl2Eo8NOSwTpqaUgKgihC49DLRxU
+ dX/O0fDEtCHEI+2Zoh8intTX3jMaUphZ4ZclgAVdQui4Jhu03EF3Ter+Mlln9MMHACCK
+ Irqg==
+X-Gm-Message-State: AOJu0YxC3+X1bNpM8tounFO5H8079L8R8n3n4aRQ45EuWEWDCErc9BQM
+ II46g0bhvV3MtPj5tp/JWRXEScxgGe4vuhWdnQK/j5IrnagnfnPL4lw9
+X-Gm-Gg: AfdE7clRJaDmPwl57d1hWFQdSlq8G/kqNus3gaKSb0+T6fVsoSaZrzLo02Tayp6dGOl
+ dOp/LYaD9Gc95GCpqB1V1Ob4MThmJkpXBdrExp3qd5O7XE6dwOXnndvY0HqG026+H5Bnqk0sOfM
+ U+c9YdvT/G3VXfmNAg906OycedKT526GATcc/Si3M8poeq0qxsfr3f2alxUf2ukQP+JBlXICO+d
+ D9NZDzKGzxSFlvTj6Bmy+kuNajQaZWKJS0W7tAe25GQZZfYEvg3nU8lsrQbHVsa5yLXYCn+ZDcz
+ PqNq3qg+4EcQZelvbNDhOJClb9CO4fCdZsJ28dlQf5Iig1w65qbpy86qHyfx0EyyPtx0PU8I3wY
+ flH4m4GDgxBXSEobbyMWmH8puu4yOz0NeAosE4k+/d+R6Olo0t3sOoBi6iog2+xc2nUG3y3ky8B
+ 0QlgWO+wHLRCNwzOQbdAMS9Js/iwc7TxX1MhEbnv9ReRKybpASBuutbvaA08Z4syUPmkfnRVlfV
+ rhal8z5iCViPInFjy5iyWpZ8TDk2qamciCI5rKVaMAJ3xpXjFx0eValovTSB/TQYJs3kfd3xg8L
+ ylqtQMEK30bzQgaBFsUAZj35Ffgi/GEOe7ivyLjOTWs/Cc5MLhi5A6vvKB+XKDwC+9sXf+ee7fz
+ SHEPzw8YkcEtgaUfKlA44OyVrQ4lNb7iG8cLCmJMFvqX8gBUxPGlXIA/peK21
+X-Received: by 2002:a05:6000:200d:b0:475:5454:49f2 with SMTP id
+ ffacd0b85a97d-47757e57dc4mr9598046f8f.24.1783003163301; 
+ Thu, 02 Jul 2026 07:39:23 -0700 (PDT)
+Received: from jernej-laptop.localnet (92-53-159-70.dynamic.telemach.net.
+ [92.53.159.70]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-477db3dbc75sm10135277f8f.5.2026.07.02.07.39.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 07:39:22 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Samuel Holland <samuel@sholland.org>,
+ Diogo Silva <diogompaissilva@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/sun4i: Remove dependency on DRM simple helpers
+Date: Thu, 02 Jul 2026 16:39:20 +0200
+Message-ID: <Tm9Bj9tsS_qxKmbhRnECBA@gmail.com>
+In-Reply-To: <f3f2320f-dfe7-4728-9cf4-c3eaab33d09e@suse.de>
+References: <20260623-sun4i_simple-v1-1-fa6696df1fad@gmail.com>
+ <PMdb9FVETQuPUnyh12NM2Q@gmail.com>
+ <f3f2320f-dfe7-4728-9cf4-c3eaab33d09e@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,96 +97,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As the submission side of xe is serialized by the global GuC CT lock, we
-can easily afford to create our own per gt work queues. Whereas before
-kernel could create up to the number of CPUs threads, we now create one
-per GT.
+Dne ponedeljek, 29. junij 2026 ob 08:51:52 Srednjeevropski poletni =C4=8Das=
+ je Thomas Zimmermann napisal(a):
+> Hi
+>=20
+> Am 27.06.26 um 08:55 schrieb Jernej =C5=A0krabec:
+> > Dne torek, 23. junij 2026 ob 22:34:40 Srednjeevropski poletni =C4=8Das =
+je Diogo Silva napisal(a):
+> >> Simple KMS helper are deprecated since they only add an intermediate
+> >> layer between drivers and the atomic modesetting.
+> >> This patch removes the dependency on drm simple helpers from sun4i
+> >> DRM drivers.
+> >>
+> >> Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+> > This doesn't look as useful change. Is this tree-wide attempt? If so, it
+> > should be done in one go in one patch series, coordinated with DRM
+> > maintainers.
+>=20
+> Yes, the interface is supposed to go away because it is fairly useless. =
+=20
+> It's a low-effort task for beginners. Hence many people send out such=20
+> clean-up patches for the various drivers.  If the change is acceptable=20
+> to you, it would be appreciated if you could merge it into the driver.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/xe/xe_gt.c         |  7 +++++++
- drivers/gpu/drm/xe/xe_gt_types.h   |  3 +++
- drivers/gpu/drm/xe/xe_guc_submit.c | 11 +++++++----
- 3 files changed, 17 insertions(+), 4 deletions(-)
+Ok.
 
-diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
-index 783eb6d631b5..fb2db9eff341 100644
---- a/drivers/gpu/drm/xe/xe_gt.c
-+++ b/drivers/gpu/drm/xe/xe_gt.c
-@@ -706,6 +706,8 @@ static void xe_gt_fini(void *arg)
- 	for (i = 0; i < XE_ENGINE_CLASS_MAX; ++i)
- 		xe_hw_fence_irq_finish(&gt->fence_irq[i]);
- 
-+	destroy_workqueue(gt->submit_wq);
-+
- 	xe_gt_disable_host_l2_vram(gt);
- }
- 
-@@ -716,6 +718,11 @@ int xe_gt_init(struct xe_gt *gt)
- 
- 	INIT_WORK(&gt->reset.worker, gt_reset_worker);
- 
-+	gt->submit_wq = alloc_ordered_workqueue("xe-submit-gt%u",
-+						WQ_MEM_RECLAIM, gt->info.id);
-+	if (IS_ERR(gt->submit_wq))
-+		return PTR_ERR(gt->submit_wq);
-+
- 	for (i = 0; i < XE_ENGINE_CLASS_MAX; ++i) {
- 		gt->ring_ops[i] = xe_ring_ops_get(gt, i);
- 		xe_hw_fence_irq_init(&gt->fence_irq[i]);
-diff --git a/drivers/gpu/drm/xe/xe_gt_types.h b/drivers/gpu/drm/xe/xe_gt_types.h
-index e5588c88800a..175c42672546 100644
---- a/drivers/gpu/drm/xe/xe_gt_types.h
-+++ b/drivers/gpu/drm/xe/xe_gt_types.h
-@@ -248,6 +248,9 @@ struct xe_gt {
- 	/** @exec_queue_ops: submission backend exec queue operations */
- 	const struct xe_exec_queue_ops *exec_queue_ops;
- 
-+	/** @submit_wq: ... */
-+	struct workqueue_struct *submit_wq;
-+
- 	/**
- 	 * @ring_ops: ring operations for this hw engine (1 per engine class)
- 	 */
-diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-index 9458bf477fa6..858f84dc8fed 100644
---- a/drivers/gpu/drm/xe/xe_guc_submit.c
-+++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-@@ -1928,11 +1928,12 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
- 	struct xe_gpu_scheduler *sched;
- 	struct xe_guc *guc = exec_queue_to_guc(q);
- 	struct workqueue_struct *submit_wq = NULL;
-+	struct xe_gt *gt = guc_to_gt(guc);
- 	struct xe_guc_exec_queue *ge;
- 	long timeout;
- 	int err, i;
- 
--	xe_gt_assert(guc_to_gt(guc), xe_device_uc_enabled(guc_to_xe(guc)));
-+	xe_gt_assert(gt, xe_device_uc_enabled(guc_to_xe(guc)));
- 
- 	ge = kzalloc_obj(*ge);
- 	if (!ge)
-@@ -1964,12 +1965,14 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
- 		struct xe_exec_queue *primary = xe_exec_queue_multi_queue_primary(q);
- 
- 		submit_wq = primary->guc->sched.base.submit_wq;
-+	} else {
-+		submit_wq = gt->submit_wq;
- 	}
- 
- 	err = xe_sched_init(&ge->sched, &drm_sched_ops, &xe_sched_ops,
--			    submit_wq, xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES, 64,
--			    timeout, guc_to_gt(guc)->ordered_wq, NULL,
--			    q->name, gt_to_xe(q->gt)->drm.dev);
-+			    submit_wq, xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES,
-+			    64, timeout, gt->ordered_wq, NULL, q->name,
-+			    gt_to_xe(gt)->drm.dev);
- 	if (err)
- 		goto err_release_id;
- 
--- 
-2.54.0
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+
+Best regards,
+Jernej
+
 
