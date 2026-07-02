@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29454C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:24:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 319AFC43327
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:25:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6433410E475;
-	Thu,  2 Jul 2026 08:24:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 974A810E47A;
+	Thu,  2 Jul 2026 08:25:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JGNCdQJF";
+	dkim=pass (1024-bit key; unprotected) header.d=sina.com header.i=@sina.com header.b="PUSpCL5l";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B1010E475
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 08:24:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AA7C26001D;
- Thu,  2 Jul 2026 08:24:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021A11F000E9;
- Thu,  2 Jul 2026 08:24:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782980691;
- bh=LX5J8Pfr2YEfi2wal6Vl+98+IxyS1kQpWEexH1DUOBQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JGNCdQJFycWNKkwhle7JNzlqbM7ia6Nf18xXPXZgs3MXHiat6iFWiJEGJug948tyD
- SGSBvZffdf3r45Tv/2iRGXouaYz+5jyuq4UaCO0WQvIphSm9bbnmDCF3NiduECKN32
- eYhbg8hiPZaQKvbyvOuWqN2xT7iw5cbATVrhio7qOVcDzKWkrOR2gVai3+YezlX6Ct
- /fyjTPAqN1EOjpRk5wc4rpOPkawDShAZaoNP71V8ibywAyPi8hKUvNTmzJR6UfN9h/
- fHYQ3eTdrP1SPQ4wUr9Oep7Shu8HP+ToEMfE26cSLQ0lqLy5GuBYgohp4OMKL+PiFB
- QJX/FA8nZhedQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/7] drm/i915/gt: Add a spinlock to prevent starvation
- of irq_work.
-To: "Maarten Lankhorst" <dev@lankhorst.se>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260702080913.434121-8-dev@lankhorst.se>
-References: <20260702080913.434121-1-dev@lankhorst.se>
- <20260702080913.434121-8-dev@lankhorst.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 02 Jul 2026 08:24:50 +0000
-Message-Id: <20260702082451.021A11F000E9@smtp.kernel.org>
+X-Greylist: delayed 31337 seconds by postgrey-1.36 at gabe;
+ Thu, 02 Jul 2026 08:25:34 UTC
+Received: from smtp153-170.sina.com.cn (smtp153-170.sina.com.cn
+ [61.135.153.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 645E810E47A
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 08:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208;
+ t=1782980734; bh=dmmoJgg+0zg52YaXd3a/e/RT6muwcoryyA80mm/IHAU=;
+ h=From:Subject:Date:Message-ID;
+ b=PUSpCL5lwxeEBPT9oHxZCbzDy+tmi6JozGCXvjKPyOYHDpYGuyzro5/Nu+SNi9nhP
+ eq0gYkz4Uo91usdSTWwhREr/bo2uL5MrKr2hErTO9oGsP3tvPH6BSTHpkzr1Qu3bol
+ MSJbv1wHJhkgaVhyevceVc1Q+BPvPrYjMuqLm15A=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.144])
+ by sina.com (10.54.253.34) with ESMTP
+ id 6A4620780000166B; Thu, 2 Jul 2026 16:25:30 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com; spf=none smtp.mailfrom=hdanton@sina.com;
+ dkim=none header.i=none;
+ dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 9223576291952
+X-SMAIL-UIID: 05424C4F371B4537B8CFE6310E47270C-20260702-162530-1
+From: Hillf Danton <hdanton@sina.com>
+To: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
+Cc: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
+ "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Javier Martinez Canillas" <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
+ avoid deadlock
+Date: Thu,  2 Jul 2026 16:25:16 +0800
+Message-ID: <20260702082517.380-1-hdanton@sina.com>
+In-Reply-To: <18be678e97322160.8f56a0770e5621ab.8d175eba8a62d6be@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+References: 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,71 +62,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Acquiring `b->signaler_active_sync` with `spin_lock()` in `intel_c=
-ontext_remove_breadcrumbs()` without disabling interrupts creates a deadloc=
-k vulnerability and Lockdep splat on non-RT kernels.
---
+On Thu, 2 Jul 2026 07:12:44 +0000 Ryosuke Yasuoka wrote:
+>On 02/07/2026 07:43, Hillf Danton wrote:
+>> On Wed, 1 Jul 2026 09:23:05 +0000 Ryosuke Yasuoka wrote:
+>>>On 30/06/2026 16:46, Dmitry Osipenko wrote:
+>>>> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init(),
+>>>> placing it after wait_event_timeout(display_info_pending)? This will avoid
+>>>> additional work_struct that otherwise needs to be cancelled in
+>>>> virtio_gpu_init() on the timeout.
+>>>
+>>>IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
+>>>into virtio_gpu_init() after wait_event_timeout() would not prevent the
+>>>issue.
+>>>
+>>>Looking at the syzbot call traces[1][2], the deadlock occurs during
+>>>drm_client_setup(), which runs after virtio_gpu_init() has already
+>>>returned. The display_info_cb that triggers the deadlock is called from
+>>>the dequeue worker while drm_client_register() holds clientlist_mutex.
+>>>
+>>>Thread A:
+>>>virtio_gpu_probe()
+>>> -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
+>>> -> drm_dev_register()
+>>> -> drm_client_setup()   // deadlock happens HERE
+>>>     -> drm_client_register()   // holds clientlist_mutex
+>>>     ...
+>>>     -> virtio_gpu_queue_fenced_ctrl_buffer()
+>>>         -> wait_event() // waits for free space
+>>>
+>>>Thread B:
+>>>virtio_gpu_dequeue_ctrl_func()
+>>> -> reclaim_vbufs()   // make free space
+>> 
+>> I wonder if the deadlock could be cured by alternatively adding a wakeup
+>> before the responce cb, given that free space is available.
+>
+>Thanks for your comment. I agree that moving wake_up() before response
+>cb would help in most cases, and I think it is a reasonable aproach.
+>However, there are a few rare scenarios where the deadlock can still
+>occur:
+>
+>1. If reclaim_vbufs() does not free enough slots to satisfy
+>num_free >= elemcnt, wake_up() fires but the wait_event() condition
+>evaluates false. Thread A remains asleep holding clientlist_mutex, and
+>the dequeue worker proceeds to display_info_cb which blocks on
+>clientlist_mutex.
 
-commit b2f8f390d7421e899486c8f32c2c91c29a783338
-Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+	task0		task1
+	lock clientlist_mutex
+	wait_event(for enough free slots)
 
-drm/i915/gt: Add a spinlock to prevent starvation of irq_work.
+			free some slots
+			lock clientlist_mutex
+			unlock clientlist_mutex
+			wakeup
+	deadlock
 
-This commit introduces a new spinlock, signaler_active_sync, to prevent
-starvation of irq-work. It acquires this lock in both signal_irq_work()
-and intel_context_remove_breadcrumbs() to force completion and synchronize
-signaler state.
+The clientlist_mutex will not be released without enough slots freed, so more
+free slots and wakeup are needed to cure the deadlock, with nothing to do with
+acquiring the mutex in the workqueue context.
 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/dr=
-m/i915/gt/intel_breadcrumbs.c
-> --- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> @@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
->  		intel_breadcrumbs_disarm_irq(b);
-> =20
->  	rcu_read_lock();
-> +	spin_lock(&b->signaler_active_sync);
->  	atomic_inc(&b->signaler_active);
->  	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+Your workqueue approach works by removing the dependence of wakeup on acquiring
+the mutex, without enough free slots guaranteed.
 
-[ ... ]
+In short, wakeup before acquiring the mutex is the right thing to do, I mean
+it is not the only one at all.
 
-> @@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_c=
-ontext *ce,
->  	if (release)
->  		intel_context_put(ce);
-> =20
-> -	while (atomic_read(&b->signaler_active))
-> +	while (atomic_read(&b->signaler_active)) {
-> +		spin_lock(&b->signaler_active_sync);
-> +		spin_unlock(&b->signaler_active_sync);
+>2. Even if enough slots are freed, there is a small window between
+>wait_event() returning and Thread A acquiring spin_lock(&qlock) at the
+>"goto again" path in virtio_gpu_queue_ctrl_sgs(). Another thread can
+>consume the freed slots during this window, causing Thread A to loop 
+>back to wait_event() still holding clientlist_mutex.
 
-[Severity: High]
-Can this cause a deadlock on non-RT kernels?
+Ditto
 
-Because signal_irq_work() runs in hardirq context as an irq_work callback,
-acquiring signaler_active_sync here in intel_context_remove_breadcrumbs()=20
-without disabling interrupts creates a window for a self-deadlock.
+>3. Reordering wake_up() before resp_cb inverts the natural "process
+>response, then signal completion" pattern, which could introduce subtle
+>issues if a future resp_cb depends on side effects that should happen
+>after wake_up(), I believe.
+>
+Different taste
 
-If a hardware interrupt occurs on the same CPU while this spinlock is=20
-momentarily held, the local irq_work will trigger and signal_irq_work()=20
-will try to acquire the already-held lock. Lockdep will also flag this as=20
-an inconsistent lock state (HARDIRQ-ON-W vs IN-HARDIRQ-W) on its first=20
-execution.
-
-Does this need to use spin_lock_irq() or spin_lock_irqsave() to safely=20
-synchronize against the irq_work?
-
->  		cpu_relax();
-> +	}
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702080913.4341=
-21-1-dev@lankhorst.se?part=3D7
+>These scenarios are likely rare in practice, but the schedule_work()
+>approach avoids all of them entirely by ensuring the dequeue worker
+>never touches clientlist_mutex. It also follows the same pattern
+>already used by config_changed_work in this driver.
+>
+>Best regards
+>Ryosuke
+>
+>> 
+>>> -> resp_cb()
+>>>     -> virtio_gpu_cmd_get_display_info_cb
+>>>         -> drm_helper_hpd_irq_event()
+>>>         -> drm_kms_helper_hotplug_event()
+>>>             -> drm_client_dev_hotplug() // need to lock clientlist_mutex
+>>> -> wake_up()   // never reached
+>>>
+>>>IIUC the hotplug notification in display_info_cb is needed because it
+>>>notifies DRM after updating by the callback with fresh data from the host.
+>>>
+>>>This work_struct ensures display_info_cb never blocks on
+>>>clientlist_mutex in the dequeue worker, while preserving the hotplug
+>>>notification with fresh data.
+>>>
+>>>[1] https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
+>>>[2] https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
+>>>
+>>>Best regards,
+>>>Ryosuke
