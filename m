@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F279C4450E
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D8AC44509
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 14:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6399810F412;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9751110F417;
 	Thu,  2 Jul 2026 14:46:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YYfZz9Uz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iEjJpUGN";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92C3210F408
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95C0910F40C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 14:46:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783003601;
- bh=/HfR6FepCYbvF9Dsn0hey9A/MfNDZWpVYqTWyKppwFg=;
+ s=mail; t=1783003604;
+ bh=OTsco3tAKBQ5tEHqN9eKT+EsJVWfSxYjGFkdCwj0SiA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=YYfZz9UzzNd7DOd1uOUDSxOtuMe9c6CNgI08jJ2Hzwbq+Nz6dxyU3MjY95F2NqHG6
- Dgk1Qg+ZUC+wNl0FNvUDmV4kXZOA00LD1l0+5z1Cu9kroz4dNq1N2/Uerp+qeOmYty
- CsXesCYJvXEnu+so2L78gS9qTkUYYAoXEYNcsJOutmJ/UcTME8DRao3gJ0+HjpWTBV
- qDO9ZGO+DsFLs9qzUX1yRfjx0rJoO/N3PYTbKerrxWa1G2Ma7+NowIGIDUr00TwadR
- R+dgD3asCtz/vgrVVfcgp7f6/BJ79jxcHILoMwIVP3JMr7ee/3mUZklkT8z0qKoKl1
- 0hxhwfDl8KMkw==
+ b=iEjJpUGNt85AeIrQ4al0W/Oyd2eqeRnDoH7qUoUgnPzeaPFol2LMne0afv1Wld+7z
+ JlU3TPS5ygJjTkxgoGysvN8uf2stQcntQS0qWfHNaeROeNUqS9WZsgUtQTn9PYEkbZ
+ RG+bpi1cPHCnRPFXuuy6ueosb75EvSyqsOTs9LnBRX/CHak26CG0cDEClfPkGzI3v4
+ 8GEajZVmlqnWtLDrVPoQ9jDvREE7hTt114fVPKaDhI9cNfEk8WKeQ32AStgJE6nXlV
+ VqGDUxj61uZAVDj2lXfAgpSQ3vxYTwaiFxIOsGu2u8lVv1RKfvi7y3pmXE5LnUoZZ4
+ s3Oka/uww60MQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2DF5E17E35DB;
- Thu,  2 Jul 2026 16:46:41 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2F20317E35FD;
+ Thu,  2 Jul 2026 16:46:44 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 02 Jul 2026 17:46:26 +0300
-Subject: [PATCH v8 13/39] drm/bridge: Add bridge ops for source-side HDMI
- 2.0 scrambling
+Date: Thu, 02 Jul 2026 17:46:30 +0300
+Subject: [PATCH v8 17/39] drm/bridge: dw-hdmi-qp: Rate limit i2c read error
+ messages
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-dw-hdmi-qp-scramb-v8-13-d79890d00b6a@collabora.com>
+Message-Id: <20260702-dw-hdmi-qp-scramb-v8-17-d79890d00b6a@collabora.com>
 References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -75,65 +75,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges advertising HDMI 2.0 must be able to enable and disable
-source-side scrambling and the high TMDS clock ratio when the configured
-mode exceeds 340 MHz.
+During EDID reads, repeated i2c errors can flood the kernel log:
 
-Add .hdmi_scrambler_{enable|disable}() callbacks covering the
-source-side programming only; sink-side SCDC negotiation remains the job
-of the HDMI connector helpers.
+[   25.361716] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
+[   25.363376] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
+...
+[   25.368671] dwhdmiqp-rockchip fde80000.hdmi: i2c read error
+[   25.369440] dwhdmiqp-rockchip fde80000.hdmi: failed to get edid
 
+Switch to dev_err_ratelimited() in dw_hdmi_qp_i2c_read() to reduce log
+spam while still reporting the condition.
+
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- include/drm/drm_bridge.h | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 2d8b5e4c64ba..236d1cabe669 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -656,6 +656,41 @@ struct drm_bridge_funcs {
- 				     const struct drm_display_mode *mode,
- 				     unsigned long long tmds_rate);
- 
-+	/**
-+	 * @hdmi_scrambler_enable:
-+	 *
-+	 * Enable source-side scrambling and the high TMDS clock ratio for the
-+	 * mode currently being applied.
-+	 *
-+	 * This only programs the source side. Sink-side SCDC configuration is
-+	 * handled by the HDMI connector helpers.
-+	 *
-+	 * Mandatory for bridges that set the DRM_BRIDGE_OP_HDMI flag in their
-+	 * &drm_bridge->ops and advertise HDMI_VERSION_2_0 or later via
-+	 * &drm_bridge->supported_hdmi_ver; unused otherwise.
-+	 *
-+	 * Returns:
-+	 * 0 on success, a negative error code otherwise.
-+	 */
-+	int (*hdmi_scrambler_enable)(struct drm_bridge *bridge);
-+
-+	/**
-+	 * @hdmi_scrambler_disable:
-+	 *
-+	 * Disable source-side scrambling and the high TMDS clock ratio.
-+	 *
-+	 * This only programs the source side. Sink-side SCDC configuration is
-+	 * handled by the HDMI connector helpers.
-+	 *
-+	 * Mandatory for bridges that set the DRM_BRIDGE_OP_HDMI flag in their
-+	 * &drm_bridge->ops and advertise HDMI_VERSION_2_0 or later via
-+	 * &drm_bridge->supported_hdmi_ver; unused otherwise.
-+	 *
-+	 * Returns:
-+	 * 0 on success, a negative error code otherwise.
-+	 */
-+	int (*hdmi_scrambler_disable)(struct drm_bridge *bridge);
-+
- 	/**
- 	 * @hdmi_clear_avi_infoframe:
- 	 *
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index cfd1b18c06e6..7475b6b71836 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -561,7 +561,7 @@ static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
+ 				dev_dbg_ratelimited(hdmi->dev,
+ 						    "i2c read timed out\n");
+ 			else
+-				dev_err(hdmi->dev, "i2c read timed out\n");
++				dev_err_ratelimited(hdmi->dev, "i2c read timed out\n");
+ 			dw_hdmi_qp_write(hdmi, 0x01, I2CM_CONTROL0);
+ 			return -EAGAIN;
+ 		}
+@@ -572,7 +572,7 @@ static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
+ 				dev_dbg_ratelimited(hdmi->dev,
+ 						    "i2c read error\n");
+ 			else
+-				dev_err(hdmi->dev, "i2c read error\n");
++				dev_err_ratelimited(hdmi->dev, "i2c read error\n");
+ 			dw_hdmi_qp_write(hdmi, 0x01, I2CM_CONTROL0);
+ 			return -EIO;
+ 		}
 
 -- 
 2.54.0
