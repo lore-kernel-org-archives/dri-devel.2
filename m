@@ -4,78 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AEDEC44501
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA66C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43E1210F677;
-	Fri,  3 Jul 2026 07:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6132910F66F;
+	Fri,  3 Jul 2026 07:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EcGPNAat";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DlmTeHVU";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF5AB10F2F5
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 11:28:34 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-37c5d42ba2aso161374a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 04:28:34 -0700 (PDT)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB68210E4BB
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 13:00:33 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-c9c80265bd7so853401a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 06:00:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782991714; x=1783596514; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=vwpv11A8Wqk34ZvqVFhL1Yv/Rbg0bjinwLUWjlhF31w=;
- b=EcGPNAat4oLuA406gmVGA7c4OaI7UU7Nlr4iz/qLZNnz3xvCPxTfXSIltLoxJIpo+3
- 7U2Lmzxf4fTNgrJmTScdBlkcLRT+m9Ul0VlvYHTGVe7xFstGeqxx4bPX1UYpepr+Jj5P
- jMida/VmgbS2kksHtTBFYxkAyNaAYLpq9Ha2s0ACDzKxO1XdMw4yQMdNvSOX64lDKzfo
- SXv5hg/Du/wbDOWmvWr6cClG5are6tDUFNS/kK9SX3zJ5Cn2TvvtywAh98ofmo95aVtA
- aQq5DifiG63DyGHEXLpzMc8nbi7jIFs9Z11d/DsCLdBgk6v1/7uedUR2b3k0U5zYtvsL
- c8aA==
+ d=gmail.com; s=20251104; t=1782997233; x=1783602033; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1E44Sgh/fBb3+oxPV/igqOovjJZCJr4T8Ggc55Eveo0=;
+ b=DlmTeHVUVnH48AJn+e4Ha34ElL4DYzjWAX/B1f/FHIfqW20z+AoI54+e27Jb0gHGdE
+ I5vRKZHjJlj+L+naPq23fgyRwbPT5uYpf+1KHfs1wWkV0xvjct7b/X9Cxrmy9Iplzxka
+ ldHGgFkFuy6oaneHw3Tap+0KLvfY26ZariLJHl1QD0P9qgNljSUbT0wwjyxh8UTOc+4M
+ VjnGKms3+pCBNhQz5W/u1rwJuIEMTfP41Ma633X7csD0wAg+zUO3wIzaQbBcTg1E7naq
+ 56kyRdBrHebaYJ/E611O5D+csrd9w02kKh57Bpmk0AQFTimOdzG6EqIIlWZxBvr2Cq5I
+ UauA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782991714; x=1783596514;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vwpv11A8Wqk34ZvqVFhL1Yv/Rbg0bjinwLUWjlhF31w=;
- b=dLeC5tmz7872bZAVaJykJWOCBp9056fDU3s396R3GEC5Kmhi1yrHofPmLJR3uGokTH
- T1ttmma8thHSYRe8JewZsfJT23nNdiV7fbFkuJeYocQs+H/Wl6KxqultJi6528dn0upP
- ckl1NYE+s75esRM+DmwPU7uxlvw8sga/FbcGyan+MgmkmC89ZLam8+PjrMye/l7fL2/A
- u8TdSpT4jTLrhT50nE16fAJRsN2g1RrNSl3ZWuojoEvZgdg6Se3yd0WatEX2X7xUr3Pq
- 6isxiC8ALtkIu0Z4AeYZAsNu4GgnofOuBZb2l6GXSY4Yv7f226xpGRCO7u60X9qZca2O
- iRDg==
+ d=1e100.net; s=20251104; t=1782997233; x=1783602033;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=1E44Sgh/fBb3+oxPV/igqOovjJZCJr4T8Ggc55Eveo0=;
+ b=LvH+8UdGLRpXqE4WxI8FUE4sbzjl40HRppE2AeQ8SemJPtjfXEzGNW+Lv5jXUK0Y8t
+ PHWJ9oIG717Z4h9ZbwHpWzjCp76CLu08KjxNod7LXzYGHw8vjP1r50RA8wQyVlT5yZ6W
+ tGBzeByL54yMSM9eCo3a9982YDghM/rBDF4EGbEbgQlzBeMq86qfpJzONfZj9QSLdtg4
+ /TM5zBk+DcDzEpRRDCm+Bh+T6At9l2JIvzcBaz/urrAOMk56dsf9eliBBCRcJynum8Q4
+ EnCaqzbV9R8gUKYw2sMsByxI3FDxSa86Abp0oZPAokGGHKM3hgmxoNm38f4hgkRbz2fz
+ h71Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq+Xn4RBCMsExlT6iJJNa0LkjZscrdoMIanj0Beca9PioBfa0ly46kkJgcTP+WxDDuVWBavvdgKXN0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxthuNYZMVecvGu6jXOcGF481r0zbk7wFT2qpOh2w0FdJ9V9QtG
- b3EEkwwX17nC4CL2c27aHOXMFTGYRcm0wMdwaFmOf5nGJfb0vET4GuDZC0ZbmR0/y6EolA==
-X-Gm-Gg: AfdE7ckimdk7NO+5P3/d3oizc5E8hG9HIu8NnwwMuGzOIhT51dyMnZ9Ty2tm362LpAv
- CHSkmTZkDMjDRblZy0bZOs8oUBPhJY9AkQxQ6b1GVRlmcM/QUQrkGPB5UbWy5OYlO4HrWZQLxiv
- V/YdnYWpusVPn7FhpWooj0BumV5KNA952KK2B0JLapMYFPWidLJn99lrqikazGkA6dgpQFATSpY
- ZUpNdJ1fFHwbSRsRo3POz9b911KdAGN4BQQVDU8JE1siUobQZCBzCGycd+etBhua2wSHPYT3p8s
- zqawNNtXPbAZbWZfmfVkQjKBg4GSXY/VubfkvEv0OrC84if0uCVQe9ed44/1q2O9wxIyCFJ8vrA
- /X71RUjiEI5MSXXWSaTkV8oF+YP0aSXGexKFxSQS/kt1DOO77mnUHuwUEIztYtjYNggwmbewJJG
- ie4CuP7kydj9GfIk+vpVcj+oaamwbBpIb2rOThS5JcJb7bbxAi8PwlPZxhnvL7OUX0EEJLI6pH2
- b4js8L1OSGWpkzoauwYWARtREFInpvNiTfISFddIGG3lahgRNaJbwyIo8Udh3Luoas8G5MF7vAZ
- ONxNYf9sbFj/4/kBGyoEe0+FZ2CQIVZOA/+YriQtC5dhEUTU
-X-Received: by 2002:a17:90b:258c:b0:37d:f70f:fbf8 with SMTP id
- 98e67ed59e1d1-380a9e471dcmr3852595a91.0.1782991714179; 
- Thu, 02 Jul 2026 04:28:34 -0700 (PDT)
-Received: from midnightair ([2401:4900:1c94:62e8:bc10:77d0:2fda:415d])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-380e1636a03sm954793a91.1.2026.07.02.04.28.31
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 02 Jul 2026 04:28:33 -0700 (PDT)
-From: Anas Khan <anxkhn28@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Peichen Huang <PeiChen.Huang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Anas Khan <anxkhn28@gmail.com>
-Subject: [PATCH] drm/amd/display: remove duplicate link_dp_panel_replay.h
- include
-Date: Thu,  2 Jul 2026 16:58:28 +0530
-Message-ID: <20260702112828.34698-1-anxkhn28@gmail.com>
-X-Mailer: git-send-email 2.54.0
+ AFNElJ+y2dK7vNuz8J/SWgWqpib9fc3wXMeFWnTI1Zx7rBb7gioGyRpxBGB2GG8+GhjZFDgfdKLcxqPO1L0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwVN0w5Qj7PRMuG4iYA4rg9Y9+W5cgSONMadmIwBomouVvcs28N
+ yJyOBFVbSt+mRLUEfpP5LXydYNU+sPWOIUSxImqJH910BKoYABAdm3eD
+X-Gm-Gg: AfdE7ckw/2gNWZpyyHT+kWjGqOhkZ0I+JtjRiGhHxqmu5dOoGdBP33pLRl+jVfnolpZ
+ hGsgtR1VFxh1c21Qoazr07cawQQfwbRI8z3eYb3ZR2UgkpUrurpDtVsR9hmqZi6ULKxINVrMmQ+
+ Ws1p1oSOV5NkwKf8nJDQoQT6a6w1FAfW2IuKY/D6AXWEfnYrKjC/EDyl2ybeNuy1FNMjBhgQ4iY
+ jHGKkNGKPZy3Gu6fiE0a3ymzWTqTiOtIErG2iSzKjzCzVUegelSD9NL1wFMOa2v0/vL+Rrb5pM7
+ fZa5r8ZcMJV4RJROoUy2jP6ipjCL3iMnXIi8lUw5ybAnCApzq/WtTs5EjNFSxPxjjORytrFH76S
+ h6s+9tbYwHKW+7R/fD40FBK4APb+oW0hd9wr1RJ0Nq6Gm+odcTCLNQO4UWg8crowHeWq+BiZdXl
+ GSPA27mKFiSM0wnCkXC/gv2acnyLWKZa++f7lI8PrrBiOr3QOhrZwMMYxi0RgNR+hdX4+iUjS8O
+ 02kEdSmx1Q0SLSq/Yo8sCTNdSmiX/98zvUzTG6z6ss=
+X-Received: by 2002:a05:6a20:258f:b0:3bf:8b8d:3151 with SMTP id
+ adf61e73a8af0-3bfed3efa54mr7187075637.44.1782997233311; 
+ Thu, 02 Jul 2026 06:00:33 -0700 (PDT)
+Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br.
+ [201.68.197.145]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30f116065c5sm7279613eec.11.2026.07.02.06.00.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 06:00:32 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: s-jain1@ti.com
+Cc: airlied@gmail.com, aradhya.bhatia@linux.dev, conor+dt@kernel.org,
+ devarsht@ti.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, h-shenoy@ti.com, jyri.sarha@iki.fi,
+ kristo@kernel.org, krzk+dt@kernel.org, lee@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ louis.chauvet@bootlin.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, nm@ti.com, praneeth@ti.com, robh@kernel.org,
+ simona@ffwll.ch, tomi.valkeinen@ideasonboard.com, tzimmermann@suse.de,
+ vigneshr@ti.com, leonardo.costa@toradex.com
+Subject: Re: [RESEND PATCH v2 5/5] drm/tidss: Fix sampling edge configuration
+Date: Thu,  2 Jul 2026 09:59:43 -0300
+Message-ID: <20260702130010.1238089-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20251106141227.899054-6-s-jain1@ti.com>
+References: <20251106141227.899054-6-s-jain1@ti.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
@@ -94,28 +98,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-link_dp_irq_handler.c includes "link_dp_panel_replay.h" twice. Drop the
-redundant second include; this is a non-functional cleanup flagged by
-scripts/checkincludes.pl.
+Hello,
 
-Fixes: 1e5cd4adfc54 ("drm/amd/display: move panel replay out from edp")
-Signed-off-by: Anas Khan <anxkhn28@gmail.com>
----
- .../gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c  | 1 -
- 1 file changed, 1 deletion(-)
+We tested this patch and it introduces a regression on our panel.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-index 54ce768ae6ad..da679fb7d89c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_irq_handler.c
-@@ -39,7 +39,6 @@
- #include "link/link_dpms.h"
- #include "dm_helpers.h"
- #include "link_dp_dpia_bw.h"
--#include "link_dp_panel_replay.h"
- 
- #define DC_LOGGER \
- 	link->ctx->logger
--- 
-2.54.0
+On our board, a Toshiba TC358768 DPI-to-DSI bridge is connected to the parallel
+RGB output. The bridge requires data to be driven on the negative edge, and
+this is also reflected by the `ipc` variable in `dispc_vp_enable()`, which is
+set to `1`.
 
+With this patch applied, however, data is driven on the positive edge instead.
+
+According to SPRUIV7C, both `MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8]` and
+`DSS_VP1_POL_FREQ[14] IPC` should be programmed consistently. However, if we
+follow the actual bit descriptions, and ignore the sentence saying that the two
+programmed values should be the same, the data is driven on the requested edge.
+
+From SPRUIV7C (https://www.ti.com/lit/ug/spruiv7b/spruiv7c.pdf):
+
+MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8] (DPI0_CLK_CTRL_DATA_CLK_INVDIS):
+
+        Clock edge select for DPI0 data outputs
+
+        Note that this value should be the same as the programmed value of
+        DSS_POL_FREQ[14] IPC.
+
+        Reset Source: mod_por_rst_n
+
+        0 DATA and DE are driven on the falling edge of clk
+        1 DATA and DE are driven on the rising edge of clk
+
+
+    DSS_VP1_POL_FREQ[14] (IPC)
+
+        Invert pixel clock
+
+        To set data to pixel clock relationship, CTRL_MMR_DPI0_CLK_CTRL[8]
+        DPI0_CLK_CTRL_DATA_CLK_INVDIS setting should be the same as the [14]
+        IPC setting.
+
+        0 Data is driven on the LCD data lines on the rising-edge of the pixel clock
+        1 Data is driven on the LCD data lines on the falling-edge of the pixel clock
+
+So, the proposed fix to this patch is:
+
+```diff
+- regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x100 : 0x000);
++ regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x000 : 0x100);
+```
+
+Reverting the patch also makes the Toshiba bridge work correctly again.
+However, we can confirm that the patch is needed, otherwise only the
+positive-edge case (our case) works correctly.
+
+In other words, the two registers need to match semantically, not numerically.
+
+Please ignore the previous email I sent:
+https://lore.kernel.org/all/20260702104817.1219078-1-leoreis.costa@gmail.com/
+I hadn't seen this more recent thread at the time.
