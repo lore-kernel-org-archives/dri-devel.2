@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C89D8C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE9C7C43602
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3606610F324;
-	Thu,  2 Jul 2026 12:01:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56F2810F323;
+	Thu,  2 Jul 2026 12:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MwqJOzWx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oGmdbQIO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABFAB10F31B;
- Thu,  2 Jul 2026 12:01:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD17610F31B;
+ Thu,  2 Jul 2026 12:01:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7738F433A4;
+ by tor.source.kernel.org (Postfix) with ESMTP id 23B5160121;
+ Thu,  2 Jul 2026 12:01:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064A41F00A3D;
  Thu,  2 Jul 2026 12:01:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DDB11F000E9;
- Thu,  2 Jul 2026 12:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782993691;
- bh=iCejPFH6P1HmrWkN4qRLjhA4j8pbccgUzz87LFYWmyw=;
+ s=k20260515; t=1782993706;
+ bh=mygERH1kptmisPRhMGN1GtdvkxAHUPGzgcKwV2fxOI8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=MwqJOzWxUJMb62WIz9iuaSTYadDOy10ZOpkQP4erRwvh4V9Iw2azlVnHy8tCnM/mT
- TelUShcP7tI22DP30G4q1U9nG9VPAe2BlCNVIJTADF0tZVNDArgq3RscbLLSW/cxAR
- jHfrRlqicLJlzbSCEABekeZtNmjd9H42I/rTsjBZ9vhX0+/42HTCFaATBKsELuBPp3
- IFkRM89BDnB8M6kSwz0OTPNejsJCGfpz/kscw9qyAEhrthtLnP7kPLPjccW/vwHqjy
- eLnd7KZzVXZZfVpqZm7sHNvSru5hbwKlreZoNO75zvA5TGgPQl/bPaoXVc4D7rOFkg
- 9wPCpRvGop7JA==
+ b=oGmdbQIO8amLJztTs3teKvUs8+MZnVsP131zyRHEjyP9HIWn7ZGwQ4YqyWvYWaOWk
+ EvtmhzlJz5ug3PFpVXVjBpXcFqfT+nN70sGLTwLJ3B746+SPE9jYM7k6Mpqf2tgnQM
+ uD0wVEHLKG52EXjGAW1qpxaPW0bmP40mOAIiF0V5Bq5SfygB5ztmIeDwHMf9xq05z4
+ RiPvdUxJOmnmiRhRfaXAf0u2Bh3EJ+VX6gFPEA5EgqL1J5DomC9osOQax7wGrj2QDg
+ lFUjFfpolPY1BSraqnLhIrS7fjCxxJS7kkXO7NTbvXYU8STDeEbqH0BAwBy7lenDXh
+ itW9UYYbx0spA==
 From: Sumit Garg <sumit.garg@kernel.org>
 To: andersson@kernel.org,
 	konradybcio@kernel.org
@@ -51,11 +51,12 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
  jenswi@kernel.org, op-tee@lists.trustedfirmware.org,
  apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v9 10/14] media: qcom: Pass proper PAS ID to set_remote_state
- API
-Date: Thu,  2 Jul 2026 17:28:26 +0530
-Message-ID: <20260702115835.167602-11-sumit.garg@kernel.org>
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Alex Elder <elder@riscstar.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v9 11/14] net: ipa: Switch to generic PAS TZ APIs
+Date: Thu,  2 Jul 2026 17:28:27 +0530
+Message-ID: <20260702115835.167602-12-sumit.garg@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260702115835.167602-1-sumit.garg@kernel.org>
 References: <20260702115835.167602-1-sumit.garg@kernel.org>
@@ -78,42 +79,71 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-As per testing the SCM backend just ignores it while OP-TEE makes
-use of it to for proper book keeping purpose.
+Switch ipa client driver over to generic PAS TZ APIs. Generic PAS TZ
+service allows to support multiple TZ implementation backends like QTEE
+based SCM PAS service, OP-TEE based PAS service and any further future TZ
+backend service.
 
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Reviewed-by: Alex Elder <elder@riscstar.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/iris/iris_firmware.c | 2 +-
- drivers/media/platform/qcom/venus/firmware.c     | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/ipa/Kconfig    |  2 +-
+ drivers/net/ipa/ipa_main.c | 13 ++++++++-----
+ 2 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-index ea9654dd679e..d2e7ba4f37e3 100644
---- a/drivers/media/platform/qcom/iris/iris_firmware.c
-+++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-@@ -110,5 +110,5 @@ int iris_fw_unload(struct iris_core *core)
+diff --git a/drivers/net/ipa/Kconfig b/drivers/net/ipa/Kconfig
+index 01d219d3760c..a9aff1b7977d 100644
+--- a/drivers/net/ipa/Kconfig
++++ b/drivers/net/ipa/Kconfig
+@@ -6,7 +6,7 @@ config QCOM_IPA
+ 	depends on QCOM_RPROC_COMMON || (QCOM_RPROC_COMMON=n && COMPILE_TEST)
+ 	depends on QCOM_AOSS_QMP || QCOM_AOSS_QMP=n
+ 	select QCOM_MDT_LOADER
+-	select QCOM_SCM
++	select QCOM_PAS
+ 	select QCOM_QMI_HELPERS
+ 	help
+ 	  Choose Y or M here to include support for the Qualcomm
+diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
+index 788dd99af2a4..3cd9e44680e9 100644
+--- a/drivers/net/ipa/ipa_main.c
++++ b/drivers/net/ipa/ipa_main.c
+@@ -14,7 +14,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/types.h>
  
- int iris_set_hw_state(struct iris_core *core, bool resume)
- {
--	return qcom_pas_set_remote_state(resume, 0);
-+	return qcom_pas_set_remote_state(resume, IRIS_PAS_ID);
- }
-diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
-index 3a38ff985822..3c0727ea137d 100644
---- a/drivers/media/platform/qcom/venus/firmware.c
-+++ b/drivers/media/platform/qcom/venus/firmware.c
-@@ -59,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
- 	int ret;
+-#include <linux/firmware/qcom/qcom_scm.h>
++#include <linux/firmware/qcom/qcom_pas.h>
+ #include <linux/soc/qcom/mdt_loader.h>
  
- 	if (core->use_tz) {
--		ret = qcom_pas_set_remote_state(resume, 0);
-+		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
- 		if (resume && ret == -EINVAL)
- 			ret = 0;
- 		return ret;
+ #include "ipa.h"
+@@ -624,10 +624,13 @@ static int ipa_firmware_load(struct device *dev)
+ 	}
+ 
+ 	ret = qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL);
+-	if (ret)
++	if (ret) {
+ 		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
+-	else if ((ret = qcom_scm_pas_auth_and_reset(IPA_PAS_ID)))
+-		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
++	} else {
++		ret = qcom_pas_auth_and_reset(IPA_PAS_ID);
++		if (ret)
++			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
++	}
+ 
+ 	memunmap(virt);
+ out_release_firmware:
+@@ -758,7 +761,7 @@ static enum ipa_firmware_loader ipa_firmware_loader(struct device *dev)
+ 		return IPA_LOADER_INVALID;
+ out_self:
+ 	/* We need Trust Zone to load firmware; make sure it's available */
+-	if (qcom_scm_is_available())
++	if (qcom_pas_is_available())
+ 		return IPA_LOADER_SELF;
+ 
+ 	return IPA_LOADER_DEFER;
 -- 
 2.53.0
 
