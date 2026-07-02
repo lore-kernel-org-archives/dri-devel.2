@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97A02C43327
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC9AC44500
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 08:08:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F377210F21C;
-	Thu,  2 Jul 2026 08:08:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B7110F21E;
+	Thu,  2 Jul 2026 08:08:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="L39Y5MPJ";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="BZtz3xhu";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FD1B10F214;
- Thu,  2 Jul 2026 08:08:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 373F810F216;
+ Thu,  2 Jul 2026 08:08:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782979721;
- bh=aJ674jKfdfYzA1796ckniFKjkGKFKlysonuWe+TKQpQ=;
+ s=default; t=1782979723;
+ bh=0xLvIPUF7dUXs0cb7vXUK9dMYuEsI+fTHrltlGFTpL4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=L39Y5MPJa/ImL4kYabwLCb3pjCEAHeVFMmmxDckMuuUi+9suxCSaUtVUFuX3ArDkf
- Y99vOVPThIpbH7X+VBLlU9BoK3ocFLuo0F+Jo6koUtCcwV8iQtwBPo/Jb6spGssmfF
- LcZfmJJoLyx0trk+SBiwbmqeNXRibvkt/IWsehutxagZnjFdeo19bekWdhFBxRonzZ
- rmusLYbtGyBXAMRD15m0w18gLnVX+5LXdgoK9BkqbDNGHHNBfl8zT2uJelpWe0xRzl
- BYQQjBLSREbqtitmdohSYe8okm1C7OmTrQ/0/vhVS9gtymA3jC9udVP7raW1bpmF7q
- EuxINXggQApJA==
+ b=BZtz3xhu0gUQVdqq61uFY+ylojtQq8gocXxaZPnflB3xwO4BQ/pU1jgPxq2bGtvp/
+ ii5Utgz4yJQbJM/Ry3acZtH3fd3ra75H7QhNu8paQXxF0Cuz0cSKbN9qAsVCp4dUpg
+ KCVdyUMgAghswgbrk3j1Q8jbnT+7DHWQYpIQh2Y6avagrICkXJQwHumOsZCTVCBS3R
+ 7h1owkpTq/zqRgmv7a8Q5CiAGFRYGsu+dZZIuvMawDBDwgqbhuUrNRR3A6tge8HRop
+ XfPajnsaM4ERTvValKVAtGdPT1r6xJkR18+JI7P7jm04gyi4wVCGdpW7MKgu+H12ce
+ 8y1gt261Orvqg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- "John B. Wyatt IV" <jwyatt@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 3/7] drm/i915/guc: Consider also RCU depth in busy loop.
-Date: Thu,  2 Jul 2026 10:09:09 +0200
-Message-ID: <20260702080913.434121-4-dev@lankhorst.se>
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH 6/7] drm/i915: Use sleeping selftests for igt_atomic on
+ PREEMPT_RT
+Date: Thu,  2 Jul 2026 10:09:12 +0200
+Message-ID: <20260702080913.434121-7-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260702080913.434121-1-dev@lankhorst.se>
 References: <20260702080913.434121-1-dev@lankhorst.se>
@@ -54,36 +53,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+This makes the i915 selftests slightly happier, especially
+related to GPU reset.
 
-intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
-decide if it should busy-spin while waiting or if it may sleep.
-Both checks will report false on PREEMPT_RT if sleeping spinlocks are
-acquired leading to RCU splats while the function sleeps.
+I believe this may be a better approach than trying to convert
+uncore->lock to raw_spinlock
 
-Check also if RCU has been disabled.
-
-Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/selftests/igt_atomic.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 053780f562c1a..b25fa8f4dc4bd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc *guc,
- {
- 	int err;
- 	unsigned int sleep_period_ms = 1;
--	bool not_atomic = !in_atomic() && !irqs_disabled();
-+	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
+diff --git a/drivers/gpu/drm/i915/selftests/igt_atomic.c b/drivers/gpu/drm/i915/selftests/igt_atomic.c
+index fb506b6990956..8ae39cf570b76 100644
+--- a/drivers/gpu/drm/i915/selftests/igt_atomic.c
++++ b/drivers/gpu/drm/i915/selftests/igt_atomic.c
+@@ -39,7 +39,14 @@ static void __hardirq_end(void)
+ 	local_irq_enable();
+ }
  
- 	/*
- 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
++static void __maybe_unused __nop(void)
++{}
++
+ const struct igt_atomic_section igt_atomic_phases[] = {
++#if IS_ENABLED(CONFIG_PREEMPT_RT)
++	{ "sleeping", __nop, __nop },
++	{ },
++#endif
+ 	{ "preempt", __preempt_begin, __preempt_end },
+ 	{ "softirq", __softirq_begin, __softirq_end },
+ 	{ "hardirq", __hardirq_begin, __hardirq_end },
 -- 
 2.53.0
 
