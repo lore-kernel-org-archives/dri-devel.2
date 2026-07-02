@@ -4,107 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7092BC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 04:56:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E79C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 05:04:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6C6410E438;
-	Thu,  2 Jul 2026 04:56:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98C9110E439;
+	Thu,  2 Jul 2026 05:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="rn3T1N+O";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bsRCdg6p";
 	dkim-atps=neutral
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 636CC10E438
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 04:56:55 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5aeb688ae83so19476e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Jul 2026 21:56:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782968213; cv=none;
- d=google.com; s=arc-20260327;
- b=VLyPpE0tm2AJctvn2VeE0czX1xHWyaO/YykMtu565AqjUWHyHNtotegZAcIbCdslPg
- 16+an7+C7aM27DBBkMbUJ5/Jlp1OpUM7kLh96SdLHEMDngBElVyoKBGDbkPZN/nVR1uI
- GFYPe8ix/I5glfKlZU1mRV4DqnKZulBcfHSrovWP7pcjoW9X/pWL6E4CxN7/IiIM0bmd
- 3F/Uf3XU84DOJOoy6gEMpSCXSghKNnUz8Fps6XZKQqlhz5VbyNCpuv3VhVS5ycGI7bI5
- 2I1cqYxM05L0nHXFJaDDucOR1imHkzWcBt9VgmTOBzXiXP32VMO2oZ3x8lZoEPM5/9SL
- 6kXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=R/pb0b0doa3XFteGoKySEQfP8Mo6hx3U4+0voSqDAH0=;
- fh=e77c4EZoAU6Z7VRD9T4RU7PbLzNGzL+iO7RlESPVLGU=;
- b=EJ76kx+Sr2OcWe50/X+VnpPShwzjulwcGiDAYTpRYsY/p9T6rt5CuM6OJPi8tWXQ58
- AxKyXdF0nvdndZ0VGbJJ7MP19aq/heR+tVrFyRoS5Zkv96p+rt7+hGd5r0iPxTrzf4EP
- uiu67vTz9+9mWOVJ3UG1b/GZzjEcq41uZJ/oPrqk94Qicinos5COOz3INLOu6DtSjV4Y
- 8NskSmK9QSAL7RV3CKiiJn69KDoWfYWfvqtFxq6GaSzNP/Q8WRYTqo8zRFmCsm0CPhaC
- AEh6agBi0zeBMOLM3BhFoOkazBIx0VXWyk5kzyctS8CdmhgelwfEuEkljPX3cGbbBEZ9
- 0W5A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782968213; x=1783573013;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=R/pb0b0doa3XFteGoKySEQfP8Mo6hx3U4+0voSqDAH0=;
- b=rn3T1N+OTLl1uiZtLVx3IRvPCaQAKL9alYl9nhv8MJmHOY2iZ/4yYaajzm1eOt42lx
- LbsPzhlnwmXGm/g5x012yub54nh8dNZqzLumBAGsRm1lhPhcKRrXrLNHhcfkOtd/2KoU
- i+nQPDflZwrWOU0XQ/aMNEdOXdK1IdjFpRhlK9d3qG0QhhXdAS65Z+6LBYsljvrYztiB
- +pejYwR/NDyj7zQdoof+5UZE3LijfcvkEDBzM6DoJ4wCei1wmMhCHEQiyafKddz0uvty
- qlqWmn9r7ecxuAUyQWZjvtJBgfy0+4orNW+tGUoH6iZabUfPuEAun6qaYL4yH/ld+cOa
- sYfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782968213; x=1783573013;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=R/pb0b0doa3XFteGoKySEQfP8Mo6hx3U4+0voSqDAH0=;
- b=YkS0NKWxGh/bnDAAexq2kj858kpul6LPmGQw6ic0PbEx7DGGLg7ibla7EfzAZyPxmC
- ImpWZXQsFITCZDQI268kYtGYwfukcDTOMsuKnpHbb7CMNsCKQRG5MTjUfN7n3ArzAv8N
- pmG4SD3xVxCo/x2xpwD3HCGm+EJNaa9lCCdTpKHnuLjIJyuiEisC2/tb3JoddDP6QcLX
- hlM13Xag0c+J7IR+xvtib4DwKG+NvRMKjcpo2xslxvN4XU3Qnx2oofzgw076hLhXBS1s
- bXn2IU6ftggbw56KF3HogXjs7fcQZWDhmcm8YW7Tp6MR+a/ojhPT7zHIx1YJ8i86Nvwd
- Iztw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrKV8dyhjtJDX9widqLA4IlpxCj1L5rNfLSNlhsckJtxB7caMoA5LHwDK9aRsPO/Y3P1aIlh9/viq8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YynVWfgh84YA4EZgr0KYmuF13twz8Tq44013UWL+JIbBt9p9lyD
- jleYqkEX0G5kg5yzEvlk65UeKWMn/KAn2OG28ZHcX1tpiB7Uu+3hyMYQ309nIZmDO/vwT0GQCr8
- i0hKJ5f2IFj34NeHiRXlbZHvUK8w6in8XdRRKc7A=
-X-Gm-Gg: AfdE7ckmTkQoN8Kq8o56rKyIhbOomXKgbe0yl6ynVHsi1jMZcW+r9Ji6CKTJEmddAru
- oQEV4+iozvhzVNZcClPuRtAB9WXaQjP7aUBMFWOCVR30pMBmzNzqh6040jkO29i0uTKZs51Ky0P
- n0fpLQsFZKn/4C+nlQZdZC95E7JFep1NN37WnUzmt6kYbX+KDYrKAz+3ivgOGUDE1qai+D3WBod
- fmddPA3vIjWzg3BFYQXcu2Vpjby1aYwk6vc4470YSzz+RRb+HBEnonfzUAhaiYOHNX1FoSo5C3E
- QnKvFmhAi/uFe/LkyBDAZf6PPmk/6g==
-X-Received: by 2002:a05:6512:2243:b0:5ae:b843:9470 with SMTP id
- 2adb3069b0e04-5aecc237a55mr33635e87.5.1782968212825; Wed, 01 Jul 2026
- 21:56:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260621222130.1667453-1-xuehaohu@google.com>
- <20260623015459.1153884-1-xuehaohu@google.com>
- <20260623094446.4a8fc2ed@pumpkin> <ajryxMaT5evDUxaq@google.com>
- <20260623235350.6540eaa2@pumpkin> <20260630124252.GD7525@ziepe.ca>
-In-Reply-To: <20260630124252.GD7525@ziepe.ca>
-From: David Hu <xuehaohu@google.com>
-Date: Thu, 2 Jul 2026 00:56:40 -0400
-X-Gm-Features: AVVi8CdtQ5k1Gu0I7l3KP5nC_hRlM4qrUkGZrb3FkW53eA2H-q-z2clu4KZkrHc
-Message-ID: <CAPd9Lg9uY1RZvYUtcbKUg=VdWM61M2f3aqmS5veUg_8M_Ce80g@mail.gmail.com>
-Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: David Laight <david.laight.linux@gmail.com>,
- Pranjal Shrivastava <praan@google.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Nicolin Chen <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
- Kevin Tian <kevin.tian@intel.com>, 
- Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
- kpberry@google.com, chriscli@google.com, sashiko-bot@kernel.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010040.outbound.protection.outlook.com
+ [40.93.198.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39FC610E439
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 05:04:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bt6NK0K8i6a7rpz2Ak4RNZ8qr9dCQqR9FQky0Y1P6F0joMKMFZroOHCCvBen60tIiEtx3ILxlrLrqBNb3PKO+cg0oi3d2GPZ2A3O7tA8AWv6c34sDxXm1i7kCovGy1qJbMKLWDlvEO6859MAeQA0O5pIufQ0QzCB8sE24obHIpJYSdC66gTzFN63d0c7ZXiPqvWLC3jrGieSndgp0tUVh0snuEywATeg48JNh5PPhxe1+OcMk+5MPGjL9mZ+NhzH/MwPJIq4swYHhMhPSYWu+zyfCp4P/IupoEjxZehqHj5E0nSNkWPMRBlRDN1Fp3d4DUs+qIRgtyoi0TFUJDQzcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PGHKT7iXAmIaJN3GicheL+pXix5apBcm/tJd3X0Hw1g=;
+ b=p7VAIqafW7xg8liv0VJ0UKW0ObVufYx9H1xq5XCwR5yQxmSFG4JjvjcyGnBh/pDl3cpJ3xXvGRdXj/r5of3YGDAk69okIQ0nTjNnmjL3Ks/MWrF3EC4W0AwU3vinXEAua1JpgU7qZTIEs4H4V6bPCG7f0o59BMP/c7XtC23qJBZGxnyPHu+OEyy65Y1NftwhV4dX2gzANd4mzoWygbwgdJrZmj8MbCBhQauTAubbnp7qKWUmMv3s6KWzyJUOFzHpGiffRaMzX9QQ5tKQY6hMvlt5gFpy1/oBgqQHtgGS8CZAEi/LWJvdmgT/pmIj1K5yItamgKH6isv8ypkfq1VcDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PGHKT7iXAmIaJN3GicheL+pXix5apBcm/tJd3X0Hw1g=;
+ b=bsRCdg6pPhd/AUwgaf1oKhV9RaASEiXxRSotHkR96avO5xrh79e13JuixRysBMZeytZE6d1HkdA6DJr7OUKV0OmnuyNS7jB3o+Rhz0P8gaChgMebSvLLi3PFk9ddaqVoL8oU28Uz1MFK2Yxwie/m0AF48ggH/BhinMkgxb/DIJL0BfBWEBAwEW477c2lWQVhso6nOKn3WcjVWchtHg9GxDifpctc/m5FPI2yjLXOSWgE0XdBmTOjq7LuGB+2dB//4+aum05iD2UlFyTMPH5NL00EZk0tCoKxBnHPd8YjGPba1uRgFGjjvsu3aN+H4DzWpWtTfBNW8uHe2YDjM8/E2g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
+ 05:04:25 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
+ 05:04:25 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Jul 2026 14:04:21 +0900
+Message-Id: <DJNTN3MEEYDZ.1PSWARQKO5TPO@nvidia.com>
+Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
+ <ecourtney@nvidia.com>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
+ <lyude@redhat.com>, <driver-core@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v5 11/19] rust: drm: add Ioctl device context typestate
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
 Content-Transfer-Encoding: quoted-printable
+References: <20260628145406.2107056-1-dakr@kernel.org>
+ <20260628145406.2107056-12-dakr@kernel.org>
+In-Reply-To: <20260628145406.2107056-12-dakr@kernel.org>
+X-ClientProxiedBy: TY6PR01CA0004.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bc::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CY8PR12MB7099:EE_
+X-MS-Office365-Filtering-Correlation-Id: c39d4809-3bec-4455-6b1d-08ded7f76327
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|7416014|1800799024|10070799003|6133799003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: wKw1HAzQZeoMEqrrN63ns9XC6QGUrRSQn2/avkEJ5rUW/1fmSF+yZKAsL4ggTHjZZQwqsmnWVXZEkjuHHvD0shZK/w9LEXeOL1EPvbYfw4o+HTG6Em2ra2ujlU99dfX0iin41fUIQJqVjv2Vu9orForIAQGOrQa6zMQwAQfF/UK1CbouoXM9BIyq5GxxcY8FYf3ffkzfsybOvo8F8lh3kWraKUtgDqEIYrHhwVys1Nafx5duTferpC0pysP05O8WoKegYditgzK6ken4idp3aaikV1CNdDaX0K5xZ9GzN1N0SFSRauZV1Bn2WbcCCVF3CojnMDO3KgRj6hSo1RgVS52cEaSpzxf8XQgC/0W0FXCMUp6ISVDkINpTvQrqwyQgw0OmPkE3z+tAcNEBUdrAjmG+dFm1LB+veBDlfHWlEUIdVp8b3gu4iuxI//qs0tPP+0rgA4fhUAt4yvbdteShZqhmiq7tzAzSMFPeQ8UA0hBBdqxuAXKB5fw0UFsi7U0IIIFXeAXStxUz7/KNUd0SgorZmCSoJdxmtNEgAA0hGnRIwhcxO+5bGN4kcZcZ03wpnLC7nJB44RYWkso6ySDq6s0TqSm30FEHVfNS3+6VDSOoI2RdSm2Cp8xxt1QiuoJ4gL2MlzginnreXj+xk6Twc31Azv+0d59Y2lFNjUmuh5Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(10070799003)(6133799003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHkvYkJsNUpnT2x1djNuUDdBMEROTzdDQkZVb0VoQ3gwU1lHckRBdnFNTzVm?=
+ =?utf-8?B?Z3Q1TjJoT1AxdndtdU9KSUhDbWZMcDM4aDZjNVBzMnZ3SG5sL1p1UWU4MEsr?=
+ =?utf-8?B?STFRZ29yM0M1RWlOR2x5SHFzTVY0bHdhRnhMem5uak9ZbFczYUlmRndTQzBK?=
+ =?utf-8?B?WjZqOHI4YVk0RnhSM21uc1Z3a0RRb1owNW4zQU1CVkpHNHU5RTZlVWd2NkY1?=
+ =?utf-8?B?d25CZm0wdGk4T0dYbk1oTytvOEtacVlCT2wrODNGYkc5d2ZwYWY2MlhwWkNF?=
+ =?utf-8?B?SldhankxQUU4UHhiY0svTU8zajhHajdTa3dOSk11cm41V3A3bGJvVW5LR1A2?=
+ =?utf-8?B?L3FuUVNtRFhJUlFqbDJpRE9QY0hRQ25YekdoeTltUW5qV3F1dXBLY0pXV0Fi?=
+ =?utf-8?B?N3lERncrM3dMdjZZYUtxMVNLMGZGaHVyOGhEd1RzMis1N3dPZWVCRVo0U2hM?=
+ =?utf-8?B?clEzK2R5c1RXbWhIc0F3dnQ1N1FEakFNOTloTDRQdjhYRW9kdytzaFFadzVT?=
+ =?utf-8?B?KzZ2OGFkWloveWhoRzRERDhaMEhYbHoyZzRSNWJQZDVGZ0VBM3lncm9lOVhy?=
+ =?utf-8?B?R2lDbCtuVXN5NHlHQVVieGNmQ0J1a0FVL1E4aSsxZndtSjRkK0FzWWUwT2ZT?=
+ =?utf-8?B?Zms2T0NpTkZ1a3RVK2IvM1pNVEYwMm1LYTdPTjlzTGF4U3BpYk9Jc3hZay95?=
+ =?utf-8?B?UXhCUnhnWHdGellscWhRU2g5ZnhPTzM4S0JoVlNMZnN4RXc2cldJaTF6cXpW?=
+ =?utf-8?B?bEtyODF2aFI1MElrbHBYOW5HQW5VNFVRZzgwa1BHcEkrL090MlIraXRQRWV6?=
+ =?utf-8?B?MjFidG43Q09aV21Jdnl6aG85V2ZsNm5qNVMzbG5XY2J6QlBpVy9NMDZZNUxy?=
+ =?utf-8?B?aWV2VWNSZUFyTnBzNWszT0w4dTlXc29MdXk4SUd6b0ovdlBDSnNBSkNXOW11?=
+ =?utf-8?B?T1FVVUkvaHJXUWlVNFo2T1Y4ZWFRWkJtSGVETElOS2ZuU25Eb0pNUmZQd0FJ?=
+ =?utf-8?B?c0hUT29DMVlFWTNQU3VEOHdQSzJMMG9WUDJybXJ6dlVKQnhyeVNwdVpNOFBU?=
+ =?utf-8?B?VTZRWFY0Kzg3eGEvdmgvMG5IQi9EeXNvZ0dycmo4YlRydFhKcytCb2N6UW9s?=
+ =?utf-8?B?RWVXd3pKbkIyYkFGb05VU3duQlBLT3Y0NWk4cjZ2aEhiUWRuR1g4UEpQNXRK?=
+ =?utf-8?B?RGlnRXRockgxL1lRT2NXOWd3N2phbVdSMlcrOWgxQ1BkYXdUMGtlYjlWTjdr?=
+ =?utf-8?B?a2MzRlphWnB1NGxXN1dwcFpkVUlFdmFNUGpSb1J4aVVkeng2T3p0YmQvd1VM?=
+ =?utf-8?B?cVZhWTJodUxsWXVsNzhPdDhJUUVpTWlXRzZXQWxyR2hIbmNoczNtS2lQRDJL?=
+ =?utf-8?B?Z2ovcFEzcGpFNVQ0cC9qYUp1VHA3cENnS3hMMllza29EQ3FXM1Q0N3dCZEQv?=
+ =?utf-8?B?WnZ5OW5RUFVNWXV3aHA1NXh4ZTJSdGIvOWZEbUo3Nmxpa2RKdGtuUGVDdEts?=
+ =?utf-8?B?VENCd1lsSzV6NlVOVnh1d21qbWZ0aWJ0cFVIdkJvS0xlSzM4Qm9vbCtsU2hO?=
+ =?utf-8?B?TTgreEJDZjlVbEFWaytsak92bXQ5a2pRajVQblpBUjA4VVQzTGdScGpKajV2?=
+ =?utf-8?B?RUlrNmZsUjdSbHZsNXNwV2lrZ1ozbUFUdDdkTHVOT0ViMVZOeHFYZUZYOGZG?=
+ =?utf-8?B?RTJNb2tTZlhGRVQ3NElUbEVKZ3JIM0xvWHNvZXUySEZpZ0NLRWRUdkxjRDB3?=
+ =?utf-8?B?ektIUGdYbmhQenZIR3JSQTJVVkZKbUxMdENJOENWUXJGbFZBTDVwa2xhd1Nk?=
+ =?utf-8?B?VW1ESWZQeGx6NHVXMGpwWFJZdnZMdnAwSGJDNDF5RXBFakYyTEF4aUorUWo4?=
+ =?utf-8?B?YzBiOEpNNTZBdDViSk5xaGE5R3doUFluT2FzOHFyZlhNZCtaN3hwTVZkL0lr?=
+ =?utf-8?B?NUtLbTdaY1ZSQXNidVg1VUZxTlRrdlNEZ2paQTZsbkNNbXQ5d25OTHpLeHBL?=
+ =?utf-8?B?QW1JM2Y2NDg5TUhjS3pwL0NSMnkrNXd6d2xsWW1NdWRWVlFNR2RDSXBua2J2?=
+ =?utf-8?B?ODNWb1NQR3BsblZIMjBKaWQ2OUl5aCt3Y0V6VHNBYkxMMmYycTFuOHZ4dXl1?=
+ =?utf-8?B?UjdDK0c1ZHkwaXlMak8wdmt4bDM0eHJyTUJCbkxEU3had1h0WGhHeWsyeHVE?=
+ =?utf-8?B?cVJ6ZFpZaDh0UEhQMjgxMy8vaWVzUzUzOURGN3pzY0k2YThVNTNad0kra2xE?=
+ =?utf-8?B?WjZGTEJ5Rm91WmlHNUV1MEV2VEdsNWgvK2lLYno4Sm9TUVB4OEpic0FwdFZy?=
+ =?utf-8?B?NjVoKzh0UDZZTHY3K3JLTHBDdHZtNWtwVXkrTDNvbnhkQ3ZITGZYRFlqUGI3?=
+ =?utf-8?Q?JjOUllnX956mebA1kiRKHkEKBr4NJX01eXVWmU+9IJkAZ?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4jznhVIb0C/9kg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c39d4809-3bec-4455-6b1d-08ded7f76327
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 05:04:25.7416 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f2pVaHkNqMx/kcEtf5n324LF21wM57EEW6k8I5kY83WhC0zyHA4GkmEgT1SHhtriRYFdzXjA1/EA/NkozvZKcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7099
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,78 +144,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 30, 2026 at 8:42=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wrot=
-e:
+On Sun Jun 28, 2026 at 11:53 PM JST, Danilo Krummrich wrote:
+> Add the Ioctl DeviceContext for DRM devices that have been registered
+> with userspace previously.
 >
-> On Tue, Jun 23, 2026 at 11:53:50PM +0100, David Laight wrote:
+> A Device<T, Ioctl> has been registered at some point, but may be
+> concurrently unregistering or already unregistered. drm_dev_enter() can
+> guard against this, ensuring the device remains registered for the
+> duration of the critical section.
 >
-> > > If we restrict incoming dmabuf transfers to fit within VFS-centric
-> > > limits (2GB), we impose unnecessary overhead on the RDMA stack, forci=
-ng
-> > > it to manage a significantly higher number of memory registrations. B=
-y
-> > > cleanly splitting these massive contiguous device buffers into
-> > > page-aligned SGL entries, we directly improve the efficiency of P2P
-> > > transfers and memory registration.
-> >
-> > But a divide by '4G - PAGE_SIZE' is also non-trivial and (I think affec=
-ts
-> > a lot of io) when the quotient is always 1.
-> > Splitting into 2G chunks is a lot cheaper.
+> This typestate will be used in ioctl dispatch context where registration
+> is guaranteed by the DRM core, and RegistrationGuard can safely be
+> acquired.
 >
-> Doesn't matter this isn't fast path stuff. It is better to use fewer
-> SGL entries, IHMO.
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  rust/kernel/drm/device.rs | 34 +++++++++++++++++++++++++++++++---
+>  rust/kernel/drm/mod.rs    |  1 +
+>  2 files changed, 32 insertions(+), 3 deletions(-)
 >
-> > > Since this change doesn't seem to have a negative impact on standard =
-file
-> > > I/O or break existing VFS constraints, I'm curious why we shouldn't
-> > > support splitting these >4GB P2P transfers? Am I missing something?
-> >
-> > I was only wondering whether it was needed...
-> > It does bring up the question of why the >4GB transfers even need split=
-ting.
-> > But that is another question.
->
-> SGL can only store an unsigned int size, so any large physical range
-> has to be split down.
->
-> rdma now a days has code to process the sgl and restore back the > 4G
-> sizes since mode RDMA HW can accept that.
->
-> commit 486055f5e09df959ad4e3aa4ee75b5c91ddeec2e
-> Author: Michael Margolin <mrgolin@amazon.com>
-> Date:   Mon Feb 17 14:16:23 2025 +0000
->
->     RDMA/core: Fix best page size finding when it can cross SG entries
->
-> So whatever this produces needs to be compatible with that to undo it.
+> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> index 86a7fca1d33f..d429b4655449 100644
+> --- a/rust/kernel/drm/device.rs
+> +++ b/rust/kernel/drm/device.rs
+> @@ -74,14 +74,16 @@ macro_rules! drm_legacy_fields {
+> =20
+>  /// A trait implemented by all possible contexts a [`Device`] can be use=
+d in.
+>  ///
+> -/// A [`Device`] can be in one of two contexts:
+> +/// A [`Device`] can be in one of the following contexts:
+>  ///
+>  /// - [`Normal`]: The general-purpose, reference-counted context. A [`De=
+vice`] in this context may
+>  ///   or may not be registered with userspace.
+> +/// - [`Ioctl`]: The device has been registered with userspace at some p=
+oint; used in ioctl
+> +///   dispatch context.
+>  /// - [`Registered`]: The device has been registered with userspace at s=
+ome point.
+>  ///
+> -/// `Device<T, Registered>` dereferences to `Device<T>` ([`Normal`]), so=
+ any method available on a
+> -/// [`Normal`] device is also available on a [`Registered`] one.
+> +/// Both `Device<T, Ioctl>` and `Device<T, Registered>` dereference to `=
+Device<T>` ([`Normal`]),
+> +/// so any method available on a [`Normal`] device is also available in =
+the other contexts.
+>  pub trait DeviceContext: Sealed + Send + Sync {}
+> =20
+>  /// The general-purpose, reference-counted [`DeviceContext`].
+> @@ -113,6 +115,21 @@ impl DeviceContext for Normal {}
+>  impl Sealed for Registered {}
+>  impl DeviceContext for Registered {}
+> =20
+> +/// The [`DeviceContext`] of a [`Device`] that has been registered with =
+userspace previously.
+> +///
+> +/// A [`Device`] in this context has been registered at some point, but =
+may be concurrently
+> +/// unregistering or already unregistered. `drm_dev_enter()` can guard a=
+gainst this, ensuring the
+> +/// device remains registered for the duration of the critical section.
+> +///
+> +/// # Invariants
+> +///
+> +/// A [`Device`] in this context has been registered with userspace via =
+`drm_dev_register()` at
+> +/// some point.
+> +pub struct Ioctl;
+> +
+> +impl Sealed for Ioctl {}
+> +impl DeviceContext for Ioctl {}
+> +
+>  /// A [`Device`] which is known at compile-time to be unregistered with =
+userspace.
+>  ///
+>  /// This type allows performing operations which are only safe to do bef=
+ore userspace registration,
+> @@ -342,6 +359,17 @@ fn deref(&self) -> &Self::Target {
+>      }
+>  }
+> =20
+> +impl<T: drm::Driver> Deref for Device<T, Ioctl> {
+> +    type Target =3D Device<T>;
+> +
+> +    #[inline]
+> +    fn deref(&self) -> &Self::Target {
+> +        // SAFETY: The caller holds a `Device<T, Ioctl>`, which guarante=
+es all invariants
+> +        // of the weaker `Normal` context.
+> +        unsafe { self.assume_ctx() }
+> +    }
+> +}
 
-Thank you everyone. It looks like most open issues are sorted out.
-I'll wait for maintainers to weigh in before sending out v3 (which
-will remove the type cast for min() per David L.'s feedback, and
-revert to ALIGN_DOWN(UINT_MAX, PAGE_SIZE) per Jason's feedback).
+Since the `Deref` implementation is the same for `Ioctl` and
+`Registered`, do we want to add a private marker trait for these two so
+we can factor out this `impl` block?
 
-Hi Jason,
+It wouldn't reduce the LoC count, but would make the logical connection
+between the two states explicit and set an anchor for potential future
+blocks with a similar relationship.
 
-Thank you for your feedback. I took a closer look at the commit to
-ensure compatibility. This patch is perfectly complementary, and
-actually prevents a failure in an edge case for the latest
-`ib_umem_find_best_pgsz` [1].
+With or without this:
 
-Regards,
-David
-
-[1] For dma-buf split with `0xFFFFFFFF`, in case of a discontinguity
-in later buffers, we will hit this code path in
-`ib_umem_find_best_pgsz`
-
-```
-if (i !=3D 0)
-    mask |=3D va;
-```
-(*After `va` had been incremented by `0xFFFFFFFF`, due to `va +=3D
-sg_dma_len(sg) - pgoff`)
-(*Which will set the lowest bit of `mask` to 1)
-
-Because `count_trailing_zeros(mask) returns 0`,
-`ib_umem_find_best_pgsz()` will always return 0 in such cases.
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
