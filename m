@@ -4,78 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B704C43602
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:29:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D992FC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 15:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46F7D10F460;
-	Thu,  2 Jul 2026 15:29:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3890510F474;
+	Thu,  2 Jul 2026 15:31:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EZDY+QGc";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oLON+nr9";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A4E210E0D8;
- Thu,  2 Jul 2026 15:29:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 25A4F418F4;
- Thu,  2 Jul 2026 15:29:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7DF1F000E9;
- Thu,  2 Jul 2026 15:29:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783006184;
- bh=AmvNH9wwHqyoIMesePnV6/zMDBtlSz51dFh4yHJ1BTo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=EZDY+QGcsghhDIw9rxbIhnPAJRijthrModhJ3dAoSN5cVM+YkTpcpEvD+KPlh/M/u
- Qwt3kZkRl2OzXpZ8lNBF20cEMvcQmjr2C3N0OBOmi3krbMnyRHMJTEBJXrtiCGLkys
- hVceGk9nKeLivyWhhq1nb1heVf5ntbaXnUG4S4OpDlt89/1RU+lLBy/OziQBm1WY0f
- mLETtt6Kv1hVTKJQz++mgHlN+PUF+ac9yH5QtMrmNRfTW7GoeSyD7Rts3hi3Don33s
- UtJfTmtwGOSlfBDJEzVdm8IjgP96nHmx5GxFIPDKfkfCebxxa9UBrNHRuHW+T6BGzw
- FkrA9PbgKP9aQ==
-Date: Thu, 2 Jul 2026 16:29:20 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, 
- maddy@linux.ibm.com, mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com, 
- kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org, 
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, 
- tursulin@ursulin.net, robin.clark@oss.qualcomm.com, lumag@kernel.org,
- lyude@redhat.com, 
- dakr@kernel.org, tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, 
- heiko@sntech.de, andy.yan@rock-chips.com, thierry.reding@kernel.org, 
- mperttunen@nvidia.com, jonathanh@nvidia.com, kraxel@redhat.com, 
- dmitry.osipenko@collabora.com, zack.rusin@broadcom.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
- deller@gmx.de, bcrl@kvack.org, 
- viro@zeniv.linux.org.uk, brauner@kernel.org, muchun.song@linux.dev,
- osalvador@suse.de, 
- david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
- liam@infradead.org, npache@redhat.com, ryan.roberts@arm.com, dev.jain@arm.com, 
- baohua@kernel.org, hughd@google.com, vbabka@kernel.org, rppt@kernel.org, 
- surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de, 
- kees@kernel.org, perex@perex.cz, tiwai@suse.com, linux-mips@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, 
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
- linux-sound@vger.kernel.org
-Subject: Re: [PATCH 06/13] mm/vma: convert vm_pgprot_modify() to use
- vma_flags_t and rename
-Message-ID: <akaC-xxNr8ZyN4aH@lucifer>
-References: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
- <20260702122116.65642-1-lance.yang@linux.dev>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BA7110F474
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 15:31:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783006294;
+ bh=Zi5UKkQAde8mN3IG6YQiyurRns38TX7Fo1Cu8dlpyYU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=oLON+nr9Nv4Ra+ef4reeIHjf13O86yZHLVONwqtvpNONxvyewZctShSRdULpZdYAs
+ n5M6FypsJA7X3lrgZH7hUs1NWGwt5nGrsK/86kqLmuFrWRgqgBXvOxYtyFnatg9vIg
+ U8a8X6JOqfHhSHs6XIg2qW5NwFCnZ2P/dV2Uv/Pc5YGdqMcZ67zPmDERoxmFXlOmLg
+ ijFNiev/UtGbH/tQpApHRSwJiFhkCJ7vibax65al9RX5uaZzRnkiHffTnLeEBp2GBX
+ TYc7pw/HTxa6OGa3rgGJfncVHaFTrYaZKfL0zHLWlyjTYwpDHjTPlLN4KUX7IvogzB
+ 86zZj0PU4ywnQ==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3715617E0852;
+ Thu,  2 Jul 2026 17:31:34 +0200 (CEST)
+Date: Thu, 2 Jul 2026 17:31:27 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Danilo
+ Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
+Subject: Re: [RFC 2/8] drm/panthor: Use separate workqueue for DRM scheduler
+Message-ID: <20260702173127.3103af30@fedora-2.home>
+In-Reply-To: <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702122116.65642-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,57 +65,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 08:21:16PM +0800, Lance Yang wrote:
->
-> On Mon, Jun 29, 2026 at 08:25:29PM +0100, Lorenzo Stoakes wrote:
-> >Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
-> >rename to vma_pgprot_modify() accordingly.
-> >
-> >This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
-> >order to eliminate the arbitrary limit of the number of bits in a system
-> >word on available VMA flags.
-> >
-> >Update VMA userland tests accordingly, updating vma_set_page_prot() to no
-> >longer inline vma_pgprot_modify(), rather we can simply define
-> >vma_pgprot_modify() as a static inline function and the tests will pick it
-> >up from vma.h.
-> >
-> >No functional change intended.
-> >
-> >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> >---
-> [...]
-> >diff --git a/mm/vma.h b/mm/vma.h
-> >index bcf0c2773449..6a8abb8ae937 100644
-> >--- a/mm/vma.h
-> >+++ b/mm/vma.h
-> >@@ -522,9 +522,11 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
-> > }
-> >
-> > #ifdef CONFIG_MMU
-> >-static inline pgprot_t vm_pgprot_modify(pgprot_t oldprot, vm_flags_t vm_flags)
-> >+static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
-> > {
-> >-	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
-> >+	const pgprot_t prot = vma_get_page_prot(vma_flags);
-> >+
-> >+	return pgprot_modify(oldprot, prot);
->
-> Nit: could this just stay as a single return? something like:
->
-> return pgprot_modify(oldprot, vma_get_page_prot(vma_flags));
+On Thu,  2 Jul 2026 15:37:39 +0100
+Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
 
-I feel it's a bit clearer this way, separating out the two, I know it's a super
-tiny difference but anyway :P
+> Currently an unordered workqueue is used for the DRM scheduler which means
+> its concurrency is externally managed, and given there is one scheduler
+> instance per userspace queue, that means workqueue management logic is
+> within its rights to spawn many kernel threads to submit their respective
+> jobs.
+> 
+> Problem there is that all run job callbacks are serialized on the device
+> global mutex,
 
->
-> Otherwise, LGTM, feel free to add:
->
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+I think we should address that instead, and either shorten the scope of
+the locked section, or make it so we don't make it a contention point
+for concurrent job submission from different contexts (with a rwsem
+instead of a lock, for instance).
 
-Thanks!
+> making the potential thread storm just causing lock
+> contention.
+> 
+> If we add a separate ordered workqueue for the DRM scheduler integration
+> we can avoid this problem, since the ordered property directly expresses
+> the nature of the submission backend implementation.
 
->
-> [...]
+Yep, except that's not how it was meant to work. The goal was to allow
+contexts to submit their jobs concurrently to the FW. The only reason we
+take the lock is to:
 
-Cheers, Lorenzo
+1. make sure the context is still allowed to take jobs
+2. kick the group scheduler if the context is not resident
+
+For #1, I believe we can come up with either a lockless solution, or a
+solution where the lock protecting the state belongs to the group
+instead of being externally protected by the device-wide scheduler lock.
+
+For #2, the rwsem approach, and narrowing down the locked section to
+just this part of the code should do the trick. 
+
+> 
+> And considering the other user of this workqueue, the free job callback,
+> which is not globally serialized in this manner so could be thought to
+> potentially regress with this change, it should not be the case since
+> commit
+> a58f317c1ca0 ("drm/sched: Free all finished jobs at once")
+> made the DRM scheduler handle the cleanup of finished jobs more promptly.
+
+I don't know if this change is a hard dep for what's coming next, but
+if it's not, I'd drop it. If it is, and the new kthread_work solution
+relies on this serialization, I guess I need to read more to understand
+why.
+
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Liviu Dudau <liviu.dudau@arm.com>
+> Cc: Steven Price <steven.price@arm.com>
+> ---
+> v2:
+>  * Actually create an unordered wq.
+>  * Put back WQ_MEM_RECLAIM to sched->wq.
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 26 +++++++++++++++++--------
+>  1 file changed, 18 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 2bee1c92fb9e..f4dfd82ad8a8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -147,13 +147,11 @@ struct panthor_scheduler {
+>  	struct panthor_device *ptdev;
+>  
+>  	/**
+> -	 * @wq: Workqueue used by our internal scheduler logic and
+> -	 * drm_gpu_scheduler.
+> +	 * @wq: Workqueue used by our internal scheduler logic.
+>  	 *
+>  	 * Used for the scheduler tick, group update or other kind of FW
+>  	 * event processing that can't be handled in the threaded interrupt
+> -	 * path. Also passed to the drm_gpu_scheduler instances embedded
+> -	 * in panthor_queue.
+> +	 * path.
+>  	 */
+>  	struct workqueue_struct *wq;
+>  
+> @@ -166,6 +164,14 @@ struct panthor_scheduler {
+>  	 */
+>  	struct workqueue_struct *heap_alloc_wq;
+>  
+> +	/**
+> +	 * @sched_wq: Workqueue used for the DRM scheduler.
+> +	 *
+> +	 * Workqueue used for drm_gpu_scheduler instances embedded in
+> +	 * panthor_queue.
+> +	 */
+> +	struct workqueue_struct *sched_wq;
+> +
+>  	/** @tick_work: Work executed on a scheduling tick. */
+>  	struct delayed_work tick_work;
+>  
+> @@ -3488,7 +3494,7 @@ group_create_queue(struct panthor_group *group,
+>  {
+>  	struct drm_sched_init_args sched_args = {
+>  		.ops = &panthor_queue_sched_ops,
+> -		.submit_wq = group->ptdev->scheduler->wq,
+> +		.submit_wq = group->ptdev->scheduler->sched_wq,
+>  		/*
+>  		 * The credit limit argument tells us the total number of
+>  		 * instructions across all CS slots in the ringbuffer, with
+> @@ -4078,6 +4084,9 @@ static void panthor_sched_fini(struct drm_device *ddev, void *res)
+>  	if (sched->heap_alloc_wq)
+>  		destroy_workqueue(sched->heap_alloc_wq);
+>  
+> +	if (sched->sched_wq)
+> +		destroy_workqueue(sched->sched_wq);
+> +
+>  	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
+>  		drm_WARN_ON(ddev, !list_empty(&sched->groups.runnable[prio]));
+>  		drm_WARN_ON(ddev, !list_empty(&sched->groups.idle[prio]));
+> @@ -4168,12 +4177,13 @@ int panthor_sched_init(struct panthor_device *ptdev)
+>  	 * allocate memory, and fail the tiling job if none of these
+>  	 * countermeasures worked.
+>  	 *
+> -	 * Set WQ_MEM_RECLAIM on sched->wq to unblock the situation when the
+> -	 * system is running out of memory.
+> +	 * Set WQ_MEM_RECLAIM on sched->wq and wq->sched_wq to unblock the
+> +	 * situation when the system is running out of memory.
+>  	 */
+>  	sched->heap_alloc_wq = alloc_workqueue("panthor-heap-alloc", WQ_UNBOUND, 0);
+>  	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
+> -	if (!sched->wq || !sched->heap_alloc_wq) {
+> +	sched->sched_wq = alloc_ordered_workqueue("panthor-drm-sched", WQ_MEM_RECLAIM);
+> +	if (!sched->wq || !sched->heap_alloc_wq || !sched->sched_wq) {
+>  		panthor_sched_fini(&ptdev->base, sched);
+>  		drm_err(&ptdev->base, "Failed to allocate the workqueues");
+>  		return -ENOMEM;
+
