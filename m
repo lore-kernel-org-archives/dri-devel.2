@@ -4,91 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64808C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:17:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBC3C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Jul 2026 12:17:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C44AE10F315;
-	Thu,  2 Jul 2026 12:17:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECCD410F348;
+	Thu,  2 Jul 2026 12:17:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YfjRFUXE";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="vK6IYk9g";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88E6010F315;
- Thu,  2 Jul 2026 12:17:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2D679402F0;
- Thu,  2 Jul 2026 12:17:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE691F000E9;
- Thu,  2 Jul 2026 12:16:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782994620;
- bh=SmrhXKb/tICfou2fB2Dbzvn0JaPripZ9jvu2bmh8Jik=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=YfjRFUXEBU2dRmuBpB4h+tQRBLbIKpZBr7Vf/wGNH8GIbYIoOZ2+iJacKSoCbpVtS
- nLyO5ja5AytCvhqwDq0QenPxKrMKslV49oH6XBSjalGtxG47SJjiMV7MT+tzXio6ce
- JdlM4siO5IwFaYVLcm4KaNHxCA6hmUqsbOTyo9nlQqZd4lEWBGt33GCh9LZqRUfBBn
- mcQd1A7BvVsZSb2TQuY2xdCzCh+UDajG+SL5GXiJNr7mmSLrWTVjj9rBrdT9z87G/T
- Vy7FJvYKgcFqj/cL9xNXF6QvQ5MobsDT2Zofpc5Qxh41lYF1oSGL+QhpzzXdyRSPWv
- bIXuhAyMKtIcQ==
-Date: Thu, 2 Jul 2026 13:16:38 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 20/30] mm/vma: introduce vma_assert_can_modify()
-Message-ID: <akZNWNuyBU4xDDyf@lucifer>
-References: <cover.1782735110.git.ljs@kernel.org>
- <23c7602c58cacc23ef22618a27af9a2d54addf58.1782735110.git.ljs@kernel.org>
- <akZHWwVgJfqCwA2W@pedro-suse.lan>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BDFFD10F34B;
+ Thu,  2 Jul 2026 12:17:38 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9CA01D15;
+ Thu,  2 Jul 2026 05:17:33 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A4353F905;
+ Thu,  2 Jul 2026 05:17:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782994658; bh=Wnn2Ksvw76sAIUTT1KSmFOtvZNloFjX2aZnafzdf1UQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=vK6IYk9gGV1YLFWdtmNJ138PGUigoXO6KoGAs2xhe8xYj4Ie8oxMHU7qkepIguElP
+ keKbPz8EWxK01r1MWaM243c/uNeghukm+UWDWB2botZRsvuycY5oypm60m1JLQns60
+ R3uaSZGvWVURylQgZg0iJQivMo/r2FericMoXnDM=
+Message-ID: <73b486cb-e082-4c3e-a193-6629960efede@arm.com>
+Date: Thu, 2 Jul 2026 13:17:23 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akZHWwVgJfqCwA2W@pedro-suse.lan>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Andi Shyti <andi.shyti@linux.intel.com>,
+ =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-4-krzysztof.karas@intel.com>
+ <b65c0f9f-184e-42fb-85dd-aa6c06dc91d8@arm.com>
+ <bbh4gbq6eolkqwhcuou2fufcbpthxklb2nmawglhhxdzea6tpg@2j7xekrl64pj>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <bbh4gbq6eolkqwhcuou2fufcbpthxklb2nmawglhhxdzea6tpg@2j7xekrl64pj>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,134 +64,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 12:16:32PM +0100, Pedro Falcato wrote:
-> On Mon, Jun 29, 2026 at 01:23:31PM +0100, Lorenzo Stoakes wrote:
-> > vma_assert_write_locked() and vma_assert_attached() are useful for their
-> > own purposes, however VMA code absolutely does allow the modification of
-> > non-write locked VMAs if they are at that point detached (i.e. unreachable
-> > from anywhere).
-> >
-> > It's therefore useful to be able to assert that a VMA is either
-> > detached (modification doesn't matter) or write locked (you're explicitly
-> > locked for modification).
->
-> Hmm, I was wondering why detached does not imply write_locked, and then
+On 02/07/2026 7:22 am, Krzysztof Karas wrote:
+> Hi Robin,
+> 
+> thanks for a quick response!
+> 
+> On 2026-07-01 at 12:59:29 +0100, Robin Murphy wrote:
+>> On 01/07/2026 11:44 am, Krzysztof Karas wrote:
+>>> It is possible, when a very large mapping uses a single
+>>> scatterlist, that padding overflows scatterlist's length field.
+>>> This results in:
+>>>    1) silently wrapping the value
+>>>    2) smaller than desired mappings produced by iommu_map_sg
+>>>    3) leaving mapped bytes in memory (no iommu_unmap)
+>>>
+>>> Address this issue by adding overflow detection for previous
+>>> scatterlist length field.
+>>
+>> Awesome, thanks for figuring it out! Looks like this must date all the way
+>> back:
+>>
+>> Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
+> Okay, thanks for pinpointing this commit, I'll add the tag in
+> the next version of this series.
+> 
+>>
+>>> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+>>> ---
+>>> v2:
+>>>    * Address overflows instead of unmapping erroneously mapped
+>>>    memory (Robin).
+>>>    * Put this patch last for easier reproduction of the issue.
+>>>
+>>>    drivers/iommu/dma-iommu.c | 14 ++++++++++++--
+>>>    1 file changed, 12 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+>>> index 9abaec0703ef..c403057577df 100644
+>>> --- a/drivers/iommu/dma-iommu.c
+>>> +++ b/drivers/iommu/dma-iommu.c
+>>> @@ -1493,8 +1493,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>>>    		 *   time through here (i.e. before it has a meaningful value).
+>>>    		 */
+>>>    		if (pad_len && pad_len < s_length - 1) {
+>>> -			prev->length += pad_len;
+>>> -			iova_len += pad_len;
+>>> +			if (overflows_type(prev->length + pad_len, prev->length)) {
+>>> +				/*
+>>> +				 * For large mappings spanning multiple GBs we
+>>> +				 * may not be able to fit all needed padding into
+>>> +				 * sg->length.
+>>> +				 */
+>>> +				ret = -EOVERFLOW;
+>>> +				goto out_restore_sg;
+>>> +			} else {
+>>
+>> Nit: we don't really need an "else" after a goto, but it's hardly a big deal
+>> (however if you did want to respin, note also that the preferred title tag
+>> here is "iommu/dma: ...").
+> I'll be making another version anyway, so I can remove the
+> "else" and change the title :)
 
-For one obviously when detaching they are also write locked (see
-vma_mark_detached()) but yeah the point of this is when you have a VMA allocated
-which doesn't hold the appropriate lock.
+Cool :)
 
-> realized that new VMAs aren't write-locked. Could we do it by default?
-> Like a simple:
->
-> 	vma->vm_lock_seq = __vma_raw_mm_seqnum(vma);
->
-> might do the trick. I don't see why it wouldn't work? Is there some other
-> case I am not considering?
+>> Either way,
+>>
+>> Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+> Thanks!
+> 
+> would this r-b still hold after above minor changes, or would
+> you prefer to have one final look at the finished change and
+> then decide whether you give your r-b?
 
-Firstly, I'd rather not rework the VMA lock logic as part of this series. It's
-subtle and such changes are tricky.
+Indeed if it's just those tweaks then feel free to keep it, that's 
+usually what I mean by "either way".
 
-I'm trying to achieve the minimum changes while adding extra validation as I can
-in preparation for the scalable CoW work.
+Cheers,
+Robin.
 
-And I'm not sure wanting to alter the fundamentals of VMA locks is a good reason
-not to ack a patch :)
+> 
+>>
+>> I'd imagine Joerg can take this as an IOMMU fix, but FWIW if you did want an
+>> ack to take it through drm-fixes to keep it with the i915 patches, I
+>> wouldn't foresee any significant risk of conflicts.
+>>
+>> Thanks,
+>> Robin.
+>>
+>>> +				prev->length += pad_len;
+>>> +				iova_len += pad_len;
+>>> +			}
+>>>    		}
+>>>    		iova_len += s_length;
+>>
+> 
 
-But since you bring it up...
-
-There's subtleties here too.
-
-- At what point do you do this assignment? If it's the VMA allocation logic,
-  it's not obvious then that you even have the mmap write lock necessarily. Now
-  you're making assumptions that might be broken, or broken in future.
-
-  Now everybody who allocates a VMA has to 'just know' that they need to assign
-  an mm and mark it write-locked (but in a special new VMA way) before setting
-  the pgoff.
-
-- Detached means it is not currently in any tree, nor belongs necessarily to any
-  mm. So the concept of it being write locked is meaningless.
-
-- It's broken to perform actions on a new VMA that is not yet linked into any
-  tree that would require the VMA write lock. Currently the code _explicitly_
-  asserts that a detached VMA is not attempted to be write locked.
-
-- So we have a good way of catching people doing stupid or broken stuff to VMAs
-  that are not in the correct state (we currently _don't_ do that for detached
-  VMAs that _were_ in the tree, probably we should change that...!)
-
-- You'd have to create a new function to do this since we explicitly disallow
-  doing this right now, and that's more complexity and then you're then
-  creating a whole new meaning as to what VMA write lock acquisition is,
-  which is even more added complexity.
-
-- create_init_stack_vma() would break, so would hugetlb (lol) and static gate
-  VMAs explicitly do not belong to an mm, so there's simply no concept of them
-  being VMA write locked anyway.
-
-- I'm not sure violating the invariant of seqnum = 0 = no write locked VMAs is
-  safe.
-
-- Things get quite horrendous on fork (prior to us taking tmp's VMA write lock)
-  - you'd have to assign this field after duplicating the VMA midway through
-  attaching it to the new mm, where that mm has a new seqnum. But the new mm has
-  a seqnum of 0... so now you're having to duplicate it but alter what
-  vma_lock_init() does to reset the seqnum to 0 but then what if the
-  'duplication' logic asserts VMA write locked?
-
-It's very chicken and egg - on VMA duplication you want to be able to write the
-very fields that you need to do anything with the VMA prior to it being linked
-in anywhere.
-
-And we probably don't want to bake in the assumption that to change fundamental
-fields requires that you always hold the write lock as a consequence.
-
->
-> >
-> > Therefore introduce vma_assert_can_modify() for this purpose.
-> >
-> > While we're here, make vma_is_attached() available generally - if
-> > !CONFIG_PER_VMA_LOCKS, then there's no sense in which a VMA is
-> > detached (vma_mark_detached() is a noop), so have this default to true in
-> > this case.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> > ---
-> >  include/linux/mmap_lock.h | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
-> > diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-> > index 04b8f61ece5d..d513286d8160 100644
-> > --- a/include/linux/mmap_lock.h
-> > +++ b/include/linux/mmap_lock.h
-> > @@ -506,6 +506,8 @@ static inline __must_check
-> >  int vma_start_write_killable(struct vm_area_struct *vma) { return 0; }
-> >  static inline void vma_assert_write_locked(struct vm_area_struct *vma)
-> >  		{ mmap_assert_write_locked(vma->vm_mm); }
-> > +static inline bool vma_is_attached(struct vm_area_struct *vma)
-> > +		{ return true; }
-> >  static inline void vma_assert_attached(struct vm_area_struct *vma) {}
-> >  static inline void vma_assert_detached(struct vm_area_struct *vma) {}
-> >  static inline void vma_mark_attached(struct vm_area_struct *vma) {}
-> > @@ -530,6 +532,12 @@ static inline void vma_assert_stabilised(struct vm_area_struct *vma)
-> >
-> >  #endif /* CONFIG_PER_VMA_LOCK */
-> >
-> > +static inline void vma_assert_can_modify(struct vm_area_struct *vma)
-> > +{
-> > +	if (vma_is_attached(vma))
-> > +		vma_assert_write_locked(vma);
-> > +}
-> > +
-> >  static inline void mmap_write_lock(struct mm_struct *mm)
-> >  {
-> >  	__mmap_lock_trace_start_locking(mm, true);
-> > --
-> > 2.54.0
-> >
->
-> --
-> Pedro
-
-Thanks, Lorenzo
