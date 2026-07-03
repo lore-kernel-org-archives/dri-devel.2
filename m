@@ -4,44 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C48CFC43602
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 15:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3F3FC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 15:57:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16F2610E614;
-	Fri,  3 Jul 2026 15:54:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C063410E618;
+	Fri,  3 Jul 2026 15:57:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CVsa5L84";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="teDb5QX4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A83D10E614
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 15:54:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7BB6460051;
- Fri,  3 Jul 2026 15:54:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD801F000E9;
- Fri,  3 Jul 2026 15:54:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783094096;
- bh=q6C8NWEu9eFtneo+mMGOR5vA3glaDF1jKQ3dWIsPEH4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CVsa5L845qXxbQjOy88yhKGenWe6CKXSUWtCICXnefA5XIzWcyZ3acQuwzqs15esJ
- m2wXGDhB50yxKw0cnKwrBs/g3f6qW3QkUwoxt4dQ515rtekpc/J6CD6Khv8idmOpMi
- T9ozRUjKJR5G33Y2/rTi6me3O/HEn0Rjn38pgNTO2E15P/hTCEF2t/AfQf7347habM
- qz2ky026edj6pfyFYPzSXKr7Lv70jK4YXWw6NXlVsK6rG09zWzrITFb8wOeVsz3GRs
- +t0Pj9JX8fmLt1mU5ySKykgLb5YNGdoTYn/ahCEKZGJLjS7sdggF/jWQaEbd6Qk+LJ
- 9rlVRz/iBZYEQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] drm/v3d: Associate BOs with every job that
- accesses them
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260703-v3d-cpu-job-fixes-v3-1-bc51b1f3eeb5@igalia.com>
-References: <20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com>
- <20260703-v3d-cpu-job-fixes-v3-1-bc51b1f3eeb5@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 15:54:55 +0000
-Message-Id: <20260703155456.0FD801F000E9@smtp.kernel.org>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AEAB10E618
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 15:57:41 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 8EA4BC49F5B;
+ Fri,  3 Jul 2026 15:57:51 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 98EA960300;
+ Fri,  3 Jul 2026 15:57:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id A6BDF104C952E; 
+ Fri,  3 Jul 2026 17:57:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1783094258; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=WNXiKW07S33bW9KeO2Bt5KnejtU5TOqL61lNr94lJJU=;
+ b=teDb5QX4mWca5hN0PApbdiVCX4dtDQ4xIEZNtDqkOrgGU0YZP5+1hfYaCcTG0YJp9mH7oA
+ Q8RScaqoFTnPZCO/m9Pcq6oLD2QblIGGDbRqwfmcnjCbzVadnfT4CYdqigcUj/HBEV5G54
+ TR9rVbqy+Kvf9lT/zQ1lCme8LttC5S26QKkMHTCZm+6hEPsidKyQnBUIN6xmspgZIkF6Ba
+ O0ELerr2ePs9uozYW/BURI8CICM7GGIdi4PlIBjSbRSZJTNjBH3YvatKJF8WIYXG4vKI1y
+ edC/6a+2Eln4UQZkpb28z5ab4joSVjFymT/wiQitxc4tj6VrCrtrjUJsLcYJDg==
+Message-ID: <152a4721-b86e-4f57-ba93-a7640bf88157@bootlin.com>
+Date: Fri, 3 Jul 2026 17:57:21 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm: of: fix wording in comment
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260701-drm-fix-graph-wording-v1-0-295605c5777b@bootlin.com>
+ <20260701-drm-fix-graph-wording-v1-1-295605c5777b@bootlin.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260701-drm-fix-graph-wording-v1-1-295605c5777b@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,109 +71,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [Critical] V3D_CACHE_CLEAN jobs execute after their associated buffer obj=
-ects (BOs) are freed, causing the GPU L2 cache to write dirty lines back to=
- unmapped or reassigned physical memory.
 
-Pre-existing issues:
-- [High] The BIN job explicitly skips acquiring implicit dependencies, whic=
-h violates the dma-buf implicit sync contract for imported buffers and allo=
-ws the BIN job to execute concurrently with writers.
---
+On 7/1/26 19:19, Luca Ceresoli wrote:
+> Fix a comment according to English grammar.
+> 
+> Link: https://lore.kernel.org/all/DI9ZFQUNMSBU.214AU8467OK76@bootlin.com/
+> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-commit 9c4142c6fc75015db16c542de5fec66fe98c34f8
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
-drm/v3d: Associate BOs with every job that accesses them
+> ---
+>   drivers/gpu/drm/drm_of.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+> index d03ada82eac9..4fcdb6944155 100644
+> --- a/drivers/gpu/drm/drm_of.c
+> +++ b/drivers/gpu/drm/drm_of.c
+> @@ -253,7 +253,7 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
+>   	/*
+>   	 * of_graph_get_remote_node() produces a noisy error message if port
+>   	 * node isn't found and the absence of the port is a legit case here,
+> -	 * so at first we silently check whether graph presents in the
+> +	 * so at first we silently check whether a graph is present in the
+>   	 * device-tree node.
+>   	 */
+>   	if (!of_graph_is_present(np))
+> 
 
-This commit addresses an implicit synchronization issue by calling
-v3d_lookup_bos() for each job that references the submission's BOs. This
-gives earlier jobs in the submission chain their own implicit dependencies
-during reservation locking.
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index ee2ac2540ed50..9d23935b05dd0 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-
-[ ... ]
-
-> @@ -446,7 +441,8 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
->  	if (IS_ERR(clean_job))
->  		return PTR_ERR(clean_job);
-> =20
-> -	return v3d_lookup_bos(submit, args->bo_handles, args->bo_handle_count);
-> +	return v3d_lookup_bos(submit->file_priv, &job->base,
-> +			      args->bo_handles, args->bo_handle_count);
->  }
-
-[Severity: Critical]
-Does attaching the BOs exclusively to the CSD job leave the appended
-CACHE_CLEAN job without references to keep the BOs alive?
-
-If userspace submits a job with the flush cache flag and immediately closes
-the BO handles, the CSD job's completion might drop the final reference to
-the BOs.=20
-
-If the BOs are freed and unmapped before the CACHE_CLEAN job executes
-v3d_clean_caches(), could the synchronous flush write dirty lines back to
-reallocated physical memory?
-
-[ ... ]
-
-> @@ -1085,6 +1081,17 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *=
-data,
->  	if (ret)
->  		goto fail;
-> =20
-> +	/*
-> +	 * We don't associate the BOs with the BIN job. Fences are only
-> +	 * attached to the last job in the submission chain, and BIN jobs
-> +	 * don't need implicit dependencies since depending on results from
-> +	 * another context is not a realistic scenario for binning.
-> +	 */
-> +	ret =3D v3d_lookup_bos(submit.file_priv, &render->base,
-> +			     args->bo_handles, args->bo_handle_count);
-
-[Severity: High]
-This is a pre-existing issue, but does skipping the implicit dependencies
-for the BIN job violate the dma-buf implicit sync contract for imported
-buffers?
-
-If userspace imports a dma-buf that is currently being written by another
-context (like a compute shader or video decoder) and uses it for a BIN job,
-the DRM scheduler will execute the BIN job immediately because it was given
-zero implicit dependencies.
-
-Could this cause the hardware to read from the buffer while the other conte=
-xt
-is still writing to it, resulting in data corruption?
-
-> +	if (ret)
-> +		goto fail;
-> +
->  	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
->  		clean_job =3D v3d_submit_add_job(&submit, V3D_CACHE_CLEAN);
->  		if (IS_ERR(clean_job)) {
-
-[Severity: Critical]
-Similar to the CSD job in v3d_setup_csd_jobs_and_bos(), does associating
-the BOs exclusively with the RENDER job leave the cache clean job without
-references to the BOs?
-
-If the BOs are freed after the RENDER job completes, could the CACHE_CLEAN =
-job
-flush the L2 cache back to freed physical addresses?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-v3d-cpu-jo=
-b-fixes-v3-0-bc51b1f3eeb5@igalia.com?part=3D1
