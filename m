@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F38C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 04:13:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89941C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 04:28:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D44EC10E568;
-	Fri,  3 Jul 2026 04:13:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C693D10E55D;
+	Fri,  3 Jul 2026 04:28:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Uj8F8wmZ";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="VuDVjd0b";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VuDVjd0b";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1440810E553;
- Fri,  3 Jul 2026 04:13:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 52C58600E2;
- Fri,  3 Jul 2026 04:13:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EAC81F000E9;
- Fri,  3 Jul 2026 04:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783052018;
- bh=XLKVDQfsx9hZuipTAI+f27y7jhAau5VYS8053c6lGBE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Uj8F8wmZ+tjwYybD0ILNCuG9cg9/UTh0dnsYv5PvEEHPRYJcXrHBe/YtA1XQ+Bt5j
- fSuYrb2UtnrdJsGZaEsTOq+nFRxUFvjnGai4AR3JLyuAGIlyq/RJh4Fg0ZVUyTpye7
- BnKE6qNFt9LWzrP06cWdVPQ1Iffu7w4FGnk6k87jXWvu6PoecArR3sURE4IbAuyixt
- a369HkjK0Fr3bVKoo3K9DT6q+/FNFVquikETXxbba4eIx3NB3adQwgu9kGFiDgmwVi
- 9k0oMh73t5fALUnl5GShBbDm/0UPkyU543XUwvy0nEsaOx5Zw32MAgn+Xv/noN1C+8
- zjrsjdWwEGAYw==
-Date: Fri, 3 Jul 2026 09:43:19 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service support
-Message-ID: <akc23w16MeSu8ODb@sumit-xelite>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <CANLsYkyFJ+CbUJpwWAy28KHvmNz6rJRtM5KrEzHjyAha-7grTQ@mail.gmail.com>
+X-Greylist: delayed 918 seconds by postgrey-1.36 at gabe;
+ Fri, 03 Jul 2026 04:28:31 UTC
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C8D10E55D
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 04:28:31 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=hfeWr5BHyNT6a2qtRYqbBQlFcdwj0Mi1m3+qvWhJyVw=;
+ b=VuDVjd0bwczVpJ86vC5m+JuF/iKUAcVHTzEMJVKNogwOSlH+bYnG6ob/LPzGQL/rCI1BKG5W2
+ C350Wjx7rkkzv6WqBMK7nlcStWNKRDH96Pr7g/TE1ERIUoJDaA1s0CqR5E3rhaIL/h4wogxPXJG
+ LCk+cUNoPQ4zTAACPYftuvc=
+Received: from canpmsgout09.his.huawei.com (unknown [172.19.92.135])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4gs0hJ3xTlz1BG0Z
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:12:16 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=hfeWr5BHyNT6a2qtRYqbBQlFcdwj0Mi1m3+qvWhJyVw=;
+ b=VuDVjd0bwczVpJ86vC5m+JuF/iKUAcVHTzEMJVKNogwOSlH+bYnG6ob/LPzGQL/rCI1BKG5W2
+ C350Wjx7rkkzv6WqBMK7nlcStWNKRDH96Pr7g/TE1ERIUoJDaA1s0CqR5E3rhaIL/h4wogxPXJG
+ LCk+cUNoPQ4zTAACPYftuvc=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+ by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4gs0Vh5vzDz1cyPx;
+ Fri,  3 Jul 2026 12:03:56 +0800 (CST)
+Received: from kwepemo500009.china.huawei.com (unknown [7.202.194.199])
+ by mail.maildlp.com (Postfix) with ESMTPS id 336F74056D;
+ Fri,  3 Jul 2026 12:13:06 +0800 (CST)
+Received: from [10.67.121.161] (10.67.121.161) by
+ kwepemo500009.china.huawei.com (7.202.194.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Fri, 3 Jul 2026 12:13:05 +0800
+Message-ID: <6ab4c781-2409-4015-aac1-01d5cc1b9f6f@huawei.com>
+Date: Fri, 3 Jul 2026 12:13:05 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANLsYkyFJ+CbUJpwWAy28KHvmNz6rJRtM5KrEzHjyAha-7grTQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 3/4] vfio/pci: implement get_pci_tph and DMA_BUF_TPH
+ feature
+To: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>, Leon
+ Romanovsky <leon@kernel.org>, Michael Guralnik <michaelgur@nvidia.com>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>, 
+ Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
+CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>
+References: <20260702181025.2694961-1-zhipingz@meta.com>
+ <20260702181025.2694961-4-zhipingz@meta.com>
+Content-Language: en-US
+From: fengchengwen <fengchengwen@huawei.com>
+In-Reply-To: <20260702181025.2694961-4-zhipingz@meta.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.67.121.161]
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemo500009.china.huawei.com (7.202.194.199)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,202 +80,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey Mathieu,
-
-On Thu, Jul 02, 2026 at 01:14:03PM -0600, Mathieu Poirier wrote:
-> Hey Sumit - nice hearing from you...
+On 7/3/2026 2:10 AM, Zhiping Zhang wrote:
+> Implement dma-buf get_pci_tph for vfio-pci exported dma-bufs and add
+> VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can publish TPH metadata
+> for a VFIO-owned device.
 > 
-
-Good to hear from you too.
-
-> Is there some kind of overarching design harminisation between what
-> you are proposing here and what Arnaud posted back in April [1] ?
-
-The design here for remoteproc bringup on Qcom platforms for OP-TEE is
-carried forward from whatever existed earlier with QTEE. This patch-set
-just adds OP-TEE backend and replicate the same co-processor bringup
-design as QTEE.
-
-Co-processor bringup using a TEE is very different on Qcom platforms as
-compared to what ST did. The image formats for Qcom are custom ones
-using MBN format over ELF for which the MDT loader exists in the kernel
-only. Similarly the firmware image authentication is very tightly
-coupled with Qcom secure boot chain.
-
-The ST framework rather uses an ELF loader in OP-TEE for image loading
-and have an authentication mechanism similar to TAs. Also, the OP-TEE
-ABI is altogether different from the PAS ABI that Qcom has for the TEE.
-
--Sumit
-
+> 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
+> uAPI carries both with explicit validity flags, and get_pci_tph()
+> returns the value matching the importer's requested namespace or
+> -EOPNOTSUPP.
 > 
-> [1]. https://lists.trustedfirmware.org/archives/list/op-tee@lists.trustedfirmware.org/thread/VMKTRATYUFWL2TP7NHN5KJ37MSVZZMPK/
+> Publish and read the TPH descriptor under dmabuf->resv, matching the
+> locking used for other importer-visible dma-buf state. The SET ioctl
+> takes dma_resv_lock_interruptible(), while the callback runs under
+> DMA-buf's asserted resv lock.
 > 
-> On Thu, 2 Jul 2026 at 05:59, Sumit Garg <sumit.garg@kernel.org> wrote:
-> >
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> >
-> > Qcom platforms has the legacy of using non-standard SCM calls
-> > splintered over the various kernel drivers. These SCM calls aren't
-> > compliant with the standard SMC calling conventions which is a
-> > prerequisite to enable migration to the FF-A specifications from Arm.
-> >
-> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> > support these non-standard SCM calls. And even for newer architectures
-> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
-> > calls either with FF-A requirements coming in. And with both OP-TEE
-> > and QTEE drivers well integrated in the TEE subsystem, it makes further
-> > sense to reuse the TEE bus client drivers infrastructure.
-> >
-> > The added benefit of TEE bus infrastructure is that there is support
-> > for discoverable/enumerable services. With that client drivers don't
-> > have to manually invoke a special SCM call to know the service status.
-> >
-> > So enable the generic Peripheral Authentication Service (PAS) provided
-> > by the firmware. It acts as the common layer with different TZ
-> > backends plugged in whether it's an SCM implementation or a proper
-> > TEE bus based PAS service implementation.
-> >
-> > The TEE PAS service ABI is designed to be extensible with additional API
-> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> > extensions of the PAS service needed while still maintaining backwards
-> > compatibility.
-> >
-> > Currently OP-TEE support is being added to provide the backend PAS
-> > service implementation which can be found as part of this PR [1].
-> > This implementation has been tested on Kodiak/RB3Gen2 and lemans
-> > EVK boards. In addition to that WIN/IPQ targets tested OP-TEE with
-> > this service too. Surely the backwards compatibility is maintained and
-> > tested for SCM backend.
-> >
-> > Note that kernel PAS service support while running in EL2 is at parity
-> > among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
-> > on proper IOMMU support being worked out on the PAS client end.
-> >
-> > Patch summary:
-> > - Patch #1: adds generic PAS service.
-> > - Patch #2: migrates SCM backend to generic PAS service.
-> > - Patch #3: adds TEE/OP-TEE backend for generic PAS service.
-> > - Patch #4-#12: migrates all client drivers to generic PAS service.
-> > - Patch #13: drops legacy PAS SCM exported APIs.
-> >
-> > The patch-set is based on v7.2-rc1 and can be found in git tree
-> > here [2].
-> >
-> > Merge strategy:
-> >
-> > It is expected due to APIs dependency, the entire patch-set to go via
-> > the Qcom tree. All other subsystem maintainers, it will be great if I
-> > can get acks for the corresponding subsystem patches.
-> >
-> > [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
-> > [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v9
-> >
-> > ---
-> > Changes in v9:
-> > - Rebased to 7.2-rc1.
-> > - Enable SCM backend similar to TEE if ARCH_QCOM is set.
-> > - Address misc. comments from Konrad.
-> > - Add checks for corner cases (although not reachable as per OP-TEE ABI)
-> >   reported by Shashiko on patch #3.
-> > - Picked up review tags from Konrad.
-> >
-> > Changes in v8:
-> > - Rebased on mainline tip (no functional changes).
-> > - Now Lemans EVK is also tested to support OP-TEE PAS here:
-> >   https://github.com/OP-TEE/optee_os/pull/7845
-> > - Drop Kodiak DT patch as it is carried independently by Mukesh here:
-> >   https://lore.kernel.org/lkml/20260624063952.2242702-1-mukesh.ojha@oss.qualcomm.com/
-> > - Regarding Sashiko comments, I have already replied in v6 the ones that
-> >   don't apply but in v7 I got the same comments again. Specific context
-> >   reasoning which Shashiko ignores:
-> >     - ABI contract between Linux and TZ
-> >     - No support for multiple concurrent backends
-> >     - The TZ backend doesn’t detach during the entire boot cycle
-> >
-> > Changes in v7:
-> > - Rebased to qcom tree (for-next branch) tip.
-> > - Merged patch #5 and #7 due to build dependency.
-> > - Disabled modem for kodiak EL2 as it isn't tested yet.
-> > - Fix an issue found out by sashiko-bot for patch #4.
-> >
-> > Changes in v6:
-> > - Rebased to v7.1-rc4 tag.
-> > - Patch #14: fixed ret error print.
-> > - Add Kconfig descriptions for PAS symbols such that they are visible
-> >   in menuconfig to update.
-> >
-> > Changes in v5:
-> > - Incorporated misc. comments from Mukesh.
-> > - Split up patch #11 into 2 to add an independent commit for passing
-> >   proper PAS ID to set_remote_state API.
-> > - Picked up tags.
-> >
-> > Changes in v4:
-> > - Incorporate misc. comments on patch #4.
-> > - Picked up an ack for patch #10.
-> > - Clarify in cover letter about state of media support.
-> >
-> > Changes in v3:
-> > - Incorporated some style and misc. comments for patch #2, #3 and #4.
-> > - Add QCOM_PAS Kconfig dependency for various subsystems.
-> > - Switch from pseudo TA to proper TA invoke commands.
-> >
-> > Changes in v2:
-> > - Fixed kernel doc warnings.
-> > - Polish commit message and comments for patch #2.
-> > - Pass proper PAS ID in set_remote_state API for media firmware drivers.
-> > - Added Maintainer entry and dropped MODULE_AUTHOR.
-> >
-> > Sumit Garg (14):
-> >   firmware: qcom: Add a generic PAS service
-> >   firmware: qcom_scm: Migrate to generic PAS service
-> >   firmware: qcom: Add a PAS TEE service
-> >   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
-> >   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
-> >   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
-> >   remoteproc: qcom: Select QCOM_PAS generic service
-> >   drm/msm: Switch to generic PAS TZ APIs
-> >   media: qcom: Switch to generic PAS TZ APIs
-> >   media: qcom: Pass proper PAS ID to set_remote_state API
-> >   net: ipa: Switch to generic PAS TZ APIs
-> >   wifi: ath12k: Switch to generic PAS TZ APIs
-> >   firmware: qcom_scm: Remove SCM PAS wrappers
-> >   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
-> >
-> >  MAINTAINERS                                   |   9 +
-> >  drivers/firmware/qcom/Kconfig                 |  22 +-
-> >  drivers/firmware/qcom/Makefile                |   2 +
-> >  drivers/firmware/qcom/qcom_pas.c              | 299 +++++++++++
-> >  drivers/firmware/qcom/qcom_pas.h              |  50 ++
-> >  drivers/firmware/qcom/qcom_pas_tee.c          | 479 ++++++++++++++++++
-> >  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
-> >  drivers/gpu/drm/msm/Kconfig                   |   1 +
-> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
-> >  drivers/media/platform/qcom/iris/Kconfig      |  27 +-
-> >  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
-> >  drivers/media/platform/qcom/venus/Kconfig     |   1 +
-> >  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
-> >  drivers/net/ipa/Kconfig                       |   2 +-
-> >  drivers/net/ipa/ipa_main.c                    |  13 +-
-> >  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
-> >  drivers/net/wireless/ath/ath12k/ahb.c         |  10 +-
-> >  drivers/remoteproc/Kconfig                    |   4 +-
-> >  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
-> >  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
-> >  drivers/remoteproc/qcom_wcnss.c               |  12 +-
-> >  drivers/soc/qcom/mdt_loader.c                 |  12 +-
-> >  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
-> >  include/linux/firmware/qcom/qcom_scm.h        |  29 --
-> >  include/linux/soc/qcom/mdt_loader.h           |   6 +-
-> >  26 files changed, 1095 insertions(+), 321 deletions(-)
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
-> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
-> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> >
-> > --
-> > 2.53.0
-> >
+> The attach path reads @revoked without holding memory_lock. Annotate it
+> with READ_ONCE() to document this intentional lockless access: the read
+> is a benign early-out, and a racing revocation is re-checked under
+> dmabuf->resv in vfio_pci_dma_buf_map() before any mapping is handed out.
+
+I believe this modification (@revoked) might be related to resetting the
+bit field segment and subsequently identifying a concurrency issue. It is
+recommended to submit this as an independent commit.
+
+> The annotation only needs to keep the access well-formed against the
+> memory_lock-protected writers.
 > 
+> Reject requests the device cannot consume as a completer:
+> pcie_tph_completer_type() must report at least
+> PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY, and Extended ST requires
+> PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH. Make PROBE follow the same hardware
+> gate so the feature only probes as supported when the device can really
+> consume it.
+> 
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+
+...
+
+>  
+>  #include "vfio_pci_priv.h"
+> @@ -19,7 +20,17 @@ struct vfio_pci_dma_buf {
+>  	u32 nr_ranges;
+>  	struct kref kref;
+>  	struct completion comp;
+> -	u8 revoked : 1;
+> +
+> +	/*
+> +	 * Updates protected by dmabuf->resv, @revoked additionally
+> +	 * protected by memory_lock.
+> +	 */
+> +	u16 tph_st_ext;
+> +	u8 tph_st;
+
+how about: u16 tph_xst;
+	   u16 tph_st;
+
+> +	bool revoked;
+
+why not move revoked before or after tph fields if it don't take one bit field?
+
+> +	u8 tph_st_valid:1;
+> +	u8 tph_st_ext_valid:1;
+
+how about: u8 tph_xst_valid
+
+> +	u8 tph_ph:2;
+>  };
+
+...
+
+> +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
+> +
+> +#define VFIO_DMA_BUF_TPH_ST		(1 << 0)
+> +#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)
+> +
+> +struct vfio_device_feature_dma_buf_tph {
+> +	__s32	dmabuf_fd;
+> +	__u32	flags;
+> +	__u16	steering_tag_ext;
+> +	__u8	steering_tag;
+
+how about:
+	__u16 xst;
+	__u8 st;
+and it corresponding to VFIO_DMA_BUF_TPH_ST/ST_EXT
+
+Thanks
+
+> +	__u8	ph;
+> +};
+> +
+>  /* -------- API for Type1 VFIO IOMMU -------- */
+>  
+>  /**
+
