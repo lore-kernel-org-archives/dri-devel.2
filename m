@@ -4,140 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A5ABC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:50:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C17CC43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:55:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E58F210E607;
-	Fri,  3 Jul 2026 13:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C732D10E60B;
+	Fri,  3 Jul 2026 13:55:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="WBiR+SZe";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="WjRsnbQE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W+RHAWfe";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022102.outbound.protection.outlook.com [52.101.96.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF7E10F813
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 13:50:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nkf/gYSjYqiS1WOonoyfeg6ZKtnR7BBlgwJBZ+omZ3Mh3L9lEkqWzeDG3aDOACY/KXBG02DMN29eak9E1CLemd13c1DAnG2PC31rRUlzDVei3SmgQPQ4J9/tTVP56J5Bna1SJ62YizeKgw/b3gSqLPULyaSDpTf81MPF9de8Ci1hqZCv8JJVoqJHhtG9LJIZc8zf83oDBM3kzPGOick338el8myRfvTLhC5vssR7zhSeqLRgdxDN+kY/+lCzhoAT+IH/b2sw5MkQjFi14aHIS4fcefJN5RATGGc+O10Sv7g1jA/pPI/L6nbKAy4BB1Mj2d3Z3z38kOZqiNbkNcALdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NZAvD5++MK+D3+T4Iqx9xOb0biN9XQi4L8VxGCFSRZs=;
- b=YuRnRTBVcScpstWZ5MN16/Bc//Vf0QwMplS4EmaOtxhqE1+/guIPibl3vBaa6D4hiCVtuiohOm7K0yzUqAPLowgfXSQjwu7NQrSPutURhlAl/KQEMHh9iJFVtbmg8UK8utFCNZDWq3XNbvmw8TToljhaQ/crtZG9ZSNGY/4VUnXl9V5uTdv2Pwguz+0v4jJyHMwQiH+hj6fq323ForJT8lMpLV6zEBFzHH5OBNQEQc3lUe7V6vFxjU/g2wywwLl4h0vHFdPaWL3h1hfCKQG14Zfy5rtNtMZmyoYIozFnMFCc2enuxaZT+xZUZstZFsIJTGh9HkpntjSPTewHKj1ceA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NZAvD5++MK+D3+T4Iqx9xOb0biN9XQi4L8VxGCFSRZs=;
- b=WBiR+SZeSvzAq60YXB4Ab0ORMTKPGUtoxKLF35MMVsLe3LTdHMBq/c2oRWhYui6vNBxKHFk8GCPuaccOFs6lFWNKH4Xt0tcXBkso0p1K9OrPBFliFPZxf6uIumy6YKMuietorJnmmjfLlSq3zZJ8fjocJBT6JEN5VKFlxMo7OFg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOZP265MB8524.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Fri, 3 Jul
- 2026 13:50:38 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 13:50:38 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 14:50:37 +0100
-Message-Id: <DJOZGKUDZ3GT.1FU4BOO0NII2E@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 15/20] rust: io: implement a view type for `Coherent`
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-15-d0961471ae50@garyguo.net>
- <DJOYP821KAZF.IZZ0ZOF10AG1@nvidia.com>
-In-Reply-To: <DJOYP821KAZF.IZZ0ZOF10AG1@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0670.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:351::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88EE010E5FA
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 13:55:24 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 663Br4Sw4091453
+ for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 13:55:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=A2ITQjqnGvmrPumq1Lg0UMR0
+ KWK9aB/bRTHDo6yM0WA=; b=WjRsnbQEoSG7b92R0ZHl5mxPd1UIQKYnvZMVzomx
+ MzHsDMeryy5x6TXfxX0Tv8dq//hHUNGrc2b9/t9ZHQpa0LFvZu7Es/oKlZGSXnvL
+ ZDXje4lzvun+y49QVm6VJXIyqpDUe+cez/zFSYIE0F3EYFFXCBhmsFuJFzFv+i4o
+ n427a128BNFRHaYQevpHlf2skfYMLhKdi9gWmNClTd1WRlU4f8HpbPYwVbNG1jvE
+ BEKoq4hV8T/gHHQ5Znz7eMQpMEXm9rGhJgjDF4EMmiWxUxn7EwvQvl6oRfns81kA
+ OPuzlDpG6yJiqKh38J3u4O/RtD1gl4+of15QEPjoV4sj2w==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
+ [209.85.221.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6ckj0dec-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 13:55:23 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id
+ 71dfb90a1353d-5954c5fbcc7so465520e0c.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 06:55:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783086923; x=1783691723;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=A2ITQjqnGvmrPumq1Lg0UMR0KWK9aB/bRTHDo6yM0WA=;
+ b=W+RHAWfep5poUcSILC+UVkG8pG2aJvEO1/J4qA+EEvft2ZxL1BSOd8VO+Db7Mlb9eG
+ 8ZORzMMMaVJOKDhUhQ+zqwcq8RILWnttf4iEx7Uf0naq2eAlbl3F7kmaGzlDtQES8P4C
+ hgTF23yIkWKdv+7t2yOWC7GcAhO3f/0uog+xyenvpo64+PIGgCDAJ7O/2Z0q54tBoHVg
+ hp58QhUA7kesx5ka4chmelhE6lACoaHcWAt1eETfurQTohnqNQSLHQzMoy4JRDJI/6Rx
+ ZCUNuKNFKRM1D5nrwx5KhgvT5LAfYYRzJbcYSCTq2fUwLt3rVneCTB7MT3CGtDhZ6wgy
+ OmgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783086923; x=1783691723;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=A2ITQjqnGvmrPumq1Lg0UMR0KWK9aB/bRTHDo6yM0WA=;
+ b=RsUTcZ+kRo6rKyntBO+2rk0Nn4GBt/XvvSJ6M2hSKOp3cA2I33zAaWNnnrbjf7KAMx
+ oBc0c0d6XX+Up9cELzcA1mfhtg1bq1ouTo08vrEy6zHazBTr9Vn95+xS+4Z/Y5kCDYBI
+ b0f+1CRnr+Qtw5CVz0Jz2dkuiN6MYKSLuWwiP8Rj2Sh0gNqF7ayE/VscAfj0/2hrnDkg
+ jCCMWSUxvL1vSjcambeLiRqakFMfde+m76OWkuKiO0Z5Evi7JTYYB6F2I4dgyVcFBK/V
+ NuoObZpvf4aN5xwYLox2Ek99xiuKhkk2oe4XitvqRSA8MTeVc51ruoZxef3l+LnwH6Uy
+ C7lw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqV8ai4nbUAZ93fdEQt4E0IU1+0/cvY6jZuoEmYjbnN2B/REL5kWv7bx8+218rxRxlzzQuROMXOqYA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfiW4gLEuSasRwA/WyGu1bwyiSZbzWoCND6ncqzFsvDLmGfgt+
+ xeQbO1bwiHzD6rS+rQDb+gERw2JreINodEvn0/kpkU1i5HPFrjiDCJm21l+c7ggibBH1MmAp8X8
+ e5FxsDURIm8FNUzMZWzPTF6kRtvnxrj+Ol49XzzcVX+QuPMy1RNMhoBtgi6YF0gCO3bKIzCQ=
+X-Gm-Gg: AfdE7cnmEfzPhi3CeiAElLb4eyPUpzKJkoUrwSEmC53Dim+bAqkKpwWMkYXInDIXVnR
+ UHr4CW9ymSiiaJY0pZ28Z2gSmPVkcHI/e3s+rHzG5DnVVn47HHqFGGIVRU0jg+UTUu+vd9hG8yn
+ lyrm7++BHzPw7tP5qGykThSR2D8wh0HB/S1nejSo+RLbecY989EoOG/AsbbZsctZrxQNZZvdJz2
+ 34lHyqn8kgY8+uDYwJ/vWqwj7Go9eXeSPxRb9ziRAfhqNWmGiTZxPJq0XKtRVQ9kXHml0/SmvhQ
+ E15nYiJ5Kh/3idntFjPP+0cfSmkQ7tYo1ZHqvtqVbFiC2wYr+d33HWQG4are4roLPQRi6s199Kb
+ Mhk3jrZVCmKiCk/Be/ReVTp5Gd0LYP9H1C/wpAcYjp19y2DA9xKi5sh1su+TA8PM2pVQo0vppnv
+ h0AKOoB5rg2i1pQrGldwrpkPRC
+X-Received: by 2002:a05:6122:1785:b0:5a2:5669:d6d7 with SMTP id
+ 71dfb90a1353d-5bddf66e951mr3967959e0c.9.1783086923020; 
+ Fri, 03 Jul 2026 06:55:23 -0700 (PDT)
+X-Received: by 2002:a05:6122:1785:b0:5a2:5669:d6d7 with SMTP id
+ 71dfb90a1353d-5bddf66e951mr3967937e0c.9.1783086922479; 
+ Fri, 03 Jul 2026 06:55:22 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aed13bfde7sm487894e87.56.2026.07.03.06.55.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jul 2026 06:55:21 -0700 (PDT)
+Date: Fri, 3 Jul 2026 16:55:19 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v8 01/39] video/hdmi: Introduce HDMI version enum
+Message-ID: <vnledtvhanfj7owf6wbu35up55jv7vsb5qvd5vmv6cgzfo4pox@dbvfatear4vx>
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-1-d79890d00b6a@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOZP265MB8524:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6e30a60-dc47-49a1-9539-08ded90a1043
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|23010399003|10070799003|366016|6133799003|22082099003|18002099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: MXLAd2dK+MUzsQplutL4JWVfHm1GX9Eu62HnWvpVhTotVfgjZrMli9VePzD9RznAAqe8pCmk0i7+8ayQriJQGR+syvyDNJArdtemVPce5v5ECBn0gwVnJMOsN/CN4HiNNr/fn1DqA3f/8C74jba/sBTIZ011xh/VlcQ2BOHIcX7O+yQmmGfzHquE4oihBz3Aosv2I6Pz1X5Kh9jQ23JG1ksw5Wv4TIjNOfrrEoQ+VucTjRWzmueaV/h1YfSS3br6GA3bV9ClDbSCBpt7lIyYs7i2m+Ca8JdXIWoYlzL5SYnnvQjAkOrPJYg6zGnPHM9hrOPwuBVOP7wHwLdvzMa5mn9qFBp/rihuFAw1D08AXxFbg/8bVSFeOn8Cqkk34y9xJsgu43Bt6JWv+vrPNPo6fNDVvvVpbNxxQ7znIW2wu6RTEx/waRNNnpwRMb/QahhAM3DDbv9zsWvNSdMuonXrxJRVFFjsdDK8cUH9cGFw1zn4jlfEN2fe9mfN4KLV0lK+v6iASoqh8Hlh3gbT9DGrt8wpnU1YSZXr+WLnuw/6raV2p0GWMHfKF0IKncJm3c1fNXpoMM/2wgfXi7nS6RizB6HbXNrnpzWH4dUpAt0dYeXslfkIYzD8r8urNYDDx4Ywa9hnnTVJH1kS7JQwlDeCX4PtaO0M+4CDjDPIhBFllPM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(10070799003)(366016)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3RrQW1nREJOQ2dqYWpTZ3NDby9LdzdzVnN0MDlvK3dLaHhIdHg1akVtTTc3?=
- =?utf-8?B?T3lHNzNvVmtDRlM4WWpJWU1iUjlZdUpsS0hqVHB4eWNwSUx3ZTZIUU5aZFU4?=
- =?utf-8?B?NTZYZ2hFRkVmMmpRYTB1VmhvcnhveFV1SXp4Z25BRnFNT2dCeDlCbjJHUWp6?=
- =?utf-8?B?L1BnYUNKcXJ6WW1CRExIZUMveFV5a21RYmMxdDMvNGVkNDNLYzduN0RqSEdo?=
- =?utf-8?B?Sm02dG9GQkZJWFU3cEFSc1VaRGtpQnBmQnNwejBUQkF4a0JtQW93VHV1MzZT?=
- =?utf-8?B?NVczSE9QOGNOL1Bnc2t0bnJ6VjJ3OStyQytxVWFlOFJaNXc0c05PbVVxRXUw?=
- =?utf-8?B?V1g4SWp2RFJuNmh0WmJiV0ZPLzlLb1lnb1FWUDFsRTVhS3FUc0FwZ2lJWDky?=
- =?utf-8?B?c2M1SHNyOUEzL25JRlk4SEwyMXBpU2llN3lmbjdVRTBRZXh4WlFTVmZnQVZC?=
- =?utf-8?B?MmE4dXByWHZwTjdIVTFNTGNBTUxOa0E0anFUdWF4WEJOR3NOWlpzNWRWelpk?=
- =?utf-8?B?b3RPNmxrTk9aeE1aTDk4NUJBaC83eExzcXRGL0l0OHRmSnlxeVNFM3pDWUZj?=
- =?utf-8?B?dFpiaEJ3VXp3L203TE5WaDVlQmdvc0N1dFd1ZzhEMUEzNC9CTmtlUUE0clEz?=
- =?utf-8?B?SzNJOWRUZWdpVGg4TDc3R3RETEpWVTRQcXBuYzF2OENNeTlpMndOWlRXUVg1?=
- =?utf-8?B?aW1telErMERHc2hBU0dhNlZ0Nkk5VHhYZUhaTnhjbXM5ODNjSjhaMnlWdmlz?=
- =?utf-8?B?Q3ZFOVo0QlVFRUkrdkRWb0VkTjFxL3c2a2txSDZMSnpSK05LK055bUlsU1N2?=
- =?utf-8?B?dlkyN3dIb3NLVWFVa09ETzc1SmZrd3Y0U2JNSFN6cVdPZlo0b0x0RzZ5azJM?=
- =?utf-8?B?WGkyWTZZdmNsanhpV1AvbHFMeW96V2NSRzVGQWwyUTJFc3FTUkRvQUhaK0Js?=
- =?utf-8?B?bnJhSWhzZnoxSmhIOGx1RzRSdCs0dEtHaTVIcDBRTDdXVjhEZjNsVTJtMW1q?=
- =?utf-8?B?anhjeERjRnc4dUs5M05keEJzTGtJb1B6USt0MzV5ZlNNWlhwNzUwM0FRRUlU?=
- =?utf-8?B?QUs5NklTZEhOdTZyQTJlYUQ0WTNDOGtrbzR0aHl1V3RYakJiYmE2NHBTUnAr?=
- =?utf-8?B?Z0RmSWZncWk2RkRDcC81ZHo1SjlsaE85eXA4UWU3UWxzbHFCL0JpaitETHFG?=
- =?utf-8?B?YXVoSHkzclA4NjZKNFVGWVZjM2xSb01MTVVrNjd6NUF6YjYyNVNKNWlnaFRU?=
- =?utf-8?B?WS9PRTZ2UkQ0dDlUQS9Pa0syNm42TjFyKzQ3Rk5iZU1UWHBjUWVFblJMY3N1?=
- =?utf-8?B?c0ZVTHlIaUowWDV5bWRhMUVRd3lwWDJ2Mnk0NnpEcGhXaEJUUU1vY3lVNFJu?=
- =?utf-8?B?QjdiYXM5dTQ2dXJjSk9VcDMvKzNVaTU0TW9DRlVmWGl2c0ZiRXI2SG1QbDBv?=
- =?utf-8?B?VHFWVERTRFh4Mjh4ZmtaY3BhdHpseHRhTEZ6clNMVTE2bXhVdWRHMnpBNE01?=
- =?utf-8?B?cDhRQzU0MDFoMXN1dEYvdDN4UWZoVmxab09PdmdCU3l2Sm42dXcrc3haRXJs?=
- =?utf-8?B?d3lsYWhtNUJMWE1kZlNZb1V0UlhZaW5RN1h0TGRGVUZZMXEwK0RuMVU4NEx2?=
- =?utf-8?B?R3FlNTMvZmEwVk5IU3JkRGJ5U3Z0bXF0a0tWcTNVZ09uWjl5QUsxQ3loQ1BY?=
- =?utf-8?B?Skt0ZFlmczdhamZxR2FVTEszcDVsa1l6THRmS3pFUlRGRk5LcFl2cVg1elJy?=
- =?utf-8?B?TlZLdjZiY3E3b1VqNmd4WGczcGp0VzVWZmZLOXhpdUorZi9zMHhMaWFIYmpP?=
- =?utf-8?B?TnM5YmNTN0lzKzZIWTNacllsdGlmSVFsU1JsNzlMMGtBa3dPZ1RsVHpMVTBU?=
- =?utf-8?B?SjFFcFdhRWNxOUN6b3Q0VStPei9wTXYrRVNhNDVkTlhGaDVFa1JLdkdwSW53?=
- =?utf-8?B?NTkzWkZ0Z2VmQXdOMmEyK0J1azNQMjBlMkNUeWw1M0h2dmFaVGtSMmp6a0dp?=
- =?utf-8?B?ckp4SDhzc09qY2F2MXQyaytnZEVqL2J1VHZHQ0FBYzJuMVV3L1lkejFyT2hJ?=
- =?utf-8?B?TmRrZHc0WnplTVpWL0ZGU0tEdHFDNXZLOU82REoyZTJxOHZRT0wvczEvak5s?=
- =?utf-8?B?c29McWJ1MlZHenFQcVp1M2U0WStleWduTEJsWHJSWERCaEVxemVmUnAxVDBw?=
- =?utf-8?B?ZnJaajNsa1hwdXRXcDBXQWI2Y0NMc0lPUm9uTVRMMW11UlZycWJ0QytUNUQ1?=
- =?utf-8?B?SmRNU00rUHpJZDQ0RUx2MStXY2FQTU5HQURub2RJR1o4MW5CbXl1TExQN0p3?=
- =?utf-8?B?TVhpRU4vUUdjU3I3d0tsNjFSaUpQNFFuQmlNMEJueUM4K2FMUGFzZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6e30a60-dc47-49a1-9539-08ded90a1043
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 13:50:38.0121 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: InFNq6dKyRSPs5PTZRGlnYudNm02aNULOqw8It7qJDq55XY2za/1/mMY0G2BSgG6x128V+fbh45ASrLMHyfyNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOZP265MB8524
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-1-d79890d00b6a@collabora.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEzNyBTYWx0ZWRfXyE4/Rb0+TiTp
+ em0HrIhDSjKzAsKQceQWry5QKiSYq3/ZDgP7h/uZ6z4TNim10N6YbiGig8MyrAVeqDTK0iecsky
+ 5rFbl9Q/5UiiLtB+h//FqvhCgtcGPos=
+X-Authority-Analysis: v=2.4 cv=E8v9Y6dl c=1 sm=1 tr=0 ts=6a47bf4b cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=QX4gbG5DAAAA:8
+ a=EUspDBNiAAAA:8 a=VFBjkeCnKAITTyYkkK0A:9 a=CjuIK1q_8ugA:10
+ a=XD7yVLdPMpWraOa8Un9W:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-ORIG-GUID: YMHnFDRI3vNoel-RdZkqLJBuUSqRYG8n
+X-Proofpoint-GUID: YMHnFDRI3vNoel-RdZkqLJBuUSqRYG8n
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEzNyBTYWx0ZWRfX6TzayMWZY58+
+ 0IHJtnFfqm+Qwtohfl/hNFjQi2hMVWZc1aWuwuw0E9UqwEPdCKjsewglP0EVH3tnRLjzIrkQsTF
+ 1WLgP1C1K5W/RMjw0ZohmwF/3qsd3JmEoVy8JQGwhcyUTL2cfzKbyw8ikiBO/QRLEpUR3pFk/LO
+ Q+lGFA6G6tWqkbEKgJoNfZnajbc6dfWKt5ufGdNukKXJEjSMxxZ2EY5+9HY/ydKOEYBOoWO4aht
+ vebEo3Pd31p+tHz8N9j+eeFK3dab3ZzNw6HkBirzziHE0MQlqkTPHNi2kB5w2XDR3Im5OwbdiRg
+ YGphBvtdtUeGhfIoevCtMFiPrBsM9qiQdVqUlRFm8FJ+NUyNRBlPAy6ffhG2RiIemI/F2Myryxy
+ RB56GKGO19EcaDvPSbO1Fck9kGgr6xWUDrBGu0v5s5oGYs49ueE3n3t8XQ41bcCMjYUzXSC9z9Y
+ VElvjwKQNOfqzNY5/qw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030137
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,34 +158,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 3, 2026 at 2:14 PM BST, Alexandre Courbot wrote:
-> On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
->> Implement a `CoherentView` type which is a view of `Coherent`. To be abl=
-e
->> to give out DMA handles, the view type contains both CPU and DMA pointer=
-s,
->> and the projection method projects both at once.
->>
->> Delegate most of the `Io` implementation to `SysMemBackend`. Provide a
->> method to erase the DMA handle and give out a `SysMem` view, if the user
->> does not need the `dma_handle`.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->
-> Of the Sashiko comments, the second one (adding exclusivity requirement
-> to the safety comment) looks actionable; with that:
+On Thu, Jul 02, 2026 at 05:46:14PM +0300, Cristian Ciocaltea wrote:
+> Add an enum to represent HDMI specification versions.  This will be used
+> by upcoming changes to associate HDMI connectors and bridges with a
+> maximum supported version and to simplify handling of version-dependent
+> features.
+> 
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  include/linux/hdmi.h | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
 
-Most of the text is taken from existing `as_mut` method on the full `Cohere=
-nt`.
-I think these can be addressed, but I'd prefer to leave it to a further pat=
-ch
-(perhaps as a good first issue).
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Best,
-Gary
 
->
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->
-> (one nit below)
->
+-- 
+With best wishes
+Dmitry
