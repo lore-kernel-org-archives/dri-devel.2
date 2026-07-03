@@ -4,140 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F01C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 12:43:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE79C43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 12:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A968710E5DF;
-	Fri,  3 Jul 2026 12:43:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7B210E542;
+	Fri,  3 Jul 2026 12:55:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="L37+edxU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ng7Wfw71";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022115.outbound.protection.outlook.com [52.101.101.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D15F010E5DF
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:43:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PgIVnjUD1q4xFyAS1uplojUS5pqW0MyM8X2LBzNEHKs1SZFk2qEGPBtoblPJWesGFiGzpJX3McZkIJHs2fB9BQ1uLEx9iC45Fh58cSqB5KdQ4xnL+FxOU9JFJeeSA2UYvWAgvipi9GiIpOzbBBN7I26CUvgjf3LwVncQOCUVOwjzkkRQM2cqMvpMnQuwUVoL6jDLlI/lePDQAubYbmVJ8OmGG6qS9uG1ahXslJxgAVRni8Ai0wrZCJcKVhR+KwWZX/CfuG3kjeIVLQTogJ984LfIlvlo6NuYlW+cYqz2wdk9G3t3lcUwuZ3kYrr8rze5PUWXPE01LIZXYLHWagnLkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lv21P9hgUATnyOEW5+QgamrtjtsOflAw2CmDThsLCeE=;
- b=Dghu2Ov3KX6ybWcqnf9+CLkjLTSrPV9jEkrOLspoQfq9ka0y9ox7iokpbNjviXGJT77Is0FLpp24/AKJLIbeX73whoxcAabcZQCFEKJoZUfYCDohrCcu41zbb0GC8tviuKkZz5KiK8qmZTQZZRHJNMOg5JuAfZQ2WlZJ454sPik/kqRFfW9ccrL/vOCLmkj/rdWGgLqbJ7ZXIkFJyd7ozOIrlKPKA8XXUlbn59dhXv0r0Lo1WHzLBbHjMqx0Zl42tB8rBVGMZDUUXyhk0frD9wnDYqGy/PBhXRPAemSkRw7cKhv0izyw/vZRMftVIcXsvuZ83uRdmRoovJROpYTKng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lv21P9hgUATnyOEW5+QgamrtjtsOflAw2CmDThsLCeE=;
- b=L37+edxUppKi75rickavpCrHsP397qlBwmpM/cRMUwWzZLQi0lEQAUjym2OallNq8l8liy6sluBHoZehKiMNMm50vg9DtdluNCMO29vMpsV2AFOUYJvwfj9HXJHTXqoLS4gDpbjZUNTKyHp2mFut81F6YPec9ts56xmaak9MkEs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO2P265MB3038.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:173::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Fri, 3 Jul
- 2026 12:43:07 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 12:43:06 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2428A10E542;
+ Fri,  3 Jul 2026 12:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783083343; x=1814619343;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=jucgdXisZZY0srifFMbK4BpXBEgIMVY2AL8oW3c9Seg=;
+ b=Ng7Wfw71Zk8tBB4qdyO5Bq1jwRLfRZRSTSGEEpggpEQwx0Dzta5mIylZ
+ /lIx8CRwbpWQoQQWkFxo9x6BKu0TtDbzJJIB7474yjLO7Ax/UfZqJdLCz
+ 8Nl00cx5lNs+0Z/Dd5k2xu9y6IVX5RPQR3ztOt/zN0BPjGOY8bMiqqtTS
+ Unz2oFm9TdWYyBuWkkSVODCFRaPp6iQkHAqxz3X3kQhMVREG+dzIlnFgY
+ WR7dAc2U6UwSRy59Jqm9nCHznOa2BsCeQLB8krsxHAou/3rLl5TmMzkYZ
+ ajfzpJkjhyrKOT/A5IEdqR1F15wGH4z65tXPtd6R8csZpsBAz4NfTBNc8 w==;
+X-CSE-ConnectionGUID: wJfz3uTXT5WxN+WzWVPemg==
+X-CSE-MsgGUID: hx9bqXtxRQ64PiEsaCK16Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="94484674"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="94484674"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 05:55:42 -0700
+X-CSE-ConnectionGUID: eqve188SQN26FfTyN39R5w==
+X-CSE-MsgGUID: +CrGDlhzRGift+1FT1eZbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="257433299"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.146])
+ ([10.245.245.146])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 05:55:38 -0700
+Message-ID: <c6f39a16c9a33122362b0189e1721d84fb4d72c6.camel@linux.intel.com>
+Subject: Re: [PATCH v6 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+ manager
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie	 <airlied@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
+Date: Fri, 03 Jul 2026 14:55:35 +0200
+In-Reply-To: <ajrGM2Ij_LssrvhT@quatroqueijos.cascardo.eti.br>
+References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
+ <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
+ <ajrGM2Ij_LssrvhT@quatroqueijos.cascardo.eti.br>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 13:43:06 +0100
-Message-Id: <DJOY0VTYTXGV.131A1QNJEAPLU@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 12/20] rust: io: move `Io` methods to extension trait
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-12-d0961471ae50@garyguo.net>
- <DJOPUWC8C7GU.29L05GZVLOLO8@nvidia.com>
-In-Reply-To: <DJOPUWC8C7GU.29L05GZVLOLO8@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0342.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18c::23) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB3038:EE_
-X-MS-Office365-Filtering-Correlation-Id: 411b1d00-9edd-46fc-2978-08ded900a1a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|10070799003|23010399003|366016|4143699003|3023799007|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: aTdtPWx4AUFGHLp3/V8a3CtGWgEtbIL9mFraWVYHaV5kqXpk9hs9bfJXH0MhQde00mXDVn7I/3EbGJEOvYdf3yxcRqfICgwL2w9B2LkkcvmoDI9ZHETkiVTX33S4p+jOmYo0Xtjma048civ01uRjXtPAk0TI4/tJnJSURVfrAubVBjfeqax0VrXZBn4J7/hIPl7s3/NFiyySqOSmh4R98BKi5bjyfjB6Yizl4G+RxvTyTN8G5DEuGwZrvIFdS7k54VxlgTifl4S4xM1UH+FOwiHjGcgNsrIGHA42ja8UN0LPsK048ASFBxe4/abIR0aNSj07cHvGtO7fr1NFqymKL82UHXyKVRw/ykMTZ8tiSg4V4ZiYSFKK/N2UjaohsuqOUwCmfL3+a6/GUKRpFl4uDX5AUkIAPbjYjQR46XYnBX0zdcFqxO2/WodwA+IaLBg5DxJ8BrbQQ3Geb/E/+46RXHZAPLYxN/0SjF8FZ1/rpHgpMsXSKMNaoGovOQoCqzLz2M3HBAqOPhVZyoVBHQfL4MjMkwvahkEN7/pAL8KY6xR252/1NbioCKXhreL6vX+k4s67SLzwgAJu2b+NXCWFYMd8CKCzfGK2y401eg+a5I/1CzK7pJd5Xl225+RRkE1EO3KUBJBOnfsj+mQ1cbRiXc1Oo0xg4YQAkOWTD8kY1f8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(23010399003)(366016)(4143699003)(3023799007)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUJ2N0xvcVNzbUI3ejB3UjlMN2xUV3dvUHVBWEkwdVpldFFsUkR1bnI5Z1I3?=
- =?utf-8?B?R3BucjB4MGhTVis2MXRialdUQnhWaUdSRy9ackQ4RGdtQjRBTTcrTEhBUGhP?=
- =?utf-8?B?QzBhblY1RGI1c2ZJOXJ5Ny9QbTRHbC9PUE9kNm5uMVJBLzJlNE51aVFPZjQz?=
- =?utf-8?B?K3M3T2dsTkFZVk5vOXl4ZDFrTnZETmRJRUEzT3VuVUVIV3h3dHZseEhXWG5p?=
- =?utf-8?B?ZE5LTDRjcGNiUXdmbHpzdENFdFIzaThBa3VIQjFWd3dCZUVKL2lUS3puajhz?=
- =?utf-8?B?Ry9uN1dzcTdFVE9xWm4zTGMvVnh4bFhSR3dTYXpVMnFOT2gzZk1GKzkzblVB?=
- =?utf-8?B?RVFiZ2krSkwvdE9oKzdhRTBxbmlLaEduYkZVOU1GWGV4N3pjRWQwR3NRSk9Q?=
- =?utf-8?B?b2VqcGRQMjRJWkNBeFZNQzVneEN5b09JNjJiMnc2d2I0ODlUR1RBcmpHWWJh?=
- =?utf-8?B?cGlmR2ZuNSsrTkQ3dVFtMWtXSG4vRmxqTUgyb0szWXVtdTc3b0lEOGtJWm12?=
- =?utf-8?B?ZWk1V0pOS2pwT1Ruck1VRWk4bk5KZXRFUnQ3eThZWFhIUlNmWGlLY2lEdkEz?=
- =?utf-8?B?U2VSZktLVlBmRXF3TmdoRzluU0o5aEFpOFlrR0JWOGFTR2Nlb1ZXY09LdWcv?=
- =?utf-8?B?b3g1LzRLZXNSeUhhWE1Tckc2bE9tTFE0ZjNjTzJFMlN2OXFYRXZuS2FiRVEx?=
- =?utf-8?B?NGpPL3Q5TEUzMm1YTFhDUGhFOWdtNUVCK1JHRlcrTnJhOVV2Nlk0M3RGNWRT?=
- =?utf-8?B?THYyaXI5NHV1eXdGTkdsRmd2bk51REFHU24zcHRnYnpwbmxGb1FYYndWQkpO?=
- =?utf-8?B?R3RERmM1N3ZTSWs0QnJoODZmRFhxY2xPNXh5bE4xS0Q0TStwaEFEZTMwWVhL?=
- =?utf-8?B?Ri8rMlBoa0twVkYrTlUrZEJGZUpPbytGa3ZOZnMwYjVtTkJxelpzUWtwS1F0?=
- =?utf-8?B?RWVkdnFLZStSZUEzckdvdUxOeU1OSEFpektNVDNKY3lpK0pzRkZ5RGdQNmxZ?=
- =?utf-8?B?RnFYbmIxaUZ2SGRWL0tKVnRaVFZOWS81bmdWSEVraWxtTWxZWGtiemI1MGdF?=
- =?utf-8?B?cE9STDV5aVpXN1Q0d3d6STRSbDRva1FiaVMzSXJZcXo4UkIwU2lSZ2x2WGFJ?=
- =?utf-8?B?YmF5Y1V5UUtCYTRycWt1WWFKS000QkR6SlM1eG5Ec2cwclpuaFp5TXE1bC82?=
- =?utf-8?B?Z2ljSzFPVFcydjQ2RFRHYVNPZDl0MVpuWElPMWJ5RW5icmdzQzlxVDFQTTBP?=
- =?utf-8?B?WEVVWGpJNWVacUY0YjF5WlFRYmR0RUM3OVFhRGZubndHU1Rpa0VDejlyYXRO?=
- =?utf-8?B?QWZoYjVHY1RETmVmZHcwRjNNZUFnaXlWbGY4RnB1aVFJcjRya0taVytBM3pM?=
- =?utf-8?B?V3B2c3hrZG1jeTlyUlFvMEVDYldvVC9HeU93dzJEa1VKK3djYnAxb2R2T0ow?=
- =?utf-8?B?VXJScDh0c05WclJDT2c5RExVODVEcVB6YmFwWGpzc204YjhFUzhyVi9DQWdh?=
- =?utf-8?B?NXREa1lHZi9VSUhmb1IyRzkydWJ3eC81ZHd3R091TXhGM0RFMXJIMFVvSWJ1?=
- =?utf-8?B?R0hCbnhDY0dWZTcyM2lhMGtySVRXNDBLV29KRU1obVlMbFJqbXR3VytmVE9R?=
- =?utf-8?B?UFAycWdlSFFSY1lvWVFhdGNNOTBWTEdYdk1YS0NmZjdsamNCd091TE9BbERI?=
- =?utf-8?B?RENla0tDWEFNckRkcGdoMUw3aElIK2tLTjF3VU1yanZQMW51eHJ4bWo3dFlZ?=
- =?utf-8?B?QTJLRm16RWZOTGFjck1jcUNqamdKaWhSaDJBZ2FDS3hOZ216UnZkVHVDd2Zn?=
- =?utf-8?B?ZkdtZHZFb1htSWJkYzNla2M1SGJheHhjWXlDYjR0QllKWkJ5bDkrUWFvR1dV?=
- =?utf-8?B?L1lOQ1ZIODZvV3oxMUwyZkVVQk83S0hFS3NkSFp2Ym9QN3NNemhxTk94R0Nl?=
- =?utf-8?B?MVZlVWpOQmtoZWx3YUhEQjhOeDZJdXhjTE5iTTlVYWdSRGZORnd1eHNJRHhG?=
- =?utf-8?B?NXprUitCZUpjdDhiMCtISzI1ZjE2SmFCM2FLVnNBN205WWdNUjdZUWc4U1Rh?=
- =?utf-8?B?ZlREZUJRZmJKN1Q3allERUJYdldtaTMwM1o1UEhKUTBCM05tRGVtSUVOcm5h?=
- =?utf-8?B?U3VoWEd3SVBibGd1TDZ3b0pHVFRhSWlvZUxOOVpxeDd5WEhjTHpodXNLM0JX?=
- =?utf-8?B?ckJZREFQRVNzNnZoNVJSaUx1Z2ZSU1NLMlJDSWphelVrRWlxOGlYeTg0bGJF?=
- =?utf-8?B?SUVIcGYxcW1wV2EzWEs3dGdaY3VXTTN2eFZTcGVwTUY1TFpuYmk2bU1DNGp1?=
- =?utf-8?B?cDVXZC9yb3hUOGt6SDRsYitNdlM4aVNBMkxwMnBvbGpIRGxJWlJNQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 411b1d00-9edd-46fc-2978-08ded900a1a0
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 12:43:06.9096 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cmIajG3+4oKq+8vtgUTNi3qZk04ya1I79E4u2Myn+hIMLI56l4FlgPR26GiCSEbE7RH5XpGuWFa+AsZ8+abOOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3038
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,78 +83,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 3, 2026 at 7:19 AM BST, Alexandre Courbot wrote:
-> On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
->> `Io` trait now has a single required methods with many more provided
->
-> nit: s/methods/method
->
->> methods. Provided methods may want to rely on their implementations to n=
-ot
->> be arbitrarily overridden by implementers for correctness or soundness.
->>
->> Thus, extract these methods to a new trait and provide a blanket
->> implementation. This pattern is used extensively in userspace Rust
->> libraries e.g. `tokio` where `AsyncRead` has minimum methods and
->> `AsyncReadExt` is what users mostly interact with.
->>
->> To avoid changing all user imports, the base trait is renamed to `IoBase=
-`
->> and the newly added trait takes the existing `Io` name.
->>
->> A `size` method is added as an example of methods that users should not
->> override.
->
-> WDYM by "an example"? There are already all the I/O accessors that we
-> wish not to override; this looks more like a new method is just added.
+Hi,
 
-It wouldn't be incorrect if I/O accessors are overriden, it's just that we =
-don't
-anticipate these being overriden. On the other hand, `size` method can be e=
-asily
-relied upon by other methods (like patch 19 where you mentioned) and it can=
- lead
-to UB if it's overriden to something completely wrong. The `size` method is
-actually what motivated making this extension trait in the first place.
+On Tue, 2026-06-23 at 14:45 -0300, Thadeu Lima de Souza Cascardo wrote:
+> On Thu, Jun 11, 2026 at 07:33:01PM +0200, Thomas Hellstr=C3=B6m wrote:
+> > Register the VRAM manager with the dmem cgroup reclaim
+> > infrastructure
+> > so that lowering dmem.max below current VRAM usage triggers TTM
+> > eviction rather than failing with -EBUSY.
+> >=20
+> > Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against
+> > NULL,
+> > as the TTM reclaim path passes a NULL place in cgroup drain mode.
+> >=20
+> > v3:
+> > - Rebased on fix for uninitialized list and buddy allocator on the
+> > =C2=A0 drmm_cgroup_register_region() error path.
+> >=20
+> > v5:
+> > - Rebased on the introduction of struct dmem_cgroup_init.
+> > - Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
+> > =C2=A0 use-after-free if cgroup reclaim is triggered after driver unbin=
+d
+> > =C2=A0 while userspace holds an open DRM file descriptor. (Sashiko-bot)
+> > - Switch from drmm_cgroup_register_region() to the raw
+> > =C2=A0 dmem_cgroup_register_region() and store the region in
+> > =C2=A0 amdgpu_vram_mgr.cg_region. Call dmem_cgroup_unregister_region()
+> > =C2=A0 in amdgpu_vram_mgr_fini() after ttm_resource_manager_evict_all()
+> > =C2=A0 to drain in-flight reclaim callbacks, and clear man->cg
+> > afterwards.
+> > =C2=A0 This is required because amdgpu's vram manager fini is called
+> > =C2=A0 explicitly during driver unbind, which may precede the DRM devic=
+e
+> > =C2=A0 release and thus precede any drmm-based cleanup. (Sashiko-bot)
+> >=20
+> > v6:
+> > - Fix mgr->cg_region never being assigned, so
+> > =C2=A0 dmem_cgroup_unregister_region() in fini silently no-ops on NULL
+> > =C2=A0 and leaks the region. (Sashiko-bot)
+> > - Reorder fini to call set_used(false) and evict_all() before
+> > =C2=A0 dmem_cgroup_unregister_region(), so ttm_resource_free() can
+> > =C2=A0 uncharge via man->cg during eviction; clear man->cg after
+> > =C2=A0 unregister. (Sashiko-bot)
+> >=20
+> > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+>=20
+> Hi, Thomas.
+>=20
+> I needed the following fixup for this. Otherwise, it regresses on the
+> dmem
+> region name.
+>=20
+> Regards.
+> Cascardo
+>=20
 
-Best,
-Gary
+Thanks. Yeah, I noted Sashiko saw this too. Updated version out soon.
 
-
->
-> Besides, it is not used until patch 19, so how about introducing it
-> there?
->
-> <...>
->> @@ -326,6 +323,21 @@ pub trait Io<'a>: Copy {
->> =20
->>      /// Return a view that covers the full region.
->>      fn as_view(self) -> <Self::Backend as IoBackend>::View<'a, Self::Ta=
-rget>;
->> +}
->> +
->> +/// Extension trait to provide I/O operation methods to types that impl=
-ement [`IoBase`].
->> +///
->> +/// This trait provides:
->> +/// - Helper methods for offset validation and address calculation
->> +/// - Fallible (runtime checked) accessors for different data widths
->> +///
->> +/// Which I/O methods are available depends on the associated [`IoBacke=
-nd`] implementation.
->> +pub trait Io<'a>: IoBase<'a> {
->> +    /// Returns the size of this I/O region.
->> +    #[inline]
->> +    fn size(self) -> usize {
->> +        KnownSize::size(Self::Backend::as_ptr(self.as_view()))
->
-> nit: the documentation for `as_ptr` says that the pointer "should be
-> used for projection only". Technically we are not projecting here; maybe
-> the documentation should be updated to say the pointer must not be
-> dereferenced instead.
->
-> In any case,
->
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+/Thomas
 
 
+
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 2250bab0970d..d93bb88e8b25 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -942,7 +942,8 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+> *adev)
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 .size =3D adev-
+> >gmc.real_vram_size,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 .ops =3D
+> &amdgpu_vram_mgr_dmem_ops,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 .reclaim_priv =3D man,
+> -					 }, "vram");
+> +					 }, "drm/%s/vram",
+> +					=C2=A0=C2=A0=C2=A0 adev_to_drm(adev)-
+> >unique);
+> =C2=A0	if (IS_ERR(cg))
+> =C2=A0		return PTR_ERR(cg);
+> =C2=A0
+>=20
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 2 +-
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 31
+> > ++++++++++++++++----
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |=C2=A0 2 ++
+> > =C2=A03 files changed, 28 insertions(+), 7 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > index 2740de94e93c..8cbcd33f51a5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -1488,7 +1488,7 @@ static bool
+> > amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+> > =C2=A0	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
+> > =C2=A0				DMA_RESV_USAGE_BOOKKEEP, f) {
+> > =C2=A0		if (amdkfd_fence_check_mm(f, current->mm) &&
+> > -		=C2=A0=C2=A0=C2=A0 !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
+> > +		=C2=A0=C2=A0=C2=A0 !(place && (place->flags &
+> > TTM_PL_FLAG_CONTIGUOUS)))
+> > =C2=A0			return false;
+> > =C2=A0	}
+> > =C2=A0
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > index 08f05c3aed1d..2250bab0970d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > @@ -906,6 +906,10 @@ static const struct ttm_resource_manager_func
+> > amdgpu_vram_mgr_func =3D {
+> > =C2=A0	.debug	=3D amdgpu_vram_mgr_debug
+> > =C2=A0};
+> > =C2=A0
+> > +static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops =3D {
+> > +	.reclaim =3D ttm_resource_manager_dmem_reclaim,
+> > +};
+> > +
+> > =C2=A0/**
+> > =C2=A0 * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
+> > =C2=A0 *
+> > @@ -917,6 +921,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+> > *adev)
+> > =C2=A0{
+> > =C2=A0	struct amdgpu_vram_mgr *mgr =3D &adev->mman.vram_mgr;
+> > =C2=A0	struct ttm_resource_manager *man =3D &mgr->manager;
+> > +	struct dmem_cgroup_region *cg;
+> > =C2=A0	int err;
+> > =C2=A0
+> > =C2=A0	ttm_resource_manager_init(man, &adev->mman.bdev,
+> > @@ -933,12 +938,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+> > *adev)
+> > =C2=A0	if (err)
+> > =C2=A0		return err;
+> > =C2=A0
+> > -	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
+> > "vram",
+> > -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &(struct
+> > dmem_cgroup_init){
+> > -						.size =3D adev-
+> > >gmc.real_vram_size,
+> > -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 });
+> > -	if (IS_ERR(man->cg))
+> > -		return PTR_ERR(man->cg);
+> > +	cg =3D dmem_cgroup_register_region(&(struct
+> > dmem_cgroup_init){
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0 .size =3D adev-
+> > >gmc.real_vram_size,
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0 .ops =3D
+> > &amdgpu_vram_mgr_dmem_ops,
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0 .reclaim_priv =3D man,
+> > +					 }, "vram");
+> > +	if (IS_ERR(cg))
+> > +		return PTR_ERR(cg);
+> > +
+> > +	mgr->cg_region =3D cg;
+> > +	ttm_resource_manager_set_dmem_region(man, cg);
+> > =C2=A0
+> > =C2=A0	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
+> > &mgr->manager);
+> > =C2=A0	ttm_resource_manager_set_used(man, true);
+> > @@ -966,6 +975,16 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device
+> > *adev)
+> > =C2=A0	if (ret)
+> > =C2=A0		return;
+> > =C2=A0
+> > +	/*
+> > +	 * Drain any in-flight dmem cgroup reclaim callbacks and
+> > remove the
+> > +	 * region from the global list.=C2=A0 This must happen after
+> > evict_all()
+> > +	 * so that ttm_resource_free() can still uncharge via man-
+> > >cg while
+> > +	 * BOs are being evicted.
+> > +	 */
+> > +	dmem_cgroup_unregister_region(mgr->cg_region);
+> > +	mgr->cg_region =3D NULL;
+> > +	man->cg =3D NULL;
+> > +
+> > =C2=A0	mutex_lock(&mgr->lock);
+> > =C2=A0	list_for_each_entry_safe(rsv, temp, &mgr-
+> > >reservations_pending, blocks)
+> > =C2=A0		kfree(rsv);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> > index 429a21a2e9b2..07103cddb335 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
+> > @@ -36,6 +36,8 @@ struct amdgpu_vram_mgr {
+> > =C2=A0	atomic64_t vis_usage;
+> > =C2=A0	u64 default_page_size;
+> > =C2=A0	struct list_head allocated_vres_list;
+> > +	/** @cg_region: dmem cgroup region for VRAM; unregistered
+> > in fini. */
+> > +	struct dmem_cgroup_region *cg_region;
+> > =C2=A0};
+> > =C2=A0
+> > =C2=A0struct amdgpu_vres_task {
+> > --=20
+> > 2.54.0
+> >=20
