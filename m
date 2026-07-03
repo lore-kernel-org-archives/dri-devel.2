@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FC33C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:20:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40C45C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:20:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4731A10F622;
-	Fri,  3 Jul 2026 03:20:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 920A410F621;
+	Fri,  3 Jul 2026 03:20:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jdp6FrBT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kQHI7Uld";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6571D10F621
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:20:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C12A010F621
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:20:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E83724346C;
- Fri,  3 Jul 2026 03:20:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3D81F000E9;
- Fri,  3 Jul 2026 03:20:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ECFD660210;
+ Fri,  3 Jul 2026 03:20:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743E31F000E9;
+ Fri,  3 Jul 2026 03:20:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783048823;
- bh=SpZMl43CZS/+FKk1WF1srdIx89PUap7lqO3woEBRDaU=;
+ s=k20260515; t=1783048844;
+ bh=Jvw3qXOOPuU7iSVFLDhe29o+dKIiIbCS/TrpsyyCqg0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jdp6FrBTaV5u6QBShGv6cZKAZuRMc0woP8J4DyKaPVWwShXM62onhCXO73sMVy4y0
- gYrKXJah+4ScH0iJOaGMdajDJGokeqbQuU9KjlYeg4rLD6nfOdnrZvS2zVMegHoIOX
- VpxcXXJZI+6MUvlbnYV5wt1heX4T4YvEG43XXaRKhmQMdlNmHtC0HpJwpVLPxqFGc1
- StuTgAudzVQyo6Ijp+ftzgbgPwCwz1QYhTQkGeHoJgM3EKGoKCqo8ecApSnjPdaZPJ
- 7YuDYyu9OOXwUTbCojtUTZgCEyyJrLaTS3e8OGmRsxBrlqSHWgqbADAUTdvmGVA5l0
- 3GBXozsFwF8CA==
+ b=kQHI7UldemI11FaeK7hRvT1rfvJnwNk9WXMQmAPpyesneAgX/mTzpsT36GiTvZFCz
+ NkbBuuEY7r5AuVOseT247Wb5LkrhjQhdlYGbFJBhlkM/2imYzrFhNzmZDMeeL68Xvw
+ QD6jS5U3pfEwzAvqVbw01rKBj0+ijJgj0hCECJp2yKbgXF1q5KQtjJe9Sm00bSXp26
+ mlHPBnNFs80C0thVND/x6yUUo0i9ACRGtrQ1TIeCESiqvzxOk1H4CzMdzX4TDs03Ds
+ F4KEcrtxMrFvIOrJjiFx/F+BAKU9K/CuEQ9bsltpTcVnY/kStVSHsxsRICFq6Wt0bq
+ YZa/4LcglCdDw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 08/10] drm/vino: wire CRTC gamma, plane rotation
- and DDC/CI monitor controls
+Subject: Re: [RFC PATCH v2 09/10] drm/vino: two heads, 90/270 rotation,
+ damage clips and connector probe
 To: "Mike Lothian" <mike@fireburn.co.uk>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260703030217.2886-9-mike@fireburn.co.uk>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260703030217.2886-10-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
  <20260703030217.2886-1-mike@fireburn.co.uk>
- <20260703030217.2886-9-mike@fireburn.co.uk>
+ <20260703030217.2886-10-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 03:20:23 +0000
-Message-Id: <20260703032023.9C3D81F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 03:20:44 +0000
+Message-Id: <20260703032044.743E31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,322 +59,219 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The patch introduces a `gamma` field protected by a `kernel::sync:=
-:Mutex` and locks it from within DRM atomic commit callbacks (`atomic_enabl=
-e`, `atomic_disable`, `atomic_update`), which execute in atomic context whe=
-re sleeping is forbidden.
-- [High] The DDC/CI payload length is silently truncated if it exceeds 255 =
-bytes, leading to malformed CP packets.
-- [Medium] Dynamic `GAMMA_LUT` property updates are silently ignored while =
-the display is active.
-- [Medium] The rotation property is missing on the cursor plane and the rot=
-ation is completely ignored when reading cursor pixels.
-- [Medium] The DDC/CI I2C adapter's `master_xfer` incorrectly skips unsuppo=
-rted messages and transmission failures instead of returning an error, brea=
-king sequential processing guarantees.
-- [Low] The import `i2c` does not follow the kernel vertical import style.
+- [High] The frame-damage clips overflow fallback logic permanently drops p=
+reviously accumulated damage clips instead of properly merging them.
+- [High] The CRTC gamma LUT state is incorrectly shared globally rather tha=
+n being per-head, causing independent display heads to overwrite or clear e=
+ach other's gamma ramps.
 
 Pre-existing issues:
-- [Critical] Missing plane scaling rejection allows userspace to trigger ou=
-t-of-bounds kernel memory reads during scanout.
-- [High] The `ddc_forward` function allocates memory using `GFP_KERNEL` whe=
-n called from the `atomic_disable` DRM callback, violating atomic context r=
-ules.
+- [High] Kernel out-of-bounds read occurs when userspace requests plane sca=
+ling.
+- [High] The plane `atomic_update` and CRTC callbacks run in atomic context=
+ but acquire sleepable Mutexes and perform GFP_KERNEL allocations.
+- [Medium] The cursor plane update logic uses the raw virtual address of th=
+e framebuffer as a cache key, risking an ABA problem where a re-uploaded cu=
+rsor is silently ignored.
 --
 
-commit efd9ec1e849fe00fb25b5f1bc3faedd48ed3e0f5
+commit 02346681a0e083ee04b818868a94582e0d21e04e
 Author: Mike Lothian <mike@fireburn.co.uk>
 
-drm/vino: wire CRTC gamma, plane rotation and DDC/CI monitor controls
-
-This commit consumes the new gamma, rotation, and i2c bindings for the vino=
-=20
-driver. It enables a 256-entry GAMMA_LUT, adds a rotation property on the=20
-primary/cursor plane, and registers a virtual I2C adapter for DDC/CI contro=
-ls.
-
-> diff --git a/drivers/gpu/drm/vino/cp.rs b/drivers/gpu/drm/vino/cp.rs
-> --- a/drivers/gpu/drm/vino/cp.rs
-> +++ b/drivers/gpu/drm/vino/cp.rs
-
-[ ... ]
-
-> @@ -151,14 +151,24 @@ pub(super) fn set_mode(counter: u16, t: &Timing) ->=
- Result<KVec<u8>> {
->  /// the CP wall), so re-check against a capture once CP engages. The DDC=
-/CI bytes themselves
->  /// ([`ddc_ci_set_vcp`]) are standard and verified.
->  pub(super) fn ddc_set_vcp(counter: u16, vcp: u8, value: u16) -> Result<K=
-Vec<u8>> {
-> -    let payload =3D ddc_ci_set_vcp(vcp, value);
-> -    let mut b =3D KVec::with_capacity(32, GFP_KERNEL)?;
-> +    ddc_forward(counter, DDCCI_I2C_ADDR, &ddc_ci_set_vcp(vcp, value))
-> +}
-> +
-> +/// The DDC/CI I2C slave address on the monitor bus.
-> +pub(super) const DDCCI_I2C_ADDR: u8 =3D 0x37;
-> +
-> +/// CP message tunnelling a raw DDC/CI transaction (`payload`, the bytes=
- a host writes after the
-> +/// I2C write-address) to the downstream monitor's I2C slave `addr`. Sam=
-e `id=3D0x15 sub=3D0x22`
-> +/// framing as [`ddc_set_vcp`], with the slave + payload length at off20=
- and the payload at off22.
-> +/// This is what the vino I2C adapter forwards for a userspace DDC/CI wr=
-ite (e.g. `ddcutil`).
-> +pub(super) fn ddc_forward(counter: u16, addr: u8, payload: &[u8]) -> Res=
-ult<KVec<u8>> {
-> +    let mut b =3D KVec::with_capacity(32 + payload.len(), GFP_KERNEL)?;
-
-[Severity: High]
-This is a pre-existing issue, but can this GFP_KERNEL allocation cause a
-scheduling while atomic panic?
-
-The CRTC atomic_disable callback runs in atomic context where sleeping is
-forbidden. It calls set_vcp(), which delegates to cp::ddc_set_vcp() and=20
-subsequently cp::ddc_forward().
-
-Allocating with GFP_KERNEL here can sleep. Could this allocation use
-GFP_ATOMIC instead?
-
->      header(&mut b, 0x15, 0x22, counter)?;
->      pad_to(&mut b, 20)?;
-> -    // off20: monitor DDC/CI I2C slave (0x37) + DDC/CI payload length.
-> -    b.extend_from_slice(&[0x37, payload.len() as u8], GFP_KERNEL)?;
-> -    // off22: the DDC/CI Set-VCP bytes (same off22 convention as the EDI=
-D payload).
-> -    b.extend_from_slice(&payload, GFP_KERNEL)?;
-> +    // off20: monitor DDC/CI I2C slave + DDC/CI payload length.
-> +    b.extend_from_slice(&[addr, payload.len() as u8], GFP_KERNEL)?;
-
-[Severity: High]
-Can a payload larger than 255 bytes cause malformed CP packets here?
-
-The payload.len() is cast to u8 without bounds checking, meaning the protoc=
-ol
-packet header receives a truncated length, but the full unbounded payload i=
-s=20
-appended below.
-
-Could this cause the downstream dock's CP parser to read misaligned framing,
-potentially hanging the hardware or corrupting the stream?
-
-> +    // off22: the DDC/CI bytes (same off22 convention as the EDID payloa=
-d).
-> +    b.extend_from_slice(payload, GFP_KERNEL)?;
->      pad_to(&mut b, 32)?;
->      Ok(b)
->  }
+    drm/vino: two heads, 90/270 rotation, damage clips and connector probe
+   =20
+    Consume the new connector detect()/mode_valid() and plane damage-clip
+    bindings, and finish the KMS feature set the driver previously stubbed:
 
 > diff --git a/drivers/gpu/drm/vino/drm_sink.rs b/drivers/gpu/drm/vino/drm_=
 sink.rs
+> index 898cfae8fd4fb..ee04a5af9f7d5 100644
 > --- a/drivers/gpu/drm/vino/drm_sink.rs
 > +++ b/drivers/gpu/drm/vino/drm_sink.rs
-
-[ ... ]
-
-> @@ -41,6 +42,7 @@
->          plane::{self, PlaneAtomicCommit, RawPlaneState as _},
->          KmsDriver, ModeConfigGuard, ModeConfigInfo, ModeObject as _, New=
-KmsDevice, Probing,
->      },
-> +    i2c,
-> +    error::code::EINVAL,
-
-[Severity: Low]
-Does this import follow the kernel vertical import style for Rust?
-
-The i2c import is placed on the same line as other items instead of being
-vertically aligned.
-
-[ ... ]
-
-> @@ -125,6 +127,12 @@ pub(super) struct VinoDrmData {
->      /// can reach its cached-EDID slot without needing DRM's mode-object=
- list. Written once,
->      /// during single-threaded probe, before the device is registered; r=
-ead-only thereafter.
->      connector: core::sync::atomic::AtomicPtr<VinoConnector>,
-> +    /// The CRTC's gamma ramp cached from the atomic hook as three 256-e=
-ntry 8-bit LUTs
-> +    /// (`[r; 256] ++ [g; 256] ++ [b; 256]`), or `None` for identity. Ca=
-ched here (not read from
-> +    /// the CRTC state) because scanout runs in the plane path; it is `C=
-opy`, so the scanout
-> +    /// snapshots it under the lock and applies it without holding the l=
-ock in the pixel loop.
-> +    #[pin]
-> +    gamma: Mutex<Option<[u8; 768]>>,
->  }
-> =20
->  impl VinoDrmData {
+> @@ -435,10 +474,12 @@ fn atomic_enable(commit: CrtcAtomicCommit<'_, Self>=
+) {
+>      /// against a shadow the dock may have dropped, and blanks the monit=
+or via DDC/CI -- a
+>      /// no-op until CP engages.
+>      fn atomic_disable(commit: CrtcAtomicCommit<'_, Self>) {
+> -        let data: &VinoDrmData =3D commit.crtc().drm_dev();
+> +        let crtc =3D commit.crtc();
+> +        let head =3D crtc.head;
+> +        let data: &VinoDrmData =3D crtc.drm_dev();
+>          data.update_gamma(None);
 
 [Severity: High]
-Does the use of a sleeping Mutex here violate atomic context rules?
+Since the driver now supports multiple independent display heads, is it saf=
+e to
+share a single global gamma state?
 
-The update_gamma() and gamma_snapshot() functions lock this Mutex, but they
-are invoked synchronously during the CRTC atomic_enable, atomic_disable,
-and plane atomic_update callbacks.
+`data.update_gamma` modifies the shared `gamma` in `VinoDrmData`. This could
+inadvertently overwrite or clear the gamma ramps of other connected displays
+when one head is updated or disabled.
 
-According to DRM subsystem guidelines, these callbacks run in atomic context
-during non-blocking commits where sleeping is strictly forbidden. Should th=
-is
-be a spinlock instead to avoid scheduling while atomic panics?
+Should `gamma` be made per-head, similar to the `connectors` array?
+
+Also, this is a pre-existing issue, but doesn't `data.update_gamma` lock a
+sleepable Mutex? CRTC callbacks like `atomic_disable` and `atomic_enable` c=
+an
+run in atomic context during non-blocking atomic commits where sleeping is
+forbidden.
 
 [ ... ]
 
-> @@ -302,6 +333,16 @@ fn probe(dev: &NewKmsDevice<'_, Self, Probing>) -> R=
-esult {
->              None,
->              false,
->          )?;
-> +        // Advertise the rotations vino's re-encode handles 1:1 (dimensi=
-on-preserving): the
-> +        // scanout applies them per source pixel via `rot_src`. 90/270 (=
-which swap width/height)
-> +        // are intentionally omitted.
-> +        primary.create_rotation_property(
-> +            bindings::DRM_MODE_ROTATE_0,
-> +            bindings::DRM_MODE_ROTATE_0
-> +                | bindings::DRM_MODE_ROTATE_180
-> +                | bindings::DRM_MODE_REFLECT_X
-> +                | bindings::DRM_MODE_REFLECT_Y,
-> +        )?;
->          let cursor =3D plane::UnregisteredPlane::<VinoPlane>::new(
->              dev,
->              1,
->              &CURSOR_FORMATS,
->              None,
->              plane::Type::Cursor,
->              None,
->              PlaneArgs { head: 0, is_cursor: true },
->          )?;
+> @@ -498,14 +554,14 @@ fn atomic_update(commit: PlaneAtomicCommit<'_, Self=
+>) {
+>              return;
+>          }
+>          let plane =3D commit.plane();
+> +        let head =3D plane.head;
+>          let data: &VinoDrmData =3D plane.drm_dev();
+> -        let new =3D commit.take_new_state();
+> =20
+>          // Cursor plane: forward the cursor bitmap/position to the dock =
+over CP (id=3D0x1b create,
+>          // 0x401c image, 0x1a move -- see `cp::cursor_*`). A no-op until=
+ CP engages, like scanout.
+>          if plane.is_cursor {
+>              use core::sync::atomic::Ordering::Relaxed;
+> -            const HEAD: u8 =3D 0;
+> +            let new =3D commit.take_new_state();
+>              match new.framebuffer::<VinoDrmDriver>() {
+>                  Some(fb) =3D> {
+>                      let w =3D fb.width() as u16;
+> @@ -514,15 +570,17 @@ fn atomic_update(commit: PlaneAtomicCommit<'_, Self=
+>) {
+>                      // position (a bare cursor move must not re-send the=
+ whole image).
+>                      let key =3D fb as *const _ as usize;
+>                      if plane.cursor_last.swap(key, Relaxed) !=3D key {
 
 [Severity: Medium]
-Is the cursor plane missing the rotation property?
+This is a pre-existing issue, but does using the raw virtual address of the
+framebuffer as a cache key risk an ABA problem?
 
-The commit message mentions wiring rotation for the primary/cursor plane, b=
-ut
-create_rotation_property() is not called for the cursor plane during probe.
-
-Additionally, read_cursor_bgra() maps and reads the cursor framebuffer
-without applying any rotation transformation.
-
-[ ... ]
-
-> @@ -372,6 +415,8 @@ fn new(_device: &drm::Device<Self::Driver, drm::Unini=
-t>, _args: &()) -> impl Pin
->      fn atomic_enable(commit: CrtcAtomicCommit<'_, Self>) {
->          let data: &VinoDrmData =3D commit.crtc().drm_dev();
->          let new =3D commit.take_new_state();
-> +        // Cache the gamma ramp for the scanout to apply.
-> +        data.update_gamma(new.gamma_lut());
-
-[Severity: Medium]
-Are dynamic GAMMA_LUT property updates silently ignored while the display
-is active?
-
-The driver caches the GAMMA_LUT value only in the atomic_enable and
-atomic_disable CRTC hooks.
-
-If a compositor dynamically updates the gamma LUT, it will trigger
-atomic_flush or atomic_update, but skip the enable hook when the CRTC is
-already active, potentially missing color calibration changes until a full
-modeset occurs.
+If userspace frees a cursor framebuffer and immediately allocates a new one,
+the memory allocator may place it at the same virtual address. This could
+cause the new cursor image to be silently ignored because the cache key
+hasn't changed.
 
 [ ... ]
 
-> @@ -489,6 +535,8 @@ fn atomic_update(commit: PlaneAtomicCommit<'_, Self>)=
- {
->          // primary plane 1:1 with the virtual output), so this drives th=
-e dynamic scanout
->          // resolution.
+> @@ -537,6 +597,37 @@ fn atomic_update(commit: PlaneAtomicCommit<'_, Self>=
+) {
 >          let (w, h) =3D (new.crtc_w() as usize, new.crtc_h() as usize);
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does the lack of plane scali=
-ng
-rejection allow userspace to trigger out-of-bounds kernel memory reads?
+[Severity: High]
+This is a pre-existing issue, but can this lead to an out-of-bounds read if
+userspace requests plane scaling?
 
-VinoPlane lacks an atomic_check function to reject scaling (e.g., using
-drm_atomic_helper_check_plane_state with DRM_PLANE_NO_SCALING).
+The destination dimensions `crtc_w` and `crtc_h` are used to iterate and
+calculate source memory offsets. If a compositor provides a small framebuff=
+er
+and requests scaling, the offsets could far exceed the bounds of the source
+framebuffer.
 
-In atomic_update(), the scanout loop uses the destination CRTC geometry
-(new.crtc_w(), new.crtc_h()) as the bounds instead of the source framebuffer
-dimensions.
+>          // Plane rotation/reflection (identity unless the compositor set=
+ the rotation property).
+>          let rotation =3D new.rotation();
+> +        // Collect the client's individual frame-damage clips (the recta=
+ngles that
+> +        // `damage_merged()` would collapse into one bounding box), each=
+ clamped to the output, so
+> +        // only the genuinely changed rectangles are re-converted from t=
+he source rather than their
+> +        // whole enclosing box. Only for identity rotation (the clips ar=
+e in un-rotated source
+> +        // space; mapping them through 90/270 is not worth it for the th=
+rottled fallback path), and
+> +        // never on the WHT keyframe path -- see `encode_and_send`. A fi=
+xed stack array keeps the
+> +        // atomic-commit path allocation-free; on overflow the clips col=
+lapse into one bounding box.
+> +        // An empty list means "convert the whole output" (used for the =
+rotated/reflected case).
+> +        let mut clips =3D [(0usize, 0usize, 0usize, 0usize); MAX_DAMAGE_=
+CLIPS];
+> +        let mut nclips =3D 0usize;
+> +        if rotation & bindings::DRM_MODE_ROTATE_MASK =3D=3D bindings::DR=
+M_MODE_ROTATE_0
+> +            && rotation & (bindings::DRM_MODE_REFLECT_X | bindings::DRM_=
+MODE_REFLECT_Y) =3D=3D 0
+> +        {
+> +            new.for_each_damage_clip(old, |r| {
+> +                let c =3D (
+> +                    (r.x1.max(0) as usize).min(w),
+> +                    (r.y1.max(0) as usize).min(h),
+> +                    (r.x2.max(0) as usize).min(w),
+> +                    (r.y2.max(0) as usize).min(h),
+> +                );
+> +                if nclips < MAX_DAMAGE_CLIPS {
+> +                    clips[nclips] =3D c;
+> +                    nclips +=3D 1;
+> +                } else {
+> +                    // Overflow: collapse everything so far (and `c`) in=
+to clips[0]'s bounding box.
+> +                    let b =3D clips[0];
+> +                    clips[0] =3D (b.0.min(c.0), b.1.min(c.1), b.2.max(c.=
+2), b.3.max(c.3));
+> +                    nclips =3D 1;
 
-If unprivileged userspace issues an atomic commit with crtc_h greater than
-fb.height(), the scanout loop will read past the end of the mapped GEM buff=
-er.
+[Severity: High]
+Does this overflow fallback logic correctly merge the clips?
 
-[ ... ]
+When `nclips` reaches `MAX_DAMAGE_CLIPS`, it updates `clips[0]` to be the
+bounding box of `clips[0]` and `c`. However, this completely discards the
+previously accumulated clips from `clips[1]` through `clips[15]`, dropping
+them permanently rather than expanding the bounding box to include them.
 
-> @@ -748,13 +816,62 @@ fn get_modes<'a>(
->      }
->  }
-> =20
-> +// ---- DDC/CI I2C adapter ---------------------------------------------=
---------
-> +
-> +/// vino's DDC/CI virtual I2C bus: a userspace monitor-control tool (`dd=
-cutil`, the desktop
-> +/// brightness slider via the I2C DDC path) writes a DDC/CI transaction =
-to the monitor's I2C slave
-> +/// on this adapter, and vino tunnels it to the downstream monitor over =
-the dock's CP channel
-> +/// (`cp::ddc_forward`, `id=3D0x15 sub=3D0x22`) -- the same monitor-I2C =
-bridge vino's DPMS-power VCP
-> +/// uses. Writes only for now (Get-VCP reads need the CP reply path); a =
-no-op until CP engages.
-> +pub(super) struct VinoI2c;
-> +
-> +impl i2c::BusController for VinoI2c {
-> +    type Context =3D ARef<VinoDrmDevice>;
-> +
-> +    fn master_xfer(dev: &ARef<VinoDrmDevice>, msgs: &mut [i2c::Msg]) -> =
-Result<usize> {
-> +        let data: &VinoDrmData =3D dev;
-> +        let mut transferred =3D 0usize;
-> +        for msg in msgs.iter() {
-> +            if msg.addr() !=3D super::cp::DDCCI_I2C_ADDR as u16 {
-> +                continue;
-> +            }
-> +            if msg.is_read() {
-> +                // DDC/CI reads (Get-VCP) require decoding the dock's CP=
- reply -- not wired yet.
-> +                continue;
-> +            }
-
-[Severity: Medium]
-Should master_xfer() return an error when encountering unsupported messages
-rather than skipping them?
-
-If master_xfer() receives an array of messages where an early message is
-unsupported (e.g., a read) and a later message succeeds, it uses continue to
-skip the error and returns a positive transferred count.
-
-This violates the I2C subsystem API contract and causes userspace tools like
-ddcutil to assume operations succeeded when they actually failed.
-
-> +            if data
-> +                .send_cp(0x15, 0, |ctr| {
-> +                    super::cp::ddc_forward(ctr, super::cp::DDCCI_I2C_ADD=
-R, msg.buf())
-> +                })
-> +                .is_ok()
-> +            {
-> +                transferred +=3D 1;
-> +            }
+> +                }
+> +            });
 > +        }
-> +        Ok(transferred)
-> +    }
+> =20
+>          use core::sync::atomic::Ordering::Relaxed;
 
 [ ... ]
+
+> @@ -693,6 +803,8 @@ fn encode_and_send(
+>          return encode_and_send_wht(data, plane, vaddr, pitch, rotation, =
+w, h);
+>      }
+>      let gamma =3D data.gamma_snapshot();
+> +    // Source dimensions (swapped from the output for 90/270 rotation).
+> +    let (sw, sh) =3D src_dims(rotation, w, h);
+>      let frame =3D {
+>          let mut st =3D plane.scanout.lock();
+
+[Severity: High]
+This isn't a bug introduced by this patch, but doesn't `atomic_update` run
+in atomic context during non-blocking atomic commits?=20
+
+Locking a sleepable Mutex like `plane.scanout.lock()` here can cause kernel
+warnings and system instability.
+
+[ ... ]
+
+> @@ -746,7 +868,7 @@ fn encode_and_send(
+>      // DRM device, so it is bound for the duration of this push.
+>      let dev =3D unsafe { data.intf.as_bound() };
+>      prime_video_eps(dev);
+> -    dev.bulk_send(VIDEO_EP, &frame, super::timeout(), GFP_KERNEL)?;
+> +    dev.bulk_send(VIDEO_EPS[plane.head as usize], &frame, super::timeout=
+(), GFP_KERNEL)?;
+
+[Severity: High]
+Similarly, this is a pre-existing issue, but does `dev.bulk_send` perform
+allocations using the `GFP_KERNEL` flag? Using `GFP_KERNEL` in atomic conte=
+xt
+is unsafe and can sleep.
+
+>      Ok(())
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703030217.2886=
--1-mike@fireburn.co.uk?part=3D8
+-1-mike@fireburn.co.uk?part=3D9
