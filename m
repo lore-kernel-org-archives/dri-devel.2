@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B9DBC43327
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2AEFC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B83D10F612;
-	Fri,  3 Jul 2026 03:02:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC7910F611;
+	Fri,  3 Jul 2026 03:02:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="xK0seBNk";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="tigAL/LR";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE5110F611
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:30 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-493c52cde9eso562075e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:30 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFB710F611
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:32 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493c55d5c7aso494535e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047749; x=1783652549;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047751; x=1783652551;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kNorOrjfgxyeyD+YG5rAmpjgzcOoTh+ybjNZkpwMVc4=;
- b=xK0seBNk34yacoLmMsOIJDZLi5AdHBpr4OPn7TmxxfMleik1EesghT+LXmfgtbqJsa
- Ng5XdCKn/Q6ATF8uZMuVxXd0kKC1bfKIQ2gpFjB0DsMinBCZSeeRLsomPfnKPnoOuadl
- uhLYHe272B569yHgz5a+wYYVTXAZ0lImS4v4Zjf8O0L8QOTevw7I1BUifdP0DsO6IcSN
- xJ+d0LoVfcclqBu4Z+b6DSyJpz4x6MLsextsnaJY9O4Q9WBTCPCzDf9wZcWz+ryZBnZS
- ideHpZB+ZLS6ZdMbfiXNgqisBMgjPL16Vh2dZzmAlI0Hgj2ZN599ZE1VJQotLCYoSS7w
- woBA==
+ bh=3VijT5EAGT5PjFlBgSgvYFumoT9q3jXWudWem8ZQxFk=;
+ b=tigAL/LRp71FLUoaWLwirH5gwfm8Oc69XVxKiRXMWyB4p8zbnUjnUyWyBZzPqwu+D/
+ fCG2fb5qC00zyrsjNDTGQLIivWH/naLqz140qOTgjO9koR4fqAcBsDi5X+OdgI4aeBMe
+ wX3gHHiATtPWoTJbaKo0+n4DP+fczA4WbrMQWBbjZyKsRrZDxAOztKo7LQlAD1sLQtoq
+ RH49h1Qq24VgBeWiQ0fyVrDwn1VBM4P2ipzFpjKUwOi62IVdFleY86/Nlf2CBcnSJx0+
+ 8H4x5AhXLSWXpXa6xgyXsbnAIVcvjqs2Oulr+o+hq3+AeZHqv3twDg1beyzG9NBF78/v
+ 6FsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047749; x=1783652549;
+ d=1e100.net; s=20251104; t=1783047751; x=1783652551;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=kNorOrjfgxyeyD+YG5rAmpjgzcOoTh+ybjNZkpwMVc4=;
- b=rHbD39lmUqtP7mumDOYhP9qCb+i+fILDQ4TXixrCrU1FTNtNBaGasRBnamt/dEX9Fp
- TTmr13gqfCcHdszb55ipKlpbnBfZqDwGDwEIu/xVVj5JxQ4YYXTNRxiBpIA4DGewacOm
- w7dX9IIu3iFoP5lkNL8UHX5mtAXFkeSD1nwCJtRFglf1u3zlhAHTIbIikuYOK+KLbNvD
- Grelt9nvNWzkcqBpShgI706c031TzRSSKsfNBxaQS9NdyY49bT76f+6A9gc/zBBbcFxp
- q4LCJhCbj8opNkbjKbemG8LG5o9p6QMueTkfs+g9BZcinbAHPZdKH/k9CgrVQC6V1fRW
- DGHg==
-X-Gm-Message-State: AOJu0YyrWwN4DT16PRWTfNdqUczMSiSd7/e+e5CG7XU7sknQFdfec8BR
- 76vhceTHScCFzRxEajnaSY5DSWF79lBajYXxRLSs1B6saWNcjxn4zVwWc4iMwITMGg==
-X-Gm-Gg: AfdE7cm3pqsUmRXT8lm6Ulp/Qs90v7jWuUxXtC6YYw+Qxwh/6mCDIsGf/5kpIl2VhAP
- Q5uYZ1Bhw6hbkp0nleB/fIkQAAHmA/nnzzzzkzui9dmULaYWptcHwEvhPzesQA7A43uvsIbmmmr
- sfTmboV6Za40lTm60wehy4Ip+QY3Aro3VKR65k4PD4xxurK1LOexXY18UBFxGyrrM88oq1t9kgb
- fqQi2eFkAr/KtKYzxJ/m6iQaAMsUH72NJWSgQ2y3PvgC+bntzhBRtTcm+7QvCgTpXJ/2X5Nl83s
- hNoLmOT6Ce8JmkGeyDNGWWxke2Gp6Zh/uQ1LjbLpwX0CmpJOxGpi0T3tRRGzw+tasclRwbPIQnn
- 8zpgx9Yn8Y5038BrleVTYMsvt+/BrCdZREnR4VXt+DpuH7piPjMDq+aPFg6F/uGg1MiYeT33Wkr
- kxK3pbCrV4lhaGW24e4of8jw/nMY/vo/tlLq0UI4ATfwSUBG5QE6pIBsMo
-X-Received: by 2002:a05:600c:570f:b0:493:ad1b:b38d with SMTP id
- 5b1f17b1804b1-493c2ba7db3mr79292735e9.37.1783047748313; 
- Thu, 02 Jul 2026 20:02:28 -0700 (PDT)
+ bh=3VijT5EAGT5PjFlBgSgvYFumoT9q3jXWudWem8ZQxFk=;
+ b=Plo89C/2Cb0fbbiQe19aoP3JuSqGHFya2oAvWCCRf8TzwX2MfdcWBoLnPCFebCz5ul
+ lbdfOSGS6VB5i0k4c/gORSxnYy0fZsH9S7ZDOSXZUJdhJ5eVuPOZfiYp/zSOA4sFGE27
+ fnomUZ8wSfhOy9zYJQd2jrZRn9XanzA+5Z2hM3p701uO6rleI1OLcNXUuc2KwadsDVH5
+ zs4b4ArhuFgVCwpBLtSWtho44aqaiz+984yreaRDYFw3w3wj+uswyDoat2x9wMTjGYDl
+ rKBWD28AKTtDLpPGJcFK/c4eaFLEkhA43zv2lumA5At3DOBylIA3vDL8p3kAtmQ1IpHz
+ AQ+g==
+X-Gm-Message-State: AOJu0Yz6CGuR/r1UJ7s2F4uU4I+YbYf/GN8qdfI4u8GWM9zUJR3OVfhN
+ oUR/OETE3ZLFbCOFnBFlHn911MGoBJLFXBJcWyH8LmlABeb45IxnBDKDs4aUD5HaLg==
+X-Gm-Gg: AfdE7ckdH4AgMbpKrhGa2yjt30GZIFVWMuRjNjp7MALimgelvb8412HZoAdLwNeqrX6
+ MHLOlFpwany8N+q1Q0sFeuiUlu66/HB+WQzIiI5+8fwsaKdXKSPCN1HbeQVcFsBuWkT2Aw3ZocW
+ kpZ8kMv95C74mkkgsetSEX8XaHaVv+hI3uwwCr4Xq2cNdE/7GYLIi+l3gUG9iCZEbTRSwAVUN2C
+ W+byan6kwVDeTuckWIOOZkkl8Aoez7Dhpc/kWnruflQCmiIZW3soQ9gtrpeI/hLChSzVZsfLcaM
+ 0EDZ3YLtBEvTHePkbCx1oXQdWLRK9obQxwly5DmYY29L/W6DAwo1f1ePf3SI5zu+DLnoKby9sTg
+ U9joiyd5VDXiVcQ6irEvQWV2HqmOXkhWp2jqx0hMrpLV+Wct9jVJwKWQJQ0RXfZ/oR031kpxn6L
+ vhyFItmRwgRq4bg+EPvU3a8ZL8uN0AVHa2o4M1ECrCi4S9XQOA18oKzSYQ
+X-Received: by 2002:a05:600c:3e06:b0:493:c548:87fb with SMTP id
+ 5b1f17b1804b1-493c5488ce2mr76503585e9.36.1783047750009; 
+ Thu, 02 Jul 2026 20:02:30 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.25
+ 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:02:26 -0700 (PDT)
+ Thu, 02 Jul 2026 20:02:29 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
@@ -73,15 +73,15 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 03/10] drm/vino: add the AES-CTR/AES-CMAC control-plane
- seal and arm sequence
-Date: Fri,  3 Jul 2026 04:02:08 +0100
-Message-ID: <20260703030217.2886-4-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 04/10] drm/vino: add the Vino framebuffer codec
+Date: Fri,  3 Jul 2026 04:02:09 +0100
+Message-ID: <20260703030217.2886-5-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260703030217.2886-1-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
  <20260703030217.2886-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,750 +98,1257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-cp.rs implements the post-AKE control-plane wire format: the AES-CTR
-seal (K_dl3 = ks, keystream AES-CTR(ks, riv || BE64(seq)) over the
-whole inner message), the Dl3Cmac trailer (AES-CMAC over the sealed
-ciphertext with a riv-derived nonce, encrypt-then-MAC), the stream-open
-arm marker that makes the dock start processing encrypted CP, and the
-message builders for mode-set, cursor, and DDC/CI Set-VCP (brightness/
-contrast/DPMS power). All of this is verified byte-exact against the
-reference daemon's captured wire traffic.
+video.rs implements the dock's video transport: an RLE fallback
+encoder (shadow-diffed against the previous frame) plus the
+Walsh-Hadamard "Vino" colour codec reverse-engineered from the
+reference daemon's encoder output -- the 8x8 transform, DC-plane
+entropy coding and colour (Y/Cb/Cr) handling are byte-exact against
+captured hardware output; the AC coefficient entropy grammar is only
+partially recovered (EOB/scan/context still open), so the WHT path is
+only used for aligned geometry and falls back to RLE otherwise. Also
+builds the EP08 wire framing (DLM's per-strip TLV record layout).
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-sonnet-5 [Claude-Code]
 ---
- drivers/gpu/drm/vino/cp.rs | 723 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 723 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/cp.rs
+ drivers/gpu/drm/vino/video.rs | 1229 +++++++++++++++++++++++++++++++++
+ 1 file changed, 1229 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/video.rs
 
-diff --git a/drivers/gpu/drm/vino/cp.rs b/drivers/gpu/drm/vino/cp.rs
+diff --git a/drivers/gpu/drm/vino/video.rs b/drivers/gpu/drm/vino/video.rs
 new file mode 100644
-index 000000000000..4d55b96999b0
+index 000000000000..c520af19a4fb
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/cp.rs
-@@ -0,0 +1,723 @@
++++ b/drivers/gpu/drm/vino/video.rs
+@@ -0,0 +1,1229 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Encrypted-control-plane message builders (the inner plaintext of the type=4
-+//! sub=0x24 AES-CTR frames) plus the AES-CTR `seal` that encrypts and frames them.
-+//! Layouts are from the reverse-engineered protocol; offsets cite the guide and
-+//! should be re-checked against a capture before they drive real hardware.
-+#![allow(dead_code)] // some seal/handler paths run only after the dock engages CP (open blocker)
++//! RawRl (Raw/RLX) **mode-2 video encoder** -- clean-room from the AArch64 DLM
++//! decompile (sec 8.4 + `docs/decompile/arm64-blockencoder`/`-frame-markers`).
++//! Emits packed-RGB565 frames the dock decodes WITHOUT the impractical Vino
++//! Walsh-Hadamard entropy codec (sec 7.11). This is a **verbatim port** of the
++//! `vino-codec::rawrl` oracle, whose encode/decode round-trip is unit-tested
++//! (keyframe, differential, >256-pixel multi-block and >255 RLE run-splits all
++//! reconstruct byte-exact); keep the two in lockstep. No real mode-2 capture
++//! exists to diff against (sec 7.4), so that round-trip is the correctness anchor.
++//! NOT yet wired into `probe()`: sending a frame the dock rejects USB-resets the
++//! dock, so EP08 streaming is a supervised bring-up step.
++#![allow(dead_code)] // Encoder/Mode variants validated by KUnit; live scanout uses the RLE path
 +
 +use super::*;
 +
-+/// Common CP inner header: `[id u16][sub u16][counter u16][00 00]` (sec 6.1/sec 8.6.4).
-+fn header(out: &mut KVec<u8>, id: u16, sub: u16, counter: u16) -> Result {
-+    out.extend_from_slice(&id.to_le_bytes(), GFP_KERNEL)?;
-+    out.extend_from_slice(&sub.to_le_bytes(), GFP_KERNEL)?;
-+    out.extend_from_slice(&counter.to_le_bytes(), GFP_KERNEL)?;
-+    out.extend_from_slice(&[0, 0], GFP_KERNEL)?;
-+    Ok(())
-+}
++pub(crate) const MAGIC_RAW16: u16 = 0x68af;
++pub(crate) const MAGIC_RLE16: u16 = 0x69af;
++/// Frame-init `0x40af` (`FUN_003330fc`: u32 `0xaf0440af` + u16 `0x0840`).
++pub(crate) const FRAME_INIT: [u8; 6] = [0xaf, 0x40, 0x04, 0xaf, 0x40, 0x08];
++/// Bare `0xa0af` sync (`FUN_00332a38`).
++pub(crate) const SYNC: [u8; 2] = [0xaf, 0xa0];
++/// Frame-end section->code table `DAT_005b7860`, indexed by `mode - 1`.
++pub(crate) const SECTION_CODE: [u8; 7] = [0x01, 0x00, 0x03, 0x00, 0x05, 0x07, 0x07];
++pub(crate) const MAX_BLOCK_PIXELS: usize = 256;
 +
-+fn pad_to(out: &mut KVec<u8>, len: usize) -> Result {
-+    while out.len() < len {
-+        out.push(0, GFP_KERNEL)?;
-+    }
-+    Ok(())
-+}
-+
-+/// OUT heartbeat (sec 6.1): `id=0x16 sub=0x75`, two AES blocks (`10 27` at block1+6).
-+pub(super) fn heartbeat(counter: u16) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x16, 0x75, counter)?;
-+    pad_to(&mut b, 22)?; // block0 tail + block1[0..6]
-+    b.extend_from_slice(&[0x10, 0x27], GFP_KERNEL)?; // block1[6..8]
-+    pad_to(&mut b, 32)?;
-+    Ok(b)
-+}
-+
-+/// OUT get-EDID request (CP-HANDSHAKE.md sec 4f): `id=0x15 sub=0x21`, the message that asks
-+/// the dock to return the downstream monitor's EDID in an `id=0x194 sub=0x21` reply (parsed
-+/// by [`parse_edid_from_reply`]). The request carries no payload beyond the inner header, so
-+/// it is a single 16-byte AES block; [`seal_livemac`] appends the 16-byte Dl3Cmac. The dock
-+/// echoes the `counter`, so any monotonic value works. The exact request body was never
-+/// captured (only the reply), so this is the minimal well-formed form -- re-check against a
-+/// capture if the dock ever NAKs it once CP engages.
-+pub(super) fn get_edid_req(counter: u16) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(16, GFP_KERNEL)?;
-+    header(&mut b, 0x15, 0x21, counter)?;
-+    pad_to(&mut b, 16)?;
-+    Ok(b)
-+}
-+
-+/// A video timing in DisplayID-Type-I terms (sec 8.6.4), as carried by the
-+/// `0x48/0x22` set-mode message. Field meanings and offsets are verified
-+/// byte-exact against the golden 3840x2160@60 capture (see [`set_mode`]).
++/// Per-run strategy: mode 0 raw-only, 1 RLE-only, 2 adaptive (sec 8.4).
 +#[derive(Clone, Copy)]
-+pub(super) struct Timing {
-+    pub hactive: u16,
-+    pub hblank: u16,
-+    pub hsync_front: u16,
-+    pub hsync_width: u16,
-+    pub vactive: u16,
-+    pub vblank: u16,
-+    pub vsync_front: u16,
-+    pub vsync_width: u16,
-+    pub refresh_hz: u16,
-+    /// Pixel clock in 10 kHz units (e.g. 0xd040 = 533.12 MHz for 4K@60).
-+    pub pixel_clock_10khz: u16,
-+    /// DisplayID field at off42 -- partly decoded (0x0604 for 4K, 0x0600 for the
-+    /// 2560x1440 sample in sec 8.6.4); high byte 0x06 constant, low byte mode-varying.
-+    pub field42: u16,
++pub(crate) enum Mode {
++    Raw = 0,
++    Rle = 1,
++    Adaptive = 2,
 +}
 +
-+impl Timing {
-+    /// 3840x2160@60 (CVT-RB) -- the mode the non-HDCP dongle advertises, kept as a
-+    /// known-good reference whose `set_mode` output is byte-exact vs the golden capture.
-+    pub(super) const UHD_60: Timing = Timing {
-+        hactive: 3840, hblank: 160, hsync_front: 48, hsync_width: 32,
-+        vactive: 2160, vblank: 62, vsync_front: 3, vsync_width: 5,
-+        refresh_hz: 60, pixel_clock_10khz: 0xd040, field42: 0x0604,
-+    };
++/// Pack 8-bit RGB into RGB565 (the XRGB framebuffer reduced for the
++/// `0x68af`/`0x69af` path).
++pub(crate) fn rgb565(r: u8, g: u8, b: u8) -> u16 {
++    ((r as u16 >> 3) << 11) | ((g as u16 >> 2) << 5) | (b as u16 >> 3)
 +}
 +
-+/// set-mode (sec 8.6.4): `id=0x48 sub=0x22`, a 96-byte inner message carrying a
-+/// DisplayID-Type-I u16 timing record. **Verified byte-exact** against the golden
-+/// `[59]` 3840x2160@60 capture for every byte except the trailing 22-byte session
-+/// MAC (off74..95), which [`seal`]'s caller / the HDCP session layer appends.
-+///
-+/// Layout (inner offsets): off20 BE u32 generation=2; off26 begins the LE u16
-+/// record `hactive,hblank,hsync_front,hsync_width,vactive,vblank,vsync_front,
-+/// vsync_width,field42,refresh,flags(0x4000)`; off48/off58/off60/off66 carry
-+/// constants observed in the 4K capture; off70 the pixel clock (10 kHz units).
-+pub(super) fn set_mode(counter: u16, t: &Timing) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(96, GFP_KERNEL)?;
-+    header(&mut b, 0x48, 0x22, counter)?;
-+    pad_to(&mut b, 20)?;
-+    b.extend_from_slice(&2u32.to_be_bytes(), GFP_KERNEL)?; // off20: BE generation=2
-+    pad_to(&mut b, 26)?; // off24..25 zero; timing begins at off26
-+    for v in [
-+        t.hactive, t.hblank, t.hsync_front, t.hsync_width,
-+        t.vactive, t.vblank, t.vsync_front, t.vsync_width,
-+        t.field42, t.refresh_hz, 0x4000, /* off46 flags */ 0x6000, /* off48 */
-+    ] {
-+        b.extend_from_slice(&v.to_le_bytes(), GFP_KERNEL)?;
++/// 6-byte block header: magic LE, 24-bit coord BE, count u8 (256 -> 0).
++fn block_header(out: &mut KVec<u8>, magic: u16, coord: u32, count: usize) -> Result {
++    out.extend_from_slice(&magic.to_le_bytes(), GFP_KERNEL)?;
++    out.push(((coord >> 16) & 0xff) as u8, GFP_KERNEL)?;
++    out.push(((coord >> 8) & 0xff) as u8, GFP_KERNEL)?;
++    out.push((coord & 0xff) as u8, GFP_KERNEL)?;
++    out.push((count & 0xff) as u8, GFP_KERNEL)?;
++    Ok(())
++}
++
++fn encode_raw_into(out: &mut KVec<u8>, coord: u32, pix: &[u16]) -> Result {
++    block_header(out, MAGIC_RAW16, coord, pix.len())?;
++    for &p in pix {
++        out.extend_from_slice(&p.to_be_bytes(), GFP_KERNEL)?;
 +    }
-+    pad_to(&mut b, 58)?;
-+    b.extend_from_slice(&0x0080u16.to_le_bytes(), GFP_KERNEL)?; // off58 (observed const)
-+    b.extend_from_slice(&0x00ffu16.to_le_bytes(), GFP_KERNEL)?; // off60 (observed const)
-+    pad_to(&mut b, 66)?;
-+    b.extend_from_slice(&0x0800u16.to_le_bytes(), GFP_KERNEL)?; // off66 (observed const)
-+    pad_to(&mut b, 70)?;
-+    b.extend_from_slice(&t.pixel_clock_10khz.to_le_bytes(), GFP_KERNEL)?; // off70
-+    pad_to(&mut b, 96)?;
-+    Ok(b)
++    Ok(())
 +}
 +
-+/// Standard VESA MCCS (Monitor Control Command Set 2.2) VCP feature codes, driven over
-+/// DDC/CI. The macOS DisplayLink agent exposes these as per-display brightness/contrast
-+/// ("Popover did show -- starting DDC/CI communication", `setBrightness`/`setContrast`); the
-+/// dock bridges the DDC/CI transaction to the downstream monitor's I2C slave 0x37 -- the same
-+/// monitor-I2C path the EDID read ([`get_edid_req`]) uses for the 0x50 EDID slave.
-+pub(super) const VCP_BRIGHTNESS: u8 = 0x10;
-+pub(super) const VCP_CONTRAST: u8 = 0x12;
-+/// VCP 0xD6 "Power mode": value 0x01 = on, 0x04 = off (DPMS-off / hard standby). Lets DPMS
-+/// blank the panel backlight instead of freezing the last frame (see [`crtc_atomic_disable`]).
-+pub(super) const VCP_POWER_MODE: u8 = 0xd6;
-+pub(super) const POWER_ON: u16 = 0x01;
-+pub(super) const POWER_OFF: u16 = 0x04;
-+
-+/// Build a DDC/CI "Set VCP Feature" request: the 7 bytes a DDC/CI host writes to the
-+/// monitor's I2C slave 0x37, after the 0x6e (= 0x37<<1) write address (VESA DDC/CI 1.1
-+/// sec 4.4). Layout: source 0x51, length `0x80 | 4`, opcode 0x03 (Set VCP), VCP code,
-+/// value-hi, value-lo, then an XOR checksum seeded with the destination address 0x6e. Pure
-+/// and fully standard, so it is unit-tested byte-exact against the spec
-+/// ([`super::tests::ddc_ci_set_vcp_checksum`]).
-+pub(super) fn ddc_ci_set_vcp(vcp: u8, value: u16) -> [u8; 7] {
-+    let body = [0x51u8, 0x84, 0x03, vcp, (value >> 8) as u8, value as u8];
-+    let mut chk = 0x6eu8; // checksum seed = destination slave-write address (0x37 << 1)
-+    for &x in &body {
-+        chk ^= x;
++fn encode_rle_into(out: &mut KVec<u8>, coord: u32, pix: &[u16]) -> Result {
++    block_header(out, MAGIC_RLE16, coord, pix.len())?;
++    let mut i = 0;
++    while i < pix.len() {
++        let v = pix[i];
++        let mut run = 1;
++        while i + run < pix.len() && pix[i + run] == v && run < 255 {
++            run += 1;
++        }
++        out.push(run as u8, GFP_KERNEL)?;
++        out.extend_from_slice(&v.to_be_bytes(), GFP_KERNEL)?;
++        i += run;
 +    }
-+    [body[0], body[1], body[2], body[3], body[4], body[5], chk]
++    Ok(())
 +}
 +
-+/// CP message that tunnels a DDC/CI Set-VCP write to the downstream monitor -- the brightness,
-+/// contrast and DPMS-power controls the macOS/Windows agents drive over "DDC/CI communication".
-+/// The dock's monitor-I2C bridge is the same one the EDID read uses, so this is modelled as the
-+/// WRITE companion to the `0x15/0x21` EDID read: `id=0x15 sub=0x22`, carrying the I2C slave
-+/// (0x37) + payload length at off20 and the 7-byte DDC/CI Set-VCP payload at off22.
-+///
-+/// The `id`/`sub` and payload offset are **inferred** from the EDID-read pairing -- the write
-+/// transaction was never captured (it only fires once a monitor is actively driven, i.e. past
-+/// the CP wall), so re-check against a capture once CP engages. The DDC/CI bytes themselves
-+/// ([`ddc_ci_set_vcp`]) are standard and verified.
-+pub(super) fn ddc_set_vcp(counter: u16, vcp: u8, value: u16) -> Result<KVec<u8>> {
-+    let payload = ddc_ci_set_vcp(vcp, value);
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    header(&mut b, 0x15, 0x22, counter)?;
-+    pad_to(&mut b, 20)?;
-+    // off20: monitor DDC/CI I2C slave (0x37) + DDC/CI payload length.
-+    b.extend_from_slice(&[0x37, payload.len() as u8], GFP_KERNEL)?;
-+    // off22: the DDC/CI Set-VCP bytes (same off22 convention as the EDID payload).
-+    b.extend_from_slice(&payload, GFP_KERNEL)?;
-+    pad_to(&mut b, 32)?;
-+    Ok(b)
-+}
-+
-+/// EDID base-block sanity check: length, the `00 FF..FF 00` magic, and the 1-byte
-+/// checksum (all 128 base bytes sum to 0 mod 256). A corrupt blob must never drive a
-+/// mode-set, so [`timing_from_edid`] rejects anything that fails this.
-+fn edid_valid(edid: &[u8]) -> bool {
-+    const MAGIC: [u8; 8] = [0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00];
-+    edid.len() >= 128
-+        && edid[..8] == MAGIC
-+        && edid[..128].iter().fold(0u8, |a, &b| a.wrapping_add(b)) == 0
-+}
-+
-+/// Parse one 18-byte EDID detailed timing descriptor into a [`Timing`], or `None` if it
-+/// is too short or not a timing (pixel clock 0 marks a monitor descriptor). `field42`
-+/// is left at the sec 8.6.4 default (`0x0600`) -- its low byte is mode-varying and not fully
-+/// decoded, so the live mode-set substitution leaves the captured value in place.
-+fn parse_dtd(d: &[u8]) -> Option<Timing> {
-+    if d.len() < 18 {
-+        return None;
++fn run_count(pix: &[u16]) -> usize {
++    let mut c = 0;
++    let mut i = 0;
++    while i < pix.len() {
++        let v = pix[i];
++        let mut j = i + 1;
++        while j < pix.len() && pix[j] == v {
++            j += 1;
++        }
++        c += 1;
++        i = j;
 +    }
-+    let pclk = u16::from_le_bytes([d[0], d[1]]);
-+    if pclk == 0 {
-+        return None; // monitor descriptor, not a detailed timing
-+    }
-+    let hi = |v: u8, lo: u8| -> u16 { ((v as u16) << 8) | lo as u16 };
-+    let hactive = hi((d[4] >> 4) & 0xf, d[2]);
-+    let hblank = hi(d[4] & 0xf, d[3]);
-+    let vactive = hi((d[7] >> 4) & 0xf, d[5]);
-+    let vblank = hi(d[7] & 0xf, d[6]);
-+    let hsync_front = (((d[11] >> 6) & 0x3) as u16) << 8 | d[8] as u16;
-+    let hsync_width = (((d[11] >> 4) & 0x3) as u16) << 8 | d[9] as u16;
-+    let vsync_front = (((d[11] >> 2) & 0x3) as u16) << 4 | ((d[10] >> 4) & 0xf) as u16;
-+    let vsync_width = ((d[11] & 0x3) as u16) << 4 | (d[10] & 0xf) as u16;
-+    let htotal = hactive.wrapping_add(hblank) as u32;
-+    let vtotal = vactive.wrapping_add(vblank) as u32;
-+    let refresh_hz = if htotal != 0 && vtotal != 0 {
-+        ((pclk as u32 * 10_000 + (htotal * vtotal) / 2) / (htotal * vtotal)) as u16
-+    } else {
-+        0
-+    };
-+    Some(Timing {
-+        hactive,
-+        hblank,
-+        hsync_front,
-+        hsync_width,
-+        vactive,
-+        vblank,
-+        vsync_front,
-+        vsync_width,
-+        refresh_hz,
-+        pixel_clock_10khz: pclk,
-+        field42: 0x0600,
-+    })
++    c
 +}
 +
-+/// Extract the monitor's **preferred** detailed timing from an EDID for the live mode-set
-+/// (CP-HANDSHAKE.md sec 4e). The first DTD in the base block is the preferred timing per the
-+/// EDID spec; scan all four base descriptor slots (off 54/72/90/108) so a leading monitor
-+/// descriptor (name/range/serial) doesn't hide it, and if the base block carries no DTD at
-+/// all, fall back to the first DTD in the CTA-861 extension block. The blob is validated
-+/// first; an invalid or timing-less EDID returns `None` so the caller keeps its known-good
-+/// fallback timing rather than driving the dock with garbage.
-+pub(super) fn timing_from_edid(edid: &[u8]) -> Option<Timing> {
-+    if !edid_valid(edid) {
-+        return None;
-+    }
-+    // Base-block descriptors: the first valid DTD is the preferred timing.
-+    for off in [54usize, 72, 90, 108] {
-+        if off + 18 <= edid.len() {
-+            if let Some(t) = parse_dtd(&edid[off..off + 18]) {
-+                return Some(t);
++fn encode_run_into(out: &mut KVec<u8>, mode: Mode, coord: u32, pix: &[u16]) -> Result {
++    match mode {
++        Mode::Raw => encode_raw_into(out, coord, pix),
++        Mode::Rle => encode_rle_into(out, coord, pix),
++        Mode::Adaptive => {
++            let l = pix.len();
++            let c = run_count(pix);
++            if 2 * l < 3 * c + 1 {
++                encode_raw_into(out, coord, pix)
++            } else {
++                encode_rle_into(out, coord, pix)
 +            }
 +        }
 +    }
-+    // No DTD in the base block: try the first CTA-861 extension's DTD area. CTA-861 blocks
-+    // have tag 0x02 at byte 0 and a DTD-area byte offset at byte 2 (>= 4 when DTDs follow);
-+    // descriptors run in 18-byte records up to the extension's checksum byte (127).
-+    if edid[126] as usize >= 1 && edid.len() >= 256 {
-+        let ext = &edid[128..256];
-+        if ext[0] == 0x02 {
-+            let start = ext[2] as usize;
-+            if start >= 4 {
-+                let mut off = start;
-+                while off + 18 <= 127 {
-+                    if let Some(t) = parse_dtd(&ext[off..off + 18]) {
-+                        return Some(t);
-+                    }
-+                    off += 18;
++}
++
++/// Mode-2 frame encoder holding the shadow (previous-frame) buffer.
++pub(crate) struct Encoder {
++    width: usize,
++    height: usize,
++    mode: Mode,
++    // vmalloc-backed: a `width*height` u16 buffer is ~4 MiB at 1080p, far above the
++    // contiguous-kmalloc order limit (the page allocator WARNs and fails on it).
++    shadow: VVec<u16>,
++}
++
++impl Encoder {
++    pub(crate) fn new(width: usize, height: usize, mode: Mode) -> Result<Self> {
++        let shadow = VVec::from_elem(0u16, width * height, GFP_KERNEL)?;
++        Ok(Self { width, height, mode, shadow })
++    }
++
++    /// Encode `cur` (RGB565) into a mode-2 marker stream; updates the shadow.
++    /// Change-detection is per row; changed runs chunk into <=256-px blocks.
++    pub(crate) fn encode(&mut self, cur: &[u16]) -> Result<KVec<u8>> {
++        let mut s = KVec::new();
++        self.encode_into(cur, &mut s)?;
++        Ok(s)
++    }
++
++    /// Like [`encode`](Self::encode) but appends the marker stream to a caller-owned
++    /// `out` instead of allocating a fresh `KVec`. The hot scanout path
++    /// ([`encode_and_send`](super::drm_sink::encode_and_send)) uses this to encode
++    /// straight into a buffer that already reserves the EP08 transport header, so a
++    /// frame costs one allocation with no separate framing copy.
++    pub(crate) fn encode_into(&mut self, cur: &[u16], s: &mut KVec<u8>) -> Result {
++        s.extend_from_slice(&FRAME_INIT, GFP_KERNEL)?;
++        for y in 0..self.height {
++            let row = y * self.width;
++            let mut x = 0;
++            while x < self.width {
++                while x < self.width && cur[row + x] == self.shadow[row + x] {
++                    x += 1;
++                }
++                if x >= self.width {
++                    break;
++                }
++                let run_start = x;
++                while x < self.width && cur[row + x] != self.shadow[row + x] {
++                    x += 1;
++                }
++                let run_end = x;
++                let mut p = run_start;
++                while p < run_end {
++                    let n = (run_end - p).min(MAX_BLOCK_PIXELS);
++                    let coord = (((row + p) * 2) & 0xff_ffff) as u32;
++                    encode_run_into(s, self.mode, coord, &cur[row + p..row + p + n])?;
++                    p += n;
 +                }
 +            }
 +        }
++        // `SECTION_CODE` (the decompile's `DAT_005b7860`) is indexed by the DL3 1-based
++        // mode number minus 1; our 0-based `Mode` discriminant already equals that index
++        // (Raw=0->0x01, Rle=1->0x00, Adaptive=2->0x03). The previous `saturating_sub(1)`
++        // double-subtracted, collapsing Raw and Rle onto the same code.
++        let code = SECTION_CODE[(self.mode as usize).min(SECTION_CODE.len() - 1)];
++        s.extend_from_slice(&SYNC, GFP_KERNEL)?;
++        s.extend_from_slice(&[0xaf, 0x20, 0x1f, code], GFP_KERNEL)?;
++        s.extend_from_slice(&[0xaf, 0x20, 0xff, 0x00], GFP_KERNEL)?;
++        s.extend_from_slice(&SYNC, GFP_KERNEL)?;
++        // Commit the shadow ONLY after the whole frame has been emitted successfully.
++        // Updating it incrementally (per changed run) left it half-updated if a later
++        // `extend_from_slice` hit OOM, permanently desyncing every subsequent diff frame.
++        // The encoder reads the pre-frame shadow throughout, so a single end-of-frame copy
++        // is equivalent to the per-run writes on the success path. The loop already indexes
++        // `cur` up to `width*height == shadow.len()`, so this slice is always in bounds.
++        let n = self.shadow.len();
++        self.shadow.copy_from_slice(&cur[..n]);
++        Ok(())
 +    }
-+    None
 +}
 +
-+/// Overwrite the geometry + clock fields of an in-place set-mode inner message
-+/// (`id=0x48 sub=0x22`) with `t` (CP-HANDSHAKE.md sec 4e). Offsets mirror [`set_mode`]:
-+/// the LE u16 timing record at off26 and the pixel clock at off70. `field42` (off42),
-+/// the off66 token and the encrypted trailer are intentionally **left as captured**;
-+/// only the EDID-derived values change, so the wire length (hence `wire_seq`) is
-+/// unchanged. No-op if `plain` is too short.
-+pub(super) fn apply_edid_timing(plain: &mut [u8], t: &Timing) {
-+    if plain.len() < 72 {
-+        return;
-+    }
-+    let put = |b: &mut [u8], off: usize, v: u16| {
-+        b[off] = v as u8;
-+        b[off + 1] = (v >> 8) as u8;
-+    };
-+    put(plain, 26, t.hactive);
-+    put(plain, 28, t.hblank);
-+    put(plain, 30, t.hsync_front);
-+    put(plain, 32, t.hsync_width);
-+    put(plain, 34, t.vactive);
-+    put(plain, 36, t.vblank);
-+    put(plain, 38, t.vsync_front);
-+    put(plain, 40, t.vsync_width);
-+    put(plain, 44, t.refresh_hz);
-+    put(plain, 70, t.pixel_clock_10khz);
-+}
-+
-+/// Convert a DRM display mode (the timing the *compositor* selected from the connector's
-+/// EDID-derived mode list) into a set-mode [`Timing`]. This is what makes the dock
-+/// multi-mode: `drm_edid_connector_add_modes` already advertises every base+extension mode
-+/// from the dock's EDID, and when userspace sets any one of them the resulting
-+/// `drm_display_mode` lands here verbatim -- no re-parsing of EDID offsets. The blanking
-+/// fields map straight across (CVT/DMT/DisplayID all use the same front-porch/sync model),
-+/// and the refresh rate comes from DRM's own `drm_mode_vrefresh` helper rather than a
-+/// hand-rolled divide. `field42` keeps the sec 8.6.4 default (its low byte is mode-varying and
-+/// not fully decoded); the dock tolerates the high byte `0x06`.
++/// Vino (`0x2801`) Walsh-Hadamard codec -- the bandwidth-constrained / 4K path (the RLE path
++/// above is what the dock currently runs; this is the lossy transform codec DLM uses when raw/
++/// RLE won't fit the USB budget). See `docs/WHT-CODEC.md` + `docs/VIDEO.md` +
++/// `captures/codec-vlc-table-breakthrough-20260623.md`.
 +///
-+/// SAFETY: `mode` must point to a valid `drm_display_mode` for the duration of the call.
-+pub(super) fn timing_from_drm_mode(mode: &kernel::drm::kms::modes::DisplayMode) -> Timing {
-+    let refresh = mode.vrefresh() as u16;
-+    let sub = |a: u16, b: u16| a.saturating_sub(b);
-+    Timing {
-+        hactive: mode.hdisplay(),
-+        hblank: sub(mode.htotal(), mode.hdisplay()),
-+        hsync_front: sub(mode.hsync_start(), mode.hdisplay()),
-+        hsync_width: sub(mode.hsync_end(), mode.hsync_start()),
-+        vactive: mode.vdisplay(),
-+        vblank: sub(mode.vtotal(), mode.vdisplay()),
-+        vsync_front: sub(mode.vsync_start(), mode.vdisplay()),
-+        vsync_width: sub(mode.vsync_end(), mode.vsync_start()),
-+        refresh_hz: refresh,
-+        // `clock` is in kHz; the set-mode field is in 10 kHz units.
-+        pixel_clock_10khz: (mode.clock() / 10).clamp(0, u16::MAX as i32) as u16,
-+        field42: 0x0600,
++/// **Scope (recovered + verified byte-exact vs DLM, 2026-06-23).** Every stage below is checked
++/// against DLM's own captured output offline (no dock needed):
++/// - [`colour`] `Y = 16R+32G+16B` (achromatic `Y = 64*gray`);
++/// - [`transform`] the **8x8 2-D Haar (Mallat) wavelet** (`//64`), 320/320 real gradient blocks;
++/// - [`quantize`] the per-position bias/step quantizer (`white -> Y_DC=16320 -> 1020`);
++/// - [`CODEBOOK`]/[`Vlc`] the LSB-first unary-prefix magnitude VLC dumped from DLM's coder leaf
++///   `0x5e68b0`, plus the [`SYNC13`] block framing -- `scripts/wht-block-codec.py` round-trips
++///   DLM's per-block output 5/5 byte-for-byte.
++///
++/// **The coeff->strip grammar is now recovered end to end** ([`strip`] + [`encode_frame`], 2026-06-23):
++/// the per-block significance code (a LAST-significant-position code, not a zerotree/context coder),
++/// the across-block DC **DPCM** plane (`(Cr, Cb, Y)` residuals), the AC run/magnitude stream, the two
++/// strip layouts (SOLID vs AC), and the **forward length-hint tail** (`tail[k] = L[k+1] - 2`, verified
++/// 10529/10800 on the gradient capture). [`encode_frame`] tiles a luma frame into 64x16 strips and
++/// composes the whole stream byte-exact for **achromatic** content.
++///
++/// **Two items remain genuinely unverified (so the live scanout path keeps using RLE -- emitting
++/// guessed bits is forbidden):** (1) **chroma AC** -- every captured AC example was grey, so the
++/// Cb/Cr high-frequency path has no ground truth and [`strip`] leaves chroma AC at zero; (2) the
++/// rightmost-column **size-mispredict** -- DLM's forward hint occasionally predicts an anomalously
++/// sized neighbour wrong (a framing micro-heuristic, ~2.5% of gradient strips); [`encode_frame`] uses
++/// exact look-ahead instead, which matches DLM on 100% of constant-strip-size content. Both are
++/// HW-unverifiable while the CP wall stands. The transform/quantizer/entropy stages are byte-exact.
++#[allow(dead_code)] // Walsh-Hadamard codec: KUnit-validated, not yet on the live scanout path
++pub(crate) mod wht {
++    use super::*;
++
++    /// Transform block geometry (recovered + byte-exact-verified 2026-06-23, see
++    /// `captures/codec-vlc-table-breakthrough-20260623.md`): an **8x8 pixel** block is the input
++    /// (`DIM` x `DIM` = `PIXELS` luma samples); the wavelet emits **32** coefficients (`COEFFS`) --
++    /// it is lossy 64->32, dropping the level-1 LH/HH subbands. `BLOCK` aliases `PIXELS` for the
++    /// `transform()` input length.
++    pub(crate) const DIM: usize = 8;
++    pub(crate) const PIXELS: usize = DIM * DIM;
++    pub(crate) const COEFFS: usize = 32;
++    pub(crate) const BLOCK: usize = PIXELS;
++
++    /// Vino colour transform, in the codec's 64x fixed point: `Cb = 64(R-G)`,
++    /// `Cr = 64(B-G)` (achromatic R=G=B -> Cb=Cr=0), and the reversible luma
++    ///
++    /// ```text
++    ///     Y = 64*G + 64*((Cb_raw + Cr_raw) >> 2)   where Cb_raw=R-G, Cr_raw=B-G
++    /// ```
++    ///
++    /// The `>> 2` is an arithmetic shift (floor toward -inf). This **replaces** the
++    /// earlier `Y = 16R + 32G + 16B` form, which `validate-transform-encoderio.py`
++    /// showed runs 16..48 HIGH for chromatic blocks (`16R+32G+16B = 64G + 16(Cb+Cr)`,
++    /// i.e. the un-floored sum). The floored form reproduces DLM's transform DC for
++    /// **every** measured colour -- the 6 saturated primaries/secondaries (incl. the
++    /// signed green/cyan cases the floor must round toward -inf), grey, white and
++    /// black (`scripts/validate-transform-encoderio.py`); achromatic input is
++    /// unchanged (`64*G` since `Cb=Cr=0`).
++    pub(crate) fn colour(r: u8, g: u8, b: u8) -> (i32, i32, i32) {
++        let (r, g, b) = (r as i32, g as i32, b as i32);
++        let (cb, cr) = (r - g, b - g);
++        (64 * g + 64 * ((cb + cr) >> 2), 64 * cb, 64 * cr)
++    }
++
++    /// Per-coefficient `(step, bias)` quantization table, **derived 2026-06-23 from DLM's
++    /// ground-truth `quant_leave` pre/post buffers** (captures/sig-library) -- the old
++    /// decode-ep08 guess (pos3 step32/bias16, pos4-11 step4/bias2, pos16-47 step2/bias1) was
++    /// WRONG and broke 4/25 strips. Note pos3 = (48, 32): a WIDE DEADZONE (so c3[3]=-48 -> -1,
++    /// not -2). Keyed by coefficient position `0..32`.
++    fn step_bias(i: usize) -> (i32, i32) {
++        match i {
++            0 => (16, 8),
++            1 | 2 => (16, 2),
++            3 => (48, 32),
++            4..=11 => (4, 0),
++            12 => (8, 2),
++            13..=15 => (8, 0),
++            _ => (2, 0), // 16..=31
++        }
++    }
++
++    /// Quantize coefficient `coeff` at position `i`: `sign(coeff) * floor((|coeff| + bias) / step)`
++    /// (byte-exact vs DLM, 25/25 library strips). Clamped to the 12-bit signed long-token range.
++    pub(crate) fn quantize(coeff: i32, i: usize) -> i32 {
++        let (step, bias) = step_bias(i);
++        let q = (coeff.abs() + bias) / step;
++        (if coeff < 0 { -q } else { q }).clamp(-2048, 2047)
++    }
++
++    /// One separable 2-D Haar step over the top-left `n`x`n` of `src` (row-major, `n` columns,
++    /// `n` in {8,4,2}). The 1-D Haar butterfly is `lo = a + b`, `hi = a - b`; applied to rows then
++    /// columns it splits the `n`x`n` block into four `(n/2)`x`(n/2)` subbands written to
++    /// `ll`/`hl`/`lh`/`hh` (row-major, stride `n/2`). Unnormalized -- `transform()` floor-divides
++    /// the final coefficients by 64. Mirrors `scripts/wht-transform.py` (verified byte-exact).
++    fn haar2d(src: &[i32], n: usize, ll: &mut [i32], hl: &mut [i32], lh: &mut [i32], hh: &mut [i32]) {
++        let h = n / 2;
++        // Row pass: L = row-lo, H = row-hi (each n rows x h cols).
++        let mut l = [0i32; PIXELS];
++        let mut hb = [0i32; PIXELS];
++        for r in 0..n {
++            for i in 0..h {
++                let (a, b) = (src[r * n + 2 * i], src[r * n + 2 * i + 1]);
++                l[r * h + i] = a + b;
++                hb[r * h + i] = a - b;
++            }
++        }
++        // Column pass: LL/LH = col-lo/hi of L, HL/HH = col-lo/hi of H (each h x h).
++        for c in 0..h {
++            for i in 0..h {
++                let (a, b) = (l[2 * i * h + c], l[(2 * i + 1) * h + c]);
++                ll[i * h + c] = a + b;
++                lh[i * h + c] = a - b;
++                let (a2, b2) = (hb[2 * i * h + c], hb[(2 * i + 1) * h + c]);
++                hl[i * h + c] = a2 + b2;
++                hh[i * h + c] = a2 - b2;
++            }
++        }
++    }
++
++    /// DLM's video transform (`FUN_007a7b60`), reverse-engineered + **verified byte-exact**
++    /// (2026-06-23, 320/320 real gradient blocks + the 6 stripe/checker vectors): an **8x8 2-D
++    /// Haar (Mallat) wavelet, floor-divided by 64**. The `block` is 8x8 luma (`Y = 16R+32G+16B`,
++    /// achromatic `Y = 64*gray`); the output is 32 coefficients in DLM's Mallat layout:
++    /// `c[0]` = LL; `c[1..4]` = level-3 HL/LH/HH; `c[4..8]/[8..12]/[12..16]` = level-2 HL/LH/HH
++    /// (2x2 row-major each); `c[16..32]` = level-1 HL (4x4 row-major). The level-1 LH and HH
++    /// subbands are dropped (the lossy 64->32 reduction). A uniform block yields `DC = mean`,
++    /// all AC = 0. Replaces the prior flat 2-level Walsh-Hadamard, which did not match DLM for AC.
++    pub(crate) fn transform(block: &[i32; PIXELS]) -> [i32; COEFFS] {
++        let sh = |x: i32| x >> 6; // arithmetic shift = floor division by 64 (matches DLM/`//64`)
++        let mut c = [0i32; COEFFS];
++        // Level 1: 8x8 -> 4x4 subbands; the finest HL band is c[16..32]. DLM emits this 4x4 band
++        // **column-major** (the entropy coder's coefficient reorder): wire position `p` reads band
++        // element `(row = p % 4, col = p / 4)`. Recovered 2026-06-27 byte-exact from a real DLM
++        // colour strip (cramp256 sink capture, `captures/codec-sink-094653/`): a horizontal ramp's
++        // HL band is `[-2,0,-2,0; ...]` row-major but the wire groups it `[-2,-2,-2,-2, 0,0,0,0, ...]`
++        // = the transpose. (The earlier achromatic byte-exact tests never exercised an asymmetric L1HL
++        // band -- gentle gradients quantize it to zero -- so this latent scan bug was invisible until
++        // steep colour content.) The lower bands (c[0..16]) decode in natural order.
++        let (mut ll1, mut hl1, mut lh1, mut hh1) = ([0i32; 16], [0i32; 16], [0i32; 16], [0i32; 16]);
++        haar2d(block, DIM, &mut ll1, &mut hl1, &mut lh1, &mut hh1);
++        for p in 0..16 {
++            c[16 + p] = sh(hl1[(p % 4) * 4 + p / 4]);
++        }
++        // Level 2: LL1 (4x4) -> 2x2 subbands; c[4..8]/[8..12]/[12..16].
++        let (mut ll2, mut hl2, mut lh2, mut hh2) = ([0i32; 4], [0i32; 4], [0i32; 4], [0i32; 4]);
++        haar2d(&ll1, 4, &mut ll2, &mut hl2, &mut lh2, &mut hh2);
++        for i in 0..4 {
++            c[4 + i] = sh(hl2[i]);
++            c[8 + i] = sh(lh2[i]);
++            c[12 + i] = sh(hh2[i]);
++        }
++        // Level 3: LL2 (2x2) -> 1x1 subbands; the DC c[0] and coarse c[1..4].
++        let (mut ll3, mut hl3, mut lh3, mut hh3) = ([0i32; 1], [0i32; 1], [0i32; 1], [0i32; 1]);
++        haar2d(&ll2, 2, &mut ll3, &mut hl3, &mut lh3, &mut hh3);
++        c[0] = sh(ll3[0]);
++        c[1] = sh(hl3[0]);
++        c[2] = sh(lh3[0]);
++        c[3] = sh(hh3[0]);
++        // `lh1`/`hh1` (level-1 LH/HH) are intentionally unused -- the lossy 64->32 drop.
++        let _ = (&lh1, &hh1);
++        c
++    }
++
++    // ====================================================================================
++    // ★ 2026-06-23 (live HW): the REAL entropy code, recovered + byte-exact-verified.
++    //
++    // The earlier MSB-first 5-bit "short/long token" model (now removed) was REFUTED: a value-axis
++    // amplitude sweep (`scripts/codec-sweep-plan.py`) showed its decoded tokens were invariant to
++    // the coefficient VALUE (identical `L589` across a 128x AC range) -- it never matched the coder.
++    // The dock's entropy coder (DLM leaf `0x5e68b0`) is a **memory-resident unary-prefix VLC,
++    // written LSB-first**, dumped from DLM and reproduced byte-for-byte by [`Vlc`] + [`CODEBOOK`]
++    // (`scripts/wht-block-codec.py` reproduces DLM's per-block output 5/5; see
++    // `captures/codec-vlc-table-breakthrough-20260623.md`). A coefficient's magnitude category is
++    // `bit_length(|coeff|)` (verified across the sweep), code = unary(c)+0-terminator+remainder.
++    //
++    // VERIFIED here (KUnit): the codebook, the LSB-first packing, the 1-bit final padding, and the
++    // magnitude-category rule. NOT yet generalized (the open work): the coeff->token GRAMMAR for
++    // arbitrary content -- DC DPCM, the 2-D scan (incl. the real horizontal/vertical asymmetry),
++    // and block modes -- so this is the byte-exact OUTPUT stage, not yet a wired general encoder.
++    // ====================================================================================
++
++    /// The dumped Vino entropy VLC, indexed by symbol: `(code, nbits)`, emitted **LSB-first**.
++    /// Symbol 0 = the 1-bit code `0` (zero / most common); symbol 31 = the all-ones escape prefix.
++    pub(crate) const CODEBOOK: [(u32, u8); 32] = [
++        (0, 1), (1, 3), (5, 3), (3, 5), (19, 5), (11, 5), (27, 5), (7, 7), (71, 7), (39, 7),
++        (103, 7), (23, 7), (87, 7), (55, 7), (119, 7), (15, 8), (143, 8), (79, 8), (207, 8),
++        (47, 8), (175, 8), (111, 8), (239, 8), (31, 8), (159, 8), (95, 8), (223, 8), (63, 8),
++        (191, 8), (127, 8), (255, 9), (511, 9),
++    ];
++
++    /// The constant 13-byte per-block sync literal (emitted twice), recovered from the wire.
++    pub(crate) const SYNC13: [u8; 13] =
++        [0x7c, 0x93, 0x6f, 0xf2, 0x4d, 0xbe, 0xc9, 0x37, 0xf9, 0x26, 0xdf, 0xe4, 0x9b];
++
++    /// LSB-first VLC bit packer matching the dock (final byte padded with **1-bits** -- a
++    /// truncated all-ones code, as DLM emits).
++    pub(crate) struct Vlc {
++        out: KVec<u8>,
++        acc: u32,
++        nbits: u32,
++    }
++
++    impl Vlc {
++        pub(crate) fn new() -> Self {
++            Self { out: KVec::new(), acc: 0, nbits: 0 }
++        }
++
++        /// Append one bit (LSB-first within each byte).
++        fn bit(&mut self, b: u32) -> Result {
++            self.acc |= (b & 1) << self.nbits;
++            self.nbits += 1;
++            if self.nbits == 8 {
++                self.out.push((self.acc & 0xff) as u8, GFP_KERNEL)?;
++                self.acc = 0;
++                self.nbits = 0;
++            }
++            Ok(())
++        }
++
++        /// Emit codebook `sym`'s code, least-significant bit first.
++        pub(crate) fn symbol(&mut self, sym: usize) -> Result {
++            let (code, n) = CODEBOOK[sym];
++            for k in 0..n as u32 {
++                self.bit(code >> k)?;
++            }
++            Ok(())
++        }
++
++        /// Emit one quantized coefficient as DLM's JPEG-SSSS-style magnitude code (LSB-first),
++        /// verified byte-exact against DLM's per-coefficient wire bits (q-4/q-8/q-16 -- see
++        /// `scripts/wht-strip-encoder.py`). A zero coefficient is the 1-bit symbol 0. A nonzero
++        /// `q` emits the unary category `c = bit_length(|q|)` (c ones + a 0 terminator), then the
++        /// `(c-1)`-bit magnitude offset `|q| - 2^(c-1)` (MSB-first within the field), then a sign
++        /// bit (`0` = negative, the captured polarity). Categories >= 9 use the 19-bit escape long
++        /// form, which is not yet recovered -- those return `EOVERFLOW` rather than emit wrong bits.
++        pub(crate) fn coeff(&mut self, q: i32) -> Result {
++            if q == 0 {
++                return self.symbol(0);
++            }
++            let c = mag_category(q); // bit_length(|q|)
++            if c >= 9 {
++                return Err(kernel::error::code::EOVERFLOW); // escape long form -- open RE
++            }
++            for _ in 0..c {
++                self.bit(1)?; // unary category
++            }
++            self.bit(0)?; // terminator
++            let offset = q.unsigned_abs() - (1 << (c - 1));
++            for i in (0..c - 1).rev() {
++                self.bit(offset >> i)?; // (c-1)-bit magnitude offset, MSB-first
++            }
++            self.bit(if q < 0 { 0 } else { 1 }) // sign bit (0 = negative)
++        }
++
++        /// Flush, padding the final byte with 1-bits (matches the dock's truncated all-ones code).
++        pub(crate) fn finish(mut self) -> Result<KVec<u8>> {
++            if self.nbits > 0 {
++                while self.nbits < 8 {
++                    self.acc |= 1 << self.nbits;
++                    self.nbits += 1;
++                }
++                self.out.push((self.acc & 0xff) as u8, GFP_KERNEL)?;
++            }
++            Ok(self.out)
++        }
++    }
++
++    /// Magnitude category of a quantized coefficient: `bit_length(|coeff|)` (verified 2026-06-23 --
++    /// e.g. |4|->3, |8|->4, |255|->8). 0 for a zero coefficient.
++    pub(crate) fn mag_category(coeff: i32) -> u32 {
++        coeff.unsigned_abs().checked_ilog2().map_or(0, |l| l + 1)
++    }
++
++    // ====================================================================================
++    // ★ 2026-06-23: the SOLID-colour strip encoder -- byte-exact-verified end to end vs DLM
++    // (3508/3508 strips of grey128.bin + white). A solid 64x16 strip (16 uniform 8x8 blocks) is the
++    // most common desktop case (backgrounds, flat UI). DLM codes it with a NO-sync framing distinct
++    // from the AC-stripe path: a 16-byte header, a CONSTANT 30-byte "main frame" (identical for any
++    // solid colour), the strip's absolute DC ESCAPE-coded (long form), then a fixed trailer. The DC
++    // rule was cracked offline (`scripts/wht-strip-encoder.py`): code = unary(c) ++ offset(c-1,
++    // MSB-first) ++ sign, c=bit_length(qDC), qDC=quantize(DC,0), DC=c3[0]=64*gray (achromatic).
++    // ====================================================================================
++
++    /// Bit offset where the per-plane DC escape begins (after the 16-byte header + the constant
++    /// 30-byte main frame = byte 46). Verified 2026-06-23 across the grey sweep and solid primaries.
++    const SOLID_DC_BIT: usize = 368;
++    /// Maximum DC escape category; the maximum category omits the unary 0-terminator (a complete
++    /// prefix code on categories `1..=SOLID_DC_CMAX`). `|qY| <= 1020 => c <= 10`, `|qCb| <= 255`.
++    const SOLID_DC_CMAX: u32 = 10;
++    /// Minimum trailing bits after the escape before the 2-byte length tail (empirical: fits all 14
++    /// solid/colour DCs of `codec-grammar-20260623`; ~= the 16 blocks' empty-AC/EOB run).
++    const SOLID_DC_MINPAD: usize = 61;
++    /// Header (16 B, X/Y/w18/w1c patched per strip) + the constant 30-byte main frame (bytes 16..46)
++    /// of a solid strip (the 16-block all-zero DC-residual / empty-AC structure, identical for any
++    /// solid colour). Byte 46 (bit 368) onward carries the (Cr, Cb, Y) DC escape + trailer.
++    const SOLID_MAIN: [u8; 46] = [
++        0x01, 0x28, 0, 0, 0, 0, 0, 0, 0, 0, 0x3a, 0, 0x3a, 0, 0, 0, // header (magic,X,Y,resv,w18,w1c,z)
++        0xfc, 0x00, 0x7e, 0x00, 0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, 0xfc,
++        0x00, 0x7e, 0x00, 0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, // main frame
++    ];
++
++    /// Quantize a per-plane Haar DC: luma (plane 0) step 16, chroma (planes 1/2) step 64, bias 8.
++    /// Verified 2026-06-23 from the solid primaries (red qCb=255, cyan qY=764, ...).
++    fn quantize_dc(plane: usize, v: i32) -> i32 {
++        let step = if plane == 0 { 16 } else { 64 };
++        let q = (((v.unsigned_abs() + 8) * (65536 / step)) >> 16) as i32;
++        if v < 0 {
++            -q
++        } else {
++            q
++        }
++    }
++
++    /// Number of escape bits a signed value `v` occupies: `0 -> 1`; else `unary(c) ++ [term if
++    /// c<cmax] ++ offset(c-1) ++ sign`.
++    fn esc_len(v: i32, cmax: u32) -> usize {
++        if v == 0 {
++            return 1;
++        }
++        let c = mag_category(v);
++        c as usize + usize::from(c < cmax) + (c as usize - 1) + 1
++    }
++
++    /// Encode one solid 64x16 coder strip at pixel `(x, y)` from its three per-plane Haar DCs
++    /// (`ydc = c3[0]`, `cbdc = c4[0] = 64*(R-G)`, `crdc = c5[0] = 64*(B-G)`; achromatic => Cb=Cr=0,
++    /// e.g. `ydc = 8192` for grey128). **Byte-exact-verified vs DLM** on the full grey sweep
++    /// (c=8/9/10), white, and the 6 solid primaries/secondaries -- 14/14 strips (KUnit
++    /// `wht_solid_strip_byte_exact` + `scripts/wht-strip-encoder.py`). Plane order on the wire is
++    /// (Cr, Cb, Y); the escape begins at bit 368; the strip is zero-padded to its even length `L`
++    /// with `w18 = w1c = tail = L - 2`.
++    pub(crate) fn solid_strip(x: u16, y: u16, ydc: i32, cbdc: i32, crdc: i32) -> Result<KVec<u8>> {
++        let esc = esc_len(quantize_dc(2, crdc), SOLID_DC_CMAX)
++            + esc_len(quantize_dc(1, cbdc), SOLID_DC_CMAX)
++            + esc_len(quantize_dc(0, ydc), SOLID_DC_CMAX);
++        let need = (SOLID_DC_BIT + esc + SOLID_DC_MINPAD).div_ceil(8);
++        let payload = need + (need & 1); // round up to even
++        let len = payload + 2;
++
++        let mut out = KVec::new();
++        out.resize(len, 0, GFP_KERNEL)?;
++        out[..46].copy_from_slice(&SOLID_MAIN);
++        out[2..4].copy_from_slice(&x.to_le_bytes());
++        out[4..6].copy_from_slice(&y.to_le_bytes());
++        let l2 = (len - 2) as u16;
++        out[10..12].copy_from_slice(&l2.to_le_bytes()); // w18
++        out[12..14].copy_from_slice(&l2.to_le_bytes()); // w1c
++        // No trailing echo on the wire (the record framing's strip_id carries the length); the
++        // last 2 bytes stay the natural DC padding. See `frame_records`.
++
++        // The (Cr, Cb, Y) DC escapes, LSB-first from bit 368.
++        let mut bitpos = SOLID_DC_BIT;
++        let mut push = |b: u32| {
++            out[bitpos / 8] |= ((b & 1) as u8) << (bitpos % 8);
++            bitpos += 1;
++        };
++        for &q in &[quantize_dc(2, crdc), quantize_dc(1, cbdc), quantize_dc(0, ydc)] {
++            if q == 0 {
++                push(0); // a zero value is the single bit 0
++                continue;
++            }
++            let c = mag_category(q);
++            let mag = q.unsigned_abs();
++            let off = mag - (1 << (c - 1));
++            for _ in 0..c {
++                push(1); // unary category
++            }
++            if c < SOLID_DC_CMAX {
++                push(0); // 0-terminator (omitted at the maximum category)
++            }
++            for i in (0..c.saturating_sub(1)).rev() {
++                push(off >> i); // (c-1)-bit magnitude offset, MSB-first
++            }
++            push(u32::from(q > 0)); // sign bit = 1 for positive
++        }
++        Ok(out)
++    }
++
++    /// Max AC magnitude category (the maximum category omits the unary 0-terminator).
++    const AC_CMAX: u32 = 9;
++
++    /// LSB-first bit accumulator for the AC-strip coder (no final padding, unlike [`Vlc`]).
++    struct Bits {
++        out: KVec<u8>,
++        n: usize,
++    }
++
++    impl Bits {
++        fn new() -> Self {
++            Self { out: KVec::new(), n: 0 }
++        }
++
++        fn bit(&mut self, b: u32) -> Result {
++            if self.n % 8 == 0 {
++                self.out.push(0, GFP_KERNEL)?;
++            }
++            self.out[self.n / 8] |= ((b & 1) as u8) << (self.n % 8);
++            self.n += 1;
++            Ok(())
++        }
++
++        /// The shared escape value code: a 0 is one `0` bit; else `unary(c) ++ [0-term IFF c<cmax]
++        /// ++ offset(c-1, MSB-first) ++ sign(1=positive)`. `c = bit_length(|v|)`.
++        fn esc(&mut self, v: i32, cmax: u32) -> Result {
++            if v == 0 {
++                return self.bit(0);
++            }
++            let c = mag_category(v);
++            let off = v.unsigned_abs() - (1 << (c - 1));
++            for _ in 0..c {
++                self.bit(1)?;
++            }
++            if c < cmax {
++                self.bit(0)?;
++            }
++            for i in (0..c.saturating_sub(1)).rev() {
++                self.bit(off >> i)?;
++            }
++            self.bit(u32::from(v > 0))
++        }
++
++        /// Per-block significance = LAST-significant-position code (byte-exact 24/24): AC block
++        /// `00111110 ++ 5-bit(32-last) MSB`; flat block `00111111 ++ 0000000`.
++        fn sync_unit(&mut self, last: usize) -> Result {
++            for &b in &[0u32, 0, 1, 1, 1, 1, 1] {
++                self.bit(b)?; // common prefix 0011111
++            }
++            if last == 0 {
++                self.bit(1)?; // flat: 8th prefix bit = 1, then 7 zeros (15-bit unit)
++                for _ in 0..7 {
++                    self.bit(0)?;
++                }
++            } else {
++                self.bit(0)?; // AC: 8th prefix bit = 0, then 5-bit (32-last) MSB-first (13-bit unit)
++                let v = 32 - last as u32;
++                for i in (0..5).rev() {
++                    self.bit((v >> i) & 1)?;
++                }
++            }
++            Ok(())
++        }
++    }
++
++    /// Encode a UNIFORM 64x16 AC strip (16 identical 8x8 blocks) at pixel `(x, y)` from one block's
++    /// 32 transform coeffs. **BYTE-EXACT vs DLM** (25/25 sig-library strips; KUnit `wht_ac_strip`).
++    /// Achromatic (Cb=Cr=0). Layout: header(16) + per-block sync(last-position) + (Cr,Cb,Y) DC plane
++    /// (block0 + 15 DPCM-zero blocks, 10 B) + AC-row(8 blocks: run-bit / magnitude) x2 + tail(L-2).
++    /// For a fully flat block (no AC) use [`solid_strip`] instead.
++    pub(crate) fn ac_strip(coeff: &[i32; COEFFS], x: u16, y: u16) -> Result<KVec<u8>> {
++        let mut q = [0i32; COEFFS];
++        for i in 0..COEFFS {
++            q[i] = quantize(coeff[i], i);
++        }
++        let last = (1..COEFFS).rev().find(|&i| q[i] != 0).unwrap_or(0);
++
++        let mut sync = Bits::new();
++        for _ in 0..16 {
++            sync.sync_unit(last)?;
++        }
++        let mut dc = Bits::new();
++        dc.esc(0, SOLID_DC_CMAX)?; // Cr=0
++        dc.esc(0, SOLID_DC_CMAX)?; // Cb=0
++        dc.esc(q[0], SOLID_DC_CMAX)?; // Y absolute (block 0)
++        for _ in 0..45 {
++            dc.bit(0)?; // 15 DPCM-zero blocks x (Cr,Cb,Y)
++        }
++        let mut row = Bits::new();
++        for _ in 0..8 {
++            for i in 1..=last {
++                if q[i] == 0 {
++                    row.bit(0)?; // run bit (insignificant coeff)
++                } else {
++                    row.esc(q[i], AC_CMAX)?; // magnitude
++                }
++            }
++        }
++
++        let sync_b = sync.out.len();
++        let dc_b = 10usize; // DC region fixed 10 B for 16-block uniform
++        let mut rb = row.out.len();
++        rb += rb & 1; // round row up to even bytes
++        let w18 = 16 + sync_b + dc_b;
++        let w1c = w18 + rb;
++        let len = w1c + rb + 2;
++
++        let mut out = KVec::new();
++        out.resize(len, 0, GFP_KERNEL)?;
++        out[0] = 0x01;
++        out[1] = 0x28;
++        out[2..4].copy_from_slice(&x.to_le_bytes());
++        out[4..6].copy_from_slice(&y.to_le_bytes());
++        out[10..12].copy_from_slice(&(w18 as u16).to_le_bytes());
++        out[12..14].copy_from_slice(&(w1c as u16).to_le_bytes());
++        out[16..16 + sync_b].copy_from_slice(&sync.out);
++        out[16 + sync_b..16 + sync_b + dc.out.len()].copy_from_slice(&dc.out);
++        out[w18..w18 + row.out.len()].copy_from_slice(&row.out);
++        out[w1c..w1c + row.out.len()].copy_from_slice(&row.out);
++        out[len - 2..len].copy_from_slice(&((len - 2) as u16).to_le_bytes());
++        Ok(out)
++    }
++
++    /// Number of blocks across a 64-px-wide strip and the rows of blocks within its 16-px height.
++    const STRIP_BLOCKS_X: usize = 8;
++    const STRIP_ROW_BLOCKS: usize = 8; // blocks in one 8-row half (8 across x 1 down)
++    const STRIP_BLOCKS: usize = 16; // 8 across x 2 down
++
++    /// Round a byte count up to an even number (every coder sub-region is even-aligned).
++    fn round_even(n: usize) -> usize {
++        n + (n & 1)
++    }
++
++    /// Emit the 16-block DPCM DC plane into `b`: per block, the `(Cr, Cb, Y)` quantized DC as a
++    /// RESIDUAL escape (residual = this block's DC minus the previous block's DC, previous = 0 for
++    /// block 0). Byte-exact vs DLM on the varying-DC solid strips (vstripe8/hstripe8/checker8) and
++    /// the uniform case (all residuals 0). `dc[k] = (qCr, qCb, qY)`.
++    fn dc_plane(b: &mut Bits, dc: &[(i32, i32, i32); STRIP_BLOCKS]) -> Result {
++        let (mut pcr, mut pcb, mut py) = (0i32, 0i32, 0i32);
++        for &(cr, cb, y) in dc {
++            b.esc(cr - pcr, SOLID_DC_CMAX)?;
++            b.esc(cb - pcb, SOLID_DC_CMAX)?;
++            b.esc(y - py, SOLID_DC_CMAX)?;
++            (pcr, pcb, py) = (cr, cb, y);
++        }
++        Ok(())
++    }
++
++    /// Emit one block's luma AC coefficients (positions `1..=last`) into `b`: a run bit `0` for an
++    /// insignificant coefficient, else the magnitude escape. No EOB -- the block's `last` (from the
++    /// significance sync) bounds the loop. Achromatic only (chroma AC is not yet recovered).
++    fn block_ac(b: &mut Bits, q: &[i32; COEFFS], last: usize) -> Result {
++        for i in 1..=last {
++            if q[i] == 0 {
++                b.bit(0)?;
++            } else {
++                b.esc(q[i], AC_CMAX)?;
++            }
++        }
++        Ok(())
++    }
++
++    /// Encode one general 64x16 coder strip at pixel `(x, y)` from its 16 blocks' luma transform
++    /// coefficients (raster order: blocks 0..8 = top 8-px half, 8..16 = bottom half). Picks DLM's
++    /// layout automatically: **SOLID** (every block flat -> header + 30-byte main frame + DPCM DC
++    /// plane from bit 368) or **AC** (some block carries a nonzero AC coeff -> header + per-block
++    /// significance sync + DPCM DC plane + AC-row0 + AC-row1). The 2-byte tail is set to this
++    /// strip's own `L - 2`; [`encode_frame`] overwrites it with the *next* strip's forward length
++    /// hint (the wire's actual tail).
++    ///
++    /// **Byte-exact vs DLM** (achromatic content) on uniform solid (grey sweep/white), varying-DC
++    /// solid (vstripe8/hstripe8/checker8) and the 25/25 sig-library AC strips; gradient bodies match
++    /// every coding layer. Chroma (Cb/Cr) AC is left at zero -- there is no captured colour-AC
++    /// example to verify it against, so colourful textured content is *not* byte-exact here (the
++    /// anti-fabrication boundary). Callers pass per-block luma coeffs from [`transform`].
++    pub(crate) fn strip(blocks: &[[i32; COEFFS]; STRIP_BLOCKS], x: u16, y: u16) -> Result<KVec<u8>> {
++        let mut q = [[0i32; COEFFS]; STRIP_BLOCKS];
++        let mut lasts = [0usize; STRIP_BLOCKS];
++        let mut dc = [(0i32, 0i32, 0i32); STRIP_BLOCKS];
++        let mut any_ac = false;
++        for k in 0..STRIP_BLOCKS {
++            for i in 0..COEFFS {
++                q[k][i] = quantize(blocks[k][i], i);
++            }
++            lasts[k] = (1..COEFFS).rev().find(|&i| q[k][i] != 0).unwrap_or(0);
++            any_ac |= lasts[k] != 0;
++            dc[k] = (0, 0, q[k][0]); // achromatic: Cr=Cb=0 (chroma DC plumbed by the caller's blocks)
++        }
++
++        let mut dcb = Bits::new();
++        dc_plane(&mut dcb, &dc)?;
++
++        let mut out = KVec::new();
++        if !any_ac {
++            // SOLID layout: header + constant 30-byte main frame + DPCM DC plane from bit 368.
++            let l2 = round_even((SOLID_DC_BIT + dcb.n).div_ceil(8)) + 2;
++            let len = l2 + 2;
++            out.resize(len, 0, GFP_KERNEL)?;
++            out[..46].copy_from_slice(&SOLID_MAIN);
++            out[2..4].copy_from_slice(&x.to_le_bytes());
++            out[4..6].copy_from_slice(&y.to_le_bytes());
++            out[10..12].copy_from_slice(&(l2 as u16).to_le_bytes());
++            out[12..14].copy_from_slice(&(l2 as u16).to_le_bytes());
++            // The DPCM bits begin at bit 368 = byte 46 (byte-aligned); Bits zero-pads its tail, so a
++            // plain byte copy preserves the LSB-first packing.
++            out[46..46 + dcb.out.len()].copy_from_slice(&dcb.out);
++            out[len - 2..len].copy_from_slice(&(l2 as u16).to_le_bytes());
++            return Ok(out);
++        }
++
++        // AC layout.
++        let mut sync = Bits::new();
++        for k in 0..STRIP_BLOCKS {
++            sync.sync_unit(lasts[k])?;
++        }
++        let mut row0 = Bits::new();
++        for k in 0..STRIP_ROW_BLOCKS {
++            block_ac(&mut row0, &q[k], lasts[k])?;
++        }
++        let mut row1 = Bits::new();
++        for k in STRIP_ROW_BLOCKS..STRIP_BLOCKS {
++            block_ac(&mut row1, &q[k], lasts[k])?;
++        }
++
++        let sync_b = sync.out.len();
++        let dc_b = round_even(dcb.out.len()) + 2;
++        let r0 = round_even(row0.out.len());
++        let r1 = round_even(row1.out.len());
++        let w18 = 16 + sync_b + dc_b;
++        let w1c = w18 + r0;
++        let len = w1c + r1 + 2;
++
++        out.resize(len, 0, GFP_KERNEL)?;
++        out[0] = 0x01;
++        out[1] = 0x28;
++        out[2..4].copy_from_slice(&x.to_le_bytes());
++        out[4..6].copy_from_slice(&y.to_le_bytes());
++        out[10..12].copy_from_slice(&(w18 as u16).to_le_bytes());
++        out[12..14].copy_from_slice(&(w1c as u16).to_le_bytes());
++        out[16..16 + sync_b].copy_from_slice(&sync.out);
++        out[16 + sync_b..16 + sync_b + dcb.out.len()].copy_from_slice(&dcb.out);
++        out[w18..w18 + row0.out.len()].copy_from_slice(&row0.out);
++        out[w1c..w1c + row1.out.len()].copy_from_slice(&row1.out);
++        // No forward-hint tail: on the EP08 wire the strip's last 2 bytes are the natural row1
++        // bit-packing. The record framing carries the length as `strip_id == len`, so the in-strip
++        // echo the sink hook showed is not transmitted on the wire. See `frame_records`.
++        Ok(out)
++    }
++
++    // ====================================================================================
++    // COLOUR strip codec (Cb/Cr planes). Recovered byte-exact 2026-06-27/28 from DLM
++    // sink-hook captures (cramp/rramp/bramp period sweeps, captures/codec-sink-sweep-*):
++    // 2700/2872 strips byte-identical across every significance combination. Tooling +
++    // proof: scripts/codec-re/{coeffs,model,colourstrip,verify-colour-ac}.py.
++    //
++    // Per block the 3 planes are (Cr=64*(B-G), Cb=64*(R-G), Y=64*G + 64*((Cb+Cr)>>2)).
++    //  * SYNC unit = [Cr field][Cb field][Y field]; chroma fields present only when last>0
++    //    (the per-block plane mask), Y field always present (luma `sync_unit`).
++    //  * DC plane = 16-block DPCM (Cr,Cb,Y), 3 tokens/block, chroma step 64 / luma step 16,
++    //    round-half-up on the signed value.
++    //  * AC rows (row0 blocks 0..8, row1 8..16): per block (Cr,Cb,Y) present planes, chroma
++    //    quant flat step 16 (truncate toward zero), positions 1..last, run-bit `0` for zeros.
++    //  * Strip length = w1c + round_even(row1) (the 2-byte tail overlaps row1's tail).
++    // ====================================================================================
++
++    /// Flat chroma AC quantizer: step 16, truncate toward zero. Coarser than luma's
++    /// per-position `quantize`, so chroma `last` collapses to {0,1,7,31}.
++    fn quantize_chroma_ac(coeff: i32) -> i32 {
++        let q = coeff.abs() / 16;
++        if coeff < 0 {
++            -q
++        } else {
++            q
++        }
++    }
++
++    /// Per-plane DC quantizer, round-half-up on the SIGNED value (toward +inf): luma (plane 0)
++    /// step 16, chroma step 64. `+224/64 = 3.5 -> 4`; `-8416/64 = -131.5 -> -131`.
++    fn quantize_dc_round(plane: usize, v: i32) -> i32 {
++        let step = if plane == 0 { 16 } else { 64 };
++        (v + step / 2).div_euclid(step)
++    }
++
++    impl Bits {
++        /// The Cr significance field: `c = bit_length(last)`; emit `1`x`c` then `0`x`c`.
++        fn cr_field(&mut self, last: usize) -> Result {
++            let c = usize::BITS - last.leading_zeros();
++            for _ in 0..c {
++                self.bit(1)?;
++            }
++            for _ in 0..c {
++                self.bit(0)?;
++            }
++            Ok(())
++        }
++
++        /// The Cb significance field: `c = bit_length(last)`; `10` if `c == 1`, else
++        /// `0` ++ `1`x`c` ++ `0`x`(c-1)`.
++        fn cb_field(&mut self, last: usize) -> Result {
++            let c = usize::BITS - last.leading_zeros();
++            if c == 1 {
++                self.bit(1)?;
++                return self.bit(0);
++            }
++            self.bit(0)?;
++            for _ in 0..c {
++                self.bit(1)?;
++            }
++            for _ in 0..c - 1 {
++                self.bit(0)?;
++            }
++            Ok(())
++        }
++
++        /// One block's colour SYNC unit: present chroma fields (Cr, then Cb) then the Y field.
++        fn colour_sync_unit(&mut self, lcr: usize, lcb: usize, ly: usize) -> Result {
++            if lcr > 0 {
++                self.cr_field(lcr)?;
++            }
++            if lcb > 0 {
++                self.cb_field(lcb)?;
++            }
++            self.sync_unit(ly)
++        }
++
++        /// One block's colour AC: present planes in (Cr, Cb, Y) order, positions `1..=last`,
++        /// run-bit `0` for an insignificant coefficient else the magnitude escape (cmax `AC_CMAX`).
++        fn colour_block_ac(
++            &mut self,
++            qcr: &[i32; COEFFS],
++            qcb: &[i32; COEFFS],
++            qy: &[i32; COEFFS],
++            lcr: usize,
++            lcb: usize,
++            ly: usize,
++        ) -> Result {
++            for &(q, last) in &[(qcr, lcr), (qcb, lcb), (qy, ly)] {
++                for i in 1..=last {
++                    if q[i] == 0 {
++                        self.bit(0)?;
++                    } else {
++                        self.esc(q[i], AC_CMAX)?;
++                    }
++                }
++            }
++            Ok(())
++        }
++    }
++
++    /// One quantized colour block: the three planes' 32 coefficients and their last-significant
++    /// AC positions. Built by [`colour_block`] from a block's per-plane samples.
++    pub(crate) struct ColourBlock {
++        qcr: [i32; COEFFS],
++        qcb: [i32; COEFFS],
++        qy: [i32; COEFFS],
++        lcr: usize,
++        lcb: usize,
++        ly: usize,
++    }
++
++    /// Transform + quantize one block's three planes (each 64 samples in the codec's x64 fixed
++    /// point: `cr[i] = 64*(B-G)`, `cb[i] = 64*(R-G)`, `y[i] = 64*G + 64*((Cb+Cr)>>2)`). Luma uses
++    /// the per-position `quantize`/col-major transform; chroma AC uses the flat step-16
++    /// `quantize_chroma_ac`; all DCs use `quantize_dc_round`.
++    pub(crate) fn colour_block(
++        cr: &[i32; PIXELS],
++        cb: &[i32; PIXELS],
++        y: &[i32; PIXELS],
++    ) -> ColourBlock {
++        let tcr = transform(cr);
++        let tcb = transform(cb);
++        let ty = transform(y);
++        let mut qcr = [0i32; COEFFS];
++        let mut qcb = [0i32; COEFFS];
++        let mut qy = [0i32; COEFFS];
++        qcr[0] = quantize_dc_round(2, tcr[0]);
++        qcb[0] = quantize_dc_round(1, tcb[0]);
++        qy[0] = quantize_dc_round(0, ty[0]);
++        for i in 1..COEFFS {
++            qcr[i] = quantize_chroma_ac(tcr[i]);
++            qcb[i] = quantize_chroma_ac(tcb[i]);
++            qy[i] = quantize(ty[i], i);
++        }
++        let last = |q: &[i32; COEFFS]| (1..COEFFS).rev().find(|&i| q[i] != 0).unwrap_or(0);
++        let (lcr, lcb, ly) = (last(&qcr), last(&qcb), last(&qy));
++        ColourBlock { qcr, qcb, qy, lcr, lcb, ly }
++    }
++
++    /// Encode one 64x16 COLOUR strip at pixel `(x, y)` from its 16 quantized colour blocks
++    /// (raster: 0..8 top 8-px half, 8..16 bottom). Byte-exact vs DLM on all measured chromatic
++    /// content (see the section header). The 2-byte tail is this strip's own `L-2`;
++    /// [`encode_frame`]/the scanout path overwrites it with the next strip's forward length hint.
++    pub(crate) fn colour_strip(
++        blocks: &[ColourBlock; STRIP_BLOCKS],
++        x: u16,
++        y: u16,
++    ) -> Result<KVec<u8>> {
++        let mut sync = Bits::new();
++        for b in blocks {
++            sync.colour_sync_unit(b.lcr, b.lcb, b.ly)?;
++        }
++        let mut dcb = Bits::new();
++        let (mut pcr, mut pcb, mut py) = (0i32, 0i32, 0i32);
++        for b in blocks {
++            let (cr, cb, yv) = (b.qcr[0], b.qcb[0], b.qy[0]);
++            dcb.esc(cr - pcr, SOLID_DC_CMAX)?;
++            dcb.esc(cb - pcb, SOLID_DC_CMAX)?;
++            dcb.esc(yv - py, SOLID_DC_CMAX)?;
++            (pcr, pcb, py) = (cr, cb, yv);
++        }
++        let mut row0 = Bits::new();
++        for b in &blocks[..STRIP_ROW_BLOCKS] {
++            row0.colour_block_ac(&b.qcr, &b.qcb, &b.qy, b.lcr, b.lcb, b.ly)?;
++        }
++        let mut row1 = Bits::new();
++        for b in &blocks[STRIP_ROW_BLOCKS..] {
++            row1.colour_block_ac(&b.qcr, &b.qcb, &b.qy, b.lcr, b.lcb, b.ly)?;
++        }
++
++        let sync_b = sync.out.len();
++        let dc_b = round_even(dcb.out.len()) + 2;
++        let r0 = round_even(row0.out.len());
++        let r1 = round_even(row1.out.len());
++        let w18 = 16 + sync_b + dc_b;
++        let w1c = w18 + r0;
++        // The 2-byte tail overlaps the end of the row1 region (len = w1c + round_even(row1)).
++        let len = w1c + r1;
++
++        let mut out = KVec::new();
++        out.resize(len, 0, GFP_KERNEL)?;
++        out[0] = 0x01;
++        out[1] = 0x28;
++        out[2..4].copy_from_slice(&x.to_le_bytes());
++        out[4..6].copy_from_slice(&y.to_le_bytes());
++        out[10..12].copy_from_slice(&(w18 as u16).to_le_bytes());
++        out[12..14].copy_from_slice(&(w1c as u16).to_le_bytes());
++        out[16..16 + sync_b].copy_from_slice(&sync.out);
++        out[16 + sync_b..16 + sync_b + dcb.out.len()].copy_from_slice(&dcb.out);
++        out[w18..w18 + row0.out.len()].copy_from_slice(&row0.out);
++        out[w1c..w1c + row1.out.len()].copy_from_slice(&row1.out);
++        // No forward-hint tail: on the EP08 wire the strip's last 2 bytes are the natural row1
++        // bit-packing. The record framing carries the length as `strip_id == len`, so the in-strip
++        // echo the sink hook showed is not transmitted on the wire. See `frame_records`.
++        Ok(out)
++    }
++
++    /// Transform one 8x8 luma block read from `luma` (row-major, `stride` samples per row, top-left
++    /// at `[oy*stride + ox]`) into its 32 Haar coefficients.
++    fn block_coeffs(luma: &[u8], stride: usize, ox: usize, oy: usize) -> [i32; COEFFS] {
++        let mut blk = [0i32; PIXELS];
++        for r in 0..DIM {
++            for c in 0..DIM {
++                // Achromatic: Y = 64 * gray (the colour transform's R=G=B case).
++                blk[r * DIM + c] = 64 * luma[(oy + r) * stride + (ox + c)] as i32;
++            }
++        }
++        transform(&blk)
++    }
++
++    /// Encode a full `width`x`height` achromatic (8-bit luma) frame into the Vino WHT EP08 strip
++    /// stream (no transport header -- the caller prepends [`write_ep08_header`]). The frame is tiled
++    /// into 64x16 strips in raster order; each strip's 16 blocks are transformed and handed to
++    /// [`strip`]. A second pass writes the **forward length hint**: strip `k`'s 2-byte tail is set to
++    /// strip `k+1`'s `L - 2` (the last strip keeps its own `L - 2`). This is the wire's exact tail
++    /// rule -- verified 10529/10800 on the gradient capture and on 100% of constant-strip-size
++    /// content; it deviates from DLM only where DLM *mispredicts* an anomalously-sized neighbour
++    /// (the rightmost-column size heuristic, the single open framing micro-detail).
++    ///
++    /// `width`/`height` must be multiples of 64 and 16 respectively (the codec's strip geometry).
++    /// Achromatic only (see [`strip`]); for colour or RGB565-reduced input this is not byte-exact, so
++    /// the live scanout path keeps using RLE until the chroma-AC grammar is captured.
++    pub(crate) fn encode_frame(luma: &[u8], width: usize, height: usize) -> Result<KVec<u8>> {
++        if width % (STRIP_BLOCKS_X * DIM) != 0 || height % (2 * DIM) != 0 {
++            return Err(kernel::error::code::EINVAL);
++        }
++        let strips_x = width / (STRIP_BLOCKS_X * DIM); // 64-px columns
++        let strips_y = height / (2 * DIM); // 16-px rows
++        // Build every strip body (tail = own L-2 for now), tracking each one's span in `out`.
++        let mut out = KVec::new();
++        let mut spans: KVec<(usize, usize)> = KVec::new(); // (start, len) per strip
++        for sy in 0..strips_y {
++            for sx in 0..strips_x {
++                let (px, py) = (sx * STRIP_BLOCKS_X * DIM, sy * 2 * DIM);
++                let mut blocks = [[0i32; COEFFS]; STRIP_BLOCKS];
++                for k in 0..STRIP_BLOCKS {
++                    let (bx, by) = (k % STRIP_BLOCKS_X, k / STRIP_BLOCKS_X);
++                    blocks[k] = block_coeffs(luma, width, px + bx * DIM, py + by * DIM);
++                }
++                let s = strip(&blocks, px as u16, py as u16)?;
++                let start = out.len();
++                let slen = s.len();
++                out.extend_from_slice(&s, GFP_KERNEL)?;
++                spans.push((start, slen), GFP_KERNEL)?;
++            }
++        }
++        // Second pass: forward length hint -- tail[k] = L[k+1] - 2.
++        for k in 0..spans.len().saturating_sub(1) {
++            let (start, slen) = spans[k];
++            let next_l2 = (spans[k + 1].1 - 2) as u16;
++            out[start + slen - 2..start + slen].copy_from_slice(&next_l2.to_le_bytes());
++        }
++        Ok(out)
++    }
++
++    /// Strip pixel geometry: a strip is 64 px wide and 16 px tall
++    /// (`STRIP_BLOCKS_X * DIM` x `2 * DIM`).
++    pub(crate) const STRIP_W: usize = STRIP_BLOCKS_X * DIM; // 64
++    pub(crate) const STRIP_H: usize = 2 * DIM; // 16
++
++    /// Gather one 64x16 strip's 16 colour blocks from a pixel source. `px(x, y)` returns the
++    /// 8-bit `(R, G, B)` at absolute frame coordinate `(x, y)`; `(ox, oy)` is the strip's
++    /// top-left pixel. Each block's three planes are built in the codec's x64 fixed point via
++    /// [`colour`] (per-pixel `(Y, Cb, Cr)`, stored `(Cr, Cb, Y)` for [`colour_block`]). Blocks are
++    /// raster order within the strip (0..8 top 8-px half, 8..16 bottom), matching [`colour_strip`].
++    fn colour_strip_blocks(
++        ox: usize,
++        oy: usize,
++        px: &mut impl FnMut(usize, usize) -> (u8, u8, u8),
++    ) -> [ColourBlock; STRIP_BLOCKS] {
++        core::array::from_fn(|k| {
++            let (bx, by) = (k % STRIP_BLOCKS_X, k / STRIP_BLOCKS_X);
++            let (mut cr, mut cb, mut y) = ([0i32; PIXELS], [0i32; PIXELS], [0i32; PIXELS]);
++            for r in 0..DIM {
++                for c in 0..DIM {
++                    let (rr, gg, bb) = px(ox + bx * DIM + c, oy + by * DIM + r);
++                    let (yv, cbv, crv) = colour(rr, gg, bb);
++                    let i = r * DIM + c;
++                    (cr[i], cb[i], y[i]) = (crv, cbv, yv);
++                }
++            }
++            colour_block(&cr, &cb, &y)
++        })
++    }
++
++    /// Encode a full `width`x`height` 8-bit-RGB frame into the Vino WHT **colour** EP08 frame(s) --
++    /// the colour counterpart of the luma [`encode_frame`], and the assembler the live scanout path
++    /// drives once the CP wall falls. `px(x, y)` yields the source pixel's `(R, G, B)`; the caller
++    /// applies any rotation / gamma / format conversion (so this stays a pure codec). The surface is
++    /// tiled into 64x16 strips in raster order, each built from [`colour_block`] + [`colour_strip`].
++    /// The **forward length-hint tail** is then chained across the WHOLE frame -- strip `k`'s 2-byte
++    /// tail is patched to strip `k+1`'s `L - 2` (the last strip keeps its own), even across EP08-frame
++    /// boundaries. Finally the strip stream is split at strip boundaries into `<= u16::MAX - 12`-byte
++    /// EP08 frames, each prefixed with a [`write_ep08_header`] carrying an incrementing `seq` from
++    /// `seq0`. Returns the ready-to-send frames and the next `seq`.
++    ///
++    /// `width`/`height` must be multiples of 64 and 16 (`EINVAL` otherwise) -- the codec's strip
++    /// geometry; the live scanout path falls back to RLE for non-aligned modes (see
++    /// `docs/VIDEO-TODO.md`). Byte-exact for the recovered colour grammar (chroma sync/DC/AC); the
++    /// anti-fabrication boundary is the synthetic steepest-chroma edge cases (`VIDEO-TODO.md` 8/9).
++    pub(crate) fn colour_frame_ep08(
++        width: usize,
++        height: usize,
++        seq0: u32,
++        mut px: impl FnMut(usize, usize) -> (u8, u8, u8),
++    ) -> Result<(KVec<KVec<u8>>, u32)> {
++        if width % STRIP_W != 0 || height % STRIP_H != 0 {
++            return Err(kernel::error::code::EINVAL);
++        }
++        // Build every strip body (raster order; each strip's natural row1 tail, no echo).
++        let mut strips: KVec<KVec<u8>> = KVec::new();
++        let mut sy = 0usize;
++        while sy < height {
++            let mut sx = 0usize;
++            while sx < width {
++                let blocks = colour_strip_blocks(sx, sy, &mut px);
++                strips.push(colour_strip(&blocks, sx as u16, sy as u16)?, GFP_KERNEL)?;
++                sx += STRIP_W;
++            }
++            sy += STRIP_H;
++        }
++        Ok((frame_records(&strips)?, seq0))
++    }
++
++    /// A strip's `y` (the EP08 record bands group strips by row). Reads the `y` field the strip
++    /// builders write at byte offset 4 ([`colour_strip`] / [`solid_strip`]).
++    fn strip_y(s: &[u8]) -> u16 {
++        u16::from_le_bytes([s[4], s[5]])
++    }
++
++    /// Frame a raster-ordered list of strip bodies into EP08 USB transfers using DLM's real wire
++    /// record framing (RE'd 2026-06-28 from a passive capture of DLM's EP08 output):
++    ///
++    /// ```text
++    /// record (one per single-Y band of strips):
++    ///   u16 pad   = 0
++    ///   u16 size  = total record length (TLV..trailer, excludes the inter-record gap)
++    ///   u32 type  = 4
++    ///   u8[8]     prefix = [flag=0, 0, fseq=0, 0, 0,0,0,0]
++    ///   per strip: u16 strip_id (== strip length) ++ strip bytes
++    ///   u8[4]     trailer = 0
++    /// then u8[4] inter-record gap = 0; stride = size + 4.
++    /// ```
++    ///
++    /// The record stream is then chunked into `<= 65536`-byte USB transfers (a chunk may fall
++    /// mid-record; the dock reassembles the byte stream -- this is exactly what DLM's 64 KB libusb
++    /// transfers do). There is **no** per-transfer header (the old `write_ep08_header sub=0x30`
++    /// over concatenated strips was wrong and made the dock fault). `flag`/`fseq` are record-level
++    /// metadata left at 0 (content-derivation is an open detail; the dock-visible structure is the
++    /// per-strip `strip_id == len` and the TLV framing).
++    pub(crate) fn frame_records(strips: &[KVec<u8>]) -> Result<KVec<KVec<u8>>> {
++        const PREFIX: usize = 8;
++        const TRAILER: usize = 4;
++        const GAP: usize = 4;
++        const SIZE_CAP: usize = 0x4000; // keep `size` well within u16; matches DLM's record sizes
++        let mut stream: KVec<u8> = KVec::new();
++        let mut i = 0usize;
++        while i < strips.len() {
++            let y0 = strip_y(&strips[i]);
++            let rec = stream.len();
++            stream.extend_from_slice(&[0u8; 8 + PREFIX], GFP_KERNEL)?; // TLV(8) + prefix(8)
++            stream[rec + 4..rec + 8].copy_from_slice(&4u32.to_le_bytes()); // type = 4
++            let mut n = 0usize;
++            while i < strips.len() && strip_y(&strips[i]) == y0 {
++                let s = &strips[i];
++                let projected = (stream.len() - rec) + 2 + s.len() + TRAILER;
++                if n > 0 && projected > SIZE_CAP {
++                    break;
++                }
++                stream.extend_from_slice(&(s.len() as u16).to_le_bytes(), GFP_KERNEL)?;
++                stream.extend_from_slice(s, GFP_KERNEL)?;
++                n += 1;
++                i += 1;
++            }
++            stream.extend_from_slice(&[0u8; TRAILER], GFP_KERNEL)?;
++            let size = (stream.len() - rec) as u16;
++            stream[rec + 2..rec + 4].copy_from_slice(&size.to_le_bytes());
++            stream.extend_from_slice(&[0u8; GAP], GFP_KERNEL)?;
++        }
++        // Chunk the continuous record stream into transfers. Cap at 65024 (a non-multiple of the
++        // EP08 wMaxPacketSize of 1024) so every full chunk ends in a short packet that terminates
++        // the bulk transfer -- a transfer that is an exact wMaxPacketSize multiple needs a ZLP to
++        // terminate, which the in-kernel sync path / nusb does not append (DLM's libusb does). A
++        // chunk a hair under a packet boundary sidesteps that without needing ZLP support.
++        const CHUNK: usize = 65024; // 63.5 * 1024
++        let mut frames: KVec<KVec<u8>> = KVec::new();
++        let mut off = 0usize;
++        while off < stream.len() {
++            let end = core::cmp::min(off + CHUNK, stream.len());
++            let mut t: KVec<u8> = KVec::new();
++            t.extend_from_slice(&stream[off..end], GFP_KERNEL)?;
++            frames.push(t, GFP_KERNEL)?;
++            off = end;
++        }
++        Ok(frames)
 +    }
 +}
 +
-+/// Decode the inner header of a dock->host CP frame: returns `(id, sub, ictr)` from
-+/// the first decrypted block (CP-HANDSHAKE.md sec 3), or `None` if `wire` is not a
-+/// decryptable CP frame. Used by the live loop to log what the dock is replying.
-+pub(super) fn reply_info(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Option<(u16, u16, u16)> {
-+    if wire.len() <= 16 {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let head = &wire[16..wire.len().min(32)];
-+    let inner = open_in(ks, &in_riv(out_riv), seq, head).ok()?;
-+    if inner.len() < 6 {
-+        return None;
-+    }
-+    Some((
-+        u16::from_le_bytes([inner[0], inner[1]]),
-+        u16::from_le_bytes([inner[2], inner[3]]),
-+        u16::from_le_bytes([inner[4], inner[5]]),
-+    ))
-+}
++/// Length of the EP08 transport header ([`write_ep08_header`]).
++pub(crate) const EP08_HDR_LEN: usize = 16;
 +
-+/// CP `sub` ids seen on the wire (CP-HANDSHAKE.md). Used to score a candidate
-+/// decrypt: a plaintext whose `sub` is one of these (and whose post-counter pad is
-+/// zero) is almost certainly the correct key/riv.
-+fn is_known_sub(sub: u16) -> bool {
-+    matches!(
-+        sub,
-+        0x00 | 0x04 | 0x0c | 0x10 | 0x20 | 0x21 | 0x22 | 0x24 | 0x25 | 0x30 | 0x41
-+            | 0x42 | 0x43 | 0x45 | 0x75 | 0x84
-+    )
-+}
-+
-+/// Diagnostic decode: try a dock->host frame under every plausible riv variant and
-+/// return the best-scoring inner `(riv_tag, id, sub, ictr)`. The interactive
-+/// `wsub=0x45` replies decrypt under `in_riv` (byte7^1), but the **cap-phase**
-+/// `wsub=0x25` frames decrypt under the session ks with **byte7 unchanged** (the OUT
-+/// value) -- see the cold-ref transcript. `byte0^0x80` selects the head. This mirrors
-+/// `decode-handshake.py`'s scoring so a live trace shows what the dock is actually
-+/// asking for during the capability exchange we currently skip.
-+pub(super) fn decode_any(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Option<(&'static str, u16, u16, u16, [u8; 24])> {
-+    if wire.len() <= 16 {
-+        return None;
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let head = &wire[16..wire.len().min(48)];
-+    let out0 = *out_riv;
-+    let in0 = in_riv(out_riv);
-+    let mut out1 = out0;
-+    out1[0] ^= 0x80;
-+    let mut in1 = in0;
-+    in1[0] ^= 0x80;
-+    let variants: [(&'static str, [u8; 8]); 4] =
-+        [("out/h0", out0), ("in/h0", in0), ("out/h1", out1), ("in/h1", in1)];
-+    let mut best: Option<(i32, &'static str, u16, u16, u16, [u8; 24])> = None;
-+    for (tag, riv) in variants.iter() {
-+        let Ok(pt) = open_in(ks, riv, seq, head) else { continue };
-+        if pt.len() < 8 {
-+            continue;
-+        }
-+        let id = u16::from_le_bytes([pt[0], pt[1]]);
-+        let sub = u16::from_le_bytes([pt[2], pt[3]]);
-+        let ctr = u16::from_le_bytes([pt[4], pt[5]]);
-+        let pad = u16::from_le_bytes([pt[6], pt[7]]);
-+        let mut sc = 0i32;
-+        if is_known_sub(sub) {
-+            sc += 50;
-+        }
-+        if pad == 0 {
-+            sc += 10;
-+        }
-+        if ctr < 0x400 {
-+            sc += 5;
-+        }
-+        if best.map_or(true, |b| sc > b.0) {
-+            // Keep the first 24 plaintext bytes so the live trace shows the decoded
-+            // structure (e.g. the `..4c..de..` cap-descriptor template that, in the
-+            // capture, is session-independent -- its absence flags a ks/riv mismatch).
-+            let mut sample = [0u8; 24];
-+            let n = pt.len().min(24);
-+            sample[..n].copy_from_slice(&pt[..n]);
-+            best = Some((sc, tag, id, sub, ctr, sample));
-+        }
-+    }
-+    best.map(|(_, tag, id, sub, ctr, sample)| (tag, id, sub, ctr, sample))
-+}
-+
-+// All three cursor messages share one 32-byte inner layout, recovered byte-exact from the
-+// cold-ref session by `scripts/verify-cp-seal.py` (a 64x64 cursor, t~=41.3s):
-+//   off0..7   id/sub/counter header
-+//   off8..21  zero
-+//   off22     0x02              constant marker
-+//   off23     head_id           (0 / 1 across the cold-ref's two monitors)
-+//   off24..25 field1 LE u16     (create: width  / move: X / image: 0)
-+//   off26..27 field2 LE u16     (create: height / move: Y / image: 0)
-+//   off28..31 trailing 4 bytes  (DLM leaks UNINITIALISED struct padding here -- the bytes vary
-+//                                non-monotonically every message and match no checksum, so the
-+//                                dock cannot validate them; we send zero, which is correct)
-+// The image then appends its w*h*4 BGRA bitmap starting at off32, and its inner id carries a
-+// 0x40 high-byte flag (0x401c, vs the 0x1c the aux/send_cp path uses). Prior layouts put the
-+// marker/fields two bytes early and omitted the head byte (cursor_move) -- a latent bug, since
-+// cursor traffic is post-CP-engagement. See captures/cp-seal-differential-20260622.md.
-+fn cursor_header(b: &mut KVec<u8>, id: u16, sub: u16, counter: u16, head: u8) -> Result {
-+    header(b, id, sub, counter)?;
-+    pad_to(b, 22)?;
-+    b.push(0x02, GFP_KERNEL)?; // off22 marker
-+    b.push(head, GFP_KERNEL)?; // off23 head id
++/// Write the 16-byte EP08 transport header into `hdr` for a `payload_len`-byte codec
++/// stream: `type=4 sub=0x30 sub_len_dw=0` sec 3 framing (matches the live capture).
++/// `size = payload_len + 12`. Used by the in-place scanout path. `hdr` must be at
++/// least 16 bytes.
++///
++/// The wire `size` field is 16-bit, so a frame is limited to `u16::MAX - 12` payload
++/// bytes; a larger codec stream cannot be expressed in a single frame and returns
++/// `EOVERFLOW` rather than silently truncating `size` (which would desync the dock's
++/// parser). The mode-2/RLE diff encoder keeps per-pageflip updates well under this;
++/// an incompressible full-frame update that exceeds it must be split by the caller.
++pub(crate) fn write_ep08_header(hdr: &mut [u8], payload_len: usize, seq: u32) -> Result {
++    let size = payload_len.checked_add(12).filter(|&s| s <= u16::MAX as usize);
++    let size = size.ok_or(kernel::error::code::EOVERFLOW)?;
++    hdr[0] = 0;
++    hdr[1] = 0;
++    hdr[2..4].copy_from_slice(&(size as u16).to_le_bytes());
++    hdr[4..8].copy_from_slice(&4u32.to_le_bytes());
++    hdr[8..10].copy_from_slice(&0x30u16.to_le_bytes());
++    hdr[10..12].copy_from_slice(&0u16.to_le_bytes());
++    hdr[12..16].copy_from_slice(&seq.to_le_bytes());
 +    Ok(())
-+}
-+
-+/// cursor create (sec 8.6.1): `id=0x1b sub=0x42`, advertises `w x h` for `head`.
-+pub(super) fn cursor_create(counter: u16, head: u8, w: u16, h: u16) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    cursor_header(&mut b, 0x1b, 0x42, counter, head)?;
-+    b.extend_from_slice(&w.to_le_bytes(), GFP_KERNEL)?; // off24..25
-+    b.extend_from_slice(&h.to_le_bytes(), GFP_KERNEL)?; // off26..27
-+    pad_to(&mut b, 32)?; // off28..31 (DLM uninit; we zero)
-+    Ok(b)
-+}
-+
-+/// cursor move (sec 8.6.1): `id=0x1a sub=0x43`, head id @23, X @24, Y @26 (LE).
-+pub(super) fn cursor_move(counter: u16, head: u8, x: u16, y: u16) -> Result<KVec<u8>> {
-+    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
-+    cursor_header(&mut b, 0x1a, 0x43, counter, head)?;
-+    b.extend_from_slice(&x.to_le_bytes(), GFP_KERNEL)?; // off24..25
-+    b.extend_from_slice(&y.to_le_bytes(), GFP_KERNEL)?; // off26..27
-+    pad_to(&mut b, 32)?; // off28..31 (DLM uninit; we zero)
-+    Ok(b)
-+}
-+
-+/// cursor image (sec 8.6.1): inner `id=0x401c sub=0x41` (the 0x40 high-byte flag marks the
-+/// bitmap-bearing message). A 32-byte header (shared marker + head, no w/h -- those come from
-+/// [`cursor_create`]) followed by the `w*h*4` BGRA bitmap at off32. `bgra` must be `w*h*4` bytes
-+/// -- DRM hands the driver a 64x64 ARGB8888 cursor buffer and the caller swaps it to BGRA.
-+pub(super) fn cursor_image(
-+    counter: u16,
-+    head: u8,
-+    w: u16,
-+    h: u16,
-+    bgra: &[u8],
-+) -> Result<KVec<u8>> {
-+    // `w*h*4` can wrap a 32-bit `usize` (max ~1.7e10 > u32::MAX), which would let an
-+    // undersized `bgra` pass the check; compute it with checked arithmetic so an
-+    // overflow is rejected as a mismatch rather than silently bypassing validation.
-+    let expected = (w as usize)
-+        .checked_mul(h as usize)
-+        .and_then(|n| n.checked_mul(4));
-+    if expected != Some(bgra.len()) {
-+        return Err(EINVAL);
-+    }
-+    let mut b = KVec::with_capacity(32 + bgra.len(), GFP_KERNEL)?;
-+    cursor_header(&mut b, 0x401c, 0x41, counter, head)?;
-+    pad_to(&mut b, 32)?; // off24..31 zero (no w/h here)
-+    b.extend_from_slice(bgra, GFP_KERNEL)?; // bitmap @ off32
-+    Ok(b)
-+}
-+
-+/// DisplayLink "Dl3Cmac" CP-message integrity tag (16 bytes) -- **FULLY SOLVED + CROSS-SESSION
-+/// VERIFIED 2026-06-11** (`captures/DL3CMAC-FULLY-SOLVED-20260611.md`):
-+/// `tag = AES-CMAC(ks, mac_nonce(8) || BE64(wire_seq) || ciphertext)` where
-+/// - `mac_nonce` = the CTR stream `riv` **with `byte0 ^= 0x80`** (this byte0 flip is the bit
-+///   prior writeups missed -- they tried `riv` / `riv^1@byte7` and OUT never verified),
-+/// - `wire_seq` = the AES-CTR block counter (frame header off-12), zero-extended to BE64,
-+/// - `ciphertext` = the AES-CTR ciphertext content (encrypt-then-MAC), tag appended IN CLEAR.
-+/// `K_dl3 = ks`. Proven: 110/115 OUT + 128/135 IN corpus frames AND cold-ref msg0 (a different
-+/// session) reproduce byte-exact. Pass the CTR `riv` directly; the byte0 flip is applied here.
-+pub(super) fn dl3cmac_tag(
-+    ks: &[u8; 16],
-+    riv: &[u8; 8],
-+    wire_seq: u64,
-+    ciphertext: &[u8],
-+) -> Result<[u8; 16]> {
-+    let mut mac_nonce = *riv;
-+    mac_nonce[0] ^= 0x80;
-+    let mut buf = KVec::with_capacity(16 + ciphertext.len(), GFP_KERNEL)?;
-+    buf.extend_from_slice(&mac_nonce, GFP_KERNEL)?;
-+    buf.extend_from_slice(&wire_seq.to_be_bytes(), GFP_KERNEL)?;
-+    buf.extend_from_slice(ciphertext, GFP_KERNEL)?;
-+    Ok(crypto::aes_cmac(ks, &buf))
-+}
-+
-+/// Seal a CP message with a **freshly computed live Dl3Cmac**, reusing DLM's captured wire
-+/// `header` (so `seq`/`aux` are byte-identical) but recomputing the tail tag for THIS session.
-+/// `content_pt` is the real inner plaintext WITHOUT the 16-byte tag region. Wire body =
-+/// `AES-CTR(ks, riv, content_pt)` || `dl3cmac_tag(...)`. This is the live-generation path. See
-+/// `captures/DL3CMAC-FULLY-SOLVED-20260611.md`.
-+pub(super) fn seal_livemac(
-+    ks: &[u8; 16],
-+    riv: &[u8; 8],
-+    header: &[u8],
-+    content_pt: &[u8],
-+) -> Result<KVec<u8>> {
-+    let seq = u32::from_le_bytes([header[12], header[13], header[14], header[15]]);
-+    let cipher = crypto::Aes128::new(ks)?;
-+    let mut ct = KVec::with_capacity(content_pt.len(), GFP_KERNEL)?;
-+    for (i, chunk) in content_pt.chunks(16).enumerate() {
-+        let mut iv = [0u8; 16];
-+        iv[..8].copy_from_slice(riv);
-+        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
-+        let ksb = cipher.encrypt_block(&iv);
-+        for (j, &p) in chunk.iter().enumerate() {
-+            ct.push(p ^ ksb[j], GFP_KERNEL)?;
-+        }
-+    }
-+    let tag = dl3cmac_tag(ks, riv, seq as u64, &ct)?;
-+    let mut frame = KVec::with_capacity(16 + ct.len() + 16, GFP_KERNEL)?;
-+    frame.extend_from_slice(&header[..16], GFP_KERNEL)?;
-+    frame.extend_from_slice(&ct, GFP_KERNEL)?;
-+    frame.extend_from_slice(&tag, GFP_KERNEL)?;
-+    Ok(frame)
-+}
-+
-+/// Seal an inner CP message into a wire frame (type=4 sub=0x24, `seq`). DisplayLink
-+/// CP is **encrypt-then-MAC**: the message content is AES-CTR-encrypted, then a
-+/// 16-byte Dl3Cmac tag (`AES-CMAC(ks, riv || BE64(seq) || ciphertext)`) is appended.
-+/// The keystream is `AES_ECB(ks, riv(8) || u32(0) || u32_be(seq + block))` (sec 6.1).
-+///
-+/// `inner` is the captured golden plaintext `[content || stale-tag-region(16)]`; we
-+/// encrypt only `content = inner[..len-16]` and append a **fresh** tag keyed by our
-+/// live session, so the dock's Dl3Cmac verification passes (the stale replayed tag is
-+/// why the dock previously dropped our CP). VERIFIED construction (sec 8.6.7).
-+pub(super) fn seal(
-+    ks: &[u8; 16],
-+    riv: &[u8; 8],
-+    seq: u32,
-+    inner: &[u8],
-+) -> Result<KVec<u8>> {
-+    // The interactive CP stream: session ks, wire sub `0x24`.
-+    seal_stream(ks, riv, 0x24, seq, inner)
-+}
-+
-+/// Build a fully sealed interactive CP frame (`type=4 sub=0x24`) at `wire_seq` over `content`
-+/// (the inner plaintext, WITHOUT any trailing 16-byte tag placeholder): the 16-byte wire
-+/// header -- size, `type=4`, `sub=0x24`, the per-`id` [`aux_for_id`] field, and `wire_seq` --
-+/// followed by [`seal_livemac`] (AES-CTR ciphertext + appended live Dl3Cmac). Shared by the
-+/// bring-up live loop ([`VinoDriver::send_live_cp`]) and the runtime KMS senders
-+/// ([`drm_sink::VinoDrmData::send_cp`]) so both produce a byte-identical wire frame.
-+pub(super) fn seal_interactive(
-+    ks: &[u8; 16],
-+    riv: &[u8; 8],
-+    id: u16,
-+    wire_seq: u32,
-+    content: &[u8],
-+) -> Result<KVec<u8>> {
-+    let body_len = content.len() + 16; // AES-CTR ciphertext + 16-byte Dl3Cmac
-+    let size = ((16 + body_len) - 4) as u16;
-+    let aux = aux_for_id(id, body_len);
-+    let mut hdr = [0u8; 16];
-+    hdr[2..4].copy_from_slice(&size.to_le_bytes());
-+    hdr[4..8].copy_from_slice(&4u32.to_le_bytes()); // type=4
-+    hdr[8..10].copy_from_slice(&0x24u16.to_le_bytes()); // sub=0x24 (interactive CP)
-+    hdr[10..12].copy_from_slice(&aux.to_le_bytes());
-+    hdr[12..16].copy_from_slice(&wire_seq.to_le_bytes());
-+    seal_livemac(ks, riv, &hdr, content)
-+}
-+
-+/// The CP wire-header `aux`@10 (`sub_len_dw`) field is a **strict per-inner-message-id
-+/// constant** in DLM's CP stream -- verified byte-exact across all 94 captured 1080p CP
-+/// frames (`cp-hdrwire-1080p.bin`) -- **not** `body.len()/4`, which is what `push_frame`
-+/// derives. Reproducing it makes a generated CP frame's header byte-identical to DLM, the
-+/// leading hypothesis for the dock engaging its CP cipher (the dock acks our plaintext cap
-+/// but emits 0 encrypted replies with the wrong `aux`). See docs/BLOCKER.md and memory
-+/// `project_cp_aux_field_per_id_constant`. Unknown ids fall back to the dword count so an
-+/// unrecognised message is still well-formed.
-+///
-+/// The cursor ids (0x1a/0x1b/0x1c) are absent from the 1080p set (cursor messages fire only
-+/// once a cursor is set, post-engagement) and were recovered from the cold-ref session by the
-+/// `scripts/verify-cp-seal.py` differential: every other OUT CP frame regenerated byte-exact,
-+/// but the three cursor messages diverged in `aux` alone (DLM 0x04/0x03/0x02 vs the body/4
-+/// fallback) -- a latent bug that would have made the dock misparse every cursor update. This
-+/// makes the generated `seal`/`seal_stream` path match DLM without a captured-header blob -- the
-+/// basis for **live** CP generation.
-+pub(super) fn aux_for_id(id: u16, body_len: usize) -> u16 {
-+    match id {
-+        0x14 => 0x0a,
-+        0x15 => 0x09,
-+        0x16 => 0x08,
-+        0x19 => 0x05,
-+        0x1a => 0x04, // cursor move
-+        0x1b => 0x03, // cursor create
-+        0x1c => 0x02, // cursor image
-+        0x1f => 0x0f,
-+        0x22 => 0x0c,
-+        0x26 => 0x08,
-+        0x2a => 0x04,
-+        0x32 => 0x0c,
-+        0x48 => 0x06,
-+        0x9a => 0x04,
-+        _ => (body_len / 4) as u16,
-+    }
-+}
-+
-+/// General AES-CTR seal under an arbitrary stream `key`/`riv` and wire sub. `seal`
-+/// is the session-CP case (`wsub=0x24`); the **cap phase** (CP-HANDSHAKE.md sec 4b)
-+/// needs `wsub=0x04` sealed under the dock's `id=0x32`-delivered per-head stream key,
-+/// not the session ks -- which `seal` cannot express. Body construction is identical:
-+/// AES-CTR(key, riv || 0x00000000 || BE32(seq+block)) over the **whole** inner message
-+/// (no appended MAC; the inner carries its own encrypted trailer -- verified byte-exact
-+/// vs DLM, 30/30 wire frames).
-+pub(super) fn seal_stream(
-+    key: &[u8; 16],
-+    riv: &[u8; 8],
-+    wsub: u16,
-+    seq: u32,
-+    inner: &[u8],
-+) -> Result<KVec<u8>> {
-+    let cipher = crypto::Aes128::new(key)?;
-+    let mut ct = KVec::with_capacity(inner.len(), GFP_KERNEL)?;
-+    for (i, chunk) in inner.chunks(16).enumerate() {
-+        let mut iv = [0u8; 16];
-+        iv[..8].copy_from_slice(riv);
-+        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
-+        let ksb = cipher.encrypt_block(&iv);
-+        for (j, &p) in chunk.iter().enumerate() {
-+            ct.push(p ^ ksb[j], GFP_KERNEL)?;
-+        }
-+    }
-+    let mut frame = KVec::with_capacity(16 + ct.len(), GFP_KERNEL)?;
-+    // DLM-exact `aux`@10: a per-inner-id constant (see `aux_for_id`), not `body/4`. The
-+    // id is read from the *plaintext* inner (off 0); `push_frame` would derive the wrong
-+    // value and is the suspected reason the dock won't engage its CP cipher.
-+    let id = if inner.len() >= 2 { u16::from_le_bytes([inner[0], inner[1]]) } else { 0 };
-+    super::proto::push_frame_with(&mut frame, 0x04, wsub, aux_for_id(id, ct.len()), seq, &ct)?;
-+    Ok(frame)
-+}
-+
-+/// Derive the dock->host (IN) CP riv from the host->dock (OUT) `riv`. **It is the
-+/// SAME riv -- no transform.** Proven 2026-06-12 by decrypting a frida-keyed DLM cold
-+/// session's engaged `sub=0x45` replies (`captures/dlm-coldkeys-20260611-135237`, logged
-+/// `ks`/`out_riv`): the dock's replies decrypt cleanly ONLY under the raw `out_riv`
-+/// (`id=0x4c sub=0 ctr=8` to msg0, `id=0x14 sub=0x10` ACKs, `id=0x213` cert, ...); the old
-+/// `byte7 ^= 1` gives garbage. The earlier "byte7^1 for IN" note was never validated against
-+/// a real engaged reply (vino never engaged) and was wrong -- it would have made vino
-+/// misdecode
-+/// every dock reply (and partly explains old "dock replies garbage under our ks" findings).
-+pub(super) fn in_riv(out_riv: &[u8; 8]) -> [u8; 8] {
-+    *out_riv
-+}
-+
-+/// Decrypt a dock->host CP frame body (AES-CTR, the same keystream as [`seal`] but
-+/// keyed with the IN `riv`). `ct` is the ciphertext (wire bytes after the 16-byte
-+/// cleartext header); `seq` is the wire counter at wire offset 12.
-+pub(super) fn open_in(
-+    ks: &[u8; 16],
-+    in_riv: &[u8; 8],
-+    seq: u32,
-+    ct: &[u8],
-+) -> Result<KVec<u8>> {
-+    let cipher = crypto::Aes128::new(ks)?;
-+    let mut pt = KVec::with_capacity(ct.len(), GFP_KERNEL)?;
-+    for (i, chunk) in ct.chunks(16).enumerate() {
-+        let mut iv = [0u8; 16];
-+        iv[..8].copy_from_slice(in_riv);
-+        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
-+        let ksb = cipher.encrypt_block(&iv);
-+        for (j, &c) in chunk.iter().enumerate() {
-+            pt.push(c ^ ksb[j], GFP_KERNEL)?;
-+        }
-+    }
-+    Ok(pt)
-+}
-+
-+/// If `wire` is an EDID reply (dock->host EP84, `type=4 sub=0x45`, inner
-+/// `id=0x194 sub=0x21`), decrypt it with the IN riv and return the embedded EDID
-+/// blob (base block + extensions). The EDID begins at inner offset 22; its total
-+/// length is `128 * (1 + extension_count)`, where the extension count is base-block
-+/// byte 126. Returns `None` for any other frame. See docs/CONTROL-PLANE.md.
-+pub(super) fn parse_edid_from_reply(
-+    ks: &[u8; 16],
-+    out_riv: &[u8; 8],
-+    wire: &[u8],
-+) -> Result<Option<KVec<u8>>> {
-+    // Wire header: [.. type@4 u32 .. sub@8 u16 .. seq@12 u32]; body at off16.
-+    if wire.len() <= 16 || u16::from_le_bytes([wire[8], wire[9]]) != 0x45 {
-+        return Ok(None);
-+    }
-+    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
-+    let inner = open_in(ks, &in_riv(out_riv), seq, &wire[16..])?;
-+    // Inner header: [id u16][sub u16][counter u16][00 00]; EDID payload at off22.
-+    const EDID_OFF: usize = 22;
-+    if inner.len() < EDID_OFF + 128 {
-+        return Ok(None);
-+    }
-+    let id = u16::from_le_bytes([inner[0], inner[1]]);
-+    let sub = u16::from_le_bytes([inner[2], inner[3]]);
-+    // The get-EDID reply id is `0x194` on the wire (CP-HANDSHAKE.md sec 4f, ground-truthed
-+    // against the cold-ref capture); older notes wrote the low byte `0x94` alone. Accept
-+    // both so a real `0x194` reply is not silently dropped (the EDID would never reach the
-+    // connector even after CP engages).
-+    if (id != 0x94 && id != 0x194) || sub != 0x21 {
-+        return Ok(None);
-+    }
-+    let edid = &inner[EDID_OFF..];
-+    // Validate the EDID base-block magic `00 FF FF FF FF FF FF 00`.
-+    const MAGIC: [u8; 8] = [0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00];
-+    if edid[..8] != MAGIC {
-+        return Ok(None);
-+    }
-+    let total = ((1 + edid[126] as usize) * 128).min(edid.len());
-+    let mut out = KVec::with_capacity(total, GFP_KERNEL)?;
-+    out.extend_from_slice(&edid[..total], GFP_KERNEL)?;
-+    Ok(Some(out))
 +}
 -- 
 2.55.0
