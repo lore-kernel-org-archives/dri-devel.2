@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BA99C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 09:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D16C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 10:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE37510F748;
-	Fri,  3 Jul 2026 09:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0752410F74F;
+	Fri,  3 Jul 2026 10:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GWluniAe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZVjN5mZP";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9D710F748
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 09:57:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCFBB10F74F
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 10:12:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EDB966001A;
- Fri,  3 Jul 2026 09:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFC41F000E9;
- Fri,  3 Jul 2026 09:57:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6A1BB4026A;
+ Fri,  3 Jul 2026 10:12:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 436091F000E9;
+ Fri,  3 Jul 2026 10:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783072639;
- bh=B/+ZhFAiwNqtyruFpGe8RK10LPI08f58/qvAauSKt6Y=;
+ s=k20260515; t=1783073522;
+ bh=m3dzBCdMVP2Co2+t3pO5FRa/gNVqzVGpE8QphSLUvgw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GWluniAe58J2LgwEA+NCudTqAfLwinS1hgxERTFFOUxhynpg6iOHwko/W0wy+aWZ+
- +ehMlptLnTJpqj9P/k9DYnniLjB1+5dJBuXlbxQ3sMWh2FXTC1hSfiGA9CrVgPp5vp
- URGO/rHv9MF4oIaq7TvYxp0G7FipyDNvLpRhZBZhb0H5dUA2lQdTzZzznF4NLlHtFy
- my+7bbwnvq75nh0YGbCXkM9nDNA6EvfJu0Vo6ZezjPMHM6OYeJk+7I4pPENY8dOTox
- rlG++P62SLr4jNhIJlwHXOR9GL3cX+hMHq8IvNeAzBe/VyTWL4B/LQQplWpdV59DUt
- Q0UVTfA5rXXxA==
+ b=ZVjN5mZPl6Zx3xBjHnV9r6Kz83oN29zpkuKOWTUMV3CtchXJZq5zR2YMvc9GsLSyr
+ 6RLxaDlVfcuOLeDj9/E3i/fMXgshO2bsP2ESxkrDScNQoixHBQmkynaxa/IEcL0LcN
+ AR9XsflynI3h01jYcaq3TbhO83l2Y52dvujjrkxkli3nBN4r3iNjHASjAUS1hShOdp
+ 8pWzZXP43aZ37Nq6JupfnpMpyMqJxfD3miOVeKZPlah74gxiGPRIlR3a1iwwYUEneY
+ RuxiHi71xKszPSESUXuT+HwFpmFNO/+4n3CW0n1G3pKIxryWVTm0ednc56/LZaTNeg
+ ptd5WuZCgqJiQ==
 Received: from johan by xi.lan with local (Exim 4.99.3)
- (envelope-from <johan@kernel.org>) id 1wfae5-00000000i2b-0qxo;
- Fri, 03 Jul 2026 11:57:17 +0200
-Date: Fri, 3 Jul 2026 11:57:17 +0200
+ (envelope-from <johan@kernel.org>) id 1wfasJ-00000000iPm-3czo;
+ Fri, 03 Jul 2026 12:11:59 +0200
+Date: Fri, 3 Jul 2026 12:11:59 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
@@ -46,14 +46,15 @@ Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 06/14] mfd: lm3533-core: Remove redundant pdata helpers
-Message-ID: <akeHfV45fs_wabFl@hovoldconsulting.com>
+Subject: Re: [PATCH v5 07/14] mfd: lm3533: Use dev_groups in struct
+ device_driver
+Message-ID: <akeK78tkmUE-TDhF@hovoldconsulting.com>
 References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-7-clamor95@gmail.com>
+ <20260617080031.99156-8-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-7-clamor95@gmail.com>
+In-Reply-To: <20260617080031.99156-8-clamor95@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,13 +70,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2026 at 11:00:23AM +0300, Svyatoslav Ryhel wrote:
-> The lm3533_set_boost_freq() and lm3533_set_boost_ovp() functions are used
-> only in lm3533_device_setup(), which in turn is only called by
-> lm3533_device_init(). Incorporate their code directly into
-> lm3533_device_init() to simplify driver readability.
+On Wed, Jun 17, 2026 at 11:00:24AM +0300, Svyatoslav Ryhel wrote:
+> Instead of creating and removing the device sysfs attributes directly
+> during probe and remove of the driver, respectively, use dev_groups in
+> struct device_driver to point to the attribute definitions and let the
+> core take care of creating and removing them.
+> 
+> No intentional functional impact.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Again, this isn't needed. Why are you removing abstraction that improve
-readability?
-
-Johan
+Reviewed-by: Johan Hovold <johan@kernel.org>
