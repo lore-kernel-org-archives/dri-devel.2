@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D27C43327
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:01:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AAD1C43327
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DBC910F5FB;
-	Fri,  3 Jul 2026 03:01:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA2210F5EB;
+	Fri,  3 Jul 2026 03:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="MVFv2FoK";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="ue0t2DV1";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF92710F5FC
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:01:45 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-475881b9a4bso79014f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:01:45 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9B510F5FD
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:01:48 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493bfe9f886so268625e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:01:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047704; x=1783652504;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047707; x=1783652507;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=CRHhS8HiexEZn0tYM2xQs+F4mqPS5akyoK5HQQpQ99s=;
- b=MVFv2FoKiyyvlb63IhO93aXT+tGffk1EX0K+2h5tmkfFIoHMOCrVznOZH8a7F1PWMk
- EpmBFLWPNdD1sPKcENSeuY1TCCWR9dBc/lENltuUWGouF5gNTMrXm5RjH6eiRtJGt/Du
- QdDV3DBAg+jaNpbCMWQSIvttgkcKpdR9YAW7knAm5X/6UiPdiGfNPVUjPkc/jvEOmjhw
- sYrpMcMUXzmQyCzDNw+fl9f2Q/UV3foTjze6iSJetY3BXbi6AD0rCvYCQiM9kXEEOWXY
- 3tWdsMFSlsGgdiFrok6LuVCjjiz2V2CBTlUvz1Z6WQv5QSPON3/pdcAxVZXUnQ4Yh7ZK
- iHRQ==
+ :message-id:reply-to;
+ bh=DO10bahdwhwvl3OteTgaG/ReLzyVlHiXZrXAAYDCZ/0=;
+ b=ue0t2DV1M8eAJrxqO99KxzkmL3kooqniNeHeOKUA6ZuVWrEUrfvW2JyniItwj/gTEX
+ Zda/b8s2IbcZgyKTacKRorfJO/mXeLkgjV11afuSsAC2BGHDZ/BSwMyZOzWe55ovNE5T
+ aimKRfyC4OTjHNnnzZAPlMeFjt833yurHQ1XlV36UvGjhEKm66PvlsHGdeKtLIiJppXI
+ wC89305UFDRAsVd+R1YCeY22m2atjGtr2hZvvsdqs+PoKZshZHI3cQRe4M1YcCvDhJSD
+ tVVACS6TsrWv2xCgm9dC+IDckyeDBlADLtJWULMXMgRm3vLwC1qqasB1D+WLUQEf4Myt
+ ULlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047704; x=1783652504;
+ d=1e100.net; s=20251104; t=1783047707; x=1783652507;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=CRHhS8HiexEZn0tYM2xQs+F4mqPS5akyoK5HQQpQ99s=;
- b=lypcwjZEVxjQ/jA22dSwJDjzOeqhu30tCvMLjSxUVg0yVQYfWbka0EWrA7ZknRQUwJ
- H+qSKIWGNQSCYY3QD+vAK60SnpkxnfShWato2xt6VGT68eSAzJDOeREaxacRZWnIof2B
- TCNxaDYjkK3G5YUCkq3B0hOSm+GqUYQ199kKquzgF3EqpVIzKjvtfXk23D7jgtue4ixt
- IDKKnjYanaMdrsPewGFzS25wn5/2Fs7rbSFWGf28kJF8C2sSUqoNwO9DRzCW/CBv1ITa
- 3E0DdOMIpuVK1LbYgAwfjCWQgGCmxd7PwjNgTnrW4KBjgv7v4u8IC881DOqBiAFWTmJ6
- 2akQ==
-X-Gm-Message-State: AOJu0YzsRTcYYJHrcfiq3aztCypbPoFWIJKVU9GkH+F7/Sll3Fb7GPVD
- nchaSRrnLQdraT1YxetHVZb7eRNZwtM3JXg6XYlYPhle+CEROaggiHgZY5z5vh4rdA==
-X-Gm-Gg: AfdE7ck2xbyfOzt0jbZ9gEQM6NZN2MVOiZabjQl0tx94NB/5jL9OwNkLSi+Uu0TsBsU
- 5jTXi71BfUvqUdvMVfLn5YEU7QZymQAHOYJGE4YCJ6JKqU7jUXlaHgTfGPYrdfb0Ldzu8u8P+B0
- l8YCZGeq7+a8WGDSpLew+fVtzkqXpWnbKnimUN8GZEaXxRqkbBj4JSGfe+GEWyij9YP7GMTnCXE
- LsCHSnLDEmvO762ZFhOsWe4lziAHpepDsmApYCKgkWnY+H5W78DHiVihhabQN4822MrQtlg88Lp
- 6Rm8R4M1f7kAuxbFEC9olhUzeB1pEEFCCNwzc6LYw3zcHpnt2JTMrrTk+9JHOTGr/7qlRcTqhYn
- YGtY74ItPXdxphSemE5OCflY74T2QRnXBlxIaCCbpgfUH/+YCq8SOddWYKotgRlNTFRnDjFsz0Z
- zvZAbDDKCnkAOR219Bmy3sAsWojX08ms011jB85b1xUhHvfGueTXOtLfea
-X-Received: by 2002:a5d:5f56:0:b0:470:390c:1e73 with SMTP id
- ffacd0b85a97d-477b39839cbmr12242543f8f.18.1783047704135; 
- Thu, 02 Jul 2026 20:01:44 -0700 (PDT)
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DO10bahdwhwvl3OteTgaG/ReLzyVlHiXZrXAAYDCZ/0=;
+ b=nACVWd8MRYNOTds9tUuWbSpNZ9VmWLcF0QIB1ADbaqAFta30cMUZBk/CQkcdNSuYie
+ ClbOZ/GTSRA/pxPYs4auXn/ZzTtKbxDZfDeCPeIdNA8kxRlXLkHLn1hcDHOAmSlMyx3I
+ lqFT8F4FbYDvxulWp1wYS1KiNN4xCQbN91JhUwU/ET1K+XsAAHGTmVBmBQ2Mk4eA2s+1
+ 7QZh4XX5M4A6zoaeAjPcA6pZ7u5UJp6fTBHlEAtCWE918xkUUE8B8IwGBWIy5Pdljxnz
+ J+6JnPHNm0x2SH5RzWuYRzWGq1miCW571TRtjykRicHbv5zssssm7a8rU+vU6n1s9abi
+ 6Niw==
+X-Gm-Message-State: AOJu0YyyP3U9fskFO+jb4qq8NRwVqlk5ITrYC9DxxpU3EEVknp9ijIk0
+ TCpWuqWrXchrUud4z2mVZy6E0bimXNZc6nGjOrN1fq9ge1XtFh8QXhEdNQ52fsVl7A==
+X-Gm-Gg: AfdE7ckvfZVv65xLtY2ePUPTO8GIdRtaY66B3N/EnAzLIME177xmzaVpJBY/MwqOpjN
+ JuIfiwSQdLuvJSttgsnll0gvafYe5BhfIY5bNt12W+nYbEB1n5jsiTOKZCGc9P9Q+FGW1kFJQ7f
+ 0/zC6bOH+aJFk3i7Pw6+3FsGEh4DQDxy/dLI+WvELaEb9c9VWt0Mv3+O0eprYG29EsEOfBUe6NX
+ /gX4wEDEC3IYPMlIQ7ATudgHkpFH1FobbRGCBbTWK1mY168qJYdDcQeHeLajZEe/ZCwDKB3aJb0
+ R90phYl2Mk0QDWJqKexBu5dhE659KM9ZwrgWwAMBAEfNsUCNW29nxcVIhTIiYMu4e7uqor31ea4
+ 2/8dV6MbToHD1rGdYUoqvRdAdYGKjxqCr5oj+LIPq2aUu+g3KgQz1RrZUlMHYEUFO4fs0xukPM7
+ xQtwAY4qbkY5sfd+YLjn/LxYkIGOGQVLTosuQVFj9dO0LMRu7TXrvx93JJ
+X-Received: by 2002:a05:6000:5c5:b0:474:530:9d with SMTP id
+ ffacd0b85a97d-47757797bf8mr13513555f8f.13.1783047706825; 
+ Thu, 02 Jul 2026 20:01:46 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.01.41
+ ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.01.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:01:41 -0700 (PDT)
+ Thu, 02 Jul 2026 20:01:45 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
@@ -71,10 +71,9 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 05/18] rust: drm: expose <drm/display/drm_hdcp.h> HDCP
- 2.2 message definitions
-Date: Fri,  3 Jul 2026 04:00:52 +0100
-Message-ID: <20260703030123.2814-6-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 06/18] rust: drm: kms: add a Framebuffer::vmap() guard
+Date: Fri,  3 Jul 2026 04:00:53 +0100
+Message-ID: <20260703030123.2814-7-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260703030123.2814-1-mike@fireburn.co.uk>
 References: <20260617150232.2210-1-mike@fireburn.co.uk>
@@ -96,35 +95,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add <drm/display/drm_hdcp.h> to the bindings so Rust DRM drivers can use
-the canonical HDCP 2.2 message IDs (HDCP_2_2_AKE_INIT ..
-HDCP_2_2_REP_STREAM_READY), length constants and hdcp2_* message structs
-instead of redefining them. The header only pulls in <linux/types.h>, so
-it adds no new heavy dependencies.
-
-The Vino DisplayLink DL3 driver uses these for its HDCP 2.2 AKE/LC/SKE
-handshake (carried over a vendor USB transport rather than the DP/HDMI
-HDCP transport, so only the message definitions are reused, not the
-drm_hdcp_helper state machine).
+Framebuffer::vmap() maps a framebuffer's plane-0 backing pages into the
+kernel address space via drm_gem_fb_vmap()/vunmap(), returning an RAII
+FramebufferVmap guard that unmaps on drop. Only single-CPU-visible-plane
+framebuffers are supported (packed formats backed by GEM-shmem/CMA;
+multi-plane YUV or an unmapped imported dma-buf return EINVAL). This is
+the driver-side FbVmap guard the v1 series carried, moved into the layer
+proper so every KMS driver gets it instead of hand-rolling the same
+map/use/unmap dance.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-sonnet-5 [Claude-Code]
 ---
- rust/bindings/bindings_helper.h | 1 +
- 1 file changed, 1 insertion(+)
+ rust/kernel/drm/kms/framebuffer.rs | 67 +++++++++++++++++++++++++++++-
+ 1 file changed, 66 insertions(+), 1 deletion(-)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index e41d2716fb2e..e5cfda610781 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -34,6 +34,7 @@
+diff --git a/rust/kernel/drm/kms/framebuffer.rs b/rust/kernel/drm/kms/framebuffer.rs
+index 54d0391388a9..1ec6779ba7de 100644
+--- a/rust/kernel/drm/kms/framebuffer.rs
++++ b/rust/kernel/drm/kms/framebuffer.rs
+@@ -5,7 +5,12 @@
+ //! C header: [`include/drm/drm_framebuffer.h`](srctree/include/drm/drm_framebuffer.h)
  
- #include <linux/acpi.h>
- #include <linux/gpu_buddy.h>
-+#include <drm/display/drm_hdcp.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_connector.h>
+ use super::{KmsDriver, ModeObject, Sealed};
+-use crate::{drm::device::Device, types::*};
++use crate::{
++    drm::device::Device,
++    error::{code::EINVAL, to_result},
++    prelude::*,
++    types::*,
++};
+ use bindings;
+ use core::{marker::*, ptr};
+ 
+@@ -67,4 +72,64 @@ pub(super) unsafe fn from_raw<'a>(ptr: *const bindings::drm_framebuffer) -> &'a
+         // SAFETY: Our data layout is identical to drm_framebuffer
+         unsafe { &*ptr.cast() }
+     }
++
++    /// Return the raw `bindings::drm_framebuffer` for this framebuffer.
++    #[inline]
++    pub(crate) fn as_raw(&self) -> *mut bindings::drm_framebuffer {
++        self.0.get()
++    }
++
++    /// Map this framebuffer's plane-0 backing pages into the kernel address space for CPU
++    /// access, for the duration of the returned guard.
++    ///
++    /// Only framebuffers with a single, CPU-visible plane are supported (i.e. packed formats
++    /// backed by GEM-shmem/CMA memory, not multi-plane YUV or an IMPORTED dma-buf without a
++    /// CPU mapping); other cases return `EINVAL`.
++    pub fn vmap(&self) -> Result<FramebufferVmap<'_, T>> {
++        // SAFETY: `iosys_map` is POD (a pointer union plus a bool); all-zero is a valid
++        // "not mapped" value that `drm_gem_fb_vmap` overwrites for present planes.
++        let mut map: [bindings::iosys_map; 4] = unsafe { core::mem::zeroed() };
++        let mut data_map: [bindings::iosys_map; 4] = unsafe { core::mem::zeroed() };
++        // SAFETY: `self.as_raw()` is a valid, GEM-backed framebuffer for the lifetime of `self`.
++        to_result(unsafe {
++            bindings::drm_gem_fb_vmap(self.as_raw(), map.as_mut_ptr(), data_map.as_mut_ptr())
++        })?;
++        // SAFETY: `map[0]` was just filled in by `drm_gem_fb_vmap` above.
++        let vaddr = unsafe { map[0].__bindgen_anon_1.vaddr };
++        if vaddr.is_null() {
++            // SAFETY: balances the vmap just done, with the same `map`.
++            unsafe { bindings::drm_gem_fb_vunmap(self.as_raw(), map.as_mut_ptr()) };
++            return Err(EINVAL);
++        }
++        Ok(FramebufferVmap { fb: self, map, _p: PhantomData })
++    }
++}
++
++/// An RAII guard over a CPU mapping of a [`Framebuffer`]'s plane-0 backing pages, created by
++/// [`Framebuffer::vmap`].
++///
++/// The mapping is torn down when this guard is dropped, so an early return between mapping and
++/// use can never leak it.
++pub struct FramebufferVmap<'a, T: KmsDriver> {
++    fb: &'a Framebuffer<T>,
++    map: [bindings::iosys_map; 4],
++    _p: PhantomData<T>,
++}
++
++impl<'a, T: KmsDriver> FramebufferVmap<'a, T> {
++    /// Plane 0's CPU virtual base address (guaranteed non-null for the guard's lifetime).
++    #[inline]
++    pub fn as_ptr(&self) -> *const u8 {
++        // SAFETY: set non-null in `Framebuffer::vmap`; `vaddr` is the active union member.
++        (unsafe { self.map[0].__bindgen_anon_1.vaddr }) as *const u8
++    }
++}
++
++impl<'a, T: KmsDriver> Drop for FramebufferVmap<'a, T> {
++    fn drop(&mut self) {
++        // SAFETY: `self.fb.as_raw()`/`self.map` are exactly the pair passed to
++        // `drm_gem_fb_vmap` in `Framebuffer::vmap`, and the mapping has not been released
++        // since.
++        unsafe { bindings::drm_gem_fb_vunmap(self.fb.as_raw(), self.map.as_mut_ptr()) };
++    }
+ }
 -- 
 2.55.0
 
