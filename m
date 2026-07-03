@@ -4,162 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 545D3C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 05:13:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F292C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 05:16:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 835A310E561;
-	Fri,  3 Jul 2026 05:13:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFD610E565;
+	Fri,  3 Jul 2026 05:16:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CXQx6rwJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JTDdPWCd";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A9t38s2M";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E1310E561;
- Fri,  3 Jul 2026 05:13:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783055608; x=1814591608;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=ZvYaWoLAhMinX0mki4VfcBZUITWS5CymBCwnqhTjKVM=;
- b=CXQx6rwJ+Xu/aZ/h6fkTGiXnR9F1xjxvH0mlxubSHpXzNL2fByWLSzYe
- B9rAndnEQ3sQZm/B+3OkpyjVgZ45VedHvDfL+ENESz9RJzVGEBPd8U7T9
- KyNsVTTNdcoVLb1mPCeMGW/mpEvILCsVILPYt9pBJcLgcVn46tOnU5Nsu
- +PfW3yA8yJi6QDkPjsHbYm78tnTH+LOFevYgSHrth8K+iB8VUY0e3muxu
- 2uohPLJsLVkSNZqUXZV1hQ+MTrFFDhOhaM2WOnKbcXacT6rErCrmiIPHi
- El12sOUiiRA2RG2+TeaTTpQReK1KRJkh6XEyuCuPKwUUFKpYnWm1MeygD g==;
-X-CSE-ConnectionGUID: 734b1e7MSkqsPdQZxINcvw==
-X-CSE-MsgGUID: 0uOJoQ2dT8+pEiaDeBoXDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="95311549"
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="95311549"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 22:13:27 -0700
-X-CSE-ConnectionGUID: n5xFg7tQSpi8rmyhRE9SwA==
-X-CSE-MsgGUID: wKSl38EyRDyz0qy+L7rjxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="253170762"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2026 22:13:27 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 22:13:26 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 2 Jul 2026 22:13:26 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.13) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 2 Jul 2026 22:13:25 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sQk+b64PdZmrfNuf6HNAO3l3a3nc/7NvKRml69LzUi18Vk6pSKxANomZVc0f7oRoi+lNKGaa9+AU8pv3bYtpKfWZdu7OQiq85/WCGCQC9YJ4PahLDMWiiZKcDNXDxnWRdhY7FISOoYoKVmz2dWA9/CK2BH9RUJqJStkBTmEG98XUgNuN28O1BOAfl7LFMl7WI8Daw9J3aX8RFD31HGgKoEgZz+JCROFHzw+FimhTGggPHd/xOJBRs0AFXEdMz3P+SNve1wieKAdcLVo3oy5VCD615piqgLiJIRSdeHyKU9pAB8pXd5c6hPCOzWeyaWh+zBZVbJrxXO/T/qC/SoKZKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EKbxkcKtJeAwuFHRdK8J/SJ4MFv4DLxXKQomTnImO28=;
- b=rXhH2XYSL7sGNGKqy465JS+jSa2mim/M/gEpvUHXLCSvE4UMUafykLmhSucD8jWa2hyMsJ4JAgC3qz0l0Eevs5A4kplZOy/NXMmF7A0tiTGgtPpZviillTHKhQrYGwWHA1K6bqU9GYUCSPp2hr9u1naCziyn/19exnIOPJ4K2+iLKrAgz0uQ+ZXbS6dClqx9VcozXEcUJ/zDAJtJesetX2tamVBpJdrONvfXxFxfye8sUbgm5fCaSeuPpqAQpffFJyAU/qgvV4GRtSjyTzY05nPNs9BuKB7RJvG4onqlmEjJ1L7LeTHvM1qfgOIdpueDHJMXQmcd8zXoUzsX9HNnpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- DS0PR11MB6470.namprd11.prod.outlook.com (2603:10b6:8:c2::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.8; Fri, 3 Jul 2026 05:13:18 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0181.009; Fri, 3 Jul 2026
- 05:13:18 +0000
-Message-ID: <0769389d-e73a-4dda-878c-2bc9e59deff3@intel.com>
-Date: Fri, 3 Jul 2026 10:43:06 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] drm/ras: Introduce error threshold
-To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
-CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
- <lijo.lazar@amd.com>, <Hawking.Zhang@amd.com>, <davem@davemloft.net>,
- <pabeni@redhat.com>, <edumazet@google.com>, <dev@lankhorst.se>,
- <zachary.mckevitt@oss.qualcomm.com>, <rodrigo.vivi@intel.com>,
- <michal.wajdeczko@intel.com>, <matthew.d.roper@intel.com>,
- <mallesh.koujalagi@intel.com>
-References: <20260623101043.255897-1-raag.jadav@intel.com>
- <20260623101043.255897-3-raag.jadav@intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <20260623101043.255897-3-raag.jadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0038.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:175::7) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF6310E565
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 05:16:15 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66342bBT2654815
+ for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 05:16:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 7je18tu2quK+pqEUyIaDqokYfNsUVcOnejDyULff2vw=; b=JTDdPWCdAlBz8IDX
+ 6m3WlsRH+k11kXRRGIpBZtFmZAg54oxhxU65SplmVRd+9Ghbhx/9yaffw4DHTi5q
+ pP1IKBlJ4oRdJ4l6AjkE7NtvdO04YsqwGcKTFA+YTMCBr6cORDZSa+VD6BhPe1Pv
+ nz8qohOa+tmnJ8oupVyudx988edq/bprvsZK+qe/BiNKrEZYHBzmOyxbEvL2yyGO
+ hQzpWm7NGk/LlvXWKrT3ldr16mX6xpgxZHEwDiSmVQNgqu8jLuEq2ZpUFgr+NRXA
+ /g1ow6OqsnEWH6YqoaA5iautPNJYnfMCseibZVCR9fSNZ3kjY34eESPYAEKZ/vWf
+ sG2B/A==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5nprc8pa-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 05:16:14 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2c9d8549d55so1696255ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 22:16:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783055774; x=1783660574;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7je18tu2quK+pqEUyIaDqokYfNsUVcOnejDyULff2vw=;
+ b=A9t38s2MtlGjpvYE/SSXzPXI8gbTtzwZzRaKPtSHfKWKvoVhik3sTgk6GptCXc+rVg
+ HKVNeAVjxKOUxxX8ZwfDHQ9SnrdWW/53Wnee3OEnPkDp75N67psSh+WQnNUBqB8Bwif1
+ a2b4kwlw4wsPV9W7yo3DBH8sEgqyitk/KYOPZPbJuEHouxz/uzZ1AyaeNVpfvxAt4JiP
+ hIcchiAsOwEOk1yRyueEvbzERCbw1ohB+x0Fr4t/YZA4FosG/JSuPe3PD2wgSoXZIN02
+ OmZFfoKKiLVVWRBXcTaU0W8wpVQjQvdDmk1P8KnXbZBUAMfXPPJJPLDRbdAzTp4v5eKV
+ /wtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783055774; x=1783660574;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7je18tu2quK+pqEUyIaDqokYfNsUVcOnejDyULff2vw=;
+ b=ORGLcLGk5iVLjMDuiRMR1uRTiKU1yxxj6NehVO/n4hlJcZRmJplYcVv//b5Z74APC6
+ Rl1j5AP9najAvkfvmGZASIh5wAb08/Gvvbo73gLOSocvF9Zidath9APZYxBRg0DYK+XE
+ D/NPXj5dEl165V+x4fT6HGfEv11RM4e0WdMVoqUPUd7wn+/e+6ptWrK65BqNoaaNWNIN
+ aeGSPNUJ4pQHgn8ktTiRkG/Aul9Yi5MGrKB2VqM+Bj6SH9pZmEco0/sqk8fnb2oAurL+
+ Y8y2tNYOaWFFhF0oTrqMxI1S9edSuM+gY0C9DYXVRPypNsf8c7q+ZYWTDOVo8+FUy9cA
+ ruCQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/GhDAOUqYL9DsOwaCJi54D21aPwv6ZlIAuzyN6F2mbaexmgYi2wk0EfV7+vH9snTtFehmoc2v/rBM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJ1CJRVEH+xt133L88V0fGFijfD3WK/Hj5Uuh9WZ4dz10YjKe4
+ kDgNMeyHywYWSbkG+3jPA//Apmts0yZx33q4uwTwemKCc036wQhX9rMGu2pHVDH8NZur8zFFBqg
+ QFVEzsF5GNvBEoq1QTR1tQfKXo0sZhia3gH7oLx8sVkK3D30FoZcEIrP6QBjmXGnSns6MUzU=
+X-Gm-Gg: AfdE7clgJAvT/xntK7GYIfMXeAsdeDpaOQLxMJJEiAyHc1bv4uGHjZNHJ8yEYmIqUSZ
+ qCzclVYMWo24U99dlNdOwFprnN1yLD2NPgSxK6397yzSiykqDtw5PmlICANP3qEIERKopR2xlSt
+ NKQJUg8nnpAr7OQBrs5vdu314y0tPSTu9WVpXNYVCFOxCeev2wEx2oZE6yfJtVmDJFXU/ckRZVu
+ 9yK9j+axQpEyBduXZl1STJ6yuFnHauYBz8S9mAn6jBZQyWooItvVzUEsoIDVIwNtoYTzfIJBOXq
+ 0YrW3csOnrsgnNLFnIJGomnZ1u0nojCoNNns9JEV1TWjGRXG/1vcCeuvRBzBmZHPzgulTkrCmhw
+ iAfbbB/cTcy2c2CzwzmdUo8Ej2Unpl+hldRMoMm4r
+X-Received: by 2002:a05:6a21:7314:b0:3b3:fc6:6226 with SMTP id
+ adf61e73a8af0-3bfed237936mr11551296637.24.1783055773721; 
+ Thu, 02 Jul 2026 22:16:13 -0700 (PDT)
+X-Received: by 2002:a05:6a21:7314:b0:3b3:fc6:6226 with SMTP id
+ adf61e73a8af0-3bfed237936mr11551263637.24.1783055773170; 
+ Thu, 02 Jul 2026 22:16:13 -0700 (PDT)
+Received: from [10.204.78.220] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30f0b813d37sm16467977eec.10.2026.07.02.22.16.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jul 2026 22:16:12 -0700 (PDT)
+Message-ID: <b907b6bd-ea6e-46fa-9546-b8b62e12bded@oss.qualcomm.com>
+Date: Fri, 3 Jul 2026 10:46:06 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|DS0PR11MB6470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20c2ceac-23df-40e1-d292-08ded8c1cae5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|3023799007|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: eKmqqjS+n4dWMkYBtEpa83coUxjIGgKoWBXQFdHHOHMK+hm9MOptrP5JPnnA43TqqqPJi62hxtBcpMJR8DIVb5Cc/SvJvRVTAnk5FIHmVzHhZhVgouJ19TLz2TXYVh5IR1M9tgS2iYH6MyYkgUYntoeC1dUj8F4W74lz4pgPZLLHRIrfP1mh2HCXAQ0fsTbiiz1FzZgXQRBu24pGZWoW4ENTlGCKbwMQpl4JHLQ+T8mlQ+m6aaCtJ5gxzHR+iy1dQOU1cSMGzUmOjc5SU3hJiyB/C095xIo4J35WBdpkNtL3K6FEB05IYAZxgJt9ebZupeUc9go1ccF211PpWFrSJcpEKd6ykwkbN1EPl+QvKrilWQBggpEMZesdtF8SoO0keQTz81nRI2jZ+miRTu3P/JK/GfuaKy2izG1Ywxk4/RVEerzVCzBMaPx+i+zvI77c47KlMgBtTrlBtYutPaeu7cNw+ZTIw3HMzZWVP8bs0CFIRGQEEPnsBFyzhHlQQ3Bd4pD6TaB9KZH72wVnMny+pE0lYcXdfUp/xemxeSbf+5Mn1E1UVMizlxO9OLANP7jveamC1fDuLMcYN7vPtmLg9hUCybhRQGHWw6xW5PzAl6lwiOEB479CYKPTW7tUR9K/x9d48t/XgEfM7/mh2GogabS0+YwOYeCclH5RqbIa0FU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHFWMHN3S2hSUVhqY3c1Z01ndVA0Z0dFMHdSbjJLT1JaRmw0ZGdLS3dobExP?=
- =?utf-8?B?a21Ybk8vOFA2bFR5QjJtZHQ4NDBXOS9nM0Z6emJYWmNqNVlPK2NCY3FzMEFq?=
- =?utf-8?B?alNEMXZEV05GMHZhS3VFbDR3MmVLczFESFkxN01Vb1lwdXVKbkdmWitlQVVt?=
- =?utf-8?B?TVhrcXlrMklTenZzY1hYMENyK05jc1czSjVVUllBTjV6SXdkNUlMbnJjTDVP?=
- =?utf-8?B?S3BCSGE0Ung3bXlwOFU1V1pOUkpnc3QxWjlXb3JQc0lPeTc3a3pVbHRCaFBZ?=
- =?utf-8?B?MmVBWElhK2FIOVZxUUJOc0NMNXFRdURieFliQnV3ZWlSMDVmbTdKMW1HN0hs?=
- =?utf-8?B?eEpYeGRaYlRpSjg0K241TmMzTXF0ZDVpVWw0TGN6TVpOYTBLYW1nenU5UFp5?=
- =?utf-8?B?ZlpGQUpBRG1DZ1RPMVR5b2VPd0g1eWFRUmsrMWNMbjJHc3k3cXN3Y3d3SUMv?=
- =?utf-8?B?azNGTXpIaXFvVU9CSkhmM2xOdi9ERnVlYlV6bDdwT3lOTjNrd2FRQ3dBbXMz?=
- =?utf-8?B?Wjc1LzF4TTNTTTRtT1ZFcmdrdGcvWXFTcDJiSUk5dzRvMW1Fc3VhNUFXT2lu?=
- =?utf-8?B?VEFjSHpnTXRYNWJHQnlocjh0ZkZOWnBVQ2RDTWZyaUpzSjM2aGVpRFltM1ZY?=
- =?utf-8?B?SmdtL3NFNnZXbyt5djZPWFhEQ3RaaHpvdHRoS1NFWDVSNWJ6MC8reGQxMzl6?=
- =?utf-8?B?aWVRcEhOeFlKS0twazhCMmgwdFg4aUJVdDlFbTZXQ0IwZWdHQjBuZXMyNnBY?=
- =?utf-8?B?QTJKeitVVzlkNGpQU3MzR1RJN2d5MUt1T1FLTmJ6SUhNNC9VQ2VWeE1oNkJT?=
- =?utf-8?B?OVhRK1dQb2dPYlA3aTZGR29GeGY3WitId1RwclU4RlVTSEhzVzFxMHQ5bXFj?=
- =?utf-8?B?WEl2ekY1UVlBYjRCTm5ORHFmM2g0dndkMWVzaGRJWndCVUFmbVdVUEVOYlNU?=
- =?utf-8?B?VFVWcXppUHUrRTJLSDlwc2ZicFJ3R0ZTL29zV3ZYNXFsdlV1bmlkQXAyL2Qy?=
- =?utf-8?B?YzI1b2tnYWpkZSs0WlZ5Yk5WNmlLMmM3alFyZjhsYVN2TGdZeXB1YjdRVERK?=
- =?utf-8?B?UkhremsrdW4vaDk0eFNQbnVBT1BJamlsVi9kS1ZtUDEyK3VRRWhRTktTUmJs?=
- =?utf-8?B?ZmhUY1Q2aVBYc1NINm1CNUo4THZORVVNM0xJSUt1ZHZkd25ERkZoTktWUWhR?=
- =?utf-8?B?SVU0WFpkUU12eThZWDJMcTkyc3QrRVNrZHA3dEJuaXUwZWQwaldicG5nS3Bv?=
- =?utf-8?B?VkxBSURjNTVuZ0Q1Y0lXVUU3Mk5Eby85b0RncUR0M0xWa0diU0ZEdU9aaUR0?=
- =?utf-8?B?T1ZQYW43b0tneVZkZWhpV1pCZjFMN0MzbzFSeWVtMHJKMjIwdzVWd0h1NGw4?=
- =?utf-8?B?N0NQRk9KYnE5cnY0bDBRTm16bGQvOXBWMEVpNFp2SUZPTy9Sd1RCUndCSy9X?=
- =?utf-8?B?U1hPbkNnM2VWeWx2TzlZT2pSb1hHT211Z1p2WmpERHJ0WStGZFdSTS9LRThI?=
- =?utf-8?B?NERLclNjK2c5NVU3NTBrcGlYajBLdXVWOUhOYktoK1RIUG5wRUoxSk9PODZL?=
- =?utf-8?B?ajRLT0NKbC9vemE0dGpTRGhtMUdTVVFtN1h4aDhCaEgxSktJaUFmMjhNVE5v?=
- =?utf-8?B?MXFRTjdYemxJYW1pZ2ZMSElPYmcwaTMvNVhsWkRpVGNINWFYb3BLNDM4MGNq?=
- =?utf-8?B?SjZXYWNJN1FtV0ZZdnZvL3hnUDNaU2wrWEg1T0RVMHdxNXgveWNQQ3Q0UENL?=
- =?utf-8?B?SlVhOFVuaXNoYmNSVUt0cVRpTmNZVFp2aWhxT0JzLytYTEJrMk1ETE5KZmVM?=
- =?utf-8?B?aGl6WnJlYzR4T0doUExVOUtseEpvdUtoTzhnazdVVmt3Nm1iVlpacythTVE1?=
- =?utf-8?B?L2E1c2x4K1Qzb3R3bGM4Z0sxbTZwVW8zcklQT2ZwREZZYnBDbyt5QzFvMjdt?=
- =?utf-8?B?dE8zSkRweXlrMU80MU1nK2ZWRlk3UkJIenpqakhvVzlJaEVHYmpBY2NZWWFN?=
- =?utf-8?B?ckpQL1oxUU9pRkdHemRWSk5pWVFGR0xBQ2dBMjF1MW1tL3dYM1kxOHF4djlj?=
- =?utf-8?B?Y0hhbXBJanJKUGk4dWxieWJCNDc0cThwRkg0bWxZbDZhdEI0ZzdwcEJhYnYx?=
- =?utf-8?B?cklkZ3h5R2ZhbnJtNEVyS2M4UVpURStVSURhSFhneFJ5MDhNUUtnYkV5SGw0?=
- =?utf-8?B?VTh1ZjkyeHZ6S3ZCTDBodzFHRld0RWlCV1JUUzhtVll6WGxwSTB6OTVOR0tX?=
- =?utf-8?B?cDUvZDNteVpqV1FvVmxVWU5Damk1dnU2OEUzMk1Lb0NWais3TzZrZ0hMVlFy?=
- =?utf-8?B?T0hDRk1BZzB6L0JRV2oyaEtrMlNEOVRITm0xYWVlVUs1NmN2UEFwZz09?=
-X-Exchange-RoutingPolicyChecked: ckLSzT6FZs/AlFhK2evVaAexdsP210OQXNeuN/+O7ezTfXaR4QjdmJFGit0YtKOOtT4slaxTh8TkIWKy4sT0A+8/8ow8GRrXooKFsL3qhPKmt0+bWMqd9y4+zkzuULDkGHzHBPiW/gGSpiDVEqTNCClLgTpALlMmuVysFV7YZI3pRb2pHJizE8rcxz68Ts7OTzGnH6bBriFIwLo6169/gjLS6a3AbmW4XkdOvUvl/p3Ivp/zciELIMys+J+AGnv3MrVNuYpv6XCyDHTpQu2gwepnTJBn8DRQGbLzFgdvtstIQS6yUUAz+hr38ZDGbXPHbaAFGCIMcCpedN6t1EcEDg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20c2ceac-23df-40e1-d292-08ded8c1cae5
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 05:13:18.1280 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aZQu9TDP7uSx2FIfp+HNBfkD8mVqlkNuRqgwl+fyJ9ZutIU4gTtps6/eJ/vZVZC4SBxPByFdR+LsHcBGffHUeQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6470
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Ling Xu <quic_lxu5@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ quic_chennak@quicinc.com, stable@kernel.org
+References: <20260625080832.17477-1-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260625080832.17477-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: XmDqN4MpsRdzSeapEytLMHlMEFTFAE6l
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA0NiBTYWx0ZWRfX+ih72QyxQjya
+ /ts1wwps/Z+ItECLUrpmot3acabieCpcDqqM2UbrF8ckzRdi5Oadz3fe8kLtwkkOamC33Kdz9xA
+ yWTx5gZ4ITSuCwWH3fW1u8kj9Ai3/4s=
+X-Authority-Analysis: v=2.4 cv=NsvhtcdJ c=1 sm=1 tr=0 ts=6a47459e cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ywQd6nkPfMLC1FByFVQA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: XmDqN4MpsRdzSeapEytLMHlMEFTFAE6l
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA0NiBTYWx0ZWRfX5RIaje+dRvkd
+ zC9Usk/ryGH09LWp0K7d72k+i2ktFvdn93tmLmDJRRoWk2PqCclGtcpLME7INOezv6ET32e6VR2
+ h91TsJqebUCoYoUvyzILHwE/hAF5DZNYq5vtZ7G1pSyjZUp37on8TmejSXQHQ6XhZ8NbO/dMUHD
+ g3XTZtVe+4pMk/szdCtZrNvP9zyYvKViomqodPDC9C+wSei78/VtO2O7MrGNOeYjvMO2/K/2etr
+ lAPEGIN3m5pvM+EbYgdQVmp/uPrPUwv0c4AAKKi/15f67dMNRDBZI7m4KLWNAWocv62FmW0uI/T
+ ud8frSJeWelPCyMm0Y1OwyrNFYNLAIvXU8m1PlC+rrkFQK4dCPwVaSPnonXETjDukv0b7CZ9u27
+ FkbFxcCOKMTLVj2KDFZoY1WD2BgoEg9y6JSVB+cpn8Q5M8ow/QOUG/SORxowoC8xcpg+/+DJuRm
+ BX+zp0lIzFNnzN5GJLg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_01,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030046
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,464 +150,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 23-06-2026 15:39, Raag Jadav wrote:
-> Add get-error-threshold and set-error-threshold command support which
-> allows querying/setting error threshold of the counter. Threshold in RAS
-> context means the number of errors the hardware is expected to accumulate
-> before it raises them to software. This is to have a fine grained control
-> over error notifications that are raised by the hardware.
->
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+On 25-06-2026 13:38, Jianping Li wrote:
+> fastrpc_create_maps() performs map lookup only for buffer
+> arguments (i < ctx->nbufs) via fastrpc_map_create(). For
+> arguments beyond this range, no lookup is performed, which
+> can result in duplicate DMA mappings for the same file
+> descriptor.
+> 
+> Additionally, if the same file descriptor is passed multiple
+> times within a single invocation, performing lookups with
+> reference counting would increment the reference multiple
+> times, while fastrpc_put_args() would release it only once,
+> leading to an imbalanced reference count.
+> 
+> Fix this by allowing fastrpc_map_create() to control whether
+> the lookup should take a reference. For arguments beyond
+> ctx->nbufs, the lookup is performed without taking a
+> reference, ensuring that existing mappings are reused
+> without introducing duplicate DMA mappings or reference
+> count imbalance.
+> 
+> Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 > ---
-> v2: Document threshold definition (Riana)
->      Return -EOPNOTSUPP on threshold callbacks absence (Riana)
->      Cancel and free genlmsg on failure (Riana)
->      Document threshold bounds checking responsibility (Riana)
-> v3: Move documentation from yaml to rst file (Riana)
->      s/value/threshold (Riana)
->      Use goto for error handling (Riana)
-> v4: Clarify 0 threshold expectations (Riana)
->      Drop redundant wrapping (Riana)
-> ---
->   Documentation/gpu/drm-ras.rst            |  18 +++
->   Documentation/netlink/specs/drm_ras.yaml |  32 +++++
->   drivers/gpu/drm/drm_ras.c                | 161 +++++++++++++++++++++++
->   drivers/gpu/drm/drm_ras_nl.c             |  27 ++++
->   drivers/gpu/drm/drm_ras_nl.h             |   4 +
->   include/drm/drm_ras.h                    |  28 ++++
->   include/uapi/drm/drm_ras.h               |   3 +
->   7 files changed, 273 insertions(+)
->
-> diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
-> index 83c21853b74b..2718f8aee09d 100644
-> --- a/Documentation/gpu/drm-ras.rst
-> +++ b/Documentation/gpu/drm-ras.rst
-> @@ -56,6 +56,10 @@ User space tools can:
->     ``node-id`` and ``error-id`` as parameters.
->   * Clear specific error counters with the ``clear-error-counter`` command, using both
->     ``node-id`` and ``error-id`` as parameters.
-> +* Query specific error counter threshold with the ``get-error-threshold`` command, using both
-> +  ``node-id`` and ``error-id`` as parameters.
-> +* Set specific error counter threshold with the ``set-error-threshold`` command, using
-> +  ``node-id``, ``error-id`` and ``error-threshold`` as parameters.
->   
->   YAML-based Interface
->   --------------------
-> @@ -111,3 +115,17 @@ Example: Clear an error counter for a given node
->   
->       sudo ynl --family drm_ras --do clear-error-counter --json '{"node-id":0, "error-id":1}'
->       None
+>  drivers/misc/fastrpc.c | 22 +++++++++++-----------
+>  1 file changed, 11 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index a9b2ae44c06f..2622a1360a65 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -924,9 +924,9 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+>  }
+>  
+>  static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
+> -			      u64 len, u32 attr, struct fastrpc_map **ppmap)
+> +			      u64 len, u32 attr, struct fastrpc_map **ppmap, bool take_ref)
+>  {
+> -	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
+> +	if (!fastrpc_map_lookup(fl, fd, ppmap, take_ref))
+>  		return 0;
+>  
+>  	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
+> @@ -999,23 +999,23 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
+>  	int i, err;
+>  
+>  	for (i = 0; i < ctx->nscalars; ++i) {
+> +		bool take_ref = true;
+bool take_ref = i < ctx->nbufs, also add a comment stating why reference
+should be skipped for DMA handles.>
+>  		if (ctx->args[i].fd == 0 || ctx->args[i].fd == -1 ||
+>  		    ctx->args[i].length == 0)
+>  			continue;
+>  
+> -		if (i < ctx->nbufs)
+> -			err = fastrpc_map_create(ctx->fl, ctx->args[i].fd,
+> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+> -		else
+> -			err = fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
+> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
+> +		if (i >= ctx->nbufs)
+> +			take_ref = false;
 > +
-> +Example: Query error threshold of a given counter
+> +		err = fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].length,
+> +			 ctx->args[i].attr, &ctx->maps[i], take_ref);
+>  		if (err) {
+>  			dev_err(dev, "Error Creating map %d\n", err);
+>  			return -EINVAL;
+>  		}
+> -
+>  	}
 > +
-> +.. code-block:: bash
-> +
-> +    sudo ynl --family drm_ras --do get-error-threshold --json '{"node-id":0, "error-id":1}'
-> +    {'error-id': 1, 'error-name': 'error_name1', 'error-threshold': 16}
-> +
-> +Example: Set error threshold of a given counter
-> +
-> +.. code-block:: bash
-> +
-> +    sudo ynl --family drm_ras --do set-error-threshold --json '{"node-id":0, "error-id":1, "error-threshold":8}'
-> +    None
-> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
-> index e113056f8c01..9cf7f9cde242 100644
-> --- a/Documentation/netlink/specs/drm_ras.yaml
-> +++ b/Documentation/netlink/specs/drm_ras.yaml
-> @@ -69,6 +69,10 @@ attribute-sets:
->           name: error-value
->           type: u32
->           doc: Current value of the requested error counter.
-> +      -
-> +        name: error-threshold
-> +        type: u32
-> +        doc: Error threshold of the counter.
->   
->   operations:
->     list:
-> @@ -124,3 +128,31 @@ operations:
->         do:
->           request:
->             attributes: *id-attrs
-> +    -
-> +      name: get-error-threshold
-> +      doc: >-
-> +           Retrieve error threshold of a given counter.
-> +           The response includes the id, the name, and current threshold
-> +           of the counter.
-> +      attribute-set: error-counter-attrs
-> +      flags: [admin-perm]
-> +      do:
-> +        request:
-> +          attributes: *id-attrs
-> +        reply:
-> +          attributes:
-> +            - error-id
-> +            - error-name
-> +            - error-threshold
-> +    -
-> +      name: set-error-threshold
-> +      doc: >-
-> +           Set error threshold of a given counter.
-> +      attribute-set: error-counter-attrs
-> +      flags: [admin-perm]
-> +      do:
-> +        request:
-> +          attributes:
-> +            - node-id
-> +            - error-id
-> +            - error-threshold
-> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> index 467a169026fc..d60c40ac5427 100644
-> --- a/drivers/gpu/drm/drm_ras.c
-> +++ b/drivers/gpu/drm/drm_ras.c
-> @@ -41,6 +41,13 @@
->    *    Userspace must provide Node ID, Error ID.
->    *    Clears specific error counter of a node if supported.
->    *
-> + * 4. GET_ERROR_THRESHOLD: Query error threshold of a given counter.
-> + *    Userspace must provide Node ID and Error ID.
-> + *    Returns the error threshold of a specific counter.
-> + *
-> + * 5. SET_ERROR_THRESHOLD: Set error threshold of a given counter.
-> + *    Userspace must provide Node ID, Error ID and threshold to be set.
-> + *
->    * Node registration:
->    *
->    * - drm_ras_node_register(): Registers a new node and assigns
-> @@ -61,6 +68,16 @@
->    *     + The error counters in the driver doesn't need to be contiguous, but the
->    *       driver must return -ENOENT to the query_error_counter as an indication
->    *       that the ID should be skipped and not listed in the netlink API.
-> + *     + The driver can optionally implement query_error_threshold() and
-> + *       set_error_threshold() callbacks to facilitate getting/setting error
-> + *       threshold of the counter. Threshold in RAS context means the number of
-> + *       errors the hardware is expected to accumulate before it raises them to
-> + *       software. This is to have a fine grained control over error notifications
-> + *       that are raised by the hardware.
-> + *     + The driver is responsible for error threshold bounds checking.
-> + *     + Threshold of 0 can mean invalid threshold or act as a disable notifications
-> + *       toggle for that counter depending on usecase and the driver is responsible
-> + *       for handling it as needed.
+>  	return 0;
+>  }
+>  
+> @@ -1508,7 +1508,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
+>  	fl->pd = USER_PD;
+>  
+>  	if (init.filelen && init.filefd) {
+> -		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map);
+> +		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map, true);
+>  		if (err)
+>  			goto err;
+>  	}
+> @@ -2100,7 +2100,7 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
+>  		return -EFAULT;
+>  
+>  	/* create SMMU mapping */
+> -	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map);
+> +	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map, true);
+>  	if (err) {
+>  		dev_err(dev, "failed to map buffer, fd = %d\n", req.fd);
+>  		return err;
 
-I know i asked you to add this in last rev. But after reading this, 
-error-threshold bounds checking at driver level
-should be sufficient.  It's upto the driver on what behavior needs to be 
-implemented.
-
-Some may notify on reaching threshold or crossing threshold.
-I think we should drop this sentence here. Let me know your thoughts.
-sorry for the confusion.
-
->    *
->    * Netlink handlers:
->    *
-> @@ -72,6 +89,10 @@
->    *   operation, fetching a counter value from a specific node.
->    * - drm_ras_nl_clear_error_counter_doit(): Implements the CLEAR_ERROR_COUNTER doit
->    *   operation, clearing a counter value from a specific node.
-> + * - drm_ras_nl_get_error_threshold_doit(): Implements the GET_ERROR_THRESHOLD doit
-> + *   operation, fetching the error threshold of a specific counter.
-> + * - drm_ras_nl_set_error_threshold_doit(): Implements the SET_ERROR_THRESHOLD doit
-> + *   operation, setting the error threshold of a specific counter.
->    */
->   
->   static DEFINE_XARRAY_ALLOC(drm_ras_xa);
-> @@ -168,6 +189,40 @@ static int get_node_error_counter(u32 node_id, u32 error_id,
->   	return node->query_error_counter(node, error_id, name, value);
->   }
->   
-> +static int get_node_error_threshold(u32 node_id, u32 error_id, const char **name, u32 *threshold)
-> +{
-> +	struct drm_ras_node *node;
-> +
-> +	node = xa_load(&drm_ras_xa, node_id);
-> +	if (!node)
-> +		return -ENOENT;
-> +
-> +	if (!node->query_error_threshold)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (error_id < node->error_counter_range.first || error_id > node->error_counter_range.last)
-> +		return -EINVAL;
-> +
-> +	return node->query_error_threshold(node, error_id, name, threshold);
-> +}
-> +
-> +static int set_node_error_threshold(u32 node_id, u32 error_id, u32 threshold)
-> +{
-> +	struct drm_ras_node *node;
-> +
-> +	node = xa_load(&drm_ras_xa, node_id);
-> +	if (!node)
-> +		return -ENOENT;
-> +
-> +	if (!node->set_error_threshold)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (error_id < node->error_counter_range.first || error_id > node->error_counter_range.last)
-> +		return -EINVAL;
-> +
-> +	return node->set_error_threshold(node, error_id, threshold);
-> +}
-> +
->   static int msg_reply_value(struct sk_buff *msg, u32 error_id,
->   			   const char *error_name, u32 value)
->   {
-> @@ -186,6 +241,22 @@ static int msg_reply_value(struct sk_buff *msg, u32 error_id,
->   			   value);
->   }
->   
-> +static int msg_reply_threshold(struct sk_buff *msg, u32 error_id, const char *error_name,
-> +			       u32 threshold)
-> +{
-> +	int ret;
-> +
-> +	ret = nla_put_u32(msg, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID, error_id);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = nla_put_string(msg, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_NAME, error_name);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return nla_put_u32(msg, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD, threshold);
-> +}
-> +
->   static int doit_reply_value(struct genl_info *info, u32 node_id,
->   			    u32 error_id)
->   {
-> @@ -225,6 +296,43 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
->   	return ret;
->   }
->   
-> +static int doit_reply_threshold(struct genl_info *info, u32 node_id, u32 error_id)
-> +{
-> +	const char *error_name;
-> +	struct sk_buff *msg;
-> +	struct nlattr *hdr;
-> +	u32 threshold;
-> +	int ret;
-> +
-> +	msg = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
-> +	if (!msg)
-> +		return -ENOMEM;
-> +
-> +	hdr = genlmsg_iput(msg, info);
-> +	if (!hdr) {
-> +		ret = -EMSGSIZE;
-> +		goto free_msg;
-> +	}
-> +
-> +	ret = get_node_error_threshold(node_id, error_id, &error_name, &threshold);
-> +	if (ret)
-> +		goto cancel_msg;
-> +
-> +	ret = msg_reply_threshold(msg, error_id, error_name, threshold);
-> +	if (ret)
-> +		goto cancel_msg;
-> +
-> +	genlmsg_end(msg, hdr);
-> +
-> +	return genlmsg_reply(msg, info);
-> +
-> +cancel_msg:
-> +	genlmsg_cancel(msg, hdr);
-> +free_msg:
-> +	nlmsg_free(msg);
-> +	return ret;
-> +}
-> +
->   /**
->    * drm_ras_nl_get_error_counter_dumpit() - Dump all Error Counters
->    * @skb: Netlink message buffer
-> @@ -358,6 +466,59 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
->   	return node->clear_error_counter(node, error_id);
->   }
->   
-> +/**
-> + * drm_ras_nl_get_error_threshold_doit() - Query error threshold of a counter
-> + * @skb: Netlink message buffer
-> + * @info: Generic Netlink info containing attributes of the request
-> + *
-> + * Extracts the Node ID and Error ID from the netlink attributes and retrieves
-> + * the error threshold of the corresponding counter. Sends the result back to
-> + * the requesting user via the standard Genl reply.
-> + *
-> + * Return: 0 on success, or negative errno on failure.
-> + */
-> +int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb, struct genl_info *info)
-> +{
-> +	u32 node_id, error_id;
-> +
-> +	if (!info->attrs ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID))
-> +		return -EINVAL;
-> +
-> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
-> +	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
-> +
-> +	return doit_reply_threshold(info, node_id, error_id);
-> +}
-> +
-> +/**
-> + * drm_ras_nl_set_error_threshold_doit() - Set error threshold of a counter
-> + * @skb: Netlink message buffer
-> + * @info: Generic Netlink info containing attributes of the request
-> + *
-> + * Extracts the Node ID, Error ID and threshold from the netlink attributes and
-> + * sets the error threshold of the corresponding counter.
-> + *
-> + * Return: 0 on success, or negative errno on failure.
-> + */
-> +int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb, struct genl_info *info)
-> +{
-> +	u32 node_id, error_id, threshold;
-> +
-> +	if (!info->attrs ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD))
-> +		return -EINVAL;
-> +
-> +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
-> +	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
-> +	threshold = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD]);
-> +
-> +	return set_node_error_threshold(node_id, error_id, threshold);
-> +}
-> +
->   /**
->    * drm_ras_node_register() - Register a new RAS node
->    * @node: Node structure to register
-> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
-> index dea1c1b2494e..02e8e5054d05 100644
-> --- a/drivers/gpu/drm/drm_ras_nl.c
-> +++ b/drivers/gpu/drm/drm_ras_nl.c
-> @@ -28,6 +28,19 @@ static const struct nla_policy drm_ras_clear_error_counter_nl_policy[DRM_RAS_A_E
->   	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
->   };
->   
-> +/* DRM_RAS_CMD_GET_ERROR_THRESHOLD - do */
-> +static const struct nla_policy drm_ras_get_error_threshold_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID + 1] = {
-> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
-> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
-> +};
-> +
-> +/* DRM_RAS_CMD_SET_ERROR_THRESHOLD - do */
-> +static const struct nla_policy drm_ras_set_error_threshold_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD + 1] = {
-> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
-> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
-> +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD] = { .type = NLA_U32, },
-> +};
-> +
->   /* Ops table for drm_ras */
->   static const struct genl_split_ops drm_ras_nl_ops[] = {
->   	{
-> @@ -56,6 +69,20 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
->   		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
->   		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
->   	},
-> +	{
-> +		.cmd		= DRM_RAS_CMD_GET_ERROR_THRESHOLD,
-> +		.doit		= drm_ras_nl_get_error_threshold_doit,
-> +		.policy		= drm_ras_get_error_threshold_nl_policy,
-> +		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
-> +		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
-> +	},
-> +	{
-> +		.cmd		= DRM_RAS_CMD_SET_ERROR_THRESHOLD,
-> +		.doit		= drm_ras_nl_set_error_threshold_doit,
-> +		.policy		= drm_ras_set_error_threshold_nl_policy,
-> +		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD,
-> +		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
-> +	},
->   };
->   
->   struct genl_family drm_ras_nl_family __ro_after_init = {
-> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
-> index a398643572a5..57b1e647d833 100644
-> --- a/drivers/gpu/drm/drm_ras_nl.h
-> +++ b/drivers/gpu/drm/drm_ras_nl.h
-> @@ -20,6 +20,10 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
->   					struct netlink_callback *cb);
->   int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
->   					struct genl_info *info);
-> +int drm_ras_nl_get_error_threshold_doit(struct sk_buff *skb,
-> +					struct genl_info *info);
-> +int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb,
-> +					struct genl_info *info);
->   
->   extern struct genl_family drm_ras_nl_family;
->   
-> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
-> index f2a787bc4f64..683a3844f84f 100644
-> --- a/include/drm/drm_ras.h
-> +++ b/include/drm/drm_ras.h
-> @@ -69,6 +69,34 @@ struct drm_ras_node {
->   	 */
->   	int (*clear_error_counter)(struct drm_ras_node *node, u32 error_id);
->   
-> +	/**
-> +	 * @query_error_threshold:
-> +	 *
-> +	 * This callback is used by drm-ras to query error threshold of a
-> +	 * specific counter.
-> +	 *
-> +	 * Driver should expect query_error_threshold() to be called with
-> +	 * error_id from `error_counter_range.first` to
-> +	 * `error_counter_range.last`.
-> +	 *
-> +	 * Returns: 0 on success, negative error code on failure.
-> +	 */
-> +	int (*query_error_threshold)(struct drm_ras_node *node, u32 error_id, const char **name,
-> +				     u32 *threshold);
-
-Add a blank line
-
-With these fixed
-
-Reviewed-by: Riana Tauro <riana.tauro@intel.com>
-
-
-> +	/**
-> +	 * @set_error_threshold:
-> +	 *
-> +	 * This callback is used by drm-ras to set error threshold of a specific
-> +	 * counter.
-> +	 *
-> +	 * Driver should expect set_error_threshold() to be called with error_id
-> +	 * from `error_counter_range.first` to `error_counter_range.last`.
-> +	 * Driver is responsible for error threshold bounds checking.
-> +	 *
-> +	 * Returns: 0 on success, negative error code on failure.
-> +	 */
-> +	int (*set_error_threshold)(struct drm_ras_node *node, u32 error_id, u32 threshold);
-> +
->   	/** @priv: Driver private data */
->   	void *priv;
->   };
-> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
-> index 218a3ee86805..27c68956495f 100644
-> --- a/include/uapi/drm/drm_ras.h
-> +++ b/include/uapi/drm/drm_ras.h
-> @@ -33,6 +33,7 @@ enum {
->   	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
->   	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_NAME,
->   	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_VALUE,
-> +	DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD,
->   
->   	__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX,
->   	DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX = (__DRM_RAS_A_ERROR_COUNTER_ATTRS_MAX - 1)
-> @@ -42,6 +43,8 @@ enum {
->   	DRM_RAS_CMD_LIST_NODES = 1,
->   	DRM_RAS_CMD_GET_ERROR_COUNTER,
->   	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
-> +	DRM_RAS_CMD_GET_ERROR_THRESHOLD,
-> +	DRM_RAS_CMD_SET_ERROR_THRESHOLD,
->   
->   	__DRM_RAS_CMD_MAX,
->   	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
