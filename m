@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63404C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 21:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F53FC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 21:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9380710F956;
-	Fri,  3 Jul 2026 21:29:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4B6C10F96A;
+	Fri,  3 Jul 2026 21:36:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YaBF/qet";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KBcOODum";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0210910F955
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 21:29:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D2C510F96A
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 21:36:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 35F7F600E7;
- Fri,  3 Jul 2026 21:29:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29CE1F000E9;
- Fri,  3 Jul 2026 21:29:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9356941AD3;
+ Fri,  3 Jul 2026 21:36:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF271F000E9;
+ Fri,  3 Jul 2026 21:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783114165;
- bh=eeGmPiCUrx3tRv7prGmGNvbbmUHuuabvRiwfxaKx/PI=;
+ s=k20260515; t=1783114589;
+ bh=on+0HpAgKQyhjJn5Dg1ZrUTYDAf4czl4d0n8uNA+Vjs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=YaBF/qet379T/gqDqz+jcfD91Vru683MyiAxtDa1on3YG8KHN6I0bMDCL11mLLOiq
- fy1+rYToW/CrHThvSkkdlu5Fu92fKvhBlkjrHKz2m7Ab03Cd0N6E9OLrYGpVln3Vss
- TGJ68ZYfvyWTwWz+LpOP9pDkVZgzqz86q7zlrYqpoME4wKUhWq8EnjeVfAt6hiuCLB
- b+gy2KiaFIitzXUKomEs2WC2oHb3HAWr1374ypGZJp+qfLemUp+v75mQlkR4FOG2L4
- B29UM8IHpyrohp9VBhJ+D5LhgL4H278tjVNLTy0xMO0HEnlOQNNZpAtftoag2/ZlrB
- Jd5KWc+Udgcmg==
+ b=KBcOODumzVQoMm+3+oN9E9Ub9STXhrK0iBJrbB/BNwbG5S9D4mcEu6zjGoGi0EO/A
+ s2WVZonQv9nyY6W9gMIdxqmvh4rQNK3DFUpCBhwR0dR6PA71pIsPO0vVwXkL3bOyub
+ M3l+o47PtT7iGWLkrx8W/vfnMvqouIJL/HyMob6ZtyW9yrP3gVJLAqqfy8pkalALI0
+ 8oP4mfZS1hqi9CDDt5E9vslf1jxxB+Yez0zB20Tni44cf4bu0Bnm7bNe970/yLrvL3
+ s3oHMo8QM3s3bXrcAZ4Z/F7mG55QtdOKog1iDbJkbn9A2qeZLN4bW4M01uDh7/QAVV
+ m/MFffwMl42yg==
 From: Danilo Krummrich <dakr@kernel.org>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH] gpu: nova: fix rust-analyzer generation
-Date: Fri,  3 Jul 2026 23:29:18 +0200
-Message-ID: <20260703212918.1200823-1-dakr@kernel.org>
+To: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH v2 0/2] drm/gpuvm: Delete some dead code and fix a comment
+Date: Fri,  3 Jul 2026 23:36:23 +0200
+Message-ID: <20260703213623.1224109-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260701-nova-rust-analyzer-v1-1-5209f486f10d@nvidia.com>
-References: <20260701-nova-rust-analyzer-v1-1-5209f486f10d@nvidia.com>
+In-Reply-To: <20260608-gpuvm-minor-fixes-v2-0-af07ef9ca969@collabora.com>
+References: <20260608-gpuvm-minor-fixes-v2-0-af07ef9ca969@collabora.com>
 X-Patch-Reply: applied
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -72,19 +66,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Jul 2026 15:40:51 +0900, Alexandre Courbot wrote:
-> [PATCH] gpu: nova: fix rust-analyzer generation
+On Mon, 08 Jun 2026 23:33:51 +0100, Adrián Larumbe wrote:
+> [PATCH v2 0/2] drm/gpuvm: Delete some dead code and fix a comment
 
 Applied, thanks!
 
-  Branch: drm-rust-next
-  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
+  Branch: drm-misc-next
+  Tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git
 
-[1/1] gpu: nova: fix rust-analyzer generation
-      commit: 78900738d981
+[1/2] drm/gpuvm: Remove dead code
+      commit: c4c4434e41e5
+[2/2] drm/gpuvm: Fix comment to reflect remap operation operand status
+      commit: 49d0307c55c4
 
-The patch will appear in the next linux-next integration (typically within 24
+The patches will appear in the next linux-next integration (typically within 24
 hours on weekdays).
 
-The patch is queued up for the upcoming merge window for the next major kernel
-release.
+The patches are queued up for the upcoming merge window for the next major
+kernel release.
