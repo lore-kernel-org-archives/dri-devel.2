@@ -4,139 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13573C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 04:45:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C66BC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 05:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 393B810E562;
-	Fri,  3 Jul 2026 04:45:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E6E810E569;
+	Fri,  3 Jul 2026 05:03:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="i6c+HR87";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JRAzlixl";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="h+RI5KX7";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49D8510E562
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 04:45:41 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66342gCm2817932
- for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 04:45:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- mK64gRUrP1jCi37aIEHAFmpI/+fr4iexNBUgM3vWG1k=; b=i6c+HR87E+mptGUT
- c6J73ULsKq4y2pb3ZoBgo5KOrCZezfUzcLZcA9jauzR31XS+BRxE5gYvBbVd/s/S
- BftW3VHjhc2yqIULhA9LxiN38VF7ZnD8qme4DbrMtYOlGvdc0tt/CZah3KQKN42s
- bY7PAFRCew6Qz03DSwS5T0HAhfD/C/oAVol3dvXNeUBN9T59qIDtw2CJDaFQLw1e
- Dd2fl86Z3/kZUlvvv+6UMB6wXaTffooGv2RAWCkc4EmNyC43X5IrPAI9He3Ytz3H
- DmPGCpGfRdsV6g6bZ3eM8Ic++i+yEIWRagqxkltjVt196P5hrAgLEoQyqR6N3n8c
- QQudNw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f5tpnjh8n-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 04:45:39 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2c9e994869aso2922775ad.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 21:45:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783053939; x=1783658739;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:cc:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=mK64gRUrP1jCi37aIEHAFmpI/+fr4iexNBUgM3vWG1k=;
- b=JRAzlixlKLuPRIsFOg1HhOyw7Uru9cNajkD6n7JiR6bd0ogUbD7+RZuDM1ZVu09jmp
- ahcNcVBFc+WMTWUNWIoVtXbLPsoIYrTzYfkRDn1AefG11iPZcDDRNK2jz/3wWD7E7BzM
- FlMcwOgGTzeKhWwRVpZ7q4gVe+qz1We8K8YOtMVfEaXANTaKuC1nleVsvYIWREBJhjck
- 8MvTJb2YW9Qnb/EwTmkWqebJTXzI8puWUU11GsgFXTpgJ2/k9m/AtRX1Mqy43vau2LUu
- Q6JQG3piz4ny4GJWTtyryK+rMyGH4dN+DkLeKpcvqsbQdo9w4Q+qdCca0YlSIW3sLPIF
- Y2IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783053939; x=1783658739;
- h=content-transfer-encoding:in-reply-to:cc:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mK64gRUrP1jCi37aIEHAFmpI/+fr4iexNBUgM3vWG1k=;
- b=jp9pFLWT3XpdUD4ZHX27bJqnstTOP63uQ/+uFvLiTUnvuUy9Ao9ODAhNgstV/Ay7Nc
- Qa5qfBN6fS3M3MHiyYdjJDr1tpyKZZnK4vj0XrUUjtR3CsaZMwoHQR6oCI4bJxiyOaue
- T0o+dw67cI7HgXlFQNtu+B7vt1npCuwQJBshnG9s3XdII5WskixmrngqAY+pOBMNU0Qq
- iRmSORz1J7tvrZcNDqLk+sSlGJJHLFYh2+liJBEyvnLPUzOkn9t7UymGWqULJVJfY/Th
- vPMyvbWwdH7OBlAfjsM57Vu/Pzj5h7usqXhxuGZwYsynJyiqydmlesdJSs/DXcOQBVDZ
- djbA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqq/9pSYW5FZu83TTVqUdcZ5A+GDDajGKyh5AhXQ4nv46oAJpAt9Q5PY/ibc6XKtpoEMVtnsgQEYtA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwevAwhEuLITiAZeW5cmMlFq6FZuTnYY1RsvOxK519Y6RgkTsdg
- AReltSUH6xd2yt1oo3rMhMevu/asO/obPOP7ynctIL4ZOX17OggZbYNeQj3MjnekTRyAMR3IiLg
- 8sJ5HxE4cD3s2/S+BxycCiUVIlj0ZGw/u8bXpslHRCkIBD58QU3MPmDzlJyo9BEJ2XuyZxaVaW8
- /1ZE8=
-X-Gm-Gg: AfdE7ckfD2VqgzUs2skqdgGLmRQw4h4L5e4UrwXgaxXfbwCKc+mVKtlXL5CpCPvDLkF
- LhcEYCwC1ZzvqyBXDQ5yzRgMQIHf+wElf3+3s0xteBFF8oHwRnsFhhGOzJM9X+EvMVeQjSByr7g
- /C+HXDsK4LiDYOvo7/0CbWEDFDeSBu3nmlnlI0NtK+kHSF+/7DqIdulqh8GfnEh2/RwGo3vAiUD
- QLzMmvjzdIFwwkEVNFozBKFLWzAg1sLRTlYKfZ4v42rEM8uoRhszwr4kgXp7wlRRwRflQombgoe
- kMc98GxY7yb6N9IUsgwAGom3xtL6IgCumI2KWUZjTxtaD1Le7CVkgwwQKaRKy5Rt/uJeTw5peTd
- SOBxXbsa29vNmIu/g1goGabXudek8KKjOIY9jt5OzcLimu73p/xH/nMzJmF0BR4dFoQm3KkcA+k
- aX8NaXNw==
-X-Received: by 2002:a17:902:f543:b0:2ca:5d24:720b with SMTP id
- d9443c01a7336-2ca7e882dd6mr98199525ad.39.1783053938688; 
- Thu, 02 Jul 2026 21:45:38 -0700 (PDT)
-X-Received: by 2002:a17:902:f543:b0:2ca:5d24:720b with SMTP id
- d9443c01a7336-2ca7e882dd6mr98199175ad.39.1783053937967; 
- Thu, 02 Jul 2026 21:45:37 -0700 (PDT)
-Received: from [10.133.33.167] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cad776589fsm3083945ad.43.2026.07.02.21.45.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 21:45:35 -0700 (PDT)
-Message-ID: <056046b5-00bf-449a-8945-43fa11329286@oss.qualcomm.com>
-Date: Fri, 3 Jul 2026 12:45:16 +0800
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010023.outbound.protection.outlook.com [52.101.46.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EE2A10E561
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 05:03:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mphVkLXVetyJXD2+NRyvrUCxS+85D6CU3D8DxLYAUpDArLtaRbUed1L5NXcLdpHZ+NKK0+LkqlTr0IDzU5TdBY/TN2nmWMIQR9+xFztt+zWpWtwhCWiML67e8b6/ALtB+3xNUGpS/lWkGM8jKfFJN1KhEY4DIoY3tboNhF0zzNfdzXehabEgdWClnBhzYNNYpgAowE9vweLv47vGUT9N0AxMKNx9wXdevLcP8poFhezT78QniS0lb9iW9uTBV7GAQSsqbvFotk7DzVnzEgy4k42OusKwLD8i3NvF596E38dYlyPlQ4Uth3xd/dCDLIyHnRWpmi0yAGJjayVnABG/YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZgRzKf3O4tzf75PIWFJJeQqswa4ydfTNssOSDgBm5hc=;
+ b=oya2EmMoR4jyVv+l3TZMUcg9hOBv4EyVXL4qitELZEht71FEahbzpHQ+82hxOlYipXlCpit/F/RCO+funpAxM3sk8nUoYvBeqRVcDvNzW87D7vkybwSz1lWNJhyXbpCUksRVmtF8h6FN87i3qctbRwnDzPLw2ByYE3rrhwMIQ8BuSwLIWV4KYPUQxvjOIuif/6x1/iQHKjXwIv18txuxzVhIuJPyRNxL4WB1HaQ0fj5OnvJtuUlAfYmzK4WdDrWyhEBNVyDg5BBdFq/n2+U4pgJayaYvJRKgLSV0Lnm23ng4RADzhdMIjccSBNDUTzVTjnAzliqbAcgGH5sNwEKPcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZgRzKf3O4tzf75PIWFJJeQqswa4ydfTNssOSDgBm5hc=;
+ b=h+RI5KX78jeljRSBUJHsq5Oby8nWKbekAWWfIeJc9g1GN61YTw61tSHSiKoSaicROzvFhI+9157gPGwoZvcjX/5EghbU0Pw5T1AL5flLedGhGSrVcxru1RqS4tz1NjRva7Wd2v6gMjpkRppepoEpAOSIms2ide3k3V9T4bkgSMeM1MEYv07cvfdmSf6ZIY72AV4Z7JyFcWQcR+SP1bm9wjL2MdUPPF4UzI7Bwvs9Jz5/HFo+zkKyrnPUn4/YsgPg63K4qRuqmzIjlxEyoyuILW7rjXAlXSVBQMXscvEYaLzCwGp/braV8wPPQd48UUVJxywmcdc5ttti/R+fJQ0Jvg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by BY5PR12MB4051.namprd12.prod.outlook.com (2603:10b6:a03:20c::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Fri, 3 Jul
+ 2026 05:03:52 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
+ 05:03:51 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 03 Jul 2026 14:03:46 +0900
+Message-Id: <DJOO971HSZ7F.2XSQASVN5YZEU@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
+ "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
+ <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pwm@vger.kernel.org>
+Subject: Re: [PATCH v5 09/20] rust: io: use view types instead of addresses
+ for `Io`
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Content-Transfer-Encoding: quoted-printable
+References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
+ <20260626-io_projection-v5-9-d0961471ae50@garyguo.net>
+In-Reply-To: <20260626-io_projection-v5-9-d0961471ae50@garyguo.net>
+X-ClientProxiedBy: OS3P301CA0049.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:604:21c::10) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/4] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: Srinivas Kandagatla <srini@kernel.org>
-References: <20260609025938.457-1-jianping.li@oss.qualcomm.com>
- <20260609025938.457-4-jianping.li@oss.qualcomm.com>
- <cca276af-3e6a-44d3-a1b6-c2bc401a28cc@kernel.org>
-Content-Language: en-US
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-Cc: amahesh@qti.qualcomm.com, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- arnd@arndb.de, Greg KH <gregkh@linuxfoundation.org>,
- abelvesa@kernel.org, jorge.ramirez-ortiz@linaro.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com
-In-Reply-To: <cca276af-3e6a-44d3-a1b6-c2bc401a28cc@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: dGKAKBvTLz1LWGYeGJQyu9b_4Fwr1fhN
-X-Proofpoint-ORIG-GUID: dGKAKBvTLz1LWGYeGJQyu9b_4Fwr1fhN
-X-Authority-Analysis: v=2.4 cv=UMft2ify c=1 sm=1 tr=0 ts=6a473e73 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kdAfD6VJjniLw_QBAp4A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA0MSBTYWx0ZWRfXwwKcWt/PGmNX
- fsrD5NxZuKAyaUw6mxCvvg7chFZXBzvnOggf3drGwLx9B5GYykeNFzXS89xeXQ+uk1vIUEjV2aa
- viTtZxJZtL+TDEZDq/alNACEx5a9TZ0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA0MSBTYWx0ZWRfX3gKbsTWCgzwO
- C1crFhnxSzxkem7afuordVM0yWXXJG1ZMTbw9dUbNsOkFCi3YrB3Vm9bQhlZ+q+Oi4d+1BvCF+c
- Zw4tMb2NlGXhC+Pa7CuBs2f45naAQS3Qd8118xFYnUTxEO68E90iGtpRH6Iy6MLJ9FzPkRuyrUk
- gS7FlVpz5UoICHYcPVBfjg3gUfrQG8cSblGmDu+VCK6kqhu2Lb64CZxOB8OXWBTxJwBu98FZ8Ip
- C8rh9VlnKyjkOc54veoZRoIIj7zRokKkHJspjDdrHqzF/7PjtS7pc1i7hejXdnBXsJ12p1Dsth0
- N+dD5gtxZkdsvBtQFXGpKVCz58ke1w26rFkxaE8oFVmeMAN0u5RWQ119OY9AcpNzErL/hj8Zvyx
- iwZcb+pQmNlh4pBxKZWJb7kDM6BNlHumkKQu5VzVTJt+nwWRI1db5cOxT5B5it3XBGc5gjSyfwP
- uSTnKuQfTfapcTm5E9w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_01,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 spamscore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607030041
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|BY5PR12MB4051:EE_
+X-MS-Office365-Filtering-Correlation-Id: e871dd8a-d9ea-41a6-1522-08ded8c0789a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|23010399003|7416014|376014|1800799024|18002099003|22082099003|11063799006|4143699003|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: Dpr3bz8JJWEP3DRe0eiDwv+tfFMvrDVUnY4u2jO8naKPkZMphu18sP6Gfb9DTXvyyUNGd4RRBwJl4JiF/YPVUwG7536m6ymRufKImZcAXpJkqh7rYf+0/XYuSIm9CajTbjGRlEtxFvth6DIpk/rO4km3aHKz97r9llGEyk6L3EyO1ivV2TLhBy+kRCaE1dT5N3B2d7Hp2gmUelv1P4W+XxlFuur4i+I14LW69hG3ruhLKpHXIGHEANNVmZPQyzwNKcA7fQE796aRCz3Q/T3OjYgMwECaCdyXSBgfBFOxLpoGdR5i26RQVGlDjaGuTI/4pNd7Yy9TFaVXMyyMFa/jdNhILB3yTTNWAnIfmUlYZjOvyXp8egIXfr8mL+hzii54LeqUElh6POkGBLK2w4cLsMuLfxTGXiuLd/HuyrLCgL18Fm+C7CMUdYhK7c0DkotNl5RbGgaTPJB+P4xcVQ2ZiKzEGYDLYa4lh34zvOJuBEI99sejVYZtxJyCO/Rx0MZeV2FaDkoy0QPBpzIVt8sQucG25vz014sfw9+BDNe7TPjz/wSb2lXNWQZtCH55ffTIaObkspJ+UL3MVWKn6iftWEsyrhAcPNX5Qi9jpRsmEVIrT7GEYsODCvesMserUInVQ7zS7uuR+JPjtZOi1cLvom6Fn3x9GP8yCOEW398O59s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(11063799006)(4143699003)(6133799003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEZNOG1zNDNXWStpbDIxYmcrOEFhVFQvRkVwNGNLeGNrOFI3MWlML2JkUXVT?=
+ =?utf-8?B?T2d0eXNZdlhMVXpXQWxkU1BCdXpxQUlHTzZBWUVCQzd5M2FMcG53aTQzUmxJ?=
+ =?utf-8?B?VVlhK2dvQlZqNGs5VXd4akJSQjlEMmtCcGlydTRSZUhqR20vRStCU29jMTRM?=
+ =?utf-8?B?aTR2Y1VTRnBsRU4vdWp6Y2ZyVURIUW15ajhQeGRzOGVEUlBNdjBHcm9TbmpY?=
+ =?utf-8?B?aHRVbUdqakZMa2N3ZnJicFg5aTFJeU5RcnoraEVxZnZXaHN3dkNmZVFWM2U0?=
+ =?utf-8?B?NC9ENTBxNjd3bHFGWElsVWtpVEtoRW12ZWkrNUJLajZodFhoU2JVRFNQcTVE?=
+ =?utf-8?B?Q0xiNFNnRWRKNVpyWUZmSXFIeEZlRkdPN3Z5aVJ3SGtVZGRWVzZnRHpwY0Zz?=
+ =?utf-8?B?ODF5QUZDTC9OaHVCMnVGSmVndFQ0SjNkN1luQlNKZGhsclBDY2tNZmRsOUZZ?=
+ =?utf-8?B?NEM3TDdhUDlwSGJldUx3Vm14MDh0aFduUDlIVGdNMVdITGROYWFBWlRPWTlS?=
+ =?utf-8?B?a2tUUm5LMytCY2FLRy9xY3hUSnBOSDRTZkZNbDhCRi9wdERrTEhvRjhDOXBh?=
+ =?utf-8?B?OE5Xa2gzKytwQzVEOElyNVluam8wazBkc0xNVmZXTjRRSnBVQjFBV0o3QVNm?=
+ =?utf-8?B?RUpkQzhUbEJtSkw4OEFkdUFHMHZFdld6MTVOYjB2Umx3SW1zOThpdFpVa3B5?=
+ =?utf-8?B?ekE2c1hTK0krME9kd3MyMmtDMjE4ZkpOdSt1SGNQeGN0WHR3TGk5NVpUQ2Zm?=
+ =?utf-8?B?M0MzcWFGdUtyVXlxZFFobVYzRHE0STcyTncydVMvUCtDNDVBU2c3Sjd1VHRG?=
+ =?utf-8?B?T3cxZTNXSzBONXdZN2s0QkgxUkRzaUlLdWQyUGU3NnVpSjRJRHdXdmpSMGth?=
+ =?utf-8?B?cVVkd2FDazhIVDJSK050VHBiNTBucG9SSjEwdmpvd082Rms4NHFqRENBOUNI?=
+ =?utf-8?B?VW5IVjlIa2d6RTlWeVpiTm1nVnRyQjRSTmtFSWhSZzRRdExweTBmQVh1U1R1?=
+ =?utf-8?B?K0t3cnRsWDNTK2JibnpuNnpuTXpxYzhFVlh3ZmM1UXg2TVQrVlFkOEVMNXBp?=
+ =?utf-8?B?eXNqaTg1d2xPRG5GSkFlY0UzTk4ycjhvVHRhUmxoWnV4VDhDdVFqRDhRU3FY?=
+ =?utf-8?B?cTRCcFRFSDE5VFVYajI0UTBYZWRTa3U5dGZsWi9WaGYxbFlkRVc0K0JSZ24z?=
+ =?utf-8?B?SzlYQXVGYUpmUHR5ZXFUNithNWY3cW5Ja1piMjg1NytkVGErVkZSZkhNVmlN?=
+ =?utf-8?B?Ui8zK1NmODlmVUlTNXNiOHI3V1VTQjZ3MEtKZlpkcXNDV2E5amluKzNSSVBB?=
+ =?utf-8?B?YVM1Q2psSHhXcyttcXoxZ1UvN2xNU1pQQ25meXpUQ2xGc0NZL1hEaS9QWWR5?=
+ =?utf-8?B?eWNVdlBIdlpCOUYyNGNrTStTOVQ4dVpxUll3K3MzaHdOZjJIbThvZWpuMHBI?=
+ =?utf-8?B?a2tJYlJMSm1JakhFbm1VK0c5VzhLWG5Ja3NOempoNnY2dm15QzJzK2RYU0o2?=
+ =?utf-8?B?UEcxbFVWYWZYbUh5bjNkOG9BRkYzVFh6cXh4bWtpcTk3Tkdpb0U0d09UT2tT?=
+ =?utf-8?B?NVNhNU9EcEJwZUZSOTlxS2FWWTJIdlMvMG5qcFBMNm04QlovbmN1WG9TOTdB?=
+ =?utf-8?B?WVdGOWo2bDVBamR4U2VaL0hObkQrTVE5NC9yTjFWWDdacXZ5a0FUQkhrRnF2?=
+ =?utf-8?B?TDNITzBKVkVTVlhFaDd4V09JcHlxR0ZPNnhVVWhPM1NnaXNmc093R1gwbytm?=
+ =?utf-8?B?dTJOQk9ySmFLVFBQVkVlOHpSdjZoTTg0ckxOajdsUkorakNPejZpUkNONVJy?=
+ =?utf-8?B?TjVMZTltYy9DVkk4eFlmajlOYVdzemg0QkJPQ2NQS3pxSXI0TEJTVWk4SHh2?=
+ =?utf-8?B?ZmxjZS9MK2IzSXBHRFEvcHdKbEhobE84WlgrNUYvV1h5TVMrVEFXc3N1UWF3?=
+ =?utf-8?B?VXcwZDlsdDg4bzBHbnhzOEdlOWtPeVFjRUZJMUg1dG1RZlpnZGkrM3JiaTl4?=
+ =?utf-8?B?VTJONit1dGE3L1JnQ3JGTkc5WVhnalJ5TzJJUDN5MnhHalA2eDNKc1Y3V3Fo?=
+ =?utf-8?B?ZXR5MWlRc3poclpKSmltcUdSaUVNd21Fc3lDb3hEWktuYUhBK1VWU2pVWDUy?=
+ =?utf-8?B?aXlYNlBtZUlSUnl4ZHlNY1JsdzkyTmJaby9qUHNtWThNLzJCWURDOStTKzA1?=
+ =?utf-8?B?bWdCQWptMWU3dkxERlJKRTk5K2E4VjZXSFpSM0FjZk1XTXYxeFc0OHdFZ3NF?=
+ =?utf-8?B?b2l2RDlScExJQ2puYSthczVvWXpLNnp4aDVGT0JTa0orUjNpRjdIWGRWMWc2?=
+ =?utf-8?B?Nm9tR1piVFRtczF1c1VPTlZYNEhvaHpnYmpxamp3NWFuRUVGOFlxNmtGQ2ls?=
+ =?utf-8?Q?+Mh2hXbt2AnZ6ul4lXAn0Xu69qzCv4iCRE/yHvSOjvwcB?=
+X-MS-Exchange-AntiSpam-MessageData-1: 7vO4yDnuLHs0Hg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e871dd8a-d9ea-41a6-1522-08ded8c0789a
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 05:03:51.7260 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2/Y8fAsAGVcmaCU354sB1b+Ot5eNyiWPuIXgawlz+tgWEe8RbaORGsXgQKknJVAQu5V7Nx71y/g1p0zuMP6T5w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4051
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,272 +154,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 7/2/2026 4:37 AM, Srinivas Kandagatla wrote:
+On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
+> Currently, `io_read` and `io_write` methods require the exact type of `Io=
+`
+> plus an address. This means that they need to be monomorphized for each
+> different `Io` instance. This also means that multiple I/O implementors f=
+or
+> the same I/O kind needs to duplicate implementation (e.g. `Mmio` and
+> `MmioOwned`).
 >
-> On 6/9/26 3:59 AM, Jianping Li wrote:
->> Allocating and freeing Audio PD memory from userspace is unsafe because
->> the kernel cannot reliably determine when the DSP has finished using the
->> memory. Userspace may free buffers while they are still in use by the DSP,
->> and remote free requests cannot be safely trusted.
->>
->> Additionally, the current implementation allows userspace to repeatedly
->> grow the Audio PD heap, but does not support shrinking it. This can lead
->> to unbounded memory usage over time, effectively causing a memory leak.
->>
->> Fix this by allocating the entire Audio PD reserved-memory region during
->> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
->> userspace-controlled alloc/free and ensures that memory is reclaimed only
->> when the DSP process is torn down.
->>
->> Add explicit validation for remote_heap presence and size before sending
->> the memory to DSP, and fail early if the reserved-memory region is
->> missing or incomplete.
->>
->> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
->> Cc: stable@kernel.org
->> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
->> ---
->>   drivers/misc/fastrpc.c | 112 ++++++++++++++++++++++-------------------
->>   1 file changed, 59 insertions(+), 53 deletions(-)
->>
->> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
->> index 517884000331..1942e74535e5 100644
->> --- a/drivers/misc/fastrpc.c
->> +++ b/drivers/misc/fastrpc.c
->> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
->>   	struct kref refcount;
->>   	/* Flag if dsp attributes are cached */
->>   	bool valid_attributes;
->> +	/* Flag if audio PD init mem was allocated */
->> +	bool audio_init_mem;
->>   	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
->>   	struct fastrpc_device *secure_fdevice;
->>   	struct fastrpc_device *fdevice;
->> @@ -1341,15 +1343,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->>   	struct fastrpc_init_create_static init;
->>   	struct fastrpc_invoke_args *args;
->>   	struct fastrpc_phy_page pages[1];
->> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
->>   	char *name;
->>   	int err;
->> -	bool scm_done = false;
->>   	struct {
->>   		int client_id;
->>   		u32 namelen;
->>   		u32 pageslen;
->>   	} inbuf;
->>   	u32 sc;
->> +	unsigned long flags;
->> +
->> +	if (!cctx->remote_heap || !cctx->remote_heap->dma_addr ||
->> +	    !cctx->remote_heap->size) {
->> +		err = -ENOMEM;
->> +		dev_err(fl->sctx->dev,
->> +			"remote heap memory region is not added\n");
->> +		return err;
->> +	}
->>   
->>   	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
->>   	if (!args)
->> @@ -1373,31 +1384,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->>   	inbuf.client_id = fl->client_id;
->>   	inbuf.namelen = init.namelen;
->>   	inbuf.pageslen = 0;
->> -	if (!fl->cctx->remote_heap) {
->> -		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
->> -						&fl->cctx->remote_heap);
->> -		if (err)
->> -			goto err_name;
->> -
->> -		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
->> -		if (fl->cctx->vmcount) {
->> -			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
->> -
->> -			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
->> -							(u64)fl->cctx->remote_heap->size,
->> -							&src_perms,
->> -							fl->cctx->vmperms, fl->cctx->vmcount);
->> -			if (err) {
->> -				dev_err(fl->sctx->dev,
->> -					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
->> -					&fl->cctx->remote_heap->dma_addr,
->> -					fl->cctx->remote_heap->size, err);
->> -				goto err_map;
->> -			}
->> -			scm_done = true;
->> -			inbuf.pageslen = 1;
->> -		}
->> -	}
->>   
->>   	fl->pd = USER_PD;
->>   
->> @@ -1409,8 +1395,17 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->>   	args[1].length = inbuf.namelen;
->>   	args[1].fd = -1;
->>   
->> -	pages[0].addr = fl->cctx->remote_heap->dma_addr;
->> -	pages[0].size = fl->cctx->remote_heap->size;
->> +	spin_lock_irqsave(&cctx->lock, flags);
->> +	if (!cctx->audio_init_mem) {
->> +		pages[0].addr = cctx->remote_heap->dma_addr;
->> +		pages[0].size = cctx->remote_heap->size;
->> +		cctx->audio_init_mem = true;
->> +		inbuf.pageslen = 1;
->> +	} else {
->> +		pages[0].addr = 0;
->> +		pages[0].size = 0;
-> What is the expected behavoiur in this case?
-
-You're right that this behaviour is subtle and deserves an in-code
-comment. I'll add one in v9, right above the spin_lock, along the
-lines of:
-        /*
-	* Audio PD is a static PD and retains the remote heap
-	* information across daemon restarts. Therefore only
-	* the first attach should provide heap information to
-	* DSP. Subsequent attaches reuse the previously
-	* initialized memory pool.
-	*/
-
+> Create a new `IoBackend` trait and define these operations on it instead.
+> The operations are just going to receive a view type and operate on them.
+> This has the additional advantage that the invariants can be moved from t=
+he
+> trait (and guaranteed via `unsafe`) to type invariants on the canonical
+> view types of the backends, so `io_read` and `io_write` can be safe.
 >
->> +	}
->> +	spin_unlock_irqrestore(&cctx->lock, flags);
->>   
->>   	args[2].ptr = (u64)(uintptr_t) pages;
->>   	args[2].length = sizeof(*pages);
->> @@ -1428,27 +1423,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->>   
->>   	return 0;
->>   err_invoke:
->> -	if (fl->cctx->vmcount && scm_done) {
->> -		u64 src_perms = 0;
->> -		struct qcom_scm_vmperm dst_perms;
->> -		u32 i;
->> -
->> -		for (i = 0; i < fl->cctx->vmcount; i++)
->> -			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
->> -
->> -		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
->> -		dst_perms.perm = QCOM_SCM_PERM_RWX;
->> -		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
->> -						(u64)fl->cctx->remote_heap->size,
->> -						&src_perms, &dst_perms, 1);
->> -		if (err)
->> -			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
->> -				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
->> -	}
->> -err_map:
->> -	fastrpc_buf_free(fl->cctx->remote_heap);
->> -	fl->cctx->remote_heap = NULL;
->> -err_name:
->> +	cctx->audio_init_mem = false;
-> this can race.
-
-Thanks for the review. I'd like to clarify the intent here — please
-let me know if I'm missing something.
-
-The lock is not really there to protect 'audio_init_mem' itself,
-but to make sure the following is only sent to the DSP once:
-
-     pages[0].addr = fl->cctx->remote_heap->phys;
-     pages[0].size = fl->cctx->remote_heap->size;
-
-The flow I had in mind is:
-
-   - Thread A enters the critical section, sees audio_init_mem == false,
-     sets it to true, and proceeds to send the pages to the DSP.
-   - If Thread A's invoke fails, we reset audio_init_mem back to false
-     in err_invoke so that a later attempt can retry sending the region.
-   - Once any thread successfully sends the region, audio_init_mem stays
-     true forever and the false branch is never taken again.
-
-So the reset on failure is only meant to allow a retry, not to be
-racy with a concurrent successful path (there can't be one, since
-only one thread is inside the critical section at a time). Do you
-see a specific interleaving I've overlooked? If so, I'm happy to
-switch to a different scheme.
-
+> Note that view type is needed; addresses are insufficient in this
+> design, as they do not carry sufficient information. For example,
+> `ConfigSpace` needs `&pci::Device` in addition to the address.
 >
->>   	kfree(name);
->>   err:
->>   	kfree(args);
->> @@ -2415,12 +2390,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->>   		}
->>   	}
->>   
->> -	if (domain_id == SDSP_DOMAIN_ID) {
->> +	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
->>   		struct resource res;
->>   		u64 src_perms;
->>   
->>   		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
->>   		if (!err) {
->> +			if (domain_id == ADSP_DOMAIN_ID) {
->> +				data->remote_heap =
->> +					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
->> +				if (!data->remote_heap) {
->> +					err = -ENOMEM;
->> +					goto err_free_data;
->> +				}
->> +
->> +				data->remote_heap->dma_addr = res.start;
->> +				data->remote_heap->size = resource_size(&res);
->> +			}
->>   			src_perms = BIT(QCOM_SCM_VMID_HLOS);
->>   
->>   			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
->> @@ -2428,7 +2414,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->>   			if (err)
->>   				goto err_free_data;
->>   		}
->> -
->>   	}
->>   
->>   	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
->> @@ -2487,6 +2472,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->>   		misc_deregister(&data->secure_fdevice->miscdev);
->>   
->>   err_free_data:
->> +	kfree(data->remote_heap);
->>   	kfree(data);
->>   	return err;
->>   }
->> @@ -2509,6 +2495,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->>   	struct fastrpc_buf *buf, *b;
->>   	struct fastrpc_user *user;
->>   	unsigned long flags;
->> +	int err;
->>   
->>   	/* No invocations past this point */
->>   	spin_lock_irqsave(&cctx->lock, flags);
->> @@ -2526,8 +2513,27 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->>   	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
->>   		list_del(&buf->node);
->>   
->> -	if (cctx->remote_heap)
->> -		fastrpc_buf_free(cctx->remote_heap);
->> +	if (cctx->remote_heap && cctx->vmcount) {
->> +		u64 src_perms = 0;
->> +		struct qcom_scm_vmperm dst_perms;
->> +
->> +		for (u32 i = 0; i < cctx->vmcount; i++)
->> +			src_perms |= BIT(cctx->vmperms[i].vmid);
->> +
->> +		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
->> +		dst_perms.perm = QCOM_SCM_PERM_RWX;
->> +
->> +		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
->> +					  cctx->remote_heap->size, &src_perms,
->> +					  &dst_perms, 1);
->> +		if (err)
->> +			dev_err(&rpdev->dev,
->> +				"Failed to assign memory back to HLOS: dma_addr %pad size %#llx err %d\n",
->> +				&cctx->remote_heap->dma_addr, cctx->remote_heap->size, err);
->> +	}
->> +
->> +	kfree(cctx->remote_heap);
->> +	cctx->remote_heap = NULL;
->>   
->>   	of_platform_depopulate(&rpdev->dev);
->>   
+> `io_addr_assert` and `io_addr` are renamed to `io_view*` to reflect
+> that they operate on views now, and make them standalone functions so
+> they cannot be used by users to cast types outside io.rs.
+
+The extraction as standalone functions could have been its own patch so
+as to not distract from the meat of this one (and make the diff of the
+functional changes introduced by this patch to these functions easier to
+review), but regardless:
+
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
