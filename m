@@ -4,91 +4,178 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4ACC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 05:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56B19C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 06:03:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF8B710E56E;
-	Fri,  3 Jul 2026 05:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF9410E578;
+	Fri,  3 Jul 2026 06:03:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eRwcg9Ez";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="XF/C+OtX";
+	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="c/SYILig";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 220B410E56E
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 05:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783058308;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=T1Ub9EzZwRRVeQ1vc9r5jPdFwTwN77c6/6bNi9H21to=;
- b=eRwcg9Ez0K0v8muaCBlwtHh+B8ait8dVYVTeQcws5Cf0W+9PBQGg0oozbOGn4lb3FctAiS
- j9FS1hSYDEF1chinDYrWFg/3CsssdQQfmUoP/8Z5sPHDsgy14dufpWHNfy3NZIDvvs30EW
- dzRU1HVBYRve+clzwp5yQdLX1Bx575c=
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-459-k3XxzBT3O-S-NrmalAVGRA-1; Fri, 03 Jul 2026 01:58:26 -0400
-X-MC-Unique: k3XxzBT3O-S-NrmalAVGRA-1
-X-Mimecast-MFC-AGG-ID: k3XxzBT3O-S-NrmalAVGRA_1783058305
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-3810e5c5871so378741a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 22:58:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783058305; x=1783663105;
- h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
- :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=GW2Z614cbbyH0tCcImMalWsa+hYlOLUUE+Wc31pCfnc=;
- b=dcMeL0UsWnPf+NRjdSAkSNBLLbLJkMYGOakVZ11FyGi/BHJIe9AYtH0G72YOX3+Q/0
- WNxcIMHQ+cZ9oqRpKQx22cwn5vCaoIr59RbJT3qj2kAT1XarZeFog2WT6+MftoehLoqP
- R3ZJul8c6LmoDHaawZNMYN/1R+lmiW9MRt1oZaDDYpT+oXcsDYeDuCJ5iiRAkZ8VrtTi
- NPloxM/fbox4uG41valZTU6ILWAg5k5nNOrdNQP4V6F9NypIlhFvLUyopQ8akIWzAyHe
- ztK6TMDgUO8vLiQzO3yR68aqFLqDAOIcNK+roGQ+L2Cw1E8p9J/WV7mvWNNHHMSx9Ofr
- Xp8w==
-X-Gm-Message-State: AOJu0YyXHvmz99IYyB8iAZJuPIfeXZMSaHCtm92AZ+fy2pYAV8PU9zlO
- +O3Wj5qyBS1BWEsqYhwyDSpnhdhiBmsh0+C6Sg7pMbA/JX81UqxvX4NU2NfwhoG8TAi5WsyeJ4R
- 89phQTUVHHJERjDjhZtOJ4hvtFjIi25Z+jGfXHUMGxmyuBhdLz+UqC51Cu3zATM8B7i9NpQ==
-X-Gm-Gg: AfdE7ckZaZ6sM+vRX0vdhoEZ5rxdL2CVmxLG2exeHDjRGM1BQk6kWjw5n0DAmKsYRtr
- FGhjXo+X2D6l2lqVKguVMp3qWj9bi5fd7IQ/OYTwb8bMtkrjHzl51QAHHai/dkJ6POErlnkQdRI
- crmTCqi5fHQ6GofzaTiDq6oakwg/A3vkaWEFTsIo2sjD1625yp/J2cLUFVLhfxRpAQogj2xb6HN
- SitCCgpuuidDyk+giwTbFZ9cszCG3A1i4oRSrvxmiMHPnm5Oq+2/OajHBVEY2kLfVWVe8+LUIwD
- FVyL2+qb0xV941DwD5Y5AxoD2MSTQLq/QsnLFhp2kgNZKPJchF06fHd1epYzEyq18SN/PmaUWq0
- eHrE0rj5/VFXquZj9DulivLgAtVkLecsCOxpTBLbNoB9MFgex
-X-Received: by 2002:a17:90b:3c44:b0:37f:9ce2:348f with SMTP id
- 98e67ed59e1d1-380aa2225dfmr9516826a91.32.1783058305349; 
- Thu, 02 Jul 2026 22:58:25 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c44:b0:37f:9ce2:348f with SMTP id
- 98e67ed59e1d1-380aa2225dfmr9516792a91.32.1783058304725; 
- Thu, 02 Jul 2026 22:58:24 -0700 (PDT)
-Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38097cfcf1dsm2194113a91.1.2026.07.02.22.58.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 22:58:24 -0700 (PDT)
-MIME-Version: 1.0
-From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
-To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
- "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
- "Gurchetan Singh" <gurchetansingh@chromium.org>, 
- "Chia-I Wu" <olvaffe@gmail.com>, 
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, 
- "Maxime Ripard" <mripard@kernel.org>, 
- "Thomas Zimmermann" <tzimmermann@suse.de>, 
- "Simona Vetter" <simona@ffwll.ch>, "Dmitry Baryshkov" <lumag@kernel.org>, 
- "Javier Martinez Canillas" <javierm@redhat.com>
-In-Reply-To: <1b56e514-17b5-4da1-9ebd-4534e3204ea4@collabora.com>
-Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-Message-ID: <18beb213335dd544.57cdc20d9a554be2.724d3e176f79ad9@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Date: Fri, 3 Jul 2026 05:58:18 +0000
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: iPc0PEY-SSQX8x9Fv8tupSee1mzL5YYWMTBdvBCcLxI_1783058305
-X-Mimecast-Originator: redhat.com
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0E9F10E578
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 06:03:22 +0000 (UTC)
+X-UUID: e25ccd1c76a411f18dc8c9802ae25ab1-20260703
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=orBIfVkELzOzv7kEXYIUOkHIs4Rd/RlM8fGIXpQd8O8=; 
+ b=XF/C+OtXpzPHEO5lWmu9r3yaoZ0QcVhjw+O7VpofIdZ+e639T75I6vJKULV28NIS4hVJmCXoc/8DHlysA+JKzOA72Rg6xBEIlBl1etj7XNZZmLMQFCBEwOyxUYSeP0V9dcudwdxlnTzdAaqYMo7A0AMkg9S9lJk9tRPH9Jvc8yE=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.17, REQID:59c345b5-223e-41ef-949c-1fd2c8461f5b, IP:0,
+ U
+ RL:0,TC:0,Content:1,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:1
+X-CID-META: VersionHash:d497b38, CLOUDID:2a35d23c-b0ec-4249-8a54-5f5a2ece072a,
+ B
+ ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
+ Content:4|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
+ 1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e25ccd1c76a411f18dc8c9802ae25ab1-20260703
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by
+ mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 2025915396; Fri, 03 Jul 2026 14:03:16 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 3 Jul 2026 14:03:16 +0800
+Received: from SG2PR04CU010.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 3 Jul 2026 14:03:15 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gtbs5oapoIL/7o8xlhxUmWc4s1dWjUv77Ee7P1ACTj00ABpH5H8Wv+GqomzVqfdAktpPQF63DwShgv6irhgM7MmY0jfmbUYQzhm5K4eXkuEHcoCcG1cRCsGJ7BG0Rr1Alz99ebzDIZuu0khs0o4r5wkiRbjYNlGvrOi1nSdeUGLaBa6WNM6NiOBfEQ7UhkG22sHvpQgZ/yRdgC7wp1dbzw5BVaR0Ztvb3IcOhO7KeHa7N1vLSZDs0IzIzoMY8BscPgkyn1q/0oUZu12Gp6cI5nWG8BP2lkdeSnZgoUKhYeHz+u1EYlrVc3SNTF6epLxoPpP69AqJnTkPdavIVhveeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=orBIfVkELzOzv7kEXYIUOkHIs4Rd/RlM8fGIXpQd8O8=;
+ b=ix5wVbq7fmr+P5q1+DrB3lwt5QObAXLCqFLmvaINTZ23YiLzlR9b8COtqDWpoXeb0gQ0cVT87dSDd8IydiyemoR/O+Tgb3isfAUJrS8wne2qAZBojLweLbzlxMf0+D61c0m46cyuUlgHWGuerVejJUTCuzi1WA8QuaxdI3CD3K6p1McxGSeQzW6ejD2/dAGnXlFLydlE4tIECIJ5UTwUCfx99r+lddgThmM/wSYfzLAI7kII3/vRKRy8erLSpFSH9WDTd5TsAnoyj+ZYt6O7hJ/iIH5q4zHfFDnderVA7slOoHzBGMJXRftTsHMLXni7xLShSd/P/z2Pv5AjybfCsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=orBIfVkELzOzv7kEXYIUOkHIs4Rd/RlM8fGIXpQd8O8=;
+ b=c/SYILigAdVZf1WU/jA6SdE+C94IBn9o8qRzX+qLreHIqQc7liesesLfbdVhI3KtIiTfVxpFn8cM1Y2axgZuaQGv6Y3X/ffH+yQ4fzgLxtfCQZsJP54gJOMzm+8Wm6ZWMGU12fHaRV9lY6+7L6xfC0qR1+ml8CeOV6CWrrpjU8Y=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by TYNPR03MB9845.apcprd03.prod.outlook.com (2603:1096:405:3b3::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Fri, 3 Jul 2026
+ 06:03:13 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0181.010; Fri, 3 Jul 2026
+ 06:03:13 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "robh@kernel.org" <robh@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "mripard@kernel.org" <mripard@kernel.org>, "kernel@collabora.com"
+ <kernel@collabora.com>, "linux-mediatek@lists.infradead.org"
+ <linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
+ <p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
+ =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
+Subject: Re: [PATCH 04/42] drm/mediatek: Move mtk_ddp_comp_type enumeration to
+ mtk-mmsys.h
+Thread-Topic: [PATCH 04/42] drm/mediatek: Move mtk_ddp_comp_type enumeration
+ to mtk-mmsys.h
+Thread-Index: AQHdCVQ0NTBrEkyd6k2BT26GfvyXCrZbUJkA
+Date: Fri, 3 Jul 2026 06:03:13 +0000
+Message-ID: <6051fd482d90e114dddb39e847d6d44996ad4f66.camel@mediatek.com>
+References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
+ <20260701122057.19648-5-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260701122057.19648-5-angelogioacchino.delregno@collabora.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TYNPR03MB9845:EE_
+x-ms-office365-filtering-correlation-id: 0942f803-cdd4-4802-0d80-08ded8c8c485
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|1800799024|42112799006|366016|5023799004|4143699003|11063799006|56012099006|3023799007|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: PwuZXVnOSTEZUrGPTrQeim8QSoPo/53FoIi17JzUAFwkELgyruiXIHHiZpoPbk41DBKckIezsihpynIc51f0cWPZPk/HKyif+NlgqbKoXiRxiGxdOB8jPgQnLpAlDaRq89SnamVR75cUGdZFw64SIr54jzsimhTJvoxNdOSJxvI786887cQyBdtuZqY1fJ3YtbDLGG79lofC6WqXN3Fsl4MNvREPdJeKl2o24ektrFC2JVJo9mdt5+APJNz1qMKezeF0gADYaDvg9aIAEyZTh152uP7j7nNKSqq8JRYTKDrjtKISovWIlBMEJuvuWXGU/NMRmCzFQ5AV+Q1PE7O983sO3otU2c4F5/hLcAwQZNB0+fp2CWf8SuU9GEj4YmLfLlNSYxcqa1+X4UKM6tUtzM2DjJmOKHBlCzgdsV0JCj8k3v0Nu82hd/x3TLeJW7ObmCl6Hy29nCt9mOojyurG7yw0zlpuuRcOjHdNJJOL6uGssT6xhCC1dYL3MQmsorv5nJ3Sn0GPSl7pc2MEXj+L6vGJsLXe/8HZqhZgA04qDVXf+1qqUsCCzO5eCSCtjtNu9X1WM85F4R0BFV5HjeYy2tuXpbXFxQWVVHEE4eY5JUIApsdPpEmYEF3zSWMtnWSkkFF2W2FPiAYvrAGmEhgfdozV+jPDX/zOQvRuRbpRKWFS4pWBVi+gwoBQGUvvGQi9FvDkK/pfv5zjW4jUewNQbv47fLP+Bmh8K3WbTtEZ4Tw=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(42112799006)(366016)(5023799004)(4143699003)(11063799006)(56012099006)(3023799007)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZE90Zmt6cEJWbHcvS1FRQUdVNHpManhxQzkyQW1RMXVwMnBUL3lvSmpzVFo1?=
+ =?utf-8?B?TlQrYmlsaElrcjIxVFhaVVJ5aGFoNURPQUxjMmNrR0NwU1k4dURPd2VMbzFy?=
+ =?utf-8?B?MlRlekpQYUk1cmN4dWNjL2dvZmtpL2tVT0ZLQm0wVmViWVlVR1pVSmZjR3RB?=
+ =?utf-8?B?UE9BSWJVa1dEUHNnWkZTZlpXVXFKYjgvbHltSE1MVEQ0NVNnUUI0c05WaEg5?=
+ =?utf-8?B?cFRXSmRmQVpwVCt1ejJDd2xIS1VVVloyOEtzbHYrU3J1Q2RYMjVlbG45RWFx?=
+ =?utf-8?B?OTdKajFNM1g1Y291YWdXc1pUN285OUxaUUJPMUpueDNNeFh3Yk5iZ2wvTUtJ?=
+ =?utf-8?B?NWd2SFdVTlBDMmhKM0JNM0twNVlTaUM3VHZqVmltU0ZLMnVHOUFPMGRPczFW?=
+ =?utf-8?B?Z2FUNjBUazQyTEZtb3E3bTV3MjI1R3gvbXBkcHE4bEdjVjR0T21ZU21GTjR3?=
+ =?utf-8?B?UlFaYzJLaTZXbk52TnN0M1ZGWk5uUmRDTGQ4bHo2aCtaM1YzcHFXMnIvWTRw?=
+ =?utf-8?B?WmhNTGVRMjJacUo2bjdQeWpOM3M3RHRaMVFpWFJpTlVzSTRIK25NWXpTVXpj?=
+ =?utf-8?B?YUF3SlRxTW8vRHdCaXF5Sm9lMVFyT2tweUl0N0hvTlZiUFFCcWZrd3FVWDZB?=
+ =?utf-8?B?OU9aVi9MaElmdHl0bGh6bWxtMSt0QW4xYVNpWkM3cDd6d3ZDc01MNUZEMEdH?=
+ =?utf-8?B?bnpGRjVKRkpIL0VHK1dGbnBjaFZRdHNuZEJzQktCV29sQzRmaDIvOSt0bTN2?=
+ =?utf-8?B?UWxEYnYzZXg4Qks3SDk1VTdEMTFyRmZTODlzQmVQWE9kTDR0bGdYQ1VLb0dH?=
+ =?utf-8?B?Zmwxb3JGVUZkcUpLV2ZUWElsaUJUREJOb0xDSFQ3K3NoMytZSU5qOGtKUkpF?=
+ =?utf-8?B?ZCtMMVE4SEY5MFZmS0RxbWIycXVKT3NxTmRGaS9pdlZxeWNBYlIzOUNtN0sv?=
+ =?utf-8?B?SUd4YzhyTUo4TVB6ZDFkUk1pOWp2MEFNVGZLKzNDSjU0clJyUTB5cEhncVpv?=
+ =?utf-8?B?WThCWXpOV2F3VjFqbzFXVk9WektOeGdrOCswRW44OWpNVnduak9aa3RSY0Fz?=
+ =?utf-8?B?VUxkbHpEbkpLcmIzdExKQW9jbEZJb3crWGZVV1JwMkZNR3lnbU16VHFqM2R6?=
+ =?utf-8?B?T3QzNUJHaWVKQzBpRHBYZlgreFQ4TVErUkk4QmtDaHkzcFAxdEtVMGdaMTB1?=
+ =?utf-8?B?djJLMXQ2NVhHaGZXeGUxaWR2Q24xWk1TT3VKT0FKWnRHT0xndkl0bSt0aHJo?=
+ =?utf-8?B?N2ZpWDlhM2JNbUNIRktlQklXM1B5YWxiMVZISjB6NTMweVphbWVOVnVzM3kv?=
+ =?utf-8?B?YVBKZ01vVUpKMWtyTG45dkVhMHpIN2E2eWJTbE05OHNQRXVZNkFLMm90N1lQ?=
+ =?utf-8?B?bFAwVGhLNGY0V0tuQWM0eXprUDV2SU83VnpVbTlXWG1jZ3JjWjVTMzFIT3Bp?=
+ =?utf-8?B?VVV5TXc4RngyTzdpdW8wZm91Z0FMK0FVdzJvc2tFQXBkUk93NnFwTzVZWERN?=
+ =?utf-8?B?OG1EUzNJMEU2WEpoVzlQK0hJZWhLb3JCbUJUWUdpNXJucmtlQlJpS3ZDMXM0?=
+ =?utf-8?B?ME1QcHR2c3dKYXBIS2t5NzJOZzQxSWxxbVlPOC90Y01VZTF5ait0azhmNG5M?=
+ =?utf-8?B?UmF1WG5wNlIvUWhLNTc2SXU2eFFXQitrWWlOZ2JvQkxXUTZnak5jbVJ5Y0F2?=
+ =?utf-8?B?dlQ3d1NTb0Q0Y3A5NmVpNDgyZkIrczJIUmw4cXlrUmNxWHkyVTNiQ1NEVjh2?=
+ =?utf-8?B?WENqRnZOVFJnSEdhaTZ1N3NmaE9kS0NaMHN6OVAyMWNzNHdreGF5TFRFZGll?=
+ =?utf-8?B?Z2d2bW5JTEM5SHNRVkVndzVvZFFzcjBWMTB0MGMwbmltdEdGdXhvT1pNNjJM?=
+ =?utf-8?B?UHJ5YXdreUVOdFAwclJIYnZaYTdjTXI0b0RSYnJmUm5PMXYvZFRMQmUram56?=
+ =?utf-8?B?S2NJdmNaUStHYmw1cDREblZLVjBDbnc0VDNqSXJ2OW4rNkNkNlQxZk9PUjRO?=
+ =?utf-8?B?aG1hRUJyTkErRzRueThJeTFRVXRYR1lzUDNCVnhySHE3VjFkZlpNeFlnaVpO?=
+ =?utf-8?B?emhlZTNKakVmSzBLS0ZUb0xhQjVUUVZPNEN1YzV0ZzdjaDFUQm1saHFlTjdW?=
+ =?utf-8?B?ZWtUd1U2R251c0hKWGJSWXBhWDRVaWd5bmJtQjBDcEZPcmpTaSsrdHNlK2Zr?=
+ =?utf-8?B?QnVhNnA3TkFTYjFwa0lMd1UxMFlsRTFqZElIaTNtVGxxcGJmTHlhOE5qbW1a?=
+ =?utf-8?B?d1h4L1VrYUFramQwTTJEZnNlc2l5V1BXQU1oZmwvcE9ndmRqZy9aOGEwOE93?=
+ =?utf-8?B?SnE4M2JDbDY4YkJHd2tXRUxOWGNkNlp3cWd3cVBZT1RGK0k1NkZGQT09?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-ID: <6E671E6BEA0F8C4F942D741F62B8E628@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: SO9N9fUbtMxZ1kEbGY9StO4Des7cJhajywkVcYR+IWKd8m7YIKfKZRfAGBNrEmTvE0G4vhddlo/EMAix9pMzywZsEjmEncyDYBvB/q7y3Z2YKFjuzb+5ov2wPf7dcoZXrr5XlNG+5WunyvIllf6d3ASubaeyJk1jlLRUeF31mA1tqtPMxuwG2+y2AzwW2jie7tY+vYy/hpA8myhZant8Y8p7i2fhHyapqCb3sU4g8p8d9s4f2SxP6c9Wk1sq8PcKAVPEyxbXaeVf6XBINx8QiAGEB/+i6go6euhSEgIX+MrpGSSlOjUz8Jh+LQKea4IORpfSAr5JMFzwIIzJ5NAS5Q==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0942f803-cdd4-4802-0d80-08ded8c8c485
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2026 06:03:13.4986 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AT9vnd9WPAx3622Ad+oEN2f9TFtx62fx+zzfajOwyeyehxL/xYIouDveyMFwOBi6XZ2qFbretMnXI+kO05uSrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR03MB9845
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,179 +191,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 02/07/2026 14:26, Dmitry Osipenko wrote:
-> On 7/1/26 12:23, Ryosuke Yasuoka wrote:
->>=20
->>=20
->> On 30/06/2026 16:46, Dmitry Osipenko wrote:
->>> Hi,
->>>
->>> On 6/30/26 12:16, Ryosuke Yasuoka wrote:
->>>> A probe-time deadlock can occur between the dequeue worker and
->>>> drm_client_register(). During probe, drm_client_register() holds
->>>> clientlist_mutex and calls the fbdev hotplug callback, which triggers =
-an
->>>> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
->>>> waiting for virtqueue space. The dequeue worker that would free that
->>>> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
->>>> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
->>>> to acquire the same clientlist_mutex. Since wake_up() is only called
->>>> after the resp_cb loop, the probe thread is never woken and both threa=
-ds
->>>> deadlock.
->>>>
->>>> Fix this by deferring the hotplug notification from
->>>> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
->>>> display data (outputs[i].info) is still updated synchronously in the
->>>> callback, and the deferred work only triggers a re-probe notification =
-to
->>>> DRM clients.
->>>>
->>>> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering=
- a client")
->>>> Closes: https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406e=
-45c1c6e549453f224
->>>> Closes: https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4cf=
-7baf376cc873a922e
->>>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
->>>> ---
->>>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
->>>>  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
->>>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
->>>>  3 files changed, 16 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/vi=
-rtio/virtgpu_drv.h
->>>> index 7449907754a4..27ffa4697ae9 100644
->>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
->>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>>> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
->>>> =20
->>>>  =09struct work_struct config_changed_work;
->>>> =20
->>>> +=09struct work_struct hotplug_work;
->>>> +
->>>>  =09struct work_struct obj_free_work;
->>>>  =09spinlock_t obj_free_lock;
->>>>  =09struct list_head obj_free_list;
->>>> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct vir=
-tio_gpu_device *vgdev,
->>>>  =09=09=09=09=09uint32_t x, uint32_t y,
->>>>  =09=09=09=09=09struct virtio_gpu_object_array *objs,
->>>>  =09=09=09=09=09struct virtio_gpu_fence *fence);
->>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
->>>>  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vg=
-dev,
->>>>  =09=09=09=09=09 uint32_t resource_id,
->>>>  =09=09=09=09=09 uint32_t x, uint32_t y,
->>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/vi=
-rtio/virtgpu_kms.c
->>>> index cfde9f573df6..cfb532ba43a4 100644
->>>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, st=
-ruct drm_device *dev)
->>>>  =09INIT_WORK(&vgdev->config_changed_work,
->>>>  =09=09  virtio_gpu_config_changed_work_func);
->>>> =20
->>>> +=09INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
->>>> +
->>>>  =09INIT_WORK(&vgdev->obj_free_work,
->>>>  =09=09  virtio_gpu_array_put_free_work);
->>>>  =09INIT_LIST_HEAD(&vgdev->obj_free_list);
->>>> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
->>>>  =09flush_work(&vgdev->obj_free_work);
->>>>  =09flush_work(&vgdev->ctrlq.dequeue_work);
->>>>  =09flush_work(&vgdev->cursorq.dequeue_work);
->>>> +=09flush_work(&vgdev->hotplug_work);
->>>>  =09flush_work(&vgdev->config_changed_work);
->>>>  =09virtio_reset_device(vgdev->vdev);
->>>>  =09vgdev->vdev->config->del_vqs(vgdev->vdev);
->>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/vir=
-tio/virtgpu_vq.c
->>>> index 67865810a2e7..084d98f5dc7b 100644
->>>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
->>>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>>> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct vir=
-tio_gpu_device *vgdev,
->>>>  =09virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
->>>>  }
->>>> =20
->>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
->>>> +{
->>>> +=09struct virtio_gpu_device *vgdev =3D
->>>> +=09=09container_of(work, struct virtio_gpu_device, hotplug_work);
->>>> +
->>>> +=09if (!drm_helper_hpd_irq_event(vgdev->ddev))
->>>> +=09=09drm_kms_helper_hotplug_event(vgdev->ddev);
->>>> +}
->>>> +
->>>>  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_devi=
-ce *vgdev,
->>>>  =09=09=09=09=09       struct virtio_gpu_vbuffer *vbuf)
->>>>  {
->>>> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(str=
-uct virtio_gpu_device *vgdev,
->>>>  =09spin_unlock(&vgdev->display_info_lock);
->>>>  =09wake_up(&vgdev->resp_wq);
->>>> =20
->>>> -=09if (!drm_helper_hpd_irq_event(vgdev->ddev))
->>>> -=09=09drm_kms_helper_hotplug_event(vgdev->ddev);
->>>> +=09schedule_work(&vgdev->hotplug_work);
->>>>  }
->>>> =20
->>>>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_devic=
-e *vgdev,
->>>
->>=20
->> Hi,
->> Thank you for your review.
->>=20
->>> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init=
-(), placing it after wait_event_timeout(display_info_pending)? This will av=
-oid additional work_struct that otherwise needs to be cancelled in virtio_g=
-pu_init() on the timeout.
->>=20
->> IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
->> into virtio_gpu_init() after wait_event_timeout() would not prevent the
->> issue.
->>=20
->> Looking at the syzbot call traces[1][2], the deadlock occurs during
->> drm_client_setup(), which runs after virtio_gpu_init() has already
->> returned. The display_info_cb that triggers the deadlock is called from
->> the dequeue worker while drm_client_register() holds clientlist_mutex.
->>=20
->> Thread A:
->> virtio_gpu_probe()
->>  -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
->=20
-> You mean that the timeout happens and it's again syzkaller report for a
-> broken host. A day ago I applied [1] that should fix this "bogus"
-> syzkaller report.
->=20
-> [1] https://patchwork.freedesktop.org/patch/735301/
-
-Thank you for [1] and the clarificaiton. I agree that [1] addresses the
-broken host scenario where virtio_gpu_init() times out and probe
-continues with a pending display_info response. I think there is another
-scenario causing the same deadlock reported by syzbot and my patch
-addresses both cases.
-
-The deadlock can also occur with the following scenario:
-after virtio_gpu_init() completes successfully (wait_event_timeout
-returns), if a config_changed event arrives before drm_client_setup()
-completes, config_changed_work_func() sends a new GET_DISPLAY_INFO. Its
-display_info_cb fires in the dequeue worker and blocks on
-clientlist_mutex held by drm_client_register(). This is the same
-deadlock path reported by syzbot.
-
-Since [1] only prevents the timeout case, I believe the schedule_work()
-approach is still needed to prevent display_info_cb from blocking on
-clientlist_mutex in the dequeue worker context, regardless of the
-trigger.
-
-Best regards,
-Ryosuke
-
+T24gV2VkLCAyMDI2LTA3LTAxIGF0IDE0OjIwICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
+ZWdubyB3cm90ZToNCj4gSW4gcHJlcGFyYXRpb24gZm9yIGEgbWFqb3IgcmVmYWN0b3Jpbmcgb2Yg
+TU1TWVMsIE1VVEVYIGFuZCBvZg0KPiBtZWRpYXRlay1kcm0sIG1vdmUgdGhlIG10a19kZHBfY29t
+cF90eXBlIGVudW1lcmF0aW9uIHRvIHRoZQ0KPiBtdGstbW1zeXMuaCBoZWFkZXIsIGFzIHRoaXMg
+d2lsbCBiZSBzaGFyZWQgYmV0d2VlbiBtdWx0aXBsZQ0KPiBNZWRpYVRlayBtdWx0aW1lZGlhIHJl
+bGF0ZWQgZHJpdmVycy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFuZ2Vsb0dpb2FjY2hpbm8gRGVs
+IFJlZ25vIDxhbmdlbG9naW9hY2NoaW5vLmRlbHJlZ25vQGNvbGxhYm9yYS5jb20+DQo+IC0tLQ0K
+PiAgZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kZHBfY29tcC5oIHwgMjUgLS0tLS0tLS0t
+LS0tLS0tLS0tDQo+ICBpbmNsdWRlL2xpbnV4L3NvYy9tZWRpYXRlay9tdGstbW1zeXMuaCAgfCAz
+NCArKysrKysrKysrKysrKysrKysrKysrKysrDQo+ICAyIGZpbGVzIGNoYW5nZWQsIDM0IGluc2Vy
+dGlvbnMoKyksIDI1IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9tZWRpYXRlay9tdGtfZGRwX2NvbXAuaCBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9t
+dGtfZGRwX2NvbXAuaA0KPiBpbmRleCA5OWJmMWUxMDE1ZGEuLmJiYzY2MDcyZmU2YiAxMDA2NDQN
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kZHBfY29tcC5oDQo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGRwX2NvbXAuaA0KPiBAQCAtMjIsMzEgKzIy
+LDYgQEAgc3RydWN0IG10a19wbGFuZV9zdGF0ZTsNCj4gIHN0cnVjdCBkcm1fY3J0Y19zdGF0ZTsN
+Cj4gIHN0cnVjdCBkcm1fZHNjX2NvbmZpZzsNCj4gIA0KPiAtZW51bSBtdGtfZGRwX2NvbXBfdHlw
+ZSB7DQo+IC0JTVRLX0RJU1BfQUFMLA0KPiAtCU1US19ESVNQX0JMUywNCj4gLQlNVEtfRElTUF9D
+Q09SUiwNCj4gLQlNVEtfRElTUF9DT0xPUiwNCj4gLQlNVEtfRElTUF9ESVRIRVIsDQo+IC0JTVRL
+X0RJU1BfRFNDLA0KPiAtCU1US19ESVNQX0dBTU1BLA0KPiAtCU1US19ESVNQX01FUkdFLA0KPiAt
+CU1US19ESVNQX01VVEVYLA0KPiAtCU1US19ESVNQX09ELA0KPiAtCU1US19ESVNQX09WTCwNCj4g
+LQlNVEtfRElTUF9PVkxfMkwsDQo+IC0JTVRLX0RJU1BfT1ZMX0FEQVBUT1IsDQo+IC0JTVRLX0RJ
+U1BfUE9TVE1BU0ssDQo+IC0JTVRLX0RJU1BfUFdNLA0KPiAtCU1US19ESVNQX1JETUEsDQo+IC0J
+TVRLX0RJU1BfVUZPRSwNCj4gLQlNVEtfRElTUF9XRE1BLA0KPiAtCU1US19EUEksDQo+IC0JTVRL
+X0RQX0lOVEYsDQo+IC0JTVRLX0RTSSwNCj4gLQlNVEtfRERQX0NPTVBfVFlQRV9NQVgsDQo+IC19
+Ow0KPiAtDQo+ICBzdHJ1Y3QgbXRrX2RkcF9jb21wOw0KPiAgc3RydWN0IGNtZHFfcGt0Ow0KPiAg
+c3RydWN0IG10a19kZHBfY29tcF9mdW5jcyB7DQo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4
+L3NvYy9tZWRpYXRlay9tdGstbW1zeXMuaCBiL2luY2x1ZGUvbGludXgvc29jL21lZGlhdGVrL210
+ay1tbXN5cy5oDQo+IGluZGV4IDQ4ODViMDY1Yjg0OS4uM2RkZmRlYWM2NThkIDEwMDY0NA0KPiAt
+LS0gYS9pbmNsdWRlL2xpbnV4L3NvYy9tZWRpYXRlay9tdGstbW1zeXMuaA0KPiArKysgYi9pbmNs
+dWRlL2xpbnV4L3NvYy9tZWRpYXRlay9tdGstbW1zeXMuaA0KPiBAQCAtODQsNiArODQsNDAgQEAg
+ZW51bSBtdGtfZGRwX2NvbXBfaWQgew0KPiAgCUREUF9DT01QT05FTlRfSURfTUFYLA0KPiAgfTsN
+Cj4gIA0KPiArZW51bSBtdGtfZGRwX2NvbXBfdHlwZSB7DQo+ICsJLyogRElTUCBDb21wb25lbnRz
+ICovDQo+ICsJTVRLX0RJU1BfQUFMLA0KPiArCU1US19ESVNQX0JMUywNCj4gKwlNVEtfRElTUF9D
+Q09SUiwNCj4gKwlNVEtfRElTUF9DT0xPUiwNCj4gKwlNVEtfRElTUF9ESVRIRVIsDQo+ICsJTVRL
+X0RJU1BfRFNDLA0KPiArCU1US19ESVNQX0VUSERSX01JWEVSLA0KDQpMZXQgdGhpcyBwYXRjaCBq
+dXN0ICdtb3ZlJy4NClNlcGFyYXRlIG5ldyBhZGQgdG8gYW5vdGhlciBwYXRjaC4NCg0KPiArCU1U
+S19ESVNQX0dBTU1BLA0KPiArCU1US19ESVNQX01FUkdFLA0KPiArCU1US19ESVNQX01VVEVYLA0K
+PiArCU1US19ESVNQX09ELA0KPiArCU1US19ESVNQX09WTCwNCj4gKwlNVEtfRElTUF9PVkxfMkws
+DQo+ICsJTVRLX0RJU1BfT1ZMX0FEQVBUT1IsDQo+ICsJTVRLX0RJU1BfUEFERElORywNCg0KRGl0
+dG8uDQoNCj4gKwlNVEtfRElTUF9QT1NUTUFTSywNCj4gKwlNVEtfRElTUF9QV00sDQo+ICsJTVRL
+X0RJU1BfUkRNQSwNCj4gKwlNVEtfRElTUF9VRk9FLA0KPiArCU1US19ESVNQX1dETUEsDQo+ICsN
+Cj4gKwkvKiBNRFAgQ29tcG9uZW50cyAqLw0KPiArCU1US19ESVNQX01EUF9SRE1BLA0KDQpEaXR0
+by4NCg0KUmVnYXJkcywNCkNLDQoNCj4gKw0KPiArCS8qIEtlZXAgRGlzcGxheSBvdXRwdXRzIGF0
+IHRoZSBlbmQgZm9yIHJlYWRhYmlsaXR5ICovDQo+ICsJTVRLX0RQSSwNCj4gKwlNVEtfRFBfSU5U
+RiwNCj4gKwlNVEtfRFNJLA0KPiArDQo+ICsJTVRLX0REUF9DT01QX1RZUEVfTUFYDQo+ICt9Ow0K
+PiArDQo+ICB2b2lkIG10a19tbXN5c19kZHBfY29ubmVjdChzdHJ1Y3QgZGV2aWNlICpkZXYsDQo+
+ICAJCQkgICBlbnVtIG10a19kZHBfY29tcF9pZCBjdXIsDQo+ICAJCQkgICBlbnVtIG10a19kZHBf
+Y29tcF9pZCBuZXh0KTsNCg0K
