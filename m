@@ -4,63 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1B90C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 15:59:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 865D4C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 459C410E62C;
-	Fri,  3 Jul 2026 15:59:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9128710E117;
+	Fri,  3 Jul 2026 16:22:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="rFltoTdZ";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="fj/yRT1z";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F74D10E62C
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 15:59:42 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 219564E40C6E;
- Fri,  3 Jul 2026 15:59:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E9C2860300;
- Fri,  3 Jul 2026 15:59:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 49986104C94EF; 
- Fri,  3 Jul 2026 17:59:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1783094378; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=UAkYp7gR6GAcUen6AlxpDy3Nj/vEGnp3F2Wlq67o3bQ=;
- b=rFltoTdZgqbm2HJwiltf2Qo4lOebH3TEUCPNI0qhVAfkF2o2kikVDblkVeFTka6wzSnEwI
- ni3WiyK9ENgA8ZCvJvXJuRAPNA+cLx6jrt9MNHrD0ftxgm2kfaMaCt84u6DzfrK4pWqeIO
- LK+mpqeT+zImhp/SilEKb2YkRpPCEN13UZfas0EDrzjystPweMJNLBJ8+RJMEcU4U+oGGh
- GDbwJsKvI2gxGUb01miTgK4jlYstf0f/S9waU/cm8LZpVGw6fGE/DinjmecDvINgvtYREV
- 2UvMofpXIYfXZjw2SxDJ88PYYMvcQ7yrLIgh7WZTZ2dTOruowAzieXgCnVi5Pw==
-Message-ID: <71806ff3-e8e8-487a-b90c-39b3239866ec@bootlin.com>
-Date: Fri, 3 Jul 2026 17:59:31 +0200
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
+ [209.85.160.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D782810E117
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:22:38 +0000 (UTC)
+Received: by mail-qt1-f175.google.com with SMTP id
+ d75a77b69052e-51c16ac21acso3748221cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 09:22:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1783095757; x=1783700557; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=WtYDAcSKBPogYImT0V6Zc6UNBhRbPfbijSs6cr/aWvg=;
+ b=fj/yRT1zpqCz5toR708JNeTjVZyE9R2LoFFJ3LmAYF16M4ntgd7NXV8UiW6KwBqYJt
+ pidiqaTMMigyjlEZvz0WcQIJQwV2mRCvzs8vdNa+gkTpmB4qDYAGs/f6IACZS+NAyqK2
+ dUVBQAe4646MGoOxMjNVS8bWjOosLCG5zyXuz4BgjDBS7OqxjxPnCq37nUq+dfxxro/+
+ /9yGTjeRTIpcdrn6IJwTb0gLfceCl6T/7Hhwo/QCvfeSCMgFHfkw2JY3ut57zibMJYaq
+ d0dpYdyma8oHqyDDGlODLNOwFN0XTkrtDzkQgI7J2eoyL1t1l/9bn2rdGHFFQ+2RoHeL
+ syUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783095757; x=1783700557;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=WtYDAcSKBPogYImT0V6Zc6UNBhRbPfbijSs6cr/aWvg=;
+ b=Xr/YV8gbzI5zrjPOdGUpl9BM4f2uTIx5CZ1VojJQ1CG8JQh4PV+xEox+4vgKD3aERT
+ 0QkCAWglnW7RMMcDL/MWSIumiZJsD8T5BeQTgTdymyhGFAGndENzLsXRGMnr1e9STsiI
+ mrOO9JlLVXcIcZUHNFpyug7ENx6rV2uiQb58Bq1ldWr48BaPBkrvU1iZ5MgXfNXVGnwe
+ VwkgqZ0KnXTFvqRh6E8xqb7FhlRnJ2JLDE6ix2XxDWsk8b/LG4czPSjxr4VewsGeyuc+
+ en1sv6Rt668laCP9d+SSIaMyLhD2DAT23Ez8tk13Zm2SV+hX6Zsh/I8zDjFfoPJWkprM
+ B6dA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ++Zf1GgxcwwoyogFwDGbJsoegFVJos5eV0wWpMwM4zoz5S0Bbz1R5koOoOQhVUV2/EXB+K4P3RZu8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEFDomotGUnyyczLwWwJFvdwUYHC7qzkI/s7Fik2bPoStQooE7
+ HVERIwsst+avagOZnu+2pip3YAuoZXAmDfp2hAxYJwu494R8SMBeOJ40mlcd56yW/8o=
+X-Gm-Gg: AfdE7cl0pBGzotUB32m1lqj8uhCmRX/wQv8/+LfJpWkVpVoAh1P3Ga5YVGYmevB3/A0
+ fnivy9PKzQ2cw+8t2Z+uakY8oH1FW8Ot5Cbluzpx6XyO6o6qyQkzy2GegScH0J5RGaA+RES0/C1
+ RJ+GzREuBJjyTBqSLy5ZtvHf8e4dkQMYrauaConfRbFOxuRW3k3rq24CI/IC6n07XTiMpR53jSy
+ UChnKf0e8+BuwITGBIrn3hj+Pwg7CP6rFhPyii5bi2R5TYwM+/fC8S51dwDzNlgGZ9sig7AIkHj
+ tcOYcgWN2t/FpVsmVwYH9RbA/pmZ4nViO6pLApKSYXsTURpBSq1YyGV6wOmkOaXYL/Pba8SrlVd
+ pBT8ymOZ6220ZpfaLl8ztq5rHZB4Ax8wrQ5wA/9klWHGN+w+9GeCVnrs8/A0ghTqyz4deg+rNGt
+ Ms/AksAycJR0XRJiFlSF0OhUDruscpZ2uxGgj++y0dB6jPy1CrP6ZDbXeA2Kwx4T7srPEI5S6gw
+ JXWaA==
+X-Received: by 2002:a05:622a:15:b0:51c:17cd:1fe8 with SMTP id
+ d75a77b69052e-51c4c2c1c37mr3358691cf.33.1783095757387; 
+ Fri, 03 Jul 2026 09:22:37 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-51c41d2d688sm20593451cf.17.2026.07.03.09.22.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jul 2026 09:22:36 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wfgey-00000008C3v-04o6;
+ Fri, 03 Jul 2026 13:22:36 -0300
+Date: Fri, 3 Jul 2026 13:22:36 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
+Message-ID: <20260703162236.GX7525@ziepe.ca>
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-4-krzysztof.karas@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/bridge: rename
- drm_for_each_bridge_in_chain_scoped() to drm_for_each_bridge_in_chain()
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Miguel Ojeda
- <ojeda@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- llvm@lists.linux.dev
-References: <20260630-drm-bridge-alloc-getput-for_each_bridge-2-v2-1-e0a1094cd1eb@bootlin.com>
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20260630-drm-bridge-alloc-getput-for_each_bridge-2-v2-1-e0a1094cd1eb@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701104437.236979-4-krzysztof.karas@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,160 +101,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Jul 01, 2026 at 10:44:37AM +0000, Krzysztof Karas wrote:
+> It is possible, when a very large mapping uses a single
+> scatterlist, that padding overflows scatterlist's length field.
+> This results in:
+>  1) silently wrapping the value
+>  2) smaller than desired mappings produced by iommu_map_sg
+>  3) leaving mapped bytes in memory (no iommu_unmap)
+> 
+> Address this issue by adding overflow detection for previous
+> scatterlist length field.
 
+Urk, this is unfortunate, it means we cannot map certain kinds of
+scatterlists? Meaning there is a condition that makes a scatterlist
+ill formed?
 
-On 6/30/26 17:34, Luca Ceresoli wrote:
-> drm_for_each_bridge_in_chain_scoped() was added in commit e46efc6a7d28
-> ("drm/bridge: add drm_for_each_bridge_in_chain_scoped()") to provide a
-> safer alternative to drm_for_each_bridge_in_chain().
-> 
-> Following commits converted all users to the _scoped variant.
-> 
-> Finally commit 2f08387a444c ("drm/bridge: remove
-> drm_for_each_bridge_in_chain()") removed the old
-> drm_for_each_bridge_in_chain() macro.
-> 
-> It's time to rename drm_for_each_bridge_in_chain_scoped() back to the
-> original name.
-> 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+This seems like something that needs to be more clearly documented and
+we need to ensure at least the common scatterlist builders don't hit
+it..
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 9abaec0703ef..c403057577df 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -1493,8 +1493,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>  		 *   time through here (i.e. before it has a meaningful value).
+>  		 */
+>  		if (pad_len && pad_len < s_length - 1) {
+> -			prev->length += pad_len;
+> -			iova_len += pad_len;
+> +			if (overflows_type(prev->length + pad_len, prev->length)) {
+> +				/*
+> +				 * For large mappings spanning multiple GBs we
+> +				 * may not be able to fit all needed padding into
+> +				 * sg->length.
+> +				 */
+> +				ret = -EOVERFLOW;
+> +				goto out_restore_sg;
+> +			} else {
+> +				prev->length += pad_len;
+> +				iova_len += pad_len;
+> +			}
 
-> ---
-> Changes in v2:
-> - Rebased on drm-misc-next, fixed conflicts, renamed new occurrences
-> - Link to v1: https://lore.kernel.org/r/20251223-drm-bridge-alloc-getput-for_each_bridge-2-v1-1-0362434ae0eb@bootlin.com
-> ---
->   .clang-format                                  |  2 +-
->   drivers/gpu/drm/display/drm_bridge_connector.c |  4 ++--
->   drivers/gpu/drm/drm_atomic.c                   |  2 +-
->   drivers/gpu/drm/drm_bridge.c                   |  2 +-
->   drivers/gpu/drm/tests/drm_bridge_test.c        |  2 +-
->   include/drm/drm_bridge.h                       | 11 +++++------
->   6 files changed, 11 insertions(+), 12 deletions(-)
-> 
-> diff --git a/.clang-format b/.clang-format
-> index 6a3de86ab27a..5ef5743b77c9 100644
-> --- a/.clang-format
-> +++ b/.clang-format
-> @@ -167,7 +167,7 @@ ForEachMacros:
->     - 'drm_connector_for_each_possible_encoder'
->     - 'drm_exec_for_each_locked_object'
->     - 'drm_exec_for_each_locked_object_reverse'
-> -  - 'drm_for_each_bridge_in_chain_scoped'
-> +  - 'drm_for_each_bridge_in_chain'
->     - 'drm_for_each_connector_iter'
->     - 'drm_for_each_crtc'
->     - 'drm_for_each_crtc_reverse'
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> index 92f8a2d7aab4..8b54069fa53a 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -147,7 +147,7 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
->   		to_drm_bridge_connector(connector);
->   
->   	/* Notify all bridges in the pipeline of hotplug events. */
-> -	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
-> +	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
->   		if (bridge->funcs->hpd_notify)
->   			bridge->funcs->hpd_notify(bridge, connector, status);
->   	}
-> @@ -854,7 +854,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->   	 * detection are available, we don't support hotplug detection at all.
->   	 */
->   	connector_type = DRM_MODE_CONNECTOR_Unknown;
-> -	drm_for_each_bridge_in_chain_scoped(encoder, bridge) {
-> +	drm_for_each_bridge_in_chain(encoder, bridge) {
->   		if (!bridge->interlace_allowed)
->   			connector->interlace_allowed = false;
->   		if (!bridge->ycbcr_420_allowed)
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 735ab7badc2e..e5c8ef06caed 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1554,7 +1554,7 @@ drm_atomic_add_encoder_bridges(struct drm_atomic_commit *state,
->   		       "Adding all bridges for [encoder:%d:%s] to %p\n",
->   		       encoder->base.id, encoder->name, state);
->   
-> -	drm_for_each_bridge_in_chain_scoped(encoder, bridge) {
-> +	drm_for_each_bridge_in_chain(encoder, bridge) {
->   		/* Skip bridges that don't implement the atomic state hooks. */
->   		if (!bridge->funcs->atomic_duplicate_state)
->   			continue;
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 6ead9b75ae3d..dfab82923c85 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -1817,7 +1817,7 @@ static int encoder_bridges_show(struct seq_file *m, void *data)
->   	struct drm_printer p = drm_seq_file_printer(m);
->   	unsigned int idx = 0;
->   
-> -	drm_for_each_bridge_in_chain_scoped(encoder, bridge)
-> +	drm_for_each_bridge_in_chain(encoder, bridge)
->   		drm_bridge_debugfs_show_bridge(&p, bridge, idx++, false, true);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
-> index 10a32620e962..430d9bc67a10 100644
-> --- a/drivers/gpu/drm/tests/drm_bridge_test.c
-> +++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-> @@ -1071,7 +1071,7 @@ static void drm_test_bridge_chain_verify_fmt(struct kunit *test,
->   	struct drm_bridge_state *bstate;
->   	unsigned int i = 0;
->   
-> -	drm_for_each_bridge_in_chain_scoped(&priv->encoder, bridge) {
-> +	drm_for_each_bridge_in_chain(&priv->encoder, bridge) {
->   		KUNIT_ASSERT_LT(test, i, num_expected);
->   
->   		bstate = drm_bridge_get_current_state(bridge);
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 18f3db367dc1..0fadc39dfc12 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -1474,9 +1474,9 @@ static inline struct drm_bridge *__drm_for_each_bridge_in_chain_next(struct drm_
->   DEFINE_FREE(__drm_for_each_bridge_in_chain_cleanup, struct drm_bridge *,
->   	if (_T) { mutex_unlock(&_T->encoder->bridge_chain_mutex); drm_bridge_put(_T); })
->   
-> -/* Internal to drm_for_each_bridge_in_chain_scoped() */
-> +/* Internal to drm_for_each_bridge_in_chain() */
->   static inline struct drm_bridge *
-> -__drm_for_each_bridge_in_chain_scoped_start(struct drm_encoder *encoder)
-> +__drm_for_each_bridge_in_chain_start(struct drm_encoder *encoder)
->   {
->   	mutex_lock(&encoder->bridge_chain_mutex);
->   
-> @@ -1489,8 +1489,7 @@ __drm_for_each_bridge_in_chain_scoped_start(struct drm_encoder *encoder)
->   }
->   
->   /**
-> - * drm_for_each_bridge_in_chain_scoped - iterate over all bridges attached
-> - *                                       to an encoder
-> + * drm_for_each_bridge_in_chain - iterate over all bridges attached to an encoder
->    * @encoder: the encoder to iterate bridges on
->    * @bridge: a bridge pointer updated to point to the current bridge at each
->    *	    iteration
-> @@ -1500,9 +1499,9 @@ __drm_for_each_bridge_in_chain_scoped_start(struct drm_encoder *encoder)
->    * Automatically gets/puts the bridge reference while iterating and locks
->    * the encoder chain mutex to prevent chain modifications while iterating.
->    */
-> -#define drm_for_each_bridge_in_chain_scoped(encoder, bridge)				\
-> +#define drm_for_each_bridge_in_chain(encoder, bridge)					\
->   	for (struct drm_bridge *bridge __free(__drm_for_each_bridge_in_chain_cleanup) =	\
-> -		__drm_for_each_bridge_in_chain_scoped_start((encoder));			\
-> +		__drm_for_each_bridge_in_chain_start((encoder));			\
->   	     bridge;									\
->   	     bridge = __drm_for_each_bridge_in_chain_next(bridge))			\
->   
-> 
-> ---
-> base-commit: 377939b713ca89de92573e3f3662b805fecc95d5
-> change-id: 20251223-drm-bridge-alloc-getput-for_each_bridge-2-2318aa93b69e
-> 
-> Best regards,
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
-> 
+It is better to use
+  check_add_overflow(prev->length, pad_len, &prev->length)
 
+instead of overflows_type()..
+
+Jason
