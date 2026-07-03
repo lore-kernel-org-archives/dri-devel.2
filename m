@@ -4,140 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 615E6C43602
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:30:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D682C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 04:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7F5910F624;
-	Fri,  3 Jul 2026 03:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8142710E32D;
+	Fri,  3 Jul 2026 04:11:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="eZ7Skjd/";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="GULRh6Cs";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011026.outbound.protection.outlook.com [40.107.208.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAC0010F624
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:30:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c468aAByEot6gmrb5D9upBZJ7OWKPO6QfSuKs4+H4OIaExpSUFonbFUP4P6pvj0gB2HEcC4xDPDdybseeLvfRAVy0IbqH2QvttYGQmbv4kb+oncMMAdWLwCunNrJZzH5fSUsecvs1A9e0rm6JyqluI9ZCdBfO0RvaHt8nti5Dq1wGVNHdr37xaS4Yv/r7dN/KH0B53iWqL8eCgC0A/1GWfq+YWgUfHcYvvhA2roMw2xBZW1T2ZJo+DrixRAisDZeFwa19IkyLm0g0LkSAxc0DqmAn4h1o1oR4AoXPMaAX3THlQfb62xaI3c4rn/JrwvXzrgEDQfc+QFnalgl0lpfag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ssTZKeKhpQU73D9kl8UkBS7dPegsSjfKPMoqQr85hA0=;
- b=xizP/vIZdRgy9AfUKmyIn9D0UppI33AbSMUWb54T0J+yP17sEGfzNDP+8Mpp42tgbo6EVjR4K1Xu/TaaqRUcUV4gtuxG65fATDzUuK45dQcATMDf6RTlNul86ZNNFZOAxuOASTOChcC9P3UYyQ8gYZUxsKDk2o752mAX3LsJ3XqIBmPopwxVqCDU/kgm+gPQ13xHHRZ5/MKxkw2v6FmdROct3twY6DAwYFeQGuCCdJIrH5lUXXqob8QX4v16rkLW8/XkpOetd678W3ZFz4BzjIsiDnIWAkmf9FWRMvaFglwvQR9K9ULUWGnge8S2dCH0eSnEsqcKNSGgNyKY4buvUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ssTZKeKhpQU73D9kl8UkBS7dPegsSjfKPMoqQr85hA0=;
- b=eZ7Skjd/bSLvzHLHbm44Gekmth+OzkYiSO4WcowQgb5IWzjfPGgY0nnSrfDFjF3UEiyqO8XJaXr5fpamoX2cpxfVa7LJWNHi7aHRv7VXe1lsZXQ5y98dwoMv0zmem0+D46xB2r04k9oQAOZbtf/t7C1j6qXd0rcngZf2L8dKqQAfKgBNRAAsJ18s2H0GxpN7PFj5xjfP67J2peZWqdXFqn6jh41Z/638Ilsu91ozHo4gUVPQ0ljXlbGRGnZr8TmiD7X51gyZ00gKBVDE41DdzToSvwEdGea5DtcaZoYw1gPaKTYAZtY7Q94XhY/BHKqZ/F/3ODfQA9oVoqeB8PzIlg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SA1PR12MB7245.namprd12.prod.outlook.com (2603:10b6:806:2bf::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
- 2026 03:30:13 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 03:30:12 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 12:30:09 +0900
-Message-Id: <DJOM9IIMKV65.1BNIGAF989PG8@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 07/20] rust: io: implement `Mmio` as view type
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-7-d0961471ae50@garyguo.net>
-In-Reply-To: <20260626-io_projection-v5-7-d0961471ae50@garyguo.net>
-X-ClientProxiedBy: TYCP286CA0339.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:38e::14) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 830DA10E32D
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 04:11:46 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5aeb688ae83so32969e87.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 21:11:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783051904; cv=none;
+ d=google.com; s=arc-20260327;
+ b=EHwTOcAtJFTtWWuIDkfD/MahxEAXXXJ0+roE9bW3544H81BCx1OgvB7QGbEruWHYFG
+ AhBA095ZkCS9CGqgCM0JMXiCQXO4dU/D5hXxRUXLTvFncnyUsFnhbhaki2UTpJ0ZxyJO
+ iX4SuKdUq3iZooi1MTqMtmHwiURYECqYaX1UqQuwNkvunxFkc26YKWQlNuotRcDbJdeO
+ zjKQkbwQ9nT3YiYJDLan9p9P1zocg+dzyfTuqrwXnEKbsEYJQRtmli5NpZqWSBPRJ7RK
+ H7QQlp0z6Wh3OVfGK5IBRiIM2Bp9YBNZkJLBYSPmQNTQ2Pd/j3JXFrmlZ6cLtB+yH9Pv
+ xqCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mYG5gbdqiZUgRx9K2qyqNMU3tiBr/+AhYbboeAOaEGY=;
+ fh=zLU/U7BQ3LWqRN0t6G4+Y5/ZxZp3kTL1s1M77GewQfc=;
+ b=GmlWHcF4ISbgn3NREu43QctRpEZGtUiHZnMAiHjPWy6Q9JbiWab7qNxEDYBYcGGzy8
+ R45OBscFZuf2PtrYaS03QEQsKOl3UZSlW+4SDkuiap3ETKswbKdNKBdVW6k75Qv9XQTl
+ Szwpk3MT3S/TJPt1YcJqWv7d/q6nUTJHlhx0QB5ynlp9yUCjeVO+vx1FYHDvx0q57OP2
+ rrFkZiZC7YTe+MxXZYlZp6B48K1c3Bw2XyMEz83FejNtWYHLhzk/YNrG2YaP8E6UjydQ
+ omIIc5vsUzW3kauXFHqtqogZTdxHD0DXqAVArJqakqWBHDmPT4qV6sBfcBT8/LtlCNYN
+ 7/3w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1783051904; x=1783656704;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=mYG5gbdqiZUgRx9K2qyqNMU3tiBr/+AhYbboeAOaEGY=;
+ b=GULRh6CsIlgKiLmOAG6y+NV3H948V4MvJBLz5icdGrcK4El7p9marSps9GWi6dAwLC
+ JsTBxKVB8ZjOPT1FNTzh6tFuzON+ijGDXbDETAyr0Z+EEZJeRo4B2PZGERT44WWciuS0
+ Z+/XnorzLG09S1gF7hdqSJKJB9oB+l+uYLbVCfupyp9Zmmnn+lYQQj8S45kkh78w1OmK
+ a+yzHZ2PWz3WEhWofGuO3LkTddVbS5HV7ZduILsKxui6hm7KIAs0RApGbxGArk8DUsDg
+ vDLobK3ktunH87sdqCW61+Zt7wBDMep4e1XqeL2MbVtyf9M465xmvYSv8wJTKlhf3/9I
+ bP/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783051904; x=1783656704;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=mYG5gbdqiZUgRx9K2qyqNMU3tiBr/+AhYbboeAOaEGY=;
+ b=UFDT0gEjFEtAbY5Zh+R4x8snaPFnWnB0VF4m+D/eod4a6D8/nB2gmYFrJpSgg3+3wy
+ WclALBSJTa4x110hQXAA003TgbNynqu07p+xU5YR9s+45Y/sS7PhlIUTsGk61w61lJZH
+ nXUigCIIcmKspRX9m28YsnXHVje+oMhlyTRAHmGpOsVVT11Fe2pQviStSD1AR6htplaO
+ 7fnkB8/O9Xibbt3dahkkyf7asB/mDBoM1rM6vmCxgcrMfOMX2XVQompR9AAR2lNoBrtD
+ tKZdwMaUS8RSWjLDIBd+3u2Vey7QUKdTDC09B/wi9fjeSLCoUSkL487DgizCWvNdb7HX
+ NSrw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RojTPEn2yntYe0RVhHheBqBr8dM71jAQhTHmkJw+bUoypJTthSRhvk7pwuFE++Mb+w/1Vcbn15xPQc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzN/ArqA7EIPndu0A+36mwRKfA/0URYaPzZaN0rNII6miAxJZzD
+ 81svkv4VFv2wI5cie0X8Glu1W3AJJ1g90CP1cw3xzJ3YozDQqUiiwECHQVRdCV9K6b+HzqZhyVk
+ typ8WGyau8FCd78vncs11aHw5+drpGIc0uDxpbQA=
+X-Gm-Gg: AfdE7ckgFEk4lZXS4MllGjujmF+M8pVs4YWjoU24H1eO76XJiCbpEl+dLB3uB5Blepv
+ LDzh9hVBr/wsfN4u7BFLMTGXx1PPYwuMeYaAV3V6RtArkQpWo3raFBXpi6YdYIH6B5pyvgO4lCP
+ 1uFSVd1MtdIT0EVThGX5WQck0924jAaGWS2+f7VTWf8HF3dC6PezSO+34QULOyDOL7YNC9HGSJQ
+ wHF9qUYbynyK+m9glrG78DqBYOD/Sf/x2XEPpS4fahzzAJqlUoLI52rlZrIS3MM/lkx/e5ccPsJ
+ U81xyscUhKgyqI+FZk0NXPjwDs/ktQ==
+X-Received: by 2002:a05:6512:3b0d:b0:5ad:4a8f:58ed with SMTP id
+ 2adb3069b0e04-5aecc237342mr247261e87.7.1783051903965; Thu, 02 Jul 2026
+ 21:11:43 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA1PR12MB7245:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9457f3a-3e71-4a74-08e3-08ded8b3644b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|10070799003|23010399003|366016|22082099003|18002099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: ggjLHETRbnNMqj99KFGs2bALoGdGQxxrqRs7q7bp6IsXhGi9w7jrGgAfZwW1WoJaBu1p3Qpb7Or6hkqf1ZVFDTf7NkkqVhdpIq2WE43rlUwaVf0pwgjTr0YlvANrdWhYHoND9CpUSeSJDHgcPE9flhmMk2y6dxgvFufJ7/6WPgvmn/0XjtpxJhiLzY3OYZ66mmJneNXdCQHwXsV+wx2apwZUKVvnsmVRuvdSpRO0JTOT/4sx+Mh/MkE4fOPGNV/MX9YwCOst+xiGGAY4HyZebB7xumktby1YXQAThvrvxn3y0KKXB9M8YvvhW020XF4Wh9jiaXp1/nKEpBogma3dNCbPvzVdiVYczimZRXFq/zJnsP94sTZZ/Vlopz0jSxx8ipwoU5rwWp7ohp45GVlSxix/Hfuen1vdnJido4+qZ45ggTlYOM6YIcZtWrHJ6CWJifPiurPSqojXQqU5coX+5oPvTsr31ZK/5NeqAwBigK4Ue2GPXMIdSMRD6su1fHKdceJjWVZd8ntI5Xtxi1fMo3H046L+4M1V/4o06c4ZMKcIUCAdXJwQg8DxqmgYRdS98Jy0gfu6L5fCUPE6E56PSI7qqRE+hWXyg9L3O80kbX6Mk7SdV4+D2fLTH3z4JrJm6chzfOdDAUUrORWaPNy0ahg+6V9yPldrBWphOOH5Xwk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(23010399003)(366016)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWJucHhla1dUN2JPdVFiMmJyakZEOHF4amduYmFtOTB6TFpidVhVUWxoUURU?=
- =?utf-8?B?dWJveXp0WGNjTkFYYUhrUVpQOXhsaTlaUmJrblhXdHV2bkVCOFdJS0lQbU1G?=
- =?utf-8?B?aFZDNE1YQlM1Z2Y2VlI3OE1KWFhVSVpOSW9XMHRBL1FuUjY1dDNaQ2xidFFH?=
- =?utf-8?B?R251Z290NURWUjBpcDBZL2VMM3h4cE9YNmRENGtFTTJZZFVGdmVqWlRvSnhZ?=
- =?utf-8?B?WmduSTBlVUJLVWpkUkhvdS9JTTFxdU54NlRScmhMdCtyOFpiZ3l5YzVkMmdP?=
- =?utf-8?B?dU9XU0pyZzM2WnpQVlZmT1RpVmFDTk5zN3FUck9uWllqQ0JsZm1CWVBJdzhH?=
- =?utf-8?B?UmZEZU1UbG5xL05sT2F4cE1pdUdwcDdCVnU4VW5YTFcxVGFKSENCZ2FVRXJI?=
- =?utf-8?B?T2cxVVpJcTRIZWNOKzhHZ2R6bmUrcHlYek11cHdORnQ4L1Z3RTlLelQxWk1Y?=
- =?utf-8?B?bDhvdEw4UkxtVkRPVmp6RHcxRjhGWkM3RC94ZzY0REVwQW0rTFNodmZUcnZ0?=
- =?utf-8?B?bUJKV2xkam9FTHpCMktQVld2ZXJXdlNlaWRweEtDVWtaVnBGYW5GQWtOSVFu?=
- =?utf-8?B?a0lOa0szTTdqbU1XMng2N3FjUjA2YjFGMXBmaXdaN2xxMm5BSHZQS0ZJL0gx?=
- =?utf-8?B?R3NMOXBSSWFYN0luRU03bkpoZEE2N2hFazE0NGRpMEJ5MmhpTFMwbzhLWk1Q?=
- =?utf-8?B?MlkyRk5VNHI4MFhqUDNmU3hvMFIyS1ptL1pYOTYwZkQrZlRYbk9XcmpZOEhP?=
- =?utf-8?B?R0FJcm1pblQzVlhMU1lpTmh2dEdzbHlSK0FoK0FvMVpERWNzOHBUemZ1Skxo?=
- =?utf-8?B?TCtkRk9XT0ZQUmI3NXdodDRUV2NmbFdGUnEyNTlVUVdlbWpndE42RXpOeCtV?=
- =?utf-8?B?TUJoVE5zWXJVOEluNjFIaVJKNWFQd3VHeExNVVo0ZnpHTkRmUWVKZmZlWk9i?=
- =?utf-8?B?UnR1UE13ZlFKTWtPMXJwRzZUWXc5ZEo2NXVIMExLVzdDd0syQk1wcjM2L21H?=
- =?utf-8?B?WHlxd2tIZy9wSU9OZDVhWlFjZEhhMVRjclpCUHVKLzJObm1tcENaSHBqWGxG?=
- =?utf-8?B?YmxUNlNNQ3hxa3VXZnpDSHYzM050SzN5TTlCVHpvNXp4K293QzlSZFB3NmtN?=
- =?utf-8?B?OFVBMnBnSkRMVG9yZXZnRUMxKysvb21sLzJseVhEUEF0MVFvWFJQK3BjR3R4?=
- =?utf-8?B?dHErNE1MZTQ1cTl6dyt0NW13NGZRSml1YVRPSGo1ZWw3L0pab1RHdS8wZ3BN?=
- =?utf-8?B?NFJhb1FxVkF4cC9hUFZTcDY2SG1uUHJWeGR1Z1BkZFRqZnQ4Z2N1WTI3eVJD?=
- =?utf-8?B?ZlNOYTkrMnB6SzFhc2p2RG5reXQ3QkVGayt3M3p4L2g2bk03Z0QwcGFscFdC?=
- =?utf-8?B?bWFhWW9wMW53WmFjcFl5aVhoNEJRYjRQZ3NMa3p5UzFDcW9PRlVWb3lvRFg2?=
- =?utf-8?B?WXpLZ3g2bklyaHJEeXdtMHVYUHFZYXZ5ZUtuYmpvRTZWSkZydHNjbUtFMy9t?=
- =?utf-8?B?Qk81RjcvVS92UDVTZjZWQVo1eXhXQ2c4WjRBTllNSk5samVDUnF2YUhBLzFp?=
- =?utf-8?B?MVBGMnpyRTF2SlBCbFRTeEp1M3hqNFJHOUZrQjkrNFpGaFAyU2JlditGVnV6?=
- =?utf-8?B?MDZsNVlNTHVoVEZuUVBLUEovQzBlaFFFVzFUQTVKRFFYakQ3aFlpcFl1MW1u?=
- =?utf-8?B?YlRHdXB2akl2dTdSNks1Y1QrK1pHeERib2E3R2VDTzVaSDNTSU05Z25kOTlD?=
- =?utf-8?B?TnRHbGRrSDByOEhESWhPYTZ0d3c1ZGh0TVNsNEhYRlB0NWZObGV5dHdIVnVy?=
- =?utf-8?B?WmYreDM4Sk1VaFRtVUZBanc0UDRJS3V0SWdYZFErTEJNZklZZGdRbXgvd1lR?=
- =?utf-8?B?MUNqWFI5NlhtY1MreTVaMVlTOHhkNEdST2JHY2lEbHM2WTF6MWZ0amwwZkpZ?=
- =?utf-8?B?ekMvbmJUMkFpS1kzcDM3WjlHU0tUR1ZOQUFIbVVYVHJFSkY5b1l2Tm4rOGth?=
- =?utf-8?B?UmpLbG1zaGFiaVlSNDRmOFh5aVorN2JVb01abXU5dnREWEczam0wYVVPMlBE?=
- =?utf-8?B?cVlieFpCYnd4YVE2aVVsWGpIdkVVZjQvZGZEYkdZNzN6RFhSdFI5NzF2dmky?=
- =?utf-8?B?SGRqdTNaYW5XQnlIOTFkRDRjVVU5U3RyZHV0eEc1cHNKSU55Z09WdVpyQlN3?=
- =?utf-8?B?WTFaMUo3VVUzaEZaaTZ2bGZHQlZzN3R5ZGF1ZktzaGRpWXhqME5oL3RJRWxS?=
- =?utf-8?B?R2tGU1JPOXQ5a2ZvQlVvbVJSSGFwMmdMRTNmTnprY2YwaGxpWDRyN3JqVjly?=
- =?utf-8?B?bUJJUkJFTkFyaGNVQ1BMYnRjMzBHYzNTaHZVT2h1SFNjZ0cvbTlKWE9OcFIr?=
- =?utf-8?Q?adQNkHBNUx2IQZSrbTY2mwaHzKYcYV/MKNwqIK5q/7H/0?=
-X-MS-Exchange-AntiSpam-MessageData-1: ZGUQ89pdXK9lzA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9457f3a-3e71-4a74-08e3-08ded8b3644b
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 03:30:12.8819 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tiB+6UQ2KvyN5xRpHUJ50Hxa79F4lDX/WxRuYjZJKQeHupNPxtE0yIRpb1YnIDOKaGxiEPW2Te9of4n780bJWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7245
+References: <20260621222130.1667453-1-xuehaohu@google.com>
+ <20260623015459.1153884-1-xuehaohu@google.com>
+ <20260623094446.4a8fc2ed@pumpkin> <ajryxMaT5evDUxaq@google.com>
+ <20260623235350.6540eaa2@pumpkin> <20260630124252.GD7525@ziepe.ca>
+ <CAPd9Lg9uY1RZvYUtcbKUg=VdWM61M2f3aqmS5veUg_8M_Ce80g@mail.gmail.com>
+ <20260702091040.35eff00c@pumpkin>
+In-Reply-To: <20260702091040.35eff00c@pumpkin>
+From: David Hu <xuehaohu@google.com>
+Date: Fri, 3 Jul 2026 00:11:31 -0400
+X-Gm-Features: AVVi8CeOojzP-I_HmExSVQqRC_n17UpgYFkRlrxVBr237r7JGuzRVJ9YNtE2VWM
+Message-ID: <CAPd9Lg-ti9hOr4-62xExbNuBJ1fmnhg_Vi1uxFZ8h-9FoeGAnA@mail.gmail.com>
+Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Pranjal Shrivastava <praan@google.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Nicolin Chen <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+ Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
+ kpberry@google.com, chriscli@google.com, sashiko-bot@kernel.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,14 +121,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
-> Implement `Mmio` as view type and convert `RelaxedMmio` to view type as
-> well. I/O implementations of `MmioOwned` are changed to delegate to the
-> `Mmio` view type.
+On Thu, Jul 2, 2026 at 4:10=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
 >
-> All existing users of `MmioOwned` in the documentation which do not
-> actually reflect the owning semantics is converted.
+> On Thu, 2 Jul 2026 00:56:40 -0400
+> David Hu <xuehaohu@google.com> wrote:
 >
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+> > On Tue, Jun 30, 2026 at 8:42=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> =
+wrote:
+> > >
+> > > On Tue, Jun 23, 2026 at 11:53:50PM +0100, David Laight wrote:
+> > >
+> > > > > If we restrict incoming dmabuf transfers to fit within VFS-centri=
+c
+> > > > > limits (2GB), we impose unnecessary overhead on the RDMA stack, f=
+orcing
+> > > > > it to manage a significantly higher number of memory registration=
+s. By
+> > > > > cleanly splitting these massive contiguous device buffers into
+> > > > > page-aligned SGL entries, we directly improve the efficiency of P=
+2P
+> > > > > transfers and memory registration.
+> > > >
+> > > > But a divide by '4G - PAGE_SIZE' is also non-trivial and (I think a=
+ffects
+> > > > a lot of io) when the quotient is always 1.
+> > > > Splitting into 2G chunks is a lot cheaper.
+> > >
+> > > Doesn't matter this isn't fast path stuff. It is better to use fewer
+> > > SGL entries, IHMO.
+> > >
+> > > > > Since this change doesn't seem to have a negative impact on stand=
+ard file
+> > > > > I/O or break existing VFS constraints, I'm curious why we shouldn=
+'t
+> > > > > support splitting these >4GB P2P transfers? Am I missing somethin=
+g?
+> > > >
+> > > > I was only wondering whether it was needed...
+> > > > It does bring up the question of why the >4GB transfers even need s=
+plitting.
+> > > > But that is another question.
+> > >
+> > > SGL can only store an unsigned int size, so any large physical range
+> > > has to be split down.
+> > >
+> > > rdma now a days has code to process the sgl and restore back the > 4G
+> > > sizes since mode RDMA HW can accept that.
+> > >
+> > > commit 486055f5e09df959ad4e3aa4ee75b5c91ddeec2e
+> > > Author: Michael Margolin <mrgolin@amazon.com>
+> > > Date:   Mon Feb 17 14:16:23 2025 +0000
+> > >
+> > >     RDMA/core: Fix best page size finding when it can cross SG entrie=
+s
+> > >
+> > > So whatever this produces needs to be compatible with that to undo it=
+.
+> >
+> > Thank you everyone. It looks like most open issues are sorted out.
+> > I'll wait for maintainers to weigh in before sending out v3 (which
+> > will remove the type cast for min() per David L.'s feedback, and
+> > revert to ALIGN_DOWN(UINT_MAX, PAGE_SIZE) per Jason's feedback).
+>
+> Does this code get used a lot for 'normal' transfers?
+> I'm away from my normal systems and can't check.
+> But if pretty much all of the fragments are small (< 4G) then
+> it is probably worth adding a check for 'size < limit' before
+> anything else and optimising that case.
+>
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Hi David,
+
+Thank you for raising this. This file (`dma-buf-mapping.c`) was
+recently added [1] to exclusively export MMIO device memory.
+Therefore, it is bypassed completely for `normal` transfers (IIUC,
+e.g., video buffers for V4L2 or DRM).
+
+Regards,
+David
+
+[1] https://lore.kernel.org/all/20251120-dmabuf-vfio-v9-6-d7f71607f371@nvid=
+ia.com/
