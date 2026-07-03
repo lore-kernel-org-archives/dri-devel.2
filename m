@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05BE2C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70798C43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56E0510F5FD;
-	Fri,  3 Jul 2026 03:02:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C677410F605;
+	Fri,  3 Jul 2026 03:02:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="DS8c/d2W";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="po8Jxzcj";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEDB610F5FD
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:00 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-471eeac43bfso110549f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:00 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7867C10F605
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:03 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-4728c12ba97so52533f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047719; x=1783652519;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047722; x=1783652522;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gWYaWvLBgitKBD1DvypUSuQXP5THaJX3kX34tELc4Xg=;
- b=DS8c/d2WvFeeIJ3VS1cAqnF4xiGvSabGMaT8IUuKXj4cuTStIkNu6kTa3ycvxzN8l4
- wUs3y8YCSGeM7AVmAU2qFm8aZKnCDbFFuiKn+qo/R8njIk/1QetREcxClDuWT2z8Nau2
- L73mHIT7mC9KlsC5JnhQ37Gz5lhWxLwRD1rWYoy/4sVABaHwi3lxYP8FfGLSLuBHPpct
- 5bB4gog2B9oiOFErUWQmuqKyCQ0I3S8GmzdN1Z+ETdhFh8ewm9we9K1l9eY/qCYE24UY
- 8PeWfgbIOOkURssuSVJ2OIxGSzlCLPLQAI6JUiAhyCyXUgdr0Q9vr/8ZtHm1qOgj3+Vo
- YvUA==
+ bh=LUgBn6zBfsTbi2CLsMgn9qh9uhx+O3ZRcBIzQDpiX/c=;
+ b=po8JxzcjH26RcqD6SiAGRJ/G+4ryp4Vl3fQVGwjJ7pTwkP8Niuivnntt/tdahBrFUA
+ Nor9UQKNVIFlzhCGQfVPYH6TW6OtqfSWRcIhYFdbhpQI3WajM8j9qttXZo39Pb2ZzpFC
+ OxkBR6AXvy+nSwzLvAJGhehFuaWpYWqCz4Qk6hbjjohnNMkFxivR6vTToFOJ8d+KgVdo
+ IDM8x9F/I4HZimjapgZ3pim2DElJQ+C1l7lNhsjVEjBwfiR8n45VQWjoRIDl/P89RazK
+ Hlo0sqT5MuqOYWq9Yu+4PKbAIEoTx69SijLxS06T/pRb0Iym7aAJeR+1aVMHwjdcmNpE
+ WTDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047719; x=1783652519;
+ d=1e100.net; s=20251104; t=1783047722; x=1783652522;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=gWYaWvLBgitKBD1DvypUSuQXP5THaJX3kX34tELc4Xg=;
- b=ku7WKJMZHdaXQhDQngauuAml6e5wax7dIAqmemIwWJRWsUOzRn46TuNluO83xktIbM
- CqzVXbMJk0D5R7w8//vP28gaZSiizQp+2ftdztwttMXKgp1xskqKZXWek6M2vkNZ/LSX
- HSVA9jyph9a51GDmwkoLoSuGN8nzgNgbJs68jKBm7HR0YMpTcyrhg62FbGW5szjrYn8u
- iLyK2cRf6/laE0uq+CcRIMWZnllDSwu/xdBz4irDv4tH6cdcSkRaXqGX04fS0i+7aeCa
- ZwGjSoY6Y3yE/qxS9ORiPACS0tUYivHb9wFQhg9d6CfPN0wYYnlP1d0QSwrADjiy0qk9
- 2M7g==
-X-Gm-Message-State: AOJu0Ywx4KXJpJv8kdsSaMx5kKjP13E9W9X6Zwlc7maWv9eG1yIOA1sI
- N3/Q5tPjWtj8hGJ9HMqzqFLz5sh1xKnNtqJAxKFG9RnnWUMeZDh4hG6KxD84iUpgnw==
-X-Gm-Gg: AfdE7cnHDAe5qPi5YHUOqj/UlIigOP5GsfIMITngVUKIiwaQTWAxgf0Vz+UuHmm/VDu
- 2cK0JtoMtkFOg72P63VdX3Cdu25RZ3mhguoEtwomWUqsVy6Bz7aidGwW+SKA8evJ44XQhQFnXeR
- 1unuHqqvd9oFIVoLUbRzqE02R2DMtNsuOqN/nZ0FI59U3IvWk6KgW45/KRSWFIjr8EW9DOKqjxD
- P0Wv9MeRzUd4p75KYPJFtUVQelxvQfqFV2rk+bZOI3p95dqlQsLgSThOoJqGBsbqYE4TB2lO4CE
- b2KztScokqz9+EtMNl9Ro5cVCj0TtQQLcPjowkg3/vcBD5dMdyyx8u6hv0Xfxfq2uoGRfFI/9Rg
- 1kxnWTIwuc2AfUEhbSSFq0ESrml8489AsJtg5jUG+mxEqrQz/AuARK1xlK8/lnURqFciUs6ZDyp
- rDT/Vp88hFUyJueu+8rmXSkuz6pdinB/8dDbcDSDD2t9nhrcyRkBEZZnk0
-X-Received: by 2002:a05:6000:2407:b0:475:f0c2:75a3 with SMTP id
- ffacd0b85a97d-4775ac9f53dmr13275064f8f.52.1783047719231; 
- Thu, 02 Jul 2026 20:01:59 -0700 (PDT)
+ bh=LUgBn6zBfsTbi2CLsMgn9qh9uhx+O3ZRcBIzQDpiX/c=;
+ b=n/vcLFUPabAeBmlz2hG7fxcq9hGxkebA3nnko1MaYbw0oLheoF/0nzu3EFbaY4aiDQ
+ jOn9TQJumO+Lv3t60C0DC2Q87MTSygnWAKuPcRjZW1SvLOGjbia61G0Tpz+7r6r6fMEP
+ nzgZgTJuLN22X8+JgmxgAS1b80X+EL+7EpdSCZmIemLaJ/o6UrBHveS7Tddzrtq+Sxbw
+ etXlNBrbCijNb/Ow7Oh8M5C6yQReBg/fX7rVEiRyUlS5mIsmwjAfBkFwJKXJ2kwyKF69
+ 3Gco9zA8rlez2S6QOkeUZfyO41esZmy1tT073Dgexdha0f/of4I25gcv94NgdiOB53Se
+ jK+Q==
+X-Gm-Message-State: AOJu0Yzy8zDDFXVxL+w+cBtnTNvjpEeT/9i79ez/bai5QXR0dcEci/d5
+ +bEiQePNJAoUmW5Vz5m0ZgadnUG5TZzoH1oHLQQTIKoAmw8RIGHynypeTM7uf7s0TA==
+X-Gm-Gg: AfdE7cmc7vdPLvqqkMAeluip1fH1LsUYaXZvb8zjkHiVQuOr9PHkzqoJpBnUaMX1j2B
+ OmoxYuhBnCVcxy2+ZK6QsAcwVmNgJD8PHeTxziE++W5UBBR6oRgh2e6Z4brPqbwQsKiLrGrriRX
+ sJmpkPNb+gjjmc5LIF3U/nYB2pmLxlS0OQcrn+dyBmruv8cvJqBejzVQu/EIkgPsVOv55xrCqIM
+ 2ZHMdm/9O5Og7tzKz4c2oJYwRwDueVGRIaqqsBHd83RofAN6RlYQy2BWikChv3o2FB0WZo/hqM2
+ av5VzmKklljSU7J/opKT6GxvjRXY6c1X9/Q2FaS7P3P8vdLqS+CitJ43Qhk7OOy3BqYWiKGo06X
+ IYr2LScPRR26sahKWiLGLUkKWgxJlCiGkgSs4yNzdmnlGcUtXnKvnz33ywQRLcOvlUxOJLpnHjp
+ ewLZI3kE4BGLJ8MnzqDPOaHL260i6e2dzjmJkkb90hVwdy4PtP09PCP0VF
+X-Received: by 2002:a5d:5f54:0:b0:472:3090:d878 with SMTP id
+ ffacd0b85a97d-477571cb785mr12685227f8f.4.1783047721804; 
+ Thu, 02 Jul 2026 20:02:01 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.01.56
+ ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.01.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:01:57 -0700 (PDT)
+ Thu, 02 Jul 2026 20:01:59 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
@@ -71,15 +71,16 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 11/18] rust: platform: add runtime platform device
- creation
-Date: Fri,  3 Jul 2026 04:00:58 +0100
-Message-ID: <20260703030123.2814-12-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 12/18] rust: drm: framebuffer: add geometry accessors,
+ refcounting and a byte-slice vmap
+Date: Fri,  3 Jul 2026 04:00:59 +0100
+Message-ID: <20260703030123.2814-13-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260703030123.2814-1-mike@fireburn.co.uk>
 References: <20260617150232.2210-1-mike@fireburn.co.uk>
  <20260703030123.2814-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,108 +97,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The platform abstraction can register a driver (platform::Driver) but not create
-a device for it to bind to. Virtual drivers that spawn their own devices -- for
-instance DisplayLink's evdi, which creates one platform device per virtual
-display card from a sysfs attribute or at module load -- need the provider side.
+A driver that reads back a framebuffer's pixels (e.g. DisplayLink's evdi, whose
+scanout is pulled by userspace via a GRABPIX ioctl rather than pushed to
+hardware) needs three things the Framebuffer binding did not provide:
 
-Add platform::RegisteredDevice, a thin owner around
-platform_device_register_full() whose Drop calls platform_device_unregister()
-(which unbinds any bound driver first), plus DEVID_AUTO/DEVID_NONE constants and
-a name/id/parent/dma_mask constructor. The non-generic methods are #[inline] so
-out-of-tree modules can use them without an exported symbol.
+  - width()/height()/pitch() geometry accessors;
+
+  - reference counting, so the framebuffer flipped in during an atomic commit can
+    be held (ARef<Framebuffer>) and mapped later from an ioctl -- add
+    AlwaysRefCounted backed by new drm_framebuffer_get()/put() helpers;
+
+  - a way to read the mapping without unsafe in the driver -- add
+    FramebufferVmap::as_bytes(), returning the plane-0 mapping as a &[u8] of
+    height * pitch(0) bytes, valid for the guard's lifetime.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
 ---
- rust/kernel/platform.rs | 77 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 77 insertions(+)
+ rust/helpers/drm/drm.c             |  1 +
+ rust/helpers/drm/framebuffer.c     | 13 +++++++
+ rust/kernel/drm/kms/framebuffer.rs | 54 ++++++++++++++++++++++++++++++
+ 3 files changed, 68 insertions(+)
+ create mode 100644 rust/helpers/drm/framebuffer.c
 
-diff --git a/rust/kernel/platform.rs b/rust/kernel/platform.rs
-index 9b362e0495d3..4c2ded2e264f 100644
---- a/rust/kernel/platform.rs
-+++ b/rust/kernel/platform.rs
-@@ -571,3 +571,80 @@ unsafe impl Sync for Device {}
- // SAFETY: Same as `Device<Normal>` -- the underlying `struct platform_device` is the same;
- // `Bound` is a zero-sized type-state marker that does not affect thread safety.
- unsafe impl Sync for Device<device::Bound> {}
+diff --git a/rust/helpers/drm/drm.c b/rust/helpers/drm/drm.c
+index 5d700d75c0c9..24c531841ba1 100644
+--- a/rust/helpers/drm/drm.c
++++ b/rust/helpers/drm/drm.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+ #include "atomic.c"
++#include "framebuffer.c"
+ #include "gem.c"
+ #include "vma_manager.c"
+ #include "vblank.c"
+diff --git a/rust/helpers/drm/framebuffer.c b/rust/helpers/drm/framebuffer.c
+new file mode 100644
+index 000000000000..280538ffb82c
+--- /dev/null
++++ b/rust/helpers/drm/framebuffer.c
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+/// Auto-assign a platform device instance id (`PLATFORM_DEVID_AUTO`).
-+pub const DEVID_AUTO: i32 = bindings::PLATFORM_DEVID_AUTO;
-+/// Create a platform device with no instance id (`PLATFORM_DEVID_NONE`).
-+pub const DEVID_NONE: i32 = bindings::PLATFORM_DEVID_NONE;
++#include <drm/drm_framebuffer.h>
 +
-+/// An owned platform device created and registered at runtime.
-+///
-+/// This is the *provider* side of the platform bus: whereas [`Driver`] binds to devices the bus
-+/// hands it, [`RegisteredDevice`] *creates* a `struct platform_device` and adds it to the bus,
-+/// which then binds any matching [`Driver`] (calling its `probe`). Virtual drivers such as
-+/// DisplayLink's `evdi` use this to spawn their DRM card devices on demand (from a sysfs `add`
-+/// attribute or at module init).
-+///
-+/// [`RegisteredDevice::new`] wraps `platform_device_register_full()`; dropping the handle calls
-+/// `platform_device_unregister()`, which unbinds the bound driver and releases the device.
-+pub struct RegisteredDevice {
-+    pdev: NonNull<bindings::platform_device>,
++void rust_helper_drm_framebuffer_get(struct drm_framebuffer *fb)
++{
++	drm_framebuffer_get(fb);
 +}
 +
-+// SAFETY: `platform_device_register_full()`/`platform_device_unregister()` are internally
-+// synchronized by the driver core and safe to call from any thread; the handle only unregisters.
-+unsafe impl Send for RegisteredDevice {}
-+// SAFETY: See `Send`; `&RegisteredDevice` exposes only the thread-safe `Device<Normal>`.
-+unsafe impl Sync for RegisteredDevice {}
++void rust_helper_drm_framebuffer_put(struct drm_framebuffer *fb)
++{
++	drm_framebuffer_put(fb);
++}
+diff --git a/rust/kernel/drm/kms/framebuffer.rs b/rust/kernel/drm/kms/framebuffer.rs
+index 1ec6779ba7de..c7089b12d0d1 100644
+--- a/rust/kernel/drm/kms/framebuffer.rs
++++ b/rust/kernel/drm/kms/framebuffer.rs
+@@ -9,6 +9,7 @@
+     drm::device::Device,
+     error::{code::EINVAL, to_result},
+     prelude::*,
++    sync::aref::AlwaysRefCounted,
+     types::*,
+ };
+ use bindings;
+@@ -46,6 +47,23 @@ fn raw_mode_obj(&self) -> *mut bindings::drm_mode_object {
+ }
+ 
+ // SAFETY: References to framebuffers are safe to be accessed from any thread
++// SAFETY: `struct drm_framebuffer` is refcounted via `drm_framebuffer_get()`/`drm_framebuffer_put()`,
++// which are the correct increment/decrement operations for it.
++unsafe impl<T: KmsDriver> AlwaysRefCounted for Framebuffer<T> {
++    #[inline]
++    fn inc_ref(&self) {
++        // SAFETY: The existence of a shared reference guarantees the refcount is non-zero.
++        unsafe { bindings::drm_framebuffer_get(self.as_raw()) };
++    }
 +
-+impl RegisteredDevice {
-+    /// Create and register a new platform device.
++    #[inline]
++    unsafe fn dec_ref(obj: ptr::NonNull<Self>) {
++        // SAFETY: The safety requirements guarantee the refcount is non-zero; `Framebuffer<T>` has
++        // the same layout as `struct drm_framebuffer`.
++        unsafe { bindings::drm_framebuffer_put(obj.as_ptr().cast()) };
++    }
++}
++
+ unsafe impl<T: KmsDriver> Send for Framebuffer<T> {}
+ // SAFETY: References to framebuffers are safe to be accessed from any thread
+ unsafe impl<T: KmsDriver> Sync for Framebuffer<T> {}
+@@ -79,6 +97,30 @@ pub(crate) fn as_raw(&self) -> *mut bindings::drm_framebuffer {
+         self.0.get()
+     }
+ 
++    /// The framebuffer's width in pixels.
++    #[inline]
++    pub fn width(&self) -> u32 {
++        // SAFETY: `as_raw()` is a valid framebuffer; `width` is set at creation and immutable.
++        unsafe { (*self.as_raw()).width }
++    }
++
++    /// The framebuffer's height in pixels.
++    #[inline]
++    pub fn height(&self) -> u32 {
++        // SAFETY: `as_raw()` is a valid framebuffer; `height` is set at creation and immutable.
++        unsafe { (*self.as_raw()).height }
++    }
++
++    /// The byte stride (pitch) of colour plane `index`.
 +    ///
-+    /// `name` is the platform device name, which the platform bus also uses to match a [`Driver`].
-+    /// `id` is the instance id: [`DEVID_AUTO`] to auto-assign a unique one, [`DEVID_NONE`] for an
-+    /// unnumbered device, or a fixed non-negative value. If `parent` is given, the new device is
-+    /// created as its child. `dma_mask` requests a coherent DMA mask of that many bits (pass `0`
-+    /// to leave the platform default).
++    /// A `drm_framebuffer` has at most four colour planes; `index` is masked into `0..=3`.
 +    #[inline]
-+    pub fn new(
-+        name: &CStr,
-+        id: i32,
-+        parent: Option<&device::Device>,
-+        dma_mask: u64,
-+    ) -> Result<Self> {
-+        let info = bindings::platform_device_info {
-+            parent: parent.map_or(core::ptr::null_mut(), |p| p.as_raw()),
-+            name: name.as_char_ptr(),
-+            id,
-+            dma_mask,
-+            ..Default::default()
-+        };
-+
-+        // SAFETY: `info` is fully initialized (all remaining fields zeroed) and only borrowed for
-+        // the duration of the call, which copies out the fields it needs.
-+        let pdev = unsafe { bindings::platform_device_register_full(&info) };
-+        let pdev = crate::error::from_err_ptr(pdev)?;
-+
-+        Ok(Self {
-+            // A successful `platform_device_register_full()` returns a valid, non-null pointer.
-+            pdev: NonNull::new(pdev).ok_or(ENOMEM)?,
-+        })
++    pub fn pitch(&self, index: usize) -> u32 {
++        // SAFETY: `pitches` has four elements; `index & 3` keeps the access in bounds. The pitches
++        // are set at creation and immutable.
++        unsafe { (*self.as_raw()).pitches[index & 3] }
 +    }
 +
-+    /// Return a reference to the created platform [`Device`].
-+    #[inline]
-+    pub fn device(&self) -> &Device {
-+        // SAFETY: `self.pdev` points to a valid, registered `struct platform_device` owned by
-+        // `self`; `Device` is a transparent wrapper over `struct platform_device`.
-+        unsafe { &*self.pdev.as_ptr().cast::<Device>() }
-+    }
-+}
+     /// Map this framebuffer's plane-0 backing pages into the kernel address space for CPU
+     /// access, for the duration of the returned guard.
+     ///
+@@ -123,6 +165,18 @@ pub fn as_ptr(&self) -> *const u8 {
+         // SAFETY: set non-null in `Framebuffer::vmap`; `vaddr` is the active union member.
+         (unsafe { self.map[0].__bindgen_anon_1.vaddr }) as *const u8
+     }
 +
-+impl Drop for RegisteredDevice {
++    /// Plane 0's mapped pixels as a byte slice.
++    ///
++    /// The slice covers `height * pitch(0)` bytes — the full extent of colour plane 0 — and is
++    /// valid for the guard's lifetime. This lets callers read the scanout buffer without `unsafe`.
 +    #[inline]
-+    fn drop(&mut self) {
-+        // SAFETY: `self.pdev` was returned by `platform_device_register_full()` and has not been
-+        // unregistered yet; this consumes that registration exactly once.
-+        unsafe { bindings::platform_device_unregister(self.pdev.as_ptr()) };
++    pub fn as_bytes(&self) -> &[u8] {
++        let len = self.fb.height() as usize * self.fb.pitch(0) as usize;
++        // SAFETY: `drm_gem_fb_vmap` mapped colour plane 0 contiguously at `as_ptr()` for at least
++        // `height * pitch(0)` bytes, and the mapping is live for `self`'s lifetime.
++        unsafe { core::slice::from_raw_parts(self.as_ptr(), len) }
 +    }
-+}
+ }
+ 
+ impl<'a, T: KmsDriver> Drop for FramebufferVmap<'a, T> {
 -- 
 2.55.0
 
