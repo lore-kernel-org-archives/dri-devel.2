@@ -4,108 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B90CC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 12:28:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37574C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 12:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B962C10E5F6;
-	Fri,  3 Jul 2026 12:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8421310E5EE;
+	Fri,  3 Jul 2026 12:34:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HAy0zAAN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gmMy8GZr";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a/pnh+9g";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CAEB10E5F5;
- Fri,  3 Jul 2026 12:28:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0996640666;
- Fri,  3 Jul 2026 12:28:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E3A1F000E9;
- Fri,  3 Jul 2026 12:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783081731;
- bh=dkTYdOk+qZGx1vOZy+8Wmo8AMnTLzz6lw/t0/fetG38=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=HAy0zAAN0V0oYKI/076+aPwefR2vtRvPh5GTlUp5/xm2i+isgY6SMC2krd/wOcpON
- AlHPeOnP/bAzGIIC4UXJAc95W049aeiPRN3Fcw+KmpCtQeZbWJQPuLOniOmAxcgd8q
- XBR64lXU/eIrP+bksVYPGow8ORJ4VHyB9f4OrBy/jjxP97OE8X9JzNHKK7fwAxuCS2
- FogegF5R92gp3sLD0Y9QdB+VzinduTrx6/SvimWEv+kvp0Jn36rdMI+Dspqu9kF6eQ
- zWNu9jKVIp4a2gGiQETmTGtDFRkKA9hue5B+90QZASBT6rsjG7cmIZEWn6Ml7fECyC
- jhAIha5WE91UA==
-Message-ID: <d90f576c-2713-4067-b4b4-a3790793c4fb@kernel.org>
-Date: Fri, 3 Jul 2026 14:28:39 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] arm64: defconfig: Enable ILI7807S DSI panel driver
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D728710E5EE
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:34:01 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 663BOJfE3136094
+ for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 12:34:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=6HClnpnLgJbZHiHBgKqUqSMf
+ hI5+WcDhllChwXjvU14=; b=gmMy8GZrxbIduqOKBeFagsh2XOQrDhN2bhEGB4lx
+ Pe/Owu0Aj5dt9x/pH8X1YS/Yu2+GabrPT3UH7gfqxZ9xgWyuua2YNFuKtxJyWwFL
+ J5GykYorOChso0ca1moVo4Lw8DBVjf5tXmRaSbKkb/cijlF7NRS7SrLBjTTC+LKl
+ Nlqs3nAR3kU0XMFmJ/EvRchk16z0gNqiM0qjxzlWqaEok5N9VxvPkATD8zTl1msK
+ XH1aG3r6JFlVTpGM3qbaLkIx8oM0Pkj1hyD2bjJJUbqpglN/talkG6I8OKgpkRZm
+ yet7S2Mp8QvuBBUwNz8TY2vJECy4Rhvaj1bP/5J9RPhcnQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f64b5abgx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 12:34:01 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-3810e5c5871so893054a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 05:34:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783082041; x=1783686841;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6HClnpnLgJbZHiHBgKqUqSMfhI5+WcDhllChwXjvU14=;
+ b=a/pnh+9gCPKcjhb02VqN2LeZIjSFoAKewHwEskfJwAdr2045+AwNmCAGI5+j+PGRDx
+ emZnDC6W0JYJ+qpzbeimWpYWwm3d3HDOGiLTbn8D2khkxWxpQlBYnGwVIvUgJKK9zM8V
+ 0I+AqS6rj8SNB7+ju153m0MTgI+hvW8YZ3ErTefDRyM4c10bFv9+LS8DOv0wGeIvuQQP
+ w8SVPGx/i8tdZ5SHrjBqVr1TwQH4f2MivPrP0s9uTzQPwHV6YJO9bTsaa4e4bybY2zDC
+ 1/OjTmoB8AvcA45/mbPWecLJwLYl1ipmg4CRs9FtWtGA/uOoilLlLmDJ8F+VieNyiP6H
+ 8v4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783082041; x=1783686841;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6HClnpnLgJbZHiHBgKqUqSMfhI5+WcDhllChwXjvU14=;
+ b=WhqowrTPrxzH74TMB9wLuzyuchpcLFGMILW6rtkeecSg1LFDOx3SGRfWpqvR1qghjo
+ asTAjUCNi+XqkhLFcUf4vpTLcMs4lA+QqT+WjpOmPbmpWWKhOQYjINHkIdKWacCre1ru
+ cxJvsp0alpjmulBkulKL9Le+Mr6DwO3P8yTdrmk8v33IQSmn7/nMf+KBjXh6dF36ELXD
+ zmlCT92bSGTqaix2gXG40iwt8TYL6psqXd4WEuLfJgxxjLP5gPf+exaa+39kL/Zuuuxe
+ Vl4ulc1c1hK5F70xaTw7wlcupHEelsUV0JQQfI2S2pxwh1z10WLOaf6NAloX0SDWHPGS
+ Mcfg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RryCizwUn6vUaKM8CIwVY3GTdbr6U34xKZnef1vbQmQwLVtyPG0naVGWkJw1miOWAQwzjZJoPgQ4Ao=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBeU+hJTB0BTNN2y85+D3ECn6Rwjs0qhPNLPzgrjpfxJ8BHTj7
+ aZxd20OAWATYZ917RYw76ej4cb7R5xwgmUO+52kZffNzOtdkgc40ZN393LLBu/lGHdaAV5reSON
+ GP0CnSqjKKc+P5qKjoqMxmRZPGHRKGF+YY1YyLhZQhUpGdVSeTFJjSdIZrNpd+gwJDvea9Gc=
+X-Gm-Gg: AfdE7clY8r3Rgz+EBSUNfYcLYYn3G798aj/Qr1XmRxd7sX3zXty/k1D93iAtHlpRcfO
+ ZgOkYuIzmVlydklNDCGwsyQkkoYhJMVxZg26sqYEdiOjMsXELTNzx9Qg/yJNfxjnx81K5DLv+HY
+ Z1HbplSfuxzETZbMmQVxVqttYrf1xIAiDMki2i9zXSbFukYklS30vHR+5q8oRj3zCTPJHWcorJ/
+ kiRszXPYehGNcCN+pRV4n6waZ/6nYZPicJnKWnpNWiVlAHMnfDoFMhT43Jvtd4mmLjGeZgzr5G7
+ t4WPca8PIOPuaKwuqNhyZvOFf7TdmHkMDNny/Lh88NvDQaDxpRgkhJZxKNJn0dnwlCaK2gOa+eZ
+ yqY0cDgt8Z2AviUggOqRiua3exg3FgbHi1nbn
+X-Received: by 2002:a17:90b:1806:b0:37f:db06:229c with SMTP id
+ 98e67ed59e1d1-380aa1cad60mr11111801a91.22.1783082040562; 
+ Fri, 03 Jul 2026 05:34:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:1806:b0:37f:db06:229c with SMTP id
+ 98e67ed59e1d1-380aa1cad60mr11111740a91.22.1783082039974; 
+ Fri, 03 Jul 2026 05:33:59 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30f31e7a2a8sm4556282eec.25.2026.07.03.05.33.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jul 2026 05:33:59 -0700 (PDT)
+Date: Fri, 3 Jul 2026 18:03:50 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260604-shikra-display-v2-0-b3c1b2b67edc@oss.qualcomm.com>
- <20260604-shikra-display-v2-2-b3c1b2b67edc@oss.qualcomm.com>
- <0bbfd60c-236e-43e5-a150-93738961f3de@kernel.org>
- <c72d2ac6-b1c8-4c96-a0c6-eafe18147ac0@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <c72d2ac6-b1c8-4c96-a0c6-eafe18147ac0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, boss@oss.qualcomm.com,
+ qc-display-maintainer@oss.qualcomm.com
+Subject: Re: [PATCH 2/4] drm/bridge: lontium-lt9611c: Increase MCU poll
+ timeout to 200ms
+Message-ID: <akesLiXidOELLya5@hu-mdsor-hyd.qualcomm.com>
+References: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
+ <20260611-lt9611-b4-send-v1-2-42abbcd3bb1e@oss.qualcomm.com>
+ <jtzitxsoqhuohc7ztpo4rzirpt6gxo3dcarztw3smn6pnr2vet@vmli6nyrhucm>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <jtzitxsoqhuohc7ztpo4rzirpt6gxo3dcarztw3smn6pnr2vet@vmli6nyrhucm>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEyMyBTYWx0ZWRfX3InOM/PN6TeX
+ 7R6AUWw79O4k59iPTiuHoJZ5CfLECubAWPNo9s9uAHwoe4cTO/lhlxoNLtilS5nCNuWclyzCIT+
+ CnMVqJoBbZ0GOKKVQr/XI/m2RnJMlE8=
+X-Authority-Analysis: v=2.4 cv=FOQrAeos c=1 sm=1 tr=0 ts=6a47ac39 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=wn4IccVi28QXfKnItucA:9 a=CjuIK1q_8ugA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: TzbJ8XMiho0S2jL-_BSpY3x1VEuIsh8M
+X-Proofpoint-GUID: TzbJ8XMiho0S2jL-_BSpY3x1VEuIsh8M
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEyMyBTYWx0ZWRfX9v1YLflEyTQ5
+ rrFD/IufMAzd0eUE4df1bmW+oBvPeudL1h9XHQz4nmFzFoVrgcHrD0Lz5hqB21iUkBZ+awx3nqQ
+ yHxavu4lel3XoUETZOeCpqBnLdh44MSsGDjMWH/OiCAstYIzsoyMb1GYpDeBTd8UV4xl8JRQCdp
+ Zmz0+HOSHbkJcd3o3sGr/jYBLFDrQ9R23oGbOyEuwNb+QZ7msr0kpebM1aQjp/fVJX92hbFC9fI
+ lzkR6DMPMhDzRBgvIw+pPEUHmYhrsIjlA+OxZF4XVZAnRUJ4Xkjkojtmnk/t9HMaJtWYHG3M4jV
+ g0dpGKR4UGHzQyrwZ5YB09BJGl50nSEVV8UTUX21CfSLbPNa0uPT1tH6NiMXMHF+UF09v4CN0iA
+ WYU20sViEdI7bDPK5Ux+0dRhdh5I+IPqEMNDwO9V5mkzlFBizeIXFUJVB+QhxtwUenMTkvy8U9+
+ DUkqrfwwrCXPS0P2r3A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607030123
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,23 +154,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 03/07/2026 11:23, Nabige Aala wrote:
+On Fri, Jun 26, 2026 at 11:25:03PM +0300, Dmitry Baryshkov wrote:
+> On Thu, Jun 11, 2026 at 02:44:57AM +0530, Mohit Dsor wrote:
+> > The on-chip MCU may take longer than 100ms to respond on some hardware
+> > variants or slower I2C buses, causing spurious -ETIMEDOUT errors during
+> > normal operation. Double the poll timeout from 100ms to 200ms to improve
+> > reliability without changing the poll interval.
+> > 
+> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 > 
-> On 6/4/2026 6:23 PM, Krzysztof Kozlowski wrote:
->> On 04/06/2026 14:30, Nabige Aala wrote:
->>> Enable the ILI7807S 1080x1920 video-mode DSI panel driver as a module,
->>> used on the Shikra CQM EVK board.
->>
->> Does Samsung Shikra CQM EVK have it? I guess no.
->>
->> Best regards,
->> Krzysztof
-> Hi Krzysztof,
+> Fixes, cc:stable.
+>
+We will add this fix as a part of base patch.
+> > ---
+> >  drivers/gpu/drm/bridge/lontium-lt9611c.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
 > 
-> I checked internally and found that there is no Samsung specific Shikra 
-
-Obviously :) Then think why such name is suitable here... This is not a
-Qualcomm defconfig, I hope that part is obvious.
-
-Best regards,
-Krzysztof
+> -- 
+> With best wishes
+> Dmitry
