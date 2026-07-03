@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84660C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 15:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39BBEC43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 15:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBF3010E610;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D84D010E61C;
 	Fri,  3 Jul 2026 15:33:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hwOMNDeD";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ArhJjOTX";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B51210E61C
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 15:33:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62D6310E610
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 15:33:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=iac3TWP2LbGWGNTTdB0fzWGRb+YRZFLpA6XOXczWMTc=; b=hwOMNDeDdoVGW+oFFOrA7Dgbo9
- HS3OcLESvjO1fYXsLfBETKi0znlvEsM6yTanvDMmUPPZ0lgtEvqC3RQaR5v5BpyscjBUlasBUIBW3
- BzcwjTmikx1ulD9/zrtx3SmXDAER1deBxg+mlCSha9G9jP5ebMIEYVUZd93K5Kf40SoAPpppoNq8j
- bnRtmHG+DsfbUnDB6rg2jzPOCGZjjgF+tD66h0xRG2f/3hyX4mY9MwI1vqyF97l3kRh0KnoxLWi/A
- dph+izMXBw3UcvtH8Cz/nmQ2QZ4Kar4hQL7THnjhljTzw+JDnjvUEnW1wY3o0hM4pIkLCJvZpmtrd
- sb5ytzUg==;
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=j+hs82VTl26SVVcJUwG/SI+AspMhcWhpAmy5on17Zm0=; b=ArhJjOTX34EncUi/UGfPj7srax
+ K1MSeoaXfFPg75mpeYzkJX4LWcp51lYAJqWIX1RT848Z1C+Iu4MwRItAgN5qPTRvjZ4ZkVWGKVODx
+ T108Pt00wBwNBNL886c22Jrv8lbltiSoM2kBaeAfzQAV+WhirNfznEK/eDDYwbDiRqPHYpmD+hNaL
+ U5tf0N5hBJCEw0cxXXl5vqS06R6YrOFcsgM52KmF9+x7u8IRKfwMOV+sbuk5MoxkPqfYnEbOBAVDb
+ 44JPkd/ZdCHB8DRNMMhf7Oyw9Wmy5B2v9s++s8ZosDnrG7oiux1VD0Yj8Z6+hAGspj6Ps6u3Rl2/2
+ 17RvdUrQ==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wffth-008Xuq-Lo; Fri, 03 Jul 2026 17:33:45 +0200
+ id 1wffte-008Xuq-Rv; Fri, 03 Jul 2026 17:33:43 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Fri, 03 Jul 2026 12:33:34 -0300
-Subject: [PATCH v3 1/3] drm/v3d: Associate BOs with every job that accesses
- them
+Subject: [PATCH v3 0/3] drm/v3d: Miscellaneous fixes
+Date: Fri, 03 Jul 2026 12:33:33 -0300
+Message-Id: <20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260703-v3d-cpu-job-fixes-v3-1-bc51b1f3eeb5@igalia.com>
-References: <20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com>
-In-Reply-To: <20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NTQ7CIBAF4Ks0rB3DT23AlfcwLigMLUZLA0o0T
+ e8ubVxo0uV7k/fNRBJGj4kcq4lEzD75MJQgdhUxvR46BG9LJpzyhjZUQRYWzPiEa2jB+RcmcC1
+ yemAtotCk7MaI66HMzpeSe58eIb7XF5kt7VdjdEPLDChQq4yUSiq05uQ7ffN6b8KdLFzmv4TcI
+ nghHBomeC1rZ+o/Yp7nD5hoB7T2AAAA
+X-Change-ID: 20260609-v3d-cpu-job-fixes-fbe2051bee3a
 To: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4406; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=dtuppXfK7OOlxnMftJlf684yDp+RWjdH8pXxxOIJw8I=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqR9ZTrhRHYEGkc7Uk2tzKulLG5ST7FXOdYnaNL
- ezyokDI9HWJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCakfWUwAKCRA/8w6Kdoj6
- qqYcCACXDpvNJDT78Uv8Q/GAK3fHdYMK+E6sOYL/O/sqrpAYBVvsT/CgErshOFeWyFVShCfZzqr
- eweTwmLPxvXjp6sTRiDqAIc1q8mO4678GDEsJ6LbMMib9R1oGkjL/vutxkugGWEf9qi34FyU/Ap
- 18zwmj/66Bg8sWTMZO6n/zN0/klUBS3OcC7DiJdm6eP97BwQb7YztMYpQdUNe1XIuOf2lTzu5jb
- iaPYF+VQwbAQjYTy7eU1kgA3Wfk9JYJeah8vhEZrd5fsxnDLPYIWvLMBU+sURdkPteKtoI25TtI
- fj2GIfG7Wp3uJD24Ga0dJN98OjnhTi9oReE54ELXm2LYAbra
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1883; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=F/gOO+mk55RutBtxZH/GufslTMMgKlbTiDVC2f0q1IU=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqR9ZTFXT/NdWqPOzm/ym7Of4ZG8U7iywYleOK0
+ fzgAJkKtqSJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCakfWUwAKCRA/8w6Kdoj6
+ qqEbB/9rR8U0M19ftKK/F7MTZNaMv/QF2aGMQ8Oi+k38xI9q7PT710hHfMj2JakdmttTNFEeSU1
+ dHxKrR9X4lAK+jtgKAErunmlAZ/zzEMOLb5cDQWYcQddi4ikpodzNVa/mNK7m7+hcOU5YH77wV7
+ qAlLc3vR3dVCodwbXISXrtfwhxGcGRXwahvY/dvutbAWkHbPG75wzPPt8AH8whqiSqokRM5T7Ye
+ /eZ5tfjdypYabGOUjYdBaALgCvjpsKOGub6xZN84Zs6ZF1FMv2J4D0i24Tg/6Go1/u7jDjha0Rw
+ Nb3kZxaiRjztTr+rVIX4g/sGiD3h7AyLTABox6yzeFY4wGIJ
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,123 +75,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A submission can expand into a chain of jobs (e.g. bin + render + cache
-clean), but v3d_lookup_bos() only looked up the user's BO list onto the
-*last* job of the submission. Every earlier job was left with bo_count == 0
-and an empty bo[] array.
+Being brief, this small series collects a correctness fix (#1) reported by
+Sashiko, a error-path fix (#2) reported by Sashiko, and a cleanup (#3)
+found while reading the code.
 
-As a consequence, when implicit synchronization happens in
-v3d_submit_lock_reservations(), earlier jobs get no implicit dependencies
-at all, as the loop is gated on job->bo_count and earlier jobs don't have
-any BO attached to them. With that, the RENDER job could therefore be
-dispatched to the hardware and read a BO while another context was still
-writing it, leading to data corruption.
+The first patch is the only notable one: a v3d submission expands into a
+chain of jobs (e.g. BIN + RENDER + CACHE CLEAN), but the BO list was only
+ever attached to the last job. Since implicit synchronization is added
+per-job and gated on job->bo_count, every job before the last one silently
+skipped implicit dependencies. In practice the RENDER job could read a
+buffer object while another context was still writing it. It's fixed by
+looking up the BOs onto every job that references them.
 
-Fix this by calling v3d_lookup_bos() for each job that references the
-submission's BOs, so every job carries its own bo[]/bo_count and picks up
-the correct implicit dependencies during reservation locking.
+Best regards,
+- Maíra
 
-Fixes: dffa9b7a78c4 ("drm/v3d: Add missing implicit synchronization.")
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>
+To: Iago Toral Quiroga <itoral@igalia.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com
+Cc: dri-devel@lists.freedesktop.org
+
+v1 -> v2: https://lore.kernel.org/r/20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com
+
+- [1/3] Don't attach implicit dependencies to BIN jobs (Iago Toral)
+- [2/3, 3/3] Add Iago's R-b (Iago Toral)
+
+v2 -> v3: https://lore.kernel.org/r/20260618-v3d-cpu-job-fixes-v2-0-fec132484fc4@igalia.com
+
+- [1/3] Add a comment clarifing why we don't attach BOs to BIN jobs (Iago Toral)
+- [1/3] Add Iago's R-b (Iago Toral)
+
 ---
- drivers/gpu/drm/v3d/v3d_submit.c | 42 ++++++++++++++++++++++------------------
- 1 file changed, 23 insertions(+), 19 deletions(-)
+Maíra Canal (3):
+      drm/v3d: Associate BOs with every job that accesses them
+      drm/v3d: Reject invalid indirect BO handle in indirect CSD setup
+      drm/v3d: Use write_to_buffer() helper in performance query copy
 
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index ee2ac2540ed5..9d23935b05dd 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -68,7 +68,6 @@ v3d_submit_unlock_reservations(struct v3d_submit *submit)
- /**
-  * v3d_lookup_bos() - Sets up job->bo[] with the GEM objects
-  * referenced by the job.
-- * @dev: DRM device
-  * @file_priv: DRM file for this fd
-  * @job: V3D job being set up
-  * @bo_handles: GEM handles
-@@ -82,23 +81,19 @@ v3d_submit_unlock_reservations(struct v3d_submit *submit)
-  * failure, because that will happen at `v3d_job_free()`.
-  */
- static int
--v3d_lookup_bos(struct v3d_submit *submit, u64 bo_handles, u32 bo_count)
-+v3d_lookup_bos(struct drm_file *file_priv, struct v3d_job *job,
-+	       u64 bo_handles, u32 bo_count)
- {
--	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
--
--	last_job->bo_count = bo_count;
--
--	if (!last_job->bo_count) {
--		/* See comment on bo_index for why we have to check
--		 * this.
--		 */
--		drm_warn(&submit->v3d->drm, "Rendering requires BOs\n");
-+	if (!bo_count) {
-+		drm_warn(&job->v3d->drm, "Rendering requires BOs\n");
- 		return -EINVAL;
- 	}
- 
--	return drm_gem_objects_lookup(submit->file_priv,
-+	job->bo_count = bo_count;
-+
-+	return drm_gem_objects_lookup(file_priv,
- 				      (void __user *)(uintptr_t)bo_handles,
--				      last_job->bo_count, &last_job->bo);
-+				      job->bo_count, &job->bo);
- }
- 
- static void
-@@ -446,7 +441,8 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
- 	if (IS_ERR(clean_job))
- 		return PTR_ERR(clean_job);
- 
--	return v3d_lookup_bos(submit, args->bo_handles, args->bo_handle_count);
-+	return v3d_lookup_bos(submit->file_priv, &job->base,
-+			      args->bo_handles, args->bo_handle_count);
- }
- 
- static void
-@@ -1085,6 +1081,17 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto fail;
- 
-+	/*
-+	 * We don't associate the BOs with the BIN job. Fences are only
-+	 * attached to the last job in the submission chain, and BIN jobs
-+	 * don't need implicit dependencies since depending on results from
-+	 * another context is not a realistic scenario for binning.
-+	 */
-+	ret = v3d_lookup_bos(submit.file_priv, &render->base,
-+			     args->bo_handles, args->bo_handle_count);
-+	if (ret)
-+		goto fail;
-+
- 	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
- 		clean_job = v3d_submit_add_job(&submit, V3D_CACHE_CLEAN);
- 		if (IS_ERR(clean_job)) {
-@@ -1097,10 +1104,6 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto fail;
- 
--	ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
--	if (ret)
--		goto fail;
--
- 	ret = v3d_submit_lock_reservations(&submit);
- 	if (ret)
- 		goto fail;
-@@ -1359,7 +1362,8 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	 * the CSD and clean jobs in the case of indirect CSD job.
- 	 */
- 	if (args->bo_handle_count) {
--		ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
-+		ret = v3d_lookup_bos(submit.file_priv, &cpu_job->base,
-+				     args->bo_handles, args->bo_handle_count);
- 		if (ret)
- 			goto fail;
- 	}
-
--- 
-2.54.0
+ drivers/gpu/drm/v3d/v3d_sched.c  | 11 ++--------
+ drivers/gpu/drm/v3d/v3d_submit.c | 44 +++++++++++++++++++++++-----------------
+ 2 files changed, 27 insertions(+), 28 deletions(-)
+---
+base-commit: 903f8773ee96c5dc5fb9aec65227f39fd3e7a1dc
+change-id: 20260609-v3d-cpu-job-fixes-fbe2051bee3a
 
