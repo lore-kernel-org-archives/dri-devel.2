@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87798C43602
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2730FC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D331F10F601;
-	Fri,  3 Jul 2026 03:02:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 832EB10F607;
+	Fri,  3 Jul 2026 03:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="fE0Uw2/G";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="wlVFbR81";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38BDB10F607
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:08 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-493bab44440so355825e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:08 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8A1610F607
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:10 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-49241dbf9c1so432565e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047726; x=1783652526;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047729; x=1783652529;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rwRdstWb2Ca9k/qyCFyUDUWmOvWt84KgtkInv8204cw=;
- b=fE0Uw2/GYHEYj0zYdS/9X2ZKVgo36XFRHbDqIhj/QkNKVGWrQ7tZVv3A3REivspr79
- UEGxNh9Odc80OWPng2wvVLugDXnreAXrhqyYvuNqDjHmIMlONqDl3lK5woXOZLeK/bUp
- rNTtvRo7f1AlyMIj4smH3JxYeyCEtbnaN01bEPikGB1Uzg77h5JOkqBmCLZUR6PVgnbe
- r+I1d3kBg6OZVx7/blthRfucCX5nXoPnCWYZ1ueCtIHjw8TXc9aXbudXBDmaSMvNWNRx
- nLiwJ4H6nR/AHxQUS2015kKb8lz1F+cm5KmihIIJcJ35BjkVfYCXIDO1yz4xFn/iMDD9
- EmiQ==
+ bh=oJo7TDfciSOR3fPsvfGRU1Um27ufdThVMtKgOOefwMI=;
+ b=wlVFbR81uO56Za7adDHgJAC7c7gP5t9GPXBSwTOlO1WSH9lsUDRXMwPhpW9RoVkCpY
+ 3JWMsrUZLjtbeIY4VJTPjBuwBT/gLAzXRGmyyoOY48eH1fWC6/Bgwz/V2FhWpTj0VkfU
+ OdEcprwu0JnE55Y7RybDA5uYtYt2wpNGIa3jxJkzymQWz06X6LOF21KepiDPywdqxJK7
+ WdXzYGd+Do2CkbRrQnRXdZ+tnykgsSq5D9scXtk6qSV4UKqOqFSVXyidrho7QeE/5x2l
+ j0Z/CIRUh7co6HEVOp2rQLMQjPq/Ztzv7XvtmTsl8EEi5FuUFaM3YvatsiZPq+uN74yc
+ Fl8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047726; x=1783652526;
+ d=1e100.net; s=20251104; t=1783047729; x=1783652529;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=rwRdstWb2Ca9k/qyCFyUDUWmOvWt84KgtkInv8204cw=;
- b=daJRz0xHvE71qyIRJVG+nmP9ut3nB7BCxXl2AaW9+ZcMHZnROhBOR1IJJXWaVQZe8+
- 0SRORw/ijVjGpDeXt6lZ1tNNWoTjtDglx+ExU9SyEA6f00tUl86z5vL9bCmlqjnS9UdH
- 4la3/9DiVJHTTHj1vRHLnXD1xFdOs0qFAFhmVsyfXsFZ8y/xk7CTUP5WmqBIvhZBzrjO
- ZFgaHBC3N/ysPkZZYisK+vxBPJ6sMKv4jKzgL3mn6yOjx3Ld/74jxu2HlWtyEV9KM4T0
- OXLXh4gMNDDBNFcNkcRc/MCHpFscG07pYgKCtSJxwpWjMY3LaS7lXfwSovFvHoZIASFx
- 3ZlA==
-X-Gm-Message-State: AOJu0YxRNnu/yBLdSnYL2k96U7NMp9cHF5eA1FgMYqeYWagmJHH7Czvx
- fRdMX5WciS41eC5GOv+F5x9U4MPDHe9W6r1BcK8xQTlI8oWucn9KZffwymmQ2cOMng==
-X-Gm-Gg: AfdE7ckkESByPLyc0VyPZFJyVZjyDYVsdgOkxKbx/uYHIqVTDTDzCf0uJy0uTCWOv67
- SanioaQzUI4ZtVZbSQ1JtJhvMiQkb3ycGfaEgnk9cuBhYtbWobtSQG8J0/QBHE5fZSVw2vzndw5
- xjoscaqlDgnyNI8vB7paEFVcfJm1T7tw4ZssnwedFvDx9k+GUp27Dt409g/uoNleuLAsuG9pm6T
- CKJXlmB2UHLdjqloB+s/lwRWVUdKqhr8OJ7JAdI2HSfVuvbNsNLg4FwfCl7lHsQhhJdNi1wlllk
- bWOMg5ry1vd+ddUYaMDYpJ5983TcjVTUIexpOpyDtlekuCBKTriuI2vKBCgQ/8v18iKSc3mtgp0
- bExb8tMpPNBclYR59JQ7J1caXbP9JN+JL/el/QmGoKoEm64dwdbh6VUBRSxxBr5Fa6IZMnAEtRM
- QCrProyzq74Jb29dflwX+AwU6T+ZkRPFDY0G5xuPWaduQw6UqDYXnCW8+n
-X-Received: by 2002:a05:600c:34ca:b0:490:b26c:64ad with SMTP id
- 5b1f17b1804b1-493c9b4d759mr26290045e9.5.1783047726415; 
- Thu, 02 Jul 2026 20:02:06 -0700 (PDT)
+ bh=oJo7TDfciSOR3fPsvfGRU1Um27ufdThVMtKgOOefwMI=;
+ b=moKFcEvkFWXZKeT+FlJiHe+YbDgu3b633i+JynvY6o7PcviA2gOofy97bc06wb+d0Y
+ /CU5hQ+JGY6BppGVP9+ceG7FaNYxVOrKcEZdXlxKaSLWjTXHbL8Mqk+3b1+q2J9YFFGA
+ /fuhD6DSHU6R8As4777bMkJ3pV0cskyGD/Yfu958snNk7uayiw8XBsi8unFkd0nZ5pg5
+ s4dIvglg9mVnjo1DnCTWGZ0PUUfAL8erh1QIK1FnOdKUFkLFYDLmIM45SEivbLNQAXEs
+ yJ9W8XCLGj3sVKU/r5Jd4gKPNOROfHHZ/BqU5xubxxqfWrvonhxZMfY/iM2D9q3jOOol
+ p6pg==
+X-Gm-Message-State: AOJu0YzTHhGgjrngeGpZTEp+aYluUmHq8+JzV3LCHwsXOuye74FF9y31
+ Bu4yCf3IiJOCcxzy/sk65d7xpGXZ2/iqAQTt5z8JQXqJVSGgArMdh1cTAWUdn/QJzrZ9kdHkU1W
+ 8QgY8eAP9
+X-Gm-Gg: AfdE7clazrpl7lGvdBWAhVK4dTkp8B6knc1wLh5Tfx2bbS+usVVBJaovRgUWvWJy6X0
+ BgXpiNzQZkTsAbxW4Gntk+WDWpjjkx0jm5WCMGOWHTAJ9sWrMfyfcS3Tpvq/h8ew8AjQupPK06i
+ JnNrsRrhFZBTbEzPNiY4qLzuf6PBlmetM0mEtAQlRsSGlLWWOgKIZKchkOIjNwx0a5Nh6mWjxkC
+ iNYKMJS5EurdbtCdXm77PNFKfkF2wfddzdoKm70QIc2dk12MJdFU3USvEbpeyE++H4TRE1FKuZc
+ FgVMOs9kEy6TrvU6LGXb9FLqgQsrM3uQe2Rcl7y7+ipL7Yk2tAy6q6xiYumDH1HR7P5nrc7JoM1
+ N9FvkN8OB9uJ9xdrvxDZLv6NeoAFUrchki7yjUtdgw0tgUiqw7T3atDLxodWnuZ99BM0Jgrji3+
+ yoAWYYibI3+xwWGMfRHQWcZwQfGVpbLy7dPANnHJIQzWHyWNEpi/lxLfIA
+X-Received: by 2002:a7b:c34e:0:b0:493:ad8a:e7fd with SMTP id
+ 5b1f17b1804b1-493c3cd9d76mr72546515e9.14.1783047729025; 
+ Thu, 02 Jul 2026 20:02:09 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.02.04
+ ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.02.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:02:04 -0700 (PDT)
+ Thu, 02 Jul 2026 20:02:07 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
@@ -71,14 +72,16 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 14/18] rust: add sysfs device attribute groups
-Date: Fri,  3 Jul 2026 04:01:01 +0100
-Message-ID: <20260703030123.2814-15-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 15/18] rust: drm: support hardware cursor planes with
+ sleepable event delivery
+Date: Fri,  3 Jul 2026 04:01:02 +0100
+Message-ID: <20260703030123.2814-16-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260703030123.2814-1-mike@fireburn.co.uk>
 References: <20260617150232.2210-1-mike@fireburn.co.uk>
  <20260703030123.2814-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,289 +98,353 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A driver that exposes control files under sysfs -- for instance DisplayLink's
-evdi, whose /sys/devices/evdi/{count,add,remove_all} files let the daemon create
-and destroy virtual display cards -- had no safe way to do so from Rust.
+A driver that forwards a hardware cursor plane's contents to userspace (e.g.
+DisplayLink's evdi, whose daemon composites the cursor itself) needs to hand the
+client a GEM handle for the cursor bitmap on each update. drm_gem_handle_create()
+may sleep, so the connected file must be reachable from sleepable context -- but
+drm::event::EventChannel stored the receiver under the device event_lock (a
+spinlock).
 
-Add a sysfs module: a driver implements DeviceAttributes (an ATTRS list plus
-show()/store(), dispatched by attribute name) for the type it stores as a
-device's driver data, and AttributeGroup::register_root() creates a standalone
-root device (root_device_register(), under /sys/devices/<name>) hosting the
-files. Reads and writes trampoline to show()/store() with the driver data
-recovered from the device; the file mode (Attr::ro/wo/rw) gates access. The group
-removes the files, reclaims the driver data and unregisters the device on drop.
+Rework EventChannel to guard the receiver with a Mutex instead: send() holds it
+across the event_lock-protected reserve+queue (so delivery still cannot race a
+close), and a new with_receiver() runs a closure with the connected File while
+holding the mutex, allowing a sleepable GEM-handle creation without the file
+closing underneath it (notify_close() takes the same mutex). new() now takes a
+lock class so the class lives in the driver module. connect/disconnect/
+notify_close/is_connected no longer need the device.
+
+Add the accessors such a cursor consumer needs:
+  - plane state crtc_x()/crtc_y() (cursor position) and hotspot_x()/hotspot_y();
+  - Framebuffer::format() (FourCC) and Framebuffer::create_handle() (a GEM handle
+    for plane-0 in a given file).
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
 ---
- rust/kernel/lib.rs   |   1 +
- rust/kernel/sysfs.rs | 245 +++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 246 insertions(+)
- create mode 100644 rust/kernel/sysfs.rs
+ rust/kernel/drm/event.rs           | 179 +++++++++++++++--------------
+ rust/kernel/drm/kms/framebuffer.rs |  28 +++++
+ rust/kernel/drm/kms/plane.rs       |  20 ++++
+ 3 files changed, 138 insertions(+), 89 deletions(-)
 
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 8baa13079071..13729ec06333 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -128,6 +128,7 @@
- pub mod std_vendor;
- pub mod str;
- pub mod sync;
-+pub mod sysfs;
- pub mod task;
- pub mod time;
- pub mod tracepoint;
-diff --git a/rust/kernel/sysfs.rs b/rust/kernel/sysfs.rs
-new file mode 100644
-index 000000000000..f6df17c5013d
---- /dev/null
-+++ b/rust/kernel/sysfs.rs
-@@ -0,0 +1,245 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Sysfs device attributes.
-+//!
-+//! A driver can expose a set of named sysfs files on a device by implementing [`DeviceAttributes`]
-+//! for the type it stores as that device's driver data, and registering an [`AttributeGroup`].
-+//! Reads and writes are dispatched by attribute name to the type's [`show`](DeviceAttributes::show)
-+//! and [`store`](DeviceAttributes::store) methods; the file mode (see [`Attr`]) controls which are
-+//! reachable from userspace.
-+//!
-+//! [`AttributeGroup::register_root`] additionally creates a standalone "root" device
-+//! (`root_device_register()`, appearing under `/sys/devices/<name>`) to host the group -- the shape
-+//! DisplayLink's evdi uses for its `add`/`remove`/`count` control files.
-+//!
-+//! C headers: [`include/linux/sysfs.h`](srctree/include/linux/sysfs.h),
-+//! [`include/linux/device.h`](srctree/include/linux/device.h)
-+
-+use crate::{
-+    bindings,
-+    error::{from_err_ptr, to_result},
-+    page::PAGE_SIZE,
-+    prelude::*,
-+    types::ForeignOwnable,
-+    ThisModule,
-+};
-+
-+/// Definition of one sysfs attribute file: its name and permission mode (e.g. `0o444` read-only,
-+/// `0o200` write-only, `0o644` read-write).
-+pub struct Attr {
-+    /// The file name.
-+    pub name: &'static CStr,
-+    /// The permission bits (`umode_t`).
-+    pub mode: u16,
-+}
-+
-+impl Attr {
-+    /// A read-only (`0o444`) attribute.
-+    pub const fn ro(name: &'static CStr) -> Self {
-+        Self { name, mode: 0o444 }
-+    }
-+    /// A write-only (`0o200`) attribute.
-+    pub const fn wo(name: &'static CStr) -> Self {
-+        Self { name, mode: 0o200 }
-+    }
-+    /// A read-write (`0o644`) attribute.
-+    pub const fn rw(name: &'static CStr) -> Self {
-+        Self { name, mode: 0o644 }
-+    }
-+}
-+
-+/// The show/store behaviour of a device's sysfs attribute group.
-+///
-+/// Implemented by the type a device stores as its driver data. A shared reference to it is handed
-+/// to [`show`](Self::show)/[`store`](Self::store), dispatched by the attribute `name`.
-+pub trait DeviceAttributes: Send + Sync + 'static {
-+    /// The attributes exposed by this group.
-+    const ATTRS: &'static [Attr];
-+
-+    /// Handle a read of attribute `name`, writing up to one page into `buf` and returning the
-+    /// number of bytes written. Only called for readable (`ro`/`rw`) attributes.
-+    fn show(&self, name: &CStr, buf: &mut [u8]) -> Result<usize> {
-+        let _ = (name, buf);
-+        Err(EINVAL)
-+    }
-+
-+    /// Handle a write of `buf` to attribute `name`. Only called for writable (`wo`/`rw`)
-+    /// attributes.
-+    fn store(&self, name: &CStr, buf: &[u8]) -> Result {
-+        let _ = (name, buf);
-+        Err(EINVAL)
-+    }
-+}
-+
-+/// A registered sysfs attribute group hosted on a `root_device_register()` device.
-+///
-+/// Dropping it removes the files, reclaims the driver data, and unregisters the root device.
-+pub struct AttributeGroup<T: DeviceAttributes> {
-+    root: *mut bindings::device,
-+    /// Backing storage for the `device_attribute`s handed to `device_create_file()`; must stay
-+    /// alive (and not move) for as long as the files exist, so it lives in this heap allocation.
-+    attrs: KVec<bindings::device_attribute>,
-+    _p: core::marker::PhantomData<T>,
-+}
-+
-+// SAFETY: the root device and its attributes are internally synchronized by the driver core; `T`
-+// is `Send + Sync`.
-+unsafe impl<T: DeviceAttributes> Send for AttributeGroup<T> {}
-+// SAFETY: see `Send`.
-+unsafe impl<T: DeviceAttributes> Sync for AttributeGroup<T> {}
-+
-+impl<T: DeviceAttributes> AttributeGroup<T> {
-+    /// # Safety
-+    /// `dev`'s driver data is a live `T` set via [`device::Device::set_drvdata`].
-+    unsafe extern "C" fn show_trampoline(
-+        dev: *mut bindings::device,
-+        attr: *mut bindings::device_attribute,
-+        buf: *mut crate::ffi::c_char,
-+    ) -> isize {
-+        // SAFETY: `dev` is a valid device with `T` driver data (invariant of `register_root`).
-+        let ctx = unsafe { borrow_ctx::<T>(dev) };
-+        // SAFETY: the attribute name is a valid C string for the callback's duration.
-+        let name = unsafe { as_cstr((*attr).attr.name) };
-+        // SAFETY: sysfs guarantees `buf` is a writable page.
-+        let slice = unsafe { core::slice::from_raw_parts_mut(buf.cast::<u8>(), PAGE_SIZE) };
-+        match T::show(ctx, name, slice) {
-+            Ok(n) => core::cmp::min(n, PAGE_SIZE) as isize,
-+            Err(e) => e.to_errno() as isize,
-+        }
-+    }
-+
-+    /// # Safety
-+    /// `dev`'s driver data is a live `T` set via [`device::Device::set_drvdata`].
-+    unsafe extern "C" fn store_trampoline(
-+        dev: *mut bindings::device,
-+        attr: *mut bindings::device_attribute,
-+        buf: *const crate::ffi::c_char,
-+        count: usize,
-+    ) -> isize {
-+        // SAFETY: as in `show_trampoline`.
-+        let ctx = unsafe { borrow_ctx::<T>(dev) };
-+        // SAFETY: the attribute name is a valid C string for the callback's duration.
-+        let name = unsafe { as_cstr((*attr).attr.name) };
-+        // SAFETY: sysfs guarantees `buf` holds `count` readable bytes.
-+        let slice = unsafe { core::slice::from_raw_parts(buf.cast::<u8>(), count) };
-+        match T::store(ctx, name, slice) {
-+            Ok(()) => count as isize,
-+            Err(e) => e.to_errno() as isize,
-+        }
-+    }
-+
-+    fn make_attr(a: &Attr) -> bindings::device_attribute {
-+        let mut da: bindings::device_attribute = bindings::device_attribute::default();
-+        da.attr.name = a.name.as_char_ptr();
-+        da.attr.mode = a.mode;
-+        da.__bindgen_anon_1.show = Some(Self::show_trampoline);
-+        da.__bindgen_anon_2.store = Some(Self::store_trampoline);
-+        da
-+    }
-+
-+    /// Create a root device named `name` and expose `T`'s attributes on it.
+diff --git a/rust/kernel/drm/event.rs b/rust/kernel/drm/event.rs
+index 39d65d2a8fb2..dadb38c7df20 100644
+--- a/rust/kernel/drm/event.rs
++++ b/rust/kernel/drm/event.rs
+@@ -13,8 +13,8 @@
+ //! target `struct drm_file` must be valid for that whole critical section. Reading the target file
+ //! pointer outside the lock is a classic source of use-after-free/NULL-deref crashes (a driver's
+ //! flush worker racing a client disconnect). [`EventChannel`] encodes that rule in its API: the
+-//! receiver file is only ever touched while `event_lock` is held, so registration, teardown and
+-//! delivery cannot race.
++//! receiver file lives behind a mutex and [`send`](EventChannel::send) holds it across the whole
++//! `event_lock`-protected reserve+queue, so registration, teardown and delivery cannot race.
+ //!
+ //! C header: [`include/drm/drm_file.h`](srctree/include/drm/drm_file.h)
+ 
+@@ -29,8 +29,9 @@
+     error::to_result,
+     interrupt,
+     prelude::*,
++    sync::{LockClassKey, Mutex},
+ };
+-use core::{cell::UnsafeCell, mem};
++use core::mem;
+ 
+ /// A driver-defined DRM event payload.
+ ///
+@@ -63,94 +64,101 @@ struct EventStorage<T: EventPayload> {
+ 
+ /// A per-device channel that delivers driver events to the [`File`] registered as the receiver.
+ ///
+-/// The receiver pointer is stored under the owning device's `event_lock` — the same lock the DRM
+-/// core requires held while queuing events — so [`connect`](Self::connect),
+-/// [`disconnect`](Self::disconnect), [`notify_close`](Self::notify_close) and [`send`](Self::send)
+-/// are all serialized against each other and against the core's own event handling. This makes the
+-/// "send to a file that just disconnected" race unrepresentable.
++/// The receiver `drm_file` is stored behind a [`Mutex`], not the device `event_lock`, so it can be
++/// touched from sleepable context — in particular so a driver can create a GEM handle for the
++/// connected client (`drm_gem_handle_create` may sleep) via [`with_receiver`](Self::with_receiver).
++/// [`send`](Self::send) still acquires the device's `event_lock` (as the DRM core requires) while
++/// holding the mutex, so the receiver pointer is valid for the whole reserve+queue and cannot race
++/// [`disconnect`](Self::disconnect)/[`notify_close`](Self::notify_close). This makes the classic
++/// "deliver to a file that just closed" use-after-free unrepresentable.
+ ///
+-/// A channel is bound to exactly one [`Device`]: always pass the same device to every method.
++/// A channel is bound to exactly one [`Device`]: always pass the same device to [`send`](Self::send).
+ /// Drivers must call [`notify_close`](Self::notify_close) from their `postclose` hook (and/or
+ /// [`disconnect`](Self::disconnect) when tearing the logical connection down) so the receiver
+ /// pointer never outlives the file it refers to.
++#[pin_data]
+ pub struct EventChannel {
+-    /// The receiver `drm_file`, or null when no client is connected.
++    /// The receiver `drm_file` address, or `0` when no client is connected.
+     ///
+-    /// Only ever accessed while the owning device's `event_lock` is held.
+-    receiver: UnsafeCell<*mut bindings::drm_file>,
++    /// A `usize` (not a raw pointer) so the `Mutex` is `Send`/`Sync` on its own; the value is only
++    /// ever turned back into a `*mut drm_file` while the mutex is held.
++    #[pin]
++    receiver: Mutex<usize>,
+ }
+ 
+-// SAFETY: `receiver` is only accessed while holding the owning device's `event_lock`, which
+-// serializes all access across threads.
+-unsafe impl Send for EventChannel {}
+-// SAFETY: See `Send`.
+-unsafe impl Sync for EventChannel {}
+-
+ impl EventChannel {
+     /// Create a new, disconnected channel.
+-    pub const fn new() -> Self {
+-        Self {
+-            receiver: UnsafeCell::new(core::ptr::null_mut()),
+-        }
 +    ///
-+    /// `T` becomes the device's driver data; the attribute callbacks recover it by name-dispatch.
-+    pub fn register_root(
-+        name: &CStr,
-+        module: &'static ThisModule,
-+        ctx: impl PinInit<T, Error>,
-+    ) -> Result<KBox<Self>> {
-+        // Build the attribute array up front (no external resources yet, so a failure here needs
-+        // no cleanup).
-+        let mut attrs: KVec<bindings::device_attribute> =
-+            KVec::with_capacity(T::ATTRS.len(), GFP_KERNEL)?;
-+        for a in T::ATTRS {
-+            attrs.push(Self::make_attr(a), GFP_KERNEL)?;
-+        }
-+        // Box the context; its foreign pointer becomes the device's driver data.
-+        let ctx_ptr = KBox::pin_init(ctx, GFP_KERNEL)?.into_foreign();
-+
-+        // SAFETY: `name` is a valid C string; `module` is this module.
-+        let root = match from_err_ptr(unsafe {
-+            bindings::__root_device_register(name.as_char_ptr(), module.as_ptr())
-+        }) {
-+            Ok(r) => r,
-+            Err(e) => {
-+                // Reclaim the context box we have not attached anywhere yet.
-+                // SAFETY: `ctx_ptr` came from `into_foreign()` above and was not consumed.
-+                drop(unsafe { <Pin<KBox<T>> as ForeignOwnable>::from_foreign(ctx_ptr) });
-+                return Err(e);
-+            }
-+        };
-+        // SAFETY: `root` is a freshly-registered, valid device; `ctx_ptr` is its driver data now.
-+        unsafe { bindings::dev_set_drvdata(root, ctx_ptr) };
-+
-+        // Register each file against its stable slot in `attrs`.
-+        for da in attrs.iter() {
-+            if let Err(e) = to_result(unsafe { bindings::device_create_file(root, da) }) {
-+                // `root_device_unregister` (device_del) removes any files created so far;
-+                // reclaim the context box first.
-+                Self::teardown(root);
-+                return Err(e);
-+            }
-+        }
-+
-+        match KBox::new(
-+            Self {
-+                root,
-+                attrs,
-+                _p: core::marker::PhantomData,
-+            },
-+            GFP_KERNEL,
-+        ) {
-+            Ok(group) => Ok(group),
-+            Err(e) => {
-+                Self::teardown(root);
-+                Err(e.into())
-+            }
-+        }
++    /// `key` is the lock class for the receiver mutex; pass
++    /// [`static_lock_class!()`](crate::sync::static_lock_class) from the driver so the class lives
++    /// in the driver module.
++    #[inline]
++    pub fn new(key: Pin<&'static LockClassKey>) -> impl PinInit<Self> {
++        pin_init!(Self {
++            receiver <- Mutex::new(0, c"EventChannel::receiver", key),
++        })
+     }
+ 
+     /// Register `file` as the receiver for events sent through this channel.
+     ///
+-    /// Any previously registered file is replaced. Runs under `dev`'s `event_lock`.
+-    pub fn connect<D: drm::Driver, C: DeviceContext, F: DriverFile>(
+-        &self,
+-        dev: &Device<D, C>,
+-        file: &File<F>,
+-    ) {
+-        let irq = interrupt::local_interrupt_disable();
+-        let _guard = dev.event_lock().lock_with(&irq);
+-        // SAFETY: `receiver` is only accessed under `event_lock`, which is held here.
+-        unsafe { *self.receiver.get() = file.as_raw() };
++    /// Any previously registered file is replaced.
++    pub fn connect<F: DriverFile>(&self, file: &File<F>) {
++        *self.receiver.lock() = file.as_raw() as usize;
+     }
+ 
+     /// Clear the receiver, dropping any future events on the floor until the next
+-    /// [`connect`](Self::connect). Runs under `dev`'s `event_lock`.
+-    pub fn disconnect<D: drm::Driver, C: DeviceContext>(&self, dev: &Device<D, C>) {
+-        let irq = interrupt::local_interrupt_disable();
+-        let _guard = dev.event_lock().lock_with(&irq);
+-        // SAFETY: `receiver` is only accessed under `event_lock`, which is held here.
+-        unsafe { *self.receiver.get() = core::ptr::null_mut() };
++    /// [`connect`](Self::connect).
++    #[inline]
++    pub fn disconnect(&self) {
++        *self.receiver.lock() = 0;
+     }
+ 
+     /// Clear the receiver if it is `file`.
+     ///
+     /// Intended to be called from the driver's `postclose` hook so the stored pointer never
+-    /// outlives the file. Runs under `dev`'s `event_lock`.
+-    pub fn notify_close<D: drm::Driver, C: DeviceContext, F: DriverFile>(
+-        &self,
+-        dev: &Device<D, C>,
+-        file: &File<F>,
+-    ) {
+-        let irq = interrupt::local_interrupt_disable();
+-        let _guard = dev.event_lock().lock_with(&irq);
+-        // SAFETY: `receiver` is only accessed under `event_lock`, which is held here.
+-        unsafe {
+-            if *self.receiver.get() == file.as_raw() {
+-                *self.receiver.get() = core::ptr::null_mut();
+-            }
++    /// outlives the file.
++    pub fn notify_close<F: DriverFile>(&self, file: &File<F>) {
++        let mut recv = self.receiver.lock();
++        if *recv == file.as_raw() as usize {
++            *recv = 0;
+         }
+     }
+ 
+-    /// Whether a receiver is currently connected. Runs under `dev`'s `event_lock`.
+-    pub fn is_connected<D: drm::Driver, C: DeviceContext>(&self, dev: &Device<D, C>) -> bool {
+-        let irq = interrupt::local_interrupt_disable();
+-        let _guard = dev.event_lock().lock_with(&irq);
+-        // SAFETY: `receiver` is only accessed under `event_lock`, which is held here.
+-        !unsafe { *self.receiver.get() }.is_null()
++    /// Whether a receiver is currently connected.
++    #[inline]
++    pub fn is_connected(&self) -> bool {
++        *self.receiver.lock() != 0
 +    }
 +
-+    /// Reclaim the driver-data box and unregister the root device (which removes its files).
-+    fn teardown(root: *mut bindings::device) {
-+        // SAFETY: `root` is a valid registered device whose driver data is a `Pin<KBox<T>>` (or
-+        // NULL); `dev_get_drvdata` returns the pointer stashed in `register_root`.
-+        let ptr = unsafe { bindings::dev_get_drvdata(root) };
-+        if !ptr.is_null() {
-+            // SAFETY: `ptr` came from `Pin::<KBox<T>>::into_foreign`.
-+            drop(unsafe { <Pin<KBox<T>> as ForeignOwnable>::from_foreign(ptr) });
++    /// Run `f` with the connected receiver [`File`], if any, returning its result.
++    ///
++    /// The receiver mutex is held for the duration, so `f` may sleep (e.g. to create a GEM handle
++    /// in the client's file with [`Framebuffer::create_handle`](crate::drm::kms::framebuffer::Framebuffer::create_handle))
++    /// without the file being closed underneath it: [`notify_close`](Self::notify_close) takes the
++    /// same mutex and so blocks until `f` returns. Returns [`None`] if no client is connected.
++    ///
++    /// # Type parameter
++    ///
++    /// `F` must be the same [`DriverFile`] type the receiver was [`connect`](Self::connect)ed with.
++    pub fn with_receiver<F: DriverFile, R>(&self, f: impl FnOnce(&File<F>) -> R) -> Option<R> {
++        let recv = self.receiver.lock();
++        let raw = *recv as *mut bindings::drm_file;
++        if raw.is_null() {
++            return None;
 +        }
-+        // SAFETY: `root` was created by `__root_device_register` and not yet unregistered.
-+        unsafe { bindings::root_device_unregister(root) };
++        // SAFETY: `raw` was stored from a live `File<F>` by `connect`; it stays valid because
++        // `notify_close`/`disconnect` (which clear it) take this same mutex, held here.
++        let file = unsafe { File::<F>::from_raw(raw) };
++        Some(f(file))
+     }
+ 
+     /// Deliver `payload` to the connected receiver.
+     ///
+     /// Allocates the backing event, fills its `drm_event` header, and hands it to the DRM core
+-    /// under `event_lock`. If no receiver is connected the event is silently dropped and `Ok(())`
+-    /// is returned (mirroring the C drivers, which cannot deliver to a closed client). If the
+-    /// client has no space left in its event queue this returns `Err(ENOMEM)` and the event is
+-    /// dropped; the caller may retry later.
++    /// under `event_lock` (acquired while the receiver mutex is held). If no receiver is connected
++    /// the event is silently dropped and `Ok(())` is returned (mirroring the C drivers, which
++    /// cannot deliver to a closed client). If the client has no space left in its event queue this
++    /// returns `Err(ENOMEM)` and the event is dropped; the caller may retry later.
+     pub fn send<D: drm::Driver, C: DeviceContext, T: EventPayload>(
+         &self,
+         dev: &Device<D, C>,
+@@ -175,41 +183,34 @@ pub fn send<D: drm::Driver, C: DeviceContext, T: EventPayload>(
+         storage.pending.event = ev_ptr;
+         let pending: *mut bindings::drm_pending_event = &raw mut storage.pending;
+ 
+-        let irq = interrupt::local_interrupt_disable();
+-        let guard = dev.event_lock().lock_with(&irq);
+-
+-        // SAFETY: `receiver` is only accessed under `event_lock`, which is held here.
+-        let receiver = unsafe { *self.receiver.get() };
++        // Hold the receiver mutex across the whole reserve+queue so the file can't close underneath
++        // us, then take `event_lock` as the C API requires.
++        let recv = self.receiver.lock();
++        let receiver = *recv as *mut bindings::drm_file;
+         if receiver.is_null() {
+-            drop(guard);
+-            // `storage` is dropped here, freeing the allocation.
++            // No client; `storage` is dropped here, freeing the allocation.
+             return Ok(());
+         }
+ 
+         let dev_raw = dev.as_raw();
+-        // SAFETY: `dev_raw` and `receiver` are valid; `pending`/`ev_ptr` point into a live
+-        // allocation; `event_lock` is held as required by the C API.
+-        let ret = unsafe {
+-            bindings::drm_event_reserve_init_locked(dev_raw, receiver, pending, ev_ptr)
+-        };
+-        if ret != 0 {
+-            drop(guard);
+-            // Reservation failed, so `pending` was never queued: `storage` frees the allocation.
+-            return to_result(ret);
++        let irq = interrupt::local_interrupt_disable();
++        {
++            let _ev = dev.event_lock().lock_with(&irq);
++            // SAFETY: `dev_raw`/`receiver` are valid; `pending`/`ev_ptr` point into a live
++            // allocation; `event_lock` is held as required by the C API.
++            let ret = unsafe {
++                bindings::drm_event_reserve_init_locked(dev_raw, receiver, pending, ev_ptr)
++            };
++            if ret != 0 {
++                // Reservation failed, so `pending` was never queued: `storage` frees it.
++                return to_result(ret);
++            }
++            // SAFETY: The event is reserved against `receiver`; hand ownership of the allocation to
++            // the DRM core, which frees it (via `kfree` of the `drm_pending_event` at offset 0)
++            // once delivered or the file closes. `event_lock` is held as required.
++            unsafe { bindings::drm_send_event_locked(dev_raw, pending) };
+         }
+-
+-        // SAFETY: The event is reserved against `receiver`; hand ownership of the allocation to the
+-        // DRM core, which frees it (via `kfree` of the `drm_pending_event` at offset 0) once the
+-        // event is delivered or the file is closed. `event_lock` is held as required.
+-        unsafe { bindings::drm_send_event_locked(dev_raw, pending) };
+         let _ = KBox::into_raw(storage);
+-        drop(guard);
+         Ok(())
+     }
+ }
+-
+-impl Default for EventChannel {
+-    fn default() -> Self {
+-        Self::new()
+-    }
+-}
+diff --git a/rust/kernel/drm/kms/framebuffer.rs b/rust/kernel/drm/kms/framebuffer.rs
+index c7089b12d0d1..e12fa7a24e15 100644
+--- a/rust/kernel/drm/kms/framebuffer.rs
++++ b/rust/kernel/drm/kms/framebuffer.rs
+@@ -121,6 +121,34 @@ pub fn pitch(&self, index: usize) -> u32 {
+         unsafe { (*self.as_raw()).pitches[index & 3] }
+     }
+ 
++    /// The framebuffer's pixel format as a FourCC code (`DRM_FORMAT_*`).
++    #[inline]
++    pub fn format(&self) -> u32 {
++        // SAFETY: a valid framebuffer always has a non-null, immutable `format` descriptor.
++        unsafe { (*(*self.as_raw()).format).format }
 +    }
-+}
 +
-+impl<T: DeviceAttributes> Drop for AttributeGroup<T> {
-+    fn drop(&mut self) {
-+        for da in self.attrs.iter() {
-+            // SAFETY: each `da` was passed to `device_create_file` on `self.root` and not removed
-+            // since.
-+            unsafe { bindings::device_remove_file(self.root, da) };
++    /// Create a GEM handle for this framebuffer's plane-0 backing object in `file`'s handle space,
++    /// returning it.
++    ///
++    /// This lets a driver hand a userspace client (e.g. via an event) a handle to a buffer the
++    /// client did not create itself -- for instance a cursor bitmap set by a compositor that a
++    /// separate control daemon needs to read. May sleep.
++    pub fn create_handle<F: crate::drm::file::DriverFile>(
++        &self,
++        file: &crate::drm::File<F>,
++    ) -> Result<u32> {
++        // SAFETY: `as_raw()` is a valid framebuffer; `obj[0]` is its plane-0 GEM object.
++        let obj = unsafe { (*self.as_raw()).obj[0] };
++        if obj.is_null() {
++            return Err(EINVAL);
 +        }
-+        // Reclaim the driver-data box and unregister the root device.
-+        Self::teardown(self.root);
++        let mut handle = 0u32;
++        // SAFETY: `file` and `obj` are valid; `drm_gem_handle_create` initializes `handle`.
++        to_result(unsafe { bindings::drm_gem_handle_create(file.as_raw().cast(), obj, &mut handle) })?;
++        Ok(handle)
 +    }
-+}
 +
-+/// Borrow the `T` driver data of the device `ptr`.
-+///
-+/// # Safety
-+/// `ptr` is a valid `struct device` whose driver data is a `Pin<KBox<T>>` stashed by
-+/// [`AttributeGroup::register_root`], valid for the returned reference's lifetime.
-+unsafe fn borrow_ctx<'a, T>(ptr: *mut bindings::device) -> &'a T {
-+    // SAFETY: `ptr` is a valid device by the contract.
-+    let data = unsafe { bindings::dev_get_drvdata(ptr) };
-+    // SAFETY: `data` is the pointer `Pin<KBox<T>>::into_foreign` returned, i.e. a valid `*mut T`
-+    // live for the borrow.
-+    unsafe { &*(data as *const T) }
-+}
+     /// Map this framebuffer's plane-0 backing pages into the kernel address space for CPU
+     /// access, for the duration of the returned guard.
+     ///
+diff --git a/rust/kernel/drm/kms/plane.rs b/rust/kernel/drm/kms/plane.rs
+index 3863dfe1b84c..fcaa8ba550fe 100644
+--- a/rust/kernel/drm/kms/plane.rs
++++ b/rust/kernel/drm/kms/plane.rs
+@@ -605,6 +605,26 @@ fn crtc_h(&self) -> u32 {
+         self.as_raw().crtc_h
+     }
+ 
++    /// The X position of this plane's destination rectangle within the CRTC (`crtc_x`).
++    fn crtc_x(&self) -> i32 {
++        self.as_raw().crtc_x
++    }
 +
-+/// # Safety
-+/// `ptr` is a valid, NUL-terminated C string for the returned reference's lifetime.
-+#[inline]
-+unsafe fn as_cstr<'a>(ptr: *const crate::ffi::c_char) -> &'a CStr {
-+    // SAFETY: by the contract, `ptr` is a valid NUL-terminated C string. `crate::ffi::c_char` is
-+    // `u8` while `core::ffi::CStr::from_ptr` takes `*const i8`, so cast the pointer.
-+    unsafe { CStr::from_ptr(ptr.cast()) }
-+}
++    /// The Y position of this plane's destination rectangle within the CRTC (`crtc_y`).
++    fn crtc_y(&self) -> i32 {
++        self.as_raw().crtc_y
++    }
++
++    /// The cursor hotspot X offset (`hotspot_x`), for a virtualized cursor plane.
++    fn hotspot_x(&self) -> i32 {
++        self.as_raw().hotspot_x
++    }
++
++    /// The cursor hotspot Y offset (`hotspot_y`), for a virtualized cursor plane.
++    fn hotspot_y(&self) -> i32 {
++        self.as_raw().hotspot_y
++    }
++
+     /// Return the current [`OpaqueCrtc`] assigned to this plane, if there is one.
+     fn crtc<'a, 'b: 'a, D>(&'a self) -> Option<&'b OpaqueCrtc<D>>
+     where
 -- 
 2.55.0
 
