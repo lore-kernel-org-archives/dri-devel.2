@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E3DC43602
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0228C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C810910F855;
-	Fri,  3 Jul 2026 16:33:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA6AB10E64C;
+	Fri,  3 Jul 2026 16:33:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="HT1qk7Ke";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="DR858GQe";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 251E010E64C;
- Fri,  3 Jul 2026 16:33:05 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86DC510E64C;
+ Fri,  3 Jul 2026 16:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1783096367; x=1783701167; i=natalie.vock@gmx.de;
- bh=N8mgjM/cCK0js9ROvtnWoqS1YFpuA7rCkxJktFtGA/M=;
+ s=s31663417; t=1783096370; x=1783701170; i=natalie.vock@gmx.de;
+ bh=uHb05nHKG0Jsmt5Pv2JXb+Ha/yc9reaX1XLKdw9oNLc=;
  h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  cc:content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=HT1qk7KeWeXh+cIFsi2aG8fzkUGB/ZtDvhIvtr1y0luDCz2YbIcNgw2FDAnR8rpW
- PSM4zqeaL4OyBlfvaKepDKmvBfwCksJA9Qd++julgLmt2/IRBXeU13V1yb3JgyaNa
- fwzV3bCcN6ezeZ0Zrn+G45clVw5kOrFHRBkpNLfZqSHAdXB+d0q3/LN/N4ag9/TDh
- TzO0XYlA6m3Xv9WOMiWqmBaHns6uaRrUHy0M07zHK0P5wCKtJ7m1cV/3sTVRFrUIt
- +3sh9Vry/94SVvxE53I0ngktWfBtxhpC+H8DX9+kDttSU4znkYcQdG+TO5eyU4eSq
- H9xk6BdcAaeh/CikEw==
+ b=DR858GQeX27oMtr+TGpqFm2yYNweA/jW/AlmsYgKP2awsJpu53FzYCanzScatFI/
+ DGmUkSn7L0qEpYjE0BlCZdl52A1SArkI6foLIXCKc+DUEdBR+B7BMxlMNAqzHh+KX
+ xscl3x6TNBpxBbNSDbXCmMaI72xHNwvhVHF4HR7aEnveLn1j8nOkyryaDRDK2JhDY
+ kVnWZEm87dw3PrJVc5HctFRQpDo8om2UMwpQLsqsaPg90tc9ukXjSBt3LxMm2gUHM
+ t0QJf54iEmJoNvtIybWMXeTn7JvrYMJQ74vSLQyhKO0IVlW6SxKj2srjrtsnz/ERM
+ w7r/or37nH/XQDePnA==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N6bjy-1xAoz32FO2-0159Wy; Fri, 03
- Jul 2026 18:32:47 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MDQic-1wmnoq05Cg-00CM3U; Fri, 03
+ Jul 2026 18:32:50 +0200
 From: Natalie Vock <natalie.vock@gmx.de>
-Date: Fri, 03 Jul 2026 18:31:21 +0200
-Subject: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
- flag
+Date: Fri, 03 Jul 2026 18:31:24 +0200
+Subject: [PATCH 04/10] drm/ttm: grab BO reference before locking it
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
+Message-Id: <20260703-ttm_2_drm_exec-v1-4-43685ac1286b@gmx.de>
 References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
 In-Reply-To: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,90 +57,89 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Provags-ID: V03:K1:o6aCDQs8r1KOxfH7O2MZ3goKe/KMSR+LY9m8xiUwhFUZtDyYFnq
- r1lb+0MKeUMwK7Utpnz9t3gyVe2DfJLKIMdpnvQD0t0mhyuicY17BNxC+oAnkfSToj5VNus
- 4laO1GIHznnm4NTpN44v0zmaRLp8zsADs8dg0jysQhAtCAX9XCfJ3BhQwwheNn88GI1yPpM
- YFpYpcFDEl6NZKdRUxjSg==
-UI-OutboundReport: notjunk:1;M01:P0:/Qc0IQt0K10=;OJ3nPGk+LlmTfxWwtbwas02suJH
- 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
- t1VCca9VHi4l0qJoN0=
+X-Provags-ID: V03:K1:wkIRtJsDxE4/k1jUQhTA71NfSr2dAw9uT0wpAwrcY79QviG1hvm
+ vJos5YNBF63amUELoVSEQZPC0HT+D48LbZk/4VXZEcOzemz2UP1sDc2TnG8S9+pspRU0k0T
+ jmbqx9R4EA51W/AS7e7AOXc1wJ8yeRR2r/JIb6am5hN71LUOyyL1FL2z3PoaI/Epo+Mz3l+
+ fMihP+cE2YRID3wesaCuA==
+UI-OutboundReport: notjunk:1;M01:P0:yH7PTTRTzMY=;K5OVNLARYPKN+YflfZY6UbUJeYb
+ I3v3wKqYDMDpXBdMFnIOoRUuBDGDhbHKNxd1Oy2eUwUucRmfCFj0nYZdoaD05zEQscpXTfBZ4
+ HIYz2CIo3hFyswpuU4GArzy4SRQp03E0zusOpJizm+3A9KV6gRT99Bw/H7jKmIEwLQHvJrxQu
+ XaVBAU6ltAUyGCqomoRszLNLNuXXDQGhfYDCGBlrhZTAdD9++Uq1s8r0iKJ4c5vxLgksQ2n52
+ tvVqd7VQqeEIJQa5tNVqonqd7HYplY4nm0NzxqoypDX6HfgKSdEp6iWcuAQiKbOapce5DijQn
+ UyylSaXLNNEte91ykDhuTsDQj7FvLQJSvBG5Nl0ah0Lxe4tIjYVA4OpBj1mCygPM6diO1aXjV
+ o8kaGtjPRAEHNzM9U2AOrxt73gEXU5iv8jyUEU3D3DgCCkwTJ+DcFME5K9yHlR9MBxHu4Kxhq
+ utdiTzSvSOTI+Xz6p2pUgXmwWXmTBQ3l6NXC9gK51Pom605JUXa0y26nN0+o7wXvlyRFgyPNw
+ ztXkFu3TvVJleUL+aRfHD0fvNGrOp/3QnOMXprdF/WXHZutOE4vaiLTlp8joVdSkAf9bOz21x
+ U5Sl8/sv9zF09BIj1NZXk+C7P3vf08POp0p0ReusfLbkuN1HSlHt/ut3oH1ZlO1p1oxVSuogS
+ 6VSA7pmXis2hEKa9bWyVLpu97vtN5HDo8lHP3OUp9W68IP7icPhLA2Mn/MKoXD5SEMebq0ubN
+ ORY5HxqC0JOul6N/VXkmgtg4g81is3nR/n276HxciC5k97DRFARdqr/qGfLLuxz5Ek+1yE1xr
+ g00cEH7HJ3DYFPZrapv58sJVmbgoY5+8QGbwQtW5rungkOem7V5VMmsWov/0w3uxgsw2pwjvh
+ WbPXte5vE6UwAjDFKQWdPtWHkc88vfw6gNLKcwvkANbXODjuJPNdP2HVbcD/4b/ORN+1gxM2O
+ 1w1/PFU+oomWfnca/6tqAvR8MXJtWDkYctgXqZiyEyeGqcoMJGwRvIWtvAhGvjoTPG1NwPYMs
+ e0xBYjq4cMsyF6YSujqv/Vvq37l+KnXQmV2Z/T1AHNmUMv2/epXkrcWfErF7YNQ07QVF7nl+w
+ Il8IhEiws24c+vyvBwiUAV13HSR2R81eKz2bFOmDDeV4KmxG84ZyNrLA3iSWU0+7bl7PKcoV7
+ OKOn5VhLyZEIN/ILupLoYJEPPSyxm0MpTXWpLE0s0hpEh1DWuCXAIP9oVHMZDbUuvrnD0adp3
+ oiYrjNI4KwmTwYA5X20rNyhr4YF4nwBxZPL755Bga1A2Uel9wC/hlgQjuxyeYm9HAHZ3Y7XFw
+ RrgKKflU7Xp87RvUWJtPSS+yevFkym2OXNHlA2yiAvhrzcuHOhjhQ/eiUaRrR22VItV+3n2Do
+ 0bWVlc2qcmbzJpyyeNJDy+8G/BhMnnJ8KPrA6uwjFXsn4QFeHfut9dLji9S/ce++osT1tct8h
+ TOCeRBrIUDhTLsGdm25BGDeRlqaEj/ZshwtwIOOI/xKw/V3QNklioO7ShKIOx8qtGvw0LO833
+ wNNsNCJBNLy5g+PV13evFYUAjlIn60SUR71hP5v+qMwp/QXM9fGMD8HyCgik8+1d3j8HxSavq
+ 8djcOtORGw6B/49E3y8Gyuk9734aHWS2eSvnJiLE1oqnVoPUMvykueu3FRNCYZLd0tR+wxCLe
+ yqT1GiX6E53S/GSvRDqRvk8zC9varynE7lHX2VTU+pbC9WUq0UHssxxw0Rm75X9wstiIgtE37
+ XO59cVslS87xay8hVlXqlM/GUoqLaISs3RD6k/ndA6UjGxC0AaZ55dFAwGHT8FqnXwLzjWD64
+ 0VcOHrjP0GYaAgrvx3lzv3SVUOAn2+5NT6CY7vdMGf7mcOvTBUNOuCWk9YTnhQDpnYIotTY1I
+ L+daPVutYxsIn6CYaUdK5Mhk1boPIYpoavuEovmm2XrnahUtohoaz1gX97uNPqlBaTiA2ux7V
+ xQfV+K3oih1nHp37elCHNbdF5FhTCO0MAwuwg2mV8nr6u11ymx9r947JqqsgU+5Lrb0ouia6m
+ IytA5lSpvCRBjKhI/vg7KHmcz2LshTLsUgzF9Ef6Op1b5NZQ6Rx9BsLBDSJynKfoe1OgeNKMU
+ uScOgQETvrXi6cuwj1Sujk8KiPNkxMEgaBcbU17Onbu10I094L+YIXWhZRArn8EqnUjGVOwMN
+ 4699zBAYgL3u1oMldTiVw4TzvHIIsSNM0dUcJR1wnf8oyYhZa2O814W8VzNJfaM/ekjBnbfVJ
+ +ZdjCFs5lGk+8aKc0dD848zH0qFf6sAHUQVh6JbwHTVY/M3LvWQ5qA2O4RxJ67Lkrafx7bUkE
+ AGiab7uwWo81vwaeaepFrIoKaO7Zw4gPuG4cVdwiSCt7COZ/6+TkFDXKFkI6+Ji7VomO49lGL
+ EQ3O2k6Pzrbrz6QMDt8sFgiWIClr1n5nBgA7B472NXA4y7tgSGi8pUcsiRatFoZeGxAw9AJC5
+ UNFIdqVsiyNzdEQ9RBW9ll6T5yAcfbhPwbOuzdliGi9i/bpsmrbUMNCAg/JAqqunmyi6IwpmA
+ mIEzdngExEQVP6EPUc5nkWQPCfcMQVxJOEzMXLfLfpqPjuR5+cQE/IRGRL3Q1FHkrsAwQ+5lU
+ ARKNIk2tKR30KWdvztuuvbHdgBxD+ktOCS/9/QgdNK2Sxeay+/gCqoFfOkyvam7AC1TIAvr9/
+ R/5J+X6WKbrgJndLzA68Rhidnwdnz0XDmN7fdsyEfoILKnLW2Kl2UzaDK0FA/HU1tY9yztG9k
+ IslYm2AZfgDUqCofACBxyDu3eUDcdyjckZsy0XbPv0agLFpbvgBVFrF5iFiYgPAPAGS2RplSm
+ 1uolzz2/miLJs5HciU1ZJULXb1vCO5c3Jpms1ckngO2IwWcOTho3yhgxO1pxNJDf0gHUCwxqE
+ ly0O/41M92ydgXBhJHwwsX1TACSES09aEizGy5P45dCMvtLgAT/Cj3hozNaehaMBiOEPPVOwG
+ dBtUdtpwB9VsXL2UpJQOU9RU3s5n7hez1aRmaUJQeVQiavdqG19tkdBDxWTIGtDnCHxRUmlJD
+ NfG+LsqK3hsWeBKwdOrwxiTgnRrMkJdj3PQHDq1ggZAS1qwju/qZKWnEQKp55CaRz0HkgEO2Z
+ xXwztVIWroRtJMGLkGzab3lFJgjP1jNiSM1oMpvWp4W1f1/lJ47qqpl+i31zDIGhx3bQgXr6B
+ r15C99brX3pY0ukig+RBLgLAekn1bahqi1Xn+wE2IPtQ7zjRBBldHyo8tD5DOctSeq/vq1k9p
+ XyEz+3nhtNBr8GnuyrXoKSOlA6H1CMtunCpwFFgovfWiYlLuHwN/FJmg5F+e0jKBmyhHh/aBG
+ PdFug3axYOQeCcElRAgL+K2bCnWqhhymjHRqCBbu+mbFCkUK3G3qeNc2xgQ3kzzeDsMYbLZnl
+ ZbW5VaYyNhNFjnG4NzefqQADR1ilkGfO2JqrPXvYGSVlDE3+/ub0fGaW9gJKV0X8Ph+GfomNt
+ Kpe1u8tzopFXHBBrayU35ozjCblUNmkzaA39FRs7lXjVK09N5z69Bxt5zd963Xc4Pn4sd9S52
+ YiJ/U99ENsx+UkDaaGEjKfFK1NLpelDgk/BcEP1qU7wD3PvwjREtBPHyqKg/zLj/ko4jlWTgH
+ VVtCr1F9HZXXZsR1EJsn1w34yijrEdvU0HrcdpAEMchsGH0pJrbgZs1hqlEqKz0UyGDIvM5Oz
+ N0iqfCNS3Tdh7K1ZfnRas+5ukJz1Rd5x/X8SR4dDsDKjvdq/+8BpQ5p7d4zZ/Hcbe2Wwfuqpo
+ SFNC3M+XzdeqDPgcss0qJKnoYRuhTpClsuvaWofFyNdFPBcT2byO4sYUFJg0ya4yOveR/vPiN
+ lcjE4oiHXvysA9ITh0f9Jmerr+s1VaxSbWMoFKPWpZ83kl+a3ttDkxFAGaGbYonOlyr+V5XHt
+ CZ/kiV3YOQtODMpAvCTNTKpNyrhSoboDgGBUMuaeZL0faEP/g8fm3uPFDAMy6bMzSZoF7bJyj
+ h/FnF+ISmaALju9gqRfEaL0eA9OOjC93VIgE0pYx3eBK8oI2JSgqKRqFmrFkohkss0sViMna2
+ SBiuHlsnsjLWo7Ze8TP2WeaiIpl8bsJKQOyY5FaWdDb2zD0DU/NTZV6VyPy1lZvYo56BiWtzd
+ OdqEvNtiyRhzS6MR1Ib70o/Z/lke+zTEKRTgbetODNORr2X/8kKcwHyY5vmLT0LRlaVsjamD0
+ +0viGQ1wKWReRgtxgvy5qRkN6b9qfuzmerYdc3fCyYHKHDWk9cxlGMp0d/CyjSTrnRTSWQal9
+ Yaz2sVv5lqGJUGBjQe7gXRMJecWrzu+A2ccaWm00eQVQOqn0p5ZSWboGjXKjRblYQSHvKzLZa
+ lnbCmF6cBUF4JkKPXuCaiLGjWq2GxHTbBlxFR4Fkl+Wl8sYN/IRzz/NtZP/HVxT2LCSSL0FZc
+ etDJ4pC0U13XR7ts/glHQKHKooko6yc4NpVSow5hZdScMgs7QoKLK5j/lADZuEYAfHuTOeBXC
+ /dLBlmtUlOx1j/j4IffclMss5cQrjo7vCOn+ziHyT3fe4u6THF6Xskwo/Uxj5lIm++jZzPnDe
+ xzV8gNWGMdoq0zqG62rzhoMw5xo+iZSH9p3K/xdtcLJTUtKFhQvy0UVGUlXcxhvqBjw4jdJAJ
+ 2AagnE6fteqS4oQ8G2uMGcLasnOK9KgyZRdBSLpBEvyFf4Sxq1bQ7JEJ1+OYKLOTLJ4uykpa7
+ WTBfy62CTTJjIgzh+CkEUhHydwBFkyi8PKrwghZFyS0hLISmj5FsouE/jdXTvo7BypWhZGV42
+ Rl5pEhsMbBGylCm/iJUKsBAlvtKAswx1IsZZgd9J+YfxZFgAA4XrYFIkyKUMlR+sc3wm22ZD/
+ COe8GgbOxSgbvDVAB4gA76sDhkLMXGeUdrbs3179W/GypaGYPLmAYxZAJY/2FuC3ZJEA/xKHP
+ trCBRAduZ898VB5VmnsYrh5UDRwQQm/Ctr+EMj2RRK/6MwY/x9t9QT7mT0mRLAWklQgLtujCp
+ SX0m42zWNNaIG7DLgP5cFiHlrY5OeWOhYDtiuu+Wl5ggwPVpPI+lNgfZCGn0QM2I7UuRnxE2G
+ fVSTTZ7zBSmwtBRs0v043p98Os+kzj+/e6XEG0P67Sbe/XKkNDtNfOqTqI+k1IfKbieiIHYlT
+ VFrILjWDcRa0tcKN5yFJTgsJwK8tyVFTcDiXEbcz1gPzfgiM4DRN5dRqsIl6EnS+PYvc+fp2b
+ c1tHdUt6iHPvMy1jGu1bZz5rPMbXoJhilsyfYaM3CRkJSGt1hq9esyXckBKFfogO18K2KPxMF
+ VMInreukb9WkqE9AAZohvkYex5fbTFa9VuChJnuADxcSHxy51A0ryCp9//meYbhcsDTngluwY
+ yr+fei0yvqX4spF5rHGkKZ91zXOOV45w7IJNg89N4+zrZIOw/tTXVvA8TmJTN6dNlR4F20DUa
+ Bh5HKsbKktq7o2kdjlQKz+TyqDmrwlGmfyPGrfNn/71GMDsQ3pIbfmgOftRUGm4gnzTZG05w0
+ HEnXwMnGvv0IT6qYzyej5v6vNay7KCrZ8Tx1a27J1Xx8tn2w5lzsAeWLRFVTRv/eT93+2GM5I
+ CXZZYi3T+e3F6l1YX/FuX5Mk1PmmMxJ+t5I2LS7Kbwx5Z7VF
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,130 +155,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-TTM is about to switch to drm_exec for locking objects
-in the LRU list. When we're done processing the object, we want to
-unlock it only if the caller doesn't already hold that lock. If
-DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which callers may
-require for unrelated reasons), we have no way of knowing whether the
-lock is already held.
+From: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-To remedy this, add a separate helper that forcefully bypasses the
-IGNORE_DUPLICATES flag for only a single locking operation.
+Previously we always grabbed the BO reference after taking the lock, but
+that isn't necessary any more.
 
+So avoid doing that and cleanup the handling here.
+
+Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 =2D--
- drivers/gpu/drm/drm_exec.c | 52 ++++++++++++++++++++++++++++++++++-------=
-=2D----
- include/drm/drm_exec.h     |  2 ++
- 2 files changed, 41 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo_util.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-index 7988f5e7d56a3..91de6b4d29df8 100644
-=2D-- a/drivers/gpu/drm/drm_exec.c
-+++ b/drivers/gpu/drm/drm_exec.c
-@@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct drm_exec *e=
-xec)
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_b=
+o_util.c
+index 29f068944a972..a53b25e8c2967 100644
+=2D-- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -1010,14 +1010,17 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor =
+*curs)
+ 			break;
 =20
--/**
-- * drm_exec_lock_obj - lock a GEM object for use
-- * @exec: the drm_exec object with the state
-- * @obj: the GEM object to lock
-- *
-- * Lock a GEM object for use and grab a reference to it.
-- *
-- * Returns: -EDEADLK if a contention is detected, -EALREADY when object i=
-s
-- * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLI=
-CATES
-- * flag), -ENOMEM when memory allocation failed and zero for success.
-- */
--int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
-+static int __drm_exec_lock_obj(struct drm_exec *exec,
-+			       struct drm_gem_object *obj,
-+			       bool always_report_duplicates)
- {
- 	int ret;
+ 		bo =3D res->bo;
+-		if (ttm_lru_walk_trylock(curs, bo))
+-			bo_locked =3D true;
+-		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
++		if (!ttm_bo_get_unless_zero(bo))
+ 			continue;
 =20
-@@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct dr=
-m_gem_object *obj)
- 		return -EDEADLK;
- 	}
-=20
--	if (unlikely(ret =3D=3D -EALREADY) &&
-+	if (unlikely(ret =3D=3D -EALREADY) && !always_report_duplicates &&
- 	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
- 		return 0;
-=20
-@@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct d=
-rm_gem_object *obj)
- 	dma_resv_unlock(obj->resv);
- 	return ret;
- }
+-		if (!ttm_bo_get_unless_zero(bo)) {
+-			if (curs->needs_unlock)
+-				dma_resv_unlock(bo->base.resv);
++		if (ttm_lru_walk_trylock(curs, bo)) {
++			bo_locked =3D true;
 +
-+/**
-+ * drm_exec_lock_obj - lock a GEM object for use
-+ * @exec: the drm_exec object with the state
-+ * @obj: the GEM object to lock
-+ *
-+ * Lock a GEM object for use and grab a reference to it.
-+ *
-+ * Returns: -EDEADLK if a contention is detected, -EALREADY when object i=
-s
-+ * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLI=
-CATES
-+ * flag), -ENOMEM when memory allocation failed and zero for success.
-+ */
-+int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
-+{
-+	return __drm_exec_lock_obj(exec, obj, false);
-+}
- EXPORT_SYMBOL(drm_exec_lock_obj);
++		} else if (!arg->ticket || arg->ctx->no_wait_gpu ||
++			   arg->trylock_only) {
++			spin_unlock(lru_lock);
++			ttm_bo_put(bo);
++			spin_lock(lru_lock);
+ 			continue;
+ 		}
 =20
-+/**
-+ * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always r=
-eport duplicates
-+ * @exec: the drm_exec object with the state
-+ * @obj: the GEM object to lock
-+ *
-+ * Like drm_exec_lock_obj, lock a GEM object for use and grab a reference=
- to it.
-+ * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and du=
-plicates are
-+ * always reported.
-+ *
-+ * Returns: -EDEADLK if a contention is detected, -EALREADY when object i=
-s
-+ * already locked, -ENOMEM when memory allocation failed and zero for suc=
-cess.
-+ */
-+int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-+				 struct drm_gem_object *obj)
-+{
-+	return __drm_exec_lock_obj(exec, obj, false);
-+}
-+EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
-+
- /**
-  * drm_exec_unlock_obj - unlock a GEM object in this exec context
-  * @exec: the drm_exec object with the state
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index 8725ba92ff916..ff80dd2b72240 100644
-=2D-- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, u=
-nsigned nr);
- void drm_exec_fini(struct drm_exec *exec);
- bool drm_exec_cleanup(struct drm_exec *exec);
- int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
-+int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-+				 struct drm_gem_object *obj);
- void drm_exec_unlock_obj(struct drm_exec *exec, struct drm_gem_object *ob=
-j);
- int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *ob=
-j,
- 			 unsigned int num_fences);
 
 =2D-=20
 2.55.0
