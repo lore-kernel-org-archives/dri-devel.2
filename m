@@ -4,46 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB5FC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 18:30:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8755CC43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 18:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8CD10E652;
-	Fri,  3 Jul 2026 18:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F65810E65D;
+	Fri,  3 Jul 2026 18:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="b1Em13SV";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="JaiJG4NC";
 	dkim-atps=neutral
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 335AE10E652
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 18:30:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB1510E65D
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 18:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=uLFc/USnoLD2hdkK6f4FbXFFpkJWctZScq6uqGjV+8Q=; b=b1Em13SVmD7Gxe4wQguf4VtJvA
- KQ6XnrbNh6sBpdgYe8/uWZOI08NhZ8Af8uTMIJ913qcXEuuywZwoht0+2Cp2JiuVaqo/jvXGNqEz9
- o3xuvt3gabxgrQ2Hd/zlHbU9G+FwcAvlbCIBtMnilDfgfwuazZupUHxAyjNPZDZR9OgFV9V1BU0vF
- ogdLlr5eH7Y0mF/ylKhy9Sg2wTYTHaX/kkrmoDB4IpWQOcfC1n706osycop0ka6lcwDvFJx98Cqap
- oINWRvxPexdduOl/EEHLOt7SC52t+SwG7wm7vSH2JXlRvDpcH0wdQx1xgv0z6V16Ohdrgp+V6VSu8
- 6b86iuZw==;
+ bh=00oEUKbXqblY98GY99IjBpABdrFGvC9SalkPe3rfYJY=; b=JaiJG4NCQrh7UOwml5H8y1y6s4
+ yqDBRMXUxAZMydcriv+Mcawda0XeZpT6vUQ/HEDJClr46CID+61qicGWPdiUYWGEnyxxUQ0HF3G6b
+ YEMR8BFpzIccfcE0rxI5FrCgOxkWN94baj2bnZBDDNoTg/GhjsuXaVTibH2FDr+lQNUbOOpDcEEhw
+ ZjkGbnIwd0UTi2sheyaxQxW7jcdRQDxIR1EXfOQ3JSJ0jNqG3kyShUW+1SU7zWeMvuCgtcePJ7AV8
+ /Rdk8/hBWTJM1jAujFciN/H/cOd9+6X/MnYFdfJ+Mh621yA+5X1cW0jQ57vAYy3tu9rc5Os2DFST4
+ jl1e6F7g==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Diogo Silva <diogompaissilva@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- "javierm@redhat.com" <javierm@redhat.com>
-Subject: Re: [PATCH v4] drm/rockchip: Remove dependency on DRM simple helpers
-Date: Fri, 03 Jul 2026 20:30:41 +0200
-Message-ID: <2837071.mvXUDI8C0e@phil>
-In-Reply-To: <CAJpoHp489qKfkfLOX-XPLpOWo86gibZB=NM_dXPbv0yDGmxysg@mail.gmail.com>
-References: <20260608124018.480365-2-diogompaissilva@gmail.com>
- <CAJpoHp6DnspnA0rirGb6E=A9wCS3eaDn=eFaqmae98Q+39b1PA@mail.gmail.com>
- <CAJpoHp489qKfkfLOX-XPLpOWo86gibZB=NM_dXPbv0yDGmxysg@mail.gmail.com>
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, kernel@collabora.com
+Subject: Re: [PATCH v2] MAINTAINERS: Track dw-hdmi-qp under Rockchip DRM
+ drivers
+Date: Fri,  3 Jul 2026 20:33:00 +0200
+Message-ID: <178310357191.42647.16730078751010845257.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260612-maintainers-rk-drm-upd-v2-1-3ff65fc41a93@collabora.com>
+References: <20260612-maintainers-rk-drm-upd-v2-1-3ff65fc41a93@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,67 +64,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Diogo,
 
-Am Donnerstag, 2. Juli 2026, 22:18:58 Mitteleurop=C3=A4ische Sommerzeit sch=
-rieb Diogo Silva:
-> Simple KMS helper are deprecated since they only add an intermediate
-> layer between drivers and the atomic modesetting.
-> This patch removes the drm_simple_encoder_init() helper usage in the
-> rockchip drivers by open coding it and using the encoder atomic helpers
-> directly. This is a step to eventually get rid of this simple KMS helper,
-> once all drivers that use it have been converted.
->=20
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-> Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
-> ---
-> v4:
->  - improved commit message based on Javier Canillas feedback
->=20
-> v3:
->  - rebase on drm-tip tree
->=20
->  drivers/gpu/drm/rockchip/analogix_dp-rockchip.c  | 9 ++++++---
->  drivers/gpu/drm/rockchip/cdn-dp-core.c           | 9 ++++++---
->  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c  | 9 +++++++--
->  drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c | 8 ++++++--
->  drivers/gpu/drm/rockchip/dw_dp-rockchip.c        | 1 -
->  drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c      | 1 -
->  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c   | 1 -
->  drivers/gpu/drm/rockchip/rk3066_hdmi.c           | 8 ++++++--
->  drivers/gpu/drm/rockchip/rockchip_lvds.c         | 9 +++++++--
->  drivers/gpu/drm/rockchip/rockchip_rgb.c          | 8 ++++++--
->  10 files changed, 44 insertions(+), 19 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> index 776954c7d052..46c245e35d21 100644
-> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> @@ -30,7 +30,6 @@
->  #include <drm/drm_of.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_probe_helper.h>
-> -#include <drm/drm_simple_kms_helper.h>
->=20
->  #include "rockchip_drm_drv.h"
->=20
-> @@ -303,6 +302,10 @@ rockchip_dp_drm_encoder_atomic_check(struct
-> drm_encoder *encoder,
->         return 0;
+On Fri, 12 Jun 2026 13:01:29 +0300, Cristian Ciocaltea wrote:
+> The DW HDMI QP TX library was developed for and is currently only used
+> by Rockchip platforms.  Add it to the Rockchip DRM drivers section to
+> ensure all relevant parties are kept in the loop on any changes.
+> 
+> As its file paths fall outside the generic wildcard patterns defined in
+> the ARM/Rockchip SoC support section, also add the
+> linux-rockchip@lists.infradead.org mailing list to avoid any
+> notification gaps.
+> 
+> [...]
 
-the tool you're using to send patches seems broken.
-In the patch all the places that should be tabs are replaced as spaces.
-This of course does not apply.
+Applied, thanks!
 
-Ideally use git send-email or b4 for sending patches.
+[1/1] MAINTAINERS: Track dw-hdmi-qp under Rockchip DRM drivers
+      commit: 01d082bbbd60c4468e88a97bc07052678339f9f6
 
-Also, please don't send new versions as replies to previous ones.
-Tooling can get confused by this, so please start a new thread for
-the next version.
-
-Thanks
-Heiko
-
-
-
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
