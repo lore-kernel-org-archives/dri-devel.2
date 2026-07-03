@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29FBC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:14:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED9EFC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF5C10F61E;
-	Fri,  3 Jul 2026 03:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 524CD10F61B;
+	Fri,  3 Jul 2026 03:15:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RgGHtoS3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eL8wKO3b";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF3C110F61E
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:14:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6F9410F61B
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:15:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C7DC44146E;
- Fri,  3 Jul 2026 03:14:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722981F000E9;
- Fri,  3 Jul 2026 03:14:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3628560210;
+ Fri,  3 Jul 2026 03:15:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B637D1F000E9;
+ Fri,  3 Jul 2026 03:15:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783048472;
- bh=xYC2xpAagjRGUo5stZwLQ0nGL78uAiykoI7raHMPrmI=;
+ s=k20260515; t=1783048527;
+ bh=b0uATuJOXlHPX5p4Sp8IjK5lkLJEkuYJBEaytyAxbsw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RgGHtoS3dLYgI34xjmRrYxCUzgPRED+W8ftyeqVIFTEMx4kB5Z2wY8zmLJf78460U
- MU8Xt7o88FNzvgkfkVmp/MRDezaQDys0oi/Y+p33WF+TTL/3cxXIVBZP2HgETeXe81
- TdtR9+FgLDTmyfQSkXbjM+Ok1JSGux62dMdoTASjHLs900Wip/IFFStadTdVdvCswK
- GGySPckrMg6SVXHvzGPexDav/lEYOX9CHKc+N+1a24bVYlo70F3z3R3doPoZak6rLj
- NrxfscQjYcoU6F0zEm8GQQmWl/KwA7xoZhjcrbcG3u3wu/1H2RgtNED7oXbHScUxl2
- B8gwrfsFRK2Dg==
+ b=eL8wKO3bHycTog86WpS5C7Hh/uBlvu5gwGVAh/ibHyjP8N6XG9J6GEuviZgt6nhnc
+ tGGCdc3Xya6r9RhjXBT+AgJQGWw5s273b9+WzBqTKsvND9djo0nihJ8kuvkNlqp9xw
+ QOFZVWlk2dzSRMzFaWra9oy1crry5KDJ7/4E5Ib6+wzDqVXdjfAdLGWONUq9YS0vbO
+ kn+INZWI8L4nKCKY2LskYDARhyIL5e0xls/jzPAoEaMCqO1fAHEYMEKXskT56n+q+D
+ Jd2XeaTBT2qYPiQejv1PnGLbvBNqsBTUzNFJE6O7lsZNJop3oPkQNMIAy3mAXW7dAK
+ gQKOJ+9BzqLSg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 02/10] drm/vino: add the clean-room HDCP 2.2
- AKE/LC/SKE handshake
+Subject: Re: [RFC PATCH v2 01/10] drm/vino: add DisplayLink DL3 dock
+ skeleton and protocol framing
 To: "Mike Lothian" <mike@fireburn.co.uk>
 Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260703030217.2886-3-mike@fireburn.co.uk>
+In-Reply-To: <20260703030217.2886-2-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
  <20260703030217.2886-1-mike@fireburn.co.uk>
- <20260703030217.2886-3-mike@fireburn.co.uk>
+ <20260703030217.2886-2-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 03:14:32 +0000
-Message-Id: <20260703031432.722981F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 03:15:27 +0000
+Message-Id: <20260703031527.B637D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,67 +59,82 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The HDCP OUT message builder `body()` omits a mandatory 2-byte pad=
-ding at the start of the message body, misaligning the header fields and pa=
-yload by 2 bytes.
+- [Medium] The `DRM_VINO` Kconfig selects a non-existent symbol `CRYPTO_LIB=
+_RSA`.
+- [Medium] Selecting `RUST_DRM_GEM_SHMEM_HELPER` without inheriting its `MM=
+U` dependency.
+- [Low] Enabling `CONFIG_DRM_VINO` breaks the kernel build because the modu=
+le's root source file is missing.
 --
 
-commit ff0736a0543094c7762c8587ebbe6bbde5a3fe43
+commit 06fb786f2554d0076260c52a80817260c6d10437
 Author: Mike Lothian <mike@fireburn.co.uk>
 
-drm/vino: add the clean-room HDCP 2.2 AKE/LC/SKE handshake
+drm/vino: add DisplayLink DL3 dock skeleton and protocol framing
 
-This commit introduces a clean-room implementation of the HDCP 2.2 handshake
-(AKE/LC/SKE) for the vino driver. It includes cryptographic adapters, proto=
-col
-message builders, key derivation routines, and captured plaintext
-control-plane skeletons. The implementation builds and parses wire frames
-strictly verified against the reference daemon traffic.
+This commit introduces the module skeleton for the new DisplayLink DL3 USB
+dock driver. It adds Kconfig and Makefile entries and includes standalone
+wire framing protocol and randomness wrapper code.
 
-> diff --git a/drivers/gpu/drm/vino/ake.rs b/drivers/gpu/drm/vino/ake.rs
+> diff --git a/drivers/gpu/drm/vino/Kconfig b/drivers/gpu/drm/vino/Kconfig
 > new file mode 100644
-> index 0000000000000..38919624cb2f3
+> index 0000000000000..f5fe6670a4886
 > --- /dev/null
-> +++ b/drivers/gpu/drm/vino/ake.rs
+> +++ b/drivers/gpu/drm/vino/Kconfig
+> @@ -0,0 +1,20 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +config DRM_VINO
+> +	tristate "DisplayLink DL3 (Vino) open driver"
+> +	depends on USB
+> +	depends on DRM
+> +	depends on RUST
+> +	select DRM_KMS_HELPER
+> +	select RUST_DRM_GEM_SHMEM_HELPER
+
+[Severity: Medium]
+Does DRM_VINO also need to depend on MMU? RUST_DRM_GEM_SHMEM_HELPER depends=
+ on
+DRM and MMU. Selecting it without inheriting the MMU dependency can trigger
+unmet direct dependency warnings and potential build failures on MMU-less
+architectures.
+
+> +	select CRYPTO_LIB_RSA
+
+[Severity: Medium]
+Is CRYPTO_LIB_RSA the correct Kconfig symbol? It appears this symbol does n=
+ot
+exist in the kernel tree, and the correct symbol might be CRYPTO_RSA. Selec=
+ting
+a non-existent symbol causes the directive to be ignored and can silently l=
+eave
+crypto dependencies disabled.
+
+> +	help
+> +	  Open in-kernel Rust driver for DisplayLink DL3 USB docks (Dell
+
 [ ... ]
-> +/// Allocate a body_len-byte zeroed body with the sec 5.1 header filled =
-in
-> +/// (sub_size, the 0x0010 marker, hdcp_seq, the 0x30 marker and msg_id).
-> +/// The caller writes the payload into body[28..].
-> +fn body(body_len: usize, sub_size: u16, hdcp_seq: u32, msg_id: u8) -> Re=
-sult<KVec<u8>> {
-> +    let mut b =3D KVec::from_elem(0u8, body_len, GFP_KERNEL)?;
-> +    b[0..2].copy_from_slice(&sub_size.to_le_bytes());
-> +    b[2..4].copy_from_slice(&0x0010u16.to_le_bytes());
-> +    b[4..8].copy_from_slice(&hdcp_seq.to_le_bytes());
-> +    b[22..26].copy_from_slice(&0x0000_0030u32.to_le_bytes());
-> +    b[27] =3D msg_id;
 
-[Severity: High]
-Does this message builder omit a mandatory 2-byte padding at the start of t=
-he
-payload?
+> diff --git a/drivers/gpu/drm/vino/Makefile b/drivers/gpu/drm/vino/Makefile
+> new file mode 100644
+> index 0000000000000..6e39668040f30
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vino/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +obj-$(CONFIG_DRM_VINO) +=3D vino.o
 
-Comparing this against the golden capture (CAP_PLAIN_1080P) in golden.rs, t=
-he
-48-byte body starts with a 2-byte zero padding at offsets 16-17 (right after
-the 16-byte transport header), placing the sub_size at offsets 18-19 (body
-offset 2).
+[Severity: Low]
+Could this break the build if CONFIG_DRM_VINO is enabled at this specific
+commit? It looks like there is no corresponding vino.rs or vino.c added yet,
+which causes a missing target error.
 
-By writing sub_size at b[0..2], hdcp_seq at b[4..8], the marker at b[22..26=
-],
-and msg_id at b[27], the entire layout appears to be shifted left by 2 bytes
-compared to the expected hardware offsets.
-
-Will this misalignment cause the dock to reject the HDCP handshake because
-the fields and cryptographic payload are not where the hardware expects the=
-m?
-
-> +    Ok(b)
-> +}
+I noticed the missing source file is introduced in the subsequent commit
+"drm/vino: add the DisplayLink DL3 dock driver", but this temporary state m=
+ight
+break kernel bisectability.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703030217.2886=
--1-mike@fireburn.co.uk?part=3D2
+-1-mike@fireburn.co.uk?part=3D1
