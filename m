@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC169C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:45:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F179C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:52:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA0C10F6B6;
-	Fri,  3 Jul 2026 07:45:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDD0410E495;
+	Fri,  3 Jul 2026 07:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VhXBFkrM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nOWnadwt";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A91010F6B6
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:45:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F15710F6BF
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:52:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E83044169F
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:45:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB5E1F00A3D;
- Fri,  3 Jul 2026 07:45:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4770943540;
+ Fri,  3 Jul 2026 07:52:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DAE1F00A3D;
+ Fri,  3 Jul 2026 07:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783064714;
- bh=V9rBl/YNeSLRGqMN7f8xZFnLN+Pqa/1p10115WkDsFE=;
+ s=k20260515; t=1783065121;
+ bh=PGoSZ5zXGa7s7mlf/s6I0gZlKHcvVIqYbTweuQToz94=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VhXBFkrM1tL/pgnKwEEVerG+kgXK1uGsPn2z3sDZkml5ckEZIU3Z4jHuEPxX1e54t
- XRIaBv/6jqCz2bdJEn+E4b1UcfzZDiJH2goxC4ufQFgZlMnlewRL2sB/C1Ly81P1gr
- AOtTyVqxYHNba4iCATdE6dTde82+rPDdOzgxCv2kJqZRhg97NJMG/bt/BZnKq10KDV
- zCUq5L1726rT0ZZ7Lcb6Hgy1RJehTYvkWfmJEOQh+9GuxML7/RrEXURoyn7+aANAqd
- 6faCRIBdpDqcJDLKldcCbRc9UVhIAmtvtWiQ33FNqEi8/oHLZGdXD1+JHI2Um5886+
- dqriqEawZmLbA==
+ b=nOWnadwtKTEv58uftBDzy9+jMdaQ/VesGOWK8kHau3Jb9osJN0WKBWhax562XCZFf
+ iLg4lIPtYXPCmMRLMSkn2st2wZpRNl3H244611QMtJJAIYlHDvJldVUrTf1A9x2n54
+ gyRIiNdoS12OSOqvBvNrtA3ZTxhOiRa4F/IGihREz93dsSNQtK0wnS3JZmA7S8piCK
+ +Q5+/xcAkJlUtI47V1SY7AaC24qjAHozD0dyGCs53m3r9yNoaGCegGW2saSvcRfPUl
+ eYRd7cIPb1YFZv50KvwXFlNJAA8VXoekrFnscr+b08Cp6whTpxrHaxUeZQ0D1Z1si2
+ M3+K3QfK1x0zA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260703073141.3962604-6-phasta@kernel.org>
-References: <20260703073141.3962604-2-phasta@kernel.org>
- <20260703073141.3962604-6-phasta@kernel.org>
+Subject: Re: [PATCH net-next v4 1/3] net: devmem: allow rx-buf-size >
+ PAGE_SIZE per dmabuf binding
+To: "Bobby Eshleman" <bobbyeshleman@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260701-tcpdm-large-niovs-v4-1-ca4654f37570@meta.com>
+References: <20260701-tcpdm-large-niovs-v4-0-ca4654f37570@meta.com>
+ <20260701-tcpdm-large-niovs-v4-1-ca4654f37570@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 07:45:13 +0000
-Message-Id: <20260703074514.9CB5E1F00A3D@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 07:52:00 +0000
+Message-Id: <20260703075200.F1DAE1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,180 +58,84 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Lifetime erasure via `ForeignOwnable` or `core::mem::forget` on `D=
-riverFence` leads to a Use-After-Free of `FenceCtx`.
-- [Medium] `DriverFence::signal` and `DriverFence::drop` omit the required =
-`dma_fence_begin_signalling()` and `dma_fence_end_signalling()` lockdep ann=
-otations.
-- [Low] `FenceCbRegistration`'s `# Invariants` documentation is outdated an=
-d lacks the mandatory `// INVARIANT:` comment upon construction.
+
+Pre-existing issues:
+- [High] Truncation of 64-bit `dma_addr_t` to 32-bit `unsigned long` when i=
+nteracting with `gen_pool` causes memory leaks and corruption on 32-bit sys=
+tems with LPAE.
 --
 
-commit d72bac0aa1194434de7bc7000b2d5a50bb882d68
-Author: Philipp Stanner <phasta@kernel.org>
+commit 294321e299dc1978a803324d3c6d3e8d5fb93d2d
+Author: Bobby Eshleman <bobbyeshleman@meta.com>
 
-rust: Add dma_fence abstractions
+net: devmem: allow rx-buf-size > PAGE_SIZE per dmabuf binding
 
-This commit adds Rust abstractions for the dma_fence subsystem, providing
-DriverFence and Fence types to cleanly decouple fence issuers and consumers
-while ensuring safe reference counting and signaling.
+This commit introduces a new netlink attribute to allow devmem dmabuf
+bindings to request a larger niov size. The value must be a power of two
+greater than or equal to PAGE_SIZE, aiming to reduce CPU overhead for
+large flows.
 
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs
-> --- /dev/null
-> +++ b/rust/kernel/dma_buf/dma_fence.rs
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 957d6b96216b3..3d6cf35e50f30 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
 [ ... ]
-> +/// # Invariants
-> +///
-> +/// If callback is Some, then cb is registered with the fence and the
-> +/// callback hasn't been invoked yet. If None, the callback has been inv=
-oked
-> +/// or the fence was already signaled when we tried to register.
-> +#[pin_data(PinnedDrop)]
-> +pub struct FenceCbRegistration<T: FenceCb + 'static> {
-> +    #[pin]
-> +    callback_foreign: Opaque<bindings::dma_fence_cb>,
-> +    callback: ManuallyDrop<T>,
-
-[Severity: Low]
-Is this documentation accurate?
-
-The invariants description references Some and None for the callback
-field, but the field is defined as ManuallyDrop<T> rather than an Option.
-
-[ ... ]
-> +    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, =
-CallbackError<T>> + 'a
-> +    where
-> +        T: 'a,
-> +    {
-> +        try_pin_init!(Self {
-> +            // We need to fully initialize the fence because after
-> +            // dma_fence_add_callback() ran, the callback might immediat=
-ely
-> +            // get invoked.
-> +            callback: ManuallyDrop::new(callback),
-
-[Severity: Low]
-Are we missing the mandatory INVARIANT comment here?
-
-The Rust subsystem guidelines require an explicit INVARIANT comment when
-constructing a struct with an Invariants documentation section, but it
-appears to be omitted here.
-
-[ ... ]
-> +    pub fn signal(self, res: Result) {
-> +        let fence =3D self.as_raw();
-> +        let mut fence_flags: usize =3D 0;
-> +        let flag_ptr =3D &raw mut fence_flags;
-> +
-> +        // SAFETY: fence is valid because self is valid. flag_ptr is
-> +        // merely a pointer to an integer, which lives as long as this f=
-unction.
-> +        unsafe { bindings::dma_fence_lock_irqsave(fence, flag_ptr) };
-> +        // SAFETY: fence is valid because self is valid. The lock must be
-> +        // held, which we acquired directly above.
-> +        if !unsafe { bindings::dma_fence_test_signaled_flag(fence) } {
-> +            if let Err(err) =3D res {
-> +                // SAFETY: fence is valid because self is valid. The fen=
-ce
-> +                // must not have been signaled yet, which we check direc=
-tly above.
-> +                unsafe { bindings::dma_fence_set_error(fence, err.to_err=
-no()) };
-> +            }
-> +            // SAFETY: fence is valid because self is valid. The lock mu=
-st
-> +            // be held, which we acquired above.
-> +            unsafe { bindings::dma_fence_signal_locked(fence) };
-> +        }
-> +        // SAFETY: fence is valid because self is valid. flag_ptr is
-> +        // merely a pointer to an integer, which lives as long as this f=
-unction.
-> +        // The lock must be held, which we acquired above.
-> +        unsafe { bindings::dma_fence_unlock_irqrestore(fence, flag_ptr) =
-};
-> +    }
-
-[Severity: Medium]
-Should this manual signaling path include lockdep annotations?
-
-By open-coding the fence signaling using dma_fence_lock_irqsave() and
-dma_fence_signal_locked(), this function omits the
-dma_fence_begin_signalling() and dma_fence_end_signalling() calls used in
-the equivalent C dma_fence_signal() function.
-
-Without these annotations, lockdep cannot track cross-release dependencies
-during fence signaling, which might lead to false negatives when detecting
-deadlocks between fence signaling and wait paths.
-
-[ ... ]
-> +unsafe impl<'b, T: Send + Sync + FenceCtxOps + 'static> ForeignOwnable f=
-or DriverFence<'b, T> {
+> @@ -113,12 +114,13 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
+>  {
+>  	struct net_devmem_dmabuf_binding *binding =3D net_devmem_iov_binding(ni=
+ov);
+>  	unsigned long dma_addr =3D net_devmem_get_dma_addr(niov);
+> +	size_t niov_size =3D 1UL << binding->niov_shift;
+> =20
+>  	if (WARN_ON(!gen_pool_has_addr(binding->chunk_pool, dma_addr,
+> -				       PAGE_SIZE)))
+> +				       niov_size)))
+>  		return;
+> =20
+> -	gen_pool_free(binding->chunk_pool, dma_addr, PAGE_SIZE);
+> +	gen_pool_free(binding->chunk_pool, dma_addr, niov_size);
+>  }
 
 [Severity: High]
-Could this lead to a Use-After-Free if the DriverFence is leaked?
+This isn't a bug introduced by this patch, but does truncating dma_addr_t to
+unsigned long in net_devmem_free_dmabuf() cause issues on 32-bit systems
+with LPAE?
 
-Since DriverFence implements ForeignOwnable without requiring a 'static
-lifetime for the 'b parameter, a user can call into_foreign() on a
-DriverFence<'a, T> or use core::mem::forget() to leak it.
+The net_devmem_get_dma_addr() function returns a 64-bit dma_addr_t, but it =
+is
+cast to an unsigned long local variable. The gen_pool_has_addr() and
+gen_pool_free() functions also expect an unsigned long for the address.
 
-If the DriverFence is leaked, DriverFence::drop() is never called.
-The Rust compiler will then allow the borrowed FenceCtx (tied to
-lifetime 'a in DriverFenceData) to be dropped. Once FenceCtx::drop()
-completes, the driver_name is freed.
+If a DMA-BUF is mapped with a 64-bit dma_addr_t that exceeds the 32-bit
+boundary, passing it as unsigned long will truncate it.
 
-However, the C backend could later interact with the dma_fence, which
-is kept alive by ARef<Fence>, and invoke get_driver_name(). This would
-dereference the dangling fctx pointer, causing a Use-After-Free.
+Could this lead to gen_pool_has_addr() failing and causing an unrecoverable
+memory leak, or gen_pool_free() clearing bits in the wrong chunk and causing
+memory corruption?
 
 [ ... ]
-> +    fn drop(&mut self) {
-> +        let fence =3D self.as_raw();
-> +        let mut fence_flags: usize =3D 0;
-> +        let flag_ptr =3D &raw mut fence_flags;
-> +
-> +        // SAFETY: fence is valid until the call_rcu() below. flag_ptr is
-> +        // merely a pointer to an integer, which lives as long as this f=
-unction.
-> +        unsafe { bindings::dma_fence_lock_irqsave(fence, flag_ptr) };
-> +
-> +        // Use dma_fence_test_signaled_flag() instead of dma_fence_is_si=
-gnaled_locked()
-> +        // because the C backend wants to get rid of the latter.
-> +
-> +        // SAFETY: fence is valid until the call_rcu() below.
-> +        let signaled: bool =3D unsafe { bindings::dma_fence_test_signale=
-d_flag(fence) };
-> +        if warn_on!(!signaled) {
-> +            // SAFETY: fence is valid until the call_rcu() below. The fe=
-nce
-> +            // must not have been signaled yet, which we check directly =
-above.
-> +            unsafe { bindings::dma_fence_set_error(fence, ECANCELED.to_e=
-rrno()) };
-> +            // SAFETY: fence is valid until the call_rcu() below. The lo=
-ck must
-> +            // be held, which we acquired above.
-> +            unsafe { bindings::dma_fence_signal_locked(fence) };
-> +        }
-> +        // SAFETY: fence is valid until the call_rcu() below. flag_ptr is
-> +        // merely a pointer to an integer, which lives as long as this f=
-unction.
-> +        // The lock must be held, which we acquired above.
-> +        unsafe { bindings::dma_fence_unlock_irqrestore(fence, flag_ptr) =
-};
+> @@ -288,7 +295,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *=
+vdev,
+> =20
+>  		owner->area.base_virtual =3D virtual;
+>  		owner->base_dma_addr =3D dma_addr;
+> -		owner->area.num_niovs =3D len / PAGE_SIZE;
+> +		owner->area.num_niovs =3D len >> niov_shift;
+>  		owner->binding =3D binding;
+> =20
+>  		err =3D gen_pool_add_owner(binding->chunk_pool, dma_addr,
 
-[Severity: Medium]
-Does this cancellation path also need the lockdep annotations?
+[Severity: High]
+This is also a pre-existing issue, but does passing dma_addr to
+gen_pool_add_owner() truncate the 64-bit DMA address here?
 
-Similar to DriverFence::signal(), this open-coded signaling omits the
-dma_fence_begin_signalling() and dma_fence_end_signalling() lockdep wrapper=
-s,
-which prevents cross-release dependency tracking.
+The virt parameter of gen_pool_add_owner() takes an unsigned long. If a
+contiguous chunk crosses a 4GB boundary on a 32-bit LPAE system, would this
+truncation cause a start_addr > end_addr wrap-around or overlap in the
+gen_pool?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703073141.3962=
-604-2-phasta@kernel.org?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-tcpdm-larg=
+e-niovs-v4-0-ca4654f37570@meta.com?part=3D1
