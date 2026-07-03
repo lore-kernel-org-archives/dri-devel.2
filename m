@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20F2BC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 19:42:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3C6DC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 19:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF5510F8B1;
-	Fri,  3 Jul 2026 19:42:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15CBE10F8B8;
+	Fri,  3 Jul 2026 19:43:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jKWf2GSY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IACRSxFa";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dBy/JQfo";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aCEmNKR+";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0C4B10F8B1
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 19:42:39 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B86910F8B8
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 19:43:04 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 663Hj6Ep679223
- for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 19:42:39 GMT
+ 663Hj3ct686440
+ for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 19:43:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=BM7jtgPz5pu
- XtMgobfAPTx0DKFPGBIZQqDVHqsjFOZI=; b=jKWf2GSYBWt0WCeSTarF/ZyxiwK
- ySviO6bqYuR7hXocJXWdOzctBTkhr9x7EBJtne4ZOFmY2TQnOa/Gh839O06jG1Z7
- dooiFHxttTiabG9BCsQjg42O4/YG3Njl/KqjnIDTpKtWlrEa7Oz6uExs+CjZECUi
- xjJD6IMEajr2OkDLA3WKBxxOfzl0dQqBxjqVSPjOoU9RaH/p2EFT7u56Y4OH0mzN
- ZRdyYM3r4dJMbR3VmiLwRyPjjK7ZwaTZ5+BWp14AX1vqD6b0N/1+keNALbhSW6GJ
- 73bXzhYTiDhE7iSf9SrCIj4lzRwnt5YUmTfWTl/y5PQ/BXjK1zfMPAEFh9Q==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f68u32jj6-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=Z1EEVIKsLJK
+ Ugc5TxRSkb+8QfAsvTDn+685DsfCzyOg=; b=dBy/JQfo/vmPcUgd+SG5C/HFppQ
+ VQPpo60m5XuLLe8IZz9VmkujdeOWKORaedTIbeEBXY3MrqaFrb5buG/dtNw1flVa
+ gmLIGrbmt1RBL2AacXvRap654MDBA4a6SeaUuliy+gHrr788pt04eMSI9xpgs33+
+ R5AZgG4+5VHgVaE2/+1DnI3BIA5lvOsSyAeCDfw9UMvsglqVfpNNovb5N7PeoTwg
+ ln+ebK3WQ+ukRC6+S/3BEacZiLuSKmeNDsLRfTMLfQIiHJVlcehaxynQlPbJBxiI
+ lA6TlzgWIpcuF6cQsHlG+pIWLBg20HuTazq1cz/Ht4OmvhKuWxEpUIEngyw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f64b5bs29-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 19:42:39 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-3810960140eso1447910a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 12:42:39 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 19:43:03 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-37e24235ce1so1245525a91.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 12:43:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783107759; x=1783712559;
+ d=oss.qualcomm.com; s=google; t=1783107783; x=1783712583;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BM7jtgPz5puXtMgobfAPTx0DKFPGBIZQqDVHqsjFOZI=;
- b=IACRSxFavU2OINgkv9MUNM+KQRuMXetMxzC9gqzf4uL5X08RU8MJS+aJjOFT0S/pU8
- e4LPH3U0F8VU2kPzZZzVrmoMZ2BdI3A8vfUOSFd6QS7aQQNzEOiVqltkpsnA0e3iU4Lh
- s3jzFGXxeiBIOHTHaaI0TGuLwgkhSLs/Ps1GAQT62imzxB3yTOKajhdHl7Q9DxLAvrc8
- BBgyfYU5eu88OO5Us8N+AGPx1L0pJmmR5tlObMPiH7Hd5Xnyh1PgznFIcwomKqh/Ugfc
- KCFVz+/Ws/oZbJUf1/SbIfzkzO1Ox/sbzmSGJW4GXVPdE+hKoyMWPcJfFCYuyToiDjr0
- a1Tw==
+ :message-id:reply-to:content-type;
+ bh=Z1EEVIKsLJKUgc5TxRSkb+8QfAsvTDn+685DsfCzyOg=;
+ b=aCEmNKR+SPJamd/ndf78TIMnLfvpLQ5+sVF6ejHwtnKhPJ4h0KyoWFjcB2qsReLzN9
+ DEBCRpfFR7Da+ot7lA2JKFnpRBiKjZMaz9E4UvJ9QtXhngaQzOjzhnoAj0Wzor5oizjh
+ hUbxWKqZS/FBgFECnvkPwj52N4ypRUB4f34FXPiTczal5oBouBpLcfpHsMasUq8w3qUQ
+ Oy5L4FOJ01BWk54Q1NWDAhmouU6uYMwmyVXj6TTT7J4CRj2/5VmxEkkp3HcqE6FrHx0N
+ aXBPmGOUKtpnNIniqqUuwaqCPXfssiZ5f9Zsm1roGIet8K55dbiDRhgl/qliRZI6VP64
+ l8fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783107759; x=1783712559;
+ d=1e100.net; s=20251104; t=1783107783; x=1783712583;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=BM7jtgPz5puXtMgobfAPTx0DKFPGBIZQqDVHqsjFOZI=;
- b=ZEpjqVH+fAgXgMkqbfpXLWWncFxvOWgo5aqnjIn3F1segB4NphTFT7yRP4/FcXD4o9
- k637nl5jYFbIzubmj/lOquzgi9pLlV69JVxN89EQbM5NBOXnX6BOA/42z9+xO2NbiqK4
- FGgl5z98TSSjWF/SusDvXvfV9YjglBDGtHoa9zjXKjQSt9hScvV9UNMhf2kqBujme4tk
- 53ykcTzd91UGnVxdeXWaTLf+WLTFFiUGZKvJjgNrqglTRmGKu6Y2Mx/L2MgiWoNIiwje
- Rk+RNuAFz+SZDTRmH6SGfnWaXPeTILrzzNntNoz8nn2SVsjCN9TAabzD5N/NDVy84L36
- g4Bw==
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Z1EEVIKsLJKUgc5TxRSkb+8QfAsvTDn+685DsfCzyOg=;
+ b=WjcN748W2vqPl6lJXBmvZf0OJ2Nwv2w0r6olyTVWcuU+geb7eW/9//H1YYwod77nwv
+ +aDn0Toz18tk9scw4q93BVPpFdZCkX0vRkbXD16vCOgc4u1FLTptbdzaWgRUwLppeDBJ
+ 0O7Pu0PYJOF/rpceOevvXO0kOHcJCHAimqiR9eAU6jACVVb3Y6wq80Zaqdy6GPTtlc0A
+ 1mQiTg8nz1CeSV6XnCaGcMHXZ5j4852AzMHwWy5xukjbdNHoNTjJH+WSeliiXIadKIHr
+ YeVTTZnVLzHzpsYmtLrhr1v65owYv6fSWYUyIo55GzHtW5dHPMskJOQ87xDKOjy/suep
+ /2Yg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqrILTbEFJ1fHV8nv+cnYN7xYjAqjVUAEblvGgUg/9RxqMWPhjz9QUMGUvScYxkWsPnR85iSe19Dp8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBeQSeD+G/+VMioM6AswBUX37QmQeSAR5yGgWPSy40t5B6C60n
- Htt/iAr90xyAyPdWNBdUjWHQWTEuCkGHZDrd98ZpH72Mywv61azkzhbS7k5WCGF8To4Nl4qrNVK
- 5UCZful8RGwf6znbCVE24C6H/u+hrGv7OrzAsgYNTVR7LVRPIgHNXgsDHMVAz1QbcPIp2LNs=
-X-Gm-Gg: AfdE7ckAjy6Dj3+kPPuwKNPPhRF13Ho3IRhgcTHoGedGZL+ubSW5vl/uXPpF8HkWM5/
- 5TSzPcZXKzeJpgUtQXFmiuepkaW9KpojYL+zOfniyDtnNgS5dOkaKIvBBDZyenM+FPrU77NPmQR
- D2vFknGOODw6lGz9wm1BO2C6Fmt+/qh7ChNMA5WIKd5oL/bMmRz3d1INB/PEiRotmhvVojHLVK/
- pup12H7c01OVz3gof5Hdi7cDiDodFSMMRacpzC5t+gsIV16UxLE1j2uYnn0P9MAtX/M4Ks44wc9
- q6EV0PLR79iB7PAyvMaWV3dvuMLSfB9CL3BejJTeQY2I06CuvEbtjOS1tLH7DMa2jKhw1bP/2pP
- nEpxbueoepBEOuGLkpSwvJTreCO1GZcBxJplSFQ==
-X-Received: by 2002:a17:90a:e708:b0:37e:a09:2640 with SMTP id
- 98e67ed59e1d1-382807ae330mr703154a91.7.1783107758442; 
- Fri, 03 Jul 2026 12:42:38 -0700 (PDT)
-X-Received: by 2002:a17:90a:e708:b0:37e:a09:2640 with SMTP id
- 98e67ed59e1d1-382807ae330mr703088a91.7.1783107757826; 
- Fri, 03 Jul 2026 12:42:37 -0700 (PDT)
+ AHgh+RpU1J4DghKVvXje+V07uG2Ywk0j00dt/yAzg5jrtZyntbIMbo4JyUZik8NKbCW4h1mbB4P/nJmb1RU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzR1qZHg+sS1g4vcOppzz6bRDW86NntoIFmvibPlUAidyIJaJMM
+ LjT7ZNaWB4YLyrut+WO1SytCEY98TU0yfIHeuIqCWYgFlUU5CWG6ziU7NJ4WSuv9mRIpgAwGy2z
+ ar1MpiA8QtKDZqXh34zAGFarKwzIGCwAKafnv+mEgvq68md6QBgyh/w8RazIoe1NXR+l/kew=
+X-Gm-Gg: AfdE7ckPOGII48SfjBYqj4Zv06qZxTcF+1NeXjIdFlgNjuhSzVcYsEmpJFco6e8PtnD
+ LV69Id6gI69hqBdwMi7S8tOtxkICEJ88RZ/Pm5nR2NUXRZbMEPDsZCA9i2H6F1dKM/RL7zUJ/Y/
+ XYsrLF9mj5kLz/vGRk/KyqXN0z9/zOvl1lFwbFmvRJRkmh7o/Wko4zPacRTafp2fF3SW4p8MQq5
+ H9Lrz4QJYr3pS/dqFQgzRknEzX7+8229k1FktY7QC+Zxox/nN5wgZZsIkMHCMwtooAOtWUa8Rm8
+ AnSlVlXwAmC99xx3+zDEAuKzg3Ixtkl2XVRIu9aFpNKi7RBjLAm5KsuRsfsqhI6Npbt8kiD0nIE
+ xuKi/TKIEwymT3b9t84zsEF0/ytr8akX/8ImfWw==
+X-Received: by 2002:a17:90a:d40f:b0:36a:a16b:5f6d with SMTP id
+ 98e67ed59e1d1-382807aa1b0mr732934a91.7.1783107782567; 
+ Fri, 03 Jul 2026 12:43:02 -0700 (PDT)
+X-Received: by 2002:a17:90a:d40f:b0:36a:a16b:5f6d with SMTP id
+ 98e67ed59e1d1-382807aa1b0mr732847a91.7.1783107781822; 
+ Fri, 03 Jul 2026 12:43:01 -0700 (PDT)
 Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.42.14
+ 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.42.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2026 12:42:37 -0700 (PDT)
+ Fri, 03 Jul 2026 12:43:01 -0700 (PDT)
 From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -156,41 +156,41 @@ Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
  linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
  Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 08/42] drm: logicvc: Use devm_of_reserved_mem_device_init()
-Date: Sat,  4 Jul 2026 01:08:21 +0530
-Message-ID: <20260703193855.110619-9-mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 09/42] drm: hdlcd: Use devm_of_reserved_mem_device_init()
+Date: Sat,  4 Jul 2026 01:08:22 +0530
+Message-ID: <20260703193855.110619-10-mukesh.ojha@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
 References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: O8maOzxA08CbgtVRX0qWaWYoJG02syYZ
-X-Proofpoint-ORIG-GUID: O8maOzxA08CbgtVRX0qWaWYoJG02syYZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX5Hu29jMzK57B
- 6/sONLjOqkKrl9inB5BihUbk+oUgH3JeYN9bF/AdnfR57pNPPhsohvwreMmcJcIF6Q5vtO4Z0om
- E7FPMpHAjA/bX0QmhOXT2foQUxLq7Qo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX5/du02/0Q4EQ
- 1xlLyXCb1IB7Ih+LmUbMdBlFZuc3vbosf9bv+ThbVUa3HJ1jWEtAn4B92t5glCJHrOq/pOa/GDu
- Dllqx7S4hqiTgsWvvkUXAtKT2lJeBRytvAZn+sZPAbMDyEDP5Diml3T4w1hJ+y7LTYvlruyyP8m
- JmG8CIQgcRt8mUdN+KUdvY6tC/Rh+jVqDwWmhA45RHRqbdiIOxuhMP5LdWWeHfzr4Z/ZJgwvHqs
- ogrImUUp797jGdoiku/XjVgDf54HcPA8mZDxQXRCfk1T7QqM9MWnx6WtHb5pNmaXvRkVxns6RZp
- j4DDmWxoZoy33HO5QSuoXTQ9mJGjf/G0rQgLRMFuCVhLTUoDZUtAeIamgu7DaZf0FxgeKMcwpiC
- 2j8SjvWITDp0VIq7HzXCm+OtIQ7zv7/c1oIcvJZsuew4cBmxj/d6al6Z32xIQADAx1zm4pLH5lE
- t+IVllmVCa41lL493Xg==
-X-Authority-Analysis: v=2.4 cv=OaKoyBTY c=1 sm=1 tr=0 ts=6a4810af cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OSBTYWx0ZWRfX9fCPXTf2fCHF
+ b8Rxxk/csDT+p+Pq21NlzystesYviKkBNIDCV0ErGXtFF3nk/Phn9Ho4GKbsATEXqN3S0mDIgoQ
+ mn912SJRmKXvBcua1YWIegi1ypw8HI8=
+X-Authority-Analysis: v=2.4 cv=FOQrAeos c=1 sm=1 tr=0 ts=6a4810c7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=ReI0EElcLHst8dYcsfAA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=zu8Q1U5i7KxegdXecekA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: 8V8XoDHp_eJmaIqwwMkEHBEag_6_slmB
+X-Proofpoint-GUID: 8V8XoDHp_eJmaIqwwMkEHBEag_6_slmB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OSBTYWx0ZWRfX6L+qtnLgtbts
+ NDTXjSpe6v8JVYFSaIe7jcFuY3PDc1yEQF4wmuoMKQMc77QY4NBmquuRrMdJmAsyFAPtQhTIxNu
+ FVWOq9EXG275QYtVOwqtACG7zbfLlYZ+FCPKW++xoUBhkffBUy3cLAGrTH52uZwyPB2WwpJYftz
+ r46ZZndOUGVi5KPpUIjoAq2koRKHTzNzII2ORII1uHu8PoDYjsW6OTsSg/tfchh4PK9lJurI4Db
+ spmY0Xup/xM16/4E8NbZllzt7J/LTYGC6UOHUX3P86qbTbOjFVcJiWNYehLO5Fhx8BsUvccRx1P
+ otqd/0Gm2uzyOPGf1oBQfw7OHoXeeFkXuiYScH9DF0xt82G2DlEt7/ttlvsiCs59Hcut+R8yygk
+ F7goLRCIsZT5boZ9Ia2EZlWAU7wiywApyQD5i8nkc6Lx4JQc0d90YRU3SAmx97slV+niQotYdMN
+ b1Lmmail7H/F7e2Ghow==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-03_03,2026-07-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 spamscore=0 phishscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607030198
+ impostorscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607030199
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -208,108 +208,52 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Switch to devm_of_reserved_mem_device_init() so the reserved memory
 region is released automatically on probe failure or device unbind.
-Replace all error paths that jumped to error_reserved_mem: with
-error_early: since the manual cleanup label is no longer needed, and
-remove the explicit of_reserved_mem_device_release() call in the remove
-function.
+Remove the three explicit of_reserved_mem_device_release() calls in
+the setup_fail error path, the bind error path, and hdlcd_drm_unbind().
 
 Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 ---
- drivers/gpu/drm/logicvc/logicvc_drm.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/arm/hdlcd_drv.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logicvc/logicvc_drm.c
-index bbebf4fc7f51..d6dbe52ff0a9 100644
---- a/drivers/gpu/drm/logicvc/logicvc_drm.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
-@@ -306,7 +306,7 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 	int irq;
- 	int ret;
+diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
+index 81d45f2dd6a7..67466fd441d5 100644
+--- a/drivers/gpu/drm/arm/hdlcd_drv.c
++++ b/drivers/gpu/drm/arm/hdlcd_drv.c
+@@ -134,7 +134,7 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
+ 		version & HDLCD_VERSION_MINOR_MASK);
  
--	ret = of_reserved_mem_device_init(dev);
-+	ret = devm_of_reserved_mem_device_init(dev);
- 	if (ret && ret != -ENODEV) {
- 		dev_err(dev, "Failed to init memory region\n");
- 		goto error_early;
-@@ -327,14 +327,14 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 		ret = of_address_to_resource(of_node, 0, &res);
- 		if (ret) {
- 			dev_err(dev, "Failed to get resource from address\n");
--			goto error_reserved_mem;
-+			goto error_early;
- 		}
+ 	/* Get the optional framebuffer memory resource */
+-	ret = of_reserved_mem_device_init(drm->dev);
++	ret = devm_of_reserved_mem_device_init(drm->dev);
+ 	if (ret && ret != -ENODEV)
+ 		return ret;
  
- 		base = devm_ioremap_resource(dev, &res);
- 		if (IS_ERR(base)) {
- 			dev_err(dev, "Failed to map I/O base\n");
- 			ret = PTR_ERR(base);
--			goto error_reserved_mem;
-+			goto error_early;
- 		}
- 
- 		logicvc_drm_regmap_config.max_register = resource_size(&res) -
-@@ -345,21 +345,21 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 		if (IS_ERR(regmap)) {
- 			dev_err(dev, "Failed to create regmap for I/O\n");
- 			ret = PTR_ERR(regmap);
--			goto error_reserved_mem;
-+			goto error_early;
- 		}
- 	}
- 
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
- 		ret = -ENODEV;
--		goto error_reserved_mem;
-+		goto error_early;
- 	}
- 
- 	logicvc = devm_drm_dev_alloc(dev, &logicvc_drm_driver,
- 				     struct logicvc_drm, drm_dev);
- 	if (IS_ERR(logicvc)) {
- 		ret = PTR_ERR(logicvc);
--		goto error_reserved_mem;
-+		goto error_early;
- 	}
- 
- 	platform_set_drvdata(pdev, logicvc);
-@@ -371,7 +371,7 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 	caps = logicvc_drm_caps_match(logicvc);
- 	if (!caps) {
- 		ret = -EINVAL;
--		goto error_reserved_mem;
-+		goto error_early;
- 	}
- 
- 	logicvc->caps = caps;
-@@ -382,7 +382,7 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 	ret = logicvc_clocks_prepare(logicvc);
- 	if (ret) {
- 		drm_err(drm_dev, "Failed to prepare clocks\n");
--		goto error_reserved_mem;
-+		goto error_early;
- 	}
- 
- 	ret = devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
-@@ -450,9 +450,6 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- error_clocks:
- 	logicvc_clocks_unprepare(logicvc);
- 
--error_reserved_mem:
--	of_reserved_mem_device_release(dev);
+@@ -164,8 +164,6 @@ static int hdlcd_load(struct drm_device *drm, unsigned long flags)
+ irq_fail:
+ 	drm_crtc_cleanup(&hdlcd->crtc);
+ setup_fail:
+-	of_reserved_mem_device_release(drm->dev);
 -
- error_early:
  	return ret;
  }
-@@ -469,8 +466,6 @@ static void logicvc_drm_remove(struct platform_device *pdev)
- 	logicvc_mode_fini(logicvc);
  
- 	logicvc_clocks_unprepare(logicvc);
--
+@@ -316,7 +314,6 @@ static int hdlcd_drm_bind(struct device *dev)
+ 	of_node_put(hdlcd->crtc.port);
+ 	hdlcd->crtc.port = NULL;
+ 	hdlcd_irq_uninstall(hdlcd);
+-	of_reserved_mem_device_release(drm->dev);
+ err_free:
+ 	dev_set_drvdata(dev, NULL);
+ 	return ret;
+@@ -338,7 +335,6 @@ static void hdlcd_drm_unbind(struct device *dev)
+ 	pm_runtime_put(dev);
+ 	if (pm_runtime_enabled(dev))
+ 		pm_runtime_disable(dev);
 -	of_reserved_mem_device_release(dev);
+ 	dev_set_drvdata(dev, NULL);
  }
  
- static void logicvc_drm_shutdown(struct platform_device *pdev)
 -- 
 2.53.0
 
