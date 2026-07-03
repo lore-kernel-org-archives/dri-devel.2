@@ -4,146 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 286F8C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 14:19:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D18FC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 14:28:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 787A110F822;
-	Fri,  3 Jul 2026 14:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 123FD10F84F;
+	Fri,  3 Jul 2026 14:28:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="X+a0dWsQ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pr6eJpl6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A+riaA4z";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA1E210F822
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 14:19:05 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 663D19uu053953
- for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 14:19:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=YKo6OPhVEgyLPX0yHK/easdg
- O+usCoQyvOamCjz3XwA=; b=X+a0dWsQ9cZuaaIyMj61+0hDJJZjyCRiqV/fZMJg
- dE+L7cUwNkPgEwelSfjEIG+7ea9v/gkwaIwvaJTiUF/lL6FWGSn1DPYWYtv9d5tK
- Q+ecSfKBk/yLVLIQBKxFLnhfn32t1/a9JPdfsf4bNzRSipOSWrAAo44yfRnV7f+M
- 3E+Fds1MRs2t0WCK0a1cn06e22yQWBbA5S591GPqKd8Rdzv47tEJKWDeoU2dthkp
- GBbJC1i/3OzRAwbWPS+lRXgrA++g2Lkv5wmPHCrRmsHp8fRjlPTQNka6uwPNgKJV
- RJrUCeN+XZSgorizlNgs1FZ0QBiw2wmA6g+a85xmnPn5tA==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
- [209.85.221.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6dkkg801-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 14:19:04 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id
- 71dfb90a1353d-5bbd3241499so400604e0c.3
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 07:19:04 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F76B10E609
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 14:27:58 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-46ed4f66256so578681f8f.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 07:27:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783088344; x=1783693144;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YKo6OPhVEgyLPX0yHK/easdgO+usCoQyvOamCjz3XwA=;
- b=Pr6eJpl67M2XqQgG2a0211RTiVvy53XJlOYL0sO2uZ4T5BJcNnHmIZa3fKq/CPik2h
- iKVivSNIHtVmqIQGwnxDp6rJ22/zsnUJf8oBVDip+T9Exci2lcom7OlhFPSLL5OlImyJ
- r52c7PGE+od0HJzl7URkpyVQwQOaXIZdYpqSM8TSGfa7jQ2wjf+VgH8pTZ+heAVP6OkO
- ceYAzBs8VRHyQbgxW0C1OccuwDwkic1RGbMH73UUYw1MZ2e3Fg/PTvJ0W7Uh6SHomfKT
- O8ZNqn7xWK0PwLjdAhToxhLlvanqK1ZRr8SE8GVRn+jLC9j5+GELZxxJT2YV2ffDDfYA
- PEDQ==
+ d=gmail.com; s=20251104; t=1783088877; x=1783693677; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kv5yKiNtIV+UqN4ctXabi1ct/jkVoHU5ZKLfAIDfR8w=;
+ b=A+riaA4zszd0yl4Jhk3iKrI+zQQcs32JbAWFrxNPqcHLfhmeQjv8hq9t2mjQA39EOy
+ YaX1n3wEhtIX+/Rf2U7LgpebKVWTAS8Avv6MgN25A/NdVqK3CF4FtoPY0w1H2SaP1kDW
+ NmOrVncVmnsUEsux4pzpLiP7o0JhiCrLV/0KDHAiYaULGuTu7jrkbqcnpD9HSq7MGr8Q
+ Gn+VpBEXK6jCE3fdW8x09VBkKrgIJL107zFBVOZHSHoX7czQIDfhU2unXBaIMZZJUkes
+ 9l83evSuDclO4QSC0E99m7WSChF+sK8AGMDQqFgl3VJUglvimND/n+lk4ChsS1AJef1M
+ nQDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783088344; x=1783693144;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YKo6OPhVEgyLPX0yHK/easdgO+usCoQyvOamCjz3XwA=;
- b=ohUjgfBPBQKiLpflmS2DRCjeBNBYXCX1NbLpDctV5maTlqC4B0dFRpofJHNOQprTLu
- a3RHhwEQ+XTVk275tFiKHyKrko6OB1nM9aBRtiJDhbDfUbJB6q4zorFnOKx6sj5THLef
- nVaN6IRHd2kss4cwGWXrqDBbkpE+SenuDK5+egQtXFibemgtgXMLbi4AUA+n0RWd55SS
- qLlTWJvaHfvAtQVu+QUondZljDW7FJ5XcpeZWHOCjcVaC4yZj0m8042rzehtjOGTaGjB
- 7r6D9H/2G6M956MvwjVqCUDYHlQmGSs1ZmrNodw0XRtsNvpR7CzIX7gydDP6GUURMTB1
- 6TcA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoFYP1rfos0ZHpO3/Ge0Hzeqaau5ONmxTPunU8K+/l+eKOjvkmiBoqw+PhFYcq5EIWnesAbqmLE9HA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzXPSrVvRrp7hKrio1UpGYVtYVPBbQWBtwF4BqDusimuYFRcemL
- t+AWkNOBJ5WSuoEBM2pbbcpwqFn/8vupWPyc+2+0Eu9XwK+dOr5idrEKvlBT8u42pjiW+cHl2tu
- U4OysL/4tbduCCvDsi5r18t6pUk0Cmqu0RMu5BdziUgr8lqlRZXOZwYVD9G69GZymoTZBnM8=
-X-Gm-Gg: AfdE7ckDJeRU5yaDUKSAa1xDmmjXv3q4s+eydxummwLeF8Z3oJROJgbEXJn+SSJkqdy
- kasG20s3WJ4z6CC4XAYuVRhflAq9uAHvhyt5V1k9DhxnH5W4OHu0yi9Fw7Xz2Vaiz8nCiLOPJ4J
- 8tdbVBQPb3l9RhX94EtB9cD6Xo+w3YRwJQ8VOY3q+PjCTlS0s5Bc9rWmIdfoh8NiA0ShckRubJj
- sFl0clwkpeFd/b+1so1D0ECmbZ/AdW/d8hCc3UadtMZIhq64IMS4rmLF1i2TUN/ZZwfdvgtJy3w
- y4QgQ8KiDZ/8qWyTV3fd7F6XlEN0xunZEgXHV02nS+MEI+CA/cDyCrGr7JqD8qsqekS6O5wavoX
- L01k6UDAKb+SYvgloTk+B6F+S6hqY7BibL/O3A1hbEeoGXtrj/HY9HpxR6ASNUiY/qhYMon3KPH
- DhxtFLb0IeGTFdSqWb5E3vjIGe
-X-Received: by 2002:a05:6122:8b0f:b0:567:4e8a:fb13 with SMTP id
- 71dfb90a1353d-5bddf5de64amr4308828e0c.8.1783088343877; 
- Fri, 03 Jul 2026 07:19:03 -0700 (PDT)
-X-Received: by 2002:a05:6122:8b0f:b0:567:4e8a:fb13 with SMTP id
- 71dfb90a1353d-5bddf5de64amr4308805e0c.8.1783088343359; 
- Fri, 03 Jul 2026 07:19:03 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aed1377180sm514920e87.33.2026.07.03.07.19.01
+ d=1e100.net; s=20251104; t=1783088877; x=1783693677;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kv5yKiNtIV+UqN4ctXabi1ct/jkVoHU5ZKLfAIDfR8w=;
+ b=NJ1MdfuV5FJMN61WkAqQ/FrtYmPlwNlwifTbHfnJCK6BaXZks7az9V44fBjS+dV1wC
+ aRInl1Qm3chrAFHEQCJ7mMPOdWpQDGhF+WvHgV9DlWUk3iwmYqmzoF+QIRreYRl/velO
+ BK/A8YOqGEn8yaAMkc7B2/t+s+D1STbsDglQ33WujThH2ANe+ZnbIVjNQNlvCU5JF+k/
+ SJcnaxi+W2Lb9naoO2U2Y3jr8uJ5l/K40o/T+Q+63nFaS1/CIWe6TPED65rDGVdCB5BP
+ 54Kpo1zvpvXPAt02GqDuE+ZvCifIC+i2DebVlaJb0x4+BL806mx8x4XZ2MJ15GBuqOWr
+ jf1Q==
+X-Gm-Message-State: AOJu0YyF3vll2raTz0vRW03I0/urjDbgbBoWXWEn6wp6M2cIfi1Uf/c9
+ g2kpUo4NytBWb9o3cD7smHauXu1oiVOjTSeg59RkML8iE9BYyQKmv2MIgYZhYA==
+X-Gm-Gg: AfdE7cmV/doNpHVXVwIskPrcZsPBdY8NZP4qDkFzoOBvO4tXkkqATDGYF5snqdkd0L2
+ BTy1FIFkjpb0V0S8TWcLJ9A3638+ZooZ4Bs8O3pqXJsy15UsDUt4weZEVYEXnZk2zd63GcCWPtt
+ +zk1N3PylFVuorFCweSy+teTICcGhijB9etAMOUspS+Ji932ai5eVEnMqDOWbyEVDcWZiqzEGJJ
+ gWlSRoG9UcOlwSxwWAZQ/IALTgFBJRV2sCturmCEIXCXUIo9EdvORdaYRB+U8RAjIyUSPiGb056
+ hd+B0IOzSiMLhMWqnJXE83OTne6STSdUaBR5ygH7XGqtUePjegu+0FLkH6/x6O7UdFRri6NoPn1
+ Be8tkh4nPf+ovpcZOWXhr3qz0Z9v4CaVZ1MfutTCGYwZnGYwNiJ9DNGf1PL9lKBMj0ixLYabr2/
+ 2FNPwFkFS9EHE=
+X-Received: by 2002:a05:6000:430b:b0:472:22b4:fd6c with SMTP id
+ ffacd0b85a97d-47759c268dcmr15656605f8f.8.1783088876733; 
+ Fri, 03 Jul 2026 07:27:56 -0700 (PDT)
+Received: from fedora ([94.73.45.171]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-477db3dbb01sm18601702f8f.1.2026.07.03.07.27.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2026 07:19:02 -0700 (PDT)
-Date: Fri, 3 Jul 2026 17:19:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v8 03/39] drm/display: bridge_connector: Pass HDMI
- capabilities through caps struct
-Message-ID: <eqnr2hfclbdkry2jqe2kuufss5kus6qpjblewq35upnjwlhxhl@4awqxpwrnxk2>
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-3-d79890d00b6a@collabora.com>
+ Fri, 03 Jul 2026 07:27:56 -0700 (PDT)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, boris.brezillon@collabora.com, kees@kernel.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito@redhat.com>
+Subject: [PATCH v2] drm/tests: shmem: Set DMA mask to 64-bit in drm_gem_shmem
+Date: Fri,  3 Jul 2026 16:27:23 +0200
+Message-ID: <20260703142749.4099-1-jose.exposito89@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-3-d79890d00b6a@collabora.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE0MCBTYWx0ZWRfX6VR+Z0mPg8UN
- 2ytVZZAyE9cbCivCLjXmAfvF1JCJ2jcjUowedaN/D6gUub9tqHy8X2fgGn3QB/D9fS/ex88BYFM
- h4Q3LkB7U+n2gZyaB2i1EYQeB8EZIfvFDbFOPrpnGI784Vd4Qzjdeu3y0AVumrmfir1GUHM8bsS
- /RqaVBVJBbxvfemKFlP/64olXwZgGKMz0ZtNeYhfoCEvj1DJyvPPNf5fDKM3eD9R6d4NnGmR2Ow
- hbzbBBFJQpa/a+9hexAcQ65T69uB96mlX2/MDVgTMwIx7883ju1do5MThwJtn590B9FV+UKEZUd
- FXidnIIxDf95sxdMseVZr2qlQtsMm/wBoXem97oDYDkOb12+P1sYphI1UaDjRgGgZQDrUanNPb0
- QRrSQm74/yMP0KyEy2es5Aspar0/9lP/Vgk6bfQe10UHNrjyvJlpGgaaiCrH8G0+ldE0TRGHy30
- GVlhzXhEo5LmA77/tfg==
-X-Authority-Analysis: v=2.4 cv=LeUMLDfi c=1 sm=1 tr=0 ts=6a47c4d8 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=QX4gbG5DAAAA:8
- a=VsKdElH_S0EtIKHoY5UA:9 a=CjuIK1q_8ugA:10 a=XD7yVLdPMpWraOa8Un9W:22
- a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-ORIG-GUID: ojGXE4UwDeojZt9n5Gb-MV48G56XPQ_I
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE0MCBTYWx0ZWRfXwFlLvRv/fsvu
- XpS63d5Q862TORqjdGgn1DGF3xp8lRIeVr3E91I3gONoAWPI/6PZcZh2o06I37jEcYoUBvo0xZI
- gH17Ui8O4rMkZIuEi6WGSapw9x6GDB8=
-X-Proofpoint-GUID: ojGXE4UwDeojZt9n5Gb-MV48G56XPQ_I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030140
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,74 +86,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 05:46:16PM +0300, Cristian Ciocaltea wrote:
-> Switch drm_bridge_connector_init() to
-> drmm_connector_hdmi_init_with_caps(), collecting the bridge's HDMI
-> properties into a stack drm_connector_hdmi_caps so future HDMI 2.x
-> capabilities can be plumbed without growing the argument list.
-> 
-> Introduce struct drm_bridge::supported_hdmi_ver to let bridges declare
-> the HDMI specification version they are conformant with, and forward it
-> to the connector layer through the new caps struct so HDMI 2.x features
-> can be gated on real source capability rather than guesswork.
+From: José Expósito <jose.exposito@redhat.com>
 
-And it's left uninitialized by the bridges, which doesn't mean anything.
-If you don't want to touch all bridge drivers in one commit, please
-provide some migration path and hopefully get rid of it by the end of
-the series. At least, there should be a drm_warn() if the version in
-unsspecified.
+drm_gem_shmem_test_purge [1] and drm_gem_shmem_test_get_pages_sgt [2]
+intermittently fail on ppc64le and s390x CI systems with a DMA address
+overflow:
 
-> 
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
->  drivers/gpu/drm/display/drm_bridge_connector.c | 29 ++++++++++++++------------
->  include/drm/drm_bridge.h                       |  6 ++++++
->  2 files changed, 22 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> index 92f8a2d7aab4..796069dbf1a1 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -823,8 +823,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->  	struct drm_connector *connector;
->  	struct i2c_adapter *ddc = NULL;
->  	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
-> -	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
-> -	unsigned int max_bpc = 8;
-> +	struct drm_connector_hdmi_caps caps = {
-> +		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-> +		.max_bpc = 8,
-> +	};
+  DMA addr 0x0000000100307000+4096 overflow (mask ffffffff, bus limit 0)
+  WARNING: kernel/dma/direct.h:114 dma_direct_map_sg+0x778/0x920
 
-I'm really not sure that we need separate caps. But if we do, it would
-make sense to embed it as is in the drm_bridge instead of having the
-scattered fields.
+  drm_gem_shmem_test_purge: ASSERTION FAILED at
+    drivers/gpu/drm/tests/drm_gem_shmem_test.c:330
+    Expected sgt is not error, but is: -5
 
->  	bool support_hdcp = false;
->  	int connector_type;
->  	int ret;
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 18f3db367dc1..2d8b5e4c64ba 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -1176,6 +1176,12 @@ struct drm_bridge {
->  	 */
->  	const char *product;
->  
-> +	/**
-> +	 * @supported_hdmi_ver: HDMI version the bridge is conformant with.
-> +	 * This is only relevant if @DRM_BRIDGE_OP_HDMI is set.
-> +	 */
-> +	enum hdmi_version supported_hdmi_ver;
-> +
->  	/**
->  	 * @supported_formats: Bitmask of @drm_output_color_format listing
->  	 * supported output formats. This is only relevant if
-> 
-> -- 
-> 2.54.0
-> 
+The call chain leading to the failure is:
 
+  drm_gem_shmem_test_purge() / drm_gem_shmem_test_get_pages_sgt()
+    drm_gem_shmem_get_pages_sgt()
+      drm_gem_shmem_get_pages_sgt_locked() [drm_gem_shmem_helper.c]
+        dma_map_sgtable()                  [mapping.c]
+          __dma_map_sg_attrs()
+            dma_direct_map_sg()            [direct.c]
+              dma_direct_map_phys()        [kernel/dma/direct.h]
+                dma_capable()              Checks addr against DMA mask
+                  -> FAILS: addr > 0xFFFFFFFF
+
+The root cause is that KUnit devices are initialized with a 32-bit DMA
+mask (DMA_BIT_MASK(32)) in lib/kunit/device.c. On ppc64le and s390x
+systems with physical memory above 4GB, page allocations can land at
+addresses that exceed this mask. When drm_gem_shmem_get_pages_sgt()
+attempts to DMA-map these pages via dma_map_sgtable(), the DMA layer
+rejects the mapping because the physical address overflows the 32-bit
+mask.
+
+The failure is intermittent because pages may or may not be allocated
+above 4GB on any given run depend on memory pressure.
+
+Fix by setting a 64-bit DMA mask on the device before calling
+drm_gem_shmem_get_pages_sgt() for all tests, following the same pattern
+already used in drm_gem_shmem_test_obj_create_private().
+
+[1] https://s3.amazonaws.com/arr-cki-prod-trusted-artifacts/trusted-artifacts/2643976103/test_s390x/15128551935/artifacts/jobwatch/logs/recipes/21561049/tasks/220716793/results/1014626315/logs/dmesg.log
+[2] https://s3.amazonaws.com/arr-cki-prod-trusted-artifacts/trusted-artifacts/2643976103/test_ppc64le/15128551933/artifacts/jobwatch/logs/recipes/21561041/tasks/220716705/results/1014628163/logs/dmesg.log
+
+Fixes: 93032ae634d4 ("drm/test: add a test suite for GEM objects backed by shmem")
+Closes: https://datawarehouse.cki-project.org/issue/5345
+Closes: https://datawarehouse.cki-project.org/issue/3184
+Assisted-by: Claude:claude-4.6-opus
+Signed-off-by: José Expósito <jose.exposito@redhat.com>
+
+---
+
+v2:
+
+  - Move fix to drm_gem_shmem_test_init() (Thomas Zimmermann)
+  - Link to v1: https://lore.kernel.org/dri-devel/20260703063517.6346-1-jose.exposito89@gmail.com/
+---
+ drivers/gpu/drm/tests/drm_gem_shmem_test.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/tests/drm_gem_shmem_test.c b/drivers/gpu/drm/tests/drm_gem_shmem_test.c
+index 44a190109249..6e6b4f4902c2 100644
+--- a/drivers/gpu/drm/tests/drm_gem_shmem_test.c
++++ b/drivers/gpu/drm/tests/drm_gem_shmem_test.c
+@@ -94,14 +94,6 @@ static void drm_gem_shmem_test_obj_create_private(struct kunit *test)
+ 
+ 	sg_init_one(sgt->sgl, buf, TEST_SIZE);
+ 
+-	/*
+-	 * Set the DMA mask to 64-bits and map the sgtables
+-	 * otherwise drm_gem_shmem_free will cause a warning
+-	 * on debug kernels.
+-	 */
+-	ret = dma_set_mask(drm_dev->dev, DMA_BIT_MASK(64));
+-	KUNIT_ASSERT_EQ(test, ret, 0);
+-
+ 	ret = dma_map_sgtable(drm_dev->dev, sgt, DMA_BIDIRECTIONAL, 0);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+@@ -352,11 +344,20 @@ static int drm_gem_shmem_test_init(struct kunit *test)
+ {
+ 	struct device *dev;
+ 	struct drm_device *drm_dev;
++	int ret;
+ 
+ 	/* Allocate a parent device */
+ 	dev = drm_kunit_helper_alloc_device(test);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
+ 
++	/*
++	 * Set the DMA mask to 64-bits and map the sgtables
++	 * otherwise drm_gem_shmem_free will cause a warning
++	 * on debug kernels.
++	 */
++	ret = dma_set_mask(dev, DMA_BIT_MASK(64));
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
+ 	/*
+ 	 * The DRM core will automatically initialize the GEM core and create
+ 	 * a DRM Memory Manager object which provides an address space pool
 -- 
-With best wishes
-Dmitry
+2.54.0
+
