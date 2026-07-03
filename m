@@ -4,80 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A70DC43327
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F31C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85F8210F60B;
-	Fri,  3 Jul 2026 03:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E23D910F608;
+	Fri,  3 Jul 2026 03:02:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="wefv+nuz";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="aPvZ3AJi";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 156BC10F60B
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:17 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-493c52cde9eso560785e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:16 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FE110F608
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:24 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-493bf73ec2aso272375e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047735; x=1783652535;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047743; x=1783652543;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qmuYxCXQJW79g/7IjZ0oN+EYDyNRyHCs4/1RFHrUzwg=;
- b=wefv+nuzINovWJeBrZnMrYalOxtp0j0I2anFalu5g5eT/3md1u7H1TlqpXNKm8Be8O
- yJmmi4Q0LadxhHucbJX8bwSKvay5kGJQE4PEeU63e2bYpfmmlkgoibCBHxULvAZU8poU
- 7HYo2mbvRf4s1kqo4ytT7HwfEWUspjhFNYJM3C648IA7Cpw03XA5X0Ug9Ekrsuhe4elh
- xRs+W563EjFxDtZGAH38P//HPgh8SouPOp2Zk2dJofJ1/FX376Xscw+RSAP4WbF8sNzX
- oAgXH117lTPrx4EkZADxQ5dkzJvzk1MmowbyU8e6TqVGKxSiH62yd8/XAzBBjlIDrhHR
- bXJA==
+ bh=HsUqz/Qkq/LceV8TelFggUzjDk1o9pU0ZJGrnJynFBo=;
+ b=aPvZ3AJiJDJXRsF/GzNA0MHbu+3yWmatTLC3EkjpzYw6QmDjkoS5o8IyOKE3fuHX7P
+ OXMKELcdfPOxC+OpZmHgoPIhTg5fx3r1Z4t7eNcIvQNCSIoKVkyo7ViL0YmQlrFLha3y
+ 5bsJ5MyCa7nWHMbUv+j2yXqmmgQuLqRuR80Jae56yRvIs8Z7+uZtG8R+ElfHV3ejQP4u
+ XrhyzItcZNCWUOra5zshsONjw+YvYHChC2drjLM01xD2Dm0FAllo5rqzpfq1pwtG9JhU
+ 9Hd8eWs6Qk8l8PVWJyHut+1M/wknjDYWM7f4yExBApFhVFYvSnGuFript5HcgxJkwils
+ Ewow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047735; x=1783652535;
+ d=1e100.net; s=20251104; t=1783047743; x=1783652543;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=qmuYxCXQJW79g/7IjZ0oN+EYDyNRyHCs4/1RFHrUzwg=;
- b=Acso75rcYrie80oJEyM4lAJtv3ld044SpLLypSKUwEQWE+Xlq1HfvtWAUq/EW93eGV
- pzxrkf64CZS6aXNHbGPzklAqwZ2UM4YXU4STwj9NR5gf6BhJXow6t8CxdvQcuDNpUXlg
- rPRXuQFw1WCBDTapp9TdH23MRU8O3QH/ZEKJV9tmAS2LZ0MzBXP7sQxP9rH0nsxjEIzG
- bNT/i+IQHTXmtdk1WJCKZQjCuTlDHC7Hn8ybWh9TkyZc2fTV/2S7Ru7nn3JNtQrLnBYb
- C6uxmPqfqq2n0kMQJdv7CjJtdqFigOwDo21Z93/17wZuHgmLSv51ZzcnuxPYPU0abRsB
- 2Ytw==
-X-Gm-Message-State: AOJu0YxECEMnS6dx3NV6EKtUhAJk6cUuV6cx6yIEi1PMysRLMyc7LmEW
- olS9oXG0i3nw60JkO30iRh4xml1Mrp30DpnwEWOwRnfJ1Od343IEzBbHx7P/M5Dj5A==
-X-Gm-Gg: AfdE7cmYwij4lYPo4gOA5GLgiVpCZM22pPSl1lfIPQxpoJK4hnOme23zxAlfncNugi/
- BLQEFMZnf2KTBNiWBfr0wVd7Dir078KNzutvNF3Sp4mlrXc9zrshYLFVMdcW/nQ1sl1LRFQGtIk
- 1Eo00L4KsQvTuR/oUNeFW9ePGIUAbBtLeKEy+vQDXG8UTyCLIxXYcy0/TfgCRY2831xozZkNMLa
- o4L0OULqXn5GzK5cAbgKlhfuHFCvK6eRPi4+OEG83kiQeTwiia7ihitlTlwC1avxzeiRzxCjdqb
- ZE+zZKOItuS0iyFMc/SCFA3qE2x5tMqljKa/qX4RnTBORmukjaWi/HioTyBs++rCosHrk9UcYcQ
- Ty7qiag5w8Manf+/GKaTxEJBBRnn6DH8Y2OAORb7wGuqHQIXpPKXA8UmEYwTJyvGT/1Oc6ZP7kC
- fhX0mtaqiGqhSOOj5GASvCUSzFF54ogIPzoTQ9mTd2Uvj4mEfcNAhKyXon
-X-Received: by 2002:a05:600c:a404:b0:493:b783:ad59 with SMTP id
- 5b1f17b1804b1-493c2b374c7mr103666075e9.14.1783047735339; 
- Thu, 02 Jul 2026 20:02:15 -0700 (PDT)
+ bh=HsUqz/Qkq/LceV8TelFggUzjDk1o9pU0ZJGrnJynFBo=;
+ b=XXQhMHhifFm0ma2vkOib1sdJ8G5LI134hFRQfDGLKhMPxdYFLDuTHnH+902y/5FPIA
+ Qdi62XKzXxKdnXpRVMGjw3MQf9n7eOB0SY1d+aPB5vOhD5/YeO+NoyxjHygWAwTMYCSf
+ J4JjIrCIOQnWBfw0j+YpZJ5otVZfsBGObFFWAhc5ykT+EzcFNAIAiJPSsPth1yoYPZzu
+ RhWbdyI61GJElwJ3146bz/r/u1SnoD08ki4IiVKhsYB6QWLezjjvkRvdF9SrKMFuh12i
+ nUKoYEUWC0MP4Qni5E0seXzIx7Nz568EhTV2EbuRwVYwX9w+QosXCgBbux9ORd7pq7Vl
+ 76HA==
+X-Gm-Message-State: AOJu0YyZ197UvNmndL9lV4oeNBUWTSEf+tpJnwWn0eLhGRHsHNspmxSz
+ JAI9GcxPWbby52iaDQo96votT/u89xfr71YzWl6oD0FgCW+M6am5rlolThDXs/6WDw==
+X-Gm-Gg: AfdE7cnFParo3x5zD3nOmtPFu6Jk3PhR6HX71BMqUW/v4+Awc4EKa2Z68u/X0pNy89R
+ DyNJ3PCNuAlO8nmyIJhOMMkwrRtJEnUt9zvz8FqrQW27eUicL6+XgxTGWKQ52rUOX4SzbmVSHZa
+ ZJa29WxYXzHcyfFIinKgx8Rg7ZZGe/fChgPQ4VyHNaDeuqAYc/GRJAypduIR82ymqNpuXTnhZuG
+ HewTWovUwm3JudVrx5JrVS9xYW4m+goC8WxiXaqyBn9l9Kt2VAZCJ+STFH7aubdPgpHOgmBLJPt
+ A9buI7YyOSNPOo87ddt42JR+GHTLO42izo5KhfUjFelFFJDnEq3qDSuUGxS+9K8qkdBccMsGEsJ
+ G+IAwuth5vf1KI7wC2akbkYEM2ScZra53/2vsD4F4aWW8tMtUVBbf8eJsPFGkU40f2qFyiXU9hW
+ Sejj9nG40mFGmH4uV8vIrgZtVZftS7X47RvdCHMnBYILr5AKw7XVCeRdGz9EhfL0Pw/Wk=
+X-Received: by 2002:a05:600c:8b61:b0:493:c47f:3c55 with SMTP id
+ 5b1f17b1804b1-493c47f3c63mr88463955e9.5.1783047742662; 
+ Thu, 02 Jul 2026 20:02:22 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.02.14
+ 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:02:14 -0700 (PDT)
+ Thu, 02 Jul 2026 20:02:22 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
  Lyude Paul <lyude@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 18/18] rust: drm: kms: add plane damage-clip accessors
-Date: Fri,  3 Jul 2026 04:01:05 +0100
-Message-ID: <20260703030123.2814-19-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 00/10] drm/vino: DisplayLink DL3 dock driver
+Date: Fri,  3 Jul 2026 04:02:05 +0100
+Message-ID: <20260703030217.2886-1-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260703030123.2814-1-mike@fireburn.co.uk>
-References: <20260617150232.2210-1-mike@fireburn.co.uk>
- <20260703030123.2814-1-mike@fireburn.co.uk>
+In-Reply-To: <20260617151249.2937-1-mike@fireburn.co.uk>
+References: <20260617151249.2937-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,168 +96,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A driver whose "scanout" is an expensive encode-and-send (like a USB
-display) wants to repaint only the region a client marked dirty rather
-than the whole framebuffer every flip. Add two RawPlaneState accessors
-over the client's FB_DAMAGE_CLIPS (relative to the old plane state), both
-intersected with the visible source area:
+This is v2 of the vino RFC: an in-kernel Rust driver for DisplayLink
+DL3 docks (Dell D6000, 17e9:6006), replacing the out-of-tree EVDI
+module plus the DisplayLinkManager userspace daemon.
 
-  - damage_merged(), wrapping drm_atomic_helper_damage_merged(): merges the
-    clips into one rectangle and returns it as a new Rect type (with
-    width()/height() helpers). None means nothing to repaint; if the client
-    supplied no clips, the full plane rectangle is returned, so a driver can
-    always treat Some as "repaint this box".
+Still an RFC in the same place v1 was: the dock never engages its
+content-protection channel for vino, so no pixels flow yet. What's
+different is everything underneath it. v1's review said, in short,
+"work on safe KMS abstractions instead of raw C KMS + as_raw()" --
+that's the bulk of this round (see the drm series cover for the
+detail), plus the driver picked up several months of hardware-testing
+fixes since v1 that had nowhere to land until now.
 
-  - for_each_damage_clip(), driving drm_atomic_helper_damage_iter: invokes a
-    closure once per individual clip (the rectangles damage_merged() collapses
-    into one), so a driver that forwards each changed region separately -- e.g.
-    over USB -- can repaint just those rectangles instead of their bounding box.
+   1/10  skeleton + USB bind + plaintext bring-up          (proto, rng)
+   2/10  clean-room HDCP 2.2 AKE/LC/SKE                     (crypto, hdcp, ake, golden)
+   3/10  AES-CTR/AES-CMAC control-plane seal + arm          (cp)
+   4/10  Vino framebuffer codec                             (video)
+   5/10  DRM/KMS sink, on the safe KMS mode-object layer    (drm_sink)
+   6/10  the driver itself: USB bind, bring-up, KUnit tests (vino)
+   7/10  the hardware cursor plane (cursor_atomic_update -> CP)      (drm_sink)
+   8/10  CRTC gamma, plane rotation and DDC/CI monitor controls      (drm_sink, cp)
+   9/10  two heads, 90/270 rotation, damage clips, connector probe   (drm_sink)
+  10/10  hrtimer-driven software vblank for refresh-rate pacing      (drm_sink)
 
-drm_atomic_helper_damage_{merged,iter_*} live in <drm/drm_damage_helper.h>,
-so add that to bindings_helper.h.
+What's here and works, HW-verified: USB bind + plaintext session init;
+HDCP 2.2 AKE (H'/L'/V'); AES-CTR + Dl3Cmac control-plane seal, byte-exact
+against the reference daemon's wire traffic; the stream-open arm marker
+that gets the dock processing our encrypted CP for the first time; a
+registered DRM/KMS card (CRTC + primary plane + virtual connector/
+encoder, GEM-shmem dumb buffers); the Vino codec's DC plane and 8x8
+transform, byte-exact against captured hardware output.
 
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
----
- rust/bindings/bindings_helper.h |   1 +
- rust/kernel/drm/kms/plane.rs    | 105 ++++++++++++++++++++++++++++++++
- 2 files changed, 106 insertions(+)
+What's missing / why it's still RFC:
+ - No live pixels. Every host-observable byte we put on the wire now
+   matches the daemon -- verified down to paired full-bus USB captures
+   and xHCI TRB completion codes -- but the dock still won't ack the
+   first encrypted control-plane frame. Current read is a dock-firmware
+   gate unreachable from the host; a hardware USB analyser is the one
+   untried next step. See docs/BLOCKER.md in the source tree for the
+   full trail of what's been ruled out.
+ - The codec's AC coefficient entropy grammar is reverse-engineered but
+   not finished (EOB/scan/context still open), so the WHT colour path
+   only covers 64x16-aligned geometry; other modes use the RLE
+   fallback. Not fabricating the rest until it's verified against
+   hardware.
+ - Per-head EDID and per-head mode-set/DDC. Two heads are wired (patch
+   9), each scanned out to its own video endpoint with its own cursor,
+   but the bring-up only reads head 0's EDID, and the CP mode-set has no
+   decoded head/stream field -- so a head is conveyed on the wire only by
+   which endpoint its frames go to. Real dual-monitor use past the CP
+   wall needs those captured.
+ - Two known-open items from v1's automated review, unresolved because
+   fixing them properly needs more of the safe-KMS work above: some CP
+   message builders (cursor/mode-set) still GFP_KERNEL-allocate from a
+   path DRM considers atomic-commit context, and CP_ENGAGED/scanout
+   state are still module-global statics rather than per-device (the
+   driver is single-instance throughout, so this only matters for a
+   theoretical multi-dock case).
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 7d04abec1215..b8675642c1a8 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -39,6 +39,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_crtc.h>
-+#include <drm/drm_damage_helper.h>
- #include <drm/drm_blend.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
-diff --git a/rust/kernel/drm/kms/plane.rs b/rust/kernel/drm/kms/plane.rs
-index ead875316829..4ae11cec88a4 100644
---- a/rust/kernel/drm/kms/plane.rs
-+++ b/rust/kernel/drm/kms/plane.rs
-@@ -605,6 +605,49 @@ pub trait FromRawPlaneState: AsRawPlaneState {
-     unsafe fn from_raw_mut<'a>(ptr: *mut bindings::drm_plane_state) -> &'a mut Self;
- }
- 
-+/// A rectangle in a plane's source (pixel) space, as produced by
-+/// [`RawPlaneState::damage_merged`].
-+///
-+/// The box is inclusive on the top-left and exclusive on the bottom-right (`[x1, x2)` by
-+/// `[y1, y2)`), matching [`struct drm_rect`].
-+///
-+/// [`struct drm_rect`]: srctree/include/drm/drm_rect.h
-+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-+pub struct Rect {
-+    /// Left edge, inclusive.
-+    pub x1: i32,
-+    /// Top edge, inclusive.
-+    pub y1: i32,
-+    /// Right edge, exclusive.
-+    pub x2: i32,
-+    /// Bottom edge, exclusive.
-+    pub y2: i32,
-+}
-+
-+impl Rect {
-+    #[inline]
-+    fn from_raw(r: &bindings::drm_rect) -> Self {
-+        Self {
-+            x1: r.x1,
-+            y1: r.y1,
-+            x2: r.x2,
-+            y2: r.y2,
-+        }
-+    }
-+
-+    /// The width of the rectangle in pixels.
-+    #[inline]
-+    pub fn width(&self) -> i32 {
-+        self.x2 - self.x1
-+    }
-+
-+    /// The height of the rectangle in pixels.
-+    #[inline]
-+    pub fn height(&self) -> i32 {
-+        self.y2 - self.y1
-+    }
-+}
-+
- /// Common methods available on any type which implements [`AsRawPlane`].
- ///
- /// This is implemented internally by DRM, and provides many of the basic methods for working with
-@@ -691,6 +734,68 @@ fn atomic_helper_check<S, D>(
-         })
-     }
- 
-+    /// Merge all frame-damage clips on this (new) plane state -- relative to `old` -- into a
-+    /// single bounding rectangle, intersected with the plane's visible source area.
-+    ///
-+    /// Returns [`None`] when the plane is not visible or there is nothing to update. If the client
-+    /// supplied no explicit damage clips, the full plane rectangle is returned, so a driver can
-+    /// always treat [`Some`] as "repaint this rectangle" and fall back to a full-frame update.
-+    /// Coordinates are integer pixels in the plane's source space.
-+    ///
-+    /// [`drm_atomic_helper_damage_merged`]: srctree/include/drm/drm_damage_helper.h
-+    fn damage_merged(&self, old: &impl AsRawPlaneState) -> Option<Rect> {
-+        let mut rect = bindings::drm_rect {
-+            x1: 0,
-+            y1: 0,
-+            x2: 0,
-+            y2: 0,
-+        };
-+
-+        // SAFETY:
-+        // - `old` and `self` are valid initialized `drm_plane_state`s via their type invariants.
-+        // - `drm_atomic_helper_damage_merged` only reads the two states (to gather the damage
-+        //   clips and the source rectangle) and writes the merged result into `rect`; it does not
-+        //   mutate the plane state, so deriving a `*mut` from our shared reference is sound.
-+        let visible = unsafe {
-+            bindings::drm_atomic_helper_damage_merged(
-+                core::ptr::from_ref(old.as_raw()),
-+                core::ptr::from_ref(self.as_raw()).cast_mut(),
-+                &mut rect,
-+            )
-+        };
-+
-+        visible.then(|| Rect::from_raw(&rect))
-+    }
-+
-+    /// Invoke `f` once per frame-damage clip on this (new) plane state relative to `old`, each
-+    /// intersected with the plane's visible source area -- i.e. the individual rectangles that
-+    /// [`Self::damage_merged`] collapses into one. If the client supplied no explicit damage clips,
-+    /// `f` is called once with the full plane rectangle. Coordinates are integer pixels in the
-+    /// plane's source space.
-+    ///
-+    /// This lets a driver forward each changed region separately (e.g. to a remote display) instead
-+    /// of the bounding box of them all.
-+    ///
-+    /// [`drm_atomic_helper_damage_iter`]: srctree/include/drm/drm_damage_helper.h
-+    fn for_each_damage_clip(&self, old: &impl AsRawPlaneState, mut f: impl FnMut(Rect)) {
-+        let mut iter = bindings::drm_atomic_helper_damage_iter::default();
-+        let mut clip = bindings::drm_rect::default();
-+        // SAFETY:
-+        // - `old` and `self` are valid initialized `drm_plane_state`s via their type invariants.
-+        // - `drm_atomic_helper_damage_iter_init` only reads the two states to set up `iter`, and
-+        //   `_next` only reads `iter` and writes `clip`; neither escapes a pointer.
-+        unsafe {
-+            bindings::drm_atomic_helper_damage_iter_init(
-+                &mut iter,
-+                core::ptr::from_ref(old.as_raw()),
-+                core::ptr::from_ref(self.as_raw()),
-+            );
-+            while bindings::drm_atomic_helper_damage_iter_next(&mut iter, &mut clip) {
-+                f(Rect::from_raw(&clip));
-+            }
-+        }
-+    }
-+
-     /// Return the framebuffer currently set for this plane state
-     #[inline]
-     fn framebuffer<D>(&self) -> Option<&Framebuffer<D>>
+Depends on the safe KMS mode-object layer landing (posted alongside,
+"[RFC PATCH v2 00/18] rust: drm: safe KMS mode-object layer + evdi
+bindings") and, transitively, on the locking/DRM-registration
+prerequisite postings that series depends on -- see that cover letter
+for exactly what and why. This series won't build without them.
+
+Source, HDCP/HDMI specs referenced, and the full RE trail:
+  https://github.com/FireBurn/vino-scripts
+  https://github.com/FireBurn/linux/tree/vino
+  https://gitlab.freedesktop.org/FireBurn/linux/-/tree/vino
+
+Changes since v1:
+ - Rebuilt on the safe KMS mode-object layer instead of raw C KMS +
+   as_raw() (Danilo, Miguel) -- see the drm series cover.
+ - Folded in the v1 review fixes that survive independently of the KMS
+   rework: in-tree AES-CMAC + key-prepared-once AES (Eric Biggers);
+   Interface<Bound> threading + cancel_work_sync() of the bring-up work
+   in disconnect() (fixes a dropped-work-handle UAF); EP08 16-bit
+   length overflow rejected; codec SECTION_CODE mode indexing fixed;
+   encoder shadow committed only on full-frame success; cursor_image
+   checked arithmetic; EP84_BUF-sized cap reads; pace_cap_ack/
+   lockstep_reply no longer abort on short frames; Kconfig depends on
+   USB (was USB=y); #[cfg(CONFIG_KUNIT)] (was the always-false
+   CONFIG_KUNIT = "y"); a redundant Kconfig select dropped (Julian
+   Braha). All from the Sashiko bot + human review on v1.
+ - Added the byte-exact Vino colour codec (DC plane + 8x8 transform)
+   and the real EP08 wire-record framing, from continued hardware
+   testing since v1.
+ - Re-added the hardware cursor plane (patch 7) and, now that the safe
+   KMS layer exposes them, the CRTC gamma LUT, plane rotation property
+   and DDC/CI brightness/contrast/DPMS controls (patch 8) that v1's
+   raw-KMS driver had.
+ - Added a second display head, 90/270 rotation, damage-clipped repaint
+   and connector detect()/mode_valid() (patch 9), consuming the new
+   drm-series bindings. The KMS feature set now exceeds v1's.
+ - Added hrtimer-driven software vblank (patch 10): the CRTC now paces
+   page-flips to the display's refresh rate instead of completing them
+   immediately, using the safe KMS layer's VblankSupport.
+
+Mike Lothian (10):
+  drm/vino: add DisplayLink DL3 dock skeleton and protocol framing
+  drm/vino: add the clean-room HDCP 2.2 AKE/LC/SKE handshake
+  drm/vino: add the AES-CTR/AES-CMAC control-plane seal and arm sequence
+  drm/vino: add the Vino framebuffer codec
+  drm/vino: add the DRM/KMS sink, built on the safe KMS mode-object
+    layer
+  drm/vino: add the DisplayLink DL3 dock driver
+  drm/vino: wire the hardware cursor plane
+  drm/vino: wire CRTC gamma, plane rotation and DDC/CI monitor controls
+  drm/vino: two heads, 90/270 rotation, damage clips and connector probe
+  drm/vino: hrtimer-driven software vblank
+
+ drivers/gpu/drm/Kconfig          |    1 +
+ drivers/gpu/drm/Makefile         |    1 +
+ drivers/gpu/drm/vino/Kconfig     |   20 +
+ drivers/gpu/drm/vino/Makefile    |    2 +
+ drivers/gpu/drm/vino/ake.rs      |  173 ++
+ drivers/gpu/drm/vino/cp.rs       |  733 +++++++++
+ drivers/gpu/drm/vino/crypto.rs   |   48 +
+ drivers/gpu/drm/vino/drm_sink.rs | 1173 +++++++++++++
+ drivers/gpu/drm/vino/golden.rs   |   69 +
+ drivers/gpu/drm/vino/hdcp.rs     |  167 ++
+ drivers/gpu/drm/vino/proto.rs    |   73 +
+ drivers/gpu/drm/vino/rng.rs      |   12 +
+ drivers/gpu/drm/vino/video.rs    | 1229 ++++++++++++++
+ drivers/gpu/drm/vino/vino.rs     | 2640 ++++++++++++++++++++++++++++++
+ 14 files changed, 6341 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/Kconfig
+ create mode 100644 drivers/gpu/drm/vino/Makefile
+ create mode 100644 drivers/gpu/drm/vino/ake.rs
+ create mode 100644 drivers/gpu/drm/vino/cp.rs
+ create mode 100644 drivers/gpu/drm/vino/crypto.rs
+ create mode 100644 drivers/gpu/drm/vino/drm_sink.rs
+ create mode 100644 drivers/gpu/drm/vino/golden.rs
+ create mode 100644 drivers/gpu/drm/vino/hdcp.rs
+ create mode 100644 drivers/gpu/drm/vino/proto.rs
+ create mode 100644 drivers/gpu/drm/vino/rng.rs
+ create mode 100644 drivers/gpu/drm/vino/video.rs
+ create mode 100644 drivers/gpu/drm/vino/vino.rs
+
 -- 
 2.55.0
 
