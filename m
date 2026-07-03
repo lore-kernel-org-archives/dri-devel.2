@@ -4,78 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0E2FC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:10:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 540B1C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:10:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2509510E56A;
-	Fri,  3 Jul 2026 08:10:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD4E410F6C5;
+	Fri,  3 Jul 2026 08:10:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="S0JyIGVC";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SXwnQSFO";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71A4F10E56A
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:10:24 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-493c486f012so1187365e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 01:10:24 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA6510F6C5
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:10:26 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-4763b0c1dcdso298762f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 01:10:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1783066223; x=1783671023; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=cwYdbfI8WEQMnRvQOATdDHCYGWSWpstPY10+DzjdmWk=;
- b=S0JyIGVCsVnnmFLiH0sIXC4cD1mhdVRZE8FRfKnEHErjhFbYVYdPOtAeB0hmv7J1Nx
- rmVmDaEJ7v4ppKRHmQzrN9E1kgxAvp3pJ4ks8LsfGceYfnE5AQjwryaVp5wbhXBH2BPS
- qKExA5OL016twgoAlcFd91HkAdQHBjnm3ShQGI3T55Oh2YlHGdjay+JTeeiHnMaXw9lf
- ApGg6BEPi6TqdXk0fZlWw2xsXoEaNJoFH94Xnw07CzC0sqZHF6Tc4I4pisz2bdNlr1fF
- qvjTG6Bd2pmMS2IAIQbYtdLtsr6+B8Yuze6yPXYsxKEEE7e/bt37F47G2lvEm66kRFy/
- SnFw==
+ d=linaro.org; s=google; t=1783066225; x=1783671025; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=BgEZk0tfqjsFMjOWFQjsdTyTXUp3gCU0p3CTG/HdZ5o=;
+ b=SXwnQSFOXpb8U67PHg23ZeCTIHAEgLVG6Fy+b3EiUc0zxfNof554kR4fxb6+byPPoc
+ YdzoT0uoUSRA8I7dMAr4dQ+8GB+MLRI9LTAoB4QP2Pb48LKVTU60dAELHDeTtnwlxqGq
+ qqVI5u+NpfReB8zc5y2F7R5J8DGktDyfA40Ftr0/m4zwUnmT90ZEZAQ5k4WgQdmw59sv
+ bg4qlKAD90UvZi1sCtIQt5wgcRANo8yi4NTRRUrDkK8rfH+o9u8pzLbv3TmdURwoXE3H
+ yQJWi/ZM+rAF/RIcjoK9g6dQlLVKBNk50pYP0E46qJ5TArgAKMM9j75Up+R3HLzEiPXt
+ AMFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783066223; x=1783671023;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=cwYdbfI8WEQMnRvQOATdDHCYGWSWpstPY10+DzjdmWk=;
- b=P/RzqFYIOh3Fp+O/AhFIPPdzPB3Q6wP+6GuQAnsI0Gcy+c32cHGb+mNy5eWjxwOcSB
- JNGuM/1ioh8S7ot/QNpBkQ0qngxrZXU6Gb/ceA4ZjnEuKk8YZJO+pXccKFlynX1zBD/D
- 6bYbHEGf72CizDrCHrraawZ3x9qP0mXnJo3w8RGR1iXUhwZphzake5ljLceNTbQUFEJG
- 38fJ1mjq5qkAmPv1vdj+6LTkC1Cku4Eycl5ai5QoMF9wObkkHRitgFfrwuwhEPGyDKsD
- bXpn8Nq+MuLp09T4h1F+9+FnW/VecciDp7ZL/+gRnis+5ZEnDTOb7omoPE25kyozhAbo
- B6Qg==
+ d=1e100.net; s=20251104; t=1783066225; x=1783671025;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=BgEZk0tfqjsFMjOWFQjsdTyTXUp3gCU0p3CTG/HdZ5o=;
+ b=SYWgT3lZNbxaktYaNX//TK6EtxhxZmgNJYiseJdVBfMAG3ZlDPZENq14y3A02o/wtS
+ af5wrLrlxLws6MYex2XYVnvbnzB0TDkqcHRehrMaObkj9egsQFUXQIU35ntehB4j1Cg7
+ YwS7fcD4AZDWZxICeg/zmmOOJqSE4zYAoE6kukswdD7IduK4MeDsPrrH++78JZTR5Qpu
+ mJsPFth3MakhOlGDwmJgq4sWJpGvQTn798oqPHQoD+jVQgpgjKaFibkd6VAy4OFkDlqR
+ t0pxhvMehSmvRlRPwKO+rFI7RThrcDFsTRIG+TZYGzdroxfqSDQ8XfDrhiFeO4Eag3zU
+ 8GVA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/ldKtr42g0qe2L3MfF/dB+h/vRWmloSH8QOOygLc035wlsRERmyNcRP3YWXbBrBJvyJqds2nMQ5WQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1PJqtXwE19Z7VTQFLwdfAcgcb+l9OneBZru6J4NJxoOqK8xtY
- oP8Fwh79IFasmonb86jhAuH/zxAfuPvUs38Ly3LfSHR3lZloUajr3ZX946xMTopGNRg=
-X-Gm-Gg: AfdE7clOZ7PcVJ0n2TlMPgEMC8qK57V2mjKYbil73P7rM1fw0rv570oPf/aCWpLvbry
- SN0w9tFLqqkDKVh7TGvNjMxstrONWyjF1E5ZEhiZJpWtAbf/JwR/0TsbX83gVvyKIigIFy4hsRp
- ppoOpmLbsz0I675tV+nyqIe8cJFaBzQj5sgNWD4wUxEW+a9So9FuBX9L072HxqgkRVuVFi0lCKZ
- g0wtozjxwiQ9PsNo8COF8cCOOsO4OV8dGV8K0lH2yiwxzLLI++JxplcBVh+Uc5Gbc/gzPJsJ76j
- mlSXe2wvTtRnOYuPZzNCNN+HwI8dXOky+uS5Ovsw6/5pBevwC0fxOkVMKM24lCmxDVoif7g/HWt
- d77F1Yt77Rshm5RV8dTTF3RqrbmBOwWnG/quzH2zWXZjUNZ30VzdWnw1+CyXmeiJbF2R2w6S3jr
- r17OHzJ8zUOgQnMvnis2uirDZTl5FkFnVkVvpraw==
-X-Received: by 2002:a05:600c:1553:b0:493:c310:4106 with SMTP id
- 5b1f17b1804b1-493c31041f0mr114749635e9.35.1783066222523; 
- Fri, 03 Jul 2026 01:10:22 -0700 (PDT)
+ AHgh+RqRC0nOx9NZw+sOXIWSvFjPVCkaBrNQLg/uQFjPF3pc9DMe9LYr9Y30wwyBMEu1gsheNs3V/gboQ+U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxMsh5GKb8BXmzsChLoR2hpu0iafPnAl0OIF32gAyR0Jkc2LGgr
+ PsRj4k9H5t5mZIaWW1VUYqpos2a8f/3FZzzFvu4d7ssBYkQ8NfemPUGKsVdjI264f/8=
+X-Gm-Gg: AfdE7cmsoImJCxdSwp36En/nFuE0JYWHEeQDQvqZvT5SWtUC29dUUXxkE7zr8kKWjBM
+ DNEg7ZFwWiYWx+LuM4vs3lFtG0H3CbesFoc2IM/neP/rlnDs+hdkHQPcIphr+CTxkOSYLR2pZaI
+ B3mPymCGK4MGojU8f0qVPqCzEzphib1ClXqSwdwklbjQ5F99KAVTwMvfkYIouRGFXrz2DKT9iBH
+ 1yZHEoyX3NK8BDHwCUtVwDTvc6J1hx/FldKQ5eKd1N9AVjCH03GAuJLvcIpFv4et0Mk7Qbs/GJG
+ 4f65TntcwvCm39k8MV8AQv7/Eju55cmHNz6E15B9Yvw9+v8zfYaaaWpH4dpF+nvi0/RXk1L1ENi
+ ZOWet4JhtrLlFqfNPB5WO+bW+Jr6rCNZDLQMYMZd8hAOXLSA8heVjYSzF5WTMmcqp7ToQHNI7du
+ LrHfVHGl/lGO8N7S7qXBt17KHvCog=
+X-Received: by 2002:adf:ea87:0:b0:472:8c12:b93a with SMTP id
+ ffacd0b85a97d-477b5296cf6mr8758338f8f.28.1783066224462; 
+ Fri, 03 Jul 2026 01:10:24 -0700 (PDT)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db8a44d7sm14920012f8f.9.2026.07.03.01.10.21
+ ffacd0b85a97d-477db8a44d7sm14920012f8f.9.2026.07.03.01.10.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2026 01:10:21 -0700 (PDT)
+ Fri, 03 Jul 2026 01:10:24 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH v4 0/2] drm/panel: couple of visionox vtdr6140 driver
- enhancements
-Date: Fri, 03 Jul 2026 10:10:18 +0200
-Message-Id: <20260703-topic-sm8x50-vtdr6130-dsc-v4-0-9eff51ec717a@linaro.org>
+Date: Fri, 03 Jul 2026 10:10:20 +0200
+Subject: [PATCH v4 2/2] drm/panel: visionox-vtdr6130: switch to devm panel
+ calls and drop remove
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGpuR2oC/43NQQ7CIBQE0KsY1mI+YGl15T2MC/r5KEaLgUo0p
- neX6kKNiXE5ycybG0sUPSW2nNxYpOyTD10J8+mE4c50W+LelswkSA0a5rwPJ488HZtLBTz3Nmq
- hgNuEXGis9aI2ujLIyv4UyfnLw15vnjmd2z1hP4JjY+dTH+L1cZ7F2PvnJwsOHBYtWmGdE65dH
- XxnYpiFuGXjUZZvlKx+UbJQaFVdkQMCpC9Kvaga5C9KFcq2TSOMclj6H9QwDHfV5f3IawEAAA=
- =
-X-Change-ID: 20260604-topic-sm8x50-vtdr6130-dsc-16c7697a65ac
+Message-Id: <20260703-topic-sm8x50-vtdr6130-dsc-v4-2-9eff51ec717a@linaro.org>
+References: <20260703-topic-sm8x50-vtdr6130-dsc-v4-0-9eff51ec717a@linaro.org>
+In-Reply-To: <20260703-topic-sm8x50-vtdr6130-dsc-v4-0-9eff51ec717a@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -83,23 +80,22 @@ To: Jessica Zhang <jesszhan0024@gmail.com>,
 Cc: linux-arm-msm@vger.kernel.org, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Doug Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jun Nie <jun.nie@linaro.org>
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1174;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1850;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=N33u7urcNff4XSanf+t1gY0lClgiA4xBRu96eeO026w=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqR25s5qoN/KYr6yBDhlcee2Oj8EdJ0uFV/A9xPcCC
- VcUsH+6JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCakdubAAKCRB33NvayMhJ0bMWEA
- CGl/VOp0g6cPZFAKe3LIKUqYfvYspi5/6Er4zX//4wk+BRMJMZcUrvgbtYhrnToq/J96wGBlu+TShT
- PIWDUvVXDwGcATZ11aJ4y2e0/zPDaOHci9G3bIdwDkLeRyoaNd8JFegnBg4zbHsWyr4YheLr0EA8qy
- BYQ7w7tDKQBO2Kdhq+LOytttg6Claf9BVXo+YxTjdo/bMuYalMZlMXeCv0NtDvnWrrvSm2yywEx906
- X8OwOqHrluBniCR9a4BgWN3A0cnZ3qF09DzUkq2XKeP2F2N9oIpOSEqgUDq8ZQJtsIZm5+FqLKmUs0
- 8GT3tu1EzUwzatHzlx1VR+EwllOlojxH8wKx1ZqYIbksO5HYDLhRejpMXFrk5HkYNhz0up3aZ5NP5k
- yCSjHCN2afuoISfTN+ei4IQBDFkmBNWS2q9MIJoQUsPDRBIV50AEnBTGd4g5LgxSGi8pbQzRAwxclU
- FOF9zcoS3m9fA/BXdjppTWCV6Qeicc0TL9OddJkzYZ6i0UZCrShMusZdjEyN+EnLJoyAmKb8eytCxo
- d16kMHAvbvrMiLIl8+j56vAkp0DyTxcQNJa/h5CVCsBAxOvxVqBkNvrx+sCbOS4V90sfGQfBas0xu0
- W0sCXd5lQjeSN36pZIgkZKpJ6++kO6WdybXvBnocZq31PktI0tVfKlBOHgsA==
+ bh=Yyz8hVRuE/i71NBx8+ByVi/xmrQ6crnI+5L7v14sBCQ=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqR25t+puVMYVgPh8aSCdBB6rtM+sw3nkkuNmv/kpu
+ kbcI/nGJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCakdubQAKCRB33NvayMhJ0WGxEA
+ C2xG1iP6R2BDtrSwkYdjw1KkyFk2c3P7seAfoSeV3+huXSJUWyeTKbdbZ8k7XpZ6IyXrn6bWKWthmS
+ GqA4fKQM0hufvCQJeFSqTZEjkYx5daqgLYbavvUYUmEsCDDgymFEVFdvW/kptmIiew/3r1w3tqYIP9
+ SugPmDdtd+6GWKlL3NmNGJ6waGkTRl4eBGkRe9vB4ECHJpGR1CX7AeJ0zVe8a1GG/Akh8PQHWK8LBO
+ ZrBmOmau4q0ptItQnvTFaIv9wDom5btSCvTFuJmdniNItbKAoXR6IPkWk6Ycj5770St4crUdCZ6eiO
+ ed7h/flVOKrIt+vkuDnGxOvZAy5+7qMRBsVjYihCgdK32ACpcb5ItppjJEpWI7jWdelRk3ItQGnFum
+ +FHx9CZVUFXhqOZaPghKXB+LLgsmIcBSTTUWzFx4+wTa4MOeDRqDVafA7U3Hpg9xkeBvZCfNGcN3El
+ QPZa2vBSqpfiauaywcR8rAZH8iVPaAE/5BF7J8p5VFSQcX3Y8Ng3OvR8bhuqVLZ1WVM1jjaMtMDSE6
+ pJzxoVymPmCIr8Gihm09jAQkF3OA1Zzqqutj56a+JsBD5vqpYdQhneyQrsqssipRNj8OcQ0sp6G5Se
+ LocVsmzefRc6LAJHLyn1dPriCpsoBco0S8v2MVDe4vyfvS/6HTgIm3RB4/2A==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,38 +113,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable DSC and switch to devm_calls in probe.
+Switch to devm_drm_panel_add() and devm_mipi_dsi_attach() and drop
+the remove() callback.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Changes in v4:
-- fix typo in Kconfig
-- Add review tags from Dmitry
-- Link to v3: https://patch.msgid.link/20260702-topic-sm8x50-vtdr6130-dsc-v3-0-db881a3fc026@linaro.org
+ drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 24 +++---------------------
+ 1 file changed, 3 insertions(+), 21 deletions(-)
 
-Changes in v3:
-- add missing CONFIG_DRM_DISPLAY_HELPER
-- Link to v2: https://patch.msgid.link/20260625-topic-sm8x50-vtdr6130-dsc-v2-0-cd375ef0e0ce@linaro.org
+diff --git a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+index 0cdcdbbc766d..6733e0e1d061 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
++++ b/drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+@@ -298,28 +298,11 @@ static int visionox_vtdr6130_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
+-
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
+ 		return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static void visionox_vtdr6130_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct visionox_vtdr6130 *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+ 
+-	drm_panel_remove(&ctx->panel);
++	return devm_mipi_dsi_attach(dev, dsi);
+ }
+ 
+ static const struct of_device_id visionox_vtdr6130_of_match[] = {
+@@ -330,7 +313,6 @@ MODULE_DEVICE_TABLE(of, visionox_vtdr6130_of_match);
+ 
+ static struct mipi_dsi_driver visionox_vtdr6130_driver = {
+ 	.probe = visionox_vtdr6130_probe,
+-	.remove = visionox_vtdr6130_remove,
+ 	.driver = {
+ 		.name = "panel-visionox-vtdr6130",
+ 		.of_match_table = visionox_vtdr6130_of_match,
 
-Changes in v2:
-- select CONFIG_DRM_DISPLAY_DSC_HELPER
-- Link to v1: https://patch.msgid.link/20260604-topic-sm8x50-vtdr6130-dsc-v1-0-09bcd1dff1fb@linaro.org
-
----
-Jun Nie (1):
-      drm/panel: Enable DSC for Visionox VTDR6130 panel
-
-Neil Armstrong (1):
-      drm/panel: visionox-vtdr6130: switch to devm panel calls and drop remove
-
- drivers/gpu/drm/panel/Kconfig                   |  2 ++
- drivers/gpu/drm/panel/panel-visionox-vtdr6130.c | 42 ++++++++++++-------------
- 2 files changed, 23 insertions(+), 21 deletions(-)
----
-base-commit: 44d19b8a7548aa25cbc6ebd5f27e958f7142c36b
-change-id: 20260604-topic-sm8x50-vtdr6130-dsc-16c7697a65ac
-
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+-- 
+2.34.1
 
