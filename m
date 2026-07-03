@@ -4,140 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4491C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:16:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E99C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:19:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C23E10F61C;
-	Fri,  3 Jul 2026 03:16:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB46410F61D;
+	Fri,  3 Jul 2026 03:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="E1p4jGE6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dsLJ42ZU";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012048.outbound.protection.outlook.com [52.101.48.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0766B10F61C
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:16:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uA3erKTrRJsU+qNmJxruM7mVYOfwjaVp7iVOm9CawNOlMFUYuKI4flptf/JIQBkdRqpur2Rlu/iSwfBdx3omGYPNFCA7Ld4SxxhaQj2agbJpeDIdLNGtgoTM7Hrx5u9+gcW/lDJPL8EBKYbrbzADTbrHNi/yOM2qU8HJ+7fhWGMMvqMErNaFveuGZXEwM515rUpKcLMOEydazfkkA67LAuCNQ107V1PLg8qlBnXAwo3pok8/1be/yl4w0ehygYE9Q/tuOdt+aaiHVQki9fCpjFSq7WRmq7jgkW+TaFuZRbq72wxdOXFMt67rX8gYqrQI7uYNglX1lF7S07i2qTs/bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2NNU0vc4NPZUwr/CfAEylOFrLxTX/VKspuHB7hf9KMw=;
- b=W6irKq8akwAeMbgaB6pkLPl5gd45Gm2b4oMDcsiHv6SsXO1p4r+BVA2u2c3dGQ0gvyd68nhRu4Gi9+7lpuluJXjeRylvOIwb8Kacp2vLItyoMs9DPaIIhT/en+bGRw9PDA3lexwwV+fTy2USwR8geUfBVmwbETsFylSMAkA332qpU18ZfignR7wW3MfZFutqyt/G5buzehFfPNizlv8pMerkdnc8XkHRZUlrsLcGkFX/aSE2wiHNLR5Kjrxukmq3zgAx24mpLGH8GwC3Td23KMarJchIij83uyuhmMDUtu9uwJhQmRZhJmHnBvmVYi2etlPB7p5HUsM+pVUA0IxT6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2NNU0vc4NPZUwr/CfAEylOFrLxTX/VKspuHB7hf9KMw=;
- b=E1p4jGE6djOVOcEstivxEZ0UyG7Y11qR4huUnwPdIfH92nVmUkBAwts8HW6rH4vAvZ/drEhsDY56uORZkiSrT2YJvW5yZHGKYBSQWO2eh2uRz+1iHtT5+B/2CiJ2eNPJIKQ3RW+VqHX7EQXsm7TR+U0FjFx7jg9ZXDboMFtrD+Gpy6IyXz1X7vvde3+lXY+hMm8dooqkp20uhoD90RGqmaAhgbJ0J3DmgwseWKF+ug8QgP0byOva2DSQvVbgDM7RQA5BJrHtOsxF8M25pRvoKEHPLdfAvUG9EJH0PcZ8GSKvDBdrp8B9peQhFGZeRZKPUrzYN+aUN44iU3xHcGmUHw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by IA0PR12MB8327.namprd12.prod.outlook.com (2603:10b6:208:40e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
- 2026 03:16:40 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 03:16:40 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 12:16:36 +0900
-Message-Id: <DJOLZ5AP1SDG.3CYRKS9S8KYEV@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 01/20] rust: io: add dynamically-sized `Region` type
-From: "Alexandre Courbot" <acourbot@nvidia.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 157FC10F61D
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:19:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6C9AA60210;
+ Fri,  3 Jul 2026 03:19:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5A41F000E9;
+ Fri,  3 Jul 2026 03:19:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783048741;
+ bh=AVYJ+9EddV4MU4txBt0IqBtccUUWSBC37KeWlCMcgtQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dsLJ42ZU876ynw4VCva6cjmfrTwEWJrz/l4CQ5SIheWWPQ8mEqgrHTEcEk6dqc0/4
+ ituaLGHfgjVE4fVsGaNwdARRL+ZG+Gl6V7rOrV7mrWwjYdC6Cnpb20leiEuZSxF3Mj
+ iywcTv92aBbpJLGdfgYhnOK0xw4uSvKlrCck3UqmQL1IsLyfjKFf8jacIF5DOtH8qr
+ 8KlcZ3VtL0BQTzBgjQnmYpszrnNmY9U1UxWgki2ARzAzoY5amYb1ptG7WZBgZZhzpe
+ YxO9sX9BEIYnDrw04UeSLIsGOL4cgXGwMlNdem5ReoZ81HFNL+5wItpm62BLEE/V77
+ RBWPdnfnylIrg==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v2 06/10] drm/vino: add the DisplayLink DL3 dock driver
+To: "Mike Lothian" <mike@fireburn.co.uk>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260703030217.2886-7-mike@fireburn.co.uk>
+References: <20260617151249.2937-1-mike@fireburn.co.uk>
+ <20260703030217.2886-1-mike@fireburn.co.uk>
+ <20260703030217.2886-7-mike@fireburn.co.uk>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-1-d0961471ae50@garyguo.net>
-In-Reply-To: <20260626-io_projection-v5-1-d0961471ae50@garyguo.net>
-X-ClientProxiedBy: OS7PR01CA0146.jpnprd01.prod.outlook.com
- (2603:1096:604:25c::16) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA0PR12MB8327:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0725a73-dbe8-440c-7c1d-08ded8b18011
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|376014|23010399003|7416014|1800799024|366016|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 3BJU8GqOW3+BCzCi3mZil8ZjZ5fl3ih/EYnG1PnvuYW5jwnGRwRV4Fd3uAPbef1IHzyI+4pIEwvm6dWvYILACSzJDryl3zQum6tf+KYydl/O4sqTfWSf9kkRlr50B7nkyk06kDTIwaHgFisbIDWOvgWBSQ5U96/XY0W0zf5FKDz8fvaoDiQVZryOSuFa/1z+s5XgYSQHhCMp/XnxrYkYaYmyWKN+G8aWU7cVZWEj+XcmKt4JOnB0WDE/mI/xkxCU60yXDd00QLEDSyyo7cJ5V5WapLOt9iaxst2XOOnxXfz35BmDKclmQaf0wYO1gS3WosHVMtv8nzsIKdhcMXA3/UoI2FUO8MbfBS6saIAlTzbnxMId85r9ykHfyI1SMtIY5eT0uF3t74ZUuLYTnLtwRLW8q/A+G/EFc84Oyj6Ld0RJVs1oSb6a4GVjN3Gxwu87mJ7iQD5/ANDoEt4YyzHXr1hmJOtmWJJo+Mx4nc0o7tXUWnvrFEmA/LqlyR6B1Gb9kiTbFM8W0jYn/1D4NqZ5KWgYQwsp3ZLQpO1oQvup2Rm1lyS2HZkhEXpmN71EE8iLTfy+1MiJtiQqhHp4dJPSElHU2FNQK/iCLqneZlQk4xVyN1M9j75Jif9HUMd+pMNJlektimMGBVzEBPdl5QQ1hOQkAa2hXuFIB9vTpOZvSFU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(376014)(23010399003)(7416014)(1800799024)(366016)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjU5RUNsQnhTUGFTN2o5eFYwT3UyU2lpY3VpVzZNaE9yU3dzcHdUMlpvaTZO?=
- =?utf-8?B?dmtoZlVvcURqQkIxT3B4dGtIUFk4b3ZZaXhSbE0zS25qOGtKZGxkMFB6NndQ?=
- =?utf-8?B?dHV2dlRCKy94OTVyeHFXbU5KRC9US01STUlhdnFPMU8vaGVyM1dBdG9MYWgy?=
- =?utf-8?B?cXlQUDl2S24vajAzRjgrMmRXbXVPMnA2dlpqcTVubUplMFdKOWlCMittRHlU?=
- =?utf-8?B?MmFLKzZkUkJKZ2luU0hKMW51V0ZqWHFUWXhUaExvQ0pwcWI3MXNnSmdMZ3VH?=
- =?utf-8?B?cStpRjNvV2p0ekVQemhQZk9FNHZKSndqRm54ZldBNUtHc3BnSDhKQ0NuUlcw?=
- =?utf-8?B?Vks3NFpWYlZQUEZiSkpiMDFCbVRnbitqNUV3QkJ1MFF0MDJhK3hwd05Ua21m?=
- =?utf-8?B?NVJUcitSdDIzUHE3emsySHJIT0lhWEl0TmQ4SnRsL1RVVmg1bzlTeUwvZVFX?=
- =?utf-8?B?ZER1K1ltYWE5bGN3SGZqcXNRVUZFbVFiYm5CQ09udU5Bb2JjMU5HK1doQjZB?=
- =?utf-8?B?T1dvSGVDSWFaUGVxUkZHU0lLdUt2MHpOVTNCOUFHUnBMbk5mR2tzN1UzMUlH?=
- =?utf-8?B?aUdlWWV6RXp2NGk1Rmp6VjNBS0R2VmpmaGxQQndvTGFsK3hDdHk2SjNJS3Yr?=
- =?utf-8?B?OVg1KzJobWIxd1E1by9KUkRFczUreXpzSlcranJ4ajl6UEpXVkdBbThybHFX?=
- =?utf-8?B?bjV4TGpNSWZLOUNPWng3ZUpXMFBXdGs1d3BLY0xpMWdVMGpTR05ES0lCb2JU?=
- =?utf-8?B?anZVaUxodnExeW9kc3pxMlFFVVZ0TlNNS0tOTDU4NFlReVZUaUlWTS9PMjNv?=
- =?utf-8?B?YXVLakdJM0N5Qkh0TnkxZ2RZNmg0T3YzWXpKaUdmcXdTVEhjZWhrYWpnMkc2?=
- =?utf-8?B?bm5LWSs2NFFPdVBVdDdPNTh6aU1uVkZsUTZkOXZySXlJRm5LWGo5RHQxY2hy?=
- =?utf-8?B?UkszNmhnSVdTSkRNQ0k2RDJjS2dGVFpQMFZZa0dxM01GSlBYZUtsYXdLeWZS?=
- =?utf-8?B?RTJNRlg4OVhTTG5hWHJYTkw0cS84L1JlYzdxZENjSDlmbnVvUjdxcEJsR2hs?=
- =?utf-8?B?U2JYdDgwQ0NkYWxYWjh4UlpTOWhheVBVQ3BHU21XSjkzQStvTFM2bndyazJL?=
- =?utf-8?B?cEg3ZXhlcGMvOHJsTm1qc3BLd0tBbEZ4d3FIeE5qdGRTeklhc2tGQ1VkL1pp?=
- =?utf-8?B?T2Q4MXpRQ2J0NEhTU0JmRGdadEJsM0tETVBRcEQrMHFsTzFkYUZDWlkzaHdl?=
- =?utf-8?B?c0xrZGZJc3RaQXBSL0FvMjJqNDl0SzN5OFk1b1VrVVVvUXNRd3ZId1QzUHhk?=
- =?utf-8?B?NkUyNDhqNEl4SVphaEMvZUI0RkdlRzhEbmFwWmZJa3FjWUhLT2xlRjZialNZ?=
- =?utf-8?B?TVg5aTczL2hucVQzaWlEYUxoUWxjeUduNVJzcjNmYmtnVSsyUFdhWTVSaGF6?=
- =?utf-8?B?bFRoVGJhbUNSbm5acUl5eVpDTWl0NGJtcTVNNGNxMTJ1amxPaGFoc1g3WXJH?=
- =?utf-8?B?enBseDdNMStZM3VPc2U4SXhBN2s5Vk5yVUtRMG4rVDljeHlOWjdSNUdwMEFl?=
- =?utf-8?B?bGVEZU4rUFlMRHZiWFpMUmk2anp6L1hKUVF5cjBiK2V0a0NGZ3FYM2FuVEI0?=
- =?utf-8?B?bnFiamZNUDNsSU9Xd1FhWHRXdnpseEhjc0tyL0t4YnIwN0lFYVp4ZVgyeTl4?=
- =?utf-8?B?Vk4vQzlKZUVrN3dFekpjYkppTERhVXdldGROZFpnZFVMWjg2dUpEY2hHT01N?=
- =?utf-8?B?dlJZRGw4YThpTVl5TW12VERSZDNZY3pyRFVnanR5Y3FlQ2d6bFNFa1VZUXJL?=
- =?utf-8?B?OC96OXBzL3ZZQlNEN2VNQkRxWjVkeWszTHcvak1aU29EZmlaM2ZKM0w1aTlZ?=
- =?utf-8?B?YnQ3a0lEZUh0SStOWGNobkxDVENwaWhjM1c3KytlUGtWdEc5YXJ5eHcyRmFG?=
- =?utf-8?B?eE8rdjloZ3hZMnYwMis3VWpaekxqaUd0czFnQnVrK0hRRzlKd2ZXZlp6eWY5?=
- =?utf-8?B?a1VWTzRMcCt4T09xMzhjVlJ1a293T1gvdmhURXpTQm9QL0EwRFlkUU5xUUlU?=
- =?utf-8?B?MHAzcWFKYXlXV3hOd0tsQkhxWkpaenhEcWs4NmluOStzNzF4RUVFODNsdmgx?=
- =?utf-8?B?Zi9OSjBXZnJCRFNyczU3cnlOK2tSODk0c0toNXpBUEF4S0VCRzVjZ1hwYlF1?=
- =?utf-8?B?K05XODhsY2prTitNbjkxUWNNQnhVbEVzYk90cU0xRUNyVkR3RHd5ZXB1Ym0y?=
- =?utf-8?B?SlhpRzBwbTAxd2RMUDhmR25TWEExY2cxUFVsVjk3NHpGdURRNW1nbmNWbEF3?=
- =?utf-8?B?U3VUQURudTl2N1VPZVFQU3ZDd3AyMnZNcEp2OVBOK2trOVhBN1ROQW81MVhY?=
- =?utf-8?Q?s1LFBFIU8oflxkgnK1OyjposLx2TY87eRZC4q9/N0666i?=
-X-MS-Exchange-AntiSpam-MessageData-1: boVzM5j7UFw9Ug==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0725a73-dbe8-440c-7c1d-08ded8b18011
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 03:16:40.4571 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JIcUQ0a3Xb4n949cgUmlczmipEFSCWmhiTOP8h/cQ2/QYhERN+7fSOMOrWT5AC+ruRThOm9BJcNLgcZ99ncvxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8327
+Date: Fri, 03 Jul 2026 03:18:59 +0000
+Message-Id: <20260703031900.9C5A41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,61 +54,155 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
-<...>
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index fcc7678fd9e3..d1c5f0121994 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -6,7 +6,11 @@
-> =20
->  use crate::{
->      bindings,
-> -    prelude::*, //
-> +    prelude::*,
-> +    ptr::{
-> +        Alignment,
-> +        KnownSize, //
-> +    }, //
->  };
-> =20
->  pub mod mem;
-> @@ -31,6 +35,57 @@
->  /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archi=
-tectures.
->  pub type ResourceSize =3D bindings::resource_size_t;
-> =20
-> +/// Untyped I/O region.
-> +///
-> +/// This type can be used when an I/O region without known type informat=
-ion has a compile-time known
-> +/// minimum size (and a runtime known actual size).
-> +///
-> +/// # Invariants
-> +///
-> +/// - Size of the region is at least as large as the `SIZE` generic para=
-meter.
-> +/// - Size of the region is multiple of 4.
-> +#[repr(C, align(4))]
-> +pub struct Region<const SIZE: usize =3D 0> {
-> +    inner: [u8],
-> +}
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Using global static variables for per-device state breaks support =
+for multiple connected devices and causes state collisions.
+- [High] Bypassing the Rust workqueue abstractions to call the raw C `cance=
+l_work_sync` leaks the `Arc` reference transferred to the workqueue.
+- [Medium] The async IN queue for the EP84 status endpoint is incorrectly c=
+onfigured with an OUT endpoint address (`0x04`), causing the queue creation=
+ to fail.
+--
+
+commit d6f1e7eb7413b3d79af598de7aa00c7613895253
+Author: Mike Lothian <mike@fireburn.co.uk>
+drm/vino: add the DisplayLink DL3 dock driver
+
+This commit adds a new open-source Rust driver for DisplayLink DL3 USB dock=
+s,
+including the Dell D6000. It introduces the USB bulk and control transfer
+handshake, HDCP 2.2 control plane, and registers a DRM/KMS device.
+
+> diff --git a/drivers/gpu/drm/vino/vino.rs b/drivers/gpu/drm/vino/vino.rs
+> new file mode 100644
+> index 0000000000000..eb4378a747c35
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vino/vino.rs
+> @@ -0,0 +1,2617 @@
+> +// SPDX-License-Identifier: GPL-2.0
+
+[ ... ]
+
+> +/// Set once the dock has actually engaged the CP cipher (`wsub=3D0x45` =
+acks > 0). EP08 video is
+> +/// gated on it: pushing frames at a dock whose CP channel is dead makes=
+ it fault and USB-reset.
+> +/// NOTE: with the current CP-engagement wall (see the file header) this=
+ is never set on real
+> +/// hardware -- the dock runs the whole plaintext handshake but never en=
+gages the encrypted CP.
+> +static CP_ENGAGED: core::sync::atomic::AtomicBool =3D core::sync::atomic=
+::AtomicBool::new(false);
 > +
-> +impl<const SIZE: usize> Region<SIZE> {
-> +    /// Create a raw mutable pointer from given base address and size.
-> +    ///
-> +    /// `size` should be at least as large as the minimum size `SIZE`, a=
-nd `base` and `size` should
-> +    /// be 4-byte aligned to uphold the type invariant.
+> +/// One-shot: clear-halt + prime the video endpoints before the first li=
+ve-scanout EP08 write.
+> +static EP08_SCANOUT_PRIMED: core::sync::atomic::AtomicBool =3D
+> +    core::sync::atomic::AtomicBool::new(false);
+> +
+> +/// Select the live scanout codec. `false` (default) =3D the RLE/mode-2 =
+path (`video::Encoder`),
+> +/// which is what the dock currently runs and which the dock NAKs pre-CP=
+ anyway. `true` =3D the
+> +/// byte-exact Vino WHT **colour** codec (`video::wht::colour_frame_ep08=
+`), the bandwidth-efficient
+> +/// DLM-quality path. Kept a compile-time flag (default off) so the RLE =
+path stays the live default
+> +/// and the switch is testable independently the moment the CP wall fall=
+s; the WHT path needs a
+> +/// 64x16-aligned mode and falls back to RLE otherwise (see `docs/VIDEO-=
+TODO.md`).
+> +const EP08_WHT_CODEC: bool =3D false;
+> +
+> +/// Consecutive failed live-scanout frames, for log rate-limiting. Until=
+ CP engages, the dock
+> +/// NAKs every EP08 write (EPROTO), so without this every compositor pag=
+eflip would spam dmesg.
+> +static SCANOUT_FAILS: core::sync::atomic::AtomicU64 =3D core::sync::atom=
+ic::AtomicU64::new(0);
+> +
+> +/// Pageflip throttle: number of upcoming pageflips to skip before the n=
+ext scanout attempt
+> +/// (a backoff while the dock NAKs). A single successful frame clears it.
+> +static SCANOUT_SKIP: core::sync::atomic::AtomicU64 =3D core::sync::atomi=
+c::AtomicU64::new(0);
+> +
+> +/// Set once the bring-up work item finishes (AKE/CP attempt done). `det=
+ect` only connects the
+> +/// live-scanout connector AFTER this, so a compositor enabling the outp=
+ut cannot start EP08
+> +/// scanout on top of the still-running AKE on the same USB device.
+> +static BRINGUP_COMPLETE: core::sync::atomic::AtomicBool =3D
+> +    core::sync::atomic::AtomicBool::new(false);
 
-The second part of my comment on v4 was not relevant [1], but how about the
-"should -> must" proposal?
+[Severity: High]
+Does this code support multiple connected devices? It looks like these
+global static variables are used to track per-device state. If multiple
+DisplayLink D6000 docks are connected, won't they race on these shared flags
+during initialization and operation? For instance, one device completing
+bring-up could incorrectly flag all devices as ready via BRINGUP_COMPLETE.
 
-Regardless:
+[ ... ]
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> +        // Open the persistent async EP84 IN reader BEFORE the arm marke=
+r and msg0, so
+> +        // `EP84_QUEUE_DEPTH` IN transfers are already posted when the d=
+ock pushes its post-arm
+> +        // reply (DLM's libusb always-pending-IN behaviour). Draining EP=
+84 concurrently stops the
+> +        // dock's IN FIFO filling and NAKing our OUT (the sync-bulk dead=
+lock that produced a 100 ms
+> +        // msg0 NAK). RAII: dropping the queue at function exit kills+fr=
+ees the URBs.
+> +        let mut ep84_q =3D match dev.bulk_in_queue(0x04, EP84_QUEUE_DEPT=
+H, EP84_BUF) {
 
-[1] https://lore.kernel.org/all/DJ9JE3I9MCG2.2G88FWQPWRBH3@garyguo.net/
+[Severity: Medium]
+Is the endpoint address correct here in VinoDriver::send_cp_setup()? It loo=
+ks
+like it's opening an IN queue for endpoint 0x84 but passes 0x04 instead.
+Since 0x04 is missing the USB_DIR_IN bit (0x80), won't the queue creation
+fail and force the driver to fall back to the synchronous bulk_recv mode?
+
+[ ... ]
+
+> +    fn disconnect<'bound>(intf: &'bound usb::Interface<Core<'_>>, data: =
+Pin<&Self>) {
+> +        let dev: &device::Device<Core<'_>> =3D intf.as_ref();
+> +        // Flush the deferred bring-up before the interface is unbound: =
+`cancel_work_sync`
+> +        // dequeues it if pending and blocks until it returns if already=
+ running, so no
+> +        // USB I/O races the unbind (see the `Interface::as_bound` contr=
+act in
+> +        // `BringUp::run`). Safe to call when the work already finished =
+or never ran.
+> +        if let Some(work) =3D data.bringup.as_ref() {
+> +            // SAFETY: `work.work` is a live `Work` field of a pinned, r=
+efcounted `BringUp`;
+> +            // `raw_get` yields its valid `work_struct`, which `cancel_w=
+ork_sync` only reads
+> +            // and synchronises against. The `Arc` keeps the allocation =
+alive across the call.
+> +            unsafe {
+> +                let wptr =3D Work::raw_get(core::ptr::addr_of!(work.work=
+));
+> +                bindings::cancel_work_sync(wptr);
+> +            }
+> +        }
+
+[Severity: High]
+Does this direct call to bindings::cancel_work_sync() in
+VinoDriver::disconnect() leak the Arc reference transferred to the
+workqueue? Since the Rust workqueue enqueue consumes an Arc<BringUp>
+that is usually dropped when the callback executes, bypassing the Rust
+abstractions to cancel the work means the callback won't run, leaving
+the Arc without a mechanism to drop it.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703030217.2886=
+-1-mike@fireburn.co.uk?part=3D6
