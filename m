@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B44C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 15:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C48CFC43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 15:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85BD810E62D;
-	Fri,  3 Jul 2026 15:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16F2610E614;
+	Fri,  3 Jul 2026 15:54:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PZgxLmzq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CVsa5L84";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0860610E62C
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 15:49:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A83D10E614
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 15:54:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B43CC40606;
- Fri,  3 Jul 2026 15:49:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697101F000E9;
- Fri,  3 Jul 2026 15:49:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7BB6460051;
+ Fri,  3 Jul 2026 15:54:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD801F000E9;
+ Fri,  3 Jul 2026 15:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783093754;
- bh=vomuBsWA9F3vN2vPmrFol1NWn7bwlm8GNrQCK0KNIUY=;
+ s=k20260515; t=1783094096;
+ bh=q6C8NWEu9eFtneo+mMGOR5vA3glaDF1jKQ3dWIsPEH4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PZgxLmzqekjofW5xGaM2e7JNJ4Jrql9W466GGVwGYArr7RSfiFhO5dU/n5yatozOB
- w0dR5b3USF2SiYWwipYLrt98Pq5dqixWBLxgroaExdDxmIvI9vEECm88BaVKi6Oq23
- 2ZLP3eESaecBE4YY4lvAtKg8KyJrp1YZ5tGxBq2jD5k1YQD4zt3Rou6omJc2+eHuRn
- mNTIsc9HPYFlm3kR8bQ6K8mRdvHGb/ELfRKqlJ3aHsvcL4sWdV3D1q7QLdqpqAQpD/
- LZZI+4BVRNY/3LfWkaNc35UzCDKJxQvGfAZ+BFzjhmLKSOqa/ZqIFfvZzx5RCRSZKj
- WQdrxMxAsr7TQ==
+ b=CVsa5L845qXxbQjOy88yhKGenWe6CKXSUWtCICXnefA5XIzWcyZ3acQuwzqs15esJ
+ m2wXGDhB50yxKw0cnKwrBs/g3f6qW3QkUwoxt4dQ515rtekpc/J6CD6Khv8idmOpMi
+ T9ozRUjKJR5G33Y2/rTi6me3O/HEn0Rjn38pgNTO2E15P/hTCEF2t/AfQf7347habM
+ qz2ky026edj6pfyFYPzSXKr7Lv70jK4YXWw6NXlVsK6rG09zWzrITFb8wOeVsz3GRs
+ +t0Pj9JX8fmLt1mU5ySKykgLb5YNGdoTYn/ahCEKZGJLjS7sdggF/jWQaEbd6Qk+LJ
+ 9rlVRz/iBZYEQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] drm/v3d: Reject invalid indirect BO handle in
- indirect CSD setup
+Subject: Re: [PATCH v3 1/3] drm/v3d: Associate BOs with every job that
+ accesses them
 To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260703-v3d-cpu-job-fixes-v3-2-bc51b1f3eeb5@igalia.com>
+In-Reply-To: <20260703-v3d-cpu-job-fixes-v3-1-bc51b1f3eeb5@igalia.com>
 References: <20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com>
- <20260703-v3d-cpu-job-fixes-v3-2-bc51b1f3eeb5@igalia.com>
+ <20260703-v3d-cpu-job-fixes-v3-1-bc51b1f3eeb5@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 15:49:13 +0000
-Message-Id: <20260703154914.697101F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 15:54:55 +0000
+Message-Id: <20260703155456.0FD801F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,149 +58,105 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Critical] V3D_CACHE_CLEAN jobs execute after their associated buffer obj=
+ects (BOs) are freed, causing the GPU L2 cache to write dirty lines back to=
+ unmapped or reassigned physical memory.
+
 Pre-existing issues:
-- [Critical] Missing bounds checking of user-supplied offsets leads to arbi=
-trary kernel memory read and write in CPU job execution functions.
-- [Critical] Double free of `query_info->queries` arrays on error paths whe=
-n processing timestamp or performance query extensions.
-- [High] Missing return value check for `vmap()` failure in `v3d_get_bo_vad=
-dr()` leads to NULL pointer dereferences.
-- [High] Memory leak of `se.out_syncs` in non-CPU IOCTLs when `v3d_get_exte=
-nsions` fails.
+- [High] The BIN job explicitly skips acquiring implicit dependencies, whic=
+h violates the dma-buf implicit sync contract for imported buffers and allo=
+ws the BIN job to execute concurrently with writers.
 --
 
-commit 3cd6d13669aae5071cfb72bf592569413ffc98ac
+commit 9c4142c6fc75015db16c542de5fec66fe98c34f8
 Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-drm/v3d: Reject invalid indirect BO handle in indirect CSD setup
+drm/v3d: Associate BOs with every job that accesses them
 
-This commit fixes a NULL pointer dereference in the v3d driver caused by
-failing to check the return value of drm_gem_object_lookup(). It updates
-v3d_get_cpu_indirect_csd_params() to bail out with -ENOENT if the userspace
-supplied indirect BO handle is invalid.
+This commit addresses an implicit synchronization issue by calling
+v3d_lookup_bos() for each job that references the submission's BOs. This
+gives earlier jobs in the submission chain their own implicit dependencies
+during reservation locking.
 
 > diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
 ubmit.c
-> index 9d23935b05dd0..656b0bbd4f8e3 100644
+> index ee2ac2540ed50..9d23935b05dd0 100644
 > --- a/drivers/gpu/drm/v3d/v3d_submit.c
 > +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -601,6 +601,8 @@ v3d_get_cpu_indirect_csd_params(struct drm_file *file=
-_priv,
->  	       sizeof(indirect_csd.wg_uniform_offsets));
+
+[ ... ]
+
+> @@ -446,7 +441,8 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
+>  	if (IS_ERR(clean_job))
+>  		return PTR_ERR(clean_job);
 > =20
->  	info->indirect =3D drm_gem_object_lookup(file_priv, indirect_csd.indire=
-ct);
-> +	if (!info->indirect)
-> +		return -ENOENT;
-> =20
->  	return 0;
+> -	return v3d_lookup_bos(submit, args->bo_handles, args->bo_handle_count);
+> +	return v3d_lookup_bos(submit->file_priv, &job->base,
+> +			      args->bo_handles, args->bo_handle_count);
 >  }
 
 [Severity: Critical]
-This isn't a bug introduced by this patch, but while reviewing the CPU job
-code, does this lack bounds checking on the user-supplied offsets?
+Does attaching the BOs exclusively to the CSD job leave the appended
+CACHE_CLEAN job without references to keep the BOs alive?
 
-In drivers/gpu/drm/v3d/v3d_sched.c:v3d_rewrite_csd_job_wg_counts_from_indir=
-ect():
-    wg_counts =3D (uint32_t *)(bo->vaddr + indirect_csd->offset);
-    ((uint32_t *)indirect->vaddr)[uniform_idx] =3D wg_counts[i];
+If userspace submits a job with the flush cache flag and immediately closes
+the BO handles, the CSD job's completion might drop the final reference to
+the BOs.=20
 
-And in v3d_timestamp_query():
-    value_addr =3D ((u8 *)bo->vaddr) + timestamp_query->queries[i].offset;
-    *((u64 *)value_addr) =3D i =3D=3D 0 ? ktime_get_ns() : 0ull;
+If the BOs are freed and unmapped before the CACHE_CLEAN job executes
+v3d_clean_caches(), could the synchronous flush write dirty lines back to
+reallocated physical memory?
 
-When a user submits a CPU job (like indirect CSD or timestamp query), can
-they pass arbitrary offset values?=20
+[ ... ]
 
-Since these offsets are added to the vmap'd kernel addresses of the BOs
-during job execution in the scheduler thread, could this allow arbitrary
-read and write access to kernel memory?
-
-[Severity: High]
-This is a pre-existing issue, but does this code fail to handle vmap()
-returning NULL?
-
-In drivers/gpu/drm/v3d/v3d_bo.c:v3d_get_bo_vaddr():
-    bo->vaddr =3D vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,=20
-                     pgprot_writecombine(PAGE_KERNEL));
-
-If vmap() fails due to memory pressure, bo->vaddr is set to NULL but no
-error is returned.
-
-Callers then unconditionally use the mapped address assuming success:
-
-drivers/gpu/drm/v3d/v3d_sched.c:v3d_rewrite_csd_job_wg_counts_from_indirect=
-() {
-    ...
-    v3d_get_bo_vaddr(bo);
-    wg_counts =3D (uint32_t *)(bo->vaddr + indirect_csd->offset);
-    ...
-}
-
-Could this trigger a NULL pointer dereference when vmalloc space is
-exhausted?
+> @@ -1085,6 +1081,17 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *=
+data,
+>  	if (ret)
+>  		goto fail;
+> =20
+> +	/*
+> +	 * We don't associate the BOs with the BIN job. Fences are only
+> +	 * attached to the last job in the submission chain, and BIN jobs
+> +	 * don't need implicit dependencies since depending on results from
+> +	 * another context is not a realistic scenario for binning.
+> +	 */
+> +	ret =3D v3d_lookup_bos(submit.file_priv, &render->base,
+> +			     args->bo_handles, args->bo_handle_count);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this early return leak
-se.out_syncs?
+This is a pre-existing issue, but does skipping the implicit dependencies
+for the BIN job violate the dma-buf implicit sync contract for imported
+buffers?
 
-In drivers/gpu/drm/v3d/v3d_submit.c, non-CPU IOCTLs handle extension parsing
-like this:
+If userspace imports a dma-buf that is currently being written by another
+context (like a compute shader or video decoder) and uses it for a BIN job,
+the DRM scheduler will execute the BIN job immediately because it was given
+zero implicit dependencies.
 
-drivers/gpu/drm/v3d/v3d_submit.c:v3d_submit_cl_ioctl() {
-    ...
-    ret =3D v3d_get_extensions(file_priv, args->extensions, &se, NULL);
-    if (ret) {
-        drm_dbg(dev, "Failed to get extensions.\n");
-        return ret;
-    }
-    ...
-}
+Could this cause the hardware to read from the buffer while the other conte=
+xt
+is still writing to it, resulting in data corruption?
 
-If a user provides a valid DRM_V3D_EXT_ID_MULTI_SYNC extension followed by
-an invalid one in the linked list, the MULTI_SYNC handler successfully
-allocates se->out_syncs.
-
-When parsing the invalid extension fails, v3d_get_extensions() returns an
-error. By returning directly instead of jumping to the fail_submit cleanup
-label, do we leak the struct v3d_submit_outsync allocations?
+> +	if (ret)
+> +		goto fail;
+> +
+>  	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
+>  		clean_job =3D v3d_submit_add_job(&submit, V3D_CACHE_CLEAN);
+>  		if (IS_ERR(clean_job)) {
 
 [Severity: Critical]
-This is a pre-existing issue, but can this sequence lead to a double free?
+Similar to the CSD job in v3d_setup_csd_jobs_and_bos(), does associating
+the BOs exclusively with the RENDER job leave the cache clean job without
+references to the BOs?
 
-When v3d_get_cpu_timestamp_query_params() encounters an error (like an
-invalid syncobj), it calls v3d_timestamp_query_info_free():
-
-drivers/gpu/drm/v3d/v3d_submit.c:v3d_get_cpu_timestamp_query_params() {
-    ...
-error:
-    v3d_timestamp_query_info_free(&job->timestamp_query, i);
-    return err;
-}
-
-This frees the array but leaves the pointer intact:
-
-drivers/gpu/drm/v3d/v3d_sched.c:v3d_timestamp_query_info_free() {
-    ...
-    kvfree(query_info->queries);
-}
-
-The IOCTL then propagates the error and jumps to cleanup, which uncondition=
-ally
-destroys the job:
-
-drivers/gpu/drm/v3d/v3d_submit.c:v3d_cpu_job_free() {
-    ...
-    v3d_timestamp_query_info_free(&job->timestamp_query,
-                                  job->timestamp_query.count);
-}
-
-Since count remains 0, the inner loop is skipped, but does kvfree() get
-called again on the dangling query_info->queries pointer?
+If the BOs are freed after the RENDER job completes, could the CACHE_CLEAN =
+job
+flush the L2 cache back to freed physical addresses?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-v3d-cpu-jo=
-b-fixes-v3-0-bc51b1f3eeb5@igalia.com?part=3D2
+b-fixes-v3-0-bc51b1f3eeb5@igalia.com?part=3D1
