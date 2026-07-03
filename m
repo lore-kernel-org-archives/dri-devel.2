@@ -4,147 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40B43C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C4FAC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90F5C10F6B3;
-	Fri,  3 Jul 2026 07:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC9010F695;
+	Fri,  3 Jul 2026 07:30:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="MYNsAChM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4iSYiX3O";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MYNsAChM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4iSYiX3O";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GeZChxWR";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17C4B10F6B5
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:26:26 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 823B7747A1;
- Fri,  3 Jul 2026 07:26:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783063584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MmLI7YRYrWrGvjWrJYSSmDPsMivgSqlLvyhn40gpqes=;
- b=MYNsAChMFJfNozLrnG5K6oip935Xl69QjFjGBCX7VT7FmYkCNS7PlSQ6AbWutwCZMrAqbd
- u5y3skH9GCsOc3oe7MEoSX3dyaJQxc6n/qK7cgTlIHNC4Y3j2KA64O0BsXJxcLW6bPc90y
- hfW7M6RW66w082kF9OdeH9AFicmIIeA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783063584;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MmLI7YRYrWrGvjWrJYSSmDPsMivgSqlLvyhn40gpqes=;
- b=4iSYiX3Op+p4+ZHWG44/8StvvFtOV5Q39skjur0BuFefvUBd7FJkPzeTSv4bNM386NhUVt
- rFuyiF93hULSK/Aw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MYNsAChM;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=4iSYiX3O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783063584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MmLI7YRYrWrGvjWrJYSSmDPsMivgSqlLvyhn40gpqes=;
- b=MYNsAChMFJfNozLrnG5K6oip935Xl69QjFjGBCX7VT7FmYkCNS7PlSQ6AbWutwCZMrAqbd
- u5y3skH9GCsOc3oe7MEoSX3dyaJQxc6n/qK7cgTlIHNC4Y3j2KA64O0BsXJxcLW6bPc90y
- hfW7M6RW66w082kF9OdeH9AFicmIIeA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783063584;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MmLI7YRYrWrGvjWrJYSSmDPsMivgSqlLvyhn40gpqes=;
- b=4iSYiX3Op+p4+ZHWG44/8StvvFtOV5Q39skjur0BuFefvUBd7FJkPzeTSv4bNM386NhUVt
- rFuyiF93hULSK/Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1BF98779AA;
- Fri,  3 Jul 2026 07:26:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id HIz6BCBkR2pmeAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 03 Jul 2026 07:26:24 +0000
-Message-ID: <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
-Date: Fri, 3 Jul 2026 09:26:23 +0200
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83A8F10F695;
+ Fri,  3 Jul 2026 07:30:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783063833; x=1814599833;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=UGuPR1VVW3ZjU8rkGx87GeVoMk2E48fHzoyA6gLxUNY=;
+ b=GeZChxWRHLkSGGDsHdkU4o6xk61J7OJpMgr1EybVuwt3SwbFKSdIvihO
+ hF5ly5du1eiH++nFI5GZDzcT6xEVDcCYUNWLt8TSB+0rmcIBXyWVqqbGB
+ TpSxdhLpvrJE2080VmtMxmQWUZLaGh8irnupHt89+MgxiP0i+38uEoChx
+ Bkq/ImKUGSw3wOsgu9OWJH8IDDYMFEV2C4rf0zwIkpFZjVjcWbIyfXLxC
+ CqyqPT3NC88FmfSQOEya+DhcR3m6OOUb2ek+QO7q6D06YBm/+ljkQqM+5
+ iMKPb2UXlf1tmw0fM+kajNfNUg2URuP7FjVQz9bNcn1GqvhXb0XwLauzC Q==;
+X-CSE-ConnectionGUID: Pf8UEc6WS+i+b+CB9lNkGQ==
+X-CSE-MsgGUID: QhvWJD+xQdq7TiAmwgB60g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="101352123"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="101352123"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 00:30:33 -0700
+X-CSE-ConnectionGUID: q/E1PI+NSG2e3E8LGsO8JQ==
+X-CSE-MsgGUID: Grwi0Q6hR3ugxAP2j1eipw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="277371772"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 00:30:32 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 3 Jul 2026 00:30:32 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Fri, 3 Jul 2026 00:30:32 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.27) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 3 Jul 2026 00:30:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M4wNEuJk8DlEzBjTmme3BdKlH7Lt+CIeO8GcLbL9Gq++1U4fEsbUAYIhertIW2DafXNNYn6WfnDjEcLnec7Swk4DfRX3E/0Umt9320xn891EZXOx35OQIkUnqLimZzBoOF6oIj7zzGPAztYRzLaluOPat96WDYBfvefVpOXiRruy/3Pu9PkP5ta+fEUJ3PqB7V+3154Up3UEgLWNL78722EyM7HSd/jNNBANBzFau3xYS3pOYRuYg0I3YqpwfMR5MkDXE+u9fe3/xEa5MfJeJQsGsZvP5cUnfFVWhmIboBq/cCWnlc6iXJSfefSjEfLp2Ep2GPNXFeexzNBqlv6GPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=164yM0u9oDXnO+BJ3JlqOgpgAZm5e+ROMlW2JFnpJfk=;
+ b=iMlwgslA9KWbDPRkWRJE7iiWNhastJItb90fmf9q55a8NIa5/1hZ6m46yq/F4XvyMsQoqbTjULDsuLaIu1qKyAe0n6QtQ2RMFI0aEGT907Erd/aVHN8cdPUiBL+ia8qNmUpM8UfcoYu0fZ7umW5FrEfHNbxcVixgZhJR78XASx5pb2H8oaKuLrlDCgBV3RV8hzcb7kU29Hik5gLzJD2mEfNYmHwzw78MxSrdXTDrTckv89mePVADV3/CU95gwWl+ZLcFcDxBj7F6QdGx1ZqunjCJcE2rCk24Ho6ELvGSw8499Fe+Jwb6vn1XnqRq/vKPMjja76uYbifZAHRpQA76kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
+ DS7PR11MB5967.namprd11.prod.outlook.com (2603:10b6:8:72::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.8; Fri, 3 Jul 2026 07:30:27 +0000
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0181.009; Fri, 3 Jul 2026
+ 07:30:27 +0000
+Message-ID: <09869e95-4526-428d-808e-74c6b1ebc207@intel.com>
+Date: Fri, 3 Jul 2026 13:00:16 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
- duration
-To: Roman Ilin <me@romanilin.is>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Peter Arnesen <peter.m.arnesen@gmail.com>
-References: <20260613224434.96501-1-me@romanilin.is>
- <20260702181027.98526-1-me@romanilin.is>
- <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
+Subject: Re: [PATCH v4 3/5] drm/xe/ras: Add support for error threshold
+To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
+CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
+ <lijo.lazar@amd.com>, <Hawking.Zhang@amd.com>, <davem@davemloft.net>,
+ <pabeni@redhat.com>, <edumazet@google.com>, <dev@lankhorst.se>,
+ <zachary.mckevitt@oss.qualcomm.com>, <rodrigo.vivi@intel.com>,
+ <michal.wajdeczko@intel.com>, <matthew.d.roper@intel.com>,
+ <mallesh.koujalagi@intel.com>
+References: <20260623101043.255897-1-raag.jadav@intel.com>
+ <20260623101043.255897-4-raag.jadav@intel.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 823B7747A1
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[romanilin.is,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWELVE(0.00)[14]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FREEMAIL_CC(0.00)[bootlin.com,redhat.com,collabora.com,lists.freedesktop.org,lists.linux.dev,vger.kernel.org,linux.intel.com,leemhuis.info,gmail.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TAGGED_RCPT(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[romanilin.is:email, suse.de:dkim, suse.de:email,
- suse.de:mid, suse.com:url, bootlin.com:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <20260623101043.255897-4-raag.jadav@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0254.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:223::19) To DS0PR11MB7958.namprd11.prod.outlook.com
+ (2603:10b6:8:f9::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|DS7PR11MB5967:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7269c36e-0e7f-4363-7d78-08ded8d4f3bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: hKtbdrXXXmmmxICqTxEadRNdb0+Q4CH/46ZUNkM4CM/RtD5+00lONhxPWco+a6/cTg99sqDTcrD8K8ljEu+FYPnFM67PW+H3VJ16XBBvz3g7XY08dHH+o1OWNeEvkNd1s6xfmiUaHE+KPqEP2VL92hXsYDuDi83uDuN0qnhwUk+oXgLJBDubYACTE3wr+p9OImHWxH8IUMMqpB2st7HJsCjt4UXpCpENVGVn89npArWtfndi26BZ4hStLno+8/qmgapMh6CX9hQnPzUjKHvrqfDUigJ7VeLD+fHU95/wMZgA9d/CZoyG3zieqCUX02R4atvoMVY0V4sJUwqByVMf2FFIk7eR+50FdgLMuSiOHFJS3btiqioHvhseXudW0NxMGskBvNKA3toF9CgvZi0YcdgCkWoWfkejKws9LMnPd10+nU05+1hG8SwAr4rTRzWIgv02mnKeRj4ovvIyzQRfMF8wixi5apGhhP7x+YaTr7AK8Q/sdst1Uku1+leIYJjMhZiF8+82PfGaEtFQFM/J46ETJoF3kF6c0HwwQcW0Ax8IDbuHrZoE2iWqtNm7K5j/yVnZ5YOyUUPV2K94jKXZmAaOHaZANgdkAEy+tEuE+4zuhFZuA0eDWdK/jO6LvW0vyVAxsumXolZviiDdOzUt0HASEFPJLel/EiHdNdAqGdQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWJUM3lPTk9GeHhLMnpJd0o4bU1wOVl1SHprTGorbFBtODFya2M4N29zZDRm?=
+ =?utf-8?B?amVLVGFEQ0xqQk8xNVhKMGpWbWFmekFYQzJhbTlBWklnRXVkRWJXa3Zja0Vq?=
+ =?utf-8?B?SFhtUmJMSnVpWUhNLzJSMHRBR0d6U1J2WWYxd3c3VVNLbGQ2cUxhS1llcmZr?=
+ =?utf-8?B?VUd5UjBUTytrL1Rnb3BZWmR1VDZPTXlPSkJCRHlYb0lwWjhUWnJnM0ZvUnpW?=
+ =?utf-8?B?UFVzMFV6Wm5HY3Y4dDFFdzhvdDl5blYweTRocVIwcXpzcFhEWk5CdlpBU01q?=
+ =?utf-8?B?K2R0bDh0eEMyTTBKYWNxMjNrSWpZdGxoSWhwMmFoRldCeU1qVjlpZXBtNG5r?=
+ =?utf-8?B?ZnJ6ZHgzUWs5VEdTVVplZG5GQTRPdU9ZVm5PT0w2bXBJd1Z2Y1RnaFlyZ0R3?=
+ =?utf-8?B?b1ZxeERQVmN5NkJ5ZEZwTmRES2x2TW9YVkdCbE5sdU5qRk9pc3Q5ZkRjdzdh?=
+ =?utf-8?B?RUgxdFFMcmR5SU9BVDJaRExxZ1JmbVhuL01MMm9sbTFwNUs4aGZMVXJYQkJn?=
+ =?utf-8?B?VGRnNkdZL2dlT3IrZmNQRFMyV2U3ZFNPVVZCZlIyK3RoWklBajMrZWgzbHFy?=
+ =?utf-8?B?UFl0NnVLNk5WeGo0dnMveFRSMllZaUtLcWMvNHl3YVZyZFFYRHR3TmlVakMx?=
+ =?utf-8?B?ekc1ZGtNYnc3TXdsUHpaZEg3Q21ESHp2T1RpSkpoTjlKVDNFMGQwSEY1Z1Fi?=
+ =?utf-8?B?NVB1b0pBdVhhRmJKOHkvdzRzQkZ2NXJwZHM2aTJZeURaaS9WRkptdlJyTCts?=
+ =?utf-8?B?SjNvYUtiT1NDRi9nTzFBcHNvN2FZQzhKWWRIRlNYdWtVd0VDUi9xanBZU1RX?=
+ =?utf-8?B?Z1phbmZ6VElVRkhMakF4UXhMejhnZFlXSlZUQzU0cG5DMU8wdG0vNUlzYlJM?=
+ =?utf-8?B?SHJuMU5KOUMrbXJSVEZlMk0xVzEvOXd2aEMxQkYxUy8rcGVLRmFac3lSQWdT?=
+ =?utf-8?B?N2dvMHN1MzNScXlyZlowTURoRG13VlFacXJnQWdSWmZneDRyL0c3VEIrMDM1?=
+ =?utf-8?B?eU5JMFNUUmJBL2ZSdmFrTGIza0RQQWtvdjBKQXBHTmM4dEdkZWdmcUExdXln?=
+ =?utf-8?B?aUpMc3IvNmgwVEpqRTdOc29CWjRCeEpkS1BaQWJOZFd6Q1BWdm8zMmhlZnh6?=
+ =?utf-8?B?N2NvdXYyWlVwYXUyTklCMVYrQlB1RjFGNW5hcU1JbGlDWUNGZmJsQmh4Y2No?=
+ =?utf-8?B?eUp3T1F0U3haYXh0ZlFJUW9Uekxxbnk3ZDh2ZmJXN2NjRkNHZWhRd2JMbUVh?=
+ =?utf-8?B?UFd2R09KdGUxOUdBMStvWmVTNThSbjhuU2tHT3pJSUl2d0o5VFJ4QzlFSjF4?=
+ =?utf-8?B?Z2EyTUFMTzU4TU12SUw2K0NPZ2tmcTRZZmNkRWpUZlRHVzBGem9oQnIwVndR?=
+ =?utf-8?B?Nkc1ZDdqcmNKTWpWT0ZpZVB3anBvZTJTaE5yZXlqcnE4ZUdaa2I1YVhoeFNV?=
+ =?utf-8?B?WDZpcDBSNzIrRFB6WThRcXhwMDVpN3RzNFp4VWlrR2xqdTBsenFyWVgydHcr?=
+ =?utf-8?B?eE5kbFdReHk0dFpjc1JOYkwyY2pOMVpKSW8yK1lENGxXNDJZT2tpa3MzUEly?=
+ =?utf-8?B?M1V6SU95Q2NUMkE4WEhGYzJmMWxMa3Mxc1JFZ0o0TFhWQ2YvZzRUYXVWbVk1?=
+ =?utf-8?B?aWE4NUFIendpcjdyYlRiUTg4M2V0eG9pQmVia3BhRzFSVXFDdmg2Ums0UzZL?=
+ =?utf-8?B?anlzOXJoS0dzcjh2UGxJaXRSRThLSUhuT3k2ODdxKzhnZ05YUkZMUTZ3czk1?=
+ =?utf-8?B?alQ5NmlZckNuMmlNajM0WHpXTVgxekE4S1J0Z0hyUkxWQ24rQzI2ZytQZStN?=
+ =?utf-8?B?ZFMyNFRJb1FDNXFwQlRnSmVrbFZpalg4TGVCQUhYeWR4d1ZBaWNMNm0vRkVk?=
+ =?utf-8?B?cWZTR1dPRUxsdlJEdnlmSkpCODQ1RHI3cHo4dU1Rd1RFWURSNXZac3RpNVhs?=
+ =?utf-8?B?VDdkcURXYlRNYkJtc1ZQbkVGcm50RFhZMkZSdTh0c1krQWZHWElJUmtUVEti?=
+ =?utf-8?B?bGxrRGluV1Y0S0R2UzNWeEVBY0UxSldlM0V6QmV4cVJDakdlWDZUb1p2RnZZ?=
+ =?utf-8?B?MktSZktmdVNITkFtZ21sQ2U2QkV3T1Z4Nk12SXZ5bTh3WE5PZVB1UDh6akd6?=
+ =?utf-8?B?aUpyRWRrQktOcHBvYWk1aWU5U2FVcVRTSjlhQjFGL1d3M041V29iMkk3dDlK?=
+ =?utf-8?B?cmMzeFp4MXpLQmR2RUNMb0tYU05tZVVNY2ViZlQvdWNzV0wxa2xNSThuTFdx?=
+ =?utf-8?B?SU1MRXJXVGRSN3BuVG1SbnZtMjJyWFE1TFNoUTJqNTVsOTNpdE1HZWpLdWlr?=
+ =?utf-8?B?RUlicHFTSGpML2VRbDRURU9mZks0VVJXeGZISFhxRmpaeGhvRzVSUT09?=
+X-Exchange-RoutingPolicyChecked: cZij+jdVoxz1V59RK9rGkKCVtJdP/wPOYpCcD51XGTkG3dZQ5lpdQ0uCClRISpEQnLvjV5UlQD8HC4qPGCPet2gYjxJeIEn22SSp6gSVlhuQ5t8lB7m/YyhX9gbDpXC2Ga+pLGELdfxaH+9S6tSVgZNuY2weLAQMKW8WB86PZE0qz9SXSBnz/SvD/zdJB62GKHOffPUlFJq0cQQRAPlbqIUC/qMkgkdFbgW+jf5lPy9RtXcMrW9DXOnxgt/c+eQdu+O7rz6zVPGMEc0nWCQPMOMVES0NnpBxjoztZeT+fRO3oa8T9dkgH/n9IbAuTtvmHJpadNvApYTorv09WAPgyg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7269c36e-0e7f-4363-7d78-08ded8d4f3bc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 07:30:26.9766 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W3XGXF9BV+SHCRenbtT9Ut0ufx4dFnEMWGljHjY4DZ3qW1F5nA7kPe4eGcSl26yIPvNpBg9hM4xqrAbd4TSszw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB5967
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,237 +175,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 02.07.26 um 20:23 schrieb Roman Ilin:
-> Apologies, I accidentally fired off send-email before saving my final
-> changelog notes. Please ignore the changelog and notes in the original
-> v3 email.
+On 23-06-2026 15:39, Raag Jadav wrote:
+> System controller allows getting/setting per counter threshold for
+> correctable errors, which it uses to raise error events to the driver.
+> Get/set it using the respective mailbox command.
 >
-> The actual changes in v3 are:
+> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+
+
+Reviewed-by: Riana Tauro <riana.tauro@intel.com>
+
+> ---
+> v2: Add RAS operation status codes (Riana)
+> v3: Reuse status codes and uapi mapping from counter series (Riana)
+>      Access request/response counter using local pointer (Riana)
+>      Mark unused field as reserved (Riana)
+> v4: Make debug logs consistent (Riana)
+>      Update kdoc (Riana)
+> ---
+>   drivers/gpu/drm/xe/xe_ras.c                   | 105 ++++++++++++++++++
+>   drivers/gpu/drm/xe/xe_ras.h                   |   2 +
+>   drivers/gpu/drm/xe/xe_ras_types.h             |  51 +++++++++
+>   drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |   4 +
+>   4 files changed, 162 insertions(+)
 >
-> - Changed the WARN_ON_ONCE to drm_dbg_kms (to avoid user-triggerable
->    panics).
-
-We want to know when this happens. And user space will only be able to 
-trigger this once, so there's no risk of spamming the kernel log.
-
-So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You 
-can also use a regular DRM print macro. But instead of drm_dbg_kms() 
-should use drm_err_once(). But please also output linedur_ns and 
-framedur_ns in the error. We want to know which of them is incorrect. 
-You can also add more information to the error message. See [1] for the 
-mode-formating macros.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.1.2/source/include/drm/drm_modes.h#L422
-
-
-> - Updated drm_calc_timestamping_constants with the goto error fallback
->    to clear the stale state.
->
-> Also, an automated review bot pointed out an AB-BA deadlock in
-> drm_crtc_vblank_start_timer(). But I am leaving this out of the patch to
-> keep the fixes orthogonal.
->
-> Sorry for the noise.
->
->> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
->>
->> When a CRTC's display mode carries a too small pixel clock,
->> drm_calc_timestamping_constants() computes a frame duration that
->> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
->> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
->> interval, after which vblank events are no longer delivered. Pending
->> page flips never complete and the display appears frozen.
->>
->> This could be triggered on virtio-gpu guests that have dynamic resolution
->> enabled: when the SPICE agent or the X server resizes the output, it
->> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
->>
->>     clock = 406 kHz, htotal = 3152, vtotal = 2148
->>
->>     framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns (~16.7 s)
->>
->> 16675852216 does not fit into an int and wraps to roughly -504000000.
->> ns_to_ktime() then yields a negative interval and the timer stops working.
->>
->> Found by bisection, which pointed at commit a036f5fceedb ("drm/virtgpu:
->> Use vblank timer"). That commit merely made virtio-gpu use the vblank
->> timer and thereby exposed the pre-existing problem in the timer setup
->> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
->>
->> To fix this, modify drm_calc_timestamping_constants() to use u64 for
->> calculations, check for INT_MAX overflows, and return an error code.
->> drm_crtc_vblank_start_timer() will then propagate the error, enabling
->> the driver to fall back to immediate vblank events. Valid modes are
->> unaffected, and the timer self-heals on the next mode with a sane clock.
->>
->> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
->> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Signed-off-by: Roman Ilin <me@romanilin.is>
->> ---
->> Changes in v3:
->>
->> - Changed the WARN_ON_ONCE to drm_err_once
->>
->> Notes:
->>
->>
->>
->> drivers/gpu/drm/drm_vblank.c | 71 +++++++++++++++++++++++-------------
->> include/drm/drm_vblank.h     |  4 +-
->> 2 files changed, 48 insertions(+), 27 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
->> index f90fb2d13..629b9fcc7 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
->>   * drm_crtc_vblank_helper_get_vblank_timestamp(). They are derived from
->>   * CRTC's true scanout timing, so they take things like panel scaling or
->>   * other adjustments into account.
->> + *
->> + * Returns:
->> + * 0 on success, or a negative errno code otherwise.
->>   */
->> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
->> -     const struct drm_display_mode *mode)
->> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
->> +    const struct drm_display_mode *mode)
->> {
->> struct drm_device *dev = crtc->dev;
->> unsigned int pipe = drm_crtc_index(crtc);
->> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
->> - int linedur_ns = 0, framedur_ns = 0;
->> + u64 linedur_ns, framedur_ns;
->> int dotclock = mode->crtc_clock;
->> + unsigned int frame_size;
->>
->> if (!drm_dev_has_vblank(dev))
->> - return;
->> + return 0;
->>
->> if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
->> - return;
->> + return -EINVAL;
->>
->> - /* Valid dotclock? */
->> - if (dotclock > 0) {
->> - int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
->> + if (dotclock <= 0) {
->> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock = %d!\n",
-
-Please turn this into drm_err_once() because this call can actually be 
-triggered repeatedly from userspace.
-
-Best regards
-Thomas
-
-
->> + crtc->base.id, dotclock);
->> + goto error;
->> + }
->>
->> - /*
->> - * Convert scanline length in pixels and video
->> - * dot clock to line duration and frame duration
->> - * in nanoseconds:
->> - */
->> - linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000, dotclock);
->> - framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
->> + frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode->crtc_vtotal;
->>
->> - /*
->> - * Fields of interlaced scanout modes are only half a frame duration.
->> - */
->> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
->> - framedur_ns /= 2;
->> - } else {
->> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!\n",
->> - crtc->base.id);
->> + /*
->> + * Convert scanline length in pixels and video dot clock to line duration
->> + * and frame duration in nanoseconds.
->> + */
->> + linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
->> + framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
->> +
->> + /*
->> + * Fields of interlaced scanout modes are only half a frame duration.
->> + */
->> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
->> + framedur_ns /= 2;
->> +
->> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
->> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock too small!\n",
->> +    crtc->base.id);
->> + goto error;
->> }
->>
->> vblank->linedur_ns  = linedur_ns;
->> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct drm_crtc *crtc,
->>      crtc->base.id, mode->crtc_htotal,
->>      mode->crtc_vtotal, mode->crtc_vdisplay);
->> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
->> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
->> +     crtc->base.id, dotclock,
->> +     vblank->framedur_ns, vblank->linedur_ns);
->> +
->> + return 0;
->> +
->> +error:
->> + vblank->linedur_ns  = 0;
->> + vblank->framedur_ns = 0;
->> + drm_mode_copy(&vblank->hwmode, mode);
->> + return -EINVAL;
->> }
->> EXPORT_SYMBOL(drm_calc_timestamping_constants);
->>
->> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
->> struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
->> unsigned long flags;
->> + int ret;
->>
->> if (!vtimer->crtc) {
->> /*
->> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->> hrtimer_try_to_cancel(&vtimer->timer);
->> }
->>
->> - drm_calc_timestamping_constants(crtc, &crtc->mode);
->> + ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
->> + if (ret)
->> + return ret;
->>
->> spin_lock_irqsave(&vtimer->interval_lock, flags);
->> vtimer->interval = ns_to_ktime(vblank->framedur_ns);
->> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
->> index 2fcef9c0f..d99772dfa 100644
->> --- a/include/drm/drm_vblank.h
->> +++ b/include/drm/drm_vblank.h
->> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
->> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
->> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
->>
->> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
->> -     const struct drm_display_mode *mode);
->> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
->> +    const struct drm_display_mode *mode);
->> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
->> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
->>    u32 max_vblank_count);
->> -- 
->> 2.54.0
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+> index 44f4e1a3455b..afee8202d24e 100644
+> --- a/drivers/gpu/drm/xe/xe_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_ras.c
+> @@ -270,6 +270,111 @@ int xe_ras_clear_counter(struct xe_device *xe, u8 severity, u8 component)
+>   	return 0;
+>   }
+>   
+> +/**
+> + * xe_ras_get_threshold() - Get error counter threshold
+> + * @xe: Xe device instance
+> + * @severity: Error severity to be queried (&enum drm_xe_ras_error_severity)
+> + * @component: Error component to be queried (&enum drm_xe_ras_error_component)
+> + * @threshold: Counter threshold
+> + *
+> + * This function retrieves the error threshold of a specific counter based on
+> + * severity and component.
+> + *
+> + * Return: 0 on success, negative error code on failure.
+> + */
+> +int xe_ras_get_threshold(struct xe_device *xe, u8 severity, u8 component, u32 *threshold)
+> +{
+> +	struct xe_ras_get_threshold_response response = {};
+> +	struct xe_ras_get_threshold_request request = {};
+> +	struct xe_sysctrl_mailbox_command command = {};
+> +	struct xe_ras_error_class *counter;
+> +	size_t len;
+> +	int ret;
+> +
+> +	counter = &request.counter;
+> +	counter->common.severity = drm_to_xe_ras_severity(severity);
+> +	counter->common.component = drm_to_xe_ras_component(component);
+> +
+> +	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_GET_THRESHOLD,
+> +				  &request, sizeof(request), &response, sizeof(response));
+> +
+> +	guard(xe_pm_runtime)(xe);
+> +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
+> +	if (ret) {
+> +		xe_err(xe, "sysctrl: failed to get threshold %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if (len != sizeof(response)) {
+> +		xe_err(xe, "sysctrl: unexpected get threshold response length %zu (expected %zu)\n",
+> +		       len, sizeof(response));
+> +		return -EIO;
+> +	}
+> +
+> +	counter = &response.counter;
+> +	*threshold = response.threshold;
+> +
+> +	xe_dbg(xe, "[RAS]: get threshold %u for %s %s\n", *threshold,
+> +	       comp_to_str(counter->common.component), sev_to_str(counter->common.severity));
+> +	return 0;
+> +}
+> +
+> +/**
+> + * xe_ras_set_threshold() - Set error counter threshold
+> + * @xe: Xe device instance
+> + * @severity: Error severity to be set (&enum drm_xe_ras_error_severity)
+> + * @component: Error component to be set (&enum drm_xe_ras_error_component)
+> + * @threshold: Counter threshold
+> + *
+> + * This function sets the error threshold of a specific counter based on
+> + * severity and component.
+> + *
+> + * Return: 0 on success, negative error code on failure.
+> + */
+> +int xe_ras_set_threshold(struct xe_device *xe, u8 severity, u8 component, u32 threshold)
+> +{
+> +	struct xe_ras_set_threshold_response response = {};
+> +	struct xe_ras_set_threshold_request request = {};
+> +	struct xe_sysctrl_mailbox_command command = {};
+> +	struct xe_ras_error_class *counter;
+> +	size_t len;
+> +	int ret;
+> +
+> +	counter = &request.counter;
+> +	counter->common.severity = drm_to_xe_ras_severity(severity);
+> +	counter->common.component = drm_to_xe_ras_component(component);
+> +	request.threshold = threshold;
+> +
+> +	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_SET_THRESHOLD,
+> +				  &request, sizeof(request), &response, sizeof(response));
+> +
+> +	guard(xe_pm_runtime)(xe);
+> +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
+> +	if (ret) {
+> +		xe_err(xe, "sysctrl: failed to set threshold %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if (len != sizeof(response)) {
+> +		xe_err(xe, "sysctrl: unexpected set threshold response length %zu (expected %zu)\n",
+> +		       len, sizeof(response));
+> +		return -EIO;
+> +	}
+> +
+> +	ret = ras_status_to_errno(response.status);
+> +	if (ret) {
+> +		xe_err(xe, "sysctrl: set threshold command failed with status %#x\n",
+> +		       response.status);
+> +		return ret;
+> +	}
+> +
+> +	counter = &response.counter;
+> +
+> +	xe_dbg(xe, "[RAS]: set threshold %u for %s %s\n", response.threshold,
+> +	       comp_to_str(counter->common.component), sev_to_str(counter->common.severity));
+> +	return 0;
+> +}
+> +
+>   /**
+>    * xe_ras_init - Initialize Xe RAS
+>    * @xe: xe device instance
+> diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
+> index ba0b0224df23..1aa43c54b710 100644
+> --- a/drivers/gpu/drm/xe/xe_ras.h
+> +++ b/drivers/gpu/drm/xe/xe_ras.h
+> @@ -15,6 +15,8 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
+>   				      struct xe_sysctrl_event_response *response);
+>   int xe_ras_get_counter(struct xe_device *xe, u8 severity, u8 component, u32 *value);
+>   int xe_ras_clear_counter(struct xe_device *xe, u8 severity, u8 component);
+> +int xe_ras_get_threshold(struct xe_device *xe, u8 severity, u8 component, u32 *threshold);
+> +int xe_ras_set_threshold(struct xe_device *xe, u8 severity, u8 component, u32 threshold);
+>   void xe_ras_init(struct xe_device *xe);
+>   
+>   #endif
+> diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
+> index 6688e11f57a8..747b651880cd 100644
+> --- a/drivers/gpu/drm/xe/xe_ras_types.h
+> +++ b/drivers/gpu/drm/xe/xe_ras_types.h
+> @@ -121,4 +121,55 @@ struct xe_ras_clear_counter_response {
+>   	/** @reserved1: Reserved for future use */
+>   	u32 reserved1[3];
+>   } __packed;
+> +
+> +/**
+> + * struct xe_ras_get_threshold_request - Request structure for get threshold
+> + */
+> +struct xe_ras_get_threshold_request {
+> +	/** @counter: Counter to get threshold for */
+> +	struct xe_ras_error_class counter;
+> +	/** @reserved: Reserved for future use */
+> +	u32 reserved;
+> +} __packed;
+> +
+> +/**
+> + * struct xe_ras_get_threshold_response - Response structure for get threshold
+> + */
+> +struct xe_ras_get_threshold_response {
+> +	/** @counter: Counter ID */
+> +	struct xe_ras_error_class counter;
+> +	/** @threshold: Current threshold of the counter */
+> +	u32 threshold;
+> +	/** @reserved: Reserved for future use */
+> +	u32 reserved[4];
+> +} __packed;
+> +
+> +/**
+> + * struct xe_ras_set_threshold_request - Request structure for set threshold
+> + */
+> +struct xe_ras_set_threshold_request {
+> +	/** @counter: Counter to set threshold for */
+> +	struct xe_ras_error_class counter;
+> +	/** @threshold: Threshold to be set */
+> +	u32 threshold;
+> +	/** @reserved: Reserved for future use */
+> +	u32 reserved;
+> +} __packed;
+> +
+> +/**
+> + * struct xe_ras_set_threshold_response - Response structure for set threshold
+> + */
+> +struct xe_ras_set_threshold_response {
+> +	/** @counter: Counter ID */
+> +	struct xe_ras_error_class counter;
+> +	/** @reserved: Reserved */
+> +	u32 reserved;
+> +	/** @threshold: Updated threshold */
+> +	u32 threshold;
+> +	/** @status: Operation status */
+> +	u32 status;
+> +	/** @reserved1: Reserved for future use */
+> +	u32 reserved1[2];
+> +} __packed;
+> +
+>   #endif
+> diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
+> index 6e3753554510..10f06aa5c4b5 100644
+> --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
+> +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
+> @@ -24,11 +24,15 @@ enum xe_sysctrl_group {
+>    *
+>    * @XE_SYSCTRL_CMD_GET_COUNTER: Get error counter value
+>    * @XE_SYSCTRL_CMD_CLEAR_COUNTER: Clear error counter value
+> + * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
+> + * @XE_SYSCTRL_CMD_SET_THRESHOLD: Set error threshold
+>    * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
+>    */
+>   enum xe_sysctrl_gfsp_cmd {
+>   	XE_SYSCTRL_CMD_GET_COUNTER		= 0x03,
+>   	XE_SYSCTRL_CMD_CLEAR_COUNTER		= 0x04,
+> +	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
+> +	XE_SYSCTRL_CMD_SET_THRESHOLD		= 0x06,
+>   	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
+>   };
+>   
