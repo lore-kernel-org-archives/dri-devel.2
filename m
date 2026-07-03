@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47414C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 21:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63404C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 21:29:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7DD10F92B;
-	Fri,  3 Jul 2026 21:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9380710F956;
+	Fri,  3 Jul 2026 21:29:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ORQdp1Mn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YaBF/qet";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD2410F927
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 21:00:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0210910F955
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 21:29:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A1727600C8
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 21:00:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A6C1F00A3D
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 21:00:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 35F7F600E7;
+ Fri,  3 Jul 2026 21:29:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29CE1F000E9;
+ Fri,  3 Jul 2026 21:29:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783112416;
- bh=rDQ1Qb2+EcihQsKHR/ytfoNORSXQhMWVVWuRwP0kOuw=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=ORQdp1MnA5BQ2tfcvXf2i0gTyKhQ5IRQQRSkBJ4KdgLiRl+9Or2VFPeLhFpW4k2aB
- oWu98cLLZNdRLgvG7sUKDNyy0aDUAawyUbxNXKKlqagTAgH/n5JvhN/NFRMn92L6OW
- E95sSkT4yEycAElF1sQ98dWHQSoeBhVQNP2tWpbJy2KanwaPI4Bo6JUsi8eswLBlFN
- CZKPhuvDiWwo/N1gXo/dqFi4wc4pboCTRarqLVD/F8dFGwFcmqIFnTo8AlVeDYnTew
- SUmD4CqTNvZwF/LsYH167BNK7R9Z7TeLRiDvbQyM2P+GRebkrsSWaVzadgDfl0RMse
- jlEAhDcRsRBIQ==
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-5aeb17c2564so960387e87.0
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 14:00:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RocE6QyLk5RbG462pWybrPryJ+CzSAiw28IDn49TKMzoGfs2rNyQ9xNqn2CKM+2wnLMBfRigxbG+lA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyKVcIGjpd8OnOtl4Lmbc5+Ivho1/aw93tO8yZjaAqrkQckm1Qu
- /MlaNqatQS55U1rodqRfDgCl3ljsIZLZVpLOuPvR0a/EpkSXY6JVg7h1FnTe6jcodYbpavUsfvb
- N5SSwZdB7d6AjSXJYhJM5LozvvTLePiA=
-X-Received: by 2002:a05:6512:114d:b0:5ae:b2b7:a083 with SMTP id
- 2adb3069b0e04-5aed5088081mr105132e87.22.1783112415174; Fri, 03 Jul 2026
- 14:00:15 -0700 (PDT)
+ s=k20260515; t=1783114165;
+ bh=eeGmPiCUrx3tRv7prGmGNvbbmUHuuabvRiwfxaKx/PI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=YaBF/qet379T/gqDqz+jcfD91Vru683MyiAxtDa1on3YG8KHN6I0bMDCL11mLLOiq
+ fy1+rYToW/CrHThvSkkdlu5Fu92fKvhBlkjrHKz2m7Ab03Cd0N6E9OLrYGpVln3Vss
+ TGJ68ZYfvyWTwWz+LpOP9pDkVZgzqz86q7zlrYqpoME4wKUhWq8EnjeVfAt6hiuCLB
+ b+gy2KiaFIitzXUKomEs2WC2oHb3HAWr1374ypGZJp+qfLemUp+v75mQlkR4FOG2L4
+ B29UM8IHpyrohp9VBhJ+D5LhgL4H278tjVNLTy0xMO0HEnlOQNNZpAtftoag2/ZlrB
+ Jd5KWc+Udgcmg==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH] gpu: nova: fix rust-analyzer generation
+Date: Fri,  3 Jul 2026 23:29:18 +0200
+Message-ID: <20260703212918.1200823-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260701-nova-rust-analyzer-v1-1-5209f486f10d@nvidia.com>
+References: <20260701-nova-rust-analyzer-v1-1-5209f486f10d@nvidia.com>
+X-Patch-Reply: applied
 MIME-Version: 1.0
-References: <CAMyXUJmmcBvydpN5r6iuAGLjuftGkiVfRjT6KbdRRGLZ74NAoA@mail.gmail.com>
-In-Reply-To: <CAMyXUJmmcBvydpN5r6iuAGLjuftGkiVfRjT6KbdRRGLZ74NAoA@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 3 Jul 2026 23:00:01 +0200
-X-Gmail-Original-Message-ID: <CAD++jLntYaL=r6TOukXygZVdxiVaNOCey0GfiQALpFyvvfrufg@mail.gmail.com>
-X-Gm-Features: AVVi8CdYap7gYtY_-XcsuexkUKcZDsTp-sG6blPfwoD-gR095okBARqFdX3gzp4
-Message-ID: <CAD++jLntYaL=r6TOukXygZVdxiVaNOCey0GfiQALpFyvvfrufg@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: samsung-s6d16d0: Power off on prepare failure
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- "Cc: Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, 
- "Cc: Maxime Ripard" <mripard@kernel.org>,
- "Cc: Thomas Zimmermann" <tzimmermann@suse.de>, 
- "Cc: David Airlie" <airlied@gmail.com>, "Cc: Simona Vetter" <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,48 +72,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 2, 2026 at 7:06=E2=80=AFPM Laxman Acharya Padhya
-<acharyalaxman8848@gmail.com> wrote:
+On Wed, 01 Jul 2026 15:40:51 +0900, Alexandre Courbot wrote:
+> [PATCH] gpu: nova: fix rust-analyzer generation
 
-> If enabling tearing mode or exiting sleep mode fails after the
-> regulator is enabled, s6d16d0_prepare() returns without asserting
-> reset or disabling the supply. Since the DRM panel core leaves the
-> panel unprepared, a later unprepare call skips the driver callback
-> and the supply remains enabled.
->
-> Assert reset and disable the supply before returning the DSI command erro=
-r.
->
-> Fixes: ac1d6d74884e ("drm/panel: Add driver for Samsung S6D16D0 panel")
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Laxman Acharya <acharyalaxman8848@gmail.com>
-(...)
->   if (ret) {
->   dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
-> - return ret;
-> + goto err_power_off;
->   }
->   /* Exit sleep mode and power on */
->   ret =3D mipi_dsi_dcs_exit_sleep_mode(dsi);
->   if (ret) {
->   dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
-> - return ret;
-> + goto err_power_off;
->   }
->
->   return 0;
-> +
-> +err_power_off:
-> + gpiod_set_value_cansleep(s6->reset_gpio, 1);
-> + regulator_disable(s6->supply);
-> +
-> + return ret;
+Applied, thanks!
 
-What's with the indentation in this patch?
+  Branch: drm-rust-next
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-It seems whitespace-mangled.
+[1/1] gpu: nova: fix rust-analyzer generation
+      commit: 78900738d981
 
-Please fix up and resend, the patch as such looks good!
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
 
-Yours,
-Linus Walleij
+The patch is queued up for the upcoming merge window for the next major kernel
+release.
