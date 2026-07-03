@@ -4,66 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4913AC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:59:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C35FC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 17:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94AFF10E3E1;
-	Fri,  3 Jul 2026 16:59:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8B6C10E63D;
+	Fri,  3 Jul 2026 17:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nJd6/ih4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NTql2rRO";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F39110E3E1
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:59:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783097985;
- bh=Dhy4gvLT0RAnGvm4Qciq67SI7sUn4Qp1DNRguSA4Rcs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=nJd6/ih40hiWEhn4ndj338VwFyT5SxADffzqSTjv1GQ5me0AH4Mj17WymraBfs+t/
- r5GGKZ4aL8Tow2C+NPSJhmYYVE5jc8dNI+pq7pn2xeqyIqZaFc0+AT+VP4hhrndqmx
- RZH5/XifxgE5MXgQvzXY0bL00xaiScLbPsKviaa4biXtRCgtTWQ1LRbKxdaAO8vh4c
- vFeEhuh52yIuwJ9INcJJC/MsS0C0gxf7stzwfxbLzKvut59k3ZLy5XdVxXX7PCQpbq
- CBgkhxWhD17uony3610weO3dBkZHxQph+StpRo70GCInYK0K4cKEHlrvZ/jxJI/Bqj
- IFdD4qkXS6vNg==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F3DB217E0521;
- Fri,  3 Jul 2026 18:59:44 +0200 (CEST)
-Message-ID: <deb7bdd8-f9d0-43cd-9de0-82e80351a739@collabora.com>
-Date: Fri, 3 Jul 2026 19:59:44 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dt-bindings: display: vop2: Add missing reset
- properties
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Diederik de Haas <diederik@cknow-tech.com>, Sandy Huang
- <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
- <DJC0L3CRJ0WL.IZEYVLPROMM1@cknow-tech.com>
- <fe8038fe-940a-4c61-a551-082534ef9c51@collabora.com>
- <8183064.gsGJI6kyIV@diego>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <8183064.gsGJI6kyIV@diego>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AF0C10E63D
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 17:06:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 441A56014B;
+ Fri,  3 Jul 2026 17:06:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD6C31F000E9;
+ Fri,  3 Jul 2026 17:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783098377;
+ bh=Sq/FLPEf5IujXj3xKNTAIdqqvDlukdn5odMcsc08vfM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NTql2rROlNEu0l8XC0pJqqfxy+Uiyau58BldAN5HOEkJWDE3Bif/3aM5adqrMSdZy
+ MkDOBcwj9cEx8nb8xrcRIaj766jiIBR/QmTd5IfLh40KUcAFVfyawQtzNG870Yoppj
+ H5FhCMyKzWvkWqJdKmfP2S4ZKryrgsAgVCth5jHD43sToWR2cTVu0O9jXPxzh/r1gQ
+ vgMee15NcwCIcHBYpggAXmIGJCJHUfuIW8ymgcboUztU+0DjJsMT/hr30ihWWlTA+o
+ vb2hZ2uYXoknRvEMyXQPe4LmNSEcCDosxKGiuhP9e6Dv8trL8fUTVio7RIwWHZTlUr
+ kZnrg11zW4kGw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/panel: samsung-s6d16d0: Power off on prepare
+ failure
+To: "Laxman Acharya Padhya" <acharyalaxman8848@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260703165632.27027-1-acharyalaxman8848@gmail.com>
+References: <20260703165632.27027-1-acharyalaxman8848@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 17:06:16 +0000
+Message-Id: <20260703170616.CD6C31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,67 +53,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/3/26 7:37 PM, Heiko Stübner wrote:
-> Am Donnerstag, 18. Juni 2026, 10:39:14 Mitteleuropäische Sommerzeit schrieb Cristian Ciocaltea:
->> Hi Diederik,
->>
->> On 6/18/26 10:58 AM, Diederik de Haas wrote:
->>> Hi Cristian,
->>>
->>> Thanks for this series :-) Just 1 nit (at the end) ...
->>>
->>> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
->>>> Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
->>>> clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
->>>> provided only on RK3588.
->>>>
->>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->>>> ---
->>>>  .../bindings/display/rockchip/rockchip-vop2.yaml   | 42 ++++++++++++++++++++++
->>>>  1 file changed, 42 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
->>>> index 93da1fb9adc4..d3bc5380f910 100644
->>>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
->> [...]
->>
->>>> @@ -289,6 +321,16 @@ examples:
->>>>                                "dclk_vp0",
->>>>                                "dclk_vp1",
->>>>                                "dclk_vp2";
->>>> +                resets = <&cru SRST_A_VOP>,
->>>> +                         <&cru SRST_H_VOP>,
->>>> +                         <&cru SRST_VOP0>,
->>>> +                         <&cru SRST_VOP1>,
->>>> +                         <&cru SRST_VOP2>;
->>>> +                reset-names = "axi",
->>>> +                              "ahb",
->>>> +                              "dclk_vp0",
->>>> +                              "dclk_vp1",
->>>> +                              "dclk_vp2";
->>>>                  power-domains = <&power RK3568_PD_VO>;
->>>
->>> Place reset* props below power-domains (like in patch 9) ?
->>> So everyone who copies your example has the correct sorting order.
->>
->> The example doesn't strictly follow that ordering either — see e.g. the iommus
->> property — so I placed the resets right after the clocks, which keeps the
->> related properties grouped together.
->>
->> That said, I don't have a strong preference. 
->>
->> Heiko, is there a convention you'd like the Rockchip bindings to follow here?
->> Happy to reorder if so.
-> 
-> Please just use standard devicetree ordering, as described in the
-> documentation. We generally don't want to invent new diverging things :-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Ack. For consistency, let's also move the iommus property up into the expected
-position.
+Pre-existing issues:
+- [High] Early returns on DSI command failures in teardown functions (`s6d1=
+6d0_unprepare` and `s6d16d0_disable`) bypass hardware power-off and cause D=
+RM state machine desynchronization.
+--
 
-Thanks,
-Cristian
+commit 5d36b39e4bbd28714a2875efbe7aa78f7026a69d
+Author: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+
+drm/panel: samsung-s6d16d0: Power off on prepare failure
+
+If enabling tearing mode or exiting sleep mode fails after the
+regulator is enabled, s6d16d0_prepare() returns without asserting
+reset or disabling the supply. Since the DRM panel core leaves the
+panel unprepared, a later unprepare call skips the driver callback
+and the supply remains enabled.
+
+Assert reset and disable the supply before returning the DSI command error.
+
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/gpu/=
+drm/panel/panel-samsung-s6d16d0.c
+> index ba1a02000bb9d..04e19b5f22f8b 100644
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+> @@ -89,16 +89,22 @@ static int s6d16d0_prepare(struct drm_panel *panel)
+>  				       MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+>  	if (ret) {
+>  		dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
+> -		return ret;
+> +		goto err_power_off;
+>  	}
+>  	/* Exit sleep mode and power on */
+>  	ret =3D mipi_dsi_dcs_exit_sleep_mode(dsi);
+>  	if (ret) {
+>  		dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
+> -		return ret;
+> +		goto err_power_off;
+>  	}
+> =20
+>  	return 0;
+> +
+> +err_power_off:
+> +	gpiod_set_value_cansleep(s6->reset_gpio, 1);
+> +	regulator_disable(s6->supply);
+> +
+> +	return ret;
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but since this patch fixes the error path in
+s6d16d0_prepare(), does the same early return problem exist in
+s6d16d0_unprepare() and s6d16d0_disable()?
+
+Looking at s6d16d0_unprepare(), if mipi_dsi_dcs_enter_sleep_mode() fails,
+it returns early:
+
+drivers/gpu/drm/panel/panel-samsung-s6d16d0.c:s6d16d0_unprepare() {
+    ...
+	ret =3D mipi_dsi_dcs_enter_sleep_mode(dsi);
+	if (ret) {
+		dev_err(s6->dev, "failed to enter sleep mode (%d)\n", ret);
+		return ret;
+	}
+
+	/* Assert RESET */
+	gpiod_set_value_cansleep(s6->reset_gpio, 1);
+	regulator_disable(s6->supply);
+
+	return 0;
+}
+
+Can this early return bypass regulator_disable(), leaving the regulator
+permanently enabled?
+
+Furthermore, because these functions return an error, the DRM core skips
+updating the panel state.=20
+
+Similarly, if mipi_dsi_dcs_set_display_off() fails in s6d16d0_disable():
+
+drivers/gpu/drm/panel/panel-samsung-s6d16d0.c:s6d16d0_disable() {
+    ...
+	ret =3D mipi_dsi_dcs_set_display_off(dsi);
+	if (ret) {
+		dev_err(s6->dev, "failed to turn display off (%d)\n", ret);
+		return ret;
+	}
+    ...
+}
+
+Will the early error return in both of these teardown functions cause a
+permanent desynchronization between the panel and the DRM state machine,
+where subsequent attempts to enable the panel skip the prepare and enable
+callbacks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703165632.2702=
+7-1-acharyalaxman8848@gmail.com?part=3D1
