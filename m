@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE36C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7813FC43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:32:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CD4610F6A8;
-	Fri,  3 Jul 2026 07:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B736010F6A7;
+	Fri,  3 Jul 2026 07:32:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NQhQGJw/";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="G+YS6hGx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2488D10F6A8
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:32:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0B2D74369B;
- Fri,  3 Jul 2026 07:32:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E806E1F000E9;
- Fri,  3 Jul 2026 07:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783063952;
- bh=fmCvV08WNd5aRXYPQd4CXpSl5t2HVbpLE52owDbkbBo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=NQhQGJw/FGsbzEtPjCvQRuSWdfOeZwGUvQx5s0h93IEnfCKrKzd61TXMdX6au1A/u
- fSsN22CPMGvm1Y8wS+im/Az6o4mGItMxc2peuVnsdqhzS+wDbq7VExHOrVlxuId3WR
- 28Fo50xRTPmAo8aa9U9ytG9UqeDRc1Tvq2F7KGqP2b9y2EulQntzB7oWDRS8kCyK2k
- q/VsxDJMftdUupYguXQkT6nBsoy5TYJBsQzBLQ5tUDQUbEJjUlFuwbGS1Ph3LXFYo7
- 2mCHusr3llz+zb21hEjO28tpIfxOAom5yH+mQE3O1k0N5tZ6UG56j+nisF5eM9Nhxm
- lHmZ+b/VAI+8A==
-From: Philipp Stanner <phasta@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Tamir Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Shankari Anand <shankari.ak0208@gmail.com>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v5 5/5] MAINTAINERS: Add entry for Rust dma-buf
-Date: Fri,  3 Jul 2026 09:31:41 +0200
-Message-ID: <20260703073141.3962604-7-phasta@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260703073141.3962604-2-phasta@kernel.org>
-References: <20260703073141.3962604-2-phasta@kernel.org>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D6110F6A2;
+ Fri,  3 Jul 2026 07:32:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783063970; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=cjiKBcRJ2FcfJtGgLDm2hbDOXuOzDEnA24oOaPihvz6qIPbq9wEKxbb3M0feRtvHBVG60El62ZZLHx8zffZhHOXTKl2SdPUKMez3SwxvPlJ8tvewbgcn8rUAyL5SumQBTKZNyo5khjCxoQiXFig5BbYsuN+YK9ntAf/0LFh8OBY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783063970;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ZYbUgCJ3ExixzrmVpyLYUCTsn1F7Y7J8nLL7GxXpIYs=; 
+ b=JO+ESHHtQJksuVG6yAiK5+GCGF4sT7bkLIFTmDQBoCFSc35ozTiejfVA6lGXyPHEncdnpG8gCIpNhyRx72PWt+vhAfGGKJkLZaKn045OvtlfxCyLC4UgUzJR/kgs2z+x+/ZUpdpJCDoTBrc5VmsZVIDwBNqbGKeEUFeXKlwf64Y=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783063970; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=ZYbUgCJ3ExixzrmVpyLYUCTsn1F7Y7J8nLL7GxXpIYs=;
+ b=G+YS6hGx1beU1SmsTlsKvXRZGgG6QuBlxYqowKWcvbO20A3qEvUsmoCJLcOS7FXq
+ kHShIcWj3WttwZYHofQna6PIYhBU1PJhXVXog/GPoJEV5tDR7iLWVkA/6+gNvjERu5Z
+ aaiYeAEnQg6U4tTrBHbmAsce/6DyJLT/gNdJQHkE=
+Received: by mx.zohomail.com with SMTPS id 1783063968273443.120155012085;
+ Fri, 3 Jul 2026 00:32:48 -0700 (PDT)
+From: Robert Mader <robert.mader@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>,
+ Robert Mader <robert.mader@collabora.com>
+Subject: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+Date: Fri,  3 Jul 2026 09:32:30 +0200
+Message-ID: <20260703073230.19982-1-robert.mader@collabora.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,52 +74,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rust does now have abstractions for dma_fence. These abstractions are
-quite complicated and require expertise with both the C and the Rust
-side. Therefore, using the existing entry also for maintenance of the
-Rust code appears reasonable.
+The client cap is currently advertised unconditionally, even for drivers
+that do not support plane color pipelines. If clients supporting the later,
+like Wayland compositors or tools like drm_info, enable the client cap on
+such drivers they will be left without both color pipeline and the legacy
+properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+conversion support.
 
-Philipp volunteers to help maintain the dma_fence abstractions. Add a
-corresponding MAINTAINERS entry.
+Prevent that by only marking the cap supported if there are actually planes
+with color pipelines.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Note: while the color pipeline replacement for the legacy properties is
+still under review (1), we can assume that it will work as a drop-in
+replacement. That means any plane on any hardware currently supporting
+the legacy properties will be able to offer a functionally equal color
+pipeline and there will be no technical reason keep using the legacy
+properties if both the driver and the client support the new API.
+
+1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
+
+Signed-off-by: Robert Mader <robert.mader@collabora.com>
+
 ---
- MAINTAINERS | 5 +++++
- 1 file changed, 5 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..5e5a23a21cd8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7622,6 +7622,7 @@ F:	fs/dlm/
- DMA BUFFER SHARING FRAMEWORK
- M:	Sumit Semwal <sumit.semwal@linaro.org>
- M:	Christian König <christian.koenig@amd.com>
-+M:	Philipp Stanner <phasta@kernel.org>
- L:	linux-media@vger.kernel.org
- L:	dri-devel@lists.freedesktop.org
- L:	linaro-mm-sig@lists.linaro.org (moderated for non-subscribers)
-@@ -7635,6 +7636,8 @@ F:	include/linux/dma-buf.h
- F:	include/linux/dma-buf/
- F:	include/linux/dma-resv.h
- F:	rust/helpers/dma-resv.c
-+F:	rust/helpers/dma_fence.c
-+F:	rust/kernel/dma_buf/
- K:	\bdma_(?:buf|fence|resv)\b
- 
- DMA GENERIC OFFLOAD ENGINE SUBSYSTEM
-@@ -8621,7 +8624,9 @@ T:	git https://gitlab.freedesktop.org/drm/rust/kernel.git
- F:	drivers/gpu/drm/nova/
- F:	drivers/gpu/drm/tyr/
- F:	drivers/gpu/nova-core/
-+F:	rust/helpers/dma_fence.c
- F:	rust/helpers/gpu.c
-+F:	rust/kernel/dma_buf/
- F:	rust/kernel/drm/
- F:	rust/kernel/gpu.rs
- F:	rust/kernel/gpu/
+Changes in v3:
+ - Move the new check behind the existing EINVAL ones
+ - Rebase on latest drm-misc-next
+
+Changes in v2:
+ - Replace the driver feature with a simple check (suggested by Maarten
+   Lankhorst <maarten.lankhorst@linux.intel.com>)
+ - Expand the commit message slightly and change the title
+---
+ drivers/gpu/drm/drm_ioctl.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index e2df4becce62..9039a39c4324 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -373,13 +373,25 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+ 			return -EINVAL;
+ 		file_priv->supports_virtualized_cursor_plane = req->value;
+ 		break;
+-	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
++	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
++		struct drm_plane *plane;
++		bool has_plane_with_color_pipeline = false;
++
+ 		if (!file_priv->atomic)
+ 			return -EINVAL;
+ 		if (req->value > 1)
+ 			return -EINVAL;
++		drm_for_each_plane(plane, dev) {
++			if (plane->color_pipeline_property) {
++				has_plane_with_color_pipeline = true;
++				break;
++			}
++		}
++		if (!has_plane_with_color_pipeline)
++			return -EOPNOTSUPP;
+ 		file_priv->plane_color_pipeline = req->value;
+ 		break;
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
 -- 
-2.54.0
+2.55.0
 
