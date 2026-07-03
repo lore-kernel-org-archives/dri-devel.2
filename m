@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31F5C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71590C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 064FC10E32A;
-	Fri,  3 Jul 2026 16:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A950510E19E;
+	Fri,  3 Jul 2026 16:55:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="WKWVTjA1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m8ZeLHZp";
 	dkim-atps=neutral
-Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk
- [78.40.148.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C00F310E32A
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:45:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=codethink.co.uk; s=imap5-20230908; h=Sender:Content-Transfer-Encoding:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
- Reply-To; bh=bJF5AimFzn/vjuyllbCot1tOEiTcY9zfJPLE09CxB1k=; b=WKWVTjA1qyK0z/EV
- nYqifrOJMqF5TcMqQDW4p2f3Zg5k7ZAsuYayMVtY7X98ZlGCgeKFsSPt/NvxKoviP6d7zOs3yx5uM
- riwSOps4f+xnxYSGu1ZwemmHz8YnxkdDBtcoi0tKaSnzzuyLPsV7/x98pkcdd4Xid+wYBpt/Q0SSJ
- 9J1QU4HMEatqE0HOeQpQ76VboLbR0rajXfiPkGJRhLBDR0zYs1LfE5/kUQOVTG2ZzD+IAtXP+SJI4
- Lzj7hF8z123wKQA5gogqDq/mB6x5cJCWHfQZVEBn/krHRrMK3/QvHKeRJXo86XoyIoYeivRlgTOHf
- Pw0p1Hx2oY4mutZi4Q==;
-Received: from [167.98.27.226] (helo=[10.35.6.194])
- by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
- id 1wfggE-00AfRf-Et; Fri, 03 Jul 2026 17:23:54 +0100
-Message-ID: <968ee419-6eac-4b52-b193-40963d23ae42@codethink.co.uk>
-Date: Fri, 3 Jul 2026 17:23:53 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/imagination: make pvr_fw_trace_init_mask_ops static
-To: Alessio Belle <Alessio.Belle@imgtec.com>
-Cc: "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "Matt.Coster@imgtec.com" <Matt.Coster@imgtec.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "airlied@gmail.com" <airlied@gmail.com>, Frank Binns
- <Frank.Binns@imgtec.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260623105341.775693-1-ben.dooks@codethink.co.uk>
- <055465207ab6f86f0d12b73a592bbecd9768c8f6.camel@imgtec.com>
- <8114990b991bab4ad2b1ee97844db3c2556c05e7.camel@imgtec.com>
-Content-Language: en-GB
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-Organization: Codethink Limited.
-In-Reply-To: <8114990b991bab4ad2b1ee97844db3c2556c05e7.camel@imgtec.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCAED10E19E
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:55:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5361543B3B;
+ Fri,  3 Jul 2026 16:55:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DF681F000E9;
+ Fri,  3 Jul 2026 16:55:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783097728;
+ bh=21II/GG0agwVpOm+bttpi4g15h3S//hvCjVpwpmkapY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=m8ZeLHZpFq1sG8mFWxoUB4/yV2DwxZ0b/YsqUL5JZHtODa5IKOgQi5A3DH2g+u8rA
+ v+DoryBHiz94Ue3MjG2g9Y8QANeB4PV1iNil4ayRg2rANLdoJIERAFzd9EQbN2l4sC
+ 899UtdgassJzUefhoFD+AvlG7dEkfYi5mevyX9+aPaZJYe5ce8aDI7JxQhIXp9YtM6
+ 52jW34COD8akegw7C8ChKCLOcBVUaqy3s6xfMBLhnflo/gLOLVr6226e2mz8w+l9iQ
+ 2b+nsKSXeIaaQNqEumAgsYVONmGr4nTgqxRIy7slzuzg3VzaRmIkI5vYxLZHyjDIix
+ 1VJx0SWODh7aQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 05/10] drm/ttm: switch to
+ ttm_bo_lru_for_each_reserved_guarded for swapout
+To: "Natalie Vock" <natalie.vock@gmx.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-5-43685ac1286b@gmx.de>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-5-43685ac1286b@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 16:55:27 +0000
+Message-Id: <20260703165528.0DF681F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,35 +54,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01/07/2026 19:18, Alessio Belle wrote:
-> Hi Ben,
-> 
-> On Mon, 2026-06-29 at 11:05 +0000, Alessio Belle wrote:
->> On Tue, 2026-06-23 at 11:53 +0100, Ben Dooks wrote:
->>> The pvr_fw_trace_init_mask_ops is not used outside pvr_fw_trace.c
->>> so make it static to avoid the following sparse warning:
->>>
->>> drivers/gpu/drm/imagination/pvr_fw_trace.c:74:31: warning: symbol 'pvr_fw_trace_init_mask_ops' was not declared. Should it be static?
->>>
->>> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
->>
->> Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
-> 
-> Actually, could you add a Fixes tag pointing at c6978643ea1c ("drm/imagination:
-> Validate fw trace group_mask")? You can then add the Reviewed-by tag as well for
-> last.
-> 
-> Thanks,
-> Alessio
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] An unconditional `continue;` inside the `ttm_device_swapout` loop =
+bypasses return value checking and early return logic.
+- [Medium] The modified `ttm_bo_swapout` signature and removed export break=
+s KUnit tests, causing a compilation failure.
+--
 
-ok, done
+commit d0589786d39c3dde940e7f100cb47e8cc913ab55
+Author: Christian K=C3=B6nig <christian.koenig@amd.com>
 
+drm/ttm: switch to ttm_bo_lru_for_each_reserved_guarded for swapout
 
--- 
-Ben Dooks				http://www.codethink.co.uk/
-Senior Engineer				Codethink - Providing Genius
+This commit refactors the TTM buffer object swapout logic to use
+ttm_bo_lru_for_each_reserved_guarded instead of the wrapper walk.
+It simplifies ttm_bo_swapout by removing the target page count
+and resource manager arguments.
 
-https://www.codethink.co.uk/privacy.html
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 1fb8c53da0362..24c52df169ac8 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+[ ... ]
+> @@ -1183,37 +1176,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struc=
+t ttm_buffer_object *bo)
+>  	return ret;
+>  }
+> =20
+> -/**
+> - * ttm_bo_swapout() - Swap out buffer objects on the LRU list to shmem.
+> - * @bdev: The ttm device.
+> - * @ctx: The ttm_operation_ctx governing the swapout operation.
+> - * @man: The resource manager whose resources / buffer objects are
+> - * goint to be swapped out.
+> - * @gfp_flags: The gfp flags used for shmem page allocations.
+> - * @target: The desired number of pages to swap out.
+> - *
+> - * Return: The number of pages actually swapped out, or negative error c=
+ode
+> - * on error.
+> - */
+> -s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ct=
+x,
+> -		   struct ttm_resource_manager *man, gfp_t gfp_flags,
+> -		   s64 target)
+> -{
+[ ... ]
+> -}
+> -EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_bo_swapout);
+
+[Severity: Medium]
+Does removing this export and changing the function signature break KUnit
+tests?
+
+It looks like ttm_bo_validate_test_cases() in=20
+drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c still calls this function=
+=20
+using the previous 5-argument signature, which could break the build when
+CONFIG_DRM_TTM_KUNIT_TEST is enabled.
+
+> -
+>  void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
+>  {
+>  	if (bo->ttm =3D=3D NULL)
+> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_d=
+evice.c
+> index d3bfb9a696a74..e4188e2ee7ab1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_device.c
+> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+[ ... ]
+> @@ -179,10 +185,15 @@ int ttm_device_swapout(struct ttm_device *bdev, str=
+uct ttm_operation_ctx *ctx,
+>  		if (!man || !man->use_tt)
+>  			continue;
+> =20
+> -		lret =3D ttm_bo_swapout(bdev, ctx, man, gfp_flags, 1);
+> -		/* Can be both positive (num_pages) and negative (error) */
+> -		if (lret)
+> -			return lret;
+> +		ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo) {
+> +			lret =3D ttm_bo_swapout(bo, ctx, gfp_flags);
+> +				continue;
+
+[Severity: High]
+Does this unconditional continue make the error checking and return logic
+below unreachable?
+
+Because the loop skips to the next iteration immediately, it will
+indiscriminately swap out every buffer object on the LRU list regardless of
+the target pages and ignore any return values. Callers like
+ttm_global_swapout() would interpret a 0 return value as failure to swap,
+which could cause loops in ttm_tt_populate() to terminate prematurely even
+if memory limits are exceeded.
+
+> +			/* Can be both positive (num_pages) and negative (error) */
+> +			if (lret && lret !=3D -EBUSY && lret !=3D -EALREADY)
+> +				return lret;
+> +		}
+> +		if (IS_ERR(bo))
+> +			return PTR_ERR(bo);
+>  	}
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-ttm_2_drm_=
+exec-v1-0-43685ac1286b@gmx.de?part=3D5
