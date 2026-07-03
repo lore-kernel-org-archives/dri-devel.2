@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1D06C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F0B6C43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED5510F5ED;
-	Fri,  3 Jul 2026 03:01:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 784F810F5F0;
+	Fri,  3 Jul 2026 03:01:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="Wx6u95Qp";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="r/gZ0rrg";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C8010F5ED
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:01:37 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-474560436c3so104226f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:01:37 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0413610F5F0
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:01:40 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-493be1b9564so291945e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:01:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047696; x=1783652496;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047698; x=1783652498;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4zmepUPjDn3grp7kNjt5JCNExsSCDpx9IEqmKZjBkNg=;
- b=Wx6u95QpPlikeqgQU19l6NbAY74dLyDQ5wgtO24eY0uBziqMQvxLaV2VGQb2GwUM2i
- aATPSCp1fk9vpMeHmxAy//ECnv6v+2hNOm3uIOAysTw86OYgba/WYf4suXuV6bI5EEU+
- IT/6t4pjLNFR/mEhALbe3M+Lu9dZ82/b2msLDZb+g5zqyPKE+6JBLrYLo0f+hw4HssK8
- HIOt+TfFZ81lFnWtj5iQvApcrVvVF5Wcx6pp14M0X/1eKf+zBAG8RGbgkB6fzn/cL0w9
- 9tKJpbfuHDyrqiguLGOViJMoEvCor80ikt01ReD2owEGW0mkk0xizwF8dVYpwoVSkfNc
- smmQ==
+ :message-id:reply-to:content-type;
+ bh=P/nbseqGkYcWLUDS4YgM1HcuWcHd/PeuOx3gHx4QCk0=;
+ b=r/gZ0rrgpX23aRbnKpT5A/GHjVNM+AjtnZdKYLIscJr5wVJpjzKKhUnQQzkRObqsFV
+ 9lq88KbfvQw/2CEL+z+p9oDalZaAMqAgILRH/4QQTI46LnIE1rJ1hGyyqlLPJbsxrOg+
+ Q+6BuM4ggjQ74xyyHzAJbD2MiB/q/mu/sK4tjX5nI4To3TAC4sO36Ih1ZwKWTt3tmZou
+ pWN2tT66AAKbpAW5NunqKY7vOYH/rZxFAva0TbaIfA6hjytRkgxQDd1HRNPlTkotSfZc
+ KByhPGux+PBWvzbmBl2tUxiySmApFMFgNhd/tpM6PREbmjxmJ2wxI1qWX6xtijxT1uy6
+ 8zDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047696; x=1783652496;
+ d=1e100.net; s=20251104; t=1783047698; x=1783652498;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=4zmepUPjDn3grp7kNjt5JCNExsSCDpx9IEqmKZjBkNg=;
- b=VsVOPqC33WrqWCcLPKpsN5GJkXtKkJ4DwRs6Q6hhPAi0Tfo6M80vbzeB7946gCf4yX
- 7wZq/V8wT7w+jjB+t55EWCfwkf9xfVic9pq14USQYyL4tJwquNlKZjq0z+LIR6veYP1t
- 9OIMfM6b+VZh80XOXSoXptlyW+PEihsgHtOFCzKEG9nwxJdMQ73lt/ZTuPMCujchDVpu
- YIzfPwbK0R9mjbkKYY3jcAKPKig3dt9GTQyhHnm6UgcRSOWralsaXVZ3F3XqeyPmTY/X
- dGBV3aWvyfbkp6DcVrb2PF0ccRLZoBuc3fG8uV7L5cH7cziss5t0p6se3i4zUE+0hIDH
- dm3Q==
-X-Gm-Message-State: AOJu0YzNyn747g13qCRiSOPUm2hSTZG3Q/EXjUgslAEFd7lp3Znkbvco
- 1MIQ1Zrqm1Ilx3fYbsdem4fp5W29M3XMbk/W5E+7xFkpW0iI3rpxdkO8uv33ANaMAA==
-X-Gm-Gg: AfdE7cks6XdvBjRneeyIBa7Q4ZxAAZsZDwbdXhJHgI6dAOP20FTevxUDmEFaIk0yvmj
- Sw9NX8a7ki3RUCek+LGxvQ8UjSWxvoixuChWt1OdLL3tow9w81W3P5Q04jtVQicjcSbAY+FjZlG
- 2PErb4pb1mPQYLZXfxHySg+42PkqlY01+NckXRILVpFUoGtW+8T9s2YD1R1C9nNLcGGRx/l/SBd
- Gzr5sq54Hv5H/7SX9RR+Zv0r9aWinH5UbiNHw3Rss8OZR6ew6oRsgxtGs1gCzeFidRwt+W8qLli
- T+AqYZrHEdecVUHEgl1qJutC01W7FIoWfRFK6rnnrkyYgQ1s0k/Z6YitEi0IIMSryrMwz0Yr2qJ
- 3PRpCSvz+f4tN70X2YjrDYZ4C+Belb7UHlceVBi1WiNlZn1R8KEa+K1OVp/cUg9mcxqyJySCHx6
- yOjkfLYoCY0g3zxtFpY4PkvDeHxgsk8hBi3xYsn/J8Jm4rtCn3xjTr0lj5
-X-Received: by 2002:adf:e194:0:b0:476:135a:135c with SMTP id
- ffacd0b85a97d-477aeb5bd8dmr12495575f8f.2.1783047695816; 
- Thu, 02 Jul 2026 20:01:35 -0700 (PDT)
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=P/nbseqGkYcWLUDS4YgM1HcuWcHd/PeuOx3gHx4QCk0=;
+ b=qsgAOWhOfTUQeEuf5xW5f9t2qa9jCaH/LREAHyxpfQdFMqZjfsOorL/2Oki/nMUwpg
+ TABdvrPzGQ2ESIFcwU3gWlZDgTHdbZDzOny5EdAeVf1dz4AOYurnZrJn4sWJiPpLqe1p
+ ljnAh+Q6v0Rn635zw6mYqsswVwVVc4OsJ0C8Wgrm3PxwTf2UQHohgjhOmNljYpfa1Rey
+ ipnJLDIAfmK9+hwHPskU56Ll7VnKO9U0DEZsExKE6sBO42zaA27AhaoZQ0rQX+hE9/6G
+ 69j4gWTnzf1QnJKQObj5OZ6T7eOaRaGOFgkXb5sxkLJomZeIMWYHACisXF1EHAybCrQq
+ m0jQ==
+X-Gm-Message-State: AOJu0Yz7S3yRhJDwD9K1d4wW4N0bZGoow4uBoKjl1PcPvSjX4ZnhPU9y
+ a4YYOhOT+cvZrZvm4bIpesUc3HDNYW+aEekqJ90OX/JYmlk/mB/zhGT9JnDZowj8gg==
+X-Gm-Gg: AfdE7cn/aYlP944XoNGTaL3QXIIjkWcd3Nf7D6QPCIyQb0lDznWde6H+dx1F3+V8e4V
+ 8IfumVtNV/uXYiBcEKiQHYQmWYGmQgZCi5wPiAKm9RU808eXBhGeytm8cX2k+Gpp/9iN4RNKVyz
+ NPWUkozIEJ+1U2ENupzqP+dzGQ42QCyw1E6Mym/s18+Vi608ww3sPWqC1BHIwaw1GjZa3GkTRh8
+ K9tSJDxiDu0qvPKkL1dt8ZEbLrS+HPlxZP0DsXRqzoB8Xpdx00xJ0PbXAfcJeEdVPkZUz6agBju
+ nTfZpzqkTYc/ZM0Kb8H6JpqCisnhLArtva2if4HtWc7mLK/B0630SZ1wZp0LBZ4auZGgRgE+p/k
+ goitARcHuSC/rdzXvfjE6e0pgFGdsfdZPXTpC/7aZ24Hg5oXtc1srMGqF5fcPaArqwk8dPf3N40
+ zZmdPv/C+Q2UgzDIVl6+p5TdJcK6BkcOdw1A+syLwVNJmhDUFAmkNPNcwc
+X-Received: by 2002:a05:600c:5391:b0:490:c032:ae92 with SMTP id
+ 5b1f17b1804b1-493c3df2b42mr101737415e9.33.1783047698330; 
+ Thu, 02 Jul 2026 20:01:38 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.01.33
+ ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.01.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:01:34 -0700 (PDT)
+ Thu, 02 Jul 2026 20:01:37 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
@@ -71,10 +71,10 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 02/18] rust: drm: kms: adapt the port to current
- drm-next
-Date: Fri,  3 Jul 2026 04:00:49 +0100
-Message-ID: <20260703030123.2814-3-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 03/18] rust: drm: kms: break the Driver* trait
+ well-formedness cycle
+Date: Fri,  3 Jul 2026 04:00:50 +0100
+Message-ID: <20260703030123.2814-4-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260703030123.2814-1-mike@fireburn.co.uk>
 References: <20260617150232.2210-1-mike@fireburn.co.uk>
@@ -96,421 +96,312 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Three mechanical fixups needed to build the forward-ported layer
-against this tree, rather than the rvkms-slim/rust-stuck source
-branches it came from:
+The ported mode-object trait web (KmsDriver / DriverConnector /
+DriverConnectorState / VblankImpl, ...) is mutually recursive: a
+Modesettable* impl for Crtc<T::Crtc> needs <T::Crtc::State>::Crtc:
+DriverCrtc, which needs <T::Crtc::State::Crtc::State>::Crtc, and so on
+-- an infinite projection regress the trait solver can't terminate on
+unless the associated-state types are pinned to State<Assoc = Self>.
 
-- wire the KMS bindings/helpers/aref imports the port assumes into
-  bindings_helper.h and rust/helpers/drm/{atomic,drm,vblank}.c, and fix
-  the impl_aref_for_mode_object! macro path
-- rename drm_atomic_state -> drm_atomic_commit, renamed upstream since
-  rvkms-slim was last synced
-- pin KmsDriver's associated types to Driver=Self and tidy the
-  probe_kms stub so it type-checks against the current Driver trait
+Pin them, add the where-clauses the *StateMutator Deref/DerefMut impls
+now need once callers pass through the pinned types, and fix a
+from_opaque copy-paste bug in CrtcStateMutator that was reading Plane's
+fields instead of Crtc's.
+
+This still doesn't build clean: pinning trades the projection regress
+for a coinductive cycle in the from_opaque-on-state impls, which the
+current (non-next-gen) trait solver exhausts memory on instead of
+resolving. See the following commit.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-sonnet-5 [Claude-Code]
 ---
- rust/bindings/bindings_helper.h |  8 +++++++
- rust/helpers/drm/atomic.c       | 32 +++++++++++++++++++++++++
- rust/helpers/drm/drm.c          |  2 ++
- rust/helpers/drm/vblank.c       |  8 +++++++
- rust/kernel/drm/kms.rs          | 21 ++++++++---------
- rust/kernel/drm/kms/atomic.rs   | 41 +++++++++++++++++----------------
- rust/kernel/drm/kms/crtc.rs     | 16 ++++++-------
- rust/kernel/drm/kms/plane.rs    |  8 +++----
- 8 files changed, 93 insertions(+), 43 deletions(-)
- create mode 100644 rust/helpers/drm/atomic.c
- create mode 100644 rust/helpers/drm/vblank.c
+ rust/kernel/drm/kms.rs           | 28 +++++++++++++---------------
+ rust/kernel/drm/kms/connector.rs | 27 ++++++++++++++++++++-------
+ rust/kernel/drm/kms/crtc.rs      | 31 +++++++++++++++++++++----------
+ rust/kernel/drm/kms/plane.rs     | 27 ++++++++++++++++++++-------
+ rust/kernel/drm/kms/vblank.rs    |  5 +++--
+ 5 files changed, 77 insertions(+), 41 deletions(-)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index a1ea23714bdd..e41d2716fb2e 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -36,6 +36,14 @@
- #include <linux/gpu_buddy.h>
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_vblank.h>
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
-diff --git a/rust/helpers/drm/atomic.c b/rust/helpers/drm/atomic.c
-new file mode 100644
-index 000000000000..ed5e49b73c81
---- /dev/null
-+++ b/rust/helpers/drm/atomic.c
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <drm/drm_atomic.h>
-+
-+void rust_helper_drm_atomic_commit_get(struct drm_atomic_commit *state)
-+{
-+	drm_atomic_commit_get(state);
-+}
-+
-+void rust_helper_drm_atomic_commit_put(struct drm_atomic_commit *state)
-+{
-+	drm_atomic_commit_put(state);
-+}
-+
-+// Macros for generating one repetitive atomic state accessors (like drm_atomic_get_new_plane_state)
-+#define STATE_FUNC(type, tense)                                                                     \
-+	struct drm_ ## type ## _state *rust_helper_drm_atomic_get_ ## tense ## _ ## type ## _state( \
-+		const struct drm_atomic_commit *state,                                               \
-+		struct drm_ ## type *type                                                           \
-+	) {                                                                                         \
-+		return drm_atomic_get_## tense ## _ ## type ## _state(state, type);                 \
-+	}
-+#define STATE_FUNCS(type) \
-+	STATE_FUNC(type, new); \
-+	STATE_FUNC(type, old);
-+
-+STATE_FUNCS(plane);
-+STATE_FUNCS(crtc);
-+STATE_FUNCS(connector);
-+
-+#undef STATE_FUNCS
-+#undef STATE_FUNC
-diff --git a/rust/helpers/drm/drm.c b/rust/helpers/drm/drm.c
-index b8700413a2b8..5d700d75c0c9 100644
---- a/rust/helpers/drm/drm.c
-+++ b/rust/helpers/drm/drm.c
-@@ -1,4 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+#include "atomic.c"
- #include "gem.c"
- #include "vma_manager.c"
-+#include "vblank.c"
-diff --git a/rust/helpers/drm/vblank.c b/rust/helpers/drm/vblank.c
-new file mode 100644
-index 000000000000..165db7ac5b4d
---- /dev/null
-+++ b/rust/helpers/drm/vblank.c
-@@ -0,0 +1,8 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <drm/drm_vblank.h>
-+
-+struct drm_vblank_crtc *rust_helper_drm_crtc_vblank_crtc(struct drm_crtc *crtc)
-+{
-+	return drm_crtc_vblank_crtc(crtc);
-+}
 diff --git a/rust/kernel/drm/kms.rs b/rust/kernel/drm/kms.rs
-index 11b09d2175db..a147276b3412 100644
+index a147276b3412..d07389fd510c 100644
 --- a/rust/kernel/drm/kms.rs
 +++ b/rust/kernel/drm/kms.rs
-@@ -12,8 +12,7 @@
-     },
-     error::to_result,
-     prelude::*,
--    sync::{Mutex, MutexGuard},
--    types::*,
-+    sync::{aref::ARef, Mutex, MutexGuard},
- };
- use bindings;
- use core::{
-@@ -69,10 +68,10 @@ pub trait KmsImpl {
-         ///
-         /// This function may only be called once.
-         unsafe fn probe_kms(_drm: &Device<Self::Driver, Uninit>) -> Result<ModeConfigInfo> {
--            // TODO before submission: There is definitely a proper way of doing this, but I don't
--            // remember what it is.
--            unimplemented!()
--            //build_error!("This should never be reachable")
-+            // This default is only reachable for the `PhantomData<T>` (non-KMS) implementor, whose
-+            // KMS setup is never invoked. KMS drivers override it via the `KmsDriver` blanket impl
-+            // below, so reaching this is a build-time bug.
-+            build_error::build_error("probe_kms called on a device without KMS support")
-         }
-     }
- }
-@@ -126,22 +125,22 @@ pub trait KmsDriver: Driver {
-     /// The driver's [`DriverConnector`](connector::DriverConnector) implementation.
-     ///
-     /// TODO: This will be unneeded once we support multiple `DriverConnector` implementations.
--    type Connector: connector::DriverConnector;
-+    type Connector: connector::DriverConnector<Driver = Self>;
+@@ -122,25 +122,23 @@ fn deref(&self) -> &Self::Target {
+ /// [`PhantomData<Self>`]: PhantomData
+ #[vtable]
+ pub trait KmsDriver: Driver {
+-    /// The driver's [`DriverConnector`](connector::DriverConnector) implementation.
+-    ///
+-    /// TODO: This will be unneeded once we support multiple `DriverConnector` implementations.
+-    type Connector: connector::DriverConnector<Driver = Self>;
++    // The driver's mode-object implementations. Left *unbounded* to break a trait
++    // well-formedness cycle: the natural bound (`type Crtc: DriverCrtc<Driver = Self>`, etc.)
++    // makes every `T: KmsDriver` obligation pull in the mutually-recursive Driver* web, which
++    // the compiler cannot evaluate (it loops in obligation processing and exhausts memory). The
++    // `DriverConnector`/`DriverCrtc`/... bounds are required at the use sites as `where`-clauses
++    // instead (an assumption, not an eagerly WF-checked trait-definition obligation).
++    //
++    // TODO: unneeded once we support multiple `Driver*` implementations per driver.
  
++    /// The driver's [`DriverConnector`](connector::DriverConnector) implementation.
++    type Connector;
      /// The driver's [`DriverPlane`](plane::DriverPlane) implementation.
-     ///
-     /// TODO: This will be unneeded once we support multiple `DriverPlane` implementations.
--    type Plane: plane::DriverPlane;
-+    type Plane: plane::DriverPlane<Driver = Self>;
- 
+-    ///
+-    /// TODO: This will be unneeded once we support multiple `DriverPlane` implementations.
+-    type Plane: plane::DriverPlane<Driver = Self>;
+-
++    type Plane;
      /// The driver's [`DriverCrtc`](crtc::DriverCrtc) implementation.
-     ///
-     /// TODO: This will be unneeded once we support multiple `DriverCrtc` implementations.
--    type Crtc: crtc::DriverCrtc;
-+    type Crtc: crtc::DriverCrtc<Driver = Self>;
- 
+-    ///
+-    /// TODO: This will be unneeded once we support multiple `DriverCrtc` implementations.
+-    type Crtc: crtc::DriverCrtc<Driver = Self>;
+-
++    type Crtc;
      /// The driver's [`DriverEncoder`](encoder::DriverEncoder) implementation.
-     ///
-     /// TODO: This will be unneeded once we support multiple `DriverEncoder` implementations.
--    type Encoder: encoder::DriverEncoder;
-+    type Encoder: encoder::DriverEncoder<Driver = Self>;
+-    ///
+-    /// TODO: This will be unneeded once we support multiple `DriverEncoder` implementations.
+-    type Encoder: encoder::DriverEncoder<Driver = Self>;
++    type Encoder;
  
      /// Return a [`ModeConfigInfo`] structure for this [`device::Device`].
      fn mode_config_info(dev: &Device<Self, Uninit>) -> Result<ModeConfigInfo>
-@@ -486,7 +485,7 @@ macro_rules! impl_aref_for_mode_object {
-     (impl $( < $( $param:ident: $bound:ident ),+ > )? for $type:ty) => {
-         // SAFETY: drm_mode_object_get()/put() ensure the type is ref-counted according to the
-         // safety contract
--        unsafe impl $( < $( $param: $bound ),+ > )? kernel::types::AlwaysRefCounted for $type {
-+        unsafe impl $( < $( $param: $bound ),+ > )? kernel::sync::aref::AlwaysRefCounted for $type {
-             #[inline]
-             fn inc_ref(&self) {
-                 // SAFETY: We're guaranteed by the safety contract of `ModeObject` that
-diff --git a/rust/kernel/drm/kms/atomic.rs b/rust/kernel/drm/kms/atomic.rs
-index cc14bff47abd..18dc136940f3 100644
---- a/rust/kernel/drm/kms/atomic.rs
-+++ b/rust/kernel/drm/kms/atomic.rs
-@@ -1,31 +1,32 @@
- // SPDX-License-Identifier: GPL-2.0 OR MIT
+diff --git a/rust/kernel/drm/kms/connector.rs b/rust/kernel/drm/kms/connector.rs
+index 05ec64cf6fa2..aca7be50e583 100644
+--- a/rust/kernel/drm/kms/connector.rs
++++ b/rust/kernel/drm/kms/connector.rs
+@@ -139,7 +139,7 @@ pub trait DriverConnector: Send + Sync + Sized {
+     /// The [`DriverConnectorState`] implementation for this [`DriverConnector`].
+     ///
+     /// See [`DriverConnectorState`] for more info.
+-    type State: DriverConnectorState;
++    type State: DriverConnectorState<Connector = Self>;
  
--//! [`struct drm_atomic_state`] related bindings for rust.
-+//! [`struct drm_atomic_commit`] related bindings for rust.
- //!
--//! [`struct drm_atomic_state`]: srctree/include/drm/drm_atomic.h
-+//! [`struct drm_atomic_commit`]: srctree/include/drm/drm_atomic.h
- use super::{connector::*, crtc::*, plane::*, KmsDriver, ModeObject};
- use crate::{
-     bindings,
-     drm::device::Device,
-     error::{from_err_ptr, to_result},
-     prelude::*,
-+    sync::aref::{ARef, AlwaysRefCounted},
-     types::*,
- };
- use core::{cell::Cell, marker::*, mem::ManuallyDrop, ops::*, ptr::NonNull};
- 
--/// The main wrapper around [`struct drm_atomic_state`].
-+/// The main wrapper around [`struct drm_atomic_commit`].
- ///
- /// This type is usually embedded within another interface such as an [`AtomicStateMutator`].
- ///
- /// # Invariants
- ///
--/// - The data layout of this type is identical to [`struct drm_atomic_state`].
-+/// - The data layout of this type is identical to [`struct drm_atomic_commit`].
- /// - `state` is initialized for as long as this type is exposed to users.
- ///
--/// [`struct drm_atomic_state`]: srctree/include/drm/drm_atomic.h
-+/// [`struct drm_atomic_commit`]: srctree/include/drm/drm_atomic.h
- #[repr(transparent)]
- pub struct AtomicState<T: KmsDriver> {
--    pub(super) state: Opaque<bindings::drm_atomic_state>,
-+    pub(super) state: Opaque<bindings::drm_atomic_commit>,
-     _p: PhantomData<T>,
+     /// The constructor for creating a [`Connector`] using this [`DriverConnector`] implementation.
+     ///
+@@ -700,13 +700,17 @@ pub struct ConnectorState<T: DriverConnectorState> {
+ /// [`struct drm_connector`]: srctree/include/drm_connector.h
+ /// [`struct drm_connector_state`]: srctree/include/drm_connector.h
+ pub trait DriverConnectorState: Clone + Default + Sized {
+-    /// The parent [`DriverConnector`].
+-    type Connector: DriverConnector;
++    /// The parent [`DriverConnector`]. Unbounded to break the trait WF cycle; the
++    /// `DriverConnector` bound is required at use sites instead.
++    type Connector;
  }
  
-@@ -34,18 +35,18 @@ impl<T: KmsDriver> AtomicState<T> {
-     ///
-     /// # Safety
-     ///
--    /// `ptr` must point to a valid initialized instance of [`struct drm_atomic_state`].
-+    /// `ptr` must point to a valid initialized instance of [`struct drm_atomic_commit`].
-     ///
--    /// [`struct drm_atomic_state`]: srctree/include/drm/drm_atomic.h
-+    /// [`struct drm_atomic_commit`]: srctree/include/drm/drm_atomic.h
-     #[allow(dead_code)]
--    pub(super) unsafe fn from_raw<'a>(ptr: *const bindings::drm_atomic_state) -> &'a Self {
-+    pub(super) unsafe fn from_raw<'a>(ptr: *const bindings::drm_atomic_commit) -> &'a Self {
-         // SAFETY: Our data layout is identical
-         // INVARIANT: Our safety contract upholds the guarantee that `state` is initialized for as
-         // long as this type is exposed to users.
-         unsafe { &*ptr.cast() }
-     }
+ impl<T: DriverConnectorState> Sealed for ConnectorState<T> {}
  
--    pub(crate) fn as_raw(&self) -> *mut bindings::drm_atomic_state {
-+    pub(crate) fn as_raw(&self) -> *mut bindings::drm_atomic_commit {
-         self.state.get()
-     }
+-impl<T: DriverConnectorState> AsRawConnectorState for ConnectorState<T> {
++impl<T: DriverConnectorState> AsRawConnectorState for ConnectorState<T>
++where
++    T::Connector: DriverConnector,
++{
+     type Connector = Connector<T::Connector>;
+ }
  
-@@ -102,12 +103,12 @@ pub fn get_old_connector_state<C>(&self, connector: &C) -> Option<&C::State>
- unsafe impl<T: KmsDriver> AlwaysRefCounted for AtomicState<T> {
-     fn inc_ref(&self) {
-         // SAFETY: `state` is initialized for as long as this type is exposed to users
--        unsafe { bindings::drm_atomic_state_get(self.state.get()) }
-+        unsafe { bindings::drm_atomic_commit_get(self.state.get()) }
-     }
- 
-     unsafe fn dec_ref(obj: NonNull<Self>) {
-         // SAFETY: `obj` contains a valid non-null pointer to an initialized `Self`.
--        unsafe { bindings::drm_atomic_state_put(obj.as_ptr().cast()) }
-+        unsafe { bindings::drm_atomic_commit_put(obj.as_ptr().cast()) }
+@@ -720,7 +724,10 @@ unsafe fn as_raw_mut(&mut self) -> &mut bindings::drm_connector_state {
      }
  }
  
-@@ -141,11 +142,11 @@ impl<T: KmsDriver> AtomicStateMutator<T> {
-     ///
-     /// # Safety
-     ///
--    /// `ptr` must point to a valid `drm_atomic_state`
-+    /// `ptr` must point to a valid `drm_atomic_commit`
-     #[allow(dead_code)]
--    pub(super) unsafe fn new(ptr: NonNull<bindings::drm_atomic_state>) -> Self {
-+    pub(super) unsafe fn new(ptr: NonNull<bindings::drm_atomic_commit>) -> Self {
-         Self {
--            // SAFETY: The data layout of `AtomicState<T>` is identical to drm_atomic_state
-+            // SAFETY: The data layout of `AtomicState<T>` is identical to drm_atomic_commit
-             // We use `ManuallyDrop` because `AtomicStateMutator` is only ever provided to users in
-             // the context of KMS callbacks. As such, skipping ref inc/dec for the atomic state is
-             // convienent for our bindings.
-@@ -156,7 +157,7 @@ pub(super) unsafe fn new(ptr: NonNull<bindings::drm_atomic_state>) -> Self {
-         }
+-impl<T: DriverConnectorState> FromRawConnectorState for ConnectorState<T> {
++impl<T: DriverConnectorState> FromRawConnectorState for ConnectorState<T>
++where
++    T::Connector: DriverConnector,
++{
+     unsafe fn from_raw<'a>(ptr: *const bindings::drm_connector_state) -> &'a Self {
+         // Our data layout starts with `bindings::drm_connector_state`.
+         let ptr: *const Self = ptr.cast();
+@@ -859,7 +866,10 @@ pub(super) fn new<D: KmsDriver>(
      }
+ }
  
--    pub(crate) fn as_raw(&self) -> *mut bindings::drm_atomic_state {
-+    pub(crate) fn as_raw(&self) -> *mut bindings::drm_atomic_commit {
-         self.state.as_raw()
+-impl<'a, T: DriverConnectorState> Deref for ConnectorStateMutator<'a, ConnectorState<T>> {
++impl<'a, T: DriverConnectorState> Deref for ConnectorStateMutator<'a, ConnectorState<T>>
++where
++    T::Connector: DriverConnector,
++{
+     type Target = T;
+ 
+     fn deref(&self) -> &Self::Target {
+@@ -867,7 +877,10 @@ fn deref(&self) -> &Self::Target {
      }
+ }
  
-@@ -273,8 +274,8 @@ fn drop(&mut self) {
- impl<T: KmsDriver> AtomicStateComposer<T> {
-     /// # Safety
-     ///
--    /// The caller guarantees that `ptr` points to a valid instance of `drm_atomic_state`.
--    pub(crate) unsafe fn new(ptr: NonNull<bindings::drm_atomic_state>) -> Self {
-+    /// The caller guarantees that `ptr` points to a valid instance of `drm_atomic_commit`.
-+    pub(crate) unsafe fn new(ptr: NonNull<bindings::drm_atomic_commit>) -> Self {
-         // SAFETY: see `AtomicStateMutator::from_raw()`
-         Self(unsafe { AtomicStateMutator::new(ptr) })
+-impl<'a, T: DriverConnectorState> DerefMut for ConnectorStateMutator<'a, ConnectorState<T>> {
++impl<'a, T: DriverConnectorState> DerefMut for ConnectorStateMutator<'a, ConnectorState<T>>
++where
++    T::Connector: DriverConnector,
++{
+     fn deref_mut(&mut self) -> &mut Self::Target {
+         &mut self.state.inner
      }
-@@ -681,11 +682,11 @@ pub fn commit_hw_done<'b>(
- 
- // The actual raw C callback for custom atomic commit tail implementations
- pub(crate) unsafe extern "C" fn commit_tail_callback<T: KmsDriver>(
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) {
-     // SAFETY:
-     // - We're guaranteed by DRM that `state` always points to a valid instance of
--    //   `bindings::drm_atomic_state`
-+    //   `bindings::drm_atomic_commit`
-     // - This conversion is safe via the type invariants
-     let state = unsafe { AtomicState::from_raw(state.cast_const()) };
- 
 diff --git a/rust/kernel/drm/kms/crtc.rs b/rust/kernel/drm/kms/crtc.rs
-index b9d095854ba6..0f579dc4ec75 100644
+index 0f579dc4ec75..4c6cb6bbdcb8 100644
 --- a/rust/kernel/drm/kms/crtc.rs
 +++ b/rust/kernel/drm/kms/crtc.rs
-@@ -995,14 +995,14 @@ impl<'a, T: DriverCrtc> CrtcAtomicCommit<'a, T> {
+@@ -124,7 +124,7 @@ pub trait DriverCrtc: Send + Sync + Sized {
+     /// The [`DriverCrtcState`] implementation for this [`DriverCrtc`].
+     ///
+     /// See [`DriverCrtcState`] for more info.
+-    type State: DriverCrtcState;
++    type State: DriverCrtcState<Crtc = Self>;
  
- unsafe extern "C" fn atomic_check_callback<T: DriverCrtc>(
-     crtc: *mut bindings::drm_crtc,
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) -> i32 {
-     // SAFETY:
-     // - We're guaranteed `crtc` is of type `Crtc<T>` via type invariants.
-     // - We're guaranteed by DRM that `crtc` is pointing to a valid initialized state.
-     let crtc = unsafe { Crtc::from_raw(crtc) };
+     /// The driver's optional hardware vblank implementation
+     ///
+@@ -561,10 +561,9 @@ impl<T: DriverCrtcState> Sealed for CrtcState<T> {}
+ /// [`struct drm_crtc`]: srctree/include/drm_crtc.h
+ /// [`struct drm_crtc_state`]: srctree/include/drm_crtc.h
+ pub trait DriverCrtcState: Clone + Default + Unpin {
+-    /// The parent CRTC driver for this CRTC state
+-    type Crtc: DriverCrtc<State = Self>
+-    where
+-        Self: Sized;
++    /// The parent CRTC driver for this CRTC state. Unbounded to break the trait WF cycle;
++    /// the `DriverCrtc` bound is required at use sites instead.
++    type Crtc;
+ }
  
--    // SAFETY: DRM guarantees `state` points to a valid `drm_atomic_state`
-+    // SAFETY: DRM guarantees `state` points to a valid `drm_atomic_commit`
-     // We use a ManuallyDrop here to avoid AtomicStateComposer dropping an owned reference we never
-     // acquired.
-     let state =
-@@ -1023,14 +1023,14 @@ impl<'a, T: DriverCrtc> CrtcAtomicCommit<'a, T> {
+ /// The main interface for a [`struct drm_crtc_state`].
+@@ -702,11 +701,17 @@ fn as_raw(&self) -> *mut bindings::drm_crtc_state {
+     }
+ }
  
- unsafe extern "C" fn atomic_begin_callback<T: DriverCrtc>(
-     crtc: *mut bindings::drm_crtc,
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) {
-     // SAFETY:
-     // * We're guaranteed `crtc` is of type `Crtc<T>` via type invariants.
-     // * We're guaranteed by DRM that `crtc` is pointing to a valid initialized state.
-     let crtc = unsafe { Crtc::from_raw(crtc) };
+-impl<T: DriverCrtcState> AsRawCrtcState for CrtcState<T> {
++impl<T: DriverCrtcState> AsRawCrtcState for CrtcState<T>
++where
++    T::Crtc: DriverCrtc,
++{
+     type Crtc = Crtc<T::Crtc>;
+ }
  
--    // SAFETY: We're guaranteed by DRM that `state` points to a valid instance of `drm_atomic_state`
-+    // SAFETY: We're guaranteed by DRM that `state` points to a valid instance of `drm_atomic_commit`
-     let state = unsafe { AtomicStateMutator::new(NonNull::new_unchecked(state)) };
+-impl<T: DriverCrtcState> FromRawCrtcState for CrtcState<T> {
++impl<T: DriverCrtcState> FromRawCrtcState for CrtcState<T>
++where
++    T::Crtc: DriverCrtc,
++{
+     unsafe fn from_raw<'a>(ptr: *const bindings::drm_crtc_state) -> &'a Self {
+         // SAFETY: Our data layout starts with `bindings::drm_crtc_state`
+         unsafe { &*(ptr.cast()) }
+@@ -800,7 +805,7 @@ fn <D, C>(CrtcStateMutator<'a, OpaqueCrtcState<D>>) -> Self
+         where
+             T: DriverCrtcState<Crtc = C>;
+         use
+-            T as DriverCrtc,
++            C as DriverCrtc,
+             D as KmsDriver<Crtc = ...>
+     }
+ }
+@@ -813,7 +818,10 @@ fn drop(&mut self) {
+     }
+ }
  
-     // SAFETY:
-@@ -1045,14 +1045,14 @@ impl<'a, T: DriverCrtc> CrtcAtomicCommit<'a, T> {
+-impl<'a, T: DriverCrtcState> Deref for CrtcStateMutator<'a, CrtcState<T>> {
++impl<'a, T: DriverCrtcState> Deref for CrtcStateMutator<'a, CrtcState<T>>
++where
++    T::Crtc: DriverCrtc,
++{
+     type Target = T;
  
- unsafe extern "C" fn atomic_flush_callback<T: DriverCrtc>(
-     crtc: *mut bindings::drm_crtc,
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) {
-     // SAFETY:
-     // - We're guaranteed `crtc` is of type `Crtc<T>` via type invariants.
-     // - We're guaranteed by DRM that `crtc` is pointing to a valid initialized state.
-     let crtc = unsafe { Crtc::from_raw(crtc) };
+     fn deref(&self) -> &Self::Target {
+@@ -823,7 +831,10 @@ fn deref(&self) -> &Self::Target {
+     }
+ }
  
--    // SAFETY: We're guaranteed by DRM that `state` points to a valid instance of `drm_atomic_state`
-+    // SAFETY: We're guaranteed by DRM that `state` points to a valid instance of `drm_atomic_commit`
-     let state = unsafe { AtomicStateMutator::new(NonNull::new_unchecked(state)) };
- 
-     // SAFETY:
-@@ -1067,7 +1067,7 @@ impl<'a, T: DriverCrtc> CrtcAtomicCommit<'a, T> {
- 
- unsafe extern "C" fn atomic_enable_callback<T: DriverCrtc>(
-     crtc: *mut bindings::drm_crtc,
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) {
-     // SAFETY:
-     // - We're guaranteed `crtc` is of type `Crtc<T>` via type invariants.
-@@ -1089,7 +1089,7 @@ impl<'a, T: DriverCrtc> CrtcAtomicCommit<'a, T> {
- 
- unsafe extern "C" fn atomic_disable_callback<T: DriverCrtc>(
-     crtc: *mut bindings::drm_crtc,
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) {
-     // SAFETY:
-     // - We're guaranteed `crtc` points to a valid instance of `drm_crtc`
+-impl<'a, T: DriverCrtcState> DerefMut for CrtcStateMutator<'a, CrtcState<T>> {
++impl<'a, T: DriverCrtcState> DerefMut for CrtcStateMutator<'a, CrtcState<T>>
++where
++    T::Crtc: DriverCrtc,
++{
+     fn deref_mut(&mut self) -> &mut Self::Target {
+         // SAFETY: Our interface ensures that `self.state.inner` follows rust's data-aliasing rules,
+         // so this is safe
 diff --git a/rust/kernel/drm/kms/plane.rs b/rust/kernel/drm/kms/plane.rs
-index 661d82273099..6f547adcfdc9 100644
+index 6f547adcfdc9..47e05fe6bee1 100644
 --- a/rust/kernel/drm/kms/plane.rs
 +++ b/rust/kernel/drm/kms/plane.rs
-@@ -1048,14 +1048,14 @@ impl<'a, T: DriverPlane> PlaneAtomicCommit<'a, T> {
+@@ -98,7 +98,7 @@ pub trait DriverPlane: Send + Sync + Sized {
+     /// The [`DriverPlaneState`] implementation for this [`DriverPlane`].
+     ///
+     /// See [`DriverPlaneState`] for more info.
+-    type State: DriverPlaneState;
++    type State: DriverPlaneState<Plane = Self>;
  
- unsafe extern "C" fn atomic_update_callback<T: DriverPlane>(
-     plane: *mut bindings::drm_plane,
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) {
-     // SAFETY:
-     // - We're guaranteed `plane` is of type `Plane<T>` via type invariants.
-     // - We're guaranteed by DRM that `plane` is pointing to a valid initialized state.
-     let plane = unsafe { Plane::from_raw(plane) };
+     /// The constructor for creating a [`Plane`] using this [`DriverPlane`] implementation.
+     ///
+@@ -689,13 +689,17 @@ pub struct PlaneState<T: DriverPlaneState> {
+ /// [`struct drm_plane`]: srctree/include/drm_plane.h
+ /// [`struct drm_plane_state`]: srctree/include/drm_plane.h
+ pub trait DriverPlaneState: Clone + Default + Sized {
+-    /// The type for this driver's drm_plane implementation
+-    type Plane: DriverPlane;
++    /// The type for this driver's drm_plane implementation. Unbounded to break the trait WF
++    /// cycle; the `DriverPlane` bound is required at use sites instead.
++    type Plane;
+ }
  
--    // SAFETY: DRM guarantees `state` points to a valid `drm_atomic_state`
-+    // SAFETY: DRM guarantees `state` points to a valid `drm_atomic_commit`
-     let state = unsafe { AtomicStateMutator::new(NonNull::new_unchecked(state)) };
+ impl<T: DriverPlaneState> Sealed for PlaneState<T> {}
  
-     // SAFETY:
-@@ -1070,14 +1070,14 @@ impl<'a, T: DriverPlane> PlaneAtomicCommit<'a, T> {
+-impl<T: DriverPlaneState> AsRawPlaneState for PlaneState<T> {
++impl<T: DriverPlaneState> AsRawPlaneState for PlaneState<T>
++where
++    T::Plane: DriverPlane,
++{
+     type Plane = Plane<T::Plane>;
+ }
  
- unsafe extern "C" fn atomic_check_callback<T: DriverPlane>(
-     plane: *mut bindings::drm_plane,
--    state: *mut bindings::drm_atomic_state,
-+    state: *mut bindings::drm_atomic_commit,
- ) -> i32 {
-     // SAFETY:
-     // - We're guaranteed `plane` is of type `Plane<T>` via type invariants.
-     // - We're guaranteed by DRM that `plane` is pointing to a valid initialized state.
-     let plane = unsafe { Plane::from_raw(plane) };
+@@ -709,7 +713,10 @@ unsafe fn as_raw_mut(&mut self) -> &mut bindings::drm_plane_state {
+     }
+ }
  
--    // SAFETY: We're guaranteed by DRM that `state` points to a valid instance of `drm_atomic_state`
-+    // SAFETY: We're guaranteed by DRM that `state` points to a valid instance of `drm_atomic_commit`
-     // We use ManuallyDrop here since AtomicStateComposer would otherwise drop a owned reference to
-     // the atomic state upon finishing this callback.
-     let state = ManuallyDrop::new(unsafe {
+-impl<T: DriverPlaneState> FromRawPlaneState for PlaneState<T> {
++impl<T: DriverPlaneState> FromRawPlaneState for PlaneState<T>
++where
++    T::Plane: DriverPlane,
++{
+     unsafe fn from_raw<'a>(ptr: *const bindings::drm_plane_state) -> &'a Self {
+         // Our data layout starts with `bindings::drm_plane_state`.
+         let ptr: *const Self = ptr.cast();
+@@ -885,7 +892,10 @@ unsafe fn as_raw_mut(&mut self) -> &mut bindings::drm_plane_state {
+ 
+ impl<'a, T: FromRawPlaneState> Sealed for PlaneStateMutator<'a, T> {}
+ 
+-impl<'a, T: DriverPlaneState> Deref for PlaneStateMutator<'a, PlaneState<T>> {
++impl<'a, T: DriverPlaneState> Deref for PlaneStateMutator<'a, PlaneState<T>>
++where
++    T::Plane: DriverPlane,
++{
+     type Target = T;
+ 
+     fn deref(&self) -> &Self::Target {
+@@ -893,7 +903,10 @@ fn deref(&self) -> &Self::Target {
+     }
+ }
+ 
+-impl<'a, T: DriverPlaneState> DerefMut for PlaneStateMutator<'a, PlaneState<T>> {
++impl<'a, T: DriverPlaneState> DerefMut for PlaneStateMutator<'a, PlaneState<T>>
++where
++    T::Plane: DriverPlane,
++{
+     fn deref_mut(&mut self) -> &mut Self::Target {
+         &mut self.state.inner
+     }
+diff --git a/rust/kernel/drm/kms/vblank.rs b/rust/kernel/drm/kms/vblank.rs
+index dc34e02e8ccb..534fd18f63b4 100644
+--- a/rust/kernel/drm/kms/vblank.rs
++++ b/rust/kernel/drm/kms/vblank.rs
+@@ -62,8 +62,9 @@ fn get_vblank_timestamp(
+ /// Drivers interested in implementing vblank support should refer to [`VblankSupport`], drivers
+ /// that don't have vblank support can use [`PhantomData`].
+ pub trait VblankImpl {
+-    /// The parent [`DriverCrtc`].
+-    type Crtc: DriverCrtc<VblankImpl = Self>;
++    /// The parent [`DriverCrtc`]. Unbounded to break the trait WF cycle; the `DriverCrtc`
++    /// bound is required at use sites instead.
++    type Crtc;
+ 
+     /// The generated [`VblankOps`].
+     const VBLANK_OPS: VblankOps;
 -- 
 2.55.0
 
