@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F35C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:13:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29FBC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9D4310F61A;
-	Fri,  3 Jul 2026 03:13:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF5C10F61E;
+	Fri,  3 Jul 2026 03:14:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ox0v56pE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RgGHtoS3";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8720710F61A
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:13:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF3C110F61E
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:14:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4DBCA40729;
- Fri,  3 Jul 2026 03:13:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A2F1F000E9;
- Fri,  3 Jul 2026 03:13:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C7DC44146E;
+ Fri,  3 Jul 2026 03:14:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722981F000E9;
+ Fri,  3 Jul 2026 03:14:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783048421;
- bh=IDcpCcxm9O6uHptnqRK3tBCiXzzEItNzUxGy826WN6g=;
+ s=k20260515; t=1783048472;
+ bh=xYC2xpAagjRGUo5stZwLQ0nGL78uAiykoI7raHMPrmI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ox0v56pEaRwpQWQvmeqCOvyrmY7qmjlgFPzSEB2jNS+Ug3ConKHdt7uId11D7Z4HG
- AmYQmZaqK88KEmpK5JZ2WKjkGbcM7oP1MatgImE1LAuToDmg7ri7Slb80Gqkn+3d3U
- O3WoEG/C9LH5fXN9/p9m6fwnhlc4QUJO3bMv3QkTU773KisOseQPP+SqwO+YcbPPsw
- 6gYBIR2T3NEEaubrFDAMCiQwrE0+kSDR8lI/oc41OVl+hO0z/pqHIh8B46MaQ4whQ8
- WMpb5/pjedE+19VCniie+JQo74j+qFWMftAxnl71l5e4ODIYXKpJEaqTm6Lgs3Ogjg
- vGVkm4WayNOUA==
+ b=RgGHtoS3dLYgI34xjmRrYxCUzgPRED+W8ftyeqVIFTEMx4kB5Z2wY8zmLJf78460U
+ MU8Xt7o88FNzvgkfkVmp/MRDezaQDys0oi/Y+p33WF+TTL/3cxXIVBZP2HgETeXe81
+ TdtR9+FgLDTmyfQSkXbjM+Ok1JSGux62dMdoTASjHLs900Wip/IFFStadTdVdvCswK
+ GGySPckrMg6SVXHvzGPexDav/lEYOX9CHKc+N+1a24bVYlo70F3z3R3doPoZak6rLj
+ NrxfscQjYcoU6F0zEm8GQQmWl/KwA7xoZhjcrbcG3u3wu/1H2RgtNED7oXbHScUxl2
+ B8gwrfsFRK2Dg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 05/10] drm/vino: add the DRM/KMS sink, built on
- the safe KMS mode-object layer
+Subject: Re: [RFC PATCH v2 02/10] drm/vino: add the clean-room HDCP 2.2
+ AKE/LC/SKE handshake
 To: "Mike Lothian" <mike@fireburn.co.uk>
 Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260703030217.2886-6-mike@fireburn.co.uk>
+In-Reply-To: <20260703030217.2886-3-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
  <20260703030217.2886-1-mike@fireburn.co.uk>
- <20260703030217.2886-6-mike@fireburn.co.uk>
+ <20260703030217.2886-3-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 03:13:40 +0000
-Message-Id: <20260703031341.01A2F1F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 03:14:32 +0000
+Message-Id: <20260703031432.722981F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,201 +59,67 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Sleeping in atomic context within KMS atomic callbacks (Subsystem =
-Guide Violation).
-- [High] Out-of-bounds kernel memory read in framebuffer scanout due to unv=
-alidated destination dimensions.
-- [High] Integer overflow in scanout buffer size calculation on 32-bit arch=
-itectures leads to out-of-bounds writes.
-- [High] Device-specific initialization and recovery states are tracked in =
-global variables, breaking multi-device support.
-- [Medium] Incorrect pixel color extraction on big-endian architectures due=
- to native-endian memory reads.
+- [High] The HDCP OUT message builder `body()` omits a mandatory 2-byte pad=
+ding at the start of the message body, misaligning the header fields and pa=
+yload by 2 bytes.
 --
 
-commit 717e075a35f786d4dc6a24d62c35ac5c6ff9090a
+commit ff0736a0543094c7762c8587ebbe6bbde5a3fe43
 Author: Mike Lothian <mike@fireburn.co.uk>
 
-drm/vino: add the DRM/KMS sink, built on the safe KMS mode-object layer
+drm/vino: add the clean-room HDCP 2.2 AKE/LC/SKE handshake
 
-This commit introduces the DRM/KMS sink for the vino driver using the safe
-KMS mode-object layer. It wires up a CRTC, a primary plane, a virtual
-encoder, and a connector to support mode-setting and scanning out
-framebuffers to the dock.
+This commit introduces a clean-room implementation of the HDCP 2.2 handshake
+(AKE/LC/SKE) for the vino driver. It includes cryptographic adapters, proto=
+col
+message builders, key derivation routines, and captured plaintext
+control-plane skeletons. The implementation builds and parses wire frames
+strictly verified against the reference daemon traffic.
 
-> diff --git a/drivers/gpu/drm/vino/drm_sink.rs b/drivers/gpu/drm/vino/drm_=
-sink.rs
+> diff --git a/drivers/gpu/drm/vino/ake.rs b/drivers/gpu/drm/vino/ake.rs
 > new file mode 100644
-> index 0000000000000..450c7c84a0677
+> index 0000000000000..38919624cb2f3
 > --- /dev/null
-> +++ b/drivers/gpu/drm/vino/drm_sink.rs
-
+> +++ b/drivers/gpu/drm/vino/ake.rs
 [ ... ]
-
-> +    fn atomic_enable(commit: CrtcAtomicCommit<'_, Self>) {
-> +        let data: &VinoDrmData =3D commit.crtc().drm_dev();
-> +        let new =3D commit.take_new_state();
-> +        let timing =3D super::cp::timing_from_drm_mode(new.mode());
-> +        pr_info!(
-> +            "vino: KMS CRTC enable -- display ON, mode {}x{}@{} (scanout=
- begins)\n",
-> +            timing.hactive,
-> +            timing.vactive,
-> +            timing.refresh_hz
-> +        );
-> +        if let Err(e) =3D data.send_cp(0x48, 16, |ctr| super::cp::set_mo=
-de(ctr, &timing)) {
+> +/// Allocate a body_len-byte zeroed body with the sec 5.1 header filled =
+in
+> +/// (sub_size, the 0x0010 marker, hdcp_seq, the 0x30 marker and msg_id).
+> +/// The caller writes the payload into body[28..].
+> +fn body(body_len: usize, sub_size: u16, hdcp_seq: u32, msg_id: u8) -> Re=
+sult<KVec<u8>> {
+> +    let mut b =3D KVec::from_elem(0u8, body_len, GFP_KERNEL)?;
+> +    b[0..2].copy_from_slice(&sub_size.to_le_bytes());
+> +    b[2..4].copy_from_slice(&0x0010u16.to_le_bytes());
+> +    b[4..8].copy_from_slice(&hdcp_seq.to_le_bytes());
+> +    b[22..26].copy_from_slice(&0x0000_0030u32.to_le_bytes());
+> +    b[27] =3D msg_id;
 
 [Severity: High]
-Does send_cp() perform sleeping operations?
+Does this message builder omit a mandatory 2-byte padding at the start of t=
+he
+payload?
 
-According to DRM subsystem guidelines, CRTC atomic callbacks execute in an
-atomic context where sleeping is strictly forbidden.
+Comparing this against the golden capture (CAP_PLAIN_1080P) in golden.rs, t=
+he
+48-byte body starts with a 2-byte zero padding at offsets 16-17 (right after
+the 16-byte transport header), placing the sub_size at offsets 18-19 (body
+offset 2).
 
-Since send_cp() acquires a Mutex and performs a blocking USB transfer with
-GFP_KERNEL, could this cause a "scheduling while atomic" issue during
-display enable?
+By writing sub_size at b[0..2], hdcp_seq at b[4..8], the marker at b[22..26=
+],
+and msg_id at b[27], the entire layout appears to be shifted left by 2 bytes
+compared to the expected hardware offsets.
 
-> +            pr_warn!("vino: runtime mode-set send failed ({e:?})\n");
-> +        }
-> +        let _ =3D data.set_vcp(super::cp::VCP_POWER_MODE, super::cp::POW=
-ER_ON);
-> +    }
+Will this misalignment cause the dock to reject the HDCP handshake because
+the fields and cryptographic payload are not where the hardware expects the=
+m?
 
-[ ... ]
-
-> +    fn atomic_update(commit: PlaneAtomicCommit<'_, Self>) {
-
-[Severity: High]
-Are we performing sleeping operations in an atomic context here?
-
-The Plane atomic update callback synchronously invokes the frame conversion
-and USB scanout pipeline.
-
-This function eventually calls encode_and_send(), which locks a Mutex,
-allocates memory with GFP_KERNEL, and blocks on USB bulk transfers. Will
-this lead to system instability during mode-sets or page-flips?
-
-> +        if !super::CP_ENGAGED.load(core::sync::atomic::Ordering::SeqCst)=
- {
-> +            return;
-> +        }
-> +        let plane =3D commit.plane();
-> +        let data: &VinoDrmData =3D plane.drm_dev();
-> +        let new =3D commit.take_new_state();
-> +        let Some(fb) =3D new.framebuffer::<VinoDrmDriver>() else { retur=
-n };
-> +        // The plane's destination geometry mirrors the negotiated mode =
-(the compositor sizes the
-> +        // primary plane 1:1 with the virtual output), so this drives th=
-e dynamic scanout
-> +        // resolution.
-> +        let (w, h) =3D (new.crtc_w() as usize, new.crtc_h() as usize);
-
-[Severity: High]
-Could these destination dimensions exceed the bounds of the underlying
-source framebuffer?
-
-These values come from the userspace-controlled plane destination size.
-Because there is no atomic_check to validate them against the attached
-framebuffer size, could the pixel extraction loops further down read out of
-bounds memory?
-
-> +
-> +        use core::sync::atomic::Ordering::Relaxed;
-> +        // Throttle: while scanout is failing (dock NAKing because CP is=
-n't engaged), skip the
-> +        // upcoming pageflips set by the backoff below instead of conver=
-ting+encoding+sending a
-> +        // frame the dock will just drop.
-> +        let skip =3D super::SCANOUT_SKIP.load(Relaxed);
-
-[Severity: High]
-Can tracking frame backoffs in a global static cause interference between
-multiple connected devices?
-
-If multiple docks are in use, they would share these error recovery states
-and potentially affect each other's scanout rate.
-
-[ ... ]
-
-> +fn prime_video_eps(dev: &super::usb::Interface<kernel::device::Bound>) {
-> +    if !super::EP08_SCANOUT_PRIMED.swap(true, core::sync::atomic::Orderi=
-ng::SeqCst) {
-
-[Severity: High]
-Does using a global static here prevent multiple connected docks from
-initializing properly?
-
-If a second dock is connected, it appears it would see this global flag as
-true and skip clearing the halts on its video endpoints. Could this state
-be tracked per-device instead?
-
-> +        for ep in [0x08u8, 0x0a, 0x0b, 0x0c] {
-> +            let _ =3D dev.clear_halt(ep);
-> +        }
-
-[ ... ]
-
-> +fn encode_and_send(
-> +    data: &VinoDrmData,
-> +    plane: &plane::Plane<VinoPlane>,
-> +    vaddr: *const u8,
-> +    pitch: usize,
-> +    w: usize,
-> +    h: usize,
-> +) -> Result {
-
-[ ... ]
-
-> +        let first =3D st.enc.is_none() || st.dims !=3D (w, h);
-> +        if first {
-> +            st.enc =3D Some(super::video::Encoder::new(w, h, super::vide=
-o::Mode::Rle)?);
-> +            st.cur =3D VVec::from_elem(0u16, w * h, GFP_KERNEL)?;
-
-[Severity: High]
-Can this size calculation silently overflow on 32-bit architectures?
-
-If userspace passes large values for crtc_w and crtc_h, w * h could wrap
-around the 32-bit usize limit.
-
-This would result in an undersized allocation, causing the nested loops
-below to write out-of-bounds to the heap.
-
-> +            st.dims =3D (w, h);
-> +            st.hint =3D 0;
-> +        }
-> +        let ScanoutState { enc, cur, seq, hint, dims: _ } =3D &mut *st;
-> +        for dy in 0..h {
-> +            for dx in 0..w {
-> +                // SAFETY: `dy*pitch + dx*4 + 3` is within the mapped so=
-urce framebuffer
-> +                // (`pitch*h` bytes); `dx < w <=3D pitch/4`, `dy < h`.
-> +                let px =3D unsafe { (vaddr.add(dy * pitch + dx * 4) as *=
-const u32).read_unaligned() };
-> +                let (r, g, b) =3D ((px >> 16) & 0xff, (px >> 8) & 0xff, =
-px & 0xff);
-
-[Severity: Medium]
-Will this color channel extraction work correctly on big-endian
-architectures?
-
-XRGB8888 has a fixed byte order in memory. By reading it as a native u32
-and applying bitwise shifts, the bytes will be loaded in reverse order on a=
-=20
-big-endian system, which might cause the wrong color channels to be
-extracted.
-
-> +                cur[dy * w + dx] =3D (((r >> 3) << 11) | ((g >> 2) << 5)=
- | (b >> 3)) as u16;
-> +            }
-> +        }
-
-[ ... ]
+> +    Ok(b)
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703030217.2886=
--1-mike@fireburn.co.uk?part=3D5
+-1-mike@fireburn.co.uk?part=3D2
