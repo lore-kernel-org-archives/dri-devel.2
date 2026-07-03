@@ -4,65 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 620C2C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 19:55:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12899C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 20:35:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EAFD10F8DA;
-	Fri,  3 Jul 2026 19:55:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA4F10E672;
+	Fri,  3 Jul 2026 20:35:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eO2SeGoj";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="cUKvVQjx";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A828C10F8DA
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 19:55:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783108511;
- bh=dqOHIAGMWhCgRowmL1u07fCxLEb4Pr3jh8BO4JUIoiI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eO2SeGojJ+r0vQNNXHIuPbEdgQ79bOPQ+EDjyOcfr/k15Tqldg9z173ziGZ8AFx57
- 0GF75+tgDQbkTObZz/WHIqP008Ea9t8kYQD1e50bf00+Lo9/PEVdA1t/YeMacSj0tE
- vJOV3HDESBw7kxAdkUhupmzopq8Ecj/QwhEUQWheeZnTIv8Qv5skakKOAa1cZH5+rV
- Vu9dA3ebE2l5IpmG9v+a8ev1VttaF8E/Ddn0uqjCH4T7Dwxj48gUNAsOC7dI+TMzOF
- 8TWdt4wA936pZ/7z2l5Apw2j+u/++L/hyB0f8jvnYEHP+zdK7iz2Fds5cEIXKbPtT+
- GerjIbsFkYB5A==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 650DA17E063B;
- Fri,  3 Jul 2026 21:55:10 +0200 (CEST)
-Message-ID: <f74ffd53-5776-4fae-a6fe-eeace5c3fc5f@collabora.com>
-Date: Fri, 3 Jul 2026 22:55:09 +0300
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5977310E672
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 20:35:05 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-8f0d6853360so6347476d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 13:35:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1783110904; x=1783715704; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=KEqrn50FtdxGVsX9vWULW1SFinyIlJ9nzqYUDztwtgI=;
+ b=cUKvVQjxmCv8O4oSe14yf6PsF0WATbn8u9c1Nzw/K6LPQzTVPe37RJFGDoR99wTdFe
+ SLPwh+sVMcXsd6S2TsHh3u0lRq5A4FzJ9ZKd8sY+k/Lqu3tyefpSw8r25UIzRshARIkz
+ JykzCC0Z4/xPUq5xcTyyycIlchLUQ0erTXQBgwzlpH1J16YSICRZGRYI97XfQjpYkLrs
+ 1q8eB9xAoT144IGKwZxXmjlFsv8rgUID16ErBuhCjCgdzbvJ9lJYXV811o/Sd8unNchE
+ Rb+jZM+7eBS6OnrH6ooNCdzivMfPA0CPDOE+B3muVwPfqUG/Lxi7L2csstAkDp4MOEPo
+ umfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783110904; x=1783715704;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KEqrn50FtdxGVsX9vWULW1SFinyIlJ9nzqYUDztwtgI=;
+ b=f5bBuDmrhWhSrJdcIKvTGsVIRKqzFw4Ic510RGCKe/aehQOaADH6wKakA7XHWuAHuj
+ TjPvk2O0ap8RAGi9/u7UfaVXtcFfQSUEfFO+MtNDeMkkiOJXdJUO55QtMid0xXh6/+iH
+ 0HGESc2i8HHeE65ndpzEpUotidJqSqfUfpVFCK8ivtqm2x4CPR9NtRsR34wNDX7DQBf8
+ PV1074a7FsAEHGRDsQ2Q0rVJpEK/nOj/TlfkYUHbyG0+crP4U2PFzvxKDEMB/q8AeR/1
+ QTT5ZgZAMhR905lNgI8D8TRBEpA8fbIpYR6xJnyxhBBlrsvAKVoM0rIUuI3X2e3lCfKv
+ 2Giw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoeBDD2SNq7vWaOhSG8IxhCxWoBKNlzIHMPOb0FG5lR7L5exEa15OZ07YZMw4SMZprxfUbcRz9EzQU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzThGQYEvK1IATwKZ7uQDw4EgJAiFFndCEWmJXwUcM1jUEIIBAr
+ S2MYeZzdVdgmgJ9dhjIGEiSpryFGQt/9Y0m2gGva0NYDqjjdUTX70yH4SmvdgqZzhqY=
+X-Gm-Gg: AfdE7cn2fFKcJVJekHa8BhmmRofaEmZuSdsLlwMIUq4b2Egs/VlBmcGp/7mM33v5yzJ
+ 6su9PE/t267+F6MPQbaTAtYIKTe8OwQ+KdbfftQZ1XM4HrwSomfRpGt8Iy9pGQWdb/Xxf7Bp10L
+ VVof9gBt21qrYKw+3aG0c+MJROaBWLR/QfmBm6YMMxcWjMmqD7e9M2M8AzRvuaYbv+5rh+LEJd1
+ wMs7GL1UMSw3SdqM+aJ0W5NYhfNvvTqagNIM3AIq/vksnsUabcrRn1jkOJ6aN6+Teqhe5ctn2Eh
+ bC0IL50Iiq5u+mohxg5AClenly3MfokQELFtfMZLsf2uj7E2qRMKWi1FKQDt+HtLsSH3XwhUg5d
+ 3mSwrqnzeUOVCnF1fV+mTUj9IZPO4ng5o2tjHQsXujYyRzEa4gvtePVC0svA0kJeAv8Ukmt6UVu
+ WDwfiyVVCiS986G7igxhHxvvVXeaFoJ46tLfZ1jNN+cx9EVFsWG9E6LXYURkCqihaTkE9smllzB
+ XZIQA==
+X-Received: by 2002:a05:6214:e69:b0:8ef:3407:3dd1 with SMTP id
+ 6a1803df08f44-8f74997c1f5mr12182176d6.6.1783110904066; 
+ Fri, 03 Jul 2026 13:35:04 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8f46f304533sm62882746d6.18.2026.07.03.13.35.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jul 2026 13:35:03 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wfkbG-00000008b0h-35vJ;
+ Fri, 03 Jul 2026 17:35:02 -0300
+Date: Fri, 3 Jul 2026 17:35:02 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>,
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
+Message-ID: <20260703203502.GC1978949@ziepe.ca>
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-4-krzysztof.karas@intel.com>
+ <20260703162236.GX7525@ziepe.ca>
+ <90558ba3-44e6-4d5e-9c72-ed8817d372be@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/39] drm/display: bridge_connector: Pass HDMI
- capabilities through caps struct
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-3-d79890d00b6a@collabora.com>
- <eqnr2hfclbdkry2jqe2kuufss5kus6qpjblewq35upnjwlhxhl@4awqxpwrnxk2>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <eqnr2hfclbdkry2jqe2kuufss5kus6qpjblewq35upnjwlhxhl@4awqxpwrnxk2>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <90558ba3-44e6-4d5e-9c72-ed8817d372be@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,83 +102,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/3/26 5:19 PM, Dmitry Baryshkov wrote:
-> On Thu, Jul 02, 2026 at 05:46:16PM +0300, Cristian Ciocaltea wrote:
->> Switch drm_bridge_connector_init() to
->> drmm_connector_hdmi_init_with_caps(), collecting the bridge's HDMI
->> properties into a stack drm_connector_hdmi_caps so future HDMI 2.x
->> capabilities can be plumbed without growing the argument list.
->>
->> Introduce struct drm_bridge::supported_hdmi_ver to let bridges declare
->> the HDMI specification version they are conformant with, and forward it
->> to the connector layer through the new caps struct so HDMI 2.x features
->> can be gated on real source capability rather than guesswork.
+On Fri, Jul 03, 2026 at 07:58:32PM +0100, Robin Murphy wrote:
+> On 03/07/2026 5:22 pm, Jason Gunthorpe wrote:
+> > On Wed, Jul 01, 2026 at 10:44:37AM +0000, Krzysztof Karas wrote:
+> > > It is possible, when a very large mapping uses a single
+> > > scatterlist, that padding overflows scatterlist's length field.
+> > > This results in:
+> > >   1) silently wrapping the value
+> > >   2) smaller than desired mappings produced by iommu_map_sg
+> > >   3) leaving mapped bytes in memory (no iommu_unmap)
+> > > 
+> > > Address this issue by adding overflow detection for previous
+> > > scatterlist length field.
+> > 
+> > Urk, this is unfortunate, it means we cannot map certain kinds of
+> > scatterlists? Meaning there is a condition that makes a scatterlist
+> > ill formed?
+> > 
+> > This seems like something that needs to be more clearly documented and
+> > we need to ensure at least the common scatterlist builders don't hit
+> > it..
 > 
-> And it's left uninitialized by the bridges, which doesn't mean anything.
-> If you don't want to touch all bridge drivers in one commit, please
-> provide some migration path and hopefully get rid of it by the end of
-> the series. 
+> Well, it's taken 10 years to be caught by a test which seemingly expects the
+> mapping of a single absurdly giant scatterlist to fail anyway,
 
-Sure, one question though: at the end of the migration, would it be fine to
-stick with drmm_connector_hdmi_init_with_caps() and just drop
-drmm_connector_hdmi_init()?  Otherwise I'll rename it back.
+If your server has 0.5TB of ram a 4G IO isn't actually that large.
+Randomly getting a few contiguous 1G hugetlbfs pages is not even that
+unlikely. Something like FSDAX has a very high chance of getting high
+contiguity pages in files.
 
-> At least, there should be a drm_warn() if the version in
-> unsspecified.
+So I wouldn't be quite so dismissive that this is not something a real
+user can hit.
 
-I’ll double-check if any use cases remain that can't be covered by this series.
+> here, but I suspect this is likely just regular iova_granule rounding
+> overflowing when the segment boundary is the maximum 4GB, since the largest
+> representable segment length is 4GB - 1. 
 
->>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/display/drm_bridge_connector.c | 29 ++++++++++++++------------
->>  include/drm/drm_bridge.h                       |  6 ++++++
->>  2 files changed, 22 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
->> index 92f8a2d7aab4..796069dbf1a1 100644
->> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
->> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
->> @@ -823,8 +823,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->>  	struct drm_connector *connector;
->>  	struct i2c_adapter *ddc = NULL;
->>  	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
->> -	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
->> -	unsigned int max_bpc = 8;
->> +	struct drm_connector_hdmi_caps caps = {
->> +		.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
->> +		.max_bpc = 8,
->> +	};
-> 
-> I'm really not sure that we need separate caps. But if we do, it would
-> make sense to embed it as is in the drm_bridge instead of having the
-> scattered fields.
+It looks like the iommu_dma_map_sg() algorithm only works reliably if
+the scatterlist entry size is less than UINT_MAX/2, otherwise it can
+risk overflowing when it pads.
 
-Ack.
+API wise I expect any arbitary input to sg_alloc_table_from_pages() to
+result in a scatterlist that iommu_dma_map_sg() will map. This
+patch highlights there are cornere cases where that isn't true, it
+should be fixed..
 
-> 
->>  	bool support_hdcp = false;
->>  	int connector_type;
->>  	int ret;
->> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
->> index 18f3db367dc1..2d8b5e4c64ba 100644
->> --- a/include/drm/drm_bridge.h
->> +++ b/include/drm/drm_bridge.h
->> @@ -1176,6 +1176,12 @@ struct drm_bridge {
->>  	 */
->>  	const char *product;
->>  
->> +	/**
->> +	 * @supported_hdmi_ver: HDMI version the bridge is conformant with.
->> +	 * This is only relevant if @DRM_BRIDGE_OP_HDMI is set.
->> +	 */
->> +	enum hdmi_version supported_hdmi_ver;
->> +
->>  	/**
->>  	 * @supported_formats: Bitmask of @drm_output_color_format listing
->>  	 * supported output formats. This is only relevant if
->>
->> -- 
->> 2.54.0
->>
-> 
+I agree we shouldn't overcomplicate iommu_dma_map_sg(), so the
+simplest fix is to introduce a SG_MAX_LENGTH set to UINT_MAX/2,
+justified by the logic in iommu_dma_map_sg(). Fixup the core sg_alloc
+code to respect that. WARN_ON in iommu_dma_map_sg() if a malformed
+scatterlist entry is presented. Add a WARN_ON under DMA debugging
+kconfig as well for the physical path.
+
+DRM would then have to generate scatterlists with a max segment size.
+
+Jason
