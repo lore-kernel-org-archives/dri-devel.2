@@ -4,102 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52645C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:50:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9301DC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7FC010E5A3;
-	Fri,  3 Jul 2026 08:50:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA1110E5AD;
+	Fri,  3 Jul 2026 08:52:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cvTcsAc3";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="EHWdI6O7";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2709E10E5A3
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:50:29 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-37e0fb87b75so419504a91.3
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 01:50:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783068629; cv=none;
- d=google.com; s=arc-20260327;
- b=NxIP8yNl+wQe60wAunlzOas0Q88v0Fo4U2Ya5T7uL/isH3Pymtt/24uED1PnLvHuoD
- OaXx1IN5RSS8qYSbf3SNBJA4pNqmzTfFUiglDd5tFNKGQUVdaNsJDAA4sa4M4p+9J9UD
- KLHhiKN4ca/wU3jyOIz6LkKHEAYWvMBF0ZUWOrjRfAcr0PTrRgZhlWhrpr/scLGLvCvZ
- 2G6++XJC5sr2eewOAGVWLfx27ZlPxtgCI9/ElieCzSDz/SkY+vEfT9i9IPO5NoiDckLg
- F1WpWu1H5s5DN/tt6xSnk0vr3sG1kMemhS34pdmjlmZaE93Mme0gnX3XGDzUy+Aj//Yz
- u1fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=JIGfUZOnaS68j2TExBUBX6hHqwIcodMVFuEw4DTpCW0=;
- fh=s09EW0am4ySlHybYqoIgYw0m9jQ0ntatIREyl+e67iw=;
- b=eV2AFTt77aVpoFwRFqEUqwAMGZ6nn5X1nNRWigl4A+2bXwfEDjF1VVfyI4p91fgMVM
- NQ7NzuWr83gy1mZIIZDUrR1WH/SpfzOs3K/AkcxF1RRDipud/a/SB61Rxwwndl61NIQ8
- GLpzCytyzTp1KsccL9AgyVyIySanBzSawgXwUoFvpdd3d3oWHybx5LZJpEAeMXqsoGPJ
- MN34TLKQqjSZ+5yoMpE/qhwUMI5ZI1FWaBzHpA4oCNJ9TleZNZ8KEQR3OZR5mL4PprMX
- kceBfv2+ZRT+ea3wMZpJ4qH96ms6sxI6WKbqkdckEGXDVCscLXcZhdqwKPaFjZCtGO+y
- Bfbg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783068629; x=1783673429; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JIGfUZOnaS68j2TExBUBX6hHqwIcodMVFuEw4DTpCW0=;
- b=cvTcsAc35WFX4F+gzxvd/zJ3Z5OFuTkO5c2vtM40Kgqa8LNhFjE3hLUladRTg7ZlWw
- T6zpGG1MUxY+EaZIk5fksKbU3jHwuD8XmdbyQrIgJ6TPha/aiBlQgzSCp/fGrQ4W93gv
- ffXTjY/mXtblIps0NtFw5OVfcIer3WHWkHNM8dz8nb0LXczoGiR2MOG48tFsOOLpFE5V
- FkYIKfBdlvt1jwhy9A0Kf5m2zMWwQeHWydkaKnlXi0rmtp8etzw6yy3sft51RaD5wXG5
- +wVF1syQgXG1Cmz37NmNbs1OV1sQup10gFZkN5LT7Vv8s1pnnRgY2NCQ8Rt6Tmz6dEm+
- dRjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783068629; x=1783673429;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=JIGfUZOnaS68j2TExBUBX6hHqwIcodMVFuEw4DTpCW0=;
- b=AQ9BBaRvxkvNeCEKWmoV4NYHjXYjAx7aA07eEu/QuHufvUY2BgzyBbsmprM7R+EeLM
- 8nqWss7kfK5skibE4cfsyJp48ej07TRjSujJ91AiwmNfgFzBI5wFiu0acHFgrq+mhLta
- BqzM8dsgn973Ls48qjRprvR617Eik3bWvA8MU9IHjQRPyhSXT4Z1N1p1IY3gQXIallJy
- 9OAONq2ofjeJssEjVRztvjRuAn5t4isUHR/Fp4Ho/XspHA8vLxx2pnwV3N/VssMmF1pg
- 7QbD/cCx/kPkC7KmNFyPibofkTdbENv7cpQ3kRb4G0BSbvFiFCz7q8nLVLQQ4XmAGx6W
- APsA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RozPdjCg4XU8LyFhXUH0kDvgy/mIimLZZGNdvClD4LAWFod/9YRk1LgAAIGD+7QMQBmRUBqVLZG4x8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCXRAtZy7cuCsIsCM0l0oQdFUzpP/4GpgAIrrKUVP9TfjTWrjU
- HBfFVE2fixDmpJJBhg9kOp84yeszJBgV/cKsYYoJTIIHUXpD0DAB5ldnMr9Xa5f+F+3pzd8UUq9
- MWbCWkXFDxMFhRJ+ZFXIupVCpafSiL7U=
-X-Gm-Gg: AfdE7clFU0BMWhuqJFoR03sVcOdDXYDaJUF0EjKkFKQRsznGVFSbXg4iU6/NmCYOjZX
- 3v78N1majq+aq+bSEH10XqA//a7bNFKuY2Gig0ojdsANuet/f4UOLgHj6B/DEi+oVAXrWi4MRxL
- hOLYNjyCZwrclE2Lt7EvqbbN7FYeKrU0v8nyK+J2FlLPUbdapQIvAaX63pcdvNRGaiAQd5Kh24o
- N6nbtUePZ65hcxhi24YbwEM0vEYjmDzjQPGCzsnKJmGqBcMRVZTVRdWxf3vwfs9MTrqdYSzvlmr
- KbGrRQ0M3Z18N+HtpmpWptbyRJ6ywg==
-X-Received: by 2002:a17:90b:4ac7:b0:37f:9ce1:cdb2 with SMTP id
- 98e67ed59e1d1-380aa212cd2mr10449000a91.32.1783068628598; Fri, 03 Jul 2026
- 01:50:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260702161828.GB2108533@google.com>
-In-Reply-To: <20260702161828.GB2108533@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 3 Jul 2026 11:50:17 +0300
-X-Gm-Features: AVVi8CfxYzwSfzZ6fk5dLYRyOYewH3BnmAC08YjOJmTVCgpVqq5v1ruOm9aDpBE
-Message-ID: <CAPVz0n1Pozgz8DBt5BrYSktVfE=D5E41oy+fMODGpx-L-qQ3YA@mail.gmail.com>
-Subject: Re: [PATCH v5 00/14] mfd: lm3533: convert to OF bindings,
- improve support
-To: Lee Jones <lee@kernel.org>
-Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0831810E5BE
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:52:17 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gs6vL1VFHz9tZg;
+ Fri,  3 Jul 2026 10:52:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1783068734; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=G46k++2TpMP0L1g6m/LI4FzD9fQHPUr5GJhkRr1ZlLo=;
+ b=EHWdI6O7ybGZ0SgoRhLV/k+40EzIhTO0L97FAK7e4MBO4iK+DTJHk4GQBam/GYWQXBCJ2r
+ vp+ceoR7XyYwT/D8uU1ctRviBmGnhOoSTrVPi6q8WoVtSVDPES/opDT/BWaVfQ9pNLLix2
+ w43sEGOMLq0+30biZJyxwximEb+EPus6poSftFFJPVsXmufOPeamsMwO68dScKfc2F3Gu4
+ z5WuvDVx4ALmu8aGbDBTtqJHUrUeZt5QPmmUpirtoC7orsceCikdCjt2Wm4QsajJr8HTUo
+ ykcgoXXcxu6hpAzhsMG3tS4xxjIXBLuQbjIiYD7ybHd/D4SmgBDE8PPWD29Vdg==
+Message-ID: <4eb23476ff56bee108578adfe131be38e8fc1476.camel@mailbox.org>
+Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
+ improvements
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu
+ <olvaffe@gmail.com>, Danilo Krummrich <dakr@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
+ kernel-dev@igalia.com, Tejun Heo <tj@kernel.org>
+Date: Fri, 03 Jul 2026 10:52:09 +0200
+In-Reply-To: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-META: eg45w7cyicaxu5w993znentrz5oifb5e
+X-MBO-RS-ID: 87edc1ae66317e8fed1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,46 +65,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D1=87=D1=82, 2 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 19:18 Lee J=
-ones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, 17 Jun 2026, Svyatoslav Ryhel wrote:
->
-> > Convert LM3533 to OF bindings, add missing VIN supply, add support for
-> > setting mapping mode and LED sources based on device tree.
-> >
-> > ---
-> > Changes in v2:
-> >
-> > schema
-> > - maximum led sources for leds set to 4
-> > - anyOf > oneOf in ALS
-> > - improved ALS descriptions
-> > - adjusted example
-> > drivers
-> > - dropped devm convertion of irq and mfd helpers
-> > - all als configuration moved into lm3533_als_setup
-> > - added regulator/consumer.h
-> > - lm3533_bl_setup set before sysfs_create_group in backlight
-> > - added check if LVLED is valid
-> > - LM3533_REG_OUTPUT_CONF1 > LM3533_REG_OUTPUT_CONF2 for LVLED4 and LVLE=
-D5
->
-> This set looks good to me now.
->
-> Let me know when you have all of the Acks and I'll merge it via MFD.
->
++Cc Tejun
 
-Hello there!
+On Thu, 2026-07-02 at 15:37 +0100, Tvrtko Ursulin wrote:
+>=20
 
-Jonathan and Daniel added their Reviewed-by for IIO and backlight
-subsystems, so I assume that should be all required.
+[=E2=80=A6]
 
-Best regards,
-Svyatoslav R.
+> DRM scheduler was originally using kthreads but was converted workqueues =
+due
+> desire by xe to create thousands of schedulers. This series also question=
+s
+> whether that was needed, given how the submission is serialized by a devi=
+ce
+> global lock (per GT, so almost device global). Panthor has a similar situ=
+ation;
+> hence the series contains two patches to move those two to a setup which =
+matches
+> the design of those drivers.
+>=20
+> Other drivers, like for example amdgpu, v3d, etnaviv etc, which use the
+> scheduler as a hardware scheduler, where number of instances follow the n=
+umber
+> of hardware blocks instead the number of userspace contexts, are complete=
+ly
+> fine.
+>=20
+> There are use cases however which do currently track the number of usersp=
+ace
+> contexts and which do allow for more parallelism. For those a straight
+> kthread_work conversion would be a problem due an explosion in number of
+> threads.
+>=20
+> The most direct example is panthor VM bind queue which creates a schedule=
+r per
+> userspace context and relies on work queue concurrency management to keep=
+ the
+> number of threads in check.
+>=20
+> This creates a challenge for the kthread_work conversion. To solve which =
+I for
+> now opted to create a trivial round-robin thread pool. For the RFC this i=
+s
+> limited to four CPU threads and is something which will need to be discus=
+sed.
+> Ie. how much parallelsim those really need. The true answer is somewhere =
+between
+> "at most the number of active userspace contexts and the number of CPU co=
+res".
+> Or it could be less than that, since after all, VM BIND parallelism is
+> eventually going to choke on a narrower gate of actual GPU execution. We =
+could
+> also allow drivers to pick their number.
 
-> --
-> Lee Jones
+Anyone remember whether that was discussed back in the day of
+converting to workqueue?
+
+What makes this idea suspicious in my mind is that the workqueue
+implementation exists to solve precisely this issue: decide how many
+kthreads really need to be spawned. AFAIK it can spawn additional
+threads dynamically if necessary.
+
+So the first question I would like to see considered is whether
+workqueue could be improved in any way to address said latency issues.
+
+Have you already considered that, Tvrtko?
+
+IOW, is it the nature of workqueue or our way of using them in
+drm_sched which causes this performance difference in the submit path?
+
+It would seem that it's the desire for more fine-grained scheduling
+characteristic control that you get with a kthread.
+
+>=20
+>=20
+>=20
+
+[=E2=80=A6]
+
+> Tvrtko Ursulin (8):
+> =C2=A0 drm/panthor: Remove redundant drm_sched_job_cleanup() from the
+> =C2=A0=C2=A0=C2=A0 .free_job callback
+> =C2=A0 drm/panthor: Use separate workqueue for DRM scheduler
+> =C2=A0 drm/sched: Use generic naming for workqueue helpers
+
+This should be a separate patch :)
+
+
+P.
