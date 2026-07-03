@@ -4,109 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91E95C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:26:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA29FC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:26:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F11AD10E32E;
-	Fri,  3 Jul 2026 08:26:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE5F10E59B;
+	Fri,  3 Jul 2026 08:26:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HEtRfmY6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DoWf2q64";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62FE510E32E
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:26:15 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so1648935e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 01:26:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1783067174; x=1783671974; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=ozhT+T+6mPThDET/tB9Bap8ag26J+JkCJ+PqMgxJIbg=;
- b=HEtRfmY67bQja1GtUYV/Deycr5T7wcwp1IbKwK0SiWnMxI97Qx+TSIiCkGOl/EFZhh
- fZNGUzfnBgBBtzgsXyG1RnTXoPQAOp8HI1vWhhnXm5G+dd15DGOVVt/mZkzPjVafim4y
- bpfplt1Y098MNUJRZmjaoPkMpt4uF4l+f5G2nfA7AixqeBBB9XdaIIKH3FQJ9v7tzqUo
- UwFBYFUKCn8IGzVhrAyZgebLt2ugd3c8fM1BbKJl1YrC6Dkn6DEClEhCD5UYVHk2jF26
- EcnSVb2BFK/5YpDm/Diw9VjqebW3m0NzTlBu0Z0JfF3vrPkV2QMtqMBiD+7HY0uYPzg5
- gTCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783067174; x=1783671974;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ozhT+T+6mPThDET/tB9Bap8ag26J+JkCJ+PqMgxJIbg=;
- b=bUB4CMpcCHtiFq6I78kLgqTVRHQEi0zN+WynWSawBdDQy2S3UNEpap1GeUDyl7eaSu
- 85tnA/KKeqvqLtIrgPoU9OnPvTIQFgwxp7VGYR/slXF9TkkBk3g/MMTTh41o4c+H0yQV
- 3dWw/OE39GfezTXSZD9stfUmv8VIM535wPIAZlTrBYHo8+Lp2Xgsq3Pxmq2YbhrAuSNG
- o0nGfNypgIF06sLB8+Fum3saklaprg0uys88esllctMlG4mGEqCMHXu0SVgvoXkKg5jk
- stNUCCuhzrr9nphXheuI/MPJLEGmUcuPE2k7KlAYfB88Aj06fhxmcwp2A5IoSLSNXJEi
- BMbQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8WbVXgGeqqLHU207j62+u63O3v0TulIUH7VJTLSsosTWLJ12xbP8VH6j8uTgYyCnbXAlkktYZSzOM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykI+yUazMNItnJfukneL0VOJdel+mPButb0hphWQLCsGJrLIjS
- /gMEfHuxYYQgtSvl+Kh/M5vyri8JSKGjT/sA3d6FKPDm759i75G4PRiMNhzr3LCnsZM=
-X-Gm-Gg: AfdE7cnbCOnPOQa5AJEa2oxY1OTIw5fdyO0yNz9A6cR5HGxB/WT38PrWQgDPDe/+3Z+
- QE2erwsfFjFa2JR89OwklajKmfi82CwaV3La784Vzt11V72wvPhg7BjcPDugyD2QPS+H7vZhvA8
- znTLxDah+vsd35BMvsGDp8jqgGkNUQ+VO17p2FLhBYNe9AKyvMmIylA7ms03MIpccC9KoLN+eW6
- HoUkXj2qoyr2iYUJNsTEW2Lg+rU6xlOPk/WBlwvStdjhFtqVpd8/tx4a3v1Ark7JkGb55czbtvk
- mXd+SnMJpdrxUposLbksZIILAaINonfokUOXO9MPTnV81sAQQ32L7JYMPEeTiYxrBz9h+d7kAts
- huIy7HWkQBn/Dc/L6Jkvrv36SPOlLBXJUtrd5ynkrBtkWf2EfLROAPDLm0RPvw8PDz/4o7IyDMS
- yMVgcD8I2sprDMaT83vIdkL09BCEXNsREW54GallbEZgMFiQdHVxQ+KiMnY/SDddk5kMFO
-X-Received: by 2002:a05:600d:640e:10b0:493:c98f:12e3 with SMTP id
- 5b1f17b1804b1-493c98f1311mr37881305e9.20.1783067173384; 
- Fri, 03 Jul 2026 01:26:13 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:e9e1:7bf9:472f:c4d8?
- ([2a01:e0a:106d:1080:e9e1:7bf9:472f:c4d8])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db3dbc75sm16877978f8f.5.2026.07.03.01.26.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Jul 2026 01:26:12 -0700 (PDT)
-Message-ID: <e6c7a531-f6be-4ec9-91fe-59391cc34762@linaro.org>
-Date: Fri, 3 Jul 2026 10:26:10 +0200
-MIME-Version: 1.0
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEBF110E59B
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:26:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PIfvRs2kbNI7XplTZEvkYhrvNBIHAAEwZee4C970OiyBoXzRibZHHffAlBHiu0rjnPFK73W2ROP/n6Cf/w9uj25H+9jFC1WDMQ1iQIGbZQ8mMEhZ62/tObYccgXk958+oqq2QtSEcjzlyKheLeBpY0Z2R51+tcQMzJgOOPYFEgUf1XnZfUfJhtLtiWlnbElOC4g+Y09VbLaO8sw6QRpiOQSJ+sxGKivwX9wNp9VObSvNBHVSbOeoPaRU/1qv/Uutu7sIpTC5HdIAK2+yzWIV71/rcz1gq/hK46kqOESi6N8kW7l+NLHpMuzbps+eYJewTKVyJK2Y6BEVb0CjcygOoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zsbTAma5wnmnKIF3LWtDilAPLqboMjU1zIfjk64iKck=;
+ b=lnFtF3zGp67ocO7NiYlT3/X6tp3Q74jpl7ZuN/uiYg670wIqtlI9fgM1W4dRtjv5UVME+1BAMyQmLmVzia5re4QgZCxGFg07nsdvQ8+ktBp6iLr7pyfOmxG2Ys0YhdPbE9zN+gSDMWWpf9arj5JjMUBRgdr5pTFSItIQbwnYouCTqQPV8bnnqhusB5H1YRZlAsvGDMCsP6Bq/QdSnDPr/fo18MWqHxz7Fizl1DAPz5lk5eg2yQyuhFdWcHZvrZh2Sy4rWQ/6Qqz0elXk8nkhoAi0LHrzaaTrKQ0cLvJYO+UP3vwofCCorGwMIW07+LIB5MiNor/dLG7kxZoFaavHRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zsbTAma5wnmnKIF3LWtDilAPLqboMjU1zIfjk64iKck=;
+ b=DoWf2q64tHHlIb50PQTIq5EiRDmhNgrB+7j9JIlWY6NtzGEcUVgxnCY3GdvDAzxjci9/XJNZHcOldD6+c6qNg8qtoXaMtE9d85O+uiwJxMpaw7SR2qeInzcHWYkYnAgNpIMePF0zQ29p3oTpmcYGik0xj5ikE4tLuYklqzEapSc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MN0PR12MB5954.namprd12.prod.outlook.com (2603:10b6:208:37d::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
+ 2026 08:26:34 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
+ 08:26:34 +0000
+Message-ID: <175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com>
+Date: Fri, 3 Jul 2026 10:26:29 +0200
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] drm/panel: samsung-s6d16d0: Power off on prepare failure
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: inus Walleij <linusw@kernel.org>, dri-devel@lists.freedesktop.org,
- inux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <CAMyXUJmSvWv0WoBqvBScEXHnz70Nn_WUcu371s64j6HrB-6c9A@mail.gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <CAMyXUJmSvWv0WoBqvBScEXHnz70Nn_WUcu371s64j6HrB-6c9A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] dma-buf: dma-heap: close installed fd when copy_to_user()
+ fails
+To: Baineng Shou <shoubaineng@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>, Sandeep Patil <sspatil@android.com>,
+ "Andrew F. Davis" <afd@ti.com>
+Cc: stable@vger.kernel.org,
+ "open list:DMA-BUF HEAPS FRAMEWORK" <linux-media@vger.kernel.org>,
+ "open list:DMA-BUF HEAPS FRAMEWORK" <dri-devel@lists.freedesktop.org>,
+ "moderated list:DMA-BUF HEAPS FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260703080922.1838362-1-shoubaineng@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260703080922.1838362-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0037.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c7::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB5954:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4cd89407-6482-4272-4b1b-08ded8dccb18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|7416014|376014|1800799024|22082099003|18002099003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: d4FAhzzMWb2D70cslM1MBUkvwiaS/kktfKx20IOBEX2fClBdniUgxolcvjsL2WJaJzC48nW67FK2EoiASsnWTi4d8DChkxTL3KGLhI1IH1F3uCI4WpZ8ED+0o1lu/w47YLb6MExLLpqY2odDcqtN5ttj0OGZ04/k+oM0lhq7LXWPsMITZRtOGyjAdpUkBzdSabxuVTu09T25glVBLx8D9G+w1tVm8dxqo83nTfd2qtASo6PqcUg+2Wr6sc7Of8ojpHhNEoGZ699wQuMf1fdFRst8SVfX617WBodl09mkpI38XIc9aSAIMSZOjaWRYETYr276+Pgile+7gP9dJ1KkFObS47Cq8OO0R4O83yI5RoqyCuCBHbhddo1UXudkIjuY10uSo/WQc3HU7ys+o5f6tI4n5H7olfZeBbQCpw2vUeIVetnU759XiQ46m4WLoaQoV34VaX0K6lcdnZBd5F+bHw9Ggy/7Zu1P8F+AljNVO6rwph56IahG6La/BXbIwMTAenp97sXaNF0rsmT7dtfsjYMVXseDielwbPqvFLMfEtl838AQAvgxspeFgtcnc0ssI3kObP4WdhkC+yz0HTFYyRFsMPG3cHoaDT/jn36HmHKtkXqvQc/CemZT8g1ELYB0xNROZRpszgwiGtQtqjbbXMmFnOAH+cpG3XG9HBd/E5Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWFWaEhORlovN1NXQnR2cGt1RTRmeHRDbGJmdjRkNWwrWTY3bHhSRnIwRmZL?=
+ =?utf-8?B?aEh1azJLS0tSelZJbTB0MElWMmlUZlZnYXFvZmdTUWxic3RGSXpiV0FOcU96?=
+ =?utf-8?B?UDFRUjdqaUREcmlOenpTdkZUQS9rSFFWRUJyMWtWcXFzNVJtTHJxWHB0Q0k2?=
+ =?utf-8?B?ckExTTJrV2I2U0Y1eHdrU3ptNmkyMENuSVEwNHlKREFIVSt3VjFJOWg4R3hi?=
+ =?utf-8?B?TlM0VmtNSUpGaVZ4UHhqVXNTSGJSd0Q3eFExMm1xMGdJUGZoOTZlWkVZZGdr?=
+ =?utf-8?B?YlR3NVE2MmdZT0tVSlVZcVdGSHFPMm81VmU5N3FrMTdkSzJ1cXA0ZnV5NGE3?=
+ =?utf-8?B?c3lJU1JLRVRRVDY3VXo3TDdzczJCRjk2dnhxYzIrQm8vTjdiNWZFMmF3MXBU?=
+ =?utf-8?B?TnZOOFlyN2RiL0t0UGlwSzZWSmw0cFFGbFRVY3ppWG1kbnRiT0xCUUlPODk3?=
+ =?utf-8?B?L0lDZE5oMHdlOXI2V0lvQUh2UldlUzJvVFY4RjZ0TU8yTEE2QXhEOWNDYzBM?=
+ =?utf-8?B?bVdJZ1NZZTF6VTVFbGZXNUMzWE14aGF4UGl6dnZPNUJiNFovZzlaaXJaRGRO?=
+ =?utf-8?B?dmp5Y2MzRGo4QmMrRXc3MnRkOTRXak5SQVZNUDZlV2FZNHN3R1FlbmV2dm1M?=
+ =?utf-8?B?WWFNNFdTYnQrMk5BbmtoVC9uTU5CcTN5QXlZNEgwQVRWeDJuTk9aY1I3cHZV?=
+ =?utf-8?B?UTRQSFk3RGQ1K0hmSm1POVFHVUJuTGRKdzJZRHlPVkdTK0h5SXprOGhCNU9s?=
+ =?utf-8?B?NFZ0WCtkQWQvZ042ek5qVzdQTEM2RTFMdkZscEEra0tienBmb2FHU2tsc2J6?=
+ =?utf-8?B?NFBFV3R4WDBFcUZQcC84WnczQTNjazRrMG9pNWFCTkhJUis1QXUvRXZnd1lz?=
+ =?utf-8?B?cXlCQmNzSFZ0Mk45Z2J3ZzF5MTd2Q3p4TURZZ3JSQUJ5VmhLL2Q0MUowRjQ1?=
+ =?utf-8?B?djBXU21CVDJMdWtOMnZncUJ4VFN3cU1SbFlNdTlPYXlWWlVXSk9hcVdBSGJs?=
+ =?utf-8?B?aEJtVkx6Q3kvSzBKZ2ZtQUJMaGFSYXVzdDZJWXQwWFM2Y2JWbFNMeTZJL2dz?=
+ =?utf-8?B?R1dGdG1rUW9FMDJnVG13bVdWeUFxN05iUzV0dXI3bW1LTm9XT1pCUHhKb0V0?=
+ =?utf-8?B?M0k5VWVYclNsczNsQkMwYTZ0eHhTZ3pHTmd0RmsvV0J3QkoxZVBPVTVFc0pW?=
+ =?utf-8?B?d3FJbXp6N0ZVNVY4cnpRRDhkT0IzN1ZxaWtqSkc0Q0xNaTVlUW5BUWRFa0l4?=
+ =?utf-8?B?VzhMQ3o4RHFXYlp5MXU1M3R6VUZyQjZxUkQzQlEvRFluNGxnbGhvUlVueVcr?=
+ =?utf-8?B?WkpHMkw4SExSeFFJQ1pkNUtwUUpkNGxMZGdFRzhoTC8yU2pCREhiSEI5UVhH?=
+ =?utf-8?B?UjExZEF3NVg1OEF6Z0NyRXRFeDdqYmd1Z29yN3p2SDQwd1NUSGZvb1Z0Zkty?=
+ =?utf-8?B?MzNRRjZMQTZYVDFhOUc4QkxBK3ljZkFZUVArdVFSZllMancxeVNWTlhtMFcx?=
+ =?utf-8?B?MTU2OHNEVFhyVEJGZnZIVmVaUmNYSkVOY0JuSnBLcUo2a0g0SnFMSkJZcW9B?=
+ =?utf-8?B?ZmMrblJPSFdlWlZBNHliSzY3d0xucWxpY1k4a3ljVXBObXZMZ2tSOFI0YWpL?=
+ =?utf-8?B?RHJRQlZhYkN0VjE4TzlGaWRuYWlOVVpJSFJ5aGhITWdNZFhyT2JIc1pvcmdW?=
+ =?utf-8?B?S01SeU5hVzluSm5NbUJZUHNzMXF4bkI5ZnJlZnFPVEQ0UWFVZU8veUVVbHpi?=
+ =?utf-8?B?YmxyUE8yQUVGNndXdCtsejlVSzBER1l0MDRSUkdOUEpDdDBObkRrU25HcVhy?=
+ =?utf-8?B?QmpuaEJtUXdQdVlVUjRxZVpQbXI3NjZvS210Q0ZVa1p5aTJ3eXdSYXZzSnBk?=
+ =?utf-8?B?cTJNUHJiMDF2Z3ZrZVZTKzNubHRmZnoyUmFoZHNSU0swMDByZXo1ZWE5S0o5?=
+ =?utf-8?B?RmRaaElNTktyeHpNUmlPZlpycllCVjNYd3lCclJXS1g3TWhORWRURWdMeWFX?=
+ =?utf-8?B?QnN3T3crZDhuRG9LLzY3dm1SODRBeG85bGZuWjIwdk5IcUlkbU1sUWdVNEt2?=
+ =?utf-8?B?UElscGpYaEt6RHl6cW9sTm9IN1ByTjlpQTVuSzNEYUkwSUg3bVVlYksvNzhJ?=
+ =?utf-8?B?dXhlNGhkVkl4YUVVVG1nQVJoYmtvaFZoNklqRUt4aGZBY05JNFRMT3EwY3JY?=
+ =?utf-8?B?TWZoRWRMMEtVbjUvcjZJb2Y3UGxxSE9ZU2N4M0RFT0ZydzAzWE9MMWNtaGpY?=
+ =?utf-8?B?NlF2UUZ6M2g5QUVBampqclZjL2p4N1didmc0eEh0S1lOb0wyVjFuR3JORStx?=
+ =?utf-8?Q?v0RA9gsIlRUtq/WElF?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4cd89407-6482-4272-4b1b-08ded8dccb18
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 08:26:34.6712 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5KO4btgzrW7cSZrWQ6KhPblCcfoHPc6M5knD6hhvXcssfjHQy3QBt0cJwCwWNjbN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5954
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,62 +141,146 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/2/26 18:47, Laxman Acharya Padhya wrote:
-> If enabling tearing mode or exiting sleep mode fails after the
-> regulator is enabled, s6d16d0_prepare() returns without asserting
-> reset or disabling the supply. Since the DRM panel core leaves the
-> panel unprepared, a later unprepare call skips the driver callback
-> and the supply remains enabled.
+On 7/3/26 10:09, Baineng Shou wrote:
+> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
+> caller's fd table via fd_install() before dma_heap_ioctl() copies the
+> result back to userspace. If the trailing copy_to_user() fails, the
+> ioctl returns -EFAULT and userspace never learns the fd number, but
+> the fd (and the underlying dma-buf reference) remain in the caller's
+> fd table and are leaked for the lifetime of the process.
+
+This came up many many times before and is the completely wrong approach to handle that.
+
+Background is that this opens up a race window between install_fd() and close_fd() which is much more worse than the original issue and can be abused for a couple of different things.
+
+If I'm not completely mistaken we now have automated checkers in place which find such use case in the upstream kernel and complain about it.
+
+IIRC the correct approach is to call get_unused_fd_flags() to get an fd, do your things, copy it to user space etc... and then finally do the fd_install(fd, dmabuf->file) when nothing can go wrong any more.
+
+If an error happens use put_unused_fd() to clean up.
+
+Regards,
+Christian.
+
 > 
-> Assert reset and disable the supply before returning the DSI command error.
+> The failure is easily reachable from userspace: pass a struct
+> dma_heap_allocation_data that lives in a page whose protection is
+> flipped to PROT_READ between copy_from_user() and copy_to_user()
+> (e.g. via mprotect()). Each such ioctl leaks one dmabuf fd; repeating
+> the call quickly fills /proc/<pid>/fd with anonymous "/dmabuf:"
+> entries that only go away when the process exits.
 > 
-> Fixes: ac1d6d74884e ("drm/panel: Add driver for Samsung S6D16D0 panel")
-> Assisted-by: Codex:gpt-5
-> Signed-off-by:acharyalaxman8848@gmail.com <mailto:Signed-off-by%3Aacharyalaxman8848@gmail.com>
+> Fix it by closing the installed fd (and clearing the fd field of the
+> kernel-side copy) when copy_to_user() fails after a successful
+> allocation, so the error path matches what userspace observes: no fd
+> was returned, therefore no fd is left behind.
+> 
+> Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 > ---
->   drivers/gpu/drm/panel/panel-samsung-s6d16d0.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-> index ba1a02000..04e19b5f2 100644
-> --- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
-> @@ -89,16 +89,22 @@ static int s6d16d0_prepare(struct drm_panel *panel)
->          MIPI_DSI_DCS_TEAR_MODE_VBLANK);
->    if (ret) {
->    dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
-> - return ret;
-> + goto err_power_off;
->    }
->    /* Exit sleep mode and power on */
->    ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
->    if (ret) {
->    dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
-> - return ret;
-> + goto err_power_off;
->    }
+> Reproducer (full source, gcc -o poc poc.c; run as root):
 > 
->    return 0;
+>     // poc.c -- leak one dma-buf fd per DMA_HEAP_IOCTL_ALLOC
+>     //          when copy_to_user() fails
+>     #include <fcntl.h>
+>     #include <stdio.h>
+>     #include <stdlib.h>
+>     #include <string.h>
+>     #include <unistd.h>
+>     #include <sys/ioctl.h>
+>     #include <sys/mman.h>
+>     #include <linux/dma-heap.h>
+> 
+>     int main(int argc, char **argv)
+>     {
+>         int n = argc > 1 ? atoi(argv[1]) : 100;
+>         long ps = sysconf(_SC_PAGESIZE);
+> 
+>         int heap = open("/dev/dma_heap/system", O_RDWR | O_CLOEXEC);
+>         if (heap < 0)
+>             return perror("open"), 1;
+> 
+>         for (int i = 0; i < n; i++) {
+>             /* Put a valid request in a page, then make the page
+>              * read-only: copy_from_user() still succeeds and the
+>              * dma-buf is allocated and fd_install()'d, but the
+>              * trailing copy_to_user() fails and the fd, never
+>              * returned to us, is leaked.
+>              */
+>             struct dma_heap_allocation_data *req =
+>                 mmap(NULL, ps, PROT_READ | PROT_WRITE,
+>                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> 
+>             memset(req, 0, sizeof(*req));
+>             req->len = ps;
+>             req->fd_flags = O_RDWR | O_CLOEXEC;
+> 
+>             mprotect(req, ps, PROT_READ);
+>             ioctl(heap, DMA_HEAP_IOCTL_ALLOC, req);  /* -EFAULT */
+>             munmap(req, ps);
+>         }
+> 
+>         printf("done: check ls -l /proc/%d/fd for %d leaked fds\n",
+>                getpid(), n);
+>         pause();
+>         return 0;
+>     }
+> 
+> Before the fix, ./poc 10 leaves 10 anonymous dmabuf fds in the
+> caller's fd table:
+> 
+>     # ls -l /proc/$(pgrep poc)/fd
+>     lrwx------ 1 root root 64 Jan  1 00:03 3 -> /dev/dma_heap/system
+>     lrwx------ 1 root root 64 Jan  1 00:03 4 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 5 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 6 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 7 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 8 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 9 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 10 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 11 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 12 -> /dmabuf:
+>     lrwx------ 1 root root 64 Jan  1 00:03 13 -> /dmabuf:
+> 
+> After the fix, only /dev/dma_heap/system remains open; the
+> anonymous "/dmabuf:" entries are gone.
+> 
+>  drivers/dma-buf/dma-heap.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+> index a76bf3f8b071..0dd7a84b06bf 100644
+> --- a/drivers/dma-buf/dma-heap.c
+> +++ b/drivers/dma-buf/dma-heap.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/uaccess.h>
+>  #include <linux/xarray.h>
+>  #include <uapi/linux/dma-heap.h>
+> +#include <linux/fdtable.h>
+>  
+>  #define DEVNAME "dma_heap"
+>  
+> @@ -181,8 +182,16 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
+>  		goto err;
+>  	}
+>  
+> -	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+> +	if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
+> +		if (kcmd == DMA_HEAP_IOCTL_ALLOC && ret == 0) {
+> +			struct dma_heap_allocation_data *h = (void *)kdata;
 > +
-> +err_power_off:
-> + gpiod_set_value_cansleep(s6->reset_gpio, 1);
-> + regulator_disable(s6->supply);
+> +			close_fd(h->fd);
+> +			h->fd = -1;
+> +		}
+>  		ret = -EFAULT;
+> +	}
 > +
-> + return ret;
->   }
-> 
->   static int s6d16d0_enable(struct drm_panel *panel)
-> -- 
-> 2.51.2
-> 
+>  err:
+>  	if (kdata != stack_kdata)
+>  		kfree(kdata);
 
-Please send the patch in plain text only.
-
-use proper tools like git-send-email or b4 to send the patch
-
-Thanks,
-Neil
