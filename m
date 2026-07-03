@@ -4,57 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B69C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 00:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F38F3C43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 00:35:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C54FD10E05D;
-	Fri,  3 Jul 2026 00:09:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA8210E558;
+	Fri,  3 Jul 2026 00:35:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="XlW4menU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nOtprTXW";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F78510E05D
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 00:09:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783037355; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Mr/FbwXnfg+YWqlfi3uJDECfJxRoLnMauBpHUCmEABn/f9+Wv7eDP+sBQenR4DMQIojpVbAH2GFX1U2JayPkp+QuBOJ/M4uPRnXchBSzWwQCzyVcTAG0vXSN1n2d9Yw/3lQBzb7N3hfsjJ7FNWn2Ob3Bh+aWcylPKbhGueTdwMY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783037355;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wVwlz7KY4OjwKxXVf+jclndJnHMIuujVv9yJeczv1/Y=; 
- b=OvNsPWzlQ/2w30bBYCyp2ETR23Qj7xsaBaMGvmpdFrlCSkbFMoHYtDcqnP5hCzXKHjhXKWyNKXWcyZOTsiZFD4MaBpIrxeoA4QW6GJeXEk4Hsd15if/AhWfLyIXckl9sP8SJuiS4/vVOZTNjOcWN1mPSSNja0EBqyr8eGgjsWoE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783037355; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=wVwlz7KY4OjwKxXVf+jclndJnHMIuujVv9yJeczv1/Y=;
- b=XlW4menUhVcCijMsn/8NtaOrAUR0LeftsuVNWdOcr2ycbEunCaaD7/59037HbLPK
- L6oiTtwqqivp9igqDZ3n2ZvoYQ15BXRUz20OG+Sne5Gbd45B+ivjRg3ua/gdfkG9vk+
- 4AfD4DsSgov5QJYL5JPycJWJUUD6UNtPoyqy4m6U=
-Received: by mx.zohomail.com with SMTPS id 1783037354883620.9266575194131;
- Thu, 2 Jul 2026 17:09:14 -0700 (PDT)
-Date: Thu, 2 Jul 2026 17:09:14 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: aliceryhl@google.com, daniel.almeida@collabora.com, acourbot@nvidia.com,
- ecourtney@nvidia.com, ojeda@kernel.org, boqun@kernel.org,
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
- a.hindborg@kernel.org, tmgross@umich.edu,
- boris.brezillon@collabora.com, lyude@redhat.com,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
-Message-ID: <akb9qlNBlslAQSK1@um790>
-References: <20260628145406.2107056-1-dakr@kernel.org>
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8690510E558
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 00:35:36 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-92e501244f5so1026385a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 17:35:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783038935; x=1783643735; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=IhuPZo9By9WeOKbnJZiXCMtpI4vqAR0qLJD+1E3bLpo=;
+ b=nOtprTXW4ewmf0vYJ6/cSZ9NoAr/FadyUwMmNvzf4pfshiM61P6ZCfl1lk8jeZXvnn
+ 71Jl65vjgSVdND+TNQsJ4Ftnv9HXWgLffbK4IXykUuFn/2uzDrZWjgCQPcBdDRstNPNY
+ 3IYVSRQltMp4/Kuyu5vFfMtLz2f7NUsveyS6sjB4PlVoFf9DgufKxR2UFRq0j6HjqO7i
+ MeMlBfSg3Bi8AJR0TWXqyewuZSi3IEGJkUDeNt/sIpj2sZrKOs/jF95ib9PQCF29l4zD
+ wQr1EcfAAkZU6EKOzGyeuSSTF1JdbBXCvZRVtEX+aTuA4ih8+zxo83eit62P9cn9lyvd
+ tQsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783038935; x=1783643735;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IhuPZo9By9WeOKbnJZiXCMtpI4vqAR0qLJD+1E3bLpo=;
+ b=K+hWyaa90CKg7iCyelTr192469R93FB+fSQ250PZzjdxF5sIq1WYplEXAMkzbzsrrx
+ y/Wa3St4K/l4A7bd4k7pLa6EhoWpzRsWvw2+U/M4vcZFHMxCJOSYrlFW2NskEK0yOT33
+ Z/Ix05Ci9bEYGR/dSMVQTr04Xd9c6Q//lsFtVJsqK9oobhyGrTR+VJDz1q09YV5qgNR6
+ Kp2yUqgHoOJo8O3Cgwp0salAPUA86dPtKJhFd+uuRs4p0UTn+bQWmZhK7b3ot0yuKslG
+ Ti0QShle6MqaZC+C+rbUxQUY4FnlMyItU/aNDM76Pb/p9bxI4605xH8pqRDFnjd+V3KA
+ 6Yiw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9mHn6Uuwxrew0jNyp5AbwEs3Sarz6oDv+0UsDg9ChteytDPIgmm4Hrz/u6wBaiH8GMYy6LJej0yFE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwQrXgFjEpBlCT+ZQ82brIVp7YqQt3xjEmNfnJLlxtmS0Ubu290
+ IV18InEkwj6YtSMiHira6FvmXQwmO69NxFFV8je5W8xLpNmoh5L15iYZ
+X-Gm-Gg: AfdE7cl3bEO0swl2hEDJBIBFWF97s7cfh0AwuQ8Rwj+XtTpJIRpoKb01UKa0d3L32IZ
+ Su5lGegjkAbpeSVTnhlnc/pQHIVOWnsZQiFQbdv7ElfakDef5vNjJwwzZUeGVKVf20rimAlm2jB
+ i4AlRic9Gpf6I4ycTIzgfCDcOZxnb0g8+KGy48v1l3b0KTrTjDeK0Mvbcr8NyA2UoRDAA0rvUSi
+ rzn+B7jGsIERZ+fhjgT859ycKX9U/6ibMQ/IJbhZbrnlHor/7EIz/nU6gRBPYi+1Y+5Vp+3tHV8
+ XzLRAmepAapirWK2/SX7OIWL+W5beO/p2gSjbJfC02UEroT2gmDSWA4+FS7MngHuWNdZ3NDpRgD
+ BwK41Scr/7WObQeEJurT41YPOjh9VkEJJHQxiJ7t8lif+Vas9ocQ8llB6zKR1iFmEeKuH8cBEqQ
+ JFtQ+pw4Q9B+r1xXaHqQ==
+X-Received: by 2002:a05:620a:269b:b0:92e:675e:8ef0 with SMTP id
+ af79cd13be357-92e7b473cfbmr986657085a.68.1783038935434; 
+ Thu, 02 Jul 2026 17:35:35 -0700 (PDT)
+Received: from [192.168.1.100] ([32.220.73.95])
+ by smtp.googlemail.com with ESMTPSA id
+ af79cd13be357-92e9095e780sm23952485a.0.2026.07.02.17.35.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jul 2026 17:35:34 -0700 (PDT)
+Message-ID: <edcfd337-2cba-49da-a77e-3a2f8aa67e4c@gmail.com>
+Date: Thu, 2 Jul 2026 20:35:33 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
+ cannot be honoured
+To: Matthew Auld <matthew.auld@intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, stable@vger.kernel.org
+References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
+ <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
+Content-Language: en-US
+From: John Olender <john.olender@gmail.com>
+In-Reply-To: <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,140 +98,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 28, 2026 at 04:53:20PM +0200, Danilo Krummrich wrote:
-> DRM ioctls run in process context without any guarantee that the parent
-> bus device is still bound. This series solves the problem by introducing
-> RegistrationGuard -- a guard representing a drm_dev_enter/exit SRCU
-> critical section that proves the parent bus device is bound for the
-> lifetime of the guard.
+On 7/2/26 6:48 AM, Matthew Auld wrote:
+> On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
+>> The try_harder contiguous fallback could return a range whose start
+>> offset did not match the caller's min_block_size. When a candidate's
+>> start is misaligned, realign it: free the misaligned run and reallocate
+>> exactly @size at the next lower min_block_size boundary. This keeps the
+>> returned size unchanged with no surplus to trim, and rejects the request
+>> only when no aligned candidate fits.
+>>
+>> v2: align misaligned candidates down to min_block_size instead of
+>>      bailing out, for both the RHS and LHS paths (Matthew).
+>>
+>> Suggested-by: Christian König <christian.koenig@amd.com>
+>> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+>> Cc: Matthew Auld <matthew.auld@intel.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Timur Kristóf <timur.kristof@gmail.com>
+>> Cc: John Olender <john.olender@gmail.com>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 > 
-> As initial plumbing for this, the DRM DeviceContext typestates are
-> reworked: Uninit is renamed to Normal, defaults are adjusted,
-> AlwaysRefCounted is restricted to Normal, and a Deref chain from
-> Device<T, Registered> to Device<T, Normal> is established. This gives
-> Device<T, Registered> the semantic that the device is currently
-> registered and the parent bus device is bound, which makes the
-> RegistrationGuard and ioctl dispatch much cleaner. An Ioctl context
-> restricts registration_guard() to ioctl dispatch, where the DRM core
-> guarantees prior registration.
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 > 
-> On top of that, add RegistrationData as a GAT (Generic Associated Type)
-> on drm::Driver, allowing drivers to store data whose lifetime is tied to
-> the parent bus device binding scope. The data is allocated in
-> Registration::new(), lifetime-erased to 'static for storage, and made
-> accessible through Device<T, Registered>::registration_data_with(). The
-> closure's HRTB ties the lifetime to the closure scope; internally the
-> 'static pointer is cast back to the closure-scoped lifetime. The
-> reference is valid for the duration of the drm_dev_enter/exit critical
-> section held by RegistrationGuard.
-> 
-> Also update the ioctl dispatch macro to wrap every handler in a
-> RegistrationGuard, returning ENODEV if the device has been unplugged,
-> and pass the registration data to handlers.
-> 
-> A branch with all patches can be found in [1].
-> 
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm-lifetime
 
-Thanks Danilo, I tested this whole series with Tyr today and it is
-working for me without any issues. It's included in latest branch
-https://gitlab.freedesktop.org/panfrost/linux/-/commits/tyr-for-upstream
+I haven't hit any issues with this revision during testing.
 
-Tested-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Thanks,
+John
 
+>> ---
+>>   drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
+>>   1 file changed, 44 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>> index dc81fe0301ce..3c73ae87f3c5 100644
+>> --- a/drivers/gpu/buddy.c
+>> +++ b/drivers/gpu/buddy.c
+>> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+>>                    blocks, total_allocated_on_err);
+>>   }
+>>   +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
+>> +                    u64 unaligned_offset,
+>> +                    u64 size,
+>> +                    u64 min_block_size,
+>> +                    struct list_head *blocks)
+>> +{
+>> +    u64 aligned_offset = round_down(unaligned_offset, min_block_size);
+>> +
+>> +    return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
+>> +}
+>> +
+>>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>>                        u64 size,
+>>                        u64 min_block_size,
+>>                        struct list_head *blocks)
+>>   {
+>> -    u64 rhs_offset, lhs_offset, lhs_size, filled;
+>> +    u64 rhs_offset, lhs_offset, filled;
+>>       struct gpu_buddy_block *block;
+>>       unsigned int tree, order;
+>> -    LIST_HEAD(blocks_lhs);
+>> -    unsigned long pages;
+>>       u64 modify_size;
+>>       int err;
+>>         modify_size = rounddown_pow_of_two(size);
+>> -    pages = modify_size >> ilog2(mm->chunk_size);
+>> -    order = fls(pages) - 1;
+>> +    order = ilog2(modify_size) - ilog2(mm->chunk_size);
+>>       if (order == 0)
+>>           return -ENOSPC;
+>>   @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>>           while (iter) {
+>>               block = rbtree_get_free_block(iter);
+>>   -            /* Allocate blocks traversing RHS */
+>>               rhs_offset = gpu_buddy_block_offset(block);
+>> +
+>> +            /* Allocate blocks traversing RHS */
+>>               err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>>                                  &filled, blocks);
+>> -            if (!err || err != -ENOSPC)
+>> +            if (err && err != -ENOSPC)
+>>                   return err;
+>> +            if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+>> +                return 0;
+>> +            if (!err) {
+>> +                /* Allocate the unaligned RHS offset using round_down */
+>> +                gpu_buddy_free_list_internal(mm, blocks);
+>> +                err = __alloc_contig_aligned_retry(mm, rhs_offset,
+>> +                                   size,
+>> +                                   min_block_size,
+>> +                                   blocks);
+>> +                if (!err)
+>> +                    return 0;
+>> +                if (err != -ENOSPC) {
+>> +                    gpu_buddy_free_list_internal(mm, blocks);
+>> +                    return err;
+>> +                }
+>> +                goto next;
+>> +            }
+>>   -            lhs_size = max((size - filled), min_block_size);
+>> -            if (!IS_ALIGNED(lhs_size, min_block_size))
+>> -                lhs_size = round_up(lhs_size, min_block_size);
+>> +            if (size - filled > rhs_offset)
+>> +                goto next;
+>>   -            /* Allocate blocks traversing LHS */
+>> -            lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+>> -            err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>> -                               NULL, &blocks_lhs);
+>> -            if (!err) {
+>> -                list_splice(&blocks_lhs, blocks);
+>> +            lhs_offset = rhs_offset - (size - filled);
+>> +
+>> +            /* Allocate the unaligned LHS offset using round_down */
+>> +            gpu_buddy_free_list_internal(mm, blocks);
+>> +            err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
+>> +                               min_block_size, blocks);
+>> +            if (!err)
+>>                   return 0;
+>> -            } else if (err != -ENOSPC) {
+>> +            if (err != -ENOSPC) {
+>>                   gpu_buddy_free_list_internal(mm, blocks);
+>>                   return err;
+>>               }
+>> -            /* Free blocks for the next iteration */
+>> +next:
+>>               gpu_buddy_free_list_internal(mm, blocks);
+>> -
+>>               iter = rb_prev(iter);
+>>           }
+>>       }
+>>
+>> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
 > 
-> Changes in v5:
-> - Replace __call_ioctl() helper with a simple for<'a> fn(...) coercion
-> - Rebase onto latest drm-rust-next, which requires a faux::Device type with
->   AsBusDevice impl and motivates the removal of the DeviceContext generic from
->   shmem::Object entirely
-> - Replace ForLt with a GAT type RegistrationData<'a>
-> - Fix drm_dev_register() error path race on the C side
-> - Add a few missing #[inline] annotations
-> 
-> Changes in v4:
-> - Fix pre-existing unbounded lifetimes in ioctl handler arguments.
-> - Fix registration_guard() being callable on unregistered devices by
->   introducing an Ioctl device context typestate; registration_guard() is
->   now only available on Device<T, Ioctl>, which is exclusively
->   constructed in ioctl dispatch context where the DRM core guarantees
->   prior registration.
-> - Fix type inference allowing handlers to obtain Device<Registered>
->   before RegistrationGuard is acquired.
-> - Make RegistrationGuard !Send via NotThreadSafe to prevent potential
->   lockdep splats from cross-thread SRCU unlock.
-> - Store &Device<T, Registered> directly in RegistrationGuard instead of
->   calling assume_ctx() in Deref.
-> 
-> Changes in v3:
-> - Rename UnbindGuard to RegistrationGuard
-> - RegistrationGuard no longer dereferences to &Device<Bound>; it
->   dereferences to &drm::Device<T, Registered> instead
-> - Drop Registration::new() and rename Registration::new_with_lt() to
->   Registration::new()
-> - Rework DeviceContext typestates: rename Uninit to Normal, restrict
->   AlwaysRefCounted to Normal, establish Deref chain from Registered
->   to Normal
-> - Add AsRef<ParentDevice<Bound>> on Device<T, Registered> for parent
->   device access
-> - Move registration_data_with() from RegistrationGuard to
->   drm::Device<T, Registered>
-> - Ioctl handlers no longer receive &Device<Bound>, only registration
->   data and drm::Device<T, Registered>
-> - Use Device<Registered>::as_ref() to access parent device in nova-drm
-> 
-> Changes in v2:
-> - Replace unsafe direct registration data access in ioctl dispatch with
->   safe UnbindGuard::registration_data_with() closure
-> - Eliminate unbind_guard() free function; use type-inference anchor to
->   enable direct dev.unbind_guard() method call in the ioctl macro
-> - UnbindGuard::registration_data_with() provides both parent device and
->   registration data to the closure
-> - Add nova-drm conversion patch demonstrating lifetime-aware registration
->   data with &'bound auxiliary::Device<Bound>
-> - Various safety comment and documentation improvements
-> 
-> Danilo Krummrich (19):
->   rust: drm: ioctl: fix unbounded lifetimes in ioctl handler arguments
->   rust: drm: rename Uninit DeviceContext to Normal
->   rust: faux: add Device type with AsBusDevice support
->   rust: drm: Add Driver::ParentDevice associated type
->   rust: drm: change default DeviceContext to Normal
->   rust: drm: restrict AlwaysRefCounted to Normal Device context
->   rust: drm: restrict AlwaysRefCounted to Normal GEM Object context
->   rust: drm/gem: remove DeviceContext from shmem::Object
->   rust: drm: split Deref for Device context typestates
->   rust: drm: pin ioctl Device reference to Normal context
->   rust: drm: add Ioctl device context typestate
->   rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical
->     sections
->   rust: drm: Wrap ioctl dispatch in RegistrationGuard
->   rust: drm: return ParentDevice from Device AsRef
->   rust: drm: add AsRef<ParentDevice<Bound>> for Device<Registered>
->   drm: fix race between partial drm_dev_register() failure and ioctl
->   rust: drm: Add RegistrationData to drm::Driver
->   rust: drm: Pass registration data to ioctl handlers
->   drm: nova: Use drm::Device<Registered> to access the parent bus device
-> 
->  drivers/gpu/drm/drm_drv.c        |  34 +++-
->  drivers/gpu/drm/nova/driver.rs   |  38 ++--
->  drivers/gpu/drm/nova/file.rs     |  22 ++-
->  drivers/gpu/drm/nova/gem.rs      |  18 +-
->  drivers/gpu/drm/tyr/driver.rs    |  25 ++-
->  drivers/gpu/drm/tyr/file.rs      |   8 +-
->  drivers/gpu/drm/tyr/gem.rs       |  11 +-
->  rust/kernel/drm/device.rs        | 293 +++++++++++++++++++++++--------
->  rust/kernel/drm/driver.rs        | 111 +++++++-----
->  rust/kernel/drm/gem/mod.rs       |  98 +++++------
->  rust/kernel/drm/gem/shmem.rs     | 257 +++++++++++++--------------
->  rust/kernel/drm/ioctl.rs         |  56 +++++-
->  rust/kernel/drm/mod.rs           |   4 +-
->  rust/kernel/faux.rs              |  69 ++++++--
->  samples/rust/rust_driver_faux.rs |   3 +-
->  15 files changed, 660 insertions(+), 387 deletions(-)
-> 
-> 
-> base-commit: fa8cc4e3067f958ea2057f37a8a6f9c6b10a9c03
-> -- 
-> 2.54.0
-> 
+
