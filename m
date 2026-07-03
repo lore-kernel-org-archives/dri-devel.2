@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E99C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FC33C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:20:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB46410F61D;
-	Fri,  3 Jul 2026 03:19:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4731A10F622;
+	Fri,  3 Jul 2026 03:20:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dsLJ42ZU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jdp6FrBT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 157FC10F61D
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:19:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6571D10F621
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:20:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6C9AA60210;
- Fri,  3 Jul 2026 03:19:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5A41F000E9;
- Fri,  3 Jul 2026 03:19:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E83724346C;
+ Fri,  3 Jul 2026 03:20:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3D81F000E9;
+ Fri,  3 Jul 2026 03:20:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783048741;
- bh=AVYJ+9EddV4MU4txBt0IqBtccUUWSBC37KeWlCMcgtQ=;
+ s=k20260515; t=1783048823;
+ bh=SpZMl43CZS/+FKk1WF1srdIx89PUap7lqO3woEBRDaU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dsLJ42ZU876ynw4VCva6cjmfrTwEWJrz/l4CQ5SIheWWPQ8mEqgrHTEcEk6dqc0/4
- ituaLGHfgjVE4fVsGaNwdARRL+ZG+Gl6V7rOrV7mrWwjYdC6Cnpb20leiEuZSxF3Mj
- iywcTv92aBbpJLGdfgYhnOK0xw4uSvKlrCck3UqmQL1IsLyfjKFf8jacIF5DOtH8qr
- 8KlcZ3VtL0BQTzBgjQnmYpszrnNmY9U1UxWgki2ARzAzoY5amYb1ptG7WZBgZZhzpe
- YxO9sX9BEIYnDrw04UeSLIsGOL4cgXGwMlNdem5ReoZ81HFNL+5wItpm62BLEE/V77
- RBWPdnfnylIrg==
+ b=jdp6FrBTaV5u6QBShGv6cZKAZuRMc0woP8J4DyKaPVWwShXM62onhCXO73sMVy4y0
+ gYrKXJah+4ScH0iJOaGMdajDJGokeqbQuU9KjlYeg4rLD6nfOdnrZvS2zVMegHoIOX
+ VpxcXXJZI+6MUvlbnYV5wt1heX4T4YvEG43XXaRKhmQMdlNmHtC0HpJwpVLPxqFGc1
+ StuTgAudzVQyo6Ijp+ftzgbgPwCwz1QYhTQkGeHoJgM3EKGoKCqo8ecApSnjPdaZPJ
+ 7YuDYyu9OOXwUTbCojtUTZgCEyyJrLaTS3e8OGmRsxBrlqSHWgqbADAUTdvmGVA5l0
+ 3GBXozsFwF8CA==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 06/10] drm/vino: add the DisplayLink DL3 dock driver
+Subject: Re: [RFC PATCH v2 08/10] drm/vino: wire CRTC gamma, plane rotation
+ and DDC/CI monitor controls
 To: "Mike Lothian" <mike@fireburn.co.uk>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260703030217.2886-7-mike@fireburn.co.uk>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260703030217.2886-9-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
  <20260703030217.2886-1-mike@fireburn.co.uk>
- <20260703030217.2886-7-mike@fireburn.co.uk>
+ <20260703030217.2886-9-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 03:18:59 +0000
-Message-Id: <20260703031900.9C5A41F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 03:20:23 +0000
+Message-Id: <20260703032023.9C3D81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,151 +59,322 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
-- [High] Using global static variables for per-device state breaks support =
-for multiple connected devices and causes state collisions.
-- [High] Bypassing the Rust workqueue abstractions to call the raw C `cance=
-l_work_sync` leaks the `Arc` reference transferred to the workqueue.
-- [Medium] The async IN queue for the EP84 status endpoint is incorrectly c=
-onfigured with an OUT endpoint address (`0x04`), causing the queue creation=
- to fail.
+
+New issues:
+- [High] The patch introduces a `gamma` field protected by a `kernel::sync:=
+:Mutex` and locks it from within DRM atomic commit callbacks (`atomic_enabl=
+e`, `atomic_disable`, `atomic_update`), which execute in atomic context whe=
+re sleeping is forbidden.
+- [High] The DDC/CI payload length is silently truncated if it exceeds 255 =
+bytes, leading to malformed CP packets.
+- [Medium] Dynamic `GAMMA_LUT` property updates are silently ignored while =
+the display is active.
+- [Medium] The rotation property is missing on the cursor plane and the rot=
+ation is completely ignored when reading cursor pixels.
+- [Medium] The DDC/CI I2C adapter's `master_xfer` incorrectly skips unsuppo=
+rted messages and transmission failures instead of returning an error, brea=
+king sequential processing guarantees.
+- [Low] The import `i2c` does not follow the kernel vertical import style.
+
+Pre-existing issues:
+- [Critical] Missing plane scaling rejection allows userspace to trigger ou=
+t-of-bounds kernel memory reads during scanout.
+- [High] The `ddc_forward` function allocates memory using `GFP_KERNEL` whe=
+n called from the `atomic_disable` DRM callback, violating atomic context r=
+ules.
 --
 
-commit d6f1e7eb7413b3d79af598de7aa00c7613895253
+commit efd9ec1e849fe00fb25b5f1bc3faedd48ed3e0f5
 Author: Mike Lothian <mike@fireburn.co.uk>
-drm/vino: add the DisplayLink DL3 dock driver
 
-This commit adds a new open-source Rust driver for DisplayLink DL3 USB dock=
-s,
-including the Dell D6000. It introduces the USB bulk and control transfer
-handshake, HDCP 2.2 control plane, and registers a DRM/KMS device.
+drm/vino: wire CRTC gamma, plane rotation and DDC/CI monitor controls
 
-> diff --git a/drivers/gpu/drm/vino/vino.rs b/drivers/gpu/drm/vino/vino.rs
-> new file mode 100644
-> index 0000000000000..eb4378a747c35
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vino/vino.rs
-> @@ -0,0 +1,2617 @@
-> +// SPDX-License-Identifier: GPL-2.0
+This commit consumes the new gamma, rotation, and i2c bindings for the vino=
+=20
+driver. It enables a 256-entry GAMMA_LUT, adds a rotation property on the=20
+primary/cursor plane, and registers a virtual I2C adapter for DDC/CI contro=
+ls.
+
+> diff --git a/drivers/gpu/drm/vino/cp.rs b/drivers/gpu/drm/vino/cp.rs
+> --- a/drivers/gpu/drm/vino/cp.rs
+> +++ b/drivers/gpu/drm/vino/cp.rs
 
 [ ... ]
 
-> +/// Set once the dock has actually engaged the CP cipher (`wsub=3D0x45` =
-acks > 0). EP08 video is
-> +/// gated on it: pushing frames at a dock whose CP channel is dead makes=
- it fault and USB-reset.
-> +/// NOTE: with the current CP-engagement wall (see the file header) this=
- is never set on real
-> +/// hardware -- the dock runs the whole plaintext handshake but never en=
-gages the encrypted CP.
-> +static CP_ENGAGED: core::sync::atomic::AtomicBool =3D core::sync::atomic=
-::AtomicBool::new(false);
+> @@ -151,14 +151,24 @@ pub(super) fn set_mode(counter: u16, t: &Timing) ->=
+ Result<KVec<u8>> {
+>  /// the CP wall), so re-check against a capture once CP engages. The DDC=
+/CI bytes themselves
+>  /// ([`ddc_ci_set_vcp`]) are standard and verified.
+>  pub(super) fn ddc_set_vcp(counter: u16, vcp: u8, value: u16) -> Result<K=
+Vec<u8>> {
+> -    let payload =3D ddc_ci_set_vcp(vcp, value);
+> -    let mut b =3D KVec::with_capacity(32, GFP_KERNEL)?;
+> +    ddc_forward(counter, DDCCI_I2C_ADDR, &ddc_ci_set_vcp(vcp, value))
+> +}
 > +
-> +/// One-shot: clear-halt + prime the video endpoints before the first li=
-ve-scanout EP08 write.
-> +static EP08_SCANOUT_PRIMED: core::sync::atomic::AtomicBool =3D
-> +    core::sync::atomic::AtomicBool::new(false);
+> +/// The DDC/CI I2C slave address on the monitor bus.
+> +pub(super) const DDCCI_I2C_ADDR: u8 =3D 0x37;
 > +
-> +/// Select the live scanout codec. `false` (default) =3D the RLE/mode-2 =
-path (`video::Encoder`),
-> +/// which is what the dock currently runs and which the dock NAKs pre-CP=
- anyway. `true` =3D the
-> +/// byte-exact Vino WHT **colour** codec (`video::wht::colour_frame_ep08=
-`), the bandwidth-efficient
-> +/// DLM-quality path. Kept a compile-time flag (default off) so the RLE =
-path stays the live default
-> +/// and the switch is testable independently the moment the CP wall fall=
-s; the WHT path needs a
-> +/// 64x16-aligned mode and falls back to RLE otherwise (see `docs/VIDEO-=
-TODO.md`).
-> +const EP08_WHT_CODEC: bool =3D false;
-> +
-> +/// Consecutive failed live-scanout frames, for log rate-limiting. Until=
- CP engages, the dock
-> +/// NAKs every EP08 write (EPROTO), so without this every compositor pag=
-eflip would spam dmesg.
-> +static SCANOUT_FAILS: core::sync::atomic::AtomicU64 =3D core::sync::atom=
-ic::AtomicU64::new(0);
-> +
-> +/// Pageflip throttle: number of upcoming pageflips to skip before the n=
-ext scanout attempt
-> +/// (a backoff while the dock NAKs). A single successful frame clears it.
-> +static SCANOUT_SKIP: core::sync::atomic::AtomicU64 =3D core::sync::atomi=
-c::AtomicU64::new(0);
-> +
-> +/// Set once the bring-up work item finishes (AKE/CP attempt done). `det=
-ect` only connects the
-> +/// live-scanout connector AFTER this, so a compositor enabling the outp=
-ut cannot start EP08
-> +/// scanout on top of the still-running AKE on the same USB device.
-> +static BRINGUP_COMPLETE: core::sync::atomic::AtomicBool =3D
-> +    core::sync::atomic::AtomicBool::new(false);
+> +/// CP message tunnelling a raw DDC/CI transaction (`payload`, the bytes=
+ a host writes after the
+> +/// I2C write-address) to the downstream monitor's I2C slave `addr`. Sam=
+e `id=3D0x15 sub=3D0x22`
+> +/// framing as [`ddc_set_vcp`], with the slave + payload length at off20=
+ and the payload at off22.
+> +/// This is what the vino I2C adapter forwards for a userspace DDC/CI wr=
+ite (e.g. `ddcutil`).
+> +pub(super) fn ddc_forward(counter: u16, addr: u8, payload: &[u8]) -> Res=
+ult<KVec<u8>> {
+> +    let mut b =3D KVec::with_capacity(32 + payload.len(), GFP_KERNEL)?;
 
 [Severity: High]
-Does this code support multiple connected devices? It looks like these
-global static variables are used to track per-device state. If multiple
-DisplayLink D6000 docks are connected, won't they race on these shared flags
-during initialization and operation? For instance, one device completing
-bring-up could incorrectly flag all devices as ready via BRINGUP_COMPLETE.
+This is a pre-existing issue, but can this GFP_KERNEL allocation cause a
+scheduling while atomic panic?
+
+The CRTC atomic_disable callback runs in atomic context where sleeping is
+forbidden. It calls set_vcp(), which delegates to cp::ddc_set_vcp() and=20
+subsequently cp::ddc_forward().
+
+Allocating with GFP_KERNEL here can sleep. Could this allocation use
+GFP_ATOMIC instead?
+
+>      header(&mut b, 0x15, 0x22, counter)?;
+>      pad_to(&mut b, 20)?;
+> -    // off20: monitor DDC/CI I2C slave (0x37) + DDC/CI payload length.
+> -    b.extend_from_slice(&[0x37, payload.len() as u8], GFP_KERNEL)?;
+> -    // off22: the DDC/CI Set-VCP bytes (same off22 convention as the EDI=
+D payload).
+> -    b.extend_from_slice(&payload, GFP_KERNEL)?;
+> +    // off20: monitor DDC/CI I2C slave + DDC/CI payload length.
+> +    b.extend_from_slice(&[addr, payload.len() as u8], GFP_KERNEL)?;
+
+[Severity: High]
+Can a payload larger than 255 bytes cause malformed CP packets here?
+
+The payload.len() is cast to u8 without bounds checking, meaning the protoc=
+ol
+packet header receives a truncated length, but the full unbounded payload i=
+s=20
+appended below.
+
+Could this cause the downstream dock's CP parser to read misaligned framing,
+potentially hanging the hardware or corrupting the stream?
+
+> +    // off22: the DDC/CI bytes (same off22 convention as the EDID payloa=
+d).
+> +    b.extend_from_slice(payload, GFP_KERNEL)?;
+>      pad_to(&mut b, 32)?;
+>      Ok(b)
+>  }
+
+> diff --git a/drivers/gpu/drm/vino/drm_sink.rs b/drivers/gpu/drm/vino/drm_=
+sink.rs
+> --- a/drivers/gpu/drm/vino/drm_sink.rs
+> +++ b/drivers/gpu/drm/vino/drm_sink.rs
 
 [ ... ]
 
-> +        // Open the persistent async EP84 IN reader BEFORE the arm marke=
-r and msg0, so
-> +        // `EP84_QUEUE_DEPTH` IN transfers are already posted when the d=
-ock pushes its post-arm
-> +        // reply (DLM's libusb always-pending-IN behaviour). Draining EP=
-84 concurrently stops the
-> +        // dock's IN FIFO filling and NAKing our OUT (the sync-bulk dead=
-lock that produced a 100 ms
-> +        // msg0 NAK). RAII: dropping the queue at function exit kills+fr=
-ees the URBs.
-> +        let mut ep84_q =3D match dev.bulk_in_queue(0x04, EP84_QUEUE_DEPT=
-H, EP84_BUF) {
+> @@ -41,6 +42,7 @@
+>          plane::{self, PlaneAtomicCommit, RawPlaneState as _},
+>          KmsDriver, ModeConfigGuard, ModeConfigInfo, ModeObject as _, New=
+KmsDevice, Probing,
+>      },
+> +    i2c,
+> +    error::code::EINVAL,
+
+[Severity: Low]
+Does this import follow the kernel vertical import style for Rust?
+
+The i2c import is placed on the same line as other items instead of being
+vertically aligned.
+
+[ ... ]
+
+> @@ -125,6 +127,12 @@ pub(super) struct VinoDrmData {
+>      /// can reach its cached-EDID slot without needing DRM's mode-object=
+ list. Written once,
+>      /// during single-threaded probe, before the device is registered; r=
+ead-only thereafter.
+>      connector: core::sync::atomic::AtomicPtr<VinoConnector>,
+> +    /// The CRTC's gamma ramp cached from the atomic hook as three 256-e=
+ntry 8-bit LUTs
+> +    /// (`[r; 256] ++ [g; 256] ++ [b; 256]`), or `None` for identity. Ca=
+ched here (not read from
+> +    /// the CRTC state) because scanout runs in the plane path; it is `C=
+opy`, so the scanout
+> +    /// snapshots it under the lock and applies it without holding the l=
+ock in the pixel loop.
+> +    #[pin]
+> +    gamma: Mutex<Option<[u8; 768]>>,
+>  }
+> =20
+>  impl VinoDrmData {
+
+[Severity: High]
+Does the use of a sleeping Mutex here violate atomic context rules?
+
+The update_gamma() and gamma_snapshot() functions lock this Mutex, but they
+are invoked synchronously during the CRTC atomic_enable, atomic_disable,
+and plane atomic_update callbacks.
+
+According to DRM subsystem guidelines, these callbacks run in atomic context
+during non-blocking commits where sleeping is strictly forbidden. Should th=
+is
+be a spinlock instead to avoid scheduling while atomic panics?
+
+[ ... ]
+
+> @@ -302,6 +333,16 @@ fn probe(dev: &NewKmsDevice<'_, Self, Probing>) -> R=
+esult {
+>              None,
+>              false,
+>          )?;
+> +        // Advertise the rotations vino's re-encode handles 1:1 (dimensi=
+on-preserving): the
+> +        // scanout applies them per source pixel via `rot_src`. 90/270 (=
+which swap width/height)
+> +        // are intentionally omitted.
+> +        primary.create_rotation_property(
+> +            bindings::DRM_MODE_ROTATE_0,
+> +            bindings::DRM_MODE_ROTATE_0
+> +                | bindings::DRM_MODE_ROTATE_180
+> +                | bindings::DRM_MODE_REFLECT_X
+> +                | bindings::DRM_MODE_REFLECT_Y,
+> +        )?;
+>          let cursor =3D plane::UnregisteredPlane::<VinoPlane>::new(
+>              dev,
+>              1,
+>              &CURSOR_FORMATS,
+>              None,
+>              plane::Type::Cursor,
+>              None,
+>              PlaneArgs { head: 0, is_cursor: true },
+>          )?;
 
 [Severity: Medium]
-Is the endpoint address correct here in VinoDriver::send_cp_setup()? It loo=
-ks
-like it's opening an IN queue for endpoint 0x84 but passes 0x04 instead.
-Since 0x04 is missing the USB_DIR_IN bit (0x80), won't the queue creation
-fail and force the driver to fall back to the synchronous bulk_recv mode?
+Is the cursor plane missing the rotation property?
+
+The commit message mentions wiring rotation for the primary/cursor plane, b=
+ut
+create_rotation_property() is not called for the cursor plane during probe.
+
+Additionally, read_cursor_bgra() maps and reads the cursor framebuffer
+without applying any rotation transformation.
 
 [ ... ]
 
-> +    fn disconnect<'bound>(intf: &'bound usb::Interface<Core<'_>>, data: =
-Pin<&Self>) {
-> +        let dev: &device::Device<Core<'_>> =3D intf.as_ref();
-> +        // Flush the deferred bring-up before the interface is unbound: =
-`cancel_work_sync`
-> +        // dequeues it if pending and blocks until it returns if already=
- running, so no
-> +        // USB I/O races the unbind (see the `Interface::as_bound` contr=
-act in
-> +        // `BringUp::run`). Safe to call when the work already finished =
-or never ran.
-> +        if let Some(work) =3D data.bringup.as_ref() {
-> +            // SAFETY: `work.work` is a live `Work` field of a pinned, r=
-efcounted `BringUp`;
-> +            // `raw_get` yields its valid `work_struct`, which `cancel_w=
-ork_sync` only reads
-> +            // and synchronises against. The `Arc` keeps the allocation =
-alive across the call.
-> +            unsafe {
-> +                let wptr =3D Work::raw_get(core::ptr::addr_of!(work.work=
-));
-> +                bindings::cancel_work_sync(wptr);
+> @@ -372,6 +415,8 @@ fn new(_device: &drm::Device<Self::Driver, drm::Unini=
+t>, _args: &()) -> impl Pin
+>      fn atomic_enable(commit: CrtcAtomicCommit<'_, Self>) {
+>          let data: &VinoDrmData =3D commit.crtc().drm_dev();
+>          let new =3D commit.take_new_state();
+> +        // Cache the gamma ramp for the scanout to apply.
+> +        data.update_gamma(new.gamma_lut());
+
+[Severity: Medium]
+Are dynamic GAMMA_LUT property updates silently ignored while the display
+is active?
+
+The driver caches the GAMMA_LUT value only in the atomic_enable and
+atomic_disable CRTC hooks.
+
+If a compositor dynamically updates the gamma LUT, it will trigger
+atomic_flush or atomic_update, but skip the enable hook when the CRTC is
+already active, potentially missing color calibration changes until a full
+modeset occurs.
+
+[ ... ]
+
+> @@ -489,6 +535,8 @@ fn atomic_update(commit: PlaneAtomicCommit<'_, Self>)=
+ {
+>          // primary plane 1:1 with the virtual output), so this drives th=
+e dynamic scanout
+>          // resolution.
+>          let (w, h) =3D (new.crtc_w() as usize, new.crtc_h() as usize);
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does the lack of plane scali=
+ng
+rejection allow userspace to trigger out-of-bounds kernel memory reads?
+
+VinoPlane lacks an atomic_check function to reject scaling (e.g., using
+drm_atomic_helper_check_plane_state with DRM_PLANE_NO_SCALING).
+
+In atomic_update(), the scanout loop uses the destination CRTC geometry
+(new.crtc_w(), new.crtc_h()) as the bounds instead of the source framebuffer
+dimensions.
+
+If unprivileged userspace issues an atomic commit with crtc_h greater than
+fb.height(), the scanout loop will read past the end of the mapped GEM buff=
+er.
+
+[ ... ]
+
+> @@ -748,13 +816,62 @@ fn get_modes<'a>(
+>      }
+>  }
+> =20
+> +// ---- DDC/CI I2C adapter ---------------------------------------------=
+--------
+> +
+> +/// vino's DDC/CI virtual I2C bus: a userspace monitor-control tool (`dd=
+cutil`, the desktop
+> +/// brightness slider via the I2C DDC path) writes a DDC/CI transaction =
+to the monitor's I2C slave
+> +/// on this adapter, and vino tunnels it to the downstream monitor over =
+the dock's CP channel
+> +/// (`cp::ddc_forward`, `id=3D0x15 sub=3D0x22`) -- the same monitor-I2C =
+bridge vino's DPMS-power VCP
+> +/// uses. Writes only for now (Get-VCP reads need the CP reply path); a =
+no-op until CP engages.
+> +pub(super) struct VinoI2c;
+> +
+> +impl i2c::BusController for VinoI2c {
+> +    type Context =3D ARef<VinoDrmDevice>;
+> +
+> +    fn master_xfer(dev: &ARef<VinoDrmDevice>, msgs: &mut [i2c::Msg]) -> =
+Result<usize> {
+> +        let data: &VinoDrmData =3D dev;
+> +        let mut transferred =3D 0usize;
+> +        for msg in msgs.iter() {
+> +            if msg.addr() !=3D super::cp::DDCCI_I2C_ADDR as u16 {
+> +                continue;
+> +            }
+> +            if msg.is_read() {
+> +                // DDC/CI reads (Get-VCP) require decoding the dock's CP=
+ reply -- not wired yet.
+> +                continue;
+> +            }
+
+[Severity: Medium]
+Should master_xfer() return an error when encountering unsupported messages
+rather than skipping them?
+
+If master_xfer() receives an array of messages where an early message is
+unsupported (e.g., a read) and a later message succeeds, it uses continue to
+skip the error and returns a positive transferred count.
+
+This violates the I2C subsystem API contract and causes userspace tools like
+ddcutil to assume operations succeeded when they actually failed.
+
+> +            if data
+> +                .send_cp(0x15, 0, |ctr| {
+> +                    super::cp::ddc_forward(ctr, super::cp::DDCCI_I2C_ADD=
+R, msg.buf())
+> +                })
+> +                .is_ok()
+> +            {
+> +                transferred +=3D 1;
 > +            }
 > +        }
+> +        Ok(transferred)
+> +    }
 
-[Severity: High]
-Does this direct call to bindings::cancel_work_sync() in
-VinoDriver::disconnect() leak the Arc reference transferred to the
-workqueue? Since the Rust workqueue enqueue consumes an Arc<BringUp>
-that is usually dropped when the callback executes, bypassing the Rust
-abstractions to cancel the work means the callback won't run, leaving
-the Arc without a mechanism to drop it.
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703030217.2886=
--1-mike@fireburn.co.uk?part=3D6
+-1-mike@fireburn.co.uk?part=3D8
