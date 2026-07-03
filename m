@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3BEFC43602
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:58:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99329C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A48810E243;
-	Fri,  3 Jul 2026 16:58:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C4010E40B;
+	Fri,  3 Jul 2026 16:58:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="zDl8No2t";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="vXqXyB8C";
 	dkim-atps=neutral
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC03310E243
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:58:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837F210E3E1
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
  s=gloria202408;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:
  References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=7iwZHYbjEtrHvPPYcrJqyDlxjyGE6USuPnhVgCbNYsg=; b=zDl8No2tUqR1tMY/CgayOP53tr
- mJWIovy7v9YUo4t1Y1YUNZ7fwnJ7CrAaY5eUXaxpcZkO8uzV1G79Mvc6lRBYjeHnZaU9frcbDgcxv
- TorDEcIAwln6lxCXraTTEXvwTQXdPFYX4ipNLAoWqxzHLjstYWJJwrzi1vaKE7cmzRodNhfzrpR9k
- byqeEVzPcIrkdZrP2WNR8Jf4bqt8p2I4g/mVR/uf6kIGz0IuZ+zmXiiXCpjAUbhlg6VGpdmFHlDCk
- 9NkkoEpDaU9ZKGC2rLLuK6zGw98T5W9lKFYrs2HDwafI4fup9PKIRbb/75LfvX19aHi9UQs2xUsoE
- 20NlNq5g==;
+ bh=rNbF08GXHHkdtUl1DIYbHQ0Soe9t0ceox8KRTBKsKsE=; b=vXqXyB8CG+bIwjsVzqaGTKeIFk
+ UXh/idy0JOl4BRMwxQ5vwJEXhC14bhL5wnaXdniCBs1Fjy0sSdmy5HvE0qtD4BVGYe5OVBnWQ1DTN
+ Fg5b6dc0UoJP0hjWjnxRAr/ApnwiFcSKNRKRKEc8x33NzQ5Nh0nhzr7u6qHTMtt5IlbSLuTHp8AZL
+ qPQ2hsuHiQz1y2beO6zxfNZtbOkqUAbkkOBNQK0I5IOQSHTJd+UjeKsylupS5RvbFfFFvRO/Y1afL
+ +DwO4/+S4I36CMedt8nbZagh2ft8+lw9Nf8bk8/m5vs3m+fvsrC/8FLU/3l8exUwTeJNqbbxQZCa6
+ e0A8kVqw==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -40,13 +40,13 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Vicente Bergas <vicencb@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] drm/bridge: analogix_dp: Apply standard DP training
- delay helpers
-Date: Fri,  3 Jul 2026 18:57:53 +0200
-Message-ID: <178309782891.32809.4103467583344237133.b4-ty@sntech.de>
+Subject: Re: [PATCH v2] drm/bridge: analogix_dp: Fix PE/VS value shift
+ mismatch during link training
+Date: Fri,  3 Jul 2026 18:58:09 +0200
+Message-ID: <178309788492.33219.12979716555386430078.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260623075207.320603-1-damon.ding@rock-chips.com>
-References: <20260623075207.320603-1-damon.ding@rock-chips.com>
+In-Reply-To: <20260623023506.309858-1-damon.ding@rock-chips.com>
+References: <20260623023506.309858-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,21 +66,21 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Tue, 23 Jun 2026 15:52:07 +0800, Damon Ding wrote:
-> Replace hardcoded fixed usleep_range() delays during clock recovery and
-> channel equalization with drm_dp_link_train_clock_recovery_delay()
-> and drm_dp_link_train_channel_eq_delay() helpers.
-> 
-> The original fixed delays are only valid for the case where bit[6:0] of
-> DPCD TRAINING_AUX_RD_INTERVAL(0000Eh) is 0x00, while core helpers apply
-> spec-compliant timings matching actual receiver capability values.
+On Tue, 23 Jun 2026 10:35:06 +0800, Damon Ding wrote:
+> VS/PE values returned by drm_dp_get_adjust_request_voltage() and
+> drm_dp_get_adjust_request_pre_emphasis() are already encoded to their
+> native DPCD register bit positions. However, DPCD_VOLTAGE_SWING_SET /
+> DPCD_PRE_EMPHASIS_SET macros perform an extra internal shift. Feeding
+> the raw offset-bearing values directly leads to overlapping bitfields
+> and invalid lane training configuration, causing link training failures
+> and black screen.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] drm/bridge: analogix_dp: Apply standard DP training delay helpers
-      commit: 337038d31c59d405b89efa7b28fd230273f997ad
+[1/1] drm/bridge: analogix_dp: Fix PE/VS value shift mismatch during link training
+      commit: 6bb8898f702385d363dc2c513a1efa62807f8068
 
 Best regards,
 -- 
