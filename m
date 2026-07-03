@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79193C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC169C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:45:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C23BD10F6B1;
-	Fri,  3 Jul 2026 07:42:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA0C10F6B6;
+	Fri,  3 Jul 2026 07:45:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DlC0pGvW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VhXBFkrM";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B628010F6B1
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:42:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A91010F6B6
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:45:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 792D740AC7
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:42:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A271F000E9;
- Fri,  3 Jul 2026 07:42:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E83044169F
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:45:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB5E1F00A3D;
+ Fri,  3 Jul 2026 07:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783064577;
- bh=qkoXPKBPYWdapWPZ/goqYU38v4vdkVLM3a5PowizMjs=;
+ s=k20260515; t=1783064714;
+ bh=V9rBl/YNeSLRGqMN7f8xZFnLN+Pqa/1p10115WkDsFE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DlC0pGvWfak+7cWB54covaAoboFgY8Mre1ZqMK9sQaHcKDTetsBiJx3YRvIoyjrQN
- L1oNN49irRN8oVQ+IaWFfIJzGGJmhFsp03ntnthlnzwlXTi4YknAEw0ZshCY/KHOQU
- PpCabjN81Ifmo71tmWrPY49ZWeNBq5q0b2cARdzbpY5vtcGYDlxn9uzgnG4HNeV2KO
- KmcHfc7vIIquKaS78+5ouN40VYmbjN6acCu2jvpMmQnkfvnoZE4Z4xSI6sHbw0/JoF
- OETp1o9E4EvuF5xexvWNAXOCQwqQEwUnwtEPrAZ8Hb83TMNZ9/bNe1C8rwu744uP9D
- VOOSy0nUcsINg==
+ b=VhXBFkrM1tL/pgnKwEEVerG+kgXK1uGsPn2z3sDZkml5ckEZIU3Z4jHuEPxX1e54t
+ XRIaBv/6jqCz2bdJEn+E4b1UcfzZDiJH2goxC4ufQFgZlMnlewRL2sB/C1Ly81P1gr
+ AOtTyVqxYHNba4iCATdE6dTde82+rPDdOzgxCv2kJqZRhg97NJMG/bt/BZnKq10KDV
+ zCUq5L1726rT0ZZ7Lcb6Hgy1RJehTYvkWfmJEOQh+9GuxML7/RrEXURoyn7+aANAqd
+ 6faCRIBdpDqcJDLKldcCbRc9UVhIAmtvtWiQ33FNqEi8/oHLZGdXD1+JHI2Um5886+
+ dqriqEawZmLbA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/5] rust: types: implement ForeignOwnable for ARef<T>
+Subject: Re: [PATCH v5 4/5] rust: Add dma_fence abstractions
 To: "Philipp Stanner" <phasta@kernel.org>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260703073141.3962604-3-phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260703073141.3962604-6-phasta@kernel.org>
 References: <20260703073141.3962604-2-phasta@kernel.org>
- <20260703073141.3962604-3-phasta@kernel.org>
+ <20260703073141.3962604-6-phasta@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 07:42:56 +0000
-Message-Id: <20260703074257.32A271F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 07:45:13 +0000
+Message-Id: <20260703074514.9CB5E1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,84 +57,180 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] Missing `#[inline]` annotations on small trait methods in `ForeignO=
-wnable` for `ARef<T>`.
+- [High] Lifetime erasure via `ForeignOwnable` or `core::mem::forget` on `D=
+riverFence` leads to a Use-After-Free of `FenceCtx`.
+- [Medium] `DriverFence::signal` and `DriverFence::drop` omit the required =
+`dma_fence_begin_signalling()` and `dma_fence_end_signalling()` lockdep ann=
+otations.
+- [Low] `FenceCbRegistration`'s `# Invariants` documentation is outdated an=
+d lacks the mandatory `// INVARIANT:` comment upon construction.
 --
 
-commit 51b0cb5da3a412f66a80b1925a746644ac0ed5c1
-Author: Danilo Krummrich <dakr@kernel.org>
-Subject: rust: types: implement ForeignOwnable for ARef<T>
+commit d72bac0aa1194434de7bc7000b2d5a50bb882d68
+Author: Philipp Stanner <phasta@kernel.org>
 
-This commit implements the ForeignOwnable trait for ARef<T>. It allows C
-code to take ownership of ARef instances and defines BorrowedMut as a
-shared reference, matching the semantics of the underlying reference-counted
-type.
+rust: Add dma_fence abstractions
 
-> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
-> index b721b2e00b986..5407666136595 100644
-> --- a/rust/kernel/sync/aref.rs
-> +++ b/rust/kernel/sync/aref.rs
+This commit adds Rust abstractions for the dma_fence subsystem, providing
+DriverFence and Fence types to cleanly decouple fence issuers and consumers
+while ensuring safe reference counting and signaling.
 
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs
+> --- /dev/null
+> +++ b/rust/kernel/dma_buf/dma_fence.rs
 [ ... ]
-
-> @@ -188,6 +193,41 @@ fn eq(&self, other: &ARef<U>) -> bool {
->  }
->  impl<T: AlwaysRefCounted + Eq> Eq for ARef<T> {}
-> =20
-> +// SAFETY: `into_foreign` returns a pointer from `NonNull::as_ptr`, so i=
-t's non-null. The
-> +// `ARef` invariant guarantees that `ptr` points to a valid `T`, so it's=
- aligned to `T`.
-> +unsafe impl<T: AlwaysRefCounted + 'static> ForeignOwnable for ARef<T> {
-> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<T>();
-> +
-> +    type Borrowed<'a> =3D &'a T;
-> +    type BorrowedMut<'a> =3D &'a T;
-> +
-> +    fn into_foreign(self) -> *mut c_void {
+> +/// # Invariants
+> +///
+> +/// If callback is Some, then cb is registered with the fence and the
+> +/// callback hasn't been invoked yet. If None, the callback has been inv=
+oked
+> +/// or the fence was already signaled when we tried to register.
+> +#[pin_data(PinnedDrop)]
+> +pub struct FenceCbRegistration<T: FenceCb + 'static> {
+> +    #[pin]
+> +    callback_foreign: Opaque<bindings::dma_fence_cb>,
+> +    callback: ManuallyDrop<T>,
 
 [Severity: Low]
-This isn't a bug, but the Rust subsystem coding guidelines require functions
-in abstractions that are small or just forwarding to binding calls to be
-annotated with #[inline].=20
+Is this documentation accurate?
 
-Would it be appropriate to add the #[inline] annotation to into_foreign(),
-as well as from_foreign(), borrow(), and borrow_mut() below, to ensure
-optimal cross-crate inlining?
+The invariants description references Some and None for the callback
+field, but the field is defined as ManuallyDrop<T> rather than an Option.
 
-> +        ARef::into_raw(self).as_ptr().cast()
-> +    }
+[ ... ]
+> +    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, =
+CallbackError<T>> + 'a
+> +    where
+> +        T: 'a,
+> +    {
+> +        try_pin_init!(Self {
+> +            // We need to fully initialize the fence because after
+> +            // dma_fence_add_callback() ran, the callback might immediat=
+ely
+> +            // get invoked.
+> +            callback: ManuallyDrop::new(callback),
+
+[Severity: Low]
+Are we missing the mandatory INVARIANT comment here?
+
+The Rust subsystem guidelines require an explicit INVARIANT comment when
+constructing a struct with an Invariants documentation section, but it
+appears to be omitted here.
+
+[ ... ]
+> +    pub fn signal(self, res: Result) {
+> +        let fence =3D self.as_raw();
+> +        let mut fence_flags: usize =3D 0;
+> +        let flag_ptr =3D &raw mut fence_flags;
 > +
-> +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
-> +        // SAFETY: The safety requirements of this function ensure that =
-`ptr` comes from a previous
-> +        // call to `Self::into_foreign`.
-> +        let ptr =3D unsafe { NonNull::new_unchecked(ptr.cast()) };
-> +
-> +        // SAFETY: `ptr` came from `into_foreign`, which consumed an `AR=
-ef` without decrementing
-> +        // the refcount, so we can transfer the ownership to the new `AR=
-ef`.
-> +        unsafe { ARef::from_raw(ptr) }
+> +        // SAFETY: fence is valid because self is valid. flag_ptr is
+> +        // merely a pointer to an integer, which lives as long as this f=
+unction.
+> +        unsafe { bindings::dma_fence_lock_irqsave(fence, flag_ptr) };
+> +        // SAFETY: fence is valid because self is valid. The lock must be
+> +        // held, which we acquired directly above.
+> +        if !unsafe { bindings::dma_fence_test_signaled_flag(fence) } {
+> +            if let Err(err) =3D res {
+> +                // SAFETY: fence is valid because self is valid. The fen=
+ce
+> +                // must not have been signaled yet, which we check direc=
+tly above.
+> +                unsafe { bindings::dma_fence_set_error(fence, err.to_err=
+no()) };
+> +            }
+> +            // SAFETY: fence is valid because self is valid. The lock mu=
+st
+> +            // be held, which we acquired above.
+> +            unsafe { bindings::dma_fence_signal_locked(fence) };
+> +        }
+> +        // SAFETY: fence is valid because self is valid. flag_ptr is
+> +        // merely a pointer to an integer, which lives as long as this f=
+unction.
+> +        // The lock must be held, which we acquired above.
+> +        unsafe { bindings::dma_fence_unlock_irqrestore(fence, flag_ptr) =
+};
 > +    }
+
+[Severity: Medium]
+Should this manual signaling path include lockdep annotations?
+
+By open-coding the fence signaling using dma_fence_lock_irqsave() and
+dma_fence_signal_locked(), this function omits the
+dma_fence_begin_signalling() and dma_fence_end_signalling() calls used in
+the equivalent C dma_fence_signal() function.
+
+Without these annotations, lockdep cannot track cross-release dependencies
+during fence signaling, which might lead to false negatives when detecting
+deadlocks between fence signaling and wait paths.
+
+[ ... ]
+> +unsafe impl<'b, T: Send + Sync + FenceCtxOps + 'static> ForeignOwnable f=
+or DriverFence<'b, T> {
+
+[Severity: High]
+Could this lead to a Use-After-Free if the DriverFence is leaked?
+
+Since DriverFence implements ForeignOwnable without requiring a 'static
+lifetime for the 'b parameter, a user can call into_foreign() on a
+DriverFence<'a, T> or use core::mem::forget() to leak it.
+
+If the DriverFence is leaked, DriverFence::drop() is never called.
+The Rust compiler will then allow the borrowed FenceCtx (tied to
+lifetime 'a in DriverFenceData) to be dropped. Once FenceCtx::drop()
+completes, the driver_name is freed.
+
+However, the C backend could later interact with the dma_fence, which
+is kept alive by ARef<Fence>, and invoke get_driver_name(). This would
+dereference the dangling fctx pointer, causing a Use-After-Free.
+
+[ ... ]
+> +    fn drop(&mut self) {
+> +        let fence =3D self.as_raw();
+> +        let mut fence_flags: usize =3D 0;
+> +        let flag_ptr =3D &raw mut fence_flags;
 > +
-> +    unsafe fn borrow<'a>(ptr: *mut c_void) -> &'a T {
-> +        // SAFETY: The safety requirements of this method ensure that th=
-e object remains alive and
-> +        // immutable for the duration of 'a.
-> +        unsafe { &*ptr.cast() }
-> +    }
+> +        // SAFETY: fence is valid until the call_rcu() below. flag_ptr is
+> +        // merely a pointer to an integer, which lives as long as this f=
+unction.
+> +        unsafe { bindings::dma_fence_lock_irqsave(fence, flag_ptr) };
 > +
-> +    unsafe fn borrow_mut<'a>(ptr: *mut c_void) -> &'a T {
-> +        // SAFETY: The safety requirements for `borrow_mut` are a supers=
-et of the safety
-> +        // requirements for `borrow`.
-> +        unsafe { <Self as ForeignOwnable>::borrow(ptr) }
-> +    }
-> +}
+> +        // Use dma_fence_test_signaled_flag() instead of dma_fence_is_si=
+gnaled_locked()
+> +        // because the C backend wants to get rid of the latter.
+> +
+> +        // SAFETY: fence is valid until the call_rcu() below.
+> +        let signaled: bool =3D unsafe { bindings::dma_fence_test_signale=
+d_flag(fence) };
+> +        if warn_on!(!signaled) {
+> +            // SAFETY: fence is valid until the call_rcu() below. The fe=
+nce
+> +            // must not have been signaled yet, which we check directly =
+above.
+> +            unsafe { bindings::dma_fence_set_error(fence, ECANCELED.to_e=
+rrno()) };
+> +            // SAFETY: fence is valid until the call_rcu() below. The lo=
+ck must
+> +            // be held, which we acquired above.
+> +            unsafe { bindings::dma_fence_signal_locked(fence) };
+> +        }
+> +        // SAFETY: fence is valid until the call_rcu() below. flag_ptr is
+> +        // merely a pointer to an integer, which lives as long as this f=
+unction.
+> +        // The lock must be held, which we acquired above.
+> +        unsafe { bindings::dma_fence_unlock_irqrestore(fence, flag_ptr) =
+};
+
+[Severity: Medium]
+Does this cancellation path also need the lockdep annotations?
+
+Similar to DriverFence::signal(), this open-coded signaling omits the
+dma_fence_begin_signalling() and dma_fence_end_signalling() lockdep wrapper=
+s,
+which prevents cross-release dependency tracking.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703073141.3962=
-604-2-phasta@kernel.org?part=3D1
+604-2-phasta@kernel.org?part=3D4
