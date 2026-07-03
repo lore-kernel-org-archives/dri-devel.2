@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3FEEC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 11:09:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CFECC43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 11:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C8810F7A2;
-	Fri,  3 Jul 2026 11:09:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDEB10F7AE;
+	Fri,  3 Jul 2026 11:11:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LM3BmMC7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CtOD0Ip6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBCC810F7A2
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 11:09:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 16EC26001A;
- Fri,  3 Jul 2026 11:09:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96BA1F000E9;
- Fri,  3 Jul 2026 11:09:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783076955;
- bh=tuWJc8imFqb5FUwYOIHT8S1/CiCKvV///7YUxzwmiDA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LM3BmMC7MgYSpIzMfpzB+fFYNAhMe9wIo1o0OJLC1Kel2K2ZP/+VYxOAC9ivUroRz
- e4JPeoPiFFfqZ1qhYtgHkZfsdaJh8zcFkZV/66zPWGhUzxzaFzlF4vJpkPovVJSOtI
- lwj3dqu+64Kj8tRzc145Qxd72W41qMMdgRzcTAa273NCEWWlyJtiJvPgXzbS3Dgy7H
- MoZ72HwHtFSy9sa/vMxx7hgMY28svlczu2j7TqHWvEhRlnhjNiIsYAZQu4yNqsXE4d
- nuCScM8ZI10umNXmDNle0KarbBqoXiOd0UIayfbNh22N3Bes3fi6oQgXyA+zQkFa33
- pLJ/aYI5MisIg==
-Received: from johan by xi.lan with local (Exim 4.99.3)
- (envelope-from <johan@kernel.org>) id 1wfblh-00000000jBK-1vKA;
- Fri, 03 Jul 2026 13:09:13 +0200
-Date: Fri, 3 Jul 2026 13:09:13 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 09/14] mfd: lm3533: Add support for VIN power supply
-Message-ID: <akeYWRF-wIlrHTF5@hovoldconsulting.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-10-clamor95@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C730310F7A9;
+ Fri,  3 Jul 2026 11:11:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mWhG/3B5p+cytMrHUS2CX7qSff04CYcetqlRRCHBSkM=; b=CtOD0Ip6idv4wU06MB+2dM9hlw
+ NbGjwIzxWDu38Tobx0NODliiarFl4/RPYplorwMzX2H/74cz/KjPLkmout/na1tN/MYu7705Gy15G
+ VM9L6pQ5Ul1BP9T9QKgf3U44ZhAX2rPdJ20unt9qNX5RFepy6wnXvbHE5LgP/XWU7cM81DGSjvJR6
+ OYhk3lOhpYYiSKEm6wDv6TPsxUs23F2kJZiYGc12Fr8nc6/3nEIUZbgkm+8vJq/UD6plAsRcYT4eK
+ F+iykSo6oiJ2zSXhenUZcD9okNUebF10f0ALRBBBsLnbhPz04vVFhXnLh2XhED6PdpBxzWtw8vnGM
+ VCLiXZRQ==;
+Received: from [178.139.163.86] (helo=[192.168.1.126])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wfbnx-008STX-6Y; Fri, 03 Jul 2026 13:11:33 +0200
+Message-ID: <a4d0034a-4aec-4880-86a7-699390e21a06@igalia.com>
+Date: Fri, 3 Jul 2026 13:11:30 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-10-clamor95@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260703073230.19982-1-robert.mader@collabora.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260703073230.19982-1-robert.mader@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,28 +70,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2026 at 11:00:26AM +0300, Svyatoslav Ryhel wrote:
-> Add support for 2.7V-5.5V VIN power supply.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
- 
-> -static void lm3533_enable(struct lm3533 *lm3533)
-> +static int lm3533_enable(struct lm3533 *lm3533)
->  {
-> +	int ret;
+
+
+On 03/07/2026 09:32, Robert Mader wrote:
+> The client cap is currently advertised unconditionally, even for drivers
+> that do not support plane color pipelines. If clients supporting the later,
+> like Wayland compositors or tools like drm_info, enable the client cap on
+> such drivers they will be left without both color pipeline and the legacy
+> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+> conversion support.
+>
+> Prevent that by only marking the cap supported if there are actually planes
+> with color pipelines.
+
+Hi Robert,
+
+I think Maarten probably wants to take one last look.
+
+But just to add that this approach looks good to me. Thanks for working 
+on it.
+
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+
+>
+> Note: while the color pipeline replacement for the legacy properties is
+> still under review (1), we can assume that it will work as a drop-in
+> replacement. That means any plane on any hardware currently supporting
+> the legacy properties will be able to offer a functionally equal color
+> pipeline and there will be no technical reason keep using the legacy
+> properties if both the driver and the client support the new API.
+>
+> 1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
+>
+> Signed-off-by: Robert Mader <robert.mader@collabora.com>
+>
+> ---
+>
+> Changes in v3:
+>   - Move the new check behind the existing EINVAL ones
+>   - Rebase on latest drm-misc-next
+>
+> Changes in v2:
+>   - Replace the driver feature with a simple check (suggested by Maarten
+>     Lankhorst <maarten.lankhorst@linux.intel.com>)
+>   - Expand the commit message slightly and change the title
+> ---
+>   drivers/gpu/drm/drm_ioctl.c | 14 +++++++++++++-
+>   1 file changed, 13 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index e2df4becce62..9039a39c4324 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -373,13 +373,25 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+>   			return -EINVAL;
+>   		file_priv->supports_virtualized_cursor_plane = req->value;
+>   		break;
+> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
+> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
+> +		struct drm_plane *plane;
+> +		bool has_plane_with_color_pipeline = false;
 > +
-> +	ret = regulator_enable(lm3533->vin_supply);
-> +	if (ret) {
-> +		dev_err(lm3533->dev, "failed to enable vin power supply\n");
-> +		return ret;
+>   		if (!file_priv->atomic)
+>   			return -EINVAL;
+>   		if (req->value > 1)
+>   			return -EINVAL;
+> +		drm_for_each_plane(plane, dev) {
+> +			if (plane->color_pipeline_property) {
+> +				has_plane_with_color_pipeline = true;
+> +				break;
+> +			}
+> +		}
+> +		if (!has_plane_with_color_pipeline)
+> +			return -EOPNOTSUPP;
+>   		file_priv->plane_color_pipeline = req->value;
+>   		break;
 > +	}
-> +
+>   	default:
+>   		return -EINVAL;
+>   	}
 
-No delay needed?
-
->  	gpiod_set_value(lm3533->hwen, 1);
-> +
-> +	return 0;
->  }
-
-Johan
