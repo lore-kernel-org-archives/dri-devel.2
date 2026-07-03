@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 718AEC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 573A2C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:26:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D808710F809;
-	Fri,  3 Jul 2026 13:25:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7AC910F806;
+	Fri,  3 Jul 2026 13:26:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="aXn/+Dz5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mefv0Xbx";
 	dkim-atps=neutral
-Received: from forward101a.mail.yandex.net (forward101a.mail.yandex.net
- [178.154.239.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45E5410F809;
- Fri,  3 Jul 2026 13:25:06 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
- [IPv6:2a02:6b8:c15:340d:0:640:ad51:0])
- by forward101a.mail.yandex.net (postfix) with ESMTPS id 5AA3980F7F;
- Fri, 03 Jul 2026 16:25:02 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net (smtp)
- with ESMTPSA id XOhxaGOeKKo0-Ya7LfL2p; 
- Fri, 03 Jul 2026 16:25:01 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
- t=1783085101; bh=5w9HQXUJC9QndoLFGLwX8OwvXmeuBM1nXTtZDoVET94=;
- h=Message-ID:Date:Cc:Subject:To:From;
- b=aXn/+Dz5jX9+50//SiAHXYNZiBxo3FYT4GoM3MKQwVf297nFWN5j/sh1LiwuSWb/j
- oN0JgFssW6HgYgoHa7J5yqGcMe2AeTMjxZvI9353irj+BqOQh/6ao1MZWvWL9DHYSy
- lmMXbzRz4BnC24PpAxBFqlS5B8VFyb0dsZCVZ7gc=
-Authentication-Results: mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net;
- dkim=pass header.i=@yandex.ru
-From: Evgenii Burenchev <evg28bur@yandex.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Evgenii Burenchev <evg28bur@yandex.ru>, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-Subject: [PATCH v2] drm/radeon/rs780: avoid potential divide-by-zero in
- refresh rate calculation
-Date: Fri,  3 Jul 2026 16:24:12 +0300
-Message-ID: <20260703132413.22873-1-evg28bur@yandex.ru>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FCF410F806
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 13:26:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CA4D3600B0;
+ Fri,  3 Jul 2026 13:26:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3801F000E9;
+ Fri,  3 Jul 2026 13:26:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783085201;
+ bh=I5iJR0ZAulXIwXQuJjzS0xJ98CzV5b7tdj3MXn3AYtQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mefv0XbxVuEJHdijKv7y+rcomWqyNozmWC9XLduwTd8Ca1Whp33X7shF2pF0iUGOM
+ YZgYZcuCJ2NGCx8jKuZqtUN+05E9ldIlJ62a3i3Kc6Swm2+2dj+w8MVsa8xTM0v8cD
+ fOldZNTaylqLCXSbpqa8MLk3PXItzLcVymBBPa1aZK6svSzeedxSHpXlTKeenY2Aea
+ TnHRAOs+bcuvAKIgh2aRaJOhhew6G9yeqMwGwYZNxO9+BdE19r+giip0IXaw48FSku
+ 6/jBnGcDUxAYBkldrtS5M1FDtOBR/yMiFCJbsAyil6CSPi5LNVnXVELyhlCgw50BoX
+ AwMZYN77VICgg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
+Cc: hannes@cmpxchg.org, dri-devel@lists.freedesktop.org, tj@kernel.org,
+ mkoutny@suse.com
+In-Reply-To: <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 13:26:40 +0000
+Message-Id: <20260703132641.2F3801F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,57 +55,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The refresh rate used in rs780 DPM display configuration is derived from
-drm_mode_vrefresh(crtc->mode). While connector modes are validated through
-drm_mode_validate_driver(), crtc->mode represents runtime display state
-and may originate from restore paths or transitional modeset states.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-In such cases, drm_mode_vrefresh() may return 0, which is currently used
-as a divisor in rs780_program_at(), leading to a potential divide-by-zero
-condition.
+Pre-existing issues:
+- [High] The patch resolves a panic when `drmm_cgroup_register_region()` fa=
+ils, but leaves an identical teardown vulnerability if `gpu_buddy_init()` f=
+ails.
+--
 
-This issue was found by Linux Verification Center (linuxtesting.org) with SVACE.
+commit 3650035d068659ae5cf730d3debae46e3ebe9589
+Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-Fix this by enforcing a safe fallback refresh rate when the computed value
-is zero.
+drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
 
-This change ensures robustness of rs780 display power management during
-resume and display reconfiguration paths.
+This commit fixes a kernel panic on the module load error path by moving
+drmm_cgroup_register_region() after the list and buddy allocator are fully
+initialized. This prevents the teardown path from dereferencing uninitializ=
+ed
+pointers if the cgroup registration fails.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellst=
+rom@linux.intel.com?part=3D4
 
-Fixes: 9d67006e6ebc ("drm/radeon: rs780 DPM display configuration handling")
-Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
----
-Changes in v2:
-- Add Fixes tag referencing related rs780 DPM display configuration commit
-- Clarify that issue is related to runtime crtc->mode state rather than
-  connector mode validation path
-- Reword commit message to align with DRM state model terminology
----
- drivers/gpu/drm/radeon/rs780_dpm.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_vram_mgr.c
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
 
-diff --git a/drivers/gpu/drm/radeon/rs780_dpm.c b/drivers/gpu/drm/radeon/rs780_dpm.c
-index 64bb4cafb8b5..ad7161972e37 100644
---- a/drivers/gpu/drm/radeon/rs780_dpm.c
-+++ b/drivers/gpu/drm/radeon/rs780_dpm.c
-@@ -63,8 +63,11 @@ static void rs780_get_pm_mode_parameters(struct radeon_device *rdev)
- 		if (crtc && crtc->enabled) {
- 			radeon_crtc = to_radeon_crtc(crtc);
- 			pi->crtc_id = radeon_crtc->crtc_id;
--			if (crtc->mode.htotal && crtc->mode.vtotal)
-+			if (crtc->mode.htotal && crtc->mode.vtotal) {
- 				pi->refresh_rate = drm_mode_vrefresh(&crtc->mode);
-+				if (!pi->refresh_rate)
-+					pi->refresh_rate = 60;
-+			}
- 			break;
- 		}
- 	}
--- 
-2.43.0
+[ ... ]
 
+> @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>  	err =3D gpu_buddy_init(&mgr->mm, man->size, PAGE_SIZE);
+>  	if (err)
+>  		return err;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while fixing the teardown
+vulnerability for the cgroup registration, does this leave an identical
+teardown vulnerability if gpu_buddy_init() fails?
+
+If gpu_buddy_init() fails, it frees the memory but leaves dangling pointers
+and a non-zero mm->n_roots:
+
+drivers/gpu/buddy.c:gpu_buddy_init() {
+    ...
+out_free_roots:
+    while (root_count--)
+        gpu_block_free(mm, mm->roots[root_count]);
+    kfree(mm->roots);
+out_free_tree:
+    while (i--)
+        kfree(mm->free_trees[i]);
+    kfree(mm->free_trees);
+    return -ENOMEM;
+}
+
+Since adev->mman.initialized is already set to true by the caller
+(amdgpu_ttm_init()), returning this error triggers the driver's teardown pa=
+th
+which unconditionally calls gpu_buddy_fini():
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c:amdgpu_vram_mgr_fini() {
+    ...
+    if (!adev->gmc.is_app_apu)
+        gpu_buddy_fini(&mgr->mm);
+    ...
+}
+
+This would lead to a use-after-free, NULL pointer dereference, and
+double-free when gpu_buddy_fini() iterates up to the non-zero mm->n_roots:
+
+drivers/gpu/buddy.c:gpu_buddy_fini() {
+    ...
+    for (i =3D 0; i < mm->n_roots; ++i) {
+        order =3D ilog2(size) - ilog2(mm->chunk_size);
+        start =3D gpu_buddy_block_offset(mm->roots[i]);
+    ...
+}
+
+Should gpu_buddy_init() clear mm->n_roots and zero the pointers on error,
+or should amdgpu_vram_mgr_init() clear its state upon this failure?
+
+> +	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev=
+->gmc.real_vram_size);
+> +	if (IS_ERR(man->cg))
+> +		return PTR_ERR(man->cg);
+> +
+>  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+>  	ttm_resource_manager_set_used(man, true);
+>  	return 0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703130541.2686=
+-1-thomas.hellstrom@linux.intel.com?part=3D1
