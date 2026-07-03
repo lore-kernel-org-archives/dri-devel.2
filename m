@@ -4,146 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C164DC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 14:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76285C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 14:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC8010E5FF;
-	Fri,  3 Jul 2026 14:05:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD65210F81E;
+	Fri,  3 Jul 2026 14:16:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="K9VVEkD2";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KKZbHOKo";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Xb1w3IKZ";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19E1410E5FF
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 14:05:17 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 663BYUEc2994870
- for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 14:05:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=8WphAaBfcRlWYgnvRJcxXsFz
- hs3SYzfpc6/ER6PZ0Go=; b=K9VVEkD2rLMkBv7y7tp3n6q3nGwYMBWOzCMev1xY
- nsscDr+wwL2XtQKkAP32ur5++LQkZEkOe1NYeATQmEaJUJ0ptqpBUdJRGXtgO5+i
- GiKsu8wRDdReHmFFYzDepdZCvhY256FS/Q74LQ5Rqt54d1zdBMfcONdyZsFb/RXF
- ZK8bjekOyEIQt5RaoiIVtFuJMaXw1u9JwKM4fBCXKqi7LGrS8LeuqUQCdTxwODWo
- Asr6vrgrVDYVD98bLtMlc9gBHmQWcNHaOqEoPumQqyzU+di3nEsB21HULmOynh8e
- 2XdWocKCx8imEU6vNuIZiUT+VstS6ZgeFsJb1ee3nxn3tA==
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f648n2psd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 14:05:15 +0000 (GMT)
-Received: by mail-oi1-f200.google.com with SMTP id
- 5614622812f47-495b0cf250dso352726b6e.3
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 07:05:15 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70DE610F81E
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 14:16:42 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493b1710405so3485635e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 07:16:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783087515; x=1783692315;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=8WphAaBfcRlWYgnvRJcxXsFzhs3SYzfpc6/ER6PZ0Go=;
- b=KKZbHOKoWzAbLkc8Xxpv9N4WhX1UTyzcIrNCJ801zsg9MXUCSjzXBf1j4NCfvKcuWd
- Qg6isayDNiGQTwdyOVAmUNVFnrOLpyaN/M+jrcHNNuAoxtNby9o6Jrk2EZUqc/py+w0m
- 0sQRhylFNZ8Qy7puR9uww/e3PUm31IIL+e76YWGFXMzkAbg5jTyfw8WTnOcQWFmUj9Xv
- +fP/cxH2bz14q9KwfnfYCaAC2X2kdAGohv8QHJHz8coPJBUO4YNoy0b9YGheO+xGTsX7
- vT0wREbFja15PIJIFq3Kp4TmG9XbV/W5VOiddkOXHgliwCHt6Th2LIV2V1qEYDb7bY4N
- FVjg==
+ d=linaro.org; s=google; t=1783088201; x=1783693001; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lskiCzL04/SeK1/iyp8dzWHm0r0N5RaxkUMlmtlc8uk=;
+ b=Xb1w3IKZunCNCK21TRr+P5sDRVxgbTDhsMZart2bRu8lED3vGIeE5veC1wwb4v+BD0
+ 1a731aRPTl+lv/bkoAdQ6TxsQhreHU2q27fo2tpPPLAeLVcBYNo3KITgpOvBsUGSfUnt
+ mlaP8NPo6CKT5EtLP/SBxbFylSFC8cwvUppCwvmstsmD1dpN9VjwIm01yeZ0bay2GdZI
+ lAhHdOyN7UVer0XWOhxZqZ3frRjcXSVfVOCCZhzqaQjb7q82pOoZP1CH6847SsE5GQ4G
+ EPJkaryL9GKrV6I67GC8mLEspZv3GoP1Fbhpuk7uxxoW4WAk+AR25YGiWMJJi544nE8f
+ jrxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783087515; x=1783692315;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8WphAaBfcRlWYgnvRJcxXsFzhs3SYzfpc6/ER6PZ0Go=;
- b=U/1a94HS7w4gstg0Czv+p/bJHdOuKCbe2IoxPz79ZuCN96y+XcNysOxXSouFvsLC2S
- cskb6BDZe8LI11v69y1/0M6Thp9zVAtLB2UD04UOHh3RsKuisRSb3tN7Yq2v4bo/fu7T
- EmZg2+SQAUd2eXYieV58l2MLaAwL/XTyb5KjEHToWT4MeWq6/HMw8VoKeXJ77awIEhUC
- V3qK6/I1ZGvPILB+teM8rnVyIIoT0FI0ek5NAVpXufJumoOPCS65V8Ai90XDFvAxvwPT
- RDBT0JWveyHhQMiaMp6xN+qpJi0Fjlcbo3ranZw5lYQjN32qJxgXh+GUd53PYU5XBePg
- AUiw==
+ d=1e100.net; s=20251104; t=1783088201; x=1783693001;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lskiCzL04/SeK1/iyp8dzWHm0r0N5RaxkUMlmtlc8uk=;
+ b=AUdMv6afMZdXYUgQ4Bw2zg3lBjLT/SEBUpZCYCHkNAIhW+9vBBEoqLq9P3KBtE0qdi
+ iUR1DtkAlucz0x8JU56Zy2dPNLHHjSc/XxNN4kWsXfzHsUkcdq6eqF4Qr3z3jXxwb12v
+ 4hVV0fDlT55ua9BeZmGw0RZQ5rDbGQs7OImIbMS+/Dum9xYjB1jAfNiziicDgUhJFT5B
+ Ul9s+JAynSFjsAS3CfOWwSFIBRy1imW6K2vtPAYZCha46d5OU6gTkfILNtiJcJJE2HVX
+ b2VnL6PuOdiEoZT20ANwQxZo41iGeC+SA+PKtMZ88gacGACJPyvijhd2v1pfaozT7pek
+ OxjA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8vvBKGe6xdCmcKOWzeUJQ6EmqIQD0D5VNrcKx3j1q5lp6LJZxKLDJJckrBhC+FLgJS9+NDSI9cKFw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmUnnK/2XPw+QTOx0RDP20/GCVVdiZfzFxRCQ9xFneNhGvcqDQ
- mU3a0VqpIrg3SKBDUQLZGgLUtvpxKsKYnb702WedJzpTf1E/Kh41ayvXF6bEJxUYwK90oWywQyL
- YHy24K30Dl7YhxSZeUlqIQA82UD032Pz27JPwIusmbnnLWVpqgw6hHlElNz7IgZAW7uI+K0I=
-X-Gm-Gg: AfdE7ckSNMLhf3vzGXKEI1ZKtO4C24AXjXtEJHo4OF1tuW987SfgHT9XqCY2gSI36KK
- u1mzOwurJKUhuTUXQxsv8MWJX4K9o0Yv4rf3JUNo6vdazQOclHeHtowdb68vxVcJjysK/tQtl7R
- UvCCJd7DoEre1R8xoDY2WtvseHKban9NzUi7eQdLLSY6olEyImZzAYDPOvT30PB5kXFcG5U8U0n
- Zjt0P7LJlOalfflRvRKS+wdiQmkKvIq7/Zz7mzmffcxsi7oXwOo6+j6vT/ehwCHho2+3pI7/R2C
- cOHYkntQHtq9Mg/8EVbi/QIJKmQqGoYSWKGLhIUKpXjxEqTIcGARqKJ7dDCRWb8KiBqczV99CNW
- ck/cEIOJRv26952BtNbr9ZqRgryJgaZzJrd1G1A7vbgLstIaOuio8kTVJeeahJ09VbD+7v8tHrg
- 6+YNOPURg7bGLRfibd+aDx4XjQ
-X-Received: by 2002:a05:6808:f8b:b0:495:f74a:4080 with SMTP id
- 5614622812f47-4960ed97758mr7337409b6e.15.1783087514655; 
- Fri, 03 Jul 2026 07:05:14 -0700 (PDT)
-X-Received: by 2002:a05:6808:f8b:b0:495:f74a:4080 with SMTP id
- 5614622812f47-4960ed97758mr7337318b6e.15.1783087513937; 
- Fri, 03 Jul 2026 07:05:13 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-39b4adf5d1dsm3358161fa.27.2026.07.03.07.05.12
+ AFNElJ8QGX+oFHC9MNkrPlM8o8IbPVN00U9mk/A+KDOpPxaFLcm4isA/2JjO9n5TJzBldUyBovUbMNu1Rug=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy8h5sOsKRevsgUaHGFPqtA5AnF9YiAO2u/dEqjc+gjxjq9QpIJ
+ 5fPCToF6vjfJejr6EEYbwFiw5MmNC1PzGy4D4v4N9yHMzhOXfg0hsYz3QgghBPF9zmM=
+X-Gm-Gg: AfdE7ckULMnsxzMMgNXO2tpqdoTCY6AYFD95nfE002hCO3UxP2BMrPz+aXZcoS8shpt
+ arpcmp/e+N81AKBJR2/RtPcH1oDDkL8JrSn0sTOfsURLbFJ0YujleJeoWr5FWjFSF5XGxDtU175
+ CtFo2v5juwJkaytR/KxTzr64+CXZDI5RSQtAJNLBn9HNOlYZ2CNbx7ZGjl4yalEaSPpgQVYBwFr
+ 2De6oSsiGnAxFBzzzJ4nt+s2nNWeWOpM5MRkBiPMD/Nx04nZJwzwOavqWmjdr3oYBCcyeAxnPtm
+ dsEtbtEANtuG8L67DlTTzkumBQfI97rV5humaQKJB3jq6x73c/bjTrshlD4E8IA+eHXON+SuPZd
+ FquIimQSSrPYzRnTE7SxG+PPIlXtiFvKVzScOMniBBKZjrFhyB8Z2XKwP5xnZ7OPxvY60q8zv/w
+ O2ncwWLTLuHGnZsmDUiAw8v3d6P3W/Vdo+kDQE3j3TauL/BYn+r0VQoneuZjJOECA=
+X-Received: by 2002:a05:600c:4194:b0:493:b764:ff98 with SMTP id
+ 5b1f17b1804b1-493d0f100c3mr517275e9.11.1783088200711; 
+ Fri, 03 Jul 2026 07:16:40 -0700 (PDT)
+Received: from ta2.c.googlers.com (214.8.78.34.bc.googleusercontent.com.
+ [34.78.8.214]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493cce11497sm56004595e9.12.2026.07.03.07.16.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2026 07:05:12 -0700 (PDT)
-Date: Fri, 3 Jul 2026 17:05:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
- init helper
-Message-ID: <i4tjtsf5rsckfcayo5nuhlger5wqxn3ujeaubm4g2fgrwvhzb2@hf4uhgq3ja5p>
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
+ Fri, 03 Jul 2026 07:16:40 -0700 (PDT)
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+Date: Fri, 03 Jul 2026 14:16:36 +0000
+Subject: [PATCH] dma-buf: remove unused dma-fence-unwrap.c
+ (stable/linux-5.15.y only)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDEzOSBTYWx0ZWRfX8eueDth3h6ke
- cgz7dXruWECW2rOTE4w45Je+rdejB5DnFOWJuzIxQqoF9MY7tA9NXZN+thFwxchlHGjj3nTDrHP
- d8iCoihw2SZh5g2YrP3/12x4CQJOdE4=
-X-Proofpoint-ORIG-GUID: VU9W_CRQgPBuRyttz2PYnu2DVih2C49M
-X-Authority-Analysis: v=2.4 cv=O4wJeh9W c=1 sm=1 tr=0 ts=6a47c19b cx=c_pps
- a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=QX4gbG5DAAAA:8
- a=W2josiyckoAQp7urw8cA:9 a=CjuIK1q_8ugA:10 a=pF_qn-MSjDawc0seGVz6:22
- a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-GUID: VU9W_CRQgPBuRyttz2PYnu2DVih2C49M
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDEzOSBTYWx0ZWRfXzACNYl5iFFGn
- 5YKtxPgeNrQgoT4050a+SWwlU8uKNUarbJ12SUResAHSlcuJIvHW6kWh789h8rFMHy+HAl0PmM2
- 12JfWztODVU/rE1vTS9T+wBZH6AYUuEmazV/ObVz+TA3DwzImglSDy0iG2kL+rDcgLYI5s2NQ5S
- qqPlJ87tkA5EaGBv1MV2Ujt8Qdf9ihABNlwBYoyqhhzJiMFgagRy+YKiWwH1RLwu4h4CLuJUEWM
- moqehoh9Gs/K0WGcaq/imRaX3W+Pf2s4oHDB6D6+XsmD+gIOMAG9ZKlbYB7jmioaVYyQjn5mpSy
- sSf71s/vahu0JTsOkhlmd82u9/bHUTB9AXVDvEsKg1z2g8wZ36zx6RZsZoPTKtGadeC+wpLT0lB
- GPUm7Wux4Ae520Ylbv9D6B18gIGgj/K43PG7JJWgZrA1B4VY0aHl1dkOOrWl6/ylkLDqXb864Kq
- TcRvL7go1bIMvf5r8eQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0
- suspectscore=0 malwarescore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030139
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260703-5-15-dma-fence-unwrap-v1-1-0cf644bc501f@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAETER2oC/x3MSQqAMAxA0atI1gZincCriIvQppqFVVocQLy7x
+ eVb/P9AkqiSYCgeiHJq0i1kVGUBduEwC6rLBkOmo55qbLFq0a2MXoIVPMIVeUfyDXeWasfeQG7
+ 3KF7v/ztO7/sB/HMeWmcAAAA=
+X-Change-ID: 20260703-5-15-dma-fence-unwrap-0f4a6c03daf2
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Gustavo Padovan <gustavo@padovan.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sasha Levin <sashal@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
+ Yunxiang Li <Yunxiang.Li@amd.com>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ peter.griffin@linaro.org, andre.draszik@linaro.org, jyescas@google.com, 
+ kernel-team@android.com, Tudor Ambarus <tudor.ambarus@linaro.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783088200; l=6233;
+ i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
+ bh=IoBDA9RGNCrEvq0FVmsK4Z45OhW+Q/oVyDeW5CmzsEk=;
+ b=bXpjW/Wws+hGcp56bVJAO0VTeqV6NGPVaFHSi0ulYSZHMsW6kJiBJ8BRP6pFh3jm63Qunv+yE
+ F57tc7/d0YOA6VZ/8RTBQP80J9o3N22CnarbId+FauxgboFRvWFStiO
+X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
+ pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,329 +105,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 05:46:15PM +0300, Cristian Ciocaltea wrote:
-> In preparation for adding HDMI 2.x source capabilities, introduce struct
-> drm_connector_hdmi_caps and a new drmm_connector_hdmi_init_with_caps()
-> helper.
-> 
-> The existing drmm_connector_hdmi_init() helper currently takes
-> individual capability arguments such as supported_formats and max_bpc.
-> Adding more HDMI-specific arguments to that function would not scale
-> well, so move those values into a dedicated capabilities structure and
-> implement the existing helper as a wrapper around the new caps-based
-> interface.
+The file drivers/dma-buf/dma-fence-unwrap.c was incorrectly added to
+the 5.15.y stable branch in commit 4e82b9c11d3c ("dma-buf: add
+dma_fence_timestamp helper") as a new file, but it was never enabled in
+the Makefile, and its header include/linux/dma-fence-unwrap.h was not
+present, making it uncompilable.
 
-I think, it was an intention of Maxime: make sure that every driver is
-forced to provide some values here. With the struct-based init it is
-easy to overlook or to ommit a value.
+A full revert of commit 4e82b9c11d3c ("dma-buf: add dma_fence_timestamp
+helper") is not desirable because that commit also introduced the valid
+dma_fence_timestamp() helper and fixed legitimate timestamp race
+windows in drivers/dma-buf/sync_file.c and
+drivers/gpu/drm/scheduler/sched_main.c.
 
-> 
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
->  drivers/gpu/drm/drm_connector.c | 202 +++++++++++++++++++++++++++-------------
->  include/drm/drm_connector.h     |  55 +++++++++++
->  2 files changed, 193 insertions(+), 64 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 8b4baed060f3..c7ce6b7bd8b0 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -542,6 +542,137 @@ int drmm_connector_init(struct drm_device *dev,
->  }
->  EXPORT_SYMBOL(drmm_connector_init);
->  
-> +/**
-> + * drmm_connector_hdmi_init_with_caps - Init a preallocated HDMI connector
-> + * @dev: DRM device
-> + * @connector: A pointer to the HDMI connector to init
-> + * @vendor: HDMI Controller Vendor name
-> + * @product: HDMI Controller Product name
-> + * @funcs: callbacks for this connector
-> + * @hdmi_funcs: HDMI-related callbacks for this connector
-> + * @connector_type: user visible type of the connector
-> + * @ddc: optional pointer to the associated ddc adapter
-> + * @caps: optional HDMI connector capabilities
-> + *
-> + * Initialises a preallocated HDMI connector. Connectors can be
-> + * subclassed as part of driver connector objects.
-> + *
-> + * Cleanup is automatically handled with a call to
-> + * drm_connector_cleanup() in a DRM-managed action.
-> + *
-> + * The connector structure should be allocated with drmm_kzalloc().
-> + *
-> + * The @drm_connector_funcs.destroy hook must be NULL.
-> + *
-> + * Returns:
-> + * Zero on success, error code on failure.
-> + */
-> +int drmm_connector_hdmi_init_with_caps(struct drm_device *dev,
-> +				       struct drm_connector *connector,
-> +				       const char *vendor, const char *product,
-> +				       const struct drm_connector_funcs *funcs,
-> +				       const struct drm_connector_hdmi_funcs *hdmi_funcs,
-> +				       int connector_type,
-> +				       struct i2c_adapter *ddc,
-> +				       const struct drm_connector_hdmi_caps *caps)
-> +{
-> +	int ret;
-> +
-> +	if (!vendor || !product)
-> +		return -EINVAL;
-> +
-> +	if ((strlen(vendor) > DRM_CONNECTOR_HDMI_VENDOR_LEN) ||
-> +	    (strlen(product) > DRM_CONNECTOR_HDMI_PRODUCT_LEN))
-> +		return -EINVAL;
-> +
-> +	if (!(connector_type == DRM_MODE_CONNECTOR_HDMIA ||
-> +	      connector_type == DRM_MODE_CONNECTOR_HDMIB))
-> +		return -EINVAL;
-> +
-> +	if (!caps)
-> +		return -EINVAL;
-> +
-> +	if (!caps->supported_formats ||
-> +	    !(caps->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444)))
-> +		return -EINVAL;
-> +
-> +	if (connector->ycbcr_420_allowed !=
-> +	    !!(caps->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420)))
-> +		return -EINVAL;
-> +
-> +	if (!(caps->max_bpc == 8 || caps->max_bpc == 10 || caps->max_bpc == 12))
-> +		return -EINVAL;
-> +
-> +	if (!hdmi_funcs->avi.clear_infoframe ||
-> +	    !hdmi_funcs->avi.write_infoframe ||
-> +	    !hdmi_funcs->hdmi.clear_infoframe ||
-> +	    !hdmi_funcs->hdmi.write_infoframe)
-> +		return -EINVAL;
-> +
-> +	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	connector->hdmi.supported_formats = caps->supported_formats;
-> +
-> +	/*
-> +	 * The supported HDMI version can be used to infer the maximum TMDS
-> +	 * character rate allowed by the specification. Some controllers,
-> +	 * however, may support a lower rate than that version would imply.
-> +	 *
-> +	 * A non-zero caps->max_tmds_char_rate lets drivers override the
-> +	 * inferred limit with the actual controller capability. A value of
-> +	 * zero keeps the default limit inferred from supported_hdmi_ver.
-> +	 */
-> +	if (caps->supported_hdmi_ver >= HDMI_VERSION_2_0)
-> +		connector->hdmi.max_tmds_char_rate = HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ;
-> +	else if (caps->supported_hdmi_ver >= HDMI_VERSION_1_3)
-> +		connector->hdmi.max_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
-> +	else if (caps->supported_hdmi_ver >= HDMI_VERSION_1_0)
-> +		connector->hdmi.max_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
-> +
-> +	if (caps->max_tmds_char_rate) {
-> +		if (caps->max_tmds_char_rate > connector->hdmi.max_tmds_char_rate)
-> +			return -EINVAL;
-> +		connector->hdmi.max_tmds_char_rate = caps->max_tmds_char_rate;
-> +	}
+Since there are no users of dma-fence-unwrap in the 5.15.y branch,
+remove the unused file to clean up the tree and avoid confusion.
 
-Here I'd totally suggest something simpler:
+Fixes: 4e82b9c11d3c ("dma-buf: add dma_fence_timestamp helper")
+Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+---
+ drivers/dma-buf/dma-fence-unwrap.c | 176 -------------------------------------
+ 1 file changed, 176 deletions(-)
 
-if (!caps->max_tmds_char_rate) {
-	if (caps->supported_hdmi_ver >= HDMI_VERSION_2_0)
-		connector->hdmi.max_tmds_char_rate = HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ;
-	else if (caps->supported_hdmi_ver >= HDMI_VERSION_1_3)
-		connector->hdmi.max_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
-	else if (caps->supported_hdmi_ver >= HDMI_VERSION_1_0)
-		connector->hdmi.max_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
-}
+diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fence-unwrap.c
+deleted file mode 100644
+index 628af51c81af..000000000000
+--- a/drivers/dma-buf/dma-fence-unwrap.c
++++ /dev/null
+@@ -1,176 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * dma-fence-util: misc functions for dma_fence objects
+- *
+- * Copyright (C) 2022 Advanced Micro Devices, Inc.
+- * Authors:
+- *	Christian König <christian.koenig@amd.com>
+- */
+-
+-#include <linux/dma-fence.h>
+-#include <linux/dma-fence-array.h>
+-#include <linux/dma-fence-chain.h>
+-#include <linux/dma-fence-unwrap.h>
+-#include <linux/slab.h>
+-
+-/* Internal helper to start new array iteration, don't use directly */
+-static struct dma_fence *
+-__dma_fence_unwrap_array(struct dma_fence_unwrap *cursor)
+-{
+-	cursor->array = dma_fence_chain_contained(cursor->chain);
+-	cursor->index = 0;
+-	return dma_fence_array_first(cursor->array);
+-}
+-
+-/**
+- * dma_fence_unwrap_first - return the first fence from fence containers
+- * @head: the entrypoint into the containers
+- * @cursor: current position inside the containers
+- *
+- * Unwraps potential dma_fence_chain/dma_fence_array containers and return the
+- * first fence.
+- */
+-struct dma_fence *dma_fence_unwrap_first(struct dma_fence *head,
+-					 struct dma_fence_unwrap *cursor)
+-{
+-	cursor->chain = dma_fence_get(head);
+-	return __dma_fence_unwrap_array(cursor);
+-}
+-EXPORT_SYMBOL_GPL(dma_fence_unwrap_first);
+-
+-/**
+- * dma_fence_unwrap_next - return the next fence from a fence containers
+- * @cursor: current position inside the containers
+- *
+- * Continue unwrapping the dma_fence_chain/dma_fence_array containers and return
+- * the next fence from them.
+- */
+-struct dma_fence *dma_fence_unwrap_next(struct dma_fence_unwrap *cursor)
+-{
+-	struct dma_fence *tmp;
+-
+-	++cursor->index;
+-	tmp = dma_fence_array_next(cursor->array, cursor->index);
+-	if (tmp)
+-		return tmp;
+-
+-	cursor->chain = dma_fence_chain_walk(cursor->chain);
+-	return __dma_fence_unwrap_array(cursor);
+-}
+-EXPORT_SYMBOL_GPL(dma_fence_unwrap_next);
+-
+-/* Implementation for the dma_fence_merge() marco, don't use directly */
+-struct dma_fence *__dma_fence_unwrap_merge(unsigned int num_fences,
+-					   struct dma_fence **fences,
+-					   struct dma_fence_unwrap *iter)
+-{
+-	struct dma_fence_array *result;
+-	struct dma_fence *tmp, **array;
+-	ktime_t timestamp;
+-	unsigned int i;
+-	size_t count;
+-
+-	count = 0;
+-	timestamp = ns_to_ktime(0);
+-	for (i = 0; i < num_fences; ++i) {
+-		dma_fence_unwrap_for_each(tmp, &iter[i], fences[i]) {
+-			if (!dma_fence_is_signaled(tmp)) {
+-				++count;
+-			} else {
+-				ktime_t t = dma_fence_timestamp(tmp);
+-
+-				if (ktime_after(t, timestamp))
+-					timestamp = t;
+-			}
+-		}
+-	}
+-
+-	/*
+-	 * If we couldn't find a pending fence just return a private signaled
+-	 * fence with the timestamp of the last signaled one.
+-	 */
+-	if (count == 0)
+-		return dma_fence_allocate_private_stub(timestamp);
+-
+-	array = kmalloc_array(count, sizeof(*array), GFP_KERNEL);
+-	if (!array)
+-		return NULL;
+-
+-	/*
+-	 * This trashes the input fence array and uses it as position for the
+-	 * following merge loop. This works because the dma_fence_merge()
+-	 * wrapper macro is creating this temporary array on the stack together
+-	 * with the iterators.
+-	 */
+-	for (i = 0; i < num_fences; ++i)
+-		fences[i] = dma_fence_unwrap_first(fences[i], &iter[i]);
+-
+-	count = 0;
+-	do {
+-		unsigned int sel;
+-
+-restart:
+-		tmp = NULL;
+-		for (i = 0; i < num_fences; ++i) {
+-			struct dma_fence *next;
+-
+-			while (fences[i] && dma_fence_is_signaled(fences[i]))
+-				fences[i] = dma_fence_unwrap_next(&iter[i]);
+-
+-			next = fences[i];
+-			if (!next)
+-				continue;
+-
+-			/*
+-			 * We can't guarantee that inpute fences are ordered by
+-			 * context, but it is still quite likely when this
+-			 * function is used multiple times. So attempt to order
+-			 * the fences by context as we pass over them and merge
+-			 * fences with the same context.
+-			 */
+-			if (!tmp || tmp->context > next->context) {
+-				tmp = next;
+-				sel = i;
+-
+-			} else if (tmp->context < next->context) {
+-				continue;
+-
+-			} else if (dma_fence_is_later(tmp, next)) {
+-				fences[i] = dma_fence_unwrap_next(&iter[i]);
+-				goto restart;
+-			} else {
+-				fences[sel] = dma_fence_unwrap_next(&iter[sel]);
+-				goto restart;
+-			}
+-		}
+-
+-		if (tmp) {
+-			array[count++] = dma_fence_get(tmp);
+-			fences[sel] = dma_fence_unwrap_next(&iter[sel]);
+-		}
+-	} while (tmp);
+-
+-	if (count == 0) {
+-		tmp = dma_fence_allocate_private_stub(ktime_get());
+-		goto return_tmp;
+-	}
+-
+-	if (count == 1) {
+-		tmp = array[0];
+-		goto return_tmp;
+-	}
+-
+-	result = dma_fence_array_create(count, array,
+-					dma_fence_context_alloc(1),
+-					1, false);
+-	if (!result) {
+-		tmp = NULL;
+-		goto return_tmp;
+-	}
+-	return &result->base;
+-
+-return_tmp:
+-	kfree(array);
+-	return tmp;
+-}
+-EXPORT_SYMBOL_GPL(__dma_fence_unwrap_merge);
 
-> +
-> +	strtomem_pad(connector->hdmi.vendor, vendor, 0);
-> +	strtomem_pad(connector->hdmi.product, product, 0);
-> +
-> +	/*
-> +	 * drm_connector_attach_max_bpc_property() requires the
-> +	 * connector to have a state.
-> +	 */
-> +	if (connector->funcs->atomic_create_state) {
-> +		struct drm_connector_state *state;
-> +
-> +		state = connector->funcs->atomic_create_state(connector);
-> +		if (IS_ERR(state))
-> +			return PTR_ERR(state);
-> +
-> +		connector->state = state;
-> +	} else if (connector->funcs->reset) {
-> +		connector->funcs->reset(connector);
-> +	}
-> +
-> +	drm_connector_attach_max_bpc_property(connector, 8, caps->max_bpc);
-> +	connector->max_bpc = caps->max_bpc;
+---
+base-commit: eceeec79dbc646d6dace49ed1ba2f656683d5537
+change-id: 20260703-5-15-dma-fence-unwrap-0f4a6c03daf2
 
-If you don't like the max_bpc argument, let's do it other way:
-
-if (connector->max_bpc < 8)
-	return -EINVAL;
-
-if (connector->max_bpc > 8)
-	drm_connector_attach_hdr_output_metadata_property(connector);
-
-
-> +
-> +	if (caps->max_bpc > 8)
-> +		drm_connector_attach_hdr_output_metadata_property(connector);
-> +
-> +	ret = drm_connector_attach_color_format_property(connector,
-> +							 caps->supported_formats);
-> +	if (ret)
-> +		return ret;
-> +
-> +	connector->hdmi.funcs = hdmi_funcs;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drmm_connector_hdmi_init_with_caps);
-> +
->  /**
->   * drmm_connector_hdmi_init - Init a preallocated HDMI connector
->   * @dev: DRM device
-> @@ -578,71 +709,14 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
->  			     unsigned long supported_formats,
->  			     unsigned int max_bpc)
->  {
-> -	int ret;
-> +	struct drm_connector_hdmi_caps caps = {
-> +		.supported_formats = supported_formats,
-> +		.max_bpc = max_bpc,
-> +	};
->  
-> -	if (!vendor || !product)
-> -		return -EINVAL;
-> -
-> -	if ((strlen(vendor) > DRM_CONNECTOR_HDMI_VENDOR_LEN) ||
-> -	    (strlen(product) > DRM_CONNECTOR_HDMI_PRODUCT_LEN))
-> -		return -EINVAL;
-> -
-> -	if (!(connector_type == DRM_MODE_CONNECTOR_HDMIA ||
-> -	      connector_type == DRM_MODE_CONNECTOR_HDMIB))
-> -		return -EINVAL;
-> -
-> -	if (!supported_formats || !(supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444)))
-> -		return -EINVAL;
-> -
-> -	if (connector->ycbcr_420_allowed != !!(supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420)))
-> -		return -EINVAL;
-> -
-> -	if (!(max_bpc == 8 || max_bpc == 10 || max_bpc == 12))
-> -		return -EINVAL;
-> -
-> -	if (!hdmi_funcs->avi.clear_infoframe ||
-> -	    !hdmi_funcs->avi.write_infoframe ||
-> -	    !hdmi_funcs->hdmi.clear_infoframe ||
-> -	    !hdmi_funcs->hdmi.write_infoframe)
-> -		return -EINVAL;
-> -
-> -	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
-> -	if (ret)
-> -		return ret;
-> -
-> -	connector->hdmi.supported_formats = supported_formats;
-> -	strtomem_pad(connector->hdmi.vendor, vendor, 0);
-> -	strtomem_pad(connector->hdmi.product, product, 0);
-> -
-> -	/*
-> -	 * drm_connector_attach_max_bpc_property() requires the
-> -	 * connector to have a state.
-> -	 */
-> -	if (connector->funcs->atomic_create_state) {
-> -		struct drm_connector_state *state;
-> -
-> -		state = connector->funcs->atomic_create_state(connector);
-> -		if (IS_ERR(state))
-> -			return PTR_ERR(state);
-> -
-> -		connector->state = state;
-> -	} else if (connector->funcs->reset) {
-> -		connector->funcs->reset(connector);
-> -	}
-> -
-> -	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
-> -	connector->max_bpc = max_bpc;
-> -
-> -	if (max_bpc > 8)
-> -		drm_connector_attach_hdr_output_metadata_property(connector);
-> -
-> -	ret = drm_connector_attach_color_format_property(connector, supported_formats);
-> -	if (ret)
-> -		return ret;
-> -
-> -	connector->hdmi.funcs = hdmi_funcs;
-> -
-> -	return 0;
-> +	return drmm_connector_hdmi_init_with_caps(dev, connector, vendor,
-> +						  product, funcs, hdmi_funcs,
-> +						  connector_type, ddc, &caps);
->  }
->  EXPORT_SYMBOL(drmm_connector_hdmi_init);
->  
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index af075c38f4db..961a729d0869 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -2029,6 +2029,47 @@ struct drm_connector_hdmi_audio {
->  	int dai_port;
->  };
->  
-> +/**
-> + * struct drm_connector_hdmi_caps - HDMI capabilities structure
-> + *
-> + * This structure is required to initialize the connector using
-> + * drmm_connector_hdmi_init_with_caps().
-> + */
-> +struct drm_connector_hdmi_caps {
-> +	/**
-> +	 * @supported_hdmi_ver:
-> +	 *
-> +	 * Maximum HDMI specification version supported by the controller side
-> +	 * of this connector. This describes the controller capability only;
-> +	 * the effective link capabilities may be further restricted by the
-> +	 * sink, bridge, or mode validation.
-> +	 *
-> +	 * HDMI_VERSION_UNKNOWN means legacy/default behaviour.
-
-What would it actually mean here? Every chip has some version of HDMI
-standard it conforms to.
-
-> +	 */
-> +	enum hdmi_version supported_hdmi_ver;
-> +
-> +	/**
-> +	 * @supported_formats:
-> +	 *
-> +	 * Bitmask of @drm_output_color_format listing supported output formats.
-> +	 */
-> +	unsigned long supported_formats;
-> +
-> +	/**
-> +	 * @max_tmds_char_rate:
-> +	 *
-> +	 * Maximum TMDS character rate supported by the source, in Hz.
-> +	 * A value of 0 means the core should use the default limit implied by
-> +	 * @supported_hdmi_ver.
-> +	 */
-> +	unsigned long long max_tmds_char_rate;
-> +
-> +	/**
-> +	 * @max_bpc: Maximum bits per char the HDMI connector supports.
-> +	 */
-> +	unsigned int max_bpc;
-> +};
-> +
->  /*
->   * struct drm_connector_hdmi - DRM Connector HDMI-related structure
->   */
-
+Best regards,
 -- 
-With best wishes
-Dmitry
+Tudor Ambarus <tudor.ambarus@linaro.org>
+
