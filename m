@@ -4,127 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE02EC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:09:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB4FDC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5481D10F693;
-	Fri,  3 Jul 2026 07:09:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22DB710F694;
+	Fri,  3 Jul 2026 07:10:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DT9O7NzQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="G49T38OJ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bM7A5PU1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xlpJec58";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T5p9sIR/";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8E8310F693
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:09:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F097A759E5;
- Fri,  3 Jul 2026 07:09:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783062588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
- b=DT9O7NzQrziYcZwrcooXrKtfFpA9tictlQjsA/hkz5jUPssi5w/ganbhwlvFPHpIkt9Qh4
- 7aUvrKTWfDxQW3Vda09Tpq3CP64llTiI9rpIwnvfNhjOGBKrf6TFrVAMwRIz6iuTzZwv+R
- en4eI/p/F0ijfxh6aCTDsJ9fLJE2EFM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783062588;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
- b=G49T38OJa7xk6udWUFFvBlOvCozUlw4edQjq8juzk5dgFPS85bK+mTSaFt8i6GMHviKsBA
- mzYeJFz/9Kd5YbCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783062586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
- b=bM7A5PU1T7SepTA0BH6wkfa5iha787MPro5nKr8wzvu1fpZs2SmZhDWf57hCK9Jpvb7S4B
- ZY2Hvq02obZcQktxafp/s/r12wbhmdvbjB5fcq/iN/0oWhQlA+hxvAlfPqPtfh5NsJhUVI
- HfI2RFG/0xkTuH6/q44Zj6JApQjvIqs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783062586;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
- b=xlpJec58bVCvrYypkEua/rf08wxU3VmAfIzNY5rVXTtmNhLKtxt71tQeaLFRiep4yHUOVQ
- OEURRr4wlbFnQfDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6B06779AA;
- Fri,  3 Jul 2026 07:09:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id /+JSKzpgR2r2aAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 03 Jul 2026 07:09:46 +0000
-Message-ID: <44557a30-dc86-409a-b430-2b4db151843b@suse.de>
-Date: Fri, 3 Jul 2026 09:09:46 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5435610F694
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:10:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DF7C243AAD;
+ Fri,  3 Jul 2026 07:10:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED571F000E9;
+ Fri,  3 Jul 2026 07:10:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783062619;
+ bh=5EHukF5H/z9l9uC2WxZRVzgW9mK1DchOxCTKztHSowk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=T5p9sIR/c3iKErjZCsuxu797uuaK++oKaepi2ujfJjvVEfav6h5ZRF8W/pqp46ZIN
+ CSVbwulKUChwFEoTcKcogGloLiN0iOyozBS6wBJ4oJRMXyQsM0mZGjgWHybnAS6cF4
+ 8tKS6VNyxGNfCtfOd5PEKtOOE1Hefv0Vb7+FI8wsYKJJ8Y/8QXz9bmdwhUuTbAq6Mx
+ VzJGQc0SxfYZRT1E3CvXpgLR5p/hG0MVEcjYHDlW8RHCE/eCsh+KbPiPZot1biRH6S
+ 0I2oNFToeebbrQoKt+0O6XDWa9Pak+hDp9hidHEDQzaz3KQ+hNGX4iEKhKo+96Kd0R
+ KH6D41Ge2Wmtg==
+Message-ID: <7ecf28a5-1c69-41b9-a6ed-0bf14f62b9fa@kernel.org>
+Date: Fri, 3 Jul 2026 09:10:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] drm/connector: check if destroy function exist
-To: Andreas Kemnade <andreas@kemnade.info>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, lumag@kernel.org, dri-devel@lists.freedesktop.org,
+Subject: Re: [PATCH 2/4] dt-bindings: display: tegra: Add channel/syncpoint
+ range properties
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260702191453.611070-1-andreas@kemnade.info>
+References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+ <Np88My8kTE-rRphOw0a-Ew@nvidia.com>
+ <20260626-sceptical-aardvark-from-mars-cedf81@quoll>
+ <xLshrt-qQoOT-VB3QjfvBA@nvidia.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260702191453.611070-1-andreas@kemnade.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <xLshrt-qQoOT-VB3QjfvBA@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[kemnade.info,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
- RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[8];
- MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- kemnade.info:email, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,62 +113,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 29/06/2026 06:02, Mikko Perttunen wrote:
+> On Friday, June 26, 2026 7:26 PM Krzysztof Kozlowski wrote:
+>> On Thu, Jun 25, 2026 at 06:26:43PM +0900, Mikko Perttunen wrote:
+>>> On Thursday, June 25, 2026 5:36 PM Krzysztof Kozlowski wrote:
+>>>> On Mon, Jun 22, 2026 at 05:22:51PM +0900, Mikko Perttunen wrote:
+>>>>> Channels and syncpoints available may be limited when other system
+>>>>
+>>>> What are channels and syncpoints?
+>>>
+>>> Very host1x-specific hardware resources. Somewhat close to GPU channels
+>>> and semaphores / fences if you're familiar with those.
+>>>
+>>>>
+>>>>> components are using them. Add properties nvidia,channels and
+>>>>> nvidia,syncpoints to limit the range of usable channels and/or
+>>>>> syncpoints.
+>>>>
+>>>> Why isn't this deducible from the compatible?
+>>>
+>>> When Host1x is partitioned, the hypervisor (or other software entity
+>>> with access to the non-vm host1x register regions) can configure which
+>>> channels and syncpoints are available to each partition arbitrarily.
+>>
+>> So you will have different boards for the same SoC with different
+>> values?
+>>
+> 
+> Yes -- even the same board will have different values depending on the
+> use case of the system. The hypervisor or bootloader has to update the
+> properties according to the configuration it has programmed in the
+> hardware.
+> 
+> I will update the commit message with clarification.
+> 
+>>>
+>>> How that partitioning was done is not discoverable through hardware
+>>> directly, so we need to pass that information through device tree.
+>>>
+>>>>
+>>>> Also, nvidia,channels is too broad/generic. This is not ADC, right? And
+>>>> channels is a common term in IIO. And in few other cases.
+>>>
+>>> It's not ADC. Yes, it's a common term in a lot of contexts. I can call
+>>> it nvidia,host1x-channels if you prefer but that seems a bit redundant
+>>> given the context.
+>>
+>> host1x is indeed poor, but maybe there is some way to be a bit more
+>> descriptive? message-channels?
+> 
+> I would prefer to keep these as is -- anyone working with host1x will
+> know what 'channels' and 'syncpoints' mean, and changing the name could
+> cause confusion since the name would not match other code or
+> documentation discussing these.
+> 
+> I can update the binding documentation with some more explanation about
+> what these properties mean.
 
-Am 02.07.26 um 21:14 schrieb Andreas Kemnade:
-> Connectors might have not resources needed to be manually freed.
-> E.g. the drm_bridge_connector does not have such a callback.
->
-> Fixes: c12907be57b1 ("drm/bridge-connector: switch to using drmm allocations")
+Property has only one meaning in DT schema, so basically you are now
+fixing nvidia,channels to uint32-array for all possible use cases and
+nvidia devices. Well, you have been warned.
 
-This patch uses drmm_connector_init() for the cleanup, which is a 
-mis-design IMHO.  Rather than calling drm_connector_cleanup(), it should 
-call connector->funcs->destroy, which then points to 
-drm_connector_cleanup. This would make the whole thing more useful and 
-not require fixups (like this one) elsewhere in the code. Just just my 2cts.
-
-Best regards
-Thomas
-
-
-> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-> ---
->   drivers/gpu/drm/drm_connector.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 47dc53c4a738..d2dfc6e8f7d0 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -198,7 +198,9 @@ static void drm_connector_free(struct kref *kref)
->   	struct drm_device *dev = connector->dev;
->   
->   	drm_mode_object_unregister(dev, &connector->base);
-> -	connector->funcs->destroy(connector);
-> +
-> +	if (connector->funcs->destroy)
-> +		connector->funcs->destroy(connector);
->   }
->   
->   void drm_connector_free_work_fn(struct work_struct *work)
-> @@ -216,7 +218,9 @@ void drm_connector_free_work_fn(struct work_struct *work)
->   
->   	llist_for_each_entry_safe(connector, n, freed, free_node) {
->   		drm_mode_object_unregister(dev, &connector->base);
-> -		connector->funcs->destroy(connector);
-> +
-> +		if (connector->funcs->destroy)
-> +			connector->funcs->destroy(connector);
->   	}
->   }
->   
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Best regards,
+Krzysztof
