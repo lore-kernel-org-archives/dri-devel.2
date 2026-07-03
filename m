@@ -4,83 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE1A8C44502
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0AB6C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:04:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6400010F67D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F6AE10F67E;
 	Fri,  3 Jul 2026 07:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HwBJsJmt";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="ZGpSIUzi";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="PkCaXc8f";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6821610F2BA
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Jul 2026 10:48:35 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-c9ef3e1337fso353065a12.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 03:48:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782989315; x=1783594115; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
- b=HwBJsJmtVOdhGxRNi09qvDyaiNo7a+xqWKN+aAs5hrf89eBC7vkpEwzFnUkNYgU2/p
- Wfdz72FtE0zqblqE8RzhpdVhpEEanoXQq+W5ahSOR0t76LQPCxAiQEtLJuREKi/6LGGy
- nN3SJlSHI6DF+fHhmcEKQj/Na1ooiabkpoup/cvSbA9oFhBI+kL+RCU/k+IcB65MKw+J
- a4rvvvFtqendmp6+Itcn3osUSxmoi52GcYHzhzXo+6K/FNJSCDfb313of8vdComkcvjY
- AhIN6CprAcF3BYA3YcECxc2R3D/0yXZoXJRJ9h/WGhAVz4VI/WAOVGp0FnEmiu/MZfyq
- /Yzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782989315; x=1783594115;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=8HePeeifvB/opdYPmqi87Awn5dRCasskHjfVg9hPOIo=;
- b=jwKcBPoTQHgx1a/vecqvTri9CC+HZAs6o8poPyv9bPYU0fs97kSaDUTg2Zd0N5mmqC
- VwKaATnyKZV397GNsXhfMPjyjoeggNWnM5sH9E4DCMjnBcsLhLN3aUmrq8/MkOjWmOdu
- mLr2J+T/lLhLkwGVWJ2P81m0RxpQVpSS/blXw/YE1a76ABx8/YVQ+fQM5cjnQeL0Z0s/
- ANlq8kUiXHx2cAg/FsMUudi9jw/vpLRZoKwcISlcdHbclEb+loHGUAvlIB7aBXFrU7kQ
- Rq0DOGr9qbarTvJt6Cs40FtHzo6XpSk7V+GTsLUuQBtuQQLcZbkyaGL6fKXatURnuteI
- Y2vw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9i0Kt0u0Ws6O6xU7Tx3erMSEAEy6bx62OKowzt1V2Rp/Mu/v2EdaIga9wa5AYZz8wBHZqH/E4+IMQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YymTw4NNH5Dd6+41Q4F44DW2YoRL/gf09qgvt0N/1+r80gozCOL
- ThX/moGP3JyJZBWTOs5WJTBH2I0j+gkpPdZhAZqvoaCmwyR3Xaj3rzht
-X-Gm-Gg: AfdE7cmdti1cBoUET8xWdfjDF4tqAUWL44NnwsOvB5ocU1M1agBE1xdi7zEAG01pFl2
- 9u4NuDQlMh+INkB2MuiIRtQ8v+T30NDGE0iMZUUnH7B0uxewYXeuOuJ+zeGoOBHo8JQe7Kt6zlo
- 7q7FXlphCQvRWZcE9CrJTHAJPe6GnQv/wdS1kr2ip/rRuZyctE89pJckHPixOMeyYji58UvCXoe
- PpZ8C4CdYaGT2bKKZq5cmOi/NAmF6d4uAOVK1usfJHXVg7Knz/LioDYnBvH1Ise/fRTcoyFZs58
- JKs977IN63h2WdEjEhEcT4YxqeW1+m1gBW0h+Tz/27POEPh+TjWQwIHsV4pjXK8qj6hUoh9RDTO
- KY5kTzTT1T/YsOw3eS+gK/Nf80lNzyhi6EW65t+bo2IAP/6Agsagbzn4FbiONPiN5CIxAgXq7aP
- mT9BhQEtTCI+y/D7MsTjkBoRnmzVSOo0gysViFOq0PjMPEPFh0x56CQIgbrxY6VaZPLEaAxJiqS
- qnDbzwVVCr3yrSbfiVddtGaPGcdGqjC4MSGGLgAmtw=
-X-Received: by 2002:a05:6a20:e20f:b0:3b4:669c:ee32 with SMTP id
- adf61e73a8af0-3bfed3b26edmr7042853637.37.1782989314653; 
- Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
-Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br.
- [201.68.197.145]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f116065c5sm5936815eec.11.2026.07.02.03.48.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 03:48:34 -0700 (PDT)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: louis.chauvet@bootlin.com
-Cc: airlied@gmail.com, bparrot@ti.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, jsarha@ti.com,
- jyri.sarha@iki.fi, kristo@kernel.org, krzk+dt@kernel.org, lee@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, nm@ti.com,
- robh@kernel.org, sam@ravnborg.org, simona@ffwll.ch, stable@vger.kernel.org,
- thomas.petazzoni@bootlin.com, tomi.valkeinen@ideasonboard.com,
- tomi.valkeinen@ti.com, tzimmermann@suse.de, vigneshr@ti.com
-Subject: Re: [PATCH 4/4] drm/tidss: Fix sampling edge configuration
-Date: Thu,  2 Jul 2026 07:48:01 -0300
-Message-ID: <20260702104817.1219078-1-leoreis.costa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
-References: <20250730-fix-edge-handling-v1-4-1bdfb3fe7922@bootlin.com>
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com
+ [148.163.154.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF8E310F651
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 06:25:16 +0000 (UTC)
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+ by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6635tlHi292838; Fri, 3 Jul 2026 01:24:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ proofpoint-05-2026; bh=J4L6JHvYCSiubCAWVj62c7+C1+W/vF0FZaQTPMpuc
+ xc=; b=ZGpSIUziQ6GrtVG8NaQNGLV5ZjcPSDFKfIv/ElcIXnPGJ2nAiuBCrrZzz
+ 3QkmDWQ5M2CL+DknNKePUpeE5gY2wZ0fIFShUXPUK57sFC7rhoh9TxNCo+Q8N0PE
+ mv6KskNa+4ro18jtc+uqR8fDODdDOvb35n+ll9ZYP1hRMu4Z/sN2NEqeIrNLo7VR
+ gFVErb/Q4+fbfBJi3/ZVMwcVBBpG9dyngbWQrJmTxYr05Dg9nlzodc+/jrqXjw9U
+ g/eowo0lQ0G28Y70xS8XjDyn3I3w+UNeJaesiG95AG+am8U/h7LdRpkD5xgQaMcy
+ PoDo4SHy0A0mqUfIoOZ5I24HCFs4w==
+Received: from ph0pr06cu001.outbound.protection.outlook.com
+ (mail-westus3azon11011071.outbound.protection.outlook.com [40.107.208.71])
+ by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4f63a71gp1-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Fri, 03 Jul 2026 01:24:34 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kFFiGD55r7YWwCCn0rwsmJrXy5CfErENAXGcJDlblDsQ9DwSkJHCvOsPbR0p017nkce1W8TsDDLKTvzsr1tlz5pt6+IPVk6sBiN1HPAi7EW70dgjGR2cisVhu6/1vQafgoDaSc8Mxe/2iBCb9BSPYJcX2W6HAJqofCLC+GgYvYOrAVFc6dG/1qP/AcrB8OCM3pkAP07V6gBH8CxDw4X6Zv4yvwWuukXTkhTj2dSDbCmCLj9/Dkc8YobIHXeDOkPX4NKtBbwWs8Vv/9Nskro782tdqmCwOgKKz8Rht4QQMZ/cqpboxixo4mRfDGGYk6ePeopZ1fn7NkdcaOiz+HKO1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J4L6JHvYCSiubCAWVj62c7+C1+W/vF0FZaQTPMpucxc=;
+ b=FrTMwgicrhcT1O+9WeuQyged2YgNyV0JfD6qt8AZR7RXTlIy+Ign3VytEqVe2K7Npgx8FlnkGhdOldo3kWrhuOK1h6feROo2gvedcRM55Itp2CtQ5/xd64v2uYSYchuB9zbGKFUdhjDSSDnXefLc8loRmruM9cswPhrmtFLR/gwTQo2DcnnL15CCbsSmQXWoGBS1SXe9nmY0440xp+PXl3DNOljBEYJzgbl6BsSj/3Vyg9i91ikRX6ORHzq+AGTAcgtjaEebmvCDMrf0dsMFbt2T00EExAAD7UX7NbIWZrEQ7w3NgqxGwYa4YXdXiaY8v/w77wNapwj+/4swiJgIEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J4L6JHvYCSiubCAWVj62c7+C1+W/vF0FZaQTPMpucxc=;
+ b=PkCaXc8fbjoOTVvznqMtIvr1dSrR62jAm13/vaq1NLe07G4V9hxVMpebZnpYCrOLtOPVMvlPGKV0K2xap/31PdBijNyRrZxRsAi5BQ/+y9m3wdYabKB23B3Mjp+pE8BOqy6e0xM6hmxwQNsAk0o3QZLt9B+9JlV3+NwVGthTxhE=
+Received: from BL1PR13CA0171.namprd13.prod.outlook.com (2603:10b6:208:2bd::26)
+ by DS0PR10MB8031.namprd10.prod.outlook.com (2603:10b6:8:200::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 3 Jul 2026
+ 06:24:27 +0000
+Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
+ (2603:10b6:208:2bd:cafe::11) by BL1PR13CA0171.outlook.office365.com
+ (2603:10b6:208:2bd::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Fri, 3
+ Jul 2026 06:24:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.202.0 via Frontend Transport; Fri, 3 Jul 2026 06:24:26 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 3 Jul
+ 2026 01:23:52 -0500
+Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 3 Jul
+ 2026 01:23:52 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
+ (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Fri, 3 Jul 2026 01:23:52 -0500
+Received: from [10.24.53.80] (yashas.dhcp.ti.com [10.24.53.80])
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6636NhCj1368320;
+ Fri, 3 Jul 2026 01:23:44 -0500
+Message-ID: <4851c6a5-f056-4a73-969c-51985ced637e@ti.com>
+Date: Fri, 3 Jul 2026 11:53:43 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: display/bridge: cdns-mhdp8546: Add
+ no-hpd property to the cadence bridge
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+ <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <tomi.valkeinen@ideasonboard.com>, <dmitry.baryshkov@oss.qualcomm.com>,
+ <kees@kernel.org>, <xiqi2@huawei.com>, <r-ravikumar@ti.com>,
+ <sjakhade@cadence.com>, <yamonkar@cadence.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <devarsht@ti.com>,
+ <s-jain1@ti.com>, <d-mittal@ti.com>, <b-padhi@ti.com>
+References: <20260630102610.1849902-1-y-d@ti.com>
+ <20260630102610.1849902-2-y-d@ti.com>
+ <20260701-red-nautilus-of-masquerade-8fea13@quoll>
+Content-Language: en-US
+From: Yashas D <y-d@ti.com>
+In-Reply-To: <20260701-red-nautilus-of-masquerade-8fea13@quoll>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|DS0PR10MB8031:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42072d50-0e33-442b-988c-08ded8cbbb3b
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|7416014|23010399003|1800799024|376014|13003099007|18002099003|56012099006|4143699003|22082099003;
+X-Microsoft-Antispam-Message-Info: s5pYVIKosldhjkvPh9JVjHBszd4NQ/dpDPla8cs6lmQtjgtHwOWIzhG+bnEkWnmdhi9GH2mAMRi1Md6EwEecquQ+Dx0sWnf5Do8V2InOndWLzU2pZTqstebGsP/UK7Yh3KE51OJGUEA+UNFexdi+ExPmZyu3sHow8o7jKt+ogFKXSY8WFihzhH/Heil3reTknXvezKp2RUiAtUBZdAIYi0X9cl0NNJoK80kbdGUTIQHxCm5I7EI+uHbunK3djSe92/F2b5BDRowsDqenptuXD+NFOPUzZm5RAg0MQ8+LSuhXg3OxFynM7i6Hfiassj2y5sEJfjDwPsKWVBhYRIe4R9gR5jLyIcCqM2tkli+8a82/gwxRZ6GrGQbjVHMICbCJQU40D/P6utfzQgHGYI5Z9pKXy+5ci95F1tth6AZZSab4BEOQ1FhKEec5R1qb7k/ZDtQOyCIIV3LA1Jh1ab504CBcMwXw0y9junXmvcmuARk9ka48+20XMFv/1nMITYYuYRBo8IkyeprmWxTuwuyETV/JGgm/b7QlsJHC/Est812e6XWyHQ36T/bS3GzuzS+luKXgnN1H68hPAq4Tg+HkO9O8cOEC0e6VH6rlWDjCmmsKDdhIp2yEOhb0Tsn+Yo1DdGD+VnmdK2otXsU6whRkm5ydt+QszLeKdnqk8XrHvkV/cQIZgXNU7OpS0v5HG1zXedae/HBvHk9u/LTdg5md2A==
+X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(7416014)(23010399003)(1800799024)(376014)(13003099007)(18002099003)(56012099006)(4143699003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: XQGwipVxlabHaGVSbDMpPD+XtdtGoL6LOwag6z7JOKVSyj/eX6zfYA9Cv/00wQawbg+4IzWgTs/AGgwytIaeQtVt6LoqMaz8dQ1mzjw+JOJRq1N6KF0+aunvUGKXliX/winOyR6CgZrjDQMlk3zOMy5pght/9SidPk98uBPHEgqwoJgI6XHZsYXWH7UCprKZCn/GuhFD/YF19U8A3XnX1c0EtmOG6pe3oAEOPUL6OdKeU+AgCW6FGPez/TC+MUebYEFZ+rvWCZoVYKLZAWwAJaqy9jb2gzNcw21uVQCqr6bZc3rFJr5cu0tjKFXLuRy9TLVxwqxhz5vqDXB3q6YJeEytarPObd3fxVr+lsKWC2iAPteeHQOohFKuWDuhQDPlj+hNYAj+h7DNwI2Ur8OF2QcY1eG8VQeXyDGxNc0UHy9A6nEhFmUsTU6BdL5s5vfP
+X-Exchange-RoutingPolicyChecked: mMEnCsWyWnynbo5Z+8XPOrgPcM13ffh1dxxoUH5tqB45TVwRhsNmMn7EQlYWdaV83YyX2wO+ykZaSOPYry5xtxHqcgf4botkJx9N4fbOXOLVWjP0RtP5bXJIq7qN+aoIeN5cXGrTfs2WEZRXaQPsorePMhYO9JNaHMQSIBywR9oD/tZ44wkarG21V6ITOnbkp6k4PjWe43dwcYf7KqTZhSf+q7xou/hO0IL4Hb2CahRIDzpLJV7iFVl6TK/9Pew/8QjHPCa0Dw23TlgGP5kVjMvHSe+Z9bJYMf76SjdRJvW101rywzyUMrKC1TkY5VkPhPVH72J8BkGocANQR9voQQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 06:24:26.3118 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42072d50-0e33-442b-988c-08ded8cbbb3b
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
+ Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DB.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB8031
+X-Authority-Analysis: v=2.4 cv=BMGDalQG c=1 sm=1 tr=0 ts=6a4755a2 cx=c_pps
+ a=cgmL7KMsZDthlzKGM6UXqw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=5Ea2T7kVNC1aPIGrf7cA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: ndv3VA9SsfS5m3Yud1QBxC6UKUK6Dz9P
+X-Proofpoint-ORIG-GUID: ndv3VA9SsfS5m3Yud1QBxC6UKUK6Dz9P
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA1OCBTYWx0ZWRfX9mSYnPkCqcEZ
+ Y2BS8dnOz5hdm0DAcss2vtpy1oNh2y3gNaJBNINUDCGHrgtGXnC/onqbPNdruoUpDpskZskXtZx
+ JtO20lWDgevZdBu/S2u1XEkePT/+nFI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA1OCBTYWx0ZWRfXzMEAcnqn1sHF
+ Z0AE5t/6nZC7ucK++NqwbpGl1Gl83idQptZE7CAsGvm9QQyWX5CJqaFurxZMVsh0qcwt3emw0k9
+ bqC4vEOhsF5R4dCRyxedlUznuoI+4FK4fRBAuPfqq4PJ68/B2eoyf/wexaWW6Ik432ysKCvXw09
+ Xu7trv8Hgy9BapEcfjByfDh8liWUhqDEgPAOAeuD2/30aonNm+lv1Gq3twvueTQfvvxy0x5N04g
+ TLJl3vvvvYqrLJRQ51/LNQts2dJ5JJoUyRrR2hbNi3I2JoQfgjYDrTymC+JQKAZ1vn8mOwV52JT
+ S9zdQq/HDFAI7+uIXoZz+iije4jboiemWijGCx/evThwKNeI0Toh2E92OmrlYEQlySzjic3dLNU
+ Wpc9Laacve/3GC1047cWcNh2k/hv2zImzgB1jaIH6EUL25k5zxYGuaLvxynm8ao3iVRFa13JIPB
+ loWgamRdLi/0p4cgBrA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030058
 X-Mailman-Approved-At: Fri, 03 Jul 2026 07:04:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,57 +183,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
-
-We tested this patch and it introduces a regression on our panel.
-
-On our board, a Toshiba TC358768 DPI-to-DSI bridge is connected to the parallel
-RGB output. The bridge requires data to be driven on the negative edge, and
-this is also reflected by the `ipc` variable in `dispc_vp_enable()`, which is
-set to `1`.
-
-With this patch applied, however, data is driven on the positive edge instead.
-
-According to SPRUIV7C, both `MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8]` and
-`DSS_VP1_POL_FREQ[14] IPC` should be programmed consistently. However, if we
-follow the actual bit descriptions, and ignore the sentence saying that the two
-programmed values should be the same, the data is driven on the requested edge.
-
-From SPRUIV7C (https://www.ti.com/lit/ug/spruiv7b/spruiv7c.pdf):
-
-MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8] (DPI0_CLK_CTRL_DATA_CLK_INVDIS):
-
-        Clock edge select for DPI0 data outputs
-
-        Note that this value should be the same as the programmed value of
-        DSS_POL_FREQ[14] IPC.
-
-        Reset Source: mod_por_rst_n
-
-        0 DATA and DE are driven on the falling edge of clk
-        1 DATA and DE are driven on the rising edge of clk
 
 
-    DSS_VP1_POL_FREQ[14] (IPC)
+On 01/07/26 12:23, Krzysztof Kozlowski wrote:
+> On Tue, Jun 30, 2026 at 03:56:09PM +0530, Yashas D wrote:
+>> From: Rahul T R <r-ravikumar@ti.com>
+>>
+>> The mhdp bridge can work without its HPD pin hooked up to the connector,
+>> but the current bridge driver throws an error when hpd line is not
+>> connected to the connector. For such cases, we need an indication for
+>> no-hpd, using which we can bypass the hpd detection and instead use the
+>> auxiliary channels connected to the DP connector to confirm the
+>> connection.
+>> So add no-hpd property to the bindings, to disable hpd when not
+>> connected or cannot be used for hotplug detection.
+> 
+> Subject prefixes: There is no such file cdns-mhdp8546. I already pointed
+> this out at v2. This is a nit, but I do not understand why the same
+> feedback has to be repeated third time (v3 also ignored it).
+> 
+> Please use subject prefixes matching the subsystem. You can get them for
+> example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
+> your patch is touching. For bindings, the preferred subjects are
+> explained here:
+> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+> 
+Hi Krzysztof,
+Will correct it in the next version.
+Please let me know if anything else has to be changed.
 
-        Invert pixel clock
+Regards,
+Yashas D
 
-        To set data to pixel clock relationship, CTRL_MMR_DPI0_CLK_CTRL[8]
-        DPI0_CLK_CTRL_DATA_CLK_INVDIS setting should be the same as the [14]
-        IPC setting.
+> Best regards,
+> Krzysztof
+> 
 
-        0 Data is driven on the LCD data lines on the rising-edge of the pixel clock
-        1 Data is driven on the LCD data lines on the falling-edge of the pixel clock
-
-So, the proposed fix to this patch is:
-
-```diff
-- regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x100 : 0x000);
-+ regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x000 : 0x100);
-```
-
-Reverting the patch also makes the Toshiba bridge work correctly again.
-However, we can confirm that the patch is needed, otherwise only the
-positive-edge case (our case) works correctly.
-
-In other words, the two registers need to match semantically, not numerically.
