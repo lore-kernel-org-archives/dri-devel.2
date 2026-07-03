@@ -4,44 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23BBDC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:38:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0DDC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:38:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1138710E648;
-	Fri,  3 Jul 2026 16:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADF3810E64E;
+	Fri,  3 Jul 2026 16:38:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HxsMR3ZD";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="P7GJt/29";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92B5510E648
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:38:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 44D9E439B6;
- Fri,  3 Jul 2026 16:38:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFC5A1F000E9;
- Fri,  3 Jul 2026 16:38:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783096683;
- bh=9uOPBRDHKb0bujGM/elcgmbBSjbGkUZA26EN3tm1Tjs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HxsMR3ZDyNs2NenOOPLfjyErLRpgXSYh7dfFIDBVvpLA1nkZXZptX7rhE659O4OQF
- QxMHt/+HkWgGNJseInRokRkjdth/t2hbnm2AnLXXV0GXd5ZyoWMqbFE3pLFjEZ3y+x
- K1X7s4/wT07b6W3EcmfxbIVP1fkjhlvMdd9huyPoAsezqk6GLEIEqzTXX3P5t3sDCT
- IVquMWpAe7z0zg63VhdN/ylXviuuEtqiNUuhNaJcMB4GX3JvWKWUrRzvFiUCF92kNd
- AnsovmLeVl5Az4DaWQrHZ64WT++s5xv8Mn+gcx6Q50EP5+VKRrjJeiiC66Pm1i4rW3
- JtwES2hhZtc3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
- flag
-To: "Natalie Vock" <natalie.vock@gmx.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
-Content-Type: text/plain; charset=utf-8
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97F3C10E64E
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 16:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=Cs75p+IM1gwfpKthc4TEByeHqgqGfc4z5ObGktLZjdY=; b=P7GJt/29oVsv5I7SJHYT0CN4RH
+ mAFDRwiTLxmI3sztsWqfDq2nvN+eB0y2pLHeQFVUjhkrbecEWh5ASwNITjia1JVtzf8mFnGF0O96H
+ FHogpOEvJlg5FgzB3d+9UqaToTkFIa7OHMHnK9p4MRx9IdJWgV09+HseUqdq/xc6mm9ZJcHZDaXH3
+ fa3ZYaj59NiM0B2akAbqIdDKr/OaM35cFw6JprEnngN159dzKqk8m+jVy9XVsQSaOrxGL3FgGJDlZ
+ Mgjip2xWHT+neyMXruRTp9dqk10Anw8C6lBRjbHZ+LqZg7wCOAmpto0WpRBfEVaXgF9UNFzz4bEla
+ /cvslYPw==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Diederik de Haas <diederik@cknow-tech.com>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/9] dt-bindings: display: vop2: Add missing reset
+ properties
+Date: Fri, 03 Jul 2026 18:37:45 +0200
+Message-ID: <8183064.gsGJI6kyIV@diego>
+In-Reply-To: <fe8038fe-940a-4c61-a551-082534ef9c51@collabora.com>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <DJC0L3CRJ0WL.IZEYVLPROMM1@cknow-tech.com>
+ <fe8038fe-940a-4c61-a551-082534ef9c51@collabora.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 16:38:02 +0000
-Message-Id: <20260703163802.EFC5A1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,72 +66,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] drm_exec_lock_obj_report_dup() incorrectly passes `false` for =
-`always_report_duplicates`, defeating its purpose and leading to premature =
-lock releases.
---
+Am Donnerstag, 18. Juni 2026, 10:39:14 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieb Cristian Ciocaltea:
+> Hi Diederik,
+>=20
+> On 6/18/26 10:58 AM, Diederik de Haas wrote:
+> > Hi Cristian,
+> >=20
+> > Thanks for this series :-) Just 1 nit (at the end) ...
+> >=20
+> > On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+> >> Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
+> >> clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
+> >> provided only on RK3588.
+> >>
+> >> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> >> ---
+> >>  .../bindings/display/rockchip/rockchip-vop2.yaml   | 42 +++++++++++++=
++++++++++
+> >>  1 file changed, 42 insertions(+)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockch=
+ip-vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-=
+vop2.yaml
+> >> index 93da1fb9adc4..d3bc5380f910 100644
+> >> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2=
+=2Eyaml
+> >> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2=
+=2Eyaml
+> [...]
+>=20
+> >> @@ -289,6 +321,16 @@ examples:
+> >>                                "dclk_vp0",
+> >>                                "dclk_vp1",
+> >>                                "dclk_vp2";
+> >> +                resets =3D <&cru SRST_A_VOP>,
+> >> +                         <&cru SRST_H_VOP>,
+> >> +                         <&cru SRST_VOP0>,
+> >> +                         <&cru SRST_VOP1>,
+> >> +                         <&cru SRST_VOP2>;
+> >> +                reset-names =3D "axi",
+> >> +                              "ahb",
+> >> +                              "dclk_vp0",
+> >> +                              "dclk_vp1",
+> >> +                              "dclk_vp2";
+> >>                  power-domains =3D <&power RK3568_PD_VO>;
+> >=20
+> > Place reset* props below power-domains (like in patch 9) ?
+> > So everyone who copies your example has the correct sorting order.
+>=20
+> The example doesn't strictly follow that ordering either =E2=80=94 see e.=
+g. the iommus
+> property =E2=80=94 so I placed the resets right after the clocks, which k=
+eeps the
+> related properties grouped together.
+>=20
+> That said, I don't have a strong preference.=20
+>=20
+> Heiko, is there a convention you'd like the Rockchip bindings to follow h=
+ere?
+> Happy to reorder if so.
 
-commit ac725923453fdf4ef4b9421f9c3993a995b946f9
-Author: Natalie Vock <natalie.vock@gmx.de>
+Please just use standard devicetree ordering, as described in the
+documentation. We generally don't want to invent new diverging things :-)
 
-drm/exec: Add helper to bypass IGNORE_DUPLICATES flag
 
-This commit introduces a new helper, drm_exec_lock_obj_report_dup(), which
-is intended to bypass the DRM_EXEC_IGNORE_DUPLICATES flag during a single
-locking operation. This enables callers like the TTM LRU eviction walk to
-determine if an object was already locked by an outer context.
+Heiko
 
-> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-> --- a/drivers/gpu/drm/drm_exec.c
-> +++ b/drivers/gpu/drm/drm_exec.c
 
-[ ... ]
-
-> +/**
-> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always =
-report duplicates
-> + * @exec: the drm_exec object with the state
-> + * @obj: the GEM object to lock
-> + *
-> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a referenc=
-e to it.
-> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and d=
-uplicates are
-> + * always reported.
-> + *
-> + * Returns: -EDEADLK if a contention is detected, -EALREADY when object =
-is
-> + * already locked, -ENOMEM when memory allocation failed and zero for su=
-ccess.
-> + */
-> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-> +				 struct drm_gem_object *obj)
-> +{
-> +	return __drm_exec_lock_obj(exec, obj, false);
-
-[Severity: Critical]
-Should this pass true for the always_report_duplicates parameter instead of
-false?
-
-By passing false, this helper behaves identically to drm_exec_lock_obj() and
-will not bypass the DRM_EXEC_IGNORE_DUPLICATES flag. If it incorrectly
-returns 0 instead of -EALREADY when an object is already locked, could an
-LRU walk assume it acquired the lock and subsequently call
-drm_exec_unlock_obj()?
-
-This sequence appears to lead to a premature lock release and dropped GEM
-reference while the outer context still relies on them, potentially causing
-a use-after-free during GPU memory eviction.
-
-> +}
-> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-ttm_2_drm_=
-exec-v1-0-43685ac1286b@gmx.de?part=3D1
