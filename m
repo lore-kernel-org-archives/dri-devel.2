@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D16C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 10:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C40AFC44500
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 10:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0752410F74F;
-	Fri,  3 Jul 2026 10:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2C2A10F758;
+	Fri,  3 Jul 2026 10:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZVjN5mZP";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="hxD7CtN0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCFBB10F74F
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 10:12:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6A1BB4026A;
- Fri,  3 Jul 2026 10:12:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 436091F000E9;
- Fri,  3 Jul 2026 10:12:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783073522;
- bh=m3dzBCdMVP2Co2+t3pO5FRa/gNVqzVGpE8QphSLUvgw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ZVjN5mZPl6Zx3xBjHnV9r6Kz83oN29zpkuKOWTUMV3CtchXJZq5zR2YMvc9GsLSyr
- 6RLxaDlVfcuOLeDj9/E3i/fMXgshO2bsP2ESxkrDScNQoixHBQmkynaxa/IEcL0LcN
- AR9XsflynI3h01jYcaq3TbhO83l2Y52dvujjrkxkli3nBN4r3iNjHASjAUS1hShOdp
- 8pWzZXP43aZ37Nq6JupfnpMpyMqJxfD3miOVeKZPlah74gxiGPRIlR3a1iwwYUEneY
- RuxiHi71xKszPSESUXuT+HwFpmFNO/+4n3CW0n1G3pKIxryWVTm0ednc56/LZaTNeg
- ptd5WuZCgqJiQ==
-Received: from johan by xi.lan with local (Exim 4.99.3)
- (envelope-from <johan@kernel.org>) id 1wfasJ-00000000iPm-3czo;
- Fri, 03 Jul 2026 12:11:59 +0200
-Date: Fri, 3 Jul 2026 12:11:59 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 07/14] mfd: lm3533: Use dev_groups in struct
- device_driver
-Message-ID: <akeK78tkmUE-TDhF@hovoldconsulting.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-8-clamor95@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A590C10E108;
+ Fri,  3 Jul 2026 10:15:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783073746; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PFd+ZcJDRmA7MyKt/mcuc53dGEnBrjeE9da1qKrLYVPkdyp8rIbsU/2g9t0BqWxTZpuXba7PW80IcfvqWgxhChtTAaJEtOIty+b1RTv8euYR39NhA1e+4boANZlfudVajwjYFU+1C1lGA0vB7y8CFFj/A3PQ+fUE+NoMyFl2iRw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783073746;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=25BbhWpiZ/sGaLXWDgbOghNeZUCTG/8RaXJnV8Z1cOM=; 
+ b=cx75bTwjUd8G+LmWoqanYpkK3AJkf1azEOxLfRHqk1w3o5Yb/khDIzN3TV/yMgNL9EvFvZJF6VuChpFKhPEvO79zYa1w+me/P7Xevpuco42EsAP+KOLGXG+HRfPccpLYEnrnw8WsdXbbWHU3ohttiS1pVXrQE4KgUFaLWrGWiks=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783073746; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=25BbhWpiZ/sGaLXWDgbOghNeZUCTG/8RaXJnV8Z1cOM=;
+ b=hxD7CtN0NRJ8PfBP+udrm9pn28iQiq6Y0urLHEiUoEYIdEN+Sro2khyUjU94QBqK
+ I9TOP0l+lgd5DgbIX7aeimPL6L2J4qRuQxSQCKZIFkHu9sxkBYi2OCjhkAEZPgHJBH0
+ gZ5IiSxjpqkEEBlhqqr6eNiohxeR4nIV640+fojQ=
+Received: by mx.zohomail.com with SMTPS id 178307374474175.29703126604352;
+ Fri, 3 Jul 2026 03:15:44 -0700 (PDT)
+Message-ID: <f7071433-0bb6-4a1e-baa9-3ec16a3ab0f4@collabora.com>
+Date: Fri, 3 Jul 2026 12:15:41 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-8-clamor95@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Melissa Wen <mwen@igalia.com>
+References: <20260623164812.81110-1-harry.wentland@amd.com>
+ <20260623164812.81110-2-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260623164812.81110-2-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,14 +68,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2026 at 11:00:24AM +0300, Svyatoslav Ryhel wrote:
-> Instead of creating and removing the device sysfs attributes directly
-> during probe and remove of the driver, respectively, use dev_groups in
-> struct device_driver to point to the attribute definitions and let the
-> core take care of creating and removing them.
-> 
-> No intentional functional impact.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Hi Harry,
 
-Reviewed-by: Johan Hovold <johan@kernel.org>
+On 23.06.26 18:48, Harry Wentland wrote:
+> From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>
+> Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
+> hardware that performs a fixed matrix operation.
+>
+> Unlike CTM-based colorops, this block does not expose programmable
+> coefficients. Instead, userspace selects one of the predefined
+> hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported modes
+> include common YCbCr->RGB and RGB709->RGB2020 conversions.
+>
+> v2:
+>   - Naming changes (Pekka)
+>
+> v3:
+>   - Fix NC matrix enum name and string (Melissa)
+>   - Rebase
+>
+> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>   drivers/gpu/drm/drm_atomic.c      |   4 ++
+>   drivers/gpu/drm/drm_atomic_uapi.c |   4 ++
+>   drivers/gpu/drm/drm_colorop.c     | 106 ++++++++++++++++++++++++++++++
+>   include/drm/drm_colorop.h         |  84 +++++++++++++++++++++++
+>   include/uapi/drm/drm_mode.h       |  12 ++++
+>   5 files changed, 210 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 3af1b9cc9a06..ced591c4a0bd 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -925,6 +925,10 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>   				  drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
+>   		drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? state->data->base.id : 0);
+>   		break;
+> +	case DRM_COLOROP_FIXED_MATRIX:
+> +		drm_printf_indent(p, 1, "fixed_matrix_type=%s\n",
+> +				  drm_get_colorop_fixed_matrix_type_name(state->fixed_matrix_type));
+> +		break;
+>   	default:
+>   		break;
+>   	}
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index c7f80d90794c..cee4550ffdbd 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -761,6 +761,8 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+>   	} else if (property == colorop->data_property) {
+>   		return drm_atomic_color_set_data_property(colorop, state,
+>   							  property, val);
+> +	} else if (property == colorop->fixed_matrix_type_property) {
+> +		state->fixed_matrix_type = val;
+>   	} else {
+>   		drm_dbg_atomic(colorop->dev,
+>   			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
+> @@ -793,6 +795,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+>   		*val = colorop->lut3d_interpolation;
+>   	else if (property == colorop->data_property)
+>   		*val = (state->data) ? state->data->base.id : 0;
+> +	else if (property == colorop->fixed_matrix_type_property)
+> +		*val = state->fixed_matrix_type;
+>   	else
+>   		return -EINVAL;
+>   
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+> index c0eecde8c176..c11c3012fcc5 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
+>   	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
+>   	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
+>   	{ DRM_COLOROP_3D_LUT, "3D LUT"},
+> +	{ DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
+>   };
+>   
+>   static const char * const colorop_curve_1d_type_names[] = {
+> @@ -90,6 +91,14 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
+>   	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
+>   };
+>   
+> +static const char * const colorop_fixed_matrix_type_names[] = {
+> +	[DRM_COLOROP_FM_YCBCR601_FULL_RGB] = "YCbCr 601 Full to RGB",
+> +	[DRM_COLOROP_FM_YCBCR709_FULL_RGB] = "YCbCr 709 Full to RGB",
+> +	[DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] = "YCbCr 2020 NC Full to RGB",
+> +	[DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
+> +	[DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",
+
+The last two ops do not get implemented in the series, even though they 
+were the original ones mentioned in the commit message. I'd suggest to 
+drop them - they can get re-added once there's a testable 
+implementation. Instead I'd include the limited-range ones from the 
+following commit, making the series cleaner.
+
+Just suggestions, though. So either way:
+
+Reviewed-by: Robert Mader <robert.mader@collabora.com>
+
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
