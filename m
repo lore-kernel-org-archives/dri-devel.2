@@ -4,131 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA29FC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A21ACC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 08:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE5F10E59B;
-	Fri,  3 Jul 2026 08:26:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D92C810F590;
+	Fri,  3 Jul 2026 08:31:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DoWf2q64";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XCBPZ2IJ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FlpkuqTg";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEBF110E59B
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:26:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PIfvRs2kbNI7XplTZEvkYhrvNBIHAAEwZee4C970OiyBoXzRibZHHffAlBHiu0rjnPFK73W2ROP/n6Cf/w9uj25H+9jFC1WDMQ1iQIGbZQ8mMEhZ62/tObYccgXk958+oqq2QtSEcjzlyKheLeBpY0Z2R51+tcQMzJgOOPYFEgUf1XnZfUfJhtLtiWlnbElOC4g+Y09VbLaO8sw6QRpiOQSJ+sxGKivwX9wNp9VObSvNBHVSbOeoPaRU/1qv/Uutu7sIpTC5HdIAK2+yzWIV71/rcz1gq/hK46kqOESi6N8kW7l+NLHpMuzbps+eYJewTKVyJK2Y6BEVb0CjcygOoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zsbTAma5wnmnKIF3LWtDilAPLqboMjU1zIfjk64iKck=;
- b=lnFtF3zGp67ocO7NiYlT3/X6tp3Q74jpl7ZuN/uiYg670wIqtlI9fgM1W4dRtjv5UVME+1BAMyQmLmVzia5re4QgZCxGFg07nsdvQ8+ktBp6iLr7pyfOmxG2Ys0YhdPbE9zN+gSDMWWpf9arj5JjMUBRgdr5pTFSItIQbwnYouCTqQPV8bnnqhusB5H1YRZlAsvGDMCsP6Bq/QdSnDPr/fo18MWqHxz7Fizl1DAPz5lk5eg2yQyuhFdWcHZvrZh2Sy4rWQ/6Qqz0elXk8nkhoAi0LHrzaaTrKQ0cLvJYO+UP3vwofCCorGwMIW07+LIB5MiNor/dLG7kxZoFaavHRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zsbTAma5wnmnKIF3LWtDilAPLqboMjU1zIfjk64iKck=;
- b=DoWf2q64tHHlIb50PQTIq5EiRDmhNgrB+7j9JIlWY6NtzGEcUVgxnCY3GdvDAzxjci9/XJNZHcOldD6+c6qNg8qtoXaMtE9d85O+uiwJxMpaw7SR2qeInzcHWYkYnAgNpIMePF0zQ29p3oTpmcYGik0xj5ikE4tLuYklqzEapSc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB5954.namprd12.prod.outlook.com (2603:10b6:208:37d::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
- 2026 08:26:34 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 08:26:34 +0000
-Message-ID: <175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com>
-Date: Fri, 3 Jul 2026 10:26:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: dma-heap: close installed fd when copy_to_user()
- fails
-To: Baineng Shou <shoubaineng@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Sandeep Patil <sspatil@android.com>,
- "Andrew F. Davis" <afd@ti.com>
-Cc: stable@vger.kernel.org,
- "open list:DMA-BUF HEAPS FRAMEWORK" <linux-media@vger.kernel.org>,
- "open list:DMA-BUF HEAPS FRAMEWORK" <dri-devel@lists.freedesktop.org>,
- "moderated list:DMA-BUF HEAPS FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260703080922.1838362-1-shoubaineng@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260703080922.1838362-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0037.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2036310F590
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 08:31:51 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6635rjl33108915
+ for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 08:31:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 30jHl1aofyomvSG7on5YYtAKEDMGwM3o7HFcEeYIKXc=; b=XCBPZ2IJ3Eb8DgH9
+ 1Sst3yHvnu6gkYi6RdjV5PmhLo13mTWF9d03tdUedS6pbuhV3uP9MbGUdNNQzQKZ
+ +rsy2HtQSjckn2dnP/f/UX9syZ6kffWztVskGwjs5gzqyqNrvkQDjrvZBwv/b8ZC
+ xeSA6eNAecY6IThuro6QZpqEgrc98Qdsqw1Wr5D9Q2ZfTT3p9dkQIXTahQ8Tl+hk
+ V/75xDZZ1XeOuaz0GFILi7iaV7sSJOjXg7nJzp7pvNRyTHONNSzfeqEReEDdKOCk
+ PIE4uwe5faUsh8v6LRv+jjlxdudDI73QoWTszPJCMvnPgm7HnksSC13bhO1FQJvl
+ bmmcXQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f60eya46f-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 08:31:49 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2c80f89b64bso6302965ad.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 01:31:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783067509; x=1783672309;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=30jHl1aofyomvSG7on5YYtAKEDMGwM3o7HFcEeYIKXc=;
+ b=FlpkuqTgUa2GaCL92GJVlnMczn6Bx2sjrnAPy6Jo4vqd9ahbfWJ58tKoacwOJTsWc1
+ 6CyuR6YomXGv63duceLFJdho719OLyEHvA18P+8RksryKrIEyepsdEDLCa+k8SsLEsp5
+ 2Pt1mIOGMmWloYRPen56EO6izfvIbsfJr9pabVVDkvI+lmmxIzrtwo+CNbNq9J2oDcvC
+ qxJpXW0PatgYEiEdgT+7KCpKkO364+019PCq08AQM0ZzO5PqKmleY2f9ubHpVkI+Xo4L
+ aaUiZIoyWLV2z1dW9tL1NkHMBXugbQDIg4ctyxN4XD83iIE9xkEd6hoqjMAVZvHItopa
+ OpYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783067509; x=1783672309;
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=30jHl1aofyomvSG7on5YYtAKEDMGwM3o7HFcEeYIKXc=;
+ b=sR9RqdgxTi+ulAOEnAp+T399WAeBi3eC2iuXh+OyKtOjefjKb0vWZxlG+NR0GnBx47
+ j1hCdPxXf5iaYmvPADbIn9asxOAB+oeXtzGefFd6Y1sdCsvUBP7ZZJ2ysEPW2Z28xe8F
+ 5DVsTYYKMp9ucwQnvKqfERoX+QG0Jva96KVGJsdBHOMNIEsBn6AhNTO9FolHXNWqLhxc
+ KQSPfTfca2G2wEUfaxeW4ErZOIU4KyZUZDgD1sR8UBn7PNxKUOjfNsCqpPFoA3DA/hlz
+ qiIlUZ4TT7ohOeMBeITiq6F4MDvPTs+N1rC5FO3OjuGghmhSIJn6jDgRp/euXjHJwC5P
+ rIyQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrAdJZ2GjounmOSPOl4LM4U4H4W2/HdFVMq0Yyl2Nyc0lmmKzzIKQycQrCoIuTgwpKqmh68QSj/klo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGxyz7/O9PWv7Nc3apO1GI0yaLTFSj8ODiYFMDv3Z2lxrOq5v+
+ o4ku2gdbqefr3vf4knKyqAAO90bnw6vpTGBtR9i7Fb2TLq+h7a66Up8VP6mLC9jChzu0PxHZo7P
+ ZY/qpmQ4HwrH1B5m+VyqU2yelmxYxtoLK3niC9S0eb5qgqE/PkgpJJLd/qRlpmAcp2Apwn5E=
+X-Gm-Gg: AfdE7ckAS1RuJGrnXULZwM/ygtOM/mu8fdVPh2CK44kWFGXLfqY/sCE19g7yZ9WclIi
+ pIOmw1oY0VJb9cIogxqIxs8mEc6daQ5Tye7I231Na/O4catxxXN2vK+0UEOr17889AR9IzHagJc
+ NM8D/clzQSG8l6dmCYZRAU8YVJJ6H3ilS+BXz27bec62aHuN184knYb5sBcxTWcBItT8HHifaP4
+ pelTpDzjS2lpXeiIojYpIbKAysmTlq3slck7yNjy060OkFjeByY1OyuKlrvew782sTIOQ1NQPvq
+ 3Z6Gw2K1udtEStpbqo9dK0TgHG4k4OrektnH++BZLPiIpA3VHR0WxCiRDLXTDmFBa6FveMkyL6A
+ L0p1LXa3Jqhd91/6Mh5qq3uwRogWhfOzDWh6QQmc0rx1+7suR2xs3ma9ItLNNKn5r8w5X+lfC/k
+ KWjKFvgw==
+X-Received: by 2002:a17:903:fae:b0:2c9:e261:95bf with SMTP id
+ d9443c01a7336-2ca7e757955mr102746955ad.26.1783067508756; 
+ Fri, 03 Jul 2026 01:31:48 -0700 (PDT)
+X-Received: by 2002:a17:903:fae:b0:2c9:e261:95bf with SMTP id
+ d9443c01a7336-2ca7e757955mr102746625ad.26.1783067508205; 
+ Fri, 03 Jul 2026 01:31:48 -0700 (PDT)
+Received: from [10.133.33.167] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2cad7871366sm5880105ad.62.2026.07.03.01.31.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Jul 2026 01:31:47 -0700 (PDT)
+Message-ID: <d883112c-5ea5-46e3-abb7-f7c611f52ab2@oss.qualcomm.com>
+Date: Fri, 3 Jul 2026 16:31:43 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB5954:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cd89407-6482-4272-4b1b-08ded8dccb18
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|376014|1800799024|22082099003|18002099003|5023799004|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: d4FAhzzMWb2D70cslM1MBUkvwiaS/kktfKx20IOBEX2fClBdniUgxolcvjsL2WJaJzC48nW67FK2EoiASsnWTi4d8DChkxTL3KGLhI1IH1F3uCI4WpZ8ED+0o1lu/w47YLb6MExLLpqY2odDcqtN5ttj0OGZ04/k+oM0lhq7LXWPsMITZRtOGyjAdpUkBzdSabxuVTu09T25glVBLx8D9G+w1tVm8dxqo83nTfd2qtASo6PqcUg+2Wr6sc7Of8ojpHhNEoGZ699wQuMf1fdFRst8SVfX617WBodl09mkpI38XIc9aSAIMSZOjaWRYETYr276+Pgile+7gP9dJ1KkFObS47Cq8OO0R4O83yI5RoqyCuCBHbhddo1UXudkIjuY10uSo/WQc3HU7ys+o5f6tI4n5H7olfZeBbQCpw2vUeIVetnU759XiQ46m4WLoaQoV34VaX0K6lcdnZBd5F+bHw9Ggy/7Zu1P8F+AljNVO6rwph56IahG6La/BXbIwMTAenp97sXaNF0rsmT7dtfsjYMVXseDielwbPqvFLMfEtl838AQAvgxspeFgtcnc0ssI3kObP4WdhkC+yz0HTFYyRFsMPG3cHoaDT/jn36HmHKtkXqvQc/CemZT8g1ELYB0xNROZRpszgwiGtQtqjbbXMmFnOAH+cpG3XG9HBd/E5Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWFWaEhORlovN1NXQnR2cGt1RTRmeHRDbGJmdjRkNWwrWTY3bHhSRnIwRmZL?=
- =?utf-8?B?aEh1azJLS0tSelZJbTB0MElWMmlUZlZnYXFvZmdTUWxic3RGSXpiV0FOcU96?=
- =?utf-8?B?UDFRUjdqaUREcmlOenpTdkZUQS9rSFFWRUJyMWtWcXFzNVJtTHJxWHB0Q0k2?=
- =?utf-8?B?ckExTTJrV2I2U0Y1eHdrU3ptNmkyMENuSVEwNHlKREFIVSt3VjFJOWg4R3hi?=
- =?utf-8?B?TlM0VmtNSUpGaVZ4UHhqVXNTSGJSd0Q3eFExMm1xMGdJUGZoOTZlWkVZZGdr?=
- =?utf-8?B?YlR3NVE2MmdZT0tVSlVZcVdGSHFPMm81VmU5N3FrMTdkSzJ1cXA0ZnV5NGE3?=
- =?utf-8?B?c3lJU1JLRVRRVDY3VXo3TDdzczJCRjk2dnhxYzIrQm8vTjdiNWZFMmF3MXBU?=
- =?utf-8?B?TnZOOFlyN2RiL0t0UGlwSzZWSmw0cFFGbFRVY3ppWG1kbnRiT0xCUUlPODk3?=
- =?utf-8?B?L0lDZE5oMHdlOXI2V0lvQUh2UldlUzJvVFY4RjZ0TU8yTEE2QXhEOWNDYzBM?=
- =?utf-8?B?bVdJZ1NZZTF6VTVFbGZXNUMzWE14aGF4UGl6dnZPNUJiNFovZzlaaXJaRGRO?=
- =?utf-8?B?dmp5Y2MzRGo4QmMrRXc3MnRkOTRXak5SQVZNUDZlV2FZNHN3R1FlbmV2dm1M?=
- =?utf-8?B?WWFNNFdTYnQrMk5BbmtoVC9uTU5CcTN5QXlZNEgwQVRWeDJuTk9aY1I3cHZV?=
- =?utf-8?B?UTRQSFk3RGQ1K0hmSm1POVFHVUJuTGRKdzJZRHlPVkdTK0h5SXprOGhCNU9s?=
- =?utf-8?B?NFZ0WCtkQWQvZ042ek5qVzdQTEM2RTFMdkZscEEra0tienBmb2FHU2tsc2J6?=
- =?utf-8?B?NFBFV3R4WDBFcUZQcC84WnczQTNjazRrMG9pNWFCTkhJUis1QXUvRXZnd1lz?=
- =?utf-8?B?cXlCQmNzSFZ0Mk45Z2J3ZzF5MTd2Q3p4TURZZ3JSQUJ5VmhLL2Q0MUowRjQ1?=
- =?utf-8?B?djBXU21CVDJMdWtOMnZncUJ4VFN3cU1SbFlNdTlPYXlWWlVXSk9hcVdBSGJs?=
- =?utf-8?B?aEJtVkx6Q3kvSzBKZ2ZtQUJMaGFSYXVzdDZJWXQwWFM2Y2JWbFNMeTZJL2dz?=
- =?utf-8?B?R1dGdG1rUW9FMDJnVG13bVdWeUFxN05iUzV0dXI3bW1LTm9XT1pCUHhKb0V0?=
- =?utf-8?B?M0k5VWVYclNsczNsQkMwYTZ0eHhTZ3pHTmd0RmsvV0J3QkoxZVBPVTVFc0pW?=
- =?utf-8?B?d3FJbXp6N0ZVNVY4cnpRRDhkT0IzN1ZxaWtqSkc0Q0xNaTVlUW5BUWRFa0l4?=
- =?utf-8?B?VzhMQ3o4RHFXYlp5MXU1M3R6VUZyQjZxUkQzQlEvRFluNGxnbGhvUlVueVcr?=
- =?utf-8?B?WkpHMkw4SExSeFFJQ1pkNUtwUUpkNGxMZGdFRzhoTC8yU2pCREhiSEI5UVhH?=
- =?utf-8?B?UjExZEF3NVg1OEF6Z0NyRXRFeDdqYmd1Z29yN3p2SDQwd1NUSGZvb1Z0Zkty?=
- =?utf-8?B?MzNRRjZMQTZYVDFhOUc4QkxBK3ljZkFZUVArdVFSZllMancxeVNWTlhtMFcx?=
- =?utf-8?B?MTU2OHNEVFhyVEJGZnZIVmVaUmNYSkVOY0JuSnBLcUo2a0g0SnFMSkJZcW9B?=
- =?utf-8?B?ZmMrblJPSFdlWlZBNHliSzY3d0xucWxpY1k4a3ljVXBObXZMZ2tSOFI0YWpL?=
- =?utf-8?B?RHJRQlZhYkN0VjE4TzlGaWRuYWlOVVpJSFJ5aGhITWdNZFhyT2JIc1pvcmdW?=
- =?utf-8?B?S01SeU5hVzluSm5NbUJZUHNzMXF4bkI5ZnJlZnFPVEQ0UWFVZU8veUVVbHpi?=
- =?utf-8?B?YmxyUE8yQUVGNndXdCtsejlVSzBER1l0MDRSUkdOUEpDdDBObkRrU25HcVhy?=
- =?utf-8?B?QmpuaEJtUXdQdVlVUjRxZVpQbXI3NjZvS210Q0ZVa1p5aTJ3eXdSYXZzSnBk?=
- =?utf-8?B?cTJNUHJiMDF2Z3ZrZVZTKzNubHRmZnoyUmFoZHNSU0swMDByZXo1ZWE5S0o5?=
- =?utf-8?B?RmRaaElNTktyeHpNUmlPZlpycllCVjNYd3lCclJXS1g3TWhORWRURWdMeWFX?=
- =?utf-8?B?QnN3T3crZDhuRG9LLzY3dm1SODRBeG85bGZuWjIwdk5IcUlkbU1sUWdVNEt2?=
- =?utf-8?B?UElscGpYaEt6RHl6cW9sTm9IN1ByTjlpQTVuSzNEYUkwSUg3bVVlYksvNzhJ?=
- =?utf-8?B?dXhlNGhkVkl4YUVVVG1nQVJoYmtvaFZoNklqRUt4aGZBY05JNFRMT3EwY3JY?=
- =?utf-8?B?TWZoRWRMMEtVbjUvcjZJb2Y3UGxxSE9ZU2N4M0RFT0ZydzAzWE9MMWNtaGpY?=
- =?utf-8?B?NlF2UUZ6M2g5QUVBampqclZjL2p4N1didmc0eEh0S1lOb0wyVjFuR3JORStx?=
- =?utf-8?Q?v0RA9gsIlRUtq/WElF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cd89407-6482-4272-4b1b-08ded8dccb18
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 08:26:34.6712 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5KO4btgzrW7cSZrWQ6KhPblCcfoHPc6M5knD6hhvXcssfjHQy3QBt0cJwCwWNjbN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5954
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fastrpc: Reduce log level for DSP info and reserved
+ memory messages
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260514062825.50172-1-jianping.li@oss.qualcomm.com>
+ <cg526ebtmnboqpw5aabwrtmoc7fhnvc57dmjax5zltcjonnazv@pynuwgpx3bi5>
+Content-Language: en-US
+Cc: Srinivas Kandagatla <srini@kernel.org>, amahesh@qti.qualcomm.com,
+ arnd@arndb.de, Greg KH <gregkh@linuxfoundation.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+In-Reply-To: <cg526ebtmnboqpw5aabwrtmoc7fhnvc57dmjax5zltcjonnazv@pynuwgpx3bi5>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDA4MCBTYWx0ZWRfX/VSnvFSKeVl+
+ oH9KWvAEeeoMWu/RD6YsXet3RDykQvwUWseeyVu0ILlmYRoic0y0iVzEl8kJ2afS2yHCptOqDQ6
+ aK9ZiAunJpU4pcq9RIO2V9NoPJdQoRYJEEca77q6Gl1pqecGEWliWUezDRyYEqYDX9oYbjnyU/C
+ qF9GYIOwOwUQKvQMQf5o7wMU1wtIFV9LivoJ65Y1LlCUkaImkcSdV0ilg5O+66qIZNfRxFdt9/o
+ uMVaXO24CsLNIGDnIvoI9gDDr9F9mGip8TZBmo8zviL07U7U1zFlG+EdJHPTkCtY24fJrJNpdz5
+ rWadgjJD1hP+vt3P7sV4ULswO8k8OIB9Bk5xTo90G6w07SFxXKkz/+FIVQZihD2JxQFd/Lo91bk
+ Ubb2PMtXoEULqCGxoSNTdTn2Lvnc9FaB10tHWLJtQgWyUV6tTcv917p682BZMzc9J6q/wybJ50p
+ +Vp6TaGA1PT+AaUd5yw==
+X-Proofpoint-GUID: -GdpwcozjGbDglS9ggUACLry7R-zvRP8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDA4MCBTYWx0ZWRfX7q1wk6UFQBew
+ O3wDQQ5Fkvhpyp81QNOHZIFJm4ddU2B1B3n5+woXVCM7blEXS6hcC0eRqjW8UDkQRWioW3h6nAR
+ tjpbQ2VEfLR1FpKH25nzkd49zv+UQig=
+X-Authority-Analysis: v=2.4 cv=SPRykuvH c=1 sm=1 tr=0 ts=6a477375 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=C2AwR90XAiyykRj1wVUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: -GdpwcozjGbDglS9ggUACLry7R-zvRP8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-03_02,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 phishscore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030080
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,143 +148,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/3/26 10:09, Baineng Shou wrote:
-> DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-> caller's fd table via fd_install() before dma_heap_ioctl() copies the
-> result back to userspace. If the trailing copy_to_user() fails, the
-> ioctl returns -EFAULT and userspace never learns the fd number, but
-> the fd (and the underlying dma-buf reference) remain in the caller's
-> fd table and are leaked for the lifetime of the process.
 
-This came up many many times before and is the completely wrong approach to handle that.
+On 5/18/2026 7:08 AM, Dmitry Baryshkov wrote:
+> On Thu, May 14, 2026 at 02:28:25PM +0800, Jianping Li wrote:
+>> On some platforms (e.g. QCS615 Talos), fastrpc may temporarily fail
+>> to retrieve DSP attributes during boot, resulting in repeated
+> temporarily? What does it mean? Should there be any sync with the DSP,
+> letting the FastRPC driver know when it's safe to retrieve the
+> information?
 
-Background is that this opens up a race window between install_fd() and close_fd() which is much more worse than the original issue and can be abused for a couple of different things.
+Hi Dmitry,
 
-If I'm not completely mistaken we now have automated checkers in place which find such use case in the upstream kernel and complain about it.
+Thanks for the review — "temporarily" was a poor word choice on
+my part, sorry for the confusion. There is no boot-time race
+that eventually resolves; let me walk through the code to make
+the actual scenario clearer.
 
-IIRC the correct approach is to call get_unused_fd_flags() to get an fd, do your things, copy it to user space etc... and then finally do the fd_install(fd, dmabuf->file) when nothing can go wrong any more.
+The FastRPC misc device is only registered after the rpmsg
+channel to the DSP is up (fastrpc_rpmsg_probe ->
+fastrpc_device_register), so the transport-level sync between
+the driver and the DSP is already in place before userspace can
+issue any ioctl. And fastrpc_get_info_from_kernel() already
+caches the result the first time it succeeds:
 
-If an error happens use put_unused_fd() to clean up.
+     if (cctx->valid_attributes) {
+         spin_unlock_irqrestore(&cctx->lock, flags);
+         goto done;
+     }
+     ...
+     err = fastrpc_get_info_from_dsp(...);
+     if (err == DSP_UNSUPPORTED_API) {
+         dev_info(... "DSP capabilities not supported\n");
+         return -EOPNOTSUPP;
+     } else if (err) {
+         dev_err(... "dsp information is incorrect err: %d\n", err);
+         return err;
+     }
+     ...
+     cctx->valid_attributes = true;
 
-Regards,
-Christian.
+So on platforms where the DSP firmware implements the attribute
+RPC, the message is not printed and the query happens exactly
+once for the lifetime of the channel.
 
-> 
-> The failure is easily reachable from userspace: pass a struct
-> dma_heap_allocation_data that lives in a page whose protection is
-> flipped to PROT_READ between copy_from_user() and copy_to_user()
-> (e.g. via mprotect()). Each such ioctl leaks one dmabuf fd; repeating
-> the call quickly fills /proc/<pid>/fd with anonymous "/dmabuf:"
-> entries that only go away when the process exits.
-> 
-> Fix it by closing the installed fd (and clearing the fd field of the
-> kernel-side copy) when copy_to_user() fails after a successful
-> allocation, so the error path matches what userspace observes: no fd
-> was returned, therefore no fd is left behind.
-> 
-> Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-> ---
-> 
-> Reproducer (full source, gcc -o poc poc.c; run as root):
-> 
->     // poc.c -- leak one dma-buf fd per DMA_HEAP_IOCTL_ALLOC
->     //          when copy_to_user() fails
->     #include <fcntl.h>
->     #include <stdio.h>
->     #include <stdlib.h>
->     #include <string.h>
->     #include <unistd.h>
->     #include <sys/ioctl.h>
->     #include <sys/mman.h>
->     #include <linux/dma-heap.h>
-> 
->     int main(int argc, char **argv)
->     {
->         int n = argc > 1 ? atoi(argv[1]) : 100;
->         long ps = sysconf(_SC_PAGESIZE);
-> 
->         int heap = open("/dev/dma_heap/system", O_RDWR | O_CLOEXEC);
->         if (heap < 0)
->             return perror("open"), 1;
-> 
->         for (int i = 0; i < n; i++) {
->             /* Put a valid request in a page, then make the page
->              * read-only: copy_from_user() still succeeds and the
->              * dma-buf is allocated and fd_install()'d, but the
->              * trailing copy_to_user() fails and the fd, never
->              * returned to us, is leaked.
->              */
->             struct dma_heap_allocation_data *req =
->                 mmap(NULL, ps, PROT_READ | PROT_WRITE,
->                      MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> 
->             memset(req, 0, sizeof(*req));
->             req->len = ps;
->             req->fd_flags = O_RDWR | O_CLOEXEC;
-> 
->             mprotect(req, ps, PROT_READ);
->             ioctl(heap, DMA_HEAP_IOCTL_ALLOC, req);  /* -EFAULT */
->             munmap(req, ps);
->         }
-> 
->         printf("done: check ls -l /proc/%d/fd for %d leaked fds\n",
->                getpid(), n);
->         pause();
->         return 0;
->     }
-> 
-> Before the fix, ./poc 10 leaves 10 anonymous dmabuf fds in the
-> caller's fd table:
-> 
->     # ls -l /proc/$(pgrep poc)/fd
->     lrwx------ 1 root root 64 Jan  1 00:03 3 -> /dev/dma_heap/system
->     lrwx------ 1 root root 64 Jan  1 00:03 4 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 5 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 6 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 7 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 8 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 9 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 10 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 11 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 12 -> /dmabuf:
->     lrwx------ 1 root root 64 Jan  1 00:03 13 -> /dmabuf:
-> 
-> After the fix, only /dev/dma_heap/system remains open; the
-> anonymous "/dmabuf:" entries are gone.
-> 
->  drivers/dma-buf/dma-heap.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-> index a76bf3f8b071..0dd7a84b06bf 100644
-> --- a/drivers/dma-buf/dma-heap.c
-> +++ b/drivers/dma-buf/dma-heap.c
-> @@ -18,6 +18,7 @@
->  #include <linux/uaccess.h>
->  #include <linux/xarray.h>
->  #include <uapi/linux/dma-heap.h>
-> +#include <linux/fdtable.h>
->  
->  #define DEVNAME "dma_heap"
->  
-> @@ -181,8 +182,16 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
->  		goto err;
->  	}
->  
-> -	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
-> +	if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
-> +		if (kcmd == DMA_HEAP_IOCTL_ALLOC && ret == 0) {
-> +			struct dma_heap_allocation_data *h = (void *)kdata;
-> +
-> +			close_fd(h->fd);
-> +			h->fd = -1;
-> +		}
->  		ret = -EFAULT;
-> +	}
-> +
->  err:
->  	if (kdata != stack_kdata)
->  		kfree(kdata);
+On this SoC the DSP firmware returns a non-zero error that is not
+DSP_UNSUPPORTED_API, so the else-if (err) branch is taken every
+time: valid_attributes is never set, the next open re-queries
+the DSP, and the same dev_err line is printed again. On RC
+builds with metadata flashing enabled, several such clients come
+up at boot and the console gets flooded.
 
+I think lowering the kernel log level is the least invasive fix.
+
+I'll respin v2 with the commit message reworded to drop
+"temporarily" and describe the above accurately. No functional
+change beyond the log-level downgrade.
+
+Thanks,
+Jianping
+
+>
+>> "Error: dsp information is incorrect" messages printed on the
+>> console.
+>>
+>> These messages are observed continuously during boot when metadata
+>> flashing is enabled as part of RC releases, causing unnecessary
+>> log noise.
+>>
+>> Similarly, the absence of reserved DMA memory is a valid
+>> configuration and does not represent an error condition.
+>>
+>> Since these scenarios are expected and do not indicate a failure,
+>> downgrade the log level from dev_err/dev_info to dev_dbg to avoid
+>> flooding the console.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+>> ---
+>>   drivers/misc/fastrpc.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
