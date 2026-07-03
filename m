@@ -4,122 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E18C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 18:29:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB5FC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 18:30:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47F9110E640;
-	Fri,  3 Jul 2026 18:29:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B8CD10E652;
+	Fri,  3 Jul 2026 18:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bj8wiXFD";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="b1Em13SV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAA210E640
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 18:29:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 49C3660051;
- Fri,  3 Jul 2026 18:29:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0081F000E9;
- Fri,  3 Jul 2026 18:29:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783103362;
- bh=cDUa7qAvGQxAqsninsYf1imnrLZa/8omKlfZyOjK/p4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Bj8wiXFDw1AEwJAJzWMHcoHUzUnO5RSLUrrdbPDDtrmHvICV4zvluTNYGrCKNReo+
- V2VHecn6G9LIfWRUYhHviazaY5SPs+PD1M5UTv6w3boNcTB2kk7c8VZ81fqK1AbmAd
- 57RAJvDkiTHqnE5bsKAh+rQSmEVuCAEs9yrQTdJVFl4TPsOQ6fqSkVKiMM138D6+Rf
- Twkdgzz2OvoRegKiZIkL8IHSmlKgnE/rg5/I6C9SHJU0zH1mL5dkYJmbH1CiVSrtWD
- pBboBrk2Smc/JfNU6pSXBek5e4iYD0aLFYqs7FYnuViAFirbZ/UiaEVn+QUB9L+tsG
- bcf6WGk9oP15Q==
-Message-ID: <58458578-a6fb-40c8-838f-9a06a7371f76@kernel.org>
-Date: Fri, 3 Jul 2026 20:29:06 +0200
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 335AE10E652
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 18:30:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=uLFc/USnoLD2hdkK6f4FbXFFpkJWctZScq6uqGjV+8Q=; b=b1Em13SVmD7Gxe4wQguf4VtJvA
+ KQ6XnrbNh6sBpdgYe8/uWZOI08NhZ8Af8uTMIJ913qcXEuuywZwoht0+2Cp2JiuVaqo/jvXGNqEz9
+ o3xuvt3gabxgrQ2Hd/zlHbU9G+FwcAvlbCIBtMnilDfgfwuazZupUHxAyjNPZDZR9OgFV9V1BU0vF
+ ogdLlr5eH7Y0mF/ylKhy9Sg2wTYTHaX/kkrmoDB4IpWQOcfC1n706osycop0ka6lcwDvFJx98Cqap
+ oINWRvxPexdduOl/EEHLOt7SC52t+SwG7wm7vSH2JXlRvDpcH0wdQx1xgv0z6V16Ohdrgp+V6VSu8
+ 6b86iuZw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Diogo Silva <diogompaissilva@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ "javierm@redhat.com" <javierm@redhat.com>
+Subject: Re: [PATCH v4] drm/rockchip: Remove dependency on DRM simple helpers
+Date: Fri, 03 Jul 2026 20:30:41 +0200
+Message-ID: <2837071.mvXUDI8C0e@phil>
+In-Reply-To: <CAJpoHp489qKfkfLOX-XPLpOWo86gibZB=NM_dXPbv0yDGmxysg@mail.gmail.com>
+References: <20260608124018.480365-2-diogompaissilva@gmail.com>
+ <CAJpoHp6DnspnA0rirGb6E=A9wCS3eaDn=eFaqmae98Q+39b1PA@mail.gmail.com>
+ <CAJpoHp489qKfkfLOX-XPLpOWo86gibZB=NM_dXPbv0yDGmxysg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,26 +59,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/1/26 18:08, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> There is no technical reason why there should be a limited number of CMA
-> regions, so extract some code into helpers and use them to create extra
-> functions (cma_create() and cma_free()) that allow creating and freeing,
-> respectively, CMA regions dynamically at runtime.
-> 
-> The static array of CMA areas cannot be replaced by dynamically created
-> areas because for many of them, allocation must not fail and some cases
-> may need to initialize them before the slab allocator is even available.
-> To account for this, keep these "early" areas in a separate list and
-> track the dynamic areas in a separate list.
+Hi Diogo,
 
-I want MM maintainers to review/ack this before this gets merged.
+Am Donnerstag, 2. Juli 2026, 22:18:58 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Diogo Silva:
+> Simple KMS helper are deprecated since they only add an intermediate
+> layer between drivers and the atomic modesetting.
+> This patch removes the drm_simple_encoder_init() helper usage in the
+> rockchip drivers by open coding it and using the encoder atomic helpers
+> directly. This is a step to eventually get rid of this simple KMS helper,
+> once all drivers that use it have been converted.
+>=20
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+> ---
+> v4:
+>  - improved commit message based on Javier Canillas feedback
+>=20
+> v3:
+>  - rebase on drm-tip tree
+>=20
+>  drivers/gpu/drm/rockchip/analogix_dp-rockchip.c  | 9 ++++++---
+>  drivers/gpu/drm/rockchip/cdn-dp-core.c           | 9 ++++++---
+>  drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c  | 9 +++++++--
+>  drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c | 8 ++++++--
+>  drivers/gpu/drm/rockchip/dw_dp-rockchip.c        | 1 -
+>  drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c      | 1 -
+>  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c   | 1 -
+>  drivers/gpu/drm/rockchip/rk3066_hdmi.c           | 8 ++++++--
+>  drivers/gpu/drm/rockchip/rockchip_lvds.c         | 9 +++++++--
+>  drivers/gpu/drm/rockchip/rockchip_rgb.c          | 8 ++++++--
+>  10 files changed, 44 insertions(+), 19 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+> b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+> index 776954c7d052..46c245e35d21 100644
+> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+> @@ -30,7 +30,6 @@
+>  #include <drm/drm_of.h>
+>  #include <drm/drm_print.h>
+>  #include <drm/drm_probe_helper.h>
+> -#include <drm/drm_simple_kms_helper.h>
+>=20
+>  #include "rockchip_drm_drv.h"
+>=20
+> @@ -303,6 +302,10 @@ rockchip_dp_drm_encoder_atomic_check(struct
+> drm_encoder *encoder,
+>         return 0;
 
-I'm putting it on my todo list for next week (please ping me if it falls down
-the cracks and nobody else ends up reviewing it in the meantime).
+the tool you're using to send patches seems broken.
+In the patch all the places that should be tabs are replaced as spaces.
+This of course does not apply.
 
--- 
-Cheers,
+Ideally use git send-email or b4 for sending patches.
 
-David
+Also, please don't send new versions as replies to previous ones.
+Tooling can get confused by this, so please start a new thread for
+the next version.
+
+Thanks
+Heiko
+
+
+
