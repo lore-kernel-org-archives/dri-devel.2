@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53E50C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:31:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B55C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB37110F698;
-	Fri,  3 Jul 2026 07:31:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96EF210F69A;
+	Fri,  3 Jul 2026 07:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AVp3M63D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H+zF7IeP";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E04510F698
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:31:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E32710F69A
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:32:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A83136001A;
+ by tor.source.kernel.org (Postfix) with ESMTP id D48C06001A;
+ Fri,  3 Jul 2026 07:32:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72CA1F00A3A;
  Fri,  3 Jul 2026 07:31:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0321F000E9;
- Fri,  3 Jul 2026 07:31:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783063916;
- bh=/Q35Kz8rnHTlztuEzAc6H/zjCpTCgNlLgkoLPJocPqU=;
- h=From:To:Cc:Subject:Date;
- b=AVp3M63DD0e95DW4tUg0nqz5ICrc11z0qwfLukiLelal34W6eQierdGmwrQDFgPD/
- w0M+TJhceHu0d/jIAA66j/dPKUUFlRM3uV0LyT1gg0z4njponE5dUG+KWEdfVecXmg
- OzhkfS3+rAe/gHByPCeXpNfdFeDa8pyD4wX7LjAZ7tm6F3lVr6GrCiFR3zeqDuYsds
- TnxLov5SP01NK7Io0eyYfydzZzz8/tXblQCo++S3qOVH50wUsAntCm3Syi47lWlRVG
- wA8OdFkJIbwpmsDeLnbgzDkyXO3CugnK7uSs/+e3/3y6LS93Prx4LramSeDdUH/cfn
- PaoIPvjCK9G1A==
+ s=k20260515; t=1783063923;
+ bh=W0cm6V1SNatAYCiqUyWncuJR0N/zPSN18fPyAUJ6v+c=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=H+zF7IeP0YH4a2qhwK5CXkyAuahXhRTNYffTPeDhn8gTPFBJ/EMwovRyMtjHTfcAt
+ wTKoM1wMa+RprgJmGwvnKthSKBLkPrIGcs4AFsbA+gAs1zvy/nByw5+dlUapsZSmpO
+ j40kMJoEhtY95vb0mf7bUMjb/9KXq4x4FwjenBpQkvyZBIkOA5+S5KVMBT8jnitur9
+ pz5hT42R/5DhSXnljftTfh+900RWLLNBzatTfLFWeb2wUmNFvzL5S2JOb3onha9Gdr
+ TtdPlai0ZRoOlK0wunkchFh+bUhfsZtzGUnhtZp1/XaU4+HjyjOVScXb9p7A7pVYti
+ Ic4DJx87prOlg==
 From: Philipp Stanner <phasta@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Gary Guo <gary@garyguo.net>,
@@ -52,12 +52,13 @@ To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v5 0/5] rust / dma_buf: Add abstractions for dma_fence
-Date: Fri,  3 Jul 2026 09:31:36 +0200
-Message-ID: <20260703073141.3962604-2-phasta@kernel.org>
+Subject: [PATCH v5 1/5] rust: types: implement ForeignOwnable for ARef<T>
+Date: Fri,  3 Jul 2026 09:31:37 +0200
+Message-ID: <20260703073141.3962604-3-phasta@kernel.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260703073141.3962604-2-phasta@kernel.org>
+References: <20260703073141.3962604-2-phasta@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,164 +75,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Changes since v4:
-  - Fix an uninitialized memory bug for FenceCbRegistration with
-    ManuallyDrop.
-  - Return FenceCtx as impl PinInit
-  - Make FenceCtx return an impl PinInit<T, Error> (Danilo)
-  - Reformat some comments
-  - Adjust the docu for rcu_barrier(), so that it matches the C side's
-    docu and our docu for rcu::synchronize_rcu().
+From: Danilo Krummrich <dakr@kernel.org>
 
-Changes since v3:
-  - Add a FIXME for an encountered Rust compiler bug. (Gary)
-  - Add new Rust files also to DRM drivers & common infrastructure
-    MAINTAINERS file. (Danilo)
-  - Reposition ECANCELED error code. (Miguel)
-  - Replace refcounted FenceCtx in DriverFenceData with a reference plus
-    life time. (Boris)
-  - Re-add rcu_barrier() patch, since we now can use it for dropping the
-    fence context. (Danilo)
-  - Add forgotten R-b from Alice, and Acks for MAINTAINERS from
-    Christian and Sumit.
+Implement ForeignOwnable for ARef<T>, making it possible for C code to
+own an ARef<T>.
 
-Changes since v2:
-  - Don't drop DriverFenceData as a whole, but only the members we
-    really want to drop. Gives more robustness. (Gary).
-  - Break apart large pin_init_from_closure(). (Danilo, Onur)
-  - Remove rcu_barrier() and synchronize_rcu() from FenceCtx::drop().
-    FenceCtx might drop in atomic context, where you must not perform
-    those operations. With the current way C dma_fence is designed, the
-    driver must wait for a grace period manually until it unloads.
-  - Repair the DriverFenceBorrow implementation, properly injecting a
-    life time into it. (Danilo)
-  - Fix memory layout bug for rcu_head. (Onur)
-  - Drop RCU patches, since this series doesn't need them anymore.
+Since ARef represents shared ownership, BorrowedMut is &T rather than
+&mut T, matching the semantics of the underlying reference-counted type.
 
-Changes since v1:
-  - Remove unnecessary mutable references (Alice)
-  - Split up unsafe comments where possible (Danilo)
-  - Remove PhantomData + implement FenceCtx ops trait (Boris)
-  - Consistently call FenceCtx generic data `T`. FenceDataType is
-    derived from that. (Boris)
-  - Add abstractions for call_rcu() and synchronize_rcu() (Danilo)
-  - Add ECANCELED error code in Rust (Alice)
-  - Remove the rcu_barrier() from FenceCtx::drop() – because we now use
-    call_rcu(), there can be no UAF access to the FenceCtx anymore. In
-    any case, it is illegal to use either call_rcu() or
-    synchronize_rcu() in FenceCtx::drop(), because our new
-    drop_driver_fence_data() can run in atomic context and might put the
-    last fence_ctx reference.
-    So we now only have to guard against module unload, which it seems
-    either the driver or Rust driver-core / module unload infrastructure
-    must solve.
-  - Minor formatting etc. changes
-  - Add C helpers to MAINTAINERS. (Danilo)
-  - Ensure that `Fence::is_signaled()` is fully synchronized, i.e., all
-    callbacks really have run. See [1] and [2]. (Myself, Christian
-    König)
-
-Changes since the RFCs:
-  - Include support for ForeignOwnable for ARef, so that a Fence can be
-    stuffed into an XArray et al. (Code by Danilo)
-  - Implement ForeignOwnable (with new borrow type) for DriverFence, so
-    that it can be stuffed into an XArray.
-  - Include the rcu::RcuBox data type to defer dropping data with RCU
-    (Cody by Alice)
-  - Port DmaFence to RcuBox to make UAF bugs through later, new dma_fence
-    callbacks (backend_ops) impossible.
-  - Force users to pass their fence data in an RcuBox (or have it not
-    need drop()) through a Sealed trait.
-  - Document the rules for the user's DriverFence::data's drop
-    implementation very clearly (deadlock danger).
-  - rustfmt, Clippy.
-  - Various style suggestions, safety comments, etc. (Önur)
-  - Add __rust_helper prefix to helper functions. (Önur)
-
-Changes in RFC v3:
-  - Omit JobQueue patches for now
-  - Completely redesign the memory layout: Instead of a Fence
-    refcounting a DriverFence, both now live in the same allocation to
-    allow for future support the dma_fence backend_ops callbacks which
-    need to do container_of. (mostly Boris's feedback)
-  - Allow for pre-allocating fences to avoid deadlocks when submitting
-    jobs to a GPU. (Boris)
-  - Simultaneously, allow for pre-preparing fence callback objects, so
-    the driver can allocate them when it sees fit. (code largely stolen
-    and inspired by Daniel).
-  - Signal fences on drop, ensure synchronization.
-  - Force users to set an error code when signalling.
-  - Write more documentation
-  - A ton of minor other changes.
-
-
-[1] https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel.org/
-[2] https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.org/
-
-
-Alright, so since the last RFCs did not reveal significant design
-issues, I decided to transition this series to a v1 and hope that we can
-get it upstream.
-
-This now includes code for more common infrastructure that dma_fence
-needs, contributed by Danilo and Alice.
-
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 ---
+ rust/kernel/sync/aref.rs | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-Old cover letter for RFC:
-
-So, this is the spiritual successor of the first / second RFC [1]. v2
-also contained code for drm::JobQueue, but mostly to show how the fence
-code would be used. JobQueue is under heavy rework right now, so I don't
-want to bother your eyes with it. The docstring examples should show how
-Rust fences are supposed to be used, though.
-
-This v3 contains a huge amount of highly valuable feedback from a
-variety of people, notably Boris, but also from Alice, Gary and Danilo.
-
-There are some TODOs open (a better trait for fence backend_ops and RCU
-support), but my hope is that this effort is now finally approaching its
-end.
-
-I would greatly appreciate feedback and especially more information
-about what might be missing to make this usable, which is obviously
-where Daniel's and Boris's feedback will be valuable once more.
-
-Please regard this patch just as what it's titled: an RFC, to discuss a
-bit more and to inform a broader community about what the current state
-is and where this is heading at.
-
-Many regards,
-Philipp
-
-[1] https://lore.kernel.org/rust-for-linux/20260203081403.68733-2-phasta@kernel.org/
-
-Danilo Krummrich (1):
-  rust: types: implement ForeignOwnable for ARef<T>
-
-Philipp Stanner (4):
-  rust: error: Add ECANCELED error code
-  rust: sync: Add abstraction for rcu_barrier()
-  rust: Add dma_fence abstractions
-  MAINTAINERS: Add entry for Rust dma-buf
-
- MAINTAINERS                      |   5 +
- rust/bindings/bindings_helper.h  |   1 +
- rust/helpers/dma_fence.c         |  48 ++
- rust/helpers/helpers.c           |   1 +
- rust/kernel/dma_buf/dma_fence.rs | 894 +++++++++++++++++++++++++++++++
- rust/kernel/dma_buf/mod.rs       |  14 +
- rust/kernel/error.rs             |   1 +
- rust/kernel/lib.rs               |   1 +
- rust/kernel/sync/aref.rs         |  40 ++
- rust/kernel/sync/rcu.rs          |  20 +
- 10 files changed, 1025 insertions(+)
- create mode 100644 rust/helpers/dma_fence.c
- create mode 100644 rust/kernel/dma_buf/dma_fence.rs
- create mode 100644 rust/kernel/dma_buf/mod.rs
-
-
-base-commit: a73a398a68ca9b9e5116a617562471f16b8310c4
+diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+index b721b2e00b98..540766613659 100644
+--- a/rust/kernel/sync/aref.rs
++++ b/rust/kernel/sync/aref.rs
+@@ -24,6 +24,11 @@
+     ptr::NonNull, //
+ };
+ 
++use crate::{
++    prelude::*,
++    types::ForeignOwnable, //
++};
++
+ /// Types that are _always_ reference counted.
+ ///
+ /// It allows such types to define their own custom ref increment and decrement functions.
+@@ -188,6 +193,41 @@ fn eq(&self, other: &ARef<U>) -> bool {
+ }
+ impl<T: AlwaysRefCounted + Eq> Eq for ARef<T> {}
+ 
++// SAFETY: `into_foreign` returns a pointer from `NonNull::as_ptr`, so it's non-null. The
++// `ARef` invariant guarantees that `ptr` points to a valid `T`, so it's aligned to `T`.
++unsafe impl<T: AlwaysRefCounted + 'static> ForeignOwnable for ARef<T> {
++    const FOREIGN_ALIGN: usize = core::mem::align_of::<T>();
++
++    type Borrowed<'a> = &'a T;
++    type BorrowedMut<'a> = &'a T;
++
++    fn into_foreign(self) -> *mut c_void {
++        ARef::into_raw(self).as_ptr().cast()
++    }
++
++    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
++        // SAFETY: The safety requirements of this function ensure that `ptr` comes from a previous
++        // call to `Self::into_foreign`.
++        let ptr = unsafe { NonNull::new_unchecked(ptr.cast()) };
++
++        // SAFETY: `ptr` came from `into_foreign`, which consumed an `ARef` without decrementing
++        // the refcount, so we can transfer the ownership to the new `ARef`.
++        unsafe { ARef::from_raw(ptr) }
++    }
++
++    unsafe fn borrow<'a>(ptr: *mut c_void) -> &'a T {
++        // SAFETY: The safety requirements of this method ensure that the object remains alive and
++        // immutable for the duration of 'a.
++        unsafe { &*ptr.cast() }
++    }
++
++    unsafe fn borrow_mut<'a>(ptr: *mut c_void) -> &'a T {
++        // SAFETY: The safety requirements for `borrow_mut` are a superset of the safety
++        // requirements for `borrow`.
++        unsafe { <Self as ForeignOwnable>::borrow(ptr) }
++    }
++}
++
+ impl<T, U> PartialEq<&'_ U> for ARef<T>
+ where
+     T: AlwaysRefCounted + PartialEq<U>,
 -- 
 2.54.0
 
