@@ -4,53 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 924BAC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:09:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE02EC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:09:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E21C010F692;
-	Fri,  3 Jul 2026 07:09:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5481D10F693;
+	Fri,  3 Jul 2026 07:09:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CeP4x5xk";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DT9O7NzQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="G49T38OJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bM7A5PU1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xlpJec58";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 174C010F692
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:09:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D4B9A404CC;
- Fri,  3 Jul 2026 07:09:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E661F000E9;
- Fri,  3 Jul 2026 07:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783062549;
- bh=xA4tp0AYCPRAwSPcdD763FW0RlPsGKuoE+okmKkXUHg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=CeP4x5xkzXbGC++vIZQtQ21RqEDAAgQ/VnnJOyOvs7Qk9dT276p/aQ7YkVa5xtxF5
- +rPSB5Jb3GqjoASBp4Dcnp04Qk8lrBFoOAQw1T8Wvx7s4c2420a3hMrpVJ4hXddTMx
- 8M6m3ea62qFVFH87ev8/hPvA123M+ccxiUhaBSycbFMaDSIjvekjlSqL6BEEVWLprn
- qRq5RrKW58b98uQt5wkEP84UXbXUqgLWcqbgMv/1UIKEWfGbtFWn9Ga0bPfwkjImyR
- KOUzJiGsSxmLX4BR2u4cwqCvieTpLOe5/N7fuoEQHiCU+eMkhxhTd+iAGzHyKatzpt
- v+2p2YiLeAo4A==
-Date: Fri, 3 Jul 2026 09:09:05 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: display: tegra: Add
- channel/syncpoint range properties
-Message-ID: <20260703-traditional-beige-flamingo-d5003c@quoll>
-References: <20260702-host1x-nohv-v2-0-e6d88bac0af6@nvidia.com>
- <20260702-host1x-nohv-v2-2-e6d88bac0af6@nvidia.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E8310F693
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:09:49 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F097A759E5;
+ Fri,  3 Jul 2026 07:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783062588; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
+ b=DT9O7NzQrziYcZwrcooXrKtfFpA9tictlQjsA/hkz5jUPssi5w/ganbhwlvFPHpIkt9Qh4
+ 7aUvrKTWfDxQW3Vda09Tpq3CP64llTiI9rpIwnvfNhjOGBKrf6TFrVAMwRIz6iuTzZwv+R
+ en4eI/p/F0ijfxh6aCTDsJ9fLJE2EFM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783062588;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
+ b=G49T38OJa7xk6udWUFFvBlOvCozUlw4edQjq8juzk5dgFPS85bK+mTSaFt8i6GMHviKsBA
+ mzYeJFz/9Kd5YbCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783062586; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
+ b=bM7A5PU1T7SepTA0BH6wkfa5iha787MPro5nKr8wzvu1fpZs2SmZhDWf57hCK9Jpvb7S4B
+ ZY2Hvq02obZcQktxafp/s/r12wbhmdvbjB5fcq/iN/0oWhQlA+hxvAlfPqPtfh5NsJhUVI
+ HfI2RFG/0xkTuH6/q44Zj6JApQjvIqs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783062586;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FGB8P+sagksKSYPBP0FhIoeFGuSfgHDVJQKl26Aovms=;
+ b=xlpJec58bVCvrYypkEua/rf08wxU3VmAfIzNY5rVXTtmNhLKtxt71tQeaLFRiep4yHUOVQ
+ OEURRr4wlbFnQfDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6B06779AA;
+ Fri,  3 Jul 2026 07:09:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id /+JSKzpgR2r2aAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 03 Jul 2026 07:09:46 +0000
+Message-ID: <44557a30-dc86-409a-b430-2b4db151843b@suse.de>
+Date: Fri, 3 Jul 2026 09:09:46 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260702-host1x-nohv-v2-2-e6d88bac0af6@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] drm/connector: check if destroy function exist
+To: Andreas Kemnade <andreas@kemnade.info>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, lumag@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260702191453.611070-1-andreas@kemnade.info>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260702191453.611070-1-andreas@kemnade.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[kemnade.info,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+ RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[8];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
+ kemnade.info:email, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,46 +140,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 01:10:27PM +0900, Mikko Perttunen wrote:
-> All of the resources implemented by Host1x hardware may not be available
-> to the software in cases where those resources are assigned to other vm
-> partitions through the hypervisor register region.
-> 
-> Add properties nvidia,channels and nvidia,syncpoints to specify the
-> range of resources that are accessible by this partition / virtual
-> machine.
-> 
-> The hypervisor or bootloader that configures the partitioning in the
-> hypervisor register region is responsible for updating the values of
-> these properties in accordance to the configuration.
-> 
-> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+Hi
+
+Am 02.07.26 um 21:14 schrieb Andreas Kemnade:
+> Connectors might have not resources needed to be manually freed.
+> E.g. the drm_bridge_connector does not have such a callback.
+>
+> Fixes: c12907be57b1 ("drm/bridge-connector: switch to using drmm allocations")
+
+This patch uses drmm_connector_init() for the cleanup, which is a 
+mis-design IMHO.  Rather than calling drm_connector_cleanup(), it should 
+call connector->funcs->destroy, which then points to 
+drm_connector_cleanup. This would make the whole thing more useful and 
+not require fixups (like this one) elsewhere in the code. Just just my 2cts.
+
+Best regards
+Thomas
+
+
+> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 > ---
->  .../bindings/display/tegra/nvidia,tegra20-host1x.yaml        | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-> index ffd0ed857d28..a6bef28e8559 100644
-> --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-> +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
-> @@ -96,6 +96,18 @@ properties:
->      items:
->        - description: phandle to the HEG or core power domain
->  
-> +  nvidia,channels:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 2
-> +    maxItems: 2
-> +    description: Describes range of usable Host1x channels as a <base count> tuple.
+>   drivers/gpu/drm/drm_connector.c | 8 ++++++--
+>   1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index 47dc53c4a738..d2dfc6e8f7d0 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -198,7 +198,9 @@ static void drm_connector_free(struct kref *kref)
+>   	struct drm_device *dev = connector->dev;
+>   
+>   	drm_mode_object_unregister(dev, &connector->base);
+> -	connector->funcs->destroy(connector);
+> +
+> +	if (connector->funcs->destroy)
+> +		connector->funcs->destroy(connector);
+>   }
+>   
+>   void drm_connector_free_work_fn(struct work_struct *work)
+> @@ -216,7 +218,9 @@ void drm_connector_free_work_fn(struct work_struct *work)
+>   
+>   	llist_for_each_entry_safe(connector, n, freed, free_node) {
+>   		drm_mode_object_unregister(dev, &connector->base);
+> -		connector->funcs->destroy(connector);
+> +
+> +		if (connector->funcs->destroy)
+> +			connector->funcs->destroy(connector);
+>   	}
+>   }
+>   
 
-Pasting my reply just now from v1:
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-Property has only one meaning in DT schema, so basically you are now
-fixing nvidia,channels to uint32-array for all possible use cases and
-nvidia devices. Well, you have been warned.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
 
