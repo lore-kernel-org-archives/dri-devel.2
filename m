@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC8A8C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B9DBC43327
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3352210F60E;
-	Fri,  3 Jul 2026 03:02:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B83D10F612;
+	Fri,  3 Jul 2026 03:02:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="UZROHVUR";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="xK0seBNk";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5436710F60D
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:27 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-49241dbf9c1so433805e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:27 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE5110F611
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:30 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-493c52cde9eso562075e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047746; x=1783652546;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047749; x=1783652549;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8zPTrGagSiuVYU7I9JgOECqU8/VU0U08xkF/eFNmS0A=;
- b=UZROHVURgRMx4rY31TZcv2QaF0NpO54+nTQENsuoeRMCXc/rdZ8wKKhfzw1UId4mvw
- ENJwVlDS43DVvx0kRbtjEzbRmlVPxZb4c8ApijsZ2zlrP1NxvNKfIqa6tG4vwMvcSBJ/
- cQRhtcfuYdu4jEa69PipOEE2Thnj2jJxu1JAy3FSELOZ35rrKvI6JSnxOGpqSEL0Bjgf
- Nm48tavZR64q8AIYFASkHatW/jpr3TuPwo8M8VCETDEeg60aVQRDoLpXcoOO9HgrdVUi
- Wzyhrhxx3tMy1XIN35/bBmZkn8tvWkTNyGbxOGAB8JzHyIs+Sy/ArBzMXdwweKAYmr+7
- XmMg==
+ bh=kNorOrjfgxyeyD+YG5rAmpjgzcOoTh+ybjNZkpwMVc4=;
+ b=xK0seBNk34yacoLmMsOIJDZLi5AdHBpr4OPn7TmxxfMleik1EesghT+LXmfgtbqJsa
+ Ng5XdCKn/Q6ATF8uZMuVxXd0kKC1bfKIQ2gpFjB0DsMinBCZSeeRLsomPfnKPnoOuadl
+ uhLYHe272B569yHgz5a+wYYVTXAZ0lImS4v4Zjf8O0L8QOTevw7I1BUifdP0DsO6IcSN
+ xJ+d0LoVfcclqBu4Z+b6DSyJpz4x6MLsextsnaJY9O4Q9WBTCPCzDf9wZcWz+ryZBnZS
+ ideHpZB+ZLS6ZdMbfiXNgqisBMgjPL16Vh2dZzmAlI0Hgj2ZN599ZE1VJQotLCYoSS7w
+ woBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047746; x=1783652546;
+ d=1e100.net; s=20251104; t=1783047749; x=1783652549;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=8zPTrGagSiuVYU7I9JgOECqU8/VU0U08xkF/eFNmS0A=;
- b=Xym5J9Sf3uzlmPaLcgcNYutOU7SoYewfi/PFu1btiCeoQjQCFjswbLi24n1EAEkuzz
- W3NvnR5hmcgnProlmGkYLspQbHhadSN8oAuNS8xhZrPIOCyW+HzBEjis1nWtYCbacFXN
- oph7yl9rh/FKaOHIvSIkbxlfycJTP1G8ff2EbbSqFWQEjtTCx5OQ0gTuyYts7t8xnoGq
- xekXOR7aeOEaztxjURKCpygyDP0w4cJ4RAwQuhOwz1KrFb2fKIQ41WmBr+EfCNFlAXv9
- UzCpyY/yzlQ2QXWC3PaUAflSeyQWa1H2Dsu94Fe00kt7Dx5oadHktAq0zLHeE7eqB7CE
- 4dkQ==
-X-Gm-Message-State: AOJu0YxVSUoW0RZSA4a4d2rypFhlkze3yxyPoLt0fdNom1ptuRhraJvq
- tCRGpK2kyqfuZEiggRqvNP+YTqRV4YJ7Mkf5lKctuq/e4bBaJamgRS17mlKAkEbTWg==
-X-Gm-Gg: AfdE7cm4W6IqaAnYforVuz41UJiTTHaGfriUR3OoJaXv4+58L90ctEO9hEcDlA/zyAm
- wAg2cohbuHO4IcCrIFqsZllL8ogJPuYdon3jORG7ybSmPd3fFP8fqc3WFkw6k/+LeSEGhWJeOIv
- cQEsuqvJnVT6Gek41yRHb4T0BFH+I7M1/wLCt+B8qYkqV6QpWT1Ji2TQpedPckKmQuE0ifCNDU3
- W5SRqvdEts6lrcz5tnitQxpMdDI9wMvRi/4OAz+7zwUAUd1e5AD8AHUjk6aB2TeXvb/ZVtqwNeB
- +AIr0lgqDn9PJE6RpGpHBylNjBDebLxkNlyYj9XUC39gXZLODV3G/PJsWwn8sWrWv9o/ZFP+Z1l
- eVtmhQ0iQc9tdpdSnyvxq7ukVeRsXh1ODd9rBraPevDUw8UsFBmP0CrjIOlQhvjzlHBO9P80yqO
- bOJllRNuC0CXLHpXa1cVhUgqNFhUm/eSFjTKPOvjpfxGpxFx5Cmrpa2RVR
-X-Received: by 2002:a05:600d:844f:20b0:492:5bb6:6d4b with SMTP id
- 5b1f17b1804b1-493c3df77eamr86100765e9.34.1783047745537; 
- Thu, 02 Jul 2026 20:02:25 -0700 (PDT)
+ bh=kNorOrjfgxyeyD+YG5rAmpjgzcOoTh+ybjNZkpwMVc4=;
+ b=rHbD39lmUqtP7mumDOYhP9qCb+i+fILDQ4TXixrCrU1FTNtNBaGasRBnamt/dEX9Fp
+ TTmr13gqfCcHdszb55ipKlpbnBfZqDwGDwEIu/xVVj5JxQ4YYXTNRxiBpIA4DGewacOm
+ w7dX9IIu3iFoP5lkNL8UHX5mtAXFkeSD1nwCJtRFglf1u3zlhAHTIbIikuYOK+KLbNvD
+ Grelt9nvNWzkcqBpShgI706c031TzRSSKsfNBxaQS9NdyY49bT76f+6A9gc/zBBbcFxp
+ q4LCJhCbj8opNkbjKbemG8LG5o9p6QMueTkfs+g9BZcinbAHPZdKH/k9CgrVQC6V1fRW
+ DGHg==
+X-Gm-Message-State: AOJu0YyrWwN4DT16PRWTfNdqUczMSiSd7/e+e5CG7XU7sknQFdfec8BR
+ 76vhceTHScCFzRxEajnaSY5DSWF79lBajYXxRLSs1B6saWNcjxn4zVwWc4iMwITMGg==
+X-Gm-Gg: AfdE7cm3pqsUmRXT8lm6Ulp/Qs90v7jWuUxXtC6YYw+Qxwh/6mCDIsGf/5kpIl2VhAP
+ Q5uYZ1Bhw6hbkp0nleB/fIkQAAHmA/nnzzzzkzui9dmULaYWptcHwEvhPzesQA7A43uvsIbmmmr
+ sfTmboV6Za40lTm60wehy4Ip+QY3Aro3VKR65k4PD4xxurK1LOexXY18UBFxGyrrM88oq1t9kgb
+ fqQi2eFkAr/KtKYzxJ/m6iQaAMsUH72NJWSgQ2y3PvgC+bntzhBRtTcm+7QvCgTpXJ/2X5Nl83s
+ hNoLmOT6Ce8JmkGeyDNGWWxke2Gp6Zh/uQ1LjbLpwX0CmpJOxGpi0T3tRRGzw+tasclRwbPIQnn
+ 8zpgx9Yn8Y5038BrleVTYMsvt+/BrCdZREnR4VXt+DpuH7piPjMDq+aPFg6F/uGg1MiYeT33Wkr
+ kxK3pbCrV4lhaGW24e4of8jw/nMY/vo/tlLq0UI4ATfwSUBG5QE6pIBsMo
+X-Received: by 2002:a05:600c:570f:b0:493:ad1b:b38d with SMTP id
+ 5b1f17b1804b1-493c2ba7db3mr79292735e9.37.1783047748313; 
+ Thu, 02 Jul 2026 20:02:28 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.24
+ 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:02:24 -0700 (PDT)
+ Thu, 02 Jul 2026 20:02:26 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
@@ -73,10 +73,10 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 02/10] drm/vino: add the clean-room HDCP 2.2 AKE/LC/SKE
- handshake
-Date: Fri,  3 Jul 2026 04:02:07 +0100
-Message-ID: <20260703030217.2886-3-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 03/10] drm/vino: add the AES-CTR/AES-CMAC control-plane
+ seal and arm sequence
+Date: Fri,  3 Jul 2026 04:02:08 +0100
+Message-ID: <20260703030217.2886-4-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260703030217.2886-1-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
@@ -98,513 +98,750 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-crypto.rs wraps the crypto bindings (AES-128, AES-CMAC) for the KDF this
-driver needs; hdcp.rs holds the HDCP 2.2 message-ID constants and wire
-structs (reusing <drm/display/drm_hdcp.h> where it overlaps); ake.rs
-builds/parses the AKE_Init/AKE_Send_Cert/AKE_No_Stored_km/
-AKE_Send_H_prime/AKE_Send_Pairing_Info, LC_Init/LC_Send_L_prime and
-SKE_Send_Eks messages plus the RepeaterAuth exchange, all verified
-byte-exact against the reference daemon's wire traffic; golden.rs holds
-a small captured plaintext capability-announce skeleton the handshake
-fills with live session values.
-
-This is a clean-room implementation of the standard HDCP 2.2 AKE from
-the published spec and the driver's own captured wire traffic -- no
-daemon code or binary content is reused.
+cp.rs implements the post-AKE control-plane wire format: the AES-CTR
+seal (K_dl3 = ks, keystream AES-CTR(ks, riv || BE64(seq)) over the
+whole inner message), the Dl3Cmac trailer (AES-CMAC over the sealed
+ciphertext with a riv-derived nonce, encrypt-then-MAC), the stream-open
+arm marker that makes the dock start processing encrypted CP, and the
+message builders for mode-set, cursor, and DDC/CI Set-VCP (brightness/
+contrast/DPMS power). All of this is verified byte-exact against the
+reference daemon's captured wire traffic.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-sonnet-5 [Claude-Code]
 ---
- drivers/gpu/drm/vino/ake.rs    | 173 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/vino/crypto.rs |  48 +++++++++
- drivers/gpu/drm/vino/golden.rs |  69 +++++++++++++
- drivers/gpu/drm/vino/hdcp.rs   | 167 +++++++++++++++++++++++++++++++
- 4 files changed, 457 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/ake.rs
- create mode 100644 drivers/gpu/drm/vino/crypto.rs
- create mode 100644 drivers/gpu/drm/vino/golden.rs
- create mode 100644 drivers/gpu/drm/vino/hdcp.rs
+ drivers/gpu/drm/vino/cp.rs | 723 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 723 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/cp.rs
 
-diff --git a/drivers/gpu/drm/vino/ake.rs b/drivers/gpu/drm/vino/ake.rs
+diff --git a/drivers/gpu/drm/vino/cp.rs b/drivers/gpu/drm/vino/cp.rs
 new file mode 100644
-index 000000000000..38919624cb2f
+index 000000000000..4d55b96999b0
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/ake.rs
-@@ -0,0 +1,173 @@
++++ b/drivers/gpu/drm/vino/cp.rs
+@@ -0,0 +1,723 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! HDCP 2.2 AKE wire layer (sec 5.1 OUT framing, sec 5.2 IN parsing) -- the byte-exact
-+//! message builders the AKE state machine drives, mirroring the verified userspace
-+//! oracle (`vino-driver::hdcp_msgs`). DLM hardcodes per-message `sub_size` /
-+//! `sub_len_dw` values the dock validates, so they are reproduced verbatim rather
-+//! than derived.
-+//!
-+//! OUT body layout (sec 5.1), after the 16-byte sec 3 transport header:
-+//! ```text
-+//!   body[0..2]   u16 sub_size      (DLM-fixed per message)
-+//!   body[2..4]   u16 = 0x0010
-+//!   body[4..8]   u32 hdcp_seq      increments 1..7 across the AKE OUT messages
-+//!   body[8..22]  14 zero bytes
-+//!   body[22..26] u32 = 0x00000030  marker
-+//!   body[26]     u8  = 0x00        flag
-+//!   body[27]     u8  = msg_id
-+//!   body[28..]   HDCP payload (zero-padded to the fixed body length)
-+//! ```
-+#![allow(dead_code)] // AKE message builders; response handlers run only after CP engagement
++//! Encrypted-control-plane message builders (the inner plaintext of the type=4
++//! sub=0x24 AES-CTR frames) plus the AES-CTR `seal` that encrypts and frames them.
++//! Layouts are from the reverse-engineered protocol; offsets cite the guide and
++//! should be re-checked against a capture before they drive real hardware.
++#![allow(dead_code)] // some seal/handler paths run only after the dock engages CP (open blocker)
 +
 +use super::*;
 +
-+/// HDCP 2.2 message IDs (sec 5.3). `pub(crate)` so the AKE state machine
-+/// ([`super::VinoDriver::run_ake`]) can match on the response IDs too.
-+pub(crate) mod id {
-+    use kernel::bindings;
-+
-+    // Standard HDCP 2.2 message IDs: reuse the canonical values from
-+    // `<drm/display/drm_hdcp.h>` rather than redefining them, so vino stays in
-+    // lockstep with the kernel's HDCP definitions. Only the transport framing
-+    // around these (the DisplayLink type/sub/ctr header) is vino-specific.
-+    pub(crate) const AKE_INIT: u8 = bindings::HDCP_2_2_AKE_INIT as u8;
-+    pub(crate) const AKE_SEND_CERT: u8 = bindings::HDCP_2_2_AKE_SEND_CERT as u8;
-+    pub(crate) const AKE_NO_STORED_KM: u8 = bindings::HDCP_2_2_AKE_NO_STORED_KM as u8;
-+    pub(crate) const AKE_SEND_H_PRIME: u8 = bindings::HDCP_2_2_AKE_SEND_HPRIME as u8;
-+    pub(crate) const AKE_SEND_PAIRING_INFO: u8 = bindings::HDCP_2_2_AKE_SEND_PAIRING_INFO as u8;
-+    pub(crate) const LC_INIT: u8 = bindings::HDCP_2_2_LC_INIT as u8;
-+    pub(crate) const LC_SEND_L_PRIME: u8 = bindings::HDCP_2_2_LC_SEND_LPRIME as u8;
-+    pub(crate) const SKE_SEND_EKS: u8 = bindings::HDCP_2_2_SKE_SEND_EKS as u8;
-+    pub(crate) const REPEATERAUTH_SEND_RECEIVERID_LIST: u8 =
-+        bindings::HDCP_2_2_REP_SEND_RECVID_LIST as u8;
-+    pub(crate) const REPEATERAUTH_SEND_ACK: u8 = bindings::HDCP_2_2_REP_SEND_ACK as u8;
-+    pub(crate) const REPEATERAUTH_STREAM_MANAGE: u8 = bindings::HDCP_2_2_REP_STREAM_MANAGE as u8;
-+    pub(crate) const REPEATERAUTH_STREAM_READY: u8 = bindings::HDCP_2_2_REP_STREAM_READY as u8;
-+
-+    // DisplayLink-specific message IDs with no `<drm/display/drm_hdcp.h>` equivalent
-+    // (the AKE_Send_rrx split and the transmitter/receiver-info + auth-status messages
-+    // the DL3 dock uses), kept as literals.
-+    pub(crate) const AKE_SEND_RRX: u8 = 0x06;
-+    pub(crate) const RECEIVER_AUTH_STATUS: u8 = 0x12;
-+    pub(crate) const AKE_TRANSMITTER_INFO: u8 = 0x13;
-+    pub(crate) const AKE_RECEIVER_INFO: u8 = 0x14;
++/// Common CP inner header: `[id u16][sub u16][counter u16][00 00]` (sec 6.1/sec 8.6.4).
++fn header(out: &mut KVec<u8>, id: u16, sub: u16, counter: u16) -> Result {
++    out.extend_from_slice(&id.to_le_bytes(), GFP_KERNEL)?;
++    out.extend_from_slice(&sub.to_le_bytes(), GFP_KERNEL)?;
++    out.extend_from_slice(&counter.to_le_bytes(), GFP_KERNEL)?;
++    out.extend_from_slice(&[0, 0], GFP_KERNEL)?;
++    Ok(())
 +}
 +
-+/// transport `sub_id` for HDCP OUT messages (type=4 sub=0x04, sec 5.1).
-+const SUB_HDCP: u16 = 0x04;
++fn pad_to(out: &mut KVec<u8>, len: usize) -> Result {
++    while out.len() < len {
++        out.push(0, GFP_KERNEL)?;
++    }
++    Ok(())
++}
 +
-+/// Allocate a `body_len`-byte zeroed body with the sec 5.1 header filled in
-+/// (`sub_size`, the `0x0010` marker, `hdcp_seq`, the `0x30` marker and `msg_id`).
-+/// The caller writes the payload into `body[28..]`.
-+fn body(body_len: usize, sub_size: u16, hdcp_seq: u32, msg_id: u8) -> Result<KVec<u8>> {
-+    let mut b = KVec::from_elem(0u8, body_len, GFP_KERNEL)?;
-+    b[0..2].copy_from_slice(&sub_size.to_le_bytes());
-+    b[2..4].copy_from_slice(&0x0010u16.to_le_bytes());
-+    b[4..8].copy_from_slice(&hdcp_seq.to_le_bytes());
-+    b[22..26].copy_from_slice(&0x0000_0030u32.to_le_bytes());
-+    b[27] = msg_id;
++/// OUT heartbeat (sec 6.1): `id=0x16 sub=0x75`, two AES blocks (`10 27` at block1+6).
++pub(super) fn heartbeat(counter: u16) -> Result<KVec<u8>> {
++    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
++    header(&mut b, 0x16, 0x75, counter)?;
++    pad_to(&mut b, 22)?; // block0 tail + block1[0..6]
++    b.extend_from_slice(&[0x10, 0x27], GFP_KERNEL)?; // block1[6..8]
++    pad_to(&mut b, 32)?;
 +    Ok(b)
 +}
 +
-+/// Wrap a finished HDCP body in the sec 3 transport header (type=4 sub=0x04) with
-+/// the DLM-fixed `sub_len_dw` and the transport `seq`.
-+fn wrap(sub_len_dw: u16, seq: u32, body: &[u8]) -> Result<KVec<u8>> {
-+    let mut frame = KVec::with_capacity(16 + body.len(), GFP_KERNEL)?;
-+    proto::push_frame_with(&mut frame, 0x04, SUB_HDCP, sub_len_dw, seq, body)?;
++/// OUT get-EDID request (CP-HANDSHAKE.md sec 4f): `id=0x15 sub=0x21`, the message that asks
++/// the dock to return the downstream monitor's EDID in an `id=0x194 sub=0x21` reply (parsed
++/// by [`parse_edid_from_reply`]). The request carries no payload beyond the inner header, so
++/// it is a single 16-byte AES block; [`seal_livemac`] appends the 16-byte Dl3Cmac. The dock
++/// echoes the `counter`, so any monotonic value works. The exact request body was never
++/// captured (only the reply), so this is the minimal well-formed form -- re-check against a
++/// capture if the dock ever NAKs it once CP engages.
++pub(super) fn get_edid_req(counter: u16) -> Result<KVec<u8>> {
++    let mut b = KVec::with_capacity(16, GFP_KERNEL)?;
++    header(&mut b, 0x15, 0x21, counter)?;
++    pad_to(&mut b, 16)?;
++    Ok(b)
++}
++
++/// A video timing in DisplayID-Type-I terms (sec 8.6.4), as carried by the
++/// `0x48/0x22` set-mode message. Field meanings and offsets are verified
++/// byte-exact against the golden 3840x2160@60 capture (see [`set_mode`]).
++#[derive(Clone, Copy)]
++pub(super) struct Timing {
++    pub hactive: u16,
++    pub hblank: u16,
++    pub hsync_front: u16,
++    pub hsync_width: u16,
++    pub vactive: u16,
++    pub vblank: u16,
++    pub vsync_front: u16,
++    pub vsync_width: u16,
++    pub refresh_hz: u16,
++    /// Pixel clock in 10 kHz units (e.g. 0xd040 = 533.12 MHz for 4K@60).
++    pub pixel_clock_10khz: u16,
++    /// DisplayID field at off42 -- partly decoded (0x0604 for 4K, 0x0600 for the
++    /// 2560x1440 sample in sec 8.6.4); high byte 0x06 constant, low byte mode-varying.
++    pub field42: u16,
++}
++
++impl Timing {
++    /// 3840x2160@60 (CVT-RB) -- the mode the non-HDCP dongle advertises, kept as a
++    /// known-good reference whose `set_mode` output is byte-exact vs the golden capture.
++    pub(super) const UHD_60: Timing = Timing {
++        hactive: 3840, hblank: 160, hsync_front: 48, hsync_width: 32,
++        vactive: 2160, vblank: 62, vsync_front: 3, vsync_width: 5,
++        refresh_hz: 60, pixel_clock_10khz: 0xd040, field42: 0x0604,
++    };
++}
++
++/// set-mode (sec 8.6.4): `id=0x48 sub=0x22`, a 96-byte inner message carrying a
++/// DisplayID-Type-I u16 timing record. **Verified byte-exact** against the golden
++/// `[59]` 3840x2160@60 capture for every byte except the trailing 22-byte session
++/// MAC (off74..95), which [`seal`]'s caller / the HDCP session layer appends.
++///
++/// Layout (inner offsets): off20 BE u32 generation=2; off26 begins the LE u16
++/// record `hactive,hblank,hsync_front,hsync_width,vactive,vblank,vsync_front,
++/// vsync_width,field42,refresh,flags(0x4000)`; off48/off58/off60/off66 carry
++/// constants observed in the 4K capture; off70 the pixel clock (10 kHz units).
++pub(super) fn set_mode(counter: u16, t: &Timing) -> Result<KVec<u8>> {
++    let mut b = KVec::with_capacity(96, GFP_KERNEL)?;
++    header(&mut b, 0x48, 0x22, counter)?;
++    pad_to(&mut b, 20)?;
++    b.extend_from_slice(&2u32.to_be_bytes(), GFP_KERNEL)?; // off20: BE generation=2
++    pad_to(&mut b, 26)?; // off24..25 zero; timing begins at off26
++    for v in [
++        t.hactive, t.hblank, t.hsync_front, t.hsync_width,
++        t.vactive, t.vblank, t.vsync_front, t.vsync_width,
++        t.field42, t.refresh_hz, 0x4000, /* off46 flags */ 0x6000, /* off48 */
++    ] {
++        b.extend_from_slice(&v.to_le_bytes(), GFP_KERNEL)?;
++    }
++    pad_to(&mut b, 58)?;
++    b.extend_from_slice(&0x0080u16.to_le_bytes(), GFP_KERNEL)?; // off58 (observed const)
++    b.extend_from_slice(&0x00ffu16.to_le_bytes(), GFP_KERNEL)?; // off60 (observed const)
++    pad_to(&mut b, 66)?;
++    b.extend_from_slice(&0x0800u16.to_le_bytes(), GFP_KERNEL)?; // off66 (observed const)
++    pad_to(&mut b, 70)?;
++    b.extend_from_slice(&t.pixel_clock_10khz.to_le_bytes(), GFP_KERNEL)?; // off70
++    pad_to(&mut b, 96)?;
++    Ok(b)
++}
++
++/// Standard VESA MCCS (Monitor Control Command Set 2.2) VCP feature codes, driven over
++/// DDC/CI. The macOS DisplayLink agent exposes these as per-display brightness/contrast
++/// ("Popover did show -- starting DDC/CI communication", `setBrightness`/`setContrast`); the
++/// dock bridges the DDC/CI transaction to the downstream monitor's I2C slave 0x37 -- the same
++/// monitor-I2C path the EDID read ([`get_edid_req`]) uses for the 0x50 EDID slave.
++pub(super) const VCP_BRIGHTNESS: u8 = 0x10;
++pub(super) const VCP_CONTRAST: u8 = 0x12;
++/// VCP 0xD6 "Power mode": value 0x01 = on, 0x04 = off (DPMS-off / hard standby). Lets DPMS
++/// blank the panel backlight instead of freezing the last frame (see [`crtc_atomic_disable`]).
++pub(super) const VCP_POWER_MODE: u8 = 0xd6;
++pub(super) const POWER_ON: u16 = 0x01;
++pub(super) const POWER_OFF: u16 = 0x04;
++
++/// Build a DDC/CI "Set VCP Feature" request: the 7 bytes a DDC/CI host writes to the
++/// monitor's I2C slave 0x37, after the 0x6e (= 0x37<<1) write address (VESA DDC/CI 1.1
++/// sec 4.4). Layout: source 0x51, length `0x80 | 4`, opcode 0x03 (Set VCP), VCP code,
++/// value-hi, value-lo, then an XOR checksum seeded with the destination address 0x6e. Pure
++/// and fully standard, so it is unit-tested byte-exact against the spec
++/// ([`super::tests::ddc_ci_set_vcp_checksum`]).
++pub(super) fn ddc_ci_set_vcp(vcp: u8, value: u16) -> [u8; 7] {
++    let body = [0x51u8, 0x84, 0x03, vcp, (value >> 8) as u8, value as u8];
++    let mut chk = 0x6eu8; // checksum seed = destination slave-write address (0x37 << 1)
++    for &x in &body {
++        chk ^= x;
++    }
++    [body[0], body[1], body[2], body[3], body[4], body[5], chk]
++}
++
++/// CP message that tunnels a DDC/CI Set-VCP write to the downstream monitor -- the brightness,
++/// contrast and DPMS-power controls the macOS/Windows agents drive over "DDC/CI communication".
++/// The dock's monitor-I2C bridge is the same one the EDID read uses, so this is modelled as the
++/// WRITE companion to the `0x15/0x21` EDID read: `id=0x15 sub=0x22`, carrying the I2C slave
++/// (0x37) + payload length at off20 and the 7-byte DDC/CI Set-VCP payload at off22.
++///
++/// The `id`/`sub` and payload offset are **inferred** from the EDID-read pairing -- the write
++/// transaction was never captured (it only fires once a monitor is actively driven, i.e. past
++/// the CP wall), so re-check against a capture once CP engages. The DDC/CI bytes themselves
++/// ([`ddc_ci_set_vcp`]) are standard and verified.
++pub(super) fn ddc_set_vcp(counter: u16, vcp: u8, value: u16) -> Result<KVec<u8>> {
++    let payload = ddc_ci_set_vcp(vcp, value);
++    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
++    header(&mut b, 0x15, 0x22, counter)?;
++    pad_to(&mut b, 20)?;
++    // off20: monitor DDC/CI I2C slave (0x37) + DDC/CI payload length.
++    b.extend_from_slice(&[0x37, payload.len() as u8], GFP_KERNEL)?;
++    // off22: the DDC/CI Set-VCP bytes (same off22 convention as the EDID payload).
++    b.extend_from_slice(&payload, GFP_KERNEL)?;
++    pad_to(&mut b, 32)?;
++    Ok(b)
++}
++
++/// EDID base-block sanity check: length, the `00 FF..FF 00` magic, and the 1-byte
++/// checksum (all 128 base bytes sum to 0 mod 256). A corrupt blob must never drive a
++/// mode-set, so [`timing_from_edid`] rejects anything that fails this.
++fn edid_valid(edid: &[u8]) -> bool {
++    const MAGIC: [u8; 8] = [0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00];
++    edid.len() >= 128
++        && edid[..8] == MAGIC
++        && edid[..128].iter().fold(0u8, |a, &b| a.wrapping_add(b)) == 0
++}
++
++/// Parse one 18-byte EDID detailed timing descriptor into a [`Timing`], or `None` if it
++/// is too short or not a timing (pixel clock 0 marks a monitor descriptor). `field42`
++/// is left at the sec 8.6.4 default (`0x0600`) -- its low byte is mode-varying and not fully
++/// decoded, so the live mode-set substitution leaves the captured value in place.
++fn parse_dtd(d: &[u8]) -> Option<Timing> {
++    if d.len() < 18 {
++        return None;
++    }
++    let pclk = u16::from_le_bytes([d[0], d[1]]);
++    if pclk == 0 {
++        return None; // monitor descriptor, not a detailed timing
++    }
++    let hi = |v: u8, lo: u8| -> u16 { ((v as u16) << 8) | lo as u16 };
++    let hactive = hi((d[4] >> 4) & 0xf, d[2]);
++    let hblank = hi(d[4] & 0xf, d[3]);
++    let vactive = hi((d[7] >> 4) & 0xf, d[5]);
++    let vblank = hi(d[7] & 0xf, d[6]);
++    let hsync_front = (((d[11] >> 6) & 0x3) as u16) << 8 | d[8] as u16;
++    let hsync_width = (((d[11] >> 4) & 0x3) as u16) << 8 | d[9] as u16;
++    let vsync_front = (((d[11] >> 2) & 0x3) as u16) << 4 | ((d[10] >> 4) & 0xf) as u16;
++    let vsync_width = ((d[11] & 0x3) as u16) << 4 | (d[10] & 0xf) as u16;
++    let htotal = hactive.wrapping_add(hblank) as u32;
++    let vtotal = vactive.wrapping_add(vblank) as u32;
++    let refresh_hz = if htotal != 0 && vtotal != 0 {
++        ((pclk as u32 * 10_000 + (htotal * vtotal) / 2) / (htotal * vtotal)) as u16
++    } else {
++        0
++    };
++    Some(Timing {
++        hactive,
++        hblank,
++        hsync_front,
++        hsync_width,
++        vactive,
++        vblank,
++        vsync_front,
++        vsync_width,
++        refresh_hz,
++        pixel_clock_10khz: pclk,
++        field42: 0x0600,
++    })
++}
++
++/// Extract the monitor's **preferred** detailed timing from an EDID for the live mode-set
++/// (CP-HANDSHAKE.md sec 4e). The first DTD in the base block is the preferred timing per the
++/// EDID spec; scan all four base descriptor slots (off 54/72/90/108) so a leading monitor
++/// descriptor (name/range/serial) doesn't hide it, and if the base block carries no DTD at
++/// all, fall back to the first DTD in the CTA-861 extension block. The blob is validated
++/// first; an invalid or timing-less EDID returns `None` so the caller keeps its known-good
++/// fallback timing rather than driving the dock with garbage.
++pub(super) fn timing_from_edid(edid: &[u8]) -> Option<Timing> {
++    if !edid_valid(edid) {
++        return None;
++    }
++    // Base-block descriptors: the first valid DTD is the preferred timing.
++    for off in [54usize, 72, 90, 108] {
++        if off + 18 <= edid.len() {
++            if let Some(t) = parse_dtd(&edid[off..off + 18]) {
++                return Some(t);
++            }
++        }
++    }
++    // No DTD in the base block: try the first CTA-861 extension's DTD area. CTA-861 blocks
++    // have tag 0x02 at byte 0 and a DTD-area byte offset at byte 2 (>= 4 when DTDs follow);
++    // descriptors run in 18-byte records up to the extension's checksum byte (127).
++    if edid[126] as usize >= 1 && edid.len() >= 256 {
++        let ext = &edid[128..256];
++        if ext[0] == 0x02 {
++            let start = ext[2] as usize;
++            if start >= 4 {
++                let mut off = start;
++                while off + 18 <= 127 {
++                    if let Some(t) = parse_dtd(&ext[off..off + 18]) {
++                        return Some(t);
++                    }
++                    off += 18;
++                }
++            }
++        }
++    }
++    None
++}
++
++/// Overwrite the geometry + clock fields of an in-place set-mode inner message
++/// (`id=0x48 sub=0x22`) with `t` (CP-HANDSHAKE.md sec 4e). Offsets mirror [`set_mode`]:
++/// the LE u16 timing record at off26 and the pixel clock at off70. `field42` (off42),
++/// the off66 token and the encrypted trailer are intentionally **left as captured**;
++/// only the EDID-derived values change, so the wire length (hence `wire_seq`) is
++/// unchanged. No-op if `plain` is too short.
++pub(super) fn apply_edid_timing(plain: &mut [u8], t: &Timing) {
++    if plain.len() < 72 {
++        return;
++    }
++    let put = |b: &mut [u8], off: usize, v: u16| {
++        b[off] = v as u8;
++        b[off + 1] = (v >> 8) as u8;
++    };
++    put(plain, 26, t.hactive);
++    put(plain, 28, t.hblank);
++    put(plain, 30, t.hsync_front);
++    put(plain, 32, t.hsync_width);
++    put(plain, 34, t.vactive);
++    put(plain, 36, t.vblank);
++    put(plain, 38, t.vsync_front);
++    put(plain, 40, t.vsync_width);
++    put(plain, 44, t.refresh_hz);
++    put(plain, 70, t.pixel_clock_10khz);
++}
++
++/// Convert a DRM display mode (the timing the *compositor* selected from the connector's
++/// EDID-derived mode list) into a set-mode [`Timing`]. This is what makes the dock
++/// multi-mode: `drm_edid_connector_add_modes` already advertises every base+extension mode
++/// from the dock's EDID, and when userspace sets any one of them the resulting
++/// `drm_display_mode` lands here verbatim -- no re-parsing of EDID offsets. The blanking
++/// fields map straight across (CVT/DMT/DisplayID all use the same front-porch/sync model),
++/// and the refresh rate comes from DRM's own `drm_mode_vrefresh` helper rather than a
++/// hand-rolled divide. `field42` keeps the sec 8.6.4 default (its low byte is mode-varying and
++/// not fully decoded); the dock tolerates the high byte `0x06`.
++///
++/// SAFETY: `mode` must point to a valid `drm_display_mode` for the duration of the call.
++pub(super) fn timing_from_drm_mode(mode: &kernel::drm::kms::modes::DisplayMode) -> Timing {
++    let refresh = mode.vrefresh() as u16;
++    let sub = |a: u16, b: u16| a.saturating_sub(b);
++    Timing {
++        hactive: mode.hdisplay(),
++        hblank: sub(mode.htotal(), mode.hdisplay()),
++        hsync_front: sub(mode.hsync_start(), mode.hdisplay()),
++        hsync_width: sub(mode.hsync_end(), mode.hsync_start()),
++        vactive: mode.vdisplay(),
++        vblank: sub(mode.vtotal(), mode.vdisplay()),
++        vsync_front: sub(mode.vsync_start(), mode.vdisplay()),
++        vsync_width: sub(mode.vsync_end(), mode.vsync_start()),
++        refresh_hz: refresh,
++        // `clock` is in kHz; the set-mode field is in 10 kHz units.
++        pixel_clock_10khz: (mode.clock() / 10).clamp(0, u16::MAX as i32) as u16,
++        field42: 0x0600,
++    }
++}
++
++/// Decode the inner header of a dock->host CP frame: returns `(id, sub, ictr)` from
++/// the first decrypted block (CP-HANDSHAKE.md sec 3), or `None` if `wire` is not a
++/// decryptable CP frame. Used by the live loop to log what the dock is replying.
++pub(super) fn reply_info(
++    ks: &[u8; 16],
++    out_riv: &[u8; 8],
++    wire: &[u8],
++) -> Option<(u16, u16, u16)> {
++    if wire.len() <= 16 {
++        return None;
++    }
++    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
++    let head = &wire[16..wire.len().min(32)];
++    let inner = open_in(ks, &in_riv(out_riv), seq, head).ok()?;
++    if inner.len() < 6 {
++        return None;
++    }
++    Some((
++        u16::from_le_bytes([inner[0], inner[1]]),
++        u16::from_le_bytes([inner[2], inner[3]]),
++        u16::from_le_bytes([inner[4], inner[5]]),
++    ))
++}
++
++/// CP `sub` ids seen on the wire (CP-HANDSHAKE.md). Used to score a candidate
++/// decrypt: a plaintext whose `sub` is one of these (and whose post-counter pad is
++/// zero) is almost certainly the correct key/riv.
++fn is_known_sub(sub: u16) -> bool {
++    matches!(
++        sub,
++        0x00 | 0x04 | 0x0c | 0x10 | 0x20 | 0x21 | 0x22 | 0x24 | 0x25 | 0x30 | 0x41
++            | 0x42 | 0x43 | 0x45 | 0x75 | 0x84
++    )
++}
++
++/// Diagnostic decode: try a dock->host frame under every plausible riv variant and
++/// return the best-scoring inner `(riv_tag, id, sub, ictr)`. The interactive
++/// `wsub=0x45` replies decrypt under `in_riv` (byte7^1), but the **cap-phase**
++/// `wsub=0x25` frames decrypt under the session ks with **byte7 unchanged** (the OUT
++/// value) -- see the cold-ref transcript. `byte0^0x80` selects the head. This mirrors
++/// `decode-handshake.py`'s scoring so a live trace shows what the dock is actually
++/// asking for during the capability exchange we currently skip.
++pub(super) fn decode_any(
++    ks: &[u8; 16],
++    out_riv: &[u8; 8],
++    wire: &[u8],
++) -> Option<(&'static str, u16, u16, u16, [u8; 24])> {
++    if wire.len() <= 16 {
++        return None;
++    }
++    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
++    let head = &wire[16..wire.len().min(48)];
++    let out0 = *out_riv;
++    let in0 = in_riv(out_riv);
++    let mut out1 = out0;
++    out1[0] ^= 0x80;
++    let mut in1 = in0;
++    in1[0] ^= 0x80;
++    let variants: [(&'static str, [u8; 8]); 4] =
++        [("out/h0", out0), ("in/h0", in0), ("out/h1", out1), ("in/h1", in1)];
++    let mut best: Option<(i32, &'static str, u16, u16, u16, [u8; 24])> = None;
++    for (tag, riv) in variants.iter() {
++        let Ok(pt) = open_in(ks, riv, seq, head) else { continue };
++        if pt.len() < 8 {
++            continue;
++        }
++        let id = u16::from_le_bytes([pt[0], pt[1]]);
++        let sub = u16::from_le_bytes([pt[2], pt[3]]);
++        let ctr = u16::from_le_bytes([pt[4], pt[5]]);
++        let pad = u16::from_le_bytes([pt[6], pt[7]]);
++        let mut sc = 0i32;
++        if is_known_sub(sub) {
++            sc += 50;
++        }
++        if pad == 0 {
++            sc += 10;
++        }
++        if ctr < 0x400 {
++            sc += 5;
++        }
++        if best.map_or(true, |b| sc > b.0) {
++            // Keep the first 24 plaintext bytes so the live trace shows the decoded
++            // structure (e.g. the `..4c..de..` cap-descriptor template that, in the
++            // capture, is session-independent -- its absence flags a ks/riv mismatch).
++            let mut sample = [0u8; 24];
++            let n = pt.len().min(24);
++            sample[..n].copy_from_slice(&pt[..n]);
++            best = Some((sc, tag, id, sub, ctr, sample));
++        }
++    }
++    best.map(|(_, tag, id, sub, ctr, sample)| (tag, id, sub, ctr, sample))
++}
++
++// All three cursor messages share one 32-byte inner layout, recovered byte-exact from the
++// cold-ref session by `scripts/verify-cp-seal.py` (a 64x64 cursor, t~=41.3s):
++//   off0..7   id/sub/counter header
++//   off8..21  zero
++//   off22     0x02              constant marker
++//   off23     head_id           (0 / 1 across the cold-ref's two monitors)
++//   off24..25 field1 LE u16     (create: width  / move: X / image: 0)
++//   off26..27 field2 LE u16     (create: height / move: Y / image: 0)
++//   off28..31 trailing 4 bytes  (DLM leaks UNINITIALISED struct padding here -- the bytes vary
++//                                non-monotonically every message and match no checksum, so the
++//                                dock cannot validate them; we send zero, which is correct)
++// The image then appends its w*h*4 BGRA bitmap starting at off32, and its inner id carries a
++// 0x40 high-byte flag (0x401c, vs the 0x1c the aux/send_cp path uses). Prior layouts put the
++// marker/fields two bytes early and omitted the head byte (cursor_move) -- a latent bug, since
++// cursor traffic is post-CP-engagement. See captures/cp-seal-differential-20260622.md.
++fn cursor_header(b: &mut KVec<u8>, id: u16, sub: u16, counter: u16, head: u8) -> Result {
++    header(b, id, sub, counter)?;
++    pad_to(b, 22)?;
++    b.push(0x02, GFP_KERNEL)?; // off22 marker
++    b.push(head, GFP_KERNEL)?; // off23 head id
++    Ok(())
++}
++
++/// cursor create (sec 8.6.1): `id=0x1b sub=0x42`, advertises `w x h` for `head`.
++pub(super) fn cursor_create(counter: u16, head: u8, w: u16, h: u16) -> Result<KVec<u8>> {
++    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
++    cursor_header(&mut b, 0x1b, 0x42, counter, head)?;
++    b.extend_from_slice(&w.to_le_bytes(), GFP_KERNEL)?; // off24..25
++    b.extend_from_slice(&h.to_le_bytes(), GFP_KERNEL)?; // off26..27
++    pad_to(&mut b, 32)?; // off28..31 (DLM uninit; we zero)
++    Ok(b)
++}
++
++/// cursor move (sec 8.6.1): `id=0x1a sub=0x43`, head id @23, X @24, Y @26 (LE).
++pub(super) fn cursor_move(counter: u16, head: u8, x: u16, y: u16) -> Result<KVec<u8>> {
++    let mut b = KVec::with_capacity(32, GFP_KERNEL)?;
++    cursor_header(&mut b, 0x1a, 0x43, counter, head)?;
++    b.extend_from_slice(&x.to_le_bytes(), GFP_KERNEL)?; // off24..25
++    b.extend_from_slice(&y.to_le_bytes(), GFP_KERNEL)?; // off26..27
++    pad_to(&mut b, 32)?; // off28..31 (DLM uninit; we zero)
++    Ok(b)
++}
++
++/// cursor image (sec 8.6.1): inner `id=0x401c sub=0x41` (the 0x40 high-byte flag marks the
++/// bitmap-bearing message). A 32-byte header (shared marker + head, no w/h -- those come from
++/// [`cursor_create`]) followed by the `w*h*4` BGRA bitmap at off32. `bgra` must be `w*h*4` bytes
++/// -- DRM hands the driver a 64x64 ARGB8888 cursor buffer and the caller swaps it to BGRA.
++pub(super) fn cursor_image(
++    counter: u16,
++    head: u8,
++    w: u16,
++    h: u16,
++    bgra: &[u8],
++) -> Result<KVec<u8>> {
++    // `w*h*4` can wrap a 32-bit `usize` (max ~1.7e10 > u32::MAX), which would let an
++    // undersized `bgra` pass the check; compute it with checked arithmetic so an
++    // overflow is rejected as a mismatch rather than silently bypassing validation.
++    let expected = (w as usize)
++        .checked_mul(h as usize)
++        .and_then(|n| n.checked_mul(4));
++    if expected != Some(bgra.len()) {
++        return Err(EINVAL);
++    }
++    let mut b = KVec::with_capacity(32 + bgra.len(), GFP_KERNEL)?;
++    cursor_header(&mut b, 0x401c, 0x41, counter, head)?;
++    pad_to(&mut b, 32)?; // off24..31 zero (no w/h here)
++    b.extend_from_slice(bgra, GFP_KERNEL)?; // bitmap @ off32
++    Ok(b)
++}
++
++/// DisplayLink "Dl3Cmac" CP-message integrity tag (16 bytes) -- **FULLY SOLVED + CROSS-SESSION
++/// VERIFIED 2026-06-11** (`captures/DL3CMAC-FULLY-SOLVED-20260611.md`):
++/// `tag = AES-CMAC(ks, mac_nonce(8) || BE64(wire_seq) || ciphertext)` where
++/// - `mac_nonce` = the CTR stream `riv` **with `byte0 ^= 0x80`** (this byte0 flip is the bit
++///   prior writeups missed -- they tried `riv` / `riv^1@byte7` and OUT never verified),
++/// - `wire_seq` = the AES-CTR block counter (frame header off-12), zero-extended to BE64,
++/// - `ciphertext` = the AES-CTR ciphertext content (encrypt-then-MAC), tag appended IN CLEAR.
++/// `K_dl3 = ks`. Proven: 110/115 OUT + 128/135 IN corpus frames AND cold-ref msg0 (a different
++/// session) reproduce byte-exact. Pass the CTR `riv` directly; the byte0 flip is applied here.
++pub(super) fn dl3cmac_tag(
++    ks: &[u8; 16],
++    riv: &[u8; 8],
++    wire_seq: u64,
++    ciphertext: &[u8],
++) -> Result<[u8; 16]> {
++    let mut mac_nonce = *riv;
++    mac_nonce[0] ^= 0x80;
++    let mut buf = KVec::with_capacity(16 + ciphertext.len(), GFP_KERNEL)?;
++    buf.extend_from_slice(&mac_nonce, GFP_KERNEL)?;
++    buf.extend_from_slice(&wire_seq.to_be_bytes(), GFP_KERNEL)?;
++    buf.extend_from_slice(ciphertext, GFP_KERNEL)?;
++    Ok(crypto::aes_cmac(ks, &buf))
++}
++
++/// Seal a CP message with a **freshly computed live Dl3Cmac**, reusing DLM's captured wire
++/// `header` (so `seq`/`aux` are byte-identical) but recomputing the tail tag for THIS session.
++/// `content_pt` is the real inner plaintext WITHOUT the 16-byte tag region. Wire body =
++/// `AES-CTR(ks, riv, content_pt)` || `dl3cmac_tag(...)`. This is the live-generation path. See
++/// `captures/DL3CMAC-FULLY-SOLVED-20260611.md`.
++pub(super) fn seal_livemac(
++    ks: &[u8; 16],
++    riv: &[u8; 8],
++    header: &[u8],
++    content_pt: &[u8],
++) -> Result<KVec<u8>> {
++    let seq = u32::from_le_bytes([header[12], header[13], header[14], header[15]]);
++    let cipher = crypto::Aes128::new(ks)?;
++    let mut ct = KVec::with_capacity(content_pt.len(), GFP_KERNEL)?;
++    for (i, chunk) in content_pt.chunks(16).enumerate() {
++        let mut iv = [0u8; 16];
++        iv[..8].copy_from_slice(riv);
++        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
++        let ksb = cipher.encrypt_block(&iv);
++        for (j, &p) in chunk.iter().enumerate() {
++            ct.push(p ^ ksb[j], GFP_KERNEL)?;
++        }
++    }
++    let tag = dl3cmac_tag(ks, riv, seq as u64, &ct)?;
++    let mut frame = KVec::with_capacity(16 + ct.len() + 16, GFP_KERNEL)?;
++    frame.extend_from_slice(&header[..16], GFP_KERNEL)?;
++    frame.extend_from_slice(&ct, GFP_KERNEL)?;
++    frame.extend_from_slice(&tag, GFP_KERNEL)?;
 +    Ok(frame)
 +}
 +
-+/// `AKE_Init` (msg_id 0x02): `rtx[8] || TxCaps[3]`, padded to a 48-byte body
-+/// (`sub_size=0x22`, `sub_len_dw=0x0c` -- guide sec 5.4 table).
-+pub(super) fn ake_init(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    rtx: &[u8; 8],
-+    tx_caps: &[u8; 3],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x0022, hdcp_seq, id::AKE_INIT)?;
-+    b[28..36].copy_from_slice(rtx);
-+    b[36..39].copy_from_slice(tx_caps);
-+    wrap(0x000c, seq, &b)
-+}
-+
-+/// `AKE_Transmitter_Info` (msg_id 0x13): byte-exact DLM framing
-+/// (`sub_size=0x1f`, `sub_len_dw=0x0f`), payload `00 06 02 00 02`.
-+pub(super) fn ake_transmitter_info(hdcp_seq: u32, seq: u32) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x001f, hdcp_seq, id::AKE_TRANSMITTER_INFO)?;
-+    b[28..33].copy_from_slice(&[0x00, 0x06, 0x02, 0x00, 0x02]);
-+    wrap(0x000f, seq, &b)
-+}
-+
-+/// `AKE_No_Stored_km` (msg_id 0x04): the 128-byte RSA-OAEP-SHA256 `Ekpub(km)`
-+/// in a 160-byte body (`sub_size=0x9a`, `sub_len_dw=0x04` -- guide sec 5.4 table).
-+pub(super) fn ake_no_stored_km(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    ekpub_km: &[u8; 128],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(160, 0x009a, hdcp_seq, id::AKE_NO_STORED_KM)?;
-+    b[28..156].copy_from_slice(ekpub_km);
-+    wrap(0x0004, seq, &b)
-+}
-+
-+/// `LC_Init` (msg_id 0x09): `rn[8]` in a 48-byte body
-+/// (`sub_size=0x22`, `sub_len_dw=0x0c`).
-+pub(super) fn lc_init(hdcp_seq: u32, seq: u32, rn: &[u8; 8]) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x0022, hdcp_seq, id::LC_INIT)?;
-+    b[28..36].copy_from_slice(rn);
-+    wrap(0x000c, seq, &b)
-+}
-+
-+/// `SKE_Send_Eks` (msg_id 0x0b): `Edkey(ks)[16] || riv[8]` in a 64-byte body
-+/// (`sub_size=0x32`, `sub_len_dw=0x0c`).
-+pub(super) fn ske_send_eks(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    edkey_ks: &[u8; 16],
-+    riv: &[u8; 8],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(64, 0x0032, hdcp_seq, id::SKE_SEND_EKS)?;
-+    b[28..44].copy_from_slice(edkey_ks);
-+    b[44..52].copy_from_slice(riv);
-+    wrap(0x000c, seq, &b)
-+}
-+
-+/// `RepeaterAuth_Send_ACK` (msg_id 0x0f): the full `V[16]` in a 48-byte body
-+/// (`sub_size=0x2a`, `sub_len_dw=0x04`).
-+pub(super) fn repeater_auth_send_ack(
-+    hdcp_seq: u32,
-+    seq: u32,
-+    v: &[u8; 16],
-+) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x002a, hdcp_seq, id::REPEATERAUTH_SEND_ACK)?;
-+    b[28..44].copy_from_slice(v);
-+    wrap(0x0004, seq, &b)
-+}
-+
-+/// `RepeaterAuth_Stream_Manage` SM2 (msg_id 0x10): byte-exact DLM replica sent
-+/// after Send_ACK -- `k=2` (LE), `StreamID_Type[0]=4` (LE), `body[43]=0x05`
-+/// (`sub_size=0x2d`, `sub_len_dw=0x01`). See guide sec 5.4 and sec 8.2.
++/// Seal an inner CP message into a wire frame (type=4 sub=0x24, `seq`). DisplayLink
++/// CP is **encrypt-then-MAC**: the message content is AES-CTR-encrypted, then a
++/// 16-byte Dl3Cmac tag (`AES-CMAC(ks, riv || BE64(seq) || ciphertext)`) is appended.
++/// The keystream is `AES_ECB(ks, riv(8) || u32(0) || u32_be(seq + block))` (sec 6.1).
 +///
-+/// `type0` (CP_STREAM_TYPE0 experiment, 2026-06-23): zero the two DL3 stream-type bytes
-+/// (0x04/0x05 -> 0x00) so the dock is asked for a single Type-0 (unrestricted) stream
-+/// instead of the replicated DLM stream set. Default DLM-exact (`type0 == false`); the M
-+/// computation in `wait_cap_complete` zeroes the matching `m_data` bytes under the same flag.
-+pub(super) fn repeater_auth_stream_manage(hdcp_seq: u32, seq: u32, type0: bool) -> Result<KVec<u8>> {
-+    let mut b = body(48, 0x002d, hdcp_seq, id::REPEATERAUTH_STREAM_MANAGE)?;
-+    b[32..36].copy_from_slice(&[0x02, 0, 0, 0]); // k = 2 (LE)
-+    let (s0, s1) = if type0 { (0x00, 0x00) } else { (0x04, 0x05) };
-+    b[36..40].copy_from_slice(&[s0, 0, 0, 0]); // StreamID_Type[0]
-+    b[43] = s1; // StreamID_Type[1]
-+    wrap(0x0001, seq, &b)
-+}
-+
-+/// Parse an IN HDCP message body (sec 5.2): `body[8]` marker, `body[9]` msg_id,
-+/// `body[10..]` payload (for `AKE_Send_Cert`, `body[10]` is a version flag).
-+/// Returns `(msg_id, payload)`.
-+pub(super) fn parse_in(body: &[u8]) -> Option<(u8, &[u8])> {
-+    if body.len() < 10 {
-+        return None;
-+    }
-+    Some((body[9], &body[10..]))
-+}
-diff --git a/drivers/gpu/drm/vino/crypto.rs b/drivers/gpu/drm/vino/crypto.rs
-new file mode 100644
-index 000000000000..83e988ded726
---- /dev/null
-+++ b/drivers/gpu/drm/vino/crypto.rs
-@@ -0,0 +1,48 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Thin adapters onto the shared [`kernel::crypto`] library-crypto bindings, so the
-+//! protocol code keeps its `crypto::aes128_ecb` / `crypto::hmac_sha256` call sites.
-+#![allow(dead_code)] // exercised by the AES-CTR seal + HDCP AKE
-+
-+use super::*;
-+
-+/// An AES-128 key prepared once for single-block encryption; re-exported so the
-+/// AES-CTR keystream loops in [`cp`](super::cp) can expand the key once and reuse
-+/// it across every block (rather than re-expanding per block).
-+pub(super) use kernel::crypto::Aes128;
-+
-+/// `AES_ECB(key, block)` -- one 16-byte AES-128 block. Convenience one-shot for
-+/// callers that encrypt a single block (e.g. HDCP dKey derivation); the AES-CTR
-+/// paths build an [`Aes128`] once and call [`Aes128::encrypt_block`] in a loop.
-+pub(super) fn aes128_ecb(key: &[u8; 16], block: &[u8; 16]) -> Result<[u8; 16]> {
-+    Ok(Aes128::new(key)?.encrypt_block(block))
-+}
-+
-+/// `HMAC-SHA256(key, data)`.
-+pub(super) fn hmac_sha256(key: &[u8], data: &[u8]) -> [u8; 32] {
-+    kernel::crypto::hmac_sha256(key, data)
-+}
-+
-+/// `AES-CMAC-128(key, data)` (RFC 4493) via the in-tree AES-CMAC library.
-+/// This is DisplayLink's "Dl3Cmac" core -- the CP per-message integrity tag is
-+/// `AES_CMAC(ks, nonce8 || BE64(counter) || content)` (see `cp::dl3cmac_tag`);
-+/// verified byte-exact against live DLM data (canonical guide sec 8.6.7).
-+pub(super) fn aes_cmac(key: &[u8; 16], data: &[u8]) -> [u8; 16] {
-+    kernel::crypto::aes_cmac(key, data)
-+}
-+
-+/// `SHA256(data)`.
-+pub(super) fn sha256(data: &[u8]) -> [u8; 32] {
-+    kernel::crypto::sha256(data)
-+}
-+
-+/// Raw RSA public-key op `out = input^exponent mod modulus`, big-endian,
-+/// `out` written fixed-width (caller applies OAEP padding to `input`).
-+pub(super) fn rsa_pubkey_encrypt(
-+    modulus: &[u8],
-+    exponent: &[u8],
-+    input: &[u8],
-+    out: &mut [u8],
-+) -> Result {
-+    kernel::crypto::rsa_pubkey_encrypt(modulus, exponent, input, out)
-+}
-diff --git a/drivers/gpu/drm/vino/golden.rs b/drivers/gpu/drm/vino/golden.rs
-new file mode 100644
-index 000000000000..e379e888c9c8
---- /dev/null
-+++ b/drivers/gpu/drm/vino/golden.rs
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Captured DisplayLink control-plane protocol templates.
-+//!
-+//! These are NOT replay dumps of an encrypted session. They are the
-+//! session-invariant *plaintext skeletons* of two control-plane bursts captured
-+//! from the proprietary DisplayLinkManager (DLM). The driver overwrites the
-+//! session-specific fields with THIS session's live values and then seals the
-+//! result under the live `ks`, so the bytes that reach the wire are this
-+//! session's own, never the capture's. They remain inline here because the
-+//! field-by-field live builders that would replace them are not yet written --
-+//! see the "help wanted" note at the top of the file.
-+
-+/// Plaintext capability-announce skeleton: the seven `sub=0x10`, ctr 1..7
-+/// frames that restate the AKE OUT messages. `build_cap_announce` walks this
-+/// and overwrites each frame's payload with this session's live AKE value
-+/// (rtx / Ekpub / rn / Edkey+riv / V). 590 bytes.
-+pub(super) const CAP_PLAIN_1080P: &[u8] = &[
-+    0x40, 0x00, 0x00, 0x00, 0x3c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x04, 0x00,
-+    0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x22, 0x00, 0x10, 0x00, 0x01, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x02, 0x1f, 0xe7,
-+    0x18, 0x56, 0x6e, 0x1f, 0xc0, 0x54, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x3c, 0x00,
-+    0x04, 0x00, 0x00, 0x00, 0x04, 0x00, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x1f, 0x00, 0x10, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x30, 0x00,
-+    0x00, 0x00, 0x00, 0x13, 0x00, 0x06, 0x02, 0x00, 0x02, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0xb0, 0x00, 0x00, 0x00, 0xac, 0x00, 0x04, 0x00, 0x00, 0x00, 0x04, 0x00,
-+    0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x9a, 0x00, 0x10, 0x00, 0x03, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x04, 0x0e, 0xd9,
-+    0x2f, 0x05, 0xee, 0x3e, 0xca, 0x40, 0x7e, 0x14, 0x9f, 0x9d, 0x12, 0x6c,
-+    0xca, 0x1a, 0x70, 0x27, 0x55, 0x02, 0x22, 0x0c, 0xde, 0x7d, 0x79, 0x6b,
-+    0x13, 0x14, 0x32, 0x62, 0xef, 0x62, 0xc0, 0xf2, 0xb6, 0x3d, 0x41, 0x21,
-+    0xcf, 0xbd, 0x2a, 0x40, 0xf9, 0xe8, 0x42, 0xc7, 0xbb, 0xa7, 0xcd, 0x8c,
-+    0x53, 0xab, 0x56, 0x4e, 0x5b, 0xf8, 0x55, 0x0a, 0x05, 0x96, 0x09, 0x28,
-+    0xbb, 0xf9, 0xbe, 0xc9, 0xe8, 0x81, 0x32, 0xaa, 0xc8, 0x49, 0x27, 0x3c,
-+    0x80, 0x5c, 0x7c, 0xb8, 0x23, 0x54, 0xb6, 0xe0, 0x38, 0x71, 0x3c, 0xdd,
-+    0xa6, 0x77, 0x91, 0x16, 0x3f, 0xd4, 0xec, 0xfd, 0xdd, 0x56, 0xf7, 0x01,
-+    0xe1, 0x6c, 0x03, 0x50, 0xdf, 0x80, 0xd5, 0x93, 0x66, 0x55, 0xe1, 0xd7,
-+    0x3b, 0x55, 0x7e, 0x9c, 0xb7, 0x71, 0xfe, 0x0b, 0x7d, 0x1c, 0x0d, 0x6b,
-+    0x18, 0xda, 0xdb, 0xbe, 0x79, 0x75, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00,
-+    0x00, 0x00, 0x3c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x04, 0x00, 0x0c, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x22, 0x00, 0x10, 0x00, 0x04, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x09, 0xf4, 0xc4, 0x61, 0x0d,
-+    0xe0, 0x75, 0x99, 0xf5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x50, 0x00, 0x00, 0x00, 0x4c, 0x00, 0x04, 0x00,
-+    0x00, 0x00, 0x04, 0x00, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x32, 0x00,
-+    0x10, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00,
-+    0x00, 0x0b, 0xb2, 0xd9, 0xbd, 0x87, 0x94, 0x1b, 0xf0, 0xec, 0x59, 0x40,
-+    0xf2, 0xba, 0xd5, 0x6d, 0x24, 0xab, 0x56, 0xfe, 0x0c, 0xff, 0xbc, 0x3a,
-+    0x9d, 0xf8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x3c, 0x00, 0x04, 0x00, 0x00, 0x00,
-+    0x04, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2a, 0x00, 0x10, 0x00,
-+    0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x0f,
-+    0x38, 0x08, 0x3b, 0x1f, 0x39, 0x61, 0xb4, 0x9b, 0x3a, 0x2e, 0x9a, 0x1c,
-+    0xbd, 0x64, 0x78, 0x85, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00,
-+    0x3c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x04, 0x00, 0x01, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x2d, 0x00, 0x10, 0x00, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+    0x30, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00,
-+    0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00,
-+    0x00, 0x00,
-+];
-diff --git a/drivers/gpu/drm/vino/hdcp.rs b/drivers/gpu/drm/vino/hdcp.rs
-new file mode 100644
-index 000000000000..c22d58b624ab
---- /dev/null
-+++ b/drivers/gpu/drm/vino/hdcp.rs
-@@ -0,0 +1,167 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! HDCP 2.2 key derivation and verifier computation (sec 5.6), built on [`crypto`].
-+//! Lets the driver run a clean-room AKE without DisplayLink's binary; the byte-exact
-+//! formulas are verified against the live dock in the guide.
-+#![allow(dead_code)] // some HDCP builders/handlers are reached only after CP engagement
-+
-+use super::*;
-+
-+/// `dkey_n = AES_ECB(km with low-8-bytes XOR rn, rtx || (rrx with byte15 XOR n))`
-+/// (HDCP 2.2 IIA sec 2.7, sec 5.6). The counter `n` XORs into byte 15 (LSB of the rrx
-+/// half) of the IV; `rn` XORs into the low 8 bytes (km[8..16]) of the key -- zero
-+/// for the `kd` derivation, the SKE nonce for `dkey_2`.
-+fn derive_dkey(
-+    km: &[u8; 16],
-+    rn: &[u8; 8],
-+    rtx: &[u8; 8],
-+    rrx: &[u8; 8],
-+    n: u8,
-+) -> Result<[u8; 16]> {
-+    let mut iv = [0u8; 16];
-+    iv[..8].copy_from_slice(rtx);
-+    iv[8..].copy_from_slice(rrx);
-+    iv[15] ^= n;
-+    let mut key = *km;
-+    for i in 0..8 {
-+        key[8 + i] ^= rn[i];
-+    }
-+    crypto::aes128_ecb(&key, &iv)
-+}
-+
-+/// `kd = dkey_0 || dkey_1` with `rn = 0` (sec 5.6) -- the 256-bit derived key.
-+pub(super) fn derive_kd(km: &[u8; 16], rtx: &[u8; 8], rrx: &[u8; 8]) -> Result<[u8; 32]> {
-+    let rn = [0u8; 8];
-+    let dkey0 = derive_dkey(km, &rn, rtx, rrx, 0)?;
-+    let dkey1 = derive_dkey(km, &rn, rtx, rrx, 1)?;
-+    let mut kd = [0u8; 32];
-+    kd[..16].copy_from_slice(&dkey0);
-+    kd[16..].copy_from_slice(&dkey1);
-+    Ok(kd)
-+}
-+
-+/// `H' = HMAC-SHA256(kd, rtx with byte7 ^= repeater)` (sec 5.6).
-+pub(super) fn compute_h(kd: &[u8; 32], rtx: &[u8; 8], repeater: bool) -> [u8; 32] {
-+    let mut msg = *rtx;
-+    msg[7] ^= repeater as u8;
-+    crypto::hmac_sha256(kd, &msg)
-+}
-+
-+/// `L' = HMAC-SHA256(kd with low-8-bytes XOR rrx, rn)` (sec 5.6).
-+///
-+/// "low-8-bytes" is the *least-significant* 64 bits of the 256-bit `kd`, i.e.
-+/// `kd[24..32]` -- verified byte-exact against the live dock by the userspace
-+/// oracle (`vino-hdcp::kdf::compute_l`). XOR-ing into `kd[0..8]` does not verify.
-+pub(super) fn compute_l(kd: &[u8; 32], rrx: &[u8; 8], rn: &[u8; 8]) -> [u8; 32] {
-+    let mut key = *kd;
-+    for i in 0..8 {
-+        key[24 + i] ^= rrx[i];
-+    }
-+    crypto::hmac_sha256(&key, rn)
-+}
-+
-+/// Full `V = HMAC-SHA256(kd, list_header)` (256 bits) for RepeaterAuth (sec 2.3).
-+/// The **MSB-128** (`[..16]`) is `V'` -- verified against the repeater's
-+/// `RepeaterAuth_Send_ReceiverID_List` trailer. The **LSB-128** (`[16..]`) is the
-+/// value the transmitter returns in `RepeaterAuth_Send_Ack`. vino had been sending
-+/// the MSB (i.e. echoing the dock's own `V'`) as the Ack -- so the dock rejected the
-+/// repeater authentication, never acknowledged Stream_Manage, and never engaged CP
-+/// (proven 2026-06-11: vino's ctr6 == the dock's `id=0x21` list trailer; DLM's ctr6
-+/// is a computed value present in no dock push). H'/L'/V' still pass because V'
-+/// verification uses the MSB.
-+pub(super) fn compute_v_full(kd: &[u8; 32], list_header: &[u8]) -> [u8; 32] {
-+    crypto::hmac_sha256(kd, list_header)
-+}
-+
-+/// MGF1 mask generation (RFC 8017 sec B.2.1) with SHA-256: returns `mask_len`
-+/// bytes of `T = SHA256(seed || I2OSP(0,4)) || SHA256(seed || I2OSP(1,4)) || ...`.
-+fn mgf1_sha256(seed: &[u8], mask_len: usize) -> Result<KVec<u8>> {
-+    let mut mask = KVec::with_capacity(mask_len, GFP_KERNEL)?;
-+    let mut counter: u32 = 0;
-+    let mut block = KVec::with_capacity(seed.len() + 4, GFP_KERNEL)?;
-+    while mask.len() < mask_len {
-+        block.clear();
-+        block.extend_from_slice(seed, GFP_KERNEL)?;
-+        block.extend_from_slice(&counter.to_be_bytes(), GFP_KERNEL)?;
-+        let digest = crypto::sha256(&block);
-+        let take = core::cmp::min(digest.len(), mask_len - mask.len());
-+        mask.extend_from_slice(&digest[..take], GFP_KERNEL)?;
-+        counter += 1;
-+    }
-+    Ok(mask)
-+}
-+
-+/// EME-OAEP encode (RFC 8017 sec 7.1.1) with SHA-256 and an empty label, for a
-+/// `k`-byte modulus. Returns the `k`-byte encoded message `EM` ready for the
-+/// raw RSA op. `seed` is `hLen` (32) random bytes. HDCP 2.2 uses SHA-256 here
-+/// (SHA-1 makes the dock stop responding -- guide sec 5.4).
-+fn eme_oaep_encode(k: usize, msg: &[u8], seed: &[u8; 32]) -> Result<KVec<u8>> {
-+    const HLEN: usize = 32;
-+    // DB = lHash || PS(zeros) || 0x01 || M, length k - hLen - 1.
-+    let l_hash = crypto::sha256(&[]);
-+    let db_len = k - HLEN - 1;
-+    let mut db = KVec::with_capacity(db_len, GFP_KERNEL)?;
-+    db.extend_from_slice(&l_hash, GFP_KERNEL)?;
-+    let ps_len = db_len - HLEN - 1 - msg.len(); // k - mLen - 2*hLen - 2
-+    for _ in 0..ps_len {
-+        db.push(0, GFP_KERNEL)?;
-+    }
-+    db.push(0x01, GFP_KERNEL)?;
-+    db.extend_from_slice(msg, GFP_KERNEL)?;
-+    // maskedDB = DB ^ MGF1(seed, db_len).
-+    let db_mask = mgf1_sha256(seed, db_len)?;
-+    for i in 0..db_len {
-+        db[i] ^= db_mask[i];
-+    }
-+    // maskedSeed = seed ^ MGF1(maskedDB, hLen).
-+    let seed_mask = mgf1_sha256(&db, HLEN)?;
-+    let mut masked_seed = [0u8; HLEN];
-+    for i in 0..HLEN {
-+        masked_seed[i] = seed[i] ^ seed_mask[i];
-+    }
-+    // EM = 0x00 || maskedSeed || maskedDB.
-+    let mut em = KVec::with_capacity(k, GFP_KERNEL)?;
-+    em.push(0x00, GFP_KERNEL)?;
-+    em.extend_from_slice(&masked_seed, GFP_KERNEL)?;
-+    em.extend_from_slice(&db, GFP_KERNEL)?;
-+    Ok(em)
-+}
-+
-+/// RSA-OAEP-SHA256 encrypt the 16-byte master key `km` under the dock's
-+/// RSA-1024 public key (`modulus[128]`, `exponent`), giving the 128-byte
-+/// `Ekpub(km)` for `AKE_No_Stored_km` (sec 5.4). Generates a fresh OAEP seed.
-+pub(super) fn oaep_encrypt_km(
-+    modulus: &[u8; 128],
-+    exponent: &[u8],
-+    km: &[u8; 16],
-+) -> Result<[u8; 128]> {
-+    let mut seed = [0u8; 32];
-+    super::rng::fill(&mut seed);
-+    let em = eme_oaep_encode(128, km, &seed)?;
-+    let mut out = [0u8; 128];
-+    crypto::rsa_pubkey_encrypt(modulus, exponent, &em, &mut out)?;
-+    Ok(out)
-+}
-+
-+/// SKE: `Edkey(ks) = ks XOR (dkey_2 with low-8-bytes XOR rrx)` (sec 5.6).
-+///
-+/// `dkey_2` is derived with the SKE nonce `rn` mixed into the key; `rrx` then
-+/// XORs into the low 8 bytes (`dkey_2[8..16]`) of the mask. The result is the
-+/// 16-byte `Edkey_ks` carried by `SKE_Send_Eks` (msg_id 0x0b).
-+pub(super) fn compute_eks(
-+    km: &[u8; 16],
-+    rtx: &[u8; 8],
-+    rrx: &[u8; 8],
-+    rn: &[u8; 8],
++/// `inner` is the captured golden plaintext `[content || stale-tag-region(16)]`; we
++/// encrypt only `content = inner[..len-16]` and append a **fresh** tag keyed by our
++/// live session, so the dock's Dl3Cmac verification passes (the stale replayed tag is
++/// why the dock previously dropped our CP). VERIFIED construction (sec 8.6.7).
++pub(super) fn seal(
 +    ks: &[u8; 16],
-+) -> Result<[u8; 16]> {
-+    let mut mask = derive_dkey(km, rn, rtx, rrx, 2)?;
-+    for i in 0..8 {
-+        mask[8 + i] ^= rrx[i];
++    riv: &[u8; 8],
++    seq: u32,
++    inner: &[u8],
++) -> Result<KVec<u8>> {
++    // The interactive CP stream: session ks, wire sub `0x24`.
++    seal_stream(ks, riv, 0x24, seq, inner)
++}
++
++/// Build a fully sealed interactive CP frame (`type=4 sub=0x24`) at `wire_seq` over `content`
++/// (the inner plaintext, WITHOUT any trailing 16-byte tag placeholder): the 16-byte wire
++/// header -- size, `type=4`, `sub=0x24`, the per-`id` [`aux_for_id`] field, and `wire_seq` --
++/// followed by [`seal_livemac`] (AES-CTR ciphertext + appended live Dl3Cmac). Shared by the
++/// bring-up live loop ([`VinoDriver::send_live_cp`]) and the runtime KMS senders
++/// ([`drm_sink::VinoDrmData::send_cp`]) so both produce a byte-identical wire frame.
++pub(super) fn seal_interactive(
++    ks: &[u8; 16],
++    riv: &[u8; 8],
++    id: u16,
++    wire_seq: u32,
++    content: &[u8],
++) -> Result<KVec<u8>> {
++    let body_len = content.len() + 16; // AES-CTR ciphertext + 16-byte Dl3Cmac
++    let size = ((16 + body_len) - 4) as u16;
++    let aux = aux_for_id(id, body_len);
++    let mut hdr = [0u8; 16];
++    hdr[2..4].copy_from_slice(&size.to_le_bytes());
++    hdr[4..8].copy_from_slice(&4u32.to_le_bytes()); // type=4
++    hdr[8..10].copy_from_slice(&0x24u16.to_le_bytes()); // sub=0x24 (interactive CP)
++    hdr[10..12].copy_from_slice(&aux.to_le_bytes());
++    hdr[12..16].copy_from_slice(&wire_seq.to_le_bytes());
++    seal_livemac(ks, riv, &hdr, content)
++}
++
++/// The CP wire-header `aux`@10 (`sub_len_dw`) field is a **strict per-inner-message-id
++/// constant** in DLM's CP stream -- verified byte-exact across all 94 captured 1080p CP
++/// frames (`cp-hdrwire-1080p.bin`) -- **not** `body.len()/4`, which is what `push_frame`
++/// derives. Reproducing it makes a generated CP frame's header byte-identical to DLM, the
++/// leading hypothesis for the dock engaging its CP cipher (the dock acks our plaintext cap
++/// but emits 0 encrypted replies with the wrong `aux`). See docs/BLOCKER.md and memory
++/// `project_cp_aux_field_per_id_constant`. Unknown ids fall back to the dword count so an
++/// unrecognised message is still well-formed.
++///
++/// The cursor ids (0x1a/0x1b/0x1c) are absent from the 1080p set (cursor messages fire only
++/// once a cursor is set, post-engagement) and were recovered from the cold-ref session by the
++/// `scripts/verify-cp-seal.py` differential: every other OUT CP frame regenerated byte-exact,
++/// but the three cursor messages diverged in `aux` alone (DLM 0x04/0x03/0x02 vs the body/4
++/// fallback) -- a latent bug that would have made the dock misparse every cursor update. This
++/// makes the generated `seal`/`seal_stream` path match DLM without a captured-header blob -- the
++/// basis for **live** CP generation.
++pub(super) fn aux_for_id(id: u16, body_len: usize) -> u16 {
++    match id {
++        0x14 => 0x0a,
++        0x15 => 0x09,
++        0x16 => 0x08,
++        0x19 => 0x05,
++        0x1a => 0x04, // cursor move
++        0x1b => 0x03, // cursor create
++        0x1c => 0x02, // cursor image
++        0x1f => 0x0f,
++        0x22 => 0x0c,
++        0x26 => 0x08,
++        0x2a => 0x04,
++        0x32 => 0x0c,
++        0x48 => 0x06,
++        0x9a => 0x04,
++        _ => (body_len / 4) as u16,
 +    }
-+    let mut edkey_ks = [0u8; 16];
-+    for i in 0..16 {
-+        edkey_ks[i] = ks[i] ^ mask[i];
++}
++
++/// General AES-CTR seal under an arbitrary stream `key`/`riv` and wire sub. `seal`
++/// is the session-CP case (`wsub=0x24`); the **cap phase** (CP-HANDSHAKE.md sec 4b)
++/// needs `wsub=0x04` sealed under the dock's `id=0x32`-delivered per-head stream key,
++/// not the session ks -- which `seal` cannot express. Body construction is identical:
++/// AES-CTR(key, riv || 0x00000000 || BE32(seq+block)) over the **whole** inner message
++/// (no appended MAC; the inner carries its own encrypted trailer -- verified byte-exact
++/// vs DLM, 30/30 wire frames).
++pub(super) fn seal_stream(
++    key: &[u8; 16],
++    riv: &[u8; 8],
++    wsub: u16,
++    seq: u32,
++    inner: &[u8],
++) -> Result<KVec<u8>> {
++    let cipher = crypto::Aes128::new(key)?;
++    let mut ct = KVec::with_capacity(inner.len(), GFP_KERNEL)?;
++    for (i, chunk) in inner.chunks(16).enumerate() {
++        let mut iv = [0u8; 16];
++        iv[..8].copy_from_slice(riv);
++        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
++        let ksb = cipher.encrypt_block(&iv);
++        for (j, &p) in chunk.iter().enumerate() {
++            ct.push(p ^ ksb[j], GFP_KERNEL)?;
++        }
 +    }
-+    Ok(edkey_ks)
++    let mut frame = KVec::with_capacity(16 + ct.len(), GFP_KERNEL)?;
++    // DLM-exact `aux`@10: a per-inner-id constant (see `aux_for_id`), not `body/4`. The
++    // id is read from the *plaintext* inner (off 0); `push_frame` would derive the wrong
++    // value and is the suspected reason the dock won't engage its CP cipher.
++    let id = if inner.len() >= 2 { u16::from_le_bytes([inner[0], inner[1]]) } else { 0 };
++    super::proto::push_frame_with(&mut frame, 0x04, wsub, aux_for_id(id, ct.len()), seq, &ct)?;
++    Ok(frame)
++}
++
++/// Derive the dock->host (IN) CP riv from the host->dock (OUT) `riv`. **It is the
++/// SAME riv -- no transform.** Proven 2026-06-12 by decrypting a frida-keyed DLM cold
++/// session's engaged `sub=0x45` replies (`captures/dlm-coldkeys-20260611-135237`, logged
++/// `ks`/`out_riv`): the dock's replies decrypt cleanly ONLY under the raw `out_riv`
++/// (`id=0x4c sub=0 ctr=8` to msg0, `id=0x14 sub=0x10` ACKs, `id=0x213` cert, ...); the old
++/// `byte7 ^= 1` gives garbage. The earlier "byte7^1 for IN" note was never validated against
++/// a real engaged reply (vino never engaged) and was wrong -- it would have made vino
++/// misdecode
++/// every dock reply (and partly explains old "dock replies garbage under our ks" findings).
++pub(super) fn in_riv(out_riv: &[u8; 8]) -> [u8; 8] {
++    *out_riv
++}
++
++/// Decrypt a dock->host CP frame body (AES-CTR, the same keystream as [`seal`] but
++/// keyed with the IN `riv`). `ct` is the ciphertext (wire bytes after the 16-byte
++/// cleartext header); `seq` is the wire counter at wire offset 12.
++pub(super) fn open_in(
++    ks: &[u8; 16],
++    in_riv: &[u8; 8],
++    seq: u32,
++    ct: &[u8],
++) -> Result<KVec<u8>> {
++    let cipher = crypto::Aes128::new(ks)?;
++    let mut pt = KVec::with_capacity(ct.len(), GFP_KERNEL)?;
++    for (i, chunk) in ct.chunks(16).enumerate() {
++        let mut iv = [0u8; 16];
++        iv[..8].copy_from_slice(in_riv);
++        iv[12..].copy_from_slice(&seq.wrapping_add(i as u32).to_be_bytes());
++        let ksb = cipher.encrypt_block(&iv);
++        for (j, &c) in chunk.iter().enumerate() {
++            pt.push(c ^ ksb[j], GFP_KERNEL)?;
++        }
++    }
++    Ok(pt)
++}
++
++/// If `wire` is an EDID reply (dock->host EP84, `type=4 sub=0x45`, inner
++/// `id=0x194 sub=0x21`), decrypt it with the IN riv and return the embedded EDID
++/// blob (base block + extensions). The EDID begins at inner offset 22; its total
++/// length is `128 * (1 + extension_count)`, where the extension count is base-block
++/// byte 126. Returns `None` for any other frame. See docs/CONTROL-PLANE.md.
++pub(super) fn parse_edid_from_reply(
++    ks: &[u8; 16],
++    out_riv: &[u8; 8],
++    wire: &[u8],
++) -> Result<Option<KVec<u8>>> {
++    // Wire header: [.. type@4 u32 .. sub@8 u16 .. seq@12 u32]; body at off16.
++    if wire.len() <= 16 || u16::from_le_bytes([wire[8], wire[9]]) != 0x45 {
++        return Ok(None);
++    }
++    let seq = u32::from_le_bytes([wire[12], wire[13], wire[14], wire[15]]);
++    let inner = open_in(ks, &in_riv(out_riv), seq, &wire[16..])?;
++    // Inner header: [id u16][sub u16][counter u16][00 00]; EDID payload at off22.
++    const EDID_OFF: usize = 22;
++    if inner.len() < EDID_OFF + 128 {
++        return Ok(None);
++    }
++    let id = u16::from_le_bytes([inner[0], inner[1]]);
++    let sub = u16::from_le_bytes([inner[2], inner[3]]);
++    // The get-EDID reply id is `0x194` on the wire (CP-HANDSHAKE.md sec 4f, ground-truthed
++    // against the cold-ref capture); older notes wrote the low byte `0x94` alone. Accept
++    // both so a real `0x194` reply is not silently dropped (the EDID would never reach the
++    // connector even after CP engages).
++    if (id != 0x94 && id != 0x194) || sub != 0x21 {
++        return Ok(None);
++    }
++    let edid = &inner[EDID_OFF..];
++    // Validate the EDID base-block magic `00 FF FF FF FF FF FF 00`.
++    const MAGIC: [u8; 8] = [0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00];
++    if edid[..8] != MAGIC {
++        return Ok(None);
++    }
++    let total = ((1 + edid[126] as usize) * 128).min(edid.len());
++    let mut out = KVec::with_capacity(total, GFP_KERNEL)?;
++    out.extend_from_slice(&edid[..total], GFP_KERNEL)?;
++    Ok(Some(out))
 +}
 -- 
 2.55.0
