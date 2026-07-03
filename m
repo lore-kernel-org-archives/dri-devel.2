@@ -4,144 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B2BEC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41329C44500
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A95E410E5FE;
-	Fri,  3 Jul 2026 13:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9537A10F7FF;
+	Fri,  3 Jul 2026 13:11:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZpF343+w";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WzjPc3x6";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012049.outbound.protection.outlook.com
- [40.93.195.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B446710E5FE
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 13:09:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KZzU390RWBlMsyEwj1Y1zkz3xmV1kJGaYaiYU3pDtLgvzSGcTKOdJ3y5QjkX7nbvRIWG0yVJqyrbiT1E1Fwo9B4wF8TwoQ9puabfg4pXQd5Q7GZ20BZDUkWfv1I9MZKz0hucYpdT2ymh4Y0Po0UzZgHc9eHzJWuRbmSyF05gkdP0G6cQWPCyOlgrKGx2W8horJlApq3rTLsuAmcebNrzq4jXoUoS34Gn8mJJ3OrK5qH3bUaelD8Fgo29fav4cVH6lELPVYHaH3mYdeIyXbiFyrYGQaLurvprpOUvKpkuAOG6C6HixP4s+II9fgJqbETC9/bG+slzFNBI/yPgpv7QLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WUdoVXhR1KCLlcPlse4qWTrVXJxj9PJc2TMpXIBHIDE=;
- b=i18P8alZaMUdgR9vFepUvSB9RT3jBQZqkeQgMm6jKIimbBGcG/wwsFiRvmWriin53oX/cFY4tHyb2aR0L/g+coc9v7kNy58Ek4JFNGSA/6QHczIeFcnFnCQl24CDOmKmws72H6/5ZP5oyWvjLJai04y4Wlx3rAX4NFDgc3K5QoIB+IUfEwstVcwjQUqLXjRInGiUsCuvJpmc05+zjou/yRj0hiHzxkZThOpahF0aeM40g4H/HTrUTahV9AixAzkgzzjvHBtYZCHdRZWEKkF1MH9bZ5B3DSC/zlN/MMxk0+je6WLy6xqRTJczPxmflZwk6FosNU9h32vHrWzw9YckMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WUdoVXhR1KCLlcPlse4qWTrVXJxj9PJc2TMpXIBHIDE=;
- b=ZpF343+wqQFQJNCCNzIBFW3o7ysLX2sVeMKnzxqEtsyHgTHk3lDW6fbpa3Biuum1/HrfbxyDGqJfVQKIf1V2wddjHm3iO9fdyHeKS4vaA0RMAiQMnU/kaJRFquyY/vbtLfiHk4Z1iYKHcV5Xtxw5DcJPKIrfDgn73rBYbSeZpBpi6rOI+b5m1SkPyqREKHv42KeWFcnEhFECgfkyB+PijNz3hslYYu6KKyXLlxlsgsBmH22zCQfMeSXGsV0kfx41Fq96QSreV+yM/ojoKfNEGIYlAwFdHUysyxQ7/O/P4sSdOiZtOYNJKxpsYTftYMfGQ6VcUmzjq9w7zjbzaBseig==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SJ0PR12MB6903.namprd12.prod.outlook.com (2603:10b6:a03:485::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
- 2026 13:09:39 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 13:09:38 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D26110F7EA;
+ Fri,  3 Jul 2026 13:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783084272; x=1814620272;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=Xu8EYnocXkw9ykOGNuGA2OOtRFcNnzkugR791sAp83E=;
+ b=WzjPc3x6i8oESGBR+4Sc+DjA3U3nwzUKfDN4ljZtUsEfPOMNQPndDcru
+ BtlA7FRzXtv+EEue78JLxVKO6agwShptmFfGDZwiNpqkQEFI6rxBJsLca
+ WbwUyBYCKCwGNB93DyCMfiHaUpIzT6EPajfJqeeRfF+4Ngo0umt9G7nWS
+ 4v+aFqFroSchIRsqfjEdYmDWCiMs74ZkYurzpS6ssMduZhEWIKnkTJWas
+ H530gfP/bSQbT6hUQ7zwS8jWLsrKTq8gv1Fa3qLdSH2D2aqKtn4qIBwcP
+ sGQ7JxpOIrgFEZeLUBZ3F5AAwluAkzL8VkA/j89yoDDVdIf2OuwbV+mqf Q==;
+X-CSE-ConnectionGUID: AnI9KWWBQmWcY3mhxOtVtA==
+X-CSE-MsgGUID: cSAH4OZoRVandgNguZc8cw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="84028511"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="84028511"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 06:11:11 -0700
+X-CSE-ConnectionGUID: e8FeLx5dSgKO/yHFp/+lug==
+X-CSE-MsgGUID: l+f6gr/RSDWg7+8CNdy+/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="248664380"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.146])
+ ([10.245.245.146])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 06:11:06 -0700
+Message-ID: <92e3c9210c4038969b24c7b0f3df0a998587ff4c.camel@linux.intel.com>
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ intel-xe@lists.freedesktop.org, "Paneer Selvam, Arunpravin"
+ <Arunpravin.PaneerSelvam@amd.com>
+Cc: Sashiko-bot <sashiko-bot@kernel.org>, Friedrich Vock
+ <friedrich.vock@gmx.de>,  Maarten Lankhorst	 <dev@lankhorst.se>, Tejun Heo
+ <tj@kernel.org>, Maxime Ripard <mripard@kernel.org>,  Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 	stable@vger.kernel.org, Natalie Vock
+ <natalie.vock@gmx.de>, Johannes Weiner	 <hannes@cmpxchg.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Simona Vetter	 <simona@ffwll.ch>, David Airlie
+ <airlied@gmail.com>, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
+Date: Fri, 03 Jul 2026 15:11:03 +0200
+In-Reply-To: <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 22:09:35 +0900
-Message-Id: <DJOYL5QPEM76.1N99BVDVHB8VS@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 02/20] rust: io: add missing safety requirement in
- `IoCapable` methods
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-2-d0961471ae50@garyguo.net>
- <DJOLKP1V1IDU.1GWHOHBG9CS7@nvidia.com>
- <DJOXUW6ODKCI.1GLNDU00TDJWU@garyguo.net>
-In-Reply-To: <DJOXUW6ODKCI.1GLNDU00TDJWU@garyguo.net>
-X-ClientProxiedBy: TY4P301CA0038.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2be::7) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ0PR12MB6903:EE_
-X-MS-Office365-Filtering-Correlation-Id: c85ed451-a422-408c-87e8-08ded904566a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|22082099003|18002099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: 7sQk1l8o87Iw9xf2jUgXqBUuGd+xoISIMZhl0vIaVm1umHgkRKUHjynPXZccmOjffu297jsHv3FKeVep8HQsO2X58+qCi9QLEr1pYVL6oFU6kQLIzKCPe04obC99yDridq4Oh4Vns5baq4fPVFYtkfsdK7eTW68L0b9aFuxIZr2koPGlIYfdopwyTBArXfrTJNpF2lvnFvZpVTZqWpKCUgh+tGKt5x+LPdiQWkMc6LMj09Sspz0vFAmH9x0nSdCfIIZuxK2oiZBbTgHnlVxRNGcHXvk+c/isiMFACCBeSejP+5cVHfDtvGZWohNCfmIsLLYuDsci9qQOd4utXPWKhCQM+S9RqL6J05bC8EYdLUhJRsmpqtAqquGvfa6rw+U2ZJ6JoPfiCs/PEqRLHqLfDo8/AjkJQQa2QavS9Rbe7/E8ZoNAXrOahLrSjfdl1PqnJ/a7HEHJoF/LMaW6XOlj5asuI6dvG6tY9oBS0MS6RabfRBA2AizLVVrhak6kBWbkLk16kocTeXbQmK+uggJHlx2Sk0FFYsdn7qF/dr9ENpvlM/owDGUDzf3z99NIWbJpJ9xF/ty2zb8C9pFfWDlmurKuim3Fcy45FEjhzItNlsYHZcuY2CvBbYFYSEAWDGu9/RXBmXxGkEkNI6FghYgYRJs4mJ2ZliB/wI1il77vS8M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjN5eWhSM2RQb0NGSFNTNWhKRGY3Rk8zcmdKTXRRaE9GWTVUZWNuNnowUnJp?=
- =?utf-8?B?SXJtT0pMWVVxRGpNRCt1ZU9nWHJuS2x1SmJHS1FGS3VLZldYTTE1eXVRTTVU?=
- =?utf-8?B?cEYvRjJTQm9kT2duS3dia05WWWhpQkx0cjZPRDBldWIvMmhpYjBmWHMzYTJP?=
- =?utf-8?B?OGRqRmF0anRZTWlZS1h5QzhHQ0RDZlVFNThiV3NtMllLNWlkMURaLzN5RWp6?=
- =?utf-8?B?ODltOWZSam4vZDkyVUtyRGtJQ1hob1k2cFRZKzR3Nm5hU3EyY0NTdXA1Tys1?=
- =?utf-8?B?dVVTT2xYanZOcE1QcGEyYS90cFdqZkU5QzFzT0VGc0toRDVTRUFVaENrcjgy?=
- =?utf-8?B?S2Zza24vanJJT2o4eHEzL1B1SGM1a2g5Zmw0NENXaDJnekRGSXlXeWJVLzNX?=
- =?utf-8?B?ZHJ4MFNKamtmU2I1a3F2bnN4c0pmMVUxSHRVSTRlQ2dOSlVQTUI1ZUt2b1pm?=
- =?utf-8?B?dUVIWlVaNXUvMHFNZ1FDNEw5SVdsNFhxdVNxTUhNYklnNGpWcVBzeXFKaFpT?=
- =?utf-8?B?c2hRWEZuRnd6UW9tS3BXMzB1V04rUDJvVDRtMS9wbG5Zci9kWnJSVG1xejNv?=
- =?utf-8?B?dEVSam5VRFdINXVyVm0wemE2WmczbjRyTEhnWTR6QkNKMzVpTmhPSGczV3I5?=
- =?utf-8?B?ZGpIYUFNdzl3SG5TSGhxZlRlMmt1dWhEOGhjVlhaRi9ZWC9FbVpmcCs5Zkl3?=
- =?utf-8?B?bzBvZ3NxUE5vbGVCZWlmQmN5cXFoMjJjSlZxZHFjKzV4a3VuaFlWblZ4ZmV4?=
- =?utf-8?B?bjVmNTByQzEvSzhsNzJJcU1rV1hrUTYvVW1ucEk4QWVFRW92cEF4QlorbVQz?=
- =?utf-8?B?LzVuSWZiYTlSRUVHUDJqMTJLd1g2MjV2Tkt4dm5LNlcyVDRkTytkSTdoNUJN?=
- =?utf-8?B?cUhRVWo0d292S1F2USttNjArNHFhUnZPNWxxMVFMWFBnbGNlR2x1bnd0QjJ0?=
- =?utf-8?B?aEFBSjl2cXVhNXNsMEIzZGZRYkViTWx4d3JrS1RKQTRoYmpZZHNuMnFHL1hq?=
- =?utf-8?B?TnFyQWY4aTB1WlNSOWxPVFZTazg0V05MVEZPYmQyK3BxV1hrWGV2SlBrUWg0?=
- =?utf-8?B?dWdpZndyQitXZytSVUdHT3VxQU83a1ZYa1N4MzViRWsveGJoRndrZHpweUdC?=
- =?utf-8?B?Z1ZFT1o2azBPT1h0SHBzblFqTU5hWHV5eGlMVFh5TGFBbVJHNTk1b3FYdTM2?=
- =?utf-8?B?VU1WZUFGZHY0d3JwVlZDblJ4M3JsSGljR1pxenJPVVdNL3Z1cUpZUGJTZkJa?=
- =?utf-8?B?OVhVNGRHelBFRmNmZmg4OTZrRW1ZNlZlSHNxMkV4S3lWUlcyMG9neXdOc1hQ?=
- =?utf-8?B?YkQ1TUorUWpxakgrOGdqRFV1cEJpWTYrYmh4aUdjdXlNVzljRi9UcHo5WGFW?=
- =?utf-8?B?cmovSWV2N0VCM3ozeElvbEJEbk4wVlpVc2tWa1liMkFPWXYyQ1dybUdBbXo2?=
- =?utf-8?B?cURYbkZ6ZUozVFFkeDZuTmhrR1F6T0pMdjROMldtQTVhZ3k5T1RFamRjckI3?=
- =?utf-8?B?Z0Rxd09qZWF1eEFyRjlzWlIra2hrOUpIYUZJSkU0MkQ1b2I4OVppSVZ5aXNj?=
- =?utf-8?B?V0t1UVhwckRxaTRMTTh1aDBYbUFKSjEvU1Frc01rYk9RdkR3OTRVQ0dGRWpY?=
- =?utf-8?B?TUJnNDR1cGNvNUF4b3VjT0NOVFFOa2V1K3VWZnMzNWtRTmtJTC9HeW1ONjZi?=
- =?utf-8?B?WWhDMnlJSVpISnVNYjN4YXZ2ZEFURnVKVjRDbitHQXZ6blUzTDg4aW13YVRW?=
- =?utf-8?B?ZjRRTXNqMTFZZGN5ZWtvZVVrL29JdXR6dFhneWxBTlF4MU9LWmRES0E5cmZZ?=
- =?utf-8?B?WUo0YnQyZEdJODVaaEtpbjBNd2swQ1F0VlVCSVAxQ3RRTk1GRWE3endiNFNi?=
- =?utf-8?B?R25GZk55aE9hNWY4NmxRZTBSa0txTS8rNmFJUmpMOUN5U1NncGxvUXFSSTFJ?=
- =?utf-8?B?ekR6N044ZWYxR2w5dmoyNndnT1VUMWJSNVhxK3dZTTlsaitCMXBpWXBNTE1s?=
- =?utf-8?B?czEza0NYU3k5VHNraE9ORi9NMklxcXVvQmZLWnNPdFlxUE1vaERibXRHS0xs?=
- =?utf-8?B?a1h5dVRBeG9rUUgzWGQxOTFwQ0RheElTajhSdzM2ZG1DQmZEaTcrdkZxRWlx?=
- =?utf-8?B?MWV5RzBsdHN5WWVnWWZ2Sit0WHJFN3FlUXlINzdPVkZaazRmVWNqeGlhbnRK?=
- =?utf-8?B?YmN0QW1lL0orcnNQSXJOVFN5RDdCUE8vY3FqQk5Nb3AwOURMUHJvZnVUekhC?=
- =?utf-8?B?QlIrOVIydU96d09WQzNrOFFyeHEvV2RrNHd0cW9mNmQ5cW9Ra3lkenJlS0hr?=
- =?utf-8?B?NU5yM3AwbGtLbHV2WTJVblhvRVFTQ1RNelFBb21CcWFkd1VWUE1ucjdEMGpI?=
- =?utf-8?Q?ezalp+unb3jUCILG0gZjWz1PNLnISwE/31W0TFjds8NB2?=
-X-MS-Exchange-AntiSpam-MessageData-1: pZg2sTayVpDHUQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c85ed451-a422-408c-87e8-08ded904566a
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 13:09:38.8807 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jm5aVe8BPH7tNuyUB05hESYfIYQ8g01FcLec14718i04NTqMzLG3hIceEP2yQHerOD/o+amp0oAQvr/pV4ALpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6903
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,30 +87,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 3, 2026 at 9:35 PM JST, Gary Guo wrote:
-> On Fri Jul 3, 2026 at 3:57 AM BST, Alexandre Courbot wrote:
->> On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
->> <...>
->>> @@ -309,7 +312,11 @@ pub trait Io {
->>>      // Always inline to optimize out error path of `build_assert`.
->>>      #[inline(always)]
->>>      fn io_addr_assert<U>(&self, offset: usize) -> usize {
->>> -        build_assert!(offset_valid::<U>(offset, Self::Target::MIN_SIZE=
-));
->>> +        // We cannot check alignment with `offset_valid` using `self.a=
-ddr()`. So set 0 for it and
->>> +        // ensure alignment by checking that the alignment of `U` is s=
-maller or equal to the
->>> +        // alignment of `Self::Target`.
->>> +        const_assert!(Alignment::of::<U>().as_usize() <=3D Self::Targe=
-t::MIN_ALIGN.as_usize());
->>
->> With `Region::MIN_ALIGN` being `4`, my understanding is that this will
->> make `read64` and other infallible 64-bit accessors unusable on untyped
->> I/O regions?
->
-> That's correct.
+On Fri, 2026-07-03 at 15:08 +0200, Christian K=C3=B6nig wrote:
+> Arun please take a look at this.
+>=20
+> Thanks,
+> Christian.
 
-Isn't that a limitation we may want to eventually address? The fallible
-accessors are still usable, but it seems arbitrary that the non-fallible
-ones stop at 32 bits...
+FWIW Sashiko claims there is yet another pre-existing bug WRT ordering
+here, but since the fix wasn't needed for the rest of the series, I
+focused on this one.
+
+Thanks,
+Thomas
+
+
+>=20
+> On 7/3/26 15:05, Thomas Hellstr=C3=B6m wrote:
+> > drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
+> > gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
+> > function
+> > returns early and bypasses those initializations.
+> >=20
+> > Since adev->mman.initialized is set to true before
+> > amdgpu_vram_mgr_init()
+> > is called, a failure triggers amdgpu_ttm_fini(), which calls
+> > amdgpu_vram_mgr_fini(), which then:
+> >=20
+> > =C2=A0- Calls list_for_each_entry_safe() on reservations_pending and
+> > =C2=A0=C2=A0 reserved_pages, whose list_head::next pointers are zero-
+> > initialized
+> > =C2=A0=C2=A0 (NULL). The loop does not recognize them as empty and
+> > dereferences NULL.
+> >=20
+> > =C2=A0- Calls gpu_buddy_fini(), which iterates free_trees[]
+> > unconditionally
+> > =C2=A0=C2=A0 via for_each_free_tree(). Since mm->free_trees is NULL
+> > =C2=A0=C2=A0 (never allocated), this dereferences NULL.
+> >=20
+> > Both result in a kernel panic on the module load error path.
+> >=20
+> > Fix by moving drmm_cgroup_register_region() to after the list and
+> > buddy
+> > allocator are fully initialized, so the teardown path is safe to
+> > run.
+> >=20
+> > Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+> > Closes:
+> > https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@=
+linux.intel.com?part=3D4
+> > Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
+> > TTM")
+> > Cc: Friedrich Vock <friedrich.vock@gmx.de>
+> > Cc: Maarten Lankhorst <dev@lankhorst.se>
+> > Cc: Tejun Heo <tj@kernel.org>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: <stable@vger.kernel.org> # v6.14+
+> > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+> > =C2=A01 file changed, 4 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > index 2a241a5b12c4..ac3f71d77140 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+> > *adev)
+> > =C2=A0	struct ttm_resource_manager *man =3D &mgr->manager;
+> > =C2=A0	int err;
+> > =C2=A0
+> > -	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
+> > "vram", adev->gmc.real_vram_size);
+> > -	if (IS_ERR(man->cg))
+> > -		return PTR_ERR(man->cg);
+> > =C2=A0	ttm_resource_manager_init(man, &adev->mman.bdev,
+> > =C2=A0				=C2=A0 adev->gmc.real_vram_size);
+> > =C2=A0
+> > @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+> > *adev)
+> > =C2=A0	if (err)
+> > =C2=A0		return err;
+> > =C2=A0
+> > +	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev),
+> > "vram", adev->gmc.real_vram_size);
+> > +	if (IS_ERR(man->cg))
+> > +		return PTR_ERR(man->cg);
+> > +
+> > =C2=A0	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
+> > &mgr->manager);
+> > =C2=A0	ttm_resource_manager_set_used(man, true);
+> > =C2=A0	return 0;
