@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6870C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8450BC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 13:25:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F47310E5F4;
-	Fri,  3 Jul 2026 13:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD79710F805;
+	Fri,  3 Jul 2026 13:25:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ftPnbsNs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YTSoJJZV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E10B10E5F4
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 13:24:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF5E10F809
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 13:25:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9C2EC60051;
- Fri,  3 Jul 2026 13:24:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001CF1F000E9;
- Fri,  3 Jul 2026 13:24:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C7D6D429EF;
+ Fri,  3 Jul 2026 13:25:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5604A1F000E9;
+ Fri,  3 Jul 2026 13:25:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783085050;
- bh=R3DXnaePNVSBz144fjSsWIO8dTSZyP7lTjIFTkrpgYE=;
+ s=k20260515; t=1783085101;
+ bh=Q0Cl3f5la33oNmJkld279f8lczGVVcLCcgPebGKjBGg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ftPnbsNsp6XxNvYyTnFFSf08XPj/DJCltwcFXo6fMupEdIsAbEgrV1qYRGN5ZT408
- qjRwegcUYx6TZgnLCUxNS6GtfxcgTjRU+1SrABM1fuVewcclSoi3R5Lb41Ev3WVz+L
- 8nF1ltRKh3892R3KRy2WcZQY8wvyskWxD2nvJJZZ8EP1i/C9fH2PuRxE0m4rSL77MZ
- Zlcc12rW4BPTQn7F9LyKQ4U1owBNhTZkyEG2saoe0Uw6P0WjzDZM/5RTk4EsHaNoY2
- sq8kpg0JEN2xtwCfODf3dAtWHW/S+QhTF3sfgeNjRQHyV88EpBkmpmAC2/PvtSLvdj
- sjSlc4okTKSww==
+ b=YTSoJJZVk1RdYY5O405y616WVubMPr9Jx60cSM6m22pjS0UXGae2gMPOijRu7WR/6
+ CQotBVMDNq1qLSOCP0OL0Voxoerr3MkzmtVljSaygRTihKGspKDwlGfX5kvSab/Y17
+ sk01brIsZyTGzMdY0bqnTcwGS+tOAhCM1wi3Fp+qXhJ2k5SkAzc/WLtouv1RZeOq8M
+ YVv5P6kDKBMLv7SFiD7vq82/wXsa3KMA+xppLEDFaQYQDH3M6oUnrCoGM8H9DhnxZp
+ HrP+bZS1GEOzurvs8LbBwbffQkepAx7ko5fIhXXat41UB1GqNg7baMFCNT/+qr7nZJ
+ UwHIJhp5mnpyg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/6] cgroup/dmem: Add reclaim callback for lowering
- max below current usage
+Subject: Re: [PATCH v7 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
+ manager
 To: =?utf-8?b?VGhvbWFzIEhlbGxzdHLDtm0=?= <thomas.hellstrom@linux.intel.com>
-Cc: tj@kernel.org, mkoutny@suse.com, dri-devel@lists.freedesktop.org,
+Cc: mkoutny@suse.com, dri-devel@lists.freedesktop.org, tj@kernel.org,
  hannes@cmpxchg.org
-In-Reply-To: <20260703130541.2686-4-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20260703130541.2686-7-thomas.hellstrom@linux.intel.com>
 References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-4-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-7-thomas.hellstrom@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 13:24:09 +0000
-Message-Id: <20260703132410.001CF1F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 13:25:00 +0000
+Message-Id: <20260703132501.5604A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,111 +59,123 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Holding `srcu_read_lock` across a potentially unbounded reclaim lo=
-op causes `synchronize_srcu()` to hang indefinitely during region unregistr=
-ation.
+- [High] Use-After-Free due to concurrent cgroup reclaim during probe error=
+ teardown.
+- [Medium] Memory leak of VRAM manager buddy allocator on cgroup region reg=
+istration failure.
 --
 
-commit a6f9976e310be028f3b0c1a4f382c0d26ce5f305
+commit 7beb8b077a31ff08f80ed7810a3913fd3a463579
 Author: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-Subject: cgroup/dmem: Add reclaim callback for lowering max below current u=
-sage
 
-This commit adds an optional reclaim callback to struct dmem_cgroup_region=
-=20
-that is invoked when dmem.max is lowered. It introduces an SRCU domain to
-protect reclaim callbacks against concurrent region unregistrations.
-
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 373ad04d289d5..93bc9813903c8 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
+drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+   =20
+Register the VRAM manager with the dmem cgroup reclaim infrastructure
+so that lowering dmem.max below current VRAM usage triggers TTM
+eviction rather than failing with -EBUSY.
 
 [ ... ]
 
-> @@ -145,21 +161,52 @@ static void free_cg_pool(struct dmem_cgroup_pool_st=
-ate *pool)
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 08f05c3aed1d5..9b9d738ba7941 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+
+[ ... ]
+
+> @@ -906,6 +906,28 @@ static const struct ttm_resource_manager_func amdgpu=
+_vram_mgr_func =3D {
+>  	.debug	=3D amdgpu_vram_mgr_debug
+>  };
 > =20
->  static void
-> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
-> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonb=
-lock)
->  {
-> -	page_counter_set_max(&pool->cnt, val);
-> +	struct dmem_cgroup_region *region =3D pool->region;
-> +	unsigned long limit =3D (unsigned long)val;
+> +static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops;
 > +
-> +	/* Apply the new limit immediately so concurrent allocations are thrott=
-led. */
-> +	xchg(&pool->cnt.max, limit);
+> +static int amdgpu_vram_mgr_dmem_reclaim(struct dmem_cgroup_pool_state *p=
+ool,
+> +					u64 target_bytes, void *priv)
+> +{
+> +	struct ttm_resource_manager *man =3D priv;
+> +	struct amdgpu_device *adev =3D amdgpu_ttm_adev(man->bdev);
+> +	int ret, idx;
 > +
-> +	if (nonblock)
-> +		return;
-> +
-> +	int srcu_idx =3D srcu_read_lock(&dmemcg_srcu);
-> +
-> +	if (!READ_ONCE(region->unregistered) && region->ops && region->ops->rec=
-laim) {
-> +		for (int retries =3D DMEM_MAX_RECLAIM_RETRIES; ; ) {
-> +			u64 usage =3D page_counter_read(&pool->cnt);
-> +			int ret;
-> +
-> +			if (usage <=3D limit)
-> +				break;
-> +
-> +			if (signal_pending(current))
-> +				break;
-> +
-> +			ret =3D region->ops->reclaim(pool, usage - limit, region->reclaim_pri=
-v);
-> +
-> +			/* -ENOSPC means no progress; other errors are fatal. */
-> +			if (ret && (ret !=3D -ENOSPC || !retries--))
-> +				break;
-> +
-> +			cond_resched();
-> +		}
+> +	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+> +		return -ENODEV;
 
 [Severity: High]
-Can this loop cause synchronize_srcu() in dmem_cgroup_unregister_region() to
-hang indefinitely?
+Does this drm_dev_enter() check adequately protect against teardown during a
+probe error?
 
-If the driver's reclaim() callback repeatedly returns 0 (indicating some
-progress) but concurrent allocations keep usage above the limit, this loop
-could run for a very long time.
+If a failure occurs during amdgpu_pci_probe() (for instance in
+amdgpu_driver_load_kms()), drm_dev_unplug() is never called, so
+dev->unplugged remains false. The teardown path then proceeds to
+drm_dev_release() which does:
 
-Because srcu_read_lock() is held outside the loop, a concurrent call to
-dmem_cgroup_unregister_region() would block in synchronize_srcu() waiting
-for this reader to finish.
+drm_dev_release(dev) {
+    if (dev->driver->release)
+        dev->driver->release(dev);
 
-Would it be safer to scope the SRCU read lock inside the loop iteration?
-This would allow synchronize_srcu() to proceed and the loop could safely ab=
-ort
-when it sees region->unregistered become true.
+    drm_managed_release(dev);
+    ...
+}
 
-> +	}
-> +	srcu_read_unlock(&dmemcg_srcu, srcu_idx);
->  }
+The driver release callback will destroy the VRAM manager and TTM structure=
+s.
+Only after this does drm_managed_release() unregister the cgroup region. If=
+ a
+cgroup memory reclaim occurs during this window, drm_dev_enter() will allow
+execution to proceed, and ttm_resource_manager_dmem_reclaim() will
+dereference the destroyed VRAM manager. Is there a way to prevent reclaim f=
+rom
+accessing the manager during probe failure teardown?
+
+> +
+> +	ret =3D ttm_resource_manager_dmem_reclaim(pool, target_bytes, priv);
+> +
+> +	drm_dev_exit(idx);
+> +	return ret;
+> +}
 
 [ ... ]
 
-> @@ -488,9 +539,11 @@ void dmem_cgroup_unregister_region(struct dmem_cgrou=
-p_region *region)
->  	 * no new pools should be added to the dead region
->  	 * by get_cg_pool_unlocked.
->  	 */
-> -	region->unregistered =3D true;
-> +	WRITE_ONCE(region->unregistered, true);
->  	spin_unlock(&dmemcg_lock);
+> @@ -933,12 +956,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>  	if (err)
+>  		return err;
 > =20
-> +	synchronize_srcu(&dmemcg_srcu);
+> -	man->cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram",
+> -					      &(struct dmem_cgroup_init){
+> +	cg =3D drmm_cgroup_register_region(adev_to_drm(adev), "vram",
+> +					 &(struct dmem_cgroup_init){
+>  						.size =3D adev->gmc.real_vram_size,
+> -					      });
+> -	if (IS_ERR(man->cg))
+> -		return PTR_ERR(man->cg);
+> +						.ops =3D &amdgpu_vram_mgr_dmem_ops,
+> +						.reclaim_priv =3D man,
+> +					 });
+> +	if (IS_ERR(cg))
+> +		return PTR_ERR(cg);
+
+[Severity: Medium]
+Does returning here leak the buddy allocator initialized earlier in this
+function via gpu_buddy_init()?
+
+If drmm_cgroup_register_region() fails, the error propagates out of
+amdgpu_ttm_init(), causing the GMC IP block's sw_init to fail. During driver
+teardown, amdgpu_device_ip_fini() skips calling sw_fini for IP blocks where
+status.sw is false. Since amdgpu_vram_mgr_fini() is skipped, it seems the
+buddy allocator memory allocated by gpu_buddy_init() will never be freed.
+
+Should this error path call gpu_buddy_fini() before returning?
+
 > +
->  	kref_put(&region->ref, dmemcg_free_region);
->  }
+> +	ttm_resource_manager_set_dmem_region(man, cg);
+> =20
+>  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+>  	ttm_resource_manager_set_used(man, true);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703130541.2686=
--1-thomas.hellstrom@linux.intel.com?part=3D3
+-1-thomas.hellstrom@linux.intel.com?part=3D6
