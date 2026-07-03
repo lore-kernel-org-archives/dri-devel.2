@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0901C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 19:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E96EC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 19:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B36510E65B;
-	Fri,  3 Jul 2026 19:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82B5710E667;
+	Fri,  3 Jul 2026 19:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iZuu44D6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XzDMRgBX";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HipLHZTm";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bxtgHvWS";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6FA210E65B
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 19:39:51 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C4910E667
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 19:40:15 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 663HiOPX695414
- for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 19:39:51 GMT
+ 663HihV5547021
+ for <dri-devel@lists.freedesktop.org>; Fri, 3 Jul 2026 19:40:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=kAqGWShsALr
- UvOo44yJ9PZPqBuVxxzDIDv0SXARnsDY=; b=iZuu44D62fDE9nUkMGsQ/kikCWN
- vJtcLEgw6+dGCeIIHuOlMsUIpFKZZGJPJqfdF+O1SYEhJ9Ewxr3bmWpbtRmLiIqQ
- jYkNIvEv+KCpR6MtdXix1MGky2N2ZQ+IKKh/NsqwJzV4809aM+q8nNtoVSj4h9GS
- 7ZOJF8MX23ckx9HxrND4qmrfOFK47QtXOdWwXxI5gur6l6dxQmmA/LR6so3jKGq/
- W7A00TMFaZJ0ko+VVC0tHFFvu0ryV81DeIP4S6UmjKnzb0SJmxCATCZFjAZe9zfa
- KCzmbOBkJT97xvyMzhw69zt86W2jJf7+4G93pb8Mz+QzA56HX9qkqRm3E6A==
+ :mime-version:references:subject:to; s=qcppdkim1; bh=PGH0Mfb9t3d
+ kT8UvMf5f1wosC3eQeF337EZxodGa2xo=; b=HipLHZTmLwrBQObeVsOGWExITfp
+ t7/tVWx4vzKDtDPxgNwrOMMLEYbY4ozBpTauLC1kSTV/W7k1Qm0e12vRO+ogANBW
+ NW0APmhU3sAdU2NrCqlWIoHmD0kU4SQGq4ljc6YwuMSM7GFhHObmCpJ+/+rhnKsQ
+ INKlcMzloIbYPjrnEN/lLIpHGyWDH5yPXXSi8+KcBgoraO6K/MnRfB3UUkLILky6
+ qTPqH4OVJXMwBZsrvWtdNjSsexZaz22Q5jADDCPONMxS+LjIGY3qz0KpGGSr3YaR
+ wcrE60nfHX13IMBNYdT4V8pqcZ2+pD+AyngKR10muMKnOdEdCQYuLKpAovQ==
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
  [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6a84a511-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f67j02vae-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 19:39:51 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 19:40:15 +0000 (GMT)
 Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-38127ae6b99so1224566a91.1
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 12:39:51 -0700 (PDT)
+ 98e67ed59e1d1-3823dcc1647so254829a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Jul 2026 12:40:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783107590; x=1783712390;
+ d=oss.qualcomm.com; s=google; t=1783107615; x=1783712415;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kAqGWShsALrUvOo44yJ9PZPqBuVxxzDIDv0SXARnsDY=;
- b=XzDMRgBXU1a+rNJgp57IfN8Q9V41y4FOTE012QTtgWcOgA3rzh7QmmAoCBUpBjkULz
- npNNDlY5fbnBuWU7yPjGJVQoPQ7E8Xf2iT3nlKB7l0S4is6AWg91ZfZcHi/zvn+j1dSi
- YHUOPxCLR2UfvrwLaRGa7kwiawtITLTMYH3CD9hK0AgWFkuT+wdFUQeumBkcxs31XVwg
- H3Jn94PRhfnsW8LWlVSjvnMURTYr1mc9XEhkvYPoFFdKgsIxB5PNuEme2XI8Je5j62sQ
- k5iIPJESXhiDYrhogEsaQDA0wdWuwZ6LC84BX1ni1GeMr6NEMo3w3kp/DAmc/KI6AZoV
- 1o5A==
+ bh=PGH0Mfb9t3dkT8UvMf5f1wosC3eQeF337EZxodGa2xo=;
+ b=bxtgHvWS8MldeTXXDvOMcuAwMQSOjtxu6bmTUdKA6HJRD2P5sB6sLlbz6UeLeTyGdF
+ 01mGTF4GA/pwyrVlah3pG0SByPlwiEfaSrivxoJ1/rACqF4sLzNGptkTwN+gnW6YeCG0
+ jhgOMIcqao2OIo17S21wnO+A30WXPAaGG0E0Cr19lBxJDz6Pw8ZEHrXcWTlBOhQLrEjk
+ oOP4u8sGkz3/FlkNTnDSO3j+SUunGEDrbVoWDs6KhjJJKU0qklgEJJmv84UU2yXE9Rqw
+ SXnjz5NqG/FH6haiM5cTscRbfHWb+wJ+b8JwQrWpUIoQ5M21SKFV8B9qRTuKe1ozAIHc
+ 0bww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783107590; x=1783712390;
+ d=1e100.net; s=20251104; t=1783107615; x=1783712415;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=kAqGWShsALrUvOo44yJ9PZPqBuVxxzDIDv0SXARnsDY=;
- b=qlaT1BwAHmFSSiCRfvArkFJ9YT1dKvbiP0msEXpVPNscdOmp6myBMF/9g2ic+gVitZ
- T3h22Ngv4Lp/U+MbjSfKp+iG5RsAwDebl/GsL28rvz5W+euZIa2lPF7tVTsgCSkBxMfq
- k4KDCUUctcYr6pGrtOmqAuiFcczhDTkvKFAc9gv+O0oq/PT25dZw2u1mHB7rkoJfBs0u
- CNOdyb0+Hh7/tJnyN/ntZxGDd95xalQNmyLrhC282xUBbnJ2xOWEO98XZhm+3jrj4Qlu
- Mcm0IMS8vZIbUjGAqJVwqa3SZaYyhFrcNidsnwrMXCaMxEhy7lp94KKRUxspWLj5chcX
- s6qw==
+ bh=PGH0Mfb9t3dkT8UvMf5f1wosC3eQeF337EZxodGa2xo=;
+ b=V1a4QDJnhluXfK0AznH2Eg+Jx2U+83GZ6QAsWSIwHrP4tCgyGrrqxM2+qMMAIc+WcD
+ C1e188fS3YmlEAC2SKPXfUQgBrf1O6AUoFWYdCselAb9Zt/M+XKe/NoJpscfhAQtAqBi
+ 4dxUwgFLror8TzDAPGSYrICVtazYaf6pzAfdSTMiINqG4dZIl3QURlvp1KyJtkOWbI7y
+ exlAQf1t6Dvnwaju6ujnDZCXt0vZ5sRwB74GQVzyGtnsXqXSXdhRrYPG+9PdK2umjVl5
+ P++CoNacMqoNSe2f96BdxQpbQWTaUtwfVgpJqa0zG8c+HCwN59fkwpZp4LdnJZ2QUjv2
+ 0cPQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqSomyGQpktAwpdwrLWbH1XtXiVj4kMMnicljZbAZcQ8WKUijUH/w2yYMmzVlUvqD/zgRGQaxMNnX0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLEJaBrEkK5EHTtBZsRNHptz5BlvaztfxS8liztK30myGzB2t1
- Rrctj71T5Ai/XOYt0ErdlHO2lLKTnyD+tm5zNZiYtHfBZfW++yilGPHOH4MxqWUK0klvs+8AaUH
- 5SCkM6eYj5eNNuGWg1b3h6vppvH+NJbasrvkl/Z4F4x5pmrF6mviS4ESpcnWzmfU1mPs3O6g=
-X-Gm-Gg: AfdE7cmdmtxs0dbEdJ42JXaTYmQhCZPn3gZ1dO4KKuDv3/dswGZ6lst46ktS9sWR/AJ
- tMi/PD57qURML/vovdx2lhB8Q5KgLtrPworNL165IE8pwOehaW+P9K30vGK7GpTKW63Z+fMm9eO
- nkglhjz8fqClVMuvBnh75Qtqsm2k1vXAkuDjb06TPIVKeYCQN2r/CM+Snb1GugSSU1Le95viAfV
- 32AtUUAdb7LAfDRlag1qfmcpzFXoAv7Mb7rujVXYaVBU+L4PwLmnuJ706ekh6e1RSzsCD1Kk+UQ
- xltG/kta3QCsK21eQxsMkmt1P805/IpOOhjqjcHa+19Guyy9voQVW72sJsEm/dfd2DxpS41ASIw
- vo74JNPekN8g7qGRQ1xUOB7ObcETOu11rdtV5mg==
-X-Received: by 2002:a17:90a:e70c:b0:380:ce69:2669 with SMTP id
- 98e67ed59e1d1-381122ebda9mr5933731a91.9.1783107590248; 
- Fri, 03 Jul 2026 12:39:50 -0700 (PDT)
-X-Received: by 2002:a17:90a:e70c:b0:380:ce69:2669 with SMTP id
- 98e67ed59e1d1-381122ebda9mr5933658a91.9.1783107589588; 
- Fri, 03 Jul 2026 12:39:49 -0700 (PDT)
+ AHgh+Rr4ZQ1QmBhTQb7qOQ9G6q3gFuZSqLeqdra9eSfPi8XTOsdhEq9E5h8X3KaBXGWxi/gTLNSep5ohDjk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxObuimhuqJSiJoX6bk8qPqUcI2JP2vJ1FCvve1OSVDVTwoH8nj
+ tMSg8xMZeB/uF9r0ok16av0OkkTYZ7kU1yEaoJgqtPWw+VP9WFdueNolSJM07/MSMjdg47CoOO2
+ qKQMstHBpONaRzR8fUdJrfIWBM9zktbY3eaYKAA2MvPXmOXS3aCGQ/7NVY25knj40KkuxW40=
+X-Gm-Gg: AfdE7cm2M66cnw5DWJ8aaYEjN36u4Rm6j+Fytye1tJLf/gZLLq1VIzk5l/vsqv7Yj6z
+ jo2mdr5otMbNI1MMgUtkVMl+bHkd+6iOfxF5oobzMjC8H3vdXTZfVSQpSW5D5A3rXunapubJjuK
+ w2eOEPfH38KZb/WvnFOjtZ0BR5E+5mdK+pM1noO5FX8b4idlM4W/HsNHeA5zkvVPVl3RdXvttY5
+ skRM+dETq2X7dqOQpPJluFD5t0b4AdUo+xrdoFFl0uWihS9yD1iQP/ghuMWTXKvJzwp51ad+1I5
+ r1ly5h/NOHYNBJDmOqF0csK6c1utjQMRDqWF46OVLK1G6hC197mGBJSJDF6MrVlb/gPt7hA20qj
+ i9atwNTyWA2zQm+TZy5rVcm6VnJsk8btlkew8/g==
+X-Received: by 2002:a17:90b:4fd1:b0:37f:db06:2299 with SMTP id
+ 98e67ed59e1d1-3829f0054e1mr764420a91.21.1783107614357; 
+ Fri, 03 Jul 2026 12:40:14 -0700 (PDT)
+X-Received: by 2002:a17:90b:4fd1:b0:37f:db06:2299 with SMTP id
+ 98e67ed59e1d1-3829f0054e1mr764330a91.21.1783107613641; 
+ Fri, 03 Jul 2026 12:40:13 -0700 (PDT)
 Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.39.25
+ 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.39.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jul 2026 12:39:49 -0700 (PDT)
+ Fri, 03 Jul 2026 12:40:13 -0700 (PDT)
 From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -155,41 +155,40 @@ Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
  linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 01/42] of: reserved_mem: Introduce devres-managed
- initialization functions
-Date: Sat,  4 Jul 2026 01:08:14 +0530
-Message-ID: <20260703193855.110619-2-mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 02/42] of: reserved_mem: Add
+ devm_of_reserved_mem_device_init_by_name()
+Date: Sat,  4 Jul 2026 01:08:15 +0530
+Message-ID: <20260703193855.110619-3-mukesh.ojha@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
 References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: gAkndqV00wepp9y7KCMOjPE-jOyT-lMG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX+FJpnHRq4BJU
- V4gZRPS68wa6CGK4ZsLOQBiFYd8y2fpjEEGitB/17YlhSWp3LHsHruCR2LU9qUMzo2dQ9d+pick
- rYnhDtlB/YSSlwxbQiGXwWG5ocN7BqA=
-X-Authority-Analysis: v=2.4 cv=a6QAM0SF c=1 sm=1 tr=0 ts=6a481007 cx=c_pps
+X-Proofpoint-GUID: Rg-4gqOoPjAGwIe2dRuCiODPtgR-KRDK
+X-Proofpoint-ORIG-GUID: Rg-4gqOoPjAGwIe2dRuCiODPtgR-KRDK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfXy3oS2o+QAJGm
+ k99Q8NKS38DoPH1AMK3b6UOJ03dNL7Ui0WcdefWuUTIk3M1bqdF4feFe+y6Jt4T8SjIIEjf5Wiw
+ 9REgf9lC76424RnB27tQH7Bw8u2DgJ8=
+X-Authority-Analysis: v=2.4 cv=Yuc/gYYX c=1 sm=1 tr=0 ts=6a48101f cx=c_pps
  a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=C96w-YAaP-Zupzk_Mv8A:9 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX2dEK6S+Fv6FD
- V7LGg+07z7Y4dtmokBkEZH5P5HTzIplnEn0kuMfpSYDfLHgkId57mWL3iPaa9FrDZQQ91ZEVPdj
- G5uI8kI6oAn8vTBK6QC2dqzNWsK5vDH+I5tHfTIdLkFtbN9lGQ9/e3b3zMgrNyMDv/5sRcBJfLA
- ffg8aFoVLzwsyQnxRf2mJlGMVUgYbK5kTJic+JSwcV7N0lrJF11oU0/beE6nHG9mQn1bLQ5QHBE
- ffwttmCzos0CV5XnWVbaIQjN/dMF5xtOvwRz+Dq8axlyFiVgkZ2ABMFxxyFur5gFdMN8M0MjsPV
- fYJ4tr6EgS/GNbOyx3Qvdjal86Zneys7cjdSK1STkFDB5iJFOPSWo0JdRQ0+EvL8jeZKVkojdk+
- LZzo53BZFcQNTaYB6diw+kXJ7CXhWNQH2sWPfUIQ6m0BLxlzpTACGpmY1d8ZEDZR/h3qUzPTrsK
- Odlop+Ikroo1LCltEig==
-X-Proofpoint-ORIG-GUID: gAkndqV00wepp9y7KCMOjPE-jOyT-lMG
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=K3bnyJ_z4bF7bLuR74EA:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfXyiwEswL2PMRt
+ 7gjEoTxtQBHfp0WjNzPDr1L00MSyS2PEdWlOzSdW8cIaczPRZ/6rUDLjxRBZV6jrP9aZa41mLTj
+ eKauqGqkPQfZesKxUhms/BHt+W85AaQ07FelbFoamUOm9DhF9jH/bD2+EV1o1+FvFjji9rvB5+K
+ 6HUINZLfFgJAuvkS7oUdJI/QJWxVNkg5hMMaYwnWbi0ZdCnpeAhYKXT2r72+WP9wmP9yROGyeRP
+ dCWEODHiPHPW9tZa0iZP7JSOu/Mt9Y7Y+EYTu8odhJA209b1jJ4DMX+A7Z2bR5AQcbZ6J6pmEVN
+ GpKUdHcEtLdZFAcMOYnyA+gd+CQpDxJssGvIQelAT4AQSwrqUUA9WdCfY1CigbGDQeCrdX5+fvz
+ ApPRSNiQzNlGRuOUpJxF2Lbk6qFA0CWYas9jt69765CE6+4LoJtX2kEGELkuZpoWLT/YAj7gnsD
+ oLATpDGR4b/ihW4XwSg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-03_03,2026-07-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
- bulkscore=0 impostorscore=0 phishscore=0 spamscore=0 priorityscore=1501
+ spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0
+ bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030198
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -207,116 +206,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Add a resource managed inline wrapper for
+of_reserved_mem_device_init_by_name() to complement the existing
+devm_of_reserved_mem_device_init_by_idx() and
+devm_of_reserved_mem_device_init() helpers.
 
-Introduce devres-based helpers for of_reserved_mem_device_init(_by_idx)
-to help fight dangling references and ever so slightly reduce the
-number of boilerplate deinitialization calls.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 ---
- drivers/of/of_reserved_mem.c    | 41 +++++++++++++++++++++++++++++++++
- include/linux/of_reserved_mem.h | 25 ++++++++++++++++++++
- 2 files changed, 66 insertions(+)
+ include/linux/of_reserved_mem.h | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 82222bd45ac6..b35541e9fbe8 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -787,6 +787,47 @@ void of_reserved_mem_device_release(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(of_reserved_mem_device_release);
- 
-+static void devm_of_reserved_mem_device_release(struct device *dev, void *res)
-+{
-+	of_reserved_mem_device_release(*(struct device **)res);
-+}
-+
-+/**
-+ * devm_of_reserved_mem_device_init_by_idx() - Resource managed of_reserved_mem_device_init_by_idx()
-+ * @dev: Pointer to the device to configure
-+ * @np: Pointer to the device node with 'memory-region' property
-+ * @idx: Index of selected region
-+ *
-+ * This is a resource managed version of of_reserved_mem_device_init_by_idx().
-+ * The reserved memory region will be released automatically when the device
-+ * is unbound.
-+ *
-+ * Returns: Negative errno on failure or zero on success.
-+ */
-+int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
-+					    struct device_node *np, int idx)
-+{
-+	struct device **ptr;
-+	int ret;
-+
-+	ptr = devres_alloc(devm_of_reserved_mem_device_release, sizeof(*ptr),
-+			   GFP_KERNEL);
-+	if (!ptr)
-+		return -ENOMEM;
-+
-+	ret = of_reserved_mem_device_init_by_idx(dev, np, idx);
-+	if (ret) {
-+		devres_free(ptr);
-+		return ret;
-+	}
-+
-+	*ptr = dev;
-+	devres_add(dev, ptr);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(devm_of_reserved_mem_device_init_by_idx);
-+
- /**
-  * of_reserved_mem_lookup() - acquire reserved_mem from a device node
-  * @np:		node pointer of the desired reserved-memory region
 diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
-index e8b20b29fa68..b9fd78123d77 100644
+index b9fd78123d77..52aacdbf432c 100644
 --- a/include/linux/of_reserved_mem.h
 +++ b/include/linux/of_reserved_mem.h
-@@ -40,6 +40,9 @@ int of_reserved_mem_device_init_by_name(struct device *dev,
- 					const char *name);
- void of_reserved_mem_device_release(struct device *dev);
- 
-+int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
-+					    struct device_node *np, int idx);
-+
- struct reserved_mem *of_reserved_mem_lookup(struct device_node *np);
- int of_reserved_mem_region_to_resource(const struct device_node *np,
- 				       unsigned int idx, struct resource *res);
-@@ -68,6 +71,13 @@ static inline int of_reserved_mem_device_init_by_name(struct device *dev,
- 
- static inline void of_reserved_mem_device_release(struct device *pdev) { }
- 
-+static inline int devm_of_reserved_mem_device_init_by_idx(struct device *dev,
-+							  struct device_node *np,
-+							  int idx)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline struct reserved_mem *of_reserved_mem_lookup(struct device_node *np)
- {
- 	return NULL;
-@@ -108,4 +118,19 @@ static inline int of_reserved_mem_device_init(struct device *dev)
- 	return of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
+@@ -133,4 +133,25 @@ static inline int devm_of_reserved_mem_device_init(struct device *dev)
+ 	return devm_of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
  }
  
 +/**
-+ * devm_of_reserved_mem_device_init() - Resource managed version of of_reserved_mem_device_init()
++ * devm_of_reserved_mem_device_init_by_name() - Resource managed of_reserved_mem_device_init_by_name
 + * @dev:	Pointer to the device to configure
++ * @np:		Pointer to the device node with 'memory-region' property
++ * @name:	Name of the selected memory region
 + *
-+ * This is a resource managed version of of_reserved_mem_device_init().
++ * This is a resource managed version of of_reserved_mem_device_init_by_name().
 + * The reserved memory region will be released automatically when the device
 + * is unbound.
 + *
 + * Returns error code or zero on success.
 + */
-+static inline int devm_of_reserved_mem_device_init(struct device *dev)
++static inline int devm_of_reserved_mem_device_init_by_name(struct device *dev,
++							   struct device_node *np,
++							   const char *name)
 +{
-+	return devm_of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
++	int idx = of_property_match_string(np, "memory-region-names", name);
++
++	return devm_of_reserved_mem_device_init_by_idx(dev, np, idx);
 +}
 +
  #endif /* __OF_RESERVED_MEM_H */
