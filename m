@@ -4,142 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0969C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 02:57:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19403C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:01:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D8DC10F5E6;
-	Fri,  3 Jul 2026 02:57:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BEF410E544;
+	Fri,  3 Jul 2026 03:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="W5JFoqs9";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="EVWRZ7c1";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012044.outbound.protection.outlook.com
- [40.107.200.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A1C510F5E6
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 02:57:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kITM3SomFUCK9tnHyiPHdbEw3BqB4LJfk/mzN/QmdTatc7d3DRWdR0ChU5+tJkJqMRYvbYQ8kAl2bioL8bDQjsa+/ZvUWqgAkYIV4XyHpksBe9NUQTEc3XI0d/xR2NDS+TZ6dPTXfzpbW6dmlnl3TttUvsfW+LYEMNrHSoWPUTMcaEOHxbQZ2f/VB8lClsN4aP7A7/0qmitEk9WI7sTj3kQ5DxpgAX19tKzWZxkV0JWSaoU1Epij418VLe+yiYXVTSCW4AEB9C1GXk77BXAUctCcwI/Z3JVSjfYwtuAN5/HjjziF6DR/6sex6ltcMlilnkGero0o93E4v01AphsbzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oESky0l8RPi4Ne/UKoCfPBe37VZy5y3jZrGtKpkyWbs=;
- b=hZWUx+MuncpP0HDpmt7k8avFm6tkaeVfuxhf0c6M4Lad+qs9CyfASnWMC9ruFmn2T5+HIkL6dMUK5M5gUQXTI7emFGHbAz++5Cc5rFvTAXrFKt8rZPtdhMe4T3/rJt2xr5voaGNCX0Vedb5VuNdKeUtM1Oc0PnexKPyeJyMYf3bTke1buM57S7yQhWGoUQed3LYa3Bu3baBaE6IEm2FaP8dzcd9CTuqk6rOHgvdXgB0XVkggWcJjvgYWh+++KEvn3HKLrCcbNX6CXFm4hGr3adxZt7mTEdQbgLFguPhS4P+KPHDF6piG/NRe5ilStabBCmhskRJ9GdOPLiCtAkJSWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oESky0l8RPi4Ne/UKoCfPBe37VZy5y3jZrGtKpkyWbs=;
- b=W5JFoqs98eeKVYe2oyNfpSZZ6KcMkn6D0EW+wrmD3poEqWGA6efe4RCoKAXSiIgRAeeot9X2fVLL51i80RXy6JRLZt1FKhDsTDy5uxnIdL05uGQw4BL/hB0n0udF1TGpZxXzGcPsn994i99y2VbEvRVhq2bzYU77lT/HUW1/KKomYanQw9FnTtpJMp3qR/ehK+o/p43OTXF9O03BGUPoVuj9PcLtH01pU4Iafi3fu0rlAJ328iPBy1mv2D3F/g5rcsNvgVMior6i2WO7muSXpUQWfRgiVR+4cVrRpOAuE8kl1p/fkTKzEWfsWfpK6XC1EBunVPKRLaVntpYCFtrLHg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DS5PPF4A654669B.namprd12.prod.outlook.com (2603:10b6:f:fc00::64b)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Fri, 3 Jul 2026
- 02:57:47 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 02:57:47 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 11:57:44 +0900
-Message-Id: <DJOLKP1V1IDU.1GWHOHBG9CS7@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 02/20] rust: io: add missing safety requirement in
- `IoCapable` methods
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Content-Transfer-Encoding: quoted-printable
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-2-d0961471ae50@garyguo.net>
-In-Reply-To: <20260626-io_projection-v5-2-d0961471ae50@garyguo.net>
-X-ClientProxiedBy: TY4PR01CA0117.jpnprd01.prod.outlook.com
- (2603:1096:405:379::18) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E720310E544
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:01:30 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-493b68b4643so253955e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:01:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047689; x=1783652489;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Pr/YmJjDdgpK4Qlz5+9N1Q+bYdAf7XuFT6hP4TTZuSg=;
+ b=EVWRZ7c1v7V+S3eCnCng6kplipQkqySJnF0Rg4Vk2BHI2YCzOY7aQBWtkIi4rP8C3M
+ t41CDfQ/S7VT82nFIosiKNRrekYPjmCsi3QGZxMZJJIkPa/CVztD2StZFG/jpXH3WzGm
+ MaaxDDyTrhg0fWzTrxO7GU6v61S8tqnhRz/Pf7R+wAq1Un7LZiD9pndmWhOoGGPV4XCC
+ ZcZlje8bymMJujUAKJ99zr5ZzyJmpq7JcdEZnyPdHa/of4XZIMsACgleqU6jReMI4PVr
+ QC/0TXWh+1rWuDYnIFZ9adPewBBdBla9v6WVUbLQvqUyvmr2GWeaT+BGs6Uz6l17VkWQ
+ fQJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783047689; x=1783652489;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Pr/YmJjDdgpK4Qlz5+9N1Q+bYdAf7XuFT6hP4TTZuSg=;
+ b=MkACCAnkquHgq/UBYGNCgKKvem2RZWlAczYxDAda7ml+1s9VXxqEzQlQsrqwjYcs1Q
+ sF/LE7MQcxxQRDZdTWwCodkpkKpHPewcA44Rdb8c9Dz9p2xHLFZhdBLLliScRWHfBUWS
+ oWdWVJhu+Cf3vWfMGKwMs+RfYrk2F0HH6m3UGX2dbHmHlBHXxMqRlYBFT+29dHTVpJnx
+ Hw+C1BhNsVM1cbfiSFC6DlqUcxiaexDto+iOiWwF85elMxXpV0O4a/RIROpLCt9VGTWl
+ yqUkM2FV1KBHnsG5M4FolTkPB/jTnlyQJRrUHtKzMG309nPIVKEd+xpsvWCQm45UQ+0i
+ /mPQ==
+X-Gm-Message-State: AOJu0YxVI2N7AH4oeRw9wIBpjJd0oTNQuzam5hN2VQrtzWFhwFaosC54
+ CNo8WaTvbOjJusl5apKWnYBtCkLLbd4I6dnJm+McpvMXbaUFzxGEcMKXBHkN+zesYw==
+X-Gm-Gg: AfdE7cnwzOj9MrZbtiMopwjZPZUox+bLh3qCrrIVHZtVANqMn5xQVs4gUxNmkd01lno
+ oZNemgP6XkqzVSGd4KZvN/NMRQVdvu+byoRwskEgRxdJB0M8oRs4QMfnFg6GyJOAUJESNdKF+Lc
+ 1Bia5T+j31okFMBtJHVsBdqhl8foBMWVfAQpPxa3vHqNKbxh5f+JUkrTNoptSkc16VorMOhqyP4
+ SP2d1HQ1CliqGQb0SWI2VSKVn3+r5D0dTtDsSVdI1IVh0mEm76NtSE2dKW6G1X2Vhu6V1qRxl5s
+ qwKLZy7kHV662jvi/nd2vJSNzm+xDpmDAlNdMy7lclmFhECDUNNnCMKQp5AkvkyqEqSGKLI6IjY
+ xouwjvmMFBkNfezcBJrHXGY7Pmg6gX6JUEuo+VEdVZ3MVZffa1+8ifo7R9htbHtHb1UPD+YHSF0
+ q+eGHJvVw7uR8HhsyhbgVIJOIGjwgVQeUdFXaM+fiMjnbF13FVCh1VwN5d
+X-Received: by 2002:a05:600c:34c8:b0:493:a5f9:d345 with SMTP id
+ 5b1f17b1804b1-493c3cf0a35mr114126905e9.26.1783047688971; 
+ Thu, 02 Jul 2026 20:01:28 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([137.220.119.72])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-477db3dbacbsm14466500f8f.4.2026.07.02.20.01.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 20:01:27 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: rust-for-linux@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
+ Lyude Paul <lyude@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 00/18] rust: drm: safe KMS mode-object layer + evdi
+ bindings
+Date: Fri,  3 Jul 2026 04:00:47 +0100
+Message-ID: <20260703030123.2814-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260617150232.2210-1-mike@fireburn.co.uk>
+References: <20260617150232.2210-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS5PPF4A654669B:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca0641ae-9e9d-4568-1396-08ded8aedd03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|7416014|10070799003|1800799024|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ieHaZspvQu9B1KUcs6NMykNUK7VR3kLGAM3kegTEBZHYRiwvkg6nZuyu29xLAlnG1oz9eSF1+ZokTwwUZ5AlnLmO1C02mk0C8Hd6lwAa2m/LxyzrgJbLXiWnjF0CVPHTL260AFCI/D0/CCP/QJHkSVLHyGpBeUMQr/awrwaQC0gx9bpbiukPKBJpM3yH0CuegSHdDR0UINmyLvw05CnEXHpnm3+J76v854HR01hPpISnsavsG63BwQ1Z894GlAHZmcPylobcg6+p4Fl/Ti05l+xlb9+Hut7ssQA7RKvUT0oPVNXKHOIU8VUHjYcR2xC5hCsISH1lpa3HoiCeLZge4zfA0ThS1NmbZ83UeFuGMojfnqULHWG9IgrYuY1W2Qx61n4fXWdzBBDs/xMs4recLrKNX/gnIVD8msu65jfyIG/cd20PGMvu6jqqaqwn8pgzdqDu0VgjqBC7SJp1Qb1XAHn4ACSKUj9Pad7Ac/YIq81OX8xEwxzStdL5ZMNifjLNifLxdiWYtGde4jiaxpIdRZhJT/OssVREhqsexGYGMTVCFN/3e0DYzCIX9XKQ7I+0FSwhAaRJQNbTs74prP7iyJVTraSK10ck8bkvfuDfCNccWGmo1AG3TgS2ZCMvlk7UBYy3aYJ7Ame+kEMSN1q2L+5eWsiLVF8zhkG5S9HRiw4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(7416014)(10070799003)(1800799024)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEdibFhaa01wVHgyN2lsRmo1czdkS1BMNE82TmMxRGxqZmRMSXRvVGtKbXpy?=
- =?utf-8?B?cmdQRHZ4NGtsLzRFTEhRTW1XenkzVCtyUjhRYklxTGh6Nzdab3NhNmFvN1VX?=
- =?utf-8?B?K3BSMGJJdHd0STJTak9sTlNXdGZnZHYvM0xETmNnOW9MaGJFQ1k0bFpXQjJl?=
- =?utf-8?B?ZGZtRy9jcDBqQk12V2NmczFNOTNaSXRNa2JHUVh1ZmFkZ3BxdWdFT2d1dmNL?=
- =?utf-8?B?VmhoWDRGVVBtMWgzR0pWQ0tZbU5UVm9sU1hIRUZCR3VwUzhsTWRsVS9LZGVO?=
- =?utf-8?B?elZ2dXFiNG44K0daNllSTE1Xb3crMnhXU0kvSFAraDlQbkJGcnFzRDNidzVL?=
- =?utf-8?B?QXpyVWdIYTVmb0hXRW91TXFsMGJxTGZsdFNhc2RMZXEvZG9maFZDQ1luNDkv?=
- =?utf-8?B?bFBXUWlHOWZLWnNTTHRaK00vbXNkZGlTZGRNTVFuUE1CbXp2YXlTRHM0dEVU?=
- =?utf-8?B?Q2dLSWRqaktJR3NOWS9OZXNqY0FvRU9WaVhYNW9yUGNHYnZ0STZ2anVmbXJr?=
- =?utf-8?B?Tjg4amxZZFlnRVY2dkNxY2tKWHA4R0xZQk1UTU5YbFlNbkQrYVUvUzJQa3JG?=
- =?utf-8?B?MisyaGMweDV0S2dJcS9EMU00MGtYRXUzSjIyNEJkZXVWNnhYNG0zenpvb1R2?=
- =?utf-8?B?clh6Y1l0M3MxMHowYjhqYjgzR1ZZMzZtU3VyM2VxY2syVS9JdEc5Q0pYS1Bu?=
- =?utf-8?B?Wlozb0ZKQVNmY0pSa203eXQvTHE4NGl2TmRrS0d1T2g0Y0dkTnUwRzNLUzNQ?=
- =?utf-8?B?NnBocGNOcjZzaXc2YWV5TzFtZHJzUDVtOHNTN05LVGFQd0V2alF3RTJTZEdo?=
- =?utf-8?B?WnlHUGtKbXZtdnNYdDJhTDdYTlB0aEVuMGVraEJjTWR2S1RSVG1iYWpLZ1Jt?=
- =?utf-8?B?ZXExR1cvVjAyVFI5SDdqRjM2N2wwS2RacmFoTmxqLzk0M05BZ0lDMVR6bXFp?=
- =?utf-8?B?a2tjOThGYnlOMW81T25HcUZvRi9rdmdMckc3QW5QdjlWcUE0QjhtTmxueFlR?=
- =?utf-8?B?S0RLblRKNnlKYmRON085RUQrUWRvRWVHdlBXemZ0ekdNeFdxQlcxdXhud0RJ?=
- =?utf-8?B?RkhWMjRWZUo3aytQYk5HeHI5Y1c0STJ0Nm5oTEc3bkhMNGRlcmJsd3VPYnNE?=
- =?utf-8?B?ZFlaRE1zM3dQSnFnVmExVEJMOUxPY0NrL0dyWVd3TENmWERibWVRamFERHVT?=
- =?utf-8?B?WGdIMTlTeXBsSjhnQ3ZUUHF2MXV0VzJhS0ZlS05IS2tTTVpNNGhXVThXUUVn?=
- =?utf-8?B?STNGaDlCTzllNWpLd1d4L3d4bDluYnRid01RbTcwa2NENXZVQkZuRk9WVkFi?=
- =?utf-8?B?L2N6T2ViM3VCUjJEb0NCaG9jOFdXTHIrNk9aT2lJZzFaL3hlaFJYT09hcTgr?=
- =?utf-8?B?NzNIQmJTNHFFb0cwdHVMS0I4OWQ2djl1K2hPbHAyNGhBMnIzVkpwUms2eEdk?=
- =?utf-8?B?OUhCN2JOZzlqWXVUaG5SVHJzaUxZZ0x0Y09OUVJFZStDNTE1QitkVThFU05o?=
- =?utf-8?B?a0VzQlljS0dLZDMzVUVKejBUcHNRNFFMY0p0bEZwRU4veWJPbm9mVklnL3kz?=
- =?utf-8?B?a3h2b3lYZVQzUzdTeGl6NVdqZnhJdUxOYXRneHFjSEZqZ1VGdmhxVmZPMnFZ?=
- =?utf-8?B?L3lsYVEzUVVFRUFrVzIrRE5PdlU5L1c1eDJZTXFLOWIzaEtNR2JxVmRMZmpW?=
- =?utf-8?B?SGJLNzZLaUhLM3pGZzlyYlZxbGlDWlVJOGJ1RUNlMzEzZ0k3eXluMUt2b2dP?=
- =?utf-8?B?TUs2WFkvNi9GM25qY2FIQkNKRm1ENEplMXYwSDBPMlBqcVQxUnlHWUR6c1Vy?=
- =?utf-8?B?cmd1dzRtY2tiN3crNnBVSGJPdzVxT1hrSWoxTGJKV1dJZlRESHE2aGRuNU9a?=
- =?utf-8?B?SWErS2hTZlorR0JyVEtrbFRZaFpxSmIwQVhJai8vc3B6QmswTXFaS0xMaHhk?=
- =?utf-8?B?ZERUNUFzZFdEeVJ0dTA4ZjYxeHB2UlFKa0FhRDBkM1l5L2hqYmQvbmhDSVF0?=
- =?utf-8?B?Q0dNYTRJbzE0UDRyYmJuRlZVTG1DekxPQ3pmMTNQdDdOUno3b1I5WnZCaWox?=
- =?utf-8?B?c3VwTGkyUzU4bXdPN0FMNHlwTWc1WGlIMEtMVkJxT0F1cmI4YzlVRXl3ZWlZ?=
- =?utf-8?B?M3Q5ZXU4NnovV2lFQjd3TFZkL0hySFVWa1Q0MTJJeW9qa2oxUUVob2pMTjh6?=
- =?utf-8?B?VEs3QzA5WGk2eFhmNVVVMFljQVhZcWJDSllFRXZtaUJMbmdqbHFKbXUxWFd5?=
- =?utf-8?B?U2R5b20rSllwYmlCcWlxcTd6RGRndjFWbk43NnUrRm9LMm9Ic0ZGdm9mQnlU?=
- =?utf-8?B?ZHo0b0d6MCtHdDNsWStsY2V1Kzd2WkRNSUtOM1hIVXllaEJBVmNtZUxDMnhT?=
- =?utf-8?Q?Bfp57Akd9H1G1Zlr4J0LUrgYZlwuSWfMxqWsw650MR3bH?=
-X-MS-Exchange-AntiSpam-MessageData-1: HMI3JnLQBoqGgw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca0641ae-9e9d-4568-1396-08ded8aedd03
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 02:57:47.8448 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uygvh2zo4xMQGzCmT4G4BLL1Oe0Sou26vs06U0ovzeohodc8NrZ5Ag+lmGGCJAHT01TAfqpJEoW5xbfJ/HdGqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF4A654669B
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,22 +95,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
-<...>
-> @@ -309,7 +312,11 @@ pub trait Io {
->      // Always inline to optimize out error path of `build_assert`.
->      #[inline(always)]
->      fn io_addr_assert<U>(&self, offset: usize) -> usize {
-> -        build_assert!(offset_valid::<U>(offset, Self::Target::MIN_SIZE))=
-;
-> +        // We cannot check alignment with `offset_valid` using `self.add=
-r()`. So set 0 for it and
-> +        // ensure alignment by checking that the alignment of `U` is sma=
-ller or equal to the
-> +        // alignment of `Self::Target`.
-> +        const_assert!(Alignment::of::<U>().as_usize() <=3D Self::Target:=
-:MIN_ALIGN.as_usize());
+v1 of this series took the "raw C KMS + Device::as_raw() escape hatch"
+route because Lyude Paul's safe Rust KMS mode-object layer wasn't
+landable yet. Both Danilo and Miguel pushed back on that in review: work
+on the safe abstractions instead, coordinate with Lyude. This v2 does
+that -- and in the meantime upstream itself moved: drm::Driver's base
+trait now requires a Kms associated type routed through exactly that safe
+layer, so the v1 approach doesn't compile against current drm-next at all
+any more. Posting the real port is the only way to keep a KMS driver
+building.
 
-With `Region::MIN_ALIGN` being `4`, my understanding is that this will
-make `read64` and other infallible 64-bit accessors unusable on untyped
-I/O regions?
+  1/18 rust: drm: kms: forward-port the safe mode-object layer
+  2/18 rust: drm: kms: adapt the port to current drm-next
+  3/18 rust: drm: kms: break the Driver* trait well-formedness cycle
+  4/18 rust: drm: kms: build the kernel crate clean under -Znext-solver
+  5/18 rust: drm: expose <drm/display/drm_hdcp.h> HDCP 2.2 messages
+  6/18 rust: drm: kms: add a Framebuffer::vmap() guard
+  7/18 rust: drm: kms: add safe accessors for common state and modes
+  8/18 rust: drm: tyr: add the Kms associated type
+  9/18 rust: drm: add drm_event delivery
+ 10/18 rust: drm: allow drivers to declare ioctls from their own uAPI module
+ 11/18 rust: platform: add runtime platform device creation
+ 12/18 rust: drm: framebuffer: geometry accessors, refcounting, byte-slice vmap
+ 13/18 rust: i2c: add adapter-provider (bus controller) registration
+ 14/18 rust: add sysfs device attribute groups
+ 15/18 rust: drm: support hardware cursor planes (sleepable event delivery)
+ 16/18 rust: drm: add CRTC gamma LUT and plane rotation property
+ 17/18 rust: drm: kms: add connector detect() and mode_valid() hooks
+ 18/18 rust: drm: kms: add plane damage-clip accessors
+
+Patches 1-4 are a from-scratch forward-port of Lyude's rvkms-slim safe
+KMS mode-object layer (CRTC/plane/connector/encoder/vblank/atomic state)
+onto her newer rust-stuck typestate Device design, which isn't in mainline
+yet either -- see the companion "rust: sync/drm: locking and
+DRM-registration prerequisites" postings this depends on. It's a
+mechanical type-level port with one real problem: the ported mode-object
+traits are mutually recursive in a way the (then-current) trait solver
+can't evaluate without unbounded memory. Patch 3 pins the associated-state
+types to break the infinite projection regress; that trades it for a
+coinductive cycle the old solver still can't resolve, which patch 4 fixes
+by scoping -Znext-solver to the kernel crate only (core/alloc stay on the
+old solver, since core.o ICEs under -Znext-solver on this toolchain).
+rust/kernel.o then builds clean, safe KMS layer included.
+
+Patches 5-7 are what vino needed once it started using the ported layer:
+patch 5 re-adds the HDCP 2.2 message-ID header v1 carried; patch 6 adds a
+Framebuffer::vmap() RAII guard; patch 7 adds safe accessors for the handful
+of raw drm_kms fields and helpers a real driver reaches for
+(drm::Device::hotplug_event(), CRTC-state mode(), plane-state
+crtc_w()/crtc_h(), DisplayMode geometry getters, connector EDID modes) so
+vino needs no raw escape hatch at all. v1's Device::as_raw() escape hatch
+is dropped entirely.
+
+Patch 8 is base drift: tyr predates the Kms associated type becoming
+required and needed PhantomData<Self> added, same as nova already had.
+
+Patches 9-18 are new in v2: generic bindings a *second* DRM driver needs
+beyond the safe KMS layer. Alongside vino we are rewriting DisplayLink's
+out-of-tree evdi module in Rust (it presents virtual displays whose
+scanout is pulled by a userspace daemon over a drm_event + ioctl ABI), and
+patches 9-15 are the seven things it needs that the layer did not provide,
+none of them evdi-specific:
+
+  9/18  drm::event -- a safe EventChannel/EventPayload for delivering
+        drm_events to a userspace client, with the receiver drm_file only
+        ever touched under the device event_lock so a send can't race a
+        file close (the classic NULL/UAF flush bug). event_lock() moves to
+        the core drm::Device since events are DRM-core, not KMS.
+ 10/18  declare_drm_ioctls_ext! -- declare_drm_ioctls! resolves argument
+        types and numbers from the in-tree kernel::uapi crate, which an
+        out-of-tree driver with its own ioctl range can't extend; the _ext
+        variant takes the type and number per entry instead. The original
+        macro is untouched.
+ 11/18  platform::RegisteredDevice -- the provider side of the platform
+        bus (create/register a platform_device at runtime), so a virtual
+        driver can spawn its own devices; platform.rs previously only bound
+        to existing ones.
+ 12/18  Framebuffer geometry accessors, reference counting (ARef via
+        drm_framebuffer_get/put helpers) and FramebufferVmap::as_bytes(),
+        so a driver can hold a flipped-in framebuffer and read its pixels
+        back without unsafe -- what evdi's GRABPIX does.
+ 13/18  i2c::BusController/BusAdapter -- the controller (provider) side of
+        the I2C bus, so a driver can present a virtual bus and service the
+        transfers; i2c.rs previously only registered I2C client drivers.
+        Both evdi and vino use it for their DDC/CI channel.
+ 14/18  sysfs::DeviceAttributes/AttributeGroup -- expose sysfs control files
+        on a root device with name-dispatched show/store; evdi uses it for
+        its /sys/devices/evdi/{count,add,remove_all} card-lifecycle files.
+ 15/18  hardware cursor support -- rework drm::event to guard the receiver
+        with a mutex so a GEM handle for the cursor bitmap can be created
+        for the client (sleepable), plus plane position/hotspot and
+        framebuffer format/handle accessors; both evdi and vino advertise a
+        cursor plane.
+
+Patches 16-18 round out the KMS feature set with more generic mode-object
+support the pre-safe-KMS vino driver had that the ported layer didn't:
+patch 16 a CRTC GAMMA_LUT (drm_crtc_enable_color_mgmt + a gamma_lut()
+state accessor) and a plane rotation property
+(drm_plane_create_rotation_property + rotation()/placement accessors);
+patch 17 optional connector detect()/mode_valid() hooks (report hotplug
+state, prune modes the driver can't drive), gated in the vtable like the
+plane/CRTC optionals; patch 18 the RawPlaneState::damage_merged() and
+for_each_damage_clip() accessors over drm_atomic_helper_damage_merged() /
+drm_atomic_helper_damage_iter() so a driver can repaint only the region(s)
+a client marked dirty. All three are generic KMS, not vino-specific.
+
+vino uses patches 1-8 and 16-18; 9-15 are included here (rather than a
+separate series) because they are small DRM/platform/i2c/sysfs binding
+additions of the same kind and share this series' base. The evdi driver is
+posted as a separate companion series ("[RFC PATCH] drm/evdi: a Rust EVDI
+virtual display") -- a second, working consumer of these same bindings.
+
+Known gaps, not fixed here: the connector layer has no detect_ctx()/
+writeback support; no per-plane alpha/blend-mode property yet.
+
+The primary consumer is drm/vino, posted alongside ("[RFC PATCH v2 00/9]
+drm/vino: DisplayLink DL3 dock driver"). Source:
+  https://github.com/FireBurn/vino-scripts
+  https://github.com/FireBurn/linux/tree/vino
+  https://gitlab.freedesktop.org/FireBurn/linux/-/tree/vino
+
+Changes since v1:
+ - Dropped the raw C KMS approach (FEAT_MODESET/FEAT_ATOMIC, drm_edid.h,
+   drm_blend.h, Device::as_raw()); replaced by the safe KMS layer
+   (patches 1-4), Framebuffer::vmap() (6) and safe accessors (7).
+ - Kept the HDCP header (patch 5).
+ - Added the evdi/vino bindings (patches 9-18): drm_event delivery,
+   out-of-uAPI ioctls, platform-device creation, framebuffer accessors,
+   i2c adapter-provider, sysfs attributes, hardware cursor, CRTC gamma /
+   plane rotation, connector detect()/mode_valid(), and plane damage-clip
+   accessors.
+
+Mike Lothian (18):
+  rust: drm: kms: forward-port the safe mode-object layer onto the
+    typestate device
+  rust: drm: kms: adapt the port to current drm-next
+  rust: drm: kms: break the Driver* trait well-formedness cycle
+  rust: drm: kms: build the kernel crate clean under -Znext-solver
+  rust: drm: expose <drm/display/drm_hdcp.h> HDCP 2.2 message
+    definitions
+  rust: drm: kms: add a Framebuffer::vmap() guard
+  rust: drm: kms: add safe accessors for common state and connector
+    modes
+  rust: drm: tyr: add the Kms associated type
+  rust: drm: add drm_event delivery
+  rust: drm: allow drivers to declare ioctls from their own uAPI module
+  rust: platform: add runtime platform device creation
+  rust: drm: framebuffer: add geometry accessors, refcounting and a
+    byte-slice vmap
+  rust: i2c: add adapter-provider (bus controller) registration
+  rust: add sysfs device attribute groups
+  rust: drm: support hardware cursor planes with sleepable event
+    delivery
+  rust: drm: add CRTC gamma LUT and plane rotation property bindings
+  rust: drm: kms: add connector detect() and mode_valid() hooks
+  rust: drm: kms: add plane damage-clip accessors
+
+ drivers/gpu/drm/tyr/driver.rs      |    1 +
+ rust/Makefile                      |    6 +-
+ rust/bindings/bindings_helper.h    |   11 +
+ rust/helpers/drm/atomic.c          |   32 +
+ rust/helpers/drm/drm.c             |    3 +
+ rust/helpers/drm/framebuffer.c     |   13 +
+ rust/helpers/drm/vblank.c          |    8 +
+ rust/kernel/drm/device.rs          |   31 +-
+ rust/kernel/drm/driver.rs          |    8 +-
+ rust/kernel/drm/event.rs           |  216 +++++
+ rust/kernel/drm/ioctl.rs           |   86 ++
+ rust/kernel/drm/kms.rs             |  432 +++++++++-
+ rust/kernel/drm/kms/atomic.rs      |  865 +++++++++++++++++++
+ rust/kernel/drm/kms/connector.rs   | 1109 +++++++++++++++++++++++++
+ rust/kernel/drm/kms/crtc.rs        | 1152 ++++++++++++++++++++++++++
+ rust/kernel/drm/kms/encoder.rs     |  409 +++++++++
+ rust/kernel/drm/kms/framebuffer.rs |  217 +++++
+ rust/kernel/drm/kms/modes.rs       |  151 ++++
+ rust/kernel/drm/kms/plane.rs       | 1230 ++++++++++++++++++++++++++++
+ rust/kernel/drm/kms/vblank.rs      |  461 +++++++++++
+ rust/kernel/drm/mod.rs             |    1 +
+ rust/kernel/i2c.rs                 |  192 +++++
+ rust/kernel/lib.rs                 |    1 +
+ rust/kernel/platform.rs            |   77 ++
+ rust/kernel/sysfs.rs               |  245 ++++++
+ 25 files changed, 6930 insertions(+), 27 deletions(-)
+ create mode 100644 rust/helpers/drm/atomic.c
+ create mode 100644 rust/helpers/drm/framebuffer.c
+ create mode 100644 rust/helpers/drm/vblank.c
+ create mode 100644 rust/kernel/drm/event.rs
+ create mode 100644 rust/kernel/drm/kms/atomic.rs
+ create mode 100644 rust/kernel/drm/kms/connector.rs
+ create mode 100644 rust/kernel/drm/kms/crtc.rs
+ create mode 100644 rust/kernel/drm/kms/encoder.rs
+ create mode 100644 rust/kernel/drm/kms/framebuffer.rs
+ create mode 100644 rust/kernel/drm/kms/modes.rs
+ create mode 100644 rust/kernel/drm/kms/plane.rs
+ create mode 100644 rust/kernel/drm/kms/vblank.rs
+ create mode 100644 rust/kernel/sysfs.rs
+
+-- 
+2.55.0
+
