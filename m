@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7813FC43602
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5648C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B736010F6A7;
-	Fri,  3 Jul 2026 07:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39A9410F6AD;
+	Fri,  3 Jul 2026 07:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="G+YS6hGx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K5u44Rxf";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1D6110F6A2;
- Fri,  3 Jul 2026 07:32:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783063970; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=cjiKBcRJ2FcfJtGgLDm2hbDOXuOzDEnA24oOaPihvz6qIPbq9wEKxbb3M0feRtvHBVG60El62ZZLHx8zffZhHOXTKl2SdPUKMez3SwxvPlJ8tvewbgcn8rUAyL5SumQBTKZNyo5khjCxoQiXFig5BbYsuN+YK9ntAf/0LFh8OBY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783063970;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ZYbUgCJ3ExixzrmVpyLYUCTsn1F7Y7J8nLL7GxXpIYs=; 
- b=JO+ESHHtQJksuVG6yAiK5+GCGF4sT7bkLIFTmDQBoCFSc35ozTiejfVA6lGXyPHEncdnpG8gCIpNhyRx72PWt+vhAfGGKJkLZaKn045OvtlfxCyLC4UgUzJR/kgs2z+x+/ZUpdpJCDoTBrc5VmsZVIDwBNqbGKeEUFeXKlwf64Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783063970; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=ZYbUgCJ3ExixzrmVpyLYUCTsn1F7Y7J8nLL7GxXpIYs=;
- b=G+YS6hGx1beU1SmsTlsKvXRZGgG6QuBlxYqowKWcvbO20A3qEvUsmoCJLcOS7FXq
- kHShIcWj3WttwZYHofQna6PIYhBU1PJhXVXog/GPoJEV5tDR7iLWVkA/6+gNvjERu5Z
- aaiYeAEnQg6U4tTrBHbmAsce/6DyJLT/gNdJQHkE=
-Received: by mx.zohomail.com with SMTPS id 1783063968273443.120155012085;
- Fri, 3 Jul 2026 00:32:48 -0700 (PDT)
-From: Robert Mader <robert.mader@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>,
- Robert Mader <robert.mader@collabora.com>
-Subject: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-Date: Fri,  3 Jul 2026 09:32:30 +0200
-Message-ID: <20260703073230.19982-1-robert.mader@collabora.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90C1210F6AD
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:40:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9AD3060103
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:40:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21FCB1F00A3A;
+ Fri,  3 Jul 2026 07:40:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783064447;
+ bh=TEYwMbAuauze9SEo1okcCv/rBT1QYhOj+UekS9U6LT4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K5u44Rxf0oy29adphqQqNVL6xG7qPClLw/ab9XIl68A5U49Zs86ZaZOxAzoALpAWO
+ /bUEXzC3AjEMvjbWlnG9OF3WM1d0A9MS/mIOlr1D8GGAWsiFRATU1oZtk5TqCRHan/
+ fuBBMm+bOsqROatYfPM+oHF4f7RST2q5Ma8siY3w0lhraQJQoiCbcW2gpNbDofFNF2
+ /mUD1tUxip37B1hrzA85INC8hzLy1dF9tcB/ADRw9b7pux+JCwpcKE53KHAtloPldL
+ VpamXtj3LvEnzVPhkbA0t8r+7FTJRfJZZBmcFI1wEyDIDjlp28ynuJTFGO/xIqaYzo
+ CibiuWbGnc50Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/5] rust: sync: Add abstraction for rcu_barrier()
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
+In-Reply-To: <20260703073141.3962604-5-phasta@kernel.org>
+References: <20260703073141.3962604-2-phasta@kernel.org>
+ <20260703073141.3962604-5-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 07:40:45 +0000
+Message-Id: <20260703074047.21FCB1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,75 +53,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The client cap is currently advertised unconditionally, even for drivers
-that do not support plane color pipelines. If clients supporting the later,
-like Wayland compositors or tools like drm_info, enable the client cap on
-such drivers they will be left without both color pipeline and the legacy
-properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
-conversion support.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The function name `rcu_barrier` causes module-level stuttering (`rc=
+u::rcu_barrier()`).
+--
 
-Prevent that by only marking the cap supported if there are actually planes
-with color pipelines.
+commit 7b2bfcaf9137cfae11ac6cf2b69d559a4e731460
+Author: Philipp Stanner <phasta@kernel.org>
 
-Note: while the color pipeline replacement for the legacy properties is
-still under review (1), we can assume that it will work as a drop-in
-replacement. That means any plane on any hardware currently supporting
-the legacy properties will be able to offer a functionally equal color
-pipeline and there will be no technical reason keep using the legacy
-properties if both the driver and the client support the new API.
+rust: sync: Add abstraction for rcu_barrier()
 
-1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
+This commit adds a safe Rust abstraction for the C function rcu_barrier(),
+which waits for all in-flight call_rcu() callbacks to complete.
 
-Signed-off-by: Robert Mader <robert.mader@collabora.com>
+> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
+> index a32bef6e490b0..7031ca5d24738 100644
+> --- a/rust/kernel/sync/rcu.rs
+> +++ b/rust/kernel/sync/rcu.rs
+[ ... ]
+> @@ -50,3 +50,23 @@ fn drop(&mut self) {
+>  pub fn read_lock() -> Guard {
+>      Guard::new()
+>  }
+> +
+> +/// Wait until all in-flight call_rcu() callbacks complete.
+> +///
+> +/// Note that this primitive does not necessarily wait for an RCU grace =
+period
+> +/// to complete.  For example, if there are no RCU callbacks queued anyw=
+here
+> +/// in the system, then rcu_barrier() is within its rights to return
+> +/// immediately, without waiting for anything, much less an RCU grace pe=
+riod.
+> +/// In fact, rcu_barrier() will normally not result in any RCU grace per=
+iods
+> +/// beyond those that were already destined to be executed.
+> +///
+> +/// In kernels built with CONFIG_RCU_LAZY=3Dy, this function also hurrie=
+s all
+> +/// pending lazy RCU callbacks.
+> +///
+> +/// Note that this is one of the RCU primitives which must not be called=
+ in
+> +/// atomic context.
+> +#[inline]
+> +pub fn rcu_barrier() {
 
----
+[Severity: Low]
+This isn't a bug, but naming this function rcu_barrier() inside the rcu
+module leads to stuttering when called (i.e., rcu::rcu_barrier()). Would it
+be better to name this simply barrier() so it can be called as
+rcu::barrier(), similar to how rcu_read_lock() is exposed as
+rcu::read_lock()?
 
-Changes in v3:
- - Move the new check behind the existing EINVAL ones
- - Rebase on latest drm-misc-next
+> +    // SAFETY: `rcu_barrier()` is always safe to be called. It just migh=
+t wait for a grace period.
+> +    unsafe { bindings::rcu_barrier() };
+> +}
 
-Changes in v2:
- - Replace the driver feature with a simple check (suggested by Maarten
-   Lankhorst <maarten.lankhorst@linux.intel.com>)
- - Expand the commit message slightly and change the title
----
- drivers/gpu/drm/drm_ioctl.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index e2df4becce62..9039a39c4324 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -373,13 +373,25 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
- 			return -EINVAL;
- 		file_priv->supports_virtualized_cursor_plane = req->value;
- 		break;
--	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-+	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
-+		struct drm_plane *plane;
-+		bool has_plane_with_color_pipeline = false;
-+
- 		if (!file_priv->atomic)
- 			return -EINVAL;
- 		if (req->value > 1)
- 			return -EINVAL;
-+		drm_for_each_plane(plane, dev) {
-+			if (plane->color_pipeline_property) {
-+				has_plane_with_color_pipeline = true;
-+				break;
-+			}
-+		}
-+		if (!has_plane_with_color_pipeline)
-+			return -EOPNOTSUPP;
- 		file_priv->plane_color_pipeline = req->value;
- 		break;
-+	}
- 	default:
- 		return -EINVAL;
- 	}
--- 
-2.55.0
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703073141.3962=
+604-2-phasta@kernel.org?part=3D3
