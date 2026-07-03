@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D6DC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 12:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49014C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 12:02:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D58AC10E5BB;
-	Fri,  3 Jul 2026 12:02:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F7910E5CF;
+	Fri,  3 Jul 2026 12:02:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d1p5DJtE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UkrumL1J";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4BE10E5BB
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBAA510E5BB
  for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:02:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EB0C46001A
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:02:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101971F000E9;
- Fri,  3 Jul 2026 12:02:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B2D8441A66
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:02:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E85B1F00A3A;
+ Fri,  3 Jul 2026 12:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783080159;
- bh=XJhoqtd+XutQZMwJdnD8usqZSwYWXDGcrDFKt/cuKCE=;
+ s=k20260515; t=1783080160;
+ bh=tNDlnGSQRBRdimSo4nNCsWu0+EmCopOMoPyOI4HkfuI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=d1p5DJtEVbdyTioR5+QMpYmqo6VLyhMMI1B8Uot6GSf6A5lBx1DawbaxUIHRcHR9B
- qL5Pbva7ClpXPJUYn7ZPondXmHoWUiLfh+idbw2gmFGfGuNkPkcLPdOTauzjLBGl1m
- VKLJofi9RmKKbeG84d6CQ+FMxDgzsNH0Ht4e+P1q8nl3KUPT71UEaaoCyADQZnXVAf
- IbjkAuXhPHrZUmzUoqoEdHkt+RLAWDodwCsZmgEtvi0Q4MqsInKtXTihe8sGYRku/i
- xVi7OZHRKymXwdLgItswiFy6gNXIgfSUTOVOWmsQ1w3Ny9tHR3jsfUR/NesVUtfHPo
- kyNljEawMpAdw==
+ b=UkrumL1JdGxvpxirZJt/CSwXKk+Jy6oOTdcqxAIOE7TReNDRDhf0Cmc3/Cy/Udf7b
+ c67ClLTQpjadszXT0OZzdEgbadAn+62N6FzCKD30yOGJz+tSavaNwq473kkrtC2ygH
+ lSxU+7zt0bLdp+sEqZBdGII7tygluJ4UZeJCK+NclxxuNRqyFOyEAlI1w18BINYYbO
+ SvcIpA8tgluJieu75A8S7IBaOxzJKFxI05+gzCZGu63aqLguSWfgRiVjVZEMN/lpyE
+ HR1n0PlZ1SJoEsrGPGez+rPysChAt/FRBh2PasR1jq3JTYXvXRTFLZ3yEdGdCLaGHg
+ /TGlBHZDDbt9w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 08/14] drm/msm: Switch to generic PAS TZ APIs
+Subject: Re: [PATCH v9 06/14] remoteproc: qcom_wcnss: Switch to generic PAS
+ TZ APIs
 To: "Sumit Garg" <sumit.garg@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260702115835.167602-9-sumit.garg@kernel.org>
+In-Reply-To: <20260702115835.167602-7-sumit.garg@kernel.org>
 References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <20260702115835.167602-9-sumit.garg@kernel.org>
+ <20260702115835.167602-7-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 03 Jul 2026 12:02:38 +0000
-Message-Id: <20260703120239.101971F000E9@smtp.kernel.org>
+Date: Fri, 03 Jul 2026 12:02:39 +0000
+Message-Id: <20260703120240.4E85B1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,130 +59,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Generic PAS TEE backend maps TA-level errors to -EINVAL, breaking =
-the DRM MSM fallback logic.
-- [High] TOCTOU race condition in generic PAS API wrappers leading to NULL =
-pointer dereference.
-- [High] Unconditional PAS availability check causes infinite probe deferra=
-l on platforms without PAS support.
+- [High] The generic qcom_pas API lacks synchronization against concurrent =
+registration and backend unregistration, leading to TOCTOU races and Use-Af=
+ter-Free.
+- [High] Blindly trusting param[1].u.memref.size from the second TEE invoca=
+tion in qcom_pas_tee_get_rsc_table() leads to an out-of-bounds read and ker=
+nel memory leak.
 
 Pre-existing issues:
-- [High] The MSM DRM driver propagates -EOPNOTSUPP instead of -ENODEV, fata=
-lly failing GPU initialization.
+- [High] The wcnss_probe() function fails to clean up sysmon and smd subdev=
+ices on error paths, leading to memory/socket leaks and dangling pointers i=
+n a global notifier chain.
 --
 
-commit fd17ff54a9520d92288105f263b3bc29eb9cbd4b
+commit f9552b7475ea1af7226f210e3b4d0e315d46e17d
 Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-drm/msm: Switch to generic PAS TZ APIs
-   =20
-Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
+remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+
+Switch qcom_wcnss client driver over to generic PAS TZ APIs. Generic PAS
 TZ service allows to support multiple TZ implementation backends like QTEE
 based SCM PAS service, OP-TEE based PAS service and any further future TZ
 backend service.
 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index c62c45bb0ddbb..489462065ea95 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> Switch qcom_wcnss client driver over to generic PAS TZ APIs. Generic PAS
+> TZ service allows to support multiple TZ implementation backends like QTEE
+> based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> backend service.
+
+[Severity: High]
+Is there an out-of-bounds read and kernel memory leak in the OP-TEE PAS
+service?
+
+In drivers/firmware/qcom/qcom_pas_tee.c:qcom_pas_tee_get_rsc_table(), a
+shared memory buffer is allocated based on the size from the first TEE
+invocation. In the second TEE invocation, the TEE can modify
+param[1].u.memref.size.
+
+The function then blindly trusts this size:
+
+    *output_rt_size =3D param[1].u.memref.size;
+    rt_buf =3D kmemdup(rt_shm_va, *output_rt_size, GFP_KERNEL);
+
+Can a compromised TrustZone environment return an increased size, causing an
+out-of-bounds read from the originally allocated buffer?
+
+> diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wc=
+nss.c
+> index 4add9037dbd5a..0dbdd18ab3dd9 100644
+> --- a/drivers/remoteproc/qcom_wcnss.c
+> +++ b/drivers/remoteproc/qcom_wcnss.c
+[ ... ]
+> @@ -257,7 +257,7 @@ static int wcnss_start(struct rproc *rproc)
+>  	wcnss_indicate_nv_download(wcnss);
+>  	wcnss_configure_iris(wcnss);
+> =20
+> -	ret =3D qcom_scm_pas_auth_and_reset(WCNSS_PAS_ID);
+> +	ret =3D qcom_pas_auth_and_reset(WCNSS_PAS_ID);
+
+[Severity: High]
+Can this introduce a TOCTOU race window?
+
+If multiple PAS backends probe concurrently, qcom_pas_ops_register() in
+drivers/firmware/qcom/qcom_pas.c performs a lockless read-modify-write of
+ops_ptr:
+
+    if (!qcom_pas_is_available())
+        smp_store_release(&ops_ptr, ops);
+
+This allows one backend to silently overwrite another.
+
+Additionally, when this driver calls qcom_pas_auth_and_reset(), it lacks
+RCU or try_module_get() protection:
+
+    if (!ops_ptr)
+        return -ENODEV;
+
+    return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+
+If the backend module is unloaded concurrently, ops_ptr is unregistered and
+the module memory is freed, leaving this driver to dereference a dangling
+function pointer. Is there a way to serialize these registrations and
+protect the backend access?
 
 [ ... ]
-
-> @@ -146,10 +147,10 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu,=
- const char *fwname,
->  		goto out;
+> @@ -557,10 +557,10 @@ static int wcnss_probe(struct platform_device *pdev)
 > =20
->  	/* Send the image to the secure world */
-> -	ret =3D qcom_scm_pas_auth_and_reset(pasid);
-> +	ret =3D qcom_pas_auth_and_reset(pasid);
-
-[Severity: High]
-Does this new PAS API wrapper have a TOCTOU race condition?
-
-If the PAS backend unregisters concurrently, could ops_ptr become NULL
-between the check and the dereference in qcom_pas_auth_and_reset()?
-
-drivers/firmware/qcom/qcom_pas.c:qcom_pas_auth_and_reset() {
-	if (!ops_ptr)
-		return -ENODEV;
-
-	return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
-}
-
+>  	data =3D of_device_get_match_data(&pdev->dev);
 > =20
->  	/*
-> -	 * If the scm call returns -EOPNOTSUPP we assume that this target
-> +	 * If the pas call returns -EOPNOTSUPP we assume that this target
->  	 * doesn't need/support the zap shader so quietly fail
->  	 */
->  	if (ret =3D=3D -EOPNOTSUPP)
-
-[Severity: High]
-Is the DRM MSM fallback logic preserved with this generic backend?
-
-The driver expects -EOPNOTSUPP to gracefully handle unsupported zap shaders.
-
-If the generic PAS TEE backend's __qcom_pas_tee_auth_and_reset()
-unconditionally maps all TA errors to -EINVAL, will this cause GPU probe
-to fail fatally on TEE platforms where the zap shader is not supported?
-
-drivers/firmware/qcom/qcom_pas_tee.c:__qcom_pas_tee_auth_and_reset() {
-	ret =3D tee_client_invoke_func(data->ctx, &inv_arg, param);
-	if (ret < 0 || inv_arg.ret !=3D 0) {
-		...
-		return ret ?: -EINVAL;
-	}
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this function propagate
--EOPNOTSUPP instead of -ENODEV?
-
-If qcom_pas_auth_and_reset() returns -EOPNOTSUPP, the code sets
-zap_available =3D false but leaves ret =3D -EOPNOTSUPP.
-
-Since callers explicitly check for -ENODEV to fall back to
-SECVID_TRUST_CNTL, could this unmapped -EOPNOTSUPP abort hardware
-initialization?
-
->  		zap_available =3D false;
->  	else if (ret)
->  		DRM_DEV_ERROR(dev, "Unable to authorize the image\n");
-
-[ ... ]
-
-> @@ -175,9 +176,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 p=
-asid)
->  	if (!zap_available)
->  		return -ENODEV;
-> =20
-> -	/* We need SCM to be able to load the firmware */
-> -	if (!qcom_scm_is_available()) {
-> -		DRM_DEV_ERROR(&pdev->dev, "SCM is not available\n");
-> +	/* We need PAS to be able to load the firmware */
-> +	if (!qcom_pas_is_available()) {
-> +		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
+> -	if (!qcom_scm_is_available())
+> +	if (!qcom_pas_is_available())
 >  		return -EPROBE_DEFER;
->  	}
 
 [Severity: High]
-Could this unconditional PAS availability check cause infinite probe
-deferral on platforms without PAS support?
+This is a pre-existing issue, but does wcnss_probe() fail to clean up
+subdevices on error paths?
 
-By checking qcom_pas_is_available() before checking if the zap-shader DT
-node exists (which happens inside zap_shader_load_mdt()), do platforms
-that lack PAS capabilities fail to reach the DT node check and defer
-indefinitely?
+Earlier in wcnss_probe(), qcom_add_sysmon_subdev() and qcom_add_smd_subdev()
+are called. If qcom_iris_probe() subsequently fails (e.g., returning
+-EPROBE_DEFER because regulators are not ready), the error path jumps to
+detach_pds:
 
-Previously, qcom_scm_is_available() returned true on these platforms,
-allowing the driver to gracefully return -ENODEV when the DT node was
-missing.
+    if (IS_ERR(wcnss->iris)) {
+        ret =3D PTR_ERR(wcnss->iris);
+        goto detach_pds;
+    }
+
+And the cleanup path skips subdevice removal entirely:
+
+    remove_iris:
+        qcom_iris_remove(wcnss->iris);
+    detach_pds:
+        wcnss_release_pds(wcnss);
+
+Since qcom_add_sysmon_subdev() allocates memory, creates a QMI socket, and
+registers a notifier on the global sysmon_notifiers chain, does this leak
+these resources on every probe deferral?
+
+Furthermore, sysmon->dev caches the platform device pointer, which becomes
+a dangling pointer if the device is ultimately removed. Could this lead to
+a use-after-free when sysmon_notify iterates over the leaked notifiers?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702115835.1676=
-02-1-sumit.garg@kernel.org?part=3D8
+02-1-sumit.garg@kernel.org?part=3D6
