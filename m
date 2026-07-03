@@ -4,100 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB4FDC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605E4C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 07:18:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22DB710F694;
-	Fri,  3 Jul 2026 07:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A5EA10F6A9;
+	Fri,  3 Jul 2026 07:18:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T5p9sIR/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y18Php5u";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5435610F694
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:10:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DF7C243AAD;
- Fri,  3 Jul 2026 07:10:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CED571F000E9;
- Fri,  3 Jul 2026 07:10:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783062619;
- bh=5EHukF5H/z9l9uC2WxZRVzgW9mK1DchOxCTKztHSowk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=T5p9sIR/c3iKErjZCsuxu797uuaK++oKaepi2ujfJjvVEfav6h5ZRF8W/pqp46ZIN
- CSVbwulKUChwFEoTcKcogGloLiN0iOyozBS6wBJ4oJRMXyQsM0mZGjgWHybnAS6cF4
- 8tKS6VNyxGNfCtfOd5PEKtOOE1Hefv0Vb7+FI8wsYKJJ8Y/8QXz9bmdwhUuTbAq6Mx
- VzJGQc0SxfYZRT1E3CvXpgLR5p/hG0MVEcjYHDlW8RHCE/eCsh+KbPiPZot1biRH6S
- 0I2oNFToeebbrQoKt+0O6XDWa9Pak+hDp9hidHEDQzaz3KQ+hNGX4iEKhKo+96Kd0R
- KH6D41Ge2Wmtg==
-Message-ID: <7ecf28a5-1c69-41b9-a6ed-0bf14f62b9fa@kernel.org>
-Date: Fri, 3 Jul 2026 09:10:10 +0200
-MIME-Version: 1.0
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010003.outbound.protection.outlook.com [52.101.85.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE9610E581
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 07:18:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RlpnsF9x5atzy2bHlldDL7bz+DGBWfcGk+eCMAwGh+jrODyn6VwpblG89C5FEqUyQJ2B9+sEx789Lams8qp5IxHzTLUq0JS0WeEEFOQNc0LRuxq7Dg1yunu2siubyTyyrquGFblZZUcr6XpKpr4xtToezXU5JfaYAp3eJB2/CchHM7eHvUCJLI3BusjLfeWFKgRFNRIPCS4BAktEDBdnp0wFKtWEZTFh/V7TS8JUbbh6fVXGKLHhzSnkx2fSC+tDLgHmxBcRsCnbGYGCsbMvBW23L8oTul8JmNgX/wpQKnYY5h8yATDaHC6E9DyP+eI23s5j/t7Hnp2+aprS3zfVmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LbJjZJIrDSnwhHzE5qpUAoECLDEIg5imBWN1SxMXFd8=;
+ b=xGbAc3QdAvuEqRVfuqZmdqYdIioWP508/vUSX3P+LjB70lWn6CkYj1SbNi7+KzWRKPoorqfKg3kE13DZr8nfHoh85pZdEQFVv+1EZ3ip8abJVWdPE3mEd3Y3axk9NKc8dR+qnO2tPT1gfnXH+zvZQ1RbcIUpILj06pUICXFZv6Pe65mFNoJufA3lt1f1Pqhlkmh/GznI/U4yu9Bw1jdIwSmMQ/yYBNLuosVDKUHqv1iEbxfSbTnjBkYcy5U3UJ/cQJWsqDAhfuxQW24WfdCIxADHGJM4yTWl/Az4OGnhsQR3bmlfMINygnIo/uAnjEws6i1v9GX/lEIy6v1WEmM8xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LbJjZJIrDSnwhHzE5qpUAoECLDEIg5imBWN1SxMXFd8=;
+ b=y18Php5uxHUdrla10qgXD/j+TabtUek9UKXP69PyR9IN3EAmSDhjFIcBPwOTplpGPO/db+zFGcz7CpguhHB6Td80ga/ZjNeJ/iNZkja5BTyuf2E7VWYNZoiUMTlMaUsvRvxwBvC+GAbpi3TXxO7lOaJ4UiQkl11nZ4LE2MoLNEE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
+ 2026 07:18:24 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
+ 07:18:24 +0000
+Message-ID: <c637c757-181b-494b-9866-27539b0fa474@amd.com>
+Date: Fri, 3 Jul 2026 09:18:19 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: display: tegra: Add channel/syncpoint
- range properties
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
- <Np88My8kTE-rRphOw0a-Ew@nvidia.com>
- <20260626-sceptical-aardvark-from-mars-cedf81@quoll>
- <xLshrt-qQoOT-VB3QjfvBA@nvidia.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] dma-buf: docs: remove invalid struct member
+To: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+References: <20260702171234.31030-1-nico.antinori.7@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <xLshrt-qQoOT-VB3QjfvBA@nvidia.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260702171234.31030-1-nico.antinori.7@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0375.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f8::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL4PR12MB9505:EE_
+X-MS-Office365-Filtering-Correlation-Id: afbec0df-f2ce-47b4-2cb8-08ded8d344ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|11063799006|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: YJJm87SQYm1Q8wbcA3WVZ6IsfvriDNqA03rc99ud7aoAJEXkNwy8faGdWU3d1f+FESYKB3tVYnGNByJETFXW5QP++Sl/23hnIsK1dzCDVFk31u180Q1Dfstk+P/HgfofCC99Rt1VVIvJyoqi8SJ+AwQVJMnk5c76hZP2RwZcAxTZCjVZ1g1rhD7Ry5C9G01ms8ZPg/O25m7LhwNmo7jC8X64aYy6msiSlHbtMPz7I53fc9n/HesvoPQQPLzvEJVazXBDbXfRV6RZIsB2JFDJZ76As9p5iihqzZOTbPpDwqRuOx/80ARXcTPaLjKLnh8o2BqbTqtnbYFrRd8hOQIVrxHHRAx9S21br+jfThMpgmqsJOU6ibl3sB2iTZ2j5Bx5f45h7GGMfWUN4avGQtwwfWi6OpmZCU7kmU2BELxvurHV0c5Vf/cktZ+d1tzDiIfjMGNBf3C5vOUD0WWshtJV3QTeN2TOEQpDBvhuuTr7WhoL4sWYyzbvQI8G+jO4fkeMke12CHFLog3xLe5TmKQrwnDZR3pe4TbwXLjy8aUw2ocSHEwS8XpOkqh7aVOtctfzGvfk13zsDgi3RwsK0UrSbaFRrC5Lr38mY8rb48nOHmm/4CTRbrV1V412mteIrknJNxclt+w2Yt1R5IEA/mrZrdnLlYSzoSkhf/AcjwUPFvI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDZPNHdGbE50eDdBbkJhUEppYnNmM01mT1JBbXJ4MytkV210SnVnbmRERVBt?=
+ =?utf-8?B?YmRGWXZMSXlwVEhieStwY0RUakZ0RnMvTTYzNlJKaHllUUc5S2FDOGIvK1dS?=
+ =?utf-8?B?NCtDSXBaSUZWYlFBek9iK3pFcXdkUmc1YjZQOGZ0QjU4WjZLNmJTUnU5bnBF?=
+ =?utf-8?B?VDhvVG9EVkJzUFFjOG1JdnM2d3ZpRGt3ci8vZmd4dE0yUUk3YlBuMjc5d2tX?=
+ =?utf-8?B?Q3FoVmk4NndaNzRHZUdBN0Y4ZFRPK0Yzdzhmc0dwRmZTOGtqaCs4OW5xSi96?=
+ =?utf-8?B?azZXdGpaeC9TWkF3dnNUQXQwQ3cyd0ZjRUtWQ0tEN29MZVUvTVEzMS9QcDZY?=
+ =?utf-8?B?USt2OS9kQ1l1RWQ3STVoNSt1NytmdEJSSHlHVEFsRFpieWc2ZGZtTzBkQm5x?=
+ =?utf-8?B?YXBjL2NpVVRJTHlhdS95N01LTE1pYjVaQnk4L25TVllORDRUUy92MjNRaDJI?=
+ =?utf-8?B?U3FUenE2UlIrQWdiSTd6Z1Nra3VHS0ovK1Q3UVBsVHJ1MmFqRWVod0dOTHkz?=
+ =?utf-8?B?NEE1eUhHSEJ3Yk9hREZ3b1NVaUNtakZOREdCazE5cTRrSVN2RGc0OEM4UmJ1?=
+ =?utf-8?B?Z2swbGlHVExJNEh4K2lKQndoaGdQWVVPKy9BZDhYNmVJM2tPUVdOaEJodTV3?=
+ =?utf-8?B?Zit3TXVPWkJFZ2pxNUV5NUdCdTVYYkdtU28vQ2FTSi8xNk5Sby9tVXByVWVh?=
+ =?utf-8?B?Uk1JdjRYdlk0VVg5Y3NKS1h4bjNVSHlXZEJVZFF1bnljZlZQdVhKS3VrRmZa?=
+ =?utf-8?B?ODV3K0w5RmdiMmhKZG9tcWo4azRIRWgrNmE2TEw3bXRHZDI3dkRGMWJOYmNz?=
+ =?utf-8?B?U09NMDdBdVpBZmtOdEQ1Rk50UEZIaHdyOVd5RGV6V1VER2FYN3ZjYUlweTdI?=
+ =?utf-8?B?Y1NKM3hjMWZDV1IvQ2Y0M1gxV0ZnMng3Q2ZMNFdWcXFoYVVBVENYVnlEV2NP?=
+ =?utf-8?B?M1paZWF2Y0kvQVJGOE5GemIzU1RqUlRYSjFDUkxxWVdlWHUxeERYNUc0MFYr?=
+ =?utf-8?B?WkRyQ0QvVVBnM3dqc1AxSGJORzQxM3lxKzhRUEYrczhMWVdyL0lwVGs1WDhY?=
+ =?utf-8?B?Qis1dW1hSm40T05tcWN1bU53b3BwL1UwWHd4WHkzOUVVVnV4aUlIY2Rta1Ry?=
+ =?utf-8?B?YUo0elc1a3lOdWNlMlNSakhQVFRyNjdBdzdjT1Z0L1hncEhtQ1hyN0cwSU5I?=
+ =?utf-8?B?Q0FZRURNYkw3TTFvcU1GTHk4eVNNWldUcC9jMWltNk12N2hCQ2dOMDBFd3Qr?=
+ =?utf-8?B?czQrVjRCYm5JZjhsODlGVmllaWhwNHQvLzhIOHJZWnRHWWZ2cEhxSWhHdmNp?=
+ =?utf-8?B?R3hLVFg5ZWF2Y0Y4WWpRVUtnd2VYUVZYdTlxeFRCZmIxNWRCRHcwazB6Tk1L?=
+ =?utf-8?B?SGsxS2d0UXR4OXJGcE1IckQ4NHBLSzVWQjZ2UHdacVhWY28yUG5MYUVoRk1s?=
+ =?utf-8?B?NWcvVE5DbThvNGhFcExzWTBEa3ZPK1QraWNFSzFId1BtUFJDVmpoaGxnOWdo?=
+ =?utf-8?B?R2QyNGFHRkFETXVReUo4c3FTbGtaR00vMFBzRzZwTnBnSFlnQjNQemIyNmcr?=
+ =?utf-8?B?NTJxek1URHJZMDdvOTBLakFXdXFlUW45NkxPSkxnRGc5aGNBZ3M1V2tWVFVP?=
+ =?utf-8?B?N2h3MUI4VlIvdWlFZmRSbitpeEJXU2ZZRjBKQXdIT3pEaW5RdldNdUJQc2FZ?=
+ =?utf-8?B?TE5WUDJmMlc5UDZIbkNMTVVMMGp0ekpHS2d6MmVQL3B0eTlmMi9ZV2pTVUJm?=
+ =?utf-8?B?aFllb1ozeGNEaGRoM3JYT25QMU5EOUZWaXBRTzB6a09hM0xkNXl3c3BjeVZK?=
+ =?utf-8?B?TkE0bXd3TURuWlBFMkNGWWRrUXpSSXJ0NnNkamh6QUdZT05OMzJ2TGVzRlAr?=
+ =?utf-8?B?U0Q2c2NWbkl5OHlHSUhtd1pXd0pHM2dYUzNTVmMxUDhxRnZWdU12UjY0dUJ2?=
+ =?utf-8?B?ckNkb01mZUtldldoVEVqR2FRcGE2RWM5OUZuWGY3SStzSC9sL2ZvQ1BGKzhN?=
+ =?utf-8?B?Z3UrczhvYVF6bDEwejNUeXJZWjhrQzdJY2VNRlBzbGxXMXJwVXpYVll0UlQr?=
+ =?utf-8?B?c05qTnJVN2g2MmhxOWgraWxRZ0Y5QTQ5b0hiK2d2U1U2UjdjTUg0bHJhVkNH?=
+ =?utf-8?B?UnNtU09CZXFsSE5ETnV2cjZYUVdvN2ZxVUNKeS9YWVRQZHhOMktQazIyL281?=
+ =?utf-8?B?QWFWMHlVSWV6VForYlNKc1YxbFZqWmdkQktFc2o5bmJpMXpTNno4M1Z0eDNV?=
+ =?utf-8?B?dTZtLzRNNnBNZlkzcU5ucWtGV1htWWpRdVVzaU1ZTVVsY05hZGJLTS9KRUVx?=
+ =?utf-8?Q?UcAwisOz/esAzeM8aA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: afbec0df-f2ce-47b4-2cb8-08ded8d344ca
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 07:18:23.9324 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SWRMWe1jB7LaZauD6E/1ZSDnkQISFdwFvcgho++oA5D3iETZkIr5TjkrRadGEMsR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9505
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,66 +137,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/06/2026 06:02, Mikko Perttunen wrote:
-> On Friday, June 26, 2026 7:26 PM Krzysztof Kozlowski wrote:
->> On Thu, Jun 25, 2026 at 06:26:43PM +0900, Mikko Perttunen wrote:
->>> On Thursday, June 25, 2026 5:36 PM Krzysztof Kozlowski wrote:
->>>> On Mon, Jun 22, 2026 at 05:22:51PM +0900, Mikko Perttunen wrote:
->>>>> Channels and syncpoints available may be limited when other system
->>>>
->>>> What are channels and syncpoints?
->>>
->>> Very host1x-specific hardware resources. Somewhat close to GPU channels
->>> and semaphores / fences if you're familiar with those.
->>>
->>>>
->>>>> components are using them. Add properties nvidia,channels and
->>>>> nvidia,syncpoints to limit the range of usable channels and/or
->>>>> syncpoints.
->>>>
->>>> Why isn't this deducible from the compatible?
->>>
->>> When Host1x is partitioned, the hypervisor (or other software entity
->>> with access to the non-vm host1x register regions) can configure which
->>> channels and syncpoints are available to each partition arbitrarily.
->>
->> So you will have different boards for the same SoC with different
->> values?
->>
+On 7/2/26 19:12, Nicolás Antinori wrote:
+> In the structs dma_fence_array and dma_fence_chain, the field 'lock'
+> has been removed, but its documentation comment remained. Remove the
+> stale descriptions to clear up the following kernel-doc warnings:
 > 
-> Yes -- even the same board will have different values depending on the
-> use case of the system. The hypervisor or bootloader has to update the
-> properties according to the configuration it has programmed in the
-> hardware.
+> WARNING: ./include/linux/dma-fence-array.h:47 Excess struct member 'lock' description in 'dma_fence_array'
+> WARNING: ./include/linux/dma-fence-array.h:47 Excess struct member 'lock' description in 'dma_fence_array'
+> WARNING: ./include/linux/dma-fence-chain.h:48 Excess struct member 'lock' description in 'dma_fence_chain'
+> WARNING: ./include/linux/dma-fence-chain.h:48 Excess struct member 'lock' description in 'dma_fence_chain'
 > 
-> I will update the commit message with clarification.
-> 
->>>
->>> How that partitioning was done is not discoverable through hardware
->>> directly, so we need to pass that information through device tree.
->>>
->>>>
->>>> Also, nvidia,channels is too broad/generic. This is not ADC, right? And
->>>> channels is a common term in IIO. And in few other cases.
->>>
->>> It's not ADC. Yes, it's a common term in a lot of contexts. I can call
->>> it nvidia,host1x-channels if you prefer but that seems a bit redundant
->>> given the context.
->>
->> host1x is indeed poor, but maybe there is some way to be a bit more
->> descriptive? message-channels?
-> 
-> I would prefer to keep these as is -- anyone working with host1x will
-> know what 'channels' and 'syncpoints' mean, and changing the name could
-> cause confusion since the name would not match other code or
-> documentation discussing these.
-> 
-> I can update the binding documentation with some more explanation about
-> what these properties mean.
+> Fixes: 5943243914b9 ("dma-buf: use inline lock for the dma-fence-array")
+> Fixes: a408c0ca0c41 ("dma-buf: use inline lock for the dma-fence-chain")
+> Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 
-Property has only one meaning in DT schema, so basically you are now
-fixing nvidia,channels to uint32-array for all possible use cases and
-nvidia devices. Well, you have been warned.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Best regards,
-Krzysztof
+Going to push that to drm-misc-next later today.
+
+Regards,
+Christian.
+
+> ---
+>  include/linux/dma-fence-array.h | 1 -
+>  include/linux/dma-fence-chain.h | 1 -
+>  2 files changed, 2 deletions(-)
+> 
+> diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
+> index 1b1d87579c38..0c49d7ccefb6 100644
+> --- a/include/linux/dma-fence-array.h
+> +++ b/include/linux/dma-fence-array.h
+> @@ -28,7 +28,6 @@ struct dma_fence_array_cb {
+>  /**
+>   * struct dma_fence_array - fence to represent an array of fences
+>   * @base: fence base class
+> - * @lock: spinlock for fence handling
+>   * @num_fences: number of fences in the array
+>   * @num_pending: fences in the array still pending
+>   * @fences: array of the fences
+> diff --git a/include/linux/dma-fence-chain.h b/include/linux/dma-fence-chain.h
+> index df3beadf1515..42289f505164 100644
+> --- a/include/linux/dma-fence-chain.h
+> +++ b/include/linux/dma-fence-chain.h
+> @@ -20,7 +20,6 @@
+>   * @prev: previous fence of the chain
+>   * @prev_seqno: original previous seqno before garbage collection
+>   * @fence: encapsulated fence
+> - * @lock: spinlock for fence handling
+>   */
+>  struct dma_fence_chain {
+>         struct dma_fence base;
+> --
+> 2.47.3
+> 
+
