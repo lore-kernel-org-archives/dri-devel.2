@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2AEFC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D8ABC43327
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC7910F611;
-	Fri,  3 Jul 2026 03:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB2F310F60F;
+	Fri,  3 Jul 2026 03:02:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="tigAL/LR";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="rX6xsKpG";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FFB710F611
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:32 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-493c55d5c7aso494535e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:32 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 943AC10F60D
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:35 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-493c19bad03so418115e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047751; x=1783652551;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047754; x=1783652554;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3VijT5EAGT5PjFlBgSgvYFumoT9q3jXWudWem8ZQxFk=;
- b=tigAL/LRp71FLUoaWLwirH5gwfm8Oc69XVxKiRXMWyB4p8zbnUjnUyWyBZzPqwu+D/
- fCG2fb5qC00zyrsjNDTGQLIivWH/naLqz140qOTgjO9koR4fqAcBsDi5X+OdgI4aeBMe
- wX3gHHiATtPWoTJbaKo0+n4DP+fczA4WbrMQWBbjZyKsRrZDxAOztKo7LQlAD1sLQtoq
- RH49h1Qq24VgBeWiQ0fyVrDwn1VBM4P2ipzFpjKUwOi62IVdFleY86/Nlf2CBcnSJx0+
- 8H4x5AhXLSWXpXa6xgyXsbnAIVcvjqs2Oulr+o+hq3+AeZHqv3twDg1beyzG9NBF78/v
- 6FsQ==
+ bh=mAWpF5GM7+KlRlhG2oJiDdMl4YCXDmzEDdK+o+UpA3k=;
+ b=rX6xsKpGI5XNkDvUblGN6zbsR6u7EylrEzabuklfZkqmkvSHn+mjrTdKQA6hJ1D1UJ
+ 1PdRdZxv3YmgvykdFocKwaswUOQ8lggim3r7WhIeG9x8NLuSORoIKDKWAMX0LdeAMSj0
+ 9R3TZj6iHi+Yab6xAjcQngxXU5U/fue1l+S18ODH1b0EajX3g1/D6TD+sVfqbFx6cwhJ
+ Svw5OuYeE2ofkqtrlCslx6cpBsfkzSkJrIFyrPXMsc6OYzLvhwqSmOhocBnye6jCIATs
+ fDoR0eyKmAuE1N699qV6s2O9EGc2I/VYEDrhj5r4Uv4KiIUiIy/lZQ25TRv8cxHmuJcy
+ 5x3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047751; x=1783652551;
+ d=1e100.net; s=20251104; t=1783047754; x=1783652554;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=3VijT5EAGT5PjFlBgSgvYFumoT9q3jXWudWem8ZQxFk=;
- b=Plo89C/2Cb0fbbiQe19aoP3JuSqGHFya2oAvWCCRf8TzwX2MfdcWBoLnPCFebCz5ul
- lbdfOSGS6VB5i0k4c/gORSxnYy0fZsH9S7ZDOSXZUJdhJ5eVuPOZfiYp/zSOA4sFGE27
- fnomUZ8wSfhOy9zYJQd2jrZRn9XanzA+5Z2hM3p701uO6rleI1OLcNXUuc2KwadsDVH5
- zs4b4ArhuFgVCwpBLtSWtho44aqaiz+984yreaRDYFw3w3wj+uswyDoat2x9wMTjGYDl
- rKBWD28AKTtDLpPGJcFK/c4eaFLEkhA43zv2lumA5At3DOBylIA3vDL8p3kAtmQ1IpHz
- AQ+g==
-X-Gm-Message-State: AOJu0Yz6CGuR/r1UJ7s2F4uU4I+YbYf/GN8qdfI4u8GWM9zUJR3OVfhN
- oUR/OETE3ZLFbCOFnBFlHn911MGoBJLFXBJcWyH8LmlABeb45IxnBDKDs4aUD5HaLg==
-X-Gm-Gg: AfdE7ckdH4AgMbpKrhGa2yjt30GZIFVWMuRjNjp7MALimgelvb8412HZoAdLwNeqrX6
- MHLOlFpwany8N+q1Q0sFeuiUlu66/HB+WQzIiI5+8fwsaKdXKSPCN1HbeQVcFsBuWkT2Aw3ZocW
- kpZ8kMv95C74mkkgsetSEX8XaHaVv+hI3uwwCr4Xq2cNdE/7GYLIi+l3gUG9iCZEbTRSwAVUN2C
- W+byan6kwVDeTuckWIOOZkkl8Aoez7Dhpc/kWnruflQCmiIZW3soQ9gtrpeI/hLChSzVZsfLcaM
- 0EDZ3YLtBEvTHePkbCx1oXQdWLRK9obQxwly5DmYY29L/W6DAwo1f1ePf3SI5zu+DLnoKby9sTg
- U9joiyd5VDXiVcQ6irEvQWV2HqmOXkhWp2jqx0hMrpLV+Wct9jVJwKWQJQ0RXfZ/oR031kpxn6L
- vhyFItmRwgRq4bg+EPvU3a8ZL8uN0AVHa2o4M1ECrCi4S9XQOA18oKzSYQ
-X-Received: by 2002:a05:600c:3e06:b0:493:c548:87fb with SMTP id
- 5b1f17b1804b1-493c5488ce2mr76503585e9.36.1783047750009; 
- Thu, 02 Jul 2026 20:02:30 -0700 (PDT)
+ bh=mAWpF5GM7+KlRlhG2oJiDdMl4YCXDmzEDdK+o+UpA3k=;
+ b=Tz9bFmZld2yEupHTosYNv/ALZAnb6PAKJz7qW9or2IKCSbhESFkVSXY4OAveJCdhGW
+ A1HfbSM/vcjR8ZHvi3dDRQuzKj4rpm/6P8ewOtFlTMD0du42Iq8ZOBoq+hz2XBkS3nzF
+ lryG454qSoWLBSfxB9pnyKJS2ibmWeG6Mb6z5k9OZw+x+sq+pxgUdTpfrWDm6kRBghs7
+ jgCr5PI9/7PB30dGOejGdEFN/arTLlL6mjCtviRte7GDMrA4CPNUwy/LCoI/AHoEKFb2
+ Vuq/5Fe4wmtLGgI0LaoAOzaaMCJeqqtm3T9RU0o8Ol6RwYoEcLPzEAq1QXWDDOxzfMlM
+ NJBw==
+X-Gm-Message-State: AOJu0Yyo1al4ldUe89TDU7jABhmooYbQ4Si+J2qbct40A6feEOjmk+im
+ Ppb1aThgCxE/8ahRWFLEpA8WEuEsVaCysWg+OPbgOSaCbzPLqOwx/TxtfxlkGZpShw==
+X-Gm-Gg: AfdE7ckFNSaUKWFxQijJcl67ANew32qZQXRX978D+lLYVwIiUX6eFyhtlZT41jIhXCf
+ ifzm2gvIJ/ketTmR4HANX/TSOgNGnyU2zt1WZSofxsjYmX/XhucSWWHCIPoCCDfpuy7aY/uyI0+
+ 0m/VJE+FA2PcGMoDFYFVsL0Hb4BmfIjq1eNb0AEI+g4SmHY3TvpXGe83mTyDK5yTdDP+ssC2Sww
+ 1ONfuTOocKv4yn0sMbMxSaO8AbNnG/5KjfBX5ZFwFtEyg3AE4YMqYt7sBIMQILBsAAQooT53V6G
+ WNc5Z/n8GLr0rzskD5NIMnr7m34BNDYmeTNwJOAo2lfKAwfSk+8e9dLEuVLfwlMbEesb+RzL+7V
+ XgFW8Bwqh+YJGVzah0fSGHwtR5xCeWAXs2qT0X6wrr/ciKYbmKHH5xsl6f0XDORL12VG0xTF8tB
+ 3OF8SBz8gBnUBgKYa1mu3zzAPYoXVYGQQyEc/QpsmxZQEE1UhT3OD1Zgtsuyev5gmgaUw=
+X-Received: by 2002:a05:600c:190a:b0:493:c068:db11 with SMTP id
+ 5b1f17b1804b1-493c2b94615mr113249965e9.26.1783047753600; 
+ Thu, 02 Jul 2026 20:02:33 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.28
+ 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:02:29 -0700 (PDT)
+ Thu, 02 Jul 2026 20:02:31 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
@@ -73,15 +73,15 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 04/10] drm/vino: add the Vino framebuffer codec
-Date: Fri,  3 Jul 2026 04:02:09 +0100
-Message-ID: <20260703030217.2886-5-mike@fireburn.co.uk>
+Subject: [RFC PATCH v2 05/10] drm/vino: add the DRM/KMS sink,
+ built on the safe KMS mode-object layer
+Date: Fri,  3 Jul 2026 04:02:10 +0100
+Message-ID: <20260703030217.2886-6-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260703030217.2886-1-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
  <20260703030217.2886-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,1257 +98,742 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-video.rs implements the dock's video transport: an RLE fallback
-encoder (shadow-diffed against the previous frame) plus the
-Walsh-Hadamard "Vino" colour codec reverse-engineered from the
-reference daemon's encoder output -- the 8x8 transform, DC-plane
-entropy coding and colour (Y/Cb/Cr) handling are byte-exact against
-captured hardware output; the AC coefficient entropy grammar is only
-partially recovered (EOB/scan/context still open), so the WHT path is
-only used for aligned geometry and falls back to RLE otherwise. Also
-builds the EP08 wire framing (DLM's per-strip TLV record layout).
+drm_sink.rs registers a real struct drm_device with an atomic
+mode-setting pipeline: one CRTC driven by a single primary plane
+(scanout -> EP08), a virtual encoder, and a virtual connector whose
+mode list comes from the dock's real EDID when the CP channel has
+delivered it (falling back to 1080p), with GEM-shmem dumb buffers.
+
+Built entirely on kernel::drm::kms -- VinoDrmDriver implements
+KmsDriver, and VinoCrtc/VinoPlane/VinoConnector/VinoEncoder each
+implement the matching Driver* trait, rather than hand-assembling a
+raw C vtable the way the pre-safe-KMS version of this driver did (that
+approach no longer compiles against current drm-next: the base Driver
+trait now requires a Kms associated type routed through this exact
+system). vino is the first real KmsDriver consumer of this freshly
+forward-ported layer; two small gaps it needed are added earlier in
+this series (Framebuffer::vmap(), the raw crtc/plane-state escape
+hatches).
+
+Not yet ported (documented in the module's own doc comment, not
+fabricated): a second display head, a cursor plane, CRTC gamma LUT,
+plane rotation property, and DDC/CI brightness/contrast as connector
+properties -- none of these have a safe kernel::drm::kms extension
+point yet. None of this is reachable on real hardware regardless: the
+dock never engages its content-protection channel for vino (see
+docs/BLOCKER.md), so atomic_update never gets past the first
+bulk_send.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-sonnet-5 [Claude-Code]
 ---
- drivers/gpu/drm/vino/video.rs | 1229 +++++++++++++++++++++++++++++++++
- 1 file changed, 1229 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/video.rs
+ drivers/gpu/drm/vino/drm_sink.rs | 698 +++++++++++++++++++++++++++++++
+ 1 file changed, 698 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/drm_sink.rs
 
-diff --git a/drivers/gpu/drm/vino/video.rs b/drivers/gpu/drm/vino/video.rs
+diff --git a/drivers/gpu/drm/vino/drm_sink.rs b/drivers/gpu/drm/vino/drm_sink.rs
 new file mode 100644
-index 000000000000..c520af19a4fb
+index 000000000000..450c7c84a067
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/video.rs
-@@ -0,0 +1,1229 @@
++++ b/drivers/gpu/drm/vino/drm_sink.rs
+@@ -0,0 +1,698 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! RawRl (Raw/RLX) **mode-2 video encoder** -- clean-room from the AArch64 DLM
-+//! decompile (sec 8.4 + `docs/decompile/arm64-blockencoder`/`-frame-markers`).
-+//! Emits packed-RGB565 frames the dock decodes WITHOUT the impractical Vino
-+//! Walsh-Hadamard entropy codec (sec 7.11). This is a **verbatim port** of the
-+//! `vino-codec::rawrl` oracle, whose encode/decode round-trip is unit-tested
-+//! (keyframe, differential, >256-pixel multi-block and >255 RLE run-splits all
-+//! reconstruct byte-exact); keep the two in lockstep. No real mode-2 capture
-+//! exists to diff against (sec 7.4), so that round-trip is the correctness anchor.
-+//! NOT yet wired into `probe()`: sending a frame the dock rejects USB-resets the
-+//! dock, so EP08 streaming is a supervised bring-up step.
-+#![allow(dead_code)] // Encoder/Mode variants validated by KUnit; live scanout uses the RLE path
++//! DRM/KMS sink: register a real `struct drm_device` with an atomic mode-setting
++//! pipeline so the dock appears to userspace as a `card`/`renderD` node that can be
++//! `drmModeSetCrtc`'d. One CRTC driven by a single primary plane
++//! ([`VinoPlane::atomic_update`] -> EP08 scanout), a virtual encoder, and a virtual
++//! connector whose mode list comes from the dock's real EDID (falling back to 1080p),
++//! with GEM-shmem dumb buffers and `drm_gem_fb_create` framebuffers.
++//!
++//! Built on the safe KMS mode-object layer (`kernel::drm::kms`), not the raw
++//! `bindings::drm_*` C API: `VinoDrmDriver` implements `drm::kms::KmsDriver`, and each
++//! mode object (`VinoCrtc`/`VinoPlane`/`VinoConnector`/`VinoEncoder`) implements the
++//! matching `Driver*` trait rather than hand-assembling a C vtable.
++//!
++//! Not yet ported from the pre-safe-KMS driver (tracked as follow-up, not fabricated
++//! here since the extension points don't exist yet in `kernel::drm::kms`):
++//! - A second display head (the dock's DL3 protocol supports up to 4; only one is
++//!   wired here). `VinoPlane`/`VinoCrtc` hold their state inline rather than behind a
++//!   pointer-identity lookup table, so adding a head is a second `probe()` call away,
++//!   not a redesign.
++//! - A cursor plane, CRTC gamma LUT, and plane rotation property -- `kernel::drm::kms`
++//!   doesn't yet expose `drm_plane_create_rotation_property` or a second (cursor)
++//!   plane argument shape beyond what `UnregisteredCrtc::new` already threads through.
++//! - DDC/CI brightness/contrast as connector properties, and the `.detect`/`mode_valid`
++//!   connector hooks (report disconnected until a real EDID arrives; reject
++//!   over-budget modes) -- `DriverConnector` only exposes `get_modes` right now.
++//! - Damage-clip bounded conversion (always converts the full frame).
++//!
++//! None of this is reachable on real hardware yet regardless: the dock never engages
++//! its content-protection channel for vino (see `docs/BLOCKER.md`), so `atomic_update`
++//! never gets past the first `bulk_send`.
 +
-+use super::*;
++use kernel::{
++    bindings, drm,
++    drm::kms::{
++        self,
++        connector::{self, ConnectorGuard},
++        crtc::{self, CrtcAtomicCommit, RawCrtc as _, RawCrtcState as _},
++        encoder,
++        plane::{self, PlaneAtomicCommit, RawPlaneState as _},
++        KmsDriver, ModeConfigGuard, ModeConfigInfo, ModeObject as _, NewKmsDevice, Probing,
++    },
++    error::code::EINVAL,
++    prelude::*,
++    sync::{aref::ARef, new_mutex, Mutex},
++    types::ForLt,
++};
 +
-+pub(crate) const MAGIC_RAW16: u16 = 0x68af;
-+pub(crate) const MAGIC_RLE16: u16 = 0x69af;
-+/// Frame-init `0x40af` (`FUN_003330fc`: u32 `0xaf0440af` + u16 `0x0840`).
-+pub(crate) const FRAME_INIT: [u8; 6] = [0xaf, 0x40, 0x04, 0xaf, 0x40, 0x08];
-+/// Bare `0xa0af` sync (`FUN_00332a38`).
-+pub(crate) const SYNC: [u8; 2] = [0xaf, 0xa0];
-+/// Frame-end section->code table `DAT_005b7860`, indexed by `mode - 1`.
-+pub(crate) const SECTION_CODE: [u8; 7] = [0x01, 0x00, 0x03, 0x00, 0x05, 0x07, 0x07];
-+pub(crate) const MAX_BLOCK_PIXELS: usize = 256;
++/// Fallback connector mode advertised by `get_modes` when the dock has not delivered a real
++/// downstream EDID yet. The live scanout geometry follows the actual framebuffer/negotiated
++/// mode (see [`scanout_one`]), so this is only the no-EDID default, not a hard scanout limit.
++const FALLBACK_W: i32 = 1920;
++const FALLBACK_H: i32 = 1080;
 +
-+/// Per-run strategy: mode 0 raw-only, 1 RLE-only, 2 adaptive (sec 8.4).
-+#[derive(Clone, Copy)]
-+pub(crate) enum Mode {
-+    Raw = 0,
-+    Rle = 1,
-+    Adaptive = 2,
++/// `DRM_FORMAT_XRGB8888` (`fourcc_code('X','R','2','4')`); the dock scans out 32bpp.
++const DRM_FORMAT_XRGB8888: u32 = 0x3432_5258;
++/// Primary-plane format list (opaque 32bpp scanout).
++static PRIMARY_FORMATS: [u32; 1] = [DRM_FORMAT_XRGB8888];
++
++/// Per-mode pixel-clock ceiling (kHz) -- about 4K@60 (CEA 594 MHz). With only one head wired
++/// there is no combined-heads budget to enforce (see the module doc); a real ceiling still
++/// needs the connector `mode_valid` hook this port doesn't expose yet, so this constant is
++/// currently unused wiring for when it does.
++#[allow(dead_code)]
++const MAX_HEAD_CLOCK_KHZ: i32 = 600_000;
++
++/// The one wired display head's video bulk-OUT endpoint (see the module doc -- only
++/// head 0 is wired for now).
++const VIDEO_EP: u8 = 0x08;
++
++/// The DRM driver marker type.
++pub(super) struct VinoDrmDriver;
++
++/// Convenience alias for our concrete `drm::Device`.
++pub(super) type VinoDrmDevice = drm::Device<VinoDrmDriver>;
++
++/// Mutable scanout state, guarded because the atomic `update` callback may run
++/// concurrently with itself. Holds the stateful Vino encoder (created lazily on the
++/// first flip, once the buffer geometry is known) and the EP08 frame sequence counter.
++pub(super) struct ScanoutState {
++    enc: Option<super::video::Encoder>,
++    /// Reusable `width*height` RGB565 conversion buffer, allocated once alongside `enc`.
++    /// vmalloc-backed + persistent: virtually-contiguous (no high-order page need) and
++    /// allocated once, rather than a fresh multi-MiB kmalloc every pageflip.
++    cur: VVec<u16>,
++    seq: u32,
++    /// Geometry (`width`, `height`) the encoder/`cur` were allocated for. The scanout follows
++    /// the live framebuffer size, so a mode switch re-allocates them when this no longer
++    /// matches.
++    dims: (usize, usize),
++    /// Size of the last EP08 frame produced, used to pre-reserve the next frame's buffer.
++    hint: usize,
 +}
 +
-+/// Pack 8-bit RGB into RGB565 (the XRGB framebuffer reduced for the
-+/// `0x68af`/`0x69af` path).
-+pub(crate) fn rgb565(r: u8, g: u8, b: u8) -> u16 {
-+    ((r as u16 >> 3) << 11) | ((g as u16 >> 2) << 5) | (b as u16 >> 3)
++/// The live CP session the bring-up work item publishes once the dock engages the cipher
++/// (`acks > 0`), so the KMS callbacks can seal+send runtime CP messages (a mode-set when the
++/// compositor switches mode) that continue the SAME keystream the bring-up setup left off at.
++/// `wire_seq` is the AES-CTR block counter (advanced by the content blocks of each send; the
++/// appended Dl3Cmac tag is not part of the keystream) and `counter` the dock-echoed inner CP
++/// counter. Both advance per send under the mutex.
++pub(super) struct CpLink {
++    ks: [u8; 16],
++    riv: [u8; 8],
++    wire_seq: u32,
++    counter: u16,
 +}
 +
-+/// 6-byte block header: magic LE, 24-bit coord BE, count u8 (256 -> 0).
-+fn block_header(out: &mut KVec<u8>, magic: u16, coord: u32, count: usize) -> Result {
-+    out.extend_from_slice(&magic.to_le_bytes(), GFP_KERNEL)?;
-+    out.push(((coord >> 16) & 0xff) as u8, GFP_KERNEL)?;
-+    out.push(((coord >> 8) & 0xff) as u8, GFP_KERNEL)?;
-+    out.push((coord & 0xff) as u8, GFP_KERNEL)?;
-+    out.push((count & 0xff) as u8, GFP_KERNEL)?;
-+    Ok(())
++/// DRM device-private data: the bound USB interface (to reach the video EP) and the engaged
++/// CP session for runtime KMS-driven sends. Per-object state (the scanout buffers, cached
++/// EDID) lives in the owning [`VinoPlane`]/[`VinoConnector`] instead of here, since the safe
++/// KMS layer already gives each mode object callback direct access to its own driver-private
++/// data -- no pointer-identity lookup table needed.
++#[pin_data]
++pub(super) struct VinoDrmData {
++    intf: ARef<super::usb::Interface>,
++    #[pin]
++    cp_link: Mutex<Option<CpLink>>,
++    /// The device's one connector, stashed by [`KmsDriver::probe`] so [`VinoDrmData::set_edid`]
++    /// can reach its cached-EDID slot without needing DRM's mode-object list. Written once,
++    /// during single-threaded probe, before the device is registered; read-only thereafter.
++    connector: core::sync::atomic::AtomicPtr<VinoConnector>,
 +}
 +
-+fn encode_raw_into(out: &mut KVec<u8>, coord: u32, pix: &[u16]) -> Result {
-+    block_header(out, MAGIC_RAW16, coord, pix.len())?;
-+    for &p in pix {
-+        out.extend_from_slice(&p.to_be_bytes(), GFP_KERNEL)?;
-+    }
-+    Ok(())
-+}
-+
-+fn encode_rle_into(out: &mut KVec<u8>, coord: u32, pix: &[u16]) -> Result {
-+    block_header(out, MAGIC_RLE16, coord, pix.len())?;
-+    let mut i = 0;
-+    while i < pix.len() {
-+        let v = pix[i];
-+        let mut run = 1;
-+        while i + run < pix.len() && pix[i + run] == v && run < 255 {
-+            run += 1;
-+        }
-+        out.push(run as u8, GFP_KERNEL)?;
-+        out.extend_from_slice(&v.to_be_bytes(), GFP_KERNEL)?;
-+        i += run;
-+    }
-+    Ok(())
-+}
-+
-+fn run_count(pix: &[u16]) -> usize {
-+    let mut c = 0;
-+    let mut i = 0;
-+    while i < pix.len() {
-+        let v = pix[i];
-+        let mut j = i + 1;
-+        while j < pix.len() && pix[j] == v {
-+            j += 1;
-+        }
-+        c += 1;
-+        i = j;
-+    }
-+    c
-+}
-+
-+fn encode_run_into(out: &mut KVec<u8>, mode: Mode, coord: u32, pix: &[u16]) -> Result {
-+    match mode {
-+        Mode::Raw => encode_raw_into(out, coord, pix),
-+        Mode::Rle => encode_rle_into(out, coord, pix),
-+        Mode::Adaptive => {
-+            let l = pix.len();
-+            let c = run_count(pix);
-+            if 2 * l < 3 * c + 1 {
-+                encode_raw_into(out, coord, pix)
-+            } else {
-+                encode_rle_into(out, coord, pix)
-+            }
-+        }
-+    }
-+}
-+
-+/// Mode-2 frame encoder holding the shadow (previous-frame) buffer.
-+pub(crate) struct Encoder {
-+    width: usize,
-+    height: usize,
-+    mode: Mode,
-+    // vmalloc-backed: a `width*height` u16 buffer is ~4 MiB at 1080p, far above the
-+    // contiguous-kmalloc order limit (the page allocator WARNs and fails on it).
-+    shadow: VVec<u16>,
-+}
-+
-+impl Encoder {
-+    pub(crate) fn new(width: usize, height: usize, mode: Mode) -> Result<Self> {
-+        let shadow = VVec::from_elem(0u16, width * height, GFP_KERNEL)?;
-+        Ok(Self { width, height, mode, shadow })
-+    }
-+
-+    /// Encode `cur` (RGB565) into a mode-2 marker stream; updates the shadow.
-+    /// Change-detection is per row; changed runs chunk into <=256-px blocks.
-+    pub(crate) fn encode(&mut self, cur: &[u16]) -> Result<KVec<u8>> {
-+        let mut s = KVec::new();
-+        self.encode_into(cur, &mut s)?;
-+        Ok(s)
-+    }
-+
-+    /// Like [`encode`](Self::encode) but appends the marker stream to a caller-owned
-+    /// `out` instead of allocating a fresh `KVec`. The hot scanout path
-+    /// ([`encode_and_send`](super::drm_sink::encode_and_send)) uses this to encode
-+    /// straight into a buffer that already reserves the EP08 transport header, so a
-+    /// frame costs one allocation with no separate framing copy.
-+    pub(crate) fn encode_into(&mut self, cur: &[u16], s: &mut KVec<u8>) -> Result {
-+        s.extend_from_slice(&FRAME_INIT, GFP_KERNEL)?;
-+        for y in 0..self.height {
-+            let row = y * self.width;
-+            let mut x = 0;
-+            while x < self.width {
-+                while x < self.width && cur[row + x] == self.shadow[row + x] {
-+                    x += 1;
-+                }
-+                if x >= self.width {
-+                    break;
-+                }
-+                let run_start = x;
-+                while x < self.width && cur[row + x] != self.shadow[row + x] {
-+                    x += 1;
-+                }
-+                let run_end = x;
-+                let mut p = run_start;
-+                while p < run_end {
-+                    let n = (run_end - p).min(MAX_BLOCK_PIXELS);
-+                    let coord = (((row + p) * 2) & 0xff_ffff) as u32;
-+                    encode_run_into(s, self.mode, coord, &cur[row + p..row + p + n])?;
-+                    p += n;
-+                }
-+            }
-+        }
-+        // `SECTION_CODE` (the decompile's `DAT_005b7860`) is indexed by the DL3 1-based
-+        // mode number minus 1; our 0-based `Mode` discriminant already equals that index
-+        // (Raw=0->0x01, Rle=1->0x00, Adaptive=2->0x03). The previous `saturating_sub(1)`
-+        // double-subtracted, collapsing Raw and Rle onto the same code.
-+        let code = SECTION_CODE[(self.mode as usize).min(SECTION_CODE.len() - 1)];
-+        s.extend_from_slice(&SYNC, GFP_KERNEL)?;
-+        s.extend_from_slice(&[0xaf, 0x20, 0x1f, code], GFP_KERNEL)?;
-+        s.extend_from_slice(&[0xaf, 0x20, 0xff, 0x00], GFP_KERNEL)?;
-+        s.extend_from_slice(&SYNC, GFP_KERNEL)?;
-+        // Commit the shadow ONLY after the whole frame has been emitted successfully.
-+        // Updating it incrementally (per changed run) left it half-updated if a later
-+        // `extend_from_slice` hit OOM, permanently desyncing every subsequent diff frame.
-+        // The encoder reads the pre-frame shadow throughout, so a single end-of-frame copy
-+        // is equivalent to the per-run writes on the success path. The loop already indexes
-+        // `cur` up to `width*height == shadow.len()`, so this slice is always in bounds.
-+        let n = self.shadow.len();
-+        self.shadow.copy_from_slice(&cur[..n]);
-+        Ok(())
-+    }
-+}
-+
-+/// Vino (`0x2801`) Walsh-Hadamard codec -- the bandwidth-constrained / 4K path (the RLE path
-+/// above is what the dock currently runs; this is the lossy transform codec DLM uses when raw/
-+/// RLE won't fit the USB budget). See `docs/WHT-CODEC.md` + `docs/VIDEO.md` +
-+/// `captures/codec-vlc-table-breakthrough-20260623.md`.
-+///
-+/// **Scope (recovered + verified byte-exact vs DLM, 2026-06-23).** Every stage below is checked
-+/// against DLM's own captured output offline (no dock needed):
-+/// - [`colour`] `Y = 16R+32G+16B` (achromatic `Y = 64*gray`);
-+/// - [`transform`] the **8x8 2-D Haar (Mallat) wavelet** (`//64`), 320/320 real gradient blocks;
-+/// - [`quantize`] the per-position bias/step quantizer (`white -> Y_DC=16320 -> 1020`);
-+/// - [`CODEBOOK`]/[`Vlc`] the LSB-first unary-prefix magnitude VLC dumped from DLM's coder leaf
-+///   `0x5e68b0`, plus the [`SYNC13`] block framing -- `scripts/wht-block-codec.py` round-trips
-+///   DLM's per-block output 5/5 byte-for-byte.
-+///
-+/// **The coeff->strip grammar is now recovered end to end** ([`strip`] + [`encode_frame`], 2026-06-23):
-+/// the per-block significance code (a LAST-significant-position code, not a zerotree/context coder),
-+/// the across-block DC **DPCM** plane (`(Cr, Cb, Y)` residuals), the AC run/magnitude stream, the two
-+/// strip layouts (SOLID vs AC), and the **forward length-hint tail** (`tail[k] = L[k+1] - 2`, verified
-+/// 10529/10800 on the gradient capture). [`encode_frame`] tiles a luma frame into 64x16 strips and
-+/// composes the whole stream byte-exact for **achromatic** content.
-+///
-+/// **Two items remain genuinely unverified (so the live scanout path keeps using RLE -- emitting
-+/// guessed bits is forbidden):** (1) **chroma AC** -- every captured AC example was grey, so the
-+/// Cb/Cr high-frequency path has no ground truth and [`strip`] leaves chroma AC at zero; (2) the
-+/// rightmost-column **size-mispredict** -- DLM's forward hint occasionally predicts an anomalously
-+/// sized neighbour wrong (a framing micro-heuristic, ~2.5% of gradient strips); [`encode_frame`] uses
-+/// exact look-ahead instead, which matches DLM on 100% of constant-strip-size content. Both are
-+/// HW-unverifiable while the CP wall stands. The transform/quantizer/entropy stages are byte-exact.
-+#[allow(dead_code)] // Walsh-Hadamard codec: KUnit-validated, not yet on the live scanout path
-+pub(crate) mod wht {
-+    use super::*;
-+
-+    /// Transform block geometry (recovered + byte-exact-verified 2026-06-23, see
-+    /// `captures/codec-vlc-table-breakthrough-20260623.md`): an **8x8 pixel** block is the input
-+    /// (`DIM` x `DIM` = `PIXELS` luma samples); the wavelet emits **32** coefficients (`COEFFS`) --
-+    /// it is lossy 64->32, dropping the level-1 LH/HH subbands. `BLOCK` aliases `PIXELS` for the
-+    /// `transform()` input length.
-+    pub(crate) const DIM: usize = 8;
-+    pub(crate) const PIXELS: usize = DIM * DIM;
-+    pub(crate) const COEFFS: usize = 32;
-+    pub(crate) const BLOCK: usize = PIXELS;
-+
-+    /// Vino colour transform, in the codec's 64x fixed point: `Cb = 64(R-G)`,
-+    /// `Cr = 64(B-G)` (achromatic R=G=B -> Cb=Cr=0), and the reversible luma
-+    ///
-+    /// ```text
-+    ///     Y = 64*G + 64*((Cb_raw + Cr_raw) >> 2)   where Cb_raw=R-G, Cr_raw=B-G
-+    /// ```
-+    ///
-+    /// The `>> 2` is an arithmetic shift (floor toward -inf). This **replaces** the
-+    /// earlier `Y = 16R + 32G + 16B` form, which `validate-transform-encoderio.py`
-+    /// showed runs 16..48 HIGH for chromatic blocks (`16R+32G+16B = 64G + 16(Cb+Cr)`,
-+    /// i.e. the un-floored sum). The floored form reproduces DLM's transform DC for
-+    /// **every** measured colour -- the 6 saturated primaries/secondaries (incl. the
-+    /// signed green/cyan cases the floor must round toward -inf), grey, white and
-+    /// black (`scripts/validate-transform-encoderio.py`); achromatic input is
-+    /// unchanged (`64*G` since `Cb=Cr=0`).
-+    pub(crate) fn colour(r: u8, g: u8, b: u8) -> (i32, i32, i32) {
-+        let (r, g, b) = (r as i32, g as i32, b as i32);
-+        let (cb, cr) = (r - g, b - g);
-+        (64 * g + 64 * ((cb + cr) >> 2), 64 * cb, 64 * cr)
-+    }
-+
-+    /// Per-coefficient `(step, bias)` quantization table, **derived 2026-06-23 from DLM's
-+    /// ground-truth `quant_leave` pre/post buffers** (captures/sig-library) -- the old
-+    /// decode-ep08 guess (pos3 step32/bias16, pos4-11 step4/bias2, pos16-47 step2/bias1) was
-+    /// WRONG and broke 4/25 strips. Note pos3 = (48, 32): a WIDE DEADZONE (so c3[3]=-48 -> -1,
-+    /// not -2). Keyed by coefficient position `0..32`.
-+    fn step_bias(i: usize) -> (i32, i32) {
-+        match i {
-+            0 => (16, 8),
-+            1 | 2 => (16, 2),
-+            3 => (48, 32),
-+            4..=11 => (4, 0),
-+            12 => (8, 2),
-+            13..=15 => (8, 0),
-+            _ => (2, 0), // 16..=31
-+        }
-+    }
-+
-+    /// Quantize coefficient `coeff` at position `i`: `sign(coeff) * floor((|coeff| + bias) / step)`
-+    /// (byte-exact vs DLM, 25/25 library strips). Clamped to the 12-bit signed long-token range.
-+    pub(crate) fn quantize(coeff: i32, i: usize) -> i32 {
-+        let (step, bias) = step_bias(i);
-+        let q = (coeff.abs() + bias) / step;
-+        (if coeff < 0 { -q } else { q }).clamp(-2048, 2047)
-+    }
-+
-+    /// One separable 2-D Haar step over the top-left `n`x`n` of `src` (row-major, `n` columns,
-+    /// `n` in {8,4,2}). The 1-D Haar butterfly is `lo = a + b`, `hi = a - b`; applied to rows then
-+    /// columns it splits the `n`x`n` block into four `(n/2)`x`(n/2)` subbands written to
-+    /// `ll`/`hl`/`lh`/`hh` (row-major, stride `n/2`). Unnormalized -- `transform()` floor-divides
-+    /// the final coefficients by 64. Mirrors `scripts/wht-transform.py` (verified byte-exact).
-+    fn haar2d(src: &[i32], n: usize, ll: &mut [i32], hl: &mut [i32], lh: &mut [i32], hh: &mut [i32]) {
-+        let h = n / 2;
-+        // Row pass: L = row-lo, H = row-hi (each n rows x h cols).
-+        let mut l = [0i32; PIXELS];
-+        let mut hb = [0i32; PIXELS];
-+        for r in 0..n {
-+            for i in 0..h {
-+                let (a, b) = (src[r * n + 2 * i], src[r * n + 2 * i + 1]);
-+                l[r * h + i] = a + b;
-+                hb[r * h + i] = a - b;
-+            }
-+        }
-+        // Column pass: LL/LH = col-lo/hi of L, HL/HH = col-lo/hi of H (each h x h).
-+        for c in 0..h {
-+            for i in 0..h {
-+                let (a, b) = (l[2 * i * h + c], l[(2 * i + 1) * h + c]);
-+                ll[i * h + c] = a + b;
-+                lh[i * h + c] = a - b;
-+                let (a2, b2) = (hb[2 * i * h + c], hb[(2 * i + 1) * h + c]);
-+                hl[i * h + c] = a2 + b2;
-+                hh[i * h + c] = a2 - b2;
-+            }
-+        }
-+    }
-+
-+    /// DLM's video transform (`FUN_007a7b60`), reverse-engineered + **verified byte-exact**
-+    /// (2026-06-23, 320/320 real gradient blocks + the 6 stripe/checker vectors): an **8x8 2-D
-+    /// Haar (Mallat) wavelet, floor-divided by 64**. The `block` is 8x8 luma (`Y = 16R+32G+16B`,
-+    /// achromatic `Y = 64*gray`); the output is 32 coefficients in DLM's Mallat layout:
-+    /// `c[0]` = LL; `c[1..4]` = level-3 HL/LH/HH; `c[4..8]/[8..12]/[12..16]` = level-2 HL/LH/HH
-+    /// (2x2 row-major each); `c[16..32]` = level-1 HL (4x4 row-major). The level-1 LH and HH
-+    /// subbands are dropped (the lossy 64->32 reduction). A uniform block yields `DC = mean`,
-+    /// all AC = 0. Replaces the prior flat 2-level Walsh-Hadamard, which did not match DLM for AC.
-+    pub(crate) fn transform(block: &[i32; PIXELS]) -> [i32; COEFFS] {
-+        let sh = |x: i32| x >> 6; // arithmetic shift = floor division by 64 (matches DLM/`//64`)
-+        let mut c = [0i32; COEFFS];
-+        // Level 1: 8x8 -> 4x4 subbands; the finest HL band is c[16..32]. DLM emits this 4x4 band
-+        // **column-major** (the entropy coder's coefficient reorder): wire position `p` reads band
-+        // element `(row = p % 4, col = p / 4)`. Recovered 2026-06-27 byte-exact from a real DLM
-+        // colour strip (cramp256 sink capture, `captures/codec-sink-094653/`): a horizontal ramp's
-+        // HL band is `[-2,0,-2,0; ...]` row-major but the wire groups it `[-2,-2,-2,-2, 0,0,0,0, ...]`
-+        // = the transpose. (The earlier achromatic byte-exact tests never exercised an asymmetric L1HL
-+        // band -- gentle gradients quantize it to zero -- so this latent scan bug was invisible until
-+        // steep colour content.) The lower bands (c[0..16]) decode in natural order.
-+        let (mut ll1, mut hl1, mut lh1, mut hh1) = ([0i32; 16], [0i32; 16], [0i32; 16], [0i32; 16]);
-+        haar2d(block, DIM, &mut ll1, &mut hl1, &mut lh1, &mut hh1);
-+        for p in 0..16 {
-+            c[16 + p] = sh(hl1[(p % 4) * 4 + p / 4]);
-+        }
-+        // Level 2: LL1 (4x4) -> 2x2 subbands; c[4..8]/[8..12]/[12..16].
-+        let (mut ll2, mut hl2, mut lh2, mut hh2) = ([0i32; 4], [0i32; 4], [0i32; 4], [0i32; 4]);
-+        haar2d(&ll1, 4, &mut ll2, &mut hl2, &mut lh2, &mut hh2);
-+        for i in 0..4 {
-+            c[4 + i] = sh(hl2[i]);
-+            c[8 + i] = sh(lh2[i]);
-+            c[12 + i] = sh(hh2[i]);
-+        }
-+        // Level 3: LL2 (2x2) -> 1x1 subbands; the DC c[0] and coarse c[1..4].
-+        let (mut ll3, mut hl3, mut lh3, mut hh3) = ([0i32; 1], [0i32; 1], [0i32; 1], [0i32; 1]);
-+        haar2d(&ll2, 2, &mut ll3, &mut hl3, &mut lh3, &mut hh3);
-+        c[0] = sh(ll3[0]);
-+        c[1] = sh(hl3[0]);
-+        c[2] = sh(lh3[0]);
-+        c[3] = sh(hh3[0]);
-+        // `lh1`/`hh1` (level-1 LH/HH) are intentionally unused -- the lossy 64->32 drop.
-+        let _ = (&lh1, &hh1);
-+        c
-+    }
-+
-+    // ====================================================================================
-+    // ★ 2026-06-23 (live HW): the REAL entropy code, recovered + byte-exact-verified.
-+    //
-+    // The earlier MSB-first 5-bit "short/long token" model (now removed) was REFUTED: a value-axis
-+    // amplitude sweep (`scripts/codec-sweep-plan.py`) showed its decoded tokens were invariant to
-+    // the coefficient VALUE (identical `L589` across a 128x AC range) -- it never matched the coder.
-+    // The dock's entropy coder (DLM leaf `0x5e68b0`) is a **memory-resident unary-prefix VLC,
-+    // written LSB-first**, dumped from DLM and reproduced byte-for-byte by [`Vlc`] + [`CODEBOOK`]
-+    // (`scripts/wht-block-codec.py` reproduces DLM's per-block output 5/5; see
-+    // `captures/codec-vlc-table-breakthrough-20260623.md`). A coefficient's magnitude category is
-+    // `bit_length(|coeff|)` (verified across the sweep), code = unary(c)+0-terminator+remainder.
-+    //
-+    // VERIFIED here (KUnit): the codebook, the LSB-first packing, the 1-bit final padding, and the
-+    // magnitude-category rule. NOT yet generalized (the open work): the coeff->token GRAMMAR for
-+    // arbitrary content -- DC DPCM, the 2-D scan (incl. the real horizontal/vertical asymmetry),
-+    // and block modes -- so this is the byte-exact OUTPUT stage, not yet a wired general encoder.
-+    // ====================================================================================
-+
-+    /// The dumped Vino entropy VLC, indexed by symbol: `(code, nbits)`, emitted **LSB-first**.
-+    /// Symbol 0 = the 1-bit code `0` (zero / most common); symbol 31 = the all-ones escape prefix.
-+    pub(crate) const CODEBOOK: [(u32, u8); 32] = [
-+        (0, 1), (1, 3), (5, 3), (3, 5), (19, 5), (11, 5), (27, 5), (7, 7), (71, 7), (39, 7),
-+        (103, 7), (23, 7), (87, 7), (55, 7), (119, 7), (15, 8), (143, 8), (79, 8), (207, 8),
-+        (47, 8), (175, 8), (111, 8), (239, 8), (31, 8), (159, 8), (95, 8), (223, 8), (63, 8),
-+        (191, 8), (127, 8), (255, 9), (511, 9),
-+    ];
-+
-+    /// The constant 13-byte per-block sync literal (emitted twice), recovered from the wire.
-+    pub(crate) const SYNC13: [u8; 13] =
-+        [0x7c, 0x93, 0x6f, 0xf2, 0x4d, 0xbe, 0xc9, 0x37, 0xf9, 0x26, 0xdf, 0xe4, 0x9b];
-+
-+    /// LSB-first VLC bit packer matching the dock (final byte padded with **1-bits** -- a
-+    /// truncated all-ones code, as DLM emits).
-+    pub(crate) struct Vlc {
-+        out: KVec<u8>,
-+        acc: u32,
-+        nbits: u32,
-+    }
-+
-+    impl Vlc {
-+        pub(crate) fn new() -> Self {
-+            Self { out: KVec::new(), acc: 0, nbits: 0 }
-+        }
-+
-+        /// Append one bit (LSB-first within each byte).
-+        fn bit(&mut self, b: u32) -> Result {
-+            self.acc |= (b & 1) << self.nbits;
-+            self.nbits += 1;
-+            if self.nbits == 8 {
-+                self.out.push((self.acc & 0xff) as u8, GFP_KERNEL)?;
-+                self.acc = 0;
-+                self.nbits = 0;
-+            }
-+            Ok(())
-+        }
-+
-+        /// Emit codebook `sym`'s code, least-significant bit first.
-+        pub(crate) fn symbol(&mut self, sym: usize) -> Result {
-+            let (code, n) = CODEBOOK[sym];
-+            for k in 0..n as u32 {
-+                self.bit(code >> k)?;
-+            }
-+            Ok(())
-+        }
-+
-+        /// Emit one quantized coefficient as DLM's JPEG-SSSS-style magnitude code (LSB-first),
-+        /// verified byte-exact against DLM's per-coefficient wire bits (q-4/q-8/q-16 -- see
-+        /// `scripts/wht-strip-encoder.py`). A zero coefficient is the 1-bit symbol 0. A nonzero
-+        /// `q` emits the unary category `c = bit_length(|q|)` (c ones + a 0 terminator), then the
-+        /// `(c-1)`-bit magnitude offset `|q| - 2^(c-1)` (MSB-first within the field), then a sign
-+        /// bit (`0` = negative, the captured polarity). Categories >= 9 use the 19-bit escape long
-+        /// form, which is not yet recovered -- those return `EOVERFLOW` rather than emit wrong bits.
-+        pub(crate) fn coeff(&mut self, q: i32) -> Result {
-+            if q == 0 {
-+                return self.symbol(0);
-+            }
-+            let c = mag_category(q); // bit_length(|q|)
-+            if c >= 9 {
-+                return Err(kernel::error::code::EOVERFLOW); // escape long form -- open RE
-+            }
-+            for _ in 0..c {
-+                self.bit(1)?; // unary category
-+            }
-+            self.bit(0)?; // terminator
-+            let offset = q.unsigned_abs() - (1 << (c - 1));
-+            for i in (0..c - 1).rev() {
-+                self.bit(offset >> i)?; // (c-1)-bit magnitude offset, MSB-first
-+            }
-+            self.bit(if q < 0 { 0 } else { 1 }) // sign bit (0 = negative)
-+        }
-+
-+        /// Flush, padding the final byte with 1-bits (matches the dock's truncated all-ones code).
-+        pub(crate) fn finish(mut self) -> Result<KVec<u8>> {
-+            if self.nbits > 0 {
-+                while self.nbits < 8 {
-+                    self.acc |= 1 << self.nbits;
-+                    self.nbits += 1;
-+                }
-+                self.out.push((self.acc & 0xff) as u8, GFP_KERNEL)?;
-+            }
-+            Ok(self.out)
-+        }
-+    }
-+
-+    /// Magnitude category of a quantized coefficient: `bit_length(|coeff|)` (verified 2026-06-23 --
-+    /// e.g. |4|->3, |8|->4, |255|->8). 0 for a zero coefficient.
-+    pub(crate) fn mag_category(coeff: i32) -> u32 {
-+        coeff.unsigned_abs().checked_ilog2().map_or(0, |l| l + 1)
-+    }
-+
-+    // ====================================================================================
-+    // ★ 2026-06-23: the SOLID-colour strip encoder -- byte-exact-verified end to end vs DLM
-+    // (3508/3508 strips of grey128.bin + white). A solid 64x16 strip (16 uniform 8x8 blocks) is the
-+    // most common desktop case (backgrounds, flat UI). DLM codes it with a NO-sync framing distinct
-+    // from the AC-stripe path: a 16-byte header, a CONSTANT 30-byte "main frame" (identical for any
-+    // solid colour), the strip's absolute DC ESCAPE-coded (long form), then a fixed trailer. The DC
-+    // rule was cracked offline (`scripts/wht-strip-encoder.py`): code = unary(c) ++ offset(c-1,
-+    // MSB-first) ++ sign, c=bit_length(qDC), qDC=quantize(DC,0), DC=c3[0]=64*gray (achromatic).
-+    // ====================================================================================
-+
-+    /// Bit offset where the per-plane DC escape begins (after the 16-byte header + the constant
-+    /// 30-byte main frame = byte 46). Verified 2026-06-23 across the grey sweep and solid primaries.
-+    const SOLID_DC_BIT: usize = 368;
-+    /// Maximum DC escape category; the maximum category omits the unary 0-terminator (a complete
-+    /// prefix code on categories `1..=SOLID_DC_CMAX`). `|qY| <= 1020 => c <= 10`, `|qCb| <= 255`.
-+    const SOLID_DC_CMAX: u32 = 10;
-+    /// Minimum trailing bits after the escape before the 2-byte length tail (empirical: fits all 14
-+    /// solid/colour DCs of `codec-grammar-20260623`; ~= the 16 blocks' empty-AC/EOB run).
-+    const SOLID_DC_MINPAD: usize = 61;
-+    /// Header (16 B, X/Y/w18/w1c patched per strip) + the constant 30-byte main frame (bytes 16..46)
-+    /// of a solid strip (the 16-block all-zero DC-residual / empty-AC structure, identical for any
-+    /// solid colour). Byte 46 (bit 368) onward carries the (Cr, Cb, Y) DC escape + trailer.
-+    const SOLID_MAIN: [u8; 46] = [
-+        0x01, 0x28, 0, 0, 0, 0, 0, 0, 0, 0, 0x3a, 0, 0x3a, 0, 0, 0, // header (magic,X,Y,resv,w18,w1c,z)
-+        0xfc, 0x00, 0x7e, 0x00, 0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, 0xfc,
-+        0x00, 0x7e, 0x00, 0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, // main frame
-+    ];
-+
-+    /// Quantize a per-plane Haar DC: luma (plane 0) step 16, chroma (planes 1/2) step 64, bias 8.
-+    /// Verified 2026-06-23 from the solid primaries (red qCb=255, cyan qY=764, ...).
-+    fn quantize_dc(plane: usize, v: i32) -> i32 {
-+        let step = if plane == 0 { 16 } else { 64 };
-+        let q = (((v.unsigned_abs() + 8) * (65536 / step)) >> 16) as i32;
-+        if v < 0 {
-+            -q
-+        } else {
-+            q
-+        }
-+    }
-+
-+    /// Number of escape bits a signed value `v` occupies: `0 -> 1`; else `unary(c) ++ [term if
-+    /// c<cmax] ++ offset(c-1) ++ sign`.
-+    fn esc_len(v: i32, cmax: u32) -> usize {
-+        if v == 0 {
-+            return 1;
-+        }
-+        let c = mag_category(v);
-+        c as usize + usize::from(c < cmax) + (c as usize - 1) + 1
-+    }
-+
-+    /// Encode one solid 64x16 coder strip at pixel `(x, y)` from its three per-plane Haar DCs
-+    /// (`ydc = c3[0]`, `cbdc = c4[0] = 64*(R-G)`, `crdc = c5[0] = 64*(B-G)`; achromatic => Cb=Cr=0,
-+    /// e.g. `ydc = 8192` for grey128). **Byte-exact-verified vs DLM** on the full grey sweep
-+    /// (c=8/9/10), white, and the 6 solid primaries/secondaries -- 14/14 strips (KUnit
-+    /// `wht_solid_strip_byte_exact` + `scripts/wht-strip-encoder.py`). Plane order on the wire is
-+    /// (Cr, Cb, Y); the escape begins at bit 368; the strip is zero-padded to its even length `L`
-+    /// with `w18 = w1c = tail = L - 2`.
-+    pub(crate) fn solid_strip(x: u16, y: u16, ydc: i32, cbdc: i32, crdc: i32) -> Result<KVec<u8>> {
-+        let esc = esc_len(quantize_dc(2, crdc), SOLID_DC_CMAX)
-+            + esc_len(quantize_dc(1, cbdc), SOLID_DC_CMAX)
-+            + esc_len(quantize_dc(0, ydc), SOLID_DC_CMAX);
-+        let need = (SOLID_DC_BIT + esc + SOLID_DC_MINPAD).div_ceil(8);
-+        let payload = need + (need & 1); // round up to even
-+        let len = payload + 2;
-+
-+        let mut out = KVec::new();
-+        out.resize(len, 0, GFP_KERNEL)?;
-+        out[..46].copy_from_slice(&SOLID_MAIN);
-+        out[2..4].copy_from_slice(&x.to_le_bytes());
-+        out[4..6].copy_from_slice(&y.to_le_bytes());
-+        let l2 = (len - 2) as u16;
-+        out[10..12].copy_from_slice(&l2.to_le_bytes()); // w18
-+        out[12..14].copy_from_slice(&l2.to_le_bytes()); // w1c
-+        // No trailing echo on the wire (the record framing's strip_id carries the length); the
-+        // last 2 bytes stay the natural DC padding. See `frame_records`.
-+
-+        // The (Cr, Cb, Y) DC escapes, LSB-first from bit 368.
-+        let mut bitpos = SOLID_DC_BIT;
-+        let mut push = |b: u32| {
-+            out[bitpos / 8] |= ((b & 1) as u8) << (bitpos % 8);
-+            bitpos += 1;
-+        };
-+        for &q in &[quantize_dc(2, crdc), quantize_dc(1, cbdc), quantize_dc(0, ydc)] {
-+            if q == 0 {
-+                push(0); // a zero value is the single bit 0
-+                continue;
-+            }
-+            let c = mag_category(q);
-+            let mag = q.unsigned_abs();
-+            let off = mag - (1 << (c - 1));
-+            for _ in 0..c {
-+                push(1); // unary category
-+            }
-+            if c < SOLID_DC_CMAX {
-+                push(0); // 0-terminator (omitted at the maximum category)
-+            }
-+            for i in (0..c.saturating_sub(1)).rev() {
-+                push(off >> i); // (c-1)-bit magnitude offset, MSB-first
-+            }
-+            push(u32::from(q > 0)); // sign bit = 1 for positive
-+        }
-+        Ok(out)
-+    }
-+
-+    /// Max AC magnitude category (the maximum category omits the unary 0-terminator).
-+    const AC_CMAX: u32 = 9;
-+
-+    /// LSB-first bit accumulator for the AC-strip coder (no final padding, unlike [`Vlc`]).
-+    struct Bits {
-+        out: KVec<u8>,
-+        n: usize,
-+    }
-+
-+    impl Bits {
-+        fn new() -> Self {
-+            Self { out: KVec::new(), n: 0 }
-+        }
-+
-+        fn bit(&mut self, b: u32) -> Result {
-+            if self.n % 8 == 0 {
-+                self.out.push(0, GFP_KERNEL)?;
-+            }
-+            self.out[self.n / 8] |= ((b & 1) as u8) << (self.n % 8);
-+            self.n += 1;
-+            Ok(())
-+        }
-+
-+        /// The shared escape value code: a 0 is one `0` bit; else `unary(c) ++ [0-term IFF c<cmax]
-+        /// ++ offset(c-1, MSB-first) ++ sign(1=positive)`. `c = bit_length(|v|)`.
-+        fn esc(&mut self, v: i32, cmax: u32) -> Result {
-+            if v == 0 {
-+                return self.bit(0);
-+            }
-+            let c = mag_category(v);
-+            let off = v.unsigned_abs() - (1 << (c - 1));
-+            for _ in 0..c {
-+                self.bit(1)?;
-+            }
-+            if c < cmax {
-+                self.bit(0)?;
-+            }
-+            for i in (0..c.saturating_sub(1)).rev() {
-+                self.bit(off >> i)?;
-+            }
-+            self.bit(u32::from(v > 0))
-+        }
-+
-+        /// Per-block significance = LAST-significant-position code (byte-exact 24/24): AC block
-+        /// `00111110 ++ 5-bit(32-last) MSB`; flat block `00111111 ++ 0000000`.
-+        fn sync_unit(&mut self, last: usize) -> Result {
-+            for &b in &[0u32, 0, 1, 1, 1, 1, 1] {
-+                self.bit(b)?; // common prefix 0011111
-+            }
-+            if last == 0 {
-+                self.bit(1)?; // flat: 8th prefix bit = 1, then 7 zeros (15-bit unit)
-+                for _ in 0..7 {
-+                    self.bit(0)?;
-+                }
-+            } else {
-+                self.bit(0)?; // AC: 8th prefix bit = 0, then 5-bit (32-last) MSB-first (13-bit unit)
-+                let v = 32 - last as u32;
-+                for i in (0..5).rev() {
-+                    self.bit((v >> i) & 1)?;
-+                }
-+            }
-+            Ok(())
-+        }
-+    }
-+
-+    /// Encode a UNIFORM 64x16 AC strip (16 identical 8x8 blocks) at pixel `(x, y)` from one block's
-+    /// 32 transform coeffs. **BYTE-EXACT vs DLM** (25/25 sig-library strips; KUnit `wht_ac_strip`).
-+    /// Achromatic (Cb=Cr=0). Layout: header(16) + per-block sync(last-position) + (Cr,Cb,Y) DC plane
-+    /// (block0 + 15 DPCM-zero blocks, 10 B) + AC-row(8 blocks: run-bit / magnitude) x2 + tail(L-2).
-+    /// For a fully flat block (no AC) use [`solid_strip`] instead.
-+    pub(crate) fn ac_strip(coeff: &[i32; COEFFS], x: u16, y: u16) -> Result<KVec<u8>> {
-+        let mut q = [0i32; COEFFS];
-+        for i in 0..COEFFS {
-+            q[i] = quantize(coeff[i], i);
-+        }
-+        let last = (1..COEFFS).rev().find(|&i| q[i] != 0).unwrap_or(0);
-+
-+        let mut sync = Bits::new();
-+        for _ in 0..16 {
-+            sync.sync_unit(last)?;
-+        }
-+        let mut dc = Bits::new();
-+        dc.esc(0, SOLID_DC_CMAX)?; // Cr=0
-+        dc.esc(0, SOLID_DC_CMAX)?; // Cb=0
-+        dc.esc(q[0], SOLID_DC_CMAX)?; // Y absolute (block 0)
-+        for _ in 0..45 {
-+            dc.bit(0)?; // 15 DPCM-zero blocks x (Cr,Cb,Y)
-+        }
-+        let mut row = Bits::new();
-+        for _ in 0..8 {
-+            for i in 1..=last {
-+                if q[i] == 0 {
-+                    row.bit(0)?; // run bit (insignificant coeff)
-+                } else {
-+                    row.esc(q[i], AC_CMAX)?; // magnitude
-+                }
-+            }
-+        }
-+
-+        let sync_b = sync.out.len();
-+        let dc_b = 10usize; // DC region fixed 10 B for 16-block uniform
-+        let mut rb = row.out.len();
-+        rb += rb & 1; // round row up to even bytes
-+        let w18 = 16 + sync_b + dc_b;
-+        let w1c = w18 + rb;
-+        let len = w1c + rb + 2;
-+
-+        let mut out = KVec::new();
-+        out.resize(len, 0, GFP_KERNEL)?;
-+        out[0] = 0x01;
-+        out[1] = 0x28;
-+        out[2..4].copy_from_slice(&x.to_le_bytes());
-+        out[4..6].copy_from_slice(&y.to_le_bytes());
-+        out[10..12].copy_from_slice(&(w18 as u16).to_le_bytes());
-+        out[12..14].copy_from_slice(&(w1c as u16).to_le_bytes());
-+        out[16..16 + sync_b].copy_from_slice(&sync.out);
-+        out[16 + sync_b..16 + sync_b + dc.out.len()].copy_from_slice(&dc.out);
-+        out[w18..w18 + row.out.len()].copy_from_slice(&row.out);
-+        out[w1c..w1c + row.out.len()].copy_from_slice(&row.out);
-+        out[len - 2..len].copy_from_slice(&((len - 2) as u16).to_le_bytes());
-+        Ok(out)
-+    }
-+
-+    /// Number of blocks across a 64-px-wide strip and the rows of blocks within its 16-px height.
-+    const STRIP_BLOCKS_X: usize = 8;
-+    const STRIP_ROW_BLOCKS: usize = 8; // blocks in one 8-row half (8 across x 1 down)
-+    const STRIP_BLOCKS: usize = 16; // 8 across x 2 down
-+
-+    /// Round a byte count up to an even number (every coder sub-region is even-aligned).
-+    fn round_even(n: usize) -> usize {
-+        n + (n & 1)
-+    }
-+
-+    /// Emit the 16-block DPCM DC plane into `b`: per block, the `(Cr, Cb, Y)` quantized DC as a
-+    /// RESIDUAL escape (residual = this block's DC minus the previous block's DC, previous = 0 for
-+    /// block 0). Byte-exact vs DLM on the varying-DC solid strips (vstripe8/hstripe8/checker8) and
-+    /// the uniform case (all residuals 0). `dc[k] = (qCr, qCb, qY)`.
-+    fn dc_plane(b: &mut Bits, dc: &[(i32, i32, i32); STRIP_BLOCKS]) -> Result {
-+        let (mut pcr, mut pcb, mut py) = (0i32, 0i32, 0i32);
-+        for &(cr, cb, y) in dc {
-+            b.esc(cr - pcr, SOLID_DC_CMAX)?;
-+            b.esc(cb - pcb, SOLID_DC_CMAX)?;
-+            b.esc(y - py, SOLID_DC_CMAX)?;
-+            (pcr, pcb, py) = (cr, cb, y);
-+        }
-+        Ok(())
-+    }
-+
-+    /// Emit one block's luma AC coefficients (positions `1..=last`) into `b`: a run bit `0` for an
-+    /// insignificant coefficient, else the magnitude escape. No EOB -- the block's `last` (from the
-+    /// significance sync) bounds the loop. Achromatic only (chroma AC is not yet recovered).
-+    fn block_ac(b: &mut Bits, q: &[i32; COEFFS], last: usize) -> Result {
-+        for i in 1..=last {
-+            if q[i] == 0 {
-+                b.bit(0)?;
-+            } else {
-+                b.esc(q[i], AC_CMAX)?;
-+            }
-+        }
-+        Ok(())
-+    }
-+
-+    /// Encode one general 64x16 coder strip at pixel `(x, y)` from its 16 blocks' luma transform
-+    /// coefficients (raster order: blocks 0..8 = top 8-px half, 8..16 = bottom half). Picks DLM's
-+    /// layout automatically: **SOLID** (every block flat -> header + 30-byte main frame + DPCM DC
-+    /// plane from bit 368) or **AC** (some block carries a nonzero AC coeff -> header + per-block
-+    /// significance sync + DPCM DC plane + AC-row0 + AC-row1). The 2-byte tail is set to this
-+    /// strip's own `L - 2`; [`encode_frame`] overwrites it with the *next* strip's forward length
-+    /// hint (the wire's actual tail).
-+    ///
-+    /// **Byte-exact vs DLM** (achromatic content) on uniform solid (grey sweep/white), varying-DC
-+    /// solid (vstripe8/hstripe8/checker8) and the 25/25 sig-library AC strips; gradient bodies match
-+    /// every coding layer. Chroma (Cb/Cr) AC is left at zero -- there is no captured colour-AC
-+    /// example to verify it against, so colourful textured content is *not* byte-exact here (the
-+    /// anti-fabrication boundary). Callers pass per-block luma coeffs from [`transform`].
-+    pub(crate) fn strip(blocks: &[[i32; COEFFS]; STRIP_BLOCKS], x: u16, y: u16) -> Result<KVec<u8>> {
-+        let mut q = [[0i32; COEFFS]; STRIP_BLOCKS];
-+        let mut lasts = [0usize; STRIP_BLOCKS];
-+        let mut dc = [(0i32, 0i32, 0i32); STRIP_BLOCKS];
-+        let mut any_ac = false;
-+        for k in 0..STRIP_BLOCKS {
-+            for i in 0..COEFFS {
-+                q[k][i] = quantize(blocks[k][i], i);
-+            }
-+            lasts[k] = (1..COEFFS).rev().find(|&i| q[k][i] != 0).unwrap_or(0);
-+            any_ac |= lasts[k] != 0;
-+            dc[k] = (0, 0, q[k][0]); // achromatic: Cr=Cb=0 (chroma DC plumbed by the caller's blocks)
-+        }
-+
-+        let mut dcb = Bits::new();
-+        dc_plane(&mut dcb, &dc)?;
-+
-+        let mut out = KVec::new();
-+        if !any_ac {
-+            // SOLID layout: header + constant 30-byte main frame + DPCM DC plane from bit 368.
-+            let l2 = round_even((SOLID_DC_BIT + dcb.n).div_ceil(8)) + 2;
-+            let len = l2 + 2;
-+            out.resize(len, 0, GFP_KERNEL)?;
-+            out[..46].copy_from_slice(&SOLID_MAIN);
-+            out[2..4].copy_from_slice(&x.to_le_bytes());
-+            out[4..6].copy_from_slice(&y.to_le_bytes());
-+            out[10..12].copy_from_slice(&(l2 as u16).to_le_bytes());
-+            out[12..14].copy_from_slice(&(l2 as u16).to_le_bytes());
-+            // The DPCM bits begin at bit 368 = byte 46 (byte-aligned); Bits zero-pads its tail, so a
-+            // plain byte copy preserves the LSB-first packing.
-+            out[46..46 + dcb.out.len()].copy_from_slice(&dcb.out);
-+            out[len - 2..len].copy_from_slice(&(l2 as u16).to_le_bytes());
-+            return Ok(out);
-+        }
-+
-+        // AC layout.
-+        let mut sync = Bits::new();
-+        for k in 0..STRIP_BLOCKS {
-+            sync.sync_unit(lasts[k])?;
-+        }
-+        let mut row0 = Bits::new();
-+        for k in 0..STRIP_ROW_BLOCKS {
-+            block_ac(&mut row0, &q[k], lasts[k])?;
-+        }
-+        let mut row1 = Bits::new();
-+        for k in STRIP_ROW_BLOCKS..STRIP_BLOCKS {
-+            block_ac(&mut row1, &q[k], lasts[k])?;
-+        }
-+
-+        let sync_b = sync.out.len();
-+        let dc_b = round_even(dcb.out.len()) + 2;
-+        let r0 = round_even(row0.out.len());
-+        let r1 = round_even(row1.out.len());
-+        let w18 = 16 + sync_b + dc_b;
-+        let w1c = w18 + r0;
-+        let len = w1c + r1 + 2;
-+
-+        out.resize(len, 0, GFP_KERNEL)?;
-+        out[0] = 0x01;
-+        out[1] = 0x28;
-+        out[2..4].copy_from_slice(&x.to_le_bytes());
-+        out[4..6].copy_from_slice(&y.to_le_bytes());
-+        out[10..12].copy_from_slice(&(w18 as u16).to_le_bytes());
-+        out[12..14].copy_from_slice(&(w1c as u16).to_le_bytes());
-+        out[16..16 + sync_b].copy_from_slice(&sync.out);
-+        out[16 + sync_b..16 + sync_b + dcb.out.len()].copy_from_slice(&dcb.out);
-+        out[w18..w18 + row0.out.len()].copy_from_slice(&row0.out);
-+        out[w1c..w1c + row1.out.len()].copy_from_slice(&row1.out);
-+        // No forward-hint tail: on the EP08 wire the strip's last 2 bytes are the natural row1
-+        // bit-packing. The record framing carries the length as `strip_id == len`, so the in-strip
-+        // echo the sink hook showed is not transmitted on the wire. See `frame_records`.
-+        Ok(out)
-+    }
-+
-+    // ====================================================================================
-+    // COLOUR strip codec (Cb/Cr planes). Recovered byte-exact 2026-06-27/28 from DLM
-+    // sink-hook captures (cramp/rramp/bramp period sweeps, captures/codec-sink-sweep-*):
-+    // 2700/2872 strips byte-identical across every significance combination. Tooling +
-+    // proof: scripts/codec-re/{coeffs,model,colourstrip,verify-colour-ac}.py.
-+    //
-+    // Per block the 3 planes are (Cr=64*(B-G), Cb=64*(R-G), Y=64*G + 64*((Cb+Cr)>>2)).
-+    //  * SYNC unit = [Cr field][Cb field][Y field]; chroma fields present only when last>0
-+    //    (the per-block plane mask), Y field always present (luma `sync_unit`).
-+    //  * DC plane = 16-block DPCM (Cr,Cb,Y), 3 tokens/block, chroma step 64 / luma step 16,
-+    //    round-half-up on the signed value.
-+    //  * AC rows (row0 blocks 0..8, row1 8..16): per block (Cr,Cb,Y) present planes, chroma
-+    //    quant flat step 16 (truncate toward zero), positions 1..last, run-bit `0` for zeros.
-+    //  * Strip length = w1c + round_even(row1) (the 2-byte tail overlaps row1's tail).
-+    // ====================================================================================
-+
-+    /// Flat chroma AC quantizer: step 16, truncate toward zero. Coarser than luma's
-+    /// per-position `quantize`, so chroma `last` collapses to {0,1,7,31}.
-+    fn quantize_chroma_ac(coeff: i32) -> i32 {
-+        let q = coeff.abs() / 16;
-+        if coeff < 0 {
-+            -q
-+        } else {
-+            q
-+        }
-+    }
-+
-+    /// Per-plane DC quantizer, round-half-up on the SIGNED value (toward +inf): luma (plane 0)
-+    /// step 16, chroma step 64. `+224/64 = 3.5 -> 4`; `-8416/64 = -131.5 -> -131`.
-+    fn quantize_dc_round(plane: usize, v: i32) -> i32 {
-+        let step = if plane == 0 { 16 } else { 64 };
-+        (v + step / 2).div_euclid(step)
-+    }
-+
-+    impl Bits {
-+        /// The Cr significance field: `c = bit_length(last)`; emit `1`x`c` then `0`x`c`.
-+        fn cr_field(&mut self, last: usize) -> Result {
-+            let c = usize::BITS - last.leading_zeros();
-+            for _ in 0..c {
-+                self.bit(1)?;
-+            }
-+            for _ in 0..c {
-+                self.bit(0)?;
-+            }
-+            Ok(())
-+        }
-+
-+        /// The Cb significance field: `c = bit_length(last)`; `10` if `c == 1`, else
-+        /// `0` ++ `1`x`c` ++ `0`x`(c-1)`.
-+        fn cb_field(&mut self, last: usize) -> Result {
-+            let c = usize::BITS - last.leading_zeros();
-+            if c == 1 {
-+                self.bit(1)?;
-+                return self.bit(0);
-+            }
-+            self.bit(0)?;
-+            for _ in 0..c {
-+                self.bit(1)?;
-+            }
-+            for _ in 0..c - 1 {
-+                self.bit(0)?;
-+            }
-+            Ok(())
-+        }
-+
-+        /// One block's colour SYNC unit: present chroma fields (Cr, then Cb) then the Y field.
-+        fn colour_sync_unit(&mut self, lcr: usize, lcb: usize, ly: usize) -> Result {
-+            if lcr > 0 {
-+                self.cr_field(lcr)?;
-+            }
-+            if lcb > 0 {
-+                self.cb_field(lcb)?;
-+            }
-+            self.sync_unit(ly)
-+        }
-+
-+        /// One block's colour AC: present planes in (Cr, Cb, Y) order, positions `1..=last`,
-+        /// run-bit `0` for an insignificant coefficient else the magnitude escape (cmax `AC_CMAX`).
-+        fn colour_block_ac(
-+            &mut self,
-+            qcr: &[i32; COEFFS],
-+            qcb: &[i32; COEFFS],
-+            qy: &[i32; COEFFS],
-+            lcr: usize,
-+            lcb: usize,
-+            ly: usize,
-+        ) -> Result {
-+            for &(q, last) in &[(qcr, lcr), (qcb, lcb), (qy, ly)] {
-+                for i in 1..=last {
-+                    if q[i] == 0 {
-+                        self.bit(0)?;
-+                    } else {
-+                        self.esc(q[i], AC_CMAX)?;
-+                    }
-+                }
-+            }
-+            Ok(())
-+        }
-+    }
-+
-+    /// One quantized colour block: the three planes' 32 coefficients and their last-significant
-+    /// AC positions. Built by [`colour_block`] from a block's per-plane samples.
-+    pub(crate) struct ColourBlock {
-+        qcr: [i32; COEFFS],
-+        qcb: [i32; COEFFS],
-+        qy: [i32; COEFFS],
-+        lcr: usize,
-+        lcb: usize,
-+        ly: usize,
-+    }
-+
-+    /// Transform + quantize one block's three planes (each 64 samples in the codec's x64 fixed
-+    /// point: `cr[i] = 64*(B-G)`, `cb[i] = 64*(R-G)`, `y[i] = 64*G + 64*((Cb+Cr)>>2)`). Luma uses
-+    /// the per-position `quantize`/col-major transform; chroma AC uses the flat step-16
-+    /// `quantize_chroma_ac`; all DCs use `quantize_dc_round`.
-+    pub(crate) fn colour_block(
-+        cr: &[i32; PIXELS],
-+        cb: &[i32; PIXELS],
-+        y: &[i32; PIXELS],
-+    ) -> ColourBlock {
-+        let tcr = transform(cr);
-+        let tcb = transform(cb);
-+        let ty = transform(y);
-+        let mut qcr = [0i32; COEFFS];
-+        let mut qcb = [0i32; COEFFS];
-+        let mut qy = [0i32; COEFFS];
-+        qcr[0] = quantize_dc_round(2, tcr[0]);
-+        qcb[0] = quantize_dc_round(1, tcb[0]);
-+        qy[0] = quantize_dc_round(0, ty[0]);
-+        for i in 1..COEFFS {
-+            qcr[i] = quantize_chroma_ac(tcr[i]);
-+            qcb[i] = quantize_chroma_ac(tcb[i]);
-+            qy[i] = quantize(ty[i], i);
-+        }
-+        let last = |q: &[i32; COEFFS]| (1..COEFFS).rev().find(|&i| q[i] != 0).unwrap_or(0);
-+        let (lcr, lcb, ly) = (last(&qcr), last(&qcb), last(&qy));
-+        ColourBlock { qcr, qcb, qy, lcr, lcb, ly }
-+    }
-+
-+    /// Encode one 64x16 COLOUR strip at pixel `(x, y)` from its 16 quantized colour blocks
-+    /// (raster: 0..8 top 8-px half, 8..16 bottom). Byte-exact vs DLM on all measured chromatic
-+    /// content (see the section header). The 2-byte tail is this strip's own `L-2`;
-+    /// [`encode_frame`]/the scanout path overwrites it with the next strip's forward length hint.
-+    pub(crate) fn colour_strip(
-+        blocks: &[ColourBlock; STRIP_BLOCKS],
-+        x: u16,
-+        y: u16,
-+    ) -> Result<KVec<u8>> {
-+        let mut sync = Bits::new();
-+        for b in blocks {
-+            sync.colour_sync_unit(b.lcr, b.lcb, b.ly)?;
-+        }
-+        let mut dcb = Bits::new();
-+        let (mut pcr, mut pcb, mut py) = (0i32, 0i32, 0i32);
-+        for b in blocks {
-+            let (cr, cb, yv) = (b.qcr[0], b.qcb[0], b.qy[0]);
-+            dcb.esc(cr - pcr, SOLID_DC_CMAX)?;
-+            dcb.esc(cb - pcb, SOLID_DC_CMAX)?;
-+            dcb.esc(yv - py, SOLID_DC_CMAX)?;
-+            (pcr, pcb, py) = (cr, cb, yv);
-+        }
-+        let mut row0 = Bits::new();
-+        for b in &blocks[..STRIP_ROW_BLOCKS] {
-+            row0.colour_block_ac(&b.qcr, &b.qcb, &b.qy, b.lcr, b.lcb, b.ly)?;
-+        }
-+        let mut row1 = Bits::new();
-+        for b in &blocks[STRIP_ROW_BLOCKS..] {
-+            row1.colour_block_ac(&b.qcr, &b.qcb, &b.qy, b.lcr, b.lcb, b.ly)?;
-+        }
-+
-+        let sync_b = sync.out.len();
-+        let dc_b = round_even(dcb.out.len()) + 2;
-+        let r0 = round_even(row0.out.len());
-+        let r1 = round_even(row1.out.len());
-+        let w18 = 16 + sync_b + dc_b;
-+        let w1c = w18 + r0;
-+        // The 2-byte tail overlaps the end of the row1 region (len = w1c + round_even(row1)).
-+        let len = w1c + r1;
-+
-+        let mut out = KVec::new();
-+        out.resize(len, 0, GFP_KERNEL)?;
-+        out[0] = 0x01;
-+        out[1] = 0x28;
-+        out[2..4].copy_from_slice(&x.to_le_bytes());
-+        out[4..6].copy_from_slice(&y.to_le_bytes());
-+        out[10..12].copy_from_slice(&(w18 as u16).to_le_bytes());
-+        out[12..14].copy_from_slice(&(w1c as u16).to_le_bytes());
-+        out[16..16 + sync_b].copy_from_slice(&sync.out);
-+        out[16 + sync_b..16 + sync_b + dcb.out.len()].copy_from_slice(&dcb.out);
-+        out[w18..w18 + row0.out.len()].copy_from_slice(&row0.out);
-+        out[w1c..w1c + row1.out.len()].copy_from_slice(&row1.out);
-+        // No forward-hint tail: on the EP08 wire the strip's last 2 bytes are the natural row1
-+        // bit-packing. The record framing carries the length as `strip_id == len`, so the in-strip
-+        // echo the sink hook showed is not transmitted on the wire. See `frame_records`.
-+        Ok(out)
-+    }
-+
-+    /// Transform one 8x8 luma block read from `luma` (row-major, `stride` samples per row, top-left
-+    /// at `[oy*stride + ox]`) into its 32 Haar coefficients.
-+    fn block_coeffs(luma: &[u8], stride: usize, ox: usize, oy: usize) -> [i32; COEFFS] {
-+        let mut blk = [0i32; PIXELS];
-+        for r in 0..DIM {
-+            for c in 0..DIM {
-+                // Achromatic: Y = 64 * gray (the colour transform's R=G=B case).
-+                blk[r * DIM + c] = 64 * luma[(oy + r) * stride + (ox + c)] as i32;
-+            }
-+        }
-+        transform(&blk)
-+    }
-+
-+    /// Encode a full `width`x`height` achromatic (8-bit luma) frame into the Vino WHT EP08 strip
-+    /// stream (no transport header -- the caller prepends [`write_ep08_header`]). The frame is tiled
-+    /// into 64x16 strips in raster order; each strip's 16 blocks are transformed and handed to
-+    /// [`strip`]. A second pass writes the **forward length hint**: strip `k`'s 2-byte tail is set to
-+    /// strip `k+1`'s `L - 2` (the last strip keeps its own `L - 2`). This is the wire's exact tail
-+    /// rule -- verified 10529/10800 on the gradient capture and on 100% of constant-strip-size
-+    /// content; it deviates from DLM only where DLM *mispredicts* an anomalously-sized neighbour
-+    /// (the rightmost-column size heuristic, the single open framing micro-detail).
-+    ///
-+    /// `width`/`height` must be multiples of 64 and 16 respectively (the codec's strip geometry).
-+    /// Achromatic only (see [`strip`]); for colour or RGB565-reduced input this is not byte-exact, so
-+    /// the live scanout path keeps using RLE until the chroma-AC grammar is captured.
-+    pub(crate) fn encode_frame(luma: &[u8], width: usize, height: usize) -> Result<KVec<u8>> {
-+        if width % (STRIP_BLOCKS_X * DIM) != 0 || height % (2 * DIM) != 0 {
-+            return Err(kernel::error::code::EINVAL);
-+        }
-+        let strips_x = width / (STRIP_BLOCKS_X * DIM); // 64-px columns
-+        let strips_y = height / (2 * DIM); // 16-px rows
-+        // Build every strip body (tail = own L-2 for now), tracking each one's span in `out`.
-+        let mut out = KVec::new();
-+        let mut spans: KVec<(usize, usize)> = KVec::new(); // (start, len) per strip
-+        for sy in 0..strips_y {
-+            for sx in 0..strips_x {
-+                let (px, py) = (sx * STRIP_BLOCKS_X * DIM, sy * 2 * DIM);
-+                let mut blocks = [[0i32; COEFFS]; STRIP_BLOCKS];
-+                for k in 0..STRIP_BLOCKS {
-+                    let (bx, by) = (k % STRIP_BLOCKS_X, k / STRIP_BLOCKS_X);
-+                    blocks[k] = block_coeffs(luma, width, px + bx * DIM, py + by * DIM);
-+                }
-+                let s = strip(&blocks, px as u16, py as u16)?;
-+                let start = out.len();
-+                let slen = s.len();
-+                out.extend_from_slice(&s, GFP_KERNEL)?;
-+                spans.push((start, slen), GFP_KERNEL)?;
-+            }
-+        }
-+        // Second pass: forward length hint -- tail[k] = L[k+1] - 2.
-+        for k in 0..spans.len().saturating_sub(1) {
-+            let (start, slen) = spans[k];
-+            let next_l2 = (spans[k + 1].1 - 2) as u16;
-+            out[start + slen - 2..start + slen].copy_from_slice(&next_l2.to_le_bytes());
-+        }
-+        Ok(out)
-+    }
-+
-+    /// Strip pixel geometry: a strip is 64 px wide and 16 px tall
-+    /// (`STRIP_BLOCKS_X * DIM` x `2 * DIM`).
-+    pub(crate) const STRIP_W: usize = STRIP_BLOCKS_X * DIM; // 64
-+    pub(crate) const STRIP_H: usize = 2 * DIM; // 16
-+
-+    /// Gather one 64x16 strip's 16 colour blocks from a pixel source. `px(x, y)` returns the
-+    /// 8-bit `(R, G, B)` at absolute frame coordinate `(x, y)`; `(ox, oy)` is the strip's
-+    /// top-left pixel. Each block's three planes are built in the codec's x64 fixed point via
-+    /// [`colour`] (per-pixel `(Y, Cb, Cr)`, stored `(Cr, Cb, Y)` for [`colour_block`]). Blocks are
-+    /// raster order within the strip (0..8 top 8-px half, 8..16 bottom), matching [`colour_strip`].
-+    fn colour_strip_blocks(
-+        ox: usize,
-+        oy: usize,
-+        px: &mut impl FnMut(usize, usize) -> (u8, u8, u8),
-+    ) -> [ColourBlock; STRIP_BLOCKS] {
-+        core::array::from_fn(|k| {
-+            let (bx, by) = (k % STRIP_BLOCKS_X, k / STRIP_BLOCKS_X);
-+            let (mut cr, mut cb, mut y) = ([0i32; PIXELS], [0i32; PIXELS], [0i32; PIXELS]);
-+            for r in 0..DIM {
-+                for c in 0..DIM {
-+                    let (rr, gg, bb) = px(ox + bx * DIM + c, oy + by * DIM + r);
-+                    let (yv, cbv, crv) = colour(rr, gg, bb);
-+                    let i = r * DIM + c;
-+                    (cr[i], cb[i], y[i]) = (crv, cbv, yv);
-+                }
-+            }
-+            colour_block(&cr, &cb, &y)
++impl VinoDrmData {
++    pub(super) fn new(intf: ARef<super::usb::Interface>) -> impl PinInit<Self, Error> {
++        try_pin_init!(Self {
++            intf,
++            cp_link <- new_mutex!(Option::<CpLink>::None),
++            connector: core::sync::atomic::AtomicPtr::new(core::ptr::null_mut()),
 +        })
 +    }
 +
-+    /// Encode a full `width`x`height` 8-bit-RGB frame into the Vino WHT **colour** EP08 frame(s) --
-+    /// the colour counterpart of the luma [`encode_frame`], and the assembler the live scanout path
-+    /// drives once the CP wall falls. `px(x, y)` yields the source pixel's `(R, G, B)`; the caller
-+    /// applies any rotation / gamma / format conversion (so this stays a pure codec). The surface is
-+    /// tiled into 64x16 strips in raster order, each built from [`colour_block`] + [`colour_strip`].
-+    /// The **forward length-hint tail** is then chained across the WHOLE frame -- strip `k`'s 2-byte
-+    /// tail is patched to strip `k+1`'s `L - 2` (the last strip keeps its own), even across EP08-frame
-+    /// boundaries. Finally the strip stream is split at strip boundaries into `<= u16::MAX - 12`-byte
-+    /// EP08 frames, each prefixed with a [`write_ep08_header`] carrying an incrementing `seq` from
-+    /// `seq0`. Returns the ready-to-send frames and the next `seq`.
-+    ///
-+    /// `width`/`height` must be multiples of 64 and 16 (`EINVAL` otherwise) -- the codec's strip
-+    /// geometry; the live scanout path falls back to RLE for non-aligned modes (see
-+    /// `docs/VIDEO-TODO.md`). Byte-exact for the recovered colour grammar (chroma sync/DC/AC); the
-+    /// anti-fabrication boundary is the synthetic steepest-chroma edge cases (`VIDEO-TODO.md` 8/9).
-+    pub(crate) fn colour_frame_ep08(
-+        width: usize,
-+        height: usize,
-+        seq0: u32,
-+        mut px: impl FnMut(usize, usize) -> (u8, u8, u8),
-+    ) -> Result<(KVec<KVec<u8>>, u32)> {
-+        if width % STRIP_W != 0 || height % STRIP_H != 0 {
-+            return Err(kernel::error::code::EINVAL);
-+        }
-+        // Build every strip body (raster order; each strip's natural row1 tail, no echo).
-+        let mut strips: KVec<KVec<u8>> = KVec::new();
-+        let mut sy = 0usize;
-+        while sy < height {
-+            let mut sx = 0usize;
-+            while sx < width {
-+                let blocks = colour_strip_blocks(sx, sy, &mut px);
-+                strips.push(colour_strip(&blocks, sx as u16, sy as u16)?, GFP_KERNEL)?;
-+                sx += STRIP_W;
-+            }
-+            sy += STRIP_H;
-+        }
-+        Ok((frame_records(&strips)?, seq0))
++    /// Publish the engaged CP session so the KMS callbacks can send runtime CP messages.
++    /// Called once by the bring-up work item after the dock acks (`acks > 0`). `wire_seq`/
++    /// `counter` are the next free values past the bring-up CP setup.
++    pub(super) fn publish_session(&self, ks: &[u8; 16], riv: &[u8; 8], wire_seq: u32, counter: u16) {
++        *self.cp_link.lock() = Some(CpLink { ks: *ks, riv: *riv, wire_seq, counter });
 +    }
 +
-+    /// A strip's `y` (the EP08 record bands group strips by row). Reads the `y` field the strip
-+    /// builders write at byte offset 4 ([`colour_strip`] / [`solid_strip`]).
-+    fn strip_y(s: &[u8]) -> u16 {
-+        u16::from_le_bytes([s[4], s[5]])
++    /// Seal and send one interactive CP message on EP02, advancing the session keystream.
++    /// `build(counter)` produces the inner CP message for the dock-echoed `counter` it is
++    /// handed (e.g. [`super::cp::set_mode`]); `tag_reserved` trailing bytes are dropped before
++    /// the live Dl3Cmac is appended. Returns `Ok(())` as a **no-op when CP is not engaged**.
++    /// The `cp_link` mutex serialises concurrent KMS callbacks. Runs from the atomic-commit
++    /// context (same as the scanout), so the blocking `bulk_send` is fine.
++    pub(super) fn send_cp(
++        &self,
++        id: u16,
++        tag_reserved: usize,
++        build: impl FnOnce(u16) -> Result<KVec<u8>>,
++    ) -> Result {
++        let mut guard = self.cp_link.lock();
++        let Some(link) = (&mut *guard).as_mut() else {
++            return Ok(()); // CP not engaged -- nothing to send
++        };
++        let msg = build(link.counter)?;
++        let content = &msg[..msg.len().saturating_sub(tag_reserved)];
++        let frame = super::cp::seal_interactive(&link.ks, &link.riv, id, link.wire_seq, content)?;
++        // SAFETY: a runtime CP send only happens after a successful bring-up while the
++        // DRM device (and thus this interface) is live; the interface is unbound only
++        // in `disconnect()`, which first unplugs the DRM device, so it is bound here.
++        let dev = unsafe { self.intf.as_bound() };
++        dev.bulk_send(super::EP_CTRL_OUT, &frame, super::timeout(), GFP_KERNEL)?;
++        link.wire_seq = link.wire_seq.wrapping_add(((content.len() + 15) / 16) as u32);
++        link.counter = link.counter.wrapping_add(1);
++        Ok(())
 +    }
 +
-+    /// Frame a raster-ordered list of strip bodies into EP08 USB transfers using DLM's real wire
-+    /// record framing (RE'd 2026-06-28 from a passive capture of DLM's EP08 output):
-+    ///
-+    /// ```text
-+    /// record (one per single-Y band of strips):
-+    ///   u16 pad   = 0
-+    ///   u16 size  = total record length (TLV..trailer, excludes the inter-record gap)
-+    ///   u32 type  = 4
-+    ///   u8[8]     prefix = [flag=0, 0, fseq=0, 0, 0,0,0,0]
-+    ///   per strip: u16 strip_id (== strip length) ++ strip bytes
-+    ///   u8[4]     trailer = 0
-+    /// then u8[4] inter-record gap = 0; stride = size + 4.
-+    /// ```
-+    ///
-+    /// The record stream is then chunked into `<= 65536`-byte USB transfers (a chunk may fall
-+    /// mid-record; the dock reassembles the byte stream -- this is exactly what DLM's 64 KB libusb
-+    /// transfers do). There is **no** per-transfer header (the old `write_ep08_header sub=0x30`
-+    /// over concatenated strips was wrong and made the dock fault). `flag`/`fseq` are record-level
-+    /// metadata left at 0 (content-derivation is an open detail; the dock-visible structure is the
-+    /// per-strip `strip_id == len` and the TLV framing).
-+    pub(crate) fn frame_records(strips: &[KVec<u8>]) -> Result<KVec<KVec<u8>>> {
-+        const PREFIX: usize = 8;
-+        const TRAILER: usize = 4;
-+        const GAP: usize = 4;
-+        const SIZE_CAP: usize = 0x4000; // keep `size` well within u16; matches DLM's record sizes
-+        let mut stream: KVec<u8> = KVec::new();
-+        let mut i = 0usize;
-+        while i < strips.len() {
-+            let y0 = strip_y(&strips[i]);
-+            let rec = stream.len();
-+            stream.extend_from_slice(&[0u8; 8 + PREFIX], GFP_KERNEL)?; // TLV(8) + prefix(8)
-+            stream[rec + 4..rec + 8].copy_from_slice(&4u32.to_le_bytes()); // type = 4
-+            let mut n = 0usize;
-+            while i < strips.len() && strip_y(&strips[i]) == y0 {
-+                let s = &strips[i];
-+                let projected = (stream.len() - rec) + 2 + s.len() + TRAILER;
-+                if n > 0 && projected > SIZE_CAP {
-+                    break;
-+                }
-+                stream.extend_from_slice(&(s.len() as u16).to_le_bytes(), GFP_KERNEL)?;
-+                stream.extend_from_slice(s, GFP_KERNEL)?;
-+                n += 1;
-+                i += 1;
-+            }
-+            stream.extend_from_slice(&[0u8; TRAILER], GFP_KERNEL)?;
-+            let size = (stream.len() - rec) as u16;
-+            stream[rec + 2..rec + 4].copy_from_slice(&size.to_le_bytes());
-+            stream.extend_from_slice(&[0u8; GAP], GFP_KERNEL)?;
-+        }
-+        // Chunk the continuous record stream into transfers. Cap at 65024 (a non-multiple of the
-+        // EP08 wMaxPacketSize of 1024) so every full chunk ends in a short packet that terminates
-+        // the bulk transfer -- a transfer that is an exact wMaxPacketSize multiple needs a ZLP to
-+        // terminate, which the in-kernel sync path / nusb does not append (DLM's libusb does). A
-+        // chunk a hair under a packet boundary sidesteps that without needing ZLP support.
-+        const CHUNK: usize = 65024; // 63.5 * 1024
-+        let mut frames: KVec<KVec<u8>> = KVec::new();
-+        let mut off = 0usize;
-+        while off < stream.len() {
-+            let end = core::cmp::min(off + CHUNK, stream.len());
-+            let mut t: KVec<u8> = KVec::new();
-+            t.extend_from_slice(&stream[off..end], GFP_KERNEL)?;
-+            frames.push(t, GFP_KERNEL)?;
-+            off = end;
-+        }
-+        Ok(frames)
++    /// Push a DDC/CI Set-VCP write to the downstream monitor (brightness, contrast or DPMS
++    /// power). Wraps [`super::cp::ddc_set_vcp`] (`id=0x15`); a no-op until the cipher is
++    /// engaged.
++    pub(super) fn set_vcp(&self, vcp: u8, value: u16) -> Result {
++        self.send_cp(0x15, 0, |ctr| super::cp::ddc_set_vcp(ctr, vcp, value))
++    }
++
++    /// Cache the dock's EDID (read during probe) for the connector's `get_modes` to install,
++    /// then fire a hotplug so the compositor re-probes the connector. Only the connector
++    /// itself holds the cached blob (see [`VinoConnector::cached_edid`]); this just forwards
++    /// it there via the pointer [`KmsDriver::probe`] stashed in `self.connector`.
++    pub(super) fn set_edid(&self, dev: &VinoDrmDevice, blob: KVec<u8>) {
++        let ptr = self.connector.load(core::sync::atomic::Ordering::Acquire);
++        let Some(connector) = (unsafe { ptr.as_ref() }) else { return };
++        *connector.cached_edid.lock() = Some(blob);
++        dev.hotplug_event();
 +    }
 +}
 +
-+/// Length of the EP08 transport header ([`write_ep08_header`]).
-+pub(crate) const EP08_HDR_LEN: usize = 16;
++/// GEM object inner data. Empty: the shmem-backed `drm::gem::shmem::Object` (which
++/// wires `drm_gem_shmem_dumb_create`, so userspace `DRM_IOCTL_MODE_CREATE_DUMB`
++/// works) is enough until the EP08 scanout path consumes the framebuffers.
++#[pin_data]
++pub(super) struct VinoObject {}
 +
-+/// Write the 16-byte EP08 transport header into `hdr` for a `payload_len`-byte codec
-+/// stream: `type=4 sub=0x30 sub_len_dw=0` sec 3 framing (matches the live capture).
-+/// `size = payload_len + 12`. Used by the in-place scanout path. `hdr` must be at
-+/// least 16 bytes.
-+///
-+/// The wire `size` field is 16-bit, so a frame is limited to `u16::MAX - 12` payload
-+/// bytes; a larger codec stream cannot be expressed in a single frame and returns
-+/// `EOVERFLOW` rather than silently truncating `size` (which would desync the dock's
-+/// parser). The mode-2/RLE diff encoder keeps per-pageflip updates well under this;
-+/// an incompressible full-frame update that exceeds it must be split by the caller.
-+pub(crate) fn write_ep08_header(hdr: &mut [u8], payload_len: usize, seq: u32) -> Result {
-+    let size = payload_len.checked_add(12).filter(|&s| s <= u16::MAX as usize);
-+    let size = size.ok_or(kernel::error::code::EOVERFLOW)?;
-+    hdr[0] = 0;
-+    hdr[1] = 0;
-+    hdr[2..4].copy_from_slice(&(size as u16).to_le_bytes());
-+    hdr[4..8].copy_from_slice(&4u32.to_le_bytes());
-+    hdr[8..10].copy_from_slice(&0x30u16.to_le_bytes());
-+    hdr[10..12].copy_from_slice(&0u16.to_le_bytes());
-+    hdr[12..16].copy_from_slice(&seq.to_le_bytes());
++impl drm::gem::DriverObject for VinoObject {
++    type Driver = VinoDrmDriver;
++    type Args = ();
++
++    fn new<Ctx: drm::DeviceContext>(
++        _dev: &drm::Device<VinoDrmDriver, Ctx>,
++        _size: usize,
++        _args: (),
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoObject {})
++    }
++}
++
++/// Per-open DRM client state. Empty of driver data, but its lifetime is used to
++/// pin the module for the duration of an open DRM file (see [`VinoDrmFile::open`]).
++#[pin_data(PinnedDrop)]
++pub(super) struct VinoDrmFile {}
++
++impl drm::file::DriverFile for VinoDrmFile {
++    type Driver = VinoDrmDriver;
++
++    fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
++        let file = KBox::try_pin_init(try_pin_init!(Self {}), GFP_KERNEL)?;
++        // Pin this module while a DRM file is open. The Rust DRM `file_operations` are
++        // built with `owner = NULL` (drm/gem/mod.rs `create_fops`), so the DRM core's
++        // `try_module_get(fops->owner)` on open is a no-op: an open card fd does NOT
++        // keep the driver loaded. Unloading vino (rmmod, or USB teardown at shutdown)
++        // while a compositor still holds `/dev/dri/cardN` then frees the module's
++        // `.rodata` -- where the fops live -- under that open fd, so the next
++        // ioctl/close dereferences freed memory and oopses the kernel. Take an
++        // explicit module reference here, released 1:1 in `PinnedDrop` (run by
++        // `postclose_callback` on file close), to restore the pin the NULL
++        // `fops.owner` drops. Remove once the binding sets `fops.owner`.
++        // SAFETY: we are executing inside this module's own DRM `open` callback, so
++        // the module is live; taking an extra reference via `__module_get` is sound.
++        unsafe { bindings::__module_get(crate::THIS_MODULE.as_ptr()) };
++        Ok(file)
++    }
++}
++
++#[pinned_drop]
++impl PinnedDrop for VinoDrmFile {
++    fn drop(self: Pin<&mut Self>) {
++        // Release the module reference taken in `open` (balanced one-per-open-file).
++        // SAFETY: balances the `__module_get` in `open`; `THIS_MODULE` is valid for
++        // the lifetime of the module.
++        unsafe { bindings::module_put(crate::THIS_MODULE.as_ptr()) };
++    }
++}
++
++const INFO: drm::DriverInfo = drm::DriverInfo {
++    major: 0,
++    minor: 1,
++    patchlevel: 0,
++    name: c"vino",
++    desc: c"DisplayLink DL3 (Dell D6000) DRM driver",
++};
++
++#[vtable]
++impl drm::Driver for VinoDrmDriver {
++    type Data = VinoDrmData;
++    type File = VinoDrmFile;
++    type Object<Ctx: drm::DeviceContext> = drm::gem::shmem::Object<VinoObject, Ctx>;
++    type ParentDevice<Ctx: kernel::device::DeviceContext> = super::usb::Interface<Ctx>;
++    type RegistrationData = ForLt!(());
++    type Kms = Self;
++
++    const INFO: drm::DriverInfo = INFO;
++
++    // No driver-private ioctls (GEM/dumb + KMS handled by the DRM core).
++    kernel::declare_drm_ioctls! {}
++}
++
++#[vtable]
++impl KmsDriver for VinoDrmDriver {
++    type Connector = VinoConnector;
++    type Plane = VinoPlane;
++    type Crtc = VinoCrtc;
++    type Encoder = VinoEncoder;
++
++    fn mode_config_info(_dev: &drm::Device<Self, drm::Uninit>) -> Result<ModeConfigInfo> {
++        Ok(ModeConfigInfo {
++            min_resolution: (0, 0),
++            max_resolution: (4096, 4096),
++            max_cursor: (0, 0),
++            preferred_depth: 32,
++            preferred_fourcc: Some(DRM_FORMAT_XRGB8888),
++        })
++    }
++
++    fn probe(dev: &NewKmsDevice<'_, Self, Probing>) -> Result {
++        // Order matters: `possible_crtcs` for the plane/encoder is a bitmask of CRTC
++        // *indices*, which only exist once `UnregisteredCrtc::new` runs -- but planes
++        // must exist before the CRTC that references them. With exactly one CRTC ever
++        // created here, its index is always 0, so `possible_crtcs = 1` is correct by
++        // construction rather than needing the CRTC up front.
++        let primary = plane::UnregisteredPlane::<VinoPlane>::new(
++            dev,
++            1,
++            &PRIMARY_FORMATS,
++            None,
++            plane::Type::Primary,
++            None,
++            (),
++        )?;
++        let crtc_obj = crtc::UnregisteredCrtc::<VinoCrtc>::new(
++            dev,
++            primary,
++            None::<&plane::UnregisteredPlane<VinoPlane>>,
++            None,
++            (),
++        )?;
++        let enc = encoder::UnregisteredEncoder::<VinoEncoder>::new(
++            dev,
++            encoder::Type::Virtual,
++            crtc_obj.mask(),
++            0,
++            None,
++            (),
++        )?;
++        let conn =
++            connector::UnregisteredConnector::<VinoConnector>::new(dev, connector::Type::Virtual, ())?;
++        conn.attach_encoder(&*enc)?;
++        // Stash a pointer to our own connector data (not the wrapping `Connector<T>`, which
++        // this crate has no public way to reconstruct from a reference) so
++        // `VinoDrmData::set_edid` can reach it later without walking DRM's mode-object list.
++        // `conn` outlives the device (destroyed only alongside it), so this is valid for as
++        // long as `dev.connector` is read.
++        let data: &VinoDrmData = dev;
++        data.connector.store(
++            &**conn as *const VinoConnector as *mut VinoConnector,
++            core::sync::atomic::Ordering::Release,
++        );
++        Ok(())
++    }
++}
++
++// ---- CRTC -----------------------------------------------------------------
++
++#[pin_data]
++pub(super) struct VinoCrtc;
++
++#[derive(Clone, Default)]
++pub(super) struct VinoCrtcState;
++
++impl crtc::DriverCrtcState for VinoCrtcState {
++    type Crtc = VinoCrtc;
++}
++
++#[vtable]
++impl crtc::DriverCrtc for VinoCrtc {
++    type Args = ();
++    type Driver = VinoDrmDriver;
++    type State = VinoCrtcState;
++    type VblankImpl = core::marker::PhantomData<Self>;
++
++    fn new(_device: &drm::Device<Self::Driver, drm::Uninit>, _args: &()) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoCrtc {})
++    }
++
++    /// The display is turning on (scanout begins). Pushes a live mode-set CP message for the
++    /// negotiated mode and brings the monitor out of DPMS standby -- both no-ops until CP
++    /// engages (the wall).
++    fn atomic_enable(commit: CrtcAtomicCommit<'_, Self>) {
++        let data: &VinoDrmData = commit.crtc().drm_dev();
++        let new = commit.take_new_state();
++        let timing = super::cp::timing_from_drm_mode(new.mode());
++        pr_info!(
++            "vino: KMS CRTC enable -- display ON, mode {}x{}@{} (scanout begins)\n",
++            timing.hactive,
++            timing.vactive,
++            timing.refresh_hz
++        );
++        if let Err(e) = data.send_cp(0x48, 16, |ctr| super::cp::set_mode(ctr, &timing)) {
++            pr_warn!("vino: runtime mode-set send failed ({e:?})\n");
++        }
++        let _ = data.set_vcp(super::cp::VCP_POWER_MODE, super::cp::POWER_ON);
++    }
++
++    /// The display is turning off (DPMS-off/blank/suspend all land here in atomic KMS).
++    /// Resets the scanout state so a later re-enable sends a full keyframe rather than diffing
++    /// against a shadow the dock may have dropped, and blanks the monitor via DDC/CI -- a
++    /// no-op until CP engages.
++    fn atomic_disable(commit: CrtcAtomicCommit<'_, Self>) {
++        let data: &VinoDrmData = commit.crtc().drm_dev();
++        let _ = data.set_vcp(super::cp::VCP_POWER_MODE, super::cp::POWER_OFF);
++        pr_info!("vino: KMS CRTC disable -- display OFF (scanout stopped)\n");
++    }
++}
++
++// ---- Primary plane / scanout -----------------------------------------------
++
++#[pin_data]
++pub(super) struct VinoPlane {
++    #[pin]
++    scanout: Mutex<ScanoutState>,
++}
++
++#[derive(Clone, Default)]
++pub(super) struct VinoPlaneState;
++
++impl plane::DriverPlaneState for VinoPlaneState {
++    type Plane = VinoPlane;
++}
++
++#[vtable]
++impl plane::DriverPlane for VinoPlane {
++    type Args = ();
++    type Driver = VinoDrmDriver;
++    type State = VinoPlaneState;
++
++    fn new(_device: &drm::Device<Self::Driver, drm::Uninit>, _args: ()) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoPlane {
++            scanout <- new_mutex!(ScanoutState {
++                enc: None,
++                cur: VVec::new(),
++                seq: 0,
++                dims: (0, 0),
++                hint: 0,
++            }),
++        })
++    }
++
++    /// A new framebuffer was flipped in. Maps it, converts XRGB8888 -> RGB565 (or feeds the
++    /// WHT colour codec directly for an aligned mode), and bulk-writes the resulting EP08
++    /// frame(s).
++    ///
++    /// The EP08 write only happens once the dock has engaged CP (see `docs/BLOCKER.md`):
++    /// until then the dock NAKs/stalls EP08, so a normal module load must not push frames on
++    /// every flip and thrash the dock. With the CP-engagement wall unsolved this never fires
++    /// on real hardware.
++    fn atomic_update(commit: PlaneAtomicCommit<'_, Self>) {
++        if !super::CP_ENGAGED.load(core::sync::atomic::Ordering::SeqCst) {
++            return;
++        }
++        let plane = commit.plane();
++        let data: &VinoDrmData = plane.drm_dev();
++        let new = commit.take_new_state();
++        let Some(fb) = new.framebuffer::<VinoDrmDriver>() else { return };
++        // The plane's destination geometry mirrors the negotiated mode (the compositor sizes the
++        // primary plane 1:1 with the virtual output), so this drives the dynamic scanout
++        // resolution.
++        let (w, h) = (new.crtc_w() as usize, new.crtc_h() as usize);
++
++        use core::sync::atomic::Ordering::Relaxed;
++        // Throttle: while scanout is failing (dock NAKing because CP isn't engaged), skip the
++        // upcoming pageflips set by the backoff below instead of converting+encoding+sending a
++        // frame the dock will just drop.
++        let skip = super::SCANOUT_SKIP.load(Relaxed);
++        if skip > 0 {
++            super::SCANOUT_SKIP.store(skip - 1, Relaxed);
++            return;
++        }
++        match scanout_one(data, plane, fb, w, h) {
++            Ok(()) => {
++                let n = super::SCANOUT_FAILS.swap(0, Relaxed);
++                super::SCANOUT_SKIP.store(0, Relaxed);
++                if n > 0 {
++                    pr_info!("vino: scanout recovered after {n} failed frame(s)\n");
++                }
++            }
++            Err(e) => {
++                // The dock NAKs every EP08 write (EPROTO) until CP engages -- expected and not
++                // actionable. Log the first failure and then at exponentially sparser points so
++                // dmesg isn't flooded, and back off the scanout rate.
++                let n = super::SCANOUT_FAILS.fetch_add(1, Relaxed) + 1;
++                if n == 1 || n.is_power_of_two() {
++                    pr_err!("vino: scanout frame failed ({e:?}) [x{n}] -- throttling\n");
++                }
++                // Linear backoff capped at 120 frames (~2 s @ 60 Hz) between probe attempts, so
++                // recovery (CP engaging) is still detected within ~2 s while idle CPU stays low.
++                super::SCANOUT_SKIP.store(core::cmp::min(n, 120), Relaxed);
++            }
++        }
++    }
++}
++
++/// Clear-halt + prime the main bulk-OUT video endpoint before the first live-scanout write,
++/// so it doesn't ETIMEDOUT on a stale endpoint toggle. DLM clear-halts these at engagement
++/// (the "startRender" step). Once.
++fn prime_video_eps(dev: &super::usb::Interface<kernel::device::Bound>) {
++    if !super::EP08_SCANOUT_PRIMED.swap(true, core::sync::atomic::Ordering::SeqCst) {
++        for ep in [0x08u8, 0x0a, 0x0b, 0x0c] {
++            let _ = dev.clear_halt(ep);
++        }
++        pr_info!("vino: video endpoints primed (clear-halt 8/10/11/12)\n");
++    }
++}
++
++/// vmap `fb`, encode it, and push one EP08 frame. Split out so `?` can be used.
++fn scanout_one(
++    data: &VinoDrmData,
++    plane: &plane::Plane<VinoPlane>,
++    fb: &kms::framebuffer::Framebuffer<VinoDrmDriver>,
++    w: usize,
++    h: usize,
++) -> Result {
++    if w == 0 || h == 0 {
++        return Err(EINVAL);
++    }
++    // Map the framebuffer's backing pages into the kernel address space; the guard unmaps on
++    // drop, including on an early return below.
++    let vmap = fb.vmap()?;
++    // The real source stride: GEM dumb buffers pad the pitch (alignment), so it is not necessarily
++    // `w * 4` -- read it from the framebuffer rather than assuming.
++    let pitch = fb.pitch(0) as usize;
++    encode_and_send(data, plane, vmap.as_ptr(), pitch, w, h)
++}
++
++/// Encode the mapped frame with the byte-exact Vino WHT **colour** codec and bulk-write the
++/// resulting EP08 frame(s). Reads the source XRGB8888 at full 8-bit precision (no RGB565
++/// reduction -- the codec works in 8-bit RGB). A full-frame keyframe is sent each flip
++/// (correct; strip-level damage is a bandwidth optimisation for later). `w`/`h` must be
++/// 64x16-aligned (the caller checks; [`super::video::wht::colour_frame_ep08`] returns
++/// `EINVAL` otherwise).
++fn encode_and_send_wht(
++    data: &VinoDrmData,
++    plane: &plane::Plane<VinoPlane>,
++    vaddr: *const u8,
++    pitch: usize,
++    w: usize,
++    h: usize,
++) -> Result {
++    let seq0 = plane.scanout.lock().seq;
++    let (frames, next_seq) = super::video::wht::colour_frame_ep08(w, h, seq0, |dx, dy| {
++        // SAFETY: `dy*pitch + dx*4 + 3` is within the mapped source framebuffer (`pitch*h` bytes);
++        // the caller (colour_frame_ep08) only invokes this for `dx < w <= pitch/4`, `dy < h`.
++        let px = unsafe { (vaddr.add(dy * pitch + dx * 4) as *const u32).read_unaligned() };
++        (((px >> 16) & 0xff) as u8, ((px >> 8) & 0xff) as u8, (px & 0xff) as u8)
++    })?;
++    plane.scanout.lock().seq = next_seq;
++
++    // SAFETY: scanout runs only while the DRM device is live; the interface is unbound only
++    // in `disconnect()`, which first unplugs the DRM device, so it is bound for this push.
++    let dev = unsafe { data.intf.as_bound() };
++    prime_video_eps(dev);
++    for frame in frames.iter() {
++        dev.bulk_send(VIDEO_EP, frame, super::timeout(), GFP_KERNEL)?;
++    }
 +    Ok(())
++}
++
++/// Convert the mapped XRGB8888 frame to RGB565, Vino-encode it against the previous frame,
++/// and bulk-write the resulting EP08 frame to the dock.
++fn encode_and_send(
++    data: &VinoDrmData,
++    plane: &plane::Plane<VinoPlane>,
++    vaddr: *const u8,
++    pitch: usize,
++    w: usize,
++    h: usize,
++) -> Result {
++    // WHT colour codec path (default off): the byte-exact, bandwidth-efficient DLM-quality
++    // codec. Requires a 64x16-aligned mode; for non-aligned geometry (e.g. 1080p, height
++    // 1080 % 16 = 8) fall through to the RLE path until partial-strip edge handling is
++    // captured.
++    if super::EP08_WHT_CODEC
++        && w % super::video::wht::STRIP_W == 0
++        && h % super::video::wht::STRIP_H == 0
++    {
++        return encode_and_send_wht(data, plane, vaddr, pitch, w, h);
++    }
++    let frame = {
++        let mut st = plane.scanout.lock();
++        // On the first frame `cur` is freshly zeroed, so the whole buffer must be filled.
++        // Afterwards, unchanged regions of `cur` already hold the previous frame (== the
++        // shadow the encoder diffs against). Re-initialise the encoder/shadow/conversion
++        // buffers on the first frame AND whenever the framebuffer geometry changes (a mode
++        // switch), so they always match `cur`'s size.
++        let first = st.enc.is_none() || st.dims != (w, h);
++        if first {
++            st.enc = Some(super::video::Encoder::new(w, h, super::video::Mode::Rle)?);
++            st.cur = VVec::from_elem(0u16, w * h, GFP_KERNEL)?;
++            st.dims = (w, h);
++            st.hint = 0;
++        }
++        let ScanoutState { enc, cur, seq, hint, dims: _ } = &mut *st;
++        for dy in 0..h {
++            for dx in 0..w {
++                // SAFETY: `dy*pitch + dx*4 + 3` is within the mapped source framebuffer
++                // (`pitch*h` bytes); `dx < w <= pitch/4`, `dy < h`.
++                let px = unsafe { (vaddr.add(dy * pitch + dx * 4) as *const u32).read_unaligned() };
++                let (r, g, b) = ((px >> 16) & 0xff, (px >> 8) & 0xff, px & 0xff);
++                cur[dy * w + dx] = (((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3)) as u16;
++            }
++        }
++        let s = *seq;
++        *seq = seq.wrapping_add(1);
++        let enc = enc.as_mut().ok_or(kernel::error::code::ENOMEM)?;
++        // Encode straight into the outgoing frame buffer: reserve the EP08 header up front,
++        // append the codec stream in place, then back-patch the header now that the payload
++        // length is known.
++        const HDR: usize = super::video::EP08_HDR_LEN;
++        let mut frame = KVec::with_capacity((*hint).max(HDR + 64), GFP_KERNEL)?;
++        frame.extend_from_slice(&[0u8; HDR], GFP_KERNEL)?;
++        enc.encode_into(&*cur, &mut frame)?;
++        let payload_len = frame.len() - HDR;
++        super::video::write_ep08_header(&mut frame[..HDR], payload_len, s)?;
++        *hint = frame.len();
++        frame
++    };
++
++    // SAFETY: scanout runs only while the DRM device is live (driven by a compositor
++    // pageflip); the interface is unbound only in `disconnect()`, which first unplugs the
++    // DRM device, so it is bound for the duration of this push.
++    let dev = unsafe { data.intf.as_bound() };
++    prime_video_eps(dev);
++    dev.bulk_send(VIDEO_EP, &frame, super::timeout(), GFP_KERNEL)?;
++    Ok(())
++}
++
++// ---- Encoder ----------------------------------------------------------------
++
++#[pin_data]
++pub(super) struct VinoEncoder;
++
++#[vtable]
++impl encoder::DriverEncoder for VinoEncoder {
++    type Driver = VinoDrmDriver;
++    type Args = ();
++
++    fn new(_device: &drm::Device<Self::Driver, drm::Uninit>, _args: ()) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoEncoder {})
++    }
++}
++
++// ---- Connector --------------------------------------------------------------
++
++#[pin_data]
++pub(super) struct VinoConnector {
++    /// This connector's downstream-monitor EDID (`None` until the CP channel delivers it).
++    #[pin]
++    cached_edid: Mutex<Option<KVec<u8>>>,
++}
++
++#[derive(Clone, Default)]
++pub(super) struct VinoConnectorState;
++
++impl connector::DriverConnectorState for VinoConnectorState {
++    type Connector = VinoConnector;
++}
++
++#[vtable]
++impl connector::DriverConnector for VinoConnector {
++    type Args = ();
++    type Driver = VinoDrmDriver;
++    type State = VinoConnectorState;
++
++    fn new(_device: &drm::Device<Self::Driver, drm::Uninit>, _args: ()) -> impl PinInit<Self, Error> {
++        try_pin_init!(VinoConnector {
++            cached_edid <- new_mutex!(Option::<KVec<u8>>::None),
++        })
++    }
++
++    /// Install the dock's real EDID (read during probe) when available; otherwise fall back
++    /// to a single 1920x1080@60 CVT mode. Reading the real EDID gives the true monitor
++    /// name/size and its native mode list; the fallback keeps the connector usable when
++    /// nothing is plugged into the dock or the CP channel has not yet delivered the EDID.
++    fn get_modes<'a>(
++        connector: ConnectorGuard<'a, Self>,
++        guard: &ModeConfigGuard<'a, Self::Driver>,
++    ) -> i32 {
++        if let Some(blob) = connector.cached_edid.lock().as_ref() {
++            let n = connector.add_edid_modes(blob);
++            if n > 0 {
++                return n;
++            }
++        }
++        let _ = guard;
++        // No downstream EDID yet: advertise the standard mode list up to the fallback resolution
++        // and prefer it, keeping the connector usable until the dock delivers a real EDID.
++        let n = connector.add_modes_noedid((FALLBACK_W as u32, FALLBACK_H as u32));
++        connector.set_preferred_mode((FALLBACK_W as u32, FALLBACK_H as u32));
++        n
++    }
++}
++
++/// Map an output pixel `(dx, dy)` back to its source-framebuffer pixel `(sx, sy)` under a DRM
++/// plane `rotation` bitmask (`DRM_MODE_ROTATE_*` | `DRM_MODE_REFLECT_*`, the values the
++/// standard `drm_plane_create_rotation_property` exposes). `sw`/`sh` are the SOURCE
++/// (framebuffer) dimensions. Rotation is clockwise; reflection is applied in source space
++/// after rotation. Pure and total (saturating), so it is unit-tested directly ahead of the
++/// rotation property itself being wired up (see the module doc).
++#[allow(dead_code)]
++pub(super) fn rot_src(rotation: u32, dx: usize, dy: usize, sw: usize, sh: usize) -> (usize, usize) {
++    let xmax = sw.saturating_sub(1);
++    let ymax = sh.saturating_sub(1);
++    let rot = rotation & bindings::DRM_MODE_ROTATE_MASK;
++    let (mut sx, mut sy) = if rot == bindings::DRM_MODE_ROTATE_90 {
++        (dy, ymax.saturating_sub(dx))
++    } else if rot == bindings::DRM_MODE_ROTATE_180 {
++        (xmax.saturating_sub(dx), ymax.saturating_sub(dy))
++    } else if rot == bindings::DRM_MODE_ROTATE_270 {
++        (xmax.saturating_sub(dy), dx)
++    } else {
++        (dx, dy) // ROTATE_0 / unset
++    };
++    if rotation & bindings::DRM_MODE_REFLECT_X != 0 {
++        sx = xmax.saturating_sub(sx);
++    }
++    if rotation & bindings::DRM_MODE_REFLECT_Y != 0 {
++        sy = ymax.saturating_sub(sy);
++    }
++    (sx, sy)
 +}
 -- 
 2.55.0
