@@ -4,140 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF77C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 05:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4ACC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 05:58:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D095A10E560;
-	Fri,  3 Jul 2026 05:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF8B710E56E;
+	Fri,  3 Jul 2026 05:58:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lu38gbqc";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eRwcg9Ez";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010044.outbound.protection.outlook.com [52.101.61.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE73F10E578
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 05:58:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sI4mCxu6xyoOWfgu5hETD2650/Oyn8CzyAsvSfLxGclrp1k9CpVMpKItXBzAddwcs4JiO2hnmewfPISIFw+N3VajjVhLlAjFLsCJHrjl2aSV8oMliFpawreLRB84wgHACc/p57no33ucEXJwNXkdw5XfSBcB6R17L2/r10MnnFMMVRt5Ch3vaPc5v1QDDAO97LhIhiNBm7mTFxYSoChb1hwRqVCxjMk6tL9DvlmUfm/O7XjBxTFZg5Z1HONdXPgflPgyDNx2zq1mJvhNE/edXbW+ZUQlzZwgmx7Wn+hIK1dwwOnZfYehKd/rg4wsy7gfahG8MzvodyLiQXCKhDasug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XfVYlBkQ3VIIt7tEHkupg1xLjhooSfEn+I3J9Np9fjU=;
- b=fTBYFsFiZUfuc+YEzY6cyQ/oRyhw6RhuWf1OuU42p0GZTqr4SDg7pXY7lzSGNE/mL9DBKVsAlmAL+OokXv2VC2jW5riPLa81Sc6eH/zLeuYZqvTvXKkKzeJC4ygH/ks0X4r033jegwpHU0Y4m+ufXIeBntWFX/kcEldwF+kyXQyIqGsXIPcXRbDpEFE93E4O8rBiqiYY/VlQwfogMkG/VqD7+BTkKvbQ6Fj2Qvprmj79cw6W/Uh/xvOcPi3mW4WgJliRtMJOA3YZHcHnmNGvgPTg+9VMJ6UTshWa9L6STfXj2CNYLxPsyUTyp4OWdfqBqltHS458CnVPDjm7D04NZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XfVYlBkQ3VIIt7tEHkupg1xLjhooSfEn+I3J9Np9fjU=;
- b=Lu38gbqcJy9jJ819qjQLflZVE0Ui4wp+9rGkU3ibHdHETBG2dTGYLdoKY9wf6VMolX5l4XG3p+DnvnJ3Efd6GO4rXnESRr0K9nPq1qpkrV0JO53AGvojtoJAvKiFkIBfKFBStxfjZyAwRebir0m4nKkANQzFlU17N4SKNt5ealw0vEDJRhX4ZuiEGnSt0chpW+z0Et9wRtyNRbUhalzHzcKBHDeP2Qh8tA2fp4qhCK4gkfnT1zia1fyrw9V4NAudoVE9+iHkOONB8x4ErjQB5IAjL/G0CDi8TQvWWHAn7HUZMhKD/Cm4v73lf1j3qkGLAf3elomlAD+TjQNpi8lq1g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM4PR12MB5841.namprd12.prod.outlook.com (2603:10b6:8:64::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
- 2026 05:58:15 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.008; Fri, 3 Jul 2026
- 05:58:15 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Jul 2026 14:58:11 +0900
-Message-Id: <DJOPEUV2F6Y5.18ZVVR83782TE@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 11/20] rust: io: remove `MmioOwned`
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-11-d0961471ae50@garyguo.net>
-In-Reply-To: <20260626-io_projection-v5-11-d0961471ae50@garyguo.net>
-X-ClientProxiedBy: TY6P301CA0014.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3be::19) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 220B410E56E
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 05:58:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1783058308;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
+ bh=T1Ub9EzZwRRVeQ1vc9r5jPdFwTwN77c6/6bNi9H21to=;
+ b=eRwcg9Ez0K0v8muaCBlwtHh+B8ait8dVYVTeQcws5Cf0W+9PBQGg0oozbOGn4lb3FctAiS
+ j9FS1hSYDEF1chinDYrWFg/3CsssdQQfmUoP/8Z5sPHDsgy14dufpWHNfy3NZIDvvs30EW
+ dzRU1HVBYRve+clzwp5yQdLX1Bx575c=
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-459-k3XxzBT3O-S-NrmalAVGRA-1; Fri, 03 Jul 2026 01:58:26 -0400
+X-MC-Unique: k3XxzBT3O-S-NrmalAVGRA-1
+X-Mimecast-MFC-AGG-ID: k3XxzBT3O-S-NrmalAVGRA_1783058305
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-3810e5c5871so378741a91.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 22:58:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783058305; x=1783663105;
+ h=content-transfer-encoding:date:message-id:subject:cc:in-reply-to:to
+ :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=GW2Z614cbbyH0tCcImMalWsa+hYlOLUUE+Wc31pCfnc=;
+ b=dcMeL0UsWnPf+NRjdSAkSNBLLbLJkMYGOakVZ11FyGi/BHJIe9AYtH0G72YOX3+Q/0
+ WNxcIMHQ+cZ9oqRpKQx22cwn5vCaoIr59RbJT3qj2kAT1XarZeFog2WT6+MftoehLoqP
+ R3ZJul8c6LmoDHaawZNMYN/1R+lmiW9MRt1oZaDDYpT+oXcsDYeDuCJ5iiRAkZ8VrtTi
+ NPloxM/fbox4uG41valZTU6ILWAg5k5nNOrdNQP4V6F9NypIlhFvLUyopQ8akIWzAyHe
+ ztK6TMDgUO8vLiQzO3yR68aqFLqDAOIcNK+roGQ+L2Cw1E8p9J/WV7mvWNNHHMSx9Ofr
+ Xp8w==
+X-Gm-Message-State: AOJu0YyXHvmz99IYyB8iAZJuPIfeXZMSaHCtm92AZ+fy2pYAV8PU9zlO
+ +O3Wj5qyBS1BWEsqYhwyDSpnhdhiBmsh0+C6Sg7pMbA/JX81UqxvX4NU2NfwhoG8TAi5WsyeJ4R
+ 89phQTUVHHJERjDjhZtOJ4hvtFjIi25Z+jGfXHUMGxmyuBhdLz+UqC51Cu3zATM8B7i9NpQ==
+X-Gm-Gg: AfdE7ckZaZ6sM+vRX0vdhoEZ5rxdL2CVmxLG2exeHDjRGM1BQk6kWjw5n0DAmKsYRtr
+ FGhjXo+X2D6l2lqVKguVMp3qWj9bi5fd7IQ/OYTwb8bMtkrjHzl51QAHHai/dkJ6POErlnkQdRI
+ crmTCqi5fHQ6GofzaTiDq6oakwg/A3vkaWEFTsIo2sjD1625yp/J2cLUFVLhfxRpAQogj2xb6HN
+ SitCCgpuuidDyk+giwTbFZ9cszCG3A1i4oRSrvxmiMHPnm5Oq+2/OajHBVEY2kLfVWVe8+LUIwD
+ FVyL2+qb0xV941DwD5Y5AxoD2MSTQLq/QsnLFhp2kgNZKPJchF06fHd1epYzEyq18SN/PmaUWq0
+ eHrE0rj5/VFXquZj9DulivLgAtVkLecsCOxpTBLbNoB9MFgex
+X-Received: by 2002:a17:90b:3c44:b0:37f:9ce2:348f with SMTP id
+ 98e67ed59e1d1-380aa2225dfmr9516826a91.32.1783058305349; 
+ Thu, 02 Jul 2026 22:58:25 -0700 (PDT)
+X-Received: by 2002:a17:90b:3c44:b0:37f:9ce2:348f with SMTP id
+ 98e67ed59e1d1-380aa2225dfmr9516792a91.32.1783058304725; 
+ Thu, 02 Jul 2026 22:58:24 -0700 (PDT)
+Received: from ryasuoka-thinkpadx1carbongen9.tokyo.csb ([126.143.164.49])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38097cfcf1dsm2194113a91.1.2026.07.02.22.58.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Jul 2026 22:58:24 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB5841:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa30d9ab-9812-4c0d-a3b0-08ded8c81244
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|7416014|376014|23010399003|366016|4143699003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 2NQh9T1XXqGZaiEPCBoKAqG6GkTQsha1HN7MEjcaBd1F1xo7CUJG7UVmGbE91TpgWUWMGvnFt5IwBpNlXAy/UzbNp6PYzbliXkbAdLSMlsd0Fv/VyfEVDRo4If9upwBYzdiYkGITS76OFIGDNM1c7iZnnw4EjiHA6MWVdgWoPkdTTHe+Lmwkqfj2lhyAcHZ/Mqc1pNx9HideNsTVNtbRUMEm28PHBdepxJGgKiSck61N/uiGJizYU38w3CzXqPlm2Mpif5e+Q3dinOWQ4VY4auBDPiheclc03LJcz+SIyxzsJ+NWo4wFMuwScg31/vPGDm6oc8bfL94FZb/UgXeeuHrHQpOA+BV+cgR58bRt6V3iXp5OdRwy2VW5vn7c+qyIk1YkeVF6O4DGbJVZ4ctoQ4z3fCUIz/uSsGueXAJJ/PaZ3bjuKcyWzRPGQvYU7yJBu2g01k9rOlK/M1oPdoGQNDoOknCswrraUh9krCZ9Ya2VBx5ZROFApZ2cA6cqdlYO+5pVHjKm11cvMcHt8JxcmDb8GqO2RPwey7jNyiU0OcxQFY08t7I2ZC0udZRvx8VBfkdwVyhbixUOrJHYAgO5A6j2cbRrr0qtCsJJPbuiDZS/yCubSrk55XI4rnpvM4gZtEtOky4L8cKAFdXzJRSbZuNOlrLxJsIQJy3T2kIVE+k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(23010399003)(366016)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnV4SCs4eVIzNnpVTE9pV0NaQnpOb1VGVDcxdHQ4MmFLM3BndlBCMFBFb1BF?=
- =?utf-8?B?UjFNSm15WHBhMnVDd2JPbXhMQU9ES01iQTk1M1M2RHJhYXlKcUJZcXJ1STlE?=
- =?utf-8?B?NGJEaExvWXdNUFRBaGxwd3hiSDZ6QkxBbFpLVm1odkg0cnp3Uk15WXBqaHRj?=
- =?utf-8?B?U1hnY1NwUHArL0wrck5ZSGlyTit5eVY0S2pURWtaWE41WnhIN0NCRmpuR0pu?=
- =?utf-8?B?ZjRwQS9hc2l5aFdZTnhGSjR5WThsYzdxb2NEa2ppV3grcFhmSWg4aUFIZ1RM?=
- =?utf-8?B?Qi9sMU5VeXRyblJPbHR5RDh0bDJQYWFmV01CZGhvSE03R1pQQnl1cDJsMnMv?=
- =?utf-8?B?V2pvcDhtc0dHbmczRU1LQldGVTFYUE9GZkhKNUE0dFdsbWU4TVVKUjdnc0ll?=
- =?utf-8?B?SFB2a1VTTmtDRW0rcmplL3JNYm0xS3hUbU5sQnh6c0kwSHRCa2xObFdVVVM0?=
- =?utf-8?B?NHBSMFJTRzkvU1VwTnNFL2YwWkZQUExzSk9RS3RlcVQvK2t3OURPMmFTbHgx?=
- =?utf-8?B?d3RKL3liVDJDRENRTHU3NkE1d2V6YTExS1hOYXVaZGs2US9wS28veXhhUlJY?=
- =?utf-8?B?VzZzRWVKZUVKcTViUWZ4SFI2QkV4RXltWEhNazZrTytFSmErc2FqZWVTUG5S?=
- =?utf-8?B?OE5URllEY3R3OFZFVDNKZXgzTkhNMGlBRUcxRU4veDdNUjFPS1JKc25XM0RJ?=
- =?utf-8?B?R1ZSQ0VkUGdPemNnaGZsc1AvcUdya1Z2MnVMSnIydEx3b0czM3JsVXRxNFQ4?=
- =?utf-8?B?U2hrbkZXY21ud3MrV0poc3FzdFlsU2Q1NlpYRUdGWHMrTFBiUWZiR0hXczQx?=
- =?utf-8?B?ZmprcmtSRzZMTnJCY1JkTkJzWXdMb0tYbHU5UWluSGwzOVdkeHN1c3pmQmhi?=
- =?utf-8?B?MkZTazhpUXk2Z2ZaTjBTbjNKZUtKcEl0R2lpcFlhS3hFb2lsaDkvRFJ4eUpF?=
- =?utf-8?B?TmRaUk51WHA0WFIzTkJHK1p0bUJ5WkNpUDZPS3pkQ0htQUhOdXZ6Y1BvdEd4?=
- =?utf-8?B?c0M4MnBrcHNTV1piVElxbjdkSXBVU1c1T0p2M2hFdlJoRHBLMUlTY1U4OHpD?=
- =?utf-8?B?Y0dyV29mb3BUUnNhcVBCaitMYnBjRzEyeFBySzZza0ZaVnJBWmtDRU4zNGxl?=
- =?utf-8?B?TlBxTmpGa3JpWEp4a2pYeU10ay9ScGJJYXBMaU1COGIzQ2ZmcVFXSDZNUHBY?=
- =?utf-8?B?aWlKNFB4NkxzMTkraWVTWU8yRFZUcktDdE4vVHRIZXlOS3ZsSkdxV09EamJK?=
- =?utf-8?B?eXh4dXl1dzdoQTMvSVZpQTFtRkFwYzJmZXllUkNtRmRaZkV1SHJPakJZNWo4?=
- =?utf-8?B?REpWVDBjL0ozN0g3OHEzZ2NEbEF4WEhJYUxGOGFjYWxTSkxjZU52bmtZcTZk?=
- =?utf-8?B?VUVJVlEvMTB3RGU4YXVPODNtOEpreHNzbldZOWgzRkorS2QwRFlwY0F1N01Q?=
- =?utf-8?B?ZnpkcEs5KytEdHRZdi9CYkUxSWN3Qm04ejdNaWJ3WnNXMld2dXlibzVSQXJR?=
- =?utf-8?B?dXBDeWJQU0prVTBYTW9WbytKNHJLdXlneTNZVGhTVzJBbXVPZW1sYldNYmY5?=
- =?utf-8?B?YTNzajVtRE5QeFIvS1Q1RXQ2a0tkRVJBSUs2Kyt5dkRlWmtpTlR5OTk5cG1s?=
- =?utf-8?B?c3hZTFR5aXBpOE5jTXd1WGVCVmFkRTZCYUtkNUc0ckJocEdwSFRJRjVhU3Jk?=
- =?utf-8?B?ZVBCaXBvOWNzRFhONUhBb1dGM1pqWDRPenpubWtPRExyemMrR2JSVWxWeExD?=
- =?utf-8?B?bTdxSGhVd0ltbllJeHZmWVVGdUUvUWxCd2kxUnFkUm8zTExPYmk3RzVyQWRN?=
- =?utf-8?B?REExY2M3R0VZS094MFE3eENqYlBkL1dFNFMxTkw3WG1LSW4xUmRBSUgyTjhZ?=
- =?utf-8?B?K2pSb2NLZ0JXZU45dnJoYkV2azhheXZqQ3dQYVRZVFFBbVpqS01yK24xc0Rs?=
- =?utf-8?B?WHFtWmJWbEZIZ0FhazJqa25oODNnSFpDV2w4ckx5czRVaGcvTmxSaXVPQnRp?=
- =?utf-8?B?RE9WSUt5a3o3SzZKa09ISzlHa25wcUdhZWJjQUxscngrNFRvbitIQzF2Z1hX?=
- =?utf-8?B?akFpaGxPcmxlUTd0QUdVYS9EaEVza044S1VDYloyWXhycjhaK1RpTG93d3FR?=
- =?utf-8?B?R1BwWC9sUjAzM0ZNYlRiRnV1TGtOVEFwVEJGWVpBOFArcnBvNWRHT05Yc3FI?=
- =?utf-8?B?dkVqT3MrcGUrV2luRXptOFpRUkhvRkhnc25wTTRyQStyWmdDbmJLTWkwWFNK?=
- =?utf-8?B?T25ReWpOYk95eExRU3hsYWNOQmxSNWRnY0V5YndzL0QyeitaUFRLbWZvUmhY?=
- =?utf-8?B?Vnh2MlVEOUpQYVBHc1hXbXBkSjZLN2UzNUVoeDVjZzN2SGxTM0JTbGdNV2Nh?=
- =?utf-8?Q?xdHveox5yxDrBUjr+WNmvJs/VLfloBPNYwmUtUhhxHJCz?=
-X-MS-Exchange-AntiSpam-MessageData-1: qYXqwTTQ6eTWpA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa30d9ab-9812-4c0d-a3b0-08ded8c81244
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 05:58:14.9872 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EDYhVjbThy9MrkG5pvYeBhNjqUA0vK7ZPjuFPmhKaG6qd27/NxvTlf01n7mNxXnTMNo3HOo4RSO2/TnqEHSMag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5841
+From: "Ryosuke Yasuoka" <ryasuoka@redhat.com>
+To: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, 
+ "David Airlie" <airlied@redhat.com>, "Gerd Hoffmann" <kraxel@redhat.com>, 
+ "Gurchetan Singh" <gurchetansingh@chromium.org>, 
+ "Chia-I Wu" <olvaffe@gmail.com>, 
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, 
+ "Maxime Ripard" <mripard@kernel.org>, 
+ "Thomas Zimmermann" <tzimmermann@suse.de>, 
+ "Simona Vetter" <simona@ffwll.ch>, "Dmitry Baryshkov" <lumag@kernel.org>, 
+ "Javier Martinez Canillas" <javierm@redhat.com>
+In-Reply-To: <1b56e514-17b5-4da1-9ebd-4534e3204ea4@collabora.com>
+Cc: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, 
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
+ avoid deadlock
+Message-ID: <18beb213335dd544.57cdc20d9a554be2.724d3e176f79ad9@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Date: Fri, 3 Jul 2026 05:58:18 +0000
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: iPc0PEY-SSQX8x9Fv8tupSee1mzL5YYWMTBdvBCcLxI_1783058305
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,10 +104,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
-> `Io` trait is now very easy to implement. Thus, implement it on `Bar` and
-> `IoMem` directly and remove the `MmioOwned` struct.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+
+On 02/07/2026 14:26, Dmitry Osipenko wrote:
+> On 7/1/26 12:23, Ryosuke Yasuoka wrote:
+>>=20
+>>=20
+>> On 30/06/2026 16:46, Dmitry Osipenko wrote:
+>>> Hi,
+>>>
+>>> On 6/30/26 12:16, Ryosuke Yasuoka wrote:
+>>>> A probe-time deadlock can occur between the dequeue worker and
+>>>> drm_client_register(). During probe, drm_client_register() holds
+>>>> clientlist_mutex and calls the fbdev hotplug callback, which triggers =
+an
+>>>> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
+>>>> waiting for virtqueue space. The dequeue worker that would free that
+>>>> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
+>>>> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
+>>>> to acquire the same clientlist_mutex. Since wake_up() is only called
+>>>> after the resp_cb loop, the probe thread is never woken and both threa=
+ds
+>>>> deadlock.
+>>>>
+>>>> Fix this by deferring the hotplug notification from
+>>>> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
+>>>> display data (outputs[i].info) is still updated synchronously in the
+>>>> callback, and the deferred work only triggers a re-probe notification =
+to
+>>>> DRM clients.
+>>>>
+>>>> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering=
+ a client")
+>>>> Closes: https://syzkaller.appspot.com/bug?id=3Dd6dd6f86d3aaf7eebe7406e=
+45c1c6e549453f224
+>>>> Closes: https://syzkaller.appspot.com/bug?id=3D908bd910da5dd79b88de4cf=
+7baf376cc873a922e
+>>>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+>>>> ---
+>>>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
+>>>>  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
+>>>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
+>>>>  3 files changed, 16 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/vi=
+rtio/virtgpu_drv.h
+>>>> index 7449907754a4..27ffa4697ae9 100644
+>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
+>>>> =20
+>>>>  =09struct work_struct config_changed_work;
+>>>> =20
+>>>> +=09struct work_struct hotplug_work;
+>>>> +
+>>>>  =09struct work_struct obj_free_work;
+>>>>  =09spinlock_t obj_free_lock;
+>>>>  =09struct list_head obj_free_list;
+>>>> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct vir=
+tio_gpu_device *vgdev,
+>>>>  =09=09=09=09=09uint32_t x, uint32_t y,
+>>>>  =09=09=09=09=09struct virtio_gpu_object_array *objs,
+>>>>  =09=09=09=09=09struct virtio_gpu_fence *fence);
+>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
+>>>>  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vg=
+dev,
+>>>>  =09=09=09=09=09 uint32_t resource_id,
+>>>>  =09=09=09=09=09 uint32_t x, uint32_t y,
+>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/vi=
+rtio/virtgpu_kms.c
+>>>> index cfde9f573df6..cfb532ba43a4 100644
+>>>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, st=
+ruct drm_device *dev)
+>>>>  =09INIT_WORK(&vgdev->config_changed_work,
+>>>>  =09=09  virtio_gpu_config_changed_work_func);
+>>>> =20
+>>>> +=09INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
+>>>> +
+>>>>  =09INIT_WORK(&vgdev->obj_free_work,
+>>>>  =09=09  virtio_gpu_array_put_free_work);
+>>>>  =09INIT_LIST_HEAD(&vgdev->obj_free_list);
+>>>> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
+>>>>  =09flush_work(&vgdev->obj_free_work);
+>>>>  =09flush_work(&vgdev->ctrlq.dequeue_work);
+>>>>  =09flush_work(&vgdev->cursorq.dequeue_work);
+>>>> +=09flush_work(&vgdev->hotplug_work);
+>>>>  =09flush_work(&vgdev->config_changed_work);
+>>>>  =09virtio_reset_device(vgdev->vdev);
+>>>>  =09vgdev->vdev->config->del_vqs(vgdev->vdev);
+>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/vir=
+tio/virtgpu_vq.c
+>>>> index 67865810a2e7..084d98f5dc7b 100644
+>>>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct vir=
+tio_gpu_device *vgdev,
+>>>>  =09virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
+>>>>  }
+>>>> =20
+>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
+>>>> +{
+>>>> +=09struct virtio_gpu_device *vgdev =3D
+>>>> +=09=09container_of(work, struct virtio_gpu_device, hotplug_work);
+>>>> +
+>>>> +=09if (!drm_helper_hpd_irq_event(vgdev->ddev))
+>>>> +=09=09drm_kms_helper_hotplug_event(vgdev->ddev);
+>>>> +}
+>>>> +
+>>>>  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_devi=
+ce *vgdev,
+>>>>  =09=09=09=09=09       struct virtio_gpu_vbuffer *vbuf)
+>>>>  {
+>>>> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(str=
+uct virtio_gpu_device *vgdev,
+>>>>  =09spin_unlock(&vgdev->display_info_lock);
+>>>>  =09wake_up(&vgdev->resp_wq);
+>>>> =20
+>>>> -=09if (!drm_helper_hpd_irq_event(vgdev->ddev))
+>>>> -=09=09drm_kms_helper_hotplug_event(vgdev->ddev);
+>>>> +=09schedule_work(&vgdev->hotplug_work);
+>>>>  }
+>>>> =20
+>>>>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_devic=
+e *vgdev,
+>>>
+>>=20
+>> Hi,
+>> Thank you for your review.
+>>=20
+>>> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init=
+(), placing it after wait_event_timeout(display_info_pending)? This will av=
+oid additional work_struct that otherwise needs to be cancelled in virtio_g=
+pu_init() on the timeout.
+>>=20
+>> IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
+>> into virtio_gpu_init() after wait_event_timeout() would not prevent the
+>> issue.
+>>=20
+>> Looking at the syzbot call traces[1][2], the deadlock occurs during
+>> drm_client_setup(), which runs after virtio_gpu_init() has already
+>> returned. The display_info_cb that triggers the deadlock is called from
+>> the dequeue worker while drm_client_register() holds clientlist_mutex.
+>>=20
+>> Thread A:
+>> virtio_gpu_probe()
+>>  -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
+>=20
+> You mean that the timeout happens and it's again syzkaller report for a
+> broken host. A day ago I applied [1] that should fix this "bogus"
+> syzkaller report.
+>=20
+> [1] https://patchwork.freedesktop.org/patch/735301/
+
+Thank you for [1] and the clarificaiton. I agree that [1] addresses the
+broken host scenario where virtio_gpu_init() times out and probe
+continues with a pending display_info response. I think there is another
+scenario causing the same deadlock reported by syzbot and my patch
+addresses both cases.
+
+The deadlock can also occur with the following scenario:
+after virtio_gpu_init() completes successfully (wait_event_timeout
+returns), if a config_changed event arrives before drm_client_setup()
+completes, config_changed_work_func() sends a new GET_DISPLAY_INFO. Its
+display_info_cb fires in the dequeue worker and blocks on
+clientlist_mutex held by drm_client_register(). This is the same
+deadlock path reported by syzbot.
+
+Since [1] only prevents the timeout case, I believe the schedule_work()
+approach is still needed to prevent display_info_cb from blocking on
+clientlist_mutex in the dequeue worker context, regardless of the
+trigger.
+
+Best regards,
+Ryosuke
+
