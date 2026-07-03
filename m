@@ -4,60 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B6DDC43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 11:51:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4D6DC43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 12:02:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E190C10E0C2;
-	Fri,  3 Jul 2026 11:51:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D58AC10E5BB;
+	Fri,  3 Jul 2026 12:02:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="cMcxwH2a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d1p5DJtE";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE40710E0C2
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 11:51:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783079487; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ldk1Ov52agUENVA9pOXdnjsZ8w+A9onhggvgai7JV4hBhNdqwibAXEyd5/MEQ7QrXfUzN6Yue4mMw+AYDgw4bI5pF3sjOigLFUgAYYJpJRZ/VkIN6Sbjjy+Sqit8xq3wN7uYNFXLsp1onZ6gXv0VyAVgQ3+sij/eyy10DR6fxXU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783079487;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=076AGVadMU4qXO0msuGsP6G7TKTOukSMYKAVBOYTuOQ=; 
- b=mSWQlXGQMX5t5cfSREz0Sgn+3yHnuHG7noGD7jhd+8QCczF4MDaSWF8kMl5+iwz127RcTFlAKsMJNcXhJipPkgPoEkW7oXsgwYOavvRSylLdg9utXkrRrbJoa/8RK+uHjoyJ0iC6Sks1G83rI+qWv6xYJ5Wx829F0Xsc+/RIq20=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783079487; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=076AGVadMU4qXO0msuGsP6G7TKTOukSMYKAVBOYTuOQ=;
- b=cMcxwH2a+/G/gQZ04JCAjGF61WwKwx+D33RP479tfdqyk9bNthADWUGnzxH9x8z5
- KC6+YexBFJUAruj3OQIXce06zZGMKF4mcqg9bKKSdyaSn4YvQaJ1LH3DX3iz2D/nMQJ
- XTvLtaXM2hM/rU3acKYnnjhQPZTqemflxAueoNvY=
-Received: by mx.zohomail.com with SMTPS id 1783079484766973.8712447886768;
- Fri, 3 Jul 2026 04:51:24 -0700 (PDT)
-Message-ID: <9fa5e38c-0200-4724-b5db-739ea67c1181@collabora.com>
-Date: Fri, 3 Jul 2026 13:51:20 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] udmabuf: Ensure to perform cache synchronisation in
- begin_cpu_udmabuf()
-From: Robert Mader <robert.mader@collabora.com>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260627105725.9083-1-robert.mader@collabora.com>
- <CABXGCsPHdi3=Tpg2uZhZMuLNmg8r9Bg=OgD39eyMc=pv8gc_TQ@mail.gmail.com>
- <bc41095d-8956-4c3e-8f99-f4bda41f81e7@collabora.com>
- <CABXGCsNYEhkprpTh9Pd8Y46520fwNJngS_Bg_QJCQPCf3_qv0g@mail.gmail.com>
- <0a444d8c-6107-4577-bed3-0039333a5244@collabora.com>
-Content-Language: en-US, de-DE
-In-Reply-To: <0a444d8c-6107-4577-bed3-0039333a5244@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A4BE10E5BB
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:02:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EB0C46001A
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 12:02:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101971F000E9;
+ Fri,  3 Jul 2026 12:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783080159;
+ bh=XJhoqtd+XutQZMwJdnD8usqZSwYWXDGcrDFKt/cuKCE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=d1p5DJtEVbdyTioR5+QMpYmqo6VLyhMMI1B8Uot6GSf6A5lBx1DawbaxUIHRcHR9B
+ qL5Pbva7ClpXPJUYn7ZPondXmHoWUiLfh+idbw2gmFGfGuNkPkcLPdOTauzjLBGl1m
+ VKLJofi9RmKKbeG84d6CQ+FMxDgzsNH0Ht4e+P1q8nl3KUPT71UEaaoCyADQZnXVAf
+ IbjkAuXhPHrZUmzUoqoEdHkt+RLAWDodwCsZmgEtvi0Q4MqsInKtXTihe8sGYRku/i
+ xVi7OZHRKymXwdLgItswiFy6gNXIgfSUTOVOWmsQ1w3Ny9tHR3jsfUR/NesVUtfHPo
+ kyNljEawMpAdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 08/14] drm/msm: Switch to generic PAS TZ APIs
+To: "Sumit Garg" <sumit.garg@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260702115835.167602-9-sumit.garg@kernel.org>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
+ <20260702115835.167602-9-sumit.garg@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 12:02:38 +0000
+Message-Id: <20260703120239.101971F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,57 +54,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi, sorry for the noise - adding more udmabuf maintainers in case Vivek 
-doesn't have time to look into it atm, just to ensure people are aware.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Gerd, Sumit, Christian: this is a simple fix for a minor regression in 
-the upcoming 7.2 release - it would therefor be great if anyone could 
-pick it to the fixes branch :)
+New issues:
+- [High] Generic PAS TEE backend maps TA-level errors to -EINVAL, breaking =
+the DRM MSM fallback logic.
+- [High] TOCTOU race condition in generic PAS API wrappers leading to NULL =
+pointer dereference.
+- [High] Unconditional PAS availability check causes infinite probe deferra=
+l on platforms without PAS support.
 
-Thanks and best regards,
+Pre-existing issues:
+- [High] The MSM DRM driver propagates -EOPNOTSUPP instead of -ENODEV, fata=
+lly failing GPU initialization.
+--
 
-Robert
+commit fd17ff54a9520d92288105f263b3bc29eb9cbd4b
+Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-On 29.06.26 13:58, Robert Mader wrote:
-> On 29.06.26 13:48, Mikhail Gavrilov wrote:
->> On Mon, Jun 29, 2026 at 3:57 PM Robert Mader 
->> <robert.mader@collabora.com> wrote:
->>> Hi Mikhail,
->>>
->>> thanks for the quick review! And no worries, I was very happy about 
->>> your
->>> patch, which is why I looked deeper into it in the first place.
->>>
->>> Given the patch fixes a newly introduced regression (and is very
->>> simple), do you think there's a chance to still get it into 7.1 - or
->>> would it need to go via the usual 7.2/7.3 release schedule + backport?
->> Hi Robert,
->>
->> The timing depends on Vivek and the drm-misc maintainers, not me,
->> but here's the situation as I understand it:
->>
->> The original commit 504e2b4ab97a only landed in 7.2 (it went into
->> drm-misc-next, not drm-misc-fixes). So 7.1 was never affected by
->> the regression -- there's nothing to fix there.
->>
->> For 7.2: since your patch fixes a regression introduced in the same
->> cycle, it would ideally go through drm-misc-fixes to land in 7.2
->> before release, avoiding a broken commit in the final tree. That's
->> the cleanest outcome.
->>
->> Adding Vivek -- he pushed the original patch and would know whether
->> drm-misc-fixes is the right route at this point in the cycle.
-> Hi Mikhail, I of course meant 7.2, not 7.1, sorry! And agreed, that 
-> would be ideal / perfect.
->
--- 
-Robert Mader
-Consultant Software Developer
+drm/msm: Switch to generic PAS TZ APIs
+   =20
+Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
+TZ service allows to support multiple TZ implementation backends like QTEE
+based SCM PAS service, OP-TEE based PAS service and any further future TZ
+backend service.
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index c62c45bb0ddbb..489462065ea95 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
 
+[ ... ]
+
+> @@ -146,10 +147,10 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu,=
+ const char *fwname,
+>  		goto out;
+> =20
+>  	/* Send the image to the secure world */
+> -	ret =3D qcom_scm_pas_auth_and_reset(pasid);
+> +	ret =3D qcom_pas_auth_and_reset(pasid);
+
+[Severity: High]
+Does this new PAS API wrapper have a TOCTOU race condition?
+
+If the PAS backend unregisters concurrently, could ops_ptr become NULL
+between the check and the dereference in qcom_pas_auth_and_reset()?
+
+drivers/firmware/qcom/qcom_pas.c:qcom_pas_auth_and_reset() {
+	if (!ops_ptr)
+		return -ENODEV;
+
+	return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+}
+
+> =20
+>  	/*
+> -	 * If the scm call returns -EOPNOTSUPP we assume that this target
+> +	 * If the pas call returns -EOPNOTSUPP we assume that this target
+>  	 * doesn't need/support the zap shader so quietly fail
+>  	 */
+>  	if (ret =3D=3D -EOPNOTSUPP)
+
+[Severity: High]
+Is the DRM MSM fallback logic preserved with this generic backend?
+
+The driver expects -EOPNOTSUPP to gracefully handle unsupported zap shaders.
+
+If the generic PAS TEE backend's __qcom_pas_tee_auth_and_reset()
+unconditionally maps all TA errors to -EINVAL, will this cause GPU probe
+to fail fatally on TEE platforms where the zap shader is not supported?
+
+drivers/firmware/qcom/qcom_pas_tee.c:__qcom_pas_tee_auth_and_reset() {
+	ret =3D tee_client_invoke_func(data->ctx, &inv_arg, param);
+	if (ret < 0 || inv_arg.ret !=3D 0) {
+		...
+		return ret ?: -EINVAL;
+	}
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this function propagate
+-EOPNOTSUPP instead of -ENODEV?
+
+If qcom_pas_auth_and_reset() returns -EOPNOTSUPP, the code sets
+zap_available =3D false but leaves ret =3D -EOPNOTSUPP.
+
+Since callers explicitly check for -ENODEV to fall back to
+SECVID_TRUST_CNTL, could this unmapped -EOPNOTSUPP abort hardware
+initialization?
+
+>  		zap_available =3D false;
+>  	else if (ret)
+>  		DRM_DEV_ERROR(dev, "Unable to authorize the image\n");
+
+[ ... ]
+
+> @@ -175,9 +176,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 p=
+asid)
+>  	if (!zap_available)
+>  		return -ENODEV;
+> =20
+> -	/* We need SCM to be able to load the firmware */
+> -	if (!qcom_scm_is_available()) {
+> -		DRM_DEV_ERROR(&pdev->dev, "SCM is not available\n");
+> +	/* We need PAS to be able to load the firmware */
+> +	if (!qcom_pas_is_available()) {
+> +		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
+>  		return -EPROBE_DEFER;
+>  	}
+
+[Severity: High]
+Could this unconditional PAS availability check cause infinite probe
+deferral on platforms without PAS support?
+
+By checking qcom_pas_is_available() before checking if the zap-shader DT
+node exists (which happens inside zap_shader_load_mdt()), do platforms
+that lack PAS capabilities fail to reach the DT node check and defer
+indefinitely?
+
+Previously, qcom_scm_is_available() returned true on these platforms,
+allowing the driver to gracefully return -ENODEV when the DT node was
+missing.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260702115835.1676=
+02-1-sumit.garg@kernel.org?part=3D8
