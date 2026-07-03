@@ -4,86 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB815C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 17:13:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4D1C43458
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 17:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4003E10E644;
-	Fri,  3 Jul 2026 17:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFAAB10E64A;
+	Fri,  3 Jul 2026 17:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g4enwm4s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mHcEqJFc";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA7610E647
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 17:13:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48EB510F881
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 17:23:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D0D3600AF;
- Fri,  3 Jul 2026 17:13:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB2F1F000E9;
- Fri,  3 Jul 2026 17:13:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7C86660051;
+ Fri,  3 Jul 2026 17:23:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103391F000E9;
+ Fri,  3 Jul 2026 17:23:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783098824;
- bh=q23BIidiZ017iKhXJsbogBQ9PJP1zUIVfxmZpJ2jL8Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=g4enwm4svtwtT15ZA13jyA9qwc9lTppZoLAqvOXFJBuu8Kf5+n3us4YU1h9YquIQ5
- ZJzaMwvXvLV4y1YTzZTccXJTXIqFY7kVs1R7t1Xlwnq201NEMIOKid+EEmnkxiSMSi
- GNi/uX7pe9g5oOTx6OwStKk2v/qCkvdBHEwH1xGl+ZPu9h6p/ywnZRCLOOmca4YyDa
- svZYQ2arPoNcRi94A2S6PIqz9+mr1jy1vobmXh+nOQmN5VkPCJckI573GfqHv+OilP
- Bm5MnNHsTToXJBO1LQvI4FYubASQDDOLIaRxh4CJS3U0VT2ZmBr02kU8SnnEr3qzmp
- fkqPwnkZrA6Ww==
-Date: Fri, 3 Jul 2026 18:13:31 +0100
-From: Will Deacon <will@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-mm@kvack.org,
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org,
- Thierry Reding <treding@nvidia.com>, Chun Ng <chunn@nvidia.com>
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-Message-ID: <akftuw9NyRy36fXA@willie-the-truck>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
- <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
- <akaSJ5D98w2cHqb6@orome>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akaSJ5D98w2cHqb6@orome>
+ s=k20260515; t=1783099395;
+ bh=L7vzuknHFfPsc2PNRTgiTcPt7dap8p/LXgb5kahA0sc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mHcEqJFc+Bd8afVs8GB6c2TmBi20diFkRormRXXuSeZeJaPYY7W0FBeSZUWAB8b2s
+ 09ptQqSGKh4zkop2ZMTcvF3ypLkmB5O5EZomcf1WlMKHJ03w/ljmzRXzigGTOoFoVn
+ 1/a9nu1kuv2u3Oi1kmE2ZXQ6GvW5/CWjC0vutfXCu9wdYPimd6jJbaYFwzQvaNd+FI
+ tF07bgT1Vk2xnXPzbVKWhBNjKAkZFnxGn4vGo/jqe9XM6ABzD9Laoxo3qyR6Sn/Xbq
+ UbDpBIuR8ex7wsAB0rm0h65sUS7wCWU4qF2HGNXombeIzEhW8w8a2tv68jKncwzKxw
+ I6TyfADOekzQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/10] drm/ttm: support using drm_exec during eviction v4
+To: "Natalie Vock" <natalie.vock@gmx.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-9-43685ac1286b@gmx.de>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-9-43685ac1286b@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 03 Jul 2026 17:23:14 +0000
+Message-Id: <20260703172315.103391F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,61 +53,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
-> On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
-> > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
-> > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
-> > > > From: Chun Ng <chunn@nvidia.com>
-> > > > 
-> > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protection bits
-> > > > on a kernel-linear-map range.
-> > > 
-> > > That sounds like a really terrible idea. Why is this necessary and how
-> > > does it interact with things like load_unaligned_zeropad()?
-> > 
-> > This is necessary because once the memory controller has walled off the
-> > new memory region the CPU must not access it under any circumstances or
-> > it'll cause the CPU to lock up (I think technically it'll hit an SError
-> > but in practice that just means it'll freeze, as far as I can tell).
-> > 
-> > Probably doesn't interact well at all with load_unaligned_zeropad().
-> > 
-> > > I think you should unmap the memory from the linear map and memremap()
-> > > it instead.
-> > 
-> > Given that the memory can never be accessed by the CPU after the memory
-> > controller locks it down, I don't think we'll even need memremap(). The
-> > only thing we really need is the sg_table we hand out via the DMA BUFs
-> > so that they can be used by device drivers to program their DMA engines
-> > internally.
-> > 
-> > Looking through some of the architecture code around this, shouldn't we
-> > simply be using set_memory_encrypted() and set_memory_decrypted() for
-> > this? While they might've been created for slightly other use-cases,
-> > they seem to be doing exactly what we want (i.e. remove the page range
-> > from the linear mapping and flushing it, or restoring the valid bit and
-> > standard permissions, respectively).
-> 
-> Ah... I guess we can't do it because we're not in a realm world and so
-> the early checks in __set_memory_enc_dec() would return early and turn
-> it into a no-op.
-> 
-> How about if I extract a common helper and provide set_memory_p() and
-> set_memory_np() in terms of those. Those are available on x86 and
-> PowerPC as well, so fairly standard. I suppose at that point we're
-> closer to set_memory_valid().
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] The drm_exec_lock_obj_report_dup helper fails to bypass the DR=
+M_EXEC_IGNORE_DUPLICATES flag, causing premature unlocking and use-after-fr=
+ee of already-reserved buffers.
+- [Medium] The trylock_only and no_wait_gpu flags are ignored when ctx->exe=
+c is set, forcing synchronous blocking locks during fast/non-blocking evict=
+ion passes.
+--
 
-Why not just call set_direct_map_invalid_noflush() +
-flush_tlb_kernel_range() for each page? We already have APIs for this.
+commit 013bce350b89f0772194d9c2194cd802f5e36ff2
+Author: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-The big challenge I see with any linear map manipulation, however, is
-that it will rely on can_set_direct_map() which likely means you need to
-give up some performance and/or security to make this work. Does memory
-become inaccesible dynamically at runtime? If not, the best bet would
-be to describe it as a carveout in the DT and mark it as "no-map" so
-we avoid mapping it in the first place.
+drm/ttm: support using drm_exec during eviction v4
 
-Will
+Allow specifying a drm_exec object in TTMs operation context which is
+used to lock objects during eviction.
+
+This allows to handle deadlocks much more gracefully and with that
+avoid returning -ENOMEM on heavily contended domains.
+
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_=
+bo_util.c
+> index a53b25e8c2967..96699532817c2 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+
+[ ... ]
+
+> @@ -837,6 +838,8 @@ static bool ttm_lru_walk_trylock(struct ttm_bo_lru_cu=
+rsor *curs,
+>  	struct ttm_operation_ctx *ctx =3D curs->arg->ctx;
+> =20
+>  	curs->needs_unlock =3D false;
+> +	if (ctx->exec)
+> +		return false;
+
+[Severity: Medium]
+Will this force a blocking lock during fast/non-blocking eviction passes?
+
+By returning false unconditionally when ctx->exec is set, we bypass the
+trylock here.
+
+Later in __ttm_bo_lru_cursor_next(), the added !arg->ctx->exec check
+prevents skipping the buffer, forcing a fall-through to
+ttm_lru_walk_ticketlock() which performs a blocking lock. This seems to
+ignore the trylock_only and no_wait_gpu flags.
+
+>  	if (dma_resv_trylock(bo->base.resv)) {
+>  		curs->needs_unlock =3D true;
+
+[ ... ]
+
+> @@ -857,7 +860,9 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_=
+cursor *curs,
+>  	struct ttm_lru_walk_arg *arg =3D curs->arg;
+>  	int ret;
+> =20
+> -	if (arg->ctx->interruptible)
+> +	if (arg->ctx->exec)
+> +		ret =3D drm_exec_lock_obj_report_dup(arg->ctx->exec, &bo->base);
+> +	else if (arg->ctx->interruptible)
+>  		ret =3D dma_resv_lock_interruptible(bo->base.resv, arg->ticket);
+
+[ ... ]
+
+> @@ -937,12 +946,17 @@ static void ttm_bo_lru_cursor_cleanup_bo(struct ttm=
+_bo_lru_cursor *curs)
+>  {
+>  	struct ttm_buffer_object *bo =3D curs->bo;
+> =20
+> -	if (bo) {
+> -		if (curs->needs_unlock)
+> +	if (!bo)
+> +		return;
+> +
+> +	if (curs->needs_unlock) {
+> +		if (curs->arg->ctx->exec)
+> +			drm_exec_unlock_obj(curs->arg->ctx->exec, &bo->base);
+
+[Severity: Critical]
+Can this cause a use-after-free for already-reserved buffers?
+
+Looking at drm_exec_lock_obj_report_dup() used in ttm_lru_walk_ticketlock(),
+it passes false for the always_report_duplicates parameter:
+
+drivers/gpu/drm/drm_exec.c:drm_exec_lock_obj_report_dup() {
+    return __drm_exec_lock_obj(exec, obj, false);
+}
+
+If DRM_EXEC_IGNORE_DUPLICATES is set, it returns 0 instead of -EALREADY for
+duplicate locks. When this happens, ttm_lru_walk_ticketlock() will see
+ret =3D=3D 0 and set curs->needs_unlock =3D true.
+
+Because of this, when ttm_bo_lru_cursor_cleanup_bo() runs, it sees
+needs_unlock is true and calls drm_exec_unlock_obj() here, which unlocks
+the object and drops its reference. This completely removes the buffer
+from the caller's outer WW transaction.
+
+> +		else
+>  			dma_resv_unlock(bo->base.resv);
+> -		ttm_bo_put(bo);
+> -		curs->bo =3D NULL;
+>  	}
+> +	ttm_bo_put(bo);
+> +	curs->bo =3D NULL;
+>  }
+
+[ ... ]
+
+> @@ -1016,8 +1030,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *=
+curs)
+>  		if (ttm_lru_walk_trylock(curs, bo)) {
+>  			bo_locked =3D true;
+> =20
+> -		} else if (!arg->ticket || arg->ctx->no_wait_gpu ||
+> -			   arg->trylock_only) {
+> +		} else if ((!arg->ticket || arg->ctx->no_wait_gpu ||
+> +			    arg->trylock_only) && !arg->ctx->exec) {
+>  			spin_unlock(lru_lock);
+>  			ttm_bo_put(bo);
+>  			spin_lock(lru_lock);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260703-ttm_2_drm_=
+exec-v1-0-43685ac1286b@gmx.de?part=3D9
