@@ -4,82 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20629C43458
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57708C43602
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 03:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B0BD10F617;
-	Fri,  3 Jul 2026 03:02:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B64F910F619;
+	Fri,  3 Jul 2026 03:03:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="E3c1MEXS";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="h8URsLsm";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68C9910F610
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:42 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-493b27c7451so11549985e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:42 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B36910F61A
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Jul 2026 03:02:59 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-4629051c946so47188f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Jul 2026 20:02:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047761; x=1783652561;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1783047778; x=1783652578;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NdX3Cn5RlzHa2YKrbPiFLyyMC4tpWz0socWbAnGJY54=;
- b=E3c1MEXSyNCFZaEk4SH3RnasgudR9xachCUoy+Y9UtiFB/yGIVcNDR7vOccBpCmI2/
- Tnae9nIiZtYXKm8hd+eKliSu73DlvfIs34YTcBGUOdDRipWvG523yYTeUZTDxzDrR+C+
- QhaIJKnYSrpal9QBtEqkKoouUdsBd5Os7gGWLbfYHrzu7UWCZzKFI2wKTlGHv06hRrp+
- t8oSpVYzb5BnuIb+r7hy0xt/Kl0F1S2a3oQDnLEKxUUXJQwQbYWKJoTO8bl+h7pnRBHl
- UWaG+hK7aG4PqBzrDwsM1jzgnUic3pOYbHzm6ILRMHjKQcxJWj4piILGSAefdGQrisEt
- WOXA==
+ bh=fd9riX2bySBqO74qeyGz+OA/pHdGADSq9oSEOnCfq4o=;
+ b=h8URsLsmPP8w3OmcIXpWDIDCwDYtXlF2eoZyLT7vP5sZpig0eSKXUsm0A85zxj53EB
+ tK33mdqKnIhOQTxjREC7IVnrYURodbU8+cO8ZqdZYCn0oPoMKaslMi6+glXxM7kE2q/R
+ /JVPALyDb6OWHYzPGDS6JKGHtVVkdzAhGrKEt3YIwLzwi5Vy1n1ShqyG2rl5XpTkcxRU
+ hRoKNH4RuZvYjsFcrc4G0rrFdZf4aDqVnLr+XDawVXlAZfNz52rGxlUNphlZ3T4CFlmu
+ 0MxXHE0CldYgquiCr+gfeutMqPnrfs6as9AcU9Z0qOmE3/iChhAxx5XKEGLeN2YP2bsF
+ yFdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783047761; x=1783652561;
+ d=1e100.net; s=20251104; t=1783047778; x=1783652578;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=NdX3Cn5RlzHa2YKrbPiFLyyMC4tpWz0socWbAnGJY54=;
- b=TwyI8/zyUpeamp2HJ1OrZirSilOZogpyuhiVtdOqZyJ+7qvrh9GFieSv5M5eGPz+cd
- HbwQ+Gy8gc3H87mXLuKeEWXyAUabVq0L80BUN94bVd9Uwcr6Q1GWjy5xbzCfRHPnfAIq
- X5QLqIOhTytFGiqTrKafruxj9jePgpYtKzTeeKxnkt5mkiUnaji0f008tMrjUaB7L446
- HhuQ8qsMuk9eFpl2o97P/RSccCUPcMNT7HyFVEFMKk8LAIehin3TSLqiRVQzDUy7vMGD
- pAime1Q3rdE8Pla9Ffjic+eq6gKb4m1UY114uEu++/1PSbiwow4sORcwWLiu0FWRCXxn
- VaEw==
-X-Gm-Message-State: AOJu0Yz7tk9gTSdWT5skqTJYMe4hufAARyOk82kjQ7PLfzn3InmrNLEm
- CDjXD9UOcb5R55EPRwu6nSTJ/ZlR/sXLyGOB4mZ9LguyhodgNnGNi69i0/zkMhIYEw==
-X-Gm-Gg: AfdE7cniuBnG7PqlXGDC53wPrK5Z1f1cir1kSQ/cMKR+1NziBvZP+PgNYYIKkjVN9M8
- L9LSAnwHMiFf/eK5Ta3qQemvoAVYCEF/TVRWKvx7kxFIcEclpyUkjePY2xm5r8joWkd4wx3GY5V
- IMohxjWiNC2McknARlyUSByrdCliyJC2dwYT6uGE4spsuqGE3JmH+tFnQdLPukdG3Nh7f70kmYV
- JJgHUSBi8vOCQFB6tr8VOEWB58J9z/WgBgrBwOjNelMH8DJvAxFJxdYI12OVpwqFeXJIGeknw+t
- YFg7So+FnSGRPbzi4YRo26tzByigX0/IzsoVXmb5wE+ZqWmjC23B7grpObZBDxxxtd5F7wI77Sz
- LESGvgL9py4lWWsyyh++ZdHn/2CxFtKBvuxi5+gag/PyDRmuzaiGe29gKN3fjF9A1bdnQNuJVrf
- pVuWaljh/XOApeQhpvw2/r29vvTIN1UEjbMmtsrwZ5OqJfq9EPY8TE/OkT
-X-Received: by 2002:a05:600c:8217:b0:490:af63:2cb1 with SMTP id
- 5b1f17b1804b1-493c9b4da0dmr28578515e9.7.1783047757915; 
- Thu, 02 Jul 2026 20:02:37 -0700 (PDT)
+ bh=fd9riX2bySBqO74qeyGz+OA/pHdGADSq9oSEOnCfq4o=;
+ b=L65WTrinxN0bE/kyU8GgaYm7KhJSzL3huXtVd3xBNU+te5hgJJJbhObKZVxvUwBbRW
+ J4Bo7AuedsTEWoEzTKSLTz8IpGsyO/pLcq5vNgL0/XlKmuLzGLNxH2lOBwNRwkYb01Gn
+ u97rNreE23absgOqAOx5Oy8lPo0p8FcKOngpcwNOApDgizHBmvUJcbj4h/8Yln/+mfgU
+ G8LA7MEix1utX8AqimIIlAPigIO55xPy1o+LWGDBM+wrPlMOmh9YgyysaGH26ynOYsCW
+ BM5yS6J9y3lYTJqXFlmCgawU4Ld2iDdQdJVer5oMwQbdqBUbXe6JQ1HY9jYK5iCCPTsS
+ KIkQ==
+X-Gm-Message-State: AOJu0Yyylu2O16ILzR/5nIyXuOSjOEJ6DWjDDZ13BqTyVuoQ6XBUxHAE
+ XqUQwSJJr3pP2X24jG4V1TO8ASDv2WNayxVLG3AgImBHhHyBo4jsFTQzaxZciKOe4w==
+X-Gm-Gg: AfdE7ck4vdZaU5tottzlzmq8Yt6egoiiB7Zob02g0KBGmW1QzAtZsp6J6pB0VMWJEkF
+ I+/ENfBvZx3+nicaS/mPwtihbsVK2vglsyXon/s37FokN4FLufE6ff4fMdpaIWN/5f0fvWqs3DI
+ It6Oy7tJEaqYiPsOrNH6ELEUDAeL1uFfN30FDaqHcE5Q11oeqLqRViiYQHOPOd9weAcmsvur8mT
+ dw5qnzVm+39JXjAF+wJHfIGhUPwVvBRcv1uuxqYh+SVket7jzNzlx29hXjUJwNeKHiwKfx00pzT
+ 0FBAFZ106KUl1LwDVjfFm0rI4+deKi0io+/bb6Fe3DDx3e8sdVa6O6J3UHa64f4TVbzhHuTU8Mr
+ qZkPh0Gk4XyjENYnvUnsowqe6uNt12eV/yHkNccTqkOAE50hAnUhRm92ahR8Qpe/ol7eTWlM1d4
+ V6VqVuY3xY/YH5j5D1fprVXpIBBWsFQ8ZH7g9hGLzJrVTHhxevXv+5vq+cIUOcINndnoU=
+X-Received: by 2002:a05:6000:41e2:b0:478:3df9:5d8c with SMTP id
+ ffacd0b85a97d-479343d1d56mr3615379f8f.2.1783047776586; 
+ Thu, 02 Jul 2026 20:02:56 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be4a343csm141233875e9.0.2026.07.02.20.02.33
+ ffacd0b85a97d-477dde1a4fdsm15198199f8f.26.2026.07.02.20.02.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 20:02:35 -0700 (PDT)
+ Thu, 02 Jul 2026 20:02:55 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: rust-for-linux@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Lyude Paul <lyude@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
  linux-kernel@vger.kernel.org, Mike Lothian <mike@fireburn.co.uk>
-Subject: [RFC PATCH v2 06/10] drm/vino: add the DisplayLink DL3 dock driver
-Date: Fri,  3 Jul 2026 04:02:11 +0100
-Message-ID: <20260703030217.2886-7-mike@fireburn.co.uk>
+Subject: [RFC PATCH 2/2] drm/evdi: add the Rust EVDI virtual-display driver
+Date: Fri,  3 Jul 2026 04:02:47 +0100
+Message-ID: <20260703030249.2949-3-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260703030217.2886-1-mike@fireburn.co.uk>
-References: <20260617151249.2937-1-mike@fireburn.co.uk>
- <20260703030217.2886-1-mike@fireburn.co.uk>
+In-Reply-To: <20260703030249.2949-1-mike@fireburn.co.uk>
+References: <20260703030249.2949-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -98,2651 +91,1978 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Ties the rest of the series together: the USB bind (usb::Driver for
-the D6000's control interface), the plaintext session-init handshake,
-driving the HDCP 2.2 AKE and control-plane bring-up from a deferred
-work item, publishing the engaged CP session and dock EDID to the DRM
-device once bring-up completes, and the on-device crypto known-answer
-self-tests plus the KUnit coverage for the protocol builders/parsers
-(gated on CONFIG_KUNIT, zero effect on a production build).
+A from-scratch Rust reimplementation of DisplayLink's EVDI kernel module: a
+virtual DRM/KMS display whose framebuffer is pulled by a userspace client
+(DisplayLinkManager via libevdi) rather than scanned out to local hardware.
 
-Everything up to the encrypted control-plane engagement works on real
-hardware (USB bring-up, HDCP 2.2 AKE/LC/SKE verified, the AES-CTR +
-Dl3Cmac seal byte-exact, the stream-open arm marker, a registered
-DRM/KMS card), but the dock never acks the first encrypted CP frame
-(wsub=0x45 stays 0), so no pixels flow yet -- see docs/BLOCKER.md for
-what's been tried and ruled out.
+The driver registers a single-head atomic-KMS output with a primary and a
+cursor plane, creates cards on demand through /sys/devices/evdi (optionally
+bound to a USB dock so they appear and disappear with it), and exposes the
+libevdi private ioctl ABI (CONNECT / REQUEST_UPDATE / GRABPIX /
+DDCCI_RESPONSE / ENABLE_CURSOR_EVENTS) plus the drm_event output stream. GRABPIX
+tracks FB_DAMAGE_CLIPS and hands back only the changed rectangles per frame. It
+identifies itself to userspace as "evdi" for compatibility with the existing
+libevdi / DisplayLinkManager stack.
+
+Built on the safe KMS mode-object layer; consumes the binding fixes/helpers in
+the preceding patch. It is a real file tree under drivers/gpu/drm/evdi/ and also
+maintained as the standalone "revdi" project.
+
+NOT FOR UPSTREAM SUBMISSION as posted -- it depends on the not-yet-merged Rust
+DRM/KMS bindings and is carried here for local integration.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-Assisted-by: Claude:claude-sonnet-5 [Claude-Code]
+Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
 ---
- drivers/gpu/drm/vino/vino.rs | 2617 ++++++++++++++++++++++++++++++++++
- 1 file changed, 2617 insertions(+)
- create mode 100644 drivers/gpu/drm/vino/vino.rs
+ drivers/gpu/drm/Kconfig         |   2 +
+ drivers/gpu/drm/Makefile        |   1 +
+ drivers/gpu/drm/evdi/Kconfig    |  20 +
+ drivers/gpu/drm/evdi/Makefile   |   2 +
+ drivers/gpu/drm/evdi/ddcci.rs   |  43 ++
+ drivers/gpu/drm/evdi/evdi.rs    | 405 ++++++++++++++++++
+ drivers/gpu/drm/evdi/ioctl.rs   | 248 +++++++++++
+ drivers/gpu/drm/evdi/kms.rs     | 729 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/evdi/painter.rs | 199 +++++++++
+ drivers/gpu/drm/evdi/uapi.rs    | 210 +++++++++
+ 10 files changed, 1859 insertions(+)
+ create mode 100644 drivers/gpu/drm/evdi/Kconfig
+ create mode 100644 drivers/gpu/drm/evdi/Makefile
+ create mode 100644 drivers/gpu/drm/evdi/ddcci.rs
+ create mode 100644 drivers/gpu/drm/evdi/evdi.rs
+ create mode 100644 drivers/gpu/drm/evdi/ioctl.rs
+ create mode 100644 drivers/gpu/drm/evdi/kms.rs
+ create mode 100644 drivers/gpu/drm/evdi/painter.rs
+ create mode 100644 drivers/gpu/drm/evdi/uapi.rs
 
-diff --git a/drivers/gpu/drm/vino/vino.rs b/drivers/gpu/drm/vino/vino.rs
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 8fb9c9f787ba..e855f6f7bced 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -362,6 +362,8 @@ source "drivers/gpu/drm/virtio/Kconfig"
+ source "drivers/gpu/drm/vkms/Kconfig"
+ source "drivers/gpu/drm/vmwgfx/Kconfig"
+ source "drivers/gpu/drm/vino/Kconfig"
++
++source "drivers/gpu/drm/evdi/Kconfig"
+ source "drivers/gpu/drm/xe/Kconfig"
+ source "drivers/gpu/drm/xen/Kconfig"
+ source "drivers/gpu/drm/xlnx/Kconfig"
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 42a04359cc63..3f22c7131e51 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -186,6 +186,7 @@ obj-$(CONFIG_DRM_VMWGFX)+= vmwgfx/
+ obj-$(CONFIG_DRM_VGEM)	+= vgem/
+ obj-$(CONFIG_DRM_VKMS)	+= vkms/
+ obj-$(CONFIG_DRM_VINO)	+= vino/
++obj-$(CONFIG_DRM_EVDI)	+= evdi/
+ obj-$(CONFIG_DRM_NOUVEAU) +=nouveau/
+ obj-$(CONFIG_DRM_NOVA) += nova/
+ obj-$(CONFIG_DRM_EXYNOS) +=exynos/
+diff --git a/drivers/gpu/drm/evdi/Kconfig b/drivers/gpu/drm/evdi/Kconfig
 new file mode 100644
-index 000000000000..eb4378a747c3
+index 000000000000..3177edc02dc5
 --- /dev/null
-+++ b/drivers/gpu/drm/vino/vino.rs
-@@ -0,0 +1,2617 @@
++++ b/drivers/gpu/drm/evdi/Kconfig
+@@ -0,0 +1,20 @@
++# SPDX-License-Identifier: GPL-2.0
++config DRM_EVDI
++	tristate "Extensible Virtual Display Interface (Rust)"
++	depends on DRM
++	depends on RUST
++	select DRM_KMS_HELPER
++	select DRM_GEM_SHMEM_HELPER
++	help
++	  Rust reimplementation of DisplayLink's EVDI: a virtual DRM/KMS display
++	  whose framebuffer is pulled by a userspace client (DisplayLinkManager
++	  via libevdi) rather than scanned out to local hardware. Cards are
++	  created on demand through /sys/devices/evdi and can be bound to a USB
++	  dock so they appear/disappear with it.
++
++	  The module identifies itself to userspace as "evdi" for compatibility
++	  with the existing libevdi / DisplayLinkManager stack.
++
++	  To compile this as a module, choose M here: the module is called evdi.
++
++	  If unsure, say N.
+diff --git a/drivers/gpu/drm/evdi/Makefile b/drivers/gpu/drm/evdi/Makefile
+new file mode 100644
+index 000000000000..9c5e1a66337c
+--- /dev/null
++++ b/drivers/gpu/drm/evdi/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0
++obj-$(CONFIG_DRM_EVDI) += evdi.o
+diff --git a/drivers/gpu/drm/evdi/ddcci.rs b/drivers/gpu/drm/evdi/ddcci.rs
+new file mode 100644
+index 000000000000..e12c919f82af
+--- /dev/null
++++ b/drivers/gpu/drm/evdi/ddcci.rs
+@@ -0,0 +1,43 @@
 +// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (C) 2026 Mike Lothian
++//
++// DDC/CI over a virtual I2C adapter. Monitor-control tools (ddcutil, the desktop brightness
++// slider, ...) issue I2C transfers to the DDC/CI address on the adapter EVDI registers; those are
++// forwarded to the DisplayLinkManager client as DDCCI_DATA events, and the client's reply comes
++// back through the DDCCI_RESPONSE ioctl (see `EvdiDrmData::ddcci_transfer`/`ddcci_respond`).
 +
-+//! Vino -- open in-kernel Rust driver for DisplayLink DL3 docks (Dell D6000, ...).
-+//!
-+//! This is an `[RFC]` work-in-progress, posted to ask for help. It is a clean-room
-+//! reverse-engineered replacement for the proprietary DisplayLinkManager userspace
-+//! daemon + the EVDI kernel module, written natively in Rust against the in-tree USB,
-+//! crypto and DRM/KMS bindings (the prerequisite binding patches are posted as their
-+//! own series).
-+//!
-+//! # What works
-+//!
-+//! On probe the driver runs, all on real hardware (Dell Universal Dock D6000):
-+//! - the plaintext connect handshake over the Rust USB bulk + control transfer API;
-+//! - the clean-room HDCP 2.2 AKE / LC / SKE -- H', L' and V' all verify against the
-+//!   dock, so the session key `ks` is established and shared;
-+//! - the AES-CTR + AES-CMAC ("Dl3Cmac") control-plane seal, byte-exact against the
-+//!   reference daemon's captured wire;
-+//! - the plaintext `type=2 sub=0x24` stream-open arm marker; and
-+//! - registration of a real `struct drm_device` (see [`drm_sink`]) via the simple
-+//!   display pipe, so the dock appears to userspace as a mode-settable GEM/dumb DRM
-+//!   card, with a live EP08 framebuffer-scanout hook on every page-flip.
-+//!
-+//! # What does NOT work -- the wall (help wanted)
-+//!
-+//! After the arm marker the driver sends the first encrypted control-plane frame
-+//! (msg0) and the dock **never acknowledges it** (`wsub=0x45` ack count stays 0), so
-+//! the CP cipher never engages and no pixels ever flow. Every host-observable channel
-+//! has been matched to the reference daemon -- the bulk wire is byte-identical through
-+//! the arm + msg0, the AKE verifies, the seal/MAC/IV are byte-exact, the full EP0
-+//! control-transfer set matches, the endpoint set matches, the arm timing is tighter
-+//! than the daemon's -- and the dock still silently drops our encrypted CP while it
-+//! engages the daemon's. The gate appears to be something not visible on the host wire
-+//! (dock-internal session state, or a whole-bus timing/ordering property a per-channel
-+//! diff cannot see). **If you know the DL3 / DisplayLink control-plane engagement
-+//! sequence, or have ideas for the remaining paired full-bus diff, please help.**
-+//!
-+//! Note: `send_cp_setup` builds msg0's body field-by-field except for a small captured
-+//! cap-announce skeleton ([`golden`]); a fully field-derived cap-announce is open work.
-+//!
-+//! Device: VID 0x17e9 (DisplayLink) / PID 0x6006 (Dell Universal Dock D6000).
++use kernel::{i2c, prelude::*, sync::aref::ARef};
 +
-+use kernel::{
-+    alloc::flags::GFP_KERNEL,
-+    bindings,
-+    drm,
-+    device::{self, Core},
-+    error::code::{ENODEV, EINVAL},
-+    prelude::*,
-+    sync::{aref::ARef, Arc},
-+    time::{
-+        delay::{fsleep, udelay},
-+        Delta, Instant, Monotonic,
-+    },
-+    usb,
-+    workqueue::{self, impl_has_work, new_work, Work, WorkItem},
-+};
++use crate::kms::{EvdiDrmData, EvdiDrmDevice, DDCCI_ADDRESS};
 +
-+/// DisplayLink vendor id.
-+const VID_DISPLAYLINK: u16 = 0x17e9;
-+/// Dell Universal Dock D6000 (DL3 family) product id.
-+const PID_D6000: u16 = 0x6006;
++/// The EVDI DDC/CI I2C bus controller.
++pub(crate) struct EvdiI2c;
 +
-+/// Control + per-head bulk endpoints (guide sec 2).
-+const EP_CTRL_OUT: u8 = 0x02;
-+const EP_CTRL_IN: u8 = 0x84;
-+/// EP84 (dock->host) drain buffer size. The dock's capability block can reach ~5.8 KiB, so a
-+/// single bulk read needs a generously sized buffer to avoid truncating and misframing it.
-+const EP84_BUF: usize = 16384;
-+/// Number of IN URBs kept perpetually posted on EP84 by the async reader
-+/// ([`usb::Interface::bulk_in_queue`]); `depth - 1` stay outstanding while one is serviced.
-+///
-+/// MEASURED 2026-06-27 (`WinCap` IRP pairing + usbmon S/C pairing): **both** reference drivers run
-+/// EP84 at an outstanding depth of exactly **1** -- Windows DLM (USBPcap `max_outstanding_depth=1`)
-+/// and Linux DLM (usbmon `max_depth=1`) post one IN read, wait for the dock's reply, then re-post.
-+/// It is an "always one posted" reader, not a deep queue. vino was the only implementation running
-+/// depth=4, so its EP84 IN-token/NAK cadence differed from every engaging driver. Match them
-+/// exactly (1) -- still always-posted (re-armed on completion) but with no extra concurrent reads.
-+const EP84_QUEUE_DEPTH: usize = 1;
++impl i2c::BusController for EvdiI2c {
++    type Context = ARef<EvdiDrmDevice>;
 +
-+/// USB transfer timeout used during bring-up.
-+fn timeout() -> Delta {
-+    Delta::from_millis(1000)
-+}
-+
-+/// Impersonate DLM's **fixed-timer** bring-up fingerprint instead of vino's reactive pacing.
-+///
-+/// The 2026-06-25 step-timing survey (`captures/step-timing-survey-20260625.md`) across 9 DLM
-+/// and 29 vino plugs showed DLM does NOT react to the wire -- it uses hardcoded sleeps, so its
-+/// pre-arm milestones are tight constants: `cp_first->cert` ~1.3 ms, `cert->arm` ~59.1 ms,
-+/// `arm->msg0` ~0.17 ms. vino's reactive settle scatters those (cert->arm 57-292 ms) and, at
-+/// the one step we can measure precisely, fires msg0 ~0.07 ms after the arm -- ~2x FASTER than
-+/// DLM, the only consistent timing *inversion* in the whole corpus and a never-tested variable.
-+///
-+/// With this on, vino reproduces DLM's fingerprint as closely as the host allows:
-+///   - the pre-AKE stale-EP84 flush probes at 1 ms (front gap ~1 ms, like DLM) -- see `run_ake`;
-+///   - it holds the arm marker to a *fixed* [`CERT_TO_ARM_US`] after the cert (59.1 ms, like
-+///     DLM) instead of arming reactively the instant the AKE settles -- see `send_cp_setup`;
-+///   - it holds [`ARM_TO_MSG0`] between the arm marker and msg0 (~0.17 ms, like DLM);
-+///   - it logs the realised `cp_start->arm`, `cert->arm` and the hold so the next cold plug's
-+///     dmesg reports the actual fingerprint for an A/B against DLM.
-+///
-+/// The cert->arm hold is the key one: the 2026-06-26 corpus re-measure showed DLM's `cert->arm`
-+/// is 59.11 ms +-0.5 ms across 11 plugs (a hard sleep) while vino arms reactively at ~57.9 ms --
-+/// *below DLM's observed minimum* every time. So vino was consistently arming a hair ahead of the
-+/// window DLM ever uses; the fixed hold closes that and makes the step deterministic.
-+///
-+/// Default ON: this is the one timing combination we have never put on the wire simultaneously.
-+/// Flip to `false` to restore the reactive pacing for a clean paired diff.
-+const DLM_FIXED_TIMERS: bool = true;
-+
-+/// Mimic the Windows DisplayLink driver's pre-arm control choreography instead of the Linux/libusb
-+/// DLM one (2026-06-27, `WinCap/WINCAP-ANALYSIS.md`). The USBPcap traces of three engaging Windows
-+/// sessions on this exact dock (`bcdDevice=0x3159`) showed a *leaner* device-open than DLM's libusb
-+/// stack, on three concrete, observable axes:
-+///   1. ONE device-open vendor-IN read -- only `0xc1 0xfe wIdx=1` (the 16 B "RidgeDock" blob).
-+///      Windows never issues the `0xfc`/`0xfd`/`0xfb` DFU reads vino picked up from the DLM oracle.
-+///   2. NO libusb descriptor-burst at open (the CONFIG 618x3/40x3 + STRING 255x22 replay): Windows
-+///      runs over the already-enumerated device and uses cached descriptors, exactly like a native
-+///      kernel driver -- so [`CP_LIBUSB_OPEN_ENUM`] is forced OFF.
-+///   3. The `0x40 bReq=0x24` vendor-OUT uses **wValue=0** (Windows), not wValue=3 (Linux DLM/vino).
-+/// The analysis already proved none of these is the CP gate (Linux DLM engages WITH the libusb burst
-+/// and wValue=3; Windows engages WITHOUT them) -- so this is a "just in case" A/B, not a fix. It is
-+/// the smallest set of changes that makes vino's EP0 pre-arm stream resemble Windows'. The cap-
-+/// announce / cert-req framing is left alone (changing it risks the byte-exact seal, and both DLM's
-+/// 7-descriptor form -- which vino matches -- and Windows' 6-descriptor form engage). Flip to `false`
-+/// to restore the DLM/libusb behaviour for a clean paired-vs-DLM diff.
-+const WINDOWS_MIMIC: bool = true;
-+
-+/// DLM's `cert->arm` hold: 59.11 ms median, [58.74..59.84] over 11 DLM cold plugs (2026-06-26
-+/// corpus re-measure) -- a hardcoded sleep, not a reaction. Under [`DLM_FIXED_TIMERS`],
-+/// `send_cp_setup` holds the arm marker until this long after `Session::cert_at` so vino arms on
-+/// DLM's fixed schedule instead of the moment its AKE happens to finish (~57.9 ms, always early).
-+const CERT_TO_ARM_US: i64 = 59_100;
-+
-+/// DLM's `ctr2->ctr3` gap (AKE_Transmitter_Info -> AKE_No_Stored_km): consistently **~1.65 ms**
-+/// over 6 cold plugs [1.55..1.89], vs vino's **~0.30 ms** (5x faster, and rock-steady across both
-+/// corpora -- 2026-06-26 per-message latency analysis vs the same-day engaging DLM baseline). This
-+/// is the window where a real HDCP transmitter **verifies the receiver's DCP-signed certificate**
-+/// (RSA-1024 signature check + revocation) before wrapping `km`; vino skips it -- it only
-+/// RSA-OAEP-encrypts `km`, which is why it is so much faster. It is the first consistent,
-+/// host-reachable behavioural divergence from DLM found since the host was declared "exhausted",
-+/// and it fits the wall's evidence box (invisible to a passive byte diff; DLM satisfies it for
-+/// free; a repeater could time it as a locality-style "did you actually validate me?" check).
-+/// Under [`DLM_FIXED_TIMERS`], hold `ctr2->ctr3` to this so vino spends a realistic cert-verify
-+/// time instead of answering impossibly fast.
-+const CERT_VERIFY_HOLD_US: i64 = 1650;
-+
-+/// DLM's median `arm->msg0` gap (the survey: 0.152 / 0.188 ms on the two clean DLM cold plugs).
-+/// vino naturally fires msg0 ~0.07 ms after the arm; hold to match DLM when [`DLM_FIXED_TIMERS`].
-+const ARM_TO_MSG0: Delta = Delta::from_micros(170);
-+
-+/// Per-frame send pads that reproduce DLM's `cp_first->cert` cadence (2026-06-26 frame-by-frame
-+/// diff of the plaintext session-init + AKE_Init burst). With the cold-plug flush removed, vino's
-+/// sync `bulk_send`s fire back-to-back ~0.37 ms QUICKER than DLM's pipelined libusb URBs, so
-+/// `cp_first->cert` was 0.64 ms vs DLM's 1.07 ms. Each pad is the measured per-gap deficit
-+/// (vino gap -> DLM gap): init_0->init_25 0.065->0.144, init_25->init_4 0.194->0.372,
-+/// session-init-ACK->AKE_Init 0.043->0.159. Applied as `udelay` (calibrated busy-wait, us-precise,
-+/// unlike `fsleep`'s slack) only under [`DLM_FIXED_TIMERS`]. Sum 0.373 ms lands `cp_first->cert`
-+/// on DLM's ~1.07 ms.
-+const PAD_INIT0_TO_INIT25_US: i64 = 79;
-+const PAD_INIT25_TO_INIT4_US: i64 = 120;
-+const PAD_ACK_TO_AKEINIT_US: i64 = 90;
-+
-+/// Post-enumeration idle hold (2026-06-26). From `SET_CONFIGURATION` to the first CP frame, vino
-+/// (an in-kernel driver that probes the instant the device is configured) responds in ~4.8 ms,
-+/// whereas DLM -- a userspace daemon behind evdi that the OS must notify, schedule and have open
-+/// the device -- takes ~15.5 ms (14.6/16.3 ms over two cold plugs). That ~10.7 ms is pure
-+/// userspace-startup latency, the one place vino is *dramatically* faster than DLM rather than
-+/// within sub-ms noise. Under [`DLM_FIXED_TIMERS`], idle this long at the very top of `bring_up`
-+/// (before any USB transaction) so vino's enumeration-to-first-CP response matches DLM's ~15 ms
-+/// instead of beating it 3x -- closing the last large timing divergence from DLM's fingerprint.
-+const ENUM_RESPONSE_HOLD_US: i64 = 9_800;
-+
-+/// Hold until `anchor` is at least `target_us` old, to microsecond precision. A plain `fsleep`
-+/// overshoots a wall-clock target by its timer slack (the cert->arm hold targeted 59.1 ms but
-+/// `fsleep` alone landed it at 59.4 ms); so `fsleep` the bulk of the wait (cheap -- it must not
-+/// busy-burn ~1 ms of CPU) leaving a margin, then re-measure and `udelay` the exact residual to
-+/// hit `target_us` on the nose. Never returns before `target_us` of `anchor` has elapsed; returns
-+/// immediately if it already has. Used to realise DLM's fixed pre-arm timer (`DLM_FIXED_TIMERS`).
-+fn hold_until(anchor: Instant<Monotonic>, target_us: i64) {
-+    /// Leave this much for the precise `udelay` tail; `fsleep`'s slack stays under it.
-+    const SPIN_MARGIN_US: i64 = 400;
-+    let now = anchor.elapsed().as_micros_ceil();
-+    if now >= target_us {
-+        return;
-+    }
-+    if target_us - now > SPIN_MARGIN_US {
-+        fsleep(Delta::from_micros(target_us - now - SPIN_MARGIN_US));
-+    }
-+    let now = anchor.elapsed().as_micros_ceil();
-+    if now < target_us {
-+        udelay(Delta::from_micros(target_us - now));
-+    }
-+}
-+
-+/// Set once the dock has actually engaged the CP cipher (`wsub=0x45` acks > 0). EP08 video is
-+/// gated on it: pushing frames at a dock whose CP channel is dead makes it fault and USB-reset.
-+/// NOTE: with the current CP-engagement wall (see the file header) this is never set on real
-+/// hardware -- the dock runs the whole plaintext handshake but never engages the encrypted CP.
-+static CP_ENGAGED: core::sync::atomic::AtomicBool = core::sync::atomic::AtomicBool::new(false);
-+
-+/// One-shot: clear-halt + prime the video endpoints before the first live-scanout EP08 write.
-+static EP08_SCANOUT_PRIMED: core::sync::atomic::AtomicBool =
-+    core::sync::atomic::AtomicBool::new(false);
-+
-+/// Select the live scanout codec. `false` (default) = the RLE/mode-2 path (`video::Encoder`),
-+/// which is what the dock currently runs and which the dock NAKs pre-CP anyway. `true` = the
-+/// byte-exact Vino WHT **colour** codec (`video::wht::colour_frame_ep08`), the bandwidth-efficient
-+/// DLM-quality path. Kept a compile-time flag (default off) so the RLE path stays the live default
-+/// and the switch is testable independently the moment the CP wall falls; the WHT path needs a
-+/// 64x16-aligned mode and falls back to RLE otherwise (see `docs/VIDEO-TODO.md`).
-+const EP08_WHT_CODEC: bool = false;
-+
-+/// Consecutive failed live-scanout frames, for log rate-limiting. Until CP engages, the dock
-+/// NAKs every EP08 write (EPROTO), so without this every compositor pageflip would spam dmesg.
-+static SCANOUT_FAILS: core::sync::atomic::AtomicU64 = core::sync::atomic::AtomicU64::new(0);
-+
-+/// Pageflip throttle: number of upcoming pageflips to skip before the next scanout attempt
-+/// (a backoff while the dock NAKs). A single successful frame clears it.
-+static SCANOUT_SKIP: core::sync::atomic::AtomicU64 = core::sync::atomic::AtomicU64::new(0);
-+
-+/// Set once the bring-up work item finishes (AKE/CP attempt done). `detect` only connects the
-+/// live-scanout connector AFTER this, so a compositor enabling the output cannot start EP08
-+/// scanout on top of the still-running AKE on the same USB device.
-+static BRINGUP_COMPLETE: core::sync::atomic::AtomicBool =
-+    core::sync::atomic::AtomicBool::new(false);
-+
-+mod proto;
-+mod crypto;
-+mod rng;
-+mod hdcp;
-+mod ake;
-+mod golden;
-+mod cp;
-+mod video;
-+
-+/// The shared secrets a completed HDCP 2.2 AKE leaves behind: the SKE session key
-+/// `ks` and content IV `riv` key the AES-CTR control plane (sec 6), and `kd` is kept
-+/// for any further repeater verification. Consumed by the Phase 2b/2c CP + video.
-+#[allow(dead_code)] // ks/riv/kd are consumed by the post-engagement CP stream (open blocker)
-+struct Session {
-+    ks: [u8; 16],
-+    riv: [u8; 8],
-+    kd: [u8; 32],
-+    /// The 7-frame **plaintext capability-announce** to send between the init markers and
-+    /// the arm marker (see `VinoDriver::build_cap_announce`). Built LIVE
-+    /// from this session's AKE values (rtx/ekpub/rn/edkey+riv/V) -- NOT a stale replay. Empty
-+    /// for a non-repeater dock (the announce path is only exercised on the D6000, repeater=1).
-+    cap_announce: KVec<u8>,
-+    /// Monotonic timestamp of the first CP frame (~`cp_first` in the timing survey), taken at
-+    /// the top of [`run_ake`]. Used by [`send_cp_setup`] to realise DLM's fixed pre-arm timer
-+    /// and to log the achieved `cp_start->arm` fingerprint. See [`DLM_FIXED_TIMERS`].
-+    cp_start: Instant<Monotonic>,
-+    /// Monotonic timestamp of the dock's `AKE_Send_Cert` push (`cert` in the timing survey),
-+    /// taken the instant [`run_ake`] receives it. DLM arms a *fixed* [`CERT_TO_ARM_US`] after
-+    /// this point (59.1 ms, +-0.5 ms over 11 cold plugs -- a hardcoded sleep), whereas vino's
-+    /// reactive settle arms the moment the AKE completes (~57.9 ms -- consistently *earlier*
-+    /// than DLM's tightest run). [`send_cp_setup`] holds the arm to this offset under
-+    /// [`DLM_FIXED_TIMERS`] so vino never arms ahead of DLM's window. See [`DLM_FIXED_TIMERS`].
-+    cert_at: Instant<Monotonic>,
-+}
-+
-+mod drm_sink;
-+
-+/// Per-bound-interface driver state.
-+struct VinoDriver {
-+    _intf: ARef<usb::Interface>,
-+    /// The registered `drm::Device` (only on the control interface, iface 0).
-+    _ddev: Option<ARef<drm_sink::VinoDrmDevice>>,
-+    /// A handle to the deferred bring-up work (control interface only), retained so
-+    /// [`disconnect`](VinoDriver::disconnect) can `cancel_work_sync()` it: the work
-+    /// does blocking USB I/O on the bound interface, so it must be flushed before the
-+    /// interface is unbound (otherwise `Interface::as_bound` in `BringUp::run` would
-+    /// touch an unbound interface). `None` on the idle sibling interface.
-+    bringup: Option<Arc<BringUp>>,
-+}
-+
-+/// Deferred bring-up work item: the bring-up sequence run on the system workqueue instead
-+/// of inline in `probe()` (which would pin the driver-model probe thread on blocking USB
-+/// I/O while the card node is live). Holds a refcounted handle to the bound interface (and,
-+/// once the DRM sink exists, the DRM device), so they outlive `probe()`.
-+#[pin_data]
-+struct BringUp {
-+    intf: ARef<usb::Interface>,
-+    ddev: Option<ARef<drm_sink::VinoDrmDevice>>,
-+    #[pin]
-+    work: Work<BringUp>,
-+}
-+
-+impl_has_work! {
-+    impl HasWork<Self> for BringUp { self.work }
-+}
-+
-+impl BringUp {
-+    fn new(
-+        intf: ARef<usb::Interface>,
-+        ddev: Option<ARef<drm_sink::VinoDrmDevice>>,
-+    ) -> Result<Arc<Self>> {
-+        Arc::pin_init(
-+            pin_init!(BringUp {
-+                intf,
-+                ddev,
-+                work <- new_work!("vino::bring_up"),
-+            }),
-+            GFP_KERNEL,
-+        )
-+    }
-+}
-+
-+impl WorkItem for BringUp {
-+    type Pointer = Arc<BringUp>;
-+
-+    fn run(this: Arc<BringUp>) {
-+        let cdev: &device::Device = this.intf.as_ref();
-+        // SAFETY: `BringUp` holds an `ARef<usb::Interface>` taken in `probe()`; the
-+        // work item is cancelled and flushed in `disconnect()` before the interface
-+        // is unbound (see `VinoDriver::disconnect`), so it stays bound for this run.
-+        let dev: &usb::Interface<device::Bound> = unsafe { this.intf.as_bound() };
-+        let ddev = &this.ddev;
-+        // WIP scaffold: attempt the plaintext bring-up, then the clean-room HDCP 2.2
-+        // AKE/LC/SKE, then the post-SKE CP setup. Bind regardless of the outcome -- there
-+        // is no display path until the dock engages the encrypted control plane, which it
-+        // currently never does (see the "help wanted" note at the top of the file).
-+        match VinoDriver::bring_up(dev) {
-+            Ok(()) => {
-+                dev_info!(cdev, "vino: plaintext session init OK\n");
-+                match VinoDriver::run_ake(dev) {
-+                    Ok(session) => {
-+                        dev_info!(cdev, "vino: HDCP AKE + LC + SKE complete (session keyed)\n");
-+                        // Dev diagnostic: the live session key/riv, so the dock's encrypted
-+                        // EP84 replies can be decoded offline from a usbmon capture. Behind
-+                        // pr_debug, so compiled out unless dynamic debug is enabled.
-+                        pr_debug!("vino: SESSION ks={:02x?} riv={:02x?}\n", &session.ks, &session.riv);
-+
-+                        // Phase 2c: drive the post-SKE CP setup. send_cp_setup re-seals
-+                        // DLM's captured setup template under THIS session's live ks/riv and
-+                        // sends it; `acks` counts the dock's encrypted wsub=0x45 replies.
-+                        // THIS IS THE WALL: on a cold dock `acks` stays 0 -- the dock runs the
-+                        // entire plaintext handshake but never engages the encrypted CP.
-+                        let mut edid_out: Option<KVec<u8>> = None;
-+                        match VinoDriver::send_cp_setup(dev, &session, &mut edid_out) {
-+                            Ok((n, acks, wseq_end, ctr_end)) => {
-+                                dev_info!(cdev,
-+                                    "vino: CP setup sent -- {n} messages, {acks} dock CP acks (wsub=0x45)\n");
-+                                // CP engagement gates EP08 video: until the dock acks, pushing
-+                                // pixels at it wedges the hub.
-+                                CP_ENGAGED.store(acks > 0, core::sync::atomic::Ordering::SeqCst);
-+                                // Publish the engaged session to the DRM device so the KMS
-+                                // callbacks
-+                                // can send runtime CP (mode-set on a modeset, cursor on motion),
-+                                // continuing this keystream. Only when the dock actually engaged.
-+                                if acks > 0 {
-+                                    if let Some(d) = ddev.as_ref() {
-+                                        let data: &drm_sink::VinoDrmData = d;
-+                                        data.publish_session(
-+                                            &session.ks, &session.riv, wseq_end, ctr_end,
-+                                        );
-+                                    }
-+                                }
-+                            }
-+                            Err(e) => dev_info!(cdev, "vino: CP setup incomplete ({e:?}) -- WIP\n"),
-+                        }
-+                        // Cache the dock's EDID on the DRM device (when the CP channel
-+                        // delivered it) so the connector's get_modes installs the real
-+                        // monitor descriptor via the standard DRM EDID helpers.
-+                        if let (Some(blob), Some(d)) = (edid_out, ddev.as_ref()) {
-+                            let n = blob.len();
-+                            let dev: &drm_sink::VinoDrmDevice = d;
-+                            let data: &drm_sink::VinoDrmData = dev;
-+                            data.set_edid(dev, blob);
-+                            dev_info!(cdev, "vino: cached dock EDID for connector ({n} bytes)\n");
-+                        }
-+                    }
-+                    Err(e) => dev_info!(cdev, "vino: HDCP AKE incomplete ({e:?}) -- WIP\n"),
-+                }
-+            }
-+            Err(e) => dev_info!(cdev, "vino: session init incomplete ({e:?}) -- WIP\n"),
-+        }
-+        // Bring-up attempt finished: allow the live-scanout connector to report connected
-+        // and let a compositor drive EP08 frames, without racing the handshake.
-+        BRINGUP_COMPLETE.store(true, core::sync::atomic::Ordering::SeqCst);
-+        if let Some(d) = ddev.as_ref() {
-+            let dev: &drm_sink::VinoDrmDevice = d;
-+            dev.hotplug_event();
-+            dev_info!(cdev, "vino: bring-up complete -- live-scanout connector now connected\n");
-+        }
-+    }
-+}
-+
-+/// On-device crypto known-answer self-test. Confirms the IN-KERNEL crypto path (which the CP seal
-+/// depends on) is byte-correct -- something only ever checked offline (Python `verify-kdf.py`)
-+/// before.
-+/// Runs three checks and logs PASS/FAIL:
-+///   1. AES-128-ECB vs the FIPS-197 test vector.
-+///   2. AES-CMAC vs the RFC 4493 test vector (subkey + full-block path).
-+///   3. The full `cp::seal_livemac` vs cold-ref's REAL msg0: known plaintext + known `ks`/`riv`
-+///      must reproduce the captured wire ciphertext+tag byte-for-byte. A FAIL here (with 1+2
-+///      passing) would localize a bug in our seal framing; a FAIL in 1/2 means the kernel
-+///      primitive itself is wrong. If all PASS, the crypto we send is correct and the
-+///      CP-engagement wall is NOT our crypto.
-+fn crypto_selftest() {
-+    use core::sync::atomic::{AtomicBool, Ordering};
-+    static RAN: AtomicBool = AtomicBool::new(false);
-+    if RAN.swap(true, Ordering::Relaxed) {
-+        return;
-+    }
-+
-+    // 1. AES-128-ECB KAT (FIPS-197 Appendix B / C.1).
-+    let ecb_key = [
-+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e,
-+        0x0f,
-+    ];
-+    let ecb_pt = [
-+        0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee,
-+        0xff,
-+    ];
-+    let ecb_expect = [
-+        0x69, 0xc4, 0xe0, 0xd8, 0x6a, 0x7b, 0x04, 0x30, 0xd8, 0xcd, 0xb7, 0x80, 0x70, 0xb4, 0xc5,
-+        0x5a,
-+    ];
-+    match crypto::aes128_ecb(&ecb_key, &ecb_pt) {
-+        Ok(out) if out == ecb_expect => pr_info!("vino: selftest AES-128-ECB PASS\n"),
-+        Ok(out) => pr_err!("vino: selftest AES-128-ECB FAIL got={out:02x?}\n"),
-+        Err(e) => pr_err!("vino: selftest AES-128-ECB ERR ({e:?})\n"),
-+    }
-+
-+    // 2. AES-CMAC KAT (RFC 4493 sec 4 example 2: a single 16-byte block).
-+    let cmac_key = [
-+        0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f,
-+        0x3c,
-+    ];
-+    let cmac_msg = [
-+        0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93, 0x17,
-+        0x2a,
-+    ];
-+    let cmac_expect = [
-+        0x07, 0x0a, 0x16, 0xb4, 0x6b, 0x4d, 0x41, 0x44, 0xf7, 0x9b, 0xdd, 0x9d, 0xd0, 0x4a, 0x28,
-+        0x7c,
-+    ];
-+    match crypto::aes_cmac(&cmac_key, &cmac_msg) {
-+        out if out == cmac_expect => pr_info!("vino: selftest AES-CMAC PASS\n"),
-+        out => pr_err!("vino: selftest AES-CMAC FAIL got={out:02x?}\n"),
-+    }
-+
-+    // 3. Full seal_livemac vs cold-ref's REAL msg0 (capture t=36.813765). ks/riv are the cold-ref
-+    // session's; content is msg0's 32-byte plaintext; the expected frame is the captured wire.
-+    let ks = [
-+        0xd8, 0xb2, 0x48, 0x12, 0x44, 0x1d, 0x50, 0x82, 0x0d, 0xa3, 0xc2, 0x71, 0xc7, 0xa3, 0x6e,
-+        0xc2,
-+    ];
-+    let riv = [0xfb, 0xa7, 0xc3, 0x5f, 0xe6, 0xce, 0x40, 0xec];
-+    let header = [
-+        0x00, 0x00, 0x3c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x24, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00,
-+        0x00,
-+    ];
-+    let content = [
-+        0x14, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x56, 0x48, 0xec, 0x9c, 0xec, 0xc3, 0x89, 0x23,
-+        0x5d, 0x69,
-+    ];
-+    let expect = [
-+        0x00, 0x00, 0x3c, 0x00, 0x04, 0x00, 0x00, 0x00, 0x24, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00,
-+        0x00, 0xcb, 0x4c, 0x80, 0xde, 0xf0, 0xd0, 0xfd, 0x56, 0x22, 0x5f, 0x43, 0xbd, 0x55, 0x0d,
-+        0x8e, 0xc5, 0x7a, 0x1c, 0x35, 0x12, 0x81, 0x35, 0x31, 0x1a, 0x45, 0x13, 0x91, 0x41, 0x25,
-+        0x87, 0xe9, 0xf7, 0xe5, 0x5b, 0xb5, 0xbc, 0x76, 0x5b, 0x2f, 0x1e, 0x79, 0xf2, 0x8b, 0xd5,
-+        0x5b, 0x2c, 0x3c, 0xe7,
-+    ];
-+    match cp::seal_livemac(&ks, &riv, &header, &content) {
-+        Ok(frame) if frame.as_slice() == expect.as_slice() => {
-+            pr_info!("vino: selftest seal_livemac(msg0) PASS -- CP crypto reproduces cold-ref wire\n")
-+        }
-+        Ok(frame) => {
-+            // Show where it first diverges so a framing/order bug is localizable.
-+            let mut at = frame.len().min(expect.len());
-+            for i in 0..at {
-+                if frame[i] != expect[i] {
-+                    at = i;
-+                    break;
-+                }
-+            }
-+            pr_err!(
-+                "vino: selftest seal_livemac(msg0) FAIL at byte {at} (len {} vs {})\n",
-+                frame.len(),
-+                expect.len()
-+            );
-+            let s = at.saturating_sub(0);
-+            let e = (at + 16).min(frame.len());
-+            pr_err!("vino:   got[{s}..]={:02x?}\n", &frame[s..e]);
-+            let e2 = (at + 16).min(expect.len());
-+            pr_err!("vino:   exp[{s}..]={:02x?}\n", &expect[s..e2]);
-+        }
-+        Err(e) => pr_err!("vino: selftest seal_livemac(msg0) ERR ({e:?})\n"),
-+    }
-+}
-+
-+impl VinoDriver {
-+    /// Plaintext session bring-up (sec 4): control-request preamble then the three
-+    /// bulk init messages, reading the single ACK. Best-effort during scaffold
-+    /// bring-up -- errors are logged, not fatal.
-+    fn bring_up(dev: &usb::Interface<device::Bound>) -> Result {
-+        // Post-enumeration idle hold: match DLM's ~15 ms userspace-daemon startup latency from
-+        // SET_CONFIGURATION to the first CP frame (vino, in-kernel, otherwise responds in ~4.8 ms).
-+        // Placed before ANY USB transaction so vino sits idle like DLM's daemon waiting to be
-+        // scheduled, then bursts. fsleep is fine here -- DLM's own latency spans 14.6..16.3 ms, far
-+        // wider than fsleep's slack. See [`ENUM_RESPONSE_HOLD_US`].
-+        if DLM_FIXED_TIMERS {
-+            fsleep(Delta::from_micros(ENUM_RESPONSE_HOLD_US));
-+        }
-+
-+        // Verify the KERNEL crypto path is byte-correct before we rely on it for CP. The KDF was
-+        // only ever checked offline (Python); this confirms the in-kernel AES-ECB, AES-CMAC and the
-+        // full `seal_livemac` reproduce ground-truth vectors on THIS device. Logs PASS/FAIL once.
-+        crypto_selftest();
-+
-+        // Control-request preamble (sec 4): dock-id read, interface selection, then the
-+        // vendor_out 0x24 / vendor_in 0x22 pairs that kick off the HDCP path. (The
-+        // GET_DESCRIPTOR string reads DLM also issues look cosmetic and are omitted.)
-+        const VENDOR_OUT: u8 = 0x40; // host->dev, vendor, device
-+        const VENDOR_IN_IFACE: u8 = 0xc1; // dev->host, vendor, INTERFACE recipient (DLM's choice)
-+
-+        // The DLM-style vendor preamble (sec 4). Per the userspace oracle, every
-+        // control request here is **best-effort**: the dock legitimately STALLs
-+        // some of them (e.g. the cosmetic dock-id read) yet still advances its
-+        // host-identification state. The oracle tolerates each error and relies
-+        // on DLM's inter-request timing gaps -- without those gaps the dock may
-+        // not advance. So we log-and-continue on every control step and insert
-+        // the same delays; only the bulk init + ACK is treated as load-bearing.
-+        // GROUND-TRUTH 2026-06-13: at device-open DLM issues two vendor-IN reads on interface 1,
-+        // recipient 0xc1, BEFORE the SET_INTERFACE / 0x24 / 0x22 sequence (dlm-cold-20260611-123347
-+        // f708 `0xc1 0xfe wIdx=1` -> 16 B "RidgeDock" blob; f710 `0xc1 0xfc wIdx=1` -> 0 B). vino
-+        // skipped them; the earlier attempt used recipient 0xc0 (device) and STALLed, which was
-+        // misread as "the dock rejects 0xfe / DLM never sends it". Issue them here with the correct
-+        // 0xc1 recipient. Best-effort: log and continue (the dock may still short/stall 0xfc).
-+        let mut dock_id = [0u8; 16];
-+        match dev.control_recv(0xfe, VENDOR_IN_IFACE, 0, 1, &mut dock_id, timeout(), GFP_KERNEL) {
-+            Ok(()) => pr_info!("vino: step device-open 0xfe(iface1) OK = {:02x?}\n", dock_id),
-+            Err(e) => pr_info!("vino: step device-open 0xfe(iface1) non-fatal ({e:?})\n"),
-+        }
-+        // Windows issues ONLY the single `0xfe` device-open read above; the `0xfc`/`0xfd`/`0xfb`
-+        // DFU reads are a DLM-oracle addition vino picked up. Skip them under [`WINDOWS_MIMIC`] to
-+        // match the Windows EP0 stream (they are diagnostic-only and CP-irrelevant either way).
-+        if !WINDOWS_MIMIC {
-+            let mut probe3 = [0u8; 3];
-+            match dev.control_recv(0xfc, VENDOR_IN_IFACE, 0, 1, &mut probe3, timeout(), GFP_KERNEL) {
-+                Ok(()) => pr_info!("vino: step device-open 0xfc(iface1) OK = {:02x?}\n", probe3),
-+                Err(e) => pr_info!("vino: step device-open 0xfc(iface1) non-fatal ({e:?})\n"),
-+            }
-+            // DFU firmware-version query, matching DLM / the macOS+Windows drivers'
-+            // DfuGetVmmDeviceFirmwareVersion: vendor IN bmRequestType=0xc1 bRequest=0xfd wIndex=1,
-+            // a 6-byte version blob (the reference driver's request-size table: 0xfb=4
-+            // customer/board, 0xfc=3 device-type, 0xfd=6 firmware-version, 0xfe=16 descriptor). This
-+            // is a device-level DFU read, independent of the CP channel, so it works regardless of
-+            // CP engagement -- handy for diagnostics and confirming the dock firmware revision.
-+            let mut fw_ver = [0u8; 6];
-+            match dev.control_recv(0xfd, VENDOR_IN_IFACE, 0, 1, &mut fw_ver, timeout(), GFP_KERNEL) {
-+                Ok(()) => pr_info!("vino: dock DFU firmware version = {:02x?}\n", fw_ver),
-+                Err(e) => pr_info!("vino: device-open 0xfd(firmware-version) non-fatal ({e:?})\n"),
-+            }
-+            // DFU customer/board id (DfuGetVmmDeviceCustomerAndBoardId): bRequest=0xfb, 4-byte blob.
-+            let mut cust_board = [0u8; 4];
-+            match dev.control_recv(0xfb, VENDOR_IN_IFACE, 0, 1, &mut cust_board, timeout(), GFP_KERNEL) {
-+                Ok(()) => pr_info!("vino: dock DFU customer/board id = {:02x?}\n", cust_board),
-+                Err(e) => pr_info!("vino: device-open 0xfb(customer/board) non-fatal ({e:?})\n"),
-+            }
-+        }
-+
-+        // EXPERIMENT (2026-06-16): replay DLM's repeated STRING-descriptor reads at device-open.
-+        // Timing analysis of the paired cold capture (captures/paired-coldbus-20260615-220311)
-+        // shows DLM, beyond the distinct descriptor SET vino already issues, re-reads STRING idx0
-+        // (language-ID list) and idx3 (en-US product, langid 0x0409), 255 B each, at ~2/sec for the
-+        // ENTIRE 175 s session -- a 1 Hz host string-poll heartbeat. Engagement happens in the
-+        // first
-+        // second, so this is almost certainly NOT a pre-AKE gate (the distinct set already
-+        // matches),
-+        // but the repetition was never A/B-tested by replay the way the 0xfe/0xfc reads were. Issue
-+        // a
-+        // small burst here, BEFORE the AKE, to test whether the dock conditions CP engagement on
-+        // seeing the host poll its strings. Best-effort: the kernel reports EREMOTEIO on the
-+        // expected
-+        // short reply, but the GET_DESCRIPTOR still reaches the wire, which is all the experiment
-+        // needs.
-+        // RESULT 2026-06-16 (paired-coldbus-20260616-162650): the pre-arm GET_DESCRIPTOR delta is
-+        // USB ENUMERATION, not application protocol. Both captures contain an identical 3x 8-byte +
-+        // 7x 18-byte DEVICE-descriptor read sequence -- which no kernel driver issues (it is the
-+        // enumeration handshake the USB core runs each time the dock re-enumerates on the cold
-+        // plug, plus DisplayLink's leftover /opt/displaylink/udev.sh hook firing per uevent).
-+        // Proven to be enumeration, not the DLM daemon: the vino capture reproduces the SAME reads
-+        // with displaylink-driver.service masked and no DisplayLinkManager process running. It is
-+        // symmetric across both runs, so it is neither a DLM-vs-vino difference nor the engagement
-+        // gate. This speculative burst only ADDED vino-issued reads on top, so disable it.
-+        // -- LIBUSB-STYLE DEVICE-OPEN ENUMERATION (2026-06-17)
-+        // ----------------------------------
-+        // The clean paired capture (paired-coldbus-20260616-180401) isolated the LAST pre-AKE
-+        // divergence from DLM to ONE thing: DLM (libusb) re-reads the dock's full descriptor set
-+        // when it opens the device -- DEVICE(18), CONFIG(9 then full ~618), STRING langid(idx0),
-+        // then every STRING index the descriptors reference (~22x 255B) -- right before the AKE.
-+        // A
-+        // kernel driver normally skips this (the USB core cached it at enumeration), which is why
-+        // vino's pre-arm control stream was missing it (the "DLM-ONLY 255x22 / 618 / 40"
-+        // residual).
-+        // These reads are CP-irrelevant descriptor boilerplate. The cold-plug A/B proved the dock
-+        // does NOT gate CP on them (replaying them byte-for-byte still gave 0x wsub=0x45 -- see
-+        // project_get_descriptor_burst_experiment / the firmware-wall verdict), and the in-kernel
-+        // Windows (WDF) and macOS (IOUSBLib) drivers DON'T issue this burst either -- like vino
-+        // they run over an already-enumerated device and use the USB core's cached descriptors.
-+        // The burst is therefore a libusb-userspace artifact, not something the dock expects.
-+        // Default OFF so vino behaves like a native kernel driver; flip to `true` only to reproduce
-+        // DLM's libusb wire for a paired A/B diff. Best-effort throughout: a STALL/EREMOTEIO on an
-+        // absent index is fine -- EP0 auto-recovers and the SETUP still reaches the wire (all the
-+        // A/B diff needs). Reproduces (histogram diff DLM vs vino, paired-coldbus-20260616-180401):
-+        // DLM's libusb open adds CONFIG-full(618)x3, CONFIG-partial(40)x3, STRING(255)x22, with
-+        // no
-+        // extra DEVICE(18)/CONFIG(9).
-+        // Windows (like a native kernel driver) does NOT replay this libusb descriptor burst, so
-+        // [`WINDOWS_MIMIC`] forces it off; otherwise default ON to reproduce DLM's libusb open.
-+        const CP_LIBUSB_OPEN_ENUM: bool = !WINDOWS_MIMIC;
-+        if CP_LIBUSB_OPEN_ENUM {
-+            let mut tmp = [0u8; 255];
-+            let mut cfg = KVec::from_elem(0u8, 618, GFP_KERNEL)?;
-+            // CONFIG full (618) x3 -- parse the first to find real string indices so the STRING
-+            // reads
-+            // below return data (matching DLM's byte counts), not just the SETUP counts.
-+            for _ in 0..3 {
-+                let _ = dev.control_recv(0x06, 0x80, 0x0200, 0, &mut cfg, timeout(), GFP_KERNEL);
-+            }
-+            // CONFIG partial (40) x3.
-+            for _ in 0..3 {
-+                let _ = dev.control_recv(0x06, 0x80, 0x0200, 0, &mut tmp[..40], timeout(), GFP_KERNEL);
-+            }
-+            // STRING idx0 = language-ID list (1st of the 22x 255 reads); adopt the dock's REAL
-+            // langid.
-+            let mut langid = 0x0409u16;
-+            if dev.control_recv(0x06, 0x80, 0x0300, 0, &mut tmp, timeout(), GFP_KERNEL).is_ok() && tmp[0] >= 4 {
-+                langid = (tmp[2] as u16) | ((tmp[3] as u16) << 8);
-+            }
-+            // String indices referenced by the config (iConfiguration @off6, iInterface @off8).
-+            let mut idxs = [0u8; 64];
-+            let mut ni = 0usize;
-+            let mut p = 0usize;
-+            while p + 2 <= cfg.len() {
-+                let blen = cfg[p] as usize;
-+                if blen == 0 {
-+                    break;
-+                }
-+                let btype = cfg[p + 1];
-+                if btype == 0x02 && p + 7 <= cfg.len() && cfg[p + 6] != 0 && ni < idxs.len() {
-+                    idxs[ni] = cfg[p + 6];
-+                    ni += 1;
-+                }
-+                if btype == 0x04 && p + 9 <= cfg.len() && cfg[p + 8] != 0 && ni < idxs.len() {
-+                    idxs[ni] = cfg[p + 8];
-+                    ni += 1;
-+                }
-+                p += blen;
-+            }
-+            // 21 more STRING(255) reads (idx0 above makes 22 total = DLM's count). Cycle the real
-+            // referenced indices so each returns data; DLM likewise re-reads indices.
-+            let mut nok = 0usize;
-+            for k in 0..21usize {
-+                let i = if ni > 0 { idxs[k % ni] as u16 } else { 1 + k as u16 };
-+                if dev
-+                    .control_recv(0x06, 0x80, 0x0300 | i, langid, &mut tmp, timeout(), GFP_KERNEL)
-+                    .is_ok()
-+                {
-+                    nok += 1;
-+                }
-+            }
-+            pr_info!(
-+                "vino: libusb-open enum: config 618x3 + 40x3, langid={langid:#06x}, strings 22 ({nok} ok of {ni} refs)\n"
-+            );
-+        }
-+
-+        // SET_INTERFACE: DLM's two handshake SET_INTERFACEs target iface 1 (alt 0,
-+        // app-specific/DFU) then iface 0 (alt 0, vendor) -- confirmed by a clean cold
-+        // DLM usbmon capture (captures/dlm-cold-20260611-123347, t=52.079/52.085).
-+        // The old code set iface 4 (the microphone) which DLM NEVER touches in the
-+        // handshake (the 58 audio SET_INTERFACEs in a session are snd-usb-audio's, not
-+        // DLM's -- see project_cp_setinterface_is_audio_binding_fix).
-+        match dev.set_interface(1, 0) {
-+            Ok(()) => pr_info!("vino: step set_interface(1,0) OK\n"),
-+            Err(e) => pr_info!("vino: step set_interface(1,0) non-fatal ({e:?})\n"),
-+        }
-+        match dev.set_interface(0, 0) {
-+            Ok(()) => pr_info!("vino: step set_interface(0,0) OK\n"),
-+            Err(e) => pr_info!("vino: step set_interface(0,0) non-fatal ({e:?})\n"),
-+        }
-+        // vendor_out 0x24 (initial ack) then vendor_in 0x22 (state read, wValue=1 -- DLM's exact
-+        // value; wValue=0 STALLs). Both best-effort: the dock advances state regardless and the
-+        // oracle tolerates failure here. The OUT's wValue is the one observable divergence: Linux
-+        // DLM (and vino) use wValue=3, the Windows driver uses wValue=0 -- both engage, so
-+        // [`WINDOWS_MIMIC`] just picks Windows' value for the A/B.
-+        let w24: u16 = if WINDOWS_MIMIC { 0 } else { 3 };
-+        match dev.control_send(0x24, VENDOR_OUT, w24, 0, &[], timeout(), GFP_KERNEL) {
-+            Ok(()) => pr_info!("vino: step 0x24(wValue={w24}) OK\n"),
-+            Err(e) => pr_info!("vino: step 0x24(wValue={w24}) non-fatal ({e:?})\n"),
-+        }
-+        // 0xc1 = IN|vendor|INTERFACE recipient (NOT 0xc0, device recipient): DLM's cold capture
-+        // uses
-+        // bmRequestType=0xc1, wIndex=0 (interface 0). wValue=1 (DLM's value; 0 stalls). Uses the
-+        // function-scope `VENDOR_IN_IFACE` declared in the device-open preamble above.
-+        let mut state = [0u8; 28];
-+        match dev.control_recv(0x22, VENDOR_IN_IFACE, 1, 0, &mut state, timeout(), GFP_KERNEL) {
-+            Ok(()) => pr_info!("vino: step 0x22(wValue=1) OK = {:02x?}\n", state),
-+            Err(e) => pr_info!("vino: step 0x22(wValue=1) non-fatal ({e:?})\n"),
-+        }
-+
-+        // Plaintext session init (sec 4) in DLM's exact wire order. The dock only
-+        // ACKs once init_4+probe arrives, and it gates on DLM's fingerprint -- the
-+        // interleaved GET_DESCRIPTOR reads (CONFIGURATION before init_0, two STRING
-+        // reads between init_25 and init_4). Those reads are best-effort: the
-+        // kernel reports EREMOTEIO on the short reply but the request still hits the
-+        // wire (all we need). init_0/init_25/init_4+probe are separate transfers.
-+        const STD_IN: u8 = 0x80; // dev->host, standard, device
-+        let mut desc = KVec::from_elem(0u8, 618, GFP_KERNEL)?;
-+        let _ = dev.control_recv(0x06, STD_IN, 0x0200, 0, &mut desc[..40], timeout(), GFP_KERNEL); // CONFIG, 40
-+        let _ = dev.control_recv(0x06, STD_IN, 0x0200, 0, &mut desc, timeout(), GFP_KERNEL); // CONFIG, 618
-+
-+        // Log EP02's bulk wMaxPacketSize from the config descriptor. If it is 64 then a 64-byte
-+        // msg0/arm is an exact multiple and the in-kernel `usb_bulk_msg` path (unlike libusb's
-+        // LIBUSB_TRANSFER_ADD_ZERO_PACKET) won't auto-append the terminating ZLP -- the dock's SIE
-+        // would then wait for more data and never hand the frame to firmware. Rules the ZLP-trap
-+        // hypothesis in or out from data we already capture. Walk the standard descriptor chain
-+        // (bLength/bDescriptorType), find the ENDPOINT (0x05) descriptor for bEndpointAddress 0x02.
-+        {
-+            let total = ((desc[2] as usize) | ((desc[3] as usize) << 8)).min(desc.len());
-+            let mut i = 0usize;
-+            while i + 2 <= total {
-+                let blen = desc[i] as usize;
-+                if blen == 0 {
-+                    break;
-+                }
-+                if desc[i + 1] == 0x05 && i + 7 <= total && desc[i + 2] == EP_CTRL_OUT {
-+                    let wmax = (desc[i + 4] as u16) | ((desc[i + 5] as u16) << 8);
-+                    pr_info!("vino: EP02 bulk wMaxPacketSize = {wmax} (ZLP needed if msg0 is a multiple)\n");
-+                }
-+                i += blen;
-+            }
-+        }
-+
-+        let load_bearing = |label: &str, msg: &[u8]| -> Result {
-+            match dev.bulk_send(EP_CTRL_OUT, msg, timeout(), GFP_KERNEL) {
-+                Ok(_) => Ok(pr_info!("vino: step {label} OK ({} B)\n", msg.len())),
-+                Err(e) => {
-+                    pr_err!("vino: step {label} FAILED ({e:?})\n");
-+                    Err(e)
-+                }
-+            }
-+        };
-+        load_bearing("init_0", &proto::init_0()?)?;
-+        // Pad init_0->init_25 to DLM's cadence (sync bulk_send fires ~0.08 ms quicker than DLM's
-+        // libusb URB). See PAD_* docs. udelay = us-precise busy-wait.
-+        if DLM_FIXED_TIMERS {
-+            udelay(Delta::from_micros(PAD_INIT0_TO_INIT25_US));
-+        }
-+        load_bearing("init_25", &proto::init_25()?)?;
-+        // DLM's two interleaved STRING reads between init_25 and init_4+probe.
-+        let _ = dev.control_recv(0x06, STD_IN, 0x0300, 0x0000, &mut desc[..255], timeout(), GFP_KERNEL); // STRING #0
-+        let _ = dev.control_recv(0x06, STD_IN, 0x0303, 0x0409, &mut desc[..255], timeout(), GFP_KERNEL); // STRING #3 en-US
-+        // Pad init_25->init_4 to DLM's cadence (~0.18 ms; vino's STRING reads return quicker too).
-+        if DLM_FIXED_TIMERS {
-+            udelay(Delta::from_micros(PAD_INIT25_TO_INIT4_US));
-+        }
-+        load_bearing("init_4+probe", &proto::init_4_probe()?)?;
-+
-+        // Read the single ACK that follows init_4+probe.
-+        let mut ack = KVec::from_elem(0u8, 1024, GFP_KERNEL)?;
-+        match dev.bulk_recv(EP_CTRL_IN, &mut ack, timeout(), GFP_KERNEL) {
-+            Ok(n) => Ok(pr_info!("vino: session-init ACK = {n} bytes: {:02x?}\n",
-+                &ack[..n.min(40)])),
-+            Err(e) => {
-+                pr_err!("vino: session-init ACK read FAILED ({e:?})\n");
-+                Err(e)
-+            }
-+        }
-+    }
-+
-+
-+    /// Whether to service EP83 (interrupt-IN status) during bring-up. Measured 2026-06-16
-+    /// (paired-coldbus-20260616-162650): DLM polls EP83 0x in the pre-arm window (14x total, all
-+    /// post-engagement) while vino polled it 5x pre-arm -- injecting interrupt-IN traffic into the
-+    /// critical arm/msg0 window that DLM never generates. Disabled so the pre-arm wire matches DLM;
-+    /// re-enable if a post-engagement status channel is ever needed (DLM only services it once the
-+    /// dock has already acked).
-+    const POLL_EP83_DURING_BRINGUP: bool = false;
-+
-+    /// CP_STREAM_TYPE0 experiment (2026-06-23, check.md panel Gemini #4 / Grok #3): send a single
-+    /// Type-0 (unrestricted) stream in `RepeaterAuth_Stream_Manage` instead of the DLM-replicated
-+    /// 0x04/0x05 stream-type bytes, to test whether the dock engages CP as a terminal Type-0 sink
-+    /// (vs an HDCP-2.2 repeater). Speculative: vino's Stream_Manage already matches DLM byte-exact
-+    /// and DLM engages, so this DIVERGES from the proven-good default -- keep `false` for normal
-+    /// runs and the paired diff; flip only for the A/B cold plug. M (`wait_cap_complete`) is
-+    /// host-verify-only so its value never gates, but its `m_data` tracks this flag for a clean log.
-+    const CP_STREAM_TYPE0: bool = false;
-+
-+    /// Reads the next HDCP response (type=4 sub=0x25, sec 5.2) from EP `0x84`,
-+    /// skipping any non-HDCP frames (e.g. plain ACKs) in between, and returns the
-+    /// parsed `(msg_id, payload)`. Bounded retry so a chatty dock can't wedge us.
-+    fn recv_hdcp(dev: &usb::Interface<device::Bound>) -> Result<(u8, KVec<u8>)> {
-+        const SUB_HDCP_RESP: u16 = 0x25;
-+        // The dock interleaves capability blocks up to ~5.8 KiB into the AKE reply
-+        // stream; size the buffer like the rest of the EP84 reads ([`EP84_BUF`]) so a
-+        // large frame is read whole rather than truncated/`-EOVERFLOW`'d.
-+        let mut buf = KVec::from_elem(0u8, EP84_BUF, GFP_KERNEL)?;
-+        for _ in 0..24 {
-+            // Read EP84 FIRST. The dock replies to AKE messages sub-millisecond (DLM cold capture:
-+            // ~0.1-0.7 ms between EP84 IN frames), but it interleaves status/cap pushes that we
-+            // skip. Polling EP83 (a ~2 ms idle wait) BEFORE every read added ~2 ms x
-+            // N-skipped-frames
-+            // of latency per reply -- making vino's AKE ~400 ms vs DLM's ~62 ms, slow enough that
-+            // the
-+            // dock starts downstream HDCP and NAKs our arm/Stream_Manage. So only service EP83 when
-+            // EP84 came back empty (same reorder as `drain_ep84`). See the cold wire diff.
-+            let n = dev.bulk_recv(EP_CTRL_IN, &mut buf, timeout(), GFP_KERNEL)?;
-+            if n < 16 {
-+                if Self::POLL_EP83_DURING_BRINGUP {
-+                    Self::poll_ep83(dev);
-+                }
++    fn master_xfer(dev: &ARef<EvdiDrmDevice>, msgs: &mut [i2c::Msg]) -> Result<usize> {
++        let ddev: &EvdiDrmDevice = dev;
++        let data: &EvdiDrmData = ddev;
++        let mut transferred = 0usize;
++        for msg in msgs.iter_mut() {
++            // Only DDC/CI traffic is forwarded to the client; ignore anything else on the bus.
++            if msg.addr() != DDCCI_ADDRESS {
 +                continue;
 +            }
-+            // DIAGNOSTIC (2026-06-11): log EVERY frame the dock returns during the AKE --
-+            // including
-+            // wsub!=0x25 and cap-block (sub=0x84) pushes we'd otherwise skip -- so we can see
-+            // whether
-+            // the dock interleaves its capability blocks with the HDCP replies (the suspected
-+            // reason
-+            // its cap phase never completes / it won't engage CP). Inner id/sub at off 16/18.
++            let addr = msg.addr();
++            let flags = msg.flags();
++            let is_read = msg.is_read();
++            if data
++                .ddcci_transfer(ddev, addr, flags, is_read, msg.buf_mut())
++                .is_ok()
 +            {
-+                let wsub = u16::from_le_bytes([buf[8], buf[9]]);
-+                let iid = if n >= 18 { u16::from_le_bytes([buf[16], buf[17]]) } else { 0 };
-+                let isub = if n >= 20 { u16::from_le_bytes([buf[18], buf[19]]) } else { 0 };
-+                pr_debug!("vino: AKE-EP84 {n}B wsub={wsub:#x} inner_id={iid:#x} inner_sub={isub:#x}\n");
-+            }
-+            if u16::from_le_bytes([buf[8], buf[9]]) != SUB_HDCP_RESP {
-+                continue; // non-HDCP frame -- skip
-+            }
-+            if let Some((id, payload)) = ake::parse_in(&buf[16..n]) {
-+                // Inner msg_id 0 is a status/ACK frame (the dock emits one as a
-+                // sub=0x25 frame after each OUT message, e.g. the `14 00 76 00...`
-+                // frame after AKE_Init) -- skip it and keep reading for the real
-+                // HDCP response, mirroring the oracle's recv_hdcp_msg.
-+                if id == 0 {
-+                    continue;
-+                }
-+                let mut pl = KVec::with_capacity(payload.len(), GFP_KERNEL)?;
-+                pl.extend_from_slice(payload, GFP_KERNEL)?;
-+                return Ok((id, pl));
++                transferred += 1;
 +            }
 +        }
-+        Err(EINVAL)
++        Ok(transferred)
 +    }
 +
-+
-+    /// Pace like DLM after a RepeaterAuth OUT (ctr6 Send_Ack / ctr7 Stream_Manage):
-+    /// read the dock's per-frame `id=0x14 sub=0x10` ack off EP84 BEFORE the next OUT,
-+    /// so vino never transmits while the dock is mid-NAK.
-+    ///
-+    /// Ground truth (cold wire diff, captures/dlm-cold-20260611-123347 vs vino-cold):
-+    /// DLM reads that ack after EVERY cap/AKE OUT --
-+    /// ctr4->ack->ctr5->ack->ctr6->ack->ctr7->
-+    /// ack->arm, ~0.2 ms apart, whole ctr7->arm gap 0.46 ms. Commit d74a4d7 dropped the
-+    /// drain for ctr6/ctr7, so `run_ake` sent ctr6->ctr7 back-to-back with no read; the
-+    /// dock (busy with downstream HDCP after SKE) then NAK'd each OUT ~100 ms (vino's
-+    /// V'->arm gap measured ~200 ms), and the arm landed after the dock had left its
-+    /// freshly-keyed CP window -> CP never engaged (0 `wsub=0x45`). Restoring the read
-+    /// re-paces vino to DLM and lets the arm land tight. Best-effort: returns as soon as
-+    /// the matching ack arrives, or immediately if nothing is queued (dock idle).
-+    fn pace_cap_ack(dev: &usb::Interface<device::Bound>, want_ctr: u16) {
-+        // EP84 frames here can carry an interleaved capability block up to ~5.8 KiB;
-+        // size to [`EP84_BUF`] so a large frame isn't truncated mid-pacing.
-+        let Ok(mut buf) = KVec::from_elem(0u8, EP84_BUF, GFP_KERNEL) else {
-+            return;
-+        };
-+        for _ in 0..8 {
-+            match dev.bulk_recv(EP_CTRL_IN, &mut buf, Delta::from_millis(30), GFP_KERNEL) {
-+                Ok(len) if len >= 22 => {
-+                    let wsub = u16::from_le_bytes([buf[8], buf[9]]);
-+                    let iid = u16::from_le_bytes([buf[16], buf[17]]);
-+                    let ictr = u16::from_le_bytes([buf[20], buf[21]]);
-+                    // The per-frame cap-ack: wsub=0x25, inner id=0x14 sub=0x10 ctr=want.
-+                    // An interleaved cap push (sub=0x84) or earlier ack -- keep reading.
-+                    if wsub == 0x25 && iid == 0x14 && ictr == want_ctr {
-+                        return;
-+                    }
-+                }
-+                // A short frame (header-only ack/keepalive): not our cap-ack, but the
-+                // dock is still talking -- keep pacing rather than bailing out.
-+                Ok(_) => continue,
-+                // Nothing queued within the short window -- the dock is idle, don't block.
-+                Err(_) => return,
-+            }
-+        }
-+    }
-+
-+
-+    /// After ctr7 (Stream_Manage) and its ack, WAIT for the dock's terminal capability block
-+    /// `id=0x0b sub=0x84` before letting the caller arm. This is the dock's "cap-complete"
-+    /// signal: DLM receives it and only then arms (cold-ref: `id=0x21` @52.1465 -> `id=0x0b`
-+    /// @52.1469 -> arm @52.1474). vino's lockstep ([`pace_cap_ack`]) only consumed the `id=0x14`
-+    /// ctr acks, so it armed right after ctr7's ack -- BEFORE the dock had emitted `id=0x0b`
-+    /// (vino received every other cap block id=0x213/0x0d/0x10/0x28/0x18/0x21 but armed one push
-+    /// early). The dock then NAK'd msg0 ~100 ms and dumped a 16 KB error block
-+    /// (`type=0x1003 wsub=0x37`) that DLM never produces, instead of engaging CP -- the true
-+    /// gate, found on cold plug `vino-cold-20260612-080549`. The dock emits `id=0x0b` a few ms
-+    /// after `id=0x21` once it settles downstream HDCP, so draining EP84 until it arrives keeps
-+    /// the arm tight (DLM ~ 0.5 ms after ctr7) yet correctly ordered. Best-effort, bounded.
-+    fn wait_cap_complete(dev: &usb::Interface<device::Bound>, kd: &[u8; 32]) {
-+        let Ok(mut buf) = KVec::from_elem(0u8, EP84_BUF, GFP_KERNEL) else {
-+            return;
-+        };
-+        // Drain EP84 until the dock goes QUIET, not merely until id=0x0b. Cold plug #2
-+        // (vino-cold-20260612-082707) showed DLM's LAST pre-arm push is the id=0x28 that
-+        // follows id=0x0b (cold-ref: id=0x0b@52.1469 -> ack ctr7 -> id=0x28@52.1472 ->
-+        // arm@52.1474),
-+        // whereas vino stopped at id=0x0b and armed -- leaving id=0x28 (and the rest of the dock's
-+        // terminal cap burst) un-drained in the dock's EP84 queue. With its IN queue backed up the
-+        // dock NAK'd vino's msg0 ~100 ms (it can't accept the OUT while it still owes IN data) and
-+        // then dumped the 16 KB error block. So after id=0x0b, keep reading until a read times out
-+        // (the dock has sent everything), then return so the caller arms into a clean dock -- like
-+        // DLM. Bounded: id=0x0b is the marker; QUIET_GAP short reads of silence end the drain.
-+        //
-+        // * 2026-06-12 (HDCP 2.3 Adaptation sec RepeaterAuth, pdfs/): one of the frames drained
-+        // here is
-+        // the dock's `RepeaterAuth_Stream_Ready` (HDCP msg 0x11) -- the 3rd `id=0x28` DLM receives
-+        // and
-+        // vino historically did not. The spec requires the transmitter to RECEIVE it within 100 ms
-+        // of
-+        // `Stream_Manage` and verify `M == M'` before transmitting content; the dock's exactly-100
-+        // ms
-+        // msg0 NAK on a cold plug is that window. We now RECOGNISE it in this same drain (no added
-+        // latency vs the old broken 10x1 s poll) and log `M'` plus candidate `M`s so the next
-+        // capture
-+        // pins the exact `STREAMID_TYPE || seq_num_M` the dock hashes. The HDCP msg_id rides at
-+        // `body[9]` = `buf[25]` in an EP84 reply (`ake::parse_in`); `M'[32]` follows at
-+        // `buf[26..58]`.
-+        // Verification is logged-only for now (the DisplayLink field offsets in `Stream_Manage` are
-+        // not yet confirmed, so a wrong guess must not block the arm); the arm is gated on
-+        // receiving
-+        // Stream_Ready when it arrives, else on the existing id=0x0b + quiet fallback. `M` key is
-+        // `SHA256(kd)`; `M = HMAC-SHA256(STREAMID_TYPE || seq_num_M, SHA256(kd))`, seq_num_M = 0.
-+        let sha_kd = crypto::sha256(kd);
-+        let mut saw_0b = false;
-+        let mut saw_ready = false;
-+        let mut quiet = 0usize;
-+        const QUIET_GAP: usize = 3; // ~3 consecutive empty short reads => dock done pushing
-+        const MAX_ROUNDS: usize = 48;
-+        for _ in 0..MAX_ROUNDS {
-+            match dev.bulk_recv(EP_CTRL_IN, &mut buf, Delta::from_millis(5), GFP_KERNEL) {
-+                Ok(len) if len >= 20 => {
-+                    quiet = 0;
-+                    let iid = u16::from_le_bytes([buf[16], buf[17]]);
-+                    let isub = u16::from_le_bytes([buf[18], buf[19]]);
-+                    let mid = if len >= 26 { buf[25] } else { 0 }; // HDCP msg_id (body[9])
-+                    if isub == 0x84 && iid == 0x0b {
-+                        saw_0b = true;
-+                    }
-+                    if mid == ake::id::REPEATERAUTH_STREAM_READY && len >= 58 {
-+                        saw_ready = true;
-+                        let mprime = &buf[26..58];
-+                        pr_info!("vino: AKE: Stream_Ready (0x11) M'={mprime:02x?}\n");
-+                        // M = HMAC-SHA256(SHA256(kd), data) where data is the Content Stream
-+                        // Management input the dock hashes: `k` 7-byte stream entries followed by
-+                        // the 3-byte `seq_num_M` (=0 on the first Stream_Manage). Cracked from the
-+                        // DLM aarch64 decompile (`FUN_0057be04`: data = memcpy(streams, k*7) ||
-+                        // BE16(field) || field, keyed by the 32-byte SHA256(kd) at session+0x37);
-+                        // reproduces DLM's captured M' byte-exact (captures/.../FINDINGS.md).
-+                        // vino's
-+                        // two streams carry the same StreamID_Type bytes its Stream_Manage sends
-+                        // (`repeater_auth_stream_manage`: type 0x04 and 0x05), so the dock computes
-+                        // the same M. (Earlier code guessed a 5-byte STREAMID_TYPE||seq layout and
-+                        // so
-+                        // always mismatched -- host-side only, never gated the dock.)
-+                        // Stream-type bytes track CP_STREAM_TYPE0 so the logged M matches what
-+                        // Stream_Manage actually sent (M is host-verify-only; never gates the dock).
-+                        let (s0, s1) = if Self::CP_STREAM_TYPE0 { (0x00, 0x00) } else { (0x04, 0x05) };
-+                        let m_data: [u8; 17] = [
-+                            0, 0, 0, s0, 0, 0, 0, // stream 0: StreamID_Type[0]
-+                            0, 0, 0, s1, 0, 0, 0, // stream 1: StreamID_Type[1]
-+                            0, 0, 0, // seq_num_M = 0 (first Stream_Manage, big-endian)
-+                        ];
-+                        let m = crypto::hmac_sha256(&sha_kd, &m_data);
-+                        let eq = if &m[..] == mprime { "==" } else { "!=" };
-+                        pr_info!("vino: AKE:   M {} M' (CSM stream-entry layout)\n", eq);
-+                    } else if mid == ake::id::RECEIVER_AUTH_STATUS && len >= 27 {
-+                        pr_info!("vino: AKE: RECEIVER_AUTH_STATUS=0x{:02x}\n", buf[26]);
-+                    }
-+                    // * 2026-06-12: arm the INSTANT both terminal markers have arrived -- the
-+                    // cap-complete
-+                    // id=0x0b AND the Stream_Ready (the trailing id=0x28 / HDCP 0x11). DLM arms
-+                    // 0.46 ms
-+                    // after its last cap block; a cold-plug cadence diff
-+                    // (vino-cold-20260612-113706) showed
-+                    // vino was instead waiting QUIET_GAP x 5 ms of EMPTY reads AFTER already
-+                    // seeing both
-+                    // markers, landing the arm ~68 ms late -- outside the dock's freshly-keyed CP
-+                    // window, so
-+                    // the dock errored on the arm (27 KB type=0x1001 dump) instead of engaging.
-+                    // Once both
-+                    // markers are in, the terminal burst is complete; arm now, like DLM. (The
-+                    // empty-read
-+                    // quiet path below remains the fallback when Stream_Ready never arrives.)
-+                    if saw_0b && saw_ready {
-+                        pr_info!("vino: cap-complete (id=0x0b + Stream_Ready 0x11) -- arming now\n");
-+                        return;
-+                    }
-+                }
-+                // Empty/short read = a quiet window. Fallback when Stream_Ready (0x11) never
-+                // arrives:
-+                // once id=0x0b has arrived AND the dock has been quiet for QUIET_GAP rounds, the
-+                // terminal burst is drained -- arm now.
-+                _ => {
-+                    if saw_0b {
-+                        quiet += 1;
-+                        if quiet >= QUIET_GAP {
-+                            pr_info!(
-+                                "vino: cap-complete drained (id=0x0b{}+ quiet) -- arming now\n",
-+                                if saw_ready { ", Stream_Ready 0x11, " } else { " (no 0x11) " }
-+                            );
-+                            return;
-+                        }
-+                    }
-+                }
-+            }
-+        }
-+        pr_info!(
-+            "vino: cap-complete drain budget hit (saw_0b={saw_0b} saw_ready={saw_ready}) -- arming anyway\n"
-+        );
-+    }
-+
-+
-+    /// Drives a full clean-room HDCP 2.2 AKE + LC + SKE (and RepeaterAuth for a
-+    /// repeater sink) over EP `0x02`/`0x84`, verifying `H'`, `L'` and `V'` against
-+    /// our own KDF (sec 5). On success returns the [`Session`] keys.
-+    ///
-+    /// All HDCP transfers use transport `seq=0`; the `hdcp_seq` counter increments
-+    /// 1..7 across the OUT messages (sec 5.1). Best-effort: any mismatch/short read
-+    /// aborts with an error the caller logs.
-+    fn run_ake(dev: &usb::Interface<device::Bound>) -> Result<Session> {
-+        use ake::id;
-+
-+        // Anchor the CP-start instant (~`cp_first` in the timing survey) before the first frame,
-+        // so `send_cp_setup` can realise DLM's fixed pre-arm timer and log the fingerprint.
-+        let cp_start = Instant::<Monotonic>::now();
-+
-+        // Flush any STALE EP84 frames the dock still has queued from a PRIOR session before
-+        // starting a fresh AKE. On a warm rmmod/insmod re-probe the dock is not power-cycled, so
-+        // its previous CP/cap replies (including a multi-KB residual block) sit in its EP84 queue;
-+        // if we don't drain them, the first `recv_hdcp` picks up a stale frame and the whole AKE
-+        // reply stream is shifted.
-+        //
-+        // TIMING (2026-06-23 paired cold-plug diff): a stale frame is ALREADY queued in the dock,
-+        // so it returns sub-millisecond; only the trailing empty read pays the timeout. A 20 ms
-+        // probe therefore cost a dead 20 ms before AKE_Init on a *cold* plug (queue empty) -- the
-+        // sole pre-arm gap where vino diverged from DLM (DLM emits ctr1 ~0.3 ms after session-init,
-+        // vino was ~21.8 ms). Drop the probe to 3 ms: still ample to drain a warm-reprobe backlog
-+        // (each present frame returns immediately; the loop only stops on the empty read), but the
-+        // cold-plug cost collapses 20 ms -> 3 ms, matching DLM's cadence into the AKE.
-+        //
-+        // FIXED-TIMER (2026-06-26, `DLM_FIXED_TIMERS`): DLM does NOT flush here at all -- the
-+        // cp_first->cert frame dump shows it emits AKE_Init ~0.14 ms after the session-init ACK,
-+        // whereas vino blocked ~1.9 ms in this probe. The cause: on a COLD plug the EP84 queue is
-+        // empty (the session-init ACK was already consumed), so the first `bulk_recv` waits out its
-+        // full timeout -- and because a sub-ms `Delta` truncates via `as_millis()` to 0 = "wait
-+        // forever", the practical floor is ~1.9 ms wall even at a nominal 1 ms. That dead wait was
-+        // the ENTIRE residual `cp_first->cert` gap vs DLM (vino 2.6 ms, DLM 1.07 ms). The flush only
-+        // matters on a WARM rmmod/insmod re-probe, where the un-power-cycled dock still has a stale
-+        // CP/cap backlog queued that would shift the first `recv_hdcp`. So under DLM_FIXED_TIMERS
-+        // (the cold-plug DLM-impersonation mode) skip it entirely and let AKE_Init follow the ACK as
-+        // tightly as DLM; keep the drain on the reactive/warm path where stale frames are possible.
-+        if !DLM_FIXED_TIMERS {
-+            let flush_probe = Delta::from_millis(3);
-+            if let Ok(mut flush) = KVec::from_elem(0u8, EP84_BUF, GFP_KERNEL) {
-+                let mut flushed = 0usize;
-+                for _ in 0..32 {
-+                    match dev.bulk_recv(EP_CTRL_IN, &mut flush, flush_probe, GFP_KERNEL) {
-+                        Ok(n) if n > 0 => flushed += 1,
-+                        _ => break,
-+                    }
-+                }
-+                if flushed > 0 {
-+                    pr_info!("vino: flushed {flushed} stale EP84 frame(s) before AKE\n");
-+                }
-+            }
-+        }
-+
-+        // Pad session-init-ACK->AKE_Init to DLM's 0.159 ms cadence. With the cold-plug flush gone,
-+        // vino fires AKE_Init only ~0.043 ms after the ACK; DLM spaces it 0.159 ms. See PAD_* docs.
-+        if DLM_FIXED_TIMERS {
-+            udelay(Delta::from_micros(PAD_ACK_TO_AKEINIT_US));
-+        }
-+
-+        // (1) AKE_Init -- fresh rtx, TxCaps = 00 00 00 (DLM-exact).
-+        let mut rtx = [0u8; 8];
-+        rng::fill(&mut rtx);
-+        dev.bulk_send(EP_CTRL_OUT, &ake::ake_init(1, 0, &rtx, &[0; 3])?, timeout(), GFP_KERNEL)?;
-+
-+        // (2) AKE_Send_Cert: payload = REPEATER(1) || cert_rx(522). Extract the
-+        // RSA-1024 public key (modulus[5..133], exponent[133..136]).
-+        let (cid, cert_msg) = Self::recv_hdcp(dev)?;
-+        // Anchor the `cert` milestone the instant the dock's cert lands: DLM arms a fixed
-+        // CERT_TO_ARM_US after this point (see `Session::cert_at` / `DLM_FIXED_TIMERS`).
-+        let cert_at = Instant::<Monotonic>::now();
-+        if cid != id::AKE_SEND_CERT || cert_msg.len() < 1 + 136 {
-+            pr_err!("vino: AKE: bad AKE_Send_Cert (id={cid:#x}, {} B)\n", cert_msg.len());
-+            return Err(EINVAL);
-+        }
-+        let repeater = cert_msg[0] != 0;
-+        let cert = &cert_msg[1..];
-+        let mut modulus = [0u8; 128];
-+        modulus.copy_from_slice(&cert[5..133]);
-+        let mut exponent = [0u8; 3];
-+        exponent.copy_from_slice(&cert[133..136]);
-+
-+        // (3) AKE_Transmitter_Info, then (4) read AKE_Receiver_Info (RxCaps unused).
-+        dev.bulk_send(EP_CTRL_OUT, &ake::ake_transmitter_info(2, 0)?, timeout(), GFP_KERNEL)?;
-+        let xmit_info_at = Instant::<Monotonic>::now();
-+        let _ = Self::recv_hdcp(dev)?;
-+
-+        // (5) AKE_No_Stored_km -- fresh km, RSA-OAEP-SHA256 to Ekpub(km).
-+        let mut km = [0u8; 16];
-+        rng::fill(&mut km);
-+        let ekpub = hdcp::oaep_encrypt_km(&modulus, &exponent, &km)?;
-+        // Spend a REALISTIC cert-verification time before No_Stored_km. vino reaches this point
-+        // ~0.3 ms after AKE_Transmitter_Info; DLM takes ~1.65 ms (it verifies the receiver's
-+        // DCP-signed cert). Hold to DLM's cadence so vino doesn't answer impossibly fast -- the one
-+        // consistent host-reachable divergence found vs the same-day engaging DLM. See
-+        // [`CERT_VERIFY_HOLD_US`].
-+        if DLM_FIXED_TIMERS {
-+            hold_until(xmit_info_at, CERT_VERIFY_HOLD_US);
-+        }
-+        dev.bulk_send(EP_CTRL_OUT, &ake::ake_no_stored_km(3, 0, &ekpub)?, timeout(), GFP_KERNEL)?;
-+
-+        // (6) AKE_Send_Rrx.
-+        let (rid, rrx_pl) = Self::recv_hdcp(dev)?;
-+        if rid != id::AKE_SEND_RRX || rrx_pl.len() < 8 {
-+            pr_err!("vino: AKE: bad AKE_Send_Rrx (id={rid:#x})\n");
-+            return Err(EINVAL);
-+        }
-+        let mut rrx = [0u8; 8];
-+        rrx.copy_from_slice(&rrx_pl[..8]);
-+
-+        // (7)/(8) AKE_Send_H_prime -- verify H' = HMAC(kd, rtx^REPEATER).
-+        let (hid, hp) = Self::recv_hdcp(dev)?;
-+        if hid != id::AKE_SEND_H_PRIME || hp.len() < 32 {
-+            pr_err!("vino: AKE: bad H' (id={hid:#x})\n");
-+            return Err(EINVAL);
-+        }
-+        let kd = hdcp::derive_kd(&km, &rtx, &rrx)?;
-+        if hdcp::compute_h(&kd, &rtx, repeater)[..] != hp[..32] {
-+            pr_err!("vino: AKE: H' mismatch -- authentication failed\n");
-+            return Err(EINVAL);
-+        }
-+        pr_info!("vino: AKE: H' verified\n");
-+
-+        // (9) AKE_Send_Pairing_Info (Ekh_km) -- read and discard (no-stored path).
-+        let _ = Self::recv_hdcp(dev)?;
-+
-+        // (10) Locality Check -- LC_Init(rn) then verify L'.
-+        let mut rn = [0u8; 8];
-+        rng::fill(&mut rn);
-+        dev.bulk_send(EP_CTRL_OUT, &ake::lc_init(4, 0, &rn)?, timeout(), GFP_KERNEL)?;
-+        let (lid, lp) = Self::recv_hdcp(dev)?;
-+        if lid != id::LC_SEND_L_PRIME || lp.len() < 32 {
-+            pr_err!("vino: AKE: bad L' (id={lid:#x})\n");
-+            return Err(EINVAL);
-+        }
-+        if hdcp::compute_l(&kd, &rrx, &rn)[..] != lp[..32] {
-+            pr_err!("vino: AKE: L' mismatch -- locality check failed\n");
-+            return Err(EINVAL);
-+        }
-+        pr_info!("vino: AKE: L' verified\n");
-+
-+        // (11) Session Key Exchange -- send Edkey(ks) || riv. The session key and IV are
-+        // fresh-random per session.
-+        let mut ks = [0u8; 16];
-+        let mut riv = [0u8; 8];
-+        rng::fill(&mut ks);
-+        rng::fill(&mut riv);
-+        let edkey = hdcp::compute_eks(&km, &rtx, &rrx, &rn, &ks)?;
-+        // Dev diagnostic: the full SKE secrets, so the SKE delivery can be verified OFFLINE
-+        // (edkey == ks XOR derive_dkey(km,rtx,rrx,rn,2), and the dock unwrapping to the same ks).
-+        // Behind pr_debug, so compiled out unless dynamic debug is enabled.
-+        pr_debug!("vino: SKE-SECRETS km={km:02x?} rtx={rtx:02x?} rrx={rrx:02x?} rn={rn:02x?}\n");
-+        pr_debug!("vino: SKE-SECRETS ks={ks:02x?} edkey={edkey:02x?}\n");
-+        // * riv DERIVATION -- THE CP-ENGAGEMENT BUG, FIXED 2026-06-11.
-+        // The SKE delivers the BASE riv (byte7 low-3 head/direction-selector bits cleared); the
-+        // dock
-+        // derives the per-direction CP riv from that base. GROUND TRUTH from cold-ref AND the live
-+        // vino cold-plug diff (captures/dlm-cold-20260611-123347 + vino-cold-20260611-130522):
-+        // delivered base byte7 = e8 -> host OUT-CP riv = ec (base | 0x04) -> dock IN-CP riv = ed
-+        // (^1).
-+        // vino had been sealing OUT-CP with the RAW random `riv` (byte7 e.g. f9 = base f8 | 0x01)
-+        // while delivering base f8 -- so the dock, deriving its keystream from f8 (expecting
-+        // host-OUT
-+        // = fc), could NOT decrypt vino's CP and SILENTLY DROPPED every post-arm frame (0 sub=0x45,
-+        // EP84 dead after the arm) even though ks/seal/MAC/frame-format were all byte-correct. The
-+        // off-by-one-bit IV was the whole wall. Fix: deliver base, seal OUT with base | 0x04.
-+        // The SKE delivers the FULL random riv as-is (DLM does NOT mask the low bits -- verified
-+        // on
-+        // two decrypted DLM sessions: cold-ref delivers ...e8, dl3cmac delivers ...e7). The host CP
-+        // OUT riv = delivered XOR 0x04 (flip byte7 bit 2): cold-ref e8->ec, dl3cmac e7->e3.
-+        // cp::in_riv
-+        // then ^1 for the dock->host IN stream (ec->ed). vino had been masking the delivered riv
-+        // and
-+        // sealing with the raw random LSBs, so the dock (deriving its keystream as delivered^0x04)
-+        // got a different keystream and silently dropped every CP frame. See the vino cold-plug
-+        // diff.
-+        let riv_ske = riv; // deliver the full random riv, unmasked, exactly like DLM
-+        riv[7] ^= 0x04; // host OUT-CP riv = delivered ^ 0x04
-+        dev.bulk_send(EP_CTRL_OUT, &ake::ske_send_eks(5, 0, &edkey, &riv_ske)?, timeout(), GFP_KERNEL)?;
-+        // Dev diagnostic: the live session key/out-riv the dock must hold to decrypt our CP.
-+        pr_debug!("vino: SESSION ks={ks:02x?} out_riv={riv:02x?}\n");
-+
-+        // The LIVE plaintext capability-announce (`build_cap_announce`),
-+        // built once V is known below. Empty unless the dock is a repeater (D6000 always is).
-+        let mut cap_announce = KVec::new();
-+
-+        // (12) RepeaterAuth -- verify V' over the ReceiverID_List, ACK, then SM2.
-+        if repeater {
-+            let (vid, list) = Self::recv_hdcp(dev)?;
-+            if vid != id::REPEATERAUTH_SEND_RECEIVERID_LIST || list.len() < 16 {
-+                pr_err!("vino: AKE: bad ReceiverID_List (id={vid:#x})\n");
-+                return Err(EINVAL);
-+            }
-+            let split = list.len() - 16;
-+            // V = HMAC(kd, list_header): MSB-128 = V' (verify vs the list trailer);
-+            // LSB-128 = the RepeaterAuth_Send_Ack value (NOT the MSB -- that was THE bug).
-+            let v_full = hdcp::compute_v_full(&kd, &list[..split]);
-+            let mut v_ack = [0u8; 16];
-+            v_ack.copy_from_slice(&v_full[16..]);
-+            if v_full[..16] != list[split..] {
-+                pr_err!("vino: AKE: V' mismatch -- repeater verification failed\n");
-+                return Err(EINVAL);
-+            }
-+            pr_info!("vino: AKE: V' verified\n");
-+            dev.bulk_send(EP_CTRL_OUT, &ake::repeater_auth_send_ack(6, 0, &v_ack)?, timeout(), GFP_KERNEL)?;
-+            // Read the dock's ctr6 ack before sending ctr7 -- DLM's lockstep pacing, without
-+            // which the dock NAKs the back-to-back OUTs ~100 ms each (see `pace_cap_ack`).
-+            Self::pace_cap_ack(dev, 6);
-+            dev.bulk_send(
-+                EP_CTRL_OUT,
-+                &ake::repeater_auth_stream_manage(7, 0, Self::CP_STREAM_TYPE0)?,
-+                timeout(),
-+                GFP_KERNEL,
-+            )?;
-+            // Read the dock's ctr7 ack before returning, so the caller's arm marker lands
-+            // tight after ctr7 (DLM: 0.46 ms) instead of while the dock is still NAKing.
-+            Self::pace_cap_ack(dev, 7);
-+            // Then drain the dock's terminal cap burst -- id=0x0b (cap-complete) AND the dock's
-+            // `RepeaterAuth_Stream_Ready` (HDCP 0x11, the 3rd id=0x28) -- before the caller arms.
-+            // DLM arms only after this burst (cold-ref: id=0x21 -> id=0x0b -> id=0x28/0x11 ->
-+            // arm);
-+            // arming early makes the dock NAK msg0 ~100 ms and dump a 16 KB error block instead of
-+            // engaging. `wait_cap_complete` recognises + verifies the Stream_Ready in place (HDCP
-+            // 2.3 Adaptation sec RepeaterAuth). `kd` is needed to check `M == M'`.
-+            Self::wait_cap_complete(dev, &kd);
-+
-+            // Build the LIVE capability-announce now that every field is known. This is the
-+            // plaintext re-statement of the 7 AKE OUT messages the dock requires between the
-+            // init markers and the arm marker (`CP_CAP_PHASE`). See `build_cap_announce`.
-+            // Pass `riv_ske` (the value SKE_Send_Eks actually delivered), NOT `riv` (= session
-+            // OUT-CP seal riv = riv_ske ^ 0x04). The cap-announce ctr5 frame is a byte-faithful
-+            // re-statement of SKE_Send_Eks, so it must carry the IDENTICAL riv.
-+            cap_announce = Self::build_cap_announce(&rtx, &ekpub, &rn, &edkey, &riv_ske, &v_ack)?;
-+        }
-+
-+        Ok(Session { ks, riv, kd, cap_announce, cp_start, cert_at })
-+    }
-+
-+
-+    /// Build the LIVE plaintext **capability-announce** the dock requires before the arm
-+    /// marker. Ground truth: the cold-ref raw wire
-+    /// (`captures/cold-ref-20260608-200850/`, t~36.754-36.813) shows DLM, *after* the HDCP
-+    /// AKE, sends 7 plaintext `type=4 wsub=0x04` frames that are a re-statement of the 7 AKE
-+    /// OUT messages -- `id=0x22/0x1f/0x9a/0x22/0x32/0x2a/0x2d`, `sub=0x10`, ctr 1-7 -- each
-+    /// carrying THIS session's real value: f1=rtx, f2=const TxCaps, f3=Ekpub(km)[128],
-+    /// f4=rn, f5=Edkey(ks)[16]||riv_base[8], f6=V[16], f7=const Stream_Manage config. The dock
-+    /// ACKs each (`id=0x14 sub=0x10 ctr=N`) and only then engages its CP cipher; skipping the
-+    /// announce leaves it cipher-off (the long-standing "0 `sub=0x45` acks" symptom).
-+    ///
-+    /// [`golden::CAP_PLAIN_1080P`] is a byte-correct *skeleton* (headers/aux/lead bytes and the
-+    /// two constant frames are session-invariant -- verified across the cold-ref and matched
-+    /// sessions) but its 5 variable payloads are a STALE foreign session's values. Replaying it
-+    /// verbatim delivers the dock a stale Ekpub/Edkey/riv that re-key it to a foreign `ks`
-+    /// (the `cap_phase`-clobbers-`ks` bug). So we clone the skeleton and overwrite ONLY the 5
-+    /// session-specific payloads. Each payload sits at frame offset 44 (16-byte wire header +
-+    /// 22 inner-prefix bytes + the `30 00 00 00 00` marker + 1 lead byte = 28 inner bytes), and
-+    /// frames are stored `[u16 len][frame]`. `riv` here is the SKE-*delivered* riv (`riv_ske`),
-+    /// written verbatim -- frame 5 is a byte-faithful re-statement of `SKE_Send_Eks`, so it must
-+    /// carry the EXACT delivered riv. (It earlier wrote `riv & 0xF8`, which equals the delivered
-+    /// value only when the random riv's low 3 bits are zero -- true for cold-ref's `e8` but wrong
-+    /// for 7 of 8 live sessions, so the dock saw a different riv in the announce than in SKE.
-+    /// Ground truth: cold-ref ctr5 capture t=36.812413 delivers riv `...40e8` == its SKE riv.)
-+    fn build_cap_announce(
-+        rtx: &[u8; 8],
-+        ekpub: &[u8; 128],
-+        rn: &[u8; 8],
-+        edkey: &[u8; 16],
-+        riv: &[u8; 8],
-+        v: &[u8; 16],
-+    ) -> Result<KVec<u8>> {
-+        let mut blob = KVec::with_capacity(golden::CAP_PLAIN_1080P.len(), GFP_KERNEL)?;
-+        blob.extend_from_slice(golden::CAP_PLAIN_1080P, GFP_KERNEL)?;
-+
-+        // Walk the skeleton; for each frame, overwrite the payload (at frame+44) keyed by ctr.
-+        let mut off = 0usize;
-+        while off + 2 <= blob.len() {
-+            let len = u16::from_le_bytes([blob[off], blob[off + 1]]) as usize;
-+            let frame = off + 2;
-+            if frame + len > blob.len() {
-+                break;
-+            }
-+            // ctr (inner offset 4) identifies which AKE message this announce frame restates.
-+            let ctr = u16::from_le_bytes([blob[frame + 16 + 4], blob[frame + 16 + 5]]);
-+            let pay = frame + 44; // 16 hdr + 22 inner-prefix + 5 marker + 1 lead
-+            match ctr {
-+                1 => blob[pay..pay + 8].copy_from_slice(rtx), // AKE_Init
-+                3 => blob[pay..pay + 128].copy_from_slice(ekpub), // AKE_No_Stored_km Ekpub
-+                4 => blob[pay..pay + 8].copy_from_slice(rn), // LC_Init
-+                5 => {
-+                    // SKE_Send_Eks: Edkey(ks)[16] || riv[8] (the delivered riv, verbatim)
-+                    blob[pay..pay + 16].copy_from_slice(edkey);
-+                    blob[pay + 16..pay + 24].copy_from_slice(riv);
-+                }
-+                6 => blob[pay..pay + 16].copy_from_slice(v), // RepeaterAuth_Send_Ack V
-+                _ => {} // ctr 2 (TxCaps) and 7 (Stream_Manage) are session-invariant
-+            }
-+            off = frame + len;
-+        }
-+        Ok(blob)
-+    }
-+
-+
-+    /// Poll EP 0x83 (interrupt-IN status endpoint). DLM submits URBs here CONTINUOUSLY and the dock
-+    /// pushes 6-byte status events; the dock may gate CP/downstream-HDCP engagement on the host
-+    /// servicing this endpoint (flagged in `vino-driver/src/bin/bringup.rs`). vino never polled it
-+    /// --
-+    /// invisible in the EP02/EP84 bulk-wire comparison. Reads up to a few events (short timeout so
-+    /// a
-+    /// URB is pending when the dock pushes). `usb_bulk_msg` auto-routes the interrupt endpoint.
-+    fn poll_ep83(dev: &usb::Interface<device::Bound>) -> usize {
-+        // EP83 (interrupt-IN) transfers need DMA-capable memory -- allocate on the HEAP.
-+        // A stack array trips usb_hcd_map_urb_for_dma's "transfer buffer is on stack"
-+        // WARNING (VMAP_STACK can't be DMA-mapped) and the broken submit also stalls the
-+        // bring-up (poll_ep83 runs inside every drain round). Best-effort: bail on OOM.
-+        let mut buf = match KVec::from_elem(0u8, 64, GFP_KERNEL) {
-+            Ok(b) => b,
-+            Err(_) => return 0,
-+        };
-+        let mut n = 0usize;
-+        // Short timeout: a pending URB gives the dock a window to push, but a 30 ms block on the
-+        // (normally idle) EP83 stalls the bring-up loop (see drain_ep84). 2 ms is enough to catch a
-+        // ready event without serializing the handshake.
-+        for _ in 0..4 {
-+            match dev.interrupt_recv(0x83, &mut buf, Delta::from_millis(2), GFP_KERNEL) {
-+                Ok(len) if len > 0 => {
-+                    n += 1;
-+                    let s = &buf[..len.min(8)];
-+                    pr_info!("vino: EP83 status event {len}B {s:02x?}\n");
-+                }
-+                _ => break,
-+            }
-+        }
-+        n
-+    }
-+
-+    /// Reap any completed transfers from the persistent EP83 interrupt-IN queue (opened in
-+    /// [`send_cp_setup`]) without blocking, re-posting each as it is read so a URB always stays
-+    /// pending. Returns the number of status events drained (logged for the cold-plug A/B vs DLM).
-+    ///
-+    /// [`send_cp_setup`]: Self::send_cp_setup
-+    fn drain_ep83_queue(q: Option<&mut usb::BulkInQueue>) -> usize {
-+        let Some(q) = q else { return 0 };
-+        let mut buf = [0u8; 64];
-+        let mut n = 0usize;
-+        // Non-blocking sweep: a 0 ms wait returns Ok(None) immediately if nothing has completed,
-+        // so this never serialises the arm/msg0 burst -- it only harvests what the dock pushed.
-+        for _ in 0..4 {
-+            match q.recv(&mut buf, Delta::from_millis(0)) {
-+                Ok(Some(len)) if len > 0 => {
-+                    n += 1;
-+                    let s = &buf[..len.min(8)];
-+                    pr_info!("vino: EP83 (async) status event {len}B {s:02x?}\n");
-+                }
-+                _ => break,
-+            }
-+        }
-+        n
-+    }
-+
-+
-+    /// Drives the post-SKE CP setup: opens the async EP84 reader, sends the plaintext
-+    /// stream-open arm marker, then the first live encrypted CP frame (msg0), and counts the
-+    /// dock's encrypted `wsub=0x45` acks. THE WALL: on a cold dock `acks` stays 0 -- the dock
-+    /// runs the entire plaintext handshake but never engages the encrypted CP. See the "help
-+    /// wanted" note at the top of the file.
-+    fn send_cp_setup(
-+        dev: &usb::Interface<device::Bound>,
-+        session: &Session,
-+        edid_out: &mut Option<KVec<u8>>,
-+    ) -> Result<(usize, usize, u32, u16)> {
-+        // 16 KiB so the dock's ~5787 B capability block is read whole (see [`EP84_BUF`]).
-+        let mut resp = KVec::from_elem(0u8, EP84_BUF, GFP_KERNEL)?;
-+        let mut drained = 0usize;
-+        let mut acks = 0usize;
-+        let mut sent = 0usize;
-+        let mut ep83_events = 0usize;
-+
-+        // Plaintext `type=2 sub=0x24`+`0x45` stream-open arm marker -- the mandatory gate
-+        // before the first encrypted frame.
-+        const STREAM_OPEN: [u8; 64] = [
-+            0x00, 0x00, 0x1c, 0x00, 0x02, 0x00, 0x00, 0x00, //
-+            0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //
-+            0x04, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, //
-+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //
-+            0x00, 0x00, 0x1c, 0x00, 0x02, 0x00, 0x00, 0x00, //
-+            0x45, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //
-+            0x05, 0x00, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, //
-+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //
-+        ];
-+
-+        // Open the persistent async EP84 IN reader BEFORE the arm marker and msg0, so
-+        // `EP84_QUEUE_DEPTH` IN transfers are already posted when the dock pushes its post-arm
-+        // reply (DLM's libusb always-pending-IN behaviour). Draining EP84 concurrently stops the
-+        // dock's IN FIFO filling and NAKing our OUT (the sync-bulk deadlock that produced a 100 ms
-+        // msg0 NAK). RAII: dropping the queue at function exit kills+frees the URBs.
-+        let mut ep84_q = match dev.bulk_in_queue(0x04, EP84_QUEUE_DEPTH, EP84_BUF) {
-+            Ok(q) => {
-+                pr_info!("vino: EP84 async IN queue opened (depth={EP84_QUEUE_DEPTH})\n");
-+                Some(q)
-+            }
-+            Err(e) => {
-+                pr_info!("vino: EP84 async queue open failed ({e:?}) -- falling back to sync bulk_recv\n");
-+                None
-+            }
-+        };
-+
-+        // A persistent async interrupt-IN queue on EP83 (mirroring `BulkInQueue` but for an
-+        // interrupt endpoint) was tried here to see whether FIFO backpressure on the dock's
-+        // status endpoint was blocking CP engagement. It wasn't: a HW cold plug measured
-+        // `EP83_events=0` and the dock still never acked (`wsub=0x45`). Dropped rather than
-+        // carried forward on an ad hoc binding outside the usb series -- `poll_ep83` (sync,
-+        // called elsewhere in bring-up) is sufficient and already matches DLM's own cadence.
-+        let mut ep83_q: Option<usb::BulkInQueue> = None;
-+
-+        // A/B (2026-06-16): route the engagement-critical arm marker + msg0 through an async,
-+        // pipelined OUT queue (`usb::Interface::bulk_out_queue`) instead of the synchronous
-+        // `bulk_send`. This mirrors DLM's libusb execution model exactly: each OUT URB is
-+        // submitted and returns immediately (the HCD auto-retries NAKs until the URB's
-+        // teardown), so the arm and msg0 are queued back-to-back and reaped afterwards rather
-+        // than each blocking for its device-ACK round-trip before the next is submitted. The
-+        // 2026-06-15 measurement showed the *wire* (lengths + submit->complete latency) is
-+        // already identical, so this is not expected to change what the dock receives -- it is
-+        // the last structural host difference (sync `usb_bulk_msg` vs async submit/reap) made
-+        // identical so a cold plug can rule it in or out. Default OFF so vino keeps the proven
-+        // sync path and paired diffs are not polluted; flip to test.
-+        const CP_ASYNC_OUT: bool = true;
-+        let mut out_q = if CP_ASYNC_OUT {
-+            match dev.bulk_out_queue(0x02, 4, 1024) {
-+                Ok(q) => {
-+                    pr_info!("vino: EP02 async OUT queue opened (depth=4) -- libusb-style submit/reap\n");
-+                    Some(q)
-+                }
-+                Err(e) => {
-+                    pr_info!("vino: EP02 async OUT queue open failed ({e:?}) -- using sync bulk_send\n");
-+                    None
-+                }
-+            }
-+        } else {
-+            None
-+        };
-+
-+        // Pin the EP02 DATA0/DATA1 toggle to DATA0 immediately before the arm. This is the one
-+        // host lever invisible to every "host exhausted" test: usbmon logs payloads, not the
-+        // toggle bit, and the crypto/timing work never touches it. DLM (libusb async URBs) and
-+        // vino (in-kernel blocking bulk_send) can reach the arm with EP02 at *different* parity
-+        // after the ~9 preceding OUT transfers (7 cap-announce + arm) -- a mismatch makes the
-+        // dock's SIE ACK the packet at the link layer (byte-identical on the wire) yet discard
-+        // the payload as a duplicate, i.e. "arms clean, silently drops msg0". clear_halt issues
-+        // CLEAR_FEATURE(ENDPOINT_HALT), which resets both sides' toggle to DATA0. Every earlier
-+        // reset (reset_configuration at the top of bring_up, HARD_RESET, VBUS cycle) reset the
-+        // toggle *before* those preceding transfers, so msg0's parity was never pinned. A/B:
-+        // flip to `reset_configuration()` to test the heavier reset at the same call site.
-+        // RESULT 2026-06-16 (cold plug vino-cold-20260616-000552): TESTED NEGATIVE.
-+        // clear_halt(EP02)
-+        // fired (wire shows CLEAR_FEATURE on EP2, dmesg "toggle -> DATA0") yet the dock still gave
-+        // sub=0x45_acks=0. The toggle was NOT the gate. Left default-OFF so vino doesn't carry an
-+        // EP02 CLEAR_FEATURE that DLM never sends (would pollute future paired diffs); flip to
-+        // test.
-+        // Sibling result: EP02 wMaxPacketSize logged = 1024, so a 64-byte msg0/arm always
-+        // terminates
-+        // as a natural short packet -- the ZLP-trap hypothesis is moot too.
-+        const CLEAR_HALT_BEFORE_ARM: bool = false;
-+        if CLEAR_HALT_BEFORE_ARM {
-+            match dev.clear_halt(EP_CTRL_OUT) {
-+                Ok(()) => pr_info!("vino: EP02 clear_halt before arm OK (toggle -> DATA0)\n"),
-+                Err(e) => pr_info!("vino: EP02 clear_halt before arm non-fatal ({e:?})\n"),
-+            }
-+        }
-+
-+        // cert->arm fixed hold (the key `DLM_FIXED_TIMERS` lever). DLM arms a hardcoded
-+        // CERT_TO_ARM_US (59.1 ms) after the dock's cert; vino's reactive settle arms the instant
-+        // the AKE completes (~57.9 ms -- below DLM's observed minimum, i.e. always a hair EARLY).
-+        // `hold_until` pads to exactly CERT_TO_ARM_US after the cert with udelay-grade precision (a
-+        // plain fsleep overshot 59.1 -> 59.4 ms). If wait_cap_complete already ran past the target
-+        // (dock slow), it returns at once -- we never arm *before* the window, only pad up to it.
-+        if DLM_FIXED_TIMERS {
-+            hold_until(session.cert_at, CERT_TO_ARM_US);
-+        }
-+
-+        // Submit the arm marker. Async path: queue it and DO NOT flush -- leave it in flight so
-+        // msg0 can be submitted right behind it (the pipelined arm->msg0 burst DLM does). Sync
-+        // path: the original blocking send.
-+        let arm_res = match out_q.as_mut() {
-+            Some(q) => q.send(&STREAM_OPEN, timeout()),
-+            None => dev.bulk_send(EP_CTRL_OUT, &STREAM_OPEN, timeout(), GFP_KERNEL).map(|_| ()),
-+        };
-+        if let Err(e) = arm_res {
-+            pr_err!("vino: CP stream-open marker FAILED ({e:?})\n");
-+            return Err(e);
-+        }
-+        // Report the realised `cp_start->arm` AND `cert->arm` so the cold-plug dmesg carries vino's
-+        // pre-arm fingerprint for an A/B against DLM (cp_start->arm ~60 ms; cert->arm fixed 59.1 ms
-+        // under DLM_FIXED_TIMERS). Microsecond precision. See the 2026-06-26 timing survey.
-+        let arm_at = session.cp_start.elapsed();
-+        let cert_to_arm = session.cert_at.elapsed().as_micros_ceil();
-+        pr_info!(
-+            "vino: CP stream-open arm marker sent (cp_start->arm = {} us, cert->arm = {} us, target {} us)\n",
-+            arm_at.as_micros_ceil(), cert_to_arm, CERT_TO_ARM_US
-+        );
-+
-+        // arm->msg0 hold. The 2026-06-25 timing survey found this is the ONE step where vino is
-+        // consistently faster than DLM: vino fires msg0 ~0.07 ms after the arm, DLM ~0.17 ms -- the
-+        // only timing inversion in the corpus, and never tested as a variable. Earlier this gap was
-+        // left unpadded on the "engine is event-driven, sub-ms lead is immaterial" reasoning; the
-+        // survey shows DLM's gap is a *fixed* ~0.17 ms (0.152/0.188 ms, 0.036 ms spread = a hard
-+        // sleep, not a reaction), so under `DLM_FIXED_TIMERS` we hold [`ARM_TO_MSG0`] to match it
-+        // exactly. If the dock keys engagement on msg0 not arriving before the arm has settled, this
-+        // is the lever; if it engages, "msg0 too soon" was the gate. Cheap to A/B on one cold plug.
-+        if DLM_FIXED_TIMERS {
-+            fsleep(ARM_TO_MSG0);
-+        }
-+
-+        // LIVE CP msg0: protocol-fixed header `id=0x14 sub=0x00 ctr=0x08`, 14 zero bytes, then a
-+        // fresh host-random 10-byte token (the dock does not validate or echo it), sealed under
-+        // THIS session's ks/riv with a live Dl3Cmac. This is the decisive engagement probe: a
-+        // `wsub=0x45` reply would mean the cipher engaged on a live session.
-+        let mut content = [0u8; 32];
-+        content[0..2].copy_from_slice(&0x0014u16.to_le_bytes()); // id=0x14
-+        content[4..8].copy_from_slice(&8u32.to_le_bytes()); // ctr=0x08 (sub=0x00 stays zero)
-+        rng::fill(&mut content[22..32]); // host-random token
-+        let body_len = content.len() + 16; // AES-CTR ciphertext + 16-byte Dl3Cmac
-+        let size = ((16 + body_len) - 4) as u16;
-+        let aux = cp::aux_for_id(0x14, body_len);
-+        let mut hdr = [0u8; 16];
-+        hdr[2..4].copy_from_slice(&size.to_le_bytes());
-+        hdr[4..8].copy_from_slice(&4u32.to_le_bytes()); // type=4
-+        hdr[8..10].copy_from_slice(&0x24u16.to_le_bytes()); // sub=0x24 (interactive CP)
-+        hdr[10..12].copy_from_slice(&aux.to_le_bytes());
-+        // hdr[12..16] = wire_seq = 0 (first CP block)
-+        let frame = cp::seal_livemac(&session.ks, &session.riv, &hdr, &content)?;
-+
-+        let mut ok = false;
-+        if let Some(q) = out_q.as_mut() {
-+            // Async path: submit msg0 right behind the still-in-flight arm (pipelined burst),
-+            // then drain EP84 while the HCD auto-retries any NAK against the live URB. Reap both
-+            // OUT transfers; a flush timeout just means the dock NAK'd msg0 (URB killed at drop).
-+            match q.send(&frame, timeout()) {
-+                Ok(()) => {
-+                    ok = true;
-+                    pr_info!("vino: live CP msg0 submitted async (pipelined behind arm)\n");
-+                }
-+                Err(e) => pr_info!("vino: live CP msg0 async submit failed ({e:?})\n"),
-+            }
-+            for _ in 0..8 {
-+                let (d, a) = Self::drain_ep84(dev, ep84_q.as_mut(), &mut resp, session, edid_out);
-+                drained += d;
-+                acks += a;
-+                ep83_events += Self::drain_ep83_queue(ep83_q.as_mut());
-+            }
-+            match q.flush(Delta::from_millis(200)) {
-+                Ok(()) => pr_info!("vino: async arm+msg0 reaped OK (both transfers completed)\n"),
-+                Err(e) => pr_info!("vino: async arm+msg0 reap incomplete ({e:?}) -- dock NAK'd\n"),
-+            }
-+        } else {
-+            // Sync path: single-packet msg0 => a NAK transfers nothing, so cancel+retry is safe.
-+            // Between attempts drain EP84 so the dock can push/drain its IN queue. Bounded.
-+            const TRIES: usize = 40;
-+            for t in 0..TRIES {
-+                match dev.bulk_send(EP_CTRL_OUT, &frame, Delta::from_millis(5), GFP_KERNEL) {
-+                    Ok(_) => {
-+                        ok = true;
-+                        pr_info!("vino: live CP msg0 ACCEPTED after {t} interleaved tries\n");
-+                        break;
-+                    }
-+                    // OUT NAK'd (nothing transferred) -- let the dock push on EP84, then retry.
-+                    Err(_) => {
-+                        let (d, a) =
-+                            Self::drain_ep84(dev, ep84_q.as_mut(), &mut resp, session, edid_out);
-+                        drained += d;
-+                        acks += a;
-+                        ep83_events += Self::drain_ep83_queue(ep83_q.as_mut());
-+                    }
-+                }
-+            }
-+        }
-+        if ok {
-+            sent += 1;
-+            pr_info!("vino: live CP msg0 sent (id=0x14 ctr=8, random token, live seal)\n");
-+        } else {
-+            pr_info!("vino: live CP msg0 still NAK'd (no transfer accepted)\n");
-+        }
-+
-+        // DLM sends the `0x24 wValue=0` render/commit vendor request right after msg0.
-+        match dev.control_send(0x24, 0x40 /* VENDOR_OUT */, 0, 0, &[], timeout(), GFP_KERNEL) {
-+            Ok(()) => pr_info!("vino: post-msg0 0x24(wValue=0) OK\n"),
-+            Err(e) => pr_info!("vino: post-msg0 0x24(wValue=0) non-fatal ({e:?})\n"),
-+        }
-+        // DLM then re-reads the 0x22 vendor state (0xc1, wValue=1, wIndex=0, 28 B) -- its SECOND
-+        // 0x22 of the session, immediately after the post-msg0 0x24. vino issued the first 0x22
-+        // pre-arm but stopped here, leaving "DLM-ONLY 0x22" in the paired diff. Issue it
-+        // unconditionally so the wire matches DLM regardless of whether the dock acks; it is a
-+        // harmless vendor IN read. (0xc1 = IN|vendor|INTERFACE recipient, matching the first 0x22.)
-+        let mut state2 = [0u8; 28];
-+        match dev.control_recv(0x22, 0xc1, 1, 0, &mut state2, timeout(), GFP_KERNEL) {
-+            Ok(()) => pr_info!("vino: post-msg0 0x22(wValue=1) OK = {:02x?}\n", state2),
-+            Err(e) => pr_info!("vino: post-msg0 0x22(wValue=1) non-fatal ({e:?})\n"),
-+        }
-+
-+        // Read the dock's reply: a `wsub=0x45` ack means the cipher engaged on our live frame.
-+        let (d, a, _m) = Self::lockstep_reply(dev, ep84_q.as_mut(), &mut resp, session, 0x08, edid_out);
-+        drained += d;
-+        acks += a;
-+
-+        const MAX_ROUNDS: usize = 16;
-+        for _ in 0..MAX_ROUNDS {
-+            let (d, a) = Self::drain_ep84(dev, ep84_q.as_mut(), &mut resp, session, edid_out);
-+            drained += d;
-+            acks += a;
-+            if d == 0 {
-+                break;
-+            }
-+        }
-+
-+        // ---- Post-engagement live setup (CP-HANDSHAKE.md sec 4f/sec 4e) ------------------------
-+        // Only meaningful once the dock has acked msg0: ask the dock for the downstream EDID,
-+        // then build the mode-set from its preferred timing and send that -- the live path that
-+        // replaces the static 1080p modeset and the opportunistic-only EDID capture. On a cold
-+        // dock `acks` stays 0 (the wall), so this does not run on current hardware; it completes
-+        // the standalone live-generation flow for when the engagement gate is solved.
-+        // The next free AES-CTR block index past this setup, handed to the DRM device so runtime
-+        // KMS sends (mode-set/cursor) continue the same keystream. Defaults to msg0's end (2) when
-+        // the live block below doesn't run (no acks) -- irrelevant then, since we only publish the
-+        // session when `acks > 0`.
-+        let mut wire_seq_end = 2u32;
-+        if acks > 0 {
-+            // `wseq` continues the AES-CTR block counter past msg0 (32 B content = 2 blocks);
-+            // the inner `counter` continues past msg0's ctr=8. The dock echoes both, so the
-+            // exact values only need to stay monotonic / non-overlapping for the keystream.
-+            let mut wseq = 2u32;
-+
-+            // (1) Live get-EDID request -> the dock replies id=0x194; `drain_ep84` (called inside
-+            // `send_live_cp`) decodes it and fills `edid_out` via `parse_edid_from_reply`.
-+            if let Ok(req) = cp::get_edid_req(9) {
-+                match Self::send_live_cp(
-+                    dev, session, ep84_q.as_mut(), &mut resp, edid_out, 0x15, wseq, &req,
-+                ) {
-+                    Ok((ok, d, a)) => {
-+                        drained += d;
-+                        acks += a;
-+                        wseq = wseq.wrapping_add(((req.len() + 15) / 16) as u32);
-+                        pr_info!("vino: live get-EDID request {}\n",
-+                            if ok { "sent (id=0x15 sub=0x21)" } else { "NAK'd" });
-+                    }
-+                    Err(e) => pr_info!("vino: live get-EDID request failed ({e:?})\n"),
-+                }
-+            }
-+
-+            // (2) Dynamic mode-set from the dock's EDID preferred detailed timing, falling back to
-+            // the known-good UHD_60 timing when no EDID/DTD is available.
-+            let from_edid = edid_out.is_some();
-+            let timing = edid_out
-+                .as_deref()
-+                .and_then(cp::timing_from_edid)
-+                .unwrap_or(cp::Timing::UHD_60);
-+            match cp::set_mode(10, &timing) {
-+                Ok(smode) => {
-+                    // `set_mode` reserves a trailing 16-byte tag region; `seal_livemac` appends a
-+                    // fresh live Dl3Cmac, so hand it the inner content without that region.
-+                    let content = &smode[..smode.len().saturating_sub(16)];
-+                    match Self::send_live_cp(
-+                        dev, session, ep84_q.as_mut(), &mut resp, edid_out, 0x48, wseq, content,
-+                    ) {
-+                        Ok((ok, d, a)) => {
-+                            drained += d;
-+                            acks += a;
-+                            pr_info!("vino: live mode-set {} ({}x{}@{} from {})\n",
-+                                if ok { "sent" } else { "NAK'd" },
-+                                timing.hactive, timing.vactive, timing.refresh_hz,
-+                                if from_edid { "EDID" } else { "fallback" });
-+                        }
-+                        Err(e) => pr_info!("vino: live mode-set failed ({e:?})\n"),
-+                    }
-+                    // Advance the keystream past this mode-set so runtime KMS sends continue it.
-+                    wseq = wseq.wrapping_add(((content.len() + 15) / 16) as u32);
-+                }
-+                Err(e) => pr_info!("vino: mode-set build failed ({e:?})\n"),
-+            }
-+            wire_seq_end = wseq;
-+        }
-+
-+        // Final sweep of the EP83 interrupt queue so a status byte the dock pushed late (after the
-+        // arm/msg0 burst settled) is still counted before the queue is dropped.
-+        for _ in 0..4 {
-+            let e = Self::drain_ep83_queue(ep83_q.as_mut());
-+            ep83_events += e;
-+            if e == 0 {
-+                break;
-+            }
-+        }
-+        let engaged = if acks > 0 { "dock engaged" } else { "dock ignoring our CP (the wall)" };
-+        pr_info!("vino: CP setup sent={sent} EP84_resp={drained} sub=0x45_acks={acks} EP83_events={ep83_events} ({engaged})\n");
-+        // Inner counter past the bring-up CP messages (msg0=8, get-EDID=9, mode-set=10).
-+        Ok((sent, acks, wire_seq_end, 11))
-+    }
-+
-+
-+    /// Seal `content` (inner CP plaintext, WITHOUT the 16-byte tag region) into a live
-+    /// `type=4 sub=0x24` frame at `wire_seq`, send it on EP02 with EP84 drained between NAK
-+    /// retries (the single-packet interleave discipline msg0 uses), then drain once more to
-+    /// collect the dock's reply. `id` selects the DLM-exact `aux` header field
-+    /// ([`cp::aux_for_id`]). Returns `(sent_ok, ep84_reads, sub=0x45_acks)`. Used for the
-+    /// post-engagement live messages (get-EDID, mode-set) once the dock has acked msg0.
-+    fn send_live_cp(
-+        dev: &usb::Interface<device::Bound>,
-+        session: &Session,
-+        mut q: Option<&mut usb::BulkInQueue>,
-+        resp: &mut [u8],
-+        edid_out: &mut Option<KVec<u8>>,
-+        id: u16,
-+        wire_seq: u32,
-+        content: &[u8],
-+    ) -> Result<(bool, usize, usize)> {
-+        let frame = cp::seal_interactive(&session.ks, &session.riv, id, wire_seq, content)?;
-+
-+        // Single-packet OUT: a NAK transfers nothing, so cancel+retry is safe. Between attempts
-+        // drain EP84 so the dock can push/drain its IN queue (matches msg0's behaviour).
-+        const TRIES: usize = 40;
-+        let mut ok = false;
-+        let mut drained = 0usize;
-+        let mut acks = 0usize;
-+        for _ in 0..TRIES {
-+            match dev.bulk_send(EP_CTRL_OUT, &frame, Delta::from_millis(5), GFP_KERNEL) {
-+                Ok(_) => {
-+                    ok = true;
-+                    break;
-+                }
-+                Err(_) => {
-+                    let (d, a) = Self::drain_ep84(dev, q.as_deref_mut(), resp, session, edid_out);
-+                    drained += d;
-+                    acks += a;
-+                }
-+            }
-+        }
-+        // Collect the dock's reply (the get-EDID id=0x194 frame is captured here via drain_ep84).
-+        let (d, a) = Self::drain_ep84(dev, q.as_deref_mut(), resp, session, edid_out);
-+        drained += d;
-+        acks += a;
-+        Ok((ok, drained, acks))
-+    }
-+
-+
-+    /// sec 5 read-only diagnostic: log one dock->host EP84 frame's wire header
-+    /// (`type`@4, `sub`@8, `aux`@10, `seq`@12) and, when the body decrypts under the IN
-+    /// keystream, its inner `(id, sub, ictr)`. Surfaces EVERY frame the dock returns --
-+    /// not just `sub=0x45` -- so a hardware run reveals whether the dock is mute, NAKing,
-+    /// or replying with an unexpected sub. Pure logging; no state change.
-+    fn log_ep84(session: &Session, frame: &[u8]) {
-+        let len = frame.len();
-+        let wtype = if len >= 8 {
-+            u32::from_le_bytes([frame[4], frame[5], frame[6], frame[7]])
-+        } else {
-+            0
-+        };
-+        let wsub = if len >= 10 { u16::from_le_bytes([frame[8], frame[9]]) } else { 0 };
-+        let aux = if len >= 12 { u16::from_le_bytes([frame[10], frame[11]]) } else { 0 };
-+        let wseq = if len >= 16 {
-+            u32::from_le_bytes([frame[12], frame[13], frame[14], frame[15]])
-+        } else {
-+            0
-+        };
-+        {
-+            // Dev diagnostic (pr_debug, compiled out unless dynamic debug is enabled): the raw
-+            // wire, so the dock's pushes can be offline-decoded. The dock's large capability block
-+            // (~5787 B) must be dumped in 128-byte CHUNKS, because a single hex print of a
-+            // >~250-byte
-+            // array exceeds printk's per-line limit. Capped at 768 B (6 lines) to avoid flooding.
-+            let cap = len.min(768);
-+            if cap <= 64 {
-+                let raw = &frame[..cap];
-+                pr_debug!("vino: dock EP84 RAW {len}B {raw:02x?}\n");
-+            } else {
-+                pr_debug!("vino: dock EP84 RAW {len}B (first {cap} B in 128-B chunks):\n");
-+                let mut o = 0usize;
-+                while o < cap {
-+                    let e = (o + 128).min(cap);
-+                    let chunk = &frame[o..e];
-+                    pr_debug!("vino:   ep84[{o:#06x}] {chunk:02x?}\n");
-+                    o = e;
-+                }
-+            }
-+        }
-+        match cp::decode_any(&session.ks, &session.riv, frame) {
-+            Some((rivtag, rid, rsub, rictr, sample)) => {
-+                pr_info!(
-+                    "vino: dock EP84 type={wtype} wsub={wsub:#x} aux={aux:#x} seq={wseq:#x} {len}B -> [{rivtag}] id={rid:#x} sub={rsub:#x} ictr={rictr:#x} pt={sample:02x?}\n"
-+                );
-+            }
-+            None => {
-+                pr_info!(
-+                    "vino: dock EP84 type={wtype} wsub={wsub:#x} aux={aux:#x} seq={wseq:#x} {len}B (no inner decode)\n"
-+                );
-+            }
-+        }
-+    }
-+
-+    /// Read one EP84 frame: from the persistent async queue `q` when [`CP_ASYNC_EP84`] has opened
-+    /// one, else a synchronous `bulk_recv`. The queue's timeout (`Ok(None)`) is mapped to
-+    /// `Err(ETIMEDOUT)` so the callers' existing match arms (which treat any `Err`/empty as
-+    /// "no more data right now") work unchanged across both paths.
-+    fn read_ep84(
-+        dev: &usb::Interface<device::Bound>,
-+        q: Option<&mut usb::BulkInQueue>,
-+        buf: &mut [u8],
-+        to: Delta,
-+    ) -> Result<usize> {
-+        match q {
-+            Some(queue) => match queue.recv(buf, to) {
-+                Ok(Some(n)) => Ok(n),
-+                Ok(None) => Err(ETIMEDOUT),
-+                Err(e) => Err(e),
-+            },
-+            None => dev.bulk_recv(EP_CTRL_IN, buf, to, GFP_KERNEL),
-+        }
-+    }
-+
-+
-+    fn drain_ep84(
-+        dev: &usb::Interface<device::Bound>,
-+        mut q: Option<&mut usb::BulkInQueue>,
-+        buf: &mut [u8],
-+        session: &Session,
-+        edid_out: &mut Option<KVec<u8>>,
-+    ) -> (usize, usize) {
-+        const MAX_READS: usize = 16;
-+        let mut n = 0usize;
-+        let mut acks = 0usize;
-+        // Read EP84 FIRST (the dock answers in ~0.14 ms, same as it does for DLM). The EP83 status
-+        // poll is serviced AFTER -- polling it before the EP84 read blocked the critical path for
-+        // up
-+        // to 30 ms PER cap frame (timeline diff 2026-06-11: vino's cap phase was 446 ms / ~32 ms
-+        // per
-+        // frame vs DLM's 60 ms / 0.14 ms, purely from this ordering), arming the dock ~1 s late.
-+        for _ in 0..MAX_READS {
-+            match Self::read_ep84(dev, q.as_deref_mut(), buf, Delta::from_millis(10)) {
-+                Ok(len) if len > 0 => {
-+                    n += 1;
-+                    // sec 5 diagnostic: surface EVERY dock->host frame, not just `sub=0x45`,
-+                    // so a hardware run shows what the dock actually returns (a different
-+                    // sub, a NAK, or plaintext) instead of a bare `EP84_resp=N` count.
-+                    Self::log_ep84(session, &buf[..len]);
-+                    if len >= 10 && u16::from_le_bytes([buf[8], buf[9]]) == 0x45 {
-+                        acks += 1;
-+                        // Capture the dock's EDID the first time it appears (id=0x94
-+                        // sub=0x21 reply to the replayed get-EDID request). Reuses the
-+                        // standard DRM EDID infra in get_modes. See CONTROL-PLANE.md.
-+                        if edid_out.is_none() {
-+                            if let Ok(Some(e)) =
-+                                cp::parse_edid_from_reply(&session.ks, &session.riv, &buf[..len])
-+                            {
-+                                pr_info!("vino: EDID read from dock ({} bytes)\n", e.len());
-+                                *edid_out = Some(e);
-+                            }
-+                        }
-+                    }
-+                }
-+                _ => break,
-+            }
-+        }
-+        // Service EP83 AFTER draining EP84, so it never delays reading the dock's CP reply.
-+        if Self::POLL_EP83_DURING_BRINGUP {
-+            Self::poll_ep83(dev);
-+        }
-+        (n, acks)
-+    }
-+
-+
-+    /// Lockstep counterpart to [`drain_ep84`]: after one CP OUT, drain EP84 until the
-+    /// `sub=0x45` reply whose **inner counter echoes** `ictr` arrives (DLM's 1:1
-+    /// handshake) or the short read budget elapses. Any async
-+    /// pushes seen meanwhile are still counted and scanned for the EDID. Returns
-+    /// `(reads, acks, matched)`.
-+    fn lockstep_reply(
-+        dev: &usb::Interface<device::Bound>,
-+        mut q: Option<&mut usb::BulkInQueue>,
-+        buf: &mut [u8],
-+        session: &Session,
-+        ictr: u16,
-+        edid_out: &mut Option<KVec<u8>>,
-+    ) -> (usize, usize, bool) {
-+        const MAX_READS: usize = 8;
-+        let in_riv = cp::in_riv(&session.riv);
-+        let mut reads = 0usize;
-+        let mut acks = 0usize;
-+        let mut matched = false;
-+        for _ in 0..MAX_READS {
-+            match Self::read_ep84(dev, q.as_deref_mut(), buf, Delta::from_millis(30)) {
-+                Ok(len) if len > 16 => {
-+                    reads += 1;
-+                    // sec 5 diagnostic: log every frame the dock returns in the lockstep
-+                    // window -- including the non-`0x45` frames we otherwise skip -- so the
-+                    // divergence point is paired with the dock's actual reply on the wire.
-+                    Self::log_ep84(session, &buf[..len]);
-+                    if u16::from_le_bytes([buf[8], buf[9]]) != 0x45 {
-+                        continue;
-+                    }
-+                    acks += 1;
-+                    let seq = u32::from_le_bytes([buf[12], buf[13], buf[14], buf[15]]);
-+                    // Decrypt just the first block to read the inner counter (off 4).
-+                    let head = &buf[16..len.min(32)];
-+                    if let Ok(inner) = cp::open_in(&session.ks, &in_riv, seq, head) {
-+                        if inner.len() >= 6
-+                            && u16::from_le_bytes([inner[4], inner[5]]) == ictr
-+                        {
-+                            matched = true;
-+                        }
-+                    }
-+                    // Opportunistically capture the EDID (id=0x94 reply, off 22).
-+                    if edid_out.is_none() {
-+                        if let Ok(Some(e)) =
-+                            cp::parse_edid_from_reply(&session.ks, &session.riv, &buf[..len])
-+                        {
-+                            pr_info!("vino: EDID read from dock ({} bytes)\n", e.len());
-+                            *edid_out = Some(e);
-+                        }
-+                    }
-+                    if matched {
-+                        break;
-+                    }
-+                }
-+                // A short, header-only frame (bare ack/keepalive, len <= 16): not a CP
-+                // reply, but the dock is still talking -- keep reading for the 0x45 rather
-+                // than dropping the rest of the lockstep window.
-+                Ok(_) => continue,
-+                // Read error / nothing queued within the window: the dock is idle, stop.
-+                Err(_) => break,
-+            }
-+        }
-+        (reads, acks, matched)
++    fn functionality(_dev: &ARef<EvdiDrmDevice>) -> u32 {
++        i2c::FUNC_I2C
 +    }
 +}
+diff --git a/drivers/gpu/drm/evdi/evdi.rs b/drivers/gpu/drm/evdi/evdi.rs
+new file mode 100644
+index 000000000000..735fa1cbefa3
+--- /dev/null
++++ b/drivers/gpu/drm/evdi/evdi.rs
+@@ -0,0 +1,405 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+kernel::usb_device_table!(
-+    USB_TABLE,
-+    MODULE_USB_TABLE,
-+    <VinoDriver as usb::Driver>::IdInfo,
-+    [(usb::DeviceId::from_id(VID_DISPLAYLINK, PID_D6000), ())]
-+);
++//! EVDI — Extensible Virtual Display Interface, Rust implementation.
++//!
++//! A from-scratch Rust rewrite of the DisplayLink `evdi` kernel module. It presents virtual DRM
++//! displays whose scanout is pulled by a userspace daemon (DisplayLinkManager) over a stable
++//! ioctl + `drm_event` ABI. The module name and that ABI are kept identical to the C driver so
++//! existing userspace (libevdi/DLM) keeps working unchanged.
++//!
++//! Structure:
++//! - [`uapi`]: the DLM-facing ABI ([`evdi_drm.h`] mirror).
++//! - [`kms`]: the DRM/KMS device (one virtual head, GEM-shmem dumb buffers).
++//! - [`painter`]: connection state + `drm_event` delivery.
++//! - [`ioctl`]: the five driver-private ioctls.
++//! - This file: the platform driver (one DRM card per `evdi` platform device) and the module.
 +
-+impl usb::Driver for VinoDriver {
++use kernel::{
++    device::{self, Core},
++    drm, platform,
++    prelude::*,
++    sync::{aref::ARef, new_mutex, Mutex},
++    types::Opaque,
++    ThisModule,
++};
++
++mod ddcci;
++mod ioctl;
++mod kms;
++mod painter;
++mod uapi;
++
++use kms::{EvdiDrmData, EvdiDrmDevice, EvdiDrmDriver};
++
++/// Per-bound-device data held by the platform driver: the registered DRM card, whose lifetime is
++/// otherwise tied to the bound platform device via devres. Dropped when the platform device unbinds.
++struct BoundData {
++    _ddev: Option<ARef<EvdiDrmDevice>>,
++    /// The DDC/CI virtual I2C adapter (dropped → `i2c_del_adapter` on unbind).
++    _i2c: Option<Pin<KBox<kernel::i2c::BusAdapter<ddcci::EvdiI2c>>>>,
++}
++
++/// The `evdi` platform driver. It binds to the `evdi` platform devices created by [`EvdiModule`]
++/// (and, later, by the sysfs `add` attribute) and registers a DRM/KMS card parented to each.
++struct EvdiPlatformDriver;
++
++impl platform::Driver for EvdiPlatformDriver {
 +    type IdInfo = ();
-+    // The driver instance is itself the per-bound device-private data.
-+    type Data<'bound> = Self;
-+    const ID_TABLE: usb::IdTable<Self::IdInfo> = &USB_TABLE;
++    type Data<'bound> = BoundData;
 +
 +    fn probe<'bound>(
-+        intf: &'bound usb::Interface<Core<'_>>,
-+        _id: &usb::DeviceId,
-+        _info: &'bound Self::IdInfo,
-+    ) -> impl PinInit<Self, Error> + 'bound {
-+        let cdev: &device::Device<Core<'_>> = intf.as_ref();
-+        // The D6000 exposes several interfaces (0/1/5/6 match us; 2-4 are audio).
-+        // The control endpoints (0x02/0x84) and the whole HDCP session live on
-+        // interface 0 -- drive bring-up only there so we don't run the preamble and
-+        // AKE four times and pollute the dock's state machine. Other interfaces
-+        // bind (so usbcore doesn't hand them to another driver) but stay idle.
-+        let ifnum = intf.number();
-+        if ifnum != 0 {
-+            // Interface 1 (app-specific/DFU) is the only other one DLM claims; let everything else
-+            // (audio 2-4, Ethernet 5-6) fall through to its proper kernel driver. Returning ENODEV
-+            // tells usbcore this driver doesn't handle the interface, so it tries the next match.
-+            if ifnum != 1 {
-+                dev_info!(cdev, "vino: declining D6000 interface {ifnum} (left to its class driver)\n");
-+                return Err(ENODEV);
-+            }
-+            dev_info!(cdev, "vino: bound D6000 interface {ifnum} (idle -- control is iface 0)\n");
-+            return Ok(Self { _intf: intf.into(), _ddev: None, bringup: None });
-+        }
-+        dev_info!(cdev, "vino: bound DisplayLink D6000 -- plaintext session bring-up\n");
++        pdev: &'bound platform::Device<Core<'_>>,
++        _info: Option<&'bound Self::IdInfo>,
++    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
++        let cdev: &device::Device<Core<'_>> = pdev.as_ref();
 +
-+        // Phase 3: register a real DRM/KMS device on the control interface so the dock
-+        // shows up as a mode-settable `card`/`renderD` node (atomic KMS via the simple
-+        // display pipe, one 1080p virtual connector, GEM-shmem dumb buffers). Non-fatal:
-+        // bring-up still proceeds (and the interface still binds) if any step fails, so
-+        // a DRM-core hiccup can't regress the USB session work.
-+        // Hold a refcounted handle to the bound interface; one copy goes into the DRM
-+        // device-private (for the EP08 scanout path), one stays in `VinoDriver`.
-+        let intf_ref: ARef<usb::Interface> = intf.into();
-+        // DRM device lifecycle (drm-rust API): allocate an `UnregisteredDevice`, wire up
-+        // the KMS pipeline on it while still unregistered, then hand it to
-+        // `Registration::new_foreign_owned` (which registers it and ties its lifetime to
-+        // the bound USB device via devres, returning a borrowed `&Device`).
-+        let ddev: Option<ARef<drm_sink::VinoDrmDevice>> =
-+            match drm::UnregisteredDevice::<drm_sink::VinoDrmDriver>::new(
-+                intf,
-+                drm_sink::VinoDrmData::new(intf_ref.clone()),
-+            ) {
-+                // `probe_kms()` (which calls our `KmsDriver::probe()` to build the CRTC/
-+                // plane/connector/encoder) runs automatically inside `UnregisteredDevice::new`
-+                // above -- there is no separate KMS init step to call.
-+                Ok(unreg) => match drm::driver::Registration::new_foreign_owned(unreg, cdev, (), 0) {
-+                    Ok(reg_dev) => {
-+                        dev_info!(cdev, "vino: DRM+KMS device registered (card node live, 1080p)\n");
-+                        Some(reg_dev.into())
++        // Allocate an unregistered DRM device parented to this platform device, wire up its KMS
++        // pipeline (`KmsDriver::probe` runs inside `UnregisteredDevice::new`), then register it and
++        // tie its lifetime to the bound platform device via devres.
++        let ddev: Option<ARef<EvdiDrmDevice>> =
++            match drm::UnregisteredDevice::<EvdiDrmDriver>::new(pdev, EvdiDrmData::new()) {
++                Ok(unreg) => match drm::driver::Registration::new_foreign_owned(unreg, cdev, (), 0)
++                {
++                    Ok(reg) => {
++                        dev_info!(cdev, "evdi: DRM/KMS card registered\n");
++                        Some(reg.into())
 +                    }
 +                    Err(e) => {
-+                        dev_info!(cdev, "vino: DRM registration failed ({e:?}) -- continuing without card node\n");
++                        dev_err!(cdev, "evdi: DRM registration failed ({e:?})\n");
 +                        None
 +                    }
 +                },
 +                Err(e) => {
-+                    dev_info!(cdev, "vino: drm::UnregisteredDevice::new failed ({e:?}) -- continuing\n");
++                    dev_err!(cdev, "evdi: DRM device allocation failed ({e:?})\n");
 +                    None
 +                }
 +            };
 +
-+        // Bring-up (preamble + HDCP AKE + ~6 s of lockstep CP replay) is all blocking
-+        // synchronous USB I/O. Running it inline here pins the USB driver-model probe
-+        // thread while the DRM card node is already registered and live, which stalled
-+        // the compositor (KWin) on first plug until the dock was physically yanked. Hand
-+        // it to the system workqueue so `probe()` returns immediately and userspace KMS
-+        // stays responsive. The work item holds refcounted handles to the interface (for
-+        // the bulk endpoints) and the DRM device (for EDID caching), so they outlive
-+        // `probe()`; USB I/O after an intervening disconnect simply errors and is logged,
-+        // exactly like any other failed bring-up step.
-+        // Retain the bring-up handle so `disconnect()` can flush it; enqueue a clone.
-+        let bringup = match BringUp::new(intf_ref.clone(), ddev.clone()) {
-+            Ok(work) => {
-+                let _ = workqueue::system().enqueue(work.clone());
-+                dev_info!(cdev, "vino: bring-up queued on system workqueue\n");
-+                Some(work)
-+            }
-+            Err(e) => {
-+                dev_info!(cdev, "vino: failed to queue bring-up ({e:?}) -- WIP\n");
-+                None
-+            }
-+        };
++        // Register the DDC/CI virtual I2C adapter, parented to this platform device, so
++        // monitor-control tools can reach the display. Non-fatal.
++        let i2c =
++            ddev.as_ref().and_then(|d| {
++                match kernel::i2c::BusAdapter::<ddcci::EvdiI2c>::new(
++                    c"DisplayLink I2C Adapter",
++                    cdev,
++                    d.clone(),
++                ) {
++                    Ok(a) => Some(a),
++                    Err(e) => {
++                        dev_err!(
++                            cdev,
++                            "evdi: DDC/CI I2C adapter registration failed ({e:?})\n"
++                        );
++                        None
++                    }
++                }
++            });
 +
-+        Ok(Self { _intf: intf_ref, _ddev: ddev, bringup })
++        Ok(BoundData {
++            _ddev: ddev,
++            _i2c: i2c,
++        })
 +    }
++}
 +
-+    fn disconnect<'bound>(intf: &'bound usb::Interface<Core<'_>>, data: Pin<&Self>) {
-+        let dev: &device::Device<Core<'_>> = intf.as_ref();
-+        // Flush the deferred bring-up before the interface is unbound: `cancel_work_sync`
-+        // dequeues it if pending and blocks until it returns if already running, so no
-+        // USB I/O races the unbind (see the `Interface::as_bound` contract in
-+        // `BringUp::run`). Safe to call when the work already finished or never ran.
-+        if let Some(work) = data.bringup.as_ref() {
-+            // SAFETY: `work.work` is a live `Work` field of a pinned, refcounted `BringUp`;
-+            // `raw_get` yields its valid `work_struct`, which `cancel_work_sync` only reads
-+            // and synchronises against. The `Arc` keeps the allocation alive across the call.
-+            unsafe {
-+                let wptr = Work::raw_get(core::ptr::addr_of!(work.work));
-+                bindings::cancel_work_sync(wptr);
-+            }
++/// One created card: its registered `evdi` platform device plus the USB device it was attached to
++/// (`null` for a generic, non-USB card). The USB pointer is only ever compared for equality (never
++/// dereferenced) — used to match the dock when it is unplugged (`USB_DEVICE_REMOVE`).
++struct CardEntry {
++    _dev: platform::RegisteredDevice,
++    usb: *mut kernel::bindings::usb_device,
++}
++
++// SAFETY: `usb` is only ever compared, never dereferenced; `RegisteredDevice` is itself `Send`.
++unsafe impl Send for CardEntry {}
++
++/// The device registry behind the sysfs control interface
++/// (`/sys/devices/evdi/{count,add,remove_all}`): the set of `evdi` platform devices created on
++/// demand by the DisplayLink daemon or udev. Stored as the sysfs root device's driver data.
++#[pin_data(PinnedDrop)]
++struct EvdiRegistry {
++    #[pin]
++    devices: Mutex<KVec<CardEntry>>,
++    /// USB-removal notifier. When the dock a card is attached to is unplugged, its DRM device would
++    /// otherwise linger — keeping the compositor's fds open and the module refcount pinned — so this
++    /// tears the card down. `container_of` recovers the `EvdiRegistry` in the callback; registered in
++    /// [`EvdiRegistry::new`], unregistered in the [`PinnedDrop`].
++    #[pin]
++    notifier: Opaque<kernel::bindings::notifier_block>,
++}
++
++// SAFETY: `notifier` is a `notifier_block` owned by the kernel's internally-synchronized USB notifier
++// chain once registered; we only touch it single-threaded (register in `new`, unregister in
++// `PinnedDrop`) and never mutate it otherwise. `devices` is mutex-guarded. So the registry is safe to
++// share and move across threads.
++unsafe impl Send for EvdiRegistry {}
++// SAFETY: See `Send`.
++unsafe impl Sync for EvdiRegistry {}
++
++/// USB notifier callback: on `USB_DEVICE_REMOVE`, tear down any card attached to the removed device.
++unsafe extern "C" fn usb_remove_notify(
++    nb: *mut kernel::bindings::notifier_block,
++    action: usize,
++    data: *mut core::ffi::c_void,
++) -> core::ffi::c_int {
++    if action as u32 == kernel::bindings::USB_DEVICE_REMOVE {
++        // SAFETY: `nb` is the `notifier` field of a live `EvdiRegistry` — registered in `new` and
++        // unregistered in `PinnedDrop` before the struct is freed, so the container is valid here.
++        let registry = unsafe {
++            &*kernel::container_of!(
++                nb.cast::<Opaque<kernel::bindings::notifier_block>>(),
++                EvdiRegistry,
++                notifier
++            )
++        };
++        registry.remove_usb(data as *mut kernel::bindings::usb_device);
++    }
++    kernel::bindings::NOTIFY_DONE as core::ffi::c_int
++}
++
++/// Maximum bus/port depth of a parsed `usb:` device address.
++const MAX_USB_ADDR: usize = 8;
++
++/// Scratch used to locate a USB device by its bus/port address while iterating `usb_for_each_dev`.
++struct UsbPath {
++    addr: [u32; MAX_USB_ADDR],
++    len: usize,
++    found: *mut kernel::bindings::usb_device,
++}
++
++/// `usb_for_each_dev` callback: match `data` (a [`UsbPath`]) against `usb`'s bus/port chain,
++/// walking parents leaf-first exactly like the C evdi. Stores the device and returns 1 on a match.
++unsafe extern "C" fn match_usb_path(
++    usb: *mut kernel::bindings::usb_device,
++    data: *mut core::ffi::c_void,
++) -> core::ffi::c_int {
++    // SAFETY: `usb_for_each_dev` is called below with a `&mut UsbPath` as `data` and passes a live
++    // `usb_device` for `usb`.
++    let m = unsafe { &mut *(data as *mut UsbPath) };
++    let mut pdev = usb;
++    let mut i = m.len as isize - 1;
++    while !pdev.is_null() && i >= 0 && (i as usize) < MAX_USB_ADDR {
++        // SAFETY: `pdev` walks the valid parent chain of a live `usb_device`.
++        let mut port = unsafe { (*pdev).portnum } as u32;
++        if port == 0 {
++            // SAFETY: a live `usb_device` always has a valid `bus`.
++            port = unsafe { (*(*pdev).bus).busnum } as u32;
 +        }
-+        dev_info!(dev, "vino: D6000 disconnected\n");
++        if port != m.addr[i as usize] {
++            return 0;
++        }
++        // SAFETY: as above.
++        let parent = unsafe { (*pdev).parent };
++        if parent.is_null() && i == 0 {
++            m.found = usb;
++            return 1;
++        }
++        pdev = parent;
++        i -= 1;
 +    }
++    0
 +}
 +
-+kernel::module_usb_driver! {
-+    type: VinoDriver,
-+    name: "vino",
-+    authors: ["Mike Lothian"],
-+    description: "DisplayLink DL3 (Vino) open driver",
-+    license: "GPL v2",
-+}
-+
-+/// Build a minimal valid 128-byte EDID with a 1920x1080@60 detailed timing at base-block
-+/// offset `dtd_at` (54 = preferred slot), a correct checksum, and the standard magic.
-+#[cfg(CONFIG_KUNIT)]
-+fn mk_test_edid(dtd_at: usize) -> [u8; 128] {
-+    let mut e = [0u8; 128];
-+    e[..8].copy_from_slice(&[0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00]);
-+    // 1920x1080@60: pclk 14850 (148.5 MHz, 10 kHz units); hblank 280, vblank 45;
-+    // hsync_front 88, hsync_width 44, vsync_front 4, vsync_width 5.
-+    let dtd: [u8; 18] = [
-+        0x02, 0x3a, // pixel clock 0x3a02 LE
-+        0x80, 0x18, 0x71, // hactive 1920 / hblank 280 (high nibbles in byte 4)
-+        0x38, 0x2d, 0x40, // vactive 1080 / vblank 45 (high nibbles in byte 7)
-+        0x58, 0x2c, 0x45, 0x00, // hsync/vsync front+width
-+        0, 0, 0, 0, 0, 0, // trailing flags (DTD is 18 bytes total)
-+    ];
-+    e[dtd_at..dtd_at + 18].copy_from_slice(&dtd);
-+    let s = e[..127].iter().fold(0u8, |a, &b| a.wrapping_add(b));
-+    e[127] = 0u8.wrapping_sub(s); // base-block checksum: all 128 bytes sum to 0
-+    e
-+}
-+
-+/// Offline self-tests for the pure protocol builders/parsers and the crypto bindings the
-+/// control plane relies on. Gated behind `CONFIG_KUNIT` (the macro adds the cfg), so they
-+/// have zero effect on a production build; run with a KUnit-enabled kernel. The crypto cases
-+/// are published known-answer vectors (FIPS-197 AES-128, RFC 4493 AES-CMAC); the seal case is
-+/// a live round-trip; the rest pin wire layout and EDID parsing that have no hardware oracle.
-+#[kunit_tests(vino_protocol)]
-+mod tests {
-+    use super::*;
-+    use kernel::error::code::EINVAL;
-+
-+    #[test]
-+    fn aes128_ecb_fips197_kat() -> Result {
-+        // FIPS-197 / NIST SP800-38A F.1.1 AES-128 ECB known-answer vector.
-+        let key = [
-+            0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf,
-+            0x4f, 0x3c,
-+        ];
-+        let pt = [
-+            0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93,
-+            0x17, 0x2a,
-+        ];
-+        assert_eq!(
-+            crypto::aes128_ecb(&key, &pt)?,
-+            [
-+                0x3a, 0xd7, 0x7b, 0xb4, 0x0d, 0x7a, 0x36, 0x60, 0xa8, 0x9e, 0xca, 0xf3, 0x24, 0x66,
-+                0xef, 0x97,
-+            ]
-+        );
-+        Ok(())
++impl EvdiRegistry {
++    fn new() -> impl PinInit<Self, Error> {
++        try_pin_init!(Self {
++            devices <- new_mutex!(KVec::new()),
++            notifier <- Opaque::ffi_init(|slot: *mut kernel::bindings::notifier_block| {
++                // SAFETY: `slot` is this field's stable final address. Fill in the callback and link
++                // it onto the USB notifier chain; `usb_register_notify` keeps no other reference.
++                unsafe {
++                    (*slot).notifier_call = Some(usb_remove_notify);
++                    (*slot).next = core::ptr::null_mut();
++                    (*slot).priority = 0;
++                    kernel::bindings::usb_register_notify(slot);
++                }
++            }),
++        })
 +    }
 +
-+    #[test]
-+    fn aes_cmac_rfc4493_kat() -> Result {
-+        // RFC 4493 sec 4 AES-CMAC test vectors (same key as above).
-+        let key = [
-+            0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf,
-+            0x4f, 0x3c,
-+        ];
-+        assert_eq!(
-+            crypto::aes_cmac(&key, &[]),
-+            [
-+                0xbb, 0x1d, 0x69, 0x29, 0xe9, 0x59, 0x37, 0x28, 0x7f, 0xa3, 0x7d, 0x12, 0x9b, 0x75,
-+                0x67, 0x46,
-+            ]
-+        );
-+        let msg = [
-+            0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93,
-+            0x17, 0x2a,
-+        ];
-+        assert_eq!(
-+            crypto::aes_cmac(&key, &msg),
-+            [
-+                0x07, 0x0a, 0x16, 0xb4, 0x6b, 0x4d, 0x41, 0x44, 0xf7, 0x9b, 0xdd, 0x9d, 0xd0, 0x4a,
-+                0x28, 0x7c,
-+            ]
-+        );
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn seal_livemac_roundtrip() -> Result {
-+        // A sealed CP frame must decrypt back to its content under the IN riv, and its
-+        // appended tag must equal a fresh Dl3Cmac over the ciphertext (encrypt-then-MAC).
-+        let ks = [
-+            0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd,
-+            0xee, 0xff,
-+        ];
-+        let riv = [0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17];
-+        let content = [0xa5u8; 32];
-+        let mut hdr = [0u8; 16];
-+        hdr[12..16].copy_from_slice(&4u32.to_le_bytes()); // wire_seq = 4
-+        let frame = cp::seal_livemac(&ks, &riv, &hdr, &content)?;
-+        assert_eq!(frame.len(), 16 + 32 + 16);
-+        let ct = &frame[16..16 + 32];
-+        assert_eq!(&cp::open_in(&ks, &cp::in_riv(&riv), 4, ct)?[..], &content[..]);
-+        assert_eq!(&frame[16 + 32..], &cp::dl3cmac_tag(&ks, &riv, 4, ct)?[..]);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn aux_for_id_constants() {
-+        // The CP header `aux` field is a per-inner-id constant, not body_len/4.
-+        assert_eq!(cp::aux_for_id(0x14, 48), 0x0a);
-+        assert_eq!(cp::aux_for_id(0x15, 32), 0x09);
-+        assert_eq!(cp::aux_for_id(0x48, 96), 0x06);
-+        // Cursor ids recovered from the cold-ref differential (scripts/verify-cp-seal.py):
-+        // body_len/4 (here 0x0c) would be wrong for all three.
-+        assert_eq!(cp::aux_for_id(0x1a, 48), 0x04); // cursor move
-+        assert_eq!(cp::aux_for_id(0x1b, 48), 0x03); // cursor create
-+        assert_eq!(cp::aux_for_id(0x1c, 48), 0x02); // cursor image
-+        assert_eq!(cp::aux_for_id(0x99, 40), 10); // unknown id falls back to body_len/4
-+    }
-+
-+    #[test]
-+    fn edid_timing_parse_and_validate() {
-+        // A well-formed EDID yields the DTD timing; a bad checksum is rejected; a leading
-+        // monitor descriptor (pclk 0) does not hide the preferred timing in a later slot.
-+        let edid = mk_test_edid(54);
-+        let t = cp::timing_from_edid(&edid).expect("valid EDID parses");
-+        assert_eq!(t.hactive, 1920);
-+        assert_eq!(t.vactive, 1080);
-+        assert_eq!(t.refresh_hz, 60);
-+        assert_eq!(t.pixel_clock_10khz, 14850);
-+
-+        let mut bad = edid;
-+        bad[127] ^= 0xff;
-+        // bad checksum must be rejected
-+        assert!(cp::timing_from_edid(&bad).is_none());
-+
-+        let scanned = mk_test_edid(72); // off54 left as a zero (monitor) descriptor
-+        assert_eq!(
-+            cp::timing_from_edid(&scanned).expect("scans past off54").hactive,
-+            1920
-+        );
-+    }
-+
-+    #[test]
-+    fn edid_reply_guards() -> Result {
-+        // The pre-decrypt guards reject non-EDID frames without touching the cipher.
-+        let ks = [0u8; 16];
-+        let riv = [0u8; 8];
-+        assert!(cp::parse_edid_from_reply(&ks, &riv, &[0u8; 10])?.is_none());
-+        let mut wrong_sub = [0u8; 20];
-+        wrong_sub[8] = 0x44; // wire sub != 0x45
-+        assert!(cp::parse_edid_from_reply(&ks, &riv, &wrong_sub)?.is_none());
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn rgb565_packing() {
-+        assert_eq!(video::rgb565(0xff, 0x00, 0x00), 0xf800);
-+        assert_eq!(video::rgb565(0x00, 0xff, 0x00), 0x07e0);
-+        assert_eq!(video::rgb565(0x00, 0x00, 0xff), 0x001f);
-+        let _ = EINVAL; // silence unused import on configs without the assert paths
-+    }
-+
-+    #[test]
-+    fn cursor_messages_structure() -> Result {
-+        // The shared 32-byte cursor layout (recovered byte-exact from the cold-ref session by
-+        // scripts/verify-cp-seal.py): marker 0x02 @22, head_id @23, two LE u16 fields @24/@26.
-+        // Create (head 0): id=0x1b sub=0x42, fields = w,h.
-+        let c = cp::cursor_create(7, 0, 64, 64)?;
-+        assert_eq!(c.len(), 32);
-+        assert_eq!(&c[0..6], &[0x1b, 0x00, 0x42, 0x00, 0x07, 0x00]); // id, sub, counter (LE)
-+        assert_eq!(c[22], 0x02); // marker
-+        assert_eq!(c[23], 0); // head id
-+        assert_eq!(u16::from_le_bytes([c[24], c[25]]), 64); // width
-+        assert_eq!(u16::from_le_bytes([c[26], c[27]]), 64); // height
-+
-+        // Move (head 1): id=0x1a sub=0x43, marker@22, head@23, X@24, Y@26 (LE).
-+        let m = cp::cursor_move(9, 1, 0x0140, 0x00f0)?;
-+        assert_eq!(m.len(), 32);
-+        assert_eq!(&m[0..4], &[0x1a, 0x00, 0x43, 0x00]); // id, sub
-+        assert_eq!(m[22], 0x02); // marker
-+        assert_eq!(m[23], 1); // head id
-+        assert_eq!(u16::from_le_bytes([m[24], m[25]]), 0x0140); // X
-+        assert_eq!(u16::from_le_bytes([m[26], m[27]]), 0x00f0); // Y
-+
-+        // Image: 32-byte header (inner id 0x401c, the 0x40 bitmap flag) + w*h*4 BGRA at off32;
-+        // wrong-size input rejected.
-+        let bitmap = KVec::from_elem(0xabu8, 64 * 64 * 4, GFP_KERNEL)?;
-+        let img = cp::cursor_image(3, 0, 64, 64, &bitmap)?;
-+        assert_eq!(img.len(), 32 + 64 * 64 * 4);
-+        assert_eq!(&img[0..4], &[0x1c, 0x40, 0x41, 0x00]); // inner id 0x401c, sub 0x41
-+        assert_eq!(img[22], 0x02); // marker
-+        assert_eq!(img[32], 0xab); // bitmap begins at off32
-+        assert!(cp::cursor_image(3, 0, 64, 64, &[0u8; 16]).is_err()); // wrong bitmap length
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn timing_from_drm_mode_1080p60() {
-+        // CEA 1920x1080@60: clock 148.5 MHz, h 2008/2052/2200, v 1084/1089/1125.
-+        let mut m = bindings::drm_display_mode::default();
-+        m.clock = 148_500; // kHz
-+        m.hdisplay = 1920;
-+        m.hsync_start = 2008;
-+        m.hsync_end = 2052;
-+        m.htotal = 2200;
-+        m.vdisplay = 1080;
-+        m.vsync_start = 1084;
-+        m.vsync_end = 1089;
-+        m.vtotal = 1125;
-+        // SAFETY: `m` is a fully-initialised local drm_display_mode.
-+        let t = unsafe { cp::timing_from_drm_mode(&m) };
-+        assert_eq!(t.hactive, 1920);
-+        assert_eq!(t.hblank, 280); // htotal - hdisplay
-+        assert_eq!(t.hsync_front, 88); // hsync_start - hdisplay
-+        assert_eq!(t.hsync_width, 44); // hsync_end - hsync_start
-+        assert_eq!(t.vactive, 1080);
-+        assert_eq!(t.vblank, 45); // vtotal - vdisplay
-+        assert_eq!(t.vsync_front, 4);
-+        assert_eq!(t.vsync_width, 5);
-+        assert_eq!(t.pixel_clock_10khz, 14_850); // clock(kHz) / 10
-+        assert_eq!(t.refresh_hz, 60); // via drm_mode_vrefresh
-+    }
-+
-+    #[test]
-+    fn rotation_pixel_mapping() {
-+        use bindings::{
-+            DRM_MODE_REFLECT_X, DRM_MODE_ROTATE_0, DRM_MODE_ROTATE_180, DRM_MODE_ROTATE_270,
-+            DRM_MODE_ROTATE_90,
-+        };
-+        // Source 2x3 (sw=2, sh=3). 0deg is identity; 180deg mirrors both axes.
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_0, 0, 0, 2, 3), (0, 0));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_0, 1, 2, 2, 3), (1, 2));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_180, 0, 0, 2, 3), (1, 2));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_180, 1, 2, 2, 3), (0, 0));
-+        // 90deg: output dims are (sh,sw)=(3,2); (dx,dy) -> (dy, sh-1-dx).
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_90, 0, 0, 2, 3), (0, 2));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_90, 2, 1, 2, 3), (1, 0));
-+        // 270deg: (dx,dy) -> (sw-1-dy, dx).
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_270, 0, 0, 2, 3), (1, 0));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_270, 2, 1, 2, 3), (0, 2));
-+        // Reflect-X composes on top of the rotation (here identity): sx -> sw-1-sx.
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_0 | DRM_MODE_REFLECT_X, 0, 0, 2, 3), (1, 0));
-+    }
-+
-+    #[test]
-+    fn wht_colour_and_quantize() {
-+        use video::wht;
-+        // Colour transform vs DLM's transform-DC ground truth (validate-transform-encoderio):
-+        // white -> Y=16320, achromatic -> Cb=Cr=0, and the reversible luma Y = 64G +
-+        // 64*((Cb+Cr)>>2) reproduces every measured colour. Red's Y is 4032 (= 64*((255)>>2)
-+        // = 64*63), NOT the old un-floored 16*255 = 4080 (which ran 48 high; see `colour`).
-+        assert_eq!(wht::colour(255, 255, 255), (16320, 0, 0));
-+        assert_eq!(wht::colour(128, 128, 128), (128 * 64, 0, 0)); // gray: chroma zero
-+        assert_eq!(wht::colour(255, 0, 0), (4032, 64 * 255, 0)); // red: Y floored, Cb>0, Cr=0
-+        assert_eq!(wht::colour(0, 255, 0), (8128, -64 * 255, -64 * 255)); // green (signed chroma)
-+        assert_eq!(wht::colour(0, 0, 255), (4032, 0, 64 * 255)); // blue
-+        // The documented ground-truth vector: white Y_DC=16320 quantizes (DC, position 0) to 1020.
-+        assert_eq!(wht::quantize(16320, 0), 1020);
-+        // AC clamps to the 12-bit signed long-token range.
-+        assert_eq!(wht::quantize(1_000_000, 16), 2047);
-+        assert_eq!(wht::quantize(-1_000_000, 16), -2048);
-+    }
-+
-+    #[test]
-+    fn wht_transform_uniform() {
-+        use video::wht;
-+        // A uniform block: DC = the per-pixel value, every AC coefficient = 0 (VIDEO.md invariant).
-+        let block = [16320i32; wht::BLOCK];
-+        let c = wht::transform(&block);
-+        assert_eq!(c[0], 16320); // DC = mean = the uniform value
-+        assert!(c[1..].iter().all(|&x| x == 0)); // AC all zero
-+        // End-to-end: white pixel -> Y plane -> WHT DC -> quantize -> 1020.
-+        let (y, _, _) = wht::colour(255, 255, 255);
-+        assert_eq!(wht::quantize(wht::transform(&[y; wht::BLOCK])[0], 0), 1020);
-+    }
-+
-+    #[test]
-+    fn wht_transform_haar_vectors() {
-+        // The 8x8 2-D Haar (Mallat) wavelet, byte-exact-verified against DLM (2026-06-23):
-+        // `scripts/wht-transform.py` reproduces these on 320/320 real gradient blocks. Each vector
-+        // here is computed by that reference; `Y = 64*gray`. (See the breakthrough writeup.)
-+        use video::wht::{transform, DIM, PIXELS};
-+        // Build an 8x8 Y block by evaluating a gray-per-(row,col) selector.
-+        fn build(gray: impl Fn(usize, usize) -> i32) -> [i32; PIXELS] {
-+            let mut b = [0i32; PIXELS];
-+            for r in 0..DIM {
-+                for c in 0..DIM {
-+                    b[r * DIM + c] = 64 * gray(r, c);
++    /// Tear down every card attached to `usb` (the just-removed USB device). Runs in the USB
++    /// notifier's sleepable process context; the platform devices are unregistered after the
++    /// `devices` lock is released so the (sleeping) teardown does not run under the lock.
++    fn remove_usb(&self, usb: *mut kernel::bindings::usb_device) {
++        let mut to_drop: KVec<CardEntry> = KVec::new();
++        {
++            let mut devices = self.devices.lock();
++            let mut i = 0;
++            while i < devices.len() {
++                if devices[i].usb == usb {
++                    if let Ok(entry) = devices.remove(i) {
++                        let _ = to_drop.push(entry, GFP_KERNEL);
++                    }
++                } else {
++                    i += 1;
 +                }
 +            }
-+            b
 +        }
-+        // vstripe2 (period-2 vertical, full contrast 0/255) -> level-2 HL band c[4..8] = -2040.
-+        let c = transform(&build(|_, c| if (c / 2) & 1 != 0 { 255 } else { 0 }));
-+        assert_eq!(&c[4..8], &[-2040, -2040, -2040, -2040]);
-+        assert!(c[1..4].iter().all(|&x| x == 0) && c[8..].iter().all(|&x| x == 0));
-+        // vstripe4 (period-4 vertical) -> coarse HL c[1] = -8160 (4x the fine band, energy-conserving).
-+        let c = transform(&build(|_, c| if (c / 4) & 1 != 0 { 255 } else { 0 }));
-+        assert_eq!(c[1], -8160);
-+        // hstripe2 (period-2 horizontal) -> level-2 LH band c[8..12] = -2040 (H/V swap of vstripe2).
-+        let c = transform(&build(|r, _| if (r / 2) & 1 != 0 { 255 } else { 0 }));
-+        assert_eq!(&c[8..12], &[-2040, -2040, -2040, -2040]);
-+        // A per-column gradient (gray = 36*col) exercises the DC, coarse-HL and finest band at once.
-+        let c = transform(&build(|_, col| 36 * col as i32));
-+        assert_eq!(c[0], 8064); // DC = mean(36*0..36*7)*64/64 = 8064
-+        assert_eq!(&c[4..8], &[-576, -576, -576, -576]);
-+        assert!(c[16..].iter().all(|&x| x == -72)); // finest HL band, uniform per-column ramp
++        drop(to_drop);
 +    }
 +
-+    #[test]
-+    fn wht_vlc_codebook_byte_exact() -> Result {
-+        // ★ The recovered LSB-first entropy VLC (dumped from DLM 0x5e68b0), verified byte-exact
-+        // against DLM's own captured output (scripts/wht-block-codec.py). Symbol 7 is the AC code
-+        // 0b1110000 (LSB-first); four of them pack to the wire's per-block AC unit bytes, and the
-+        // final byte is padded with 1-bits (a truncated all-ones code), exactly as the dock emits.
-+        use video::wht::Vlc;
-+        let mut w = Vlc::new();
-+        for _ in 0..4 {
-+            w.symbol(7)?;
-+        }
-+        assert_eq!(&w.finish()?[..], &[0x87, 0xc3, 0xe1, 0xf0]);
-+        // The full per-block AC unit `0 0 0 7 7 7 7` (idx1-3 zero, idx4-7 AC) -- matches the live
-+        // wire bytes `38 1c 0e ...` captured for vstripe2.
-+        let mut w = Vlc::new();
-+        for s in [0usize, 0, 0, 7, 7, 7, 7] {
-+            w.symbol(s)?;
-+        }
-+        assert_eq!(&w.finish()?[..4], &[0x38, 0x1c, 0x0e, 0x87]);
-+        // Symbol 0 (the 1-bit `0` code) alone -> one byte padded with seven 1-bits.
-+        let mut w = Vlc::new();
-+        w.symbol(0)?;
-+        assert_eq!(&w.finish()?[..], &[0xfe]);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn wht_coeff_magnitude_code() -> Result {
-+        // The AC magnitude-code emitter, verified byte-exact vs DLM's per-coefficient wire bits
-+        // (q-4/q-8/q-16; scripts/wht-strip-encoder.py reproduces the full q-4 vstripe2 strip).
-+        use video::wht::Vlc;
-+        // Four q-4 coefficients (category 3, zero offset) == four sym7 -- the per-block AC unit.
-+        let mut w = Vlc::new();
-+        for _ in 0..4 {
-+            w.coeff(-4)?;
-+        }
-+        assert_eq!(&w.finish()?[..], &[0x87, 0xc3, 0xe1, 0xf0]);
-+        // A zero coefficient is the 1-bit symbol 0 -> one byte padded with seven 1-bits.
-+        let mut w = Vlc::new();
-+        w.coeff(0)?;
-+        assert_eq!(&w.finish()?[..], &[0xfe]);
-+        // Within-category offset (q-6 = category 3, offset 2) and sign polarity (negative vs +).
-+        let mut w = Vlc::new();
-+        w.coeff(-6)?;
-+        assert_eq!(&w.finish()?[..], &[0x97]);
-+        let mut w = Vlc::new();
-+        w.coeff(6)?;
-+        assert_eq!(&w.finish()?[..], &[0xd7]); // same magnitude, sign bit flipped
-+        // Category 5 with offset (q-16) spans two bytes.
-+        let mut w = Vlc::new();
-+        w.coeff(-16)?;
-+        assert_eq!(&w.finish()?[..], &[0x1f, 0xf8]);
-+        // Category >= 9 (|q| >= 256) is the unrecovered escape long form -> rejected, not mis-coded.
-+        let mut w = Vlc::new();
-+        assert!(w.coeff(-256).is_err());
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn wht_solid_strip_byte_exact() {
-+        // The general solid-colour 64x16 strip encoder, byte-exact vs DLM's wire (14/14 strips of
-+        // the codec-grammar-20260623 capture: the full grey sweep c=8/9/10, white, and the 6 solid
-+        // primaries/secondaries; scripts/wht-strip-encoder.py). The three per-plane DCs (Cr, Cb, Y)
-+        // are escape-coded from bit 368; the strip is zero-padded to its even length with
-+        // w18=w1c=tail=L-2. grey128 (Y=8192) and white (Y=16320) differ only in the Y escape bits.
-+        use video::wht::solid_strip;
-+        let grey128 = [
-+            0x01, 0x28, 0, 0, 0, 0, 0, 0, 0, 0, 0x3a, 0, 0x3a, 0, 0, 0, 0xfc, 0x00, 0x7e, 0x00,
-+            0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, 0xfc, 0x00, 0x7e,
-+            0x00, 0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, 0xfc, 0x0f,
-+            0x20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x3a, 0,
-+        ];
-+        assert_eq!(&*solid_strip(0, 0, 8192, 0, 0).unwrap(), &grey128);
-+        // White (Y=16320) -- identical but the Y escape bytes [47:49] are 0xff,0x27 not 0x0f,0x20.
-+        let mut white = grey128;
-+        white[47] = 0xff;
-+        white[48] = 0x27;
-+        assert_eq!(&*solid_strip(0, 0, 16320, 0, 0).unwrap(), &white);
-+        // X/Y are patched into the header (little-endian) without disturbing the body.
-+        let s = solid_strip(0x40, 0x10, 8192, 0, 0).unwrap();
-+        assert_eq!(&s[2..6], &[0x40, 0x00, 0x10, 0x00]);
-+        assert_eq!(&s[16..47], &grey128[16..47]); // main frame + Y escape unchanged by position
-+        // Chroma: red (Y=4032, Cb=64*(255-0)=16320, Cr=0) -- 60-byte strip, plane order (Cr,Cb,Y).
-+        let red = [
-+            0x01, 0x28, 0, 0, 0, 0, 0, 0, 0, 0, 0x3a, 0, 0x3a, 0, 0, 0, 0xfc, 0x00, 0x7e, 0x00,
-+            0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, 0xfc, 0x00, 0x7e,
-+            0x00, 0x3f, 0x80, 0x1f, 0xc0, 0x0f, 0xe0, 0x07, 0xf0, 0x03, 0xf8, 0x01, 0xef, 0xfd,
-+            0xff, 0xfb, 0x04, 0, 0, 0, 0, 0, 0, 0x3a, 0,
-+        ];
-+        assert_eq!(&*solid_strip(0, 0, 4032, 16320, 0).unwrap(), &red);
-+        // green (Y=8128, Cb=Cr=-16320) is the longest -- a 64-byte strip (w18=w1c=tail=0x3e=62).
-+        let g = solid_strip(0, 0, 8128, -16320, -16320).unwrap();
-+        assert_eq!(g.len(), 64);
-+        assert_eq!(&g[10..14], &[0x3e, 0, 0x3e, 0]);
-+        assert_eq!(&g[62..64], &[0x3e, 0]);
-+    }
-+
-+    #[test]
-+    fn wht_ac_strip_byte_exact() {
-+        // The uniform AC-strip encoder, byte-exact vs DLM (sig-library-20260623, 25/25 strips). The
-+        // significance coder is a LAST-significant-position code (00111110 ++ 5-bit(32-last)); the AC
-+        // stream run/magnitude-codes coeffs 1..last with the DLM-matched quantizer (pos3 deadzone).
-+        use video::wht::ac_strip;
-+        // s_L3HL: c3 = [128, -64, 0..]; last=1 (qAC[1]=-4). 70-byte strip.
-+        let mut c = [0i32; 32];
-+        c[0] = 128;
-+        c[1] = -64;
-+        let l3hl = ac_strip(&c, 0x40, 0x10).unwrap();
-+        let want = [
-+            0x01, 0x28, 0x40, 0x00, 0x10, 0x00, 0, 0, 0, 0, 0x34, 0x00, 0x3c, 0x00, 0, 0, 0x7c, 0x9f,
-+            0xef, 0xf3, 0x7d, 0xbe, 0xcf, 0xf7, 0xf9, 0x3e, 0xdf, 0xe7, 0xfb, 0x7c, 0x9f, 0xef, 0xf3,
-+            0x7d, 0xbe, 0xcf, 0xf7, 0xf9, 0x3e, 0xdf, 0xe7, 0xfb, 0x3c, 0x04, 0, 0, 0, 0, 0, 0, 0, 0,
-+            0x87, 0xc3, 0xe1, 0x70, 0x38, 0x1c, 0x0e, 0x00, 0x87, 0xc3, 0xe1, 0x70, 0x38, 0x1c, 0x0e,
-+            0x00, 0x44, 0x00,
-+        ];
-+        assert_eq!(&*l3hl, &want);
-+        // s_L2HL: c3 = [128, 0,0,0, -16,-16,-16,-16, 0..]; last=7 (deadzone pos3 untouched -> last
-+        // stays in the L2-HL band). 118-byte strip; spot-check length + w18/w1c framing.
-+        let mut c2 = [0i32; 32];
-+        c2[0] = 128;
-+        for i in 4..8 {
-+            c2[i] = -16;
-+        }
-+        let l2hl = ac_strip(&c2, 0x40, 0x10).unwrap();
-+        assert_eq!(l2hl.len(), 118);
-+        assert_eq!(&l2hl[10..14], &[0x34, 0x00, 0x54, 0x00]); // w18=52, w1c=84
-+        assert_eq!(&l2hl[116..118], &[0x74, 0x00]); // tail = L-2 = 116
-+    }
-+
-+    #[test]
-+    fn wht_general_strip_and_frame_forward_hint() -> Result {
-+        // The general 16-block strip encoder subsumes the two verified primitives, and the frame
-+        // composer writes the forward length-hint tail (tail[k] = L[k+1] - 2).
-+        use video::wht::{ac_strip, encode_frame, solid_strip, strip};
-+
-+        // (a) 16 identical flat grey128 blocks (Y_DC = 64*128 = 8192) -> the SOLID layout, byte-exact
-+        // equal to solid_strip (which is itself verified 14/14 vs DLM).
-+        let mut flat = [0i32; 32];
-+        flat[0] = 8192;
-+        let from_general = strip(&[flat; 16], 0x40, 0x10)?;
-+        let from_solid = solid_strip(0x40, 0x10, 8192, 0, 0)?;
-+        assert_eq!(&*from_general, &*from_solid);
-+
-+        // (b) 16 identical s_L3HL blocks -> the AC layout, byte-exact equal to ac_strip (verified
-+        // 25/25 vs DLM). c3 = [128, -64, 0..]; last = 1.
-+        let mut acblk = [0i32; 32];
-+        acblk[0] = 128;
-+        acblk[1] = -64;
-+        assert_eq!(&*strip(&[acblk; 16], 0x40, 0x10)?, &*ac_strip(&acblk, 0x40, 0x10)?);
-+
-+        // (c) Forward length hint across two differently-sized strips in one 128x16 row: the left
-+        // 64-px column is flat grey (small SOLID strip), the right column carries a per-block vertical
-+        // edge (larger AC strip). The composer must set strip0's tail to strip1's L-2, and strip1
-+        // (the last strip) keeps its own L-2.
-+        let mut luma: KVec<u8> = KVec::new();
-+        for _y in 0..16 {
-+            for x in 0..128usize {
-+                let v: u8 = if x < 64 {
-+                    128
-+                } else if x % 8 < 4 {
-+                    120
-+                } else {
-+                    136
-+                };
-+                luma.push(v, GFP_KERNEL)?;
++    /// Create a card for the USB device named `token` (e.g. `"2-1.1"`), giving its platform device a
++    /// `device` sysfs symlink to that USB device — the pairing libevdi/DisplayLinkManager look up.
++    fn add_usb_device(&self, token: &str) -> Result {
++        // Parse "<bus>-<port>[.<port>...]" into a bus/port address (bus first, leaf last).
++        let mut m = UsbPath {
++            addr: [0; MAX_USB_ADDR],
++            len: 0,
++            found: core::ptr::null_mut(),
++        };
++        let mut dash = token.split('-');
++        let bus = dash.next().ok_or(EINVAL)?;
++        m.addr[m.len] = bus.parse::<u32>().map_err(|_| EINVAL)?;
++        m.len += 1;
++        for p in dash.next().ok_or(EINVAL)?.split('.') {
++            if m.len >= MAX_USB_ADDR {
++                return Err(EINVAL);
 +            }
++            m.addr[m.len] = p.parse::<u32>().map_err(|_| EINVAL)?;
++            m.len += 1;
 +        }
-+        let out = encode_frame(&luma, 128, 16)?;
-+        assert_eq!(&out[0..2], &[0x01, 0x28]); // strip0 magic
-+        let l0 = (2..out.len() - 1)
-+            .find(|&i| out[i] == 0x01 && out[i + 1] == 0x28)
-+            .unwrap(); // strip1 start == strip0 length
-+        let l1 = out.len() - l0;
-+        assert_ne!(l0, l1); // the two strips genuinely differ in size (non-trivial hint)
-+        // strip0's tail is the forward hint = strip1's L - 2.
-+        assert_eq!(&out[l0 - 2..l0], &((l1 - 2) as u16).to_le_bytes());
-+        // strip1 is last -> tail = its own L - 2.
-+        assert_eq!(&out[out.len() - 2..], &((l1 - 2) as u16).to_le_bytes());
-+        Ok(())
-+    }
 +
-+    #[test]
-+    fn wht_magnitude_category() {
-+        // Magnitude category = bit_length(|coeff|), verified across the 2026-06-23 value sweep
-+        // (q-4 -> cat 3 -> sym7, q-8 -> 4, ... q-128 -> 8).
-+        use video::wht::mag_category;
-+        assert_eq!(mag_category(0), 0);
-+        assert_eq!(mag_category(1), 1);
-+        assert_eq!(mag_category(-4), 3);
-+        assert_eq!(mag_category(7), 3);
-+        assert_eq!(mag_category(-8), 4);
-+        assert_eq!(mag_category(16), 5);
-+        assert_eq!(mag_category(-128), 8);
-+        assert_eq!(mag_category(255), 8);
-+    }
++        // SAFETY: `usb_for_each_dev` calls `match_usb_path` for each live USB device with our
++        // `&mut m`; it retains no reference, so `m.found` is only used synchronously below.
++        unsafe {
++            kernel::bindings::usb_for_each_dev(
++                &raw mut m as *mut core::ffi::c_void,
++                Some(match_usb_path),
++            )
++        };
++        let usb = m.found;
++        if usb.is_null() {
++            return Err(EINVAL);
++        }
 +
-+    #[test]
-+    fn ddc_ci_set_vcp_checksum() {
-+        // VESA DDC/CI 1.1 sec 4.4 worked example: Set brightness (VCP 0x10) to 50 (0x0032).
-+        // Bytes after the 0x6e write address: 51 84 03 10 00 32, checksum = XOR incl. 0x6e.
-+        let p = cp::ddc_ci_set_vcp(cp::VCP_BRIGHTNESS, 50);
-+        assert_eq!(&p[..6], &[0x51, 0x84, 0x03, 0x10, 0x00, 0x32]);
-+        let want = 0x6e ^ 0x51 ^ 0x84 ^ 0x03 ^ 0x10 ^ 0x00 ^ 0x32;
-+        assert_eq!(p[6], want);
-+        // The checksum makes the XOR of {dest, source, len, opcode, vcp, hi, lo, chk} zero.
-+        assert_eq!(0x6eu8 ^ p.iter().fold(0u8, |a, &b| a ^ b), 0);
-+        // Contrast (0x12) and the power VCP (0xd6 = off) carry their codes/values verbatim.
-+        assert_eq!(cp::ddc_ci_set_vcp(cp::VCP_CONTRAST, 0x0140)[3..6], [0x12, 0x01, 0x40]);
-+        assert_eq!(cp::ddc_ci_set_vcp(cp::VCP_POWER_MODE, cp::POWER_OFF)[3..6], [0xd6, 0x00, 0x04]);
-+    }
-+
-+    #[test]
-+    fn ddc_set_vcp_message_structure() -> Result {
-+        // CP wrapper: id=0x15 sub=0x22, counter (LE) at off4, I2C slave 0x37 + len 7 at off20,
-+        // the 7-byte DDC/CI Set-VCP payload at off22, padded to a 32-byte block.
-+        let m = cp::ddc_set_vcp(0x11, cp::VCP_BRIGHTNESS, 75)?;
-+        assert_eq!(m.len(), 32);
-+        assert_eq!(&m[0..6], &[0x15, 0x00, 0x22, 0x00, 0x11, 0x00]); // id, sub, counter (LE)
-+        assert_eq!(&m[20..22], &[0x37, 7]); // monitor DDC/CI I2C slave + payload length
-+        assert_eq!(&m[22..29], &cp::ddc_ci_set_vcp(cp::VCP_BRIGHTNESS, 75)); // DDC/CI payload
-+        assert_eq!(&m[29..32], &[0, 0, 0]); // block padding
++        let regdev = platform::RegisteredDevice::new(c"evdi", platform::DEVID_AUTO, None, 0)?;
++        let pdev =
++            regdev.device() as *const platform::Device as *mut kernel::bindings::platform_device;
++        // SAFETY: `pdev` is the platform device just registered above; `usb` is the matched, still
++        // live USB device. `sysfs_create_link` copies `name` and takes no lasting reference; the
++        // link is removed automatically when the platform device's kobject is destroyed on drop.
++        let ret = unsafe {
++            kernel::bindings::sysfs_create_link(
++                &raw mut (*pdev).dev.kobj,
++                &raw mut (*usb).dev.kobj,
++                c"device".as_char_ptr(),
++            )
++        };
++        kernel::error::to_result(ret)?;
++        self.devices
++            .lock()
++            .push(CardEntry { _dev: regdev, usb }, GFP_KERNEL)?;
 +        Ok(())
 +    }
 +}
++
++#[pinned_drop]
++impl PinnedDrop for EvdiRegistry {
++    fn drop(self: Pin<&mut Self>) {
++        // Stop USB-removal callbacks before the card list is torn down. `usb_unregister_notify`
++        // waits for any in-flight callback, so no `remove_usb` can race the field drops that follow.
++        // SAFETY: `notifier` was registered exactly once in `new`.
++        unsafe { kernel::bindings::usb_unregister_notify(self.notifier.get()) };
++    }
++}
++
++impl kernel::sysfs::DeviceAttributes for EvdiRegistry {
++    const ATTRS: &'static [kernel::sysfs::Attr] = &[
++        kernel::sysfs::Attr::ro(c"count"),
++        kernel::sysfs::Attr::wo(c"add"),
++        kernel::sysfs::Attr::wo(c"remove_all"),
++    ];
++
++    fn show(&self, name: &CStr, buf: &mut [u8]) -> Result<usize> {
++        if name == c"count" {
++            write_uint(buf, self.devices.lock().len())
++        } else {
++            Err(EINVAL)
++        }
++    }
++
++    fn store(&self, name: &CStr, buf: &[u8]) -> Result {
++        if name == c"add" {
++            let text = core::str::from_utf8(buf).map_err(|_| EINVAL)?.trim();
++            // DisplayLinkManager (via libevdi) creates a card for a specific dock by writing
++            // "usb:<bus>-<port>[.<port>...]:<intf>"; a bare integer creates that many generic cards.
++            if let Some(rest) = text.strip_prefix("usb:") {
++                let token = rest.split(':').next().unwrap_or("").trim();
++                self.add_usb_device(token)
++            } else {
++                let count: u32 = text.parse().map_err(|_| EINVAL)?;
++                let mut devices = self.devices.lock();
++                for _ in 0..count {
++                    let dev =
++                        platform::RegisteredDevice::new(c"evdi", platform::DEVID_AUTO, None, 0)?;
++                    devices.push(
++                        CardEntry {
++                            _dev: dev,
++                            usb: core::ptr::null_mut(),
++                        },
++                        GFP_KERNEL,
++                    )?;
++                }
++                Ok(())
++            }
++        } else if name == c"remove_all" {
++            self.devices.lock().clear();
++            Ok(())
++        } else {
++            Err(EINVAL)
++        }
++    }
++}
++
++/// Format `v` as decimal followed by a newline into `buf`, returning the byte count written.
++fn write_uint(buf: &mut [u8], mut v: usize) -> Result<usize> {
++    let mut tmp = [0u8; 24];
++    let mut i = tmp.len();
++    loop {
++        i -= 1;
++        tmp[i] = b'0' + (v % 10) as u8;
++        v /= 10;
++        if v == 0 {
++            break;
++        }
++    }
++    let digits = &tmp[i..];
++    let total = digits.len() + 1;
++    if total > buf.len() {
++        return Err(EINVAL);
++    }
++    buf[..digits.len()].copy_from_slice(digits);
++    buf[digits.len()] = b'\n';
++    Ok(total)
++}
++
++/// The module state.
++///
++/// Field/drop order matters: `_sysfs` (which owns the device registry, and thus every card) is
++/// declared first so it is dropped -- unregistering every card -- *before* the driver registration.
++#[pin_data]
++struct EvdiModule {
++    _sysfs: Option<KBox<kernel::sysfs::AttributeGroup<EvdiRegistry>>>,
++    #[pin]
++    _driver: kernel::driver::Registration<platform::Adapter<EvdiPlatformDriver>>,
++}
++
++impl kernel::InPlaceModule for EvdiModule {
++    fn init(module: &'static ThisModule) -> impl PinInit<Self, Error> {
++        pr_info!("evdi: Rust EVDI loading\n");
++        try_pin_init!(Self {
++            _sysfs: kernel::sysfs::AttributeGroup::register_root(c"evdi", module, EvdiRegistry::new())
++                .inspect_err(|e| pr_err!("evdi: sysfs root registration failed ({e:?})\n"))
++                .ok(),
++            _driver <- kernel::driver::Registration::new(c"evdi", module),
++        })
++    }
++}
++
++module! {
++    type: EvdiModule,
++    name: "evdi",
++    authors: ["Mike Lothian"],
++    description: "Extensible Virtual Display Interface (Rust)",
++    license: "GPL",
++}
+diff --git a/drivers/gpu/drm/evdi/ioctl.rs b/drivers/gpu/drm/evdi/ioctl.rs
+new file mode 100644
+index 000000000000..46cecf2279ec
+--- /dev/null
++++ b/drivers/gpu/drm/evdi/ioctl.rs
+@@ -0,0 +1,248 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// EVDI driver-private ioctls (libevdi / DisplayLinkManager entry points), declared via
++// `kernel::declare_drm_ioctls_ext!` in `kms.rs`. Each handler runs inside a
++// `drm_dev_enter/exit` critical section (returns `ENODEV` if the card was unplugged).
++
++use kernel::{
++    device::Bound,
++    drm,
++    error::code::EAGAIN,
++    platform,
++    prelude::*,
++    uaccess::{UserPtr, UserSlice},
++};
++
++use crate::kms::{EvdiDrmData, EvdiDrmDriver, EvdiDrmFile};
++use crate::uapi;
++
++/// Maximum EDID blob we accept from userspace (128-byte base block + up to 255 extensions).
++const EDID_MAX: usize = 32 * 1024;
++
++type Dev = drm::Device<EvdiDrmDriver>;
++type Parent = platform::Device<Bound>;
++type File = drm::File<EvdiDrmFile>;
++
++/// `DRM_IOCTL_EVDI_CONNECT`: the DLM client connects (with an EDID) or disconnects the
++/// virtual display. Registers/clears the event receiver for this device.
++pub(crate) fn connect(
++    dev: &Dev,
++    _parent: &Parent,
++    _reg: &(),
++    arg: &mut uapi::DrmEvdiConnect,
++    file: &File,
++) -> Result<u32> {
++    let data: &EvdiDrmData = dev;
++    if arg.connected != 0 {
++        // Copy the EDID the client supplied so the connector's mode list reflects the real
++        // monitor. A zero-length/NULL EDID is allowed (connector falls back to a default mode).
++        let len = arg.edid_length as usize;
++        let mut edid = KVec::new();
++        if len > 0 && arg.edid != 0 {
++            if len > EDID_MAX {
++                return Err(EINVAL);
++            }
++            UserSlice::new(UserPtr::from_ptr(arg.edid as *mut kernel::ffi::c_void), len)
++                .read_all(&mut edid, GFP_KERNEL)?;
++        }
++
++        // Register this file as the event receiver, then mark connected and publish the EDID
++        // (which fires a hotplug so the compositor re-probes the connector's modes).
++        data.events.connect(file);
++        file.inner()
++            .connected
++            .store(true, core::sync::atomic::Ordering::Release);
++        data.painter.lock().connected = true;
++        if !edid.is_empty() {
++            data.set_edid(dev, edid);
++        }
++    } else {
++        data.events.disconnect();
++        file.inner()
++            .connected
++            .store(false, core::sync::atomic::Ordering::Release);
++        data.painter.lock().connected = false;
++        // Drop the EDID so the connector reports disconnected until the next CONNECT.
++        data.clear_edid(dev);
++    }
++    Ok(0)
++}
++
++/// `DRM_IOCTL_EVDI_REQUEST_UPDATE`: the client asks to be told (via UPDATE_READY) when the
++/// next frame is ready to grab.
++pub(crate) fn request_update(
++    dev: &Dev,
++    _parent: &Parent,
++    _reg: &(),
++    _arg: &mut uapi::DrmEvdiRequestUpdate,
++    _file: &File,
++) -> Result<u32> {
++    // If an ungrabbed frame is already waiting, return 1 so the client grabs immediately (libevdi's
++    // `grabImmediately`); otherwise return 0 and let the next flip's UPDATE_READY wake it. We do NOT
++    // send an event from here — that self-triggering request->event->grab->request cycle was the
++    // busy-loop. Every real flip still signals via `atomic_update`, so content updates propagate.
++    let data: &EvdiDrmData = dev;
++    if data.painter.lock().frame_dirty {
++        Ok(1)
++    } else {
++        Ok(0)
++    }
++}
++
++/// `DRM_IOCTL_EVDI_GRABPIX`: copy the current scanout framebuffer to the client's buffer.
++///
++/// The pixels are read through the safe [`FramebufferVmap::as_bytes`] slice and written to
++/// userspace one row at a time (bounded by both the framebuffer and the client's buffer geometry),
++/// so no oversized or per-pixel `copy_to_user` is performed.
++pub(crate) fn grabpix(
++    dev: &Dev,
++    _parent: &Parent,
++    _reg: &(),
++    arg: &mut uapi::DrmEvdiGrabpix,
++    _file: &File,
++) -> Result<u32> {
++    // XRGB8888: 4 bytes per pixel (the only format the primary plane advertises).
++    const BPP: usize = 4;
++
++    let data: &EvdiDrmData = dev;
++    // No frame has been flipped in yet: tell the client to try again.
++    let Some(fb) = data.scanout_fb() else {
++        return Err(EAGAIN);
++    };
++
++    // Take the regions accumulated since the last grab and mark the frame consumed.
++    let mut dmg = {
++        let mut p = data.painter.lock();
++        p.frame_dirty = false;
++        let d = p.damage;
++        p.damage.clear();
++        d
++    };
++
++    let map = fb.vmap()?;
++    let src = map.as_bytes();
++    let src_pitch = fb.pitch(0) as usize;
++    let fb_w = fb.width() as i32;
++    let fb_h = fb.height() as i32;
++
++    let dst_stride = arg.buf_byte_stride as usize;
++    if arg.buffer == 0 || dst_stride == 0 {
++        return Err(EINVAL);
++    }
++    let max_w = core::cmp::min(fb_w, (dst_stride / BPP) as i32);
++    let max_h = core::cmp::min(fb_h, arg.buf_height as i32);
++
++    // Nothing recorded (the client polled without a flip): fall back to one full-frame rectangle.
++    if dmg.count == 0 {
++        dmg.rects[0] = (0, 0, fb_w, fb_h);
++        dmg.count = 1;
++    }
++
++    // Clamp each rectangle to the framebuffer and the client's buffer, dropping empty ones.
++    let mut rects = [(0i32, 0i32, 0i32, 0i32); crate::painter::MAX_DAMAGE_RECTS];
++    let mut count = 0usize;
++    for &(rx1, ry1, rx2, ry2) in &dmg.rects[..dmg.count] {
++        let x1 = rx1.clamp(0, max_w);
++        let y1 = ry1.clamp(0, max_h);
++        let x2 = rx2.clamp(x1, max_w);
++        let y2 = ry2.clamp(y1, max_h);
++        if x2 > x1 && y2 > y1 {
++            rects[count] = (x1, y1, x2, y2);
++            count += 1;
++        }
++    }
++    if count == 0 {
++        return Ok(0);
++    }
++    // The client's `rects` buffer holds `num_rects` entries; if we somehow have more, coalesce into
++    // a single bounding box so we never overrun it.
++    let cap = (arg.num_rects.max(1) as usize).min(crate::painter::MAX_DAMAGE_RECTS);
++    if count > cap {
++        let mut bb = rects[0];
++        for &(x1, y1, x2, y2) in &rects[1..count] {
++            bb = (bb.0.min(x1), bb.1.min(y1), bb.2.max(x2), bb.3.max(y2));
++        }
++        rects[0] = bb;
++        count = 1;
++    }
++
++    // Report the rectangles so DLM transmits exactly them (`struct drm_clip_rect` = 4x u16). Leaving
++    // num_rects/rects unset makes DLM decide nothing changed and send nothing (black).
++    if arg.rects != 0 {
++        let mut buf = [0u8; crate::painter::MAX_DAMAGE_RECTS * 8];
++        for (i, &(x1, y1, x2, y2)) in rects[..count].iter().enumerate() {
++            let o = i * 8;
++            buf[o..o + 2].copy_from_slice(&(x1 as u16).to_ne_bytes());
++            buf[o + 2..o + 4].copy_from_slice(&(y1 as u16).to_ne_bytes());
++            buf[o + 4..o + 6].copy_from_slice(&(x2 as u16).to_ne_bytes());
++            buf[o + 6..o + 8].copy_from_slice(&(y2 as u16).to_ne_bytes());
++        }
++        UserSlice::new(
++            UserPtr::from_ptr(arg.rects as *mut kernel::ffi::c_void),
++            count * 8,
++        )
++        .writer()
++        .write_slice(&buf[..count * 8])?;
++    }
++    // The IOWR arg is copied back to userspace, so the count reaches DLM.
++    arg.num_rects = count as i32;
++
++    // Copy each changed rectangle into the client's (persistent, full-frame) buffer at the same
++    // position, so DLM's frame accumulates the per-grab deltas.
++    for &(x1, y1, x2, y2) in &rects[..count] {
++        let xoff = x1 as usize * BPP;
++        let span = (x2 - x1) as usize * BPP;
++        for y in y1 as usize..y2 as usize {
++            let so = y * src_pitch + xoff;
++            if so + span > src.len() {
++                break;
++            }
++            let dst = arg
++                .buffer
++                .checked_add(y * dst_stride + xoff)
++                .ok_or(EINVAL)?;
++            UserSlice::new(UserPtr::from_ptr(dst as *mut kernel::ffi::c_void), span)
++                .writer()
++                .write_slice(&src[so..so + span])?;
++        }
++    }
++    Ok(0)
++}
++
++/// `DRM_IOCTL_EVDI_DDCCI_RESPONSE`: the client returns a DDC/CI reply to be handed back to
++/// the in-kernel I2C adapter.
++pub(crate) fn ddcci_response(
++    dev: &Dev,
++    _parent: &Parent,
++    _reg: &(),
++    arg: &mut uapi::DrmEvdiDdcciResponse,
++    _file: &File,
++) -> Result<u32> {
++    // Copy the client's DDC/CI reply (capped at the 64-byte DDC/CI payload) and hand it to the
++    // waiting I2C transfer.
++    let len = core::cmp::min(arg.buffer_length as usize, uapi::DDCCI_BUFFER_SIZE);
++    let mut resp = KVec::new();
++    if len > 0 && arg.buffer != 0 {
++        UserSlice::new(
++            UserPtr::from_ptr(arg.buffer as *mut kernel::ffi::c_void),
++            len,
++        )
++        .read_all(&mut resp, GFP_KERNEL)?;
++    }
++    let data: &EvdiDrmData = dev;
++    data.ddcci_respond(resp);
++    Ok(0)
++}
++
++/// `DRM_IOCTL_EVDI_ENABLE_CURSOR_EVENTS`: toggle delivery of CURSOR_SET/CURSOR_MOVE events.
++pub(crate) fn enable_cursor_events(
++    dev: &Dev,
++    _parent: &Parent,
++    _reg: &(),
++    arg: &mut uapi::DrmEvdiEnableCursorEvents,
++    _file: &File,
++) -> Result<u32> {
++    let data: &EvdiDrmData = dev;
++    data.painter.lock().cursor_events_enabled = arg.enable != 0;
++    Ok(0)
++}
+diff --git a/drivers/gpu/drm/evdi/kms.rs b/drivers/gpu/drm/evdi/kms.rs
+new file mode 100644
+index 000000000000..1d39163ddf3b
+--- /dev/null
++++ b/drivers/gpu/drm/evdi/kms.rs
+@@ -0,0 +1,729 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// The EVDI DRM/KMS device: registers a `struct drm_device` presenting one virtual
++// display head (CRTC + primary plane + virtual encoder + virtual connector) with
++// GEM-shmem dumb buffers, built on the safe KMS mode-object layer (`kernel::drm::kms`).
++//
++// Unlike a real display driver, EVDI's scanout is *pulled* by userspace: the
++// DisplayLinkManager daemon grabs framebuffer pixels via the GRABPIX ioctl and is
++// told when to do so through `drm_event`s (see `painter.rs`). The KMS callbacks here
++// therefore translate atomic commits into those events rather than programming any
++// hardware.
++
++use core::sync::atomic::{AtomicBool, AtomicI64, AtomicPtr, Ordering};
++use kernel::{
++    bindings,
++    drm,
++    drm::event::EventChannel,
++    drm::kms::{
++        connector::{self, ConnectorGuard},
++        crtc::{self, AsRawCrtc as _, CrtcAtomicCommit, RawCrtc as _, RawCrtcState as _},
++        encoder,
++        framebuffer::Framebuffer,
++        plane::{self, PlaneAtomicCommit, RawPlaneState as _},
++        vblank::{RawVblankCrtcState as _, VblankGuard, VblankSupport, VblankTimestamp},
++        KmsDriver, ModeConfigGuard, ModeConfigInfo, ModeObject as _, NewKmsDevice, Probing,
++    },
++    impl_has_hr_timer,
++    interrupt::LocalInterruptDisabled,
++    prelude::*,
++    sync::{aref::ARef, new_condvar, new_mutex, new_spinlock, Arc, ArcBorrow, CondVar,
++        CondVarTimeoutResult, Mutex, SpinLock},
++    time::{
++        hrtimer::{
++            ArcHrTimerHandle, HrTimer, HrTimerCallback, HrTimerCallbackContext, HrTimerPointer,
++            HrTimerRestart, RelativeMode,
++        },
++        Delta, Monotonic,
++    },
++    types::ForLt,
++};
++
++use crate::painter::PainterState;
++use crate::uapi;
++use kernel::error::code::{ERESTARTSYS, ETIMEDOUT};
++
++/// DDC/CI slave address on the virtual I2C bus (as used by monitor-control tools).
++pub(crate) const DDCCI_ADDRESS: u16 = 0x37;
++/// How long a DDC/CI transfer waits for the userspace client's reply.
++const DDCCI_TIMEOUT_MS: u32 = 50;
++/// Maximum DDC/CI payload carried in one event.
++const DDCCI_BUFFER_SIZE: usize = 64;
++
++/// `DRM_FORMAT_XRGB8888` (`fourcc_code('X','R','2','4')`) — EVDI scans out 32bpp.
++pub(crate) const DRM_FORMAT_XRGB8888: u32 = 0x3432_5258;
++static PRIMARY_FORMATS: [u32; 1] = [DRM_FORMAT_XRGB8888];
++
++/// `DRM_FORMAT_ARGB8888` (`fourcc_code('A','R','2','4')`) — cursor bitmaps carry alpha.
++pub(crate) const DRM_FORMAT_ARGB8888: u32 = 0x3432_5241;
++static CURSOR_FORMATS: [u32; 1] = [DRM_FORMAT_ARGB8888];
++
++/// Fallback mode advertised before the DLM client delivers an EDID via CONNECT.
++const FALLBACK_W: u32 = 1024;
++const FALLBACK_H: u32 = 768;
++
++// libevdi (`is_evdi_compatible`) requires `major == 1 && minor >= 9`; match the C evdi's version so
++// DisplayLinkManager accepts the card. Bumped past the 1.0.0 that made libevdi reject every device.
++const INFO: drm::DriverInfo = drm::DriverInfo {
++    major: 1,
++    minor: 14,
++    patchlevel: 16,
++    name: c"evdi",
++    desc: c"Extensible Virtual Display Interface",
++};
++
++/// The EVDI DRM driver marker type.
++pub(crate) struct EvdiDrmDriver;
++
++/// Convenience alias for our concrete `drm::Device`.
++pub(crate) type EvdiDrmDevice = drm::Device<EvdiDrmDriver>;
++
++/// DRM device-private data: the painter (connection + event delivery + pixel grab
++/// bookkeeping) and a stashed pointer to our single connector so CONNECT can push a
++/// fresh EDID into its mode list.
++#[pin_data]
++pub(crate) struct EvdiDrmData {
++    /// Event channel to the connected DLM client (`drm_event` delivery).
++    #[pin]
++    pub(crate) events: EventChannel,
++    /// Painter state (connection status, cached EDID, cursor-events flag, dirty rects).
++    #[pin]
++    pub(crate) painter: Mutex<PainterState>,
++    /// The framebuffer currently flipped in on the primary plane, refcounted so GRABPIX can map
++    /// and copy it after the atomic commit that set it has returned. `None` until the first flip.
++    #[pin]
++    pub(crate) scanout: Mutex<Option<ARef<Framebuffer<EvdiDrmDriver>>>>,
++    /// Slot for a DDC/CI reply from the client, guarding the request/response handshake between
++    /// the I2C `master_xfer` (which waits) and the DDCCI_RESPONSE ioctl (which fills + notifies).
++    #[pin]
++    pub(crate) ddcci_resp: Mutex<Option<KVec<u8>>>,
++    #[pin]
++    pub(crate) ddcci_cv: CondVar,
++    /// Pointer to our connector's driver data, stashed during `KmsDriver::probe` so
++    /// CONNECT can reach its cached-EDID slot without walking DRM's mode-object list.
++    /// Written once during single-threaded probe; read-only thereafter.
++    pub(crate) connector: core::sync::atomic::AtomicPtr<EvdiConnector>,
++}
++
++impl EvdiDrmData {
++    pub(crate) fn new() -> impl PinInit<Self, Error> {
++        try_pin_init!(Self {
++            events <- EventChannel::new(kernel::static_lock_class!()),
++            painter <- new_mutex!(PainterState::new()),
++            scanout <- new_mutex!(None),
++            ddcci_resp <- new_mutex!(None),
++            ddcci_cv <- new_condvar!(),
++            connector: core::sync::atomic::AtomicPtr::new(core::ptr::null_mut()),
++        })
++    }
++
++    /// Send one DDC/CI message to the connected client and wait for its reply. `buf` carries the
++    /// write payload (or, for `is_read`, is filled with the reply, up to its length). Returns
++    /// `ETIMEDOUT` if the client does not respond in time.
++    pub(crate) fn ddcci_transfer(
++        &self,
++        dev: &EvdiDrmDevice,
++        addr: u16,
++        flags: u16,
++        is_read: bool,
++        buf: &mut [u8],
++    ) -> Result {
++        let mut ev = uapi::DrmEvdiEventDdcciData {
++            base: uapi::DrmEvent {
++                type_: 0,
++                length: 0,
++            },
++            buffer: [0u8; DDCCI_BUFFER_SIZE],
++            buffer_length: buf.len() as u32,
++            flags,
++            address: addr,
++        };
++        let n = core::cmp::min(buf.len(), DDCCI_BUFFER_SIZE);
++        ev.buffer[..n].copy_from_slice(&buf[..n]);
++
++        // Hold the slot lock across send+wait so the reply cannot be signalled before we wait
++        // (no lost wakeup): `ddcci_respond` can only run once `wait_*` has released the lock.
++        let mut slot = self.ddcci_resp.lock();
++        *slot = None;
++        self.events.send(dev, ev)?;
++        let jiffies = kernel::time::msecs_to_jiffies(DDCCI_TIMEOUT_MS);
++        match self.ddcci_cv.wait_interruptible_timeout(&mut slot, jiffies) {
++            CondVarTimeoutResult::Woken { .. } => {
++                if is_read {
++                    if let Some(resp) = slot.take() {
++                        let m = core::cmp::min(resp.len(), buf.len());
++                        buf[..m].copy_from_slice(&resp[..m]);
++                    }
++                }
++                Ok(())
++            }
++            CondVarTimeoutResult::Timeout => Err(ETIMEDOUT),
++            CondVarTimeoutResult::Signal { .. } => Err(ERESTARTSYS),
++        }
++    }
++
++    /// Store a DDC/CI reply from the client (DDCCI_RESPONSE ioctl) and wake the waiting transfer.
++    pub(crate) fn ddcci_respond(&self, resp: KVec<u8>) {
++        *self.ddcci_resp.lock() = Some(resp);
++        self.ddcci_cv.notify_one();
++    }
++
++    /// Record the framebuffer currently on the primary plane (bumping its refcount) so a later
++    /// GRABPIX can map it. Called from the plane's atomic commit.
++    pub(crate) fn set_scanout(&self, fb: Option<&Framebuffer<EvdiDrmDriver>>) {
++        *self.scanout.lock() = fb.map(ARef::from);
++    }
++
++    /// Take a refcounted handle to the current scanout framebuffer, if any, for GRABPIX to map.
++    pub(crate) fn scanout_fb(&self) -> Option<ARef<Framebuffer<EvdiDrmDriver>>> {
++        self.scanout.lock().clone()
++    }
++
++    /// Install a new EDID blob (from CONNECT) into the connector and fire a hotplug so
++    /// the compositor re-probes the connector's mode list.
++    pub(crate) fn set_edid(&self, dev: &EvdiDrmDevice, blob: KVec<u8>) {
++        let ptr = self.connector.load(core::sync::atomic::Ordering::Acquire);
++        // SAFETY: `connector` was stashed during probe and points to a `EvdiConnector`
++        // that lives as long as the device; null until probe completes.
++        let Some(connector) = (unsafe { ptr.as_ref() }) else {
++            return;
++        };
++        *connector.cached_edid.lock() = Some(blob);
++        dev.hotplug_event();
++    }
++
++    /// Drop the connector's cached EDID (on CONNECT disconnect) and fire a hotplug so the connector
++    /// reports disconnected again -- see [`EvdiConnector::detect`].
++    pub(crate) fn clear_edid(&self, dev: &EvdiDrmDevice) {
++        let ptr = self.connector.load(core::sync::atomic::Ordering::Acquire);
++        // SAFETY: as in `set_edid` -- `connector` was stashed during probe and outlives the device.
++        let Some(connector) = (unsafe { ptr.as_ref() }) else {
++            return;
++        };
++        *connector.cached_edid.lock() = None;
++        dev.hotplug_event();
++    }
++}
++
++/// GEM object inner data. Empty: the shmem-backed object wires
++/// `drm_gem_shmem_dumb_create`, so `DRM_IOCTL_MODE_CREATE_DUMB` works and the GRABPIX
++/// ioctl can `vmap` the resulting framebuffer to copy pixels to userspace.
++#[pin_data]
++pub(crate) struct EvdiObject {}
++
++impl drm::gem::DriverObject for EvdiObject {
++    type Driver = EvdiDrmDriver;
++    type Args = ();
++
++    fn new<Ctx: drm::DeviceContext>(
++        _dev: &drm::Device<EvdiDrmDriver, Ctx>,
++        _size: usize,
++        _args: (),
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(EvdiObject {})
++    }
++}
++
++/// Per-open DRM client state. Empty of data, but its lifetime pins the module for the
++/// duration of an open DRM file (the DLM daemon holds `/dev/dri/cardN` open across the
++/// whole session; the Rust DRM `file_operations` are built with `owner = NULL`, so
++/// without this an `rmmod` while DLM is running would free the fops under the open fd).
++#[pin_data(PinnedDrop)]
++pub(crate) struct EvdiDrmFile {
++    /// The owning device, so file close can reach the event channel to disconnect.
++    dev: ARef<EvdiDrmDevice>,
++    /// Whether this file issued CONNECT and is thus the event receiver. Set by the CONNECT ioctl;
++    /// on close a connected file clears the channel so no event is ever sent to a closed file.
++    pub(crate) connected: core::sync::atomic::AtomicBool,
++}
++
++impl drm::file::DriverFile for EvdiDrmFile {
++    type Driver = EvdiDrmDriver;
++
++    fn open(dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
++        let file = KBox::try_pin_init(
++            try_pin_init!(Self {
++                dev: dev.into(),
++                connected: core::sync::atomic::AtomicBool::new(false),
++            }),
++            GFP_KERNEL,
++        )?;
++        // SAFETY: executing inside this module's own DRM `open` callback, so the module
++        // is live; the reference is released 1:1 in `PinnedDrop`.
++        unsafe { kernel::bindings::__module_get(crate::THIS_MODULE.as_ptr()) };
++        Ok(file)
++    }
++}
++
++#[pinned_drop]
++impl PinnedDrop for EvdiDrmFile {
++    fn drop(self: Pin<&mut Self>) {
++        // If this file was the connected event receiver, clear the channel so nothing is ever
++        // delivered to it after close (the receiver pointer must not outlive the file).
++        if self.connected.load(core::sync::atomic::Ordering::Acquire) {
++            self.dev.events.disconnect();
++        }
++        // Release the module reference taken in `open`.
++        // SAFETY: balances the `__module_get` in `open`.
++        unsafe { kernel::bindings::module_put(crate::THIS_MODULE.as_ptr()) };
++    }
++}
++
++#[vtable]
++impl drm::Driver for EvdiDrmDriver {
++    type Data = EvdiDrmData;
++    type File = EvdiDrmFile;
++    type Object<Ctx: drm::DeviceContext> = drm::gem::shmem::Object<EvdiObject, Ctx>;
++    type ParentDevice<Ctx: kernel::device::DeviceContext> = kernel::platform::Device<Ctx>;
++    type RegistrationData = ForLt!(());
++    type Kms = Self;
++
++    const INFO: drm::DriverInfo = INFO;
++
++    kernel::declare_drm_ioctls_ext! {
++        (EVDI_CONNECT, crate::uapi::DrmEvdiConnect,
++            crate::uapi::DRM_IOCTL_EVDI_CONNECT, 0, crate::ioctl::connect),
++        (EVDI_REQUEST_UPDATE, crate::uapi::DrmEvdiRequestUpdate,
++            crate::uapi::DRM_IOCTL_EVDI_REQUEST_UPDATE, 0, crate::ioctl::request_update),
++        (EVDI_GRABPIX, crate::uapi::DrmEvdiGrabpix,
++            crate::uapi::DRM_IOCTL_EVDI_GRABPIX, 0, crate::ioctl::grabpix),
++        (EVDI_DDCCI_RESPONSE, crate::uapi::DrmEvdiDdcciResponse,
++            crate::uapi::DRM_IOCTL_EVDI_DDCCI_RESPONSE, 0, crate::ioctl::ddcci_response),
++        (EVDI_ENABLE_CURSOR_EVENTS, crate::uapi::DrmEvdiEnableCursorEvents,
++            crate::uapi::DRM_IOCTL_EVDI_ENABLE_CURSOR_EVENTS, 0, crate::ioctl::enable_cursor_events),
++    }
++}
++
++#[vtable]
++impl KmsDriver for EvdiDrmDriver {
++    type Connector = EvdiConnector;
++    type Plane = EvdiPlane;
++    type Crtc = EvdiCrtc;
++    type Encoder = EvdiEncoder;
++
++    fn mode_config_info(_dev: &drm::Device<Self, drm::Uninit>) -> Result<ModeConfigInfo> {
++        Ok(ModeConfigInfo {
++            min_resolution: (0, 0),
++            max_resolution: (8192, 8192),
++            max_cursor: (64, 64),
++            preferred_depth: 32,
++            preferred_fourcc: Some(DRM_FORMAT_XRGB8888),
++        })
++    }
++
++    fn probe(dev: &NewKmsDevice<'_, Self, Probing>) -> Result {
++        let primary = plane::UnregisteredPlane::<EvdiPlane>::new(
++            dev,
++            1,
++            &PRIMARY_FORMATS,
++            None,
++            plane::Type::Primary,
++            None,
++            false,
++        )?;
++        // Advertise FB_DAMAGE_CLIPS so the compositor reports which region it changed each frame.
++        // Without it `damage_merged` always returns the whole plane, so GRABPIX reports a full-frame
++        // rect and DLM re-transmits the entire 2560x1440 buffer every update (jerky).
++        // SAFETY: `primary` is a valid, not-yet-registered plane; the property is added before
++        // registration (in the `Probing` phase).
++        unsafe {
++            kernel::bindings::drm_plane_enable_fb_damage_clips(plane::AsRawPlane::as_raw(primary))
++        };
++        // Hardware cursor plane: cursor movement is then forwarded to the DLM client as CURSOR_MOVE
++        // events (the daemon composites the cursor itself) instead of forcing a primary-plane
++        // repaint + full grab. `max_cursor` (mode_config_info) bounds the size the compositor will
++        // put here; larger cursors (e.g. KDE's shake-to-locate) fall back to a software cursor
++        // composited into the framebuffer, which the primary path grabs normally.
++        let cursor = plane::UnregisteredPlane::<EvdiPlane>::new(
++            dev,
++            1,
++            &CURSOR_FORMATS,
++            None,
++            plane::Type::Cursor,
++            None,
++            true,
++        )?;
++        let crtc_obj =
++            crtc::UnregisteredCrtc::<EvdiCrtc>::new(dev, primary, Some(&cursor), None, ())?;
++        let enc = encoder::UnregisteredEncoder::<EvdiEncoder>::new(
++            dev,
++            encoder::Type::Virtual,
++            crtc_obj.mask(),
++            0,
++            None,
++            (),
++        )?;
++        // Use DVI-I (matching the C evdi) rather than Virtual: `__drm_connector_init` skips
++        // `drm_connector_attach_edid_property()` for VIRTUAL/WRITEBACK connectors, and without that
++        // property `drm_edid_connector_update()` can't populate `edid_blob_ptr`, so
++        // `drm_edid_connector_add_modes()` would return 0 modes for a perfectly valid EDID.
++        let conn =
++            connector::UnregisteredConnector::<EvdiConnector>::new(dev, connector::Type::DviI, ())?;
++        conn.attach_encoder(&*enc)?;
++        let data: &EvdiDrmData = dev;
++        data.connector.store(
++            &**conn as *const EvdiConnector as *mut EvdiConnector,
++            core::sync::atomic::Ordering::Release,
++        );
++        Ok(())
++    }
++}
++
++// ---- CRTC -------------------------------------------------------------------
++
++/// A software vblank source: an hrtimer that fires once per frame and drives
++/// `drm_crtc_handle_vblank()`, so the atomic helpers pace page-flips against a real vblank
++/// (via `drm_crtc_arm_vblank_event()` in [`EvdiCrtc::atomic_flush`]) instead of completing them
++/// immediately with a fake vblank -- which is what makes updates smooth rather than bursty.
++///
++/// The timer free-runs once started (re-arming every tick); `enabled` gates whether it actually
++/// delivers vblanks, so DPMS off/on is a cheap flag flip rather than a start/stop. It is cancelled
++/// when the owning [`EvdiCrtc`] (and thus the [`ArcHrTimerHandle`]) is dropped at teardown, before
++/// the `drm_crtc` it points at is freed.
++#[pin_data]
++pub(crate) struct VblankTimer {
++    #[pin]
++    timer: HrTimer<Self>,
++    /// The `drm_crtc` to deliver vblanks to (set when vblank is first enabled).
++    crtc: AtomicPtr<bindings::drm_crtc>,
++    /// One scanout frame in nanoseconds (from the mode's `framedur_ns`).
++    interval_ns: AtomicI64,
++    /// Whether vblanks should currently be delivered (toggled by enable/disable_vblank).
++    enabled: AtomicBool,
++    /// Whether the free-running timer has been started yet.
++    started: AtomicBool,
++}
++
++impl VblankTimer {
++    fn new() -> impl PinInit<Self> {
++        pin_init!(VblankTimer {
++            timer <- HrTimer::new(),
++            crtc: AtomicPtr::new(core::ptr::null_mut()),
++            interval_ns: AtomicI64::new(16_666_666), // ~60 Hz until a mode sets it
++            enabled: AtomicBool::new(false),
++            started: AtomicBool::new(false),
++        })
++    }
++}
++
++impl HrTimerCallback for VblankTimer {
++    type Pointer<'a> = Arc<Self>;
++
++    fn run(this: ArcBorrow<'_, Self>, mut ctx: HrTimerCallbackContext<'_, Self>) -> HrTimerRestart {
++        let crtc = this.crtc.load(Ordering::Relaxed);
++        if !crtc.is_null() && this.enabled.load(Ordering::Relaxed) {
++            // SAFETY: `crtc` is the `drm_crtc` stored in `enable_vblank` while the device is live;
++            // the timer is cancelled (its handle dropped) before the crtc is freed at teardown.
++            unsafe { bindings::drm_crtc_handle_vblank(crtc) };
++        }
++        let interval = this.interval_ns.load(Ordering::Relaxed).max(1_000_000);
++        ctx.forward_now(Delta::from_nanos(interval));
++        HrTimerRestart::Restart
++    }
++}
++
++impl_has_hr_timer! {
++    impl HasHrTimer<Self> for VblankTimer {
++        mode: RelativeMode<Monotonic>, field: self.timer
++    }
++}
++
++#[pin_data]
++pub(crate) struct EvdiCrtc {
++    /// The software vblank source for this CRTC.
++    vblank: Arc<VblankTimer>,
++    /// Keeps the timer running; dropping it (at CRTC teardown) cancels the timer.
++    #[pin]
++    vblank_handle: SpinLock<Option<ArcHrTimerHandle<VblankTimer>>>,
++}
++
++#[derive(Clone, Default)]
++pub(crate) struct EvdiCrtcState;
++
++impl crtc::DriverCrtcState for EvdiCrtcState {
++    type Crtc = EvdiCrtc;
++}
++
++#[vtable]
++impl crtc::DriverCrtc for EvdiCrtc {
++    type Args = ();
++    type Driver = EvdiDrmDriver;
++    type State = EvdiCrtcState;
++    type VblankImpl = Self;
++
++    fn new(
++        _device: &drm::Device<Self::Driver, drm::Uninit>,
++        _args: &(),
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(EvdiCrtc {
++            vblank: Arc::pin_init(VblankTimer::new(), GFP_KERNEL)?,
++            vblank_handle <- new_spinlock!(None),
++        })
++    }
++
++    /// Display turning on: enable vblank delivery, then tell the DLM client DPMS-on + the mode.
++    fn atomic_enable(commit: CrtcAtomicCommit<'_, Self>) {
++        let crtc = commit.crtc();
++        crtc.vblank_on();
++        let dev = crtc.drm_dev();
++        let data: &EvdiDrmData = dev;
++        let new = commit.take_new_state();
++        let mode = new.mode();
++        crate::painter::notify_dpms(data, dev, crate::painter::DPMS_ON);
++        crate::painter::notify_mode_changed(
++            data,
++            dev,
++            mode.hdisplay() as i32,
++            mode.vdisplay() as i32,
++            mode.vrefresh(),
++            32,
++            DRM_FORMAT_XRGB8888,
++        );
++    }
++
++    /// Display turning off: stop vblank delivery and tell the DLM client DPMS-off.
++    fn atomic_disable(commit: CrtcAtomicCommit<'_, Self>) {
++        let crtc = commit.crtc();
++        crtc.vblank_off();
++        let dev = crtc.drm_dev();
++        let data: &EvdiDrmData = dev;
++        crate::painter::notify_dpms(data, dev, crate::painter::DPMS_OFF);
++    }
++
++    /// Arm the page-flip completion event to be sent by the next vblank tick, so userspace is paced
++    /// to the refresh rate rather than signalled immediately.
++    fn atomic_flush(commit: CrtcAtomicCommit<'_, Self>) {
++        let crtc = commit.crtc();
++        let mut new = commit.take_new_state();
++        if let Some(pending) = new.get_pending_vblank_event() {
++            match crtc.vblank_get() {
++                Ok(vbl_ref) => pending.arm(vbl_ref),
++                // Vblank couldn't be enabled (e.g. mid-teardown): fall back to sending now.
++                Err(_) => pending.send(),
++            }
++        }
++    }
++}
++
++impl VblankSupport for EvdiCrtc {
++    type Crtc = EvdiCrtc;
++
++    fn enable_vblank(
++        crtc: &crtc::Crtc<Self::Crtc>,
++        vblank_guard: &VblankGuard<'_, Self::Crtc>,
++        _irq: &LocalInterruptDisabled,
++    ) -> Result {
++        let data: &EvdiCrtc = crtc;
++        // Track the mode's real frame duration so the tick matches the negotiated refresh rate.
++        let fd = vblank_guard.frame_duration();
++        if fd > 0 {
++            data.vblank.interval_ns.store(fd as i64, Ordering::Relaxed);
++        }
++        data.vblank.crtc.store(crtc.as_raw(), Ordering::Relaxed);
++        data.vblank.enabled.store(true, Ordering::Relaxed);
++        // Start the free-running timer the first time vblank is enabled.
++        if !data.vblank.started.swap(true, Ordering::Relaxed) {
++            let interval = data.vblank.interval_ns.load(Ordering::Relaxed);
++            let handle = data.vblank.clone().start(Delta::from_nanos(interval));
++            *data.vblank_handle.lock() = Some(handle);
++        }
++        Ok(())
++    }
++
++    fn disable_vblank(
++        crtc: &crtc::Crtc<Self::Crtc>,
++        _vblank_guard: &VblankGuard<'_, Self::Crtc>,
++        _irq: &LocalInterruptDisabled,
++    ) {
++        let data: &EvdiCrtc = crtc;
++        data.vblank.enabled.store(false, Ordering::Relaxed);
++    }
++
++    fn get_vblank_timestamp(
++        _crtc: &crtc::Crtc<Self::Crtc>,
++        _in_vblank_irq: bool,
++    ) -> Option<VblankTimestamp> {
++        // Let DRM estimate the timestamp from the mode timings.
++        None
++    }
++}
++
++// ---- Planes (primary + cursor) ----------------------------------------------
++//
++// The safe KMS layer allows a single `DriverPlane` type per driver, so one `EvdiPlane` type serves
++// both the primary and cursor planes, told apart by `is_cursor` (set from the plane's `Args`).
++
++#[pin_data]
++pub(crate) struct EvdiPlane {
++    /// Whether this is the cursor plane (vs. the primary scanout plane).
++    is_cursor: bool,
++}
++
++#[derive(Clone, Default)]
++pub(crate) struct EvdiPlaneState;
++
++impl plane::DriverPlaneState for EvdiPlaneState {
++    type Plane = EvdiPlane;
++}
++
++#[vtable]
++impl plane::DriverPlane for EvdiPlane {
++    type Args = bool;
++    type Driver = EvdiDrmDriver;
++    type State = EvdiPlaneState;
++
++    fn new(
++        _device: &drm::Device<Self::Driver, drm::Uninit>,
++        is_cursor: bool,
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(EvdiPlane { is_cursor })
++    }
++
++    /// A new framebuffer was flipped in.
++    ///
++    /// For the primary plane, EVDI records the new scanout buffer and signals the DLM client to
++    /// grab it (UPDATE_READY). For the cursor plane it forwards the cursor position (CURSOR_MOVE)
++    /// and, when the bitmap changes, its geometry + a GEM handle the client can map (CURSOR_SET) --
++    /// the DisplayLink daemon composites the cursor itself.
++    fn atomic_update(commit: PlaneAtomicCommit<'_, Self>) {
++        let plane = commit.plane();
++        let dev = plane.drm_dev();
++        let data: &EvdiDrmData = dev;
++
++        if !plane.is_cursor {
++            // Primary: record the new scanout buffer plus each region the compositor changed
++            // (`for_each_damage_clip`, relative to the old state), accumulate them for GRABPIX, and
++            // signal the client. UPDATE_READY fires on every real flip so updates propagate; the
++            // busy-loop is avoided by *not* re-signalling from REQUEST_UPDATE. Reporting the exact
++            // changed rectangles lets DLM transmit small deltas instead of the whole 2560x1440 frame.
++            let (old, new) = commit.take_old_new_state();
++            let fb = new.framebuffer::<EvdiDrmDriver>();
++            data.set_scanout(fb);
++            if fb.is_some() {
++                {
++                    let mut p = data.painter.lock();
++                    new.for_each_damage_clip(old, |r| p.damage.push((r.x1, r.y1, r.x2, r.y2)));
++                    p.frame_dirty = true;
++                }
++                crate::painter::notify_update_ready(data, dev);
++            }
++            return;
++        }
++
++        // Cursor: only forward events if the client asked for them.
++        let new = commit.take_new_state();
++        if !data.painter.lock().cursor_events_enabled {
++            return;
++        }
++        crate::painter::notify_cursor_move(data, dev, new.crtc_x(), new.crtc_y());
++        match new.framebuffer::<EvdiDrmDriver>() {
++            Some(fb) => {
++                // Create a handle to the cursor bitmap in the connected client's file so the daemon
++                // can map it (may sleep; runs under the event channel's receiver mutex).
++                let handle = match data
++                    .events
++                    .with_receiver::<EvdiDrmFile, _>(|file| fb.create_handle(file))
++                {
++                    Some(Ok(h)) => h,
++                    _ => 0,
++                };
++                crate::painter::notify_cursor_set(
++                    data,
++                    dev,
++                    new.hotspot_x(),
++                    new.hotspot_y(),
++                    fb.width(),
++                    fb.height(),
++                    handle != 0,
++                    handle,
++                    fb.height() * fb.pitch(0),
++                    fb.format(),
++                    fb.pitch(0),
++                );
++            }
++            // Cursor disabled (no framebuffer): tell the client to hide it.
++            None => crate::painter::notify_cursor_set(data, dev, 0, 0, 0, 0, false, 0, 0, 0, 0),
++        }
++    }
++}
++
++// ---- Encoder ----------------------------------------------------------------
++
++#[pin_data]
++pub(crate) struct EvdiEncoder;
++
++#[vtable]
++impl encoder::DriverEncoder for EvdiEncoder {
++    type Driver = EvdiDrmDriver;
++    type Args = ();
++
++    fn new(
++        _device: &drm::Device<Self::Driver, drm::Uninit>,
++        _args: (),
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(EvdiEncoder {})
++    }
++}
++
++// ---- Connector --------------------------------------------------------------
++
++#[pin_data]
++pub(crate) struct EvdiConnector {
++    /// EDID delivered by the DLM client through CONNECT (`None` until connected).
++    #[pin]
++    pub(crate) cached_edid: Mutex<Option<KVec<u8>>>,
++}
++
++#[derive(Clone, Default)]
++pub(crate) struct EvdiConnectorState;
++
++impl connector::DriverConnectorState for EvdiConnectorState {
++    type Connector = EvdiConnector;
++}
++
++#[vtable]
++impl connector::DriverConnector for EvdiConnector {
++    type Args = ();
++    type Driver = EvdiDrmDriver;
++    type State = EvdiConnectorState;
++
++    fn new(
++        _device: &drm::Device<Self::Driver, drm::Uninit>,
++        _args: (),
++    ) -> impl PinInit<Self, Error> {
++        try_pin_init!(EvdiConnector {
++            cached_edid <- new_mutex!(Option::<KVec<u8>>::None),
++        })
++    }
++
++    /// Install the DLM-provided EDID when present, else advertise a fallback mode list so
++    /// the connector stays usable before CONNECT.
++    fn get_modes<'a>(
++        connector: ConnectorGuard<'a, Self>,
++        guard: &ModeConfigGuard<'a, Self::Driver>,
++    ) -> i32 {
++        if let Some(blob) = connector.cached_edid.lock().as_ref() {
++            let n = connector.add_edid_modes(blob);
++            if n > 0 {
++                return n;
++            }
++        }
++        let _ = guard;
++        let n = connector.add_modes_noedid((FALLBACK_W, FALLBACK_H));
++        connector.set_preferred_mode((FALLBACK_W, FALLBACK_H));
++        n
++    }
++
++    /// Report the display as connected only once the DLM client has delivered an EDID (via CONNECT).
++    /// Advertising the fallback mode as "connected" before the real EDID arrives makes the
++    /// compositor configure the output at the wrong resolution and then reconfigure/disable it when
++    /// the EDID (and native modes) show up -- which manifested as the dock output freezing on its
++    /// first frame. This mirrors the C evdi's disconnected-until-EDID hotplug sequencing.
++    fn detect(connector: &connector::Connector<Self>, _force: bool) -> connector::Status {
++        if connector.cached_edid.lock().is_some() {
++            connector::Status::Connected
++        } else {
++            connector::Status::Disconnected
++        }
++    }
++}
+diff --git a/drivers/gpu/drm/evdi/painter.rs b/drivers/gpu/drm/evdi/painter.rs
+new file mode 100644
+index 000000000000..33208cd51a1c
+--- /dev/null
++++ b/drivers/gpu/drm/evdi/painter.rs
+@@ -0,0 +1,199 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// The EVDI "painter": the per-device connection + event-delivery bookkeeping that
++// bridges the KMS callbacks (and ioctls) to the DisplayLinkManager userspace client.
++//
++// Events are delivered through the DRM-core `drm_event` mechanism (the safe
++// `kernel::drm::event::EventChannel` binding), which serializes delivery against file
++// close under `event_lock` — so an event can never be sent to a client that has just
++// disconnected.
++
++use kernel::drm::event::EventPayload;
++
++use crate::kms::{EvdiDrmData, EvdiDrmDevice};
++use crate::uapi;
++
++/// DPMS mode codes as understood by the DLM client (matching `DRM_MODE_DPMS_*`).
++pub(crate) const DPMS_ON: i32 = 0;
++pub(crate) const DPMS_OFF: i32 = 3;
++
++/// Mutable per-device painter state, guarded by a mutex in [`EvdiDrmData`].
++///
++/// The connected client's EDID is the connector's `cached_edid` (the source of truth for the mode
++/// list), so it is not duplicated here.
++pub(crate) struct PainterState {
++    /// Whether a DLM client has issued CONNECT.
++    pub(crate) connected: bool,
++    /// Whether the client asked to receive cursor events.
++    pub(crate) cursor_events_enabled: bool,
++    /// A frame has been flipped in but not yet grabbed (the C evdi's `num_dirts > 0`). Lets
++    /// REQUEST_UPDATE answer "grab now" (ioctl returns 1) when fresh pixels are already waiting,
++    /// instead of self-triggering an UPDATE_READY event (which busy-loops the client).
++    pub(crate) frame_dirty: bool,
++    /// The individual regions changed since the last GRABPIX, accumulated across flips. GRABPIX
++    /// reports and copies exactly these rectangles (so DLM transmits just the deltas rather than the
++    /// whole 2560x1440 frame), then clears them.
++    pub(crate) damage: Damage,
++}
++
++/// Maximum number of distinct damage rectangles tracked between grabs (mirrors the C evdi's
++/// `MAX_DIRTS`); on overflow they collapse into a single bounding box.
++pub(crate) const MAX_DAMAGE_RECTS: usize = 16;
++
++/// Accumulated frame damage: up to [`MAX_DAMAGE_RECTS`] changed rectangles `(x1, y1, x2, y2)` since
++/// the last GRABPIX. `count == 0` means nothing was recorded (GRABPIX falls back to a full frame).
++#[derive(Copy, Clone)]
++pub(crate) struct Damage {
++    pub(crate) rects: [(i32, i32, i32, i32); MAX_DAMAGE_RECTS],
++    pub(crate) count: usize,
++}
++
++impl Damage {
++    pub(crate) const fn new() -> Self {
++        Self {
++            rects: [(0, 0, 0, 0); MAX_DAMAGE_RECTS],
++            count: 0,
++        }
++    }
++
++    /// Record a changed rectangle. When the list is full, collapse everything (including `r`) into a
++    /// single bounding box so a burst of damage never drops updates -- it just gets coarser.
++    pub(crate) fn push(&mut self, r: (i32, i32, i32, i32)) {
++        if self.count < MAX_DAMAGE_RECTS {
++            self.rects[self.count] = r;
++            self.count += 1;
++            return;
++        }
++        let mut bb = r;
++        for i in 0..self.count {
++            let (x1, y1, x2, y2) = self.rects[i];
++            bb = (bb.0.min(x1), bb.1.min(y1), bb.2.max(x2), bb.3.max(y2));
++        }
++        self.rects[0] = bb;
++        self.count = 1;
++    }
++
++    pub(crate) fn clear(&mut self) {
++        self.count = 0;
++    }
++}
++
++impl PainterState {
++    pub(crate) fn new() -> Self {
++        Self {
++            connected: false,
++            cursor_events_enabled: false,
++            frame_dirty: false,
++            damage: Damage::new(),
++        }
++    }
++}
++
++// SAFETY: each of these event structs is `#[repr(C)]` with a `drm_event`-layout header
++// (`uapi::DrmEvent`, identical to `bindings::drm_event`) as its first field, is `Copy`
++// plain-old-data, and is copied verbatim to userspace. See `uapi.rs`.
++unsafe impl EventPayload for uapi::DrmEvdiEventUpdateReady {
++    const TYPE: u32 = uapi::DRM_EVDI_EVENT_UPDATE_READY;
++}
++// SAFETY: See above.
++unsafe impl EventPayload for uapi::DrmEvdiEventDpms {
++    const TYPE: u32 = uapi::DRM_EVDI_EVENT_DPMS;
++}
++// SAFETY: See above.
++unsafe impl EventPayload for uapi::DrmEvdiEventModeChanged {
++    const TYPE: u32 = uapi::DRM_EVDI_EVENT_MODE_CHANGED;
++}
++// SAFETY: See above.
++unsafe impl EventPayload for uapi::DrmEvdiEventCrtcState {
++    const TYPE: u32 = uapi::DRM_EVDI_EVENT_CRTC_STATE;
++}
++// SAFETY: See above.
++unsafe impl EventPayload for uapi::DrmEvdiEventCursorSet {
++    const TYPE: u32 = uapi::DRM_EVDI_EVENT_CURSOR_SET;
++}
++// SAFETY: See above.
++unsafe impl EventPayload for uapi::DrmEvdiEventCursorMove {
++    const TYPE: u32 = uapi::DRM_EVDI_EVENT_CURSOR_MOVE;
++}
++// SAFETY: See above.
++unsafe impl EventPayload for uapi::DrmEvdiEventDdcciData {
++    const TYPE: u32 = uapi::DRM_EVDI_EVENT_DDCCI_DATA;
++}
++
++/// Zeroed `drm_event` header; [`EventChannel::send`] overwrites `type`/`length`.
++const fn hdr() -> uapi::DrmEvent {
++    uapi::DrmEvent {
++        type_: 0,
++        length: 0,
++    }
++}
++
++/// Tell the DLM client a fresh frame is ready to be grabbed (`UPDATE_READY`).
++pub(crate) fn notify_update_ready(data: &EvdiDrmData, dev: &EvdiDrmDevice) {
++    let ev = uapi::DrmEvdiEventUpdateReady { base: hdr() };
++    let _ = data.events.send(dev, ev);
++}
++
++/// Tell the DLM client the display's DPMS power state changed.
++pub(crate) fn notify_dpms(data: &EvdiDrmData, dev: &EvdiDrmDevice, mode: i32) {
++    let ev = uapi::DrmEvdiEventDpms { base: hdr(), mode };
++    let _ = data.events.send(dev, ev);
++}
++
++/// Tell the DLM client the cursor moved to `(x, y)`.
++pub(crate) fn notify_cursor_move(data: &EvdiDrmData, dev: &EvdiDrmDevice, x: i32, y: i32) {
++    let ev = uapi::DrmEvdiEventCursorMove { base: hdr(), x, y };
++    let _ = data.events.send(dev, ev);
++}
++
++/// Tell the DLM client the cursor bitmap/geometry changed. `buffer_handle` is a GEM handle to the
++/// cursor bitmap in the client's file (0 = no bitmap / cursor hidden).
++#[allow(clippy::too_many_arguments)]
++pub(crate) fn notify_cursor_set(
++    data: &EvdiDrmData,
++    dev: &EvdiDrmDevice,
++    hot_x: i32,
++    hot_y: i32,
++    width: u32,
++    height: u32,
++    enabled: bool,
++    buffer_handle: u32,
++    buffer_length: u32,
++    pixel_format: u32,
++    stride: u32,
++) {
++    let ev = uapi::DrmEvdiEventCursorSet {
++        base: hdr(),
++        hot_x,
++        hot_y,
++        width,
++        height,
++        enabled: enabled as u8,
++        buffer_handle,
++        buffer_length,
++        pixel_format,
++        stride,
++    };
++    let _ = data.events.send(dev, ev);
++}
++
++/// Tell the DLM client the negotiated mode changed.
++pub(crate) fn notify_mode_changed(
++    data: &EvdiDrmData,
++    dev: &EvdiDrmDevice,
++    hdisplay: i32,
++    vdisplay: i32,
++    vrefresh: i32,
++    bits_per_pixel: i32,
++    pixel_format: u32,
++) {
++    let ev = uapi::DrmEvdiEventModeChanged {
++        base: hdr(),
++        hdisplay,
++        vdisplay,
++        vrefresh,
++        bits_per_pixel,
++        pixel_format,
++    };
++    let _ = data.events.send(dev, ev);
++}
+diff --git a/drivers/gpu/drm/evdi/uapi.rs b/drivers/gpu/drm/evdi/uapi.rs
+new file mode 100644
+index 000000000000..75b245f20d9b
+--- /dev/null
++++ b/drivers/gpu/drm/evdi/uapi.rs
+@@ -0,0 +1,210 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// Userspace ABI for the EVDI DRM driver.
++//
++// This is a byte-for-byte Rust mirror of the C uAPI header
++// `evdi/module/evdi_drm.h` (DisplayLink (UK) Ltd.). It is reproduced here rather
++// than pulled from `kernel::uapi` because EVDI is an out-of-tree driver with its
++// own private ioctl range; the struct layouts and ioctl numbers MUST stay
++// identical to the C module so existing userspace (libevdi / DisplayLinkManager)
++// keeps working unchanged.
++//
++// Every structure is `#[repr(C)]`; user pointers are represented as `usize` so the
++// native (LP64/ILP32) ABI width matches the C `T __user *` exactly. Compile-time
++// assertions at the bottom pin each `size_of` to the value the C ABI produces.
++
++#![allow(dead_code)]
++
++use kernel::drm::ioctl::{IO, IOWR};
++
++/// DRM driver-private ioctl base (`DRM_COMMAND_BASE`).
++pub(crate) const DRM_COMMAND_BASE: u32 = 0x40;
++
++// --- Output event type codes (driver -> libevdi), `drm_event::type` values. ---
++pub(crate) const DRM_EVDI_EVENT_UPDATE_READY: u32 = 0x8000_0000;
++pub(crate) const DRM_EVDI_EVENT_DPMS: u32 = 0x8000_0001;
++pub(crate) const DRM_EVDI_EVENT_MODE_CHANGED: u32 = 0x8000_0002;
++pub(crate) const DRM_EVDI_EVENT_CRTC_STATE: u32 = 0x8000_0003;
++pub(crate) const DRM_EVDI_EVENT_CURSOR_SET: u32 = 0x8000_0004;
++pub(crate) const DRM_EVDI_EVENT_CURSOR_MOVE: u32 = 0x8000_0005;
++pub(crate) const DRM_EVDI_EVENT_DDCCI_DATA: u32 = 0x8000_0006;
++
++/// Fixed DDC/CI payload size carried by [`DrmEvdiEventDdcciData`].
++pub(crate) const DDCCI_BUFFER_SIZE: usize = 64;
++
++/// `struct drm_event` — the common header every DRM event starts with.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvent {
++    pub type_: u32,
++    pub length: u32,
++}
++
++/// `struct drm_evdi_event_update_ready`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEventUpdateReady {
++    pub base: DrmEvent,
++}
++
++/// `struct drm_evdi_event_dpms`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEventDpms {
++    pub base: DrmEvent,
++    pub mode: i32,
++}
++
++/// `struct drm_evdi_event_mode_changed`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEventModeChanged {
++    pub base: DrmEvent,
++    pub hdisplay: i32,
++    pub vdisplay: i32,
++    pub vrefresh: i32,
++    pub bits_per_pixel: i32,
++    pub pixel_format: u32,
++}
++
++/// `struct drm_evdi_event_crtc_state`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEventCrtcState {
++    pub base: DrmEvent,
++    pub state: i32,
++}
++
++/// `struct drm_evdi_event_cursor_set`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEventCursorSet {
++    pub base: DrmEvent,
++    pub hot_x: i32,
++    pub hot_y: i32,
++    pub width: u32,
++    pub height: u32,
++    pub enabled: u8,
++    pub buffer_handle: u32,
++    pub buffer_length: u32,
++    pub pixel_format: u32,
++    pub stride: u32,
++}
++
++/// `struct drm_evdi_event_cursor_move`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEventCursorMove {
++    pub base: DrmEvent,
++    pub x: i32,
++    pub y: i32,
++}
++
++/// `struct drm_evdi_event_ddcci_data`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEventDdcciData {
++    pub base: DrmEvent,
++    pub buffer: [u8; DDCCI_BUFFER_SIZE],
++    pub buffer_length: u32,
++    pub flags: u16,
++    pub address: u16,
++}
++
++// --- Input ioctl argument structures (libevdi -> driver). ---
++
++/// `struct drm_evdi_connect`. `edid` is a `const unsigned char __user *`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiConnect {
++    pub connected: i32,
++    pub dev_index: i32,
++    pub edid: usize,
++    pub edid_length: u32,
++    pub pixel_area_limit: u32,
++    pub pixel_per_second_limit: u32,
++}
++
++/// `struct drm_evdi_request_update`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiRequestUpdate {
++    pub reserved: i32,
++}
++
++/// `enum drm_evdi_grabpix_mode` (C `int`).
++pub(crate) const EVDI_GRABPIX_MODE_RECTS: i32 = 0;
++pub(crate) const EVDI_GRABPIX_MODE_DIRTY: i32 = 1;
++
++/// `struct drm_evdi_grabpix`. `buffer` and `rects` are `__user` pointers.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiGrabpix {
++    pub mode: i32,
++    pub buf_width: i32,
++    pub buf_height: i32,
++    pub buf_byte_stride: i32,
++    pub buffer: usize,
++    pub num_rects: i32,
++    pub rects: usize,
++}
++
++/// `struct drm_evdi_ddcci_response`. `buffer` is a `const unsigned char __user *`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiDdcciResponse {
++    pub buffer: usize,
++    pub buffer_length: u32,
++    pub result: u8,
++}
++
++/// `struct drm_evdi_enable_cursor_events`.
++#[repr(C)]
++#[derive(Copy, Clone)]
++pub(crate) struct DrmEvdiEnableCursorEvents {
++    pub base: DrmEvent,
++    pub enable: u8,
++}
++
++// --- Input ioctl command numbers (`DRM_IOCTL_EVDI_*`). ---
++pub(crate) const DRM_EVDI_CONNECT: u32 = 0x00;
++pub(crate) const DRM_EVDI_REQUEST_UPDATE: u32 = 0x01;
++pub(crate) const DRM_EVDI_GRABPIX: u32 = 0x02;
++pub(crate) const DRM_EVDI_DDCCI_RESPONSE: u32 = 0x03;
++pub(crate) const DRM_EVDI_ENABLE_CURSOR_EVENTS: u32 = 0x04;
++
++/// `DRM_IOCTL_EVDI_CONNECT`.
++pub(crate) const DRM_IOCTL_EVDI_CONNECT: u32 =
++    IOWR::<DrmEvdiConnect>(DRM_COMMAND_BASE + DRM_EVDI_CONNECT);
++/// `DRM_IOCTL_EVDI_REQUEST_UPDATE`.
++pub(crate) const DRM_IOCTL_EVDI_REQUEST_UPDATE: u32 =
++    IOWR::<DrmEvdiRequestUpdate>(DRM_COMMAND_BASE + DRM_EVDI_REQUEST_UPDATE);
++/// `DRM_IOCTL_EVDI_GRABPIX`.
++pub(crate) const DRM_IOCTL_EVDI_GRABPIX: u32 =
++    IOWR::<DrmEvdiGrabpix>(DRM_COMMAND_BASE + DRM_EVDI_GRABPIX);
++/// `DRM_IOCTL_EVDI_DDCCI_RESPONSE`.
++pub(crate) const DRM_IOCTL_EVDI_DDCCI_RESPONSE: u32 =
++    IOWR::<DrmEvdiDdcciResponse>(DRM_COMMAND_BASE + DRM_EVDI_DDCCI_RESPONSE);
++/// `DRM_IOCTL_EVDI_ENABLE_CURSOR_EVENTS`.
++pub(crate) const DRM_IOCTL_EVDI_ENABLE_CURSOR_EVENTS: u32 =
++    IOWR::<DrmEvdiEnableCursorEvents>(DRM_COMMAND_BASE + DRM_EVDI_ENABLE_CURSOR_EVENTS);
++
++// Silence unused-import warnings until the no-arg `IO` helper is needed.
++const _: fn(u32) -> u32 = IO;
++
++// --- ABI size assertions: these must match the C `sizeof` on LP64. ---
++const _: () = {
++    assert!(core::mem::size_of::<DrmEvent>() == 8);
++    assert!(core::mem::size_of::<DrmEvdiEventUpdateReady>() == 8);
++    assert!(core::mem::size_of::<DrmEvdiEventDpms>() == 12);
++    assert!(core::mem::size_of::<DrmEvdiEventModeChanged>() == 28);
++    assert!(core::mem::size_of::<DrmEvdiEventCrtcState>() == 12);
++    assert!(core::mem::size_of::<DrmEvdiEventCursorSet>() == 44);
++    assert!(core::mem::size_of::<DrmEvdiEventCursorMove>() == 16);
++    assert!(core::mem::size_of::<DrmEvdiEventDdcciData>() == 80);
++    assert!(core::mem::size_of::<DrmEvdiConnect>() == 32);
++    assert!(core::mem::size_of::<DrmEvdiRequestUpdate>() == 4);
++    assert!(core::mem::size_of::<DrmEvdiGrabpix>() == 40);
++    assert!(core::mem::size_of::<DrmEvdiDdcciResponse>() == 16);
++    assert!(core::mem::size_of::<DrmEvdiEnableCursorEvents>() == 12);
++};
 -- 
 2.55.0
 
