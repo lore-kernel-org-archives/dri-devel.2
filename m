@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72EADC43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3993C44500
 	for <dri-devel@archiver.kernel.org>; Fri,  3 Jul 2026 16:33:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE7AA10F85D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC8A210F85F;
 	Fri,  3 Jul 2026 16:33:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="LDYkhNss";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="gNvHndL7";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC8C910F85D;
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE7310F85E;
  Fri,  3 Jul 2026 16:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1783096373; x=1783701173; i=natalie.vock@gmx.de;
- bh=xOOSoXBcUIpMWrq9bo8sEHTYj/nflFxZLXV27AQqy+o=;
+ s=s31663417; t=1783096374; x=1783701174; i=natalie.vock@gmx.de;
+ bh=PfQns9PekZetmqhbMwMpfZqx0qE0XMmZ6d8JAN1PRrg=;
  h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  cc:content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=LDYkhNssmOtZ9W67tItEnQM5fHptVdHznwTg1z2qRitZQspGSbFiN2YDapwjODfU
- VgJGpkj5zMKwbpQJP+ktb4ZhNsix7S1hwathMAKQb2gWb19peM/UsXa7O3S3/afNe
- WKZZyIS/xONU7VC3PpgArZ/nbnKj64UhdXHvsT5HQ1kgZQLr9icUgik2MPfq1ublF
- QSP8AlmRJveYP1EgupwFxRAxMzblJqcfYBgePrXXDIcGOc5cOMl+cAJ4riI5/vp9s
- BOGcFHFYFe1y2xiyDn+IWNl9m38EFo8t8rxFRziy698DD1yrptuZ9GxbI8FdlJ9fk
- uzPqGVnCNRZcQimHUg==
+ b=gNvHndL7q5GL0uKeb+a+Ezewtf2ExR8RGKtew2Z+JvA3dWtlnR89F8bIzSUZzXl2
+ 7IV96LphC2DoGXDrA7TMAtUBZekH5488/+BgaovkCMpiR8JzSYgq37WY8uG8atgRw
+ N1lSfvG2WGi0DVzgwzwHCjI81ZSnW35h0out5c1fGcmgg6vUs//sqCMj3MAESGWBB
+ mMwifgUuEjSZerg0jxT1D3G6l4azENftaUzKTMKzHtALwOSrVWws/AlijhHTG/meE
+ I/Nu8/ABS/eKmNmA4OahXMqgCz5XVT8NhFDa/AKGjVZK4xgurUDLpNRe6mcCcyH6V
+ ApBbyGoodL9DqJI+9g==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MPogF-1wRcLH3MCh-00OdiX; Fri, 03
- Jul 2026 18:32:52 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MeU4y-1xDe7u2dCG-00d82E; Fri, 03
+ Jul 2026 18:32:54 +0200
 From: Natalie Vock <natalie.vock@gmx.de>
-Date: Fri, 03 Jul 2026 18:31:27 +0200
-Subject: [PATCH 07/10] drm/ttm: use ttm_bo_lru_for_each_reserved_guarded in
- evict_all
+Date: Fri, 03 Jul 2026 18:31:29 +0200
+Subject: [PATCH 09/10] drm/ttm: support using drm_exec during eviction v4
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20260703-ttm_2_drm_exec-v1-7-43685ac1286b@gmx.de>
+Message-Id: <20260703-ttm_2_drm_exec-v1-9-43685ac1286b@gmx.de>
 References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
 In-Reply-To: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -58,90 +57,89 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Provags-ID: V03:K1:Ucybho/MTbEhxXbGuuLrFGnWRiCur9kOTF8QXeWxEJ6UOEHV+6S
- W06+4Y+pUOw1NpIkC32XccQMNaw/T6/cMhQAPwDogR0wZ3XA5LbAvkgsUtUsdljeA3lNmgV
- 89IMkADp8rgeelQyhJFX7ScR3KcUjAK7Rq9KqrSMh5Hzwdyf50Wjmmqjz5xDtfhOrnsSVwT
- fx4u0InjIMWevNzzc9dNg==
-UI-OutboundReport: notjunk:1;M01:P0:oYP1kOAtIXw=;VPngoamtV4cRQso9I0ZI7/5evyE
- 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
- DDKcDzS2lKtgb2j0wY=
+X-Provags-ID: V03:K1:db61SuE4mS6aMWKG0dXRcbUZi7owPea5RswFJOmxvQgC1Csj/mL
+ 3a+/Ea1unC27hVBanPGDIXmGrDQVIami+Id7z1/AC0eur4OkY/RW5jr4dQ62ZfkDHpjXPz3
+ fZJAkGzowz17pxUH9l66YqsIGlmiucW331wD7toqft7sX5RhobABRtrp9Jkg/SvEX3/yso7
+ kYAo4m4Sd8FGKQ9QcsPSg==
+UI-OutboundReport: notjunk:1;M01:P0:46tbzE7nlQQ=;2DgazXOsOIBhOv+zamY2zSdXhL6
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,146 +157,123 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Use the for_each loop to evict all BOs of an resource manager as well.
+Allow specifying a drm_exec object in TTMs operation context which is
+used to lock objects during eviction.
 
-Greately simplifying the handling and finally allows us to
-remove ttm_bo_evict_first().
+This allows to handle deadlocks much more gracefully and with that
+avoid returning -ENOMEM on heavily contended domains.
+
+v2: rebased on top of Thomas work
+v3: rebased again
+v4: rebased, fixed locks of already-reserved buffers being dropped
 
 Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 =2D--
- drivers/gpu/drm/ttm/ttm_bo.c       | 51 +--------------------------------=
-=2D----
- drivers/gpu/drm/ttm/ttm_resource.c | 22 ++++++++++------
- include/drm/ttm/ttm_bo.h           |  1 +
- 3 files changed, 17 insertions(+), 57 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo_util.c | 30 ++++++++++++++++++++++--------
+ include/drm/ttm/ttm_bo.h          |  5 +++++
+ 2 files changed, 27 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 54f01611ec823..80933ba6aada9 100644
-=2D-- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -351,8 +351,7 @@ static int ttm_bo_bounce_temp_buffer(struct ttm_buffer=
-_object *bo,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_b=
+o_util.c
+index a53b25e8c2967..96699532817c2 100644
+=2D-- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -38,6 +38,7 @@
+ #include <drm/ttm/ttm_tt.h>
 =20
--static int ttm_bo_evict(struct ttm_buffer_object *bo,
--			struct ttm_operation_ctx *ctx)
-+int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *=
-ctx)
+ #include <drm/drm_cache.h>
++#include <drm/drm_exec.h>
+=20
+ #include "ttm_bo_internal.h"
+=20
+@@ -837,6 +838,8 @@ static bool ttm_lru_walk_trylock(struct ttm_bo_lru_cur=
+sor *curs,
+ 	struct ttm_operation_ctx *ctx =3D curs->arg->ctx;
+=20
+ 	curs->needs_unlock =3D false;
++	if (ctx->exec)
++		return false;
+=20
+ 	if (dma_resv_trylock(bo->base.resv)) {
+ 		curs->needs_unlock =3D true;
+@@ -857,7 +860,9 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_c=
+ursor *curs,
+ 	struct ttm_lru_walk_arg *arg =3D curs->arg;
+ 	int ret;
+=20
+-	if (arg->ctx->interruptible)
++	if (arg->ctx->exec)
++		ret =3D drm_exec_lock_obj_report_dup(arg->ctx->exec, &bo->base);
++	else if (arg->ctx->interruptible)
+ 		ret =3D dma_resv_lock_interruptible(bo->base.resv, arg->ticket);
+ 	else
+ 		ret =3D dma_resv_lock(bo->base.resv, arg->ticket);
+@@ -871,7 +876,11 @@ static int ttm_lru_walk_ticketlock(struct ttm_bo_lru_=
+cursor *curs,
+ 		 * trylocking for this walk.
+ 		 */
+ 		arg->ticket =3D NULL;
+-	} else if (ret =3D=3D -EDEADLK) {
++
++	} else if (arg->ctx->exec && arg->ctx->allow_res_evict &&
++		   ret =3D=3D -EALREADY) {
++		ret =3D 0;
++	} else if (!arg->ctx->exec && ret =3D=3D -EDEADLK) {
+ 		/* Caller needs to exit the ww transaction. */
+ 		ret =3D -ENOSPC;
+ 	}
+@@ -937,12 +946,17 @@ static void ttm_bo_lru_cursor_cleanup_bo(struct ttm_=
+bo_lru_cursor *curs)
  {
- 	struct ttm_resource *evict_mem;
- 	struct ttm_placement placement;
-@@ -437,54 +436,6 @@ bool ttm_bo_eviction_valuable(struct ttm_buffer_objec=
-t *bo,
- }
- EXPORT_SYMBOL(ttm_bo_eviction_valuable);
+ 	struct ttm_buffer_object *bo =3D curs->bo;
 =20
--/**
-- * ttm_bo_evict_first() - Evict the first bo on the manager's LRU list.
-- * @bdev: The ttm device.
-- * @man: The manager whose bo to evict.
-- * @ctx: The TTM operation ctx governing the eviction.
-- *
-- * Return: 0 if successful or the resource disappeared. Negative error co=
-de on error.
-- */
--int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manag=
-er *man,
--		       struct ttm_operation_ctx *ctx)
--{
--	struct ttm_resource_cursor cursor;
--	struct ttm_buffer_object *bo;
--	struct ttm_resource *res;
--	unsigned int mem_type;
--	int ret =3D 0;
--
--	spin_lock(&bdev->lru_lock);
--	ttm_resource_cursor_init(&cursor, man);
--	res =3D ttm_resource_manager_first(&cursor);
--	ttm_resource_cursor_fini(&cursor);
--	if (!res) {
--		ret =3D -ENOENT;
--		goto out_no_ref;
--	}
--	bo =3D res->bo;
--	if (!ttm_bo_get_unless_zero(bo))
--		goto out_no_ref;
--	mem_type =3D res->mem_type;
--	spin_unlock(&bdev->lru_lock);
--	ret =3D ttm_bo_reserve(bo, ctx->interruptible, ctx->no_wait_gpu, NULL);
--	if (ret)
--		goto out_no_lock;
--	if (!bo->resource || bo->resource->mem_type !=3D mem_type)
--		goto out_bo_moved;
--
--	ret =3D ttm_bo_evict(bo, ctx);
--out_bo_moved:
--	dma_resv_unlock(bo->base.resv);
--out_no_lock:
--	ttm_bo_put(bo);
--	return ret;
--
--out_no_ref:
--	spin_unlock(&bdev->lru_lock);
--	return ret;
--}
--
+-	if (bo) {
+-		if (curs->needs_unlock)
++	if (!bo)
++		return;
++
++	if (curs->needs_unlock) {
++		if (curs->arg->ctx->exec)
++			drm_exec_unlock_obj(curs->arg->ctx->exec, &bo->base);
++		else
+ 			dma_resv_unlock(bo->base.resv);
+-		ttm_bo_put(bo);
+-		curs->bo =3D NULL;
+ 	}
++	ttm_bo_put(bo);
++	curs->bo =3D NULL;
+ }
+=20
  /**
-  * struct ttm_bo_evict_walk - Parameters for the evict walk.
-  */
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_=
-resource.c
-index 154d6739256f8..cf3fc3a594388 100644
-=2D-- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -561,17 +561,25 @@ EXPORT_SYMBOL(ttm_resource_manager_init);
- int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 				   struct ttm_resource_manager *man)
- {
--	struct ttm_operation_ctx ctx =3D { };
-+	struct ttm_bo_lru_cursor cursor;
-+	struct ttm_buffer_object *bo;
-+	struct ttm_operation_ctx ctx =3D {
-+		.interruptible =3D false,
-+		.no_wait_gpu =3D false,
-+	};
-+	struct ttm_lru_walk_arg arg =3D {
-+		.ctx =3D &ctx,
-+		.trylock_only =3D true
-+	};
- 	struct dma_fence *fence;
- 	int ret, i;
+@@ -1016,8 +1030,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *c=
+urs)
+ 		if (ttm_lru_walk_trylock(curs, bo)) {
+ 			bo_locked =3D true;
 =20
--	do {
--		ret =3D ttm_bo_evict_first(bdev, man, &ctx);
-+	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo) {
-+		ret =3D ttm_bo_evict(bo, &ctx);
-+		if (ret)
-+			return ret;
- 		cond_resched();
--	} while (!ret);
--
--	if (ret && ret !=3D -ENOENT)
--		return ret;
-+	}
-=20
- 	ret =3D 0;
-=20
+-		} else if (!arg->ticket || arg->ctx->no_wait_gpu ||
+-			   arg->trylock_only) {
++		} else if ((!arg->ticket || arg->ctx->no_wait_gpu ||
++			    arg->trylock_only) && !arg->ctx->exec) {
+ 			spin_unlock(lru_lock);
+ 			ttm_bo_put(bo);
+ 			spin_lock(lru_lock);
 diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index bbed63064c9a9..a4060e44d23d0 100644
+index a4060e44d23d0..156444b5e85d8 100644
 =2D-- a/include/drm/ttm/ttm_bo.h
 +++ b/include/drm/ttm/ttm_bo.h
-@@ -389,6 +389,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
- void ttm_bo_fini(struct ttm_buffer_object *bo);
- void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
- 			  struct ttm_lru_bulk_move *bulk);
-+int ttm_bo_evict(struct ttm_buffer_object *bo, struct ttm_operation_ctx *=
-ctx);
- bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 			      const struct ttm_place *place);
- int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_objec=
-t *bo,
+@@ -187,6 +187,11 @@ struct ttm_operation_ctx {
+ 	 * @bytes_moved: Statistics on how many bytes have been moved.
+ 	 */
+ 	uint64_t bytes_moved;
++	/**
++	 * @exec: optional drm_exec object to use for locking BOs and
++	 * tracking which are locked.
++	 */
++	struct drm_exec *exec;
+ };
+=20
+ /**
 
 =2D-=20
 2.55.0
