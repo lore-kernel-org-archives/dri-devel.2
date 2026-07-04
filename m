@@ -4,77 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246EEC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 12:11:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1E15C43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 12:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA8810E062;
-	Sat,  4 Jul 2026 12:11:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B52710E6BF;
+	Sat,  4 Jul 2026 12:15:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="goa+123w";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="s79843KM";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D618E10E062
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 12:11:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9667B10E6C1
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 12:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CTpvZVbUU9v1mSVDc0erQ7yDB/kzf93Bb5HL+Klgmks=; b=goa+123wSBfr4HLUohr6y7cuBG
- aZVhEZLQWmXk3bZl8PovFg4nF+Kxx6pAc2hagJyfLbmdf6x30WkW8hmOW85yVcF516WzeWYnqvEpu
- WOlPdi5eo0p3LiBZMcHPbV3EgAzPBo8bE2B8auaI9kKJN3hDLmJOPf0dJhiThFnCjJ4ugdDzeXv24
- vk4aLEDS18TkE+mwdljkUa62o1XS+1iPYSsUH59j/fYr/Z0d/yPVp4P1SNgUlwr9XcV3v1SQZ6FbR
- Dw4CtH18XOtsUh5gsdKgVLye/5GwUtrGiVC/lVot0QLC39SolvoVxotC+jW756/IT2fKRb3/8selL
- bCMY6JUg==;
-Received: from [189.7.87.67] (helo=[192.168.0.2])
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=+E4v1d5N8/A/atzqvxdUcaTEAx9Y5SbPsbMLr8Z3i9E=; b=s79843KMRcbkGdBoHA/JayMBA0
+ YmUYdmqAtVtE7vZCoNnD8Q8Tuz8pW6/d/5DSWF8i8V6Wditp6U+nlsIrF3OwISuOBhgcC3j6OEsNM
+ dcJFcAhQhYAFgCJ3fh6WgCP18wIgONn7Cpr6SF3ufob6PKAIXWL0L+f2/HXkVlwIKmvM6LVZHQYO4
+ gudbNI7gchPtG3zR892DmkA0H8pol+IrHF4c0CH/vo/Bm4HxpT16kQeIJ1gHm0jlpqUE0/Z10nyD2
+ 4O0x9AQe34QA/JHXJhbubJpimP/+3+28l8zYKEILuGVZKfEy+TGCNhmf3e/WO0jRTVKNDmPVJ26l7
+ x5ELT/8g==;
+Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wfzDF-008xAJ-KY; Sat, 04 Jul 2026 14:11:13 +0200
-Message-ID: <10d3d64a-0321-4223-8a56-d32a654297fd@igalia.com>
-Date: Sat, 4 Jul 2026 09:11:07 -0300
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wfzHe-008xDl-B9; Sat, 04 Jul 2026 14:15:46 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH v3 0/2] drm/v3d: Fix perfmon locking and cross-queue isolation
+Date: Sat, 04 Jul 2026 09:15:38 -0300
+Message-Id: <20260704-v3d-perfmon-lifetime-v3-0-fd26dfdc2153@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/v3d: bound CPU-job query writes to their
- destination BO
-To: Michael Bommarito <michael.bommarito@gmail.com>,
- Melissa Wen <mwen@igalia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260617125811.3692951-1-michael.bommarito@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260617125811.3692951-1-michael.bommarito@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ6CMBQE4KuQrq1pCyXFlfcwLgp9hZfwZ4uNh
+ nB3C8aoiS5nkvlmJh4cgieHZCYOAnoc+hjSXUKqRvc1UDQxE8FEziSTNKSGjuBsN/S0RQsTdkA
+ zVRUGDGcFL0mcjg4s3jb2dH5mB5dr1Kd32aCfBnffrgNf29eL+v0SOGXUylLmmaiYkvaItW5R7
+ 6uhI6sYxIeS8j+KiErOwGSZklqw9EtZluUBy6sCYBQBAAA=
+X-Change-ID: 20260505-v3d-perfmon-lifetime-48c9ded1091b
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4909; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=Zh9R2dPO8cTFLNpIEaQ9LwtaTMBTmYst9ppSmPU76Yc=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqSPlvvJIJ/VtTcDnfrl8o6rkFaYbGIIlAG48t1
+ oBxoO/0YqaJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCakj5bwAKCRA/8w6Kdoj6
+ qo/LB/9XVwBSqUV/T48m38L0RmgK1VlIfdhGzrSvXAaXVS5y+YJAR3KBMEf4O8wmi2NujeqJ/bC
+ mXMMyE78aQ2Hv+0Jev/wsPqPpu35pNOy6eYnFYL9BDCnJhxPb8P8fQDv+XmeDIb/CvHyRZFXgM/
+ J2gqTzZhMcEwsnw4/HmPJuP/CihpkF4QJf1w0ryUQ9I8RBXC/hHhx5IPN5wKMIamJuyuc7pM6BP
+ FTIVfUWFs1k7EXbLO1CaIawqoxkbWjD2aaguBHMT+pnpwZlwsPoDsMl43toyF6Dbq+bpTFeyTd/
+ 8sNy5EeNlV2SIm/fKubZAA03dRcD4HkRt95gFOP0b9dnjWTt
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,141 +76,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Michael,
+A v3d core is able to expose a single set of HW performance counters, so at
+any moment at most one perfmon can be programmed in HW. Currently, the
+driver tracks the active perfmon with v3d_dev->active_perfmon, but three
+long-standing issues makes perfmon handling unreliable:
 
-Thanks for your patch!
+1. The active_perfmon pointer is accessed lock-free from scheduler
+   callbacks, the GPU-reset path and the perfmon ioctls. Note that the
+   v3d_perfmon->lock mutex serialized start/stop of one perfmon object
+   against itself, but the invariant that needs protection is device-wide.
 
-On 17/06/26 09:58, Michael Bommarito wrote:
-> +
-> +/* Reject a query CPU job whose writes would land outside their BO. */
-> +static int
-> +v3d_cpu_job_bounds_check(struct v3d_cpu_job *job)
-> +{
-> +	struct drm_device *dev = &job->base.v3d->drm;
-> +	struct v3d_timestamp_query_info *tquery = &job->timestamp_query;
-> +	struct v3d_copy_query_results_info *copy = &job->copy;
-> +	u32 elem = copy->do_64bit ? sizeof(u64) : sizeof(u32);
-> +	struct v3d_bo *dst, *src;
-> +	u64 slots, write_size;
-> +	int i;
+2. perfmon start/stop is hooked exclusively to run_job() callbacks via
+   v3d_switch_perfmon(). If nothing is queued behind a perfmon-carrying
+   job, the perfmon is never actually stopped.
 
-Sashiko pointed out that this should be a u32 at least.
+3. A non-global perfmon should count events generated by a specific
+   submission, but the scheduler can run jobs from different queues
+   concurrently. Without explicit cross-queue serialization, an unrelated
+   job running in parallel pollutes the counters and produces unusable
+   results.
 
-> +
-> +	switch (job->job_type) {
-> +	case V3D_CPU_JOB_TYPE_TIMESTAMP_QUERY:
-> +	case V3D_CPU_JOB_TYPE_RESET_TIMESTAMP_QUERY:
-> +		/*
-> +		 * Each query writes one u64 timestamp slot into bo[0]. The
-> +		 * offset is cast to u64 so a 0xffffffff query offset cannot wrap
-> +		 * the addition past the BO size.
-> +		 */
+This series aims to address all three issues.
 
-"/* Each query writes one u64 timestamp slot into bo[0]. */" was enough
-of a comment.
+PATCH 1 moves the locking to where the invariant actually lives (fixing
+issue #1) and replaces the sleeping mutex with a spinlock, which allows us
+to stop the perfmon from the IRQ handler at job-completion time (the
+natural boundary for "active perfmon follows the active job") and fixes
+issue #2.
 
-> +		dst = to_v3d_bo(job->base.bo[0]);
-> +
-> +		for (i = 0; i < tquery->count; i++) {
-> +			if ((u64)tquery->queries[i].offset + sizeof(u64) >
-> +			    dst->base.base.size)
-> +				goto err_range;
-> +		}
-> +		return 0;
-> +	case V3D_CPU_JOB_TYPE_COPY_TIMESTAMP_QUERY:
-> +		/* Copies one u64 per query from bo[1] into bo[0]. */
-> +		dst = to_v3d_bo(job->base.bo[0]);
-> +		src = to_v3d_bo(job->base.bo[1]);
-> +
-> +		for (i = 0; i < tquery->count; i++) {
-> +			if ((u64)tquery->queries[i].offset + sizeof(u64) >
-> +			    src->base.base.size)
-> +				goto err_range;
-> +		}
-> +
-> +		write_size = (copy->availability_bit ? 2 : 1) * elem;
-> +		return v3d_check_copy_extent(dev, dst->base.base.size,
-> +					     copy->offset, copy->stride,
-> +					     tquery->count, write_size);
-> +	case V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY:
-> +		/*
-> +		 * Each query writes nperfmons * DRM_V3D_MAX_PERF_COUNTERS
-> +		 * counter slots into bo[0], plus an availability slot at index
-> +		 * ncounters. nperfmons and ncounters are user values; the slot
-> +		 * count and write size are computed in u64 (u32 * small
-> +		 * constant) so they cannot wrap.
-> +		 */
+PATCH 2 addresses issue #3 by building on the new locking to enforce
+cross-queue serialization when a non-global perfmon is attached, by adding
+scheduler fence dependencies during submission. The fence dependencies
+allow us to enforce two rules:
 
-I preferred the previous comment (from v2):
+1. A job that carries a non-global perfmon waits for every job currently
+   in-flight across all HW queues to finish.
 
-/*
-  * Each query writes nperfmons * DRM_V3D_MAX_PERF_COUNTERS
-  * counter slots into bo[0], plus an availability slot at
-  * index ncounters. nperfmons and ncounters are user values,
-  * so the slot count is computed overflow-safe.
-  */
+2. While such a job is in-flight, any subsequently submitted job waits
+   for it.
 
-> +		dst = to_v3d_bo(job->base.bo[0]);
-> +
-> +		slots = (u64)job->performance_query.nperfmons *
-> +			DRM_V3D_MAX_PERF_COUNTERS;
-> +		if (copy->availability_bit)
-> +			slots = max(slots,
-> +				    (u64)job->performance_query.ncounters + 1);
-> +
-> +		write_size = slots * elem;
-> +		return v3d_check_copy_extent(dev, dst->base.base.size,
-> +					     copy->offset, copy->stride,
-> +					     job->performance_query.count,
-> +					     write_size);
-> +	case V3D_CPU_JOB_TYPE_INDIRECT_CSD: {
-> +		struct v3d_indirect_csd_info *icsd = &job->indirect_csd;
+This allows us to ensure cross-queue isolation and the reliability of
+the performance counter values.
 
-I'd prefer to call it "indirect_csd".
+To make sure that this series actually produces the expected results and
+improves the overall reliability of v3d's performance monitors, this
+series is accompanied by a IGT series [1], which was already merged.
 
-> +
-> +		/*
-> +		 * The exec-time work-group rewrite reads three u32 counts from
-> +		 * bo[0] at the user-supplied offset, then writes each count back
-> +		 * into the indirect BO at a user-supplied u32 index. Reject a
-> +		 * missing indirect BO (drm_gem_object_lookup() returned NULL for
-> +		 * a bad handle, which the exec path would otherwise dereference)
-> +		 * and bound both accesses.
-> +		 */
-> +		if (!icsd->indirect)
-> +			return -ENOENT;
-
-No need for that after [1].
-
-[1] 
-https://lore.kernel.org/dri-devel/20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com/T/#m6c2cb9021bc6b524fb713150f94bdfee3553cf72
-
-> +
-> +		dst = to_v3d_bo(job->base.bo[0]);
-
-New line. Also, instead of the big comment on the beginning of this
-case, I'd prefer a smaller comment here explaining that 3 is the three
-dimensions of workgroup counts (x,y,z).
-
-> +		if ((u64)icsd->offset + 3 * sizeof(u32) > dst->base.base.size)
-> +			goto err_range;
-> +
-> +		src = to_v3d_bo(icsd->indirect);
-
-I'm not sure src makes a lot of sense here, as we copy from BO to the
-indirect BO. Maybe dst?
-
-> +		for (i = 0; i < 3; i++) {
-> +			u32 uidx = icsd->wg_uniform_offsets[i];
-> +
-> +			if (uidx != 0xffffffff &&
-
-Add a comment explaining that, as 0xffffffff means "skip this rewrite",
-the exec path doesn't write it, so there is no need to range-check it.
-
-Finally, although it's a fix, I'd prefer to apply it to drm-misc-next as
-(1) it's a reasonably big change and (2) it's not a critical bug. So, if
-possible, rebase the patch on top of drm-misc-next.
+[1] https://lore.kernel.org/igt-dev/20260514201637.1811428-1-mcanal@igalia.com/T/
 
 Best regards,
 - Maíra
+
+---
+v1 -> v2: https://lore.kernel.org/r/20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com
+
+- Rebased on top of "[PATCH v2 00/14] drm/v3d: Scheduler and submission
+  fixes and refactoring"
+- [1/4] NEW PATCH: "drm/v3d: Fix global performance monitor reference counting"
+        - Minimal patch for stable branches only fixing the reference leaks
+          in global perfmons.
+- [2/4] Start/stop the global perfmon inside the set_global_perfmon ioctl and
+        simplify global perfmon management across the helpers (Iago Toral)
+        - In the reset path, before stopping the perfmon for the HW reset,
+          v3d_reset() now re-arms the global perfmon with v3d_perfmon_resume(),
+          as the global perfmon's start/stop points live only in the IOCTL.
+        - v3d_perfmon_get_values_ioctl() no longer stops the perfmon, it
+          only captures the values. Lifecycle management is left to the job
+          (per-job perfmons) or the SET_GLOBAL ioctl (global perfmon).
+- [2/4] In v3d_perfmon_delete(), first, stop the perfmon and then, check if
+        it's a global perfmon (Iago Toral)
+- [2/4] Add some comments to explain the refcount logic for global perfmons
+        (Iago Toral)
+- [3/4] Move the job->queue introduction to this patch instead of the
+        previous one.
+- [4/4] NEW PATCH: "drm/v3d: Drop the queue argument from v3d_job_add_syncobjs()"
+
+v2 -> v3: https://lore.kernel.org/r/20260531-v3d-perfmon-lifetime-v2-0-60ed4485a203@igalia.com
+
+- Rebased on top of drm-misc-next.
+- "[PATCH v2 1/4] drm/v3d: Fix global performance monitor reference counting"
+  was applied to drm-misc-fixes.
+- "[PATCH v2 4/4] drm/v3d: Drop the queue argument from v3d_job_add_syncobjs()"
+  was no longer needed after "[PATCH v4 00/12] drm/v3d: Scheduler and
+  submission fixes and refactoring" was applied to drm-misc-next.
+- [1/2, 2/2] Add Iago's R-b (Iago Toral)
+
+---
+Maíra Canal (2):
+      drm/v3d: Refactor perfmon locking
+      drm/v3d: Serialize jobs across queues when a perfmon is attached
+
+ drivers/gpu/drm/v3d/v3d_drv.h     |  47 ++++++++--
+ drivers/gpu/drm/v3d/v3d_gem.c     |   7 +-
+ drivers/gpu/drm/v3d/v3d_irq.c     |   7 +-
+ drivers/gpu/drm/v3d/v3d_perfmon.c | 189 ++++++++++++++++++++++++++++----------
+ drivers/gpu/drm/v3d/v3d_power.c   |   4 +
+ drivers/gpu/drm/v3d/v3d_sched.c   |  26 +-----
+ drivers/gpu/drm/v3d/v3d_submit.c  |  68 +++++++++++++-
+ 7 files changed, 261 insertions(+), 87 deletions(-)
+---
+base-commit: 903f8773ee96c5dc5fb9aec65227f39fd3e7a1dc
+change-id: 20260505-v3d-perfmon-lifetime-48c9ded1091b
+
