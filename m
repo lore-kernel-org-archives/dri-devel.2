@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA672C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0A4C43602
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:45:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12D9D10E0DB;
-	Sat,  4 Jul 2026 18:44:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C133E10E2C6;
+	Sat,  4 Jul 2026 18:45:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hCr7elIw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aLbzoYOq";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF8810E0DB
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:44:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3455510E2C6
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:45:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EBB66407CE;
- Sat,  4 Jul 2026 18:44:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1571F000E9;
- Sat,  4 Jul 2026 18:44:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1D9094091D;
+ Sat,  4 Jul 2026 18:45:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F981F000E9;
+ Sat,  4 Jul 2026 18:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783190696;
- bh=I5Vu61LKKFfbTTQae4kiyjhSdddb7fSe0IGAeHuVz2E=;
+ s=k20260515; t=1783190708;
+ bh=qGgeGqyCy3yDcfolZVrqpoXvk3cq7+rAccZ2PSxyyKs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hCr7elIwj9lXTt3wNgjS4R9ShYaVLXl4exsrB6ek56hQuGxvgx/HHdNKfpaF/jZF3
- RLgFlba3p8VL2jkAtKMFfrkpbUAMI6oEfmoavwsp/kjWnhYqfnD7sQJ4Wht33KfOic
- xIVczENgo/vYCoIesJsdMAjgQ/S6K4RNwAN2I+OhzaF9FklhNsjD8rw5p7Fe6Yd5X2
- TKH3XhSgmh8Yil7IhvRGb7Omq3onLvQN+SJNBpoaFMsteujgsuaBd7uthDu3nO0xUQ
- 8yMI6laeVDTrMFnbfmxwj1k9IWurwZMVcmf1gjONTBGUAS6wnFP6GNP5baKayMTtTP
- WQi6PD/grnkOg==
+ b=aLbzoYOqt0L5i2zlgazXUB/PjqrGgJpQ4yKPj5+zP0Q6r3fG80FPqlQ40GwGMfhey
+ 4fn2U2k6dzxayo6+rYU+mUGmcYw6VReth3iHai5+tSkflrH0klVu38iQwKxCtwQN9o
+ 5qSWKn9daLJVwDKZZorAAuyKz4z5cjcwKJMzpz5jVzhsf6DoTrAB7lk8eKh4Rh9jy1
+ 6lwgXzL6dD8ut4dO13My0I/HpDkujnqWXONPwE7XZlTRLcb6ElXvDoP5jcDYPQQVnB
+ OXGhHBiEWkDsySiqE9HVl8TU2tMWEuPlMrGVHYnPc53FDW18SXAUP9MBSMJP7DhW2r
+ bYx9Pa2j+Pxnw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/9] drm/mcde: replace struct drm_simple_display_pipe
+Subject: Re: [PATCH 5/9] drm/pl111: replace struct drm_simple_display_pipe
  with regular atomic helpers
 To: "Ze Huang" <ze.huang@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260705-drm-simple-kms-removal-v1-4-b4e1ca053623@oss.qualcomm.com>
+In-Reply-To: <20260705-drm-simple-kms-removal-v1-5-b4e1ca053623@oss.qualcomm.com>
 References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-4-b4e1ca053623@oss.qualcomm.com>
+ <20260705-drm-simple-kms-removal-v1-5-b4e1ca053623@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 18:44:56 +0000
-Message-Id: <20260704184456.8C1571F000E9@smtp.kernel.org>
+Date: Sat, 04 Jul 2026 18:45:07 +0000
+Message-Id: <20260704184507.B1F981F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,80 +58,51 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Uninitialized NULL pointer dereference when attaching encoder =
-to connector.
-
-Pre-existing issues:
-- [High] Atomic callbacks directly access global `obj->state` pointers inst=
-ead of using the state passed in the `drm_atomic_commit` parameter.
+- [High] Unconsumed CRTC VBLANK event when disabling the CRTC causes a memo=
+ry leak and userspace hang.
 --
 
-commit 098f44a54758ae5b340970e3384cc9330909fb06
+commit f35a0721a36bbf78ed41d1be8bb186efb88c9092
 Author: Ze Huang <ze.huang@oss.qualcomm.com>
+Subject: drm/pl111: replace struct drm_simple_display_pipe with regular ato=
+mic helpers
 
-drm/mcde: replace struct drm_simple_display_pipe with regular atomic helpers
-   =20
-Convert MCDE to explicit plane, CRTC and encoder objects.
-   =20
-Keep FIFO, event and framebuffer update sequencing intact, and install
-GEM framebuffer prepare callback explicitly.
+This commit replaces the PL111 simple display pipe with explicit plane, CRT=
+C,=20
+and encoder objects. It preserves existing hardware programming and vblank=
+=20
+behavior while using the GEM framebuffer prepare helper.
 
-> diff --git a/drivers/gpu/drm/mcde/mcde_display.c b/drivers/gpu/drm/mcde/m=
-cde_display.c
-> index 257a6e84dd583..4d86fa5030ebf 100644
-> --- a/drivers/gpu/drm/mcde/mcde_display.c
-> +++ b/drivers/gpu/drm/mcde/mcde_display.c
-
+> diff --git a/drivers/gpu/drm/pl111/pl111_display.c b/drivers/gpu/drm/pl11=
+1/pl111_display.c
+> index 5d10bc5fdf1f6..b1bdd4c9dbe68 100644
+> --- a/drivers/gpu/drm/pl111/pl111_display.c
+> +++ b/drivers/gpu/drm/pl111/pl111_display.c
 [ ... ]
-
-> @@ -1149,16 +1171,14 @@ static void mcde_setup_dsi(struct mcde *mcde, con=
-st struct drm_display_mode *mod
->  	*dsi_formatter_frame =3D formatter_frame;
->  }
-> =20
-> -static void mcde_display_enable(struct drm_simple_display_pipe *pipe,
-> -				struct drm_crtc_state *cstate,
-> -				struct drm_plane_state *plane_state)
-> +static void mcde_crtc_helper_atomic_enable(struct drm_crtc *crtc,
-> +					   struct drm_atomic_commit *state)
+> -static void pl111_display_disable(struct drm_simple_display_pipe *pipe)
+> +static void pl111_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+> +					     struct drm_atomic_commit *state)
 >  {
 > -	struct drm_crtc *crtc =3D &pipe->crtc;
-> -	struct drm_plane *plane =3D &pipe->plane;
 >  	struct drm_device *drm =3D crtc->dev;
->  	struct mcde *mcde =3D to_mcde(drm);
-> +	struct drm_crtc_state *cstate =3D crtc->state;
-
-[Severity: High]
-This isn't a bug introduced by this patch, as it was inherited from the
-simple-kms implementation, but does this newly added line introduce a data
-race?
-
-In non-blocking commits, the DRM core asynchronously executes the worker
-thread while simultaneously swapping the global state pointers. Reading the
-global crtc->state here instead of fetching the new state from the state
-parameter (e.g. using drm_atomic_get_new_crtc_state()) can race with
-subsequent commits, potentially programming the hardware with mismatched
-states.
-
+>  	struct pl111_drm_dev_private *priv =3D drm->dev_private;
+>  	u32 cntl;
 [ ... ]
-
-> -static void mcde_display_update(struct drm_simple_display_pipe *pipe,
-> -				struct drm_plane_state *old_pstate)
-> +static void mcde_plane_helper_atomic_update(struct drm_plane *plane,
-> +					    struct drm_atomic_commit *state)
+> -static void pl111_display_update(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_plane_state *old_pstate)
+> +static void pl111_plane_helper_atomic_update(struct drm_plane *plane,
+> +					     struct drm_atomic_commit *state)
 >  {
 > -	struct drm_crtc *crtc =3D &pipe->crtc;
 > -	struct drm_device *drm =3D crtc->dev;
-> -	struct mcde *mcde =3D to_mcde(drm);
+> -	struct pl111_drm_dev_private *priv =3D drm->dev_private;
 > -	struct drm_pending_vblank_event *event =3D crtc->state->event;
 > -	struct drm_plane *plane =3D &pipe->plane;
 > +	struct drm_crtc *crtc =3D plane->state->crtc;
 > +	struct drm_device *drm;
-> +	struct mcde *mcde;
+> +	struct pl111_drm_dev_private *priv;
 > +	struct drm_pending_vblank_event *event;
 >  	struct drm_plane_state *pstate =3D plane->state;
 >  	struct drm_framebuffer *fb =3D pstate->fb;
@@ -139,66 +110,30 @@ states.
 > +	if (!crtc)
 > +		return;
 > +
-> +	drm =3D crtc->dev;
-> +	mcde =3D to_mcde(drm);
-> +	event =3D crtc->state->event;
 
 [Severity: High]
-This is a pre-existing issue, but does accessing crtc->state->event here
-continue to expose a time-of-check to time-of-use race?
+When disabling the CRTC, does this code leak the vblank event?
 
-If a compositor queues multiple rapid non-blocking commits, reading the eve=
-nt
-from the global state might clear the event belonging to a subsequent commi=
-t,
-leaving the later commit's worker with a NULL event and hanging the composi=
-tor
-waiting for a page flip.
+If an atomic commit disables the CRTC and requests a completion event, this
+early return in pl111_plane_helper_atomic_update() triggers because=20
+plane->state->crtc is NULL when the plane is disabled.
 
-[ ... ]
+Since the event consumption logic previously provided by the=20
+drm_simple_display_pipe framework has been removed, and=20
+pl111_crtc_helper_atomic_disable() also lacks logic to consume=20
+crtc->state->event, won't the event remain attached and unconsumed?
 
-> @@ -1510,11 +1577,30 @@ int mcde_display_init(struct drm_device *drm)
->  	if (ret)
->  		return ret;
-> =20
-> -	ret =3D drm_simple_display_pipe_init(drm, &mcde->pipe,
-> -					   &mcde_display_funcs,
-> -					   formats, ARRAY_SIZE(formats),
-> -					   NULL,
-> -					   mcde->connector);
-> +	ret =3D drm_universal_plane_init(drm, &mcde->plane, 0,
-> +				       &mcde_plane_funcs,
-> +				       formats, ARRAY_SIZE(formats),
-> +				       NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_plane_helper_add(&mcde->plane, &mcde_plane_helper_funcs);
-> +
-> +	ret =3D drm_crtc_init_with_planes(drm, &mcde->crtc, &mcde->plane,
-> +					NULL, &mcde_crtc_funcs, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_crtc_helper_add(&mcde->crtc, &mcde_crtc_helper_funcs);
-> +
-> +	ret =3D drm_encoder_init(drm, &mcde->encoder, &mcde_encoder_funcs,
-> +			       DRM_MODE_ENCODER_NONE, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	mcde->encoder.possible_crtcs =3D drm_crtc_mask(&mcde->crtc);
-> +
-> +	ret =3D drm_connector_attach_encoder(mcde->connector, &mcde->encoder);
+This can trigger a kernel warning in drm_atomic_helper_commit_hw_done()=20
+(which warns if the event is still attached) and cause userspace=20
+compositors to hang indefinitely waiting for the page flip event.
 
-[Severity: Critical]
-Will this lead to a NULL pointer dereference during probe?
-
-mcde->connector appears to be a zero-initialized struct member that is not
-allocated or populated prior to this call. Because
-drm_connector_attach_encoder() unconditionally dereferences the connector
-argument, passing it a NULL pointer will lead to an immediate kernel oops.
+> +	drm =3D crtc->dev;
+> +	priv =3D drm->dev_private;
+> +	event =3D crtc->state->event;
+> +
+>  	if (fb) {
+>  		u32 addr =3D drm_fb_dma_get_gem_addr(fb, pstate, 0);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-drm-simple=
--kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com?part=3D4
+-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com?part=3D5
