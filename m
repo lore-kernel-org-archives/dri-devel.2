@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE577C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 08:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D1EC44500
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 08:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A24E10E046;
-	Sat,  4 Jul 2026 08:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7FD10E04E;
+	Sat,  4 Jul 2026 08:09:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="USD5mT3T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CmhA/3A2";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D6F810E046
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 08:09:49 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-49241dbf9c1so10991365e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 01:09:49 -0700 (PDT)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4B6810E046
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 08:09:50 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-4758bd3731bso957698f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 01:09:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783152587; x=1783757387; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783152589; x=1783757389; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5sRdDxXdJoIR7rHcHYJyjPRi8VcEI0CsKE31MI1Zm8w=;
- b=USD5mT3TzpPlqQEYeM7Lr5wua14AsMyIRPFbabmwy4byaJ6Fn6UHOGU/ck6glRt9CA
- CuqKXbXhpJGWz4ymHkhm9BxNlSG+DYfLjvreOkwVr06Y9fgwlIrjlMacxiUokcRutrCc
- HCqraPNmaFhOuDF7VKL+J/+QAUIA0YGDyW+o0ogE2MggO6QzjT/ZiK9iyBN4r/zLwL+N
- FB4QVawx3gIl5r9dMbMLt+ze0Hf+gb7COXi4t7KM7veJNMlVPjaBcgvUHaVN3HjjedHn
- L+OEs09A2oD2WtjfZwJSa+IEycJKIaHi2Fxb7QhgMVLEX5kUZ2zYpMbDfbKe3yK84vUv
- w77w==
+ :message-id:reply-to;
+ bh=OYDxuX3FVRBJpJ1bDqTLna4Pl7UtMkhAxcFqUu25+/4=;
+ b=CmhA/3A2EbSVh5AI/B2R/vEmvgGuhc73vBnU5M3TRkseErJRCK24brANCW/tAydzy1
+ FOFtixkRAV2cBebsI96+i9wEFLMcA9Hofpos9XmXMFf7z6Ki7+/zZThsZ1yzLGKXbeda
+ Wb0bPfERLVYZlAx6jXZuiq4FMxVl+bnuemn8lit12ddEvtBVfi/GoPzw9HgKLqBaLXuQ
+ I0gEmNteOf4ppK8npm2lTQviEq5UOOLGYoROdSeEqedMhlx4P2QmPvRiKCqqNQMOJdwB
+ QWvKrSNmAUWh3cJtQZsBZobJ3h0tOCW77Hfieq2elhqGbsLxZe+wnV9uD/SWleQeSE3o
+ LwwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783152587; x=1783757387;
+ d=1e100.net; s=20251104; t=1783152589; x=1783757389;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=5sRdDxXdJoIR7rHcHYJyjPRi8VcEI0CsKE31MI1Zm8w=;
- b=soK51IbkAFse9I9t2m2SopDWVPbpA9PrMSZrrxc6PAgOexNU8Dv+rYnfsUwfFjNP8K
- bAxXTSvdaXnbOaeqwLu0w6S1l0wij/itCOsqJCL9xgTjFgd3fcxOVSFfP9K4g0Fi5Zyi
- 7EjohBDzr0BCYxUADf5TYyeY/P0h74wxcjShyUosSAFUkPLgpJLWeOQA93q6/Y/fyEst
- KGiJQtx9d6l8TWatLJ0d53WZWIlG+svEkKCaK40NkKVqCwmFQn41eyjkmkTKC2vCeiWA
- K8QoiDwDBsBzploTOiMKFfWdpQT3uaq0ZGCJKKsqdRiMd2WUGASjfhDZi3nQVwuiIQlg
- oI3A==
+ :to:cc:subject:date:message-id:reply-to;
+ bh=OYDxuX3FVRBJpJ1bDqTLna4Pl7UtMkhAxcFqUu25+/4=;
+ b=HP9Y6KnqhN7cq6y9FIN+m7WphQDIqUrfn+gL9UKptcOGgkZu5J7RQTmLXXt7yBe9+e
+ xDfLHzI5UqEYDOzpNzi4yji500zxNy9YoioYsZjqfM66VZDaA8y4bvtP0wgGaXjoVTlc
+ ve31ZwWcE3L27HO+yXAAFo0uM/RelLpD47y9E9BhTnrqas8rX9XZH0Rbe3kARP5hogAj
+ SUwyaH9QdKogWtAlI+l5V3zVyDtZ5QpIe9QHACqGp1ztYoz5xvs6umpCdOi69ZpZz7Fm
+ fumXst8cTs2CsyCRtofEmPsXdVwgZRBWra7hH/HNeIoGrRNU04smbslUmXdKAJx5GNr5
+ vFnQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/wwseCWh6BwroFc/X2hrN0ydWueSHTKjJbAuD7FKgavVKcu5pYA9QYPRQXr87WI6OY4jYRG1l1/BU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjvcsRxbicxPzSBMy9MB3GmWZR8nC7oesi1Ij8TAIoGx0b2Jm1
- qLKm+eV668QEhIXfRFYwYYrEekxSEvKlBbB/2O3AibXjiUxMLFey8aGd
-X-Gm-Gg: AfdE7cn9LaeTyoSx0Lw9lWZbbYeAwL/qT5x+2+8TBAV2LSopOuPTuI4it9SxzBV3w1l
- KGtWfI4rGR/qypr8G6Inx5K4Q3gJ+HZGbnh0D0RDHX6fmKpkXxD/TMYI45pLFcfadw7gW8Ely+o
- 7QdiC78IFdZjOz7lYhd3UMvevjFjC6qtpDtPdvkBz11dh0gOhayiFR7uec8WwjWsuc5oYT+dCgl
- /y2xLWIff0SP5nZ8qtFUW0H2gIT3D20RWGZh1oLMZupUa0P816cE14UbW9mZxN9uWc7IB8DJqZn
- V+K42ObSu4SvfJCUHAOokLFzmxsA99WVwaexP7qxZ8ChjO9gjdRfGvR8IFS51cr2dv7SgjZDxE/
- um0pHqouadJECG4foVgsQ4D8Nq40d+6egqSgAm/bIQ22ou0VGYH/E5kSIId/VuLXRFteLVAlP5Y
- LaN78XdWo6XF57JwTeNuSRFvAdpYQ=
-X-Received: by 2002:a05:600c:811a:b0:493:bc92:ba9a with SMTP id
- 5b1f17b1804b1-493d11d7e5bmr23547495e9.13.1783152587230; 
- Sat, 04 Jul 2026 01:09:47 -0700 (PDT)
+ AHgh+RqneQro8gvlfmXWnS8qIukT5RsMesEJbQO6OMF27vYEmKW4lQrhnPhsMQ48PFhTkRTZagrsv/tl0RU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZ+bkOcTkY5r7xYUZkN1xrz7oAwFpWVtQgsKO8ydAH2Eh4i+eD
+ NYM15TIc8ooW7deydRUwKZwuEzViRyIYbxhObXK3VGiHuwwpsEyYs347
+X-Gm-Gg: AfdE7ckwonisU0y7K2pzq45LcFYqapbn+ojXsTqB/nc74wvSG9jLU77iPXZgVrz4WZC
+ jg2kySMtmWeZZNhhcC033hAPX3XGkIUCB6nyr1qJ2LkwFpme4txVqvtKLiqVVDik2ZD55ae0hIW
+ XMAKx05WXI7cnfWeDs6mICxxIIBOTcoPiVZe471geRdGcXzqodL4DgEfGM0pprEkMYGU3L9xwX6
+ rXupqJRfZCA9tRofKlBpRyt0dtkCZHNboY5fCwsBR/f2doznxrlIj8sp0mf4UCbCDpl+XijR1TW
+ gfhBbmkWRiJeeIT3LSEIdiLMOVHS2aNafRR5FnGYgHT0vhVTZEgvaYyDb+OLAPo3whuAuvEdquq
+ Kji40a564u8urbABocRYG70Ea2SuFyyXEcJrBov34cfxx7cPhsfRDzxGPfiDxbfkKJOuO+c7C6l
+ efwJCFwUnQHkcy17aof7v6KUyqhrU=
+X-Received: by 2002:a05:6000:288b:b0:475:b34a:dc1b with SMTP id
+ ffacd0b85a97d-47abc8b7f0bmr2340050f8f.21.1783152589095; 
+ Sat, 04 Jul 2026 01:09:49 -0700 (PDT)
 Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa0960634sm6143055f8f.26.2026.07.04.01.09.45
+ ffacd0b85a97d-47aa0960634sm6143055f8f.26.2026.07.04.01.09.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2026 01:09:46 -0700 (PDT)
+ Sat, 04 Jul 2026 01:09:48 -0700 (PDT)
 From: Amit Barzilai <amit.barzilai22@gmail.com>
 To: Javier Martinez Canillas <javierm@redhat.com>,
  Andy Shevchenko <andriy.shevchenko@intel.com>,
@@ -73,10 +73,9 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v3 2/3] drm/ssd130x: Change SSD133X color format to RGB565
- from RGB332
-Date: Sat,  4 Jul 2026 11:09:24 +0300
-Message-ID: <20260704080925.75113-3-amit.barzilai22@gmail.com>
+Subject: [PATCH v3 3/3] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+Date: Sat,  4 Jul 2026 11:09:25 +0300
+Message-ID: <20260704080925.75113-4-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260704080925.75113-1-amit.barzilai22@gmail.com>
 References: <20260704080925.75113-1-amit.barzilai22@gmail.com>
@@ -97,121 +96,452 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SSD133X screens were driven at 8bpp RGB332 despite supporting 16bpp RGB565.
-Switch the SSD133X data path to RGB565.
+The Solomon SSD1351 is a 128x128 RGB color OLED controller. It shares
+the SSD133X data path: a column/row addressing window followed by a bulk
+RGB565 pixel write. Add it as a new SSD135X_FAMILY rather than a separate
+driver, reusing the SSD133X plane, CRTC and blit/clear helpers.
+
+The only data-path difference is that the SSD1351 requires an explicit
+Write RAM command (0x5c) after the address window is programmed, before
+pixel data is accepted, whereas the SSD133X enters data mode implicitly.
+This is emitted from a shared ssd133x_write_pixels() helper so both the
+damage-update and clear-screen paths cover it.
+
+The SSD1351 also needs its own init sequence (ssd135x_init), dispatched
+via ssd135x_encoder_atomic_enable. The re-map byte is fixed at 0 degrees,
+65k color, COM split, BGR sub-pixel order; rotation is not supported.
+
+The SSD1351 doesn't implement the SSD13XX_CONTRAST command (0x81) and
+expects different opcodes for contrast and brightness management. The
+current ssd130x_update_bl() function wouldn't work and the brightness
+byte would be executed as a command opcode if run on the SSD1351 panel.
+Until the backlight path is family-aware, skip backlight device
+registration for the SSD135X family.
+
+The SSD1351 is SPI-only, so only the SPI transport match tables gain an
+entry; no new config symbol is needed.
+
+While adding the SSD135X command path, ssd130x_write_cmds() forwards its
+'const u8 *cmd' buffer to ssd130x_write_data(), which previously took a
+non-const 'u8 *'. Constify the ssd130x_write_data() 'values' parameter
+so the const-qualified buffer passes through without casting away const.
 
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
 ---
- drivers/gpu/drm/solomon/ssd130x.c | 45 +++++++++++++++++++------------
- 1 file changed, 28 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/solomon/ssd130x-spi.c |   7 +
+ drivers/gpu/drm/solomon/ssd130x.c     | 244 +++++++++++++++++++++-----
+ drivers/gpu/drm/solomon/ssd130x.h     |   5 +-
+ 3 files changed, 208 insertions(+), 48 deletions(-)
 
+diff --git a/drivers/gpu/drm/solomon/ssd130x-spi.c b/drivers/gpu/drm/solomon/ssd130x-spi.c
+index b52f5fd592a1..6e0dd6e5a88d 100644
+--- a/drivers/gpu/drm/solomon/ssd130x-spi.c
++++ b/drivers/gpu/drm/solomon/ssd130x-spi.c
+@@ -146,6 +146,11 @@ static const struct of_device_id ssd130x_of_match[] = {
+ 		.compatible = "solomon,ssd1331",
+ 		.data = &ssd130x_variants[SSD1331_ID],
+ 	},
++	/* ssd135x family */
++	{
++		.compatible = "solomon,ssd1351",
++		.data = &ssd130x_variants[SSD1351_ID],
++	},
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ssd130x_of_match);
+@@ -171,6 +176,8 @@ static const struct spi_device_id ssd130x_spi_id[] = {
+ 	{ "ssd1327", SSD1327_ID },
+ 	/* ssd133x family */
+ 	{ "ssd1331", SSD1331_ID },
++	/* ssd135x family */
++	{ "ssd1351", SSD1351_ID },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(spi, ssd130x_spi_id);
 diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 04da4f2f7d08..3f09977d227b 100644
+index 3f09977d227b..f7f0a74a297e 100644
 --- a/drivers/gpu/drm/solomon/ssd130x.c
 +++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -140,6 +140,11 @@
- #define SSD133X_SET_PRECHARGE_VOLTAGE		0xbb
- #define SSD133X_SET_VCOMH_VOLTAGE		0xbe
+@@ -145,6 +145,33 @@
+ #define SSD133X_SET_REMAP_COLOR_DEPTH_MASK	GENMASK(7, 6)
+ #define SSD133X_COLOR_DEPTH_65K			0x1
  
-+/* ssd133x remap byte (data of SSD13XX_SET_SEG_REMAP) */
-+#define SSD133X_SET_REMAP_COM_SPLIT		BIT(5)
-+#define SSD133X_SET_REMAP_COLOR_DEPTH_MASK	GENMASK(7, 6)
-+#define SSD133X_COLOR_DEPTH_65K			0x1
++/* ssd135x commands */
++#define SSD135X_SET_COL_RANGE			0x15
++#define SSD135X_WRITE_RAM			0x5c
++#define SSD135X_SET_ROW_RANGE			0x75
++#define SSD135X_SET_DISPLAY_START		0xa1
++#define SSD135X_SET_DISPLAY_OFFSET		0xa2
++#define SSD135X_SET_DISPLAY_NORMAL		0xa6
++#define SSD135X_SET_FUNCTION			0xab
++#define SSD135X_SET_PHASE_LENGTH		0xb1
++#define SSD135X_SET_CLOCK_FREQ			0xb3
++#define SSD135X_SET_VSL				0xb4
++#define SSD135X_SET_GPIO			0xb5
++#define SSD135X_SET_PRECHARGE2			0xb6
++#define SSD135X_SET_PRECHARGE			0xbb
++#define SSD135X_SET_VCOMH_VOLTAGE		0xbe
++#define SSD135X_SET_CONTRAST			0xc1
++#define SSD135X_SET_CONTRAST_MASTER		0xc7
++#define SSD135X_SET_MUX_RATIO			0xca
++#define SSD135X_SET_COMMAND_LOCK		0xfd
++
++/* ssd135x remap byte (data of SSD13XX_SET_SEG_REMAP) */
++#define SSD135X_SET_REMAP_COLUMN		BIT(1)
++#define SSD135X_SET_REMAP_COLOR_BGR		BIT(2)
++#define SSD135X_SET_REMAP_COM_SCAN		BIT(4)
++#define SSD135X_SET_REMAP_COM_SPLIT		BIT(5)
++#define SSD135X_SET_REMAP_65K			BIT(6)
 +
  #define MAX_CONTRAST 255
  
  const struct ssd130x_deviceinfo ssd130x_variants[] = {
-@@ -584,6 +589,12 @@ static int ssd132x_init(struct ssd130x_device *ssd130x)
+@@ -212,7 +239,13 @@ const struct ssd130x_deviceinfo ssd130x_variants[] = {
+ 		.default_width = 96,
+ 		.default_height = 64,
+ 		.family_id = SSD133X_FAMILY,
+-	}
++	},
++	/* ssd135x family */
++	[SSD1351_ID] = {
++		.default_width = 128,
++		.default_height = 128,
++		.family_id = SSD135X_FAMILY,
++	},
+ };
+ EXPORT_SYMBOL_NS_GPL(ssd130x_variants, "DRM_SSD130X");
  
- static int ssd133x_init(struct ssd130x_device *ssd130x)
+@@ -246,47 +279,16 @@ static inline struct ssd130x_device *drm_to_ssd130x(struct drm_device *drm)
+ /*
+  * Helper to write data (SSD13XX_DATA) to the device.
+  */
+-static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
++static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
  {
-+	/*
-+	 * Horizontal address increment, normal SA,SB,SC (e.g. RGB) sub-pixel
-+	 * order, COM split odd even and 65k (RGB565) color depth.
-+	 */
-+	u8 remap = SSD133X_SET_REMAP_COM_SPLIT |
-+		   FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK, SSD133X_COLOR_DEPTH_65K);
- 	const u8 cmds[] = {
- 		2, SSD133X_CONTRAST_A, 0x91,
- 		2, SSD133X_CONTRAST_B, 0x50,
-@@ -591,13 +602,7 @@ static int ssd133x_init(struct ssd130x_device *ssd130x)
- 		2, SSD133X_SET_MASTER_CURRENT, 0x06,
- 		3, SSD133X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
- 		3, SSD133X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
--		/*
--		 * Horizontal Address Increment
--		 * Normal order SA,SB,SC (e.g. RGB)
--		 * COM Split Odd Even
--		 * 256 color format
--		 */
--		2, SSD13XX_SET_SEG_REMAP, 0x20,
-+		2, SSD13XX_SET_SEG_REMAP, remap,
- 		2, SSD133X_SET_DISPLAY_START, 0x00,
- 		2, SSD133X_SET_DISPLAY_OFFSET, 0x00,
- 		1, SSD133X_SET_DISPLAY_NORMAL,
-@@ -794,14 +799,20 @@ static int ssd133x_update_rect(struct ssd130x_device *ssd130x,
- 	 * COM0 to COM[N - 1] are the rows and SEG0 to SEG[M - 1] are
- 	 * the columns.
- 	 *
--	 * Each Segment has a 8-bit pixel and each Common output has a
--	 * row of pixels. When using the (default) horizontal address
--	 * increment mode, each byte of data sent to the controller has
--	 * a Segment (e.g: SEG0).
-+	 * Each Segment holds one pixel and each Common output has a row
-+	 * of pixels. A pixel is 8 bits (one byte) in the 256 color
-+	 * (RGB332) format or 16 bits (two bytes) in the 65k color
-+	 * (RGB565) format. When using the (default) horizontal address
-+	 * increment mode, the pixel data is sent Segment by Segment
-+	 * (e.g: SEG0 first).
- 	 *
- 	 * When using the 256 color depth format, each pixel contains 3
--	 * sub-pixels for color A, B and C. These have 3 bit, 3 bit and
--	 * 2 bits respectively.
-+	 * sub-pixels for color A, B and C. These have 3, 3 and 2 bits
-+	 * respectively.
-+	 *
-+	 * When using the 65k color depth format, each pixel contains 3
-+	 * sub-pixels for color A, B and C. These have 5, 6 and 5 bits
-+	 * respectively.
- 	 */
+ 	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
+ }
  
- 	/* Set column start and end */
-@@ -874,7 +885,7 @@ static void ssd132x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- 
- static void ssd133x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- {
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
- 	unsigned int pitch;
- 
- 	if (!fi)
-@@ -945,7 +956,7 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
- 				struct drm_format_conv_state *fmtcnv_state)
- {
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(fb->dev);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
- 	unsigned int dst_pitch;
- 	struct iosys_map dst;
- 	int ret = 0;
-@@ -956,7 +967,7 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
- 	dst_pitch = drm_format_info_min_pitch(fi, 0, drm_rect_width(rect));
- 
- 	iosys_map_set_vaddr(&dst, data_array);
--	drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
-+	drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
- 
- 	ssd133x_update_rect(ssd130x, rect, data_array, dst_pitch);
- 
-@@ -1414,7 +1425,7 @@ static int ssd133x_crtc_atomic_check(struct drm_crtc *crtc,
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
- 	struct ssd130x_crtc_state *ssd130x_state = to_ssd130x_crtc_state(crtc_state);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB565);
- 	unsigned int pitch;
+-/*
+- * Helper to write command (SSD13XX_COMMAND). The fist variadic argument
+- * is the command to write and the following are the command options.
+- *
+- * Note that the ssd13xx protocol requires each command and option to be
+- * written as a SSD13XX_COMMAND device register value. That is why a call
+- * to regmap_write(..., SSD13XX_COMMAND, ...) is done for each argument.
+- */
+-static int ssd130x_write_cmd(struct ssd130x_device *ssd130x, int count,
+-			     /* u8 cmd, u8 option, ... */...)
+-{
+-	va_list ap;
+-	u8 value;
+-	int ret;
+-
+-	va_start(ap, count);
+-
+-	do {
+-		value = va_arg(ap, int);
+-		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, value);
+-		if (ret)
+-			goto out_end;
+-	} while (--count);
+-
+-out_end:
+-	va_end(ap);
+-
+-	return ret;
+-}
+-
+ /*
+  * Write a command byte sequence from a buffer.
+  *
+- * Like ssd130x_write_cmd() but takes a pre-built byte array instead of
+- * variadic arguments, handy when the command is already in an array or
+- * when the caller wants to use sizeof() for the length.
++ * The first byte is the command opcode and the following bytes are its
++ * options/parameters.
+  */
+ static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8 *cmd,
+ 			      size_t len)
+@@ -294,6 +296,22 @@ static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8 *cmd,
+ 	unsigned int i;
  	int ret;
+ 
++	/*
++	 * The SSD135X family latches command parameters with D/C# HIGH (i.e.
++	 * clocked in as data), unlike the other families where the opcode and
++	 * all of its parameters are sent as commands (D/C# LOW). Send the
++	 * opcode as a command and any following parameter bytes as data.
++	 */
++	if (ssd130x->device_info->family_id == SSD135X_FAMILY) {
++		if (len == 0)
++			return 0;
++		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[0]);
++		if (ret || len == 1)
++			return ret;
++
++		return ssd130x_write_data(ssd130x, cmd + 1, len - 1);
++	}
++
+ 	for (i = 0; i < len; i++) {
+ 		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[i]);
+ 		if (ret)
+@@ -303,6 +321,27 @@ static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8 *cmd,
+ 	return 0;
+ }
+ 
++/*
++ * Variadic wrapper around ssd130x_write_cmds(). The first variadic argument is
++ * the command opcode and the following ones are its options/parameters.
++ */
++static int ssd130x_write_cmd(struct ssd130x_device *ssd130x, int count,
++			     /* u8 cmd, u8 option, ... */...)
++{
++	u8 buf[8];
++	va_list ap;
++
++	if (count > ARRAY_SIZE(buf))
++		return -EINVAL;
++
++	va_start(ap, count);
++	for (int i = 0; i < count; i++)
++		buf[i] = va_arg(ap, int);
++	va_end(ap);
++
++	return ssd130x_write_cmds(ssd130x, buf, count);
++}
++
+ /*
+  * Run a packed command sequence.  The format is a flat byte array where each
+  * entry starts with a length byte followed by that many command bytes.  A
+@@ -415,6 +454,12 @@ static void ssd130x_reset(struct ssd130x_device *ssd130x)
+ 	udelay(4);
+ 	gpiod_set_value_cansleep(ssd130x->reset, 0);
+ 	udelay(4);
++	/*
++	 * No long post-reset delay: the controller datasheets only specify
++	 * microsecond-scale reset timing. The lengthy delay seen in some other
++	 * drivers comes from fbtft's generic reset helper and targets slow
++	 * parallel-bus GPIOs, which do not apply here.
++	 */
+ }
+ 
+ static int ssd130x_power_on(struct ssd130x_device *ssd130x)
+@@ -622,6 +667,42 @@ static int ssd133x_init(struct ssd130x_device *ssd130x)
+ 	return ssd130x_run_cmd_seq(ssd130x, cmds);
+ }
+ 
++static int ssd135x_init(struct ssd130x_device *ssd130x)
++{
++	/*
++	 * Horizontal address increment, COM split, reversed COM scan direction,
++	 * BGR sub-pixel order and 65k (RGB565) color depth. Rotation is not
++	 * supported, so the remap byte is fixed.
++	 */
++	u8 remap = SSD135X_SET_REMAP_65K | SSD135X_SET_REMAP_COM_SPLIT |
++		   SSD135X_SET_REMAP_COLOR_BGR | SSD135X_SET_REMAP_COM_SCAN;
++	const u8 cmds[] = {
++		2, SSD135X_SET_COMMAND_LOCK, 0x12,
++		2, SSD135X_SET_COMMAND_LOCK, 0xb1,
++		1, SSD13XX_DISPLAY_OFF,
++		2, SSD135X_SET_CLOCK_FREQ, 0xf1,
++		2, SSD135X_SET_MUX_RATIO, ssd130x->height - 1,
++		3, SSD135X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
++		3, SSD135X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
++		2, SSD135X_SET_DISPLAY_START, 0x00,
++		2, SSD135X_SET_DISPLAY_OFFSET, 0x00,
++		2, SSD135X_SET_GPIO, 0x00,
++		2, SSD135X_SET_FUNCTION, 0x01,
++		2, SSD135X_SET_PHASE_LENGTH, 0x32,
++		4, SSD135X_SET_VSL, 0xa0, 0xb5, 0x55,
++		2, SSD135X_SET_PRECHARGE, 0x17,
++		2, SSD135X_SET_VCOMH_VOLTAGE, 0x05,
++		4, SSD135X_SET_CONTRAST, 0xc8, 0x80, 0xc8,
++		2, SSD135X_SET_CONTRAST_MASTER, 0x0f,
++		2, SSD135X_SET_PRECHARGE2, 0x01,
++		1, SSD135X_SET_DISPLAY_NORMAL,
++		2, SSD13XX_SET_SEG_REMAP, remap,
++		0
++	};
++
++	return ssd130x_run_cmd_seq(ssd130x, cmds);
++}
++
+ static int ssd130x_update_rect(struct ssd130x_device *ssd130x,
+ 			       struct drm_rect *rect, u8 *buf,
+ 			       u8 *data_array)
+@@ -784,6 +865,26 @@ static int ssd132x_update_rect(struct ssd130x_device *ssd130x,
+ 	return ret;
+ }
+ 
++/*
++ * Write a run of pixel data to the controller's display RAM. The SSD135X
++ * family requires an explicit Write RAM command once the address window has
++ * been set, before any pixel data is accepted; the SSD133X family enters data
++ * mode implicitly after the column/row range is programmed.
++ */
++static int ssd133x_write_pixels(struct ssd130x_device *ssd130x,
++				u8 *data_array, unsigned int count)
++{
++	if (ssd130x->device_info->family_id == SSD135X_FAMILY) {
++		int ret;
++
++		ret = ssd130x_write_cmd(ssd130x, 1, SSD135X_WRITE_RAM);
++		if (ret < 0)
++			return ret;
++	}
++
++	return ssd130x_write_data(ssd130x, data_array, count);
++}
++
+ static int ssd133x_update_rect(struct ssd130x_device *ssd130x,
+ 			       struct drm_rect *rect, u8 *data_array,
+ 			       unsigned int pitch)
+@@ -826,7 +927,7 @@ static int ssd133x_update_rect(struct ssd130x_device *ssd130x,
+ 		return ret;
+ 
+ 	/* Write out update in one go since horizontal addressing mode is used */
+-	ret = ssd130x_write_data(ssd130x, data_array, pitch * rows);
++	ret = ssd133x_write_pixels(ssd130x, data_array, pitch * rows);
+ 
+ 	return ret;
+ }
+@@ -896,7 +997,7 @@ static void ssd133x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
+ 	memset(data_array, 0, pitch * ssd130x->height);
+ 
+ 	/* Write out update in one go since horizontal addressing mode is used */
+-	ssd130x_write_data(ssd130x, data_array, pitch * ssd130x->height);
++	ssd133x_write_pixels(ssd130x, data_array, pitch * ssd130x->height);
+ }
+ 
+ static int ssd130x_fb_blit_rect(struct drm_framebuffer *fb,
+@@ -1356,7 +1457,13 @@ static const struct drm_plane_helper_funcs ssd130x_primary_plane_helper_funcs[]
+ 		.atomic_check = ssd133x_primary_plane_atomic_check,
+ 		.atomic_update = ssd133x_primary_plane_atomic_update,
+ 		.atomic_disable = ssd133x_primary_plane_atomic_disable,
+-	}
++	},
++	[SSD135X_FAMILY] = {
++		DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
++		.atomic_check = ssd133x_primary_plane_atomic_check,
++		.atomic_update = ssd133x_primary_plane_atomic_update,
++		.atomic_disable = ssd133x_primary_plane_atomic_disable,
++	},
+ };
+ 
+ static const struct drm_plane_funcs ssd130x_primary_plane_funcs = {
+@@ -1510,6 +1617,10 @@ static const struct drm_crtc_helper_funcs ssd130x_crtc_helper_funcs[] = {
+ 		.mode_valid = ssd130x_crtc_mode_valid,
+ 		.atomic_check = ssd133x_crtc_atomic_check,
+ 	},
++	[SSD135X_FAMILY] = {
++		.mode_valid = ssd130x_crtc_mode_valid,
++		.atomic_check = ssd133x_crtc_atomic_check,
++	},
+ };
+ 
+ static const struct drm_crtc_funcs ssd130x_crtc_funcs = {
+@@ -1597,6 +1708,31 @@ static void ssd133x_encoder_atomic_enable(struct drm_encoder *encoder,
+ 	ssd130x_power_off(ssd130x);
+ }
+ 
++static void ssd135x_encoder_atomic_enable(struct drm_encoder *encoder,
++					  struct drm_atomic_commit *state)
++{
++	struct drm_device *drm = encoder->dev;
++	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
++	int ret;
++
++	ret = ssd130x_power_on(ssd130x);
++	if (ret)
++		return;
++
++	ret = ssd135x_init(ssd130x);
++	if (ret)
++		goto power_off;
++
++	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
++
++	backlight_enable(ssd130x->bl_dev);
++
++	return;
++
++power_off:
++	ssd130x_power_off(ssd130x);
++}
++
+ static void ssd130x_encoder_atomic_disable(struct drm_encoder *encoder,
+ 					   struct drm_atomic_commit *state)
+ {
+@@ -1622,7 +1758,11 @@ static const struct drm_encoder_helper_funcs ssd130x_encoder_helper_funcs[] = {
+ 	[SSD133X_FAMILY] = {
+ 		.atomic_enable = ssd133x_encoder_atomic_enable,
+ 		.atomic_disable = ssd130x_encoder_atomic_disable,
+-	}
++	},
++	[SSD135X_FAMILY] = {
++		.atomic_enable = ssd135x_encoder_atomic_enable,
++		.atomic_disable = ssd130x_encoder_atomic_disable,
++	},
+ };
+ 
+ static const struct drm_encoder_funcs ssd130x_encoder_funcs = {
+@@ -1897,15 +2037,25 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
+-					    &ssd130xfb_bl_ops, NULL);
+-	if (IS_ERR(bl))
+-		return ERR_PTR(dev_err_probe(dev, PTR_ERR(bl),
+-					     "Unable to register backlight device\n"));
++	/*
++	 * The backlight update path drives contrast through the
++	 * SSD13XX_CONTRAST command (0x81), which the SSD135X family does not
++	 * implement; the brightness byte would be interpreted as a command
++	 * opcode instead. Do not register a backlight device for this family
++	 * until the backlight path is family-aware.
++	 */
++	if (ssd130x->device_info->family_id != SSD135X_FAMILY) {
++		bl = devm_backlight_device_register(dev, dev_name(dev), dev,
++						    ssd130x, &ssd130xfb_bl_ops,
++						    NULL);
++		if (IS_ERR(bl))
++			return ERR_PTR(dev_err_probe(dev, PTR_ERR(bl),
++						     "Unable to register backlight device\n"));
+ 
+-	bl->props.brightness = ssd130x->contrast;
+-	bl->props.max_brightness = MAX_CONTRAST;
+-	ssd130x->bl_dev = bl;
++		bl->props.brightness = ssd130x->contrast;
++		bl->props.max_brightness = MAX_CONTRAST;
++		ssd130x->bl_dev = bl;
++	}
+ 
+ 	ret = ssd130x_init_modeset(ssd130x);
+ 	if (ret)
+diff --git a/drivers/gpu/drm/solomon/ssd130x.h b/drivers/gpu/drm/solomon/ssd130x.h
+index a4554018bb2a..350472cc5a12 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.h
++++ b/drivers/gpu/drm/solomon/ssd130x.h
+@@ -26,7 +26,8 @@
+ enum ssd130x_family_ids {
+ 	SSD130X_FAMILY,
+ 	SSD132X_FAMILY,
+-	SSD133X_FAMILY
++	SSD133X_FAMILY,
++	SSD135X_FAMILY,
+ };
+ 
+ enum ssd130x_variants {
+@@ -42,6 +43,8 @@ enum ssd130x_variants {
+ 	SSD1327_ID,
+ 	/* ssd133x family */
+ 	SSD1331_ID,
++	/* ssd135x family */
++	SSD1351_ID,
+ 	NR_SSD130X_VARIANTS
+ };
  
 -- 
 2.54.0
