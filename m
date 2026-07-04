@@ -4,77 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8863C44500
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 08:41:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B956AC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 08:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8811410E044;
-	Sat,  4 Jul 2026 08:41:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1720610E04F;
+	Sat,  4 Jul 2026 08:46:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bwaSH5S7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WBidfa3D";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF3AA10E044
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 08:41:36 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-47640541585so822513f8f.1
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 01:41:36 -0700 (PDT)
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
+ [209.85.210.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27BA310E04F
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 08:46:02 +0000 (UTC)
+Received: by mail-ot1-f48.google.com with SMTP id
+ 46e09a7af769-7eb4d532e65so389598a34.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 01:46:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783154761; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Hf7JQk/OCucuW5E6LvXfhd9/Prcf92Iji0VTFlqw3jdkSEzzwWxk/qOWT9lCWLJVuM
+ cIkJsyFJfQCC1AmAvURX7Rkd9fUjPCwIsTZVeJ0m5Passx4dlx8X9fRJTTO73oW8Yzes
+ nKZSwZ8zCsu9C8uSdRss+tNkMtKKFAJHmU7asuZ5mAKnJy/QOM8tjxcHKC1PhP/OigZg
+ F5uPYJnPinbRNViLRmEZx984danGDlFhIk65jH7tbvbk5bhaDWBq0G5NtLWRWb4CiHPQ
+ WahpGMYlzFs4gP/x62fL4Fq55jAZltmHU7w9aYYPF/fipxkmlgmSCKtf/9e41bdMGJkf
+ uZYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=HdAowFH9jipDKejyM813D662CypK8NeENF8iZZGVI+I=;
+ fh=XtwYYOf0ww42BuI7fAkm4CMoTk9JNVx334IrY5rQZ04=;
+ b=gDsRjCbrokolfjD4i2Pv3bmRYdfq8RfU/dl5vx8LqgshBt7UybxH8+GMccpybD8ATp
+ Bqj3Qz10jA4kfyCgCCnuvFHaoVtaF+6EnHfyPGBPqSfoqKyFkhniSKUJxutZ9zjKE/Vg
+ f8/4Boa2x/MBt9kQ9Wpa9ShOahFOXPqdxlVzjyqCAqKtXPNq83q3YRWIZHhdr5lZClGR
+ XjQEzzTj9FKaWZrLV63d54aZShHL1+diD5l2m9Cj7deqBLTQRWNZGU5xaecygGIFGJTz
+ y2bRdEstQpASgdfc7e2prOFVaXbvOCrGOq/RCyVI0k8cCrVDGfvRNNeRqBN8UTiLkVgf
+ RDTQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783154495; x=1783759295; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:mime-version:message-id:date
- :subject:to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=2PKlx1RZlE0eFooFNfeW6nXm/sxrhaIM7NVbZ8hGbT4=;
- b=bwaSH5S7ScSlXWbVAi7YvVF0xLPhrct/NBRUoP+Kq2p23q2e8ur8Icw8v1Mqfr2tW0
- enwlndg2YMU1v+LXteHyz1kzT+9tXviL2Vg0wQ5BLKTwQDFFiHD5FYZGyLGtKkDBaYKS
- WKKZ8Ofu90/6HbBX1pGXLoTZCopDqef8PD2LHncdR7HUeFWbP7v1anDsYskT4dJ0TLDb
- xTs35qElmsXlST9ee4lVXLmVTmzYF4kVVZzO6W93qXQvnR2elmeX11ZYuoQIFloTURst
- Spn/lQY65CtKMRhVDM2T+OQ1fxhuTYXzgfauz/SC83ibUYjn0bDE2n6S6U/JV74VfXgz
- PpTg==
+ d=gmail.com; s=20251104; t=1783154761; x=1783759561; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=HdAowFH9jipDKejyM813D662CypK8NeENF8iZZGVI+I=;
+ b=WBidfa3DQEOtipFpsyD8N2GFBiqTOGTJWAv9uY+0Oec0TwBdhqpgrvnMDEbRZzCReM
+ vYwKWs4uUheZm6UDL8zjiAfNG7abUhsEY/lf5zB0zwNanVUPxXvG+52kk0M0amhPGi8B
+ Kie6iJyfJa1R0OpXc+w5L8Qct4SSBxlmAhwd0AedjARPDh5Y8YL1XpcVTi1KyLjufBxM
+ 4SJy8Cfzmq0Lqnm+k1ktXEMiUVaPjfNZsVMA1DSjJQGLs6e21cIDyonxpm8xYDgRaecU
+ ASgu5Qbr1Zx7z+xGmJ1LZ8yBYkWRxc5f/GSnvC+mwAwdNqF7/qBKTPNRqtreDvATJqsr
+ fMMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783154495; x=1783759295;
- h=content-transfer-encoding:reply-to:mime-version:message-id:date
- :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1783154761; x=1783759561;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2PKlx1RZlE0eFooFNfeW6nXm/sxrhaIM7NVbZ8hGbT4=;
- b=Wdk79ucZuU7XKgIbxQAMUfzLQvSpcgy36LeDht03Rjxe5HmimZduSg7DUHDO6e3HNR
- +6nFAZ2j+lCoEGDh9lRJaO5M08l91dRBduN+j95y4wjP5Oz4hkW9DrmOUgcNVHyUaCW9
- RV0nPzcPCNVTPuSkUIwWGLmzLKPpLj29m+s2jEeyG/Ak9G2F/0DugBer9cyzWYiOYywg
- rZiPWyq/1d9zDO+73Z5V2qiE9yiqTmn1UpBcWL1+IFi60u/bV30yllyXFFbqHKO/ATA9
- 6hdyOfRjonCrLf8u/QpdwtCGPRRQiUYOGVMkX6iYVYZ3EpUQahSLOIWhiByFEF+tkTHE
- BVKA==
+ bh=HdAowFH9jipDKejyM813D662CypK8NeENF8iZZGVI+I=;
+ b=JUIlRc1obtl9zPd7tWbBpNZ/KXzZtMRUrTVvsnRMP7GqSmsqgUpBXiZsSV5SE8mMka
+ qXMZ0SZnmmNrpBuesZTruvqysDPMUUPrt12vYx3y0W2zrUcC7Esn4L2TyYItUM6B5ZYS
+ +AHaQN1G7CwZTWAXugY6w6zZGSnOGoh8SzxEnKqYCxjYLuW6smna4hAcMCOptcRbnoH0
+ 1cWabbCW8i97t4vjvY2ENuy158ZomWGl7b4l4vR7SHoaz0nnu1+yn4oAU5+zLAm0Mtg0
+ fpFO91FI0wpoxv6NXO+oB63JqKVUCNkFuJaNxT2cnrXEm7gXfKVGHKI3UZvXgdAHsMAk
+ 4dsw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr3QuWGTh4m/djgIh3M0b2GZ0+v4dQdqstX5c2g+d+QroUK/PIgYb69S/y5EkR+M1gjBnv+8K4Lh0s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzzCjC5ZqicLYL4H5gPbO5DyeKY/+QUdLRznrItTsBpnMAflEBV
- Dna5hQVw7nhMA8sOW/Ilo/rSOJqkgd6a0S5E96xPQvc3q8lZVqIuGIoa
-X-Gm-Gg: AfdE7cl1nnXfm/C1b9ESLKLPbBH1W/K3D4Z3uK/8iIjdEWDXOoNvTz7JLcAVdKILeSJ
- WNiKGUoky02yuFJRoOCWl7bOKK5JIFcpscT0sJXn9Sg+hDDUL4y+y6joG5xaqGBLuLJ+0jC9d/f
- /71oRxLCGyrkHky7i23QpPWyI1M/yYDn6q/cVPlPoq8Msp+gLIdAn9j+GFqJcU8RFRHSMleCCDX
- Mj5pzPz9Q4CokG5iE1lxGmqjfNnZsT/Rh4pLFxAtNY2o+zRpGtBJ+/tgq8hOLbsHzm7dI/eei4T
- vOKLT4E54mZH19NAhGeDkHmes1DnoJ8tY4XUCkn/Y0nvbXqO3J/ILthcsm4qs3UJQtivZUJ2Om7
- bvMeBsTn3f9ATzHgnsBkNM8zRqWpDtvDGthwDAEvMyuKgKmdvRvkHyKFsbgtc42VGDj5CgkLPyn
- xke/P9xuSXyj7/CGCbg9RW5mEHyA==
-X-Received: by 2002:a05:6000:469b:b0:46e:624e:3c2f with SMTP id
- ffacd0b85a97d-47aab77082bmr1649075f8f.47.1783154494914; 
- Sat, 04 Jul 2026 01:41:34 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15be:2e00:3669:f2aa:a674:f340])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa039bcdasm6519563f8f.21.2026.07.04.01.41.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2026 01:41:34 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: mikhail.v.gavrilov@gmail.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, peterz@infradead.org, jpoimboe@kernel.org,
- llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/drm_exec: avoid indirect goto
-Date: Sat,  4 Jul 2026 10:41:33 +0200
-Message-ID: <20260704084133.122053-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
+ AFNElJ9Byv4BU3hDFpUdjaaiNysOpjM05Ido8VQj1v/EqY7azw+PF/yY5RFvAEkrAoL7rVlZ4Yq7H3zBDow=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2Px5UjqHFJRh4ZGM0OZy69bGh6K9xtF4SmpVRQxazAXn9jVGA
+ ehOIscst2OBt71ZedXTgdWuHH15NnngzIFyegDjDXqiBH5qDWfUtCW4OtgiZdgX0TAq/aaNCB/i
+ 0JZgOLcwn74txRS6bITkmVWOjlKlwh2E=
+X-Gm-Gg: AfdE7cl03B1ZfhaV51lG59GAwA1YfNGmBUmy6X2kADluCvU7y9RnJEKkV5TEL8cn46q
+ Lw7aGX+O+PlVr88RX38G5dySAFaaO/rDxx8B5l4KaX4eIsOaJIVqjCA+28A3B8vlmhJa5NmQG+W
+ 3VjWAJxR3ujp3SyBrslyW0ePIwCl0tCN4MAyMUjPowS2JAyqCn4fx8zjH3mjCT9yKs9ESc15kPW
+ cZO5+k69b4poTpS6x+GZiyZrKcoyeOPjp3wKYIs1Y0PPYaQpTiDuvMSqGsTefxAAdJ1uNJwkA==
+X-Received: by 2002:a05:6830:67d9:b0:7e9:b4d0:53aa with SMTP id
+ 46e09a7af769-7eb7fef3ae3mr1509892a34.27.1783154761285; Sat, 04 Jul 2026
+ 01:46:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260608124018.480365-2-diogompaissilva@gmail.com>
+ <CAJpoHp6DnspnA0rirGb6E=A9wCS3eaDn=eFaqmae98Q+39b1PA@mail.gmail.com>
+ <CAJpoHp489qKfkfLOX-XPLpOWo86gibZB=NM_dXPbv0yDGmxysg@mail.gmail.com>
+ <2837071.mvXUDI8C0e@phil>
+In-Reply-To: <2837071.mvXUDI8C0e@phil>
+From: Diogo Silva <diogompaissilva@gmail.com>
+Date: Sat, 4 Jul 2026 10:45:50 +0200
+X-Gm-Features: AVVi8CdYOU8UFgiMqZSy_kqF2cXiTqFa8qXPulo_pHpnNo2bmATQgxO9Gfh9jAk
+Message-ID: <CAJpoHp4cRALQTDkBevaYu1=v8iOi=4UYZ+9iXHjsLwg+DCb05g@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/rockchip: Remove dependency on DRM simple helpers
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, 
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ linux-arm-kernel@lists.infradead.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, "javierm@redhat.com" <javierm@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,165 +107,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The drm_exec component uses a variable with scope limited to the for() and
-an indirect goto to allow instantiating multiple macros in the same
-function.
+Hi Heiko,
 
-This unfortunately doesn't work well with certain compilers when the
-indirect goto can't be lowered to a direct jump.
+> the tool you're using to send patches seems broken.
+> In the patch all the places that should be tabs are replaced as spaces.
+> This of course does not apply.
+>
+> Ideally use git send-email or b4 for sending patches.
 
-Switch the indirect goto to a direct goto, the drawback is that we now
-can't use the dma_exec_until_all_locked() macro in the same function
-multiple times.
+Sorry, I think it broke due to re-sending with gmail. I will stick to
+b4 now. Thanks!
 
-The is currently only one user of this and only as a hacky workaround
-which is about to be removed.
+> Also, please don't send new versions as replies to previous ones.
+> Tooling can get confused by this, so please start a new thread for
+> the next version.
 
-So document that the __label__ statement should be used when the macro is
-used multiple times and fix the tests and the only use case where that is
-necessary.
+Noted, thanks!
 
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  2 ++
- drivers/gpu/drm/tests/drm_exec_test.c  | 24 ++++++++++++------
- include/drm/drm_exec.h                 | 34 ++++++++++++++------------
- 3 files changed, 36 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index fee4c94c2585..fc28d0fdad37 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -3011,6 +3011,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	is_compute_context = vm->is_compute_context;
- 
- 	if (is_compute_context) {
-+		__label__ drm_exec_retry;
-+
- 		/* Release the root PD lock since svm_range_restore_pages
- 		 * might try to take it.
- 		 * TODO: rework svm_range_restore_pages so that this isn't
-diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
-index 2fc47f3b463b..7a374e462348 100644
---- a/drivers/gpu/drm/tests/drm_exec_test.c
-+++ b/drivers/gpu/drm/tests/drm_exec_test.c
-@@ -180,19 +180,27 @@ static void test_multiple_loops(struct kunit *test)
- {
- 	struct drm_exec exec;
- 
--	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
--	drm_exec_until_all_locked(&exec)
- 	{
--		break;
-+		__label__ drm_exec_retry;
-+
-+		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-+		drm_exec_until_all_locked(&exec)
-+		{
-+			break;
-+		}
-+		drm_exec_fini(&exec);
- 	}
--	drm_exec_fini(&exec);
- 
--	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
--	drm_exec_until_all_locked(&exec)
- 	{
--		break;
-+		__label__ drm_exec_retry;
-+
-+		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-+		drm_exec_until_all_locked(&exec)
-+		{
-+			break;
-+		}
-+		drm_exec_fini(&exec);
- 	}
--	drm_exec_fini(&exec);
- 	KUNIT_SUCCEED(test);
- }
- 
-diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-index 8725ba92ff91..cc2937185a9f 100644
---- a/include/drm/drm_exec.h
-+++ b/include/drm/drm_exec.h
-@@ -101,17 +101,6 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
- #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
- 	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
- 
--/*
-- * Helper to drm_exec_until_all_locked(). Don't use directly.
-- *
-- * Since labels can't be defined local to the loop's body we use a jump pointer
-- * to make sure that the retry is only used from within the loop's body.
-- */
--#define __drm_exec_until_all_locked(exec, _label)			 \
--_label:									 \
--	for (void *const __maybe_unused __drm_exec_retry_ptr = &&_label; \
--	     drm_exec_cleanup(exec);)
--
- /**
-  * drm_exec_until_all_locked - loop until all GEM objects are locked
-  * @exec: drm_exec object
-@@ -119,9 +108,18 @@ _label:									 \
-  * Core functionality of the drm_exec object. Loops until all GEM objects are
-  * locked and no more contention exists. At the beginning of the loop it is
-  * guaranteed that no GEM object is locked.
-+ *
-+ * A global label name drm_exec_retry is used, if you need to use more than one
-+ * instance of this macro in the same function the label needs to be made local
-+ * to the block with the __label__ keyword.
-  */
- #define drm_exec_until_all_locked(exec)					\
--	__drm_exec_until_all_locked(exec, __UNIQUE_ID(drm_exec))
-+	for (bool const __maybe_unused __drm_exec_loop = false;		\
-+	     drm_exec_cleanup(exec);)					\
-+		if (false) {						\
-+drm_exec_retry: __maybe_unused;						\
-+			continue;					\
-+		} else
- 
- /**
-  * drm_exec_retry_on_contention - restart the loop to grap all locks
-@@ -129,12 +127,14 @@ _label:									 \
-  *
-  * Control flow helper to continue when a contention was detected and we need to
-  * clean up and re-start the loop to prepare all GEM objects.
-+ * The __drm_exec_loop check exists to prevent usage outside of an
-+ * drm_exec_until_all_locked() loop.
-  */
- #define drm_exec_retry_on_contention(exec)			\
- 	do {							\
- 		if (unlikely(drm_exec_is_contended(exec)))	\
--			goto *__drm_exec_retry_ptr;		\
--	} while (0)
-+			goto drm_exec_retry;			\
-+	} while (__drm_exec_loop)
- 
- /**
-  * drm_exec_is_contended - check for contention
-@@ -154,12 +154,14 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
-  *
-  * Unconditionally retry the loop to lock all objects. For consistency,
-  * the exec object needs to be newly initialized.
-+ * The __drm_exec_loop check exists to prevent usage outside of an
-+ * drm_exec_until_all_locked() loop.
-  */
- #define drm_exec_retry(_exec)					\
- 	do {							\
- 		WARN_ON((_exec)->contended != DRM_EXEC_DUMMY);	\
--		goto *__drm_exec_retry_ptr;			\
--	} while (0)
-+		goto drm_exec_retry;				\
-+	} while (__drm_exec_loop)
- 
- /**
-  * drm_exec_ticket - return the ww_acquire_ctx for this exec context
--- 
-2.43.0
-
+BR,
+Diogo
