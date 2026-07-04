@@ -4,77 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE30C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 17:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC424C43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 17:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5945B10E0BC;
-	Sat,  4 Jul 2026 17:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10D8F10E0AA;
+	Sat,  4 Jul 2026 17:54:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sjcU2hC8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LJvqkoQ5";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13F6910E0BC
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 17:44:34 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2cac59f8b64so17832225ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 10:44:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783187073; x=1783791873; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=z6ud/EPfqlMZplwdn/5Y4rUm6oDx99RAJ6/NlqJ75W8=;
- b=sjcU2hC8bL5Oj7aS67kwEXkPECmGKOttv7gvCvwq3uqTjIysUB6X/Kk3rr+NCtwKxa
- Ch7evoAkAfgUtUx7kppkfhxMAI0SzV2Z95kVfeAxHje+zFOY2oGGDQKEyW1/5keGYSg1
- FCYxbvh50MFc5NigGLBQSPEEzrl4BrWr2i6ktz52gJDak7Cwof6FeEbWQJPU7Td0IH0C
- 0GOaqorcboxtuRgwgAZVgFkREXdLc35M1Wgc9RjWfHmWaZ0yem18kyfAlKGoEA6bV56F
- kZdiZg0vv8WHTJNVidbwSheMKF0vo6z5mingudKKdFf2yLiVeGhdQtqESg6trmTWmQOc
- kYMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783187073; x=1783791873;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=z6ud/EPfqlMZplwdn/5Y4rUm6oDx99RAJ6/NlqJ75W8=;
- b=obqtJO/lcGNOgg/j7eeMAEQtnKPOSXLf8shi8al3NZjFJMiUqb+0oI3OYrIqDgfB35
- yk6y6OzD7/8+i40gnaLiv7RRzT06yfNB3boKrOFrnTowakVSdOgM3FvUIKEbhGoOLGqV
- /MpsBgmmjzqy4L2XJalEPaKWMU7pyMyEOQ9zeqKXg0nLzedeCc4iAO7qJHJH/UtuAjCP
- NU52jff38bhx0Sj8b1hCCrwndZoEUOCLUR4pS6HPkD+ydppsu9gI8EUQo8gbMEHsLmQ5
- xbHDeQtSdNjokrWzg6y2r13YEgqMbaLFYrr3E6yLQhfavk/4rt97kdZlZB07gcYjkI0C
- VYiw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpw9l25eIbaidvNjCPLxSAgKrt8nZPCX3VUjuAcirXf1Q/sClMa96HMMpxz8PTVGjovz7wY+0l5ZxE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxooILu1Znh8JJEVnMtuxCQpETaS8eOv9cIORCzvL1U6vHupNWb
- s72i1lxn6HodV64rHCHqUnz/mNzJ+zRJrds7UCwYTZCHbQDlV/IwVnoB
-X-Gm-Gg: AfdE7cmIqTFSlYUeLiZQ1tSYfCuonpMgx5mkRKM8xlRvNaYI7pB/4P8viv5v5aWwKBh
- 7ogbWIupWIoa5GmeSE7N+MpbT6WsvROSfoWF/K06gl1oOAdZsqZu4OofOY1474PZ8r4nFNz/BSt
- WnfzCmyQITIGYEjkavaYSecf50lGKghbgNrDXVHiUE/t8Kq6UaX1yEZ8vk2s+PjdooN67mKDjWI
- bjnYnSWl1fzRTtT6xCtw25gCrNqJN3ebxbENlDG4zHkPfyQe9fIkt6AXNMoTM40Dj/3bf/WZ1p6
- ZESibCCDZjyeyvpPWjAGsNJ9pHqRRIAKLYrWjI3q9D6BObLwvf6IPff+SFa8xQW8nflbE8GAtSB
- uAEiKr3L7uQT1wQyfD2IAZ7a2VyocVCL/aQ4DQ+jytmV3j1g5MzGLKvI575rWGhUQ876rJkU=
-X-Received: by 2002:a17:903:32cb:b0:2c9:b01a:fbd4 with SMTP id
- d9443c01a7336-2cbb7511bd4mr37563465ad.16.1783187073499; 
- Sat, 04 Jul 2026 10:44:33 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cad78a3e76sm24836105ad.82.2026.07.04.10.44.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2026 10:44:33 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
-Date: Sun,  5 Jul 2026 01:41:13 +0800
-Message-ID: <20260704174113.255485-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E023310E0AA
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 17:54:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 67A9D413F3;
+ Sat,  4 Jul 2026 17:54:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F31A1F000E9;
+ Sat,  4 Jul 2026 17:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783187679;
+ bh=TTCEcJbsnW1OHFIrYYO1zur5oJD73kSga1ofZlJEFxM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LJvqkoQ5L63J0A7YBACoKFgEywWEuU69T5WxTAVK1j0L/copEiAR8/88ImBzN+8k8
+ T8oH370G3fasW0fgh+bkfIRDQCy/Q8z4j8U3KMr1MS/x6p5e/oNZGhv5Qv4JijOcWr
+ asYF36LHz2eLknEonoNNAX+6qMPdWiuiZ3MaQOEAzQB5FpI+ORQJ3vb8BJ3ZbDFAIT
+ M9UKFVzMPAjG0SbtFYCCfkpD2Vz/8yLeFfXZgiLOkfI1Ox4VazRF9podD1RnbtrWVh
+ ZT3ZSxf9myCr1hOYefFnEdJT0Q4pbnObkxbJ+fETHKA/1sbWto1RbdFVyPxtz1Ffj2
+ nCLita2/uqqWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
+To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260704174113.255485-1-lgs201920130244@gmail.com>
+References: <20260704174113.255485-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 04 Jul 2026 17:54:38 +0000
+Message-Id: <20260704175439.1F31A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,40 +52,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-mtk_hdmi_common_probe() gets the DDC adapter with
-of_find_i2c_adapter_by_node() and registers a devm action to release the
-adapter device reference with put_device().
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-The HDMI v2 remove callback also calls i2c_put_adapter() on the same DDC
-adapter. This is not paired with the find helper and it drops the adapter
-device reference before the devm action drops it again.
+New issues:
+- [Low] Empty remove callback left in the driver.
 
-Remove the extra i2c_put_adapter() call from the HDMI v2 remove callback
-and let the common devm action release the adapter device reference.
+Pre-existing issues:
+- [High] Missing module reference pinning for I2C adapter leads to invalid =
+text execution on module unload.
+--
 
-Fixes: 9545bae5c8ac ("drm/mediatek: mtk_hdmi: Fix probe device leaks")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/mediatek/mtk_hdmi_v2.c | 3 ---
- 1 file changed, 3 deletions(-)
+commit 7124bfd2ca52b03e9596ef39d9090b280144457a
+Author: Guangshuo Li <lgs201920130244@gmail.com>
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-index 7bbf463056c9..e668506daf67 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-@@ -1501,9 +1501,6 @@ static int mtk_hdmi_v2_probe(struct platform_device *pdev)
- 
- static void mtk_hdmi_v2_remove(struct platform_device *pdev)
- {
--	struct mtk_hdmi *hdmi = platform_get_drvdata(pdev);
--
--	i2c_put_adapter(hdmi->ddc_adpt);
- }
- 
- static const struct of_device_id mtk_drm_hdmi_v2_of_ids[] = {
--- 
-2.43.0
+drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
 
+This commit removes an extra i2c_put_adapter() call from the HDMI v2 remove
+callback. It relies on the common devm action to release the adapter device
+reference, fixing a double put issue.
+
+> mtk_hdmi_common_probe() gets the DDC adapter with
+> of_find_i2c_adapter_by_node() and registers a devm action to release the
+> adapter device reference with put_device().
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this missing module
+reference pinning for the I2C adapter lead to an invalid text execution
+on module unload?
+
+If the I2C adapter driver module is unloaded, the module's .text section
+is freed because the mtk_hdmi driver only holds a device reference (via
+of_find_i2c_adapter_by_node()) and not a module reference.
+
+If an EDID read is triggered after the I2C adapter module is unloaded,
+drm_edid_read_ddc() calls i2c_transfer(), which dereferences the stale
+hdmi->ddc_adpt->algo->master_xfer pointer, causing a kernel panic.
+
+Should the driver use of_get_i2c_adapter_by_node() and pair it with
+i2c_put_adapter() in the devm action instead?
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/med=
+iatek/mtk_hdmi_v2.c
+> index d9316d30fd5f7..ce6cb952dc683 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+[ ... ]
+>  static void mtk_hdmi_v2_remove(struct platform_device *pdev)
+>  {
+> -	struct mtk_hdmi *hdmi =3D platform_get_drvdata(pdev);
+> -
+> -	i2c_put_adapter(hdmi->ddc_adpt);
+>  }
+
+[Severity: Low]
+Does this leave an unnecessary empty remove callback in the driver?
+
+Since the only statement from mtk_hdmi_v2_remove() is being removed,
+could this empty function and its assignment in the platform driver
+struct be removed entirely?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704174113.2554=
+85-1-lgs201920130244@gmail.com?part=3D1
