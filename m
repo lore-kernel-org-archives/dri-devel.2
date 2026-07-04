@@ -4,62 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5255DC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 14:49:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A877C43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 15:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B62710E058;
-	Sat,  4 Jul 2026 14:49:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C00DD10E0A1;
+	Sat,  4 Jul 2026 15:59:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qum4Bo6T";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="YaUqvtqa";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB1A10E058
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 14:49:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 92F50406A5
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 14:49:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 74BBDC2BCC9
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 14:49:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1783176548;
- bh=mtPQne6qdnj2FtByQfnYivDJmRgrnhwrszIwhR0k9Zg=;
- h=From:To:Subject:Date:From;
- b=Qum4Bo6TGFxoxwOr5GTL8AIexGAh3m48QoVEXRABkXb5rhEle/a/dagTOvPCgzYAE
- QZU6+v0rKIoFl0WvtCBnLsx3rWAR+daLFD67qdq05JX74ocB97vkvj1W7WFEfu4LWV
- THspjxveegsW7p6COvGb2kte+vuUeK8a0m+rxQ1DR9kM8IJAP2rC6ZTRlbqf7VwDPJ
- n0wpXcsim9eh6IjnCn71/Y4+q4qBrXX/F6peG5rvDGLZMeuARbCRw9U5y82kWxtLGc
- 0kQqKghuPZ08XCxGPNTif13EIiNLe7lmj8P5+r3Rsjgs/AJCpxLTxePurCe8dXQBCt
- X/3fbS87F+SnQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 578D3C41614; Sat,  4 Jul 2026 14:49:08 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221719] New: kernel crash after resuming from hibernate -
- amdgpu_vm_move_to_lru_tail+0x29/0x40 - 100% reproducible
-Date: Sat, 04 Jul 2026 14:49:08 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: geogeim@proton.me
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-221719-2300@https.bugzilla.kernel.org/>
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C5B010E0A1
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 15:59:36 +0000 (UTC)
+Received: by mail-vs1-f46.google.com with SMTP id
+ ada2fe7eead31-728f9ecd56aso401933137.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 08:59:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1783180775; x=1783785575;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=N1R3rt/4wDSz6ky8/jCAaXyakWl+HrmHiLRPTOSMmGs=;
+ b=YaUqvtqaunFkR/YrRWDVox7tOi43hiymLhyhxjJGpdgQudNXkDwp5Nk90J94512vbZ
+ BCs6LuqV3hWjTLxDuWHSinEB8AxY68KLh9kCgUxvxvhy7gYxZpuuri92foCTsiEGvK4T
+ FfGlfQnwd8ZqFtmHe6WPl4OMn0eXDDAoyM/TU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783180775; x=1783785575;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=N1R3rt/4wDSz6ky8/jCAaXyakWl+HrmHiLRPTOSMmGs=;
+ b=DSFJq5tsU+ysU9q8Yrt23NaglYFa2g2CCnxIjyLP16r359hWNOfR6VdD9ZFN/T0GBe
+ bCwPnxgrSUKLkIrpydOKGVTm/caU/5ZL3z34aXQkGKBUgVUFGYZKmxel5Rxpng2VpsVz
+ 3vV9PJhliaflyxy4z775Z6Sx6DcnGXa9k/TPLOKEJPWteUMH7PDHSIcSNzI8kp3F5SOo
+ hSd75dbUTB839qTp8is9MqiXRbaaIJ87qsQ4h77fLkuR6TpA5jSSZ+AguK6PzpG2iVGu
+ Y7PqGwSa90hPDj8RZF/IAVzn4bxXNCO4/6NbkIv9k2qnu9c42UIXfXbaqI9HcqJl+1Yp
+ 199A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro04hdWN3VbI1QV2dNYehZanXLL3fEfZ2fUoJ5LzrYlsnSUkLk8kvrmENe50U9GJMyD5oqMKW8JyB8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbmLEmXsBx3jQOzPGlZlQC3aJoGvW6UeMJFY+klcNHQgA4CxPq
+ rCGwyraqZM/7NvKDSqgblqLkEa/sE790dg1lItsN5AgNMUy4vRfWf5tc7cdY+UdYCP5nVyjXVRH
+ YnnY=
+X-Gm-Gg: AfdE7cl8kzt6DCW9syge8WAl+DjdOdgM0MwVWwWoOcZcCcb0E0W9eTVWpPBirhHTeDb
+ GxBVo3RT3DrOGemdZSVJNyp5mqWYtVlIpZ5R1xm0rnfP2KOStU5Dx4PBl/OTWX0y1Sw33djulsN
+ BEjjKysipF3ic6Iecb24Kj2f7gcRS8ticOSjdk8v8FbOxRg1f6Bn7QG1k8/xusUUxic6lyCU9Ce
+ wqBXK289fByt6U7HghzHP4eRfNf2pUPZRW3AAFulnQY7eq2lGKoa6z75jzl9ec6Ihj2cSSTTyMG
+ H8qfG/6Gd+jxRnnDaOYGcZpVUhKhRGayg6B9NRzWPgnu7y5ul2f9NVGGIq1SGMb9Zh4q+Wlwbnm
+ 2m+KBC/Ei/6qcGdzS8b/WNRSqdMgJAQY6JufhejY1WZiM9VqlrdWWLujPhZMhUQu0lgCVViyMeI
+ rxHuv5aE8A5ap8gyDARjTtxzAHicTUZtTtvwN4/dSL1Temxb8x/8qlVsM=
+X-Received: by 2002:a05:6102:5785:b0:738:bf0f:d0c7 with SMTP id
+ ada2fe7eead31-7427e914db2mr1226608137.25.1783180775165; 
+ Sat, 04 Jul 2026 08:59:35 -0700 (PDT)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com.
+ [209.85.221.179]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-73e19f40debsm3744983137.1.2026.07.04.08.59.32
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Jul 2026 08:59:32 -0700 (PDT)
+Received: by mail-vk1-f179.google.com with SMTP id
+ 71dfb90a1353d-5bdf96b3faaso282360e0c.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 08:59:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqPuDLFl01RVNWCfvcyBq3pLews9C1PW3s0VT3NrNy26Z9gVP0z7EmiZtRV6UD0LaUVc7krEFPGD28=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:f11:b0:737:e354:4092 with SMTP id
+ ada2fe7eead31-7427c5b06bemr1234835137.11.1783180771360; Sat, 04 Jul 2026
+ 08:59:31 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260701125624.199786-1-nico.antinori.7@gmail.com>
+In-Reply-To: <20260701125624.199786-1-nico.antinori.7@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sat, 4 Jul 2026 08:59:20 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VKKb1Xy2Y7D1Lv8DXhaG1_zHZqTk2Q74oT-YKGd5CCiQ@mail.gmail.com>
+X-Gm-Features: AVVi8CfBBMKu3dPyXgaGhFyCaXc25ycyy4xGhUFDgvYjFsxPnZhgmorMhD1_OrA
+Message-ID: <CAD=FV=VKKb1Xy2Y7D1Lv8DXhaG1_zHZqTk2Q74oT-YKGd5CCiQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel: novatek-nt37801: Use mipi_dsi_*_multi()
+ functions
+To: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Brigham Campbell <me@brighamcampbell.com>, 
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
-MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,129 +108,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221719
+Hi,
 
-            Bug ID: 221719
-           Summary: kernel crash after resuming from hibernate -
-                    amdgpu_vm_move_to_lru_tail+0x29/0x40 - 100%
-                    reproducible
-           Product: Drivers
-           Version: 2.5
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P3
-         Component: Video(DRI - non Intel)
-          Assignee: drivers_video-dri@kernel-bugs.osdl.org
-          Reporter: geogeim@proton.me
-        Regression: No
+On Wed, Jul 1, 2026 at 5:56=E2=80=AFAM Nicol=C3=A1s Antinori
+<nico.antinori.7@gmail.com> wrote:
+>
+> Replace mipi_dsi_* functions with their non-deprecated mipi_dsi_*_multi
+> counterparts. This change reduces error-checking boilerplate and improves
+> readability.
+>
+> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+> ---
+> Note: I Compile-tested this patch since I don't own the panel to test it.
+>
+>  drivers/gpu/drm/panel/panel-novatek-nt37801.c | 16 ++++++----------
+>  1 file changed, 6 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu/=
+drm/panel/panel-novatek-nt37801.c
+> index d6a37d7e0cc6..daa356bbc182 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+> @@ -128,7 +128,8 @@ static int novatek_nt37801_off(struct novatek_nt37801=
+ *ctx)
+>  static int novatek_nt37801_prepare(struct drm_panel *panel)
+>  {
+>         struct novatek_nt37801 *ctx =3D to_novatek_nt37801(panel);
+> -       struct device *dev =3D &ctx->dsi->dev;
+> +       struct mipi_dsi_device *dsi =3D ctx->dsi;
+> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
+>         struct drm_dsc_picture_parameter_set pps;
+>         int ret;
+>
+> @@ -145,15 +146,10 @@ static int novatek_nt37801_prepare(struct drm_panel=
+ *panel)
+>
+>         drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+>
+> -       ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
+> -       if (ret < 0) {
+> -               dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
+> -               goto err;
+> -       }
+> -
+> -       ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
+> -       if (ret < 0) {
+> -               dev_err(dev, "failed to enable compression mode: %d\n", r=
+et);
+> +       mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+> +       mipi_dsi_compression_mode_multi(&dsi_ctx, true);
+> +       if (dsi_ctx.accum_err) {
+> +               ret =3D dsi_ctx.accum_err;
+>                 goto err;
+>         }
 
-BUG: kernel NULL pointer dereference, address: 0000000000000000
-#PF: supervisor write access in kernel mode
-#PF: error_code(0x0002) - not-present page
-PGD 0 P4D 0=20
-Oops: Oops: 0002 [#1] SMP NOPTI
-CPU: 5 UID: 1000 PID: 8529 Comm: brave Not tainted 7.1-amd64 #1 PREEMPT(laz=
-y)=20
-Debian 7.1.2-1~exp1=20
-Hardware name: LENOVO 21K5001JUS/21K5001JUS, BIOS R2FET67W (1.47 ) 11/28/20=
-25
-RIP: 0010:ttm_lru_bulk_move_tail+0x192/0x330 [ttm]
-Code: 84 dd d8 00 00 00 4c 8d 62 40 49 8d 6a 40 48 83 f8 05 0f 83 2c 01 00 =
-00
-48 8b 7a 48 49 8b 72 40 48 c1 e0 04 4c 01 c0 4d 01 d8 <48> 89 37 48 8b 7a 4=
-8 48
-8>
-RSP: 0018:ffffcc21e0e67870 EFLAGS: 00010206
-RAX: 0000000000000020 RBX: 0000000000000000 RCX: 0000000000000002
-RDX: ffff8ba407d4c720 RSI: ffff8ba2e160ee38 RDI: 0000000000000000
-RBP: ffff8ba196612540 R08: 0000000000000088 R09: ffff8ba142aa1960
-R10: ffff8ba196612500 R11: 0000000000000088 R12: ffff8ba407d4c760
-R13: ffff8ba142aa1940 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007f1018f6c400(0000) GS:ffff8baee2ab5000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 00000001c106c000 CR4: 0000000000f50ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- ? __queue_work+0x113/0x4d0
- amdgpu_vm_move_to_lru_tail+0x29/0x40 [amdgpu]
- amdgpu_cs_ioctl+0x1d56/0x2140 [amdgpu]
- ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
- drm_ioctl_kernel+0xae/0x100 [drm]
- drm_ioctl+0x2a8/0x550 [drm]
- ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
- amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
- __x64_sys_ioctl+0x97/0xe0
- do_syscall_64+0xe1/0x640
- ? amdgpu_gem_fault+0xdc/0x100 [amdgpu]
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __do_fault+0x34/0x170
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? do_fault+0xcc/0x580
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __pte_offset_map+0x1b/0x100
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __handle_mm_fault+0x960/0xf60
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? count_memcg_events+0xe5/0x220
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? handle_mm_fault+0x1e5/0x2f0
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? do_user_addr_fault+0x1d9/0x7b0
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? irqentry_exit+0x43/0x6b0
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? do_syscall_64+0x98/0x640
- ? exc_page_fault+0x82/0x1d0
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-RIP: 0033:0x7f101a180c3b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 =
-24
-08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff f=
-f 77
-1>
-RSP: 002b:00007ffcc2e72c20 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007ffcc2e72e28 RCX: 00007f101a180c3b
-RDX: 00007ffcc2e72cb0 RSI: 00000000c0186444 RDI: 0000000000000016
-RBP: 00007ffcc2e72cf0 R08: 000000b4019648e0 R09: 00007ffcc2e72c80
-R10: 0000000000000000 R11: 0000000000000246 R12: 000000b401964890
-R13: 0000000000000016 R14: 0000010816e4c9a4 R15: 000000b4000d3200
- </TASK>
-Modules linked in: ath11k_pci(+) ath11k qmi_helpers mhi sd_mod scsi_mod
-scsi_common snd_seq_dummy rfcomm snd_hrtimer snd_seq snd_seq_device algif_h=
-ash
-algif_sk>
- wmi_bmof firmware_attributes_class snd_acp_legacy_common snd_intel_sdw_acpi
-pcspkr amd_pmf snd_pci_acp6x snd_hwdep snd_pcm thinkpad_acpi spd5118 amdtee
-snd_pc>
- nvme_auth i2c_smbus usb_common wmi fan button [last unloaded: qmi_helpers]
-CR2: 0000000000000000
----[ end trace 0000000000000000 ]---
+Sure, this looks pretty good.
 
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
+For bonus points, I think you could change novatek_nt37801_on() to
+return "void" and take a "struct mipi_dsi_multi_context". Since
+drm_dsc_pps_payload_pack() is harmless, the function can now just be:
 
-Scenario:
-Open brave/chromium
-Go to youtube.com
-Play a video
-In a terminal do systemctl hibernate
-Wait for hibernation to finish
-Power on the machine
-Computer freezes at the login screen
-
-
-  Type: Laptop System: LENOVO product: 21K5001JUS v: ThinkPad P14s Gen 4
-CPU:
-  Info: model: AMD Ryzen 7 PRO 7840U w/ Radeon 780M Graphics socket: FP8
-Graphics:
-  Device-1: Advanced Micro Devices [AMD/ATI] Phoenix1 vendor: Lenovo
-    driver: amdgpu v: kernel arch: RDNA-3 code: Phoenix process: TSMC n4 (4=
-nm)
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+  novatek_nt37801_on(&dsi_ctx);
+  drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+  mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+  mipi_dsi_compression_mode_multi(&dsi_ctx, true);
+  if (dsi_ctx.accum_err) {
+    ...
+  }
