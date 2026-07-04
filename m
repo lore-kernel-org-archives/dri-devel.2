@@ -4,97 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 784A5C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 13:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5255DC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 14:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A765210E067;
-	Sat,  4 Jul 2026 13:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B62710E058;
+	Sat,  4 Jul 2026 14:49:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Se96sFgD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qum4Bo6T";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A072710E067
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 13:00:21 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-84787ee07f2so422473b3a.3
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 06:00:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783170021; cv=none;
- d=google.com; s=arc-20260327;
- b=FUA4JLiJR+i3URTnz6roFNk3dPk/IM1GAW5b2KyRov1er+T86KhTKRZBd5o6/D+ykh
- /5+Ykdyys3mY1iSy+jGf0kzrdZU78U7oMjzRwEV38BO1uh13/1LP4Fx+AUtSBdnoEFdc
- J4I2iSjllo5nz1aOaghrUkv0L0J380P6oydKerU29biGylc45AWpFvLxNfeky8OLif2w
- wgPv/1+hAFb8TXabhnlRU2mMDcA+4KTv72dXLcLJcEb0HUDQapPPj6Zc/dlkXVcRydvg
- qMajVFLSuOPogIbtJGM4EZ/VjhMF31ugozhmAY3Lh4DEEd4IOMsCvqO4GFf5eSFNuU7n
- P/eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=WIb0LAhy6ZohB5fTEBHLOSF58e1DkPpYw83fCrDECVs=;
- fh=SA3wJr+2a+Om7K/Gs4ovTVC1i3qsLFkKDiqfYZ43xRs=;
- b=piobM2B5snksIJopq53XBgXwOXO+OHuA3d8jbLBU/87wfdmfFSwz30hPdQJbV5LrLQ
- NmAUfwMyKcbmojW9mo88wlvqDnk6NhpvvQ+YQBTIY2+EnBuv7PIaJZoVOdCQ23WlE01l
- 3gN28BbHCetBO8WmtBsb+tSsZH2Yy2nNS6e6otsvEstgp/XSOPxmPkCMutlCm3smD7V1
- 3X3e12hD6q+DoPonF1aEgewVFOgMzabMXNG87OF1AyJfTqTZSWzPokJBM8qTrEjkYy/s
- +6qcnUssGxgxnUVr/9harCIWR7G6lFnhOKaOaxweBEcT5bDsQQ4pDSUfkmt/sKRVS+eX
- CtZA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783170021; x=1783774821; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=WIb0LAhy6ZohB5fTEBHLOSF58e1DkPpYw83fCrDECVs=;
- b=Se96sFgDaDdDsQ9rvx9Ef+SazWKEa0vXha98kLJrGiMfuwScQheVgQVFsLFuJ1jt3u
- rDuhW7p/DOH8NaqoTcz81RpQcqFJE3pkO1w17mA3gRNPPTk+G5bOxP+xCjrwTPKdeviV
- e1wxr6Sfrp0FKhxOhX8EW4ZY8LNJr91A6SuMhULBoyyBcVNNxfOxqe9vuW2I+nkwdSpm
- 1eTT2VSFFXTQ+cCKRBgBJBTY7WXMlLG2Uif2m24nEv9sO6C9XeqeA+n1FYDAURdXyL3n
- ujs45Vl0rCEKyKrRF0hqxB3Kjp9pMp4rZMzsRZM8LCaeNpnIRxQyUQT+A8DEnhpLvIm7
- a3hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783170021; x=1783774821;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=WIb0LAhy6ZohB5fTEBHLOSF58e1DkPpYw83fCrDECVs=;
- b=VdWOVa517RKYxdSh2WuZbm92IdVf/ahNDTI5Mqv1u6bViOd/+B62ji2hBPSxkrupdZ
- BhG/sKwrcP6e5mSCVsstTlF4uFa8IMArP2n+HoBIUd0j9sERvjX1i4YHHEr8Y7FohHPr
- K7kuxoAbl00UI/wLCbJ7JI1H3/IKEL8cLkfTiXorTp9rvaj/c0UjYtWH72zbUI7UFU01
- /ZjoT15VdkxL792BYFrrYorhJqATKZm2oIlabtnvzdp3GFhrlPmB0hKa3rOPpo4WYtpr
- rsfaG5XRnrdrA3dn946k1XxjMLDroI4k3spipNpmWDm7eUn0kfN2XjZIJE7yv+v5TYOP
- Kq1g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrJM5kj9+o0LtF3u3LDDmT0PUMXrc0VcPjEsvK10Xg7KwRZV6LpQ6o72g2jr6esvGTaFyZLmR+xl2U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyBBlbEYQvB51Ph5PFkKB1ssMQt0ua93fpCrNvkOKzf3+fVRr9p
- Rj0VZNn0iTPboQyylChZsN4jEmj58OAG6oI10oUYAGG3MwyDOMw5ST6KqwfM0ofggUQLBdXQuAV
- eAPcszVz5VgAa2Ii4HQ3IRIzdjN5shUo=
-X-Gm-Gg: AfdE7clPdDdSXEg7ATVSr+o/I7HeTLTfVFtZc9PFC/vkm2R2eJs+LNUdVBE0jPD7KVd
- cJQVpYM9hVkkFgLoBF7DRDtIp5xMqlcuuuGkuxhYjnjYam1kupfzZ8vhgiyIj5aw28y4Yyq9FWq
- g8pyj8XaVwQ3A2GB7UoMlFC4Gq+AtajfxEKtwfR2czyLcq7Xd/WLRp1bGBYwnOfsNYQfw4a5nni
- K1f/pi7TMUaBivJx0Ekly7z6La7AwZIXok87AoHUVgSqNunMng5MiD6qwcjoxLQxEiPg8BmNG++
- L6mITMSxFC/nsAlKJfQvKpk67TttrNqZ431esp8yHemMxFR7nK+0vZrj/xHLZSeSGOLMewVGtXI
- p5/Ez7+1ksod9
-X-Received: by 2002:a17:90b:3e4f:b0:381:2788:a437 with SMTP id
- 98e67ed59e1d1-382802bcc65mr2215108a91.1.1783170020948; Sat, 04 Jul 2026
- 06:00:20 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260702120324.40388-1-niyudi.honda@gmail.com>
-In-Reply-To: <20260702120324.40388-1-niyudi.honda@gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 4 Jul 2026 15:00:08 +0200
-X-Gm-Features: AVVi8CdSg2ksdLfnEyguJvA5pU1IOucVtgAfWvHPCYCaaf11PZEGGbNUW2d7mys
-Message-ID: <CANiq72=g2mXOPtobn4oQUUASKgJzX6LOpuEvUUBH75UvbcUVdg@mail.gmail.com>
-Subject: Re: [RESEND PATCH v2 0/5] drm/nova: replace `transmute` with
- `zerocopy`
-To: Pedro Yudi Honda <niyudi.honda@usp.br>
-Cc: dakr@kernel.org, acourbot@nvidia.com, apopple@nvidia.com, 
- nico.antinori.7@gmail.com, aliceryhl@google.com, airlied@gmail.com, 
- simona@ffwll.ch, dri-devel@lists.freedesktop.org, ojeda@kernel.org, 
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB1A10E058
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 14:49:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 92F50406A5
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 14:49:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 74BBDC2BCC9
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 14:49:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1783176548;
+ bh=mtPQne6qdnj2FtByQfnYivDJmRgrnhwrszIwhR0k9Zg=;
+ h=From:To:Subject:Date:From;
+ b=Qum4Bo6TGFxoxwOr5GTL8AIexGAh3m48QoVEXRABkXb5rhEle/a/dagTOvPCgzYAE
+ QZU6+v0rKIoFl0WvtCBnLsx3rWAR+daLFD67qdq05JX74ocB97vkvj1W7WFEfu4LWV
+ THspjxveegsW7p6COvGb2kte+vuUeK8a0m+rxQ1DR9kM8IJAP2rC6ZTRlbqf7VwDPJ
+ n0wpXcsim9eh6IjnCn71/Y4+q4qBrXX/F6peG5rvDGLZMeuARbCRw9U5y82kWxtLGc
+ 0kQqKghuPZ08XCxGPNTif13EIiNLe7lmj8P5+r3Rsjgs/AJCpxLTxePurCe8dXQBCt
+ X/3fbS87F+SnQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 578D3C41614; Sat,  4 Jul 2026 14:49:08 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221719] New: kernel crash after resuming from hibernate -
+ amdgpu_vm_move_to_lru_tail+0x29/0x40 - 100% reproducible
+Date: Sat, 04 Jul 2026 14:49:08 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: geogeim@proton.me
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-221719-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,15 +75,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 2, 2026 at 2:05=E2=80=AFPM Pedro Yudi Honda <niyudi.honda@usp.b=
-r> wrote:
->
-> Resent because of wrong target list and wrong email in "From:".
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221719
 
-It is good that you mention this, thanks!
+            Bug ID: 221719
+           Summary: kernel crash after resuming from hibernate -
+                    amdgpu_vm_move_to_lru_tail+0x29/0x40 - 100%
+                    reproducible
+           Product: Drivers
+           Version: 2.5
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: Video(DRI - non Intel)
+          Assignee: drivers_video-dri@kernel-bugs.osdl.org
+          Reporter: geogeim@proton.me
+        Regression: No
 
-For future series, please also include a changelog between versions,
-i.e. so that reviewers know what changed :)
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+#PF: supervisor write access in kernel mode
+#PF: error_code(0x0002) - not-present page
+PGD 0 P4D 0=20
+Oops: Oops: 0002 [#1] SMP NOPTI
+CPU: 5 UID: 1000 PID: 8529 Comm: brave Not tainted 7.1-amd64 #1 PREEMPT(laz=
+y)=20
+Debian 7.1.2-1~exp1=20
+Hardware name: LENOVO 21K5001JUS/21K5001JUS, BIOS R2FET67W (1.47 ) 11/28/20=
+25
+RIP: 0010:ttm_lru_bulk_move_tail+0x192/0x330 [ttm]
+Code: 84 dd d8 00 00 00 4c 8d 62 40 49 8d 6a 40 48 83 f8 05 0f 83 2c 01 00 =
+00
+48 8b 7a 48 49 8b 72 40 48 c1 e0 04 4c 01 c0 4d 01 d8 <48> 89 37 48 8b 7a 4=
+8 48
+8>
+RSP: 0018:ffffcc21e0e67870 EFLAGS: 00010206
+RAX: 0000000000000020 RBX: 0000000000000000 RCX: 0000000000000002
+RDX: ffff8ba407d4c720 RSI: ffff8ba2e160ee38 RDI: 0000000000000000
+RBP: ffff8ba196612540 R08: 0000000000000088 R09: ffff8ba142aa1960
+R10: ffff8ba196612500 R11: 0000000000000088 R12: ffff8ba407d4c760
+R13: ffff8ba142aa1940 R14: 0000000000000000 R15: 0000000000000000
+FS:  00007f1018f6c400(0000) GS:ffff8baee2ab5000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 00000001c106c000 CR4: 0000000000f50ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ ? __queue_work+0x113/0x4d0
+ amdgpu_vm_move_to_lru_tail+0x29/0x40 [amdgpu]
+ amdgpu_cs_ioctl+0x1d56/0x2140 [amdgpu]
+ ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
+ drm_ioctl_kernel+0xae/0x100 [drm]
+ drm_ioctl+0x2a8/0x550 [drm]
+ ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
+ amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
+ __x64_sys_ioctl+0x97/0xe0
+ do_syscall_64+0xe1/0x640
+ ? amdgpu_gem_fault+0xdc/0x100 [amdgpu]
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __do_fault+0x34/0x170
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? do_fault+0xcc/0x580
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __pte_offset_map+0x1b/0x100
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __handle_mm_fault+0x960/0xf60
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? count_memcg_events+0xe5/0x220
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? handle_mm_fault+0x1e5/0x2f0
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? do_user_addr_fault+0x1d9/0x7b0
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? irqentry_exit+0x43/0x6b0
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? do_syscall_64+0x98/0x640
+ ? exc_page_fault+0x82/0x1d0
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+RIP: 0033:0x7f101a180c3b
+Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 =
+24
+08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff f=
+f 77
+1>
+RSP: 002b:00007ffcc2e72c20 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007ffcc2e72e28 RCX: 00007f101a180c3b
+RDX: 00007ffcc2e72cb0 RSI: 00000000c0186444 RDI: 0000000000000016
+RBP: 00007ffcc2e72cf0 R08: 000000b4019648e0 R09: 00007ffcc2e72c80
+R10: 0000000000000000 R11: 0000000000000246 R12: 000000b401964890
+R13: 0000000000000016 R14: 0000010816e4c9a4 R15: 000000b4000d3200
+ </TASK>
+Modules linked in: ath11k_pci(+) ath11k qmi_helpers mhi sd_mod scsi_mod
+scsi_common snd_seq_dummy rfcomm snd_hrtimer snd_seq snd_seq_device algif_h=
+ash
+algif_sk>
+ wmi_bmof firmware_attributes_class snd_acp_legacy_common snd_intel_sdw_acpi
+pcspkr amd_pmf snd_pci_acp6x snd_hwdep snd_pcm thinkpad_acpi spd5118 amdtee
+snd_pc>
+ nvme_auth i2c_smbus usb_common wmi fan button [last unloaded: qmi_helpers]
+CR2: 0000000000000000
+---[ end trace 0000000000000000 ]---
 
-Cheers,
-Miguel
+
+
+Scenario:
+Open brave/chromium
+Go to youtube.com
+Play a video
+In a terminal do systemctl hibernate
+Wait for hibernation to finish
+Power on the machine
+Computer freezes at the login screen
+
+
+  Type: Laptop System: LENOVO product: 21K5001JUS v: ThinkPad P14s Gen 4
+CPU:
+  Info: model: AMD Ryzen 7 PRO 7840U w/ Radeon 780M Graphics socket: FP8
+Graphics:
+  Device-1: Advanced Micro Devices [AMD/ATI] Phoenix1 vendor: Lenovo
+    driver: amdgpu v: kernel arch: RDNA-3 code: Phoenix process: TSMC n4 (4=
+nm)
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
