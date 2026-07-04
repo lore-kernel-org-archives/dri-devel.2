@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D6EC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B46ECC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:53:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 827DA10E07A;
-	Sat,  4 Jul 2026 18:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13B3410E0D3;
+	Sat,  4 Jul 2026 18:53:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EmVtg+tx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ca5Ta4xq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 287BF10E07A
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:52:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D62810E0D3
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:53:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC68843754;
- Sat,  4 Jul 2026 18:52:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477A51F000E9;
- Sat,  4 Jul 2026 18:52:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6CBCC60052;
+ Sat,  4 Jul 2026 18:53:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627B61F000E9;
+ Sat,  4 Jul 2026 18:53:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783191170;
- bh=e8FalOy76n0dzL+wfRO0R9e3ZnYmOQZjh3kDi9wju7Q=;
+ s=k20260515; t=1783191227;
+ bh=CfT4SqdzxNT8gdaM3y8lRRCXLvW6Ir7qsFGSwxUsO/c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EmVtg+tx+gFrGfzqNk3/p7pvd+cckFcb6fwt/p2VsZzNQC4uci2JoyNmKejk3Ck5Y
- G6/tb2mk6FI4/vL6fUh5qMtjoGnY1kYQwtytRNcfxyw+1y4T+NgAIPbLkIFHect8jA
- V+0fNSbRq20yG5FbOKPkESU2URmuf62J6bknGR9ZGRWXKfnPj6XI68d/HgFGtpXa/U
- NjDOUvPJvV1lCXp7i4QArLnABZVQWbO7BUn1wfM1Dpng+l7Y9hVm+QL1uy3UTEmnGC
- lMMGWRI8bWoqxWz/fHUC1ZLdbTwaIEUU+UTbR5XU3Hc0XzRx5KPKLS/ypB2d3Ftj/Y
- o2VLseTBx/mEg==
+ b=Ca5Ta4xqoZSdaXckHp8ogNuLdWJ7ajjwv4PECaoyQYcr7n+d6T+/X1hqLEFxzBv5E
+ AkTacW/IpbvnH6dR80jnOCvNsjcE0tBPVg5ZLShvoI0gvOKfwvf60iecLb32Bt/FGF
+ xMm18ZRNY7HCQNYARwEhwlnD1H50AeZzKJgxcvoLoBElrqxzfpK7Ld7CVMT+22iQuw
+ Bm5wrcO/dSNxBN5y+1WNfiBlQ5cvlb6E0/WESWVqaPUiA3ONNCW0wmM8SrIIo5pD5E
+ zLs9eF8DFSR3lxCFy0RWqU2zLgsuR0WFptBPqwOzJQdqbkexhXQWEsF06LOSukEsFt
+ v4Rt0l0EdUQyA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/9] drm/aspeed: replace struct drm_simple_display_pipe
+Subject: Re: [PATCH 9/9] drm/xen: replace struct drm_simple_display_pipe
  with regular atomic helpers
 To: "Ze Huang" <ze.huang@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260705-drm-simple-kms-removal-v1-2-b4e1ca053623@oss.qualcomm.com>
+Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
+In-Reply-To: <20260705-drm-simple-kms-removal-v1-9-b4e1ca053623@oss.qualcomm.com>
 References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-2-b4e1ca053623@oss.qualcomm.com>
+ <20260705-drm-simple-kms-removal-v1-9-b4e1ca053623@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 18:52:49 +0000
-Message-Id: <20260704185250.477A51F000E9@smtp.kernel.org>
+Date: Sat, 04 Jul 2026 18:53:45 +0000
+Message-Id: <20260704185346.627B61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,106 +60,124 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Lockless access to global atomic state pointers in commit path cau=
-ses TOCTOU races and potential NULL pointer dereferences.
-- [High] CRTC vblank events are prematurely consumed in the plane's atomic_=
-update callback.
+- [High] Hardcoded `possible_crtcs` mask restricts all primary planes to CR=
+TC 0, breaking multi-display support.
+- [High] Direct access of global `plane->state` and `crtc->state` in atomic=
+ commit hooks leads to race conditions and stalled events.
 --
 
-commit 7172c80142608f5bf7d738f64624b3135c44fdba
+commit 8a32b307abb3d8e006d032d01a1802aa1e4ae6f0
 Author: Ze Huang <ze.huang@oss.qualcomm.com>
-Subject: drm/aspeed: replace struct drm_simple_display_pipe with regular at=
-omic helpers
 
-This patch replaces the simple display pipe in the aspeed DRM driver with
-explicit plane, CRTC, and encoder objects. It removes the intermediate layer
-and wires up the standard atomic helpers for modesetting and page flips.
+drm/xen: replace struct drm_simple_display_pipe with regular atomic helpers
 
-> diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c b/drivers/gpu/drm/a=
-speed/aspeed_gfx_crtc.c
-> index 7877a57b8e265..3294795c31c4c 100644
-> --- a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-> +++ b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
+Replace Xen frontend simple display pipe with explicit plane, CRTC and
+encoder objects for each pipeline. Keep generic plane-state validation
+before Xen-specific checks, and install GEM framebuffer prepare helper
+explicitly.
 
-[ ... ]
-
->  static int aspeed_gfx_set_pixel_fmt(struct aspeed_gfx *priv, u32 *bpp)
->  {
-> -	struct drm_crtc *crtc =3D &priv->pipe.crtc;
-> +	struct drm_crtc *crtc =3D &priv->crtc;
->  	struct drm_device *drm =3D crtc->dev;
->  	const u32 format =3D crtc->primary->state->fb->format->format;
->  	u32 ctrl1;
-
-[Severity: High]
-This is a pre-existing issue, but does this lockless access to the global
-state pointers in aspeed_gfx_set_pixel_fmt risk a NULL pointer dereference =
-or
-TOCTOU race?
-
-If a concurrent non-blocking atomic commit disables the primary plane while
-this runs in a worker thread, the global state could be swapped, potentially
-making the framebuffer pointer NULL.
-
-Would it be safer to extract the commit-specific state using the atomic
-helpers instead of reading directly from crtc->primary->state->fb?
+> diff --git a/drivers/gpu/drm/xen/xen_drm_front_kms.c b/drivers/gpu/drm/xe=
+n/xen_drm_front_kms.c
+> index 48772b5fe71cf..57e1bef452f83 100644
+> --- a/drivers/gpu/drm/xen/xen_drm_front_kms.c
+> +++ b/drivers/gpu/drm/xen/xen_drm_front_kms.c
 
 [ ... ]
 
->  static void aspeed_gfx_crtc_mode_set_nofb(struct aspeed_gfx *priv)
+> @@ -105,17 +105,15 @@ static void send_pending_event(struct xen_drm_front=
+_drm_pipeline *pipeline)
+>  	spin_unlock_irqrestore(&dev->event_lock, flags);
+>  }
+> =20
+> -static void display_enable(struct drm_simple_display_pipe *pipe,
+> -			   struct drm_crtc_state *crtc_state,
+> -			   struct drm_plane_state *plane_state)
+> +static void xen_drm_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+> +					      struct drm_atomic_commit *state)
 >  {
-> -	struct drm_display_mode *m =3D &priv->pipe.crtc.state->adjusted_mode;
-> +	struct drm_display_mode *m =3D &priv->crtc.state->adjusted_mode;
->  	u32 ctrl1, d_offset, t_count, bpp;
->  	int err;
-
-[Severity: High]
-This is also a pre-existing issue carried over during the conversion, but c=
-an
-reading directly from the global crtc.state cause a similar TOCTOU race?
-
-Reading the adjusted_mode directly from the global state pointer bypasses t=
-he
-atomic commit's local state. Could this function be updated to use the local
-state passed to the atomic hooks?
-
-[ ... ]
-
-> -static void aspeed_gfx_pipe_update(struct drm_simple_display_pipe *pipe,
-> -				   struct drm_plane_state *plane_state)
-> +static void aspeed_gfx_plane_helper_atomic_update(struct drm_plane *plan=
-e,
-> +						  struct drm_atomic_commit *state)
->  {
-> -	struct aspeed_gfx *priv =3D drm_pipe_to_aspeed_gfx(pipe);
+> -	struct xen_drm_front_drm_pipeline *pipeline =3D
+> -			to_xen_drm_pipeline(pipe);
 > -	struct drm_crtc *crtc =3D &pipe->crtc;
-> -	struct drm_framebuffer *fb =3D pipe->plane.state->fb;
-> +	struct aspeed_gfx *priv =3D container_of(plane, struct aspeed_gfx, plan=
-e);
-> +	struct drm_crtc *crtc =3D &priv->crtc;
-> +	struct drm_framebuffer *fb =3D plane->state->fb;
->  	struct drm_pending_vblank_event *event;
->  	struct drm_gem_dma_object *gem;
+> +	struct xen_drm_front_drm_pipeline *pipeline =3D to_xen_drm_pipeline(crt=
+c);
+> +	struct drm_plane_state *plane_state =3D pipeline->plane.state;
 
 [Severity: High]
-This is a pre-existing issue, but does consuming the vblank event directly =
-in
-the plane update phase risk premature signaling?
+Is it safe to access the global pipeline->plane.state directly here? If
+non-blocking commits overlap, this pointer might point to a newer,
+uncommitted state. Should this code use drm_atomic_get_new_plane_state()
+to extract the state from the drm_atomic_commit object instead?
 
-Looking at aspeed_gfx_plane_helper_atomic_update, the driver steals the eve=
-nt
-from the global state (crtc->state->event) before the CRTC is fully enabled
-and programmed.=20
+>  	struct drm_framebuffer *fb =3D plane_state->fb;
+>  	int ret, idx;
 
-Could userspace prematurely free or overwrite the framebuffer while the
-hardware is still scanning it out due to this early signaling?=20
+[ ... ]
 
-Would it be more appropriate to handle the event in an atomic_flush hook
-where standard atomic flush mechanisms can ensure hardware changes are fully
-complete?
+> @@ -242,15 +259,19 @@ static int display_check(struct drm_simple_display_=
+pipe *pipe,
+>  	return 0;
+>  }
+> =20
+> -static void display_update(struct drm_simple_display_pipe *pipe,
+> -			   struct drm_plane_state *old_plane_state)
+> +static void xen_drm_plane_helper_atomic_update(struct drm_plane *plane,
+> +					       struct drm_atomic_commit *state)
+>  {
+> -	struct xen_drm_front_drm_pipeline *pipeline =3D
+> -			to_xen_drm_pipeline(pipe);
+> -	struct drm_crtc *crtc =3D &pipe->crtc;
+> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
+ate(state, plane);
+> +	struct drm_crtc *crtc =3D plane->state->crtc ?: old_plane_state->crtc;
+
+[Severity: High]
+Can accessing the global plane->state pointer here cause race conditions?
+It might be safer to use drm_atomic_get_new_plane_state(state, plane)->crtc
+to ensure the correct state is referenced during the atomic commit.
+
+> +	struct xen_drm_front_drm_pipeline *pipeline;
+>  	struct drm_pending_vblank_event *event;
+>  	int idx;
+> =20
+> +	if (!crtc)
+> +		return;
+> +
+> +	pipeline =3D to_xen_drm_pipeline(crtc);
+>  	event =3D crtc->state->event;
+
+[Severity: High]
+Similarly, does reading and modifying the global crtc->state directly risk
+fetching state from a concurrent commit instead of the current one?
+
+>  	if (event) {
+>  		struct drm_device *dev =3D crtc->dev;
+
+[ ... ]
+
+> @@ -331,10 +395,37 @@ static int display_pipe_init(struct xen_drm_front_d=
+rm_info *drm_info,
+> =20
+>  	formats =3D xen_drm_front_conn_get_formats(&format_count);
+> =20
+> -	return drm_simple_display_pipe_init(dev, &pipeline->pipe,
+> -					    &display_funcs, formats,
+> -					    format_count, NULL,
+> -					    &pipeline->conn);
+> +	ret =3D drm_universal_plane_init(dev, &pipeline->plane, 1,
+> +				       &display_plane_funcs,
+> +				       formats, format_count,
+> +				       NULL,
+> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
+
+[Severity: High]
+Does hardcoding the possible_crtcs mask to 1 restrict all primary planes to
+CRTC 0? For pipelines with an index greater than 0, the CRTC might fail to
+find a compatible primary plane during atomic validation. Would using
+1 << pipeline->index allow multi-display configurations to work correctly?
+
+> +	if (ret)
+> +		return ret;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-drm-simple=
--kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com?part=3D2
+-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com?part=3D9
