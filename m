@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6858C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 22:24:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B888C43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 22:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA5B10E0EF;
-	Sat,  4 Jul 2026 22:24:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F80F10E0F4;
+	Sat,  4 Jul 2026 22:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="JvYKahFc";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="FiD2rMg3";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="V1HGJERf";
 	dkim-atps=neutral
-Received: from sendmail.purelymail.com (sendmail.purelymail.com
- [34.202.193.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C98610E0EF
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 22:24:31 +0000 (UTC)
-Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256;
- b=JvYKahFcQ5vBELyB2vY1Gd1nu6kySDhRVslialNKMEtfZNAoemYK993eFgxYxDjZT3P8hURkoCJyzflLfsYcAy4PQWvFoR36K7r6j8ViIlj0AI1dQDTeiZYz4TjSTklf1t9g04QH+pXxBQtkXFsM6bCcT0lV2ZzXkVEcsQeh+yzkA7wFNwwh1MW9IH7v1pO/WdhsBhHD/s0M7UiApDrY3T5M3CQSL1j8lLNQXhe7HVbkNKpQbzX6Z9laKgb/+bFbNT56vLm9swxpiRqZEV9fiduzdqeKl4Oq4kEBittJlZqd4EPT/+BvBaUA6qw+0zO4/WSAghyt7T+pI8Ic9WDazQ==;
- s=purelymail3; d=rcpassos.me; v=1;
- bh=Hwtx7M7RsIPIAUmf8VDxcdSeGvoyG9CqwzMLKzUDnvI=;
- h=Received:Date:Subject:From:To; 
-DKIM-Signature: a=rsa-sha256;
- b=FiD2rMg3lOw43KSAARoh175UELiqsqL4ymaRiY42/sRcYfivvRmLcW+h+ku5NmXdhKqqZANnH6PiOO0d7aZdBNzKIRIxuFwfRaPsEybdaMhR0jAvMdxLSLqOlXaA0UJTokQSfvY5GlAQ565X/z0liZDjbIMHdM7ZmQNcYGV9UjvAxurM0PAYtjXGu+bH2ZSWcv6yhWo/lpslTGyBrl4CaHNeCEkfYDsOPNIoXRCLEh85fXdtOujkaYFW+xUyuZGk/TaYHoxeBamb6fWKvbeXY7lEXit0Uk9/UuBKwb7HvuOrdJOmI9v+MMfS8Nll7KOcFSYn1sPB6JzQLg0Gx4ctqg==;
- s=purelymail3; d=purelymail.com; v=1;
- bh=Hwtx7M7RsIPIAUmf8VDxcdSeGvoyG9CqwzMLKzUDnvI=;
- h=Feedback-ID:Received:Date:Subject:From:To; 
-Feedback-ID: 45355:7809:null:purelymail
-X-Pm-Original-To: dri-devel@lists.freedesktop.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 498733413; 
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Sat, 04 Jul 2026 22:23:51 +0000 (UTC)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 04 Jul 2026 19:23:37 -0300
-Message-Id: <DJQ4ZWJK3ONU.I3SGSXM44M1S@rcpassos.me>
-Subject: Re: [PATCH RESEND v2] Documentation: xe_drm: fix chars used for
- subsection
-Cc: <matthew.brost@intel.com>, <thomas.hellstrom@linux.intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, "Randy Dunlap" <rdunlap@infradead.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-From: "Rafael Passos" <rafael@rcpassos.me>
-To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>, "Rafael Passos"
- <rafael@rcpassos.me>
-X-Mailer: aerc 0.21.0
-References: <20260701012141.167868-1-rafael@rcpassos.me>
- <akgBC8A9h8nIyEYd@intel.com>
-In-Reply-To: <akgBC8A9h8nIyEYd@intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1954710E0F4
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 22:31:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783204280;
+ bh=/v5THKShPWIciiFZT93U3dZzMsB1ErKVThLGUlgIcIY=;
+ h=From:Date:Subject:To:Cc:From;
+ b=V1HGJERfAq2ZC2qnOryewFpR7iiAbUzyZQygxKyxwpJHr9sxHDPtpnHrohwhCfQgt
+ Uig9MlgxeCYcj8TGQ7ZxFIw4/nRP+qqLZ445h77jjGzNtnesJxfHkYhBWzsiHrFh17
+ nmTNop7Gn7SjlshVuZGHS8fWDy0VJ4YYER5hneaW496ic6Xt6uMYlGJI6yAX5BwAzl
+ opEMEO4tkVVoWK7Z5+/qHh4qmsrMUicUYN15KUr4C4SdtYIYhUcXNnrOYTm8nEPpxO
+ WH5JTOJH1dwgpJdQcFuisbBBXj2clNH3ta61F0Gk55I8iJWUadPDErpiG/GejuOBL5
+ uQDqmibIV4H1g==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8DC3117E018C;
+ Sun, 05 Jul 2026 00:31:20 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Sun, 05 Jul 2026 01:30:56 +0300
+Subject: [PATCH RESEND] drm/vkms: Remove completed task from Plane Features
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260705-vkms-todo-upd-v1-1-d090015244a1@collabora.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Melissa Wen <melissa.srw@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,21 +65,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 3, 2026 at 3:35 PM -03, Rodrigo Vivi wrote:
-> On Tue, Jun 30, 2026 at 10:20:58PM -0300, Rafael Passos wrote:
->> In case it helps, here are the tags Randy added in my first send:
->> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
->> Tested-by: Randy Dunlap <rdunlap@infradead.org>
->
-> Next time, please put these directly above the '---' along with your sign=
--off.
-> And please use the standard 'drm/xe:' tag in the subject.
->
-> I modified the subject and pushed it to drm-xe-next. Thanks for the patch=
-.
+Since commit 0b9eff726d56 ("drm/vkms: Support setting custom background
+color") the related TODO item in the 'Add Plane Features' section has
+been completed, so remove it.
 
-Thank you for poiting out these improvements Rodrigo.
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ Documentation/gpu/vkms.rst | 2 --
+ 1 file changed, 2 deletions(-)
 
-I'm always learning more :)
+diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
+index 1e79e62a6bc4..792eaeb43c82 100644
+--- a/Documentation/gpu/vkms.rst
++++ b/Documentation/gpu/vkms.rst
+@@ -217,8 +217,6 @@ Add Plane Features
+ 
+ There's lots of plane features we could add support for:
+ 
+-- Add background color KMS property[Good to get started].
+-
+ - Scaling.
+ 
+ - Additional buffer formats. Low/high bpp RGB formats would be interesting
 
-Rafael Passos
+---
+base-commit: e88b5cc6d6e5b1ba257f00e5c186ba137e6e8bc3
+change-id: 20260327-vkms-todo-upd-1e89d39284b3
+-- 
+Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
