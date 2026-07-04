@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 775CEC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 12:29:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF2B8C43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 12:31:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB1A110E06E;
-	Sat,  4 Jul 2026 12:29:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 288D910E078;
+	Sat,  4 Jul 2026 12:31:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdyiTk+0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ab3TqV7x";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B68210E06E
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 12:29:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F40F10E078
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 12:31:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1DF5B407E1;
- Sat,  4 Jul 2026 12:29:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E8A1F000E9;
- Sat,  4 Jul 2026 12:29:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5D32360052;
+ Sat,  4 Jul 2026 12:31:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF6D1F00A3A;
+ Sat,  4 Jul 2026 12:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783168176;
- bh=Wi1C3nWmbDObm1dKBTLKr75xQxj0hWPxx+k+kpiv6bU=;
+ s=k20260515; t=1783168274;
+ bh=NF2Fzp3nYSBPFD4eFrO1eIf8FCPhoS3eD0cTfaK8fTQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VdyiTk+0iNO1xrN1dUVM48LjwxqDEyyhUjKlWy8eLl9Z0JsNS+EnOpZeDBKOfBSh2
- p/rMd36iGGlKRomVoKTgq8dHzoleLi+eMQ4ImzFoMj7rCIWRVpnC0QLC87+EleFgxK
- mKFdkXQTuquDc4nOkpaqs87SPL8DZuGcoYAM55HZjqKkizd/9S+a/NOhA+UFL8gn8C
- /qRGkWcrmefyKsoJSZC7HP87zBf5lAHSv2pNpYxuUocwf98ND1P7fDWrQEbAbwYEnf
- 5rmU7XlWsitcXAYeRWw26yFUnElL0oEWyNMuTN6EkcGxlhhJlPw6SH0nxRV3u9Tb05
- b1lpO90RmkYvQ==
+ b=ab3TqV7xRNW45/Q3hy66UjMVicuBFRD9o5Dr9+0sCXJksL9IpCXYgk16X4ant6JLd
+ gj6ltb5uJMerIEQYcj1PaUdSROOG6kxPVKVuHFMYFXBPbF93J6BwlhZJsuio043IzD
+ znXF+GTfAMHeIW9Z59ua7bDHoerVfoImHgPa6MQXvzOSJA3LRaz0Hnp6hynzmye6dD
+ 78meKXNa//QPwJqTS0CsK2OIxvHp+uwYiKVNtPZgFesFMWZIPQBVFtZapDc6qpXWB3
+ 0DUjE063y5BYV3/WoASgwymA5NQJWAnFl2ChVHiXrJ4XUkcGKvjJbpifGBO/sekab1
+ M8y7awF+mkRQQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] drm/v3d: Serialize jobs across queues when a
- perfmon is attached
+Subject: Re: [PATCH v3 1/2] drm/v3d: Refactor perfmon locking
 To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260704-v3d-perfmon-lifetime-v3-2-fd26dfdc2153@igalia.com>
+In-Reply-To: <20260704-v3d-perfmon-lifetime-v3-1-fd26dfdc2153@igalia.com>
 References: <20260704-v3d-perfmon-lifetime-v3-0-fd26dfdc2153@igalia.com>
- <20260704-v3d-perfmon-lifetime-v3-2-fd26dfdc2153@igalia.com>
+ <20260704-v3d-perfmon-lifetime-v3-1-fd26dfdc2153@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 12:29:35 +0000
-Message-Id: <20260704122935.D2E8A1F000E9@smtp.kernel.org>
+Date: Sat, 04 Jul 2026 12:31:13 +0000
+Message-Id: <20260704123113.DAF6D1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,138 +57,90 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] A Time-of-Check to Time-of-Use (TOCTOU) race condition between l=
-ocal perfmon job submission and global perfmon toggling allows jobs to bypa=
-ss cross-queue serialization.
-- [Medium] Out-of-order execution across different DRM scheduler entities b=
-reaks the single-fence tracking mechanism, allowing perfmon counter polluti=
-on.
-
-Pre-existing issues:
-- [High] Runtime PM usage counter underflow due to incorrect error checking=
- on pm_runtime_get_if_active().
+- [Medium] Perfmon hardware counters are permanently lost if a capture (via=
+ ioctl or stop) races with runtime PM autosuspend.
+- [Medium] A global perfmon is incorrectly stopped and silently disabled if=
+ userspace sets it to the same perfmon object that is already attached to a=
+ pending job.
 --
 
-commit bade95affe13f920ce39322b17d721c548957d90
+commit 8ce781eec267bf896e263ac16cfc79142b7af5ee
 Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+Subject: drm/v3d: Refactor perfmon locking
 
-drm/v3d: Serialize jobs across queues when a perfmon is attached
-
-A non-global perfmon is meant to count events generated by a specific
-submission. This commit adds cross-queue serialization by attaching fence
-dependencies so a perfmon-carrying job waits for in-flight jobs, and
-subsequent jobs wait for it to finish.
+This commit refactors the performance monitor locking in the v3d driver to
+serialize access to the device-wide active performance monitor. It
+introduces a new device-wide spinlock and centralizes state transitions to
+protect the hardware counters and software state from concurrent access.
 
 > diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_=
 perfmon.c
-> index 3ad0f022753c8..07dab7fb30607 100644
+> index 48ae748247be8..3ad0f022753c8 100644
 > --- a/drivers/gpu/drm/v3d/v3d_perfmon.c
 > +++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> @@ -275,6 +275,12 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v=
-3d_perfmon *perfmon)
->  	if (!perfmon || v3d->global_perfmon)
->  		return;
+
+[ ... ]
+
+> @@ -288,6 +300,21 @@ static void v3d_perfmon_capture_locked(struct v3d_de=
+v *v3d,
+>  	v3d_pm_runtime_put(v3d);
+>  }
 > =20
-> +	/* Cross-queue serialization should have drained any previous perfmon
-> +	 * job before this one runs.
-> +	 */
-> +	if (WARN_ON_ONCE(v3d->perfmon_state.active))
+> +void v3d_perfmon_stop_locked(struct v3d_dev *v3d, struct v3d_perfmon *pe=
+rfmon,
+> +			     bool capture)
+> +{
+> +	lockdep_assert_held(&v3d->perfmon_state.lock);
+> +
+> +	if (!perfmon || perfmon !=3D v3d->perfmon_state.active)
 > +		return;
 > +
->  	if (!pm_runtime_get_if_active(v3d->drm.dev))
->  		return;
-
-[Severity: High]
-This is a pre-existing issue, but does this correctly handle the case where
-Runtime PM is disabled?
-
-pm_runtime_get_if_active() returns -EINVAL if Runtime PM is disabled (for
-example, during system suspend). In C, -EINVAL evaluates as truthy, so the
-condition !(-22) evaluates to false.=20
-
-Because the early return is skipped, the function proceeds to interact with
-hardware and eventually drops a usage counter via v3d_pm_runtime_put().
-Could this cause an unbalanced PM usage counter underflow?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index 27cc98770b37e..2bb955a9ed5e9 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -320,6 +320,62 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit=
-, u32 perfmon_id)
-
-[ ... ]
-
-> +static int
-> +v3d_serialize_for_perfmon(struct v3d_job *job)
-> +{
-> +	struct v3d_dev *v3d =3D job->v3d;
-> +	bool is_global_perfmon;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&v3d->sched_lock);
-> +
-> +	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
-> +		is_global_perfmon =3D !!v3d->global_perfmon;
-> +
-> +	if (is_global_perfmon)
-> +		goto publish;
 
 [Severity: Medium]
-Could a race condition bypass cross-queue serialization here if the global
-perfmon state changes while jobs are queued?
+Could a global perfmon be incorrectly stopped and silently disabled if
+userspace sets it to the same perfmon object already attached to a pending
+job?
 
-If userspace submits Job A with a local perfmon (which stays queued in the
-scheduler without immediately setting perfmon_state.active), and then calls
-the ioctl to set the global perfmon, a subsequent Job B without a perfmon=20
-would see is_global_perfmon as true and skip serialization.
+If userspace submits a job with perfmon X attached, and before the job star=
+ts,
+calls v3d_perfmon_set_global_ioctl() to set X as the global perfmon, the io=
+ctl
+succeeds, setting v3d->global_perfmon =3D X and v3d->perfmon_state.active =
+=3D X.
 
-If userspace then clears the global perfmon before execution, could Job A
-and Job B end up running concurrently on the hardware and polluting the
-performance counters?
+When the job completes, its IRQ handler calls v3d_perfmon_stop() with X.
+Because the job's perfmon matches the active perfmon here,
+v3d_perfmon_stop_locked() clears active to NULL and stops the hardware,
+breaking the global perfmon while leaving v3d->global_perfmon set.
 
+> +	v3d->perfmon_state.active =3D NULL;
 > +
-> +	if (job->perfmon) {
-> +		for (enum v3d_queue q =3D 0; q < V3D_MAX_QUEUES; q++) {
-> +			struct dma_fence *f =3D v3d->perfmon_state.last_hw_fence[q];
-
-[ ... ]
-
-> +publish:
-> +	dma_fence_put(v3d->perfmon_state.last_hw_fence[job->queue]);
-> +	v3d->perfmon_state.last_hw_fence[job->queue] =3D dma_fence_get(job->don=
-e_fence);
+> +	/* If the device is suspended, the HW has already stopped counting. */
+> +	if (!pm_runtime_get_if_active(v3d->drm.dev))
+> +		return;
+> +
 
 [Severity: Medium]
-Does overwriting the tracked fence for the queue lose track of earlier jobs
-that might still be pending due to external dependencies?
+Can the hardware counters be permanently lost if a capture (via ioctl or
+stop) races with runtime PM autosuspend?
 
-If userspace submits Job 1 (blocked on an external syncobj) via File A,
-then submits Job 2 (no dependencies) via File B to the same queue, they
-can execute out of order because they use different scheduler entities.
+If v3d_perfmon_set_global_ioctl() (with the CLEAR flag) executes while the
+device state is RPM_SUSPENDING, pm_runtime_get_if_active() returns 0.
 
-The last_hw_fence array would be overwritten by Job 2's fence. If a
-subsequent perfmon Job 3 is submitted, it will only wait on Job 2.
+Because v3d->perfmon_state.active is set to NULL just before the check,
+this function returns early without reading the hardware registers.
 
-When Job 1's dependency is finally satisfied, could Job 1 and Job 3 run
-concurrently and bypass the intended serialization?
+When the driver's suspend callback subsequently calls v3d_perfmon_suspend(),
+it sees active =3D=3D NULL and also skips capturing the counters, resulting=
+ in
+lost counter data.
 
-> +
-> +	if (job->perfmon && !is_global_perfmon) {
-> +		dma_fence_put(v3d->perfmon_state.fence);
-> +		v3d->perfmon_state.fence =3D dma_fence_get(job->done_fence);
-> +	}
-> +
-> +	return 0;
+> +	v3d_perfmon_hw_stop(v3d, perfmon, capture);
+> +	v3d_pm_runtime_put(v3d);
 > +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260704-v3d-perfmo=
-n-lifetime-v3-0-fd26dfdc2153@igalia.com?part=3D2
+n-lifetime-v3-0-fd26dfdc2153@igalia.com?part=3D1
