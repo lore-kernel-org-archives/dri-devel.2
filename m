@@ -4,44 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B46ECC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:53:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C77AC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 22:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13B3410E0D3;
-	Sat,  4 Jul 2026 18:53:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E50810E0DE;
+	Sat,  4 Jul 2026 22:04:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ca5Ta4xq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bd+LYDEV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D62810E0D3
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:53:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6CBCC60052;
- Sat,  4 Jul 2026 18:53:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627B61F000E9;
- Sat,  4 Jul 2026 18:53:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783191227;
- bh=CfT4SqdzxNT8gdaM3y8lRRCXLvW6Ir7qsFGSwxUsO/c=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ca5Ta4xqoZSdaXckHp8ogNuLdWJ7ajjwv4PECaoyQYcr7n+d6T+/X1hqLEFxzBv5E
- AkTacW/IpbvnH6dR80jnOCvNsjcE0tBPVg5ZLShvoI0gvOKfwvf60iecLb32Bt/FGF
- xMm18ZRNY7HCQNYARwEhwlnD1H50AeZzKJgxcvoLoBElrqxzfpK7Ld7CVMT+22iQuw
- Bm5wrcO/dSNxBN5y+1WNfiBlQ5cvlb6E0/WESWVqaPUiA3ONNCW0wmM8SrIIo5pD5E
- zLs9eF8DFSR3lxCFy0RWqU2zLgsuR0WFptBPqwOzJQdqbkexhXQWEsF06LOSukEsFt
- v4Rt0l0EdUQyA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 9/9] drm/xen: replace struct drm_simple_display_pipe
- with regular atomic helpers
-To: "Ze Huang" <ze.huang@oss.qualcomm.com>
-Cc: imx@lists.linux.dev, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
-In-Reply-To: <20260705-drm-simple-kms-removal-v1-9-b4e1ca053623@oss.qualcomm.com>
-References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-9-b4e1ca053623@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0545210E0DE
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 22:04:31 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-39afb0d9f7eso16404571fa.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 15:04:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783202669; cv=none;
+ d=google.com; s=arc-20260327;
+ b=n1uTPcdEtL4sbsblgZvpKJkUFNA1M+t58UbuVGNgxojXP0FnWNgDOCbCqAqdlhkzVb
+ v1s5q8nF+cc+fnLudZr+n27TITRq5gG5Li7gzDIIXofSRj3ycUPZ9laLjxxSUHW20/Iu
+ PmBPFaxaHZBjPhXf43sZv215gQIQ8Icv/PErKRORB8GNj6fxiYbL1o4Y/WJbGF90Uy/F
+ iVtbKN98zEfCJ2sXbWF3aoao1ykE/CIpKzlLt/vcmZQacunmN+snLIFky98sLOzVb5X+
+ OaafmVrsemCOYni5nOi/SsRfS5GsjMumWFRJXe/ni5ZLwOrzWvJHKuJC/Qr/NLy5Ccgg
+ EJhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=imtw4Ja43+86I9p9y9tUxtB3JG8gRr4QZxWm1ZiCc9w=;
+ fh=NVdf2cEPp+vcRT5MxnApYu2RXnwD6WKcZL4sJXCpc6s=;
+ b=AJCJIYfVBv852Ex2BvoZmNtfbKX8YmtGKpbBFAqTIFPxhX/15y/OCxI8aFQI2LSyrR
+ oywAqa60QsT4FDDPa/4SK08TNr5ZxpuLX0nbWyFGYSE5EJv7w3hGwyYkytIxVb3NtEie
+ OBBJG4TxSLDZ8AnVvPP37WyN7G49NELpiKdTVkLXYs+HseFrnfzIAteU237Z3cGKvpft
+ bsmi628MTuiuY2QeICRMwKC6kP7U6miTcyhiiYwomjDhZI8p3MeXJJYaZ/hvNjJ7eDWv
+ csnrzVT89qfuwFIBKqjMJ1uENjhWGnCBeBHWNQu90KAee9LFFxAC862fnPLda6XfNrSk
+ 4Frg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783202669; x=1783807469; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=imtw4Ja43+86I9p9y9tUxtB3JG8gRr4QZxWm1ZiCc9w=;
+ b=bd+LYDEVp1Ujynw2cEinc2AwaDXVZjClbVY9iVXfOUUTSrSgaJ/ekyzcC3Mwjg3/4Z
+ zi5nX0j+mUAw+dDMmQqvrUd/1pwyQK1LKX47OMebXKSe2DkCcq5I8xcCfKPEtNBJgy3H
+ 5ee9CIvup6A24kd5NZVh7V5k83L1KjLCZ56v9Kn4swWJ9egxyCLv9p61Haxu5g0e9kpg
+ efCEvlw2EUgl4sttBo0Rg3LJUtvSlvvOc3soohxcuIoMjPOagMN8fdZ97FjPmsrvtwqZ
+ p+JTepmSBTC5+jJFd8kDpXn7t5FGN00mAHcYLgMJJ7lZdnySFEW6lv6Flfsbq9EGZK8w
+ NS3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783202669; x=1783807469;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=imtw4Ja43+86I9p9y9tUxtB3JG8gRr4QZxWm1ZiCc9w=;
+ b=WCWTKYslxVNuoc4XwW1tpAry9NxKOm9buv4Z7ShtVVDN4jyT/0mYdjg2A/AZmCnhe1
+ yTAvlL34NTuTPuZz8LiYW1Wahvvm2578iOo9/kgjuzl1ddKeJpABsylzQZqY79nPeAV2
+ 0yxEvOoFul5TUtDrs3kAy1hV4sGtB3KF0F6xIB7+EcJ4TQbS4o8G6gFrF33ZMHCf9qMR
+ zikwaqUXwhWR3wAUna9XK02TFPUzu6DafPcS3W+06rdOfjP1iv/mJjmsxsBGhHMHpd2I
+ L5A8xEoyU2kiaE6IYDBedidAizOKR3Sf7dE2gfF1YdWSwRdJNm7fkgncYsROt7ZX8fCn
+ UBRQ==
+X-Gm-Message-State: AOJu0YxqyVxyhKF9JD2xQgRwC+xK9mLbl7iP9vJLMo8ijXJVD+fYgL8y
+ GTv2GOEAf1gLXz73qCFl03Ieki5ksaN4iB//p/VkzKy7SQSR9tlllLtIogKn5YwEOnK6sQkvukD
+ GTThOq6ZtgDIP+iNP3+6L8kOx3wyrkCQ=
+X-Gm-Gg: AfdE7ckmPAFukzlzL008uQqiqcqQYsWn/GTj4UqPhQai67W+CAXNvqXjM61DtNlAId/
+ YbyxBxYxjT02tlUifMrZS9yaBSRo+tcQHUBdjrTBp6ZoBNuzx0dKBreP6lO5ljn3jz1GF86SGZ0
+ pfMx3v58a22nefCyiCEL84rDZgqRvs7+E+m+oHwmYiKBO1S0SgXLjghn+bqwTgmkAupSNfKdCH6
+ MnL7LMZHkDOvRHT96HBYA9W/jy77GcPYRtKC6wf35qw/G9rgHrGiopi4GhQUVt2kCe/Q16iUvn0
+ YCVIrlDr4u4nycmQddogQIeqen1TgeS4rEFwkhOvP+HCxEA2wbNnzzyWhN/PIQ==
+X-Received: by 2002:a05:651c:2102:b0:39a:e9c1:5809 with SMTP id
+ 38308e7fff4ca-39b53b5b23cmr8342201fa.3.1783202668746; Sat, 04 Jul 2026
+ 15:04:28 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260624100326.413699-1-piyushpatle228@gmail.com>
+ <aj5MNiKSCiEDvDzL@raspi>
+In-Reply-To: <aj5MNiKSCiEDvDzL@raspi>
+From: Piyush Patle <piyushpatle228@gmail.com>
+Date: Sun, 5 Jul 2026 03:33:51 +0530
+X-Gm-Features: AVVi8CcSIfFK5hT-w5CsIKgn7jtLkN9mCQbJXOSTVkqzWIMXRePG02SF--UMxGI
+Message-ID: <CAMB+xkayaViXeC2GyMMUfeCMzA4=fh-Dq6NYOL-hzKoLfAF19w@mail.gmail.com>
+Subject: Re: [RFC] drm/imx: upstream direction for i.MX95 display support
+To: Liu Ying <victor.liu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, marex@nabladev.com, 
+ daniel.baluta@nxp.com, Frank.Li@nxp.com, shawnguo@kernel.org, 
+ tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 18:53:45 +0000
-Message-Id: <20260704185346.627B61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,130 +104,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Hardcoded `possible_crtcs` mask restricts all primary planes to CR=
-TC 0, breaking multi-display support.
-- [High] Direct access of global `plane->state` and `crtc->state` in atomic=
- commit hooks leads to race conditions and stalled events.
---
+On Fri, Jun 26, 2026 at 3:22=E2=80=AFPM Liu Ying <victor.liu@nxp.com> wrote=
+:
+>
+> On Wed, Jun 24, 2026 at 03:33:18PM +0530, Piyush Patle wrote:
+>
+> [...]
+>
+> > The current dc/ implementation is a multi-device component driver with =
+one
+> > platform_driver per block bound via the component framework. The downst=
+ream
+> > i.MX95 driver is a single monolithic platform_driver mapping all blocks=
+ from
+> > one register base. Unifying appears to require reconciling two bind mod=
+els,
+> > rather than only adding match_data.
+>
+> I think that upstream i.MX95 display controller driver would also be base=
+d
+> on the component helper.  That's something for sure.
+>
+> [...]
+>
+> > There is also anticipated divergence which is not yet upstream (i.MX8QX=
+P
+> > prefetch/PRG, LTS and tiling modifiers, and the downstream i.MX95 blit
+> > engine), although mainline dc/ is KMS-only today.
+>
+> Just want to point out that I sent out v5 patch set[2] to add i.MX8QXP
+> prefetch engine(DPRC + PRG) support for KMS.  That changes the driver's
+> mode setting code a lot.
+>
+> [2] https://lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d49=
+41@nxp.com/
+>
+> [...]
+>
+> > One question for Liu Ying is whether the separate-driver plus shared
+> > helper-library approach is still the preferred direction, and where the
+> > helper boundary would be drawn (which blocks/ops are shared versus
+> > implemented per driver).
+>
+> Yes, separate DRM drivers + a helper library approach is still the direct=
+ion
+> I want.  I think that the drivers and library would sit in the same
+> directory drivers/gpu/drm/imx/dc/.
+>
+> The purpose to add a library is to share code to reduce overall code line=
+s.
+> I'd assume that shared blocks or common part of slightly different blocks
+> should be covered by the library.
+>
+> [...]
+>
+> > how the component and monolithic driver models
+> > would be reconciled given the differences described above.
+>
+> Like I said above, I don't think upstream driver would be monolithic.
+>
+> --
+> Regards,
+> Liu Ying
 
-commit 8a32b307abb3d8e006d032d01a1802aa1e4ae6f0
-Author: Ze Huang <ze.huang@oss.qualcomm.com>
+Hi Liu,
 
-drm/xen: replace struct drm_simple_display_pipe with regular atomic helpers
+A quick follow-up with some progress.
+I went ahead with the refactoring we discussed and now have it working on t=
+he
+i.MX95 15x15 FRDM, following the component-based model.
+The common implementations for ConstFrame, ExtDst, LayerBlend, FrameGen and
+the FetchUnit base have been moved into shared dc-lib-* helpers, with
+SoC-specific register layouts and tables supplied as data. The per-SoC glue=
+ is
+split into dc-drv-common.c, dc-drv-imx8qxp.c and dc-drv-imx95.c, while
+i.MX95-specific blocks such as DomainBlend, Dither, FetchEco, FetchYUV,
+HScaler and VScaler remain separate component drivers.
 
-Replace Xen frontend simple display pipe with explicit plane, CRTC and
-encoder objects for each pipeline. Keep generic plane-state validation
-before Xen-specific checks, and install GEM framebuffer prepare helper
-explicitly.
+The implementation is functional on the FRDM over the pipeline
+DPU -> pixel-interleaver -> pixel-link -> LDB -> LVDS PHY -> IT6263 -> HDMI
 
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_kms.c b/drivers/gpu/drm/xe=
-n/xen_drm_front_kms.c
-> index 48772b5fe71cf..57e1bef452f83 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_kms.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_kms.c
+EDID is read successfully, the initial modeset works for all tested modes
+(1920x1080@60, 1280x720@60, 720x480 and 640x480), and Weston and sway both =
+run.
 
-[ ... ]
+There are still two known limitations. The initial modeset works, but
+subsequent mode changes currently wedge the ExtDst content shadow load, whi=
+ch
+appears related to the lack of a reset path for the i.MX95 FrameGen. In
+addition, the DSI path is implemented on the DC side but remains unvalidate=
+d.
 
-> @@ -105,17 +105,15 @@ static void send_pending_event(struct xen_drm_front=
-_drm_pipeline *pipeline)
->  	spin_unlock_irqrestore(&dev->event_lock, flags);
->  }
-> =20
-> -static void display_enable(struct drm_simple_display_pipe *pipe,
-> -			   struct drm_crtc_state *crtc_state,
-> -			   struct drm_plane_state *plane_state)
-> +static void xen_drm_crtc_helper_atomic_enable(struct drm_crtc *crtc,
-> +					      struct drm_atomic_commit *state)
->  {
-> -	struct xen_drm_front_drm_pipeline *pipeline =3D
-> -			to_xen_drm_pipeline(pipe);
-> -	struct drm_crtc *crtc =3D &pipe->crtc;
-> +	struct xen_drm_front_drm_pipeline *pipeline =3D to_xen_drm_pipeline(crt=
-c);
-> +	struct drm_plane_state *plane_state =3D pipeline->plane.state;
+The implementation is currently based on v7.2-rc1 together with your prefet=
+ch
+v5 series.
 
-[Severity: High]
-Is it safe to access the global pipeline->plane.state directly here? If
-non-blocking commits overlap, this pointer might point to a newer,
-uncommitted state. Should this code use drm_atomic_get_new_plane_state()
-to extract the state from the drm_atomic_commit object instead?
+The work is now ready to be posted as patch series: Adding LVDS/DSI
+i.MX95 support.
 
->  	struct drm_framebuffer *fb =3D plane_state->fb;
->  	int ret, idx;
 
-[ ... ]
-
-> @@ -242,15 +259,19 @@ static int display_check(struct drm_simple_display_=
-pipe *pipe,
->  	return 0;
->  }
-> =20
-> -static void display_update(struct drm_simple_display_pipe *pipe,
-> -			   struct drm_plane_state *old_plane_state)
-> +static void xen_drm_plane_helper_atomic_update(struct drm_plane *plane,
-> +					       struct drm_atomic_commit *state)
->  {
-> -	struct xen_drm_front_drm_pipeline *pipeline =3D
-> -			to_xen_drm_pipeline(pipe);
-> -	struct drm_crtc *crtc =3D &pipe->crtc;
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
-ate(state, plane);
-> +	struct drm_crtc *crtc =3D plane->state->crtc ?: old_plane_state->crtc;
-
-[Severity: High]
-Can accessing the global plane->state pointer here cause race conditions?
-It might be safer to use drm_atomic_get_new_plane_state(state, plane)->crtc
-to ensure the correct state is referenced during the atomic commit.
-
-> +	struct xen_drm_front_drm_pipeline *pipeline;
->  	struct drm_pending_vblank_event *event;
->  	int idx;
-> =20
-> +	if (!crtc)
-> +		return;
-> +
-> +	pipeline =3D to_xen_drm_pipeline(crtc);
->  	event =3D crtc->state->event;
-
-[Severity: High]
-Similarly, does reading and modifying the global crtc->state directly risk
-fetching state from a concurrent commit instead of the current one?
-
->  	if (event) {
->  		struct drm_device *dev =3D crtc->dev;
-
-[ ... ]
-
-> @@ -331,10 +395,37 @@ static int display_pipe_init(struct xen_drm_front_d=
-rm_info *drm_info,
-> =20
->  	formats =3D xen_drm_front_conn_get_formats(&format_count);
-> =20
-> -	return drm_simple_display_pipe_init(dev, &pipeline->pipe,
-> -					    &display_funcs, formats,
-> -					    format_count, NULL,
-> -					    &pipeline->conn);
-> +	ret =3D drm_universal_plane_init(dev, &pipeline->plane, 1,
-> +				       &display_plane_funcs,
-> +				       formats, format_count,
-> +				       NULL,
-> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
-
-[Severity: High]
-Does hardcoding the possible_crtcs mask to 1 restrict all primary planes to
-CRTC 0? For pipelines with an index greater than 0, the CRTC might fail to
-find a compatible primary plane during atomic validation. Would using
-1 << pipeline->index allow multi-display configurations to work correctly?
-
-> +	if (ret)
-> +		return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-drm-simple=
--kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com?part=3D9
+Regards,
+Piyush Patle
