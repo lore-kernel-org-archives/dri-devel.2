@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165B4C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 04:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8E2DC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 04:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E63CF10E002;
-	Sat,  4 Jul 2026 04:47:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE7D110E00D;
+	Sat,  4 Jul 2026 04:47:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="S9FSdPx5";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="k9ONpq/9";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F92910E002
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 04:47:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783140422; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E95810E00D
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 04:47:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783140426; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=THjF/0SP8mksH40DdfewQUbCE4++PJSvZcCaDAjP8A8cZeedgrqtrUTUgocwPqpIc1k/Dx7aNvs9V0GIcy9ot1naRw4c26cmjq7so0yHsFxehN/V5l/zVXSF1MEI0UnOzgn4x97QhbFR3waUMJYRvi5NvMRHUIod7qxLvyLvC+U=
+ b=S32IRAHnbaHUpthUvxbyur+wtmfVC8CU0yhQXjvXcJAl4MRkEBy7Y6acacmfdpB0e6kwQUWm+fdNfKVQN/2VKheHzJNnpvjKBs7IRMSs9bpXodE6AQEmJboQQCilVTAFAOPM9yrqxTFBYWp+MqRfnqFjBYuvVfOAjxGlTwiu9Qc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783140422;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Atfhk1xwLRF50ypmBJ4bx96WXbHzkEXym39L2zvevJI=; 
- b=UmY7rCksVGe5Zn4rAwmuMP7OaQpPhXRKfK/vb85g9Wbu7rcNyDRlNT5gh5RrLbRFgQq5M536HOPd7kiopszORgxoAJ3uHU0ZwFbg4RPYlYILz7i87aODekaxkJFTFfdERyibHJt4ZbIQPbfO/yeAwHibJwERTMwj3WWq8FcxEkE=
+ s=zohoarc; t=1783140426;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=pvylX0U8iDrR/3+OZcNJ2A69JS13Y+9iVvuYUrG5uX4=; 
+ b=a3n9tA7cR7DEiw1nMjF7TsPAPnpEkPNgrGMRwM+AsK9/5jFpw1NWzWRxIaeRc8vj9Rz4AtLfT7nF+9xdKXsdbXQa65sncrUcnMY+fJ//jyM8qax5/R3THiup6HH1t182Lhez9PpRlAT+uprbbax4hAs0RhbvelVMKFAgfnlwd58=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783140422; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783140426; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=Atfhk1xwLRF50ypmBJ4bx96WXbHzkEXym39L2zvevJI=;
- b=S9FSdPx57O983F7QdVlRSx2EtnC3/fGejtVXljvxcQ5vr8MlJyh6YozRHcv+PY1x
- jUBsdH+vtG6LZEaNpFPTcYtZrMR2SQkqRXv//uGwz8gq3TQVvrBHerW7Z7QDGeMLWr5
- JN3ciZ94LxKIG12LZPey0I7k1dwB+Rh5fdsvGkek=
-Received: by mx.zohomail.com with SMTPS id 1783140419931842.8332238353531;
- Fri, 3 Jul 2026 21:46:59 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=pvylX0U8iDrR/3+OZcNJ2A69JS13Y+9iVvuYUrG5uX4=;
+ b=k9ONpq/9BRPIfq2Ok9XmfAoYuR1nUzHGnU+0wX2bWjMSxgICCR8s9su+XvOaXENw
+ Sg4Nl3eIrQthbKhKTMSYv1bEXnmgFAOyzBHoEVkY3Eu67U/HIxOwKgkMAfyYQiLJGKU
+ QW5bdAqN+GUOAwHmGfHGpOVQoOssMOowPcsck7pU=
+Received: by mx.zohomail.com with SMTPS id 1783140424501839.3470693292096;
+ Fri, 3 Jul 2026 21:47:04 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Subject: [PATCH v4 0/3] Add vm_bind param check to ensure no overlap with
- kbo AS carveout
-Date: Sat, 04 Jul 2026 05:46:43 +0100
-Message-Id: <20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com>
+Date: Sat, 04 Jul 2026 05:46:44 +0100
+Subject: [PATCH v4 1/3] drm/panthor: Check for sparse binding range
+ overflow
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23N0QrCIBgF4FcJrzPUzX9bV71HRKj716w1Q0uK2
- LvnFkG0Lg+c850nCegtBrJePInHaIN1fQr5ckFMq/oDUlunTAQTwIDnNJ732vb13rRoToHmwAq
- pFYNKMZJGF4+NvU/gdvfO4aaPaK6jMjZaG67OP6bHyMfeB4dfPHLKaCWBVyUwoTDbGNd1SjuvV
- sadyXgQxTdRzQiRCC250kpnsin4PyL7IsScyBJRSoQiZw0Ygb/EMAwvNG+uGUgBAAA=
-X-Change-ID: 20260614-vm_bind_checks-46075ba069a0
+Message-Id: <20260704-vm_bind_checks-v4-1-4705b6ca9f8a@collabora.com>
+References: <20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com>
+In-Reply-To: <20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -60,18 +57,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Sashiko <noreply@sashiko.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2544;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1389;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=Tvf5Hc0SK7ZbQaTipFm4SZO869kcuY12ln5Z9N7dQso=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqSJA/p2vjfOFkajlQfQyiFwbcZsJ0HWzu1c2Kd
- S8X4+Ot3eGJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCakiQPwAKCRAOJn5M7lND
- PcrLDACLXHsitC7H4fig5p/FN1/1ghsuxJyNg/9h7aSSoS9iasVX9Iz6FWeVrS8Oi4Jir3WP3sw
- 3AnaKasbHBHNb/JgzBTd0WVslq2Mbf/KoN23T+Ctji8/VOcZCM/uo+Alh/tVabMqoF1gdwNfdt3
- tYWZo0u35osxv0bNhgd0NCUzOIeRd1YbwI41XcgJYUElADOhy1WYMG5dsEC1WA9OAHfww1rk91X
- X79Xh6Te7Y80eCesZzo8udlP65rC0f6xl3BY37HdueABjgeVFEVxR3KsXj9n/UYHiPwblw4oTma
- +XAt0XrAsc5JEEsCmqBVLXOScXxJUn51tp9JPPgVrbIsRLxRF+EH/PgSmiuLhfAF6riyAMtmZp+
- W2tifCYM84DxCFVtlEt0ZEYowwHDBnwmnlBW4O4r2WE66axZJQL8jxMYAoZB/sh4Xdl8ju/eYP4
- t/AaAamYtOA1Ek9pUcOsdQ5Ov6oxP+cnwDTGg7v7AOCg9Z/FkokpVdTtewvWLn/ua8qC4=
+ bh=hex+1ndtyloKE61jMSJQjlILjaZhjyPu5Wi+5IFsGc4=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqSJA/S5oTtuuHGzngXEN0v/ZQbzI7IKvsFB/G9
+ DoXo9yKUaCJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCakiQPwAKCRAOJn5M7lND
+ PfQZC/9kNeAS1zfdDccSckd6YG5MB+sQoOJ0nfQm5GQyKe2s5/yT4efTBGOFiH4ccSzr7u0TjhZ
+ xHL2DEikhZPY4p65o0JdOmCP3pFX0FiTMFe6tvdl0yWZfR+xqeOrNAzTpcuk8OHDXjwnThjcyPl
+ DJgO0+B9sIiTOIQ92G370TV2Xg3ngFAFYFNuzxtzIwNiEf3eYGih0TXdzoGLO2S89OFwUQAEi/5
+ wIZmY8uOoR1v+kOUgYvhmWt17q0XYmo7OfJdoq8wGElU77hNTCH0uCIC3+OMw+fahr0emmwtwlV
+ hFy9OjxQnl42Py0IJNhNSwtZhI3bahbGvTBE15EOMzvgjfrf9POgF7ExieTcqUBN+0Sb1YBBzVL
+ Y55H81Z6EMDPgFPHbmReRtR2eCvoEsWpdC6c5HJDksa+jD3q6aGOQ8tGdcPHjuOloX1bHSPCj9F
+ +ml+/42UM1pDiBtU4CusNqwT9EWTUHJWy+WQOppMSQNrmiHgBoQePCMpFcBp+AmlnvTMQ=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -89,63 +86,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just a quick check to make sure user-supplied vm_bind regions aren't
-clashing with the region reserved for kernel bo's.
+This check is being already carried out further down the call stack inside
+drm_gpuvm_sm_map -> drm_gpuvm_range_valid, but it's best to fail early in
+the driver before GPUVM functions are invoked so that we won't waste time
+allocating vm_bind context resources.
 
-I tried to introduce a similar check for panthor_vm_alloc_va(), to throw
-back an error when mappings of kernel bo's against specific addresses fall
-within the auto_va region. However that is not possible, since there's one
-FW region that must be mapped right at CSF_MCU_SHARED_REGION_START. That
-is usually not a problem, since drm_mm_insert_node_in_range() will pick
-the next one available.
-
-v3 also comes with an early bind range overflow check for sparse mappings.
-
+Reported-by: Sashiko <noreply@sashiko.dev>
+Closes: https://sashiko.dev/#/message/20260623204220.CDB1B1F000E9%40smtp.kernel.org
+Fixes: 12cf826bf1dd ("drm/panthor: Support sparse mappings")
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
-Changes in v4:
-- Deleted commit that passes single operation to panthor_vm_prepare_unmap_op_ctx.
-- Moved overflow check one step above in the call stack.
-- Rearranged the commits in the series.
-- Link to v3: https://patch.msgid.link/20260629-vm_bind_checks-v3-0-85e6740f6c2e@collabora.com
+ drivers/gpu/drm/panthor/panthor_mmu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Changes in v3:
-- Fixed off-by-one error for user va range calculations.
-- Added new commit for panthor_vm_prepare_unmap_op_ctx to take a whole operation.
-- Added commit with bind range early overflow check.
-- Link to v2: https://patch.msgid.link/20260619-vm_bind_checks-v2-0-b51abab35f71@collabora.com
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 31cc57029c12..163231c1703d 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -2975,12 +2975,16 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
+ {
+ 	ssize_t vm_pgsz = panthor_vm_page_size(vm);
+ 	struct drm_gem_object *gem;
++	u64 end;
+ 	int ret;
+ 
+ 	/* Aligned on page size. */
+ 	if (!IS_ALIGNED(op->va | op->size | op->bo_offset, vm_pgsz))
+ 		return -EINVAL;
+ 
++	if (check_add_overflow(op->va, op->size, &end))
++		return -EINVAL;
++
+ 	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
+ 	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
+ 		if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
 
-Changes in v2:
-- Simplified user VA range with kernel BO range overlap to a single statement.
-- Link to v1: https://patch.msgid.link/20260616-vm_bind_checks-v1-0-956198602ae3@collabora.com
-
-To: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Heiko Stuebner <heiko@sntech.de>
-To: Grant Likely <grant.likely@linaro.org>
-To: Adrián Larumbe <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Adrián Larumbe (3):
-      drm/panthor: Check for sparse binding range overflow
-      drm/panthor: Add vm_bind region with kbo range overlap check
-      drm/panthor: Fix comment to reflect actual struct field name
-
- drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
----
-base-commit: 8fca3d8dbebf8d960dad7b10db3cb4a61139454b
-change-id: 20260614-vm_bind_checks-46075ba069a0
-
-Best regards,
---  
-Adrián Larumbe <adrian.larumbe@collabora.com>
+-- 
+2.55.0
 
