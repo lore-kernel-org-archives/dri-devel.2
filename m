@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31073C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 08:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF5DC44500
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 08:09:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 767A110E037;
-	Sat,  4 Jul 2026 08:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F33010E03C;
+	Sat,  4 Jul 2026 08:09:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hc7UaNmH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R44P48TA";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 556A610E037
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 08:09:45 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-493bfe9f886so6991485e9.0
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 01:09:45 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F50B10E03C
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 08:09:47 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47640541585so812517f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 01:09:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783152584; x=1783757384; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=qUI6LtKyM70E/t6OmoCo0C4PhkrVFGAuXytOxTDiAXA=;
- b=hc7UaNmHswq4DfJfEGEKTCmMamYyvLtDdD5PydLrdQBl3VYq1Z4xetlMhvx5AdXnzO
- T1rXIg6ZDraEzAPGmZ4x8Pgrd511C0p+oBG4/wogjd79q87X9GXzicFzBfnqHEpJe7Vl
- V5ZRAQ9djq/kisWOB/U0+qXZookEhW0cTN9YVilMvYn/WXV/mmJp5DEaUVNlP5LMqin2
- NcGiQvdwveN7q0UiGsdlCTS9ADSCw6Y9bzyJeh2H3qy7CeT4N2jYQJxm22zl2DVjZPaB
- 0WLWVGw5NyKwgZXCAUydBX3StmJDU+Gf93nQJTmmdkMQHukRx6Yw7G/m0TTx6HQGabmm
- EoDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783152584; x=1783757384;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1783152585; x=1783757385; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qUI6LtKyM70E/t6OmoCo0C4PhkrVFGAuXytOxTDiAXA=;
- b=MFQXXuM6RsdTDc1/WD9PnUAWOFIFfuWP1EuEZDBF6VxPxlPVsImro2b7TDrgm1Aiss
- LaTmW5vKDDM8OBQmn8h6LayjawS5trkak1+86xn4NW4DaeGeMcCIz1f5vAf3RLsM8+ZA
- tAyXCq7DFSSIys8GVxgZRt6KZLHhEOqzUuxMK0uoRCZ3VOUySh6JOACougrUwvsXel3+
- Js8YHdH7s9hwQllDbtAYjTbrD0+xIeDueXnuP7QSJy0D+zhYbbsUwMVmM+f56gU/TlET
- tz0/0l6TzTyP/Iva0bn9A5A7nCZ1urfHK51xW7hGf3ybFNZbTCXJG76/jN5CTHvpVuLN
- mIJQ==
+ bh=nV/B8hZtMepwD+PMiYNg4MREiS1D+m5zq5m6OKaCARw=;
+ b=R44P48TAtnyTYmUS1v+CJUg/yVBnI5H8UoC+cSAuZTIdvv0rfkBX02kT9c5Uycxmdk
+ ESow0+34im2JT3yahrqyMXfr3DqBldoeF85pC7yuYfCFNX6o5nlthFc8jLY1aZiDL57L
+ iv7J/4lwKSzfslOb3/68ca8POhrM4vXXk7GFnQa+1OIJj83ac+L3+amLClIG8uQHrf4j
+ tbEW0SNSq4SlrcgqXHkgri/JpKcqYPZYLXa1esd2vRh8221IfPiE8xsxbIv5shPOEIiW
+ u+Q69OvcR22CqJO1ZGMEd6/ZVEhcKeDdH93kM5zfvNo3lYTXI1AmeZrWSuvO2i/1Ksk9
+ gJKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783152585; x=1783757385;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=nV/B8hZtMepwD+PMiYNg4MREiS1D+m5zq5m6OKaCARw=;
+ b=aVDxsGIbAH0gPhcsFBfkts+iq7JvHbrPecv4+1dQV9mLdsyJq7beimKeFA04xCFGbF
+ TWffDayVh904W+zm0atY52Cm92gEPNTyKxObHeL+NA3EBq2SeS4ANkyKjhF2Af6AIGY8
+ Md+PfFx6n/SqePuL6X7xtiYi6Q2l0Bk4szB+tTBhLYrXD/ryFDIqEzt3G7VMIz+tNgx+
+ 7HdhfDXX1G/+nMpXnPHoeaW1P3alSu3EWQ39FlKB+8DU7sNMUJ3cUq1kVepIP/eCFFfk
+ lmk5uZod/qt1TNAz9v8lHlqBt3m0zIX2zoCM+Ypyo7WZsHeZrHpURZWDHhJAMUZ7TEv3
+ v01g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9E9A1QqOLRJgE2NAsc2sxlt+0igya/T70/TjOwj6RGQTovgphh0aoR0bO53J9w5Ykcznvc3mGghKk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxoh9ZzGU9Vdr/4avRLqdQYNASAOZjPK0rgDV+geTsLYjXa7dLV
- xgDQvD5ctsTpVQFcjcA5nont63EMETiqMH4ltQMV5rlU63bLA1QIUXDj
-X-Gm-Gg: AfdE7cnt/M+5b0Qo3M9eyuY1F38syOrA/9rbr84MTFNH57loTJhWSyG4nkDdj6tBnVB
- OPAzaykdaCITcrf1gwbJtjrTYHWJlQnjnRu0vDznD42Xu8qGVP3zfydmI54/ypVJDq4MzanR1tF
- 2ZHbFmRYHMpTKFXu64mVSwk+sVjDp7pRRwEhjT3/veuflaPKHnl9VA+tS5Y4YBIR+GH1XB7j7Er
- j61wVs8ap6hTFzFst09udvJjZqU0wSAhLLnRpKgHXzrV5KshyDlQGNb/bB3YtT/R/rZ6AhILaUE
- dS4Kr2K9BshWKsdFBDSVZ5C5IFMEsTvQgG4VP6lcLJmR3+IA8UnejjTrTqTRzapiMXoHXATzbjP
- ooihxZGGPQG3l6n+A+8X7Mm2sM7prcDA3pYzcEl0L3/KW8Ol6hYJskzXkF0EWyGZ2A9lz9c5+pB
- 71u5smiJzqTrFI9PX4F5lVUAQKnAg=
-X-Received: by 2002:a05:600c:5897:b0:492:4cce:53e2 with SMTP id
- 5b1f17b1804b1-493d11d0775mr17309745e9.3.1783152583419; 
- Sat, 04 Jul 2026 01:09:43 -0700 (PDT)
+ AHgh+RpyNE9KpiBYaA22YOoPb41BvFPOqln/SsUQLX8SfNnrTdW6hNlRTHmc3di6YHQmxAqztmoNcatthI8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1j5QgkcMgRj2+64jQjOq9p7hGB8W2iKq38yBnw3Z2AIX+rQ8n
+ TSaSHUf9o0DPj38eduA4n8yK3EymXULA89fzGU3PB21fqPv3PdgbJkGAi/56g2Gm/04=
+X-Gm-Gg: AfdE7ckgiWMg6S+0j7a8nWb76rkxaWAcNbi3DmX86fFVZvRhecg0kchMqMfcCX3hoyU
+ WX3IsowJkzQGExL/Uiv1t8Xmiu6lvSCdu//Zeq3R7Jo4T31FFMzBVWf1K3HmwlRSOnYrH7nVIhX
+ R2C3Gip4ec7MYvQuyo6Ad3DCr2qQjfLsZeja0Iyf/gBTSPHUcNbtUmUe65W+gptEQ+mKmKTjd1h
+ D18hFAX8p7HZB2SPv2AkWpcNWSJ/RgixLfq/BjwpXJJG1dZDMFKSYGnMsliVnukXlqanVUOiQ1C
+ JXxcqNquxb2bJwEHZw36sGrpRdO0L38D2Rj3GuO29hvGGPOY5R108LcXFPosuzY9JeNkzxQf4Dx
+ BJIs07Bn1aQIJ+hcwiR+1FE+qV4mzA4JdfB+YBvXaBjRgJTU8O5jSeiEpRIhHgUQngbQtZ/LgKW
+ UcNGtFCQ1YggyGBGMnGHf+evn86R0=
+X-Received: by 2002:a05:6000:2283:b0:46a:168c:3795 with SMTP id
+ ffacd0b85a97d-47aa9b77caamr3073043f8f.16.1783152585397; 
+ Sat, 04 Jul 2026 01:09:45 -0700 (PDT)
 Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa0960634sm6143055f8f.26.2026.07.04.01.09.41
+ ffacd0b85a97d-47aa0960634sm6143055f8f.26.2026.07.04.01.09.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2026 01:09:42 -0700 (PDT)
+ Sat, 04 Jul 2026 01:09:44 -0700 (PDT)
 From: Amit Barzilai <amit.barzilai22@gmail.com>
 To: Javier Martinez Canillas <javierm@redhat.com>,
  Andy Shevchenko <andriy.shevchenko@intel.com>,
@@ -71,12 +72,15 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v3 0/3] drm/ssd130x: Add support for the Solomon SSD1351 OLED
+ linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/3] dt-bindings: display: Add Solomon SSD1351 OLED
  controller
-Date: Sat,  4 Jul 2026 11:09:22 +0300
-Message-ID: <20260704080925.75113-1-amit.barzilai22@gmail.com>
+Date: Sat,  4 Jul 2026 11:09:23 +0300
+Message-ID: <20260704080925.75113-2-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260704080925.75113-1-amit.barzilai22@gmail.com>
+References: <20260704080925.75113-1-amit.barzilai22@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,99 +98,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for the Solomon SSD1351, a 128x128 65k-color
-RGB OLED controller, to the ssd130x DRM driver:
+Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
+RGB OLED display controller driven over a 4-wire SPI bus. The binding
+builds on the shared solomon,ssd-common.yaml properties already used by
+the other Solomon display controllers.
 
-  - Patch 1 adds the device tree binding.
-
-  - Patch 2 switches the SSD133X family from RGB332 to RGB565, bringing
-    65k color to the SSD1331.
-
-  - Patch 3 adds the SSD1351 as a new SSD135X_FAMILY, reusing the
-    SSD133X plane/CRTC and blit/clear helpers. The only data-path
-    difference is the explicit Write RAM command (0x5c) the SSD1351
-    needs before pixel data; it also gets its own init sequence.
-
-Testing:
-
-  - The SSD1351 (patches 1 and 3) is tested on hardware.
-  - The SSD1331 RGB565 change (patch 2) is compile-tested only; I do not
-    currently have a working SSD1331 panel. Javier has kindly offered to
-    test it on his SSD1331.
-
-Dependency:
-
-  The SSD1351 reuses ssd133x_update_rect(), which programs the column
-  and row *end* address as a relative offset rather than an absolute
-  coordinate. This breaks partial updates that do not start at (0,0). A
-  separate fix is posted at [2]; until it lands, the SSD1351 shows the
-  same partial-redraw artifacts. This series applies independently of
-  that fix, but the two are best merged together.
-
-Backlight:
-
-  While adding the SSD1351 I noticed that the shared backlight path
-  (ssd130x_update_bl()) is only correct for the SSD130X and SSD132X
-  families, where 0x81 is the contrast command. On the SSD133X, 0x81 is
-  "Set Contrast for Color A", so brightness changes shift the color
-  balance rather than dim the panel. On the SSD1351, 0x81 is not
-  implemented at all and the brightness byte itself would be executed
-  as a command opcode (e.g. 0xae is Display OFF). This series therefore
-  does not register a backlight device for the SSD135X family. I plan a
-  follow-up making the backlight path family-aware (scaling
-  0x81/0x82/0x83 together for SSD133X, 0xc1 contrast A/B/C for
-  SSD135X), which would also fix the existing SSD1331 behavior. Happy
-  to reorder if you would prefer that rework to land first.
-
-Based on drm-misc-next. Note that the series depends on
-ssd130x_run_cmd_seq() (commit 208211646fb3 ("drm/solomon: add
-ssd130x_run_cmd_seq() for batch command execution")), which is in
-drm-misc-next but not yet in mainline.
-
-Thanks to Javier, Andy and Krzysztof for the reviews.
-
-[1] v2 of this series:
-    https://lore.kernel.org/dri-devel/20260622152506.78627-1-amit.barzilai22@gmail.com
-[2] ssd132x/ssd133x update_rect end-address fix:
-    https://lore.kernel.org/dri-devel/20260622122604.32500-1-amit.barzilai22@gmail.com
-
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-
-Changes since v2 [1]:
-- Drop patch 4 (staging fbtft fb_ssd1351 removal); it was agreed that
-  the fbtft driver stays.
-- Patch 2: remove RGB332 support entirely and drive the SSD133X family
-  at RGB565 unconditionally, instead of adding a per-variant format
-  flag to the deviceinfo struct (per Javier). Retitled accordingly.
-- Patch 3: drop the 120 ms post-reset msleep(); it was a generic fbtft
-  value, not an SSD1351 datasheet figure. Retested on hardware without
-  it. A comment noting this is left in ssd130x_reset() (per Andy).
-- Patch 3: explain the ssd130x_write_data() constification in the
-  commit message (per Andy).
-- Add trailing commas to non-terminator array/enum entries and drop
-  the comma from the init-sequence terminator (per Andy).
-- Declare the loop variable inside the for statement in
-  ssd130x_write_cmd() (per Andy).
-- Split declaration and assignment of ret in ssd133x_write_pixels()
-  (per Andy).
-- Fix comment wording/plurals ("3, 3 and 2 bits") (per Andy).
-- Patch 3: skip backlight device registration for the SSD135X family;
-  the shared backlight path would execute the brightness byte as a
-  command opcode on the SSD1351. To be addressed by a follow-up making
-  the backlight path family-aware (see the Backlight section above).
-- Collect Reviewed-by tags on patch 1.
-
-Amit Barzilai (3):
-  dt-bindings: display: Add Solomon SSD1351 OLED controller
-  drm/ssd130x: Change SSD133X color format to RGB565 from RGB332
-  drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
-
- .../bindings/display/solomon,ssd1351.yaml     |  42 +++
- drivers/gpu/drm/solomon/ssd130x-spi.c         |   7 +
- drivers/gpu/drm/solomon/ssd130x.c             | 289 ++++++++++++++----
- drivers/gpu/drm/solomon/ssd130x.h             |   5 +-
- 4 files changed, 278 insertions(+), 65 deletions(-)
+ .../bindings/display/solomon,ssd1351.yaml     | 42 +++++++++++++++++++
+ 1 file changed, 42 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
 
---
+diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+new file mode 100644
+index 000000000000..80850c2ab5b3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+@@ -0,0 +1,42 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/solomon,ssd1351.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Solomon SSD1351 OLED Display Controller
++
++maintainers:
++  - Amit Barzilai <amit.barzilai22@gmail.com>
++  - Javier Martinez Canillas <javierm@redhat.com>
++
++allOf:
++  - $ref: solomon,ssd-common.yaml#
++
++properties:
++  compatible:
++    enum:
++      - solomon,ssd1351
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        oled@0 {
++            compatible = "solomon,ssd1351";
++            reg = <0x0>;
++            reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
++            dc-gpios = <&gpio2 8 GPIO_ACTIVE_HIGH>;
++            spi-max-frequency = <10000000>;
++        };
++    };
+-- 
 2.54.0
+
