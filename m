@@ -4,72 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41CDC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 04:47:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 682BCC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 07:06:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0536210E2A2;
-	Sat,  4 Jul 2026 04:47:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C63BA10E021;
+	Sat,  4 Jul 2026 07:06:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="X/H82+cQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z54kXeqU";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23DDF10E01F
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 04:47:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783140434; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=EdGzKhApR6A73AwkcsG1Z9phjZDh6HjvZ1QqZr6vRFmfiyKGfjKjDY40vcdh1QD0+F1CpIYEGBTWBPNSpbKQ8OFWbzumIo9mnuJDLENqCisaWVUey67F/c1SA7Py3MHjKisHjY31BTJ3WdHQQni6YlDQuqXR4SmseLb6rLtyPTc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783140434;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=zA5sMr+drQYO05Evq8OX1erpzKd5oFkvLzQFTvOsMIQ=; 
- b=Vrh5wQk/F6zWk7VUrqlmxeWdd23/pCfJD1Axg1UKB7rsrwm1AB64Cq6wGSvFZxLXPJp1QtvJal9wBwTdDz3+jcmhVzon2JJlae6stPbDXZyqy4GTx2zphh8vwN2nbzdj8PT8KyPdrZGpIk2wn/9Kq2NU+DsbwI9Y17m5qg3pbD4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783140434; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=zA5sMr+drQYO05Evq8OX1erpzKd5oFkvLzQFTvOsMIQ=;
- b=X/H82+cQM0xXehKXofg3BboqbQIuFCSUTg28nBWcIG3GtQUz1L7zLdqWIgJecEyU
- OEUKT97FjuCtTWr97lKh0jvbW98tcwGI1U02iyfpxwpl46/hkQsTiDaFXyrYNG5KMWN
- 3K0shKCp8yJNSA2/ZD6Wcw39fBxHUezA8RPfW+4o=
-Received: by mx.zohomail.com with SMTPS id 1783140432981206.22377307476734;
- Fri, 3 Jul 2026 21:47:12 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Sat, 04 Jul 2026 05:46:46 +0100
-Subject: [PATCH v4 3/3] drm/panthor: Fix comment to reflect actual struct
- field name
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E00410E021
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 07:06:55 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-c85b73ffb52so628187a12.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 00:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783148815; x=1783753615; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1NiCKyVI2236oFQGXLuqi2mWCdxv0dZds07L8ektAd0=;
+ b=Z54kXeqUfGz94GPeBhvtxQErUSHKS0CGeM95qqBR/O+Q3Yb6VlF2pHOG+PmKgy8k6s
+ QVBK+b2fe3Sfx3fd1jCyKSbm9nh5kGOwebLorYybdmxAVnG2Xb49dj5QB95fpR3TWp0c
+ 88QCw57uceHPN/yO1HNKvQm022mDHgJs/1ca4YhqOMvq33Mg/M8MHqKjFHqj1jESTbbP
+ g1loeVXRoyQ+V6YpIgcC9ZzJgrk3soc/8iQ5qV1+2h/u9+8nMHO4REjYdgV7MZbcyJll
+ MVdL6RTiJ8p3C1fe3KtgYzH5nRWKE65EqahVSqILPNzzhen/u9kYhC7l6GpcVGU27UzP
+ yvHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783148815; x=1783753615;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1NiCKyVI2236oFQGXLuqi2mWCdxv0dZds07L8ektAd0=;
+ b=qRk1AgJPqn8X/Zm3yywON4/8o43uo0Eqj2Z40niFmeNVvL2utLl5buLuyIwbwK5gt0
+ z5yukpBvedUtLe4hyqEX+PHkWKlxYcm91wfBbypngs79wMnlcMTa8kxdXeYtZL+QAeY+
+ vtFeZ+/59tzk5mzTOtn3zZYSLG/J1ktNLz4nckNMgYJxaYcOkeqZxvhffgZwsN/5ea0x
+ Qk1dlJuQw38mnc9QbClUq9WjW11D/wNliXP1GfVasbu3Od353SneO3N5UuvC6JQETtKZ
+ k7cAm9oKff2brSITV7FD2K6odjhSIcHhnR0A7EcVSzV1Oj59umDx6yQ15KhPYwZ69308
+ gwVw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8GJHKJBHLAs5W0E6ouNsABRvJCl7cqWMBqgGqLMjjhyL0vLkWtLb+i6cugB7lbkg/wSn/KC/Mafgk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw90k3S+azqQ6gOA+oCVNQPBEo24chxEtDNPAWI+xadsZhDuYHK
+ M5yAW28RFHECQoJufsfCrloDvXVz6hghhefSpbiO8Lg8TjWfx/O9XlZP
+X-Gm-Gg: AfdE7clT9oDdH5g5rU3aUrRz976Uy5mfx+RR0kgvGXWRh4pl+qx0F1od/2XnciTI8aI
+ LYYJrgFLX216IlRNxKMAIy629CpIrPW0D11dIhNcRDaHRmrDjMF+LBt+pG+eGTMJ6m8uQakJoHG
+ WFH+NMb+YMRNe7RWDwhkyivCXn9x2Y0s3WZDXveP+XF1hh1PgVDnDGvl6eWL4m6M/FnqAMfXo0M
+ fqOu+xdEzLutFa9tchoU5hfeBBnd+Z9/MepFFB6j3s0G1i2l3fL1HAqBAoSyNuhgBQROfmAhE78
+ 7AUR/A4wD6uLhjzsuMcplsdJM6sXBwDp754Q51bxcuw71jrhDE/Bs+wJV+R1hs2vNuMjEZUFl+z
+ JSI8d+AtiSDIX/sgZ11YNAAnHDUiiUPK6Uxqww2irXs095Jy35poDDObUot8Do9jAKVk3hubIl1
+ /+N7YswJ9USIjs4q3U4qX1Mct/5b82s8A4/T+oA+Og8lXZtJcum74Ngs5FJTGjrA==
+X-Received: by 2002:a05:6a20:1604:b0:3bf:63af:859 with SMTP id
+ adf61e73a8af0-3c03e489710mr2280246637.45.1783148814945; 
+ Sat, 04 Jul 2026 00:06:54 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2405:acc0:1306:1a77:4d22:a645:ecb4:40eb])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13b3ececfe4sm31918824c88.8.2026.07.04.00.06.50
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 04 Jul 2026 00:06:54 -0700 (PDT)
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Subject: [PATCH v3] drm/panel: samsung-s6d16d0: Power off on prepare failure
+Date: Sat,  4 Jul 2026 12:51:48 +0545
+Message-ID: <20260704070648.35249-1-acharyalaxman8848@gmail.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260704-vm_bind_checks-v4-3-4705b6ca9f8a@collabora.com>
-References: <20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com>
-In-Reply-To: <20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Heiko Stuebner <heiko@sntech.de>, Grant Likely <grant.likely@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=915;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=6fQqTcZ8Jjzb2Ir40w+9CswzswOOUI9RFdQMwQAEnFw=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqSJA/TeHQROl98MBJeT8rfSN0EiWl8fHL5xEat
- 4GQCUWk41aJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCakiQPwAKCRAOJn5M7lND
- PanKDACGBB6uyzGCryUlNWTJNET6L//HexH1dDjIvDP85O9ojjs5ptQySWc3DuAs2CM0m4FbQt4
- xKBnSGulE5f20vYUqY2/GfeCE8UaE4ntGLK+7GoDlELql0Nd0vosK9ywztBXhHEbmRydKCsfJGD
- ZLHIniCihBVfU/wErRGLz10S4zd2audIDeGlQv95LSzqJP12oczBpHiHtpdQW/jGHb4oJEMEpYS
- wxq9VIog6fNpu2NSrFQCOhec1rrK4X8YjYZOVeDh38zV15IQgKf32700dOkXD884sXinvAIciv5
- bbMGx19ZFBETWSgLx6m2Jz0pZgxCWTAj81HcLkoVTLpSb+LONusZEvQgyFDJNDCDBn23e3n+h39
- T5lrXwB/i7m/sxFhH7SP0zTu1efpHQc3ddG3j5WQVEzibpBeEe2BXT4zE1YQP4464P9nNaHEyGz
- dxjuhvCc0+1H3hWaHkM0tWu/YwyWx9TXJ1Ninnyo26sR/u3NP49YA1YwotRN2fma4SUKI=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,29 +93,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mismatch would pop up when building the kernel with W=1.
+If enabling tearing mode or exiting sleep mode fails after the
+regulator is enabled, s6d16d0_prepare() returns without asserting
+reset or disabling the supply. Since the DRM panel core leaves the
+panel unprepared, a later unprepare call skips the driver callback
+and the supply remains enabled.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+Assert reset and disable the supply before returning the DSI command error.
+
+Fixes: ac1d6d74884e ("drm/panel: Add driver for Samsung S6D16D0 panel")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+- Regenerate with git-format-patch to preserve tabs and whitespace.
+- No code changes.
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 662a2c13b467..d09d5641e6c0 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -306,7 +306,7 @@ struct panthor_vm {
- 		/** @kernel_auto_va.start: Start of the automatic VA-range for kernel BOs. */
- 		u64 start;
- 
--		/** @kernel_auto_va.size: Size of the automatic VA-range for kernel BOs. */
-+		/** @kernel_auto_va.end: End of the automatic VA-range for kernel BOs. */
- 		u64 end;
- 	} kernel_auto_va;
- 
+Changes in v2:
+- Resend as plain text with git-send-email.
+- Correct author, sign-off, and recipient formatting.
+- No code changes.
 
+ drivers/gpu/drm/panel/panel-samsung-s6d16d0.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+index ba1a02000..04e19b5f2 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
++++ b/drivers/gpu/drm/panel/panel-samsung-s6d16d0.c
+@@ -89,16 +89,22 @@ static int s6d16d0_prepare(struct drm_panel *panel)
+ 				       MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+ 	if (ret) {
+ 		dev_err(s6->dev, "failed to enable vblank TE (%d)\n", ret);
+-		return ret;
++		goto err_power_off;
+ 	}
+ 	/* Exit sleep mode and power on */
+ 	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
+ 	if (ret) {
+ 		dev_err(s6->dev, "failed to exit sleep mode (%d)\n", ret);
+-		return ret;
++		goto err_power_off;
+ 	}
+ 
+ 	return 0;
++
++err_power_off:
++	gpiod_set_value_cansleep(s6->reset_gpio, 1);
++	regulator_disable(s6->supply);
++
++	return ret;
+ }
+ 
+ static int s6d16d0_enable(struct drm_panel *panel)
 -- 
-2.55.0
-
+2.51.2
