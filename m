@@ -4,90 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E22C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 09:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFBFAC44500
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 09:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A85710E03F;
-	Sat,  4 Jul 2026 09:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B39A910E060;
+	Sat,  4 Jul 2026 09:34:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QHJK/DIl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H2KS/GBF";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19F4010E03F
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 09:34:37 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-493ae59eca6so9161215e9.1
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 02:34:37 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 499A910E059
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 09:34:39 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-493bc8fda98so14294135e9.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 02:34:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783157675; x=1783762475; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7v5Pm7hcHoKncuVk3HS0rjh4rfNcOYchDGYsTPk7k5s=;
- b=QHJK/DIlKzMHVn8aZUA/N2t4GvG+/rxb+G8DVqpY7udqO57ORzFNpuqT5aZfW4bz2T
- hi9YqOT49+iEac9Ynue6T8HHZBTxHeyYG39VjLLdqaaT92ULEYIKJ3vab9RHnL1mTqYm
- cuq1vxEs9wMYuzaGPrnp2nyGdllxS1PNhc06bCeQiIVQVlwimGYBCElt81KMc+1LWz7o
- rmQoBENAKgk9srq3+jpjk7hLcU3zxQeLouJdBKh4/eq9M/JU5RxflDfvP+ZMOV/KjDAF
- tK2I7LdE1T8DeRQHjE1oX4WjD3t+qLlvVhXWiYAVfmUhHo6Dj1qiIfoHQ+JTViYvYGLA
- reTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783157675; x=1783762475;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1783157678; x=1783762478; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7v5Pm7hcHoKncuVk3HS0rjh4rfNcOYchDGYsTPk7k5s=;
- b=WXZ48ug4p20iuRLhVoLjM8MzNTPCKFY75/MSzRv1olcb5p7EXhqRJpYZ0v6FYteTnU
- SE54A9gvOVHveBUryip/l2o3v9jIgmBwb2NR0TeMofs4IUVDdIzhe3WGT5uA72toLWZP
- /jNLEmsJa7bo3y317s5e5QQSW3j7zOWfyWT3GSyMfpGfLwsIElVfVW7TCwCRCxL1w21/
- 4IkAnZt4uE3enin2iv6Bo61OSUi5Kz5EPSVoDYDk87IGeJWwv/H9TnP7nvB/TH6e1JSl
- N1mCzpfnsxAU0aryJAue89Mn2B90DhvV9VOspk0Pe0Ut+7ccFhj0vFyRK3aHiv39qSdU
- 3gYQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/0+16XJZuR0DuvSYNKF2ljJFMq5pDaTrwRxxqv2nNW5sWwjpa48HA8cKWPOp4DaK+s02oO5kDI9Lk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz95VyckmWugXcKQw7EKgIs4kFOMlC57o0FG86IuWRfr7WIT0st
- L4RQD3lkZ/2b2+kF5lKaW33kz3KvmaEfVY2Bo/6YcGcp+SxoOCgFJJ2Z
-X-Gm-Gg: AfdE7cliRo6/+XhKZGViv3ENs7sEQ8oj+PTvT3NHGxFdQ0iaYiuEdxaLe1l/F19EE1q
- GX4Af8bvK/HTlJIw9KLBygwTaM9O3v+Li5r2vg3Bj75JnTWs780BYVROh3WmclZ/flk10ONwyy9
- heIdjgEfah2apb9Ly7EpoJ0wN9PgcJin7pzNRAK9z8fEdQMTo+ISu0/laN5oKK2cnWldSv+L4IY
- SdSYAVwCAsi47Z9Au7DF45B+FAXcRF20VEbtVUkiCVA+aWbtV1FWAxnxLxuJOfhPALuMGn0svkv
- EeXoIBiIHMg7CRjht/YoT2BybIbGBo3zuhr6MLG/pwVJXIL2hIeNcZ5gIF6NlxllE0m36Nu1fhj
- GI1++LeH0kbus/rqZtipK4qZxQ+381/F1I2Yj8KwRRsISLKMexndk/zDj6JWOxxtOcz7r3oxaAZ
- QivPDGqM8x2oWnNvUSVNZm
-X-Received: by 2002:a05:600c:8b76:b0:493:d21f:8f98 with SMTP id
- 5b1f17b1804b1-493d21f9075mr19743205e9.36.1783157675277; 
- Sat, 04 Jul 2026 02:34:35 -0700 (PDT)
+ bh=BwvnaSsxH/NJRZaU480O8mWvjK6UX8Z/pGsTgqyXhY8=;
+ b=H2KS/GBFsVHRo1CU55sUbjpG9r/ldHOPXjHDkKKkMM3O+nQ4uZBJmuF06qun39uKxo
+ ezHFs0Wg84aRQPHb+X0OTj4MGZJW7NNzPoM8Dk4wJ+a29GFoCUATKH+dJ17ujOQs9fo4
+ 08RW1jHJh/KE2xO37WoeYkCXZoivl1kO3eZURCw6VRWb+2EFpLgmNiNk3ZawTYxDqCbm
+ /3RFKAtd+PWkPmOYDClwcp0IMaF94NZ/LFQPreCtM2376gGigCFCgu5N7h2kpVVIHWqA
+ 4QBxYmlv8mugcoTudjjWau4IRji5iUOAM43LHRxAOK0EZZnteUIS2tjASxrn82DZuTQW
+ +utQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783157678; x=1783762478;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=BwvnaSsxH/NJRZaU480O8mWvjK6UX8Z/pGsTgqyXhY8=;
+ b=Tq83wSinZVkKngwXtzvIefBFEvNF/FyajIJt7zJ0/zle3NWjFAReamEpC4oAhEYnK4
+ 36OTSpqPnvWUrUC5oIJXqmyOWjaQGnGIA1/T3SkbYxLcPzE1/KzFBKdV1Zf4mKWryMrC
+ itbJpdt6UMCSgolgba8xZ95OCAI+YCj/9e4cuT5SBwhHLWtCZYN2XCqPicgNxcmtHrnB
+ OXwybZc96DrCcHZqLSTqnRwTueo5lyNbkz9T+7WCfxr9/CZS5xXQ62dWu7Rht/c+9Ey0
+ lpqb5LuMopH1CY30HOa0QCavz14DFMTJdzKhxZe4zbl4KxubkP4iVO5AqzQQaJnw2BS4
+ 3fpw==
+X-Gm-Message-State: AOJu0Yz34HKAVCa8ea3yQ6Dc6IqwZe/ZnlCaBUrSVcmEnzIy2yqcShLq
+ ZPBrd5dH4KMQ++hxDp6HNLhwP8Ckw2j8isrRrHB94LlgwwdMUfFiKPQG
+X-Gm-Gg: AfdE7cm3K2HFdsgz3FcW2UGX8cJcGOBVq4w8o0xlgoLUT4W8WAUbPbVhER//AegxeH1
+ gFjJg6gP9vO6Yl+bh5FMngHMBH0Pfa8B58bOyI+T8sr25x/IFzw986sBlLfB3PAIP0MKUdz/UPr
+ QInt+VZobExcPSWJiBZGpooQA+gFxALUgoJLv1RTwOmLveEDHiDvi4qp2us+eoXuQeUQhux480L
+ drDeoIx0znxsnnCN+FST2n0R1Q+mGn62IAYa7AUrAT4jEfc8MRVXYlNMvApOCBmOgv+yBiOU5eO
+ BGTV72Xy7UXpIWsBsxJQWw+bLKHBrbCH1ePro3ysbqKHQxMF6H/KZdLoQoCEYhGA7ndBlxU/8/2
+ uKMwAOxvd2sCxdpOS7Znb7bDQwmveO7b9AGJHwvU4FM95RjBd/qaWEatVG21MrrrqN0jN6yTzXf
+ jMcvNsbtWGcqOUfxAqP9W3
+X-Received: by 2002:a05:600c:3551:b0:493:bc4b:b8c with SMTP id
+ 5b1f17b1804b1-493d11faf3amr31491425e9.38.1783157677450; 
+ Sat, 04 Jul 2026 02:34:37 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a702:d301:8c5b:5b11:f6a5:9bc9])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493cce040b4sm153180235e9.10.2026.07.04.02.34.34
+ 5b1f17b1804b1-493cce040b4sm153180235e9.10.2026.07.04.02.34.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2026 02:34:35 -0700 (PDT)
+ Sat, 04 Jul 2026 02:34:37 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Philipp Zabel <p.zabel@pengutronix.de>,
+To: Biju Das <biju.das.jz@bp.renesas.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 00/16] Add support for DU,
- LVDS and DSI on the Renesas RZ/G3L SoC
-Date: Sat,  4 Jul 2026 10:34:10 +0100
-Message-ID: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
+Subject: [PATCH 04/16] drm: renesas: rzg2l_mipi_dsi: Move global timings into
+ hardware info struct
+Date: Sat,  4 Jul 2026 10:34:14 +0100
+Message-ID: <20260704093433.273672-5-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
+References: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -107,65 +97,59 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Hi All,
+Move rzg2l_mipi_dsi_global_timings and its array size out of the hardcoded
+ARRAY_SIZE reference in rzg2l_mipi_dsi_dphy_init() and into the struct
+rzg2l_mipi_dsi_hw_info. This allows future hardware variants to supply
+their own timing tables rather than sharing a single global array, making
+the driver more extensible without code duplication.
 
-This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L
-SMARC EVK. The RZ/G3L LCDC is similar to the one found on RZ/G2L, but has
-LVDS support. It is simpler compared to RZ/G3E [1], hence sending
-this series to get review feedback. Based on the discussion on [1],
-will rebase this later.
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-This patch series has a dependency on [2].
-
-Also, the LVDS series [3] is merged here to get an overall picture.
-
-[1] https://lore.kernel.org/all/cover.1770996493.git.tommaso.merciai.xr@bp.renesas.com
-[2] https://lore.kernel.org/all/20260619164030.380098-1-biju.das.jz@bp.renesas.com/
-[3] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.renesas.com/
-
-Biju Das (16):
-  dt-bindings: display: bridge: renesas,dsi: Document RZ/G3L
-  drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
-  drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
-  drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
-    struct
-  drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
-  drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
-  dt-bindings: display: renesas,rzg2l-du: Document RZ/G3L SoC
-  drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
-  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
-  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
-  arm64: dts: renesas: r9a08g046: Add fcpvd node
-  arm64: dts: renesas: r9a08g046: Add vspd node
-  arm64: dts: renesas: r9a08g046: Add DU and DSI nodes
-  arm64: dts: renesas: r9a08g046: Add LVDS node
-  arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
-  arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
-    ITE6263
-
- .../bindings/display/bridge/renesas,dsi.yaml  |  15 +
- .../bridge/renesas,r9a08g046-lvds.yaml        | 120 +++++++
- .../bindings/display/renesas,rzg2l-du.yaml    |  27 +-
- arch/arm64/boot/dts/renesas/Makefile          |   6 +
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 140 ++++++++
- .../r9a08g046l48-smarc-dsi-adv7535.dtso       |  95 ++++++
- .../r9a08g046l48-smarc-lvds-ite6263.dtso      | 104 ++++++
- drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
- drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  22 +-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   4 +
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |   4 +
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.h  |   1 +
- .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 206 +++++++++++-
- drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 299 ++++++++++++++++++
- .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
- 16 files changed, 1072 insertions(+), 10 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
- create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
-
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 1538eeece2b5..180384c10264 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -54,6 +54,8 @@ struct rzg2l_mipi_dsi_hw_info {
+ 		const u8 *table;
+ 		const u8 table_size;
+ 	} cpg_plldsi;
++	const struct rzg2l_mipi_dsi_timings *dsi_global_timings;
++	unsigned int num_dsi_global_timings;
+ 	u32 phy_reg_offset;
+ 	u32 link_reg_offset;
+ 	u32 dphyctrl0_init_val;
+@@ -488,8 +490,8 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+ 	u32 dphytim3;
+ 
+ 	/* All DSI global operation timings are set with recommended setting */
+-	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
+-		dphy_timings = &rzg2l_mipi_dsi_global_timings[i];
++	for (i = 0; i < dsi->info->num_dsi_global_timings; ++i) {
++		dphy_timings = &dsi->info->dsi_global_timings[i];
+ 		if (hsfreq <= dphy_timings->hsfreq_max)
+ 			break;
+ 	}
+@@ -1519,6 +1521,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzv2h_mipi_dsi_info = {
+ 	.cpg_plldsi.limits = rzv2h_plldsi_limits,
+ 	.cpg_plldsi.table = rzv2h_cpg_div_table,
+ 	.cpg_plldsi.table_size = ARRAY_SIZE(rzv2h_cpg_div_table),
++	.dsi_global_timings = rzg2l_mipi_dsi_global_timings,
++	.num_dsi_global_timings = ARRAY_SIZE(rzg2l_mipi_dsi_global_timings),
+ 	.phy_reg_offset = 0x10000,
+ 	.link_reg_offset = 0,
+ 	.min_dclk = 5440,
+@@ -1530,6 +1534,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+ 	.dphy_init = rzg2l_mipi_dsi_dphy_init,
+ 	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
+ 	.dphy_conf_clks = rzg2l_dphy_conf_clks,
++	.dsi_global_timings = rzg2l_mipi_dsi_global_timings,
++	.num_dsi_global_timings = ARRAY_SIZE(rzg2l_mipi_dsi_global_timings),
+ 	.link_reg_offset = 0x10000,
+ 	.dphyctrl0_init_val = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
+ 			      DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR,
 -- 
 2.43.0
 
