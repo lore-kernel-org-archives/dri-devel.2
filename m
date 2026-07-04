@@ -4,91 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 645B9C44500
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 11:32:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246EEC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 12:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 372EC10E6BA;
-	Sat,  4 Jul 2026 11:32:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA8810E062;
+	Sat,  4 Jul 2026 12:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nZptEJEt";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="goa+123w";
 	dkim-atps=neutral
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB1C10E6BA
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 11:32:35 +0000 (UTC)
-Received: by mail-ot1-f46.google.com with SMTP id
- 46e09a7af769-7e9f69ee6f4so1209666a34.2
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 04:32:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783164754; cv=none;
- d=google.com; s=arc-20260327;
- b=jyuLh/M3B/nOGgNIyJjLmYWmOd9VSYLbMwk7jVmc6eqxalnEmj6AJw3fjMc4Jsus29
- 0cmLpLK8dBMdwv9Zc3A0CP52UZYhufOggLl9x7GusR3QgUifx0WmYi2F9WRxIW6AGHiu
- gFOGG4jQ0xWTXnK0IAim+DAas3YE9CFiJ3GQwOY+SnMaoHyvLQDFoocwD8k2glIDUWDm
- 5XWHYN6bNQSvi0QEDKkewahbtARaDz6iXWD8t5E4GDf8wCaQzEOuzOI85YEZ7lp9bZ7p
- Igag+8La8FqXYEEchA90AveEsrtfmIj9Zd1AM1L3OsdYSQyoJ83Yf12UKdPCIEQ9EEWI
- jZIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=EWxbVxt0bUrbMOVyYOzNg2L9Hi49TedpZAPD1zNG07k=;
- fh=gsOTBOe4iwHYpyE5E5gtcSAOCJxtmovo0OB0mvNBgqo=;
- b=ccPP0nSBN6jUTksH40BlKdXVPNMgG+4k0dH5kKGAdxlDiE1iI96w6GTzfictfG/5Qc
- N8ImECUEa7FMxvrNDfULb6AlflMUi9YVWnWwae22Hv5OUBx3knUZFtdNbDCshwuxwTpN
- k5kX390biZpgEGNz4uXnr4ZRRvw+UzZyjqAv4tZb2iaXdzzlJkW1OXamNiudtwnXhIMX
- Z5VuxHZ/Fd6u/sBhi6/l+G+8+oAFpYi0jOtD85MsilgAss7HToGLwoNIvGRiUAIeGqwO
- cTbcCuTPLJ6izbm7zhkXbgF41x9bHqCxiPwRnw/pikLsxlytWkpRDKptnchnS5aPD4lW
- jG4A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783164754; x=1783769554; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=EWxbVxt0bUrbMOVyYOzNg2L9Hi49TedpZAPD1zNG07k=;
- b=nZptEJEtjI4Rozy82GimeG8VlLPXyNWrLTOBL8X9XF/19WloZKBZFELr4dA2RT/u13
- gkorxCGho7x++GXwzTaQQvx6zIxY5Jz7r24mb93fU8lUQ9skTCxchCpdudZm4rj91Mr5
- tF/IOpem/yiPOo7f+cLswbwkRrmnV7YEKTazcBCsRYKixhAlSMtdXVXV8opE64APxNaJ
- Qgp1xJvZdOzc6PIV9pnhaXdMEawzPpP+wch7TLYeo7ud3M0xIFlGpdzRveW5XiRqxsEj
- UHazDjo11TKp7JNNPTg0xwDzVlRV65zK01ugyC6RHuaDDJj6tDmB+/m151o/DnfgKl+f
- yRxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783164754; x=1783769554;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=EWxbVxt0bUrbMOVyYOzNg2L9Hi49TedpZAPD1zNG07k=;
- b=Ia0WaPryopEXgsoR3hrF77CZQhZj6LeXYSbxCBGwHGmLrwFWMw63Z/OOyNQHwqq/+4
- 7y4iSo0RTg4TvaUUEdNWkDKrIMxYFEUEn+ya6YrpCAWDmZRlrmS8xkAO+zCiHCeArFpK
- QJCX3Y/yptQDU4WzxhyUWByNAQqTdxKZmiPpZinPKx3/2lHbtjqXtJ3Ue9mHREW5gN3P
- /WFdGQxnrJNM6GN27jqXrs5fwS6BDz3ORXiqIVlEDvUQFi6dp7xtu7PxbEwVgGSf84Fa
- LPmdsb62GrxEb9IGGYykYol4Jafsdq1MqR4yfmVauard/kfY6c5Aj5wyyiRd4JOVrH3q
- vnCA==
-X-Gm-Message-State: AOJu0YxjUsfA1RzJAB0nkbd4tynmnVK6tJCMVehaM+h3EEy3yE3bZ2Hm
- M1qELlQ9e/OeWHD3QXTQR2jsdTFZNWKeRmiDBK3frWK3LLipSpWvKpSNONdwARSiESsJrMhMOpU
- Ak4LbK3At3Gn5TbTjX9KvHMI52bFuP4s=
-X-Gm-Gg: AfdE7ckyzxZbemyYGGmqdkc4Mv+HNT+5/hUkVta9zurdCigHfIEI1HTQxQRSCjuBS7z
- WLTX+fkGn9dCuMtzwRvYDkmw9pjR3CoI/jxAci1LV7nUkETip9fQ+YxSyhiMvvxtUuH5s6GrzEn
- CK0Ckouo78b81Gx0K4wX6l+zT50/S0XbYnQtAqD12+QQLAjx3po3ytHrjGGVDy5SVwVwVupPtSA
- 6LWJmBoTXlwroNxEf2hiWfTNHbq43Schrbyvah6nTsvjrnBp4By7S/kKCJ3k97e91fV+69CPro=
-X-Received: by 2002:a05:6830:258e:b0:7e6:f2dd:93c3 with SMTP id
- 46e09a7af769-7eb7ff1bee0mr1941047a34.15.1783164754180; Sat, 04 Jul 2026
- 04:32:34 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D618E10E062
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 12:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=CTpvZVbUU9v1mSVDc0erQ7yDB/kzf93Bb5HL+Klgmks=; b=goa+123wSBfr4HLUohr6y7cuBG
+ aZVhEZLQWmXk3bZl8PovFg4nF+Kxx6pAc2hagJyfLbmdf6x30WkW8hmOW85yVcF516WzeWYnqvEpu
+ WOlPdi5eo0p3LiBZMcHPbV3EgAzPBo8bE2B8auaI9kKJN3hDLmJOPf0dJhiThFnCjJ4ugdDzeXv24
+ vk4aLEDS18TkE+mwdljkUa62o1XS+1iPYSsUH59j/fYr/Z0d/yPVp4P1SNgUlwr9XcV3v1SQZ6FbR
+ Dw4CtH18XOtsUh5gsdKgVLye/5GwUtrGiVC/lVot0QLC39SolvoVxotC+jW756/IT2fKRb3/8selL
+ bCMY6JUg==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wfzDF-008xAJ-KY; Sat, 04 Jul 2026 14:11:13 +0200
+Message-ID: <10d3d64a-0321-4223-8a56-d32a654297fd@igalia.com>
+Date: Sat, 4 Jul 2026 09:11:07 -0300
 MIME-Version: 1.0
-References: <20260704084133.122053-1-christian.koenig@amd.com>
-In-Reply-To: <20260704084133.122053-1-christian.koenig@amd.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Sat, 4 Jul 2026 16:32:22 +0500
-X-Gm-Features: AVVi8CcK_S66JOwlm4n0LTy0xr_IGeFKHbpsM77Kmo3cE5f0eLtGIWRvXB6zhGs
-Message-ID: <CABXGCsPB4V6h-vUHwQ0Fo=bsdn66xP4fOOOezwWw2hiKh5TRJQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/drm_exec: avoid indirect goto
-To: christian.koenig@amd.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- peterz@infradead.org, jpoimboe@kernel.org, llvm@lists.linux.dev, 
- oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/v3d: bound CPU-job query writes to their
+ destination BO
+To: Michael Bommarito <michael.bommarito@gmail.com>,
+ Melissa Wen <mwen@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260617125811.3692951-1-michael.bommarito@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260617125811.3692951-1-michael.bommarito@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,226 +90,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jul 4, 2026 at 1:41=E2=80=AFPM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> The drm_exec component uses a variable with scope limited to the for() an=
-d
-> an indirect goto to allow instantiating multiple macros in the same
-> function.
->
-> This unfortunately doesn't work well with certain compilers when the
-> indirect goto can't be lowered to a direct jump.
->
-> Switch the indirect goto to a direct goto, the drawback is that we now
-> can't use the dma_exec_until_all_locked() macro in the same function
-> multiple times.
->
-> The is currently only one user of this and only as a hacky workaround
-> which is about to be removed.
->
-> So document that the __label__ statement should be used when the macro is
-> used multiple times and fix the tests and the only use case where that is
-> necessary.
->
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  2 ++
->  drivers/gpu/drm/tests/drm_exec_test.c  | 24 ++++++++++++------
->  include/drm/drm_exec.h                 | 34 ++++++++++++++------------
->  3 files changed, 36 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index fee4c94c2585..fc28d0fdad37 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -3011,6 +3011,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *a=
-dev, u32 pasid,
->         is_compute_context =3D vm->is_compute_context;
->
->         if (is_compute_context) {
-> +               __label__ drm_exec_retry;
+Hi Michael,
+
+Thanks for your patch!
+
+On 17/06/26 09:58, Michael Bommarito wrote:
 > +
->                 /* Release the root PD lock since svm_range_restore_pages
->                  * might try to take it.
->                  * TODO: rework svm_range_restore_pages so that this isn'=
-t
-> diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/test=
-s/drm_exec_test.c
-> index 2fc47f3b463b..7a374e462348 100644
-> --- a/drivers/gpu/drm/tests/drm_exec_test.c
-> +++ b/drivers/gpu/drm/tests/drm_exec_test.c
-> @@ -180,19 +180,27 @@ static void test_multiple_loops(struct kunit *test)
->  {
->         struct drm_exec exec;
->
-> -       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> -       drm_exec_until_all_locked(&exec)
->         {
-> -               break;
-> +               __label__ drm_exec_retry;
+> +/* Reject a query CPU job whose writes would land outside their BO. */
+> +static int
+> +v3d_cpu_job_bounds_check(struct v3d_cpu_job *job)
+> +{
+> +	struct drm_device *dev = &job->base.v3d->drm;
+> +	struct v3d_timestamp_query_info *tquery = &job->timestamp_query;
+> +	struct v3d_copy_query_results_info *copy = &job->copy;
+> +	u32 elem = copy->do_64bit ? sizeof(u64) : sizeof(u32);
+> +	struct v3d_bo *dst, *src;
+> +	u64 slots, write_size;
+> +	int i;
+
+Sashiko pointed out that this should be a u32 at least.
+
 > +
-> +               drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> +               drm_exec_until_all_locked(&exec)
-> +               {
-> +                       break;
-> +               }
-> +               drm_exec_fini(&exec);
->         }
-> -       drm_exec_fini(&exec);
->
-> -       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> -       drm_exec_until_all_locked(&exec)
->         {
-> -               break;
-> +               __label__ drm_exec_retry;
+> +	switch (job->job_type) {
+> +	case V3D_CPU_JOB_TYPE_TIMESTAMP_QUERY:
+> +	case V3D_CPU_JOB_TYPE_RESET_TIMESTAMP_QUERY:
+> +		/*
+> +		 * Each query writes one u64 timestamp slot into bo[0]. The
+> +		 * offset is cast to u64 so a 0xffffffff query offset cannot wrap
+> +		 * the addition past the BO size.
+> +		 */
+
+"/* Each query writes one u64 timestamp slot into bo[0]. */" was enough
+of a comment.
+
+> +		dst = to_v3d_bo(job->base.bo[0]);
 > +
-> +               drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> +               drm_exec_until_all_locked(&exec)
-> +               {
-> +                       break;
-> +               }
-> +               drm_exec_fini(&exec);
->         }
-> -       drm_exec_fini(&exec);
->         KUNIT_SUCCEED(test);
->  }
->
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index 8725ba92ff91..cc2937185a9f 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -101,17 +101,6 @@ drm_exec_obj(struct drm_exec *exec, unsigned long in=
-dex)
->  #define drm_exec_for_each_locked_object_reverse(exec, obj)             \
->         __drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(=
-drm_exec))
->
-> -/*
-> - * Helper to drm_exec_until_all_locked(). Don't use directly.
-> - *
-> - * Since labels can't be defined local to the loop's body we use a jump =
-pointer
-> - * to make sure that the retry is only used from within the loop's body.
-> - */
-> -#define __drm_exec_until_all_locked(exec, _label)                       =
-\
-> -_label:                                                                 =
-        \
-> -       for (void *const __maybe_unused __drm_exec_retry_ptr =3D &&_label=
-; \
-> -            drm_exec_cleanup(exec);)
-> -
->  /**
->   * drm_exec_until_all_locked - loop until all GEM objects are locked
->   * @exec: drm_exec object
-> @@ -119,9 +108,18 @@ _label:                                             =
-                        \
->   * Core functionality of the drm_exec object. Loops until all GEM object=
-s are
->   * locked and no more contention exists. At the beginning of the loop it=
- is
->   * guaranteed that no GEM object is locked.
-> + *
-> + * A global label name drm_exec_retry is used, if you need to use more t=
-han one
-> + * instance of this macro in the same function the label needs to be mad=
-e local
-> + * to the block with the __label__ keyword.
->   */
->  #define drm_exec_until_all_locked(exec)                                 =
-       \
-> -       __drm_exec_until_all_locked(exec, __UNIQUE_ID(drm_exec))
-> +       for (bool const __maybe_unused __drm_exec_loop =3D false;        =
- \
-> +            drm_exec_cleanup(exec);)                                   \
-> +               if (false) {                                            \
-> +drm_exec_retry: __maybe_unused;                                         =
-       \
-> +                       continue;                                       \
-> +               } else
->
->  /**
->   * drm_exec_retry_on_contention - restart the loop to grap all locks
-> @@ -129,12 +127,14 @@ _label:                                            =
-                        \
->   *
->   * Control flow helper to continue when a contention was detected and we=
- need to
->   * clean up and re-start the loop to prepare all GEM objects.
-> + * The __drm_exec_loop check exists to prevent usage outside of an
-> + * drm_exec_until_all_locked() loop.
->   */
->  #define drm_exec_retry_on_contention(exec)                     \
->         do {                                                    \
->                 if (unlikely(drm_exec_is_contended(exec)))      \
-> -                       goto *__drm_exec_retry_ptr;             \
-> -       } while (0)
-> +                       goto drm_exec_retry;                    \
-> +       } while (__drm_exec_loop)
->
->  /**
->   * drm_exec_is_contended - check for contention
-> @@ -154,12 +154,14 @@ static inline bool drm_exec_is_contended(struct drm=
-_exec *exec)
->   *
->   * Unconditionally retry the loop to lock all objects. For consistency,
->   * the exec object needs to be newly initialized.
-> + * The __drm_exec_loop check exists to prevent usage outside of an
-> + * drm_exec_until_all_locked() loop.
->   */
->  #define drm_exec_retry(_exec)                                  \
->         do {                                                    \
->                 WARN_ON((_exec)->contended !=3D DRM_EXEC_DUMMY);  \
-> -               goto *__drm_exec_retry_ptr;                     \
-> -       } while (0)
-> +               goto drm_exec_retry;                            \
-> +       } while (__drm_exec_loop)
->
->  /**
->   * drm_exec_ticket - return the ww_acquire_ctx for this exec context
-> --
-> 2.43.0
->
+> +		for (i = 0; i < tquery->count; i++) {
+> +			if ((u64)tquery->queries[i].offset + sizeof(u64) >
+> +			    dst->base.base.size)
+> +				goto err_range;
+> +		}
+> +		return 0;
+> +	case V3D_CPU_JOB_TYPE_COPY_TIMESTAMP_QUERY:
+> +		/* Copies one u64 per query from bo[1] into bo[0]. */
+> +		dst = to_v3d_bo(job->base.bo[0]);
+> +		src = to_v3d_bo(job->base.bo[1]);
+> +
+> +		for (i = 0; i < tquery->count; i++) {
+> +			if ((u64)tquery->queries[i].offset + sizeof(u64) >
+> +			    src->base.base.size)
+> +				goto err_range;
+> +		}
+> +
+> +		write_size = (copy->availability_bit ? 2 : 1) * elem;
+> +		return v3d_check_copy_extent(dev, dst->base.base.size,
+> +					     copy->offset, copy->stride,
+> +					     tquery->count, write_size);
+> +	case V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY:
+> +		/*
+> +		 * Each query writes nperfmons * DRM_V3D_MAX_PERF_COUNTERS
+> +		 * counter slots into bo[0], plus an availability slot at index
+> +		 * ncounters. nperfmons and ncounters are user values; the slot
+> +		 * count and write size are computed in u64 (u32 * small
+> +		 * constant) so they cannot wrap.
+> +		 */
 
-Tested on the configs that originally tripped objtool, the error is gone
-with this patch:
+I preferred the previous comment (from v2):
 
-  - gcc, non-LTO: amdgpu_vm.o builds clean
-    (was amdgpu_vm_handle_fault+0x169 / +0x97)
-  - clang, non-LTO: amdgpu_vm.o builds clean
-    (was amdgpu_vm_handle_fault+0x12d)
-  - clang + ThinLTO + KASAN, OBJTOOL_WERROR=3Dy: full vmlinux.o link
-    passes objtool (was amdgpu_vm_handle_fault+0x186 / +0x16b)
+/*
+  * Each query writes nperfmons * DRM_V3D_MAX_PERF_COUNTERS
+  * counter slots into bo[0], plus an availability slot at
+  * index ncounters. nperfmons and ncounters are user values,
+  * so the slot count is computed overflow-safe.
+  */
 
-x86_64, clang 22.1.8.
+> +		dst = to_v3d_bo(job->base.bo[0]);
+> +
+> +		slots = (u64)job->performance_query.nperfmons *
+> +			DRM_V3D_MAX_PERF_COUNTERS;
+> +		if (copy->availability_bit)
+> +			slots = max(slots,
+> +				    (u64)job->performance_query.ncounters + 1);
+> +
+> +		write_size = slots * elem;
+> +		return v3d_check_copy_extent(dev, dst->base.base.size,
+> +					     copy->offset, copy->stride,
+> +					     job->performance_query.count,
+> +					     write_size);
+> +	case V3D_CPU_JOB_TYPE_INDIRECT_CSD: {
+> +		struct v3d_indirect_csd_info *icsd = &job->indirect_csd;
 
-Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+I'd prefer to call it "indirect_csd".
 
-FWIW the kernel test robot reported this many times across trees (clang
-LTO, clang non-LTO, and gcc builds); it's all the same drm_exec
-computed-goto pattern. Full list if you want to add Reported-by/Closes:
+> +
+> +		/*
+> +		 * The exec-time work-group rewrite reads three u32 counts from
+> +		 * bo[0] at the user-supplied offset, then writes each count back
+> +		 * into the indirect BO at a user-supplied u32 index. Reject a
+> +		 * missing indirect BO (drm_gem_object_lookup() returned NULL for
+> +		 * a bad handle, which the exec path would otherwise dereference)
+> +		 * and bound both accesses.
+> +		 */
+> +		if (!icsd->indirect)
+> +			return -ENOENT;
 
-Fixes: 9920249a5288 ("drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to
-drm_exec")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202606231854.7LeCtlLe-lkp@int=
-el.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202606232356.gwHMAJAW-lkp@int=
-el.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202606240753.kYjobJVl-lkp@int=
-el.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202606241110.iUga5vVw-lkp@int=
-el.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202607031446.1PWG18mN-lkp@int=
-el.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202607031837.HSmBj8pr-lkp@int=
-el.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202607040159.GopyEswS-lkp@int=
-el.com/
+No need for that after [1].
 
---=20
-Best Regards,
-Mike Gavrilov.
+[1] 
+https://lore.kernel.org/dri-devel/20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com/T/#m6c2cb9021bc6b524fb713150f94bdfee3553cf72
+
+> +
+> +		dst = to_v3d_bo(job->base.bo[0]);
+
+New line. Also, instead of the big comment on the beginning of this
+case, I'd prefer a smaller comment here explaining that 3 is the three
+dimensions of workgroup counts (x,y,z).
+
+> +		if ((u64)icsd->offset + 3 * sizeof(u32) > dst->base.base.size)
+> +			goto err_range;
+> +
+> +		src = to_v3d_bo(icsd->indirect);
+
+I'm not sure src makes a lot of sense here, as we copy from BO to the
+indirect BO. Maybe dst?
+
+> +		for (i = 0; i < 3; i++) {
+> +			u32 uidx = icsd->wg_uniform_offsets[i];
+> +
+> +			if (uidx != 0xffffffff &&
+
+Add a comment explaining that, as 0xffffffff means "skip this rewrite",
+the exec path doesn't write it, so there is no need to range-check it.
+
+Finally, although it's a fix, I'd prefer to apply it to drm-misc-next as
+(1) it's a reasonably big change and (2) it's not a critical bug. So, if
+possible, rebase the patch on top of drm-misc-next.
+
+Best regards,
+- Maíra
