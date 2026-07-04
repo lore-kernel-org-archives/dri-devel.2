@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73BBDC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D6EC43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:52:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D557E10E6C0;
-	Sat,  4 Jul 2026 18:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 827DA10E07A;
+	Sat,  4 Jul 2026 18:52:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I2luS15r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EmVtg+tx";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D7FA10E2DD
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:46:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 287BF10E07A
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:52:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6579A43B6C;
- Sat,  4 Jul 2026 18:46:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117DE1F00A3A;
- Sat,  4 Jul 2026 18:46:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AC68843754;
+ Sat,  4 Jul 2026 18:52:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 477A51F000E9;
+ Sat,  4 Jul 2026 18:52:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783190776;
- bh=9RODjiZc145hMmLkcMiBhvWF72gnoto2jsdSjEquu5I=;
+ s=k20260515; t=1783191170;
+ bh=e8FalOy76n0dzL+wfRO0R9e3ZnYmOQZjh3kDi9wju7Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I2luS15rNSlmemYI8Kl6iHugv+TbN4DOhEaW2R20/YbImkCVFFHdGbcjtOFwaMF1C
- PsuEYcPydfjjrZuZUNVrqC1Hdj5cTs1PCpud0oUZN7kDjLQ15Ou4MQZzqqFwn6oIBE
- aH8Nk3Mcg+uHt6IsQHsuDDDQmjPXqZ271CrHCKfQ7MRrjT77F9dAKiPZT4yPplLkqh
- Wiy6YB+PLYJioUCtCS2CUzidXB9hWmwY8QFrZOHH7ZGYYSqY9c9sjuxYVCLinpeZsz
- hslgU3bHR16qkDmhDZbVsTxPYEme3IU4aHd6MdMESNl7D9FhAqORP70O3SF9M2SGCp
- PJuIPcmU2J6zg==
+ b=EmVtg+tx+gFrGfzqNk3/p7pvd+cckFcb6fwt/p2VsZzNQC4uci2JoyNmKejk3Ck5Y
+ G6/tb2mk6FI4/vL6fUh5qMtjoGnY1kYQwtytRNcfxyw+1y4T+NgAIPbLkIFHect8jA
+ V+0fNSbRq20yG5FbOKPkESU2URmuf62J6bknGR9ZGRWXKfnPj6XI68d/HgFGtpXa/U
+ NjDOUvPJvV1lCXp7i4QArLnABZVQWbO7BUn1wfM1Dpng+l7Y9hVm+QL1uy3UTEmnGC
+ lMMGWRI8bWoqxWz/fHUC1ZLdbTwaIEUU+UTbR5XU3Hc0XzRx5KPKLS/ypB2d3Ftj/Y
+ o2VLseTBx/mEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/9] drm/imx: replace struct drm_simple_display_pipe
+Subject: Re: [PATCH 2/9] drm/aspeed: replace struct drm_simple_display_pipe
  with regular atomic helpers
 To: "Ze Huang" <ze.huang@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20260705-drm-simple-kms-removal-v1-3-b4e1ca053623@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260705-drm-simple-kms-removal-v1-2-b4e1ca053623@oss.qualcomm.com>
 References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-3-b4e1ca053623@oss.qualcomm.com>
+ <20260705-drm-simple-kms-removal-v1-2-b4e1ca053623@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 04 Jul 2026 18:46:15 +0000
-Message-Id: <20260704184616.117DE1F00A3A@smtp.kernel.org>
+Date: Sat, 04 Jul 2026 18:52:49 +0000
+Message-Id: <20260704185250.477A51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,214 +58,108 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] CRTC disable operations fail unconditionally due to early mode val=
-idation.
-- [High] Plane atomic check rejects offline plane updates, breaking display=
- disabling.
-- [High] Missing drm_crtc_vblank_on() and drm_crtc_vblank_off() calls break=
- vblank synchronization.
-- [High] Missing .enable_vblank hook in drm_crtc_funcs causes kernel warnin=
-gs and breaks vblank.
-
 Pre-existing issues:
-- [High] Racy direct state access in atomic callbacks leading to potential =
-use-after-free.
-- [High] Unbounded clock reference count leak on CRTC disable cycles.
+- [High] Lockless access to global atomic state pointers in commit path cau=
+ses TOCTOU races and potential NULL pointer dereferences.
+- [High] CRTC vblank events are prematurely consumed in the plane's atomic_=
+update callback.
 --
 
-commit 404ed5ff8b68b90a5ba44e0c6a32b76744948691
+commit 7172c80142608f5bf7d738f64624b3135c44fdba
 Author: Ze Huang <ze.huang@oss.qualcomm.com>
+Subject: drm/aspeed: replace struct drm_simple_display_pipe with regular at=
+omic helpers
 
-drm/imx: replace struct drm_simple_display_pipe with regular atomic helpers
+This patch replaces the simple display pipe in the aspeed DRM driver with
+explicit plane, CRTC, and encoder objects. It removes the intermediate layer
+and wires up the standard atomic helpers for modesetting and page flips.
 
-This commit converts the i.MX LCDC driver to use explicit primary plane,
-CRTC, and encoder objects instead of the simple display pipe helpers. It
-retains the no-scaling plane checks and GEM framebuffer prepare callbacks,
-adjusting hardware state only when a framebuffer is present.
+> diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c b/drivers/gpu/drm/a=
+speed/aspeed_gfx_crtc.c
+> index 7877a57b8e265..3294795c31c4c 100644
+> --- a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
+> +++ b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
 
-> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lc=
-dc/imx-lcdc.c
-> index c67fe80b8115e..f0c4c19f91166 100644
-> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
 [ ... ]
-> -static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe =
-*pipe,
-> +static void imx_lcdc_update_hw_registers(struct drm_crtc *crtc,
->  					 struct drm_plane_state *old_state,
->  					 bool mode_set)
+
+>  static int aspeed_gfx_set_pixel_fmt(struct aspeed_gfx *priv, u32 *bpp)
 >  {
-> -	struct drm_crtc *crtc =3D &pipe->crtc;
-> -	struct drm_plane_state *new_state =3D pipe->plane.state;
-> +	struct drm_plane_state *new_state =3D crtc->primary->state;
+> -	struct drm_crtc *crtc =3D &priv->pipe.crtc;
+> +	struct drm_crtc *crtc =3D &priv->crtc;
+>  	struct drm_device *drm =3D crtc->dev;
+>  	const u32 format =3D crtc->primary->state->fb->format->format;
+>  	u32 ctrl1;
 
 [Severity: High]
-This is a pre-existing issue, but does this direct state access create a ra=
-ce
-condition?
+This is a pre-existing issue, but does this lockless access to the global
+state pointers in aspeed_gfx_set_pixel_fmt risk a NULL pointer dereference =
+or
+TOCTOU race?
 
-In non-blocking atomic commits, the DRM core synchronously swaps these obje=
-ct
-pointers before the asynchronous worker executes. If multiple commits are
-queued, we might retrieve the state for a future commit instead of the
-current one, which could lead to programming hardware with an unpinned or
-incorrect framebuffer.
+If a concurrent non-blocking atomic commit disables the primary plane while
+this runs in a worker thread, the global state could be swapped, potentially
+making the framebuffer pointer NULL.
 
-[ ... ]
-> @@ -230,34 +231,34 @@ static void imx_lcdc_pipe_enable(struct drm_simple_=
-display_pipe *pipe,
-[ ... ]
->  	imx_lcdc_update_hw_registers(crtc, NULL, true);
-> =20
->  	/* Enable VBLANK Interrupt */
->  	writel(INTR_EOF, lcdc->base + IMX21LCDC_LIER);
->  }
-
-[Severity: High]
-Should drm_crtc_vblank_on() be called here?
-
-Without notifying the DRM core that the hardware vblank interrupt is enable=
-d,
-the core might consider the vblank state as off. This causes vblank waits to
-fail unconditionally, forcing the plane atomic update to immediately send p=
-age
-flip events to userspace rather than waiting for vsync.
+Would it be safer to extract the commit-specific state using the atomic
+helpers instead of reading directly from crtc->primary->state->fb?
 
 [ ... ]
-> -static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
-> +static void imx_lcdc_crtc_helper_atomic_disable(struct drm_crtc *crtc,
-> +						struct drm_atomic_commit *state)
+
+>  static void aspeed_gfx_crtc_mode_set_nofb(struct aspeed_gfx *priv)
 >  {
-> -	struct imx_lcdc *lcdc =3D imx_lcdc_from_drmdev(pipe->crtc.dev);
-> -	struct drm_crtc *crtc =3D &lcdc->pipe.crtc;
-> +	struct imx_lcdc *lcdc =3D imx_lcdc_from_drmdev(crtc->dev);
->  	struct drm_pending_vblank_event *event;
-> =20
->  	clk_disable_unprepare(lcdc->clk_ahb);
->  	clk_disable_unprepare(lcdc->clk_ipg);
-> =20
-> -	if (pipe->crtc.enabled)
-> +	if (crtc->enabled)
->  		clk_disable_unprepare(lcdc->clk_per);
+> -	struct drm_display_mode *m =3D &priv->pipe.crtc.state->adjusted_mode;
+> +	struct drm_display_mode *m =3D &priv->crtc.state->adjusted_mode;
+>  	u32 ctrl1, d_offset, t_count, bpp;
+>  	int err;
 
 [Severity: High]
-This is a pre-existing issue, but does this leak a clock reference?
+This is also a pre-existing issue carried over during the conversion, but c=
+an
+reading directly from the global crtc.state cause a similar TOCTOU race?
 
-The atomic_disable callback runs after the DRM core updates legacy state
-variables, so crtc->enabled is guaranteed to be false here. This means the
-clock might never be disabled during a DPMS cycle.
-
-[ ... ]
->  	spin_unlock_irq(&lcdc->drm.event_lock);
-> =20
->  	/* Disable VBLANK Interrupt */
->  	writel(0, lcdc->base + IMX21LCDC_LIER);
->  }
-
-[Severity: High]
-Is a call to drm_crtc_vblank_off() needed here to synchronously disable vbl=
-ank
-processing in the DRM core when shutting down the hardware interrupt?
-
-[ ... ]
-> -static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
-> -			       struct drm_plane_state *plane_state,
-> -			       struct drm_crtc_state *crtc_state)
-> +static int imx_lcdc_crtc_helper_atomic_check(struct drm_crtc *crtc,
-> +					     struct drm_atomic_commit *state)
->  {
-> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
-te, crtc);
->  	const struct drm_display_mode *mode =3D &crtc_state->mode;
-> -	const struct drm_display_mode *old_mode =3D &pipe->crtc.state->mode;
-> +	const struct drm_display_mode *old_mode =3D &crtc->state->mode;
-> +	int ret;
-> =20
->  	if (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES ||
->  	    mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES ||
->  	    mode->hdisplay % 0x10) { /* must be multiple of 16 */
-
-[Severity: High]
-Will this cause CRTC disable operations to fail?
-
-When userspace disables the CRTC (like via DPMS OFF), crtc_state->enable is
-false and the display mode might be zeroed out. Validating the mode dimensi=
-ons
-before checking crtc_state->enable could cause this check to return -EINVAL
-unconditionally.
-
-[ ... ]
-> -static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
-> -				 struct drm_plane_state *old_state)
-> +static void imx_lcdc_plane_helper_atomic_update(struct drm_plane *plane,
-> +						struct drm_atomic_commit *state)
->  {
-> -	struct drm_crtc *crtc =3D &pipe->crtc;
-> -	struct drm_pending_vblank_event *event =3D crtc->state->event;
-> -	struct drm_plane_state *new_state =3D pipe->plane.state;
-> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(st=
-ate, plane);
-> +	struct drm_plane_state *new_state =3D plane->state;
-
-[Severity: High]
-This is a pre-existing issue, but does assigning new_state directly from
-plane->state risk a race condition?
-
-For non-blocking commits, fetching the new plane state from the
-drm_atomic_commit object avoids reading state from a potentially concurrent
-future commit.
-
-[ ... ]
-> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
-> +					      struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> +	struct drm_crtc *crtc =3D plane_state->crtc;
-> +	struct drm_crtc_state *crtc_state =3D NULL;
-> +	int ret;
-> +
-> +	if (crtc)
-> +		crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc);
-> +
-> +	ret =3D drm_atomic_helper_check_plane_state(plane_state, crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  false, false);
-
-[Severity: High]
-Does passing false for the can_update_disabled parameter reject offline pla=
-ne
-updates?
-
-If userspace tries to disable the CRTC without detaching the framebuffer, t=
+Reading the adjusted_mode directly from the global state pointer bypasses t=
 he
-helper will see a plane on a disabled CRTC and return -EINVAL, which breaks
-display disabling.
+atomic commit's local state. Could this function be updated to use the local
+state passed to the atomic hooks?
 
 [ ... ]
-> +static const struct drm_crtc_funcs imx_lcdc_crtc_funcs =3D {
-> +	.reset			=3D drm_atomic_helper_crtc_reset,
-> +	.destroy		=3D drm_crtc_cleanup,
-> +	.set_config		=3D drm_atomic_helper_set_config,
-> +	.page_flip		=3D drm_atomic_helper_page_flip,
-> +	.atomic_duplicate_state	=3D drm_atomic_helper_crtc_duplicate_state,
-> +	.atomic_destroy_state	=3D drm_atomic_helper_crtc_destroy_state,
-> +};
+
+> -static void aspeed_gfx_pipe_update(struct drm_simple_display_pipe *pipe,
+> -				   struct drm_plane_state *plane_state)
+> +static void aspeed_gfx_plane_helper_atomic_update(struct drm_plane *plan=
+e,
+> +						  struct drm_atomic_commit *state)
+>  {
+> -	struct aspeed_gfx *priv =3D drm_pipe_to_aspeed_gfx(pipe);
+> -	struct drm_crtc *crtc =3D &pipe->crtc;
+> -	struct drm_framebuffer *fb =3D pipe->plane.state->fb;
+> +	struct aspeed_gfx *priv =3D container_of(plane, struct aspeed_gfx, plan=
+e);
+> +	struct drm_crtc *crtc =3D &priv->crtc;
+> +	struct drm_framebuffer *fb =3D plane->state->fb;
+>  	struct drm_pending_vblank_event *event;
+>  	struct drm_gem_dma_object *gem;
 
 [Severity: High]
-Should this struct include implementations for .enable_vblank and
-.disable_vblank?
+This is a pre-existing issue, but does consuming the vblank event directly =
+in
+the plane update phase risk premature signaling?
 
-When drm_vblank_get() is called to wait for vsync, the DRM core requires the
-enable_vblank hook. Omitting these causes a kernel warning and makes the wa=
-it
-return -EINVAL.
+Looking at aspeed_gfx_plane_helper_atomic_update, the driver steals the eve=
+nt
+from the global state (crtc->state->event) before the CRTC is fully enabled
+and programmed.=20
+
+Could userspace prematurely free or overwrite the framebuffer while the
+hardware is still scanning it out due to this early signaling?=20
+
+Would it be more appropriate to handle the event in an atomic_flush hook
+where standard atomic flush mechanisms can ensure hardware changes are fully
+complete?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-drm-simple=
--kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com?part=3D3
+-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com?part=3D2
