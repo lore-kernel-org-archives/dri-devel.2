@@ -4,93 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCDEBC43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:32:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DF68C43458
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 18:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B5BE10E0C8;
-	Sat,  4 Jul 2026 18:32:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA36E10E0C7;
+	Sat,  4 Jul 2026 18:32:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qrwax7K6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VXHKCdlt";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KMvlZI/B";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F+ZScTIl";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85E2E10E0C8
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:32:51 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 547AA10E0C7
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 18:32:58 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 664G8c6w3272897
- for <dri-devel@lists.freedesktop.org>; Sat, 4 Jul 2026 18:32:50 GMT
+ 664INqwA3704449
+ for <dri-devel@lists.freedesktop.org>; Sat, 4 Jul 2026 18:32:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rk9PzaJeJ1EubyHB5y8nJAfHMdVNPP8w0v4lujL2p6c=; b=Qrwax7K6YbrhBQ+0
- pw5YoGjmckdXdtTMrOJifM6TUsW9/L+f3162b/N7ycpx8Q6K05ntOpb20DTDXR35
- y24nTN2BxtwosIAeooPcsvkonEW+KBecNEd9EQYag7gtQ+5oAcJ5brHcHpzyycEP
- Du7bAu+Nm0Xq9MHCBdrk2v/5ROHjYYd/hD/W33tUwjtZ8ttZ73urgo2S9lEOX4Lv
- JzEs62tCpLl8TUZi/j3noo29PbSvnuu4LuxHyuD5vc4oxbsnYaZUo43jiaR7FWB2
- Evjgh7EzPNUfD//h5eFX9KkBxFZbusLStDX4U6M6fIz1gBY/7o9K1/qVkZ+crZRm
- TgA2LQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6tj8hawp-1
+ Ttm/7fm0Amr5YNq5qGHZbCjSuHzVM8tYT1SDU8QGDHk=; b=KMvlZI/BAGdkRbPC
+ g4ZIOHQiHU6hWIPh5Xyk1zLy8YjJRzKKQ8XvMI6bfVxnghFPZKFzMyNCXHQVnYLh
+ CpqZ/+AAF8wlJkPYwd58iNQLXFzwdZFIxpybyiWg2LAQYA2wMZB5Igu2MDLJjIh3
+ 2MlbaKCZEkHHerTQH5LcXL8V5TIMkSQc0apFOBcJni38UEsDNAAjj0xVykLSTgVb
+ zqR7onBwTqwp6lznxPUOIxN1iN+t5D5W7XO1ZEf/uUbb80VQW4JdAs1wk0TFLWuR
+ qOpgAbSlNa/p0eFNqRUvnHImfWzu7nhZbAK6rh0ZXmecbvahwLNXC3ar8iwI1eDi
+ WKzCvg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6qvgsp9x-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 18:32:50 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-8479b7c3adbso2479663b3a.3
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 11:32:50 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 18:32:57 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-c88d7a75507so2524000a12.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 04 Jul 2026 11:32:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783189970; x=1783794770;
+ d=oss.qualcomm.com; s=google; t=1783189977; x=1783794777;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rk9PzaJeJ1EubyHB5y8nJAfHMdVNPP8w0v4lujL2p6c=;
- b=VXHKCdltaYE+Co0XM3uYzxPqiR/rLgBxf4kZkKeG949HNavO0mbWtwsn9h7f8iGLc/
- 6ae8ijS1AXc49lU10Q7omURZCEUmiR0FCAF2XD6aqXkci7QNXa1dF8/6jUe6rGgJrin3
- CuR7wk3ZzkksPY5tT/a479AIpKgC86F1boGXRtDE82chDAelQYemXjoFfWU0aobEf4qW
- rgMlJ5ZT+C+jad5M8dbulbIbuyd9ETaI23tiwbpjcqfc8VvREYRNwAQ3RUEhlFH/GiQP
- fkSJXShSvE8cf9/jWhFk+eljq7CA0FD45oTPvOX3MhPproNQqmCoCdOfeF/H3awFFvN6
- mvyA==
+ :reply-to; bh=Ttm/7fm0Amr5YNq5qGHZbCjSuHzVM8tYT1SDU8QGDHk=;
+ b=F+ZScTIlaOp2ZJqUck0ZqOEjuUQNYvqz119zv7PrpfYGJ26ihdp8ZXB9AQEKq1mkC/
+ fLb9Sh2+LMNyQlG73bT+JZU0LcBVHA6UBkcaWwUEBY55RqDoQ7dQfuyyN8tY55lyxP1i
+ yi/xWTvcjgNuEPRgt6ppUkcxiWsQkrZXaF6X1PPSY7+qq1JDHnNxEZ4fDAXUlbsMYbOw
+ xAQF+0EMoV7WyRxQ0yXxWbglwq0eC/ojCikn+4Ir3NgWB6jHifJNVEg0NXgnnILXCz+z
+ DZ2njUeAbMq+r9yZTuZwlEanx6W1OvM4C8UY/GQUwXmxhFhXASP7yqpckRVj1XbsiklQ
+ tJvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783189970; x=1783794770;
+ d=1e100.net; s=20251104; t=1783189977; x=1783794777;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=rk9PzaJeJ1EubyHB5y8nJAfHMdVNPP8w0v4lujL2p6c=;
- b=ToIeMtkSQfXozXwGZCKmQev+H4BNL5+2zzSjdzxc5oFEkFVAgs8ytxUMHOtbektrzu
- CjSa2o2jATjJh6d7H5XFRdFxKTzHyCXJGMV8xTnd3IFlS86l8n2niJMBlyEEBN9+lZyY
- 4klV2Tg9VjPpgSLtgcuMRKMF08N5HrvSKxNyO8f1KhQPo3iy74GL/w94Iy2yeIl972Au
- eQXUGqPmXRsparsHrLylKhUjE3f4nXTptB7Y25tczJQ5QEBy3rTQlySHF9xsM+/DB7HK
- TBrrCdfuyn9pvHB4WLAPTQaMyl31KBxaJq7YLhd1Z+J2fF74wwF/GcGP3B60diABIrM3
- 9nqw==
-X-Gm-Message-State: AOJu0Yz4q6oTRssJRzmw4mSuwXZnnbsmu9iEStWDD9akedQZ+Jpkrrlo
- 4ySbeaqwqMr8A0mrJ0RQYIaD/fnawDwwrhX+IyijxoYM1njVaq1SzvYMvYzqbnQuyNso4d+3eLP
- V0A13Lx/BicwNl5BDymbI5pqBVZsEXdY3DZXQyWRqdU3jlim21uINSapE0lEI3wDcP0o2+us=
-X-Gm-Gg: AfdE7cnAp+EXmM7zf/yZvfA1RdHl+IWSM4OXaI1/S2lpdoembLXK+MuvxXKpWZCIIJK
- 7WxWbTqey0D/+WUkqYLTvh/urNRAgd3FaPWLVovMHrAvn4AEKe8QipLxpobXtTMoTI2n5UDhh5X
- amvqm02yexnkVU+qEeuoYmVipuDyudD5V3yoeJaEv01TdAHr2f5mP0DjLdhrV6+wXLxD/FN1Yq5
- HKsLth9ART78IYPmG1DGftXU5dAp9fuGTq1/wjHLdR/63fE3e2yvISV80Z9w/mwAKYCOFFRZ7Nr
- n0PBX28gI6EVzNR6MbnPbQZLAIHWZHm2HfbIuEGVvoYEi7tJEE1E1a4IGjwdsi+fe6qYiRFBDOs
- DrkEi2h6ERp8Kuqbcci2xLuw=
-X-Received: by 2002:a05:6a00:22c7:b0:845:48be:b046 with SMTP id
- d2e1a72fcca58-847f6f1025fmr3763178b3a.36.1783189969403; 
- Sat, 04 Jul 2026 11:32:49 -0700 (PDT)
-X-Received: by 2002:a05:6a00:22c7:b0:845:48be:b046 with SMTP id
- d2e1a72fcca58-847f6f1025fmr3763155b3a.36.1783189968830; 
- Sat, 04 Jul 2026 11:32:48 -0700 (PDT)
+ bh=Ttm/7fm0Amr5YNq5qGHZbCjSuHzVM8tYT1SDU8QGDHk=;
+ b=E9xLG0qZIDDyGghM3dt6HuA6BIdS61QN/7xSEYl/dllLcpC68J2EWspvvupqN/tSoH
+ q5WQyAMX2IBt7gwNVUDrJL+gXRyHyQx7LLbuhiMItOWWQDF7d3QtzToQy67T+AU4sF2R
+ 4J5ImwyD4cWJGFo86z6RmSHVGFfeBzzCmz9/b76SNwN/TM6aVFp7AgAKvkrdQwcOn31w
+ GptNNofd2cThtOzBuU9QuILal+IUYAIw1w3tfDLX8b2aWD5g0tFNNneSRmLukfYhIohS
+ Bwhtb0VXHV6T1tubrwcQ5QMy3s3ZJkv4wwGfDtwB6k+1kSgSFofXqAA7QQyeyi21mEgA
+ bzPQ==
+X-Gm-Message-State: AOJu0YxEE6O9RshtvvD/IEtPTIKK3392nuOwz3jIDy71Enqcd+KmDpob
+ O/aeSohm03Q9+1rtq7YABJGwBK4W5Rj9F9M6+JXeki3+mEzwHUh5XHICxW2SW7QfVBtdxvlGvIy
+ Mk4kTlbF703zKTtx4cHMHIai5QIwDlxMFrvrsHQGTLylbWNlUpkvx9wRz22hOotWbU2CYiF4=
+X-Gm-Gg: AfdE7clwWWDJCh6f567TMHJkwD+5/6FeQjWDzU7lcupzT6qbGZ8+J4hWhT9X7soUYw0
+ vvwlWrPQNoV4zMkGV5Qe24uSQ/r2Lby9ZmOooRUEE58gkD50kkBswxg9EV0CHz0iQG5KyE0Eh4k
+ /X6ueE/bEbO2+WXvdBNtMO2LjjNQFBHbl4q4GDm4MynzoR7PQ4ObCaZ/fUEp3Ct6MWLPiN9J46C
+ BI0nLJPstB1d1zS+C3mSjuY6wPS/VzwgEvcvYG8YtRJOGnQWibYjSWN3/gpZ1uIyYIPd2ac+7MV
+ mujEDePkTMZS7AcBt1Ju4WOB1hLzykNnmJqAVelYZbxHInQdu4YOLYG4n7jKUHbTVCz0/f49jJG
+ eKNL6So7AyZwqNZHokznmKeU=
+X-Received: by 2002:a05:6a00:330a:b0:845:e873:4248 with SMTP id
+ d2e1a72fcca58-847f6f88bf1mr3891503b3a.56.1783189976901; 
+ Sat, 04 Jul 2026 11:32:56 -0700 (PDT)
+X-Received: by 2002:a05:6a00:330a:b0:845:e873:4248 with SMTP id
+ d2e1a72fcca58-847f6f88bf1mr3891475b3a.56.1783189976356; 
+ Sat, 04 Jul 2026 11:32:56 -0700 (PDT)
 Received: from [192.168.1.100] ([151.243.38.149])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847f6b6057dsm1508437b3a.7.2026.07.04.11.32.42
+ d2e1a72fcca58-847f6b6057dsm1508437b3a.7.2026.07.04.11.32.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Jul 2026 11:32:47 -0700 (PDT)
+ Sat, 04 Jul 2026 11:32:54 -0700 (PDT)
 From: Ze Huang <ze.huang@oss.qualcomm.com>
-Date: Sun, 05 Jul 2026 02:31:11 +0800
-Subject: [PATCH 2/9] drm/aspeed: replace struct drm_simple_display_pipe
- with regular atomic helpers
+Date: Sun, 05 Jul 2026 02:31:12 +0800
+Subject: [PATCH 3/9] drm/imx: replace struct drm_simple_display_pipe with
+ regular atomic helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-drm-simple-kms-removal-v1-2-b4e1ca053623@oss.qualcomm.com>
+Message-Id: <20260705-drm-simple-kms-removal-v1-3-b4e1ca053623@oss.qualcomm.com>
 References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
 In-Reply-To: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
 To: Alexey Brodkin <abrodkin@synopsys.com>,
@@ -110,41 +110,40 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  imx@lists.linux.dev, xen-devel@lists.xenproject.org,
  Ze Huang <ze.huang@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783189912; l=10745;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783189912; l=12402;
  i=ze.huang@oss.qualcomm.com; s=20260704; h=from:subject:message-id;
- bh=suiX1hb7hxWElnQ47l4ZCuVeZgtDba91LFdURswfwJM=;
- b=5HcbGp99V2Yint2Jmx7p8cBU7PhrqcJUqaDUpsMgk9Dpg7lpIs6PwliMmRMT1Cqd+Ytp1FY6y
- 1+s74fAS33WArqXbTG0K/2A23KDYGxAhQXpnwL68qGMAyrr2jzcMy3Z
+ bh=ZBckuX3txIAWgfa7laBsW3ynqRXr57quONUZ0OswUhc=;
+ b=CcD/bGc8N1fmpUeIAF1DgOcRu2w5rkAIDVMHiLPgTjWBMB2Cr/5H5zbeIN+QE6UHLIN4SkusI
+ ddIQkvZ0PpPDGax+ynKj3ZJ+UsHYNrpUI0x4wQabe61C0XeadfBIfqL
 X-Developer-Key: i=ze.huang@oss.qualcomm.com; a=ed25519;
  pk=pSsISLZF2ubEjJRmslsa6Ps4W3yAuPY7yaircQTlQQU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA0MDE5MiBTYWx0ZWRfXyuIR2Nbw/Nu6
- iP27uSyBtNtzz1muWDsOx9JU4U2qVnVFpF2OpM9Icsr60fkV2t1i7OOVIdOAvLMB3mICwKSUdO0
- nqrkDqJPwc+8DBCiYj6iurGH3FQ2Ne6dgGVU0NLaJLOrYrvqDpA5/IEqK7Mw9JFRWdw3y1pBR4J
- F4PGb1Oyu1G6ROkrvmF00u9TGJ2fnVLHsxpjlJQ7TYKJ2P/sEXMoT3XmfLUAXfM9CQ6EoecY6Md
- wP+runwKvJzAzuTUUvAOgZppWSVKUkemUEiI6SZ2aNOtxcXCxCvNl9zv4XWQ6puZiApFgKbN8Fw
- v4eUT+W3vF3TXD2/2gcKSIZwqWgVo19cK2G7ZGZ+4eySf3WomA17q/VzG3gVtVRTv9thWxKzU5J
- Z+2o2QwT/ehm6d0pdE8eyj+7Z0e+ba+Wv2k8HGl4q7Aqbgwh6F8bvopmP/KSLvnjCfN1e5guxIx
- u043f2qQd9Su1V4Gv1A==
-X-Proofpoint-ORIG-GUID: 14wJOs5eL_OIbFd60Zv2D519mM1-YlwG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA0MDE5MiBTYWx0ZWRfX3XqCUgzHA8X3
- xSZgx5fqGYZcRIbs5IbMTlUT69a1qk24YZHbIDKqRsMPArM2c2JdgAaKRRXBTc+13SPxX719lHR
- 74ADChR63sZzCdnckco5SB6N24OPnq0=
-X-Proofpoint-GUID: 14wJOs5eL_OIbFd60Zv2D519mM1-YlwG
-X-Authority-Analysis: v=2.4 cv=H6TrBeYi c=1 sm=1 tr=0 ts=6a4951d2 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=cNux22OjBTKCC6TmznXXXA==:17
+X-Authority-Analysis: v=2.4 cv=VvoTxe2n c=1 sm=1 tr=0 ts=6a4951d9 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=cNux22OjBTKCC6TmznXXXA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=QAKNwy68QAf-n9tFDZYA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=mQfPNFbHEbGQ-wo8duEA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: DzaKVb18jwFYnrU0gnZDX8cGG4REXEW1
+X-Proofpoint-GUID: DzaKVb18jwFYnrU0gnZDX8cGG4REXEW1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA0MDE5MiBTYWx0ZWRfXwXxYIoEKubsQ
+ OWySX0d4pPJI++iDAeDbZnGZKhqRavRUFn9aDtGY7K4Z5XnHMwwBByvvbV+9DpkPZwkbS3rckwe
+ g7CieWz2ZnHKsBq1bqyHo6r23Tls68g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA0MDE5MiBTYWx0ZWRfX2AzeR+ia2qjX
+ yALKNOf+vQXgJAJWsBRuXe1+bV3FXwViEYjUbzVZffol5u1IILf2ho4ju7QoYOk+UFNRxNPXPi9
+ pFFbUTA/X/B87iF+cg84YnQRClJ0ax1ub/vhCHwrAzVvFCU9BdwN2UHSbnOyhjiRbbs+ttCxxPv
+ P8gO9DhWgDnLMfrVN5EmO8MO06aXSW8BiZFowgPYHlOeevLgepctl9NTYacQBadkkjJZHUFWBWS
+ dStgaJ8t1ULRu433bybbgkGn+TzBLIukvarjNtU/yHm3oCmVVjarlg/lIq1W95sdX9DTR8vBHqN
+ FEYdtAePko60F6jscf45Sb6RyXkEIBuk6WkECJ5wz9iAuv+5b0qy9NqeSffAmsMgGJiS+HZN3fu
+ 6QQ0Yx9vVUuD5oeRIOvs7E1s0U1Rq2S7rNejh/Alj/+iRn0qLPQOAc3Q0iY0DVc5lDIMIDbwS4I
+ DmGmP7FnlUalrOA/lRA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-04_02,2026-07-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1011 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607040192
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ suspectscore=0 impostorscore=0 clxscore=1015 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607040192
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,168 +159,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace simple display pipe with explicit plane, CRTC and encoder
-objects. Move callbacks to plane and CRTC helpers, with vblank handling
-through drm_crtc_funcs.
+Convert i.MX LCDC to explicit primary plane, CRTC and encoder objects.
 
-This removes intermediate simple-pipe layer and uses standard atomic
-helper wiring.
+Keep no-scaling plane check and GEM framebuffer prepare callback from
+simple-KMS path. Only touch hardware state when framebuffer exists,
+since atomic plane updates can run on disabling transitions.
 
 Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
 ---
- drivers/gpu/drm/aspeed/aspeed_gfx.h      |   5 +-
- drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c | 156 +++++++++++++++++++++++--------
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c  |   3 +-
- 3 files changed, 123 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 178 ++++++++++++++++++++++++++----------
+ 1 file changed, 130 insertions(+), 48 deletions(-)
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx.h b/drivers/gpu/drm/aspeed/aspeed_gfx.h
-index 4e6a442c3886..a34811564c0d 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx.h
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx.h
-@@ -2,7 +2,6 @@
- /* Copyright 2018 IBM Corporation */
- 
- #include <drm/drm_device.h>
--#include <drm/drm_simple_kms_helper.h>
- 
- struct aspeed_gfx {
- 	struct drm_device		drm;
-@@ -17,7 +16,9 @@ struct aspeed_gfx {
- 	u32				throd_val;
- 	u32				scan_line_max;
- 
--	struct drm_simple_display_pipe	pipe;
-+	struct drm_plane		plane;
-+	struct drm_crtc			crtc;
-+	struct drm_encoder		encoder;
- 	struct drm_connector		connector;
- };
- #define to_aspeed_gfx(x) container_of(x, struct aspeed_gfx, drm)
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-index 7877a57b8e26..3294795c31c4 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-@@ -5,6 +5,8 @@
- #include <linux/reset.h>
- #include <linux/regmap.h>
- 
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
- #include <drm/drm_device.h>
- #include <drm/drm_fb_dma_helper.h>
- #include <drm/drm_fourcc.h>
-@@ -12,20 +14,13 @@
- #include <drm/drm_gem_atomic_helper.h>
+diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+index f52832b43aca..d091dc562098 100644
+--- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
++++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+@@ -14,9 +14,9 @@
  #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_panel.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_of.h>
++#include <drm/drm_plane_helper.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
 -#include <drm/drm_simple_kms_helper.h>
  #include <drm/drm_vblank.h>
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+@@ -102,7 +102,9 @@
  
- #include "aspeed_gfx.h"
+ struct imx_lcdc {
+ 	struct drm_device drm;
+-	struct drm_simple_display_pipe pipe;
++	struct drm_plane plane;
++	struct drm_crtc crtc;
++	struct drm_encoder encoder;
+ 	struct drm_connector *connector;
+ 	void __iomem *base;
  
--static struct aspeed_gfx *
--drm_pipe_to_aspeed_gfx(struct drm_simple_display_pipe *pipe)
--{
--	return container_of(pipe, struct aspeed_gfx, pipe);
--}
--
- static int aspeed_gfx_set_pixel_fmt(struct aspeed_gfx *priv, u32 *bpp)
- {
--	struct drm_crtc *crtc = &priv->pipe.crtc;
-+	struct drm_crtc *crtc = &priv->crtc;
- 	struct drm_device *drm = crtc->dev;
- 	const u32 format = crtc->primary->state->fb->format->format;
- 	u32 ctrl1;
-@@ -79,7 +74,7 @@ static void aspeed_gfx_disable_controller(struct aspeed_gfx *priv)
- 
- static void aspeed_gfx_crtc_mode_set_nofb(struct aspeed_gfx *priv)
- {
--	struct drm_display_mode *m = &priv->pipe.crtc.state->adjusted_mode;
-+	struct drm_display_mode *m = &priv->crtc.state->adjusted_mode;
- 	u32 ctrl1, d_offset, t_count, bpp;
- 	int err;
- 
-@@ -139,33 +134,31 @@ static void aspeed_gfx_crtc_mode_set_nofb(struct aspeed_gfx *priv)
- 	writel(priv->throd_val, priv->base + CRT_THROD);
+@@ -135,14 +137,13 @@ static unsigned int imx_lcdc_get_format(unsigned int drm_format)
+ 	}
  }
  
--static void aspeed_gfx_pipe_enable(struct drm_simple_display_pipe *pipe,
--			      struct drm_crtc_state *crtc_state,
--			      struct drm_plane_state *plane_state)
-+static void aspeed_gfx_crtc_helper_atomic_enable(struct drm_crtc *crtc,
-+						 struct drm_atomic_commit *state)
+-static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
++static void imx_lcdc_update_hw_registers(struct drm_crtc *crtc,
+ 					 struct drm_plane_state *old_state,
+ 					 bool mode_set)
  {
--	struct aspeed_gfx *priv = drm_pipe_to_aspeed_gfx(pipe);
 -	struct drm_crtc *crtc = &pipe->crtc;
-+	struct aspeed_gfx *priv = container_of(crtc, struct aspeed_gfx, crtc);
- 
- 	aspeed_gfx_crtc_mode_set_nofb(priv);
- 	aspeed_gfx_enable_controller(priv);
- 	drm_crtc_vblank_on(crtc);
+-	struct drm_plane_state *new_state = pipe->plane.state;
++	struct drm_plane_state *new_state = crtc->primary->state;
+ 	struct drm_framebuffer *fb = new_state->fb;
+-	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
++	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+ 	u32 lpcr, lvcr, lhcr;
+ 	u32 framesize;
+ 	dma_addr_t addr;
+@@ -188,16 +189,16 @@ static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
+ 		clk_prepare_enable(lcdc->clk_per);
  }
  
--static void aspeed_gfx_pipe_disable(struct drm_simple_display_pipe *pipe)
-+static void aspeed_gfx_crtc_helper_atomic_disable(struct drm_crtc *crtc,
-+						  struct drm_atomic_commit *state)
+-static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+-				 struct drm_crtc_state *crtc_state,
+-				 struct drm_plane_state *plane_state)
++static void imx_lcdc_crtc_helper_atomic_enable(struct drm_crtc *crtc,
++					       struct drm_atomic_commit *state)
  {
--	struct aspeed_gfx *priv = drm_pipe_to_aspeed_gfx(pipe);
--	struct drm_crtc *crtc = &pipe->crtc;
-+	struct aspeed_gfx *priv = container_of(crtc, struct aspeed_gfx, crtc);
+ 	int ret;
+ 	int clk_div;
+ 	int bpp;
+-	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+-	struct drm_display_mode *mode = &pipe->crtc.mode;
++	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
++	struct drm_display_mode *mode = &crtc->mode;
+ 	struct drm_display_info *disp_info = &lcdc->connector->display_info;
++	struct drm_plane_state *plane_state = crtc->primary->state;
+ 	const int hsync_pol = (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 0 : 1;
+ 	const int vsync_pol = (mode->flags & DRM_MODE_FLAG_PVSYNC) ? 0 : 1;
+ 	const int data_enable_pol =
+@@ -231,34 +232,34 @@ static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
  
- 	drm_crtc_vblank_off(crtc);
- 	aspeed_gfx_disable_controller(priv);
+ 	ret = clk_prepare_enable(lcdc->clk_ipg);
+ 	if (ret) {
+-		dev_err(pipe->crtc.dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
++		dev_err(crtc->dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
+ 		return;
+ 	}
+ 	ret = clk_prepare_enable(lcdc->clk_ahb);
+ 	if (ret) {
+-		dev_err(pipe->crtc.dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
++		dev_err(crtc->dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
+ 
+ 		clk_disable_unprepare(lcdc->clk_ipg);
+ 
+ 		return;
+ 	}
+ 
+-	imx_lcdc_update_hw_registers(pipe, NULL, true);
++	imx_lcdc_update_hw_registers(crtc, NULL, true);
+ 
+ 	/* Enable VBLANK Interrupt */
+ 	writel(INTR_EOF, lcdc->base + IMX21LCDC_LIER);
  }
  
--static void aspeed_gfx_pipe_update(struct drm_simple_display_pipe *pipe,
--				   struct drm_plane_state *plane_state)
-+static void aspeed_gfx_plane_helper_atomic_update(struct drm_plane *plane,
-+						  struct drm_atomic_commit *state)
- {
--	struct aspeed_gfx *priv = drm_pipe_to_aspeed_gfx(pipe);
--	struct drm_crtc *crtc = &pipe->crtc;
--	struct drm_framebuffer *fb = pipe->plane.state->fb;
-+	struct aspeed_gfx *priv = container_of(plane, struct aspeed_gfx, plane);
-+	struct drm_crtc *crtc = &priv->crtc;
-+	struct drm_framebuffer *fb = plane->state->fb;
- 	struct drm_pending_vblank_event *event;
- 	struct drm_gem_dma_object *gem;
- 
-@@ -190,9 +183,9 @@ static void aspeed_gfx_pipe_update(struct drm_simple_display_pipe *pipe,
- 	writel(gem->dma_addr, priv->base + CRT_ADDR);
- }
- 
--static int aspeed_gfx_enable_vblank(struct drm_simple_display_pipe *pipe)
-+static int aspeed_gfx_crtc_enable_vblank(struct drm_crtc *crtc)
- {
--	struct aspeed_gfx *priv = drm_pipe_to_aspeed_gfx(pipe);
-+	struct aspeed_gfx *priv = container_of(crtc, struct aspeed_gfx, crtc);
- 	u32 reg = readl(priv->base + CRT_CTRL1);
- 
- 	/* Clear pending VBLANK IRQ */
-@@ -204,9 +197,9 @@ static int aspeed_gfx_enable_vblank(struct drm_simple_display_pipe *pipe)
- 	return 0;
- }
- 
--static void aspeed_gfx_disable_vblank(struct drm_simple_display_pipe *pipe)
-+static void aspeed_gfx_crtc_disable_vblank(struct drm_crtc *crtc)
- {
--	struct aspeed_gfx *priv = drm_pipe_to_aspeed_gfx(pipe);
-+	struct aspeed_gfx *priv = container_of(crtc, struct aspeed_gfx, crtc);
- 	u32 reg = readl(priv->base + CRT_CTRL1);
- 
- 	reg &= ~CRT_CTRL_VERTICAL_INTR_EN;
-@@ -216,12 +209,75 @@ static void aspeed_gfx_disable_vblank(struct drm_simple_display_pipe *pipe)
- 	writel(reg | CRT_CTRL_VERTICAL_INTR_STS, priv->base + CRT_CTRL1);
- }
- 
--static const struct drm_simple_display_pipe_funcs aspeed_gfx_funcs = {
--	.enable		= aspeed_gfx_pipe_enable,
--	.disable	= aspeed_gfx_pipe_disable,
--	.update		= aspeed_gfx_pipe_update,
--	.enable_vblank	= aspeed_gfx_enable_vblank,
--	.disable_vblank	= aspeed_gfx_disable_vblank,
-+static int aspeed_gfx_plane_helper_atomic_check(struct drm_plane *plane,
+-static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
++static void imx_lcdc_crtc_helper_atomic_disable(struct drm_crtc *crtc,
 +						struct drm_atomic_commit *state)
+ {
+-	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+-	struct drm_crtc *crtc = &lcdc->pipe.crtc;
++	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+ 	struct drm_pending_vblank_event *event;
+ 
+ 	clk_disable_unprepare(lcdc->clk_ahb);
+ 	clk_disable_unprepare(lcdc->clk_ipg);
+ 
+-	if (pipe->crtc.enabled)
++	if (crtc->enabled)
+ 		clk_disable_unprepare(lcdc->clk_per);
+ 
+ 	spin_lock_irq(&lcdc->drm.event_lock);
+@@ -273,17 +274,18 @@ static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
+ 	writel(0, lcdc->base + IMX21LCDC_LIER);
+ }
+ 
+-static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
+-			       struct drm_plane_state *plane_state,
+-			       struct drm_crtc_state *crtc_state)
++static int imx_lcdc_crtc_helper_atomic_check(struct drm_crtc *crtc,
++					     struct drm_atomic_commit *state)
+ {
++	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+ 	const struct drm_display_mode *mode = &crtc_state->mode;
+-	const struct drm_display_mode *old_mode = &pipe->crtc.state->mode;
++	const struct drm_display_mode *old_mode = &crtc->state->mode;
++	int ret;
+ 
+ 	if (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES ||
+ 	    mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES ||
+ 	    mode->hdisplay % 0x10) { /* must be multiple of 16 */
+-		drm_err(pipe->crtc.dev, "unsupported display mode (%u x %u)\n",
++		drm_err(crtc->dev, "unsupported display mode (%u x %u)\n",
+ 			mode->hdisplay, mode->vdisplay);
+ 		return -EINVAL;
+ 	}
+@@ -292,27 +294,42 @@ static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
+ 		old_mode->hdisplay != mode->hdisplay ||
+ 		old_mode->vdisplay != mode->vdisplay;
+ 
+-	return 0;
++	if (!crtc_state->enable)
++		goto out;
++
++	ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
++	if (ret)
++		return ret;
++
++out:
++	return drm_atomic_add_affected_planes(state, crtc);
+ }
+ 
+-static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
+-				 struct drm_plane_state *old_state)
++static void imx_lcdc_plane_helper_atomic_update(struct drm_plane *plane,
++						struct drm_atomic_commit *state)
+ {
+-	struct drm_crtc *crtc = &pipe->crtc;
+-	struct drm_pending_vblank_event *event = crtc->state->event;
+-	struct drm_plane_state *new_state = pipe->plane.state;
++	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
++	struct drm_plane_state *new_state = plane->state;
++	struct drm_crtc *crtc = new_state->crtc ?: old_state->crtc;
++	struct drm_pending_vblank_event *event;
+ 	struct drm_framebuffer *fb = new_state->fb;
+ 	struct drm_framebuffer *old_fb = old_state->fb;
+ 	struct drm_crtc *old_crtc = old_state->crtc;
+ 	bool mode_changed = false;
+ 
+-	if (old_fb && old_fb->format != fb->format)
+-		mode_changed = true;
+-	else if (old_crtc != crtc)
+-		mode_changed = true;
++	if (!crtc)
++		return;
+ 
+-	imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
++	if (fb) {
++		if (old_fb && old_fb->format != fb->format)
++			mode_changed = true;
++		else if (old_crtc != crtc)
++			mode_changed = true;
+ 
++		imx_lcdc_update_hw_registers(crtc, old_state, mode_changed);
++	}
++
++	event = crtc->state->event;
+ 	if (event) {
+ 		crtc->state->event = NULL;
+ 
+@@ -327,11 +344,56 @@ static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
+ 	}
+ }
+ 
+-static const struct drm_simple_display_pipe_funcs imx_lcdc_pipe_funcs = {
+-	.enable = imx_lcdc_pipe_enable,
+-	.disable = imx_lcdc_pipe_disable,
+-	.check = imx_lcdc_pipe_check,
+-	.update = imx_lcdc_pipe_update,
++static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
++					      struct drm_atomic_commit *state)
 +{
 +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
 +	struct drm_crtc *crtc = plane_state->crtc;
@@ -338,13 +383,13 @@ index 7877a57b8e26..3294795c31c4 100644
 +	return ret;
 +}
 +
-+static const struct drm_plane_helper_funcs aspeed_gfx_plane_helper_funcs = {
++static const struct drm_plane_helper_funcs imx_lcdc_plane_helper_funcs = {
 +	.prepare_fb	= drm_gem_plane_helper_prepare_fb,
-+	.atomic_check	= aspeed_gfx_plane_helper_atomic_check,
-+	.atomic_update	= aspeed_gfx_plane_helper_atomic_update,
++	.atomic_check	= imx_lcdc_plane_helper_atomic_check,
++	.atomic_update	= imx_lcdc_plane_helper_atomic_update,
 +};
 +
-+static const struct drm_plane_funcs aspeed_gfx_plane_funcs = {
++static const struct drm_plane_funcs imx_lcdc_plane_funcs = {
 +	.update_plane		= drm_atomic_helper_update_plane,
 +	.disable_plane		= drm_atomic_helper_disable_plane,
 +	.destroy		= drm_plane_cleanup,
@@ -353,108 +398,94 @@ index 7877a57b8e26..3294795c31c4 100644
 +	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
 +};
 +
-+static int aspeed_gfx_crtc_helper_atomic_check(struct drm_crtc *crtc,
-+					       struct drm_atomic_commit *state)
-+{
-+	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	int ret;
-+
-+	if (!crtc_state->enable)
-+		goto out;
-+
-+	ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
-+	if (ret)
-+		return ret;
-+
-+out:
-+	return drm_atomic_add_affected_planes(state, crtc);
-+}
-+
-+static const struct drm_crtc_helper_funcs aspeed_gfx_crtc_helper_funcs = {
-+	.atomic_check	= aspeed_gfx_crtc_helper_atomic_check,
-+	.atomic_enable	= aspeed_gfx_crtc_helper_atomic_enable,
-+	.atomic_disable	= aspeed_gfx_crtc_helper_atomic_disable,
++static const struct drm_crtc_helper_funcs imx_lcdc_crtc_helper_funcs = {
++	.atomic_check	= imx_lcdc_crtc_helper_atomic_check,
++	.atomic_enable	= imx_lcdc_crtc_helper_atomic_enable,
++	.atomic_disable	= imx_lcdc_crtc_helper_atomic_disable,
 +};
 +
-+static const struct drm_crtc_funcs aspeed_gfx_crtc_funcs = {
++static const struct drm_crtc_funcs imx_lcdc_crtc_funcs = {
 +	.reset			= drm_atomic_helper_crtc_reset,
 +	.destroy		= drm_crtc_cleanup,
 +	.set_config		= drm_atomic_helper_set_config,
 +	.page_flip		= drm_atomic_helper_page_flip,
 +	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
 +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
-+	.enable_vblank		= aspeed_gfx_crtc_enable_vblank,
-+	.disable_vblank		= aspeed_gfx_crtc_disable_vblank,
 +};
 +
-+static const struct drm_encoder_funcs aspeed_gfx_encoder_funcs = {
++static const struct drm_encoder_funcs imx_lcdc_encoder_funcs = {
 +	.destroy = drm_encoder_cleanup,
  };
  
- static const uint32_t aspeed_gfx_formats[] = {
-@@ -232,10 +288,36 @@ static const uint32_t aspeed_gfx_formats[] = {
- int aspeed_gfx_create_pipe(struct drm_device *drm)
+ static const struct drm_mode_config_funcs imx_lcdc_mode_config_funcs = {
+@@ -369,7 +431,7 @@ MODULE_DEVICE_TABLE(of, imx_lcdc_of_dev_id);
+ static irqreturn_t imx_lcdc_irq_handler(int irq, void *arg)
  {
- 	struct aspeed_gfx *priv = to_aspeed_gfx(drm);
-+	struct drm_plane *plane = &priv->plane;
-+	struct drm_crtc *crtc = &priv->crtc;
-+	struct drm_encoder *encoder = &priv->encoder;
-+	int ret;
-+
+ 	struct imx_lcdc *lcdc = arg;
+-	struct drm_crtc *crtc = &lcdc->pipe.crtc;
++	struct drm_crtc *crtc = &lcdc->crtc;
+ 	unsigned int status;
+ 
+ 	status = readl(lcdc->base + IMX21LCDC_LISR);
+@@ -387,6 +449,9 @@ static int imx_lcdc_probe(struct platform_device *pdev)
+ 	struct imx_lcdc *lcdc;
+ 	struct drm_device *drm;
+ 	struct drm_bridge *bridge;
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
++	struct drm_encoder *encoder;
+ 	int irq;
+ 	int ret;
+ 	struct device *dev = &pdev->dev;
+@@ -428,23 +493,40 @@ static int imx_lcdc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Cannot initialize mode configuration structure\n");
+ 
+-	/* CRTC, Plane, Encoder */
+-	ret = drm_simple_display_pipe_init(drm, &lcdc->pipe,
+-					   &imx_lcdc_pipe_funcs,
+-					   imx_lcdc_formats,
+-					   ARRAY_SIZE(imx_lcdc_formats), NULL, NULL);
++	plane = &lcdc->plane;
 +	ret = drm_universal_plane_init(drm, plane, 0,
-+				       &aspeed_gfx_plane_funcs,
-+				       aspeed_gfx_formats,
-+				       ARRAY_SIZE(aspeed_gfx_formats),
++				       &imx_lcdc_plane_funcs,
++				       imx_lcdc_formats,
++				       ARRAY_SIZE(imx_lcdc_formats),
 +				       NULL,
 +				       DRM_PLANE_TYPE_PRIMARY, NULL);
-+	if (ret)
-+		return ret;
-+	drm_plane_helper_add(plane, &aspeed_gfx_plane_helper_funcs);
++	if (ret < 0)
++		return dev_err_probe(drm->dev, ret, "Cannot initialize primary plane\n");
++	drm_plane_helper_add(plane, &imx_lcdc_plane_helper_funcs);
 +
++	crtc = &lcdc->crtc;
 +	ret = drm_crtc_init_with_planes(drm, crtc, plane, NULL,
-+					&aspeed_gfx_crtc_funcs, NULL);
-+	if (ret)
-+		return ret;
-+	drm_crtc_helper_add(crtc, &aspeed_gfx_crtc_helper_funcs);
++					&imx_lcdc_crtc_funcs, NULL);
++	if (ret < 0)
++		return dev_err_probe(drm->dev, ret, "Cannot initialize CRTC\n");
++	drm_crtc_helper_add(crtc, &imx_lcdc_crtc_helper_funcs);
 +
-+	ret = drm_encoder_init(drm, encoder, &aspeed_gfx_encoder_funcs,
++	encoder = &lcdc->encoder;
++	ret = drm_encoder_init(drm, encoder, &imx_lcdc_encoder_funcs,
 +			       DRM_MODE_ENCODER_NONE, NULL);
-+	if (ret)
-+		return ret;
+ 	if (ret < 0)
+-		return dev_err_probe(drm->dev, ret, "Cannot setup simple display pipe\n");
++		return dev_err_probe(drm->dev, ret, "Cannot initialize encoder\n");
 +	encoder->possible_crtcs = drm_crtc_mask(crtc);
-+
-+	ret = drm_connector_attach_encoder(&priv->connector, encoder);
-+	if (ret)
-+		return ret;
  
--	return drm_simple_display_pipe_init(drm, &priv->pipe, &aspeed_gfx_funcs,
--					    aspeed_gfx_formats,
--					    ARRAY_SIZE(aspeed_gfx_formats),
--					    NULL,
--					    &priv->connector);
-+	return 0;
- }
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-index 46094cca2974..b2d805f0c16d 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-@@ -21,7 +21,6 @@
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_module.h>
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_drv.h>
+ 	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
+ 	if (ret < 0)
+ 		return dev_err_probe(drm->dev, ret, "Failed to initialize vblank\n");
  
-@@ -130,7 +129,7 @@ static irqreturn_t aspeed_gfx_irq_handler(int irq, void *data)
- 	reg = readl(priv->base + CRT_CTRL1);
+-	ret = drm_bridge_attach(&lcdc->pipe.encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 	if (ret)
+ 		return dev_err_probe(drm->dev, ret, "Cannot attach bridge\n");
  
- 	if (reg & CRT_CTRL_VERTICAL_INTR_STS) {
--		drm_crtc_handle_vblank(&priv->pipe.crtc);
-+		drm_crtc_handle_vblank(&priv->crtc);
- 		writel(reg, priv->base + priv->int_clr_reg);
- 		return IRQ_HANDLED;
- 	}
+-	lcdc->connector = drm_bridge_connector_init(drm, &lcdc->pipe.encoder);
++	lcdc->connector = drm_bridge_connector_init(drm, encoder);
+ 	if (IS_ERR(lcdc->connector))
+ 		return dev_err_probe(drm->dev, PTR_ERR(lcdc->connector), "Cannot init bridge connector\n");
+ 
 
 -- 
 2.55.0
