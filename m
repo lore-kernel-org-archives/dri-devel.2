@@ -4,68 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C85C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 15:04:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1308CC43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 15:36:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215AC10E031;
-	Sun,  5 Jul 2026 15:04:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3422010E038;
+	Sun,  5 Jul 2026 15:36:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.b="u7Fb4+hm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RnxJT4n2";
 	dkim-atps=neutral
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33C9F10E031
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 15:04:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:To:From:Date:From:Sender:Reply-To:Subject:Date:
- Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=MjFyE/GuY4zCXOCWmZjS9nf5WEwFKlMosakxlzzhgKA=; b=u7Fb4+hmzFx3UipHSwoWedWBaU
- KSTZCMZWLVdMdrU31XEcUPWdZlHdz0ghtvmlN3vYOq03ljvEGr7J1v8LIogoINE9dgA7GCnG4mXCJ
- WS9CcL5vZF6JVFEG5lvN5eyR1iIHx3Uu1oP70Kxkp4a5WTenUj/5s6GW+Oe8Akb6oPZw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1wgONV-00AqQj-DU; Sun, 05 Jul 2026 17:03:29 +0200
-Date: Sun, 5 Jul 2026 17:03:29 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
- Fu Wei <wefu@redhat.com>, Michal Wilczynski <m.wilczynski@samsung.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Jens Axboe <axboe@kernel.dk>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- driver-core@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-block@vger.kernel.org, netdev@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 0/7] rust: Use kernel style vertical imports in various
- drivers
-Message-ID: <66d3d69d-0974-49e1-ad93-9295407f4b78@lunn.ch>
-References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
- <c89a1bc8-6cc1-4e16-ac95-add389e45a2b@lunn.ch>
- <akmnh0AKFfu9-OYn@gurudas.dev>
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12DD910E038
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 15:36:57 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-8478cc93299so2360541b3a.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 08:36:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783265816; x=1783870616; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=OXCZCCGOyqe2xRMAN5jliT8u+ao8sWXmCdGqqZO2Sz4=;
+ b=RnxJT4n21zkuztMIGkGTljqzwc1E0j3leWDUnL61UYMhgkrrA3zuVVtYpEW9/iYEQe
+ jTi883rXm99Q8EiPAhkBfwhFT5/PsQ1p+QCaiknARdtfQKXnyZ1ytp5MXInwHTQV/ijG
+ GgywOCnqms8X2jF0Rso3bDBPh1k5mDMD4JJk3LxGWxumvi2s2qDwIu758Ax8DYCJuBQN
+ Xw6uWUpXxl91v9T3T6b7+m5yQ9F/SGbOBiPu7ssDW8o2u579qi0Ts6+sPoQwNVucGrO/
+ Nik1SNz8DEa5lYRfV3VZScrZFhyP/mjDFUitD0nI0/qLlupCUxHgDHlnFk8bFJVProKA
+ Yw3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783265816; x=1783870616;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OXCZCCGOyqe2xRMAN5jliT8u+ao8sWXmCdGqqZO2Sz4=;
+ b=CfBrKF+WVFRdiJboMOuNM7TL34Go4Bbut5GE1rVTzjXEOlIrRIILSgxjXhL3HLOkoY
+ Zo/VHyE1c6QEAzebfil0c+Z31b58SOdimM7xNjcYcwNCav9kxWigHnLfoTzVRAozjcbv
+ WenwbFOd3pBMiNFTPi26VdjJh1UkY+KMlNwe1kt58nIau5z9+EadYo4bMQTGho54IZDJ
+ /8SgsEdlQEMHdf2sOhGGwEthJDslS6gONlE/DspylX5ypH3WXo19GmEFfKcll8xwylo1
+ ocwU7AgNHXH9d/YGtU42L6dXpajedROr0jklmmTXENY52v/NqjDY57KYM/uyagMuac0Y
+ 4EVA==
+X-Gm-Message-State: AOJu0YyEilmuA5fWa//azShYhOcApWz3/AiPkCsUe1ooN0nrZNo2g8RQ
+ FmdONu03AdsqB5Ok6eq/ODXltnWG1ExMHGefHWqFsDlObpZYcxvvLQBr
+X-Gm-Gg: AfdE7cnGsxR8R96x4fRKO212XCxLRmty0bf28p5Io1uRiSUAZNQqaMdHh9+tNXNIRWg
+ bTgnN+ANaHPlLc9QEJ6VTYXqXG3naiVRjybKb9Cc7YJrTeh5KCqv8x/N8rgmPqWg3ykE1KHqGgQ
+ 1BTa3BAEbb5Fz6do29KLPhDgDPTAajU9wo1fClqWLswpvlBTYLfNonrXRJxZADSBfZjsGz441Od
+ LtXggjdko/8+J/Nz7ptDpwmRQWlv3hXN0+G+16eRUvdBUZhq9ZemyXwRVBoRfduH++sm7B3zZsD
+ lqAIMXYXYDMI6g1dmEmz8ldPJ/8xLpAf60iBcP5amu3YMZu8mXRjx4T/+bCWaWiTymN9x63Lc3u
+ NCY9qx6HjOcHYFemvHJTfMyGNKft/5NezcuRRzMsmtDzgvZ5Ddx3gF5sme0wP1DHyqsZyN5jIgF
+ cAvh07K+nnhSgqTBW9HRrI5i/6ncSj+icu38EcUFA=
+X-Received: by 2002:aa7:9304:0:b0:847:8b1d:22fe with SMTP id
+ d2e1a72fcca58-847f6f67796mr5581254b3a.50.1783265816442; 
+ Sun, 05 Jul 2026 08:36:56 -0700 (PDT)
+Received: from nuvole ([144.202.86.13]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-847f6db29d1sm2402076b3a.53.2026.07.05.08.36.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Jul 2026 08:36:55 -0700 (PDT)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Pengyu Luo <mitltlatltl@gmail.com>
+Subject: [PATCH v2 0/2] drm/panel: Add Novatek NT36536 panel driver
+Date: Sun,  5 Jul 2026 23:35:13 +0800
+Message-ID: <20260705153515.46147-1-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akmnh0AKFfu9-OYn@gurudas.dev>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,15 +90,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Is that reasoning off-base, or is the right path to split these out per subsystem
-> regardless?
+Add a driver for panels using the Novatek NT36536 Display Driver IC,
+including support for the CSOT PP8807HB1-1, a dual-link 10-bit panel
+found in LENOVO Legion Y700 Gen4.
 
-Adding to what others have said, some subsystems have there own CI
-system which tests every patch. Does it build? Does it add new
-warning, is sparse happy, are there more self test failures. What do
-different AIs think of the patch etc. Cross subsystem patches don't
-always hit the per subsystem CI tests.
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+---
+Changes in v2:
+- Collect tags
+- Mention the CSOT PP8807HB1-1 is a dual-link panel (Krzysztof)
+- Use devm_drm_panel_add() (Neil)
+- Link to v1: https://lore.kernel.org/dri-devel/20260630023439.248861-1-mitltlatltl@gmail.com
 
-So in general, it is better to submit per subsystem.
+Pengyu Luo (2):
+  dt-bindings: display: panel: Add Novatek NT36536
+  drm/panel: Add Novatek NT36536 panel driver
 
-       Andrew
+ .../display/panel/novatek,nt36536.yaml        |  91 ++++
+ drivers/gpu/drm/panel/Kconfig                 |  11 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36536.c | 488 ++++++++++++++++++
+ 4 files changed, 591 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36536.c
+
+-- 
+2.54.0
+
