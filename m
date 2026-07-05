@@ -4,50 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7CBBC43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 13:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1D36C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 13:28:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D35A189A60;
-	Sun,  5 Jul 2026 13:00:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04D1010E0B4;
+	Sun,  5 Jul 2026 13:28:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NjeA4CqQ";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="XYHKqX4R";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC53589A60
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 13:00:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DBA7960008;
- Sun,  5 Jul 2026 13:00:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4589F1F000E9;
- Sun,  5 Jul 2026 13:00:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783256431;
- bh=Jutbyyrw/SBMWGHBk/O6fdtwki4002XeR8UqjVv5bMo=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=NjeA4CqQ5CBJRRawXBJ06mx/kDAjFdQEZRwhNd0Evj4Dinvao15JMMwk99HPAxU8W
- Y+ZB0LFEvZnKiwLP8lh0gDDCmjchESiotWQMYnAg6wSIXYmtDqrLh7ip6YY7hgxEQg
- msW9da4rwTjq0RSdwIEjciyeXPfZw8UZueSOdXzBFYgBzdJSHJJzU4ezB8vAqvNZUF
- tAUmcZ1mfP++mnNBG1/9GQ7SsoWc/Y4GzwNB9sTGrovXADxBgR65CP0VdX8KXIG0tm
- q0og/KPkei8e8Wmjfru2Ss2toL3KoReCYmXn8iuH+PGDyhFCMxIySoUixdvfdA2i49
- FHYPm43N8RLdQ==
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com
+ [91.218.175.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF97710E0B4
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 13:28:38 +0000 (UTC)
 Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+ s=key1; t=1783258116;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=75Oki2p9+J8O5hmX2u7GRFERo3z7tGNIzsRExUr/bFI=;
+ b=XYHKqX4RHFHTovZ8pNtZLcq0rLACm9xJXFqbwJadyOVHCIPZGKc340EjYgwtr8jzMiCqpM
+ FTE1me1ac8Sj5P+yTb2aq1yzr9cKfh92pVudKInUov6vZoym/NbPUb/9ion90ZoFu/onOG
+ 6iLkpfc7/oQjKX5VhNUIVz1cdChdwL/MQYvkqlyIZMZecKkc3TCzIFiFtYCoJ9kGFlXD+l
+ KmpxNXjy5uMJNtnuwQ/FHQxLEhbfI6rlR7gibAmgU+Q7Gei1zu67zYcuBxq9Tp+ZLTRwyp
+ N/sNzDjIVGAb2QvXG0qBZhSnUN1xbYJwnzSxK2XV07BeUEq6u1QccegmuE6kwg==
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 05 Jul 2026 15:00:27 +0200
-Message-Id: <DJQNN9FRZN3C.3DQE4H9HAZ8W6@kernel.org>
-Subject: Re: [RFC 1/3] gpu: nova-core: Add auxiliary bus registration data
- to nova-core
-Cc: <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260703064526.3630668-1-apopple@nvidia.com>
- <20260703064526.3630668-2-apopple@nvidia.com>
-In-Reply-To: <20260703064526.3630668-2-apopple@nvidia.com>
+Date: Sun, 05 Jul 2026 15:28:29 +0200
+Message-Id: <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
+Cc: <kernel@collabora.com>, "Andy Yan" <andyshrk@163.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Sandy Huang"
+ <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,138 +74,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 3, 2026 at 8:45 AM CEST, Alistair Popple wrote:
-> diff --git a/drivers/gpu/nova-core/auxdata.rs b/drivers/gpu/nova-core/aux=
-data.rs
-> new file mode 100644
-> index 000000000000..266b5ce4ee89
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/auxdata.rs
+Hi Cristian,
 
-I think it'd just call it something along the lines of api.rs, as this is g=
-oing
-to be the file where the entry points into nova-core will live.
+On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
+> the enable path.
+>
+> These resets are intended to leave the hardware in a clean state for the
+> next use, helping recover from exceptions such as IOMMU page faults, as
+> well as to prevent random display output glitches, such as a blank
+> image, observed when switching modes that also change the color format,
+> e.g. from RGB to YUV420 and vice versa.
+>
+> For now this seems to affect only the RK3588, hence the resets are
+> optional and will be provided in the device tree for this SoC only.
 
-> @@ -0,0 +1,12 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Nova-core auxbus data. Contains all the methods used by the auxbus d=
-rivers
-> +//! to interact with nova-core.
-> +
-> +use crate::gpu::Gpu;
-> +
-> +/// Auxiliary bus registration data. Used by the auxbus drivers to call =
-methods on
-> +/// the GPU.
-> +pub struct AuxData<'bound> {
+Why do you think it only effect RK3588? I reported about my RK3568 test her=
+e:
+https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tec=
+h.com/
+"I then went on to try LibreELEC's builds. The artifacts I (sometimes)
+saw, were gone :-D OTOH, I did get several major issues 'in return',
+like rk_iommu Page fault resulting in a black screen and the only way to
+'recover' from it, was a reboot."
 
-Since this will also be the data type that will be exposed as an API entry =
-point
-into nova-core, I'd rather call it e.g. NovaCoreApi.
+And I reported some more test results here:
+https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk33=
+99-rk3566-rk3568-rk3576-rk3588/?postID=3D204691#post204691
 
-We should provide an assoicated function NovaCoreApi::of(), which takes an =
-&'a
-auxiliary::Device<Bound> as argument and returns &'a NovaCoreApi<'a> (at le=
-ast
-as long as the type remains covariant).
+That seems to me a (strong) indication it also affects RK3566/RK3568?
 
-This makes it a bit cleaner since it keeps the type assertion local to a si=
-ngle
-place and makes it transparent to nova-drm that this also is the
-auxiliary::Registration private data of nova-core.
+Cheers,
+  Diederik
 
-(I'm already working on getting rid of the type ID check, but going through
-NovaCoreApi::of() is cleaner regardless.)
-
-> +    pub(crate) _gpu: &'bound Gpu<'bound>,
-
-I'd store this as Pin<&'bound Gpu<'bound>> as it better documents the pinni=
-ng
-guarantee and allows calling Pin<&Self> methods on Gpu.
-
-> @@ -78,7 +82,7 @@ fn probe<'bound>(
->              pdev.enable_device_mem()?;
->              pdev.set_master();
+> Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+> Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 ++++++++++++++++++++++=
+++++++
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 ++++
+>  2 files changed, 39 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index 4cce3e336f5b..2833fb49ad81 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+> +#include <linux/reset.h>
+>  #include <linux/swab.h>
 > =20
-> -            Ok(try_pin_init!(NovaCore {
-> +            Ok(try_pin_init!(&this in NovaCore {
-
-This change shouldn't be needed.
-
->                  bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core=
-/bar0")?,
->                  // TODO: Use `&bar` self-referential pin-init syntax onc=
-e available.
->                  //
-> @@ -86,15 +90,32 @@ fn probe<'bound>(
->                  // (`try_pin_init!()` initializes fields in declaration =
-order), lives at a pinned
->                  // stable address, and is dropped after `gpu` (struct fi=
-eld drop order).
->                  gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
-) }),
-> -                _reg: auxiliary::Registration::new(
-> -                    pdev.as_ref(),
-> -                    c"nova-drm",
-> -                    // TODO[XARR]: Use XArray or perhaps IDA for proper =
-ID allocation/recycling. For
-> -                    // now, use a simple atomic counter that never recyc=
-les IDs.
-> -                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-> -                    crate::MODULE_NAME,
-> -                    (),
-> -                )?,
+>  #include <drm/drm.h>
+> @@ -860,6 +861,26 @@ static int vop2_core_clks_prepare_enable(struct vop2=
+ *vop2)
+>  	return ret;
+>  }
+> =20
+> +static void vop2_clk_reset(struct vop2 *vop2, struct reset_control *rstc=
+)
+> +{
+> +	int ret;
 > +
-> +                // SAFETY:
-> +                // - `NovaCore` is dropped when the device is unbound; i=
-.e.
-> +                //   `mem::forget()` is never called on it.
-> +                // - `gpu` is initialized above, lives at a pinned stabl=
-e
-> +                //   address, and is dropped after `_reg` (struct field =
-drop
-> +                //   order).
-> +                _reg: unsafe {
-> +                    auxiliary::Registration::new_with_lt(
-> +                        pdev.as_ref(),
-> +                        c"nova-drm",
-> +                        // TODO[XARR]: Use XArray or perhaps IDA for pro=
-per ID allocation/recycling.
-> +                        // For now, use a simple atomic counter that nev=
-er recycles IDs.
-> +                        AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-> +                        crate::MODULE_NAME,
-> +                        AuxData {
-> +                            // TODO: Use `&gpu` self-referential pin-ini=
-t syntax once available.
-> +                            //
-> +                            // SAFETY: `this.gpu` is initialized before =
-this expression is evaluated
-> +                            // (`try_pin_init!()` initializes fields in =
-declaration order), lives at
-> +                            // a pinned stable address, and is dropped a=
-fter `_reg` (struct field
-> +                            // drop order).
-> +                            _gpu: &*core::ptr::from_ref(&this.as_ref().g=
-pu),
+> +	if (!rstc)
+> +		return;
+> +
+> +	ret =3D reset_control_assert(rstc);
+> +	if (ret < 0) {
+> +		drm_warn(vop2->drm, "failed to assert reset: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	udelay(10);
+> +
+> +	ret =3D reset_control_deassert(rstc);
+> +	if (ret < 0)
+> +		drm_err(vop2->drm, "failed to deassert reset: %d\n", ret);
+> +}
+> +
+>  static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+>  {
+>  	u32 pd;
+> @@ -938,6 +959,8 @@ static void vop2_disable(struct vop2 *vop2)
+>  {
+>  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+> =20
+> +	vop2_clk_reset(vop2, vop2->axi_rst);
+> +
+>  	pm_runtime_put_sync(vop2->dev);
+> =20
+>  	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+> @@ -1948,6 +1971,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc=
+ *crtc,
+> =20
+>  	vop2_crtc_atomic_try_set_gamma(vop2, vp, crtc, crtc_state);
+> =20
+> +	vop2_clk_reset(vop2, vp->dclk_rst);
+> +
+>  	drm_crtc_vblank_on(crtc);
+> =20
+>  	vop2_unlock(vop2);
+> @@ -2531,6 +2556,11 @@ static int vop2_create_crtcs(struct vop2 *vop2)
+>  			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
+>  					     "failed to get %s\n", dclk_name);
+> =20
+> +		vp->dclk_rst =3D devm_reset_control_get_optional(vop2->dev, dclk_name)=
+;
+> +		if (IS_ERR(vp->dclk_rst))
+> +			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk_rst),
+> +					     "failed to get %s reset\n", dclk_name);
+> +
+>  		np =3D of_graph_get_remote_node(dev->of_node, i, -1);
+>  		if (!np) {
+>  			drm_dbg(vop2->drm, "%s: No remote for vp%d\n", __func__, i);
+> @@ -2890,6 +2920,11 @@ static int vop2_bind(struct device *dev, struct de=
+vice *master, void *data)
+>  		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
+>  				     "failed to get pll_hdmiphy1\n");
+> =20
+> +	vop2->axi_rst =3D devm_reset_control_get_optional(vop2->dev, "axi");
+> +	if (IS_ERR(vop2->axi_rst))
+> +		return dev_err_probe(drm->dev, PTR_ERR(vop2->axi_rst),
+> +				     "failed to get axi reset\n");
+> +
+>  	vop2->irq =3D platform_get_irq(pdev, 0);
+>  	if (vop2->irq < 0)
+>  		return dev_err_probe(drm->dev, vop2->irq, "cannot find irq for vop2\n"=
+);
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.h
+> index ffcb39c130aa..14b437d2d088 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+> @@ -165,6 +165,8 @@ enum vop2_win_regs {
+>  	VOP2_WIN_MAX_REG,
+>  };
+> =20
+> +struct reset_control;
+> +
+>  struct vop2_regs_dump {
+>  	const char *name;
+>  	u32 base;
+> @@ -238,6 +240,7 @@ struct vop2_video_port {
+>  	struct vop2 *vop2;
+>  	struct clk *dclk;
+>  	struct clk *dclk_src;
+> +	struct reset_control *dclk_rst;
+>  	unsigned int id;
+>  	const struct vop2_video_port_data *data;
+> =20
+> @@ -329,6 +332,7 @@ struct vop2 {
+>  	struct clk *pclk;
+>  	struct clk *pll_hdmiphy0;
+>  	struct clk *pll_hdmiphy1;
+> +	struct reset_control *axi_rst;
+> =20
+>  	/* optional internal rgb encoder */
+>  	struct rockchip_rgb *rgb;
 
-This is UB, we can't create a reference from 'this' before it is fully
-initialized.
-
-	gpu: &*core::ptr::from_ref(gpu.as_ref().get_ref()),
-
-should work instead and also gets us rid of this entirely. Or rather
-
-	gpu: Pin::new_unchecked(
-	    &*core::ptr::from_ref(gpu.as_ref().get_ref()),
-	),
-
-if stored as Pin<&'bound Gpu<'bound>>.
-
-> +                        },
-> +                    )?
-> +                },
->              }))
->          })
->      }
