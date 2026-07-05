@@ -4,117 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32534C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 12:22:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7CBBC43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 13:00:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F5410E1A2;
-	Sun,  5 Jul 2026 12:22:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D35A189A60;
+	Sun,  5 Jul 2026 13:00:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="elHdHxeq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NjeA4CqQ";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B41C410E1A2
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 12:22:36 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-380a02c71e2so761417a91.3
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 05:22:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783254156; cv=none;
- d=google.com; s=arc-20260327;
- b=gkl0lWMIoRFXhxjtTbqcNrcz52CTPlCkeZZatk7xlt9qx00LNCOEH75UsMhtX7OhVq
- nANZmpVzfnwUq9Kw1oREckGuF1fr4oMwaDBCv8hgCvK5WNyZxBghyyZGrqHvlfsVeP+A
- p9UovdLBUqDkBloQHbGXPcpY7TdrL1D1YyLNTZqCqbpBZ6Ox43jXKW+YDBizZFCOV3lm
- yhzbfzANmB7YcAzJBM/SA8kxlbtnsCk0uqrRIQ89Mp46RCo697VsjWHVMz6BvYRIU5Yr
- CMeQfd/ha9KcG+oXoDJ7WS2Pu+Pi4g8tZJ8+wDTKroTsjQtCRvBeg2boE2UBxWy5bHkb
- 73rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=cVZuwq26LJUbjnXW20W3nbICqbmkh5x02bCyytPFsmg=;
- fh=g2Wd/XsNkuwMavYQknIPC0gOnaH1srUkKW4NNvPnoHk=;
- b=l97Lq8P9hXiI9TjsEurSIRHEMXXw/0wHW0ffLxJ67ef+4iuiKkyvbZ1GsOK/tXFYUv
- J+dwsoYh5CCu4bj60LLBSpYVOKsXjbPv31PC+TavxbFmOXWl/+YxmeAO1Lch0ae/jEj1
- KGvEJNqnnmeJhqPiB098xwXnfFi7i/wp6Dk2LOZ2VWzqXoQdqnRHhvPvIPiCGFMn2owu
- ztqsU6rAaWpnH4HI16TZGbpCiTCHkwCHp8HspNjQGLXP1vizbAxSTA6zsQgsZLb2E9aC
- P8pDdOseRsNEgb0IB6P++6lTIp2aAJ2BLEhbPvGu260UKaNKtsVPxXiP+3nibgejwqMz
- Bgog==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783254156; x=1783858956; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cVZuwq26LJUbjnXW20W3nbICqbmkh5x02bCyytPFsmg=;
- b=elHdHxeqo3p4hhfzKXgYbC/l9H1IjKdLuVNv8ienhv99nyLBBtxLH7M7J3JYvSq+bm
- G06dl89dHolaCCR2hUssGVlsGV0SAW5mFV4G7EiiUemsNqRRvxAkYTzyia+a+mkdpp/e
- K21uPdZd/00OzueI0SVn9KN4q23mnCAe3ACJcxBAWLvLC3Vgykh52sdIQThV5hx8FI+l
- 97XBN4NRiMu6RgjIiMiHgRV+hv6lvJsRAyTMpvkc+1WDz1bYElJ6hq8C7idxFJlN4v8c
- nYrNfXLCqnYno8OYOrp2hJQTtgkOkFGoXX6amgSLjEQOc7iVjBy2/jJdUFk1R051ic0d
- rrpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783254156; x=1783858956;
- h=content-transfer-encoding:content-type:to:subject:message-id:date
- :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=cVZuwq26LJUbjnXW20W3nbICqbmkh5x02bCyytPFsmg=;
- b=TUXdjZLTJ252Ui/gW5sQ96yTLp9m8H2HdT8UnjrVl9aLXLBgnYf0vhRq9TrreMk32m
- JJeCNQBNJHjR6PZRmqRtLYHAIjBHwtyHtZqOodmA7MUv7KQMz1u9s7I/t8wimwJYXB9e
- VgUmtgXNY33OjBz24TVRLG2yBBllt4DC48escqpny+s7+NpqxvY7tzgydwF2DhqjkvmX
- LJCzMq33I46SsrlarOUYpCw/SRUxrW59IJUDdwiYQuZF9A7vIlpu2KwxyQMufk8+Gmt+
- i4eAeLcNjZhhxLnSDi7cw82iHP7EyXvt12E8zMdSUcNBz+G3Frac/RQgimnW755Z3o99
- jgVQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpzbJii+JHQUyZezQsL62pSxVHSrJr0f72yneDd/Ie95DlrDlEGbx8cYdtDaGZv2VLjIOS4vbvAQVc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY/Mvaf6x4WNORfuunitWPq3hrgI14OLVv67evmS3NMVlrLWhM
- g+k3feJLdmDS7hNGZrYuJj57bF2qj4ViSiyAPat+WfNiLUveqdqSpUji/Wbqd52d8AMfMbDI/Mx
- Sv9xH/UY+QWpuMG3kC/+5cBf2VHL5BM4=
-X-Gm-Gg: AfdE7cngFFPZX+mlDpeAainapr76L1GWXCrQ6cYNMaE+62PMj3R9649ERTY+c+4svjq
- q4iNfltcelOEt++WlDit4/NsZDESGc39TeX4s+BHeAhjtaZzLBMraNTCHmBfsOBX2EXz0FwC0kl
- UxM9fpuPW707ziNWGWDE8giddZgx/8XtIFf2Hr17NYLWA6gAj1Qho6DwOg7PrRGXJzAzK5tqq+m
- 868FrPAX4KhmSzJPYYGkF7Kjet21UqIHQ+dhGq5jVkE8WY5AgbeGFeAlaWVzRhVxZ07Sb8NPEpv
- YAg65XkTxxC6sysg+DaCiXMrbZLnJC1UBxSyo6BwQBmzfxMYaV1U51pGpcfDmBn+fCddBHiCSd/
- 4VrLS0nt7q6JQ
-X-Received: by 2002:a17:90a:a416:b0:383:5a16:bd67 with SMTP id
- 98e67ed59e1d1-3835a16bddcmr2702118a91.4.1783254156186; Sun, 05 Jul 2026
- 05:22:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
- <c89a1bc8-6cc1-4e16-ac95-add389e45a2b@lunn.ch> <akmnh0AKFfu9-OYn@gurudas.dev>
-In-Reply-To: <akmnh0AKFfu9-OYn@gurudas.dev>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 5 Jul 2026 14:22:20 +0200
-X-Gm-Features: AVVi8CdKZk1uQg3RyoO9gWWnGdg1D5rtqZ5BcTTqS2w4TtsLqn1TqMImL9QufHY
-Message-ID: <CANiq72k0zokLC_L2wPJRDb_CyvnJznOSKUgTaiHo87GT6Pwyag@mail.gmail.com>
-Subject: Re: [PATCH 0/7] rust: Use kernel style vertical imports in various
- drivers
-To: Andrew Lunn <andrew@lunn.ch>, Miguel Ojeda <ojeda@kernel.org>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
- Fu Wei <wefu@redhat.com>, Michal Wilczynski <m.wilczynski@samsung.com>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Jens Axboe <axboe@kernel.dk>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, driver-core@lists.linux.dev, 
- linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-block@vger.kernel.org, netdev@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC53589A60
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 13:00:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DBA7960008;
+ Sun,  5 Jul 2026 13:00:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4589F1F000E9;
+ Sun,  5 Jul 2026 13:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783256431;
+ bh=Jutbyyrw/SBMWGHBk/O6fdtwki4002XeR8UqjVv5bMo=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=NjeA4CqQ5CBJRRawXBJ06mx/kDAjFdQEZRwhNd0Evj4Dinvao15JMMwk99HPAxU8W
+ Y+ZB0LFEvZnKiwLP8lh0gDDCmjchESiotWQMYnAg6wSIXYmtDqrLh7ip6YY7hgxEQg
+ msW9da4rwTjq0RSdwIEjciyeXPfZw8UZueSOdXzBFYgBzdJSHJJzU4ezB8vAqvNZUF
+ tAUmcZ1mfP++mnNBG1/9GQ7SsoWc/Y4GzwNB9sTGrovXADxBgR65CP0VdX8KXIG0tm
+ q0og/KPkei8e8Wmjfru2Ss2toL3KoReCYmXn8iuH+PGDyhFCMxIySoUixdvfdA2i49
+ FHYPm43N8RLdQ==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 05 Jul 2026 15:00:27 +0200
+Message-Id: <DJQNN9FRZN3C.3DQE4H9HAZ8W6@kernel.org>
+Subject: Re: [RFC 1/3] gpu: nova-core: Add auxiliary bus registration data
+ to nova-core
+Cc: <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "Alistair Popple" <apopple@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260703064526.3630668-1-apopple@nvidia.com>
+ <20260703064526.3630668-2-apopple@nvidia.com>
+In-Reply-To: <20260703064526.3630668-2-apopple@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,26 +63,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 5, 2026 at 2:38=E2=80=AFAM Guru Das Srinagesh <linux@gurudas.de=
-v> wrote:
->
-> Miguel, could you please indicate if you have a preference here?
+On Fri Jul 3, 2026 at 8:45 AM CEST, Alistair Popple wrote:
+> diff --git a/drivers/gpu/nova-core/auxdata.rs b/drivers/gpu/nova-core/aux=
+data.rs
+> new file mode 100644
+> index 000000000000..266b5ce4ee89
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/auxdata.rs
 
-Gary is right -- it depends.
+I think it'd just call it something along the lines of api.rs, as this is g=
+oing
+to be the file where the entry points into nova-core will live.
 
-Generally speaking, it is best to do changes through each tree;
-especially so if it is the kind of thing that may be prone to
-conflicts.
+> @@ -0,0 +1,12 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Nova-core auxbus data. Contains all the methods used by the auxbus d=
+rivers
+> +//! to interact with nova-core.
+> +
+> +use crate::gpu::Gpu;
+> +
+> +/// Auxiliary bus registration data. Used by the auxbus drivers to call =
+methods on
+> +/// the GPU.
+> +pub struct AuxData<'bound> {
 
-In certain cases, yes, I may take treewide changes, with Acked-by's
-from maintainers (and very exceptionally I have done it without that
-if e.g. it is trivial enough and enough time has passed -- trusting
-that people trust me to do so).
+Since this will also be the data type that will be exposed as an API entry =
+point
+into nova-core, I'd rather call it e.g. NovaCoreApi.
 
-It is part of why the Rust tree exists, i.e. as a fallback and also
-for convenience in certain cases.
+We should provide an assoicated function NovaCoreApi::of(), which takes an =
+&'a
+auxiliary::Device<Bound> as argument and returns &'a NovaCoreApi<'a> (at le=
+ast
+as long as the type remains covariant).
 
-I hope that clarifies.
+This makes it a bit cleaner since it keeps the type assertion local to a si=
+ngle
+place and makes it transparent to nova-drm that this also is the
+auxiliary::Registration private data of nova-core.
 
-Cheers,
-Miguel
+(I'm already working on getting rid of the type ID check, but going through
+NovaCoreApi::of() is cleaner regardless.)
+
+> +    pub(crate) _gpu: &'bound Gpu<'bound>,
+
+I'd store this as Pin<&'bound Gpu<'bound>> as it better documents the pinni=
+ng
+guarantee and allows calling Pin<&Self> methods on Gpu.
+
+> @@ -78,7 +82,7 @@ fn probe<'bound>(
+>              pdev.enable_device_mem()?;
+>              pdev.set_master();
+> =20
+> -            Ok(try_pin_init!(NovaCore {
+> +            Ok(try_pin_init!(&this in NovaCore {
+
+This change shouldn't be needed.
+
+>                  bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core=
+/bar0")?,
+>                  // TODO: Use `&bar` self-referential pin-init syntax onc=
+e available.
+>                  //
+> @@ -86,15 +90,32 @@ fn probe<'bound>(
+>                  // (`try_pin_init!()` initializes fields in declaration =
+order), lives at a pinned
+>                  // stable address, and is dropped after `gpu` (struct fi=
+eld drop order).
+>                  gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
+) }),
+> -                _reg: auxiliary::Registration::new(
+> -                    pdev.as_ref(),
+> -                    c"nova-drm",
+> -                    // TODO[XARR]: Use XArray or perhaps IDA for proper =
+ID allocation/recycling. For
+> -                    // now, use a simple atomic counter that never recyc=
+les IDs.
+> -                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
+> -                    crate::MODULE_NAME,
+> -                    (),
+> -                )?,
+> +
+> +                // SAFETY:
+> +                // - `NovaCore` is dropped when the device is unbound; i=
+.e.
+> +                //   `mem::forget()` is never called on it.
+> +                // - `gpu` is initialized above, lives at a pinned stabl=
+e
+> +                //   address, and is dropped after `_reg` (struct field =
+drop
+> +                //   order).
+> +                _reg: unsafe {
+> +                    auxiliary::Registration::new_with_lt(
+> +                        pdev.as_ref(),
+> +                        c"nova-drm",
+> +                        // TODO[XARR]: Use XArray or perhaps IDA for pro=
+per ID allocation/recycling.
+> +                        // For now, use a simple atomic counter that nev=
+er recycles IDs.
+> +                        AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
+> +                        crate::MODULE_NAME,
+> +                        AuxData {
+> +                            // TODO: Use `&gpu` self-referential pin-ini=
+t syntax once available.
+> +                            //
+> +                            // SAFETY: `this.gpu` is initialized before =
+this expression is evaluated
+> +                            // (`try_pin_init!()` initializes fields in =
+declaration order), lives at
+> +                            // a pinned stable address, and is dropped a=
+fter `_reg` (struct field
+> +                            // drop order).
+> +                            _gpu: &*core::ptr::from_ref(&this.as_ref().g=
+pu),
+
+This is UB, we can't create a reference from 'this' before it is fully
+initialized.
+
+	gpu: &*core::ptr::from_ref(gpu.as_ref().get_ref()),
+
+should work instead and also gets us rid of this entirely. Or rather
+
+	gpu: Pin::new_unchecked(
+	    &*core::ptr::from_ref(gpu.as_ref().get_ref()),
+	),
+
+if stored as Pin<&'bound Gpu<'bound>>.
+
+> +                        },
+> +                    )?
+> +                },
+>              }))
+>          })
+>      }
