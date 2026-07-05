@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A72BC44501
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 753F6C43602
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:14:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4E4210E225;
-	Sun,  5 Jul 2026 19:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1F910E26F;
+	Sun,  5 Jul 2026 19:14:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B4CTZTS7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bMpPbK1y";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E2B810E225
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:14:29 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-47d6c634f45so422144f8f.3
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 12:14:29 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACBB10E22B
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:14:31 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-47de008b020so139879f8f.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 12:14:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783278867; x=1783883667; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783278869; x=1783883669; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=FOJQZsuitJv3y9s8sz3fzgy77bgdsy3S43prspkqpPY=;
- b=B4CTZTS74x8f4NZfk2pXREwCZQMV9oz2JBht2K5/qllqZHCUwogKhEFyiV2SuA3MQn
- t8VLDYEKPxFbzrBgORE2Ad1Ax5oO8/6o7dptHdud/vegFTyoaRX27xJ5Srm9lKFNX4I5
- gSwAYMS8E9gfIWj+FQJEQGIJns2OQYSvqXDNMUS4+0aZlbc6ORwy/9MGku9R0dEtBY1U
- 0Bua6m8p+gGOzpbpIPs0w0R1H+eGh2aLFCehCQ94brTgkLBWgILSPgyxOSJVqkeBbg76
- 9u1VYCnPwQK3ypdS8gzDyNqC3YgmQJpM+EZ8IoNRbUTfZ6HIxftDnfEs6TONBY560HJb
- 9N9A==
+ :reply-to; bh=rBnb62S3pox4azVRKerhjkKWZjHIp9f0CrUrLIrizHI=;
+ b=bMpPbK1yLGS/IsA2T0M1NJ1FhKj+Hnix5ihkwi1CQlEEx9VqxshshYDTJjc08SUzI7
+ i7LnF0Cw9yjHsqrDV4JELlkmTb6QB1UNzSJZbg2NyQl8xLEJvVP59IEWQLIeP5m3b5SE
+ E0OUPRtrcrl4esmjAL9EETF360WWEfVVmZz9L56xmHFQ1p7c8PkRjAljeRoC65XQUnBq
+ 9bMqHwov4JOdkSrRS30WyvG2iME+xBzjQS7FSQObP7uj5Erz06hCuHpp8oHiTRhYCt9i
+ VRX0AkKr7J36soNUnV9G3EWfTJJRmDe+A0XJldgBof4HtdWjvyxk8S8TZ0mZvgo+IbQz
+ 5iGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783278867; x=1783883667;
+ d=1e100.net; s=20251104; t=1783278869; x=1783883669;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=FOJQZsuitJv3y9s8sz3fzgy77bgdsy3S43prspkqpPY=;
- b=h7xxLPmjaCTbEXU/PfFKDnzNF+0O/kAN8C/AxTUuDtC7w0km/0YjEjDui3AmNe0jt+
- y0z2BqhU4XJVAOdD74oo/EcaCCzQjzW3dIZF9MpMGkUGRBeEUoV6S24blMzxxVfqg4Ik
- nqeUrktFbpoBde1pflxNJE43SzgSLXHeRz4d0jVmVAweamXfRemyUIGBxFnvtDttV/NR
- nP64nsHEze7SF1iy6v5YVhp29gDblLeyNBpn3seZMRpnZshmmwYqZmYP4NobYtLeUR3f
- 2+ApQgjwHF1JN1uM2rAbeGyTU92rjjTPISoY/ghsurBAbD7Msc8NxSQXzs17vVPs9MmL
- 7YUw==
+ bh=rBnb62S3pox4azVRKerhjkKWZjHIp9f0CrUrLIrizHI=;
+ b=nbmb/giG9YMb4TjR/6nhIqF7rn2T4MrH26pmV8euJGqCfv1ZGROcwGE8d6iHXIwBWC
+ iTx0QC2+ETSPuK8ke1Wv36csYYSjneui4Fv9PEIZg48AsoqXYXqpoZmRZBhVmIHmpikl
+ t5Rss0TuRkrqdd65qwHIaHImGPRW8UHNqwOdgDMyl/neA9Sao3czIAIrKcwf4B4cJoFV
+ TdxsZczHxBfkycms2NX3cKYFo4UZXhfj2IVKrewYfFbbvaNq5ysqtAVHeTX7SDhOJI73
+ 7IF+jEQtnFdNbgMPpaenm+6MC2L+WPeY8rQQfu4xY3ToORA2i6TeLJffj920S5ekHMgn
+ 973g==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpTh3PnKUHqL6V77mrDWQbL3Ao+P/Lauhf1isK2aOvm4JK5sSccPq97hzzln2mx76Tw8EHK9lJXf70=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoMqJz1stcCe7BvmlPzylZpiLxy8ndHbDSdJGh+dny+bsL2c7y
- au2MfBEsbqlSQokiAnvPld5R8pU/Tfy3AI7uWpxcXHNPvlUHgOqM6hU=
-X-Gm-Gg: AfdE7cks4jNhOdPHtF54myKYpO+LNlTucu1L+h1P0507/eRp7T4r7sTr3wnSG6lgcYW
- r0CM8MNh4ro5YiRe6b0tXVxJVLpr7VIZlRHFe/hoVk43LRwHJ7TCx6clRMBSmIkiSd6E2EmK4hY
- x6jiRiTsc40v0+cisLNcjD3CV4/rYJ0hEl8FLs3Cp7ThEidAvB7D4avJqLMRbxn9S1D5Ox7Bb7H
- ah6/FadHw77Db0GbSm2/0WpYwZMg58kKQl3XLNfffqvxOSW5U5tMx8ZaiVi0X/qT6T3PRLI1Iku
- OoBwWVsOYI95FKeN/Z83I3laWtzhiTO+4vV8CgQFWl4KTmjF+ksx01vIQ6foavNVEg+hL0VzV+5
- BvhUkZurvqP2kVHcdlgtd6sb2Z9cxu/emRa+7k1eHUMsmD1Yg3l4zIGHXEZdunA73OCMafacEu5
- wGYpDzkLGWQQyBaeItjL7ud4iaHfcBpQ==
-X-Received: by 2002:a05:6000:2689:b0:477:6874:542c with SMTP id
- ffacd0b85a97d-47aab487abdmr8336510f8f.22.1783278867370; 
- Sun, 05 Jul 2026 12:14:27 -0700 (PDT)
+ AHgh+RpGYdqa41H50NSRW9bnkEtzQBlMcoDEHCQHeCiXosc1y669IaR5k/J2Sde4thh3WzfKdDLQhmB+71s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBvtSkKN5m12eMff1l9DQz/BcqCYPWkPVPw4cceRH1IB4amt9o
+ 5s/GWUdmisC8+LlkEd9mvSJ84EiQxdsIVsXuuyag9IbCZqSZpXpklK0=
+X-Gm-Gg: AfdE7ckKgXRCrOphdxIIde4n3eDwE31M48X44yVtjFYvXMIDw/zubEw1sZNC8ylWlHV
+ w2KIiOdF1SkrMmtDnPzJib451BqQCb5MZwxL6z4OvgUvL2sbDsi6dDDDHCjrWT82zPcbTb7wlhC
+ +PI2XkDXqzdA0IBovoScbMOqoOlTueZ/uXKyfmGDTfQf/nhHpD7QA80IF1SPU8opSMG6Uagthcw
+ 90Kng3BLV7iwy5WnHNl9UZ6ViPLfWtZ0Uz3NOKM2FSXbzi4DnpaZPTAOCZ7z7OwsC/nMzG3+DJN
+ exYRnbG+X5Z6/iZJpI7hXV350KT2qpNYvHRkyclXS/6iUAwvrhS/fLhFvl+Lvb69ZQjoK7vOmzZ
+ nG/IXQJDoAZboRRR8ddG01jkS/1FdfonyM3iohONGCdg4cWg5WhsCh/nLOhLqt/ktpdjfw3EiWh
+ 0rnGzO5bqVoqUONIR0C3ajFuBeegjDmw==
+X-Received: by 2002:a5d:4530:0:b0:472:28f2:506c with SMTP id
+ ffacd0b85a97d-4793561c1b7mr10294287f8f.13.1783278869284; 
+ Sun, 05 Jul 2026 12:14:29 -0700 (PDT)
 Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa0960634sm19209528f8f.26.2026.07.05.12.14.25
+ ffacd0b85a97d-47aa0960634sm19209528f8f.26.2026.07.05.12.14.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jul 2026 12:14:27 -0700 (PDT)
+ Sun, 05 Jul 2026 12:14:28 -0700 (PDT)
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Sun, 05 Jul 2026 21:13:41 +0200
-Subject: [PATCH RFC 07/13] iommu: arm-smmu-qcom: Fixed mapping between sid
- and cb for gpu and lpac
+Date: Sun, 05 Jul 2026 21:13:42 +0200
+Subject: [PATCH RFC 08/13] HACK: use cb1 address in lpac dtb node
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-descriptive-name-lpac-upstream-v1-7-01d50c3e0c99@gmail.com>
+Message-Id: <20260705-descriptive-name-lpac-upstream-v1-8-01d50c3e0c99@gmail.com>
 References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
 In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
@@ -90,11 +89,11 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783278851; l=1792;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783278851; l=1103;
  i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=CTSVd/0edKxTFOAN7N2IneJxadcZY86l85ROlQLsf6k=;
- b=N1CzOkGooWs0D7hEFfO64qs+XczQExJuyhhzPJnlf0WwJlRgmpU6QS/Q3PibSJHKmN1K6WJPv
- WALfNWTwDnSBfYHo0sDNPhrc2jlfRyjKisM+ctCA7C/dwWocYLjvP6b
+ bh=lEQBWGFQsawhS3Z+empPXIW4pjOUFPTBX61IJG+8wpQ=;
+ b=ghyBtO3mPmOZCBw2AnqYHPShuXdJyTE+gTcOSZ9YU5rU1L9CLwjDKC2Kyv3ZqsOQvXyq+rMJb
+ aTedKIXba75Aenv0imb3SDNfjufYxVMYzOkJYRnVags1gnQPFh42M4o
 X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
  pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,60 +111,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We want to map context bank 0 to SID 0 and context bank 1 to SID 1 as it
-makes it simpler to deal with.
-
 Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 ---
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8650.dtsi | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-index ae6152bddf8f..e605a535f328 100644
---- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-@@ -225,6 +225,25 @@ static void qcom_adreno_smmu_set_prr_addr(const void *cookie, phys_addr_t page_a
- #define QCOM_ADRENO_SMMU_GPU_SID 0
- #define QCOM_ADRENO_SMMU_LPAC_SID 1
+diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+index 44e5f9d4b335..66ea9155e228 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+@@ -4133,13 +4133,6 @@ tcsr: clock-controller@1fc0000 {
+ 			#reset-cells = <1>;
+ 		};
  
-+static bool qcom_adreno_smmu_is_lpac_device(struct device *dev)
-+{
-+	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-+	int i;
-+
-+	/*
-+	 * The GPU will always use SID 0 so that is a handy way to uniquely
-+	 * identify it and configure it for per-instance pagetables
-+	 */
-+	for (i = 0; i < fwspec->num_ids; i++) {
-+		u16 sid = FIELD_GET(ARM_SMMU_SMR_ID, fwspec->ids[i]);
-+
-+		if (sid == QCOM_ADRENO_SMMU_LPAC_SID)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
- {
- 	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-@@ -312,13 +331,12 @@ static int qcom_adreno_smmu_alloc_context_bank(struct arm_smmu_domain *smmu_doma
- 	 * switch pagetables
- 	 */
- 	if (qcom_adreno_smmu_is_gpu_device(dev)) {
--		start = 0;
--		count = 2;
-+		start = !!qcom_adreno_smmu_is_lpac_device(dev);
-+		count = start + 1;
- 	} else {
- 		start = 2;
- 		count = smmu->num_context_banks;
- 	}
+-		lpac: lpac@3d00000 {
+-			compatible = "qcom,lpac";
+-			reg = <0x0 0x03d00000 0x0 0x61000>;
 -
- 	return __arm_smmu_alloc_bitmap(smmu->context_map, start, count);
- }
+-			iommus = <&adreno_smmu 1 0x0>;
+-		};
+-
+ 		gpu: gpu@3d00000 {
+ 			compatible = "qcom,adreno-43051401", "qcom,adreno";
+ 			reg = <0x0 0x03d00000 0x0 0x40000>,
+@@ -4254,6 +4247,13 @@ opp-834000000 {
+ 			};
+ 		};
  
++		lpac: lpac@3dc1000 {
++			compatible = "qcom,lpac";
++			reg = <0x0 0x03d00000 0x0 0x61000>;
++
++			iommus = <&adreno_smmu 1 0x0>;
++		};
++
+ 		gmu: gmu@3d6a000 {
+ 			compatible = "qcom,adreno-gmu-750.1", "qcom,adreno-gmu";
+ 			reg = <0x0 0x03d6a000 0x0 0x35000>,
 
 -- 
 2.54.0
