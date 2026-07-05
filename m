@@ -4,44 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 614ACC43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:36:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F0D8C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:40:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798AC10E236;
-	Sun,  5 Jul 2026 19:36:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9591210E25C;
+	Sun,  5 Jul 2026 19:40:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l92HDg+G";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EDqYFdv4";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KAmUP1rN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65A0310E236
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:36:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BED60600C3;
- Sun,  5 Jul 2026 19:36:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31ADB1F000E9;
- Sun,  5 Jul 2026 19:36:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783280187;
- bh=77D0XQyj/xfk1JXZh8y4vUqygGw0szn4FU5vclveBUw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=l92HDg+GbfU4nJBFrqPeVRHKzzmyf/qwKsKEm6pak/8rExDZh4+yXhj/m8ReIVviw
- kNldkRvFJyCwMkdf43Y7ftQ3VGtPcc8qL/pfXcDzvv/att/GHtjZI473bDV50fxsiF
- /6SMNRYurHln6LvL3kvRO7TK0EUMi9qHKXRlvpXXqPvJyPKZTQLjeLFDBUAY+HrBY/
- XsbwDJyTPHpe6MryvYnoeo4fYVyP5iYmzelDRnV67ZjlfFPgzbi2RvkemRjd7GhhEN
- 3MitW9tZoyoX5hV1cicYO+GUyZiwzN5JeZBKDCd1l6j8SYZk9Rf8c7CAF0CMUykxDe
- CW/hngjiQieUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 11/13] drm/msm: Add LPAC submitqueue
-To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-11-01d50c3e0c99@gmail.com>
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-11-01d50c3e0c99@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 19:36:26 +0000
-Message-Id: <20260705193627.31ADB1F000E9@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B814110E25C
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:40:32 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 665HwYZe2356825
+ for <dri-devel@lists.freedesktop.org>; Sun, 5 Jul 2026 19:40:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=03p+FFlmwi4
+ 5suRC+aZpApiuhNt9KA4gObs4WxBM+z8=; b=EDqYFdv4Pmeqy9IR99dcNiLiDAT
+ /yuTE7Ljg9Hev+D7GIua619X8FUaXVlexko06UWo2I1UG1HwTHa/3pcOiO1FNKdk
+ YiY1UO4+AP6rm2LO5F78feakLwRgePs5DdWtrzsXwhYCgTfecFqPFRL/MQqcfyO9
+ pb9r2UQAkfcA5gru+dfTHa2mdfv7340zDAANejxt7cH1lKuJqEenlOMOzxtkjth3
+ hBP3jcZzSc9vRDjWjL0r4gMT/svWmjZh1dvVGSJdpYFTDJ+ZtuRTINMxgHG6Wmig
+ 3zizUVw2wRtMv7D6VUvWZqVy2hRD9jXlwyfLqvXinpJSMddoU1sfRGdzOYQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6sgh3cs3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 19:40:31 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-c88aab7c1d4so1730101a12.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 12:40:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783280430; x=1783885230;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=03p+FFlmwi45suRC+aZpApiuhNt9KA4gObs4WxBM+z8=;
+ b=KAmUP1rNfopiy4kl+iq00Xsf9Mb8imI2NGzwf0g2DMKlm6+3iU1GdqarIZRyZkXX5A
+ rnCV/SvP66O1qC/aF+K72eMJl4Co6MfB4oRR7tQSetVHQ9P7s4v3yql0AqLJwH4f50gJ
+ sy2oWtSWidt4Z7JHSfMm15bYmM+QkbR2pIe3k307RW1W3trXECvWPVHFaPkUuWSZOYVG
+ M2YvgogWxYxoJGGWbrJzv67MYVV8NmIkR/1gMP9cMNb8dA0oXQ6/Cy3T1R2KDwFxtmF+
+ hqp0Ypzzu05zO2M7XgIkS1rR1pPOJDNAcdjE5l0yFp+jh6V4D6qveaxKJYFFPCV91rBY
+ Zblg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783280430; x=1783885230;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=03p+FFlmwi45suRC+aZpApiuhNt9KA4gObs4WxBM+z8=;
+ b=AtmhgjgQNqT9k6DzJha5LoAFR4TEM6065819SrUJDWFfJM00XTZ/kks0hEzlGIcAks
+ u3MYDOU9Ncfq+lzD8CEvM5caPcWEFv7GHIBLLfvqUF6oq5b8BFoJ/PbkiTBNaxCrttv1
+ Q1KJhjlYvDXKyKBc0mCHwAFJZ/Otri6giQ3P8FdKLO/VIPAD7YzBKkHVRbk5k+e5/iQp
+ 78DZPQC5wzFC87bvZvmLtzZwlK87cUjHOTAhpPnW+yrJDLI4LQnzlXe8Dl2C+1fHLiiC
+ ydNeAH/Ms1ARSjYqPL2jdVVrMiD+oxZ+n9CflruZF6bITE5El5Ywg8XI8mUji8dCSmnC
+ VRnw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr9Igb5AWWwUz4QbvlTH4nsxYDVYmdF9FkNQlVR6qn6Ygo+khE6IiKNCo+A/2rHcLh8eAOI8HVYkfA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzzzqLF0gbRN9mZa5kP74EwXuLfR+xJwfPhLJG24HBCFu2gf96B
+ WB/Hg+/LL4eIwEVnwnSoztdcnyY4OLzx2Ne93nUnFdIhnR/jzlRyT92jfj+0X0fpIJrVvuJDolt
+ Riehr6Og+TznnU2wAo4XDVkx2VGAUgxI68GUqGJQQr37OxMd1v3ksAtG8wLrkbeqRWqoDuCY=
+X-Gm-Gg: AfdE7ckIJh2LKsbhtiEDilzzdYeHa8eVw+yNAOgwZauP40mRSE+Hw8omkDL9oaysvVu
+ RuYaD1J155EHiHjs+cyeWbNgZ/d3NaCWrZL5JfC4WTxHhCEVuenheliX4yATVic3+x3aYyozOMr
+ HCYGzDdvaQLUaRxKFLZIdQRWW6FMWEyh+NikSWKdIjpFJ64YTWyX6gjWn4pEkJfZXp2LTFcoXQO
+ VA4j+pO5a5/FlSHlriPu30CADPe4sgNoOi7/2aSvrop2ac495nTNncKweWHTEiqpar9uAzHOyiW
+ sf+MgP5fABAAZHIzlbg3wJR7qtqd1MUkcGrgWTYQ2qehVNPuohxiYDHOStFW+w1Z1bef3Xwa/Ie
+ NSheTRVwkth7sVP16PjvjVyth9IfiMAaOYJTibA==
+X-Received: by 2002:a05:6a20:a122:b0:3bf:9944:a8d8 with SMTP id
+ adf61e73a8af0-3c03e3ed638mr7693672637.34.1783280430280; 
+ Sun, 05 Jul 2026 12:40:30 -0700 (PDT)
+X-Received: by 2002:a05:6a20:a122:b0:3bf:9944:a8d8 with SMTP id
+ adf61e73a8af0-3c03e3ed638mr7693658637.34.1783280429779; 
+ Sun, 05 Jul 2026 12:40:29 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13b3c7fa566sm40573417c88.4.2026.07.05.12.40.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Jul 2026 12:40:29 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-mmc@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, sound-open-firmware@alsa-project.org
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+ Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 33/42] drm: arcpgu: Use devm_of_reserved_mem_device_init()
+Date: Mon,  6 Jul 2026 01:10:09 +0530
+Message-ID: <20260705194019.2565498-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=bLkm5v+Z c=1 sm=1 tr=0 ts=6a4ab32f cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=lEtn7xO9CsvGDZioIccA:9 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA1MDIxMiBTYWx0ZWRfXzvi8ObvDRIq8
+ KyNkTa9EZozCrhxWOBLVl7nG0AqS+k8f3m88CtbVdBtYt6GUoifzach3uJC1lJWnvzJhtcD4FLf
+ o63jII3sc0QvCrwl15+csYKjpbdUXMUVM9GgQ52KlETYJOmtLzZgRkIar+jikBWKq37n4ojd/nu
+ Ik6QAF4eDvsdJkBXcAfKCcmwBL/IXc+xjd1b9vrvWJCbSCf0iYu8Z3k56BwhpPOp8R1cz/IAVpO
+ pqXJGPY3TOMRaBIuf4ALQiDOpPkxMoM9ZW3qGQUjNIt0+O/X3SIWZ5/LqbYZFcpeKFnod43Lt8F
+ PzwCMnmw7Z7F+RE5J0wIYnrvZXScI10MafV6us4Auzs7Yb0PScj90Qw/xOIRbcRkU3bHhihQwei
+ +S1OKMdhYMLXAm+LtpvnUKRFd6non+fkphnGBR9BBmvEUEzO/IEM2PBR8A8T1uMKoOqR+lG/1w4
+ VRG5uKQm2AWuv11Hlnw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA1MDIxMiBTYWx0ZWRfX839o/hgWJCjA
+ fzF8UXk/2Zue1kr2E9monIgLs/EnM+/ojEuiQrVBOMjsNWWB9lmREtebI8XAhdcFC4+u3c9Oho9
+ wLTbjx/BydfbRsSjtRVtdGlVTZjjBfM=
+X-Proofpoint-ORIG-GUID: klo9Inq8lWGNRcplxtlEXcjAZ6JvWi1m
+X-Proofpoint-GUID: klo9Inq8lWGNRcplxtlEXcjAZ6JvWi1m
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-05_01,2026-07-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607050212
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,229 +143,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [Critical] LPAC-specific registers and commands are programmed unconditio=
-nally for all A6XX-family GPUs, breaking hardware initialization on older c=
-hips.
-- [High] Missing error check for LPAC ringbuffer allocation leads to out-of=
--bounds array access and silent failures.
-- [High] Unconditional creation of LPAC submitqueues allows unprivileged us=
-ers to cause unrecoverable GPU hangs on hardware without LPAC support.
-- [High] The GPU hangcheck mechanism ignores the LPAC ring, meaning LPAC-ex=
-clusive hangs will never be recovered.
-- [High] In `msm_iommu_new`, failing to attach the LPAC domain causes resou=
-rce leaks and use-after-free bugs by freeing attached domains.
-- [Medium] Performance counter statistics for LPAC submissions will be corr=
-upted due to mismatched start and end register reads.
-- [Medium] When error interrupts are disabled, LPAC completion interrupts a=
-re inadvertently dropped, causing job timeouts.
---
+Use the devres-managed devm_of_reserved_mem_device_init() to ensure
+the optional reserved memory region is released on device removal,
+fixing a missing cleanup in the original code.
 
-commit f42a6839003ad94fdc9d88ca88077e9fcbcda345
-Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+---
+ drivers/gpu/drm/tiny/arcpgu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-drm/msm: Add LPAC submitqueue
+diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
+index c93d61ac0bb7..fa01407570a8 100644
+--- a/drivers/gpu/drm/tiny/arcpgu.c
++++ b/drivers/gpu/drm/tiny/arcpgu.c
+@@ -278,7 +278,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
+ 		 arc_pgu_read(arcpgu, ARCPGU_REG_ID));
+ 
+ 	/* Get the optional framebuffer memory resource */
+-	ret = of_reserved_mem_device_init(drm->dev);
++	ret = devm_of_reserved_mem_device_init(drm->dev);
+ 	if (ret && ret != -ENODEV)
+ 		return ret;
+ 
+-- 
+2.53.0
 
-Add UAPI and infostructure to support sending submission to the LPAC
-ring.
-
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index 9f69aada9b7b7..4417a9d04d7c2 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-[ ... ]
-> @@ -493,7 +498,10 @@ static void a7xx_submit(struct msm_gpu *gpu, struct =
-msm_gem_submit *submit)
-[ ... ]
->  	get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, c=
-pcycles_start));
-> -	get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, inde=
-x, alwayson_start));
-> +	if (is_lpac)
-> +		get_stats_counter(ring, cp_always_on_counter, rbmemptr_stats(ring, ind=
-ex, alwayson_start));
-> +	else
-> +		get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, ind=
-ex, alwayson_start));
-
-[Severity: Medium]
-Does this cause a mismatch for LPAC submissions? The start counter
-conditionally reads from cp_always_on_counter for LPAC, but the end counter
-unconditionally reads from cp_always_on_context later in the function:
-
-	get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, cpcy=
-cles_end));
-	get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, index, =
-alwayson_end));
-
-This will cause the duration of LPAC jobs to be incorrectly calculated since
-the start and end values are read from different registers.
-
->  	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
->  	OUT_RING(ring, CP_SET_THREAD_BOTH);
-[ ... ]
-> @@ -2030,6 +2048,9 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
->  		a6xx_preempt_trigger(gpu);
->  	}
-> =20
-> +	if (status & A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS_LPAC)
-> +		msm_gpu_retire(gpu);
-> +
-
-[Severity: Medium]
-Are LPAC completion interrupts inadvertently dropped when error interrupts =
-are
-disabled?
-
-Earlier in a6xx_irq():
-	if (priv->disable_err_irq)
-		status &=3D A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS;
-
-In testing or debug modes where disable_err_irq is set, the interrupt status
-mask preserves the main ring's completion bit but drops the newly added LPAC
-completion bit (CP_CACHE_FLUSH_TS_LPAC). This causes LPAC jobs to artificia=
-lly
-time out during these tests. Should the mask be updated to include the LPAC
-bit?
-
->  	if (status & A6XX_RBBM_INT_0_MASK_CP_SW)
-[ ... ]
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
-msm_submitqueue.c
-> index 1a5a77b280163..042b4f90fb73f 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-[ ... ]
-> @@ -211,6 +212,13 @@ int msm_submitqueue_create(struct drm_device *drm, s=
-truct msm_context *ctx,
->  		queue =3D kzalloc_obj(*queue);
->  	}
-> =20
-> +	if (flags & MSM_SUBMITQUEUE_LPAC) {
-> +		ring_nr =3D priv->gpu->nr_rings;
-> +		ring =3D priv->gpu->lpac_rb;
-> +	} else {
-> +		ring =3D priv->gpu->rb[ring_nr];
-> +	}
-> +
-
-[Severity: High]
-Can an unprivileged user cause a GPU hang regression on hardware without LP=
-AC
-support?=20
-
-Because lpac_rb is exposed unconditionally here, userspace can request an L=
-PAC
-submitqueue and push commands to it even on hardware without an LPAC proces=
-sor.
-The hardware will ignore the software ringbuffer, causing the jobs to time =
-out
-and the GPU to enter a recovery loop. Should this verify if the hardware
-actually supports LPAC first?
-
->  	if (!queue)
->  		return -ENOMEM;
-[ ... ]
-
-I also noticed a few regressions in the broader LPAC enablement changes out=
-side
-of this specific diff:
-
-[Severity: Critical]
-Is it safe to unconditionally program LPAC registers for all A6xx-family GP=
-Us?
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
-    ...
-	/* Set the ringbuffer address for lpac */
-	gpu_write64(gpu, REG_A7XX_CP_LPAC_RB_BASE, gpu->lpac_rb->iova);
-    ...
-	ret =3D lpac_cp_init(gpu);
-	if (ret)
-		goto out;
-    ...
-}
-
-Writing to A7xx-only registers and submitting initialization commands to the
-non-existent LPAC ring on older A6xx GPUs appears to cause the hardware to
-timeout during a6xx_idle() and potentially trigger AHB bus errors. This
-introduces a regression in GPU driver initialization on non-LPAC platforms.
-
-[Severity: High]
-Does this error check inspect the wrong variable?
-
-drivers/gpu/drm/msm/msm_gpu.c:msm_gpu_init() {
-    ...
-	gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_iova);
-
-	if (IS_ERR(gpu->rb[i])) {
-		ret =3D PTR_ERR(gpu->rb[i]);
-    ...
-}
-
-This checks gpu->rb[i] instead of gpu->lpac_rb. This accesses memory past t=
-he
-end of the initialized gpu->rb array and ignores lpac_rb allocation failure=
-s.
-If the allocation fails, gpu->lpac_rb remains an error pointer and can caus=
-e a
-panic when accessed later.
-
-[Severity: High]
-Will the GPU hangcheck mechanism fail to detect LPAC-exclusive hangs?
-
-drivers/gpu/drm/msm/msm_gpu.c:hangcheck_handler() {
-    ...
-	struct msm_ringbuffer *ring =3D gpu->funcs->active_ring(gpu);
-    ...
-}
-
-The handler only inspects progress on the main ring returned by
-active_ring(gpu), skipping the concurrent lpac_rb. If a job hangs on the LP=
-AC
-ring while the main ring is idle or progressing normally, the timer will ne=
-ver
-detect the lockup and the GPU will remain stuck.
-
-[Severity: High]
-Could this error path leak the primary domain or cause a use-after-free?
-
-drivers/gpu/drm/msm/msm_iommu.c:msm_iommu_new() {
-    ...
-	if (lpac_dev) {
-		if (!device_iommu_mapped(lpac_dev))
-			return ERR_PTR(-ENODEV);
-
-		lpac_domain =3D iommu_paging_domain_alloc(lpac_dev);
-		if (IS_ERR(lpac_domain))
-			return ERR_CAST(lpac_domain);
-    ...
-		ret =3D iommu_attach_device(lpac_domain, lpac_dev);
-		if (ret) {
-			iommu_domain_free(domain);
-			iommu_domain_free(lpac_domain);
-			kfree(iommu);
-			return ERR_PTR(ret);
-		}
-    ...
-}
-
-If device_iommu_mapped(lpac_dev) is false or domain allocation fails, it
-returns an error without freeing the primary domain, causing a memory leak.=
-=20
-
-Additionally, if iommu_attach_device() fails, it calls iommu_domain_free() =
-on
-the primary domain while it is still actively attached to dev. Freeing an
-attached domain without first calling iommu_detach_device() can lead to
-use-after-free corruption in the IOMMU subsystem.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-descriptiv=
-e-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com?part=3D11
