@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F363C44501
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1F5C44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D678610E7A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B47610E79B;
 	Mon,  6 Jul 2026 07:13:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="gxzDANV1";
+	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="NSAOyNTL";
 	dkim-atps=neutral
-Received: from out-06.smtp.spacemail.com (out-06.smtp.spacemail.com
- [66.29.159.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACB1E10E10C
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 01:02:00 +0000 (UTC)
+Received: from out-12.smtp.spacemail.com (out-12.smtp.spacemail.com
+ [198.54.127.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4AB10E10C
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 00:38:36 +0000 (UTC)
 Received: from gurudas.dev (107-194-158-19.lightspeed.sntcca.sbcglobal.net
  [107.194.158.19])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mail.spacemail.com (Postfix) with ESMTPSA id 4gt8Mn0CXjz6tkM;
- Sun, 05 Jul 2026 01:01:57 +0000 (UTC)
+ by mail.spacemail.com (Postfix) with ESMTPSA id 4gt7rn4SRMz2x99;
+ Sun, 05 Jul 2026 00:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
- s=spacemail; t=1783213318;
- bh=2qJqLI5cYmY6XssOjT5mS6RQt8tME0zYaMT/RBuKHhI=;
+ s=spacemail; t=1783211915;
+ bh=M633SL93BCN0PrL2e/cwx2xlbDs4y1U/AlCmHMhb3AI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gxzDANV1JQoWbSrlTIw2Hbb83lUzmrjW19c3OZvI3lIFLUx0NWjORGAdcrfZ4Iy1r
- 8iyC/nftZCN6RsgyVPXhGqT3xB7lKhDTIYvv4mPgt23HneL2vlZdPZGvj5/AKk5Pfp
- wZfKzZkjQvogs3VONlJW1oADetqYF+Z1IsjAZyW86GXa/ntxYiqBXIBTcI8TBWs5qC
- 6LphD9AsDF1QQyi7SDc//YsSj4N4PrmToDXekNK0bsPhGwCiGJIgQfdhGPqBLM/i3q
- aiuUXbswiQh086BPfvu9FQvRyd8BtJCb/XDmrMZaTKsgOjTHbYsMvyE/xBsne6r0RG
- gHli7e1+IvGdA==
-Date: Sat, 4 Jul 2026 18:01:55 -0700
+ b=NSAOyNTLPtXZ/k1vM23d4mp6kcF0MfY7hjEozE9ESHWUStbSSsqzbmiiD9bT9KmME
+ xnAufNEJYHbKrfK7MERrVnvmbFeMgkIx6GxHLHSyiCFyy3RCzqYObOgb2IM2gkSkEl
+ n5ETauFMijv8KmS/jXdluLdYQvgxUilcbOPVqAPT8FXUj6yRzgydyIO9gJ4MdAtdnt
+ cxQgrF191paqd10Z5zniDfAmO76GJCGEoWxy3mQV3UO+ca0IHbz6G7bc9o/6KLFbTN
+ eEaQWUGbFQiNK5sG4hbYbqVp7dDxT5pfkoyvnPCLpGPi6eDF8GCzqSTJ/ZeBQ4F+xV
+ T2FbStM6b4UEQ==
+Date: Sat, 4 Jul 2026 17:38:31 -0700
 From: Guru Das Srinagesh <linux@gurudas.dev>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
  Abdiel Janulgue <abdiel.janulgue@gmail.com>,
  Daniel Almeida <daniel.almeida@collabora.com>,
@@ -54,7 +53,7 @@ Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
  Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>, Jens Axboe <axboe@kernel.dk>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
  Heiner Kallweit <hkallweit1@gmail.com>,
  Russell King <linux@armlinux.org.uk>,
  "David S. Miller" <davem@davemloft.net>,
@@ -65,10 +64,10 @@ Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
  linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org,
  linux-block@vger.kernel.org, netdev@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 3/7] cpufreq: rcpufreq_dt: use vertical import style
-Message-ID: <akmtA7EbVBdhRAOq@gurudas.dev>
-Mail-Followup-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+Subject: Re: [PATCH 0/7] rust: Use kernel style vertical imports in various
+ drivers
+Message-ID: <akmnh0AKFfu9-OYn@gurudas.dev>
+Mail-Followup-To: Andrew Lunn <andrew@lunn.ch>,
  Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
  Abdiel Janulgue <abdiel.janulgue@gmail.com>,
@@ -90,7 +89,6 @@ Mail-Followup-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Viresh Kumar <viresh.kumar@linaro.org>,
  Jens Axboe <axboe@kernel.dk>,
  FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>,
  Heiner Kallweit <hkallweit1@gmail.com>,
  Russell King <linux@armlinux.org.uk>,
  "David S. Miller" <davem@davemloft.net>,
@@ -102,14 +100,11 @@ Mail-Followup-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  linux-block@vger.kernel.org, netdev@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
 References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
- <20260628-b4-rust-vertical-imports-v1-3-98bc71d4810b@gurudas.dev>
- <f0ed588a-6cfb-4079-a2fe-7c14f1b42727@oss.qualcomm.com>
- <CANiq72=SQK7pd-fj+4MOb=E6=R-DHCcLcuCvN=us2E5o7Rcy2A@mail.gmail.com>
+ <c89a1bc8-6cc1-4e16-ac95-add389e45a2b@lunn.ch>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANiq72=SQK7pd-fj+4MOb=E6=R-DHCcLcuCvN=us2E5o7Rcy2A@mail.gmail.com>
+In-Reply-To: <c89a1bc8-6cc1-4e16-ac95-add389e45a2b@lunn.ch>
 X-Envelope-From: linux@gurudas.dev
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -127,43 +122,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 30, 2026 at 10:35:00AM +0200, Miguel Ojeda wrote:
-> On Mon, Jun 29, 2026 at 2:43 PM Zhongqiu Han
-> <zhongqiu.han@oss.qualcomm.com> wrote:
-> >
-> > If the preferred style is to place each imported item on its own line,
-> > shouldn't imports such as
-> >
-> >      cpu, cpufreq,
-> >
-> > be formatted similarly as well?
+On Mon, Jun 29, 2026 at 04:06:36PM +0200, Andrew Lunn wrote:
+> On Sun, Jun 28, 2026 at 08:38:14PM -0700, Guru Das Srinagesh wrote:
+> > Came across a recent commit bc58905eb07 ("samples: rust_misc_device: use
+> > vertical import style") and found a few more locations that could
+> > benefit from this cleanup. No functional changes.
+> > 
+> > Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
+> > ---
+> > Guru Das Srinagesh (7):
+> >       samples: rust_dma: use vertical import style
+> >       pwm: th1520: use vertical import style
+> >       cpufreq: rcpufreq_dt: use vertical import style
+> >       block: rnull: use vertical import style
+> >       net: phy: ax88796b: use vertical import style
+> >       net: phy: qt2025: use vertical import style
+> >       drm/nova: use vertical import style
 > 
-> Indeed, good eyes.
+> You have multiple subsystems here, so you need to split this patch
+> setup, per subsystem, and submit them separately. Maintainers only
+> accept patchsets for their own subsystems.
 > 
-> To do what we want, `rustfmt` needs the `//` at the end of that level
-> too (in the future, it will be without the `//`), i.e. the patch
-> probably passes `rustfmtcheck`, but it still needs to split that line
-> and add the other `//`.
+> For netdev, please take a read of:
+> 
+> https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+> 
+> You need to get the correct tree, and set the Subject: line correctly.
+> 
+>     Andrew
 
-Hi Zhongqiu, Miguel:
+Hi Andrew,
 
-Yes, I did run `make LLVM=1 rustfmtcheck` and it passed on this series. I will fix
-the missed ones in v2.
+Thanks for the feedback.
 
-While investigating this, I found that that adding this config `imports_layout =
-"Vertical"` to the rustfmt options would fix all the imports automatically, including
-the ones I missed. I ran it locally on the files touched in this series using rustfmt
-nightly and it correctly fixed the imports as desired:
+I was aware of the per-subsystem rule, but reasoned that since these changes are
+purely about Rust import formatting coding style with no functional impact on any
+subsystem, they might go through the rust-for-linux tree with acks from the
+respective subsystem maintainers. The Rust coding style is independent of any
+subsystem-specific guidelines.
 
-    rustup run nightly rustfmt --unstable-features \
-      --config "imports_layout=Vertical" \
-      --config-path .rustfmt.toml <file>
+Is that reasoning off-base, or is the right path to split these out per subsystem
+regardless?
 
-But unfortunately, since `imports_layout` is an unstable option currently [1], it
-cannot be used straightaway.
+Miguel, could you please indicate if you have a preference here?
 
-However, .rustfmt.toml already has a section of commented-out unstable options kept
-as a reference for when they stabilize. Would it make sense to add `#imports_layout =
-"Vertical"` there? If so, I can include it in v2.
-
-[1]: https://github.com/rust-lang/rustfmt/issues/3361
+Thank you.
