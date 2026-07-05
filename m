@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B414C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 23:38:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3FEFC43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 23:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F51A10E290;
-	Sun,  5 Jul 2026 23:38:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0822D10E1BA;
+	Sun,  5 Jul 2026 23:39:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="X+nTM1Up";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZRbH4EAh";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6CC410E290
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 23:38:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E2510E1BA
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 23:39:31 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98FA2741;
- Mon,  6 Jul 2026 01:38:03 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 10840BE;
+ Mon,  6 Jul 2026 01:38:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1783294683;
- bh=CKr70Bl7SDnv+itCSOhLjyRNH9/JCWI6hs/gsrk/9BY=;
+ s=mail; t=1783294723;
+ bh=sFpMSXqUvGE4yJSP0OG1nAhmmKiQHFdbFlu0SECL2yU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X+nTM1UpQGaDjCCbrKs8a926nKNRXlYJu4kGjmk0blxy95UwK+eDTDWd+PkdzvCQh
- dSHgpjB+bUEcjTOaoKvZUARoiv3ku1BiZwqJzi1oKhuMZODrGTJZQ0SckKGBnDtuZS
- GEOZIOXk5rvt+tNieFvB+91Ra+vsz/rkaGK950xM=
-Message-ID: <1ad604017b0d28663842a86aa036340b@killaraus.ideasonboard.com>
+ b=ZRbH4EAhGXzJo0IxQlwEbNkhNc0FRrdzESVRLy8HD1yEK6o3Bg6NOzlHfR0mGx/7K
+ 4Y6ctG5ffR6S+IjBoFA0Ii3Mawgo1H7mpoym29xYjEfH4Gp1yVsT/SkRSOJ1jMk71Z
+ BVT2FslwLfPDJCP8ys6xfa7FtmuVK46qLeRYQGGM=
+Message-ID: <c697251333ed949722f60571578a0639@killaraus.ideasonboard.com>
 From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org,
- wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH 3/4] drm/bridge: display-connector: Support hardcoded EDID
- for VGA connectors
-Date: Mon, 06 Jul 2026 02:38:49 +0300
-In-Reply-To: <20260705214453.5195C1F000E9@smtp.kernel.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+Subject: Re: [PATCH 4/4] [DNI] arm64: dts: renesas: salvator: Add overlay for
+ Dell P1911 VGA display
+Date: Mon, 06 Jul 2026 02:39:28 +0300
+In-Reply-To: <20260705213741.334241F000E9@smtp.kernel.org>
 References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-4-laurent.pinchart+renesas@ideasonboard.com>
- <20260705214453.5195C1F000E9@smtp.kernel.org>
+ <20260705213542.28987-5-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213741.334241F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
@@ -68,73 +67,30 @@ Thank you,
 
 Laurent's spam bot
 
-On Sun, 05 Jul 2026 21:44:52 +0000, sashiko-bot@kernel.org wrote:
+On Sun, 05 Jul 2026 21:37:40 +0000, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
->=20
-> Pre-existing issues:
-> - [High] Use-After-Free of devm-managed resources and missing asynchronous =
-cleanup during device removal when the driver is unbound.
+> - [Medium] The patch is explicitly marked as test-only and should not be me=
+rged.
 > --
 >=20
-> commit 48f63e147d7554f73cd9df360e29fd0b0ddb5d8d
+> commit ec00db7021fbc2f550a150a0512dfc7596a53df2
 > Author: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 >=20
-> drm/bridge: display-connector: Support hardcoded EDID for VGA connectors
+> arm64: dts: renesas: salvator: Add overlay for Dell P1911 VGA display
 >=20
-> This commit adds support for parsing a hardcoded EDID blob from the device =
-tree
-> for VGA connectors when DDC signals are not connected. It also ensures that
-> specifying both a DDC bus and a hardcoded EDID returns an error during prob=
-e.
+> This patch adds an overlay to hardcode the EDID of a Dell P1911 VGA display
+> connector to the VGA port of the Salvator board.=20
 >=20
-> > diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
-/bridge/display-connector.c
-> > index eb3412ec30a07..225a8e987d086 100644
-> > --- a/drivers/gpu/drm/bridge/display-connector.c
-> > +++ b/drivers/gpu/drm/bridge/display-connector.c
+> > Add an overlay that hardcodes the EDID of the Dell P1911 VGA display
+> > connector to the VGA port of the Salvator board. This is meant to test
+> > EDID hardcoding and should not be merged upstream.
 >=20
-> [ ... ]
+> [Severity: Medium]
+> The commit message explicitly states this is meant to test EDID hardcoding =
+
+> and should not be merged upstream.
 >=20
-> > @@ -64,6 +67,9 @@ static enum drm_connector_status display_connector_dete=
-ct(struct drm_bridge *bri
-> >  	if (conn->bridge.ddc && drm_probe_ddc(conn->bridge.ddc))
-> >  		return connector_status_connected;
-> > =20
-> > +	if (conn->edid)
-> > +		return connector_status_connected;
-> > +
->=20
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does device removal have a
-> use-after-free vulnerability when the driver is unbound via sysfs?
->=20
-> Looking at display_connector_detect() in=20
-> drivers/gpu/drm/bridge/display-connector.c, if the driver is bound and atta=
-ched
-> to a DRM encoder, and then unbound via sysfs:
->=20
-> 1. display_connector_remove() calls drm_bridge_remove() but does not call
->    disable_irq() or cancel_work_sync(&conn->hpd_work).
-> 2. The bridge structure is kept alive because the DRM core still holds a
->    reference count.
-> 3. The driver core's devres_release_all() runs and frees conn->hpd_gpio and
->    the IRQ.
->=20
-> If the DRM core then polls detect, it will execute display_connector_detect=
-():
->=20
-> 	if (conn->hpd_gpio) {
-> 		if (gpiod_get_value_cansleep(conn->hpd_gpio))
-> 			...
->=20
-> Will this dereference the devres-freed conn->hpd_gpio?
->=20
-> Additionally, if the concurrent hpd_work executes, will it attempt to lock
-> bridge->hpd_mutex which was already destroyed by drm_bridge_remove()?
->=20
-> >  	switch (conn->bridge.type) {
-> >  	case DRM_MODE_CONNECTOR_DVIA:
->=20
-> [ ... ]
+> Was this patch accidentally included in this series, or is it intended to be
+> dropped by the maintainer before final merging?
 >=20
