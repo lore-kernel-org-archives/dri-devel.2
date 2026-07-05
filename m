@@ -4,51 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54C9DC43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 17:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC380C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 18:37:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84ED610E205;
-	Sun,  5 Jul 2026 17:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFD2210E1AA;
+	Sun,  5 Jul 2026 18:37:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KcyxY1m2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="novHhvne";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD3010E205
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 17:10:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 836C241879;
- Sun,  5 Jul 2026 17:10:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D667A1F000E9;
- Sun,  5 Jul 2026 17:09:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783271400;
- bh=mcoXwyCDIViVanQXi5iL1opkmjhsI27kJo5T08QRKJw=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=KcyxY1m2uFCsMd7ivwACp4mtffcdKs/HI09z7yxBa7SZny9nOPUTNxXpDZuqeWI/H
- TinrGE1ilyY8+I6h6OhqYgIdpjJ8Lbo+mv1HU4fshPR8zP1WBiH50F3Uw8/qv+NO/V
- hx7Gt0+ui9LDTEZFTNMfupfKcFVgcSQ3pX6UEz/otErFuBERBRZzSpdQV4L+5fPWZY
- 8Z9HPyTM5E4ru/YBExHsFxRivHuHD8hbcA7D2xvw6Sh/ioBx6/9rRTibth7F6lzLSq
- Sy1FUOwlKWkmi7dmLMkqLYTs3XpWTvEufIxzIy+2OcY1rbl6/Cfyn0EHbjEiX9S39f
- raHt2ao5yeI5Q==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 05 Jul 2026 19:09:56 +0200
-Message-Id: <DJQSY9ZY5M5F.3VI537GS00E1G@kernel.org>
-Subject: Re: [RFC 1/3] gpu: nova-core: Add auxiliary bus registration data
- to nova-core
-Cc: <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
- Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260703064526.3630668-1-apopple@nvidia.com>
- <20260703064526.3630668-2-apopple@nvidia.com>
- <DJQNN9FRZN3C.3DQE4H9HAZ8W6@kernel.org>
-In-Reply-To: <DJQNN9FRZN3C.3DQE4H9HAZ8W6@kernel.org>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012035.outbound.protection.outlook.com [52.101.48.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED76D10E1AA;
+ Sun,  5 Jul 2026 18:37:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wnrvTVnqLUyoR85DRSXaPXRIzHLymNvVDsP83olu78ov/mPfrZblkOoNhugzMrHM35w7Cn/NvLNbvlTcF9yZgcgptVxTV39blulOWZowrDGxi0rJ8WncqU0JVd7SNBKIGG13FoCGJpbHKkpGPAFSjlmJiWAXKMBxrkJ33xWADDoPwBDxZJbzXtc71oQEDL8tWP2NQgGA4/iSuDnaI7FpHy8kTxiwkhSoz+THCVKCHGJezcqy6SFFJkUsc4FPoZOSoPaZ3f2VeKN3Pe4O41RrRbqj1eSGJvkP9la2E8Ky7v/asEBV30O4NRtDzXHIU+T3EARICc09hHiRv0D9faZnqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1PuA1zyjWeYZZ5Gz9HtZpCO/tDHcW77gy5O7CDuYlqM=;
+ b=VHtaPGn62M3Zqc5nviMpP3xbUFat/6SeANssMZ853cR2qk1vcJsu6mq++b/166lfbtXD0mhicP6XxHueSOHVh0/d8frRI6HcBFSLwzzTXYQatUvWhPNHfW07T0VRCyJTUR+iHJ4lpioJAkosJd9RHaNEjixK8iXJbcHZYdTgZ9AWgSTsZNz5LbkBrTo5yapTMaFRpMKmXmVaFvSsSzS6/Jjk9N8arUQha3ME4hgIkxuZMcmxVuubI030M7oie2mrzDol4CUe8f/LB8dvunaB7aXSjKHFL/JUWsyGBpPDOGD02i0mUorjA5+7nK7vu2OIh7p4x0ArORmSeLQ5C54ySg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1PuA1zyjWeYZZ5Gz9HtZpCO/tDHcW77gy5O7CDuYlqM=;
+ b=novHhvneBBTjqVSMug8jquty3cl5271DbIIPZ092W6iw5Z71TnZupJdcpd3lymjg3sruD1Ey7zE+q8+hpP4LtEnrLxjfCHQezFfQeQibWZB/w8HyoQRPxa9jy4wbML89AsqZ23SFoLdlshlUt3gnzeL0i4lus7qz+4qSJD4RIIU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by DS4PR12MB9611.namprd12.prod.outlook.com (2603:10b6:8:277::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Sun, 5 Jul
+ 2026 18:37:42 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0181.008; Sun, 5 Jul 2026
+ 18:37:42 +0000
+Message-ID: <a8339282-e3ef-4a4f-a135-968f94855e76@amd.com>
+Date: Sun, 5 Jul 2026 13:37:39 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/amdgpu: add firmware file fallback for APU
+ VBIOS discovery
+To: Oz Tiram <oz@shift-computing.de>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
+ <20260705100436.6877-1-oz@shift-computing.de>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260705100436.6877-1-oz@shift-computing.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9PR03CA0895.namprd03.prod.outlook.com
+ (2603:10b6:408:13c::30) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DS4PR12MB9611:EE_
+X-MS-Office365-Filtering-Correlation-Id: 910b0065-bdb5-4153-d90f-08dedac47fa3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: j7CorNdHECKpWpuYdQMsXaq4mE+Dd0PdfH01TIYApHYDyLWzjuYpdpayvDG2lcq9sFy+YhfFGEfSfAmdcGy/OCVSEkFXnO9uUKpYGCqu1X+T6JMRqyz6PCAGqw/nrYf2dVRqWiUUg6xSXn6N+etN/Mr1hOURUwAJJYP47BHS7E3KmK7lGpWuoncPImh3ZtCPOV2pneOz0liVPUeH5DErvLeYiuMER7fAWRurBbPRB8mib8yVoFp/w6AIczHnWuXKy4CojVgly8hNgHciqKSt2uqNnCd3ise0AIUL2BieZvWefYxa3jMYhx91XZXMexIlDaXtyZJNGy50KSRoJe2XJfubd6Ur3qxvFQqNGlqsI1Ry1/ybAR/rbywKeuV88bYxUeU+t6nmy0GWCuGaDFf1suEu4Fthed84YzrjTQhlyySVoBFxiwV3/6qnnnh24F6l8hDBkHrs5KiCRBHeWgJhDikRP9wzCwi/CVLiNqh0wjpFi2Flt1eHL7ZBNdTy3MW4FO6zwggoCmwJwTsyWTJhojT70zbGNNjcGJOAtTQ8Jof2udxcLZ6yg8xF0BU0kVhXsyqpQksne4yWdm6lA0FbMBV3A9yaTVdIcffNv82lQFSwbD9Zx8KOOcYkab15x7yfTp77BO2RFA2Zxc3AM526MKspNoXtdNlgEBNojlRy5+o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFZiWHhqMDZMUEtuWUFFRHRiaW84bmZOLzJ2RnIzbzY1UDZNYTN0WUV3Skc5?=
+ =?utf-8?B?aTRnTUtxQmc0Z2JTYldBNFpvZjUxV051UFJSakw4MmVQYmxyOUFpbXFwMHBz?=
+ =?utf-8?B?NUZBUER5ZHRrOGM3eVBVc1pCUzdOaVdvQmdwc2NQam9wd1RhYUpSd0JLNGpY?=
+ =?utf-8?B?b0taSGFDQWJzRmN0ajJDQm8rWG9hUjVFWWwwV0hxZHlvMVdmYjhFMzZYb2V1?=
+ =?utf-8?B?Q2grMDE1Y1o3c0RrM25VTkxJcThoem9YcHVSSkl0R085MWQ4dExkTjNRT3Y2?=
+ =?utf-8?B?QWRtTDMvSVRwOE0xV2duZytHS0RsMFMvZnA4NFBaVWdIYi9jUVZxZ3hpUXg2?=
+ =?utf-8?B?YjlyaVNlcVJPSVo1eEpZWjBoTjRpOUJNQ29iMjl6NjAvWlFZT2NXOWc1MzY3?=
+ =?utf-8?B?TEZMUFFUTm5ITWNMeGFILzVDSWJBeDJqUDM1R054a2Z3VGF6cVp6WWppTTIr?=
+ =?utf-8?B?QmhYdzBoUWxTemNHNU1uQks2a1JUclN2UnNneUhJRElYWFJ0OHo4NDZWRHpS?=
+ =?utf-8?B?T0RrTDBwWG55WWVQSEx5N1IvdndJWTZmbkJ4VlRlLzZrNWxKWlV5Z0x5Znlr?=
+ =?utf-8?B?STNPY0RSbUw3SzkxVzJFZnVTM0hvTGJXajhOL2JoZWxDM0dpYnNTOGNWWmtq?=
+ =?utf-8?B?TlNmWkh4MXFmNlE2MGxUekdiTjdRb1haK1c1d0N0SU4wNG04UXFla00vdnZD?=
+ =?utf-8?B?d3VUMS9nR1p2czVHcTFmN1VTcFc1amRORGdzclUvcDRyUjVFNTVrOGwyNmZY?=
+ =?utf-8?B?SFdKNmlpbHJNSWxaREJ2VXNMVVFoTzdVd0NSdjNpMDNzd0hJenlvc0ZUYTlN?=
+ =?utf-8?B?cWQvbjVXTE1PckMzd2U1elZ0NWtacHRMa1UwT1A2cFhpN2E1Q0FMNFBpdnVG?=
+ =?utf-8?B?cFEveGV0MkhaQm5CSUs0S2ZIT0czZ2o2NXowd1dyTVVzR045UUxSaHNnMVM3?=
+ =?utf-8?B?VXZOQjdOdGtveDl0TEovdENQaktZZXY3Y0tXa0R3ZTkyU1hJOG4yejgwSC84?=
+ =?utf-8?B?aTJ3WTdLRFlkUHJaQjMxTlBnbTZZTFgrNjRJMWJGYWxCUFF3WUNjcHlIbFMw?=
+ =?utf-8?B?MHY5OUFyTnhpRmxTYmNreUQvbzhhdmJOcnpLUFVha21UbmdpRFJCWXcyRVUv?=
+ =?utf-8?B?WGRMTGFDWnhoRUpSOWY2cHhzY3QyaHUrNitaVDh2M0V4OXZUM01IbmpUUFFo?=
+ =?utf-8?B?TU0rNExZaXdMeDNqa3htc3FwcDVtVlNQWENsb3RnN05LRUxRcStHd3R3REFF?=
+ =?utf-8?B?d0JBdExTbE5HdE9uaFkzNXpYMC9vODlqRllQZHlITHNZZ08vbXJ5dlBieCtW?=
+ =?utf-8?B?bnpWemowSk5ISGZ5VVQ1a2ZNMzhsaXJlOTNNVnRNTGNKelc4TmhSRFV3a2ph?=
+ =?utf-8?B?bU9lT1JJcWM5YlNVSXRnM0FHakt4UGJGUlpjT09nNjI1REV0WVJxVmJHc2Fo?=
+ =?utf-8?B?WUVmR1dVNG04M0VSQlZhemdaR0hWb3JRaWgzS0hYY0ZJV0ZRc0ZJM0ZXTG5u?=
+ =?utf-8?B?aFVFSkJBOFI3KzJlUHpLQzJ2bkhuZFhiR3ZUZEFzN1FnRnZTUHRGTnllMGxx?=
+ =?utf-8?B?T3pXVG5ZdEQ2bXJKbWU1T29OMjRUZUphS1V1S1ZNdjRpeTljbzFVOFJUalE4?=
+ =?utf-8?B?R3lKS0J0V0xTV2dKaHVpMDkyMEpMTS9mNExPTUVBUnlYc2JOZ05qVG5rUDVH?=
+ =?utf-8?B?MU85N3JqRzJzVkJLTmI2dGlRaGhGdWMybVNDZEFJRkkzT0tWUit1clhvMVcx?=
+ =?utf-8?B?eXNvUEVoTFk5cVUxZnJRWkVNTXJ0emdjLzB4RWI2aXFwQ2xRRjVna3UvNDdw?=
+ =?utf-8?B?SFNtRURIQ21pQUlwbFdYV0UvMGV5dzRXb2t2QnRxa1gzMno2Z1BNZmlFcFRS?=
+ =?utf-8?B?ZG9TTU9hMlZaektqeWlibWZIZDlTMkFsTWRlbURRa0YyU1FuNEw5MThjdGdJ?=
+ =?utf-8?B?RUJGcmZ4bkxwYVhRa0k5Y3h4dGJ2MUIwbVJ2dDY1b0hRZEdCcTh2bXpIL0dz?=
+ =?utf-8?B?MFpNVUZzVnF5ZkxxYXNsV0JQRkVGZG5wd3ZkZWErUTFTcG5pbHN5M0IyQ0hB?=
+ =?utf-8?B?R0ZBTitCQi84UlNBeW94YWU1clBvSjIxVnExbFp6Q21iVHNCSVFjRlBSNVo2?=
+ =?utf-8?B?OEh6Z01LTU55Zm5TMWlCUmp4UVdRVGVNV0JyTGx2OVRmWVR5c0lWTTloVk8r?=
+ =?utf-8?B?ZTFaaXhHdnNGM1JPRFpjNmlHOXlINFBCVm1Ra0ZiTzE4R2VrbWJMOUdYSDdK?=
+ =?utf-8?B?aWpyMnpLaHBFTnVtZDBiTDBtd3Vjd050ZXB5b3pQdlVTNU03ay9IS3JMK0tC?=
+ =?utf-8?Q?Tbmkq8U15wZqUpx2m6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 910b0065-bdb5-4153-d90f-08dedac47fa3
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2026 18:37:42.4774 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XlXvL5bEn7T7To/O5MMvM2s5N33nlmnpef/N9GrYrng+nds3DIwaC7HwJtaeqW6wBQCvjFjYaX96AisMAF09qA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9611
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,412 +138,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun Jul 5, 2026 at 3:00 PM CEST, Danilo Krummrich wrote:
-> On Fri Jul 3, 2026 at 8:45 AM CEST, Alistair Popple wrote:
->> diff --git a/drivers/gpu/nova-core/auxdata.rs b/drivers/gpu/nova-core/au=
-xdata.rs
->> new file mode 100644
->> index 000000000000..266b5ce4ee89
->> --- /dev/null
->> +++ b/drivers/gpu/nova-core/auxdata.rs
->
-> I think it'd just call it something along the lines of api.rs, as this is=
- going
-> to be the file where the entry points into nova-core will live.
->
->> @@ -0,0 +1,12 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +
->> +//! Nova-core auxbus data. Contains all the methods used by the auxbus =
-drivers
->> +//! to interact with nova-core.
->> +
->> +use crate::gpu::Gpu;
->> +
->> +/// Auxiliary bus registration data. Used by the auxbus drivers to call=
- methods on
->> +/// the GPU.
->> +pub struct AuxData<'bound> {
->
-> Since this will also be the data type that will be exposed as an API entr=
-y point
-> into nova-core, I'd rather call it e.g. NovaCoreApi.
->
-> We should provide an assoicated function NovaCoreApi::of(), which takes a=
-n &'a
-> auxiliary::Device<Bound> as argument and returns &'a NovaCoreApi<'a> (at =
-least
-> as long as the type remains covariant).
->
-> This makes it a bit cleaner since it keeps the type assertion local to a =
-single
-> place and makes it transparent to nova-drm that this also is the
-> auxiliary::Registration private data of nova-core.
->
-> (I'm already working on getting rid of the type ID check, but going throu=
-gh
-> NovaCoreApi::of() is cleaner regardless.)
 
-Thinking a bit more about this, I'm still not convinced about a design wher=
-e the
-auxiliary::Device itself carries the type information. However, I think wit=
-h the
-new lifetime design this isn't necessary in the first place.
 
-We can just call NovaCoreApi::of() once from nova-drm's probe() function an=
-d
-subsequently store the struct NovaCoreApi<'a> in the bus device private dat=
-a,
-DRM registration data, etc. Such that the only fallible path is in probe().
+On 7/5/26 05:04, Oz Tiram wrote:
+> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
+> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
+> before giving up:
+> 
+>    1. ACPI VFCT table
+>    2. VRAM BAR read
+>    3. ROM BAR read
+>    4. platform BIOS
+> 
+> On some systems all four fail.  The specific case motivating this patch
+> is a hybrid graphics machine (dGPU + APU) where:
+> 
+>    - The VFCT table contains the iGPU entry but with a stale PCIBus value
+>      from BIOS POST time (0x6A).  When the kernel boots with
+>      pci=realloc,assign-busses, PCI bus numbers are reassigned dynamically
+>      and the iGPU lands on bus 0x0B at runtime.  amdgpu_acpi_vfct_bios()
+>      matches entries by bus number, so the entry is never found.
+>    - The VRAM BAR is unmapped at probe time.
+>    - The ROM BAR is zero (PCI firmware did not assign it).
+>    - No platform BIOS mapping exists.
+> 
+> The UEFI GOP driver initialises the iGPU successfully for early display,
+> confirming the hardware is functional.  The VBIOS image data embedded in
+> the VFCT is also valid; only the PCIBus metadata is wrong.
 
-Please see [1] for reference, there's also a branch in [2].
+So the BIOS on this machine is actually totally fine; it's just when the 
+kernel is booted to reassign busses there is a problem?
 
-Note that this only works for a covariant NovaCoreApi, once it becomes inva=
-riant
-we'll need something like this:
+In that case; why not detect the kernel was booted this way and keep 
+track of the original bus number when reassigned to avoid the issue?
 
-	/// Closure-based API handle for invariant registration data types.
-	pub struct NovaCoreApiHandle<'a> {
-	    adev: &'a auxiliary::Device<Bound>,
-	}
-=09
-	impl<'a> NovaCoreApiHandle<'a> {
-	    fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self> {
-	        adev.registration_data_with::<ForLt!(NovaCoreApi<'_>), ()>(|_| ())=
-?;
-	        Ok(Self { adev })
-	    }
-=09
-	    /// Access the [`NovaCoreApi`] through a closure.
-	    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>)=
- -> R) -> R {
-	        // PANIC: TypeId was validated in `of()`, cannot fail.
-	        self.adev
-	            .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
-	            .unwrap()
-	    }
-	}
+> The firmware
+> file can be extracted directly from the VFCT using dd:
+> 
+>    dd if=/sys/firmware/acpi/tables/VFCT bs=1 skip=$((0x68)) count=16896 \
+>       of=/lib/firmware/amdgpu/1002_1900.bin
+> 
+> (0x68 is the byte offset of the VBIOS image after the ACPI table header
+> and VFCT_IMAGE_HEADER; the image length 16896 comes from the ImageLength
+> field in VFCT_IMAGE_HEADER.)
+> 
+> The driver then prints "Unable to locate a BIOS ROM" and refuses to
+> bind, leaving the APU completely unusable under Linux.
+> 
+> Add a fifth fallback: request a firmware file named
+> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
+> request_firmware().  This allows a VBIOS image extracted as above to be
+> placed in /lib/firmware/ and makes the binding succeed without patching
+> ACPI tables or BIOS.
+> 
+> The fallback is only reached if all existing paths have already failed,
+> so there is no regression risk for boards where VFCT or ROM BAR work.
 
-We can still improve this a bit from the auxiliary API side, but in general=
- this
-should be fine (added this to the branch in [2] as well).
+What happens if the VBIOS changes in another way one boot to another? 
+You might have some other stateful information that isn't updated.
 
-With this the access patterns becomes
+The whole thing to me feels like a hack for a behavior we can control in 
+the kernel when doing reassignments.
+> 
+> Signed-off-by: Oz Tiram <oz@shift-computing.de>
+> ---
+> v2: Fix commit message: clarify that VFCT contains the iGPU entry but
+>      with a stale PCIBus from BIOS POST that mismatches the runtime bus
+>      number assigned by pci=realloc,assign-busses.  Explain that the VBIOS
+>      image data is valid and document the dd extraction command and byte
+>      offsets.  Note that the UEFI GOP driver initialises the iGPU
+>      successfully, confirming the hardware is functional.
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 +++++++++++++++++++++++
+>   1 file changed, 23 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> index aa039e148a5e..86064c753b09 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -26,6 +26,7 @@
+>    *          Jerome Glisse
+>    */
+>   
+> +#include <linux/firmware.h>
+>   #include "amdgpu.h"
+>   #include "atom.h"
+>   
+> @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct amdgpu_device *adev)
+>   		goto success;
+>   	}
+>   
+> +	{
+> +		const struct firmware *fw;
+> +		char fw_name[32];
+> +		size_t fw_size;
+> +
+> +		snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
+> +			 adev->pdev->vendor, adev->pdev->device);
+> +		if (request_firmware(&fw, fw_name, adev->dev) == 0) {
+> +			adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
+> +			fw_size = fw->size;
+> +			release_firmware(fw);
+> +			if (!adev->bios || !check_atom_bios(adev, fw_size)) {
+> +				amdgpu_bios_release(adev);
+> +			} else {
+> +				adev->bios_size = fw_size;
+> +				dev_info(adev->dev, "Fetched VBIOS from firmware file %s\n",
+> +					 fw_name);
+> +				goto success;
+> +			}
+> +		}
+> +	}
+> +
+>   	dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
+>   	return false;
+>   
 
-	// Once from probe(), calls NovaCoreApiHandle::of() internally.
-	let handle =3D NovaCoreApi::handle(adev)?;
-
-and from anywhere else
-
-	handle.with(|api| api.chipset());
-
-[1]
-
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.r=
-s
-index 739690bc2db5..89da0f6c3ba5 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
-=20
-+use core::pin::Pin;
-+
- use kernel::{
-     auxiliary,
-     device::{
-@@ -17,6 +19,7 @@
-=20
- use crate::file::File;
- use crate::gem::NovaObject;
-+use nova_core::api::NovaCoreApi;
-=20
- pub(crate) struct NovaDriver;
-=20
-@@ -26,6 +29,11 @@ pub(crate) struct Nova<'bound> {
-     _reg: drm::Registration<'bound, NovaDriver>,
- }
-=20
-+/// DRM registration data, accessible from ioctl handlers via the registra=
-tion guard.
-+pub(crate) struct DrmRegData<'bound> {
-+    pub(crate) api: Pin<&'bound NovaCoreApi<'bound>>,
-+}
-+
- /// Convienence type alias for the DRM device type for this driver
- pub(crate) type NovaDevice<Ctx =3D drm::Normal> =3D drm::Device<NovaDriver=
-, Ctx>;
-=20
-@@ -59,10 +67,15 @@ fn probe<'bound>(
-         adev: &'bound auxiliary::Device<Core<'_>>,
-         _info: &'bound Self::IdInfo,
-     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
-+        let api =3D NovaCoreApi::of(adev)?;
-+
-         let drm =3D drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
-+
-+        let drm_data =3D DrmRegData { api };
-+
-         // SAFETY: `reg` is stored in `Nova` and dropped when the driver i=
-s unbound; it is
-         // never forgotten.
--        let reg =3D unsafe { drm::Registration::new(adev.as_ref(), drm, ()=
-, 0)? };
-+        let reg =3D unsafe { drm::Registration::new(adev.as_ref(), drm, dr=
-m_data, 0)? };
-=20
-         Ok(Nova {
-             drm: reg.device().into(),
-@@ -74,7 +87,7 @@ fn probe<'bound>(
- #[vtable]
- impl drm::Driver for NovaDriver {
-     type Data =3D ();
--    type RegistrationData<'a> =3D ();
-+    type RegistrationData<'a> =3D DrmRegData<'a>;
-     type File =3D File;
-     type Object =3D gem::Object<NovaObject>;
-     type ParentDevice<Ctx: DeviceContext> =3D auxiliary::Device<Ctx>;
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 57df54ba27bd..2488825c78cf 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -1,7 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0
-=20
--use crate::driver::{NovaDevice, NovaDriver};
--use crate::gem::NovaObject;
-+use crate::{
-+    driver::{
-+        DrmRegData,
-+        NovaDevice,
-+        NovaDriver, //
-+    },
-+    gem::NovaObject,
-+};
-+
- use kernel::{
-     alloc::flags::*,
-     auxiliary,
-@@ -16,9 +23,6 @@
-     uapi,
- };
-=20
--use kernel::types::CovariantForLt;
--use nova_core::auxdata::AuxData;
--
- pub(crate) struct File;
-=20
- impl drm::file::DriverFile for File {
-@@ -33,18 +37,17 @@ impl File {
-     /// IOCTL: get_param: Query GPU / driver metadata.
-     pub(crate) fn get_param(
-         dev: &NovaDevice<Registered>,
--        _reg_data: &(),
-+        reg_data: &DrmRegData<'_>,
-         getparam: &mut uapi::drm_nova_getparam,
-         _file: &drm::File<File>,
-     ) -> Result<u32> {
-         let adev: &auxiliary::Device<Bound> =3D dev.as_ref();
--        let pdev: &pci::Device<Bound> =3D adev.parent().try_into()?;
--        let data =3D adev.registration_data::<CovariantForLt!(AuxData<'_>)=
->()?;
-+        let pdev: &pci::Device<_> =3D adev.parent().try_into()?;
-=20
-         let value =3D match getparam.param as u32 {
-             uapi::NOVA_GETPARAM_VRAM_BAR_SIZE =3D> pdev.resource_len(1)?,
--            uapi::NOVA_GETPARAM_GPU_CHIPSET =3D> data.chipset() as u64,
--            uapi::NOVA_GETPARAM_VRAM_SIZE =3D> data.vram_size(),
-+            uapi::NOVA_GETPARAM_GPU_CHIPSET =3D> reg_data.api.chipset() as=
- u64,
-+            uapi::NOVA_GETPARAM_VRAM_SIZE =3D> reg_data.api.vram_size(),
-             _ =3D> return Err(EINVAL),
-         };
-=20
-@@ -56,7 +59,7 @@ pub(crate) fn get_param(
-     /// IOCTL: gem_create: Create a new DRM GEM object.
-     pub(crate) fn gem_create(
-         dev: &NovaDevice<Registered>,
--        _reg_data: &(),
-+        _reg_data: &DrmRegData<'_>,
-         req: &mut uapi::drm_nova_gem_create,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-@@ -70,7 +73,7 @@ pub(crate) fn gem_create(
-     /// IOCTL: gem_info: Query GEM metadata.
-     pub(crate) fn gem_info(
-         _dev: &NovaDevice<Registered>,
--        _reg_data: &(),
-+        _reg_data: &DrmRegData<'_>,
-         req: &mut uapi::drm_nova_gem_info,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-new file mode 100644
-index 000000000000..ba99d5a27805
---- /dev/null
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Nova Core API for auxiliary bus child drivers.
-+
-+use core::pin::Pin;
-+
-+use kernel::{
-+    auxiliary,
-+    device::Bound,
-+    prelude::*,
-+    types::CovariantForLt, //
-+};
-+
-+use crate::gpu::{
-+    Chipset,
-+    Gpu, //
-+};
-+
-+/// API handle for auxiliary bus child drivers to interact with nova-core.
-+pub struct NovaCoreApi<'bound> {
-+    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
-+}
-+
-+impl NovaCoreApi<'_> {
-+    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registere=
-d by nova-core.
-+    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<=
-'_>>> {
-+        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
-+    }
-+
-+    /// Returns the chipset of this GPU.
-+    pub fn chipset(&self) -> Chipset {
-+        self.gpu.spec.chipset
-+    }
-+
-+    /// Returns the total usable VRAM size of this GPU in bytes.
-+    pub fn vram_size(&self) -> u64 {
-+        self.gpu.gsp_static_info.vram_size()
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/auxdata.rs b/drivers/gpu/nova-core/auxda=
-ta.rs
-deleted file mode 100644
-index 0a07a10da327..000000000000
---- a/drivers/gpu/nova-core/auxdata.rs
-+++ /dev/null
-@@ -1,25 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--//! Nova-core auxbus data. Contains all the methods used by the auxbus dri=
-vers
--//! to interact with nova-core.
--
--use crate::gpu::Chipset;
--use crate::gpu::Gpu;
--
--/// Auxiliary bus registration data. Used by the auxbus drivers to call me=
-thods on
--/// the GPU.
--pub struct AuxData<'bound> {
--    pub(crate) gpu: &'bound Gpu<'bound>,
--}
--
--impl AuxData<'_> {
--    /// Returns the chipset of this GPU.
--    pub fn chipset(&self) -> Chipset {
--        self.gpu.spec.chipset
--    }
--
--    /// Returns the total usable VRAM size of this GPU in bytes.
--    pub fn vram_size(&self) -> u64 {
--        self.gpu.gsp_static_info.vram_size()
--    }
--}
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver=
-.rs
-index 8b0bebee0bdf..9cb2eecfae1c 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
-=20
-+use core::pin::Pin;
-+
- use kernel::{
-     auxiliary,
-     device::Core,
-@@ -18,7 +20,7 @@
-     types::CovariantForLt,
- };
-=20
--use crate::auxdata::AuxData;
-+use crate::api::NovaCoreApi;
- use crate::gpu::Gpu;
-=20
- /// Counter for generating unique auxiliary device IDs.
-@@ -30,7 +32,7 @@ pub(crate) struct NovaCore<'bound> {
-     // device before dropping `gpu`, and drop `gpu` before `bar` because `=
-Gpu`
-     // borrows `bar`.
-     #[allow(clippy::type_complexity)]
--    _reg: auxiliary::Registration<'bound, CovariantForLt!(AuxData<'_>)>,
-+    _reg: auxiliary::Registration<'bound, CovariantForLt!(NovaCoreApi<'_>)=
->,
-     #[pin]
-     pub(crate) gpu: Gpu<'bound>,
-     bar: pci::Bar<'bound, BAR0_SIZE>,
-@@ -82,7 +84,7 @@ fn probe<'bound>(
-             pdev.enable_device_mem()?;
-             pdev.set_master();
-=20
--            Ok(try_pin_init!(&this in NovaCore {
-+            Ok(try_pin_init!(NovaCore {
-                 bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/b=
-ar0")?,
-                 // TODO: Use `&bar` self-referential pin-init syntax once =
-available.
-                 //
-@@ -105,14 +107,16 @@ fn probe<'bound>(
-                         // For now, use a simple atomic counter that never=
- recycles IDs.
-                         AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-                         crate::MODULE_NAME,
--                        AuxData {
-+                        NovaCoreApi {
-                             // TODO: Use `&gpu` self-referential pin-init =
-syntax once available.
-                             //
--                            // SAFETY: `this.gpu` is initialized before th=
-is expression is evaluated
-+                            // SAFETY: `gpu` is initialized before this ex=
-pression is evaluated
-                             // (`try_pin_init!()` initializes fields in de=
-claration order), lives at
-                             // a pinned stable address, and is dropped aft=
-er `_reg` (struct field
-                             // drop order).
--                            gpu: &*core::ptr::from_ref(&this.as_ref().gpu)=
-,
-+                            gpu: Pin::new_unchecked(
-+                                &*core::ptr::from_ref(gpu.as_ref().get_ref=
-()),
-+                            ),
-                         },
-                     )?
-                 },
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nov=
-a_core.rs
-index d00c8804269d..9463ae038e81 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -10,7 +10,7 @@
-     InPlaceModule, //
- };
-=20
--pub mod auxdata;
-+pub mod api;
- mod driver;
- mod falcon;
- mod fb;
-
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=
-=3Dnova-api
