@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDBCBC43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:14:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3D97C43602
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:14:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF4810E229;
-	Sun,  5 Jul 2026 19:14:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDF2E10E22D;
+	Sun,  5 Jul 2026 19:14:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YyOmZ8UY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LaHvWV4h";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6221B10E229
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:14:15 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-476a130c138so2348910f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 12:14:15 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DB8010E229
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:14:17 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-493c2c0b9a8so20592585e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 12:14:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783278854; x=1783883654; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=rfOoMuZEApI7TKZXEN8dHfuOQq4puRHMEr9ArXWgLU4=;
- b=YyOmZ8UYMN09IlOVnqeBOroS4jVf39/FO9OLlhhzBqWZLcws8wAIcJ4nG0dn94a3eD
- GC4cOH8eXOW15EuolT/jg+3yFdpeYT40BHjPCgG2lzP/miVAATZFUKBmJ7C3J/2OpAqu
- NTEtkFgV54XCQkusrAEu8DJCooaWdlAQLHcBn+myVl6Od6cnqcYmJobuRXaTDpFdv0C7
- TjV8nxOhQeB3XGAtjt1a6UjJWEP8cWAl/pozKsJYfNsFH9nnqrD4l51pctcbfgDT76ft
- MdzBa/H3LHL0LAGlHW0zaLQl5lu9IEFfmPQIYO08Gu2Xii1Q9yMrSiCDYWqfIdyIHP1x
- 9CZg==
+ d=gmail.com; s=20251104; t=1783278855; x=1783883655; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=G3eyPuG/7N0ePFJ/qBb/yJdx1/OQTbqvhMmqlXZb7jM=;
+ b=LaHvWV4hFv6FrdVrfEK8kthGWBOSy6YoXDHwZ8v5CDs6pmIyiVp31tkRcCyO2JLBwl
+ 2H18At3aaVBS0W7jCdiXzwtlBVrqNvP3N4NSXZ08FHfpv1/92OmWQRrk31r6DDLWq/V6
+ ZpIQz/+8Ur+3u5UoXsvHFrVs1mkxmdQNPCJjx3OUfxxWRjMp/13J9ks+2qHcVsPADEZd
+ X3h3iFuqJg9Zc/arpg8rNROsFqTOt7kH9KvZhY4cnizbrOf/HLo4Hh/76CFzlfgJjITX
+ AZP0a47VTi4ojteH4Am7wsGQXe2HFu7HXyBS69NdHt4yUqfmJtDwUSa1Pz6uun/Leh1A
+ 9aQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783278854; x=1783883654;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=rfOoMuZEApI7TKZXEN8dHfuOQq4puRHMEr9ArXWgLU4=;
- b=NDtWg+1EJ7LrbO8lXTLBcLpOvplNNW5O2cN1UMQX+Pil1JTN1RoW5ROkhj71S7BJhn
- jxcclS/DQKUn8MAnY+5i5nFrqVYG0+qs6B7b5Kt8InnwzJyOuXEt50AmJBjFOj7Lsa34
- TVRpfLK0oeOpjBuAVAbY+OO6Lygv+R+1C9W5KZqbrV+DdKdHdK67I9hiJnJAfktYloxi
- +nepkjg1I64kBw7983ICWkyTGYB+2KVnNKB71oRcp2Jzu9XMmakthVLdCEdEDgW77bRL
- Ei87/vAJgbB3HIkVQ2ad/X9wXsDYD4J0GxbUQB/W6Om9CYGzrjm1fOTgeBlImpQG1wxn
- CPQQ==
+ d=1e100.net; s=20251104; t=1783278855; x=1783883655;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=G3eyPuG/7N0ePFJ/qBb/yJdx1/OQTbqvhMmqlXZb7jM=;
+ b=jOQ5/9lD/V8slHUuq8fGy0w0RPtyYbmKaxAvwzef7x+Te8ZqzZaFoDfjOiwM4uSwo1
+ KPIDu6oQUKMzU3D65R2AkaW2VYmwp/LlQGGkztvEyefdx3QC8zzeDjLItsXT7HmcPPce
+ QHmeX3wzZ84csSqKj1WJtFhK4Fx3xqGjxrviInXS851kKaJl2bZ7Vtga/KkIYPUi4eNV
+ pZP/ZJQcQUi2ab/qobKRMK0YELf7Lq+OPBTxJmBfTWI0WnvPpFm01XVcDPyj5Z7f590U
+ rL1tBwL5Q8paSilmIttYvLThn2JoiXT3fUPsmjebY1FfJhSkz/oceNZCf8wt7GNsjUiM
+ Cm+w==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr0qRSnU+yqniOjY7ewyrFR3ixU4yRJe+lhu7jKCAIl0b6oiz777uaYhLH0tExlV1FlchwG33UaKfk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgQbJiuCeBg/O8BgY/AI8R0hBTSn4JYIhJ5z933PtYc52NFRAv
- A2bkXJlrIGUpuvx4cngllbrUmkFmNSv+PabtjSLR4o7i0H9MRuyadUQ=
-X-Gm-Gg: AfdE7cns+RneY9w8un30ttpjFL4Ep55R9/Nr724FHbuejcKKz2v56OzSN+Ec6N1Iq4T
- Bw8E6bntzylakL4k9g6Cqe6MZpesYXApNgfYLMJEAsjzePcL7WZIkPwIol4iGyHZU3jfEyCUsh2
- wAHbNQQSSfmudIf5pv5zDTKhOue8aYCK21WCYK+eWA/QzlCdoxRdPmRDQnXwfKQ9oxj8or57JC4
- Y1T1GmM/LCoSpJR9Z4Ffy/TelFDFOB4hC9G080DnaK93rFKDimxAq1bFdaY/UsRNkcAVmM1LyKA
- 8TUOpKk/+gRUS7KfahazDZSfy3+fWrd9tWlVUkrOhRE38dGN+BvpTPCh1rGV+A5KqdMksltTam/
- OgFP1Z9g30ISHW0jtnvjQP907zstLQrSaJ6GH9x6+3ObveAmMfGvYmuZw0P1+y2a447igAMCQh4
- UKtxzkJK0XT30JFro=
-X-Received: by 2002:a05:6000:469a:b0:46e:1815:6a83 with SMTP id
- ffacd0b85a97d-47aad6435e9mr5514134f8f.29.1783278853423; 
- Sun, 05 Jul 2026 12:14:13 -0700 (PDT)
+ AHgh+RoBwP6IiUfBuGqzCdeI2eOwScnz4Awj+JbaMxbOlH0Lfy3Me4OFDKpfj0FHNg3aaq5RTZEmYmEov30=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPZpokEzKYAioCb/wWOByjb9JJPH7itTUxohtQrZxiiFPZwNyw
+ oO9fwNp4SqJolmmPSFMe+EMgesYUK3NREmdr36tN82b7rzX3KqymmQE=
+X-Gm-Gg: AfdE7ckdEMjpvDtEieZ4VvqElRIsLhB5Ww/uoPV4b+qryQdwL6ZfXvYFPRGXP4Mf7mH
+ 1Yx7XjzA5go3eTcLn7m4voRxvs5IH1BRzlb2ntvyauUPLPlPq3rTz00e1M2tpSRfV0Q+Bb8kiL9
+ DNBs3yjlDlOhD+dse3QpWn10hPXJHKEGMe+JeGOu8D9M4Y1ma1ixS117jCdOJ3/lCzj9bK56VPW
+ opQe585KfTk6w/t17TARaWjxKkC7mlFsGGch7vzwXADj4SdmltNkRdedb4WcMS2hhXBhsWpQc3L
+ WPQe9ugoUaEZMo5NJT2AWsRT63b7+RO/LPTXWNoZs9zJETeI8y9qOyhQ8AtLrllIwpK9FE3uScB
+ yg0CjGDptzRWQNJiE5tJqaoQXiKBaCOxPKfr9W8agPaFziQ00qwXRU92aHC8C3BL5Eu5LziLhUA
+ PTU7oMiJ0GRmHi/iNKVW3rkZjGy30Op7ttrjPlesNX
+X-Received: by 2002:a05:600c:628f:b0:493:bf84:53d8 with SMTP id
+ 5b1f17b1804b1-493d11d7d55mr92320425e9.9.1783278855325; 
+ Sun, 05 Jul 2026 12:14:15 -0700 (PDT)
 Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa0960634sm19209528f8f.26.2026.07.05.12.14.11
+ ffacd0b85a97d-47aa0960634sm19209528f8f.26.2026.07.05.12.14.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jul 2026 12:14:13 -0700 (PDT)
+ Sun, 05 Jul 2026 12:14:14 -0700 (PDT)
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Subject: [RFC PATCH 00/13] Enable LPAC on a7xx series GPUs
-Date: Sun, 05 Jul 2026 21:13:34 +0200
-Message-Id: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+Date: Sun, 05 Jul 2026 21:13:35 +0200
+Subject: [PATCH RFC 01/13] iommu: arm-smmu-qcom: Configure lpac device with
+ split address space
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQrCMAyA4VcZORtIN63gq4iHtosacbUk3RDG3
- t2qx+/y/ysYq7DBqVtBeRGTV25wuw7SPeQbo4zN0FPvydOAI1tSKVUWxhwmxmcJCediVTlMeBw
- oOL+Pjg4RWqQoX+X9G5wvf9scH5zqtwrb9gEd3ZUqggAAAA==
-X-Change-ID: 20260603-descriptive-name-lpac-upstream-730a164b105b
+Message-Id: <20260705-descriptive-name-lpac-upstream-v1-1-01d50c3e0c99@gmail.com>
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
  Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
  Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
@@ -92,11 +92,11 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783278851; l=2538;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783278851; l=2198;
  i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=8dMwcHoLl0Z1JzcMDPMcwAdi90HhpnlCPh0AzVY5gFw=;
- b=Q83mQkQCI/ZbHgZyMczAaUD07W0pExCURYUI+AfeuCtFffXnVzp1aiJOAaTDPf13rw1Fzn+7X
- WRuPw2v96y4CWwkfRLibXR6NQ9DulNdUY/gYM6XuxmEibN0Vv7DXr+i
+ bh=TOpopsFtZ1PPnGuz7Qdse1Rb2dSOsjvazts1+j2Qsuk=;
+ b=swnPSg6jJwnfwPpO2lUtsliGm7jHo9gqL51QEmCML+oAIm1zPDuCFHYdt3TNVGcjeXVx38cVC
+ 13fGjbA8BMDAB0TZwyRx8GCJenaSAUzrSU2r89a5X2KYaRbtynBvrSe
 X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
  pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,56 +114,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series enables LPAC on a7xx GPUs
-
-Currently hangcheck and recovery are broken as the patches to make them
-work depend on https://lore.kernel.org/linux-arm-msm/20250911-preemption_aware_hangcheck-v1-0-974819876819@gmail.com/
-
-The series also depends on https://lore.kernel.org/linux-arm-msm/177919116291.814652.1720687887970998122.b4-ty@kernel.org/
-to work correctly.
+We want the context bank used by LPAC to use split address space just
+like GFX.
 
 Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 ---
-Anna Maniscalco (13):
-      iommu: arm-smmu-qcom: Configure lpac device with split address space
-      drm/msm: add support for lpac_domain in msm_mmu
-      drm/msm: look for lpac from dts
-      arm64: dts: qcom: sm8650: move smmu sid 1 to new lpac device
-      firmware: qcom: scm: Configure LPAC aperture
-      DEBUGGING: print contextbank and other ttbrs on fault
-      iommu: arm-smmu-qcom: Fixed mapping between sid and cb for gpu and lpac
-      HACK: use cb1 address in lpac dtb node
-      temp: add LPAC regs
-      drm/msm: initialize LPAC ring
-      drm/msm: Add LPAC submitqueue
-      drm/msm: set ctxbank and asid based on ring
-      drm/msm: add lpac ring to devcoredump
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
- arch/arm64/boot/dts/qcom/sm8650.dtsi          |  12 +-
- drivers/firmware/qcom/qcom_scm.c              |  18 +++
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c     |   1 +
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 191 +++++++++++++++++++++-----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   2 +-
- drivers/gpu/drm/msm/adreno/adreno_device.c    |   6 +
- drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  79 +++++++----
- drivers/gpu/drm/msm/msm_gem_submit.c          |   6 +-
- drivers/gpu/drm/msm/msm_gpu.c                 |  29 +++-
- drivers/gpu/drm/msm/msm_gpu.h                 |  17 ++-
- drivers/gpu/drm/msm/msm_iommu.c               | 158 ++++++++++++++++++---
- drivers/gpu/drm/msm/msm_mmu.h                 |   7 +-
- drivers/gpu/drm/msm/msm_submitqueue.c         |  11 +-
- drivers/gpu/drm/msm/registers/adreno/a6xx.xml |  14 ++
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c    |  37 ++++-
- include/linux/adreno-smmu-priv.h              |   2 +
- include/linux/firmware/qcom/qcom_scm.h        |   1 +
- include/uapi/drm/msm_drm.h                    |   2 +
- 19 files changed, 492 insertions(+), 103 deletions(-)
----
-base-commit: 9a967125427e03c7ebc24d7ad26e9307e8403d4e
-change-id: 20260603-descriptive-name-lpac-upstream-730a164b105b
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index edd41b5a3b6a..48a590aaeb5e 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -35,6 +35,8 @@
+ static const struct of_device_id qcom_smmu_actlr_client_of_match[] = {
+ 	{ .compatible = "qcom,adreno",
+ 			.data = (const void *) (PREFETCH_DEEP | CPRE | CMTLB) },
++	{ .compatible = "qcom,lpac",
++			.data = (const void *) (PREFETCH_DEEP | CPRE | CMTLB) },
+ 	{ .compatible = "qcom,adreno-gmu",
+ 			.data = (const void *) (PREFETCH_DEEP | CPRE | CMTLB) },
+ 	{ .compatible = "qcom,adreno-smmu",
+@@ -217,6 +219,7 @@ static void qcom_adreno_smmu_set_prr_addr(const void *cookie, phys_addr_t page_a
+ }
+ 
+ #define QCOM_ADRENO_SMMU_GPU_SID 0
++#define QCOM_ADRENO_SMMU_LPAC_SID 1
+ 
+ static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
+ {
+@@ -230,7 +233,8 @@ static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
+ 	for (i = 0; i < fwspec->num_ids; i++) {
+ 		u16 sid = FIELD_GET(ARM_SMMU_SMR_ID, fwspec->ids[i]);
+ 
+-		if (sid == QCOM_ADRENO_SMMU_GPU_SID)
++		if (sid == QCOM_ADRENO_SMMU_GPU_SID ||
++		    sid == QCOM_ADRENO_SMMU_LPAC_SID)
+ 			return true;
+ 	}
+ 
+@@ -305,9 +309,9 @@ static int qcom_adreno_smmu_alloc_context_bank(struct arm_smmu_domain *smmu_doma
+ 	 */
+ 	if (qcom_adreno_smmu_is_gpu_device(dev)) {
+ 		start = 0;
+-		count = 1;
++		count = 2;
+ 	} else {
+-		start = 1;
++		start = 2;
+ 		count = smmu->num_context_banks;
+ 	}
+ 
+@@ -394,6 +398,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
+ 
+ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+ 	{ .compatible = "qcom,adreno" },
++	{ .compatible = "qcom,lpac" },
+ 	{ .compatible = "qcom,adreno-gmu" },
+ 	{ .compatible = "qcom,glymur-mdss" },
+ 	{ .compatible = "qcom,mdp4" },
 
-Best regards,
---  
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
+-- 
+2.54.0
 
