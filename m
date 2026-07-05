@@ -4,90 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 031EBC43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 18:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7447C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E20D10E226;
-	Sun,  5 Jul 2026 18:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1623C10E1AC;
+	Sun,  5 Jul 2026 19:11:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zz3LCDFT";
+	dkim=pass (2048-bit key; unprotected) header.d=shift-computing.de header.i=@shift-computing.de header.b="RcM2Qs2o";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7C210E220
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 18:40:02 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-493ae59eca6so16050735e9.1
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 11:40:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783276801; x=1783881601; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=30UKe4NS+kCZBXUPUxbdvpFaDFKTcDvsQMmgHt2T7CQ=;
- b=Zz3LCDFT5+0X/pP/sOXLeTZe6L5Ls8efgd1nr3rIZPhdhxJSUkEhalYtdjiCZ3LCHc
- o/GG1xqgiwf2WxLcZAw5TVEU4wO3J1LOAvMKCfWz9WZH05L/f4uNlKtyCaVEIPLyVz76
- F9+tg4jyM5p62LJOMZ2bSTaAUgjMqL1tDbyas+AXZGu2HKG5+3XaQ64DkLdXPDKhZ+7w
- 8GwQ+FyddWrzUSSZLLkYxbExvrZ9HW773a+mMD9KJ+73PQRDrnWtMrANZoul70LV6R7/
- GiC/VnWFrICUAvKuaolOR4xLJ/wpTg0i9B22P1mmJrwEcGly/4zPKgpaugvGXOsPYaAz
- Veng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783276801; x=1783881601;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=30UKe4NS+kCZBXUPUxbdvpFaDFKTcDvsQMmgHt2T7CQ=;
- b=r9B1LLKe2wun+3VOjJ0W9XBJTBNrjE1lxrmupsv61Wd8vItFgaEiTrOse5nkcGYEkR
- vcQ5mtMOC2lTEz0VqRK75WqsG4yo9a3OWvOe8NCN40yT/GP/Ek8Kco0qVZkKGVrcuD0e
- DHrqLAUOwtgxVMedo5gWmNXvWdIXEldH4rJht1M8PT4iRIEii3PnhuA6aokvrxROG2Oh
- du3sIfZL49g0JADBws+5qk/wvr8SypG+XA9XGC1d13dD47Vjl3n6DXSBxJI0vDw7UdCB
- VYiGlislXrCnOm/oCY6H3rEbwdfVLjkZmoz/JA+nWyt+Bt0JRWtpdg6tSLigKxB+kMxi
- Dldw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpH/pHG7XBXmfWfMmvN6M70e0k4iMbfQXlyxFSb6IfMnElY1rrSQso9FIKCiwqQUP3pWibJ64dQ2TI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzw0iUOBS2g9fAVUbnv3oBjEJAre49pNEB8TUxXoTsahChCM5nQ
- m/Sj4RQ6g8qeancJDp5MtwZFXGwBjtOISnpaLL57TKXpEqvheJdNoms=
-X-Gm-Gg: AfdE7ckmz/qVFukEKdBNPBVftaFmEKdmoEm5ZaTPHxgA0XPnW+/Rnr/cIW9s1ZOZt1h
- 4S7agvCY5tm4KGg8tBsNX4TOb6MVRWe2KzmXrfULONSIBctGc6qCPiKEfPyMCYWLBDxY1OqF1V6
- UItv5GVzkElzSJ+GAbJ+Wyd1CfLMwxn8rjkq8jV/xUSEMvvOucNkCOl2If2KR8HvIQ7XjrT4mod
- 5tSUi5Q06OLgPhxIVfC82qvyZ2jIPutXi3SNCiAtBaqYF0riZYvvGQrLNLiTSz5eYJx1faLoqXf
- GNKMkOZcEnT2b2mXPqtRZmyS7G0N7/MKRQ5PFXn8TugjmvQj26J6MJVfLQ2VPvTiHzr7peSRye5
- sueLWPZfYD29M8fN4c6ppZN5EeehF1h9aJ/ovLWxmkQGEjA9lSFW1OpvH4MSjAp1eXJZsJjMjxO
- haM0QkMo9bJy2Rw8EbjPFHStGsPRMjxzuaCAzfPtw4KaI+6K4Iuno3zB0=
-X-Received: by 2002:a05:600c:81c5:b0:493:bd4f:510 with SMTP id
- 5b1f17b1804b1-493d11f02f3mr76841285e9.19.1783276800371; 
- Sun, 05 Jul 2026 11:40:00 -0700 (PDT)
-Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a?
- ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493c6375764sm271477275e9.5.2026.07.05.11.39.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 05 Jul 2026 11:39:59 -0700 (PDT)
-Message-ID: <09bc95b4-8098-48db-8a02-1762016eb323@gmail.com>
-Date: Sun, 5 Jul 2026 20:39:57 +0200
+Received: from mail.teamster.cloud (mail.teamster.cloud [213.136.73.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D96B110E1AC;
+ Sun,  5 Jul 2026 19:11:30 +0000 (UTC)
+Message-ID: <42e07bbb-9384-4871-a345-e0fd6c00a772@shift-computing.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shift-computing.de;
+ s=dkim; t=1783278687;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eIbBif1E3L3kt400WoRaCxmz8+S79E+m8Ey7hk301xo=;
+ b=RcM2Qs2oOFtWFLYIAQAR1cTyS7h3jjcSjBP9b05ZUY/Ww2wi6fJ4+AwtvAGpp0dQBCg93i
+ o75Kf+1tOfLcNO+hKl8FYGf4Dgo9c48NaRPnfgQ8k184kE8ggbrlbpsRTShp4TMRlN2WDR
+ jz3Kp7Bkzh/VrnbArCdlW0xurP/QX6xg7dfPRqPq3zqQRBoNhHFJoiVvt5KMXZ8JX6tnjY
+ /cTsHceGtWAs4AfuXSHEvhGf2FWMJOO3xk5rSoXSqTe8wYWwOdQ+0k6nCAxFfKIjob7626
+ L5LM2yccprjCw23XCa8ShFya4CzgLRSK8XScV6YskXAvIFp5rM0traou+bstxA==
+Authentication-Results: mail.teamster.cloud;
+ auth=pass smtp.mailfrom=oz@shift-computing.de
+Date: Sun, 5 Jul 2026 21:10:59 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/msm: preemption aware hangcheck
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20250911-preemption_aware_hangcheck-v1-0-974819876819@gmail.com>
- <20250911-preemption_aware_hangcheck-v1-2-974819876819@gmail.com>
- <c08872c9-cdad-4e62-827b-7985cb3b18de@oss.qualcomm.com>
- <7876a7c5-4b40-4760-bb59-3fbeb5d63f67@gmail.com>
- <d3490029-f532-48c2-a44a-9a7049ecea4d@oss.qualcomm.com>
+Subject: Re: [PATCH v2] drm/amd/amdgpu: add firmware file fallback for APU
+ VBIOS discovery
 Content-Language: en-US
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <d3490029-f532-48c2-a44a-9a7049ecea4d@oss.qualcomm.com>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
+ <20260705100436.6877-1-oz@shift-computing.de>
+ <a8339282-e3ef-4a4f-a135-968f94855e76@amd.com>
+From: Oz Tiram <oz@shift-computing.de>
+In-Reply-To: <a8339282-e3ef-4a4f-a135-968f94855e76@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spamd-Bar: ---
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,499 +63,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 9/26/25 11:12 PM, Akhil P Oommen wrote:
-> On 9/18/2025 8:15 PM, Anna Maniscalco wrote:
->> On 9/17/25 5:23 PM, Akhil P Oommen wrote:
->>> On 9/11/2025 10:31 PM, Anna Maniscalco wrote:
->>>> Rework hangcheck code to work well toghether with preemption.
->>>>
->>>> Track the time a job has spent in a ring by storing timestamps of the
->>>> `CP_ALWAYS_ON_CONTEXT` register at the beginning of a job and when
->>>> switching rings as well as reading it back if the ring is currently
->>>> active.
->>>>
->>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/adreno/a5xx_gpu.c     |  3 +-
->>>>    drivers/gpu/drm/msm/adreno/a6xx_gmu.c     |  3 +-
->>>>    drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 28 +++++++++++++++--
->>>>    drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
->>>>    drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 25 +++++++++++----
->>>>    drivers/gpu/drm/msm/adreno/adreno_gpu.c   |  3 +-
->>>>    drivers/gpu/drm/msm/msm_gpu.c             | 51 ++++++++++++++++++++
->>>> +++++------
->>>>    drivers/gpu/drm/msm/msm_gpu.h             |  3 ++
->>>>    drivers/gpu/drm/msm/msm_ringbuffer.h      |  6 ++++
->>>>    9 files changed, 102 insertions(+), 21 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/
->>>> msm/adreno/a5xx_gpu.c
->>>> index
->>>> 4a04dc43a8e6764a113d0ade3dee94bd4c0083af..cb4775a35da0706e571eb27ce617044de84ca118 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
->>>> @@ -1255,7 +1255,8 @@ static void a5xx_fault_detect_irq(struct
->>>> msm_gpu *gpu)
->>>>            gpu_read(gpu, REG_A5XX_CP_IB2_BUFSZ));
->>>>          /* Turn off the hangcheck timer to keep it from bothering us */
->>>> -    timer_delete(&gpu->hangcheck_timer);
->>>> +    for (int i = 0; i < gpu->nr_rings; i++)
->>>> +        timer_delete(&gpu->rb[i]->hangcheck_timer);
->>>>          kthread_queue_work(gpu->worker, &gpu->recover_work);
->>>>    }
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/
->>>> msm/adreno/a6xx_gmu.c
->>>> index
->>>> fc62fef2fed87f065cb8fa4e997abefe4ff11cd5..103c19fa8669f06a6c1627ced1daf2bcd60415db 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
->>>> @@ -28,7 +28,8 @@ static void a6xx_gmu_fault(struct a6xx_gmu *gmu)
->>>>        gmu->hung = true;
->>>>          /* Turn off the hangcheck timer while we are resetting */
->>>> -    timer_delete(&gpu->hangcheck_timer);
->>>> +    for (int i = 0; i < gpu->nr_rings; i++)
->>>> +        timer_delete(&gpu->rb[i]->hangcheck_timer);
->>>>          /* Queue the GPU handler because we need to treat this as a
->>>> recovery */
->>>>        kthread_queue_work(gpu->worker, &gpu->recover_work);
->>> I think a helper routine makes sense. We have to disable hangcheck
->>> whenever recover_worker is queued.
->>>
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/
->>>> msm/adreno/a6xx_gpu.c
->>>> index
->>>> b8f8ae940b55f5578abdbdec6bf1e90a53e721a5..7647e3dfd50db7446589e67949ed08d0a422f543 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
->>>> @@ -465,6 +465,9 @@ static void a7xx_submit(struct msm_gpu *gpu,
->>>> struct msm_gem_submit *submit)
->>>>        get_stats_counter(ring, REG_A6XX_CP_ALWAYS_ON_COUNTER,
->>>>            rbmemptr_stats(ring, index, alwayson_start));
->>>>    +    get_stats_counter(ring, REG_A6XX_CP_ALWAYS_ON_CONTEXT,
->>>> +        rbmemptr(ring, last_job_start_ctx));
->>>> +
->>>>        OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
->>>>        OUT_RING(ring, CP_SET_THREAD_BOTH);
->>>>    @@ -1816,7 +1819,8 @@ static void a6xx_fault_detect_irq(struct
->>>> msm_gpu *gpu)
->>>>            gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE));
->>>>          /* Turn off the hangcheck timer to keep it from bothering us */
->>>> -    timer_delete(&gpu->hangcheck_timer);
->>>> +    for (int i = 0; i < gpu->nr_rings; i++)
->>>> +        timer_delete(&gpu->rb[i]->hangcheck_timer);
->>>>          /* Turn off interrupts to avoid triggering recovery again */
->>>>        gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);
->>>> @@ -1839,7 +1843,8 @@ static void a7xx_sw_fuse_violation_irq(struct
->>>> msm_gpu *gpu)
->>>>         */
->>>>        if (status & (A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
->>>>                  A7XX_CX_MISC_SW_FUSE_VALUE_LPAC)) {
->>>> -        timer_delete(&gpu->hangcheck_timer);
->>>> +        for (int i = 0; i < gpu->nr_rings; i++)
->>>> +            timer_delete(&gpu->rb[i]->hangcheck_timer);
->>>>              kthread_queue_work(gpu->worker, &gpu->recover_work);
->>>>        }
->>>> @@ -2327,6 +2332,22 @@ static int a6xx_get_timestamp(struct msm_gpu
->>>> *gpu, uint64_t *value)
->>>>        return 0;
->>>>    }
->>>>    +static int a6xx_get_ctx_timestamp(struct msm_ringbuffer *ring,
->>>> uint64_t *value)
->>>> +{
->>>> +    struct msm_gpu *gpu = ring->gpu;
->>>> +    struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>> +    struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
->>>> +
->>>> +    guard(spinlock_irqsave)(&a6xx_gpu->eval_lock);
->>> Is eval_lock initialized anywhere? Also why do we need this?
->> Yeah eval_lock was introduced in the preemption series. It is
->> initialized in `a6xx_preempt_hw_init`.
->>
->>>> +
->>>> +    if (a6xx_in_preempt(a6xx_gpu) || ring != a6xx_gpu->cur_ring)
->>> This will race with preemption. I think we should wrap the preempt state
->>> check and the regread under the preempt lock.
->> Continuing. The idea is that if in_preempt returns true then it doesn't
->> matter that reading cur_ring might race because we exit early.
->>
->> On the other end, if it returns false, since we are holding `eval_lock`
->> and the only place where we can go from the PREEMPT_NONE state to any
->> other state is also guarded by that lock, then we are guaranteed that no
->> preemption will occur so long as we are within this function.
->>
->>>> +        return -EBUSY;
->>>> +
->>>> +    *value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_CONTEXT);With
->>>> IFPC, we cannot access a GX domain register (CP, RBBM etc) unless
->>> we are certain that the GX is powered up. Could you please test this
->>> series along with the IFPC series? If we hit the right timing, there
->>> should be a GMU fence error in the dmesg. Not sure how easy it is to hit
->>> that timing, but I believe there is a problem here conceptually.
->> Right. I'll fix this although we don't have a fenced_read helper and I
->> wonder if reading behaves like writing when it comes to waking up the gpu.
->>
->> So would it work to try the read and poll REG_A6XX_GMU_AHB_FENCE_STATUS
->> like we do when writing?
-> Unfortunately, only fenced write is supported as per the hw spec and
-> that too for a specific region or registers.
+Hi Mario,
 
-I wonder if there are any ideas on how to bring this forward.
+   To make sure I understand correctly: are you suggesting that the bus
+   number in the VFCT was legitimate at BIOS POST time, and that
+   pci=realloc,assign-busses is what changes it at runtime, causing the
+   mismatch?
 
-I have a series on LPAC that partly depends on this series as it does 
-further rework to the hangcheck code.
+   I'm not familiar enough with the PCI subsystem to know the right way to
+   implement that — could you point me in the right direction?
 
-If this series is doomed because there is no way of opportunistically 
-reading a reg if the GPU is powered on then I might have to rework that 
-series to not depend on this.
+   Oz
 
+On 7/5/26 20:37, Mario Limonciello wrote:
 >
->>>> +
->>>> +    return 0;
->>>> +}
->>>> +
->>>>    static struct msm_ringbuffer *a6xx_active_ring(struct msm_gpu *gpu)
->>>>    {
->>>>        struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
->>>> @@ -2555,6 +2576,7 @@ static const struct adreno_gpu_funcs funcs = {
->>>>            .get_rptr = a6xx_get_rptr,
->>>>            .progress = a6xx_progress,
->>>>            .sysprof_setup = a6xx_gmu_sysprof_setup,
->>>> +        .get_ctx_timestamp = a6xx_get_ctx_timestamp,
->>>>        },
->>>>        .get_timestamp = a6xx_gmu_get_timestamp,
->>>>    };
->>>> @@ -2584,6 +2606,7 @@ static const struct adreno_gpu_funcs
->>>> funcs_gmuwrapper = {
->>>>            .create_private_vm = a6xx_create_private_vm,
->>>>            .get_rptr = a6xx_get_rptr,
->>>>            .progress = a6xx_progress,
->>>> +        .get_ctx_timestamp = a6xx_get_ctx_timestamp,
->>>>        },
->>>>        .get_timestamp = a6xx_get_timestamp,
->>>>    };
->>>> @@ -2616,6 +2639,7 @@ static const struct adreno_gpu_funcs funcs_a7xx
->>>> = {
->>>>            .get_rptr = a6xx_get_rptr,
->>>>            .progress = a6xx_progress,
->>>>            .sysprof_setup = a6xx_gmu_sysprof_setup,
->>>> +        .get_ctx_timestamp = a6xx_get_ctx_timestamp,
->>>>        },
->>>>        .get_timestamp = a6xx_gmu_get_timestamp,
->>>>    };
->>>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/
->>>> msm/adreno/a6xx_gpu.h
->>>> index
->>>> 0b17d36c36a9567e6afa4269ae7783ed3578e40e..7248d3d38c6d8a06cb4a536043bf4877179447cc 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
->>>> @@ -80,6 +80,7 @@ struct a6xx_gpu {
->>>>        struct drm_gem_object *preempt_postamble_bo;
->>>>        void *preempt_postamble_ptr;
->>>>        uint64_t preempt_postamble_iova;
->>>> +    uint64_t preempt_postamble_cntreset_end;
->>>>        uint64_t preempt_postamble_len;
->>>>        bool postamble_enabled;
->>>>    diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/
->>>> gpu/drm/msm/adreno/a6xx_preempt.c
->>>> index
->>>> afc5f4aa3b17334027f3c20072cc3f059a9733b7..88a65549fa8038d4836eb5aeaea775d679415315 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
->>>> @@ -99,11 +99,15 @@ static void a6xx_preempt_timer(struct timer_list *t)
->>>>        kthread_queue_work(gpu->worker, &gpu->recover_work);
->>>>    }
->>>>    -static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
->>>> +static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu,
->>>> struct msm_ringbuffer *ring)
->>>>    {
->>>>        u32 *postamble = a6xx_gpu->preempt_postamble_ptr;
->>>> +    uint64_t last_active_ctxcycles;
->>>>        u32 count = 0;
->>>>    +    if (ring)
->>>> +        last_active_ctxcycles = rbmemptr(ring, last_active_ctxcycles);
->>>> +
->>>>        postamble[count++] = PKT7(CP_REG_RMW, 3);
->>>>        postamble[count++] = REG_A6XX_RBBM_PERFCTR_SRAM_INIT_CMD;
->>>>        postamble[count++] = 0;
->>>> @@ -118,6 +122,15 @@ static void preempt_prepare_postamble(struct
->>>> a6xx_gpu *a6xx_gpu)
->>>>        postamble[count++] = CP_WAIT_REG_MEM_4_MASK(0x1);
->>>>        postamble[count++] = CP_WAIT_REG_MEM_5_DELAY_LOOP_CYCLES(0);
->>>>    +    a6xx_gpu->preempt_postamble_cntreset_end = count;
->>>> +
->>>> +    postamble[count++] = PKT7(ring ? CP_REG_TO_MEM : CP_NOP, 3);
->>>> +    postamble[count++] =
->>>> CP_REG_TO_MEM_0_REG(REG_A6XX_CP_ALWAYS_ON_CONTEXT) |
->>>> +        CP_REG_TO_MEM_0_CNT(2) |
->>>> +        CP_REG_TO_MEM_0_64B;
->>>> +    postamble[count++] = lower_32_bits(last_active_ctxcycles);
->>>> +    postamble[count++] = upper_32_bits(last_active_ctxcycles);
->>>> +
->>>>        a6xx_gpu->preempt_postamble_len = count;
->>>>          a6xx_gpu->postamble_enabled = true;
->>>> @@ -129,9 +142,9 @@ static void preempt_disable_postamble(struct
->>>> a6xx_gpu *a6xx_gpu)
->>>>          /*
->>>>         * Disable the postamble by replacing the first packet header
->>>> with a NOP
->>>> -     * that covers the whole buffer.
->>>> +     * that skips the counters reset part.
->>>>         */
->>>> -    *postamble = PKT7(CP_NOP, (a6xx_gpu->preempt_postamble_len - 1));
->>>> +    *postamble = PKT7(CP_NOP, (a6xx_gpu-
->>>>> preempt_postamble_cntreset_end - 1));
->>>>          a6xx_gpu->postamble_enabled = false;
->>>>    }
->>>> @@ -338,8 +351,8 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
->>>>        /* Enable or disable postamble as needed */
->>>>        sysprof = refcount_read(&a6xx_gpu->base.base.sysprof_active) > 1;
->>>>    -    if (!sysprof && !a6xx_gpu->postamble_enabled)
->>>> -        preempt_prepare_postamble(a6xx_gpu);
->>>> +    if (!sysprof)
->>>> +        preempt_prepare_postamble(a6xx_gpu, ring);
->>>>          if (sysprof && a6xx_gpu->postamble_enabled)
->>>>            preempt_disable_postamble(a6xx_gpu);
->>>> @@ -454,7 +467,7 @@ void a6xx_preempt_init(struct msm_gpu *gpu)
->>>>                gpu->vm, &a6xx_gpu->preempt_postamble_bo,
->>>>                &a6xx_gpu->preempt_postamble_iova);
->>>>    -    preempt_prepare_postamble(a6xx_gpu);
->>>> +    preempt_prepare_postamble(a6xx_gpu, NULL);
->>>>          if (IS_ERR(a6xx_gpu->preempt_postamble_ptr))
->>>>            goto fail;
->>>> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/
->>>> drm/msm/adreno/adreno_gpu.c
->>>> index
->>>> afaa3cfefd357dc0230994c8b5830a14c6d7a352..58f1e2a95bbfb00feb5a3bb91853e6bb533ec631 100644
->>>> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
->>>> @@ -334,7 +334,8 @@ int adreno_fault_handler(struct msm_gpu *gpu,
->>>> unsigned long iova, int flags,
->>>>            struct msm_gpu_fault_info fault_info = {};
->>>>              /* Turn off the hangcheck timer to keep it from bothering
->>>> us */
->>>> -        timer_delete(&gpu->hangcheck_timer);
->>>> +        for (int i = 0; i < gpu->nr_rings; i++)
->>>> +            timer_delete(&gpu->rb[i]->hangcheck_timer);
->>>>              fault_info.ttbr0 = info->ttbr0;
->>>>            fault_info.iova  = iova;
->>>> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/
->>>> msm_gpu.c
->>>> index
->>>> 17759abc46d7d7af4117b1d71f1d5fba6ba0b61c..a3c5073aca1f65e450e0673262e8ca4bc7a5be6f 100644
->>>> --- a/drivers/gpu/drm/msm/msm_gpu.c
->>>> +++ b/drivers/gpu/drm/msm/msm_gpu.c
->>>> @@ -463,7 +463,9 @@ static void recover_worker(struct kthread_work
->>>> *work)
->>>>        struct drm_device *dev = gpu->dev;
->>>>        struct msm_drm_private *priv = dev->dev_private;
->>>>        struct msm_gem_submit *submit;
->>>> -    struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
->>>> +    struct msm_ringbuffer *cur_ring = gpu->hung_ring ?
->>>> +        gpu->hung_ring : gpu->funcs->active_ring(gpu);
->>>> +    gpu->hung_ring = NULL;
->>>>        char *comm = NULL, *cmd = NULL;
->>>>        struct task_struct *task;
->>>>        int i;
->>>> @@ -613,11 +615,17 @@ void msm_gpu_fault_crashstate_capture(struct
->>>> msm_gpu *gpu, struct msm_gpu_fault_
->>>>        mutex_unlock(&gpu->lock);
->>>>    }
->>>>    -static void hangcheck_timer_reset(struct msm_gpu *gpu)
->>>> +static void hangcheck_ring_timer_reset(struct msm_gpu *gpu, struct
->>>> msm_ringbuffer *ring)
->>>>    {
->>>>        struct msm_drm_private *priv = gpu->dev->dev_private;
->>>> -    mod_timer(&gpu->hangcheck_timer,
->>>> -            round_jiffies_up(jiffies + msecs_to_jiffies(priv-
->>>>> hangcheck_period)));
->>>> +    mod_timer(&ring->hangcheck_timer,
->>>> +              round_jiffies_up(jiffies + msecs_to_jiffies(priv-
->>>>> hangcheck_period)));
->>>> +}
->>>> +
->>>> +static void hangcheck_timer_reset(struct msm_gpu *gpu)
->>>> +{
->>>> +    for (int i = 0; i < gpu->nr_rings; i++)
->>>> +        hangcheck_ring_timer_reset(gpu, gpu->rb[i]);
->>> It triggers my OCD a bit that there are multiple timers flying around
->>> waking up CPU clusters. But this is okay for now I guess. :)
->>>
->>>>    }
->>>>      static bool made_progress(struct msm_gpu *gpu, struct
->>>> msm_ringbuffer *ring)
->>>> @@ -635,11 +643,33 @@ static bool made_progress(struct msm_gpu *gpu,
->>>> struct msm_ringbuffer *ring)
->>>>        return true;
->>>>    }
->>>>    +static bool check_ring_timeout(struct msm_ringbuffer *ring,
->>>> unsigned long timeout)
->>>> +{
->>>> +    struct msm_gpu *gpu = ring->gpu;
->>>> +    struct msm_ringbuffer *curr_ring = gpu->funcs->active_ring(gpu);
->>>> +    u64 start, end;
->>>> +    int ret;
->>>> +
->>>> +    if (!gpu->funcs->get_ctx_timestamp)
->>>> +        return !made_progress(gpu, ring);
->>>> +
->>>> +    start = ring->memptrs->last_job_start_ctx;
->>>> +
->>>> +    if (!gpu->funcs->get_ctx_timestamp(ring, &end))
->>> I suppose you want the other way. ie, if get_ctx_timestamp() returns
->>> -EBUSY, which means gpu is either under preemption or in a different
->>> ring, use the memptr data.
->> You are right, that `!` does not belong there!
->>>> +        end = ring->memptrs->last_active_ctxcycles;
->>> Assuming my above comment is correct, if GPU is under preemption, there
->>> is a chance that the postamble might not have got executed. So with a
->>> stale 'end' value, the below calc may go wrong?
->>>
->>>> +
->>>> +    if (end >= start)
->>>> +        return (end - start) < timeout;
->>>> +    else
->>>> +        return false;
->>> In case of an infinite shader blocking preemption, wouldn't we always
->>> return false here?
->> Right. Once we fix the above condition this shouldn't be a problem
->> because hangcheck timer will fire on the ring that is stuck so `end`
->> will be read from the register and it should detect the hang.
-> You mean the timer on the outgoing ring? But we won't read the register
-> as the preemption is active, right? We read the memptr which has a stale
-> 'end' value. Since 'end' < 'start', this code will continously report
-> "no timeout" to the caller.
 >
->>> -Akhil> +}
->>>> +
->>>>    static void hangcheck_handler(struct timer_list *t)
->>>>    {
->>>> -    struct msm_gpu *gpu = timer_container_of(gpu, t, hangcheck_timer);
->>>> +    struct msm_ringbuffer *ring = timer_container_of(ring, t,
->>>> hangcheck_timer);
->>>> +    struct msm_gpu *gpu = ring->gpu;
->>>> +    struct msm_drm_private *priv = gpu->dev->dev_private;
->>>>        struct drm_device *dev = gpu->dev;
->>>> -    struct msm_ringbuffer *ring = gpu->funcs->active_ring(gpu);
->>>>        uint32_t fence = ring->memptrs->fence;
->>>>          if (fence != ring->hangcheck_fence) {
->>>> @@ -647,7 +677,7 @@ static void hangcheck_handler(struct timer_list *t)
->>>>            ring->hangcheck_fence = fence;
->>>>            ring->hangcheck_progress_retries = 0;
->>>>        } else if (fence_before(fence, ring->fctx->last_fence) &&
->>>> -            !made_progress(gpu, ring)) {
->>>> +            check_ring_timeout(ring, priv->hangcheck_period *
->>>> 192000)) {
->>>>            /* no progress and not done.. hung! */
->>>>            ring->hangcheck_fence = fence;
->>>>            ring->hangcheck_progress_retries = 0;
->>>> @@ -658,6 +688,7 @@ static void hangcheck_handler(struct timer_list *t)
->>>>            DRM_DEV_ERROR(dev->dev, "%s:     submitted fence: %u\n",
->>>>                    gpu->name, ring->fctx->last_fence);
->>>>    +        gpu->hung_ring = ring;
->>>>            kthread_queue_work(gpu->worker, &gpu->recover_work);
->>>>        }
->>>>    @@ -911,7 +942,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct
->>>> msm_gem_submit *submit)
->>>>        submit->ring->cur_ctx_seqno = submit->queue->ctx->seqno;
->>>>          pm_runtime_put(&gpu->pdev->dev);
->>>> -    hangcheck_timer_reset(gpu);
->>>> +    hangcheck_ring_timer_reset(gpu, submit->ring);
->>> Should we reset hangcheck whenever there is a submission to a random
->>> ring?
->> The idea is that we only reset the timer for that ring. If that ring is
->> stuck presumably whatever applications are running on it will stop
->> submitting eventually since fences won't be signaled and so the timer
->> should run.
+> On 7/5/26 05:04, Oz Tiram wrote:
+>> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
+>> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
+>> before giving up:
 >>
->> That isn't really guaranteed but previously that was assumed.
+>>    1. ACPI VFCT table
+>>    2. VRAM BAR read
+>>    3. ROM BAR read
+>>    4. platform BIOS
 >>
->> Do you think this isn't a good assumption to make?
-> I missed that this was per-ring. If there are continous submissions at
-> the right interval to the same ring, it can delay the hang check
-> detection. I agree that this is an edge case.
+>> On some systems all four fail.  The specific case motivating this patch
+>> is a hybrid graphics machine (dGPU + APU) where:
+>>
+>>    - The VFCT table contains the iGPU entry but with a stale PCIBus 
+>> value
+>>      from BIOS POST time (0x6A).  When the kernel boots with
+>>      pci=realloc,assign-busses, PCI bus numbers are reassigned 
+>> dynamically
+>>      and the iGPU lands on bus 0x0B at runtime. amdgpu_acpi_vfct_bios()
+>>      matches entries by bus number, so the entry is never found.
+>>    - The VRAM BAR is unmapped at probe time.
+>>    - The ROM BAR is zero (PCI firmware did not assign it).
+>>    - No platform BIOS mapping exists.
+>>
+>> The UEFI GOP driver initialises the iGPU successfully for early display,
+>> confirming the hardware is functional.  The VBIOS image data embedded in
+>> the VFCT is also valid; only the PCIBus metadata is wrong.
 >
-> It makes sense to reset the timer during the first submit to a ring.
-> After that it can reset itself from the timer handler until all submits
-> are retired. Would that require a lot of plumbing?
+> So the BIOS on this machine is actually totally fine; it's just when 
+> the kernel is booted to reassign busses there is a problem?
 >
-> Anyway, since we are reworking the hangcheck, probably we can revisit
-> every aspect of it in this series. Up to you.
+> In that case; why not detect the kernel was booted this way and keep 
+> track of the original bus number when reassigned to avoid the issue?
 >
-> -Akhil
+>> The firmware
+>> file can be extracted directly from the VFCT using dd:
+>>
+>>    dd if=/sys/firmware/acpi/tables/VFCT bs=1 skip=$((0x68)) 
+>> count=16896 \
+>>       of=/lib/firmware/amdgpu/1002_1900.bin
+>>
+>> (0x68 is the byte offset of the VBIOS image after the ACPI table header
+>> and VFCT_IMAGE_HEADER; the image length 16896 comes from the ImageLength
+>> field in VFCT_IMAGE_HEADER.)
+>>
+>> The driver then prints "Unable to locate a BIOS ROM" and refuses to
+>> bind, leaving the APU completely unusable under Linux.
+>>
+>> Add a fifth fallback: request a firmware file named
+>> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
+>> request_firmware().  This allows a VBIOS image extracted as above to be
+>> placed in /lib/firmware/ and makes the binding succeed without patching
+>> ACPI tables or BIOS.
+>>
+>> The fallback is only reached if all existing paths have already failed,
+>> so there is no regression risk for boards where VFCT or ROM BAR work.
 >
->>> -Akhil
->>>
->>>>    }
->>>>      /*
->>>> @@ -1011,8 +1042,6 @@ int msm_gpu_init(struct drm_device *drm, struct
->>>> platform_device *pdev,
->>>>        if (funcs->progress)
->>>>            priv->hangcheck_period /= 2;
->>>>    -    timer_setup(&gpu->hangcheck_timer, hangcheck_handler, 0);
->>>> -
->>>>        spin_lock_init(&gpu->perf_lock);
->>>>      @@ -1097,6 +1126,8 @@ int msm_gpu_init(struct drm_device *drm,
->>>> struct platform_device *pdev,
->>>>                goto fail;
->>>>            }
->>>>    +        timer_setup(&gpu->rb[i]->hangcheck_timer,
->>>> hangcheck_handler, 0);
->>>> +
->>>>            memptrs += sizeof(struct msm_rbmemptrs);
->>>>            memptrs_iova += sizeof(struct msm_rbmemptrs);
->>>>        }
->>>> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/
->>>> msm_gpu.h
->>>> index
->>>> a597f2bee30b6370ecc3639bfe1072c85993e789..7bf1b7f4bc4b61338bfa4c1463eb549f8c22d5c3 100644
->>>> --- a/drivers/gpu/drm/msm/msm_gpu.h
->>>> +++ b/drivers/gpu/drm/msm/msm_gpu.h
->>>> @@ -93,6 +93,7 @@ struct msm_gpu_funcs {
->>>>         */
->>>>        bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer
->>>> *ring);
->>>>        void (*sysprof_setup)(struct msm_gpu *gpu);
->>>> +    int (*get_ctx_timestamp)(struct msm_ringbuffer *ring, uint64_t
->>>> *value);
->>>>    };
->>>>      /* Additional state for iommu faults: */
->>>> @@ -257,6 +258,8 @@ struct msm_gpu {
->>>>        /* work for handling GPU recovery: */
->>>>        struct kthread_work recover_work;
->>>>    +    struct msm_ringbuffer *hung_ring;
->>>> +
->>>>        /** retire_event: notified when submits are retired: */
->>>>        wait_queue_head_t retire_event;
->>>>    diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/
->>>> drm/msm/msm_ringbuffer.h
->>>> index
->>>> d1e49f701c8176e50d2b9a5cca35acee67f75209..316247fb089f26bd657ccf8464a5039e1cd1ac45 100644
->>>> --- a/drivers/gpu/drm/msm/msm_ringbuffer.h
->>>> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
->>>> @@ -37,6 +37,8 @@ struct msm_rbmemptrs {
->>>>        volatile struct msm_gpu_submit_stats
->>>> stats[MSM_GPU_SUBMIT_STATS_COUNT];
->>>>        volatile u64 ttbr0;
->>>>        volatile u32 context_idr;
->>>> +    volatile u64 last_job_start_ctx;
->>>> +    volatile u64 last_active_ctxcycles;
->>>>    };
->>>>      struct msm_cp_state {
->>>> @@ -73,6 +75,10 @@ struct msm_ringbuffer {
->>>>        uint64_t memptrs_iova;
->>>>        struct msm_fence_context *fctx;
->>>>    +    /* Hang and Inactivity Detection:
->>>> +     */
->>>> +    struct timer_list hangcheck_timer;
->>>> +
->>>>        /**
->>>>         * hangcheck_progress_retries:
->>>>         *
->>>>
->> Best regards,
-
-
-Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
-
+> What happens if the VBIOS changes in another way one boot to another? 
+> You might have some other stateful information that isn't updated.
+>
+> The whole thing to me feels like a hack for a behavior we can control 
+> in the kernel when doing reassignments.
+>>
+>> Signed-off-by: Oz Tiram <oz@shift-computing.de>
+>> ---
+>> v2: Fix commit message: clarify that VFCT contains the iGPU entry but
+>>      with a stale PCIBus from BIOS POST that mismatches the runtime bus
+>>      number assigned by pci=realloc,assign-busses.  Explain that the 
+>> VBIOS
+>>      image data is valid and document the dd extraction command and byte
+>>      offsets.  Note that the UEFI GOP driver initialises the iGPU
+>>      successfully, confirming the hardware is functional.
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 +++++++++++++++++++++++
+>>   1 file changed, 23 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>> index aa039e148a5e..86064c753b09 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>> @@ -26,6 +26,7 @@
+>>    *          Jerome Glisse
+>>    */
+>>   +#include <linux/firmware.h>
+>>   #include "amdgpu.h"
+>>   #include "atom.h"
+>>   @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct 
+>> amdgpu_device *adev)
+>>           goto success;
+>>       }
+>>   +    {
+>> +        const struct firmware *fw;
+>> +        char fw_name[32];
+>> +        size_t fw_size;
+>> +
+>> +        snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
+>> +             adev->pdev->vendor, adev->pdev->device);
+>> +        if (request_firmware(&fw, fw_name, adev->dev) == 0) {
+>> +            adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
+>> +            fw_size = fw->size;
+>> +            release_firmware(fw);
+>> +            if (!adev->bios || !check_atom_bios(adev, fw_size)) {
+>> +                amdgpu_bios_release(adev);
+>> +            } else {
+>> +                adev->bios_size = fw_size;
+>> +                dev_info(adev->dev, "Fetched VBIOS from firmware 
+>> file %s\n",
+>> +                     fw_name);
+>> +                goto success;
+>> +            }
+>> +        }
+>> +    }
+>> +
+>>       dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
+>>       return false;
+>
