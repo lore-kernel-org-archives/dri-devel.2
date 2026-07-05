@@ -4,54 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95653C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 21:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58BEDC43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 21:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC0A310E262;
-	Sun,  5 Jul 2026 21:35:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4B710E260;
+	Sun,  5 Jul 2026 21:37:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KSUfAx9L";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JOzzwJ5I";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0119710E247
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 21:35:47 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 29DB2B8B;
- Sun,  5 Jul 2026 23:34:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1783287299;
- bh=gdRkLQABCso7Pq+hx4ptN7VAvIimLCYikztKh8bbSfI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KSUfAx9LwSMa2l5hnQUZLe8H4Td880SoqHfCZ427jjdLCtz5/oKodZ34b8oNIAvF+
- pp8NrqvP+VELSxxQNu1bM2p+tgsRQKIm2tWBn+QIuuYqkyroFos2HoEf3Vh7Mp2uWN
- pBPWDi6oDCE25/arzodjJ2PvlFMKgALJk6SSeR4w=
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-To: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Cc: Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter resource
- leak
-Date: Mon,  6 Jul 2026 00:35:40 +0300
-Message-ID: <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC5F10E260
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 21:37:42 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F870439CB;
+ Sun,  5 Jul 2026 21:37:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334241F000E9;
+ Sun,  5 Jul 2026 21:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783287461;
+ bh=igQyiJtGhKUi7hNnr0lNeoVcRSQz4YGkDdDqAW+Zo4M=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JOzzwJ5IbEdKaH+NraZtMrJ+AkQaOQVJtpDHkYcrpZakwk/Fl/e3BnMXP9h9EVJax
+ T1+we7kqUHo8/9O8UM4pALfcCR0Xj7a55KTOKXHRzRmKfh3Cq5gQNHIa1so5gpiRMd
+ qdKCPyonWh1NfsTsnYgxSQQCGxCxaFF5K/wQGSpSAz1cLiQFzgCMihkHxBJ8rVTRk8
+ aSfnXlX8C8vEh/lL3Nf4tJ0sHrfZwTEBiYS/I+0PlFFGAvL+EFUcinP0O6gIVlHteh
+ 8p5UWuL3ovxf7DaIrXi5i6fQRqFTjVq/A9Hb3b70v8XnUngOpMSICyuoNzeD8C8iIk
+ FflsDJVbCIkeg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] [DNI] arm64: dts: renesas: salvator: Add overlay
+ for Dell P1911 VGA display
+To: "Laurent Pinchart" <laurent.pinchart+renesas@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260705213542.28987-5-laurent.pinchart+renesas@ideasonboard.com>
 References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260705213542.28987-5-laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 21:37:40 +0000
+Message-Id: <20260705213741.334241F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +55,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the probe function returns an error after getting the I2C adapter for
-DDC, the reference to the adapter is never released. Fix it by releasing
-it in the bridge .destroy() handler.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The patch is explicitly marked as test-only and should not be me=
+rged.
+--
 
-There is no need to test the ddc pointer with !IS_ERR(), as
-of_get_i2c_adapter_by_node() returns NULL on error.
+commit ec00db7021fbc2f550a150a0512dfc7596a53df2
+Author: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Fixes: 6de79dd3a920 ("drm/bridge: display-connector: add ddc-en gpio support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
----
- drivers/gpu/drm/bridge/display-connector.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+arm64: dts: renesas: salvator: Add overlay for Dell P1911 VGA display
 
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-index d1e74dd2e051..eb3412ec30a0 100644
---- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -43,6 +43,13 @@ static int display_connector_attach(struct drm_bridge *bridge,
- 	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
- }
- 
-+static void display_connector_destroy(struct drm_bridge *bridge)
-+{
-+	struct display_connector *conn = to_display_connector(bridge);
-+
-+	i2c_put_adapter(conn->bridge.ddc);
-+}
-+
- static enum drm_connector_status display_connector_detect(struct drm_bridge *bridge)
- {
- 	struct display_connector *conn = to_display_connector(bridge);
-@@ -208,6 +215,7 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
- 
- static const struct drm_bridge_funcs display_connector_bridge_funcs = {
- 	.attach = display_connector_attach,
-+	.destroy = display_connector_destroy,
- 	.detect = display_connector_bridge_detect,
- 	.hpd_enable = display_connector_hpd_enable,
- 	.hpd_disable = display_connector_hpd_disable,
-@@ -439,9 +447,6 @@ static void display_connector_remove(struct platform_device *pdev)
- 		regulator_disable(conn->supply);
- 
- 	drm_bridge_remove(&conn->bridge);
--
--	if (!IS_ERR(conn->bridge.ddc))
--		i2c_put_adapter(conn->bridge.ddc);
- }
- 
- static const struct of_device_id display_connector_match[] = {
--- 
-Regards,
+This patch adds an overlay to hardcode the EDID of a Dell P1911 VGA display
+connector to the VGA port of the Salvator board.=20
 
-Laurent Pinchart
+> Add an overlay that hardcodes the EDID of the Dell P1911 VGA display
+> connector to the VGA port of the Salvator board. This is meant to test
+> EDID hardcoding and should not be merged upstream.
 
+[Severity: Medium]
+The commit message explicitly states this is meant to test EDID hardcoding=
+=20
+and should not be merged upstream.
+
+Was this patch accidentally included in this series, or is it intended to be
+dropped by the maintainer before final merging?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705213542.2898=
+7-1-laurent.pinchart+renesas@ideasonboard.com?part=3D4
