@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D486EC44500
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 10:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7080C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 11:09:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3948510E18C;
-	Sun,  5 Jul 2026 10:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2517010E184;
+	Sun,  5 Jul 2026 11:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shift-computing.de header.i=@shift-computing.de header.b="e1ZJaISb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K3tj8DPj";
 	dkim-atps=neutral
-Received: from mail.teamster.cloud (mail.teamster.cloud [213.136.73.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C96710E18C;
- Sun,  5 Jul 2026 10:16:19 +0000 (UTC)
-Message-ID: <3e2a862d-53b5-45b8-9c00-08d3e69b0508@shift-computing.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shift-computing.de;
- s=dkim; t=1783246576;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VriRytiQr29dirxj3h6p1cI/zmJWkfrX2iDUkcXvSxc=;
- b=e1ZJaISbUDRcccPVLfc34+fKgs/XaiOzmxa7gxK9yGA1csK6GP8jTdhihsUiq7lE6Clg/R
- aQ1o2FN5WK9C9QRMnlQ6f7f+QthG+Dts3m0CojYZqrNk9flQdaIRTDz8F+Ix8P+QZVPKel
- FENX+wSSeuIwRVvbEg9Vctv32aDUoOcmRCr0cYMPOYERwBuTG/of59f3Ua48uPSr2qsgP8
- w644leKAHcHZJ1C3MN+oZvrndb+EgeChVJHY/8SO6V6qZePNN6yI3NBW24Hlo1+iMiQh9T
- yJ0Z1cHRRZkenwan9k2bXGJiM3yTTOB6QbyiUgtVXCZIlwEButw8V0nYioon9w==
-Authentication-Results: mail.teamster.cloud;
- auth=pass smtp.mailfrom=oz@shift-computing.de
-Date: Sun, 5 Jul 2026 12:15:56 +0200
-MIME-Version: 1.0
-From: Oz Tiram <oz@shift-computing.de>
-Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS
- discovery
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260621173211.28443-1-oz@shift-computing.de>
- <20260621180154.30421-1-oz@shift-computing.de>
- <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
-Content-Language: en-US
-In-Reply-To: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Bar: ---
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C74710E184
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 11:09:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 278206001A;
+ Sun,  5 Jul 2026 11:09:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78C71F000E9;
+ Sun,  5 Jul 2026 11:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783249786;
+ bh=ws4mDTatUMSjj8h6RWmmfz44LojRieB/oKoT6gSuIek=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K3tj8DPjnMa/UVe7UigT7llDQkYuzBUJGjA04w3oy1JVoOUzvY+cS7RvNslcVoZE3
+ rKsLLOBihXCHN2PAHGBIlTk1Xlz6Ng/lg8nXAHY+tR7z3v6TLzx+WERjTDkgLdEyUL
+ Hra1H5ba7yfxbAPs/BHw73nNLDsUpJYTwTS3ClJAQ6p/NfUASI3dD+qKK3U05dxQWN
+ 9Jwb8X9lYmh3zT4SjThRPfGJiddOUi7XfDsWx8nlWdC5KlQ7FGQq7L9GPh1ZbU/veD
+ 7bbAATgGIKMtqWnK0CLhBxqUHQmg5EIRW/NH7fazodq5EkBUu5Gifngm0fbQl4pZpU
+ 1BVb5aP46Wp7Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/exynos: vidi: use memdup_user() instead of
+ kmalloc() and copy_from_user()
+To: mdshahid03@gmail.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260705110221.153481-1-mdshahid03@gmail.com>
+References: <20260705110221.153481-1-mdshahid03@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 11:09:46 +0000
+Message-Id: <20260705110946.A78C71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,127 +53,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Mario,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Sorry for the slow response, I'm new to the kernel contribution process. 
-Thanks for the review. v2 addresses your questions: -
+Pre-existing issues:
+- [High] Concurrent executions of `vidi_connection_ioctl` can cause a memor=
+y leak of the `drm_edid` object due to a time-of-check to time-of-use (TOCT=
+OU) race condition when checking and updating the connection state.
+--
 
-The VFCT does contain the iGPU entry, but with a stale PCIBus value from 
-BIOS POST time (0x6A). With pci=realloc,assign-busses the iGPU lands on 
-bus 0x0B at runtime, so amdgpu_acpi_vfct_bios() never matches it
+commit 6f3818ed77cd21c4ace5a636e3cf596ff721c935
+Author: Mohammad Shahid <mdshahid03@gmail.com>
 
-This is clarified in the commit message along with a note that the UEFI 
-GOP driver initializes the iGPU successfully, confirming the hardware is 
-functional.
+drm/exynos: vidi: use memdup_user() instead of kmalloc() and copy_from_user=
+()
 
-The VBIOS image data in the VFCT is valid — only the PCIBus metadata is 
-wrong.
+This patch simplifies the driver by replacing an open-coded sequence of=20
+kmalloc() and copy_from_user() with a single call to memdup_user().
 
-The firmware file was extracted directly from the VFCT with dd, skipping 
-past the ACPI header and VFCT_IMAGE_HEADER. The commit message now 
-documents the exact command and byte offsets.
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_vidi.c b/drivers/gpu/drm/e=
+xynos/exynos_drm_vidi.c
+> index 67bbf9b8bc0ef..183671de711e2 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+> @@ -273,14 +273,9 @@ int vidi_connection_ioctl(struct drm_device *drm_dev=
+, void *data,
+> =20
+>  		size =3D (hdr.extensions + 1) * EDID_LENGTH;
+> =20
+> -		edid_buf =3D kmalloc(size, GFP_KERNEL);
+> -		if (!edid_buf)
+> -			return -ENOMEM;
+> -
+> -		if (copy_from_user(edid_buf, edid_userptr, size)) {
+> -			kfree(edid_buf);
+> -			return -EFAULT;
+> -		}
+> +		edid_buf =3D memdup_user(edid_userptr, size);
+> +		if (IS_ERR(edid_buf))
+> +			return PTR_ERR(edid_buf);
+> =20
+>  		drm_edid =3D drm_edid_alloc(edid_buf, size);
+>  		kfree(edid_buf);
 
-The patch follows.
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for concurrent
+ioctl calls to leak the drm_edid object allocated here?
 
-Oz
+Looking at vidi_connection_ioctl() in drivers/gpu/drm/exynos/exynos_drm_vid=
+i.c,
+the connection state is checked under ctx->lock, but the lock is then relea=
+sed
+before allocating the EDID:
 
-On 6/26/26 19:42, Mario Limonciello wrote:
->
->
-> On 6/21/26 13:01, Oz Tiram wrote:
->> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
->> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
->> before giving up:
->>
->>    1. ACPI VFCT table
->>    2. VRAM BAR read
->>    3. ROM BAR read
->>    4. platform BIOS
->>
->> On some systems all four fail:
->
-> That's pretty odd to me.  Isn't this a BIOS bug?  Can you share more 
-> about why all of these are failing?
->
-> Does the UEFI GOP driver work?
->
->>
->>    - The VFCT table is absent or contains only the discrete GPU entry
->>      (e.g. when a custom ACPI override is present for the dGPU only).
->>    - The VRAM BAR is unmapped at probe time.
->>    - The ROM BAR is zero (PCI firmware did not assign it; observed even
->>      with pci=realloc,assign-busses).
->>    - No platform BIOS mapping exists.
->>
->> The driver then prints "Unable to locate a BIOS ROM" and refuses to
->> bind, leaving the APU completely unusable under Linux even though the
->> hardware is functional.
->>
->> Add a fifth fallback: request a firmware file named
->> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
->> request_firmware().  This allows a VBIOS image extracted from the
->> running hardware 
->
-> I thought you just said this didn't work.  How did you extract it?
->
->> to be shipped as a firmware blob in /lib/firmware/ and
->> makes the binding succeed without any change to the ACPI tables.
->>
->> The fallback is only reached if all existing paths have already failed,
->> so there is no regression risk for boards where VFCT or ROM BAR work.
->>
->> Signed-off-by: Oz Tiram <oz@shift-computing.de>
->> ---
->> v2: Validate the fetched firmware with check_atom_bios() before 
->> accepting
->>      it, consistent with all other VBIOS discovery paths. Save fw->size
->>      before release_firmware() so it remains valid for the size check.
->>      Release the buffer via amdgpu_bios_release() if validation fails.
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 +++++++++++++++++++++++
->>   1 file changed, 23 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->> index aa039e148a5e..86064c753b09 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->> @@ -26,6 +26,7 @@
->>    *          Jerome Glisse
->>    */
->>   +#include <linux/firmware.h>
->>   #include "amdgpu.h"
->>   #include "atom.h"
->>   @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct 
->> amdgpu_device *adev)
->>           goto success;
->>       }
->>   +    {
->> +        const struct firmware *fw;
->> +        char fw_name[32];
->> +        size_t fw_size;
->> +
->> +        snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
->> +             adev->pdev->vendor, adev->pdev->device);
->> +        if (request_firmware(&fw, fw_name, adev->dev) == 0) {
->> +            adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
->> +            fw_size = fw->size;
->> +            release_firmware(fw);
->> +            if (!adev->bios || !check_atom_bios(adev, fw_size)) {
->> +                amdgpu_bios_release(adev);
->> +            } else {
->> +                adev->bios_size = fw_size;
->> +                dev_info(adev->dev, "Fetched VBIOS from firmware 
->> file %s\n",
->> +                     fw_name);
->> +                goto success;
->> +            }
->> +        }
->> +    }
->> +
->>       dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
->>       return false;
->
+    mutex_lock(&ctx->lock);
+    if (ctx->connected =3D=3D vidi->connection) {
+        mutex_unlock(&ctx->lock);
+        ...
+    }
+    mutex_unlock(&ctx->lock);
+
+If multiple threads call vidi_connection_ioctl() concurrently with
+vidi->connection =3D 1 while ctx->connected is 0, won't they both pass the
+initial check, allocate a new drm_edid object from userspace data, and then
+sequentially re-acquire the lock to assign it?
+
+    mutex_lock(&ctx->lock);
+    ctx->raw_edid =3D drm_edid;
+    mutex_unlock(&ctx->lock);
+
+Does this unconditionally overwrite ctx->raw_edid, leaking any previously
+allocated drm_edid from the racing thread?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705110221.1534=
+81-1-mdshahid03@gmail.com?part=3D1
