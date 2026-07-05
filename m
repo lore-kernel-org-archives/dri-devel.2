@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71CA0C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22E55C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:26:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8792A10E44F;
-	Sun,  5 Jul 2026 19:24:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06C0810E22B;
+	Sun,  5 Jul 2026 19:26:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dSqoADfY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EVN2xFQf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35DD410E44F
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:24:13 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9697710E22B
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:26:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C27C243643;
- Sun,  5 Jul 2026 19:24:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B481F00A3A;
- Sun,  5 Jul 2026 19:24:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ABC3660018;
+ Sun,  5 Jul 2026 19:26:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE491F000E9;
+ Sun,  5 Jul 2026 19:26:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783279452;
- bh=Wn0MnM6l+PFvNgYAf+xGPbe3hRfrMo5I9v9wRVaZ98o=;
+ s=k20260515; t=1783279591;
+ bh=7UQOgOAI5nxW8bvgCfSkzB57DLphhrhZkQ78TZh9kZs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dSqoADfYJ8ZGqKGWtJywmxKoifqHm93CO3fyiipiFno2L4Fsi42m1DwKbharKRSgQ
- hH0f4cYKo4er5zK7ScEay/K4aR4u6UYoxzKjGt6mfmylQXTHJh2RQiJ47nydMTREiP
- rvJsRkICkCpkpvniBfWtmG/MNhwMwmyW0A22p3TSpwm9MaPZsqqdlI9KIiuN6p7r0P
- Ed0IwkgiSppP5u6+RF8O24Xu/LM49RDgo65KQnXeQGgOv+a56qDQRck3OyCDfdosTr
- Mk59cqfZBn/deJXNZ26J8ZwAc46RwLiOehJUcEVA0AtCwW1+Nk1a1Cp7V5qztfooDD
- EpbS2YplwrNnA==
+ b=EVN2xFQfCj2yoVngrT75ID6Snysn+6tfaJWPwChqjER6K/1BS8cViyj/RI1973Nyz
+ UaETg5+/dJr9H9z+WkmH5ovMOtQmJtT/isC2mbXs1xWIvgXhdWf7iCV4hrRsvINspc
+ rrYm78JT0OQQx7PIkmK+7I204LSQ+xQQHE+U+J1z+fc0X1E0do4PQoHM1EZqSjvz9H
+ k7BF6HIrV5wo0aiQAdWVfqCk3fc6qseMZISWJ2cR6ByrydMdVOZxrHVStiK9Pc/Sr8
+ nW9PRCWjnMUCark78mUoSUfKXQ/M2vflvaoCzOzuZFqVM39XG/GJlSGjyM+Z2h1sBv
+ bDv7ONhP55s3Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 04/13] arm64: dts: qcom: sm8650: move smmu sid 1 to
- new lpac device
+Subject: Re: [PATCH RFC 10/13] drm/msm: initialize LPAC ring
 To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-4-01d50c3e0c99@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-10-01d50c3e0c99@gmail.com>
 References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-4-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-10-01d50c3e0c99@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 05 Jul 2026 19:24:11 +0000
-Message-Id: <20260705192412.62B481F00A3A@smtp.kernel.org>
+Date: Sun, 05 Jul 2026 19:26:30 +0000
+Message-Id: <20260705192631.1BE491F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,117 +58,152 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Device Tree Forward-Compatibility Breakage (GPU Firmware Crash on =
-Older Kernels)
-- [High] Resource Leak and Unbalanced PM Runtime in GPU Driver LPAC Initial=
-ization
-- [Medium] Device Tree Anti-Pattern and Syntax Violation (Overlapping Reg /=
- Mismatched Unit Address)
+- [Critical] Unconditional execution of LPAC initialization on all A6xx/A7x=
+x GPUs will crash hardware without LPAC support.
+- [High] The error check for the LPAC ringbuffer allocation evaluates the w=
+rong variable, ignoring allocation failures and reading out-of-bounds.
+- [Medium] The GPU hangcheck timer does not monitor the LPAC ring, causing =
+LPAC-only hangs to go undetected.
+- [Medium] Missing cleanup of `gpu->lpac_rb` in the error path of `msm_gpu_=
+init()`.
+- [Low] Unconditional allocation of the LPAC ringbuffer wastes resources fo=
+r all MSM GPUs.
 --
 
-commit e35e1c1ccf71441e2995511a6a0a9c69917e0605
+commit 35c6bd5d02bb9ed8858bdd2395719b06651d77e8
 Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-arm64: dts: qcom: sm8650: move smmu sid 1 to new lpac device
+drm/msm: initialize LPAC ring
 
-Moves SID 1 from the GPU node to a new LPAC node to allow SID 1 to use a
-different domain when LPAC is used.
+Program all the register needed to start up LPAC and send initialization
+sequence. Additionally, now that the LPAC ring is live, make the code aware
+of it.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/q=
-com/sm8650.dtsi
-> index 1604bc8cff373..44e5f9d4b335f 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> @@ -4133,6 +4133,13 @@ tcsr: clock-controller@1fc0000 {
->  			#reset-cells =3D <1>;
->  		};
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+
+[ ... ]
+
+> @@ -1481,6 +1567,10 @@ static int hw_init(struct msm_gpu *gpu)
+>  	if (ret)
+>  		goto out;
 > =20
-> +		lpac: lpac@3d00000 {
-> +			compatible =3D "qcom,lpac";
-> +			reg =3D <0x0 0x03d00000 0x0 0x61000>;
+> +	ret =3D lpac_cp_init(gpu);
+> +	if (ret)
+> +		goto out;
 > +
-> +			iommus =3D <&adreno_smmu 1 0x0>;
-> +		};
+
+[Severity: Critical]
+Will this unconditional execution of LPAC initialization cause a regression=
+ on
+hardware without LPAC support?
+
+During hw_init(), the driver unconditionally writes to LPAC-specific regist=
+ers
+and calls lpac_cp_init(). This function sends a CP_ME_INIT packet to the LP=
+AC
+ring and waits for it to idle using a6xx_idle().
+
+On older GPUs lacking LPAC hardware (e.g., A630), the CP engine ignores this
+ring, causing the idle wait to time out and hw_init() to return -EINVAL.
+
+>  	/*
+>  	 * Try to load a zap shader into the secure world. If successful
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+> --- a/drivers/gpu/drm/msm/msm_gpu.c
+> +++ b/drivers/gpu/drm/msm/msm_gpu.c
+
+[ ... ]
+
+> @@ -1006,6 +1009,15 @@ int msm_gpu_init(struct drm_device *drm, struct pl=
+atform_device *pdev,
+>  		memptrs_iova +=3D sizeof(struct msm_rbmemptrs);
+>  	}
+> =20
+> +	gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_iov=
+a);
+> +
+
+[Severity: Low]
+Does this unconditional allocation of the LPAC ringbuffer waste resources f=
+or
+legacy non-LPAC GPUs?
+
+A GEM object, DRM scheduler kthread, and fence context are allocated for ev=
+ery
+MSM GPU even if they do not support LPAC.
+
+> +	if (IS_ERR(gpu->rb[i])) {
+> +		ret =3D PTR_ERR(gpu->rb[i]);
+> +		DRM_DEV_ERROR(drm->dev,
+> +					  "could not create lpac ringbuffer %d\n", ret);
+> +		goto fail;
+> +	}
+> +
+
+[Severity: High]
+Does this check the wrong variable for the LPAC allocation failure?
+
+The error check evaluates gpu->rb[i] instead of gpu->lpac_rb. If the LPAC
+allocation fails, gpu->lpac_rb holds an error pointer but the initialization
+succeeds.
+
+This later causes a kernel panic when the error pointer is dereferenced dur=
+ing
+device setup. Additionally, because the loop counter i equals nr_rings here,
+checking gpu->rb[i] results in an out-of-bounds array read if nr_rings equa=
+ls
+MSM_GPU_MAX_RINGS.
+
+[Severity: Medium]
+If GPU initialization fails and we take this goto fail path, is there a mem=
+ory
+leak for the LPAC ringbuffer?
+
+The fail path in msm_gpu_init() iterates over gpu->rb and destroys those
+ringbuffers, but it lacks a call to msm_ringbuffer_destroy(gpu->lpac_rb).
+
+>  	gpu->nr_rings =3D nr_rings;
+> =20
+>  	refcount_set(&gpu->sysprof_active, 1);
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+> --- a/drivers/gpu/drm/msm/msm_gpu.h
+> +++ b/drivers/gpu/drm/msm/msm_gpu.h
+
+[ ... ]
+
+> @@ -181,6 +181,8 @@ struct msm_gpu {
+>  	struct msm_ringbuffer *rb[MSM_GPU_MAX_RINGS];
+>  	int nr_rings;
+> =20
+> +	struct msm_ringbuffer *lpac_rb;
 > +
 
 [Severity: Medium]
-Does this node violate the Devicetree specification by overlapping with its
-sibling node?
+Is the GPU hangcheck timer missing monitoring for the LPAC ring?
 
-The memory region (0x3d00000) for the lpac@3d00000 node completely overlaps
-with the gpu@3d00000 node below.
+In msm_gpu.c:hangcheck_handler(), the code only monitors the primary active
+ring:
 
-Also, creating a top-level dummy platform device solely to bind a second
-IOMMU SID to a separate struct device (to work around driver domain
-isolation limitations) appears to be an architectural anti-pattern.
+	struct msm_ringbuffer *ring =3D gpu->funcs->active_ring(gpu);
+	...
+	if (fence_after(ring->fctx->last_fence, ring->hangcheck_fence))
+		hangcheck_timer_reset(gpu);
 
->  		gpu: gpu@3d00000 {
->  			compatible =3D "qcom,adreno-43051401", "qcom,adreno";
->  			reg =3D <0x0 0x03d00000 0x0 0x40000>,
-[ ... ]
-> @@ -4144,8 +4151,9 @@ gpu: gpu@3d00000 {
-> =20
->  			interrupts =3D <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH 0>;
-> =20
-> -			iommus =3D <&adreno_smmu 0 0x0>,
-> -				 <&adreno_smmu 1 0x0>;
-> +			iommus =3D <&adreno_smmu 0 0x0>;
-> +
-> +			qcom,lpac=3D <&lpac>;
-
-[Severity: High]
-Does removing SID 1 from the gpu@3d00000 node break forward-compatibility
-for older kernels?
-
-If an older kernel (which lacks the LPAC DRM driver modifications to parse
-qcom,lpac) boots with this updated DT, it will only attach SID 0 to the
-GPU's SMMU domain, leaving SID 1 unmapped.
-
-Since the commit message notes that firmware requires both SID 0 and 1
-mapped to the same page table during initialization, attempting to boot an
-older kernel with this DT could trigger an SMMU context fault and completely
-break GPU initialization.
-
-
-Regarding the DRM driver code that handles the new lpac node:
-
-[Severity: High]
-Does the driver initialization leak the LPAC device reference and leave PM
-runtime unbalanced?
-
-Looking at adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c:
-
-drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_gpu_init() {
-    ...
-    gpu->lpac_pdev =3D of_find_device_by_node(lpac_node);
-    if (gpu->lpac_pdev) {
-        ...
-        pm_runtime_enable(&gpu->lpac_pdev->dev);
-    }
-    ...
-}
-
-The driver acquires a reference using of_find_device_by_node() (which
-increments the reference count) and calls pm_runtime_enable().
-
-However, adreno_gpu_cleanup() handles the main gpu_pdev but does not seem
-to call put_device() or pm_runtime_disable() to clean up gpu->lpac_pdev:
-
-drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_gpu_cleanup() {
-    ...
-    if (priv && pm_runtime_enabled(&priv->gpu_pdev->dev))
-        pm_runtime_disable(&priv->gpu_pdev->dev);
-   =20
-    msm_gpu_cleanup(&adreno_gpu->base);
-    ...
-}
-
-Could this result in a memory leak of the device structure and trigger an
-"Unbalanced pm_runtime_enable!" warning when the GPU driver is unbound
-or fails to probe?
+If a task submitted to the LPAC ring hangs and the primary ring is idle,
+fence_after() evaluates to false and the timer is not reset. The stall goes
+undetected, leaving the task hanging indefinitely without GPU recovery.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705-descriptiv=
-e-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com?part=3D4
+e-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com?part=3D10
