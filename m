@@ -4,52 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B888C43458
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Jul 2026 22:31:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CEF0C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 00:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F80F10E0F4;
-	Sat,  4 Jul 2026 22:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 002C110E04B;
+	Sun,  5 Jul 2026 00:26:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="V1HGJERf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h52nLCBj";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1954710E0F4
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Jul 2026 22:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783204280;
- bh=/v5THKShPWIciiFZT93U3dZzMsB1ErKVThLGUlgIcIY=;
- h=From:Date:Subject:To:Cc:From;
- b=V1HGJERfAq2ZC2qnOryewFpR7iiAbUzyZQygxKyxwpJHr9sxHDPtpnHrohwhCfQgt
- Uig9MlgxeCYcj8TGQ7ZxFIw4/nRP+qqLZ445h77jjGzNtnesJxfHkYhBWzsiHrFh17
- nmTNop7Gn7SjlshVuZGHS8fWDy0VJ4YYER5hneaW496ic6Xt6uMYlGJI6yAX5BwAzl
- opEMEO4tkVVoWK7Z5+/qHh4qmsrMUicUYN15KUr4C4SdtYIYhUcXNnrOYTm8nEPpxO
- WH5JTOJH1dwgpJdQcFuisbBBXj2clNH3ta61F0Gk55I8iJWUadPDErpiG/GejuOBL5
- uQDqmibIV4H1g==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8DC3117E018C;
- Sun, 05 Jul 2026 00:31:20 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Sun, 05 Jul 2026 01:30:56 +0300
-Subject: [PATCH RESEND] drm/vkms: Remove completed task from Plane Features
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-vkms-todo-upd-v1-1-d090015244a1@collabora.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Melissa Wen <melissa.srw@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 249B310E04B
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 00:26:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A47F6012B;
+ Sun,  5 Jul 2026 00:26:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0B8F1F000E9;
+ Sun,  5 Jul 2026 00:26:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783211211;
+ bh=ex2qCkz9RyTs5qb2H4B+LynKU0hce4Wa6dk4CpfKyws=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h52nLCBjqThOS+Pl4sO4G7CD0m7YJq9bwsoIB1q5O7lWL5ospI9anwOTHKQEm4Kax
+ 4s93TBUnLb/x7g0dm8VQ39Z3nEICKxB4WbbVvFXBBh47PGjus7TKWq5+Yi6Ibsdj4L
+ xfHYQ6U+fnzLJSVkDGQl3dtOaZmllO+PeHeK9lKK9J+yh216lht8M1pk98BmD2RpEX
+ OFV6ZkZUJxgXOgDLKgHl0G2Wx9C0VLN/s0C1vyDGcIj8ey1YhKrpqPka+3qLiFc5G3
+ RJEle6wP+eL4g5l6KaE0MT5mvhWEt54DK3H233YCPZ203KGTUng9YzxRWrh0H5PO1R
+ SN5xu/XxUEflA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] misc: fastrpc: add missing MODULE_DEVICE_TABLE()
+To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260705001820.72397-1-pengpeng@iscas.ac.cn>
+References: <20260705001820.72397-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 05 Jul 2026 00:26:51 +0000
+Message-Id: <20260705002651.B0B8F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,35 +52,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit 0b9eff726d56 ("drm/vkms: Support setting custom background
-color") the related TODO item in the 'Add Plane Features' section has
-been completed, so remove it.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- Documentation/gpu/vkms.rst | 2 --
- 1 file changed, 2 deletions(-)
+Pre-existing issues:
+- [High] Leaked and dangling session slots on `fastrpc_cb_probe` error path.
+- [High] Decrementing `sesscount` in `fastrpc_cb_remove` corrupts the sessi=
+on array.
+- [High] Missing `of_reserved_mem_device_release` in probe error paths and =
+remove function.
+--
 
-diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
-index 1e79e62a6bc4..792eaeb43c82 100644
---- a/Documentation/gpu/vkms.rst
-+++ b/Documentation/gpu/vkms.rst
-@@ -217,8 +217,6 @@ Add Plane Features
- 
- There's lots of plane features we could add support for:
- 
--- Add background color KMS property[Good to get started].
--
- - Scaling.
- 
- - Additional buffer formats. Low/high bpp RGB formats would be interesting
+commit 187d5a897b2d7759c52e28a8af47ac213c1e4782
+Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
----
-base-commit: e88b5cc6d6e5b1ba257f00e5c186ba137e6e8bc3
-change-id: 20260327-vkms-todo-upd-1e89d39284b3
--- 
-Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+misc: fastrpc: add missing MODULE_DEVICE_TABLE()
 
+The driver has a match table for the of bus wired into its driver
+structure, but the table is not exported with MODULE_DEVICE_TABLE().
+Add the missing MODULE_DEVICE_TABLE() entry so module alias information
+is generated for automatic module loading.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index f3a49384586d1..a5ccdd3eeea11 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -2292,6 +2292,7 @@ static const struct of_device_id fastrpc_match_tabl=
+e[] =3D {
+>  	{ .compatible =3D "qcom,fastrpc-compute-cb", },
+>  	{}
+>  };
+> +MODULE_DEVICE_TABLE(of, fastrpc_match_table);
+> =20
+>  static struct platform_driver fastrpc_cb_driver =3D {
+>  	.probe =3D fastrpc_cb_probe,
+
+[Severity: High]
+This is a pre-existing issue, but does fastrpc_cb_probe() leak session
+slots on its error path?
+
+drivers/misc/fastrpc.c:fastrpc_cb_probe() {
+    ...
+	if (sessions > 0) {
+		struct fastrpc_session_ctx *dup_sess;
+
+		for (i =3D 1; i < sessions; i++) {
+			if (cctx->sesscount >=3D FASTRPC_MAX_SESSIONS)
+				break;
+			dup_sess =3D &cctx->session[cctx->sesscount++];
+			memcpy(dup_sess, sess, sizeof(*dup_sess));
+		}
+	}
+	spin_unlock_irqrestore(&cctx->lock, flags);
+	rc =3D dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
+	if (rc) {
+		dev_err(dev, "%u-bit DMA enable failed\n", dma_bits);
+		return rc;
+	}
+    ...
+}
+
+If dma_set_mask() fails, it returns directly without invalidating the
+appended session(s) or rewinding sesscount.
+
+Since sesscount was incremented, fastrpc_session_alloc() might hand out this
+broken session slot to a userspace context, which will then attempt to use =
+the
+uninitialized device for DMA operations.
+
+>  	.remove =3D fastrpc_cb_remove,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could fastrpc_cb_remove()
+corrupt the session array when decrementing the total count?
+
+drivers/misc/fastrpc.c:fastrpc_cb_remove() {
+    ...
+	spin_lock_irqsave(&cctx->lock, flags);
+	for (i =3D 0; i < FASTRPC_MAX_SESSIONS; i++) {
+		if (cctx->session[i].sid =3D=3D sess->sid) {
+			cctx->session[i].valid =3D false;
+			cctx->sesscount--;
+		}
+	}
+	spin_unlock_irqrestore(&cctx->lock, flags);
+    ...
+}
+
+Decrementing the total count without closing the gap in the array breaks the
+tracking logic.
+
+Because fastrpc_session_alloc() iterates only up to sesscount, any valid
+sessions beyond the new sesscount become immediately unreachable.
+
+A subsequent probe will blindly append at the new sesscount, potentially
+overwriting a session that is actively in use by userspace.
+
+>  	.driver =3D {
+>  		.name =3D "qcom,fastrpc-cb",
+>  		.of_match_table =3D fastrpc_match_table,
+>  		.suppress_bind_attrs =3D true,
+>  	},
+>  };
+
+[Severity: High]
+This is also a pre-existing issue, but is there a missing call to
+of_reserved_mem_device_release() in the rpmsg probe error paths and remove
+function?
+
+drivers/misc/fastrpc.c:fastrpc_rpmsg_probe() {
+    ...
+	if (of_reserved_mem_device_init_by_idx(rdev, rdev->of_node, 0))
+		dev_info(rdev, "no reserved DMA memory for FASTRPC\n");
+    ...
+}
+
+drivers/misc/fastrpc.c:fastrpc_rpmsg_remove() {
+    ...
+	of_platform_depopulate(&rpdev->dev);
+
+	fastrpc_channel_ctx_put(cctx);
+}
+
+The reserved memory is bound in fastrpc_rpmsg_probe() but never released
+during teardown in fastrpc_rpmsg_remove() or error rollback.
+
+Repeated unbind and bind sequences could leak DMA reserved memory mappings.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705001820.7239=
+7-1-pengpeng@iscas.ac.cn?part=3D1
