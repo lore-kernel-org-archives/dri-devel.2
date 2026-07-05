@@ -4,136 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E8AFC43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 19:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A58BC43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 20:46:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27E1910E50F;
-	Sun,  5 Jul 2026 19:41:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E56FC10E1BD;
+	Sun,  5 Jul 2026 20:46:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LEH8gBGq";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kHravEtt";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lL230xXc";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A54310E50F
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 19:41:32 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 665IShGZ2443705
- for <dri-devel@lists.freedesktop.org>; Sun, 5 Jul 2026 19:41:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- keNlL6A8+I5pnaNawbDLPC3Skjo9l1+hFMmFLmQIfDI=; b=LEH8gBGqre98aZ5S
- R+gXIdM13wWVBKCaHBPzQIy3YO16XtaM2Yeu1rWWcKE8Ahh7phGi5PdgSe6faHYh
- NZ6WuJayU3dm2BjN9bw+VBE+ZM79Gb5/VMy0wrJmVG9PAL4oi/vWr8CCwZvut6LG
- bgx8kYmZdMLIw+hO7G1imKVsWOK46Uaj/pGQFCjPL0CK5llMYjmxUaWFjupRdJAp
- DojiJvRtFxtp1fbC0Y51KdHDxd4iTgLcudGv/2y9joceF7NK21EqPuFhp9vBp/DG
- Mr1h6o1uwl/xqAgXXnlbwqyx/z4fTFXUP1+eeaAFH0RCQyOQiLqKrFrdvXcDdzoo
- l70Dvg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6s4sudwt-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 19:41:31 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c9151bf6ce7so2626891a12.3
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 12:41:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783280491; x=1783885291;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=keNlL6A8+I5pnaNawbDLPC3Skjo9l1+hFMmFLmQIfDI=;
- b=kHravEtt/BecarX+Zcyi2AfkpcoMEgayGPRJk8NSASqUXXDGgH5OccP71/zx2xbs73
- om5gym6PsPJLzNN6ZGD8Up2N453vYU6qP3CFoADLNqL3NvzgvHeoy42krKDIyBCaO7ZK
- uz+0TCcnDMnL4qjcT0sLeGk0neiDFWuVA50/qElUdSti8NqH+aezAghTNv83IBSdfB6L
- S/KpUonfkcL/sxdVtvfg0wiAmTWmncCzyhhQAXzR8RGYOILtRVEJ8j3aJmHzxUD3kxxN
- S82sWeVs65GD7ZZ9c8333S25L5siOI5HS1InLvz5KlxcUsLtnxB752sdwRdR6qDzDR/8
- Qvng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783280491; x=1783885291;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=keNlL6A8+I5pnaNawbDLPC3Skjo9l1+hFMmFLmQIfDI=;
- b=RCzAPvAwF/X7MGNnj3eUpYQGK+yH/9ZE0ZQGGQg7m/Bl3Fju8927w9ovlm2Td1go0R
- D1IsCbiBUi9Va5/dZlfkgHHL2QXRb5CTXe1eH+ye/NYzT7dWuvTtDoiFN13kfjLxjVR6
- Lhhp4QjreivQeg14v2NK5FJJUe8vU3UWTkrftXP1erfhKRY6TenMchoj3S45YePjT4NN
- KE39ypu+jLQbkJ9MjDwOW1Nagwttz9lgY67SctdWdu7cLfqBVPRF28q/+9u+fCMyNfjI
- UYS5FQN39dua7dnGNqan5jH371XppG9lyafpOoGXGbvPVrJXdbJ+3jRm1s1S+UiUNqD+
- AU9A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpIXElOlL7vhNFd53f1Y5s0AbaojH3X2VtfF94S1nJ3usMxa/U0L9bnOGaOnNcL6yd7S6mgGnAcctA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyy6dG9UUXkDfsmyn2WLEo408pqWSVtuXzkXOrk0MLQQjTkO+uO
- 50yS+vBsqby6VNtVqYL8tzs7T27l4fmnXsSqaomdUy+obhxITvpoSdne5HkclithNCEELobi0HI
- WLzSi3NJp0DZ2WlmTFNIgLFQG4jakDVkjx4JqoOG/MFqnmw5bD+lWE4o5/O0uhqFz50P8fXE=
-X-Gm-Gg: AfdE7cmr3nXyRsbuDitihgobI+/JvbB5Nk1RCUDYpe7iLY+zYqraEUPfi5pBS3YJA2C
- ZhgckI5qADv3pRmrFDj0HnJSYapm061XVrFVsUR3Ui+oQAQKbUi58Urr1WeBkQ2EiD4wjiU1Y1y
- v+f1enQKAc9g8YPFiFBE+H4jnTGr08biGcsUuD//KFLownuU95HrsiLRd58MVL3weGgbhZGgjHa
- Fxk7XuS/xZfkU68osHH2ocqL0xqFIReMvk/uFKPx0NQXbuTmLuQJe+6otnyEhLNi5Rs5tnYAeDM
- eoMT6UfRHOl5gsEc5bwLqK3LJgVV8zPrXL9RvnT1JvWM8FeWOXbJ3S/l4aEYxHacrm5MKbbCq1N
- X0LkVJAQBbyOQUyZnebZyzCAaGAZoASAizoo24w==
-X-Received: by 2002:a05:6a21:4cc6:b0:3bf:a0e5:99a5 with SMTP id
- adf61e73a8af0-3c03e509089mr7554480637.47.1783280490845; 
- Sun, 05 Jul 2026 12:41:30 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4cc6:b0:3bf:a0e5:99a5 with SMTP id
- adf61e73a8af0-3c03e509089mr7554455637.47.1783280490326; 
- Sun, 05 Jul 2026 12:41:30 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13b3c7fa566sm40573417c88.4.2026.07.05.12.41.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jul 2026 12:41:30 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-mmc@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, sound-open-firmware@alsa-project.org
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 42/42] ASoC: sprd: Use devm_of_reserved_mem_device_init()
-Date: Mon,  6 Jul 2026 01:10:18 +0530
-Message-ID: <20260705194019.2565498-10-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEB8B10E1BD
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 20:46:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783284368;
+ bh=OaQusKv3rXYsBNCL7bbmIiPHTJUbxK+t+RRHDhKEW9Q=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lL230xXckdYvbMdcv6VvPfggSMJt4NKuO+UichDEAFAiEOXbiKsWUP7Cq4EuSPr+n
+ zt6n2WmBg+/z95DyxHqpc0Cm7kZqJEPz1bQSlMPCPbdFIZJVKypLfV5g1m0yeOvK74
+ mYZaKU5LaRRtbJyIt8ONOpFk4LV7eiywCjFQC4TGYKHUV+SY+wlDd7YwzL9ODHKjQL
+ DzJF68rnwWrFaDw8YkIGRnmzzhOwyRjoW0EEyQDEgmbUt+q8lA8XQpcie0x8XinT1X
+ kkzZTDknZ2VF9gFMDb150EY1SbsJq8gYG0zQC+5+tVLfpQPymDbv89e8NVfyRMDHzq
+ IqMTxsmxqsxUA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 28E3917E0177;
+ Sun, 05 Jul 2026 22:46:07 +0200 (CEST)
+Message-ID: <c8242f5c-ec74-489e-b378-f225ec3a0135@collabora.com>
+Date: Sun, 5 Jul 2026 23:46:06 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
+To: Diederik de Haas <diederik@cknow-tech.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+ <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA1MDIxMiBTYWx0ZWRfX2rkWPTgUQeSd
- n1vQVxVEFo51314Qq/cUg3fVWSS6LAy0wxXmWtfDESze5ujMo4MFD3ALoRwF/l+/tsz0VmZ6LhB
- 126Pe3ApRJWlVP8EYAjgY9euYYIKkNw=
-X-Proofpoint-ORIG-GUID: MBFi2V4W36hWt1HSHCkmZ9oFGAvYRAzV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA1MDIxMiBTYWx0ZWRfX1I8PV++9JMNI
- PL30ZPYthEwab8+gVns/Ns7ZgKFj/KebMy4ftFJaBlXwlzvsS0Amjs/NMJCyO4OvKVGMRJRUhkA
- KzHtSqHiPzUrSBKfL3IunZM6YFqhaZklaUv8v6512iNegym/aFHMhXa09bu8EXHppczw+dZVU2G
- UP4FwD6FKc4PwsrKb50udm0Lb+aS0jpP6tYpPWvgAb93Ho3xG/TdWnKR/BM0RFw47L7lil+jIjC
- 5IOWFFxTd40DlmJRlHI0KkNuoMb/kOlTcoeN3BKeSk4YePXyzk0OsgrsqgNBOdVmTYt3JgAV1hX
- Wecu1WIj2ugGLzZD9bt6Ss6JI045YZT/o/iDrW7/URC760A20s8jIMvMgiZWJmzOsbmy9NbA2lq
- QV74AI8laqua2UH8sxiIHg9BKYWOdrvf7oWfasi8YTFbdl1k/Z88nl/JFSOdMFFSw/LulPx8EJH
- 8E9TRVhF5iiyLMcGSQw==
-X-Proofpoint-GUID: MBFi2V4W36hWt1HSHCkmZ9oFGAvYRAzV
-X-Authority-Analysis: v=2.4 cv=ZfQt8MVA c=1 sm=1 tr=0 ts=6a4ab36b cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=99hAX-h0IAisWkWT3OgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-05_01,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607050212
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,32 +78,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the devres-managed devm_of_reserved_mem_device_init() to ensure
-the reserved memory region is released on device removal, fixing a
-missing cleanup — the driver has no remove function. Also drop the
-now-unused local variable np.
+Hi Diederik,
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- sound/soc/sprd/sprd-pcm-dma.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+On 7/5/26 4:28 PM, Diederik de Haas wrote:
+> Hi Cristian,
+> 
+> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+>> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
+>> the enable path.
+>>
+>> These resets are intended to leave the hardware in a clean state for the
+>> next use, helping recover from exceptions such as IOMMU page faults, as
+>> well as to prevent random display output glitches, such as a blank
+>> image, observed when switching modes that also change the color format,
+>> e.g. from RGB to YUV420 and vice versa.
+>>
+>> For now this seems to affect only the RK3588, hence the resets are
+>> optional and will be provided in the device tree for this SoC only.
+> 
+> Why do you think it only effect RK3588? 
 
-diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
-index cbf5bf82d96e..220f55d475af 100644
---- a/sound/soc/sprd/sprd-pcm-dma.c
-+++ b/sound/soc/sprd/sprd-pcm-dma.c
-@@ -459,10 +459,9 @@ static const struct snd_soc_component_driver sprd_soc_component = {
- 
- static int sprd_soc_platform_probe(struct platform_device *pdev)
- {
--	struct device_node *np = pdev->dev.of_node;
- 	int ret;
- 
--	ret = of_reserved_mem_device_init_by_idx(&pdev->dev, np, 0);
-+	ret = devm_of_reserved_mem_device_init(&pdev->dev);
- 	if (ret)
- 		dev_warn(&pdev->dev,
- 			 "no reserved DMA memory for audio platform device\n");
--- 
-2.53.0
+My findings are exclusively in the context of validating YUV support for DW HDMI
+QP, hence targeting RK3588 and RK3576.  Since RK3576 didn't exhibit any
+anomalies, I concluded the resets are needed just for RK3588.
 
+> I reported about my RK3568 test here:
+> https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com/
+> "I then went on to try LibreELEC's builds. The artifacts I (sometimes)
+> saw, were gone :-D OTOH, I did get several major issues 'in return',
+> like rk_iommu Page fault resulting in a black screen and the only way to
+> 'recover' from it, was a reboot."
+> 
+> And I reported some more test results here:
+> https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk3399-rk3566-rk3568-rk3576-rk3588/?postID=204691#post204691
+> 
+> That seems to me a (strong) indication it also affects RK3566/RK3568?
+
+If coincidentally this helps improve the reliability of some of the older SoCs
+as well, the resets can easily be added to the corresponding DTs and submitted
+as a follow-up series.
+
+Cristian
