@@ -4,116 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7AFC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6731CC44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C7A810E7E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31F2310E7E0;
 	Mon,  6 Jul 2026 07:13:33 +0000 (UTC)
-Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 05EBF10E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:55 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-1c-6a4b4903b9ee
-From: Byungchul Park <byungchul@sk.com>
-To: linux-kernel@vger.kernel.org
-Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
- torvalds@linux-foundation.org, damien.lemoal@opensource.wdc.com,
- linux-ide@vger.kernel.org, adilger.kernel@dilger.ca,
- linux-ext4@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
- will@kernel.org, tglx@linutronix.de, rostedt@goodmis.org,
- joel@joelfernandes.org, sashal@kernel.org, daniel.vetter@ffwll.ch,
- duyuyang@gmail.com, johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
- willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
- gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
- akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
- hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
- jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
- rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
- linux-block@vger.kernel.org, josef@toxicpanda.com,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
- dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
- chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
- longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
- yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
- her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
- bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
- sumit.semwal@linaro.org, gustavo@padovan.org, christian.koenig@amd.com,
- andi.shyti@kernel.org, arnd@arndb.de, lorenzo.stoakes@oracle.com,
- Liam.Howlett@oracle.com, rppt@kernel.org, surenb@google.com,
- mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
- samitolvanen@google.com, paulmck@kernel.org, frederic@kernel.org,
- neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org,
- urezki@gmail.com, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
- qiang.zhang@linux.dev, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
- vschneid@redhat.com, chuck.lever@oracle.com, neil@brown.name,
- okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- trondmy@kernel.org, anna@kernel.org, kees@kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, mark.rutland@arm.com,
- ada.coupriediaz@arm.com, kristina.martsenko@arm.com,
- wangkefeng.wang@huawei.com, broonie@kernel.org, kevin.brodsky@arm.com,
- dwmw@amazon.co.uk, shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
- yuzhao@google.com, baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
- joel.granados@kernel.org, richard.weiyang@gmail.com,
- geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
- alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
- link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
- brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
- mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-modules@vger.kernel.org, rcu@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
- neilb@ownmail.net, bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
- dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
- alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 24/40] locking/lockdep: prevent various lockdep assertions
- when lockdep_off()'ed
-Date: Mon,  6 Jul 2026 15:19:12 +0900
-Message-Id: <20260706061928.66713-25-byungchul@sk.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
-References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxTdxTG97/3f1/a0ezasXHVD5gmqCPBuUXnyeIW4mK4ypaZ+fJhGKXa
- m7UIhbSKssWsIJ0VRREHBOqQF9M05UVsgwixruLAF0LoVkzaorYQrJAGMR3FICC2GL+c/PI8
- z3mSkxyWlPupVaxGe1TUaZW5ClqKpVMJjWl4R2bOxif1EjAZf4fHgXEKojMmDIvmLgZM9loK
- 3O0tCIzdSzGtsp+BmbkRBrzuv0n4v+MNDeG7EQRVo+M01EwWY5i2nEMw2ZcB467TCBarj0C4
- +iUN84NDJNRUuRFEJoMInNYSGp5VdJIwHJ2m4UHVWRqm/r1MQMjvJOBU8zUauoM9DAQsIQwD
- FU1ErJyG6utJYK45RcTGBAEWQwqYBz0UjFnrGFhqyIf+lucMhEOVNATu/UFBlyHIgN3Xh2Bm
- eJQAU08UQ239YxpuOR9gMC3OIPD0XKbhaesSBQbzq9ilrgEKrj33EjDQfx/DyOAFBoZ62igY
- DXopaHvRRMOlFyEElug0A/+5GggovtOM01XCK+N5LNgcNwihtb4VCfOvK5FQ6jgudNc9YYTS
- 235GaLAfE0r/maIEhzVVaL41SQiNkSgl+MPfCHbbGVqwRyoZoXF+gtyV9rN0q0rM1RSKus+/
- zZaqWxZ8VIFvxYnZJj9hQJaPyhDL8twm3mpMK0OSZTT1ldBxprl1vNc7R8Y5kVvDO8pDVBmS
- siTnSebPWcpx3PiYU/H9vrblEOZS+PmrD4k4y7iv+JGSKeZdaTLf0uFazkhievvCX8sZObeZ
- H5m+h+OlPHdFwrsfTlDvFlbyd6xeXIFkDegDG5JrtIV5Sk3upg3qIq3mxIbD+Xl2FPs4y8mF
- rJso4t7dizgWKRJkkL4zR04pC/VFeb2IZ0lFomzt+swcuUylLPpV1OUf1B3LFfW9aDWLFUmy
- L2ePq+TcL8qj4hFRLBB1712ClawyoE8+JMs3SrYmlvHnbb72/TvrMjLO3k3forYbO3+4en9P
- QcC+8tNocM7c2/fbvpdWjw0l/bRDr87UF6eMov2pr5+6kuUGx9o3n9VvUw9v/86pm7Nk30hy
- /nlo9sxFx0nl3vRw1oGusUfur4kmz3jtUPDH9houCxd2XNFWfJ9ABCRjCqxXK79IJXV65VvG
- SGIPbQMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSWUwTcRDG/f93u12q1bWCrvoAaeIRE6gmaibxwhjDCtHok9eDNrKRcqcV
- EBW1xWpVUGzSEqkoVGm0oCDFA0ljUwIiXtSqgFCRpBa5xChHoEUsGF8m38z3my/zMDQheSpY
- QitSj/HKVHmylBKRol0bciPRjrjE1bqeMNBpz0Bnl1cAn9QOEkaGdSTcqKygYNL0RAi66usC
- aGrVkNDyoBxB14gOwZjfRIC2doqESX2jEIbHO4RgUCOYsjciMLr0BLS1PCegokaN4XfVHwr6
- 638hMHR7KSjsVZMwZMlDUOQzCaG3IQYGu+oEMOXpwdA6OoDA4v2Dweu4gGDSmAS3zLbguvEn
- Bf437wgoNLQgKO32EPCr9yuCmsYvCOx3NRR8K3hEgNs7Fz6MDFHw0nCZgkHXDQw/qigo0dgF
- 4Hrdj6DYpEfg+2zHkHu7kgJjcTUJtV+fCcHVH8DQadRjKK/eCV0WHwmvCsw4eG6QergITIW5
- OFi+YzDcr8MwbrEKo8sQN6a9QnJW22PMad9PUlzFzQrE+Sf0iBsuyyU4bUGwrR8YIrhztiyu
- 7NUAxU2MfKQ4+2gJyTWbWe7OxQnMXXsTydUWeYS7tx4QbYznkxWZvFK2+bAooTzQLkhvn398
- 1PwZn0WWeZdQCM0ya1ldg4aa1hSzgm1rGyemdSgTwdryfYJLSEQTjDuczbPkk9PGAiaebWy/
- PwORzDLWf6cZT2sxs57t0AwK/4WGs+VVjhkmJDh/ECieYSTMOrZj6AVZgEQlaJYVhSpSM1Pk
- iuR1UaqkhOxUxfGoI2kp1Sj4T5acwLWnaNgd40QMjaRzxBAdmygRyDNV2SlOxNKENFS8fGVc
- okQcL88+wSvTDikzknmVEy2lSekicexe/rCEOSo/xifxfDqv/O9iOmTJWZR/MnDryLy+0zhs
- ftJYSd76TVZ8hc36Ltvc0Fm6Xfuxx20mbFnnn2yL89S6dy683uw692xLd2xlmG9FpPOUsWjr
- qNP6yL+nN73uXloP3fdT2SSbnXOw+NPiWQRTE1DLbE2uiGUx+xXRUB8+eDqq9KrN0WSPWDzm
- cQT2ybQZbwkpqUqQr1lFKFXyv5jOPbtLAwAA
-X-CFilter-Loop: Reflected
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KLP7E0If";
+	dkim-atps=neutral
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70B1B10E198
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 11:31:42 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-47db714766aso91077f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 04:31:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783251101; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Uy8390ybcBcHwO/dierDmI0rNBv5jkQ76lrHqPt//waONBZEYO/JhneU9b/kHYm4+t
+ kr1nS/5NRY31jxxgYaqCDz0OJflTu+C4vYX+5ZoQ0JG6RadEM6bFsYPMne4+Rsu8Y86b
+ WFmyO8exBeLpCB+wje4kGwVirjFzU5bG9g+t2L1Cj8hWpT+vc64ylwVT4CBAa6Qn9B+g
+ ZVAnfK8dgChI2gujvP8Ir2OHEk+W6+YsXVRmyXZmAeWvh8NHggiIbttsjUCgANw8Ufrq
+ I5JbAxLIN/0TqFrBR+GK/+IDJGdTzIbDKZTyAFThDqGHMtvmHK5cC1kJuitP8lEvX36m
+ Iwqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=nA7Ob+odwL2G7BPv/HcXKdYKF4ZyW5MS598iUpp+TdU=;
+ fh=h3V1y2t6l+xo3BjMeet+0TNB2HmqSjaBopOh8KzhEkA=;
+ b=CvXB8YqkVvK4X6ZZjU9YrV90HTEomZn0xEo0kpPuiExjbJu6sAd57K0fhKLSoKLUPs
+ lJVYgdnjTgjWAB5ZpBeLtuWKlt/s91vqDEQvG/LFzVfb4HkEnvLZfHg068YgV+jA3VCw
+ mphLBtfnJ053h4CqaAvyDM2sN+Yb/fFlduj34cWHZDoerL9KhtJ1hX9k9eav/YeFFlKU
+ zuQPPgFO6OGwYdKZkRL9wYn6nxSYzO0y0PaTzJhLmbDEwHIOAUnRSjptbthX2vpF5k7n
+ pSCFpB3a7SIygPDtD16Yyyn+fELRM3EU9kmJxBpAFIkFDJhXotoRBP3szP0Qws5Fj8+K
+ cJtA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783251101; x=1783855901; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=nA7Ob+odwL2G7BPv/HcXKdYKF4ZyW5MS598iUpp+TdU=;
+ b=KLP7E0IfFPYJXNp+7XNdwxDQ/4H1PmScv3JXeHT0Su5vjztE9uiXm7H5FZT0o8kPpn
+ 18JAv8S4jNXdwO6dwwwuJejYAoneTOyPE1gqfMlP5T8kBgMr5C3et2g0Z5bv8NlA3q6C
+ wmblBah5+0Jj9/fOW2k4/fKPuYc1bCfDoS65vrTgyOd65LPywXBqrdmUK7uC7X2nUPw4
+ i6Y8p90hVRoxM+ckJjiHJBk3b90Ylg1ObSEXIBAzwf7SB7q0vaOYshXeZ1O8gBKB+y78
+ mnPAf0cNT389u5j14z8HCmfTbIz6wNQNUImgQg8cA2ZHYAGy4w+6Msfft9QBF/MzmkHf
+ jvrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783251101; x=1783855901;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nA7Ob+odwL2G7BPv/HcXKdYKF4ZyW5MS598iUpp+TdU=;
+ b=YkO05Qqtp/AW2HRrsh47lPf0A9lC0nDvPeW0FxcxHl4agerVL+zLftlYf+8zkAjtTy
+ NM8nYm/NJ2ksikXRcpqa0YhdKBJ2Org9SCZUAhCKjZqR/MJcCBoIm3gMZowscQLRf2KF
+ Af6e/qCag05DApHDWj1yaCWdTQ3vSZjHkrCLIanr59Ci8kCGkSugkHDok4AmFMRgxhWi
+ YKqqlinNmobleLsHHhrMEIJFfDMTnrVTmXxXePyWOv7nQd0QBMhpiLkTDQjxM/R65b1X
+ NjR/hLdEbKcQZU8pfryJhjSuSp2EeAdEUywlZB3jNyW3pfdf5ixWB/M9HWfOah1K9rbk
+ xqCw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RovOpJJQX5xi7V8NIwMR4cVdR5xNazMhiZIYt3xL+wERP/CGASA9zMFOnYVKM6/wb0B/NuqBBitTfk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDWc5f5JzJPcBa3a7pdStmy68ll1p0SR/FQ8NKK4UmZx/Bfym/
+ QSmA+Een2La/oA7blxI9rH/q9WOsPX9M/u3ZRP0c84oK8ue0oDJVkfwlLTYZOFvCLQ1yZHqY2jx
+ ymserebTqwX4nM3MGieeZA8AWf7zZgFU=
+X-Gm-Gg: AfdE7clu8tcm89TQvlGiuN5id4RB/H0ZRvXmRgwqqa34kvCzIaA4+dzB5K/MM86SASy
+ f4DDimVsZpIeAT556v12nUwYFTUXA9khrHASN7cR8kfR5kFCe0WjMhJmcfXuKpKI0v8AukPv3e7
+ s+6VbOUfltuY4ZU2gxELa7rgP/9CeuOEfgq5/7f/lOf8fE+TnlDWVIiU1aQlRqg8jYLuHVxJo8H
+ PwBVf65qGwi0sd3NA/5zJoI7k/KsTedoAnAZKhoPjI8V91YGTprjHogokL71Kg5F7VBmL0k
+X-Received: by 2002:a05:6000:25fe:b0:474:8dbb:ccd0 with SMTP id
+ ffacd0b85a97d-4793685fed0mr13556662f8f.19.1783251100630; Sun, 05 Jul 2026
+ 04:31:40 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+ <20260612-synopsys-dw-dp-improvements-v3-1-dc61e6352508@collabora.com>
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-1-dc61e6352508@collabora.com>
+From: Andy Yan <andyshrk@gmail.com>
+Date: Sun, 5 Jul 2026 19:31:27 +0800
+X-Gm-Features: AVVi8CcFMXgycZM9Ewe4bW5gvgUhwyoVSUwrl4zMKIQxueC9JU8itNG4OsOlAL0
+Message-ID: <CANbgqARCcycittXB6CmKmU90Gae20OPjOoA+Ns4e45CbPst_hw@mail.gmail.com>
+Subject: Re: [PATCH v3 01/10] drm/bridge: synopsys: dw-dp: Simplify driver
+ data setting
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Damon Ding <damon.ding@rock-chips.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org
+Content-Type: multipart/alternative; boundary="00000000000066007b0655db80c1"
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,60 +125,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-lockdep provides APIs for assertion only if lockdep is enabled at the
-moment asserting to avoid unnecessary confusion, using the following
-condition, debug_locks && !this_cpu_read(lockdep_recursion).
+--00000000000066007b0655db80c1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-However, lockdep_{off,on}() are also used for disabling and enabling
-lockdep for a simular purpose.  Add !lockdep_recursing(current) that is
-updated by lockdep_{off,on}() to the condition so that the assertions
-are aware of !__lockdep_enabled if lockdep_off()'ed.
+Hello Sebastian=EF=BC=8C
 
-Signed-off-by: Byungchul Park <byungchul@sk.com>
----
- include/linux/lockdep.h  |  3 ++-
- kernel/locking/lockdep.c | 10 ++++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+Sebastian Reichel <sebastian.reichel@collabora.com> =E4=BA=8E2026=E5=B9=B46=
+=E6=9C=8813=E6=97=A5=E5=91=A8=E5=85=AD 02:01=E5=86=99=E9=81=93=EF=BC=9A
 
-diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
-index 60b17a2ff555..5113b7053b62 100644
---- a/include/linux/lockdep.h
-+++ b/include/linux/lockdep.h
-@@ -303,6 +303,7 @@ extern void lock_unpin_lock(struct lockdep_map *lock, struct pin_cookie);
- 	lockdep_assert_once(!current->lockdep_depth)
- 
- #define lockdep_recursing(tsk)	((tsk)->lockdep_recursion)
-+extern bool lockdep_recursing_current(void);
- 
- #define lockdep_pin_lock(l)	lock_pin_lock(&(l)->dep_map)
- #define lockdep_repin_lock(l,c)	lock_repin_lock(&(l)->dep_map, (c))
-@@ -630,7 +631,7 @@ DECLARE_PER_CPU(int, hardirqs_enabled);
- DECLARE_PER_CPU(int, hardirq_context);
- DECLARE_PER_CPU(unsigned int, lockdep_recursion);
- 
--#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursion))
-+#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursion) && !lockdep_recursing_current())
- 
- #define lockdep_assert_irqs_enabled()					\
- do {									\
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index dc97f2753ef8..39b9e3e27c0b 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -6900,3 +6900,13 @@ void lockdep_rcu_suspicious(const char *file, const int line, const char *s)
- 	warn_rcu_exit(rcu);
- }
- EXPORT_SYMBOL_GPL(lockdep_rcu_suspicious);
-+
-+/*
-+ * For avoiding header dependency when using (struct task_struct *)current
-+ * and lockdep_recursing() at the same time.
-+ */
-+noinstr bool lockdep_recursing_current(void)
-+{
-+	return lockdep_recursing(current);
-+}
-+EXPORT_SYMBOL_GPL(lockdep_recursing_current);
--- 
-2.17.1
+> There is no need to get the platform device just for setting up
+> the driver data. Simplify the logic.
+>
+> Reviewed-by: Andy Yan <andy.yan@rock-chips.com>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+>  drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> index 0de822360c8d..35598ab9fe84 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> @@ -74,7 +74,6 @@ static const struct drm_encoder_helper_funcs
+> dw_dp_encoder_helper_funcs =3D {
+>
+>  static int dw_dp_rockchip_bind(struct device *dev, struct device *master=
+,
+> void *data)
+>  {
+> -       struct platform_device *pdev =3D to_platform_device(dev);
+>
 
+           In patch 06/10, this is added back again. So is this change
+really necessary?
+
+
+
+>         const struct dw_dp_plat_data *plat_data;
+>         struct drm_device *drm_dev =3D data;
+>         struct rockchip_dw_dp *dp;
+> @@ -87,7 +86,7 @@ static int dw_dp_rockchip_bind(struct device *dev,
+> struct device *master, void *
+>                 return -ENOMEM;
+>
+>         dp->dev =3D dev;
+> -       platform_set_drvdata(pdev, dp);
+> +       dev_set_drvdata(dev, dp);
+>
+>         plat_data =3D of_device_get_match_data(dev);
+>         if (!plat_data)
+>
+> --
+> 2.53.0
+>
+>
+>
+
+--00000000000066007b0655db80c1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hello Sebastian=EF=BC=8C</div><div dir=3D=
+"ltr"><br></div><div class=3D"gmail_quote gmail_quote_container"><div dir=
+=3D"ltr" class=3D"gmail_attr">Sebastian Reichel &lt;<a href=3D"mailto:sebas=
+tian.reichel@collabora.com">sebastian.reichel@collabora.com</a>&gt; =E4=BA=
+=8E2026=E5=B9=B46=E6=9C=8813=E6=97=A5=E5=91=A8=E5=85=AD 02:01=E5=86=99=E9=
+=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+There is no need to get the platform device just for setting up<br>
+the driver data. Simplify the logic.<br>
+<br>
+Reviewed-by: Andy Yan &lt;<a href=3D"mailto:andy.yan@rock-chips.com" target=
+=3D"_blank">andy.yan@rock-chips.com</a>&gt;<br>
+Signed-off-by: Sebastian Reichel &lt;<a href=3D"mailto:sebastian.reichel@co=
+llabora.com" target=3D"_blank">sebastian.reichel@collabora.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 3 +--<br>
+=C2=A01 file changed, 1 insertion(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/ro=
+ckchip/dw_dp-rockchip.c<br>
+index 0de822360c8d..35598ab9fe84 100644<br>
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c<br>
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c<br>
+@@ -74,7 +74,6 @@ static const struct drm_encoder_helper_funcs dw_dp_encode=
+r_helper_funcs =3D {<br>
+<br>
+=C2=A0static int dw_dp_rockchip_bind(struct device *dev, struct device *mas=
+ter, void *data)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0struct platform_device *pdev =3D to_platform_de=
+vice(dev);<br></blockquote><div><br></div><div>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0In patch 06/10, this is added back again. So is this change re=
+ally necessary?</div><div><br></div><div>=C2=A0</div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct dw_dp_plat_data *plat_data;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_device *drm_dev =3D data;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct rockchip_dw_dp *dp;<br>
+@@ -87,7 +86,7 @@ static int dw_dp_rockchip_bind(struct device *dev, struct=
+ device *master, void *<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOMEM;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 dp-&gt;dev =3D dev;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0platform_set_drvdata(pdev, dp);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0dev_set_drvdata(dev, dp);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 plat_data =3D of_device_get_match_data(dev);<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!plat_data)<br>
+<br>
+-- <br>
+2.53.0<br>
+<br>
+<br>
+</blockquote></div></div>
+
+--00000000000066007b0655db80c1--
