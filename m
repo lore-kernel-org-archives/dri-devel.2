@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D68C0C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 23:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B414C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 23:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 829A810E28B;
-	Sun,  5 Jul 2026 23:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F51A10E290;
+	Sun,  5 Jul 2026 23:38:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uCjoqEZh";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="X+nTM1Up";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47BEF10E28B
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 23:38:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6CC410E290
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 23:38:52 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 921FEBE;
- Mon,  6 Jul 2026 01:37:58 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98FA2741;
+ Mon,  6 Jul 2026 01:38:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1783294678;
- bh=94ZGNpcgMFcHz7V/t7ZLK6w6YKEaAwrUVIrOqlV0goE=;
+ s=mail; t=1783294683;
+ bh=CKr70Bl7SDnv+itCSOhLjyRNH9/JCWI6hs/gsrk/9BY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uCjoqEZhusctEsIdiLEgNu7Tjcwo93hV7ipdLqS76J2mo+/ZzONDbKtA6j2U+2lEv
- 3fPjM79J5kcEOnpCU8jeJv1Ej6QIwO55DQZtmjQsrbXF9pViGu5hrFD24NQiHnKtrZ
- J5NpwH4mrnfKhCxDM7ja8qglLsfqbhHJpfBBiGxw=
-Message-ID: <7f42593b8a35e68960f2f6570ea3d948@killaraus.ideasonboard.com>
+ b=X+nTM1UpQGaDjCCbrKs8a926nKNRXlYJu4kGjmk0blxy95UwK+eDTDWd+PkdzvCQh
+ dSHgpjB+bUEcjTOaoKvZUARoiv3ku1BiZwqJzi1oKhuMZODrGTJZQ0SckKGBnDtuZS
+ GEOZIOXk5rvt+tNieFvB+91Ra+vsz/rkaGK950xM=
+Message-ID: <1ad604017b0d28663842a86aa036340b@killaraus.ideasonboard.com>
 From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- wsa+renesas@sang-engineering.com, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter
- resource leak
-Date: Mon, 06 Jul 2026 02:38:43 +0300
-In-Reply-To: <20260705214826.628831F000E9@smtp.kernel.org>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org,
+ wsa+renesas@sang-engineering.com
+Subject: Re: [PATCH 3/4] drm/bridge: display-connector: Support hardcoded EDID
+ for VGA connectors
+Date: Mon, 06 Jul 2026 02:38:49 +0300
+In-Reply-To: <20260705214453.5195C1F000E9@smtp.kernel.org>
 References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
- <20260705214826.628831F000E9@smtp.kernel.org>
+ <20260705213542.28987-4-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705214453.5195C1F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
@@ -68,127 +68,73 @@ Thank you,
 
 Laurent's spam bot
 
-On Sun, 05 Jul 2026 21:48:25 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+On Sun, 05 Jul 2026 21:44:52 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 >=20
 > Pre-existing issues:
-> - [High] Use-After-Free of devm-managed resources due to DRM bridge lifetim=
-e mismatch
-> - [Medium] Hardware state leak of `ddc_en` GPIO on probe error paths
+> - [High] Use-After-Free of devm-managed resources and missing asynchronous =
+cleanup during device removal when the driver is unbound.
 > --
 >=20
-> commit 9c76898e592dfddd3f50beaa692cc32ae295e2c7
+> commit 48f63e147d7554f73cd9df360e29fd0b0ddb5d8d
 > Author: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 >=20
-> drm/bridge: display-connector: Fix I2C adapter resource leak
+> drm/bridge: display-connector: Support hardcoded EDID for VGA connectors
 >=20
-> If the probe function returns an error after getting the I2C adapter for
-> DDC, the reference to the adapter is never released. Fix it by releasing
-> it in the bridge .destroy() handler.
+> This commit adds support for parsing a hardcoded EDID blob from the device =
+tree
+> for VGA connectors when DDC signals are not connected. It also ensures that
+> specifying both a DDC bus and a hardcoded EDID returns an error during prob=
+e.
 >=20
 > > diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
 /bridge/display-connector.c
-> > index d1e74dd2e0518..eb3412ec30a07 100644
+> > index eb3412ec30a07..225a8e987d086 100644
 > > --- a/drivers/gpu/drm/bridge/display-connector.c
 > > +++ b/drivers/gpu/drm/bridge/display-connector.c
-> > @@ -43,6 +43,13 @@ static int display_connector_attach(struct drm_bridge =
-*bridge,
-> >  	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
-> >  }
-> > =20
-> > +static void display_connector_destroy(struct drm_bridge *bridge)
-> > +{
-> > +	struct display_connector *conn =3D to_display_connector(bridge);
-> > +
-> > +	i2c_put_adapter(conn->bridge.ddc);
-> > +}
-> > +
-> >  static enum drm_connector_status display_connector_detect(struct drm_bri=
-dge *bridge)
-> >  {
-> >  	struct display_connector *conn =3D to_display_connector(bridge);
 >=20
 > [ ... ]
 >=20
-> > @@ -439,9 +447,6 @@ static void display_connector_remove(struct platform_=
-device *pdev)
-> >  		regulator_disable(conn->supply);
+> > @@ -64,6 +67,9 @@ static enum drm_connector_status display_connector_dete=
+ct(struct drm_bridge *bri
+> >  	if (conn->bridge.ddc && drm_probe_ddc(conn->bridge.ddc))
+> >  		return connector_status_connected;
 > > =20
-> >  	drm_bridge_remove(&conn->bridge);
-> > -
-> > -	if (!IS_ERR(conn->bridge.ddc))
-> > -		i2c_put_adapter(conn->bridge.ddc);
-> >  }
-> > =20
-> >  static const struct of_device_id display_connector_match[] =3D {
+> > +	if (conn->edid)
+> > +		return connector_status_connected;
+> > +
 >=20
 > [Severity: High]
-> This isn't a bug introduced by this patch, but does the bridge lifetime=20
-> mismatch with devm resources cause a use-after-free?
+> This isn't a bug introduced by this patch, but does device removal have a
+> use-after-free vulnerability when the driver is unbound via sysfs?
 >=20
-> In display_connector_probe(), the bridge is allocated with=20
-> devm_drm_bridge_alloc(), tying its lifetime to the DRM bridge kref:
+> Looking at display_connector_detect() in=20
+> drivers/gpu/drm/bridge/display-connector.c, if the driver is bound and atta=
+ched
+> to a DRM encoder, and then unbound via sysfs:
 >=20
-> display_connector_probe() {
->     ...
->     conn =3D devm_drm_bridge_alloc(&pdev->dev, struct display_connector, br=
-idge,
->                                  &display_connector_bridge_funcs);
->     ...
-> }
+> 1. display_connector_remove() calls drm_bridge_remove() but does not call
+>    disable_irq() or cancel_work_sync(&conn->hpd_work).
+> 2. The bridge structure is kept alive because the DRM core still holds a
+>    reference count.
+> 3. The driver core's devres_release_all() runs and frees conn->hpd_gpio and
+>    the IRQ.
 >=20
-> However, devm-managed resources like the HPD GPIO and IRQ are tied to the=20
-> platform device unbind. If the device is unbound via sysfs while the DRM=20
-> core still holds a reference to the bridge, devres will free the GPIO and=20
-> IRQ resources.
+> If the DRM core then polls detect, it will execute display_connector_detect=
+():
 >=20
-> If the DRM core later invokes callbacks like detect or hpd_disable, would i=
-t=20
-> dereference the freed GPIO or attempt to disable the freed IRQ?
+> 	if (conn->hpd_gpio) {
+> 		if (gpiod_get_value_cansleep(conn->hpd_gpio))
+> 			...
 >=20
-> display_connector_detect() {
->     ...
->     if (gpiod_get_value_cansleep(conn->hpd_gpio))
->     ...
-> }
+> Will this dereference the devres-freed conn->hpd_gpio?
 >=20
-> display_connector_hpd_disable() {
->     ...
->     disable_irq(conn->hpd_irq);
->     ...
-> }
+> Additionally, if the concurrent hpd_work executes, will it attempt to lock
+> bridge->hpd_mutex which was already destroyed by drm_bridge_remove()?
 >=20
-> [Severity: Medium]
-> This is a pre-existing issue, but is there a hardware state leak on the=20
-> probe error path?
+> >  	switch (conn->bridge.type) {
+> >  	case DRM_MODE_CONNECTOR_DVIA:
 >=20
-> In display_connector_probe(), the DDC enable GPIO is acquired and=20
-> immediately asserted high:
->=20
-> display_connector_probe() {
->     ...
->     if (type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
->         ...
->         conn->ddc_en =3D devm_gpiod_get_optional(&pdev->dev, "ddc-en",
->                                                GPIOD_OUT_HIGH);
->=20
->         if (IS_ERR(conn->ddc_en)) {
->             ...
->         }
->=20
->         ret =3D display_connector_get_supply(pdev, conn, "hdmi-pwr");
->         if (ret < 0)
->             return dev_err_probe(...);
->     ...
-> }
->=20
-> If a subsequent step like display_connector_get_supply() or=20
-> regulator_enable() fails, the function returns an error. While devres will =
-
-> free the GPIO descriptor, it doesn't revert the physical pin state.
->=20
-> Unlike display_connector_remove() which explicitly sets the GPIO to 0, does=
-=20
-> this error path leave the DDC bus permanently enabled?
+> [ ... ]
 >=20
