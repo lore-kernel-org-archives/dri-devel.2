@@ -4,145 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7291C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 13:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7DA5C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 14:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD9710E1C9;
-	Sun,  5 Jul 2026 13:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 496BD10E1CD;
+	Sun,  5 Jul 2026 14:00:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="sI9nfUxC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BMmFSXWT";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011057.outbound.protection.outlook.com [40.107.208.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD30910E1C9
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 13:59:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FCD2v0vvHeH60KiPBRshfHrYT3ENmiuup6BS0SPCTr5i6j9ZAYMzxhLOWQ5gZIDQU96NXKwimfpsRul06oABBVnFl2vc7/YvMmYGgenTOEmvUePp/IOqmf4hcIEHZ7FPTeOs54sRU8qDkSrBBoxUbyKezITOEWsiIHCdi8kOHSZV2NJ1U2J/de9QrWF94ZFXaRp3bNrrmB7wd5b5bCm41wvnXGs1Ga0pZk+hjF/EbVHLFjhOqNyxN5+mhJDL9b4xhiE7ni/aUayEMj5xjXNqZSx/mO9ixKqfp2GwRR5/uTIB7+iCG6mUUgt3a/6m1xp9RHa/uMCaL7hnM1lzBcYlUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R75HnMxaOA1lrDliGKCY8mnUFqWmArxNthpWWwJ3avY=;
- b=Ffcep36ftkIxqW4ReS9yy7Wafg+6lbaj+Xqo9JD58YpWh4Wpo/NEkZTcyfMljc630n0i4oRU/Df9Ii1ifq+CKtdTi2xSuWJCNyWuK3V+8klbRN8PTBvcfWLaOSRNVBbbeo7E540sBMCEpArdlkr5Pd1SaRjWiPnxg5/961eT911TP78Yxx3iSEz9/RG3OUg74ad+/xv3lTAWsfBOmVnRXUVqsb6s2j5Qzg6KB4GIrS4YjWlJZRkgMaSANP52ioP1DTKhugRqXyUFaB114FMYgcQgwxSq3UlcT1SXghz8wcOtaUd6HZbmaX7Eef4B6Whud1UCHDccwTZOGJuylmIkmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R75HnMxaOA1lrDliGKCY8mnUFqWmArxNthpWWwJ3avY=;
- b=sI9nfUxCK+ZNzyqxSNdkMJvZ22bq76kKRw97cmRL7Lxxccthu6jpsu1tdimwBPgPc5PMjvMbSpaNRKiGfU/KKYoJBhrpQ1vaPyiMF8CVJc08h+6HxxOZMQ3nCyhJtb0AN7C0w5XClRIQ0EWWaqZtcdxGnoJMLY+v/DFuIwm1fcqlCYBthyTl5/buckwvTb4lt2ur7X0ZADFXv0wJhN4gVCAqhXknAgaJZgiRGUOcqBJrmeK3GrVDtqcd8RO7UZyiB0Y9t5QMHTkVR+J2jkML92JEpmoz6k+kF81uCikbf/i3NKrkYZfRIooQMGqi5vBUvMFCz6y/ofQ/m0LUfH+Jog==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Sun, 5 Jul
- 2026 13:59:18 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Sun, 5 Jul 2026
- 13:59:18 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 05 Jul 2026 22:59:15 +0900
-Message-Id: <DJQOWA2VOJ3G.2YGSYJGK7HPBJ@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH v5 02/20] rust: io: add missing safety requirement in
- `IoCapable` methods
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 817DC10E1CD
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 14:00:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B1E5E6138A;
+ Sun,  5 Jul 2026 14:00:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3461F000E9;
+ Sun,  5 Jul 2026 14:00:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783260022;
+ bh=qQg5lvRfYaU76KjBmnMui5GjmwLgwnqbXEfOAFSM990=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BMmFSXWTwpbS8Wnpk+xwzbpCdD6zfaND6/RIqC4w/aBjH9P6hGoAwkxkH663JG5qY
+ m6Jvy04lhsRgylJncLJJ6Q3zKvmk1kiXY3PTpgILs0QObB+0GwSRZKeVKc6Ca67nC3
+ LOwojfjm5hPYvNmhAk3pVT84oJkDObixyHwh4ytVOzIJr8v6KTA5PsEbIq+Toq90S6
+ /BG0vg6YESObfH/ftdmG/F0Ti3ufITM1m5R2yrdpd9/s8eGqBCkv5sPQVciTye1Rmc
+ VbadaRUUu6wcDTY4u206qFlheKkOFX4bO3qprlQASOYkki5wfFOwPIP7FHgQGwjOyH
+ nUCaD3H/8b0bg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1] i2c: qcom-geni: Add dynamic transfer timeout based
+ on transfer length and frequency
+To: "Aniket Randive" <aniket.randive@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260705134619.4030745-1-aniket.randive@oss.qualcomm.com>
+References: <20260705134619.4030745-1-aniket.randive@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-2-d0961471ae50@garyguo.net>
- <DJOLKP1V1IDU.1GWHOHBG9CS7@nvidia.com>
- <DJOXUW6ODKCI.1GLNDU00TDJWU@garyguo.net>
- <DJOYL5QPEM76.1N99BVDVHB8VS@nvidia.com>
- <DJOZFG9XDNYV.1Z0BXKIODDTAF@garyguo.net>
-In-Reply-To: <DJOZFG9XDNYV.1Z0BXKIODDTAF@garyguo.net>
-X-ClientProxiedBy: TYCP286CA0368.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:79::19) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH0PR12MB7469:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20f708be-5e08-4dfd-c4dd-08deda9d9b62
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|376014|7416014|1800799024|23010399003|366016|11063799006|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Paz136p57J8BgruUm2h0yu/lOD4DzsrpvCsiMoo4478Im5gBHCHD+W3nAf1GkEOZNljDHKL4HtRdVuhwKNgnxouPHHPDsnwGNrQm1bUo0qvO71AeV1ugkPFayM3zoO6b9fM7kTPKA3TnmA9yKZiZvfVRZdXIV/cWg6SxIunDkT57Sasc1TCUIzqlbSJzS7OBs8XKy75Xr+GEhCE95MNBpyvaKNeaVluHLTx7tiHpkrN1eguChHXRGGqHNPhHlDM9WfPdvU0DMvUI2U1O2nrj903096u4Cy3B/iOAh4Ab9mKKe/m3Kat/WFK0HVG8bvdvTsx7GyJq1KiL/eKT1+RZrRuLDHEX3hdsugxhDLCJxEwUvK9fT0kf19jy9KVQ9A3ftRqddJY5Cs8qSnPXGnCW5VTACSQRVc9I1R4LoTXyBC00QJmPy8N1bcnn/M3PCN5BDkQ7QhKTjtHC+uUq6wBQdLGaUTr877XeEY9/DZ0lt2cxPBjSgru8l/AVKUBrq45TOZ3q1lAPfsm2cIC4i6BqZI/4bekajA9f0nGYwiGUhCVxLvliZqctjiIXD4evD7pwuuKkvmqidgiPMWkiOydNJNLwXbSTKCzvAddnUo8rJ+jfbF2OllXdBOMjff/vcFcR30cjAn07f540yC41F14ENLHW3iVvG5RChJRPxjkdhro=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(376014)(7416014)(1800799024)(23010399003)(366016)(11063799006)(4143699003)(22082099003)(18002099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0JZNXRNbHk3VU01YWZTbHpnT04vL0Z0QjNBaSt3QUJOS00wWm11MkN0OFdj?=
- =?utf-8?B?RXdPdFhGem9oU3hLRzFLeGpwNnQ4cWZheE84Uzg4V3dyVWFLTWlIbHZYZ0h5?=
- =?utf-8?B?eHEzc3VEMmU5QjMvd0R5aVNuZktBbHdpMHVCOWNVWW1qbkV5dVB3Q0hXK1BZ?=
- =?utf-8?B?UnR5U3h0OFZWc2FIb2hrV3N0NUI1WVJDZWNjTEVsbkFoa0xHTUVpUjU5RThU?=
- =?utf-8?B?U3ZrdXZuWHpXWjQxZG5QZTRZTmVuelRKc0kyOUc4SUo1Tm5oc0pQaFUrT293?=
- =?utf-8?B?Uk5NMjZhNjB1eHdTakJQWkxobHhEbVY1SDZIY3B4WlZnaDh0cXppaHZvYWlO?=
- =?utf-8?B?VTJobHRDV09wcjBndFNwNWF6elFBN3IxTzE5OEJaMSttWlVpL1JFeDMzYlox?=
- =?utf-8?B?dVJ0UFlrK25jekFXaEZpZ0xhVkZVK0syaHh2MGZmTTBWWllCVm8wRnZxcDRX?=
- =?utf-8?B?TmF2dEFWK0lWNjRPRElhQzJKMElPR25SeTFyS0FLRXRGZTR3QnRIRmpEV1RQ?=
- =?utf-8?B?d205ODI5OU90ajQvWHJhbEJpYXI2engySVY3WmNvRDc5YlVWRVVaUCtVbGRM?=
- =?utf-8?B?TGdnUGgvU3RLUFVpaHVuZTNnaUdvdWw5OE9sTjZPZG9zNVZOVFg4cjlnUmM3?=
- =?utf-8?B?aGRvWjhTb2liL0w4U3VCdG9qMlBhdXRaYlhHYU1BSFlxcUhTRFpzelRCeW5Y?=
- =?utf-8?B?VVBJRGxIcjVFZ2RPaXpMbWFyTU9HRW82WWY2OWY5eHRQRWpuNThWaFA0aERs?=
- =?utf-8?B?NHRmbGNDV3lzVUNGbVA4UVFJUWNKeXFEQ0xnVUR1QjdwengyZHNoallJc2VZ?=
- =?utf-8?B?ZUlOZjhYQm1UYm12Njhnd2xKaTJpMnBDdDR4Z09ZSC9oc2VTcTZndE5RYUF5?=
- =?utf-8?B?QUZrS3pOR09WcEYyQ0pqdDMwcFNxMzJKZmJTSkVaZ2k3K0kxMmdkbjlvMFJw?=
- =?utf-8?B?SnBUY3FrbUFySW5EbWJsZUx2K202eiszaXpaa3FYWG1QS25XTE1ld2FKYWQ1?=
- =?utf-8?B?ZklHdTgySTVnM2Z1Y2VHVlRKeWdWWnl1V1lmdzk1L01Dcy9xYkhlVlA3VDU2?=
- =?utf-8?B?QVRVSHRqSHVpTmdXOWFEZHY3VVJTNml3WU10Q2oxY1Qvck1YU3U4V2M3eTBG?=
- =?utf-8?B?d1l0bU0vUnl1S3NjaVU4aWpWdU9adE03QVdWbTArZHdwL3hTeDVqWDY2VDIv?=
- =?utf-8?B?WkdrT2VmQzhYbkpiUUk1NThIQU4xVVdiK1VRQXhTWjUrVVVmNmloZmZ1clVZ?=
- =?utf-8?B?V1MvTW9ZNTFVdGVBSzJjUVVVQlNRYTYxLzU3dXNUeUM1dUdLOVI4VTVzd2sw?=
- =?utf-8?B?ZDVsb1ZkV2gxb3dOK2ZYenRPdHJvMEJoRFNrRVRVVXVoMXA1bUFXaE5GWUVx?=
- =?utf-8?B?YTVheFlBelBqK2dQdFE1aEdScDFaWFMzSlphdE5ZT0FMTmFhRjM1N0RNYU5j?=
- =?utf-8?B?VHFEejc1ZzhORklwT2E5djdLdXVZZUJzeUZ0TFV4R2JhQzVzQkQvdmlQYjVB?=
- =?utf-8?B?TFlsaWR0VjRrcnpaRXVNVk9mSmVLNmpvK3NlL2JuUzc2aTV4QVlwdnNBc0hi?=
- =?utf-8?B?WGpWTEU1WDNlc1RQb2M2cUsvcG1jT1ZBc3lqWXRDSG0zNWxheFkrekNpR3Zs?=
- =?utf-8?B?OUtaVFNPYy9qdURiNnllZ08wK2cxekVCaTFJWjc0enREUE5DSW5TbmR0dWg3?=
- =?utf-8?B?NEdMemVmWVJXMkFyQWp5K2cvWXBRSjZTWktWZW5Ia0RNSmoxREgzOFVTYjYr?=
- =?utf-8?B?ci9NbHA3OFZCV1JkOVpiOGNFb1NUeCs3ZU5wRjh1aVk5S3p4Szh6aWVJQWww?=
- =?utf-8?B?UVBNUmV4WkNpcXlWSmVUUG9KZG5nQkp5V0ZUc0dvVjFjdnRlT3ZLd1VDVW1s?=
- =?utf-8?B?YjRLTFhhVWkzbDhYb2lzbEo1SE15SUoxOTJ2bStsYlBneWVucUwxcHI0SVlS?=
- =?utf-8?B?Y05POHkwZ0hVem1sWnFLYmtmaWdBZGhNaG44OEwxYXU0bFJWRkV1NlllTC9N?=
- =?utf-8?B?T0hkRDlsUVIxSzVtZ1dsOFJEaEVramExUGlId1FMcFZWMC9KUjhuU2tOMTRV?=
- =?utf-8?B?aWN2RWF4TnZjWWJJc1RyNHdrZm9qaWtzRzV6V0dSZTdrb0VhRGVlYlp6MXVF?=
- =?utf-8?B?QzhCQjhsNWhFVGVMd1RzVjNuelY3UnlBMXlkMkQ5UkZQYTZjUHBMSDhncWJW?=
- =?utf-8?B?azhCYmZSQUU5b2NyZ2huVDdXUW9xdjc5Mk1rcjJOL0ZWbVZMcVVyYVlyVGtR?=
- =?utf-8?B?RmNiTnpwejB5VmRIN3hhblc1MG5vRHoybXduR3pWc2w2VUZjL0wvdm5xdWpm?=
- =?utf-8?B?K1ZBV2tydUJueCs0cWh3NWlFUDRwSThLTUxzNGl0cG81eHg3Y2RxNVAzUFY5?=
- =?utf-8?Q?BrDTQKitSu/hBMtTvACCoXCfh0vcwkb4neqesHERpHQcz?=
-X-MS-Exchange-AntiSpam-MessageData-1: nKxDfUh1nPJoBA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20f708be-5e08-4dfd-c4dd-08deda9d9b62
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2026 13:59:18.7536 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ra6qhwu8clS+/Q6k2QxZOCGlsJRAiERb12UHY9tCoE5id3eJtYSbdIXPRznVHVWxZwVeVNr8RnZj0zQJWhQRQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
+Date: Sun, 05 Jul 2026 14:00:21 +0000
+Message-Id: <20260705140022.3C3461F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,48 +53,171 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 3, 2026 at 10:49 PM JST, Gary Guo wrote:
-> On Fri Jul 3, 2026 at 2:09 PM BST, Alexandre Courbot wrote:
->> On Fri Jul 3, 2026 at 9:35 PM JST, Gary Guo wrote:
->>> On Fri Jul 3, 2026 at 3:57 AM BST, Alexandre Courbot wrote:
->>>> On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
->>>> <...>
->>>>> @@ -309,7 +312,11 @@ pub trait Io {
->>>>>      // Always inline to optimize out error path of `build_assert`.
->>>>>      #[inline(always)]
->>>>>      fn io_addr_assert<U>(&self, offset: usize) -> usize {
->>>>> -        build_assert!(offset_valid::<U>(offset, Self::Target::MIN_SI=
-ZE));
->>>>> +        // We cannot check alignment with `offset_valid` using `self=
-.addr()`. So set 0 for it and
->>>>> +        // ensure alignment by checking that the alignment of `U` is=
- smaller or equal to the
->>>>> +        // alignment of `Self::Target`.
->>>>> +        const_assert!(Alignment::of::<U>().as_usize() <=3D Self::Tar=
-get::MIN_ALIGN.as_usize());
->>>>
->>>> With `Region::MIN_ALIGN` being `4`, my understanding is that this will
->>>> make `read64` and other infallible 64-bit accessors unusable on untype=
-d
->>>> I/O regions?
->>>
->>> That's correct.
->>
->> Isn't that a limitation we may want to eventually address? The fallible
->> accessors are still usable, but it seems arbitrary that the non-fallible
->> ones stop at 32 bits...
->
-> It'd probably be solved by having typed regions. 32-bit is the most commo=
-n
-> alignment for I/O memory, so that's chosen.
->
-> None of the existing Rust drivers require 64-bit accessors yet.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Mmm I'd like to see whether we can't make it work for untyped regions as
-well, but since we don't have many users (nor do we expect many to come
-I guess) this can be a follow-up.
+New issues:
+- [High] The dynamic timeout calculation overflows a 32-bit `size_t` for la=
+rge I2C transfers, resulting in spuriously short timeouts on 32-bit platfor=
+ms.
+- [High] The timeout for GPI multi-descriptor transfers incorrectly uses th=
+e maximum single message length instead of the sum of all message lengths, =
+causing batched transfers to time out prematurely.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Pre-existing issues:
+- [High] The `dma_buf` and `dma_addr` arrays in multi-descriptor transfers =
+are leaked if a setup error occurs before the last message.
+- [High] The multi-descriptor DMA completion wait loop is off-by-one, leadi=
+ng to either early returns and Use-After-Free, or spurious timeouts.
+--
+
+commit ecf799f9a50e09d26f5ccb839643f2514a2b8b98
+Author: Aniket Randive <aniket.randive@oss.qualcomm.com>
+
+i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and f=
+requency
+
+The driver uses a static XFER_TIMEOUT of HZ (1 second) for all transfers
+regardless of message length or bus frequency, causing unnecessary
+delays on error paths.
+
+Compute the timeout dynamically from message length and bus frequency
+with a 10x safety margin over the theoretical wire time and a 300ms
+floor. For GPI multi-descriptor transfers, use the maximum message
+length across all queued messages as the per-completion timeout.
+
+> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-=
+qcom-geni.c
+> index 96dbf04138bee..43ae2121f01c2 100644
+> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+[ ... ]
+> @@ -204,6 +207,16 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev =
+*gi2c)
+>  	return -EINVAL;
+>  }
+> =20
+> +static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, si=
+ze_t len)
+> +{
+> +	size_t bit_cnt =3D len * 9;
+> +	size_t bit_usec =3D (bit_cnt * USEC_PER_SEC) / gi2c->clk_freq_out;
+
+[Severity: High]
+Can this calculation overflow on 32-bit platforms?
+
+If USEC_PER_SEC is 1000000 and size_t is 32-bit, large I2C transfers
+(e.g. len >=3D 478 bytes) could cause bit_cnt * USEC_PER_SEC to exceed
+the 32-bit maximum.
+
+This would truncate the upper bits of the result, causing legitimate large
+I2C transfers to fail systematically with -ETIMEDOUT because the calculated
+timeout becomes much shorter than the actual required wire time.
+
+> +	size_t xfer_max_usec =3D (bit_usec * I2C_TIMEOUT_SAFETY_COEFFICIENT) +
+> +			       I2C_TIMEOUT_MIN_USEC;
+> +
+> +	return usecs_to_jiffies(xfer_max_usec);
+> +}
+[ ... ]
+> @@ -601,7 +614,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni=
+_i2c_dev *gi2c, struct i2c_
+>   */
+>  static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
+>  						   struct geni_i2c_gpi_multi_desc_xfer *multi_xfer,
+> -						   u32 transfer_timeout_msecs,
+> +						   unsigned long timeout_jiffies,
+>  						   struct completion *transfer_comp)
+>  {
+>  	int i;
+> @@ -612,7 +625,7 @@ static int geni_i2c_gpi_multi_xfer_timeout_handler(st=
+ruct device *dev,
+> =20
+>  		if (multi_xfer->msg_idx_cnt !=3D multi_xfer->irq_cnt) {
+>  			time_left =3D wait_for_completion_timeout(transfer_comp,
+> -								transfer_timeout_msecs);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the loop bound in this
+function cause synchronization issues for multi-message batches?
+
+For a batch of 3 messages, the loop bounded by msg_idx_cnt - 1 executes
+exactly twice.
+
+If the DMA hardware is configured for Block Event Interrupts and signals
+only once at the very end, the first wait would complete, but the second
+iteration could time out because no further interrupts arrive.
+
+Conversely, if it interrupts on every descriptor, returning early after 2
+iterations would leave the 3rd message in flight, allowing the caller to
+free the message buffers while the DMA is still accessing them.
+
+> +								timeout_jiffies);
+>  			if (!time_left) {
+>  				dev_err(dev, "%s: Transfer timeout\n", __func__);
+>  				return -ETIMEDOUT;
+[ ... ]
+> @@ -736,8 +749,15 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, s=
+truct i2c_msg msgs[],
+>  		dma_async_issue_pending(gi2c->tx_c);
+> =20
+>  		if ((msg_idx =3D=3D (gi2c->num_msgs - 1)) || flags & DMA_PREP_INTERRUP=
+T) {
+> +			size_t max_len =3D 0;
+> +			int j;
+> +
+> +			for (j =3D 0; j < gi2c->num_msgs; j++)
+> +				max_len =3D max_t(size_t, max_len, msgs[j].len);
+> +
+>  			ret =3D geni_i2c_gpi_multi_xfer_timeout_handler(gi2c->se.dev, gi2c_gp=
+i_xfer,
+> -								      XFER_TIMEOUT, &gi2c->done);
+> +								      geni_i2c_xfer_timeout(
+> +								      gi2c, max_len), &gi2c->done);
+
+[Severity: High]
+Does this use of a single message's maximum length provide a long enough
+timeout for the entire batched transfer?
+
+When using multi-descriptor transfers, the DMA controller executes the batch
+sequentially.
+
+The single wait_for_completion_timeout call here will block for the
+duration of the entire batch.
+
+If a batch contains many messages (e.g. 50 messages of 100 bytes each),
+the combined wire time could easily exceed the timeout calculated for just
+the single largest message, causing the batch transfer to time out
+prematurely.
+
+[Severity: High]
+This is a pre-existing issue, but does early failure in multi-descriptor
+setup leak the DMA tracking arrays?
+
+Looking at the unmap function called on early aborts:
+
+drivers/i2c/busses/i2c-qcom-geni.c:geni_i2c_gpi_multi_desc_unmap() {
+    ...
+    if (tx_multi_xfer->unmap_msg_cnt =3D=3D gi2c->num_msgs - 1) {
+        kfree(tx_multi_xfer->dma_buf);
+        kfree(tx_multi_xfer->dma_addr);
+        break;
+    }
+    ...
+}
+
+If an error is encountered before the last message during intermediate
+descriptor preparation (like a failure in dma_map_single), the unmap loop
+won't reach gi2c->num_msgs - 1.
+
+This leaves the arrays allocated, and since the tracking pointers are
+cleared by a memset() at the start of the next transfer, this memory
+is permanently leaked.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260705134619.4030=
+745-1-aniket.randive@oss.qualcomm.com?part=3D1
