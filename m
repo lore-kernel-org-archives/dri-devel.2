@@ -4,145 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF42C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 16:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54C9DC43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 17:10:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2B910E203;
-	Sun,  5 Jul 2026 16:45:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84ED610E205;
+	Sun,  5 Jul 2026 17:10:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="lnX6bjPk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KcyxY1m2";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021073.outbound.protection.outlook.com [52.101.95.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17DCB10E203
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 16:45:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=whg7R14qc0jI9T+oCz2muwPeNL7v/Baetutg9ZPrnMhCtsUd7CXWWuTywpNqK0axmwrckESU9Nd9Ecnz54CV3qOgDucOMpUvg/zc7Hp8QGwXaX0kdcXQnbiQUUJAoCHS1kAm5KZNHl4iLdu0sGUjkgym1V+mSAWhIGbsp2RivChRRcV21oLMBQq2pjouNKG8uYRD2JQkUIG7yVJpmixJd4VcKvp3Mzlei860+2cBf2FkRO2XbJemYV3kC0KYOyUlpeX0QxLrjwM3gwkue9xD3UTOLjiJ8vXt/Nq+7A1cl7qtbF1IsdGb7iU3NR4FEE8JgRp6NqBUjzuc2UuOjB7G8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l8Sdi+Mjyw7Bgzq7oGaLUd1mt6x4rF27k9S4N9IJzSQ=;
- b=NESekU8p4q0hLsBp2JfXVuB8T2iW3MivC8xD/x7495dd1nnHZPeYUUWZjcEwOIPPZLLOWHKp1wTzb4QBEulb+Ep+/zDkTcjlnTq0u8l0XbZJzZOwE5U6BbPCpycvHk568xHnvfAKO4q9+6zcBog5RWWE1DH5nAO6mw4AnPFQfhYlft0n1jyZwU4KQlUc5UypZseEyiVeSOMZ3LUcm/lpTQjoAFm6E/6iQy5kYrY4Ex2Je3HvZ51h+F5Dq47vrquLqn7EXb2Y+Gy8hYTzarPuj92IAy/vXH0YWqYLgWGs2IkgkQX0ION4LiwviHwn90Ln0JM7H9j3viFxY6dk1MYdrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l8Sdi+Mjyw7Bgzq7oGaLUd1mt6x4rF27k9S4N9IJzSQ=;
- b=lnX6bjPkLyV5fTFbtwD5/dXfYCxW1CWWi/DvaOOKZjunvRLxnwoxIL0gp0Hw1PXXgaeoVA4HIcTtgDieN6sk7P97HO781iSoOocEup9GcqNuSl+D+AvBuQpqIIexUbNa7zuu9C8jYr7xun+Kl4E3JN7Bw61jm3GEDS3GBfS1f/I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO7P265MB7479.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:41b::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Sun, 5 Jul
- 2026 16:45:04 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Sun, 5 Jul 2026
- 16:45:04 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAD3010E205
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 17:10:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 836C241879;
+ Sun,  5 Jul 2026 17:10:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D667A1F000E9;
+ Sun,  5 Jul 2026 17:09:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783271400;
+ bh=mcoXwyCDIViVanQXi5iL1opkmjhsI27kJo5T08QRKJw=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=KcyxY1m2uFCsMd7ivwACp4mtffcdKs/HI09z7yxBa7SZny9nOPUTNxXpDZuqeWI/H
+ TinrGE1ilyY8+I6h6OhqYgIdpjJ8Lbo+mv1HU4fshPR8zP1WBiH50F3Uw8/qv+NO/V
+ hx7Gt0+ui9LDTEZFTNMfupfKcFVgcSQ3pX6UEz/otErFuBERBRZzSpdQV4L+5fPWZY
+ 8Z9HPyTM5E4ru/YBExHsFxRivHuHD8hbcA7D2xvw6Sh/ioBx6/9rRTibth7F6lzLSq
+ Sy1FUOwlKWkmi7dmLMkqLYTs3XpWTvEufIxzIy+2OcY1rbl6/Cfyn0EHbjEiX9S39f
+ raHt2ao5yeI5Q==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 05 Jul 2026 17:45:03 +0100
-Message-Id: <DJQSF84B204K.3KVYKIRG35SY3@garyguo.net>
-Subject: Re: [PATCH v5 02/20] rust: io: add missing safety requirement in
- `IoCapable` methods
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-2-d0961471ae50@garyguo.net>
- <DJOLKP1V1IDU.1GWHOHBG9CS7@nvidia.com>
- <DJOXUW6ODKCI.1GLNDU00TDJWU@garyguo.net>
- <DJOYL5QPEM76.1N99BVDVHB8VS@nvidia.com>
- <DJOZFG9XDNYV.1Z0BXKIODDTAF@garyguo.net>
- <DJQOWA2VOJ3G.2YGSYJGK7HPBJ@nvidia.com>
-In-Reply-To: <DJQOWA2VOJ3G.2YGSYJGK7HPBJ@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0068.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2af::22) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7479:EE_
-X-MS-Office365-Filtering-Correlation-Id: 861e1c19-e0af-477e-4c92-08dedab4c35c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|7416014|10070799003|1800799024|366016|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: EZ77z2F866ilvDrW9Tb9xCYy5y9eZJiaHJcXN7lsQWVejHg+zcxoCl1Z+D+HsB9FfoWKY2YlKj3Vf4JHnCfY4tCATFVG1LfLTxzGUm9svcrvW4CxF7BmSUwRtHD+dDXv8WXLfUaRfziwrCrGyDZjHPg9PzsHGxjjYilRVjxDk1EKudFa9bnexaudF/bCBM0ltktiH/lkpZyNmmP8yiSbmjTF+my+d/Z0j0z/ddDZ2s+67APwlUHhPXed5grXbCNqQOK+h/UFpqsGNlxkxVxd/C3IzlYMFKCG8BSOI55XqzwDLwzmUI1BxP+guwwyVYWOIDrn2iwioTRgxBOB3kTKeHZSF1nV5BQrzmDl534zNqUD3PbQwQV4nenYCQLGW0CXIuR5MhlCVJPrpGK9mu5ltYwbftCRXL2MQSFHHsY9QciOqW6B8g2ofHrTV+9xX/tMGKFLhkddk2uNCxvS+8nWrZZ2vH9eZg7paoBPaM4lv/spUwC/IlDj/z3P7nDJ2oIXUXU1RiDEpFr1sAVXkdtARBneMXn0jaskISZ/R3Y69WFlbq4eN075fiSNXxXHS0ZFWlr89CpDQf5A4PX1ZiCg04Qy3zwqBas0WaXxWAutyng=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(7416014)(10070799003)(1800799024)(366016)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlZwcUxQTEtaN1M2Q1pqK00weStRMWk5TXE2OEJNcjlhSjhQc3BRb0x1Nzlt?=
- =?utf-8?B?WkdnVWREOURzT2tXeUNTV2hjTDJmZ2VYaWFtSFptVG9rZ3JJWGQ1Q3FFdWlR?=
- =?utf-8?B?NlBVZ3ZhU2c2ZGI2SWdMQ2VrRnV5MVRPTE5MK2JDdGNTd2JtZ2RpQTZzVWZ3?=
- =?utf-8?B?T2JPYWtXN2JCWFlJQlB1akNDU2x0amF0STZLOVIxTlNUeTRCZXAra0NPK1Yx?=
- =?utf-8?B?TDczYm0vM0syNkp5eTJSdFBQb2lDSlpCa2FMRFR2aE9CakhVQXdmb2krZUlX?=
- =?utf-8?B?U3FQVDVrY2RPYUtvUEFRcVUyZ2NuNVV1OEpqZjgrYXJqYWh6NzVja0hlTnoy?=
- =?utf-8?B?cERyTlhBYlF3M0dubWFNUWZLaHlXRWIxZWFpdmJlQU9lYVhpakhkVUJDU3ZZ?=
- =?utf-8?B?ZU12KzMzV0dZRUg1d01ETXE1VW0xaVdFdXpKcVcyc0dvakd3T0FtZ1ZEODNz?=
- =?utf-8?B?Zm5JTDZGendPT29XWjdsY0RhYWVWSWxla29aN1Z6MlRiQjNsd1REMC9ES252?=
- =?utf-8?B?Y1hzdDU2bmJkM0xQNGd5bHdKMk5Ld2pKeXRZVU5TM2pHelV2LytmS1k3S3BT?=
- =?utf-8?B?dmgwajdVVThsUFlQZU1pS3dOSE1Va0NYWHBQTXRIdGdiZklqcnE0bEVUWGVI?=
- =?utf-8?B?SEtWUUJRdStBRXdMTHJXblRxRFQ0bEdMRWNTTklWUjF3MHpMbFU0VURnTVRE?=
- =?utf-8?B?WTZ0K0pwK053ZmFVYnNzVkdDdERJa3diRW5pRlMrd05lWGhUNGVZRFRWcGp6?=
- =?utf-8?B?VWtVSCtNcEdlS3VuU2lIZWRXdlYvanBHUVZWVENQTmU2bkVJc21IbkxXQUMx?=
- =?utf-8?B?QzBCQzBJZ2pDYzhlOGtqMW5ldTZ0bjFHODhHN2psczh1WFpVMlpiSUUxMTlq?=
- =?utf-8?B?cVFtbWlaSjZ4b2c1NWVPVUlPRVIwdm1kenpjTDhwd1lvNDRza2pkc0kzajBT?=
- =?utf-8?B?MFo5VktxQlJLOUQrdjFPbFFGZU9xRUN4aC9xUTdCSzc0ckZuN3NnQy9qZktm?=
- =?utf-8?B?RXZCZWRuRGxvbWtkT2NLMVhhR1JOdHBHclJMVUxRdUd4a1llclRZeTFmMkFa?=
- =?utf-8?B?VU9IUkNhcC8zc2kyRjk3ZW53aXMveTE5NDZFQkEramdscTBvMDlnK05vMm1K?=
- =?utf-8?B?dExRQnRlKzlaRDFlWVR3cGphZVF1dTJwcmZaZ29OK3RCV2YxWkp0TWlsOEpG?=
- =?utf-8?B?YzlYZWMyUW1GTW5qUW41cWJrdjFZVjBTM1UydXFuM1RkNU94czBlTmd4Y1h3?=
- =?utf-8?B?VWhTdDlmVHFkNEluY2RXZXRvaWV1M0daaGhpZTVtWjVkL1p0OEtxa3gzQVAw?=
- =?utf-8?B?VTczSUp1V2Q0VlBpNmp6ZDNJVGVvS052cUc1Nk5tZGUxOGoxSUh4eEJjNkQ4?=
- =?utf-8?B?NEFOcnhUZkUrZkozVk03dnpxRnI3UHV1ZFI4bTNrMWovYXZ2cGtHSmplS1RI?=
- =?utf-8?B?anBjOE9NTTNIZUhwaXBqdWlGMGZmTEIwbEE0cjdTQjNzVU1vS2dRQmsyOVQ2?=
- =?utf-8?B?eEttU1pMMlp3aGVQOUtja1AxY3ppSjFMWkRuT2Z0TzdPRVVxMENPOGJHOVhn?=
- =?utf-8?B?RXdqdE83ZkdqaVRzWS9JV1V3Z3phaGxTVXZQTTFIYitwa1hGYzJWOXV2L09S?=
- =?utf-8?B?bHV2YklwZ3NIOXplbXlMUTlVb3NyeDliak1IcDdiaWx1a00yR0J4ZEdIQ1Bm?=
- =?utf-8?B?ZEVuS2NKK2VMamVLMWw2dWQ4Ui9HL3Z2a01VMmJ4Q2ZYWVBhd3gxbTFLdlU2?=
- =?utf-8?B?TXhMS2hLS1g2TjhoS2cwdEpDeG55UDlzVjFwS3ZYamNabWlJMjN3ekFuTUZI?=
- =?utf-8?B?RFhiZGhyRDUwQ2k4OUFyK3h6aTYxdExnUmZtelJqQXpib0FiRTBHSnFGanVy?=
- =?utf-8?B?eXJmdWR3c2lyU2lUejhUS21QRlhrMG84YmlpY1JaSFBiWE10SktQT2djL1lR?=
- =?utf-8?B?ZVRncVNkVy95MzRpaC8wK1RkY0h3R1FVcGxBYjhLUVd4SG1yaUJKN3BvZ3JI?=
- =?utf-8?B?Z0Q4TFFDZGJ2c1ZSWURZR3lsdFIvTm1JLzlIRGlQWUtTNDh5aE00d3dhL1Jo?=
- =?utf-8?B?cm9xTVRSdmhkVmJVNXh6c05UQ1ZDa0JtdmRBd0dNQXhlcjV6Z2pkWUZURHlC?=
- =?utf-8?B?cFQ0ZEY4UWRiTmRBQmVhR3M3NDB6Ung0ZW9VZ3RFWXdCTkNvalJOMTJuY0Mw?=
- =?utf-8?B?S0ljSjBURHVpS2JiVmFHZWFkaVJjYk5GaEttUEdHQnpjZ3Y5aG9icVdxOTJw?=
- =?utf-8?B?eXJTaGZjVHRwVU45WG9IQlJ5QXdiWlZHQjdyZlpRbk1ZSTVOVjdsdzdMSFRK?=
- =?utf-8?B?U1Q4Ui9zMnRSRlF6SzVMQ3VsY29rZW9oRUNNeGtzTmFYYVpQaG9GUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 861e1c19-e0af-477e-4c92-08dedab4c35c
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2026 16:45:04.0520 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ywR9br1V2Xz9CUURa2iMCr85snfXtjcROvkxKwqcvMRJRNgSV2ez9+ocyOOee+nRyWZELXQ8zsgs7niRSgMMlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7479
+Date: Sun, 05 Jul 2026 19:09:56 +0200
+Message-Id: <DJQSY9ZY5M5F.3VI537GS00E1G@kernel.org>
+Subject: Re: [RFC 1/3] gpu: nova-core: Add auxiliary bus registration data
+ to nova-core
+Cc: <nova-gpu@lists.linux.dev>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "Alistair Popple" <apopple@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260703064526.3630668-1-apopple@nvidia.com>
+ <20260703064526.3630668-2-apopple@nvidia.com>
+ <DJQNN9FRZN3C.3DQE4H9HAZ8W6@kernel.org>
+In-Reply-To: <DJQNN9FRZN3C.3DQE4H9HAZ8W6@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,56 +64,412 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun Jul 5, 2026 at 2:59 PM BST, Alexandre Courbot wrote:
-> On Fri Jul 3, 2026 at 10:49 PM JST, Gary Guo wrote:
->> On Fri Jul 3, 2026 at 2:09 PM BST, Alexandre Courbot wrote:
->>> On Fri Jul 3, 2026 at 9:35 PM JST, Gary Guo wrote:
->>>> On Fri Jul 3, 2026 at 3:57 AM BST, Alexandre Courbot wrote:
->>>>> On Fri Jun 26, 2026 at 11:45 PM JST, Gary Guo wrote:
->>>>> <...>
->>>>>> @@ -309,7 +312,11 @@ pub trait Io {
->>>>>>      // Always inline to optimize out error path of `build_assert`.
->>>>>>      #[inline(always)]
->>>>>>      fn io_addr_assert<U>(&self, offset: usize) -> usize {
->>>>>> -        build_assert!(offset_valid::<U>(offset, Self::Target::MIN_S=
-IZE));
->>>>>> +        // We cannot check alignment with `offset_valid` using `sel=
-f.addr()`. So set 0 for it and
->>>>>> +        // ensure alignment by checking that the alignment of `U` i=
-s smaller or equal to the
->>>>>> +        // alignment of `Self::Target`.
->>>>>> +        const_assert!(Alignment::of::<U>().as_usize() <=3D Self::Ta=
-rget::MIN_ALIGN.as_usize());
->>>>>
->>>>> With `Region::MIN_ALIGN` being `4`, my understanding is that this wil=
-l
->>>>> make `read64` and other infallible 64-bit accessors unusable on untyp=
-ed
->>>>> I/O regions?
->>>>
->>>> That's correct.
->>>
->>> Isn't that a limitation we may want to eventually address? The fallible
->>> accessors are still usable, but it seems arbitrary that the non-fallibl=
-e
->>> ones stop at 32 bits...
->>
->> It'd probably be solved by having typed regions. 32-bit is the most comm=
-on
->> alignment for I/O memory, so that's chosen.
->>
->> None of the existing Rust drivers require 64-bit accessors yet.
+On Sun Jul 5, 2026 at 3:00 PM CEST, Danilo Krummrich wrote:
+> On Fri Jul 3, 2026 at 8:45 AM CEST, Alistair Popple wrote:
+>> diff --git a/drivers/gpu/nova-core/auxdata.rs b/drivers/gpu/nova-core/au=
+xdata.rs
+>> new file mode 100644
+>> index 000000000000..266b5ce4ee89
+>> --- /dev/null
+>> +++ b/drivers/gpu/nova-core/auxdata.rs
 >
-> Mmm I'd like to see whether we can't make it work for untyped regions as
-> well, but since we don't have many users (nor do we expect many to come
-> I guess) this can be a follow-up.
+> I think it'd just call it something along the lines of api.rs, as this is=
+ going
+> to be the file where the entry points into nova-core will live.
 >
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>> @@ -0,0 +1,12 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +
+>> +//! Nova-core auxbus data. Contains all the methods used by the auxbus =
+drivers
+>> +//! to interact with nova-core.
+>> +
+>> +use crate::gpu::Gpu;
+>> +
+>> +/// Auxiliary bus registration data. Used by the auxbus drivers to call=
+ methods on
+>> +/// the GPU.
+>> +pub struct AuxData<'bound> {
+>
+> Since this will also be the data type that will be exposed as an API entr=
+y point
+> into nova-core, I'd rather call it e.g. NovaCoreApi.
+>
+> We should provide an assoicated function NovaCoreApi::of(), which takes a=
+n &'a
+> auxiliary::Device<Bound> as argument and returns &'a NovaCoreApi<'a> (at =
+least
+> as long as the type remains covariant).
+>
+> This makes it a bit cleaner since it keeps the type assertion local to a =
+single
+> place and makes it transparent to nova-drm that this also is the
+> auxiliary::Registration private data of nova-core.
+>
+> (I'm already working on getting rid of the type ID check, but going throu=
+gh
+> NovaCoreApi::of() is cleaner regardless.)
 
-See https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/top=
-ic/Generic.20I.2FO.20backends/near/601402429
+Thinking a bit more about this, I'm still not convinced about a design wher=
+e the
+auxiliary::Device itself carries the type information. However, I think wit=
+h the
+new lifetime design this isn't necessary in the first place.
 
-However, I'd prefer we eventually use typed regions.
+We can just call NovaCoreApi::of() once from nova-drm's probe() function an=
+d
+subsequently store the struct NovaCoreApi<'a> in the bus device private dat=
+a,
+DRM registration data, etc. Such that the only fallible path is in probe().
 
-Best,
-Gary
+Please see [1] for reference, there's also a branch in [2].
+
+Note that this only works for a covariant NovaCoreApi, once it becomes inva=
+riant
+we'll need something like this:
+
+	/// Closure-based API handle for invariant registration data types.
+	pub struct NovaCoreApiHandle<'a> {
+	    adev: &'a auxiliary::Device<Bound>,
+	}
+=09
+	impl<'a> NovaCoreApiHandle<'a> {
+	    fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self> {
+	        adev.registration_data_with::<ForLt!(NovaCoreApi<'_>), ()>(|_| ())=
+?;
+	        Ok(Self { adev })
+	    }
+=09
+	    /// Access the [`NovaCoreApi`] through a closure.
+	    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>)=
+ -> R) -> R {
+	        // PANIC: TypeId was validated in `of()`, cannot fail.
+	        self.adev
+	            .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
+	            .unwrap()
+	    }
+	}
+
+We can still improve this a bit from the auxiliary API side, but in general=
+ this
+should be fine (added this to the branch in [2] as well).
+
+With this the access patterns becomes
+
+	// Once from probe(), calls NovaCoreApiHandle::of() internally.
+	let handle =3D NovaCoreApi::handle(adev)?;
+
+and from anywhere else
+
+	handle.with(|api| api.chipset());
+
+[1]
+
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.r=
+s
+index 739690bc2db5..89da0f6c3ba5 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+=20
++use core::pin::Pin;
++
+ use kernel::{
+     auxiliary,
+     device::{
+@@ -17,6 +19,7 @@
+=20
+ use crate::file::File;
+ use crate::gem::NovaObject;
++use nova_core::api::NovaCoreApi;
+=20
+ pub(crate) struct NovaDriver;
+=20
+@@ -26,6 +29,11 @@ pub(crate) struct Nova<'bound> {
+     _reg: drm::Registration<'bound, NovaDriver>,
+ }
+=20
++/// DRM registration data, accessible from ioctl handlers via the registra=
+tion guard.
++pub(crate) struct DrmRegData<'bound> {
++    pub(crate) api: Pin<&'bound NovaCoreApi<'bound>>,
++}
++
+ /// Convienence type alias for the DRM device type for this driver
+ pub(crate) type NovaDevice<Ctx =3D drm::Normal> =3D drm::Device<NovaDriver=
+, Ctx>;
+=20
+@@ -59,10 +67,15 @@ fn probe<'bound>(
+         adev: &'bound auxiliary::Device<Core<'_>>,
+         _info: &'bound Self::IdInfo,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
++        let api =3D NovaCoreApi::of(adev)?;
++
+         let drm =3D drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
++
++        let drm_data =3D DrmRegData { api };
++
+         // SAFETY: `reg` is stored in `Nova` and dropped when the driver i=
+s unbound; it is
+         // never forgotten.
+-        let reg =3D unsafe { drm::Registration::new(adev.as_ref(), drm, ()=
+, 0)? };
++        let reg =3D unsafe { drm::Registration::new(adev.as_ref(), drm, dr=
+m_data, 0)? };
+=20
+         Ok(Nova {
+             drm: reg.device().into(),
+@@ -74,7 +87,7 @@ fn probe<'bound>(
+ #[vtable]
+ impl drm::Driver for NovaDriver {
+     type Data =3D ();
+-    type RegistrationData<'a> =3D ();
++    type RegistrationData<'a> =3D DrmRegData<'a>;
+     type File =3D File;
+     type Object =3D gem::Object<NovaObject>;
+     type ParentDevice<Ctx: DeviceContext> =3D auxiliary::Device<Ctx>;
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index 57df54ba27bd..2488825c78cf 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -1,7 +1,14 @@
+ // SPDX-License-Identifier: GPL-2.0
+=20
+-use crate::driver::{NovaDevice, NovaDriver};
+-use crate::gem::NovaObject;
++use crate::{
++    driver::{
++        DrmRegData,
++        NovaDevice,
++        NovaDriver, //
++    },
++    gem::NovaObject,
++};
++
+ use kernel::{
+     alloc::flags::*,
+     auxiliary,
+@@ -16,9 +23,6 @@
+     uapi,
+ };
+=20
+-use kernel::types::CovariantForLt;
+-use nova_core::auxdata::AuxData;
+-
+ pub(crate) struct File;
+=20
+ impl drm::file::DriverFile for File {
+@@ -33,18 +37,17 @@ impl File {
+     /// IOCTL: get_param: Query GPU / driver metadata.
+     pub(crate) fn get_param(
+         dev: &NovaDevice<Registered>,
+-        _reg_data: &(),
++        reg_data: &DrmRegData<'_>,
+         getparam: &mut uapi::drm_nova_getparam,
+         _file: &drm::File<File>,
+     ) -> Result<u32> {
+         let adev: &auxiliary::Device<Bound> =3D dev.as_ref();
+-        let pdev: &pci::Device<Bound> =3D adev.parent().try_into()?;
+-        let data =3D adev.registration_data::<CovariantForLt!(AuxData<'_>)=
+>()?;
++        let pdev: &pci::Device<_> =3D adev.parent().try_into()?;
+=20
+         let value =3D match getparam.param as u32 {
+             uapi::NOVA_GETPARAM_VRAM_BAR_SIZE =3D> pdev.resource_len(1)?,
+-            uapi::NOVA_GETPARAM_GPU_CHIPSET =3D> data.chipset() as u64,
+-            uapi::NOVA_GETPARAM_VRAM_SIZE =3D> data.vram_size(),
++            uapi::NOVA_GETPARAM_GPU_CHIPSET =3D> reg_data.api.chipset() as=
+ u64,
++            uapi::NOVA_GETPARAM_VRAM_SIZE =3D> reg_data.api.vram_size(),
+             _ =3D> return Err(EINVAL),
+         };
+=20
+@@ -56,7 +59,7 @@ pub(crate) fn get_param(
+     /// IOCTL: gem_create: Create a new DRM GEM object.
+     pub(crate) fn gem_create(
+         dev: &NovaDevice<Registered>,
+-        _reg_data: &(),
++        _reg_data: &DrmRegData<'_>,
+         req: &mut uapi::drm_nova_gem_create,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
+@@ -70,7 +73,7 @@ pub(crate) fn gem_create(
+     /// IOCTL: gem_info: Query GEM metadata.
+     pub(crate) fn gem_info(
+         _dev: &NovaDevice<Registered>,
+-        _reg_data: &(),
++        _reg_data: &DrmRegData<'_>,
+         req: &mut uapi::drm_nova_gem_info,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
+diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
+new file mode 100644
+index 000000000000..ba99d5a27805
+--- /dev/null
++++ b/drivers/gpu/nova-core/api.rs
+@@ -0,0 +1,39 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Nova Core API for auxiliary bus child drivers.
++
++use core::pin::Pin;
++
++use kernel::{
++    auxiliary,
++    device::Bound,
++    prelude::*,
++    types::CovariantForLt, //
++};
++
++use crate::gpu::{
++    Chipset,
++    Gpu, //
++};
++
++/// API handle for auxiliary bus child drivers to interact with nova-core.
++pub struct NovaCoreApi<'bound> {
++    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
++}
++
++impl NovaCoreApi<'_> {
++    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registere=
+d by nova-core.
++    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<=
+'_>>> {
++        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
++    }
++
++    /// Returns the chipset of this GPU.
++    pub fn chipset(&self) -> Chipset {
++        self.gpu.spec.chipset
++    }
++
++    /// Returns the total usable VRAM size of this GPU in bytes.
++    pub fn vram_size(&self) -> u64 {
++        self.gpu.gsp_static_info.vram_size()
++    }
++}
+diff --git a/drivers/gpu/nova-core/auxdata.rs b/drivers/gpu/nova-core/auxda=
+ta.rs
+deleted file mode 100644
+index 0a07a10da327..000000000000
+--- a/drivers/gpu/nova-core/auxdata.rs
++++ /dev/null
+@@ -1,25 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-
+-//! Nova-core auxbus data. Contains all the methods used by the auxbus dri=
+vers
+-//! to interact with nova-core.
+-
+-use crate::gpu::Chipset;
+-use crate::gpu::Gpu;
+-
+-/// Auxiliary bus registration data. Used by the auxbus drivers to call me=
+thods on
+-/// the GPU.
+-pub struct AuxData<'bound> {
+-    pub(crate) gpu: &'bound Gpu<'bound>,
+-}
+-
+-impl AuxData<'_> {
+-    /// Returns the chipset of this GPU.
+-    pub fn chipset(&self) -> Chipset {
+-        self.gpu.spec.chipset
+-    }
+-
+-    /// Returns the total usable VRAM size of this GPU in bytes.
+-    pub fn vram_size(&self) -> u64 {
+-        self.gpu.gsp_static_info.vram_size()
+-    }
+-}
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver=
+.rs
+index 8b0bebee0bdf..9cb2eecfae1c 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+=20
++use core::pin::Pin;
++
+ use kernel::{
+     auxiliary,
+     device::Core,
+@@ -18,7 +20,7 @@
+     types::CovariantForLt,
+ };
+=20
+-use crate::auxdata::AuxData;
++use crate::api::NovaCoreApi;
+ use crate::gpu::Gpu;
+=20
+ /// Counter for generating unique auxiliary device IDs.
+@@ -30,7 +32,7 @@ pub(crate) struct NovaCore<'bound> {
+     // device before dropping `gpu`, and drop `gpu` before `bar` because `=
+Gpu`
+     // borrows `bar`.
+     #[allow(clippy::type_complexity)]
+-    _reg: auxiliary::Registration<'bound, CovariantForLt!(AuxData<'_>)>,
++    _reg: auxiliary::Registration<'bound, CovariantForLt!(NovaCoreApi<'_>)=
+>,
+     #[pin]
+     pub(crate) gpu: Gpu<'bound>,
+     bar: pci::Bar<'bound, BAR0_SIZE>,
+@@ -82,7 +84,7 @@ fn probe<'bound>(
+             pdev.enable_device_mem()?;
+             pdev.set_master();
+=20
+-            Ok(try_pin_init!(&this in NovaCore {
++            Ok(try_pin_init!(NovaCore {
+                 bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/b=
+ar0")?,
+                 // TODO: Use `&bar` self-referential pin-init syntax once =
+available.
+                 //
+@@ -105,14 +107,16 @@ fn probe<'bound>(
+                         // For now, use a simple atomic counter that never=
+ recycles IDs.
+                         AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
+                         crate::MODULE_NAME,
+-                        AuxData {
++                        NovaCoreApi {
+                             // TODO: Use `&gpu` self-referential pin-init =
+syntax once available.
+                             //
+-                            // SAFETY: `this.gpu` is initialized before th=
+is expression is evaluated
++                            // SAFETY: `gpu` is initialized before this ex=
+pression is evaluated
+                             // (`try_pin_init!()` initializes fields in de=
+claration order), lives at
+                             // a pinned stable address, and is dropped aft=
+er `_reg` (struct field
+                             // drop order).
+-                            gpu: &*core::ptr::from_ref(&this.as_ref().gpu)=
+,
++                            gpu: Pin::new_unchecked(
++                                &*core::ptr::from_ref(gpu.as_ref().get_ref=
+()),
++                            ),
+                         },
+                     )?
+                 },
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nov=
+a_core.rs
+index d00c8804269d..9463ae038e81 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -10,7 +10,7 @@
+     InPlaceModule, //
+ };
+=20
+-pub mod auxdata;
++pub mod api;
+ mod driver;
+ mod falcon;
+ mod fb;
+
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=
+=3Dnova-api
