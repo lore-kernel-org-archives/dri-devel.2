@@ -4,147 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5320C43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 12:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED755C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 12:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 137BD10E1A9;
-	Sun,  5 Jul 2026 12:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E52010E109;
+	Sun,  5 Jul 2026 12:09:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="P8gyfHdU";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kDTp40pD";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="iRVGNrnK";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC7610E1A9
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 12:08:25 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6655tlNt896558
- for <dri-devel@lists.freedesktop.org>; Sun, 5 Jul 2026 12:08:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ZN8p8GVvhL0vSLM98/0aC/exCQwg55pHhJkfI+byc3Y=; b=P8gyfHdUAKSYbw5F
- ebPDrmUaIX13Jvn7JpP3n+q2E1UyjZJPvFp1eFAxNT5r9u5//qLxaHYmrmLHJ1QB
- rU6mbCndxiBnsUpoWGzNIxON+uFnzuEJjJiR/vblAOxOhgzg421bfw+xBSUNyN3v
- dECLnkLM9iGPoO0cjONObMCUB3R1zLv5WEXtgnGlOfImdbX24ZtX/2OEsrFZ+s+V
- 0hlfG17GbXz4VT/5JNWGKdSV3kvOrYRizXR81CsilZXcgfVSVbmI6i+0VBalQQ7B
- owMYY3wAmNW4t7tV1dMLajYQtYISi2YPKOpvUZGFHG2ONseW1h4n4GVRtwvOiLx1
- D0HV1Q==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6qvgty1d-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 12:08:24 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c88ab059052so1700864a12.1
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 05:08:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783253304; x=1783858104;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZN8p8GVvhL0vSLM98/0aC/exCQwg55pHhJkfI+byc3Y=;
- b=kDTp40pDSOX3YFRR5fMgJSJE1UcbxuPOqTPCYJuIJh2tPvxfwoaRJWIGOMsbAOYK7b
- 8Ly9/ZFR7bJ7bkAMN71AEKPiXkTYzazPE/CPHNxr1U4zUHupKbnqfec5/YzSaiFsfysi
- DUBF3wG4732YBupBvs19yLF0KKLEazEyKdSRjStG5xuHyRSNTVluquapeNdy4cQN20p/
- g/GXD11TxeEWf9VQGKqDDVqLbOzK0dg8nr+sn2hUbopjZpOK855MBM3jDJWBJIXLMG3k
- 1Ma93DsivO5xjeH0eJ4VUoPqicZrt4ndRw8GGwkbtIU+L9vM6Di8Ifxte+JyTjKwd55h
- 3bvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783253304; x=1783858104;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZN8p8GVvhL0vSLM98/0aC/exCQwg55pHhJkfI+byc3Y=;
- b=ermEsBAY0FJ5JJXOCmrk3mnEYKrna4pVW71dWjVfw+KlUa7SQyuGiap5VbxS9H2AYu
- Xt+aj7Oz3fHJ0Jju/HVtzfS1PMsYEg5aTsM5yYGhxKm4a57y0xReBhVjPZ8ypuEdwdUW
- QVm2cRcl58CsmUvxWlEiT65Pdd5QCCvzXd3oV+rzEHNRukXGCw3um3HRau5QalaAGLLx
- yOjSKmGF+TDvdUbVVBpecgz6o3UtS8Co3VB2LaNq6KYCQ5cB3tLNeUGgLzNCGrf1Pcol
- pukAQd33NXcbW1wx2NhqjJ6lCE6AD8QiVcdGC7dlQgxCTStFZNRJT504Y3BrkU1UtQJA
- OXJw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoQkV8voUR+bdPMdAmvn/iekv4Q/3/IwqP006TPzoUwNtPT1BDL493Wa4VHr6A/6CkjyuAauu/Cn/U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxneNineuvrtrf+RG0OwNWOn6TxiLBxd4ECij5rW16VCZfMPZ6d
- ubBh9Az0kd+jllCbyN3XZW/BLJW1bkZxSoUbz7GHbe7PacOhjpVuK1gOr+B9PoSVpQvkMMgTJJe
- 5eqN2dvwiWpaEczlTsNuZp7460dbTiGBKanL6rQD+tlNSjd+Vj6zF779hFijjqYtw0XayGEjsGD
- wcK4w=
-X-Gm-Gg: AfdE7clJ9BrmIWvpLm/xC15CX9VeyOjjXyqjpf/92stUF7/8kp0Lf3WdNloUtvim1Il
- hC8wpNMzzb6z+DkbyyV13SU9zee3nEaXnGxKimJhQlHmb1UOvsxhI7eSaPYKDYu88nZn5D8Dgga
- h9VOUDge5fhm111PHAlzmDhV9sgX8Ds+OI6po8pODZxMRGR4OGqpR9J/93qlJE5UdRnSPmtZW0J
- DqzPK6GFzr8dh2kV8FZgBGQZ0k7JInkyL6OLkv8Xtp4wk/Z6qoNIZiXIxvBLj2ywLOqsejiRT6C
- EUNbK/Q841W9OjmLH8nw0qOJh47QJrxWd0OTppFoZPtE6vDE9pnFOWqQ4bYLn10m1mNOV4NCLi/
- VuyORmW6nHaOfK6o4oHrC+da//3Jykoue/A==
-X-Received: by 2002:a17:90a:da83:b0:380:9052:f4b9 with SMTP id
- 98e67ed59e1d1-381122ebe5amr11701448a91.11.1783253303551; 
- Sun, 05 Jul 2026 05:08:23 -0700 (PDT)
-X-Received: by 2002:a17:90a:da83:b0:380:9052:f4b9 with SMTP id
- 98e67ed59e1d1-381122ebe5amr11701402a91.11.1783253303057; 
- Sun, 05 Jul 2026 05:08:23 -0700 (PDT)
-Received: from [192.168.1.8] ([106.222.234.78])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31151fff32fsm6354185eec.21.2026.07.05.05.08.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 05 Jul 2026 05:08:22 -0700 (PDT)
-Message-ID: <81c657b0-7e61-4db3-b72c-46c213c707e9@oss.qualcomm.com>
-Date: Sun, 5 Jul 2026 17:38:13 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/8] drm/msm/a6xx: Increase HFI GX perf level limit to
- 24
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260705-kaana-gpu-dt-v2-0-6ac53de56314@oss.qualcomm.com>
- <20260705-kaana-gpu-dt-v2-1-6ac53de56314@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260705-kaana-gpu-dt-v2-1-6ac53de56314@oss.qualcomm.com>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021128.outbound.protection.outlook.com [52.101.100.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD3AF10E109
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 12:08:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i7yuJ/XJPfB6H416itnidLvU2Q+SFBYEPsHwzUllF3OUNw6M+GewX8/7QXzRkpX0KQXWtEBeI0dc9x9E+qAj64qyGOf4SAduLbiHyEFPXm692n5BwQgcBUmuE7QFcuRO53LUqHl9vhbQ1T9nGQVhAifdDgvjAaU2Jz/D/zEakDgya2lnzHKuvDaJGUz0wOqqZgKwJoOq0ypfdkSfa8BXHISmKETY0SZ8DRVpOqAS6N68XvGuSYvc+DEUBzpkKDv3a0CMedz2QM/lCWSIh5GKcZSeTa6kIcWSbFTBni0lKzGD1uAG1QfYN+7arxhoZ3uNFjl0YlpyfQ0mub1LcFdM4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6geqeTZ8oVqFzJKnxN6Ou9cSnOXfd1QdLC5R6btzXj0=;
+ b=OfEoDDAsFCWl7+OkmDFrXDqZLI58LRqwqX6MbiyPwI47sYjRgxYzAtPwpmKhOXPTBdf2BoK51C4kzyAz8U6KmpYyaIHFxiIwIZ3E3qMtDBUTL1JbSaNFoBU36HLGO9/MMrKXDm4UcFhorpEie760vgrPp3NcFWbFanBnhHsNTPK0v6JLUYWBlER0TI462JsF0D5VLt4/XyPJfEwgI5pjJrQx5VELQQbPGzRKgoDdB7xyHfQFymUnNoGXC3hyZKVUMMzXZW824jDqpRvpqku58ryc7sfUfUfxFd4jfTTifnCnhy0wda+pYByAy2gOlHWAQyqin2F9u5c1epudpqTL/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6geqeTZ8oVqFzJKnxN6Ou9cSnOXfd1QdLC5R6btzXj0=;
+ b=iRVGNrnKWi7fAz/tPSANgq3+NUdr2BXG7tq8skjuWq8+CH/moPYvnmZjey9Ezpl6qKKybIJsjSd4F2/IfeozZ9k5si7TR8KN0Lq6cKwny+Qp4cK6+kyr2whZyxA9gHaDGMPFzMzSDUM4fDu37gj+sra4II4Yn0PSZ0FGHLBRjIc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB7266.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:225::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Sun, 5 Jul
+ 2026 12:08:54 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Sun, 5 Jul 2026
+ 12:08:54 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=VvoTxe2n c=1 sm=1 tr=0 ts=6a4a4938 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=b2dfFiZiitoj8S2i2yzycg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=PFfvJpCOjzcRVZi79uIA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: _Hpv_XEO_EApsavrBttak0WU2W91Fs_H
-X-Proofpoint-GUID: _Hpv_XEO_EApsavrBttak0WU2W91Fs_H
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA1MDEyNyBTYWx0ZWRfX1BW2UuQ+sXng
- rWITM3KrPpFxjnf+ZkSXK57mbfmh4PrKMuPf8TI82L5mLPe9n8KcZDjC6x4tLeHBWd2/h7Y0nzh
- R+OxpQSdwM3sYBVtYR4ZcI6lDgkkopM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA1MDEyNyBTYWx0ZWRfX4R2ymdJW4ubQ
- ZEDYTDayRQjNHWPKht8ad4J1cuDfW4XWXAaYMlKls8Efqhx8sajQo1dn1CzP/MgQEJpIG9ZrFQ9
- ujC3vOGBAGvFHXVdZMfzuUHcRCR1bfiChXB5HbYfk9guXuWO9QfRMNu1oud2i8V6tjlm6uUmxS5
- Z8RxnqkBquSfZcDR13L48GfRRynunflrOGZIPp3db9eJC3InNqRgkMlesX20l8K0v8BEiUnSXBm
- FM7eggU9T3p227YLVPGtZOTxD0K6L/c2Om1CBVoxbT+EvuWgBvfCcKGSjmgenSKD1ea5J0MdBvw
- HkDExU/QCWOXciLWMfl3CLFZbXZbsgaZ1jWl52DarqHvzgMojqsMcYb+jIes1GJVWJwsOrVt8Fq
- 4i4sAOarFkthFOJA1tn+6UT1/C586qQ8UJINQIOdcGvwhDdNhN0U/K2p6YPBVLAi+o/hvmP7SvU
- vWGBl5s2nABsmU6Vaew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-04_03,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
- suspectscore=0 impostorscore=0 clxscore=1015 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607050127
+Date: Sun, 05 Jul 2026 13:08:53 +0100
+Message-Id: <DJQMJS0C3EDQ.278WBLVP566HU@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross"
+ <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Drew Fustini" <fustini@kernel.org>, "Guo Ren"
+ <guoren@kernel.org>, "Fu Wei" <wefu@redhat.com>, "Michal Wilczynski"
+ <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, "Viresh
+ Kumar" <viresh.kumar@linaro.org>, "Jens Axboe" <axboe@kernel.dk>, "FUJITA
+ Tomonori" <fujita.tomonori@gmail.com>, "Heiner Kallweit"
+ <hkallweit1@gmail.com>, "Russell King" <linux@armlinux.org.uk>, "David S.
+ Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <driver-core@lists.linux.dev>, <linux-riscv@lists.infradead.org>,
+ <linux-pwm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-block@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 0/7] rust: Use kernel style vertical imports in various
+ drivers
+From: "Gary Guo" <gary@garyguo.net>
+To: "Guru Das Srinagesh" <linux@gurudas.dev>, "Andrew Lunn" <andrew@lunn.ch>
+X-Mailer: aerc 0.21.0
+References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
+ <c89a1bc8-6cc1-4e16-ac95-add389e45a2b@lunn.ch> <akmnh0AKFfu9-OYn@gurudas.dev>
+In-Reply-To: <akmnh0AKFfu9-OYn@gurudas.dev>
+X-ClientProxiedBy: LO4P265CA0048.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::8) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB7266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fc16130-6fad-4dd5-d084-08deda8e2efc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|366016|376014|10070799003|7416014|22082099003|18002099003|4143699003|56012099006|5023799004|6133799003;
+X-Microsoft-Antispam-Message-Info: QihblXpvdEklQsRNqW5pdvrh4cjhymtOwvrUSKJkhXQji/x84dL/C8nM0EymlyR52WUCDwTjlyxAMJ8kFjG/5Ie+nnA16WvQbLSxfIZGz0PIOF7pnN6Kyfbt8vYUL64jlg8LFH3ph49deno3tfqTqwiApzuoSYQJZDDXIciAeonmyMnSxY5hJ+k7D9LaGtJodPPnUKd4NtBH5okovKgm3NKsDXCfEEtNEhJTwVC/X5AEi53N/ekfeIl4v1SnWeUh4yoxa3WirdyqimaCjGzSGXT2mAoiaGkSUNNQTcEbkQJLTA6mSLssAhznFWOj9TYemH0UXjw82Fu5rAlg1gMyJgEHGgerhkzuep9RE/rKTo2akbuyuGKH6vw1pVM7pkkNI8uPuSAh34IxLidBA2OOY6GyiOMBREMy03JVFtzzfaXHfmYQsZspqR1UZeAfQ0/uqP4nsi3gEnXi9yhy1sy8JKJTqt4o/XFuFo5RTet4NH3fuKKgr+aY2zbROLQ8u3YwnaNU+kFrFKANka5Nej3/w+vWc9AV2lnRzVKWplWe90kxiqtMVa5b2gRdnfZWEIJEEv3H/8PQg1pyOH1z7G6j7PMxiTcOA94kCz2vHvc1+xlJOxv5UOqG2/mYFbmkWPJJBFF7P2R5AMRKEaDaME0ZD/e/uPPzd8FL8zavBSDguco=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10070799003)(7416014)(22082099003)(18002099003)(4143699003)(56012099006)(5023799004)(6133799003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MEtFRy85QkZxdkNDVXp5NFA2blRYQk5TRWJQTW1CTFFrRzZqRHhZTSt1b0ox?=
+ =?utf-8?B?QnNTa3c5R2p5MXlOUURMTzNCZm9adDlzQkkwdTRGRC9aWDk3MEpiUk9GQ1BB?=
+ =?utf-8?B?Z1JmK1lEbTJRanBKVmJBbUFERGpIZlArd3NxYXl5NlZHY3QrdzZZUHoyblll?=
+ =?utf-8?B?aHAxTHhWOWw1OUZpYlZZK2FkOXl2NFVJNGU5ak0wQk9oYnRwVmE2T0J1RkJC?=
+ =?utf-8?B?UjE2aldZSUV4MFZ6MzVReUZMeGo4dGxzZDdFUzdCSnBXU1RBcVlQMXZHTWUy?=
+ =?utf-8?B?dGZPVkRGN3d3S0hHUjJSai9YdmNCbkMwbDR2QlpQcTlCc1V5VFcxVXNCb1F5?=
+ =?utf-8?B?TytPUExhcVVwdldQR1cwQ0h6dnRmRXlyalVydUxVU01vYzQxQXdYR1orU3Rj?=
+ =?utf-8?B?b3BCbEJlNmtMaWI5YlNZRCtYcVY3S0V4WmJhZFRONVpkK012bDBSd3lnNmZj?=
+ =?utf-8?B?aWx5L3kyNExVR0JzVWU3TlBnWVZMdFJPdmpFdGpxYXdMQmZSV3BRWDV4dVlZ?=
+ =?utf-8?B?YUVBQXJZYXNWL1NRckkwN21YbzRVWnEyNUU4bUwwb1RUUjlxd2pQUVJqaWRW?=
+ =?utf-8?B?R24rc01McUM5MGMyM0htTllnaGxnNlhxQ1k5VndOUVJNQXR0aHdyL3c1T1FX?=
+ =?utf-8?B?UUYvTGdrdFBIUGhta2dLTUt3NENOczBla2VWNlVIOGc5S1YwT3RUVDJOT0Rl?=
+ =?utf-8?B?Z0dTcldabEtML05vdEZTNVlvTW4xSzQyeVVnYlNrcnZEM0doRnQwem5FMjlo?=
+ =?utf-8?B?UEVYYXpDR0VTRVNhczRTQTdzYU9LNHBtVGxIWjhycjR1N21Ic0NFVFdvdXMx?=
+ =?utf-8?B?YVJpNnN3TnEwM1VaeVF5enc1Unh3R0tXUHpwcUlSUE00RmhYSzBSTnozejQw?=
+ =?utf-8?B?OHUzZ1FnNjFMQnI0ZzBtNG9HaHFab0tQUE9rSWxnTzU1Z1V1TDRKUjduZllO?=
+ =?utf-8?B?NjhaL2NWckJwUVNWVC9oblVvNE4vZFFiWTNVQndYc01TOEx1Z0h5M2JMQVJF?=
+ =?utf-8?B?bzNTa1p5V1dBVWh4YzgwKzVWRGdTK0w0RjAzalNiYzJmTmdDOWtzSEdFZVZk?=
+ =?utf-8?B?cTd1L0R1ZEJjV01YVjlBOXNjT3NQRXVUR1EyWEQ4SmUzc0xkb1NnL0oxbkhW?=
+ =?utf-8?B?Tk1WdW1DRjM0NjBCNUJRZDNwSFVpMDAxb2pNZE9LdER6d2h2bG50R3FGaElJ?=
+ =?utf-8?B?YzdmUUdIZVc2UVhJWTRKalBkelJkK2dRSUxVd1dmV0JJTFFEeW93OVh0UGFN?=
+ =?utf-8?B?NmxuSitiMTJ4MnVCSnZtRno1ZzZYYnRsZUNtZjBYNW4vVmh6ajNvMFlnTnZl?=
+ =?utf-8?B?aERPZkNpaFdFejUwRUVwSlZGaDhlZGw2SUgvYTlvNmMyZTdYamRqeEc2NmI2?=
+ =?utf-8?B?ZG9vNWM2ZzZYL0RBUUIvanBHSGVjdmxzY3JCc0lYMjFCY2Y0bTBNbkM4ZXpD?=
+ =?utf-8?B?aXlidm9iUUc3Szdid0dTc0Q0aTNzK3NXN08zYVA2dTlIUVRaQkUrNlFPVXRD?=
+ =?utf-8?B?RHBuN2d1OVVxOUtYTGVhY0xGYjNiQjMvNDkySFFMZHRPRjFmWEFiQ3U4djRn?=
+ =?utf-8?B?WHpBSHV1RmRzeXZndnZ6N0REdmZKRzdtc0dNU0ZxYzM4S05yY3o3d1BUd2R1?=
+ =?utf-8?B?bnFQNFFlR2ZPQldhK04zNURrOWYxQno4WVlwRE1ndUMzYjc4M3E4d3c2Mjgw?=
+ =?utf-8?B?Qk4rN24yYnFqQjQ2WnAzdHdURUY3SSttQVZzTFJLbEhscDlBeGN1Y0JNU3ov?=
+ =?utf-8?B?UmozUG9TY29jb0RPN2xZZnIxZjJyWVJmOXZRc29mY3loaHBiai9LWkl6TDRJ?=
+ =?utf-8?B?eS9rYXVpNXNCd2FveUY1aE5wd2lnYkJQTjMwRkd5TDBiYklGY1BsVVBlcFcy?=
+ =?utf-8?B?bWlPKzVQRWl5NDFGYjBiWjZMbkhNRXVnVjErRTBsY2puSzFFLzRNNjFNN1V3?=
+ =?utf-8?B?WGVhRDRoRTEzSUtPamNrNkpIMVBnRnpjaHJud2wzQTYvVDQrTTErc0Y3T2d0?=
+ =?utf-8?B?NktkRVFJUVJ6SXc2cGI3a09sMklYV3kyOUI4d1BiblZmMlRFMXJhd3VGOHdv?=
+ =?utf-8?B?TUlJRVZoMkc1L2s2R1g4OUx4eVhHWEI1NjZSbUg4a1p3bENmZTlrSHJ6N2pi?=
+ =?utf-8?B?OWQ3NXVEUUI1QjZNZkNqVFZLbHd6YnZIWEttdjg5ZkhKcGNkbi9qbGRPWmlk?=
+ =?utf-8?B?VGtYWThlTElVTjBJUWdqcG4yQm9nL1lPRGt3YTFkY2REaGtCRml3cmJqa2pj?=
+ =?utf-8?B?a2RNUkxLV0JxMmszY0c5Q1Q5NmpkYnNOdHNBVC83YlFaYzM3dzRMYmthcWVH?=
+ =?utf-8?B?UjBtUnltUlZEL1Bwc1EvTkZOV3dTRlh3N1lvSDNISlVpaU1jZVZCQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fc16130-6fad-4dd5-d084-08deda8e2efc
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2026 12:08:54.2533 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JdwnKBPxCCwEeEGzF05qXAmbhqYKudY/Xb6P52svQLtX7DqZrHVHWxwaofl6FWN6ARCYIhokMbHTLyBvf36efg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB7266
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,77 +159,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/5/2026 1:30 PM, Akhil P Oommen wrote:
-> Newer Adreno GPUs expose more than 16 GX frequency levels. Introduce
-> HFI_MAX_GX_LEVELS and use it to size the perf-table and bandwidth-table
-> GX vote arrays, and to derive GMU_MAX_GX_FREQS, so these levels are not
-> truncated.
-> 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 2 +-
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.h | 7 ++++---
->  2 files changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> index 3f96b10b5f61..62e3fb230cd3 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-> @@ -20,7 +20,7 @@ struct a6xx_gmu_bo {
->  	u64 iova;
->  };
->  
-> -#define GMU_MAX_GX_FREQS	32
-> +#define GMU_MAX_GX_FREQS	HFI_MAX_GX_LEVELS
->  #define GMU_MAX_CX_FREQS	6
->  #define GMU_MAX_BCMS		3
->  
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> index e10d32ce93e0..f4da73a555c6 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.h
-> @@ -5,6 +5,7 @@
->  #define _A6XX_HFI_H_
->  
->  #define HFI_MAX_QUEUES 3
-> +#define HFI_MAX_GX_LEVELS 24
->  
->  struct a6xx_hfi_queue_table_header {
->  	u32 version;
-> @@ -119,7 +120,7 @@ struct a6xx_hfi_msg_perf_table_v1 {
->  	u32 num_gpu_levels;
->  	u32 num_gmu_levels;
->  
-> -	struct perf_level gx_votes[16];
-> +	struct perf_level gx_votes[HFI_MAX_GX_LEVELS];
+On Sun Jul 5, 2026 at 1:38 AM BST, Guru Das Srinagesh wrote:
+> On Mon, Jun 29, 2026 at 04:06:36PM +0200, Andrew Lunn wrote:
+>> On Sun, Jun 28, 2026 at 08:38:14PM -0700, Guru Das Srinagesh wrote:
+>> > Came across a recent commit bc58905eb07 ("samples: rust_misc_device: u=
+se
+>> > vertical import style") and found a few more locations that could
+>> > benefit from this cleanup. No functional changes.
+>> >=20
+>> > Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
+>> > ---
+>> > Guru Das Srinagesh (7):
+>> >       samples: rust_dma: use vertical import style
+>> >       pwm: th1520: use vertical import style
+>> >       cpufreq: rcpufreq_dt: use vertical import style
+>> >       block: rnull: use vertical import style
+>> >       net: phy: ax88796b: use vertical import style
+>> >       net: phy: qt2025: use vertical import style
+>> >       drm/nova: use vertical import style
+>>=20
+>> You have multiple subsystems here, so you need to split this patch
+>> setup, per subsystem, and submit them separately. Maintainers only
+>> accept patchsets for their own subsystems.
+>>=20
+>> For netdev, please take a read of:
+>>=20
+>> https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+>>=20
+>> You need to get the correct tree, and set the Subject: line correctly.
+>>=20
+>>     Andrew
+>
+> Hi Andrew,
+>
+> Thanks for the feedback.
+>
+> I was aware of the per-subsystem rule, but reasoned that since these chan=
+ges are
+> purely about Rust import formatting coding style with no functional impac=
+t on any
+> subsystem, they might go through the rust-for-linux tree with acks from t=
+he
+> respective subsystem maintainers. The Rust coding style is independent of=
+ any
+> subsystem-specific guidelines.
 
-This will break older firmwares (A7x/6x). Luckily, A8x uses
-HFI_TABLE_GPU_PERF interface instead of this, which is more flexible.
+Patches should usually be merged via their usual tree, otherwise you're jus=
+t
+creating unnecessary merge conflicts.
 
-Will drop this patch.
+There are obiviously exceptions to this for series that need to touch multi=
+ple
+subsystems and cannot be split, but it is not the case for this sort of sma=
+ll
+cleanups.
 
--Akhil.
+Best,
+Gary
 
->  	struct perf_level cx_votes[4];
->  } __packed;
->  
-> @@ -128,7 +129,7 @@ struct a6xx_hfi_msg_perf_table {
->  	u32 num_gpu_levels;
->  	u32 num_gmu_levels;
->  
-> -	struct perf_gx_level gx_votes[16];
-> +	struct perf_gx_level gx_votes[HFI_MAX_GX_LEVELS];
->  	struct perf_level cx_votes[4];
->  } __packed;
->  
-> @@ -144,7 +145,7 @@ struct a6xx_hfi_msg_bw_table {
->  	u32 cnoc_cmds_addrs[6];
->  	u32 cnoc_cmds_data[2][6];
->  	u32 ddr_cmds_addrs[8];
-> -	u32 ddr_cmds_data[16][8];
-> +	u32 ddr_cmds_data[HFI_MAX_GX_LEVELS][8];
->  } __packed;
->  
->  #define HFI_H2F_MSG_TEST 5
-> 
-
+>
+> Is that reasoning off-base, or is the right path to split these out per s=
+ubsystem
+> regardless?
