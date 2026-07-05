@@ -4,65 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A58BC43458
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 20:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD1D2C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 20:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E56FC10E1BD;
-	Sun,  5 Jul 2026 20:46:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29B2A10E24B;
+	Sun,  5 Jul 2026 20:58:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lL230xXc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aHxmvhKT";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB8B10E1BD
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 20:46:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783284368;
- bh=OaQusKv3rXYsBNCL7bbmIiPHTJUbxK+t+RRHDhKEW9Q=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=lL230xXckdYvbMdcv6VvPfggSMJt4NKuO+UichDEAFAiEOXbiKsWUP7Cq4EuSPr+n
- zt6n2WmBg+/z95DyxHqpc0Cm7kZqJEPz1bQSlMPCPbdFIZJVKypLfV5g1m0yeOvK74
- mYZaKU5LaRRtbJyIt8ONOpFk4LV7eiywCjFQC4TGYKHUV+SY+wlDd7YwzL9ODHKjQL
- DzJF68rnwWrFaDw8YkIGRnmzzhOwyRjoW0EEyQDEgmbUt+q8lA8XQpcie0x8XinT1X
- kkzZTDknZ2VF9gFMDb150EY1SbsJq8gYG0zQC+5+tVLfpQPymDbv89e8NVfyRMDHzq
- IqMTxsmxqsxUA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 28E3917E0177;
- Sun, 05 Jul 2026 22:46:07 +0200 (CEST)
-Message-ID: <c8242f5c-ec74-489e-b378-f225ec3a0135@collabora.com>
-Date: Sun, 5 Jul 2026 23:46:06 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
- robustness
-To: Diederik de Haas <diederik@cknow-tech.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 639DD10E24B;
+ Sun,  5 Jul 2026 20:58:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 86DCD600BB;
+ Sun,  5 Jul 2026 20:58:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C9E1F00A3E;
+ Sun,  5 Jul 2026 20:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783285097;
+ bh=Q1S+qzlIG3wvMl1NLo8aWtt10rEBmCums4Uj0ebABh0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=aHxmvhKTNqnoCbPteAQ2rlZNGdox0T3JHxpY+ULbFBi+RT7ZAig7AhUW0slF88Mdh
+ GPTosK5jl5S4zk5+5yLAtp6nS+Wqve0EnQtXZFwwRFMrWVrBKmL+Ecm5sy2darrKSD
+ aL3StMdelNcEMYnYrjrvNkyEG9Od0d8K8LtmkfgS5/1X99ygHpabT3gi5LYq+87hvC
+ t4YghHkC9Ts+64HfD9n7XIt9/Fl7aVkpz47EtwCD/8BCU8emvfaFcRhy2NDVSEmYTP
+ SnOJBVsdBE+DKlKaekscnAvTAKEDG792ApXZoRdOfKnCQ6KDhsvBL105QOEySQjAHy
+ zUhWqyW3N/OpQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
- <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
- <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <DJQO8Q4J2LDP.1G8I4FVF6J7TK@cknow-tech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 00/28] soc/qcom/ubwc: rework UBWC
+ configuration database
+Date: Sun,  5 Jul 2026 15:57:55 -0500
+Message-ID: <178328508276.1157743.7408067266001474378.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260520-ubwc-rework-v5-0-72f2749bc807@oss.qualcomm.com>
+References: <20260520-ubwc-rework-v5-0-72f2749bc807@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,44 +68,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Diederik,
 
-On 7/5/26 4:28 PM, Diederik de Haas wrote:
-> Hi Cristian,
+On Wed, 20 May 2026 17:51:07 +0300, Dmitry Baryshkov wrote:
+> Currently we store several settings in the configuration database. Some
+> of them are incorrect or not completely matching the expected
+> configuration settings. Others are directly derivable from the UBWC
+> version. Rework how we handle the values in the database, trimming it
+> down to the UBWC version, HBB and several flags.
 > 
-> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
->> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
->> the enable path.
->>
->> These resets are intended to leave the hardware in a clean state for the
->> next use, helping recover from exceptions such as IOMMU page faults, as
->> well as to prevent random display output glitches, such as a blank
->> image, observed when switching modes that also change the color format,
->> e.g. from RGB to YUV420 and vice versa.
->>
->> For now this seems to affect only the RK3588, hence the resets are
->> optional and will be provided in the device tree for this SoC only.
+> The series includes patches for drm/msm as well as for the soc/qcom. My
+> suggestion would be to either create an immutable tag for the first
+> batch of soc/qcom patches, which we can pull into drm/msm or to ack
+> merging the first patches through drm/msm tree directly.
 > 
-> Why do you think it only effect RK3588? 
+> [...]
 
-My findings are exclusively in the context of validating YUV support for DW HDMI
-QP, hence targeting RK3588 and RK3576.  Since RK3576 didn't exhibit any
-anomalies, I concluded the resets are needed just for RK3588.
+Applied, thanks!
 
-> I reported about my RK3568 test here:
-> https://lore.kernel.org/linux-rockchip/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com/
-> "I then went on to try LibreELEC's builds. The artifacts I (sometimes)
-> saw, were gone :-D OTOH, I did get several major issues 'in return',
-> like rk_iommu Page fault resulting in a black screen and the only way to
-> 'recover' from it, was a reboot."
-> 
-> And I reported some more test results here:
-> https://forum.libreelec.tv/thread/29953-le13-testing-for-rk3288-rk3328-rk3399-rk3566-rk3568-rk3576-rk3588/?postID=204691#post204691
-> 
-> That seems to me a (strong) indication it also affects RK3566/RK3568?
+[22/28] soc: qcom: ubwc: set min_acc length to 64 for all UBWC 1.0 targets
+        commit: e21d3b2e5c4387b243424daa0ff2d45c6fbf73e2
+[23/28] soc: qcom: ubwc: drop ubwc_dec_version
+        commit: e7012ac2fc000fe7ae3e58a7449b80fa955b124a
+[24/28] soc: qcom: ubwc: drop ubwc_bank_spread
+        commit: 5a9f4c535ae05facd4f6ef116b18062f9f2ad768
+[25/28] soc: qcom: ubwc: drop macrotile_mode from the database
+        commit: fc54caf87a5a7289502ecbcdc80bb71f7bb5de9c
+[26/28] soc: qcom: ubwc: use fixed values for UBWC swizzle for UBWC < 4.0
+        commit: 17120525ff070da978effc009877bace3d788698
+[27/28] soc: qcom: ubwc: sort out the rest of the UBWC swizzle settings
+        commit: 31e1c3248586dcc9aae42539152ab271dcfd37b6
+[28/28] soc: qcom: ubwc: deduplicate UBWC configuration data
+        commit: d39d5ff3e550393dea28da2fa2afe7fe3cee7f42
 
-If coincidentally this helps improve the reliability of some of the older SoCs
-as well, the resets can easily be added to the corresponding DTs and submitted
-as a follow-up series.
-
-Cristian
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
