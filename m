@@ -4,115 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDA42C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1702C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C986810E7AA;
-	Mon,  6 Jul 2026 07:13:29 +0000 (UTC)
-Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6FBE710E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:50 +0000 (UTC)
-X-AuditID: a67dfc5b-c2dff70000001609-08-6a4b48ff4741
-From: Byungchul Park <byungchul@sk.com>
-To: linux-kernel@vger.kernel.org
-Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
- torvalds@linux-foundation.org, damien.lemoal@opensource.wdc.com,
- linux-ide@vger.kernel.org, adilger.kernel@dilger.ca,
- linux-ext4@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
- will@kernel.org, tglx@linutronix.de, rostedt@goodmis.org,
- joel@joelfernandes.org, sashal@kernel.org, daniel.vetter@ffwll.ch,
- duyuyang@gmail.com, johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
- willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
- gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
- akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
- hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
- jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
- rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
- linux-block@vger.kernel.org, josef@toxicpanda.com,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
- dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
- chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
- longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
- yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
- her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
- bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
- sumit.semwal@linaro.org, gustavo@padovan.org, christian.koenig@amd.com,
- andi.shyti@kernel.org, arnd@arndb.de, lorenzo.stoakes@oracle.com,
- Liam.Howlett@oracle.com, rppt@kernel.org, surenb@google.com,
- mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
- samitolvanen@google.com, paulmck@kernel.org, frederic@kernel.org,
- neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org,
- urezki@gmail.com, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
- qiang.zhang@linux.dev, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
- vschneid@redhat.com, chuck.lever@oracle.com, neil@brown.name,
- okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
- trondmy@kernel.org, anna@kernel.org, kees@kernel.org,
- bigeasy@linutronix.de, clrkwllms@kernel.org, mark.rutland@arm.com,
- ada.coupriediaz@arm.com, kristina.martsenko@arm.com,
- wangkefeng.wang@huawei.com, broonie@kernel.org, kevin.brodsky@arm.com,
- dwmw@amazon.co.uk, shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
- yuzhao@google.com, baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
- joel.granados@kernel.org, richard.weiyang@gmail.com,
- geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
- alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
- link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
- brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
- mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-modules@vger.kernel.org, rcu@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
- neilb@ownmail.net, bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
- dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
- alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 15/40] dept: track timeout waits separately with a new
- Kconfig
-Date: Mon,  6 Jul 2026 15:19:03 +0900
-Message-Id: <20260706061928.66713-16-byungchul@sk.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
-References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSa0xTdxjG+Z87jU1OCnNn7IOmES8ssmnAvHEL84Mkf7xEozEqLtEqZ6PQ
- gmmRwTa1c2AKikJNa6xBWpFyKSV4CE7nys2p0dhZOsUiqIMYxZXaydoqG+go6rdfnud9fp9e
- jlTcpZM4dUGRqCtQaZSMjJIF59iXoqy1eZ/dG0oCY/lBMEqnaHgUMSIITw6x8MZ9DYGl30SC
- 39tNgnnkMQMhx1EEwUeXabgXHUfgePyagGlLPgQsfzNw0uxFYB95QMKdSIiB2tMmBE/uuwkY
- tpgIcErrwWFIhqmRZdAWvE3DjYcDNPxs+JMFafAqAuMvEQrc9z+BaxdHCXjY+oYGn9NLwQ1r
- MwVDnuMseGuqaHA9P8tAIOogYfDkOAuOSIgFX4+NgGa3h4H2MisLzXWNCDq7yxFcr+oh4PC5
- 8wQ0NAVpkFoHGDjhszHQIZlJGDDVMeC5cJOF0WNBFiZqX9Pg7KfAPGVk4Ei5hYLOqy9ZaH/R
- yEDZcDqEnS0MuKYHEDyvDtOrvsTlvmkGt55pRTjc8BOJr4yHSPxv5C6D3VEbhWs8S/El6wMW
- 26R9uKMpBdf/+ozA9okIjaWWCgZLEyYW2/8bI3Fl8A6xUZkt+yJH1KiLRd2nGbtkuU1novTe
- 4ZySS73FBuTfUIniOYFPE8aeWtB7rg900TFm+EWC3z9JxjiRny90VD2ZyWUcyf8xTzjqqKJi
- RQK/SeittxExpvhkoeLI5OxYzq8Qum6eeiedJzjbe2ZF8TN521Tt7L2CTxeGQtepmFTg6+IF
- x61DxNvBR0Jvk5+qRnIbimtBCnVBsVal1qSl5pYWqEtS9xRqJTTzbI79Uzsuognv5j7Ec0g5
- Rw6r1uQpaFWxvlTbhwSOVCbKFy5em6eQ56hKvxN1hTt1+zSivg99zFHKD+XLo9/mKPhvVEVi
- vijuFXXvW4KLTzIg2e/bnyVk/pDxT7g3S8VrE0ZfrTEuCbgOZLT/1Tm6u2hs7mJ7nLum7fzw
- 8bg9/e6yjE4u0/X0837hbPJv58bDy7/WWLeu9NXfWlCyMlCp/vGDunUeq+Er14IlL7/fsGK+
- dluteXVPsLDiEF+df8HP4S23dx6uSBtMZS9nZ5P6relZmUpKn6talkLq9Kr/AfRNoDFoAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAAzVSa0hTcRTvf+/d3RwtbnPgpaBsPQnUoswTRQ+C+tPDoiChD+XKW5vzUVst
- NaI2G1lW6GCzmq9cDlGztfVaMvNR9rDQaaWVtgVrJVr28IGPadPoy+F3fi/OhyMgxQ94swSK
- lOOcKkWWJKWFlDB2TWbEON6WuOxhbwxk6c9Ap8fHg3faWgoG+rMoyL9dSUPA/IAPWfZrPHje
- rqOgpaoCgWcgC8HQqJkEvXOCgoChkQ/9wx/5YNQimHA1IjC5DSR0tDwmofKuloA/tnEaehp+
- IzB+9tGQ162loM96CcF1v5kP3U+3wHdPNQ8mur4S0D7Yi8DqGyfAV3seQcCkhKISRzBu+knD
- 6OtmEvKMLQhufO4i4Xe3F8Hdxk8IXGU6Gr7k3COhzTcD3gz00fDCmE3Dd3c+AT9sNBTrXDxw
- v+pBUGA2IPB/cBGQablNg6nAToHT+4gP7p4xAjpNBgIq7DvAY/VT0JRTQgTPDbruhIE5L5MI
- jm8EGG9VEzBsLedvKEV4SH+FwuWO+wTWtwZoXFlYifDoiAHh/tJMEutzgmtDbx+JzzlO4tKm
- XhqPDLylsWuwmMIvS1h888IIgXNfR2Dn9S7+ro37hGsTuCSFhlNFrYsXyssKB3lHOxPSnHWa
- s6hj50UUImCZlaylp4Y3iWlmMdvRMUxOYgkTzjou+4O8UEAybXPZS9bL1KQQyuxm6yzFxCSm
- mIXshezhqbCIWcXWvLyG/pXOZStstVNFIUG+aqxgyi9motmPfc+oHCQsRtPKkUSRokmWKZKi
- I9VKeXqKIi3yUGqyHQXfyXp6LPch6m/bUo8YAZJOF8GGrYlinkyjTk+uR6yAlEpEi5ZsSxSL
- EmTpGZwq9YDqRBKnrkezBZQ0TLQ1josXM0dkxzklxx3lVP9VQhAy6yyK3vst9uo0m90yGjiH
- zlv2DDWvuF+U4QYJGbqpybm+67Aydn63cobnYHY9YfkavrmqKWa+afspr9UR3q6ZHf80Inoe
- zn3TkH/jiYSW5+Ko/X7t6gJPWlSztdQWSs7U5bemetmMCO/6U82FH2KkYZvi9u2ec6x6gVEX
- E/m+9ZdcSqnlsuVLSZVa9hce/37WSgMAAA==
-X-CFilter-Loop: Reflected
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7651C10E7AB;
+	Mon,  6 Jul 2026 07:13:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="YCR0Kndl";
+	dkim-atps=neutral
+Received: from out-21.smtp.spacemail.com (out-21.smtp.spacemail.com
+ [66.29.159.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D099910E10C
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 01:15:53 +0000 (UTC)
+Received: from gurudas.dev (107-194-158-19.lightspeed.sntcca.sbcglobal.net
+ [107.194.158.19])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.spacemail.com (Postfix) with ESMTPSA id 4gt8gn46MPz2x99;
+ Sun, 05 Jul 2026 01:15:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
+ s=spacemail; t=1783214151;
+ bh=OHTMZhj9UQl6REPNtWFTGyIxAJpWRu/Vu/bsjHn8Ex0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YCR0KndlSWOcBAYhlrSZDBeGTpdr14biiYKVLt+UmWumy96f3oqAWHqVF/TQ+IAtc
+ W8CK29uX1Lh9CPRo7lR7pqTXojRf0OFI0LLCU7Px6m8NE+Kn2WS3aa7NRUioQkSDvc
+ cgJAze28g5e+zTVGdX1qgjvHRlp4q9+m9doUoyofhgK1V4m2D5shrUlDAeXRZdXGcl
+ SgncobJsd4Of3wxD2goIHgP2QgtaVKilrKBJlRnToBb0RV77b3HzBzq+HsOiO/jjii
+ a4ALmIBRGCcVGFOd3uGxDUKLkPn8u+8SgblOttrfz3VAvBhsBRDTl8cEr+aABbPKOH
+ LXVb/sykR+vPQ==
+Date: Sat, 4 Jul 2026 18:15:48 -0700
+From: Guru Das Srinagesh <linux@gurudas.dev>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
+ Fu Wei <wefu@redhat.com>, Michal Wilczynski <m.wilczynski@samsung.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Jens Axboe <axboe@kernel.dk>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ driver-core@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/7] samples: rust_dma: use vertical import style
+Message-ID: <akmwRDWy0FkAPeXf@gurudas.dev>
+Mail-Followup-To: Danilo Krummrich <dakr@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
+ Fu Wei <wefu@redhat.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jens Axboe <axboe@kernel.dk>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ driver-core@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
+ <20260628-b4-rust-vertical-imports-v1-1-98bc71d4810b@gurudas.dev>
+ <DJMAFSKM4K9W.19ED2PVPU6S3R@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DJMAFSKM4K9W.19ED2PVPU6S3R@kernel.org>
+X-Envelope-From: linux@gurudas.dev
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -129,378 +122,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Waits with valid timeouts don't actually cause deadlocks.  However, dept
-has been reporting the cases as well because it's worth informing the
-circular dependency for some cases where, for example, timeout is used
-to avoid a deadlock.
+On Tue, Jun 30, 2026 at 11:48:48AM +0200, Danilo Krummrich wrote:
+> On Mon Jun 29, 2026 at 5:38 AM CEST, Guru Das Srinagesh wrote:
+> >      page, pci,
+> 
+> Can you please also convert this one? Patch 7 also misses at least one case.
 
-However, yes, there are also a lot of, even more, cases where timeout
-is used for its clear purpose and meant to be expired.
-
-Report these as an information rather than warning DEADLOCK.  Plus,
-introduce CONFIG_DEPT_AGGRESSIVE_TIMEOUT_WAIT Kconfig to make it
-optional so that any reports involving waits with timeouts can be turned
-on/off depending on the purpose.
-
-Signed-off-by: Byungchul Park <byungchul@sk.com>
----
- include/linux/dept.h              |  8 ++--
- include/linux/dept_ldt.h          |  6 +--
- include/linux/dept_sdt.h          | 13 +++---
- include/linux/sched.h             |  2 +
- kernel/dependency/dept.c          | 66 ++++++++++++++++++++++++++-----
- kernel/dependency/dept_internal.h |  5 +++
- lib/Kconfig.debug                 | 10 +++++
- 7 files changed, 89 insertions(+), 21 deletions(-)
-
-diff --git a/include/linux/dept.h b/include/linux/dept.h
-index 0b012d3799f2..e3e68ef47b9e 100644
---- a/include/linux/dept.h
-+++ b/include/linux/dept.h
-@@ -139,8 +139,8 @@ void dept_free_range(void *start, unsigned int sz);
- void dept_map_init(struct dept_map *m, struct dept_key *k, int sub_u, const char *n);
- void dept_map_reinit(struct dept_map *m, struct dept_key *k, int sub_u, const char *n);
- void dept_map_copy(struct dept_map *to, struct dept_map *from);
--void dept_wait(struct dept_map *m, unsigned long w_f, unsigned long ip, const char *w_fn, int sub_l);
--void dept_stage_wait(struct dept_map *m, struct dept_key *k, unsigned long ip, const char *w_fn);
-+void dept_wait(struct dept_map *m, unsigned long w_f, unsigned long ip, const char *w_fn, int sub_l, long timeout);
-+void dept_stage_wait(struct dept_map *m, struct dept_key *k, unsigned long ip, const char *w_fn, long timeout);
- void dept_request_event_wait_commit(void);
- void dept_clean_stage(void);
- void dept_ttwu_stage_wait(struct task_struct *t, unsigned long ip);
-@@ -187,8 +187,8 @@ struct dept_map { };
- #define dept_map_init(m, k, su, n)			do { (void)(n); (void)(k); } while (0)
- #define dept_map_reinit(m, k, su, n)			do { (void)(n); (void)(k); } while (0)
- #define dept_map_copy(t, f)				do { } while (0)
--#define dept_wait(m, w_f, ip, w_fn, sl)			do { (void)(w_fn); } while (0)
--#define dept_stage_wait(m, k, ip, w_fn)			do { (void)(k); (void)(w_fn); } while (0)
-+#define dept_wait(m, w_f, ip, w_fn, sl, t)		do { (void)(w_fn); } while (0)
-+#define dept_stage_wait(m, k, ip, w_fn, t)		do { (void)(k); (void)(w_fn); } while (0)
- #define dept_request_event_wait_commit()		do { } while (0)
- #define dept_clean_stage()				do { } while (0)
- #define dept_ttwu_stage_wait(t, ip)			do { } while (0)
-diff --git a/include/linux/dept_ldt.h b/include/linux/dept_ldt.h
-index 8047d0a531f1..730af2517ecd 100644
---- a/include/linux/dept_ldt.h
-+++ b/include/linux/dept_ldt.h
-@@ -28,7 +28,7 @@
- 		else if (t)						\
- 			dept_ecxt_enter(m, LDT_EVT_L, i, "trylock", "unlock", sl);\
- 		else {							\
--			dept_wait(m, LDT_EVT_L, i, "lock", sl);		\
-+			dept_wait(m, LDT_EVT_L, i, "lock", sl, false);	\
- 			dept_ecxt_enter(m, LDT_EVT_L, i, "lock", "unlock", sl);\
- 		}							\
- 	} while (0)
-@@ -40,7 +40,7 @@
- 		else if (t)						\
- 			dept_ecxt_enter(m, LDT_EVT_R, i, "read_trylock", "read_unlock", sl);\
- 		else {							\
--			dept_wait(m, q ? LDT_EVT_RW : LDT_EVT_W, i, "read_lock", sl);\
-+			dept_wait(m, q ? LDT_EVT_RW : LDT_EVT_W, i, "read_lock", sl, false);\
- 			dept_ecxt_enter(m, LDT_EVT_R, i, "read_lock", "read_unlock", sl);\
- 		}							\
- 	} while (0)
-@@ -52,7 +52,7 @@
- 		else if (t)						\
- 			dept_ecxt_enter(m, LDT_EVT_W, i, "write_trylock", "write_unlock", sl);\
- 		else {							\
--			dept_wait(m, LDT_EVT_RW, i, "write_lock", sl);	\
-+			dept_wait(m, LDT_EVT_RW, i, "write_lock", sl, false);\
- 			dept_ecxt_enter(m, LDT_EVT_W, i, "write_lock", "write_unlock", sl);\
- 		}							\
- 	} while (0)
-diff --git a/include/linux/dept_sdt.h b/include/linux/dept_sdt.h
-index 0535f763b21b..14917df0cc30 100644
---- a/include/linux/dept_sdt.h
-+++ b/include/linux/dept_sdt.h
-@@ -23,11 +23,12 @@
- 
- #define sdt_map_init_key(m, k)		dept_map_init(m, k, 0, #m)
- 
--#define sdt_wait(m)							\
-+#define sdt_wait_timeout(m, t)						\
- 	do {								\
- 		dept_request_event(m);					\
--		dept_wait(m, 1UL, _THIS_IP_, __func__, 0);		\
-+		dept_wait(m, 1UL, _THIS_IP_, __func__, 0, t);		\
- 	} while (0)
-+#define sdt_wait(m) sdt_wait_timeout(m, -1L)
- 
- /*
-  * sdt_might_sleep() and its family will be committed in __schedule()
-@@ -38,13 +39,13 @@
- /*
-  * Use the code location as the class key if an explicit map is not used.
-  */
--#define sdt_might_sleep_start(m)					\
-+#define sdt_might_sleep_start_timeout(m, t)				\
- 	do {								\
- 		struct dept_map *__m = m;				\
- 		static struct dept_key __key;				\
--		dept_stage_wait(__m, __m ? NULL : &__key, _THIS_IP_, __func__);\
-+		dept_stage_wait(__m, __m ? NULL : &__key, _THIS_IP_, __func__, t);\
- 	} while (0)
--
-+#define sdt_might_sleep_start(m)	sdt_might_sleep_start_timeout(m, -1L)
- #define sdt_might_sleep_end()		dept_clean_stage()
- 
- #define sdt_ecxt_enter(m)		dept_ecxt_enter(m, 1UL, _THIS_IP_, "start", "event", 0)
-@@ -54,7 +55,9 @@
- #else /* !CONFIG_DEPT */
- #define sdt_map_init(m)			do { } while (0)
- #define sdt_map_init_key(m, k)		do { (void)(k); } while (0)
-+#define sdt_wait_timeout(m, t)		do { } while (0)
- #define sdt_wait(m)			do { } while (0)
-+#define sdt_might_sleep_start_timeout(m, t) do { } while (0)
- #define sdt_might_sleep_start(m)	do { } while (0)
- #define sdt_might_sleep_end()		do { } while (0)
- #define sdt_ecxt_enter(m)		do { } while (0)
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 63360eb2301a..a4e6dce98f36 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -870,6 +870,7 @@ struct dept_task {
- 	bool				stage_sched_map;
- 	const char			*stage_w_fn;
- 	unsigned long			stage_ip;
-+	bool				stage_timeout;
- 	arch_spinlock_t			stage_lock;
- 
- 	/*
-@@ -910,6 +911,7 @@ struct dept_task {
- 	.stage_sched_map = false,				\
- 	.stage_w_fn = NULL,					\
- 	.stage_ip = 0UL,					\
-+	.stage_timeout = false,					\
- 	.stage_lock = (arch_spinlock_t)__ARCH_SPIN_LOCK_UNLOCKED,\
- 	.missing_ecxt = 0,					\
- 	.hardirqs_enabled = false,				\
-diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
-index 3af360ba17d8..5ef85977e631 100644
---- a/kernel/dependency/dept.c
-+++ b/kernel/dependency/dept.c
-@@ -757,6 +757,8 @@ static void print_diagram(struct dept_dep *d)
- 	if (!irqf) {
- 		print_spc(spc, "[S] %s(%s:%d)\n", c_fn, fc_n, fc->sub_id);
- 		print_spc(spc, "[W] %s(%s:%d)\n", w_fn, tc_n, tc->sub_id);
-+		if (w->timeout)
-+			print_spc(spc, "--------------- >8 timeout ---------------\n");
- 		print_spc(spc, "[E] %s(%s:%d)\n", e_fn, fc_n, fc->sub_id);
- 	}
- }
-@@ -810,6 +812,24 @@ static void print_dep(struct dept_dep *d)
- 
- static void save_current_stack(int skip);
- 
-+static bool is_timeout_wait_circle(struct dept_class *c)
-+{
-+	struct dept_class *fc = c->bfs_parent;
-+	struct dept_class *tc = c;
-+
-+	do {
-+		struct dept_dep *d = lookup_dep(fc, tc);
-+
-+		if (d->wait->timeout)
-+			return true;
-+
-+		tc = fc;
-+		fc = fc->bfs_parent;
-+	} while (tc != c);
-+
-+	return false;
-+}
-+
- /*
-  * Print all classes in a circle.
-  */
-@@ -832,10 +852,14 @@ static void print_circle(struct dept_class *c)
- 	pr_warn("summary\n");
- 	pr_warn("---------------------------------------------------\n");
- 
--	if (fc == tc)
-+	if (is_timeout_wait_circle(c)) {
-+		pr_warn("NOT A DEADLOCK BUT A CIRCULAR DEPENDENCY\n");
-+		pr_warn("CHECK IF THE TIMEOUT IS INTENDED\n\n");
-+	} else if (fc == tc) {
- 		pr_warn("*** AA DEADLOCK ***\n\n");
--	else
-+	} else {
- 		pr_warn("*** DEADLOCK ***\n\n");
-+	}
- 
- 	i = 0;
- 	do {
-@@ -1579,7 +1603,8 @@ static int next_wgen(void)
- }
- 
- static void add_wait(struct dept_class *c, unsigned long ip,
--		     const char *w_fn, int sub_l, bool sched_sleep)
-+		     const char *w_fn, int sub_l, bool sched_sleep,
-+		     bool timeout)
- {
- 	struct dept_task *dt = dept_task();
- 	struct dept_wait *w;
-@@ -1599,6 +1624,7 @@ static void add_wait(struct dept_class *c, unsigned long ip,
- 	w->wait_fn = w_fn;
- 	w->wait_stack = get_current_stack();
- 	w->sched_sleep = sched_sleep;
-+	w->timeout = timeout;
- 
- 	cxt = cur_cxt();
- 	if (cxt == DEPT_CXT_HIRQ || cxt == DEPT_CXT_SIRQ)
-@@ -2297,7 +2323,7 @@ static struct dept_class *check_new_class(struct dept_key *local,
-  */
- static void __dept_wait(struct dept_map *m, unsigned long w_f,
- 			unsigned long ip, const char *w_fn, int sub_l,
--			bool sched_sleep, bool sched_map)
-+			bool sched_sleep, bool sched_map, bool timeout)
- {
- 	int e;
- 
-@@ -2320,7 +2346,7 @@ static void __dept_wait(struct dept_map *m, unsigned long w_f,
- 		if (!c)
- 			continue;
- 
--		add_wait(c, ip, w_fn, sub_l, sched_sleep);
-+		add_wait(c, ip, w_fn, sub_l, sched_sleep, timeout);
- 	}
- }
- 
-@@ -2355,14 +2381,23 @@ static void __dept_event(struct dept_map *m, struct dept_map *real_m,
- }
- 
- void dept_wait(struct dept_map *m, unsigned long w_f,
--	       unsigned long ip, const char *w_fn, int sub_l)
-+	       unsigned long ip, const char *w_fn, int sub_l,
-+	       long timeoutval)
- {
- 	struct dept_task *dt = dept_task();
- 	unsigned long flags;
-+	bool timeout;
- 
- 	if (unlikely(!dept_working()))
- 		return;
- 
-+	timeout = timeoutval > 0 && timeoutval < MAX_SCHEDULE_TIMEOUT;
-+
-+#if !defined(CONFIG_DEPT_AGGRESSIVE_TIMEOUT_WAIT)
-+	if (timeout)
-+		return;
-+#endif
-+
- 	if (dt->recursive)
- 		return;
- 
-@@ -2371,21 +2406,30 @@ void dept_wait(struct dept_map *m, unsigned long w_f,
- 
- 	flags = dept_enter();
- 
--	__dept_wait(m, w_f, ip, w_fn, sub_l, false, false);
-+	__dept_wait(m, w_f, ip, w_fn, sub_l, false, false, timeout);
- 
- 	dept_exit(flags);
- }
- EXPORT_SYMBOL_GPL(dept_wait);
- 
- void dept_stage_wait(struct dept_map *m, struct dept_key *k,
--		     unsigned long ip, const char *w_fn)
-+		     unsigned long ip, const char *w_fn,
-+		     long timeoutval)
- {
- 	struct dept_task *dt = dept_task();
- 	unsigned long flags;
-+	bool timeout;
- 
- 	if (unlikely(!dept_working()))
- 		return;
- 
-+	timeout = timeoutval > 0 && timeoutval < MAX_SCHEDULE_TIMEOUT;
-+
-+#if !defined(CONFIG_DEPT_AGGRESSIVE_TIMEOUT_WAIT)
-+	if (timeout)
-+		return;
-+#endif
-+
- 	if (m && m->nocheck)
- 		return;
- 
-@@ -2434,6 +2478,7 @@ void dept_stage_wait(struct dept_map *m, struct dept_key *k,
- 
- 	dt->stage_w_fn = w_fn;
- 	dt->stage_ip = ip;
-+	dt->stage_timeout = timeout;
- 	arch_spin_unlock(&dt->stage_lock);
- exit:
- 	dept_exit_recursive(flags);
-@@ -2447,6 +2492,7 @@ static void __dept_clean_stage(struct dept_task *dt)
- 	dt->stage_sched_map = false;
- 	dt->stage_w_fn = NULL;
- 	dt->stage_ip = 0UL;
-+	dt->stage_timeout = false;
- }
- 
- void dept_clean_stage(void)
-@@ -2479,6 +2525,7 @@ void dept_request_event_wait_commit(void)
- 	unsigned long ip;
- 	const char *w_fn;
- 	bool sched_map;
-+	bool timeout;
- 
- 	if (unlikely(!dept_working()))
- 		return;
-@@ -2505,12 +2552,13 @@ void dept_request_event_wait_commit(void)
- 	w_fn = dt->stage_w_fn;
- 	ip = dt->stage_ip;
- 	sched_map = dt->stage_sched_map;
-+	timeout = dt->stage_timeout;
- 
- 	wg = next_wgen();
- 	WRITE_ONCE(dt->stage_m.wgen, wg);
- 	arch_spin_unlock(&dt->stage_lock);
- 
--	__dept_wait(&dt->stage_m, 1UL, ip, w_fn, 0, true, sched_map);
-+	__dept_wait(&dt->stage_m, 1UL, ip, w_fn, 0, true, sched_map, timeout);
- exit:
- 	dept_exit(flags);
- }
-diff --git a/kernel/dependency/dept_internal.h b/kernel/dependency/dept_internal.h
-index 051d4ee4e6e1..3d1cd1a9b6d4 100644
---- a/kernel/dependency/dept_internal.h
-+++ b/kernel/dependency/dept_internal.h
-@@ -238,6 +238,11 @@ struct dept_wait {
- 			 * whether this wait is for commit in scheduler
- 			 */
- 			bool		sched_sleep;
-+
-+			/*
-+			 * whether a timeout is set
-+			 */
-+			bool		timeout;
- 		};
- 	};
- };
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 8eefca5cbb6f..5c7f22ba253e 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1467,6 +1467,16 @@ config DEPT
- 	  noting, to mitigate the impact by the false positives, multi
- 	  reporting has been supported.
- 
-+config DEPT_AGGRESSIVE_TIMEOUT_WAIT
-+	bool "Aggressively track even timeout waits"
-+	depends on DEPT
-+	default n
-+	help
-+	  Timeout wait doesn't contribute to a deadlock. However,
-+	  informing a circular dependency might be helpful for cases
-+	  that timeout is used to avoid a deadlock. Say N if you'd like
-+	  to avoid verbose reports.
-+
- config LOCK_DEBUGGING_SUPPORT
- 	bool
- 	depends on TRACE_IRQFLAGS_SUPPORT && STACKTRACE_SUPPORT && LOCKDEP_SUPPORT
--- 
-2.17.1
-
+Will fix this and the missed ones in Patch 7 as well. Thanks for your review, Danilo.
