@@ -4,61 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48054C43602
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 22:41:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D68C0C43458
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Jul 2026 23:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FC9B10E258;
-	Sun,  5 Jul 2026 22:41:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 829A810E28B;
+	Sun,  5 Jul 2026 23:38:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="rZuXWZbw";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uCjoqEZh";
 	dkim-atps=neutral
-X-Greylist: delayed 8400 seconds by postgrey-1.36 at gabe;
- Sun, 05 Jul 2026 22:41:31 UTC
-Received: from smtpout4.mo533.mail-out.ovh.net
- (smtpout4.mo533.mail-out.ovh.net [46.105.32.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBDE410E258
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 22:41:31 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo533.mail-out.ovh.net (Postfix) with ESMTPS id 4gtZps523lz60f2;
- Sun,  5 Jul 2026 17:53:25 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <mripard@kernel.org>; Sun,  5 Jul 2026 17:53:25 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.96.215])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4gtZps3r5mz1xpp; Sun,  5 Jul 2026 17:53:25 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.11])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id C28208E18E8; 
- Sun,  5 Jul 2026 17:53:24 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-103G00581ce1a25-37cf-4ab8-b85f-94ca8e301fdf,
- 683B9B328535C0D7EC9FC65928CF7512BF5568BE) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-From: Natalie Vock <nat@pixelcluster.dev>
-To: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-Subject: [PATCH] MAINTAINERS: Update Natalie Vock's email
-Date: Sun,  5 Jul 2026 19:53:05 +0200
-Message-ID: <20260705175305.5589-1-nat@pixelcluster.dev>
-X-Mailer: git-send-email 2.55.0
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47BEF10E28B
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 23:38:48 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 921FEBE;
+ Mon,  6 Jul 2026 01:37:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1783294678;
+ bh=94ZGNpcgMFcHz7V/t7ZLK6w6YKEaAwrUVIrOqlV0goE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uCjoqEZhusctEsIdiLEgNu7Tjcwo93hV7ipdLqS76J2mo+/ZzONDbKtA6j2U+2lEv
+ 3fPjM79J5kcEOnpCU8jeJv1Ej6QIwO55DQZtmjQsrbXF9pViGu5hrFD24NQiHnKtrZ
+ J5NpwH4mrnfKhCxDM7ja8qglLsfqbhHJpfBBiGxw=
+Message-ID: <7f42593b8a35e68960f2f6570ea3d948@killaraus.ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ wsa+renesas@sang-engineering.com, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 2/4] drm/bridge: display-connector: Fix I2C adapter
+ resource leak
+Date: Mon, 06 Jul 2026 02:38:43 +0300
+In-Reply-To: <20260705214826.628831F000E9@smtp.kernel.org>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-3-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705214826.628831F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 11102780459085881608
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTERHsNAQghgjtX4RWKFPuqIEy/wf74l6izFnx3irNiiYDWKMxYlQV3ztnaqLtsPSKVH529UVv/RnW0qfYe5fmWXSBq3h0tNLP903RECH6H2gq9g1npDrIQJxpCTEpMYDyPDGM+STzwB/gFDMW6RB30Wx3IFj2773diMu85sTdURen/awqeXT2cM0K2S8NMLQyj22XNL4xJEjt1TtT2rtY8z7iPN/RZlIed5D/FGZoszFSt2kHZLQcZpWtMd54L2DQnKo77cfZ283LKlg8sxhiauTJvl151tZSn2Jp2B8ibTMolTWMUfdPc3GPcCOptqXgU2tbtEz3DX5cWWjJTNb4Jgk71vlF7UasNGXiPxTvgNokNqpkKjJ8J0fsbPW/GyW+ZUMlvB0G4YT4zGVSMOoGWs6q3VJkNvL6sEK+u439hy+CZGsgscXBBCvrVtxK/lazCmvqx/t3hMIxhZKoOY3rGn3LsewclyR5ZGNnvPMmsg3ll2ckz42Y18rZKb3FkqsgIGzqLJFp0mS4VglPFd4OQR7GrH6J/bfc3Fd2jpl1kI9vDkLyu8Ml5ZQWzuejgnN8XzmTSrrFGS/bZl1C0XmJPZj8FYKztTsnUC1OH+nmD7EeUZZhJuZUGHrbR7o02TIuFNOhfZSYmr1I4L9EvLdQ0LLanCIl8IpBjBGcFGLi7qjA
-DKIM-Signature: a=rsa-sha256; bh=SLuS2uS6RgZGB1ql0D+nnk+eDSxcq2jQnWd6GhqMUSk=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783274006; v=1;
- b=rZuXWZbw5IA8cq76PH03auRWfNVc5bOL3ZlqSgSoqslrbFNRQ5syxfjqLOGGfJNI4tBgqIZJ
- yruu5IVnqd08nq7k58JthXqUDhlw94GrOg33MNjN6YAaH3/UYbdupoQ7D4NC8JL3vzuNX65sR20
- P99Mp8bC07ddO5HysaFvzoFzJKQJFpuuYlP/HJpgjpuYuL8uQ28nr+KXVc0sAwPNSwkYrwLLy1H
- tKkdwltEu8Cw4xVXDnUyyrLsKMzJg5jPPay0wFh8MMakptYmBOtiGWlgUlFV9BQ6qkFm5vS8wUW
- zs+de0RV5COolaktJkIi+GImKaMShMfOCrMzj2UmpYvfw==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,42 +58,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From now on I'll use my own domain for development work, reflect that in
-MAINTAINERS and mailmap.
+Hello,
 
-Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
----
- .mailmap    | 3 ++-
- MAINTAINERS | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+This is the friendly mail bot of Laurent Pinchart. You have sent him
+what appears to be an e-mail generated by an LLM. In order to preserve
+his mental health, the e-mail has been automatically ignored.
 
-diff --git a/.mailmap b/.mailmap
-index d0d1367a261b8..3050ab1b97ea2 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -627,7 +627,8 @@ Nadav Amit <nadav.amit@gmail.com> <namit@cs.technion.ac.il>
- Nadia Yvette Chambers <nyc@holomorphy.com> William Lee Irwin III <wli@holomorphy.com>
- Naoya Horiguchi <nao.horiguchi@gmail.com> <n-horiguchi@ah.jp.nec.com>
- Naoya Horiguchi <nao.horiguchi@gmail.com> <naoya.horiguchi@nec.com>
--Natalie Vock <natalie.vock@gmx.de> <friedrich.vock@gmx.de>
-+Natalie Vock <nat@pixelcluster.dev> <friedrich.vock@gmx.de>
-+Natalie Vock <nat@pixelcluster.dev> <natalie.vock@gmx.de>
- Nathan Chancellor <nathan@kernel.org> <natechancellor@gmail.com>
- Naveen N Rao <naveen@kernel.org> <naveen.n.rao@linux.ibm.com>
- Naveen N Rao <naveen@kernel.org> <naveen.n.rao@linux.vnet.ibm.com>
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 377d224c5f76d..0caa9ea58db04 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6636,7 +6636,7 @@ F:	tools/testing/selftests/cgroup/test_cpuset_v1_base.sh
- CONTROL GROUP - DEVICE MEMORY CONTROLLER (DMEM)
- M:	Maarten Lankhorst <dev@lankhorst.se>
- M:	Maxime Ripard <mripard@kernel.org>
--M:	Natalie Vock <natalie.vock@gmx.de>
-+M:	Natalie Vock <nat@pixelcluster.dev>
- L:	cgroups@vger.kernel.org
- L:	dri-devel@lists.freedesktop.org
- S:	Maintained
--- 
-2.55.0
+Thank you,
 
+Laurent's spam bot
+
+On Sun, 05 Jul 2026 21:48:25 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+>=20
+> Pre-existing issues:
+> - [High] Use-After-Free of devm-managed resources due to DRM bridge lifetim=
+e mismatch
+> - [Medium] Hardware state leak of `ddc_en` GPIO on probe error paths
+> --
+>=20
+> commit 9c76898e592dfddd3f50beaa692cc32ae295e2c7
+> Author: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>=20
+> drm/bridge: display-connector: Fix I2C adapter resource leak
+>=20
+> If the probe function returns an error after getting the I2C adapter for
+> DDC, the reference to the adapter is never released. Fix it by releasing
+> it in the bridge .destroy() handler.
+>=20
+> > diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
+/bridge/display-connector.c
+> > index d1e74dd2e0518..eb3412ec30a07 100644
+> > --- a/drivers/gpu/drm/bridge/display-connector.c
+> > +++ b/drivers/gpu/drm/bridge/display-connector.c
+> > @@ -43,6 +43,13 @@ static int display_connector_attach(struct drm_bridge =
+*bridge,
+> >  	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
+> >  }
+> > =20
+> > +static void display_connector_destroy(struct drm_bridge *bridge)
+> > +{
+> > +	struct display_connector *conn =3D to_display_connector(bridge);
+> > +
+> > +	i2c_put_adapter(conn->bridge.ddc);
+> > +}
+> > +
+> >  static enum drm_connector_status display_connector_detect(struct drm_bri=
+dge *bridge)
+> >  {
+> >  	struct display_connector *conn =3D to_display_connector(bridge);
+>=20
+> [ ... ]
+>=20
+> > @@ -439,9 +447,6 @@ static void display_connector_remove(struct platform_=
+device *pdev)
+> >  		regulator_disable(conn->supply);
+> > =20
+> >  	drm_bridge_remove(&conn->bridge);
+> > -
+> > -	if (!IS_ERR(conn->bridge.ddc))
+> > -		i2c_put_adapter(conn->bridge.ddc);
+> >  }
+> > =20
+> >  static const struct of_device_id display_connector_match[] =3D {
+>=20
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does the bridge lifetime=20
+> mismatch with devm resources cause a use-after-free?
+>=20
+> In display_connector_probe(), the bridge is allocated with=20
+> devm_drm_bridge_alloc(), tying its lifetime to the DRM bridge kref:
+>=20
+> display_connector_probe() {
+>     ...
+>     conn =3D devm_drm_bridge_alloc(&pdev->dev, struct display_connector, br=
+idge,
+>                                  &display_connector_bridge_funcs);
+>     ...
+> }
+>=20
+> However, devm-managed resources like the HPD GPIO and IRQ are tied to the=20
+> platform device unbind. If the device is unbound via sysfs while the DRM=20
+> core still holds a reference to the bridge, devres will free the GPIO and=20
+> IRQ resources.
+>=20
+> If the DRM core later invokes callbacks like detect or hpd_disable, would i=
+t=20
+> dereference the freed GPIO or attempt to disable the freed IRQ?
+>=20
+> display_connector_detect() {
+>     ...
+>     if (gpiod_get_value_cansleep(conn->hpd_gpio))
+>     ...
+> }
+>=20
+> display_connector_hpd_disable() {
+>     ...
+>     disable_irq(conn->hpd_irq);
+>     ...
+> }
+>=20
+> [Severity: Medium]
+> This is a pre-existing issue, but is there a hardware state leak on the=20
+> probe error path?
+>=20
+> In display_connector_probe(), the DDC enable GPIO is acquired and=20
+> immediately asserted high:
+>=20
+> display_connector_probe() {
+>     ...
+>     if (type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
+>         ...
+>         conn->ddc_en =3D devm_gpiod_get_optional(&pdev->dev, "ddc-en",
+>                                                GPIOD_OUT_HIGH);
+>=20
+>         if (IS_ERR(conn->ddc_en)) {
+>             ...
+>         }
+>=20
+>         ret =3D display_connector_get_supply(pdev, conn, "hdmi-pwr");
+>         if (ret < 0)
+>             return dev_err_probe(...);
+>     ...
+> }
+>=20
+> If a subsequent step like display_connector_get_supply() or=20
+> regulator_enable() fails, the function returns an error. While devres will =
+
+> free the GPIO descriptor, it doesn't revert the physical pin state.
+>=20
+> Unlike display_connector_remove() which explicitly sets the GPIO to 0, does=
+=20
+> this error path leave the DDC bus permanently enabled?
+>=20
