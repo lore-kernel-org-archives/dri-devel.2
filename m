@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6EBDC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F43C44501
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAA910E7D2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 257CA10E7B6;
 	Mon,  6 Jul 2026 07:13:32 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 519CA10E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:58 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-94-6a4b4904e0e8
+ by gabe.freedesktop.org (Postfix) with ESMTP id B612410E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:45 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-f1-6a4b48fcbc4e
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
@@ -73,46 +73,45 @@ Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
  tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 28/40] dept: assign unique dept_key to each distinct dma
- fence caller
-Date: Mon,  6 Jul 2026 15:19:16 +0900
-Message-Id: <20260706061928.66713-29-byungchul@sk.com>
+Subject: [PATCH v19 06/40] dept: distinguish each kernel context from another
+Date: Mon,  6 Jul 2026 15:18:54 +0900
+Message-Id: <20260706061928.66713-7-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSa0xTZxjH957znksbupxUE8/cB0yXOcIUp1H3ZJmbmiW+0ywzQzOd21wz
- jlDGLUVRtjhppIww3LrOQkKpAxwNl8NlFMLFG1YpQyEWYaVUBNRaYQpELRBF7VrMvv2e55//
- 7/ny8LTawyzndWkHJX2aNkXDKrFyKqp8NfPxjuR3/P0bIN94DEbG/Ax4DJ0YZoP5GEobZBae
- W1s5GJvNRzC/YKXB2B7C8Nzs4sBiQBA650JQ1G+mQW42UPC48QULllt+FoonDRhm7IUIJru2
- QejmPQqG5h4g8Hf+hKDY4kbwaHIcQbNrFMGA/1UYnJ1hocfyMwvTjSzYrOaw1taEoX28g4OR
- IjMFY/YAhqumCgqK/loG1uIJCix1Zyh4Yq/hoPf0CIbbVSUchMrSwVV7j4P6qWsM9Ix6GLgf
- MLMw1p3HQGvOOAdNw10IgoO3KJALAzSc870NAx2lLBQ2tjAwKocYyLHOM3C91h2+5/obQ09J
- NYZrHXUMVA71U+Do66XBa7qLoG66gt2cQOaNv2Ain5IRWXhqRiRYeZwmRlN4zHUcJpVXH7Dk
- SoVIfutbTdpLbnIk97yPI2VNh0ju5SmGOKpiyemzkxTx3d+0c9UXyvcTpBRdlqRf88E3yqQG
- TzedYXvviPfPz3LQ07gCxPOisF6cMxwrQIpFXDj1mI0wK7wler1P6AgvFVaIjhMBpgApeVoY
- iBYL7SdwJFgi7BVvX7izWMDCm2KXc5qJsErYKFZ1DFMvpdFibWPnokgR3tc/sy3u1cIG8cZM
- N45IReEPhfhr9XH8svCaeLHKi01IVYZeqUFqXVpWqlaXsj4uKTtNdyTu2/TUJhT+NvvRZ/va
- 0CN3vBMJPNJEqWDz9mQ1o83KzE51IpGnNUtVK2N2JKtVCdrs7yV9+n79oRQp04le57FmmWrd
- 3OEEtZCoPSh9J0kZkv7/lOIVy3NQ/IdtqrP+8jtydb1z/8YDNtm9a3vzRwHf7yOxWy9e0ZR/
- +cNMi8sTtXvb0MlPiO6hW/53eB7H9O9UJ2YsKf3UFPOV40e5Fs60XnhR+fn09Ut7m9/Ie9d0
- EkXt7g32rWxXTHyt38eSuuCahn/yW/ImXHuKBpPlmhu+o23xxkRn9BaTBmcmadfG0vpM7X95
- y2B1aQMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAAzVSf0yMcRz2/b7f+97bcbw7mXfMsjPlx4QN+wwZjXkxP8bG+Ec3vdN118kd
- KdNSuSlidXYXTiS6WR3lzq/iVivlZ1NCh5I4kcoZpXV15cr889nzeZ7P8+z548MyiruSKaxa
- d0DU61RaJZUR2aZl6fPIug2xC566p0KGMQWaWz0SeJNaSaC3J4PAhRI7Bb/1rhQyHOck8Lgp
- jUD9jWIErb0ZCPoGrAwYy4YJ+E21Uujpfy8FcyqCYVctAkuDiQF3fQUD9lupGH6XDlHorP6F
- wNzmoZDbkUrAa8tCcL7dKoWOmrXQ3XpfAsMtXzE0/elCYPMMYfBUHkfgt2jgUoEzYLf8pDBQ
- 94KBXHM9gsttLQz86viI4FbtBwSua2kUvmTfZqDRMx5e9XopPDGfpNDdcAHDj1IK+WkuCTQ8
- 70SQZzUhaH/nwpB+pYSCJc9BoOxjuRQaOgcxNFtMGIodG6HV1k7gWXYBDtQNXN2cDNbcdBwY
- 3zCYr9/H0G8rkq4sREKf8TQRipx3sGB86aeC/aIdCQM+ExJ6CtMZwZgdWKu7vIxwzHlIKHzW
- RQVf72squP7kE+FpAS9czfRhIadunlB2vkW6ZdUu2fJoUatOEPXzV0TJYkrePGLi85Ymuq9u
- PYp84SdQEMtzi/iBi7/pCKZcGO929zMjOJibzjtPtUtOIBnLcI0hfJbtFBkRJnI7+U8Vn0cN
- hJvJ11T9kIxgObeEv1b+Fv8LDeGLSytHg4IC/I3BvFFewS3m33sfkWwky0djilCwWpcQp1Jr
- F4cbNDFJOnVi+J59cQ4UeCdb8mDOPdTTuLYKcSxSjpPDyvWxCokqwZAUV4V4llEGy0NnbYhV
- yKNVSYdF/b7d+oNa0VCFprJEOVm+focYpeD2qg6IGlGMF/X/VcwGTTmK7NNOexec1eHlxgeR
- 3ycZbe7Nac1o6FhnpmJ/ZUTKmk3e0ERHzoyECnMYjrZRdbWmbaMvBYmmsQaIdqtXsyFzv2pn
- R357KD2zrUK+fQwf9n18/PGopBVzV01IzkyeTt2m7pA5KS/UUZpiIkTcq9HfbnwSqjzij8gq
- n1Dn5CKVxBCjWjiH0RtUfwEbdFq1SgMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxTdxTG/d/7v//eNnbe3XV4514w3XwJizqcLueDM3yZu4FpTDTZHJrt
+ Om5GsbykIMJeEiAFCwN0nWURRVvYGmyLkJYskwbiEJGZYAqIq07AOlbGCJTx5rQU1kL27Zfz
+ PM85z4fD0vwgs4HVZeXJhixJryUqrJpcW78tIqZkvNVY+TbMz5kwXGx2ETC5zzPQ81sJBt9V
+ J4KIuVsBlmIENX1mGlytxRTMtiwRmLgxg8ASGCUQslcimBzxMrA8NEbB6PXTCC7Xe6KWmmkC
+ tsAQDa3dwwjaG0sI3J0PEZhqIfCwxkzB9+MELE1eCp7aHQq40DvAwGIgEZat2TB0xoLh1+F7
+ DEwEzQRGbpUxMHc3QIGpbR6D+4+oYCv7AYMpModgoO0igX6nD0PzmJ+CwCM/A75vq6LZBTsN
+ wcEyCq609xLotsaBOTijgLLZJQZO/+WNFrrvRdBhekRBc/AGDWO1dRQ4+zB8U1qDoXh2BIHx
+ 4W4I/xs9UH3nfZhzOgg0Re4huHBzWJGUJD4prcZiaX+EiK5LLiSGn5mRWHo2SkbPKfHZ/CAR
+ 2xesWLxdL4jXaocUorHjgUK0uk+Kxq5JRvQ0JogPJt4V3Y5ycvCNj1V70mS9Ll827Nj7qSq9
+ ejwup/xIwc3vLLgIte2rQCwrcLuEqZbjFUi5gl2OEIkx4bYIfv9TOsYabqPgqQoyFUjF0txA
+ vFBpr8Ix4QVuv/D3dAeKMeY2CfUTrpWAmtst/N46RVaXxgvOlusrcyX3jnB1sY6KMR/zhG7h
+ VU+DUrjSn7zKLwm/NPrxWaS2ojUOxOuy8jMlnX7X9vTCLF3B9s+yM90o+mz2rxdTf0YzvkOd
+ iGORdq0akpIzeEbKzy3M7EQCS2s16s1bUzJ4dZpU+IVsyP7EcFIv53ail1msXa/euXAqjec+
+ l/LkE7KcIxv+VylWuaEIJZRv8oeLvrqt3nOu50/Nc6+Nf1Twpue9x04+p/D8vlHbjMRLvpQl
+ /XTlUsLrJdfyfrRtXoe70Y79vFz16oEtikDDT6+wiUfOpH64/CJKtIV9zxsd99cdpf2aYMPj
+ uA8Odz6Z6k02pPXtrY0ca7pTbAz3KLvq4kOpXs25ki/X/CPotDg3XUpMoA250n90fLaXaAMA
+ AA==
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSWUwTcRDG/e9ut0u1ZlOJrPAANirEKN5mosaoibJKNL6IURO16kYKpZBW
+ ETyigI0FrYFqi1JBBKlaKkcBtZgqoOJJuFQIp0dFK0cJUgxQwFbjy+Q3833fZB6GwkUPef6U
+ VH6MU8glMjEpIAQ71qYsdrPhUUvbSgNBrToLHd12HnxMqiLANawm4EaxmYQJw0M+qC3XefCq
+ JZmAhqJCBN0uNYLf4wYcVNYpAia0tXwYHm3ngy4JwZStFoG+UYtDa8NTHMzlSRj8KpkkoffZ
+ EALdZzsJmY4kApzGSwiyegx8cLwIg/7uxzyY6vyOQctIHwKjfRIDe9UFBBP6aLiZV+aJ6wdJ
+ GK+rxyFT14Dg1udOHIYcnxCU13YhsN1NJuFbegUOzfaZ8N7lJOG17iIJ/Y03MBgoISE32caD
+ xne9CLINWgQ9bTYMUvKLSdBnWwiwfqrkQ2OvG4MOvRaDQst26Db2EPA2PQ/znOtxlfqBITMF
+ 85QfGOjuP8Zg1GjibyhA7G/VZYI1lT3AWFXTBMmac8yIHR/TIna4IAVnVeme9lmfE2fPl51g
+ C972keyY6wPJ2kZyCfZNHsPeTh3D2Iy6xaw1q5O/c+NewbojnEwazymWrD8oiLzsmB2Xuifh
+ xRUdcQ5VbklDPhRDr2Sem5ykl0k6mGltHcW97EsHMWWaHl4aElA43RzIXDJqCK8wi97O/Bx8
+ grxM0POZvF7z34CQXsW0lw+Q/5YGMoUlVX/nPvRqpsidjXlZ5PU4XxLpSJCLppmQr1QeHyOR
+ ylaFKqMjE+XShNDDsTEW5Hkn4xl3xiM03BxWg2gKiWcIYcO2KBFPEq9MjKlBDIWLfYULQsKj
+ RMIjksSTnCL2gOK4jFPWoACKEPsJt+3mDoroo5JjXDTHxXGK/ypG+fifQzn1+ju77oRe4xzF
+ 83L2uzZV2AdWSFy5IZp3QebY98Hh8XWnwmaOdA0tl3csiFCvy7f+yGoaXXN10T486Oike06X
+ baxadyH2XvTmUFO/dsaVr1dLv/hV/9RkzJ0+bckeu9Mie2KtOF3hH+Gqjqg/pPCvZPrC7QHn
+ qa0fA11a7RZaIyaUkZJlC3GFUvIHD3HWhkoDAAA=
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -130,209 +129,379 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma fence can be used at various points in the code and it's very hard
-to distinguish dma fences between different usages.  Using a single
-dept_key for all the dma fences could trigger false positive reports.
-
-Assign unique dept_key to each distinct dma fence wait to avoid false
-positive reports.
+Each unique kernel context, in dept's point of view, should be
+identified on every entrance to kernel mode e.g. system call or user
+oriented fault.  Otherwise, dept may track meaningless dependencies
+across different kernel context.
 
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- drivers/dma-buf/dma-fence.c | 18 ++++-----
- include/linux/dma-fence.h   | 74 +++++++++++++++++++++++++++++--------
- 2 files changed, 68 insertions(+), 24 deletions(-)
+ include/linux/dept.h              | 17 +++++---
+ include/linux/irq-entry-common.h  |  4 ++
+ include/linux/sched.h             | 10 ++---
+ kernel/dependency/dept.c          | 67 ++++++++++++++++---------------
+ kernel/dependency/dept_internal.h | 12 +++---
+ 5 files changed, 61 insertions(+), 49 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index b75b7b9c445a..e56044492166 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -503,7 +503,7 @@ void dma_fence_signal(struct dma_fence *fence)
- EXPORT_SYMBOL(dma_fence_signal);
+diff --git a/include/linux/dept.h b/include/linux/dept.h
+index b1c55305be17..0b012d3799f2 100644
+--- a/include/linux/dept.h
++++ b/include/linux/dept.h
+@@ -24,11 +24,16 @@ struct task_struct;
+ #define DEPT_MAX_SUBCLASSES_USR		(DEPT_MAX_SUBCLASSES / DEPT_MAX_SUBCLASSES_EVT)
+ #define DEPT_MAX_SUBCLASSES_CACHE	2
  
- /**
-- * dma_fence_wait_timeout - sleep until the fence gets signaled
-+ * __dma_fence_wait_timeout - sleep until the fence gets signaled
-  * or until timeout elapses
-  * @fence: the fence to wait on
-  * @intr: if true, do an interruptible wait
-@@ -521,7 +521,7 @@ EXPORT_SYMBOL(dma_fence_signal);
-  * See also dma_fence_wait() and dma_fence_wait_any_timeout().
-  */
- signed long
--dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
-+__dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
+-#define DEPT_SIRQ			0
+-#define DEPT_HIRQ			1
+-#define DEPT_IRQS_NR			2
+-#define DEPT_SIRQF			(1UL << DEPT_SIRQ)
+-#define DEPT_HIRQF			(1UL << DEPT_HIRQ)
++enum {
++	DEPT_CXT_SIRQ = 0,
++	DEPT_CXT_HIRQ,
++	DEPT_CXT_IRQS_NR,
++	DEPT_CXT_PROCESS = DEPT_CXT_IRQS_NR,
++	DEPT_CXTS_NR
++};
++
++#define DEPT_SIRQF			(1UL << DEPT_CXT_SIRQ)
++#define DEPT_HIRQF			(1UL << DEPT_CXT_HIRQ)
+ 
+ struct dept_key {
+ 	union {
+@@ -146,6 +151,7 @@ void dept_event(struct dept_map *m, unsigned long e_f, unsigned long ip, const c
+ void dept_ecxt_exit(struct dept_map *m, unsigned long e_f, unsigned long ip);
+ void dept_sched_enter(void);
+ void dept_sched_exit(void);
++void dept_update_cxt(void);
+ 
+ static inline void dept_ecxt_enter_nokeep(struct dept_map *m)
  {
- 	signed long ret;
+@@ -193,6 +199,7 @@ struct dept_map { };
+ #define dept_ecxt_exit(m, e_f, ip)			do { } while (0)
+ #define dept_sched_enter()				do { } while (0)
+ #define dept_sched_exit()				do { } while (0)
++#define dept_update_cxt()				do { } while (0)
+ #define dept_ecxt_enter_nokeep(m)			do { } while (0)
+ #define dept_key_init(k)				do { (void)(k); } while (0)
+ #define dept_key_destroy(k)				do { (void)(k); } while (0)
+diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
+index d26d1b1bcbfb..37ef4f20bdc4 100644
+--- a/include/linux/irq-entry-common.h
++++ b/include/linux/irq-entry-common.h
+@@ -9,6 +9,7 @@
+ #include <linux/syscalls.h>
+ #include <linux/tick.h>
+ #include <linux/unwind_deferred.h>
++#include <linux/dept.h>
  
-@@ -550,7 +550,7 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
+ #include <asm/entry-common.h>
+ 
+@@ -88,6 +89,9 @@ static __always_inline bool arch_in_rcu_eqs(void) { return false; }
+  */
+ static __always_inline void enter_from_user_mode(struct pt_regs *regs)
+ {
++	/* Make dept work with a new context. */
++	dept_update_cxt();
++
+ 	arch_enter_from_user_mode(regs);
+ 	lockdep_hardirqs_off(CALLER_ADDR0);
+ 
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 11c2efbf59b3..63360eb2301a 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -833,19 +833,19 @@ struct dept_task {
+ 	int				wait_hist_pos;
+ 
+ 	/*
+-	 * sequential id to identify each IRQ context
++	 * sequential id to identify each context
+ 	 */
+-	unsigned int			irq_id[DEPT_IRQS_NR];
++	unsigned int			cxt_id[DEPT_CXTS_NR];
+ 
+ 	/*
+ 	 * for tracking IRQ-enabled points with cross-event
+ 	 */
+-	unsigned int			wgen_enirq[DEPT_IRQS_NR];
++	unsigned int			wgen_enirq[DEPT_CXT_IRQS_NR];
+ 
+ 	/*
+ 	 * for keeping up-to-date IRQ-enabled points
+ 	 */
+-	unsigned long			enirq_ip[DEPT_IRQS_NR];
++	unsigned long			enirq_ip[DEPT_CXT_IRQS_NR];
+ 
+ 	/*
+ 	 * for reserving a current stack instance at each operation
+@@ -899,7 +899,7 @@ struct dept_task {
+ 	.wait_hist = { { .wait = NULL, } },			\
+ 	.ecxt_held_pos = 0,					\
+ 	.wait_hist_pos = 0,					\
+-	.irq_id = { 0U },					\
++	.cxt_id = { 0U },					\
+ 	.wgen_enirq = { 0U },					\
+ 	.enirq_ip = { 0UL },					\
+ 	.stack = NULL,						\
+diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
+index fd091ae28ae2..1c4de1b55730 100644
+--- a/kernel/dependency/dept.c
++++ b/kernel/dependency/dept.c
+@@ -230,9 +230,9 @@ static struct dept_class *dep_tc(struct dept_dep *d)
+ 
+ static const char *irq_str(int irq)
+ {
+-	if (irq == DEPT_SIRQ)
++	if (irq == DEPT_CXT_SIRQ)
+ 		return "softirq";
+-	if (irq == DEPT_HIRQ)
++	if (irq == DEPT_CXT_HIRQ)
+ 		return "hardirq";
+ 	return "(unknown)";
+ }
+@@ -410,7 +410,7 @@ static void initialize_class(struct dept_class *c)
+ {
+ 	int i;
+ 
+-	for (i = 0; i < DEPT_IRQS_NR; i++) {
++	for (i = 0; i < DEPT_CXT_IRQS_NR; i++) {
+ 		struct dept_iecxt *ie = &c->iecxt[i];
+ 		struct dept_iwait *iw = &c->iwait[i];
+ 
+@@ -436,7 +436,7 @@ static void initialize_ecxt(struct dept_ecxt *e)
+ {
+ 	int i;
+ 
+-	for (i = 0; i < DEPT_IRQS_NR; i++) {
++	for (i = 0; i < DEPT_CXT_IRQS_NR; i++) {
+ 		e->enirq_stack[i] = NULL;
+ 		e->enirq_ip[i] = 0UL;
  	}
- 	return ret;
- }
--EXPORT_SYMBOL(dma_fence_wait_timeout);
-+EXPORT_SYMBOL(__dma_fence_wait_timeout);
- 
- /**
-  * dma_fence_release - default release function for fences
-@@ -786,7 +786,7 @@ dma_fence_default_wait_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
- }
- 
- /**
-- * dma_fence_default_wait - default sleep until the fence gets signaled
-+ * __dma_fence_default_wait - default sleep until the fence gets signaled
-  * or until timeout elapses
-  * @fence: the fence to wait on
-  * @intr: if true, do an interruptible wait
-@@ -798,7 +798,7 @@ dma_fence_default_wait_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
-  * functions taking a jiffies timeout.
-  */
- signed long
--dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
-+__dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
+@@ -452,7 +452,7 @@ static void initialize_wait(struct dept_wait *w)
  {
- 	struct default_wait_cb cb;
- 	unsigned long flags;
-@@ -847,7 +847,7 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
- 	spin_unlock_irqrestore(fence->lock, flags);
- 	return ret;
- }
--EXPORT_SYMBOL(dma_fence_default_wait);
-+EXPORT_SYMBOL(__dma_fence_default_wait);
+ 	int i;
  
- static bool
- dma_fence_test_signaled_any(struct dma_fence **fences, uint32_t count,
-@@ -867,7 +867,7 @@ dma_fence_test_signaled_any(struct dma_fence **fences, uint32_t count,
- }
- 
- /**
-- * dma_fence_wait_any_timeout - sleep until any fence gets signaled
-+ * __dma_fence_wait_any_timeout - sleep until any fence gets signaled
-  * or until timeout elapses
-  * @fences: array of fences to wait on
-  * @count: number of fences to wait on
-@@ -887,7 +887,7 @@ dma_fence_test_signaled_any(struct dma_fence **fences, uint32_t count,
-  * See also dma_fence_wait() and dma_fence_wait_timeout().
-  */
- signed long
--dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
-+__dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
- 			   bool intr, signed long timeout, uint32_t *idx)
+-	for (i = 0; i < DEPT_IRQS_NR; i++) {
++	for (i = 0; i < DEPT_CXT_IRQS_NR; i++) {
+ 		w->irq_stack[i] = NULL;
+ 		w->irq_ip[i] = 0UL;
+ 	}
+@@ -491,7 +491,7 @@ static void destroy_ecxt(struct dept_ecxt *e)
  {
- 	struct default_wait_cb *cb;
-@@ -955,7 +955,7 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
+ 	int i;
  
- 	return ret;
- }
--EXPORT_SYMBOL(dma_fence_wait_any_timeout);
-+EXPORT_SYMBOL(__dma_fence_wait_any_timeout);
+-	for (i = 0; i < DEPT_IRQS_NR; i++)
++	for (i = 0; i < DEPT_CXT_IRQS_NR; i++)
+ 		if (e->enirq_stack[i])
+ 			put_stack(e->enirq_stack[i]);
+ 	if (e->class)
+@@ -507,7 +507,7 @@ static void destroy_wait(struct dept_wait *w)
+ {
+ 	int i;
  
- /**
-  * DOC: deadline hints
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index d4c92fd35092..3732849a30b7 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -370,8 +370,22 @@ bool dma_fence_check_and_signal_locked(struct dma_fence *fence);
- void dma_fence_signal_locked(struct dma_fence *fence);
- void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
- void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t timestamp);
--signed long dma_fence_default_wait(struct dma_fence *fence,
-+signed long __dma_fence_default_wait(struct dma_fence *fence,
- 				   bool intr, signed long timeout);
-+
-+/*
-+ * Associate every caller with its own dept map.
-+ */
-+#define dma_fence_default_wait(f, intr, t)				\
-+({									\
-+	signed long __ret;						\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, t);				\
-+	__ret = __dma_fence_default_wait(f, intr, t);			\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+
- int dma_fence_add_callback(struct dma_fence *fence,
- 			   struct dma_fence_cb *cb,
- 			   dma_fence_func_t func);
-@@ -628,12 +642,37 @@ static inline ktime_t dma_fence_timestamp(struct dma_fence *fence)
- 	return fence->timestamp;
- }
+-	for (i = 0; i < DEPT_IRQS_NR; i++)
++	for (i = 0; i < DEPT_CXT_IRQS_NR; i++)
+ 		if (w->irq_stack[i])
+ 			put_stack(w->irq_stack[i]);
+ 	if (w->class)
+@@ -665,7 +665,7 @@ static void print_diagram(struct dept_dep *d)
+ 	const char *tc_n = tc->sched_map ? "<sched>" : (tc->name ?: "(unknown)");
  
--signed long dma_fence_wait_timeout(struct dma_fence *,
-+signed long __dma_fence_wait_timeout(struct dma_fence *,
- 				   bool intr, signed long timeout);
--signed long dma_fence_wait_any_timeout(struct dma_fence **fences,
-+signed long __dma_fence_wait_any_timeout(struct dma_fence **fences,
- 				       uint32_t count,
- 				       bool intr, signed long timeout,
- 				       uint32_t *idx);
-+/*
-+ * Associate every caller with its own dept map.
-+ */
-+#define dma_fence_wait_timeout(f, intr, t)				\
-+({									\
-+	signed long __ret;						\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, t);				\
-+	__ret = __dma_fence_wait_timeout(f, intr, t);			\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+
-+/*
-+ * Associate every caller with its own dept map.
-+ */
-+#define dma_fence_wait_any_timeout(fpp, count, intr, t, idx)		\
-+({									\
-+	signed long __ret;						\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, t);				\
-+	__ret = __dma_fence_wait_any_timeout(fpp, count, intr, t, idx);	\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
+ 	irqf = e->enirqf & w->irqf;
+-	for_each_set_bit(irq, &irqf, DEPT_IRQS_NR) {
++	for_each_set_bit(irq, &irqf, DEPT_CXT_IRQS_NR) {
+ 		if (!firstline)
+ 			pr_warn("\nor\n\n");
+ 		firstline = false;
+@@ -698,7 +698,7 @@ static void print_dep(struct dept_dep *d)
+ 	const char *tc_n = tc->sched_map ? "<sched>" : (tc->name ?: "(unknown)");
  
- /**
-  * dma_fence_wait - sleep until the fence gets signaled
-@@ -649,19 +688,24 @@ signed long dma_fence_wait_any_timeout(struct dma_fence **fences,
-  * fence might be freed before return, resulting in undefined behavior.
-  *
-  * See also dma_fence_wait_timeout() and dma_fence_wait_any_timeout().
-+ *
-+ * Associate every caller with its own dept map.
+ 	irqf = e->enirqf & w->irqf;
+-	for_each_set_bit(irq, &irqf, DEPT_IRQS_NR) {
++	for_each_set_bit(irq, &irqf, DEPT_CXT_IRQS_NR) {
+ 		pr_warn("%s has been enabled:\n", irq_str(irq));
+ 		print_ip_stack(e->enirq_ip[irq], e->enirq_stack[irq]);
+ 		pr_warn("\n");
+@@ -866,7 +866,7 @@ static void bfs(void *root, struct bfs_ops *ops, void *in, void **out)
   */
--static inline signed long dma_fence_wait(struct dma_fence *fence, bool intr)
--{
--	signed long ret;
--
--	/* Since dma_fence_wait_timeout cannot timeout with
--	 * MAX_SCHEDULE_TIMEOUT, only valid return values are
--	 * -ERESTARTSYS and MAX_SCHEDULE_TIMEOUT.
+ 
+ static unsigned long cur_enirqf(void);
+-static int cur_irq(void);
++static int cur_cxt(void);
+ static unsigned int cur_ctxt_id(void);
+ 
+ static struct dept_iecxt *iecxt(struct dept_class *c, int irq)
+@@ -1443,7 +1443,7 @@ static void add_dep(struct dept_ecxt *e, struct dept_wait *w)
+ 	if (d) {
+ 		check_dl_bfs(d);
+ 
+-		for (i = 0; i < DEPT_IRQS_NR; i++) {
++		for (i = 0; i < DEPT_CXT_IRQS_NR; i++) {
+ 			struct dept_iwait *fiw = iwait(fc, i);
+ 			struct dept_iecxt *found_ie;
+ 			struct dept_iwait *found_iw;
+@@ -1487,7 +1487,7 @@ static void add_wait(struct dept_class *c, unsigned long ip,
+ 	struct dept_task *dt = dept_task();
+ 	struct dept_wait *w;
+ 	unsigned int wg;
+-	int irq;
++	int cxt;
+ 	int i;
+ 
+ 	if (DEPT_WARN_ON(!valid_class(c)))
+@@ -1503,9 +1503,9 @@ static void add_wait(struct dept_class *c, unsigned long ip,
+ 	w->wait_stack = get_current_stack();
+ 	w->sched_sleep = sched_sleep;
+ 
+-	irq = cur_irq();
+-	if (irq < DEPT_IRQS_NR)
+-		add_iwait(c, irq, w);
++	cxt = cur_cxt();
++	if (cxt == DEPT_CXT_HIRQ || cxt == DEPT_CXT_SIRQ)
++		add_iwait(c, cxt, w);
+ 
+ 	/*
+ 	 * Avoid adding dependency between user aware nested ecxt and
+@@ -1579,7 +1579,7 @@ static struct dept_ecxt_held *add_ecxt(struct dept_map *m,
+ 	eh->sub_l = sub_l;
+ 
+ 	irqf = cur_enirqf();
+-	for_each_set_bit(irq, &irqf, DEPT_IRQS_NR)
++	for_each_set_bit(irq, &irqf, DEPT_CXT_IRQS_NR)
+ 		add_iecxt(c, irq, e, false);
+ 
+ 	del_ecxt(e);
+@@ -1728,7 +1728,7 @@ static void do_event(struct dept_map *m, struct dept_map *real_m,
+ 			add_dep(eh->ecxt, wh->wait);
+ 	}
+ 
+-	for (i = 0; i < DEPT_IRQS_NR; i++) {
++	for (i = 0; i < DEPT_CXT_IRQS_NR; i++) {
+ 		struct dept_ecxt *e;
+ 
+ 		if (before(dt->wgen_enirq[i], wg))
+@@ -1775,7 +1775,7 @@ static void disconnect_class(struct dept_class *c)
+ 		call_rcu(&d->rh, del_dep_rcu);
+ 	}
+ 
+-	for (i = 0; i < DEPT_IRQS_NR; i++) {
++	for (i = 0; i < DEPT_CXT_IRQS_NR; i++) {
+ 		stale_iecxt(iecxt(c, i));
+ 		stale_iwait(iwait(c, i));
+ 	}
+@@ -1800,27 +1800,21 @@ static unsigned long cur_enirqf(void)
+ 	return 0UL;
+ }
+ 
+-static int cur_irq(void)
++static int cur_cxt(void)
+ {
+ 	if (lockdep_softirq_context(current))
+-		return DEPT_SIRQ;
++		return DEPT_CXT_SIRQ;
+ 	if (lockdep_hardirq_context())
+-		return DEPT_HIRQ;
+-	return DEPT_IRQS_NR;
++		return DEPT_CXT_HIRQ;
++	return DEPT_CXT_PROCESS;
+ }
+ 
+ static unsigned int cur_ctxt_id(void)
+ {
+ 	struct dept_task *dt = dept_task();
+-	int irq = cur_irq();
++	int cxt = cur_cxt();
+ 
+-	/*
+-	 * Normal process context
 -	 */
--	ret = dma_fence_wait_timeout(fence, intr, MAX_SCHEDULE_TIMEOUT);
+-	if (irq == DEPT_IRQS_NR)
+-		return 0U;
 -
--	return ret < 0 ? ret : 0;
--}
-+#define dma_fence_wait(f, intr)						\
-+({									\
-+	signed long __ret;						\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, MAX_SCHEDULE_TIMEOUT);	\
-+	__ret = __dma_fence_wait_timeout(f, intr, MAX_SCHEDULE_TIMEOUT);\
-+	sdt_might_sleep_end();						\
-+									\
-+	/*								\
-+	 * Since dma_fence_wait_timeout cannot timeout with		\
-+	 * MAX_SCHEDULE_TIMEOUT, only valid return values are		\
-+	 * -ERESTARTSYS and MAX_SCHEDULE_TIMEOUT.			\
-+	 */								\
-+	__ret < 0 ? __ret : 0;						\
-+})
+-	return dt->irq_id[irq] | (1UL << irq);
++	return dt->cxt_id[cxt] | (1UL << cxt);
+ }
  
- void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline);
+ static void enirq_transition(int irq)
+@@ -1877,7 +1871,7 @@ static void dept_enirq(unsigned long ip)
  
+ 	flags = dept_enter();
+ 
+-	for_each_set_bit(irq, &irqf, DEPT_IRQS_NR) {
++	for_each_set_bit(irq, &irqf, DEPT_CXT_IRQS_NR) {
+ 		dt->enirq_ip[irq] = ip;
+ 		enirq_transition(irq);
+ 	}
+@@ -1923,6 +1917,13 @@ void noinstr dept_hardirqs_off(void)
+ 	dept_task()->hardirqs_enabled = false;
+ }
+ 
++void noinstr dept_update_cxt(void)
++{
++	struct dept_task *dt = dept_task();
++
++	dt->cxt_id[DEPT_CXT_PROCESS] += 1UL << DEPT_CXTS_NR;
++}
++
+ /*
+  * Ensure it's the outmost softirq context.
+  */
+@@ -1930,7 +1931,7 @@ void dept_softirq_enter(void)
+ {
+ 	struct dept_task *dt = dept_task();
+ 
+-	dt->irq_id[DEPT_SIRQ] += 1UL << DEPT_IRQS_NR;
++	dt->cxt_id[DEPT_CXT_SIRQ] += 1UL << DEPT_CXTS_NR;
+ }
+ 
+ /*
+@@ -1940,7 +1941,7 @@ void noinstr dept_hardirq_enter(void)
+ {
+ 	struct dept_task *dt = dept_task();
+ 
+-	dt->irq_id[DEPT_HIRQ] += 1UL << DEPT_IRQS_NR;
++	dt->cxt_id[DEPT_CXT_HIRQ] += 1UL << DEPT_CXTS_NR;
+ }
+ 
+ void dept_sched_enter(void)
+diff --git a/kernel/dependency/dept_internal.h b/kernel/dependency/dept_internal.h
+index 732f297710aa..f5023365b3fd 100644
+--- a/kernel/dependency/dept_internal.h
++++ b/kernel/dependency/dept_internal.h
+@@ -106,8 +106,8 @@ struct dept_class {
+ 			/*
+ 			 * for tracking IRQ dependencies
+ 			 */
+-			struct dept_iecxt iecxt[DEPT_IRQS_NR];
+-			struct dept_iwait iwait[DEPT_IRQS_NR];
++			struct dept_iecxt iecxt[DEPT_CXT_IRQS_NR];
++			struct dept_iwait iwait[DEPT_CXT_IRQS_NR];
+ 
+ 			/*
+ 			 * classified by a map embedded in task_struct,
+@@ -169,8 +169,8 @@ struct dept_ecxt {
+ 			/*
+ 			 * where the IRQ-enabled happened
+ 			 */
+-			unsigned long	enirq_ip[DEPT_IRQS_NR];
+-			struct dept_stack *enirq_stack[DEPT_IRQS_NR];
++			unsigned long	enirq_ip[DEPT_CXT_IRQS_NR];
++			struct dept_stack *enirq_stack[DEPT_CXT_IRQS_NR];
+ 
+ 			/*
+ 			 * where the event context started
+@@ -214,8 +214,8 @@ struct dept_wait {
+ 			/*
+ 			 * where the IRQ wait happened
+ 			 */
+-			unsigned long	irq_ip[DEPT_IRQS_NR];
+-			struct dept_stack *irq_stack[DEPT_IRQS_NR];
++			unsigned long	irq_ip[DEPT_CXT_IRQS_NR];
++			struct dept_stack *irq_stack[DEPT_CXT_IRQS_NR];
+ 
+ 			/*
+ 			 * where the wait happened
 -- 
 2.17.1
 
