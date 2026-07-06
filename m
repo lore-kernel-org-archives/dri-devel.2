@@ -4,52 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49FE5C44501
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24DC1C43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA1F10E7BA;
-	Mon,  6 Jul 2026 07:13:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="LcbQVVpM";
-	dkim-atps=neutral
-Received: from out-03.smtp.spacemail.com (out-03.smtp.spacemail.com
- [63.250.43.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 671F510E725
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:18:47 +0000 (UTC)
-Received: from [192.168.1.96] (107-194-158-19.lightspeed.sntcca.sbcglobal.net
- [107.194.158.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.spacemail.com (Postfix) with ESMTPSA id 4gtqM93J47z2x9Q;
- Mon, 06 Jul 2026 03:18:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
- s=spacemail; t=1783307925;
- bh=B3B1ZBSiukg0cMNgoNS2eof+MlYbjCtpIJAOc+pBl8M=;
- h=From:Date:Subject:To:Cc:From;
- b=LcbQVVpMYGB26QAd+IuweCilov4QMyDKN4Qd1AwUF/tl3XMi2r5JnQOVDUoeWSKou
- w6ctqYhXH6yoH/ywSbVqwB52iml5QZtwVkwlKA43gYY3nomTgxJjMq3wrR/3TauSGF
- lMjcNGXr0lk75YJgPw6JlA5OjrBO6FyNsTPv8Yx3AnAv2KdAzL9/Vw69pacys/oP7i
- kalr9hgfipscO6SD3J28xncQAhEkvkhpjbTVhazHmovFRbzrSjZ+aQ73ESSJRj+D0A
- XYmh5ZSIdS+UmE1q/4TxGLj0YEz1y97L3NvA9gkUffMt/c3iIIcMi9nHxl4IENL52k
- jeVaOissNXzyA==
-From: Guru Das Srinagesh <linux@gurudas.dev>
-Date: Sun, 05 Jul 2026 20:18:44 -0700
-Subject: [PATCH] drm: nova-drm: use vertical import style
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260705-drm-vert-imp-v1-1-c7b24e290763@gurudas.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBBA0V+RWZukpB7xK2JR7WAkHpkiEvHvi
- uVZ3HuBJ2HyUEUXCB3seZkDkjgCO5i5J2QXDKlKc1WoDJ1MeJBsyNOKZaddYnRO2lkIySrU8fn
- t6ua339uR7PY+4L4fG9zEw3AAAAA=
-X-Change-ID: 20260705-drm-vert-imp-8f4d1a46e4dc
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Guru Das Srinagesh <linux@gurudas.dev>
-X-Mailer: b4 0.15.2
-X-Envelope-From: linux@gurudas.dev
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ED2E10E7CA;
+	Mon,  6 Jul 2026 07:13:32 +0000 (UTC)
+Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0DDD010E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:48 +0000 (UTC)
+X-AuditID: a67dfc5b-c45ff70000001609-aa-6a4b48fe8e30
+From: Byungchul Park <byungchul@sk.com>
+To: linux-kernel@vger.kernel.org
+Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
+ torvalds@linux-foundation.org, damien.lemoal@opensource.wdc.com,
+ linux-ide@vger.kernel.org, adilger.kernel@dilger.ca,
+ linux-ext4@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
+ will@kernel.org, tglx@linutronix.de, rostedt@goodmis.org,
+ joel@joelfernandes.org, sashal@kernel.org, daniel.vetter@ffwll.ch,
+ duyuyang@gmail.com, johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
+ willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
+ gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
+ akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
+ hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
+ jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
+ rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
+ linux-block@vger.kernel.org, josef@toxicpanda.com,
+ linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
+ dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
+ dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
+ melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
+ chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
+ longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
+ yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
+ her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
+ bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+ sumit.semwal@linaro.org, gustavo@padovan.org, christian.koenig@amd.com,
+ andi.shyti@kernel.org, arnd@arndb.de, lorenzo.stoakes@oracle.com,
+ Liam.Howlett@oracle.com, rppt@kernel.org, surenb@google.com,
+ mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
+ samitolvanen@google.com, paulmck@kernel.org, frederic@kernel.org,
+ neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ urezki@gmail.com, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+ qiang.zhang@linux.dev, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
+ vschneid@redhat.com, chuck.lever@oracle.com, neil@brown.name,
+ okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
+ trondmy@kernel.org, anna@kernel.org, kees@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, mark.rutland@arm.com,
+ ada.coupriediaz@arm.com, kristina.martsenko@arm.com,
+ wangkefeng.wang@huawei.com, broonie@kernel.org, kevin.brodsky@arm.com,
+ dwmw@amazon.co.uk, shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
+ yuzhao@google.com, baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
+ joel.granados@kernel.org, richard.weiyang@gmail.com,
+ geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
+ alexander.shishkin@linux.intel.com, lillian@star-ark.net,
+ chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
+ link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
+ brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
+ mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-modules@vger.kernel.org, rcu@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
+ neilb@ownmail.net, bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
+ dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
+ alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, rust-for-linux@vger.kernel.org
+Subject: [PATCH v19 12/40] dept: apply sdt_might_sleep_{start,
+ end}() to waitqueue wait
+Date: Mon,  6 Jul 2026 15:19:00 +0900
+Message-Id: <20260706061928.66713-13-byungchul@sk.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
+References: <20260706061928.66713-1-byungchul@sk.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxTZxiGed/zno82NjtWjEenw9QxDUZxxplnagzxzw6aJSZGnS7GNeNE
+ inyYFtG6mBUF1yAfHRuStago2jDaIbYMcVpF1CoCWmTKWaFUkWGIdEQUHIJiC+HflefKfd9/
+ Ho5Sy/Q8TpeeKenTtakaRkmUoRlnlkUlbkpZ8eL/T8Gc+yN0BXtpeJzdQGD4tZlA2QUnA75q
+ B4LgsBlB7uUJAu+KvSy8Hu1kYcLjRSD7rlPgrM3G8KrmPQOl/dkErH02FvpvfwWh4BUaJgLP
+ MXSMDCCw977HMNb6gILSEh+CWm83Ak/lEQb+Hh5koKnkOAOhtjIM5Uc8NJy0FSPo83swHK24
+ wEDbi3EMXSeKMThcX0Oz5SwObzFw4uIcsJUexTBqr2LBbooFW2s7DT2VVha8jucsBIpKCFSH
+ HtDQ1P2YhuCdYzRcMj1hwfXPbQTO/D4KXM/CwuNfCr+d6mLgqqeJgLe+B0P7X2UM5Nf8ScND
+ h49As/cugSbr7wTOd7RhePpEpsHd2kIlJIlvcguJWOWuw2Luw3eM6DzlROLY22Ik3hwYpMQc
+ 9wHxfPMAI947K4g/ty4TL1sDrJhzzc+K5a79Ys6tEC26K+PEiqv9eHP8TuW6JClVlyXp49d/
+ p0xuCdSy+woVB+8/e4lMqIDNQwpO4FcJ//5ixtMsFw2iCDP8YkGWR6kIR/MLBXdBH52HlBzF
+ t8cI+fYCEhGz+G3CMX9tWHAc4WOF0+f4CKr41cKQZe1UZYzgqGmYrFGEz9XjJyen1PwXQufg
+ HRKpFHi3QrBfrKOmAnOFG5UysSBVOYqqQmpdelaaVpe6anmyMV13cPn3GWkuFP43++Hxb+vR
+ kG9LI+I5pJmhgoSNKWpam2UwpjUigaM00arPlmxKUauStMZDkj5jt35/qmRoRB9zRDNHtXLk
+ QJKa36PNlPZK0j5JP20xp5hnQqgXli74csctKiZwTjZtQKwN+8cTRxyzD8PeeOuanfQnd0MN
+ a62LLfei6mODRX/ITnWmNP8HNFZhNu3Y+gjPX7RLmZdw6W0gYQtxzDQaoppnJkav+ebGdntj
+ h/nXFb391p9y6oyW4y35cnf8uqGhztGPMlIyu+MKHVuzXt78b7OGGJK1n8dReoP2A70jTidr
+ AwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe0xTdxTH97v39t7bQuGm4LhxyTDNRKIRn7gTWRaWLHJRt7CYsGWZkUZu
+ pLzEFpksLlpqt8IolJq2kYowHs1SmCIUELVKIIIvlMo2CVDqo9YhuCoWDI/C2pn9c/I53+85
+ 35w/Do1LOgWraXl+Ia/Il+VKSREh+jJJvXGZ25O9eUAnBK3mBIy7PQL4S9VDwKxfS8DZCy0k
+ BCxdFGjbzgjg5sMSAobONyNwz2oRvF204KDpXiEgYOinwD8/RoFRhWDF0Y/A5DTgMDJ0HYcW
+ uwqDN63LJEz1zSAwPvaQYJ5UEeCzliOo9loomLyRAi/dVwSw4nqOwcO5aQRWzzIGnp6fEQRM
+ OVBb3x5cN70iYXHwPg5m4xCCXx+7cJiZfITA3j+BwPFbCQnP9B04DHsi4I9ZHwm3jL+Q8NJ5
+ FoN/WkmoK3EIwHl3CkGNxYDAO+rAQN1wgQRTTRsB3Y8uU+CcWsJg3GTAoLntC3BbvQTc0ddj
+ wXODUxdjwGJWY8HyNwbG369gMG+1UclNiHurqSA4W3snxmkeBEiu5VwL4hYXDIjzN6lxTqMP
+ tn3TPpw71f4913RnmuQWZv8kOcdcHcHdrme5xtIFjKsa3Mh1V7uotM++FX2SyefKi3jFpk8z
+ RFl3XXaqoEJ47N7T1+gk0lFlSEizzHZ2pNKHQkwy69iRkXk8xNHMGrZd5xWUIRGNM8OxbLlV
+ R4SMKCad/WnUHjRommDWsrWNTAjFzA52Rp/0LjKWbW7t+S9GGJTPL9VgIZYwieyYb4DQI1Ed
+ es+GouX5RXkyeW5igjInqzhffizh4OG8NhT8JuuPS1WXkH84pRcxNJKGiyF5d7ZEICtSFuf1
+ IpbGpdHiuPg92RJxpqz4B15x+IDiaC6v7EUf0IQ0Rrz7az5DwhySFfI5PF/AK/53MVq4+iRa
+ 9eRDvy3zuWtz2c6lcGV4dUPa1vUdX2X26aM+H9JUHgn4o+bsumGv5cDEtvHIsHLbjjcVuu9e
+ f9zVnebdl67Nu2yNHABzQtUGg60xdUwtbghzZkf4vmlN1lwrLVxQRT2JH9xbUHg6KS3ihTv1
+ RZj51JaP3t+fHKeOb95ViZdfPX5USiizZFvW4wql7F8jiLxcSQMAAA==
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,85 +130,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert `use` imports to vertical layout for better readability and
-maintainability.
+Make dept able to track dependencies by waitqueue waits.
 
-Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
+Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
-Came across a recent commit bc58905eb07 ("samples: rust_misc_device: use
-vertical import style") and found a few more locations that could
-benefit from this cleanup. No functional changes.
+ include/linux/wait.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Separating out patches per-subsystem as per the review feedback in [0].
-
-Tested via:
-
-    $ make LLVM=1 rustfmtcheck || echo "fail"
-    $
-
-[0]: https://lore.kernel.org/lkml/20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev/
----
- drivers/gpu/drm/nova/file.rs | 10 ++++++++--
- drivers/gpu/drm/nova/gem.rs  | 11 +++++++++--
- 2 files changed, 17 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index a3b7bd36792c..547da5caa58d 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -1,10 +1,16 @@
- // SPDX-License-Identifier: GPL-2.0
+diff --git a/include/linux/wait.h b/include/linux/wait.h
+index dce055e6add3..c8f8b44060fb 100644
+--- a/include/linux/wait.h
++++ b/include/linux/wait.h
+@@ -7,6 +7,7 @@
+ #include <linux/list.h>
+ #include <linux/stddef.h>
+ #include <linux/spinlock.h>
++#include <linux/dept_sdt.h>
  
--use crate::driver::{NovaDevice, NovaDriver};
-+use crate::driver::{
-+    NovaDevice,
-+    NovaDriver, //
-+};
- use crate::gem::NovaObject;
- use kernel::{
-     alloc::flags::*,
--    drm::{self, gem::BaseObject},
-+    drm::{
-+        self,
-+        gem::BaseObject, //
-+    },
-     pci,
-     prelude::*,
-     uapi,
-diff --git a/drivers/gpu/drm/nova/gem.rs b/drivers/gpu/drm/nova/gem.rs
-index 9d8ff7de2c0f..8d8980425737 100644
---- a/drivers/gpu/drm/nova/gem.rs
-+++ b/drivers/gpu/drm/nova/gem.rs
-@@ -2,14 +2,21 @@
+ #include <asm/current.h>
  
- use kernel::{
-     drm,
--    drm::{gem, gem::BaseObject, DeviceContext},
-+    drm::{
-+        gem,
-+        gem::BaseObject,
-+        DeviceContext, //
-+    },
-     page,
-     prelude::*,
-     sync::aref::ARef,
- };
+@@ -305,6 +306,7 @@ extern void init_wait_entry(struct wait_queue_entry *wq_entry, int flags);
+ 	struct wait_queue_entry __wq_entry;					\
+ 	long __ret = ret;	/* explicit shadow */				\
+ 										\
++	sdt_might_sleep_start(NULL);						\
+ 	init_wait_entry(&__wq_entry, exclusive ? WQ_FLAG_EXCLUSIVE : 0);	\
+ 	for (;;) {								\
+ 		long __int = prepare_to_wait_event(&wq_head, &__wq_entry, state);\
+@@ -323,6 +325,7 @@ extern void init_wait_entry(struct wait_queue_entry *wq_entry, int flags);
+ 			break;							\
+ 	}									\
+ 	finish_wait(&wq_head, &__wq_entry);					\
++	sdt_might_sleep_end();							\
+ __out:	__ret;									\
+ })
  
- use crate::{
--    driver::{NovaDevice, NovaDriver},
-+    driver::{
-+        NovaDevice,
-+        NovaDriver, //
-+    },
-     file::File,
- };
- 
-
----
-base-commit: 78900738d981c97aad929e33620340d0d9bcfc82
-change-id: 20260705-drm-vert-imp-8f4d1a46e4dc
-
-Best regards,
---  
-Guru Das Srinagesh <linux@gurudas.dev>
+-- 
+2.17.1
 
