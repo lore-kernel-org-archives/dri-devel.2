@@ -4,58 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32346C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B9A4C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:56:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6829E10E831;
-	Mon,  6 Jul 2026 08:52:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3F2110E323;
+	Mon,  6 Jul 2026 08:56:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RLOO8DoQ";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="tOK1VCgr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7032610E831
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 08:52:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D1C4140B4F;
- Mon,  6 Jul 2026 08:52:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412BA1F000E9;
- Mon,  6 Jul 2026 08:52:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783327956;
- bh=wIgTYuQ7l0g07yaHqfXyOdwj4xENzmwI7JEobCJI7VA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=RLOO8DoQdzaIda/SCOUZkb7TZDmZU8+VEb2miT3ha6NG/chlSw9oPS5iFZs+3FN+H
- ss1CRc7OnMp9UOKGS1o9kuNv8H+1WnAXgfMZL1xmi1//PS62mRhyUFxFEYFJL+D/1o
- xiYwfpJZZ+NfzcyQ7+yCE7NEbf16+AkAWuqVa/gUXNnPiqb/davqw58D/0MpB6YD/0
- CHy4FCrsaWs1rBgkqGiUqyGyo9FDZsOA8tjdAzLb1LyGVP9El/x+zSrRRkPx1xFibX
- fCA0bNZfLZn3cl19Fz14Q9+v2TA+kMfm8TTDKAVHZzs6mB9OCeZO3REbsT1q+LPdHr
- 1UWcRfCM06mdg==
-Date: Mon, 6 Jul 2026 10:52:32 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
- hardcoding EDID
-Message-ID: <20260706-capable-beaver-of-excellence-a3cf10@houat>
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD4210E323
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 08:56:11 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gtyrS2rVsz9sNr;
+ Mon,  6 Jul 2026 10:56:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1783328168; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FrGsBRjAqFY8yVeMNP0cQIBfrYHPy8Ji6WY4Dwo7CcU=;
+ b=tOK1VCgrbyl1aSx2dmfhECBpz6A6bQPFNRmJwdejShuDCEi1n6Gl981zZE2+o5h1qFBpNw
+ mC0PIAwHgKnsyRzHsQ6pL7XhMDtVxr+r0qIAYyuWMM/MOfjRyGSHjRBcsFwKwfxLq7nSQ2
+ QPnaxADcv4SCPEJn9grDRguFngFxyKm8979I8H8Y0L4RFUO9eSTknX+8mYnI1+kakh9Taq
+ 1MzFjyMnZBO3F1hBclhGT99hZP0qebszimDsn3LIHUTAwl099eFsMSthJ3+EwfxqMazZBo
+ uVLWD28ut5d8F49DPn481XgEQyz/Y6VnPcaSr01tHJbEJf/dOWGg4Sng+hT73g==
+Message-ID: <305e36f05f6094a8be907e6234c0cd49c88f199c.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Remove relic from entity docu
+From: Philipp Stanner <phasta@mailbox.org>
+To: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Cc: atthew Brost <matthew.brost@intel.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Mon, 06 Jul 2026 10:54:54 +0200
+In-Reply-To: <7f78b024-d7a5-4b57-8828-79771689f9b7@kernel.org>
+References: <20260629083631.2547199-2-phasta@kernel.org>
+ <7f78b024-d7a5-4b57-8828-79771689f9b7@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="jpva27qzwjiuqi3k"
-Content-Disposition: inline
-In-Reply-To: <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
+X-MBO-RS-META: 4onsbnz3incbuky34w8fsnskpx87fnpw
+X-MBO-RS-ID: c721ef634fae3c145fc
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,53 +63,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, 2026-06-29 at 11:12 +0200, Danilo Krummrich wrote:
+> On 6/29/26 10:36 AM, Philipp Stanner wrote:
+> > commit 4827d6d83f07 ("drm/sched: Remove racy hack from
+> > drm_sched_fini()") removed the necessity to mark an entity as stopped i=
+n
+> > drm_sched_fini(). The documentation, however, still details that.
+> >=20
+> > Update sched_entity's documentation.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
 
---jpva27qzwjiuqi3k
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
- hardcoding EDID
-MIME-Version: 1.0
+Pushed to drm-misc-next.
 
-Hi,
 
-On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart wrote:
-> Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
-> data over an I2C bus. The bus is also used to detect the presence of a
-> connected monitor by trying to read the EDID data.
->=20
-> Some devices where the VGA display is integrated in the device and
-> always connected do not connect the DDC pins. Some development boards,
-> such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
->=20
-> To support those, add the ability to provide hardcoded EDID data in the
-> device tree. This is mutually exclusive with specifying a DDC bus, and
-> can only be done when the VGA display is guaranteed to be always
-> connected.
->=20
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.co=
-m>
-
-This feels redundant with the EDID firmware loading mechanism we have in
-KMS already. It should at least be mentioned why we would need to set it
-in the device tree at all.
-
-Maxime
-
---jpva27qzwjiuqi3k
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaktsxAAKCRAnX84Zoj2+
-duZWAX43C0adUSkYo2BCyUyrRlzje+lQ2rlOLgawSEEJ4RdYIn1llvkxQUUxz95n
-cjgoCQcBgKZkLYlZB8XX1RTuVKcL/FZXQVybRx4SAV+4U5ftuAUjRItDGm9NzAfO
-rM0iCuQS6A==
-=EqG+
------END PGP SIGNATURE-----
-
---jpva27qzwjiuqi3k--
+P.
