@@ -4,88 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B17AAC43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:31:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D34C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2E1886A4;
-	Mon,  6 Jul 2026 12:31:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB5B48992E;
+	Mon,  6 Jul 2026 12:34:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="oEkKybDz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bPJVyIhY";
 	dkim-atps=neutral
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC7A810E16D
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:31:28 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id
- af79cd13be357-92e5cb052edso217849985a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 05:31:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1783341088; x=1783945888; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GCAkWMdkF5ipjGr4p830BCh9C6481Wk1fl4Ld4QNg9g=;
- b=oEkKybDzQrQLUdJkh3m+bEIyZm3NpHoJnH7KtbTcefVzcuVOPWptPDCWcNTBIq97kw
- y3q5gr+rOF4JXKg9fjsEujHxq1HxunONto8DcYIw2FvDYh2LCRBGAl/1AeZ2S/UOxexZ
- ufXT42JHKZnhLVBsZCyvpkm8+nrM9JaoKSfi2vcgI4Zl89WNzXmaCgLYIdzgfZLOdrsg
- dMhogEfIjhUbRkHR8j3WhD/qHc/2Gy+hv9ELbnCH/qnbB837z+A2AOOLJFd6FVfiv9Cb
- j/O177Br8R1lJEU9qFEqDpQ+8xXmdNYfEC/hv090cyQgcH05lj1oAVMFBA8q0JpK/COE
- yU1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783341088; x=1783945888;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GCAkWMdkF5ipjGr4p830BCh9C6481Wk1fl4Ld4QNg9g=;
- b=lHayDShgcg7TqMrmKcUQ7PxPrUMwZuxPSzMe7xqFHHUDBKl3wZYtTtZaA1B4dwnv6B
- V4aQtQUoIslyPDm1WnI985pFEPVW7/HKYazC7XIsX13fOWHa8Hty/sZu6QoOWThkHXeW
- To6ia/6rW+rEioEg+H2HfSQzbbAUpeKfk2fypo77EXpbqoQZwRgCx7kbLlGylJhirTwR
- YxlBanYyhEbGS/a7r9RnKmcCKz9Se5o04izpSKq3n4NRziPjUNx1NIxeh82/W9wC4TsR
- 1FT/YTxDyCxQpqflFDUxtMvbolMtBu3mnyfJ1KQKVK+AgEp2U23vxaILSMie9nMBos30
- 5cwQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr+9LhUwlwOFfjXl46SioxsoEttSCmSiAY0NnbI7omjCYKIJwETy/ft05Y+BbqwTP3RZ17i+PeSeEY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPCcLovlHsvIv7Kmnrcq/jQ3nZPgXoWzYIYriQRlMEHA7ck9a5
- Kl6TNZ3N4zFyHIDpJrRW1XHX6Ygg4ib6U5wcuSNlj6VXCAqdA75taDlVNGjG04schC8=
-X-Gm-Gg: AfdE7cnaqAu8nvIl0ae2QkEvXlpOJ90sx319tJAQflNRKyAEkVh+qdZt5ivltzdVUuK
- Kcsdq0wgeDsncmDw+FwPpkhHD0QMsQWWWoFpn1ndKxyNHI+xRHdzzrg5BjrlXuzOmZ5fxryTnp9
- 8cmA6Q7rJEn0meTPVqHZUdcIeWADEaVzoyY6DOgNuH1zIIKuKr4olvKMoHF3B/12D9JSVTMX9pd
- oC5sjncgBqebSdXo/U7yvboT+SU6BDh8HgipJjc+rAA6Pc3fLbDX74qXSE7+VcRpZ4WV0lDlCA4
- 6atV9m8nUlVh/zF5hfD7Y5InOw/eIgVfovYYnFm9mPi93T2RJPxZgIQu8ZmNNC8ROxd5Irx7OJi
- DhvzU2LnyMBhOQBFOr39ZYrJlkb1hYKbfMM+d9uQuZ6BCDtjWud+YDTa1G7hS
-X-Received: by 2002:a05:620a:618e:b0:916:10f6:780f with SMTP id
- af79cd13be357-92ebb5665f8mr45100485a.27.1783341087397; 
- Mon, 06 Jul 2026 05:31:27 -0700 (PDT)
-Received: from ziepe.ca ([159.2.72.92]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-92e90cbe3e2sm918463385a.35.2026.07.06.05.31.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 05:31:26 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wgiTt-00000000Sbw-383D;
- Mon, 06 Jul 2026 09:31:25 -0300
-Date: Mon, 6 Jul 2026 09:31:25 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- Andi Shyti <andi.shyti@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
- =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
-Message-ID: <20260706123125.GA107792@ziepe.ca>
-References: <20260701104437.236979-1-krzysztof.karas@intel.com>
- <20260701104437.236979-4-krzysztof.karas@intel.com>
- <20260703162236.GX7525@ziepe.ca>
- <90558ba3-44e6-4d5e-9c72-ed8817d372be@arm.com>
- <20260703203502.GC1978949@ziepe.ca>
- <utb5awup2vypdhtcxk3vlczwrqbl3ypae6ftbwrlrkdqfnk4ft@aurl5kme27ac>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A04BE8992E;
+ Mon,  6 Jul 2026 12:34:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783341282; x=1814877282;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=AjdEjDtBFbvjvVxJoJ5SlDaBQB688NDaizFmhEW3Nis=;
+ b=bPJVyIhYo50iFYH6wqToOl1y23voNs92Plwhrr9x3CvgiGnUYyflHATa
+ iA3CDFNFsdGBIa00AeQhW1KwISmZSsjg5qp7+bjvy/j+94atazerZVTm3
+ lPTmMEpFtSsew0ZoG3E0XM4nqIvEefn+O8dik6q0DLYmGMx1f4Ax4mhYu
+ Dz0ZYpQKN9722f8AkWpA1br1qhhmN0XlMu4qy2wdcXIbfJ/oVmlOzUMJG
+ ebjcNIpvu1lzvIhuKaLP+k2ZZlgi71AZXCHa66WhsXN8peN8iFQqGudeq
+ Tzx86UQ/C8QJDZf2+98Xf8Znn27DWs9ZbpU8Nh44waNuk9NliluMSXMKP Q==;
+X-CSE-ConnectionGUID: ScrV74j9Syic1+hpJ7LmKw==
+X-CSE-MsgGUID: xEFcI8ctRFKT6raGlGU7og==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="94577997"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="94577997"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 05:34:41 -0700
+X-CSE-ConnectionGUID: U4nwPfDJRziJpg6YmuuCcQ==
+X-CSE-MsgGUID: fPhyb6icQpe9KQjbrpTEQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="253805642"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.132])
+ ([10.245.244.132])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 05:34:36 -0700
+Message-ID: <247fece24913008be6d42ab0b6f19da1cb95abe1.camel@linux.intel.com>
+Subject: Re: [PATCH 03/10] drm/ttm: remove ttm_lru_walk_ops
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Christian Koenig	
+ <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
+ <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Alex
+ Deucher	 <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Date: Mon, 06 Jul 2026 14:34:13 +0200
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-3-43685ac1286b@gmx.de>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-3-43685ac1286b@gmx.de>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <utb5awup2vypdhtcxk3vlczwrqbl3ypae6ftbwrlrkdqfnk4ft@aurl5kme27ac>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,27 +82,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 07:43:14AM +0000, Krzysztof Karas wrote:
+Hi,
 
-> > I agree we shouldn't overcomplicate iommu_dma_map_sg(), so the
-> > simplest fix is to introduce a SG_MAX_LENGTH set to UINT_MAX/2,
-> > justified by the logic in iommu_dma_map_sg(). Fixup the core sg_alloc
-> > code to respect that. WARN_ON in iommu_dma_map_sg() if a malformed
-> > scatterlist entry is presented. Add a WARN_ON under DMA debugging
-> > kconfig as well for the physical path.
->
-> So instead of addressing this in iommu, we should focus on
-> guarding in sg logic to prevent the overflows? 
+On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
+> From: Christian K=C3=B6nig <christian.koenig@amd.com>
+>=20
+> It's just another layer of indirection.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 
-You should focus on creating valid scatterlists..
+Personally I don't have a strong opinion on this, but the reason for
+separating out the ops is that adding function pointers in the walk
+iterator itself was once pushed back on quite forcefully by Linus when
+I tried to do that in mm/pagewalk. Claiming for various reasons the
+standard way of doing that in Linux is using a const ops struct that
+ends up in unmodifiable memory.
 
-> Or would you rather have this as additional, separate fix placed in
-> this series?
+/Thomas
 
-I think this patch should be changed to check the length and
-WARN_ON. It is a kernel bug to pass a malformed scatterlist.
 
-You'll need other patches before this to not create illegal SGs in
-whatever mapping path you are using.
-
-Jason
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++-=
+---------
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c |=C2=A0 2 +-
+> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 34 ++++++++++++++---------------
+> -----
+> =C2=A03 files changed, 17 insertions(+), 31 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 2b470c1746f60..1fb8c53da0362 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -545,10 +545,6 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk
+> *walk, struct ttm_buffer_object *
+> =C2=A0	return lret;
+> =C2=A0}
+> =C2=A0
+> -static const struct ttm_lru_walk_ops ttm_evict_walk_ops =3D {
+> -	.process_bo =3D ttm_bo_evict_cb,
+> -};
+> -
+> =C2=A0static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_resource_manager *man,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct ttm_place *place,
+> @@ -560,7 +556,7 @@ static int ttm_bo_evict_alloc(struct ttm_device
+> *bdev,
+> =C2=A0{
+> =C2=A0	struct ttm_bo_evict_walk evict_walk =3D {
+> =C2=A0		.walk =3D {
+> -			.ops =3D &ttm_evict_walk_ops,
+> +			.process_bo =3D ttm_bo_evict_cb,
+> =C2=A0			.arg =3D {
+> =C2=A0				.ctx =3D ctx,
+> =C2=A0				.ticket =3D ticket,
+> @@ -1187,10 +1183,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
+> struct ttm_buffer_object *bo)
+> =C2=A0	return ret;
+> =C2=A0}
+> =C2=A0
+> -const struct ttm_lru_walk_ops ttm_swap_ops =3D {
+> -	.process_bo =3D ttm_bo_swapout_cb,
+> -};
+> -
+> =C2=A0/**
+> =C2=A0 * ttm_bo_swapout() - Swap out buffer objects on the LRU list to
+> shmem.
+> =C2=A0 * @bdev: The ttm device.
+> @@ -1209,7 +1201,7 @@ s64 ttm_bo_swapout(struct ttm_device *bdev,
+> struct ttm_operation_ctx *ctx,
+> =C2=A0{
+> =C2=A0	struct ttm_bo_swapout_walk swapout_walk =3D {
+> =C2=A0		.walk =3D {
+> -			.ops =3D &ttm_swap_ops,
+> +			.process_bo =3D ttm_bo_swapout_cb,
+> =C2=A0			.arg =3D {
+> =C2=A0				.ctx =3D ctx,
+> =C2=A0				.trylock_only =3D true,
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 7ed085adf1c9b..29f068944a972 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -919,7 +919,7 @@ s64 ttm_lru_walk_for_evict(struct ttm_lru_walk
+> *walk, struct ttm_device *bdev,
+> =C2=A0	s64 lret;
+> =C2=A0
+> =C2=A0	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &walk-
+> >arg, bo) {
+> -		lret =3D walk->ops->process_bo(walk, bo);
+> +		lret =3D walk->process_bo(walk, bo);
+> =C2=A0		if (lret =3D=3D -EBUSY || lret =3D=3D -EALREADY)
+> =C2=A0			lret =3D 0;
+> =C2=A0		progress =3D (lret < 0) ? lret : progress + lret;
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index 1eae9eea5ff32..0fcd5082a7080 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -189,24 +189,6 @@ struct ttm_operation_ctx {
+> =C2=A0	uint64_t bytes_moved;
+> =C2=A0};
+> =C2=A0
+> -struct ttm_lru_walk;
+> -
+> -/** struct ttm_lru_walk_ops - Operations for a LRU walk. */
+> -struct ttm_lru_walk_ops {
+> -	/**
+> -	 * process_bo - Process this bo.
+> -	 * @walk: struct ttm_lru_walk describing the walk.
+> -	 * @bo: A locked and referenced buffer object.
+> -	 *
+> -	 * Return: Negative error code on error, User-defined
+> positive value
+> -	 * (typically, but not always, size of the processed bo) on
+> success.
+> -	 * On success, the returned values are summed by the walk
+> and the
+> -	 * walk exits when its target is met.
+> -	 * 0 also indicates success, -EBUSY means this bo was
+> skipped.
+> -	 */
+> -	s64 (*process_bo)(struct ttm_lru_walk *walk, struct
+> ttm_buffer_object *bo);
+> -};
+> -
+> =C2=A0/**
+> =C2=A0 * struct ttm_lru_walk_arg - Common part for the variants of BO LRU
+> walk.
+> =C2=A0 */
+> @@ -223,8 +205,20 @@ struct ttm_lru_walk_arg {
+> =C2=A0 * struct ttm_lru_walk - Structure describing a LRU walk.
+> =C2=A0 */
+> =C2=A0struct ttm_lru_walk {
+> -	/** @ops: Pointer to the ops structure. */
+> -	const struct ttm_lru_walk_ops *ops;
+> +	/**
+> +	 * process_bo - Process this bo.
+> +	 * @walk: struct ttm_lru_walk describing the walk.
+> +	 * @bo: A locked and referenced buffer object.
+> +	 *
+> +	 * Return: Negative error code on error, User-defined
+> positive value
+> +	 * (typically, but not always, size of the processed bo) on
+> success.
+> +	 * On success, the returned values are summed by the walk
+> and the
+> +	 * walk exits when its target is met.
+> +	 * 0 also indicates success, -EBUSY means this bo was
+> skipped.
+> +	 */
+> +	s64 (*process_bo)(struct ttm_lru_walk *walk,
+> +			=C2=A0 struct ttm_buffer_object *bo);
+> +
+> =C2=A0	/** @arg: Common bo LRU walk arguments. */
+> =C2=A0	struct ttm_lru_walk_arg arg;
+> =C2=A0};
