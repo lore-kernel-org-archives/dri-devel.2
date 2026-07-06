@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9C6C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:32:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A9BAC43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:32:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55D9C10EA93;
-	Mon,  6 Jul 2026 19:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D46D10EA8F;
+	Mon,  6 Jul 2026 19:32:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="S94KRAQn";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Dxmodmfb";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35FA710EA8B
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:32:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 083ED10EA8F
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:32:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783366355;
- bh=swh/JeIMm9ReiTXix+vwRFJ6g6E243o3S3Lb9kHImP0=;
+ s=mail; t=1783366360;
+ bh=9plGv+lce7EtVXWIsCW46kOTvzURvxmyne5/JsliDBk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=S94KRAQnx+P/IMzPSi84I0nsyTi5dIUy7gVJe2rsiaLwlO87GiJPVX5jn4tE0gsAx
- A7LSep9DOuTCsd1s0c0Gt+1CSd3ZWXbkDePyYjY+onBTF9znFdFeGGfxIkwFJahAVi
- BQLkNRZwAO0BpqZWpUlJLxQdO5gm/WF07T/cwi6pgkB7FnkFaCjRh8V/yraubn5y67
- CK3DmnUVcIGJ24knWi+ysFTZWW1khx5GcQJvpl52F5DS3jlLOeaFJsrfGCVygQ+o1y
- d0BOzrEWwmX/ppXG/i8MNL8Kl5iyM91s4iEDscZafAzlG1jIp2G8sxbkug8Ol9b8yu
- kp0p6D9hyCwHA==
+ b=DxmodmfbVeSMoNZiy/NnbqGX3f2+T0mV/knMngcIb/aD7uuj4BHYuJxQdpZAwaicM
+ zlLcXracbYEDOF9zbemFeBlG5k20U9Kfq5OVE2ZwpTlIWrCnOj7GOchc1Gj8nhcWQP
+ xcNuKZXbtSRwkz6SjO1WdZTzhJtKQWJEgf8zWTjOD29NuuXS2IIPnPNDPhz/eE4ge6
+ EmbGHf3HOHkysKFxCaYWhdRpTVHqoyZTw4pot4I8Sr2IpnkQFPZVTZHfRCGzVK8udb
+ D7zpl3TWDRi6aZeJVnbzZvFi2wC2Odg4ZVmUMXm9LR2zJiXoFF7wpveW86gMMgjoJK
+ QuiWWYzYxtRNA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9CA5017E0DFB;
- Mon, 06 Jul 2026 21:32:35 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A1B0117E121E;
+ Mon, 06 Jul 2026 21:32:40 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 06 Jul 2026 22:32:15 +0300
-Subject: [PATCH v2 03/13] drm/rockchip: vop2: Balance state on
- atomic_enable error paths
+Date: Mon, 06 Jul 2026 22:32:22 +0300
+Subject: [PATCH v2 10/13] drm/bridge: dw-hdmi-qp: Log resolution and
+ refresh rate in atomic_enable()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-dw-hdmi-qp-yuv-v2-3-b91beb33dedf@collabora.com>
+Message-Id: <20260706-dw-hdmi-qp-yuv-v2-10-b91beb33dedf@collabora.com>
 References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -59,7 +59,7 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,139 +76,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vop2_crtc_atomic_enable() prepares vp->dclk and, for the first CRTC,
-calls vop2_enable(), incrementing the shared vop2->enable_count before
-programming VOP2 registers.  Two later failure points return early with
-only vop2_unlock(), leaking the dclk prepare, the enable_count
-increment, and the core clocks / PM runtime reference from
-vop2_enable().
+The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
+logged the mode field as the fixed 'HDMI' label, giving no information
+about the actual display timing being configured.
 
-Since the disable path decrements enable_count unconditionally, the
-leaked increment skews the count, causing an underflow or premature
-shutdown of core clocks and PM runtime while another CRTC is active.
+Extend it to also include the active resolution and refresh rate,
+retrieved from the CRTC mode in the incoming atomic state:
 
-Cleaning up on the enable error paths alone is insufficient, however.
-A CRTC whose atomic_enable() bailed is still committed as active, so
-vop2_crtc_atomic_disable() still runs its full teardown, releasing the
-same dclk prepare and enable_count a second time - underflowing both
-counts and, where vop2_enable() ran, touching VOP registers with core
-clocks gated.
+  dw_hdmi_qp_bridge_atomic_enable mode=HDMI:1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
 
-Fix this by reverting exactly what was set up on failure, and track the
-per-VP bring-up state so atomic_disable() skips teardown when
-atomic_enable() never completed.
+This makes the log line self-contained and directly useful when
+debugging mode-setting issues, format negotiation, or TMDS rate
+mismatches without having to cross-reference a separate mode dump.
 
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 34 +++++++++++++++++++++-------
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  6 +++++
- 2 files changed, 32 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index e11dc8c7f78b..c2328b35466d 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1033,6 +1033,9 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index cfd1b18c06e6..0e6142301791 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -752,6 +752,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ {
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 	struct drm_connector_state *conn_state;
++	const struct drm_display_mode *mode;
++	struct drm_crtc_state *crtc_state;
+ 	struct drm_connector *connector;
+ 	unsigned int op_mode;
  
- 	vop2_lock(vop2);
- 
-+	if (!vp->enabled)
-+		goto out_unlock;
-+
- 	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
- 	drm_atomic_helper_disable_planes_on_crtc(old_crtc_state, false);
- 
-@@ -1063,11 +1066,14 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
- 
- 	clk_disable_unprepare(vp->dclk);
- 
-+	vp->enabled = false;
-+
- 	vop2->enable_count--;
- 
- 	if (!vop2->enable_count)
- 		vop2_disable(vop2);
- 
-+out_unlock:
- 	vop2_unlock(vop2);
- 
- 	if (crtc->state->event && !crtc->state->active) {
-@@ -1803,8 +1809,11 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+@@ -764,9 +766,15 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
  		return;
- 	}
  
--	if (!vop2->enable_count)
--		vop2_enable(vop2);
-+	if (!vop2->enable_count) {
-+		ret = vop2_enable(vop2);
-+		if (ret)
-+			goto err_unprepare_dclk;
-+	}
- 
- 	vop2->enable_count++;
- 
-@@ -1831,10 +1840,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		clock = vop2->ops->setup_intf_mux(vp, rkencoder->crtc_endpoint_id, polflags);
- 	}
- 
--	if (!clock) {
--		vop2_unlock(vop2);
--		return;
--	}
-+	if (!clock)
-+		goto err_put_enable_count;
- 
- 	if (vcstate->output_mode == ROCKCHIP_OUT_MODE_AAAA &&
- 	    !(vp_data->feature & VOP2_VP_FEATURE_OUTPUT_10BIT))
-@@ -1852,8 +1859,7 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		default:
- 			drm_err(vop2->drm, "Unknown DRM_MODE_CONNECTOR %d\n",
- 				vcstate->output_type);
--			vop2_unlock(vop2);
--			return;
-+			goto err_put_enable_count;
- 		}
- 	else
- 		out_mode = vcstate->output_mode;
-@@ -1965,6 +1971,18 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	drm_crtc_vblank_on(crtc);
- 
-+	vp->enabled = true;
+ 	if (connector->display_info.is_hdmi) {
+-		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u\n", __func__,
++		crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
++		mode = &crtc_state->mode;
++		dev_dbg(hdmi->dev,
++			"%s mode=HDMI:%ux%u@%uHz fmt=%s rate=%llu bpc=%u\n",
++			__func__, mode->hdisplay, mode->vdisplay,
++			drm_mode_vrefresh(mode),
+ 			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
+ 			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc);
 +
-+	vop2_unlock(vop2);
-+
-+	return;
-+
-+err_put_enable_count:
-+	if (!--vop2->enable_count)
-+		vop2_disable(vop2);
-+
-+err_unprepare_dclk:
-+	clk_disable_unprepare(vp->dclk);
- 	vop2_unlock(vop2);
- }
- 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index ffcb39c130aa..b209b2d5b96d 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -243,6 +243,12 @@ struct vop2_video_port {
- 
- 	struct completion dsp_hold_completion;
- 
-+	/**
-+	 * @enabled: CRTC fully brought up by atomic_enable(); allows
-+	 * atomic_disable() to skip teardown after a failed enable.
-+	 */
-+	bool enabled;
-+
- 	/**
- 	 * @win_mask: Bitmask of windows attached to the video port;
- 	 */
+ 		op_mode = 0;
+ 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+ 	} else {
 
 -- 
 2.54.0
