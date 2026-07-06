@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D880CC44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E971C43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19B6610E798;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC2710E79A;
 	Mon,  6 Jul 2026 07:13:28 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7974110E769
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:43 +0000 (UTC)
-X-AuditID: a67dfc5b-c2dff70000001609-75-6a4b48fb3220
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4625710E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:46 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-0f-6a4b48fc473d
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
@@ -73,45 +73,45 @@ Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
  tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 02/40] dept: add single event dependency tracker APIs
-Date: Mon,  6 Jul 2026 15:18:50 +0900
-Message-Id: <20260706061928.66713-3-byungchul@sk.com>
+Subject: [PATCH v19 07/40] dept: distinguish each work from another
+Date: Mon,  6 Jul 2026 15:18:55 +0900
+Message-Id: <20260706061928.66713-8-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxbZRTHfe597ksb6m66t0eWOG0UcZEhZDPHZBI+7MMziUZjTBYXdTdw
- A2VQSGFsmKiwDmWw4SQR4wqkFimmZba22QvjZchmNwKN7STQ0TqYKAyhq3PYjRXEdrpvv5z/
- //xyPhyR1U5yqaLeUKkYDXKJjldjdSTFmrFC84pf9LWlQn3dxxCe+o2D8dpBDK3Obh6uThzB
- cC9uZqGuZw3DarNXgKXlkABB/0UWorbjCE7NmgWITPVyMBFbRBD3/cTC7yfPsDD2d5SHSKCV
- gdsuHtrMzQhmJ/sZMHU4eWhpc2Pomb4gQGBhhQGH+zWYss1iaPl+M5i/NDHwxeleBpZtdgFG
- O8IY1ixl4HXMCTB8Y5wD9/UfEbhnEvRVe5iHvv5hDPWrSwhqzPc48A+OcOCcCzIw4r2KIeT7
- TIDOiQADN6eDHHh8oyzEmrbA6dtWHq4NWhjwWjbBmYt1CD691ctDuOkPDGPXexEM1E8zcNl5
- LnFfAIO5tglB/eUYC647XTwcDe+EJYedz82lds9ZhtZdW+Vpd3s3ovEHzYgudZpYemkxytLO
- kUWefu7LoD2nfhHo0YFJgVrcB2lH3zxDJxdeoW77MZ5+Hb/F0obIGPPGM++odxUoJfoqxZiZ
- s19ddDfgZMtHyWHrDReuQZ71DUglEmkHiU3d4R+x3brGJZmXniPB4DKb5A3SU8RzYjYxV4us
- 9PNWctx2AieD9dIeEvU2oiRj6Vlyf/jSw2WNtJO4nE3/S7cSh2vwoUglvUS+W2ljkqxNdELR
- KzgpJVKHiji6/pMS6Qnyw7dBfBJpLOgxO9LqDVWlsr5kx/aiaoP+8Pb8slI3Snyc7cOVfefR
- X/63hpAkIl2KBnJfLdZyclVFdekQIiKr26BJS88r1moK5OoPFGPZ+8aDJUrFENoiYt1mTXbs
- UIFWKpQrlQOKUq4YH6WMqEqtQZX+c3I88qZ1Pqc7W1ZJppRdrdqRguB8l/7Y2dpfF3KyW3an
- vc2TGdNCzb777wYyQqbGwv79ez185kbNoUbb0w/eax+e25TPrJu/+dE6g7/h+aw/zVRM26v6
- J+vA49u+OZI1mjO9u3lPYXmflJcfDJWnk/RPyDgamLmb92Tm6y+/oMMVRXLWNtZYIf8LifH4
- F20DAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxScRTG+997+YMs2h1Z3upDja2XuWkvyzpbL6svddPVauttfSnKO0XR
- DMyy1RKNsrJSFrgCiyhZqQWBltYo09IMXRK9uNS0jSjTwqFQvqBBrS9nv3Oe5zw7H46AFNfy
- ZgtkmdmcIlMql2AhJdyyqiBujE1KWxIsmgWF6pPQ1ePhwXtVPQWB4UIKDJYqDCH9Qz4U2q7w
- 4OWHfAra71Ui6AkUIvg1pidBXTdJQUjTxIfhkU4+aFUIJh1NCHQuDQkd7U9JqKpWETBkncDQ
- 3+hHoP3swVDap6LAZy5CcNWr50Pfi43wo+cxDya7vxLwITiAwOyZIMBTfwZBSJcO10328Lpu
- EMNY22sSSrXtCG587ibB39eLoLrpEwLH7XwMX4prSHB7psHbgA9Di/Y8hh8uAwE/rRiM+Q4e
- uFr7EZTpNQi8Hx0EFNy0YNCV2Sio633EB1f/OAFdOg0BlbbN0GP2UuAsNhHhc8Ou+zGgLy0g
- wuUbAdq7jwkYMVfw15Uj9pf6IsVW2B8QrPpNCLNV16oQOzaqQexweQHJqovDbeOAj2RP2Y+w
- 5c4BzI4G3mHWETRS7CsTw946O0qwJW1xbN3Vbv7W9XuEq5M5uSyHUyxeu0+YOuSykFmtzFHT
- JyuVh+zTz6EoAUMvZypMk7wIY3oh09ExQkY4mp7H2C94w3OhgKTdc5ki8wUqIkynNzG+pvMo
- whQ9n/nd0vh3WUQnMFbLRfwvdC5Taa3/GxRFr2DujZcRERaHPZ2+ZqoYCY1oSgWKlmXmZEhl
- 8oR4ZXpqbqbsaPyBgxk2FP4n84nxklo07N7YgGgBkkwVwbrENDFPmqPMzWhAjICURIsWLEpK
- E4uSpbnHOMXBvYrDck7ZgOYIKEmMKHEXt09Mp0izuXSOy+IU/1VCEDU7D3Xaj89KnrdXbV05
- Ur2+y/lkPJCVYnoR2BlcozXGv1dZyiZmHLlksGVf2e3/vv1pL13y3Hi5xXnYPbNX5RxKEnkH
- WxubkXzwWTA2b7Vkx6PEUMPrmQr/0il32uI2ZONLK7OWSbfXusUPa1TfmjNU+22n6wwf/R0J
- WsO2E19wzKEJCaVMlS6NJRVK6R9hxjY0SwMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxTZxTHee7Lc28rzW4uhF3rCLMpuml0uKA5UbeR7cNubJaYsGTJ+IA3
+ cjOKULAoA6MJvoDKoJqx0imiFbpSebFaQpwKWlujgs6gg9qhLmBM1bRQrbTIm1vB+OXkl5z/
+ /5fz4bAkP0yrWb1hh2w0SIUarKSUY4nNq96KuoKM8VoF+Pa6KTjh7MAw13iBgcmZRhImph4y
+ 4B+4SkLQG0FgHn2KIWyvRfAgFkJwqrkLQ7DhJYZexz4Mg9EwBuu+XhoCw70E7G9xYrg4comB
+ e8FZAtpd30Gj5TkB5s7LBEzZ2xiwV6bDE8dxBv6zFsPjI2YK+v710RAM/Bo3Dq+E09U2Co6d
+ fIShp7ePggH3bRr+eHCPgNERPw0x0xLoHG+OXxCzk/CPJRQXRsMMOF5Z4hcMVRNww5oCZ061
+ Iui+WoUgYotRcLPOTcDB55cxVNvOE3DdeYEAZ8BLgqvDh8EbDRFQf9+KoX+6n4BI01sazLOH
+ MDTuNSH4paqBgpk3JzCY7n4LTRNroHPOh7KyxI6THUisOhof3lCYFKejQ1i8ePwxI1pdO8Uu
+ xwqxpecFIZ6ORGlxOPiF6Go7jMWasUFCvPX7DCV6vIeQ+HTQEk9UmsnN6h+VG/PkQn2ZbPzs
+ yy3K/IG/rhAl40y5vaEdVaIeXIMUrMBlCnfdbuo937pjI+cZc8sFv39qgZO5j4WuugBdg5Qs
+ yf2dJtTa6xYKSdw3woSlHs0zxaULr/pNTA1iWRW3Vpi4Lr1zpgnt59wLHgW3Tjg720TMMx+P
+ PAzfpOadAudUCE5vN/OusFi45vBTR5HKihLaEK83lBVJ+sLM1fkVBn356q3FRS4U/zj7ntmc
+ P1FkINuDOBZpElWQtamAp6Wy0ooiDxJYUpOsWvaJroBX5UkVu2Rjca5xZ6Fc6kFLWErzoerz
+ 2M95PPeTtEPeJsslsvH9lmAV6kq0SFt/INvBrtu1J6c6HUlJWa0j2q5UNa/UDoZ0gSOfrv++
+ xCBd2t0SS1Qv3c56Et6YJm2bV2aM0qGP2lLngknGoZwPZvZneFN9409SrvxWlXDjNZ+my+3T
+ LkXJuc82LP7qdYLOOpk5vSX/B+22lPLsM0mPuGWid+zsNP91a7ddpaFK86U1K0hjqfQ/ZF7q
+ W20DAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSfUxTZxTGfd97e++lWnPXYbxBE02NbnMRNYo5U+NH9odvdCpLluwrRm/g
+ brTlQ1tEIVEppRFRDHZpiRaUMWkcLVCBqQwriIoINoKooIjVrFYJSBULBmjFotk/J7+T5zlP
+ nj8ORykvymI4dWq6pEsVk1WMnJZvW2NcEiJbNMuG8mMhz3QIHnt9MnhgaKJhJJhHQ3G1k4Gw
+ 7SILeTUnZdDanUNDR5UDgXckD8G7CRsFpvpJGsLmFhaCY70sWAwIJt0tCKydZgp6OhopcNYZ
+ MLx1vWdg4NowAsszHwNF/QYaAvZjCE75bSz039gEr7wNMpjse4Ghe3QQgd33HoOv6TCCsFUL
+ Z8pqI+fW1wxMeO5QUGTpQPDnsz4KhvufIqhreYLAfS6HgeeF/1DQ5ZsJ90YCDNyyHGXgVWcx
+ hiEXA6U5bhl03h5AUGIzI/A/cmMw/lXNgLWkhob6p/+y0DkQwvDYasbgqNkKXrufhvbCMhyp
+ G3Gdnw22IiOOjJcYLJUNGMbsFeyGckTemY7TpKL2Aiamu2GGOE87EZkYNyMSLDdSxFQYWa8N
+ BiiSW7uPlLcPMmR85D5D3KOlNGkrE8jZI+OYnPAsIfWn+tj4jb/I1yZKyeoMSbd03S55Uofn
+ Ct49xO63Wx0oG11m8lEUJ/ArhdbbZ6kpZvgvhJ6esY8czc8Xagv8snwk5yi+a55wzF5ATwmf
+ 898KwaI/0BTT/ELhTdtxNh9xnIKPE4LXxU+Z8wSHq+ljThS/SqgKleApVkYsvYGbdCGSl6Jp
+ FShanZqRIqqT42L12qTMVPX+2IS0lBoUeSf7gdCJSyjYtakZ8RxSzVDAhs0apUzM0GemNCOB
+ o1TRikVfbtEoFYliZpakS9up25ss6ZvRHI5WzVZs/lHapeR/F9MlrSTtlnT/q5iLislGXy/P
+ GcYrNLb4aTOSpv902Xl41rnWhIWDXd+8ERu1e7Pky67kan0FcRqq0pIQl0gMM3XsD59djakU
+ XLq5P3sOVtfVuxcvSsu+ef370HfFroZ4e/XYDa9nh7p7j+O3r7q3Z+WuzrjayK33BdJH/W29
+ Z249/G/BTu2v8j1V4QNrje3Rf6tofZK4fDGl04sfAI6fsMZKAwAA
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -129,111 +129,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Wrapped the base APIs for easier annotation on wait and event.  Start
-with supporting waiters on each single event.  More general support for
-multiple events is a future work.  Do more when the need arises.
+Workqueue already provides concurrency control.  By that, any wait in a
+work doesn't prevents events in other works with the control enabled.
+Thus, each work would better be considered a different context.
 
-How to annotate:
-
-1. Initaialize a map for the interesting wait.
-
-   /*
-    * Place along with the wait instance.
-    */
-   struct dept_map my_wait;
-
-   /*
-    * Place in the initialization code.
-    */
-   sdt_map_init(&my_wait);
-
-2. Place the following at the wait code.
-
-   sdt_wait(&my_wait);
-
-3. Place the following at the event code.
-
-   sdt_event(&my_wait);
-
-That's it!
+So let dept assign a different context id to each work.
 
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- include/linux/dept_sdt.h | 65 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 include/linux/dept_sdt.h
+ kernel/workqueue.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/dept_sdt.h b/include/linux/dept_sdt.h
-new file mode 100644
-index 000000000000..0535f763b21b
---- /dev/null
-+++ b/include/linux/dept_sdt.h
-@@ -0,0 +1,65 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Single-event Dependency Tracker
-+ *
-+ * Started by Byungchul Park <max.byungchul.park@gmail.com>:
-+ *
-+ *  Copyright (c) 2020 LG Electronics, Inc., Byungchul Park
-+ *  Copyright (c) 2024 SK hynix, Inc., Byungchul Park
-+ */
-+
-+#ifndef __LINUX_DEPT_SDT_H
-+#define __LINUX_DEPT_SDT_H
-+
-+#include <linux/kernel.h>
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index c6ea96d5b716..4a4075d0697c 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -55,6 +55,7 @@
+ #include <linux/kvm_para.h>
+ #include <linux/delay.h>
+ #include <linux/irq_work.h>
 +#include <linux/dept.h>
+ 
+ #include "workqueue_internal.h"
+ 
+@@ -3204,6 +3205,8 @@ __acquires(&pool->lock)
+ 
+ 	lockdep_copy_map(&lockdep_map, &work->lockdep_map);
+ #endif
++	dept_update_cxt();
 +
-+#ifdef CONFIG_DEPT
-+#define sdt_map_init(m)							\
-+	do {								\
-+		static struct dept_key __key;				\
-+		dept_map_init(m, &__key, 0, #m);			\
-+	} while (0)
-+
-+#define sdt_map_init_key(m, k)		dept_map_init(m, k, 0, #m)
-+
-+#define sdt_wait(m)							\
-+	do {								\
-+		dept_request_event(m);					\
-+		dept_wait(m, 1UL, _THIS_IP_, __func__, 0);		\
-+	} while (0)
-+
-+/*
-+ * sdt_might_sleep() and its family will be committed in __schedule()
-+ * when it actually gets to __schedule(). Both dept_request_event() and
-+ * dept_wait() will be performed on the commit.
-+ */
-+
-+/*
-+ * Use the code location as the class key if an explicit map is not used.
-+ */
-+#define sdt_might_sleep_start(m)					\
-+	do {								\
-+		struct dept_map *__m = m;				\
-+		static struct dept_key __key;				\
-+		dept_stage_wait(__m, __m ? NULL : &__key, _THIS_IP_, __func__);\
-+	} while (0)
-+
-+#define sdt_might_sleep_end()		dept_clean_stage()
-+
-+#define sdt_ecxt_enter(m)		dept_ecxt_enter(m, 1UL, _THIS_IP_, "start", "event", 0)
-+#define sdt_event(m)			dept_event(m, 1UL, _THIS_IP_, __func__)
-+#define sdt_ecxt_exit(m)		dept_ecxt_exit(m, 1UL, _THIS_IP_)
-+#define sdt_request_event(m)		dept_request_event(m)
-+#else /* !CONFIG_DEPT */
-+#define sdt_map_init(m)			do { } while (0)
-+#define sdt_map_init_key(m, k)		do { (void)(k); } while (0)
-+#define sdt_wait(m)			do { } while (0)
-+#define sdt_might_sleep_start(m)	do { } while (0)
-+#define sdt_might_sleep_end()		do { } while (0)
-+#define sdt_ecxt_enter(m)		do { } while (0)
-+#define sdt_event(m)			do { } while (0)
-+#define sdt_ecxt_exit(m)		do { } while (0)
-+#define sdt_request_event(m)		do { } while (0)
-+#endif
-+#endif /* __LINUX_DEPT_SDT_H */
+ 	/* ensure we're on the correct CPU */
+ 	WARN_ON_ONCE(!(pool->flags & POOL_DISASSOCIATED) &&
+ 		     raw_smp_processor_id() != pool->cpu);
 -- 
 2.17.1
 
