@@ -4,55 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D648C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:27:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B17AAC43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D37D910E34E;
-	Mon,  6 Jul 2026 12:27:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2E1886A4;
+	Mon,  6 Jul 2026 12:31:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AMWE4v6L";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="oEkKybDz";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81A510E34E
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:27:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yv+3Se6Ry52Y90BPie/lrSR5SXEj2DMLidHFu1iA6SY=; b=AMWE4v6LuwrSZKR0VIESNXOn/1
- ovNxodnPFillU9Js4NmaqeAWnjpJBHyats8F1mjCBsRaN2MeQQDBBv0Kj1NQZr6h0Yn+gSdxN9DWf
- lru3IH98UWApmOuOTcfK5vuCHACoGECvz4ORc7z7OmrAAV2YWcdDxEm8FIIV5FCPtoiiQXtCAXxP3
- S0ElbNKBGP42Rl7ytv0rpg8fUIsRsKhWCurO5bsMl3QhImAWEn46F0av+/btDkHnjRIJkL+nDDE3I
- PTFyqAWPMyQMTFdau5wqz1ifKf05dUgx8ijJfIHnht/WdtboRfRtpA267ajmGoxf+kpz6csV/IP+Q
- +4eb2RQw==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wgiQN-009jN3-Iv; Mon, 06 Jul 2026 14:27:47 +0200
-Message-ID: <e15d223d-21d8-42f1-a37b-52f515d1e86f@igalia.com>
-Date: Mon, 6 Jul 2026 13:27:46 +0100
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC7A810E16D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:31:28 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-92e5cb052edso217849985a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 05:31:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1783341088; x=1783945888; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=GCAkWMdkF5ipjGr4p830BCh9C6481Wk1fl4Ld4QNg9g=;
+ b=oEkKybDzQrQLUdJkh3m+bEIyZm3NpHoJnH7KtbTcefVzcuVOPWptPDCWcNTBIq97kw
+ y3q5gr+rOF4JXKg9fjsEujHxq1HxunONto8DcYIw2FvDYh2LCRBGAl/1AeZ2S/UOxexZ
+ ufXT42JHKZnhLVBsZCyvpkm8+nrM9JaoKSfi2vcgI4Zl89WNzXmaCgLYIdzgfZLOdrsg
+ dMhogEfIjhUbRkHR8j3WhD/qHc/2Gy+hv9ELbnCH/qnbB837z+A2AOOLJFd6FVfiv9Cb
+ j/O177Br8R1lJEU9qFEqDpQ+8xXmdNYfEC/hv090cyQgcH05lj1oAVMFBA8q0JpK/COE
+ yU1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783341088; x=1783945888;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=GCAkWMdkF5ipjGr4p830BCh9C6481Wk1fl4Ld4QNg9g=;
+ b=lHayDShgcg7TqMrmKcUQ7PxPrUMwZuxPSzMe7xqFHHUDBKl3wZYtTtZaA1B4dwnv6B
+ V4aQtQUoIslyPDm1WnI985pFEPVW7/HKYazC7XIsX13fOWHa8Hty/sZu6QoOWThkHXeW
+ To6ia/6rW+rEioEg+H2HfSQzbbAUpeKfk2fypo77EXpbqoQZwRgCx7kbLlGylJhirTwR
+ YxlBanYyhEbGS/a7r9RnKmcCKz9Se5o04izpSKq3n4NRziPjUNx1NIxeh82/W9wC4TsR
+ 1FT/YTxDyCxQpqflFDUxtMvbolMtBu3mnyfJ1KQKVK+AgEp2U23vxaILSMie9nMBos30
+ 5cwQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr+9LhUwlwOFfjXl46SioxsoEttSCmSiAY0NnbI7omjCYKIJwETy/ft05Y+BbqwTP3RZ17i+PeSeEY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPCcLovlHsvIv7Kmnrcq/jQ3nZPgXoWzYIYriQRlMEHA7ck9a5
+ Kl6TNZ3N4zFyHIDpJrRW1XHX6Ygg4ib6U5wcuSNlj6VXCAqdA75taDlVNGjG04schC8=
+X-Gm-Gg: AfdE7cnaqAu8nvIl0ae2QkEvXlpOJ90sx319tJAQflNRKyAEkVh+qdZt5ivltzdVUuK
+ Kcsdq0wgeDsncmDw+FwPpkhHD0QMsQWWWoFpn1ndKxyNHI+xRHdzzrg5BjrlXuzOmZ5fxryTnp9
+ 8cmA6Q7rJEn0meTPVqHZUdcIeWADEaVzoyY6DOgNuH1zIIKuKr4olvKMoHF3B/12D9JSVTMX9pd
+ oC5sjncgBqebSdXo/U7yvboT+SU6BDh8HgipJjc+rAA6Pc3fLbDX74qXSE7+VcRpZ4WV0lDlCA4
+ 6atV9m8nUlVh/zF5hfD7Y5InOw/eIgVfovYYnFm9mPi93T2RJPxZgIQu8ZmNNC8ROxd5Irx7OJi
+ DhvzU2LnyMBhOQBFOr39ZYrJlkb1hYKbfMM+d9uQuZ6BCDtjWud+YDTa1G7hS
+X-Received: by 2002:a05:620a:618e:b0:916:10f6:780f with SMTP id
+ af79cd13be357-92ebb5665f8mr45100485a.27.1783341087397; 
+ Mon, 06 Jul 2026 05:31:27 -0700 (PDT)
+Received: from ziepe.ca ([159.2.72.92]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-92e90cbe3e2sm918463385a.35.2026.07.06.05.31.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jul 2026 05:31:26 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wgiTt-00000000Sbw-383D;
+ Mon, 06 Jul 2026 09:31:25 -0300
+Date: Mon, 6 Jul 2026 09:31:25 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+ Andi Shyti <andi.shyti@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
+Message-ID: <20260706123125.GA107792@ziepe.ca>
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-4-krzysztof.karas@intel.com>
+ <20260703162236.GX7525@ziepe.ca>
+ <90558ba3-44e6-4d5e-9c72-ed8817d372be@arm.com>
+ <20260703203502.GC1978949@ziepe.ca>
+ <utb5awup2vypdhtcxk3vlczwrqbl3ypae6ftbwrlrkdqfnk4ft@aurl5kme27ac>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 4/8] drm/xe: Convert to per gt scheduler workers
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
- Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <20260702143745.79293-5-tvrtko.ursulin@igalia.com>
- <akd7iFDLUgwhj6+H@gsse-cloud1.jf.intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <akd7iFDLUgwhj6+H@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <utb5awup2vypdhtcxk3vlczwrqbl3ypae6ftbwrlrkdqfnk4ft@aurl5kme27ac>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,121 +101,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Jul 06, 2026 at 07:43:14AM +0000, Krzysztof Karas wrote:
 
+> > I agree we shouldn't overcomplicate iommu_dma_map_sg(), so the
+> > simplest fix is to introduce a SG_MAX_LENGTH set to UINT_MAX/2,
+> > justified by the logic in iommu_dma_map_sg(). Fixup the core sg_alloc
+> > code to respect that. WARN_ON in iommu_dma_map_sg() if a malformed
+> > scatterlist entry is presented. Add a WARN_ON under DMA debugging
+> > kconfig as well for the physical path.
+>
+> So instead of addressing this in iommu, we should focus on
+> guarding in sg logic to prevent the overflows? 
 
-On 03/07/2026 10:06, Matthew Brost wrote:
-> On Thu, Jul 02, 2026 at 03:37:41PM +0100, Tvrtko Ursulin wrote:
->> As the submission side of xe is serialized by the global GuC CT lock, we
->> can easily afford to create our own per gt work queues. Whereas before
->> kernel could create up to the number of CPUs threads, we now create one
->> per GT.
->>
-> 
-> This breaks down for any execution queue that waits in a scheduler work
-> item for any reason. Long-running preemption queues do this for
-> time-slicing, multi-queue registration, and possibly a few other cases.
-> 
-> I've looked at this before and rough divide is this works for 3D but not
-> long running.
+You should focus on creating valid scatterlists..
 
-Hmmm curious. Could you expand a bit more on this?
+> Or would you rather have this as additional, separate fix placed in
+> this series?
 
-Where do those wait, in run job or prepare job? And on what ie. where is 
-the cross-dependency?
+I think this patch should be changed to check the length and
+WARN_ON. It is a kernel bug to pass a malformed scatterlist.
 
-Is it related to the alien work items xe "injects" onto the scheduler 
-workers?
+You'll need other patches before this to not create illegal SGs in
+whatever mapping path you are using.
 
-Regards,
-
-Tvrtko
-
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
->> ---
->>   drivers/gpu/drm/xe/xe_gt.c         |  7 +++++++
->>   drivers/gpu/drm/xe/xe_gt_types.h   |  3 +++
->>   drivers/gpu/drm/xe/xe_guc_submit.c | 11 +++++++----
->>   3 files changed, 17 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
->> index 783eb6d631b5..fb2db9eff341 100644
->> --- a/drivers/gpu/drm/xe/xe_gt.c
->> +++ b/drivers/gpu/drm/xe/xe_gt.c
->> @@ -706,6 +706,8 @@ static void xe_gt_fini(void *arg)
->>   	for (i = 0; i < XE_ENGINE_CLASS_MAX; ++i)
->>   		xe_hw_fence_irq_finish(&gt->fence_irq[i]);
->>   
->> +	destroy_workqueue(gt->submit_wq);
->> +
->>   	xe_gt_disable_host_l2_vram(gt);
->>   }
->>   
->> @@ -716,6 +718,11 @@ int xe_gt_init(struct xe_gt *gt)
->>   
->>   	INIT_WORK(&gt->reset.worker, gt_reset_worker);
->>   
->> +	gt->submit_wq = alloc_ordered_workqueue("xe-submit-gt%u",
->> +						WQ_MEM_RECLAIM, gt->info.id);
->> +	if (IS_ERR(gt->submit_wq))
->> +		return PTR_ERR(gt->submit_wq);
->> +
->>   	for (i = 0; i < XE_ENGINE_CLASS_MAX; ++i) {
->>   		gt->ring_ops[i] = xe_ring_ops_get(gt, i);
->>   		xe_hw_fence_irq_init(&gt->fence_irq[i]);
->> diff --git a/drivers/gpu/drm/xe/xe_gt_types.h b/drivers/gpu/drm/xe/xe_gt_types.h
->> index e5588c88800a..175c42672546 100644
->> --- a/drivers/gpu/drm/xe/xe_gt_types.h
->> +++ b/drivers/gpu/drm/xe/xe_gt_types.h
->> @@ -248,6 +248,9 @@ struct xe_gt {
->>   	/** @exec_queue_ops: submission backend exec queue operations */
->>   	const struct xe_exec_queue_ops *exec_queue_ops;
->>   
->> +	/** @submit_wq: ... */
->> +	struct workqueue_struct *submit_wq;
->> +
->>   	/**
->>   	 * @ring_ops: ring operations for this hw engine (1 per engine class)
->>   	 */
->> diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
->> index 9458bf477fa6..858f84dc8fed 100644
->> --- a/drivers/gpu/drm/xe/xe_guc_submit.c
->> +++ b/drivers/gpu/drm/xe/xe_guc_submit.c
->> @@ -1928,11 +1928,12 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
->>   	struct xe_gpu_scheduler *sched;
->>   	struct xe_guc *guc = exec_queue_to_guc(q);
->>   	struct workqueue_struct *submit_wq = NULL;
->> +	struct xe_gt *gt = guc_to_gt(guc);
->>   	struct xe_guc_exec_queue *ge;
->>   	long timeout;
->>   	int err, i;
->>   
->> -	xe_gt_assert(guc_to_gt(guc), xe_device_uc_enabled(guc_to_xe(guc)));
->> +	xe_gt_assert(gt, xe_device_uc_enabled(guc_to_xe(guc)));
->>   
->>   	ge = kzalloc_obj(*ge);
->>   	if (!ge)
->> @@ -1964,12 +1965,14 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
->>   		struct xe_exec_queue *primary = xe_exec_queue_multi_queue_primary(q);
->>   
->>   		submit_wq = primary->guc->sched.base.submit_wq;
->> +	} else {
->> +		submit_wq = gt->submit_wq;
->>   	}
->>   
->>   	err = xe_sched_init(&ge->sched, &drm_sched_ops, &xe_sched_ops,
->> -			    submit_wq, xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES, 64,
->> -			    timeout, guc_to_gt(guc)->ordered_wq, NULL,
->> -			    q->name, gt_to_xe(q->gt)->drm.dev);
->> +			    submit_wq, xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES,
->> +			    64, timeout, gt->ordered_wq, NULL, q->name,
->> +			    gt_to_xe(gt)->drm.dev);
->>   	if (err)
->>   		goto err_release_id;
->>   
->> -- 
->> 2.54.0
->>
-
+Jason
