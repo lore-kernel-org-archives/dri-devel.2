@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F1C3C4450B
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2F07C44506
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D24D710EA8C;
-	Mon,  6 Jul 2026 19:32:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F03010EA98;
+	Mon,  6 Jul 2026 19:32:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jnMsm69V";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Peg9l/Pj";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2F810EA8B
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:32:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 561CB10EA8F
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:32:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783366357;
- bh=zMBYRaRoQJnKqbdcj05z8J8o+OQwvVftsJADyrxmgC8=;
+ s=mail; t=1783366360;
+ bh=ennCyVdUhS656w6m37dKN81VWP9UAna9bWqoj9qDZPY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jnMsm69Vze24MsCwHs1W+sWKiI2imYanl0xl0baVC56Sn3pEfxHMHIopmhs+yq4TH
- b4cD3L4KossR+flWNWUA/b7WighYyuzpgv4t4t3Y8zXXfMKL6PzjK2uByHEfiFHVTx
- WtR7/zVJLFLAlhkoTJ5SBUFyha0myfaC5qy6UdHkIk4Fqqu1iELQ6rIZadp6f8wveW
- +y9VOuRAd2+MPixiQvvLBqYci18PztJRoPMyIyc3SXcGFMd0qliOwhYbTM0XOQTCgz
- Tj8tkz0cBjinUbihVWo+kROORgbi3opnpRDeYQ7ql+SKH0Yq3Ze+BEfn4XuG2SwfgL
- /unQBW6IwbiHQ==
+ b=Peg9l/PjJmAKXZOJ347YBpnbCjMlCBQBEUIyyqDylOACnrwL7SUKHCLuiymYYuQAz
+ pY4WudXYX8e4+fgRYtWE/P8quFFVeUaeKB0G29GGlZFqXTa3ul3N1cab6o6F01wKH3
+ UOqtr5/ZbKqO8K5FzNZTukkTBAQF4YloeKBbmyB+tHrjAbO8X6PgNU8lioYkSKZjHe
+ GEZyWmJmkUeYZce6/q60ceKfK4LTBbGeCjeNY68DkZTXFrBDD4v9EiP5oxv2Zw4yOO
+ Uxh7MFrkICPBOYuDnkrLbi4i3a/tr2e4jzS5RDiIEqSD19axEfPa/kEc5Q2FhnaQe4
+ ZxZTjPQQbMJDQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1100817E0432;
- Mon, 06 Jul 2026 21:32:37 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E13E717E1078;
+ Mon, 06 Jul 2026 21:32:39 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 06 Jul 2026 22:32:17 +0300
-Subject: [PATCH v2 05/13] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
- overflow on 32-bit
+Date: Mon, 06 Jul 2026 22:32:21 +0300
+Subject: [PATCH v2 09/13] drm/rockchip: vop2: Switch to enum vop_csc_format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-dw-hdmi-qp-yuv-v2-5-b91beb33dedf@collabora.com>
+Message-Id: <20260706-dw-hdmi-qp-yuv-v2-9-b91beb33dedf@collabora.com>
 References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -59,7 +58,7 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,48 +75,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-VOP2_MAX_DCLK_RATE is defined as an unsigned long and is used scaled by
-the color-depth ratio when computing the maximum DCLK the HDMI PHY PLL
-can source.
+Improve code readability in vop2_setup_csc_mode() by using enum
+vop_csc_format for the csc_mode variable, as well as for the return type
+of the vop2_convert_csc_mode() helper, which already returns CSC_*
+enumerators.
 
-On architectures where unsigned long is 32-bit, VOP2_MAX_DCLK_RATE * 8
-is evaluated in 32-bit arithmetic and overflows: 4800000000 wraps to
-505032704 before it is promoted to the 64-bit argument of
-DIV_ROUND_CLOSEST_ULL().  At 8 bpc this collapses max_dclk from the
-intended 600 MHz down to roughly 63 MHz.
+While at it, replace the nonsensical 'csc_mode = false' assignment in
+the no-conversion branch with the equivalent CSC_BT601L, which carries
+the same value (0) but is type-correct.
 
-As a result, low-resolution modes (e.g. 640x480 or 720x480, whose pixel
-clocks are well under 30 MHz) still pass the clock <= max_dclk check and
-are reparented to the HDMI PHY PLL as expected, but higher-resolution
-modes such as 1280x720 (~74 MHz), 1920x1080 (~148 MHz) and above are
-wrongly rejected and fall back to the system CRU as the DCLK source.
-
-Define the constant as unsigned long long so that every expression using
-it is evaluated in 64-bit arithmetic, independent of the width of
-unsigned long.  This future-proofs any additional users of the macro as
-well.
-
-Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index e966c0a0266e..0799eb0dd29f 100644
+index 718603e18da8..e7724016a0c8 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -102,7 +102,7 @@ enum vop2_afbc_format {
- 	VOP2_AFBC_FMT_INVALID = -1,
- };
+@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
+ 	}
+ }
  
--#define VOP2_MAX_DCLK_RATE		600000000UL
-+#define VOP2_MAX_DCLK_RATE		600000000ULL
+-static int vop2_convert_csc_mode(int csc_mode)
++static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
+ {
+ 	switch (csc_mode) {
+ 	case V4L2_COLORSPACE_SMPTE170M:
+@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	int input_csc = V4L2_COLORSPACE_DEFAULT;
+ 	int output_csc = vcstate->color_space;
+ 	bool r2y_en, y2r_en;
+-	int csc_mode;
++	enum vop_csc_format csc_mode;
  
- /*
-  * bus-format types.
+ 	if (is_input_yuv && !is_output_yuv) {
+ 		y2r_en = true;
+@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	} else {
+ 		y2r_en = false;
+ 		r2y_en = false;
+-		csc_mode = false;
++		csc_mode = CSC_BT601L;
+ 	}
+ 
+ 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
 
 -- 
 2.54.0
