@@ -4,69 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D34C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:34:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9207C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:34:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB5B48992E;
-	Mon,  6 Jul 2026 12:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 123FD10E65F;
+	Mon,  6 Jul 2026 12:34:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bPJVyIhY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FtEQJYii";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A04BE8992E;
- Mon,  6 Jul 2026 12:34:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783341282; x=1814877282;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=AjdEjDtBFbvjvVxJoJ5SlDaBQB688NDaizFmhEW3Nis=;
- b=bPJVyIhYo50iFYH6wqToOl1y23voNs92Plwhrr9x3CvgiGnUYyflHATa
- iA3CDFNFsdGBIa00AeQhW1KwISmZSsjg5qp7+bjvy/j+94atazerZVTm3
- lPTmMEpFtSsew0ZoG3E0XM4nqIvEefn+O8dik6q0DLYmGMx1f4Ax4mhYu
- Dz0ZYpQKN9722f8AkWpA1br1qhhmN0XlMu4qy2wdcXIbfJ/oVmlOzUMJG
- ebjcNIpvu1lzvIhuKaLP+k2ZZlgi71AZXCHa66WhsXN8peN8iFQqGudeq
- Tzx86UQ/C8QJDZf2+98Xf8Znn27DWs9ZbpU8Nh44waNuk9NliluMSXMKP Q==;
-X-CSE-ConnectionGUID: ScrV74j9Syic1+hpJ7LmKw==
-X-CSE-MsgGUID: xEFcI8ctRFKT6raGlGU7og==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="94577997"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="94577997"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 05:34:41 -0700
-X-CSE-ConnectionGUID: U4nwPfDJRziJpg6YmuuCcQ==
-X-CSE-MsgGUID: fPhyb6icQpe9KQjbrpTEQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="253805642"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.132])
- ([10.245.244.132])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 05:34:36 -0700
-Message-ID: <247fece24913008be6d42ab0b6f19da1cb95abe1.camel@linux.intel.com>
-Subject: Re: [PATCH 03/10] drm/ttm: remove ttm_lru_walk_ops
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Christian Koenig	
- <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
- <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Alex
- Deucher	 <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Date: Mon, 06 Jul 2026 14:34:13 +0200
-In-Reply-To: <20260703-ttm_2_drm_exec-v1-3-43685ac1286b@gmx.de>
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-3-43685ac1286b@gmx.de>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEA510E16D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:34:42 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-698bf053053so4294569a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 05:34:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783341281; x=1783946081; darn=lists.freedesktop.org;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=x9DuFiLJFQhXF47fb9omkU+r2KlD4K7BS2Tl2g+RiHE=;
+ b=FtEQJYiizEiFTlUJyxnNkxoFliQyIJvYWy/tfWwFqcgb5SuD/2E9fbOVtZ1dGbTg3E
+ 1qsVcXQV505l5oGPadGDzLi9zWIbrzUf8l02QBuQ6HmPRbHhtleTkjGziuVsrpqg0FkC
+ heBYqZHe1m/RZK9L01qvHueG/+96amXvna7aegHOgG1J8EPXaOHXw48rj4o1IhbhrM0z
+ CLq7EjF3CFRYawlq/709J3y9kMfZyM/UelGb/U53qol3B9ASKM8Uj9QiOHCcvM/nZVDe
+ znCS2Rzz7pRHHuAdbB22MK8fa9WokfmAe8zOxY1wCrJjGte4tDfB6wRak8m+HgBPILyX
+ NfDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783341281; x=1783946081;
+ h=in-reply-to:references:cc:to:from:subject:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=x9DuFiLJFQhXF47fb9omkU+r2KlD4K7BS2Tl2g+RiHE=;
+ b=KtHiun1npnWyKkWl0XtnQIoEPZ/YmlEGV7+zXtfasXH/o1SyUeINpGD3PdvZxDfcTP
+ R3XhwWFwH2r25hglxQDUWwMdi82Ty8VBhC7voAV2zTGyFIHoUYwp34+Tz2Vjyp371i0F
+ vkCd7sexKq8cYpsObyOTElkR0ebAUsvaxyPtzSVUxqbtpQX5F+AHyBChducGaNiecUmm
+ ixz3ELB+Z2ycwJUgXD40E/mGUCkfKYLwdcsXcDPdbeAn5Tdafm8WRrtvzUbjCLPLc1kz
+ 1i/BIIAMq/eS+HZ/yOsgDp4zxuroSywvvIWWohilcx1beaQox5Tb9nNkN5pj8TbYAMK3
+ WWtA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp80l9a0rMUo/1BU+6+8TRZvilWtJCrOq9rJ8jEaLTZrkTpZxzS/S69ulNepnkOo0GYlR2JeH2VV7I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzivtpQJ/y+8yZ+QfB6f0hETr8E1zFoa4/5H3ZzTNp6AsmWKrd5
+ zQM4X2NV3uvQr2h0m2JNrCfJh8t7njYDG/ENiopAkXfOEE6isO4D7og=
+X-Gm-Gg: AfdE7cmxtsIFuoVSTPE1C2UXwWxPlaZitACb1rrWFUiivxiy0K5rT1PvXizUArdYE1e
+ ssxrchGP4ZRDKLtyaoxUGDbH8gkJMD28OdFNGQR11gWBsCwX7ldRgLVYgkuiEG/2OtXs8nGdVVL
+ rZs0lYtEL73zgGmdtHrIiXkI/XDUJ34mEJ3zKdSnWIwICsTexzhwD0MaUMNAEUrBWOBs1OpoRN5
+ VAdJg5iIaqWzcA1nJYCKsSzwaotLMQPBMWHqPNOEabvWStZq/0gdaVeRoPCqM4QTzV3ggJDV4Ql
+ 778jKBV9pKJlTCmW71bb5A85ihx4k3h3HaP6BAnwZ6HG7oOLaF6BDqR2vqCSlf+syFJSKTMc1tw
+ EtA+onWsIRRRfG7SL9p8O9uUknjsmZtnwQnmrMQ5+IjVz9PFCtQ5LHprNK4c1FHvjNjQ5EW5wch
+ PJEUw4iUDr0ZCqar3pVM/XY5KK1FMlQ6lnPRQO4+LOZP788BFH7PHRXdtDiFk=
+X-Received: by 2002:a17:907:a709:b0:c12:caad:6efa with SMTP id
+ a640c23a62f3a-c15a676bf23mr21887566b.4.1783341281063; 
+ Mon, 06 Jul 2026 05:34:41 -0700 (PDT)
+Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-69a19d7a375sm3926102a12.15.2026.07.06.05.34.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jul 2026 05:34:40 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 06 Jul 2026 09:34:34 -0300
+Message-Id: <DJRHPZG7YKTX.1HUB8IXSAR0R0@gmail.com>
+Subject: Re: [PATCH] drm/panel: novatek-nt37801: Use mipi_dsi_*_multi()
+ functions
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "Doug Anderson" <dianders@chromium.org>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Brigham Campbell"
+ <me@brighamcampbell.com>, "David Airlie" <airlied@gmail.com>, "Jessica
+ Zhang" <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Neil Armstrong" <neil.armstrong@linaro.org>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>
+X-Mailer: aerc 0.20.0
+References: <20260701125624.199786-1-nico.antinori.7@gmail.com>
+ <CAD=FV=VKKb1Xy2Y7D1Lv8DXhaG1_zHZqTk2Q74oT-YKGd5CCiQ@mail.gmail.com>
+In-Reply-To: <CAD=FV=VKKb1Xy2Y7D1Lv8DXhaG1_zHZqTk2Q74oT-YKGd5CCiQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,160 +98,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Sat Jul 4, 2026 at 12:59 PM -03, Doug Anderson wrote:
+> Hi,
+>
+> On Wed, Jul 1, 2026 at 5:56=E2=80=AFAM Nicol=C3=A1s Antinori
+> <nico.antinori.7@gmail.com> wrote:
+>>
+>> Replace mipi_dsi_* functions with their non-deprecated mipi_dsi_*_multi
+>> counterparts. This change reduces error-checking boilerplate and improve=
+s
+>> readability.
+>>
+>> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+>> ---
+>> Note: I Compile-tested this patch since I don't own the panel to test it=
+.
+>>
+>>  drivers/gpu/drm/panel/panel-novatek-nt37801.c | 16 ++++++----------
+>>  1 file changed, 6 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu=
+/drm/panel/panel-novatek-nt37801.c
+>> index d6a37d7e0cc6..daa356bbc182 100644
+>> --- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+>> @@ -128,7 +128,8 @@ static int novatek_nt37801_off(struct novatek_nt3780=
+1 *ctx)
+>>  static int novatek_nt37801_prepare(struct drm_panel *panel)
+>>  {
+>>         struct novatek_nt37801 *ctx =3D to_novatek_nt37801(panel);
+>> -       struct device *dev =3D &ctx->dsi->dev;
+>> +       struct mipi_dsi_device *dsi =3D ctx->dsi;
+>> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
+>>         struct drm_dsc_picture_parameter_set pps;
+>>         int ret;
+>>
+>> @@ -145,15 +146,10 @@ static int novatek_nt37801_prepare(struct drm_pane=
+l *panel)
+>>
+>>         drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+>>
+>> -       ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
+>> -       if (ret < 0) {
+>> -               dev_err(panel->dev, "failed to transmit PPS: %d\n", ret)=
+;
+>> -               goto err;
+>> -       }
+>> -
+>> -       ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
+>> -       if (ret < 0) {
+>> -               dev_err(dev, "failed to enable compression mode: %d\n", =
+ret);
+>> +       mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+>> +       mipi_dsi_compression_mode_multi(&dsi_ctx, true);
+>> +       if (dsi_ctx.accum_err) {
+>> +               ret =3D dsi_ctx.accum_err;
+>>                 goto err;
+>>         }
+>
+> Sure, this looks pretty good.
+>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+>
+> For bonus points, I think you could change novatek_nt37801_on() to
+> return "void" and take a "struct mipi_dsi_multi_context". Since
+> drm_dsc_pps_payload_pack() is harmless, the function can now just be:
+>
+>   novatek_nt37801_on(&dsi_ctx);
+>   drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+>   mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+>   mipi_dsi_compression_mode_multi(&dsi_ctx, true);
+>   if (dsi_ctx.accum_err) {
+>     ...
+>   }
 
-On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
-> From: Christian K=C3=B6nig <christian.koenig@amd.com>
->=20
-> It's just another layer of indirection.
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 
-Personally I don't have a strong opinion on this, but the reason for
-separating out the ops is that adding function pointers in the walk
-iterator itself was once pushed back on quite forcefully by Linus when
-I tried to do that in mm/pagewalk. Claiming for various reasons the
-standard way of doing that in Linux is using a const ops struct that
-ends up in unmodifiable memory.
-
-/Thomas
-
-
-> ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++-=
----------
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c |=C2=A0 2 +-
-> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 34 ++++++++++++++---------------
-> -----
-> =C2=A03 files changed, 17 insertions(+), 31 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-> b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 2b470c1746f60..1fb8c53da0362 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -545,10 +545,6 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk
-> *walk, struct ttm_buffer_object *
-> =C2=A0	return lret;
-> =C2=A0}
-> =C2=A0
-> -static const struct ttm_lru_walk_ops ttm_evict_walk_ops =3D {
-> -	.process_bo =3D ttm_bo_evict_cb,
-> -};
-> -
-> =C2=A0static int ttm_bo_evict_alloc(struct ttm_device *bdev,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_resource_manager *man,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct ttm_place *place,
-> @@ -560,7 +556,7 @@ static int ttm_bo_evict_alloc(struct ttm_device
-> *bdev,
-> =C2=A0{
-> =C2=A0	struct ttm_bo_evict_walk evict_walk =3D {
-> =C2=A0		.walk =3D {
-> -			.ops =3D &ttm_evict_walk_ops,
-> +			.process_bo =3D ttm_bo_evict_cb,
-> =C2=A0			.arg =3D {
-> =C2=A0				.ctx =3D ctx,
-> =C2=A0				.ticket =3D ticket,
-> @@ -1187,10 +1183,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
-> struct ttm_buffer_object *bo)
-> =C2=A0	return ret;
-> =C2=A0}
-> =C2=A0
-> -const struct ttm_lru_walk_ops ttm_swap_ops =3D {
-> -	.process_bo =3D ttm_bo_swapout_cb,
-> -};
-> -
-> =C2=A0/**
-> =C2=A0 * ttm_bo_swapout() - Swap out buffer objects on the LRU list to
-> shmem.
-> =C2=A0 * @bdev: The ttm device.
-> @@ -1209,7 +1201,7 @@ s64 ttm_bo_swapout(struct ttm_device *bdev,
-> struct ttm_operation_ctx *ctx,
-> =C2=A0{
-> =C2=A0	struct ttm_bo_swapout_walk swapout_walk =3D {
-> =C2=A0		.walk =3D {
-> -			.ops =3D &ttm_swap_ops,
-> +			.process_bo =3D ttm_bo_swapout_cb,
-> =C2=A0			.arg =3D {
-> =C2=A0				.ctx =3D ctx,
-> =C2=A0				.trylock_only =3D true,
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> index 7ed085adf1c9b..29f068944a972 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -919,7 +919,7 @@ s64 ttm_lru_walk_for_evict(struct ttm_lru_walk
-> *walk, struct ttm_device *bdev,
-> =C2=A0	s64 lret;
-> =C2=A0
-> =C2=A0	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &walk-
-> >arg, bo) {
-> -		lret =3D walk->ops->process_bo(walk, bo);
-> +		lret =3D walk->process_bo(walk, bo);
-> =C2=A0		if (lret =3D=3D -EBUSY || lret =3D=3D -EALREADY)
-> =C2=A0			lret =3D 0;
-> =C2=A0		progress =3D (lret < 0) ? lret : progress + lret;
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index 1eae9eea5ff32..0fcd5082a7080 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -189,24 +189,6 @@ struct ttm_operation_ctx {
-> =C2=A0	uint64_t bytes_moved;
-> =C2=A0};
-> =C2=A0
-> -struct ttm_lru_walk;
-> -
-> -/** struct ttm_lru_walk_ops - Operations for a LRU walk. */
-> -struct ttm_lru_walk_ops {
-> -	/**
-> -	 * process_bo - Process this bo.
-> -	 * @walk: struct ttm_lru_walk describing the walk.
-> -	 * @bo: A locked and referenced buffer object.
-> -	 *
-> -	 * Return: Negative error code on error, User-defined
-> positive value
-> -	 * (typically, but not always, size of the processed bo) on
-> success.
-> -	 * On success, the returned values are summed by the walk
-> and the
-> -	 * walk exits when its target is met.
-> -	 * 0 also indicates success, -EBUSY means this bo was
-> skipped.
-> -	 */
-> -	s64 (*process_bo)(struct ttm_lru_walk *walk, struct
-> ttm_buffer_object *bo);
-> -};
-> -
-> =C2=A0/**
-> =C2=A0 * struct ttm_lru_walk_arg - Common part for the variants of BO LRU
-> walk.
-> =C2=A0 */
-> @@ -223,8 +205,20 @@ struct ttm_lru_walk_arg {
-> =C2=A0 * struct ttm_lru_walk - Structure describing a LRU walk.
-> =C2=A0 */
-> =C2=A0struct ttm_lru_walk {
-> -	/** @ops: Pointer to the ops structure. */
-> -	const struct ttm_lru_walk_ops *ops;
-> +	/**
-> +	 * process_bo - Process this bo.
-> +	 * @walk: struct ttm_lru_walk describing the walk.
-> +	 * @bo: A locked and referenced buffer object.
-> +	 *
-> +	 * Return: Negative error code on error, User-defined
-> positive value
-> +	 * (typically, but not always, size of the processed bo) on
-> success.
-> +	 * On success, the returned values are summed by the walk
-> and the
-> +	 * walk exits when its target is met.
-> +	 * 0 also indicates success, -EBUSY means this bo was
-> skipped.
-> +	 */
-> +	s64 (*process_bo)(struct ttm_lru_walk *walk,
-> +			=C2=A0 struct ttm_buffer_object *bo);
-> +
-> =C2=A0	/** @arg: Common bo LRU walk arguments. */
-> =C2=A0	struct ttm_lru_walk_arg arg;
-> =C2=A0};
+Will send a v2 with those changes. Thank you for the suggestion!
