@@ -4,91 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4C07C44501
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 11:40:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1CF6C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 11:41:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDE2E10E8E6;
-	Mon,  6 Jul 2026 11:40:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1075810E8DA;
+	Mon,  6 Jul 2026 11:41:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V8HaHo3o";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XsySMgQX";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XUXOF+/p";
 	dkim-atps=neutral
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
- [209.85.219.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7814810E8DC
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 11:40:56 +0000 (UTC)
-Received: by mail-qv1-f44.google.com with SMTP id
- 6a1803df08f44-8eabb1a9378so22087306d6.1
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 04:40:56 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D79610E8DA
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 11:41:11 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 666AxEE0366750
+ for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 11:41:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JyWL2bmNSCp8kUWSmxLKw8OK4EFDlj3sVJl+0VzDp88=; b=XsySMgQXvfPgt0+a
+ HXtcu1zM2rla/ZW5eTCxaMB6FICW13P1fwym0A/MsfBjDjqUGgXD1EHFUEySuOk2
+ 2z6rHOSeFOjg0Nyyc6VHixBwF+xqtTVaCt3ADnTB1IzhmU/aQqOPwenB2//RiLUm
+ B+kOKlkYz6F03GNs7m211bs4Pr22Yuq9DZfFgJDYUjFMnF4mWSST9/zOrRBcEb9q
+ n6vKECdJiMTwf5jgm2LcODgoUDnUe4767AbVeb1xNK1d92+uBCFBvMe85oFat7y7
+ xZR2l3W1G+EwqCXOK7NjSKq0MIxTJb8OcGXxyUAjh0LR+gEqcXBvSvMPiveVOXbl
+ yRJtqA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f891urp7e-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 11:41:10 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-51c298a1b20so6242701cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 04:41:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783338055; x=1783942855; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=BlzqRtlXbabh3QQlkX9Qesj3eyFizaZyJAzX8b4cN6E=;
- b=V8HaHo3oHgaJLTbyVGd1gMUqG8LFHPyGt7rHwV3VRRIxbGVBSDvkzM7AVm6YUdXhQH
- UEicFYsVbAq5U9XOqMGR8LFKaLE6AZVGzmQxSUq7kDPQWEUEJ1b+NiyzZhNmi11a5/ic
- Xww0eoa6InstLQqP4OoeSInjpNnyCrCPpSrEUEdel66hDmXDiFlN5WtfjsKqJIeDNcVm
- Efa0O6LGlGbVaBGIKuF73y8wpCjcuMTRPgIYG0R4Uyo/WNhOrDTTFb7bDty4l7ZIlDFa
- +DQG95q7N3dT6poi3rnV0V9jHX4K0gI+phDPRI+Sv0SOt/zA03xcAFazQHrB1/adJz1E
- jcAg==
+ d=oss.qualcomm.com; s=google; t=1783338070; x=1783942870;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JyWL2bmNSCp8kUWSmxLKw8OK4EFDlj3sVJl+0VzDp88=;
+ b=XUXOF+/pEoANjFLhHd0wW3dUHw3jrlRNzuMP7PTFpT2OIH5C7EF6TTw+YuC16IA4vh
+ Q8uNZYJ+Fppgi7SuoqY+JzaH/X2oIOcNAK2I3c2tnNlKF3qrFH2EQuD4vtMV7Rbh4JBU
+ ToK60aQdO2qAtV5WsO0UoWCxbYNuAb6pmyLTmLp5pwSEb2AcnK58tOHjOI/vj3sewS5n
+ oya0UYBgBWJ2A3Iz5WETONYVhjMu1zUHXoIwxXiM62kiUQ2iaQFzdyCkoJnNCgx7f0wN
+ 1ZOTBdqUqrfNTI0pQcSi6eOhlmISr5xxwduU3RZvEj+veFsyQSbsp3hOkgURLx1PNaMo
+ FPxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783338055; x=1783942855;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=BlzqRtlXbabh3QQlkX9Qesj3eyFizaZyJAzX8b4cN6E=;
- b=a7OYXmVoYfgH8wDqujpxsjd3X4wTFS4vWpNYZXGoid2xQ1z15TNrlqUy1hTK7WYSWg
- fEnywdY652DrTmYpwmHb7gctnV4f8gr7RUyxMHSFmkmHpksuPHVcOPfFpWS8ydDTm9eY
- kXXFS+rHsCWaugGj3BXxjZEu2TRpRLbXoB7zX+Mk3bJ04RoV1XW3/gtg7SZj2c0+Msl8
- 95kDVnn5TLpcy1E8gVsqgxvBHcxVypzhhahgsq7S/DI4JMGzGFjt1geHw0mfkWEK+3qB
- PNcmqMa8+WBhchRzSRqkABnPs92fKYHLJ8UAymHVBXKRbn/Of+RluIX5xOpxQbNtVDYY
- YSWA==
-X-Gm-Message-State: AOJu0YxJ6BlGa+81Be5YwEAXYRfOHHdo+UFv9JzS8eLbftDFl43WzjlP
- 0w7QPQB3J3M9VBU5eCGfxl9oNcA01Uulo2zLWj/ldKyJLyQEe+sxhs6e
-X-Gm-Gg: AfdE7cnE0FjICacxNEfans7MdR9Up0iZ1cSj1hUyWEaME4+UGrOGIsYfv8lKcUMSV9k
- YApL0wOBhmVnvC4xJfGHu6dmdipeYVQG+RKCslvF4ixE5iguqjkks7urj8PYjPa9we5x9UrfS8w
- dH049NNlxJcdM+a6vPrhvEOAEt1hMr8aHwH4C0vzlXiey0GU1+dey9hEmFKIO0ims94RFomeTf1
- cn7sr8Yf8lwewAOuWBMvFQzPItLrV0tNedVdjtAdOJ/RVuj/NHRERcWsDFmL6bqinm+yTqRsjs5
- k+/lRo3lseKsotnsSMHxmahVzhBlg5S49lXc34BBXxf6i0FMVQ07PGVphUGAWWbVnvHZ+F8Djag
- PWipbZ1pLQr6u7k41sQQGtRyX8It6O+INyNDHViVVyuC011O5nTjrqdWYChGfrWahxbC5UsoJ5A
- 3v82aECF+euCUJCJXrJozZ9oM+9oZr26fatBXNW3zHNNK/
-X-Received: by 2002:a05:6214:5348:b0:8ed:b644:c03c with SMTP id
- 6a1803df08f44-8f74d1b9807mr138872566d6.55.1783338055225; 
- Mon, 06 Jul 2026 04:40:55 -0700 (PDT)
-Received: from [10.254.122.221] (mkmvpn.amd.com. [165.204.54.211])
+ d=1e100.net; s=20251104; t=1783338070; x=1783942870;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JyWL2bmNSCp8kUWSmxLKw8OK4EFDlj3sVJl+0VzDp88=;
+ b=k2uekBIlsMiC7HHFnWHemZ3SlSBuLrDa6bxi+pMvNxwiwiHS53Sx2ic0Rp2ARFEhWj
+ dc1jgu/uM0LQYhw7dNXcgYclSD2cnQp5V7k5qajJNsW7T7hV1T82X/kqVP4nRjIcTLYD
+ /5FDnYZRE3bhNjMIYQTBcrUM2pIE9081uuDl6fBBtd2nlz1ZPLs0hB8CSvErPamKpX8f
+ Ct3EFmSSVxszFs39MF8gx142VUHGnqn8bFjK/TpUqmnq9xzS/jVNiMOOs3/wUcK77/WY
+ Cvf6WoZIbrJEMTZXJhbCGIirJ2pBfJmjzy7lzfvdF+7u6ZcRlxGWZA/HB6nw9cNfeWW6
+ eE+w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqP3VVvAzQh/V7wkSXO14IDTk5jy9fQ8fhWtQNRVHmEKP/EebFXsHDpIZfdvBecZSFmNteJ++IXgyE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyOZ/c6TB4CXDnsvRh7UMFfzD/vRQm02mvsYSMDkSdGomY0kde1
+ BW9Ca7INyiPItDOe8LWQLhLwRUmHkJDsO5P7rVdgrBF3ct7+SfJvbGfwKNdOvDxf9ka0rB7FsQj
+ 5ERKSLSboi7ZFQjR/voDkL13ZGcvA/IniCihE/T+AmGus9l/V+nOy/GRnsHWIHaYeEbhNEXU=
+X-Gm-Gg: AfdE7cnXEVCtl+yYZcvdVRHc7GvMQ0feHlt433j42fPkYbnk5VEYFEEqZ+fp7DYtaxX
+ VdK0sTP1+rA33KBHbXC1LPIdhMzizh/Te3Cb7dUJlauxOtx9PGDUWx628Opcz+YrqmLrZIEHwke
+ zEadhFxbUHUSlrnii/DXUA9/HqZBab21VZkWPd3X60aMBvNO7c6n/LxcrQDm5E+CBT9mAhXjm80
+ nguzHTOs0epHfiYiewqgmYDqd5WI7R4+3lPiNmQWVYqRUe6YAsr2Sc+dZmUAZ0X7nFBqcA4q2L7
+ a0i1w52fKYpjmqSpffQSqQiLr4sbYCIWWVCaJ/NRyOk/20CPzTEZVBEGcMMlWamt1biC2S+hcAj
+ Pao7UP8OLSzPT0+WnbgEUyM1zYSUKnD+wZrk=
+X-Received: by 2002:a05:622a:208:b0:50e:6311:7380 with SMTP id
+ d75a77b69052e-51c4be99299mr82578451cf.6.1783338069825; 
+ Mon, 06 Jul 2026 04:41:09 -0700 (PDT)
+X-Received: by 2002:a05:622a:208:b0:50e:6311:7380 with SMTP id
+ d75a77b69052e-51c4be99299mr82578061cf.6.1783338069294; 
+ Mon, 06 Jul 2026 04:41:09 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8f471813d49sm131848996d6.27.2026.07.06.04.40.51
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 06 Jul 2026 04:40:54 -0700 (PDT)
-Message-ID: <5acb8994-3076-452e-a95a-d3b0159c21b7@gmail.com>
-Date: Mon, 6 Jul 2026 13:40:50 +0200
+ 4fb4d7f45d1cf-69a19cf68f5sm4059006a12.13.2026.07.06.04.41.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jul 2026 04:41:08 -0700 (PDT)
+Message-ID: <4f865aaf-a400-4dc6-acaa-80dc22a36af7@oss.qualcomm.com>
+Date: Mon, 6 Jul 2026 13:41:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
- flag
-To: Natalie Vock <nat@pixelcluster.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
- <20260706-ttm_2_drm_exec-v2-1-4bf6bfc0d320@pixelcluster.dev>
+Subject: Re: [PATCH v2] i2c: qcom-geni: Add dynamic transfer timeout based on
+ transfer length and frequency
+To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
+ mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
+ andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ naresh.maramaina@oss.qualcomm.com
+References: <20260705135739.4038826-1-aniket.randive@oss.qualcomm.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20260706-ttm_2_drm_exec-v2-1-4bf6bfc0d320@pixelcluster.dev>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260705135739.4038826-1-aniket.randive@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: oDeaZbwr9OVA1F9b0l4yg-HLI1YPNWVe
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDExOCBTYWx0ZWRfX2xc3wfFUO4G9
+ bZh1zY6QIQUZHTykq2rZ8VZhi/vmAnMsqWGzRwzZDdR1aYGQ/CCcZCfQLoijUQ7z4gcxklxAk2a
+ oPoM4B1CuW2HXW4zkfjGA5O7HwNsH7g=
+X-Authority-Analysis: v=2.4 cv=Mo1iLWae c=1 sm=1 tr=0 ts=6a4b9456 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=QdFQMySKPoxOC9Zsaq0A:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDExOCBTYWx0ZWRfX8y1VLJorIfc5
+ r9QvMltZ4ur1fw89aAdPHr6mu2Be/IGbcU5TWeRobcFu8uBQLUaCrLoRTxfv2f2m9rL3G/vSI8c
+ uHtDJ6e0Xm6qBg4ZPqua0GJrMUxcNdjN8ofswrEBqYl+0oP4rC7HCNKrMQ+CkHHOtG0b/YmTofC
+ 3Ok2ehQ8HjNxfPXI/Bv/jryteIpIhrxwDg3CWDgKMMM2mvcXBoDI38GE5BUHitUcv7KD9NdhBvP
+ Am/moQqjIXtWmFuTWZ5sIG2CWnKTe8nmakWVYvjMYFV5UMpZrMMKR3LQXNzGAHAOQCfpNxB6Fu+
+ AH6DUE452kFmrhkh+F3gJhcCk0OX4u1asFfMudgLbRF8/ohon3usVCISKbP+1ERikFTv5X1o/eX
+ 4lhva55aQMCHhrp6SNOxg4IkLs1LqNce8yMTRyIPlt21pNl58K2+YeOsIoUgirF9VIKxq3LpERA
+ FSAk8u2yyyVQTLKUUVw==
+X-Proofpoint-ORIG-GUID: oDeaZbwr9OVA1F9b0l4yg-HLI1YPNWVe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ suspectscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060118
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,119 +147,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/6/26 12:07, Natalie Vock wrote:
-> TTM is about to switch to drm_exec for locking objects
-> in the LRU list. When we're done processing the object, we want to
-> unlock it only if the caller doesn't already hold that lock. If
-> DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which callers may
-> require for unrelated reasons), we have no way of knowing whether the
-> lock is already held.
+On 7/5/26 3:57 PM, Aniket Randive wrote:
+> The driver uses a static XFER_TIMEOUT of HZ (1 second) for all transfers
+> regardless of message length or bus frequency, causing unnecessary
+> delays on error paths.
 > 
-> To remedy this, add a separate helper that forcefully bypasses the
-> IGNORE_DUPLICATES flag for only a single locking operation.
-> 
-> Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
+> Compute the timeout dynamically from message length and bus frequency
+> with a 10x safety margin over the theoretical wire time and a 300ms
+> floor. For GPI multi-descriptor transfers, use the maximum message
+> length across all queued messages as the per-completion timeout.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+What's the reason for a 0.3 s floor?
 
-> ---
->  drivers/gpu/drm/drm_exec.c | 54 ++++++++++++++++++++++++++++++++++------------
->  include/drm/drm_exec.h     |  2 ++
->  2 files changed, 42 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-> index 7988f5e7d56a3..ec33ed4a523cc 100644
-> --- a/drivers/gpu/drm/drm_exec.c
-> +++ b/drivers/gpu/drm/drm_exec.c
-> @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
->  	return ret;
->  }
->  
-> -/**
-> - * drm_exec_lock_obj - lock a GEM object for use
-> - * @exec: the drm_exec object with the state
-> - * @obj: the GEM object to lock
-> - *
-> - * Lock a GEM object for use and grab a reference to it.
-> - *
-> - * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-> - * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
-> - * flag), -ENOMEM when memory allocation failed and zero for success.
-> - */
-> -int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
-> +static int __drm_exec_lock_obj(struct drm_exec *exec,
-> +			       struct drm_gem_object *obj,
-> +			       bool ignore_duplicates)
->  {
->  	int ret;
->  
-> @@ -226,8 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
->  		return -EDEADLK;
->  	}
->  
-> -	if (unlikely(ret == -EALREADY) &&
-> -	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
-> +	if (unlikely(ret == -EALREADY) && ignore_duplicates)
->  		return 0;
->  
->  	if (unlikely(ret))
-> @@ -243,8 +233,44 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
->  	dma_resv_unlock(obj->resv);
->  	return ret;
->  }
-> +
-> +/**
-> + * drm_exec_lock_obj - lock a GEM object for use
-> + * @exec: the drm_exec object with the state
-> + * @obj: the GEM object to lock
-> + *
-> + * Lock a GEM object for use and grab a reference to it.
-> + *
-> + * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-> + * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
-> + * flag), -ENOMEM when memory allocation failed and zero for success.
-> + */
-> +int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+Why a 10x safety margin specifically?
+
+[...]
+
+> +static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, size_t len)
 > +{
-> +	return __drm_exec_lock_obj(exec, obj,
-> +				   exec->flags & DRM_EXEC_IGNORE_DUPLICATES);
-> +}
->  EXPORT_SYMBOL(drm_exec_lock_obj);
->  
-> +/**
-> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always report duplicates
-> + * @exec: the drm_exec object with the state
-> + * @obj: the GEM object to lock
-> + *
-> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a reference to it.
-> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and duplicates are
-> + * always reported.
-> + *
-> + * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-> + * already locked, -ENOMEM when memory allocation failed and zero for success.
-> + */
-> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-> +				 struct drm_gem_object *obj)
-> +{
-> +	return __drm_exec_lock_obj(exec, obj, false);
-> +}
-> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
-> +
->  /**
->   * drm_exec_unlock_obj - unlock a GEM object in this exec context
->   * @exec: the drm_exec object with the state
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index 8725ba92ff916..ff80dd2b72240 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
->  void drm_exec_fini(struct drm_exec *exec);
->  bool drm_exec_cleanup(struct drm_exec *exec);
->  int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
-> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-> +				 struct drm_gem_object *obj);
->  void drm_exec_unlock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
->  int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
->  			 unsigned int num_fences);
-> 
+> +	size_t bit_cnt = len * 9;
+> +	size_t bit_usec = (bit_cnt * USEC_PER_SEC) / gi2c->clk_freq_out;
 
+mult_frac()
+
+Konrad
