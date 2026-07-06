@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416C3C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 05:25:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C3D3C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 05:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA37710E72C;
-	Mon,  6 Jul 2026 05:25:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E25D710E2F7;
+	Mon,  6 Jul 2026 05:25:06 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
  (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C227F10E03D
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 05:24:58 +0000 (UTC)
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2E1110E2F7
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 05:25:05 +0000 (UTC)
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-184-BEICEeGOPuSncBVo-QhgQA-1; Mon,
- 06 Jul 2026 01:24:53 -0400
-X-MC-Unique: BEICEeGOPuSncBVo-QhgQA-1
-X-Mimecast-MFC-AGG-ID: BEICEeGOPuSncBVo-QhgQA_1783315492
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-642-VB9tyjgnNz2-lO-4WWS0DQ-1; Mon,
+ 06 Jul 2026 01:25:01 -0400
+X-MC-Unique: VB9tyjgnNz2-lO-4WWS0DQ-1
+X-Mimecast-MFC-AGG-ID: VB9tyjgnNz2-lO-4WWS0DQ_1783315500
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E1B30180065D; Mon,  6 Jul 2026 05:24:51 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 172541955F7D; Mon,  6 Jul 2026 05:25:00 +0000 (UTC)
 Received: from dreadlord.redhat.com (unknown [10.67.32.13])
  by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 7FC411956096; Mon,  6 Jul 2026 05:24:44 +0000 (UTC)
+ id D40CA1956096; Mon,  6 Jul 2026 05:24:52 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: dri-devel@lists.freedesktop.org, tj@kernel.org, christian.koenig@amd.com,
  Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
@@ -39,15 +39,16 @@ Cc: cgroups@vger.kernel.org,
  Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
  Waiman Long <longman@redhat.com>, simona@ffwll.ch,
  intel-xe@lists.freedesktop.org
-Subject: [PATCH 08/10] amdgpu: add support for memory cgroups
-Date: Mon,  6 Jul 2026 15:22:37 +1000
-Message-ID: <20260706052330.1110909-9-airlied@gmail.com>
+Subject: [PATCH 09/10] ttm: add support for a module option to disable memcg
+ integration
+Date: Mon,  6 Jul 2026 15:22:38 +1000
+Message-ID: <20260706052330.1110909-10-airlied@gmail.com>
 In-Reply-To: <20260706052330.1110909-1-airlied@gmail.com>
 References: <20260706052330.1110909-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Wqe4ixJYyvmTG50Kn_graJkECi1S09A-GcFpKMdBiHc_1783315492
+X-Mimecast-MFC-PROC-ID: wnILd4kq-pbUrvzDptsIVSFwtajWppCgGuzSZG16KZs_1783315500
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 content-type: text/plain; charset=WINDOWS-1252; x-default=true
@@ -68,130 +69,112 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-This adds support for adding a obj cgroup to a buffer object,
-and passing in the placement flags to make sure it's accounted
-properly.
+This adds a kconfig and a module option to turn off ttm memcg
+integration completely.
+
+When this is used, no object will ever end up using memcg aware
+paths.
+
+There is an existing workload that cgroup support might regress,
+the systems are setup to allocate 1GB of uncached pages at system
+startup to prime the pool, then any further users will take them
+from the pool. The current cgroup code might handle that, but
+it also may regress, so add an option to ttm to avoid using
+memcg for the pool pages.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 13 +++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  3 +++
- mm/memcontrol.c                            |  1 +
- 5 files changed, 15 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/Kconfig        |  7 +++++++
+ drivers/gpu/drm/ttm/ttm_pool.c | 24 +++++++++++++++++++++---
+ 2 files changed, 28 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gem.c
-index 6a0699746fbc..38f8b3300989 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -188,6 +188,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev=
-, unsigned long size,
- =09bp.domain =3D initial_domain;
- =09bp.bo_ptr_size =3D sizeof(struct amdgpu_bo);
- =09bp.xcp_id_plus1 =3D xcp_id_plus1;
-+=09bp.objcg =3D get_obj_cgroup_from_current();
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 323422861e8f..35af2ff3450b 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -257,6 +257,13 @@ config DRM_TTM_HELPER
+ =09help
+ =09  Helpers for ttm-based gem objects
 =20
- =09r =3D amdgpu_bo_create_user(adev, &bp, &ubo);
- =09if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c
-index f98bfba59a2c..e4fb1a1d699b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -159,7 +159,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *=
-abo, u32 domain)
- =09=09places[c].mem_type =3D
- =09=09=09abo->flags & AMDGPU_GEM_CREATE_PREEMPTIBLE ?
- =09=09=09AMDGPU_PL_PREEMPT : TTM_PL_TT;
--=09=09places[c].flags =3D 0;
-+=09=09places[c].flags =3D TTM_PL_FLAG_MEMCG;
- =09=09/*
- =09=09 * When GTT is just an alternative to VRAM make sure that we
- =09=09 * only use it as fallback and still try to fill up VRAM first.
-@@ -174,7 +174,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *=
-abo, u32 domain)
- =09=09places[c].fpfn =3D 0;
- =09=09places[c].lpfn =3D 0;
- =09=09places[c].mem_type =3D TTM_PL_SYSTEM;
--=09=09places[c].flags =3D 0;
-+=09=09places[c].flags =3D TTM_PL_FLAG_MEMCG;
- =09=09c++;
- =09}
++config DRM_TTM_MEMCG
++=09bool "Enable TTM mem cgroup by default"
++=09depends on DRM_TTM
++=09depends on MEMCG
++=09help
++=09  Enable the memcg integration by default
++
+ config DRM_GEM_DMA_HELPER
+ =09tristate
+ =09depends on DRM
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.=
+c
+index 01b6ff2d8144..b7263d26c990 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -119,6 +119,24 @@ static unsigned long page_pool_size;
+ MODULE_PARM_DESC(page_pool_size, "Number of pages in the WC/UC/DMA pool pe=
+r NUMA node");
+ module_param(page_pool_size, ulong, 0644);
 =20
-@@ -654,16 +654,21 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- =09=09size =3D ALIGN(size, PAGE_SIZE);
- =09}
++/*
++ * Don't use the memcg aware lru for pooled pages.
++ *
++ * There are use-cases where for example one application in a cgroup will =
+preallocate 1GB
++ * of uncached pages, and immediately release them into the pool, for othe=
+r consumers
++ * to use. This use-case could be handled with a proper cgroup hierarchy, =
+but to allow
++ * that use case to continue to operate as-is, add a module option.
++ *
++ * This still stores the pages in the list_lru, it just doesn't use the me=
+mcg when
++ * adding/removing them.
++ */
++#define DEFAULT_TTM_MEMCG IS_ENABLED(CONFIG_DRM_TTM_MEMCG)
++static bool ttm_memcg =3D DEFAULT_TTM_MEMCG;
++
++MODULE_PARM_DESC(ttm_memcg, "Allow using cgroups with TTM "
++=09=09 "[default=3D" __stringify(DEFAULT_TTM_MEMCG) "])");
++module_param(ttm_memcg, bool, 0444);
++
+ static unsigned long pool_node_limit[MAX_NUMNODES];
+ static atomic_long_t allocated_pages[MAX_NUMNODES];
 =20
--=09if (!amdgpu_bo_validate_size(adev, size, bp->domain))
-+=09if (!amdgpu_bo_validate_size(adev, size, bp->domain)) {
-+=09=09obj_cgroup_put(bp->objcg);
- =09=09return -ENOMEM;
-+=09}
+@@ -321,7 +339,7 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt=
+, struct page *p)
 =20
- =09BUG_ON(bp->bo_ptr_size < sizeof(struct amdgpu_bo));
+ =09INIT_LIST_HEAD(&p->lru);
+ =09rcu_read_lock();
+-=09list_lru_add(&pt->pages, &p->lru, nid, page_memcg_check(p));
++=09list_lru_add(&pt->pages, &p->lru, nid, ttm_memcg ? page_memcg_check(p) =
+: NULL);
+ =09rcu_read_unlock();
 =20
- =09*bo_ptr =3D NULL;
- =09bo =3D kvzalloc(bp->bo_ptr_size, GFP_KERNEL);
--=09if (bo =3D=3D NULL)
-+=09if (bo =3D=3D NULL) {
-+=09=09obj_cgroup_put(bp->objcg);
- =09=09return -ENOMEM;
-+=09}
- =09drm_gem_private_object_init(adev_to_drm(adev), &bo->tbo.base, size);
-+=09ttm_bo_set_cgroup(&bo->tbo, bp->objcg); /* hand the reference to the tt=
-m bo */
- =09bo->tbo.base.funcs =3D &amdgpu_gem_object_funcs;
- =09bo->vm_bo =3D NULL;
- =09bo->preferred_domains =3D bp->preferred_domain ? bp->preferred_domain :
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.h
-index 4d68732d6223..1bc757e14292 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -55,6 +55,7 @@ struct amdgpu_bo_param {
- =09enum ttm_bo_type=09=09type;
- =09bool=09=09=09=09no_wait_gpu;
- =09struct dma_resv=09=09=09*resv;
-+=09struct obj_cgroup               *objcg;
- =09void=09=09=09=09(*destroy)(struct ttm_buffer_object *bo);
- =09/* xcp partition number plus 1, 0 means any partition */
- =09int8_t=09=09=09=09xcp_id_plus1;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ttm.c
-index 8062b3d61157..1c8123c564ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -155,11 +155,14 @@ static void amdgpu_evict_flags(struct ttm_buffer_obje=
-ct *bo,
- =09=09=09amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_GTT |
- =09=09=09=09=09=09=09AMDGPU_GEM_DOMAIN_CPU);
- =09=09}
-+=09=09for (int i =3D 0; i < abo->placement.num_placement; i++)
-+=09=09=09abo->placements[i].flags &=3D ~TTM_PL_FLAG_MEMCG;
- =09=09break;
- =09case TTM_PL_TT:
- =09case AMDGPU_PL_PREEMPT:
- =09default:
- =09=09amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_CPU);
-+=09=09abo->placements[0].flags &=3D ~TTM_PL_FLAG_MEMCG;
- =09=09break;
- =09}
- =09*placement =3D abo->placement;
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 4c682b91cbbe..625de4a287eb 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -3032,6 +3032,7 @@ __always_inline struct obj_cgroup *current_obj_cgroup=
-(void)
+ =09atomic_long_add(num_pages, &allocated_pages[nid]);
+@@ -370,7 +388,7 @@ static struct page *ttm_pool_type_take(struct ttm_pool_=
+type *pt, int nid,
+ =09struct page *page_out =3D NULL;
+ =09int ret;
+ =09struct mem_cgroup *orig_memcg =3D orig_objcg ? get_mem_cgroup_from_objc=
+g(orig_objcg) : NULL;
+-=09struct mem_cgroup *memcg =3D orig_memcg;
++=09struct mem_cgroup *memcg =3D ttm_memcg ? orig_memcg : NULL;
 =20
- =09return rcu_dereference_check(root_mem_cgroup->nodeinfo[nid]->objcg, 1);
- }
-+EXPORT_SYMBOL_GPL(current_obj_cgroup);
+ =09/*
+ =09 * Attempt to get a page from the current memcg, but if it hasn't got a=
+ny in it's level,
+@@ -847,7 +865,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, stru=
+ct ttm_tt *tt,
+ =09bool allow_pools;
+ =09struct page *p;
+ =09int r;
+-=09struct obj_cgroup *objcg =3D memcg_account ? tt->objcg : NULL;
++=09struct obj_cgroup *objcg =3D (ttm_memcg && memcg_account) ? tt->objcg :=
+ NULL;
 =20
- struct obj_cgroup *get_obj_cgroup_from_folio(struct folio *folio)
- {
+ =09WARN_ON(!alloc->remaining_pages || ttm_tt_is_populated(tt));
+ =09WARN_ON(alloc->dma_addr && !pool->dev);
 --=20
 2.54.0
 
