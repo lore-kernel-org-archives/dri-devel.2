@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23871C43602
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7AFC43458
 	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E382610E7DB;
-	Mon,  6 Jul 2026 07:13:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C7A810E7E6;
+	Mon,  6 Jul 2026 07:13:33 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 311FD10E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:44 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-d0-6a4b48fc170e
+ by gabe.freedesktop.org (Postfix) with ESMTP id 05EBF10E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:55 +0000 (UTC)
+X-AuditID: a67dfc5b-c45ff70000001609-1c-6a4b4903b9ee
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
@@ -73,45 +73,46 @@ Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
  tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 05/40] dept: add proc knobs to show stats and dependency
- graph
-Date: Mon,  6 Jul 2026 15:18:53 +0900
-Message-Id: <20260706061928.66713-6-byungchul@sk.com>
+Subject: [PATCH v19 24/40] locking/lockdep: prevent various lockdep assertions
+ when lockdep_off()'ed
+Date: Mon,  6 Jul 2026 15:19:12 +0900
+Message-Id: <20260706061928.66713-25-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe0yTZxTGed/vSkP1S0fiNyaRdFEnBB3EmRN3CZmafJFkGpaY6Uy0kS9S
- 1gIpirLE0TEKHUHEJi1ii6s4GuRa2igXV4IkVgxzymXQQRBQhCmgDim3Al0B/efkl+c5z3P+
- OSwh66PCWGXKGVGTolDJaQkpmQopi14W4pM/Nds3g16XBd4ZPQmWumoals0NDLT3ZZMw5NUj
- mPOZCdA1+UlYNrgZmFkYYMD4MwK/y43A1Gkg4K19hYapoTsU+AfHMfTNTiKwja5gGG3NQ/Bb
- mZOGCdMbGnwPHxFQbHyM4PrIIAGuimwaukc3QI/3dSDfacHwyk6DNdtFwVi/C4Op1EFC03Az
- A50TSxiGbGMkdBSVYSh+QYOpfhOYi3/BgfEvBmPNHQwLtkoGbNqtsDQSA35rKrirxhl48KSX
- gqH7uRQ0aIcZcPxzD8FMzwgGfbOXBMezgOvqjwJ341MM3c0WGgrstyh4Uu2nQGueo6Bu3IOh
- w91OwqPmGgrK+zoxjAx7qLhEYU5XSAqVzttY0HUt00L1tWok+BYNSNAVBSjHeU4o75ikhUXv
- 37TgmrWSQtPVQUbIaelnBKvjrOCsiBRu/PECC9envdTh2GOSLxJFlTJD1Oz66qQkqcVwm0nz
- bj8/Od9LaVFDRD4KZnluN+9pMpLv2ehrpVeZ5rbzHs8CscqhXATvvDhG5SMJS3DdW/gC28W1
- wAdcAq+7UobyEcuS3Fb+5fw3q7KU+4yvKC7H651b+Cp761pPMLeHr10qXdNlgZ2B1/ff3b0R
- zBssh9b5Q/5uhYcsQlIrCqpEMmVKhlqhVO3emZSZojy/81Sq2oEC72a7sPR9I5p+/G0b4lgk
- D5FC3MFkGaXISM9UtyGeJeSh0m2fxCfLpImKzB9FTeoJzVmVmN6GPmJJ+SZp7Oy5RBl3WnFG
- /EEU00TNexezwWFaFGVuoW2xiyU/ha6YjpD1QbIdHzdO0VGSz/8L/7Mu4bvjWRs3lIZdummR
- 7908rq/R5OSwR2sGvo7jIiZV2x7e/Gs6b//+A0m/d706kltw2Web/zVDo1LXOuLfxIRJ2tN6
- WvZhFK2yRhc67F29ufWGoHDZ3renn5cUeksi5eov7aZIOZmepIiJJDTpiv8B+kXnZWoDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAAzVSe0hTcRjtd+/dvdfh4rIML/mHMiorsAc9+CApo8CL9pAIAiVq1SXnY8lm
- lj2wqUObj2y0Lbc0XTlEzWyzzGQmSvZGzVJ7mEXLMjXNnM/NNY3++TjfOec7nD8+GhfXCZbR
- Mnkyr5BLEySkkBDu3ZoR4uIi49ZranwhW50GH/scAuhSNRHgHM8m4PqdKhLcpjoKsq2FAnja
- nU5Ae3Ulgj5nNoLJWRMO6noPAW5tKwXj0x8o0KkQeOytCPQdWhx62h/hUFWrwuBPzRwJgy1j
- CHRfHCQYBlQEjFhyERj7TRQMPA6H4b4GAXh6v2PQPTGEwOKYw8DRlIXArY+HG2ab91w/SsLs
- qzYcDLp2BKVfenEYG/iMoLb1EwJ7eToJ3wru4dDpWAxvnCMkPNPlkDDccR2DXzUklKTbBdDx
- chBBkUmLoP+9HYOMm3dI0BdZCaj//JCCjkEXBh/1WgwqrXugz9JPwIsCM+at63Xd9QeTIQPz
- jh8Y6G43YDBtqaDCyhA3qc4nuArbfYxTv3aTXFVxFeJmZ7SIGy/LwDl1gXdtGRrBuUzbaa7s
- xRDJzTjfkpx9ooTgnptZ7talGYy78iqEqzf2UlE7ooWhx/kEWQqvWLftiDC2UXufSnIGnxma
- 6hJcRHVBGuRDs8wmVjfbRM5jkglme3qm8XnsxwSxtrx+gQYJaZzpDGRzLXnEvLCE2c+qr5mR
- BtE0waxgf07tnadFzGa23FCG/csMZCtrmhZyfJgtbLWraIEXez0fRp4QBUhYghZVID+ZPCVR
- KkvYvFYZH5sql51Ze+xkohV538lywXXlARrvDG9GDI0kviIIi4gTC6QpytTEZsTSuMRPtHJV
- ZJxYdFyaepZXnDysOJXAK5tRAE1I/EURB/kjYuaENJmP5/kkXvFfxWifZRdRqG3VhtWLzxWu
- EBZPyQ8WFm8b/ood6m5LDphb2rlPlVuaGRPu19t42eDenhWdFF5dbzx2bWOWzKi0dvsGvws6
- /DZkbrm6pasrynLgAJxHgWGu3Ae/03bH1OY9c73J8c8v91xNPZqiifOxR41anaErg8Cz3li3
- a+r0w+ZfO81Um0pCKGOlG9bgCqX0LwBrjGNKAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxTdxTG97/3f1/a0ezasXHVD5gmqCPBuUXnyeIW4mK4ypaZ+fJhGKXa
+ m7UIhbSKssWsIJ0VRREHBOqQF9M05UVsgwixruLAF0LoVkzaorYQrJAGMR3FICC2GL+c/PI8
+ z3mSkxyWlPupVaxGe1TUaZW5ClqKpVMJjWl4R2bOxif1EjAZf4fHgXEKojMmDIvmLgZM9loK
+ 3O0tCIzdSzGtsp+BmbkRBrzuv0n4v+MNDeG7EQRVo+M01EwWY5i2nEMw2ZcB467TCBarj0C4
+ +iUN84NDJNRUuRFEJoMInNYSGp5VdJIwHJ2m4UHVWRqm/r1MQMjvJOBU8zUauoM9DAQsIQwD
+ FU1ErJyG6utJYK45RcTGBAEWQwqYBz0UjFnrGFhqyIf+lucMhEOVNATu/UFBlyHIgN3Xh2Bm
+ eJQAU08UQ239YxpuOR9gMC3OIPD0XKbhaesSBQbzq9ilrgEKrj33EjDQfx/DyOAFBoZ62igY
+ DXopaHvRRMOlFyEElug0A/+5GggovtOM01XCK+N5LNgcNwihtb4VCfOvK5FQ6jgudNc9YYTS
+ 235GaLAfE0r/maIEhzVVaL41SQiNkSgl+MPfCHbbGVqwRyoZoXF+gtyV9rN0q0rM1RSKus+/
+ zZaqWxZ8VIFvxYnZJj9hQJaPyhDL8twm3mpMK0OSZTT1ldBxprl1vNc7R8Y5kVvDO8pDVBmS
+ siTnSebPWcpx3PiYU/H9vrblEOZS+PmrD4k4y7iv+JGSKeZdaTLf0uFazkhievvCX8sZObeZ
+ H5m+h+OlPHdFwrsfTlDvFlbyd6xeXIFkDegDG5JrtIV5Sk3upg3qIq3mxIbD+Xl2FPs4y8mF
+ rJso4t7dizgWKRJkkL4zR04pC/VFeb2IZ0lFomzt+swcuUylLPpV1OUf1B3LFfW9aDWLFUmy
+ L2ePq+TcL8qj4hFRLBB1712ClawyoE8+JMs3SrYmlvHnbb72/TvrMjLO3k3forYbO3+4en9P
+ QcC+8tNocM7c2/fbvpdWjw0l/bRDr87UF6eMov2pr5+6kuUGx9o3n9VvUw9v/86pm7Nk30hy
+ /nlo9sxFx0nl3vRw1oGusUfur4kmz3jtUPDH9houCxd2XNFWfJ9ABCRjCqxXK79IJXV65VvG
+ SGIPbQMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSWUwTcRDG/f93u12q1bWCrvoAaeIRE6gmaibxwhjDCtHok9eDNrKRcqcV
+ EBW1xWpVUGzSEqkoVGm0oCDFA0ljUwIiXtSqgFCRpBa5xChHoEUsGF8m38z3my/zMDQheSpY
+ QitSj/HKVHmylBKRol0bciPRjrjE1bqeMNBpz0Bnl1cAn9QOEkaGdSTcqKygYNL0RAi66usC
+ aGrVkNDyoBxB14gOwZjfRIC2doqESX2jEIbHO4RgUCOYsjciMLr0BLS1PCegokaN4XfVHwr6
+ 638hMHR7KSjsVZMwZMlDUOQzCaG3IQYGu+oEMOXpwdA6OoDA4v2Dweu4gGDSmAS3zLbguvEn
+ Bf437wgoNLQgKO32EPCr9yuCmsYvCOx3NRR8K3hEgNs7Fz6MDFHw0nCZgkHXDQw/qigo0dgF
+ 4Hrdj6DYpEfg+2zHkHu7kgJjcTUJtV+fCcHVH8DQadRjKK/eCV0WHwmvCsw4eG6QergITIW5
+ OFi+YzDcr8MwbrEKo8sQN6a9QnJW22PMad9PUlzFzQrE+Sf0iBsuyyU4bUGwrR8YIrhztiyu
+ 7NUAxU2MfKQ4+2gJyTWbWe7OxQnMXXsTydUWeYS7tx4QbYznkxWZvFK2+bAooTzQLkhvn398
+ 1PwZn0WWeZdQCM0ya1ldg4aa1hSzgm1rGyemdSgTwdryfYJLSEQTjDuczbPkk9PGAiaebWy/
+ PwORzDLWf6cZT2sxs57t0AwK/4WGs+VVjhkmJDh/ECieYSTMOrZj6AVZgEQlaJYVhSpSM1Pk
+ iuR1UaqkhOxUxfGoI2kp1Sj4T5acwLWnaNgd40QMjaRzxBAdmygRyDNV2SlOxNKENFS8fGVc
+ okQcL88+wSvTDikzknmVEy2lSekicexe/rCEOSo/xifxfDqv/O9iOmTJWZR/MnDryLy+0zhs
+ ftJYSd76TVZ8hc36Ltvc0Fm6Xfuxx20mbFnnn2yL89S6dy683uw692xLd2xlmG9FpPOUsWjr
+ qNP6yL+nN73uXloP3fdT2SSbnXOw+NPiWQRTE1DLbE2uiGUx+xXRUB8+eDqq9KrN0WSPWDzm
+ cQT2ybQZbwkpqUqQr1lFKFXyv5jOPbtLAwAA
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -129,184 +130,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It'd be useful to show dept internal stats and dependency graph on
-runtime via proc for better information.  Introduce the knobs.
+lockdep provides APIs for assertion only if lockdep is enabled at the
+moment asserting to avoid unnecessary confusion, using the following
+condition, debug_locks && !this_cpu_read(lockdep_recursion).
+
+However, lockdep_{off,on}() are also used for disabling and enabling
+lockdep for a simular purpose.  Add !lockdep_recursing(current) that is
+updated by lockdep_{off,on}() to the condition so that the assertions
+are aware of !__lockdep_enabled if lockdep_off()'ed.
 
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- kernel/dependency/Makefile        |  1 +
- kernel/dependency/dept.c          | 11 +---
- kernel/dependency/dept_internal.h | 10 ++++
- kernel/dependency/dept_proc.c     | 96 +++++++++++++++++++++++++++++++
- 4 files changed, 109 insertions(+), 9 deletions(-)
- create mode 100644 kernel/dependency/dept_proc.c
+ include/linux/lockdep.h  |  3 ++-
+ kernel/locking/lockdep.c | 10 ++++++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/dependency/Makefile b/kernel/dependency/Makefile
-index b5cfb8a03c0c..92f165400187 100644
---- a/kernel/dependency/Makefile
-+++ b/kernel/dependency/Makefile
-@@ -1,3 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
+diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
+index 60b17a2ff555..5113b7053b62 100644
+--- a/include/linux/lockdep.h
++++ b/include/linux/lockdep.h
+@@ -303,6 +303,7 @@ extern void lock_unpin_lock(struct lockdep_map *lock, struct pin_cookie);
+ 	lockdep_assert_once(!current->lockdep_depth)
  
- obj-$(CONFIG_DEPT) += dept.o
-+obj-$(CONFIG_DEPT) += dept_proc.o
-diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
-index 47fef2207af1..fd091ae28ae2 100644
---- a/kernel/dependency/dept.c
-+++ b/kernel/dependency/dept.c
-@@ -266,20 +266,13 @@ static bool valid_key(struct dept_key *k)
-  *       have been freed will be placed there.
-  */
+ #define lockdep_recursing(tsk)	((tsk)->lockdep_recursion)
++extern bool lockdep_recursing_current(void);
  
--enum object_t {
--#define OBJECT(id, nr) OBJECT_##id,
--	#include "dept_object.h"
--#undef OBJECT
--	OBJECT_NR,
--};
--
- #define OBJECT(id, nr)							\
- static struct dept_##id spool_##id[nr];					\
- static DEFINE_PER_CPU(struct llist_head, lpool_##id);
- 	#include "dept_object.h"
- #undef OBJECT
+ #define lockdep_pin_lock(l)	lock_pin_lock(&(l)->dep_map)
+ #define lockdep_repin_lock(l,c)	lock_repin_lock(&(l)->dep_map, (c))
+@@ -630,7 +631,7 @@ DECLARE_PER_CPU(int, hardirqs_enabled);
+ DECLARE_PER_CPU(int, hardirq_context);
+ DECLARE_PER_CPU(unsigned int, lockdep_recursion);
  
--static struct dept_pool dept_pool[OBJECT_NR] = {
-+struct dept_pool dept_pool[OBJECT_NR] = {
- #define OBJECT(id, nr) {						\
- 	.name = #id,							\
- 	.obj_sz = sizeof(struct dept_##id),				\
-@@ -2083,7 +2076,7 @@ void dept_map_copy(struct dept_map *to, struct dept_map *from)
- 	clean_classes_cache(&to->map_key);
+-#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursion))
++#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursion) && !lockdep_recursing_current())
+ 
+ #define lockdep_assert_irqs_enabled()					\
+ do {									\
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index dc97f2753ef8..39b9e3e27c0b 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -6900,3 +6900,13 @@ void lockdep_rcu_suspicious(const char *file, const int line, const char *s)
+ 	warn_rcu_exit(rcu);
  }
- 
--static LIST_HEAD(dept_classes);
-+LIST_HEAD(dept_classes);
- 
- static bool within(const void *addr, void *start, unsigned long size)
- {
-diff --git a/kernel/dependency/dept_internal.h b/kernel/dependency/dept_internal.h
-index 04c040dbcbc8..732f297710aa 100644
---- a/kernel/dependency/dept_internal.h
-+++ b/kernel/dependency/dept_internal.h
-@@ -279,5 +279,15 @@ struct dept_hash {
- 	int				bits;
- };
- 
-+enum object_t {
-+#define OBJECT(id, nr) OBJECT_##id,
-+	#include "dept_object.h"
-+#undef OBJECT
-+	OBJECT_NR,
-+};
+ EXPORT_SYMBOL_GPL(lockdep_rcu_suspicious);
 +
-+extern struct list_head dept_classes;
-+extern struct dept_pool dept_pool[];
-+
- #endif
- #endif /* __DEPT_INTERNAL_H */
-diff --git a/kernel/dependency/dept_proc.c b/kernel/dependency/dept_proc.c
-new file mode 100644
-index 000000000000..97beaf397715
---- /dev/null
-+++ b/kernel/dependency/dept_proc.c
-@@ -0,0 +1,96 @@
-+// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Procfs knobs for Dept(DEPendency Tracker)
-+ *
-+ * Started by Byungchul Park <max.byungchul.park@gmail.com>:
-+ *
-+ *  Copyright (C) 2021 LG Electronics, Inc. , Byungchul Park
-+ *  Copyright (C) 2024 SK hynix, Inc. , Byungchul Park
++ * For avoiding header dependency when using (struct task_struct *)current
++ * and lockdep_recursing() at the same time.
 + */
-+#include <linux/proc_fs.h>
-+#include <linux/seq_file.h>
-+#include <linux/dept.h>
-+#include "dept_internal.h"
-+
-+static void *l_next(struct seq_file *m, void *v, loff_t *pos)
++noinstr bool lockdep_recursing_current(void)
 +{
-+	/*
-+	 * XXX: Serialize list traversal if needed. The following might
-+	 * give a wrong information on contention.
-+	 */
-+	return seq_list_next(v, &dept_classes, pos);
++	return lockdep_recursing(current);
 +}
-+
-+static void *l_start(struct seq_file *m, loff_t *pos)
-+{
-+	/*
-+	 * XXX: Serialize list traversal if needed. The following might
-+	 * give a wrong information on contention.
-+	 */
-+	return seq_list_start_head(&dept_classes, *pos);
-+}
-+
-+static void l_stop(struct seq_file *m, void *v)
-+{
-+}
-+
-+static int l_show(struct seq_file *m, void *v)
-+{
-+	struct dept_class *fc = list_entry(v, struct dept_class, all_node);
-+	struct dept_dep *d;
-+	const char *prefix;
-+
-+	if (v == &dept_classes) {
-+		seq_puts(m, "All classes:\n\n");
-+		return 0;
-+	}
-+
-+	prefix = fc->sched_map ? "<sched> " : "";
-+	seq_printf(m, "[%p] %s%s\n", (void *)fc->key, prefix, fc->name);
-+
-+	/*
-+	 * XXX: Serialize list traversal if needed. The following might
-+	 * give a wrong information on contention.
-+	 */
-+	list_for_each_entry(d, &fc->dep_head, dep_node) {
-+		struct dept_class *tc = d->wait->class;
-+
-+		prefix = tc->sched_map ? "<sched> " : "";
-+		seq_printf(m, " -> [%p] %s%s\n", (void *)tc->key, prefix, tc->name);
-+	}
-+	seq_puts(m, "\n");
-+
-+	return 0;
-+}
-+
-+static const struct seq_operations dept_deps_ops = {
-+	.start	= l_start,
-+	.next	= l_next,
-+	.stop	= l_stop,
-+	.show	= l_show,
-+};
-+
-+static int dept_stats_show(struct seq_file *m, void *v)
-+{
-+	int r;
-+
-+	seq_puts(m, "Availability in the static pools:\n\n");
-+#define OBJECT(id, nr)							\
-+	r = atomic_read(&dept_pool[OBJECT_##id].obj_nr);		\
-+	if (r < 0)							\
-+		r = 0;							\
-+	seq_printf(m, "%s\t%d/%d(%d%%)\n", #id, r, nr, (r * 100) / (nr));
-+	#include "dept_object.h"
-+#undef  OBJECT
-+
-+	return 0;
-+}
-+
-+static int __init dept_proc_init(void)
-+{
-+	proc_create_seq("dept_deps", S_IRUSR, NULL, &dept_deps_ops);
-+	proc_create_single("dept_stats", S_IRUSR, NULL, dept_stats_show);
-+	return 0;
-+}
-+
-+__initcall(dept_proc_init);
++EXPORT_SYMBOL_GPL(lockdep_recursing_current);
 -- 
 2.17.1
 
