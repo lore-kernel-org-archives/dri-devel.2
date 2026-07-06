@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD22DC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 05:27:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96428C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 05:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51F910E737;
-	Mon,  6 Jul 2026 05:27:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F24010E03D;
+	Mon,  6 Jul 2026 05:33:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=adishatz.org header.i=@adishatz.org header.b="o9yoFIOT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hxRCWjs9";
 	dkim-atps=neutral
-X-Greylist: delayed 529 seconds by postgrey-1.36 at gabe;
- Mon, 06 Jul 2026 05:27:45 UTC
-Received: from adishatz.org (ns314768.ip-37-187-26.eu [37.187.26.192])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3C4310E03D
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 05:27:45 +0000 (UTC)
-Received: from p-si-bellegarde (151.127.95.79.rev.sfr.net [79.95.127.151])
- by adishatz.org (Postfix) with ESMTPSA id 2254A4C019B;
- Mon, 06 Jul 2026 07:18:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adishatz.org;
- s=mail; t=1783315133;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=bmINFG2vY6U9FFlG3dWawSnCvtEZ5sxZ5EVkoegtJPE=;
- b=o9yoFIOT0eIzuaVl5ANomqS19UzvXOmKvO6tHnGdLdE5aCp4FjRvDWT2KSPXDly0Iwsm6D
- GUIfGBgBn/ekCDqvVAhY//b+BoQLq2xoeDmt1RYryke0GNQvRT2LLZl2Pbowo1+jdqu1R0
- wW34nejiLUHfenL7IYNpuqYp/fr3EbKirKfs+iaQ3TnDfUz0oI8w54v2hzTGF0Gmt8a72y
- 5xfwb6tDRYdtdXqVWAOo6xp+exEReRwDtGXHwy8Xp4XWIlpuvK7n4BIgVsdZjxs/4gtVL4
- qZPGzKejOct6b5onOn3AfxZU+c+seiMGd/+aGoqaEeKcOXDoaGQ1xI0so9PD0Q==
-Authentication-Results: ORIGINATING; auth=pass smtp.auth=cedric.bellegarde
- smtp.mailfrom=cedric.bellegarde@adishatz.org
-From: =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
- =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
-Subject: [PATCH] drm/panel: sofef00: Fix DSI transfer errors on backlight
- update
-Date: Mon,  6 Jul 2026 07:18:22 +0200
-Message-ID: <20260706051825.78752-1-cedric.bellegarde@adishatz.org>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D55610E03D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 05:33:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 23CD943B97;
+ Mon,  6 Jul 2026 05:33:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEABE1F000E9;
+ Mon,  6 Jul 2026 05:33:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783316014;
+ bh=Nt2hW9UAZd/3dw/nxDG8xnufGlARNUpdPhr1ERAznII=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hxRCWjs9HdFCKhjf7euEJ2f8rL7udhRdZuHDEAZFAOG6cqtLNWBBWHT73nZ2PeP7I
+ H8lsncTXb3vOmmhnyjxLmQVQWZioyKivqpa3+zBBR/ezKV+kCOfE5SavHM8KgqeOYX
+ ymEsq4zFndps8L04FQ+G6sGOgf5n+5j/Pwd9J6dCjcTJs+EZ8RIGJC15avbdaS9000
+ z/LzWknp9imBM/oMn95QpI5wsHpk+EvGgILbrPqH67G/mU2dxASbRIcpsNMLcblypY
+ TU9xon1ouXjcguDk1ii91T8/z+Fq32ycm7JCFYaUzBr6uKunIpsFr05mezh3wweVQt
+ a86xNysPY1jaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 03/10] ttm/pool: initialise the shrinker earlier (v2)
+To: "Dave Airlie" <airlied@gmail.com>
+Cc: mkoutny@suse.com, tj@kernel.org, hannes@cmpxchg.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260706052330.1110909-4-airlied@gmail.com>
+References: <20260706052330.1110909-1-airlied@gmail.com>
+ <20260706052330.1110909-4-airlied@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 05:33:33 +0000
+Message-Id: <20260706053333.AEABE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,95 +54,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Backlight updates via bl_update_status() could be triggered before the
-panel was fully initialized, resulting in failed DCS commands during
-the atomic commit sequence.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Deadlock due to leaked `pool_shrink_rwsem` read lock on early retu=
+rn in `ttm_pool_shrink()`.
+- [High] Fatal NULL pointer dereference caused by bypassed global pool init=
+ialization upon `shrinker_alloc` failure.
+--
 
-Guard bl_update_status() with a prepared flag to skip backlight updates
-when the panel is not yet ready.
+commit a5f142f7cded6383539224542edc3c44efc5294c
+Author: Dave Airlie <airlied@redhat.com>
 
-[11816.846734] disp_cc_mdss_byte0_clk status stuck at 'on'
-[11816.846752] WARNING: CPU: 4 PID: 26399 at drivers/clk/qcom/clk-branch.c:88 clk_branch_toggle+0x128/0x178
-[11816.861715] Modules linked in: rfcomm rmnet algif_hash algif_skcipher q6asm_dai q6voice_dai q6routing q6afe_dai q6voice q6adm q6cvp q6afe q6asm q6mvm q6
-cvs q6voice_common snd_q6dsp_common q6core bnep gpio_wcd934x snd_soc_wcd934x snd_soc_wcd_mbhc soundwire_qcom snd_soc_wcd_classh venus_enc venus_dec imx371 wcd9
-34x regmap_slimbus imx376 lc898217xc videobuf2_dma_contig fastrpc v4l2_cci qrtr_smd rpmsg_ctrl hci_uart btqca btbcm bluetooth ecdh_generic ecc pwrseq_core snd_
-soc_max98927 qcom_camss ath10k_snoc videobuf2_dma_sg snd_soc_sdm845 videobuf2_memops venus_core ath10k_core qcom_smbx leds_qcom_flash snd_soc_rt5663 leds_qcom_
-lpg ath v4l2_mem2mem snd_soc_qcom_sdw videobuf2_v4l2 v4l2_fwnode videobuf2_common v4l2_async snd_soc_qcom_common bq27xxx_battery_i2c qcom_pbs bq27xxx_battery l
-ed_class_multicolor mac80211 snd_soc_rl6231 rtc_pm8xxx libarc4 soundwire_bus videodev qcom_stats qcom_spmi_rradc reset_qcom_pdc i2c_qcom_cci cfg80211 camcc_sdm
-845 rfkill mc qcom_rng ipa qcom_q6v5_mss slim_qcom_ngd_ctrl qcom_wdt icc_bwmon qrtr
-[11816.861812]  qcom_q6v5_pas qcom_pil_info qcom_q6v5 qcom_sysmon qcom_common qcom_glink_smem joydev zram zsmalloc uhid uinput nft_reject_inet nft_reject n
-f_reject_ipv6 nf_reject_ipv4 nft_ct nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables fuse nfnetlink ipv6 qcom_spmi_haptics rmi_i2c rmi_core
-[11816.978965] CPU: 4 UID: 0 PID: 26399 Comm: (sd-bright) Tainted: G        W           6.16.7-sdm845 #1000-postmarketos-qcom-sdm845 PREEMPT
-[11816.991580] Tainted: [W]=WARN
-[11816.994637] Hardware name: OnePlus 6 (DT)
-[11816.998735] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[11817.005844] pc : clk_branch_toggle+0x128/0x178
-[11817.010384] lr : clk_branch_toggle+0x124/0x178
-[11817.014956] sp : ffff8000991f3970
-[11817.018358] x29: ffff8000991f3980 x28: ffff0000dad38000 x27: 0000000000000000
-[11817.025634] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
-[11817.032887] x23: 0000000000000000 x22: ffffa63e2af42178 x21: ffffa63e2b56e128
-[11817.040169] x20: ffffa63e29da5a90 x19: 0000000000000000 x18: 0000000000000003
-[11817.047451] x17: 0000000000000000 x16: 000000000000000c x15: 0000000000000003
-[11817.054701] x14: ffffa63e2b2f6a10 x13: 0000000000000003 x12: 0000000000000003
-[11817.061982] x11: 00000000ffffefff x10: c0000000ffffefff x9 : e43cc05c4996c100
-[11817.069260] x8 : e43cc05c4996c100 x7 : 7461206b63757473 x6 : 0000000000000027
-[11817.076511] x5 : ffffa63e2b8726d3 x4 : ffffa63e2ae146c4 x3 : 0000000000000000
-[11817.083792] x2 : 0000000000000000 x1 : ffff8000991f3710 x0 : 00000000fffffff0
-[11817.091042] Call trace:
-[11817.093572]  clk_branch_toggle+0x128/0x178 (P)
-[11817.098112]  clk_branch2_disable+0x28/0x40
-[11817.102308]  clk_core_disable+0x64/0x1b8
-[11817.106358]  clk_core_disable_lock+0x90/0x120
-[11817.110810]  clk_disable+0x2c/0x40
-[11817.114298]  dsi_link_clk_disable_6g+0x78/0x98
-[11817.118871]  msm_dsi_host_xfer_restore+0xf0/0x120
-[11817.123667]  msm_dsi_manager_cmd_xfer+0xfc/0x178
-[11817.128411]  dsi_host_transfer+0x48/0x110
-[11817.132509]  mipi_dsi_dcs_set_display_brightness_large+0x8c/0xd0
-[11817.138651]  sofef00_panel_bl_update_status+0x3c/0x60
-[11817.143802]  backlight_device_set_brightness+0x88/0x128
-[11817.149124]  brightness_store+0x64/0xa8
-[11817.153082]  dev_attr_store+0x24/0x40
-[11817.156835]  sysfs_kf_write+0x8c/0xb8
-[11817.160591]  kernfs_fop_write_iter+0xe4/0x190
-[11817.165073]  do_iter_readv_writev+0x168/0x1c8
-[11817.169515]  vfs_writev+0x16c/0x378
-[11817.173122]  do_writev+0x84/0x130
-[11817.176523]  __arm64_sys_writev+0x2c/0x40
-[11817.180618]  invoke_syscall+0x48/0x100
-[11817.184460]  el0_svc_common+0x88/0xe8
-[11817.188217]  do_el0_svc+0x28/0x40
-[11817.191621]  el0_svc+0x38/0x88
-[11817.194766]  el0t_64_sync_handler+0x78/0x108
-[11817.199161]  el0t_64_sync+0x198/0x1a0
+ttm/pool: initialise the shrinker earlier (v2)
 
-Signed-off-by: Cédric Bellegarde <cedric.bellegarde@adishatz.org>
----
- drivers/gpu/drm/panel/panel-samsung-sofef00.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This commit moves the shrinker initialization earlier in the module load
+sequence to accommodate future memcg enablement. It also adds a check in
+the shrinker callback to handle uninitialized lists.
 
-diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
-index e00a497a7c96..f07d6533ed69 100644
---- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
-@@ -175,9 +175,13 @@ static const struct drm_panel_funcs sofef00_panel_panel_funcs = {
- static int sofef00_panel_bl_update_status(struct backlight_device *bl)
- {
- 	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	struct sofef00_panel *ctx = mipi_dsi_get_drvdata(dsi);
- 	int err;
- 	u16 brightness = (u16)backlight_get_brightness(bl);
- 
-+	if (!ctx->panel.prepared)
-+		return 0;
-+
- 	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
- 
- 	err = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
--- 
-2.54.0
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
+l.c
+> index e4dbf4c93091c..f12b68812081f 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -440,10 +440,14 @@ static unsigned int ttm_pool_shrink(int nid, unsign=
+ed long num_to_free)
+> =20
+>  	down_read(&pool_shrink_rwsem);
+>  	spin_lock(&shrinker_lock);
+> -	pt =3D list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
+> -	list_move_tail(&pt->shrinker_list, &shrinker_list);
+> +	pt =3D list_first_entry_or_null(&shrinker_list, typeof(*pt), shrinker_l=
+ist);
+> +	if (pt)
+> +		list_move_tail(&pt->shrinker_list, &shrinker_list);
+>  	spin_unlock(&shrinker_lock);
+> =20
+> +	if (!pt)
+> +		return 0;
+> +
 
+[Severity: High]
+Does this early return leak the pool_shrink_rwsem read lock?
+
+We acquire the lock just a few lines above via down_read(&pool_shrink_rwsem=
+).
+If the shrinker list is empty and pt is NULL, returning here skips the
+up_read() call at the end of the function, which could lead to a deadlock
+when another writer or reader attempts to acquire it.
+
+[ ... ]
+
+> @@ -1402,6 +1406,17 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+>  	spin_lock_init(&shrinker_lock);
+>  	INIT_LIST_HEAD(&shrinker_list);
+> =20
+> +	mm_shrinker =3D shrinker_alloc(SHRINKER_NUMA_AWARE, "drm-ttm_pool");
+> +	if (!mm_shrinker)
+> +		return -ENOMEM;
+> +
+
+[Severity: High]
+If shrinker_alloc() fails and returns early here, does it leave the global
+pool structures completely uninitialized?
+
+Because the caller ttm_global_init() ignores the return value of
+ttm_pool_mgr_init(), driver initialization will continue. The newly moved
+return bypasses the initialization loop for structures like
+global_write_combined.
+
+When the driver later attempts to allocate from these pools, or when
+ttm_pool_mgr_fini() calls list_del() on the zero-filled uninitialized
+structures, can this cause a NULL pointer dereference?
+
+> +	mm_shrinker->count_objects =3D ttm_pool_shrinker_count;
+> +	mm_shrinker->scan_objects =3D ttm_pool_shrinker_scan;
+> +	mm_shrinker->batch =3D TTM_SHRINKER_BATCH;
+> +	mm_shrinker->seeks =3D 1;
+> +
+> +	shrinker_register(mm_shrinker);
+> +
+>  	for (i =3D 0; i < NR_PAGE_ORDERS; ++i) {
+>  		ttm_pool_type_init(&global_write_combined[i], NULL,
+>  				   ttm_write_combined, i);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706052330.1110=
+909-1-airlied@gmail.com?part=3D3
