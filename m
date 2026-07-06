@@ -4,85 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9207C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:34:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1170C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:41:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 123FD10E65F;
-	Mon,  6 Jul 2026 12:34:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 021088953E;
+	Mon,  6 Jul 2026 12:41:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FtEQJYii";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jxa6k4Ys";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCEA510E16D
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:34:42 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-698bf053053so4294569a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 05:34:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783341281; x=1783946081; darn=lists.freedesktop.org;
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=x9DuFiLJFQhXF47fb9omkU+r2KlD4K7BS2Tl2g+RiHE=;
- b=FtEQJYiizEiFTlUJyxnNkxoFliQyIJvYWy/tfWwFqcgb5SuD/2E9fbOVtZ1dGbTg3E
- 1qsVcXQV505l5oGPadGDzLi9zWIbrzUf8l02QBuQ6HmPRbHhtleTkjGziuVsrpqg0FkC
- heBYqZHe1m/RZK9L01qvHueG/+96amXvna7aegHOgG1J8EPXaOHXw48rj4o1IhbhrM0z
- CLq7EjF3CFRYawlq/709J3y9kMfZyM/UelGb/U53qol3B9ASKM8Uj9QiOHCcvM/nZVDe
- znCS2Rzz7pRHHuAdbB22MK8fa9WokfmAe8zOxY1wCrJjGte4tDfB6wRak8m+HgBPILyX
- NfDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783341281; x=1783946081;
- h=in-reply-to:references:cc:to:from:subject:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=x9DuFiLJFQhXF47fb9omkU+r2KlD4K7BS2Tl2g+RiHE=;
- b=KtHiun1npnWyKkWl0XtnQIoEPZ/YmlEGV7+zXtfasXH/o1SyUeINpGD3PdvZxDfcTP
- R3XhwWFwH2r25hglxQDUWwMdi82Ty8VBhC7voAV2zTGyFIHoUYwp34+Tz2Vjyp371i0F
- vkCd7sexKq8cYpsObyOTElkR0ebAUsvaxyPtzSVUxqbtpQX5F+AHyBChducGaNiecUmm
- ixz3ELB+Z2ycwJUgXD40E/mGUCkfKYLwdcsXcDPdbeAn5Tdafm8WRrtvzUbjCLPLc1kz
- 1i/BIIAMq/eS+HZ/yOsgDp4zxuroSywvvIWWohilcx1beaQox5Tb9nNkN5pj8TbYAMK3
- WWtA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp80l9a0rMUo/1BU+6+8TRZvilWtJCrOq9rJ8jEaLTZrkTpZxzS/S69ulNepnkOo0GYlR2JeH2VV7I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzivtpQJ/y+8yZ+QfB6f0hETr8E1zFoa4/5H3ZzTNp6AsmWKrd5
- zQM4X2NV3uvQr2h0m2JNrCfJh8t7njYDG/ENiopAkXfOEE6isO4D7og=
-X-Gm-Gg: AfdE7cmxtsIFuoVSTPE1C2UXwWxPlaZitACb1rrWFUiivxiy0K5rT1PvXizUArdYE1e
- ssxrchGP4ZRDKLtyaoxUGDbH8gkJMD28OdFNGQR11gWBsCwX7ldRgLVYgkuiEG/2OtXs8nGdVVL
- rZs0lYtEL73zgGmdtHrIiXkI/XDUJ34mEJ3zKdSnWIwICsTexzhwD0MaUMNAEUrBWOBs1OpoRN5
- VAdJg5iIaqWzcA1nJYCKsSzwaotLMQPBMWHqPNOEabvWStZq/0gdaVeRoPCqM4QTzV3ggJDV4Ql
- 778jKBV9pKJlTCmW71bb5A85ihx4k3h3HaP6BAnwZ6HG7oOLaF6BDqR2vqCSlf+syFJSKTMc1tw
- EtA+onWsIRRRfG7SL9p8O9uUknjsmZtnwQnmrMQ5+IjVz9PFCtQ5LHprNK4c1FHvjNjQ5EW5wch
- PJEUw4iUDr0ZCqar3pVM/XY5KK1FMlQ6lnPRQO4+LOZP788BFH7PHRXdtDiFk=
-X-Received: by 2002:a17:907:a709:b0:c12:caad:6efa with SMTP id
- a640c23a62f3a-c15a676bf23mr21887566b.4.1783341281063; 
- Mon, 06 Jul 2026 05:34:41 -0700 (PDT)
-Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69a19d7a375sm3926102a12.15.2026.07.06.05.34.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2026 05:34:40 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 06 Jul 2026 09:34:34 -0300
-Message-Id: <DJRHPZG7YKTX.1HUB8IXSAR0R0@gmail.com>
-Subject: Re: [PATCH] drm/panel: novatek-nt37801: Use mipi_dsi_*_multi()
- functions
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-To: "Doug Anderson" <dianders@chromium.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Brigham Campbell"
- <me@brighamcampbell.com>, "David Airlie" <airlied@gmail.com>, "Jessica
- Zhang" <jesszhan0024@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Neil Armstrong" <neil.armstrong@linaro.org>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>
-X-Mailer: aerc 0.20.0
-References: <20260701125624.199786-1-nico.antinori.7@gmail.com>
- <CAD=FV=VKKb1Xy2Y7D1Lv8DXhaG1_zHZqTk2Q74oT-YKGd5CCiQ@mail.gmail.com>
-In-Reply-To: <CAD=FV=VKKb1Xy2Y7D1Lv8DXhaG1_zHZqTk2Q74oT-YKGd5CCiQ@mail.gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ECA9897D4
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:41:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1ybYwScqVWzmZjZIyud3bfDTcfHjIRhfVbjFroGryf0=; b=jxa6k4YsE433dznTkdLcXalRvs
+ UXFjE1cjH0C29wxAxjXpS+dapkqBzMdzin2nzDEZjV5P2fsuOfnkvjsTlSzpo2Eu0GPsJndccc3mR
+ TxTUSFHoid6rtiqS62B6wfTtpHxRI6bqJc78tNt5PEvUBKGzLjesqpxYJr+mmMKzEpmCJp9A/hfTM
+ fxeXy5s8nhxYFdhDQ2Qcv7T7k0a0dMxcT0b3bokxmyiSYKNkL/oO1DExAk4QuJPW8FRVnrCSsteni
+ wyYzDK7v05rhe2I161IFqWfxgxh2TVrAi1JI5D+D9agD3kZDgSzkQSzjd2ioXqXMJyCSoMy/ifj7c
+ 1qA6QzFA==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wgidC-009jp4-PY; Mon, 06 Jul 2026 14:41:02 +0200
+Message-ID: <5963b079-cb44-4cd4-be56-f47bf3f15e0e@igalia.com>
+Date: Mon, 6 Jul 2026 13:41:01 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
+ improvements
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <akd/ae5VGQrsWqsf@gsse-cloud1.jf.intel.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <akd/ae5VGQrsWqsf@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,79 +66,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Jul 4, 2026 at 12:59 PM -03, Doug Anderson wrote:
-> Hi,
->
-> On Wed, Jul 1, 2026 at 5:56=E2=80=AFAM Nicol=C3=A1s Antinori
-> <nico.antinori.7@gmail.com> wrote:
->>
->> Replace mipi_dsi_* functions with their non-deprecated mipi_dsi_*_multi
->> counterparts. This change reduces error-checking boilerplate and improve=
-s
->> readability.
->>
->> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
->> ---
->> Note: I Compile-tested this patch since I don't own the panel to test it=
-.
->>
->>  drivers/gpu/drm/panel/panel-novatek-nt37801.c | 16 ++++++----------
->>  1 file changed, 6 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu=
-/drm/panel/panel-novatek-nt37801.c
->> index d6a37d7e0cc6..daa356bbc182 100644
->> --- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
->> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
->> @@ -128,7 +128,8 @@ static int novatek_nt37801_off(struct novatek_nt3780=
-1 *ctx)
->>  static int novatek_nt37801_prepare(struct drm_panel *panel)
->>  {
->>         struct novatek_nt37801 *ctx =3D to_novatek_nt37801(panel);
->> -       struct device *dev =3D &ctx->dsi->dev;
->> +       struct mipi_dsi_device *dsi =3D ctx->dsi;
->> +       struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
->>         struct drm_dsc_picture_parameter_set pps;
->>         int ret;
->>
->> @@ -145,15 +146,10 @@ static int novatek_nt37801_prepare(struct drm_pane=
-l *panel)
->>
->>         drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
->>
->> -       ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
->> -       if (ret < 0) {
->> -               dev_err(panel->dev, "failed to transmit PPS: %d\n", ret)=
-;
->> -               goto err;
->> -       }
->> -
->> -       ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
->> -       if (ret < 0) {
->> -               dev_err(dev, "failed to enable compression mode: %d\n", =
-ret);
->> +       mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
->> +       mipi_dsi_compression_mode_multi(&dsi_ctx, true);
->> +       if (dsi_ctx.accum_err) {
->> +               ret =3D dsi_ctx.accum_err;
->>                 goto err;
->>         }
->
-> Sure, this looks pretty good.
->
-> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->
-> For bonus points, I think you could change novatek_nt37801_on() to
-> return "void" and take a "struct mipi_dsi_multi_context". Since
-> drm_dsc_pps_payload_pack() is harmless, the function can now just be:
->
->   novatek_nt37801_on(&dsi_ctx);
->   drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
->   mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
->   mipi_dsi_compression_mode_multi(&dsi_ctx, true);
->   if (dsi_ctx.accum_err) {
->     ...
->   }
 
+On 03/07/2026 10:22, Matthew Brost wrote:
+> On Thu, Jul 02, 2026 at 03:37:37PM +0100, Tvrtko Ursulin wrote:
+>> The problem statement is explained quite well and succinctly at:
+>> https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49
+>>
+>> Essentially, on a system (over)loaded with a lot of runnable CPU processes, a
+>> high-priority DRM client gets latency injected into the GPU submission path due
+>> to the DRM scheduler use of workqueues.
+>>
+>> This patch series proposes to replace the workqueues with kthread_work and
+>> priority inheritance to solve this problem.
+>>
+>> In the above linked issue Chia-I benchmarked the submit latencies which
+>> show a striking improvement:
+>>
+>> 		median	95%	99%
+>>    before	41us	1.5ms	2.6ms
+>>     after	15us	19us	24us
+> 
+> Can you give more information on these numbers? e.g., What you ran / how
+> you measured these. It is hard to argue with numbers.
 
-Will send a v2 with those changes. Thank you for the suggestion!
+I believe Chia-I observed latency on some production hw/sw and then 
+wrote a synthetic benchmark to test it more easily. Details are in the 
+above linked issue.
+
+>> This is obviously really good for preventing compositors from missing frames and
+> 
+> Modern compositors do not pass render-job fences to draw jobs as input
+> dependencies. On Wayland, this functionality is provided by
+> linux-drm-syncobj-v1 and is enabled by default on Ubuntu 24.10 and
+> later. SurfaceFlinger has also operated this way for quite some time.
+> 
+> The obvious solution for compositors is to submit work directly through
+> the ioctl (i.e., bypass path in sched) when there are no input
+> dependencies, which should be the common case. The main exception is
+> when one of the BOs mapped into the compositor is migrating or otherwise
+> busy (i.e., a BO has a fence in a kernel dma-resv slot).
+
+You mean the direct submit RFC you floated some time ago? What was the 
+verdict on that one, wasn't it rejected?
+
+>> similar. Another good quote for the above issue, explaining the consequence of
+>> CPU starvation of the submit path, is this:
+>>
+>> """
+>> As a result, vkQueueWaitIdle blocks for 9.5ms for a gpu job that takes 4.5ms
+>> gpu time.
+>> """
+> 
+> More details here?
+
+This just illustrates how long can the workqueue wait for it's slice on 
+the CPU if the cores are loaded with other tasks. In other words, how 
+long since job is runnable to it actually being passed to the GPU.
+
+>> DRM scheduler was originally using kthreads but was converted workqueues due
+>> desire by xe to create thousands of schedulers. This series also questions
+>> whether that was needed, given how the submission is serialized by a device
+>> global lock (per GT, so almost device global). Panthor has a similar situation;
+>> hence the series contains two patches to move those two to a setup which matches
+>> the design of those drivers.
+>>
+>> Other drivers, like for example amdgpu, v3d, etnaviv etc, which use the
+>> scheduler as a hardware scheduler, where number of instances follow the number
+>> of hardware blocks instead the number of userspace contexts, are completely
+>> fine.
+>>
+>> There are use cases however which do currently track the number of userspace
+>> contexts and which do allow for more parallelism. For those a straight
+>> kthread_work conversion would be a problem due an explosion in number of
+>> threads.
+>>
+>> The most direct example is panthor VM bind queue which creates a scheduler per
+>> userspace context and relies on work queue concurrency management to keep the
+>> number of threads in check.
+>>
+>> This creates a challenge for the kthread_work conversion. To solve which I for
+>> now opted to create a trivial round-robin thread pool. For the RFC this is
+>> limited to four CPU threads and is something which will need to be discussed.
+> 
+> 4 CPU threads per device, per drm sched module?
+
+4 CPU threads per drm_sched_create_concurrent_worker(). So depends on 
+the driver how it wants to use it. For xe there are no usages of that, 
+albeit you say single thread is not workable, we can discuss that in the 
+other sub-thread. For panthor this RFC uses that flavour of the worker 
+for the VM bind queues and in that case it is 4 CPU threads per device 
+which handle VM bind requests from all userspace clients.
+
+Regards,
+
+Tvrtko
+
+> 
+> I have more questions but let's get some clarification first.
+> 
+> Matt
+> 
+>> Ie. how much parallelsim those really need. The true answer is somewhere between
+>> "at most the number of active userspace contexts and the number of CPU cores".
+>> Or it could be less than that, since after all, VM BIND parallelism is
+>> eventually going to choke on a narrower gate of actual GPU execution. We could
+>> also allow drivers to pick their number.
+>>
+>> In terms of how I implemented priority inheritance, the most important
+>> characteristic is that it is temporary. As many userspace clients may be
+>> submitting to a single DRM scheduler instance, a generic solution is to only
+>> elevate the submission worker priority while there are active high priority
+>> submitters. The mechanism is light weight and has a hysteresis built in to avoid
+>> frequent scheduler operations.
+>>
+>> That's pretty much it for now apart for an important detail that this RFC will
+>> not build for all drivers! Out of those which directly use the DRM scheduler
+>> APIs changed, I converted only panthor and xe. Amdgpu will also work by the way.
+>> Others I have not tried to build.
+>>
+>> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+>> Cc: Steven Price <steven.price@arm.com>
+>> Cc: Liviu Dudau <liviu.dudau@arm.com>
+>> Cc: Chia-I Wu <olvaffe@gmail.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>>
+>> Tvrtko Ursulin (8):
+>>    drm/panthor: Remove redundant drm_sched_job_cleanup() from the
+>>      .free_job callback
+>>    drm/panthor: Use separate workqueue for DRM scheduler
+>>    drm/sched: Use generic naming for workqueue helpers
+>>    drm/xe: Convert to per gt scheduler workers
+>>    drm: Wrap DRM scheduler worker in own abstraction
+>>    drm/sched: Convert the scheduler job submission to kthread_worker
+>>    drm/sched: Add ability to change drm_sched_worker priority
+>>    drm/sched: Notify worker of the entity submission priority
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   8 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   4 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |   4 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |   2 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    |   8 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     |   8 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c     |   2 +-
+>>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c     |   4 +-
+>>   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c     |   4 +-
+>>   drivers/gpu/drm/msm/adreno/adreno_device.c  |   4 +-
+>>   drivers/gpu/drm/panthor/panthor_mmu.c       |  20 +-
+>>   drivers/gpu/drm/panthor/panthor_sched.c     |  23 ++-
+>>   drivers/gpu/drm/scheduler/sched_entity.c    |   3 +
+>>   drivers/gpu/drm/scheduler/sched_main.c      | 168 +++++++++++-----
+>>   drivers/gpu/drm/scheduler/sched_rq.c        | 202 ++++++++++++++++++++
+>>   drivers/gpu/drm/xe/xe_dep_scheduler.c       |   6 +-
+>>   drivers/gpu/drm/xe/xe_dep_scheduler.h       |   6 +-
+>>   drivers/gpu/drm/xe/xe_exec_queue.c          |   6 +-
+>>   drivers/gpu/drm/xe/xe_gpu_scheduler.c       |  21 +-
+>>   drivers/gpu/drm/xe/xe_gpu_scheduler.h       |   2 +-
+>>   drivers/gpu/drm/xe/xe_gpu_scheduler_types.h |   2 +-
+>>   drivers/gpu/drm/xe/xe_gt.c                  |   7 +
+>>   drivers/gpu/drm/xe/xe_gt_types.h            |   3 +
+>>   drivers/gpu/drm/xe/xe_guc_submit.c          |  18 +-
+>>   drivers/gpu/drm/xe/xe_tlb_inval.c           |  14 +-
+>>   drivers/gpu/drm/xe/xe_tlb_inval_types.h     |   5 +-
+>>   include/drm/gpu_scheduler.h                 | 131 ++++++++++++-
+>>   27 files changed, 551 insertions(+), 134 deletions(-)
+>>
+>> -- 
+>> 2.54.0
+
