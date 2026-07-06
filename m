@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5172C43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:55:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBDCC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:57:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0580410E277;
-	Mon,  6 Jul 2026 13:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B7210E1A7;
+	Mon,  6 Jul 2026 13:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cEknt/wx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iIga0vWA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E062710E277
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:55:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1B7C10E1A7
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:57:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 10D7560098;
- Mon,  6 Jul 2026 13:55:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FFD41F000E9;
- Mon,  6 Jul 2026 13:55:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A61A403BE;
+ Mon,  6 Jul 2026 13:57:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120061F000E9;
+ Mon,  6 Jul 2026 13:57:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783346113;
- bh=q7zlp4wnd6FwHx0pQkEWcDS5OW9sgYHEkUPlwvbCfVw=;
+ s=k20260515; t=1783346264;
+ bh=cEUXQE8v67wbYiTzbCmSop15osBemRp0tkTxxiCOCJA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cEknt/wx+P55pWXrCbhbCwELLXhDPgotUR4cDdpIK0d1QfG+ASdqO65FuERJf3sgj
- xhc/s7BNJgBplL6zHYeD3wHfaHY8uDn9Hj1TD+qXq2QUJwgr8OWlivU92L8GC/j7ml
- RpMzem2BONCSZIwq+ldUB6c0oJ44nArbUdcA4BkkHN//pStQYdcbxnV3yqxrPd0iG1
- fVP68wrfpfR7A3ptU7adQwIxb4jcl9broBupvatlXh0BJI84+X5PcZ4RiMIF7A3GRe
- 34grJvW97XsWUWoJ2k9esL0sm3RNsFIYy2Ss85JrXr7HZeK245lViiPbAD2K5AEEms
- p1FvjfhCbwbWw==
+ b=iIga0vWAAmGWYojm40XKWhoZ/8kVoAEN7nRPfnKlp+VmpCfkd+9JeFJAduNj3Lt2P
+ +ESyDENKrp0D34ugp7WlJIdpY3P99xevD+WQ+yTWDLJn3ydsRCvajdC48+kHCIRqUr
+ lo95/nqXQd6kyrPcdwlS1uSPOEfK9fZbLQjiwpk0cDQTLUdSldvbKeaMZZHGM9k71N
+ OG08f3pMZdFFV+tlqdNQ79SXQZSzwpYwik/T7FfOSTdv54LwsQvDJuF5U2rcnrcOoa
+ AZ09qVTE6ntei9izqMlzS6KWggqft3GyrAgOuF+0m/W1LaDTlCaDWkZycRCg44YFgT
+ ElcRD36A7okjg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] gpu/drm: Remove unused *dev parameter from
- drm_mode_destroy function
+Subject: Re: [PATCH 2/3] gpu/drm: Remove unused 'drm device *dev' parameter
+ from drm_mode_create()
 To: "Jan Niedziolka" <j.niedziolka@samsung.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706134515.3369960-2-j.niedziolka@samsung.com>
+In-Reply-To: <20260706134515.3369960-3-j.niedziolka@samsung.com>
 References: <20260706134515.3369960-1-j.niedziolka@samsung.com>
- <CGME20260706134550eucas1p2610b0e626d3ea286304d68e6cfa5e968@eucas1p2.samsung.com>
- <20260706134515.3369960-2-j.niedziolka@samsung.com>
+ <CGME20260706134551eucas1p2699f145a53a0d5d8cd92d0a062c62ad9@eucas1p2.samsung.com>
+ <20260706134515.3369960-3-j.niedziolka@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 13:55:13 +0000
-Message-Id: <20260706135513.8FFD41F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 13:57:43 +0000
+Message-Id: <20260706135744.120061F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,65 +61,94 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Unused local variables `dev` and `vbox_connector` due to the remova=
-l of the `dev` parameter from `drm_mode_destroy()`.
+- [Low] Build failure due to referencing non-existent members in struct exy=
+nos_dp_device and unused static functions.
 --
 
-commit 9caafe56634afb7bf9e65d116788497811b64f48
+commit aa4d752f4408535e5aa104d5d47b153a65ec83e2
 Author: Jan Niedziolka <j.niedziolka@samsung.com>
 
-gpu/drm: Remove unused *dev parameter from drm_mode_destroy function
+gpu/drm: Remove unused 'drm device *dev' parameter from drm_mode_create()
+   =20
+This commit removes the unused struct drm_device *dev parameter from the
+drm_mode_create() prototype and definition. It also updates all calls to
+drm_mode_create() to reflect this change.
 
-This commit removes the unused dev parameter from the drm_mode_destroy
-function prototype and updates all callers across the tree to match.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vbox=
-video/vbox_mode.c
-> index 8e4e5fc9d3c5a..fbe5c2382983e 100644
-> --- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> +++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-> @@ -782,7 +782,7 @@ static int vbox_fill_modes(struct drm_connector *conn=
-ector, u32 max_x,
->  	dev =3D vbox_connector->base.dev;
->  	list_for_each_entry_safe(mode, iterator, &connector->modes, head) {
->  		list_del(&mode->head);
-> -		drm_mode_destroy(dev, mode);
-> +		drm_mode_destroy(mode);
+> diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/=
+exynos_dp.c
+> index b805403281504..78183809b4fb3 100644
+> --- a/drivers/gpu/drm/exynos/exynos_dp.c
+> +++ b/drivers/gpu/drm/exynos/exynos_dp.c
+> @@ -68,6 +68,53 @@ static int exynos_dp_poweroff(struct analogix_dp_plat_=
+data *plat_data)
+>  	return exynos_dp_crtc_clock_enable(plat_data, false);
+>  }
+> =20
+> +static int exynos_dp_get_modes(struct analogix_dp_plat_data *plat_data,
+> +			       struct drm_connector *connector)
+> +{
+> +	struct exynos_dp_device *dp =3D to_dp(plat_data);
+> +	struct drm_display_mode *mode;
+> +
+> +	if (dp->plat_data.panel)
+> +		return 0;
+> +
+> +	mode =3D drm_mode_create();
+> +	if (!mode) {
+> +		DRM_DEV_ERROR(dp->dev,
+> +			      "failed to create a new display mode.\n");
+> +		return 0;
+> +	}
+> +
+> +	drm_display_mode_from_videomode(&dp->vm, mode);
 
 [Severity: Low]
-Since the dev parameter was removed from drm_mode_destroy(), are the dev and
-vbox_connector variables now completely unused in vbox_fill_modes()?
+Does this code compile successfully? Looking at the definition of
+struct exynos_dp_device, it doesn't appear to have a vm member. This might
+cause a build failure.
 
-Looking at the full function context:
+> +	connector->display_info.width_mm =3D mode->width_mm;
+> +	connector->display_info.height_mm =3D mode->height_mm;
+> +
+> +	mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
+> +	drm_mode_set_name(mode);
+> +	drm_mode_probed_add(connector, mode);
+> +
+> +	return 1;
+> +}
+> +
+> +static int exynos_dp_bridge_attach(struct analogix_dp_plat_data *plat_da=
+ta,
+> +				   struct drm_bridge *bridge,
+> +				   struct drm_connector *connector)
+> +{
+> +	struct exynos_dp_device *dp =3D to_dp(plat_data);
+> +	int ret;
+> +
+> +	dp->connector =3D connector;
 
-static int vbox_fill_modes(struct drm_connector *connector, u32 max_x, u32 =
-max_y)
-{
-        struct vbox_connector *vbox_connector;
-        struct drm_device *dev;
-        struct drm_display_mode *mode, *iterator;
+[Severity: Low]
+Similarly here, is connector a valid member of struct exynos_dp_device?
 
-        vbox_connector =3D to_vbox_connector(connector);
-        dev =3D vbox_connector->base.dev;
-        list_for_each_entry_safe(mode, iterator, &connector->modes, head) {
-                list_del(&mode->head);
-                drm_mode_destroy(mode);
-        }
+> +
+> +	/* Pre-empt DP connector creation if there's a bridge */
+> +	if (dp->ptn_bridge) {
 
-        return drm_helper_probe_single_connector_modes(connector, max_x, ma=
-x_y);
-}
+[Severity: Low]
+And here, does struct exynos_dp_device have a ptn_bridge member? It looks
+like these functions might have been accidentally pasted from another driver
+during a rebase, as they don't seem to match the struct definition and don't
+appear to be referenced anywhere in this file.
 
-Could leaving these assignments here trigger unused-but-set-variable compil=
-er
-warnings, potentially breaking builds with -Werror enabled?
-
->  	}
-> =20
->  	return drm_helper_probe_single_connector_modes(connector, max_x, max_y);
+> +		ret =3D drm_bridge_attach(&dp->encoder, dp->ptn_bridge, bridge,
+> +					0);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706134515.3369=
-960-1-j.niedziolka@samsung.com?part=3D1
+960-1-j.niedziolka@samsung.com?part=3D2
