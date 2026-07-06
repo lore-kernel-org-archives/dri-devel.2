@@ -4,44 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A40F1C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:48:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6DE2C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E410B10E387;
-	Mon,  6 Jul 2026 13:48:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E331510E199;
+	Mon,  6 Jul 2026 13:49:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VFCXndqc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i0h5ujtI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C189E10E387
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:48:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1E2810E199
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:49:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6B83340564;
- Mon,  6 Jul 2026 13:48:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B13E1F000E9;
- Mon,  6 Jul 2026 13:48:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D6BD8600C3;
+ Mon,  6 Jul 2026 13:49:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D786C1F00A3A;
+ Mon,  6 Jul 2026 13:49:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783345733;
- bh=8IlWS+vPPCABbeGHYH8UVop9YkOqTlw49NYD4LGjq7w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VFCXndqcN+V+RkzTbKgKKtgPGDQkGFsHXnhZCtFGrwWRlw1DxiOzslWulz2w587gx
- CgN0qY3EMqWJDP/4K4/WygVSFA+HBVuqlS4Bz/Kw3kWB96bk/0uolbvS85VD4AlzBg
- Ehdr2c9M0pKfU8luGLUifAIXSJzEfSo7C+KdDrAAIWHWhW9D6SBVwIpBXyRzFli+ih
- YdWbntU9IvG8rRuHI4QEXAlmGIqZhPRzzhl0Jaei5FrDMgyNwYnKxdzQxFGtYr9JD3
- iHIPAWFpBJHSdElJL2aOZBUV6OU6mpTNW7SeAE2xRm0KbrA0ZegvO5VHyYDqTNa8JC
- XWsfiyI29qPqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] drm/v3d: Serialize jobs across queues when a
- perfmon is attached
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706-v3d-perfmon-lifetime-v4-2-d7b312ff2c83@igalia.com>
-References: <20260706-v3d-perfmon-lifetime-v4-0-d7b312ff2c83@igalia.com>
- <20260706-v3d-perfmon-lifetime-v4-2-d7b312ff2c83@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 13:48:52 +0000
-Message-Id: <20260706134853.3B13E1F000E9@smtp.kernel.org>
+ s=k20260515; t=1783345766;
+ bh=n2XIM2CQ/NysWLV70KA17o1xrRADPboha/A2J5wScPA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=i0h5ujtIHJf8JcmNUZYbVaz2XCJNa+558wUqGLmQJ6IUGVggW/DloLPLWuhO1R2J4
+ CIOvWervclMAC+t4YHzYZNeUGQs8n5RQhD5+pX7FGLeY/rM5aE9jpEapugictLRSjy
+ U6beDhWeB8OPkhoDVSPRejb9WdNMKzAExXxlUyKhgS+dMwIADqpoFT/nQ2cCpoW9eC
+ K73pyNMp9AVnJTvgF51xaXwNZ1O5AGEmdncXHGxK1cdbGJD4OTUcEagkrNS0kpfl92
+ eL06YmfDi9opIB9rvfLfMV/X8yRpROG+gLsnpOyp/R1Z2OC3JwzKq8tEhICv5cqzGn
+ dck7DrRmZHnng==
+Date: Mon, 6 Jul 2026 15:49:24 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <akuvyu1Pq0ZVMZV0@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
+ <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="eye62g5djwewlpln"
+Content-Disposition: inline
+In-Reply-To: <akftuw9NyRy36fXA@willie-the-truck>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,137 +96,127 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Concurrent toggling of the global perfmon state bypasses cross-que=
-ue serialization for non-global perfmon jobs, breaking isolation and causin=
-g counter pollution.
+--eye62g5djwewlpln
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+MIME-Version: 1.0
 
-Pre-existing issues:
-- [High] Incorrect error check of pm_runtime_get_if_active() misses negativ=
-e error codes, leading to a usage counter underflow when runtime PM is disa=
-bled.
---
+On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
+> On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
+> > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
+> > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
+> > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
+> > > > > From: Chun Ng <chunn@nvidia.com>
+> > > > >=20
+> > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protection=
+ bits
+> > > > > on a kernel-linear-map range.
+> > > >=20
+> > > > That sounds like a really terrible idea. Why is this necessary and =
+how
+> > > > does it interact with things like load_unaligned_zeropad()?
+> > >=20
+> > > This is necessary because once the memory controller has walled off t=
+he
+> > > new memory region the CPU must not access it under any circumstances =
+or
+> > > it'll cause the CPU to lock up (I think technically it'll hit an SErr=
+or
+> > > but in practice that just means it'll freeze, as far as I can tell).
+> > >=20
+> > > Probably doesn't interact well at all with load_unaligned_zeropad().
+> > >=20
+> > > > I think you should unmap the memory from the linear map and memrema=
+p()
+> > > > it instead.
+> > >=20
+> > > Given that the memory can never be accessed by the CPU after the memo=
+ry
+> > > controller locks it down, I don't think we'll even need memremap(). T=
+he
+> > > only thing we really need is the sg_table we hand out via the DMA BUFs
+> > > so that they can be used by device drivers to program their DMA engin=
+es
+> > > internally.
+> > >=20
+> > > Looking through some of the architecture code around this, shouldn't =
+we
+> > > simply be using set_memory_encrypted() and set_memory_decrypted() for
+> > > this? While they might've been created for slightly other use-cases,
+> > > they seem to be doing exactly what we want (i.e. remove the page range
+> > > from the linear mapping and flushing it, or restoring the valid bit a=
+nd
+> > > standard permissions, respectively).
+> >=20
+> > Ah... I guess we can't do it because we're not in a realm world and so
+> > the early checks in __set_memory_enc_dec() would return early and turn
+> > it into a no-op.
+> >=20
+> > How about if I extract a common helper and provide set_memory_p() and
+> > set_memory_np() in terms of those. Those are available on x86 and
+> > PowerPC as well, so fairly standard. I suppose at that point we're
+> > closer to set_memory_valid().
+>=20
+> Why not just call set_direct_map_invalid_noflush() +
+> flush_tlb_kernel_range() for each page? We already have APIs for this.
 
-commit b3331fc0fee9a96bbf0068661ed07711e8ff9155
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+Having a "standard" helper with a fixed and documented purposed seemed
+like a preferable approach for this particular case. We also may want to
+make the driver that uses this buildable as a module, in which case we'd
+need to export these rather low-level APIs. And then there's also the
+fact that we typically call this on a rather large region of memory
+(usually something like 512 MiB), so doing it page-by-page is rather
+suboptimal.
 
-drm/v3d: Serialize jobs across queues when a perfmon is attached
-   =20
-A non-global perfmon is meant to count events generated by a specific
-submission, but the scheduler can run jobs from different queues
-concurrently on the same V3D core. This patch enforces cross-queue
-serialization when a perfmon-carrying submission is detected.
+> The big challenge I see with any linear map manipulation, however, is
+> that it will rely on can_set_direct_map() which likely means you need to
+> give up some performance and/or security to make this work. Does memory
+> become inaccesible dynamically at runtime? If not, the best bet would
+> be to describe it as a carveout in the DT and mark it as "no-map" so
+> we avoid mapping it in the first place.
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_=
-perfmon.c
-> index 3ad0f022753c8..07dab7fb30607 100644
-> --- a/drivers/gpu/drm/v3d/v3d_perfmon.c
-> +++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-> @@ -275,6 +275,12 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v=
-3d_perfmon *perfmon)
->  	if (!perfmon || v3d->global_perfmon)
->  		return;
-> =20
-> +	/* Cross-queue serialization should have drained any previous perfmon
-> +	 * job before this one runs.
-> +	 */
-> +	if (WARN_ON_ONCE(v3d->perfmon_state.active))
-> +		return;
-> +
->  	if (!pm_runtime_get_if_active(v3d->drm.dev))
->  		return;
-> =20
->  	v3d_perfmon_hw_start(v3d, perfmon);
->  	v3d->perfmon_state.active =3D perfmon;
-> =20
->  	v3d_pm_runtime_put(v3d);
+VPR exists in two modes: static and resizable. For static VPR we do
+exactly that: describe it as carveout in DT with no-map and deal with it
+accordingly in the driver. Resizable VPR is for device that have small
+amounts of RAM. Content-protected video playback will in the worst case
+consume around 1.8 GiB of RAM, so we want to be able to reuse for other
+purposes when VPR is unused on those devices. In that case, the memory
+is also described as a reserved-memory region in DT, but it is marked as
+reusable so that it can be managed by CMA.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this correctly handle
-negative error codes?
+The resize operation is fairly slow to begin with because we need to
+stall the GPU and put it into reset before the operation, then take it
+out of reset and resume it afterwards.
 
-When runtime PM is disabled, pm_runtime_get_if_active() returns -EINVAL.
-Because the ! operator is used, !(-EINVAL) evaluates to false, causing the
-function to proceed instead of returning early.
+What kind of performance impact do you expect?
 
-It then calls hardware access functions and v3d_pm_runtime_put(). Since the
-usage counter was not incremented, the put call would decrement it below ze=
-ro,
-underflowing the counter.
+Thierry
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index 27cc98770b37e..d32defa7da73a 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+--eye62g5djwewlpln
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -320,6 +322,73 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit=
-, u32 perfmon_id)
->  	return 0;
->  }
-> =20
-> +/*
-> + * Prepare fences to enforce job serialization when a perfmon is active.=
- A job
-> + * that carries a non-global perfmon must wait for every job currently i=
-n-flight
-> + * across all HW queues to finish, otherwise concurrent unrelated work o=
-n the
-> + * same core would pollute the performance counters. Symmetrically, whil=
-e such a
-> + * job is still in-flight, all subsequently submitted jobs must wait for=
- it.
-> + *
-> + * We don't serialize the jobs when using a global perfmon as it's expec=
-ted to
-> + * track concurrent activity from all jobs.
-> + */
-> +static int
-> +v3d_serialize_for_perfmon(struct v3d_job *job)
-> +{
-> +	struct v3d_dev *v3d =3D job->v3d;
-> +	struct dma_fence *merged;
-> +	bool is_global_perfmon;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&v3d->sched_lock);
-> +
-> +	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
-> +		is_global_perfmon =3D !!v3d->global_perfmon;
-> +
-> +	if (is_global_perfmon)
-> +		goto publish;
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpLsl8ACgkQ3SOs138+
+s6HxxA//d5TQAy9G9NF/ZbA14NpOegwi6/NUjnNgWvezWXjMqGI55A0c3bbPyVKd
+tYgSNk/b86yED38u0/P4s6EilDp/WwgoM1xy7ibzv5tNhejc/YT343EeL6HiJWj1
+qcNFmynHfWiDPj5sp0ZomDHIcYv6BB+Xvq2/xZqHiuID7m8rOKp9YSzvi+HJYvIf
+gguy2ZdLlDr9S1NbQ+grzLpoFNE2QIhZn7Hch0JUwecNP7Yta44xzRKNhlFW+2m7
+ZtOzsDQ7QKHbGy3tJ+e63Zn5NjOkbRZW5xYH2rkDFt5+RqxESCS3NMXuiQ3RoCIU
+qRj7uZvZSTblbK4YNNf2ptTeEA8U0FBtJlTVZeaLp0QeIGVdgGbzC/hEySihrUCK
+R7KUsnlh8WXP0vCIj892V+PJnT8EgOq8lzk2nq8Ymp6VxXwehgJeMd6z5pea5zS7
+cZNrRSyCJFzPjmFKM5DOqo9brqwud8tYMRhaTWiNvPfvNqZtzP//TEA9OE+4Yizm
+2Ol5NP4Y7puaiFApHu958LfbnVGus2qdGkbvu/w4f2nQxIbspoGfIOwOh1MQl0Vj
+JOkcl65qwJhLAndx1wepYqOCa8NtBlSaeTagY/xxZ6/OePEgaPCKeMltWVNRFTb9
+tuWdL+sDbBfd9LRNtKNu5v/4KPGqF7swq76dY5tmpLSfQ6qAWKc=
+=gHEV
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-Can a concurrent toggle of the global perfmon state bypass cross-queue
-serialization for non-global perfmon jobs?
-
-If Thread 1 submits a job with a local perfmon (succeeding in
-v3d_attach_perfmon_to_jobs() because the global perfmon is off), and Thread=
- 2
-turns on the global perfmon, Thread 1 could then reach
-v3d_serialize_for_perfmon(), read is_global_perfmon =3D=3D true, and skip a=
-dding
-cross-queue serialization fences.
-
-If Thread 3 then turns off the global perfmon before Thread 1's job execute=
-s,
-v3d_perfmon_start() will see the global perfmon is off and activate the loc=
-al
-perfmon.
-
-Because the job wasn't serialized, it runs concurrently with other jobs,
-violating isolation and polluting hardware performance counters.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-v3d-perfmo=
-n-lifetime-v4-0-d7b312ff2c83@igalia.com?part=3D2
+--eye62g5djwewlpln--
