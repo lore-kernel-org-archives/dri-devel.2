@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F81AC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A40F1C44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:48:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94C1A10E393;
-	Mon,  6 Jul 2026 13:42:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E410B10E387;
+	Mon,  6 Jul 2026 13:48:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TmS/mYbO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VFCXndqc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7577110E393
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:42:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C189E10E387
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:48:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 25D6B4025B;
- Mon,  6 Jul 2026 13:42:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86101F000E9;
- Mon,  6 Jul 2026 13:42:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6B83340564;
+ Mon,  6 Jul 2026 13:48:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B13E1F000E9;
+ Mon,  6 Jul 2026 13:48:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783345336;
- bh=R2IoAUzZChp9dTL49W5cKe47gmvPYPlx/Qz1ovRM4Xs=;
+ s=k20260515; t=1783345733;
+ bh=8IlWS+vPPCABbeGHYH8UVop9YkOqTlw49NYD4LGjq7w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TmS/mYbOBKTTXfbltUmlehRmPeHX8rajCv8u0U8kGd7T2OlcOCAyvCE+rZDEpZIvh
- quiVZaYfFm1SiECe04Voj29qY/wax7KTntct5CXR/sy5dVlKCoFcBauHr8k2SxoHnQ
- Elr2FBv5V7LmJyf+Pu6Rd1K2szjuJrsTdxNh/m/r2OTrP/rn2ELcXYRgw5qiX49Gb1
- Gq7hGBesDuuGXot4kiQYXeoepzkuzCR9g7YrIzpEkKxg2sIUyxBXu3yGh1XqU1QDop
- EsjwZn2mt8GMi4v+yN/kaB3+eeUVUD0KeX8UsBK+K3bB5mqJ7zg+HwNR/7jZZ8LSU5
- alYnxeX8xieKA==
+ b=VFCXndqcN+V+RkzTbKgKKtgPGDQkGFsHXnhZCtFGrwWRlw1DxiOzslWulz2w587gx
+ CgN0qY3EMqWJDP/4K4/WygVSFA+HBVuqlS4Bz/Kw3kWB96bk/0uolbvS85VD4AlzBg
+ Ehdr2c9M0pKfU8luGLUifAIXSJzEfSo7C+KdDrAAIWHWhW9D6SBVwIpBXyRzFli+ih
+ YdWbntU9IvG8rRuHI4QEXAlmGIqZhPRzzhl0Jaei5FrDMgyNwYnKxdzQxFGtYr9JD3
+ iHIPAWFpBJHSdElJL2aOZBUV6OU6mpTNW7SeAE2xRm0KbrA0ZegvO5VHyYDqTNa8JC
+ XWsfiyI29qPqA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] drm/v3d: Refactor perfmon locking
+Subject: Re: [PATCH v4 2/2] drm/v3d: Serialize jobs across queues when a
+ perfmon is attached
 To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706-v3d-perfmon-lifetime-v4-1-d7b312ff2c83@igalia.com>
+In-Reply-To: <20260706-v3d-perfmon-lifetime-v4-2-d7b312ff2c83@igalia.com>
 References: <20260706-v3d-perfmon-lifetime-v4-0-d7b312ff2c83@igalia.com>
- <20260706-v3d-perfmon-lifetime-v4-1-d7b312ff2c83@igalia.com>
+ <20260706-v3d-perfmon-lifetime-v4-2-d7b312ff2c83@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 13:42:15 +0000
-Message-Id: <20260706134215.E86101F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 13:48:52 +0000
+Message-Id: <20260706134853.3B13E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,138 +58,133 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Incorrect checking of pm_runtime_get_if_active() return values lea=
-ds to unbalanced pm_runtime_put() calls and hardware access when runtime PM=
- is disabled.
+
+New issues:
+- [High] Concurrent toggling of the global perfmon state bypasses cross-que=
+ue serialization for non-global perfmon jobs, breaking isolation and causin=
+g counter pollution.
+
+Pre-existing issues:
+- [High] Incorrect error check of pm_runtime_get_if_active() misses negativ=
+e error codes, leading to a usage counter underflow when runtime PM is disa=
+bled.
 --
 
-commit cf45a6afd7e990783e893c6013389c01aac4b43c
+commit b3331fc0fee9a96bbf0068661ed07711e8ff9155
 Author: Ma=C3=ADra Canal <mcanal@igalia.com>
-Subject: drm/v3d: Refactor perfmon locking
 
-This commit refactors performance monitor locking in the v3d driver to
-serialize access to the active perfmon globally. It introduces a
-device-wide spinlock and routes state transitions through a small set of
-locked entry points.
+drm/v3d: Serialize jobs across queues when a perfmon is attached
+   =20
+A non-global perfmon is meant to count events generated by a specific
+submission, but the scheduler can run jobs from different queues
+concurrently on the same V3D core. This patch enforces cross-queue
+serialization when a perfmon-carrying submission is detected.
 
 > diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_=
 perfmon.c
-> index 48ae748247be8..3ad0f022753c8 100644
+> index 3ad0f022753c8..07dab7fb30607 100644
 > --- a/drivers/gpu/drm/v3d/v3d_perfmon.c
 > +++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-[ ... ]
->  void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
->  {
-> +	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
-> +
-> +	if (!perfmon || v3d->global_perfmon)
-> +		return;
+> @@ -275,6 +275,12 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v=
+3d_perfmon *perfmon)
+>  	if (!perfmon || v3d->global_perfmon)
+>  		return;
 > =20
-> -	if (WARN_ON_ONCE(!perfmon || v3d->active_perfmon))
-> -		return;
-> -
-> -	if (!pm_runtime_get_if_active(v3d->drm.dev))
-> -		return;
-> +	if (!pm_runtime_get_if_active(v3d->drm.dev))
+> +	/* Cross-queue serialization should have drained any previous perfmon
+> +	 * job before this one runs.
+> +	 */
+> +	if (WARN_ON_ONCE(v3d->perfmon_state.active))
 > +		return;
-
-[Severity: High]
-Does this code correctly handle the case where runtime PM is disabled?
-
-When runtime PM is disabled, pm_runtime_get_if_active() returns a negative
-error code (like -EINVAL). Since a negative number evaluates to true in C,
-!pm_runtime_get_if_active() evaluates to false.=20
-
-This causes the early return to be bypassed, allowing the code to proceed
-with hardware MMIO access when the device might be powered off. It also
-results in an unbalanced v3d_pm_runtime_put() call at the end of the functi=
-on.
-
-Should this be checking if the return value is <=3D 0?
-
 > +
-> +	v3d_perfmon_hw_start(v3d, perfmon);
-> +	v3d->perfmon_state.active =3D perfmon;
-> +
-> +	v3d_pm_runtime_put(v3d);
-> +}
-[ ... ]
-> +static void v3d_perfmon_capture_locked(struct v3d_dev *v3d,
-> +				       struct v3d_perfmon *perfmon)
-> +{
-> +	lockdep_assert_held(&v3d->perfmon_state.lock);
-> +
-> +	if (!perfmon || perfmon !=3D v3d->perfmon_state.active)
-> +		return;
-> =20
 >  	if (!pm_runtime_get_if_active(v3d->drm.dev))
-> -		goto out_clear;
-> +		return;
-
-[Severity: High]
-Does this face the same issue with negative return values from=20
-pm_runtime_get_if_active() as v3d_perfmon_start()?
-
+>  		return;
 > =20
-> -	if (capture)
-> -		for (i =3D 0; i < perfmon->ncounters; i++)
-> -			perfmon->values[i] +=3D V3D_CORE_READ(0, V3D_PCTR_0_PCTRX(i));
-> +	v3d_perfmon_hw_capture(v3d, perfmon);
-> +	v3d_pm_runtime_put(v3d);
-> +}
+>  	v3d_perfmon_hw_start(v3d, perfmon);
+>  	v3d->perfmon_state.active =3D perfmon;
 > =20
-> +void v3d_perfmon_stop_locked(struct v3d_dev *v3d, struct v3d_perfmon *pe=
-rfmon,
-> +			     bool capture)
-> +{
-> +	lockdep_assert_held(&v3d->perfmon_state.lock);
-> +
-> +	if (!perfmon || perfmon !=3D v3d->perfmon_state.active)
-> +		return;
-> +
-> +	v3d->perfmon_state.active =3D NULL;
-> +
-> +	/* If the device is suspended, the HW has already stopped counting. */
-> +	if (!pm_runtime_get_if_active(v3d->drm.dev))
-> +		return;
-
-[Severity: High]
-Will a negative return value here prevent the function from returning early,
-leading to unexpected hardware access?
-
-> =20
-> -	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_EN, 0);
-> +	v3d_perfmon_hw_stop(v3d, perfmon, capture);
 >  	v3d_pm_runtime_put(v3d);
-> +}
-[ ... ]
-> @@ -482,18 +545,36 @@ int v3d_perfmon_set_global_ioctl(struct drm_device =
-*dev, void *data,
-[ ... ]
-> +		/* If the device is suspended, v3d_perfmon_resume() will
-> +		 * program the HW on the next resume.
-> +		 */
-> +		if (pm_runtime_get_if_active(v3d->drm.dev)) {
-> +			v3d_perfmon_hw_start(v3d, perfmon);
-> +			v3d_pm_runtime_put(v3d);
-> +		}
 
 [Severity: High]
-Is it possible for pm_runtime_get_if_active() to return -EINVAL here?
+This isn't a bug introduced by this patch, but does this correctly handle
+negative error codes?
 
-If runtime PM is disabled, the negative return value evaluates to true.
-This would incorrectly grant hardware access and execute an unbalanced
-v3d_pm_runtime_put() call.
+When runtime PM is disabled, pm_runtime_get_if_active() returns -EINVAL.
+Because the ! operator is used, !(-EINVAL) evaluates to false, causing the
+function to proceed instead of returning early.
 
-Could this be updated to check if the return value is > 0?
+It then calls hardware access functions and v3d_pm_runtime_put(). Since the
+usage counter was not incremented, the put call would decrement it below ze=
+ro,
+underflowing the counter.
 
->  	}
-> =20
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
+ubmit.c
+> index 27cc98770b37e..d32defa7da73a 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+
+[ ... ]
+
+> @@ -320,6 +322,73 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit=
+, u32 perfmon_id)
 >  	return 0;
 >  }
+> =20
+> +/*
+> + * Prepare fences to enforce job serialization when a perfmon is active.=
+ A job
+> + * that carries a non-global perfmon must wait for every job currently i=
+n-flight
+> + * across all HW queues to finish, otherwise concurrent unrelated work o=
+n the
+> + * same core would pollute the performance counters. Symmetrically, whil=
+e such a
+> + * job is still in-flight, all subsequently submitted jobs must wait for=
+ it.
+> + *
+> + * We don't serialize the jobs when using a global perfmon as it's expec=
+ted to
+> + * track concurrent activity from all jobs.
+> + */
+> +static int
+> +v3d_serialize_for_perfmon(struct v3d_job *job)
+> +{
+> +	struct v3d_dev *v3d =3D job->v3d;
+> +	struct dma_fence *merged;
+> +	bool is_global_perfmon;
+> +	int ret;
+> +
+> +	lockdep_assert_held(&v3d->sched_lock);
+> +
+> +	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
+> +		is_global_perfmon =3D !!v3d->global_perfmon;
+> +
+> +	if (is_global_perfmon)
+> +		goto publish;
+
+[Severity: High]
+Can a concurrent toggle of the global perfmon state bypass cross-queue
+serialization for non-global perfmon jobs?
+
+If Thread 1 submits a job with a local perfmon (succeeding in
+v3d_attach_perfmon_to_jobs() because the global perfmon is off), and Thread=
+ 2
+turns on the global perfmon, Thread 1 could then reach
+v3d_serialize_for_perfmon(), read is_global_perfmon =3D=3D true, and skip a=
+dding
+cross-queue serialization fences.
+
+If Thread 3 then turns off the global perfmon before Thread 1's job execute=
+s,
+v3d_perfmon_start() will see the global perfmon is off and activate the loc=
+al
+perfmon.
+
+Because the job wasn't serialized, it runs concurrently with other jobs,
+violating isolation and polluting hardware performance counters.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-v3d-perfmo=
-n-lifetime-v4-0-d7b312ff2c83@igalia.com?part=3D1
+n-lifetime-v4-0-d7b312ff2c83@igalia.com?part=3D2
