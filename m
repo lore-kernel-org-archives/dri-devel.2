@@ -4,79 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512C8C44501
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FD11C44502
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3386E10E7B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C70D310E7C2;
 	Mon,  6 Jul 2026 07:13:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ARq3/pFG";
-	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 993B310E184
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Jul 2026 11:02:48 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-385b78b44a0so108183a91.0
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Jul 2026 04:02:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783249368; x=1783854168; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=6Oquh24DvrkOPCF2fJclrR7ZjjQ1IhHgVpf5JxW1uNE=;
- b=ARq3/pFGBrn4w2bTu1BGzPhyi8sv2OIcYn3dpIGDfeG7AGsqJB7LhTdPXTbXAaBjoD
- jBH5unNtXdcRacmt44DBnkPhprJp+N1WgXkOIQYccEQ9+/hxryeICF3yL+3PGqgv4Xet
- x6JeAyGIFp1fxYiYfjdnmBzMO2Wxlg9uoGpd2QVTlEAbPlfsMhjR3iAvgUvkm4MiTObY
- ITHJW9YlNPJEbwrWSZ6HNp2REZOpGD4e7mpV0gwZZ3OICnxBXO8aU1onKG0bwvIvvfLU
- iNDo55tI+ipgXlyO7xt6FR7vXEM+oMGyS6vkKmbMWSqAP+83/egapn0PZUJ+Ydv9+4uq
- IDjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783249368; x=1783854168;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6Oquh24DvrkOPCF2fJclrR7ZjjQ1IhHgVpf5JxW1uNE=;
- b=X+MEXrNkbaE0a8inbrxWXoyho8tkgr5atnzB0b6MDgkHJe/so/hET0xC2v/LMeZhsm
- HkzCvuROdwuyCnbUDVfnXZpdC5EKzuMNDsvRrNlj5LaUm8kkqZqNitUOuQWh9RZ4mCxx
- PBoluw+s1THL22wiCzvFUYKYG633N62pJh358IIUkeF7DjlegvmLzSqc9D8YR/FX0ScC
- wU7KU/Vzfy+bKnG2bQ5YbjUWaEg1j5jloUGnJq/5YrmLzgYHLR/1fvNVpRwdL2n8bMZo
- gk7Y03/Rh/gc4i7NZS3al/y6N2aheCaIlrmDsITM9YvcL641B1h2NawSRNuq7a6AExSI
- sOkg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrbMrO2xKbvk5xEPQAc1vZf5x8um9edBLrVox2uTC34A1agQ27aKg3TnNWoxR55JHo6Om4l6GNJATs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YygkVtVKxICpiw4QRvUy833qTyCX6kvrnnOvhqoGyMFIZ+SC85d
- dKzgarCcb55T7FqO55aOS30mi0k7Bwt3CAdbFwFd2qbdxm1oYWZvbjfX
-X-Gm-Gg: AfdE7ckPKw/fg1boqIIJgEddU7M6gMkK4NbdbdgD2km+ifvt34vtlhVkwPOWWEKTwAH
- cs2hjzQbFAUXQw33B4uCE4iY39LWfPr9Yr50czSJieGwwxr0E1myWIqCRoIBBiZSvv8ee+YhDBS
- ZzNTzBSor0vsMQmh9lvYRjL/mnZE8XG364U1RrKubtAMK2dhprbFyn2Z18iIqHiWzIUC2oGNSpI
- 3cQg9VX4+Xsbhm7/+qhKrmlXynxZ4i2ISaynLahe6rl3yjVIJl56EfMDALbu4ZI8vG4NCtCCf6t
- 5AsfowV+B7ZIlsMLU3YyvJ7FlYLjwWYg3ON1iFTiQfqOzsjiqWr4iYwngyiZ+/AIzm0JmXON/27
- O3lk+AOEJE+eQlQd2rv86xGTTwfkHg+aBo//mVN23REkNwTpeht6dIJdBF8sILDCpq6xct4OzVk
- 4iy7GRzTMqs3k=
-X-Received: by 2002:a17:90b:2886:b0:368:d839:28d5 with SMTP id
- 98e67ed59e1d1-3829f0074b6mr6040067a91.18.1783249367936; 
- Sun, 05 Jul 2026 04:02:47 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:8312:822e:57c6:3816])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30f38ee1333sm25067156eec.24.2026.07.05.04.02.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jul 2026 04:02:47 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH] drm/exynos: vidi: use memdup_user() instead of kmalloc() and
- copy_from_user()
-Date: Sun,  5 Jul 2026 16:32:21 +0530
-Message-ID: <20260705110221.153481-1-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B1D5310E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:53 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-9e-6a4b490083a4
+From: Byungchul Park <byungchul@sk.com>
+To: linux-kernel@vger.kernel.org
+Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
+ torvalds@linux-foundation.org, damien.lemoal@opensource.wdc.com,
+ linux-ide@vger.kernel.org, adilger.kernel@dilger.ca,
+ linux-ext4@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
+ will@kernel.org, tglx@linutronix.de, rostedt@goodmis.org,
+ joel@joelfernandes.org, sashal@kernel.org, daniel.vetter@ffwll.ch,
+ duyuyang@gmail.com, johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
+ willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
+ gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
+ akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
+ hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
+ jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
+ rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
+ linux-block@vger.kernel.org, josef@toxicpanda.com,
+ linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
+ dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
+ dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
+ melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
+ chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
+ longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
+ yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
+ her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
+ bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+ sumit.semwal@linaro.org, gustavo@padovan.org, christian.koenig@amd.com,
+ andi.shyti@kernel.org, arnd@arndb.de, lorenzo.stoakes@oracle.com,
+ Liam.Howlett@oracle.com, rppt@kernel.org, surenb@google.com,
+ mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
+ samitolvanen@google.com, paulmck@kernel.org, frederic@kernel.org,
+ neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ urezki@gmail.com, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+ qiang.zhang@linux.dev, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
+ vschneid@redhat.com, chuck.lever@oracle.com, neil@brown.name,
+ okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
+ trondmy@kernel.org, anna@kernel.org, kees@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, mark.rutland@arm.com,
+ ada.coupriediaz@arm.com, kristina.martsenko@arm.com,
+ wangkefeng.wang@huawei.com, broonie@kernel.org, kevin.brodsky@arm.com,
+ dwmw@amazon.co.uk, shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
+ yuzhao@google.com, baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
+ joel.granados@kernel.org, richard.weiyang@gmail.com,
+ geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
+ alexander.shishkin@linux.intel.com, lillian@star-ark.net,
+ chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
+ link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
+ brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
+ mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-modules@vger.kernel.org, rcu@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
+ neilb@ownmail.net, bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
+ dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
+ alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, rust-for-linux@vger.kernel.org
+Subject: [PATCH v19 20/40] dept: apply timeout consideration to dma fence wait
+Date: Mon,  6 Jul 2026 15:19:08 +0900
+Message-Id: <20260706061928.66713-21-byungchul@sk.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
+References: <20260706061928.66713-1-byungchul@sk.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSa0xTZxzGfc/lPYfGLieV4BGz6LpMNxSGiOZvpga/zNexuOk+TeOlkZNR
+ KGCKMjDZUpcRkduwDdVQq0ViJXigWFQUbYJVEGK4KApELLEWykgFNpQiUmBcsm+/PM+T36eH
+ p1U9bCSvTT8h6dM1OjVWMIqR5eXR1J7ElFhvzRa46JAxTE5baHg/1cfBnKsZgXzzNAXvamcx
+ jNkLEcx5hiiwD8xSMNB4BsGMORUC5n8wTLd10HC+tBNBuddDg6vyDwyDJbdoeD4xhqG1tACD
+ 1WJEYLY6GXgaCFHwymyk4Pwwhil7FQdvKss4CHk3wZwtA2pGOlgI+I0Y6g2vOZAL/fPGlxsg
+ b+Y9gn55jgWDZZKFJ80tDHQ0VLNwtecpBb0lgwiqR69gMI36EQSCdhrsE2McNNsiwOgf5+DM
+ 3/cwtFnaWXjkqKfA4X9Iw1CZlQLTMxuGj547LHQbL8/TtSYEb4pHOBi3zrJQGsrDUJBrZuBW
+ 0yQH0x8uYihu3w0fan0sWJr6uYQEMplbzBD5koyIK2hjyLm2aHK3zMMRm/MkqauMIhX3hyny
+ MrCDOKvOYuIcN3JktL2dIy0Xphly17uNlBtKaXKpdd+Pqw8otidJOm2WpP9651FFcn9jLTru
+ 5rP7bvRgA7Jw+SiMF4V40eGS6XzEL3Lhn58uxFhYL/b2TtELHC6sFeuK/Gw+UvC00LVGLLQX
+ MQvFCmGveNbrW2RG+EKcKDBRC6wUtor/Fnjwkn+NeL22cVEUNp/XhKyLG5WwRewbe8wsbSrC
+ REMgdolXiQ8qe5kSpLShZVVIpU3PStNodfExyTnp2uyYYxlpTjR/N/tvoYN30HjnT24k8Ei9
+ XAkJ36WoWE1WZk6aG4k8rQ5XrvsyMUWlTNLknJL0GUf0J3VSphut5hn1SmVc8NcklfCL5oSU
+ KknHJf3/LcWHRRpQfFyR75zrm++7Irs/P1DTPRx6vmqgOqZuhShfiXEf1m9L/ZYUrXcmT20s
+ /+Sz4AZdnOJ6ovroY/su/ML8w9Deqw0ljol1T/Ke/d4aldDi2X/7q2P7d+YqfBVvfSbVZuw7
+ tEzOzo08pBoMNoBzppOJHe4zJXX9Fft2888Rl4fI7o89aiYzWbMpitZnav4D5K0reGoDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUhTcRTG/d97d3cdri5L6qKVMcii0GZkHKjE8ENXI4k+WPmlVl1yOjW2
+ mhpIvg1fC11tUnNlpiN8KdvK0liJ5XuSZqXkW9JciTNNN0Xdsin05fA753nOw/lwKFz0kudH
+ yZKucookqVxMCghB9KHsIK/I4/GSIbsQ8tQ3YHjMyoOvmc0EOB15BJQ9rSXBrX/JhzzTXR50
+ DGQR0PukBsGYMw/B4ooeB3XjKgFuTRsfHEtDfNBmIli1tCHQ9WlwGOx9i0Pt80wM5uv/kjD1
+ bg6BdtxKQulkJgEzxiIE92x6Pky2HoPpsdc8WB35icHAgh2B0foXA2tzLgK3LgEeVJg967pZ
+ ElZ6PuJQqu1F8HB8BIe5ye8InreNIrA8ziJhovgFDv3WDfDZOUNCp7aQhOm+Mgx+15NQnmXh
+ Qd+HKQQGvQaB7ZsFg+xHT0nQGUwENH5v4kPflAuDYZ0GgxrTCRgz2gjoLq7APOd6XM+2gL40
+ G/OUXxho615jsGSs5odXIXZRfYtgq80NGKv+5CbZ2vu1iF1Z1iDWUZWNs+piT/vOPoOzOeYU
+ tqrbTrLLzi8ka1koJ9iuCoatzF/G2JKeILbx3gj/5NFYweFLnFym4hT7ws4L4kab69GVFip1
+ 6NkAmYH0/AJEUQx9gCnK2VaAvCmS3sUMDi7ha+xL72DMN228AiSgcLo/gCky3iTWhE10NJM/
+ /mOdCXon4yy8ja2xkD7I/CkcIdeYoQOYmvrm9SBvz/yJy7DuEdGhzNBMO1GMBOXIqxr5ypJU
+ iVKZPDRYmRCXliRLDb6YnGhCnncyprtKXiFH/7EWRFNI7COE8Kh4EU+qUqYltiCGwsW+wsDd
+ x+NFwkvStOucIvmc4pqcU7Ygf4oQbxFGnebOi+jL0qtcAsdd4RT/VYzy9stAHf3BnRMbG8os
+ e832tuWm9sCFriZDTOvmif3zDRkqn5AISeAZVVNybpeY8Xeafjnzj368LA/pif3htp1uOKJ/
+ Izn5wCU72xUUERwzrkuX7Ke3ihqn0COv+YW7F+4c0kZHSlzhH3inZt/7mO/7bo+rdESEpchj
+ VlPrYvPrug2CSjGhjJOG7MEVSuk/SRws0EoDAAA=
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,42 +128,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mohammad Shahid <mdshahid03@gmail.com>
+Now that CONFIG_DEPT_AGGRESSIVE_TIMEOUT_WAIT was introduced, apply the
+consideration to dma fence wait.
 
-Use memdup_user() to replace the open-coded kmalloc() and
-copy_from_user() sequence.
-
-This simplifies the code while preserving the existing behavior.
-
-This issue was reported by memdup_user.cocci.
-
-Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
+Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- drivers/gpu/drm/exynos/exynos_drm_vidi.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/dma-buf/dma-fence.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_vidi.c b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-index 67bbf9b8bc0e..183671de711e 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-@@ -273,14 +273,9 @@ int vidi_connection_ioctl(struct drm_device *drm_dev, void *data,
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index f7498c770035..b75b7b9c445a 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -823,7 +823,7 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
+ 	cb.task = current;
+ 	list_add(&cb.base.node, &fence->cb_list);
  
- 		size = (hdr.extensions + 1) * EDID_LENGTH;
+-	sdt_might_sleep_start(NULL);
++	sdt_might_sleep_start_timeout(NULL, timeout);
+ 	while (!dma_fence_test_signaled_flag(fence) && ret > 0) {
+ 		if (intr)
+ 			__set_current_state(TASK_INTERRUPTIBLE);
+@@ -927,7 +927,7 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
+ 		}
+ 	}
  
--		edid_buf = kmalloc(size, GFP_KERNEL);
--		if (!edid_buf)
--			return -ENOMEM;
--
--		if (copy_from_user(edid_buf, edid_userptr, size)) {
--			kfree(edid_buf);
--			return -EFAULT;
--		}
-+		edid_buf = memdup_user(edid_userptr, size);
-+		if (IS_ERR(edid_buf))
-+			return PTR_ERR(edid_buf);
- 
- 		drm_edid = drm_edid_alloc(edid_buf, size);
- 		kfree(edid_buf);
+-	sdt_might_sleep_start(NULL);
++	sdt_might_sleep_start_timeout(NULL, timeout);
+ 	while (ret > 0) {
+ 		if (intr)
+ 			set_current_state(TASK_INTERRUPTIBLE);
 -- 
-2.43.0
+2.17.1
 
