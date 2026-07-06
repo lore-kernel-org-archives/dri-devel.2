@@ -4,41 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB32AC44509
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 11:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA039C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 11:48:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1241E10E90D;
-	Mon,  6 Jul 2026 11:47:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5399110E8FB;
+	Mon,  6 Jul 2026 11:48:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="eLM5HJkb";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="FnepgsF8";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0661310E8FE;
- Mon,  6 Jul 2026 11:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1783338468;
- bh=/38RI+xdMD7BEtzLgv34Ivu0GwxNt1tAkiIPng/xrxE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eLM5HJkbgLt4BQd1MGXjria5VRHY33I6g3XXYHdm5GqeS0nnlyEzNrl047OPKf5Cd
- wN8mzmwNPsBRbytg3mkhVmZHYipN5Xd+SAke3ueoVo5hTiXw0z0Ta9ymMLbVObhLOo
- grlQ6dm81DcpQjMXvedwzUGNWC6PWahKx2Gzryfq5371qHgIi1dESbgVGUEujZIfEQ
- WNnz396lmhSjhgt24dZfFKzpNIhSuDyBCFi4IHXeBg30ub42mvG1vWcoTq9IOPzuQQ
- xdcEtMnMcEqt8LtsC5YtJ2y/F50QgMqzbzqTHlz3klyB8nzCW1DZpAF+9Kn5kyh1b9
- scC6vKo09OtzQ==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v4 7/7] drm/i915/gt: Use signalers_lock to prevent starvation
- of irq_work.
-Date: Mon,  6 Jul 2026 13:48:23 +0200
-Message-ID: <20260706114823.752313-8-dev@lankhorst.se>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260706114823.752313-1-dev@lankhorst.se>
-References: <20260706114823.752313-1-dev@lankhorst.se>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
+ [209.85.128.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C97E910E8FB
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 11:48:15 +0000 (UTC)
+Received: by mail-wm1-f73.google.com with SMTP id
+ 5b1f17b1804b1-493b786d550so31039495e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 04:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1783338494; x=1783943294;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=SkCbYuGW3eqT8pRjM9jVxDre32BJW2V3ocHTz8lleCM=;
+ b=FnepgsF83857FJve1yjqFCNXGckk4hVPPtdTdkerVUp474/571wrjxaosEGFNplgZu
+ LsRtxu/vDD6ZWemGHG51h4v9iS+7tGmRAg8Huz7KpaYTmSr/1lhldm9sDduPG+/XfVY9
+ o7ypfaT00E82UULru3KhqpLOTlzF0bF2S/HZ+GPr/t7YkZxqPCAEVLZQyT/q4oklmr9D
+ RRRl4GJMjRDhfgSjEQ9/2ZNCZTmFsaKSts64eT3MPj++mrEolTxmTJj/P9BtRUIYaiv/
+ wRdPAFof8Zzqp3O68C/Ljjs22y9J651njv9ygkikF27OdF+kKCrrbf0oE5C6Y6mM7zqe
+ dj3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783338494; x=1783943294;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SkCbYuGW3eqT8pRjM9jVxDre32BJW2V3ocHTz8lleCM=;
+ b=Wu57YTziKnhRF3AZR/x2Td/qbSh+bc/SYK4nu5Af3hJZggUfnMthNT2r/ESPjode8n
+ 3Mzkw1fdgD9RdB+sr2mVs8OYBQ2yxILcdlCuj/cLSAamRacnw6EmWAXTFWya1E7oJ/Bq
+ bXsOOs2jvfnVbgu5kJJ/ktV2rzRLBGKPE6pCGi5ihyrxhBaddfcLQDwovCkSLbGM8W15
+ yMouWFBs+5IhcDueVHMaNF6CRfm+FJZfZoEajbDjhdgDZNzMeqHyDQCMfm/IVbjC3WFW
+ U8QI9GRcvNwqauloIEVLY45k5BEwXk5LaxhGBEbJqd5UbBZOrSfJ9iuWntMRH5n663Zt
+ J/ag==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrMMbh0/hSKFI+AvD7CCjJx8YTWXRsHylsk2l4K51LLdOxdRGB6xknlu1JamVO7n+76gxN9WVYU0hM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxejzWEkuKuJ76o/clUKIFdYqpsBVgzulLmO8FTZHepSo+IqEcB
+ Drk1TITk3aXebdgiTdWTlfgGSuL7H5hi5Uc8Blj8s6evMsufSCk6ACsdX1w0WWr7igl9fLOWPKx
+ Q9logEkZc8bCb/kmcDA==
+X-Received: from wmdd24.prod.google.com ([2002:a05:600c:a218:b0:493:bb1c:478d])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:8b66:b0:493:a7fd:15d6 with SMTP id
+ 5b1f17b1804b1-493df08b4camr610775e9.9.1783338493893; 
+ Mon, 06 Jul 2026 04:48:13 -0700 (PDT)
+Date: Mon, 6 Jul 2026 11:48:12 +0000
+In-Reply-To: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
+Mime-Version: 1.0
+References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
+Message-ID: <akuV_GRAM4QPqf-o@google.com>
+Subject: Re: [PATCH 0/4] rust: Add support for reserving of ranges of IDs
+From: Alice Ryhl <aliceryhl@google.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Burak Emir <bqe@google.com>, Yury Norov <yury.norov@gmail.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, 
+ Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,372 +92,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+On Fri, Jul 03, 2026 at 07:16:03PM +0900, Eliot Courtney wrote:
+> Add support for reserving of ranges of IDs, with a usage in nova-core
+> for channel IDs. This entails adding the helpers+users of the C bitmap
+> API for ranges of bits, then users of that in `IdPool`, and finally a
+> user of `IdPool` in nova-core, `ChannelIdPool`.
 
-IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
-and the interrupt will poll on signaler_active while the irq-work can't
-make progress.
+If you need ranges of IDs, perhaps you want the maple tree instead?
 
-Solve this by adding a global spinlock to prevent starvation and force
-completion.
-
-The existing RCU handling gets in the way on PREEMPT_RT, and would likely
-require conversion to raw spinlock to take them inside a
-rcu_read_lock(), so remove RCU as well.
-
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 172 +++++++++++-------
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 -
- drivers/gpu/drm/i915/gt/intel_context.c       |   1 +
- 3 files changed, 112 insertions(+), 62 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index c10ac0ab3bfa8..0ae7759dc74a3 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -88,24 +88,25 @@ static void add_signaling_context(struct intel_breadcrumbs *b,
- 				  struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->signal_lock);
-+	lockdep_assert_held(&b->signalers_lock);
- 
--	spin_lock(&b->signalers_lock);
--	list_add_rcu(&ce->signal_link, &b->signalers);
--	spin_unlock(&b->signalers_lock);
-+	if (list_empty(&ce->signals))
-+		return;
-+
-+	intel_context_get(ce);
-+	list_add(&ce->signal_link, &b->signalers);
- }
- 
- static bool remove_signaling_context(struct intel_breadcrumbs *b,
- 				     struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->signal_lock);
-+	lockdep_assert_held(&b->signalers_lock);
- 
--	if (!list_empty(&ce->signals))
-+	if (!list_empty(&ce->signals) || list_empty(&ce->signal_link))
- 		return false;
- 
--	spin_lock(&b->signalers_lock);
--	list_del_rcu(&ce->signal_link);
--	spin_unlock(&b->signalers_lock);
--
-+	list_del_init(&ce->signal_link);
- 	return true;
- }
- 
-@@ -174,7 +175,7 @@ static void signal_irq_work(struct irq_work *work)
- 	struct intel_breadcrumbs *b = container_of(work, typeof(*b), irq_work);
- 	const ktime_t timestamp = ktime_get();
- 	struct llist_node *signal, *sn;
--	struct intel_context *ce;
-+	struct intel_context *ce, *next;
- 
- 	signal = NULL;
- 	if (unlikely(!llist_empty(&b->signaled_requests)))
-@@ -208,13 +209,13 @@ static void signal_irq_work(struct irq_work *work)
- 	if (!signal && READ_ONCE(b->irq_armed) && list_empty(&b->signalers))
- 		intel_breadcrumbs_disarm_irq(b);
- 
--	rcu_read_lock();
--	atomic_inc(&b->signaler_active);
--	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
-+	spin_lock(&b->signalers_lock);
-+	list_for_each_entry_safe(ce, next, &b->signalers, signal_link) {
- 		struct i915_request *rq;
-+		bool release;
- 
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
--			bool release;
-+		spin_lock(&ce->signal_lock);
-+		while ((rq = list_first_entry_or_null(&ce->signals, typeof(*rq), signal_link))) {
- 
- 			if (!__i915_request_is_complete(rq))
- 				break;
-@@ -228,15 +229,9 @@ static void signal_irq_work(struct irq_work *work)
- 			 * spinlock as the callback chain may end up adding
- 			 * more signalers to the same context or engine.
- 			 */
--			spin_lock(&ce->signal_lock);
--			list_del_rcu(&rq->signal_link);
--			release = remove_signaling_context(b, ce);
--			spin_unlock(&ce->signal_lock);
--			if (release) {
--				if (intel_timeline_is_last(ce->timeline, rq))
--					add_retire(b, ce->timeline);
--				intel_context_put(ce);
--			}
-+			list_del(&rq->signal_link);
-+			if (list_empty(&ce->signals) && intel_timeline_is_last(ce->timeline, rq))
-+				add_retire(b, ce->timeline);
- 
- 			if (__dma_fence_signal(&rq->fence))
- 				/* We own signal_node now, xfer to local list */
-@@ -244,9 +239,13 @@ static void signal_irq_work(struct irq_work *work)
- 			else
- 				i915_request_put(rq);
- 		}
-+
-+		release = remove_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		if (release)
-+			intel_context_put(ce);
- 	}
--	atomic_dec(&b->signaler_active);
--	rcu_read_unlock();
-+	spin_unlock(&b->signalers_lock);
- 
- 	llist_for_each_safe(signal, sn, signal) {
- 		struct i915_request *rq =
-@@ -347,14 +346,15 @@ static void irq_signal_request(struct i915_request *rq,
- 		irq_work_queue(&b->irq_work);
- }
- 
--static void insert_breadcrumb(struct i915_request *rq)
-+static bool insert_breadcrumb(struct i915_request *rq,
-+			      struct intel_breadcrumbs *b)
- {
--	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
- 	struct list_head *pos;
-+	bool ret;
- 
- 	if (test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
--		return;
-+		return false;
- 
- 	/*
- 	 * If the request is already completed, we can transfer it
-@@ -363,14 +363,15 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	 */
- 	if (__i915_request_is_complete(rq)) {
- 		irq_signal_request(rq, b);
--		return;
-+		return false;
- 	}
- 
- 	if (list_empty(&ce->signals)) {
--		intel_context_get(ce);
--		add_signaling_context(b, ce);
-+		ret = true;
- 		pos = &ce->signals;
- 	} else {
-+		ret = false;
-+
- 		/*
- 		 * We keep the seqno in retirement order, so we can break
- 		 * inside intel_engine_signal_breadcrumbs as soon as we've
-@@ -395,23 +396,19 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	}
- 
- 	i915_request_get(rq);
--	list_add_rcu(&rq->signal_link, pos);
-+	list_add(&rq->signal_link, pos);
- 	GEM_BUG_ON(!check_signal_order(ce, rq));
- 	GEM_BUG_ON(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &rq->fence.flags));
- 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
- 
--	/*
--	 * Defer enabling the interrupt to after HW submission and recheck
--	 * the request as it may have completed and raised the interrupt as
--	 * we were attaching it into the lists.
--	 */
--	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
--		irq_work_queue(&b->irq_work);
-+	return ret;
- }
- 
- bool i915_request_enable_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_context *ce = rq->context;
-+	struct intel_breadcrumbs *b;
-+	bool add_context = false;
- 
- 	/* Serialises with i915_request_retire() using rq->lock */
- 	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &rq->fence.flags))
-@@ -427,30 +424,87 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
- 		return true;
- 
- 	spin_lock(&ce->signal_lock);
-+	b = READ_ONCE(rq->engine)->breadcrumbs;
-+
- 	if (test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags))
--		insert_breadcrumb(rq);
-+		add_context = insert_breadcrumb(rq, b);
-+
-+	if (add_context && spin_trylock(&b->signalers_lock)) {
-+		add_signaling_context(b, ce);
-+		spin_unlock(&b->signalers_lock);
-+		add_context = false;
-+	}
- 	spin_unlock(&ce->signal_lock);
- 
-+	if (add_context) {
-+		/*
-+		 * Fast trylock didn't work, use slow locking.
-+		 *
-+		 * Dropping the lock to solve the inversion is safe, since
-+		 * no race is possible against remove_signaling_context()
-+		 * without being added as signaling context.
-+		 */
-+		spin_lock(&b->signalers_lock);
-+		spin_lock(&ce->signal_lock);
-+		add_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		spin_unlock(&b->signalers_lock);
-+	}
-+
-+	/*
-+	 * Defer enabling the interrupt to after HW submission and recheck
-+	 * the request as it may have completed and raised the interrupt as
-+	 * we were attaching it into the lists.
-+	 */
-+	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
-+		irq_work_queue(&b->irq_work);
-+
- 	return true;
- }
- 
-+
-+static void unlock_context_remove_signaling(struct intel_context *ce,
-+					    struct intel_breadcrumbs *b,
-+					    unsigned long flags)
-+{
-+	bool release = false, retry = false;
-+
-+	if (list_empty(&ce->signals)) {
-+		if (spin_trylock(&b->signalers_lock)) {
-+			release = remove_signaling_context(b, ce);
-+			spin_unlock(&b->signalers_lock);
-+		} else {
-+			retry = true;
-+		}
-+	}
-+	spin_unlock_irqrestore(&ce->signal_lock, flags);
-+
-+	if (retry) {
-+		spin_lock_irqsave(&b->signalers_lock, flags);
-+		spin_lock(&ce->signal_lock);
-+		release = remove_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		spin_unlock_irqrestore(&b->signalers_lock, flags);
-+	}
-+
-+	if (release)
-+		intel_context_put(ce);
-+}
-+
- void i915_request_cancel_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
--	bool release;
-+	unsigned long flags;
- 
--	spin_lock(&ce->signal_lock);
-+	spin_lock_irqsave(&ce->signal_lock, flags);
- 	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags)) {
--		spin_unlock(&ce->signal_lock);
-+		spin_unlock_irqrestore(&ce->signal_lock, flags);
- 		return;
- 	}
- 
--	list_del_rcu(&rq->signal_link);
--	release = remove_signaling_context(b, ce);
--	spin_unlock(&ce->signal_lock);
--	if (release)
--		intel_context_put(ce);
-+	list_del(&rq->signal_link);
-+	unlock_context_remove_signaling(ce, b, flags);
- 
- 	if (__i915_request_is_complete(rq))
- 		irq_signal_request(rq, b);
-@@ -462,7 +516,6 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 				      struct intel_breadcrumbs *b)
- {
- 	struct i915_request *rq, *rn;
--	bool release = false;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&ce->signal_lock, flags);
-@@ -476,39 +529,36 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 					&rq->fence.flags))
- 			continue;
- 
--		list_del_rcu(&rq->signal_link);
-+		list_del(&rq->signal_link);
- 		irq_signal_request(rq, b);
- 		i915_request_put(rq);
- 	}
--	release = remove_signaling_context(b, ce);
- 
- unlock:
--	spin_unlock_irqrestore(&ce->signal_lock, flags);
--	if (release)
--		intel_context_put(ce);
--
--	while (atomic_read(&b->signaler_active))
--		cpu_relax();
-+	unlock_context_remove_signaling(ce, b, flags);
- }
- 
- static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
- {
- 	struct intel_context *ce;
- 	struct i915_request *rq;
-+	unsigned long flags;
- 
- 	drm_printf(p, "Signals:\n");
- 
--	rcu_read_lock();
--	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link)
-+	spin_lock_irqsave(&b->signalers_lock, flags);
-+	list_for_each_entry(ce, &b->signalers, signal_link) {
-+		spin_lock(&ce->signal_lock);
-+		list_for_each_entry(rq, &ce->signals, signal_link)
- 			drm_printf(p, "\t[%llx:%llx%s] @ %dms\n",
- 				   rq->fence.context, rq->fence.seqno,
- 				   __i915_request_is_complete(rq) ? "!" :
- 				   __i915_request_has_started(rq) ? "*" :
- 				   "",
- 				   jiffies_to_msecs(jiffies - rq->emitted_jiffies));
-+		spin_unlock(&ce->signal_lock);
- 	}
--	rcu_read_unlock();
-+	spin_unlock_irqrestore(&b->signalers_lock, flags);
- }
- 
- void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index bdf09fd67b6e7..648e5600587b4 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -39,7 +39,6 @@ struct intel_breadcrumbs {
- 	spinlock_t signalers_lock; /* protects the list of signalers */
- 	struct list_head signalers;
- 	struct llist_head signaled_requests;
--	atomic_t signaler_active;
- 
- 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
- 	struct irq_work irq_work; /* for use from inside irq_lock */
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index b1b8695ba7c97..b938ff5be7b80 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -409,6 +409,7 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- 	/* NB ce->signal_link/lock is used under RCU */
- 	spin_lock_init(&ce->signal_lock);
- 	INIT_LIST_HEAD(&ce->signals);
-+	INIT_LIST_HEAD(&ce->signal_link);
- 
- 	mutex_init(&ce->pin_mutex);
- 
--- 
-2.53.0
-
+Alice
