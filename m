@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 054EAC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B31C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B31410E944;
-	Mon,  6 Jul 2026 12:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F173A10E91D;
+	Mon,  6 Jul 2026 12:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SxWIaI4l";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H+wcOuej";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8FBA10E91D
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:17:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E8B10E91D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:18:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CF075435B6;
- Mon,  6 Jul 2026 12:17:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774691F000E9;
- Mon,  6 Jul 2026 12:17:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 386B1600DA;
+ Mon,  6 Jul 2026 12:18:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B4A1F000E9;
+ Mon,  6 Jul 2026 12:18:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783340262;
- bh=84TtUv3R1XOpb9UxevytZgOBwDl2Vh2ZS8n56h4r5Ow=;
+ s=k20260515; t=1783340320;
+ bh=MY86G9XzL0JWxguLtQKmKUK0GZzH2psKPaq2VHkDCQc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SxWIaI4l0Wv1pa+MTjMSyW4ZXRR98NCEvytP9NUjPxeTHfKlkdsX4RQgYPla72+PI
- Fsjs0tx83IRHYIkG+oK7HTFcNde329XtL1MYCPCnw/GtShFVyfpVhrx/9Sd4LVy5Va
- jgbjsEQ9li0Oyu1yMwrwGbc95bS5IYnU0SMApmQV19FOk1f/ZIq/QvHu9nuRPcTDCA
- KrEUrR9j0MhZ/j35UzJRUaDkoLfra8bnz3OpZPI4F/87BT4VMsRgoR77PwAVxUK3NW
- xLu+mDvK/x4PsrSlKdiItdr+UbD+rocdUN7rtQultlc6JXpZOA1hZs1aTpn94IUPRG
- iBSVMnGPSM09w==
-Date: Mon, 6 Jul 2026 13:17:23 +0100
+ b=H+wcOuejfoGs1g7/UBudXSCcBq1ZKB1Y4xbzun3KVo0uIStHhpNbNXBm3cdbyrvVK
+ g+A7YaYqjRALurYzk0CBuW2VsZw/cHAWIphnu+L1kfOQjlypFy/wAIHEUKbWufBWRz
+ U+MLC7FVoU87DisdBzrM85GadTu+JSlnYSnrtfHZjTWHZE7VL60egCiUliYj0duoZu
+ TqnLljxV1+dNVh5AOePOpb6Rdt4JpoDIG5DcfYU63HO+Hf6K7VilsnZNI7hxd6mef3
+ J/uMYrqI+Z+kxkYlGCeyZL1AWpnMkpAtnZ4emJZjO9a4ae7kpzeCn8p4LKTQZR2m9o
+ TQJfJT/7MCY4w==
+Date: Mon, 6 Jul 2026 13:18:22 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
@@ -101,9 +101,9 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH 27/42] ASoC: mediatek: mt8183: Use
+Subject: Re: [PATCH 28/42] ASoC: mediatek: mt8189: Use
  devm_of_reserved_mem_device_init()
-Message-ID: <e0c0d4f5-533e-4625-b8ff-f2178e54a7f8@sirena.org.uk>
+Message-ID: <7108d4cb-1860-4f14-93f4-75666ad02bdc@sirena.org.uk>
 Mail-Followup-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -180,12 +180,12 @@ Mail-Followup-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
  linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  imx@lists.linux.dev, sound-open-firmware@alsa-project.org
 References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-28-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-29-mukesh.ojha@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gI2mM3XhbyEs6RmR"
+ protocol="application/pgp-signature"; boundary="giRhJRGIMdDU9FkY"
 Content-Disposition: inline
-In-Reply-To: <20260703193855.110619-28-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260703193855.110619-29-mukesh.ojha@oss.qualcomm.com>
 X-Cookie: Did I do an INCORRECT THING??
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -203,31 +203,31 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---gI2mM3XhbyEs6RmR
+--giRhJRGIMdDU9FkY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, Jul 04, 2026 at 01:08:40AM +0530, Mukesh Ojha wrote:
-> Replace the hand-rolled devm wrapper (mt8183_afe_release_reserved_mem +
+On Sat, Jul 04, 2026 at 01:08:41AM +0530, Mukesh Ojha wrote:
+> Replace the hand-rolled devm wrapper (mt8189_afe_release_reserved_mem +
 > devm_add_action_or_reset) with the standard
 > devm_of_reserved_mem_device_init(), letting the device resource manager
 > handle cleanup automatically.
 
 Acked-by: Mark Brown <broonie@kernel.org>
 
---gI2mM3XhbyEs6RmR
+--giRhJRGIMdDU9FkY
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpLnNMACgkQJNaLcl1U
-h9DskQf9GhXzp9vEAYGZ4jdAHHof/S2RusXTeAwjV2KA+N3cPIrKmiBoRNlgJE6R
-k3Wyw/t4gLCe3h6z2QdkUxrHmSo4zwRULrIKMwL8gVp5COfs5IkPPcABUyIHeFCO
-aSUyfbcTEmebIHqnQpa3HlBa3afU4eelK4h7RXbrkb0DrK/9jxpZt+bPg1U0NvIu
-V/c0+Te+i2jhvxQzH+QpW6Mmz2BzENNfLFfy74GMZsq9Gv77D20Oe4sM+R8H5EVz
-ush1RoAVB4FpNWLggTInczXux3L+bSkpXkID816GHQtk23ihZOBfC6EHyrcSfs3Y
-MAk5DdJ76RisJ0bm0BpxgMTpFqlfgw==
-=6M5Z
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpLnQ0ACgkQJNaLcl1U
+h9DpVwf/RyWlR/GhdduZHTaBvEersYmwe285MzLn+z13NE/Z/moz/C9cJUCOzmOo
+Q4ZhjP/ShDTF/HFZ693DW7MTowM8ausVmDd1aNfqpVJmmcWC8OLqi+SlDfR8Jbdv
+r0sMbARtVjC023pUYbGQKg8dlqaXJU+PALRzck4LBYWwyLd0Lc1SgD+BoQf6PCQK
+Z1garJzyHNvSwO+16Mwx8i4pvrfC7oGRs9mxjcLXoqgHdfg2e6z9x5qZQKVZRf1T
+ic9ZH8kiirKXNHMEjsBSvbl5FnA7BtGz6INW9kcxd151SjodJk4mSaILKo+CgQ0Z
+tPf4cpZPCR85SmcUBQe4aCeZv9rbUw==
+=RTvx
 -----END PGP SIGNATURE-----
 
---gI2mM3XhbyEs6RmR--
+--giRhJRGIMdDU9FkY--
