@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A857C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DEEC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC8EF10E983;
-	Mon,  6 Jul 2026 13:03:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB3B410E977;
+	Mon,  6 Jul 2026 13:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XxyyS9/A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EWZ0xSev";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3256610E974
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:03:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3800210E98C
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:03:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 009D94187F;
- Mon,  6 Jul 2026 13:03:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5758C1F000E9;
- Mon,  6 Jul 2026 13:03:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9FDE960018;
+ Mon,  6 Jul 2026 13:03:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39F81F000E9;
+ Mon,  6 Jul 2026 13:03:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783342997;
- bh=MP8VboAyZaUbXRnwq6ovrV0/VarvGBmOTNmhBmvvLog=;
+ s=k20260515; t=1783343035;
+ bh=T1XaYNNK0CiQFk1JAwIphcm52VlAbKrAR8NvG0QeYy4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XxyyS9/AP4H5fsIA0lVrjTRknTESkZ5hNCpRpHwpQ3QF35rH/7pASMm0AqT5K3RG7
- esMzlPAtP0NSLHERj7uXBm27f6X8XpYxbh8fSrt4A8mfAnykqnZtIsJptH4zxdo7rN
- uGBv/BgqBJ7T3VzI1vIUP99DFoInnMjaUDZGqHHXUZ7IQhSFKBnEMgMKKb2YwXkGXy
- xbrSAKoVDJoP1lO/sKTFhWtorpEmy9dc5PKwF+Qv80OrK2WgtxQfxRwqgfem2gTlzk
- Pb7ajV2jz5visQu1Gq80lVq1KS6RLAg88TXwQKD7m6TZJsYpkKD4D+v6T1da8TkYlu
- KkSFhVd1FFqxA==
+ b=EWZ0xSevsuDTbAaEQEK7qliTlNNiRlYy5rhwyEPdvd0lYDHD7KPIsGIRtRpFr/ybM
+ pAexvbfeH76C+pSzJk3eT0XAcpkG2aQf+WvCcQxEUMmyt+XWZRwnxdCoQO13k7kY4L
+ P7/T/Bmcf0JGLtwYRx6BB/KrkNofGH9dMrkF/2qSVfOmoROjYO5t2rfTva+S2LY+wg
+ XnBq4LmbfHZJfo5PmxiLKZDl6w2X2PBC/mZbnjXVVrPevxiqpoJAMjGYvGRdk6q8qA
+ XvwhH2hNVE8SypELMlasZHwADGhWk72GZoZoHD8Xwxul0D+THZXWIW/UJP493sMEAi
+ 0lme7fb3yJ8Ig==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 15/20] rust: io: implement a view type for `Coherent`
+Subject: Re: [PATCH v6 03/20] rust: io: restrict untyped IO access and
+ `register!` to `Region`
 To: "Gary Guo" <gary@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- "Alexandre
- Courbot" <acourbot@nvidia.com>, ojeda@kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260706-io_projection-v6-15-72cd5d055d54@garyguo.net>
+Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ linux-pci@vger.kernel.org, "Danilo
+ Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260706-io_projection-v6-3-72cd5d055d54@garyguo.net>
 References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-15-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-3-72cd5d055d54@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 13:03:16 +0000
-Message-Id: <20260706130317.5758C1F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 13:03:54 +0000
+Message-Id: <20260706130354.B39F81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,87 +62,59 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] `CoherentView::as_mut` allows converting a shared reference `&Co=
-herent<T>` into a mutable reference `&mut T` on another thread without requ=
-iring `T: Send`.
+- [High] Infallible 64-bit I/O accesses (`read64`, `write64`, etc.) will fa=
+il to compile on 64-bit systems due to a failing `const_assert!` in `io_vie=
+w_assert` (formerly `io_addr_assert`).
 --
 
-commit 4f4557edee91d32bf035e749630652363a232ff1
+commit 9e28956aa7e8253fe2ab41dc7ddbf9af5d160ab2
 Author: Gary Guo <gary@garyguo.net>
 
-rust: io: implement a view type for Coherent
+rust: io: restrict untyped IO access and register! to Region
 
-Implement a CoherentView type which is a view of Coherent. To be able
-to give out DMA handles, the view type contains both CPU and DMA pointers,
-and the projection method projects both at once. Delegate most of the Io
-implementation to SysMemBackend.
+This commit restricts untyped I/O accesses and the register macro to the Re=
+gion
+type. It adds a generic type to IoLoc to indicate allowed base types, paving
+the way for typed register blocks.
 
-> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-> index 200def84fb69e..1535bc6eec642 100644
-> --- a/rust/kernel/dma.rs
-> +++ b/rust/kernel/dma.rs
+Link: https://lore.kernel.org/rust-for-linux/DHLB3RO3OSF5.2R7F27U99BKLN@nvi=
+dia.com/
 
-[ ... ]
-
-> +impl<'a, T: ?Sized> CoherentView<'a, T> {
-
-[ ... ]
-
-> +    /// Returns a mutable reference to the data in the region.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// * Callers must ensure that the device does not read/write to/fro=
-m memory while the returned
-> +    ///   reference is live.
-> +    /// * Callers must ensure that this call does not race with a read (=
-including call to `as_ref`)
-> +    ///   or write (including call to `as_mut`) to the same region while=
- the returned reference is
-> +    ///   live.
-> +    #[inline]
-> +    pub unsafe fn as_mut(self) -> &'a mut T {
-> +        // SAFETY: pointer is aligned and valid per type invariant. Alia=
-sing rule is satisfied per
-> +        // safety requirement.
-> +        unsafe { &mut *self.cpu_addr.as_ptr() }
-> +    }
-
-[Severity: Medium]
-Since as_mut() returns a mutable reference &'a mut T, could this allow a
-type that is not thread-safe to be mutated on another thread?
-
-If a custom type T is Sync but not Send, CoherentView could still be sent
-across threads. Calling as_mut() on the second thread would then yield a
-mutable reference to a !Send type, which seems to bypass Rust's thread
-safety guarantees.
-
-Does as_mut() need a T: Send bound to ensure soundness?
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index d821ee48ed317..87141eb070564 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
 
 [ ... ]
 
-> +impl<'a, T: ?Sized + KnownSize> IoBase<'a> for &'a Coherent<T> {
-> +    type Backend =3D CoherentIoBackend;
-> +    type Target =3D T;
-> +
-> +    #[inline]
-> +    fn as_view(self) -> CoherentView<'a, Self::Target> {
-> +        CoherentView {
-> +            // SAFETY: `cpu_addr` is valid and aligned kernel accessible=
- memory.
-> +            cpu_addr: unsafe { SysMem::new(self.cpu_addr.as_ptr()) },
-> +            dma_handle: self.dma_handle,
-> +        }
-> +    }
-> +}
+> @@ -437,6 +449,7 @@ fn read32(&self, offset: usize) -> u32
+>      #[inline(always)]
+>      fn read64(&self, offset: usize) -> u64
+>      where
+> +        usize: IoLoc<Self::Target, u64, IoType =3D u64>,
+>          Self: IoCapable<u64>,
+>      {
+>          self.read(offset)
 
-[Severity: Medium]
-This isn't a bug in the trait implementation itself, but this is where
-the shared reference &'a Coherent<T> gets converted into a CoherentView.
+[Severity: High]
+Does this regression cause a failure to compile when a driver invokes an
+infallible 64-bit access method on 64-bit systems?
 
-Combined with the as_mut() method above, does this create a path to gain
-mutable access from a shared reference without a T: Send requirement?
+By restricting usize offsets to target Region, invoking an infallible 64-bit
+access like read64(), write64(), or write_reg() with 64-bit registers
+instantiates io_addr_assert() with U =3D u64.
+
+Region has a hardcoded MIN_ALIGN of 4. The compile-time check explicitly
+requires:
+
+const_assert!(Alignment::of::<U>().as_usize() <=3D Self::Target::MIN_ALIGN.=
+as_usize());
+
+On 64-bit architectures, align_of::<u64>() is 8. Thus, 8 <=3D 4 evaluates to
+false, causing an immediate unconditional compilation error for any driver
+attempting to perform an infallible 64-bit MMIO access. Fallible variants
+like try_read64() use runtime alignment checks and are unaffected.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-io_project=
-ion-v6-0-72cd5d055d54@garyguo.net?part=3D15
+ion-v6-0-72cd5d055d54@garyguo.net?part=3D3
