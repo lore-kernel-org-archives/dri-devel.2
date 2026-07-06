@@ -4,74 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0FE9C43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:16:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F289C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA4910E89A;
-	Mon,  6 Jul 2026 10:16:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45C3A10E329;
+	Mon,  6 Jul 2026 10:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="cHeSgi80";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="JuWnDMjm";
 	dkim-atps=neutral
-Received: from smtpout6.mo534.mail-out.ovh.net
- (smtpout6.mo534.mail-out.ovh.net [54.36.140.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D86810E889
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:16:47 +0000 (UTC)
-Received: from director6.derp.mail-out.ovh.net
- (director6.derp.mail-out.ovh.net [51.255.22.22])
- by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SG4RP3z6JNt;
- Mon,  6 Jul 2026 10:08:46 +0000 (UTC)
-Received: from director6.derp.mail-out.ovh.net
- (director6.derp.mail-out.ovh.net. [127.0.0.1])
- by director6.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:46 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.61])
- by director6.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4gv0SG3D58z7tKd; Mon,  6 Jul 2026 10:08:46 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.11])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 658228E1900; 
- Mon,  6 Jul 2026 10:08:44 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-104R00590834597-f52e-4f2b-b839-ae2bddae85b6,
- F224CF1D020274B13B21E639C91833BCDAC0997A) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-From: Natalie Vock <nat@pixelcluster.dev>
-Date: Mon, 06 Jul 2026 12:07:45 +0200
-Subject: [PATCH v2 03/10] drm/ttm: remove ttm_lru_walk_ops
+X-Greylist: delayed 329 seconds by postgrey-1.36 at gabe;
+ Mon, 06 Jul 2026 10:22:14 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.61.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 909AA10E329
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:22:14 +0000 (UTC)
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gv0dR0WZzz8CrY;
+ Mon,  6 Jul 2026 12:16:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1783333003;
+ bh=O3HDA58hVYQ2UIV9LDldz/TAOxq4sg0yXPvgUB7pTJ8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JuWnDMjmbm9uc6WBo/iJg/eYbpNm53vDepAtcb7TVBiWfW6CXnlFafaYeex8jucij
+ JHMlVUdXMhBTcH0Z1z705kFAXBwAMbJ2OMjWp6BgaugBlnuYS5gpKWLjxrQJBjBP6i
+ xFrVLD0rEi7Hm+3YNUwiJKt4+Z9X6xwQzaNrE89ugFGU1wF9bde/nMrTS4rZ51R8rq
+ twolQswST4td/JkJe0gmULNKcGA5piU9jpMB+Uj4rpCr0iqcfbxCrSZUJfPw4ZeloZ
+ WghDQyuTPsSaEHnuLKc3VwCR2dTg7VrzI5SfpSxtUn4FU0xQj8tRIe7sdOl4yiN35a
+ ZAakz8Xyf2FiA==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4gv0dQ6w3zz8BSm;
+ Mon,  6 Jul 2026 12:16:42 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gv0dN6MWtz8sbk;
+ Mon,  6 Jul 2026 12:16:40 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 1472B60438;
+ Mon,  6 Jul 2026 12:16:40 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <f0d99b1a-e383-4d14-adb1-4ccab46efddb@leemhuis.info>
+Date: Mon, 6 Jul 2026 12:16:38 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260706-ttm_2_drm_exec-v2-3-4bf6bfc0d320@pixelcluster.dev>
-References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
-In-Reply-To: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 9128233496850358588
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTF2rMupFDtSz5VGJXaGrwYUaRUbsc9Nn7nc8ghpwc35VyZFauYARogcas+VOSD8wf0IhZl41F2o83TSTJEqn1M70AEfTiU3uOfrR34AN46Y0JjeW4xo6cV+rH2TUD4SE1NDtof+377HjW5jUw1vYYddQq9f46CIv1pXDMg+OvLcv0mAeBq8idZd3/oeDOqFYW+mp/D/hf65ucF8pcrq4BoeAZT2yueghykMKcN1pOaBvVNRQXaTXALuE+8w2Owws5LoK70lx9jAX+i5vFCotZFddZWqe5L2MI0ywEcZRGnxLB/PRWCfMsAV61ff3CxEAEQBj4aCGHb8mrffVRaINrHzcRpKKoY7Gtf57EkJJ2EJ2On7AWz6HYmAqPwk0Ji9fkrtOutngurpFhVNgszUI/SLQtmkCdJMToQTjJW5Ju5ErW7FkPFXHDtcgHcOovBmnVMxv3QguXn8YjMgyBCx6jN7Uf65EiTwYZ/JUpTeM2g8Dj6r2JbJfEJPaFvQp3UUycCxIUVfE3LH2+kCvad2ao+ij+NXwb0S/jJpSM/dx5cmpikbkRhPGhAWiFROqgNsfB54ibFc9TJUCKzU3SMekKBxBCfKGwHO51GcwMCxNxIB8LimCZu4eqjnIA+CksDmmcor4vKUYJ7jvwMPGAZKJm6SfWexZqjVtmT6bLrBitMnLw
-DKIM-Signature: a=rsa-sha256; bh=jmgO1VqoCmbZK7RpvAI9AVCGbRxKc/AL/4JQ8AkCTDk=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783332526; v=1;
- b=cHeSgi801Q1TZkJKx1CF7btk76tysmEH+/ubEWnddIH1wZsMdu+KnRQu+E4XPEDuCC2KlHlY
- LODHMaswSF79Hm25kxtF9j9wPuO0NqDlvPSdfd8EIb6uEWg1qY2fmCD5cl337mzBQHfOKUBDm5n
- umubUhMTpE+tsvsMp6lBENKGb3Cq+01v1xm6XbjS2Yzk69zZ7g2PS+dK8/8Rz1aZRraMW5izgIL
- RC6HOih8gqkDBfuAB2y/LkYeV60QHe88u0v4iISTe73TMkaLT3rrn+atRco3vwQCrg0ZWPrr4vQ
- N22CXcfw9oNvVjUNtj6OgCt2ywC21pS1NBbCk+5fAjGTg==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
+To: Adam Thiede <me@adamthiede.com>, Gary Bisson <bisson.gary@gmail.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
+ <42607fa4-485d-4142-b31c-7bfac71118d2@adamthiede.com> <ajka2220depklK1_@owl5>
+ <bac79214-050d-448b-be63-0586d45c807d@adamthiede.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+X-Enigmail-Draft-Status: N11222
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <bac79214-050d-448b-be63-0586d45c807d@adamthiede.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178333300057.643948.6218888156290066716@mxe9fb.netcup.net>
+X-NC-CID: CjcezfaIEXrSstuGOSqS1Cqzufs3YbLMXdijf71d3Ds3mx8zQQM=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,126 +132,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It's just another layer of indirection.
+On 6/22/26 15:23, Adam Thiede wrote:
+> On 6/22/26 06:22, Gary Bisson wrote:
+>> On Thu, Jun 18, 2026 at 04:06:28PM -0500, Adam Thiede wrote:
+>>> On 1/20/26 05:36, Gary Bisson wrote:
+>>>> Some bridges, such as the TI SN65DSI83, require the HS clock to be
+>>>> running in order to lock its PLL during its own pre-enable function.
+>>>>
+>>>> Without this change, the bridge gives the following error:
+>>>> sn65dsi83 14-002c: failed to lock PLL, ret=-110
+>>>> sn65dsi83 14-002c: Unexpected link status 0x01
+>>>> sn65dsi83 14-002c: reset the pipe
+>>>> [...]
+>>>
+>>> This commit was part of 7.1 and caused a problem for me.
+>>> I'm running postmarketOS (basically Alpine Linux) on a Lenovo C330
+>>> chromebook with a Mediatek MT8173 processor.
+>>> The problem: when the display on my laptop powers off (via suspend or
+>>> idle,
+>>> like xset dpms off) the picture does not come back when the display
+>>> powers
+>>> back on (from resume). The display backlight comes on and brightness is
+>>> adjustable but there is no picture. The only fix is to reboot.
+>>>
+>>> Reverting this commit and applying it as a patch on top of 7.1
+>>> addresses the
+>>> issue for me.
+>>>
+>>> You can view the config I'm using here:
+>>> https://gitlab.postmarketos.org/postmarketOS/pmaports/-/
+>>> merge_requests/8819
+>>>
+>>> Is there any sort of testing or other debugging info I can provide to
+>>> help
+>>> address this issue?
+>>
+>> Thanks for reporting the issue, could you share some logs? Is the driver
+>> saying anything during resume? Also, what type of panel is used on that
+>> chromebook?
+>
+> The curious thing is that there are no real logs in dmesg or /var/log/
+> messages about this. This picture just fails to come back. If there are
+> some kernel params I can set to get deeper logging, that would help, but
+> I'm not aware of any.
+> 
+> I think the panel is a "BOE NV116WHM-T00" - I used this command to get
+> info: cat /sys/class/drm/card0-eDP-1/edid | edid-decode
+> 
+> Output: https://termbin.com/8nbd
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
----
- drivers/gpu/drm/ttm/ttm_bo.c      | 12 ++----------
- drivers/gpu/drm/ttm/ttm_bo_util.c |  2 +-
- include/drm/ttm/ttm_bo.h          | 34 ++++++++++++++--------------------
- 3 files changed, 17 insertions(+), 31 deletions(-)
+This looked stalled. If I'm mistaken here, please let me known; but if
+no solution is in sight, should we maybe just revert the change until a
+proper was found?
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 2b470c1746f60..1fb8c53da0362 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -545,10 +545,6 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
- 	return lret;
- }
- 
--static const struct ttm_lru_walk_ops ttm_evict_walk_ops = {
--	.process_bo = ttm_bo_evict_cb,
--};
--
- static int ttm_bo_evict_alloc(struct ttm_device *bdev,
- 			      struct ttm_resource_manager *man,
- 			      const struct ttm_place *place,
-@@ -560,7 +556,7 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
- {
- 	struct ttm_bo_evict_walk evict_walk = {
- 		.walk = {
--			.ops = &ttm_evict_walk_ops,
-+			.process_bo = ttm_bo_evict_cb,
- 			.arg = {
- 				.ctx = ctx,
- 				.ticket = ticket,
-@@ -1187,10 +1183,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo)
- 	return ret;
- }
- 
--const struct ttm_lru_walk_ops ttm_swap_ops = {
--	.process_bo = ttm_bo_swapout_cb,
--};
--
- /**
-  * ttm_bo_swapout() - Swap out buffer objects on the LRU list to shmem.
-  * @bdev: The ttm device.
-@@ -1209,7 +1201,7 @@ s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx *ctx,
- {
- 	struct ttm_bo_swapout_walk swapout_walk = {
- 		.walk = {
--			.ops = &ttm_swap_ops,
-+			.process_bo = ttm_bo_swapout_cb,
- 			.arg = {
- 				.ctx = ctx,
- 				.trylock_only = true,
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 7ed085adf1c9b..29f068944a972 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -919,7 +919,7 @@ s64 ttm_lru_walk_for_evict(struct ttm_lru_walk *walk, struct ttm_device *bdev,
- 	s64 lret;
- 
- 	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &walk->arg, bo) {
--		lret = walk->ops->process_bo(walk, bo);
-+		lret = walk->process_bo(walk, bo);
- 		if (lret == -EBUSY || lret == -EALREADY)
- 			lret = 0;
- 		progress = (lret < 0) ? lret : progress + lret;
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 1eae9eea5ff32..0fcd5082a7080 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -189,24 +189,6 @@ struct ttm_operation_ctx {
- 	uint64_t bytes_moved;
- };
- 
--struct ttm_lru_walk;
--
--/** struct ttm_lru_walk_ops - Operations for a LRU walk. */
--struct ttm_lru_walk_ops {
--	/**
--	 * process_bo - Process this bo.
--	 * @walk: struct ttm_lru_walk describing the walk.
--	 * @bo: A locked and referenced buffer object.
--	 *
--	 * Return: Negative error code on error, User-defined positive value
--	 * (typically, but not always, size of the processed bo) on success.
--	 * On success, the returned values are summed by the walk and the
--	 * walk exits when its target is met.
--	 * 0 also indicates success, -EBUSY means this bo was skipped.
--	 */
--	s64 (*process_bo)(struct ttm_lru_walk *walk, struct ttm_buffer_object *bo);
--};
--
- /**
-  * struct ttm_lru_walk_arg - Common part for the variants of BO LRU walk.
-  */
-@@ -223,8 +205,20 @@ struct ttm_lru_walk_arg {
-  * struct ttm_lru_walk - Structure describing a LRU walk.
-  */
- struct ttm_lru_walk {
--	/** @ops: Pointer to the ops structure. */
--	const struct ttm_lru_walk_ops *ops;
-+	/**
-+	 * process_bo - Process this bo.
-+	 * @walk: struct ttm_lru_walk describing the walk.
-+	 * @bo: A locked and referenced buffer object.
-+	 *
-+	 * Return: Negative error code on error, User-defined positive value
-+	 * (typically, but not always, size of the processed bo) on success.
-+	 * On success, the returned values are summed by the walk and the
-+	 * walk exits when its target is met.
-+	 * 0 also indicates success, -EBUSY means this bo was skipped.
-+	 */
-+	s64 (*process_bo)(struct ttm_lru_walk *walk,
-+			  struct ttm_buffer_object *bo);
-+
- 	/** @arg: Common bo LRU walk arguments. */
- 	struct ttm_lru_walk_arg arg;
- };
-
--- 
-2.55.0
+Ciao, Thorsten
 
