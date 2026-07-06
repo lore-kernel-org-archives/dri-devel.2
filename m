@@ -4,106 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01BAAC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 22:34:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6453C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 22:40:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40C4210E28E;
-	Mon,  6 Jul 2026 22:34:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35AB510E3DA;
+	Mon,  6 Jul 2026 22:40:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zT+e6to9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qd/W+5D4";
 	dkim-atps=neutral
 Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012006.outbound.protection.outlook.com [52.101.43.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D100710E28E
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 22:34:44 +0000 (UTC)
+ (mail-westusazon11012010.outbound.protection.outlook.com [52.101.43.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAC5B10E3DA
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 22:40:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gi8ORCLytWsdE46DtIXVEDeYPOoaJ1gCYDzDWEDpXrlXrbD41duGitItI0zo2O2bhLWT++07RiA9cx41/zN/QbMGZkQxriNr3JTc5CvcfuBOGbK6jFEENtQ7Xo5Udi09oTO281DNBvVHcZShS6HkbMAzMqjCvkWrcQEzkDTjrZvdwLfwcU3LXmEzvQzbF+Np4QePLzzvRgn9DDT50UL6MB0ltokTLMfedf3NzMyYqAslu7xgaBfhXkwN/YnR3VncZ4rGiG42kYkxHVr6pTtWgCLmJn4/4kbaesg1WL+RQW5mmZHP2PvswzYuDfgrDWusdPh5ug4+tze8Vm7CdqYOZA==
+ b=adIFe+wGwdGwrFZPllt8YtS/ZClEtjZv68qY5eeHtUmUpi/K6FOM/R+PvZ1WzY9loy+3ihZYQv9izstWBmVpqDPE1G5bfCOsQ0YyIoz59Phmyon6FvUWA+rvwPA+o0UiOMTdyfN4XRo+WSU3Kip37N3pIUF1neWZBFBi4vVYHJLuoUCLu0xEUmhQmQUfGvrqcSLpKM05DPRGS/q91Nq+UuGKdBIbbqbOYeHQZ/zt0WoDjZ6pMqQZX9PmbAj6YjH0QMU61Own/HEA8l0ar6zY0ha+A7KHhIKvgzjjZbXJPB8aSr6PgOMm5byhWeAgoHAloyBYpFDR0PWjgd2rw4j+4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iFKInBh13Gaw/EOSO9vhfpDJFg8bsTjwT/6iUAy/w9c=;
- b=e6P+Ktmi0K0HDXU1PaL2KCCmKP2cr8wDgNfCHMVIkS6K9W9ejbQ+uZjiwFtNGOS6Fiv/cJZtcKFuVNIEW2dPLHwXu3KmLrOE+lgnuWDTCZrk3YIsOuT0yOwDgpNfehwjmVQgIQ96E3bJDAqtoOOTQfKZLksJi1Y10dwIXpCE8s8kycLX5jGn/O/PsdUFH9QRwM6A2rGqmf+mPImJt9KqgmuHR3KlidICkGvgt/5ygD10EGG2Nq72vbdTuVPePe1nIrgNra5reNEtI3fC2zP/mITL7Bq+W2wAwolmN5be80b4eTBa43nL//XjiYeFA73aDjrN7HRoXMiUobR3U3KqJA==
+ bh=GqbDsOS5VZbK07bkPxaqArgH6+92d9XSeBjIpU2njgc=;
+ b=fWSVEJDSYLz0LbMGvP97Xrjz1bGgobkGYnm+8/z04xvWcUPSifvprp4QhLvCikgdXPD7PAMNBjRstd3XdqmMaMaFFXArjL9rZJKr9AFvoWpJwjTSmyZvWi5mbix9bmf8vdk670z6xgC8BfKU9zLOvcXiuNmBT+f/a3Ai6eZ+F5jT5ileNGclBCFgzIfjyz3B4ZF1acucy6sVa6/jJ04p3CDd9uO9Um91Gj+3NAkRvouYGPxLU/fHHfwMl5w1W15xcL+nIQMdo8wQpFkiEIyfMHIcNtVFtBGNHFj5qy91rJq+aHETgjhXYeQyAFfbzrWqOthJqT3/caY+kGksXfH4vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iFKInBh13Gaw/EOSO9vhfpDJFg8bsTjwT/6iUAy/w9c=;
- b=zT+e6to9fyIdwHLFV57Y3tQwqOEWJMBCMDF1LuiBEJT7XLSgpoFf/DXRNQ1596sJxx0+mYhX1RcBIVqw5nFpElpuseSee37GHa4zO7zfPhUXnt0NfTsyLSC4tCWn5bSZ0QIilwL9WBbdjQRkx2q0jERK4eDprvFs8FOA0H7PnXE=
-Received: from DM6PR06CA0096.namprd06.prod.outlook.com (2603:10b6:5:336::29)
- by PH0PR12MB7094.namprd12.prod.outlook.com (2603:10b6:510:21d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Mon, 6 Jul 2026
- 22:34:40 +0000
-Received: from DS3PEPF000099E0.namprd04.prod.outlook.com
- (2603:10b6:5:336:cafe::52) by DM6PR06CA0096.outlook.office365.com
- (2603:10b6:5:336::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Mon, 6
- Jul 2026 22:34:39 +0000
+ bh=GqbDsOS5VZbK07bkPxaqArgH6+92d9XSeBjIpU2njgc=;
+ b=Qd/W+5D46/apSGjuKz2jj5PQZhM7W8T1XqmQzcBJtsD+emo+xjKWj8ifByB1bWlHtB3xTwNgKzppd6lkOnwrvx7cAUzIeEzRhQRWdac139NvguiPOYTu2W9hqr9LIoLRHMTxuKSkHetVH060BQmlagvNnSDY9aADRg7eQTTZuVo=
+Received: from BN9PR03CA0556.namprd03.prod.outlook.com (2603:10b6:408:138::21)
+ by SJ1PR12MB6268.namprd12.prod.outlook.com (2603:10b6:a03:455::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
+ 2026 22:40:44 +0000
+Received: from BN1PEPF00004689.namprd05.prod.outlook.com
+ (2603:10b6:408:138:cafe::26) by BN9PR03CA0556.outlook.office365.com
+ (2603:10b6:408:138::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon, 6
+ Jul 2026 22:40:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS3PEPF000099E0.mail.protection.outlook.com (10.167.17.203) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 6 Jul 2026 22:34:39 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.181.6 via Frontend Transport; Mon, 6 Jul 2026 22:40:44 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 6 Jul
- 2026 17:34:38 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 17:40:44 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 6 Jul
- 2026 15:34:38 -0700
-Received: from [172.19.70.117] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Mon, 6 Jul 2026 17:34:38 -0500
-Message-ID: <ff4847cb-90ce-48fb-bb3a-bdffe8ccdf72@amd.com>
-Date: Mon, 6 Jul 2026 15:34:37 -0700
+ 2026 17:40:43 -0500
+Received: from [172.19.70.117] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 6 Jul 2026 17:40:43 -0500
+Message-ID: <6d4b8db5-0212-4af7-9a2a-e8ed73ccdf03@amd.com>
+Date: Mon, 6 Jul 2026 15:40:42 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3] accel/amdxdna: Prevent PM resume deadlock in
- hwctx_sync_debug_bo()
+Subject: Re: [PATCH V3] accel/amdxdna: Fix VMA access race
 To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
  <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <shuvampandey1@gmail.com>,
- <karol.wachowski@linux.intel.com>
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
 CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260616212429.3620645-1-lizhi.hou@amd.com>
+References: <20260609011242.2833740-1-lizhi.hou@amd.com>
 Content-Language: en-US
 From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20260616212429.3620645-1-lizhi.hou@amd.com>
+In-Reply-To: <20260609011242.2833740-1-lizhi.hou@amd.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E0:EE_|PH0PR12MB7094:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b9b052c-a649-4b87-a781-08dedbaec40f
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|SJ1PR12MB6268:EE_
+X-MS-Office365-Filtering-Correlation-Id: f669fb2a-f4b9-47a6-37eb-08dedbaf9d90
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|56012099006|5023799004|11063799006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: B36bvqtmW+soJo4n0i2BzRLnIPM4uAEK461PAPWtoLcqUZaUBR3svdQJtk3I2rZ/6rA8vAmxpXpoQ3bHr4RVaJPdSYCO6f/ZxlFvfybXQwPHEvwlfYo3w/xnZbPfVOHc78V8DEe70QVwnSIs2Aw/HmpKbeAHqiiUXKwcKndnWhs7ock+f3FLmb5uaW+K9mhsgy82hfHLkj6QDMNybEoV4CpCFdOiy4DHLKPZxLiXgjwDTTSzPR5wrA6OZyOcDukoOFOKTQdiJzxlq/DUUuFq03Ogp0xriRrAaIjWFCuAP9EI9SOfg5Vn0VQWgJaFHGDU7+SKJDhdQJvcJ2hDBmyP5NflKKDel9OhFcqSAgsdsY5fXSb73f1BO/m2WJj2Yb64eul4lL+7T8t39rCIuy42sXYAMooBUy9eF8e2TJhTks/EW0yorRy3rK080v+A4o41bVy8Ln+nztqtU3BN7nXm3IuD5eXBIdCE4JQxE2Fx3fCQA6P4/RDccJcbmq2CvzbW65gfgqksctTXdBMLXMcBK5ZTwrUXZHzkDvYqH4Nah6e2VhZevcOjT+ldtSNUrEpzhW3gYLBFBP8IZTog4/9Yy18qCAZlryjbUlS33DMK0pqH1BiuAGZSLsN5HFI4WS/4rOq0e1lPaUu3XVq+w1VTgZbZQGLr5y3Shk1/tLLdO0VIYDpSugkcxfmaJTsV/5wi15cGAebNlhGJhTjCtxaEYA==
+ ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|11063799006|6133799003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: hQW9TqEK3NvlCjqhKVuKRAoz9dHfjw3dC8+ou/oPtDw7thN+TT8F3eN77i0CGZZw3lGJFnJESKqPaE9eDVPN5Abdtkyiiv1W3EBHjUENpmVsviOpxd38l6/9ZP3Blg9dfoNsTPfyYP6+cns3cE+5ovJTutqfR2c03XHXN1euSwJCQFlNn/0CvH/qX3Uj8M0MAicKdMDEKN2zrnOisPv1J/A/VbmmnTPOhl6EPTW+Ey29QyH3t6PuSRH3EtN+5QZ52zRXwswnpzFwfq9noEy7TAxmHEHcKrs7IWR2Z5X9Qy4KWUDZbHhXM5/orN3JvV80oz+3rl2WtfkEjZGONgVPWJCYNUIzmhJqSRs70h4goJIyLj8cmng4dfB2j1E1vifZrYAh0qwV0zBjmDIrPxwgcpu2W5Dd04F8Dm33ye+yw5JlU81VXbRlt4Zll/f849AntYi8VluAdQKpjDXQ0t1j2yMkWKTiqbx2SduhqdW7iuGpxVEDs02FEO7+zAeypZPD27l+PP4s2EZexD0wR2Ekv0u1Xbo6hEGWnOwvPAch3znJzEFTCgqg7qS12XBpMx2jPmpRDLT7fd/05C6642JOBG2JfPMSTshnZA1L1V46CwiLL5LU0Jrzvxt0uZoLmGkpnZC/keEq2zcTxOMEsnbwnWqbMPr8ZFN4kyd+49RTG5ZrlYEcsIFUsD21cClp892lBo/nE05kFRWrwxbfoPUCQw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(56012099006)(5023799004)(11063799006)(18002099003)(22082099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(11063799006)(6133799003)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sojLJWhKAkQUlX2VLyP342WYkpZUJUkgDyX+A2qARDK4tH9YPKlQOX0H/J3dYg33EsO1lesRhxkMr9gHO7CpvJajIlU/7C+S76XoR1HOvM2d/q1APrA/plFI9DViQnj89oN72Gw4+gwQ0X8XwpwqDYE4/6Hf3MlwRpem6qeBZRaOFZ6D7HGimNriB8KR4VR+unRpmzEgUZRSEc6krCJEHVrZb0rBR3qkiifYq99Q/OztsVGIJa5PvE9u9PhBIl7UungbFif2Golzi8HgvFQYcawWXlz7vYbHrv5U18pWDRjx9dC4ulz1ERLDhC1uR+2Q582K47HUxuQnNTApg7PspQD1cQwEW/KbA9w+zZqOJbbXBuIZqipD/b8sEDGbWlXzoI0KnEFMI2ov6UF9Wqz7b02tXfB/S4w0UTItYWf5h2XeNfELv+qc5qGLIeHaX+Ng
+X-MS-Exchange-AntiSpam-MessageData-0: OvNpO93HSnmSVBc9XwLaM/m2ThZTTdstqdNt2g77j9P7Hatlt6vtSfMxsIWtl5cNz3hexjBa2bIo+uudEK4y6ydDoWai+Nk5Wv6SlSwZlN5zmF67rxh/LnsFvR4HysJXTQxs1CTn9UJsJHmdEnsP0zLuB1MeMIPk8e9YifNg/uNU157f/EcDqfUfyq2MWHlgbeMs+1LnT4bQwabA0GYv5xTdY9nMfMPAzO1I1UAGN61OwWkYMjlgN5lHjGqj/fSE0sbx0hAEXvJV9nRKZkXnCZdU4x2w78i1B4wiqsafnq9m2hQnGz84Vf8rhAp+6ZaRQk1tBZ9qta7NUAmN692/oP5NoEd6qawNr6b71PeCxe0Y+idX5pl0IYa4ucJLdexdEuIpMIDSmnIrQ8AshxtbIjECTzhb77v90DdCBwEcF8cEMbF0fnc86NJS8eOcHFMZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 22:34:39.2584 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b9b052c-a649-4b87-a781-08dedbaec40f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 22:40:44.2006 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f669fb2a-f4b9-47a6-37eb-08dedbaf9d90
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E0.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004689.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7094
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6268
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,91 +119,140 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 6/16/2026 Tue 14:24, Lizhi Hou wrote:
-> amdxdna_hwctx_sync_debug_bo() invokes the hardware hwctx_sync_debug_bo()
-> callback while holding xdna->dev_lock.
+On 6/8/2026 Mon 18:12, Lizhi Hou wrote:
+> aie2_populate_range() and amdxdna_umap_release() access a saved VMA
+> pointer that may have already been freed, leading to a potential
+> use-after-free.
 > 
-> The callback may call amdxdna_cmd_submit(), which in turn calls
-> amdxdna_pm_resume_get(). If the device is suspended,
-> amdxdna_pm_resume_get() may synchronously execute amdxdna_pm_resume(),
-> which also acquires xdna->dev_lock, resulting in a deadlock.
+> Remove the VMA accesses from these functions to avoid the race.
 > 
-> Avoid the deadlock by calling amdxdna_pm_resume_get() before holding
-> xdna->dev_lock in both amdxdna_hwctx_sync_debug_bo() and
-> amdxdna_drm_config_hwctx_ioctl()
-> 
-> Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
+> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
 > Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-
 Reviewed-by: Max Zhen <max.zhen@amd.com>
-
 > ---
-> V2:
->    Fix jumping forward over the guard(mutex) declaration.
 > V3:
->    Fix the same in amdxdna_drm_config_hwctx_ioctl().
+>    fix sashiko comments: error-path cleanup patch race
+> V2:
+>    fix sashiko comments: Use-after-free on `mapp->vma`
 > 
->   drivers/accel/amdxdna/amdxdna_ctx.c | 26 ++++++++++++++++++++++----
->   1 file changed, 22 insertions(+), 4 deletions(-)
+>   drivers/accel/amdxdna/aie2_ctx.c    |  2 --
+>   drivers/accel/amdxdna/amdxdna_gem.c | 31 +++++++++++++++++++----------
+>   drivers/accel/amdxdna/amdxdna_gem.h |  1 -
+>   3 files changed, 21 insertions(+), 13 deletions(-)
 > 
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-> index ff6c3e8e5a15..2ab4443e7094 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-> @@ -356,16 +356,25 @@ int amdxdna_drm_config_hwctx_ioctl(struct drm_device *dev, void *data, struct dr
->   		return -EINVAL;
->   	}
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index da89b3701f5b..3e21e2dabe82 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -1023,8 +1023,6 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+>   	kref_get(&mapp->refcnt);
+>   	up_write(&xdna->notifier_lock);
 >   
-> -	guard(mutex)(&xdna->dev_lock);
-> +	ret = amdxdna_pm_resume_get(xdna);
-> +	if (ret) {
-> +		XDNA_ERR(xdna, "Resume failed, ret %d", ret);
-> +		goto free_buf;
-> +	}
+> -	XDNA_DBG(xdna, "populate memory range %lx %lx",
+> -		 mapp->vma->vm_start, mapp->vma->vm_end);
+>   	mm = mapp->notifier.mm;
+>   	if (!mmget_not_zero(mm)) {
+>   		amdxdna_umap_put(mapp);
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 63976c3bcbe0..20ce304b19ef 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -254,7 +254,7 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
+>   
+>   	xdna = to_xdna_dev(to_gobj(abo)->dev);
+>   	XDNA_DBG(xdna, "Invalidating range 0x%lx, 0x%lx, type %d",
+> -		 mapp->vma->vm_start, mapp->vma->vm_end, abo->type);
+> +		 mapp->range.start, mapp->range.end, abo->type);
+>   
+>   	if (!mmu_notifier_range_blockable(range))
+>   		return false;
+> @@ -284,15 +284,23 @@ static const struct mmu_interval_notifier_ops amdxdna_hmm_ops = {
+>   	.invalidate = amdxdna_hmm_invalidate,
+>   };
+>   
+> +static inline bool compare_range(struct amdxdna_umap *mapp,
+> +				 struct mm_struct *mm,
+> +				 unsigned long start, unsigned long end)
+> +{
+> +	return (!mapp->unmapped && mapp->notifier.mm == mm &&
+> +		mapp->range.start == start && mapp->range.end == end);
+> +}
 > +
-> +	mutex_lock(&xdna->dev_lock);
->   	hwctx = xa_load(&client->hwctx_xa, args->handle);
->   	if (!hwctx) {
->   		XDNA_DBG(xdna, "PID %d failed to get hwctx %d", client->pid, args->handle);
->   		ret = -EINVAL;
-> -		goto free_buf;
-> +		goto unlock;
+>   static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
+>   				   struct vm_area_struct *vma)
+>   {
+>   	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
+>   	struct amdxdna_umap *mapp;
+>   
+> -	down_read(&xdna->notifier_lock);
+> +	down_write(&xdna->notifier_lock);
+>   	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+> -		if (!vma || mapp->vma == vma) {
+> +		if (!vma || compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end)) {
+>   			if (!mapp->unmapped) {
+>   				queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
+>   				mapp->unmapped = true;
+> @@ -301,19 +309,16 @@ static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
+>   				break;
+>   		}
+>   	}
+> -	up_read(&xdna->notifier_lock);
+> +	up_write(&xdna->notifier_lock);
+>   }
+>   
+>   static void amdxdna_umap_release(struct kref *ref)
+>   {
+>   	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
+>   	struct amdxdna_gem_obj *abo = mapp->abo;
+> -	struct vm_area_struct *vma = mapp->vma;
+>   	struct amdxdna_dev *xdna;
+>   
+>   	mmu_interval_notifier_remove(&mapp->notifier);
+> -	if (is_import_bo(abo) && vma->vm_file && vma->vm_file->f_mapping)
+> -		mapping_clear_unevictable(vma->vm_file->f_mapping);
+>   
+>   	xdna = to_xdna_dev(to_gobj(mapp->abo)->dev);
+>   	down_write(&xdna->notifier_lock);
+> @@ -355,6 +360,15 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+>   		return 0;
 >   	}
 >   
->   	ret = xdna->dev_info->ops->hwctx_config(hwctx, args->param_type, val, buf, buf_size);
->   
-> +unlock:
-> +	mutex_unlock(&xdna->dev_lock);
-> +	amdxdna_pm_suspend_put(xdna);
->   free_buf:
->   	kfree(buf);
->   	return ret;
-> @@ -386,16 +395,25 @@ int amdxdna_hwctx_sync_debug_bo(struct amdxdna_client *client, u32 debug_bo_hdl)
->   	if (!gobj)
->   		return -EINVAL;
->   
-> +	ret = amdxdna_pm_resume_get(xdna);
-> +	if (ret) {
-> +		XDNA_ERR(xdna, "Resume failed, ret %d", ret);
-> +		goto put_obj;
+> +	down_read(&xdna->notifier_lock);
+> +	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+> +		if (compare_range(mapp, current->mm, addr, addr + len)) {
+> +			up_read(&xdna->notifier_lock);
+> +			return 0;
+> +		}
 > +	}
+> +	up_read(&xdna->notifier_lock);
 > +
->   	abo = to_xdna_obj(gobj);
-> -	guard(mutex)(&xdna->dev_lock);
-> +	mutex_lock(&xdna->dev_lock);
->   	hwctx = xa_load(&client->hwctx_xa, abo->assigned_hwctx);
->   	if (!hwctx) {
->   		ret = -EINVAL;
-> -		goto put_obj;
-> +		goto unlock;
->   	}
+>   	mapp = kzalloc_obj(*mapp);
+>   	if (!mapp)
+>   		return -ENOMEM;
+> @@ -380,13 +394,10 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+>   	mapp->range.start = vma->vm_start;
+>   	mapp->range.end = vma->vm_end;
+>   	mapp->range.default_flags = HMM_PFN_REQ_FAULT;
+> -	mapp->vma = vma;
+>   	mapp->abo = abo;
+>   	kref_init(&mapp->refcnt);
 >   
->   	ret = xdna->dev_info->ops->hwctx_sync_debug_bo(hwctx, debug_bo_hdl);
+>   	INIT_WORK(&mapp->hmm_unreg_work, amdxdna_hmm_unreg_work);
+> -	if (is_import_bo(abo) && vma->vm_file && vma->vm_file->f_mapping)
+> -		mapping_set_unevictable(vma->vm_file->f_mapping);
 >   
-> +unlock:
-> +	mutex_unlock(&xdna->dev_lock);
-> +	amdxdna_pm_suspend_put(xdna);
->   put_obj:
->   	drm_gem_object_put(gobj);
->   	return ret;
+>   	down_write(&xdna->notifier_lock);
+>   	if (list_empty(&abo->mem.umap_list))
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+> index a3e44c7a2395..a35d2f15d32c 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.h
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
+> @@ -12,7 +12,6 @@
+>   #include "amdxdna_pci_drv.h"
+>   
+>   struct amdxdna_umap {
+> -	struct vm_area_struct		*vma;
+>   	struct mmu_interval_notifier	notifier;
+>   	struct hmm_range		range;
+>   	struct work_struct		hmm_unreg_work;
 
