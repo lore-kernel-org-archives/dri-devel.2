@@ -4,94 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11383C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 17:26:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF47BC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 17:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEFA10EA18;
-	Mon,  6 Jul 2026 17:26:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B90F10E1E6;
+	Mon,  6 Jul 2026 17:28:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nCLYqWUv";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="gQ8FxNxp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB4F10E3E0;
- Mon,  6 Jul 2026 17:26:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8A19C415B4;
- Mon,  6 Jul 2026 17:26:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160F11F000E9;
- Mon,  6 Jul 2026 17:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783358804;
- bh=6Q0tvr2GvB7IdKSisCRev74pEI09lUCKAJRHUpFa0u0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=nCLYqWUvGJM2k6XDnnND9naY7BS0FeW4Fu5CyITqesk4/FYtYFs2v+CdsAT/O073Y
- GtZ8t7rZu7alxOIECS486DbL4kafAvJYppDKfefXQcxPJWSm50Z5xEB87XflCdnqI0
- dI9I5Vp+VbNytWapWIsBYtTNmQpIQ3PSkrb5u0vxywEuxj1U2BwNjyu/B89xGJdNtD
- G/Odw4daeVaAAUZb5GsfrnhN7yZ/7dsR9qtpRXxY65g9kYlYkQBfw49iWquOtCkMjk
- tJfNZXyAVgeg0oDBCZxb/20tfctRWrUO672g92oAd9zuNBOetu0kFzrqAf+966bE2y
- VRCYCAEaqRrlQ==
-Date: Mon, 6 Jul 2026 18:26:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Manuel Ebner <manuelebner@mailbox.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Peter Chen <peter.chen@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- driver-core@lists.linux.dev, devicetree@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v3 02/20] driver core: platform: provide
- platform_device_set_of_node()
-Message-ID: <e40d0bd0-0e3d-4c01-bffc-8e0075213c45@sirena.org.uk>
-References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-2-1ff028e33779@oss.qualcomm.com>
- <fbc50f89e0c3bb148656a3b8d96974f591576dec.camel@mailbox.org>
- <akvOo2EeERLYPh72@ashevche-desk.local>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB1710E1E6
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 17:28:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783358887; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=UFQT4vKlTY4M4sLvec99l+VPvueo+mMFk5L3tLjV8+8LIpf0KPTXu/wrhQGWbJg/2U2DfNz8lW8koAOPYlO0UN/o4M4GznF4e6jxACqurdAt/tVn+viO6WcLZ5Iz7vm6dVHUUO//URWc4rvd3C3UPniZv5BaaNkfNdRYO0qdI/M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783358887;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=9A3HD9iuR84TLtsI+YpUnK/953NwVKjLsAfJ7KhCSw8=; 
+ b=TkER0+1T5QlSb/r6n9iCgnLvGWCp9U/1u3j9mukMUl45x095OCEE4+sKmaxCD7MtTXwZ42VkRw2Z8IoWzFilzp9b5nKWFHdzYSP42RbcIsQ8dmfbbtyl8X2IP665IxAIxtS5djfkKVzRzZmvzMHNHIQA1IYEzAtTOAiu/3TeKnY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783358887; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:References:Date:Date:Message-Id:Message-Id:Reply-To;
+ bh=9A3HD9iuR84TLtsI+YpUnK/953NwVKjLsAfJ7KhCSw8=;
+ b=gQ8FxNxpQZRI4Tvg6Nt3efV7dqlGoJOxYM3VkSLBpaB62gOUReRZx/GyZDAlImQ1
+ MOmyIQPasNA+rSCvaawdfZaQ6oskcnVBwrLF00XEAAaKsjDfRb6REvGVVXpXyxH0S4u
+ M93/uicgYJElT1gACfHvWaha0gk39zG9FA69aZo4=
+Received: by mx.zohomail.com with SMTPS id 178335888556122.52316639311084;
+ Mon, 6 Jul 2026 10:28:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="FWksib/oYWGW6VVm"
-Content-Disposition: inline
-In-Reply-To: <akvOo2EeERLYPh72@ashevche-desk.local>
-X-Cookie: Did I do an INCORRECT THING??
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 2/3] drm/panthor: Add vm_bind region with kbo range
+ overlap check
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heiko Stuebner <heiko@sntech.de>, Grant Likely <grant.likely@linaro.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260704-vm_bind_checks-v4-2-4705b6ca9f8a@collabora.com>
+References: <20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com>
+ <20260704-vm_bind_checks-v4-2-4705b6ca9f8a@collabora.com>
+Date: Mon, 06 Jul 2026 18:27:57 +0100
+Message-Id: <178335887799.2142747.3877806754337221788.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1044;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=24BrRErJxhI0OftvbUgaS45pr+/PlIcnoKeXwbNdw7Q=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqS+Wh3UwseXnVypVGCIoJmAj8b5710vr9Eo+Ae
+ k7MA8WX85CJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCakvloQAKCRAOJn5M7lND
+ PZP/C/9Y1RCrODyZo+rNmXwuNREVBv+8mzP1aZB/3ccawpB1tf7SQBej1fV+uSgvuJnpXL1tM9/
+ PGn1K4u3mzR9G8UnKmQ9gzivLjDRkwFGefF3oSi/7S9sT9pM4foBvMXWSj7gSc64x9VjdFvl4RK
+ 5di8b3ZFd3py6SehBJHMP71RQooGRKaQN/y/5q4eOWvMeTpJNAKFsiRofpT8g/mRuZSj3qnyHYo
+ yojHARMU2Krdqq2gB++e6vyAAPcUp9gbcDwOEGgZUH1JxD9xpjmXJEGLNVT61Lgu1c8HHLYcKB7
+ 3EwEwaKYeUbdS/u8zDM+TqDhhpZHQCBiLKXMOnipdYcksgbPUq/jkH2MEQmgR4sSzpGlZLohjBL
+ 2huf2RMwKqnQ8u2lL+oeTy9Bvwt3Mp/cc60uNzv4AOEk3NeATFpP5Nu2X6m6692YPX4VaNrGvBD
+ 234UxaeI62+8hmAGCRkSAkmLqh0dr9okT2MfG18ic1rTf+1aWoo7jbs4cw4124RJ7Iz+8=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,41 +86,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Sat, 04 Jul 2026 05:46:45 +0100, Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> When a VM is created, caller has to specify the range of the address space
+> carve-out set aside for mapping kernel BO's. That means vm_bind mappings of
+> UM-exposed BO's should not intersect with that region, but at the moment
+> we're not checking this.
+> 
+> At first, I thought of giving these values to drm_gpuvm_init() through its
+> reserve_{offset, range} arguments, but it turns out that is meant for VM
+> address spans that are not managed through the usual drm_gpuvm split/merge
+> circuit, so storing the end of the user VA range at VM creation time and
+> doing a quick check in the vm_bind ioctl path was the simplest workaround.
+> 
+> Fixes: tag and reference the relevant sparse binding support commit.
 
---FWksib/oYWGW6VVm
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Just realised this was a placeholder I left before I went looking for the
+right commit hash for the following tag. Seems that checkpatch.pl wouldn't
+catch it either.
 
-On Mon, Jul 06, 2026 at 06:49:55PM +0300, Andy Shevchenko wrote:
-> On Mon, Jul 06, 2026 at 04:39:00PM +0200, Manuel Ebner wrote:
-> > On Mon, 2026-07-06 at 14:44 +0200, Bartosz Golaszewski wrote:
-
-> > I removed Mark Brown <broonie@opensource.wolfsonmicro.com> from recipie=
-nts because:
-> > =E2=80=9CRCPT TO <broonie@opensource.wolfsonmicro.com> failed:
-> > <broonie@opensource.wolfsonmicro.com>: Recipient address rejected: Doma=
-in not found=E2=80=9D.
-
-> Perhaps he needs to send a patch to update .mailmap?
-> Cc'ed to Mark.
-
-If it's for something that old I can't imagine I actually care.  If it's
-important enough I'm sure someone can work out how to get hold of me.
-
---FWksib/oYWGW6VVm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpL5UUACgkQJNaLcl1U
-h9D67gf9GIugTh4PUXTgcv4IEO00hqfPt914zzGolWrW61nvCfBK/txok59PvoKw
-vaWiJIxtHNcqLXDHoH9/3oPWkqxrKq0RGWEX19nr124zN/T2SihiMa5RjzAr4UAG
-G9JAS2GOF29xF1Ml9KH8x5l5WduP6RUHVJqKK9vuJFpCloREcnnpMQVxJVgKEKpI
-TrKQpiKRZtTm5InBsTccxeXVDL2+bhnLHZaD4LbIziWok/tCyYnCw9VEJ/iUb7PJ
-bFLwu3JxUS7p7Kr/hStWapPyxi5fyw+V/ZQ8u+J5GE8g493f9A3rBarS4fJCZi8e
-cIRN6GhgNtdUL6L3p77EqAzlsDTheA==
-=WSwF
------END PGP SIGNATURE-----
-
---FWksib/oYWGW6VVm--
+-- 
+Adrián Larumbe <adrian.larumbe@collabora.com>
