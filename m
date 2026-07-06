@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC8A2C44501
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61BAFC44502
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:44:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA33E10E922;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D86C110E919;
 	Mon,  6 Jul 2026 12:44:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="yQiJB66J";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="i/XCLZrD";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021088.outbound.protection.outlook.com [52.101.100.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 117B410E922
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:44:39 +0000 (UTC)
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022082.outbound.protection.outlook.com [52.101.101.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F9FA10E32C
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:44:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q3Ja3EELb62AVIqWTp0ixv3Qur+z/jsnGHS0rVnGP77S30SIFC+yet55Q1nvVKrQLtQLjETPZlF7s01PfWfNuispfxm4BwMxYM+GSKTbTgfJIBbF0OOjXWFXpxYVSypkgP6S5QIdeORh0Ecuqump2dcsDMZMLp1DENJWtfE19GFM+EyPUQtcPJGpWVTCyAsd+IdfH2a4VoC70yH05xgVFu4ddRw2+/3PfbXzWe9sVxiiB7ec76paC/PE+mPSKePCDTrCTp1I6TWKJves5gRwigevLu/DugYwtGZ9kNwm24f3wqnOUR43T6ek4PEN6prvCbd6tGr5q5JVoPLGbOiSKQ==
+ b=UGDxZ52q69hrSo8un+UmdcLPNll5O5R1HEr0f0HG+C+WarXqhReCD/K/pkF0aSLw0RqUVbV4Fo0hwOMf2SvEZ1FnFo2Fp5otp5yVGCUIr9gMs3ORo5yCWTz38VTQySZRjaPhZcBTnHigydUf2MiPRfWrdiMz3WnIZhgBBp/cC67fRjUI12N6OeOXtKBbrUaBWt+7+TVh7lUTOyibMnYCPcDNChJKDEQQkF76h0CLA0aOY9YNcvkG/Yzyv4EYWLUxLAUQinvCPdpwcrgzKTyAscG8Hb10gqXt2XroD8bwdh3zDzapMDJcny8c7tzhJvjSB+jIYkNt0y3hZ5SS8dUMbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6HhgTkHOXukVX51TZZSbrL+hVHE8KH8dk14SX1Wc2Ho=;
- b=OtTgUAAQpTeHSSLYYQrir7M3cyXb1WZwVUQ0rBbtOa3vx7QUtZcgsOcey0Z+9BQna87/YVtiivxNmDo2OODtIreztZWvKhDLdooT/pzOAyrLQ8UkofqOfXIT9RwqBHly447Je0GZ38VjZs0TRXtGhIo6BUSeH6NmKS+XB4f3lPVGQmtTTD7HivFpIoD3Hp02P6XpTfV51nAEDScYA+/tGlDin/+Wua+3NklIuNLzWzCW4LDEw+QNx+DtSmTogXUQxF8KeOj2QyMan0Bfmr9qD/cXRG9DABvCrPaLAOwaoGhl89lphT6z8k1ZbbF7g8GAALQ5+o5a61ry3avEDB7XGg==
+ bh=WrGyTXT4lLNycWakX13m0EN+saSRVjAARnFVmHOrwg0=;
+ b=MfOTpFRw/6y4YRrthZYku3Rq+OD3+Re4PeaxqirNjbcLAtfyPC1QeSs3TUz87lUtwds2BZ2ulD0sDtv4tha5WwKiTbbzYivqY95TaxBhqEcBtq3O3RVI2WuTD0XuqBmRaqpbPvnKQTXIizWaMH8h0B07ogM6TKII1UL252up2qOs1Edszj/MkDN1cU/5bhvUqJqk5CoXO4GXJEri3CsrJUwuQ+IP4QZxs+CJ5n/es/CproeQ2UDWYV9ceRqAkQOQmQwolTNwbAuTLmQqSzGkFllebfukpiJLUhNWKZd+V4PflDmAkIAwD4HEsDRDDsdoLgkUQCGf6EVYXymSXAa5eg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6HhgTkHOXukVX51TZZSbrL+hVHE8KH8dk14SX1Wc2Ho=;
- b=yQiJB66Jk2Q2mnqzYM8eg9AmhoEfWqybFisTjF24WGWaKk8mp1AXgCBC9nJlbSvTN8HKhFBa0L7ssO3khX7SMb4r5OjKPhhtbL9w+jDLMSehpqzDa1C6tyi5/FbnwuclhfFRNqMNLzIcop5pfBAtAHeAdU9vqEqq2PdILjtEVJw=
+ bh=WrGyTXT4lLNycWakX13m0EN+saSRVjAARnFVmHOrwg0=;
+ b=i/XCLZrD8Dk1mip/fv8u9olGsBgnrh2YmFYGE6w/mshAiz1tddC3fIrURit2UgCcBfpeh/CupJpkJvvFjre/NR+x0QD1FXnGjEaao/pVaLlzqb5SBZHiXF5V6vMZYjOEj38fwneQAldrNycIOU56WbUOnGPh92HW1V0nrcGXRd0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by LO7P265MB7617.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:40c::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 12:44:32 +0000
+ 2026 12:44:26 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 12:44:32 +0000
+ 12:44:26 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Mon, 06 Jul 2026 13:44:31 +0100
-Subject: [PATCH v6 18/20] rust: dma: drop `dma_read!` and `dma_write!` API
+Date: Mon, 06 Jul 2026 13:44:18 +0100
+Subject: [PATCH v6 05/20] rust: io: generalize `MmioRaw` to pointer to
+ arbitrary type
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-io_projection-v6-18-72cd5d055d54@garyguo.net>
+Message-Id: <20260706-io_projection-v6-5-72cd5d055d54@garyguo.net>
 References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
 In-Reply-To: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
 To: Alice Ryhl <aliceryhl@google.com>, 
@@ -72,11 +73,11 @@ Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
  linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341863; l=8496;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341863; l=7882;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=xdkYZI57kfTpmZRHTNinwPgBzRzi0U1DbnfPFnTc5ag=;
- b=7gj5TvDga3TDEBL2Z9K4HkuMEEVzeuulr5mTr189vR6jm23Xjf13235zE8JXoisoS6+qKliLz
- LzFds2mtpeMCbgrPh1B2fSJmnDQc9AvKLIMY57+i7uaNa4EhqFTCVIz
+ bh=zcL64dOq1S6g74TzRD847SfGyQa8u6SPIOVdRrKD3hg=;
+ b=RVOpqT28TmR01wBo+Rjjz8g8gzoOxMzGJkpijPUiBqkrAz47sQicLqkuGzFBJfK5Hu9ZzelRg
+ aHJwHAsTEM3AKZugfO4yUSfYFSX+rbPCtp3bvmjX4y8o1ONzZ7+jTWi
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P265CA0177.GBRP265.PROD.OUTLOOK.COM
@@ -85,65 +86,65 @@ X-ClientProxiedBy: LO4P265CA0177.GBRP265.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7617:EE_
-X-MS-Office365-Filtering-Correlation-Id: 758d3935-9b4f-4a90-975d-08dedb5c540d
+X-MS-Office365-Filtering-Correlation-Id: 0e5e14c7-b50b-4413-2fca-08dedb5c508f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|10070799003|18002099003|921020|3023799007|5023799004|6133799003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: Lk/ZmvYvfYBZUMHA2SDuIOhPpmd9gdZaem+ZZNxG6HQR6GLy7XeEaQUTP05D1ekGqKf9iTSD7jxpc4JDiMy9LgRbfxryAAdLchyYoyxmSUQ2SZXViYD+o2qFWkpYfPrVNTjb9eab+vAh1Sstl13UKn52QlOUZWBntl4xEBP8xmUGSBggX5r3ZOWUxtZlbuY35LAgsWrTwh1hWzIxtQ3B8SVtw8XEYHqSgLXNoq/D/ijWoB5iklTd5AxeNoP2yMNGGi1kJV2YY3m1nOQS+FZhWgYX6FTD5nohTOgcftJoQOsd3KTObWxzXjRzvuqygik2fuxP/wZi9ZZjEBZj00/EciXBpDbkThA7tRqKEM1qoF+v4Fi3frf8rthfD6MoF+c5rJF5cM84d5ZGSrJgFsWUqqZefaBwQ6UNdsHlh4ljDr8YrJz3bmZ1ToSVrVaitfw7w0k+roMB+amIFnpcHSsVALwye9nNtivwKYGcIU/ELqLy9hAx+t9OpRafpdzZm+JbRns1taCAHxOBFnB1/Qw734G9Q58a8+CEtKFG3FjYMU51Hh7nk0sQ8pGq0MgzBNAUChBNcrn9zPBnk5UR4jJ4CgTuDxvBPRSNWdUr6ALhk/CXm+ZQu562iluyF8nBPAHxdsEgN3LIt/M0/si13v9b+zWaqPai14O8yRgTTpfA2jVGLr8TR8mpSa6RAUIGHB1U9qUis7ElsDglatXmXkIeyA==
+ ARA:13230040|23010399003|366016|1800799024|376014|7416014|10070799003|18002099003|921020|6133799003|56012099006|22082099003;
+X-Microsoft-Antispam-Message-Info: N//t6+WcWWPSISVwl7+MlA66tnwOgXgwuwIwD3XbzwH5fVSd45px7wabJDGzlYQrAqGVbR920gSLaAEmkkq8JFGqqQFy18aJo5FGBo45caM2rePkOnlr7JuytOHR2u3HAXbnJtOzkyt4YOw5VIsYQqG7yhc6jTNUSyOO/HlLGm0+9fYp9x9KGJWhlgmupsbZswolbz7rrZQBONAEQjl48DPi4jBA5fXvY+x+1Ni78AN8pPD0hpQbgiZVDe+KV2dBs7yJUXunu4u3K2gMFZ0s4PfXZbA/rmlRlxyZqV9Zv7kXYWGz9WbwEJq3Xq++WOBxPFsv8t8v5cQreCd+4G2MtCH3s/rgjeBANnzyVIUVFn/4iYCrGVJHk6r7hjxpOCSKJqQsCCTeoWFwbLkcPT8goNYGnktLmddyY/teG+CkL4NY3aMXBHTOsGv/O6KgFoRheP5de9T7iBIQoIiKdRfwcIb/jt6qN2wRTJGGELlt9Qhg31y4YDnwjD+kGzCYPRzd9+KIfZsW7OHzzPlfkjMBGQzmHdZXFBfml7fUT8wPbtddqxHmViO3CoJPgTjfvCqeL3h7mnppcRWYA9IRGW9qd9Jk9+d+5u3OYgc1pcBW/8KMUjixxz2qPMSd5XfizNVbXP8TM50GGnRqeEWlbznHRyr/nI+/5o1fU/bR+BzsBulq5GkVdOFUSvUMeoozcEw9iHRuYGpCpF+kqcYnJwdeVw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10070799003)(18002099003)(921020)(3023799007)(5023799004)(6133799003)(56012099006)(22082099003);
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10070799003)(18002099003)(921020)(6133799003)(56012099006)(22082099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2NKOE1LQ2d6dXpKYmtEaTRUR2dFSVFrU3ZiNGFGenBoMEdLOHJickJoaS9m?=
- =?utf-8?B?M1NvVVJDQitacnFSdGRveGxEbFExY3k5ZE8vL2pWNzYyODl6UThaTjhobDdN?=
- =?utf-8?B?eGN3ajl4Q0xzZ0JpYW1SeFJudnlCT3FmRjR6VTBQSFl0bEJIN1JZWFhSTHFo?=
- =?utf-8?B?OHBlbjFudE5mVjJtOUhFYW1uS0RmSXZYRTlTcVE0WkF4VlBZM1FVdmdDNnJz?=
- =?utf-8?B?VFFPTGdHT3VtYWN5dzBOQlh6dk54TE1reVJiREdUdi9DZDJyUm9SMU9saFdL?=
- =?utf-8?B?Z1c0SHlMdmxhZTAySm5kSWRJU201d0xUd3VpZVUvc1dYeHhNYnB6V1RrRGFP?=
- =?utf-8?B?VTIxbGZHb3Z1VDVhaDRTY0hWSC94QWF4L0ZuMjdBZFZNY1VGQ0MzY0ZEZjRn?=
- =?utf-8?B?NElyYkc0RXRUTWVZRVE4ejZpbG9qcHZtMUtpb0lxWW9nck9oTTMrTURrNWpV?=
- =?utf-8?B?R0R3ZVhmR0Jndm5XSVdGcnFXMURnejhmVW5MYnd6ajdHTVRacTBCaHB1Rit6?=
- =?utf-8?B?SCtWTERISGRrd1ZucHdWNEFMdXphT0lHUGJMaGdZbVVQTG9Wam5JWUlvQUVo?=
- =?utf-8?B?K0ozNGNGdTFMdXpVWCtOZVoyZkhnOGxCclFiTGxBc0JhZGdQbTBBWk1WTGRV?=
- =?utf-8?B?eHRPTk43RE1OOVNKTGdsUG45M3o4YmNycGIydEViQy9uUFV0TWNnWmt0MWRq?=
- =?utf-8?B?dGhGR2lMWHYvdnh3YWVpSHhBdXNDZVkrZEdTQ0Y1RWJ4VHAyb21KUVN5Tk9V?=
- =?utf-8?B?ZUorZGdIMHNab1p1UDVuVWYzdmtzNmJkVW5rMDEreVhNc0s1NCtCb1JaK25Y?=
- =?utf-8?B?ZDlkUFdSMXgwMmhUNjJ0Rnc0clo1VmY3UWNrV1lnMXRxZlN4dzFWSDExamh2?=
- =?utf-8?B?UWd5UFZBRm5UZ2N2NHF6M1lYVEtESjFQSGZROUR1ZjZES3ZPZzFNZm5NcjlX?=
- =?utf-8?B?ZHJiWjgwb0IzWUtyLzJqZ3lOYVlWbERZaW4rZGthQzdCVWNyNDVjYkZpTk1u?=
- =?utf-8?B?NEFNc0VWOFlRcGhZL3Jjbk93ZC9PclRnV3JlNnd1QnFkeFVUZEUxZ1VEVVdL?=
- =?utf-8?B?RUtVZlJIY3kwdXpMaVpRN2hrTFlNVzNzcWlMbVpWWUR3dUxhbG9VK3VmZXln?=
- =?utf-8?B?VXJ0eUo0allHelNjcmVua0I0SkhpQmErM0JxTzV5SkVZNit0aDIzRkRTRktm?=
- =?utf-8?B?QXkwWnVLQUkwL3llRXNCTzBPSkRhejdDanNGdkZIeGxSQ2FReFlpdTZoNlN4?=
- =?utf-8?B?Y1Y0Q3EzbHJUSGNLVWYrRU9PanYra081Sm5HVDhvZmtRWmVGZTRyYjlhMDJz?=
- =?utf-8?B?cTM2Wk85WE9COEdnUHdGYk8yUFpFR0w2S1lZUmF4WFU5UDgzMWN0SzlSbWhq?=
- =?utf-8?B?TmFPeU92MnpPNm9yMklCVXJqODVsaWpib0RLVkx5bDdTR3dDR2FoTC9FQ3d2?=
- =?utf-8?B?VjhDaEdWNXRKc0paVnBFS0V6V3ZwS0Fjd2RWaU90QUp3SEdOL1ZFM0NVdkV2?=
- =?utf-8?B?SS83Z2pmYm1vSk5ad0NxdHM1Nm91TnFmblM2MmN0V2FkVzArc0dTd1FjNkhD?=
- =?utf-8?B?MDBVZ2VOcUtDN3htelVFYXN2YzAyTUQ0U2x4RVkzRks1K3pLU0U4a3FkM244?=
- =?utf-8?B?RnB4N3h3ZW5VY1FhMkp1dHZoVnRXR3ZxRGVxSW83Y2Fuc0lRd0hsNkMrbVhl?=
- =?utf-8?B?ZnhUbC83dU1EbnE3TkVkTXhHS3FHSE5UaFY3VTFOZENuTEE0MlZTZVBGckZa?=
- =?utf-8?B?VU8yd1pCdmxQeFptMytQRlNHTCt0Nk9hcXFnYzhmVjFJSnBKRU4xbVF6NUEr?=
- =?utf-8?B?VXNqbVlUNlhNOTJmSlNwUnRHWk15dXBpVjlRWDFIMkNiZFU3cXZ3bzk3cXhS?=
- =?utf-8?B?NUwwOS9RVE8veVZUWGkrdndwVjRGQUp2WkFsN2hLWHZsaUNZMnFCaTRTWE4v?=
- =?utf-8?B?bkxCRzNkcGpTUDJsenhScEpaZzFhMFRxaHVkd2xoRllzQXhPcWZ6SVRyWGQy?=
- =?utf-8?B?cUFYTlovY2VNaEwvMGNweFRiTVRxY1YxMlRqYmNPU1JWZzg0UjFYbWsxQksr?=
- =?utf-8?B?UFBheEhwTmRvb1BTVGZFQ1F0ZlJhRmlHZVJYeUNqd3JaUm1wZUE2dU52ZXdD?=
- =?utf-8?B?L3JBazFxeEM1T0ppSEc5NXRCL1Q4bTFQOW1uNkJ1T2U0eVNqckV4YjgyZUdT?=
- =?utf-8?B?ZWM4N0lWZWJ0V2dKSm4vTlI0ZUJRd3hKZTVET3B0MHZqNkN3NkxPODVoMlE3?=
- =?utf-8?B?NzFydVdaWitKQ01tWExUZ0NIQlpiTmhjVFVmMlF0b0dMbUtKS1R0UWRTMjVH?=
- =?utf-8?B?aFZvcDd1RDMvZ1VsRmlhQ0xlTFd0dnc2S1dDeS80M1IweDFsRlRvdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWtzSUwzemYrcFNMWVhibllwaTFkRUVyVXF2cFFpYWxjQ0prbFZhK0t1aUNz?=
+ =?utf-8?B?MVJGaGd2ZTZKSVVid3dZY2Y4dE9uSkVrL3VNbWg3VTVTbW44dnlOY3RJbDNZ?=
+ =?utf-8?B?T2lOdC9mYkxuSVJUa3AyN0Z5RUJIOUJCd29Cem5KVllobndvdEEyempaQSt1?=
+ =?utf-8?B?bkN2Q1RYRFNVVWowNSt6WGo2UmFzOHFUa3JDUWorbDdZSHMzZmFuKzB1bWRH?=
+ =?utf-8?B?UmJqcVJPYTgvcFYrRDBXeGlpVEJpK3A5eERKN1JwLytaclFPclRkVjFhaGcy?=
+ =?utf-8?B?M1NQWDlORVVnWFZpMXdMZDZ6VWFDeWo2QTBFQldDMldPR2I4bVdmcjFYaE5F?=
+ =?utf-8?B?bzhKS1ZTRXBsR2puMW8rS2pLejZUNjcxcjJiT0wrM1J4VVlXTm5QUjA5UlBp?=
+ =?utf-8?B?V0d3WGtIVldlWnBnK0EwV1ZUdzNENUJIbU1wM0JlbzVndnd6TThXY2JicEE4?=
+ =?utf-8?B?TWMxSXlWaXY0ZittRU1mMjI0VGxhbFRSWE9zeEgwelhMaDZua1R3UGxxU2xl?=
+ =?utf-8?B?N1pMemppdThkMkNUR1hGa3FGWEppcmFaVUpqRE9VVU5aRVd0aE9qMjVtcExm?=
+ =?utf-8?B?cnhVM3N3M3VUcENkM3NVWkJHazZ2d0dtMlU4Mnc5b2Fpbk9oTlVQbjVlRnQv?=
+ =?utf-8?B?WllnQk53TVh3YjBEQmVrRTVmbXFaRUZUdHM2TUdsQ2lzYUpnYldMNlBTdy80?=
+ =?utf-8?B?SGNCVjJza1RjL1NiVUU5Q1hiOUZTUDd0MGVKS2k2UWlBSzRHYjNBUE8xd1hF?=
+ =?utf-8?B?T1lCeW53d0ttTnNnZjYzbWpPeGRKZTMzVW8wRU4va1NIZ3hIbS9GK1ZvcGtw?=
+ =?utf-8?B?Qlo5QTBUWkFhdHRrZWJPa3UvYXQwbVZCblZxNXJuWjZ4S0ljNW1laU54QitF?=
+ =?utf-8?B?Y3I5T3poa2tVT25NcEdTbXhKc1ZEeFFrTWg5YUoyMlh0ZmRuYisxanljSTZC?=
+ =?utf-8?B?eVhpYlBxRUl4bm80dkhOT1g0eDBmSXhENElTT3k0TCs1QkpOakYwbVRLOURl?=
+ =?utf-8?B?RlRxM05zdUV6Q0U1NEd1NW1WUGljbTNDTG56akpkZ0dNNDV3YStkaHJZMGNP?=
+ =?utf-8?B?a3d0ZmF0MG9JZno0Y0Q3OFdMSEZ1eDN3MjBKdFpyVzdCM0d6em1JV0VSZFFx?=
+ =?utf-8?B?UzFrS1FpZ2h2R1l4cnZjZWEwZnJCeWp1NVcvMTdQTkhrSnJSUjJCSjZUTXgw?=
+ =?utf-8?B?UGYzdGFod1VEekxzcUc2MkJ5UmJhY0FxY2tVSEdUQWdSVXF2VE9ZbXlwWnpm?=
+ =?utf-8?B?M2t5eVZUdjZIOG1xOXNjby9la3VzQnJyc2dGSERIWW4rd0tjRFRvVkdXMmVV?=
+ =?utf-8?B?aTFBRzZkTUMvbnl2YTY2dnlma01Iak01Qnc4WVdsSFUrVTlXU0Y2N2JLc3hv?=
+ =?utf-8?B?UDQ5VlMwTkdJdWRvVkpET0RtUEJycEwvTUJ2Q2duc3VZTWtUWDRFR3htS0dV?=
+ =?utf-8?B?dDJ5dEtKcHdMdEdpUVNjNnM1bzU4NGdnUkFSa0psWWtRa0FwbWlMbk91ZFlX?=
+ =?utf-8?B?eFVUT0VPQnBEU0pKOE95NmFmTENCMWsyN24rZnF0SkFDS1dqWEJpNUp6WW5o?=
+ =?utf-8?B?ZHIxaXQ3Wk5GR3l4aFdEdzdOR2VSdmhFM0RmL1pXSnJIckd5N3gzN2hqaEVN?=
+ =?utf-8?B?ZHVSMmxWaVJYN3dlN3kyakF4NVcvNVhkTDNrWjl5U2FGUjdFRUsvQUtxNlJz?=
+ =?utf-8?B?SEl1eUZmWElKdys2Zyt5Qml3WU9nMy9WUnZQNjNWZ2VRdUNCbitqU3B1c2U2?=
+ =?utf-8?B?WHJhMGVHMkNyREU0NWNuTDV5YklVaTZBSHBBbkdudHZRay9RZmplTUJrWEhr?=
+ =?utf-8?B?Tm5qT0NCMlU3d3RNWEZOZVZaMmlZYUN4UlhhZHdocURTS0FtMlVTRERBVGdx?=
+ =?utf-8?B?MGNvN25UWVJwU0Faem1obThhM0dDN0dvS1YxbC9SaW1sZDNsOUVsWi9NUk9V?=
+ =?utf-8?B?OE5ZRThYWkNoRHVEU285aXB0Zmw0UFVYSHJuZEdLYTRsM1F6b2pMWkpZZzly?=
+ =?utf-8?B?SXFmRmFZSkY5MlVtemVhaFFSVWQwZ3I0cUVHN2VSWUNQSG1wUVN6TGJUa3Ri?=
+ =?utf-8?B?dHpNaWFqNDRXR1NHOXJ3Q3ZoalNlcG1EU0pKb2pWNXBuR2RRUEhrVVpmT3Rt?=
+ =?utf-8?B?UVU5QkgvYld4VUdWcVZxNTJXbzR0bVVmSjc3UHo3VjFIWTAyKzllcDZVdHFm?=
+ =?utf-8?B?TmluUnRRbGJ2c2ZnbEQ1Nk15emtTUE5FSkQ4N1BpQzBZOFBKWThIVjJwajBH?=
+ =?utf-8?B?OFUrZ20vNmE2cEJUcHBKR1JxUCtWYmg2Y3E2YUpRMWRKcWdYbDlTQmYzdUtO?=
+ =?utf-8?B?NkVxZDdiMGQwUURQVVE5ZDFyR0lqWDZ2RG5EVlpFQmVOcmVvMmpMZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 758d3935-9b4f-4a90-975d-08dedb5c540d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e5e14c7-b50b-4413-2fca-08dedb5c508f
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 12:44:32.7741 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 12:44:26.9050 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yGhPU+MnMRm0DgVaNvaBwB021Emt9Rr7GR7KZwK/aN+JbIdBktPGfzuBAFor0pBbc8g1j91kiEhtWvFwQ7mhLA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: /9EegUvLEthVpemgD+Rs8LE6VEusuOKSDZOd4dRZYXdVbiWc/nOqPxXvErOgPVlf+SsLFrwshqQJDosuNCHOEA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7617
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -160,199 +161,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The primitive read/write use case is covered by the `io_read!` and
-`io_write!` macro. The non-primitive use case was finicky; they should
-either be achieved using `CoherentBox` or `as_ref()/as_mut()` to assert the
-lack of concurrent access, or should be using memcpy-like APIs to express
-the non-atomic and tearable nature.
+Conceptually, `MmioRaw` is just `__iomem *`, so it should work for any
+types. Update the existing use case where it represents a region of
+compile-time known minimum size and run-time known actual size to use the
+dynamic-sized type `Region<SIZE>` instead. Rename `maxsize` method to
+reflect that it is the actual size (not a bound) of the region.
 
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Implement `Clone` and `Copy` manually, which cannot be derived due to the
+generic parameter. The use of raw pointers also cause the `Send` and `Sync`
+auto trait implementation to be lost, so add them back by manual
+implementation.
+
 Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/dma.rs       | 128 -----------------------------------------------
- samples/rust/rust_dma.rs |  11 ++--
- 2 files changed, 8 insertions(+), 131 deletions(-)
+ rust/kernel/devres.rs |  7 +++---
+ rust/kernel/io.rs     | 67 +++++++++++++++++++++++++++++++++++++--------------
+ rust/kernel/io/mem.rs |  5 ++--
+ rust/kernel/pci/io.rs |  4 +--
+ 4 files changed, 57 insertions(+), 26 deletions(-)
 
-diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-index 1535bc6eec64..6e7ea3b72f2f 100644
---- a/rust/kernel/dma.rs
-+++ b/rust/kernel/dma.rs
-@@ -661,52 +661,6 @@ pub unsafe fn as_mut(&self) -> &mut T {
-         // SAFETY: per safety requirement.
-         unsafe { &mut *self.as_mut_ptr() }
-     }
--
--    /// Reads the value of `field` and ensures that its type is [`FromBytes`].
--    ///
--    /// # Safety
--    ///
--    /// This must be called from the [`dma_read`] macro which ensures that the `field` pointer is
--    /// validated beforehand.
--    ///
--    /// Public but hidden since it should only be used from [`dma_read`] macro.
--    #[doc(hidden)]
--    pub unsafe fn field_read<F: FromBytes>(&self, field: *const F) -> F {
--        // SAFETY:
--        // - By the safety requirements field is valid.
--        // - Using read_volatile() here is not sound as per the usual rules, the usage here is
--        // a special exception with the following notes in place. When dealing with a potential
--        // race from a hardware or code outside kernel (e.g. user-space program), we need that
--        // read on a valid memory is not UB. Currently read_volatile() is used for this, and the
--        // rationale behind is that it should generate the same code as READ_ONCE() which the
--        // kernel already relies on to avoid UB on data races. Note that the usage of
--        // read_volatile() is limited to this particular case, it cannot be used to prevent
--        // the UB caused by racing between two kernel functions nor do they provide atomicity.
--        unsafe { field.read_volatile() }
--    }
--
--    /// Writes a value to `field` and ensures that its type is [`AsBytes`].
--    ///
--    /// # Safety
--    ///
--    /// This must be called from the [`dma_write`] macro which ensures that the `field` pointer is
--    /// validated beforehand.
--    ///
--    /// Public but hidden since it should only be used from [`dma_write`] macro.
--    #[doc(hidden)]
--    pub unsafe fn field_write<F: AsBytes>(&self, field: *mut F, val: F) {
--        // SAFETY:
--        // - By the safety requirements field is valid.
--        // - Using write_volatile() here is not sound as per the usual rules, the usage here is
--        // a special exception with the following notes in place. When dealing with a potential
--        // race from a hardware or code outside kernel (e.g. user-space program), we need that
--        // write on a valid memory is not UB. Currently write_volatile() is used for this, and the
--        // rationale behind is that it should generate the same code as WRITE_ONCE() which the
--        // kernel already relies on to avoid UB on data races. Note that the usage of
--        // write_volatile() is limited to this particular case, it cannot be used to prevent
--        // the UB caused by racing between two kernel functions nor do they provide atomicity.
--        unsafe { field.write_volatile(val) }
--    }
+diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+index ed30ccc6e68e..d0c677fd7932 100644
+--- a/rust/kernel/devres.rs
++++ b/rust/kernel/devres.rs
+@@ -70,14 +70,15 @@ struct Inner<T> {
+ ///         Io,
+ ///         Mmio,
+ ///         MmioRaw,
+-///         PhysAddr, //
++///         PhysAddr,
++///         Region, //
+ ///     },
+ ///     prelude::*,
+ /// };
+ /// use core::ops::Deref;
+ ///
+ /// // See also [`pci::Bar`] for a real example.
+-/// struct IoMem<const SIZE: usize>(MmioRaw<SIZE>);
++/// struct IoMem<const SIZE: usize>(MmioRaw<Region<SIZE>>);
+ ///
+ /// impl<const SIZE: usize> IoMem<SIZE> {
+ ///     /// # Safety
+@@ -92,7 +93,7 @@ struct Inner<T> {
+ ///             return Err(ENOMEM);
+ ///         }
+ ///
+-///         Ok(IoMem(MmioRaw::new(addr as usize, SIZE)?))
++///         Ok(IoMem(MmioRaw::new_region(addr as usize, SIZE)?))
+ ///     }
+ /// }
+ ///
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index 9f060dd29182..12be266d7ed7 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -88,37 +88,67 @@ fn size(p: *const Self) -> usize {
+ 
+ /// Raw representation of an MMIO region.
+ ///
++/// `MmioRaw<T>` is equivalent to `T __iomem *` in C.
++///
+ /// By itself, the existence of an instance of this structure does not provide any guarantees that
+ /// the represented MMIO region does exist or is properly mapped.
+ ///
+ /// Instead, the bus specific MMIO implementation must convert this raw representation into an
+ /// `Mmio` instance providing the actual memory accessors. Only by the conversion into an `Mmio`
+ /// structure any guarantees are given.
+-pub struct MmioRaw<const SIZE: usize = 0> {
+-    addr: usize,
+-    maxsize: usize,
++pub struct MmioRaw<T: ?Sized> {
++    /// Pointer is in I/O address space.
++    ///
++    /// The provenance does not matter, only the address and metadata do.
++    ptr: *mut T,
  }
  
- impl<T: AsBytes + FromBytes> Coherent<T> {
-@@ -1266,85 +1220,3 @@ fn as_view(self) -> CoherentView<'a, Self::Target> {
+-impl<const SIZE: usize> MmioRaw<SIZE> {
+-    /// Returns a new `MmioRaw` instance on success, an error otherwise.
+-    pub fn new(addr: usize, maxsize: usize) -> Result<Self> {
+-        if maxsize < SIZE {
+-            return Err(EINVAL);
++impl<T: ?Sized> Copy for MmioRaw<T> {}
++impl<T: ?Sized> Clone for MmioRaw<T> {
++    #[inline]
++    fn clone(&self) -> Self {
++        *self
++    }
++}
++
++// SAFETY: `MmioRaw` is just an address, so is thread-safe.
++unsafe impl<T: ?Sized> Send for MmioRaw<T> {}
++// SAFETY: `MmioRaw` is just an address, so is thread-safe.
++unsafe impl<T: ?Sized> Sync for MmioRaw<T> {}
++
++impl<T> MmioRaw<T> {
++    /// Create a `MmioRaw` from address.
++    #[inline]
++    pub fn new(addr: usize) -> Self {
++        Self {
++            ptr: core::ptr::without_provenance_mut(addr),
          }
++    }
++}
+ 
+-        Ok(Self { addr, maxsize })
++impl<const SIZE: usize> MmioRaw<Region<SIZE>> {
++    /// Create a `MmioRaw` representing a I/O region with given size.
++    ///
++    /// The size is checked against the minimum size specified via const generics.
++    #[inline]
++    pub fn new_region(addr: usize, size: usize) -> Result<Self> {
++        Ok(Self {
++            ptr: Region::ptr_try_from_raw_parts_mut(core::ptr::without_provenance_mut(addr), size)?,
++        })
+     }
++}
+ 
++impl<T: ?Sized + KnownSize> MmioRaw<T> {
+     /// Returns the base address of the MMIO region.
+     #[inline]
+     pub fn addr(&self) -> usize {
+-        self.addr
++        self.ptr.addr()
+     }
+ 
+-    /// Returns the maximum size of the MMIO region.
++    /// Returns the size of the MMIO region.
+     #[inline]
+-    pub fn maxsize(&self) -> usize {
+-        self.maxsize
++    pub fn size(&self) -> usize {
++        KnownSize::size(self.ptr)
      }
  }
+ 
+@@ -143,12 +173,13 @@ pub fn maxsize(&self) -> usize {
+ ///         Mmio,
+ ///         MmioRaw,
+ ///         PhysAddr,
++///         Region,
+ ///     },
+ /// };
+ /// use core::ops::Deref;
+ ///
+ /// // See also `pci::Bar` for a real example.
+-/// struct IoMem<const SIZE: usize>(MmioRaw<SIZE>);
++/// struct IoMem<const SIZE: usize>(MmioRaw<Region<SIZE>>);
+ ///
+ /// impl<const SIZE: usize> IoMem<SIZE> {
+ ///     /// # Safety
+@@ -163,7 +194,7 @@ pub fn maxsize(&self) -> usize {
+ ///             return Err(ENOMEM);
+ ///         }
+ ///
+-///         Ok(IoMem(MmioRaw::new(addr as usize, SIZE)?))
++///         Ok(IoMem(MmioRaw::new_region(addr as usize, SIZE)?))
+ ///     }
+ /// }
+ ///
+@@ -193,7 +224,7 @@ pub fn maxsize(&self) -> usize {
+ /// # }
+ /// ```
+ #[repr(transparent)]
+-pub struct Mmio<const SIZE: usize = 0>(MmioRaw<SIZE>);
++pub struct Mmio<const SIZE: usize = 0>(MmioRaw<Region<SIZE>>);
+ 
+ /// Checks whether an access of type `U` at the given `base` and the given `offset`
+ /// is valid within this region.
+@@ -840,7 +871,7 @@ fn addr(self) -> usize {
+     /// Returns the maximum size of this mapping.
+     #[inline]
+     fn maxsize(self) -> usize {
+-        self.0.maxsize()
++        self.0.size()
+     }
+ }
+ 
+@@ -851,7 +882,7 @@ impl<const SIZE: usize> Mmio<SIZE> {
+     ///
+     /// Callers must ensure that `addr` is the start of a valid I/O mapped memory region of size
+     /// `maxsize`.
+-    pub unsafe fn from_raw(raw: &MmioRaw<SIZE>) -> &Self {
++    pub unsafe fn from_raw(raw: &MmioRaw<Region<SIZE>>) -> &Self {
+         // SAFETY: `Mmio` is a transparent wrapper around `MmioRaw`.
+         unsafe { &*core::ptr::from_ref(raw).cast() }
+     }
+diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
+index fc2a3e24f8d5..9e15bc8fde78 100644
+--- a/rust/kernel/io/mem.rs
++++ b/rust/kernel/io/mem.rs
+@@ -229,7 +229,7 @@ fn deref(&self) -> &Self::Target {
+ /// start of the I/O memory mapped region.
+ pub struct IoMem<'a, const SIZE: usize = 0> {
+     dev: &'a Device<Bound>,
+-    io: MmioRaw<SIZE>,
++    io: MmioRaw<super::Region<SIZE>>,
+ }
+ 
+ impl<'a, const SIZE: usize> IoMem<'a, SIZE> {
+@@ -264,8 +264,7 @@ fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
+             return Err(ENOMEM);
+         }
+ 
+-        let io = MmioRaw::new(addr as usize, size)?;
 -
--/// Reads a field of an item from an allocated region of structs.
--///
--/// The syntax is of the form `kernel::dma_read!(dma, proj)` where `dma` is an expression evaluating
--/// to a [`Coherent`] and `proj` is a [projection specification](kernel::ptr::project!).
--///
--/// # Examples
--///
--/// ```
--/// use kernel::device::Device;
--/// use kernel::dma::{attrs::*, Coherent};
--///
--/// struct MyStruct { field: u32, }
--///
--/// // SAFETY: All bit patterns are acceptable values for `MyStruct`.
--/// unsafe impl kernel::transmute::FromBytes for MyStruct{};
--/// // SAFETY: Instances of `MyStruct` have no uninitialized portions.
--/// unsafe impl kernel::transmute::AsBytes for MyStruct{};
--///
--/// # fn test(alloc: &kernel::dma::Coherent<[MyStruct]>) -> Result {
--/// let whole = kernel::dma_read!(alloc, [try: 2]);
--/// let field = kernel::dma_read!(alloc, [panic: 1].field);
--/// # Ok::<(), Error>(()) }
--/// ```
--#[macro_export]
--macro_rules! dma_read {
--    ($dma:expr, $($proj:tt)*) => {{
--        let dma = &$dma;
--        let ptr = $crate::ptr::project!(
--            $crate::dma::Coherent::as_ptr(dma), $($proj)*
--        );
--        // SAFETY: The pointer created by the projection is within the DMA region.
--        unsafe { $crate::dma::Coherent::field_read(dma, ptr) }
--    }};
--}
--
--/// Writes to a field of an item from an allocated region of structs.
--///
--/// The syntax is of the form `kernel::dma_write!(dma, proj, val)` where `dma` is an expression
--/// evaluating to a [`Coherent`], `proj` is a
--/// [projection specification](kernel::ptr::project!), and `val` is the value to be written to the
--/// projected location.
--///
--/// # Examples
--///
--/// ```
--/// use kernel::device::Device;
--/// use kernel::dma::{attrs::*, Coherent};
--///
--/// struct MyStruct { member: u32, }
--///
--/// // SAFETY: All bit patterns are acceptable values for `MyStruct`.
--/// unsafe impl kernel::transmute::FromBytes for MyStruct{};
--/// // SAFETY: Instances of `MyStruct` have no uninitialized portions.
--/// unsafe impl kernel::transmute::AsBytes for MyStruct{};
--///
--/// # fn test(alloc: &kernel::dma::Coherent<[MyStruct]>) -> Result {
--/// kernel::dma_write!(alloc, [try: 2].member, 0xf);
--/// kernel::dma_write!(alloc, [panic: 1], MyStruct { member: 0xf });
--/// # Ok::<(), Error>(()) }
--/// ```
--#[macro_export]
--macro_rules! dma_write {
--    (@parse [$dma:expr] [$($proj:tt)*] [, $val:expr]) => {{
--        let dma = &$dma;
--        let ptr = $crate::ptr::project!(
--            mut $crate::dma::Coherent::as_mut_ptr(dma), $($proj)*
--        );
--        let val = $val;
--        // SAFETY: The pointer created by the projection is within the DMA region.
--        unsafe { $crate::dma::Coherent::field_write(dma, ptr, val) }
--    }};
--    (@parse [$dma:expr] [$($proj:tt)*] [.$field:tt $($rest:tt)*]) => {
--        $crate::dma_write!(@parse [$dma] [$($proj)* .$field] [$($rest)*])
--    };
--    (@parse [$dma:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] $($rest:tt)*]) => {
--        $crate::dma_write!(@parse [$dma] [$($proj)* [$flavor: $index]] [$($rest)*])
--    };
--    ($dma:expr, $($rest:tt)*) => {
--        $crate::dma_write!(@parse [$dma] [] [$($rest)*])
--    };
--}
-diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-index 5046b4628d0e..4af46e99d2dd 100644
---- a/samples/rust/rust_dma.rs
-+++ b/samples/rust/rust_dma.rs
-@@ -12,6 +12,10 @@
-         Device,
-         DmaMask, //
-     },
-+    io::{
-+        io_project,
-+        io_read, //
-+    },
-     page, pci,
-     prelude::*,
-     scatterlist::{Owned, SGTable},
-@@ -77,7 +81,8 @@ fn probe<'bound>(
-                 Coherent::zeroed_slice(pdev.as_ref(), TEST_VALUES.len(), GFP_KERNEL)?;
++        let io = MmioRaw::new_region(addr as usize, size)?;
+         Ok(IoMem { dev, io })
+     }
  
-             for (i, value) in TEST_VALUES.into_iter().enumerate() {
--                kernel::dma_write!(ca, [try: i], MyStruct::new(value.0, value.1));
-+                // SAFETY: `ca` is not yet shared with device or other threads.
-+                unsafe { *io_project!(ca, [panic: i]).as_mut() = MyStruct::new(value.0, value.1) };
-             }
+diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+index 505305cd9b86..42f840d64a6f 100644
+--- a/rust/kernel/pci/io.rs
++++ b/rust/kernel/pci/io.rs
+@@ -139,7 +139,7 @@ fn maxsize(self) -> usize {
+ /// memory mapped PCI BAR and its size.
+ pub struct Bar<'a, const SIZE: usize = 0> {
+     pdev: &'a Device<device::Bound>,
+-    io: MmioRaw<SIZE>,
++    io: MmioRaw<crate::io::Region<SIZE>>,
+     num: i32,
+ }
  
-             let size = 4 * page::PAGE_SIZE;
-@@ -97,8 +102,8 @@ fn probe<'bound>(
- impl DmaSampleDriver {
-     fn check_dma(&self) {
-         for (i, value) in TEST_VALUES.into_iter().enumerate() {
--            let val0 = kernel::dma_read!(self.ca, [panic: i].h);
--            let val1 = kernel::dma_read!(self.ca, [panic: i].b);
-+            let val0 = io_read!(self.ca, [panic: i].h);
-+            let val1 = io_read!(self.ca, [panic: i].b);
+@@ -179,7 +179,7 @@ pub(super) fn new(
+             return Err(ENOMEM);
+         }
  
-             assert_eq!(val0, value.0);
-             assert_eq!(val1, value.1);
+-        let io = match MmioRaw::new(ioptr, len as usize) {
++        let io = match MmioRaw::new_region(ioptr, len as usize) {
+             Ok(io) => io,
+             Err(err) => {
+                 // SAFETY:
 
 -- 
 2.54.0
