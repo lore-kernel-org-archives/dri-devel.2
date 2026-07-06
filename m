@@ -4,102 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A448C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 22:12:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C25A4C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 22:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8744B89A4E;
-	Mon,  6 Jul 2026 22:12:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2247210E174;
+	Mon,  6 Jul 2026 22:13:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cTd08tI/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WaSo/jqh";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010066.outbound.protection.outlook.com [52.101.61.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA24E89A4E
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 22:12:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RIGtHRee7BVDAdqJ0DtglfoO8CXf2J9cimyrPmiJ1azNbaEZe6JX9+KrvRVLIaSQWvQ17UUnR6CbVOM2U/WwebholyfpZX21Qu0Xq8cYxTZFHAcVMwYgmxvFb2FgXOTfGtXrJFh459QoENsQETMnnro7tsWE3Q+svvkv8hbIB2FZ4qFRV4pIyvKzBWAfmHvtPIsG8feIcZUfCuOdKkDkDbS9d4BTgF0u1NL4heYmCJl/etC5D+KMN2US+kJfYSxPwfmRJ3R6VzOlpIKIwrbejVu0l7cLGCzg+Hfqnfr9C8cj+bbwKjZMaH8hGJljReBq7p1mGSA0SdtYIb7tIBX9Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3JJcJswCT3q6JPyA08+8/7+/d3iMiiJuZqOZb6/wOc4=;
- b=HTmd6lexXpUn5NsjLGdr8pk+3IHIofkP3Uspl7D2xxiZXcuNCufw5rclVB9gD54PqwqOp+1WrTQDYxBvzp55NP6lerQ6GlHl1sEE6cAftjCjz0ynFV8VhIBmvTgQvaRdoBDyF2NORHT4TART+m9OM6ESSpV4eA+hLBsywKtvkhuiJ3519yd4EGR+Kw6vo/jz8BJlqCdtgY6B2pIVWZXZqE0g2DWSgZFIrNIxKro7XUgdvls/fvonps4tYowVPXvw7Aa+V1epUr2oEvOiK+8+YbVvIaY7J1PzdjORUCH8ANW5g4xJIvGxfUmLBCkfFEgEYGI2+q49I+CY7ncpr5ZB9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3JJcJswCT3q6JPyA08+8/7+/d3iMiiJuZqOZb6/wOc4=;
- b=cTd08tI/RZN2hmm6OpAyogd5QgmFZIxdbMFOk4Ya7NkGxXEf9sR7ItY5hJ1X2N7otC7FXAfKnDzyd8PjxVk1umIy4nra/Gn/K+hQcK2FjGw6K+Nj86ARJA3XuY4b5TBsQIgeOaN0tjcCHN8KDha3qnPGoBDcdBbHuIausxqHfCY=
-Received: from MN2PR05CA0050.namprd05.prod.outlook.com (2603:10b6:208:236::19)
- by SA5PPF06C91DA0C.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8c4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Mon, 6 Jul
- 2026 22:12:41 +0000
-Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
- (2603:10b6:208:236:cafe::52) by MN2PR05CA0050.outlook.office365.com
- (2603:10b6:208:236::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.9 via Frontend Transport; Mon, 6
- Jul 2026 22:12:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Mon, 6 Jul 2026 22:12:40 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 6 Jul
- 2026 17:12:40 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 6 Jul
- 2026 17:12:39 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Mon, 6 Jul 2026 17:12:39 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <max.zhen@amd.com>, <sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Fix potential amdxdna_umap lifetime race
-Date: Mon, 6 Jul 2026 15:12:28 -0700
-Message-ID: <20260706221228.434099-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D809910E174
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 22:13:44 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-476a130c138so3658859f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 15:13:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783376023; x=1783980823; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=3VUxjcvyG7o7DixEmYl5pZcfD8TvxQHqFhtXA36U/44=;
+ b=WaSo/jqh4r/zA+nz2I+QvZop9UbiefqBpFo/tRCPe3mnkTWEdzfHCxHu8BFfAHb/v8
+ rIQqy275pfjmKC7u8EH3nKgnGv5fqOANaJhpbCc4YSJm1jPQWLgci7lyeNjqiZlcElV+
+ mPRZZRxK8tw+R2uEyt108jki6JG/WRmuod9jRYbNLVPpU/JSehwNBTdR97iYPPC3fteS
+ 3n7+6sNPbV/LTCp9q7uGxhJOrpn5nH7iUhledGJxbLMqcIFUb6KaEZ42wI8mvhKxHyZk
+ XacwaLDaniCx1uLTXKTXs1dmFxU2miP3LmpTcCk/15DumydQsbB7iOgZkCrK2pAMg+8K
+ eiPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783376023; x=1783980823;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3VUxjcvyG7o7DixEmYl5pZcfD8TvxQHqFhtXA36U/44=;
+ b=VVCdXY6B0RONQL46d7k3DFgntZ3kL4UxcN72Ra0BmHh2xXPXHICcUIo8+uri9TTQvD
+ VVHX/166eFCUaiwArycbe1yeLXiL7Y20ujXqhs1k5MhQxAXcvhoDxhrf7eCXt3gNSvdX
+ TM90nxF5rmJeOqKxSQ1KwPZ0rMIO13nIYVnUdUTHn/ZyiTyrFUridRPpZ2p8qT2TDHNR
+ LOG5Ku829353WlRluHQ02DmQ1N8QWJ0dyQS0L5UXRtTJQxbIBrj2l/sIcCgyJiTumjJ7
+ +OBgaCZNX/gLJWxpRQdThN89RsDgPgjp8/b38H7DBmn2nLbol6i3RosL7pGs++zMH6JJ
+ HLfQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrHwqkVY0r6CVRLIKwsOSEtIdasLlaL3epRCAin1dZLezFGcFszWSVGkH9mx8dcdHZVPhtehdGX2iU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAIwqxdKLItltuw8s8Ylw9l7kUD5+cQb0R1Fc3yS/4uKLjkFwu
+ qapoa58Jf8rJ5fSaw8n0PeZBTu9U5OWM37QclJ6PNYnmYKV0H/68V7g=
+X-Gm-Gg: AfdE7cmLJBggMrGF20kvmAXYzG/UFXI1WAkjst5C/fZ0RzEZe1ELHxnaq2vqyysYu89
+ Re/XlycbAVc3RnaQWoiUS3HSmB2nTKrscM+NjDQ8odkuadkzFwSMAHwgA4W9spDPOLer1gg1MsW
+ W4Paqc5QNhZvQ1x06DggHN2DHwNcqrkFZZhD4yZdcX/qpM5oHbEy8xjbyfCLxWJMlb1m0upQyX6
+ 79e+c6xuqbKryqXJkZjp0bvCPQfQLNaCWeTD6MqWii3nGeBuT4ohyApXdb/46ihGEy7RgDAvcDn
+ sbnI8NJHevWG5O63h+Owyap2eLsi6k2W2nxwGVyhjJFeYNaRxHeilEJnhGfgetdrMz9eg5VYbpT
+ 7HYSX6/4prlOVpfKvPN3ASDgiip4ImLinsvDknqXkte75KpbEn3JnApf+qWF1+x5im4teq0hHec
+ wHo2Ns9H3CRwoKY/U3TvOzRuuuAgRvCcvWSbg07UhP61CwpVZEQ0MDZ9no1L9SCwVeaKiDTg==
+X-Received: by 2002:a5d:45ce:0:b0:476:c622:d41f with SMTP id
+ ffacd0b85a97d-47de66dd5e9mr1597139f8f.47.1783376022918; 
+ Mon, 06 Jul 2026 15:13:42 -0700 (PDT)
+Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a?
+ ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47aa039afacsm26722332f8f.19.2026.07.06.15.13.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jul 2026 15:13:42 -0700 (PDT)
+Message-ID: <ad91c7ec-83db-402b-bec3-3821dbc607f8@gmail.com>
+Date: Tue, 7 Jul 2026 00:13:40 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 10/13] drm/msm: initialize LPAC ring
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-10-01d50c3e0c99@gmail.com>
+ <93b78299-866f-4a3c-9423-a990d9a7d4cd@oss.qualcomm.com>
+ <64a919ab-8b36-45fe-8da8-5eaaf4d55359@gmail.com>
+ <2a556ca0-d276-4c56-a44e-9d8b92a3af6b@oss.qualcomm.com>
+Content-Language: en-US
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+In-Reply-To: <2a556ca0-d276-4c56-a44e-9d8b92a3af6b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|SA5PPF06C91DA0C:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4891c17a-83bf-43d4-6986-08dedbabb247
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: Cj+jzkqFbJYaox2DPsAvoCYorFw53EqMo4H0yT1zPJ72ADTCPBcJ6Q6LEs7H1PK7RGGRIICWPr+DW8qdot3eQAKY92M4cdWMOFluSzd+ex+/7n2wOCp709Coe3FqRxa6mwab1qCs/Yo4N11XcnUc2t28VMd1vBWRRyksePlPhQZCz0GG175EW4sQIUDEyoMTZN9IobvV36iKMp2lpUh9rbFTBG2pjC0UisCK7PZeuCtnPc3i6G3EJCGG0Tmc5HvynFo8vBdDlUrZbWGidDAmFZBghRs85r4WlLdOwh8e2d7DOmdnp/bhA2U4cJfJ/NJ22VywPpzQVrUZZ7HtxzhnSQ9XlgZDuQQviNgb1HZfmXJHnJTEeMrm6gc1lmCLjty1gY+z86J5pWRE/mzi1zG1weiFXpoeowEJwiSQUOqXpwnWJEWaFRQEzHhLxnrWFHfxy2wtd1PUOdJ/vaTZxyrrhuKBi9WsLUYuRES4h0efGL3x459wbu6q89bXepsc21wPz3aLFr4buBu9WspS3wevsAApOYL/GF2L8Gc3RYIeNgLv1VH5UTWdp8pnQz9KznzcrsxcJRW7+w7Hrec6sRNCIoY5y79Evu/5i+MMEnFWto0E1Jc8MO0RRe4Vp76OIG0vWKOg4fmgMIa6j2AgoqTR/ISsFEYPTQwdWdNkunIu70dDdUvQa/FjlpspU3HkevxzCil5WQ63wtKkwYPIV8/+gg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(18002099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5Cled5aeoRPBJtX2HTnTjoBEvG0Z41ut2MDY9Jp0wplpACBGZkmQT2bVgRexi1iU6OTe0e9Yu0FlUroOkGHJz9BA86JB0GlcessHOORukPcGTDOf7oEHYTpXM2XiBDifNwbAM5PxrfHNJHfLBEL80mEmRluZwtrsqLXKey24W1Kyn+RhvhwzYtGhXLQHIpjQnhvkQ/J8+Cs8sLtBjwGo137ncxOgyFCHWa4x24ygo/vkJ/AlV8yZbfztUu+5qe6p5+wd8v8aDNP8bvlQ/XoVL2xN8bxhyCGeuL/Rf/9CFihYisS0Ek1ZY8XbFq9GQvnDEme8/hoN7KtBffJWXjSvfOBRBPg1Z/vVcCSSp9sosE8QmRKEK/6vvhP9GjszrErU+C2X8CRTnxvLVmw0I5zU1DEvPJCJxko01W9y5NbxwdsRxWRARenh6X2LTnvv/qG2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 22:12:40.9684 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4891c17a-83bf-43d4-6986-08dedbabb247
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF06C91DA0C
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,43 +112,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_umap_release() calls the blocking mmu_interval_notifier_remove()
-before removing the object from abo->mem.umap_list. If
-aie2_populate_range() runs concurrently, it may obtain a reference to an
-amdxdna_umap that is being released, leading to a potential use-after-free.
+On 7/6/26 11:56 PM, Akhil P Oommen wrote:
+> On 7/6/2026 4:37 PM, Anna Maniscalco wrote:
+>> On 7/6/26 10:44 AM, Konrad Dybcio wrote:
+>>> On 7/5/26 9:13 PM, Anna Maniscalco wrote:
+>>>> Program all the register needed to start up LPAC and send initialization
+>>>> sequence.
+>>>>
+>>>> Additionally, now that the LPAC ring is live, make the code aware of it.
+>>>>
+>>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+>>>> ---
+>>> I believe some/all of these writes need to be guarded by if (has_lpac),
+>>> as many GPUs lack these registers and there may be side effects on
+>>> others
+>> That's correct yeah. I'm not sure what has_lpac should be though.
+>>
+>> Something we add to catalog? Or checking if it is a gen that has LPAC?
+> We can introduce a new QUIRK (ADRENO_QUIRK_LPAC?).
+>
+>>>
+>>> [...]
+>>>
+>>>>            a6xx_gpu->shadow = msm_gem_kernel_new(gpu->dev,
+>>>> -                              sizeof(u32) * gpu->nr_rings,
+>>>> +                              sizeof(u32) * (gpu->nr_rings + !!gpu-
+>>>>> lpac_rb),
+>>> Should we rename nr_rings to something like nr_XXX_rings
+>>> where XXX is some uarch-generic (i.e. not SQE because we also
+>>> support pre-a6xx) name for the main number cruncher?
+>> Qualcom calls it GC so nr_gc_rings perhaps?
+> How about nr_gfx_rings as those rings can handle graphics workload?
+That could be more intuitive yeah
+>
+> -Akhil.
+>
+>>> Konrad
+>>
+>> Best regards,
 
-Use refcount_inc_not_zero() in aie2_populate_range() when acquiring a
-reference. If the reference count has already dropped to zero, release
-is in progress and the entry is skipped.
 
-Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie2_ctx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 408ff7e2a272..7bf635634e64 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -1039,7 +1039,7 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
- 	found = false;
- 	down_write(&xdna->notifier_lock);
- 	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
--		if (mapp->invalid) {
-+		if (mapp->invalid && kref_get_unless_zero(&mapp->refcnt)) {
- 			found = true;
- 			break;
- 		}
-@@ -1050,7 +1050,7 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
- 		up_write(&xdna->notifier_lock);
- 		return 0;
- 	}
--	kref_get(&mapp->refcnt);
-+
- 	up_write(&xdna->notifier_lock);
- 
- 	mm = mapp->notifier.mm;
+Best regards,
 -- 
-2.34.1
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
