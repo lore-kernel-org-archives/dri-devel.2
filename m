@@ -4,46 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C24C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 18:29:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B76BC43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5796E10E042;
-	Mon,  6 Jul 2026 18:29:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFAD10EA84;
+	Mon,  6 Jul 2026 19:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="ZDmPkj47";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GJ6k21O3";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12CB010E042
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 18:29:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=/Kh4IzNYBu3mW0ro+qkx1GphLLmiK1jbW6xdIlzD9hk=; b=ZDmPkj47Q+WnwI5vSuG12DHrXP
- UbiEDbs3jhb/ZSpUwvBoJkJEDSfU6ZHog56KzgcsNslm3vxvcw2A6+s1y0tGwIBd59BzOCCySIwKw
- CSVOBTeEgG7vM/F1piGu9n+rEZkp2HALe2UgYxp+cxyj0BMue88nkEoLUVgQrxDZzIytNBwIMvp+V
- XPN5oDTrolyJKP/GlbxGvHPEJQINljaEPkTCJSCQZX3ht627KjtaLAnNOXd8lnMpopGOE6CALDhqx
- K+Qf1WLHvlxDr3wyZbQIYxU2KVmeElsJZTLiVSyDelGgTcW69++dMLqVBX5SrVJahj+QFpKgMHBYR
- 5slcro7g==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A788D10EA82;
+ Mon,  6 Jul 2026 19:25:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DAA41600C3;
+ Mon,  6 Jul 2026 19:25:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D231F000E9;
+ Mon,  6 Jul 2026 19:25:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783365911;
+ bh=u6Ou0jbsdMUOvdHXYTkqyWBUsmGQD9nbdqqr1UFdWDg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=GJ6k21O3aLYCNuYZdTOtBHnjVXv/pe0UdV/Lc9MyMQv3HtYcIoQhUXqfWzMizCkvP
+ lWU0cLU78OXeUOjZjAU3cpK52hRZ4JRIqFth+2DjhHQQBYtmyrlpAQ+6Dtwyg3ZcDP
+ nu7itkPJ3bzH2PYkoKq6HptUbsDvF942k1fF+XOcKUqE+EBsDqWak0ae86rXQqzFuv
+ wUtNBUbJCpVZ3sXJzSAAx5mhKvdf/oz7LXclw152Vq+gcV/tCrMuNZ4k/t9riXn9LR
+ GnbTfrwT3jPjdVbgmq5HK8a/+xpXOVTjrbBQXdLnyZDxNaliTrbxG0jRYTBf5yyGvN
+ e1KkYjuXt4l0A==
+Date: Mon, 6 Jul 2026 09:25:10 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Diogo Silva <diogompaissilva@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] drm/rockchip: Remove dependency on DRM simple helpers
-Date: Mon,  6 Jul 2026 20:29:26 +0200
-Message-ID: <178336256097.417648.401412534359404316.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260704-rockchip-drm-simple-v5-1-a333f527a4f9@gmail.com>
-References: <20260704-rockchip-drm-simple-v5-1-a333f527a4f9@gmail.com>
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/6] cgroup/dmem: Add reclaim callback for lowering
+ max below current usage
+Message-ID: <akwBFlw8MwhrwsRu@slm.duckdns.org>
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-4-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260703130541.2686-4-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,22 +74,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hello,
 
-On Sat, 04 Jul 2026 11:12:02 +0200, Diogo Silva wrote:
-> Simple KMS helper are deprecated since they only add an intermediate
-> layer between drivers and the atomic modesetting.
-> This patch removes the drm_simple_encoder_init() helper usage in the
-> rockchip drivers by open coding it and using the encoder atomic helpers
-> directly. This is a step to eventually get rid of this simple KMS helper,
-> once all drivers that use it have been converted.
-> 
-> [...]
+On Fri, Jul 03, 2026 at 03:05:38PM +0200, Thomas Hellström wrote:
+> Also honor O_NONBLOCK so that if that flag is set during the
+> max value write, no reclaim is initiated. The idea is to avoid
+> charging the reclaim cost to the writer of the max value.
 
-Applied, thanks!
+Is this really necessary? I'm not necessarily against it but this is trivial
+to work around from userspace and feels like a gratuitous addition. What's
+the use case?
 
-[1/1] drm/rockchip: Remove dependency on DRM simple helpers
-      commit: 640c55fc147f0202365f916a1297f62d640efa3e
+Thanks.
 
-Best regards,
 -- 
-Heiko Stuebner <heiko@sntech.de>
+tejun
