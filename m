@@ -4,44 +4,188 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68832C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 754A2C44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C116310E935;
-	Mon,  6 Jul 2026 12:04:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCFF910E350;
+	Mon,  6 Jul 2026 12:14:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MmR8SA7N";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bPmtO7uN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC4DF10E935
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:04:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4628B10E350
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:14:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 307AE600BB;
- Mon,  6 Jul 2026 12:04:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8CBE1F000E9;
- Mon,  6 Jul 2026 12:04:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4DDCA403D8;
+ Mon,  6 Jul 2026 12:14:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121871F000E9;
+ Mon,  6 Jul 2026 12:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783339451;
- bh=CArvANqm9nEL5vitwwn2e+EYq3pDfItDct7OpDgPMLs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MmR8SA7NZNk1HXx2NL/iD6LyTU7k09gzMGGRrsu8zXK4STfSVSHiC1vV0llKNaSTw
- c5O3L9rVooy7XTXNqXHNGX+6IdybqDLR67m+QP8YKJr2N/kqDe8fy1Zwh5f0wmMDUd
- 3/zp0doiiV4Lz7gI5jwddgT009zNgPQHXYunxFLuHdaRG/edPCyxVURmwVpJuS42iD
- EcAjJ2CrD6tbpyA68fgNwj0NTdO1ELjnOO5sEHPtp+IeRo/7D98zPxMjVYZY0hTx1f
- K70kS3esFVLrDmSEA3PVaz0gWNKH6WVtbK77qVId/gOw9A4EGo5NFwUpxyA6ZEafVq
- I+C9eDoBIXMuA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/7] drm/i915/gt: Use signalers_lock to prevent
- starvation of irq_work.
-To: "Maarten Lankhorst" <dev@lankhorst.se>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706114823.752313-8-dev@lankhorst.se>
-References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706114823.752313-8-dev@lankhorst.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 12:04:11 +0000
-Message-Id: <20260706120411.B8CBE1F000E9@smtp.kernel.org>
+ s=k20260515; t=1783340071;
+ bh=UfZEhOmUAtYb9FNfwIrhuWbkBWwbFTNpgJ24RGae3QQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=bPmtO7uNl48Q6bs+krcLQuw/tGKsl/JnxFHgbLFLkbFx148tTkkA7+0+myQHEaGRx
+ umK1+gemSQ381e4T0ydJrpe5m50O2llJQVDfxhEPEtVvjgabuo/BR5Ho6mleocrkpE
+ fTxcf+KK6Dpfmp5M9B1Dl5PVW39xYP/4cksVqp5fVQ5O4WWUR3U4zCxV6tksNIYDNJ
+ 3bY+xwqwO8IC0rw+2yC2rczkDRpdu3Xv940Wc8aK8I3AlcbIjJHmDU4JiesBKEXqny
+ SHdPswcAheebzOd/3vvQV+K23MtLsBdoa4ItivVZCf7TP91cWgJ6w8JjpA1/pDNXqP
+ IZRI1tts3WtBQ==
+Date: Mon, 6 Jul 2026 13:14:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>,
+ Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Eddie James <eajames@linux.ibm.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Houlong Wei <houlong.wei@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
+ Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+ kernel@collabora.com, linux-tegra@vger.kernel.org,
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ imx@lists.linux.dev, sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH 00/42] of: reserved_mem: Introduce devres helpers and
+ convert drivers
+Message-ID: <ceeca378-3c76-4b2c-81b4-0ff1bb1e99be@sirena.org.uk>
+Mail-Followup-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>,
+ Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Eddie James <eajames@linux.ibm.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Houlong Wei <houlong.wei@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ge Gordon <gordon.ge@bst.ai>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Peter Chen <peter.chen@cixtech.com>,
+ Fugang Duan <fugang.duan@cixtech.com>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+ Fabio Estevam <festevam@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+ kernel@collabora.com, linux-tegra@vger.kernel.org,
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ imx@lists.linux.dev, sound-open-firmware@alsa-project.org
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="wOAp0AJHJvNt3tz3"
+Content-Disposition: inline
+In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+X-Cookie: Did I do an INCORRECT THING??
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,118 +198,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Dropping `ce->signal_lock` to avoid lock inversion in `i915_re=
-quest_enable_breadcrumb` allows concurrent threads to double-add a context =
-to the `b->signalers` list, corrupting the list and leaking `intel_context`=
- references.
---
 
-commit 51101492996df475bcd91b7f36bd0af9680441f1
-Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+--wOAp0AJHJvNt3tz3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-drm/i915/gt: Use signalers_lock to prevent starvation of irq_work.
+On Sat, Jul 04, 2026 at 01:08:13AM +0530, Mukesh Ojha wrote:
+> Drivers using of_reserved_mem_device_init() and its variants must
+> manually call of_reserved_mem_device_release() in their remove and
+> error-unwind paths. This is repetitive boilerplate that is easy to
+> get wrong, and several drivers have open-coded the teardown
+> inconsistently or skipped it entirely, leading to dangling reserved
+> memory references.
 
-This patch adds a global spinlock to prevent starvation of irq_work by the
-threaded interrupt and removes the existing RCU handling.
+Just as a general thing, rather than sending a huge cross subsystem
+series for something like this it's probably better to just send a
+couple of examples, then once the new API is introduced and either has a
+pullable tag or has made it to mainline go and do the conversion.  This
+avoids clogging everyone's inbox with very big serieses.
 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/dr=
-m/i915/gt/intel_breadcrumbs.c
-> index c10ac0ab3bfa8..0ae7759dc74a3 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> @@ -88,24 +88,25 @@ static void add_signaling_context(struct intel_breadc=
-rumbs *b,
->  				  struct intel_context *ce)
->  {
->  	lockdep_assert_held(&ce->signal_lock);
-> +	lockdep_assert_held(&b->signalers_lock);
-> =20
-> -	spin_lock(&b->signalers_lock);
-> -	list_add_rcu(&ce->signal_link, &b->signalers);
-> -	spin_unlock(&b->signalers_lock);
-> +	if (list_empty(&ce->signals))
-> +		return;
-> +
-> +	intel_context_get(ce);
-> +	list_add(&ce->signal_link, &b->signalers);
->  }
+--wOAp0AJHJvNt3tz3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: Critical]
-Could this unconditionally corrupt the signalers list?=20
+-----BEGIN PGP SIGNATURE-----
 
-If add_signaling_context() is called concurrently for the same context, it
-will call list_add() without verifying whether ce->signal_link is already
-linked, leading to list corruption and a leak of intel_context objects.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpLnBQACgkQJNaLcl1U
+h9CmKwf9F2YIGBkVeulsWbi5D2t0CnJR/02sSOVl3kzxHiLVhiwWDuHChe6nJcf/
+B22JeTRk3geytCtoi5VvvmmNuN+5GmfWxtqo+bJgCYojxOFKt1bde4RkYg1O+aIO
+0JEs896VePybnfaXzCbeT2n3+gnqC/RMKL+WfvNsfpZqVXUb+QNc6jdCba+Jhlc6
+kJV1YxYgK0VXXLsuZ1ziJ+d22nU5afgm5JQX8CTrl+8EVCL+rbnDtnNmClMg8C6b
+RFN0y9e3hN+0tUEYxGm+VotHPeBuzmgBQucRkMCypqkAEegoWehkdUWzi41bhUBF
+sBJ4nhpfaNf7OXkA6cTOGSwuEFc7yA==
+=BASk
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> @@ -427,30 +424,87 @@ bool i915_request_enable_breadcrumb(struct i915_req=
-uest *rq)
->  		return true;
-> =20
->  	spin_lock(&ce->signal_lock);
-> +	b =3D READ_ONCE(rq->engine)->breadcrumbs;
-> +
->  	if (test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags))
-> -		insert_breadcrumb(rq);
-> +		add_context =3D insert_breadcrumb(rq, b);
-> +
-> +	if (add_context && spin_trylock(&b->signalers_lock)) {
-> +		add_signaling_context(b, ce);
-> +		spin_unlock(&b->signalers_lock);
-> +		add_context =3D false;
-> +	}
->  	spin_unlock(&ce->signal_lock);
-> =20
-> +	if (add_context) {
-> +		/*
-> +		 * Fast trylock didn't work, use slow locking.
-> +		 *
-> +		 * Dropping the lock to solve the inversion is safe, since
-> +		 * no race is possible against remove_signaling_context()
-> +		 * without being added as signaling context.
-> +		 */
-> +		spin_lock(&b->signalers_lock);
-> +		spin_lock(&ce->signal_lock);
-> +		add_signaling_context(b, ce);
-> +		spin_unlock(&ce->signal_lock);
-> +		spin_unlock(&b->signalers_lock);
-> +	}
-
-[Severity: Critical]
-Does dropping ce->signal_lock here create a race condition that leads to the
-double-add in add_signaling_context()?
-
-If multiple threads attempt to enable breadcrumbs for the same context and
-fail the fast trylock, they will drop ce->signal_lock and enter the slow pa=
-th.
-This can allow a sequence where:
-
-Thread 1 calls i915_request_enable_breadcrumb() for rq1, gets
-add_context =3D true, fails the trylock, drops ce->signal_lock, and waits
-on the slow path.
-
-Thread 2 cancels rq1, making ce->signals empty again.
-
-Thread 3 calls i915_request_enable_breadcrumb() for rq3. Because ce->signals
-is empty, it also gets add_context =3D true. It fails the trylock, drops the
-lock, and waits on the slow path.
-
-Thread 1 and Thread 3 sequentially acquire the locks in the slow path and b=
-oth
-call add_signaling_context(). Since Thread 3 added rq3, ce->signals is not
-empty. Both threads will then execute intel_context_get() and list_add()
-unconditionally, permanently corrupting the doubly-linked list.
-
-Should add_signaling_context() verify that list_empty(&ce->signal_link) is
-true before calling list_add() to prevent this regression?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706114823.7523=
-13-1-dev@lankhorst.se?part=3D7
+--wOAp0AJHJvNt3tz3--
