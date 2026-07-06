@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B181BC43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0BE9C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B13D10E7E5;
-	Mon,  6 Jul 2026 07:13:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2114F10E7C5;
+	Mon,  6 Jul 2026 07:13:34 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 86DD110E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:21:58 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-3f-6a4b49849c85
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6868510E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:20:01 +0000 (UTC)
+X-AuditID: a67dfc5b-c45ff70000001609-2d-6a4b4905bbfc
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
@@ -73,46 +73,45 @@ Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
  tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 38/40] mm: percpu: increase PERCPU_DYNAMIC_SIZE_SHIFT on
- DEPT and large PAGE_SIZE
-Date: Mon,  6 Jul 2026 15:19:26 +0900
-Message-Id: <20260706061928.66713-39-byungchul@sk.com>
+Subject: [PATCH v19 33/40] dept: call dept_hardirqs_off() in local_irq_*()
+ regardless of irq state
+Date: Mon,  6 Jul 2026 15:19:21 +0900
+Message-Id: <20260706061928.66713-34-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxTZxiG957znvecNtacdYQdNQum+4xRxMnMk2USFuN8nT+mWaLJzDa7
- cQblozQtMDFZ0k4wgsJcN8tGQUWwMqiDHBQU3GRMhMBgtjWs2zpwiN2wtrgiGBmIrcZ/V+4n
- 133/eQRW+we3XDAYC2SzUZ+rI2qsDi+pW1OydVt2yuDB5yEwNsHBiK0bQ02Lm8CCs4OH/t8+
- x+Dw2Flwn7UxUB108jDZuwXCY10cLDhy4PjJNgIhxx0C0cnrCM5eGUXgm1gK12amCIQ9NQxE
- Wgl4fgkh2F/fQiDgsDNQNUnAWbWfgaNnuhi472riwTnk42C8sZqHDut1HpTfexEoN0Y4qDvQ
- gOHbYwECvs4aAqPuRQ6sznsceJuvYhi80o/h184zHMxWroCvIkEEoVkXC66ZKR4a/6viwB6M
- 8hBtmMVwYPoBB30V3QycuhthIVB5C4PiHiHwT3UtAz/P3GZg7nRsdqh9gIeBuQEGxivDMbc2
- pjV7MBwqdWA413uPB9v0GILK4S0QOXKXS0+nTW3tDC31LhDqPuZGdOCkRBvK5hh6ofovnp5Q
- CmnJ5TBH2xpX0fqLkwxVmsoIVaJ2nkaGh3na/83/mNZZj7L0Uq2b3570nvqNDDnXUCSb16bt
- UWf5L/s50znV3o6Di7wVjfPlSCVIYqrktV3AT7i9rITEmYgvS37/fTbOCeJKqa0iyJUjtcCK
- viTpsKvikfCMKEs/lJfHBEHA4otSV2dhPNaIG6TI/EXyuDNJam7tftSjiuXfz9cycdaKr0l/
- TvXheKck1quk2xMu9FhYJv3U6MdHkOYEeqoJaQ3Gojy9ITc1OavYaNib/HF+noJiH+f6bH73
- eRS9+m4PEgWkW6KB9LeztZy+yFKc14MkgdUlaF56ZVu2VpOhL94nm/M/NBfmypYetELAumc1
- r85+mqEVM/UFco4sm2TzkysjqJZb0dovXtC8szLz72uZ9g3eVrXm9WWHMgwfpKYV7Fxa9hFZ
- Fw2V7Ej8zptTurGu/f2EXcV9N01D3q9/rDm/UxpPtHhWbzYb9wVNWxOV0fSUqaeHfY7U5Oeg
- 8Fba4HqGDrp3v5VmCixuWj2xJinlXyWUcPzSJ8g6bbJV7NiT38J/uf7Nzad02JKlX7eKNVv0
- DwH5ZkU2bQMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAAzVSe0hTcRjtd+/dvdfR4rKELvaHMehBYVlkfJGUBdXtSRER9E+NvOTcQ9vK
- shJ1a7jspYtNalpmbuSjtFmZ2cisLHu6LBvpmtqaia+wLdHNbCv65+N853zncP74aFxcL4ih
- ZarDvFolVUhIISHcvkoXp9u0JTX+qzsRDPps6PJ4BdCR20RAwG8goLimmoRJSz0FBvslAbz4
- pCWg7VYVAk/AgGAsaMFB3zBFwKSxhQL/eCcFplwEU44WBGanEQdX2yMcqu/kYvCz9jcJA09G
- EZh6vCQU9ecSMGI7i+Cyz0JB/7ONMORpFMCUuw+DT78GEdi8vzHwNuUhmDTL4WpZXdhu/kFC
- 8M07HIpMbQiu9bhxGO3vRnCn5QsCxw0tCd8K7uLQ7p0BHwIjJLSazpAw5CzGYLiWhFKtQwDO
- 1wMISixGBL7PDgx012tIMJfYCWjofkCBcyCEQZfZiEGVfRt4bD4CXhWUYeG64avbs8BSpMPC
- 4zsGppuNGIzbKqkkK+LG9OcJrrLuHsbp30+SXPWVasQFJ4yI81t1OKcvCK9PBkdw7lTdUc76
- apDkJgIfSc7xq5TgXpaxXPnpCYwrfBPHNVx2UzvW7hUmJvMKWQavXrJ6vzDF9dQlSL8bdaze
- MEXloF4qH0XRLLOcvXf6FBnBJDOfdbnG8QiOZuawded8gnwkpHGmPZY9aztHRISZDM868vPD
- BpommLls44MjEVrErGCHQw/Jf5mxbFVt09+cqDB/K1SCRbCYSWA7R54TBUhYiqZVomiZKkMp
- lSkSFmvkKZkq2bHFB9KUdhR+J1tWqPA+8rdvbEYMjSTTRZC0OVUskGZoMpXNiKVxSbRo3oIt
- qWJRsjTzOK9O26c+ouA1zWg2TUhmiTbv4feLmYPSw7yc59N59X8Vo6NictAyEZaVt3Nnh7xw
- fUJv4/mYjF0T3YduKw3HF4H80EqVOsGv7RyuiXOfLN/9NqAqr0jTC8dHK8ou1CqslfVDwTyt
- 8sTFMd9QcYfu6tr4E6HW71uTe6cH12zoGNU692YvDF4p9cRUJD6yX5gZ30z09fGPuxwzrPTD
- n3lx7zVt69IcEkKTIl26EFdrpH8ALUQrlUoDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSa0xTdxjG/Z87nZWTasYRs2BqcNpFFEHzxrnNffJ4y0yW7MMWo904Slmh
+ TatcTAytihEHUru0BgoEYUOk5RKKFzpRrFAE2tACYlVAqq6MYMWoZZuUsML0y5snz/O8v08P
+ g0uGyXhGkXVU0GTJlVJKRIhCSy9tYHbtydgUsLNwtiAfhvUdBJQ32SiYs1yn4d6DkwR4G60I
+ /p614GDSI5hvdyEw+4w4XJzUE1AWtNAw2bUT5kcnMJgyv6Jg1tOPQ6trDEF73UkKBp8vg6Hw
+ NAUhXzkGL5sp8LmnEFRYjAiCj9oxOFXTREHbuIMG31QEgxGzEQNryz7oM1RjYLl4CgNTwx8Y
+ uGtGCKjVJYLFM0hCJJAM81UqcFknaBgtMRHQGOonoWdsmISpoJGC67pxGt4OBTA46wgT0PIs
+ GpRWjlDguvEUg0FHOQVFzVdJGLPNk+Dt6CNhwOoloGnCj0Gf6x4BPWVXCHjsKaGh39FAgt3j
+ xmHm/CrwXigmwW/4E0HDy2pqRxpfb7+G8bZKG+ILDNFz98U0zv/e94Li34XvU3xvNcf/VvgO
+ 4y94NvBtZaM0f/rWI5qvajnGn+4Mkby9TsbX3JzE+Euvw+T+5O9F29MEpSJb0Gz88pAo/a/h
+ AlKtj80N2kCHQh+dQzEMx6ZyrbcHsA+6v1VPLGiK/ZTz+//FF/QKdjVnLw6S55CIwdnBBK6o
+ tnixtJz9kTOHxqIlhiHYRK54SL1gi9mtXO01w3tmAmdt7ljkxET9xkjFoi9ht3CPp7uJBSbH
+ Xo7hTPW95P8PK7k7dX7CgMRVaEk9kiiysjPlCmVqUnpeliI36SdVZguKrq32ROSHG+i191sn
+ YhkkXSqGHbszJKQ8W5uX6UQcg0tXiNeu25MhEafJ844LGtVBzTGloHWiVQwhjRNvnslJk7BH
+ 5EeFnwVBLWg+pBgTE69DFWcCsfmxm2Rfd5pK26oSfKXrfBH2WfevPTu7TBZ3ZQ9a82SJk0kJ
+ 9K5RQX78P2y5LnVOJatWqVNUb745MKPccqij8JcjszkfG90O+ulxKvFKUUn21r3jh9VnZPRA
+ 3Of738geblPkGMxfhDMLI7s/62bn8j+5v/6rJ0kJztxk7XdSQpsuT5bhGq38PzJOGWtpAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe0xScRTH+90XV5K6Ec07bdlYT0urle30WPbmmus129r6p6juEgUzKItW
+ SyCmPWxEgUs0zZI1pTIflDWWs2UPa0n2cOWjB1FOiVZY+UBDW/+cfc/nfM93549D42InGUkr
+ 0vfz6nS5UkoJCeGGJYZYMjEpde4JxxzIMR6D1g4PCa91dQT0BHIIKLjhoCBouyWAnMoLJDx6
+ oyeg6Xo5go6eHAS/+204GGuHCAiaGwQQ6H0nAIsOwZCrAYHVbcahpekeDo5qHQY/KwYp6Lr/
+ A4Hlg4eCvE4dAX77aQT5XpsAOh/IwNdxl4Shti8YvPnVjcDuGcTAU5eNIGhNg6KSqtC69TsF
+ /c+e45BnaUJw6UMbDj863yOobmhH4Lqqp+CzqQaHZs8YeNnjp+Cx5RQFPncBBt8qKCjWu0hw
+ P+1CUGgzI/C+dWFguHyDAmthJQG17+8IwN01gEGr1YxBeeV66LB7CWg0lWChc0OumxFgyzNg
+ ofIVA8u1uxj02ssEy0sR99t4huDKqpwYZ3wRpDjHRQfi+vvMiAuUGnDOaAq197v9OHe86iBX
+ 2thNcX09ryjO9auY4J6UsNyVE30Yd/ZZLFeb3ybYtGKbcOluXqnI5NVzlu0Qpnx9bSQzdGMP
+ eR2QhXyjT6IwmmUWsM+rdcSwppjpbEtLLz6sJcxktirXS55EQhpnmqPZ0/bcEdN4Zidr9bWH
+ TDRNMFPZ3JcZw1jELGTtThP2LzOaLa+oG8kJC/HrA4UjXMzEs+/8DwkTEhajUWVIokjPVMkV
+ yvg4TVqKNl1xKG7XXlUlCn2T/ejA2dso0CyrRwyNpOEiWL4uVUzKMzVaVT1iaVwqEU2bkZQq
+ Fu2Waw/z6r3b1QeUvKYeRdGENEK0biu/Q8zske/n03g+g1f/n2J0WGQWulWTrfRLuFFrHdPu
+ zIjJ7t066WPUqnPYlORA8Jg2fO30yT7JlVUDWRPVTnf827hZ81dPiNJGvpiavCjxJlqcXIav
+ UanOxSQcWR3VvuXy5i/hR/cl/BkXiNZr/Pol9bNlO396Z9ZuDPTrGrelnTl/QC4rkh3+HPuA
+ SJj/9NPKmsEVW45ICU2KfF4MrtbI/wIjatboSQMAAA==
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -130,41 +129,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Yunseong reported a build failure due to the BUILD_BUG_ON() statement in
-alloc_kmem_cache_cpus().  In the following test:
+For dept to function properly, dept_task()->hardirqs_enabled must be set
+correctly.  If it fails to set this value to false, for example, dept
+may mistakenly think irq is still enabled even when it's not.
 
-  PERCPU_DYNAMIC_EARLY_SIZE < NR_KMALLOC_TYPES * KMALLOC_SHIFT_HIGH * sizeof(struct kmem_cache_cpu)
+Do dept_hardirqs_off() regardless of irq state not to miss any
+unexpected cases by any chance e.g. changes of the state by asm code.
 
-The following factors increase the right side of the equation:
-
-  1. PAGE_SIZE > 4KiB increases KMALLOC_SHIFT_HIGH.
-  2. DEPT increases the size of the local_lock_t in kmem_cache_cpu.
-
-Increase PERCPU_DYNAMIC_SIZE_SHIFT to 11 on configs with PAGE_SIZE
-larger than 4KiB and DEPT enabled.
-
-Reported-by: Yunseong Kim <ysk@kzalloc.com>
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- include/linux/percpu.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/linux/irqflags.h | 14 ++++++++++++++
+ kernel/dependency/dept.c |  1 +
+ 2 files changed, 15 insertions(+)
 
-diff --git a/include/linux/percpu.h b/include/linux/percpu.h
-index 85bf8dd9f087..dd74321d4bbd 100644
---- a/include/linux/percpu.h
-+++ b/include/linux/percpu.h
-@@ -43,7 +43,11 @@
- # define PERCPU_DYNAMIC_SIZE_SHIFT      12
- #endif /* LOCKDEP and PAGE_SIZE > 4KiB */
- #else
-+#if defined(CONFIG_DEPT) && !defined(CONFIG_PAGE_SIZE_4KB)
-+#define PERCPU_DYNAMIC_SIZE_SHIFT      11
-+#else
- #define PERCPU_DYNAMIC_SIZE_SHIFT      10
-+#endif /* DEPT and PAGE_SIZE > 4KiB */
- #endif
+diff --git a/include/linux/irqflags.h b/include/linux/irqflags.h
+index d8b9cf093f83..586f5bad4da7 100644
+--- a/include/linux/irqflags.h
++++ b/include/linux/irqflags.h
+@@ -214,6 +214,13 @@ extern void warn_bogus_irq_restore(void);
+ 		raw_local_irq_disable();		\
+ 		if (!was_disabled)			\
+ 			trace_hardirqs_off();		\
++		/*					\
++		 * Just in case that C code has missed	\
++		 * trace_hardirqs_off() at the first	\
++		 * place e.g. disabling irq at asm code.\
++		 */					\
++		else					\
++			dept_hardirqs_off();		\
+ 	} while (0)
  
- /*
+ #define local_irq_save(flags)				\
+@@ -221,6 +228,13 @@ extern void warn_bogus_irq_restore(void);
+ 		raw_local_irq_save(flags);		\
+ 		if (!raw_irqs_disabled_flags(flags))	\
+ 			trace_hardirqs_off();		\
++		/*					\
++		 * Just in case that C code has missed	\
++		 * trace_hardirqs_off() at the first	\
++		 * place e.g. disabling irq at asm code.\
++		 */					\
++		else					\
++			dept_hardirqs_off();		\
+ 	} while (0)
+ 
+ #define local_irq_restore(flags)			\
+diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
+index 007e1bc7d201..35a3667ac8b3 100644
+--- a/kernel/dependency/dept.c
++++ b/kernel/dependency/dept.c
+@@ -2095,6 +2095,7 @@ void noinstr dept_hardirqs_off(void)
+ 	 */
+ 	dept_task()->hardirqs_enabled = false;
+ }
++EXPORT_SYMBOL_GPL(dept_hardirqs_off);
+ 
+ void noinstr dept_update_cxt(void)
+ {
 -- 
 2.17.1
 
