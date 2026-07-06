@@ -4,148 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE76C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF5EAC43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:43:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B95010E81D;
-	Mon,  6 Jul 2026 08:40:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1834510E82B;
+	Mon,  6 Jul 2026 08:43:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bq1jokot";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M9mVm1g/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WZUZydKu";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7FFD10E815
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 08:40:52 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66641cls3470523
- for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 08:40:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- fzwaTdZYc5k39HsbyB8BJpnbkvc/a1QYt9rl+x/9154=; b=Bq1jokotQ2I1ybSW
- pG8Vbjp5cmexg06ZgOo7HnUcdoz++VQPK9jPrlOoDYzoLaJSiP00gdk3RZV0dGdl
- HcnOpMe8UkqIBbOu3ID5mXiOSHkWrGbn/o4RaCjxI7TUE3YgSMVyeOJwObJIZWFS
- L6e5Dw8FpN9uUp9oYfh03/1X7e1Pt8FYvReYZBaqUJaha7/g0J1nEXVeTp/lerEH
- 7XARdYrlxEjVDcYf3Fy6sF1V4rU6mnKUJk05/6VmOOVk7oPy1wh80CgeekGFEm9o
- MGKW5oA9Usfw+0K616ZdPkKF8aVVNyBILDw3nWtqR7P0oqKYiMrsCQD7d8G0vY2b
- yeRsBg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6txen76e-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 08:40:52 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51bfe75b7dbso9106091cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 01:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783327251; x=1783932051;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=fzwaTdZYc5k39HsbyB8BJpnbkvc/a1QYt9rl+x/9154=;
- b=M9mVm1g/a2opMcPCikq571DF2237sEcGYHsoLRjqIvIyUdJiWCiPitYsLzNuN3pXB7
- Txn4DTFZnwujJbeetwO7548yugugRIZeoNTGyye3ojl5ni+Bz71PJ6Olx82iBUpn+sO5
- QmKGMatWOsoI8pve1HRyUaMfd9e4zoASmTfl6PygWCiKdXOWvs279CHnjGTsRrjIeBX7
- j9J5g10DVPbj28ZVwcaSOF6Cdd2SBTFGil/Nwzg/mm5KYu2qaGeB3VFi6f2ZFqD7cllY
- rOeALjVxMwT4PE/y7zYHhjDBHupIgc3nkvDhykQcohRkNm6O/UlBSCcCIM6AAL3509xL
- s4Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783327251; x=1783932051;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=fzwaTdZYc5k39HsbyB8BJpnbkvc/a1QYt9rl+x/9154=;
- b=LLUNSEXJER4pvIoVyIZdDhSjmdh3Uz61ljK4yi/s53aq55sn4SZIH2hABS2Ok5eHlA
- MHE6LPzwxa63Hq02Cbk2lUZ/GKAjCAM0WOGkLfJ8ugDtxIT4zZs+pm9ias7Aaq2WizBR
- aYtraSkpGOgu965n9+zVfb0bKukPlPF9kpCIs6+bsDX6tcD5Bi2h1XsOSk8ZTOIT7CR7
- hGp2+TBJO6/PUZ79aNWe3Ik2av0RKomRLwlCuGNBhl0eJczFet5Ts75LYhSVtm4cOUsU
- YnIj/5J6TecoSnczuWhdnwV06cWpJ8Wf4ZSd1FaXwRLtXVztT3PSNkuINUA0TXYfaPmH
- Kdtg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RojAZEkKFMKXl11xQx0fuAtEPg48V9ICQAyUd23L5u53pyiXCHefvuJjE1CssMIavDsI5VB+Lrx5B4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWZW++c5jQJHoX9RE6hV9sgnEH1G0bNRBX6NbvEEaMJRDMZZJA
- t8df2ao/IRh/Ozw3lFVDA94bTGfpKnRidQKCi/u71RLIjwGdKh/RjNLfs0ppSx9fdZIz6s04KKN
- 5+DJe/jhxykj8lxBO1ompxFD1PpoXAJlZ0Xp9MYD3SSzfQbSDiWWlupynUNHMXVNdbR9SCN8=
-X-Gm-Gg: AfdE7cnuYe+WKLwSNqR3q/aTE9g08opXFcL0EeyliD3/1XkKryOOT04EKw3M5SQ/8QY
- ZtwRlNNQgHCiEmzpk2ui5kL+cjPMl/quHUGcoBrSRhd1nGtRej+t1c1otWQPdln1blxz03ZkPuW
- jsQIBhT4uu0FXw8UiKvr5mF/hFunCV2NFB3DiYY9uXy5Pnn3zrE8jCEuBhIWLsbU7ayoxJG275L
- HyPQG+jzmtPnxsIYCX5NPMrLl75/hosdQCrHFvJVNdvrxWLkZ8my3MEfMk+ik29xjLaL8PewQGU
- OC/WO9lkikcY12fqLynla20DikOLtLMCp76I4X+4mgUE8gfbKjtl/4lljaabw3lLJ+WJI3M3iKY
- HSBEtdAfcLbq3NabWQtiY1TiT1A0WbYw7DRE=
-X-Received: by 2002:ac8:5910:0:b0:51a:8c9c:7f58 with SMTP id
- d75a77b69052e-51c4bf4718fmr84324641cf.11.1783327249009; 
- Mon, 06 Jul 2026 01:40:49 -0700 (PDT)
-X-Received: by 2002:ac8:5910:0:b0:51a:8c9c:7f58 with SMTP id
- d75a77b69052e-51c4bf4718fmr84324361cf.11.1783327248523; 
- Mon, 06 Jul 2026 01:40:48 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c12b62c4b52sm690724266b.47.2026.07.06.01.40.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2026 01:40:47 -0700 (PDT)
-Message-ID: <0ae3a788-2061-4bee-835f-d08ecb2a1d39@oss.qualcomm.com>
-Date: Mon, 6 Jul 2026 10:40:43 +0200
-MIME-Version: 1.0
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010044.outbound.protection.outlook.com [52.101.46.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5B5A10E827;
+ Mon,  6 Jul 2026 08:43:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IoxtQVu9EpOX2kkt0lYdHySa6lSKnoyf+zhtF9nWhMWN+fRAvoXRTgAE7MlpWzQYSoJIxVAkQpm2rIbWnFNBn9iBRlNG6h8RZbVhYFq/6gDd/rlfzd4Ev1cXD6MhM2TwglQ/lCi6SqrJqDn9p+hmL6f6NWpN6RVJfinShrge/lvFa5ceTwtf2BccWrwS1R5F8X6oheXUanKf8m9xV/OymVfJEJTFgF0mumrmGgdicLtEX3zLGDUlu/Us5y5iWKBvHd4Y4a2xWI83RU52UKZSYDAvvFcGPbM24PwJN/oHY1W9OPL3So/zEBB8KtB5ptAIb6UmblWt+AZT+halvaCgXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rduim58xNR9xaovaeUrX+Z3fnbrBJg8nBV11gj9AODQ=;
+ b=sCZOFXCTrY1S3Ee5RYNsSPaKEBFMI75Sv/Squx3vgJnBLRPQ/Thf2xRHjOfxNdtEgxyacxIq/Oql3zTrEnCEpFTfoN8zUS/U9vIQMbBu40rnM2kaWAGBH916quD5LJ0L4GU30yutzInR2Iq38ix+4elw7FVHFpGdOl4QkGr8tmrimhMpOzZMkF5UojNoAs7hfuI1XK7TTDhYZ61Ooh++uIwYs9tZoUiII+ABu0e0vfwrSK9f7W6GweQGQI0XY4DNQ3axu/WiR/4TTx5xhgxT0fJNzUcpCVcFavNIFAdgxIykMgAdysDJ+XvHR2RIFFqPe47No9x8lY0UWUIrtz0AiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rduim58xNR9xaovaeUrX+Z3fnbrBJg8nBV11gj9AODQ=;
+ b=WZUZydKuTQEAY9VQBo+SSiOQDgjaHWWfO5ygYvpWSxDu3ueyaaj9xrgugVaEy8JzvfRnmywtTXxciTdMwfNGd+JwMaXtnARTPwyEBoaeE2Svp9TcA+tAuA/TQvczC6QSE0Q3v1zef/Ol0sHPMAKt+RISvwOFjRNSTOVUavfRH6U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8361.namprd12.prod.outlook.com (2603:10b6:930:7b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
+ 2026 08:43:42 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
+ 08:43:41 +0000
+Message-ID: <84fe315a-bbf2-4dc8-bc75-89e5743d0ea8@amd.com>
+Date: Mon, 6 Jul 2026 10:43:34 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 04/13] arm64: dts: qcom: sm8650: move smmu sid 1 to
- new lpac device
-To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
+ flag
+To: Natalie Vock <natalie.vock@gmx.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-4-01d50c3e0c99@gmail.com>
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-4-01d50c3e0c99@gmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA4NiBTYWx0ZWRfX9IDH4R+m1I7c
- Y72690u0XSpkvnsp/Ki40g+zZTaXEe2Semr1ha/zmUWLR035gr9qydClwNsox1WA5mMveVKpfQ4
- 0BU8yDFBkCxpEO1iPat0TUvryz3HD5Y=
-X-Proofpoint-GUID: V8nDSJl0zVf732oQ7n2wjN964dEAZhs9
-X-Proofpoint-ORIG-GUID: V8nDSJl0zVf732oQ7n2wjN964dEAZhs9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA4NiBTYWx0ZWRfX2AB1lOh9P2dh
- 0/+kSHK539yNJJJpqt9p+zQvnn7GrGg74nUqeNMrrnf1JxQV7ZdEmGSXBMPiJ1BMEEwWAAh7STE
- YUvkHeGgf39/GZqc+ucCQfEtYqZAwcZXlxs02R8mJF0dqbM578aKr8LBWdnIgWnCl1MdC7vne45
- Q16T6le5grKqJw7bwGPqA9c8vcQVqQn7x7e6egFO93lNgxABzS83DZKkCpyeE7Qyw+047jj0WCQ
- 7wJ8dVu53FmsrfPFdAEdEousPiLQUH5gqOGB2IdanlcvUNgg5Aufuky5gSxHrHrB8McL7s4nz2P
- TdSQyyKnHsbjB31Ah7Rt4QXsDQyzmYL1jYvZoYMafDr24l7LkMasp+P7z90Xw5DwjoMuDFn+AUT
- fZs/Ecma2RNndy67nc0MB3zpF4EdZxncLds6NUevqflKK9vC7kNZD3r6IXlWrOz4mIuTL9Wsdu3
- CuTCDUEtueDhXIxnSgw==
-X-Authority-Analysis: v=2.4 cv=HLLz0Itv c=1 sm=1 tr=0 ts=6a4b6a14 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=cDqsbA2g2SHu6s1Cd_QA:9
- a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-05_02,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 impostorscore=0
- phishscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060086
+X-ClientProxiedBy: YT4PR01CA0061.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:111::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8361:EE_
+X-MS-Office365-Filtering-Correlation-Id: 345c064d-6df2-447e-83fe-08dedb3aae74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|7416014|1800799024|366016|921020|22082099003|4143699003|56012099006|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: QqQ80lAojKsEAR0lnEl9DZDGXJoj5PThOLypXSDJkEtAY5XJyM6+x1dyjgfCHI+9tO1Ld2VvwIMmppBM7seucmSwbFXrRwX0CBV2nJ86+a8bHoOB0ZOSkweDRfEypRsPj9XoXafX80x45qOcK86e+EPWSYDKW1GdTzx7V5sj9mwy/d8DkDqdJw6QvJ1rZkmJEu193wHIs5D36e7oEFajT6nojdeNLR9p3CHDssCxHYLs9mIdHmVTArOvhmN7C/HGn6AgokVU6uJU99P3WLsQnaBJf3x8M+enyo15oLZ74GklXqE8oLN2xCKpZggnSFfL9UPkU2sDN5zeVwKoYC7cjLd6KljGEZq722zdqCd3Lwg4w+e8I3dcdZXONnV3HHX7bOimkKZsaSlN2RJYZAEoHRQwhFNUMKPbhbtuTr/OlQ+I9t0rl4MqpmB4FzB0ue8VZRplFe6D6DXncbMviHpsvQQnWLB8fM4JYKDFHwzGxGS0everNsbS/+6pA0i7t4ngZJ382tp11pWCotJQT+NzPmVqMl5zfcgQ0PXKjBDpIdESPa0VkUfX9ENUa2X0yoaaqpRqg6+nt43TtdzaeSVKf7y2+2JRNonbkF+e7Q1QuQlOAc4TXRDFpKDxV6l2rlF8R9Gkwvl/26p9GOTTxZ1P7CGEHzareH2akx5e3nXFAIc206lsVEPTaJd+ms4+9pjbxKEc3Llwtt9Q56LQy8XCEw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(921020)(22082099003)(4143699003)(56012099006)(18002099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmxaUGR5aHhNZGhxNy9RZnNQUjZSTVNjbWZ0b2dFUzNGMGJHODM0L0kraHAv?=
+ =?utf-8?B?Z0xkYXRmbHQ5QjRyV3dxWXlWZGRCblZzcjNoc1IzVWJZSzR0N2NsM21xWVdO?=
+ =?utf-8?B?Y3ZXUlNPOGx4SmlNeWJVb0djYWdmSFBUeFJYUm9RbU1zWHJRS3JZTWhveVhj?=
+ =?utf-8?B?bnVJMytiTjZRUnZmdHVlOTFyZlhXYy9sc1N3R0NkaVFNd1hTMWgxcDBQM2lm?=
+ =?utf-8?B?bXgrVzlHK1NOVTVFVGZGYWJLTDZCOUFrcWw3NkRick1IQ3VheDNmUkNpZFo2?=
+ =?utf-8?B?OGtPWTh2VXh0c0FtVzlQekt3cFhCcWkvYURoa29STVUrUjMwNGlPbXE0TEhZ?=
+ =?utf-8?B?V2RqSGtQbGpFam5SQ1Q2bmx3ZWpDQi93cEFndWtRNVYveFk1MUZDdzBzaWJs?=
+ =?utf-8?B?RmJOdjNXZi9oRDVaZ0p3N1lPU1Y4d01CRS9tWlUvT0xSNzA3Y1hHMExCdDNr?=
+ =?utf-8?B?c1phNFU4a0xVaWdnU0NiRk5pR2pVY1dPZ1BpbkM0bCt4WkNVVGVkaXBpRVRB?=
+ =?utf-8?B?Z0NEMm9LUzZaS2hUQlpqVjhKV1N1YmpSM1A5Y2hpaUoyMzM5UU94N1BBeE1r?=
+ =?utf-8?B?dXFWYTAwcnZIT1NDc3N0OE5LRkJuTng2M3FUajN3T3pvL0J2NmgrTHh4RUZl?=
+ =?utf-8?B?cDdTZzZjb2Y5SjJTUll6V3lFMFd4OTlWTVVyWFdqMlFTK0VtS2ExWEoxL0Vm?=
+ =?utf-8?B?b1g2M0FhSkFoVlNtYXFHUFFudHd0MC9wTlp3Y2ZJdWVRanE4Y3VrWmwwWGJQ?=
+ =?utf-8?B?dnRrY2k0dHVYZ3hhZkJzemd6THZrZnZTK1lQNC92dSthSDF1aXFPdzdaL2JY?=
+ =?utf-8?B?dTgzeVJMUjdIMXpjZk5nWGZXWFp1MEhGM3VNNkNQRXB0K0hvSmlmZVp2WGlI?=
+ =?utf-8?B?dlEwS0xkRHl2QkN2dWxubzBzS0t5RHVFRWZ2eE1Jb25aV1FyUTJKQ1ZJUzk2?=
+ =?utf-8?B?cjNXUGZ5NWFzbTNOSVFqOGh3T0FkT1FoZ01TOTdmTzZDZGlHTGFiY0NMOHpF?=
+ =?utf-8?B?dVRWc0p3RG5UdVd5eFhESUZBamlORXVQdGFGekhINU11cDRSTTJIYXhtRGdR?=
+ =?utf-8?B?UXV2TGxndkV6TTBvLzZiVEJPNm5vbnN5M2FPd2s4SnJNaDVrTFpUZklONjY5?=
+ =?utf-8?B?MFZnMXYxUUVBSU1LZnZOR3QzdC9VamR4K3ZSb244U2RQczlQY2FmR3BsNWlL?=
+ =?utf-8?B?MmkwZjNNTDRJNVdpWVk0LzhUaUFJTkkrclM3Yy90SUJiRnoyQ0VETktjclJX?=
+ =?utf-8?B?enYwR0JzbS9raGJ0S04vY3RhZ1pITFZUMTFJaGFDNmRIdTFoMU9mMjVyeCtR?=
+ =?utf-8?B?dTFRN1BUWlE2a2ZLRGRTSXdKTFVScmJoNW5MSFRXcGNTK3V6ZEkvdkk3TkFG?=
+ =?utf-8?B?NzJvbEp4UXdpbXJSUTVqazltZngwOStOL3pzWG8wSnlZZHo5bmtnd1dMbENL?=
+ =?utf-8?B?SWlhUjlQTnJReHRTaVBhYm5oTFFCQkptZExqSklTVjRjMGFuZDh3QVBJTk9W?=
+ =?utf-8?B?T0d5bjgweUtnaExuekdFSjByTVhpemgvZXpock1yZTlyNnd0TCtJbkpYRVdk?=
+ =?utf-8?B?UHdHOHdDbnpzSDY5eTdlY21qVFc1cURvWWN5UVIzVDJncWpQLzlSWWtURVVI?=
+ =?utf-8?B?OHRxaFFxYlhyUDgzUUR6ZjYxeG9lcDFkYkdzanFrZXlrZ3Z3VXlxWEpPMGlx?=
+ =?utf-8?B?eE1VVmU3WElUT2dVWm4wWURXVmJZcjdlMlJ2cUlRaXREVnVXYnc2ZGdMbmxS?=
+ =?utf-8?B?R0xuSHc2VXRvWG1CNFpFUDJmZUErdTZSQ2FHOGlpdFRIa1lTL1BScUtoZmpC?=
+ =?utf-8?B?Ymx1UDNFbEsxMWpnME5OeWVIdVo3cXRrbUdhVHd6VXliSDNXaVlzamVyYWo4?=
+ =?utf-8?B?eiswaERSa0ppWGNnSkllSm5SMzIrUmM0MjBIQkpyRUdtK25WWnduSjduRklS?=
+ =?utf-8?B?bjNJRnprK25la1Q2alAzZ1RwR1hNV2RRaWhYUWhkUEEwTU9EZVQxQW15N2Nl?=
+ =?utf-8?B?SlVYTVMwY1hQdUE4NTJMc1M5dk02aUtUWUdZM1ptUENicTFkbzZ1L2pQSStR?=
+ =?utf-8?B?b2ZNWHByMU4rNWNIMFlNNE05Q24wT1N0Rk45dmJVaEpqRkUySXdIS0dBcm1r?=
+ =?utf-8?B?cFdDQkhLRnFZVGpxNEtYZlM4MlV4enNJZXlTMExWcDdWdDlMcEdvd1k0VlZO?=
+ =?utf-8?B?N1Irb2o0OG1JUGsyZnJNTExHM05kdkZYaE84d0lNU2ZlZldwWk9xT0dRczJq?=
+ =?utf-8?B?Z1QzblFuSkhESmFTQUR3cE5aWHBVWDY1Y2J6ZGU3ODZWRElGK09HNkluNk9p?=
+ =?utf-8?B?L2xBNVRtYjI3cFpCNUZwNk5pVmhYcjlNWjE3bHVUK1V2UFBMWTlFZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 345c064d-6df2-447e-83fe-08dedb3aae74
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 08:43:41.7024 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ox2Vx7TvMeXcltIBq2PpsLqag+PiGnhcL7+FiwM8t/OlinejHfzHTpo9ntNUJZTE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8361
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,39 +149,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/5/26 9:13 PM, Anna Maniscalco wrote:
-> Previously both SID 0 and 1 where associated with the same domain.
+On 7/3/26 18:31, Natalie Vock wrote:
+> TTM is about to switch to drm_exec for locking objects
+> in the LRU list. When we're done processing the object, we want to
+> unlock it only if the caller doesn't already hold that lock. If
+> DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which callers may
+> require for unrelated reasons), we have no way of knowing whether the
+> lock is already held.
 > 
-> When LPAC is not used this is needed so firmware can acces memory when
-> initializing using the same page table as GFX.
+> To remedy this, add a separate helper that forcefully bypasses the
+> IGNORE_DUPLICATES flag for only a single locking operation.
 > 
-> To use LPAC however we need to move SID 1 to a different device.
-> 
-> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 > ---
->  arch/arm64/boot/dts/qcom/sm8650.dtsi | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/drm_exec.c | 52 ++++++++++++++++++++++++++++++++++------------
+>  include/drm/drm_exec.h     |  2 ++
+>  2 files changed, 41 insertions(+), 13 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> index 1604bc8cff37..44e5f9d4b335 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> @@ -4133,6 +4133,13 @@ tcsr: clock-controller@1fc0000 {
->  			#reset-cells = <1>;
->  		};
+> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+> index 7988f5e7d56a3..91de6b4d29df8 100644
+> --- a/drivers/gpu/drm/drm_exec.c
+> +++ b/drivers/gpu/drm/drm_exec.c
+> @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
+>  	return ret;
+>  }
 >  
-> +		lpac: lpac@3d00000 {
-> +			compatible = "qcom,lpac";
-> +			reg = <0x0 0x03d00000 0x0 0x61000>;
+> -/**
+> - * drm_exec_lock_obj - lock a GEM object for use
+> - * @exec: the drm_exec object with the state
+> - * @obj: the GEM object to lock
+> - *
+> - * Lock a GEM object for use and grab a reference to it.
+> - *
+> - * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
+> - * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
+> - * flag), -ENOMEM when memory allocation failed and zero for success.
+> - */
+> -int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+> +static int __drm_exec_lock_obj(struct drm_exec *exec,
+> +			       struct drm_gem_object *obj,
+> +			       bool always_report_duplicates)
+
+Rename the new parameter to ignore_duplicates.
+
+>  {
+>  	int ret;
+>  
+> @@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+>  		return -EDEADLK;
+>  	}
+>  
+> -	if (unlikely(ret == -EALREADY) &&
+> +	if (unlikely(ret == -EALREADY) && !always_report_duplicates &&
+>  	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
+>  		return 0;
+>  
+> @@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+>  	dma_resv_unlock(obj->resv);
+>  	return ret;
+>  }
 > +
-> +			iommus = <&adreno_smmu 1 0x0>;
-> +		};
+> +/**
+> + * drm_exec_lock_obj - lock a GEM object for use
+> + * @exec: the drm_exec object with the state
+> + * @obj: the GEM object to lock
+> + *
+> + * Lock a GEM object for use and grab a reference to it.
+> + *
+> + * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
+> + * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
+> + * flag), -ENOMEM when memory allocation failed and zero for success.
+> + */
+> +int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+> +{
+> +	return __drm_exec_lock_obj(exec, obj, false);
 
-I think this could work better as a subnode of the GPU (or perhaps
-if there's no "actual" separate address space, maybe just iommu-maps?
+And then use "exec->flags & DRM_EXEC_IGNORE_DUPLICATES" here.
 
-for something also making use of the latter, see patches 1-5 of:
+> +}
+>  EXPORT_SYMBOL(drm_exec_lock_obj);
+>  
+> +/**
+> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always report duplicates
+> + * @exec: the drm_exec object with the state
+> + * @obj: the GEM object to lock
+> + *
+> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a reference to it.
+> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and duplicates are
+> + * always reported.
+> + *
+> + * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
+> + * already locked, -ENOMEM when memory allocation failed and zero for success.
+> + */
+> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
+> +				 struct drm_gem_object *obj)
+> +{
+> +	return __drm_exec_lock_obj(exec, obj, false);
 
-https://lore.kernel.org/all/20260610-glymur-v8-0-1c79b9d51fc0@oss.qualcomm.com/
+BTW That here is buggy, it should have been true.
 
-Konrad
+Apart from that looks good to me,
+Christian.
+
+> +}
+> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
+> +
+>  /**
+>   * drm_exec_unlock_obj - unlock a GEM object in this exec context
+>   * @exec: the drm_exec object with the state
+> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> index 8725ba92ff916..ff80dd2b72240 100644
+> --- a/include/drm/drm_exec.h
+> +++ b/include/drm/drm_exec.h
+> @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
+>  void drm_exec_fini(struct drm_exec *exec);
+>  bool drm_exec_cleanup(struct drm_exec *exec);
+>  int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
+> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
+> +				 struct drm_gem_object *obj);
+>  void drm_exec_unlock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
+>  int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
+>  			 unsigned int num_fences);
+> 
+
