@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53795C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:43:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCDBBC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E0A10EA9E;
-	Mon,  6 Jul 2026 19:43:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1FAC10E274;
+	Mon,  6 Jul 2026 19:47:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CA5ly8zC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W6lPCCJM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1404A10EA9E
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:43:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD7410E274
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:47:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D481740F1C;
- Mon,  6 Jul 2026 19:43:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D871F000E9;
- Mon,  6 Jul 2026 19:43:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 640BC6138D;
+ Mon,  6 Jul 2026 19:47:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1DB1F000E9;
+ Mon,  6 Jul 2026 19:47:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783367018;
- bh=LpYBDzzTpttvxZ5Prf6UTUzPZ6dzUGSbel8XI7kLx+c=;
+ s=k20260515; t=1783367277;
+ bh=9h1dkj/a801+juvT6n1q1xdaTjaRLzkZOCHODrSF9LI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CA5ly8zCxElI0S9SwfsRdKOPley0dGdAR4UN/USh7CXrLnT7DufZzWgpPo4f3VBwT
- oEoXXCQhH0IkSuVMGO3+zLxy37q6dTyt1SxU8ta6wGhmQKk6tsOpWucJiww8fvwWn8
- q7nBJnQDRLGC3XxVcyxPC1i/k8x0XgunsaUK7WFFOZ2HmnQ/ro3qdMZu328lsbPI9d
- DW22fhWhkAyExxKGm+qO+PV2ysz+ehLCLgme+UOEfjYXTPDURMBBGLdDX+R2eGSISY
- ejY4Chzb6siLy+GfhGG1P+kS15rCgAmvXIBreSeuK2l6FNPUDfPV33CZd6FZ+xavAk
- q/B6AzlWL/FGg==
+ b=W6lPCCJM0quK7a59pG0/cFrCk0OTm+X1DK28ZwwocIWi4YeeUNnE6djztR/Fox6lf
+ /kYG2GEalz3u/VTrM6dKCWM1TV3my+8BBIoIYbAVvNlWF6PlmQzMhTJ2Dc7/6WReX9
+ Il342AzwrmUkV129GxtHv5//VGhU/ErcPJ0cmCwvUUXskEhbKVLHZUmItx+KQ0ST8k
+ vaItVjLFWb0sJ9kanqirJYqtLvlkT76HAWs1t2P9Tw14ZBDCTQLRxbmWU7nujFvxBN
+ VlEINuAHOwsJmPh9ie4NusC3VYvTKyfiVbRh7hsk2qOGGCi6mpO2mn9yDVE+6KB36/
+ 2EPUmZrRflFvg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/13] drm/rockchip: dw_hdmi_qp: Support 10-bit
- YUV422 output format
+Subject: Re: [PATCH v2 05/13] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
+ overflow on 32-bit
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-11-b91beb33dedf@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-5-b91beb33dedf@collabora.com>
 References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
- <20260706-dw-hdmi-qp-yuv-v2-11-b91beb33dedf@collabora.com>
+ <20260706-dw-hdmi-qp-yuv-v2-5-b91beb33dedf@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 19:43:37 +0000
-Message-Id: <20260706194338.68D871F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 19:47:55 +0000
+Message-Id: <20260706194756.BA1DB1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,89 +59,124 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The `atomic_check` callback incorrectly modifies driver private ha=
-rdware state (`hdmi->tmds_char_rate`) and invokes PHY configuration functio=
-ns (`phy_configure`), violating the stateless nature of atomic checks.
+- [High] Sleeping functions are called from CRTC atomic enable and disable =
+callbacks, which execute in atomic context.
+- [High] 32-bit integer overflow in MIPI D-PHY target clock calculation bef=
+ore 64-bit promotion.
+- [High] 32-bit integer overflow in HDMI PHY link rate calculation.
 --
 
-commit 6a5a6d9518ed6863c0bd7d0093aee570c295458a
+commit 5fecee5ab858bfe428aa0c5173e40c8dd13919cc
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
+drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
 
-This commit adds support for 10-bit YUV 4:2:2 output to the DW HDMI QP
-encoder by configuring the PHY with 8 bpc when YUV 4:2:2 is in use. This
-keeps the output clock aligned with the TMDS character rate.
+This commit fixes a 32-bit integer overflow when calculating the maximum
+DCLK for the HDMI PHY PLL by redefining VOP2_MAX_DCLK_RATE as an
+unsigned long long. This ensures the value is evaluated in 64-bit
+arithmetic, preventing high-resolution modes from being wrongly rejected.
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 9c4cf68d79d50..78473f9a0fce3 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> @@ -215,6 +215,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_e=
-ncoder *encoder,
->  		s->output_mode =3D ROCKCHIP_OUT_MODE_AAAA;
->  		break;
->  	case MEDIA_BUS_FMT_UYVY8_1X16:
-> +	case MEDIA_BUS_FMT_UYVY10_1X20:
->  		s->output_mode =3D ROCKCHIP_OUT_MODE_YUV422;
->  		break;
->  	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-> @@ -226,7 +227,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_=
-encoder *encoder,
->  	}
+Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel=
+.org/
+
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index e966c0a0266ea..0799eb0dd29fc 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -102,7 +102,7 @@ enum vop2_afbc_format {
+>  	VOP2_AFBC_FMT_INVALID =3D -1,
+>  };
 > =20
->  	phy_cfg.hdmi.tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
-> -	phy_cfg.hdmi.bpc =3D conn_state->hdmi.output_bpc;
-> +	/*
-> +	 * YUV422 always transmits two 12-bit components per clock cycle,
-> +	 * regardless of the color depth, which from a rate perspective is
-> +	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
-> +	 * keep the PHY PLL output aligned with the TMDS character rate.
-> +	 */
-> +	phy_cfg.hdmi.bpc =3D (s->output_mode =3D=3D ROCKCHIP_OUT_MODE_YUV422 ?
-> +				8 : conn_state->hdmi.output_bpc);
+> -#define VOP2_MAX_DCLK_RATE		600000000UL
+> +#define VOP2_MAX_DCLK_RATE		600000000ULL
 > =20
->  	ret =3D phy_configure(hdmi->phy, &phy_cfg);
->  	if (!ret) {
->  		hdmi->tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
+>  /*
+>   * bus-format types.
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this violate the DRM
-atomic API contract?
+This is a pre-existing issue, but do vop2_crtc_atomic_enable() and
+vop2_crtc_atomic_disable() call sleeping functions from atomic context?
 
-Modifying physical PHY hardware state and persistent driver state
-(hdmi->tmds_char_rate) during the stateless atomic check phase could cause
-problems if userspace issues a test-only atomic commit.
+Looking at drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:
 
-If a compositor issues DRM_MODE_ATOMIC_TEST_ONLY, phy_configure() will prog=
-ram
-the PHY hardware and hdmi->tmds_char_rate will be mutated. When the test-on=
-ly
-commit is discarded, the PHY is left in an unexpected state.
+vop2_crtc_atomic_enable() {
+    ...
+    vop2_lock(vop2);
+    ...
+}
 
-A subsequent real commit might then hit the fast-path check earlier in this
-function:
+And:
 
-    if (hdmi->tmds_char_rate =3D=3D conn_state->hdmi.tmds_char_rate &&
-        s->output_bpc =3D=3D conn_state->hdmi.output_bpc &&
-        s->bus_format =3D=3D ingest_fmt)
-            return 0;
+vop2_crtc_atomic_disable() {
+    ...
+    vop2_lock(vop2);
+    ...
+}
 
-and skip PHY configuration entirely, leaving the hardware incorrectly
-configured.
+According to the DRM display hardware programming guidelines, CRTC atomic
+enable and disable callbacks run in atomic context during non-blocking comm=
+its,
+where sleeping is strictly forbidden.
 
-Could this lead to hardware misconfiguration, visual glitches, or black
-screens?
+However, vop2_crtc_atomic_enable() calls vop2_lock() (which takes a mutex),
+clk_prepare_enable(), and vop2_enable(). Similarly, vop2_crtc_atomic_disabl=
+e()
+calls vop2_lock(), wait_for_completion_timeout(), clk_disable_unprepare(), =
+and
+vop2_disable().
 
->  		s->output_type =3D DRM_MODE_CONNECTOR_HDMIA;
->  		s->output_bpc =3D conn_state->hdmi.output_bpc;
->  		s->bus_format =3D ingest_fmt;
+Can this cause kernel warnings, system instability, and potential deadlocks?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the MIPI D-PHY target c=
+lock
+calculation in dw_mipi_dsi2_get_lane_mbps() overflow on 32-bit architecture=
+s?
+
+Looking at drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c:
+
+dw_mipi_dsi2_get_lane_mbps() {
+    ...
+    target_phyclk =3D DIV_ROUND_CLOSEST_ULL(lane_rate_kbps * lanes * 1000, =
+bpp);
+    ...
+}
+
+The multiplication lane_rate_kbps * lanes * 1000 is evaluated in 32-bit
+arithmetic before DIV_ROUND_CLOSEST_ULL() can promote it to 64-bit. For
+high-resolution outputs, this could exceed the 32-bit unsigned maximum and =
+wrap
+around.
+
+Does this result in an incorrectly configured PHY clock?
+
+[Severity: High]
+This is a pre-existing issue, but does the HDMI PHY link rate calculation in
+rk_hdptx_phy_clk_set_rate() also suffer from a 32-bit integer overflow?
+
+Looking at drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c:
+
+rk_hdptx_phy_clk_set_rate() {
+    ...
+    link_rate =3D DIV_ROUND_CLOSEST_ULL(rate * hdptx->hdmi_cfg.bpc, 8);
+    ...
+}
+
+The expression rate * hdptx->hdmi_cfg.bpc is evaluated as an unsigned long.
+On 32-bit architectures, this is a 32-bit operation. When rate is large (e.=
+g.,
+594,000,000 for 4K@60Hz) and bpc is 8, the product exceeds the 32-bit unsig=
+ned
+limit, causing an overflow before promotion to 64-bit.
+
+Could this yield an invalid HDMI PHY link rate and break display output on
+32-bit architectures?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-dw-hdmi-qp=
--yuv-v2-0-b91beb33dedf@collabora.com?part=3D11
+-yuv-v2-0-b91beb33dedf@collabora.com?part=3D5
