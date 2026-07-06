@@ -4,116 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE06C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 11:44:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 073BDC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 11:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 146E110E8EC;
-	Mon,  6 Jul 2026 11:44:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0542410E8F0;
+	Mon,  6 Jul 2026 11:47:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="NggWVh6K";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Bl2tDSa6";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013036.outbound.protection.outlook.com
- [40.93.201.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E753710E8EC
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 11:44:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y9PkXQmQmEzuXZafZsqeDbmOJ4rbPbnUdy6cZYRrKUNdMtLDLsG1SrrpBjRE50LHEphj8rDMM4g7pncUmA09euXUY4PlJl0xnVQR30LY5RGURNt9B8wxXjia7JtkhjtSpdZaKsifYOlPfQxMKd+8+7LZNyjWHm+lPktqorEu07iHG2JsjnNjq0xUhn7s5kE84WTcdNcot0EjKI/Td5NFQq9juVDl9noiA9WvUVl3wrwpE9TA8URbQXXJEvM9skEQ0EsMJQcMOZnRs6V6CtimHZoB70lGWbov16eDcmFGerDZPygipmJOR5rlBtwB1ftiixBTDkOA01KE8cc/UoOSBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=50hSusGbINequJ6V8rQrPHZZwZ3qW2b4imyJ8FnwF88=;
- b=bi3IwrF8oRJKpyfu2W6vzb785b9Yg13uNxqMPaxMywY0Fb6M0AkmVRGVE7gpaTQ7uWQ+i3yg+DvVrh9naunsWzM5dIx57PrnxajdBYYqYiEmKTKD0kyZy8NRkqYIidkXXxXMpzb6fY+XsflYFIX+q+3uocw+iPGjca6izkWofEhlxdaJo4B+h84zOPZcBafbLk8IY3tFy25u794ojicHmGDbJxxhf8aPaIBifHXu4zl/ybivOscRCgex9sxpGq5u1ad+7HPbBV3AOPdRJNsYUe0qAdscItfmvopeRdOBHb3y9hN0Bc4ZBKiHuu/JyCNdd7kcp5KFjXqlD0G1pC/x5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=50hSusGbINequJ6V8rQrPHZZwZ3qW2b4imyJ8FnwF88=;
- b=NggWVh6KjHy0x2MtkWucurajgY81dtfeIRzQcZxq2IY39kju3FdYZvy/9Yy2m380nwK0sCk9R/A14jE3ll72vKtXRnXLFP10or5xp7gtGH5OvQR1neqMEPHu9sRj0tb9K18MfI+WglFD+5osgD9U3sIyNhdwft8uCzSwUta0T0cZ4BE7z+pgbZ08SSXQR7BV2H/mSZuRkfhfAFVSzfA/cearaHcb6PFXUkOzAxIECxx7oBFj0HJLe2RGdRjkDXPtZ5Bl0gH3OKjd1EUV/vDaqJ037TpEfVg73NAgfz1MtD2smenyD86AXZtxB7n2h927VsoiUEHE9BvrKQOGGwR0Tg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- PH0PR12MB7929.namprd12.prod.outlook.com (2603:10b6:510:284::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.10; Mon, 6 Jul 2026 11:44:45 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 11:44:45 +0000
-Date: Mon, 6 Jul 2026 21:44:39 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Pedro Yudi Honda <niyudi.honda@usp.br>
-Cc: dakr@kernel.org, acourbot@nvidia.com, nico.antinori.7@gmail.com, 
- aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev
-Subject: Re: [PATCH v2 5/5] drm/nova: use `zerocopy` in riscv.rs
-Message-ID: <akuVDYsJHQanCsGe@nvdebian.thelocal>
-References: <20260702120324.40388-1-niyudi.honda@gmail.com>
- <20260702120324.40388-6-niyudi.honda@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702120324.40388-6-niyudi.honda@gmail.com>
-X-ClientProxiedBy: SY5P282CA0192.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:249::18) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3245110E8F0;
+ Mon,  6 Jul 2026 11:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1783338465;
+ bh=TskA10De5sCEJJEN8StO2HY+clf8coqbuFfS43dvE+g=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Bl2tDSa6jGnqhxqt7Nf4hYtoz1R0jxeV2qzbbGJ4AkVEjIHDAc/+EBRxpkF6paQ1E
+ cfvhzGyY160lDJmOLbaAwCz3rsTPjidl9R4vB+hBc33q89jkIK3H6Ww33jh+MDC8hh
+ zGCJtlRKRtk9SDiEQhv7rWcrW+DXc7BjQqDIT9o/Y6anr86rMztqnSYQcQtXjydw8I
+ X6NU7ZvT2Gzn6+ODUxkW4X2yoD/L0NR+d87Adv9ID2MIpmXgaH5xF2N32JU3d/IUS5
+ T6pny9lQwYek5vQq5L5P9mSoVSiuEFhpBDMTt+4pZHot/xQHP+SJjMyQ3tr87vaZrY
+ vE00QjuFt37Hw==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <williams@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v4 1/7] drm/i915/gt: Use spin_lock_irq() instead of
+ local_irq_disable() + spin_lock()
+Date: Mon,  6 Jul 2026 13:48:17 +0200
+Message-ID: <20260706114823.752313-2-dev@lankhorst.se>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260706114823.752313-1-dev@lankhorst.se>
+References: <20260706114823.752313-1-dev@lankhorst.se>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|PH0PR12MB7929:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57a98e28-623b-474f-1ce1-08dedb53f9f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|7416014|22082099003|18002099003|6133799003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: FABfW42y5V8DCpn2l6q33FIUcM4EonqoP/gGSDS/F00MRB5AF/1qpbghGOvKNbw0gJ1QkT/wwUmUkiIzvQOUWBbDuFVJbsdkL4bHa07WL6PpH8SfxCn9Ai865nOUMRveYYkQfKLrjXacDXXWe3ouHzoxSP4jjjWiU7zzlq5O9Z4hfkK6TNRmWOyb04YnOKav/f4W1bLakXoUTc9Uos6M/kz9gi47Y404/Cy6wKU2UgXrCDAzugrLfoA3k3ErNYl4MkiBhI9S9muO/WHCtCvH2TxrcNMLyF/v+ufrA3lzXoQQEd4P4GkJUktG4iujf8dsZ04dRpL+oXPxS2xdQn9Lb1nN1KZHjBAwCRy6TgD9MqnkiKCF8ItSJTtn0feCCzuEN7ouwgHDlDE1cCSvQ0jt0TfPFEnud2bs9PPKunIUtf06j+FwO59ZHWLjoqa6Jqimza7CV3X2/8j7VtqCy4aZLMXsKD8FblrfdAUqKFoWMxbhtAdqon8SU/KRKOpJdLZCKAvpsrr6d/V3M+u8vDUzo8yTkzQEHuHUEmOMw/fjyXf7Y0Ry8YyF611x5kT3Lsldj/7xa2Iy7Xc7sNGOowyIKplXUAgMPNIIa6SHEz/rthUECGnMk8Ae+6yD9FGBchwg5t3iOlP5BTwDk4hMGfnVmaH9FRBYJFSx/fi63kslvrs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zgvYO2Kwf7kSuKcpKFOIArjpfkZcTP+NYiHBVD+79BL/uCUNrSlr7N64K785?=
- =?us-ascii?Q?oB8Pr5EPBxf0XRcaFWrGqexsAyA6mah/lEia5DH6kSuopcCwX9XzZp9y8erP?=
- =?us-ascii?Q?L/Yq9PSf/FxUR9tS34uV0va85U/nPCiLXl5WmrgltT4cDNLiJ4as/tL7J5GM?=
- =?us-ascii?Q?VNUPkNTu1YgBMMaiWRXRoG2AbYLeLbC3UwwRIzbGVtaSg7EcCLnylMqBWGW4?=
- =?us-ascii?Q?OhFfx8JTV9sbx44NsQX9MqFAnPQgukN8Eu2nKLvNSKO6GztpXKKKxeDYRU4P?=
- =?us-ascii?Q?37ncbbBWhPhXIfeRq7uHSrd0XAicrOKXa39zrzuelhX0SmjnLNxD0r+zvnT1?=
- =?us-ascii?Q?IwdHvxFRfv//egftYG5WHRi7w154UmiiXFLR3GBUmsYdnIBlDCEc9yUiCmNb?=
- =?us-ascii?Q?1ELFQH5vW3ZTQCJQv3GOqNnIasHcceZre4yVWHKetTYe9Qi1LSlWN0OAzH/f?=
- =?us-ascii?Q?I63KLcQZoHwnGmUGBSSe9QFFwqJiNGgPLllK1XZrc0UEHB/w31vfE62eOery?=
- =?us-ascii?Q?S8z9BMrUVQsoxLfc/O5bBh+tCsc3fOqNpqUwtxRw3fDzoxGycpkx7Bet0Oh4?=
- =?us-ascii?Q?GxG+cec+irOFEvvH2NEkJpSfeUNeLthDd3MDdNUVLaAelxg/OjvkLhwPPs9y?=
- =?us-ascii?Q?58v43gYWvF/CEU6cgvyYsuj3WVgPDKLqWdqMynYymfCx0vFZZy5CpSC0V5KG?=
- =?us-ascii?Q?tIyQlEQQXUKCu6ZHelYYnNBD9rcLfbv4ANNPgRe/aSXhr4xpp7I9b3heHMen?=
- =?us-ascii?Q?FZA+5DU8HIqPgNuelzZfnc+JQST3d2qBgNct1fZhC9QKQBjPSujmrRjrjXY4?=
- =?us-ascii?Q?CqYSxPsMVbg4+77dxMXypcfDOiitA9Qp0XbgruMfkFWEWuCQjjVQOMTNjp39?=
- =?us-ascii?Q?BBJDSyg9xPZVY4X9nG9gIW11667hSQ8gvp7j4RhzfCiNlrMgkzO+6wBScsLb?=
- =?us-ascii?Q?axz1yD2tW5RMhZ1aDQ3RzemWJanhiSarm3bEufj0jpbfh1bwkDpFC5IvbmL3?=
- =?us-ascii?Q?VuQP3l6tmivi2Ir+MdWk6GIQcxlAUtberUfeMsgBA8Z/7/wx2W/6SWIC5v/k?=
- =?us-ascii?Q?pBSz8qQ8nrvqKgHyadpQZ52j50tdzoVDxclL/0ADX3olhTKJR+YXt3yU6B8D?=
- =?us-ascii?Q?Wusq1+Wgd79SoSzDcU9LivGjjWuyTYzyGPDvizn0InMPB6y8ry8bOhmfl/l3?=
- =?us-ascii?Q?wpnzBg7/B9BYExQWvX9nN0IrUnjKD6nYzL7xAtpfGZrZL/jEV/OK4SfiARWU?=
- =?us-ascii?Q?tssoeIADS4bRVVVTrwbYh87K7ioZZMEneufYrpJWkcsnXScNxuf5SHp1VmL4?=
- =?us-ascii?Q?DM2QoYsMDSajMWOzxE1ufzLEUAncm4PJ7B92nut804cbik+NazEy5K4GLR0c?=
- =?us-ascii?Q?HwKnfvf4pqL644mF1AqyfNYg+qJULj6WCgvBiHanIVifinppOrA0kNHuukYo?=
- =?us-ascii?Q?HqxNzAyPqUJhd0uV+kSBQ23ukXQG/2lAt5WL851PRjFpHVWI5E8FqJi7q+Jq?=
- =?us-ascii?Q?hnjc+a0crrMsVD8l9FBFSD/fRoyYXIW6T69QZ4DvWSyC+e1MVQ0sW8Rk0S/O?=
- =?us-ascii?Q?g7LMurPYMNteeXC8rPeB99fCnQIRJPAFjQ4r5aF5pbk6BadSXzbZYnhS1yuN?=
- =?us-ascii?Q?lAlgn5gIHsFIgrFjjmeZY773HON2P47WsaAE2sXPo1k237aZMw8YDIgNNar/?=
- =?us-ascii?Q?gR52a2o676Cn75jrp0kcKK3nv1Z2/PZF9FpvuRXbhA8WK2D7JJrj+AoDxJoa?=
- =?us-ascii?Q?cvUZloQg8g=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57a98e28-623b-474f-1ce1-08dedb53f9f1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 11:44:45.7020 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JRhQwTzewMoo01THS4K6q0BJAtNgwr2lMcXcSFdqW8Lrhl+BLtRlk/q8lHN6NqOe6AN5tQbahR/O/5jExK/zsA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7929
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,67 +56,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-07-02 at 22:03 +1000, Pedro Yudi Honda <niyudi.honda@usp.br> wrote...
-> From: Pedro Yudi Honda <niyudi.honda@usp.br>
-> 
-> In riscv.rs, replave the following `transmute` traits with their
-> `zerocopy` equivalents:
-> 
-> - `transmute::FromBytes` -> `zerocopy::FromBytes`
-> 
-> Update call sites accordingly.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Thanks for the clean-ups.
+execlists_dequeue() is invoked from a function which uses
+local_irq_disable() to disable interrupts so the spin_lock() behaves
+like spin_lock_irq().
+This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
+the same as spin_lock_irq().
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
+execlists_dequeue_irq() and execlists_dequeue() has each one caller
+only. If intel_engine_cs::active::lock is acquired and released with the
+_irq suffix then it behaves almost as if execlists_dequeue() would be
+invoked with disabled interrupts. The difference is the last part of the
+function which is then invoked with enabled interrupts.
+I can't tell if this makes a difference. From looking at it, it might
+work to move the last unlock at the end of the function as I didn't find
+anything that would acquire the lock again.
 
-> Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
-> ---
->  drivers/gpu/nova-core/firmware/riscv.rs | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/nova-core/firmware/riscv.rs b/drivers/gpu/nova-core/firmware/riscv.rs
-> index 2afa7f36404e..ba56bc7d4188 100644
-> --- a/drivers/gpu/nova-core/firmware/riscv.rs
-> +++ b/drivers/gpu/nova-core/firmware/riscv.rs
-> @@ -7,8 +7,7 @@
->      device,
->      dma::Coherent,
->      firmware::Firmware,
-> -    prelude::*,
-> -    transmute::FromBytes, //
-> +    prelude::*, //
->  };
->  
->  use crate::{
-> @@ -18,7 +17,7 @@
->  
->  /// Descriptor for microcode running on a RISC-V core.
->  #[repr(C)]
-> -#[derive(Debug)]
-> +#[derive(Debug, FromBytes)]
->  struct RmRiscvUCodeDesc {
->      version: u32,
->      bootloader_offset: u32,
-> @@ -36,9 +35,6 @@ struct RmRiscvUCodeDesc {
->      monitor_code_size: u32,
->  }
->  
-> -// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
-> -unsafe impl FromBytes for RmRiscvUCodeDesc {}
-> -
->  impl RmRiscvUCodeDesc {
->      /// Interprets the header of `bin_fw` as a [`RmRiscvUCodeDesc`] and returns it.
->      ///
-> @@ -50,7 +46,7 @@ fn new(bin_fw: &BinFirmware<'_>) -> Result<Self> {
->          bin_fw
->              .fw
->              .get(offset..end)
-> -            .and_then(Self::from_bytes_copy)
-> +            .and_then(|b| Self::read_from_bytes(b).ok())
->              .ok_or(EINVAL)
->      }
->  }
-> -- 
-> 2.34.1
-> 
+Reported-by: Clark Williams <williams@redhat.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index e693b0c9d2a3e..841f719326756 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1300,7 +1300,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * and context switches) submission.
+ 	 */
+ 
+-	spin_lock(&sched_engine->lock);
++	spin_lock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * If the queue is higher priority than the last
+@@ -1400,7 +1400,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				 * Even if ELSP[1] is occupied and not worthy
+ 				 * of timeslices, our queue might be.
+ 				 */
+-				spin_unlock(&sched_engine->lock);
++				spin_unlock_irq(&sched_engine->lock);
+ 				return;
+ 			}
+ 		}
+@@ -1426,7 +1426,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 
+ 		if (last && !can_merge_rq(last, rq)) {
+ 			spin_unlock(&ve->base.sched_engine->lock);
+-			spin_unlock(&engine->sched_engine->lock);
++			spin_unlock_irq(&engine->sched_engine->lock);
+ 			return; /* leave this for another sibling */
+ 		}
+ 
+@@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 */
+ 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
+ 	i915_sched_engine_reset_on_empty(sched_engine);
+-	spin_unlock(&sched_engine->lock);
++	spin_unlock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * We can skip poking the HW if we ended up with exactly the same set
+@@ -1614,13 +1614,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	}
+ }
+ 
+-static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+-{
+-	local_irq_disable(); /* Suspend interrupts across request submission */
+-	execlists_dequeue(engine);
+-	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+-}
+-
+ static void clear_ports(struct i915_request **ports, int count)
+ {
+ 	memset_p((void **)ports, NULL, count);
+@@ -2475,7 +2468,7 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
+ 	}
+ 
+ 	if (!engine->execlists.pending[0]) {
+-		execlists_dequeue_irq(engine);
++		execlists_dequeue(engine);
+ 		start_timeslice(engine);
+ 	}
+ 
+-- 
+2.53.0
+
