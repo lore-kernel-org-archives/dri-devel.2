@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B2B1C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 02:43:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F411BC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 02:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9339D10E70F;
-	Mon,  6 Jul 2026 02:43:01 +0000 (UTC)
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AEF010E70F
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 02:42:59 +0000 (UTC)
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-626-aGMjOx-OPfScocOsh9L_cA-1; Sun,
- 05 Jul 2026 22:42:55 -0400
-X-MC-Unique: aGMjOx-OPfScocOsh9L_cA-1
-X-Mimecast-MFC-AGG-ID: aGMjOx-OPfScocOsh9L_cA_1783305773
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 55AFE1955F78; Mon,  6 Jul 2026 02:42:53 +0000 (UTC)
-Received: from dreadlord.redhat.com (unknown [10.67.32.13])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 84FBE300070A; Mon,  6 Jul 2026 02:42:46 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: dri-devel@lists.freedesktop.org, tj@kernel.org, christian.koenig@amd.com,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>
-Cc: cgroups@vger.kernel.org,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Waiman Long <longman@redhat.com>, simona@ffwll.ch,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH 10/10] xe: create a flag to enable memcg accounting for XE as
- well.
-Date: Mon,  6 Jul 2026 12:36:19 +1000
-Message-ID: <20260706024122.853329-11-airlied@gmail.com>
-In-Reply-To: <20260706024122.853329-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FAB010E71B;
+	Mon,  6 Jul 2026 02:54:04 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kPJCO6Sr";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D13B910E71B
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 02:54:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5033640C16;
+ Mon,  6 Jul 2026 02:54:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6D81F000E9;
+ Mon,  6 Jul 2026 02:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783306442;
+ bh=vMgSbHa1ylETPJCL+L28n9EOBOvi/dcTGwZaqZyGVG8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kPJCO6SrNFis12x+o4lXN/6zMN4hTZHmzHuV4QiFJ+AV2zvAR2jNIs53mTav2SK4t
+ GQDNmxIU3AXB+Q6f5QgWbe1zZyzmfsP//6DnnczcMA0vY3q9ZRBOFJI74dTwpDZ33X
+ x2w0rxjTh582SrRJkZhJgbKgRBGj30jIKF88fAWnS7I5UjzLIZVmnbEA4oSeVMAWbc
+ oRqLsMIPmmQjBS5w6+s+CzGsIIXHbq8I97E2E/TLno2mH3PAqJ1X6r/yzZsnJ3ipEw
+ jdDI21klwBcM18kqmyD3WBUUuJ2LzOLFAIcRXv5IaT7UCr4DDYh19xNeYfZr2wKfN2
+ MT/u001tPnw1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 04/10] ttm: add objcg pointer to bo and tt (v2)
+To: "Dave Airlie" <airlied@gmail.com>
+Cc: mkoutny@suse.com, dri-devel@lists.freedesktop.org, hannes@cmpxchg.org,
+ tj@kernel.org
+In-Reply-To: <20260706024122.853329-5-airlied@gmail.com>
 References: <20260706024122.853329-1-airlied@gmail.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: ZrVyY1FvxeDBKicMA_Lvb7QUGfhVgtX1XaVX9G4pn-8_1783305773
-X-Mimecast-Originator: gmail.com
+ <20260706024122.853329-5-airlied@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-content-type: text/plain; charset=WINDOWS-1252; x-default=true
+Date: Mon, 06 Jul 2026 02:53:59 +0000
+Message-Id: <20260706025400.8F6D81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,131 +54,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Maarten Lankhorst <dev@lankhorst.se>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Refcount underflow and use-after-free of obj_cgroup due to shallow=
+ copy in ghost objects.
+--
 
-This adds support for memcg accounting to ttm object used by xe driver.
+commit 0958e13ef29f184401c5e0dda949311750032e9b
+Author: Dave Airlie <airlied@redhat.com>
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
- drivers/gpu/drm/xe/xe_bo.c  | 10 +++++++---
- drivers/gpu/drm/xe/xe_bo.h  |  1 +
- drivers/gpu/drm/xe/xe_lrc.c |  3 ++-
- drivers/gpu/drm/xe/xe_oa.c  |  3 ++-
- drivers/gpu/drm/xe/xe_pt.c  |  3 ++-
- 5 files changed, 14 insertions(+), 6 deletions(-)
+ttm: add objcg pointer to bo and tt (v2)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 62f1da04ca2b..e016f0314d86 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -56,6 +56,7 @@ static const struct ttm_place sys_placement_flags =3D {
- =09.flags =3D 0,
- };
-=20
-+/* TTM_PL_FLAG_MEMCG is not set, those placements are used for eviction */
- static struct ttm_placement sys_placement =3D {
- =09.num_placement =3D 1,
- =09.placement =3D &sys_placement_flags,
-@@ -181,8 +182,8 @@ static void try_add_system(struct xe_device *xe, struct=
- xe_bo *bo,
-=20
- =09=09bo->placements[*c] =3D (struct ttm_place) {
- =09=09=09.mem_type =3D XE_PL_TT,
--=09=09=09.flags =3D (bo_flags & XE_BO_FLAG_VRAM_MASK) ?
--=09=09=09TTM_PL_FLAG_FALLBACK : 0,
-+=09=09=09.flags =3D TTM_PL_FLAG_MEMCG | ((bo_flags & XE_BO_FLAG_VRAM_MASK)=
- ?
-+=09=09=09TTM_PL_FLAG_FALLBACK : 0),
- =09=09};
- =09=09*c +=3D 1;
- =09}
-@@ -2384,6 +2385,9 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe,=
- struct xe_bo *bo,
- =09placement =3D (type =3D=3D ttm_bo_type_sg ||
- =09=09     bo->flags & XE_BO_FLAG_DEFER_BACKING) ? &sys_placement :
- =09=09&bo->placement;
-+
-+=09if (bo->flags & XE_BO_FLAG_ACCOUNTED)
-+=09=09ttm_bo_set_cgroup(&bo->ttm, get_obj_cgroup_from_current());
- =09err =3D ttm_bo_init_reserved(&xe->ttm, &bo->ttm, type,
- =09=09=09=09   placement, alignment,
- =09=09=09=09   &ctx, NULL, resv, xe_ttm_bo_destroy);
-@@ -3361,7 +3365,7 @@ int xe_gem_create_ioctl(struct drm_device *dev, void =
-*data,
- =09if (XE_IOCTL_DBG(xe, args->size & ~PAGE_MASK))
- =09=09return -EINVAL;
-=20
--=09bo_flags =3D 0;
-+=09bo_flags =3D XE_BO_FLAG_ACCOUNTED;
- =09if (args->flags & DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING)
- =09=09bo_flags |=3D XE_BO_FLAG_DEFER_BACKING;
-=20
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index 6340317f7d2e..d38012c60175 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -52,6 +52,7 @@
- #define XE_BO_FLAG_CPU_ADDR_MIRROR=09BIT(24)
- #define XE_BO_FLAG_FORCE_USER_VRAM=09BIT(25)
- #define XE_BO_FLAG_NO_COMPRESSION=09BIT(26)
-+#define XE_BO_FLAG_ACCOUNTED=09=09BIT(27)
-=20
- /* this one is trigger internally only */
- #define XE_BO_FLAG_INTERNAL_TEST=09BIT(30)
-diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
-index a4292a11391d..61aa5033a292 100644
---- a/drivers/gpu/drm/xe/xe_lrc.c
-+++ b/drivers/gpu/drm/xe/xe_lrc.c
-@@ -1661,7 +1661,8 @@ static int xe_lrc_init(struct xe_lrc *lrc, struct xe_=
-hw_engine *hwe, struct xe_v
- =09=09   XE_BO_FLAG_GGTT_INVALIDATE;
-=20
- =09if ((vm && vm->xef) || init_flags & XE_LRC_CREATE_USER_CTX) /* userspac=
-e */
--=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM;
-+=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM |
-+=09=09=09    XE_BO_FLAG_ACCOUNTED;
-=20
- =09bo =3D xe_bo_create_pin_map_novm(xe, tile, bo_size,
- =09=09=09=09       ttm_bo_type_kernel,
-diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-index 2dce6a47202c..38d491fa8231 100644
---- a/drivers/gpu/drm/xe/xe_oa.c
-+++ b/drivers/gpu/drm/xe/xe_oa.c
-@@ -910,7 +910,8 @@ static int xe_oa_alloc_oa_buffer(struct xe_oa_stream *s=
-tream, size_t size)
-=20
- =09bo =3D xe_bo_create_pin_map_novm(stream->oa->xe, stream->gt->tile,
- =09=09=09=09       size, ttm_bo_type_kernel,
--=09=09=09=09       vram | XE_BO_FLAG_GGTT, false);
-+=09=09=09=09       vram | XE_BO_FLAG_GGTT | XE_BO_FLAG_ACCOUNTED,
-+=09=09=09=09       false);
- =09if (IS_ERR(bo))
- =09=09return PTR_ERR(bo);
-=20
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index 670bc2206fea..daf346eaa8f5 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -123,7 +123,8 @@ struct xe_pt *xe_pt_create(struct xe_vm *vm, struct xe_=
-tile *tile,
- =09=09   XE_BO_FLAG_IGNORE_MIN_PAGE_SIZE |
- =09=09   XE_BO_FLAG_NO_RESV_EVICT | XE_BO_FLAG_PAGETABLE;
- =09if (vm->xef) /* userspace */
--=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM;
-+=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM |
-+=09=09=09    XE_BO_FLAG_ACCOUNTED;
-=20
- =09pt->level =3D level;
-=20
+This commit adds the obj cgroup pointer to the bo and tt structs, and sets
+it between them.
+
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index cf4ab2b5521a0..8e38c6c5c82ef 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -315,6 +316,7 @@ static void ttm_bo_release(struct kref *kref)
+>  		dma_resv_unlock(bo->base.resv);
+>  	}
+> =20
+> +	obj_cgroup_put(bo->objcg);
+
+[Severity: High]
+Does this introduce a double-put and refcount underflow for the objcg
+during buffer migrations?
+
+Looking at ttm_buffer_object_transfer() in
+drivers/gpu/drm/ttm/ttm_bo_util.c, it performs a shallow copy to create a
+ghost object:
+
+drivers/gpu/drm/ttm/ttm_bo_util.c:ttm_buffer_object_transfer() {
+    ...
+    fbo =3D kmalloc(sizeof(*fbo), GFP_KERNEL);
+    ...
+    fbo->base =3D *bo;
+    ...
+}
+
+Because fbo->base =3D *bo directly copies the bo->objcg pointer without
+acquiring an additional reference via obj_cgroup_get(), both the original
+buffer object and the new ghost object will hold the exact same objcg
+pointer.
+
+When these objects are eventually destroyed, both will execute
+ttm_bo_release() and call obj_cgroup_put(bo->objcg) on the same cgroup,
+resulting in an unbalanced put and a potential use-after-free.
+
+>  	atomic_dec(&ttm_glob.bo_count);
+>  	bo->destroy(bo);
+>  }
+
+[ ... ]
+
 --=20
-2.54.0
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706024122.8533=
+29-1-airlied@gmail.com?part=3D4
