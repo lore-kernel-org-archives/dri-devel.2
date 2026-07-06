@@ -4,99 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1A0C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 15:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A299FC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 15:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F282E10E7D0;
-	Mon,  6 Jul 2026 15:02:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFA5D10E7AE;
+	Mon,  6 Jul 2026 15:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pSen7AYY";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AN2GHhtm";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xh7qaOvZ";
 	dkim-atps=neutral
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D54CE10E5CD
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 15:02:21 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-39b51882d71so23376881fa.2
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 08:02:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783350140; cv=none;
- d=google.com; s=arc-20260327;
- b=Z2IbYHVFpPvkAlBONqRpTZq5tcR+B1mdJTTgI9U59uq9JAyg47DIB2fCa0pWEO6SX4
- oeoXXuGRl8iYlzoTJ6obwbUtypOqNUR/7KqOWbkUIuEekdaJfPtini5hniNwjVNoHMH2
- 1ONV5aGjgjWI+mwotGMGivO2AToemk8sy54piZa0WXq6KGKA7yaFfX6oQHVdE7F18Vbm
- dMJyAytZPuSIez9ixaQbBAa7HjNTD+fXuAKxXZvLEuLkiPwrns0wRcXjXpdmBvcu5KqW
- a0aJdUPSujbu6tlxVWiJE0EUSriRu4LGSBrZv2olL0vNrryl5JsvYsjsZaDYBZfl5g3Y
- lMng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=PWV4JkS2cCeJPf0nGFS2jwqaTnw6RGYanrKcHVTs/QE=;
- fh=NVdf2cEPp+vcRT5MxnApYu2RXnwD6WKcZL4sJXCpc6s=;
- b=nRrFt3I750FercO1BD4mwMUWdq3ifOmbtBjvsHsxSoeny9IWeveqYfbtvYZY8YoXw9
- nlE92AuVUFwE7VB14j8zbuohl0/EVu9BRBoSHJmH28Hi6aXrZg6p5G7HG7dweDXuTSAQ
- G/AAvWM8uupNL3TlruXNE8dljKRZpaiwWCfOlunjZenkjaZqMEmiAqLGtfd7C66bh25B
- beQ5x6qNPUOhHjv6Xvf2JAOh8CqoL/0RI2aeXYDGUR9+OpSNKUp5Je6kB3dL33NVNcNR
- zWiicVQ7rvzxBrD6njn2mrMeYQW80Xbzw3RCiNH15b6ispQkKnYEP557zXAuDqp/SGwJ
- 5jiQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0654D10E3A8
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 15:04:49 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 666EE58F812763
+ for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 15:04:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ca2td9+EyVlsweraoMntmzjY
+ hSdPbwsqF8kFzfiyaX4=; b=AN2GHhtmMMxBmwhxImr+fE8YcEtR/M0eVlKUqV66
+ oveiQyg3nTu2wZ76otqvpdNWss7noUClU42QGos4EFu7VQ45pPxoEzw+nEbb7gtZ
+ ucCyHSsB+Dwx9kIiLWf7SSS9Xn03PlC1Sr3JRro1hzjF/5fC8BR/fXRDI/lFznfm
+ an8HJClriUnfgVKmtNWH6tbqL9ARkTzeCVTDiXnHojqMVfDGGz27/RYhPKy1jpD/
+ uu/iPvQ/cN+PywxEzBuQG3qJEgH3zcpQ2vRLikbfVNLFUMjjglMMnA0Tkgov8fOi
+ qX9PpDojdZEesiY4S09lTIJs6Opw01D8MlDxo05HdA/6EQ==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88h99typ-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 15:04:48 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id
+ 71dfb90a1353d-5bd797e447cso4444238e0c.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 08:04:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783350140; x=1783954940; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=oss.qualcomm.com; s=google; t=1783350288; x=1783955088;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=PWV4JkS2cCeJPf0nGFS2jwqaTnw6RGYanrKcHVTs/QE=;
- b=pSen7AYYzGAQpSsLo/bqy/7BHGyfjkBbrfdAJHeL16O3lpp7nTpOboG+4K0dr4t7Rs
- 4+UwzM77i07eMQpDKZ88HgMQ4meWpPgZ3fbnrdpFJbONJlt2XaOvio18XfBwDQuqMU0d
- iWfbur0ndgBKkyB58PLRQpNdxzAARa6qcNc0HnoILlt+E8r0zt15JkHXGcD/+C2eX739
- bANlQzDPmITjvbbVeuNnL/ncseuhlfIkFfHDCfatVSMiz/K7NT3UzGcN61s0H9L/8s8h
- f9MUjORyJ0223OpY13oZGGNJ93tdSJ+8NKgC+Sr6Yk8jGm4+5+RrZU5QjOlrnzMTWCVD
- +3sw==
+ bh=ca2td9+EyVlsweraoMntmzjYhSdPbwsqF8kFzfiyaX4=;
+ b=Xh7qaOvZiMDGQtjAcSe8d1Dyou6JamSQc73Se1IlLi5aEyrtKSiwVhx/hcxPJyHVKt
+ omAYu0r8EPWyn5E2vzOyH3abgsCuy8+L/ebRUhN44cdrBJXVDNTCxeO4qUvQuvoHN3rJ
+ d87G2frP2kmVw4lX9rANX97u0cCEzBTwk06bK8lehS6kz2GIO2Zg2pXsmT+Or3vuEuVs
+ GUHFx2DXITtGn37TIIzhcGCOt/6oT802FfcV3T055JUfzhT1IKxp+JwME/2Fog+/8KVF
+ fmkUtrTBCAskUvvsm5fuu/nT8UdXVKQRSZrfZT2RsCv6NRsa4bD8XBWyoXjLfqFvG3H5
+ 8krw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783350140; x=1783954940;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1783350288; x=1783955088;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=PWV4JkS2cCeJPf0nGFS2jwqaTnw6RGYanrKcHVTs/QE=;
- b=j7DnETb48mYnrTitDf/7nd8NVJyzBOY/iKo8aJqUi+JZbsvyF1RioG79NZcnglpeK0
- IOIT2MpO+N0uZdHOyTmb7FnJ1m6njSphdUJVf0mcscyt9uiYxtS6cPaXTepKT0h/ca6k
- m3qmugU+fcwcKUgDm5bARu8Xr5+S6riDsJH43Z7tRCJbGicDpEQ7ecY4aYUUPHiCtI/N
- A4H5YMm/cBVTcL047eKxc7YzPBmEARI1y2otv/W7kQvb4K1aDfST1pyGcT8XmUKbAWZO
- XLnPw4+mxS7TjGluv04IwO+TmAFtuC1W1Pn3QuDvKFk72DaI1h6xH3FsNSffrHBw55GJ
- fJtA==
-X-Gm-Message-State: AOJu0YzeCWkrqPVW+Kc5MWqgDirz6rvQTXCcEOdcw+gvXudHEcG9Nx3f
- AZUKdWQjhyNpjZtwDJbCWAGv9c0U7IeOHR434R6Z653/XQFdc6Lxqee40twVejG6SFm+6gRacaM
- WIoLzIZkHbGGa6GAp3tRy3oPQ3Rvj/I8=
-X-Gm-Gg: AfdE7cmO/VNtCFb7pu/s7AXayjGXQcrn44VhCp8Q8OxLcWdCTkAQA/qLzkMYXqn1s8N
- ekOKk2g++0M+0Kzfj/HC6UdidYNcT7vjjVpsw4bE63v6UMyjjANOmZJChKWlLu5N8rVyM4Yb6/C
- GAvlG4MHwSkxETijsGZjD4oHAHBSJLYOeQu9U8EYtrKT1c3+m82y/9FcoGuW6RI+MEbfgBsdNb9
- diGpMJOG6iN9S9a6kV3SFw3CWJ9m4vo4dX9ySOkpJcIO1osUu/FJv6nbry4VtwhqTTpULak2bin
- rrbRfc8pPpepzhQPiJ3pFzVX9+7QE8M6ocJoIoXXS9ZwWRpWuAiu7bxatSNSsE0=
-X-Received: by 2002:a2e:bc26:0:b0:39a:d718:da74 with SMTP id
- 38308e7fff4ca-39c5fb3b7cemr2704641fa.0.1783350139532; Mon, 06 Jul 2026
- 08:02:19 -0700 (PDT)
+ bh=ca2td9+EyVlsweraoMntmzjYhSdPbwsqF8kFzfiyaX4=;
+ b=HwfAs9WpYWHcA0lHi1DGBqOiBqhu00FLEy67kmwldYnxBIV4BKjN0LLNOkbZRBnjcI
+ 7al5KSNqq9ZgGzegTiIQGO4EEFgrG9UAGj2KgMggUWmcRl5vg+PVFs54buKdS0kUsYoy
+ t7YgT0RbRcqTb7GQLqalVVRQVod9I/yQG25YxYLtG6R6uZ2WvwundxMGLJ1GZ/i3mbVs
+ 0DkwgtyCQsOCBMzqVHqeu09XK1ZelT79QWspkKz8xsh3q4GcdPdQwN/R4DySmgRMkm4h
+ Sos+Bdv3Y7ckWSUHz3oNovlRg8IKIWduAuqqAML3unbZ0GBrxeweJLWTlkgrWMSAWWvW
+ UEmQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro0Uy19O01YN4tLow1/AT09JTETwvOdLK2CTPzUYub/les7iQCrN0KTf8povvJyXg7e5FpwImrIX3Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwW1VV7CfNXIWu6vQeUE4vHoVzqx6jmYymGdYpU+yVWs89WY1wR
+ zt0SStDDLFU2Apk/lJVB3OcYxQt0tAjYjNT0DQRgkEjY294d4GxO3XG87wVRqiElaXQhfxLdNke
+ K9HE1j/yuwAOkeLL/F3nSoQt6/9rQuyEVD2WM65OYpD/nKva1zNcittNp8mb8IBbVQLGW8HM=
+X-Gm-Gg: AfdE7ck/8d0Pj02/WTb8bhOFOMhr6fzW/Fk/0jbicTu2Lq7i9IKLBucIgWtGfW7R1yY
+ VoOHIGr/i1oz4OBDEk8bkN6TN2diHS5gc+3Y7u0ECCaGq06pYRl0Caol+rdidNh69lMykS4ySms
+ 29t7VMrhPCzvwfUle7eakocKAwe2RK7ytn6wZmCPmryeI7S+/beD4Sw8ju0eez7+mQm/0aIoUAF
+ 8B4M64yDx/d57jdOtsJEpkGnMrDozlThKWluSWbpYoLcVXxybT7KZ7t0mc+siMwmY7mzuClqygp
+ +W7xIPoF9xm8goNiHRT2NriCTvywWaIuxiQXNd1LFYRcelHJ1YvI1DinnzVTwj04N9+S1Pu3rv9
+ ukLFrfcwD/96hf1Q+R2NPNNaU2NQ9pSD6PZ4iVp3B/aCMbomW8HBFPSO7dh8vX5gDt18TPTFq4+
+ /oGC2gAj2D5svX32j1/PiGXWpQ
+X-Received: by 2002:a05:6122:c89:b0:59e:f727:4bb4 with SMTP id
+ 71dfb90a1353d-5be90771737mr579920e0c.1.1783350288333; 
+ Mon, 06 Jul 2026 08:04:48 -0700 (PDT)
+X-Received: by 2002:a05:6122:c89:b0:59e:f727:4bb4 with SMTP id
+ 71dfb90a1353d-5be90771737mr579889e0c.1.1783350287799; 
+ Mon, 06 Jul 2026 08:04:47 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-39c5e58bee3sm2046451fa.8.2026.07.06.08.04.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jul 2026 08:04:46 -0700 (PDT)
+Date: Mon, 6 Jul 2026 18:04:44 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+Message-ID: <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
 MIME-Version: 1.0
-References: <20260624100326.413699-1-piyushpatle228@gmail.com>
- <aj5MNiKSCiEDvDzL@raspi>
- <CAMB+xkayaViXeC2GyMMUfeCMzA4=fh-Dq6NYOL-hzKoLfAF19w@mail.gmail.com>
- <aksVMhFr8YzedE1w@raspi>
- <CAMB+xkY2rut-sEUMyFnXqYCNmyseP4nAGj4BfreORTTM=SN8_g@mail.gmail.com>
- <akuEOT2FRa77L0Jn@raspi>
-In-Reply-To: <akuEOT2FRa77L0Jn@raspi>
-From: Piyush Patle <piyushpatle228@gmail.com>
-Date: Mon, 6 Jul 2026 20:31:42 +0530
-X-Gm-Features: AVVi8CfYmix7GDHRP2N19e9NG0C7gIJlvJ3wBifD247sso2jQN2_T0J0s6RlIs4
-Message-ID: <CAMB+xka8Fame7aFZSiWEtVcozSTXX8g9MKJu+cycU2vtiSDHmQ@mail.gmail.com>
-Subject: Re: [RFC] drm/imx: upstream direction for i.MX95 display support
-To: Liu Ying <victor.liu@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, marex@nabladev.com, 
- daniel.baluta@nxp.com, Frank.Li@nxp.com, shawnguo@kernel.org, 
- tzimmermann@suse.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- airlied@gmail.com, simona@ffwll.ch
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+X-Proofpoint-ORIG-GUID: ci87BTaRi3CY51Q02YfC-1uXAkwJdVC7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE1MyBTYWx0ZWRfX6lr+QKwGwi4b
+ BFJrrj5jPqiWByIZI23L7y6tj+jFdwIFNgqhbSuLra7CF6MzT1UR2cxIMRcB/AEzJT7F1wqU6oY
+ S9zTkjZycne8Is1CUiTWPhfWQEMG3zc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE1MyBTYWx0ZWRfX7zcUz8Y4RuIH
+ Wy2w8UWI2AZcWrzOKYRUw6UYRF9daRI355jNhOW6Dqj5StQl+EJk5VaGLEnQpvv8Bhl93We7NLi
+ sR8eKs3uQ4S7F2qtqwumgdFGi+q8W/J06C9PXb7FG5Z6NOz2jGj5fnpajDWinTp7UptO41c0Y6D
+ o136JKuO4wbQ4cNO50FLDXY0KEbsnFQfjdI+arDB9dI75jfur3at+xBfbtLBam0XPDMSMQPgyzM
+ nDf57M0ylPB807D90JFy100jpXXKHSmi/emKJfo5wf/K0+xCEc5OO/7/YkNEgNRk9iTo/h6jKLO
+ B4Gambrfk/+NkrN/eV3bxIyMAUuri2hfcrpvPyRR7zdplm2VfyCbhpqSAjQH4ZBcCo4o5Ca+e37
+ fk2f7KyukSa/Q5sdtj+UHyLUXNxlc2/BmGS3l98y5XhzztwlVUkUkAAIE1okcaU+pVoEWiCpWxB
+ mnwowsD+eszEFYwZNMw==
+X-Proofpoint-GUID: ci87BTaRi3CY51Q02YfC-1uXAkwJdVC7
+X-Authority-Analysis: v=2.4 cv=GulyPE1C c=1 sm=1 tr=0 ts=6a4bc410 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8
+ a=lS1fCJvthqzCmkgEd28A:9 a=CjuIK1q_8ugA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060153
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,315 +159,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 6, 2026 at 4:00=E2=80=AFPM Liu Ying <victor.liu@nxp.com> wrote:
->
-> On Mon, Jul 06, 2026 at 03:15:24PM +0530, Piyush Patle wrote:
-> > On Mon, Jul 6, 2026 at 8:07=E2=80=AFAM Liu Ying <victor.liu@nxp.com> wr=
-ote:
-> > >
-> > > On Sun, Jul 05, 2026 at 03:33:51AM +0530, Piyush Patle wrote:
-> > > > On Fri, Jun 26, 2026 at 3:22=E2=80=AFPM Liu Ying <victor.liu@nxp.co=
-m> wrote:
-> > > > >
-> > > > > On Wed, Jun 24, 2026 at 03:33:18PM +0530, Piyush Patle wrote:
-> > > > >
-> > > > > [...]
-> > > > >
-> > > > > > The current dc/ implementation is a multi-device component driv=
-er
-> > with one
-> > > > > > platform_driver per block bound via the component framework. Th=
-e
-> > downstream
-> > > > > > i.MX95 driver is a single monolithic platform_driver mapping al=
-l
-> > blocks from
-> > > > > > one register base. Unifying appears to require reconciling two =
-bind
-> > models,
-> > > > > > rather than only adding match_data.
-> > > > >
-> > > > > I think that upstream i.MX95 display controller driver would also=
- be
-> > based
-> > > > > on the component helper.  That's something for sure.
-> > > > >
-> > > > > [...]
-> > > > >
-> > > > > > There is also anticipated divergence which is not yet upstream
-> > (i.MX8QXP
-> > > > > > prefetch/PRG, LTS and tiling modifiers, and the downstream i.MX=
-95
-> > blit
-> > > > > > engine), although mainline dc/ is KMS-only today.
-> > > > >
-> > > > > Just want to point out that I sent out v5 patch set[2] to add i.M=
-X8QXP
-> > > > > prefetch engine(DPRC + PRG) support for KMS.  That changes the
-> > driver's
-> > > > > mode setting code a lot.
-> > > > >
-> > > > > [2]
-> > https://lore.kernel.org/all/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941=
-@nxp.com/
-> > > > >
-> > > > > [...]
-> > > > >
-> > > > > > One question for Liu Ying is whether the separate-driver plus s=
-hared
-> > > > > > helper-library approach is still the preferred direction, and w=
-here
-> > the
-> > > > > > helper boundary would be drawn (which blocks/ops are shared ver=
-sus
-> > > > > > implemented per driver).
-> > > > >
-> > > > > Yes, separate DRM drivers + a helper library approach is still th=
-e
-> > direction
-> > > > > I want.  I think that the drivers and library would sit in the sa=
-me
-> > > > > directory drivers/gpu/drm/imx/dc/.
-> > > > >
-> > > > > The purpose to add a library is to share code to reduce overall c=
-ode
-> > lines.
-> > > > > I'd assume that shared blocks or common part of slightly differen=
-t
-> > blocks
-> > > > > should be covered by the library.
-> > > > >
-> > > > > [...]
-> > > > >
-> > > > > > how the component and monolithic driver models
-> > > > > > would be reconciled given the differences described above.
-> > > > >
-> > > > > Like I said above, I don't think upstream driver would be monolit=
-hic.
-> > > > >
-> > > > > --
-> > > > > Regards,
-> > > > > Liu Ying
-> > > >
-> > > > Hi Liu,
-> > >
-> > > Hi Piyush,
-> > >
-> > > >
-> > > > A quick follow-up with some progress.
-> > > > I went ahead with the refactoring we discussed and now have it work=
-ing
-> > on the
-> > > > i.MX95 15x15 FRDM, following the component-based model.
-> > > > The common implementations for ConstFrame, ExtDst, LayerBlend, Fram=
-eGen
-> > and
-> > > > the FetchUnit base have been moved into shared dc-lib-* helpers, wi=
-th
-> > >
-> > > Can you please share the code in a public place, like github?
-> > >
-> >
-> > Sure. I've pushed the current work-in-progress branch here:
-> > https://github.com/PiyushPatle26/linux-mecha-im95-wip/tree/imx95-dc-pre=
-view
->
-> I gave this branch a quick look.  The major problem is that you are using
-> the same 'struct drm_driver dc_drm_driver' for i.MX95 and i.MX8QXP displa=
-y
-> controllers instead of using separate DRM drivers.  From userspace's POV,
-> they should see different driver names(drm_driver.name).  From drivers'
-> POVs, they should implement different mode setting callbacks.
+On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+> In order to associate the SID used by LPAC to it's own domain and
+> context bank we need a separate node on the DTS.
 
-I've reworked it based on your feedback and updated version to the same bra=
-nch
-I've split them into separate DRM drivers.
-The shared dc_drm_driver and dc-drv-common.c are gone. i.MX8QXP and i.MX95
-now each have their own struct drm_driver, component bind path, probe logic=
- and
-mode-setting callbacks. Userspace now also sees different driver names
-for the two SoCs.
+Can we use iommu-map instead of adding a new device using the same
+addresses? You provide zero explanations, but it seems like you are
+trying to separate a part of the GPU into a separate device, but it's
+unnecessary.
 
-The mode_valid, atomic_check, atomic_begin and atomic_flush callbacks
-were already
-identical in the previous version, so I've left them as a small shared
-helper to avoid
-duplicating the same code. If they diverge later, I'll split them into
-separate implementations.
+> 
+> Add the code to look up that node on initialization.
+> 
+> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++++++++++-
+>  drivers/gpu/drm/msm/msm_gpu.h           |  1 +
+>  2 files changed, 21 insertions(+), 1 deletion(-)
+> 
 
->
-> It looks like it's not worth extracting common code into those dc-lib-* f=
-iles.
-> Each dc-[block].c is a library itself, though I could be wrong - after al=
-l,
-> I haven't find a time slice to add i.MX95 blocks to them and see how they
-> will be.
->
-
-Agreed. I removed the dc-lib-* split. The shared register code is now place=
-d
-directly inside each dc-[block].c file, so every block stays
-self-contained while
-still being reused by both drivers where needed.
-
-> The idea is to share some code between the two DRM drivers *naturally*.
->
-> >
-> > The files you asked about are:
-> > drivers/gpu/drm/imx/dc/dc-drv-common.c
-> > drivers/gpu/drm/imx/dc/dc-lib-*.c
-> > One thing I'd like to point out is that the pixel interleaver, display =
-pixel
-> > link, LDB and LVDS PHY drivers are ports of the existing NXP downstream
-> > drivers. The new work in this branch is mainly the DC refactoring into =
-the
-> > component model and the shared helper library.
-> > > > SoC-specific register layouts and tables supplied as data. The per-=
-SoC
-> > glue is
-> > > > split into dc-drv-common.c, dc-drv-imx8qxp.c and dc-drv-imx95.c, wh=
-ile
-> > >
-> > > Same here, just want to see how dc-drv-common.c and dc-lib-* would lo=
-ok
-> > like.
-> > >
-> > The files you mentioned are available under:
-> > drivers/gpu/drm/imx/dc/dc-drv-common.c
-> > drivers/gpu/drm/imx/dc/dc-lib-*.c
-> > The helper library currently contains the common implementations for
-> > ConstFrame, ExtDst, LayerBlend, FrameGen and the FetchUnit base.
-> >
-> > > > i.MX95-specific blocks such as DomainBlend, Dither, FetchEco, Fetch=
-YUV,
-> > > > HScaler and VScaler remain separate component drivers.
-> > >
-> > > i.MX8QXP display controller also has Dither, FetchEco, HScaler and
-> > Vscaler,
-> > > so they are not i.MX95-specific blocks.  To add minimal feautures at
-> > first,
-> > > we don't need to support them as of now.  i.MX95-specific FetchYUV is
-> > similar
-> > > to i.MX8QXP-specific FetchDecode, so maybe FetchYUV won't be a separa=
-te
-> > > component driver at the end of the day.  To start up small, I think t=
-he
-> > > must-have DomainBlend and Dither(for Data-Enable, HSync and VSync pol=
-arity
-> > > controls) and two FetchLayers can be enabled to support two display
-> > pipelines.
-> > >
-> >
-> > Okay, I've reduced the implementation accordingly. The current branch
-> > only keeps DomainBlend, Dither and two FetchLayers. FetchEco, FetchYUV,
-> > HScaler and VScaler have been dropped for now.
-> > > BTW, do you have the i.MX95 TRM?  If no, then it would be difficult f=
-or
-> > you
-> > > to add DT bindings for *all* blocks.  Note that the DT bindings are
-> > supposed
-> > > to be complete at the first place.
-> > >
-> >
-> > Yes, I do.
-> >
-> > > >
-> > > > The implementation is functional on the FRDM over the pipeline
-> > > > DPU -> pixel-interleaver -> pixel-link -> LDB -> LVDS PHY -> IT6263=
- ->
-> > HDMI
-> > >
-> > > As I said before in separate mail thread, pixel link is not used in t=
-he
-> > LVDS
-> > > display pipeline, but instead it's only used in the MIPI DSI display
-> > pipeline.
-> > >
-> >
-> > Thanks for pointing that out. After checking the TRM, I updated the DT =
-graph
-> > so the LVDS pipeline is now:
-> >
-> > DC -> Pixel-interleaver -> LDB -> LVDS PHY -> IT6263 -> HDMI
->
-> Yes, this pipeline is correct.
->
-> >
-> > Removing display_pixel_link from the LVDS path also required moving the
-> > bridge
-> > format translation into the pixel interleaver driver.
-> > > >
-> > > > EDID is read successfully, the initial modeset works for all tested
-> > modes
-> > > > (1920x1080@60, 1280x720@60, 720x480 and 640x480), and Weston and sw=
-ay
-> > both run.
-> > > >
-> > > > There are still two known limitations. The initial modeset works, b=
-ut
-> > > > subsequent mode changes currently wedge the ExtDst content shadow l=
-oad,
-> > which
-> > > > appears related to the lack of a reset path for the i.MX95 FrameGen=
-.
-> > >
-> > > Not sure what's the cause of the issue, but FrameGen needs to be disa=
-bled
-> > and
-> > > then re-enabled if you want to do a full modeset.  I'd say that's not=
- a
-> > reset
-> > > path.  This critical issue needs to be fixed before posting formal
-> > patches.
-> > >
-> >
-> > Understood. I'll continue investigating the modeset issue before postin=
-g the
-> > formal patch series.
-> >
-> > > > In
-> > > > addition, the DSI path is implemented on the DC side but remains
-> > unvalidated.
-> > >
-> > > It's fine to support the LVDS display pipeline first as long as it do=
-esn't
-> > > do harm to the MIPI DSI display pipeline support.  So, maybe drop the
-> > latter
-> > > first.
-> >
-> > I've done that in the current branch. It now focuses only on the valida=
-ted
-> > LVDS pipeline.
-> >
-> > >
-> > > >
-> > > > The implementation is currently based on v7.2-rc1 together with you=
-r
-> > prefetch
-> > > > v5 series.
-> > > >
-> > > > The work is now ready to be posted as patch series: Adding LVDS/DSI
-> > > > i.MX95 support.
-> > > >
-> > > >
-> > > > Regards,
-> > > > Piyush Patle
-> > >
-> > > --
-> > > Regards,
-> > > Liu Ying
-> >
-> > Thanks again for taking the time to review this.
-> >
-> > Regards,
-> > Piyush Patle
->
-> --
-> Regards,
-> Liu Ying
-
-framegen re-tune issue is still unresolved.
-I'll fix that before posting the formal patch series.
-
-Regards,
-Piyush Patle
+-- 
+With best wishes
+Dmitry
