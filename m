@@ -4,79 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0095C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701B8C44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0618110F42D;
-	Thu,  9 Jul 2026 07:26:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s+6fpv0j";
-	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 199A310EC10
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 09:30:29 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2cacd69a9c0so33878095ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 02:30:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783416628; x=1784021428; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=QzQpFHJ/fNpPESLWciMsNy0ig1nfmSqgUNKGC1J6yuU=;
- b=s+6fpv0jyxKFq8HhedApX8xMxNViSMTg6de5SVtqddsHLOaAwt7cb0eYaOGta4qOfw
- 9KOegJcDDzpMf0q59q8m40uAkSnGNrio/Abnx1Q/OWps9irFewSsAAP1FO2pLeMWiR89
- oSuEEwqv+4w6lN70Pf1/FmFQAQ967PCcb/qphtKgm8PVeefQDEUdmZ4iXsArefCHWqyh
- nc9CD5Lbav1csj+CpyO7vdtqrg/thUCBFgzkR+IuEo7WMTRvoB4OINCp2glXXDi+/1Gu
- Td809LiKND21wtlwbuo42AMWWc1hwl2AWiJt/8wC3xGLUiAogdmgFriLBJE0FWDi9AGz
- MZ4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783416628; x=1784021428;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=QzQpFHJ/fNpPESLWciMsNy0ig1nfmSqgUNKGC1J6yuU=;
- b=OLqJUnEi7TzA4BSeASYt/zO/MspWSdcVBOVQrKzi68+5ONUeUPkYFssXO2D05DXeFz
- h4JT43o1/vG4Y+G1YKtBqFHg9TMom6Eece7JxjxRM+pl9ERUs9CN93hEGDjUZ7VGHfDJ
- 7Sm7sRr46zQUktmc1c/r0G/aSn7m50nM7acZn2tSsrwLc5UWwuQ18WQVVoqDIy71UzmP
- uvmcBo4bfeqTS+v4jAl5Okzwe8TtDMg+WtDBjW2CddDMlw/GX1K65nrgmE1Um+kvBxBj
- 3QClRhsNji2AiG2yz3owqSkVihubqwi/LLenARhbnYMSbzGbrZErU7WkjqxHqoL+UgOY
- O2pw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqH56/x/qcVxTT8P77XXjKDXuEVH/1orjQckcuMbeUBWdezGNBMiU1ST7QxdAloMvO0WIYCb3U27Ts=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzGU5JJQlhN0TM21VQDpCjAVTjNAO37tAB8wEYCNmvEkrlEOGab
- 76HwcuOZoRei0Hsm8HLpi27Qs2lvT0c9xOvJ3armLt6wjv0yO2j5OD3L
-X-Gm-Gg: AfdE7cnekht7171svjO+vc3sIZYy5rtipABGKAz3lcI3b/teuoW7DuaSQ/DRUNBdZac
- ltXRvVizWlTRDJRTi9YQa44+KzwIvHGUZ59v5O2J6eQgfZSFSXPRGoEwL/PW6nvx1bH38QaM9QJ
- uIij2r3Mm86JwV+6O5T+2hoJKtj0L1uMeRyjEZJeyCMi094ZDxyPBn/w36vl3YNzDKZPp2nVIdE
- fMWZFXxVt4rSW4O3cbOI4MtGpkZD3jKTsfGuhdUBRSGbKdMQv0tPVFNOLvP4lGj3Y7DeM5hLRS+
- OzzokOFlW9njEz4BVI5gIh6s0SqlzaCXDGWW7+yiAparnvfNTKFosxITcKeM6qw6zBUq6JDHjEg
- 0C3UD235PqxcwuamwNrKYyFUorNbxnpbVsvFbyXaLVesfYtTkDdYusNEmy7Ip8TJM0vmuYzOWD/
- jVjYULOQIX2PaSC4Qs3gdVhjwxkx+zcigiAW9kWY+fB3bPBO4=
-X-Received: by 2002:a17:903:b87:b0:2c9:97a7:f543 with SMTP id
- d9443c01a7336-2ccbf056ae4mr43993585ad.41.1783416628565; 
- Tue, 07 Jul 2026 02:30:28 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9bdb9bbsm8569795ad.4.2026.07.07.02.30.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 02:30:28 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org, bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v4] drm: shmobile: Fix white screen after resume when LCDC is
- stopped
-Date: Tue,  7 Jul 2026 16:30:04 +0700
-Message-ID: <20260707093004.987846-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3980910F440;
+	Thu,  9 Jul 2026 07:26:06 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 648C510E838
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 09:30:43 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.140])
+ by APP-01 (Coremail) with SMTP id qwCowAAHp8_AdUtqOnbxBA--.1276S2;
+ Mon, 06 Jul 2026 17:30:40 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Bernie Thompson <bernie@plugable.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: udlfb: validate vendor descriptor items
+Date: Mon,  6 Jul 2026 17:30:38 +0800
+Message-ID: <20260706093038.80131-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
+X-CM-TRANSID: qwCowAAHp8_AdUtqOnbxBA--.1276S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Wry3Cw1rAF47ZF48JrWDurg_yoW8Xr1Dpa
+ 13Ja4YqrW7Aw47trW3Kw4UZF1rAayxGF9IyFyxt34Ygw4ak34ag345CFy8W3ySqF4kAr40
+ gr1Yk3y7G3Z8KFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkE14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+ JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+ AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+ rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+ v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+ Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU2Q6
+ JUUUUU=
+X-Originating-IP: [111.196.245.140]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,87 +61,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+dlfb_parse_vendor_descriptor() walks key-length-value items inside the
+DisplayLink vendor descriptor.
 
-The LCDC on R8A7740 may show a completely white screen after resuming
-from suspend (s2idle or s2ram).
+Require each item to contain its key, length and declared value bytes
+before reading item-specific fields such as max_area.
 
-After resume, both Set A and Set B registers are reset to 0. As the
-Frame End interrupt is not generated while the controller is stopped
-(DO=0), the hardware register switching mechanism is not triggered.
-Consequently, Set A remains at 0x00000000 even though a valid Start
-Address is written to Set B, resulting in a white screen.
-
-This is a timing-dependent race condition. In some configurations,
-debug options slow down the resume path enough for a Frame End
-interrupt to occur, which can mask the issue.
-
-Fix this by priming both register sets with the Start Address while the
-controller is stopped, ensuring a valid base address is available
-immediately after resume.
-
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
+ drivers/video/fbdev/udlfb.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-Note:
-It was originally posted in March and has already received both 
-Reviewed-by and Tested-by tags. I'm resending it to bring it back 
-to attention in case it was overlooked.
-
-Changes in v4:
- - No functional changes.
- - Resend.
-
-Changes:
- - v3 
-   Update commit message, add Tested-by and Reviewed-by tags 
- - v2 
-   Fix incorrect use of lcdc_write_mirror() for LDSA2R in
-   the DO=0 path; use lcdc_write() to update both register
-   sets as intended.
-
-
- .../gpu/drm/renesas/shmobile/shmob_drm_plane.c  | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-index 148de34af785..92e7fb464cb3 100644
---- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-+++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-@@ -70,6 +70,7 @@ static void shmob_drm_primary_plane_setup(struct shmob_drm_plane *splane,
- 	struct shmob_drm_plane_state *sstate = to_shmob_plane_state(state);
- 	struct shmob_drm_device *sdev = to_shmob_device(splane->base.dev);
- 	struct drm_framebuffer *fb = state->fb;
-+	u32 ldcnt2r;
+diff --git a/drivers/video/fbdev/udlfb.c b/drivers/video/fbdev/udlfb.c
+index fdbb8671a810..e78d6f95c9c5 100644
+--- a/drivers/video/fbdev/udlfb.c
++++ b/drivers/video/fbdev/udlfb.c
+@@ -1586,19 +1586,29 @@ static int dlfb_parse_vendor_descriptor(struct dlfb_data *dlfb,
+ 		desc += 5; /* the fixed header we've already parsed */
  
- 	/* TODO: Handle YUV colorspaces. Hardcode REC709 for now. */
- 	lcdc_write(sdev, LDDFR, sstate->format->lddfr | LDDFR_CF1);
-@@ -78,11 +79,19 @@ static void shmob_drm_primary_plane_setup(struct shmob_drm_plane *splane,
- 	/* Word and long word swap. */
- 	lcdc_write(sdev, LDDDSR, sstate->format->ldddsr);
+ 		while (desc < desc_end) {
++			char *value;
+ 			u8 length;
+ 			u16 key;
  
--	lcdc_write_mirror(sdev, LDSA1R, sstate->dma[0]);
--	if (shmob_drm_format_is_yuv(sstate->format))
--		lcdc_write_mirror(sdev, LDSA2R, sstate->dma[1]);
-+	ldcnt2r = lcdc_read(sdev, LDCNT2R);
+-			key = *desc++;
+-			key |= (u16)*desc++ << 8;
++			if (desc_end - desc < sizeof(key) + sizeof(length))
++				goto unrecognized;
 +
-+	if (ldcnt2r & LDCNT2R_DO) {
-+		lcdc_write_mirror(sdev, LDSA1R, sstate->dma[0]);
-+		if (shmob_drm_format_is_yuv(sstate->format))
-+			lcdc_write_mirror(sdev, LDSA2R, sstate->dma[1]);
++			key = get_unaligned_le16(desc);
++			desc += sizeof(key);
+ 			length = *desc++;
  
--	lcdc_write(sdev, LDRCNTR, lcdc_read(sdev, LDRCNTR) ^ LDRCNTR_MRS);
-+		lcdc_write(sdev, LDRCNTR, lcdc_read(sdev, LDRCNTR) ^ LDRCNTR_MRS);
-+	} else {
-+		lcdc_write(sdev, LDSA1R, sstate->dma[0]);
-+		if (shmob_drm_format_is_yuv(sstate->format))
-+			lcdc_write(sdev, LDSA2R, sstate->dma[1]);
-+	}
- }
- 
- static void shmob_drm_overlay_plane_setup(struct shmob_drm_plane *splane,
++			if (length > desc_end - desc)
++				goto unrecognized;
++
++			value = desc;
+ 			switch (key) {
+ 			case 0x0200: { /* max_area */
+-				u32 max_area = *desc++;
+-				max_area |= (u32)*desc++ << 8;
+-				max_area |= (u32)*desc++ << 16;
+-				max_area |= (u32)*desc++ << 24;
++				u32 max_area;
++
++				if (length < sizeof(max_area))
++					goto unrecognized;
++
++				max_area = get_unaligned_le32(value);
+ 				dev_warn(&intf->dev,
+ 					 "DL chip limited to %d pixel modes\n",
+ 					 max_area);
 -- 
 2.43.0
 
