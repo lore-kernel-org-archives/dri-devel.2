@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC67C43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0490C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06DE010E76F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F31C10E78C;
 	Mon,  6 Jul 2026 07:13:16 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id B801C10E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:20:00 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-f1-6a4b49054f63
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8ACED10E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:56 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-3b-6a4b4903f184
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
@@ -73,46 +73,45 @@ Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
  tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 31/40] dept: assign unique dept_key to each distinct
- wait_for_completion() caller
-Date: Mon,  6 Jul 2026 15:19:19 +0900
-Message-Id: <20260706061928.66713-32-byungchul@sk.com>
+Subject: [PATCH v19 25/40] dept: add documents for dept
+Date: Mon,  6 Jul 2026 15:19:13 +0900
+Message-Id: <20260706061928.66713-26-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzXSa0xTZxgHcN9z3vec0tjsWF12Jku6dBEvCUwXNU8MQ/2w5XXGZAnJTLxE
- q5xAuRTScjUx4eo6BcZMChHQgEDDTaxtvCIIKLoGlWLRVShCE2xAVomlwBqBzmr89svzz///
- 6ZGxylGyXqbVZUp6nSZVzcmx3Le6Pprftz9565trKnhR0INhPmDE4OhoQzA+b0RQcjuEIRAc
- 5cFUgCDU9RBB5dB5FlyOeyzMWVY4mLnvR2DyTHJQNV2AYdZciqDaW8ODb7yTgHlyhYHJnt8R
- LFemwPsngyxUmRwI6j1jLPinJxB0NRdy8LriOgvD87Mc2E3nOPAN1TLw1sKBd6SLgaKGqxxU
- XrRiGJpZYqDNegAGKi4zUFM1xUDQ3MrD4wY3hponTgJLnm0QqkuHsT9NGDp8gwTsr14QGH90
- hoD1ZT+CwLCHgfZSLwv1ZxoxXLjk5sC4HEDgvFPLQanlOoFX7SEC+TWLBJ61OTAMPPwbg726
- BUPTP0MMeCZcBBbKI8HxVxmBK28vc3sS6GJJOaatthsMLXm2zNH2S+2IBpqKWHr/31mWFtty
- aNdCHaa3q8d4Wtw9wtM6axYtfuAj1Na8hTbcnWboyMyP1Nr6B/drzCF5bIKUqs2W9N/HHZcn
- 9RY+JxmF+txQ+QLOR/1Hz6IImShsFxvdRv6z6288ZsPmhI2iyxX86HXCt6KtzEvOIrmMFZwq
- sdRchsPBWkESB103UdhY2CC6Xy+SsBXCTtFdayOfRlVim6Xn41DEh3vH0kUmbKWwQxydfYTD
- o6LQECHaV1rYT4Wvxd5mF65Aijq0qhUptbrsNI02dXtMUp5OmxtzMj3Nij68nPn00uFbyO+I
- 70OCDKlXK2DPL8lKosk25KX1IVHGqtcpojbtT1YqEjR5pyR9+jF9Vqpk6EORMqz+SvHDQk6C
- UkjUZEopkpQh6T+njCxifT7a9XJkc2z83uirWhoVGTO38em7uw96W849T0v8KW937hTb671Z
- 5ZyrzFgz8R3xJ249QmN/Njae7P7maHBv0hTPx67kNHW+35Hp7xizWAZU+3RXltWG6G714G9Z
- is6gKr7f8UW//UDW05m46gvnF7n8N5ONPXNf/jf8LuVE0cE45267GhuSNNu2sHqD5n8zvpSL
- bgMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSf0zMcRjHfb6/7ns3Z1+nrS827IasrbBhz6aRf/StZMzMMNPhS9fv3VVk
- rLoc+dGvs7twRaKbVfpx1w9pR4pIUqficEnbOXIl0o9VV7lj/nn2et7v53nv+eOhcckDcgkt
- j03gFbGyaCklIkQ7N6f7kcGhketev2YgQ50Ctj47CW/TGgkYG80gIL+ijIIZfZ0AMozXSXjx
- TkVAZ3kpgr6xDAQT03oc1PVzBMxoWgQwOvlRANo0BHPmFgQ6iwYHa+djHMqq0zD4XTlLgbN5
- BIG2305B3kAaAcOGKwhuOPQCGHgWBEN9DSTM9X7F4N34IAKDfRYDe+MFBDO6KLhVZHKv635S
- MN3egUOethPB7f5eHEYGPiOobvmEwHxPRcGXnBocuuwLoHtsmIJW7WUKhiz5GPyopKBQZSbB
- 8sqJoECvQeD4YMYg/U4FBboCIwH1nx8KwOJ0YWDTaTAoNYZBn8FBQFtOEeY+1z1V5Q36vHTM
- Xb5hoL3fgMGkoUQQWIy4CXUWwZWYajFO/WaG4spuliFuekqDuNHidJxT57jb5sFhnDtnOskV
- tw1S3NRYD8WZxwsJ7mURy929OIVxue1+XP2NXsGubQdEAcf4aHkSr1i7JVwU8UTVQ8arFKfm
- ssaJVPTs0CUkpFlmA3u79hXuYYrxYa3Wyb/sxaxgTZkO8hIS0TjTtZy9YsgkPMYihmc7rHXI
- wwSzirV9mSA9LGY2sbZ8E/kvdDlbWtn4N0jo1stdBZiHJcxG9uPwcyIHiQrRvBLkJY9NipHJ
- ozf6K6MikmPlp/yPxsUYkfufDGdduQ/QaFdQE2JoJJ0vhsCQSAkpS1ImxzQhlsalXuLVa0Ij
- JeJjsuTTvCLusCIxmlc2oaU0IfUWh+zjwyXMCVkCH8Xz8bziv4vRwiWpKLjteKS4Zk9iwHbb
- m9yti8+venSkW/l+KPTM94s768J63ht/+R79mTlwNfNHS0r9cxDubc3u0OY3lnSbXQ+bZsN/
- p1oDmp/CynnZDSGu/Uv7a0HgFD49UO1l2R30dVlVT2BBq49js9ByLiwF3+c8GLxjq2/p6slN
- I4XdSg2NFiZfkxLKCNl6X1yhlP0BQeBZKEsDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSa0xTdxjG9z/nf84pjU1OqotHjGIamcRleAnM18QL+6JH3RKnRuOWhVU5
+ QrkULRdlatYOSlCxEgjFUZFWsSDgrIBKLY2IqFyGgiLipWLd1thUYNICVhAsEL/98jzP+/v0
+ ikhpHxUsUihTBZVSniijxVjcP8v0Dd60JX5547NgyNH+DmcuV9Pw0XCdgZYnf2DQWicx+PzP
+ GdB35ZPgtUzQ4Lk9hKDIrcFg/neCAI/+fxqKCjsRmJwOErqHB2nQl9Rg6PKME9BndmEovGQj
+ wG+uZMCsDoVx5wqYNCaD41QhBo8rnwZTdhmGBnsrhrv1rwlQG0YpaL/bguHBjUsUOF/1UlDb
+ 8TcJBQMuBE+L3gY8w4MMPGw0EqC5dR6D63E2AZasYgYulpYjuHpTi2CobARDtneCgg7DfQqy
+ y64Q0P3UhqD58nUC2hxeBj446inoyS+loeNaGwOvdf0MaHP9DBg0OgQntHoMV++MMmB5V06D
+ xtuHYOz9GRp09zfCe8s/FPiqKmkYyPNRUVH8qFaH+eqz1Yj3XcgkeW1egC60v6V5+4gR89Zi
+ B8Mba9L4rOZ+iq+tWMqfb3ATvGlomOKfedbyNZXHaN409obkX/Q00FtDfhKviRESFemCatm6
+ X8Vx9tx2en/nB3TI3FZFqtE5KzqOgkQcG8EVn6ogPvPL2/9RU0yzS7jeXj85xXPYRVztSVcg
+ F4tI9lEIl2s+iaeK2ewq7py9fPoYs6FcZmsWPcUS9lvuzsRNZkYawlVZGqdFQYH8r/GS6b2U
+ jeSeD97DM5vyIM7iXDnD87hbFb04D0mM6ItKJFUo05PkisSI8LgMpeJQ+N7kpBoUeDvz0fGf
+ 69FQ5/YmxIqQbJYEojbHSyl5ekpGUhPiRKRsjuSrsC3xUkmMPOM3QZUcrUpLFFKa0HwRls2V
+ rBw5GCNlY+WpQoIg7BdUn1tCFBSsRsnmAuX8utKSNNu7wz8uXJBz2n70ge+7HGFTy5/7Mtyl
+ hrZw73F95g+2Lz86F4ex3d//og4vPr1sj9hYay3YGZu6wbtNunV5YfWb0LrhOn/Y5OprCbo6
+ 7ojeONCzLrK+cX3CjjGLwRrZFb2xSHOluRW7feLY6H0XbRHuA1/nbN61O1iGU+LkK5aSqhT5
+ J6WO6JNyAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe2xLcRTH/X739vaulKsWbhCPyuY5I15HsMxfu7ZY/OEVBA2XdU9pmU2I
+ bW1nGKbSDjWms0vaYlqvWcps2bARnWHDHhbdmG0mbGSPrlrin5PP+X6/5+T8cWhC9kA0nlYm
+ 7uVViYp4OSUhJdHLNCHEqqjYeZmuGZClOwwNzW4RvE0vJaG3J4uECzdtFHhM98SQZT8ngqd1
+ GSS4blgRNPdmIfg9YCJAV+wlwaOvFENP3wcxGNIReJ2VCIw1egLqXY8IsN1Ox/CzaIiCjvIf
+ CAwtbgpy29NJ6BayEZxvM4mhvSICuppLROBt/Iyh7lcnAsE9hMFdegSBxxgHl8wO37jxOwUD
+ L14SkGtwIbjc0kjAj/aPCG5XNiFwXsugoDXnDgG17pHwurebgmeG4xR01VzA8K2IgvwMpwhq
+ nncgyDPpEbS9d2LQFNykwJhnJ6H44wMx1HQMYmgw6jFY7auhWWgjoTrHjH3n+lK3xoEpV4N9
+ 5QsGw/USDH2CRRxeiLjfupMkZ3HcxZzulYfibBdtiBvo1yOup1BDcLocX1ve2U1wWsd+rrC6
+ k+L6e99QnPNXPslVmVnuytF+zJ1+EcIVn28Ur1m5SbJ8Jx+vTOZVoWHbJTHO7Gpqj6sfpQhV
+ ViINmYvRMRRAs8xCtqm8VeRnipnO1tf3EX4OZKawjhNtPl1CE0ztZDZbOEH6jTHMEtbsvIr9
+ TDJBrOaZlvKzlFnMVgw9Ev9bOpm1FpX+XRTg028M5v3Ny5hF7IfuJ2QOkuSjYRYUqExMTlAo
+ 4xfNVcfFpCYqU+buSEqwI99HCYcGT99HPbURZYihkXyEFMIjY2UiRbI6NaEMsTQhD5QGz4iK
+ lUl3KlIP8Kqkbap98by6DE2gSfk4aeQGfruM2a3Yy8fx/B5e9d/FdMD4NPTu09V98994l57R
+ 6szn7q4Im/1wSsG6iVsrI0xh4S1TH89MCg7XloRiW+b+plG0UHXQEdwQvHt6xdFTnpSzkTvu
+ M1GKd+tb17TzOv776IneXXMsm6edSlKVP9ZaQp9Hz1pbUh90KbrODlsl1cu3hGD0Km3x5UzV
+ wa/CpAV66/CxXRvlpDpGMX8WoVIr/gBJXe+ATQMAAA==
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -130,384 +129,1071 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-wait_for_completion() can be used at various points in the code and it's
-very hard to distinguish wait_for_completion()s between different usages.
-Using a single dept_key for all the wait_for_completion()s could trigger
-false positive reports.
-
-Assign unique dept_key to each distinct wait_for_completion() caller to
-avoid false positive reports.
-
-While at it, add a rust helper for wait_for_completion() to avoid build
-errors.
+Add documents describing the concept and APIs of dept.
 
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- include/linux/completion.h | 100 +++++++++++++++++++++++++++++++------
- kernel/sched/completion.c  |  60 +++++++++++-----------
- rust/helpers/completion.c  |   5 ++
- 3 files changed, 120 insertions(+), 45 deletions(-)
+ Documentation/dev-tools/dept.rst     | 905 +++++++++++++++++++++++++++
+ Documentation/dev-tools/dept_api.rst | 124 ++++
+ Documentation/dev-tools/index.rst    |   2 +
+ 3 files changed, 1031 insertions(+)
+ create mode 100644 Documentation/dev-tools/dept.rst
+ create mode 100644 Documentation/dev-tools/dept_api.rst
 
-diff --git a/include/linux/completion.h b/include/linux/completion.h
-index 3200b741de28..4d8fb1d95c0a 100644
---- a/include/linux/completion.h
-+++ b/include/linux/completion.h
-@@ -27,12 +27,10 @@
- struct completion {
- 	unsigned int done;
- 	struct swait_queue_head wait;
--	struct dept_map dmap;
- };
- 
- #define init_completion(x)				\
- do {							\
--	sdt_map_init(&(x)->dmap);			\
- 	__init_completion(x);				\
- } while (0)
- 
-@@ -43,17 +41,14 @@ do {							\
- 
- static inline void complete_acquire(struct completion *x, long timeout)
- {
--	sdt_might_sleep_start_timeout(&x->dmap, timeout);
- }
- 
- static inline void complete_release(struct completion *x)
- {
--	sdt_might_sleep_end();
- }
- 
- #define COMPLETION_INITIALIZER(work) \
--	{ 0, __SWAIT_QUEUE_HEAD_INITIALIZER((work).wait), \
--	  .dmap = DEPT_MAP_INITIALIZER(work, NULL), }
-+	{ 0, __SWAIT_QUEUE_HEAD_INITIALIZER((work).wait), }
- 
- #define COMPLETION_INITIALIZER_ONSTACK_MAP(work, map) \
- 	(*({ init_completion_map(&(work), &(map)); &(work); }))
-@@ -119,18 +114,18 @@ static inline void reinit_completion(struct completion *x)
- 	x->done = 0;
- }
- 
--extern void wait_for_completion(struct completion *);
--extern void wait_for_completion_io(struct completion *);
--extern int wait_for_completion_interruptible(struct completion *x);
--extern int wait_for_completion_killable(struct completion *x);
--extern int wait_for_completion_state(struct completion *x, unsigned int state);
--extern unsigned long wait_for_completion_timeout(struct completion *x,
-+extern void __wait_for_completion(struct completion *);
-+extern void __wait_for_completion_io(struct completion *);
-+extern int __wait_for_completion_interruptible(struct completion *x);
-+extern int __wait_for_completion_killable(struct completion *x);
-+extern int __wait_for_completion_state(struct completion *x, unsigned int state);
-+extern unsigned long __wait_for_completion_timeout(struct completion *x,
- 						   unsigned long timeout);
--extern unsigned long wait_for_completion_io_timeout(struct completion *x,
-+extern unsigned long __wait_for_completion_io_timeout(struct completion *x,
- 						    unsigned long timeout);
--extern long wait_for_completion_interruptible_timeout(
-+extern long __wait_for_completion_interruptible_timeout(
- 	struct completion *x, unsigned long timeout);
--extern long wait_for_completion_killable_timeout(
-+extern long __wait_for_completion_killable_timeout(
- 	struct completion *x, unsigned long timeout);
- extern bool try_wait_for_completion(struct completion *x);
- extern bool completion_done(struct completion *x);
-@@ -139,4 +134,79 @@ extern void complete(struct completion *);
- extern void complete_on_current_cpu(struct completion *x);
- extern void complete_all(struct completion *);
- 
-+#define wait_for_completion(x)						\
-+({									\
-+	sdt_might_sleep_start_timeout(NULL, -1L);			\
-+	__wait_for_completion(x);					\
-+	sdt_might_sleep_end();						\
-+})
-+#define wait_for_completion_io(x)					\
-+({									\
-+	sdt_might_sleep_start_timeout(NULL, -1L);			\
-+	__wait_for_completion_io(x);					\
-+	sdt_might_sleep_end();						\
-+})
-+#define wait_for_completion_interruptible(x)				\
-+({									\
-+	int __ret;							\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, -1L);			\
-+	__ret = __wait_for_completion_interruptible(x);			\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+#define wait_for_completion_killable(x)					\
-+({									\
-+	int __ret;							\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, -1L);			\
-+	__ret = __wait_for_completion_killable(x);			\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+#define wait_for_completion_state(x, s)					\
-+({									\
-+	int __ret;							\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, -1L);			\
-+	__ret = __wait_for_completion_state(x, s);			\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+#define wait_for_completion_timeout(x, t)				\
-+({									\
-+	unsigned long __ret;						\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, t);				\
-+	__ret = __wait_for_completion_timeout(x, t);			\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+#define wait_for_completion_io_timeout(x, t)				\
-+({									\
-+	unsigned long __ret;						\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, t);				\
-+	__ret = __wait_for_completion_io_timeout(x, t);			\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+#define wait_for_completion_interruptible_timeout(x, t)			\
-+({									\
-+	long __ret;							\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, t);				\
-+	__ret = __wait_for_completion_interruptible_timeout(x, t);	\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
-+#define wait_for_completion_killable_timeout(x, t)			\
-+({									\
-+	long __ret;							\
-+									\
-+	sdt_might_sleep_start_timeout(NULL, t);				\
-+	__ret = __wait_for_completion_killable_timeout(x, t);		\
-+	sdt_might_sleep_end();						\
-+	__ret;								\
-+})
- #endif
-diff --git a/kernel/sched/completion.c b/kernel/sched/completion.c
-index 5e45a60ff7b3..7262000db114 100644
---- a/kernel/sched/completion.c
-+++ b/kernel/sched/completion.c
-@@ -4,7 +4,7 @@
-  * Generic wait-for-completion handler;
-  *
-  * It differs from semaphores in that their default case is the opposite,
-- * wait_for_completion default blocks whereas semaphore default non-block. The
-+ * __wait_for_completion default blocks whereas semaphore default non-block. The
-  * interface also makes it easy to 'complete' multiple waiting threads,
-  * something which isn't entirely natural for semaphores.
-  *
-@@ -42,7 +42,7 @@ void complete_on_current_cpu(struct completion *x)
-  * This will wake up a single thread waiting on this completion. Threads will be
-  * awakened in the same order in which they were queued.
-  *
-- * See also complete_all(), wait_for_completion() and related routines.
-+ * See also complete_all(), __wait_for_completion() and related routines.
-  *
-  * If this function wakes up a task, it executes a full memory barrier before
-  * accessing the task state.
-@@ -139,23 +139,23 @@ wait_for_common_io(struct completion *x, long timeout, int state)
- }
- 
- /**
-- * wait_for_completion: - waits for completion of a task
-+ * __wait_for_completion: - waits for completion of a task
-  * @x:  holds the state of this particular completion
-  *
-  * This waits to be signaled for completion of a specific task. It is NOT
-  * interruptible and there is no timeout.
-  *
-- * See also similar routines (i.e. wait_for_completion_timeout()) with timeout
-+ * See also similar routines (i.e. __wait_for_completion_timeout()) with timeout
-  * and interrupt capability. Also see complete().
-  */
--void __sched wait_for_completion(struct completion *x)
-+void __sched __wait_for_completion(struct completion *x)
- {
- 	wait_for_common(x, MAX_SCHEDULE_TIMEOUT, TASK_UNINTERRUPTIBLE);
- }
--EXPORT_SYMBOL(wait_for_completion);
-+EXPORT_SYMBOL(__wait_for_completion);
- 
- /**
-- * wait_for_completion_timeout: - waits for completion of a task (w/timeout)
-+ * __wait_for_completion_timeout: - waits for completion of a task (w/timeout)
-  * @x:  holds the state of this particular completion
-  * @timeout:  timeout value in jiffies
-  *
-@@ -167,28 +167,28 @@ EXPORT_SYMBOL(wait_for_completion);
-  * till timeout) if completed.
-  */
- unsigned long __sched
--wait_for_completion_timeout(struct completion *x, unsigned long timeout)
-+__wait_for_completion_timeout(struct completion *x, unsigned long timeout)
- {
- 	return wait_for_common(x, timeout, TASK_UNINTERRUPTIBLE);
- }
--EXPORT_SYMBOL(wait_for_completion_timeout);
-+EXPORT_SYMBOL(__wait_for_completion_timeout);
- 
- /**
-- * wait_for_completion_io: - waits for completion of a task
-+ * __wait_for_completion_io: - waits for completion of a task
-  * @x:  holds the state of this particular completion
-  *
-  * This waits to be signaled for completion of a specific task. It is NOT
-  * interruptible and there is no timeout. The caller is accounted as waiting
-  * for IO (which traditionally means blkio only).
-  */
--void __sched wait_for_completion_io(struct completion *x)
-+void __sched __wait_for_completion_io(struct completion *x)
- {
- 	wait_for_common_io(x, MAX_SCHEDULE_TIMEOUT, TASK_UNINTERRUPTIBLE);
- }
--EXPORT_SYMBOL(wait_for_completion_io);
-+EXPORT_SYMBOL(__wait_for_completion_io);
- 
- /**
-- * wait_for_completion_io_timeout: - waits for completion of a task (w/timeout)
-+ * __wait_for_completion_io_timeout: - waits for completion of a task (w/timeout)
-  * @x:  holds the state of this particular completion
-  * @timeout:  timeout value in jiffies
-  *
-@@ -201,14 +201,14 @@ EXPORT_SYMBOL(wait_for_completion_io);
-  * till timeout) if completed.
-  */
- unsigned long __sched
--wait_for_completion_io_timeout(struct completion *x, unsigned long timeout)
-+__wait_for_completion_io_timeout(struct completion *x, unsigned long timeout)
- {
- 	return wait_for_common_io(x, timeout, TASK_UNINTERRUPTIBLE);
- }
--EXPORT_SYMBOL(wait_for_completion_io_timeout);
-+EXPORT_SYMBOL(__wait_for_completion_io_timeout);
- 
- /**
-- * wait_for_completion_interruptible: - waits for completion of a task (w/intr)
-+ * __wait_for_completion_interruptible: - waits for completion of a task (w/intr)
-  * @x:  holds the state of this particular completion
-  *
-  * This waits for completion of a specific task to be signaled. It is
-@@ -216,7 +216,7 @@ EXPORT_SYMBOL(wait_for_completion_io_timeout);
-  *
-  * Return: -ERESTARTSYS if interrupted, 0 if completed.
-  */
--int __sched wait_for_completion_interruptible(struct completion *x)
-+int __sched __wait_for_completion_interruptible(struct completion *x)
- {
- 	long t = wait_for_common(x, MAX_SCHEDULE_TIMEOUT, TASK_INTERRUPTIBLE);
- 
-@@ -224,10 +224,10 @@ int __sched wait_for_completion_interruptible(struct completion *x)
- 		return t;
- 	return 0;
- }
--EXPORT_SYMBOL(wait_for_completion_interruptible);
-+EXPORT_SYMBOL(__wait_for_completion_interruptible);
- 
- /**
-- * wait_for_completion_interruptible_timeout: - waits for completion (w/(to,intr))
-+ * __wait_for_completion_interruptible_timeout: - waits for completion (w/(to,intr))
-  * @x:  holds the state of this particular completion
-  * @timeout:  timeout value in jiffies
-  *
-@@ -238,15 +238,15 @@ EXPORT_SYMBOL(wait_for_completion_interruptible);
-  * or number of jiffies left till timeout) if completed.
-  */
- long __sched
--wait_for_completion_interruptible_timeout(struct completion *x,
-+__wait_for_completion_interruptible_timeout(struct completion *x,
- 					  unsigned long timeout)
- {
- 	return wait_for_common(x, timeout, TASK_INTERRUPTIBLE);
- }
--EXPORT_SYMBOL(wait_for_completion_interruptible_timeout);
-+EXPORT_SYMBOL(__wait_for_completion_interruptible_timeout);
- 
- /**
-- * wait_for_completion_killable: - waits for completion of a task (killable)
-+ * __wait_for_completion_killable: - waits for completion of a task (killable)
-  * @x:  holds the state of this particular completion
-  *
-  * This waits to be signaled for completion of a specific task. It can be
-@@ -254,7 +254,7 @@ EXPORT_SYMBOL(wait_for_completion_interruptible_timeout);
-  *
-  * Return: -ERESTARTSYS if interrupted, 0 if completed.
-  */
--int __sched wait_for_completion_killable(struct completion *x)
-+int __sched __wait_for_completion_killable(struct completion *x)
- {
- 	long t = wait_for_common(x, MAX_SCHEDULE_TIMEOUT, TASK_KILLABLE);
- 
-@@ -262,9 +262,9 @@ int __sched wait_for_completion_killable(struct completion *x)
- 		return t;
- 	return 0;
- }
--EXPORT_SYMBOL(wait_for_completion_killable);
-+EXPORT_SYMBOL(__wait_for_completion_killable);
- 
--int __sched wait_for_completion_state(struct completion *x, unsigned int state)
-+int __sched __wait_for_completion_state(struct completion *x, unsigned int state)
- {
- 	long t = wait_for_common(x, MAX_SCHEDULE_TIMEOUT, state);
- 
-@@ -272,10 +272,10 @@ int __sched wait_for_completion_state(struct completion *x, unsigned int state)
- 		return t;
- 	return 0;
- }
--EXPORT_SYMBOL(wait_for_completion_state);
-+EXPORT_SYMBOL(__wait_for_completion_state);
- 
- /**
-- * wait_for_completion_killable_timeout: - waits for completion of a task (w/(to,killable))
-+ * __wait_for_completion_killable_timeout: - waits for completion of a task (w/(to,killable))
-  * @x:  holds the state of this particular completion
-  * @timeout:  timeout value in jiffies
-  *
-@@ -287,12 +287,12 @@ EXPORT_SYMBOL(wait_for_completion_state);
-  * or number of jiffies left till timeout) if completed.
-  */
- long __sched
--wait_for_completion_killable_timeout(struct completion *x,
-+__wait_for_completion_killable_timeout(struct completion *x,
- 				     unsigned long timeout)
- {
- 	return wait_for_common(x, timeout, TASK_KILLABLE);
- }
--EXPORT_SYMBOL(wait_for_completion_killable_timeout);
-+EXPORT_SYMBOL(__wait_for_completion_killable_timeout);
- 
- /**
-  *	try_wait_for_completion - try to decrement a completion without blocking
-@@ -334,7 +334,7 @@ EXPORT_SYMBOL(try_wait_for_completion);
-  *	completion_done - Test to see if a completion has any waiters
-  *	@x:	completion structure
-  *
-- *	Return: 0 if there are waiters (wait_for_completion() in progress)
-+ *	Return: 0 if there are waiters (__wait_for_completion() in progress)
-  *		 1 if there are no waiters.
-  *
-  *	Note, this will always return true if complete_all() was called on @X.
-diff --git a/rust/helpers/completion.c b/rust/helpers/completion.c
-index 0126767cc3be..5ea2eef74abc 100644
---- a/rust/helpers/completion.c
-+++ b/rust/helpers/completion.c
-@@ -6,3 +6,8 @@ __rust_helper void rust_helper_init_completion(struct completion *x)
- {
- 	init_completion(x);
- }
+diff --git a/Documentation/dev-tools/dept.rst b/Documentation/dev-tools/dept.rst
+new file mode 100644
+index 000000000000..c0ed1314a5a7
+--- /dev/null
++++ b/Documentation/dev-tools/dept.rst
+@@ -0,0 +1,905 @@
++DEPT(DEPendency Tracker)
++========================
 +
-+void rust_helper_wait_for_completion(struct completion *x)
-+{
-+	wait_for_completion(x);
-+}
++Started by Byungchul Park <max.byungchul.park@sk.com>
++
++How lockdep works
++-----------------
++
++Lockdep detects deadlocks by checking lock acquisition order. For
++example, a graph to track acquisition order built by lockdep might look
++like:
++
++.. code-block::
++
++   A -> B -
++           \
++            -> E
++           /
++   C -> D -
++
++   where 'A -> B' means that acquisition A is prior to acquisition B
++   with A still held.
++
++Lockdep keeps adding each new acquisition order into the graph at
++runtime. For example, 'E -> C' will be added when the two locks have
++been acquired in the order E and then C. The graph will look like:
++
++.. code-block::
++
++       A -> B -
++               \
++                -> E -
++               /      \
++    -> C -> D -        \
++   /                   /
++   \                  /
++    ------------------
++
++   where 'A -> B' means that acquisition A is prior to acquisition B
++   with A still held.
++
++This graph contains a subgraph that demonstrates a loop like:
++
++.. code-block::
++
++                -> E -
++               /      \
++    -> C -> D -        \
++   /                   /
++   \                  /
++    ------------------
++
++   where 'A -> B' means that acquisition A is prior to acquisition B
++   with A still held.
++
++Lockdep reports it as a deadlock on detection of a loop and stops
++working.
++
++CONCLUSION
++
++Lockdep detects a deadlock by checking if a loop has been created after
++adding a new acquisition order into the graph.
++
++
++Limitation of lockdep
++---------------------
++
++Lockdep deals with deadlocks involving typical locks e.g. spinlock and
++mutex, that are supposed to be released within the acquisition context.
++However, when it comes to a deadlock involving folio lock that is not
++supposed to be released within the acquisition context or other general
++synchronization mechanisms, lockdep doesn't work.
++
++NOTE: In this document, 'context' refers to any type of unique context
++e.g. irq context, normal process context, wq worker context, and so on.
++
++Can lockdep detect the following deadlock?
++
++.. code-block::
++
++   context X	   context Y	   context Z
++
++		   mutex_lock A
++   folio_lock B
++		   folio_lock B <- DEADLOCK
++				   mutex_lock A <- DEADLOCK
++				   folio_unlock B
++		   folio_unlock B
++		   mutex_unlock A
++				   mutex_unlock A
++
++No. What about the following?
++
++.. code-block::
++
++   context X	   context Y
++
++		   mutex_lock A
++   mutex_lock A <- DEADLOCK
++		   wait_for_completion B <- DEADLOCK
++   complete B
++		   mutex_unlock A
++   mutex_unlock A
++
++No.
++
++CONCLUSION
++
++Lockdep cannot detect a deadlock involving folio lock or other general
++synchronization mechanisms.
++
++
++What leads to a deadlock
++------------------------
++
++A deadlock occurs when one or more contexts are waiting for events that
++will never happen. For example:
++
++.. code-block::
++
++   context X	   context Y	   context Z
++
++   |		   |		   |
++   v		   |		   |
++   1 wait for A    v		   |
++   .		   2 wait for C    v
++   event C	   .		   3 wait for B
++		   event B	   .
++				   event A
++
++Event C cannot be triggered because context X is stuck at 1, event B
++cannot be triggered because context Y is stuck at 2, and event A cannot
++be triggered because context Z is stuck at 3. All the contexts are stuck.
++We call this **deadlock**.
++
++If an event occurrence to awaken its wait is a prerequisite to reaching
++another event, we call it **dependency**. In this example:
++
++   * Event A occurrence is a prerequisite to reaching event C.
++   * Event C occurrence is a prerequisite to reaching event B.
++   * Event B occurrence is a prerequisite to reaching event A.
++
++In terms of dependency:
++
++   * Event C depends on event A.
++   * Event B depends on event C.
++   * Event A depends on event B.
++
++Dependency graph reflecting this example will look like:
++
++.. code-block::
++
++    -> C -> A -> B -
++   /                \
++   \                /
++    ----------------
++
++   where 'A -> B' means that event A depends on event B.
++
++A circular dependency exists. Such a circular dependency leads to a
++deadlock since no waiters can have desired events triggered.
++
++CONCLUSION
++
++A circular dependency of events leads to a deadlock.
++
++
++Introduce DEPT
++--------------
++
++DEPT(DEPendency Tracker) tracks wait and event instead of lock
++acquisition order so as to recognize the following situation:
++
++.. code-block::
++
++   context X	   context Y	   context Z
++
++   |		   |		   |
++   v		   |		   |
++   wait for A	   v		   |
++   .		   wait for C	   v
++   event C	   .		   wait for B
++		   event B	   .
++				   event A
++
++and builds up a dependency graph at runtime that is similar to lockdep.
++The graph might look like:
++
++.. code-block::
++
++    -> C -> A -> B -
++   /                \
++   \                /
++    ----------------
++
++   where 'A -> B' means that event A depends on event B.
++
++DEPT keeps adding each new dependency into the graph at runtime. For
++example, 'B -> D' will be added when event D occurrence is a
++prerequisite to reaching event B like:
++
++.. code-block::
++
++   context W
++
++   |
++   v
++   wait for D
++   .
++   event B
++
++After the addition, the graph will look like:
++
++.. code-block::
++
++                     -> D
++                    /
++    -> C -> A -> B -
++   /                \
++   \                /
++    ----------------
++
++   where 'A -> B' means that event A depends on event B.
++
++DEPT is going to report a deadlock on detection of a new loop.
++
++CONCLUSION
++
++DEPT works on wait and event so as to theoretically detect all potential
++deadlocks.
++
++
++How DEPT works
++--------------
++
++Let's take a look at how DEPT works with the 1st example in the section
++'Limitation of lockdep'.
++
++.. code-block::
++
++   context X	   context Y	   context Z
++
++		   mutex_lock A
++   folio_lock B
++		   folio_lock B <- DEADLOCK
++				   mutex_lock A <- DEADLOCK
++				   folio_unlock B
++		   folio_unlock B
++		   mutex_unlock A
++				   mutex_unlock A
++
++NOTE: In this document, 'event context' refers to a portion within a
++context where an interesting event is triggered in, between a point
++where the context has started progressing toward the event, and the
++event.
++
++Adding comments to describe DEPT's view in detail:
++
++.. code-block::
++
++   context X	   context Y	   context Z
++
++		   mutex_lock A
++		   /* might wait for A */
++		   /* start to take into account event A's context */
++		   /* 1 */
++   folio_lock B
++   /* might wait for B */
++   /* start to take into account event B's context */
++   /* 2 */
++
++		   folio_lock B
++		   /* might wait for B */ <- DEADLOCK
++		   /* start to take into account event B's context */
++		   /* 3 */
++
++				   mutex_lock A
++				   /* might wait for A */ <- DEADLOCK
++				   /* start to take into account
++				      event A's context */
++				   /* 4 */
++
++				   folio_unlock B
++				   /* event B that has been valid since 2 */
++		   folio_unlock B
++		   /* event B that has been valid since 3 */
++
++		   mutex_unlock A
++		   /* event A that has been valid since 1 */
++
++				   mutex_unlock A
++				   /* event A that has been valid since 4 */
++
++Let's build up a dependency graph with this example. Firstly, context X:
++
++.. code-block::
++
++   context X
++
++   folio_lock B
++   /* might wait for B */
++   /* start to take into account event B's context */
++   /* 2 */
++
++There are no events to create dependency. Next, context Y:
++
++.. code-block::
++
++   context Y
++
++   mutex_lock A
++   /* might wait for A */
++   /* start to take into account event A's context */
++   /* 1 */
++
++   folio_lock B
++   /* might wait for B */
++   /* start to take into account event B's context */
++   /* 3 */
++
++   folio_unlock B
++   /* event B that has been valid since 3 */
++
++   mutex_unlock A
++   /* event A that has been valid since 1 */
++
++There are two events, folio_unlock B a.k.a. event B and mutex_unlock A
++a.k.a. event A. For event B, since there are no waits between 3 and the
++event, event B does not create any dependency. For event A, there is a
++wait, folio_lock B a.k.a. wait B, between 1 and the event. Which means
++event A cannot be triggered if wait B cannot be awakened by event B.
++Therefore, we can say event A depends on event B, say, 'A -> B'. The
++graph will look like after adding the dependency:
++
++.. code-block::
++
++   A -> B
++
++   where 'A -> B' means that event A depends on event B.
++
++Lastly, context Z:
++
++.. code-block::
++
++   context Z
++
++   mutex_lock A
++   /* might wait for A */
++   /* start to take into account event A's context */
++   /* 4 */
++
++   folio_unlock B
++   /* event B that has been valid since 2 */
++
++   mutex_unlock A
++   /* event A that has been valid since 4 */
++
++There are also two events, folio_unlock B a.k.a. event B and
++mutex_unlock A a.k.a. event A. For event B, there is a wait, mutex_lock
++A a.k.a. wait A, between 2 and the event. Which means event B cannot be
++triggered if wait A cannot be awakened by event A. Therefore, we can
++say event B depends on event A, say, 'B -> A'. The graph will look like
++after adding the dependency:
++
++.. code-block::
++
++    -> A -> B -
++   /           \
++   \           /
++    -----------
++
++   where 'A -> B' means that event A depends on event B.
++
++A new loop has been created. So DEPT can report it as a deadlock. For
++event A, since there are no waits between 4 and the event, event A does
++not create any dependency. That's it.
++
++Let's take a look at how DEPT works with the 2nd example in the section
++'Limitation of lockdep'.
++
++.. code-block::
++
++   context X	   context Y
++
++		   mutex_lock A
++   mutex_lock A <- DEADLOCK
++		   wait_for_completion B <- DEADLOCK
++   complete B
++		   mutex_unlock A
++   mutex_unlock A
++
++Similarly adding comments to describe DEPT's view in detail:
++
++.. code-block::
++
++   context X	   context Y
++
++		   mutex_lock A
++                   /* might wait for A */
++                   /* start to take into account event A's context */
++                   /* 1 */
++
++                   request_something_and_complete_B
++                   /* request to handle something via e.g. wq, daemon,
++                      or any its own way, and finally do 'complete B'
++                      a.k.a. event B */
++                   /* 2 */
++   /* notice the request from 2 and handle it running toward event B */
++   /* start to take into account event B's context */
++   /* 3 */
++
++   mutex_lock A
++   /* might wait for A */ <- DEADLOCK
++   /* start to take into account event A's context */
++   /* 4 */
++		   wait_for_completion B
++                   /* wait for B */ <- DEADLOCK
++                   /* 5 */
++   complete B
++   /* event B that has been valid since 3 */
++		   mutex_unlock A
++                   /* event A that has been valid since 1 */
++   mutex_unlock A
++   /* event A that has been valid since 4 */
++
++Let's build up a dependency graph with this example. Firstly, context X:
++
++.. code-block::
++
++   context X
++
++   /* notice the request from 2 and handle it running toward event B */
++   /* start to take into account event B's context */
++   /* 3 */
++
++   mutex_lock A
++   /* might wait for A */
++   /* start to take into account event A's context */
++   /* 4 */
++
++   complete B
++   /* event B that has been valid since 3 */
++
++   mutex_unlock A
++   /* event A that has been valid since 4 */
++
++There are two events, complete B a.k.a. event B and mutex_unlock A a.k.a.
++event A. For event A, since there are no waits between between 4 and the
++event, event A does not create any dependency. For event B, there is a
++wait, mutex_lock A a.k.a. wait A, between 3 and the event. Which means
++event B cannot be triggered if wait A cannot be awakened by event A.
++Therefore, we can say event B depends on event A, say, 'B -> A'. The
++graph will look like after adding the dependency:
++
++.. code-block::
++
++   B -> A
++
++   where 'A -> B' means that event A depends on event B.
++
++If context X might notice the request after mutex_lock A, DEPT cannot
++track this dependency, which results in missing a dependency. However,
++that can be improved by adding proper DEPT annotations if needed.
++
++Next, context Y:
++
++.. code-block::
++
++   context Y
++
++   mutex_lock A
++   /* might wait for A */
++   /* start to take into account event A's context */
++   /* 1 */
++
++   request_something_and_complete_B
++   /* request to handle something via e.g. wq, daemon, or any its own
++      way, and finally do 'complete B' a.k.a. event B */
++   /* 2 */
++
++   wait_for_completion B
++   /* wait for B */
++   /* 5 */
++
++   mutex_unlock A
++   /* event A that has been valid since 1 */
++
++There is one event, mutex_unlock A a.k.a. event A. For event A, there is
++a wait, wait_for_completion B a.k.a. wait B, between 1 and the event.
++Which means event A cannot be triggered if wait B cannot be awakened by
++event B. Therefore, we can say event A depends on event B, say, 'A -> B'.
++The graph will look like after adding the dependency:
++
++.. code-block::
++
++    -> B -> A -
++   /           \
++   \           /
++    -----------
++
++   where 'A -> B' means that event A depends on event B.
++
++A new loop has been created. So DEPT can report it as a deadlock.
++
++CONCLUSION
++
++DEPT works well with any general synchronization mechanisms by focusing
++on wait, event and its context.
++
++
++Interpret DEPT report
++---------------------
++
++The following is the same example in the section 'How DEPT works'.
++
++.. code-block::
++
++   context X	   context Y	   context Z
++
++		   mutex_lock A
++		   /* might wait for A */
++		   /* start to take into account event A's context */
++		   /* 1 */
++   folio_lock B
++   /* might wait for B */
++   /* start to take into account event B's context */
++   /* 2 */
++
++		   folio_lock B
++		   /* might wait for B */ <- DEADLOCK
++		   /* start to take into account event B's context */
++		   /* 3 */
++
++				   mutex_lock A
++				   /* might wait for A */ <- DEADLOCK
++				   /* start to take into account
++				      event A's context */
++				   /* 4 */
++
++				   folio_unlock B
++				   /* event B that has been valid since 2 */
++		   folio_unlock B
++		   /* event B that has been valid since 3 */
++
++		   mutex_unlock A
++		   /* event A that has been valid since 1 */
++
++				   mutex_unlock A
++				   /* event A that has been valid since 4 */
++
++We can simplify this by labeling each waiting point with [W], each point
++where its event's context starts with [S] and each event with [E]. This
++example will look like after the labeling:
++
++.. code-block::
++
++   context X	   context Y	   context Z
++
++		   [W][S] mutex_lock A
++   [W][S] folio_lock B
++		   [W][S] folio_lock B <- DEADLOCK
++
++				   [W][S] mutex_lock A <- DEADLOCK
++				   [E] folio_unlock B
++		   [E] folio_unlock B
++		   [E] mutex_unlock A
++				   [E] mutex_unlock A
++
++DEPT uses the symbols [W], [S] and [E] in its report as described above.
++The following is an example reported by DEPT for a real problem in
++practice.
++
++.. code-block::
++
++   Link: https://lore.kernel.org/lkml/6383cde5-cf4b-facf-6e07-1378a485657d@I-love.SAKURA.ne.jp/#t
++   Link: https://lore.kernel.org/lkml/1674268856-31807-1-git-send-email-byungchul.park@lge.com/
++
++   ===================================================
++   DEPT: Circular dependency has been detected.
++   6.2.0-rc1-00025-gb0c20ebf51ac-dirty #28 Not tainted
++   ---------------------------------------------------
++   summary
++   ---------------------------------------------------
++   *** DEADLOCK ***
++
++   context A
++       [S] lock(&ni->ni_lock:0)
++       [W] folio_wait_bit_common(PG_locked_map:0)
++       [E] unlock(&ni->ni_lock:0)
++
++   context B
++       [S] (unknown)(PG_locked_map:0)
++       [W] lock(&ni->ni_lock:0)
++       [E] folio_unlock(PG_locked_map:0)
++
++   [S]: start of the event context
++   [W]: the wait blocked
++   [E]: the event not reachable
++   ---------------------------------------------------
++   context A's detail
++   ---------------------------------------------------
++   context A
++       [S] lock(&ni->ni_lock:0)
++       [W] folio_wait_bit_common(PG_locked_map:0)
++       [E] unlock(&ni->ni_lock:0)
++
++   [S] lock(&ni->ni_lock:0):
++   [<ffffffff82b396fb>] ntfs3_setattr+0x54b/0xd40
++   stacktrace:
++         ntfs3_setattr+0x54b/0xd40
++         notify_change+0xcb3/0x1430
++         do_truncate+0x149/0x210
++         path_openat+0x21a3/0x2a90
++         do_filp_open+0x1ba/0x410
++         do_sys_openat2+0x16d/0x4e0
++         __x64_sys_creat+0xcd/0x120
++         do_syscall_64+0x41/0xc0
++         entry_SYSCALL_64_after_hwframe+0x63/0xcd
++
++   [W] folio_wait_bit_common(PG_locked_map:0):
++   [<ffffffff81b228b0>] truncate_inode_pages_range+0x9b0/0xf20
++   stacktrace:
++         folio_wait_bit_common+0x5e0/0xaf0
++         truncate_inode_pages_range+0x9b0/0xf20
++         truncate_pagecache+0x67/0x90
++         ntfs3_setattr+0x55a/0xd40
++         notify_change+0xcb3/0x1430
++         do_truncate+0x149/0x210
++         path_openat+0x21a3/0x2a90
++         do_filp_open+0x1ba/0x410
++         do_sys_openat2+0x16d/0x4e0
++         __x64_sys_creat+0xcd/0x120
++         do_syscall_64+0x41/0xc0
++         entry_SYSCALL_64_after_hwframe+0x63/0xcd
++
++   [E] unlock(&ni->ni_lock:0):
++   (N/A)
++   ---------------------------------------------------
++   context B's detail
++   ---------------------------------------------------
++   context B
++       [S] (unknown)(PG_locked_map:0)
++       [W] lock(&ni->ni_lock:0)
++       [E] folio_unlock(PG_locked_map:0)
++
++   [S] (unknown)(PG_locked_map:0):
++   (N/A)
++
++   [W] lock(&ni->ni_lock:0):
++   [<ffffffff82b009ec>] attr_data_get_block+0x32c/0x19f0
++   stacktrace:
++         attr_data_get_block+0x32c/0x19f0
++         ntfs_get_block_vbo+0x264/0x1330
++         __block_write_begin_int+0x3bd/0x14b0
++         block_write_begin+0xb9/0x4d0
++         ntfs_write_begin+0x27e/0x480
++         generic_perform_write+0x256/0x570
++         __generic_file_write_iter+0x2ae/0x500
++         ntfs_file_write_iter+0x66d/0x1d70
++         do_iter_readv_writev+0x20b/0x3c0
++         do_iter_write+0x188/0x710
++         vfs_iter_write+0x74/0xa0
++         iter_file_splice_write+0x745/0xc90
++         direct_splice_actor+0x114/0x180
++         splice_direct_to_actor+0x33b/0x8b0
++         do_splice_direct+0x1b7/0x280
++         do_sendfile+0xb49/0x1310
++
++   [E] folio_unlock(PG_locked_map:0):
++   [<ffffffff81f10222>] generic_write_end+0xf2/0x440
++   stacktrace:
++         generic_write_end+0xf2/0x440
++         ntfs_write_end+0x42e/0x980
++         generic_perform_write+0x316/0x570
++         __generic_file_write_iter+0x2ae/0x500
++         ntfs_file_write_iter+0x66d/0x1d70
++         do_iter_readv_writev+0x20b/0x3c0
++         do_iter_write+0x188/0x710
++         vfs_iter_write+0x74/0xa0
++         iter_file_splice_write+0x745/0xc90
++         direct_splice_actor+0x114/0x180
++         splice_direct_to_actor+0x33b/0x8b0
++         do_splice_direct+0x1b7/0x280
++         do_sendfile+0xb49/0x1310
++         __x64_sys_sendfile64+0x1d0/0x210
++         do_syscall_64+0x41/0xc0
++         entry_SYSCALL_64_after_hwframe+0x63/0xcd
++   ---------------------------------------------------
++   information that might be helpful
++   ---------------------------------------------------
++   CPU: 1 PID: 8060 Comm: a.out Not tainted
++	6.2.0-rc1-00025-gb0c20ebf51ac-dirty #28
++   Hardware name: QEMU Standard PC (i440FX + PIIX, 1996),
++	BIOS Bochs 01/01/2011
++   Call Trace:
++    <TASK>
++    dump_stack_lvl+0xf2/0x169
++    print_circle.cold+0xca4/0xd28
++    ? lookup_dep+0x240/0x240
++    ? extend_queue+0x223/0x300
++    cb_check_dl+0x1e7/0x260
++    bfs+0x27b/0x610
++    ? print_circle+0x240/0x240
++    ? llist_add_batch+0x180/0x180
++    ? extend_queue_rev+0x300/0x300
++    ? __add_dep+0x60f/0x810
++    add_dep+0x221/0x5b0
++    ? __add_idep+0x310/0x310
++    ? add_iecxt+0x1bc/0xa60
++    ? add_iecxt+0x1bc/0xa60
++    ? add_iecxt+0x1bc/0xa60
++    ? add_iecxt+0x1bc/0xa60
++    __dept_wait+0x600/0x1490
++    ? add_iecxt+0x1bc/0xa60
++    ? truncate_inode_pages_range+0x9b0/0xf20
++    ? check_new_class+0x790/0x790
++    ? dept_enirq_transition+0x519/0x9c0
++    dept_wait+0x159/0x3b0
++    ? truncate_inode_pages_range+0x9b0/0xf20
++    folio_wait_bit_common+0x5e0/0xaf0
++    ? filemap_get_folios_contig+0xa30/0xa30
++    ? dept_enirq_transition+0x519/0x9c0
++    ? lock_is_held_type+0x10e/0x160
++    ? lock_is_held_type+0x11e/0x160
++    truncate_inode_pages_range+0x9b0/0xf20
++    ? truncate_inode_partial_folio+0xba0/0xba0
++    ? setattr_prepare+0x142/0xc40
++    truncate_pagecache+0x67/0x90
++    ntfs3_setattr+0x55a/0xd40
++    ? ktime_get_coarse_real_ts64+0x1e5/0x2f0
++    ? ntfs_extend+0x5c0/0x5c0
++    ? mode_strip_sgid+0x210/0x210
++    ? ntfs_extend+0x5c0/0x5c0
++    notify_change+0xcb3/0x1430
++    ? do_truncate+0x149/0x210
++    do_truncate+0x149/0x210
++    ? file_open_root+0x430/0x430
++    ? process_measurement+0x18c0/0x18c0
++    ? ntfs_file_release+0x230/0x230
++    path_openat+0x21a3/0x2a90
++    ? path_lookupat+0x840/0x840
++    ? dept_enirq_transition+0x519/0x9c0
++    ? lock_is_held_type+0x10e/0x160
++    do_filp_open+0x1ba/0x410
++    ? may_open_dev+0xf0/0xf0
++    ? find_held_lock+0x2d/0x110
++    ? lock_release+0x43c/0x830
++    ? dept_ecxt_exit+0x31a/0x590
++    ? _raw_spin_unlock+0x3b/0x50
++    ? alloc_fd+0x2de/0x6e0
++    do_sys_openat2+0x16d/0x4e0
++    ? __ia32_sys_get_robust_list+0x3b0/0x3b0
++    ? build_open_flags+0x6f0/0x6f0
++    ? dept_enirq_transition+0x519/0x9c0
++    ? dept_enirq_transition+0x519/0x9c0
++    ? lock_is_held_type+0x4e/0x160
++    ? lock_is_held_type+0x4e/0x160
++    __x64_sys_creat+0xcd/0x120
++    ? __x64_compat_sys_openat+0x1f0/0x1f0
++    do_syscall_64+0x41/0xc0
++    entry_SYSCALL_64_after_hwframe+0x63/0xcd
++   RIP: 0033:0x7f8b9e4e4469
++   Code: 00 f3 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48
++   89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48>
++   3d 01 f0 ff ff 73 01 c3 48 8b 0d ff 49 2b 00 f7 d8 64 89 01 48
++   RSP: 002b:00007f8b9eea4ef8 EFLAGS: 00000202 ORIG_RAX: 0000000000000055
++   RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f8b9e4e4469
++   RDX: 0000000000737562 RSI: 0000000000000000 RDI: 0000000020000000
++   RBP: 00007f8b9eea4f20 R08: 0000000000000000 R09: 0000000000000000
++   R10: 0000000000000000 R11: 0000000000000202 R12: 00007fffa75511ee
++   R13: 00007fffa75511ef R14: 00007f8b9ee85000 R15: 0000000000000003
++    </TASK>
++
++Let's take a look at the summary that is the most important part.
++
++.. code-block::
++
++   ---------------------------------------------------
++   summary
++   ---------------------------------------------------
++   *** DEADLOCK ***
++
++   context A
++       [S] lock(&ni->ni_lock:0)
++       [W] folio_wait_bit_common(PG_locked_map:0)
++       [E] unlock(&ni->ni_lock:0)
++
++   context B
++       [S] (unknown)(PG_locked_map:0)
++       [W] lock(&ni->ni_lock:0)
++       [E] folio_unlock(PG_locked_map:0)
++
++   [S]: start of the event context
++   [W]: the wait blocked
++   [E]: the event not reachable
++
++The summary shows the following scenario:
++
++.. code-block::
++
++   context A	   context B	   context ?(unknown)
++
++				   [S] folio_lock(&f1)
++   [S] lock(&ni->ni_lock:0)
++   [W] folio_wait_bit_common(PG_locked_map:0)
++
++		   [W] lock(&ni->ni_lock:0)
++		   [E] folio_unlock(&f1)
++
++   [E] unlock(&ni->ni_lock:0)
++
++Adding comments to describe DEPT's view in detail:
++
++.. code-block::
++
++   context A	   context B	   context ?(unknown)
++
++				   [S] folio_lock(&f1)
++				   /* start to take into account context
++				      B heading for folio_unlock(&f1) */
++				   /* 1 */
++   [S] lock(&ni->ni_lock:0)
++   /* start to take into account this context heading for
++      unlock(&ni->ni_lock:0) */
++   /* 2 */
++
++   [W] folio_wait_bit_common(PG_locked_map:0) (= folio_lock(&f1))
++   /* might wait for folio_unlock(&f1) */
++
++		   [W] lock(&ni->ni_lock:0)
++		   /* might wait for unlock(&ni->ni_lock:0) */
++
++		   [E] folio_unlock(&f1)
++		   /* event that has been valid since 1 */
++
++   [E] unlock(&ni->ni_lock:0)
++   /* event that has been valid since 2 */
++
++Let's build up a dependency graph with this report. Firstly, context A:
++
++.. code-block::
++
++   context A
++
++   [S] lock(&ni->ni_lock:0)
++   /* start to take into account this context heading for
++      unlock(&ni->ni_lock:0) */
++   /* 2 */
++
++   [W] folio_wait_bit_common(PG_locked_map:0) (= folio_lock(&f1))
++   /* might wait for folio_unlock(&f1) */
++
++   [E] unlock(&ni->ni_lock:0)
++   /* event that has been valid since 2 */
++
++There is one event, unlock(&ni->ni_lock:0). There is a wait,
++folio_lock(&f1), between 2 and the event. Which means
++unlock(&ni->ni_lock:0) is not reachable if folio_lock(&f1) cannot be
++awakened by the owner's folio_unlock(&f1). Therefore, we can say
++unlock(&ni->ni_lock:0) depends on folio_unlock(&f1), say,
++'unlock(&ni->ni_lock:0) -> folio_unlock(&f1)'.
++
++The graph will look like after adding the dependency:
++
++.. code-block::
++
++   unlock(&ni->ni_lock:0) -> folio_unlock(&f1)
++
++   where 'A -> B' means that event A depends on event B.
++
++Secondly, context B:
++
++.. code-block::
++
++   context B
++
++   [W] lock(&ni->ni_lock:0)
++   /* might wait for unlock(&ni->ni_lock:0) */
++
++   [E] folio_unlock(&f1)
++   /* event that has been valid since 1 */
++
++There is also one event, folio_unlock(&f1). There is a wait,
++lock(&ni->ni_lock:0), between 1 and the event. Which means
++folio_unlock(&f1) is not reachable if lock(&ni->ni_lock:0) cannot be
++awakened by the owner's unlock(&ni->ni_lock:0). Therefore, we can say
++folio_unlock(&f1) depends on unlock(&ni->ni_lock:0), say,
++'folio_unlock(&f1) -> unlock(&ni->ni_lock:0)'.
++
++The graph will look like after adding the dependency:
++
++.. code-block::
++
++    -> unlock(&ni->ni_lock:0) -> folio_unlock(&f1) -
++   /                                                \
++   \                                                /
++    ------------------------------------------------
++
++   where 'A -> B' means that event A depends on event B.
++
++A new loop has been created. So DEPT can report it as a deadlock! Cool!
++
++CONCLUSION
++
++DEPT works awesome!
+diff --git a/Documentation/dev-tools/dept_api.rst b/Documentation/dev-tools/dept_api.rst
+new file mode 100644
+index 000000000000..6706d206f6bf
+--- /dev/null
++++ b/Documentation/dev-tools/dept_api.rst
+@@ -0,0 +1,124 @@
++DEPT(DEPendency Tracker) APIs
++=============================
++
++Started by Byungchul Park <max.byungchul.park@sk.com>
++
++SDT(Single-event Dependency Tracker) APIs
++-----------------------------------------
++Use these APIs to annotate either wait or event. These have been already
++applied to the existing synchronization primitives e.g. waitqueue, swait,
++wait_for_completion(), dma fence and so on. The basic APIs of SDT are:
++
++.. code-block:: c
++
++   /*
++    * After defining 'struct dept_map map', initialize the instance.
++    */
++   sdt_map_init(map);
++
++   /*
++    * Place just before the interesting wait.
++    */
++   sdt_wait(map);
++
++   /*
++    * Place just before the interesting event.
++    */
++   sdt_event(map);
++
++The advanced APIs of SDT are:
++
++.. code-block:: c
++
++   /*
++    * After defining 'struct dept_map map', initialize the instance
++    * using an external key.
++    */
++   sdt_map_init_key(map, key);
++
++   /*
++    * Place just before the interesting timeout wait.
++    */
++   sdt_wait_timeout(map, time);
++
++   /*
++    * Use sdt_might_sleep_start() and sdt_might_sleep_end() in pair.
++    * Place at the start of the interesting section that might enter
++    * schedule() or its family that needs to be woken up by
++    * try_to_wake_up().
++    */
++   sdt_might_sleep_start(map);
++
++   /*
++    * Use sdt_might_sleep_start_timeout() and sdt_might_sleep_end() in
++    * pair. Place at the start of the interesting section that might
++    * enter schedule_timeout() or its family that needs to be woken up
++    * by try_to_wake_up().
++    */
++   sdt_might_sleep_start_timeout(map, time);
++
++   /*
++    * Use sdt_might_sleep_start() and sdt_might_sleep_end() in pair.
++    * Place at the end of the interesting section that might enter
++    * schedule(), schedule_timeout() or its family that needs to be
++    * woken up by try_to_wake_up().
++    */
++   sdt_might_sleep_end();
++
++   /*
++    * Use sdt_ecxt_enter() and sdt_ecxt_exit() in pair. Place at the
++    * start of the interesting section where the interesting event might
++    * be triggered.
++    */
++   sdt_ecxt_enter(map);
++
++   /*
++    * Use sdt_ecxt_enter() and sdt_ecxt_exit() in pair. Place at the
++    * end of the interesting section where the interesting event might
++    * be triggered.
++    */
++   sdt_ecxt_exit(map);
++
++
++LDT(Lock Dependency Tracker) APIs
++---------------------------------
++Do not use these APIs directly. These are wrappers for typical locks
++that have been already applied to major locks internally e.g. spin lock,
++mutex, rwlock and so on. The APIs of LDT are:
++
++.. code-block:: c
++
++   ldt_init(map, key, sub, name);
++   ldt_lock(map, sub_local, try, nest, ip);
++   ldt_rlock(map, sub_local, try, nest, ip, queued);
++   ldt_wlock(map, sub_local, try, nest, ip);
++   ldt_unlock(map, ip);
++   ldt_downgrade(map, ip);
++   ldt_set_class(map, name, key, sub_local, ip);
++
++
++Raw APIs
++--------
++Do not use these APIs directly. The raw APIs of dept are:
++
++.. code-block:: c
++
++   dept_free_range(start, size);
++   dept_map_init(map, key, sub, name);
++   dept_map_reinit(map, key, sub, name);
++   dept_ext_wgen_init(ext_wgen);
++   dept_map_copy(map_to, map_from);
++   dept_wait(map, wait_flags, ip, wait_func, sub_local, time);
++   dept_stage_wait(map, key, ip, wait_func, time);
++   dept_request_event_wait_commit();
++   dept_clean_stage();
++   dept_ttwu_stage_wait(task, ip);
++   dept_ecxt_enter(map, evt_flags, ip, ecxt_func, evt_func, sub_local);
++   dept_ecxt_holding(map, evt_flags);
++   dept_request_event(map, ext_wgen);
++   dept_event(map, evt_flags, ip, evt_func, ext_wgen);
++   dept_ecxt_exit(map, evt_flags, ip);
++   dept_ecxt_enter_nokeep(map);
++   dept_key_init(key);
++   dept_key_destroy(key);
++   dept_map_ecxt_modify(map, cur_evt_flags, key, evt_flags, ip, ecxt_func, evt_func, sub_local);
+diff --git a/Documentation/dev-tools/index.rst b/Documentation/dev-tools/index.rst
+index 59cbb77b33ff..0f37940e4c6e 100644
+--- a/Documentation/dev-tools/index.rst
++++ b/Documentation/dev-tools/index.rst
+@@ -23,6 +23,8 @@ Documentation/process/debugging/index.rst
+    coccinelle
+    context-analysis
+    sparse
++   dept
++   dept_api
+    kcov
+    gcov
+    kasan
 -- 
 2.17.1
 
