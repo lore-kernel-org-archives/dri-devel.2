@@ -4,81 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34092C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E40BBC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F51B10E317;
-	Mon,  6 Jul 2026 08:24:54 +0000 (UTC)
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4016810E317
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 08:24:53 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-84783bce476so1829585b3a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 01:24:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783326293; x=1783931093;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=dbFPkCHMyK2cMipYCshkg+R5wrSHUFxUQ6/ZQ0r9elE=;
- b=UwXGHSgx9pYCBLRhm++hZ4wkXjecEuqRJkDRF13oLsYQGB2n3g7EMXbrotgM6xUtWf
- g7PzIgGxZ+8Ok2bBQEOzCiSbmeko9GO/HWwuggRQDDjpBuLp/K51Aa3nYCKgrCmmLYcU
- S2Q6dLfoYPfvqYdKqJ8sjaNCQ/VfC29NgEKQhWpZ5zM1iZPbvhGyAoXx61E8zSSVyZL/
- NEQvcoo/plxHPLtlDrS6zxWpqy5US40x3gSsDpJ9ARUMfQZl9gg9mQzx5Uz4w9NLL2Z+
- 1wMPu3rsAl7MVEjQsP1v43y30wL4+n60bIhsLmhYd+SkA+JYIOpQpwcZ1tT2O6AHN5+e
- UEMQ==
-X-Gm-Message-State: AOJu0YyL+8F15bVmY8yFsI6/LisGxSlgK+NLqbXoybsDSbbDBkvqS7EP
- d9RiTGq25YlVnvaxu/0XBARLzbzxUquoEBDoLIa8wcMKir1gn+RBQ4ti0ns9tH09
-X-Gm-Gg: AfdE7clNoQqa9Uu0U8LiH/c51CBmacIu+UY+oyYslmz0DLH2bsFLCXCnzIMDuvi5bYP
- iScDZmJ6qspDRYhC6r2ZkoWklvUhHZ8Q0LG6d9CznQYpWAFgyYH4u1DqyKjUWh8e21W8DDz/PqN
- Mo6QJm8UK3DiQXZ/CO6N8cTq3FwaespHuhwCBsUVcoNeg8M3LHgvNbeX0cYGYIp6vyoK6WWrM9o
- Xs75mf8qmRkLv4EccpwKnTLN6HvU9qgPdLpFrqHLvlwWpuus4ljtI/B9BNL9LBRieK1xCeTCVNS
- ubkf8elyT+giCAx2SikfI6WH28bXmdDipBn9vosyNDNI/p7PQ5Fv4GXNoXwqMcurgaIyQROV9sU
- DY1+HNIW7G5J4hW1hEaSySC+nhPPHDUARwMpKzhNKdCGTReQ0i0Mb1W+23ACHP8zufptHivVohw
- moewT8Iy10wFX49pH2xKhRLQdkGJLkhYIo5iAgI+XosrYkaJcTR/qy0Q==
-X-Received: by 2002:a05:6a00:4c11:b0:847:7f65:7674 with SMTP id
- d2e1a72fcca58-847f6f5255amr7760958b3a.44.1783326292465; 
- Mon, 06 Jul 2026 01:24:52 -0700 (PDT)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com.
- [209.85.215.169]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847f6b6162esm3424988b3a.11.2026.07.06.01.24.51
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2026 01:24:52 -0700 (PDT)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-ca1328b8584so1976365a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 01:24:51 -0700 (PDT)
-X-Received: by 2002:a05:6122:550:b0:59c:b1f7:4df3 with SMTP id
- 71dfb90a1353d-5be102ec434mr2809370e0c.12.1783325795169; Mon, 06 Jul 2026
- 01:16:35 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-5-laurent.pinchart+renesas@ideasonboard.com>
-In-Reply-To: <20260705213542.28987-5-laurent.pinchart+renesas@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 6 Jul 2026 10:16:22 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVtK2qKHLWfyWYaPx1cYgmF0jtzh3CAPrJ4QbZ0VxypXA@mail.gmail.com>
-X-Gm-Features: AVVi8CfGdsdm5FTOvhTH4n31WpQq9-pZfeJYTHCuuEYLuLxyLezJUgX-zWbA-go
-Message-ID: <CAMuHMdVtK2qKHLWfyWYaPx1cYgmF0jtzh3CAPrJ4QbZ0VxypXA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] [DNI] arm64: dts: renesas: salvator: Add overlay for
- Dell P1911 VGA display
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2120A10E2FF;
+	Mon,  6 Jul 2026 08:29:49 +0000 (UTC)
+X-Greylist: delayed 434 seconds by postgrey-1.36 at gabe;
+ Mon, 06 Jul 2026 08:29:48 UTC
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
+ [91.218.175.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21A9E10E2FF
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 08:29:48 +0000 (UTC)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 06 Jul 2026 16:22:24 +0800
+Message-Id: <DJRCCWQOT4TA.1OPAZI88KOWLW@oss.qualcomm.com>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+ <imx@lists.linux.dev>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 0/9] drm: replace simple display pipe users with atomic
+ helpers
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Ze Huang" <ze.huang@oss.qualcomm.com>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>, "Ze Huang"
+ <ze.huang@oss.qualcomm.com>, "Alexey Brodkin" <abrodkin@synopsys.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Joel Stanley" <joel@jms.id.au>, "Andrew Jeffery"
+ <andrew@codeconstruct.com.au>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Linus
+ Walleij" <linusw@kernel.org>, "Hans de Goede" <hansg@kernel.org>, "Alex
+ Lanzano" <lanzano.alex@gmail.com>, "Oleksandr Andrushchenko"
+ <oleksandr_andrushchenko@epam.com>
+References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
+ <9612bb41-db52-4169-a7fa-e57268d69e24@suse.de>
+In-Reply-To: <9612bb41-db52-4169-a7fa-e57268d69e24@suse.de>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,56 +58,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
-
-On Sun, 5 Jul 2026 at 23:35, Laurent Pinchart
-<laurent.pinchart+renesas@ideasonboard.com> wrote:
-> Add an overlay that hardcodes the EDID of the Dell P1911 VGA display
-> connector to the VGA port of the Salvator board. This is meant to test
-> EDID hardcoding and should not be merged upstream.
+On Mon Jul 6, 2026 at 3:27 PM CST, Thomas Zimmermann wrote:
+> Hi
 >
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Am 04.07.26 um 20:31 schrieb Ze Huang:
+>> struct drm_simple_display_pipe was meant to simplify simple DRM
+>> drivers, but instead adds an extra wrapper around normal DRM atomic
+>> helper setup. As noted in Documentation/gpu/todo.rst, remaining users
+>> should be converted to regular atomic helpers and stop depending on the
+>> simple-KMS interfaces.
+>>
+>> This series converts the following drivers:
+>>
+>>    - arcpgu
+>>    - aspeed
+>>    - imx lcdc
+>>    - mcde
+>>    - pl111
+>>    - gm12u320
+>>    - repaper
+>>    - tve200
+>>    - xen frontend
+>>
+>> Each patch replaces drm_simple_display_pipe_init() with explicit
+>> primary plane, CRTC and encoder setup, and moves the old simple-pipe
+>> callbacks into regular plane and CRTC helper callbacks named according
+>> to local driver conventions.
+>>
+>> The conversions preserve helper behavior that used to be implicit in
+>> drm_simple_kms_helper.c, including plane-state validation, CRTC
+>> primary-plane checks, affected-plane propagation, framebuffer prepare
+>> handling, and existing event/vblank flow where applicable.
+>>
+>> Result is less helper indirection and more explicit driver-side atomic
+>> wiring, with no remaining simple-KMS dependency in these drivers.
+>>
+>> These changes are build-tested only. No hardware testing has been
+>> performed on the affected devices.
+>
+> Thanks a lot for the series. That's quite a nice cleanup.=C2=A0 Did you u=
+se=20
+> any AI to create these patches?
+>
 
-Thanks for your patch!
+Hi Thomas,
 
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/salvator-vga-dell-p1911.dtso
+Yes, I did. I wrote the first two conversion patches (arcpgu and
+aspeed) myself to understand the migration pattern. For the remaining
+drivers, I used GPT-5.5 to help with the repetitive boilerplate
+conversion.
 
-I know this is not meant to be applied, but nothing below is
-Salvator-specific (except for the comment).  Hence this can be applied
-to any "vga" connector, and I'd rather drop the "salvator-"-prefix
-from the file name.
+I should have reviewed the generated code more carefully before sending
+the series. The sashiko-bot feedback shows that I missed several important
+details, including commit-local state handling, the implicit NULL fb /
+visibility checks from simple-KMS, and vblank/pageflip event ordering.
+I am now going through these issues more carefully and working out the
+correct fixes before sending a v2.
 
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +/*
-> + * Device Tree overlay for the Dell P1911 monitor connected to VGA port of a
-> + * Salvator-X or Salvator-XS board
-> + *
-> + * Copyright 2026 Ideas on Board Oy
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +&{/vga} {
-> +       edid = [00 ff ff ff ff ff ff 00 10 ac 74 a0 55 4b 55 30
-> +               2b 14 01 03 80 29 1a 78 ee ee 95 a3 54 4c 99 26
-> +               0f 50 54 bf ef 80 95 00 71 4f 81 80 95 0f 81 00
-> +               01 01 01 01 01 01 9a 29 a0 d0 51 84 22 30 50 98
-> +               36 00 98 ff 10 00 00 1c 00 00 00 ff 00 31 57 4b
-> +               4a 56 30 41 4b 30 55 4b 55 0a 00 00 00 fc 00 44
-> +               45 4c 4c 20 50 31 39 31 31 0a 20 20 00 00 00 fd
-> +               00 38 4b 1e 53 0e 00 0a 20 20 20 20 20 20 00 ba];
-> +};
+Do you expect AI assistance to be mentioned in the cover letter or commit
+messages in some specific form? If there is a preferred tag or wording
+for this, I will use it in v2.
 
-Gr{oetje,eeting}s,
+For issues that appear to be pre-existing but are exposed or carried over
+by the migration, which is better?
 
-                        Geert
+1. Include them as separate prep/fix patches at the beginning of the v2
+series, before the corresponding conversion patches; or
+2. address those pre-existing issues in a separate follow-up series?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Thanks for your time and review. :)
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> Best regards
+> Thomas
+>
+
+Best regards,
+Ze
