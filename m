@@ -4,67 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DCC8C55184
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 02:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D49A3C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 08:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D222510E1A0;
-	Wed,  5 Aug 2026 02:09:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4009C10E00E;
+	Thu,  9 Jul 2026 08:16:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="r1hSIg6T";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=lists.sourceforge.net header.i=@lists.sourceforge.net header.b="UENmX/bk";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=sourceforge.net header.i=@sourceforge.net header.b="ScKYGbLW";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=sf.net header.i=@sf.net header.b="kLIlzklG";
+	dkim=neutral (0-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="p9zCbIcw";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF0D810E1A0
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 02:09:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=TEp3DXJhrJHnb1hJuBIYOqTsZypcbgV/MY63zNtHQF0=; b=r1hSIg6TRXAYWoBNl4GdQYLkZ+
- gt6mOjabpv71bymVA8ZxRtVpvKELFjZ/Rdr1VZ3rwumiPHpEnvk61N+p+HRSWeMChC9384F/zA8yo
- OU1s8FgDYEdA6/1qaVzLPZ0hEvGTzxySNpX1tfUi4t4H6DQczfMcJdc6HrOsst78x/f/euavCmrBM
- rn4jK8gKr23zAFBio3Cbls7b89mlXWCmeF/HC3ioOUe9yy+D3bqmkUpKMDea8yUPH0yH5fRZgSphH
- JRbHXiwj3N8RRFq9P+F43/nBBAu+5Aw0izDf2tAVLiUA/wQr+7SiyxIlKspjDrJgl5ZLwqMAPE46K
- P2rlGoKA==;
-Received: from 179-125-86-101-dinamico.pombonet.net.br ([179.125.86.101]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wrR41-00E6X7-S4; Wed, 05 Aug 2026 04:09:02 +0200
-Date: Tue, 4 Aug 2026 23:08:53 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Natalie Vock <nat@pixelcluster.dev>
-Cc: Maarten Lankhorst <dev@lankhorst.se>,
- Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v8 2/6] cgroup,cgroup/dmem: Add
- (dmem_)cgroup_common_ancestor helper
-Message-ID: <anKbNb7NpNBGEPRd@quatroqueijos.cascardo.eti.br>
-References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
- <20260804-dmemcg-aggressive-protect-v8-2-07af96681bf8@gmx.de>
- <b5b80acd-feea-408b-87eb-4264ffc7e2cd@lankhorst.se>
- <7b2887b1-ecb7-4d6e-ad34-068ab1d7d41e@pixelcluster.dev>
- <bd7c2432-a34b-400a-8351-ca4398b24981@lankhorst.se>
- <anJSBu2zbo8_lG7N@quatroqueijos.cascardo.eti.br>
- <c16ab0f4-20c7-4c3a-ad6a-93cd67069ac8@pixelcluster.dev>
- <anJifFS8I23BudpO@quatroqueijos.cascardo.eti.br>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <anJifFS8I23BudpO@quatroqueijos.cascardo.eti.br>
-X-BeenThere: dri-devel@lists.freedesktop.org
-X-Mailman-Version: 2.1.29
+Received: from lists.sourceforge.net (lists.sourceforge.net [216.105.38.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 471BF10E00E;
+ Thu,  9 Jul 2026 08:16:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lists.sourceforge.net; s=beta; h=Content-Transfer-Encoding:Content-Type:Cc:
+ List-Subscribe:List-Help:List-Post:List-Archive:List-Unsubscribe:List-Id:
+ Mime-Version:References:In-Reply-To:Message-Id:Subject:To:From:Date:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+ bh=hipEE2Pu7dnage5BZIPP04u86L+2oTFuPxZv5a3+xb4=; b=UENmX/bk5GWSxpapLsfab8SiOt
+ xRksfWWPd4wqcAzGHWgM/QFnbWw5dtSAU2M3lobZztqnSUFVts5rZcj69xJJgMmJV/bBmPqCmlI/J
+ pEM1SeZm03ki9g7d8Or3k8MDiacdR0ZSQAf+cRlkjTGWNv1eKotepRq2yub9c6nTbkio=;
+Received: from [127.0.0.1] (helo=sfs-ml-2.v29.lw.sourceforge.com)
+ by sfs-ml-2.v29.lw.sourceforge.com with esmtp (Exim 4.95)
+ (envelope-from <dri-devel-bounces@lists.sourceforge.net>)
+ id 1whjvZ-0004mu-9M; Thu, 09 Jul 2026 08:16:14 +0000
+Received: from [172.30.29.66] (helo=mx.sourceforge.net)
+ by sfs-ml-2.v29.lw.sourceforge.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <akpm@linux-foundation.org>) id 1wgnOi-0005rM-7e
+ for dri-devel@lists.sourceforge.net; Mon, 06 Jul 2026 17:46:25 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sourceforge.net; s=x; h=Content-Transfer-Encoding:Content-Type:Mime-Version
+ :References:In-Reply-To:Message-Id:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=GT8eYR5FX/yxO0AzIZtWTpOPmt1HL5HPg0mx9YGGq9A=; b=ScKYGbLWWhA4sr9oIfltqHpByV
+ mDujN1V8M7sLk3KTWD77/MUYSxthe36CAFQVV9l6f1l21EtU3NruAGGu4lUr8pmVRUV/OlivBmSHH
+ FkEnR+HFgTDgVIt81bcZ6rflhGVNfgtgiH7JHVHDbJ2Vb8Dpy88dQdG9gP75INXYthTk=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sf.net; s=x
+ ;
+ h=Content-Transfer-Encoding:Content-Type:Mime-Version:References:
+ In-Reply-To:Message-Id:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=GT8eYR5FX/yxO0AzIZtWTpOPmt1HL5HPg0mx9YGGq9A=; b=kLIlzklG4K0IgDt2AC1ewGWg7T
+ 4XQ6TH374sCksP4MnT4YQbkniRK/T9ib5VcrVwZzcmqCXcATcrLfb4Fs6Rtsg6FZS9ff/ypKsfWBG
+ ywkmHudJiBhNuXG7u8U1NuIGKHzlr8m6YhHmXDztAEhYXFYcWfMiAXzRB2N/m2rI9+UQ=;
+Received: from tor.source.kernel.org ([172.105.4.254])
+ by sfi-mx-2.v28.lw.sourceforge.com with esmtps
+ (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.95)
+ id 1wgnOg-0006bp-Q1 for dri-devel@lists.sourceforge.net;
+ Mon, 06 Jul 2026 17:46:24 +0000
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1E6CD60098;
+ Mon,  6 Jul 2026 17:21:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F081F000E9;
+ Mon,  6 Jul 2026 17:21:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1783358478;
+ bh=GT8eYR5FX/yxO0AzIZtWTpOPmt1HL5HPg0mx9YGGq9A=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=p9zCbIcwLHK6Su6y0C2PJV/4Z9wCXnlM3TBQJUPMnEqq0cRCBacrKuCaisJ7NNhfp
+ CyjhcvOoA8/98yZrJhr4x69/CVDtRimvcjjGprSg1lWm30zU0wCw048/00EtZr+lta
+ XsXdagwOrZlFzKqzYL+zXcoLWlLGSUZeV3UQaoig=
+Date: Mon, 6 Jul 2026 10:21:18 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: better block swap batching and a different take on swap_ops v3
+Message-Id: <20260706102118.6b6ecc0557edcbb2839e2ab7@linux-foundation.org>
+In-Reply-To: <20260706132206.935272-1-hch@lst.de>
+References: <20260706132206.935272-1-hch@lst.de>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+X-Headers-End: 1wgnOg-0006bp-Q1
+X-Mailman-Approved-At: Thu, 09 Jul 2026 08:16:13 +0000
+X-BeenThere: dri-devel@lists.sourceforge.net
+X-Mailman-Version: 2.1.21
 Precedence: list
+Cc: kasong@tencent.com, nphamcs@gmail.com, baoquan.he@linux.dev,
+ usama.arif@linux.dev, shikemeng@huaweicloud.com, youngjun.park@lge.com,
+ chrisl@kernel.org, linux-mm@kvack.org, dri-devel@lists.sourceforge.net
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-BeenThere: dri-devel@lists.freedesktop.org
 List-Id: Direct Rendering Infrastructure - Development
  <dri-devel.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
@@ -77,261 +104,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 04, 2026 at 07:07:07PM -0300, Thadeu Lima de Souza Cascardo wrote:
-> On Tue, Aug 04, 2026 at 11:08:12PM +0200, Natalie Vock wrote:
-> > On 8/4/26 22:56, Thadeu Lima de Souza Cascardo wrote:
-> > > On Tue, Aug 04, 2026 at 10:41:25PM +0200, Maarten Lankhorst wrote:
-> > > > Hey,
-> > > > 
-> > > > On 8/4/26 22:26, Natalie Vock wrote:
-> > > > > On 8/4/26 22:18, Maarten Lankhorst wrote:
-> > > > > > 
-> > > > > > 
-> > > > > > On 8/4/26 10:25, Natalie Vock wrote:
-> > > > > > > This helps to find a common subtree of two resources, which is important
-> > > > > > > when determining whether it's helpful to evict one resource in favor of
-> > > > > > > another.
-> > > > > > > 
-> > > > > > > To facilitate this, add a common helper to find the ancestor of two
-> > > > > > > cgroups using each cgroup's ancestor array.
-> > > > > > > 
-> > > > > > > Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-> > > > > > > ---
-> > > > > > >    include/linux/cgroup.h      | 21 +++++++++++++++++++++
-> > > > > > >    include/linux/cgroup_dmem.h |  9 +++++++++
-> > > > > > >    kernel/cgroup/dmem.c        | 41 +++++++++++++++++++++++++++++++++++++++++
-> > > > > > >    3 files changed, 71 insertions(+)
-> > > > > > > 
-> > > > > > > diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
-> > > > > > > index f2aa46a4f871e..83a17ded1c516 100644
-> > > > > > > --- a/include/linux/cgroup.h
-> > > > > > > +++ b/include/linux/cgroup.h
-> > > > > > > @@ -623,6 +623,27 @@ static inline struct cgroup *cgroup_ancestor(struct cgroup *cgrp,
-> > > > > > >        return cgrp->ancestors[ancestor_level];
-> > > > > > >    }
-> > > > > > >    +/**
-> > > > > > > + * cgroup_common_ancestor - find common ancestor of two cgroups
-> > > > > > > + * @a: first cgroup to find common ancestor of
-> > > > > > > + * @b: second cgroup to find common ancestor of
-> > > > > > > + *
-> > > > > > > + * Find the first cgroup that is an ancestor of both @a and @b, if it exists
-> > > > > > > + * and return a pointer to it. If such a cgroup doesn't exist, return NULL.
-> > > > > > > + *
-> > > > > > > + * This function is safe to call as long as both @a and @b are accessible.
-> > > > > > > + */
-> > > > > > > +static inline struct cgroup *cgroup_common_ancestor(struct cgroup *a,
-> > > > > > > +                            struct cgroup *b)
-> > > > > > > +{
-> > > > > > > +    int level;
-> > > > > > > +
-> > > > > > > +    for (level = min(a->level, b->level); level >= 0; level--)
-> > > > > > > +        if (a->ancestors[level] == b->ancestors[level])
-> > > > > > > +            return a->ancestors[level];
-> > > > > > > +    return NULL;
-> > > > > > > +}
-> > > > > > > +
-> > > > > > >    /**
-> > > > > > >     * task_under_cgroup_hierarchy - test task's membership of cgroup ancestry
-> > > > > > >     * @task: the task to be tested
-> > > > > > > diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-> > > > > > > index 1a88cd0c9eb00..9d72457c4cb9d 100644
-> > > > > > > --- a/include/linux/cgroup_dmem.h
-> > > > > > > +++ b/include/linux/cgroup_dmem.h
-> > > > > > > @@ -28,6 +28,8 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
-> > > > > > >                   struct dmem_cgroup_pool_state *test);
-> > > > > > >    bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
-> > > > > > >                   struct dmem_cgroup_pool_state *test);
-> > > > > > > +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
-> > > > > > > +                                   struct dmem_cgroup_pool_state *b);
-> > > > > > >      void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
-> > > > > > >    #else
-> > > > > > > @@ -75,6 +77,13 @@ static inline bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
-> > > > > > >        return false;
-> > > > > > >    }
-> > > > > > >    +static inline
-> > > > > > > +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
-> > > > > > > +                                   struct dmem_cgroup_pool_state *b)
-> > > > > > > +{
-> > > > > > > +    return NULL;
-> > > > > > > +}
-> > > > > > > +
-> > > > > > >    static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
-> > > > > > >    { }
-> > > > > > >    diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> > > > > > > index 9df3b33c65046..a587611ca2235 100644
-> > > > > > > --- a/kernel/cgroup/dmem.c
-> > > > > > > +++ b/kernel/cgroup/dmem.c
-> > > > > > > @@ -762,6 +762,47 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
-> > > > > > >    }
-> > > > > > >    EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
-> > > > > > >    +/**
-> > > > > > > + * dmem_cgroup_get_common_ancestor(): Find the first common ancestor of two pools.
-> > > > > > > + * @a: First pool to find the common ancestor of.
-> > > > > > > + * @b: First pool to find the common ancestor of.
-> > > > > > > + *
-> > > > > > > + * Return: The first pool that is a parent of both @a and @b, or NULL if either @a or @b are NULL,
-> > > > > > > + * or if such a pool does not exist. A reference to the returned pool is grabbed and must be
-> > > > > > > + * released by the caller when it is done using the pool.
-> > > > > > > + */
-> > > > > > > +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
-> > > > > > > +                                   struct dmem_cgroup_pool_state *b)
-> > > > > > > +{
-> > > > > > > +    struct cgroup *ancestor_cgroup;
-> > > > > > > +    struct cgroup_subsys_state *ancestor_css;
-> > > > > > > +    struct dmemcg_state *ancestor_dmemcs = NULL;
-> > > > > > > +    struct dmem_cgroup_pool_state *pool = NULL;
-> > > > > > > +
-> > > > > > > +    if (!a || !b)
-> > > > > > > +        return NULL;
-> > > > > > > +
-> > > > > > > +    ancestor_cgroup = cgroup_common_ancestor(a->cs->css.cgroup, b->cs->css.cgroup);
-> > > > > > > +    if (!ancestor_cgroup)
-> > > > > > > +        return NULL;
-> > > > > > > +
-> > > > > > > +    rcu_read_lock();
-> > > > > > > +    ancestor_css = cgroup_e_css(ancestor_cgroup, &dmem_cgrp_subsys);
-> > > > > > > +    if (css_tryget(ancestor_css))
-> > > > > > > +        ancestor_dmemcs = css_to_dmemcs(ancestor_css);
-> > > > > > > +    rcu_read_unlock();
-> > > > > > > +
-> > > > > > > +    if (ancestor_dmemcs) {
-> > > > > > > +        pool = get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
-> > > > > > > +                        a->region);
-> > > > > > > +        if (IS_ERR(pool))
-> > > > > > > +            pool = NULL;
-> > > > > > This should probably be a warn_on as this can never happen, sashiko is wrong here.
-> > > > > > 
-> > > > > > If a and b are charged, all their ancestors are charged too. And when they share a
-> > > > > > common ancestor, then the common ancestor has to have an existing charged pool as
-> > > > > > well because there's a huge bug in the code otherwise.
-> > > > > > 
-> > > > > > > +        css_put(ancestor_css);
-> > > > > > > +    }
-> > > > > > > +    return pool;
-> > > > > > > +}
-> > > > > > > +EXPORT_SYMBOL_GPL(dmem_cgroup_get_common_ancestor);
-> > > > > > > +
-> > > > > > >    static int dmem_cgroup_region_capacity_show(struct seq_file *sf, void *v)
-> > > > > > >    {
-> > > > > > >        struct dmem_cgroup_region *region;
-> > > > > > > 
-> > > > > > 
-> > > > > > Otherwise looks good, so feel free to extend my r-b to this patch too, and with that minor fix up commit it.
-> > > > > 
-> > > > > Thanks a lot! Correct me if I'm wrong here as it's been a while, but I think sashiko's current comment about the css_put(ancestor_css) being wrong seems to have merit too? Since dmem_cgroup_pool_state_put() also puts a css reference but get_cg_pool_unlocked does not get another reference to the css on its own? (Kind of a footgun if you ask me, but not something for this series)
-> > > > > 
-> > > > > Mind if I also drop the css_put() line while I'm at it and *then* (finally :D) commit?
-> > > > I'd keep the css_put for the failure case then.
-> > > > 
-> > > > Since the get_cg_pool_unlocked() is a local function, it's less of an issue that it doesn't
-> > > > obtain a reference itself, as all callers outside dmemcg.c never notice.
-> > > > 
-> > > > Maybe do a final round of testing too, in case it introduces new failures. :-)
-> > > > 
-> > > > Especially device unload/reload might show double puts. But otherwise looks good to me.
-> > > > 
-> > > > Kind regards,
-> > > > ~Maarten
-> > > 
-> > > I wrote the fixup at [1] that included that css_put. I will look into the
-> > > possibility of get_cg_pool_unlocked returning NULL or error. But I find
-> > > that unconditionally calling css_put here is wrong. If pool is NULL, it
-> > > needs to be called, because otherwise the css_tryget will be unbalanced.
-> > > 
-> > > The reason not to call it unconditionally is that it will be called when
-> > > dmem_cgroup_pool_state_put is caled, hence, balancing the css_tryget.
-> > > 
-> > > I also need to consider whether doing it outside the RCU section is fine.
-> > 
-> > Why not? We acquire a reference within the RCU critical section, and if we
-> > have that reference we're obviously safe against concurrent frees, because
-> > the refcount is not zero (so it's invalid to free the object).
-> > 
-> > If css_tryget fails, the refcount was already zero and the css is about to
-> > be freed, in which case this does nothing. (Your initial fixup dropped
-> > another reference in that case, which is invalid as it pretty much
-> > guarantees a refcount underflow.)
-> > 
-> 
-> Well, I meant that I was not sure about it. As my version did it under the
-> RCU lock, I wanted to concede my past self some benefit of the doubt, but I
-> could not reason about it while I was writing down this email. At least
-> under my tests back then, I did not notice any issues, but I will revisit
-> it and I even noticed that get_cg_pool_unlocked takes the RCU lock, so this
-> seems to be fine from a first look. As you pointed out, we have already
-> picked the css ref under the RCU lock.
-> 
-> > > 
-> > > I just looked here and one of the possibilities for pool to be NULL is that
-> > > the region is unregistered in a race condition. region->unregistered is
-> > > protected by dmemcg_lock, but that is taken by get_cg_pool_unlocked, so it
-> > > seems possible.
-> > > 
-> > > By the way, while testing the whole series, I see many different issues
-> > > here that I am still looking at as they may be otherwise hidden
-> > > pre-existing bugs.
-> > 
-> > What's "many different" issues? I'm aware of your testing showing one
-> > potential issue, which is that dmem.min protection may evict own cgroups
-> > instead of others' cgroups. I didn't do anything about that in this series
-> > because I think it's a pre-existing issue that I'm fairly sure is at least
-> > theoretically triggerable without my patchset.
-> > 
-> > Are there any other issues I missed?
-> > 
-> 
-> Well, for one, there is:
-> 
-> [ 1285.795196] ------------[ cut here ]------------
-> [ 1285.795239] percpu ref (css_release) <= 0 (-13) after switching to atomic
-> [ 1285.795244] WARNING: lib/percpu-refcount.c:197 at percpu_ref_switch_to_atomic_rcu+0x22f/0x280, CPU#4: ksoftirqd/4/31
-> [...]
-> [ 1285.799577] percpu_ref_switch_to_atomic_rcu: percpu_ref_switch_to_atomic_rcu(): percpu_ref underflow slab kmalloc-64 start ffff889279463dc0 pointer offset 0 size 64
-> 
-> Which I now would attribute to this unconditional css_put. As I pointed
-> out, dmem_cgroup_pool_state_put already puts it (which is why we also
-> needed to get it in the first place).
-> 
-> And, then, I am seeing hung tasks and kmemleaks, which could be the result
-> of the failing VRAM allocations for VM BOs from a quick read of the stack.
-> 
-> Cascardo.
-> 
+On Mon,  6 Jul 2026 15:21:52 +0200 Christoph Hellwig <hch@lst.de> wrote:
 
-With the following fixup, I see no ref underflows, no hung tasks and no
-kmemleaks.
+> this series makes use of the swap_iocb for block as well so that it
+> doesn't do inefficient single-bio I/O, and then rebases the swap_ops from
+> Baoquan on top of the now very different method structure.
+> 
+> When running doing kernels builds, which is a workload that doesn't
+> really do much THP anonymous memory it still gets 2x clustering for
+> writeout and 1.2x for reading back swap in.  The overall times do
+> not actually change, though.
 
-With that:
+Thanks.
 
-Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+AI review might have found some pre-existing bugs in 
+drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+drivers/gpu/drm/ttm/ttm_backup.c
+
+	https://sashiko.dev/#/patchset/20260706132206.935272-1-hch@lst.de
 
 
-> 
-> > Regards,
-> > Natalie
-> > 
-> > > 
-> > > Regards.
-> > > Cascardo.
-> > > 
-> > > [1] https://lore.kernel.org/cgroups/ahW8MY4XBox_nsmB@quatroqueijos.cascardo.eti.br/
-> > 
 
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index e372ebb5d36d..440e437d1bfe 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -790,9 +790,8 @@ struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgrou
- 	if (ancestor_dmemcs) {
- 		pool = get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
- 					    a->region);
--		if (IS_ERR(pool))
--			pool = NULL;
--		css_put(ancestor_css);
-+		if (WARN_ON(IS_ERR_OR_NULL(pool)))
-+			css_put(ancestor_css);
- 	}
- 	return pool;
- }
--- 
 
+--
+_______________________________________________
+Dri-devel mailing list
+Dri-devel@lists.sourceforge.net
+https://lists.sourceforge.net/lists/listinfo/dri-devel
