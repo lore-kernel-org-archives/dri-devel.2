@@ -4,148 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68144C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 20:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8973EC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 20:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1B0810EAB2;
-	Mon,  6 Jul 2026 20:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7A2F10EAC7;
+	Mon,  6 Jul 2026 20:55:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="A2+sA/pf";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f7tlutbG";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="UikCejay";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0470010EAB2
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 20:06:20 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 666FFNFp810185
- for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 20:06:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Wf1YrJ/RXa7Do+NSaW/+5hNmmnFSR5P/RAWYq4RDJg4=; b=A2+sA/pflXJxmGj9
- 59ZriII2fhNp2WN0kzFToRm19PyG1ZzN3ZtAxwpUgIULN/i4b8olLkZucYfJgs9n
- sOH3W3gsdYm1pifuiPBorvFjOIT4YWzjDMPX5chFwUGIKJMYF/vipp7Bj3PlW9Ab
- Wd9+U4wfP23RFtxGBNJCzF/hErbix8L3deUOtvXK9tTCd/1NLObqo/xJ6rrsYGnp
- W0OfZyGPiohlFIowqWLlfwjN7wjQJXAdzAEDDe3OASOZm6ojJHPUiDrWHaiQJNqV
- mkfgSG4xC3pHLYsBvRTUTfOb9S/M6dND7ItLTZnSwktZgkxMrSPgpu8BwcVVWywr
- aAwSCw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88hsb5xx-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 20:06:19 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-3840994b0d2so284191a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 13:06:19 -0700 (PDT)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
+ [209.85.221.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 296EE10E1ED
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 20:55:42 +0000 (UTC)
+Received: by mail-vk1-f178.google.com with SMTP id
+ 71dfb90a1353d-5bc4a1130adso767152e0c.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 13:55:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783368379; x=1783973179;
+ d=chromium.org; s=google; t=1783371341; x=1783976141;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Wf1YrJ/RXa7Do+NSaW/+5hNmmnFSR5P/RAWYq4RDJg4=;
- b=f7tlutbGdvplbXQxwGcJuP+hXbi1A7hRt6p8hQogZ4ka+0iI6OZ2SH0+x8uE03WF9P
- Hvuq5VaGwCGvv///X1FWyUkuE656HNueOjUFmA+Pbci/LAKxGfM+ZbDJW7hqYMF4wONr
- yi/FvgrIu+904AggE7cgadaTO5IR6CX50IiXvzTyQe83rg+slkXf8xyjXiWnQuSXowiF
- +GVUZbqeJZF5RSFEk8in/vCpNZe85m3chrtA3OCUdB/5zEjvbyqrZT7hFO2xSaRmjOOB
- 4622jkeaMl/kCabwm77Xa45qEVIZ9B2h1IsodHdhRnf0e8qzbdbjQQ/da1UdxYT4hHK3
- nYZA==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/zQnNi2Gm+RCVJd6O2+1iMT4tGxZe1kJx22cSNvswIs=;
+ b=UikCejay9Dcrbvbh9vYTv92FW/grcFxhku9ayIpvn4ahi/+sx3Bt62lHMohV/d2vSn
+ U0RsjA6M60mEP7GTNtWLA90rD/R+nJ6Y2UoO+xBS13GgM+WhmWykjJdWQBezaI+1QEDM
+ kJvxBacTH80M8QCcm0BN+e6NTet18fbc/5pIw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783368379; x=1783973179;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Wf1YrJ/RXa7Do+NSaW/+5hNmmnFSR5P/RAWYq4RDJg4=;
- b=XJlLmZsAF5r4UIgBNuGL7sEJtHtdeGmPOSGWV9lkvMFE8d5DV1epjG8DX86+5QEyTW
- KfgFUq+2DBnpiRq5T70Gr9mwy1T/E02n+zoHRYduGoBQL8Ox0bhjb5TOk82sI2nlOFM8
- 63kL1CBnzK69mliJjPR0o14HhJ7ui9sQJ+QSB0RFVLcvuYcJvjzuUvNlezD7xjGUZVET
- H228/058zSR/slWFHurm7gl63YLwKC8Ur0xr7kLzDfAKOEhNqHz+3eHzI5NLsR8FCLcd
- 3rQnoTg/Mmo17iJ4mKoJ3rsDPN2ta+SZBVJeVc667/u3YJ+Ok/1xAmZxaapKPvouKVl2
- w8UA==
+ d=1e100.net; s=20251104; t=1783371341; x=1783976141;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=/zQnNi2Gm+RCVJd6O2+1iMT4tGxZe1kJx22cSNvswIs=;
+ b=fxzN8QR3lOoFWt+I+uCpeY1r6Xq7sRlJ2Prm1Mob26sydQJdv9qwIEVns4tNHpIGVu
+ A3C6jdUw96E5PwgpBRbEVI2gMu1blcaMy6/tcEI1SIov5Lmvd9RYe0kYbFIAkBhrdN02
+ bjMGlbBOTlypLb8Lz85JAQSL3SaAbwF07MPyzwLGW/IrHFDTB9pdpS6inNpCnvO0yajk
+ NUBn8z1lpWyf3KPsEz7FcNzX85Gg/a6+3AZEE/SQqmTsG++8CSl+l9dRgMd5T00L7csW
+ lD+qJMYlYOX7QA/yAa+q6fFZU7wCrwM/07YCCr/um4mFh3b/ZN1hqVf/jxcFr5w+yCRP
+ 46Jg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RocrNneldEmLx0/1Dw6bMCEgsb02PPQNrvRhLcfd26Ai6uXnBama5IbfWJbFbbWL7XbEZyHIDJGxTI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwDSPTv6pp7c5eOJXWA4msC8urfflo2yqJz0FyUjoQ8eIOVeOp
- Au00TTXRp5JdhHWIQLTXKFNnvirn2YtqpUCXCw+Ru1WzldDm+E208/cEx3mf7zU47A1i3NTxqs0
- EngHHTyrKNVHy7EQogTzligR7g2rNjCrg8PZWrY5rq/55fyUKrVlaty7R2hal2gPEWqjNOIo=
-X-Gm-Gg: AfdE7clyXaBtzRhnP03fhR9/vvcpMStUK7jBNs4zOk0nZKvA7bJl7v+tU9dhp5jwwBz
- hiwr7a11B6tvdwlQoey3TVy9zqKh+fk2f20CyyDoZsS9/GAnpKjBi2XQHr9kBkqX+mI2ZWeTYkx
- 2RJNHg3T+NLnt4CAMR/bhEOtX/1xihEHeCmp0GlGTBV71T3ki1I/76DjfKJGOF62Kf/DK+dECXW
- i1rJz/DJy35pg0KdImVaju/W287Qldzke5sxtDSQezfH7c87wZz70057iXFQRhv8aJIZl7POrxz
- ZTJDoeWY1/jtw7no4E5QxTqWBHlAWCQp7NClN0lN9mRoO5oUhI+eEbymPefw9VKJ+hme48NY6sB
- 4uKpbw7r2dqLwzCm6+QsZwOSsPmELLj8GyL8=
-X-Received: by 2002:a17:90b:2888:b0:35f:bb17:39f with SMTP id
- 98e67ed59e1d1-38112066822mr17984588a91.1.1783368378564; 
- Mon, 06 Jul 2026 13:06:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:2888:b0:35f:bb17:39f with SMTP id
- 98e67ed59e1d1-38112066822mr17984531a91.1.1783368377972; 
- Mon, 06 Jul 2026 13:06:17 -0700 (PDT)
-Received: from [192.168.1.9] ([106.222.230.254])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f5982sm47949eec.5.2026.07.06.13.06.09
+ AHgh+Rq6jRsZf7FXb5Ifay9L45pQkXhuXUebJMcuNLdPATnVYybbtvbkeG0kRyP8s57I+9HreYZ5b8OJxgc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrBICRn2tqRMThJpLLN+ANpqVW7yCMMDfZHvA6K/D3XjPncfbr
+ FwOJW8DjMRuuOxdtApAEeVxjjcZxN40t5vRILQF/2VeMiBfyjQhQKWbc4+YYQNBYMn1y2KzDS9d
+ Snls=
+X-Gm-Gg: AfdE7clCwMtuQd/Y7kj+M7oJ64mzeqp1oQ7JJBv7TaAK7oScGj85QUOBkBvmp7PMKTs
+ tvPYIz8QsMk2yqqfJKE2l0gx0KOtFVhJ+Oqb+OXA5ZVs47KyIysgQnd4m75AlPt3XmJsVPynf5+
+ 50hIg6neHnF/EW2ekYxjp83AWkx0xiJUDiRPwhLE8lEcmDj2RbyVLmiUIaC37Nq0ReFCSXeRkis
+ RyeudtC2NVkogMUu3LCj0qp6S0VTTIqut4/D1Y0uFLudeD1maPoahFzrwEOuU6VMCPz+Om141Cy
+ 4zWd/A9aN1ccOgRvM8POZ1isavuFKYSMNYSyv6zMA347Ao4QsaJcCwzjfIGiXutt6rN26zvQppu
+ e0O5rQV+crOcpcMpdDgm//QzQQNryedCZqF3LkhdahX2U6xDxOXNFrdwN48z3MBBkh6ZFY32ooO
+ hXWP34k0xHUTgVXLbomizTNMdO8PuqMwzFWHjRkLo/xmGWvqPTONmBp3rVtGv08RE0gQ==
+X-Received: by 2002:a05:6122:d08:b0:5a1:19d4:a363 with SMTP id
+ 71dfb90a1353d-5be90700807mr1223320e0c.3.1783371340677; 
+ Mon, 06 Jul 2026 13:55:40 -0700 (PDT)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com.
+ [209.85.221.181]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5be03ccd55esm5476484e0c.17.2026.07.06.13.55.39
+ for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2026 13:06:17 -0700 (PDT)
-Message-ID: <b11cdc41-e88b-4815-9349-453f1bd5f14c@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 01:36:07 +0530
+ Mon, 06 Jul 2026 13:55:40 -0700 (PDT)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-5bdd0779366so969157e0c.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 13:55:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqEFrk1pc06tyJdEb9fWoSjVZ2uaXbAYgVSoCLlpmjbL/d05h8Hl1xkZz+24fxsNrgKiWCdA+FnN+w=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:3d4b:b0:5a2:5669:d6d7 with SMTP id
+ 71dfb90a1353d-5be908a419dmr1132125e0c.9.1783371337867; Mon, 06 Jul 2026
+ 13:55:37 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: Add GPU support for Kaanapali
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20260705-kaana-gpu-dt-v2-0-6ac53de56314@oss.qualcomm.com>
- <20260705-kaana-gpu-dt-v2-5-6ac53de56314@oss.qualcomm.com>
- <e2b7e03f-911b-41cd-8ac4-044492e2bdbc@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <e2b7e03f-911b-41cd-8ac4-044492e2bdbc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: nm5FIUEOTQWcMPTmE5E1Dgq3rwMyrv9D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDIwMiBTYWx0ZWRfX4SZR263IlKsP
- MM+DC1UKfW+9jK3PTbz1JovL76814HUfHAEX83C+GATebuTN00xMC8+PC2YVawIJziSmVb9RVhl
- A0+aWO2/gIKRnFWaX0wwXLd+WrF2wMjl2EyYU4+75RNa0oVG5b2wfx584DOx8CC5Vx9sztI7fey
- 0J35Tt6m9fRwPgxb2VETtMZ4q32KNyZcoJAjE++eVBG2SmWWBAfAGyEaegE67bQWvzXgOYz/Rhk
- pamv7yzS2eXU4qZe+xBfG4vMG3hMSEFj4rtvHx6+mAD8z7H7QgKH9VsxXjXCAW39zck5/58btgf
- qaXy+xopYmlsBddquFDtRQ22kEeZvA8DS95TPt84nUDLhXOc42yhkQukvSVdzepeAwxs2t4/aid
- 0C1LSs0n94ApUgN5dkgRZW7Bvx9tgFEEWh0XNXEtTLX0xVFVqZnvSp8LMt1bBw7PM2uJkegwlBU
- 0LX5zmWEwP1+Ph3e6Uw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDIwMiBTYWx0ZWRfX9Dhk9KrP06Ka
- J/tF0hMn5cFKkstpvweUd3skvjxZq7rnKHXXIDvt/NmaLLiN47GyORSKaIL+Ap7XVAGGKPJ0gnO
- z7pddJyovTLPmGKKkwpcVrZQDi7929c=
-X-Authority-Analysis: v=2.4 cv=XIwAjwhE c=1 sm=1 tr=0 ts=6a4c0abb cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fsdq8dFr2Uux402FS9br8A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=ZaZH7ke036cbytEKeQwA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: nm5FIUEOTQWcMPTmE5E1Dgq3rwMyrv9D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-06_02,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060202
+References: <20260629030930.379879-1-zhouhaikun5@huaqin.corp-partner.google.com>
+ <CAD=FV=XoDLOwva_tnUWujgGHCJbe1h6YqX7hO6vdD4f9dbc8UQ@mail.gmail.com>
+ <CAKDRTegZxEsE36qpebdg0hAFek0NN1py1aLt4SWPVD8S7S-nbw@mail.gmail.com>
+ <CAD=FV=VPyyQosGRgn3GKWzvRhii=X7_i4OJ9AiRxczh92gyxjg@mail.gmail.com>
+ <CAKDRTeiLhV5KYf8UteknKBnYm8mSy-N4v3XOdm9C8T+ah6dZtg@mail.gmail.com>
+In-Reply-To: <CAKDRTeiLhV5KYf8UteknKBnYm8mSy-N4v3XOdm9C8T+ah6dZtg@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 6 Jul 2026 13:55:26 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wx0cdsbmZiGP3V24UpWQkrpKbZgYstfMkySP9a7ZPYeg@mail.gmail.com>
+X-Gm-Features: AVVi8CfIDKohbiRabfklUiULQVonEgKyFjD2cFeAJdB59M81OG9LynoaY230QX0
+Message-ID: <CAD=FV=Wx0cdsbmZiGP3V24UpWQkrpKbZgYstfMkySP9a7ZPYeg@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Change the KD116N2930A15 panel enable delay
+To: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+Cc: neil.armstrong@linaro.org, sam@ravnborg.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ daniel@ffwll.ch, airlied@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,39 +104,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/6/2026 3:07 PM, Konrad Dybcio wrote:
-> On 7/5/26 10:00 AM, Akhil P Oommen wrote:
->> Adreno 840 present in Kaanapali SoC is the second generation GPU in
->> A8x family. It is based on the new slice architecture with 3 slices,
->> higher GMEM/caches etc.
->>
->> There is some re-arrangement in the reglist to properly cover maximum
->> register region. Other than this, the DT description is mostly similar
->> to the existing chipsets except the OPP tables.
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->> ---
-> 
-> [...]
-> 
->> +			qcom,gmu = <&gmu>;
->> +			#cooling-cells = <2>;
->> +
->> +			nvmem-cells = <&gpu_speed_bin>;
->> +			nvmem-cell-names = "speed_bin";
-> 
-> This looks good to me, but I thought that on a8x, we're supposed to use
-> the freq limiting register in CX_MISC - is either of them preferred?
-> Or are they just hardwired to the same thing by chance
+Hi,
 
-I believe the other register would work, but I don't have a fused hw to
-test. OTOH, this is what is commercialized.
+On Fri, Jul 3, 2026 at 2:19=E2=80=AFAM Haikun Zhou
+<zhouhaikun5@huaqin.corp-partner.google.com> wrote:
+>
+> Hi Doug
+>
+> On Thu, Jul 2, 2026 at 12:33=E2=80=AFAM Doug Anderson <dianders@chromium.=
+org> wrote:
+> >
+> > Hi,
+> >
+> > On Tue, Jun 30, 2026 at 6:16=E2=80=AFPM Haikun Zhou
+> > <zhouhaikun5@huaqin.corp-partner.google.com> wrote:
+> > >
+> > > Hi Doug, thank you very much for your reply,
+> > >
+> > > On Wed, Jul 1, 2026 at 1:33=E2=80=AFAM Doug Anderson <dianders@chromi=
+um.org> wrote:
+> > > >
+> > > > Hi,
+> > > >
+> > > > On Sun, Jun 28, 2026 at 8:09=E2=80=AFPM Haikun Zhou
+> > > > <zhouhaikun5@huaqin.corp-partner.google.com> wrote:
+> > > > >
+> > > > > Due to panel characteristics, when the panel wakes up from the S3=
+, the
+> > > > > main link data is not yet ready when the backlight turns on, caus=
+ing
+> > > > > a garbage appearance on the screen. Delaying the backlight by 100=
+0ms
+> > > > > can avoid this issue.
+> > > > >
+> > > > > Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.googl=
+e.com>
+> > > > > ---
+> > > > >  drivers/gpu/drm/panel/panel-edp.c | 8 +++++++-
+> > > > >  1 file changed, 7 insertions(+), 1 deletion(-)
+> > > >
+> > > > This really doesn't feel right; it seems like a hack papering over =
+a
+> > > > problem whose root cause hasn't been found. If nothing else, what d=
+oes
+> > > > "S3" have to do with anything? The panel isn't left powered on duri=
+ng
+> > > > S3, right? So, as far as the panel is concerned, S3 should be the s=
+ame
+> > > > as S5. Why would you see this noise only coming out of S3?
+> > > >
+> > > > -Doug
+> > >
+> > > Yes, this screen issue isn't limited to the S3; the backlight turning
+> > > on first and then
+> > > displaying garbage isn't limited to this issue. On Chromebooks, the
+> > > same phenomenon occurs
+> > > when the backlight is completely turned off and then back on.
+> > > Measurements with EE revealed
+> > > that when the backlight is on, the main link data is already being
+> > > transmitted but is still unstable.
+> > > Turning on the backlight at this time causes the screen to display ga=
+rbage.
+> > > We had to add sufficient backlight delay to fix this issue, and while
+> > > we could modify it in the DTS
+> > > settings, since this is a screen-related problem, we wanted to fix it
+> > > from the driver.
+> >
+> > OK, fair enough. Sure, if this is truly a problem with this specific
+> > panel then your patch is the correct one. That being said, I'd still
+> > like to confirm a bit more. Specifically:
+> >
+> > 1. Usually the controller on the panel is shared among a family of
+> > displays. Do we understand why this specific panel needs the extra
+> > delay while no other panels do? Is this only because we support so few
+> > KDC panels?
+> >
+> > 2. Have you talked to the panel manufacturer about this problem? Have
+> > they confirmed that they understand the problem and verified that we
+> > truly need a full 1 second delay here?
+> >
+> > The 1-second delay is pretty beefy and can affect things like boot
+> > speed for devices using this panel.
+> >
+> > -Doug
+>
+> about the 1 question:
+>   The limited number of KDC panels is not the cause.
+> Our waveform measurements revealed that after recovery from S3,
+> the complete image from the source output system was only available
+> after 1120ms. We had to delay the blending time to avoid garbage
+> caused by incomplete source output.
 
-Btw, the CX_MISC register is not present in all A8x GPUs, for eg: Pakala.
+"incomplete source output" makes it sound as if your eDP controller is
+providing bad data during this time.
 
--Akhil.
 
-> 
-> Konrad
+> It's worth noting that adding
+> 1000ms to circumvent the issue is already quite poor;
+> based on the oscilloscope waveform, we would need to add at least
+> 1120ms to completely avoid it.
+> about the 2 question:
+> Yes, we have discussed this with the vendor, based on what's visually
+> perceptible, we confirmed with the vendor that 1000ms is feasible.
 
+I'm trying to understand why this specific model of panel has the
+problem, but no other panels need such a long delay here. It's very
+suspicious. Unless we understand what makes this panel different /
+unique, I feel like the problem is elsewhere in the system and this
+delay is just hiding it.
+
+-Doug
