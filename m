@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 378E3C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C30B7C44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47C5D10EA85;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C109710EA8B;
 	Mon,  6 Jul 2026 19:32:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jzUm9I2+";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TubqFcPT";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1799F10EA8B
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:32:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF72710EA8B
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:32:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783366354;
- bh=/oiDzG1yPzVXvmDyvrB8YcOt78K9ESwEa+Uivy/4TVI=;
+ s=mail; t=1783366356;
+ bh=kMCGGS6kz/DiDvHsBSJSsbUWHK6mdQmi8qiyJCkMFcY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jzUm9I2+94tXdgxin0lHHVbT5SjP9gQvniyFq9/P+prpO2RgMgBy5SWBi5dZHyVCD
- b7v+iF1m0cDa+1m9T6MAOCQmvF43QmqysM35fdylK6u57JeOBEF5LAmbFb6GKC0vTa
- am+ug3xx1SN45wS/F1kmgrHEMgCE8bCQWlK/5YFYN5NOb3wv94xfUri3Z9Lu8xSrzL
- NbchZVXOROLgkS13D06gJ4bF6oCWLr0RJmvT63lY44j6vH8bNaCgMwrkmvs3SuMRWc
- u5XK7E7oNXQRPJwB4gWMqR4mbiHlq+O9jvEDP5Krbs30rnsCcPaecpWuuuVa9VIyTq
- mmWhiJvPMG2Tg==
+ b=TubqFcPTsUBFCgRivHrU2fz82lPzvG5GqvcBUELgi1KNi/QDBiUaHu+w85KPmpDuq
+ cUy0u1aWWos1q/x1842F9jBiK0PF9eVR5PlR8vNRQmOUBQ9c45Q0iUbbijOs+op+Cc
+ PjWM4lviCLqsMAAglQp74/lKXQ7Jg1vaIFqifjI2ZGReLnlke0ro4v26qQ0cD0EqZL
+ 35+wFk20fg4lyZhmfPQ2V2XayWj8RmBV0kzTNUiusrV5S+xe5SpUe3ca6VCA7wLP/P
+ ybXa+ZZFPgkCVDevsj50zGJl+fW/EwPoptg9DyGoQ/rFFmawmWraS9wJuAFYp1QkvU
+ fj2x5Nr5DkFcw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3DD5A17E0D56;
- Mon, 06 Jul 2026 21:32:34 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5C37B17E0E95;
+ Mon, 06 Jul 2026 21:32:36 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 06 Jul 2026 22:32:13 +0300
-Subject: [PATCH v2 01/13] dt-bindings: display: vop2: Add missing reset
- properties
+Date: Mon, 06 Jul 2026 22:32:16 +0300
+Subject: [PATCH v2 04/13] drm/rockchip: vop2: Avoid division by zero when
+ computing max_dclk
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-dw-hdmi-qp-yuv-v2-1-b91beb33dedf@collabora.com>
+Message-Id: <20260706-dw-hdmi-qp-yuv-v2-4-b91beb33dedf@collabora.com>
 References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -59,8 +59,7 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,105 +76,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
-clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
-provided only on RK3588.
+The DCLK reparenting logic in vop2_crtc_atomic_enable() is gated only on
+the presence of an HDMI PHY PLL on the SoC.
 
-While at it, move 'iommus' in the example up into the expected position
-to keep the properties in alphabetical order.
+This condition is true on any board that wires up an HDMI PHY, even when
+the CRTC is currently driving a non-HDMI output such as DSI or LVDS.
+Those encoders do not set vcstate->output_bpc, so it stays 0, hence the
+subsequent DIV_ROUND_CLOSEST_ULL() then divides by zero.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Note this division happens before the drm_for_each_encoder_mask() loop
+that would establish whether the pipe is actually driven by HDMI, so the
+loop provides no protection.
+
+Default bpc to 8 when it would otherwise be 0.  The resulting max_dclk
+value is a don't-care on the non-HDMI paths that trigger this, since the
+encoder loop will not select the PHY PLL as the DCLK source there.
+
+Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- .../bindings/display/rockchip/rockchip-vop2.yaml   | 46 +++++++++++++++++++++-
- 1 file changed, 44 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-index 93da1fb9adc4..f993cef0323b 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-@@ -82,6 +82,20 @@ properties:
-       - {}
-       - {}
- 
-+  resets:
-+    minItems: 5
-+    maxItems: 6
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index c2328b35466d..e966c0a0266e 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1920,8 +1920,9 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
+ 	 */
+ 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
+-		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8,
+-							       vcstate->output_bpc);
++		unsigned int bpc = vcstate->output_bpc ?: 8;
++		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
 +
-+  reset-names:
-+    minItems: 5
-+    items:
-+      - const: axi
-+      - const: ahb
-+      - const: dclk_vp0
-+      - const: dclk_vp1
-+      - const: dclk_vp2
-+      - const: dclk_vp3
-+
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
-@@ -148,6 +162,12 @@ allOf:
-         clock-names:
-           maxItems: 5
- 
-+        resets:
-+          maxItems: 5
-+
-+        reset-names:
-+          maxItems: 5
-+
-         interrupts:
-           maxItems: 1
- 
-@@ -194,6 +214,12 @@ allOf:
-             - {}
-             - const: pll_hdmiphy0
- 
-+        resets:
-+          maxItems: 5
-+
-+        reset-names:
-+          maxItems: 5
-+
-         interrupts:
-           minItems: 4
- 
-@@ -246,6 +272,12 @@ allOf:
-             - const: pll_hdmiphy0
-             - const: pll_hdmiphy1
- 
-+        resets:
-+          minItems: 6
-+
-+        reset-names:
-+          minItems: 6
-+
-         interrupts:
-           maxItems: 1
- 
-@@ -289,9 +321,19 @@ examples:
-                               "dclk_vp0",
-                               "dclk_vp1",
-                               "dclk_vp2";
--                power-domains = <&power RK3568_PD_VO>;
--                rockchip,grf = <&grf>;
-                 iommus = <&vop_mmu>;
-+                power-domains = <&power RK3568_PD_VO>;
-+                resets = <&cru SRST_A_VOP>,
-+                         <&cru SRST_H_VOP>,
-+                         <&cru SRST_VOP0>,
-+                         <&cru SRST_VOP1>,
-+                         <&cru SRST_VOP2>;
-+                reset-names = "axi",
-+                              "ahb",
-+                              "dclk_vp0",
-+                              "dclk_vp1",
-+                              "dclk_vp2";
-+                rockchip,grf = <&grf>;
-                 vop_out: ports {
-                     #address-cells = <1>;
-                     #size-cells = <0>;
+ 		if (clock <= max_dclk) {
+ 			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
+ 				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
 
 -- 
 2.54.0
