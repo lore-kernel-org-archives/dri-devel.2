@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B29F9C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 05:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD22DC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 05:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CDC310E73E;
-	Mon,  6 Jul 2026 05:25:16 +0000 (UTC)
-Received: from us-smtp-delivery-44.mimecast.com
- (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C9210E03D
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 05:25:14 +0000 (UTC)
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-652-APj01Y9IP2mujpffrA2ESQ-1; Mon,
- 06 Jul 2026 01:25:10 -0400
-X-MC-Unique: APj01Y9IP2mujpffrA2ESQ-1
-X-Mimecast-MFC-AGG-ID: APj01Y9IP2mujpffrA2ESQ_1783315508
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 6D8CD1955F73; Mon,  6 Jul 2026 05:25:08 +0000 (UTC)
-Received: from dreadlord.redhat.com (unknown [10.67.32.13])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 094671956096; Mon,  6 Jul 2026 05:25:00 +0000 (UTC)
-From: Dave Airlie <airlied@gmail.com>
-To: dri-devel@lists.freedesktop.org, tj@kernel.org, christian.koenig@amd.com,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>
-Cc: cgroups@vger.kernel.org,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Waiman Long <longman@redhat.com>, simona@ffwll.ch,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH 10/10] xe: create a flag to enable memcg accounting for XE as
- well.
-Date: Mon,  6 Jul 2026 15:22:39 +1000
-Message-ID: <20260706052330.1110909-11-airlied@gmail.com>
-In-Reply-To: <20260706052330.1110909-1-airlied@gmail.com>
-References: <20260706052330.1110909-1-airlied@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A51F910E737;
+	Mon,  6 Jul 2026 05:27:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=adishatz.org header.i=@adishatz.org header.b="o9yoFIOT";
+	dkim-atps=neutral
+X-Greylist: delayed 529 seconds by postgrey-1.36 at gabe;
+ Mon, 06 Jul 2026 05:27:45 UTC
+Received: from adishatz.org (ns314768.ip-37-187-26.eu [37.187.26.192])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3C4310E03D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 05:27:45 +0000 (UTC)
+Received: from p-si-bellegarde (151.127.95.79.rev.sfr.net [79.95.127.151])
+ by adishatz.org (Postfix) with ESMTPSA id 2254A4C019B;
+ Mon, 06 Jul 2026 07:18:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adishatz.org;
+ s=mail; t=1783315133;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=bmINFG2vY6U9FFlG3dWawSnCvtEZ5sxZ5EVkoegtJPE=;
+ b=o9yoFIOT0eIzuaVl5ANomqS19UzvXOmKvO6tHnGdLdE5aCp4FjRvDWT2KSPXDly0Iwsm6D
+ GUIfGBgBn/ekCDqvVAhY//b+BoQLq2xoeDmt1RYryke0GNQvRT2LLZl2Pbowo1+jdqu1R0
+ wW34nejiLUHfenL7IYNpuqYp/fr3EbKirKfs+iaQ3TnDfUz0oI8w54v2hzTGF0Gmt8a72y
+ 5xfwb6tDRYdtdXqVWAOo6xp+exEReRwDtGXHwy8Xp4XWIlpuvK7n4BIgVsdZjxs/4gtVL4
+ qZPGzKejOct6b5onOn3AfxZU+c+seiMGd/+aGoqaEeKcOXDoaGQ1xI0so9PD0Q==
+Authentication-Results: ORIGINATING; auth=pass smtp.auth=cedric.bellegarde
+ smtp.mailfrom=cedric.bellegarde@adishatz.org
+From: =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+ =?UTF-8?q?C=C3=A9dric=20Bellegarde?= <cedric.bellegarde@adishatz.org>
+Subject: [PATCH] drm/panel: sofef00: Fix DSI transfer errors on backlight
+ update
+Date: Mon,  6 Jul 2026 07:18:22 +0200
+Message-ID: <20260706051825.78752-1-cedric.bellegarde@adishatz.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: lwR1Eg1fwge75hq3QqQ1SmOT-7eO8HT5Njjdb_CA20A_1783315508
-X-Mimecast-Originator: gmail.com
-Content-Transfer-Encoding: quoted-printable
-content-type: text/plain; charset=WINDOWS-1252; x-default=true
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,128 +67,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Maarten Lankhorst <dev@lankhorst.se>
+Backlight updates via bl_update_status() could be triggered before the
+panel was fully initialized, resulting in failed DCS commands during
+the atomic commit sequence.
 
-This adds support for memcg accounting to ttm object used by xe driver.
+Guard bl_update_status() with a prepared flag to skip backlight updates
+when the panel is not yet ready.
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Signed-off-by: Dave Airlie <airlied@redhat.com>
+[11816.846734] disp_cc_mdss_byte0_clk status stuck at 'on'
+[11816.846752] WARNING: CPU: 4 PID: 26399 at drivers/clk/qcom/clk-branch.c:88 clk_branch_toggle+0x128/0x178
+[11816.861715] Modules linked in: rfcomm rmnet algif_hash algif_skcipher q6asm_dai q6voice_dai q6routing q6afe_dai q6voice q6adm q6cvp q6afe q6asm q6mvm q6
+cvs q6voice_common snd_q6dsp_common q6core bnep gpio_wcd934x snd_soc_wcd934x snd_soc_wcd_mbhc soundwire_qcom snd_soc_wcd_classh venus_enc venus_dec imx371 wcd9
+34x regmap_slimbus imx376 lc898217xc videobuf2_dma_contig fastrpc v4l2_cci qrtr_smd rpmsg_ctrl hci_uart btqca btbcm bluetooth ecdh_generic ecc pwrseq_core snd_
+soc_max98927 qcom_camss ath10k_snoc videobuf2_dma_sg snd_soc_sdm845 videobuf2_memops venus_core ath10k_core qcom_smbx leds_qcom_flash snd_soc_rt5663 leds_qcom_
+lpg ath v4l2_mem2mem snd_soc_qcom_sdw videobuf2_v4l2 v4l2_fwnode videobuf2_common v4l2_async snd_soc_qcom_common bq27xxx_battery_i2c qcom_pbs bq27xxx_battery l
+ed_class_multicolor mac80211 snd_soc_rl6231 rtc_pm8xxx libarc4 soundwire_bus videodev qcom_stats qcom_spmi_rradc reset_qcom_pdc i2c_qcom_cci cfg80211 camcc_sdm
+845 rfkill mc qcom_rng ipa qcom_q6v5_mss slim_qcom_ngd_ctrl qcom_wdt icc_bwmon qrtr
+[11816.861812]  qcom_q6v5_pas qcom_pil_info qcom_q6v5 qcom_sysmon qcom_common qcom_glink_smem joydev zram zsmalloc uhid uinput nft_reject_inet nft_reject n
+f_reject_ipv6 nf_reject_ipv4 nft_ct nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables fuse nfnetlink ipv6 qcom_spmi_haptics rmi_i2c rmi_core
+[11816.978965] CPU: 4 UID: 0 PID: 26399 Comm: (sd-bright) Tainted: G        W           6.16.7-sdm845 #1000-postmarketos-qcom-sdm845 PREEMPT
+[11816.991580] Tainted: [W]=WARN
+[11816.994637] Hardware name: OnePlus 6 (DT)
+[11816.998735] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[11817.005844] pc : clk_branch_toggle+0x128/0x178
+[11817.010384] lr : clk_branch_toggle+0x124/0x178
+[11817.014956] sp : ffff8000991f3970
+[11817.018358] x29: ffff8000991f3980 x28: ffff0000dad38000 x27: 0000000000000000
+[11817.025634] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+[11817.032887] x23: 0000000000000000 x22: ffffa63e2af42178 x21: ffffa63e2b56e128
+[11817.040169] x20: ffffa63e29da5a90 x19: 0000000000000000 x18: 0000000000000003
+[11817.047451] x17: 0000000000000000 x16: 000000000000000c x15: 0000000000000003
+[11817.054701] x14: ffffa63e2b2f6a10 x13: 0000000000000003 x12: 0000000000000003
+[11817.061982] x11: 00000000ffffefff x10: c0000000ffffefff x9 : e43cc05c4996c100
+[11817.069260] x8 : e43cc05c4996c100 x7 : 7461206b63757473 x6 : 0000000000000027
+[11817.076511] x5 : ffffa63e2b8726d3 x4 : ffffa63e2ae146c4 x3 : 0000000000000000
+[11817.083792] x2 : 0000000000000000 x1 : ffff8000991f3710 x0 : 00000000fffffff0
+[11817.091042] Call trace:
+[11817.093572]  clk_branch_toggle+0x128/0x178 (P)
+[11817.098112]  clk_branch2_disable+0x28/0x40
+[11817.102308]  clk_core_disable+0x64/0x1b8
+[11817.106358]  clk_core_disable_lock+0x90/0x120
+[11817.110810]  clk_disable+0x2c/0x40
+[11817.114298]  dsi_link_clk_disable_6g+0x78/0x98
+[11817.118871]  msm_dsi_host_xfer_restore+0xf0/0x120
+[11817.123667]  msm_dsi_manager_cmd_xfer+0xfc/0x178
+[11817.128411]  dsi_host_transfer+0x48/0x110
+[11817.132509]  mipi_dsi_dcs_set_display_brightness_large+0x8c/0xd0
+[11817.138651]  sofef00_panel_bl_update_status+0x3c/0x60
+[11817.143802]  backlight_device_set_brightness+0x88/0x128
+[11817.149124]  brightness_store+0x64/0xa8
+[11817.153082]  dev_attr_store+0x24/0x40
+[11817.156835]  sysfs_kf_write+0x8c/0xb8
+[11817.160591]  kernfs_fop_write_iter+0xe4/0x190
+[11817.165073]  do_iter_readv_writev+0x168/0x1c8
+[11817.169515]  vfs_writev+0x16c/0x378
+[11817.173122]  do_writev+0x84/0x130
+[11817.176523]  __arm64_sys_writev+0x2c/0x40
+[11817.180618]  invoke_syscall+0x48/0x100
+[11817.184460]  el0_svc_common+0x88/0xe8
+[11817.188217]  do_el0_svc+0x28/0x40
+[11817.191621]  el0_svc+0x38/0x88
+[11817.194766]  el0t_64_sync_handler+0x78/0x108
+[11817.199161]  el0t_64_sync+0x198/0x1a0
+
+Signed-off-by: Cédric Bellegarde <cedric.bellegarde@adishatz.org>
 ---
- drivers/gpu/drm/xe/xe_bo.c  | 10 +++++++---
- drivers/gpu/drm/xe/xe_bo.h  |  1 +
- drivers/gpu/drm/xe/xe_lrc.c |  3 ++-
- drivers/gpu/drm/xe/xe_oa.c  |  3 ++-
- drivers/gpu/drm/xe/xe_pt.c  |  3 ++-
- 5 files changed, 14 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 62f1da04ca2b..e016f0314d86 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -56,6 +56,7 @@ static const struct ttm_place sys_placement_flags =3D {
- =09.flags =3D 0,
- };
-=20
-+/* TTM_PL_FLAG_MEMCG is not set, those placements are used for eviction */
- static struct ttm_placement sys_placement =3D {
- =09.num_placement =3D 1,
- =09.placement =3D &sys_placement_flags,
-@@ -181,8 +182,8 @@ static void try_add_system(struct xe_device *xe, struct=
- xe_bo *bo,
-=20
- =09=09bo->placements[*c] =3D (struct ttm_place) {
- =09=09=09.mem_type =3D XE_PL_TT,
--=09=09=09.flags =3D (bo_flags & XE_BO_FLAG_VRAM_MASK) ?
--=09=09=09TTM_PL_FLAG_FALLBACK : 0,
-+=09=09=09.flags =3D TTM_PL_FLAG_MEMCG | ((bo_flags & XE_BO_FLAG_VRAM_MASK)=
- ?
-+=09=09=09TTM_PL_FLAG_FALLBACK : 0),
- =09=09};
- =09=09*c +=3D 1;
- =09}
-@@ -2384,6 +2385,9 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe,=
- struct xe_bo *bo,
- =09placement =3D (type =3D=3D ttm_bo_type_sg ||
- =09=09     bo->flags & XE_BO_FLAG_DEFER_BACKING) ? &sys_placement :
- =09=09&bo->placement;
+diff --git a/drivers/gpu/drm/panel/panel-samsung-sofef00.c b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+index e00a497a7c96..f07d6533ed69 100644
+--- a/drivers/gpu/drm/panel/panel-samsung-sofef00.c
++++ b/drivers/gpu/drm/panel/panel-samsung-sofef00.c
+@@ -175,9 +175,13 @@ static const struct drm_panel_funcs sofef00_panel_panel_funcs = {
+ static int sofef00_panel_bl_update_status(struct backlight_device *bl)
+ {
+ 	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	struct sofef00_panel *ctx = mipi_dsi_get_drvdata(dsi);
+ 	int err;
+ 	u16 brightness = (u16)backlight_get_brightness(bl);
+ 
++	if (!ctx->panel.prepared)
++		return 0;
 +
-+=09if (bo->flags & XE_BO_FLAG_ACCOUNTED)
-+=09=09ttm_bo_set_cgroup(&bo->ttm, get_obj_cgroup_from_current());
- =09err =3D ttm_bo_init_reserved(&xe->ttm, &bo->ttm, type,
- =09=09=09=09   placement, alignment,
- =09=09=09=09   &ctx, NULL, resv, xe_ttm_bo_destroy);
-@@ -3361,7 +3365,7 @@ int xe_gem_create_ioctl(struct drm_device *dev, void =
-*data,
- =09if (XE_IOCTL_DBG(xe, args->size & ~PAGE_MASK))
- =09=09return -EINVAL;
-=20
--=09bo_flags =3D 0;
-+=09bo_flags =3D XE_BO_FLAG_ACCOUNTED;
- =09if (args->flags & DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING)
- =09=09bo_flags |=3D XE_BO_FLAG_DEFER_BACKING;
-=20
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index 6340317f7d2e..d38012c60175 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -52,6 +52,7 @@
- #define XE_BO_FLAG_CPU_ADDR_MIRROR=09BIT(24)
- #define XE_BO_FLAG_FORCE_USER_VRAM=09BIT(25)
- #define XE_BO_FLAG_NO_COMPRESSION=09BIT(26)
-+#define XE_BO_FLAG_ACCOUNTED=09=09BIT(27)
-=20
- /* this one is trigger internally only */
- #define XE_BO_FLAG_INTERNAL_TEST=09BIT(30)
-diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
-index a4292a11391d..61aa5033a292 100644
---- a/drivers/gpu/drm/xe/xe_lrc.c
-+++ b/drivers/gpu/drm/xe/xe_lrc.c
-@@ -1661,7 +1661,8 @@ static int xe_lrc_init(struct xe_lrc *lrc, struct xe_=
-hw_engine *hwe, struct xe_v
- =09=09   XE_BO_FLAG_GGTT_INVALIDATE;
-=20
- =09if ((vm && vm->xef) || init_flags & XE_LRC_CREATE_USER_CTX) /* userspac=
-e */
--=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM;
-+=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM |
-+=09=09=09    XE_BO_FLAG_ACCOUNTED;
-=20
- =09bo =3D xe_bo_create_pin_map_novm(xe, tile, bo_size,
- =09=09=09=09       ttm_bo_type_kernel,
-diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-index 2dce6a47202c..38d491fa8231 100644
---- a/drivers/gpu/drm/xe/xe_oa.c
-+++ b/drivers/gpu/drm/xe/xe_oa.c
-@@ -910,7 +910,8 @@ static int xe_oa_alloc_oa_buffer(struct xe_oa_stream *s=
-tream, size_t size)
-=20
- =09bo =3D xe_bo_create_pin_map_novm(stream->oa->xe, stream->gt->tile,
- =09=09=09=09       size, ttm_bo_type_kernel,
--=09=09=09=09       vram | XE_BO_FLAG_GGTT, false);
-+=09=09=09=09       vram | XE_BO_FLAG_GGTT | XE_BO_FLAG_ACCOUNTED,
-+=09=09=09=09       false);
- =09if (IS_ERR(bo))
- =09=09return PTR_ERR(bo);
-=20
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index 670bc2206fea..daf346eaa8f5 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -123,7 +123,8 @@ struct xe_pt *xe_pt_create(struct xe_vm *vm, struct xe_=
-tile *tile,
- =09=09   XE_BO_FLAG_IGNORE_MIN_PAGE_SIZE |
- =09=09   XE_BO_FLAG_NO_RESV_EVICT | XE_BO_FLAG_PAGETABLE;
- =09if (vm->xef) /* userspace */
--=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM;
-+=09=09bo_flags |=3D XE_BO_FLAG_PINNED_LATE_RESTORE | XE_BO_FLAG_FORCE_USER=
-_VRAM |
-+=09=09=09    XE_BO_FLAG_ACCOUNTED;
-=20
- =09pt->level =3D level;
-=20
---=20
+ 	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+ 
+ 	err = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+-- 
 2.54.0
 
