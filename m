@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A99BC44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23871C43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3599110E7CB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E382610E7DB;
 	Mon,  6 Jul 2026 07:13:32 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id D60BF10E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:58 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-b3-6a4b4904ee74
+ by gabe.freedesktop.org (Postfix) with ESMTP id 311FD10E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:44 +0000 (UTC)
+X-AuditID: a67dfc5b-c45ff70000001609-d0-6a4b48fc170e
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
@@ -73,46 +73,45 @@ Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
  tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 29/40] dept: make dept aware of lockdep_set_lock_cmp_fn()
- annotation
-Date: Mon,  6 Jul 2026 15:19:17 +0900
-Message-Id: <20260706061928.66713-30-byungchul@sk.com>
+Subject: [PATCH v19 05/40] dept: add proc knobs to show stats and dependency
+ graph
+Date: Mon,  6 Jul 2026 15:18:53 +0900
+Message-Id: <20260706061928.66713-6-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSXUxTdxjG/Z/zP6eHhpqTQuSIFyxdpgQVZWHmzdwGF8t2lMQtfmwiF9jI
- iZSVj7QCssWE8rEVUgFxBaWChVpSAQVbRBRJEEd1K50UFIoUG4ShCIhbKESEsMLm3S/P+zy/
- q5chpcNUKKNIOyWo0uRKGS3G4tnA2p30vriU3eb27eDxTlAwqOnC4JvXYlgx3BKB1nqRgodD
- eRi8Pi2CxXcGEvQaBE2tGgL0YxM0VE5pMMzV6xBM9XwNs94OCoYWZhBMdP2C4HKdjYZ3zkck
- VOr7ENSOjZLQan+GoNOSR8PAxEZ47JujYdZ1iQBjXicFrt5pBNWGcgT5pmYaXNPLBHgqyglw
- lNURUHEjBAyVLwnoNXkwGJwDFDy3VIlg1ZgO9sYXIhgt1WP4/dkgBdOT5TR4H/xMgXW4B8H8
- 4zECmnSTJGjv+DBYx/2Vzqfb4WKNhwbtyjwCe/tzAnQtNynINSxS0NfloKC/sQ+Dw/7Q76y6
- imHEWSqCR3euUWAechFgc/aSsFCyJTaJb7C1EXxh/wrNN9U0IX7enE/yhWV+KrBl82bHDM0v
- +Z7QfOeCEfN/1HH8laIlgj/n3MnfrhoV8UZrJl/w2yzF2ywR3+44Jv4sSVAqsgTVri+Oi5N1
- w7eojKWtp80dRTgX5YUVowCGY6O5yrGn5Hse1V8m1phmt3Fu99v1PJj9gLOdnaSKkZgh2YEw
- Tld/Fhcjhglij3LNN3etdTD7EVfx6jy9xhJ2D7fqu/K/M4xrbOla5wB/fn25et0vZT/hRuYe
- 4DUnxzYGcJprraL/Bpu5exY3LkMSI9rQgKSKtKxUuUIZHZmck6Y4HXkiPdWK/A9Xf2Y5oR39
- 03eoG7EMkgVKIHZ/ipSSZ6lzUrsRx5CyYMnW8LgUqSRJnvOjoEpPVGUqBXU32sJgWYjk44Xs
- JCl7Un5K+EEQMgTV+yvBBITmoguGkV83ZRae/+mlRX/yif5NTNDBksGMwJnAnOooW7Hazb92
- /G367n700t5S95SM7Yj7MDLky5rD43u+ObJam3AiMfntga/MkT2ykQxPeUlMxNH0veq/FuPt
- puPxOw6HikyvTIl3+8PbPnd1O9qUq7vrvz8Qnn13vPfPI/s2F3mlUZ8GybA6WR4VQarU8n8B
- isN88mwDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSW0wTeRTG/c/8OzNMrJlUEifwgGlcMRtBjZecROPlQRkvu/FB48YHpdFR
- Sgtiq9iaGGlrFRF2a7UlUtCK0ChUQaoiYiNCwHvkpqKA0KSiCIgolVAotWj25eR3vvOdL+fh
- MKSsWhLDKNMPiZp0hVpOsZj9e6UpAW/cnLrYdzMRss3HoavHL4HXhjoMgdFsDIUVbgpCjmoa
- sqsuSODxGyOG5hvlCHoC2QjGJhwkmGvCGELWJhpGxztpsBkQhL1NCOwtVhI6mh+Q4L5lIOB7
- 5RQFAw3fENh8fgry+w0Yhl25CAr6HDT0NybBUE+tBMLdHwl482MQgcs/RYC/7hSCkF0Fl4o9
- kXX7VwomXrwkId/WjOCyr5uEb/29CG41vUfgvWqk4IPlNglt/lnQHhim4IntDAVDLYUEfKmk
- wGn0SqDl+QCCIocVQd87LwGmKxUU2IuqMNT03qOhZWCSgC67lYDyqr+gx9WH4ZmlmIicG3Hd
- nAOOfBMRKZ8IsF2vJWDcVUavLUXCmPlfLJR57hCCuTVECe6LbiRMBK1IGC01kYLZEmkbBodJ
- 4YTniFD6bJASgoFXlOD94cTC02JeKDkdJISzLxKEmoJueuu6neyqvaJamSlqFq1OZlNy31ZL
- MoLzdaW1p3EWMsbloCiG55bx3bZLxDRTXDzf0TFOTnM0N5f35PVJchDLkFxbHJ/rysM5iGFm
- c//wFbcXTXsw9wdv/3yOmmYpt4IPB0rI35lxfHll3S+Oiug3Jot+5cu45Xzn8CNsQawTzShD
- 0cr0zDSFUr08UatK0acrdYl7DqRVocg7uY5Nnr2LRtuS6hHHIPlMKazdlCqTKDK1+rR6xDOk
- PFo6f8HmVJl0r0J/VNQc2K05rBa19SiWwfI50k07xGQZt19xSFSJYoao+X9KMFExWcjSsLhT
- FU6tIWdkGT/H599Xzx2x6ra1qupikxrXXI1t31By0KAfowKMacsd57zVGXovvy50/5wOxWgV
- U41LY5K17c89H7p86z9KvxTWsrrzCa6t233O3u/0gyvsiGfXfyczRxZee5vXui3uYH38w4L9
- ucf2zaTZx8HtQx5Pu9svx9oUxZI/SY1W8RNXjqH7SgMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe0yTZxTGed/vSkP1S0fiNyaRdFEnBB3EmRN3CZmafJFkGpaY6Uy0kS9S
+ 1gIpirLE0TEKHUHEJi1ii6s4GuRa2igXV4IkVgxzymXQQRBQhCmgDim3Al0B/efkl+c5z3P+
+ OSwh66PCWGXKGVGTolDJaQkpmQopi14W4pM/Nds3g16XBd4ZPQmWumoals0NDLT3ZZMw5NUj
+ mPOZCdA1+UlYNrgZmFkYYMD4MwK/y43A1Gkg4K19hYapoTsU+AfHMfTNTiKwja5gGG3NQ/Bb
+ mZOGCdMbGnwPHxFQbHyM4PrIIAGuimwaukc3QI/3dSDfacHwyk6DNdtFwVi/C4Op1EFC03Az
+ A50TSxiGbGMkdBSVYSh+QYOpfhOYi3/BgfEvBmPNHQwLtkoGbNqtsDQSA35rKrirxhl48KSX
+ gqH7uRQ0aIcZcPxzD8FMzwgGfbOXBMezgOvqjwJ341MM3c0WGgrstyh4Uu2nQGueo6Bu3IOh
+ w91OwqPmGgrK+zoxjAx7qLhEYU5XSAqVzttY0HUt00L1tWok+BYNSNAVBSjHeU4o75ikhUXv
+ 37TgmrWSQtPVQUbIaelnBKvjrOCsiBRu/PECC9envdTh2GOSLxJFlTJD1Oz66qQkqcVwm0nz
+ bj8/Od9LaVFDRD4KZnluN+9pMpLv2ehrpVeZ5rbzHs8CscqhXATvvDhG5SMJS3DdW/gC28W1
+ wAdcAq+7UobyEcuS3Fb+5fw3q7KU+4yvKC7H651b+Cp761pPMLeHr10qXdNlgZ2B1/ff3b0R
+ zBssh9b5Q/5uhYcsQlIrCqpEMmVKhlqhVO3emZSZojy/81Sq2oEC72a7sPR9I5p+/G0b4lgk
+ D5FC3MFkGaXISM9UtyGeJeSh0m2fxCfLpImKzB9FTeoJzVmVmN6GPmJJ+SZp7Oy5RBl3WnFG
+ /EEU00TNexezwWFaFGVuoW2xiyU/ha6YjpD1QbIdHzdO0VGSz/8L/7Mu4bvjWRs3lIZdummR
+ 7908rq/R5OSwR2sGvo7jIiZV2x7e/Gs6b//+A0m/d706kltw2Web/zVDo1LXOuLfxIRJ2tN6
+ WvZhFK2yRhc67F29ufWGoHDZ3renn5cUeksi5eov7aZIOZmepIiJJDTpiv8B+kXnZWoDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAAzVSe0hTcRjtd+/dvdfh4rIML/mHMiorsAc9+CApo8CL9pAIAiVq1SXnY8lm
+ lj2wqUObj2y0Lbc0XTlEzWyzzGQmSvZGzVJ7mEXLMjXNnM/NNY3++TjfOec7nD8+GhfXCZbR
+ Mnkyr5BLEySkkBDu3ZoR4uIi49ZranwhW50GH/scAuhSNRHgHM8m4PqdKhLcpjoKsq2FAnja
+ nU5Ae3Ulgj5nNoLJWRMO6noPAW5tKwXj0x8o0KkQeOytCPQdWhx62h/hUFWrwuBPzRwJgy1j
+ CHRfHCQYBlQEjFhyERj7TRQMPA6H4b4GAXh6v2PQPTGEwOKYw8DRlIXArY+HG2ab91w/SsLs
+ qzYcDLp2BKVfenEYG/iMoLb1EwJ7eToJ3wru4dDpWAxvnCMkPNPlkDDccR2DXzUklKTbBdDx
+ chBBkUmLoP+9HYOMm3dI0BdZCaj//JCCjkEXBh/1WgwqrXugz9JPwIsCM+at63Xd9QeTIQPz
+ jh8Y6G43YDBtqaDCyhA3qc4nuArbfYxTv3aTXFVxFeJmZ7SIGy/LwDl1gXdtGRrBuUzbaa7s
+ xRDJzTjfkpx9ooTgnptZ7talGYy78iqEqzf2UlE7ooWhx/kEWQqvWLftiDC2UXufSnIGnxma
+ 6hJcRHVBGuRDs8wmVjfbRM5jkglme3qm8XnsxwSxtrx+gQYJaZzpDGRzLXnEvLCE2c+qr5mR
+ BtE0waxgf07tnadFzGa23FCG/csMZCtrmhZyfJgtbLWraIEXez0fRp4QBUhYghZVID+ZPCVR
+ KkvYvFYZH5sql51Ze+xkohV538lywXXlARrvDG9GDI0kviIIi4gTC6QpytTEZsTSuMRPtHJV
+ ZJxYdFyaepZXnDysOJXAK5tRAE1I/EURB/kjYuaENJmP5/kkXvFfxWifZRdRqG3VhtWLzxWu
+ EBZPyQ8WFm8b/ood6m5LDphb2rlPlVuaGRPu19t42eDenhWdFF5dbzx2bWOWzKi0dvsGvws6
+ /DZkbrm6pasrynLgAJxHgWGu3Ae/03bH1OY9c73J8c8v91xNPZqiifOxR41anaErg8Cz3li3
+ a+r0w+ZfO81Um0pCKGOlG9bgCqX0LwBrjGNKAwAA
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -130,158 +129,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-commit eb1cfd09f788e ("lockdep: Add lock_set_cmp_fn() annotation") has
-been added to address the issue that lockdep was not able to detect a
-true deadlock like the following:
-
-   https://lore.kernel.org/lkml/20220510232633.GA18445@X58A-UD3R/
-
-The approach is only for lockdep but dept should work being aware of it
-because the new annotation is already used to avoid false positive of
-lockdep in the code.
-
-Make dept aware of the new lockdep annotation.
+It'd be useful to show dept internal stats and dependency graph on
+runtime via proc for better information.  Introduce the knobs.
 
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- include/linux/dept.h     | 10 +++++++++
- kernel/dependency/dept.c | 48 +++++++++++++++++++++++++++++++++++-----
- kernel/locking/lockdep.c |  1 +
- 3 files changed, 53 insertions(+), 6 deletions(-)
+ kernel/dependency/Makefile        |  1 +
+ kernel/dependency/dept.c          | 11 +---
+ kernel/dependency/dept_internal.h | 10 ++++
+ kernel/dependency/dept_proc.c     | 96 +++++++++++++++++++++++++++++++
+ 4 files changed, 109 insertions(+), 9 deletions(-)
+ create mode 100644 kernel/dependency/dept_proc.c
 
-diff --git a/include/linux/dept.h b/include/linux/dept.h
-index 827ccc1890d1..f3cc7566ddf2 100644
---- a/include/linux/dept.h
-+++ b/include/linux/dept.h
-@@ -53,6 +53,11 @@ struct dept_map {
- 	const char			*name;
- 	struct dept_key			*keys;
+diff --git a/kernel/dependency/Makefile b/kernel/dependency/Makefile
+index b5cfb8a03c0c..92f165400187 100644
+--- a/kernel/dependency/Makefile
++++ b/kernel/dependency/Makefile
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0
  
-+	/*
-+	 * keep lockdep map to handle lockdep_set_lock_cmp_fn().
-+	 */
-+	void				*lockdep_map;
-+
- 	/*
- 	 * subclass that can be set from user
- 	 */
-@@ -79,6 +84,7 @@ struct dept_map {
- {									\
- 	.name = #n,							\
- 	.keys = (struct dept_key *)(k),					\
-+	.lockdep_map = NULL,						\
- 	.sub_u = 0,							\
- 	.map_key = { .classes = { NULL, } },				\
- 	.wgen = 0U,							\
-@@ -179,6 +185,8 @@ void dept_softirqs_on_ip(unsigned long ip);
- void dept_hardirqs_on(void);
- void dept_softirqs_off(void);
- void dept_hardirqs_off(void);
-+
-+#define dept_set_lockdep_map(m, lockdep_m) ({ (m)->lockdep_map = lockdep_m; })
- #else /* !CONFIG_DEPT */
- struct dept_key { };
- struct dept_map { };
-@@ -221,5 +229,7 @@ struct dept_ext_wgen { };
- #define dept_hardirqs_on()				do { } while (0)
- #define dept_softirqs_off()				do { } while (0)
- #define dept_hardirqs_off()				do { } while (0)
-+
-+#define dept_set_lockdep_map(m, lockdep_m)		do { } while (0)
- #endif
- #endif /* __LINUX_DEPT_H */
+ obj-$(CONFIG_DEPT) += dept.o
++obj-$(CONFIG_DEPT) += dept_proc.o
 diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
-index 5bf32633e1fb..048348ea64d2 100644
+index 47fef2207af1..fd091ae28ae2 100644
 --- a/kernel/dependency/dept.c
 +++ b/kernel/dependency/dept.c
-@@ -1615,9 +1615,39 @@ static int next_wgen(void)
- 	return atomic_inc_return(&wgen) ?: atomic_inc_return(&wgen);
+@@ -266,20 +266,13 @@ static bool valid_key(struct dept_key *k)
+  *       have been freed will be placed there.
+  */
+ 
+-enum object_t {
+-#define OBJECT(id, nr) OBJECT_##id,
+-	#include "dept_object.h"
+-#undef OBJECT
+-	OBJECT_NR,
+-};
+-
+ #define OBJECT(id, nr)							\
+ static struct dept_##id spool_##id[nr];					\
+ static DEFINE_PER_CPU(struct llist_head, lpool_##id);
+ 	#include "dept_object.h"
+ #undef OBJECT
+ 
+-static struct dept_pool dept_pool[OBJECT_NR] = {
++struct dept_pool dept_pool[OBJECT_NR] = {
+ #define OBJECT(id, nr) {						\
+ 	.name = #id,							\
+ 	.obj_sz = sizeof(struct dept_##id),				\
+@@ -2083,7 +2076,7 @@ void dept_map_copy(struct dept_map *to, struct dept_map *from)
+ 	clean_classes_cache(&to->map_key);
  }
  
--static void add_wait(struct dept_class *c, unsigned long ip,
--		     const char *w_fn, int sub_l, bool sched_sleep,
--		     bool timeout)
+-static LIST_HEAD(dept_classes);
++LIST_HEAD(dept_classes);
+ 
+ static bool within(const void *addr, void *start, unsigned long size)
+ {
+diff --git a/kernel/dependency/dept_internal.h b/kernel/dependency/dept_internal.h
+index 04c040dbcbc8..732f297710aa 100644
+--- a/kernel/dependency/dept_internal.h
++++ b/kernel/dependency/dept_internal.h
+@@ -279,5 +279,15 @@ struct dept_hash {
+ 	int				bits;
+ };
+ 
++enum object_t {
++#define OBJECT(id, nr) OBJECT_##id,
++	#include "dept_object.h"
++#undef OBJECT
++	OBJECT_NR,
++};
++
++extern struct list_head dept_classes;
++extern struct dept_pool dept_pool[];
++
+ #endif
+ #endif /* __DEPT_INTERNAL_H */
+diff --git a/kernel/dependency/dept_proc.c b/kernel/dependency/dept_proc.c
+new file mode 100644
+index 000000000000..97beaf397715
+--- /dev/null
++++ b/kernel/dependency/dept_proc.c
+@@ -0,0 +1,96 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * XXX: This is a temporary patch needed until lockdep stops tracking
-+ * dependency in wrong way.  lockdep has added an annotation to specify
-+ * a callback to determin whether the given lock aquisition order is
-+ * okay or not in its own way.  Even though dept is already working
-+ * correctly with sub class on that issue, it needs to be aware of the
-+ * annotation anyway.
++ * Procfs knobs for Dept(DEPendency Tracker)
++ *
++ * Started by Byungchul Park <max.byungchul.park@gmail.com>:
++ *
++ *  Copyright (C) 2021 LG Electronics, Inc. , Byungchul Park
++ *  Copyright (C) 2024 SK hynix, Inc. , Byungchul Park
 + */
-+static bool lockdep_cmp_fn(struct dept_map *prev, struct dept_map *next)
++#include <linux/proc_fs.h>
++#include <linux/seq_file.h>
++#include <linux/dept.h>
++#include "dept_internal.h"
++
++static void *l_next(struct seq_file *m, void *v, loff_t *pos)
 +{
 +	/*
-+	 * Assumes the cmp_fn thing comes from struct lockdep_map.
++	 * XXX: Serialize list traversal if needed. The following might
++	 * give a wrong information on contention.
 +	 */
-+	struct lockdep_map *p_lock = (struct lockdep_map *)prev->lockdep_map;
-+	struct lockdep_map *n_lock = (struct lockdep_map *)next->lockdep_map;
-+	struct lock_class *p_class = p_lock ? p_lock->class_cache[0] : NULL;
-+	struct lock_class *n_class = n_lock ? n_lock->class_cache[0] : NULL;
-+
-+	if (!p_class || !n_class)
-+		return false;
-+
-+	if (p_class != n_class)
-+		return false;
-+
-+	if (!p_class->cmp_fn)
-+		return false;
-+
-+	return p_class->cmp_fn(p_lock, n_lock) < 0;
++	return seq_list_next(v, &dept_classes, pos);
 +}
 +
-+static void add_wait(struct dept_map *m, struct dept_class *c,
-+		unsigned long ip, const char *w_fn, int sub_l,
-+		bool sched_sleep, bool timeout)
- {
- 	struct dept_task *dt = dept_task();
- 	struct dept_wait *w;
-@@ -1658,8 +1688,13 @@ static void add_wait(struct dept_class *c, unsigned long ip,
- 		if (!eh->ecxt)
- 			continue;
- 
--		if (eh->ecxt->class != c || eh->sub_l == sub_l)
--			add_dep(eh->ecxt, w);
-+		if (eh->ecxt->class == c && eh->sub_l != sub_l)
-+			continue;
++static void *l_start(struct seq_file *m, loff_t *pos)
++{
++	/*
++	 * XXX: Serialize list traversal if needed. The following might
++	 * give a wrong information on contention.
++	 */
++	return seq_list_start_head(&dept_classes, *pos);
++}
 +
-+		if (i == dt->ecxt_held_pos - 1 && lockdep_cmp_fn(eh->map, m))
-+			continue;
++static void l_stop(struct seq_file *m, void *v)
++{
++}
 +
-+		add_dep(eh->ecxt, w);
- 	}
- 
- 	wg = next_wgen();
-@@ -2145,6 +2180,7 @@ void dept_map_init(struct dept_map *m, struct dept_key *k, int sub_u,
- 	m->name = n;
- 	m->wgen = 0U;
- 	m->nocheck = !valid_key(k);
-+	m->lockdep_map = NULL;
- 
- 	dept_exit_recursive(flags);
- }
-@@ -2366,7 +2402,7 @@ static void __dept_wait(struct dept_map *m, unsigned long w_f,
- 		if (!c)
- 			continue;
- 
--		add_wait(c, ip, w_fn, sub_l, sched_sleep, timeout);
-+		add_wait(m, c, ip, w_fn, sub_l, sched_sleep, timeout);
- 	}
- }
- 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index 39b9e3e27c0b..c99f91f7a54d 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -5035,6 +5035,7 @@ void lockdep_set_lock_cmp_fn(struct lockdep_map *lock, lock_cmp_fn cmp_fn,
- 		class->print_fn = print_fn;
- 	}
- 
-+	dept_set_lockdep_map(&lock->dmap, lock);
- 	lockdep_recursion_finish();
- 	raw_local_irq_restore(flags);
- }
++static int l_show(struct seq_file *m, void *v)
++{
++	struct dept_class *fc = list_entry(v, struct dept_class, all_node);
++	struct dept_dep *d;
++	const char *prefix;
++
++	if (v == &dept_classes) {
++		seq_puts(m, "All classes:\n\n");
++		return 0;
++	}
++
++	prefix = fc->sched_map ? "<sched> " : "";
++	seq_printf(m, "[%p] %s%s\n", (void *)fc->key, prefix, fc->name);
++
++	/*
++	 * XXX: Serialize list traversal if needed. The following might
++	 * give a wrong information on contention.
++	 */
++	list_for_each_entry(d, &fc->dep_head, dep_node) {
++		struct dept_class *tc = d->wait->class;
++
++		prefix = tc->sched_map ? "<sched> " : "";
++		seq_printf(m, " -> [%p] %s%s\n", (void *)tc->key, prefix, tc->name);
++	}
++	seq_puts(m, "\n");
++
++	return 0;
++}
++
++static const struct seq_operations dept_deps_ops = {
++	.start	= l_start,
++	.next	= l_next,
++	.stop	= l_stop,
++	.show	= l_show,
++};
++
++static int dept_stats_show(struct seq_file *m, void *v)
++{
++	int r;
++
++	seq_puts(m, "Availability in the static pools:\n\n");
++#define OBJECT(id, nr)							\
++	r = atomic_read(&dept_pool[OBJECT_##id].obj_nr);		\
++	if (r < 0)							\
++		r = 0;							\
++	seq_printf(m, "%s\t%d/%d(%d%%)\n", #id, r, nr, (r * 100) / (nr));
++	#include "dept_object.h"
++#undef  OBJECT
++
++	return 0;
++}
++
++static int __init dept_proc_init(void)
++{
++	proc_create_seq("dept_deps", S_IRUSR, NULL, &dept_deps_ops);
++	proc_create_single("dept_stats", S_IRUSR, NULL, dept_stats_show);
++	return 0;
++}
++
++__initcall(dept_proc_init);
 -- 
 2.17.1
 
