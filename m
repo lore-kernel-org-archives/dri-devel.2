@@ -4,91 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9806C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAA2C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:53:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3076A10E8C3;
-	Mon,  6 Jul 2026 10:46:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDBD10E281;
+	Mon,  6 Jul 2026 10:53:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GylsO5V8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gGxaVXJz";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E05110E281
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783334805;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=v3yUXT8ygGIwRfvHBxKy7x0rY1d4D5PmMqDi5qQR4k0=;
- b=GylsO5V8tgfmiy94a+PlHAq0HeJRRO2BdKLugrEOtAMdPLL2oMRfZ1WiLSriGJjDFeb+M2
- nGdtLA0cprLRFZGW+HBHfZ6wupy6JWs4QyYqaNlIrZelIEi1qjyfouFUNhOjHIvM5iOQV7
- +cy73KqOJQY7LiWi3yGPjGk5NdQr3hU=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-523-McOijZUqOem80QsrGCR4Ew-1; Mon, 06 Jul 2026 06:46:43 -0400
-X-MC-Unique: McOijZUqOem80QsrGCR4Ew-1
-X-Mimecast-MFC-AGG-ID: McOijZUqOem80QsrGCR4Ew_1783334802
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-493bfc3b84aso12741475e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 03:46:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783334802; x=1783939602;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=v3yUXT8ygGIwRfvHBxKy7x0rY1d4D5PmMqDi5qQR4k0=;
- b=tMN8reE9j+zOQUkHixLzIGWHrVoV4ZFsc/mY2AbYtHqvHMX8CWTq2PzivjZgVHcLIA
- 1UNMU3cKuCiLmFcldNxxrDKIfkccZ7FIHqmZ6WBsa03zFXTTjSq4EuN/nHsEdmGW+MxI
- iitYFwlLGlBt/XtDFC5y1RjJkaqjAZBagSZPtlpFMakZ1aLORmeiIfjcNs5ux7nlP5vk
- dXz2xfdK55ftdeLGGFn/8HTRguOYmo+XSq24J4n90XV0e5bVjLzBlSUpYR98W1t0HNgy
- dso51EIMWASdfDSO3bdIYpgOdvIqq/biyltNCJ1S55F+zUkBPZxZ7iFTkgeEkCf1wK9h
- yOhA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp9q9riMPz5Bivki9wSRwDTJCFBMNCP+kBfykhVKCW6tLC3qWRiYRjjvDY2sZ3AXUfYAG5T7lBFL78=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYOUTfvvnwkG0uCbb1uHG8is4p+v4scLiDU/60LEbQR5l4YMe8
- zXOmxGLP23SKhLBznOKE7ryy5Y8FZ8Msg9Fv2KE0xbfumiClD/iLyfRbIN0MdEa77yqELkuO2wy
- wWri60YWjao1CLMyCANPHUh073lYGP0yl9zruPoeMW/0aqLYx3ROdQW2GYjOoIpj+xR0fuyaGuc
- gBlQ==
-X-Gm-Gg: AfdE7cn4cJdBJgOO/hLBL5LdOnU4hQF1typtAKgcksJmhWoc+UlDt8Gnvj1m/nKfZ1b
- YOz/r0o23TF+AduBYkMnPTF91/G8oJ5OTphkyb0w7jE1kU3emYTeuWk3y4qDONDGzqasCsJ+bYM
- UBF/vUfP7Giu75hutbmD3uleE18VoIIqk+c5BQpKxt32kP2WMRhHeA2uJqMWNBLrjPgjw5l/ciS
- eVi1DNJNTfFgatWaa/aQoVAWM+ZVyLW6UpeCKP6Pa1PYZK1+LPruWirf7R7sAc/AwmGUhTk6BBG
- RbKnrfUS4tBpuaCRuw2lzQAvMyqF+YblC5YosamqgWDGkEYetHJBiCfKJQLE40N2PO+S/AGBpp7
- 0oeSDnCysY0WCU+wv3UyHvDjA7f+SWQmNh43scG1bLdC2Jr93NS4lU8t7VHfqq/jpn5XxqQ==
-X-Received: by 2002:a05:600c:8b17:b0:493:bdaf:83a7 with SMTP id
- 5b1f17b1804b1-493d11f8c55mr115690225e9.28.1783334802403; 
- Mon, 06 Jul 2026 03:46:42 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b17:b0:493:bdaf:83a7 with SMTP id
- 5b1f17b1804b1-493d11f8c55mr115689945e9.28.1783334801980; 
- Mon, 06 Jul 2026 03:46:41 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa039b126sm23234060f8f.24.2026.07.06.03.46.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 03:46:41 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: Re: [PATCH v3 0/3] drm/ssd130x: Add support for the Solomon SSD1351
- OLED controller
-In-Reply-To: <20260704080925.75113-1-amit.barzilai22@gmail.com>
-References: <20260704080925.75113-1-amit.barzilai22@gmail.com>
-Date: Mon, 06 Jul 2026 12:46:40 +0200
-Message-ID: <87v7asbdkf.fsf@ocarina.mail-host-address-is-not-set>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 27xZzSdyBus5AznbBHOjlTRPWfZe-TNkbuQgaMwn4yw_1783334802
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21A7110E281
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:53:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 972824375B;
+ Mon,  6 Jul 2026 10:53:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59EE71F000E9;
+ Mon,  6 Jul 2026 10:53:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783335186;
+ bh=h8Y+d6TleIy8jJy6iOX6aWvCxmJJDZDtZ1mQEDK4e7I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gGxaVXJzylJZd6/tPcD0LR21o1e1IZgmkr+tqz/SH0UQlCe2SE4FRO4NJPCUxRQ8u
+ uzwq6LcNgn2UfMtG2m7fScU7WNlY31tw98Rb3ozBD+wa2bmWkhB+OTdigRP0NV6ZfP
+ vJU8Xhwq/jU/8YtHry4rSkEGXTZHl9+6nC17LgJKHN1IaG4W4Z+vXMZH42eA6bCJ1H
+ dNkj7PTpuMDJUFtuupbuSU5RZ58xs2YsB/H0cuguwerQwinGPP9Zc3U+OFmNy+mz5/
+ yDl4e3Rp72GBNXW4kMwYsKeAaQp8rY08XXlGnaEPUKptGb6qGXmR1Th/LySys1HsJx
+ 9kshiJq3+qO8w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 7/7] drm/i915/gt: Use signalers_lock to prevent
+ starvation of irq_work.
+To: "Maarten Lankhorst" <dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260706104043.726178-8-dev@lankhorst.se>
+References: <20260706104043.726178-1-dev@lankhorst.se>
+ <20260706104043.726178-8-dev@lankhorst.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 10:53:05 +0000
+Message-Id: <20260706105306.59EE71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,73 +54,249 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [Critical] Missing `spin_unlock_irqrestore` in the early return path leav=
+es local interrupts disabled.
+- [High] Uninitialized variable `add_context` may be evaluated and lead to =
+undefined behavior.
+- [High] Data race / list corruption when iterating `ce->signals` without h=
+olding `ce->signal_lock`.
+- [High] Double `list_add` in `add_signaling_context` causes list corruptio=
+n due to race condition.
+- [High] Queueing `irq_work` before adding the context to the signalers lis=
+t causes missed wakeups.
+- [High] Unconditional call to `list_empty` and `list_del_init` on a potent=
+ially uninitialized list node causes NULL pointer dereference.
+--
 
-Hello Amit,
+commit 84930541bab063f0b3f4b8114a287062a6526adc
+Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-> This series adds support for the Solomon SSD1351, a 128x128 65k-color
-> RGB OLED controller, to the ssd130x DRM driver:
->
->   - Patch 1 adds the device tree binding.
->
->   - Patch 2 switches the SSD133X family from RGB332 to RGB565, bringing
->     65k color to the SSD1331.
->
->   - Patch 3 adds the SSD1351 as a new SSD135X_FAMILY, reusing the
->     SSD133X plane/CRTC and blit/clear helpers. The only data-path
->     difference is the explicit Write RAM command (0x5c) the SSD1351
->     needs before pixel data; it also gets its own init sequence.
->
+drm/i915/gt: Use signalers_lock to prevent starvation of irq_work.
 
-Great, this approach looks correct to me now. I'll review this series but
-likely will do it in a few days.
+This commit replaces RCU with a global spinlock to manage the signalers list
+in order to prevent IRQ-Work starvation and support PREEMPT_RT.
 
-> Testing:
->
->   - The SSD1351 (patches 1 and 3) is tested on hardware.
->   - The SSD1331 RGB565 change (patch 2) is compile-tested only; I do not
->     currently have a working SSD1331 panel. Javier has kindly offered to
->     test it on his SSD1331.
->
-> Dependency:
->
->   The SSD1351 reuses ssd133x_update_rect(), which programs the column
->   and row *end* address as a relative offset rather than an absolute
->   coordinate. This breaks partial updates that do not start at (0,0). A
->   separate fix is posted at [2]; until it lands, the SSD1351 shows the
->   same partial-redraw artifacts. This series applies independently of
->   that fix, but the two are best merged together.
+> diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/dr=
+m/i915/gt/intel_breadcrumbs.c
+> index c10ac0ab3bfa8..be87c8d0ae922 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+> @@ -88,24 +88,25 @@ static void add_signaling_context(struct intel_breadc=
+rumbs *b,
+>  				  struct intel_context *ce)
+>  {
+>  	lockdep_assert_held(&ce->signal_lock);
+> +	lockdep_assert_held(&b->signalers_lock);
+> =20
+> -	spin_lock(&b->signalers_lock);
+> -	list_add_rcu(&ce->signal_link, &b->signalers);
+> -	spin_unlock(&b->signalers_lock);
+> +	if (list_empty(&ce->signals))
+> +		return;
+> +
+> +	intel_context_get(ce);
+> +	list_add(&ce->signal_link, &b->signalers);
 
-I just pushed this series to drm-misc-next, please rebase on top of that
-when posting a new version.
+[Severity: High]
+Could this unconditionally add a node that is already linked?
 
->
-> Backlight:
->
->   While adding the SSD1351 I noticed that the shared backlight path
->   (ssd130x_update_bl()) is only correct for the SSD130X and SSD132X
->   families, where 0x81 is the contrast command. On the SSD133X, 0x81 is
->   "Set Contrast for Color A", so brightness changes shift the color
->   balance rather than dim the panel. On the SSD1351, 0x81 is not
->   implemented at all and the brightness byte itself would be executed
->   as a command opcode (e.g. 0xae is Display OFF). This series therefore
->   does not register a backlight device for the SSD135X family. I plan a
->   follow-up making the backlight path family-aware (scaling
->   0x81/0x82/0x83 together for SSD133X, 0xc1 contrast A/B/C for
->   SSD135X), which would also fix the existing SSD1331 behavior. Happy
->   to reorder if you would prefer that rework to land first.
->
+In unlock_context_remove_signaling(), if spin_trylock() fails,
+ce->signal_lock is dropped while the context remains linked in b->signalers:
 
-Oh, interesting. I think your call is the right one here and this
-backlight logic fix / rework can be done as a follow-up series.
+    if (list_empty(&ce->signals)) {
+        if (spin_trylock(&b->signalers_lock)) {
+            // ...
+        } else {
+            retry =3D true;
+        }
+    }
+    spin_unlock_irqrestore(&ce->signal_lock, flags);
 
--- 
-Best regards,
+If another thread concurrently submits a new request to this context via
+i915_request_enable_breadcrumb(), it sees an empty ce->signals list, inserts
+the request, and calls add_signaling_context().
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+Because ce->signals is now non-empty, add_signaling_context() unconditional=
+ly
+executes list_add(&ce->signal_link, &b->signalers). Since the node is alrea=
+dy
+linked, this would corrupt the doubly-linked list.
 
+>  }
+> =20
+>  static bool remove_signaling_context(struct intel_breadcrumbs *b,
+>  				     struct intel_context *ce)
+>  {
+>  	lockdep_assert_held(&ce->signal_lock);
+> +	lockdep_assert_held(&b->signalers_lock);
+> =20
+> -	if (!list_empty(&ce->signals))
+> +	if (!list_empty(&ce->signals) || list_empty(&ce->signal_link))
+>  		return false;
+> =20
+> -	spin_lock(&b->signalers_lock);
+> -	list_del_rcu(&ce->signal_link);
+> -	spin_unlock(&b->signalers_lock);
+> -
+> +	list_del_init(&ce->signal_link);
+
+[Severity: High]
+Can remove_signaling_context() dereference a NULL pointer if the list node
+is zero-initialized?
+
+The patch introduces logic in unlock_context_remove_signaling() that calls
+remove_signaling_context() even if ce->signals was empty and the context
+was never added to b->signalers.
+
+If ce->signal_link is zero-initialized rather than initialized via
+INIT_LIST_HEAD, list_empty(&ce->signal_link) evaluates to
+NULL =3D=3D &ce->signal_link (returning false). It then proceeds to call
+list_del_init(&ce->signal_link), which dereferences the NULL pointers inside
+the zeroed list head.
+
+>  	return true;
+>  }
+
+[ ... ]
+
+> @@ -427,30 +424,88 @@ bool i915_request_enable_breadcrumb(struct i915_req=
+uest *rq)
+>  		return true;
+> =20
+>  	spin_lock(&ce->signal_lock);
+> +	b =3D READ_ONCE(rq->engine)->breadcrumbs;
+> +
+>  	if (test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags))
+> -		insert_breadcrumb(rq);
+> +		add_context =3D insert_breadcrumb(rq, b);
+> +
+> +	if (add_context && spin_trylock(&b->signalers_lock)) {
+
+[Severity: High]
+Can add_context be used uninitialized here?
+
+If test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags) evaluates to false=20
+(e.g., if the bit was cleared concurrently after the lockless check above),
+add_context is never assigned.
+
+It is then evaluated in the condition:
+
+    if (add_context && spin_trylock(&b->signalers_lock)) {
+
+If the uninitialized stack variable evaluates to true, it could lead to
+incorrectly calling add_signaling_context() and list corruption.
+
+> +		add_signaling_context(b, ce);
+> +		spin_unlock(&b->signalers_lock);
+> +		add_context =3D false;
+> +	}
+> +
+> +	/*
+> +	 * Defer enabling the interrupt to after HW submission and recheck
+> +	 * the request as it may have completed and raised the interrupt as
+> +	 * we were attaching it into the lists.
+> +	 */
+> +	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
+> +		irq_work_queue(&b->irq_work);
+> +
+>  	spin_unlock(&ce->signal_lock);
+> =20
+> +	if (add_context) {
+
+[Severity: High]
+Does queuing irq_work before the context is added to the signalers list
+create a TOCTOU race?
+
+If the fast path spin_trylock() fails in i915_request_enable_breadcrumb(),
+adding the context to b->signalers is deferred to the slow path here. Howev=
+er,
+irq_work_queue() is executed immediately before the slow path block.
+
+If the irq_work executes before the slow path adds the context, it sees an
+empty list and finishes without arming the hardware interrupt. Once the
+context is subsequently added, no further IRQ work is queued, and the
+interrupt remains disarmed forever, causing system hangs.
+
+> +		/*
+> +		 * Fast trylock didn't work, use slow locking.
+> +		 *
+> +		 * Dropping the lock to solve the inversion is safe, since
+> +		 * no race is possible against remove_signaling_context()
+> +		 * without being added as signaling context.
+> +		 */
+> +		spin_lock(&b->signalers_lock);
+> +		spin_lock(&ce->signal_lock);
+> +		add_signaling_context(b, ce);
+> +		spin_unlock(&ce->signal_lock);
+> +		spin_unlock(&b->signalers_lock);
+> +	}
+> +
+>  	return true;
+>  }
+
+[ ... ]
+
+>  void i915_request_cancel_breadcrumb(struct i915_request *rq)
+>  {
+>  	struct intel_breadcrumbs *b =3D READ_ONCE(rq->engine)->breadcrumbs;
+>  	struct intel_context *ce =3D rq->context;
+> -	bool release;
+> +	unsigned long flags;
+> =20
+> -	spin_lock(&ce->signal_lock);
+> +	spin_lock_irqsave(&ce->signal_lock, flags);
+>  	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags)) {
+>  		spin_unlock(&ce->signal_lock);
+
+[Severity: Critical]
+Are local interrupts left disabled in this early return path?
+
+The lock acquisition was changed to spin_lock_irqsave(&ce->signal_lock, fla=
+gs),
+but the early return still uses spin_unlock(&ce->signal_lock), which fails =
+to
+restore the CPU's interrupt state.
+
+>  		return;
+>  	}
+
+[ ... ]
+
+> @@ -508,7 +557,7 @@ static void print_signals(struct intel_breadcrumbs *b=
+, struct drm_printer *p)
+>  {
+>  	struct intel_context *ce;
+>  	struct i915_request *rq;
+> +	unsigned long flags;
+> =20
+>  	drm_printf(p, "Signals:\n");
+> =20
+> -	rcu_read_lock();
+> -	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+> -		list_for_each_entry_rcu(rq, &ce->signals, signal_link)
+> +	spin_lock_irqsave(&b->signalers_lock, flags);
+> +	list_for_each_entry(ce, &b->signalers, signal_link) {
+> +		list_for_each_entry(rq, &ce->signals, signal_link)
+
+[Severity: High]
+Is it safe to iterate over ce->signals without holding ce->signal_lock?
+
+Since RCU is removed, ce->signals is a standard doubly-linked list. Writers
+(e.g., i915_request_cancel_breadcrumb) modify ce->signals holding only
+ce->signal_lock.
+
+Iterating over it here while only holding b->signalers_lock exposes a data
+race where concurrent modifications could cause the iteration to dereference
+LIST_POISON1.
+
+>  			drm_printf(p, "\t[%llx:%llx%s] @ %dms\n",
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706104043.7261=
+78-1-dev@lankhorst.se?part=3D7
