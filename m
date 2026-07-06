@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B76BC43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:25:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B5EC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:27:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFAD10EA84;
-	Mon,  6 Jul 2026 19:25:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFF0610EA82;
+	Mon,  6 Jul 2026 19:27:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GJ6k21O3";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="T6AUbiql";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A788D10EA82;
- Mon,  6 Jul 2026 19:25:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DAA41600C3;
- Mon,  6 Jul 2026 19:25:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D231F000E9;
- Mon,  6 Jul 2026 19:25:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783365911;
- bh=u6Ou0jbsdMUOvdHXYTkqyWBUsmGQD9nbdqqr1UFdWDg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GJ6k21O3aLYCNuYZdTOtBHnjVXv/pe0UdV/Lc9MyMQv3HtYcIoQhUXqfWzMizCkvP
- lWU0cLU78OXeUOjZjAU3cpK52hRZ4JRIqFth+2DjhHQQBYtmyrlpAQ+6Dtwyg3ZcDP
- nu7itkPJ3bzH2PYkoKq6HptUbsDvF942k1fF+XOcKUqE+EBsDqWak0ae86rXQqzFuv
- wUtNBUbJCpVZ3sXJzSAAx5mhKvdf/oz7LXclw152Vq+gcV/tCrMuNZ4k/t9riXn9LR
- GnbTfrwT3jPjdVbgmq5HK8a/+xpXOVTjrbBQXdLnyZDxNaliTrbxG0jRYTBf5yyGvN
- e1KkYjuXt4l0A==
-Date: Mon, 6 Jul 2026 09:25:10 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E208310EA82
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:27:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=ykrx/AD1Q5nUVeRD7hiOmEvyCIM5rJDE3m3h8U4cAAU=; b=T6AUbiqlieMPuSa0vqwCucltfO
+ BZ/7NcwOhSsEXD/JL21wFQS/X2kH3+RdVD0PO7bibGZuX8jdlgKKwm1l5BM5JlpP755HHbCxPFaSt
+ DyqjcLNjt7nUoaACcC4XNtddzlCvFPgl520SheGqlWy3DAwfSYliXaWCi46YX0OAVNaC2Kmvogjoq
+ TRNEt8N1sfIdKmexEvZTn2sQT4XFTlnvtSPomvLZPpVrMAnWJB3f/R0AcvRCYogK2cLtzkvj4MPFl
+ 4g4WVOHep1qbPfvGo57e174eAF3UedJoQkF5CMwyxxk+19j7NRlYuUTNUHE7WGqs98haSVDpTiKY+
+ J5Wy003Q==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 3/6] cgroup/dmem: Add reclaim callback for lowering
- max below current usage
-Message-ID: <akwBFlw8MwhrwsRu@slm.duckdns.org>
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-4-thomas.hellstrom@linux.intel.com>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ross Cawston <ross@r-sc.ca>, Ross Cawston <ross@r-sc.ca>
+Subject: Re: [PATCH 0/5] accel/rocket: Support standalone DPU/PPU tasks and
+ pipelined workloads
+Date: Mon, 06 Jul 2026 21:27:34 +0200
+Message-ID: <11972621.MucGe3eQFb@diego>
+In-Reply-To: <20260217-accel-rocket-clean-base-v1-0-d72354325a25@r-sc.ca>
+References: <20260217-accel-rocket-clean-base-v1-0-d72354325a25@r-sc.ca>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260703130541.2686-4-thomas.hellstrom@linux.intel.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,18 +57,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Hi Ross,
 
-On Fri, Jul 03, 2026 at 03:05:38PM +0200, Thomas Hellström wrote:
-> Also honor O_NONBLOCK so that if that flag is set during the
-> max value write, no reclaim is initiated. The idea is to avoid
-> charging the reclaim cost to the writer of the max value.
+Am Dienstag, 17. Februar 2026, 22:39:48 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Ross Cawston:
+> The Rocket NPU supports multiple workload types beyond convolutional jobs:
+> - Standalone post-processing (PPU) tasks (pooling, element-wise ops, etc.)
+> - Pipelined DPU=E2=86=92PPU workloads
+>=20
+> The current driver has limitations preventing these from working correctl=
+y:
+> - CNA/Core S_POINTER registers are always written, re-arming stale state
+> - Interrupt handling is hard-coded to DPU only, causing PPU timeouts
+> - Ping-pong mode is always enabled
+>=20
+> This series fixes these while preserving backward compatibility.
+>=20
+> Patch breakdown:
+> 1/5 Fix error path in BO creation (cleanup/fix)
+> 2/5 Enable ping-pong mode only for multi-task jobs (optimization)
+> 3/5 Add per-task int_mask and flags to UAPI/kernel (new knobs)
+> 4/5 Skip CNA/Core S_POINTER init for standalone tasks
+> 5/5 Use per-task interrupt mask and handle PPU completions
+>=20
+> Derived from vendor BSP behavior.
+>=20
+> Tested on OrangePi 5 Ultra and Radxa Rock 5B (RK3588).
+>=20
+> Thanks for review!
 
-Is this really necessary? I'm not necessarily against it but this is trivial
-to work around from userspace and feels like a gratuitous addition. What's
-the use case?
+Extending Rocket's range sounds really cool.
 
-Thanks.
+Curious me wants to know how to test these new parts.
+I was assuming some mesa thing, but didn't find a PR for it, so it
+must be something else?
 
--- 
-tejun
+Thanks a lot
+Heiko
+
+
+> Signed-off-by: Ross Cawston <ross@r-sc.ca>
+> ---
+> Ross Cawston (5):
+>       accel/rocket: Fix error path in BO creation
+>       accel/rocket: Enable ping-pong mode only for multi-task jobs
+>       accel/rocket: Add per-task flags and interrupt mask to UAPI and ker=
+nel
+>       accel/rocket: Skip CNA/Core S_POINTER initialization for standalone=
+ tasks
+>       accel/rocket: Use per-task interrupt mask and handle PPU completion=
+ interrupts
+>=20
+>  drivers/accel/rocket/rocket_gem.c |  2 +
+>  drivers/accel/rocket/rocket_job.c | 80 ++++++++++++++++++++++++++++++---=
+=2D-----
+>  drivers/accel/rocket/rocket_job.h |  2 +
+>  include/uapi/drm/rocket_accel.h   | 25 ++++++++++++
+>  4 files changed, 92 insertions(+), 17 deletions(-)
+> ---
+> base-commit: 17f8d2009367c3da82882f70ccbdca9f8c7b5f20
+> change-id: 20260217-accel-rocket-clean-base-57c0e88651e6
+>=20
+> Best regards,
+>=20
+
+
+
+
