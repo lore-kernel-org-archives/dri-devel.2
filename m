@@ -4,44 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAA2C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:53:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAB87C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:56:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EDBD10E281;
-	Mon,  6 Jul 2026 10:53:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19D0310E0EB;
+	Mon,  6 Jul 2026 10:56:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gGxaVXJz";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="feH0dY4n";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21A7110E281
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:53:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 972824375B;
- Mon,  6 Jul 2026 10:53:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59EE71F000E9;
- Mon,  6 Jul 2026 10:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783335186;
- bh=h8Y+d6TleIy8jJy6iOX6aWvCxmJJDZDtZ1mQEDK4e7I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gGxaVXJzylJZd6/tPcD0LR21o1e1IZgmkr+tqz/SH0UQlCe2SE4FRO4NJPCUxRQ8u
- uzwq6LcNgn2UfMtG2m7fScU7WNlY31tw98Rb3ozBD+wa2bmWkhB+OTdigRP0NV6ZfP
- vJU8Xhwq/jU/8YtHry4rSkEGXTZHl9+6nC17LgJKHN1IaG4W4Z+vXMZH42eA6bCJ1H
- dNkj7PTpuMDJUFtuupbuSU5RZ58xs2YsB/H0cuguwerQwinGPP9Zc3U+OFmNy+mz5/
- yDl4e3Rp72GBNXW4kMwYsKeAaQp8rY08XXlGnaEPUKptGb6qGXmR1Th/LySys1HsJx
- 9kshiJq3+qO8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/7] drm/i915/gt: Use signalers_lock to prevent
- starvation of irq_work.
-To: "Maarten Lankhorst" <dev@lankhorst.se>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706104043.726178-8-dev@lankhorst.se>
-References: <20260706104043.726178-1-dev@lankhorst.se>
- <20260706104043.726178-8-dev@lankhorst.se>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A241010E0EB
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:56:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4FE832AD
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:56:04 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ DAAC53F85F
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:56:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1783335369; bh=3wEprY72kVJPX73cGbaDluxrU1g56xSSUPXF+d8Mh00=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=feH0dY4n01IevzC6i4FFDxN2nLbk6be9Tb8w/e/D2wObWeg9L1jo2vycON/B8/aiP
+ wiY5wil4DCtt3OhQV4F7FIEpp3DBI3fz8YDjmu0dJVtmFF07/3FM2s4pmxlDclwARS
+ flGLDo7DjjfVSR6t7euibM2KAY0LSdYME+LQxouQ=
+Date: Mon, 6 Jul 2026 11:55:58 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, Grant Likely <grant.likely@linaro.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Sashiko <noreply@sashiko.dev>
+Subject: Re: [PATCH v4 1/3] drm/panthor: Check for sparse binding range
+ overflow
+Message-ID: <akuJvu4Um7_zL659@e142607>
+References: <20260704-vm_bind_checks-v4-0-4705b6ca9f8a@collabora.com>
+ <20260704-vm_bind_checks-v4-1-4705b6ca9f8a@collabora.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 10:53:05 +0000
-Message-Id: <20260706105306.59EE71F000E9@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260704-vm_bind_checks-v4-1-4705b6ca9f8a@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,249 +62,61 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] Missing `spin_unlock_irqrestore` in the early return path leav=
-es local interrupts disabled.
-- [High] Uninitialized variable `add_context` may be evaluated and lead to =
-undefined behavior.
-- [High] Data race / list corruption when iterating `ce->signals` without h=
-olding `ce->signal_lock`.
-- [High] Double `list_add` in `add_signaling_context` causes list corruptio=
-n due to race condition.
-- [High] Queueing `irq_work` before adding the context to the signalers lis=
-t causes missed wakeups.
-- [High] Unconditional call to `list_empty` and `list_del_init` on a potent=
-ially uninitialized list node causes NULL pointer dereference.
---
+On Sat, Jul 04, 2026 at 05:46:44AM +0100, Adrián Larumbe wrote:
+> This check is being already carried out further down the call stack inside
+> drm_gpuvm_sm_map -> drm_gpuvm_range_valid, but it's best to fail early in
+> the driver before GPUVM functions are invoked so that we won't waste time
+> allocating vm_bind context resources.
+> 
+> Reported-by: Sashiko <noreply@sashiko.dev>
+> Closes: https://sashiko.dev/#/message/20260623204220.CDB1B1F000E9%40smtp.kernel.org
+> Fixes: 12cf826bf1dd ("drm/panthor: Support sparse mappings")
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-commit 84930541bab063f0b3f4b8114a287062a6526adc
-Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-drm/i915/gt: Use signalers_lock to prevent starvation of irq_work.
+Best regards,
+Liviu
 
-This commit replaces RCU with a global spinlock to manage the signalers list
-in order to prevent IRQ-Work starvation and support PREEMPT_RT.
-
-> diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/dr=
-m/i915/gt/intel_breadcrumbs.c
-> index c10ac0ab3bfa8..be87c8d0ae922 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> @@ -88,24 +88,25 @@ static void add_signaling_context(struct intel_breadc=
-rumbs *b,
->  				  struct intel_context *ce)
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 31cc57029c12..163231c1703d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2975,12 +2975,16 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
 >  {
->  	lockdep_assert_held(&ce->signal_lock);
-> +	lockdep_assert_held(&b->signalers_lock);
-> =20
-> -	spin_lock(&b->signalers_lock);
-> -	list_add_rcu(&ce->signal_link, &b->signalers);
-> -	spin_unlock(&b->signalers_lock);
-> +	if (list_empty(&ce->signals))
-> +		return;
+>  	ssize_t vm_pgsz = panthor_vm_page_size(vm);
+>  	struct drm_gem_object *gem;
+> +	u64 end;
+>  	int ret;
+>  
+>  	/* Aligned on page size. */
+>  	if (!IS_ALIGNED(op->va | op->size | op->bo_offset, vm_pgsz))
+>  		return -EINVAL;
+>  
+> +	if (check_add_overflow(op->va, op->size, &end))
+> +		return -EINVAL;
 > +
-> +	intel_context_get(ce);
-> +	list_add(&ce->signal_link, &b->signalers);
+>  	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
+>  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
+>  		if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
+> 
+> -- 
+> 2.55.0
+> 
 
-[Severity: High]
-Could this unconditionally add a node that is already linked?
-
-In unlock_context_remove_signaling(), if spin_trylock() fails,
-ce->signal_lock is dropped while the context remains linked in b->signalers:
-
-    if (list_empty(&ce->signals)) {
-        if (spin_trylock(&b->signalers_lock)) {
-            // ...
-        } else {
-            retry =3D true;
-        }
-    }
-    spin_unlock_irqrestore(&ce->signal_lock, flags);
-
-If another thread concurrently submits a new request to this context via
-i915_request_enable_breadcrumb(), it sees an empty ce->signals list, inserts
-the request, and calls add_signaling_context().
-
-Because ce->signals is now non-empty, add_signaling_context() unconditional=
-ly
-executes list_add(&ce->signal_link, &b->signalers). Since the node is alrea=
-dy
-linked, this would corrupt the doubly-linked list.
-
->  }
-> =20
->  static bool remove_signaling_context(struct intel_breadcrumbs *b,
->  				     struct intel_context *ce)
->  {
->  	lockdep_assert_held(&ce->signal_lock);
-> +	lockdep_assert_held(&b->signalers_lock);
-> =20
-> -	if (!list_empty(&ce->signals))
-> +	if (!list_empty(&ce->signals) || list_empty(&ce->signal_link))
->  		return false;
-> =20
-> -	spin_lock(&b->signalers_lock);
-> -	list_del_rcu(&ce->signal_link);
-> -	spin_unlock(&b->signalers_lock);
-> -
-> +	list_del_init(&ce->signal_link);
-
-[Severity: High]
-Can remove_signaling_context() dereference a NULL pointer if the list node
-is zero-initialized?
-
-The patch introduces logic in unlock_context_remove_signaling() that calls
-remove_signaling_context() even if ce->signals was empty and the context
-was never added to b->signalers.
-
-If ce->signal_link is zero-initialized rather than initialized via
-INIT_LIST_HEAD, list_empty(&ce->signal_link) evaluates to
-NULL =3D=3D &ce->signal_link (returning false). It then proceeds to call
-list_del_init(&ce->signal_link), which dereferences the NULL pointers inside
-the zeroed list head.
-
->  	return true;
->  }
-
-[ ... ]
-
-> @@ -427,30 +424,88 @@ bool i915_request_enable_breadcrumb(struct i915_req=
-uest *rq)
->  		return true;
-> =20
->  	spin_lock(&ce->signal_lock);
-> +	b =3D READ_ONCE(rq->engine)->breadcrumbs;
-> +
->  	if (test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags))
-> -		insert_breadcrumb(rq);
-> +		add_context =3D insert_breadcrumb(rq, b);
-> +
-> +	if (add_context && spin_trylock(&b->signalers_lock)) {
-
-[Severity: High]
-Can add_context be used uninitialized here?
-
-If test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags) evaluates to false=20
-(e.g., if the bit was cleared concurrently after the lockless check above),
-add_context is never assigned.
-
-It is then evaluated in the condition:
-
-    if (add_context && spin_trylock(&b->signalers_lock)) {
-
-If the uninitialized stack variable evaluates to true, it could lead to
-incorrectly calling add_signaling_context() and list corruption.
-
-> +		add_signaling_context(b, ce);
-> +		spin_unlock(&b->signalers_lock);
-> +		add_context =3D false;
-> +	}
-> +
-> +	/*
-> +	 * Defer enabling the interrupt to after HW submission and recheck
-> +	 * the request as it may have completed and raised the interrupt as
-> +	 * we were attaching it into the lists.
-> +	 */
-> +	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
-> +		irq_work_queue(&b->irq_work);
-> +
->  	spin_unlock(&ce->signal_lock);
-> =20
-> +	if (add_context) {
-
-[Severity: High]
-Does queuing irq_work before the context is added to the signalers list
-create a TOCTOU race?
-
-If the fast path spin_trylock() fails in i915_request_enable_breadcrumb(),
-adding the context to b->signalers is deferred to the slow path here. Howev=
-er,
-irq_work_queue() is executed immediately before the slow path block.
-
-If the irq_work executes before the slow path adds the context, it sees an
-empty list and finishes without arming the hardware interrupt. Once the
-context is subsequently added, no further IRQ work is queued, and the
-interrupt remains disarmed forever, causing system hangs.
-
-> +		/*
-> +		 * Fast trylock didn't work, use slow locking.
-> +		 *
-> +		 * Dropping the lock to solve the inversion is safe, since
-> +		 * no race is possible against remove_signaling_context()
-> +		 * without being added as signaling context.
-> +		 */
-> +		spin_lock(&b->signalers_lock);
-> +		spin_lock(&ce->signal_lock);
-> +		add_signaling_context(b, ce);
-> +		spin_unlock(&ce->signal_lock);
-> +		spin_unlock(&b->signalers_lock);
-> +	}
-> +
->  	return true;
->  }
-
-[ ... ]
-
->  void i915_request_cancel_breadcrumb(struct i915_request *rq)
->  {
->  	struct intel_breadcrumbs *b =3D READ_ONCE(rq->engine)->breadcrumbs;
->  	struct intel_context *ce =3D rq->context;
-> -	bool release;
-> +	unsigned long flags;
-> =20
-> -	spin_lock(&ce->signal_lock);
-> +	spin_lock_irqsave(&ce->signal_lock, flags);
->  	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags)) {
->  		spin_unlock(&ce->signal_lock);
-
-[Severity: Critical]
-Are local interrupts left disabled in this early return path?
-
-The lock acquisition was changed to spin_lock_irqsave(&ce->signal_lock, fla=
-gs),
-but the early return still uses spin_unlock(&ce->signal_lock), which fails =
-to
-restore the CPU's interrupt state.
-
->  		return;
->  	}
-
-[ ... ]
-
-> @@ -508,7 +557,7 @@ static void print_signals(struct intel_breadcrumbs *b=
-, struct drm_printer *p)
->  {
->  	struct intel_context *ce;
->  	struct i915_request *rq;
-> +	unsigned long flags;
-> =20
->  	drm_printf(p, "Signals:\n");
-> =20
-> -	rcu_read_lock();
-> -	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
-> -		list_for_each_entry_rcu(rq, &ce->signals, signal_link)
-> +	spin_lock_irqsave(&b->signalers_lock, flags);
-> +	list_for_each_entry(ce, &b->signalers, signal_link) {
-> +		list_for_each_entry(rq, &ce->signals, signal_link)
-
-[Severity: High]
-Is it safe to iterate over ce->signals without holding ce->signal_lock?
-
-Since RCU is removed, ce->signals is a standard doubly-linked list. Writers
-(e.g., i915_request_cancel_breadcrumb) modify ce->signals holding only
-ce->signal_lock.
-
-Iterating over it here while only holding b->signalers_lock exposes a data
-race where concurrent modifications could cause the iteration to dereference
-LIST_POISON1.
-
->  			drm_printf(p, "\t[%llx:%llx%s] @ %dms\n",
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706104043.7261=
-78-1-dev@lankhorst.se?part=3D7
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
