@@ -4,126 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4816DC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:43:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D20C43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F02C10E7B3;
-	Mon,  6 Jul 2026 07:43:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1F3610E7D3;
+	Mon,  6 Jul 2026 07:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="zCgjAI6f";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2ZUu++hR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zCgjAI6f";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2ZUu++hR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DB7URemc";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E64510E7B3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 07:43:18 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A4C5E759A7;
- Mon,  6 Jul 2026 07:43:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783323796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=08mM5gDTURucsGOhS+HdslmQIHzZiRSggy8aPce9TiE=;
- b=zCgjAI6fpA6GmcgNxyuzJYM8KOKA/6QaBBf0JmY261B5Tn5KYNVPyCA9m2XC//t4TExRPd
- WwN9iYO76FPsHxNDYYdEGiutBmdi+h+6KzT05S5arVhHpCnfkl8oY7xNIu1VP8NBiWIVKI
- dtyUShE6tNfCq/tsZoAsCXCxaL3p0VA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783323796;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=08mM5gDTURucsGOhS+HdslmQIHzZiRSggy8aPce9TiE=;
- b=2ZUu++hRze2+Op2oUeinD/MlR4/Evs+M08V2foYX6ZH6wVqaIjDE62Fggq6bEzBdYmCWd+
- yeGo1nj+hgQsLRCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783323796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=08mM5gDTURucsGOhS+HdslmQIHzZiRSggy8aPce9TiE=;
- b=zCgjAI6fpA6GmcgNxyuzJYM8KOKA/6QaBBf0JmY261B5Tn5KYNVPyCA9m2XC//t4TExRPd
- WwN9iYO76FPsHxNDYYdEGiutBmdi+h+6KzT05S5arVhHpCnfkl8oY7xNIu1VP8NBiWIVKI
- dtyUShE6tNfCq/tsZoAsCXCxaL3p0VA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783323796;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=08mM5gDTURucsGOhS+HdslmQIHzZiRSggy8aPce9TiE=;
- b=2ZUu++hRze2+Op2oUeinD/MlR4/Evs+M08V2foYX6ZH6wVqaIjDE62Fggq6bEzBdYmCWd+
- yeGo1nj+hgQsLRCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B6AC779AA;
- Mon,  6 Jul 2026 07:43:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id OkawHJRcS2q9fwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 06 Jul 2026 07:43:16 +0000
-Message-ID: <17c3bd76-9c01-436c-932d-159e936ef1f1@suse.de>
-Date: Mon, 6 Jul 2026 09:43:16 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1908B10E30D;
+ Mon,  6 Jul 2026 07:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783323927; x=1814859927;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=keuvnFhSOeEEtAb0Qq1gFKd20TPtSiPFD/ZN7oRmWf8=;
+ b=DB7URemcexjQOC3FOiH+LvAIq2avxxSTf0T1yVhil+J0TCLRsesy06eN
+ eCPoxTzqq8cIeVPJ3bL8TBg7DZ2MDL8WugClkz8cWkvIJJgIdt8ck8ZaU
+ G9r6escJFpt73ozywvJOdbNUoVt9xqPq+pDutoPqiD2CWrCZje/mtbHju
+ bnX+hsxeKX1fWXGbxX37Vv3C6QFtFO/SKfYCPbg99ozf9Jh6FLzjODlsZ
+ 3vMI+KXVheeNTJaS2YydcQBISaTggaWDBpnaZ0zPJL5/AtF8GaWrcaQFI
+ gzxgcvnhrOadvvUXJFH5u4Z8spwpZJpJtrJSQ1EEn0PP+1qlyLUN1fUzc A==;
+X-CSE-ConnectionGUID: 9vT9UspKS5GYWTxdWD1pgw==
+X-CSE-MsgGUID: JcF+LPLWQNq5GKCATGDXRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="71470309"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="71470309"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 00:43:28 -0700
+X-CSE-ConnectionGUID: 4AzekMU7RDq3H4g2hWfRVQ==
+X-CSE-MsgGUID: wKVAht5DQYiIlflfavNb5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="253164957"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 00:43:28 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 6 Jul 2026 00:43:27 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Mon, 6 Jul 2026 00:43:27 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.53) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 6 Jul 2026 00:43:27 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u3nq92dqBdZBWsSxXPrRcmk+H8AGiJnLqK+6MBS6UcmjipWD1ZMBesfFN0/4ZfHgInVcY3kOmGuYP/gn+pNeGmm2oTLM/k/dqH8HHYFUuLlc2sD3PMs6YoQoBQtAC//yGpGGnv0JsvDffCaGZioAnTzAC1Q5rew/BN+5jUt12R3JsTelInMWAEvpDLAzMUDBFIHSey6uGewOI617R4ZjyedkVKozBxCpdOHNpGBHS9SfDQoUi4PbQAssjn3hpot4yRDudiOslHyEgk4MXUWSK1aLUXadUApgIF7ch/frPQU+nZvm0oyUFVMJBJ1CJ1qbyU87VInhbY35TAGYIQoPNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lH/athRvk2CdT5UCLP57uYftejalhtixpGgxvbicVcU=;
+ b=K5iQ9d0euYtRZzKGAjGL53jv+OR3Gk6crrsPKBFUCvf0ruScy0rI0NpkZHnbxOVqkIaffq3HDqZ/5lZUiX2SLJzWAuLUAku7sUF//whZb16nBF+JnCeBY8LCc81FISfSRS5IUEUpDyv3ptf31/bzf7tlt79SnQlJ5kP5db+IFW4PAVkf3zuXQcUAk3b3hQBt0ew31DSUV5F0Qoe2gs8XkUArBiQ5dLEEZAiSY8DX1hGx47/NdVs/2AKVWxaFju040KkPywlQgUFUxQ3QEy0jWCVCyZjRxA0KQfyzX88mGNsuUh39skH6ipediMk/xdMa6II5es055GWBn+PYpRfnaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by MN0PR11MB6088.namprd11.prod.outlook.com (2603:10b6:208:3cc::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Mon, 6 Jul 2026
+ 07:43:25 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
+ 07:43:24 +0000
+Date: Mon, 6 Jul 2026 07:43:14 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+CC: Robin Murphy <robin.murphy@arm.com>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <iommu@lists.linux.dev>, Andi Shyti
+ <andi.shyti@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>, "Janusz
+ Krzysztofik" <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
+Message-ID: <utb5awup2vypdhtcxk3vlczwrqbl3ypae6ftbwrlrkdqfnk4ft@aurl5kme27ac>
+"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-4-krzysztof.karas@intel.com>
+ <20260703162236.GX7525@ziepe.ca>
+ <90558ba3-44e6-4d5e-9c72-ed8817d372be@arm.com>
+ <20260703203502.GC1978949@ziepe.ca>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20260703203502.GC1978949@ziepe.ca>
+X-ClientProxiedBy: DU2PR04CA0056.eurprd04.prod.outlook.com
+ (2603:10a6:10:234::31) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] drm/arcpgu: replace struct drm_simple_display_pipe
- with regular atomic helpers
-To: sashiko-reviews@lists.linux.dev, Ze Huang <ze.huang@oss.qualcomm.com>
-Cc: Frank.Li@kernel.org, dri-devel@lists.freedesktop.org, imx@lists.linux.dev
-References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-1-b4e1ca053623@oss.qualcomm.com>
- <20260704184304.6567A1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260704184304.6567A1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.989]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, qualcomm.com:email,
- imap1.dmz-prg2.suse.org:helo, suse.de:mid]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|MN0PR11MB6088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44ec0bd8-9965-4e82-7632-08dedb3242a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|22082099003|18002099003|4143699003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: uFzkUfQwzSamOH2YcUJK9FvODt1cx1ZPWi/ieQQKykgO8edhji6Yl7C4erwK6X73WSq5wcRF0XbpWN2O/PnJyjV9jQUHx6+7aSGUIHj7wCoEI5A0wXqXQ6uT36hnBPzVjtaexHewjA3WkqiriA8ghO+0E3qQA1uXr4Izor2+ANrBRT4oEI1pNe0QsTrFmtFTNRlez30Uq0oLC0Pr+2EkhhfvgZeGvvTgLnzzki7RwIdv9NJbVRKEEFDkAn816cOo6bsCewtAaj0ro1IKID9zhQW+uktkDUwhzk4Gak3MtAwzKnkl4gK2w/g+VCWybDDZb9lEfyHmC6pepIDJbVRmh+4C1y639c1maob9ZmcLjuo6FsWJPpBkC6LbBQ/+AjiQD+RCMNcWaSXCZQew+ZFIQ2jEQ2S/YQ/waOd0jFE7Cz5Tn1AI/DE8o/R3Ib3nxyEZiY8jAL5xOeM3e2KmBuq2hzFvZlEqfzBNnsSMl5k4vZDk2jGd2/N78k2XprwQ3B8zKXf1o7nuMD3PJWby+BMYQnbcKn5fPSNfIlG7rsrixLiHZseHyfvQtKsLyoMieZhfCshAO5LbOmy+3ANsgQkChKrIWb5mUhN4DHQ7SdJaF7m0Zjj3fZ7IUBU3p/8Ot6+1HQvzTNw1DXZqDCS53qBDwfFgLRA8/1Nq8D251/cJqmI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(22082099003)(18002099003)(4143699003)(6133799003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnJXYXdET0N2UVFLL0c1REdoYkJyNVpYSWFBTnFMNDJBN2tBZjVJWVNjZC9o?=
+ =?utf-8?B?SllRYWhFNFdkRWpKRmRGazZpdnFTelUwS3dSRzFIc2tZT0NBL0tWSUtma1VE?=
+ =?utf-8?B?NGx3MkhlUC8vaVpEaXFUQTVaRHNTdENRekcvVnZWUWRtZlQyN0pSbERpNUlH?=
+ =?utf-8?B?WFd3VzgzNEk5cDZUQ0hIRk1yNjZSUWhrYWMrTFRyaTF3UzRHcVMreXZGdUU4?=
+ =?utf-8?B?djk1SFRZeG5DUW50ODh1MDNwZHZmSXNaeVJEZXc3dUhrU3V2T2gybVpUYW1w?=
+ =?utf-8?B?bGVEdVNzT0lSMXhodjlqcEswVmRMckZxaDZjNGRNd0lBam1BSG1UR1NXYSsw?=
+ =?utf-8?B?YjNnNDRnbTVCYkU0eXY1bkl6Z21DenNnc0tZWm1UemlsVStVZEJ0Z0M2aGNk?=
+ =?utf-8?B?RnBqTXBTVWo2VVRVRmRHN2svNFc1RWhNUHFBaGZYa1M4SlZULzIrVXIwcDJM?=
+ =?utf-8?B?LzdKeG5YKzFaRDdvU2lQaW5mMUFmdTZGbkI5S0ZJekpNRFp2M090eVZVS1k3?=
+ =?utf-8?B?aG92c1IwZGNycUV0ZUxycjZkRmlKbTJhYWhlTUZ5bmwrM1FmV2VFQzhVQ0w0?=
+ =?utf-8?B?WFR4RXVJUCtlbTZYRmhKSnp6c1NiTUMycjM1MTFpQWVsVy9lM3hHZmZTWEJC?=
+ =?utf-8?B?RkdyOEQ1WktzeHNYa1pLUEhiMFpvNWkwdFAvRGFaeEV3ei8yRHpmaDNuSzBM?=
+ =?utf-8?B?TGY5UFhkVlE5Y2hXMm5QZFgzN3dwekNHR0JXeHdZSS9wSHdrbDJKQkhiQ05y?=
+ =?utf-8?B?YUgvUDZidyszbXlGd0pjaUkra3ZYQWMrejNkTmpLTDN1N3V5RS9kUlo0M0lW?=
+ =?utf-8?B?TFhFeG5UeTVsMmRqZmhUM2tCVnROWFBOenE4Y1U2aTNteTlYWHhucDFZbGhQ?=
+ =?utf-8?B?TnhRS0MwemFpQjdUcVVValY4N2diczV5K1p5TERQV1piREE5M1BwVDRjS1d0?=
+ =?utf-8?B?eEJLU0V1Z21mL3M3WG9oNU0wT0tuUHZTenZKaTFNYzdIdk9FY1QyQTlFL2dW?=
+ =?utf-8?B?bkV4QWZSSnpIbHBBMHloWlVqRzVJUFVkNHIzTCsvZlUzMHh4Z29WMTFDMDdO?=
+ =?utf-8?B?bzA0dGQrY2xSV1VyRWlaUUJVcXMxWGJ2WEFVcnV5VzJodDdKd0VRci9sV1VP?=
+ =?utf-8?B?V25NalRWT2gwU1k0K05UVlVEM1NwNkwwU2o1aHdLSERvcWI3UjhwUXlpVkRB?=
+ =?utf-8?B?LzB3bEljNm1XdW5yOWZxaVpoQmRmK1RZYy9TcklSeHFyazBhdG1ZaDVESTVR?=
+ =?utf-8?B?UnpCcFA1RGlNRC9mU1ozVm5aSy9ocTJGcTV1dVY2dVlyUEVHWGR1aGFxek1G?=
+ =?utf-8?B?Vk43dEZsSXh6QWc3TFFPWk9pZjVuTEhJYVZGVGYydi9zS2lrUktIWVgraTlC?=
+ =?utf-8?B?M1JZMzJ0am85RDRUZzcwU1hqRkRVd0FUc2VuRGFXWjNSVHd1emZtSWJINlM1?=
+ =?utf-8?B?RnVQVm9lMXdJejZSODd4YWFaM1UwclcyRUFENHA4MWFSTm16d1RZbm5hc013?=
+ =?utf-8?B?cnRQNzZDYWF5ei9sRWFMMEZVY09jR0t3UjZIOHNPeFRES2VXZk1maVZtT2Yw?=
+ =?utf-8?B?dkRPQU00bm9yeTRoWGlvRnRUQ2dMWFVYb3NpZHVlNzRUaGpzRUlCekxuNno3?=
+ =?utf-8?B?VlNseVhsSFZWSllycmozbDMrV1IwV1hrazNZZnBYQkd3V0VJcUJDbTVZN1Ev?=
+ =?utf-8?B?R09sVUJZOHlEWmxYODNJMDBqWUUwSmpoNUtyLzBacEhYckJJWUJjaXlxL3NV?=
+ =?utf-8?B?WVZoTlFUbWh2M2JqVUZBRmVRY2RuYXJLdDV6V1lWcFQ5SmhYMXBhVXVUSXJE?=
+ =?utf-8?B?RjFrN1VlVXRBQWRtZmF6TmNXMmxBMWc4QTV0TG1WWFZCMURrdThneEg3SjF3?=
+ =?utf-8?B?RHVScGoxYmErdHFHVmMzKzVzNEp6ZENRTzd5V2xTdHJhSkJ1cXg5cGE4ME5I?=
+ =?utf-8?B?S0pZTjJiSTVQNnZWSVk5Tm5RRTZpNHRwTFNPTTU3ZzgwUFQ4ZStJbFYyUzFD?=
+ =?utf-8?B?YWNwWldTUk1ZU2dUenlQamZrck5Ebkp5S1Fnekk5eDgrRWtURXRjMC8vUGJW?=
+ =?utf-8?B?N2cycks1ZXNteG1adHRVM0MvZFU4SkFLQ1JJc01RckNGNW9adFVDY3pOaUNO?=
+ =?utf-8?B?M3NMUFpIazdZRlgwWEZTZUdVWXNMb0JES0NyMjhGUVYvaVFSRlFnNWp5dGZP?=
+ =?utf-8?B?NWl3a3VuZEdEc3k3Y2tBOG0vUkdPdzBNZTJPRXZDQjI1aHl6bTUvUlp4b3Yx?=
+ =?utf-8?B?ZWQwNDZkeVprS1BLRGNXMnQrVUJFbW9zWlBWclMvZWdSRGpOQjg0MzFXUEpL?=
+ =?utf-8?B?WVRuK2liM1VOT0hSTGlrc1BDNnUrUmUxNkM3bFc3R1QvZWtZbi9iY1hWWUVw?=
+ =?utf-8?Q?R80neWwtp+o+8RQQ=3D?=
+X-Exchange-RoutingPolicyChecked: F7gIviuoNGcf/Cqe4zr8GA7A6FPgLeKM0XeVwzSwSK7JKFTU+EXIcDFflfKd0tnWxzNKxhwO3iz6o9FGsFo2QFo59MVBQ/3EkE7z8SBcIIzt+ZZVmnV6GrTt/hfPELzHt8sLATbrnwv+Xgpm4jCRCXY0z03nnvjm7sYrAfuzP1vsVQkTyC05s06oui7M4Bc6phsB2XlF9TF5FyYyOiTyb1zEYtcpxdFPAbS9YESntcnMDbtwN/1s5yO+OaktSfVoZhvDGrlX+AKy1kzNqrgrCQS5XmsDc63T1QoV3knHdOO0wCCbqBLz3zQiYh18FTj9a5GnQEmXP8oz9/aUh/eR7w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44ec0bd8-9965-4e82-7632-08dedb3242a8
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 07:43:24.7988 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: adNa4QwQytNgdn+GpLhF3ZZW6DTt1amYqMERaKZqn5X3RfiZKzpaQ3gFnfS6k2e9jgZxI1uRyq+OGeq7nmq0y8kZU1T1M7wLXplHsVu4h1I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6088
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,131 +179,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Jason,
 
+On 2026-07-03 at 17:35:02 -0300, Jason Gunthorpe wrote:
+> On Fri, Jul 03, 2026 at 07:58:32PM +0100, Robin Murphy wrote:
+> > On 03/07/2026 5:22 pm, Jason Gunthorpe wrote:
+> > > On Wed, Jul 01, 2026 at 10:44:37AM +0000, Krzysztof Karas wrote:
+> > > > It is possible, when a very large mapping uses a single
+> > > > scatterlist, that padding overflows scatterlist's length field.
+> > > > This results in:
+> > > >   1) silently wrapping the value
+> > > >   2) smaller than desired mappings produced by iommu_map_sg
+> > > >   3) leaving mapped bytes in memory (no iommu_unmap)
+> > > > 
+> > > > Address this issue by adding overflow detection for previous
+> > > > scatterlist length field.
+> > > 
+> > > Urk, this is unfortunate, it means we cannot map certain kinds of
+> > > scatterlists? Meaning there is a condition that makes a scatterlist
+> > > ill formed?
+> > > 
+> > > This seems like something that needs to be more clearly documented and
+> > > we need to ensure at least the common scatterlist builders don't hit
+> > > it..
+> > 
+> > Well, it's taken 10 years to be caught by a test which seemingly expects the
+> > mapping of a single absurdly giant scatterlist to fail anyway,
+> 
+> If your server has 0.5TB of ram a 4G IO isn't actually that large.
+> Randomly getting a few contiguous 1G hugetlbfs pages is not even that
+> unlikely. Something like FSDAX has a very high chance of getting high
+> contiguity pages in files.
+> 
+> So I wouldn't be quite so dismissive that this is not something a real
+> user can hit.
+> 
+> > here, but I suspect this is likely just regular iova_granule rounding
+> > overflowing when the segment boundary is the maximum 4GB, since the largest
+> > representable segment length is 4GB - 1. 
+> 
+> It looks like the iommu_dma_map_sg() algorithm only works reliably if
+> the scatterlist entry size is less than UINT_MAX/2, otherwise it can
+> risk overflowing when it pads.
+> 
+> API wise I expect any arbitary input to sg_alloc_table_from_pages() to
+> result in a scatterlist that iommu_dma_map_sg() will map. This
+> patch highlights there are cornere cases where that isn't true, it
+> should be fixed..
+> 
+Thanks for your input!
 
-Am 04.07.26 um 20:43 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> New issues:
-> - [High] NULL pointer dereference when enabling CRTC without a primary plane framebuffer.
+> I agree we shouldn't overcomplicate iommu_dma_map_sg(), so the
+> simplest fix is to introduce a SG_MAX_LENGTH set to UINT_MAX/2,
+> justified by the logic in iommu_dma_map_sg(). Fixup the core sg_alloc
+> code to respect that. WARN_ON in iommu_dma_map_sg() if a malformed
+> scatterlist entry is presented. Add a WARN_ON under DMA debugging
+> kconfig as well for the physical path.
+So instead of addressing this in iommu, we should focus on
+guarding in sg logic to prevent the overflows? Or would you
+rather have this as additional, separate fix placed in this
+series?
 
-False positive here. Calling drm_atomic_helper_check_primary_plane() 
-from the CRTC's atomic check makes it impossible to enable the CRTC 
-without a primary plane.
-
-
-
->
-> Pre-existing issues:
-> - [High] Unsafe direct access of global plane and CRTC state pointers in atomic commit callbacks.
-> --
->
-> commit 6344532446cab68117e44660f110ef0c8aec15d7
-> Author: Ze Huang <ze.huang@oss.qualcomm.com>
->
-> drm/arcpgu: replace struct drm_simple_display_pipe with regular atomic helpers
->
-> This commit replaces drm_simple_display_pipe with regular atomic helpers.
-> It instantiates the plane, CRTC, and encoder directly, wiring them up with
-> standard atomic helpers to remove the dependency on the simple-KMS interface.
->
->> diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
->> index c93d61ac0bb75..375cdb79e4e89 100644
->> --- a/drivers/gpu/drm/tiny/arcpgu.c
->> +++ b/drivers/gpu/drm/tiny/arcpgu.c
-> [ ... ]
->> @@ -117,7 +117,7 @@ static const u32 arc_pgu_supported_formats[] = {
->>   
->>   static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu)
->>   {
->> -	const struct drm_framebuffer *fb = arcpgu->pipe.plane.state->fb;
->> +	const struct drm_framebuffer *fb = arcpgu->plane.state->fb;
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does reading the global
-> plane->state pointer here instead of using the state passed via the
-> drm_atomic_commit parameter cause issues during non-blocking atomic commits?
->
-> If multiple non-blocking commits are queued rapidly, the global pointers
-> advance to the newest state. When the first commit's commit_tail finally
-> executes, reading plane->state directly instead of extracting the specific
-> commit's state could cause the older commit to program the hardware using a
-> future commit's state.
->
-> [Severity: High]
-> Can this dereference a NULL pointer if the CRTC is enabled without a primary
-> plane framebuffer?
->
-> The transition from drm_simple_display_pipe to generic atomic helpers removed
-> the underlying protection that previously prevented the CRTC from enabling
-> without a valid framebuffer. If userspace performs an atomic commit that
-> enables the CRTC but sets the primary plane's framebuffer to 0 (NULL),
-> drm_atomic_helper_check_crtc_primary_plane verifies the plane is attached but
-> does not enforce plane_state->fb != NULL.
->
-> This would allow the commit to proceed to arcpgu_crtc_helper_atomic_enable(),
-> which calls arc_pgu_mode_set(), and then arc_pgu_set_pxl_fmt(), blindly
-> dereferencing fb->format->format here.
->
->>   	uint32_t pixel_format = fb->format->format;
->>   	u32 format = DRM_FORMAT_INVALID;
->>   	int i;
-> [ ... ]
->> @@ -155,7 +155,7 @@ static enum drm_mode_status arc_pgu_mode_valid(struct drm_simple_display_pipe *p
->>   
->>   static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu)
->>   {
->> -	struct drm_display_mode *m = &arcpgu->pipe.crtc.state->adjusted_mode;
->> +	struct drm_display_mode *m = &arcpgu->crtc.state->adjusted_mode;
-> [Severity: High]
-> This is a pre-existing issue, but could reading the global crtc->state pointer
-> directly cause hardware state corruption or frame tearing?
->
-> Similar to the plane state issue above, if rapid non-blocking atomic commits
-> are generated, arc_pgu_mode_set() might read from the newest global state
-> rather than the specific commit's state object.
->
->>   	u32 val;
->>   
->>   	arc_pgu_write(arcpgu, ARCPGU_REG_FMT,
-> [ ... ]
->> @@ -218,35 +218,106 @@ static void arc_pgu_disable(struct drm_simple_display_pipe *pipe)
->>   			      ~ARCPGU_CTRL_ENABLE_MASK);
->>   }
->>   
->> -static void arc_pgu_update(struct drm_simple_display_pipe *pipe,
->> -			   struct drm_plane_state *state)
->> +static void arcpgu_plane_helper_atomic_update(struct drm_plane *plane,
->> +					      struct drm_atomic_commit *state)
->>   {
->>   	struct arcpgu_drm_private *arcpgu;
->>   	struct drm_gem_dma_object *gem;
->>   
->> -	if (!pipe->plane.state->fb)
->> +	if (!plane->state->fb)
-> [Severity: High]
-> This is a pre-existing issue, but does arcpgu_plane_helper_atomic_update()
-> safely handle non-blocking atomic commits when reading plane->state->fb
-> directly?
->
-> Reading the global plane->state pointer instead of extracting the new plane
-> state from the drm_atomic_commit parameter could result in the same race
-> condition during asynchronous commit_tail execution.
->
->>   		return;
->>   
->> -	arcpgu = pipe_to_arcpgu_priv(pipe);
->> -	gem = drm_fb_dma_get_gem_obj(pipe->plane.state->fb, 0);
->> +	arcpgu = dev_to_arcpgu(plane->dev);
->> +	gem = drm_fb_dma_get_gem_obj(plane->state->fb, 0);
->>   	arc_pgu_write(arcpgu, ARCPGU_REG_BUF0_ADDR, gem->dma_addr);
->>   }
+> 
+> DRM would then have to generate scatterlists with a max segment size.
+> 
+> Jason
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Best Regards,
+Krzysztof
