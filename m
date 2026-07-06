@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F95C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEEB5C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:14:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50E6F89233;
-	Mon,  6 Jul 2026 03:10:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8BD510E723;
+	Mon,  6 Jul 2026 03:14:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T21LHtmi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XoD1jW3Q";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13F0F89233
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:10:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1A1310E720
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:14:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6A2F0600BB;
- Mon,  6 Jul 2026 03:10:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0F421F000E9;
- Mon,  6 Jul 2026 03:10:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5E695600BB;
+ Mon,  6 Jul 2026 03:14:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2C41F000E9;
+ Mon,  6 Jul 2026 03:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783307401;
- bh=5m4ozewHCywskFpKUwF+H5HvVMeOaK/qfuILK8+Zdso=;
+ s=k20260515; t=1783307647;
+ bh=JUX9+YEPckBcA5J63SAon0NtjBhJ548ZpTmAlUVv1z0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T21LHtmi0lEBbvkJQtQWujg9FiSsNKM2LYFKfbekYxdCX5AWiq7vh723rx317VCp0
- bkTQMAnht7KN0hzliDfZ3phPLW7DOG+1Yt1zIHRibZoR27Kd2NtOk+nscqUOIxJp+e
- b5+llBKvkwfpVAD0VOlX64MdDAsImcP7l8ju7O7juyDSAd7rwrrD66c4RpVEbz1avD
- vMdMY3DxUJ4hX/1N8Lb1ur0MUV9FEyRaJ/PoS1Nb3RrSv0Krsdev1gHpVDp11vVCxw
- bDVn2D4RKy2znmXOIgReIpDPNLBl48iTK5VR+KXskgzU9xRVJZ/0j9q37pF90TgE2a
- dqUPtcjlXPstg==
+ b=XoD1jW3QmtSQeAhFpU7VK40c+6qC4FrB3TI5xsunF//nfSFiGkWR9hyiELLBAjSrQ
+ Mi6LTID7vRmH38k8KBR09GHpuYlJtNMFpK213s1tB9KnKBPNts/QQd05e3v7qllnF/
+ wNJ1LZfYr8KIhbOrN6m4aZks3NIkZnBxAVpGwx1R6zrWZoSig/wQsPlMt5inNXSoUF
+ b+axbsO/rAVX8EU1GgvlzfQ0evYhsjJjclmhtg+im5Rx2Udg+YkwDMbHHNnsxbEDUU
+ Yw5QJMoUUzQBI3quxTHdc0iyJEK5TT70+AdTheEqpMOGj8UyGNkn0o43zVauDYFOX/
+ d2Vlo53300SaQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/10] ttm: add support for a module option to disable
- memcg integration
+Subject: Re: [PATCH 08/10] amdgpu: add support for memory cgroups
 To: "Dave Airlie" <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com
-In-Reply-To: <20260706024122.853329-10-airlied@gmail.com>
+Cc: mkoutny@suse.com, tj@kernel.org, dri-devel@lists.freedesktop.org,
+ hannes@cmpxchg.org
+In-Reply-To: <20260706024122.853329-9-airlied@gmail.com>
 References: <20260706024122.853329-1-airlied@gmail.com>
- <20260706024122.853329-10-airlied@gmail.com>
+ <20260706024122.853329-9-airlied@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 03:10:00 +0000
-Message-Id: <20260706031000.D0F421F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 03:14:06 +0000
+Message-Id: <20260706031406.BB2C41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,121 +58,98 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The Kconfig option `DRM_TTM_MEMCG` lacks a `default y` directive=
-, which silently disables TTM memcg accounting by default, contradicting th=
-e intended behavior described in the commit message.
-
-Pre-existing issues:
-- [High] Explicitly zeroing `page->memcg_data` prior to uncharging skips th=
-e memcg uncharge process, causing persistent `obj_cgroup` reference leaks a=
-nd memcg counter leaks.
-- [High] DMA-allocated pool pages bypass accounting but are unconditionally=
- moved between active/reclaim states, permanently underflowing `NR_GPU_ACTI=
-VE` and leaking `NR_GPU_RECLAIM` stats.
+- [High] Evicted GPU buffers bypass memory cgroup limits because the memcg =
+accounting flag is cleared during VRAM eviction and pages are never recharg=
+ed upon re-validation.
+- [Low] Missing dummy implementations for GPU page memory control functions=
+ when CONFIG_MEMCG is disabled causes a linker error.
 --
 
-commit 29deabc39c8a2c600d3de5d3662fd9003ff7aa7a
+commit 14a7ef9775310750fa8f3933b124ce94b537e5c7
 Author: Dave Airlie <airlied@redhat.com>
 
-ttm: add support for a module option to disable memcg integration
+amdgpu: add support for memory cgroups
+   =20
+This adds support for adding a obj cgroup to a buffer object,
+and passing in the placement flags to make sure it's accounted
+properly.
 
-This adds a kconfig and a module option to turn off ttm memcg
-integration completely.
-
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -257,6 +257,13 @@ config DRM_TTM_HELPER
->  	help
->  	  Helpers for ttm-based gem objects
-> =20
-> +config DRM_TTM_MEMCG
-> +	bool "Enable TTM mem cgroup by default"
-> +	depends on DRM_TTM
-> +	depends on MEMCG
-
-[Severity: Medium]
-Does this Kconfig option need a "default y" directive? The help text and
-commit message state that the feature is enabled by default, but without
-it, the configuration will default to disabled in standard builds.
-
-> +	help
-> +	  Enable the memcg integration by default
-> +
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-[ ... ]
-> @@ -321,7 +339,7 @@ static void ttm_pool_type_give(struct ttm_pool_type *=
-pt, struct page *p)
-> =20
->  	INIT_LIST_HEAD(&p->lru);
->  	rcu_read_lock();
-> -	list_lru_add(&pt->pages, &p->lru, nid, page_memcg_check(p));
-> +	list_lru_add(&pt->pages, &p->lru, nid, ttm_memcg ? page_memcg_check(p) =
-: NULL);
->  	rcu_read_unlock();
-> =20
->  	atomic_long_add(num_pages, &allocated_pages[nid]);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 8062b3d611574..1c8123c564ac1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -155,11 +155,14 @@ static void amdgpu_evict_flags(struct ttm_buffer_ob=
+ject *bo,
+>  			amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_GTT |
+>  							AMDGPU_GEM_DOMAIN_CPU);
+>  		}
+> +		for (int i =3D 0; i < abo->placement.num_placement; i++)
+> +			abo->placements[i].flags &=3D ~TTM_PL_FLAG_MEMCG;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the call to
-mem_cgroup_move_gpu_page_reclaim() that immediately follows this code
-corrupt the memcg stats for DMA pages?
+Does clearing TTM_PL_FLAG_MEMCG during eviction allow memory cgroup limits =
+to
+be bypassed?
 
-When ttm_pool_uses_dma_alloc() is true, ttm_pool_alloc_page() bypasses
-mem_cgroup_charge_gpu_page(), meaning NR_GPU_ACTIVE is never incremented.
+When a user forces eviction (for example, by allocating more VRAM), the flag
+is cleared in amdgpu_evict_flags() and TTM moves the buffer to system memor=
+y.
+The pages are then allocated via ttm_pool_alloc() with memcg_account set to
+false, leaving them uncharged.
 
-However, when the page is added to the pool here in ttm_pool_type_give(),
-it unconditionally calls mem_cgroup_move_gpu_page_reclaim(..., true), which
-subtracts from NR_GPU_ACTIVE and adds to NR_GPU_RECLAIM.
+If the user later re-validates the buffer into GTT, ttm_bo_validate() calls
+ttm_resource_compatible(). This function only checks the memory type and
+contiguous flags, ignoring TTM_PL_FLAG_MEMCG.
 
-Finally, when the shrinker frees the page, ttm_pool_free_page() bypasses
-__free_pages_gpu_account(), so the RECLAIM stat is never decremented. Does
-this permanently underflow NR_GPU_ACTIVE and leak NR_GPU_RECLAIM?
+This seems to allow the buffer to remain backed by uncharged system pages,
+potentially letting a containerized workload exhaust host system memory.
 
-[ ... ]
-> @@ -844,7 +862,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, st=
-ruct ttm_tt *tt,
->  	bool allow_pools;
->  	struct page *p;
->  	int r;
-> -	struct obj_cgroup *objcg =3D memcg_account ? tt->objcg : NULL;
-> +	struct obj_cgroup *objcg =3D (ttm_memcg && memcg_account) ? tt->objcg :=
- NULL;
-> =20
->  	WARN_ON(!alloc->remaining_pages || ttm_tt_is_populated(tt));
->  	WARN_ON(alloc->dma_addr && !pool->dev);
+>  		break;
+>  	case TTM_PL_TT:
+>  	case AMDGPU_PL_PREEMPT:
+>  	default:
+>  		amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_CPU);
+> +		abo->placements[0].flags &=3D ~TTM_PL_FLAG_MEMCG;
 
 [Severity: High]
-This is a pre-existing issue, but does explicitly zeroing page->memcg_data
-prior to uncharging cause an obj_cgroup leak?
+Does this also allow bypassing memory cgroup limits for TTM_PL_TT evictions
+to the CPU domain for the same reason?
 
-During backup restoration in ttm_pool_restore_commit():
+[ ... ]
 
-	copy_highpage(restore->alloced_page + i, p);
-	p->memcg_data =3D 0;
-	__free_pages_gpu_account(p, 0, false);
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 4c682b91cbbee..625de4a287eb3 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -3032,6 +3032,7 @@ __always_inline struct obj_cgroup *current_obj_cgro=
+up(void)
+> =20
+>  	return rcu_dereference_check(root_mem_cgroup->nodeinfo[nid]->objcg, 1);
+>  }
+> +EXPORT_SYMBOL_GPL(current_obj_cgroup);
+> =20
+>  struct obj_cgroup *get_obj_cgroup_from_folio(struct folio *folio)
+>  {
 
-And similarly during purging in ttm_pool_shrink():
+[Severity: Low]
+Will this series cause a linker error when CONFIG_DRM_TTM=3Dy and CONFIG_ME=
+MCG=3Dn?
 
-	page->private =3D 0;
-	page->memcg_data =3D 0;
-	__free_pages_gpu_account(page, order, false);
+It looks like mem_cgroup_charge_gpu_page(), mem_cgroup_uncharge_gpu_page(),
+and mem_cgroup_move_gpu_page_reclaim() are declared unconditionally in
+include/linux/memcontrol.h.
 
-Since __free_pages_gpu_account() relies on mem_cgroup_uncharge_gpu_page()
-which requires memcg_data to locate the correct obj_cgroup, doesn't
-clearing it beforehand cause the uncharge to silently fail, leaking the
-stats and the reference?
+However, their definitions in mm/memcontrol.c are skipped when CONFIG_MEMCG=
+ is
+disabled.
+
+Since ttm_pool_alloc_page() in drivers/gpu/drm/ttm/ttm_pool.c calls these
+without ifdef guards, this seems to lead to undefined references during
+linking.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706024122.8533=
-29-1-airlied@gmail.com?part=3D9
+29-1-airlied@gmail.com?part=3D8
