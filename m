@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F423C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62FDDC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:20:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D020110E912;
-	Mon,  6 Jul 2026 12:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0F5310E1EF;
+	Mon,  6 Jul 2026 12:20:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bBjRSNxZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C6ozwaBI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 263DA10E1EF
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:19:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9436C10E1EF
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:20:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B6AE4435B6;
- Mon,  6 Jul 2026 12:19:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 883E81F000E9;
- Mon,  6 Jul 2026 12:19:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F167260018;
+ Mon,  6 Jul 2026 12:20:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737921F000E9;
+ Mon,  6 Jul 2026 12:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783340376;
- bh=4S9R+yyWTjmJsi+bpmb4g/zV2CItUYlkvx4HNV1aJKE=;
+ s=k20260515; t=1783340424;
+ bh=L9ZQiAG8v4+fZCVXxwejSDShgoX4JcG6q4TFIZYF5QM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=bBjRSNxZuEp42fTq2A4p6/NXP9C1E/YyXIV1UXmF4uvnXGUkEmd78dLAVncJQ7GN9
- YxnQUvQUAf5AYGZFZ21Dh+pFd/LMe4iimJcCmRAV9YEMc8bJUh55rngDaYkrx8NiES
- XodIcVbpZAU2zJ0Yty/bBNDlfftz6/gCfuPsg0eIfntuaLz6/h08p4ZF6q6bFg7m+q
- /+sSjwxd4QwE5r55AeSmFGNyinxNOFEtdB7M0vp85ccoLf+g7jbfnzoXQfli41vhoT
- G6spDfN9xhZoxhXPRsmvl9UNIw2wlzmgIKJg5k5GBOetvs1VKx+Mo5WTqU+7EYiIdE
- KQmO9Yqi2FBng==
-Date: Mon, 6 Jul 2026 13:19:18 +0100
+ b=C6ozwaBI/97xZxlb0kmr8PA9iMolOuyBfguWvZQClRq/46Zu2S9kvWx24//aF2X8n
+ Nh791WaveY8mVYOKz5FsgRvfOJ4+cHgj772ChzSAqbzxXjZhY3tHcT8oAk7XVXCgCU
+ tA10Z5hXZzaIq2nwfzaQP6f13+jV4kPeGYZFn85gRWiUGIva3eVDWgfZxKyBc8kWsU
+ vJrmdRgZTahoKLsew4hkBkgxq2U13ymmTXrWD3Q6LDiUvUjVuIxt+GXqST4N1rV9gv
+ jb054KB6P3mLVkhZnpXBPEUtAk5IIaBJ7V/8QGukeju2b8oWQgJov/9j9LrH2BgQ4P
+ AG/ZuXIf/CJ1g==
+Date: Mon, 6 Jul 2026 13:20:05 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
@@ -101,9 +101,9 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
  linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH 29/42] ASoC: SOF: imx: Use
- devm_of_reserved_mem_device_init_by_name()
-Message-ID: <46e41648-55ea-4713-a831-50d9d2d3ca4a@sirena.org.uk>
+Subject: Re: [PATCH 31/42] ASoC: cix-ipbloq: Use
+ devm_of_reserved_mem_device_init()
+Message-ID: <016b46c2-a411-47ab-8b17-e679c9ca7583@sirena.org.uk>
 Mail-Followup-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
@@ -180,12 +180,12 @@ Mail-Followup-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
  linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  imx@lists.linux.dev, sound-open-firmware@alsa-project.org
 References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-30-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Yu4KCMAhmO2XvHhA"
+ protocol="application/pgp-signature"; boundary="kLTrwa+nl9jSAPoJ"
 Content-Disposition: inline
-In-Reply-To: <20260703193855.110619-30-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
 X-Cookie: Did I do an INCORRECT THING??
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -203,31 +203,30 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---Yu4KCMAhmO2XvHhA
+--kLTrwa+nl9jSAPoJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, Jul 04, 2026 at 01:08:42AM +0530, Mukesh Ojha wrote:
-> Use the devres-managed devm_of_reserved_mem_device_init_by_name()
-> instead of the manual of_reserved_mem_device_init_by_name()/
-> of_reserved_mem_device_release() pair, letting the device resource
-> manager handle cleanup automatically.
+On Sat, Jul 04, 2026 at 01:08:44AM +0530, Mukesh Ojha wrote:
+> Use the devres-managed devm_of_reserved_mem_device_init() to ensure
+> the reserved memory region is released on device removal, fixing a
+> missing cleanup in the original code.
 
-Acked-by: Mark Brown <Broonie@kernel.org>
+Acked-by: Mark Brown <broonie@kernel.org>
 
---Yu4KCMAhmO2XvHhA
+--kLTrwa+nl9jSAPoJ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpLnUUACgkQJNaLcl1U
-h9BuVQf+KLEqbcPPX/5Obdk8IsNoZNq/sUp0HWFhva4IU27N6Km9JH1C+X7y6iXY
-6JfdrnqDY/m0Xh/g07yil4SdMXu+gruFTLj2OIy/Q+jQVUTK0TqS98Cu7H3R3Xty
-2EX1knQLcpOEd+pQHnIcuWDXlaRfUo5EszrpjeMkmpQ2M5FWHiJ4ls888sUiR+GG
-rLrYgfVEoZ9yiMK+EmlQGLQ5KNCEzuZB35t6tM/X92k/JiM0B3lsL5PsP0Y3XUyd
-RWO9XonaLyrJ2gGTP3YmDxcsIrTQn6Q2WeoGvANuX0I4fQ9nF55lAyRdTsJQPmzF
-KnYYLggE9lyWybZAFm1Psxfi3Z+ucg==
-=YJmJ
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpLnXUACgkQJNaLcl1U
+h9CXQAf8DO5Zk9xuOb8fTwRJIIud+GlrdJtvcprjSHWU5ymHQPkN42Prm3dW0Ut4
+OKEMbp1vbc5dzatR666ThvdBWJKtZsR+5FkQtiYSkrpbp2IZhStfEB1E1asPPN0X
+kthMlnGnLeb7Bu8qpxAn0s4xgLaycfsPXvbWJZ3xDEPrhrKWPmIv67jPR4mchEH8
+PjU+XLJw8I811PX1RbTELfbNgHWdvDFXZ6s1xPjODVw62PaGGDVBMlv5rAkEdYRg
+esYE2BAs1/qFt0OSfMgv+Sht1er7hryzp1Mnr3qgRs4uDsnEdIvyEdrWvsRnKq3Q
+TSiu7ZO3KFhVC8KoNZS7qFcHgW97rA==
+=DjQp
 -----END PGP SIGNATURE-----
 
---Yu4KCMAhmO2XvHhA--
+--kLTrwa+nl9jSAPoJ--
