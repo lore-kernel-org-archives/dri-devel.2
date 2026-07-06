@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6568C43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A857C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:03:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5791D10E1B6;
-	Mon,  6 Jul 2026 13:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC8EF10E983;
+	Mon,  6 Jul 2026 13:03:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JnoeaQqn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XxyyS9/A";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D883910E1B6
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:01:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3256610E974
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:03:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BD577416E9;
- Mon,  6 Jul 2026 13:01:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD0C1F00A3A;
- Mon,  6 Jul 2026 13:01:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 009D94187F;
+ Mon,  6 Jul 2026 13:03:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5758C1F000E9;
+ Mon,  6 Jul 2026 13:03:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783342919;
- bh=OGmcyP6BmS9wQc7/06ZhpmOGMu2PkE14odFg3emM7FI=;
+ s=k20260515; t=1783342997;
+ bh=MP8VboAyZaUbXRnwq6ovrV0/VarvGBmOTNmhBmvvLog=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JnoeaQqn4NU0cOna5olKzlDfV+nDyX5+m/u0/e1BC0uzXbtlE907X0k8vMDtl0ZwK
- e7S8ES0unCnuPEBXpWGuGaLaO6dfcqRZbzvbQbHF7OkNmsktF1kTwEREw7sa6ZIRSb
- Bpk5fI5n2C8RsnkK32u8VeaF8Oat4xAYGal1rD2MPSh/YwTK3XU3r+4NZ4AihV8FVb
- svb7pWRNeeRObm242nQqBwBRJSY1AIF/n4GqHt12KZhFtYIxVGHqma8vk1tjZaS8CC
- hXAKoCgldcQrZs+6yBzwzglVRJRvtlnfwJz8/h/jt4nM8SoymhCq3A4kpbHZODyAda
- DIThiuDh8jgIA==
+ b=XxyyS9/AP4H5fsIA0lVrjTRknTESkZ5hNCpRpHwpQ3QF35rH/7pASMm0AqT5K3RG7
+ esMzlPAtP0NSLHERj7uXBm27f6X8XpYxbh8fSrt4A8mfAnykqnZtIsJptH4zxdo7rN
+ uGBv/BgqBJ7T3VzI1vIUP99DFoInnMjaUDZGqHHXUZ7IQhSFKBnEMgMKKb2YwXkGXy
+ xbrSAKoVDJoP1lO/sKTFhWtorpEmy9dc5PKwF+Qv80OrK2WgtxQfxRwqgfem2gTlzk
+ Pb7ajV2jz5visQu1Gq80lVq1KS6RLAg88TXwQKD7m6TZJsYpkKD4D+v6T1da8TkYlu
+ KkSFhVd1FFqxA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/20] rust: io: add I/O backend for system memory
- with volatile access
+Subject: Re: [PATCH v6 15/20] rust: io: implement a view type for `Coherent`
 To: "Gary Guo" <gary@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Danilo
- Krummrich" <dakr@kernel.org>, ojeda@kernel.org
-In-Reply-To: <20260706-io_projection-v6-14-72cd5d055d54@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ "Alexandre
+ Courbot" <acourbot@nvidia.com>, ojeda@kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260706-io_projection-v6-15-72cd5d055d54@garyguo.net>
 References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-14-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-15-72cd5d055d54@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 13:01:59 +0000
-Message-Id: <20260706130159.5FD0C1F00A3A@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 13:03:16 +0000
+Message-Id: <20260706130317.5758C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,79 +61,87 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] SysMem silently breaks the implicit endianness and memory ordering=
- contracts of the Io trait, making generic I/O abstraction unsafe on big-en=
-dian architectures and weakly-ordered CPUs.
+- [Medium] `CoherentView::as_mut` allows converting a shared reference `&Co=
+herent<T>` into a mutable reference `&mut T` on another thread without requ=
+iring `T: Send`.
 --
 
-commit f9c9f4f480b4daad1545ae67d8a19099030dc2fd
-Author: Laura Nao <laura.nao@collabora.com>
+commit 4f4557edee91d32bf035e749630652363a232ff1
+Author: Gary Guo <gary@garyguo.net>
 
-rust: io: add I/O backend for system memory with volatile access
+rust: io: implement a view type for Coherent
 
-This commit adds a SysMem backend for the Io trait, intended for kernel=20
-virtual address ranges. It uses volatile accessors to provide access to=20
-shared memory, allowing alternative mapping layers to devices.
+Implement a CoherentView type which is a view of Coherent. To be able
+to give out DMA handles, the view type contains both CPU and DMA pointers,
+and the projection method projects both at once. Delegate most of the Io
+implementation to SysMemBackend.
 
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index 62643b23e9042..78c6ae2a0db82 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
+> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
+> index 200def84fb69e..1535bc6eec642 100644
+> --- a/rust/kernel/dma.rs
+> +++ b/rust/kernel/dma.rs
 
 [ ... ]
 
-> +macro_rules! impl_sysmem_io_capable {
-> +    ($ty:ty) =3D> {
-> +        impl IoCapable<$ty> for SysMemBackend {
-> +            #[inline]
-> +            fn io_read(view: SysMem<'_, $ty>) -> $ty {
-> +                // SAFETY:
-> +                // - Per type invariant, `ptr` is valid and aligned.
-> +                // - Using read_volatile() here so that race with hardwa=
-re is well-defined.
-> +                // - Using read_volatile() here is not sound if it races=
- with other CPU per Rust
-> +                //   rules, but this is allowed per LKMM.
-> +                // - The macro is only used on primitives so all bit pat=
-terns are valid.
-> +                unsafe { view.ptr.read_volatile() }
-> +            }
+> +impl<'a, T: ?Sized> CoherentView<'a, T> {
+
+[ ... ]
+
+> +    /// Returns a mutable reference to the data in the region.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// * Callers must ensure that the device does not read/write to/fro=
+m memory while the returned
+> +    ///   reference is live.
+> +    /// * Callers must ensure that this call does not race with a read (=
+including call to `as_ref`)
+> +    ///   or write (including call to `as_mut`) to the same region while=
+ the returned reference is
+> +    ///   live.
+> +    #[inline]
+> +    pub unsafe fn as_mut(self) -> &'a mut T {
+> +        // SAFETY: pointer is aligned and valid per type invariant. Alia=
+sing rule is satisfied per
+> +        // safety requirement.
+> +        unsafe { &mut *self.cpu_addr.as_ptr() }
+> +    }
+
+[Severity: Medium]
+Since as_mut() returns a mutable reference &'a mut T, could this allow a
+type that is not thread-safe to be mutated on another thread?
+
+If a custom type T is Sync but not Send, CoherentView could still be sent
+across threads. Calling as_mut() on the second thread would then yield a
+mutable reference to a !Send type, which seems to bypass Rust's thread
+safety guarantees.
+
+Does as_mut() need a T: Send bound to ensure soundness?
+
+[ ... ]
+
+> +impl<'a, T: ?Sized + KnownSize> IoBase<'a> for &'a Coherent<T> {
+> +    type Backend =3D CoherentIoBackend;
+> +    type Target =3D T;
 > +
-> +            #[inline]
-> +            fn io_write(view: SysMem<'_, $ty>, value: $ty) {
-> +                // SAFETY:
-> +                // - Per type invariant, `ptr` is valid and aligned.
-> +                // - Using write_volatile() here so that race with hardw=
-are is well-defined.
-> +                // - Using write_volatile() here is not sound if it race=
-s with other CPU per Rust
-> +                //   rules, but this is allowed per LKMM.
-> +                unsafe { view.ptr.write_volatile(value) }
-> +            }
-
-[Severity: High]
-Do these volatile accessors break the implicit endianness and memory orderi=
-ng
-contracts established for the Io trait?
-
-The MmioBackend implements io_write and io_read using writel and readl,
-which perform little-endian byte-swapping and include memory barriers. In
-contrast, SysMemBackend uses native-endian write_volatile and read_volatile
-without memory barriers.
-
-If a driver uses the Io trait generically, could this difference lead to
-data corruption or DMA race conditions on big-endian or weakly-ordered
-architectures? For instance, if a driver manually byte-swaps to little-endi=
-an,
-MmioBackend would double-swap it, whereas SysMemBackend would write the
-manually swapped data.
-
+> +    #[inline]
+> +    fn as_view(self) -> CoherentView<'a, Self::Target> {
+> +        CoherentView {
+> +            // SAFETY: `cpu_addr` is valid and aligned kernel accessible=
+ memory.
+> +            cpu_addr: unsafe { SysMem::new(self.cpu_addr.as_ptr()) },
+> +            dma_handle: self.dma_handle,
 > +        }
-> +    };
+> +    }
 > +}
 
-[ ... ]
+[Severity: Medium]
+This isn't a bug in the trait implementation itself, but this is where
+the shared reference &'a Coherent<T> gets converted into a CoherentView.
+
+Combined with the as_mut() method above, does this create a path to gain
+mutable access from a shared reference without a T: Send requirement?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-io_project=
-ion-v6-0-72cd5d055d54@garyguo.net?part=3D14
+ion-v6-0-72cd5d055d54@garyguo.net?part=3D15
