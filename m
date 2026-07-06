@@ -4,52 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 163D8C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B383C44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7104010E930;
-	Mon,  6 Jul 2026 12:03:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B37B610E933;
+	Mon,  6 Jul 2026 12:03:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IAizrK0N";
+	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="GCuj59RL";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB3B510E930
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:03:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1p24W3l40HjHqdtstXnE1g2Vd30P3cEpjjfHRODytPs=; b=IAizrK0NcW7e7sqqtjIJsI82V7
- PYu88ZXJSRXxnPPCrkztmsVxgKiHcuAfcLPkKtfw8qM02GQlNjxBEHEgh848zVIZntX9HmmrnTntL
- ZdPPZRTY0DKmEcHeckJWYEvByJoL2SDdPAze/W4GBo6JikcGPJaabBjHkCz7CfDqwYPBr+Z+HGsMz
- UWHvK5YIw4wGMCkAHTDR4jjvNPZyvcjDebc0FOdkVgP1+8oMdoUoT7ULCCQBGp95U0YXRfu2jasDG
- Sz9KZmRmeWAjgldw3mREVmskg6FigyUv3c8RI/XZXdv3k4tnrwt4JaWYnjlIJEko61WykIcSKg1zp
- 78QJ5G5Q==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wgi2w-009iin-IK; Mon, 06 Jul 2026 14:03:34 +0200
-Message-ID: <8aa9ffad-ece3-428b-b307-1d5f4136db73@igalia.com>
-Date: Mon, 6 Jul 2026 13:03:33 +0100
+Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
+ [109.224.244.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 255E710E933
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1783339375; x=1783598575;
+ bh=82x8bAf2wNBQ5QOhiP8e0is47IQ1BDz7G4Bf4Ik32/I=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=GCuj59RLs2Zs6JshFntV3StWw074ejLXvSjBIa/99p1F66DtVa8fJD4bfp6nuRl8g
+ k6U9qxxoKzrDGHX8YvCb+lwoifLueU2A7MbJOO6fkSUfDhPNo/frQ6Gco5IbF2Kbqb
+ gKD56ktrYTDtW8lPFGbg4rl6bF4+zNpxnJMATmTh39BJvV1nskOJNQ9GdN8FahpjiO
+ v6yW+e2kpk2yAr8Fl5DUMrkUSUOQLFbTNxfB7NN9RK90sHkwPNLP7ywiYueO1DNLNj
+ Snk9+Gs60NNp7wL3tM6iVtv0kc4WGZcA9D3AFpMGqnCjiSM5U04qUrR9Y7LjAvCvzm
+ 7we82K/ZiHAiQ==
+Date: Mon, 06 Jul 2026 12:02:53 +0000
+To: sashiko-reviews@lists.linux.dev
+From: cristian_ci <cristian_ci@protonmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v6 1/4] arm64: dts: qcom: msm8953-flipkart-rimob: Enable
+ display and GPU
+Message-ID: <u25a39zbC36mvz8rp3abyH03bkExXAuUFYxKU8flfoGV3XFttpebG4sRvv3e00ObVPBhEtegUvYr0d09FnnWl9BXOfizKGlng9X2Vpalq14=@protonmail.com>
+In-Reply-To: <20260701205956.EDE121F000E9@smtp.kernel.org>
+References: <20260701-rimob-new-features-v6-0-be7d5d1e007f@protonmail.com>
+ <20260701-rimob-new-features-v6-1-be7d5d1e007f@protonmail.com>
+ <20260701205956.EDE121F000E9@smtp.kernel.org>
+Feedback-ID: 27475468:user:proton
+X-Pm-Message-ID: f63ffe97537f68d51dad4f445117b2d6fa51b51e
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 2/8] drm/panthor: Use separate workqueue for DRM scheduler
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
- <20260702173127.3103af30@fedora-2.home>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260702173127.3103af30@fedora-2.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,169 +60,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wednesday, July 1st, 2026 at 22:59, sashiko-bot@kernel.org <sashiko-bot@=
+kernel.org> wrote:
 
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Low] The panel's compatible property is missing the mandatory generic =
+fallback string.
+> --
+>=20
+> commit 14ab3e4951175e1cf33309cf294f421f36606cd0
+> Author: Cristian Cozzolino <cristian_ci@protonmail.com>
+>=20
+> arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
+>=20
+> This commit adds the description for the display panel found on the phone=
+.
+> It also enables the GPU and sets the zap shader firmware path.
+>=20
+> > diff --git a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts b/arch=
+/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+> > index ef4faf7631327..5a9d71d1e4664 100644
+> > --- a/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+> > +++ b/arch/arm64/boot/dts/qcom/msm8953-flipkart-rimob.dts
+> [ ... ]
+> > @@ -87,11 +94,70 @@ &hsusb_phy {
+> >  =09status =3D "okay";
+> >  };
+> >
+> [ ... ]
+> > +&mdss_dsi0 {
+> > +=09vdda-supply =3D <&pm8953_s3>;
+> > +=09vddio-supply =3D <&pm8953_l6>;
+> > +
+> > +=09status =3D "okay";
+> > +
+> > +=09panel: panel@0 {
+> > +=09=09compatible =3D "flipkart,rimob-panel-nt35532-cs";
+>=20
+> [Severity: Low]
+> Is the generic fallback string missing from this compatible property?
+>=20
+> The DT schema for this panel (novatek,nt35532.yaml) strictly requires two=
+ items
+> for the compatible property: the device-specific string and the generic f=
+allback
+> "novatek,nt35532". Providing only the device-specific string violates the
+> binding and will trigger a dtbs_check warning.
+>=20
+> > +=09=09reg =3D <0>;
+> > +
+> > +=09=09backlight =3D <&pmi8950_wled>;
+> > +=09=09reset-gpios =3D <&tlmm 61 GPIO_ACTIVE_LOW>;
+> > +=09=09avdd-supply =3D <&lab>;
+> > +=09=09avee-supply =3D <&ibb>;
+> > +=09=09vci-supply =3D <&pm8953_l17>;
+> > +=09=09vddi-supply =3D <&pm8953_l6>;
+>=20
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260701-rimob-ne=
+w-features-v6-0-be7d5d1e007f@protonmail.com?part=3D1
 
-On 02/07/2026 16:31, Boris Brezillon wrote:
-> On Thu,  2 Jul 2026 15:37:39 +0100
-> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
-> 
->> Currently an unordered workqueue is used for the DRM scheduler which means
->> its concurrency is externally managed, and given there is one scheduler
->> instance per userspace queue, that means workqueue management logic is
->> within its rights to spawn many kernel threads to submit their respective
->> jobs.
->>
->> Problem there is that all run job callbacks are serialized on the device
->> global mutex,
-> 
-> I think we should address that instead, and either shorten the scope of
-> the locked section, or make it so we don't make it a contention point
-> for concurrent job submission from different contexts (with a rwsem
-> instead of a lock, for instance).
-> 
->> making the potential thread storm just causing lock
->> contention.
->>
->> If we add a separate ordered workqueue for the DRM scheduler integration
->> we can avoid this problem, since the ordered property directly expresses
->> the nature of the submission backend implementation.
-> 
-> Yep, except that's not how it was meant to work. The goal was to allow
-> contexts to submit their jobs concurrently to the FW. The only reason we
-> take the lock is to:
-> 
-> 1. make sure the context is still allowed to take jobs
-> 2. kick the group scheduler if the context is not resident
-> 
-> For #1, I believe we can come up with either a lockless solution, or a
-> solution where the lock protecting the state belongs to the group
-> instead of being externally protected by the device-wide scheduler lock.
-> 
-> For #2, the rwsem approach, and narrowing down the locked section to
-> just this part of the code should do the trick.
-
-Out of curiosity how much CPU side parallelism you think is required to 
-keep these GPUs fed? Both today (with the greater lock contention) and 
-in the future (with the reduced contention) I guess would be interesting 
-data points.
-
->> And considering the other user of this workqueue, the free job callback,
->> which is not globally serialized in this manner so could be thought to
->> potentially regress with this change, it should not be the case since
->> commit
->> a58f317c1ca0 ("drm/sched: Free all finished jobs at once")
->> made the DRM scheduler handle the cleanup of finished jobs more promptly.
-> 
-> I don't know if this change is a hard dep for what's coming next, but
-> if it's not, I'd drop it. If it is, and the new kthread_work solution
-> relies on this serialization, I guess I need to read more to understand
-> why.
-
-You mean this patch, "drm/panthor: Use separate workqueue for DRM 
-scheduler"?
-
-It is not strictly required. I could for example use the concurrent 
-flavour of the drm_sched_worker I add later in the series. That would 
-align with WQ_UNBOUND which is currently used, but then there is the 
-question of how much parallelism is required and the fact dumb worker 
-pool implementation from this RFC makes no attempt to spawn/retire 
-threads on demand. It just picks four out of thin air kind of. Priority 
-inheritance would still work but if picking a fix number of threads 
-based on some criteria wouldn't be feasible I would need to work on a 
-smarter worker pool implementation.
-
-I could drop it, although the question would be when do you expect 
-locking rework could realistically happen and, if not quick, what is the 
-advantage of keeping the false parallelism.
-
-Regards,
-
-Tvrtko
-
-> 
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Boris Brezillon <boris.brezillon@collabora.com>
->> Cc: Liviu Dudau <liviu.dudau@arm.com>
->> Cc: Steven Price <steven.price@arm.com>
->> ---
->> v2:
->>   * Actually create an unordered wq.
->>   * Put back WQ_MEM_RECLAIM to sched->wq.
->> ---
->>   drivers/gpu/drm/panthor/panthor_sched.c | 26 +++++++++++++++++--------
->>   1 file changed, 18 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
->> index 2bee1c92fb9e..f4dfd82ad8a8 100644
->> --- a/drivers/gpu/drm/panthor/panthor_sched.c
->> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
->> @@ -147,13 +147,11 @@ struct panthor_scheduler {
->>   	struct panthor_device *ptdev;
->>   
->>   	/**
->> -	 * @wq: Workqueue used by our internal scheduler logic and
->> -	 * drm_gpu_scheduler.
->> +	 * @wq: Workqueue used by our internal scheduler logic.
->>   	 *
->>   	 * Used for the scheduler tick, group update or other kind of FW
->>   	 * event processing that can't be handled in the threaded interrupt
->> -	 * path. Also passed to the drm_gpu_scheduler instances embedded
->> -	 * in panthor_queue.
->> +	 * path.
->>   	 */
->>   	struct workqueue_struct *wq;
->>   
->> @@ -166,6 +164,14 @@ struct panthor_scheduler {
->>   	 */
->>   	struct workqueue_struct *heap_alloc_wq;
->>   
->> +	/**
->> +	 * @sched_wq: Workqueue used for the DRM scheduler.
->> +	 *
->> +	 * Workqueue used for drm_gpu_scheduler instances embedded in
->> +	 * panthor_queue.
->> +	 */
->> +	struct workqueue_struct *sched_wq;
->> +
->>   	/** @tick_work: Work executed on a scheduling tick. */
->>   	struct delayed_work tick_work;
->>   
->> @@ -3488,7 +3494,7 @@ group_create_queue(struct panthor_group *group,
->>   {
->>   	struct drm_sched_init_args sched_args = {
->>   		.ops = &panthor_queue_sched_ops,
->> -		.submit_wq = group->ptdev->scheduler->wq,
->> +		.submit_wq = group->ptdev->scheduler->sched_wq,
->>   		/*
->>   		 * The credit limit argument tells us the total number of
->>   		 * instructions across all CS slots in the ringbuffer, with
->> @@ -4078,6 +4084,9 @@ static void panthor_sched_fini(struct drm_device *ddev, void *res)
->>   	if (sched->heap_alloc_wq)
->>   		destroy_workqueue(sched->heap_alloc_wq);
->>   
->> +	if (sched->sched_wq)
->> +		destroy_workqueue(sched->sched_wq);
->> +
->>   	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
->>   		drm_WARN_ON(ddev, !list_empty(&sched->groups.runnable[prio]));
->>   		drm_WARN_ON(ddev, !list_empty(&sched->groups.idle[prio]));
->> @@ -4168,12 +4177,13 @@ int panthor_sched_init(struct panthor_device *ptdev)
->>   	 * allocate memory, and fail the tiling job if none of these
->>   	 * countermeasures worked.
->>   	 *
->> -	 * Set WQ_MEM_RECLAIM on sched->wq to unblock the situation when the
->> -	 * system is running out of memory.
->> +	 * Set WQ_MEM_RECLAIM on sched->wq and wq->sched_wq to unblock the
->> +	 * situation when the system is running out of memory.
->>   	 */
->>   	sched->heap_alloc_wq = alloc_workqueue("panthor-heap-alloc", WQ_UNBOUND, 0);
->>   	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
->> -	if (!sched->wq || !sched->heap_alloc_wq) {
->> +	sched->sched_wq = alloc_ordered_workqueue("panthor-drm-sched", WQ_MEM_RECLAIM);
->> +	if (!sched->wq || !sched->heap_alloc_wq || !sched->sched_wq) {
->>   		panthor_sched_fini(&ptdev->base, sched);
->>   		drm_err(&ptdev->base, "Failed to allocate the workqueues");
->>   		return -ENOMEM;
-> 
-
+Please, look at: https://lore.kernel.org/all/s6kyh5wyamcxyd7xsbu5wrrpndpdb5=
+xhxapmxze2qgblng5eiq@hl36nzg2lldg/
