@@ -4,147 +4,194 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06A0C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F403C43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:44:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05CA910E373;
-	Mon,  6 Jul 2026 12:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1BB10E92B;
+	Mon,  6 Jul 2026 12:44:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="vKVoT/34";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HvCI54HI";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eyFsOMTZ";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021088.outbound.protection.outlook.com [52.101.100.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6621610E906
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:44:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lX4z5f3gFo3z3cc+tPtp52ZiYgrc3r+aCj4plQT5DU8UV+n4NLquJeXdpIscJyIUX5J7V0s+AvOtwbygL8EkXHyjQJVD11/IehhOlM+O1eF8w9sq+A5WOyXy0jdxxMsYZoVFkPoWGRZlyFrsOFxSAxAIQct7R2xZkwyu3iIRBO84t9LXqQJbUI49FDe1fDiYSEGLxEf8CN2VY2CZPTMpCnHTYyCv5WUpptUGHOe/sDOmiwqWD76AjwlCUZWoN+Aff+gPxWTSyqxiZwzSckUrsDJdUKAAI4KSabtDqDBx21XW/5cRl+DKXPzfdb1+qdmr0ifGxsj+WQR4iYnUcVcLVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=axNoeHyM7y29ceF7DiKai9VCveu/Y2sESrbVhFBNmlA=;
- b=sxqoPhkJUVal/sgRQq06F2fpX/PVGOefczieFCGcaB9xBsmzv2iY1eXvHcHfuAn7zLnAO+Aq6jciw+MsTzC9KpIx8BHmRQkzqAUVmA+2593YYDnBEZD0g5csrbDWCjFOHxvy8WjJjZjggBk1MySR9jwoArpSpCyrFwxYtRgokx3u4bRXFywzs4T5KhfpS5rvuwWKWzKeJklQ7GBZfhivYSshSXWh6ThdjSGGWmrZ4pRVlQP1Bpjv+SAQu07C2JpYj7HZm1BNmqP6mDwgGjhcA/fXg09qVTCLmPc5J5wvzAbA0XBpwDAPJHvR/uFOdSTn+c7rviv/9gf4N8TULfidNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=axNoeHyM7y29ceF7DiKai9VCveu/Y2sESrbVhFBNmlA=;
- b=vKVoT/34kY9FBJB9tLDujcF5sIjrMX3ZB0xqDn1OQSUqoo/neu9D/46Y4M/QkoVMKNbb0bjCf1T3Gn1sKzBMJtsN2d2RXoW8OUudfVjRevk7uXKoiHvHuEHJvfL2Aqz6amJatp/SALC40uEjzfubhYzAY06x3XRVDhZNigJPdsA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO7P265MB7617.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:40c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 12:44:33 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 12:44:33 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Mon, 06 Jul 2026 13:44:32 +0100
-Subject: [PATCH v6 19/20] rust: io: add copying methods
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5632610E390
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:44:52 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 666AxJQ8316461
+ for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 12:44:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=7VfOweZR0NvzKfVRW7ae+/
+ NW8JVQadN2E/hr03AdQ1s=; b=HvCI54HI6r2WAiPzYc0IXb/+6AOTqyJ2z1Q1Fs
+ JNVh0m4mSZDL5o21i+i8bvQetkwOJ9innTRe2tVd0jSJc37bGA8wKzVwiVF7Bsus
+ JGoJIYok+3i12s7ZIggCc4wl9NGo4bzR3lL/esbGOCJ8KivTwK6jzC/C+yIq0ptc
+ itK7/HcU5/tl+x6Il+4JZw2JWuEe/WCA7wwlxVYvXsRwFcugg3Ha9ESH9WrPuh1A
+ 7d0ghGcy9nZhbdPx14EYgydrDsLFurGwhz8rQmkCylU0mnNOl87XtCbGrOKFBcW3
+ VaMKUx2fmp4AnkeMMXbHq7C2lQVewhebNpZs8Kfu3Jnp69NA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f87q7h8x4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 12:44:51 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-92e56b2b350so610051685a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 05:44:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783341890; x=1783946690;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=7VfOweZR0NvzKfVRW7ae+/NW8JVQadN2E/hr03AdQ1s=;
+ b=eyFsOMTZBJ/m/Dlro2ulR9XLV4pc+BSHHUi9e/9qpD22moUdHEG4hb+lY/KKc5NXGy
+ LZXTjWnlCUaCWJ+ZPLIXG7P+sgohbjhiMD5/n5hXdDdncsUaoGAKYIETTPMB8c7BmVhC
+ l8UHKv1y8RbHYgewzyVYnn5r23K4pLaN6vCJ66yOCEADSKZRPxtRmcDGi1flG6qxNT2b
+ UmkOP65TRtqiv8Dq/Rb1xZs6sXfFkm0eVFyM43i1iafoXH0OQwz09Lnl17vneaHfa9CP
+ KR5JzeSIy3pRklf3G6/ienXI2gYqPwPeLBcjNWbk8dPudLfcsyazNj+BOuL5L6yGJr2s
+ RHBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783341890; x=1783946690;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=7VfOweZR0NvzKfVRW7ae+/NW8JVQadN2E/hr03AdQ1s=;
+ b=q+J6wrHGxl3K4N6hqPk2xk5SA+CcPwBQnS52HymSnPgtw4GFf4CgHRiyJ6SmkpNeKJ
+ N3dHWjyWRzV5AVn39B4KuIHNwS0m0ZfHvKucESVlguDVlFgXYg6HoZvmX+dGeaDWgGbV
+ 56+LGbPvH0cBFGk2acYwhGTK0qKRpI0/fhPwfGv4IIn2IGO+9tUwkSknSNWDOGbYGJxg
+ 9FYMZUHa/POuTmRJb59QiWqYyX+7imF/cDuxg+oi6L02EnsXs/FagocSGwp55vs9zFd7
+ /0C3Xds+Z+IPg8v8HaK3yGkd9hu4UEC1I2ryvIgGLGpLJ1O30TjWVoE0TBExsw7CoL6H
+ z4vQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rrk/wmGqENjMvWNQ2M1uzX0qId+kOPVhywvypplkpkJEOLz+Gdj5MtlUN16E5ALnum15e9FQ1/7qB4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDt+Rn3wIuApiSFmwjPbEqU2bPfUmWsfNStB08BfSrXYR8TMgg
+ omuVI7OJG8F/wCrZdagEWxLc/rE+RXvcDcJPO420Gp61Ne4BuqP8fVsh6MmCdUpo2yOSbYlgxEy
+ dBTu2cMAFEKU8QIpZUnSLZ0lD2bYd2R+m6DP865N28MCnDnPbHNcFfBjEktuXAc40VhzKm5Y=
+X-Gm-Gg: AfdE7cmzVU6piONA5FhrwZ2etpB6uTXtcyYL+Oxs9/HxXitt1Zd6jp1zdWWN2SWhcEF
+ pcLTU7VsI8+tM4MCBB7H0walqXQUmSFIfm3z0x2CqgA5DMS/Es4sZZjUJWyHKtyu9wAGzgX4hhV
+ pd2XpqRIWvS3ntNlwnjqCGQqJuUx+EOgjq72jlQSK2/to6umVL8JGsNRPq5osrW22VXrm4r28vS
+ tPTwnJ+BUhBKwTqZny/zLUtGMJtXfdieA7ABUkE3yugyFKoN6KAE0yYih7emCrkywt7ZsyLRpN3
+ sRh3nBv02gOPTinca9WvJTR+dJo0njLePJY5oXwTri6wHG4l8cWXb2JryLqNyypHy8XhlRAN1Fv
+ giroh4+n3BfL7DaXQLrxcFr4Rh/QOJbjTYhjqgDCP
+X-Received: by 2002:a05:620a:2911:b0:92b:81fb:87b7 with SMTP id
+ af79cd13be357-92ebb4a74b1mr50555785a.13.1783341890115; 
+ Mon, 06 Jul 2026 05:44:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:2911:b0:92b:81fb:87b7 with SMTP id
+ af79cd13be357-92ebb4a74b1mr50548185a.13.1783341889592; 
+ Mon, 06 Jul 2026 05:44:49 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:86f0:c42b:ef4c:d3bb])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47aa0a55be4sm22126539f8f.31.2026.07.06.05.44.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jul 2026 05:44:48 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v3 00/20] driver core: count references of the platform
+ device's fwnode, not OF node
+Date: Mon, 06 Jul 2026 14:44:12 +0200
+Message-Id: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-io_projection-v6-19-72cd5d055d54@garyguo.net>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
-In-Reply-To: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
-To: Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341864; l=15366;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=DZngAr33Rf7pKWSvju0Y416Sy1lWY1j3Syw+OHdOUFM=;
- b=FabqFRI/c0DTiR3G0S++/eUH0/HkgBngh/1cFo9tYyZEhWjAo4R5NoTQEQgF2v3oLajGQnFe9
- mZPsFPdkTTECKZ3V9IIDcUrtY4XX9vhf/vurY32Cv3H/cBq8vdGuG6H
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: LO4P265CA0177.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:312::20) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7617:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d262a76-d574-4bba-c226-08dedb5c5452
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|10070799003|18002099003|921020|3023799007|5023799004|6133799003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: DAM/hxtuqbSujjLFORpOq60BU0M/IOMtZCuy8oR7V9rfLZq+o37w/YyTww/bimku5Ho9w8YdBH6pF5Gl4TvGTATmLWb3aPOjpRFR/1HB/guKGC1kDDpa2quN9XZ7luyXBeRcFPt6YeOls8LXi2YVtk+QML5oBqz1PW50zuiSwszBjJurUfJCqheZyRSpnjftqD6ewwY0OX9jAuAxz9oWsP5YfX7yoFA+oz/OBaJ9rMPz+my7Z8dtF+mQG8iViCaDZWa3oiChqi8nwoYssyIIjsqLhCHs8NfG/D2snZ0KrfRwAFvUOCLD5aJxhNdSf+8zS1KgRZGPrzUmX/W2LL5y72/IHpfDBDLo7oCZQCNEHN1cVsQWNb58oZ6hWna4tY4tJNNaHbAKgbKqhxiErN0SFXb7OtQGDW6xqL0iwWt2rHnoI3t/nWMxLreHn/KrEuL9L8kwRiVoR+FcmXOP+nsCtZbtBruNd67HnMDwc+v23CxTj5eOR9fOIj+WqbnQtN59+zEBe8dIsi5LOGYp7L7wGS5puEuHcmW51T549RI4PZpY2GcOTAP3J6/si4Kev0/jQuSrHkgbViWihianZbSiVflCTtZjxvxgC2EjhFP2qLij96DszHuSQmq4+b0XmvuKETAiCd99U2UG8AZR06XTlD1d2f/MpUEC9JPbvZgE/grEW8jRXfQEDNDL5pIXgvkR02Wewn2aIXzaYN9SZCmeyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10070799003)(18002099003)(921020)(3023799007)(5023799004)(6133799003)(56012099006)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFh3Mk8ybWhoTktBV25xTXlZckZOUzVSTGJFd3pxWDBNajZIVjl0Wm5UZTVo?=
- =?utf-8?B?N2JVMmx0QWxiVU5YS3p1ZWU4SDdWWGYxZTJIU3JhRlV5d0NFSGlvY1BldWdu?=
- =?utf-8?B?VzUrVUdIYmhhMHNnRlNqTG9pL0huUkc1aFU4NUx0T2RxckI0SEJVUXBORFRC?=
- =?utf-8?B?bHJvamVPYm9vWnZzdnc4bUNZbmVKc2FiWExMeENtb1VIZloxbWRVV0RORUVy?=
- =?utf-8?B?UTNPY2diZ0RBMzFqMkJ6TXV3SUZoRGxJOUx4Q3VpbGo5K1MzUnNXN3dXS0tw?=
- =?utf-8?B?RDJtWTZMWDA4K3BQZ05nTFcySXBZQlRjc0hWYlNpbmdTdXdERCtWRHNneFEv?=
- =?utf-8?B?cGdJWUhpUVByd3hyM0hMd0tyckZJdTdOQnZFS0xSWWQ2bDAzMmZQUkVGKzhD?=
- =?utf-8?B?czFaZlVBVGNnVDlod0w3VEZWMUd5cGZNUm5aOCtUS0xuZDFVUnlKQ1FHenh2?=
- =?utf-8?B?L2I1RThjNWVSc3lXOXRSWGJ0Y1UwNm91N3NqK2wxL21nM2FtbkpibGt4bjJs?=
- =?utf-8?B?N2NhaS94YXptQU81L0MwSlA3aG9TWDhrTmxUS2pPZkNENjU5dU5DQlM4c3I5?=
- =?utf-8?B?WElaRk5jZ0QvQ3dhVEtZazNlVSt3Nmpmb20rdFpRUURHUEluRnVGZ1ZCZ09J?=
- =?utf-8?B?WWtSZ08yZGp2US84UDJIWjRVamZ5SStXL2F1S3pyZGdyMFNyQllDMkFiR3F3?=
- =?utf-8?B?RGNDeFdOenUxTDJEMlV6R3BaRWIvTXkzNmdEREdsOVExckJNUy9kdlpkRlNL?=
- =?utf-8?B?aWdPTjY2UVpDRk9wV1A0ZlhialNUSTRva2dMSC8vaEdjKy9zcjlMNmExM0Zl?=
- =?utf-8?B?Y2FJRWh4YWlpcjNtR0dFZFpDbzlsWGZFdFlzdDQ2c3V3b2IvcnhDYk5nNWFQ?=
- =?utf-8?B?V0g1ZkpkcGpHdVNpbElXTTBBbzJhazJ5THk4bHMyTlFkTCttUXlaTmczTzho?=
- =?utf-8?B?NlljL0Z5RE1nc05HZHZzanVLNFZBQjUxaUFYMU8zRDljOUpWU1ZVbWxwYUhz?=
- =?utf-8?B?WTMyZm5QVy9LRGJ5VmNjZ0U1aDdxQVNOUitUQWZuMnB4bHJ0bThmUEs1TkRZ?=
- =?utf-8?B?WjlaNFRkQ0E3RzlJaDNFdDlYeXE4YkVpYitlcWk0eFhwL0haV2hkTis1bkw0?=
- =?utf-8?B?UHViNVpzeWVYemZsb2FOeWhYdWRCM0JqdjdYL3VWUlZPWEZHUnVuL1dZM1k3?=
- =?utf-8?B?cEViYnllL01wZEVXUHZqTUJES3RDSVhFeTBjMFVUd0p1eUd0TkZmaW1RV2hi?=
- =?utf-8?B?NGNNaGJHdVA5L3NkeGRwZk9LYlNCMEhKRmIzQURsNkdnWXpSUE5UU2p2VUVq?=
- =?utf-8?B?V3lBQnpUSCtCVTJ1U1lxOEhVRjFDVWlGdnFTZHJjVkdsb29DajBkVmE3RGZz?=
- =?utf-8?B?OEkrL3kzSmxMa2tIaXA5c1BqaHdhU0ZhaGx3d1ZtcWxocU5BZ2xvNXJiVTB3?=
- =?utf-8?B?U0x4eWZXQzIzODFZeklRMUk3QVNTUVpsVHY0NGtwUmRubDhlMitFaTBEMXdu?=
- =?utf-8?B?ZXNGb1VQSVNRYTRTaWQ5dVMyZTZ1Ui94WHNUbGloWjgrTndyS2szMFR5TmZJ?=
- =?utf-8?B?OHJpODd4YkxEeXFOZS83V0ptZmloeEpYMGkrWFlhd1BUWmRYMTlSV0prZS9n?=
- =?utf-8?B?b2JYR0tYVlNMTmRYbUx0am5qVDZzbXJoQ1k5NjJOcnYzaWo0N3JxRnlTUXM2?=
- =?utf-8?B?bWJDMURxcUFsSlgxK0Q1YWtBZERtT0kwNXBUKzZiRFdyeFZJOExuYUlaMXVU?=
- =?utf-8?B?aXRHNUtjWGRJTkI5cmdSdUNlTXlqa2UwSGZOelM5eUJIM0hvdFFpUlJtMzNI?=
- =?utf-8?B?TG5GcmxKbStTV2lsa2Z3TEZ2NVhYdjZpUkJQYmUyM242c1Zjd1J2QlpqRTVy?=
- =?utf-8?B?L0k1L285RUR2eERIRnZ0NnRvWE9jaHY5b0dpMlBJWm55QkhneGtDdzBDaW1u?=
- =?utf-8?B?SVJEV0pjZGszNnlrb2llZnhCeEFaN1AxU3JnbU1EQVVGUHlORmtXZ1c4V3FL?=
- =?utf-8?B?ZzJHdkFpaE90T3k0OUl5cDduVWx6TzhOc3VuZTFRMVEzRkg3VnlzRlV2SzQ2?=
- =?utf-8?B?ZVBJeWg5M25rb0NVb0V4cjl6SmdwajFGTHBIaTZZV3o5NWdTdUVXY0E1Rmo3?=
- =?utf-8?B?NVNvUW5RZVVsejFqZ0ZhRXArVng2Q3pDdlBUNmNpWHc2MlRqKzZBeGlxVnVy?=
- =?utf-8?B?bmVkcDVDV0p5QlQzUmFEYTVWTWUwaGFDUTEzL3A5RU54aWU0b3M4OEZPYlpK?=
- =?utf-8?B?Sm1pN3J0MnBPMy83TGtkODlDNFkrcDFBeVdjSXlEOWt4TDRuaTFqUGdDZ2g0?=
- =?utf-8?B?Q2RNTlpHbjJEMVJiTVZuYWZjbk5rS2poWGNYQnpoOTFEM09FUkl6Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d262a76-d574-4bba-c226-08dedb5c5452
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 12:44:33.2294 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LJO8GTnRjtmXmYg+lxq9Z7Xckcu1Ib7gcoOqhkitC216rHXxrc8Fc2Ix6DTtZboA8nHgJFxP+LXMfzHHW0f/ZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7617
+X-B4-Tracking: v=1; b=H4sIAByjS2oC/23NQQ6CMBAF0KuQri1pp1KKK+9hXBQ6SBOh2GrVE
+ O5uITEucDPJ/8l/M5GA3mIgh2wiHqMN1g0piF1Gmk4PF6TWpEyAgWQFMDoajLR9Ds4g9dhSo2S
+ phKxKjjVJqzGV9rWKp3PKnQ1359/rg8iX9mvxjRU5ZVSpRsBe81oZOLoQ8ttDXxvX93k6ZCEj/
+ BgJ1ZaBhdE1QsFFW0n8w8zz/AGy8k9g/AAAAA==
+X-Change-ID: 20260520-pdev-fwnode-ref-d867836971eb
+To: Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ mfd@lists.linux.dev,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ stable@vger.kernel.org, Manuel Ebner <manuelebner@mailbox.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4776;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=T44HwwZ1Q0M84+szoUbk3kJ64ZYTCT8dJmP8V7D67KU=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqS6MoJZpVWXquJPA86qFchcYH7k3Onxk1jGth8
+ HC7/Ub3emyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCakujKAAKCRAFnS7L/zaE
+ w5C6EACRXYySfkJXFyTq8zPf7US9VFpPW3RE274q/2YBjIesYwUF0YvCKdzVceLWeMMeG2J6zDW
+ kKPnEeuZJw5iEdAZ/ZBRMOAmEubsTBD4+/6aCpJUokHzGF4atoDvN4qGLBs0yunKGDADXpORe53
+ DKH2ZSJAeyeh6m6ApIS2kFEuxPAFgHOGRfJ49oU8HWhghwyrfZAafNM/pnRLdSVbJtjR4bbqJ6Y
+ ADMhQbYObhQcUZPL+Pd0/zZ3eceBO5sR75HXI1CpMPtBmnurs5y8ROaFhD1O9fRw5R31AaggXa1
+ T2PfA++SCs59XKUD9MZ+sbvqxbKl+eT1YDimp9jxs7EtpTwGbAhWKJQU1dnLAYH2DqJAyABQ2iD
+ Jz+z/UKxaEuZta2/BUh9S+ltz05OQNOaGi4dnWyQZTjJOEOAndluZXURrk55+4Th+jZf/hivpZM
+ PH3hYGyTBIsWD+3bwfWzc/ywqJmwpgf/lm6De13odOQ+CgbtKNhqj1YiAYm0ycwrxLOwiYpeFAh
+ SafUvNI+inETJ5q/MDf2BgXJTLYnwwem1L9HjWvrd+KcxlyXvcNkU2NqjNIS+az2hgs6TyTwLj2
+ 6nrCsPnQJTSJQyRyLK9DlcWtWmfUmUcgkvKbl/Gtc3sMJFlfIjSQa2osUPg0ZgDKsosfSkNp2al
+ Q5/taAz6caNJmuQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEyOSBTYWx0ZWRfX5EqPjYjc5I+n
+ At1uyakLrhMbJ9q/PxoZKOGcKWokYFp7j/5nf1HcI2UGRNd5ZaiyTACFJH7FsNvirmG4AS3XZvP
+ bAU2dYEh0W/+Hmis5XlWz6L7cxaeVRxph82dAGb8D++XHJha+W8jr1KzCooWeK9/gA/uyuXsU9Y
+ w6zZVP/BGZXW4clrYGh1yfkTIHgDDmAPAbDHcN/ST6pSUlngEt60VaCHCDg7rxUQFK7DqfCv+vr
+ 4sFT33wt3S/POd5hOPMX6RwrQiEOkh0J2NsCiR6iqAwSdiZfiQQrrwx8FQugACmaghbE21qe6tQ
+ tKjBgtjZ8HFjszVvUOoG6ZDpkpQR8qmyoPChi9f8LtQHqFZSpLv61cmu0um2taPCRhoBiDMrFPg
+ NKmAMmeoJcvHyuldX2cqTIaT8owxaKL2BQaLXa7Ag++Z/4fUMFz0LXRr2qFaMBgSp6WvX+qu3De
+ +PqTHmVPX5etRb2iuiQ==
+X-Proofpoint-ORIG-GUID: FQSAMY1jnhDTAz0lduSL4011FEKlKsJk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEyOSBTYWx0ZWRfX8jW/Ulg3oVmN
+ k36m3a/EzGov2hShzzdPjw7noSk/9wuZ9BLyfME2Q6BsyL/Rz1+0560zMbF6lwceJtfa/A0+WTA
+ 0EzPpaIIwTKJNTnJDlmMhmo5B0CbffU=
+X-Proofpoint-GUID: FQSAMY1jnhDTAz0lduSL4011FEKlKsJk
+X-Authority-Analysis: v=2.4 cv=f9N4wuyM c=1 sm=1 tr=0 ts=6a4ba343 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=rL0NY73m5x218zCt0XUA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 suspectscore=0
+ clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060129
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,439 +207,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-One feature that was lost from the old `dma_read!` and `dma_write!` when
-moving to `io_read!` and `io_write!` was the ability to read/write a large
-structs. However, the semantics was unclear to begin with, as there was no
-guarantee about their atomicity even for structs that were small enough to
-fit in u32. Re-introduce the capability in the form of copying methods.
+Platform device core provides helper interfaces for dealing with
+dynamically created platform devices. Most users should use
+platform_device_register_full() which encapsulates most of the
+operations but some modules will want to use the split approach of
+calling platform_device_alloc() + platform_device_add() separately for
+various reasons.
 
-    dma_read!(foo, bar) -> io_project!(foo, bar).copy_read()
-    dma_write!(foo, bar, baz) -> io_project!(foo, bar).copy_write(baz)
+With many platform devices now using dynamic software nodes as their
+primary firmware nodes and with the platform device interface being
+extended to also better cover the use-cases of secondary software nodes,
+I believe it makes sense to switch to counting the references of all
+kinds of firmware nodes.
 
-Model these semantics after memcpy so user has clear expectation of lack of
-atomicity. As an additional benefit of this change, this now works for MMIO
-as well by mapping them to `memcpy_{from,to}io`.
+To that end, I identified all users of platform_device_alloc() that also
+assign dev.of_node or dev.fwnode manually. I noticed five cases where
+the references are not increased as they should (patches 1-5 fix these
+users) and provided three new functions in platform_device.h that now
+become the preferred interfaces for assigning firmware nodes to dynamic
+platform devices (in line with platform_device_add_data(),
+platform_device_add_resources(), etc.). The bulk of the patches in this
+series are small driver conversions to port all users to going through
+the new functions that now encapsulate the refcount logic. With that
+done, the final patch seamlessly switches to counting the references of
+all firmware node types.
 
-For slices which is DST so the `copy_read` and `copy_write` API above can't
-work, add `copy_from_slice` and `copy_to_slice` to copy from/to normal
-memory.
+This effort is prerequisite of removing platform_device_release_full()
+and unifying the release path for dynamic platform devices using
+unmanaged software nodes.
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
+Merging strategy: The entire series should go through the driver core
+tree, possibly with an immutable branch provided to solve any potential
+conflicts though these are rather unlikely.
+
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- rust/helpers/io.c        |  13 +++
- rust/kernel/dma.rs       |  25 +++++
- rust/kernel/io.rs        | 262 ++++++++++++++++++++++++++++++++++++++++++++++-
- samples/rust/rust_dma.rs |   7 +-
- 4 files changed, 303 insertions(+), 4 deletions(-)
+Changes in v3:
+- Use device_set_node() where applicable
+- Use __free(device_node) in fsl iommu driver
+- Don't use __free() where not really required
+- Add a patch updating the kerneldoc for platform_device_alloc()
+- Collect more tags
+- Link to v2: https://patch.msgid.link/20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com
 
-diff --git a/rust/helpers/io.c b/rust/helpers/io.c
-index 397810864a24..7ed9a4f77f1b 100644
---- a/rust/helpers/io.c
-+++ b/rust/helpers/io.c
-@@ -19,6 +19,19 @@ __rust_helper void rust_helper_iounmap(void __iomem *addr)
- 	iounmap(addr);
- }
- 
-+__rust_helper void rust_helper_memcpy_fromio(void *dst,
-+					     const volatile void __iomem *src,
-+					     size_t count)
-+{
-+	memcpy_fromio(dst, src, count);
-+}
-+
-+__rust_helper void rust_helper_memcpy_toio(volatile void __iomem *dst,
-+					   const void *src, size_t count)
-+{
-+	memcpy_toio(dst, src, count);
-+}
-+
- __rust_helper u8 rust_helper_readb(const void __iomem *addr)
- {
- 	return readb(addr);
-diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-index 6e7ea3b72f2f..e275f2562a5b 100644
---- a/rust/kernel/dma.rs
-+++ b/rust/kernel/dma.rs
-@@ -18,6 +18,7 @@
-         IoBackend,
-         IoBase,
-         IoCapable,
-+        IoCopyable,
-         SysMem,
-         SysMemBackend, //
-     },
-@@ -1197,6 +1198,30 @@ fn io_write<'a>(view: Self::View<'a, T>, value: T) {
-     }
- }
- 
-+impl IoCopyable for CoherentIoBackend {
-+    #[inline]
-+    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-+        // SAFETY: Per safety requirement.
-+        unsafe { SysMemBackend::copy_from_io(view.cpu_addr, buffer) }
-+    }
-+
-+    #[inline]
-+    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-+        // SAFETY: Per safety requirement.
-+        unsafe { SysMemBackend::copy_to_io(view.cpu_addr, buffer) }
-+    }
-+
-+    #[inline]
-+    fn copy_read<T: zerocopy::FromBytes>(view: Self::View<'_, T>) -> T {
-+        SysMemBackend::copy_read(view.cpu_addr)
-+    }
-+
-+    #[inline]
-+    fn copy_write<T: zerocopy::IntoBytes>(view: Self::View<'_, T>, value: T) {
-+        SysMemBackend::copy_write(view.cpu_addr, value)
-+    }
-+}
-+
- impl<'a, T: ?Sized + KnownSize> IoBase<'a> for CoherentView<'a, T> {
-     type Backend = CoherentIoBackend;
-     type Target = T;
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index c423125870b7..9df4e982c5d8 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -5,7 +5,8 @@
- //! C header: [`include/asm-generic/io.h`](srctree/include/asm-generic/io.h)
- 
- use core::{
--    marker::PhantomData, //
-+    marker::PhantomData,
-+    mem::MaybeUninit, //
- };
- 
- use crate::{
-@@ -274,6 +275,69 @@ pub trait IoCapable<T>: IoBackend {
-     fn io_write<'a>(view: Self::View<'a, T>, value: T);
- }
- 
-+/// Trait indicating that an I/O backend supports memory copy operations.
-+pub trait IoCopyable: IoBackend {
-+    /// Copy contents of `view` to `buffer`.
-+    ///
-+    /// # Safety
-+    ///
-+    /// - `buffer` is valid for volatile write for `view.size()` bytes.
-+    /// - `buffer` should not overlap with `view`.
-+    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8);
-+
-+    /// Copy contents from `buffer` to `view`.
-+    ///
-+    /// # Safety
-+    ///
-+    /// - `buffer` is valid for volatile read for `view.size()` bytes.
-+    /// - `buffer` should not overlap with `view`.
-+    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8);
-+
-+    /// Copy from `view` and return the value.
-+    #[inline]
-+    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-+        // Project `self` to `[u8]`.
-+        let ptr = Self::as_ptr(view);
-+        // SAFETY: This is a identity projection.
-+        let slice_view = unsafe {
-+            Self::project_view(
-+                view,
-+                core::ptr::slice_from_raw_parts_mut::<u8>(ptr.cast(), size_of::<T>()),
-+            )
-+        };
-+
-+        let mut buf = MaybeUninit::<T>::uninit();
-+        // SAFETY:
-+        // - `buf.as_mut_ptr()` is valid for write for `size_of::<T>()` bytes.
-+        // - `buf` is local so `buf.as_mut_ptr()` cannot overlap with `slice_view`.
-+        unsafe { Self::copy_from_io(slice_view, buf.as_mut_ptr().cast()) };
-+        // SAFETY: `T: FromBytes` guarantee that all bit patterns are valid.
-+        unsafe { buf.assume_init() }
-+    }
-+
-+    /// Copy `value` to `view`.
-+    ///
-+    /// Destructor of `value` will not be executed, consistent with [`zerocopy::transmute`].
-+    #[inline]
-+    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
-+        // Project `self` to `[u8]`.
-+        let ptr = Self::as_ptr(view);
-+        // SAFETY: This is a identity projection.
-+        let slice_view = unsafe {
-+            Self::project_view(
-+                view,
-+                core::ptr::slice_from_raw_parts_mut::<u8>(ptr.cast(), size_of::<T>()),
-+            )
-+        };
-+
-+        // SAFETY:
-+        // - `&raw const value` is valid for read for `size_of::<T>()` bytes.
-+        // - `value` is local so `&raw const value` cannot overlap with `slice_view`.
-+        unsafe { Self::copy_to_io(slice_view, (&raw const value).cast()) };
-+        core::mem::forget(value);
-+    }
-+}
-+
- /// Describes a given I/O location: its offset, width, and type to convert the raw value from and
- /// into.
- ///
-@@ -353,6 +417,24 @@ fn size(self) -> usize {
-         KnownSize::size(Self::Backend::as_ptr(self.as_view()))
-     }
- 
-+    /// Returns the length of the slice in number of elements.
-+    #[inline]
-+    fn len<T>(self) -> usize
-+    where
-+        Self: Io<'a, Target = [T]>,
-+    {
-+        Self::Backend::as_ptr(self.as_view()).len()
-+    }
-+
-+    /// Returns `true` if the slice has a length of 0.
-+    #[inline]
-+    fn is_empty<T>(self) -> bool
-+    where
-+        Self: Io<'a, Target = [T]>,
-+    {
-+        self.len() == 0
-+    }
-+
-     /// Try to convert into a different typed I/O view.
-     ///
-     /// A runtime check is performed to ensure that the target type is of same or smaller size to
-@@ -442,6 +524,121 @@ fn write_val(self, value: Self::Target)
-         Self::Backend::io_write(self.as_view(), value)
-     }
- 
-+    /// Copy-read from I/O memory.
-+    ///
-+    /// This is equivalent to reading from the I/O memory with byte-wise copy, although the actual
-+    /// implementation might be more efficient. There is no atomicity guarantee. Note that for some
-+    /// backends (e.g. `Mmio`), this can read different value compared to [`read_val`] as
-+    /// byte-swapping is not performed.
-+    ///
-+    /// [`read_val`]: Io::read_val
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```no_run
-+    /// # use kernel::io::*;
-+    /// # fn test_copy_read(mmio: Mmio<'_, [u8; 6]>) {
-+    /// // let mmio: Mmio<'_, [u8; 6]>;
-+    /// let val: [u8; 6] = mmio.copy_read();
-+    /// # }
-+    /// ```
-+    #[inline]
-+    fn copy_read(self) -> Self::Target
-+    where
-+        Self::Backend: IoCopyable,
-+        Self::Target: Sized + FromBytes,
-+    {
-+        Self::Backend::copy_read(self.as_view())
-+    }
-+
-+    /// Copy-write to I/O memory.
-+    ///
-+    /// This is equivalent to writing to the I/O memory with byte-wise copy, although the actual
-+    /// implementation might be more efficient. There is no atomicity guarantee. Note that for some
-+    /// backends (e.g. `Mmio`), this can write different value compared to [`write_val`] as
-+    /// byte-swapping is not performed.
-+    ///
-+    /// [`write_val`]: Io::write_val
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```no_run
-+    /// # use kernel::io::*;
-+    /// # fn test_copy_write(mmio: Mmio<'_, [u8; 6]>) {
-+    /// // let mmio: Mmio<'_, [u8; 6]>;
-+    /// mmio.copy_write([0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF]);
-+    /// # }
-+    /// ```
-+    #[inline]
-+    fn copy_write(self, value: Self::Target)
-+    where
-+        Self::Backend: IoCopyable,
-+        Self::Target: Sized + IntoBytes,
-+    {
-+        Self::Backend::copy_write(self.as_view(), value);
-+    }
-+
-+    /// Copy bytes from `data` to I/O memory.
-+    ///
-+    /// # Panics
-+    ///
-+    /// This function will panic if the length of `self` differs from the length of `data`, similar
-+    /// to [`[u8]::copy_from_slice`].
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```no_run
-+    /// # use kernel::io::*;
-+    /// # fn test_copy_write(mmio: Mmio<'_, [u8]>) {
-+    /// // let mmio: Mmio<'_, [u8]>;
-+    /// mmio.copy_from_slice(&[0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF]);
-+    /// # }
-+    /// ```
-+    #[inline]
-+    fn copy_from_slice(self, data: &[u8])
-+    where
-+        Self::Backend: IoCopyable,
-+        Self: Io<'a, Target = [u8]>,
-+    {
-+        assert_eq!(self.len(), data.len());
-+
-+        // SAFETY: `data.as_ptr()` is valid for read for `self.size()` bytes.
-+        unsafe {
-+            Self::Backend::copy_to_io(self.as_view(), data.as_ptr());
-+        }
-+    }
-+
-+    /// Copy bytes from I/O memory to `data`.
-+    ///
-+    /// # Panics
-+    ///
-+    /// This function will panic if the length of `self` differs from the length of `data`, similar
-+    /// to [`[u8]::copy_from_slice`].
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```no_run
-+    /// # use kernel::io::*;
-+    /// # fn test_copy_write(mmio: Mmio<'_, [u8]>) {
-+    /// // let mmio: Mmio<'_, [u8]>;
-+    /// let mut buf = [0; 6];
-+    /// mmio.copy_to_slice(&mut buf);
-+    /// # }
-+    /// ```
-+    #[inline]
-+    fn copy_to_slice(self, data: &mut [u8])
-+    where
-+        Self::Backend: IoCopyable,
-+        Self: Io<'a, Target = [u8]>,
-+    {
-+        assert_eq!(self.len(), data.len());
-+
-+        // SAFETY: `data.as_mut_ptr()` is valid for write for `self.size()` bytes.
-+        unsafe {
-+            Self::Backend::copy_from_io(self.as_view(), data.as_mut_ptr());
-+        }
-+    }
-+
-     /// Fallible 8-bit read with runtime bounds check.
-     #[inline(always)]
-     fn try_read8(self, offset: usize) -> Result<u8>
-@@ -1000,6 +1197,28 @@ fn io_write(view: <$backend as IoBackend>::View<'_, $ty>, value: $ty) {
- #[cfg(CONFIG_64BIT)]
- impl_mmio_io_capable!(MmioBackend, u64, readq, writeq);
- 
-+impl IoCopyable for MmioBackend {
-+    #[inline]
-+    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-+        // SAFETY:
-+        // - `view.ptr` is valid MMIO memory for `view.size()` bytes.
-+        // - `buffer` is valid for write for `view.size()` bytes.
-+        unsafe {
-+            bindings::memcpy_fromio(buffer.cast(), view.ptr.cast(), view.size());
-+        }
-+    }
-+
-+    #[inline]
-+    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-+        // SAFETY:
-+        // - `view.ptr` is valid MMIO memory for `view.size()` bytes.
-+        // - `buffer` is valid for read for `view.size()` bytes.
-+        unsafe {
-+            bindings::memcpy_toio(view.ptr.cast(), buffer.cast(), view.size());
-+        }
-+    }
-+}
-+
- /// [`Mmio`] but using relaxed accessors.
- ///
- /// This type provides an implementation of [`Io`] that uses relaxed I/O MMIO operands instead of
-@@ -1143,6 +1362,47 @@ fn io_write(view: SysMem<'_, $ty>, value: $ty) {
- #[cfg(CONFIG_64BIT)]
- impl_sysmem_io_capable!(u64);
- 
-+impl IoCopyable for SysMemBackend {
-+    #[inline]
-+    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
-+        // Use `bindings::memcpy` instead of `copy_nonoverlapping` for volatile.
-+        // SAFETY:
-+        // - `view.ptr` is in CPU address space and valid for read.
-+        // - `buffer` is valid for write for `view.size()` bytes which is equal to `view.ptr.len()`.
-+        unsafe { bindings::memcpy(buffer.cast(), view.ptr.cast(), view.ptr.len()) };
-+    }
-+
-+    #[inline]
-+    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
-+        // Use `bindings::memcpy` instead of `copy_nonoverlapping` for volatile.
-+        // SAFETY:
-+        // - `view.ptr` is in CPU address space and valid for write.
-+        // - `buffer` is valid for read for `view.size()` bytes which is equal to `view.ptr.len()`.
-+        unsafe { bindings::memcpy(view.ptr.cast(), buffer.cast(), view.ptr.len()) };
-+    }
-+
-+    #[inline]
-+    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
-+        // SAFETY:
-+        // - Per type invariant, `ptr` is valid and aligned.
-+        // - Using read_volatile() here so that race with hardware is well-defined.
-+        // - Using read_volatile() here is not sound if it races with other CPU per Rust
-+        //   rules, but this is allowed per LKMM.
-+        // - `T: FromBytes` so all bit patterns are valid.
-+        unsafe { view.ptr.read_volatile() }
-+    }
-+
-+    #[inline]
-+    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
-+        // SAFETY:
-+        // - Per type invariant, `ptr` is valid and aligned.
-+        // - Using write_volatile() here so that race with hardware is well-defined.
-+        // - Using write_volatile() here is not sound if it races with other CPU per Rust
-+        //   rules, but this is allowed per LKMM.
-+        unsafe { view.ptr.write_volatile(value) }
-+    }
-+}
-+
- /// A view of a system memory region.
- ///
- /// Provides `Io` trait implementation for kernel virtual address ranges,
-diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-index 4af46e99d2dd..b629acc6d915 100644
---- a/samples/rust/rust_dma.rs
-+++ b/samples/rust/rust_dma.rs
-@@ -14,7 +14,8 @@
-     },
-     io::{
-         io_project,
--        io_read, //
-+        io_read,
-+        Io, //
-     },
-     page, pci,
-     prelude::*,
-@@ -38,6 +39,7 @@ struct DmaSampleDriver {
-     (0xcd, 0xef),
- ];
- 
-+#[derive(FromBytes, IntoBytes)]
- struct MyStruct {
-     h: u32,
-     b: u32,
-@@ -81,8 +83,7 @@ fn probe<'bound>(
-                 Coherent::zeroed_slice(pdev.as_ref(), TEST_VALUES.len(), GFP_KERNEL)?;
- 
-             for (i, value) in TEST_VALUES.into_iter().enumerate() {
--                // SAFETY: `ca` is not yet shared with device or other threads.
--                unsafe { *io_project!(ca, [panic: i]).as_mut() = MyStruct::new(value.0, value.1) };
-+                io_project!(ca, [panic: i]).copy_write(MyStruct::new(value.0, value.1));
-             }
- 
-             let size = 4 * page::PAGE_SIZE;
+Changes in v2:
+- Rebased on top of v7.2-rc1, dropped applied patches, collected tags
+- Link to v1: https://patch.msgid.link/20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com
 
+---
+Bartosz Golaszewski (20):
+      powerpc/powermac: fix OF node refcount
+      driver core: platform: provide platform_device_set_of_node()
+      driver core: platform: provide platform_device_set_fwnode()
+      driver core: platform: provide platform_device_set_of_node_from_dev()
+      driver core: update kerneldoc for platform_device_alloc()
+      of: platform: use platform_device_set_of_node()
+      powerpc/powermac: use platform_device_set_of_node()
+      i2c: pxa-pci: use platform_device_set_of_node()
+      iommu/fsl: use platform_device_set_of_node()
+      net: bcmgenet: use platform_device_set_of_node()
+      pmdomain: imx: use platform_device_set_of_node()
+      mfd: tps6586: use platform_device_set_of_node()
+      slimbus: qcom-ngd-ctrl: use platform_device_set_of_node()
+      net: mv643xx: use platform_device_set_of_node()
+      drm/xe/i2c: use platform_device_set_fwnode()
+      platform/surface: gpe: use platform_device_set_fwnode()
+      usb: chipidea: use platform_device_set_of_node_from_dev()
+      usb: musb: use platform_device_set_of_node_from_dev()
+      reset: rzg2l: use platform_device_set_of_node_from_dev()
+      driver core: platform: count references to all kinds of firmware nodes
+
+ arch/powerpc/platforms/powermac/low_i2c.c    |  2 +-
+ drivers/base/platform.c                      | 61 ++++++++++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_i2c.c                  |  2 +-
+ drivers/i2c/busses/i2c-pxa-pci.c             |  3 +-
+ drivers/iommu/fsl_pamu.c                     | 16 +++-----
+ drivers/mfd/tps6586x.c                       |  2 +-
+ drivers/net/ethernet/broadcom/genet/bcmmii.c |  3 +-
+ drivers/net/ethernet/marvell/mv643xx_eth.c   |  2 +-
+ drivers/of/platform.c                        |  2 +-
+ drivers/platform/surface/surface_gpe.c       |  2 +-
+ drivers/pmdomain/imx/gpc.c                   |  3 +-
+ drivers/reset/reset-rzg2l-usbphy-ctrl.c      |  2 +-
+ drivers/slimbus/qcom-ngd-ctrl.c              |  2 +-
+ drivers/usb/chipidea/core.c                  |  2 +-
+ drivers/usb/musb/jz4740.c                    |  2 +-
+ include/linux/platform_device.h              |  9 ++++
+ 16 files changed, 88 insertions(+), 27 deletions(-)
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260520-pdev-fwnode-ref-d867836971eb
+
+Best regards,
 -- 
-2.54.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
