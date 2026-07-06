@@ -4,147 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 222EFC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 15:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 032FBC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 15:00:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75D9410E4D2;
-	Mon,  6 Jul 2026 15:00:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6167E10E38F;
+	Mon,  6 Jul 2026 15:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IF/ut3ah";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GPp7MkSv";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="ImgA1Hj8";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C490E10E38F
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 15:00:40 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 666EEEvH688476
- for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 15:00:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=bn9/G/DyutefUg00Snqy1zzU
- 39NkJvMT4AS5q8icaWo=; b=IF/ut3ahI8X40Wfyw7vMydD/20TuCbIZ19Z/0afh
- KTEahq8IFTkDK9tb76zcwC0Q9wNWvlKTH43UBxpNFSa/Q4XjVBXMEK7dcrVQhle3
- 4FHEE50mrQk5Vo3uszoyFv9/vb0qHu75pm+FycOu6SSkqLMmDq2PGd4AyrBxHklE
- GVS30PqdnWrDeuyMbWZ7a9c8/QrIa6G8QZRy7CMcZ1jeG5X/3LTGoIcwZhlrbFB0
- 7kEjJ3pdpmlUl/sXrkEQ4XshqJ3P0iBcJCnGnNRJr0d/qAnLzJatdHXrNBgoo3J2
- pt8CzE8jBlwn08YYTIQWXp9vHfE+KP7tp9sgX5A4gAX8ow==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8a98h7vc-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 15:00:40 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id
- ada2fe7eead31-73843d3623dso566312137.1
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 08:00:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783350039; x=1783954839;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bn9/G/DyutefUg00Snqy1zzU39NkJvMT4AS5q8icaWo=;
- b=GPp7MkSvprTW9ENiJxGzAOmcdGp6nv2PtwdmIf5xHv000BZvyC1xV1gP9L+GM99SAW
- COxk9WY1F249q9VEYbu6ngTlPuVgBO+dDD0n+hqS7RIHXVonSNgoiReIqzRa0UViNk5E
- ecBGpN18nI4FMkhnuM/W7APS/6DmVgATsMJLNuPi21Sl+iCW2jb43tdsULpKn4ynjQoK
- bfwYY9KRewKlVbB/2bi9IdpedslIlfOu80lr3+ycsa/YajH1m8IO1lL4mLl8KUpU5N6J
- dLJkKmxsvFGLXYIg2loh3MW1sEGw8+HdjBhy2U/zWbrbbtDBaodjIKzOplN5IFgO6cph
- c9Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783350039; x=1783954839;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bn9/G/DyutefUg00Snqy1zzU39NkJvMT4AS5q8icaWo=;
- b=VCSrYU3JC8zHz35nG4/FkNJYU5Vy+lSn3z3Sy7uD433Nv1I0tIJXG+mbHCjUHozmjs
- hX1IZ4jyE/PFqzfpZKOpSHUShQisvzrt7zKEVzIo+JNegLzyH9RHZ/er+ec6G1Lrh+fq
- Ihn6BwdnJgOaVo/TBsJ+7qaUHWFfwF4QUnBF3VJqSzTDJuz3ccHblHVPUEY3MtKX6rBm
- 7O4dRgiTtsTrYrp+hcg2E6nVpeWCNm1sZCMD3MPdOy4pDul+fQjVRfcM2RdcAuuiirjT
- sLawZTQdQv7ZIZs9oFpDB+yJA4iqHWR58l7F1cX3cdDhJc+DXPJG71ykvyk3HYjYKAFm
- UP8g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrNxitSY8nvPBB2sLtO4PoIBKvBWW8KcKEMmL0ss+U2SAZzcSlwjxlf8TK7rub2ec4mXmYVNYIRYp4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwrlZu0Co+7vna/l0/s0nro9PlJ6l/xlMw+tczBytAqjZ1HXIHw
- jLnpzD4DrohNIBdAIq14ylasMskW9iaVXsqjqbQI+gsur6h1rYysgCpauFv8CZTPqU6CxxBAZm0
- GDinSbnj2hpcYmlFA/Ey55EW5jY81gt1QyD6BucHm8Ki80mGOH8OIK171cj/l9TjeR32+6g4=
-X-Gm-Gg: AfdE7cnwShkbNNhTMLJwOpJc4GaWvosgj7DFRHG0/YGP2Po2VyLt5jqosEpTay5HZeE
- XLYHYOMN7TS1bIwiBrCa1rcPoOU4MdS6K2kZ69mUJAcQPSbg4nSJge7vHznk7efA4S6YEqaQcCe
- RKvtTilXC1IT+O909iqSxIFQPpg4v2Er3JEk7yaLmpjwIs6eCNmC8RBLkXUXoveu09GNUcLhXcl
- 6h6b6JIJWJzBpUraiA/96egYsKBlz4DEk9l0iJav8hQHaUCoKnMvPfsn7dNMMvadqp9dEetbwKE
- nf3bT9xw+MAa9ziF9l6DGhBm8VKfLxLDhz+RA7fxvHy7JuWWJ7h9iB7Tej4wcOzHvkoFtreRu5e
- FytmCxMlPGoHyLX1KuZtqEqyIYEwIXORmhUWcgvq7KZ+GH8+zkCRwdQMf5pRU0kmT8TEo6vU7wA
- JeFgn7b31m5FZ65qSRPZ944NPe
-X-Received: by 2002:a05:6102:5ccc:b0:631:4cd8:b6aa with SMTP id
- ada2fe7eead31-744b7bb690amr470661137.13.1783350039040; 
- Mon, 06 Jul 2026 08:00:39 -0700 (PDT)
-X-Received: by 2002:a05:6102:5ccc:b0:631:4cd8:b6aa with SMTP id
- ada2fe7eead31-744b7bb690amr470598137.13.1783350038304; 
- Mon, 06 Jul 2026 08:00:38 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aed13c5c11sm2964033e87.77.2026.07.06.08.00.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 08:00:36 -0700 (PDT)
-Date: Mon, 6 Jul 2026 18:00:34 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 01/13] iommu: arm-smmu-qcom: Configure lpac device
- with split address space
-Message-ID: <5vfdbrk4bu77e7wgutp4h3ilbpjhcxxnwemqiufmtiwoffp4sl@oaonwwouw4qm>
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-1-01d50c3e0c99@gmail.com>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82FF610E38F
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 15:00:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783350034; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ShBwgIB9Tp0j2ieVFNXD2nNlBvkYSrZX6KL3AeDB+tfLOnE+7CHZu5rN/HP3/wiA65AfS2awNfBnLG6v3KttLERp5k37uX5cTjLkGlHu1epQC0tpKbiWTjw2bmWO4R3cJ9Bceq/UN4MGpiO+12hQk2boeKqRMVN9X9phSckbKF0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783350034;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=3XwyWTIrA/V6J7edt1EVqOvQjuCfvvAm71aap9OvOCI=; 
+ b=aUIQNdoKYFXhqBqNhsY+F02CkGve6EXcuTScFbe5OHL/WHUKXk+LgtUumBUdfOodPJNOea5bCjHJ9ycCR0cPvohjbCewZV5P129fWS7uy+uA2tTiwdLdX3wI3zpXyvb7h2kq1Re2lQrUV6CFisZwObNuwW+4qzyVdb787O027/g=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783350034; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=3XwyWTIrA/V6J7edt1EVqOvQjuCfvvAm71aap9OvOCI=;
+ b=ImgA1Hj80B9JHQg2Jp0iR3Hfkzuv+c1ZmjHHLY5vXEEHJlu3rx/mY5cc4HVAWJDf
+ QREjGnw/uNA5JcHG0nEUz0PUvTE/0uKgXtwmj8p0wIRVC2fcF+pZOIvPjdNL8NnCNrh
+ RgJCMxLw7XsRX8tO1eirdxvjf97IRGDZQzh4oCj8=
+Received: by mx.zohomail.com with SMTPS id 1783350031182921.1240379629376;
+ Mon, 6 Jul 2026 08:00:31 -0700 (PDT)
+Message-ID: <3541fb84-81ce-4415-8027-38aa611834ae@collabora.com>
+Date: Mon, 6 Jul 2026 18:00:09 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260705-descriptive-name-lpac-upstream-v1-1-01d50c3e0c99@gmail.com>
-X-Authority-Analysis: v=2.4 cv=SpigLvO0 c=1 sm=1 tr=0 ts=6a4bc318 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=pGLkceISAAAA:8
- a=lhguFYgXd42DN747EnMA:9 a=CjuIK1q_8ugA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDE1MiBTYWx0ZWRfX9qcAi0+eSGb0
- QQlcktbw3Hk4kchpBCapmfcu0+hglNMfSuWyvii6/qF6temJ8qJ/PzFfliXZ9FfLDD8LNfWqfPN
- rSaob8QG7fJwvgcGAjTkhAwsSdJxXUjfsd10vhCci3zv8a0/CE8fsBtFDJTtzAqFSKR8nGMQtS4
- b8JfXN9WxHquVzy6igSAL6DcVJEUMKa0Wu8OGWlBUQkBN/tfwF8g7LsFMKm+AOA334AcbPQtTAb
- qNZuGoi1cw6UjStmrZvZgV0fUzGUXt3zlH5Av6XnIk/fxmp32pLgQB/zptcX8zy3wHz4bFIyGxd
- /1M1wZEPlE4bcNFnxODehX2ByKuo5gajHEUoRz5LTQtFY6dD/nDjOpmJRndBKPCLP8um1YcT7kt
- VwGS1e1VR0X/PV9cVRkm6GN9ORG3fDnhKcg4iiJF4bW3AVMdOTPlMxFThaqUskE1GjURzPQKhYO
- IuVO01tkwbbeP28i0Pg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDE1MiBTYWx0ZWRfX/o+wzJ9YT8Yn
- hTQnTptiZC4lXuC1LkFEp3Y1B2GPvIFRXCYkM/OxeL4HqDcj7XUqH66gwW0cmAJT7f1F33NLYGZ
- sIpiQ8xAizwEIyFmQq9j53DakjFvQQw=
-X-Proofpoint-GUID: AoJwrc7TzQZKSAlw2dOr-6DGkYoZQIwR
-X-Proofpoint-ORIG-GUID: AoJwrc7TzQZKSAlw2dOr-6DGkYoZQIwR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-06_01,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060152
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/42] media: synopsys: hdmirx: Use
+ devm_of_reserved_mem_device_init()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Alexey Brodkin
+ <abrodkin@synopsys.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Eddie James <eajames@linux.ibm.com>, Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Houlong Wei <houlong.wei@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ge Gordon
+ <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
+ Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+ kernel@collabora.com, linux-tegra@vger.kernel.org,
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ imx@lists.linux.dev, sound-open-firmware@alsa-project.org
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-7-mukesh.ojha@oss.qualcomm.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260703193855.110619-7-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,19 +130,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 05, 2026 at 09:13:35PM +0200, Anna Maniscalco wrote:
-> We want the context bank used by LPAC to use split address space just
-> like GFX.
-
-Why?
-
+On 7/3/26 22:38, Mukesh Ojha wrote:
+> Replace the hand-rolled devm_hdmirx_of_reserved_mem_device_release()
+> devres action with devm_of_reserved_mem_device_init(), which handles the
+> cleanup automatically. This removes both the wrapper function and the
+> devm_add_action_or_reset() call.
 > 
-> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 > ---
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
+>  .../media/platform/synopsys/hdmirx/snps_hdmirx.c | 16 ++--------------
+>  1 file changed, 2 insertions(+), 14 deletions(-)
 > 
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index 25f8ca0d6d94..7c6acc6d7e88 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> @@ -2265,11 +2265,6 @@ static const struct hdmirx_cec_ops hdmirx_cec_ops = {
+>  	.read = hdmirx_readl,
+>  };
+>  
+> -static void devm_hdmirx_of_reserved_mem_device_release(void *dev)
+> -{
+> -	of_reserved_mem_device_release(dev);
+> -}
+> -
+>  static int hdmirx_parse_dt(struct snps_hdmirx_dev *hdmirx_dev)
+>  {
+>  	struct device *dev = hdmirx_dev->dev;
+> @@ -2316,16 +2311,9 @@ static int hdmirx_parse_dt(struct snps_hdmirx_dev *hdmirx_dev)
+>  	if (!device_property_read_bool(dev, "hpd-is-active-low"))
+>  		hdmirx_dev->hpd_trigger_level_high = true;
+>  
+> -	ret = of_reserved_mem_device_init(dev);
+> -	if (ret) {
+> +	ret = devm_of_reserved_mem_device_init(dev);
+> +	if (ret)
+>  		dev_warn(dev, "no reserved memory for HDMIRX, use default CMA\n");
+> -	} else {
+> -		ret = devm_add_action_or_reset(dev,
+> -					       devm_hdmirx_of_reserved_mem_device_release,
+> -					       dev);
+> -		if (ret)
+> -			return ret;
+> -	}
+>  
+>  	return 0;
+>  }
+
+Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
 -- 
-With best wishes
+Best regards,
 Dmitry
