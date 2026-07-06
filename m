@@ -4,57 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EC61C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C52AC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF8F010E33C;
-	Mon,  6 Jul 2026 10:03:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E4D10E34F;
+	Mon,  6 Jul 2026 10:08:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="BWFu4YUB";
+	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="g9bm8HDG";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7352110E33C
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:03:29 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 21E8133D;
- Mon,  6 Jul 2026 12:02:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1783332160;
- bh=Sb4iMYjbedO64WmPLzaRf05zqar0z8v+EnBWdzETtUg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BWFu4YUBI/IcrAAjTK1CItkEH1FftGsDP7SOEZp9j02bgYinuypdBO11soxkSjvA8
- JUrJ6PgZHVkFxO+iKj0vkdfTPhpMH+TELU8hb9oTM7V4LqPJlqsFhllXBAvv0UE3x3
- +f97cTPme7hAI5ubiZRfwQDMmQ5h8WotKuUDjX6M=
-Date: Mon, 6 Jul 2026 13:03:27 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
- hardcoding EDID
-Message-ID: <20260706100327.GA66892@killaraus.ideasonboard.com>
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
- <CAMuHMdUCqTQ0fWDyHJkU=0gzFe88r0hsSk9tsgfQUZq4TRcAoQ@mail.gmail.com>
+Received: from 10.mo534.mail-out.ovh.net (10.mo534.mail-out.ovh.net
+ [46.105.32.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42A1C10E85A
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 10:08:45 +0000 (UTC)
+Received: from director3.derp.mail-out.ovh.net
+ (director3.derp.mail-out.ovh.net [152.228.215.222])
+ by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SC1QPYz6JPw;
+ Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
+Received: from director3.derp.mail-out.ovh.net
+ (director3.derp.mail-out.ovh.net. [127.0.0.1])
+ by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.1])
+ by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SC0HkGz5vVf;
+ Mon,  6 Jul 2026 10:08:43 +0000 (UTC)
+Received: from pixelcluster.dev (unknown [10.1.6.11])
+ (Authenticated sender: nat@pixelcluster.dev)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id C78D98E1903; 
+ Mon,  6 Jul 2026 10:08:40 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-104R005c18bf4c1-4a57-40e9-bf8d-5f756da7189f,
+ F224CF1D020274B13B21E639C91833BCDAC0997A) smtp.auth=nat@pixelcluster.dev
+X-OVh-ClientIp: 88.133.252.134
+From: Natalie Vock <nat@pixelcluster.dev>
+Date: Mon, 06 Jul 2026 12:07:43 +0200
+Subject: [PATCH v2 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES flag
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdUCqTQ0fWDyHJkU=0gzFe88r0hsSk9tsgfQUZq4TRcAoQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260706-ttm_2_drm_exec-v2-1-4bf6bfc0d320@pixelcluster.dev>
+References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
+In-Reply-To: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+x-ovh-tracer-id: 9127389070351032636
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTEIx5EftTv6qDYynIITLbKmw2V9F73qkvPfwN+6GC3Ph5+oNBPVWeKaotSSyzsLEoE6aoNeT/z/sb6JP+NEna0IvjfnNYhnKja1q6dxD3Jb7I4shHgEmfwt4RwYwfWMrJeeSWT1tVWzr+1Wc90ClmqxXufcv16gHHKk4vjPweAJ7XZzvQwOvhu6mvw7q+gxZaRp/SFrLzBp8jROoK4pIBgRzH7e8vIhWqDQYAnvzOg3wwI7Cm5iQjWjEqopVyP5ALcEWcgRSjmo1GQmwlWMV5+MubgYMTlgg7JHi/WHKBd7/pcOIWar7nF/9t66zi6TVtVu8SSomL6KSZeUYk011HiNWwXLDfpjBPWLSvSdmxUcsM9aYjoysNMPJOKFE8nluG2E8EZqXxvA+mdjAaTXT/M1hQOgWTPGS3FLsqSsgERyjY0Br1rtM8lxfaynmnKDOuH5dZ+vO/avb+2EpJT6UC1E9mjeCIYddylpjZFBgn3hbF9yDSZ7uNN/fAYfTjCTxYuQiDPv0pGzoO0eyl15hzjbEzRQ/VK1jR6qfZ93H0FmF0209waqBTz34/Mma8XU0xZUqgviYlMEDvnVxtOFDxHZBrBZ9lSK/2y3UQH9rHkB8l9WEvVjpYo4ySKPMOFdcmGok13u2lMDPyXdHv3zDyhh9yq+yAiEhS+dEijzDsRwow
+DKIM-Signature: a=rsa-sha256; bh=N1GjEJtFReJ0oNOCKsB1O/DXSe6xcHnaiP0zlVWxP2o=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1783332523; v=1;
+ b=g9bm8HDGNv+oEfb4xMXacBXhP3UH0s3rxe5xsiBflxdCipgZVZmp2R+S7eagIy9MD95MFBpB
+ 1t4hpDTsp9SaS7WNVj2c2NaoZnM+HToChFhrlCeDLgiuMyPztfr8jdcRlO1xKzz1a3+PdTiBDCf
+ c4Kg/aVBf73Vb0+4uRRZqbI21MqNELLsgPcIE5dVK09C4U8LdHHKg6whhUm1iYpCH7HmFgfrsc8
+ 1l7vc12HNKgdOYtmkKwGQtEeJnR0HwPpYZIUm6lN6oeh/EMZBQ1GdY4YFtzyq5q51u2/5zaVreG
+ VIy62vzjyvuk/AIdvaALpSrURIxFsg8h74Nqmqy9Qhfig==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,71 +87,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 10:08:57AM +0200, Geert Uytterhoeven wrote:
-> On Sun, 5 Jul 2026 at 23:35, Laurent Pinchart wrote:
-> > Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
-> > data over an I2C bus. The bus is also used to detect the presence of a
-> > connected monitor by trying to read the EDID data.
-> >
-> > Some devices where the VGA display is integrated in the device and
-> > always connected do not connect the DDC pins. Some development boards,
-> > such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
-> >
-> > To support those, add the ability to provide hardcoded EDID data in the
-> > device tree. This is mutually exclusive with specifying a DDC bus, and
-> > can only be done when the VGA display is guaranteed to be always
-> > connected.
-> >
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> 
-> Thanks for your patch!
-> 
-> > --- a/Documentation/devicetree/bindings/display/connector/vga-connector.yaml
-> > +++ b/Documentation/devicetree/bindings/display/connector/vga-connector.yaml
-> > @@ -19,10 +19,25 @@ properties:
-> >      description: phandle link to the I2C controller used for DDC EDID probing
-> >      $ref: /schemas/types.yaml#/definitions/phandle
-> >
-> > +  edid:
-> > +    $ref: /schemas/types.yaml#/definitions/uint8-array
-> > +    description:
-> > +      When the DDC signals are not wired to the connector, and the connected
-> > +      display is not removable, this property is used to supply a binary EDID
-> > +      blob for the display.
-> > +
-> >    port:
-> >      $ref: /schemas/graph.yaml#/properties/port
-> >      description: Connection to controller providing VGA signals
-> >
-> > +allOf:
-> > +  - if:
-> > +      required:
-> > +        - ddc-i2c-bus
-> > +    then:
-> > +      properties:
-> > +        edid: false
-> > +
-> 
-> What if the DDC signals are wired to the connector on the provider side,
-> but not on the consumer side?
-> A DT overlay describing the consumer device can add an edid property,
-> but it cannot delete the ddc-i2c-bus property in the base DTB.
+TTM is about to switch to drm_exec for locking objects
+in the LRU list. When we're done processing the object, we want to
+unlock it only if the caller doesn't already hold that lock. If
+DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which callers may
+require for unrelated reasons), we have no way of knowing whether the
+lock is already held.
 
-As the use case is devices where the VGA display is an integral part of
-the device, I don't this this is a big issue. I would be quite surprised
-if a manufacturer wanted to support different SKUs with multiple VGA
-display overlays, with the DDC signals wired up in the base board on all
-SKUs, and on the VGA display side in some SKUs only. If that happened,
-they could set the ddc-i2c-bus property in the overlays that wire the
-signals, implement /delete-property/ support for overlays (would be an
-interesting feature in my opinion), or as a very last resort propose
-relaxing the constraint here.
+To remedy this, add a separate helper that forcefully bypasses the
+IGNORE_DUPLICATES flag for only a single locking operation.
 
-> >  required:
-> >    - compatible
-> >    - port
+Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
+---
+ drivers/gpu/drm/drm_exec.c | 54 ++++++++++++++++++++++++++++++++++------------
+ include/drm/drm_exec.h     |  2 ++
+ 2 files changed, 42 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+index 7988f5e7d56a3..ec33ed4a523cc 100644
+--- a/drivers/gpu/drm/drm_exec.c
++++ b/drivers/gpu/drm/drm_exec.c
+@@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
+ 	return ret;
+ }
+ 
+-/**
+- * drm_exec_lock_obj - lock a GEM object for use
+- * @exec: the drm_exec object with the state
+- * @obj: the GEM object to lock
+- *
+- * Lock a GEM object for use and grab a reference to it.
+- *
+- * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
+- * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
+- * flag), -ENOMEM when memory allocation failed and zero for success.
+- */
+-int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
++static int __drm_exec_lock_obj(struct drm_exec *exec,
++			       struct drm_gem_object *obj,
++			       bool ignore_duplicates)
+ {
+ 	int ret;
+ 
+@@ -226,8 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+ 		return -EDEADLK;
+ 	}
+ 
+-	if (unlikely(ret == -EALREADY) &&
+-	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
++	if (unlikely(ret == -EALREADY) && ignore_duplicates)
+ 		return 0;
+ 
+ 	if (unlikely(ret))
+@@ -243,8 +233,44 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
+ 	dma_resv_unlock(obj->resv);
+ 	return ret;
+ }
++
++/**
++ * drm_exec_lock_obj - lock a GEM object for use
++ * @exec: the drm_exec object with the state
++ * @obj: the GEM object to lock
++ *
++ * Lock a GEM object for use and grab a reference to it.
++ *
++ * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
++ * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
++ * flag), -ENOMEM when memory allocation failed and zero for success.
++ */
++int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
++{
++	return __drm_exec_lock_obj(exec, obj,
++				   exec->flags & DRM_EXEC_IGNORE_DUPLICATES);
++}
+ EXPORT_SYMBOL(drm_exec_lock_obj);
+ 
++/**
++ * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always report duplicates
++ * @exec: the drm_exec object with the state
++ * @obj: the GEM object to lock
++ *
++ * Like drm_exec_lock_obj, lock a GEM object for use and grab a reference to it.
++ * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and duplicates are
++ * always reported.
++ *
++ * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
++ * already locked, -ENOMEM when memory allocation failed and zero for success.
++ */
++int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
++				 struct drm_gem_object *obj)
++{
++	return __drm_exec_lock_obj(exec, obj, false);
++}
++EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
++
+ /**
+  * drm_exec_unlock_obj - unlock a GEM object in this exec context
+  * @exec: the drm_exec object with the state
+diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+index 8725ba92ff916..ff80dd2b72240 100644
+--- a/include/drm/drm_exec.h
++++ b/include/drm/drm_exec.h
+@@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
+ void drm_exec_fini(struct drm_exec *exec);
+ bool drm_exec_cleanup(struct drm_exec *exec);
+ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
++int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
++				 struct drm_gem_object *obj);
+ void drm_exec_unlock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
+ int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
+ 			 unsigned int num_fences);
 
 -- 
-Regards,
+2.55.0
 
-Laurent Pinchart
