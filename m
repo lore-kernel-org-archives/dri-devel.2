@@ -4,83 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99EF4C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:46:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3881CC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:48:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 051BD10E38C;
-	Mon,  6 Jul 2026 12:46:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97C9F10E960;
+	Mon,  6 Jul 2026 12:48:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="pLygXaQU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NCR5/bev";
 	dkim-atps=neutral
-Received: from mail-ej1-f74.google.com (mail-ej1-f74.google.com
- [209.85.218.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6722D10E38C
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:46:51 +0000 (UTC)
-Received: by mail-ej1-f74.google.com with SMTP id
- a640c23a62f3a-c07d22d503fso178690266b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 05:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1783342010; x=1783946810;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=w4Q98ESFsm5V2q2RxX/fy6rfondgx2jkzF1eEys7nYs=;
- b=pLygXaQU7Np6QIIZWMqn4m5e/hTkyMV2Y9YIKqbVVFk9PWdj4omKz8sGjbUaT6tr4P
- ztf43eQ7a1qb1FqjxGhNBXGXY/6wnKvHU3a/igFeF2/heRAsj0Ao4p0YoHCWnIjn8ZLs
- cdqnKeb5kacXu/iJN0dndDwUIJsZmeBNk5hw3CrrliCCkkVO4kS48zKSQFsTnqwO/+Nr
- h41PEmQfqxD9ZohfGSge0kexyJpvNzMhcy3IFVAQV7DjnBNbq7ozskUzQ12ucE8Wp7tN
- sXqRhstSv0O1mWVk/bC4CHnXtoMntMUrRR1Qw7NQFfQb2Z9wr8Y7S/yIA6TDsvG3GJ2G
- x5yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783342010; x=1783946810;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=w4Q98ESFsm5V2q2RxX/fy6rfondgx2jkzF1eEys7nYs=;
- b=msEREu4+HK0J2YqW7JwLeESK4rpmx+23T3cwnEANgmwbgLgnci9lhuvTnFe8nl79KQ
- zBt5GhMVg7FPQ7WmWk/lKAiKB+xlSiXZrhR23UeF3cieTbPdHiRxXLPPyGd9xLmpG3X1
- PmUx3j0YimIqMYaHbEo6BEcF/tS/rAC/u4L2dHPKmx8I2Go9qIFoU8EgbucYajAaCG++
- U6m8K7v0OBdKIU29GAd2M5fIDca92FElvf3FAlSLJ8b8SvgW1qfUWBEFeyrDBBm8hAKb
- IojistJbgmTPL2maOTfDIt2V5sTI4Ue4OuPPvstdtS4Sp0Pjr602LmlP3u9Q6kbr+s+S
- il1Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rot1XpFGs0yBHt2Y2CsJDgtdlQ1QusiZBJQrjzhCByAmNuMKUybH+wVr3ER9mWu3AdpTgaiaaNztb4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwAy0LsQ83bJS1s9m2/k4kXED5yQQKdb3v47xhIJW4tTsVVbt+
- wWZTerpouS2pCAF0n5bKtVhyQ2jF7DtCzvCAyXufsynRLAH1eZaC7zKEdttz8KmD8J9mjKJtovD
- ayE0bJyRxByRrrili5g==
-X-Received: from edbev14.prod.google.com
- ([2002:a05:6402:540e:b0:699:e9c6:5556])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:4015:b0:698:ad7f:9383 with SMTP id
- 4fb4d7f45d1cf-69a85b93b10mr266244a12.14.1783342009416; 
- Mon, 06 Jul 2026 05:46:49 -0700 (PDT)
-Date: Mon, 6 Jul 2026 12:46:48 +0000
-In-Reply-To: <DJRGUGMD8CNG.8DWRHJ3PRH3Q@garyguo.net>
-Mime-Version: 1.0
-References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
- <akuV_GRAM4QPqf-o@google.com>
- <DJRGUGMD8CNG.8DWRHJ3PRH3Q@garyguo.net>
-Message-ID: <akujuAJOZxRJlQZo@google.com>
-Subject: Re: [PATCH 0/4] rust: Add support for reserving of ranges of IDs
-From: Alice Ryhl <aliceryhl@google.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: Eliot Courtney <ecourtney@nvidia.com>, Burak Emir <bqe@google.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, 
- Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A6B10E960
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:48:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2C5DC600BB;
+ Mon,  6 Jul 2026 12:48:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7793A1F000E9;
+ Mon,  6 Jul 2026 12:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783342102;
+ bh=5TP5FKXV2QfYP4taY1l+31Qs8Zcpx4j0j6opOvtbNfo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NCR5/bevwpoNx8rvWXE4RASOYTfIJb0kfDHzopOYg0l2n6JUgts8n1zdWl32rUl0n
+ lmIpIdgxazuR4jrcyqluSiCChH7/49xKgn7bFCjOZ8abi3V/JWs47Y3EUA7XPpjNY4
+ Cv+sR2vfktlAeyvNhb4qAGqW0BXFKKTO7j8zo07fqAZr0sGXl2dCSO6dA2K9rCLZ8A
+ 8eBWwBwfsW5oNJ1uivaSu8jdp2eHEkKI0qr44Ddf8VC6+791ySXff3M01RQA6376qj
+ Q8nk5UMABj27rJ8OoIzDhHLlX9V8JLktWU4tmDrCXUqkQIisUFr9kEXzNLZeEqbqeJ
+ 6+raQb5AThqCQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 10/20] pwm: th1520: remove unnecessary `deref`
+To: "Gary Guo" <gary@garyguo.net>
+Cc: linux-pci@vger.kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org
+In-Reply-To: <20260706-io_projection-v6-10-72cd5d055d54@garyguo.net>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-10-72cd5d055d54@garyguo.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 12:48:21 +0000
+Message-Id: <20260706124822.7793A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,31 +55,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 12:53:24PM +0100, Gary Guo wrote:
-> On Mon Jul 6, 2026 at 12:48 PM BST, Alice Ryhl wrote:
-> > On Fri, Jul 03, 2026 at 07:16:03PM +0900, Eliot Courtney wrote:
-> >> Add support for reserving of ranges of IDs, with a usage in nova-core
-> >> for channel IDs. This entails adding the helpers+users of the C bitmap
-> >> API for ranges of bits, then users of that in `IdPool`, and finally a
-> >> user of `IdPool` in nova-core, `ChannelIdPool`.
-> >
-> > If you need ranges of IDs, perhaps you want the maple tree instead?
-> >
-> > Alice
-> 
-> Any reason that the current ID pool is implemented directly on top of bitmap
-> rather than using IDA?
+> `Deref` is automatic and should normally not be used directly.
+> Also, `IoMem` is going to be implementing `Io` directly, so it will no
+> longer to be implementing `Deref`.
+>=20
+> Reported-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Link: https://rust-for-linux.zulipchat.com/#narrow/channel/291565-Help/to=
+pic/.E2.9C.94.20Projection.20in.20dma.20bus.20address.20space/near/606672061
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-To some extent it's because that's how C Binder did it. Though I do also
-think that the bitmap fits binder's needs pretty well. Almost no Binder
-processes will have more than 8 handles in use, in which case the
-BitmapVec is extremely efficient because no allocation or pointer
-indirection is used. And the bitmap also performs well for the few
-processes with many external handles.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-But it could also use the xarray instead. Nothing stopping that.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-io_project=
+ion-v6-0-72cd5d055d54@garyguo.net?part=3D10
 
-Alice
