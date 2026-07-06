@@ -4,87 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E629C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 17:16:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E33F6C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 17:22:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7879010E9FC;
-	Mon,  6 Jul 2026 17:16:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37FD410EA03;
+	Mon,  6 Jul 2026 17:22:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="gMLSLWKR";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Z88SwoGs";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72AC410E9FC
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 17:16:27 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4921eed3fa2so22911125e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 10:16:27 -0700 (PDT)
+Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com
+ [209.85.221.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E617910EA03
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 17:22:01 +0000 (UTC)
+Received: by mail-wr1-f74.google.com with SMTP id
+ ffacd0b85a97d-475eba52438so2504783f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 10:22:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1783358186; x=1783962986;
+ d=google.com; s=20251104; t=1783358520; x=1783963320;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=JN5vDAyeeb4SlfTuLPS7JMWqVvfxk/NEHX0zcl//X2E=;
- b=gMLSLWKR2rYGdGS17n46792sLbg2T/Xq9wLri9T7qhlM5hVWTWpZyMHtFiiXeqClr9
- 28/zVViJa5YOyrEqNSW+iiBG8BgMpuwslg9/Z2LLQGFWlVNaWHKtNcfu5mTt70/2WwCM
- NBTQTyHOmLgRuHqtOLi6uAfC3xWKtj3FWMUqzkZuabMJmlSNjRC8bsi5YSmuyQPjy9+c
- EICh9BuU8/V1YXhi/dH8af/ibIYY4HbDS/G9NAYwdKXr50cwyLPtpdCpfsilznPo+Uau
- wHOBM7ZBkePPEx/QirxKqHdPUt3Ftlhv/Psl6k2OXDy8vZtT3JNSxi57yR2CeaMdeoJ1
- mjUQ==
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ltyx4avvqap+Z6tBDQrFmfqB8UZWvDnSqPOqoXvmQP8=;
+ b=Z88SwoGsY+B/+DCdG7+7N5vcddaZFyXXOVvC+RVO0FEudSpvBubl6fDvdcbIQviH+Z
+ 8UYyuPWTwIexWZWJzAnHLzwlAEV/VndzlCsaDUsP0wJ3eUS9PQsAFJgZ0darHPmkyBqM
+ knOkK541ewkMKOkobY+YFUKD0CEr5x+eOJqOL9t9N0nPGu3iUGQZ1p31sby2Ub86pBRx
+ SMgTn1jtyfG2FEXuCB5ie1sozVB0eJSv/VMsPQC7AOA2E8qKKYiUezc7HIXrJ6hivtYA
+ IcnQLGQJt/qAaBXtyKWeaUpZPSOMMEpBAEAV6aZUNao+aHZMWeMxsyFffggqIwMX0tiO
+ D3sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783358186; x=1783962986;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JN5vDAyeeb4SlfTuLPS7JMWqVvfxk/NEHX0zcl//X2E=;
- b=bfuyYcpH2KTnwYwQXOd1XqCCXwkDXNaZeC9XDJ99vjLKwCixPLvIHRPzen9qKPQR5O
- bCqV4tCqePH3Qj3l+YbnaiOyqx+ZOxz2RlPNoQlg0gZPGoR/kUCIUVnotwFfIYE1HzSM
- S2ZKdG9MDGLqaUn0EIidMqESWB17yLfgkMlXnTJEnZ+5LGaqpEPoDwU1fwJN5hdpWy6n
- dbvK+r4kkFIJ3MpkEoCtxnL4KVTY57+02o8dOaCyZ5uygQ/AYMgJ9Ji43lQ/bxCNqm7N
- QYaaLxTkbqJE3oJpadTivzjFlbEt6Knt6cfr+oITKS4KetR4zxJSd8QB9rYyMNrEXzPN
- OQAg==
+ d=1e100.net; s=20251104; t=1783358520; x=1783963320;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ltyx4avvqap+Z6tBDQrFmfqB8UZWvDnSqPOqoXvmQP8=;
+ b=Lop84u+EUjfc+NSz5sG9auDQpp48j/vWckXcaHVkLjdcjyuhFFs0/qge2MFLHrVVuQ
+ 88LQvNnM4MbrRrL83FzW7UkK7wOv9AZ4JYy/7S4Z86omJvG67k99H4LKKzREDwidO6Qd
+ WZj4iwVcrIL2Z0ZYtZ0/Nn3tqaugzNJG6WQwkwUQO3UIDnYJJWsIvlUCvehcNiuyAZIN
+ q2mvT4ZLLHMw8OQRO+YztoNSO3uR9dmjVSsyVcMQpAN3CEUURBWp93Q6JIgc7H7OZALT
+ sTuORX3gb3Eyy45VT7goErntJmCa6uwHoQ69AYzsH57ha0PGKoyIKmTf3JaEoN11AaOA
+ klHw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rop2EosGKY7pm3zrYZ16aYg2G0YsyXzlDZsLfvqsr6112Gqn1iiGvGny5uR1NeOJoqUmWTmmM7olyc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwaJnEEkyLGTU8mpAHFWC0CoU+OR1+pu12KkOLd1WXwlB+Hzbqd
- bTtr1/ZZRzlYYVAcYWnBeVRwCcbkUBlE34hxb8JwU2Z/d/ULiooiajTG6IkEskfrQAg=
-X-Gm-Gg: AfdE7cnrBvmWoFyAOQa85rRRSdN++lzqRYFXUr77l5+3wKwavdUDP0YCVMebP8cgyQg
- 6U26orKcpXl4lYZQABy67oP2tPAiOW7Q9if3Tc8W6d3sLgty8LhWt3cAC0mw606xSWvQVsBbrfP
- 3XOTU1ukUg9CRhfWrLQ+c3+n+nZJZy6VOiWpOKn6DfdM0dpShafyczpjvYkC5bu9bb1trSn6P5h
- rVxNs1BUQKRDn/cA152oI5Gn2PXKk+U2DLI9Yrk8JdcimDXcGV9DnAEmjGYQFpHRwBH5lkYbCXV
- GstcRlZzsOZuoGrWKowkXQRaIRLXFVK/B1UxrVoussdMWCwPlNGhZsKm9kuHsMMELG6vrzB7gLE
- hAZw1uN4MvOrcSTyl3qut4O4LlpPHvL98BsPtE/5+w+5HE6FZ4h2vJO89LyeJsDCCMe+ItG6qEV
- yghzdCU+FcAgPegObkKHS5J3oAhHTNa7lFA7rekt7ELn4VzaDvWkHqXRXBv9z0pJzwaKNVGuNGF
- Vs=
-X-Received: by 2002:a05:600c:c168:b0:493:a960:a0bf with SMTP id
- 5b1f17b1804b1-493df064184mr17991555e9.21.1783358185799; 
- Mon, 06 Jul 2026 10:16:25 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db0404eb41111570ffdc.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:4eb:4111:1570:ffdc])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-493cce040b4sm397138515e9.10.2026.07.06.10.16.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 10:16:25 -0700 (PDT)
-Date: Mon, 6 Jul 2026 19:16:23 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] drm/panel: Add driver for Raydium RM69220 DDIC
-Message-ID: <akvis8eaFYh0Ktmj@monoceros>
-References: <20260704-asteroids-panel-support-v3-0-38dc92570579@pm.me>
- <20260704-asteroids-panel-support-v3-2-38dc92570579@pm.me>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ts3aubgs6edhoq5r"
-Content-Disposition: inline
-In-Reply-To: <20260704-asteroids-panel-support-v3-2-38dc92570579@pm.me>
+ AHgh+RrYPFy0sr3X9J8o6HhS7lqslafR/cBmGmr4Uy2ZVxvAVwcDnBp3i/rLj/gIdQyg8I6OLwRNqLN6g2Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzgsS8bTuH37BLkt7v/K2bGLj/oyujfUxP2UfEYmOfvLU/I/XLr
+ 5lvzjsB+awemVh0mElGHc7cydBWiWZtSXespQvraCOuhrcGWLnmLg7grASRmYxPZ6yP7mQOHk8I
+ w1Cmznm1PlZ/55/YRzg==
+X-Received: from wmri23-n2.prod.google.com
+ ([2002:a05:600c:8a17:20b0:493:d884:f722])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:6692:b0:493:ca3a:d738 with SMTP id
+ 5b1f17b1804b1-493df055a84mr19308675e9.7.1783358519892; 
+ Mon, 06 Jul 2026 10:21:59 -0700 (PDT)
+Date: Mon, 6 Jul 2026 17:21:58 +0000
+In-Reply-To: <akvXzPd169ahMuCi@yury>
+Mime-Version: 1.0
+References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
+ <20260703-chid-v1-2-84fe8259e46e@nvidia.com>
+ <akvXzPd169ahMuCi@yury>
+Message-ID: <akvkNuh2bHhFwmQM@google.com>
+Subject: Re: [PATCH 2/4] rust: bitmap: add contiguous area operations
+From: Alice Ryhl <aliceryhl@google.com>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>, Burak Emir <bqe@google.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, 
+ Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,37 +96,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Jul 06, 2026 at 12:29:00PM -0400, Yury Norov wrote:
+> On Fri, Jul 03, 2026 at 07:16:05PM +0900, Eliot Courtney wrote:
+> > Add bindings and helpers for area operations on bitmaps. Each one is
+> > made safe by adding some extra checks compared to the underlying C code
+> > (for example, checking bounds) and with additional checks to catch
+> > likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
+> > 
+> > The C code uses signed integers for some parameters, for example the
+> > length for `__bitmap_set`, so bounds check against i32::MAX. We can't
+> > rely on `BitmapVec::MAX_LEN` because `Bitmap` may not necessarily be
+> > backed by `BitmapVec`. There's also a few cases where a non power of two
+> > minus one `align_mask` can cause an infinite loop in the C code (can
+> > happen on overflow), so check for that.
+> > 
+> > Add tests demonstrating the edge cases.
+> > 
+> > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> > ---
+> >  rust/helpers/bitmap.c |  22 +++++
+> >  rust/kernel/bitmap.rs | 219 ++++++++++++++++++++++++++++++++++++++++++++++++++
+> >  2 files changed, 241 insertions(+)
+> > 
+> > diff --git a/rust/helpers/bitmap.c b/rust/helpers/bitmap.c
+> > index e4e9f4361270..dac5c03f2448 100644
+> > --- a/rust/helpers/bitmap.c
+> > +++ b/rust/helpers/bitmap.c
+> > @@ -8,3 +8,25 @@ void rust_helper_bitmap_copy_and_extend(unsigned long *to, const unsigned long *
+> >  {
+> >  	bitmap_copy_and_extend(to, from, count, size);
+> >  }
+> > +
+> > +__rust_helper
+> > +unsigned long rust_helper_bitmap_find_next_zero_area(unsigned long *map,
+> > +						     unsigned long size,
+> > +						     unsigned long start,
+> > +						     unsigned int nr,
+> > +						     unsigned long align_mask)
+> > +{
+> > +	return bitmap_find_next_zero_area(map, size, start, nr, align_mask);
+> > +}
+> > +
+> > +__rust_helper
+> > +void rust_helper_bitmap_set(unsigned long *map, unsigned int start, unsigned int nbits)
+> > +{
+> > +	bitmap_set(map, start, nbits);
+> > +}
+> > +
+> > +__rust_helper
+> > +void rust_helper_bitmap_clear(unsigned long *map, unsigned int start, unsigned int nbits)
+> > +{
+> > +	bitmap_clear(map, start, nbits);
+> > +}
+> 
+> All three are the wrappers around the regular outline functions:
+> bitmap_find_next_zero_area_off(), __bitmap_set() and __bitmap_clear().
+> 
+> The inlined version in headers is optimized for small bitmaps. But the
+> optimization is all based on inlining in the C code. It doesn't work
+> if you wrap it with a rust helper.
+> 
+> There was a discussion about the similar find_next_bit(). The function
+> itself is an inliner, but it's a wrapper around the true outlined
+> _find_next_bit(). So we decided to minimize the binder size for that
+> type of functions.
+> 
+> Please, keep the binder minimal unless necessary.
 
---ts3aubgs6edhoq5r
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v3 2/2] drm/panel: Add driver for Raydium RM69220 DDIC
-MIME-Version: 1.0
+If we can just call __bitmap_clear() without any downsides, then I agree
+we should do that, but we actually do support inlining the helpers now.
+See CONFIG_RUST_INLINE_HELPERS.
 
-Hello,
-
-On Sat, Jul 04, 2026 at 08:24:19AM +0000, Alexander Koskovich wrote:
-> +#include <linux/mod_devicetable.h>
-
-Please don't add new users for this header file. Only use those
-<linux/device-id/*.h> that you actually need.
-
-Thanks
-Uwe
-
---ts3aubgs6edhoq5r
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpL4uUACgkQj4D7WH0S
-/k53TwgAq9CpmcrLTfGp+dOydDPdV1igTy61onUd9jWdDbU+D/G4OCdRu8JGnOJ9
-jI59b375/S22e9n+2vt3uld+ewyFSRgTJlKiBCdv7z2jAUllWtO9oYgpjFrIz6qL
-bUQ3O7iHto8IJRd7L8YLZc0VLjfe0gHQSGx4xL6nyYvhDTXFiR+w/NgTMSpsaLbI
-2YRIbZrVrVZoJ3UcjZ1wASmVEpteCjf5n/bPsfQ6ZjMOYTi3oSCrl7zN+fpfnJES
-JAk4UBG24Wrr5+Gedw3fDkkajG3ZuSNpS/iiaAteeo6etoroJTnqYkQiRfdUO2mo
-PHklD5QTxS39B8MYg6yB1EKWy9XArQ==
-=R1yv
------END PGP SIGNATURE-----
-
---ts3aubgs6edhoq5r--
+Alice
