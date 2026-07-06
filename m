@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31A72C43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:20:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D648C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:27:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 962CE10E917;
-	Mon,  6 Jul 2026 12:20:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D37D910E34E;
+	Mon,  6 Jul 2026 12:27:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DEGeeabR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AMWE4v6L";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD0A110E917
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:20:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C81A510E34E
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,33 +22,35 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=55gmLcJ85/0JRNc6P95j7xiP6Emzben5yecc81t/fNg=; b=DEGeeabRJiglW+yYlpucbeKRkp
- q3w9Ql/MkNRgOCY22gh1iBUJ47iLUBbckSqST1945uj1OTYjlcFjBXwZOy3nAVkc0wSVhkoJfVhlY
- zahjGTDrYyrmEmuWIN2TliGoes0m/nTilzZBGMJIBGvuRJLQ+PkrNOQui8KP2ovOg7Bq/CNRVA8wN
- yctvpEZ5knUOqMFPurX3GnNXLugWFtYLFLaQrl84RBKnXMNvCntpk2MUzh4kIeRGfa+E3X6ZXnqvn
- fQSzJhK6UOkL1L2jtcRi1ObM1fbpLYHoJZA0njkpyDKqIk2qrlbZZRPCSuU9H7cxHzCcau7xnYt3T
- MjL3n+aQ==;
+ bh=yv+3Se6Ry52Y90BPie/lrSR5SXEj2DMLidHFu1iA6SY=; b=AMWE4v6LuwrSZKR0VIESNXOn/1
+ ovNxodnPFillU9Js4NmaqeAWnjpJBHyats8F1mjCBsRaN2MeQQDBBv0Kj1NQZr6h0Yn+gSdxN9DWf
+ lru3IH98UWApmOuOTcfK5vuCHACoGECvz4ORc7z7OmrAAV2YWcdDxEm8FIIV5FCPtoiiQXtCAXxP3
+ S0ElbNKBGP42Rl7ytv0rpg8fUIsRsKhWCurO5bsMl3QhImAWEn46F0av+/btDkHnjRIJkL+nDDE3I
+ PTFyqAWPMyQMTFdau5wqz1ifKf05dUgx8ijJfIHnht/WdtboRfRtpA267ajmGoxf+kpz6csV/IP+Q
+ +4eb2RQw==;
 Received: from [90.240.106.137] (helo=[192.168.0.116])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wgiJe-009jEY-N7; Mon, 06 Jul 2026 14:20:50 +0200
-Message-ID: <b76ea01c-ead3-4eaf-86a7-5bf91bfdb9cb@igalia.com>
-Date: Mon, 6 Jul 2026 13:20:49 +0100
+ id 1wgiQN-009jN3-Iv; Mon, 06 Jul 2026 14:27:47 +0200
+Message-ID: <e15d223d-21d8-42f1-a37b-52f515d1e86f@igalia.com>
+Date: Mon, 6 Jul 2026 13:27:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
- improvements
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+Subject: Re: [RFC 4/8] drm/xe: Convert to per gt scheduler workers
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  Chia-I Wu <olvaffe@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, kernel-dev@igalia.com,
- Tejun Heo <tj@kernel.org>
+ Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <4eb23476ff56bee108578adfe131be38e8fc1476.camel@mailbox.org>
+ <20260702143745.79293-5-tvrtko.ursulin@igalia.com>
+ <akd7iFDLUgwhj6+H@gsse-cloud1.jf.intel.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <4eb23476ff56bee108578adfe131be38e8fc1476.camel@mailbox.org>
+In-Reply-To: <akd7iFDLUgwhj6+H@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,104 +69,120 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 03/07/2026 09:52, Philipp Stanner wrote:
-> +Cc Tejun
-> 
-> On Thu, 2026-07-02 at 15:37 +0100, Tvrtko Ursulin wrote:
+
+On 03/07/2026 10:06, Matthew Brost wrote:
+> On Thu, Jul 02, 2026 at 03:37:41PM +0100, Tvrtko Ursulin wrote:
+>> As the submission side of xe is serialized by the global GuC CT lock, we
+>> can easily afford to create our own per gt work queues. Whereas before
+>> kernel could create up to the number of CPUs threads, we now create one
+>> per GT.
 >>
 > 
-> […]
+> This breaks down for any execution queue that waits in a scheduler work
+> item for any reason. Long-running preemption queues do this for
+> time-slicing, multi-queue registration, and possibly a few other cases.
 > 
->> DRM scheduler was originally using kthreads but was converted workqueues due
->> desire by xe to create thousands of schedulers. This series also questions
->> whether that was needed, given how the submission is serialized by a device
->> global lock (per GT, so almost device global). Panthor has a similar situation;
->> hence the series contains two patches to move those two to a setup which matches
->> the design of those drivers.
->>
->> Other drivers, like for example amdgpu, v3d, etnaviv etc, which use the
->> scheduler as a hardware scheduler, where number of instances follow the number
->> of hardware blocks instead the number of userspace contexts, are completely
->> fine.
->>
->> There are use cases however which do currently track the number of userspace
->> contexts and which do allow for more parallelism. For those a straight
->> kthread_work conversion would be a problem due an explosion in number of
->> threads.
->>
->> The most direct example is panthor VM bind queue which creates a scheduler per
->> userspace context and relies on work queue concurrency management to keep the
->> number of threads in check.
->>
->> This creates a challenge for the kthread_work conversion. To solve which I for
->> now opted to create a trivial round-robin thread pool. For the RFC this is
->> limited to four CPU threads and is something which will need to be discussed.
->> Ie. how much parallelsim those really need. The true answer is somewhere between
->> "at most the number of active userspace contexts and the number of CPU cores".
->> Or it could be less than that, since after all, VM BIND parallelism is
->> eventually going to choke on a narrower gate of actual GPU execution. We could
->> also allow drivers to pick their number.
-> 
-> Anyone remember whether that was discussed back in the day of
-> converting to workqueue?
+> I've looked at this before and rough divide is this works for 3D but not
+> long running.
 
-AFAIR the only thing was that existing usage of kthreads did not scale 
-for the new use case of one DRM scheduler per userspace context.
+Hmmm curious. Could you expand a bit more on this?
 
-> What makes this idea suspicious in my mind is that the workqueue
-> implementation exists to solve precisely this issue: decide how many
-> kthreads really need to be spawned. AFAIK it can spawn additional
-> threads dynamically if necessary.
-> 
-> So the first question I would like to see considered is whether
-> workqueue could be improved in any way to address said latency issues.
-> 
-> Have you already considered that, Tvrtko?
+Where do those wait, in run job or prepare job? And on what ie. where is 
+the cross-dependency?
 
-Yes, priority inheritance was justifiably rejected for generic 
-workqueues. There is WQ_HIGHPRI, but the idea here is to go one step 
-further and allow tracking realtime scheduling policies.
-
-> IOW, is it the nature of workqueue or our way of using them in
-> drm_sched which causes this performance difference in the submit path?
-
-Mostly self inflicted pain by the kthread->workqueue DRM scheduler 
-conversion.
-
-Before we had threads which were woken up on first submission and would 
-fed the GPU until the software side queue was empty. With that design we 
-would still have the scheduling latency on the first submit but it would 
-be easy to add priority inheritance.
-
-After the workqueue conversion, it is not only that we lost the ability 
-to do priority inheritance, but it was also changed to only feed one job 
-at the time to the GPU and rely on efficient worker re-queue.
-
-> It would seem that it's the desire for more fine-grained scheduling
-> characteristic control that you get with a kthread.
-
-I think we have roughly three options:
-
-1) Just use WQ_HIGHPRI and accept real time clients at best get re-nice 
-level boost. But no RT.
-
-2) Do something along the lines of this RFC.
-
-3) Split the scheduler into frontend and backend parts and make 1:1 
-drivers not use the actual scheduler.
-
-The last one can be a combination of efforts. For example we can not go 
-for splitting the scheduler design, but adding a new dependency sorter 
-scheduler like Matthew was recently proposing. As long as that one can 
-handle priority inheritance ie. not suffer this submission latency issue 
-for 1:1 drivers it works.
-
-M:N drivers we could then revert the code based back to kthreads and 
-probably simplify some things.
-
-Downside is two schedulers in the codebase..
+Is it related to the alien work items xe "injects" onto the scheduler 
+workers?
 
 Regards,
 
 Tvrtko
+
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
+>> ---
+>>   drivers/gpu/drm/xe/xe_gt.c         |  7 +++++++
+>>   drivers/gpu/drm/xe/xe_gt_types.h   |  3 +++
+>>   drivers/gpu/drm/xe/xe_guc_submit.c | 11 +++++++----
+>>   3 files changed, 17 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
+>> index 783eb6d631b5..fb2db9eff341 100644
+>> --- a/drivers/gpu/drm/xe/xe_gt.c
+>> +++ b/drivers/gpu/drm/xe/xe_gt.c
+>> @@ -706,6 +706,8 @@ static void xe_gt_fini(void *arg)
+>>   	for (i = 0; i < XE_ENGINE_CLASS_MAX; ++i)
+>>   		xe_hw_fence_irq_finish(&gt->fence_irq[i]);
+>>   
+>> +	destroy_workqueue(gt->submit_wq);
+>> +
+>>   	xe_gt_disable_host_l2_vram(gt);
+>>   }
+>>   
+>> @@ -716,6 +718,11 @@ int xe_gt_init(struct xe_gt *gt)
+>>   
+>>   	INIT_WORK(&gt->reset.worker, gt_reset_worker);
+>>   
+>> +	gt->submit_wq = alloc_ordered_workqueue("xe-submit-gt%u",
+>> +						WQ_MEM_RECLAIM, gt->info.id);
+>> +	if (IS_ERR(gt->submit_wq))
+>> +		return PTR_ERR(gt->submit_wq);
+>> +
+>>   	for (i = 0; i < XE_ENGINE_CLASS_MAX; ++i) {
+>>   		gt->ring_ops[i] = xe_ring_ops_get(gt, i);
+>>   		xe_hw_fence_irq_init(&gt->fence_irq[i]);
+>> diff --git a/drivers/gpu/drm/xe/xe_gt_types.h b/drivers/gpu/drm/xe/xe_gt_types.h
+>> index e5588c88800a..175c42672546 100644
+>> --- a/drivers/gpu/drm/xe/xe_gt_types.h
+>> +++ b/drivers/gpu/drm/xe/xe_gt_types.h
+>> @@ -248,6 +248,9 @@ struct xe_gt {
+>>   	/** @exec_queue_ops: submission backend exec queue operations */
+>>   	const struct xe_exec_queue_ops *exec_queue_ops;
+>>   
+>> +	/** @submit_wq: ... */
+>> +	struct workqueue_struct *submit_wq;
+>> +
+>>   	/**
+>>   	 * @ring_ops: ring operations for this hw engine (1 per engine class)
+>>   	 */
+>> diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+>> index 9458bf477fa6..858f84dc8fed 100644
+>> --- a/drivers/gpu/drm/xe/xe_guc_submit.c
+>> +++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+>> @@ -1928,11 +1928,12 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
+>>   	struct xe_gpu_scheduler *sched;
+>>   	struct xe_guc *guc = exec_queue_to_guc(q);
+>>   	struct workqueue_struct *submit_wq = NULL;
+>> +	struct xe_gt *gt = guc_to_gt(guc);
+>>   	struct xe_guc_exec_queue *ge;
+>>   	long timeout;
+>>   	int err, i;
+>>   
+>> -	xe_gt_assert(guc_to_gt(guc), xe_device_uc_enabled(guc_to_xe(guc)));
+>> +	xe_gt_assert(gt, xe_device_uc_enabled(guc_to_xe(guc)));
+>>   
+>>   	ge = kzalloc_obj(*ge);
+>>   	if (!ge)
+>> @@ -1964,12 +1965,14 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
+>>   		struct xe_exec_queue *primary = xe_exec_queue_multi_queue_primary(q);
+>>   
+>>   		submit_wq = primary->guc->sched.base.submit_wq;
+>> +	} else {
+>> +		submit_wq = gt->submit_wq;
+>>   	}
+>>   
+>>   	err = xe_sched_init(&ge->sched, &drm_sched_ops, &xe_sched_ops,
+>> -			    submit_wq, xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES, 64,
+>> -			    timeout, guc_to_gt(guc)->ordered_wq, NULL,
+>> -			    q->name, gt_to_xe(q->gt)->drm.dev);
+>> +			    submit_wq, xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES,
+>> +			    64, timeout, gt->ordered_wq, NULL, q->name,
+>> +			    gt_to_xe(gt)->drm.dev);
+>>   	if (err)
+>>   		goto err_release_id;
+>>   
+>> -- 
+>> 2.54.0
+>>
 
