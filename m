@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01944C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:02:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7910C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 610F310E918;
-	Mon,  6 Jul 2026 12:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1159610E92D;
+	Mon,  6 Jul 2026 12:03:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QrxpU+vF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fa9CyTnM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B738A10E918
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:02:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C2F10E92D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:03:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4D44543492;
- Mon,  6 Jul 2026 12:02:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33AF1F000E9;
- Mon,  6 Jul 2026 12:02:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4744F600BB;
+ Mon,  6 Jul 2026 12:03:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFDA11F000E9;
+ Mon,  6 Jul 2026 12:03:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783339329;
- bh=x80MCiojiqH1PTayLQsAdWTXoS5RSHovSARhLcqbqWM=;
+ s=k20260515; t=1783339394;
+ bh=4VUHGscTyh1hRhgOtbe/TJZc92NRl9NzOAWSlEs/Ov0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QrxpU+vFJoP4AhGXhRpyTNTIJ4QjCn8O3llUImYNGiiX9qK1rBHPpyB8SUhrrlcv0
- kl2L9zldQnwRzCFYzTBJPGb8DILDLvxxj1vK+knrzAJv+L7pLgc5riQf5QajtCHiVy
- DapCKYOGO9VdKCOv96GwprOdz2oXvuxYxgmbL6lEiV/poLHwFBk2dpy5NJdagnlB2G
- ukMYtndycP7JHm2SoXf8xwsTbIjHLcSXnNNGfQ/LLED+AzaZMpmZxCyRFEJ2hfalpO
- c6/4BeCyS3KyvVUBm3STqzQ7K+biiZX7QJF+ctRsdT+Sllx+JcBHnK85wLbOk5OCZ0
- rzUW+SiVOOKMg==
+ b=fa9CyTnMcl+S9PiyBP3aXCmCPAfoSNJ7oNRWSb7tPChfZt5Rd36lIA5iddiqzD3EA
+ x04U4oYrkqtkaWGKldkvTbXI8ZWTCO4/hBGLAn1ngaHZNi90rJLilQiNvnALv7YL72
+ WGhpix2mBBocr7raF35sGDpouVQ0z8kKlotgfh08PVry8jWHFMfkDUPIQi4b5gFJYN
+ Cn5Y0jvrQFsYaJT88K8vPxhMBdn4AQjMmK778Vbf5YRw4YJxjB4l4ODAh72Q7oyvaw
+ ZTtdJx7Vn8t7pMPGdV33c8XUnFnWoU5CAzvuKv4m4+6I7D+zvt0uVw6QL28i7IeY8P
+ 6HsxTsYwMSNnA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/7] drm/i915/guc: Consider also RCU depth in busy loop.
+Subject: Re: [PATCH v4 1/7] drm/i915/gt: Use spin_lock_irq() instead of
+ local_irq_disable() + spin_lock()
 To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706114823.752313-4-dev@lankhorst.se>
+In-Reply-To: <20260706114823.752313-2-dev@lankhorst.se>
 References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706114823.752313-4-dev@lankhorst.se>
+ <20260706114823.752313-2-dev@lankhorst.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 12:02:08 +0000
-Message-Id: <20260706120208.E33AF1F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 12:03:13 +0000
+Message-Id: <20260706120313.CFDA11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,68 +60,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Looping with IRQs disabled causes soft-deadlocks and CT buffer bre=
-akage because the G2H draining tasklet cannot run.
+- [High] Hardware MMIO submission sequence in `execlists_submit_ports()` is=
+ executed with interrupts and preemption enabled, violating the requirement=
+ for atomic hardware submission.
 --
 
-commit fa66d9f372062707343fef0e57e8f112f58ecabc
+commit a1c2160ec1a5e4791ddd349b07f9fe856a1bb2e5
 Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-drm/i915/guc: Consider also RCU depth in busy loop.
+drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() + spin_lock=
+()
 
-This commit updates the not_atomic condition in intel_guc_send_busy_loop
-to additionally check rcu_preempt_depth. This prevents RCU splats on
-PREEMPT_RT systems where sleeping spinlocks are acquired, which would
-cause in_atomic and irqs_disabled to report false.
+This commit replaces local_irq_disable() and spin_lock() with spin_lock_irq=
+()
+to improve PREEMPT_RT compatibility, and removes the execlists_dequeue_irq()
+wrapper.
 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i91=
-5/gt/uc/intel_guc.h
-> index 053780f562c1a..b25fa8f4dc4bd 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-> @@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct int=
-el_guc *guc,
->  {
->  	int err;
->  	unsigned int sleep_period_ms =3D 1;
-> -	bool not_atomic =3D !in_atomic() && !irqs_disabled();
-> +	bool not_atomic =3D !in_atomic() && !irqs_disabled() && !rcu_preempt_de=
-pth();
+> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drive=
+rs/gpu/drm/i915/gt/intel_execlists_submission.c
+> index 1359fc9cb88ef..e11db81dca9c5 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+
+[ ... ]
+
+> @@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_c=
+s *engine)
+>  	 */
+>  	sched_engine->queue_priority_hint =3D queue_prio(sched_engine);
+>  	i915_sched_engine_reset_on_empty(sched_engine);
+> -	spin_unlock(&sched_engine->lock);
+> +	spin_unlock_irq(&sched_engine->lock);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does spinning with IRQs
-disabled here cause a soft-deadlock that breaks the GuC CT buffer?
+Is it safe to unconditionally re-enable interrupts and preemption here befo=
+re
+the hardware submission?
 
-If the G2H buffer fills up and intel_guc_send_nb returns -EBUSY, the code
-enters a busy loop. If the caller acquired spinlocks that disabled IRQs,
-not_atomic will evaluate to false, causing the loop to use cpu_relax
-instead of sleeping.
+Looking at execlists_dequeue(), shortly after this unlock the code calls
+execlists_submit_ports(). The Execlist Submit Port (ELSP) mechanism typical=
+ly
+requires consecutive MMIO writes to submit hardware contexts.
 
-Inside this process, has_room_nb is called, which attempts to drain the
-credits by queuing a tasklet:
+Previously, the entire function was wrapped in local_irq_disable() via
+execlists_dequeue_irq(). With spin_unlock_irq() completely enabling
+interrupts (and preemption on PREEMPT_RT) prior to the submission, could a
+hard interrupt or task preemption delay the sequence of MMIO writes?
 
-drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:has_room_nb() {
-    ...
-    tasklet_hi_schedule(&ct->receive_tasklet);
-    ...
-}
-
-This schedules the tasklet on the local CPU's tasklet list and sets
-TASKLET_STATE_SCHED. However, because the local CPU is spinning in
-cpu_relax with IRQs disabled, softirqs will never run.
-
-Since the tasklet is pinned to the local deadlocked CPU, other CPUs
-cannot drain the buffer even if they receive the GuC hard interrupt.
-The G2H buffer never drains, and after 1.5 seconds, ct_deadlocked
-returns true, permanently breaking the CT buffer.
-
-> =20
->  	/*
->  	 * FIXME: Have caller pass in if we are in an atomic context to avoid
->  	 * using in_atomic() as it doesn't work for all configs (e.g. PREEMPT).
+This seems like it might lead to partial submissions, hardware timeouts, or
+GPU hangs if the hardware submission sequence is no longer atomic.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706114823.7523=
-13-1-dev@lankhorst.se?part=3D3
+13-1-dev@lankhorst.se?part=3D1
