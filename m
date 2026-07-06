@@ -4,64 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B312C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 14:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06FC6C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 14:37:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72C1110E273;
-	Mon,  6 Jul 2026 14:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0EE10E3A6;
+	Mon,  6 Jul 2026 14:37:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IiEjoMl/";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="PT/dVq1Y";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFA8610E273;
- Mon,  6 Jul 2026 14:28:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783348108; x=1814884108;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=vZWrmCgooqGaeLMQA0CJMhP9+N3djHYev7afW/QNC5s=;
- b=IiEjoMl/bwXTQUJUe12HovqzwD7Kxq63mWfl11hE1B2QAauQzJqJnpOq
- 44ariqOKeKujwN2iRu5cjt192KfaQO9tBH+Z7E2nw/F66c3EGSjlHF7zE
- MRBSlgnJY9G7vD7aOhJSQH0rROQdJclrsDHHFT1QTPAGUK329lDHU/cL/
- G6HXmB4IRy3wgVN+/oIkxozFVp2GzNAu4kRpoQKFownASxKzu2424SPf7
- 3dWRodUOZhyJrEyArUGRfCeBM2uKPCwE4UhU0kT5yxBzeJXQOWNfoQhhz
- 01Iot8mWfF8Jkv/pFymmfWTnXYrE0GGYjwSFTqoZQhIbsseSeCM0mgtGG w==;
-X-CSE-ConnectionGUID: 8ooMJLFwQKCF2ZT9JBejGA==
-X-CSE-MsgGUID: nA1wfQ98QF29iaCTlLcf8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="87662090"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="87662090"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 07:28:27 -0700
-X-CSE-ConnectionGUID: Zf/XojuVTFmI51ZpegllVg==
-X-CSE-MsgGUID: 7fDr0dcwSFqbvx5P0d3NwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="251049438"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.132])
- ([10.245.244.132])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 07:28:24 -0700
-Message-ID: <c5f38603809c5385d2eb8937762b92c4f56c18f9.camel@linux.intel.com>
-Subject: Re: drm/ttm/memcg/lru: enable memcg tracking for ttm, xe and amdgpu
- driver (part 2) (v2).
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
- tj@kernel.org, christian.koenig@amd.com, Johannes Weiner
- <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>, Roman Gushchin
- <roman.gushchin@linux.dev>, Shakeel Butt	 <shakeel.butt@linux.dev>, Muchun
- Song <muchun.song@linux.dev>
-Cc: cgroups@vger.kernel.org, Waiman Long <longman@redhat.com>,
- simona@ffwll.ch, 	intel-xe@lists.freedesktop.org
-Date: Mon, 06 Jul 2026 16:28:22 +0200
-In-Reply-To: <CAPM=9txKzx6qji23YpY=d6Wrd-se-abZoOmDUW32HCx5YsL0tA@mail.gmail.com>
-References: <20260706052330.1110909-1-airlied@gmail.com>
- <CAPM=9txKzx6qji23YpY=d6Wrd-se-abZoOmDUW32HCx5YsL0tA@mail.gmail.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F9E110E3A6
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 14:37:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783348654; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=C2vV/Zv8rnqycP3X/i18vOoOF4ItlKiKlXuyEVsdSSztOG0uonFooKFIMu30oIjkAc9JHKtt6+LDDPCwI0lNA6tZzUKjT1q6QFVcauwZZYcG7mUGmyfh+QUb6Ho+wWczeCGu3iQHhee1W9YuG7SmMr2Io3GjfvYP2FAqbZfcd7w=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783348654;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=3BGnFRvuYHig+06rp+UmmAvcj1kSjosNAxgMkDDKtVc=; 
+ b=PIlDvqQ2NUaeMfP+VfRmShY+BBGSdOn0hlJwav8EhzHt3v7VdurC9jqnnVxCrspPHOZK8jSXNFKbvyNGGWRbswdIGNfC1K8r7stxmULRsrxh3ke3yCunS9fiZJOeMU2WWOCRP86A9tgCDQwDYqgUsLmfMTn9b4OC5a1gYen62vk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783348654; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=3BGnFRvuYHig+06rp+UmmAvcj1kSjosNAxgMkDDKtVc=;
+ b=PT/dVq1YT2WIilYpgQK6vreaafhwTqD/29rkn1FUwkofb5StCq9wrwMN0cTl6x4L
+ WBSL3cVw0GrGain4ig1lAsFjmh+339IVulIlJqIvNN/qYAT3ZL4VZC+HDFWYxOgkZ/l
+ fcjsjY3YPb1qulruhZwvNoP4vZTq+J5ty8IB1Oc8=
+Received: by mx.zohomail.com with SMTPS id 1783348651535783.6421995425076;
+ Mon, 6 Jul 2026 07:37:31 -0700 (PDT)
+From: Daniel Almeida <daniel.almeida@collabora.com>
+Subject: [PATCH v5 0/4] Clk improvements
+Date: Mon, 06 Jul 2026 11:37:11 -0300
+Message-Id: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6XRTW7DIBAF4KtErEs1A+HHXfUeVRaAxzWqE1JMr
+ EaR716ctIoUd9flW7wPZubCRsqRRvayubBMUxxjOtSgnjYs9O7wTjy2NTMBQkEDDQ/DBy/nI/G
+ xuEI8ADpn2lYpbFktHTN18esKvu1q7nLa89JncnfGiBUzIUduG+2VtKg7419DGgbnU3bPIe0Xu
+ Y9jSfl8/ekkFv8/2m0ehFVVcODoGxMQvdcSH6rLTJP8fV0DglkRshLGtJIkkWqC+IvY3gmNdkV
+ sK2E9gRXGarDwSMy3VWf6PNWTlZ99z/M3M87OONABAAA=
+X-Change-ID: 20250909-clk-type-state-c01aa7dd551d
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
+ Fu Wei <wefu@redhat.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>, Boqun Feng <boqun@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
+ linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Maurice <mhi@mailbox.org>
+X-Mailer: b4 0.15.2
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,90 +91,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-07-06 at 17:55 +1000, Dave Airlie wrote:
-> On Mon, 6 Jul 2026 at 15:23, Dave Airlie <airlied@gmail.com> wrote:
-> >=20
-> > This is just a repost with a number of sashiko identified problems
-> > that I fixed.
-> >=20
-> > I committed the vmstat counters and list lru changes, and they are
-> > now in tree.
-> >=20
-> > This is the remainder of this series. Intel have expressed interest
-> > in getting
-> > this landed for xe, we can drop the amdgpu changes for now if they
-> > can't get
-> > across the line.
->=20
-> I've put the latest code at
-> https://github.com/airlied/linux/tree/ttm-memcg-objcg
->=20
-> I've been fixing more sashiko found issues in there before I repost
-> in
-> a few days.
->=20
-> I've reordered things a little in the branch but mostly the same
-> code.
->=20
-> Dave.
+This series contains a few improvements that simplifies clock handling for
+drivers.
 
-I have a couple of additional patches to this series to ensure shmem
-memory allocated as part of shrinking or swapout ends up accounted to
-the same cgroup that allocated the TTM memory. It looks like recursive
-per-cgroup shrinking is not an issue, since somebody thought about that
-already.
+Patch 1 implements the same typestate pattern that has been used
+successfully for Regulators. This is needed because otherwise drivers
+will be responsible for unpreparing and disabling clocks themselves and
+ultimately handling the reference counts on their own. This is
+undesirable. The patch automatically encodes this information using the
+type system so that no misuse can occur.
 
->=20
-> >=20
-> > I've dropped all previous acks/reviews.
-> >=20
-> > This series adds the memcg counters for GPU active and GPU reclaim
-> > to align
-> > with the two global vmstats. It adds an accounting flag to TTM
-> > alloc/populate,
-> > and enables memcg tracking and shrinker support in TTM.
-> >=20
-> > Then it adds amdgpu and xe support.
-> >=20
-> > I think for this to land, Christian holds the main objection which
-> > I still fail
-> > to fully understand beyond it doesn't solve all the problems we
-> > ever have had
-> > with cgroups and drm, so we shouldn't even bother, and maybe we
-> > could do it at
-> > the object level, and integrated with dmem, and android cross
-> > process accounting,
-> > but I still feel this is a good baseline.
-> >=20
-> > I think this is the right layer to hook this into TTM, where we
-> > allocate memory
-> > and I think accounting for this memory in a proper way should be
-> > done.
-> >=20
-> > Intel folks (Thomas/Maarten) please review and express concerns as
-> > well.
+Patch 2 implements Clone for Clk<T>, so that a driver can hold a
+long-lived clock in one state while temporarily moving an independent
+clone of it through the other states. This is the outcome of the
+discussion in v3 with Boris Brezillon and Gary Guo.
 
-The initial use-case for us is being able to pin rather substantial
-amounts of system memory due to potential upcoming hardware features.
-While RDMA is using RLIMIT_MEMLOCK for this, that is per process and an
-attacker could easily launch a number of processes and pin all of
-system memory, so the thing optionally protecting from the DoS is the
-memcg limit. So regardless of whether we also account against
-RLIMIT_MEMLOCK or not, we need an additional cgroups limit.
+Patch 3 makes things more convenient by offering devres-managed APIs. This
+lets drivers set clock parameters once and forget about lifetime
+management.
 
-Moving forward, there also a need of limiting the amount of allocated
-graphics memory only, due to the way certain apps behave when probing
-for available memory. :/.
+Patch 4 converts clk.rs to the newer kernel-vertical style in order to make
+future changes easier.
 
-I have unfortunately missed large parts of the memcg vs dmemcg
-discussion, but I asked Claude to fish out as much of the essentials as
-possible from the mailing lists so I can read up.
+The pre-existing error-path imbalance in the C function
+devm_clk_get_optional_enabled_with_rate() that was noted during the v4
+review is a C-side issue and will be addressed by a separate patch.
 
-Thanks,
-Thomas
+---
+Changes in v5:
+- Rebased onto the latest clk-next.
+- New patch: "rust: clk: implement Clone for Clk<T>". Each clone is an
+  independent view of the same underlying clock, owning its own
+  prepare/enable counts; the raw pointer is shared through an Arc so
+  clk_get()/clk_put() stay balanced. Follows the v3 discussion with
+  Boris Brezillon and Gary Guo.
+- Moved rate() and set_rate() from Clk<Enabled> to all states; the C API
+  does not restrict these to enabled clocks, and some clocks can only
+  change rate before being prepared.
+- Made Clk::<Enabled>::disable() infallible, matching unprepare() and
+  the void C API (Onur).
+- Fixed a typo in the "# Invariants" section, fixed SAFETY comments
+  that referred to the non-existent `self.0` field, and added missing
+  INVARIANT comments on the state transitions.
+- Added the missing rustdoc link definitions for clk_unprepare and
+  clk_put (Maurice).
+- Dropped the redundant `Result` import and the `use
+  kernel::error::Result;` lines from the doctests; the prelude already
+  provides it (Miguel).
+- Added #[inline] to the devm_* helpers.
+- Link to v4: https://patch.msgid.link/20260618-clk-type-state-v4-0-8be082786080@collabora.com
 
+Changes in v4:
+- Rebased onto clk-next. Alice Ryhl's "rust: clk: implement Send and Sync"
+  series is now merged upstream, so it is no longer carried as a dependency.
+- Fixed the build with CONFIG_CPUFREQ_DT_RUST=y. The generic DT cpufreq
+  driver only has the (unbound) per-CPU device, so it cannot hand a
+  &Device<Bound> to Policy::set_clk(). Added a pub(crate) Clk::get_unbound()
+  for the few in-tree abstractions that operate on a device outside a bind
+  scope; set_clk() now takes &Device and uses it. Clk::get()/get_optional()
+  and the devm_* helpers still require &Device<Bound>.
+- Added impl From<Error<State>> for kernel::error::Error, so the fallible
+  state transitions can be used with `?` (and chained) instead of
+  .map_err(|e| e.error).
+- Added Clk::<Prepared>::with_enabled(), which runs a closure with the clock
+  temporarily enabled, scoping the Enabled state without giving up the
+  prepared clock.
+- Documented how to change a clock's state at runtime via an enum, for
+  drivers that enable/disable across resume/suspend.
+- Link to v3: https://lore.kernel.org/r/20260107-clk-type-state-v3-0-77d3e3ee59c2@collabora.com
 
-> >=20
-> > Regards,
-> > Dave.
-> >=20
+Changes in v3:
+- Rebased on top of 6.19-rc4
+- Dropped patch 1 (from Alice), added her series as a dependency instead
+- Fixed Tyr, PWM_TH1520 drivers
+- Changed clk.rs imports to kernel-vertical style
+- Added support get_optional shortcut for Prepared and Enabled (i.e.:
+  Clk::<Enabled>::get_optional())
+- Fixed misplaced #[inline] tag
+
+Thanks, Danilo {
+  - Moved the devres changes into its own patch
+  - Require &Device<Bound> for all functions where a &Device is used
+  - Account for con_in in SAFETY comments where applicable
+  - Added backticks
+}
+
+- Link to v2: https://lore.kernel.org/r/20250910-clk-type-state-v2-0-1b97c11bb631@collabora.com
+
+Changes in v2:
+- Added Alice's patch as patch 1, since it is a dependency.
+- Added devm helpers (like we did for Regulator<T>)
+- Fixed missing clk_put() call in Drop (Danilo)
+- Fixed missing parenthesis and wrong docs (Viresh)
+- Removed extra "dev" parameter from "shutdown" example (Danilo)
+- Removed useless type annotation from example (Danilo)
+- Link to v1: https://lore.kernel.org/rust-for-linux/20250729-clk-type-state-v1-1-896b53816f7b@collabora.com/#r
+
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+To: Danilo Krummrich <dakr@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+To: Drew Fustini <fustini@kernel.org>
+To: Guo Ren <guoren@kernel.org>
+To: Fu Wei <wefu@redhat.com>
+To: Uwe Kleine-König <ukleinek@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>
+To: Stephen Boyd <sboyd@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>
+To: Boqun Feng <boqun@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+To: Björn Roy Baron <bjorn3_gh@protonmail.com>
+To: Benno Lossin <lossin@kernel.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+To: Trevor Gross <tmgross@umich.edu>
+Cc: linux-pm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-riscv@lists.infradead.org
+Cc: linux-pwm@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: rust-for-linux@vger.kernel.org
+
+---
+Daniel Almeida (4):
+      rust: clk: use the type-state pattern
+      rust: clk: implement Clone for Clk<T>
+      rust: clk: add devres-managed clks
+      rust: clk: use 'kernel vertical style' for imports
+
+ drivers/cpufreq/rcpufreq_dt.rs |   2 +-
+ drivers/gpu/drm/tyr/driver.rs  |  37 +--
+ drivers/pwm/pwm_th1520.rs      |  17 +-
+ rust/kernel/clk.rs             | 722 +++++++++++++++++++++++++++++++++--------
+ rust/kernel/cpufreq.rs         |   8 +-
+ 5 files changed, 602 insertions(+), 184 deletions(-)
+---
+base-commit: 92010229c4b38897f1319d260162d2f96925ed17
+change-id: 20250909-clk-type-state-c01aa7dd551d
+
+Best regards,
+--  
+Daniel Almeida <daniel.almeida@collabora.com>
+
