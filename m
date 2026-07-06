@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEEB5C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:14:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33C78C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:16:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8BD510E723;
-	Mon,  6 Jul 2026 03:14:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2F310E2D9;
+	Mon,  6 Jul 2026 03:16:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XoD1jW3Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="krSDRfqy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1A1310E720
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:14:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8311010E2D9
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:16:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5E695600BB;
- Mon,  6 Jul 2026 03:14:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2C41F000E9;
- Mon,  6 Jul 2026 03:14:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2469340833;
+ Mon,  6 Jul 2026 03:16:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6FD1F000E9;
+ Mon,  6 Jul 2026 03:16:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783307647;
- bh=JUX9+YEPckBcA5J63SAon0NtjBhJ548ZpTmAlUVv1z0=;
+ s=k20260515; t=1783307770;
+ bh=ECQCj7esbwlnfZJWLSmjfy2vM0OTQO0rkBKv90TYI8M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XoD1jW3QmtSQeAhFpU7VK40c+6qC4FrB3TI5xsunF//nfSFiGkWR9hyiELLBAjSrQ
- Mi6LTID7vRmH38k8KBR09GHpuYlJtNMFpK213s1tB9KnKBPNts/QQd05e3v7qllnF/
- wNJ1LZfYr8KIhbOrN6m4aZks3NIkZnBxAVpGwx1R6zrWZoSig/wQsPlMt5inNXSoUF
- b+axbsO/rAVX8EU1GgvlzfQ0evYhsjJjclmhtg+im5Rx2Udg+YkwDMbHHNnsxbEDUU
- Yw5QJMoUUzQBI3quxTHdc0iyJEK5TT70+AdTheEqpMOGj8UyGNkn0o43zVauDYFOX/
- d2Vlo53300SaQ==
+ b=krSDRfqyf4JiAvLplwWcK6elrXs3sphxpmQV5g74zhPsd4jpHleReU9w2Yo18Q38Y
+ NqGjxiZ8/4DEyXuhNdoQfjxj+DiDNe2KZakYJAmg1Au+R/eb/2X2pPo+pxE4utImXf
+ S3KSTRM68oR/MrRrzVrxOZR41O7VbPQWzT9TqSlH0+RDFHR1Qc9zPkbGTG8zydj6hl
+ /AbuyN4+ThQyBfEfvq67D3Axgb/qW7kWpONREWoT99joEG/cQVfGUoGT0gpeRHLeGI
+ hqvXVI4LCdfBikkCdAdJztiuMLRhHkH6LD1bXcDz3yICXw/s3Cjg5JlZDYhEB57qEM
+ hiKb1D6Ju231A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/10] amdgpu: add support for memory cgroups
+Subject: Re: [PATCH] nouveau/instmem: use iomapping interface for instmem
+ handling (v3)
 To: "Dave Airlie" <airlied@gmail.com>
-Cc: mkoutny@suse.com, tj@kernel.org, dri-devel@lists.freedesktop.org,
- hannes@cmpxchg.org
-In-Reply-To: <20260706024122.853329-9-airlied@gmail.com>
-References: <20260706024122.853329-1-airlied@gmail.com>
- <20260706024122.853329-9-airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260706030520.857104-1-airlied@gmail.com>
+References: <20260706030520.857104-1-airlied@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 03:14:06 +0000
-Message-Id: <20260706031406.BB2C41F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 03:16:08 +0000
+Message-Id: <20260706031609.4A6FD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,98 +57,80 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Evicted GPU buffers bypass memory cgroup limits because the memcg =
-accounting flag is cleared during VRAM eviction and pages are never recharg=
-ed upon re-validation.
-- [Low] Missing dummy implementations for GPU page memory control functions=
- when CONFIG_MEMCG is disabled causes a linker error.
+- [High] Unconditional execution of io_mapping_init_wc() in check_io_mappin=
+g() causes severe ioremap_wc memory leaks during BAR2 bootstrapping.
 --
 
-commit 14a7ef9775310750fa8f3933b124ce94b537e5c7
+commit 17419e048ef493385192b9b14726d1e9ad616fed
 Author: Dave Airlie <airlied@redhat.com>
 
-amdgpu: add support for memory cgroups
-   =20
-This adds support for adding a obj cgroup to a buffer object,
-and passing in the placement flags to make sure it's accounted
-properly.
+nouveau/instmem: use iomapping interface for instmem handling (v3)
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 8062b3d611574..1c8123c564ac1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -155,11 +155,14 @@ static void amdgpu_evict_flags(struct ttm_buffer_ob=
-ject *bo,
->  			amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_GTT |
->  							AMDGPU_GEM_DOMAIN_CPU);
->  		}
-> +		for (int i =3D 0; i < abo->placement.num_placement; i++)
-> +			abo->placements[i].flags &=3D ~TTM_PL_FLAG_MEMCG;
+This replaces constant ioremapping with the io_mapping interface to avoid
+the constant need to ioremap when instobjs move. It delays creating the
+mapping until first use to avoid resource mapping errors with simpledrm.
 
-[Severity: High]
-Does clearing TTM_PL_FLAG_MEMCG during eviction allow memory cgroup limits =
-to
-be bypassed?
-
-When a user forces eviction (for example, by allocating more VRAM), the flag
-is cleared in amdgpu_evict_flags() and TTM moves the buffer to system memor=
-y.
-The pages are then allocated via ttm_pool_alloc() with memcg_account set to
-false, leaving them uncharged.
-
-If the user later re-validates the buffer into GTT, ttm_bo_validate() calls
-ttm_resource_compatible(). This function only checks the memory type and
-contiguous flags, ignoring TTM_PL_FLAG_MEMCG.
-
-This seems to allow the buffer to remain backed by uncharged system pages,
-potentially letting a containerized workload exhaust host system memory.
-
->  		break;
->  	case TTM_PL_TT:
->  	case AMDGPU_PL_PREEMPT:
->  	default:
->  		amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_CPU);
-> +		abo->placements[0].flags &=3D ~TTM_PL_FLAG_MEMCG;
-
-[Severity: High]
-Does this also allow bypassing memory cgroup limits for TTM_PL_TT evictions
-to the CPU domain for the same reason?
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c b/drivers=
+/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
+> index 6fbaa1e5876dc..f4489efc94a79 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
 
 [ ... ]
 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 4c682b91cbbee..625de4a287eb3 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -3032,6 +3032,7 @@ __always_inline struct obj_cgroup *current_obj_cgro=
-up(void)
-> =20
->  	return rcu_dereference_check(root_mem_cgroup->nodeinfo[nid]->objcg, 1);
+> @@ -188,6 +190,16 @@ nv50_instobj_map(struct nvkm_memory *memory, u64 off=
+set, struct nvkm_vmm *vmm,
+>  	return nvkm_memory_map(memory, offset, vmm, vma, argv, argc);
 >  }
-> +EXPORT_SYMBOL_GPL(current_obj_cgroup);
 > =20
->  struct obj_cgroup *get_obj_cgroup_from_folio(struct folio *folio)
+> +static bool
+> +check_io_mapping(struct nv50_instmem *imem)
+> +{
+> +	struct nvkm_device *device =3D imem->base.subdev.device;
+> +
+> +	return io_mapping_init_wc(&imem->iomap,
+> +				  device->func->resource_addr(device, NVKM_BAR2_INST),
+> +				  device->func->resource_size(device, NVKM_BAR2_INST)) !=3D NULL;
+> +}
+> +
+
+[Severity: High]
+Does this unconditionally initialize the mapping and leak the previous
+ioremap_wc allocation if called more than once?
+
+Since nv50_instobj_boot() acts as the .boot callback for BAR2 page tables,
+it is invoked for every leaf page table during VMM bootstrap. Because BAR2
+typically spans multiple page tables, check_io_mapping() gets executed
+multiple times in a loop.
+
+Should this check if the mapping is already initialized (e.g., checking if
+imem->iomap.size is non-zero) before calling io_mapping_init_wc() to avoid
+leaking the vmalloc space?
+
+>  static void
+>  nv50_instobj_release(struct nvkm_memory *memory)
 >  {
 
-[Severity: Low]
-Will this series cause a linker error when CONFIG_DRM_TTM=3Dy and CONFIG_ME=
-MCG=3Dn?
+[ ... ]
 
-It looks like mem_cgroup_charge_gpu_page(), mem_cgroup_uncharge_gpu_page(),
-and mem_cgroup_move_gpu_page_reclaim() are declared unconditionally in
-include/linux/memcontrol.h.
-
-However, their definitions in mm/memcontrol.c are skipped when CONFIG_MEMCG=
- is
-disabled.
-
-Since ttm_pool_alloc_page() in drivers/gpu/drm/ttm/ttm_pool.c calls these
-without ifdef guards, this seems to lead to undefined references during
-linking.
+> @@ -277,7 +289,12 @@ nv50_instobj_boot(struct nvkm_memory *memory, struct=
+ nvkm_vmm *vmm)
+>  		iobj->lru.next =3D NULL;
+>  	}
+> =20
+> -	nv50_instobj_kmap(iobj, vmm);
+> +	/*
+> +	 * boot is only called on BAR2, if we can't remap the complete
+> +	 * BAR it's unlikely things are functioning well.
+> +	 */
+> +	if (check_io_mapping(iobj->imem))
+> +		nv50_instobj_kmap(iobj, vmm);
+>  	nvkm_instmem_boot(imem);
+>  	mutex_unlock(&imem->mutex);
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706024122.8533=
-29-1-airlied@gmail.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706030520.8571=
+04-1-airlied@gmail.com?part=3D1
