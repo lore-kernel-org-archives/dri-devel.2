@@ -4,148 +4,189 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA6DC44503
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D58C43602
 	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:44:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5A510E93C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A990010E93F;
 	Mon,  6 Jul 2026 12:44:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="yBWsdBl9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dx4jTolU";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MuQU5EGY";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021088.outbound.protection.outlook.com [52.101.100.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88D0810E906
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:44:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jaApEIBkMfhjIdizbaZZMNFXAgRSkldbUTuuGL68EPJK7fozAZCBXLhsN3FPaPrhlx3nG6piSKdVnVFTfvtc1P9mQwdpJjyzv5tzlIjQLn3XnnOm5ddR5qfMJRvZHYElwx83bO93Z4w17NzSRCjEuIvhgWWIDrXqYeNHg/aiiRZY1NhPqrbbfFyyKVGAhY/dby2+mUoqjPTAmzbPQ4afgp2cCgyldKzgC+hN1Cxo0gqMy4rZdg550eEQxDwcdp2ABCw1KqkL13jkBzo7+/uEaF4Lv1qKSY//SOKpe4mI3vxj4eS2/lp7AsQLxk1M1a149vcaFFjtzriXr1BUqHpYGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qkTkMNy8dei3NgJZXZ+X/gFRrX6EQlrU6YQnsxP665E=;
- b=Qa96rGzK37yKPBGkpY7b0sAy8nWsjTojg5MMmh3jc1ORvi/IwAxf5NIGtGObJN4nvlo1OMESySekYozFwWbX48SsaweC+KLuAOAsDBPjf7RdIDa0PwCbQ74eLedil0MxiEs/Uy+6vnmrpBbujoYaMJM8BqhDApb3LwS2YHuF3PnE2n6NfK5RvMCXGk2fxAPZvCYajnc88iv78WkcB9YvEyUFw1LIyZADav72r68uARYZ1tt2xrB5yjvp6GJHDVaEBXhmpQjCV0qMbVKR7UBxHGs5aO0w+/R3a0zt55Tg63zscArzHSvO8svlujeRNoVmtj4gs7E7Q1SxxtR/b0bM+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qkTkMNy8dei3NgJZXZ+X/gFRrX6EQlrU6YQnsxP665E=;
- b=yBWsdBl9zhHhZkdxvHRG8H43qaKUuv1D1t9SPyUEDOZpk7bnCb7NjW4ASo0BA2f20N4X/OmTAKTVW0BKd6mr8l4W0CbRXQqZjTkq0B34/qlt+K7pMhGh2BsOoSFCOKEOcxad9VuuOKSwDERcuQuI6FNqLUL9ka8BtII8YP2yg60=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO7P265MB7617.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:40c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 12:44:32 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 12:44:32 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Mon, 06 Jul 2026 13:44:30 +0100
-Subject: [PATCH v6 17/20] gpu: nova-core: use I/O projection for cleaner
- encapsulation
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79B4C10E91C
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:44:55 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 666AxHMD395393
+ for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 12:44:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UAsGd5ApODao7ya5c+v4THHQP6gUJNMav6AFOuVH/oU=; b=dx4jTolUOG0UpNFm
+ MhBn5F9xncEGRrD1T/WbYOIOs3i3znC4K9HgDJ61gDB6xdRp65m00l5wnZldKlsq
+ UGKJyHYuRgj2rx1yWFj98+JVTvIWD8D1tW2a7NNrmZD+Omhoi2ZzFx+iTqY3BhlR
+ bQmeEoKzIflfUDGPi2qT41yIeKOQOyGQ69C+JZVj7HLmBDYemJKOwPFP4nMySxMW
+ pNU+tFMx9q2xdwoKZI//juImwOVohKqTD7WpP3Iz5UKAc32CYWiU4tF5Z6Zs3Ifh
+ Us2AaUOVjlI4TsxDMCWcZKl7cPWFLrvNrmcTpAowAidmXbdRF8YY19EhLdn7H4iX
+ z+F4rA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f89qpgqhf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 12:44:54 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-92d1cae5939so296048585a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 05:44:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783341894; x=1783946694;
+ darn=lists.freedesktop.org; 
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=UAsGd5ApODao7ya5c+v4THHQP6gUJNMav6AFOuVH/oU=;
+ b=MuQU5EGYafZwbkfUS4YFfMLgimcLqxdKVmix94alpSSbmgirDj8Og5D3TNxhu8VArg
+ dk17nDHfjSqp8imL2pqTBKvdRCiOvvmdhPYy1IoEPpgoJwOUnVw9jZu/pgMiwhOUK0Wl
+ CYrOuxLnyCP13ZlObfbgyTTJVXJ00lzP0xZ1UF45slrHfqXKzrufBt5mnKW+JZEr6kx1
+ ZdgWNKSMCnxRi5VNCGPlrEbTm3cRf+OjQab0kUzett1YOwLdIH+TGZgSnlaW/1Le4wXg
+ PBo1MgEhxwFhTVtQjm3nB54fsNV0q+Cb6morJIa7huXuxaZqDoKtM7gG36qPzP/ZJmmj
+ 01Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783341894; x=1783946694;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=UAsGd5ApODao7ya5c+v4THHQP6gUJNMav6AFOuVH/oU=;
+ b=g8jb7X3ZsZYR0DDXqvyGJnMzeyZ/eaIx7lQG/5QKINVK2z4AUlI+z6X1nRHDr0IbMC
+ lVXil5p1n1gEE73p9zX5Az8SKMlgatRItWNZWgaZ3UOMFLiuAhtrzZrLsgvSTuJVSoHp
+ kBVwvjE9VVtl1FlCPzp4hrXIdWlBoF2W5DHnn/r/4v2qmKDT/ppj9nyMCs4hvt2oEpzW
+ olcvLbVYvR5/YBNTi8nGtp6Z//hxeLe80O67rj4c1yt/hVsz+O6diKTPJxOxVdy591XK
+ 1QAEh5vh2k9Y/V7cPui2cbBm/sr+aG4Hh8I9k7MPj4UuL3X/GGrTuATYaBX/gN23CQHs
+ 7g3A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqLqAjSH57yGVQqXO6JZ7ksS8kQm0v7SOEInl8JzN9nyxKo/d+wtiCOmY8ATaJedSDe27MAR62rlE8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyNPICVyeFoWTvIeUhugpx7mnw/CtdYIDTPet0b0DGWNDaMGgni
+ 0DUYVZLbtVTBEQqt7zKSrdEvl1zEYIpX91lVc13msvZSLcJHkqiIDR3GrKAxsC5LCNP59QN+grr
+ q3utfOvzoxaOB51h2uN7967+aJSQdcPNPB8y97U0g6QsV3cJMUx99owWdpn8uo7Coal1U3vE=
+X-Gm-Gg: AfdE7ckN+VykIbXVOnnNtNdEpqCHIrlUbAE6IEJDtTQSQMRBW5OdDvdOK1LBmmn7xLx
+ afgcjWMmSeMqX3Nte0xlcWEtqJvhCR14e4aEY8oqrdfC99D7tHGycimfPi4BokvntQK2d8gdMg+
+ iagJZTzaWmwKEcFx9WTYmtKwgkzcK7jfa50kAAgeCpv1uZaW4vJEUUbqoGXO6ASsoe6vgQs3TwR
+ BQAN1Py2tRy5hZsooNjO6XqNlpV/OFDHAwU2nwEC78X8ESVUdw7I6zVttfbiNiBzTgH1B2fbass
+ mbPMcBC6SK1Pb3Np9yLSl6apPaOGZtgiFrszPdd/D1GSPWHPYGJxdgaaqRvCciDmoT6lO3bUzAg
+ t+xkdvEeuAZ14OoEBOCtbr97eMMQRWTazU6g+lP5Y
+X-Received: by 2002:a05:620a:2b90:b0:92b:67e6:8ab5 with SMTP id
+ af79cd13be357-92ebb5a355cmr48466285a.63.1783341893749; 
+ Mon, 06 Jul 2026 05:44:53 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b90:b0:92b:67e6:8ab5 with SMTP id
+ af79cd13be357-92ebb5a355cmr48456285a.63.1783341892757; 
+ Mon, 06 Jul 2026 05:44:52 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:86f0:c42b:ef4c:d3bb])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47aa0a55be4sm22126539f8f.31.2026.07.06.05.44.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jul 2026 05:44:51 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Mon, 06 Jul 2026 14:44:13 +0200
+Subject: [PATCH v3 01/20] powerpc/powermac: fix OF node refcount
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-io_projection-v6-17-72cd5d055d54@garyguo.net>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
-In-Reply-To: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
-To: Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341863; l=13153;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=HKi9hwYdpjEBRaCrqGl48lsLJFiatgMmWVT8hypHzSI=;
- b=V28KLqAn7Myf3nRwVRHofIpOjsFh76FlHTYksJouFynM2kuJHaj20kUs+jm2EI5Jf95P2V0yW
- UFlDUdR/kBZDuuOP9Vrk0NgFi67WZv9v1iWhTq+0Srgv8Y3x/gWCsbr
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: LO4P265CA0177.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:312::20) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7617:EE_
-X-MS-Office365-Filtering-Correlation-Id: f73cb439-c137-41f1-48b4-08dedb5c53cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|10070799003|18002099003|921020|3023799007|6133799003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: j9WZESZV8uYtQ1qG56/MQA8TNdiDhOi7czqbJoErdI7DLgzeljY1c0VVKlQujzYhqxkDrSteWk7ELUGMBY+17vVZfiZqA9A4vNK+wlX1dfpbnhlJ+3rnfwm5uyOXK7IONxQtWC7Gx7KxFZe3FmfwbdtrDcYlspwp4Xj8rR/C6g2MuCCMsUnJltPcGQtZEcbySLjr9AV/doxPNTyfFp831XvZ9RZHE58GfqdyhfcUdysy3WRX7TAZ8jXEOfl0WqB5pB162A70ePA+Nl3f6QWR4KdqB2X77ZmbDv0b9k7bIjvvC65dBibpB8duzXnEAMxyG+vw8c+RNdq7TBSkE64id4aL2guh4/55p9ULwUL2Wy/a3OVMfceThxDPL3EUV1yk27wCRlkCQWktLtvwqkrglY6PKE4difBjE+kKes+n5LCoMOqaMSxnsaDHBtthG6/Gf0F1fQXuxMDbr7Ua65+6MFco/zLFCiJl8qBPAFY3ahkxqZpffMiKLQQIlrnrUb/1KCvDOWM2JqYxHkncMGbiEt1ABwFQ8upBgKmP/UUoA0GiZfMS7uG6ZzvOVm9QkjUDpI95lFsDsyHLDKlzXRI/2L5cyeR10aWCjz6q4z91ettGh7J4/PbMKKZRK7Nok1Ne0XhMiPa4dNTAe7rey3M1M1zxS8M3HnOsEPvhacjzmEcZhZxc9jFjg9XwwmUNNxQl4ieyg3mSt5+qmAo7AgpYeA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10070799003)(18002099003)(921020)(3023799007)(6133799003)(56012099006)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHBTVUFaM3NFaWRab1hWTm9mNlJOajJ2YlJaR080T3A3OFZ0bi9UVDF1V2s2?=
- =?utf-8?B?dGJwY253T2d5a3BVKzlEejB4TXZJWkhHZFRmVGpuQzM5UmxkUTJDc2x1Z0dX?=
- =?utf-8?B?alNwVFQrM1RjUmE4M1liY3JPSXpqa0J4UXVrL3lZVDlQS0JqUlVrSnFhQ1A5?=
- =?utf-8?B?MVQ1dVc2eUVVdFBCZ242S3Rlc2QxY2tvdm5tM0UxL1lTQ0I3bE9lTENqRDFX?=
- =?utf-8?B?TUJTSHpSSnV4NG9veWUxSURmTDQ5c1VMcC9EUGREV3YzVUZUczB4MGE3S2ZG?=
- =?utf-8?B?c1NlQjV4T0VOUVJDL21GcU92clZKUXBJRjN6NFFwNkdRYnRCVU52aUUzQ24r?=
- =?utf-8?B?alF5OWZoY0VESHdPRWJPQm52c1oyNGtqR29hc1VxOC95azllV3RiV09xb3FQ?=
- =?utf-8?B?MEVNdFE3c1gzR0pIT3dDU0JxbCtROHEzd0xLWS8rd0lPNGVCb0MzVDN6dVdO?=
- =?utf-8?B?TjVXd3JOU1hsalhpOVkrdDU5QkEwTlM1QUtXWFdyOVNCZGFhQjBidjdETVNk?=
- =?utf-8?B?UWhlS0oyeU52Nko1TXVCZ2l0TDNrM25jZWdiZWpsYmJWTWhIdzBzVlQxdW5w?=
- =?utf-8?B?aHJrMWgzOC9MOWh6cjZPOUJyNXppbjkvYnl5SFJKSS92UXVNVkl5YVA0VGcx?=
- =?utf-8?B?UHk3UGdDRzJLV2FtWnJiVlRrUnRXOHhLeUFGempLd0hOcHYwUVlJN1krMU9M?=
- =?utf-8?B?KytESy9SNjEvVU53UUhTYjdaQ0FBbzZvSnRlSE9nYkJVYWY1THZXVitBM3VV?=
- =?utf-8?B?cm9tWkE2ZnIwMXhZS1Q4bVpmR1l0aEEzc3JOWWJWSEhtV2JRdG83eTJ1dmxT?=
- =?utf-8?B?a0NmQkZjSWd2dXpyV0kweFJrZU8vRGl6TURGSGpCK1I5d2JqSmQ5T2Z3M0g0?=
- =?utf-8?B?aU12OHRqcGNDdnp3TWJKRzdNWmRPL01YOVh4SjR4aFBybFk2cktFNGR0V3Ju?=
- =?utf-8?B?Q1FaMytWNlN2c0JrQmJvZjk4Z3cvRENyaXo0TGZ3WHJnRGVZVDZDWnBvY0xK?=
- =?utf-8?B?dkdlTy9vL1lUT21iTjJCNmRQSGtaN0NtbTRNMDZTYWlyUW5wSkg0RTNTc2ZQ?=
- =?utf-8?B?S2ZoelhicWYyb0U4N0thL2dTY042RTJ6QjZFNU1HZ1RLZ051eXVMaGRzQnh2?=
- =?utf-8?B?UUJyRFU3RzFxajRvWk0zUDlQT09KNGFGNkhlZDR0UCtma1lTczB5dnhoRDVM?=
- =?utf-8?B?OVNWSUJlQnBMV2IrODNhYXRvTjFpT3lhOWJ3cXU4WWtoaVF1Q0Vsdmhoc3pZ?=
- =?utf-8?B?WHZTaUhYdzErR1c4UlRzYkI4RUVvOFNIWWlmaHFhb0c3TFFNcmpIaHNqL2lj?=
- =?utf-8?B?dmFlaTd5WUYxWUR3VXduZ2tCL1dNakloUTR4eFI1Q0xoZmJvVTRZUlBEaU9K?=
- =?utf-8?B?K3F2dERsOVZqV3ZIS3ZTS09RWm5yNHkwSk9hdXJNb1RyeGVlNHEwMjdVUVpQ?=
- =?utf-8?B?LzJ6eVdOVXZORnRFcCtjTmpzNzIxNndkOWxvQ2w0VEdXdUVXMFNIMU9lRFdM?=
- =?utf-8?B?QlVMRG5KRm9iWW1RaWE1VVZGWmdSNVp4TXV6UmgrOWFQU0pTZWNDQng2eFFp?=
- =?utf-8?B?SUx4UlltdlZReC9DZzlTWkJ1Z3kyZGFQNGx3aVpiR1BYTjl6OUxMaHBIWktL?=
- =?utf-8?B?Yzg4M3N1N3Vtd1FnYXNRNytaanVOU1Q2RXVDa0RVak1qWDJLcTYycWlwTGph?=
- =?utf-8?B?Ujhob0VqMVh5a2MyL2t3aVFkTzUvQnFEMGZyVUZzeFlFdnhCQkVIWWs5Y1hC?=
- =?utf-8?B?TWZiZXdFNEtUQTkvYXdENFpJVmE4VUU1bjdsMngyN2JCMGNGMUVSNlpDRGhD?=
- =?utf-8?B?WUZhdy9Od21mY1NHUVFzVUpiNWdaK3ZiOXk0d0F0d2J6ckwvVURQUGwxUnd1?=
- =?utf-8?B?WURrOXlRTnNlakRscUdqcmYwaHkrODl6S1JlMVZuVkh0eWhGOFBvcWE4WDFR?=
- =?utf-8?B?N2d6OGxwOUZROVZmS2FlNGphVEVhNW1FaWoyNUJzVnd6WXdNaGxEelRLUDZq?=
- =?utf-8?B?bnpqb0hid0JWTkZNK1RUdWhIZ3ZaNEZNdVFCdWhDTmNocFhxaW1kVVRoK1RI?=
- =?utf-8?B?THlMaTJnNTJ6MXJMa2xZTkk4SEEvNG9uV1p0QzR5dGt4OGpWWSsyVUhXVW1V?=
- =?utf-8?B?MGNrOVpqaHF1QlYySE5ocDBOUklhdWJ4UnRCNFFDM0cyYVFmcE9JQXo0K281?=
- =?utf-8?B?dG1VUUpCU285SjhaYWlYRUJ5a1hnUWxtaTd6bVhzb21RZDZkZjMzUmlNakx5?=
- =?utf-8?B?Yno5bzJ1cWtYNlVUZ0hEdXBreHY4ZlVKS1JVYlNrcXFuNW5tQTl6SGYvRldw?=
- =?utf-8?B?cVRaMTk3RWV4Yzk2eUVMYlcyOWdKeFNMTzE0Q1luRTdBQ1JFUXJFZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: f73cb439-c137-41f1-48b4-08dedb5c53cb
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 12:44:32.3170 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HsGJObjyz7WPl9en/nC1nwxzg2EC+x71h07MzsucH4sUy9zOs0gMZ2gTATNla+Oap1+f1waS98M3JLz4PeWr9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7617
+Message-Id: <20260706-pdev-fwnode-ref-v3-1-1ff028e33779@oss.qualcomm.com>
+References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+In-Reply-To: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+To: Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
+ linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ mfd@lists.linux.dev,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1473;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=aDGbbnz+wzV3twb5feb+QvbOP0I73Nzbv6atplL3wzc=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqS6MtHvr7AjECn8mAtK9ST5QYxQLH8uISzpy7v
+ 3pFnQl8r+GJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCakujLQAKCRAFnS7L/zaE
+ ww39EACYQC5v8jyh4RLJSmX9+Q2699EIwQw+LmnX2JTHZ37xaKZXSio5WtzBHutNcZGaaogpFoW
+ WKEriZZ/dcQFmhZ/Q14nI9ShukRdTjBSVb6URMZkC1nyYuTj0FK0Sz2ESh9uqDHtN1HEUUv43ap
+ cFmOY2eE+QXR8J6C5ZBAhBLzsJ9Ho77iM0WbapO+IFoLyWbJF/U41qJeW3ZaDdaFuDjoJdCbnNX
+ gMHxWiSQ2aBucXdIz6hl4TU2MG7RWtc9WdKn3gzGFtuJESiaQzDHNAWeBjPRgvXNbcClk4qW2Rs
+ FeY8+K5ONOw43nUF4+Tafg7FLvTlNoIHcbDtV7PSYq3pCNj+Z+hruIi8sXud/6W9vYKvPexKYG9
+ 5kWYO1Gd0GLkI5D4vudHVM74Gzan4Z0qMnQqPsUY3w57ZVVptL+DJDoOPoFTu9yy3tngTcrLrPK
+ ZYgBxuAbV9NLePon1E9TCA8u0rQNn5//N6zpmGXBMEBeOBAU5yqkaPPANddk1al+fGPFzWtNGyk
+ OP8WpDK8KBzFhXFC+cIDyJWlPptoS7D9Tcv3k6AoN1yq3qRx8ZSAQ6elAkAJ7Oed1RGDyMUTECX
+ 3wb+Lar7gwItQ0ahNLdLu95tpxenqJRi+oF6ATIp1WJ3NzZhbRCqA4YKV7ztDBsgCxH6Dpk8aa8
+ Y07Wc/MmeOsDD3Q==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=c6qbhx9l c=1 sm=1 tr=0 ts=6a4ba346 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=lFaTzyIiLygvDfm8gxsA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: xICJJHuI7BI3IRZfOyB_I0R7z4uNGubD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEyOSBTYWx0ZWRfXx5BZAOUTYkCx
+ tOzL18U2WYXXqQWadVF9PRWHH5uH1iImYAwlfTc7onk5LOkWyEAQJ08PfzJ73ksKoIzmma9kWhK
+ wr0N182f+qsTRM917tF4u4w1bclFXsyUKpl6Ao9pus0Kfi3+8FiSClwsas1U5ax8WsQ5cci1594
+ dvAAkgI7r5iD0DOHoKjR6betWiS7FyRQtYfcyvQcCmmbs/rbCsIWHZpxb4lU+zpPdn3GS8uTfHf
+ CsR4GPVV8YaMcNqrF54mfysUsz7negEJp78jOHVbLMKAR8yn9JeDkd6jCc+umnpH4aP0kGDHodr
+ wb2qt6Gdch9m2Y8lCknCTeQ/PsnirV7G0O34XmHQqPbYlE7MycHr2S6AxXDc9VDC7JP2usv5Pay
+ v6UyW6pOzYEtN7dPtkhWOw+rEZhcsKtl0mw76HUokMKDxERJ6NBfIeOnhUDaFBncJuYcBamMWPE
+ STBY9CKlOZsHQeC7pKA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEyOSBTYWx0ZWRfXz8nDALur4NpV
+ aMnWjz1WF2QuYawnH0eT29UUYMLY7kQ544B7MeWE3WBR8gh6RZEVT+kO72K0i6NDTiOHgpwLkzV
+ TniXyvT8a+XMpyV/gdF8/e+5WvikRE0=
+X-Proofpoint-GUID: xICJJHuI7BI3IRZfOyB_I0R7z4uNGubD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607060129
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,375 +202,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use `io_project!` for PTE array and message queues to restore the proper
-encapsulation.
+Platform devices created with platform_device_alloc() call
+platform_device_release() when the last reference to the device's
+kobject is dropped. This function calls of_node_put() unconditionally.
+This works fine for devices created with platform_device_register_full()
+but users of the split approach (platform_device_alloc() +
+platform_device_add()) must bump the reference of the of_node they
+assign manually. Add the missing call to of_node_get().
 
-The remaining `dma_read!` and `dma_write!` is now only acting on
-primitives; thus replace by `io_read!` and `io_write!`.
-
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Gary Guo <gary@garyguo.net>
+Cc: stable@vger.kernel.org
+Fixes: 81e5d8646ff6 ("i2c/powermac: Register i2c devices from device-tree")
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- drivers/gpu/nova-core/gsp.rs      | 53 ++++++++++++-------------
- drivers/gpu/nova-core/gsp/cmdq.rs | 66 +++++++++++++++++--------------
- drivers/gpu/nova-core/gsp/fw.rs   | 82 +++++++++++++--------------------------
- 3 files changed, 90 insertions(+), 111 deletions(-)
+ arch/powerpc/platforms/powermac/low_i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 69175ca3315c..cfa7553cd820 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -9,14 +9,16 @@
-     dma::{
-         Coherent,
-         CoherentBox,
-+        CoherentView,
-         DmaAddress, //
-     },
-+    io::{
-+        io_project,
-+        io_write,
-+        Io, //
-+    },
-     pci,
--    prelude::*,
--    transmute::{
--        AsBytes,
--        FromBytes, //
--    }, //
-+    prelude::*, //
- };
+diff --git a/arch/powerpc/platforms/powermac/low_i2c.c b/arch/powerpc/platforms/powermac/low_i2c.c
+index da72a30ab8657e6dc7e6f3437af612155783d8f9..973f58771d9636605ed5d3e91b45008543b584d3 100644
+--- a/arch/powerpc/platforms/powermac/low_i2c.c
++++ b/arch/powerpc/platforms/powermac/low_i2c.c
+@@ -1471,7 +1471,7 @@ static int __init pmac_i2c_create_platform_devices(void)
+ 		if (bus->platform_dev == NULL)
+ 			return -ENOMEM;
+ 		bus->platform_dev->dev.platform_data = bus;
+-		bus->platform_dev->dev.of_node = bus->busnode;
++		bus->platform_dev->dev.of_node = of_node_get(bus->busnode);
+ 		platform_device_add(bus->platform_dev);
+ 	}
  
- pub(crate) mod cmdq;
-@@ -48,21 +50,21 @@
- 
- /// Array of page table entries, as understood by the GSP bootloader.
- #[repr(C)]
-+#[derive(FromBytes, IntoBytes)]
- struct PteArray<const NUM_ENTRIES: usize>([u64; NUM_ENTRIES]);
- 
--/// SAFETY: arrays of `u64` implement `FromBytes` and we are but a wrapper around one.
--unsafe impl<const NUM_ENTRIES: usize> FromBytes for PteArray<NUM_ENTRIES> {}
--
--/// SAFETY: arrays of `u64` implement `AsBytes` and we are but a wrapper around one.
--unsafe impl<const NUM_ENTRIES: usize> AsBytes for PteArray<NUM_ENTRIES> {}
--
- impl<const NUM_PAGES: usize> PteArray<NUM_PAGES> {
--    /// Returns the page table entry for `index`, for a mapping starting at `start`.
--    // TODO: Replace with `IoView` projection once available.
--    fn entry(start: DmaAddress, index: usize) -> Result<u64> {
--        start
--            .checked_add(num::usize_as_u64(index) << GSP_PAGE_SHIFT)
--            .ok_or(EOVERFLOW)
-+    /// Initialize a new page table array mapping `NUM_PAGES` GSP pages starting at address `start`.
-+    fn init(view: CoherentView<'_, Self>, start: DmaAddress) -> Result<()> {
-+        for i in 0..NUM_PAGES {
-+            io_write!(view, .0[build: i],
-+                start
-+                    .checked_add(num::usize_as_u64(i) << GSP_PAGE_SHIFT)
-+                    .ok_or(EOVERFLOW)?
-+            );
-+        }
-+
-+        Ok(())
-     }
- }
- 
-@@ -89,17 +91,12 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
- 
-         let start_addr = obj.0.dma_handle();
- 
--        // SAFETY: `obj` has just been created and we are its sole user.
--        let pte_region = unsafe {
--            &mut obj.0.as_mut()[size_of::<u64>()..][..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
--        };
--
--        // Write values one by one to avoid an on-stack instance of `PteArray`.
--        for (i, chunk) in pte_region.chunks_exact_mut(size_of::<u64>()).enumerate() {
--            let pte_value = PteArray::<0>::entry(start_addr, i)?;
--
--            chunk.copy_from_slice(&pte_value.to_ne_bytes());
--        }
-+        let pte_view = io_project!(
-+            obj.0,
-+            [build: size_of::<u64>()..][build: ..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
-+        )
-+        .try_cast::<PteArray<RM_LOG_BUFFER_NUM_PAGES>>()?;
-+        PteArray::init(pte_view, start_addr)?;
- 
-         Ok(obj)
-     }
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 070de0731e95..c34b48961496 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -2,16 +2,23 @@
- 
- mod continuation;
- 
--use core::mem;
-+use core::{
-+    mem,
-+    sync::atomic::{
-+        fence,
-+        Ordering, //
-+    },
-+};
- 
- use kernel::{
-     device,
-     dma::{
-         Coherent,
-+        CoherentBox,
-         DmaAddress, //
-     },
--    dma_write,
-     io::{
-+        io_project,
-         poll::read_poll_timeout,
-         Io, //
-     },
-@@ -171,20 +178,18 @@ struct MsgqData {
- #[repr(C)]
- // There is no struct defined for this in the open-gpu-kernel-source headers.
- // Instead it is defined by code in `GspMsgQueuesInit()`.
--// TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
--pub(super) struct Msgq {
-+struct Msgq {
-     /// Header for sending messages, including the write pointer.
--    pub(super) tx: MsgqTxHeader,
-+    tx: MsgqTxHeader,
-     /// Header for receiving messages, including the read pointer.
--    pub(super) rx: MsgqRxHeader,
-+    rx: MsgqRxHeader,
-     /// The message queue proper.
-     msgq: MsgqData,
- }
- 
- /// Structure shared between the driver and the GSP and containing the command and message queues.
- #[repr(C)]
--// TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
--pub(super) struct GspMem {
-+struct GspMem {
-     /// Self-mapping page table entries.
-     ptes: PteArray<{ Self::PTE_ARRAY_SIZE }>,
-     /// CPU queue: the driver writes commands here, and the GSP reads them. It also contains the
-@@ -192,13 +197,13 @@ pub(super) struct GspMem {
-     /// index into the GSP queue.
-     ///
-     /// This member is read-only for the GSP.
--    pub(super) cpuq: Msgq,
-+    cpuq: Msgq,
-     /// GSP queue: the GSP writes messages here, and the driver reads them. It also contains the
-     /// write and read pointers that the GSP updates. This means that the read pointer here is an
-     /// index into the CPU queue.
-     ///
-     /// This member is read-only for the driver.
--    pub(super) gspq: Msgq,
-+    gspq: Msgq,
- }
- 
- impl GspMem {
-@@ -232,20 +237,12 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
-         const MSGQ_SIZE: u32 = num::usize_into_u32::<{ size_of::<Msgq>() }>();
-         const RX_HDR_OFF: u32 = num::usize_into_u32::<{ mem::offset_of!(Msgq, rx) }>();
- 
--        let gsp_mem = Coherent::<GspMem>::zeroed(dev, GFP_KERNEL)?;
--
--        let start = gsp_mem.dma_handle();
--        // Write values one by one to avoid an on-stack instance of `PteArray`.
--        for i in 0..GspMem::PTE_ARRAY_SIZE {
--            dma_write!(gsp_mem, .ptes.0[build: i], PteArray::<0>::entry(start, i)?);
--        }
-+        let mut gsp_mem = CoherentBox::<GspMem>::zeroed(dev, GFP_KERNEL)?;
-+        gsp_mem.cpuq.tx = MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES);
-+        gsp_mem.cpuq.rx = MsgqRxHeader::new();
- 
--        dma_write!(
--            gsp_mem,
--            .cpuq.tx,
--            MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES)
--        );
--        dma_write!(gsp_mem, .cpuq.rx, MsgqRxHeader::new());
-+        let gsp_mem: Coherent<_> = gsp_mem.into();
-+        PteArray::init(io_project!(gsp_mem, .ptes), gsp_mem.dma_handle())?;
- 
-         Ok(Self(gsp_mem))
-     }
-@@ -406,7 +403,7 @@ fn allocate_command(&mut self, size: usize, timeout: Delta) -> Result<GspCommand
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn gsp_write_ptr(&self) -> u32 {
--        super::fw::gsp_mem::gsp_write_ptr(&self.0)
-+        MsgqTxHeader::write_ptr(io_project!(self.0, .gspq.tx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Returns the index of the memory page the GSP will read the next command from.
-@@ -415,7 +412,7 @@ fn gsp_write_ptr(&self) -> u32 {
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn gsp_read_ptr(&self) -> u32 {
--        super::fw::gsp_mem::gsp_read_ptr(&self.0)
-+        MsgqRxHeader::read_ptr(io_project!(self.0, .gspq.rx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Returns the index of the memory page the CPU can read the next message from.
-@@ -424,12 +421,18 @@ fn gsp_read_ptr(&self) -> u32 {
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn cpu_read_ptr(&self) -> u32 {
--        super::fw::gsp_mem::cpu_read_ptr(&self.0)
-+        MsgqRxHeader::read_ptr(io_project!(self.0, .cpuq.rx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Informs the GSP that it can send `elem_count` new pages into the message queue.
-     fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
--        super::fw::gsp_mem::advance_cpu_read_ptr(&self.0, elem_count)
-+        let rx = io_project!(self.0, .cpuq.rx);
-+        let rptr = MsgqRxHeader::read_ptr(rx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
-+
-+        // Ensure read pointer is properly ordered.
-+        fence(Ordering::SeqCst);
-+
-+        MsgqRxHeader::set_read_ptr(rx, rptr)
-     }
- 
-     // Returns the index of the memory page the CPU can write the next command to.
-@@ -438,12 +441,17 @@ fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn cpu_write_ptr(&self) -> u32 {
--        super::fw::gsp_mem::cpu_write_ptr(&self.0)
-+        MsgqTxHeader::write_ptr(io_project!(self.0, .cpuq.tx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Informs the GSP that it can process `elem_count` new pages from the command queue.
-     fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
--        super::fw::gsp_mem::advance_cpu_write_ptr(&self.0, elem_count)
-+        let tx = io_project!(self.0, .cpuq.tx);
-+        let wptr = MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
-+        MsgqTxHeader::set_write_ptr(tx, wptr);
-+
-+        // Ensure all command data is visible before triggering the GSP read.
-+        fence(Ordering::SeqCst);
-     }
- }
- 
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 4db0cfa4dc4d..b0e7de328eaf 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -10,7 +10,14 @@
- use core::ops::Range;
- 
- use kernel::{
--    dma::Coherent,
-+    dma::{
-+        Coherent,
-+        CoherentView, //
-+    },
-+    io::{
-+        io_read,
-+        io_write, //
-+    },
-     prelude::*,
-     ptr::{
-         Alignable,
-@@ -44,59 +51,6 @@
-     },
- };
- 
--// TODO: Replace with `IoView` projections once available.
--pub(super) mod gsp_mem {
--    use core::sync::atomic::{
--        fence,
--        Ordering, //
--    };
--
--    use kernel::{
--        dma::Coherent,
--        dma_read,
--        dma_write, //
--    };
--
--    use crate::gsp::cmdq::{
--        GspMem,
--        MSGQ_NUM_PAGES, //
--    };
--
--    pub(in crate::gsp) fn gsp_write_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .gspq.tx.0.writePtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn gsp_read_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .gspq.rx.0.readPtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn cpu_read_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .cpuq.rx.0.readPtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &Coherent<GspMem>, count: u32) {
--        let rptr = cpu_read_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
--
--        // Ensure read pointer is properly ordered.
--        fence(Ordering::SeqCst);
--
--        dma_write!(qs, .cpuq.rx.0.readPtr, rptr);
--    }
--
--    pub(in crate::gsp) fn cpu_write_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .cpuq.tx.0.writePtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Coherent<GspMem>, count: u32) {
--        let wptr = cpu_write_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
--
--        dma_write!(qs, .cpuq.tx.0.writePtr, wptr);
--
--        // Ensure all command data is visible before triggering the GSP read.
--        fence(Ordering::SeqCst);
--    }
--}
--
- /// Maximum size of a single GSP message queue element in bytes.
- pub(crate) const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: usize =
-     num::u32_as_usize(bindings::GSP_MSG_QUEUE_ELEMENT_SIZE_MAX);
-@@ -720,6 +674,16 @@ pub(crate) fn new(msgq_size: u32, rx_hdr_offset: u32, msg_count: u32) -> Self {
-             entryOff: num::usize_into_u32::<GSP_PAGE_SIZE>(),
-         })
-     }
-+
-+    /// Returns the value of the write pointer for this queue.
-+    pub(crate) fn write_ptr(this: CoherentView<'_, Self>) -> u32 {
-+        io_read!(this, .0.writePtr)
-+    }
-+
-+    /// Sets the value of the write pointer for this queue.
-+    pub(crate) fn set_write_ptr(this: CoherentView<'_, Self>, val: u32) {
-+        io_write!(this, .0.writePtr, val)
-+    }
- }
- 
- // SAFETY: Padding is explicit and does not contain uninitialized data.
-@@ -735,6 +699,16 @@ impl MsgqRxHeader {
-     pub(crate) fn new() -> Self {
-         Self(Default::default())
-     }
-+
-+    /// Returns the value of the read pointer for this queue.
-+    pub(crate) fn read_ptr(this: CoherentView<'_, Self>) -> u32 {
-+        io_read!(this, .0.readPtr)
-+    }
-+
-+    /// Sets the value of the read pointer for this queue.
-+    pub(crate) fn set_read_ptr(this: CoherentView<'_, Self>, val: u32) {
-+        io_write!(this, .0.readPtr, val)
-+    }
- }
- 
- // SAFETY: Padding is explicit and does not contain uninitialized data.
 
 -- 
-2.54.0
+2.47.3
 
