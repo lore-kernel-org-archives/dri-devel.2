@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33C78C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:16:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6921DC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2F310E2D9;
-	Mon,  6 Jul 2026 03:16:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A481610E2B6;
+	Mon,  6 Jul 2026 03:18:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="krSDRfqy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VXq/2fk/";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8311010E2D9
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:16:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A692D10E2B6
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:18:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2469340833;
- Mon,  6 Jul 2026 03:16:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6FD1F000E9;
- Mon,  6 Jul 2026 03:16:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8C9DC4139C;
+ Mon,  6 Jul 2026 03:18:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF491F000E9;
+ Mon,  6 Jul 2026 03:18:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783307770;
- bh=ECQCj7esbwlnfZJWLSmjfy2vM0OTQO0rkBKv90TYI8M=;
+ s=k20260515; t=1783307912;
+ bh=FarSbiZ5xotTU7fPxdwXfG9oQ33D23q0KqJwP5kDxvY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=krSDRfqyf4JiAvLplwWcK6elrXs3sphxpmQV5g74zhPsd4jpHleReU9w2Yo18Q38Y
- NqGjxiZ8/4DEyXuhNdoQfjxj+DiDNe2KZakYJAmg1Au+R/eb/2X2pPo+pxE4utImXf
- S3KSTRM68oR/MrRrzVrxOZR41O7VbPQWzT9TqSlH0+RDFHR1Qc9zPkbGTG8zydj6hl
- /AbuyN4+ThQyBfEfvq67D3Axgb/qW7kWpONREWoT99joEG/cQVfGUoGT0gpeRHLeGI
- hqvXVI4LCdfBikkCdAdJztiuMLRhHkH6LD1bXcDz3yICXw/s3Cjg5JlZDYhEB57qEM
- hiKb1D6Ju231A==
+ b=VXq/2fk/ZXll1lbViAWDocPouU3xT+MYq2qjtoj5gNydK/0m2jVW2BudqasYw53fD
+ ohP16yk1v4cHvCP2tcDF7MK7C8nQ6wZT7HcfDWV3fnYSlBnCCLwqW3DehGc9AqziWs
+ NZ1Oe+H1U/SkAwljnpBkP9aL8bsA8ZCbqeHR4jcCxEpl0BENyRJfSJyEs4K3M/ekbR
+ p/YFoOEf1GE0mdYNZG0HqbIQs+Z4Dieygbq3e/r1PNOHIHuln+kYe+8p/yCXFnO2bs
+ gU/ACYoI59FgfPin0F0wAneA9+EXhdpzBs4DzlwOkn0apaSpEc86Es8yS4Be0muL96
+ eK+cgYlzITPXw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] nouveau/instmem: use iomapping interface for instmem
- handling (v3)
+Subject: Re: [PATCH 10/10] xe: create a flag to enable memcg accounting for
+ XE as well.
 To: "Dave Airlie" <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706030520.857104-1-airlied@gmail.com>
-References: <20260706030520.857104-1-airlied@gmail.com>
+Cc: tj@kernel.org, mkoutny@suse.com, dri-devel@lists.freedesktop.org,
+ hannes@cmpxchg.org
+In-Reply-To: <20260706024122.853329-11-airlied@gmail.com>
+References: <20260706024122.853329-1-airlied@gmail.com>
+ <20260706024122.853329-11-airlied@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 03:16:08 +0000
-Message-Id: <20260706031609.4A6FD1F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 03:18:31 +0000
+Message-Id: <20260706031832.2CF491F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,80 +59,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Unconditional execution of io_mapping_init_wc() in check_io_mappin=
-g() causes severe ioremap_wc memory leaks during BAR2 bootstrapping.
+- [High] Missing memcg accounting for userspace dumb buffers created via xe=
+_bo_dumb_create.
+- [High] Page tables created asynchronously via workqueues are charged to t=
+he kworker's root memcg instead of the user's memcg.
+- [High] BOs created with deferred backing bypass memcg accounting upon CPU=
+ page fault.
 --
 
-commit 17419e048ef493385192b9b14726d1e9ad616fed
-Author: Dave Airlie <airlied@redhat.com>
+commit ebf9090c8281d875d2f980bb34d324c88a8b277f
+Author: Maarten Lankhorst <dev@lankhorst.se>
 
-nouveau/instmem: use iomapping interface for instmem handling (v3)
+xe: create a flag to enable memcg accounting for XE as well.
 
-This replaces constant ioremapping with the io_mapping interface to avoid
-the constant need to ioremap when instobjs move. It delays creating the
-mapping until first use to avoid resource mapping errors with simpledrm.
+This adds support for memcg accounting to ttm object used by xe driver.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c b/drivers=
-/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-> index 6fbaa1e5876dc..f4489efc94a79 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-
-[ ... ]
-
-> @@ -188,6 +190,16 @@ nv50_instobj_map(struct nvkm_memory *memory, u64 off=
-set, struct nvkm_vmm *vmm,
->  	return nvkm_memory_map(memory, offset, vmm, vma, argv, argc);
->  }
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -56,6 +56,7 @@ static const struct ttm_place sys_placement_flags =3D {
+>  	.flags =3D 0,
+>  };
 > =20
-> +static bool
-> +check_io_mapping(struct nv50_instmem *imem)
-> +{
-> +	struct nvkm_device *device =3D imem->base.subdev.device;
-> +
-> +	return io_mapping_init_wc(&imem->iomap,
-> +				  device->func->resource_addr(device, NVKM_BAR2_INST),
-> +				  device->func->resource_size(device, NVKM_BAR2_INST)) !=3D NULL;
-> +}
-> +
+> +/* TTM_PL_FLAG_MEMCG is not set, those placements are used for eviction =
+*/
+>  static struct ttm_placement sys_placement =3D {
 
 [Severity: High]
-Does this unconditionally initialize the mapping and leak the previous
-ioremap_wc allocation if called more than once?
+If userspace creates a buffer object with the deferred backing flag, mmaps
+it, and accesses it via the CPU before the GPU validates it,
+xe_bo_init_locked() assigns sys_placement as the initial placement.=20
+Since sys_placement lacks TTM_PL_FLAG_MEMCG, will a CPU page fault
+(which calls xe_bo_fault_migrate() and ttm_bo_populate()) allocate memory
+without charging the memcg? Does this allow userspace to bypass memcg
+limits for deferred backing buffers?
 
-Since nv50_instobj_boot() acts as the .boot callback for BAR2 page tables,
-it is invoked for every leaf page table during VMM bootstrap. Because BAR2
-typically spans multiple page tables, check_io_mapping() gets executed
-multiple times in a loop.
-
-Should this check if the mapping is already initialized (e.g., checking if
-imem->iomap.size is non-zero) before calling io_mapping_init_wc() to avoid
-leaking the vmalloc space?
-
->  static void
->  nv50_instobj_release(struct nvkm_memory *memory)
->  {
+>  	.num_placement =3D 1,
+>  	.placement =3D &sys_placement_flags,
+>  };
 
 [ ... ]
 
-> @@ -277,7 +289,12 @@ nv50_instobj_boot(struct nvkm_memory *memory, struct=
- nvkm_vmm *vmm)
->  		iobj->lru.next =3D NULL;
->  	}
+> @@ -2384,6 +2385,9 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *x=
+e, struct xe_bo *bo,
+>  	placement =3D (type =3D=3D ttm_bo_type_sg ||
+>  		     bo->flags & XE_BO_FLAG_DEFER_BACKING) ? &sys_placement :
+>  		&bo->placement;
+> +
+> +	if (bo->flags & XE_BO_FLAG_ACCOUNTED)
+> +		ttm_bo_set_cgroup(&bo->ttm, get_obj_cgroup_from_current());
+
+[Severity: High]
+When page tables are created asynchronously, such as from GPU page fault
+handlers or rebinding operations executing in workqueues via
+xe_pt_create(), get_obj_cgroup_from_current() will resolve to the
+kworker's context. Does this cause these allocations to be incorrectly
+charged to the root memcg instead of the user's memcg?
+
+>  	err =3D ttm_bo_init_reserved(&xe->ttm, &bo->ttm, type,
+>  				   placement, alignment,
+
+[ ... ]
+
+> @@ -3361,7 +3365,7 @@ int xe_gem_create_ioctl(struct drm_device *dev, voi=
+d *data,
+>  	if (XE_IOCTL_DBG(xe, args->size & ~PAGE_MASK))
+>  		return -EINVAL;
 > =20
-> -	nv50_instobj_kmap(iobj, vmm);
-> +	/*
-> +	 * boot is only called on BAR2, if we can't remap the complete
-> +	 * BAR it's unlikely things are functioning well.
-> +	 */
-> +	if (check_io_mapping(iobj->imem))
-> +		nv50_instobj_kmap(iobj, vmm);
->  	nvkm_instmem_boot(imem);
->  	mutex_unlock(&imem->mutex);
->  }
+> -	bo_flags =3D 0;
+> +	bo_flags =3D XE_BO_FLAG_ACCOUNTED;
+>  	if (args->flags & DRM_XE_GEM_CREATE_FLAG_DEFER_BACKING)
+>  		bo_flags |=3D XE_BO_FLAG_DEFER_BACKING;
+
+[Severity: High]
+This correctly adds the accounting flag for standard GEM object creation, b=
+ut
+are dumb buffers created via xe_bo_dumb_create() missing this flag?
+
+Dumb buffers are also allocated on behalf of userspace via
+DRM_IOCTL_MODE_CREATE_DUMB:
+
+xe_bo_dumb_create() {
+    ...
+    bo =3D xe_bo_create_user(xe, NULL, args->size,
+                           DRM_XE_GEM_CPU_CACHING_WC,
+                           XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(=
+xe)) |
+                           XE_BO_FLAG_FORCE_WC |
+                           XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
+}
+
+Do these also need XE_BO_FLAG_ACCOUNTED to prevent a malicious or buggy
+userspace application from bypassing memcg limits to exhaust host memory?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706030520.8571=
-04-1-airlied@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706024122.8533=
+29-1-airlied@gmail.com?part=3D10
