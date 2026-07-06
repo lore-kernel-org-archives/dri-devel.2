@@ -4,130 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B83A3C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F843C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C11E10E2F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB94D10E30A;
 	Mon,  6 Jul 2026 07:13:15 +0000 (UTC)
-X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
- Mon, 06 Jul 2026 04:35:04 UTC
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9327710E1DE
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 04:35:04 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-a8-6a4b2cf15680
-Date: Mon, 6 Jul 2026 13:19:55 +0900
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5729810E2F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:21:56 +0000 (UTC)
+X-AuditID: a67dfc5b-c45ff70000001609-e5-6a4b498342c4
 From: Byungchul Park <byungchul@sk.com>
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: kernel_team@skhynix.com, torvalds@linux-foundation.org,
- damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
- adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
- mingo@redhat.com, peterz@infradead.org, will@kernel.org,
- tglx@linutronix.de, rostedt@goodmis.org, joel@joelfernandes.org,
- sashal@kernel.org, daniel.vetter@ffwll.ch, duyuyang@gmail.com,
- johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
+To: linux-kernel@vger.kernel.org
+Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
+ torvalds@linux-foundation.org, damien.lemoal@opensource.wdc.com,
+ linux-ide@vger.kernel.org, adilger.kernel@dilger.ca,
+ linux-ext4@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
+ will@kernel.org, tglx@linutronix.de, rostedt@goodmis.org,
+ joel@joelfernandes.org, sashal@kernel.org, daniel.vetter@ffwll.ch,
+ duyuyang@gmail.com, johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
  willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
  gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
  akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
  hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
- jglisse@redhat.com, dennis@kernel.org, cl@linux.com,
- penberg@kernel.org, rientjes@google.com, vbabka@suse.cz,
- ngupta@vflare.org, linux-block@vger.kernel.org,
- josef@toxicpanda.com, linux-fsdevel@vger.kernel.org, jack@suse.cz,
- jlayton@kernel.org, dan.j.williams@intel.com, hch@infradead.org,
- djwong@kernel.org, dri-devel@lists.freedesktop.org,
- rodrigosiqueiramelo@gmail.com, melissa.srw@gmail.com,
- hamohammed.sa@gmail.com, harry.yoo@oracle.com,
- chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com,
- max.byungchul.park@gmail.com, boqun.feng@gmail.com,
+ jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
+ rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
+ linux-block@vger.kernel.org, josef@toxicpanda.com,
+ linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
+ dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
+ dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
+ melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
+ chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
  longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
- yeoreum.yun@arm.com, netdev@vger.kernel.org,
- matthew.brost@intel.com, her0gyugyu@gmail.com, corbet@lwn.net,
- catalin.marinas@arm.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, luto@kernel.org, sumit.semwal@linaro.org,
- gustavo@padovan.org, christian.koenig@amd.com,
+ yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
+ her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
+ bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+ sumit.semwal@linaro.org, gustavo@padovan.org, christian.koenig@amd.com,
  andi.shyti@kernel.org, arnd@arndb.de, lorenzo.stoakes@oracle.com,
  Liam.Howlett@oracle.com, rppt@kernel.org, surenb@google.com,
- mcgrof@kernel.org, da.gomez@kernel.org, samitolvanen@google.com,
- paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
- joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com,
- mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
- qiang.zhang@linux.dev, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- chuck.lever@oracle.com, neil@brown.name, okorniev@redhat.com,
- Dai.Ngo@oracle.com, tom@talpey.com, trondmy@kernel.org,
- anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
- clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
- kristina.martsenko@arm.com, wangkefeng.wang@huawei.com,
- broonie@kernel.org, kevin.brodsky@arm.com, dwmw@amazon.co.uk,
- shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
- yuzhao@google.com, baolin.wang@linux.alibaba.com,
- usamaarif642@gmail.com, joel.granados@kernel.org,
- richard.weiyang@gmail.com, geert+renesas@glider.be,
- tim.c.chen@linux.intel.com, linux@treblig.org,
+ mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
+ samitolvanen@google.com, paulmck@kernel.org, frederic@kernel.org,
+ neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ urezki@gmail.com, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+ qiang.zhang@linux.dev, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
+ vschneid@redhat.com, chuck.lever@oracle.com, neil@brown.name,
+ okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
+ trondmy@kernel.org, anna@kernel.org, kees@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, mark.rutland@arm.com,
+ ada.coupriediaz@arm.com, kristina.martsenko@arm.com,
+ wangkefeng.wang@huawei.com, broonie@kernel.org, kevin.brodsky@arm.com,
+ dwmw@amazon.co.uk, shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
+ yuzhao@google.com, baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
+ joel.granados@kernel.org, richard.weiyang@gmail.com,
+ geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
  alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it,
- guoweikang.kernel@gmail.com, link@vivo.com, jpoimboe@kernel.org,
- masahiroy@kernel.org, brauner@kernel.org,
- thomas.weissschuh@linutronix.de, oleg@redhat.com, mjguzik@gmail.com,
- andrii@kernel.org, wangfushuai@baidu.com, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
- rcu@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, 2407018371@qq.com, dakr@kernel.org,
- miguel.ojeda.sandonis@gmail.com, neilb@ownmail.net,
- bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
+ chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
+ link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
+ brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
+ mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-modules@vger.kernel.org, rcu@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
+ neilb@ownmail.net, bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
  dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v18 34/42] dept: add module support for struct
- dept_event_site and dept_event_site_dep
-Message-ID: <20260706041955.GA23385@system.software.com>
-References: <20251205071855.72743-1-byungchul@sk.com>
- <20251205071855.72743-35-byungchul@sk.com>
- <7afb6666-43b6-4d17-b875-e585c7a5ac99@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7afb6666-43b6-4d17-b875-e585c7a5ac99@suse.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SUUxTVxiAd+499/a2scu1k3AmyZJ1DB0oc0yXf4sxmpjlDrNsmXtRo7Mb
- d9DSgmsFZZmhCCiSjQGTElpgVQErFMxadIjDMTQgSi0FxMYBjR3WOWhQZrvgQGzJzHw5+XL+
- L9/5Hw5HK+rZlZw6a7+oz1JplawMy4LLTqx9uGabZt3oxDsw5ptkYLSgG0PoUQmG2rN2FhYs
- P0ugxFHDQPGFRQwmTyUN3sFfabC3F1BQdWeSher7BRjMAYsEgr6LDCyO36PgVngawWT3UQQL
- pkz48aSThSnTAxb+dblpqK4aRHDizjgN7b0TCLpsh1m4W36OhpHQDAtBTy0FnoEpBHWWSgSF
- p86yYKpzYPBMzVMwZqqkoMXxIfiaAjjydGT2UyxYqgupyPFnZKPWixTMNTVLYODUGIYm4+tg
- cQ0z4LeZJbBozYa2oJsBX98RBko6Qxgcf4wy0HU7CWrqx1jo7fBTMGFfZMBo+YeB671XMfzu
- +l4C7s5WBhpveShwugZoCJfFwWDFdwx4y++izWlCs/M8JRQPLbCCvd6OhEeNhbRweXqGFoqc
- B4TG69Os8Dh0kxW6wlYsXDtJhIZjjymhwrVWuGAelwhFl25LBKsjRyi6EmQ+XrNTtjFN1Kpz
- Rf2bm/bKMhrP2PC+toyD9hvD2IgepJYiKUf49WT223bqGZddOiyJMubjSaAhgKPM8quI1ztH
- lyKOWxG5H/JvKUUyjuZNr5B+ZwkTdV7iteTyDw+pqCPngQz37Yg6Cv44IlWn25Y6cn456a+Z
- XGKaTyTeJ/eXfJqPI6efcFGU8htJmWlD1IjhXyPd5/uoaIbwASmZcYX/W/Nl8pvNi8sRb36u
- an6uav6/akV0M1Kos3J1KrV2fXJGXpb6YPIX2ToHivzapkPzuzrQ7OD2HsRzSLlMDptTNQpG
- lWvI0/UgwtHKFfKE1ds0CnmaKu9rUZ/9mT5HKxp6UByHlbHylPCBNAWfrtovZoriPlH/bEpx
- 0pVGpPyo7avEYyN1Pt1UvyYm4d2346/9HYo5uteCz+h8783KhipUb8TcoFKq7F/etL0fmPhg
- S0PncaUhnZ37JGUPP5J6pCOUFP95Zss9f/KnV+MOuV7cYfvlGz83vz09/6+cVqO7JUkqJJCt
- +S9Y97yqsStHPZvOVbuL6fzYjg3ElVq7W4kNGaq3Emm9QfUUwQS7vLEDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUxTZxTH8zz36e2lWL2rLNxpXJY6xbDh5jaS40uMfuIJZEazqNlLMju9
- kZaCpmVMXAyW2ghlNlBtO1sVRKgMKjpwKppqB5OXiRtYN8mUVU1XJbwL1fBSsCVZ9MvJ/5z/
- 739yPhyOUUxLFnHqnFxRl6PSKlkZkW1aa0wZfT9D82FLmRSKTAXwIBCUwN8GH4HweBGBE+c9
- LERcl6Nmw3EJtN8rJNBVX4cgEC5C8GLKxYCpaZZAxNoqhfGJ+1KwGRDMelsR2LutDPR03WDA
- c9GAYezCDAv9Lc8Q2B4FWXD0GQgMu39A4Ay5pNB3Mw0GA9ckMNv7BMO95wMI3MEZDEHfYQQR
- exaUVzZG4/YRFqZu/8mAw9aF4PSjXgae9T1EcLH1XwTemkIW/iv9hQF/cD7cDQ+z0GErYWGw
- +wSGoQssVBR6JdDd2Y/gpMuKIPSPF4PxzHkW7CcbCDQ9vCqF7v5pDA/sVgx1DZ9CwB0icKu0
- EkfPjVI/J4LLYcTR8hSD7dw1DBPuWumGakRfmCyE1jZewtR0J8JSzykPolOTVkTHq40MNZVG
- 25aBYYYeavyOVt8aYOlk+C+Wep9XEPp7pUCriicxLbudQpucvdLNG7+QrdslatV5ou6D9Ttk
- mdU/1ZC99Zn7PH/4yUE0km5GcZzAfyJYrhdKY5rw7wqhqhCJaZZPEnp6Jhgz4riE6PzO441m
- JOMY3v620NFYJIkxC3mt0HJ0FMcYOQ+Cv+3zGKPgjyHBdrZ+bo+cf0PoOB6c0wyfLPTM9M3x
- DL9YODvDxWQcv06w2FNjxJv8UsF3qQ2XIrnztbDztbDzVbgCMbUoQZ2Tl61Sa1NX6rMy83PU
- +1bu3JPdgKI/6T4wXXYFjfvTmhHPIeU8OWxI1ygkqjx9fnYzEjhGmSBfviJDo5DvUuXvF3V7
- vtZ9qxX1zWgxR5SJ8vTt4g4Fv1uVK2aJ4l5R97+LubhFB1E53XrloyVflozeLWm7uXw+OYws
- W8wRTa1vTI7rBosP/Xauqrxy2YKkjPurtcbZ+NyrQ/vfqypoHx06Yo7b9vRAxabdGkOid82v
- nd6wMeGYs1NVnNpeQMc+OypYPr6xos6X5k/+vis+MPJN63BNkvGtr9agBY4lP4ZSOtNTHKse
- x7+jJPpM1apkRqdXvQRKKENIjwMAAA==
+ tmgross@umich.edu, rust-for-linux@vger.kernel.org
+Subject: [PATCH v19 35/40] dept: introduce APIs to set page usage and use
+ subclasses_evt for the usage
+Date: Mon,  6 Jul 2026 15:19:23 +0900
+Message-Id: <20260706061928.66713-36-byungchul@sk.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
+References: <20260706061928.66713-1-byungchul@sk.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSa0xTdxjG/Z87jZ3HasKRJdrUMJWgDuPMaxiGD0b/kw/qtg+LGrWR4yiX
+ okUYbFMhiqkolxxCiSBQGdbaEnAFcaIDZY4pQeQWcryAqNhyJ1bKFArYavz2y/Pk+eX98HKk
+ qocO4nT6Y6JBr43XMApKMbbw0tpT30XFfl1TsQaMmSfh2fMBGoyOCzS0V9kRzErNLJg6JBLk
+ 9kYSKmszCJiwnEcw9O92mO91EWAZmCNg1hQH7qF+BLXNfQi6Br6Abs8EAx2tIwhMJQ4KbvbX
+ s1A4xIDpz0B4b7Gx8NJaxIL3RRjMmxOh2e5ioTe3gIIHfT00jDglBoz1HgqMs5M+X/1FBtKL
+ /6eh095OQbVLJuDpw1wWXvTLNMh5rxHkjzsRPC4cZcH6ppAGyelm4XpjJgJ3xRQFZ97O0XB5
+ cpyEh8VtNDzLGaag+/EtBA3GfgLuVd8gIL/TzECPVMZAy3QLAe4S38LeQUGB18hAcUYOgnOZ
+ JgquvbnCwMw73z05bdth0m5jIiNxZWklwjPTEsKTl0+RuKVcwBVnpwl8s6iXxacbnrDY7EjG
+ NdYQ/MftIQI/GYnADttZBl+aGSRx1lg3gcfb2lhc+mD3LvUexbfRYrwuRTSs33JQEWP55x59
+ JGNTqrPrEZGOpNAsFMAJ/EahyDTDfuZB1xTtZ4ZfJcjye9LPS3m1UJPt9OUKjuS7VgjnLdmU
+ v1jCHxbuzk8hP1N8sPDSK/kGHKfkNwnzDSc+OVcI9mt3PnoCfHGVt4Tws4r/Rng68R/ldwr8
+ lQDB02clPw2WCXetMpWHlGa0wIZUOn1KglYXv3FdTJpel7ruUGKCA/m+zXLcu/cv5G7/oQnx
+ HNIsVELkjlgVrU1JSktoQgJHapYqv1odFatSRmvTfhUNiQcMyfFiUhP6kqM0gcoNU79Eq/if
+ tcfEOFE8Iho+twQXEJSO9kJKRF3+zu9z/taMbgsMzTVljYbGtl4YGdyXKj8PN3dfna1eXr6l
+ oVDOz847pO7qXK4oe2Ur+OnHMFcw/Ba2OhyCo1JXhpfdUO/8/XjdxRIsbR2+n13lOTh2R6u6
+ /mhl5OYd6gG9p3Eu4uT+xUuCDmyIKw+5GtdqWV+36G3y0doTwxoqKUYbFkIakrQfAAWeyUtp
+ AwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe2xLcRTH97v39vaulJta4hrJaDAW84px4hXPuQgh/lj4A81c1q2tahmT
+ eXRV5t01aRfrxozVshXTMmYptTGPEauxzWM2VLdlY8we2dapW+Kfk8/5fs/55vxxKFxyWxBO
+ yVW7OY1KppCSIkK0dp4+Wr9ydeJ0u1MI6YZD8KHRK4BanZuA7q50ArKv20kYtN7mTcc5ATyp
+ SyOg+loRgsbudAS9A1YcDKUBAgZNlULo6nsvBLMOQcBVicDiMeFQX30fB/tNHQa/in+T0FbR
+ icD8yUtCZquOgA7bKQRZPqsQWh+tgG+NZQIINDRjUNfTjsDm/Y2B130MwaAlCS7kOfl1yw8S
+ Bl68xCHTXI3g4qcGHDpbmxDcrPyIwFWQRsJX4y0carzD4HV3BwlPzSdJ+ObJxuB7MQm5aS4B
+ eJ63IcixmhD43rkw0F+6ToIlx0FAadNdIXja/Bh8sJgwKHKsgUabj4AqYx7Gn8tP3RgJ1kw9
+ xpcWDMxXyzDosxUKF+UjttdwhmALnSUYa3g1SLL283bEDvSbENuVr8dZg5FvK9o7cPaIcy+b
+ X9VOsv3db0jW1ZNLsM/yGPby8X6MzXgRzZZmNQjXLd4kmr+NU8iTOc20hVtFCbaKhwK1bvY+
+ X81L7DAyTTmBQimGnsW0NPcIgkzSkUx9fR8e5DB6LOM87eN1EYXTNRHMKdtpImiMoLczDwI9
+ KMgEPYH57DfxCxQlpmczgXsH/2VGMEXF7r85obx8zZ+DBVlCxzDvOx4TRiTKRSGFKEyuSlbK
+ 5IqYqdqkhBSVfN/U+J1KB+LfyXbAn3EHddWsKEc0haRDxbBoVaJEIEvWpijLEUPh0jDxxEmr
+ EyXibbKU/Zxm5xbNHgWnLUejKUI6UrwqjtsqoXfIdnNJHKfmNP9djAoNP4yiDq0bcqSz/Uf/
+ 8udRk2eqzwxftutLrL/cmzon5EpqrBLG6Uvc0TMjXBsg5vux8Dr3rh1P85pLLD/jqjImxrWk
+ KsrUTzxLjbWbC/YXR8aHH10wtqqAvux3HXfNLVBKhxjeblxfO6rsbJPekVzXPGfM0PjI7N7x
+ P0NuxapV0V/kS3pPSAltgmxGFK7Ryv4AjOPYH0oDAAA=
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -145,332 +130,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jan 07, 2026 at 01:19:00PM +0100, Petr Pavlu wrote:
-> On 12/5/25 8:18 AM, Byungchul Park wrote:
-> > struct dept_event_site and struct dept_event_site_dep have been
-> > introduced to track dependencies between multi event sites for a single
-> > wait, that will be loaded to data segment.  Plus, a custom section,
-> > '.dept.event_sites', also has been introduced to keep pointers to the
-> > objects to make sure all the event sites defined exist in code.
-> >
-> > dept should work with the section and segment of module.  Add the
-> > support to handle the section and segment properly whenever modules are
-> > loaded and unloaded.
-> >
-> > Signed-off-by: Byungchul Park <byungchul@sk.com>
-> 
-> Below are a few comments from the module loader perspective.
-> 
-> > ---
-> >  include/linux/dept.h     | 14 +++++++
-> >  include/linux/module.h   |  5 +++
-> >  kernel/dependency/dept.c | 79 +++++++++++++++++++++++++++++++++++-----
-> >  kernel/module/main.c     | 15 ++++++++
-> >  4 files changed, 103 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/include/linux/dept.h b/include/linux/dept.h
-> > index 44083e6651ab..c796cdceb04e 100644
-> > --- a/include/linux/dept.h
-> > +++ b/include/linux/dept.h
-> > @@ -166,6 +166,11 @@ struct dept_event_site {
-> >       struct dept_event_site          *bfs_parent;
-> >       struct list_head                bfs_node;
-> >
-> > +     /*
-> > +      * for linking all dept_event_site's
-> > +      */
-> > +     struct list_head                all_node;
-> > +
-> >       /*
-> >        * flag indicating the event is not only declared but also
-> >        * actually used in code
-> > @@ -182,6 +187,11 @@ struct dept_event_site_dep {
-> >        */
-> >       struct list_head                dep_node;
-> >       struct list_head                dep_rev_node;
-> > +
-> > +     /*
-> > +      * for linking all dept_event_site_dep's
-> > +      */
-> > +     struct list_head                all_node;
-> >  };
-> >
-> >  #define DEPT_EVENT_SITE_INITIALIZER(es)                                      \
-> > @@ -193,6 +203,7 @@ struct dept_event_site_dep {
-> >       .bfs_gen = 0,                                                   \
-> >       .bfs_parent = NULL,                                             \
-> >       .bfs_node = LIST_HEAD_INIT((es).bfs_node),                      \
-> > +     .all_node = LIST_HEAD_INIT((es).all_node),                      \
-> >       .used = false,                                                  \
-> >  }
-> >
-> > @@ -202,6 +213,7 @@ struct dept_event_site_dep {
-> >       .recover_site = NULL,                                           \
-> >       .dep_node = LIST_HEAD_INIT((esd).dep_node),                     \
-> >       .dep_rev_node = LIST_HEAD_INIT((esd).dep_rev_node),             \
-> > +     .all_node = LIST_HEAD_INIT((esd).all_node),                     \
-> >  }
-> >
-> >  struct dept_event_site_init {
-> > @@ -225,6 +237,7 @@ extern void dept_init(void);
-> >  extern void dept_task_init(struct task_struct *t);
-> >  extern void dept_task_exit(struct task_struct *t);
-> >  extern void dept_free_range(void *start, unsigned int sz);
-> > +extern void dept_mark_event_site_used(void *start, void *end);
-> 
-> Nit: The coding style recommends not using the extern keyword with
-> function declarations.
-> 
-> https://www.kernel.org/doc/html/v6.19-rc4/process/coding-style.html#function-prototypes
-> 
-> >
-> >  extern void dept_map_init(struct dept_map *m, struct dept_key *k, int sub_u, const char *n);
-> >  extern void dept_map_reinit(struct dept_map *m, struct dept_key *k, int sub_u, const char *n);
-> > @@ -288,6 +301,7 @@ struct dept_event_site { };
-> >  #define dept_task_init(t)                            do { } while (0)
-> >  #define dept_task_exit(t)                            do { } while (0)
-> >  #define dept_free_range(s, sz)                               do { } while (0)
-> > +#define dept_mark_event_site_used(s, e)                      do { } while (0)
-> >
-> >  #define dept_map_init(m, k, su, n)                   do { (void)(n); (void)(k); } while (0)
-> >  #define dept_map_reinit(m, k, su, n)                 do { (void)(n); (void)(k); } while (0)
-> > diff --git a/include/linux/module.h b/include/linux/module.h
-> > index d80c3ea57472..29885ba91951 100644
-> > --- a/include/linux/module.h
-> > +++ b/include/linux/module.h
-> > @@ -29,6 +29,7 @@
-> >  #include <linux/srcu.h>
-> >  #include <linux/static_call_types.h>
-> >  #include <linux/dynamic_debug.h>
-> > +#include <linux/dept.h>
-> >
-> >  #include <linux/percpu.h>
-> >  #include <asm/module.h>
-> > @@ -588,6 +589,10 @@ struct module {
-> >  #ifdef CONFIG_DYNAMIC_DEBUG_CORE
-> >       struct _ddebug_info dyndbg_info;
-> >  #endif
-> > +#ifdef CONFIG_DEPT
-> > +     struct dept_event_site **dept_event_sites;
-> > +     unsigned int num_dept_event_sites;
-> > +#endif
-> >  } ____cacheline_aligned __randomize_layout;
-> >  #ifndef MODULE_ARCH_INIT
-> >  #define MODULE_ARCH_INIT {}
-> 
-> My understanding is that entries in the .dept.event_sites section are
-> added by the dept_event_site_used() macro and they are pointers to the
-> dept_event_site_init struct, not dept_event_site.
-> 
-> > diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
-> > index b14400c4f83b..07d883579269 100644
-> > --- a/kernel/dependency/dept.c
-> > +++ b/kernel/dependency/dept.c
-> > @@ -984,6 +984,9 @@ static void bfs(void *root, struct bfs_ops *ops, void *in, void **out)
-> >   * event sites.
-> >   */
-> >
-> > +static LIST_HEAD(dept_event_sites);
-> > +static LIST_HEAD(dept_event_site_deps);
-> > +
-> >  /*
-> >   * Print all events in the circle.
-> >   */
-> > @@ -2043,6 +2046,33 @@ static void del_dep_rcu(struct rcu_head *rh)
-> >       preempt_enable();
-> >  }
-> >
-> > +/*
-> > + * NOTE: Must be called with dept_lock held.
-> > + */
-> > +static void disconnect_event_site_dep(struct dept_event_site_dep *esd)
-> > +{
-> > +     list_del_rcu(&esd->dep_node);
-> > +     list_del_rcu(&esd->dep_rev_node);
-> > +}
-> > +
-> > +/*
-> > + * NOTE: Must be called with dept_lock held.
-> > + */
-> > +static void disconnect_event_site(struct dept_event_site *es)
-> > +{
-> > +     struct dept_event_site_dep *esd, *next_esd;
-> > +
-> > +     list_for_each_entry_safe(esd, next_esd, &es->dep_head, dep_node) {
-> > +             list_del_rcu(&esd->dep_node);
-> > +             list_del_rcu(&esd->dep_rev_node);
-> > +     }
-> > +
-> > +     list_for_each_entry_safe(esd, next_esd, &es->dep_rev_head, dep_rev_node) {
-> > +             list_del_rcu(&esd->dep_node);
-> > +             list_del_rcu(&esd->dep_rev_node);
-> > +     }
-> > +}
-> > +
-> >  /*
-> >   * NOTE: Must be called with dept_lock held.
-> >   */
-> > @@ -2384,6 +2414,8 @@ void dept_free_range(void *start, unsigned int sz)
-> >  {
-> >       struct dept_task *dt = dept_task();
-> >       struct dept_class *c, *n;
-> > +     struct dept_event_site_dep *esd, *next_esd;
-> > +     struct dept_event_site *es, *next_es;
-> >       unsigned long flags;
-> >
-> >       if (unlikely(!dept_working()))
-> > @@ -2405,6 +2437,24 @@ void dept_free_range(void *start, unsigned int sz)
-> >       while (unlikely(!dept_lock()))
-> >               cpu_relax();
-> >
-> > +     list_for_each_entry_safe(esd, next_esd, &dept_event_site_deps, all_node) {
-> > +             if (!within((void *)esd, start, sz))
-> > +                     continue;
-> > +
-> > +             disconnect_event_site_dep(esd);
-> > +             list_del(&esd->all_node);
-> > +     }
-> > +
-> > +     list_for_each_entry_safe(es, next_es, &dept_event_sites, all_node) {
-> > +             if (!within((void *)es, start, sz) &&
-> > +                 !within(es->name, start, sz) &&
-> > +                 !within(es->func_name, start, sz))
-> > +                     continue;
-> > +
-> > +             disconnect_event_site(es);
-> > +             list_del(&es->all_node);
-> > +     }
-> > +
-> >       list_for_each_entry_safe(c, n, &dept_classes, all_node) {
-> >               if (!within((void *)c->key, start, sz) &&
-> >                   !within(c->name, start, sz))
-> > @@ -3337,6 +3387,7 @@ void __dept_recover_event(struct dept_event_site_dep *esd,
-> >
-> >       list_add(&esd->dep_node, &es->dep_head);
-> >       list_add(&esd->dep_rev_node, &rs->dep_rev_head);
-> > +     list_add(&esd->all_node, &dept_event_site_deps);
-> >       check_recover_dl_bfs(esd);
-> >  unlock:
-> >       dept_unlock();
-> > @@ -3347,6 +3398,23 @@ EXPORT_SYMBOL_GPL(__dept_recover_event);
-> >
-> >  #define B2KB(B) ((B) / 1024)
-> >
-> > +void dept_mark_event_site_used(void *start, void *end)
-> 
-> Nit: I suggest that dept_mark_event_site_used() take pointers to
-> dept_event_site_init, which would catch the type mismatch with
-> module::dept_event_sites.
-> 
-> > +{
-> > +     struct dept_event_site_init **evtinitpp;
-> > +
-> > +     for (evtinitpp = (struct dept_event_site_init **)start;
-> > +          evtinitpp < (struct dept_event_site_init **)end;
-> > +          evtinitpp++) {
-> > +             (*evtinitpp)->evt_site->used = true;
-> > +             (*evtinitpp)->evt_site->func_name = (*evtinitpp)->func_name;
-> > +             list_add(&(*evtinitpp)->evt_site->all_node, &dept_event_sites);
-> > +
-> > +             pr_info("dept_event_site %s@%s is initialized.\n",
-> > +                             (*evtinitpp)->evt_site->name,
-> > +                             (*evtinitpp)->evt_site->func_name);
-> > +     }
-> > +}
-> > +
-> >  extern char __dept_event_sites_start[], __dept_event_sites_end[];
-> 
-> Related to the above, __dept_event_sites_start and
-> __dept_event_sites_end can already be properly typed here.
-> 
-> >
-> >  /*
-> > @@ -3356,20 +3424,11 @@ extern char __dept_event_sites_start[], __dept_event_sites_end[];
-> >  void __init dept_init(void)
-> >  {
-> >       size_t mem_total = 0;
-> > -     struct dept_event_site_init **evtinitpp;
-> >
-> >       /*
-> >        * dept recover dependency tracking works from now on.
-> >        */
-> > -     for (evtinitpp = (struct dept_event_site_init **)__dept_event_sites_start;
-> > -          evtinitpp < (struct dept_event_site_init **)__dept_event_sites_end;
-> > -          evtinitpp++) {
-> > -             (*evtinitpp)->evt_site->used = true;
-> > -             (*evtinitpp)->evt_site->func_name = (*evtinitpp)->func_name;
-> > -             pr_info("dept_event %s@%s is initialized.\n",
-> > -                             (*evtinitpp)->evt_site->name,
-> > -                             (*evtinitpp)->evt_site->func_name);
-> > -     }
-> > +     dept_mark_event_site_used(__dept_event_sites_start, __dept_event_sites_end);
-> >       dept_recover_ready = true;
-> >
-> >       local_irq_disable();
-> > diff --git a/kernel/module/main.c b/kernel/module/main.c
-> > index 03ed63f2adf0..82448cdb8ed7 100644
-> > --- a/kernel/module/main.c
-> > +++ b/kernel/module/main.c
-> > @@ -2720,6 +2720,11 @@ static int find_module_sections(struct module *mod, struct load_info *info)
-> >                                               &mod->dyndbg_info.num_classes);
-> >  #endif
-> >
-> > +#ifdef CONFIG_DEPT
-> > +     mod->dept_event_sites = section_objs(info, ".dept.event_sites",
-> > +                                     sizeof(*mod->dept_event_sites),
-> > +                                     &mod->num_dept_event_sites);
-> > +#endif
-> >       return 0;
-> >  }
-> >
-> > @@ -3346,6 +3351,14 @@ static int early_mod_check(struct load_info *info, int flags)
-> >       return err;
-> >  }
-> >
-> > +static void dept_mark_event_site_used_module(struct module *mod)
-> > +{
-> > +#ifdef CONFIG_DEPT
-> > +     dept_mark_event_site_used(mod->dept_event_sites,
-> > +                          mod->dept_event_sites + mod->num_dept_event_sites);
-> > +#endif
-> > +}
-> > +
-> 
-> It seems to me that the .dept.event_sites section can be discarded after
-> the module is initialized. In this case, the section should be prefixed
-> by ".init" and its address can be obtained at the point of use in
-> dept_mark_event_site_used_module(), without needing to store it inside
-> the module struct.
-> 
-> Additionally, what is the reason that the dept_event_site_init data is
-> not stored in the .dept.event_sites section directly and it requires
-> a level of indirection?
-> 
-> In general, for my own understanding, I also wonder whether the check to
-> determine that a dept_event_site is used needs to be done at runtime, or
-> if it could be done at build time by objtool/modpost.
+False positive reports have been observed since dept assumes that all
+the pages have the same dept class, but the class should be split since
+the call paths are different depending on what the page is used for.
 
-I appreciate your feedback and it was so helpful, but I decided to defer
-the part supporting recover events tracking - 33/42 ~ 35/42 in this
-series - to a follow-up patch later with the feedback applied, as it
-unnecessarily complicates the initial DEPT patchset and significantly
-increases the review burden.
+At least, ones for block device and ones for regular file have
+exclusively different usages.
 
-	Byungchul
+Define usage candidates like:
 
-> >  /*
-> >   * Allocate and load the module: note that size of section 0 is always
-> >   * zero, and we rely on this for optional sections.
-> > @@ -3508,6 +3521,8 @@ static int load_module(struct load_info *info, const char __user *uargs,
-> >       /* Done! */
-> >       trace_module_load(mod);
-> >
-> > +     dept_mark_event_site_used_module(mod);
-> > +
-> >       return do_init_module(mod);
-> >
-> >   sysfs_cleanup:
-> 
-> --
-> Thanks,
-> Petr
+   DEPT_PAGE_REGFILE_CACHE /* page in regular file's address_space */
+   DEPT_PAGE_BDEV_CACHE    /* page in block device's address_space */
+   DEPT_PAGE_DEFAULT       /* the others */
+
+Introduce APIs to set each page usage properly and make sure not to
+interact between DEPT_PAGE_REGFILE_CACHE and DEPT_PAGE_BDEV_CACHE.
+Besides that, it allows the other cases:
+
+   interaction between DEPT_PAGE_DEFAULT and DEPT_PAGE_REGFILE_CACHE,
+   interaction between DEPT_PAGE_DEFAULT and DEPT_PAGE_BDEV_CACHE,
+   interaction between DEPT_PAGE_DEFAULT and DEPT_PAGE_DEFAULT.
+
+Signed-off-by: Byungchul Park <byungchul@sk.com>
+---
+ include/linux/dept.h       | 34 ++++++++++++++-
+ include/linux/mm_types.h   |  1 +
+ include/linux/page-flags.h | 89 +++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 120 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/dept.h b/include/linux/dept.h
+index 236e57befb13..3b8faf5f04cf 100644
+--- a/include/linux/dept.h
++++ b/include/linux/dept.h
+@@ -19,8 +19,8 @@ struct task_struct;
+ #define DEPT_MAX_WAIT_HIST		64
+ #define DEPT_MAX_ECXT_HELD		48
+ 
+-#define DEPT_MAX_SUBCLASSES		16
+-#define DEPT_MAX_SUBCLASSES_EVT		2
++#define DEPT_MAX_SUBCLASSES		24
++#define DEPT_MAX_SUBCLASSES_EVT		3
+ #define DEPT_MAX_SUBCLASSES_USR		(DEPT_MAX_SUBCLASSES / DEPT_MAX_SUBCLASSES_EVT)
+ #define DEPT_MAX_SUBCLASSES_CACHE	2
+ 
+@@ -142,6 +142,35 @@ struct dept_ext_wgen {
+ 	unsigned int wgen;
+ };
+ 
++enum {
++	DEPT_PAGE_DEFAULT = 0,
++	DEPT_PAGE_REGFILE_CACHE,	/* regular file page cache */
++	DEPT_PAGE_BDEV_CACHE,		/* block device cache */
++	DEPT_PAGE_USAGE_NR,		/* nr of usages options */
++};
++
++#define DEPT_PAGE_USAGE_SHIFT 16
++#define DEPT_PAGE_USAGE_MASK ((1U << DEPT_PAGE_USAGE_SHIFT) - 1)
++#define DEPT_PAGE_USAGE_PENDING_MASK (DEPT_PAGE_USAGE_MASK << DEPT_PAGE_USAGE_SHIFT)
++
++/*
++ * Identify each page's usage type
++ */
++struct dept_page_usage {
++	/*
++	 * low 16 bits  : the current usage type
++	 * high 16 bits : usage type requested to be set
++	 *
++	 * Do not apply usage type on request immediately but postpone
++	 * it until the next use of PG flags.  For example, if the page
++	 * is already within a PG_locked critical section, regard it as
++	 * DEPT_PAGE_DEFAULT temporarily at least until the section ends
++	 * e.g. folio_unlock() since it's still unclear which usage type
++	 * the page acts within the section.
++	 */
++	atomic_t type; /* Update and read atomically */
++};
++
+ void dept_stop_emerg(void);
+ void dept_on(void);
+ void dept_off(void);
+@@ -192,6 +221,7 @@ void dept_hardirqs_off(void);
+ struct dept_key { };
+ struct dept_map { };
+ struct dept_ext_wgen { };
++struct dept_page_usage { };
+ 
+ #define DEPT_MAP_INITIALIZER(n, k) { }
+ 
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 5b3f54ee0d38..e25d09f3dfa9 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -220,6 +220,7 @@ struct page {
+ 	struct page *kmsan_shadow;
+ 	struct page *kmsan_origin;
+ #endif
++	struct dept_page_usage usage;
+ 	struct dept_ext_wgen pg_locked_wgen;
+ } _struct_page_alignment;
+ 
+diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+index 8ab39823ea31..0b0655354b08 100644
+--- a/include/linux/page-flags.h
++++ b/include/linux/page-flags.h
+@@ -204,6 +204,80 @@ enum pageflags {
+ 
+ extern struct dept_map pg_locked_map;
+ 
++static inline void dept_set_page_usage(struct page *p,
++		unsigned int new_type)
++{
++	/*
++	 * Consider the page as DEPT_PAGE_DEFAULT until the next use of
++	 * PG flags e.g. folio_lock().
++	 */
++	unsigned int type = DEPT_PAGE_DEFAULT;
++
++	if (WARN_ON_ONCE(new_type >= DEPT_PAGE_USAGE_NR))
++		return;
++
++	new_type <<= DEPT_PAGE_USAGE_SHIFT;
++	new_type |= type & DEPT_PAGE_USAGE_MASK;
++	atomic_set(&p->usage.type, new_type);
++}
++
++static inline void dept_set_folio_usage(struct folio *f,
++		unsigned int new_type)
++{
++	dept_set_page_usage(&f->page, new_type);
++}
++
++static inline void dept_reset_page_usage(struct page *p)
++{
++	dept_set_page_usage(p, DEPT_PAGE_DEFAULT);
++}
++
++static inline void dept_reset_folio_usage(struct folio *f)
++{
++	dept_reset_page_usage(&f->page);
++}
++
++static inline void dept_update_page_usage(struct page *p)
++{
++	unsigned int type = atomic_read(&p->usage.type);
++	unsigned int new_type;
++
++retry:
++	new_type = type & DEPT_PAGE_USAGE_PENDING_MASK;
++	new_type >>= DEPT_PAGE_USAGE_SHIFT;
++	new_type |= type & DEPT_PAGE_USAGE_PENDING_MASK;
++
++	/*
++	 * Already updated by others.
++	 */
++	if (type == new_type)
++		return;
++
++	if (!atomic_try_cmpxchg(&p->usage.type, &type, new_type))
++		goto retry;
++}
++
++static inline unsigned long dept_event_flags(struct page *p, bool wait)
++{
++	unsigned int type;
++
++	type = atomic_read(&p->usage.type) & DEPT_PAGE_USAGE_MASK;
++
++	if (WARN_ON_ONCE(type >= DEPT_PAGE_USAGE_NR))
++		return 0;
++
++	/*
++	 * wait
++	 */
++	if (wait)
++		return (1UL << DEPT_PAGE_DEFAULT) | (1UL << type);
++
++	/*
++	 * event
++	 */
++	return 1UL << type;
++}
++
+ /*
+  * Place the following annotations in its suitable point in code:
+  *
+@@ -214,20 +288,29 @@ extern struct dept_map pg_locked_map;
+ 
+ static inline void dept_page_set_bit(struct page *p, int bit_nr)
+ {
++	dept_update_page_usage(p);
++
+ 	if (bit_nr == PG_locked)
+ 		dept_request_event(&pg_locked_map, &p->pg_locked_wgen);
+ }
+ 
+ static inline void dept_page_clear_bit(struct page *p, int bit_nr)
+ {
++	unsigned long evt_f = dept_event_flags(p, false);
++
+ 	if (bit_nr == PG_locked)
+-		dept_event(&pg_locked_map, 1UL, _RET_IP_, __func__, &p->pg_locked_wgen);
++		dept_event(&pg_locked_map, evt_f, _RET_IP_, __func__, &p->pg_locked_wgen);
+ }
+ 
+ static inline void dept_page_wait_on_bit(struct page *p, int bit_nr)
+ {
++	unsigned long evt_f;
++
++	dept_update_page_usage(p);
++	evt_f = dept_event_flags(p, true);
++
+ 	if (bit_nr == PG_locked)
+-		dept_wait(&pg_locked_map, 1UL, _RET_IP_, __func__, 0, -1L);
++		dept_wait(&pg_locked_map, evt_f, _RET_IP_, __func__, 0, -1L);
+ }
+ 
+ static inline void dept_folio_set_bit(struct folio *f, int bit_nr)
+@@ -245,6 +328,8 @@ static inline void dept_folio_wait_on_bit(struct folio *f, int bit_nr)
+ 	dept_page_wait_on_bit(&f->page, bit_nr);
+ }
+ #else
++#define dept_set_page_usage(p, t)		do { } while (0)
++#define dept_reset_page_usage(p)		do { } while (0)
+ #define dept_page_set_bit(p, bit_nr)		do { } while (0)
+ #define dept_page_clear_bit(p, bit_nr)		do { } while (0)
+ #define dept_page_wait_on_bit(p, bit_nr)	do { } while (0)
+-- 
+2.17.1
+
