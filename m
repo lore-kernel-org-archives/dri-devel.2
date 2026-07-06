@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD33C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:01:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B01C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 03:05:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BAA410E71D;
-	Mon,  6 Jul 2026 03:01:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Af5BofyF";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68F9A10E71D
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:01:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A23E960018;
- Mon,  6 Jul 2026 03:01:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17F6D1F000E9;
- Mon,  6 Jul 2026 03:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783306895;
- bh=yV9RfEdGP6Kgyl3/MhwuLyjKZzEiiKyCMErJXlmKVYg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Af5BofyFEE+JvMUwSW+/O0YDgaQIpd2uzs73SpL7Z2hutFgG9EFbB0/Zk+0YT7jJo
- Z4HnfS/o9p9l8GfNCIGnWcUkrpzwrjIr8QxeGa3xOuahEVluQKxDD8LMt2InpQsIcc
- l+y+LE2bGexli7qPghDDcQ1y00f+HlowC201JSazxt+gYTseiLJmbUXGaenEqtL/ko
- rSKlP1E+1DCAWowgrJ4xeOYBoKBINSEZ6sopWs9rfAoExkl+mSTZ0sTyWy+2F0OeaA
- MaKSxdqZPgYo52HsY0augH/bu/ze32XtRRBUpE1+fAo/MJUCiITfXAATE15sJq/+1x
- mMbK3b4WRwiUg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/10] ttm: hook up memcg placement flags.
-To: "Dave Airlie" <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, tj@kernel.org, mkoutny@suse.com,
- hannes@cmpxchg.org
-In-Reply-To: <20260706024122.853329-7-airlied@gmail.com>
-References: <20260706024122.853329-1-airlied@gmail.com>
- <20260706024122.853329-7-airlied@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66DE610E71C;
+	Mon,  6 Jul 2026 03:05:30 +0000 (UTC)
+Received: from us-smtp-delivery-44.mimecast.com
+ (us-smtp-delivery-44.mimecast.com [205.139.111.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C775C10E71C
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 03:05:28 +0000 (UTC)
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-328-LKg31dyrNAyQfCwzCeZD6g-1; Sun,
+ 05 Jul 2026 23:05:26 -0400
+X-MC-Unique: LKg31dyrNAyQfCwzCeZD6g-1
+X-Mimecast-MFC-AGG-ID: LKg31dyrNAyQfCwzCeZD6g_1783307125
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 3E1C3180137A; Mon,  6 Jul 2026 03:05:25 +0000 (UTC)
+Received: from dreadlord.redhat.com (unknown [10.67.32.13])
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 05D701956045; Mon,  6 Jul 2026 03:05:22 +0000 (UTC)
+From: Dave Airlie <airlied@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org
+Cc: dakr@kernel.org
+Subject: [PATCH] nouveau/instmem: use iomapping interface for instmem handling
+ (v3)
+Date: Mon,  6 Jul 2026 13:05:20 +1000
+Message-ID: <20260706030520.857104-1-airlied@gmail.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: pYmDnJLFF5PUFeVeob8WquCXRhHiMLpwLbhMlJ2kWbI_1783307125
+X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 03:01:34 +0000
-Message-Id: <20260706030135.17F6D1F000E9@smtp.kernel.org>
+content-type: text/plain; charset=WINDOWS-1252; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,64 +57,182 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Direct dereference of `bo->resource` without a NULL check in `=
-ttm_bo_setup_export` causes a kernel panic when exporting pipeline-gutted B=
-Os.
---
+From: Dave Airlie <airlied@redhat.com>
 
-commit dc7f000aeb70e2be50c58ca89d0162684ebb0574
-Author: Dave Airlie <airlied@redhat.com>
+This avoids constant need to ioremap when instobjs move at least
+on 64-bit systems.
 
-ttm: hook up memcg placement flags.
+This create the io mapping on first use, because creating it at init
+time causes a resource mapping error, because nouveau hasn't kicked
+simpledrm off the hardware yet, but ioremap_wc the whole BAR causes
+an overlap with BOOTFB/simpledrm. I think the resource system could
+do better here, but it's easier to just delay creating the mapping
+until first use.
 
-This commit adds a placement flag to request memory cgroup accounting for
-system memory allocations. It updates various callers of ttm_bo_populate()
-to pass this flag by checking the placement flags of the buffer object's
-resource.
+Signed-off-by: Dave Airlie <airlied@redhat.com>
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 8e38c6c5c82ef..54ee9d4e7a139 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+---
+v2: move the mapping into the main code.
+v3: fixup some Sashiko review, just do mapping in boot code
+which should always be called for bar2.
+---
+ .../nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c    |  1 +
+ .../drm/nouveau/nvkm/subdev/instmem/nv50.c    | 39 ++++++++++++++-----
+ .../drm/nouveau/nvkm/subdev/instmem/priv.h    |  1 +
+ 3 files changed, 32 insertions(+), 9 deletions(-)
 
-[ ... ]
-
-> @@ -1296,7 +1296,7 @@ int ttm_bo_setup_export(struct ttm_buffer_object *b=
-o,
->  	if (ret !=3D 0)
->  		return ret;
-> =20
-> -	ret =3D ttm_bo_populate(bo, false, ctx);
-> +	ret =3D ttm_bo_populate(bo, bo->resource->placement & TTM_PL_FLAG_MEMCG=
-, ctx);
-
-[Severity: Critical]
-Can this dereference a NULL pointer if the buffer object has been
-pipeline-gutted?
-
-Under memory pressure, TTM eviction logic may pipeline-gut the BO via
-ttm_bo_pipeline_gutting(), which frees the resource and sets bo->resource
-to NULL.
-
-If userspace then invokes the DMA-BUF export ioctl on this gutted BO, the
-driver's export callback (like amdgpu_gem_prime_export) can call
-ttm_bo_setup_export() without re-validating the BO. This results in an
-unconditional dereference of the NULL pointer when evaluating
-bo->resource->placement.
-
-Would it be safer to check if bo->resource is valid before checking its
-placement flags?
-
->  	ttm_bo_unreserve(bo);
->  	return ret;
->  }
-
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c b/drive=
+rs/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
+index 700cea5def35..f128330f30d7 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
+@@ -297,6 +297,7 @@ r535_fbsr =3D {
+ static void *
+ r535_instmem_dtor(struct nvkm_instmem *imem)
+ {
++=09nv50_instmem_dtor(imem);
+ =09kfree(imem->func);
+ =09return imem;
+ }
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c b/drivers/g=
+pu/drm/nouveau/nvkm/subdev/instmem/nv50.c
+index 6fbaa1e5876d..f4489efc94a7 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
+@@ -30,10 +30,14 @@
+ #include <subdev/gsp.h>
+ #include <subdev/mmu.h>
+=20
++#include <linux/io-mapping.h>
++
+ struct nv50_instmem {
+ =09struct nvkm_instmem base;
+ =09u64 addr;
+=20
++=09struct io_mapping iomap;
++
+ =09/* Mappings that can be evicted when BAR2 space has been exhausted. */
+ =09struct list_head lru;
+ };
+@@ -124,7 +128,6 @@ nv50_instobj_kmap(struct nv50_instobj *iobj, struct nvk=
+m_vmm *vmm)
+ =09struct nv50_instobj *eobj;
+ =09struct nvkm_memory *memory =3D &iobj->base.memory;
+ =09struct nvkm_subdev *subdev =3D &imem->base.subdev;
+-=09struct nvkm_device *device =3D subdev->device;
+ =09struct nvkm_vma *bar =3D NULL, *ebar;
+ =09u64 size =3D nvkm_memory_size(memory);
+ =09void *emap;
+@@ -155,7 +158,7 @@ nv50_instobj_kmap(struct nv50_instobj *iobj, struct nvk=
+m_vmm *vmm)
+ =09=09mutex_unlock(&imem->base.mutex);
+ =09=09if (!eobj)
+ =09=09=09break;
+-=09=09iounmap(emap);
++=09=09io_mapping_unmap(emap);
+ =09=09nvkm_vmm_put(vmm, &ebar);
+ =09}
+=20
+@@ -172,8 +175,7 @@ nv50_instobj_kmap(struct nv50_instobj *iobj, struct nvk=
+m_vmm *vmm)
+=20
+ =09/* Make the mapping visible to the host. */
+ =09iobj->bar =3D bar;
+-=09iobj->map =3D ioremap_wc(device->func->resource_addr(device, NVKM_BAR2_=
+INST) +
+-=09=09=09       (u32)iobj->bar->addr, size);
++=09iobj->map =3D io_mapping_map_wc(&imem->iomap, (u32)iobj->bar->addr, siz=
+e);
+ =09if (!iobj->map) {
+ =09=09nvkm_warn(subdev, "PRAMIN ioremap failed\n");
+ =09=09nvkm_vmm_put(vmm, &iobj->bar);
+@@ -188,6 +190,16 @@ nv50_instobj_map(struct nvkm_memory *memory, u64 offse=
+t, struct nvkm_vmm *vmm,
+ =09return nvkm_memory_map(memory, offset, vmm, vma, argv, argc);
+ }
+=20
++static bool
++check_io_mapping(struct nv50_instmem *imem)
++{
++=09struct nvkm_device *device =3D imem->base.subdev.device;
++
++=09return io_mapping_init_wc(&imem->iomap,
++=09=09=09=09  device->func->resource_addr(device, NVKM_BAR2_INST),
++=09=09=09=09  device->func->resource_size(device, NVKM_BAR2_INST)) !=3D NU=
+LL;
++}
++
+ static void
+ nv50_instobj_release(struct nvkm_memory *memory)
+ {
+@@ -239,7 +251,7 @@ nv50_instobj_acquire(struct nvkm_memory *memory)
+=20
+ =09/* Attempt to get a direct CPU mapping of the object. */
+ =09if ((vmm =3D nvkm_bar_bar2_vmm(imem->subdev.device))) {
+-=09=09if (!iobj->map)
++=09=09if (!iobj->map && iobj->imem->iomap.size)
+ =09=09=09nv50_instobj_kmap(iobj, vmm);
+ =09=09map =3D iobj->map;
+ =09}
+@@ -277,7 +289,12 @@ nv50_instobj_boot(struct nvkm_memory *memory, struct n=
+vkm_vmm *vmm)
+ =09=09iobj->lru.next =3D NULL;
+ =09}
+=20
+-=09nv50_instobj_kmap(iobj, vmm);
++=09/*
++=09 * boot is only called on BAR2, if we can't remap the complete
++=09 * BAR it's unlikely things are functioning well.
++=09 */
++=09if (check_io_mapping(iobj->imem))
++=09=09nv50_instobj_kmap(iobj, vmm);
+ =09nvkm_instmem_boot(imem);
+ =09mutex_unlock(&imem->mutex);
+ }
+@@ -330,7 +347,7 @@ nv50_instobj_dtor(struct nvkm_memory *memory)
+=20
+ =09if (map) {
+ =09=09struct nvkm_vmm *vmm =3D nvkm_bar_bar2_vmm(imem->subdev.device);
+-=09=09iounmap(map);
++=09=09io_mapping_unmap(map);
+ =09=09if (likely(vmm)) /* Can be NULL during BAR destructor. */
+ =09=09=09nvkm_vmm_put(vmm, &bar);
+ =09}
+@@ -406,10 +423,14 @@ nv50_instmem_fini(struct nvkm_instmem *base)
+ =09nv50_instmem(base)->addr =3D ~0ULL;
+ }
+=20
+-static void *
++void *
+ nv50_instmem_dtor(struct nvkm_instmem *base)
+ {
+-=09return nv50_instmem(base);
++=09struct nv50_instmem *imem =3D nv50_instmem(base);
++
++=09if (imem->iomap.size)
++=09=09io_mapping_fini(&imem->iomap);
++=09return imem;
+ }
+=20
+ static const struct nvkm_instmem_func
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h b/drivers/g=
+pu/drm/nouveau/nvkm/subdev/instmem/priv.h
+index 87bbdd786eaa..b423f01f5fcd 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/priv.h
+@@ -26,6 +26,7 @@ int nv50_instobj_new(struct nvkm_instmem *, u32 size, u32=
+ align, bool zero,
+ =09=09     struct nvkm_memory **);
+ int nv50_instobj_wrap(struct nvkm_instmem *, struct nvkm_memory *vram,
+ =09=09      struct nvkm_memory **bar2);
++void *nv50_instmem_dtor(struct nvkm_instmem *base);
+=20
+ void nvkm_instmem_ctor(const struct nvkm_instmem_func *, struct nvkm_devic=
+e *,
+ =09=09       enum nvkm_subdev_type, int, struct nvkm_instmem *);
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706024122.8533=
-29-1-airlied@gmail.com?part=3D6
+2.54.0
+
