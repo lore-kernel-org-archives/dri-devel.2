@@ -4,70 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD662C43602
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:07:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14F84C43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2455110E974;
-	Mon,  6 Jul 2026 13:07:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68F7B10E99A;
+	Mon,  6 Jul 2026 13:08:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="YslEi+dT";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="M4rTjdB2";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A29110E974
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:07:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783343253; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=IE14LecyLTUD2lB/rBI/sQhw9JBIkK+/rC9JEiYegJEji4MhbEKA/hjc5n77dQrUvSPeRvymwPEJmld5wm7FOvD4Z+MlulH0VRCNHUttb7gdHb0W1/JgtEHiA5g9WCk39Cz7J24S2HmN5LvOyjwHyF5xPr+OMpGYaR8Rdi24IjU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783343253;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=FMhFvIHqiFILIt2aMFGo+C0rD75x3q8QTjXzqy1UcXQ=; 
- b=gdbWFRB9Z+gyfIwYta2iE7fxgB47WxzAO1LCZyiTWCZxU5GxbP7baazddwpnBDwm7bnmjzWoh25cBtw5RpMHV99koLtDXT1Rg0LZdYdZOE+MNSIBYnYq99n6jgbCWswzdG8qhf64vSjjBmcUOVYrXfJZJWi6AF84RJguwy5643I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783343253; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=FMhFvIHqiFILIt2aMFGo+C0rD75x3q8QTjXzqy1UcXQ=;
- b=YslEi+dTSX0IlNbI9il2u9Yi6zXml0wF5x/6fFpVl/9w/1+CIhvK0D3QKNV4ggM3
- e2bmLV/Fi1c9IljRZ+VVdC05nYbHDTOlvoeOqRZxftJp4lsyB2VmX1L6rZsrJZR4U7h
- /xC6OafhWGrHde+rcf35M+tBLJj6KgPnljltiYEc=
-Received: by mx.zohomail.com with SMTPS id 1783343250580972.9098538800296;
- Mon, 6 Jul 2026 06:07:30 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v5 0/5] rust / dma_buf: Add abstractions for dma_fence
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260703073141.3962604-2-phasta@kernel.org>
-Date: Mon, 6 Jul 2026 10:07:10 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Tamir Duberstein <tamird@kernel.org>, Mirko Adzic <adzicmirko97@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Shankari Anand <shankari.ak0208@gmail.com>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B9872CAD-C4F4-40C6-86FF-26559732419F@collabora.com>
-References: <20260703073141.3962604-2-phasta@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CE2B710E9A0;
+ Mon,  6 Jul 2026 13:08:20 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F82628C7;
+ Mon,  6 Jul 2026 06:08:16 -0700 (PDT)
+Received: from [10.57.82.104] (unknown [10.57.82.104])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E88F43F7B4;
+ Mon,  6 Jul 2026 06:08:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1783343300; bh=0aA4qLPP4be61ChbVSTr6j8z/Dm/HGd90mPQPS4LDmU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=M4rTjdB20bQ2CIIm6sF9czHLIiKzlI2RImQaKwc20odxzVCQybIaWr3rwfjrKShR5
+ KD1O5KVG+VNwczLFB/cfjDMk335CqXNUd1rKGJjEVFahgMi5MA35fcXRGjNdG6lza+
+ SNjeWVEgCVnwJxppYQ/IW6dg3IkcQENcwHFbtb7Q=
+Message-ID: <a381d265-e7a4-4fe7-9421-3553706d41c1@arm.com>
+Date: Mon, 6 Jul 2026 14:08:14 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>,
+ Joerg Roedel <joro@8bytes.org>, =?UTF-8?Q?Micha=C5=82_Grzelak?=
+ <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+References: <20260701104437.236979-1-krzysztof.karas@intel.com>
+ <20260701104437.236979-4-krzysztof.karas@intel.com>
+ <20260703162236.GX7525@ziepe.ca>
+ <90558ba3-44e6-4d5e-9c72-ed8817d372be@arm.com>
+ <20260703203502.GC1978949@ziepe.ca>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260703203502.GC1978949@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,195 +66,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 2026-07-03 9:35 pm, Jason Gunthorpe wrote:
+> On Fri, Jul 03, 2026 at 07:58:32PM +0100, Robin Murphy wrote:
+>> On 03/07/2026 5:22 pm, Jason Gunthorpe wrote:
+>>> On Wed, Jul 01, 2026 at 10:44:37AM +0000, Krzysztof Karas wrote:
+>>>> It is possible, when a very large mapping uses a single
+>>>> scatterlist, that padding overflows scatterlist's length field.
+>>>> This results in:
+>>>>    1) silently wrapping the value
+>>>>    2) smaller than desired mappings produced by iommu_map_sg
+>>>>    3) leaving mapped bytes in memory (no iommu_unmap)
+>>>>
+>>>> Address this issue by adding overflow detection for previous
+>>>> scatterlist length field.
+>>>
+>>> Urk, this is unfortunate, it means we cannot map certain kinds of
+>>> scatterlists? Meaning there is a condition that makes a scatterlist
+>>> ill formed?
+>>>
+>>> This seems like something that needs to be more clearly documented and
+>>> we need to ensure at least the common scatterlist builders don't hit
+>>> it..
+>>
+>> Well, it's taken 10 years to be caught by a test which seemingly expects the
+>> mapping of a single absurdly giant scatterlist to fail anyway,
+> 
+> If your server has 0.5TB of ram a 4G IO isn't actually that large.
+> Randomly getting a few contiguous 1G hugetlbfs pages is not even that
+> unlikely. Something like FSDAX has a very high chance of getting high
+> contiguity pages in files.
 
+Sure, but how many servers had 0.5TB of RAM in 2015? And how many of 
+those were running the arm64 DMA mapping code? As I said, both this 
+merging logic and the iommu_map_sg() interface itself were essentially 
+written to support media buffers on Android phones which didn't even 
+have 4GB of RAM in total. Yes, things have moved on by now, but 
+correspondingly it has also been decided that the ~30-year-old 
+scatterlist design also doesn't scale to modern use-cases anyway, and is 
+being replaced, so limitations of a "legacy" API that don't have any 
+meaningful impact to its existing users are hardly something to panic 
+about. If DRM does want to be able to *reliably* map massive amounts of 
+RAM then it can adopt the new IOMMU API, for this and all the other 
+reasons that that new API was promised to be "better".
 
-> On 3 Jul 2026, at 04:31, Philipp Stanner <phasta@kernel.org> wrote:
->=20
-> Changes since v4:
->  - Fix an uninitialized memory bug for FenceCbRegistration with
->    ManuallyDrop.
->  - Return FenceCtx as impl PinInit
->  - Make FenceCtx return an impl PinInit<T, Error> (Danilo)
->  - Reformat some comments
->  - Adjust the docu for rcu_barrier(), so that it matches the C side's
->    docu and our docu for rcu::synchronize_rcu().
->=20
-> Changes since v3:
->  - Add a FIXME for an encountered Rust compiler bug. (Gary)
->  - Add new Rust files also to DRM drivers & common infrastructure
->    MAINTAINERS file. (Danilo)
->  - Reposition ECANCELED error code. (Miguel)
->  - Replace refcounted FenceCtx in DriverFenceData with a reference =
-plus
->    life time. (Boris)
->  - Re-add rcu_barrier() patch, since we now can use it for dropping =
-the
->    fence context. (Danilo)
->  - Add forgotten R-b from Alice, and Acks for MAINTAINERS from
->    Christian and Sumit.
->=20
-> Changes since v2:
->  - Don't drop DriverFenceData as a whole, but only the members we
->    really want to drop. Gives more robustness. (Gary).
->  - Break apart large pin_init_from_closure(). (Danilo, Onur)
->  - Remove rcu_barrier() and synchronize_rcu() from FenceCtx::drop().
->    FenceCtx might drop in atomic context, where you must not perform
->    those operations. With the current way C dma_fence is designed, the
->    driver must wait for a grace period manually until it unloads.
->  - Repair the DriverFenceBorrow implementation, properly injecting a
->    life time into it. (Danilo)
->  - Fix memory layout bug for rcu_head. (Onur)
->  - Drop RCU patches, since this series doesn't need them anymore.
->=20
-> Changes since v1:
->  - Remove unnecessary mutable references (Alice)
->  - Split up unsafe comments where possible (Danilo)
->  - Remove PhantomData + implement FenceCtx ops trait (Boris)
->  - Consistently call FenceCtx generic data `T`. FenceDataType is
->    derived from that. (Boris)
->  - Add abstractions for call_rcu() and synchronize_rcu() (Danilo)
->  - Add ECANCELED error code in Rust (Alice)
->  - Remove the rcu_barrier() from FenceCtx::drop() =E2=80=93 because we =
-now use
->    call_rcu(), there can be no UAF access to the FenceCtx anymore. In
->    any case, it is illegal to use either call_rcu() or
->    synchronize_rcu() in FenceCtx::drop(), because our new
->    drop_driver_fence_data() can run in atomic context and might put =
-the
->    last fence_ctx reference.
->    So we now only have to guard against module unload, which it seems
->    either the driver or Rust driver-core / module unload =
-infrastructure
->    must solve.
->  - Minor formatting etc. changes
->  - Add C helpers to MAINTAINERS. (Danilo)
->  - Ensure that `Fence::is_signaled()` is fully synchronized, i.e., all
->    callbacks really have run. See [1] and [2]. (Myself, Christian
->    K=C3=B6nig)
->=20
-> Changes since the RFCs:
->  - Include support for ForeignOwnable for ARef, so that a Fence can be
->    stuffed into an XArray et al. (Code by Danilo)
->  - Implement ForeignOwnable (with new borrow type) for DriverFence, so
->    that it can be stuffed into an XArray.
->  - Include the rcu::RcuBox data type to defer dropping data with RCU
->    (Cody by Alice)
->  - Port DmaFence to RcuBox to make UAF bugs through later, new =
-dma_fence
->    callbacks (backend_ops) impossible.
->  - Force users to pass their fence data in an RcuBox (or have it not
->    need drop()) through a Sealed trait.
->  - Document the rules for the user's DriverFence::data's drop
->    implementation very clearly (deadlock danger).
->  - rustfmt, Clippy.
->  - Various style suggestions, safety comments, etc. (=C3=96nur)
->  - Add __rust_helper prefix to helper functions. (=C3=96nur)
->=20
-> Changes in RFC v3:
->  - Omit JobQueue patches for now
->  - Completely redesign the memory layout: Instead of a Fence
->    refcounting a DriverFence, both now live in the same allocation to
->    allow for future support the dma_fence backend_ops callbacks which
->    need to do container_of. (mostly Boris's feedback)
->  - Allow for pre-allocating fences to avoid deadlocks when submitting
->    jobs to a GPU. (Boris)
->  - Simultaneously, allow for pre-preparing fence callback objects, so
->    the driver can allocate them when it sees fit. (code largely stolen
->    and inspired by Daniel).
->  - Signal fences on drop, ensure synchronization.
->  - Force users to set an error code when signalling.
->  - Write more documentation
->  - A ton of minor other changes.
->=20
->=20
-> [1] =
-https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel.or=
-g/
-> [2] =
-https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.o=
-rg/
->=20
->=20
-> Alright, so since the last RFCs did not reveal significant design
-> issues, I decided to transition this series to a v1 and hope that we =
-can
-> get it upstream.
->=20
-> This now includes code for more common infrastructure that dma_fence
-> needs, contributed by Danilo and Alice.
->=20
-> ---
->=20
-> Old cover letter for RFC:
->=20
-> So, this is the spiritual successor of the first / second RFC [1]. v2
-> also contained code for drm::JobQueue, but mostly to show how the =
-fence
-> code would be used. JobQueue is under heavy rework right now, so I =
-don't
-> want to bother your eyes with it. The docstring examples should show =
-how
-> Rust fences are supposed to be used, though.
->=20
-> This v3 contains a huge amount of highly valuable feedback from a
-> variety of people, notably Boris, but also from Alice, Gary and =
-Danilo.
->=20
-> There are some TODOs open (a better trait for fence backend_ops and =
-RCU
-> support), but my hope is that this effort is now finally approaching =
-its
-> end.
->=20
-> I would greatly appreciate feedback and especially more information
-> about what might be missing to make this usable, which is obviously
-> where Daniel's and Boris's feedback will be valuable once more.
->=20
-> Please regard this patch just as what it's titled: an RFC, to discuss =
-a
-> bit more and to inform a broader community about what the current =
-state
-> is and where this is heading at.
->=20
-> Many regards,
-> Philipp
->=20
-> [1] =
-https://lore.kernel.org/rust-for-linux/20260203081403.68733-2-phasta@kerne=
-l.org/
->=20
-> Danilo Krummrich (1):
->  rust: types: implement ForeignOwnable for ARef<T>
->=20
-> Philipp Stanner (4):
->  rust: error: Add ECANCELED error code
->  rust: sync: Add abstraction for rcu_barrier()
->  rust: Add dma_fence abstractions
->  MAINTAINERS: Add entry for Rust dma-buf
->=20
-> MAINTAINERS                      |   5 +
-> rust/bindings/bindings_helper.h  |   1 +
-> rust/helpers/dma_fence.c         |  48 ++
-> rust/helpers/helpers.c           |   1 +
-> rust/kernel/dma_buf/dma_fence.rs | 894 +++++++++++++++++++++++++++++++
-> rust/kernel/dma_buf/mod.rs       |  14 +
-> rust/kernel/error.rs             |   1 +
-> rust/kernel/lib.rs               |   1 +
-> rust/kernel/sync/aref.rs         |  40 ++
-> rust/kernel/sync/rcu.rs          |  20 +
-> 10 files changed, 1025 insertions(+)
-> create mode 100644 rust/helpers/dma_fence.c
-> create mode 100644 rust/kernel/dma_buf/dma_fence.rs
-> create mode 100644 rust/kernel/dma_buf/mod.rs
->=20
->=20
-> base-commit: a73a398a68ca9b9e5116a617562471f16b8310c4
-> --=20
-> 2.54.0
->=20
+> So I wouldn't be quite so dismissive that this is not something a real
+> user can hit.
 
-This works on Tyr :)
+I'm not being dismissive - clearly it can be hit. My point is that 
+anyone who *does* hit it can only expect it to fail (as indeed this 
+particular IGT test seems to), because it has never worked. You cannot 
+encode a 4GB scatterlist segment, because it overflows UINT_MAX. And if 
+you did try to bodge it and pass a UINT_MAX length segment to 
+iommu_map_sg() then that will also fail because it's not aligned to an 
+IOMMU page size. It's purely the matter of *how* exactly it fails which 
+could do with fixing.
 
-For the whole series:
+>> here, but I suspect this is likely just regular iova_granule rounding
+>> overflowing when the segment boundary is the maximum 4GB, since the largest
+>> representable segment length is 4GB - 1.
+> 
+> It looks like the iommu_dma_map_sg() algorithm only works reliably if
+> the scatterlist entry size is less than UINT_MAX/2, otherwise it can
+> risk overflowing when it pads.
 
-Tested-by: Daniel Almeida <daniel.almeida@collabora.com>=
+AFAICS, the overflow can only happen with a 4GB boundary mask, and for 
+two conditions:
+
+- rounding up the current segment, when s->length + s->offset > 4GB - 
+iova_granule (but still <= 4GB otherwise it's bogus anyway)
+- padding the previous segment in the case where the current segment 
+would otherwise cross the next boundary, when prev->offset = 0 and 
+prev->length + s->length >= 4GB
+
+So yes, limiting any individual segment to <=2GB would end up avoiding 
+both those conditions, but it would also impact plenty of cases that 
+*do* currently work fine, e.g. 1GB+3GB+3GB. The limitation is really 
+that you can't have two consecutive segments where the first starts 
+exactly on a 4GB boundary and the sum of both their sizes >=4GB.
+
+> API wise I expect any arbitary input to sg_alloc_table_from_pages() to
+> result in a scatterlist that iommu_dma_map_sg() will map. This
+> patch highlights there are cornere cases where that isn't true, it
+> should be fixed..
+
+Technically sg_alloc_table_from_pages() carries no such assumption, only 
+sg_alloc_table_from_pages_segment() (or __sg_alloc_table_from_pages()) 
+with the correct dma_seg_boundary value for the given device. But even 
+then in the worst case, they should still end up splitting segments at 
+4GB-PAGE_SIZE due to the fundamental int limitation, and so only be at 
+risk of putting two such segments back-to-back.
+
+> I agree we shouldn't overcomplicate iommu_dma_map_sg(), so the
+> simplest fix is to introduce a SG_MAX_LENGTH set to UINT_MAX/2,
+> justified by the logic in iommu_dma_map_sg(). Fixup the core sg_alloc
+> code to respect that. WARN_ON in iommu_dma_map_sg() if a malformed
+> scatterlist entry is presented. Add a WARN_ON under DMA debugging
+> kconfig as well for the physical path.
+
+Again, it's not "malformed", it's just an edge case of certain 
+otherwise-valid scatterlist layouts that are not supported in this one 
+DMA API implementation. Nothing in the DMA API ever guarantees that any 
+particular mapping must succeed. Furthermore I don't see that anyone's 
+asking for this to actually be supported, just to fail cleanly and 
+correctly without inadvertently corrupting state.
+
+Thanks,
+Robin.
