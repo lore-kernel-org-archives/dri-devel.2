@@ -4,81 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A3AC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 14:27:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B312C44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 14:28:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CB4410E02F;
-	Mon,  6 Jul 2026 14:27:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C1110E273;
+	Mon,  6 Jul 2026 14:28:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aiuCwKoo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IiEjoMl/";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6648810E02F
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 14:27:37 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-493d92b7db3so14207685e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 07:27:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783348056; x=1783952856; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ThmdWFoUi9SJhoiWKeVyJUwaJ8zMIfm7djT8Y8A3Rq8=;
- b=aiuCwKooMu116fW7REI2L2iodaoN6JSkVLOhbIvu0PnNh701eiSgqK/JYz/Dq7kDk/
- WTwHEllvC+YrYWdeNNHCsGynboQwv5VnmSf43Sa0o0yv+SpwNOHqdjveggU8qH4gsKzR
- Slzn3l/y1BSmUJrXR+Wl0vBTe2la3dZ1zXclhakZyrdXjP5e1dy3AuHCxmu7R266tBr0
- 5epFA2TVuELrs1fhERGftUXSsv2nOqxToOZHx9QFojj9s5g3ayLXeZzmjUVO6d6P3kYB
- 1JmBzQ9Y/6IUSrpoQHsKHZ8BVqtolQYWRVwgpu4ieaRJyRQFTNu9fd5lBaPbjIniBh0B
- k2tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783348056; x=1783952856;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ThmdWFoUi9SJhoiWKeVyJUwaJ8zMIfm7djT8Y8A3Rq8=;
- b=N6PkmQv2U1FhhEEo/YyrIDcbddAjsdJmt+WayU78DAAAO3/PqHrr8RLGH849uXIIg4
- ql2CunaELThDadSHq+8fhTOw+YDzKjhh7g87NLU4CFyHE97ZMs8BUS/v+ZdDO97uei0R
- 20I66oGvZndpQAJbZFGIwTRgksjujCDUwVWbV4ACDQ+Hw2O+9YY5PobKKsl/sUgmpmu9
- gCPyThReNKb0QZ8muqFjhZknslAjcad3CXYLdiMD3Ro/pf/+eET2EAikAS8JY2yqjiTr
- gDkrRNcfLuEylS656xzgoYMalkK7X8htfyE0FOqqNdyvspbTXab/hvWMs2JzlSXf2BfN
- DwEg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpeNGtjHITTvnCOGM2WEC0206BiErpGH40bZypVU4XIDd0VD7ZGwy72kJwsQHuFOF7ZT+ct+BZ/DyA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzckb3SRdCfirkMDtnjLxgK+vcYNpx0nCGlRzjYsrnl9hSs5w+W
- zPWg2LrMOFLwI5JiO14tVlnvNXgpjPC5b7Ud5QwRsxcxUURMIG87yMcO0thUetTsEpk=
-X-Gm-Gg: AfdE7ckk4KMFgR+1wjm8WMyXK72lJVvyFaDSNiK9gD6OunHiWGutXfxkIvqQ48OBSPU
- WTQFek4aL4UD0LmrUEtM0g5jIkEOxMtVDVvIDe8otCkZ9765ibvr++7cCf4Kd9OovmUuQ7Tp1dL
- UK09DPcohbKufjGeS6zFT9MRSebV4tGtuGk6YWtLchIqGfJhsO9CX1nuNR1fL7VSLDXATiZV093
- h1fX2+qD99OixXJYSe4TUfByuP9Z4zwj0MF4U0Wnx+ZCg40yFOjQhodjPbZWsO0GQleRwSyiYpd
- WgfMJFZz1u2Hg9YBWgkZ2A0GGXYTWSe0PiolOwGw576bx4V6lnjGk965bKTzrbhjN0P3LouPuFw
- imxl2DzaeqvXabFafYoqgI+YqsNEPnaA3Kdlmf1mAShE94rfvoxfPLPrD0YJ1ZV4d8TJRIVzcBo
- Ya15iLzatFS8rRX82qeSwWF6YbyfxBnLTZXrWUvPTfOvfjOOyHliWFYyuZUZQ=
-X-Received: by 2002:a05:600c:8b6f:b0:493:a7bc:5bcf with SMTP id
- 5b1f17b1804b1-493df08cf98mr8234245e9.24.1783348055423; 
- Mon, 06 Jul 2026 07:27:35 -0700 (PDT)
-Received: from osama.. ([2a02:908:1b8:2060:bfda:c630:e88a:7a7])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493ccdab27dsm268422715e9.4.2026.07.06.07.27.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 07:27:34 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH] drm/imx: check parallel-display drm_bridge_attach
-Date: Mon,  6 Jul 2026 16:27:32 +0200
-Message-ID: <20260706142732.49397-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFA8610E273;
+ Mon,  6 Jul 2026 14:28:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783348108; x=1814884108;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=vZWrmCgooqGaeLMQA0CJMhP9+N3djHYev7afW/QNC5s=;
+ b=IiEjoMl/bwXTQUJUe12HovqzwD7Kxq63mWfl11hE1B2QAauQzJqJnpOq
+ 44ariqOKeKujwN2iRu5cjt192KfaQO9tBH+Z7E2nw/F66c3EGSjlHF7zE
+ MRBSlgnJY9G7vD7aOhJSQH0rROQdJclrsDHHFT1QTPAGUK329lDHU/cL/
+ G6HXmB4IRy3wgVN+/oIkxozFVp2GzNAu4kRpoQKFownASxKzu2424SPf7
+ 3dWRodUOZhyJrEyArUGRfCeBM2uKPCwE4UhU0kT5yxBzeJXQOWNfoQhhz
+ 01Iot8mWfF8Jkv/pFymmfWTnXYrE0GGYjwSFTqoZQhIbsseSeCM0mgtGG w==;
+X-CSE-ConnectionGUID: 8ooMJLFwQKCF2ZT9JBejGA==
+X-CSE-MsgGUID: nA1wfQ98QF29iaCTlLcf8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="87662090"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="87662090"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 07:28:27 -0700
+X-CSE-ConnectionGUID: Zf/XojuVTFmI51ZpegllVg==
+X-CSE-MsgGUID: 7fDr0dcwSFqbvx5P0d3NwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="251049438"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.132])
+ ([10.245.244.132])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 07:28:24 -0700
+Message-ID: <c5f38603809c5385d2eb8937762b92c4f56c18f9.camel@linux.intel.com>
+Subject: Re: drm/ttm/memcg/lru: enable memcg tracking for ttm, xe and amdgpu
+ driver (part 2) (v2).
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
+ tj@kernel.org, christian.koenig@amd.com, Johannes Weiner
+ <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Shakeel Butt	 <shakeel.butt@linux.dev>, Muchun
+ Song <muchun.song@linux.dev>
+Cc: cgroups@vger.kernel.org, Waiman Long <longman@redhat.com>,
+ simona@ffwll.ch, 	intel-xe@lists.freedesktop.org
+Date: Mon, 06 Jul 2026 16:28:22 +0200
+In-Reply-To: <CAPM=9txKzx6qji23YpY=d6Wrd-se-abZoOmDUW32HCx5YsL0tA@mail.gmail.com>
+References: <20260706052330.1110909-1-airlied@gmail.com>
+ <CAPM=9txKzx6qji23YpY=d6Wrd-se-abZoOmDUW32HCx5YsL0tA@mail.gmail.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,28 +77,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-check drm_bridge_attach() in parallel-display.c, aligns with ldb/hdmi.
+On Mon, 2026-07-06 at 17:55 +1000, Dave Airlie wrote:
+> On Mon, 6 Jul 2026 at 15:23, Dave Airlie <airlied@gmail.com> wrote:
+> >=20
+> > This is just a repost with a number of sashiko identified problems
+> > that I fixed.
+> >=20
+> > I committed the vmstat counters and list lru changes, and they are
+> > now in tree.
+> >=20
+> > This is the remainder of this series. Intel have expressed interest
+> > in getting
+> > this landed for xe, we can drop the amdgpu changes for now if they
+> > can't get
+> > across the line.
+>=20
+> I've put the latest code at
+> https://github.com/airlied/linux/tree/ttm-memcg-objcg
+>=20
+> I've been fixing more sashiko found issues in there before I repost
+> in
+> a few days.
+>=20
+> I've reordered things a little in the branch but mostly the same
+> code.
+>=20
+> Dave.
 
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
- drivers/gpu/drm/imx/ipuv3/parallel-display.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I have a couple of additional patches to this series to ensure shmem
+memory allocated as part of shrinking or swapout ends up accounted to
+the same cgroup that allocated the TTM memory. It looks like recursive
+per-cgroup shrinking is not an issue, since somebody thought about that
+already.
 
-diff --git a/drivers/gpu/drm/imx/ipuv3/parallel-display.c b/drivers/gpu/drm/imx/ipuv3/parallel-display.c
-index eb75827394f8..fd48845877cc 100644
---- a/drivers/gpu/drm/imx/ipuv3/parallel-display.c
-+++ b/drivers/gpu/drm/imx/ipuv3/parallel-display.c
-@@ -210,7 +210,9 @@ static int imx_pd_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
- 		return ret;
- 
--	drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret)
-+		return ret;
- 
- 	connector = drm_bridge_connector_init(drm, encoder);
- 	if (IS_ERR(connector))
--- 
-2.43.0
+>=20
+> >=20
+> > I've dropped all previous acks/reviews.
+> >=20
+> > This series adds the memcg counters for GPU active and GPU reclaim
+> > to align
+> > with the two global vmstats. It adds an accounting flag to TTM
+> > alloc/populate,
+> > and enables memcg tracking and shrinker support in TTM.
+> >=20
+> > Then it adds amdgpu and xe support.
+> >=20
+> > I think for this to land, Christian holds the main objection which
+> > I still fail
+> > to fully understand beyond it doesn't solve all the problems we
+> > ever have had
+> > with cgroups and drm, so we shouldn't even bother, and maybe we
+> > could do it at
+> > the object level, and integrated with dmem, and android cross
+> > process accounting,
+> > but I still feel this is a good baseline.
+> >=20
+> > I think this is the right layer to hook this into TTM, where we
+> > allocate memory
+> > and I think accounting for this memory in a proper way should be
+> > done.
+> >=20
+> > Intel folks (Thomas/Maarten) please review and express concerns as
+> > well.
 
+The initial use-case for us is being able to pin rather substantial
+amounts of system memory due to potential upcoming hardware features.
+While RDMA is using RLIMIT_MEMLOCK for this, that is per process and an
+attacker could easily launch a number of processes and pin all of
+system memory, so the thing optionally protecting from the DoS is the
+memcg limit. So regardless of whether we also account against
+RLIMIT_MEMLOCK or not, we need an additional cgroups limit.
+
+Moving forward, there also a need of limiting the amount of allocated
+graphics memory only, due to the way certain apps behave when probing
+for available memory. :/.
+
+I have unfortunately missed large parts of the memcg vs dmemcg
+discussion, but I asked Claude to fish out as much of the essentials as
+possible from the mailing lists so I can read up.
+
+Thanks,
+Thomas
+
+
+> >=20
+> > Regards,
+> > Dave.
+> >=20
