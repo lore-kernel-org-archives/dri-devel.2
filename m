@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6C06C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:40:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3DDAC43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 10:40:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2291C10E8A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47EBD10E8B4;
 	Mon,  6 Jul 2026 10:40:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="QLWPp0Oq";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="b3xXZOx/";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 074B510E8A0;
- Mon,  6 Jul 2026 10:40:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD46710E8A2;
+ Mon,  6 Jul 2026 10:40:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1783334405;
- bh=i/YyU9d0Ww8cBNKyIC3Xr7/m83lJ0xdL3Nlgzk28BBQ=;
- h=From:To:Cc:Subject:Date:From;
- b=QLWPp0Oq54Hztbuyb2SjnBXTE/yEVcZBKWsO5nZse9I50PP1U4Qv28wrJeOeQun4N
- UMuJnFp/ED16Vb/JrBa9qTQVLnhrx2V3sIXMEmmIuEdKO7zy6dqWrnA/gtwqIYbeT3
- 7wd4hoIiRESLYI3Obs9uGE/OOjVbevWl4O7h+EDjdXIImRYGfTHzC2gWLQjY4ZAqwn
- 9V3h+zvvSTl+zybWat+UADVDlm85QXpnQ7EEMDDdysXIRUc8+DDNBc9ghGbI6Ot5+E
- cMeIHRDy9MvPXiWnp5IldhX/0Vw3eRtU18Dbw5GJsRjebubOp8edlEFYQB7VUF68Ri
- d7pI3hlS4fBHQ==
+ s=default; t=1783334407;
+ bh=T/OQGU8prg+GP3iTibN/WUfOED1EMA169ETe4ayUGKY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=b3xXZOx/YnRlejAyHnzBWmdGfP4N9pL3FQiFtxEsDhR77sAh7PTDe7a+oA9C+Npus
+ 0s/ixwNSnc1FAdIL9X7S4QWEdFYq/2i3eSE+FhklJBhu2og4qX0Br/nrFWlcUWBUPS
+ UnjXJSGzXu34WV+aCpoZkcscbI3Bk1Z7yPhyBHckneteMp4IDq2+eSJmrG+YmxBcJw
+ MVVOBGgd1v2TgwjaGsB9pzMDCOOfHrqLNEkdK+i0kyjMq/6VBydCdSdUgOZTYe9Is1
+ 7kwRVbUkhnnXtI++MjiNWWuAR7lQnfAUw5UgOto3efJj6GKnD2EzTIAOBRjRsEfvvq
+ ryT+u8io9Czmg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v3 0/7] drm/i915: All fixes to make i915 work well with
- PREEMPT_RT.
-Date: Mon,  6 Jul 2026 12:40:35 +0200
-Message-ID: <20260706104043.726178-1-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v3 4/7] drm/i915/gt: Fix selftests on PREEMPT_RT
+Date: Mon,  6 Jul 2026 12:40:39 +0200
+Message-ID: <20260706104043.726178-5-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260706104043.726178-1-dev@lankhorst.se>
+References: <20260706104043.726178-1-dev@lankhorst.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -51,47 +52,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-All fixes to make the core i915 module (without display) working correctly on
-PREEMPT_RT.
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Some fixes are still needed, as the selftests still fail. But otherwise the
-test results were looking good on PREEMPT_RT.
-
-It looks like the patch that added a spinlock caused a regression on !PREEMPT_RT,
-and may even have caused similar test failures on PREEMPT_RT, so to fix it
-I removed RCU entirely, and converted to a locked implementation instead.
-
-This time at least, i915 live selftests pass on !PREEMPRT_RT for at least 1 machine
-with same config as CI.
-
-Changes since v2:
-- Remove the extra signaler_active lock, it broke because
-  it didn't protect anything, instead use signalers_lock.
-
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-
-Maarten Lankhorst (3):
-  drm/i915/gt: Fix selftests on PREEMPT_RT
-  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
-  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
-
-Sebastian Andrzej Siewior (4):
-  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
-    spin_lock()
-  drm/i915: Drop the irqs_disabled() check
-  drm/i915/guc: Consider also RCU depth in busy loop.
-  drm/i915/gt: Use signalers_lock to prevent starvation of irq_work.
-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 169 +++++++++++-------
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 -
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
- .../drm/i915/gt/intel_execlists_submission.c  |  17 +-
- drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
- drivers/gpu/drm/i915/i915_request.c           |   2 -
- drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 +
- 8 files changed, 127 insertions(+), 81 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index 10e556a7eac45..c1eff9edd8a5e 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -277,11 +277,11 @@ static int live_engine_busy_stats(void *arg)
+ 		st_engine_heartbeat_disable(engine);
+ 
+ 		ENGINE_TRACE(engine, "measuring idle time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		udelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (de < 0 || de > 10) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
+@@ -316,11 +316,11 @@ static int live_engine_busy_stats(void *arg)
+ 		}
+ 
+ 		ENGINE_TRACE(engine, "measuring busy time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		mdelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
 -- 
 2.53.0
 
