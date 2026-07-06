@@ -4,59 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 668F4C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:46:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE3BCC43602
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 08:48:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBD4C10E30E;
-	Mon,  6 Jul 2026 08:46:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B89310E31F;
+	Mon,  6 Jul 2026 08:48:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="M+Gs7SKK";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RoQsyK5f";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VocFpbuV";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC5E610E30E
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 08:46:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jknh75JH1P0CBTsivHhJoCFnbVm0gTLli2CnNEauNK8=; b=M+Gs7SKKHMqEtDOlgnQEd1iVQU
- HQvocK2D4tkQtvgMbMxs0c54ABt4LqrYEXu1b3DKAY98TgBFzwQVrVIzeR19iwhOVYDKSRDDMERzL
- ONlPhxXwIPOUhA10uBYE7fv2aAF/tXFCAgnene87JfjTVa3EupzKqZnywxNHjyf75mjvQAvma6hkb
- H+t0FRPFebqyf+9Xi+enJLXYf3WtcnxW8OYUIzlaVuUvUWc0d1WQjVKUXoM8I92u5ZjDtnXmtlj/K
- LK9O2QkHq3Mv9kAbGiuu3AxK9ai9KrcN8BphTHm4yjaDWAYqCEz1t4EzsE8sKvA06vjJZo/vpB5Gs
- IyeMqucQ==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wgexk-009e5C-3f; Mon, 06 Jul 2026 10:46:00 +0200
-Message-ID: <ce33edbb-11dd-4722-bb87-d16155f35a75@igalia.com>
-Date: Mon, 6 Jul 2026 09:45:58 +0100
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F20A010E31F
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 08:48:46 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66683wIJ4156855
+ for <dri-devel@lists.freedesktop.org>; Mon, 6 Jul 2026 08:48:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ UyCrsVtN/vgWmUocyd2gtWqkOjFDvVdxEkewtddvF+I=; b=RoQsyK5f7fV1iWo4
+ SyCXOG5Wkn8sUyU2MNNAjdt+XvirxwPpqH+Vl7KXVFEVxe6G13eUl2I8KVybA5Fs
+ bSvo8oIfzknqPfNdnifuLyviUJ6qvjS7+XgDfmJkkkad+KCKBhPrhToiobXU1tIl
+ YFdVQfN0zAjEXkvCYS/RJwZyzBnhTM0JKyMah2Xfn8xtenWxWKQbuFKggz6rMm1c
+ f7N4t3sUjBejdx8EkRRKelOmwe/39PgIO+IfwWCzvdTvih77/oAKY2UL4gfGdrid
+ viv5xUbpgVRpsw0bW5UH4/K4NFST7TWUs7qPFG3KyW7Gj3qOHq9VQRRK1bEMR40S
+ 50O6Og==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88h986bs-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 08:48:45 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-51c21be5bb4so20865381cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 01:48:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783327725; x=1783932525;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=UyCrsVtN/vgWmUocyd2gtWqkOjFDvVdxEkewtddvF+I=;
+ b=VocFpbuVJB4J4tEH/dyKJq/Bxnf2NUWMSWWdxq86RJZ0VUpSAj9+ADfskd8dnjtoYx
+ Vy3le4CpsAfd5Tx4lIIvLjZh5itCmcXB7JW22m+/I64memAFEtPydalBg5xlS+YxvntG
+ 481QGhrWmjqQpQ3Ivtc7TU3DFurUA+NILGmjpFymgbs204/113fk5RsZgREwVnaG0xcQ
+ JT48mqQzh3hNz/PtR+D/57r8fpx2QH8dj00Rw0kMK3LAJzJshCZXGNh7AISUEg9VvmpB
+ nlFHvQdWKyWdohfhtn6HmH4P+2jIct/z7Oy1plEHDnA2QHCdE1qaQedGNkdHSUF3Z1h4
+ 4ydQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783327725; x=1783932525;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=UyCrsVtN/vgWmUocyd2gtWqkOjFDvVdxEkewtddvF+I=;
+ b=O3qox9bg4kH6lrDxUK8TBKm5eRc5e29k3kPEMFXJUq2mMndQUZ0XulNxca4CEvFwrW
+ Bph0Djtp18sv4DKeHsJkplntUW9Hz6t4wxqeVmmcFDMeTp+SkLUd1y2cHnznq5TQR+t+
+ +6NTxFKnmpgnpLI0ItxvmdrW46pGMww06XIQiUovnHzN0j8kxHCmlJF2p3GAgpVPLC4B
+ XP0znnL6FG2JzRv1XzOZSckxDqO2Io2C/Za2eBaZxd0fmO1N4gXuQCR1rtW7215iDtLh
+ ECPX5QDeTQuN20ZubJ9YKK4KX2kBv+vNdT2bD9FJT0Z8L2UD2FtL5afxsPyCrMr/YVFu
+ ucDQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrTzj8tQbrltVtCagzyzhGh302sads5GF3tIfVg6TcdL844a9JdEnXAoP1rrwP57Kj0avdxd0Ub/j4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxxd2YUJKY2xao/KlykJ9+wzSiebHBS5vzQGtscY2ir9Qd6OiJ8
+ 3G+O8wXgOf2X1AnpRNQRHOzF4d7RhrZwpKtlZoJ2jQNJfrI9z+LMjtoWKi93yyC1wogfnJYqEqa
+ cj/1Y5LplBqdhsvikpJK+8N0idASzJX+dH8ePXxGtzLknLhcgi1mmxAY0pVcho957yYO4pro=
+X-Gm-Gg: AfdE7cn6Bey9JpAaIr2ShqmeROTU68mW3GVkJsTGmPYwrzwzxGEFbYju0kBz6tV/vBE
+ y3ou949xf3xCcDMCyINt2MtNfeE6sx3c9KxWAhfPOfpbf8wIYx86kj4figKCjX3R0WmdbN+luYb
+ kUkstuAsZTWoS9Hd4zrjwMYS5O5pNIxVgKX2vUD1s5XKvGE/z3T9Y3kdPc1pKhhaEi3Hd7P6d7c
+ 50miztJ6hIYtqYtxFZ1yra03m0+/KrD4QRofwlor8LC8A8EuyTV91NezOKA8mhh1seo/P2Hbq0V
+ mH+ucthFXRecZuygStafL4i59+apgTmiBkhQsxfPKWYk6xs4Y2Qvpuam0sK8XxHxgb7e7aaKU5n
+ iI0CGUzXzrsAa8yxutMZH5253WTCN/PdoKNM=
+X-Received: by 2002:ac8:58cd:0:b0:51c:223:3c57 with SMTP id
+ d75a77b69052e-51c4bf30d44mr87210691cf.10.1783327724789; 
+ Mon, 06 Jul 2026 01:48:44 -0700 (PDT)
+X-Received: by 2002:ac8:58cd:0:b0:51c:223:3c57 with SMTP id
+ d75a77b69052e-51c4bf30d44mr87210471cf.10.1783327724419; 
+ Mon, 06 Jul 2026 01:48:44 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c12b62c2d37sm691730366b.42.2026.07.06.01.48.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jul 2026 01:48:43 -0700 (PDT)
+Message-ID: <3208407d-05ea-4b1f-bb65-91afbcbc858e@oss.qualcomm.com>
+Date: Mon, 6 Jul 2026 10:48:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] drm/sched: Protect entity->last_scheduled with
- spinlock
-To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Subject: Re: [PATCH 1/8] drm/msm/a6xx: Fix RBBM_CLOCK_CNTL3_TP0 value in
+ a730_hwcg
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Marco Pagani
- <marco.pagani@linux.dev>, Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260701085920.3253248-2-phasta@kernel.org>
- <20260701085920.3253248-3-phasta@kernel.org>
- <a4091099-1931-4ca2-a81a-9c3321b123a8@ursulin.net>
- <51fbde808bd059510d667d130afae179626303be.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <51fbde808bd059510d667d130afae179626303be.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev
+References: <20260705-eliza-gpu-v1-0-c9f1354dbd29@oss.qualcomm.com>
+ <20260705-eliza-gpu-v1-1-c9f1354dbd29@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260705-eliza-gpu-v1-1-c9f1354dbd29@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: iHxEkxHrtwxQHbcNVORkSAqWtzzyILt7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA4OCBTYWx0ZWRfX1zgOA01YJlZB
+ qoBkRbdplIwlTOvdzNbrhJWwaCe3SDuhJBsXIwdRrKed2FhwozY4oPcehs9QApIYlwCKC8hjLXu
+ XeEbiNZK0f7VFhO9m5SNGNAxLIfG22E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA4OCBTYWx0ZWRfX6gQjNXnXuPem
+ CfsMCwqYrh5v5BaVVb5Uw+EK7rjk4xr+WGYbNdfxRRngE1mH0SFcEfDSo6wkDeYF4fwvYcnD7Hz
+ rMJqYEjPXwSVCmUnTZUJ7UUK/kaNELmpJrDlc3u2BCmX21yQ8goUuI2i+vbiLjkZHE37u0P9AN0
+ wYGIZNtXPjkLJBukcxwWqBEM3f+G8IZ2QalvixMjIqVqrDxJOp9Bh/AncW6Oro2/8w/T3P0YDUh
+ GPudgpqzWc/Y1P62pUslezdJo/n7zLVKocSB8WAGREYAiNCtWim9T6ggDf2fuZIHyTT7hQSmbRx
+ 7VYiA+2GBZjNUUMttQLLlKIAz4K9EnEOwmCYLEoCLEsTubhLnhwAjxAhmfuvA2OSWT/NJ3iEVHR
+ zRmdPop5GNnT5TOf8chQKsy9K9j3J2XfwWQWAhY8wAI0vru8AGTbYX7fur4JwQ6cwpX338paFiQ
+ 1gumx/y8DJyO+uwHixg==
+X-Proofpoint-GUID: iHxEkxHrtwxQHbcNVORkSAqWtzzyILt7
+X-Authority-Analysis: v=2.4 cv=GulyPE1C c=1 sm=1 tr=0 ts=6a4b6bed cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=KnFAnPMC3uCYYmJdzeAA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-07-05_02,2026-07-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,147 +162,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 03/07/2026 15:47, Philipp Stanner wrote:
-> On Fri, 2026-07-03 at 12:27 +0100, Tvrtko Ursulin wrote:
->>
->> On 01/07/2026 09:59, Philipp Stanner wrote:
->>> The entity->last_scheduled field has always been set and read with
->>> special RCU functions in addition to memory barriers.
->>>
->>> This was added in
->>>
->>> commit 70102d77ff22 ("drm/scheduler: add drm_sched_entity_error and use rcu for last_scheduled")
->>>
->>> however, no proper justification for that mechanism was provided. There
->>> seems to be no obvious reason, since the entity lock is available and
->>> taken at all places that evaluate the last_scheduled field. The only
->>> exception is drm_sched_entity_error(), which is not performance critical
->>> in any way.
->>>
->>> Improve robustness, readability and maintainability by replacing RCU and
->>> barriers with the lock.
->>
->> First thing, and regardless of other strands of discussion, I think it
->> should be squashed with 3/5 instead of that one undoing the introduction
->> of lock-unlock-lock-unlock.
+On 7/5/26 10:14 AM, Akhil P Oommen wrote:
+> From: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
 > 
-> I agree that there should not be a do-undo pattern, but I don't want to
-> squash that, it's quite a distinctive action. One patch adds locks, the
-> other moves them.
-
-Hm, maybe it is a semantic discussion whether there is any real adding 
-of the locks, when the effective end result is just widening of it's 
-scope by pulling it out of the helper to caller. But okay, prep patch to 
-move the lock out sounds like it could look acceptable.
-
-> But what I can do is move that patch before №1 here so that it becomes
-> understandable as a preparational commit.
+> The RBBM_CLOCK_CNTL3_TP0 entry in a730_hwcg has bits[19:16] set to 2
+> (clock gating enabled for that TP0 stage). As per the latest
+> recommendation, clear this nibble to disable clock gating for this
+> particular stage.
 > 
->>
->> For what the main topic is concerned, I really like the removal of all
->> the rcu_dereference_check(, true) lines and the memory barriers.
->>
->> But I also think the commit message should explain better what code
->> paths are now taking an extra lock - under which circumstances is the
->> lock now taken for all scheduler users, and which amdgpu paths use
->> drm_sched_entity_error() a lot so could be affected. I doubt it creates
->> a measurable performance impact but it needs to be explained.
-> 
-> I think it can detail which functions will now be locked; but
-> mentioning the users would be overkill and is uncommon for API reworks.
+> Fixes: 9588d2f860a4 ("drm/msm/a6xx: Add A730 support")
+> Signed-off-by: Puranam V G Tejaswi <puranam.tejaswi@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
 
-Here I disagree quite strongly. Given the patch is making strong claims 
-that the lockless access was added for no obvious reason, and that we 
-have now established the lockless helper is in fact used on the 
-submission paths, it is really required that those strong claims are 
-backed by a concrete analysis instead of just saying "not performance 
-critical in any way".
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
->> I am also happy to give it a spin on the Steam Deck to see if I can
->> observe anything.
-> 
-> Could be interesting.
-
-Okay I'll try to do it in reasonable time. You can either respin or wait 
-for it, I don't mind either way.
-
->>> Signed-off-by: Philipp Stanner <phasta@kernel.org>
->>> ---
->>>    drivers/gpu/drm/scheduler/sched_entity.c | 50 ++++++++++--------------
->>>    include/drm/gpu_scheduler.h              |  9 ++---
->>>    2 files changed, 25 insertions(+), 34 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->>> index c51101ec70c1..91aec20611ad 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -135,7 +135,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>>    	entity->num_sched_list = num_sched_list;
->>>    	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
->>>    	entity->rq = &sched_list[0]->rq;
->>> -	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->>>    	RB_CLEAR_NODE(&entity->rb_tree_node);
->>>    	init_completion(&entity->entity_idle);
->>>    
->>> @@ -201,10 +200,10 @@ int drm_sched_entity_error(struct drm_sched_entity *entity)
->>>    	struct dma_fence *fence;
->>>    	int r;
->>>    
->>> -	rcu_read_lock();
->>> -	fence = rcu_dereference(entity->last_scheduled);
->>> +	spin_lock(&entity->lock);
->>> +	fence = entity->last_scheduled;
->>>    	r = fence ? fence->error : 0;
->>> -	rcu_read_unlock();
->>> +	spin_unlock(&entity->lock);
->>>    
->>>    	return r;
->>>    }
->>> @@ -287,9 +286,10 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
->>>    	/* Make sure this entity is not used by the scheduler at the moment */
->>>    	wait_for_completion(&entity->entity_idle);
->>>    
->>> -	/* The entity is guaranteed to not be used by the scheduler */
->>> -	prev = rcu_dereference_check(entity->last_scheduled, true);
->>> +	spin_lock(&entity->lock);
->>> +	prev = entity->last_scheduled;
->>>    	dma_fence_get(prev);
->>> +	spin_unlock(&entity->lock);
->>>    	while ((job = drm_sched_entity_queue_pop(entity))) {
->>>    		struct drm_sched_fence *s_fence = job->s_fence;
->>>    
->>> @@ -381,8 +381,7 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
->>>    		entity->dependency = NULL;
->>>    	}
->>>    
->>> -	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
->>> -	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->>> +	dma_fence_put(entity->last_scheduled);
->>>    	drm_sched_entity_stats_put(entity->stats);
->>>    }
->>>    EXPORT_SYMBOL(drm_sched_entity_fini);
->>> @@ -507,6 +506,10 @@ drm_sched_job_dependency(struct drm_sched_job *job,
->>>    
->>>    struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>>    {
->>> +	/* Helper to avoid dropping the reference while the entity lock is held,
->>> +	 * just to have some more robustness.
->>> +	 */
->>
->> I don't get this comment. Neither the placement or the content.
-> 
-> It explains the purpose of the variable 'prev_last_scheduled', which
-> exists so that a reference does not drop under lock protection.
-
-Ah a helper _variable_, right, I was thrown off by the comment just 
-below the function and did not even spot you added a new local.
-
-Regards,
-
-Tvrtko
-
-> 
-> 
-> P.
-
+Konrad
