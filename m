@@ -4,51 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0149C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A9BBC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:25:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB9B10F3FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEC9A10E59A;
 	Thu,  9 Jul 2026 07:25:20 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B81F10E328
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 09:39:55 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.245.140])
- by APP-01 (Coremail) with SMTP id qwCowAAnxs7md0tqtLLxBA--.35425S2;
- Mon, 06 Jul 2026 17:39:50 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Lyude Paul <lyude@redhat.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kees Cook <kees@kernel.org>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/nouveau: validate MXMS descriptor bounds
-Date: Mon,  6 Jul 2026 17:39:49 +0800
-Message-ID: <20260706093949.82126-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FwyG8AI6";
+	dkim-atps=neutral
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7CBC10E398
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:27:04 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-37d55e8d3e3so1900841a91.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 06:27:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783344424; x=1783949224; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
+ b=FwyG8AI6hF0Um3VZf84qWpTdzXARL3IudFNPX4mU9hIpXVXgq2qjMfynZ3xAVDcOM/
+ gCA6metcq6AHbgLpNh8r2ZNZTNhrGMlqqySIJPX7MWxwKoZRYSk0ffxpH2C3kQ1I2cwb
+ aTrtVFqrts1ZNRrA990mvUwq1HvFW1hM41ChruAQu9cZBlfG828YpNUwSK7pvfQCVR93
+ 8vYfF6DNYku4VYrk3JmTtP3M70bmnEFaH1E7P6CGoCBqGufdf1s8yu1cwlA1adlMA8nY
+ 9ymezPltRJLE1rZ9Q8T/GTG1CfdTTf5wgYmfTivE50kfS5G5uLrjZQYV9jbFI1NDNOa6
+ KSgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783344424; x=1783949224;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=n0i9VdK/Ma3gHZKckXQb+1T7ww2+Cb/2KCUzwQQKXZo=;
+ b=TE6kcs/N8GAJ9S7V2NxQ5YksOCWgEfxjWLNf2owScoJ+bRFfRzHoz38lB+ikj41QRK
+ 8zmyVAcEBGuXH1sOOrO/fEWLWjqpbyR0y8QvyT2lb0uD1d4FQ7HzfNC8CTjJ2HriEZEH
+ i+XZJyNvaAzzzj1oV3YM3pulpNoFnq6Y9f+fbZlqQ/rT4OrI568zg2D+oaKKS5fPR/HQ
+ gRTKdSvvQBfgwhd5WQD3LKxe1+CyLxngc9fWNO66stOuUta0sLWVReO3qz8fDsCcRUXl
+ X13PoF0ZJ+3bdcc5vxRi2nAPz7rd3oWmtVgIfYMtOYGrd6y1cn5p5zV63I1xPvytqG3I
+ 4OWQ==
+X-Gm-Message-State: AOJu0YzMsyIdifoD2Mf5ErcXKidoW14n4Xp6GVyvjWUZ56RVWCZWTqV/
+ z1rZ5Jqvz3KuGPd4TLj3ixQP83lDmfozHhwU3giwmOypCEcMa2TFkpHy
+X-Gm-Gg: AfdE7cmdiuFOdD8Lq7fGVzRnOCRXLfELcwXPsdAiK7JCPR2wdlvas0ZtNWY81a5rDB6
+ afUL19vYuCCJlZUkgL5CqeQt2bkcktIvG34UCiB/dC8eFqbCaQVEcB7h9uEGCY5LJKPC1UwrD6n
+ 98vk7ZLbvi4URPqlY+cijZJuw2F1R0Xbe4ByDdYvGN+69fiXuRrXh5WX45ENh3Cmwbn91XRcatA
+ QRE1pQF9QZcfD7Uc6eXQcrXkfLBRKAdXVT3InAirKHX1BDUrPsiqBWrFCRAdln/vnH0efy+fzDW
+ BKn7pAWcKZmaTLke0K5bwytaj3RjAzt6jwwL+ep/AvWAW/PLjdeSIKqV2Q3Rhp0V9RI0gTk9hNW
+ xDbYGVOT2wHlJusKb03lTjO6tMrylqN7HeZ/zWhXib2KfFMT6yZNTnBX+vNpXxZFnSt6U9iVmeg
+ hxlqMGppbGADDf/c94ED166RL50wXszFbJVEtoB22c+W1r48Mkb+6rX9r3/+MZ5NCiHohFo2wzj
+ /YmbDzo
+X-Received: by 2002:a05:6a21:4c11:b0:3b2:8674:9830 with SMTP id
+ adf61e73a8af0-3c01c65ff4fmr14772604637.14.1783344424235; 
+ Mon, 06 Jul 2026 06:27:04 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3114fe08b1bsm17734598eec.26.2026.07.06.06.26.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jul 2026 06:27:03 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ tomi.valkeinen@ideasonboard.com, francesco@dolcini.it,
+ leonardo.costa@toradex.com, stable@vger.kernel.org
+Subject: [PATCH RESEND] drm/bridge: tc358768: Enforce input bus flags via
+ atomic_check
+Date: Mon,  6 Jul 2026 10:24:17 -0300
+Message-ID: <20260706132440.1594239-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAAnxs7md0tqtLLxBA--.35425S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuFy3GryDAw1rCr4kCw45KFg_yoWxZF1rpF
- 4DGF90yr4jy3WSgrZ7Cr4rCFnIy3y8tayIkrWqgr909wn3tryruFWjyw1Yk3sYgr17Cr1a
- qF4Dtw1xC3y5JFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr
- 1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
- 6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
- IYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-Originating-IP: [111.196.245.140]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,231 +92,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MXMS data can be provided by the ROM, DSM or WMI paths. The parser only
-kept the data pointer, so later validation and descriptor iteration had no
-record of the actual provider buffer length. The ROM path also read a
-short temporary header before deriving the declared MXMS size.
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-Keep the provider buffer size with the MXMS data, fetch the complete fixed
-header before reading the declared structure length, and validate each
-MXMS descriptor header and record array against the remaining MXMS buffer
-before dumping or handing the descriptor to consumers.
+The tc358768 declares static bridge timings requiring pixel data to be
+sampled on the positive clock edge.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+However, the DRM core default propagation simply copies the output-side
+bus flags, coming from the next bridge, connector or panel, to the
+input side. If the propagated flags are incompatible with the bridge
+ones, the data is wrongly sampled, typically resulting in visual
+artifacts on the panel.
+
+Implement the atomic_check hook, replacing the mutually exclusive
+mode_fixup, and set the bridge state input bus flags to the ones
+required by the tc358768. The sync polarity defaulting previously done
+in mode_fixup is carried over into atomic_check unchanged.
+
+Fixes: ff1ca6397b1d ("drm/bridge: Add tc358768 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
 ---
- .../gpu/drm/nouveau/nvkm/subdev/mxm/base.c    | 24 ++++++++--
- .../gpu/drm/nouveau/nvkm/subdev/mxm/mxms.c    | 47 +++++++++++++++----
- .../gpu/drm/nouveau/nvkm/subdev/mxm/priv.h    |  1 +
- 3 files changed, 60 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/bridge/tc358768.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.c
-index 26ec50b66e66..ad74a216a201 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.c
-@@ -47,7 +47,8 @@ mxm_shadow_rom(struct nvkm_mxm *mxm, u8 version)
- 	struct nvkm_bios *bios = device->bios;
- 	struct nvkm_i2c *i2c = device->i2c;
- 	struct nvkm_i2c_bus *bus = NULL;
--	u8 i2cidx, mxms[6], addr, size;
-+	u8 i2cidx, mxms[8], addr;
-+	u32 size;
- 
- 	i2cidx = mxm_ddc_map(bios, 1 /* LVDS_DDC */) & 0x0f;
- 	if (i2cidx < 0x0f)
-@@ -56,22 +57,32 @@ mxm_shadow_rom(struct nvkm_mxm *mxm, u8 version)
- 		return false;
- 
- 	addr = 0x54;
--	if (!mxm_shadow_rom_fetch(bus, addr, 0, 6, mxms)) {
-+	if (!mxm_shadow_rom_fetch(bus, addr, 0, sizeof(mxms), mxms)) {
- 		addr = 0x56;
--		if (!mxm_shadow_rom_fetch(bus, addr, 0, 6, mxms))
-+		if (!mxm_shadow_rom_fetch(bus, addr, 0, sizeof(mxms), mxms))
- 			return false;
- 	}
- 
- 	mxm->mxms = mxms;
-+	mxm->mxms_size = sizeof(mxms);
- 	size = mxms_headerlen(mxm) + mxms_structlen(mxm);
-+	if (size < mxms_headerlen(mxm) || size > U8_MAX) {
-+		mxm->mxms = NULL;
-+		mxm->mxms_size = 0;
-+		return false;
-+	}
-+
- 	mxm->mxms = kmalloc(size, GFP_KERNEL);
- 
- 	if (mxm->mxms &&
--	    mxm_shadow_rom_fetch(bus, addr, 0, size, mxm->mxms))
-+	    mxm_shadow_rom_fetch(bus, addr, 0, size, mxm->mxms)) {
-+		mxm->mxms_size = size;
- 		return true;
-+	}
- 
- 	kfree(mxm->mxms);
- 	mxm->mxms = NULL;
-+	mxm->mxms_size = 0;
- 	return false;
+diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
+index 0d85120fcc7a3..0516a331e71ba 100644
+--- a/drivers/gpu/drm/bridge/tc358768.c
++++ b/drivers/gpu/drm/bridge/tc358768.c
+@@ -1262,10 +1262,13 @@ tc358768_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+ 	return input_fmts;
  }
  
-@@ -113,6 +124,8 @@ mxm_shadow_dsm(struct nvkm_mxm *mxm, u8 version)
- 	if (obj->type == ACPI_TYPE_BUFFER) {
- 		mxm->mxms = kmemdup(obj->buffer.pointer,
- 					 obj->buffer.length, GFP_KERNEL);
-+		if (mxm->mxms)
-+			mxm->mxms_size = obj->buffer.length;
- 	} else if (obj->type == ACPI_TYPE_INTEGER) {
- 		nvkm_debug(subdev, "DSM MXMS returned 0x%llx\n",
- 			   obj->integer.value);
-@@ -188,6 +201,8 @@ mxm_shadow_wmi(struct nvkm_mxm *mxm, u8 version)
- 	if (obj->type == ACPI_TYPE_BUFFER) {
- 		mxm->mxms = kmemdup(obj->buffer.pointer,
- 				    obj->buffer.length, GFP_KERNEL);
-+		if (mxm->mxms)
-+			mxm->mxms_size = obj->buffer.length;
- 	}
- 
- 	kfree(obj);
-@@ -220,6 +235,7 @@ mxm_shadow(struct nvkm_mxm *mxm, u8 version)
- 				return 0;
- 			kfree(mxm->mxms);
- 			mxm->mxms = NULL;
-+			mxm->mxms_size = 0;
- 		}
- 	} while ((++shadow)->name);
- 	return -ENOENT;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/mxms.c b/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/mxms.c
-index 9abfa5e2fe9f..895a1d76b80f 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/mxms.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/mxms.c
-@@ -60,14 +60,21 @@ mxms_headerlen(struct nvkm_mxm *mxm)
- u16
- mxms_structlen(struct nvkm_mxm *mxm)
+-static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+-				const struct drm_display_mode *mode,
+-				struct drm_display_mode *adjusted_mode)
++static int tc358768_bridge_atomic_check(struct drm_bridge *bridge,
++					struct drm_bridge_state *bridge_state,
++					struct drm_crtc_state *crtc_state,
++					struct drm_connector_state *conn_state)
  {
--	return *(u16 *)&mxms_data(mxm)[6];
-+	if (mxm->mxms_size < mxms_headerlen(mxm))
-+		return 0;
++	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
 +
-+	return ROM16(mxms_data(mxm)[6]);
+ 	/* Default to positive sync */
+ 
+ 	if (!(adjusted_mode->flags &
+@@ -1276,13 +1279,15 @@ static bool tc358768_mode_fixup(struct drm_bridge *bridge,
+ 	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
+ 		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
+ 
+-	return true;
++	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
++
++	return 0;
  }
  
- bool
- mxms_checksum(struct nvkm_mxm *mxm)
- {
--	u16 size = mxms_headerlen(mxm) + mxms_structlen(mxm);
-+	u32 size = mxms_headerlen(mxm) + mxms_structlen(mxm);
- 	u8 *mxms = mxms_data(mxm), sum = 0;
-+
-+	if (size < mxms_headerlen(mxm) || mxm->mxms_size < size)
-+		return false;
-+
- 	while (size--)
- 		sum += *mxms++;
- 	if (sum) {
-@@ -81,7 +88,13 @@ bool
- mxms_valid(struct nvkm_mxm *mxm)
- {
- 	u8 *mxms = mxms_data(mxm);
--	if (*(u32 *)mxms != 0x5f4d584d) {
-+
-+	if (mxm->mxms_size < mxms_headerlen(mxm)) {
-+		nvkm_debug(&mxm->subdev, "header too short\n");
-+		return false;
-+	}
-+
-+	if (ROM32(mxms[0]) != 0x5f4d584d) {
- 		nvkm_debug(&mxm->subdev, "signature invalid\n");
- 		return false;
- 	}
-@@ -97,15 +110,21 @@ mxms_foreach(struct nvkm_mxm *mxm, u8 types,
- 	     bool (*exec)(struct nvkm_mxm *, u8 *, void *), void *info)
- {
- 	struct nvkm_subdev *subdev = &mxm->subdev;
-+	u32 remaining = mxms_structlen(mxm);
- 	u8 *mxms = mxms_data(mxm);
- 	u8 *desc = mxms + mxms_headerlen(mxm);
--	u8 *fini = desc + mxms_structlen(mxm) - 1;
--	while (desc < fini) {
--		u8 type = desc[0] & 0x0f;
-+
-+	if (mxm->mxms_size < mxms_headerlen(mxm) + remaining)
-+		return false;
-+
-+	while (remaining) {
-+		u32 desclen;
-+		u8 type;
- 		u8 headerlen = 0;
- 		u8 recordlen = 0;
- 		u8 entries = 0;
- 
-+		type = desc[0] & 0x0f;
- 		switch (type) {
- 		case 0: /* Output Device Structure */
- 			if (mxms_version(mxm) >= 0x0300)
-@@ -119,6 +138,8 @@ mxms_foreach(struct nvkm_mxm *mxm, u8 types,
- 			headerlen = 4;
- 			break;
- 		case 4: /* GPIO Device Structure */
-+			if (remaining < sizeof(u32))
-+				return false;
- 			headerlen = 4;
- 			recordlen = 2;
- 			entries   = (ROM32(desc[0]) & 0x01f00000) >> 20;
-@@ -128,6 +149,8 @@ mxms_foreach(struct nvkm_mxm *mxm, u8 types,
- 			break;
- 		case 6: /* Backlight Control Structure */
- 			if (mxms_version(mxm) >= 0x0300) {
-+				if (remaining < 2)
-+					return false;
- 				headerlen = 4;
- 				recordlen = 8;
- 				entries   = (desc[1] & 0xf0) >> 4;
-@@ -136,6 +159,8 @@ mxms_foreach(struct nvkm_mxm *mxm, u8 types,
- 			}
- 			break;
- 		case 7: /* Fan Control Structure */
-+			if (remaining < 2)
-+				return false;
- 			headerlen = 8;
- 			recordlen = 4;
- 			entries   = desc[1] & 0x07;
-@@ -145,8 +170,13 @@ mxms_foreach(struct nvkm_mxm *mxm, u8 types,
- 			return false;
- 		}
- 
-+		if (headerlen > remaining ||
-+		    (recordlen && entries > (remaining - headerlen) / recordlen))
-+			return false;
-+
-+		desclen = headerlen + entries * recordlen;
- 		if (mxm->subdev.debug >= NV_DBG_DEBUG && (exec == NULL)) {
--			static const char * mxms_desc[] = {
-+			static const char * const mxms_desc[] = {
- 				"ODS", "SCCS", "TS", "IPS",
- 				"GSD", "VSS", "BCS", "FCS",
- 			};
-@@ -171,7 +201,8 @@ mxms_foreach(struct nvkm_mxm *mxm, u8 types,
- 				return false;
- 		}
- 
--		desc += headerlen + (entries * recordlen);
-+		desc += desclen;
-+		remaining -= desclen;
- 	}
- 
- 	return true;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/priv.h
-index fcacb6c6a7f7..ad93a7ceac29 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/priv.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/mxm/priv.h
-@@ -9,6 +9,7 @@
- struct nvkm_mxm {
- 	struct nvkm_subdev subdev;
- 	u32 action;
-+	u32 mxms_size;
- 	u8 *mxms;
- };
- 
--- 
-2.43.0
-
+ static const struct drm_bridge_funcs tc358768_bridge_funcs = {
+ 	.attach = tc358768_bridge_attach,
+ 	.mode_valid = tc358768_bridge_mode_valid,
+-	.mode_fixup = tc358768_mode_fixup,
++	.atomic_check = tc358768_bridge_atomic_check,
+ 	.atomic_pre_enable = tc358768_bridge_atomic_pre_enable,
+ 	.atomic_enable = tc358768_bridge_atomic_enable,
+ 	.atomic_disable = tc358768_bridge_atomic_disable,
