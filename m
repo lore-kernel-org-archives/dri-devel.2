@@ -4,15 +4,15 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94CA6C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D880CC44500
 	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:13:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18B4D10E793;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19B6610E798;
 	Mon,  6 Jul 2026 07:13:28 +0000 (UTC)
 Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
- by gabe.freedesktop.org (Postfix) with ESMTP id 005E610E2F3
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:50 +0000 (UTC)
-X-AuditID: a67dfc5b-c45ff70000001609-c8-6a4b48fe1d04
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7974110E769
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 06:19:43 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-75-6a4b48fb3220
 From: Byungchul Park <byungchul@sk.com>
 To: linux-kernel@vger.kernel.org
 Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
@@ -73,45 +73,45 @@ Cc: max.byungchul.park@gmail.com, kernel_team@skhynix.com,
  alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
  lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
  tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: [PATCH v19 13/40] dept: apply sdt_might_sleep_{start,
- end}() to hashed-waitqueue wait
-Date: Mon,  6 Jul 2026 15:19:01 +0900
-Message-Id: <20260706061928.66713-14-byungchul@sk.com>
+Subject: [PATCH v19 02/40] dept: add single event dependency tracker APIs
+Date: Mon,  6 Jul 2026 15:18:50 +0900
+Message-Id: <20260706061928.66713-3-byungchul@sk.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260706061928.66713-1-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxTBxSGd+5XLx0l16rxijFqE8Vo1Pq1nCVz84eZV8n8iP80RBt7ldYC
- WpQJzq0MzaqgNtVKAFEooSJU0QuIikRArSKYlKBSRAQUSkmZTQjgGO26wua/97zve87z57Ck
- soOOZXXJR0VjssagYuSU/M9o+wrYEq9XZxnRfPo3DBXUytAs5dHovlUB2DNmBvw8WUBiyOqS
- oS0TMFzvArzcZiXR435EorM6k0BbXz+DuUOZFAYcOYBDTzdjuHuQwI7xYUBH/z8E9jf8AZhr
- cwOODPUCVrveAw5Yakhs74/BV2MBBptt2QwW/V5Po/dtPYFZJZUMXi6UKGzzBwmskH7CFoud
- iFAi9p05WJDri3Bv1hE44SiXocO0GMNFKdh9wUah32tlsNbUK0Op8yng6Ks+AqWPb2jMu/qO
- QXNoFNB17wOB7Q+uMJhzu4bG984wjaaCzzRWDnoIbHE9p7A5/waFpR1tBPb1emisetlK4vj5
- eeixDADe/GRn8OInL2zUCs6rThAm/7aCMFqaRQqnLZHx8XCAFEpbhhnhhZ0X7ud3y4Qi6ZhQ
- VbZMKHk4RAjFI2O08Na/QZDKzzCCNGKVCcWTPnLH8t3y77SiQZcmGld9v0+eWN16Bg73sMdL
- 3JWkCXqYsxDF8tw63vy8Fr7osuI6YkozXBzv8UyQU3oWt5CvOuelz4KcJbn2BXyO4xw1Fczk
- EvhgXWi6RHGL+cCp19OHFNw3fGNn5/+ABXzF7YbpTlTEvxUsnAYoufV8V+AZNXWU565F8dfH
- r9P/LczlG8s8lAUURfBVOSh1yWlJGp1h3crE9GTd8ZX7U5IkiLyb42Rwzz0Yce9qAo4FVbQC
- N27VK2lNWmp6UhPwLKmapViyNF6vVGg16RmiMWWv8ZhBTG2CeSylmqNYM/6zVskd1BwVD4ni
- YdH4JSXYqFgTZPwwe9GJPR+OEF87TwyWl+4Mbrvb12CXgU/9Otp3p/5U/jZojF+l+qt24XZq
- MmYDnaAPyCcunSyczb3I1vpDPdSv7YseGjYdaToQ1zYjTv1LQuVSdQyl6/12Z+OzgSd+PCRd
- 0NeUrVXsqtGFu+b+2DqQx6qbM3yGhvldsdnej90qKjVRs3oZaUzV/AsL6zhiagMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAAzWSe0hTcRTH+/3u3d11tLgspVv9UQ16YyVknB5EUbGLVhQUQVB6qUvOV7KV
- ZRE552qahi43qWmp5SV0qfkoH4zWSqtl6LLSHraCZYnWIh/lY9qU+ufwOef7PY8/Dk0o6iXz
- aHXiCUGTyMcrKRkp271RHzrBRcauedfIgtFwHj54vBJ4o3OQMDRoJKGg0kaB33pfCsbqqxJ4
- 2plGQntFOQLPkBHB7zErAYaGSRL8phYpDI68l4JZh2DS3oLA4jYR0NX+gABbrQ7DQNUEBX2P
- fiEwf/ZSkN+rI8EnZiG41mOVQm+zCr57miQw2f0VQ+dwPwLRO4HB67iIwG+JgxslNYF2y08K
- xl60EZBvbkdQ/LmbgF+9nxDUtnxEYL+dRsGXnDoCOryz4NWQj4Jn5ksUfHcXYPhRRUFRml0C
- 7tY+BIVWE4Ked3YM+puVFFgKq0lo+NQoBXffOIYPFhOG8upd4BF7SHieU4ID5wZcd+eANV+P
- A+EbBvOdJgwjYpl0Synifhsuk1xZzT3MGV76Kc523Ya4sVET4gZL9QRnyAmkj/p9BJdec4or
- fd5PcaNDrynOPlxEcq4SlruVMYq53BehXMO1bumerQdlm44K8epkQbN6c7QsprY1AyV56NM3
- 2yuJVOShMlEQzTJr2dvFTXiKKWYp29U1QkxxMLOQrcnukWQiGU0wHQvYLDGbnBJmM4fY8Sb/
- tIlkFrO+9NdoiuXMOvbh27f/hi5gy6sc056gQL1ivHB6gYIJZ9/7npA5SFaEZpShYHVicgKv
- jg9fpY2LSUlUn1515HhCNQr8k3huPLceDXaonIihkXKmHLZExCokfLI2JcGJWJpQBsuXLIuM
- VciP8ilnBM3xKM3JeEHrRPNpUjlHHnFAiFYwx/gTQpwgJAma/yqmg+aloqD0nZtWEMuMGS7X
- nwOZbXnOZ7HBh93DPFUPzcv3RYmOg2c667rx2iPRIQW5hgHCxWxXhabyxrn+sytDnshLLozJ
- V4oFpM8mqvbrlWFLZjTvvJp3/sJHT132or1FO9jS+QPb1u+YuOJytcpupFx/vFDVhsO05bpt
- dZMbOh3O3UpSG8OHrSA0Wv4vV41UCUsDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxbZRTHfe597ksb6m66t0eWOG0UcZEhZDPHZBI+7MMziUZjTBYXdTdw
+ A2VQSGFsmKiwDmWw4SQR4wqkFimmZba22QvjZchmNwKN7STQ0TqYKAyhq3PYjRXEdrpvv5z/
+ //xyPhyR1U5yqaLeUKkYDXKJjldjdSTFmrFC84pf9LWlQn3dxxCe+o2D8dpBDK3Obh6uThzB
+ cC9uZqGuZw3DarNXgKXlkABB/0UWorbjCE7NmgWITPVyMBFbRBD3/cTC7yfPsDD2d5SHSKCV
+ gdsuHtrMzQhmJ/sZMHU4eWhpc2Pomb4gQGBhhQGH+zWYss1iaPl+M5i/NDHwxeleBpZtdgFG
+ O8IY1ixl4HXMCTB8Y5wD9/UfEbhnEvRVe5iHvv5hDPWrSwhqzPc48A+OcOCcCzIw4r2KIeT7
+ TIDOiQADN6eDHHh8oyzEmrbA6dtWHq4NWhjwWjbBmYt1CD691ctDuOkPDGPXexEM1E8zcNl5
+ LnFfAIO5tglB/eUYC647XTwcDe+EJYedz82lds9ZhtZdW+Vpd3s3ovEHzYgudZpYemkxytLO
+ kUWefu7LoD2nfhHo0YFJgVrcB2lH3zxDJxdeoW77MZ5+Hb/F0obIGPPGM++odxUoJfoqxZiZ
+ s19ddDfgZMtHyWHrDReuQZ71DUglEmkHiU3d4R+x3brGJZmXniPB4DKb5A3SU8RzYjYxV4us
+ 9PNWctx2AieD9dIeEvU2oiRj6Vlyf/jSw2WNtJO4nE3/S7cSh2vwoUglvUS+W2ljkqxNdELR
+ KzgpJVKHiji6/pMS6Qnyw7dBfBJpLOgxO9LqDVWlsr5kx/aiaoP+8Pb8slI3Snyc7cOVfefR
+ X/63hpAkIl2KBnJfLdZyclVFdekQIiKr26BJS88r1moK5OoPFGPZ+8aDJUrFENoiYt1mTXbs
+ UIFWKpQrlQOKUq4YH6WMqEqtQZX+c3I88qZ1Pqc7W1ZJppRdrdqRguB8l/7Y2dpfF3KyW3an
+ vc2TGdNCzb777wYyQqbGwv79ez185kbNoUbb0w/eax+e25TPrJu/+dE6g7/h+aw/zVRM26v6
+ J+vA49u+OZI1mjO9u3lPYXmflJcfDJWnk/RPyDgamLmb92Tm6y+/oMMVRXLWNtZYIf8LifH4
+ F20DAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAAzWSbUxScRTG+997+YMs2h1Z3upDja2XuWkvyzpbL6svddPVauttfSnKO0XR
+ DMyy1RKNsrJSFrgCiyhZqQWBltYo09IMXRK9uNS0jSjTwqFQvqBBrS9nv3Oe5zw7H46AFNfy
+ ZgtkmdmcIlMql2AhJdyyqiBujE1KWxIsmgWF6pPQ1ePhwXtVPQWB4UIKDJYqDCH9Qz4U2q7w
+ 4OWHfAra71Ui6AkUIvg1pidBXTdJQUjTxIfhkU4+aFUIJh1NCHQuDQkd7U9JqKpWETBkncDQ
+ 3+hHoP3swVDap6LAZy5CcNWr50Pfi43wo+cxDya7vxLwITiAwOyZIMBTfwZBSJcO10328Lpu
+ EMNY22sSSrXtCG587ibB39eLoLrpEwLH7XwMX4prSHB7psHbgA9Di/Y8hh8uAwE/rRiM+Q4e
+ uFr7EZTpNQi8Hx0EFNy0YNCV2Sio633EB1f/OAFdOg0BlbbN0GP2UuAsNhHhc8Ou+zGgLy0g
+ wuUbAdq7jwkYMVfw15Uj9pf6IsVW2B8QrPpNCLNV16oQOzaqQexweQHJqovDbeOAj2RP2Y+w
+ 5c4BzI4G3mHWETRS7CsTw946O0qwJW1xbN3Vbv7W9XuEq5M5uSyHUyxeu0+YOuSykFmtzFHT
+ JyuVh+zTz6EoAUMvZypMk7wIY3oh09ExQkY4mp7H2C94w3OhgKTdc5ki8wUqIkynNzG+pvMo
+ whQ9n/nd0vh3WUQnMFbLRfwvdC5Taa3/GxRFr2DujZcRERaHPZ2+ZqoYCY1oSgWKlmXmZEhl
+ 8oR4ZXpqbqbsaPyBgxk2FP4n84nxklo07N7YgGgBkkwVwbrENDFPmqPMzWhAjICURIsWLEpK
+ E4uSpbnHOMXBvYrDck7ZgOYIKEmMKHEXt09Mp0izuXSOy+IU/1VCEDU7D3Xaj89KnrdXbV05
+ Ur2+y/lkPJCVYnoR2BlcozXGv1dZyiZmHLlksGVf2e3/vv1pL13y3Hi5xXnYPbNX5RxKEnkH
+ WxubkXzwWTA2b7Vkx6PEUMPrmQr/0il32uI2ZONLK7OWSbfXusUPa1TfmjNU+22n6wwf/R0J
+ WsO2E19wzKEJCaVMlS6NJRVK6R9hxjY0SwMAAA==
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Mon, 06 Jul 2026 07:13:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -129,41 +129,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Make dept able to track dependencies by hashed-waitqueue waits.
+Wrapped the base APIs for easier annotation on wait and event.  Start
+with supporting waiters on each single event.  More general support for
+multiple events is a future work.  Do more when the need arises.
+
+How to annotate:
+
+1. Initaialize a map for the interesting wait.
+
+   /*
+    * Place along with the wait instance.
+    */
+   struct dept_map my_wait;
+
+   /*
+    * Place in the initialization code.
+    */
+   sdt_map_init(&my_wait);
+
+2. Place the following at the wait code.
+
+   sdt_wait(&my_wait);
+
+3. Place the following at the event code.
+
+   sdt_event(&my_wait);
+
+That's it!
 
 Signed-off-by: Byungchul Park <byungchul@sk.com>
 ---
- include/linux/wait_bit.h | 3 +++
- 1 file changed, 3 insertions(+)
+ include/linux/dept_sdt.h | 65 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+ create mode 100644 include/linux/dept_sdt.h
 
-diff --git a/include/linux/wait_bit.h b/include/linux/wait_bit.h
-index 9e29d79fc790..179a616ad245 100644
---- a/include/linux/wait_bit.h
-+++ b/include/linux/wait_bit.h
-@@ -6,6 +6,7 @@
-  * Linux wait-bit related types and methods:
-  */
- #include <linux/wait.h>
-+#include <linux/dept_sdt.h>
- 
- struct wait_bit_key {
- 	unsigned long		*flags;
-@@ -257,6 +258,7 @@ extern wait_queue_head_t *__var_waitqueue(void *p);
- 	struct wait_bit_queue_entry __wbq_entry;			\
- 	long __ret = ret; /* explicit shadow */				\
- 									\
-+	sdt_might_sleep_start(NULL);					\
- 	init_wait_var_entry(&__wbq_entry, var,				\
- 			    exclusive ? WQ_FLAG_EXCLUSIVE : 0);		\
- 	for (;;) {							\
-@@ -274,6 +276,7 @@ extern wait_queue_head_t *__var_waitqueue(void *p);
- 		cmd;							\
- 	}								\
- 	finish_wait(__wq_head, &__wbq_entry.wq_entry);			\
-+	sdt_might_sleep_end();						\
- __out:	__ret;								\
- })
- 
+diff --git a/include/linux/dept_sdt.h b/include/linux/dept_sdt.h
+new file mode 100644
+index 000000000000..0535f763b21b
+--- /dev/null
++++ b/include/linux/dept_sdt.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Single-event Dependency Tracker
++ *
++ * Started by Byungchul Park <max.byungchul.park@gmail.com>:
++ *
++ *  Copyright (c) 2020 LG Electronics, Inc., Byungchul Park
++ *  Copyright (c) 2024 SK hynix, Inc., Byungchul Park
++ */
++
++#ifndef __LINUX_DEPT_SDT_H
++#define __LINUX_DEPT_SDT_H
++
++#include <linux/kernel.h>
++#include <linux/dept.h>
++
++#ifdef CONFIG_DEPT
++#define sdt_map_init(m)							\
++	do {								\
++		static struct dept_key __key;				\
++		dept_map_init(m, &__key, 0, #m);			\
++	} while (0)
++
++#define sdt_map_init_key(m, k)		dept_map_init(m, k, 0, #m)
++
++#define sdt_wait(m)							\
++	do {								\
++		dept_request_event(m);					\
++		dept_wait(m, 1UL, _THIS_IP_, __func__, 0);		\
++	} while (0)
++
++/*
++ * sdt_might_sleep() and its family will be committed in __schedule()
++ * when it actually gets to __schedule(). Both dept_request_event() and
++ * dept_wait() will be performed on the commit.
++ */
++
++/*
++ * Use the code location as the class key if an explicit map is not used.
++ */
++#define sdt_might_sleep_start(m)					\
++	do {								\
++		struct dept_map *__m = m;				\
++		static struct dept_key __key;				\
++		dept_stage_wait(__m, __m ? NULL : &__key, _THIS_IP_, __func__);\
++	} while (0)
++
++#define sdt_might_sleep_end()		dept_clean_stage()
++
++#define sdt_ecxt_enter(m)		dept_ecxt_enter(m, 1UL, _THIS_IP_, "start", "event", 0)
++#define sdt_event(m)			dept_event(m, 1UL, _THIS_IP_, __func__)
++#define sdt_ecxt_exit(m)		dept_ecxt_exit(m, 1UL, _THIS_IP_)
++#define sdt_request_event(m)		dept_request_event(m)
++#else /* !CONFIG_DEPT */
++#define sdt_map_init(m)			do { } while (0)
++#define sdt_map_init_key(m, k)		do { (void)(k); } while (0)
++#define sdt_wait(m)			do { } while (0)
++#define sdt_might_sleep_start(m)	do { } while (0)
++#define sdt_might_sleep_end()		do { } while (0)
++#define sdt_ecxt_enter(m)		do { } while (0)
++#define sdt_event(m)			do { } while (0)
++#define sdt_ecxt_exit(m)		do { } while (0)
++#define sdt_request_event(m)		do { } while (0)
++#endif
++#endif /* __LINUX_DEPT_SDT_H */
 -- 
 2.17.1
 
