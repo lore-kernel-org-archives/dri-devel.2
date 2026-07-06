@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBDCC43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 961ADC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 13:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41B7210E1A7;
-	Mon,  6 Jul 2026 13:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0E9A10E31A;
+	Mon,  6 Jul 2026 13:58:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iIga0vWA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ATEnK66w";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1B7C10E1A7
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:57:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C30110E31A
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:58:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5A61A403BE;
- Mon,  6 Jul 2026 13:57:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120061F000E9;
- Mon,  6 Jul 2026 13:57:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 721E2403BE;
+ Mon,  6 Jul 2026 13:58:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410C51F000E9;
+ Mon,  6 Jul 2026 13:58:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783346264;
- bh=cEUXQE8v67wbYiTzbCmSop15osBemRp0tkTxxiCOCJA=;
+ s=k20260515; t=1783346327;
+ bh=SP+wWOAGtZB7XaItyWtUfFxA7/3HBbMcshqCZpbfGuk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iIga0vWAAmGWYojm40XKWhoZ/8kVoAEN7nRPfnKlp+VmpCfkd+9JeFJAduNj3Lt2P
- +ESyDENKrp0D34ugp7WlJIdpY3P99xevD+WQ+yTWDLJn3ydsRCvajdC48+kHCIRqUr
- lo95/nqXQd6kyrPcdwlS1uSPOEfK9fZbLQjiwpk0cDQTLUdSldvbKeaMZZHGM9k71N
- OG08f3pMZdFFV+tlqdNQ79SXQZSzwpYwik/T7FfOSTdv54LwsQvDJuF5U2rcnrcOoa
- AZ09qVTE6ntei9izqMlzS6KWggqft3GyrAgOuF+0m/W1LaDTlCaDWkZycRCg44YFgT
- ElcRD36A7okjg==
+ b=ATEnK66weUuZY0JnLSxBnw1RCNll8TyalFIHn6yT0RvoX7RJBB7Tu6Kc5fwX7+I1g
+ 2Z2myVSB0m7EWBJGpwnfoXuxcuIw1A+4Bne1RGXJ7J+2g8oJ5Y5M8p3gPMzAkb/l7+
+ 1ncga5StezPKVGrQ/q2uyaZMXSI2hO9v+01P1QTcJ/oJ5s9IcVxnO6xGpVZfJEtuWA
+ rq8wzh1P7AlhJelq4y6R1+440eFgvthmbVsKK+ZLwnJu+3BmvCC0kossSd1DIZmFEP
+ zOZ3LEhGab53I/JWmgD5HG32mrdXvTk/jBrtdLj03A/MULnW52LlizwxUCSsmG/fzP
+ oofM/r7IZ+LDg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] gpu/drm: Remove unused 'drm device *dev' parameter
- from drm_mode_create()
+Subject: Re: [PATCH 3/3] gpu/drm: Add drm_notice logging when
+ drm_mode_create fails
 To: "Jan Niedziolka" <j.niedziolka@samsung.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706134515.3369960-3-j.niedziolka@samsung.com>
+In-Reply-To: <20260706134515.3369960-4-j.niedziolka@samsung.com>
 References: <20260706134515.3369960-1-j.niedziolka@samsung.com>
- <CGME20260706134551eucas1p2699f145a53a0d5d8cd92d0a062c62ad9@eucas1p2.samsung.com>
- <20260706134515.3369960-3-j.niedziolka@samsung.com>
+ <CGME20260706134551eucas1p15c82b3c36b5644c1111663938c1dc881@eucas1p1.samsung.com>
+ <20260706134515.3369960-4-j.niedziolka@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 13:57:43 +0000
-Message-Id: <20260706135744.120061F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 13:58:46 +0000
+Message-Id: <20260706135847.410C51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,96 +59,63 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Build failure due to referencing non-existent members in struct exy=
-nos_dp_device and unused static functions.
+- [Low] Redundant custom OOM logging
+- [Low] Incomplete implementation of mode creation failure logging
 --
 
-commit aa4d752f4408535e5aa104d5d47b153a65ec83e2
+commit 918b658b4d8223239a11b91ab8f874692e392821
 Author: Jan Niedziolka <j.niedziolka@samsung.com>
 
-gpu/drm: Remove unused 'drm device *dev' parameter from drm_mode_create()
-   =20
-This commit removes the unused struct drm_device *dev parameter from the
-drm_mode_create() prototype and definition. It also updates all calls to
-drm_mode_create() to reflect this change.
+gpu/drm: Add drm_notice logging when drm_mode_create fails
 
-> diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/=
-exynos_dp.c
-> index b805403281504..78183809b4fb3 100644
-> --- a/drivers/gpu/drm/exynos/exynos_dp.c
-> +++ b/drivers/gpu/drm/exynos/exynos_dp.c
-> @@ -68,6 +68,53 @@ static int exynos_dp_poweroff(struct analogix_dp_plat_=
-data *plat_data)
->  	return exynos_dp_crtc_clock_enable(plat_data, false);
->  }
-> =20
-> +static int exynos_dp_get_modes(struct analogix_dp_plat_data *plat_data,
-> +			       struct drm_connector *connector)
-> +{
-> +	struct exynos_dp_device *dp =3D to_dp(plat_data);
-> +	struct drm_display_mode *mode;
-> +
-> +	if (dp->plat_data.panel)
-> +		return 0;
-> +
-> +	mode =3D drm_mode_create();
-> +	if (!mode) {
-> +		DRM_DEV_ERROR(dp->dev,
-> +			      "failed to create a new display mode.\n");
-> +		return 0;
+This commit adds drm_notice() prints to drm_cvt_mode(), drm_gtf_mode_comple=
+x(),
+and drm_mode_duplicate() to log when drm_mode_create() fails and returns NU=
+LL.
+
+> diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+> index 049d77e75ddda..fc6d974e3948d 100644
+> --- a/drivers/gpu/drm/drm_modes.c
+> +++ b/drivers/gpu/drm/drm_modes.c
+> @@ -646,8 +646,10 @@ struct drm_display_mode *drm_cvt_mode(struct drm_dev=
+ice *dev, int hdisplay,
+>  	 * return directly
+>  	 */
+>  	drm_mode =3D drm_mode_create();
+> -	if (!drm_mode)
+> +	if (!drm_mode) {
+> +		drm_notice(dev, "Failed to create a new display mode\n");
+>  		return NULL;
 > +	}
-> +
-> +	drm_display_mode_from_videomode(&dp->vm, mode);
 
 [Severity: Low]
-Does this code compile successfully? Looking at the definition of
-struct exynos_dp_device, it doesn't appear to have a vm member. This might
-cause a build failure.
+Is this custom error logging redundant?
 
-> +	connector->display_info.width_mm =3D mode->width_mm;
-> +	connector->display_info.height_mm =3D mode->height_mm;
-> +
-> +	mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-> +	drm_mode_set_name(mode);
-> +	drm_mode_probed_add(connector, mode);
-> +
-> +	return 1;
-> +}
-> +
-> +static int exynos_dp_bridge_attach(struct analogix_dp_plat_data *plat_da=
-ta,
-> +				   struct drm_bridge *bridge,
-> +				   struct drm_connector *connector)
-> +{
-> +	struct exynos_dp_device *dp =3D to_dp(plat_data);
-> +	int ret;
-> +
-> +	dp->connector =3D connector;
+Since drm_mode_create() relies on memory allocation (via kzalloc_obj()), the
+kernel's memory allocation subsystem will already report OOM conditions wit=
+h a
+backtrace. Adding custom error messages for memory allocation failures
+can cause unnecessary kernel binary bloat and log spam.
 
 [Severity: Low]
-Similarly here, is connector a valid member of struct exynos_dp_device?
+If the intent is to log mode creation failures consistently, did this miss
+drm_analog_tv_mode()?
 
-> +
-> +	/* Pre-empt DP connector creation if there's a bridge */
-> +	if (dp->ptn_bridge) {
+It takes a dev parameter and calls drm_mode_create() in the same file, but
+was not updated by this patch:
 
-[Severity: Low]
-And here, does struct exynos_dp_device have a ptn_bridge member? It looks
-like these functions might have been accidentally pasted from another driver
-during a rebase, as they don't seem to match the struct definition and don't
-appear to be referenced anywhere in this file.
+drivers/gpu/drm/drm_modes.c:drm_analog_tv_mode() {
+        ...
+        mode =3D drm_mode_create();
+        if (!mode)
+                return NULL;
+        ...
+}
 
-> +		ret =3D drm_bridge_attach(&dp->encoder, dp->ptn_bridge, bridge,
-> +					0);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706134515.3369=
-960-1-j.niedziolka@samsung.com?part=3D2
+960-1-j.niedziolka@samsung.com?part=3D3
