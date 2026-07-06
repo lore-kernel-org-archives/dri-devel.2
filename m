@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D486C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:44:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06A0C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC44210E390;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05CA910E373;
 	Mon,  6 Jul 2026 12:44:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="0RrTmfhe";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="vKVoT/34";
 	dkim-atps=neutral
 Received: from CWXP265CU009.outbound.protection.outlook.com
  (mail-ukwestazon11021088.outbound.protection.outlook.com [52.101.100.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEF3910E906
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6621610E906
  for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:44:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n2h2dBNcP1NscQcqSuXuHhjZdPWk2GJezglkxEK17we2GTputh95YqH3r0MNwKNGHLBsszIX0Hxp+oeGPuBL6D0ECk31Vxh+PZgM+v8I8+znJ2iusgyJOLmq388iUDCgb3gwDzjg7df/HREAntq85tt0KQRsxu0IaLy6wXw7sF9RnUYZCd8pQxjE9rPxj/VV/QQPLDIhBxHyIp99pmUG+NNF4kxH/cLe8op4vX/17armU/EwsRwUd5iGg0FsBbOiYYwFEvjgOFBEAuUOT2y5SL0onvE084CypUEZyUB59UQ+2jhd07RJe/fXH+qUamXx8+FtJFNio9ZP+OebRg8WfQ==
+ b=lX4z5f3gFo3z3cc+tPtp52ZiYgrc3r+aCj4plQT5DU8UV+n4NLquJeXdpIscJyIUX5J7V0s+AvOtwbygL8EkXHyjQJVD11/IehhOlM+O1eF8w9sq+A5WOyXy0jdxxMsYZoVFkPoWGRZlyFrsOFxSAxAIQct7R2xZkwyu3iIRBO84t9LXqQJbUI49FDe1fDiYSEGLxEf8CN2VY2CZPTMpCnHTYyCv5WUpptUGHOe/sDOmiwqWD76AjwlCUZWoN+Aff+gPxWTSyqxiZwzSckUrsDJdUKAAI4KSabtDqDBx21XW/5cRl+DKXPzfdb1+qdmr0ifGxsj+WQR4iYnUcVcLVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TtVhrOSpKIlxtMhm8722plFmIijkG0TcrbBa9tYYOV4=;
- b=HoRcXKwYvxNCTqMuvy5CObUXKa63r+EEnlM76soZCxKzVYVq0rczbK5qyzSOy/p9BsZQ7RlcCPXf7/9p3qCfSkCps5R0ODVAwDR9e0v7Zk4MoIlXDRQRT7yka5A7P0fqgW96xg8oiXyzq2NRGqEo/31R809aWnd9yL36GANRRy6/Pi3xoQGyJNzGSfeCR7hLK5ySUPcAPvSSgRrY1Pr2cCNzkaQSVMufu3CPY8qjVjaITall/XtIrM4Yo7R3gXrtPQOr8fwI7JzwAFVPJsEFNtHVIrcB53S7g6izAxRkaAz8xCl/87r4vndHp02cMyRmkhv29Uwo7V/D0A1H6r21ig==
+ bh=axNoeHyM7y29ceF7DiKai9VCveu/Y2sESrbVhFBNmlA=;
+ b=sxqoPhkJUVal/sgRQq06F2fpX/PVGOefczieFCGcaB9xBsmzv2iY1eXvHcHfuAn7zLnAO+Aq6jciw+MsTzC9KpIx8BHmRQkzqAUVmA+2593YYDnBEZD0g5csrbDWCjFOHxvy8WjJjZjggBk1MySR9jwoArpSpCyrFwxYtRgokx3u4bRXFywzs4T5KhfpS5rvuwWKWzKeJklQ7GBZfhivYSshSXWh6ThdjSGGWmrZ4pRVlQP1Bpjv+SAQu07C2JpYj7HZm1BNmqP6mDwgGjhcA/fXg09qVTCLmPc5J5wvzAbA0XBpwDAPJHvR/uFOdSTn+c7rviv/9gf4N8TULfidNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TtVhrOSpKIlxtMhm8722plFmIijkG0TcrbBa9tYYOV4=;
- b=0RrTmfhezFsAdNE3a31c2jGuSq/9VDth3bgRAma3RTL6X4g0DRsUonFYvij9Nr4iim1OXy7JTeAhlgjVLUjv6K3cE4P9rg39lLXFXJ/l/nzryIYLG/BrS5vHv3pG2gcgUsLKAyVohMF4L0YsA92CTgcQyxuxLqs70osDgFSkty4=
+ bh=axNoeHyM7y29ceF7DiKai9VCveu/Y2sESrbVhFBNmlA=;
+ b=vKVoT/34kY9FBJB9tLDujcF5sIjrMX3ZB0xqDn1OQSUqoo/neu9D/46Y4M/QkoVMKNbb0bjCf1T3Gn1sKzBMJtsN2d2RXoW8OUudfVjRevk7uXKoiHvHuEHJvfL2Aqz6amJatp/SALC40uEjzfubhYzAY06x3XRVDhZNigJPdsA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by LO7P265MB7617.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:40c::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 12:44:31 +0000
+ 2026 12:44:33 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 12:44:31 +0000
+ 12:44:33 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Mon, 06 Jul 2026 13:44:29 +0100
-Subject: [PATCH v6 16/20] rust: io: add `read_val` and `write_val`
- functions on `Io`
+Date: Mon, 06 Jul 2026 13:44:32 +0100
+Subject: [PATCH v6 19/20] rust: io: add copying methods
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260706-io_projection-v6-16-72cd5d055d54@garyguo.net>
+Message-Id: <20260706-io_projection-v6-19-72cd5d055d54@garyguo.net>
 References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
 In-Reply-To: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
 To: Alice Ryhl <aliceryhl@google.com>, 
@@ -73,11 +72,11 @@ Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
  linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341863; l=5040;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783341864; l=15366;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=NkRpbPrwkB51HryRZKyflqp9UEcDTca8Y51zQyrewEs=;
- b=PZ3bKEnsQInbmyUe4fzCK9V/OyjRSw5qGkepXUKCS4CicNKsc34N/NT3F82KVUjQChJKHL58A
- bKTipWtQCkUDDIZcSVtvv0kYVCZpPnOxTIuTs6XpmQw0d0e/pnGOAAW
+ bh=DZngAr33Rf7pKWSvju0Y416Sy1lWY1j3Syw+OHdOUFM=;
+ b=FabqFRI/c0DTiR3G0S++/eUH0/HkgBngh/1cFo9tYyZEhWjAo4R5NoTQEQgF2v3oLajGQnFe9
+ mZPsFPdkTTECKZ3V9IIDcUrtY4XX9vhf/vurY32Cv3H/cBq8vdGuG6H
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P265CA0177.GBRP265.PROD.OUTLOOK.COM
@@ -86,65 +85,65 @@ X-ClientProxiedBy: LO4P265CA0177.GBRP265.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7617:EE_
-X-MS-Office365-Filtering-Correlation-Id: c50a6e5f-f8d4-4049-7af2-08dedb5c5383
+X-MS-Office365-Filtering-Correlation-Id: 0d262a76-d574-4bba-c226-08dedb5c5452
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|7416014|10070799003|18002099003|921020|3023799007|5023799004|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: HnLzlLwztPK/lkIYUKnmMUxzBuD8LH6YszKt1WYll2B/Hlz9tN9O0FE0zwrBrBfPvOeByTj10SEfmPBuUmUMTXVbjmEeo50ttUcZju3LMuZqwfac1+D1y9zToaDIBtGAMzAOarMhHT9vly91OkuWjmP0U+XIJUTbZMRXI7ZwMnOiFh87yiA+N/V7lV0rRTC1bzriy9f8yePxNvJAsUZxn7ild9QJYwipcs4R5H8tLNhOZZiMSKPu9mI4vFbyFHFepRRyiXmW834wEtZ31mT8eJYFT+IudeXenb2jwbKu7GvK9Og+0OS10uvoxvyun7H185S6ATNvWffIGwLWWKwydfei1Ayu6FN5oBFjAEs1KXnkodzlBlQIRAJEJeJIeLvFAu+siaH7QMtyiUzduf/xXurC/jC39hIlvIQN7/pYDugzpzBvbLW1X2M8bGG0Ubmxe/LaptJ3H/U2xYp81o8hFwefbCWlW4GpWaa7DoveU64WPJZkR6j30jFsmNzT+z9nWQeirtkHdFVeMDh4xM6EqGi5c3CeT6kBO+xDkY0q3PGyM01CNr6bjJwttMN2sPvzYsglo5KTeLHMy66O07WMB8WWD0L0qiezPeyYs6fXq+o8ogcNXVx4EluW7Dy4i8UFvKlmmmlY7FxaLjtt3ORyndP4JyOB5DRSxxVVpynJP+40cBgp9m9+McX7R1KPpyQNtbT9Gmc+M0s7jssc2ptlpw==
+ ARA:13230040|23010399003|366016|1800799024|376014|7416014|10070799003|18002099003|921020|3023799007|5023799004|6133799003|56012099006|22082099003;
+X-Microsoft-Antispam-Message-Info: DAM/hxtuqbSujjLFORpOq60BU0M/IOMtZCuy8oR7V9rfLZq+o37w/YyTww/bimku5Ho9w8YdBH6pF5Gl4TvGTATmLWb3aPOjpRFR/1HB/guKGC1kDDpa2quN9XZ7luyXBeRcFPt6YeOls8LXi2YVtk+QML5oBqz1PW50zuiSwszBjJurUfJCqheZyRSpnjftqD6ewwY0OX9jAuAxz9oWsP5YfX7yoFA+oz/OBaJ9rMPz+my7Z8dtF+mQG8iViCaDZWa3oiChqi8nwoYssyIIjsqLhCHs8NfG/D2snZ0KrfRwAFvUOCLD5aJxhNdSf+8zS1KgRZGPrzUmX/W2LL5y72/IHpfDBDLo7oCZQCNEHN1cVsQWNb58oZ6hWna4tY4tJNNaHbAKgbKqhxiErN0SFXb7OtQGDW6xqL0iwWt2rHnoI3t/nWMxLreHn/KrEuL9L8kwRiVoR+FcmXOP+nsCtZbtBruNd67HnMDwc+v23CxTj5eOR9fOIj+WqbnQtN59+zEBe8dIsi5LOGYp7L7wGS5puEuHcmW51T549RI4PZpY2GcOTAP3J6/si4Kev0/jQuSrHkgbViWihianZbSiVflCTtZjxvxgC2EjhFP2qLij96DszHuSQmq4+b0XmvuKETAiCd99U2UG8AZR06XTlD1d2f/MpUEC9JPbvZgE/grEW8jRXfQEDNDL5pIXgvkR02Wewn2aIXzaYN9SZCmeyA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10070799003)(18002099003)(921020)(3023799007)(5023799004)(56012099006)(22082099003);
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10070799003)(18002099003)(921020)(3023799007)(5023799004)(6133799003)(56012099006)(22082099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NksyenhuZm53M1pDNlBXZjNqbmNIWlFsclFJQ3NCQ1E1RzREdGNSVjQ3NkJH?=
- =?utf-8?B?TlBhelU4QWZwQ1BVaFY5bFQ5WFpLbWIzandHNG5IQlB3RmJoZ2JkRFk3Vmt4?=
- =?utf-8?B?bUFBdXVTT2tzTHlwVXI1SW9kajhlVzMwem5lRGtHSndoWG5xZTlWdGcvaEJD?=
- =?utf-8?B?bG9vNVdDdmNORGZNdFJyWGI1dUJ6MEY3N0thNGhtMDdKR2g0Vnl5UXFyQTh4?=
- =?utf-8?B?WjdoNnB1d2lKR1BHSTR1d1EwYWFyY2NkcndITGV0d09vQ0tNcFMzV2R3a25s?=
- =?utf-8?B?eXZhY2R6Q0FqU1BzY3Z3QXlLS2Q3RnBmKzhZVDVmZVByOXhpcjlSNkRwTWpC?=
- =?utf-8?B?blRzUktEckFla1lrN0srV1JnRHNuUzRKUjJwcGdka2VHeTU4Mk1kVDA3MmIx?=
- =?utf-8?B?Nlg3R2l0UnQ4YTZsa01odjR0NGZqYmZJdmpHVnZma29xNWZteGJEemZrSWpO?=
- =?utf-8?B?Z0lqb2tEZk9SSHJnOG9TMmQ3TnBTTzNrUDFEK3Rrd1B0NE5WU1B2Rnp0SFV5?=
- =?utf-8?B?Z2hISFUyR1dMdm00d2xMZUFjd0lLdi9zbWY0VFlXZ0ZmVXVua2NSZ1RDUlps?=
- =?utf-8?B?RWh5T1V2cmxySUVyK3F4ckVuNXhDVVh5ZWNwaFkxN1hGNEl2ZDRhenJjVWxG?=
- =?utf-8?B?N04zYTVWczIyV3FudytVWUtEeldraFAzQ01Sb2dHb0p3a0F3ZW4wOW5TcjNJ?=
- =?utf-8?B?N3o5OUhzdElDaGtINXA5Rk4zdEV0cVB6U1BmRkgzRGc3dUFleFZZbUFHdkRa?=
- =?utf-8?B?SFlkSXd3Sk10U05pbnExa2lLSFdVZDJaR3Q3c3FLak82b0Z3eXY5VkZFbXFh?=
- =?utf-8?B?bzRYUFVWN3ZBN1JWaDNJNXdIWlVIUHducFN6Tnl2elJzWG5OVVZFV1lKdU1E?=
- =?utf-8?B?MVlqc0laR050dlBYa3BnNkR0VW1DZTNUY0xTZTBrc01qOW5Pbm9hdFlFUG5K?=
- =?utf-8?B?cVpob3kwZEptSTRNeFZreTkrN2FRNWlaWFVPS051cndDV2hpUU5oRGJUMWRK?=
- =?utf-8?B?M1NoT2JjNEcxcmVmZ0I2Zk9UdFZkNk1wellPeXZ3cmMzYWU2VzZsWWd2RUNi?=
- =?utf-8?B?Y1kxZjZvbzRCKzhhaDZzbGxRVVhrcnkzRkxTcFJkb1JuTGVhRSsrS1dCbzdB?=
- =?utf-8?B?VGp2WEpSR1c4RnREWlllMUhUWmdmOWYyUTA1NmlmbE02WitXcStjeER0QThz?=
- =?utf-8?B?dUNNdDRhRFVkY3ZwZ051UFpUQ3k5V1V4bGsxeE4xb0JNTm9SMW15M3AvSVI5?=
- =?utf-8?B?ZXZ2bW1WL0txSXR1T1c0ZWdMVFFKQWN5ZG91RFo5a2VVV3FhSXBLUk9ZR1FB?=
- =?utf-8?B?akFaNVlSaFZ2MTcxTnZnWlZXNWtMNTI4Y2pKSFY2bWFRYWZlaGo0bjZEUmJE?=
- =?utf-8?B?YlNRS1g0aXF6Zk5EZTZkQTcyTmtmRndOcy9OY3orbFZ0QzBoOC9zNzZTd3Rr?=
- =?utf-8?B?cmQvcUxySkpPZHgwRmNsUDdubVZRVktOUXdNellod1cwZXVYRU9qbzFkMVpv?=
- =?utf-8?B?d1hLMWNkWDE4N3llOTBvWEc5ZythKzVVUkdldzRINzdibC9JZnNKdjRFaDZp?=
- =?utf-8?B?VDZLS2JJVmxhWFlsVmNBWXpzampIWnVPZGRKMVRhSEMrUjVSN29sWTQyQXlT?=
- =?utf-8?B?UXpZSVVSaGlLNlNEQVFSc1ZMQnY2ajgvd3hvMlkvQ202c2NJYk5oN25GR1Nn?=
- =?utf-8?B?UCtDMmtGWk1QRDcrNWl3T2gray8vUkkySm13MUxtZHNZQXRidDJvSUdqQWVS?=
- =?utf-8?B?bTZVbUFhb1ZRRFlYdWU3YzUwZlZGdUhtVW1ySHIxMld3YklIY0xYQWNwMFA3?=
- =?utf-8?B?djduVDYrSDEzOGdYY1poc1JLOWgvRm5QazVIZVZ6NkpnQ0VubWQyN3R2YU96?=
- =?utf-8?B?ZXpHcHBPQW0xck4za0RsZ254aEJkSTFhbjIzdW5xZkhodTZhVXJ2b2NZeTVW?=
- =?utf-8?B?QmdnU1hYWDRSRWFwaDExakZ2RmhmUnZOcjV3SW85WWV2RVdzNVRWZklUd210?=
- =?utf-8?B?SG05QThUVTdUN0ZUc0FFampWbWpaa3BWNHNwOU5SMGIwMm5POG83c0NPd1FD?=
- =?utf-8?B?NGxBOEM1T1NIOTJ3OStiWVZIZ1RmQTZEZHBXWlFualphaVduN2JhVzVYOHQ4?=
- =?utf-8?B?ck1ZbzZidGdiZjRqL2FnRDVxWndRVjIxK005V1N3TjNjazNVeWNLY1YyaDVo?=
- =?utf-8?B?TGgraUNRZXdoU2pxM1h4ZDVyd3JocHkwOWhabmZST3FHNkpOMWdpYkJIYmNF?=
- =?utf-8?B?TDhEQW56cHJKTU9tMWlzb3NCTEFFSzFrZ1h5aFVYL0E4Rk9qcWdEYkNLelFO?=
- =?utf-8?B?c0xNMzQ2alJxWFZkdEo4T0M4M2V2OVVxaWRBKzh2RkwxOElPVE9UQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFh3Mk8ybWhoTktBV25xTXlZckZOUzVSTGJFd3pxWDBNajZIVjl0Wm5UZTVo?=
+ =?utf-8?B?N2JVMmx0QWxiVU5YS3p1ZWU4SDdWWGYxZTJIU3JhRlV5d0NFSGlvY1BldWdu?=
+ =?utf-8?B?VzUrVUdIYmhhMHNnRlNqTG9pL0huUkc1aFU4NUx0T2RxckI0SEJVUXBORFRC?=
+ =?utf-8?B?bHJvamVPYm9vWnZzdnc4bUNZbmVKc2FiWExMeENtb1VIZloxbWRVV0RORUVy?=
+ =?utf-8?B?UTNPY2diZ0RBMzFqMkJ6TXV3SUZoRGxJOUx4Q3VpbGo5K1MzUnNXN3dXS0tw?=
+ =?utf-8?B?RDJtWTZMWDA4K3BQZ05nTFcySXBZQlRjc0hWYlNpbmdTdXdERCtWRHNneFEv?=
+ =?utf-8?B?cGdJWUhpUVByd3hyM0hMd0tyckZJdTdOQnZFS0xSWWQ2bDAzMmZQUkVGKzhD?=
+ =?utf-8?B?czFaZlVBVGNnVDlod0w3VEZWMUd5cGZNUm5aOCtUS0xuZDFVUnlKQ1FHenh2?=
+ =?utf-8?B?L2I1RThjNWVSc3lXOXRSWGJ0Y1UwNm91N3NqK2wxL21nM2FtbkpibGt4bjJs?=
+ =?utf-8?B?N2NhaS94YXptQU81L0MwSlA3aG9TWDhrTmxUS2pPZkNENjU5dU5DQlM4c3I5?=
+ =?utf-8?B?WElaRk5jZ0QvQ3dhVEtZazNlVSt3Nmpmb20rdFpRUURHUEluRnVGZ1ZCZ09J?=
+ =?utf-8?B?WWtSZ08yZGp2US84UDJIWjRVamZ5SStXL2F1S3pyZGdyMFNyQllDMkFiR3F3?=
+ =?utf-8?B?RGNDeFdOenUxTDJEMlV6R3BaRWIvTXkzNmdEREdsOVExckJNUy9kdlpkRlNL?=
+ =?utf-8?B?aWdPTjY2UVpDRk9wV1A0ZlhialNUSTRva2dMSC8vaEdjKy9zcjlMNmExM0Zl?=
+ =?utf-8?B?Y2FJRWh4YWlpcjNtR0dFZFpDbzlsWGZFdFlzdDQ2c3V3b2IvcnhDYk5nNWFQ?=
+ =?utf-8?B?V0g1ZkpkcGpHdVNpbElXTTBBbzJhazJ5THk4bHMyTlFkTCttUXlaTmczTzho?=
+ =?utf-8?B?NlljL0Z5RE1nc05HZHZzanVLNFZBQjUxaUFYMU8zRDljOUpWU1ZVbWxwYUhz?=
+ =?utf-8?B?WTMyZm5QVy9LRGJ5VmNjZ0U1aDdxQVNOUitUQWZuMnB4bHJ0bThmUEs1TkRZ?=
+ =?utf-8?B?WjlaNFRkQ0E3RzlJaDNFdDlYeXE4YkVpYitlcWk0eFhwL0haV2hkTis1bkw0?=
+ =?utf-8?B?UHViNVpzeWVYemZsb2FOeWhYdWRCM0JqdjdYL3VWUlZPWEZHUnVuL1dZM1k3?=
+ =?utf-8?B?cEViYnllL01wZEVXUHZqTUJES3RDSVhFeTBjMFVUd0p1eUd0TkZmaW1RV2hi?=
+ =?utf-8?B?NGNNaGJHdVA5L3NkeGRwZk9LYlNCMEhKRmIzQURsNkdnWXpSUE5UU2p2VUVq?=
+ =?utf-8?B?V3lBQnpUSCtCVTJ1U1lxOEhVRjFDVWlGdnFTZHJjVkdsb29DajBkVmE3RGZz?=
+ =?utf-8?B?OEkrL3kzSmxMa2tIaXA5c1BqaHdhU0ZhaGx3d1ZtcWxocU5BZ2xvNXJiVTB3?=
+ =?utf-8?B?U0x4eWZXQzIzODFZeklRMUk3QVNTUVpsVHY0NGtwUmRubDhlMitFaTBEMXdu?=
+ =?utf-8?B?ZXNGb1VQSVNRYTRTaWQ5dVMyZTZ1Ui94WHNUbGloWjgrTndyS2szMFR5TmZJ?=
+ =?utf-8?B?OHJpODd4YkxEeXFOZS83V0ptZmloeEpYMGkrWFlhd1BUWmRYMTlSV0prZS9n?=
+ =?utf-8?B?b2JYR0tYVlNMTmRYbUx0am5qVDZzbXJoQ1k5NjJOcnYzaWo0N3JxRnlTUXM2?=
+ =?utf-8?B?bWJDMURxcUFsSlgxK0Q1YWtBZERtT0kwNXBUKzZiRFdyeFZJOExuYUlaMXVU?=
+ =?utf-8?B?aXRHNUtjWGRJTkI5cmdSdUNlTXlqa2UwSGZOelM5eUJIM0hvdFFpUlJtMzNI?=
+ =?utf-8?B?TG5GcmxKbStTV2lsa2Z3TEZ2NVhYdjZpUkJQYmUyM242c1Zjd1J2QlpqRTVy?=
+ =?utf-8?B?L0k1L285RUR2eERIRnZ0NnRvWE9jaHY5b0dpMlBJWm55QkhneGtDdzBDaW1u?=
+ =?utf-8?B?SVJEV0pjZGszNnlrb2llZnhCeEFaN1AxU3JnbU1EQVVGUHlORmtXZ1c4V3FL?=
+ =?utf-8?B?ZzJHdkFpaE90T3k0OUl5cDduVWx6TzhOc3VuZTFRMVEzRkg3VnlzRlV2SzQ2?=
+ =?utf-8?B?ZVBJeWg5M25rb0NVb0V4cjl6SmdwajFGTHBIaTZZV3o5NWdTdUVXY0E1Rmo3?=
+ =?utf-8?B?NVNvUW5RZVVsejFqZ0ZhRXArVng2Q3pDdlBUNmNpWHc2MlRqKzZBeGlxVnVy?=
+ =?utf-8?B?bmVkcDVDV0p5QlQzUmFEYTVWTWUwaGFDUTEzL3A5RU54aWU0b3M4OEZPYlpK?=
+ =?utf-8?B?Sm1pN3J0MnBPMy83TGtkODlDNFkrcDFBeVdjSXlEOWt4TDRuaTFqUGdDZ2g0?=
+ =?utf-8?B?Q2RNTlpHbjJEMVJiTVZuYWZjbk5rS2poWGNYQnpoOTFEM09FUkl6Zz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: c50a6e5f-f8d4-4049-7af2-08dedb5c5383
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d262a76-d574-4bba-c226-08dedb5c5452
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 12:44:31.8545 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 12:44:33.2294 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I0BaVVYpr0dGo22VoMoDtc6s1jOnMkYlAJ0qwGX35bnSdJcMXkoqpkxhZUMLCKmTLL9OzSKw5ZtGLneOFCiZnQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: LJO8GTnRjtmXmYg+lxq9Z7Xckcu1Ib7gcoOqhkitC216rHXxrc8Fc2Ix6DTtZboA8nHgJFxP+LXMfzHHW0f/ZQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7617
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -161,151 +160,438 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Provide `read_val` and `write_val` that allow I/O views to be accessed when
-they're narrowed down to just views of primitives.
+One feature that was lost from the old `dma_read!` and `dma_write!` when
+moving to `io_read!` and `io_write!` was the ability to read/write a large
+structs. However, the semantics was unclear to begin with, as there was no
+guarantee about their atomicity even for structs that were small enough to
+fit in u32. Re-introduce the capability in the form of copying methods.
 
-This is used to provide `io_read!` and `io_write!` macros, which are
-generalized version of current `dma_read!` and `dma_write!` macro that work
-for all types that implement `Io`.
+    dma_read!(foo, bar) -> io_project!(foo, bar).copy_read()
+    dma_write!(foo, bar, baz) -> io_project!(foo, bar).copy_write(baz)
 
-Note though `io_read!` and `io_write!` only works if backend implements
-`IoCapable` for the type; which is typically only implemented for
-atomically accessible primitives. `dma_read!` and `dma_write!` currently
-supports them via `read_volatile` and `write_volatile`; this can be
-undesirable for aggregates as LLVM may turn them to multiple instructions
-to access parts and re-assemble, even if they could be combined to a single
-instruction. Thus, `io_read!()` and `io_write!()` does not fully replace
-`dma_read!()` and `dma_write!()` in this scenario. The ability to
-read/write aggregates (when atomicity is of no concern) is better served
-with copying primitives (e.g. memcpy_{from,to}io).
+Model these semantics after memcpy so user has clear expectation of lack of
+atomicity. As an additional benefit of this change, this now works for MMIO
+as well by mapping them to `memcpy_{from,to}io`.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+For slices which is DST so the `copy_read` and `copy_write` API above can't
+work, add `copy_from_slice` and `copy_to_slice` to copy from/to normal
+memory.
+
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io.rs | 106 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 106 insertions(+)
+ rust/helpers/io.c        |  13 +++
+ rust/kernel/dma.rs       |  25 +++++
+ rust/kernel/io.rs        | 262 ++++++++++++++++++++++++++++++++++++++++++++++-
+ samples/rust/rust_dma.rs |   7 +-
+ 4 files changed, 303 insertions(+), 4 deletions(-)
 
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index 78c6ae2a0db8..c423125870b7 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -398,6 +398,50 @@ fn try_cast<U>(self) -> Result<<Self::Backend as IoBackend>::View<'a, U>>
-         Ok(unsafe { Self::Backend::project_view(view, ptr.cast()) })
-     }
+diff --git a/rust/helpers/io.c b/rust/helpers/io.c
+index 397810864a24..7ed9a4f77f1b 100644
+--- a/rust/helpers/io.c
++++ b/rust/helpers/io.c
+@@ -19,6 +19,19 @@ __rust_helper void rust_helper_iounmap(void __iomem *addr)
+ 	iounmap(addr);
+ }
  
-+    /// Read a value from I/O.
-+    ///
-+    /// This only works for primitives supported by the I/O backend.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```no_run
-+    /// # use kernel::io::*;
-+    /// # fn test_read_val(mmio: Mmio<'_, u32>) {
-+    /// // let mmio: Mmio<'_, u32>;
-+    /// let val: u32 = mmio.read_val();
-+    /// # }
-+    /// ```
++__rust_helper void rust_helper_memcpy_fromio(void *dst,
++					     const volatile void __iomem *src,
++					     size_t count)
++{
++	memcpy_fromio(dst, src, count);
++}
++
++__rust_helper void rust_helper_memcpy_toio(volatile void __iomem *dst,
++					   const void *src, size_t count)
++{
++	memcpy_toio(dst, src, count);
++}
++
+ __rust_helper u8 rust_helper_readb(const void __iomem *addr)
+ {
+ 	return readb(addr);
+diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
+index 6e7ea3b72f2f..e275f2562a5b 100644
+--- a/rust/kernel/dma.rs
++++ b/rust/kernel/dma.rs
+@@ -18,6 +18,7 @@
+         IoBackend,
+         IoBase,
+         IoCapable,
++        IoCopyable,
+         SysMem,
+         SysMemBackend, //
+     },
+@@ -1197,6 +1198,30 @@ fn io_write<'a>(view: Self::View<'a, T>, value: T) {
+     }
+ }
+ 
++impl IoCopyable for CoherentIoBackend {
 +    #[inline]
-+    fn read_val(self) -> Self::Target
-+    where
-+        Self::Backend: IoCapable<Self::Target>,
-+        Self::Target: Sized,
-+    {
-+        Self::Backend::io_read(self.as_view())
++    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
++        // SAFETY: Per safety requirement.
++        unsafe { SysMemBackend::copy_from_io(view.cpu_addr, buffer) }
 +    }
 +
-+    /// Write a value to I/O.
++    #[inline]
++    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
++        // SAFETY: Per safety requirement.
++        unsafe { SysMemBackend::copy_to_io(view.cpu_addr, buffer) }
++    }
++
++    #[inline]
++    fn copy_read<T: zerocopy::FromBytes>(view: Self::View<'_, T>) -> T {
++        SysMemBackend::copy_read(view.cpu_addr)
++    }
++
++    #[inline]
++    fn copy_write<T: zerocopy::IntoBytes>(view: Self::View<'_, T>, value: T) {
++        SysMemBackend::copy_write(view.cpu_addr, value)
++    }
++}
++
+ impl<'a, T: ?Sized + KnownSize> IoBase<'a> for CoherentView<'a, T> {
+     type Backend = CoherentIoBackend;
+     type Target = T;
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index c423125870b7..9df4e982c5d8 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -5,7 +5,8 @@
+ //! C header: [`include/asm-generic/io.h`](srctree/include/asm-generic/io.h)
+ 
+ use core::{
+-    marker::PhantomData, //
++    marker::PhantomData,
++    mem::MaybeUninit, //
+ };
+ 
+ use crate::{
+@@ -274,6 +275,69 @@ pub trait IoCapable<T>: IoBackend {
+     fn io_write<'a>(view: Self::View<'a, T>, value: T);
+ }
+ 
++/// Trait indicating that an I/O backend supports memory copy operations.
++pub trait IoCopyable: IoBackend {
++    /// Copy contents of `view` to `buffer`.
 +    ///
-+    /// This only works for primitives supported by the I/O backend.
++    /// # Safety
++    ///
++    /// - `buffer` is valid for volatile write for `view.size()` bytes.
++    /// - `buffer` should not overlap with `view`.
++    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8);
++
++    /// Copy contents from `buffer` to `view`.
++    ///
++    /// # Safety
++    ///
++    /// - `buffer` is valid for volatile read for `view.size()` bytes.
++    /// - `buffer` should not overlap with `view`.
++    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8);
++
++    /// Copy from `view` and return the value.
++    #[inline]
++    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
++        // Project `self` to `[u8]`.
++        let ptr = Self::as_ptr(view);
++        // SAFETY: This is a identity projection.
++        let slice_view = unsafe {
++            Self::project_view(
++                view,
++                core::ptr::slice_from_raw_parts_mut::<u8>(ptr.cast(), size_of::<T>()),
++            )
++        };
++
++        let mut buf = MaybeUninit::<T>::uninit();
++        // SAFETY:
++        // - `buf.as_mut_ptr()` is valid for write for `size_of::<T>()` bytes.
++        // - `buf` is local so `buf.as_mut_ptr()` cannot overlap with `slice_view`.
++        unsafe { Self::copy_from_io(slice_view, buf.as_mut_ptr().cast()) };
++        // SAFETY: `T: FromBytes` guarantee that all bit patterns are valid.
++        unsafe { buf.assume_init() }
++    }
++
++    /// Copy `value` to `view`.
++    ///
++    /// Destructor of `value` will not be executed, consistent with [`zerocopy::transmute`].
++    #[inline]
++    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
++        // Project `self` to `[u8]`.
++        let ptr = Self::as_ptr(view);
++        // SAFETY: This is a identity projection.
++        let slice_view = unsafe {
++            Self::project_view(
++                view,
++                core::ptr::slice_from_raw_parts_mut::<u8>(ptr.cast(), size_of::<T>()),
++            )
++        };
++
++        // SAFETY:
++        // - `&raw const value` is valid for read for `size_of::<T>()` bytes.
++        // - `value` is local so `&raw const value` cannot overlap with `slice_view`.
++        unsafe { Self::copy_to_io(slice_view, (&raw const value).cast()) };
++        core::mem::forget(value);
++    }
++}
++
+ /// Describes a given I/O location: its offset, width, and type to convert the raw value from and
+ /// into.
+ ///
+@@ -353,6 +417,24 @@ fn size(self) -> usize {
+         KnownSize::size(Self::Backend::as_ptr(self.as_view()))
+     }
+ 
++    /// Returns the length of the slice in number of elements.
++    #[inline]
++    fn len<T>(self) -> usize
++    where
++        Self: Io<'a, Target = [T]>,
++    {
++        Self::Backend::as_ptr(self.as_view()).len()
++    }
++
++    /// Returns `true` if the slice has a length of 0.
++    #[inline]
++    fn is_empty<T>(self) -> bool
++    where
++        Self: Io<'a, Target = [T]>,
++    {
++        self.len() == 0
++    }
++
+     /// Try to convert into a different typed I/O view.
+     ///
+     /// A runtime check is performed to ensure that the target type is of same or smaller size to
+@@ -442,6 +524,121 @@ fn write_val(self, value: Self::Target)
+         Self::Backend::io_write(self.as_view(), value)
+     }
+ 
++    /// Copy-read from I/O memory.
++    ///
++    /// This is equivalent to reading from the I/O memory with byte-wise copy, although the actual
++    /// implementation might be more efficient. There is no atomicity guarantee. Note that for some
++    /// backends (e.g. `Mmio`), this can read different value compared to [`read_val`] as
++    /// byte-swapping is not performed.
++    ///
++    /// [`read_val`]: Io::read_val
 +    ///
 +    /// # Examples
 +    ///
 +    /// ```no_run
 +    /// # use kernel::io::*;
-+    /// # fn test_write_val(mmio: Mmio<'_, u32>) {
-+    /// // let mmio: Mmio<'_, u32>;
-+    /// mmio.write_val(1u32);
++    /// # fn test_copy_read(mmio: Mmio<'_, [u8; 6]>) {
++    /// // let mmio: Mmio<'_, [u8; 6]>;
++    /// let val: [u8; 6] = mmio.copy_read();
 +    /// # }
 +    /// ```
 +    #[inline]
-+    fn write_val(self, value: Self::Target)
++    fn copy_read(self) -> Self::Target
 +    where
-+        Self::Backend: IoCapable<Self::Target>,
-+        Self::Target: Sized,
++        Self::Backend: IoCopyable,
++        Self::Target: Sized + FromBytes,
 +    {
-+        Self::Backend::io_write(self.as_view(), value)
++        Self::Backend::copy_read(self.as_view())
++    }
++
++    /// Copy-write to I/O memory.
++    ///
++    /// This is equivalent to writing to the I/O memory with byte-wise copy, although the actual
++    /// implementation might be more efficient. There is no atomicity guarantee. Note that for some
++    /// backends (e.g. `Mmio`), this can write different value compared to [`write_val`] as
++    /// byte-swapping is not performed.
++    ///
++    /// [`write_val`]: Io::write_val
++    ///
++    /// # Examples
++    ///
++    /// ```no_run
++    /// # use kernel::io::*;
++    /// # fn test_copy_write(mmio: Mmio<'_, [u8; 6]>) {
++    /// // let mmio: Mmio<'_, [u8; 6]>;
++    /// mmio.copy_write([0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF]);
++    /// # }
++    /// ```
++    #[inline]
++    fn copy_write(self, value: Self::Target)
++    where
++        Self::Backend: IoCopyable,
++        Self::Target: Sized + IntoBytes,
++    {
++        Self::Backend::copy_write(self.as_view(), value);
++    }
++
++    /// Copy bytes from `data` to I/O memory.
++    ///
++    /// # Panics
++    ///
++    /// This function will panic if the length of `self` differs from the length of `data`, similar
++    /// to [`[u8]::copy_from_slice`].
++    ///
++    /// # Examples
++    ///
++    /// ```no_run
++    /// # use kernel::io::*;
++    /// # fn test_copy_write(mmio: Mmio<'_, [u8]>) {
++    /// // let mmio: Mmio<'_, [u8]>;
++    /// mmio.copy_from_slice(&[0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF]);
++    /// # }
++    /// ```
++    #[inline]
++    fn copy_from_slice(self, data: &[u8])
++    where
++        Self::Backend: IoCopyable,
++        Self: Io<'a, Target = [u8]>,
++    {
++        assert_eq!(self.len(), data.len());
++
++        // SAFETY: `data.as_ptr()` is valid for read for `self.size()` bytes.
++        unsafe {
++            Self::Backend::copy_to_io(self.as_view(), data.as_ptr());
++        }
++    }
++
++    /// Copy bytes from I/O memory to `data`.
++    ///
++    /// # Panics
++    ///
++    /// This function will panic if the length of `self` differs from the length of `data`, similar
++    /// to [`[u8]::copy_from_slice`].
++    ///
++    /// # Examples
++    ///
++    /// ```no_run
++    /// # use kernel::io::*;
++    /// # fn test_copy_write(mmio: Mmio<'_, [u8]>) {
++    /// // let mmio: Mmio<'_, [u8]>;
++    /// let mut buf = [0; 6];
++    /// mmio.copy_to_slice(&mut buf);
++    /// # }
++    /// ```
++    #[inline]
++    fn copy_to_slice(self, data: &mut [u8])
++    where
++        Self::Backend: IoCopyable,
++        Self: Io<'a, Target = [u8]>,
++    {
++        assert_eq!(self.len(), data.len());
++
++        // SAFETY: `data.as_mut_ptr()` is valid for write for `self.size()` bytes.
++        unsafe {
++            Self::Backend::copy_from_io(self.as_view(), data.as_mut_ptr());
++        }
 +    }
 +
      /// Fallible 8-bit read with runtime bounds check.
      #[inline(always)]
      fn try_read8(self, offset: usize) -> Result<u8>
-@@ -1229,3 +1273,65 @@ macro_rules! io_project {
- }
- #[doc(inline)]
- pub use crate::io_project;
+@@ -1000,6 +1197,28 @@ fn io_write(view: <$backend as IoBackend>::View<'_, $ty>, value: $ty) {
+ #[cfg(CONFIG_64BIT)]
+ impl_mmio_io_capable!(MmioBackend, u64, readq, writeq);
+ 
++impl IoCopyable for MmioBackend {
++    #[inline]
++    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
++        // SAFETY:
++        // - `view.ptr` is valid MMIO memory for `view.size()` bytes.
++        // - `buffer` is valid for write for `view.size()` bytes.
++        unsafe {
++            bindings::memcpy_fromio(buffer.cast(), view.ptr.cast(), view.size());
++        }
++    }
 +
-+/// Read from I/O memory.
-+///
-+/// The syntax is of form `io_read!(io, proj)` where `io` is an expression to a type that
-+/// implements [`Io`] and `proj` is a [projection specification](kernel::ptr::project!).
-+///
-+/// # Examples
-+///
-+/// ```
-+/// #[repr(C)]
-+/// struct MyStruct { field: u32, }
-+///
-+/// # fn test(mmio: kernel::io::Mmio<'_, [MyStruct]>) -> Result {
-+/// // let mmio: Mmio<'_, [MyStruct]>;
-+/// let field: u32 = kernel::io::io_read!(mmio, [try: 2].field);
-+/// # Ok::<(), Error>(()) }
-+/// ```
-+#[macro_export]
-+#[doc(hidden)]
-+macro_rules! io_read {
-+    ($io:expr, $($proj:tt)*) => {
-+        $crate::io::Io::read_val($crate::io_project!($io, $($proj)*))
-+    };
++    #[inline]
++    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
++        // SAFETY:
++        // - `view.ptr` is valid MMIO memory for `view.size()` bytes.
++        // - `buffer` is valid for read for `view.size()` bytes.
++        unsafe {
++            bindings::memcpy_toio(view.ptr.cast(), buffer.cast(), view.size());
++        }
++    }
 +}
-+#[doc(inline)]
-+pub use crate::io_read;
 +
-+/// Writes to I/O memory.
-+///
-+/// The syntax is of form `io_write!(io, proj, val)` where `io` is an expression to a type that
-+/// implements [`Io`] and `proj` is a [projection specification](kernel::ptr::project!),
-+/// and `val` is the value to be written to the projected location.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// #[repr(C)]
-+/// struct MyStruct { field: u32, }
-+///
-+/// # fn test(mmio: kernel::io::Mmio<'_, [MyStruct]>) -> Result {
-+/// // let mmio: Mmio<'_, [MyStruct]>;
-+/// kernel::io::io_write!(mmio, [try: 2].field, 10);
-+/// # Ok::<(), Error>(()) }
-+/// ```
-+#[macro_export]
-+#[doc(hidden)]
-+macro_rules! io_write {
-+    (@parse [$io:expr] [$($proj:tt)*] [, $val:expr]) => {
-+        $crate::io::Io::write_val($crate::io_project!($io, $($proj)*), $val)
-+    };
-+    (@parse [$io:expr] [$($proj:tt)*] [.$field:tt $($rest:tt)*]) => {
-+        $crate::io_write!(@parse [$io] [$($proj)* .$field] [$($rest)*])
-+    };
-+    (@parse [$io:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] $($rest:tt)*]) => {
-+        $crate::io_write!(@parse [$io] [$($proj)* [$flavor: $index]] [$($rest)*])
-+    };
-+    ($io:expr, $($rest:tt)*) => {
-+        $crate::io_write!(@parse [$io] [] [$($rest)*])
-+    };
+ /// [`Mmio`] but using relaxed accessors.
+ ///
+ /// This type provides an implementation of [`Io`] that uses relaxed I/O MMIO operands instead of
+@@ -1143,6 +1362,47 @@ fn io_write(view: SysMem<'_, $ty>, value: $ty) {
+ #[cfg(CONFIG_64BIT)]
+ impl_sysmem_io_capable!(u64);
+ 
++impl IoCopyable for SysMemBackend {
++    #[inline]
++    unsafe fn copy_from_io(view: Self::View<'_, [u8]>, buffer: *mut u8) {
++        // Use `bindings::memcpy` instead of `copy_nonoverlapping` for volatile.
++        // SAFETY:
++        // - `view.ptr` is in CPU address space and valid for read.
++        // - `buffer` is valid for write for `view.size()` bytes which is equal to `view.ptr.len()`.
++        unsafe { bindings::memcpy(buffer.cast(), view.ptr.cast(), view.ptr.len()) };
++    }
++
++    #[inline]
++    unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buffer: *const u8) {
++        // Use `bindings::memcpy` instead of `copy_nonoverlapping` for volatile.
++        // SAFETY:
++        // - `view.ptr` is in CPU address space and valid for write.
++        // - `buffer` is valid for read for `view.size()` bytes which is equal to `view.ptr.len()`.
++        unsafe { bindings::memcpy(view.ptr.cast(), buffer.cast(), view.ptr.len()) };
++    }
++
++    #[inline]
++    fn copy_read<T: FromBytes>(view: Self::View<'_, T>) -> T {
++        // SAFETY:
++        // - Per type invariant, `ptr` is valid and aligned.
++        // - Using read_volatile() here so that race with hardware is well-defined.
++        // - Using read_volatile() here is not sound if it races with other CPU per Rust
++        //   rules, but this is allowed per LKMM.
++        // - `T: FromBytes` so all bit patterns are valid.
++        unsafe { view.ptr.read_volatile() }
++    }
++
++    #[inline]
++    fn copy_write<T: IntoBytes>(view: Self::View<'_, T>, value: T) {
++        // SAFETY:
++        // - Per type invariant, `ptr` is valid and aligned.
++        // - Using write_volatile() here so that race with hardware is well-defined.
++        // - Using write_volatile() here is not sound if it races with other CPU per Rust
++        //   rules, but this is allowed per LKMM.
++        unsafe { view.ptr.write_volatile(value) }
++    }
 +}
-+#[doc(inline)]
-+pub use crate::io_write;
++
+ /// A view of a system memory region.
+ ///
+ /// Provides `Io` trait implementation for kernel virtual address ranges,
+diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
+index 4af46e99d2dd..b629acc6d915 100644
+--- a/samples/rust/rust_dma.rs
++++ b/samples/rust/rust_dma.rs
+@@ -14,7 +14,8 @@
+     },
+     io::{
+         io_project,
+-        io_read, //
++        io_read,
++        Io, //
+     },
+     page, pci,
+     prelude::*,
+@@ -38,6 +39,7 @@ struct DmaSampleDriver {
+     (0xcd, 0xef),
+ ];
+ 
++#[derive(FromBytes, IntoBytes)]
+ struct MyStruct {
+     h: u32,
+     b: u32,
+@@ -81,8 +83,7 @@ fn probe<'bound>(
+                 Coherent::zeroed_slice(pdev.as_ref(), TEST_VALUES.len(), GFP_KERNEL)?;
+ 
+             for (i, value) in TEST_VALUES.into_iter().enumerate() {
+-                // SAFETY: `ca` is not yet shared with device or other threads.
+-                unsafe { *io_project!(ca, [panic: i]).as_mut() = MyStruct::new(value.0, value.1) };
++                io_project!(ca, [panic: i]).copy_write(MyStruct::new(value.0, value.1));
+             }
+ 
+             let size = 4 * page::PAGE_SIZE;
 
 -- 
 2.54.0
