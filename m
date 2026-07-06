@@ -4,51 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBA68C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE3EDC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 19:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB7BF10E3EF;
-	Mon,  6 Jul 2026 19:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D1B210EA9C;
+	Mon,  6 Jul 2026 19:41:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kkycI5Eo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ODmWzvEO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC5510E3EF
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:37:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E64810EA9C
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 19:41:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3F5FE42DB5;
- Mon,  6 Jul 2026 19:37:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED49A1F00A3A;
- Mon,  6 Jul 2026 19:36:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 50648600C3;
+ Mon,  6 Jul 2026 19:41:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DD51F000E9;
+ Mon,  6 Jul 2026 19:41:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783366620;
- bh=5wVXaZyBswMFYBHHYDn7xtnHs1hnMKtVBMS98qXTlXI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=kkycI5EoqpJy8CEtW+M7I48QxuaeJI4NttgsIc2MLAMY8uidqbf5S8/SKl7OawTYK
- 9WOJaAJyinQZuLv1sCSWAjWjJvvEsnwZB3SsMgf0MWHNFPbHfq9g/Rs2NJ8oCCuRK1
- Y1GE7n3zNkrZT6lTF7ief5KZeyjUe43idRo1jGUDT9c1PBO6waJtgE9ugMVVtf7SOh
- SssxAI5Xtrvxr/H+7/1EaDNbgQ1EZFvW49X4u64a8kC3Vn/L0kDIp7xPLNaXdM3iUE
- yF2tu1wRSC56jpzpF5r/Amh/iy1Dv0BtUtQnQ6YvT8+dJKCcfHHSzl5jQn6qtHS5C5
- Z8SarwKREvXmQ==
-Date: Mon, 6 Jul 2026 09:36:59 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: phasta@kernel.org, dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, kernel-dev@igalia.com
-Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
- improvements
-Message-ID: <akwD28ihbzn1FB-P@slm.duckdns.org>
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <4eb23476ff56bee108578adfe131be38e8fc1476.camel@mailbox.org>
- <b76ea01c-ead3-4eaf-86a7-5bf91bfdb9cb@igalia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b76ea01c-ead3-4eaf-86a7-5bf91bfdb9cb@igalia.com>
+ s=k20260515; t=1783366873;
+ bh=ql1BTd+R8iFjcDbKq4QObGCOG8trG6gfPLTyqY6GNFw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ODmWzvEO4cyA8TLoxfAus2NNW3uweu/35BapcKk609i+UQZjP/nbJULqoF6ynV4hJ
+ O6MRphWRdxLy7mGlcOADibnnptNEiBLxUcJNGf8JxUiEnYdiQ+MsB9I4dRXyDrfm0Y
+ pQIKAArokSKsDMFWZLFcH6QjLmREAZSQPH3VbCmL3cfpOtLVBpYC5ixEH8BDIkXxS2
+ FpjUUwTeBqMenWsRcqd2p0Iws0GE2pQVHeMtHJiOtt/gr3QWuvq4g+0YR2X//TuGs7
+ YJX3QhqJiq4Ewn1GGWIPcsvZ02EwTnp+2eL6SHbVQbKxwII74Txrg/kIHSdln4S2T7
+ nYYlDAvTataeQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 04/13] drm/rockchip: vop2: Avoid division by zero
+ when computing max_dclk
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260706-dw-hdmi-qp-yuv-v2-4-b91beb33dedf@collabora.com>
+References: <20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com>
+ <20260706-dw-hdmi-qp-yuv-v2-4-b91beb33dedf@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 06 Jul 2026 19:41:12 +0000
+Message-Id: <20260706194112.A9DD51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +55,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On Mon, Jul 06, 2026 at 01:20:49PM +0100, Tvrtko Ursulin wrote:
-...
-> > So the first question I would like to see considered is whether
-> > workqueue could be improved in any way to address said latency issues.
-> > 
-> > Have you already considered that, Tvrtko?
-> 
-> Yes, priority inheritance was justifiably rejected for generic workqueues.
-> There is WQ_HIGHPRI, but the idea here is to go one step further and allow
-> tracking realtime scheduling policies.
+Pre-existing issues:
+- [High] The function `vop2_crtc_atomic_enable` calls sleeping functions, v=
+iolating the DRM subsystem guideline that CRTC atomic enable callbacks exec=
+ute in atomic context.
+--
 
-If deciding at work item boundaries is granular enough, it's not
-unconscionable to support RT worker pools. The main reason for resisting
-that is because it can be too easy to abuse. A couple RT threads may solve
-immediate problems but with a bunch of them you just don't have a working
-scheduler in the system. In general, it's pretty suspicious if there's
-intersection of "I need a bunch of worker threads in a flexible way" and "I
-want RT".
+commit d9247f0e6928075b3e607f5959fafadc7413c070
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-How big a hit is WQ_HIGHPRI vs. RT?
+drm/rockchip: vop2: Avoid division by zero when computing max_dclk
 
-Thanks.
+This commit avoids a division by zero in vop2_crtc_atomic_enable() by
+defaulting bpc to 8 if vcstate->output_bpc is 0, which happens for
+non-HDMI outputs.
 
--- 
-tejun
+Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel=
+.org/
+
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> index c2328b35466de..e966c0a0266ea 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> @@ -1920,8 +1920,9 @@ static void vop2_crtc_atomic_enable(struct drm_crtc=
+ *crtc,
+>  	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
+>  	 */
+>  	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
+> -		unsigned long max_dclk =3D DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * =
+8,
+> -							       vcstate->output_bpc);
+> +		unsigned int bpc =3D vcstate->output_bpc ?: 8;
+> +		unsigned long max_dclk =3D DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * =
+8, bpc);
+> +
+>  		if (clock <=3D max_dclk) {
+>  			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mas=
+k) {
+>  				struct rockchip_encoder *rkencoder =3D to_rockchip_encoder(encoder);
+
+[Severity: High]
+This is a pre-existing issue, but does vop2_crtc_atomic_enable() safely
+execute in an atomic context?
+
+CRTC atomic enable callbacks can execute in an atomic context during
+non-blocking commits, where sleeping is forbidden.
+
+However, vop2_crtc_atomic_enable() invokes sleeping functions. It starts
+with vop2_lock() (which wraps mutex_lock) and clk_prepare_enable():
+
+drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:vop2_crtc_atomic_enable() {
+    ...
+	vop2_lock(vop2);
+
+	ret =3D clk_prepare_enable(vp->dclk);
+    ...
+}
+
+Additionally, further down in the function, clk_set_parent() is called,
+which also acquires the clock framework's sleeping mutex:
+
+drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:vop2_crtc_atomic_enable() {
+    ...
+		if (pll_hdmiphy) {
+			if (!vp->dclk_src)
+				vp->dclk_src =3D clk_get_parent(vp->dclk);
+
+			ret =3D clk_set_parent(vp->dclk, pll_hdmiphy);
+    ...
+}
+
+Calling sleeping functions from an atomic context can cause kernel warnings,
+potential deadlocks, and system instability.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-dw-hdmi-qp=
+-yuv-v2-0-b91beb33dedf@collabora.com?part=3D4
