@@ -4,94 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7455CC44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:55:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E854C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 07:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D394310E7EC;
-	Mon,  6 Jul 2026 07:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCEBC89CE3;
+	Mon,  6 Jul 2026 07:59:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j1vqs1gI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L/gVO26i";
 	dkim-atps=neutral
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 949BD10E7EC
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 07:55:26 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-804e46366d7so40776057b3.2
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 00:55:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783324525; cv=none;
- d=google.com; s=arc-20260327;
- b=GBdJ0S9NyZa4yoa01kJAYcohC/mVAmj3PwccFDeoS7eNfrlDIW0OBStysOLc8s4NuW
- MCkQZom7OLNvtP5urmfqA09QRndhwHHqo76P43EW2D9aUQuLyJp7iavDHzttO2MFexbO
- H4GxkIsCN3cDfLZdU4ZtvdXNeJO0rbo93pHC6TC7IVMINTlCVoJad5kh1Io2BzKdN7ch
- DyUpp7fwbRVmaF0jS8OUl8G74OH8UTCl6wLthvHIMOqeFauYWMUmuEXW/aKLZ5moxZZa
- buF2mu+2bHXTDn4tOMe2lgLKrj/rjkV1GYVmGHZhF/5+epZ9+eCgoo2BqwxTX2DwP7FQ
- 34gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=/XEVNZfbYRL67+UpgbRqTZBqZTbyV1Rm07jDf3o30m0=;
- fh=c9ShkdkLKioP5T2W9jvF4vgwBe3KaThCeJByGLkSIRs=;
- b=RsNMLDbs2b4/ZlwptO6N0aDbjT7O6t8HtuZlgpwiA18KL3uO/AE+jKWa0kAIKSGpoy
- yfZTGw/C2AM6JlFQTOdbsOmwDo4vAn5Kt5QFXT3f3cBWfHTjWt3K9G6pI7I39Lmv5LTL
- ztDltcrf1aOrrcD0WVaoNz9jY+GKY+7GYXY1tDU0MqbZyIs6LNmTNpKeMnxgwUj8cO6G
- t3VzyxBO9nWwAGtreqyynIwtooJpnY730cg09QYu6da2ifMyoN7gevLdn1ie/begj71i
- xTR8bF5dSSt4L2+WTBG0E9XhcFXpBwn5LaM+LDqFi6+Je3s9+922PndDPcxbWPP8vfZD
- JwWQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783324525; x=1783929325; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=/XEVNZfbYRL67+UpgbRqTZBqZTbyV1Rm07jDf3o30m0=;
- b=j1vqs1gIQYuThKtTB+LJ7ifzucJmCeKs36GgsCtJM+CtWTvrfbqMcDrGuA/chf4xH6
- QO96uRhX82kO4D8kYt/STsC7AIB2WEbpC0Ujme0GJPVjWfNqbaULYAqjnpQjEJciDEop
- BF17JuFzMwBzVogy0UbQtVJrUoqbJ9k2bWRFIlItU3lrWyI3T6WSvwmN4YhqTN7naGFv
- lFUammDlWOVPvyF7mxMQEsPSCNSbj3GhRqIxVK9lbmsuk+GZLpFG7O3ieXJ+dzHhZftI
- RJVKnXkTilZoKAgzHZQQUwErE/tA3giVMkFmUgMHduDIOY6isWqBbQ/bgygAp7PaXsUo
- T3Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783324525; x=1783929325;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/XEVNZfbYRL67+UpgbRqTZBqZTbyV1Rm07jDf3o30m0=;
- b=TQj+QlHK6I4c29o7CJKhY+seXBzmk9zcOptOtGhKp/sUxkvK1UtcsYy3aZDnz0DV/4
- ZgtUDuVIZSdwpTA6mvZfe/iR5npuHcGc0S4PCYcc0z7+9QhOei0LjRK1ubzK0D+Rx+N6
- Cm7AWX4jlEgNa+40gTsaJoObPg/HQ9PR5yaqaXpqNuJDPV0Q7XYNrI2p/TIFLJ8vqS50
- TIYWpBUFEdOgBV4Zw/DGmSJsKAZz0EADDS1wX4AgfPRiuimh7leph2K9MslfS4uN8WUV
- dgLnc5rAiGb64rQpy3p/J/28s+aEKbrils+XZKXEMZQ43PfrZuntWWViegaOJNZmtzA0
- 3LEg==
-X-Gm-Message-State: AOJu0YwtrQIAvBP0w1b821HLlTTeMTiGI2gfdlSPsMIhbgeo7fiT7/3I
- u4VeOIyT/rhJKl3U3NEHRrLjX1dqMnaUMUAYSpZ8YR+0iI4Ube18TcVTPY4Rjzy5o/7oGM4LwtX
- qY68NXw4ZgUUqq65/slVC0ZUKnP04sjK510X61ts=
-X-Gm-Gg: AfdE7cmR5i8balvytQyNlWC+ZAsxIG+bq2ZRdvtOQGXu4JPmnnFrP2Zr43ujkjtH5hv
- iN49JssYchj56eoAuq69rxZML7DVVtNubhfIJbpYoAxKpfEuK8W8FHJeNKoBdt12NVbjXrULrl/
- NTcFOE8AMJbz37M2fbj99J/0+/fpBIy9ziS2ys+I4TqmUX0SU0FdpXaXfAl8BkE7jvZ/eAQK8Hj
- NGZGM896zTqVCk5EBhPUta3wKSSXKxDAP/dJlEbY+vYEbJCHZ/WcmWK2uLle4ZPKCbxarri7erh
- ZHervxAcp1gCeseKpF/1suvWmjJ/TOAMEW0vS30dg8HZ3PkKyggG+uZg8w==
-X-Received: by 2002:a05:690c:b19:b0:80c:85b6:7654 with SMTP id
- 00721157ae682-817398ee8acmr90492207b3.57.1783324525215; Mon, 06 Jul 2026
- 00:55:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260706052330.1110909-1-airlied@gmail.com>
-In-Reply-To: <20260706052330.1110909-1-airlied@gmail.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Mon, 6 Jul 2026 17:55:04 +1000
-X-Gm-Features: AVVi8Cfx-dDIbhjl6PnXaEFhBzsvAKm5asFdkh4qpLxeTgixFJOzjr0UZq9aong
-Message-ID: <CAPM=9txKzx6qji23YpY=d6Wrd-se-abZoOmDUW32HCx5YsL0tA@mail.gmail.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010037.outbound.protection.outlook.com [52.101.201.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 183EB89CE3;
+ Mon,  6 Jul 2026 07:59:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DvfQo1B4JMPzJBBXiH5LT1hNBMf+1boFxeQ3/D95XuSww4kMSW+D0YGZfODHdAYO/B3qD/jFZ1JlAN6xuyy04UfTvomll7iD7Xo2ODnQienzAbXkruyiMzJjhKeSx1C+z/8dbAL9gI1wlGC8Anq+SEM8z+PPmKM/U9MY45ppK1wSL86QDvpiB0/QnyDVCNSoA8jfUAH8UzE2xVBnHH73xKuZ5jzVaVk+bZBy7VTFubkIPQTlzcuEYvLzE/tCnKlnNNPgaG8i0i2n2aq/Fwi/Ig1u3SDZ4PDfh14edXZddOflJsj10ysp1xRWMjSxO4lQnwewmNr0R9GXCkgxMiAc+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GKgeFL6wtBDI9olSob4A0EXwiQAlodE7buzu+DddE+Y=;
+ b=nx3gev+kSnX4S3C4ub67ELXvGUFhnSpl0UzBMb4S0YNglBfkFASS8vWG+5/1FAApN0NAwBEkLM/LMP3cBOKniqHW4neCaItnS27rIpa9Oh9CE5UsLb6b+AHIMsrg343UWkcBzsAfpv3IcwrzPF04TQN7EPzcm2OTiPw2LHfGdQwOLfT/lrcxwqSHDkNDU8H0z6du6wXXfHXFB7T8Qrbquy+MIoju3lXrf/NjYUNMiIvmFQaAlQUfBOUsSbAw9BAmDXCOWLa1wHMui0WtgxQSrhTO6aSQ4OAMaEcQ/qd8zFWDuaYIlFejqo2WfLbH4wY8+gGpf/SzrPZdSodzonwUDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GKgeFL6wtBDI9olSob4A0EXwiQAlodE7buzu+DddE+Y=;
+ b=L/gVO26iAVG263Kt6vCxIJUy1TUNiuccHB+PyIRw0v0ouvhmxqa4J81FOFpd0wC3fnEnPVj+AKJ34fOIcjlBJaoQTq05gM5LL0vZMR0ZSB1skT35jNzvOdvN9FYeC+PFZXWItAEurYUm1mLlXqRDQcEzRLMpdYvrMrDKdEr0o90=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6670.namprd12.prod.outlook.com (2603:10b6:806:26e::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
+ 2026 07:59:22 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
+ 07:59:21 +0000
+Message-ID: <a05e0695-8f00-4095-addb-5a5fbd9c54dd@amd.com>
+Date: Mon, 6 Jul 2026 09:59:15 +0200
+User-Agent: Mozilla Thunderbird
 Subject: Re: drm/ttm/memcg/lru: enable memcg tracking for ttm, xe and amdgpu
- driver (part 2) (v2).
-To: dri-devel@lists.freedesktop.org, tj@kernel.org, christian.koenig@amd.com, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>,
+ driver (part 2).
+To: Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ tj@kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
  Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>
-Cc: cgroups@vger.kernel.org, 
+Cc: cgroups@vger.kernel.org,
  Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Waiman Long <longman@redhat.com>, simona@ffwll.ch, 
+ Waiman Long <longman@redhat.com>, simona@ffwll.ch,
  intel-xe@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+References: <20260706024122.853329-1-airlied@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260706024122.853329-1-airlied@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4P288CA0038.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d3::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6670:EE_
+X-MS-Office365-Filtering-Correlation-Id: 995b6d2a-a16d-4fb6-232f-08dedb347ce5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|18002099003|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info: e6d0ShPBPqwncdgE+xznUnyzV4FkWBWsGW7ounv3kxtMwpLfG8ThiFJUsRX7nuqkmlykP2Dhntz62ZHBFnOE7mftfeLdnZydsiPgw6iNP1kg2vHbuLQZnAXN+imjIURf7A1m225GwYiyFF2el7Q0Bs5bH66U5s7swwTVAynvUm115qfywE5DGTCVyr2DbdVPEGks27KT/JqBjIpzdUd1jzHMYAfNdHEgh8gM/+L1ktPvrEIoRC1dABF8zJ8ys12k8vuFyn3NgQIzYS6caMzaBIM99ZS994Zw5wNnuSjMP6PKBifySYmGb9znvdib0LgKmS7ZhcQmm6APU7FjLAT6QCgs+GLmXRI5vcOzX0m6p/EDojuIgL263QjHylpoq6EzOzMq8OoUEqH7ncFzuXSWee50xl2Zdw+cB9iUpFdv7hoqQlAcFB2M3Ha4ok6ehQRtiGWg3xzthfX9XYW83WxJ0GpBXV8BLi6/a0446L/oYnWmn0ZDWtBcoNUrlJeEh0LjKhWzSE94zTgl9OruUg1DaDWIiM7Qq8gmH1pdNR7ithz2rmu1bAafmfNJCkaZsCt1HQZ6HkkxBCaguoW5exP1HpuYi7qu1w4jH+ioDu28j4OXwOgosFdtUOoyl75x1YtLnJbwTwAuNIyKO4b1m25qgjsJ6Td+rKMv2EveLe6QQu0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(11063799006)(5023799004)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qy9oZmYyTjgrNGdrWGRRZlBQb2FNWFJFbnpVRDVNRHdJbytWV0FHemdjZjBB?=
+ =?utf-8?B?UXhpVGdIQi9DcExIcU9ycTlMSXFTSFdlakowc1BLNkRjWHozT3NEcmNuNkY0?=
+ =?utf-8?B?WG1HOUlFSUM2bW0vOGY2RWo2aThaMHJpOE5Vd2xPTjRyREJjRDRpbmlhVzF2?=
+ =?utf-8?B?eFJoZHl4enhMUjdzWUs2NmxBdlZ6N3NnZlM2ekNGUkdlcUU1TUhXYUpxS2tK?=
+ =?utf-8?B?VWpKOWQzWmFGUTZtUE5WMHFUMnFmR1B0TURIUSt5NzJ0eEdncTFjdTA5Q0pk?=
+ =?utf-8?B?TkZxa1F6M3llSUpxRnh3d1dobW1IWDBOWWpVNE5rUndJSHY2bmZYK1kwMFdx?=
+ =?utf-8?B?RXJKTjRJaXpGQXNObUlBWGdVblZuTGY5a1FUMktmSFM5b3hONStTK1dQczlE?=
+ =?utf-8?B?Zk9LWFNHakJmSjRVTFcySEttZnBWa2lCbHcwRXVqQlBuMWx1NDBsQmwxWHVs?=
+ =?utf-8?B?c0ZDbGdYZXA1LzFrYW0xcDYyZG1yMUlHejdFM0dWMldxdTBmMkE4U3V2Qk5r?=
+ =?utf-8?B?MjhxRlhuQ0lvd3VpSXYxcDQ3Q0tSYzczM0Q1dC9XeXBuVjZIdlI0MmZGZXFU?=
+ =?utf-8?B?bVFUcmhGeDczcERpc1hmT0Nla09lM2p0WlRSMkViRnMrelN5S1FORjhxME9Z?=
+ =?utf-8?B?SWhZTkxwdnMyT1dnN295SVZrV3hNdDEwcG91VWYyRjRxdVBTOWVjNW1leHF1?=
+ =?utf-8?B?WkQ3bjU1WVZZck5OY3VRT2hsc0hFS0F5ajZ6Y0JmRDcydXJscklYYW85aXYr?=
+ =?utf-8?B?Rmlmb0pJbm56WDdxcmhqQ2Y1L25NTjUzeFREd2wvbHp6MWJPdGlIVm5PUlZI?=
+ =?utf-8?B?dDdWSjNxRFl5TGlEeWxaNUpxeUFiU21FSzRhOWNNdk1pS2lmLzRoSlVGQTZK?=
+ =?utf-8?B?dHVLMXkzZWdJYUhCSktKVXN0RDl2TFVzTmd1QXZidDFVOGNxYTJSN2dsVmlK?=
+ =?utf-8?B?S052N0xBTlhaVDgyVGJ6dUl4RjhyaG1hQUhmdEYyTFVET0YvREl0THlCWVpS?=
+ =?utf-8?B?d0ZqKytSMUh0cGQyTmdvOHZ5RUZCWVFKMzgyQ1Zyc25zaGxkU2dOWU5pMHZr?=
+ =?utf-8?B?ZHpkVHVpaXNSaWJ3K1dYR2hxSjFoNHIzaVZqNStOeTFnVm1OSTZyUlY1djZq?=
+ =?utf-8?B?d1JqbTA2aFZqSnlhRVdVS2c4N2M3NE56QWdjZnVMUWRrQUo1cHJSOUo1K2JO?=
+ =?utf-8?B?bC8rRTJDRHpUdUVxTzRYbVNjVUxvRXJqUk40QjgxRitNc3o1bXZhbUZlUDNJ?=
+ =?utf-8?B?ZXpBeC9ZMG9USWRFcmlrRWswQnp0U1RyMEkzNWdPSU9NeXZYYll0VzBja1Zz?=
+ =?utf-8?B?eEJJWnVIMkNpdWRUbjZCVTB0WmdnRE4vbUhmelZHSFBiV1BhWHhBK0lRVnhj?=
+ =?utf-8?B?QVM1SDFtWGtyQ2NpY2hKdG1BY1EveTl0NlpCb3NYKzhvak56bXhLNlFjVGM2?=
+ =?utf-8?B?a3hWOGg2MCtvOUdGekRNdlA1SFVOaThDWmNmRjhhNUV3dW1xbUNmK3UvaThy?=
+ =?utf-8?B?OHFHRnNNSWdaaGtUckpWaGJiTjh0M28rdnVDb0JrVVdONFdONzVPRzZMTHU0?=
+ =?utf-8?B?ZUZhT2NRVm52bkc4bC96L2JKeW55MTl6cnV2U1ZsbDdBbE82RkVtcVo0eXpl?=
+ =?utf-8?B?STFoS2h4UXR2Z3lCd1oreVFUNlFjY2Y0azEvQUhjeThYVmVpWHV5R1VSVG9l?=
+ =?utf-8?B?L1RINVJaVXNWNlFsWEJ0MnB6T1NTTm9MbFZmdG1peUlRVFNkM1ZSZ2lrOHJx?=
+ =?utf-8?B?aThXVi9ZMlc1dzZZRnk2WjlDZTNpQUpXeFB6cVU0dElPSDNvVjVuZ2F2Sm9r?=
+ =?utf-8?B?czhNaWk4c3NUMUQ0TGZobU5uaU51aEVDOVRScXZzUmc5ZGs4ZVVXdnBnLzdQ?=
+ =?utf-8?B?czY3VkZVUnd4NEhjVEhTSmh5bEhLS1BsWDJBQVFyM0NzbnU2VkRQSEFESlJj?=
+ =?utf-8?B?L0lEQ2dsbkRpRVNNSFB6YTFiT0hHS1FCejVSRkJIK0JtMEpURzd1RHMrUUcw?=
+ =?utf-8?B?UjltSWN2N2lhNlJDOEpyYytkM2xUOGFQbFdsRThleDkxelpTY1dESVQwY3I2?=
+ =?utf-8?B?alFtcnEyZ094am8rWkRoaE9tSlRCMzBXaUpxQTU5VUpQZitCVDE2RDhEd0p6?=
+ =?utf-8?B?WTJvUUswN25QOE5KQytYYTZsc1ZITHNLRzNMUHB1cG5FNmFoRy92MGI3aFF1?=
+ =?utf-8?B?MnVSUkM2NzZTSlV0cllpYXNvWTQyYUxmamxOb2NBVUx5cy83TmRraXpHTEF3?=
+ =?utf-8?B?NHovUnhmMnpiSzF3ZHpwT3NDUjBzeUMrdy9HMGJkeVQ1NDJ6SGVLdFJPNnhJ?=
+ =?utf-8?B?NVZIajEzZVltb3RKOGZhdWUyWnhqVzc1V3JHRUlScXg0OXhJY3dTUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 995b6d2a-a16d-4fb6-232f-08dedb347ce5
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 07:59:21.5831 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QwpB2FMLGZUciElNlCjtTtOAfRgjI5GY+10asM2LzET6c8CW7x6TlUocRl0QMEz8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6670
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,46 +141,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 6 Jul 2026 at 15:23, Dave Airlie <airlied@gmail.com> wrote:
->
-> This is just a repost with a number of sashiko identified problems that I fixed.
->
+On 7/6/26 04:36, Dave Airlie wrote:
 > I committed the vmstat counters and list lru changes, and they are now in tree.
->
+> 
 > This is the remainder of this series. Intel have expressed interest in getting
 > this landed for xe, we can drop the amdgpu changes for now if they can't get
 > across the line.
-
-I've put the latest code at
-https://github.com/airlied/linux/tree/ttm-memcg-objcg
-
-I've been fixing more sashiko found issues in there before I repost in
-a few days.
-
-I've reordered things a little in the branch but mostly the same code.
-
-Dave.
-
->
+> 
 > I've dropped all previous acks/reviews.
->
+> 
 > This series adds the memcg counters for GPU active and GPU reclaim to align
 > with the two global vmstats. It adds an accounting flag to TTM alloc/populate,
 > and enables memcg tracking and shrinker support in TTM.
->
+> 
 > Then it adds amdgpu and xe support.
->
+> 
 > I think for this to land, Christian holds the main objection which I still fail
 > to fully understand beyond it doesn't solve all the problems we ever have had
 > with cgroups and drm, so we shouldn't even bother, and maybe we could do it at
 > the object level, and integrated with dmem, and android cross process accounting,
 > but I still feel this is a good baseline.
->
+> 
 > I think this is the right layer to hook this into TTM, where we allocate memory
 > and I think accounting for this memory in a proper way should be done.
->
+
+I think we pretty much agreed now to do this through dmem?
+
+At least dmem got the ability to optionally account allocations towards memcg as well and as far as I see there is no real benefit any more to mess with this in the ttm_pool.
+
+In general the pool seems to be the completely wrong layer to handle that for TTM. Background is that you can't reclaim individual pages anyway, you always need to reclaim full buffers and that is only possible on higher layers.
+
+Regards,
+Christian.
+
+> 
 > Intel folks (Thomas/Maarten) please review and express concerns as well.
->
+> 
 > Regards,
 > Dave.
->
+> 
+
