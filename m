@@ -4,105 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 921C2C44500
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 15:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB8AAC43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 16:02:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3F5210E2FE;
-	Mon,  6 Jul 2026 15:50:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1156810E302;
+	Mon,  6 Jul 2026 16:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OPlEALGr";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gqvl818r";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B46F10E2FE;
- Mon,  6 Jul 2026 15:50:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783353033; x=1814889033;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=of6d9n1ZVp2VvNBWbeQxrIvJaxz8Dqo4F/lZHKvIDzs=;
- b=OPlEALGrWF45df9+2FGlVfUPxWp8SxgKwB69paHaw0kCZMehRZAJKa49
- AfToyvao7tKoeDFrSN+MiByN+U4DVIm6r/rtVRzeDwbU4QKRSSr+mDHJD
- CqApOvmK2YGnL1NkyFTl/fC50o//q0oQ7RGWEOR4o4v5I8oiFttYqM/qT
- 01ybk7uevbJpSKQStwhJ9Tca8jqT9/fwgDbHNRd3xVK3iBoUPJxAwcPBn
- azGba6ubVvK9UdGQsYvdD4khyucQptulRT/f7V6pECQSZbRGG4s+IDsPt
- OkdUgUgEQaNNGfZdvUZdgqvitA560OWxiEZMOh4Q1dk2XSGiB3EV9SJ/O A==;
-X-CSE-ConnectionGUID: 33uA0905TlWdniKRsWJO/A==
-X-CSE-MsgGUID: itVRqDdjTyebAiyZ5kt1sQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="101408849"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="101408849"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 08:50:32 -0700
-X-CSE-ConnectionGUID: NvB5N+KWQv+u1kUJ01a6bg==
-X-CSE-MsgGUID: ST8IrUj4Qs29+PTwG4IXGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="283836189"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.244.48])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 08:50:18 -0700
-Date: Mon, 6 Jul 2026 18:49:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Manuel Ebner <manuelebner@mailbox.org>, Mark Brown <broonie@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Peter Chen <peter.chen@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- driver-core@lists.linux.dev, devicetree@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v3 02/20] driver core: platform: provide
- platform_device_set_of_node()
-Message-ID: <akvOo2EeERLYPh72@ashevche-desk.local>
-References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-2-1ff028e33779@oss.qualcomm.com>
- <fbc50f89e0c3bb148656a3b8d96974f591576dec.camel@mailbox.org>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EABA410E302
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 16:02:46 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 87983838;
+ Mon,  6 Jul 2026 18:01:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1783353716;
+ bh=i8nf4O2WsIEE/n0S6fpBF1M5knrAG/jCBg9Deoxto/g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gqvl818rEpx0lnDUiRHq56bBrBsKS5t0JACNhhFJMKIaFgOPv9L7D8f2hhAD5DqgO
+ pO3LPdjvI5DXRHsXH3yigetnhZPdZQprn8TzXrLhLwLouugdFVDbJeX3d//aAUAEiq
+ Enwsb7eaJcpspMTh6pMmWMJHFYlF7WKmJMqHRh28=
+Date: Mon, 6 Jul 2026 19:02:43 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
+ hardcoding EDID
+Message-ID: <20260706160243.GB106045@killaraus.ideasonboard.com>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
+ <20260706-capable-beaver-of-excellence-a3cf10@houat>
+ <20260706094522.GA42740@killaraus.ideasonboard.com>
+ <20260706-fancy-perch-of-satiation-0c220e@houat>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fbc50f89e0c3bb148656a3b8d96974f591576dec.camel@mailbox.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260706-fancy-perch-of-satiation-0c220e@houat>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,18 +71,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 04:39:00PM +0200, Manuel Ebner wrote:
-> On Mon, 2026-07-06 at 14:44 +0200, Bartosz Golaszewski wrote:
+On Mon, Jul 06, 2026 at 05:40:30PM +0200, Maxime Ripard wrote:
+> On Mon, Jul 06, 2026 at 12:45:22PM +0300, Laurent Pinchart wrote:
+> > On Mon, Jul 06, 2026 at 10:52:32AM +0200, Maxime Ripard wrote:
+> > > On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart wrote:
+> > > > Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
+> > > > data over an I2C bus. The bus is also used to detect the presence of a
+> > > > connected monitor by trying to read the EDID data.
+> > > > 
+> > > > Some devices where the VGA display is integrated in the device and
+> > > > always connected do not connect the DDC pins. Some development boards,
+> > > > such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
+> > > > 
+> > > > To support those, add the ability to provide hardcoded EDID data in the
+> > > > device tree. This is mutually exclusive with specifying a DDC bus, and
+> > > > can only be done when the VGA display is guaranteed to be always
+> > > > connected.
+> > > > 
+> > > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > > 
+> > > This feels redundant with the EDID firmware loading mechanism we have in
+> > > KMS already. It should at least be mentioned why we would need to set it
+> > > in the device tree at all.
+> > 
+> > Very good question.
+> > 
+> > I assume you're talking about CONFIG_DRM_LOAD_EDID_FIRMWARE, as the
+> > debugfs override_edid feature isn't meant for production. If there are
+> > other relevant mechanisms I'm not aware of, please let me know.
+> 
+> No, that's indeed what I meant.
+> 
+> > In the use case at hand, the VGA display is an integral part of the
+> > device, the same way an LVDS or DSI panel would be. Using
+> > CONFIG_DRM_LOAD_EDID_FIRMWARE, the manufacturer would need to set the
+> > drm.edid_firmware command line parameter, and provide EDID as a file in
+> > /lib/firmware/ (possibly in an initramfs). Beside the complexity, and
+> > the fact it won't be very friendly to people who run a different
+> > userspace on the device, I think EDID counts in this case as system
+> > description, the same way we support specifying panel timings in device
+> > tree.
+> 
+> It's *some* hardware description, but you have no idea whether it's
+> actually the hardware you're running from. What would be in that EDID
+> anyway?
 
-> I removed Mark Brown <broonie@opensource.wolfsonmicro.com> from recipients because:
-> “RCPT TO <broonie@opensource.wolfsonmicro.com> failed:
-> <broonie@opensource.wolfsonmicro.com>: Recipient address rejected: Domain not found”.
+It would be the EDID corresponding to the connected display :-) I see it
+as identical to how a user of the simple panel driver is responsible for
+listing the timings corresponding to the hardware in the device tree.
 
-Perhaps he needs to send a patch to update .mailmap?
-Cc'ed to Mark.
+> There's another alternative we've used several times already, in
+> simple-bridge for example: just register any VESA mode up to a given
+> resolution:
+> https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/bridge/simple-bridge.c#L66
+
+I don't see how that would help. The goal is to provide the kernel with
+the data corresponding to the display integrated in the device.
+
+> I guess it's what you would do with that EDID anyway?
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Regards,
 
-
+Laurent Pinchart
