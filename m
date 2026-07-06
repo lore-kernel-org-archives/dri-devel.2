@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C468C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 11:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01944C43458
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 12:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49A6510E360;
-	Mon,  6 Jul 2026 11:56:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 610F310E918;
+	Mon,  6 Jul 2026 12:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PDJJhdGJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QrxpU+vF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09ED310E360
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 11:56:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B738A10E918
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 12:02:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7477F4195F;
- Mon,  6 Jul 2026 11:56:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB801F000E9;
- Mon,  6 Jul 2026 11:56:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4D44543492;
+ Mon,  6 Jul 2026 12:02:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33AF1F000E9;
+ Mon,  6 Jul 2026 12:02:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783339007;
- bh=hbURqZ4Kx84iKLnBZMalN1EdVi23XUzFBV59EArYiUo=;
+ s=k20260515; t=1783339329;
+ bh=x80MCiojiqH1PTayLQsAdWTXoS5RSHovSARhLcqbqWM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PDJJhdGJamJE46SDsyGMTavvkZ+m7pRqwdlIL8LtWkGRK5SVKH3nNCKOHEYf2w28Y
- ywgJ6wzFb1KoUYjwSrjNfWTT5vN/1Op3MrawFxWzE5tVgoXAPWtKo06nUdZuE2EaB5
- D5d7gxCp1sDRK0r/MT38Ay6gtNe/uXRngDucsUr+P0KnwZJUeel/a0+fgW63AJ3t2v
- a5on9XR13m3Zk/dzCZDOE55cDqCcF3UqcjvZrArMCodHOWFYkF5odRIeexweQwlTrZ
- HWHSGcTRVJrCdBop3LbU6LyYWSlYy68H/FihIMJFHSbJ2leQHP6OXpr8qssW+RYIN2
- W1BYnch38Pikg==
+ b=QrxpU+vFJoP4AhGXhRpyTNTIJ4QjCn8O3llUImYNGiiX9qK1rBHPpyB8SUhrrlcv0
+ kl2L9zldQnwRzCFYzTBJPGb8DILDLvxxj1vK+knrzAJv+L7pLgc5riQf5QajtCHiVy
+ DapCKYOGO9VdKCOv96GwprOdz2oXvuxYxgmbL6lEiV/poLHwFBk2dpy5NJdagnlB2G
+ ukMYtndycP7JHm2SoXf8xwsTbIjHLcSXnNNGfQ/LLED+AzaZMpmZxCyRFEJ2hfalpO
+ c6/4BeCyS3KyvVUBm3STqzQ7K+biiZX7QJF+ctRsdT+Sllx+JcBHnK85wLbOk5OCZ0
+ rzUW+SiVOOKMg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/7] drm/i915/gt: Fix selftests on PREEMPT_RT
+Subject: Re: [PATCH v4 3/7] drm/i915/guc: Consider also RCU depth in busy loop.
 To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706114823.752313-5-dev@lankhorst.se>
+In-Reply-To: <20260706114823.752313-4-dev@lankhorst.se>
 References: <20260706114823.752313-1-dev@lankhorst.se>
- <20260706114823.752313-5-dev@lankhorst.se>
+ <20260706114823.752313-4-dev@lankhorst.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 06 Jul 2026 11:56:46 +0000
-Message-Id: <20260706115647.2CB801F000E9@smtp.kernel.org>
+Date: Mon, 06 Jul 2026 12:02:08 +0000
+Message-Id: <20260706120208.E33AF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,79 +61,66 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Incomplete implementation of PREEMPT_RT fixes for i915 selftests, =
-leaving preemption-disabled busy-waits and delays that cause deadlocks and =
-latency spikes.
+- [High] Looping with IRQs disabled causes soft-deadlocks and CT buffer bre=
+akage because the G2H draining tasklet cannot run.
 --
 
-commit c008dff1b2cefd9ee50ca924f83ff7c237a6fb3a
-Author: Maarten Lankhorst <dev@lankhorst.se>
+commit fa66d9f372062707343fef0e57e8f112f58ecabc
+Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-drm/i915/gt: Fix selftests on PREEMPT_RT
+drm/i915/guc: Consider also RCU depth in busy loop.
 
-This commit modifies the i915 engine PM selftest to use migrate_disable()
-instead of preempt_disable() around delay functions. This helps prevent=20
-latency issues on PREEMPT_RT kernels.
+This commit updates the not_atomic condition in intel_guc_send_busy_loop
+to additionally check rcu_preempt_depth. This prevents RCU splats on
+PREEMPT_RT systems where sleeping spinlocks are acquired, which would
+cause in_atomic and irqs_disabled to report false.
 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/d=
-rm/i915/gt/selftest_engine_pm.c
-> index 10e556a7eac45..c1eff9edd8a5e 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-[ ... ]
-> @@ -316,11 +316,11 @@ static int live_engine_busy_stats(void *arg)
->  		}
-> =20
->  		ENGINE_TRACE(engine, "measuring busy time\n");
-> -		preempt_disable();
-> +		migrate_disable();
->  		de =3D intel_engine_get_busy_time(engine, &t[0]);
->  		mdelay(100);
->  		de =3D ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
-> -		preempt_enable();
-> +		migrate_enable();
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i91=
+5/gt/uc/intel_guc.h
+> index 053780f562c1a..b25fa8f4dc4bd 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+> @@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct int=
+el_guc *guc,
+>  {
+>  	int err;
+>  	unsigned int sleep_period_ms =3D 1;
+> -	bool not_atomic =3D !in_atomic() && !irqs_disabled();
+> +	bool not_atomic =3D !in_atomic() && !irqs_disabled() && !rcu_preempt_de=
+pth();
 
 [Severity: High]
-This isn't a bug introduced by this patch, but since this series addresses
-PREEMPT_RT issues in i915 selftests, are there similar preemption-disabled
-delays and waits remaining in other selftests that should be addressed?
+This isn't a bug introduced by this patch, but does spinning with IRQs
+disabled here cause a soft-deadlock that breaks the GuC CT buffer?
 
-For example, looking at live_rps_clock_interval() in
-drivers/gpu/drm/i915/gt/selftest_rps.c, there is a block that disables
-preemption for at least 1 millisecond:
+If the G2H buffer fills up and intel_guc_send_nb returns -EBUSY, the code
+enters a busy loop. If the caller acquired spinlocks that disabled IRQs,
+not_atomic will evaluate to false, causing the loop to use cpu_relax
+instead of sleeping.
 
-    preempt_disable();
-    cycles_[i] =3D -intel_uncore_read_fw(gt->uncore, GEN6_RP_CUR_UP_EI);
-    dt_[i] =3D ktime_get();
-   =20
-    udelay(1000);
-   =20
-    cycles_[i] +=3D intel_uncore_read_fw(gt->uncore, GEN6_RP_CUR_UP_EI);
-    dt_[i] =3D ktime_sub(ktime_get(), dt_[i]);
-    preempt_enable();
+Inside this process, has_room_nb is called, which attempts to drain the
+credits by queuing a tasklet:
 
-Could this cause a severe latency spike on PREEMPT_RT?
+drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c:has_room_nb() {
+    ...
+    tasklet_hi_schedule(&ct->receive_tasklet);
+    ...
+}
 
-Additionally, in drivers/gpu/drm/i915/selftests/i915_request.c,
-measure_completion() disables preemption while busy-waiting for a callback:
+This schedules the tasklet on the local CPU's tasklet list and sets
+TASKLET_STATE_SCHED. However, because the local CPU is spinning in
+cpu_relax with IRQs disabled, softirqs will never run.
 
-    preempt_disable();
-    semaphore_set(sema, i);
-    while (!READ_ONCE(cb.seen))
-        cpu_relax();
-       =20
-    elapsed[i - 1] =3D ENGINE_READ_FW(ce->engine, RING_TIMESTAMP);
-    preempt_enable();
+Since the tasklet is pinned to the local deadlocked CPU, other CPUs
+cannot drain the buffer even if they receive the GuC hard interrupt.
+The G2H buffer never drains, and after 1.5 seconds, ct_deadlocked
+returns true, permanently breaking the CT buffer.
 
-If the threaded handler that executes this callback is scheduled on the same
-CPU on a PREEMPT_RT kernel, would this create a hard deadlock since the
-busy-wait loop will never yield to the handler?
-
->  		dt =3D ktime_sub(t[1], t[0]);
->  		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
->  			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldn=
-s]\n",
+> =20
+>  	/*
+>  	 * FIXME: Have caller pass in if we are in an atomic context to avoid
+>  	 * using in_atomic() as it doesn't work for all configs (e.g. PREEMPT).
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706114823.7523=
-13-1-dev@lankhorst.se?part=3D4
+13-1-dev@lankhorst.se?part=3D3
