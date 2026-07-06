@@ -4,83 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E33F6C43458
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 17:22:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11383C44500
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Jul 2026 17:26:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37FD410EA03;
-	Mon,  6 Jul 2026 17:22:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEFA10EA18;
+	Mon,  6 Jul 2026 17:26:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Z88SwoGs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nCLYqWUv";
 	dkim-atps=neutral
-Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com
- [209.85.221.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E617910EA03
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 17:22:01 +0000 (UTC)
-Received: by mail-wr1-f74.google.com with SMTP id
- ffacd0b85a97d-475eba52438so2504783f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 10:22:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1783358520; x=1783963320;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ltyx4avvqap+Z6tBDQrFmfqB8UZWvDnSqPOqoXvmQP8=;
- b=Z88SwoGsY+B/+DCdG7+7N5vcddaZFyXXOVvC+RVO0FEudSpvBubl6fDvdcbIQviH+Z
- 8UYyuPWTwIexWZWJzAnHLzwlAEV/VndzlCsaDUsP0wJ3eUS9PQsAFJgZ0darHPmkyBqM
- knOkK541ewkMKOkobY+YFUKD0CEr5x+eOJqOL9t9N0nPGu3iUGQZ1p31sby2Ub86pBRx
- SMgTn1jtyfG2FEXuCB5ie1sozVB0eJSv/VMsPQC7AOA2E8qKKYiUezc7HIXrJ6hivtYA
- IcnQLGQJt/qAaBXtyKWeaUpZPSOMMEpBAEAV6aZUNao+aHZMWeMxsyFffggqIwMX0tiO
- D3sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783358520; x=1783963320;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ltyx4avvqap+Z6tBDQrFmfqB8UZWvDnSqPOqoXvmQP8=;
- b=Lop84u+EUjfc+NSz5sG9auDQpp48j/vWckXcaHVkLjdcjyuhFFs0/qge2MFLHrVVuQ
- 88LQvNnM4MbrRrL83FzW7UkK7wOv9AZ4JYy/7S4Z86omJvG67k99H4LKKzREDwidO6Qd
- WZj4iwVcrIL2Z0ZYtZ0/Nn3tqaugzNJG6WQwkwUQO3UIDnYJJWsIvlUCvehcNiuyAZIN
- q2mvT4ZLLHMw8OQRO+YztoNSO3uR9dmjVSsyVcMQpAN3CEUURBWp93Q6JIgc7H7OZALT
- sTuORX3gb3Eyy45VT7goErntJmCa6uwHoQ69AYzsH57ha0PGKoyIKmTf3JaEoN11AaOA
- klHw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrYPFy0sr3X9J8o6HhS7lqslafR/cBmGmr4Uy2ZVxvAVwcDnBp3i/rLj/gIdQyg8I6OLwRNqLN6g2Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgsS8bTuH37BLkt7v/K2bGLj/oyujfUxP2UfEYmOfvLU/I/XLr
- 5lvzjsB+awemVh0mElGHc7cydBWiWZtSXespQvraCOuhrcGWLnmLg7grASRmYxPZ6yP7mQOHk8I
- w1Cmznm1PlZ/55/YRzg==
-X-Received: from wmri23-n2.prod.google.com
- ([2002:a05:600c:8a17:20b0:493:d884:f722])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6692:b0:493:ca3a:d738 with SMTP id
- 5b1f17b1804b1-493df055a84mr19308675e9.7.1783358519892; 
- Mon, 06 Jul 2026 10:21:59 -0700 (PDT)
-Date: Mon, 6 Jul 2026 17:21:58 +0000
-In-Reply-To: <akvXzPd169ahMuCi@yury>
-Mime-Version: 1.0
-References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
- <20260703-chid-v1-2-84fe8259e46e@nvidia.com>
- <akvXzPd169ahMuCi@yury>
-Message-ID: <akvkNuh2bHhFwmQM@google.com>
-Subject: Re: [PATCH 2/4] rust: bitmap: add contiguous area operations
-From: Alice Ryhl <aliceryhl@google.com>
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Eliot Courtney <ecourtney@nvidia.com>, Burak Emir <bqe@google.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, 
- Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB4F10E3E0;
+ Mon,  6 Jul 2026 17:26:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8A19C415B4;
+ Mon,  6 Jul 2026 17:26:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160F11F000E9;
+ Mon,  6 Jul 2026 17:26:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783358804;
+ bh=6Q0tvr2GvB7IdKSisCRev74pEI09lUCKAJRHUpFa0u0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=nCLYqWUvGJM2k6XDnnND9naY7BS0FeW4Fu5CyITqesk4/FYtYFs2v+CdsAT/O073Y
+ GtZ8t7rZu7alxOIECS486DbL4kafAvJYppDKfefXQcxPJWSm50Z5xEB87XflCdnqI0
+ dI9I5Vp+VbNytWapWIsBYtTNmQpIQ3PSkrb5u0vxywEuxj1U2BwNjyu/B89xGJdNtD
+ G/Odw4daeVaAAUZb5GsfrnhN7yZ/7dsR9qtpRXxY65g9kYlYkQBfw49iWquOtCkMjk
+ tJfNZXyAVgeg0oDBCZxb/20tfctRWrUO672g92oAd9zuNBOetu0kFzrqAf+966bE2y
+ VRCYCAEaqRrlQ==
+Date: Mon, 6 Jul 2026 18:26:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Manuel Ebner <manuelebner@mailbox.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>,
+ Thierry Reding <thierry.reding@avionic-design.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Doug Berger <opendmb@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Peter Chen <peter.chen@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v3 02/20] driver core: platform: provide
+ platform_device_set_of_node()
+Message-ID: <e40d0bd0-0e3d-4c01-bffc-8e0075213c45@sirena.org.uk>
+References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
+ <20260706-pdev-fwnode-ref-v3-2-1ff028e33779@oss.qualcomm.com>
+ <fbc50f89e0c3bb148656a3b8d96974f591576dec.camel@mailbox.org>
+ <akvOo2EeERLYPh72@ashevche-desk.local>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FWksib/oYWGW6VVm"
+Content-Disposition: inline
+In-Reply-To: <akvOo2EeERLYPh72@ashevche-desk.local>
+X-Cookie: Did I do an INCORRECT THING??
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,75 +107,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 12:29:00PM -0400, Yury Norov wrote:
-> On Fri, Jul 03, 2026 at 07:16:05PM +0900, Eliot Courtney wrote:
-> > Add bindings and helpers for area operations on bitmaps. Each one is
-> > made safe by adding some extra checks compared to the underlying C code
-> > (for example, checking bounds) and with additional checks to catch
-> > likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
-> > 
-> > The C code uses signed integers for some parameters, for example the
-> > length for `__bitmap_set`, so bounds check against i32::MAX. We can't
-> > rely on `BitmapVec::MAX_LEN` because `Bitmap` may not necessarily be
-> > backed by `BitmapVec`. There's also a few cases where a non power of two
-> > minus one `align_mask` can cause an infinite loop in the C code (can
-> > happen on overflow), so check for that.
-> > 
-> > Add tests demonstrating the edge cases.
-> > 
-> > Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> > ---
-> >  rust/helpers/bitmap.c |  22 +++++
-> >  rust/kernel/bitmap.rs | 219 ++++++++++++++++++++++++++++++++++++++++++++++++++
-> >  2 files changed, 241 insertions(+)
-> > 
-> > diff --git a/rust/helpers/bitmap.c b/rust/helpers/bitmap.c
-> > index e4e9f4361270..dac5c03f2448 100644
-> > --- a/rust/helpers/bitmap.c
-> > +++ b/rust/helpers/bitmap.c
-> > @@ -8,3 +8,25 @@ void rust_helper_bitmap_copy_and_extend(unsigned long *to, const unsigned long *
-> >  {
-> >  	bitmap_copy_and_extend(to, from, count, size);
-> >  }
-> > +
-> > +__rust_helper
-> > +unsigned long rust_helper_bitmap_find_next_zero_area(unsigned long *map,
-> > +						     unsigned long size,
-> > +						     unsigned long start,
-> > +						     unsigned int nr,
-> > +						     unsigned long align_mask)
-> > +{
-> > +	return bitmap_find_next_zero_area(map, size, start, nr, align_mask);
-> > +}
-> > +
-> > +__rust_helper
-> > +void rust_helper_bitmap_set(unsigned long *map, unsigned int start, unsigned int nbits)
-> > +{
-> > +	bitmap_set(map, start, nbits);
-> > +}
-> > +
-> > +__rust_helper
-> > +void rust_helper_bitmap_clear(unsigned long *map, unsigned int start, unsigned int nbits)
-> > +{
-> > +	bitmap_clear(map, start, nbits);
-> > +}
-> 
-> All three are the wrappers around the regular outline functions:
-> bitmap_find_next_zero_area_off(), __bitmap_set() and __bitmap_clear().
-> 
-> The inlined version in headers is optimized for small bitmaps. But the
-> optimization is all based on inlining in the C code. It doesn't work
-> if you wrap it with a rust helper.
-> 
-> There was a discussion about the similar find_next_bit(). The function
-> itself is an inliner, but it's a wrapper around the true outlined
-> _find_next_bit(). So we decided to minimize the binder size for that
-> type of functions.
-> 
-> Please, keep the binder minimal unless necessary.
 
-If we can just call __bitmap_clear() without any downsides, then I agree
-we should do that, but we actually do support inlining the helpers now.
-See CONFIG_RUST_INLINE_HELPERS.
+--FWksib/oYWGW6VVm
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Alice
+On Mon, Jul 06, 2026 at 06:49:55PM +0300, Andy Shevchenko wrote:
+> On Mon, Jul 06, 2026 at 04:39:00PM +0200, Manuel Ebner wrote:
+> > On Mon, 2026-07-06 at 14:44 +0200, Bartosz Golaszewski wrote:
+
+> > I removed Mark Brown <broonie@opensource.wolfsonmicro.com> from recipie=
+nts because:
+> > =E2=80=9CRCPT TO <broonie@opensource.wolfsonmicro.com> failed:
+> > <broonie@opensource.wolfsonmicro.com>: Recipient address rejected: Doma=
+in not found=E2=80=9D.
+
+> Perhaps he needs to send a patch to update .mailmap?
+> Cc'ed to Mark.
+
+If it's for something that old I can't imagine I actually care.  If it's
+important enough I'm sure someone can work out how to get hold of me.
+
+--FWksib/oYWGW6VVm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpL5UUACgkQJNaLcl1U
+h9D67gf9GIugTh4PUXTgcv4IEO00hqfPt914zzGolWrW61nvCfBK/txok59PvoKw
+vaWiJIxtHNcqLXDHoH9/3oPWkqxrKq0RGWEX19nr124zN/T2SihiMa5RjzAr4UAG
+G9JAS2GOF29xF1Ml9KH8x5l5WduP6RUHVJqKK9vuJFpCloREcnnpMQVxJVgKEKpI
+TrKQpiKRZtTm5InBsTccxeXVDL2+bhnLHZaD4LbIziWok/tCyYnCw9VEJ/iUb7PJ
+bFLwu3JxUS7p7Kr/hStWapPyxi5fyw+V/ZQ8u+J5GE8g493f9A3rBarS4fJCZi8e
+cIRN6GhgNtdUL6L3p77EqAzlsDTheA==
+=WSwF
+-----END PGP SIGNATURE-----
+
+--FWksib/oYWGW6VVm--
