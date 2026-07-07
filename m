@@ -4,136 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB502C43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:01:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B07C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:13:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 172C610EB63;
-	Tue,  7 Jul 2026 07:01:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12FB710E445;
+	Tue,  7 Jul 2026 07:13:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="K1W4QIh1";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cExZwiuY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bPuFXFcD";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 162F410E45F
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:01:26 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6676WIer2964409
- for <dri-devel@lists.freedesktop.org>; Tue, 7 Jul 2026 07:01:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dhLdgviZ/NZ7tpfISDWHNswmJtK4l1TkYgvgi9STN3M=; b=K1W4QIh1QJ02N3WI
- k+wITDmA8kNKXsE0YI9iFvmYjv77kvPPzOPjernwhDpnh/tE3HcYs1wWCuPeCxw0
- LY1pJ7w7z8lt2HpeTXnAX9yCrDaNgoRM4tzm7tk0nC9sY1h1sFSgcU55PckZaWz3
- +Xn8/brgAnHr/k9/u+KwN/iRDmod4AGdC2JsdEjYA8t0nbHh4Tf0Jn12nPtn4CTr
- QG0oN0Lw+qfb7cSVe4A6KnG3nMQB2+QtSv5+NPehw819bwD5pwCxAMqpnp3W51u4
- DPAbIFEtQNmPUYo7mh6ffvpZsvaCEQvxx2XPxEI3S1xMhULyeMwqQsHFlI+ESDKq
- FpTr6g==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8v9a83kd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 07:01:24 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2cc88e22f92so47089465ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 00:01:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783407684; x=1784012484;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=dhLdgviZ/NZ7tpfISDWHNswmJtK4l1TkYgvgi9STN3M=;
- b=cExZwiuYI1cybJ8tv5JWOFtF6R58VbLwc77jqn0KT5FoQ8Lb7EjJiQRe30UOj3g6+d
- F3wEAXwNcyo+dcTwRAuIKKI50dlSD1bdHf1rdhVOpQL99XzCPqnyTColnfOMbHWvf/V9
- hPq3gM6FQU6QLqEGllKETEsb6ntaRkwCO2YPz48uwnfCn80D58lC2R2xs49ngf7K2HCC
- 6eiFos9/I+KwQJWrZuESpaNDPZU2RBBN9+Lj4mbp1Y4+PW5GC2L6YtZFXtBKMz95ykMn
- 0qN9ibHp+wP+yUbJNiUUJ7CEaldZR0vRYwRC3f2KQQR7IEFr+7PY7WfK4HOWL/xdUxL1
- 9s3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783407684; x=1784012484;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dhLdgviZ/NZ7tpfISDWHNswmJtK4l1TkYgvgi9STN3M=;
- b=X/KC4v7N5qiKiW4fzxQHAhSbzuNeOq3N1QPPd8TkpxDqm3tvdw4il8nqcEqZyAx1rs
- +/jxDS2DmpTX/hvJsGJAwPIuAuqvS6WlojraysOI87GSyflkzrr9hz2qZq0EPXVaiSZQ
- GctazyZoaf0kjyOly2UbiX+xu/b1yYuaLPzI4eJOofZugLMhMAHOcsCtSBesHdIW+0aK
- 3voSopCLbOXCls+awqLTfegbTPatKT4VZrHst02fNegIVE5yIrJ9WsDMa7+wRB9AdN77
- DwkI0zOCxtaom3iIG5ys/9OWQEt51e21qSzu+Vhw+bwfECcds26lXHj0Z43LgzcXFu5f
- opNg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro2AY/P2jQSt1Bfa9ohKbbC6pyLZEwArKFah111eGOQ8eCFyiNuYR1Ycsl4hVFCsBMNITnhPqGkwuc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYJ3rOcyRYhNHs1tvutFTmdjGzSCzRnv1DJWU73V4it+v+YGIg
- Gm45h9SKRUPr4YWJ/+snlcTmUpWo4CSXUIj0MvjM9kqqxpf1KywrP0j3J8bdYofrbZkfdv5N95c
- pbzeirVBY6CbMT5u263YJMJKuiRuPAjkNPF8DiqUK3ZEh2tfJMaMB9Z0I+1SK2I8xHuP2ubukia
- 6lvpQ=
-X-Gm-Gg: AfdE7clfT1kp35QR3t6/x5b11v3D905wh8pTU8ISpElsBjcet7EX+xZVQNJjwzI57ph
- zp0EFEH1PGBEhiPfQDcOQZ7veL8+cAGzBeAhDp8VCS6pRooy5DKEhsPprsW52oqfgy5Wg1fEsOs
- gs1/hFZqhuetyrY8woT3IpNBwiCNvvhoavMLcw0Ja6LDLTSbhNh+DU5a98Twz6ebQVwVLN2YHg7
- 2AwY4CWOxQTmmviGxg3uCQ92z+JWs9mwh5puIuDduC0nd9QaO26zDXKhRbbDelaeEQfazGzYvgw
- b6wxH7ZsWeVxJSfeAmALV3H65hD0X90dE3fc/g+co9y4fsRe7S1+1F1BKDSIulVuN1C9x0EaYxQ
- APVIaS7lmiywUPCO+DuIccgJGFS6Ti7QEPEuyDrt+
-X-Received: by 2002:a17:902:fc85:b0:2cc:6817:d9b1 with SMTP id
- d9443c01a7336-2ccbf076fbamr37808415ad.41.1783407683510; 
- Tue, 07 Jul 2026 00:01:23 -0700 (PDT)
-X-Received: by 2002:a17:902:fc85:b0:2cc:6817:d9b1 with SMTP id
- d9443c01a7336-2ccbf076fbamr37808145ad.41.1783407682871; 
- Tue, 07 Jul 2026 00:01:22 -0700 (PDT)
-Received: from [10.204.78.130] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9d3bbaesm6346595ad.57.2026.07.07.00.01.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jul 2026 00:01:22 -0700 (PDT)
-Message-ID: <1e7d0b9f-380b-41a2-8aba-7ab25c6a8680@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 12:31:17 +0530
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9AA10E47B
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:12:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783408379; x=1814944379;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=VhNtATYYDAmdCKB0d7XFqJOwV0p34YP0V7j70g3scPc=;
+ b=bPuFXFcDyGaRZ+B9TE/WnY7zUVWTOzwttJAvLknAWiDIFVT4R7CCH/oj
+ oCJeMglfhdLVqD+I1/1pLs9ROjvy7x/UUHJfxMmnYrWMdVNCOQduCJJfL
+ t3Zvwx3/Yc4JkfsKHRcB7aLJarl4kYuVZ1DWaeKPJX+0WCGab2wtY6E9K
+ Q40cOXE3oBYBbwj2ej3SCsIilkbAT4vZ1jZexTBvpwH+JDdiLvfThHjWP
+ QDWVnd4Cdx1puN3bOoOpuNDRfRRcN4DqmX4C+IALVJMHGcsZIP2RGSD3c
+ 4ML1i95QAkTRYizgRwJNb0dMkCRAIUCB64bJEF4vtTgCZptAoA9vB1hmQ A==;
+X-CSE-ConnectionGUID: jcpz/dDjQnaVZNtAsX+EAg==
+X-CSE-MsgGUID: J7NtYhqbRfWS6NwAVWYnfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="84139411"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84139411"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 00:12:58 -0700
+X-CSE-ConnectionGUID: 6Vt4tD++QDK1cVVgEtSClA==
+X-CSE-MsgGUID: yq+XTg2lR2KOtNMPt0KCKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="278282647"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 00:12:57 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 7 Jul 2026 00:12:56 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Tue, 7 Jul 2026 00:12:56 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.57) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 7 Jul 2026 00:12:56 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IjbANxAlB7plTAsDpd/TLC3K9C/9lw0cC14XrpQii82Gn77oSnIiI47tz++coxpTGd40iquLzWDYWVhnAfC9Dg3pSMEo1TjMFYtArAD10UKMLLHXDPoFynNVZmcB9ztibEcB8vhCtaANRx710yrB15NYtl5kRFVPntIWdE7wm1G8xRCCmFRPgyRqHGxPSmpqoOKyABatGSKnKPDldpJZ3hLNm7lpbDz9nXZa7yNcz68iLIDUPpMtsoiyn7ttZ0HmSlvN6zPzbZnR6Nb7ikQv5oKdCgDvCCaTszwtm+MqX6yI5G70x5HLGWrykjsV/0E4AGFWNRK9EzxJoA7DumAGZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VYCUP4T4ZOUhzefyQrqjNb95nbM1h+2w6cxKbtYDUcQ=;
+ b=tA8BMGrYSFbYIQuYrkSAKffLcvxpdjJMvn957zMydTLN6jwR+U9R5DHdj/nlluLENWHTtZLlAQ0spml5y5OdHoekVQMVhi3pizXGzgP84rL4xp6e23dXUochF/2u4NUPD2EOYJL7domt9LyxXD6zklJrpgAPzxbmfroJlGXyWOkecwGZ+MaN8fyLxJccRk8PjGAYAjDm8Fyyb4Vcd5jcui/17nw0o73iIZGMNYowZKtNN6Cs28TrW5QJURFyS0rpO1VrzEDMjwovI78Kiv9d2pZ/HRFmWDEvUDiXtkdTxG3jI0X5dbTtZQPbQEw9gIxJLLQKlVny929f0WkiQN5fHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SJ0PR11MB4992.namprd11.prod.outlook.com (2603:10b6:a03:2d4::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Tue, 7 Jul
+ 2026 07:12:48 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
+ 07:12:48 +0000
+Date: Tue, 7 Jul 2026 00:12:46 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+CC: <dri-devel@lists.freedesktop.org>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, "Liviu
+ Dudau" <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Danilo Krummrich
+ <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ <kernel-dev@igalia.com>
+Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
+ improvements
+Message-ID: <akym7rllMDFFcz8q@gsse-cloud1.jf.intel.com>
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <akd/ae5VGQrsWqsf@gsse-cloud1.jf.intel.com>
+ <5963b079-cb44-4cd4-be56-f47bf3f15e0e@igalia.com>
+ <akwyNSXO+QspyoBx@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <akwyNSXO+QspyoBx@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: MW4PR03CA0252.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::17) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: Jianping Li <jianping.li@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- quic_chennak@quicinc.com, stable@kernel.org
-References: <20260707061733.495-1-jianping.li@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260707061733.495-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: tmlW9tG6FzyP1ZCcOTIiosrqO0BlOofN
-X-Proofpoint-ORIG-GUID: tmlW9tG6FzyP1ZCcOTIiosrqO0BlOofN
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA2NSBTYWx0ZWRfXwPA0BBEpnwJn
- XaB+rV5LKj/ehfll0l+Q4b4jB5/ycGSoHqJbdTb6staS4seaHtAly1PHJGRK09ibNxnixj2+LSv
- hTSNrPUpsbWBVTr3QrcQdvfV6ffLi0A=
-X-Authority-Analysis: v=2.4 cv=b9yCJNGx c=1 sm=1 tr=0 ts=6a4ca444 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HXEXjcvW3tC2QbQot0wA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA2NSBTYWx0ZWRfX7vOEQtraljW1
- +q79UHrgJg/GjmjUN69fiX1Dx717xlc3Nqeo6Xjs2W0/mAr3O1I3OJBKUtZXFYrKlLF4/ev3Jm+
- ay5xWmaVXcwRBygSbwl2ueCpdIYHzJjaRq4HSq07xzoAgt37qHafZL7zAVJVECAWnhl79dThr2B
- DSvbpseL/Jk2+UQDnPE1vtENzB1AZ0t8Ppqa7dAdg2eVxRGKFE22+46NhTgYpFDSgNlCbb/aMSY
- 0A4hCL1jasRFv035jGK9ZlJLv5qH0nwA33o+En1skH5ZwJSVWO/O1nRepxKHJUDmr13+y5T6v1k
- +soWJQZsqyen2zl3fHEuzUGxwDlwgJCwtp0OFn89T+CRWDMNAVwt42IKwubdpYZcf72AWk/D/1A
- 9CmBrwh9sZc7bG6cOdTBGVBx7XVxG01cqE8C5lHTWo/IE0XQUAFl07+B9dahkjBa8nkC1gH7UDP
- W1xhM9sdE5d+3ZK/0Vg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_01,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 priorityscore=1501 adultscore=0 malwarescore=0
- bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070065
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SJ0PR11MB4992:EE_
+X-MS-Office365-Filtering-Correlation-Id: 889d347a-f0fb-41e7-1a63-08dedbf726ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|23010399003|11063799006|5023799004|4143699003|18002099003|22082099003|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: 6N5noys2EcLoWZwyTAC9tW3AIhSgJugkDagKnBSkZn8Yg/H87jjNO47KCQtoXoVURtc01IxnKyVKGETIFRBnQYnXew93QX2HoorhY5+HjWGr0336TB3QocSqkSB0UNo8vFgGHNfVA8zo+MJHcW2oZh2YZi25Kx6W0UReA6qPCB+XoUfi/LRe8zt7dCu8FOQVZLckkB8eDB+LG3XhYA9o0UGk9SfalGcyGJ0VIdOHLHr2c/SJXryC7irBKBirXJ8pSXMm0KkyubMqOFTu4GLJnJ41M7ChL0wONiuERI9s87mtGYooTb3w+zcq0Houa+/nsw6qdvMOHdIZoJ1RKtl1jIHT19yb805AuU0M2kGyxWBSHQYOrhVMpI/kvA25R8iyo5+JAnlfWT1EsTfUwTTo7+XyvcK1aZKUi35XOweTiOrEJ657V8HumbuJBzZ4oUUbUYx1ekQVp1SZ3Pif4i5X+OpLWt+kViGBkya641Az5lE8vHekH7JVhGX1hxu29SI80uPPLKbVvFUBkiyB0W5A2cNYfUKJvgptG14ysxmvrcOewwsNAfIgCi9VEJzkibOCYNBWKHGws0xQsRmCZgcPFcxITJy/KDo0kdsszI057tg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(11063799006)(5023799004)(4143699003)(18002099003)(22082099003)(6133799003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmNiTklDQ0NjTjlaMncvT2F1eEN3WUVHS1pOa2YyWTNSb0tZWjYzZmM3YXpr?=
+ =?utf-8?B?UlNUMTF1WnVQVlYycWVYbGx4NFUrN1VyQ3BzMlZtd2RsZU15NU9iZG9IQi9p?=
+ =?utf-8?B?cHR6Ky9xb2NPTzhJOHlWZUpRK1ZNa3k4c1VOaFliWmI5UzF1N250NERveDY2?=
+ =?utf-8?B?NlFTRzFuY3FSRG43L1dJaDRaUkRxd2xYV1FWY0JxbUxURnkvSng5aGdlNG5i?=
+ =?utf-8?B?T0toVitlMnpxRDhEZnQ2UkpBVFV2NGZmWWpqSTVFb3hvbXhMTjZzYUtMNmsz?=
+ =?utf-8?B?ZnpVb1dnc1JyRy9DK05HRlg2bVRsK2ZSUTBaKzRZMU80MzNJd0JwZnFDd09T?=
+ =?utf-8?B?VjRIb2RiWlpYZFZrZ0lwRXQ1VWtHQmh6cGRndkRJelh2OTE2bVV3Y1lRWlp2?=
+ =?utf-8?B?cUw1S3JZSitONzNSZXpVaGh1ZkJmeFVFZkdiUEFkZm00NzZXcTA1UEQwOGdj?=
+ =?utf-8?B?eXlLQVBUNFFicFdua3N1YjZNZ0xIUmNEZVRGQW1Mci9UcXVsVUNmczRhaDJJ?=
+ =?utf-8?B?allOU0thdVFNZkMrVFZPVVRONTIrdDBoTWk3cTQ0VjJvRXhscFVSZTkxT2FQ?=
+ =?utf-8?B?Nm1vTFltNC9NVXB5ZDVOamZnQm0ySkt2dy9MZEJyM3NoWkpySWJCTnYxOGsv?=
+ =?utf-8?B?SXZVSGxQWmxpZWpBTFU5bjJlbnhOZGFMcXJTdXhNRklwWnpremZRZjM3aEVr?=
+ =?utf-8?B?VnpKUlgyQVpoczRWRDF0RWM5M2lsQllZaXlYTnJ6TzFReVBpY2ZWaEQ1TEV2?=
+ =?utf-8?B?bVl0REo0SnZJZTQ4MGUvVzd5aVdPcS9ZbytwRW5sOXdEWllZTVVpSVRiR2VH?=
+ =?utf-8?B?dzcwMlBTWEtMUmI2OUlUZWtuei9DMG02ZDZaRTE2YVV0TjV6V3lzL0JOVTlp?=
+ =?utf-8?B?NHltWFQ3NUQwVjdxRWdYay9QM05kaHQwUER2ejNnVnBXTCtya0wwV01KaE14?=
+ =?utf-8?B?U0U4U2NGVFlEZzdDK2EzQXdTZ3hrcHBLSmNTSG9VbWlwb0kyQkZ6OFRJNDQ5?=
+ =?utf-8?B?b0phZzJxM1A2VVdCaUxNTHNYbDQ2S2VhNGREV1NReG9LcGExaGJMWG5VSDk1?=
+ =?utf-8?B?WjNPTG9tY1VRYW83M21XYnZOVWpYMk1CWk9FTnVlRFJwRVgrWG92WjJKMFRW?=
+ =?utf-8?B?QXhBd2VlRmtIV2tTblFCQysyY0s2YWJ1NFFKNnRycE5nOHFNQ3ZaaXdmL0lQ?=
+ =?utf-8?B?NFlOS0E4bWRvZHI4UFZjRENXZDlVc3JnSElDekJPeXZ1bnM1UEFsbk01ZnF2?=
+ =?utf-8?B?SUM3MDVwdERrQkYwWEhScHgybDN0eFdJV3VOTXZNejkvQ2hhSUpTb21od09o?=
+ =?utf-8?B?QWREOWpaYU1DTEd0TkFwQjhvNzduakVndTdTRi9GZnlkaUJJcWcrTlkyMWdr?=
+ =?utf-8?B?dzFmaHJSWmM3elpxS1A0YS9mUldvUGVRd3cwdExjNDU0UXYvbjZ5YS9sbXQ3?=
+ =?utf-8?B?SEJtNk1KbmJEcHRadkhMTDd6Z1orMXYwS2wySnpCeG1iV2VYREhCV3lXSXlp?=
+ =?utf-8?B?eTlaOVN3Vk9tems1Tkc5UG5FcmRoOTdRNHltU05LblhHcVZ5Y2dJaWZaRGdH?=
+ =?utf-8?B?cndzUDh4TWdKeW9Ia2cyRHhDRVRGRGFhRWxlTjdpSnYvRTF2dndxVHM0eTVJ?=
+ =?utf-8?B?c1JQd2VZL0VESGNYMk1ZNWlpQUxvbHpmcDVKVU1YVU5lTUtUK1BXdVRpdHkx?=
+ =?utf-8?B?RHJYd1RtVVlmMU5JRngzZnd6d0s0ZGJ5RVh0VTBoTklWdnRRUkswa1hQNEww?=
+ =?utf-8?B?US9VTTcwcjFNT2E4eW1OanJCZTdZYUk3Y1JERmtPRklUY20vellmN0t2d0dL?=
+ =?utf-8?B?b3dIbExES2dBY2UxYVdrZnVuZVNFSUdpeVYwWWg4SmR6MnNoUFQwUDA1UzZC?=
+ =?utf-8?B?L2pVSThkUmhYZTJqcld5YS9oTHo1Rzc2R0FzVXl4eVY5UzVLUklaZndCdW1E?=
+ =?utf-8?B?V045d2o0bUgrREFoMStCUDRnOUY5Vy9mRjc1UngxZkJGTmFMRTNGUmNueEdK?=
+ =?utf-8?B?bzFmYU5RM21SOGZsMDdCZG96ZEdUM1N1NW5XQ210WUQwNXhhUXhRZkZWUGN3?=
+ =?utf-8?B?czBwclVtbXhqa1hpMnhJWVMzcXJ1TFRkdXMvSTY3MjNkTkFWVTNteExDa2lD?=
+ =?utf-8?B?Q0RTV1FsWWtzR0ZrcmxqSllNek1obEJBQW54U3h3RnZsYVFMTkltZ3pVUDF6?=
+ =?utf-8?B?T3JBOWdSZERvYlNacDZrMUdJRVhYTXhaL1J5WDMrT3hQdnZieHZwSXFxR213?=
+ =?utf-8?B?aVlnUmVSYUc0N1pTS1lWTnluSmhGWE82UXBnTFNHSDFVOXJSbDcrK1E0QnFl?=
+ =?utf-8?B?ajg1OGdmYkwwRjhHQks3YWZCcDJObHQ1R1Q0SkF5elhlTFo2TytrZz09?=
+X-Exchange-RoutingPolicyChecked: Vh5JTMxt0ROI9j9kyv82B6yfWX9ENyqcG9E1tmUDQ820v2gQ9zo5/qw4Lkd8fA3ojrguKydHatKJ942aHgEjwITuv/dHA+WoaV/I1K2EbkWuLnajOEjIgsh/QMaYMO94BIZjPEKAh1QMWXvKDc5gsEhfVBzEawPId+FFw/cjwksleM2NcysVt+zIz3HYQVwgg99jEgadgJUS0XI0w8KyfBXSsYx3eu7ZXg2ehX4kPNfKqTMackYmZK+U31y6gB88qzWBOApjy0krjzx28gzm2TsLWQpLfzsy+7mD6bA5mhtgpRXGpLQqxJdxhwGGPRXIW2ko8VgqvFQ0o8W+fFGZIQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 889d347a-f0fb-41e7-1a63-08dedbf726ba
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 07:12:48.7687 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DPvYVHpsYSmxsgCxo6fLm9gDFOcOqWsW4jQhubWukeskRV6aYb7p0cbfeRnFgZNwZpLJE+n5OZjB4t22wsC+ZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4992
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,238 +175,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07-07-2026 11:47, Jianping Li wrote:
-> Allocating and freeing Audio PD memory from userspace is unsafe because
-> the kernel cannot reliably determine when the DSP has finished using the
-> memory. Userspace may free buffers while they are still in use by the DSP,
-> and remote free requests cannot be safely trusted.
+On Mon, Jul 06, 2026 at 03:54:45PM -0700, Matthew Brost wrote:
+> On Mon, Jul 06, 2026 at 01:41:01PM +0100, Tvrtko Ursulin wrote:
+> > 
+> > On 03/07/2026 10:22, Matthew Brost wrote:
+> > > On Thu, Jul 02, 2026 at 03:37:37PM +0100, Tvrtko Ursulin wrote:
+> > > > The problem statement is explained quite well and succinctly at:
+> > > > https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49
+> > > > 
+> > > > Essentially, on a system (over)loaded with a lot of runnable CPU processes, a
+> > > > high-priority DRM client gets latency injected into the GPU submission path due
+> > > > to the DRM scheduler use of workqueues.
+> > > > 
+> > > > This patch series proposes to replace the workqueues with kthread_work and
+> > > > priority inheritance to solve this problem.
+> > > > 
+> > > > In the above linked issue Chia-I benchmarked the submit latencies which
+> > > > show a striking improvement:
+> > > > 
+> > > > 		median	95%	99%
+> > > >    before	41us	1.5ms	2.6ms
+> > > >     after	15us	19us	24us
+> > > 
+> > > Can you give more information on these numbers? e.g., What you ran / how
+> > > you measured these. It is hard to argue with numbers.
+> > 
+> > I believe Chia-I observed latency on some production hw/sw and then wrote a
+> > synthetic benchmark to test it more easily. Details are in the above linked
+> > issue.
+> > 
 > 
-> Additionally, the current implementation allows userspace to repeatedly
-> grow the Audio PD heap, but does not support shrinking it. This can lead
-> to unbounded memory usage over time, effectively causing a memory leak.
+> Thanks, I see this now. Part of the problem, as far as I can tell, is
+> that fences are signaled from work items rather than directly from IRQ
+> context.
 > 
-> Fix this by allocating the entire Audio PD reserved-memory region during
-> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
-> userspace-controlled alloc/free and ensures that memory is reclaimed only
-> when the DSP process is torn down.
+> For example:
 > 
-> Add explicit validation for remote_heap presence and size before sending
-> the memory to DSP, and fail early if the reserved-memory region is
-> missing or incomplete.
+> "There is another 2.5 ms of scheduling latency from
+> panthor_sched_report_fw_events() (running on irq/105-panthor, PID 257)
+> to process_fw_events_work() (running on kworker/u32:1, PID 62)."
 > 
-> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-> Cc: stable@kernel.org
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-> ---
-Changes in vN and lore link to v(N-1) series would help here.>
-drivers/misc/fastrpc.c | 119 +++++++++++++++++++++++------------------
->  1 file changed, 66 insertions(+), 53 deletions(-)
+> I assume this is only addressing the scheduling portion of the latency,
+> but you also mentioned a 9.5 ms delay for vkQueueWaitIdle(), where part
+> of the latency appears to be on the signaling side due to the worker
+> thread.
 > 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d86e79134c68..1ec37e6c68a2 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
->  	struct kref refcount;
->  	/* Flag if dsp attributes are cached */
->  	bool valid_attributes;
-> +	/* Flag if audio PD init mem was allocated */
-> +	bool audio_init_mem;
->  	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
->  	struct fastrpc_device *secure_fdevice;
->  	struct fastrpc_device *fdevice;
-> @@ -1344,15 +1346,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	struct fastrpc_init_create_static init;
->  	struct fastrpc_invoke_args *args;
->  	struct fastrpc_phy_page pages[1];
-> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
->  	char *name;
->  	int err;
-> -	bool scm_done = false;
->  	struct {
->  		int client_id;
->  		u32 namelen;
->  		u32 pageslen;
->  	} inbuf;
->  	u32 sc;
-> +	unsigned long flags;
-> +
-> +	if (!cctx->remote_heap || !cctx->remote_heap->dma_addr ||
-> +	    !cctx->remote_heap->size) {
-> +		err = -ENOMEM;
-> +		dev_err(fl->sctx->dev,
-> +			"remote heap memory region is not added\n");
-> +		return err;
-> +	}
->  
->  	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
->  	if (!args)
-> @@ -1376,31 +1387,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	inbuf.client_id = fl->client_id;
->  	inbuf.namelen = init.namelen;
->  	inbuf.pageslen = 0;
-> -	if (!fl->cctx->remote_heap) {
-> -		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
-> -						&fl->cctx->remote_heap);
-> -		if (err)
-> -			goto err_name;
-> -
-> -		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
-> -		if (fl->cctx->vmcount) {
-> -			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
-> -
-> -			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
-> -							(u64)fl->cctx->remote_heap->size,
-> -							&src_perms,
-> -							fl->cctx->vmperms, fl->cctx->vmcount);
-> -			if (err) {
-> -				dev_err(fl->sctx->dev,
-> -					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
-> -					&fl->cctx->remote_heap->dma_addr,
-> -					fl->cctx->remote_heap->size, err);
-> -				goto err_map;
-> -			}
-> -			scm_done = true;
-> -			inbuf.pageslen = 1;
-> -		}
-> -	}
->  
->  	fl->pd = USER_PD;
->  
-> @@ -1412,8 +1398,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	args[1].length = inbuf.namelen;
->  	args[1].fd = -1;
->  
-> -	pages[0].addr = fl->cctx->remote_heap->dma_addr;
-> -	pages[0].size = fl->cctx->remote_heap->size;
-> +	/*
-> +	 * Audio PD is a static PD and retains the remote heap
-> +	 * information across daemon restarts. Therefore only
-> +	 * the first attach should provide heap information to
-> +	 * DSP. Subsequent attaches reuse the previously
-> +	 * initialized memory pool.
-> +	 */
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	if (!cctx->audio_init_mem) {
-> +		pages[0].addr = cctx->remote_heap->dma_addr;
-> +		pages[0].size = cctx->remote_heap->size;
-> +		cctx->audio_init_mem = true;
-> +		inbuf.pageslen = 1;
-> +	} else {
-> +		pages[0].addr = 0;
-> +		pages[0].size = 0;
-> +	}
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
->  
->  	args[2].ptr = (u64)(uintptr_t) pages;
->  	args[2].length = sizeof(*pages);
-> @@ -1431,27 +1433,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  
->  	return 0;
->  err_invoke:
-> -	if (fl->cctx->vmcount && scm_done) {
-> -		u64 src_perms = 0;
-> -		struct qcom_scm_vmperm dst_perms;
-> -		u32 i;
-> -
-> -		for (i = 0; i < fl->cctx->vmcount; i++)
-> -			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
-> -
-> -		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-> -		dst_perms.perm = QCOM_SCM_PERM_RWX;
-> -		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
-> -						(u64)fl->cctx->remote_heap->size,
-> -						&src_perms, &dst_perms, 1);
-> -		if (err)
-> -			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
-> -				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
-> -	}
-> -err_map:
-> -	fastrpc_buf_free(fl->cctx->remote_heap);
-> -	fl->cctx->remote_heap = NULL;
-> -err_name:
-> +	cctx->audio_init_mem = false;
->  	kfree(name);
->  err:
->  	kfree(args);
-> @@ -2418,12 +2400,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  		}
->  	}
->  
-> -	if (domain_id == SDSP_DOMAIN_ID) {
-> +	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
->  		struct resource res;
->  		u64 src_perms;
->  
->  		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
->  		if (!err) {
-> +			if (domain_id == ADSP_DOMAIN_ID) {
-> +				data->remote_heap =
-> +					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
-drop GFP_KERNEL from kzalloc_obj()> +				if (!data->remote_heap) {
-> +					err = -ENOMEM;
-> +					goto err_free_data;
-> +				}
-> +
-> +				data->remote_heap->dma_addr = res.start;
-> +				data->remote_heap->size = resource_size(&res);
-> +			}
->  			src_perms = BIT(QCOM_SCM_VMID_HLOS);
->  
->  			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
-> @@ -2431,7 +2424,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  			if (err)
->  				goto err_free_data;
->  		}
-> -
->  	}
->  
->  	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
-> @@ -2490,6 +2482,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  		misc_deregister(&data->secure_fdevice->miscdev);
->  
->  err_free_data:
-> +	kfree(data->remote_heap);
->  	kfree(data);
->  	return err;
->  }
-> @@ -2512,6 +2505,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  	struct fastrpc_buf *buf, *b;
->  	struct fastrpc_user *user;
->  	unsigned long flags;
-> +	int err;
->  
->  	/* No invocations past this point */
->  	spin_lock_irqsave(&cctx->lock, flags);
-> @@ -2529,8 +2523,27 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
->  		list_del(&buf->node);
->  
-> -	if (cctx->remote_heap)
-> -		fastrpc_buf_free(cctx->remote_heap);
-> +	if (cctx->remote_heap && cctx->vmcount) {
-> +		u64 src_perms = 0;
-> +		struct qcom_scm_vmperm dst_perms;
-> +
-> +		for (u32 i = 0; i < cctx->vmcount; i++)
-for the iterator use top-of-block declaration style for consistency> +		
-src_perms |= BIT(cctx->vmperms[i].vmid);
-> +
-> +		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-> +		dst_perms.perm = QCOM_SCM_PERM_RWX;
-> +
-> +		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
-> +					  cctx->remote_heap->size, &src_perms,
-> +					  &dst_perms, 1);
-> +		if (err)
-> +			dev_err(&rpdev->dev,
-> +				"Failed to assign memory back to HLOS: dma_addr %pad size %#llx err %d\n",
-> +				&cctx->remote_heap->dma_addr, cctx->remote_heap->size, err);
-> +	}
-> +
-> +	kfree(cctx->remote_heap);
-> +	cctx->remote_heap = NULL;
->  
->  	of_platform_depopulate(&rpdev->dev);
->  
+> > > > This is obviously really good for preventing compositors from missing frames and
+> > > 
+> > > Modern compositors do not pass render-job fences to draw jobs as input
+> > > dependencies. On Wayland, this functionality is provided by
+> > > linux-drm-syncobj-v1 and is enabled by default on Ubuntu 24.10 and
+> > > later. SurfaceFlinger has also operated this way for quite some time.
+> > > 
+> > > The obvious solution for compositors is to submit work directly through
+> > > the ioctl (i.e., bypass path in sched) when there are no input
+> > > dependencies, which should be the common case. The main exception is
+> > > when one of the BOs mapped into the compositor is migrating or otherwise
+> > > busy (i.e., a BO has a fence in a kernel dma-resv slot).
+> > 
+> > You mean the direct submit RFC you floated some time ago? What was the
+> > verdict on that one, wasn't it rejected?
+> > 
+> 
+> I had some patches for DRM sched that I never posted. It turned out to
+> be a little tricky because of some other quirks in DRM sched, but it was
+> still roughly 100 LoC plus an additional lock.
+> 
 
+Side note: I quickly rebased DRM DEP here [1] and prototyped some RT
+solutions.
+
+I added a DRM_DEP_QUEUE_FLAGS_RT flag to internally choose between a
+workqueue and kthread_work, and to enable FIFO scheduling in [2]. Most
+of the details are hidden internally, but I had to make a few small
+changes in Xe to support this on the driver side [3].
+
+Putting aside whether or when DRM DEP will land, if DRM sched really
+wants FIFO scheduling instead of bypass (the IMO this is somewhat
+questionable), I think the approach I took in DRM DEP makes a lot more
+sense. I haven't looked into what changes would be required in DRM
+sched, though; hopefully it wouldn't be too messy.
+
+Of course, kthreads are now directly exposed to userspace, but this
+would be limited to privileged userspace with FIFO scheduling
+capabilities, which seems reasonable. Additionally, this approach does
+not require the kind of large paradigm shifts proposed by this series.
+
+Matt
+
+[1] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/drm-dep-rebase-7-6
+[2] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/fdc38e4acefc9327637fd818b5b91fd6b2a6198f?file_path=include%2Fdrm%2Fdrm_dep.h#line_99bf000ae_A178
+[3] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/f1483af15747a2d5d73262d2cdfc9b616230c5d9
+
+> DRM dep has this built in without any of that complexity. I'm hoping to
+> get around to rebasing it soon, but of course there's always something
+> else to work on. Sooner or later, it will get rebased, and Xe will move
+> over to it given the latency and power-saving benefits I observed. Given
+> power savings, I'd think drivers for ARM based phones would be pretty
+> keen on moving over too.
+> 
+> From an architecture point of view, bypass is the ultimate win because
+> the context switch is completely avoided. Again, this is primarily for
+> compositor use cases, since they do not wait on fences.
+> 
+> Also, in general, if Panthor selects PANTHOR_GROUP_PRIORITY_REALTIME, it
+> would be very odd to pass in fences. The RT priority then depends on
+> other work completing before the RT job can be scheduled, which
+> seemingly defeats the purpose of having RT priority in the first place.
+> 
+> > > > similar. Another good quote for the above issue, explaining the consequence of
+> > > > CPU starvation of the submit path, is this:
+> > > > 
+> > > > """
+> > > > As a result, vkQueueWaitIdle blocks for 9.5ms for a gpu job that takes 4.5ms
+> > > > gpu time.
+> > > > """
+> > > 
+> > > More details here?
+> > 
+> > This just illustrates how long can the workqueue wait for it's slice on the
+> > CPU if the cores are loaded with other tasks. In other words, how long since
+> > job is runnable to it actually being passed to the GPU.
+> > 
+> 
+> Yes. I do wonder if this is an Android quirk, though. While working on
+> some MM-related Android issues, I noticed it has quite a few quirks.
+> 
+> I've done a lot of profiling around workqueues in Xe (submission, page
+> faults, resuming after preempt fences, etc.), and I've seen latency
+> spikes of perhaps 10–20 µs, but never anything on the millisecond scale
+> on Linux.
+> 
+> I also recently fixed a workqueue bug [1] that showed up fairly often on
+> Android. In that case, workqueues could stop scheduling under the right
+> conditions. If I recall correctly, a flush_work() could get the work
+> item unstuck. It might be worth looking into whether that helps here.
+> 
+> [1] https://patchwork.freedesktop.org/series/164199/
+> 
+> > > > DRM scheduler was originally using kthreads but was converted workqueues due
+> > > > desire by xe to create thousands of schedulers. This series also questions
+> > > > whether that was needed, given how the submission is serialized by a device
+> > > > global lock (per GT, so almost device global). Panthor has a similar situation;
+> > > > hence the series contains two patches to move those two to a setup which matches
+> > > > the design of those drivers.
+> > > > 
+> > > > Other drivers, like for example amdgpu, v3d, etnaviv etc, which use the
+> > > > scheduler as a hardware scheduler, where number of instances follow the number
+> > > > of hardware blocks instead the number of userspace contexts, are completely
+> > > > fine.
+> > > > 
+> > > > There are use cases however which do currently track the number of userspace
+> > > > contexts and which do allow for more parallelism. For those a straight
+> > > > kthread_work conversion would be a problem due an explosion in number of
+> > > > threads.
+> > > > 
+> > > > The most direct example is panthor VM bind queue which creates a scheduler per
+> > > > userspace context and relies on work queue concurrency management to keep the
+> > > > number of threads in check.
+> > > > 
+> > > > This creates a challenge for the kthread_work conversion. To solve which I for
+> > > > now opted to create a trivial round-robin thread pool. For the RFC this is
+> > > > limited to four CPU threads and is something which will need to be discussed.
+> > > 
+> > > 4 CPU threads per device, per drm sched module?
+> > 
+> > 4 CPU threads per drm_sched_create_concurrent_worker(). So depends on the
+> 
+> Ugh, that is a pretty ugly API.
+> 
+> Matt
+> 
+> > driver how it wants to use it. For xe there are no usages of that, albeit
+> > you say single thread is not workable, we can discuss that in the other
+> > sub-thread. For panthor this RFC uses that flavour of the worker for the VM
+> > bind queues and in that case it is 4 CPU threads per device which handle VM
+> > bind requests from all userspace clients.
+> > 
+> > Regards,
+> > 
+> > Tvrtko
+> > 
+> > > 
+> > > I have more questions but let's get some clarification first.
+> > > 
+> > > Matt
+> > > 
+> > > > Ie. how much parallelsim those really need. The true answer is somewhere between
+> > > > "at most the number of active userspace contexts and the number of CPU cores".
+> > > > Or it could be less than that, since after all, VM BIND parallelism is
+> > > > eventually going to choke on a narrower gate of actual GPU execution. We could
+> > > > also allow drivers to pick their number.
+> > > > 
+> > > > In terms of how I implemented priority inheritance, the most important
+> > > > characteristic is that it is temporary. As many userspace clients may be
+> > > > submitting to a single DRM scheduler instance, a generic solution is to only
+> > > > elevate the submission worker priority while there are active high priority
+> > > > submitters. The mechanism is light weight and has a hysteresis built in to avoid
+> > > > frequent scheduler operations.
+> > > > 
+> > > > That's pretty much it for now apart for an important detail that this RFC will
+> > > > not build for all drivers! Out of those which directly use the DRM scheduler
+> > > > APIs changed, I converted only panthor and xe. Amdgpu will also work by the way.
+> > > > Others I have not tried to build.
+> > > > 
+> > > > Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> > > > Cc: Steven Price <steven.price@arm.com>
+> > > > Cc: Liviu Dudau <liviu.dudau@arm.com>
+> > > > Cc: Chia-I Wu <olvaffe@gmail.com>
+> > > > Cc: Danilo Krummrich <dakr@kernel.org>
+> > > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > > Cc: Philipp Stanner <phasta@kernel.org>
+> > > > 
+> > > > Tvrtko Ursulin (8):
+> > > >    drm/panthor: Remove redundant drm_sched_job_cleanup() from the
+> > > >      .free_job callback
+> > > >    drm/panthor: Use separate workqueue for DRM scheduler
+> > > >    drm/sched: Use generic naming for workqueue helpers
+> > > >    drm/xe: Convert to per gt scheduler workers
+> > > >    drm: Wrap DRM scheduler worker in own abstraction
+> > > >    drm/sched: Convert the scheduler job submission to kthread_worker
+> > > >    drm/sched: Add ability to change drm_sched_worker priority
+> > > >    drm/sched: Notify worker of the entity submission priority
+> > > > 
+> > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   8 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   4 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |   4 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |   2 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    |   8 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     |   8 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c     |   2 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c     |   4 +-
+> > > >   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c     |   4 +-
+> > > >   drivers/gpu/drm/msm/adreno/adreno_device.c  |   4 +-
+> > > >   drivers/gpu/drm/panthor/panthor_mmu.c       |  20 +-
+> > > >   drivers/gpu/drm/panthor/panthor_sched.c     |  23 ++-
+> > > >   drivers/gpu/drm/scheduler/sched_entity.c    |   3 +
+> > > >   drivers/gpu/drm/scheduler/sched_main.c      | 168 +++++++++++-----
+> > > >   drivers/gpu/drm/scheduler/sched_rq.c        | 202 ++++++++++++++++++++
+> > > >   drivers/gpu/drm/xe/xe_dep_scheduler.c       |   6 +-
+> > > >   drivers/gpu/drm/xe/xe_dep_scheduler.h       |   6 +-
+> > > >   drivers/gpu/drm/xe/xe_exec_queue.c          |   6 +-
+> > > >   drivers/gpu/drm/xe/xe_gpu_scheduler.c       |  21 +-
+> > > >   drivers/gpu/drm/xe/xe_gpu_scheduler.h       |   2 +-
+> > > >   drivers/gpu/drm/xe/xe_gpu_scheduler_types.h |   2 +-
+> > > >   drivers/gpu/drm/xe/xe_gt.c                  |   7 +
+> > > >   drivers/gpu/drm/xe/xe_gt_types.h            |   3 +
+> > > >   drivers/gpu/drm/xe/xe_guc_submit.c          |  18 +-
+> > > >   drivers/gpu/drm/xe/xe_tlb_inval.c           |  14 +-
+> > > >   drivers/gpu/drm/xe/xe_tlb_inval_types.h     |   5 +-
+> > > >   include/drm/gpu_scheduler.h                 | 131 ++++++++++++-
+> > > >   27 files changed, 551 insertions(+), 134 deletions(-)
+> > > > 
+> > > > -- 
+> > > > 2.54.0
+> > 
