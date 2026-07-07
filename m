@@ -4,104 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C055EC44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 18:13:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81ED1C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 18:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCDB10EEB9;
-	Tue,  7 Jul 2026 18:13:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B50B810E09A;
+	Tue,  7 Jul 2026 18:41:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q0yw4Ybs";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="M9oei2BL";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC6710EEB9
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 18:13:06 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-38096590070so386299a91.3
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 11:13:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783447986; cv=none;
- d=google.com; s=arc-20260327;
- b=erMdwAkxkBCMoaEtXG3K95sVumvp6qQDV1e2ON+r0vYAYOwI3afef4mTjjM1tKZNWz
- bopLPgF7GTdZBzv8Blq6Qp6MGnQbh76bbS2BRfkTfz1+rXtpCYxjDN123M0CQ24lOUFb
- V4aaF8UQgF9wFuD/AdBWn8Kd9NYuN6QjA7Ogm0eFuKg2YnwR22MXj+CvCQI3V2FOlVaT
- cEOKNrSmwjduhVyMkPq/KlxdFE148v1Re7gVlX7LuoxcibHpT5yg1Gkk80d4BmNrZ07W
- iAeodgGwQoMHCabzGFZdJj4KXRyGSbgGsrjI8AsCSMT2VqQ5ItH6kKUvuZo1r6kdNJHI
- KQvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kqdEQqGxI7vgb8pogihq5FM0tpdEo42yoW6988L8HP0=;
- fh=yrnTUi3MbCu89rmFPpr1capZmVACLTCMKcWV+jg7X+E=;
- b=cYph49aEf3gOJlxJxU6M0v8wkjRmONyN5qLyJiRMR9dvSrexgqccPiJCYqQvBl5iYn
- kuEntJdZoUOTjw/JjocvRn1EfJ/QN1sEYUOORnJJtkb5BVW41saREHempjE93lpWllIt
- A1KwMI18f0Tc91ZGDgEpU9Eq6jnpDZwNLp9u2tZO9rvAxLNQj17M6YJsO+h3YADCqtxl
- qfx2Q9gZgaHEFGQDvTEmU48GUivroNnvMupPHWRENHTPV/drQY7x9ThlC2eLlF8vo3nt
- Be8a4kIbzy6RRpfoZcucNq1aAHPAZHSr4/UcI8L8nqg61ykFfBvJM2CX841XCRQfc9hc
- QbCA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783447986; x=1784052786; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kqdEQqGxI7vgb8pogihq5FM0tpdEo42yoW6988L8HP0=;
- b=q0yw4YbsckrRuO2bR3x4GrGVytoHA5RrWlarl5/rogHXn9aAA58fJDHLBBHTeq459k
- RWGyBVbHitLN13gzCEfS0by8pxPD1GDQR6nkx0vimJ9iCkRMCMv/xpf1tIgf43PytLwO
- KlX4lHxL9demBITS5J6xyl4WehNgCHXeee7fY7Cy1Xb2AqdV4Wcc05aDuEDQVh64MosM
- /GGF/xaqBsbJzb06ltDlR6QiIrg7ZildhQ77e5XWrm5w4sadBPK1KZy3HhmtAm5V3+IO
- rV/39CMyQlJYTOt9RlGhEpMNvYcXZ2aVyZr0cUP69v5QvnN8xvD1SAPGXxLoW3G84la/
- 0iYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783447986; x=1784052786;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kqdEQqGxI7vgb8pogihq5FM0tpdEo42yoW6988L8HP0=;
- b=JuFgLqYndatILMOMHW0nIZEyxc/R2/lzou2TGicdfkrL62dd3Pqvkai3rcPkworWkD
- 9dNsqDwgcb3ds6YoS1ybtuDDlg7zciHDud/C92GJPR3WLwUwt7ibYfCIbYq1vUFouRpk
- cS4t0gF+2c0RQXON5MdSGx+qF6PSjqXz/TGsJnq2ka4GL6naC9W0lZXxh6ZWy9HBH1qh
- kH4dFet7TLHyoYxv0az+eGAkUleNym775LXtQ6JCAucKuq+uBMmZXSl2kw5Zqcau2Bfk
- dOeqtZNu0uzBnTKFbpftDYgxgB/W7722hNJyBGhUhgDqinC+7k71mjHTZV274KsTe+LQ
- tgEg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrrO5FZhsewDcEe4+nerI/lUaDN04Z+BSdvO8KGDlYb1EViUFCaUNs//OxZgqu1GPODVborJF8D1P4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzt3gC8o6T+Juf8GVIQY5uPJbW2Lhmn5LbDskyafAHHhfWYyHJQ
- Gfb6JJbmbMPAyd6Ms1GwZrD5CaarWbgnUg0Z+YzoC5Ex5OZAqE2N+wWfLXb9+YH2c/YzTYZDcWW
- F+Yhvi5Wjq2or+J8l5g7vwFvboHb92vOU1w==
-X-Gm-Gg: AfdE7clrFGBEzbcpgXaNONsonnGaszBeKPE9zr+tOc0qPMA07dKv/onWpxw2fh+vmpd
- mSOewSSleqq0BDwGU927ze+5xhc5+4LOIcXVwwbCTNlOY77zApF2rrXGVGQqRNOiFA0gt7i3aiH
- v0rV/aOSllB1ZNPykl/LBJ/EzD0HJumVXKwhttN2Qp5x9LOdeFe8B0+31TjP2QF5Y4MPrinzsi0
- MzNMPH/d9wVDqINh7SfR+ah7yJfiNFPPSf/m1AKuJWoopKRGNCJBmCwGAJT20tTzRYWTttHkY/U
- 6nerkVBk/YgeCNf+VlwW8KCmTGl64QsMbIUowteWklsKOIvEc14D1JO5SUI=
-X-Received: by 2002:a17:90b:510b:b0:36d:de94:f31 with SMTP id
- 98e67ed59e1d1-382a05aef5bmr10041142a91.7.1783447985781; Tue, 07 Jul 2026
- 11:13:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260707093812.109176-1-marco.crivellari@suse.com>
- <12766042.8bMQJbFj6T@timur-max>
-In-Reply-To: <12766042.8bMQJbFj6T@timur-max>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 7 Jul 2026 14:12:53 -0400
-X-Gm-Features: AVVi8CcFtIefmJgVcRFeNq0XkI_qubOg5oXAk2MnXUnij9hKh_kHzDeX4SXC8zQ
-Message-ID: <CADnq5_MHa8L9gWutwRKBQQ5QuM=5qd8eJgC8ZYKyBQQ1J9NUZQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Change system_unbound_wq with system_dfl_wq
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Marco Crivellari <marco.crivellari@suse.com>, 
- Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian Konig <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Kees Cook <kees@kernel.org>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Ce Sun <cesun102@amd.com>, 
- Tao Zhou <tao.zhou1@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A6D210E09A
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 18:41:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783449658; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=cdp4bG/XEl8J+bSYrJEMFweg2cZt6HBV2/55PeAKnvuxERQYQtMBdtS/kZH9HDq3nDad8j1/vAGViubPGZWnlQOBfueZLaGr1Z0oeXU5DnE+g3r2Jrbp+lcm7zdPuJ791tuc8M2p8+0P16J+7tZ9SRZm862eWg6INjk80hLwpiw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783449658;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=EDwlnOs4YCj2t7wvoltJ8iZPFDsHdK8fCnqAW/cA7WU=; 
+ b=cc8yUUsX/6Q4GKfSl6KX1RsrLQv2wthHwFoD/i65KU0YuAPSNoV+3e2Loach0y6TZUKh4OjZwyBzUHqlbsvAbzACpyBMnoktqaieJwCBL0RXYCsaZYSlUbhper3toYuJ/zsjdj4scXuaSrQRfDUBNoH9AqVnFYoHgndZGeyeyxM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783449658; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=EDwlnOs4YCj2t7wvoltJ8iZPFDsHdK8fCnqAW/cA7WU=;
+ b=M9oei2BLcjSRlwwu9LV2XG59pBQwPM1FvrsBjc4V+DCYAVZh+22SCt6I4FXxVpYH
+ m3jYja78NKSBtMrqu8CaIjPr0T1h1mafD5fc3kQwvY/CmXpjyAmBEgPyfG19FUSDpFA
+ Y8Bzm7lW5xBIav5I4ilNBOwr863p1D2CayxmLgv4=
+Received: by mx.zohomail.com with SMTPS id 1783449656904757.8597891704945;
+ Tue, 7 Jul 2026 11:40:56 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v6 02/20] rust: io: add missing safety requirement in
+ `IoCapable` methods
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260706-io_projection-v6-2-72cd5d055d54@garyguo.net>
+Date: Tue, 7 Jul 2026 15:40:36 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <20770F1B-133E-42B1-A204-BF3CB70758BA@collabora.com>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-2-72cd5d055d54@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,61 +87,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
 
-Alex
 
-On Tue, Jul 7, 2026 at 7:02=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
-ail.com> wrote:
->
-> On 2026. j=C3=BAlius 7., kedd 11:38:12 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=C3=
-=A1ri id=C5=91 Marco Crivellari
-> wrote:
-> > system_wq (per-CPU) and system_unbound_wq (unbound) are the older
-> > workqueue name, replaced by system_{percpu|dfl}_wq.
-> > The new workqueues have been introduced by:
-> >
-> >   128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
-> >
-> > Usage of older workqueues will now trigger a pr_warn_once() because the=
-y are
-> > marked as deprecated as per commit:
-> >
-> >   64d8eae3f895 ("workqueue: Add warnings and fallback if system_{unboun=
-d}_wq
-> > is used")
-> >
-> > So change the used workqueue with the newer, keeping the same behavior.
-> >
-> > Suggested-by: Tejun Heo <tj@kernel.org>
-> > Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
->
-> Nice catch, thank you Marco!
->
-> Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c index 53be764968e4..95cceed4e=
-971
-> > 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> > @@ -545,7 +545,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev=
-,
-> >                        unsigned int num_dw)
-> >  {
-> >       amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry,
-> num_dw);
-> > -     queue_work(system_unbound_wq, &adev->irq.ih_soft_work);
-> > +     queue_work(system_dfl_wq, &adev->irq.ih_soft_work);
-> >  }
-> >
-> >  /**
->
->
->
->
+> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> The current safety comment on `io_read`/`io_write` does not cover the =
+topic
+> about alignment. Add it so it can be relied on by implementor of
+> `IoCapable`.
+>=20
+> Expand the check performed by `Io` by taking `self.addr()` into
+> consideration when checking if `offset` is aligned. For the =
+compile-time
+> `io_addr_assert` check, check using the known minimum alignment of
+> `Io::Target` and the accessed type.
+>=20
+> While at it, fix the alignment check to use `align_of` instead of
+> `size_of`. The values match for all primitives (including u64, given =
+that
+> we do not provide u64 accessor on 32-bit platforms), but are not
+> necessarily true for custom types.
+>=20
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> rust/kernel/io.rs | 25 ++++++++++++++++---------
+> 1 file changed, 16 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index d1c5f0121994..d821ee48ed31 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -195,13 +195,14 @@ pub fn maxsize(&self) -> usize {
+> #[repr(transparent)]
+> pub struct Mmio<const SIZE: usize =3D 0>(MmioRaw<SIZE>);
+>=20
+> -/// Checks whether an access of type `U` at the given `offset`
+> +/// Checks whether an access of type `U` at the given `base` and the =
+given `offset`
+> /// is valid within this region.
+> +///
+> +/// The `base` is used for alignment checking only. This can be set =
+to 0 to skip the check.
+> #[inline]
+> -const fn offset_valid<U>(offset: usize, size: usize) -> bool {
+> -    let type_size =3D core::mem::size_of::<U>();
+> -    if let Some(end) =3D offset.checked_add(type_size) {
+> -        end <=3D size && offset % type_size =3D=3D 0
+> +const fn offset_valid<U>(base: usize, offset: usize, size: usize) -> =
+bool {
+> +    if let Some(end) =3D offset.checked_add(size_of::<U>()) {
+> +        end <=3D size && (base.wrapping_add(offset) % align_of::<U>() =
+=3D=3D 0)
+>     } else {
+>         false
+>     }
+> @@ -220,14 +221,16 @@ pub trait IoCapable<T> {
+>     ///
+>     /// # Safety
+>     ///
+> -    /// The range `[address..address + size_of::<T>()]` must be =
+within the bounds of `Self`.
+> +    /// - The range `[address..address + size_of::<T>()]` must be =
+within the bounds of `Self`.
+> +    /// - `address` must be aligned.
+>     unsafe fn io_read(&self, address: usize) -> T;
+>=20
+>     /// Performs an I/O write of `value` at `address`.
+>     ///
+>     /// # Safety
+>     ///
+> -    /// The range `[address..address + size_of::<T>()]` must be =
+within the bounds of `Self`.
+> +    /// - The range `[address..address + size_of::<T>()]` must be =
+within the bounds of `Self`.
+> +    /// - `address` must be aligned.
+>     unsafe fn io_write(&self, value: T, address: usize);
+> }
+>=20
+> @@ -309,7 +312,11 @@ pub trait Io {
+>     // Always inline to optimize out error path of `build_assert`.
+>     #[inline(always)]
+>     fn io_addr_assert<U>(&self, offset: usize) -> usize {
+> -        build_assert!(offset_valid::<U>(offset, =
+Self::Target::MIN_SIZE));
+> +        // We cannot check alignment with `offset_valid` using =
+`self.addr()`. So set 0 for it and
+> +        // ensure alignment by checking that the alignment of `U` is =
+smaller or equal to the
+> +        // alignment of `Self::Target`.
+> +        const_assert!(Alignment::of::<U>().as_usize() <=3D =
+Self::Target::MIN_ALIGN.as_usize());
+> +        build_assert!(offset_valid::<U>(0, offset, =
+Self::Target::MIN_SIZE));
+>=20
+>         self.addr() + offset
+>     }
+> @@ -318,7 +325,7 @@ fn io_addr_assert<U>(&self, offset: usize) -> =
+usize {
+>     /// performing runtime bound checks.
+>     #[inline]
+>     fn io_addr<U>(&self, offset: usize) -> Result<usize> {
+> -        if !offset_valid::<U>(offset, self.maxsize()) {
+> +        if !offset_valid::<U>(self.addr(), offset, self.maxsize()) {
+>             return Err(EINVAL);
+>         }
+>=20
+>=20
+> --=20
+> 2.54.0
+>=20
+
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
