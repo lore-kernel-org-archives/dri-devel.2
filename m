@@ -4,93 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A388BC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 21:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD50C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 22:00:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF13810E2E5;
-	Tue,  7 Jul 2026 21:51:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C88DD10E515;
+	Tue,  7 Jul 2026 22:00:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JI+LX1Co";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HuEmLrdX";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF94110E2E5
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 21:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783461110;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jl+YAP8tpQr4+e/VlJSTpnAqWxdzEyvzpYLsNlFWKbg=;
- b=JI+LX1Co+KlmmVyD57vXwM0gootWZI/U9/QLZ2s95T646l7CDyBs5ZL/20fqc6NI3t4LpH
- 3t9JNCII0eQbyFi1rjZH7MiRSVIvdXCe+wWuEPbOsCvEKo+hKsKebmZ/dVeXnrnUeOpcZp
- lgbVwPtxIbIv2IA5KDrR6pTr0KU/Qcg=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-625-JgkjgDTXOyCdx2F0PEPkMA-1; Tue, 07 Jul 2026 17:51:47 -0400
-X-MC-Unique: JgkjgDTXOyCdx2F0PEPkMA-1
-X-Mimecast-MFC-AGG-ID: JgkjgDTXOyCdx2F0PEPkMA_1783461107
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-8fdace20927so747176d6.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 14:51:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783461107; x=1784065907;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=jl+YAP8tpQr4+e/VlJSTpnAqWxdzEyvzpYLsNlFWKbg=;
- b=i2ioFRkJRUhwSz9CjWAEvLekAl5L0M1wIwjzaL8g5x4LGOAhcsEghbmWdn6fglrJP/
- lh/JfBul9ADYL1HVaYZQEEPBJNhsXYTgmnKAZb6ZMNMpe10ReRttrIYxMgCNNhSZDiC8
- 5iMq8wf9D1SS7VyaUXrnDD7vrYLgwMjo34xf9VoNv5evwuNwcZvxGx5I1QuZxrMeYBSi
- 0MIKgjXOE05EwaFtfu6DNoMWu4QW+orNVjLUtOLX9/qt3YQKR4w1ZVSDhCecau9L2Smw
- 9IZV0RiygD9YJai0q6VVK59PftSkfF38Icilr7cHKJF68PQT91KhmMdpquEF1YGIz4gX
- RIRA==
-X-Gm-Message-State: AOJu0YwEloEbs5zhMAiWh8cT+3dkoe/s1NfjhN8WdxwWmqkR/ouR89zq
- 52/OniqEyhwj+Ych6Vgfpua2Tc/BvBaTPYi7bBIEiNesqKWf9InzkegbvVZst8ve3I4hPNrUEt8
- 5BxR5G+nVlx2kZpOdPP6p7oWy/8pdCelfOQcGkhiQy3EhcTqW//SokAGwmu/oftv6Z9TMXQ==
-X-Gm-Gg: AfdE7ckWveCfsDCHYdIe+B3ezuIYj0cK+dS5sk2cdAZ9kpBFbToCR6/3LlL5qolIwHy
- JbB+qUYVsEwkyhg2NrMRcfDBnQPvU6C7wVRqg4GWkDRuBeYpU/yZ2yN5KaS5ReGAIrn0TFWuiuY
- vAt5tLqsR2qziymC55MM3jiILqbfwtXnurTNw3FgRq3HvUw/3MQdLchQm9lTCMCYOp563uDflCd
- ADqrAOhcAFezw+xc64j2d6nCSQTTmeQ9/o4ZxU32UzB/CwfIyTj6aR+WULEThRuc0dds5cYBYpy
- pBXc11+GfMJFM69r40oWv3QLqflc0FcHNVUvKePp5MplOZJH6aVsYaOd3PegyK5Vk39vmkfTQOx
- HhbKO0E4=
-X-Received: by 2002:a05:6214:21c3:b0:8f3:6c2:222 with SMTP id
- 6a1803df08f44-8fcb2e7e9f6mr97091126d6.14.1783461107097; 
- Tue, 07 Jul 2026 14:51:47 -0700 (PDT)
-X-Received: by 2002:a05:6214:21c3:b0:8f3:6c2:222 with SMTP id
- 6a1803df08f44-8fcb2e7e9f6mr97090676d6.14.1783461106543; 
- Tue, 07 Jul 2026 14:51:46 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8f4724b9ff8sm167215646d6.40.2026.07.07.14.51.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 14:51:45 -0700 (PDT)
-Message-ID: <742ce0da3608a8cf467db9b7a6f0ada8b7d61a93.camel@redhat.com>
-Subject: Re: [RFC PATCH v2 06/18] rust: drm: kms: add a Framebuffer::vmap()
- guard
-From: lyude@redhat.com
-To: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>, Miguel
- Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, linux-kernel@vger.kernel.org
-Date: Tue, 07 Jul 2026 17:51:45 -0400
-In-Reply-To: <20260703030123.2814-7-mike@fireburn.co.uk>
-References: <20260617150232.2210-1-mike@fireburn.co.uk>
- <20260703030123.2814-1-mike@fireburn.co.uk>
- <20260703030123.2814-7-mike@fireburn.co.uk>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0451410E515
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 22:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zpEXsXF8x7+EJDV03HN3+nO4q487/a7bD8ENQmhz2vE=; b=HuEmLrdXF1XL8p69Umj4eca6cD
+ 7/BnQD0ufNk7ptbVVflCSgdqYb574PUyRQXq7kQoeJ2P/vqe0SgFllcszLDb+BfGJwxW4d8T3NDuv
+ Gi6YFottBodQ25zMMNHbfYKQiaxy1fRGQuPwgvfWuNYWLz9AZXnMw744mqGENbRyHHB8EQjqGkjkl
+ Ot+HJEpoKwh6mI9mTXVEiQyMUn+HnYM+46x/w8dOJKUlo+hohaHYJonV4f9nnI3dKJgTWwuliNah1
+ ot/vf0rx+ZN24WEy5LDk1d3rEPvrhwFxBvZQWi2L5NiL9JjnHcYbV/LIaWCRaZeHoXx37JAlDAozv
+ 9g7SJ2SQ==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1whDqQ-00B4tL-Nw; Wed, 08 Jul 2026 00:00:46 +0200
+Message-ID: <46813874-6db9-449f-8e85-3ebccb96b97d@igalia.com>
+Date: Tue, 7 Jul 2026 19:00:41 -0300
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3AQcA9wjDM2Zk_UPO1vX7KQUMlLyB5_z9Q0UJU8srZs_1783461107
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] drm/v3d: Miscellaneous fixes
+To: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260703-v3d-cpu-job-fixes-v3-0-bc51b1f3eeb5@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,162 +85,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We have VMap at home already, please (with your eyes) search the rest
-of the kernel for it. The work for this was pushed to drm-rust-next
-recently.
-
-On Fri, 2026-07-03 at 04:00 +0100, Mike Lothian wrote:
-> Framebuffer::vmap() maps a framebuffer's plane-0 backing pages into
-> the
-> kernel address space via drm_gem_fb_vmap()/vunmap(), returning an
-> RAII
-> FramebufferVmap guard that unmaps on drop. Only single-CPU-visible-
-> plane
-> framebuffers are supported (packed formats backed by GEM-shmem/CMA;
-> multi-plane YUV or an unmapped imported dma-buf return EINVAL). This
-> is
-> the driver-side FbVmap guard the v1 series carried, moved into the
-> layer
-> proper so every KMS driver gets it instead of hand-rolling the same
-> map/use/unmap dance.
->=20
-> Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-> Assisted-by: Claude:claude-sonnet-5 [Claude-Code]
+On 03/07/26 12:33, Maíra Canal wrote:
+> Being brief, this small series collects a correctness fix (#1) reported by
+> Sashiko, a error-path fix (#2) reported by Sashiko, and a cleanup (#3)
+> found while reading the code.
+> 
+> The first patch is the only notable one: a v3d submission expands into a
+> chain of jobs (e.g. BIN + RENDER + CACHE CLEAN), but the BO list was only
+> ever attached to the last job. Since implicit synchronization is added
+> per-job and gated on job->bo_count, every job before the last one silently
+> skipped implicit dependencies. In practice the RENDER job could read a
+> buffer object while another context was still writing it. It's fixed by
+> looking up the BOs onto every job that references them.
+> 
+> Best regards,
+> - Maíra
+> 
+> To: Melissa Wen <mwen@igalia.com>
+> To: Iago Toral Quiroga <itoral@igalia.com>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> Cc: kernel-dev@igalia.com
+> Cc: dri-devel@lists.freedesktop.org
+> 
+> v1 -> v2: https://lore.kernel.org/r/20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com
+> 
+> - [1/3] Don't attach implicit dependencies to BIN jobs (Iago Toral)
+> - [2/3, 3/3] Add Iago's R-b (Iago Toral)
+> 
+> v2 -> v3: https://lore.kernel.org/r/20260618-v3d-cpu-job-fixes-v2-0-fec132484fc4@igalia.com
+> 
+> - [1/3] Add a comment clarifing why we don't attach BOs to BIN jobs (Iago Toral)
+> - [1/3] Add Iago's R-b (Iago Toral)
+> 
 > ---
-> =C2=A0rust/kernel/drm/kms/framebuffer.rs | 67
-> +++++++++++++++++++++++++++++-
-> =C2=A01 file changed, 66 insertions(+), 1 deletion(-)
->=20
-> diff --git a/rust/kernel/drm/kms/framebuffer.rs
-> b/rust/kernel/drm/kms/framebuffer.rs
-> index 54d0391388a9..1ec6779ba7de 100644
-> --- a/rust/kernel/drm/kms/framebuffer.rs
-> +++ b/rust/kernel/drm/kms/framebuffer.rs
-> @@ -5,7 +5,12 @@
-> =C2=A0//! C header:
-> [`include/drm/drm_framebuffer.h`](srctree/include/drm/drm_framebuffer
-> .h)
-> =C2=A0
-> =C2=A0use super::{KmsDriver, ModeObject, Sealed};
-> -use crate::{drm::device::Device, types::*};
-> +use crate::{
-> +=C2=A0=C2=A0=C2=A0 drm::device::Device,
-> +=C2=A0=C2=A0=C2=A0 error::{code::EINVAL, to_result},
-> +=C2=A0=C2=A0=C2=A0 prelude::*,
-> +=C2=A0=C2=A0=C2=A0 types::*,
-> +};
-> =C2=A0use bindings;
-> =C2=A0use core::{marker::*, ptr};
-> =C2=A0
-> @@ -67,4 +72,64 @@ pub(super) unsafe fn from_raw<'a>(ptr: *const
-> bindings::drm_framebuffer) -> &'a
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: Our data layo=
-ut is identical to drm_framebuffer
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { &*ptr.cast() }
-> =C2=A0=C2=A0=C2=A0=C2=A0 }
-> +
-> +=C2=A0=C2=A0=C2=A0 /// Return the raw `bindings::drm_framebuffer` for th=
-is
-> framebuffer.
-> +=C2=A0=C2=A0=C2=A0 #[inline]
-> +=C2=A0=C2=A0=C2=A0 pub(crate) fn as_raw(&self) -> *mut bindings::drm_fra=
-mebuffer {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 self.0.get()
-> +=C2=A0=C2=A0=C2=A0 }
-> +
-> +=C2=A0=C2=A0=C2=A0 /// Map this framebuffer's plane-0 backing pages into=
- the kernel
-> address space for CPU
-> +=C2=A0=C2=A0=C2=A0 /// access, for the duration of the returned guard.
-> +=C2=A0=C2=A0=C2=A0 ///
-> +=C2=A0=C2=A0=C2=A0 /// Only framebuffers with a single, CPU-visible plan=
-e are
-> supported (i.e. packed formats
-> +=C2=A0=C2=A0=C2=A0 /// backed by GEM-shmem/CMA memory, not multi-plane Y=
-UV or an
-> IMPORTED dma-buf without a
-> +=C2=A0=C2=A0=C2=A0 /// CPU mapping); other cases return `EINVAL`.
-> +=C2=A0=C2=A0=C2=A0 pub fn vmap(&self) -> Result<FramebufferVmap<'_, T>> =
-{
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `iosys_map` is POD=
- (a pointer union plus a bool);
-> all-zero is a valid
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // "not mapped" value that `d=
-rm_gem_fb_vmap` overwrites for
-> present planes.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let mut map: [bindings::iosys=
-_map; 4] =3D unsafe {
-> core::mem::zeroed() };
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let mut data_map: [bindings::=
-iosys_map; 4] =3D unsafe {
-> core::mem::zeroed() };
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `self.as_raw()` is=
- a valid, GEM-backed
-> framebuffer for the lifetime of `self`.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 to_result(unsafe {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bindi=
-ngs::drm_gem_fb_vmap(self.as_raw(),
-> map.as_mut_ptr(), data_map.as_mut_ptr())
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 })?;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `map[0]` was just =
-filled in by `drm_gem_fb_vmap`
-> above.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let vaddr =3D unsafe { map[0]=
-.__bindgen_anon_1.vaddr };
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if vaddr.is_null() {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SA=
-FETY: balances the vmap just done, with the same
-> `map`.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsaf=
-e { bindings::drm_gem_fb_vunmap(self.as_raw(),
-> map.as_mut_ptr()) };
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retur=
-n Err(EINVAL);
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Ok(FramebufferVmap { fb: self=
-, map, _p: PhantomData })
-> +=C2=A0=C2=A0=C2=A0 }
-> +}
-> +
-> +/// An RAII guard over a CPU mapping of a [`Framebuffer`]'s plane-0
-> backing pages, created by
-> +/// [`Framebuffer::vmap`].
-> +///
-> +/// The mapping is torn down when this guard is dropped, so an early
-> return between mapping and
-> +/// use can never leak it.
-> +pub struct FramebufferVmap<'a, T: KmsDriver> {
-> +=C2=A0=C2=A0=C2=A0 fb: &'a Framebuffer<T>,
-> +=C2=A0=C2=A0=C2=A0 map: [bindings::iosys_map; 4],
-> +=C2=A0=C2=A0=C2=A0 _p: PhantomData<T>,
-> +}
-> +
-> +impl<'a, T: KmsDriver> FramebufferVmap<'a, T> {
-> +=C2=A0=C2=A0=C2=A0 /// Plane 0's CPU virtual base address (guaranteed no=
-n-null for
-> the guard's lifetime).
-> +=C2=A0=C2=A0=C2=A0 #[inline]
-> +=C2=A0=C2=A0=C2=A0 pub fn as_ptr(&self) -> *const u8 {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: set non-null in `F=
-ramebuffer::vmap`; `vaddr` is
-> the active union member.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (unsafe { self.map[0].__bindg=
-en_anon_1.vaddr }) as *const u8
-> +=C2=A0=C2=A0=C2=A0 }
-> +}
-> +
-> +impl<'a, T: KmsDriver> Drop for FramebufferVmap<'a, T> {
-> +=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `self.fb.as_raw()`=
-/`self.map` are exactly the
-> pair passed to
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // `drm_gem_fb_vmap` in `Fram=
-ebuffer::vmap`, and the mapping
-> has not been released
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // since.
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::drm_gem_fb=
-_vunmap(self.fb.as_raw(),
-> self.map.as_mut_ptr()) };
-> +=C2=A0=C2=A0=C2=A0 }
-> =C2=A0}
+> Maíra Canal (3):
+>        drm/v3d: Associate BOs with every job that accesses them
+>        drm/v3d: Reject invalid indirect BO handle in indirect CSD setup
+>        drm/v3d: Use write_to_buffer() helper in performance query copy
+> 
+>   drivers/gpu/drm/v3d/v3d_sched.c  | 11 ++--------
+>   drivers/gpu/drm/v3d/v3d_submit.c | 44 +++++++++++++++++++++++-----------------
+>   2 files changed, 27 insertions(+), 28 deletions(-)
+
+
+Patches #2 and #3 were applied separately to drm-misc-fixes and drm-
+misc-next, respectively, as I still need to address an issue pointed
+by Sashiko in PATCH #1.
+
+Best Regards,
+- Maíra
+
+> ---
+> base-commit: 903f8773ee96c5dc5fb9aec65227f39fd3e7a1dc
+> change-id: 20260609-v3d-cpu-job-fixes-fbe2051bee3a
+> 
 
