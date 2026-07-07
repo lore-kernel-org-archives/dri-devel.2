@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80B0FC44502
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:43:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE9BC44507
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E5110EE30;
-	Tue,  7 Jul 2026 15:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AF3910EE33;
+	Tue,  7 Jul 2026 15:43:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jNw+ail0";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nIGWtEjK";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2B0510EE2B
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:42:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 433A510EE2D
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:43:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783438975;
- bh=j+zNK/6FCMkHSNJSruGbH+HFdz6RBtOvmp2W6UQecv4=;
+ s=mail; t=1783438979;
+ bh=+l0JxPVMWizDtm7st0nxfuuabxoYFY3ab2cxUYpVGhs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jNw+ail0ir3RqUNbEdyCNwkH8p1TtYGF1SORbTvBPwX+Sh7SWM/rc6LYkS1fG+oMC
- DKDOn7jtp2sG2klBhQdgk7RANDRb/Ei9GsRqQa7XuQwoynpcw9668yrhi+px8R/m3v
- ycsurPkcLhP8u9y52uNNev5skiRs4iRPX7kIv93G7pCWDvNklMBHjP2A4aztWow1O8
- EG5pyQ/wW50b7m2Hn2JUz0Qgej+j7Ht2+5H4C0gZP/6DiM8NopcPyLPykKychR9bcw
- owvpP3/e0ntrfa+uBwC4GpnZ7dAbBvDVHV5x3y9NmC1NC5sq7xigTKEtrL8v6Qp5f/
- JXSUHU86z7Www==
+ b=nIGWtEjKDxprqxhn4jWdJ9+N5r3huvsEt9hZDz5O0jQ5jIJpZEYlvhS48SRAWHIJd
+ omQy3NaiHkzj6yq7C39mY7ZsytQ+DDM+TIIOBAfwmJ+gW//JYj+WQJRZcvydXtUV3p
+ 42lZK1/PzHW1KP569CoYuppW84qiK2wzdvYASXpXY7rMQJhQkbZaa2jP6+FJMKrEth
+ OcnELanv0uQTAyDLbp23kuAKakXkcnxAewX2XkkPl4D69EdJba5G3w/5zwylI4nFxM
+ gVe+xCQDX1ddpkZortmw8Xjxwnkvjeh1SZHe8f+RMVW+8LPgugNGJuGikkuYNqetpv
+ GJwEcf8iF3iGQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 144FF17E0CDE;
- Tue, 07 Jul 2026 17:42:55 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5A56017E1078;
+ Tue, 07 Jul 2026 17:42:58 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
 Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
@@ -42,10 +42,9 @@ Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
  linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  kernel@collabora.com
-Subject: [PATCH v3 08/12] phy: phy-mtk-dp: Add support for digital and analog
- calibration
-Date: Tue,  7 Jul 2026 17:42:41 +0200
-Message-ID: <20260707154245.198361-9-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+Date: Tue,  7 Jul 2026 17:42:45 +0200
+Message-ID: <20260707154245.198361-13-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
 References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
@@ -66,463 +65,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for reading the calibration values from eFuse: if
-present, write those - otherwise, rely on the defaults from
-SoC-specific data.
-This also adds support for writing the calibration values for
-the analog part of the PHY.
+The MT8196 SoC features an updated PHY IP compared to the older
+ones, and there is one that is specific to Embedded DisplayPort.
 
-Note that before this change, only default hardcoded calibration
-values were supported for the digital driving parameters.
+Add support for the eDP PHY found in the MediaTek MT8196 SoC and
+all of its variants.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/phy/mediatek/phy-mtk-dp.c | 303 +++++++++++++++++++++++++++---
- 1 file changed, 281 insertions(+), 22 deletions(-)
+ drivers/phy/mediatek/phy-mtk-dp.c | 66 ++++++++++++++++++++++++++++++-
+ 1 file changed, 65 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index c87e9fa710a4..f59a415b401c 100644
+index f5aadc5fdc42..5decc29c77cb 100644
 --- a/drivers/phy/mediatek/phy-mtk-dp.c
 +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -14,6 +14,7 @@
- #include <linux/delay.h>
- #include <linux/io.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/nvmem-consumer.h>
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-@@ -22,6 +23,19 @@
+@@ -5,7 +5,7 @@
+  * Copyright (c) 2022, BayLibre Inc.
+  * Copyright (c) 2022, MediaTek Inc.
+  *
+- * Major refactoring
++ * Major refactoring and new SoCs support
+  * Copyright (c) 2026, Collabora Ltd.
+  *                     AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+  */
+@@ -43,6 +43,7 @@
+ #define TPLL_SSC_EN			BIT(3)
  
- #define MTK_DP_PHY_MAX_LANES		4
+ /* DP_PHYD_BIT_RATE */
++#define PHYD_DIG_RG_BIT_RATE_V2		GENMASK(3, 0)
+ #define PHYD_DIG_RG_BIT_RATE		GENMASK(1, 0)
  
-+/* DP_PHYA_GLB_BIAS_GEN_0 (PHYA - Analog) */
-+#define XTP_GLB_BIAS_INT_R_CTRL		GENMASK(20, 16)
+ /* DP_PHYD_SW_RST */
+@@ -63,6 +64,7 @@
+ 
+ /* DP_PHYD_TX_CTL_0 */
+ #define PHYD_TX_LN_EN			GENMASK(7, 4)
++#define PHYD_TX_LN_EN_V2		GENMASK(3, 0)
+ 
+ /* DP_PHYD_DRIVING_FORCE */
+ #define PHYD_DP_TX_FORCE_VOLT_SWING_EN	BIT(0)
+@@ -129,6 +131,16 @@
+ #define MT8195_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 6, 12, 0)
+ #define MT8195_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(8, 0)
+ 
++/* MT8196/MT6991: Logic State Change Point (LC TX C) */
++#define MT8196_DRIVING_PARAM_3_DEFAULT	BUILD_DRIVING_PARAM_0( 10, 12, 14, 17)
++#define MT8196_DRIVING_PARAM_4_DEFAULT	BUILD_DRIVING_PARAM_12(14, 17, 18, 18)
++#define MT8196_DRIVING_PARAM_5_DEFAULT	BUILD_DRIVING_PARAM_23(21, 24)
 +
-+/* DP_PHYA_GLB_FORCE_CTRL_1 */
-+#define CKM_CKTX0_EN_FORCE_MODE		BIT(10)
++/* MT8196/MT6991: Positive Edge (LC TX CP) */
++#define MT8196_DRIVING_PARAM_6_DEFAULT	BUILD_DRIVING_PARAM_0( 0, 2, 4, 7)
++#define MT8196_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 3, 6, 0)
++#define MT8196_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(3, 0)
 +
-+/* DP_PHYA_GLB_DPAUX_TX */
-+#define CKM_PT0_CKTX_IMPSEL		GENMASK(23, 20)
-+
-+/* DP_PHYA_LAN_LANE_TX_0 */
-+#define XTP_LN_TX_IMPSEL_PMOS		GENMASK(15, 12)
-+#define XTP_LN_TX_IMPSEL_NMOS		GENMASK(19, 16)
-+
- /* DP_PHYA_GLB_FORCE_CTRL_1 */
- #define CKM_CKTX0_EN_FORCE_MODE		BIT(10)
- 
-@@ -59,11 +73,29 @@
- #define PHYD_DP_TX_FORCE_VOLT_SWING_VAL	GENMASK(2, 1)
- #define PHYD_DP_TX_FORCE_PRE_EMPH_VAL	GENMASK(4, 3)
- 
-+/*
-+ * DRIVING_PARAM_X (PHYD - Digital)
-+ *
-+ * Driving param registers are split in three sets, all containing settings
-+ * for Voltage Swing and Pre-Emphasis for each lane's differential pair.
-+ *
-+ * All three sets share the same layout, but for different physical signals;
-+ * In particular:
-+ * [0-2]: LC TX CM (Minus / Negative Edge)
-+ * [3-5]: LC TX C  (Logic State Change Point)
-+ * [6-8]: LC TX CP (Plus / Positive Edge)
-+ *
-+ * And they contain values for:
-+ * [0,3,6]: Swing 0 Pre[0-3]
-+ * [1,4,7]: Swing 1 Pre[0-2] and Swing 2 Pre0
-+ * [2,5,8]: Swing 2 Pre1 and Swing 3 Pre0
-+ */
-+#define PHYD_DIG_NUM_DRV_PARA_REGS	9
- #define XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT	BIT(4)
- #define XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT	(BIT(10) | BIT(12))
- #define XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT	GENMASK(20, 19)
- #define XTP_LN_TX_LCTXC0_SW0_PRE3_DEFAULT	GENMASK(29, 29)
--#define DRIVING_PARAM_3_DEFAULT	(XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT | \
-+#define MT8195_DRIVING_PARAM_3_DEFAULT	(XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT | \
- 				 XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT | \
- 				 XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT | \
- 				 XTP_LN_TX_LCTXC0_SW0_PRE3_DEFAULT)
-@@ -72,21 +104,21 @@
- #define XTP_LN_TX_LCTXC0_SW1_PRE1_DEFAULT	GENMASK(12, 9)
- #define XTP_LN_TX_LCTXC0_SW1_PRE2_DEFAULT	(BIT(18) | BIT(21))
- #define XTP_LN_TX_LCTXC0_SW2_PRE0_DEFAULT	GENMASK(29, 29)
--#define DRIVING_PARAM_4_DEFAULT	(XTP_LN_TX_LCTXC0_SW1_PRE0_DEFAULT | \
-+#define MT8195_DRIVING_PARAM_4_DEFAULT	(XTP_LN_TX_LCTXC0_SW1_PRE0_DEFAULT | \
- 				 XTP_LN_TX_LCTXC0_SW1_PRE1_DEFAULT | \
- 				 XTP_LN_TX_LCTXC0_SW1_PRE2_DEFAULT | \
- 				 XTP_LN_TX_LCTXC0_SW2_PRE0_DEFAULT)
- 
- #define XTP_LN_TX_LCTXC0_SW2_PRE1_DEFAULT	(BIT(3) | BIT(5))
- #define XTP_LN_TX_LCTXC0_SW3_PRE0_DEFAULT	GENMASK(13, 12)
--#define DRIVING_PARAM_5_DEFAULT	(XTP_LN_TX_LCTXC0_SW2_PRE1_DEFAULT | \
-+#define MT8195_DRIVING_PARAM_5_DEFAULT	(XTP_LN_TX_LCTXC0_SW2_PRE1_DEFAULT | \
- 				 XTP_LN_TX_LCTXC0_SW3_PRE0_DEFAULT)
- 
- #define XTP_LN_TX_LCTXCP1_SW0_PRE0_DEFAULT	0
- #define XTP_LN_TX_LCTXCP1_SW0_PRE1_DEFAULT	GENMASK(10, 10)
- #define XTP_LN_TX_LCTXCP1_SW0_PRE2_DEFAULT	GENMASK(19, 19)
- #define XTP_LN_TX_LCTXCP1_SW0_PRE3_DEFAULT	GENMASK(28, 28)
--#define DRIVING_PARAM_6_DEFAULT	(XTP_LN_TX_LCTXCP1_SW0_PRE0_DEFAULT | \
-+#define MT8195_DRIVING_PARAM_6_DEFAULT	(XTP_LN_TX_LCTXCP1_SW0_PRE0_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW0_PRE1_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW0_PRE2_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW0_PRE3_DEFAULT)
-@@ -95,22 +127,30 @@
- #define XTP_LN_TX_LCTXCP1_SW1_PRE1_DEFAULT	GENMASK(10, 9)
- #define XTP_LN_TX_LCTXCP1_SW1_PRE2_DEFAULT	GENMASK(19, 18)
- #define XTP_LN_TX_LCTXCP1_SW2_PRE0_DEFAULT	0
--#define DRIVING_PARAM_7_DEFAULT	(XTP_LN_TX_LCTXCP1_SW1_PRE0_DEFAULT | \
-+#define MT8195_DRIVING_PARAM_7_DEFAULT	(XTP_LN_TX_LCTXCP1_SW1_PRE0_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW1_PRE1_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW1_PRE2_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW2_PRE0_DEFAULT)
- 
- #define XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT	GENMASK(3, 3)
- #define XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT	0
--#define DRIVING_PARAM_8_DEFAULT	(XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT | \
-+#define MT8195_DRIVING_PARAM_8_DEFAULT	(XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT | \
- 				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
- 
  enum mtk_dp_phya_ana_glb_regidx {
-+	DP_PHYA_GLB_BIAS_GEN_0,
-+	DP_PHYA_GLB_BIAS_GEN_1,
-+	DP_PHYA_GLB_DPAUX_TX,
- 	DP_PHYA_GLB_FORCE_CTRL_0,
- 	DP_PHYA_GLB_FORCE_CTRL_1,
- 	DP_PHYA_GLOBAL_MAX
- };
- 
-+enum mtk_dp_phya_ana_lane_regidx {
-+	DP_PHYA_LAN_LANE_TX_0,
-+	DP_PHYA_LAN_MAX
-+};
-+
- enum mtk_dp_phyd_dig_lane_regidx {
- 	DP_PHYD_LAN_DRIVING_FORCE,
- 	DP_PHYD_LAN_DRIVING_PARAM_0,
-@@ -128,10 +168,17 @@ enum mtk_dp_phyd_dig_glb_regidx {
- };
- 
- static const u8 mt8195_phy_ana_glb_regs[DP_PHYA_GLOBAL_MAX] = {
-+	[DP_PHYA_GLB_BIAS_GEN_0] = 0x0,
-+	[DP_PHYA_GLB_BIAS_GEN_1] = 0x4,
-+	[DP_PHYA_GLB_DPAUX_TX] = 0x8,
- 	[DP_PHYA_GLB_FORCE_CTRL_0] = 0x30,
- 	[DP_PHYA_GLB_FORCE_CTRL_1] = 0x34,
- };
- 
-+static const u8 mt8195_phy_ana_lane_regs[DP_PHYA_LAN_MAX] = {
-+	[DP_PHYA_LAN_LANE_TX_0] = 0x4,
-+};
-+
- static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
- 	[DP_PHYD_LAN_DRIVING_FORCE] = 0x18,
+ 	DP_PHYA_GLB_BIAS_GEN_0,
+ 	DP_PHYA_GLB_BIAS_GEN_1,
+@@ -184,6 +196,11 @@ static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
  	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
-@@ -146,49 +193,101 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
+ };
+ 
++static const u8 mt8196_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
++	[DP_PHYD_LAN_DRIVING_FORCE] = 0x30,
++	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x34,
++};
++
+ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
+ 	[DP_PHYD_PLL_CTL_0] = 0x10,
+ 	[DP_PHYD_PLL_CTL_1] = 0x14,
+@@ -193,6 +210,15 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
  	[DP_PHYD_TX_CTL_0] = 0x44,
  };
  
-+/**
-+ * struct mtk_dp_phya_imp_sel - Per-Lane Impedance Selection
-+ * @pmos: Impedance selection for P-Channel MOSFET
-+ * @nmos: Impedance selection for N-Channel MOSFET
-+ */
-+struct mtk_dp_phya_imp_sel {
-+	u8 pmos : 4;
-+	u8 nmos : 4;
++static const u8 mt8196_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
++	[DP_PHYD_PLL_CTL_0] = 0x10,
++	[DP_PHYD_PLL_CTL_1] = 0x14,
++	[DP_PHYD_SW_RST] = 0x38,
++	[DP_PHYD_BIT_RATE] = 0x3c,
++	[DP_PHYD_AUX_RX_CTL] = 0x40,
++	[DP_PHYD_TX_CTL_0] = 0x74,
++};
++
+ static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
+ 	[DP_PHYD_BIT_RATE_RBR] = 0,
+ 	[DP_PHYD_BIT_RATE_HBR] = 1,
+@@ -200,6 +226,13 @@ static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
+ 	[DP_PHYD_BIT_RATE_HBR3] = 3
+ };
+ 
++static const u8 mt8196_edp_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
++	[DP_PHYD_BIT_RATE_RBR] = 1,
++	[DP_PHYD_BIT_RATE_HBR] = 4,
++	[DP_PHYD_BIT_RATE_HBR2] = 7,
++	[DP_PHYD_BIT_RATE_HBR3] = 9
 +};
 +
  /**
-  * struct mtk_dp_phy_pdata - Platform data and defaults for MediaTek DP/eDP PHY
-  * @off_ana_glb:    Base offset for dptx_phyd_sifslv_ana_glb
-+ * @off_ana_lane:   Base offsets for dptx_phyd_sifslv_ana_lan (for each lane)
-  * @off_dig_glb:    Base offset for dptx_phyd_sifslv_dig_glb
-  * @off_dig_lane:   Base offsets for dptx_phyd_sifslv_dig_lan (for each lane)
-  * @regs_ana_glb:   Register (layout) offsets for ana_glb
-+ * @regs_ana_lane:  Register (layout) offsets for ana_lan
-  * @regs_dig_glb:   Register (layout) offsets for dig_glb
-  * @regs_dig_lane:  Register (layout) offsets for dig_lan
-+ * @ana_bias_r:     Internal resistance "R" Selection Settings (global)
-+ * @ana_cktx_imp:   TX Clock Impedance Selection Settings (global)
-+ * @ana_lanes_imp:  TX Impedance Selection Settings (for all lanes)
-+ * @driving_params: Voltage Swing and Pre-Emphasis settings (for all lanes)
-  */
- struct mtk_dp_phy_pdata {
- 	/* Register offsets */
- 	u16 off_ana_glb;
-+	u16 off_ana_lane[MTK_DP_PHY_MAX_LANES];
- 	u16 off_dig_glb;
- 	u16 off_dig_lane[MTK_DP_PHY_MAX_LANES];
- 
- 	/* Register maps */
- 	const u8 *regs_ana_glb;
-+	const u8 *regs_ana_lane;
- 	const u8 *regs_dig_glb;
- 	const u8 *regs_dig_lane;
-+
-+	/* Calibration defaults */
-+	u8 ana_bias_r;
-+	u8 ana_cktx_imp;
-+	struct mtk_dp_phya_imp_sel ana_lanes_imp;
-+	u32 driving_params[PHYD_DIG_NUM_DRV_PARA_REGS];
+  * struct mtk_dp_phya_imp_sel - Per-Lane Impedance Selection
+  * @pmos: Impedance selection for P-Channel MOSFET
+@@ -805,8 +838,39 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
+ 	},
  };
  
- struct mtk_dp_phy {
- 	struct device *dev;
- 	struct regmap *regmap;
- 	const struct mtk_dp_phy_pdata *pdata;
-+
-+	u8 ana_bias_r;
-+	u8 ana_cktx_imp;
-+	struct mtk_dp_phya_imp_sel ana_impsel[MTK_DP_PHY_MAX_LANES];
- };
- 
--static int mtk_dp_phy_init(struct phy *phy)
-+static int mtk_dp_phy_set_analog_calibration_params(struct mtk_dp_phy *dp_phy)
-+{
-+	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
-+	const u8 *regs_ana_glb = pdata->regs_ana_glb;
-+	const u8 *regs_ana_lane = pdata->regs_ana_lane;
-+	int i, ret;
-+
-+	ret = regmap_update_bits(dp_phy->regmap,
-+				 pdata->off_ana_glb + regs_ana_glb[DP_PHYA_GLB_BIAS_GEN_0],
-+				 XTP_GLB_BIAS_INT_R_CTRL,
-+				 FIELD_PREP(XTP_GLB_BIAS_INT_R_CTRL, dp_phy->ana_bias_r));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(dp_phy->regmap,
-+				 pdata->off_ana_glb + regs_ana_glb[DP_PHYA_GLB_DPAUX_TX],
-+				 CKM_PT0_CKTX_IMPSEL,
-+				 FIELD_PREP(CKM_PT0_CKTX_IMPSEL, dp_phy->ana_cktx_imp));
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < MTK_DP_PHY_MAX_LANES; i++) {
-+		struct mtk_dp_phya_imp_sel *ana_imp = &dp_phy->ana_impsel[i];
-+		u32 val = FIELD_PREP(XTP_LN_TX_IMPSEL_PMOS, ana_imp->pmos) |
-+			  FIELD_PREP(XTP_LN_TX_IMPSEL_NMOS, ana_imp->nmos);
-+		u32 off_ana_lane = pdata->off_ana_lane[i];
-+
-+		ret = regmap_update_bits(dp_phy->regmap,
-+					 off_ana_lane + regs_ana_lane[DP_PHYA_LAN_LANE_TX_0],
-+					 XTP_LN_TX_IMPSEL_PMOS | XTP_LN_TX_IMPSEL_NMOS, val);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+static int mtk_dp_phy_set_digital_drv_params(struct mtk_dp_phy *dp_phy)
- {
--	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
- 	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
- 	const u32 reg = pdata->regs_dig_lane[DP_PHYD_LAN_DRIVING_PARAM_0];
--	static const u32 driving_params[] = {
--		DRIVING_PARAM_0_DEFAULT,
--		DRIVING_PARAM_1_DEFAULT,
--		DRIVING_PARAM_2_DEFAULT,
--		DRIVING_PARAM_3_DEFAULT,
--		DRIVING_PARAM_4_DEFAULT,
--		DRIVING_PARAM_5_DEFAULT,
--		DRIVING_PARAM_6_DEFAULT,
--		DRIVING_PARAM_7_DEFAULT,
--		DRIVING_PARAM_8_DEFAULT
--	};
- 	int i, ret;
- 
- 	/*
-@@ -199,11 +298,31 @@ static int mtk_dp_phy_init(struct phy *phy)
- 	for (i = 0; i < MTK_DP_PHY_MAX_LANES; i++) {
- 		ret = regmap_bulk_write(dp_phy->regmap,
- 					pdata->off_dig_lane[i] + reg,
--					driving_params,
--					ARRAY_SIZE(driving_params));
-+					pdata->driving_params,
-+					ARRAY_SIZE(pdata->driving_params));
- 		if (ret)
- 			return ret;
- 	};
-+	return 0;
-+}
-+
-+static int mtk_dp_phy_init(struct phy *phy)
-+{
-+	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
-+	struct device *dev = &phy->dev;
-+	int ret;
-+
-+	ret = mtk_dp_phy_set_digital_drv_params(dp_phy);
-+	if (ret) {
-+		dev_err(dev, "Cannot set driving params\n");
-+		return ret;
-+	}
-+
-+	ret = mtk_dp_phy_set_analog_calibration_params(dp_phy);
-+	if (ret) {
-+		dev_err(dev, "Cannot set analog calibration\n");
-+		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -422,6 +541,111 @@ static const struct phy_ops mtk_dp_phy_dev_ops = {
- 	.owner = THIS_MODULE,
- };
- 
-+static void mtk_dp_phy_get_default_cal_data(struct mtk_dp_phy *dp_phy)
-+{
-+	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
-+	int i;
-+
-+	dp_phy->ana_bias_r = pdata->ana_bias_r;
-+	dp_phy->ana_cktx_imp = pdata->ana_cktx_imp;
-+
-+	/* Copy the default lane impedance settings to all lanes */
-+	for (i = 0; i < MTK_DP_PHY_MAX_LANES; i++)
-+		memcpy(&dp_phy->ana_impsel[i], &pdata->ana_lanes_imp,
-+		       sizeof(dp_phy->ana_impsel[0]));
-+
-+	return;
-+}
-+
-+static int mtk_dp_phy_get_one_cal_para(struct device *dev, const char *name, u8 max_val)
-+{
-+	u8 buf_byte;
-+	u16 buf;
-+	int ret;
-+
-+	/*
-+	 * All of the calibrations are always max 8 bits long, but some may
-+	 * be split between two different 8-bits cells: handle this corner
-+	 * case by retrying reading as u16.
-+	 */
-+	ret = nvmem_cell_read_u8(dev, name, &buf_byte);
-+	if (ret)
-+		ret = nvmem_cell_read_u16(dev, name, &buf);
-+	else
-+		buf = buf_byte;
-+
-+	if (ret) {
-+		dev_err(dev, "Cannot get calibration data for %s: %d\n", name, ret);
-+		return ret;
-+	};
-+
-+	if (buf == 0) {
-+		dev_warn(dev, "No calibration for %s. Using defaults\n", name);
-+		return -ENOENT;
-+	}
-+
-+	if (buf > max_val) {
-+		dev_err(dev, "Bad value %u retrieved for %s. Returning.\n", buf, name);
-+		return -ERANGE;
-+	};
-+
-+	return buf;
-+}
-+
-+static int mtk_dp_phy_get_calibration_data(struct mtk_dp_phy *dp_phy)
-+{
-+	char mtk_dp_cal_lane_imp_name[] = "impedance-laneXM";
-+	struct device *dev = dp_phy->dev;
-+	int i, ret;
-+
-+	ret = mtk_dp_phy_get_one_cal_para(dev, "rbias-trim", FIELD_MAX(XTP_GLB_BIAS_INT_R_CTRL));
-+	if (ret < 0)
-+		goto end;
-+	dp_phy->ana_bias_r = ret;
-+
-+	ret = mtk_dp_phy_get_one_cal_para(dev, "impedance-txclk", FIELD_MAX(CKM_PT0_CKTX_IMPSEL));
-+	if (ret < 0)
-+		goto end;
-+	dp_phy->ana_cktx_imp = ret;
-+
-+	/* Get impedance params for each lane */
-+	for (i = 0; i < MTK_DP_PHY_MAX_LANES; i++) {
-+		/* P-MOSFET first */
-+		snprintf(mtk_dp_cal_lane_imp_name, ARRAY_SIZE(mtk_dp_cal_lane_imp_name),
-+			 "impedance-lane%dp", i);
-+		ret = mtk_dp_phy_get_one_cal_para(dev, mtk_dp_cal_lane_imp_name,
-+						  FIELD_MAX(XTP_LN_TX_IMPSEL_PMOS));
-+		if (ret < 0)
-+			goto end;
-+		dp_phy->ana_impsel[i].pmos = ret;
-+
-+		/* ...and then N-MOSFET too */
-+		snprintf(mtk_dp_cal_lane_imp_name, ARRAY_SIZE(mtk_dp_cal_lane_imp_name),
-+			 "impedance-lane%dn", i);
-+		ret = mtk_dp_phy_get_one_cal_para(dev, mtk_dp_cal_lane_imp_name,
-+						  FIELD_MAX(XTP_LN_TX_IMPSEL_NMOS));
-+		if (ret < 0)
-+			goto end;
-+		dp_phy->ana_impsel[i].nmos = ret;
-+	}
-+end:
-+	if (ret < 0) {
-+		/*
-+		 * If any of the calibration values is missing, or if there
-+		 * is no calibration at all in the eFuses, copy the default
-+		 * one entirely (as partial values shall not be mixed!)
-+		 */
-+		if (ret == -ENOENT) {
-+			dev_info(dev, "Using calibration default values\n");
-+			mtk_dp_phy_get_default_cal_data(dp_phy);
-+			return 0;
-+		}
-+		return ret;
-+	};
-+
-+	return 0;
-+}
-+
- static void mtk_dp_phy_legacy_remove_lookup(void *data)
- {
- 	struct phy *phy = data;
-@@ -453,6 +677,13 @@ static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct mtk_dp_p
- 				     "Failed to create DP PHY\n");
- 
- 	phy_set_drvdata(phy, dp_phy);
-+
-+	/*
-+	 * Set default calibration data before exposing the PHY.
-+	 * For legacy probe, mtk_dp will set calibrations from eFuse, if found.
-+	 */
-+	mtk_dp_phy_get_default_cal_data(dp_phy);
-+
- 	ret = phy_create_lookup(phy, "dp", dev_name(dev));
- 	if (ret)
- 		return ret;
-@@ -504,6 +735,15 @@ static int mtk_dp_phy_probe(struct platform_device *pdev)
- 
- 	dp_phy->pdata = device_get_match_data(dev);
- 
-+	if (IS_REACHABLE(CONFIG_NVMEM)) {
-+		ret = mtk_dp_phy_get_calibration_data(dp_phy);
-+		if (ret)
-+			return ret;
-+	} else {
-+		/* Use default calibration data */
-+		mtk_dp_phy_get_default_cal_data(dp_phy);
-+	}
-+
- 	phy = devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
- 	if (IS_ERR(phy))
- 		return dev_err_probe(dev, PTR_ERR(phy),
-@@ -519,12 +759,31 @@ static int mtk_dp_phy_probe(struct platform_device *pdev)
- }
- 
- static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
--	.off_ana_glb = 0x0,
-+	.off_ana_glb = 0,
-+	.off_ana_lane = (const u16[]) { 0x100, 0x200, 0x300, 0x400 },
- 	.off_dig_glb = 0x1000,
- 	.off_dig_lane = (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
- 	.regs_ana_glb = mt8195_phy_ana_glb_regs,
++static const struct mtk_dp_phy_pdata mt8196_edp_phy_data = {
++	.off_ana_glb = 0x400,
++	.off_ana_lane = (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
++	.off_dig_glb = 0x1400,
++	.off_dig_lane = (const u16[]) { 0x1000, 0x1100, 0x1200, 0x1300 },
++	.regs_ana_glb = mt8195_phy_ana_glb_regs,
 +	.regs_ana_lane = mt8195_phy_ana_lane_regs,
- 	.regs_dig_glb = mt8195_phy_dig_glb_regs,
- 	.regs_dig_lane = mt8195_phy_dig_lane_regs,
++	.regs_dig_glb = mt8196_phy_dig_glb_regs,
++	.regs_dig_lane = mt8196_phy_dig_lane_regs,
++	.mask_dig_tx_ln = PHYD_TX_LN_EN_V2,
++	.val_dig_bitrate = mt8196_edp_phy_dig_bitrate_val,
 +	.ana_bias_r = 15,
 +	.ana_cktx_imp = 8,
 +	.ana_lanes_imp = {
@@ -533,16 +189,21 @@ index c87e9fa710a4..f59a415b401c 100644
 +		[0] = 0,
 +		[1] = 0,
 +		[2] = 0,
-+		[3] = MT8195_DRIVING_PARAM_3_DEFAULT,
-+		[4] = MT8195_DRIVING_PARAM_4_DEFAULT,
-+		[5] = MT8195_DRIVING_PARAM_5_DEFAULT,
-+		[6] = MT8195_DRIVING_PARAM_6_DEFAULT,
-+		[7] = MT8195_DRIVING_PARAM_7_DEFAULT,
-+		[8] = MT8195_DRIVING_PARAM_8_DEFAULT
++		[3] = MT8196_DRIVING_PARAM_3_DEFAULT,
++		[4] = MT8196_DRIVING_PARAM_4_DEFAULT,
++		[5] = MT8196_DRIVING_PARAM_5_DEFAULT,
++		[6] = MT8196_DRIVING_PARAM_6_DEFAULT,
++		[7] = MT8196_DRIVING_PARAM_7_DEFAULT,
++		[8] = MT8196_DRIVING_PARAM_8_DEFAULT
 +	},
- };
- 
++};
++
  static const struct of_device_id mtk_dp_phy_of_match[] = {
+ 	{ .compatible = "mediatek,mt8195-dp-phy", .data = &mt8195_dp_phy_data },
++	{ .compatible = "mediatek,mt8196-edp-phy", .data = &mt8196_edp_phy_data },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, mtk_dp_phy_of_match);
 -- 
 2.54.0
 
