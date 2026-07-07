@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6F5C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:12:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6F03C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A9A10ED76;
-	Tue,  7 Jul 2026 14:12:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECF210ED6E;
+	Tue,  7 Jul 2026 14:12:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cGBb9ons";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PEozfLmb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41FA510ED61
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:12:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 954B510ED61
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:12:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2A525418B6;
- Tue,  7 Jul 2026 14:12:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81461F00A3F;
- Tue,  7 Jul 2026 14:12:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7DA2B437E0;
+ Tue,  7 Jul 2026 14:12:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024481F00A3D;
+ Tue,  7 Jul 2026 14:12:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783433537;
- bh=gXo2I8WWUUzgL/fzewhPwv7C4pNjWmnVuQkBdkwQytA=;
+ s=k20260515; t=1783433541;
+ bh=jA9Ju4PIhu1ffgguky4STt6TzXMN7ues9/+gqUty3/0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cGBb9onsGAIZPitkRw5XzB8sdi9TzT0+mWgJ88+xKSfVaNXwiE0MVxJhjmyL7aFSR
- 60jEXj5mO7CSyk7oYCICfNtfvbRzrEJoOOi7p6hkCS5+kBSHK9ZhYF6WIQ6cZLcZXa
- d9I4iW9Zo1IViScC7COKbeB6iTQAOKIeC0gogTVm4zeXXbp/ot8iHgU+TRgDGWSkyf
- m2rU/FeDgdWcFSPfnT6nuZzqtAanQpVRKtoO3ZGZ5FcLUJKBkA+N+A+X9pXQ1G0zAK
- VHxJsNUyNq2/x68A6mOD9sHCTjXJipculoBeJoKOy1eLMkMiKtvRJr4KSIxTm69fA7
- LO7WUZcPL3DrQ==
+ b=PEozfLmbcNcu9IQcd+7U97REqOs0CUoZKiHeyGMuYGdHwII8G7PriyYvg0bD5wZ1d
+ a4zWQJw5K8fx+cMWk+zfoxjtE6dfa4Xeny0vRi5DOotxtsTd16zFJ2H7YLpwQpDST7
+ 8vDAPtwDm7H5Ed0TrssWGZf5PCgpHlkCbVqKIRh+U6Z5sTvRupupvh8IWcf7T4+/80
+ 2smlsH/8woTT/s1dcNe4R+3quoqmOU66NN+ufgVUCz489buY6QqtLzK4Mo0MnDwcKv
+ YpsNP6yjEhxsBG+aB4a099ybTyqnr9UBhlPfQj6rXboHmd4H1Hpj53SNG9on9d/5jE
+ 1TRnVU6RTjygQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/9] agp/via: don't rely on address of pci_device_id
+Subject: Re: [PATCH v3 9/9] pci: fix UAF when probe runs concurrent to dyn
+ ID removal
 To: "Gary Guo" <gary@garyguo.net>
-Cc: linux-scsi@vger.kernel.org, linux-pci@vger.kernel.org, cassel@kernel.org,
- dri-devel@lists.freedesktop.org, dlemoal@kernel.org, linux-ide@vger.kernel.org
-In-Reply-To: <20260706-pci_id_fix-v3-5-2d48fc025acc@garyguo.net>
+Cc: linux-scsi@vger.kernel.org, cassel@kernel.org, linux-ide@vger.kernel.org,
+ dlemoal@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260706-pci_id_fix-v3-9-2d48fc025acc@garyguo.net>
 References: <20260706-pci_id_fix-v3-0-2d48fc025acc@garyguo.net>
- <20260706-pci_id_fix-v3-5-2d48fc025acc@garyguo.net>
+ <20260706-pci_id_fix-v3-9-2d48fc025acc@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 14:12:16 +0000
-Message-Id: <20260707141216.A81461F00A3F@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 14:12:20 +0000
+Message-Id: <20260707141221.024481F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,62 +59,20 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] When a device binds via `driver_override`, the PCI core passes a ge=
-neric `pci_device_id_any` struct with `driver_data` set to 0. Passing this =
-NULL pointer to the `%s` format specifier results in an unhandled `(null)` =
-log output.
---
+> Dynamic IDs are only guaranteed to be valid when dynids.lock is held,
+> as remove_id_store can free the node. Thus, make a copy in
+> pci_match_device. Also, clarify that the id parameter is only valid during
+> probe.
+>=20
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/20260619170503.518F61F00A3A@smtp.kernel=
+.org/
+> Fixes: 0994375e9614 ("PCI: add remove_id sysfs entry")
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-commit cefd4bbcd02b1f8d8a6df6f9aa562b23cee64272
-Author: Gary Guo <gary@garyguo.net>
-
-agp/via: don't rely on address of pci_device_id
-   =20
-Address of pci_device_id cannot be relied on due to presence of dynamic ID
-and driver_override. Use driver_data instead.
-
-> diff --git a/drivers/char/agp/via-agp.c b/drivers/char/agp/via-agp.c
-> index 8b19a5d1a09b4..ab3b73dd080af 100644
-> --- a/drivers/char/agp/via-agp.c
-> +++ b/drivers/char/agp/via-agp.c
-[ ... ]
-> @@ -437,17 +239,14 @@ static void check_via_agp3 (struct agp_bridge_data =
-*bridge)
-> =20
->  static int agp_via_probe(struct pci_dev *pdev, const struct pci_device_i=
-d *ent)
->  {
-> -	struct agp_device_ids *devs =3D via_agp_device_ids;
->  	struct agp_bridge_data *bridge;
-> -	int j =3D 0;
->  	u8 cap_ptr;
-> =20
->  	cap_ptr =3D pci_find_capability(pdev, PCI_CAP_ID_AGP);
->  	if (!cap_ptr)
->  		return -ENODEV;
-> =20
-> -	j =3D ent - agp_via_pci_table;
-> -	printk (KERN_INFO PFX "Detected VIA %s chipset\n", devs[j].chipset_name=
-);
-> +	dev_info(&pdev->dev, "Detected VIA %s chipset\n", (const char *)ent->dr=
-iver_data);
-
-[Severity: Low]
-Could this result in printing a (null) value to the kernel log?
-
-If an administrator forces binding of the driver to a device using the sysfs
-driver_override feature, the PCI core passes a generic pci_device_id_any st=
-ruct
-with driver_data set to 0.
-
-Passing this NULL pointer to the %s format specifier in dev_info() would
-print (null) in the kernel logs instead of a valid string. Is it possible
-to check ent->driver_data for NULL before attempting to print it, or fall b=
-ack
-to a default string?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-pci_id_fix=
--v3-0-2d48fc025acc@garyguo.net?part=3D5
+-v3-0-2d48fc025acc@garyguo.net?part=3D9
+
