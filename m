@@ -4,44 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D48A5C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3914BC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB3110ED78;
-	Tue,  7 Jul 2026 14:12:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9320210ED6B;
+	Tue,  7 Jul 2026 14:13:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZLyco0oJ";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gSQ5B7Oq";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F8C10ED6B
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:12:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4559210ED6B;
+ Tue,  7 Jul 2026 14:13:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B46960018;
- Tue,  7 Jul 2026 14:12:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3351F00A3A;
- Tue,  7 Jul 2026 14:12:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783433567;
- bh=C8z4TkRdiQXYLPL88m6Ex7t8du1pcozUfYQ+YyBPPW4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZLyco0oJ71xyyL/PvSSdVYCXuEO/fpxgamdCCfMeAAA03KakvFnpzwzP265VDz5bk
- l0ufmNVRnTTN1oHkS1/FR+aQRRJZpd/Rmj7A5+CXmoXrWvgYNCUCzZ2JXaxiibH6aF
- zUa8iC6T8KaDWVZEnDdEAvtEILDRFdpE8nXr9/bIrMt9fart82J6Gm5CeAH78pyv+m
- 22/aSl/RTLu3YOQC7EpfawF7gaqMEQSyNI3Y0x9hYdDML1OlOWONhJqRGZpTTkorK0
- 5hQaFzj+GVEjbc4Td5LwsW7AFiGurZz0GCukrDRMmDf2BZUYtYgif/X1YcMJPTKD6o
- 8uBSqADqHAwQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/10] vga_switcheroo: Add pre_switch callback to client
- ops
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707135724.247562-4-tzimmermann@suse.de>
-References: <20260707135724.247562-1-tzimmermann@suse.de>
- <20260707135724.247562-4-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 14:12:47 +0000
-Message-Id: <20260707141247.8C3351F00A3A@smtp.kernel.org>
+ by tor.source.kernel.org (Postfix) with ESMTP id 9979160018;
+ Tue,  7 Jul 2026 14:13:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF3A1F000E9;
+ Tue,  7 Jul 2026 14:13:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1783433613;
+ bh=J6C38rx2JSkSOtyq1WfERheiOFWJxUZh4/ZR3hoXaXQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=gSQ5B7OqnVqZLWVPb5DlcrhsSpGOvZMYQRK0Sj3GKQ1/I7OYmxldyA9xHBWd5psgY
+ 9oqRVS5TdBV0QfGs9x2xv5W3eWNMNvxRP4aw5oehefFb8zPx7Z3dj/8BAUSHydMYsd
+ m98vLvVICr5Fh9XtS1tSZdc0pWgSB6LGxAkkG40w=
+Date: Tue, 7 Jul 2026 16:13:30 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <bqe@google.com>,
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 3/4] rust: id_pool: add contiguous area allocation
+Message-ID: <2026070745-unwired-maybe-769e@gregkh>
+References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
+ <20260703-chid-v1-3-84fe8259e46e@nvidia.com>
+ <2026070334-dollar-hexagram-e49c@gregkh>
+ <DJSDFHOADWYL.V4WC2TI9UWYF@nvidia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DJSDFHOADWYL.V4WC2TI9UWYF@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,97 +69,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue, Jul 07, 2026 at 10:25:27PM +0900, Eliot Courtney wrote:
+> On Fri Jul 3, 2026 at 7:31 PM JST, Greg KH wrote:
+> > On Fri, Jul 03, 2026 at 07:16:06PM +0900, Eliot Courtney wrote:
+> >> Add support for contiguous area allocation. Add a new type,
+> >> `UnusedArea`, following the same pattern as `UnusedId`.
+> >> 
+> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> >
+> > Why isn't the built-in idr library being used here instead of rolling
+> > your own data structure?
+> >
+> > thanks,
+> >
+> > greg k-h
+> 
+> For nova-core in this series, we need allocation of a contiguous
+> sequence of IDs with a specific length and sometimes a specific
+> alignment. IIUC, IDA/xarray do not support that (I checked
+> ida_alloc_range and it only allocates a single ID in a range, not a
+> contiguous sequence).
+> 
+> For IdPool before this series, I think it could have used IDA/xarray.
+> See [1] where Alice has posted some more context.
+> 
+> w.r.t. the structure choice, the IDs we need to allocate are channel
+> IDs, and the total range is limited to 2048 of them, so IMO bitmaps are
+> a better fit than e.g. maple tree.
 
-New issues:
-- [Low] Duplicate and conflicting kernel-doc entry for `@gpu_bound` instead=
- of `@pre_switch`.
+But again, you are having to "roll your own" logic here, please reuse
+the data structures we already have in the kernel for this type of
+thing.  If a maple tree works, please use it.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but if the hardware =
-mux switch fails, the active client is permanently marked as inactive, brea=
-king the vga_switcheroo state machine.
---
+thanks,
 
---- Patch [3]: [PATCH 03/10] vga_switcheroo: Add pre_switch callback to cli=
-ent ops ---
-commit 5537cd5fab2c2375821fd4433e71171511ada8ff
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-
-vga_switcheroo: Add pre_switch callback to client ops
-
-This commit adds a pre_switch callback to vga_switcheroo_client_ops to
-inform clients about upcoming output switches, replacing the hard-coded
-fb_switch_outputs() call.
-
-> diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/vga_switc=
-heroo.c
-> index 22cf52b78b755..bdf1e56ae8910 100644
-> --- a/drivers/gpu/vga/vga_switcheroo.c
-> +++ b/drivers/gpu/vga/vga_switcheroo.c
-> @@ -733,8 +733,10 @@ static int vga_switchto_stage2(struct vga_switcheroo=
-_client *new_client)
->  	if (!active->driver_power_control)
->  		set_audio_state(active->id, VGA_SWITCHEROO_OFF);
-> =20
-> +	if (new_client->ops->pre_switch)
-> +		new_client->ops->pre_switch(new_client->pdev);
->  #if defined(CONFIG_FB)
-> -	if (new_client->fb_info)
-> +	else if (new_client->fb_info)
->  		fb_switch_outputs(new_client->fb_info);
->  #endif
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but does vga_switchto_stage2() leave the
-state machine corrupted if the hardware mux switch fails?
-
-Earlier in vga_switchto_stage2(), the active client is marked as inactive:
-
-	active->active =3D false;
-
-If the handler's switchto() callback fails shortly after this patch's
-hunk:
-
-	ret =3D vgasr_priv.handler->switchto(new_client->id);
-	mutex_unlock(&vgasr_priv.mux_hw_lock);
-	if (ret)
-		return ret;
-
-Will returning early here leave the original active client permanently
-marked as inactive? Since find_active_client() relies on this flag, it
-appears subsequent switch commands would silently abort because they
-can no longer find an active client. Should the active flag be restored
-in this error path?
-
-> diff --git a/include/linux/vga_switcheroo.h b/include/linux/vga_switchero=
-o.h
-> index 7e6ac0114d556..d2ce30d8b6f78 100644
-> --- a/include/linux/vga_switcheroo.h
-> +++ b/include/linux/vga_switcheroo.h
-> @@ -127,23 +127,29 @@ struct vga_switcheroo_handler {
->   * @set_gpu_state: do the equivalent of suspend/resume for the card.
->   * 	Mandatory. This should not cut power to the discrete GPU,
->   * 	which is the job of the handler
-> + * @gpu_bound: Optional. Called before switching the outputs to the devi=
-ce.
-
-[Severity: Low]
-This isn't a bug, but should this be named @pre_switch instead of
-@gpu_bound?=20
-
-It looks like @gpu_bound is already defined further down in this struct's
-documentation, and this new description matches the purpose of the new
-pre_switch callback.
-
->   * @reprobe: poll outputs.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707135724.2475=
-62-1-tzimmermann@suse.de?part=3D3
+greg k-h
