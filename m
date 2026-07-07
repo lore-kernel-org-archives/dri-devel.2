@@ -4,140 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6EA4C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 20:02:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E9DAC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 20:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2365810E1A6;
-	Tue,  7 Jul 2026 20:02:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B92DC10E29A;
+	Tue,  7 Jul 2026 20:08:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="G1lbQnNV";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UUSjl7YA";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020127.outbound.protection.outlook.com [52.101.196.127])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C65910E1A6
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 20:02:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M+4jPjXk6rSnBvI5sBdvGVbwHFNnXp4RQ4Fq5Imhxhv0h5qL4v3bMnCPbPbizIAz9SnpCheROIXHsGDEbjCXVe7hJ2cUsIwIxTFHphYZeDHLH1dzCOrAN/eYalOB1wwuCyxCWX+qTVxu+e7oHxjNDnZiYgTt27pp8vUvyM1GdyFwP9hhkERsIVth3+66l1pajfLfr991ymvg/5sVMEdPDRjPnr6UtQDnx0p5pDTgDwQ69YQohxihsSH06Fcn8iVN4AZy2i6ChNX8kg0fKAZza0KgMH+JVKTisrJwZl5mL+dkIKsrvln6tqiyUux4WFWs50oqsEovnVaFxptaXgP47Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cCSNlYfeohOKK/6J0luGKxD3NCmfDLHfP7PolBYFyj8=;
- b=WF1SDu1iv2Dw6fhbBe4S7SIe9RoPmxojv4y+jfZ47yqNT0pBidHH870sK32KetaUs4atubBfS6abvAcihdNRVu/QMUqSZdo9oRDCvhlnnkDl3ErQcfBNIQG5dfOQm6Q4T1qcKaT4d/jcp+qKCBRUbrI9RUSBLAXEk9idHb4aN0emM/nzIDx1vWaFnICNcgMFrPHOxQp3NqNGj9QCnSLhqzVmrYdjqryDPrd+gM8/QU1fHr3kBbKZEhMzvcy+B0erqYDAAlxIdyJ53n44WZs/hYf16CzqCjXWoaDJ0W63ANG5spWOEtGSPEyfRls3frfe/E5kz7xkW6rGc7sU0iAHgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cCSNlYfeohOKK/6J0luGKxD3NCmfDLHfP7PolBYFyj8=;
- b=G1lbQnNV+UGnPxmYhZUc8NQOYY1kTxiZFjuF5VlZI4ExJ62eTgWGdlBp46c1AjKDbHdHEM/NcKDrcLUtYzfG6gfFkffv7GOjcEfXJyCr9MivmH84SxERzytOI150sru69i0wYU1dDm4E+8G1Gm/jVM5GmDsM9YhYHtvdcWj/BSo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO8P265MB7871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a8::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 20:02:28 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
- 20:02:28 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 07 Jul 2026 21:02:27 +0100
-Message-Id: <DJSLVGBW90CT.3W3FHC3J5NPMG@garyguo.net>
-Subject: Re: [PATCH v6 01/20] rust: io: add dynamically-sized `Region` type
-From: "Gary Guo" <gary@garyguo.net>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-pwm@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-1-72cd5d055d54@garyguo.net>
- <9AC77170-279D-4C0A-89F7-8D07F418AADF@collabora.com>
-In-Reply-To: <9AC77170-279D-4C0A-89F7-8D07F418AADF@collabora.com>
-X-ClientProxiedBy: LO2P265CA0494.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13a::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19BB110E29A
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 20:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=fjrFh7LPxqIVsPzhhkZi9bSCfDkNO5Nv+dwFa29Cj2U=; b=UUSjl7YAL7FMGSJRk/9RK4zl9r
+ Ed5Nbrsnu0ROY30yz+9pPFVN6pyaADVEsA7sO9CCW/qLKcnNltzFRSRk+dgM5N6bjCDSmcrhwcGdD
+ LTVYa8eTLl0IU80Nxu679uFuxAohNw+HGD4c3pCCWLGt+gVwT60XiGaLIiX8cYOisXV2dexl9EsaR
+ HOxOZMbYN+Gu472DeqgUkkjSFz3n0lZQ1g/f7yS8dNuxmCaPvvBuRqwK26QZgSqhLQoCm0Vr0WEJm
+ MAlHG4vumCYqyNpqf57pPsL/zltD8xEEhFvt0yQneJzD1JAxBe1oUN2MnYIX1dxD/JdqQf4ro/H0z
+ I5NyD1Dg==;
+Received: from [189.7.87.67] (helo=prince) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1whC5J-00B2R1-Ic; Tue, 07 Jul 2026 22:08:02 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>, stable@vger.kernel.org
+Subject: [PATCH] drm/v3d: Widen cache_clean_lock over the whole L2TCACTL
+ sequence
+Date: Tue,  7 Jul 2026 17:05:48 -0300
+Message-ID: <20260707200738.659002-2-mcanal@igalia.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7871:EE_
-X-MS-Office365-Filtering-Correlation-Id: 964527ab-e269-4429-199f-08dedc62abbb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|10070799003|1800799024|366016|376014|4143699003|3023799007|18002099003|6133799003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: RRVgLtZc6wFtJRfabuGOQ7KDg8ROpkf7RDU34e5z1Ud8lEvPCbcmTijr9ELHGwFTqALPH92lBiO+N/8Tzxio6OrJrEdnT3RBM4mcSm59epTpCKBvdY+7OYk7ihpBCVUwu4D0zCQahL2x2Uk+6rf/OWMeUaLFnSfA45Tv1xAZO6uLcJjWRpfodEQJi2GlRclyu8r8YCmS8UeOFijZeNmnuhZD5M/+ugj2V2uSx9kYB8vaneNHtOWqY5rt+pWNUNCeuLPROjT3bvQV2YhFkMJIkGwYqUyA0xXdUAybvmmJ5u9r9eyt4xZZgJW/Dx1OdnoWRCHDggSbWKCdI5aHhQ/CwoPHYuWp7L6/b/qBaGRGK1AZmt1G6anVoCDqLLIo2p1nCHkItrJWC70g/cUJFWTSBzujSCu4m+oghdQXMZcgtJwHrsLmr/z2IiBmR2XtsydzATR4I+hNAq3jhZgIP/HF9r9FLSj4tHjnvJAvisOuk+/wNsZa/EgNp2XmLtpqwoxWsuAv9N6JzUGs6VaXnMwE18nGjL7R6YOptw1uXQskbUo6vczv+qNHuGrJGNf0HtXJEgEuYU9fsWXa2AGgHbEQ83u6Nh3IKD3qCdYMm65N/Z0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(10070799003)(1800799024)(366016)(376014)(4143699003)(3023799007)(18002099003)(6133799003)(56012099006)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tm9oUjY3bStxK1F0RzBSbkZVYTUwS1I5NFQ1OU9GeEQvNmRhWFVkc25tY3RM?=
- =?utf-8?B?ZkcxVzJQWUlKUWtJSk5jTUtrSFdVWXhHdklHL01RaHJRb1EzL0VFSCtHVEdC?=
- =?utf-8?B?dHpFQWVQeWlkUjdvOG9aVkZ3VUpTMFR5TVF3TmVmMWZ0MkZKOGNNQjdsNWlw?=
- =?utf-8?B?R2o3SDZqVjlFaEFzRERvWVpoNGxEdjZzR25nQWwwQ1dSYUJmVkdsOFFtd1VL?=
- =?utf-8?B?c3Uyc1NMZkQ5cHVtV29JNmRqTGtwNFZ3bnA5WDlUcXo0NW96cXgwUHhsR01N?=
- =?utf-8?B?WFVyNE1nVTRaS01aTnlidkpGeEg2SVRjT3RNRWdzcjVIMTArSXJUSjBQVmRy?=
- =?utf-8?B?WE1MZHhjNkVLbXhBOWVMeFk0b1dpbzZ4Q1JGVk8vR3VFZ2ovVDgvbndnK0xF?=
- =?utf-8?B?dVVjK3lQMmhwN1A1TzNyTGx4VE9WQUVNYVdDYmlPWFdCVkVsR3hKRkNwaVJQ?=
- =?utf-8?B?QU1VMitoZFJaRUR4K3R5UHJTMGtSS3ArZnRWd21JSExuY3Z4cnpudTZLZk1Z?=
- =?utf-8?B?aXdibklVcEhmalhaM0Z2dlkrTU1CTFgyaTN4TitLcUpFVzcvaWZ5VS9JeEUz?=
- =?utf-8?B?Zm9LVzlGZGtwdURpRDBTZXJjQkVBRCtKUEhFZUxTb3ZuTTlFdjVkTHVlUjFD?=
- =?utf-8?B?eCtCUWo4TzAvajdWQ21qZHZLTDJvMWY5Y1V1ZnZ0bldsWWladzY2UWJySDFY?=
- =?utf-8?B?dWEweTdZdnJDY3lxTW1BODd2bFhlQ0RJWDlsMGFnYTNtcS9ESmM5dmR5ei84?=
- =?utf-8?B?azRKVk9uTUYrUUx3MENIN2pGZHo0VWExNUpEVVRQMzFzUmw3UVNIZkt5dGw1?=
- =?utf-8?B?cHZpRzFIeTA2TFk0SWNrTm1VTTRRMnJxeWZsWng1QVpvR2JjRVdMZlVIYUUx?=
- =?utf-8?B?eVVyZGNncjBqOWdYTXRLTE01cHdvVVJLQy9uZHRvY1FNbEZQOHB0WmtpdzhJ?=
- =?utf-8?B?UWIyc0lpUU16azJCckRiU2N5OGIySlNwQUlRdlFEQUdIRldaSFQxUGRxZjRx?=
- =?utf-8?B?ZkZJeEp4VHRnZGpqTHRQWVVNOGRxU3p1Y3BKSm8zMktZbTFnNVlESThhdll4?=
- =?utf-8?B?S1RUVW9QcGZKdDVzNnBEZ0VkaHpoVnpkRHRhaVJQRTlNRmV3Z095TVI5ZDht?=
- =?utf-8?B?cWtSektrUXY5WGswNU1OK2pYa2M0c2Y1cUxsUVJkcEI3RkE3NmJ4TDdvOE4v?=
- =?utf-8?B?aGl3bjRwOGhUeVBPa1k3VjFocWNNNEhidE9lYnQ1dHU5SnNnWFdkRjFYd2Fr?=
- =?utf-8?B?S3NCbENnV3RQOEczaDZYVDhHa3gzaG9TTitkMGI1YzhHL2ErWnlUTWREQ2hP?=
- =?utf-8?B?MlRZK0xOTFJQbDkxa2E2cVdWYTU2TUZvRGkrNDBLeUVpVmpUNXZuMWJYL3dT?=
- =?utf-8?B?Zy9jcFQ0OWY0NlJlVDkyVkJlcXpGTTE0WWZSNkVqeWNEOG4vK1VaTWIrTFpa?=
- =?utf-8?B?emlERHFvOTFyczJQR1pOejFMK1dnb0FLTW44b1dpYXFoUGZaTSthVnBpSDQ2?=
- =?utf-8?B?WFU4aktCdTI1NVBCRG9xbWtCRjV0QTBicTkzYnVQdmovdG5odGd6cy91Y3Ru?=
- =?utf-8?B?VDcyYnoyQzZpTHBxK0E0ZUk3R2VKdFVkc2dtUDFjVy95ZGl1R1hEZHpYNzRL?=
- =?utf-8?B?Z0ZucFJmWHZleDhCQkdMVTd0SDBYbC9HUGNHdHBLemtnSzMvYlRSK2VlYi93?=
- =?utf-8?B?VkVhKzh2S3RpbFdRK2NPbzhuVXFsaVkyTEN2OXdiZ2lOYTZZWlhvWXRBRlV0?=
- =?utf-8?B?N3ZYTEpJSnRvbGtTWGJQcEV0MnpLVmM1UHpZc2xqWmFMSk9XbUJ1ZTJOdDlB?=
- =?utf-8?B?R0lGNStuRlFFd0VLclBjOThlakpZb1VqODg1QVJwVnYrV1hONGFrVi90Szdi?=
- =?utf-8?B?a1R0dHBLMjc5RExXUHZLdXA1MEtuOWtSYW9jT29PUVo3bkRaQmlzUVRUUnRV?=
- =?utf-8?B?WVdXVjJhYUw3T1l4Q2RBc2JRMGcrNGswbGtHNmRhbStjQ25JSFh4b3V2c3hr?=
- =?utf-8?B?dnczVTUwZTdTZEZlM3hJSzZMa3gra0puSXYyakN0YkJ4NlJRQUlUeURzRUlD?=
- =?utf-8?B?Y1ZBa0NmSFU2T0xKb3lLNHlBQVVYazNOejVHVDhxU0NIQnlxV0kyaXpHTjJh?=
- =?utf-8?B?VmZYNXRJeVZZK1lpQ2I1RitBM2hLWVU5Q21IRnFkdVJ0Y21COWxQR0tVZWdT?=
- =?utf-8?B?dGRNaWxpNmFNSXpiSXF1NlBrQUg2UWo3bHkzUDVCb1JJOWZkUnREZG5scGtp?=
- =?utf-8?B?THdXMDh3dEh5bGU3a0sxRGNRblZKWmdjemprZFN2L0ZPRlpmWS9EaGlXcjF2?=
- =?utf-8?B?V0hSVGg4SFVMNVJwa3NiUWhQV3dBZEJ4cHViMzBhOTRDT1dOTEUvQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 964527ab-e269-4429-199f-08dedc62abbb
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 20:02:28.0060 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kJj+5zxcwk1DulXAwjxjP8DWnQYa8j3jhCXt2R6Ec/DCFNSDbafxMJKLcKVfy+AXNmPdaR4k55FPgojiNglJjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7871
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,61 +59,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jul 7, 2026 at 6:14 PM BST, Daniel Almeida wrote:
-> Hi Gary,
->
-> A bit late to the party here, but going through this series one by one :)
->
->> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->>=20
->> Currently many I/O related structs carry a `SIZE` parameter to denote th=
-e
->> minimum size of the I/O region, while they also carry a field indicating
->> the actual size. Proliferation of the pattern creates a lot of duplicate=
-d
->> code, and makes it hard to create typed views of I/O.
->>=20
->> Introduce a `Region` type that carries the `SIZE` parameter. It is a
->> wrapper of `[u8]`, which makes it dynamically sized with a metadata of
->> `usize`. This way, pointers to `Region` naturally carry size information=
-.
->> This type is required to be 4-byte aligned.
->
-> Why 4, specifically? i.e.: I wonder if this breaks u64 mmio accessors?
+v3d_clean_caches() and v3d_flush_l2t() both write the single L2TCACTL
+register and poll its status bits. The mutex cache_clean_lock exists to
+serialize them, but v3d_clean_caches() only took the lock around its final
+FLM_CLEAN write.
 
-It does, but if the alignment is 8 then it breaks a lot of platform devices=
-. 4
-is the most common alignment needed so it is chosen. Different base types c=
-an be
-added subsequently when needs arise.
+These functions run concurrently: v3d_flush_l2t() is issued from the
+BIN/RENDER/CSD invalidate path while v3d_clean_caches() runs from the
+CACHE_CLEAN queue, and each queue's scheduler uses its own ordered
+workqueue, so their run_job callbacks execute in parallel.
 
-There's some additional discussions here:
-https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/G=
-eneric.20I.2FO.20backends/with/601411822
-and in earlier versions.
+Because clean locked only its final write, a concurrent flush can write
+L2TCACTL during clean's unlocked phase. Both use non read-modify-write
+writes to the one register, so whichever lands last wins: clean's TMUWCF
+write can land on the flush's in-flight L2TFLS invalidate, triggering the
+GFXH-1897 hazard of writing L2TCACTL while a flush is pending.
 
-Best,
-Gary
+Hold cache_clean_lock across the entire L2TCACTL access sequence so it
+is fully mutually exclusive with v3d_flush_l2t(), which already takes the
+lock around its own write.
 
->>=20
->> Expose the minimum size information via `MIN_SIZE` constant of the
->> `KnownSize` trait. Similarly, expose the minimum alignment information v=
-ia
->> `KnownSize::MIN_ALIGN`.
->>=20
->> With these changes, it is possible to add an associated type to `Io` tra=
-it
->> to represent the type of I/O region. For untyped regions, this is the ne=
-wly
->> added `Region` type. Remove `IoKnownSize` as it is no longer necessary. =
-Use
->> the same mechanism to indicate minimum size of PCI config spaces.
->>=20
->> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->
-> If MIN_ALIGN =3D 4 is actually intentional:
->
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: stable@vger.kernel.org
+Fixes: abf888b03a98 ("drm/v3d: Wait for pending L2T flush before cleaning caches")
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/v3d/v3d_gem.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+index c43d9af41374..e597b6fd47c4 100644
+--- a/drivers/gpu/drm/v3d/v3d_gem.c
++++ b/drivers/gpu/drm/v3d/v3d_gem.c
+@@ -204,6 +204,8 @@ v3d_clean_caches(struct v3d_dev *v3d)
+ 	struct drm_device *dev = &v3d->drm;
+ 	int core = 0;
+ 
++	guard(mutex)(&v3d->cache_clean_lock);
++
+ 	trace_v3d_cache_clean_begin(dev);
+ 
+ 	/* GFXH-1897: Ensure pending flushes complete before writing L2TCACTL */
+@@ -220,7 +222,6 @@ v3d_clean_caches(struct v3d_dev *v3d)
+ 		drm_err(dev, "Timeout waiting for TMU write combiner flush\n");
+ 	}
+ 
+-	mutex_lock(&v3d->cache_clean_lock);
+ 	V3D_CORE_WRITE(core, V3D_CTL_L2TCACTL,
+ 		       V3D_L2TCACTL_L2TFLS |
+ 		       V3D_SET_FIELD(V3D_L2TCACTL_FLM_CLEAN, V3D_L2TCACTL_FLM));
+@@ -230,8 +231,6 @@ v3d_clean_caches(struct v3d_dev *v3d)
+ 		drm_err(dev, "Timeout waiting for L2T clean\n");
+ 	}
+ 
+-	mutex_unlock(&v3d->cache_clean_lock);
+-
+ 	trace_v3d_cache_clean_end(dev);
+ }
+ 
+-- 
+2.54.0
 
