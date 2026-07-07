@@ -4,56 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 403C7C44507
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5531DC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA11E10F42B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6291110F424;
 	Thu,  9 Jul 2026 07:26:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=auditcode.ai header.i=security@auditcode.ai header.b="kOdI55fx";
-	dkim-atps=neutral
-X-Greylist: delayed 906 seconds by postgrey-1.36 at gabe;
- Wed, 08 Jul 2026 22:54:05 UTC
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D62B10F320
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:54:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783550334; cv=none; d=zohomail.eu; s=zohoarc; 
- b=Xpp7dn8rogtUf3NY3U8CqN6MNf/irzgh1unRn+KuBK1BQ3gzED/U5CgXyQIe/LVWjs1Nh4qeQa7Y678nArcMjVhE2mJbdAgS43S6rddXRxneMgqnJJ11rnkDwaQjum5EjoO8L3TztE3Gq+9wx0RLIjC068oe7jhp5vpT1KMD3Fw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1783550334;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=KD+78gqKitQWJexdyygyJauU64BB4Fr2VXjIRjjGnW8=; 
- b=f/Diar+WoSKuiW4XrjC4tYE97V8+3g6+PJKbjGvtxjWoqRBCx58Qlne7UKVPn0VGICSUhZUuJKJ4QW7Y+n9X232aATT1ZiPZvdogNrobVnD2FIqdLJhyd9OP5MsiO2tCFH3Qk1u79t9xoqhinHJaYjjGkLz9/A++QtMwID40+bc=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
- dkim=pass  header.i=auditcode.ai;
- spf=pass  smtp.mailfrom=security@auditcode.ai;
- dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783550334; 
- s=zmail; d=auditcode.ai; i=security@auditcode.ai;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=KD+78gqKitQWJexdyygyJauU64BB4Fr2VXjIRjjGnW8=;
- b=kOdI55fx6lR8T1hz5wNJyOjjXF+3jT5uxsxHzvVjnUR0iLZupf/hfmeYF9dFi5r5
- xC8BMM0JL+XFDqNNbW7ADmei7R65k6H7u5j9fU7hJWNXHLPuNXnyienVeD0MxgL4cUH
- 5TcXqHiOge45t+Az5myKv7kZA4qAGma55LPTMIyo=
-Received: by mx.zoho.eu with SMTPS id 1783550330792672.1750921891683;
- Thu, 9 Jul 2026 00:38:50 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/vkms: fix vertical stride miscalculation in
- get_block_step_bytes()
-Date: Thu,  9 Jul 2026 00:38:40 +0200
-Message-ID: <20260708223840.973-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A002C10EB29
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 02:35:51 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-b0-6a4c66049ff9
+Date: Tue, 7 Jul 2026 11:35:42 +0900
+From: Byungchul Park <byungchul@sk.com>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: linux-kernel@vger.kernel.org, max.byungchul.park@gmail.com,
+ kernel_team@skhynix.com, torvalds@linux-foundation.org,
+ damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
+ adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
+ mingo@redhat.com, peterz@infradead.org, will@kernel.org,
+ tglx@linutronix.de, rostedt@goodmis.org, joel@joelfernandes.org,
+ sashal@kernel.org, daniel.vetter@ffwll.ch, duyuyang@gmail.com,
+ johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
+ david@fromorbit.com, amir73il@gmail.com, gregkh@linuxfoundation.org,
+ kernel-team@lge.com, linux-mm@kvack.org, akpm@linux-foundation.org,
+ mhocko@kernel.org, minchan@kernel.org, hannes@cmpxchg.org,
+ vdavydov.dev@gmail.com, sj@kernel.org, jglisse@redhat.com,
+ dennis@kernel.org, cl@linux.com, penberg@kernel.org,
+ rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
+ linux-block@vger.kernel.org, josef@toxicpanda.com,
+ linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
+ dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
+ dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
+ melissa.srw@gmail.com, hamohammed.sa@gmail.com,
+ harry.yoo@oracle.com, chris.p.wilson@intel.com,
+ gwan-gyeong.mun@intel.com, boqun.feng@gmail.com, longman@redhat.com,
+ yunseong.kim@ericsson.com, ysk@kzalloc.com, yeoreum.yun@arm.com,
+ netdev@vger.kernel.org, matthew.brost@intel.com,
+ her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
+ bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+ sumit.semwal@linaro.org, gustavo@padovan.org,
+ christian.koenig@amd.com, andi.shyti@kernel.org, arnd@arndb.de,
+ lorenzo.stoakes@oracle.com, Liam.Howlett@oracle.com,
+ rppt@kernel.org, surenb@google.com, mcgrof@kernel.org,
+ petr.pavlu@suse.com, da.gomez@kernel.org, samitolvanen@google.com,
+ paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
+ joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com,
+ mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+ qiang.zhang@linux.dev, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ chuck.lever@oracle.com, neil@brown.name, okorniev@redhat.com,
+ Dai.Ngo@oracle.com, tom@talpey.com, trondmy@kernel.org,
+ anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
+ kristina.martsenko@arm.com, wangkefeng.wang@huawei.com,
+ broonie@kernel.org, kevin.brodsky@arm.com, dwmw@amazon.co.uk,
+ shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
+ yuzhao@google.com, baolin.wang@linux.alibaba.com,
+ usamaarif642@gmail.com, joel.granados@kernel.org,
+ richard.weiyang@gmail.com, geert+renesas@glider.be,
+ tim.c.chen@linux.intel.com, linux@treblig.org,
+ alexander.shishkin@linux.intel.com, lillian@star-ark.net,
+ chenhuacai@kernel.org, francesco@valla.it,
+ guoweikang.kernel@gmail.com, link@vivo.com, jpoimboe@kernel.org,
+ masahiroy@kernel.org, brauner@kernel.org,
+ thomas.weissschuh@linutronix.de, oleg@redhat.com, mjguzik@gmail.com,
+ andrii@kernel.org, wangfushuai@baidu.com, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
+ rcu@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, 2407018371@qq.com, dakr@kernel.org,
+ miguel.ojeda.sandonis@gmail.com, neilb@ownmail.net,
+ bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
+ dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
+ alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v19 22/40] dept: track PG_locked with dept
+Message-ID: <20260707023542.GA33746@system.software.com>
+References: <20260706061928.66713-1-byungchul@sk.com>
+ <20260706061928.66713-23-byungchul@sk.com>
+ <akvueAxPl8aoLvMR@casper.infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akvueAxPl8aoLvMR@casper.infradead.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0yTZxTH87zv815o2u218/IMNp0dY4ZsbCgfjstG/LDIu8wtGvdpJtMK
+ VYoFTSsoy4ySbV3XsI6hE2mJtl4AS0VpRRkDBwhIxzWTdEW5yEWxWaGx0g7l4lqNmd9++Z9/
+ fud8ODwtt7GxvDpnv0qbo9QoWAmWTElPv4t3bcp63/hoHRi+PwyhGQOGsosOFhYsVznoq65C
+ MBIyIHjS2I7AcbmAghJfAYZAeSECX1sa/B32I5ho+gHBwvE9MNfdS4NtdIiGoO8Ogv5QgIXO
+ otMUHK9ZAZaSbynoOjOIYazSzEF71SQH1VO9DIzc0DNgqA9hcI57GLDpz2IoPTnIQkOjG0N7
+ 3RgFw44nDPxV1Yfh4qSXgs72Dgxu83kMt7t/5qC3/gIDo3e8DLi6u2gIm+Lg6PQ9BAMlfg7K
+ Q4HIMutyOH+qAkHxvSAH/QO/IzhXOcXA9ZCfgj+HHnLweKiOAU/xKRYeV7Qh+HXewIKlwITA
+ 0BqmYW62jAVTTxrMXhpnYKbKzsJ00QwDlrZhbsMG0XHSgcTvXAfEc51+VmwMW7H4m3mIE63O
+ XNFVmSieafBRotP+Iys6g8WcaJu7T4uDngZWnO7p4cSOE3OR/uh6caK/hNr8xpeSDzNUGnWe
+ Svte6g5J5oMLd+l9luSDLnsjdwQ9TDCiGJ4IKaSjuZZ5zqWuGhxlLMSTnlYrFWVWeJt4vY9o
+ I+L5pcIa4r+81ogkPC0cW0lspitctPOKkEqu3Q4/ZZkApMh6jIuW5EIhIv7CRfxssIS4Syee
+ Mi0kEu+ij4pKaSGOVCzy0TgmcsPIv//QUV4mvEmartygoh4ijMWQ+rvPPER4lTRXenEREswv
+ aM0vaM3/a62ItiO5OicvW6nWpCRl5ueoDyal7812osjjlh+a31aHgn1bW5DAI4VUdsn4aZac
+ Uebp8rNbEOFpxVJZwppIJMtQ5n+t0u7drs3VqHQtKI7HihWyteEDGXJht3K/ao9KtU+lfT6l
+ +JjYI0iv0f2BN730Sdnm1o03d0gHFpgvmlanjZq8y+UJjt71k6HZQ6s/Tq0tjX19/OzOha9k
+ Gxfjr62UBoY/G9Z3Je/6/NaWZSn8qqb7r21/OSu9tuaXj46eSAp4ch+8lS5skcLhhKvTA27N
+ rXfWpZbd3BY/m6ef+Sbo+WnnB5rmPt49X51tX6XAukxlciKt1Sn/A9zEkT+0AwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUxTZxTH8zzP7b2XZtVrZfMGEhLry0wzcTI0J3PzJVnCzXyJcR+2+EWb
+ cZXypmkdA5NFKDRWJKY0toRWtKLUBXkrrUxwZVi2MmUOKttgA1ZZKti0jg15CSDF1mXRLye/
+ 8z///8n5cFgij0qSWHX+KVGTr8pV0FJKemBH6Wbq2L7sdwMTUjDoz8BIICiB30q6KJiZNlBw
+ qbmBhiXbNwwYWqsl8OOgjoL+ppsIAjMGBHOLNgL69mUKlkw+BqbnhxkwlyBY9vgQWPwmAkP9
+ 3xFocJdgeNYSpSHcPYXAPBakoSpUQsGkowKBddzGQOiHDHgauCOB5dEJDIOzEQSOYBRDsOss
+ giVLDlypdcXiln9oWHzQR6DK3I/g6tgoganQIwRu358IPF/raHhsvEVgILgCfpmZpOGe+TwN
+ T/2XMPzdQoNd55GA/6cwghqbCcH4Hx4MpdeaabDUtFLQ/qiDAX/4OYYRiwnDzdb9EHCMU9Br
+ rMWxc2Mu5xqwVZXiWHmCwdx4B8O8o57ZXYeEOf0FSqh3tWFB/3CJFhouNyBhccGEhOm6UiLo
+ jbG2OzJJhDLXl0Jdb4QWFmZ+pQXPrJ0S7tfywvVzC1iofLBZaLeOMgf3HJZ+kCnmqgtEzZad
+ R6VZ/zY+JidtWwtd9R6mGD3bWI4SWJ5L56tdTirOFLee//l7O44zzb3NDw3Nk3LEsoncJj7i
+ TitHUpZwF1P4qxfamLhnNbeT7xyefckyDnij/SITN8m5CsRHKqLUf4NV/L3q4EsmnJIfioZw
+ fCnhkvkbUTYuJ8RuCMyFSZzf5NbxXW092Ihk1tfS1tfS1ldpOyL1KFGdX5CnUuduS9XmZBXl
+ qwtTPz+R14piX+n46nnlbTQ9kOFFHIsUb8hayvdmyyWqAm1RnhfxLFEkyjZuikmyTFXRaVFz
+ 4ojmi1xR60XJLKVYI/v4U/GonDuuOiXmiOJJUfP/FLMJScVox8rOTzqN207vYrZ3HAzNjvUd
+ ej/tQ+9b78gHC4uFhYq6bP9HqUfW9w4cakJlzhTnsfdu/I5GjG7Pck96dI//4Srf9hppzxZb
+ d8YtX3Ll3W/DE86IUuFOYJo6XOfGy9YOW9OaJRuUuhFvn1Lc9VfSZ/evJDam56lG16YYdIev
+ TWUqKG2WaquSaLSqF3VSn4uRAwAA
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,82 +141,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-get_block_step_bytes() computes the byte distance between two
-vertically adjacent pixel blocks for the READ_TOP_TO_BOTTOM and
-READ_BOTTOM_TO_TOP directions as:
+On Mon, Jul 06, 2026 at 07:05:44PM +0100, Matthew Wilcox wrote:
+> On Mon, Jul 06, 2026 at 03:19:10PM +0900, Byungchul Park wrote:
+> > Makes dept able to track PG_locked waits and events, which will be
+> > useful in practice.  See the following link that shows dept worked with
+> > PG_locked and detected real issues in practice:
+> >
+> >    https://lore.kernel.org/lkml/1674268856-31807-1-git-send-email-byungchul.park@lge.com/
+> 
+> > @@ -219,6 +220,7 @@ struct page {
+> >       struct page *kmsan_shadow;
+> >       struct page *kmsan_origin;
+> >  #endif
+> > +     struct dept_ext_wgen pg_locked_wgen;
+> >  } _struct_page_alignment;
+> 
+> I may not understand this quite correctly, but I think that tracking
+> PG_locked dependencies in the struct page has both false positive and
+> false negative problems.
+> 
+> Imagine we have a file mapping M1 containing folio F1 at index 0 and F2
+> at index 1.  It is correct locking order to lock F1 before locking F2
+> (for example when doing writeback).  Later, M1 has its folios reclaimed
+> and returned to the free pool.  Then each is added to mapping M2, this
+> time with folio F2 at index 8 and F1 at index 9.  Now the correct order
+> to lock these folios in the order F2 followed by F1.
 
-	pitch * drm_format_info_block_width(fb->format, plane_index)
+First of all, I appreciate your feedback.  Thanks!
 
-This is wrong: the vertical distance between two rows of blocks is
-the block *pitch*, i.e. pitch multiplied by the block *height*, not
-the block width. This is exactly how packed_pixels_offset() computes
-it a few lines above in the same file:
+That case doesn't generate any dependency unless any other waits are
+involved in.  That should be handled in xxx_nested manner e.g.
+folio_lock_nested() that I need to introduce.  The work is in progress.
 
-	int block_pitch = fb->pitches[plane_index] *
-			   drm_format_info_block_height(format, plane_index);
+> I don't see a part of this patch where we clear pg_locked_wgen when the
+> page is returned to the page allocator.  Maybe I missed that.
 
-For 1x1-block formats (block_width == block_height == 1) the two
-expressions happen to coincide, which is why the bug went unnoticed
-for regular formats. Packed sub-byte formats break the assumption:
-DRM_FORMAT_R1 has block_width == 8 and block_height == 1, so the
-vertical step computed by get_block_step_bytes() is 8x too large.
+You are right.  pg_locked_wgen doesn't get cleared.  However, DEPT works
+this way:
 
-This over-large step is consumed verbatim by Rx_read_line(), which
-advances src_pixels by `step` once per output row without ever
-re-validating the result against the framebuffer object bounds
-(those bounds were only checked assuming a correct, 1x, step):
+   folio_lock()
+      wait_for_pg_locked_cleared()
+      set_pg_locked() // (1) update pg_locked_wgen to the current wgen
 
-	src_pixels += step;
+   ... // there might be other waits
 
-so reading a plane in the vertical direction (READ_TOP_TO_BOTTOM /
-READ_BOTTOM_TO_TOP, reached via a plane rotation of 90 or 270
-degrees) walks off the end of the source buffer object after very
-few rows and over-reads adjacent kernel memory (an
-out-of-bounds read, not a write). With DRM_FORMAT_R1 and a
-writeback connector attached, this is reachable by a local process
-that holds DRM master on a loaded vkms device (composition happens
-synchronously in vkms_composer_worker()).
+   folio_unlock()
+      clear_pg_locked() // (2) check if there have been any waits since (1)
 
-Fix get_block_step_bytes() to use drm_format_info_block_height()
-for the vertical directions, which matches packed_pixels_offset()
-and restores the invariant that the vertical step is exactly one
-row of blocks.
+In other words, it's guranteed that pg_locked_wgen has been updated e.i.
+(1) when DEPT refers to pg_locked_wgen e.i. (2).  So I don't think it's
+a problem.
 
-Runtime-verified on a v6.19 KASAN (KASAN_VMALLOC) stand: before
-this fix, a writeback commit on a rotated DRM_FORMAT_R1 plane
-reliably tripped a KASAN-attributed out-of-bounds-read page fault
-in Rx_read_line() during vkms_composer_worker(); with this fix
-applied, the identical reproducer completes cleanly with no fault
-and no KASAN report.
+> I think we should be tracking PG_locked dependencies in the owner
+> of the folio.  For files, that would be in the struct address_space.
+> For anon memory, I think that's in the anon_vma, but if somebody told
+> me it was in some other structure, I wouldn't argue with them.
 
-Fixes: b52fd27356af ("drm/vkms: Introduce pixel_read_direction enum")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
----
- drivers/gpu/drm/vkms/vkms_formats.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+I think it's a good point but it's a classification issue.  folios owned
+by struct address_space should be classified to e.g. address_space_class
+and ones owned by struct anon_vma should be classified to e.g.
+anon_vma_class.  I will work on it to apply the insight you just gave
+but better do it as follow-up patches since the initial patchset is
+already too big to get reviewed.
 
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index dfb8e13cba87..1e3a6af9cea5 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -103,11 +103,11 @@ static int get_block_step_bytes(struct drm_framebuffer *fb, enum pixel_read_dire
- 	case READ_RIGHT_TO_LEFT:
- 		return -fb->format->char_per_block[plane_index];
- 	case READ_TOP_TO_BOTTOM:
--		return (int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
--										   plane_index);
--	case READ_BOTTOM_TO_TOP:
--		return -(int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
-+		return (int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
- 										    plane_index);
-+	case READ_BOTTOM_TO_TOP:
-+		return -(int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
-+										     plane_index);
- 	}
- 
- 	return 0;
--- 
-2.50.1 (Apple Git-155)
+> This requires slightly more complexity than lockdep currently has.
+> We don't want to use a lockdep class for each folio, obviously.  So we
+> need something to say "I already have folio F1 locked, is it OK to lock
 
+From DEPT's perspective, folio_lock(F1) and folio_lock(F2) are waits and
+folio_unlock(F1) and folio_unlock(F2) are events.  Since DEPT tracks
+dependencies with specified classes between waits and events, DEPT's
+interest in the following example is to detect a situation like:
+
+   < context X >
+
+   folio_lock(address_space_class'ed F1)
+   ...
+   folio_lock(anon_vma_class'ed F2)
+   ...
+   folio_unlock(anon_vma_class'ed F2)
+   ...
+   folio_unlock(address_space_class'ed F1)
+
+   < context Y >
+
+   folio_lock(anon_vma_class'ed any folio)
+   ...
+   folio_lock(address_space_class'ed any folio)
+   ...
+   folio_unlock(address_space_class'ed any folio)
+   ...
+   folio_unlock(anon_vma_class'ed any folio)
+
+However, the following pattern should be manually annotated by
+developers like using folio_lock_nested() or something.  DEPT cannot
+work with it automatically:
+
+   folio_lock(address_space_class'ed F1)
+   ...
+   folio_lock(address_space_class'ed F2)
+   ...
+   folio_unlock(address_space_class'ed F2)
+   ...
+   folio_unlock(address_space_class'ed F1)
+
+or
+
+   folio_lock(anon_vma_class'ed F1)
+   ...
+   folio_lock(anon_vma_class'ed F2)
+   ...
+   folio_unlock(anon_vma_class'ed F2)
+   ...
+   folio_unlock(anon_vma_class'ed F1)
+
+These should be explicitly annotated by developers if it's intended:
+
+   folio_lock(address_space_class'ed F1)
+   ...
+   folio_lock_nested(address_space_class'ed F2)
+   ...
+   folio_unlock(address_space_class'ed F2)
+   ...
+   folio_unlock(address_space_class'ed F1)
+
+or
+
+   folio_lock(anon_vma_class'ed F1)
+   ...
+   folio_lock_nested(anon_vma_class'ed F2)
+   ...
+   folio_unlock(anon_vma_class'ed F2)
+   ...
+   folio_unlock(anon_vma_class'ed F1)
+
+> folio F2?".  Essentially figuring out how we can track all folios in a
+> given mapping the same way, and making sure that we don't deadlock on
+> folios in the same mapping.
+
+At the moment, as I told you, DEPT cannot work with dependencies between
+the same class'ed folios.  However, it'd be much better if DEPT can work
+with even those cases.  Could you provide a scenario where a deadlock
+happens between the same class'ed ones?  Any idea how to detect for the
+cases?
+
+> If F1 and F2 are in different mappings, it's not a deadlock if F1 is in a
+> filesystem mapping and F2 is in its backing dev.  It's also not a deadlock
+> if F1 and F2 are both filesystem folios and the inodes are both locked.
+> See vfs_lock_two_folios() in fs/remap_range.c.
+
+Yeah.. DEPT is a tracker to track dependencies between waits and events
+even across different contexts, but not a magic unfortunately.  That
+lock ordering issue - with the same class'ed ones - should be resolved
+in the manual manner as vfs_lock_two_folios() does.
+
+> I have much less knowledge about anonymous memory locking order.
+> Maybe it doesn't happen.  Or about locking one anon and one file folio.
+> For slab memory, we don't sleep on PG_locked (it's used as a spinlock bit).
+> For other kinds of memory ... I don't know.  Page migration is fun.
+
+Anyway, the sophisticated classification you mentioned is necessary for
+DEPT to be better especially for folio locking mechanism.
+
+Thanks again!
+
+	Byungchul
