@@ -4,93 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D44C44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27FAAC44503
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43FFC10F40D;
-	Thu,  9 Jul 2026 07:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24B8810F415;
+	Thu,  9 Jul 2026 07:26:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PhYc/OCM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iod2B8/B";
 	dkim-atps=neutral
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3E5210E520
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 22:03:06 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id
- 5614622812f47-48f0e5e6698so42081b6e.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 15:03:06 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3EA889C68
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:06:06 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2ca64c3ce5fso47431245ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 08:06:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783461785; x=1784066585; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=r+Cz/DGzX9LixlJM1WDO9JL3XKhxalEZ7sqlBmeIS0k=;
- b=PhYc/OCMcelHHXGcO6wAkxktP5SsqVR0rc/8kqpgKoth0g7K2kAJ68mE9gSFyU9bNU
- m4hBeWMqs2muovGW+hHUhOxh337FnxRXoKwHeNDJO/KNlkScddJgLPF/h5FYP9BYyRs5
- udXTygPsAGTYb6CPzfwLeBIEO2UxKBbwDPDOGsZ+hOAdyZWD6UcNCY2vISxSLtgb1hJP
- s9yIcP6+dZoViW6l1/ggxUNlgN3IQ6E23T7pn1d42AeyXFUuoezzclJuGY28fvnjDgWu
- 0s2QdnYA1idFzt2Pseruv0YMPRUM2sohvM0IcG8hHof61KRehBwpx2A+OUxJ+wKB5quh
- fjOg==
+ d=gmail.com; s=20251104; t=1783436766; x=1784041566; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ECigN/vOXEtjui4ch8BDCR2M2DmfXoIRQNpruIQx7/M=;
+ b=iod2B8/Baxq5kzBeBB52XiJ7TObU+n7lf4g+D5cA6WB+qWK11zTY1GOe27GRoTHqRl
+ LnrwO2CI8SV9bvqk2TO7ttjqMCRgArIFsKhLme3wJ1gIUvj7xNUI421BTTJTv3wEV3OJ
+ CZvJOujOnDBd/kEnCtncS2GFznMv03WA7sf54KhtlEUi2V/jvDy+zKgxYx74rHUaz11p
+ o7bsqEsBkUmcrQDttirvl3GhcfWkngwQewW3hCaP6Gpuy1z+4jOwZTXm2btsxU7xHgpM
+ Z2Zo1NaL2S1CuG1RK8ZIjr6VpkBS2MvL9mwsAKt4NP2tmZHrdeb9v5vebD/H1GQdDrDN
+ xKBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783461785; x=1784066585;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=r+Cz/DGzX9LixlJM1WDO9JL3XKhxalEZ7sqlBmeIS0k=;
- b=MCXmX2SqYVGvB/I9j0E7ILHWp+rXa5MaxrVmFQcYjTLYfXrCgUDiDWakJGsd/l5uE5
- bnyhtpSg5ASwaDnTgCq/12GpdbaC6kK6s01jKm49kPN8oTPjLeuN9x92p2hKMP5Hn1MD
- E0DwNwjOEETPZUhw0jPuI5lODS7pUaa4vHCl0AF0ARzfzHBiLXfT+meBDcMQKQv9HdQ1
- y+x30zR4pY7FGBoDQZCB9+ltTq7AM0EeSw+bcUBUI9eK8kp8JF2i79dPLGdklTQ0XIba
- 2S7FB86SkVQ4H2+9ylO8VKjTtt/LdpsmxWbfnDVtIuWBh/o+NZe9gUGwIFxoVGQffleO
- 1/pg==
+ d=1e100.net; s=20251104; t=1783436766; x=1784041566;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ECigN/vOXEtjui4ch8BDCR2M2DmfXoIRQNpruIQx7/M=;
+ b=j1ADkuhYH1lqMmkgDwIGCSl8f2yNBSwELx+WQJt9a3+Tvr/Qofkcx9YeyMGQzr2xqH
+ IcD31o1zXaDYO+8B5inUaNsqZdBDuuXtIeKvfNwVAH3qtK7XCCsBIejfEzLlh60OMcSE
+ k5uzldYd7sG71C+t4hFEoEfODsbrjtIdVp123XpN8z6lfvjA1TH3xRncoSgUn8/So6ei
+ lJGnNh5OvVR7/7pDyjebZRmdZAg8rKy9Be97ZjKoVteJJEuRpVj07sFN3itoZ61W/saY
+ gthLNyue18BwrmRKj9eEWQN3tLjjbWvIgXvJ/F/9/yshy3ezXoS0gCl04iWHlXeLo3Kj
+ nVig==
 X-Forwarded-Encrypted: i=1;
- AFNElJ928/uVLmq2p12BetLpy9VlqdRG/EvrjQo6L4mQ1IqiOOUQCpKagcMCDKr78f6HyS1T7mR9jo9XCyo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFK31Hvs8dQSoj9NzwXIZx4hR9eAxDLuc5yvH9tlRrOjh/3Mai
- EK+GDKF/su3wy7TtXbAhOOkLnDg70AbB4XO1G11aK+Ok/1tKpTPnzIiA
-X-Gm-Gg: AfdE7clnlAnyoLRyONkBdbiTFYIXu4B+eRfyL2V04OkkmUuFEUDSD2txKlZXlE68nFf
- 6TSbcj1yuxe7I87p8Q2+iqIMHgWWCfNHC3/9U5ucADacx7G9/4ym9W48vGcz/M4NydAGVJm+YKy
- nUkosW066t9R8ngr20VADZlPdow35d7CmB6jV/HoqDCwqCZ5YYS0tHh5nU1IHUvbmU5RV6av/y7
- Mmx5Rpt2ijVFwEVo7LGqJ091zZLALy1/l9s7U/roGX4UyT/a0XCniIsbZykmDwlmOlNgQ5P9Wiy
- ozTi/yRH+JMO4qwNRbSqO5NqKFwbV2qMUzkxGjMCyqqg4QuKeQsN5UMV88ACKo/RJGhxZF9x0Fa
- 4C49kpbMNvV8/lpxRBImnyhpU47nASdkrDmUOCiYL7h2CvWXu1xdj+HN9pCLJdzSLCTRR0u82nM
- sIHRrQfIu3P4x5zxcl3v1rrvVF4xFzksyv
-X-Received: by 2002:a05:6808:5393:b0:489:f199:42bb with SMTP id
- 5614622812f47-49fdc040ab9mr5109894b6e.8.1783461784688; 
- Tue, 07 Jul 2026 15:03:04 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:1::])
+ AHgh+RpvNwX+qkKdqNv/yoaV3gcBCvVcu0ctWMTngWYsfSTlJd94Dvy9dGMzqpIpXYuj7fmbUlOM705vj08=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyM2CaxssZYC9tShvfx7tKpWN9jzsHJTaq5WSLh6jkOjfuJP4Pb
+ ly9OPvyKg7HIGvVeSG91HzSp9/ovQZCRzcSEqmypeb9eJ7MGDVlbNz6Y
+X-Gm-Gg: AfdE7clmI9aSHNZXnmTqo9PqhdV4Y0en3J2v2yXwSY3tDPj+nzbsV74bOyBOUqQmYJR
+ g/lI69osb7ftiQq+dN66JTLTItQPEeiiYIkPUdNYR4DGr89ObJZeI5L7i4rfu9Vd2kJnzbxFl5Q
+ BE/KnA5TQREeudBK2vC04QVGKnpiKmjTsYKPKzH6Bi+dQbriySI50Jkt6XyEq3nZladLxQeBCjg
+ srSVtKp+ga942T0KYb6NmlYSPpx1QUuiGKPoSFPE1IbsuKtZSy5guLNJ3SQGKSg8zv03CfsuNwn
+ LogsfYeGLkI0W9GpqUH8kyFv47T8F0Lr16tos+uuvtxiJwYuxOjF57gM5eNLBJ08IDOHAbJJY2B
+ I72ywcWpzXpKiF7W2qyec87DDAZ4VNFeuhk2pmYrbgDq6A5YE9uzj3DBc57q6MRSq9JV9gd+tZH
+ ovmRViNMn3tVBeEQ6fNoGzG/ZPzgO1AAXv
+X-Received: by 2002:a17:903:98f:b0:2c9:ff29:3f73 with SMTP id
+ d9443c01a7336-2ccbf00d8eemr56727535ad.28.1783436766121; 
+ Tue, 07 Jul 2026 08:06:06 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net
+ ([2001:da8:e000:1206:239e:a31b:1d0d:374f])
  by smtp.gmail.com with ESMTPSA id
- 5614622812f47-4a1acc82f3csm430555b6e.3.2026.07.07.15.03.01
+ d9443c01a7336-2ccc9d3b906sm13966655ad.56.2026.07.07.08.06.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 15:03:03 -0700 (PDT)
-Date: Tue, 7 Jul 2026 15:02:59 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kselftest@vger.kernel.org, sdf@fomichev.me,
- razor@blackwall.org, daniel@iogearbox.net, matttbe@kernel.org,
- skhawaja@google.com, dw@davidwei.uk, Joe Damato <joe@dama.to>,
- Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v4 0/3] net: devmem: allow rx-buf-size >
- PAGE_SIZE per binding
-Message-ID: <ak13k4XZsHnGKIOb@devvm29614.prn0.facebook.com>
-References: <20260701-tcpdm-large-niovs-v4-0-ca4654f37570@meta.com>
- <CAHS8izOmA_U=Q6WOO5mcoi2vBps_JFEtAQa3gXk=JcL3rqE1BA@mail.gmail.com>
+ Tue, 07 Jul 2026 08:06:05 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch
+Cc: michal.winiarski@intel.com, michal.wajdeczko@intel.com,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH] drm/xe/lmtt: Unpublish page tables on allocation failure
+Date: Tue,  7 Jul 2026 23:05:59 +0800
+Message-ID: <20260707150559.2274875-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHS8izOmA_U=Q6WOO5mcoi2vBps_JFEtAQa3gXk=JcL3rqE1BA@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,99 +90,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 07, 2026 at 12:24:21PM -0700, Mina Almasry wrote:
-> (I'm kinda reviewing this very late here. Some suggestions/comments
-> but feel free to ignore if not useful).
-> 
-> On Wed, Jul 1, 2026 at 12:22 PM Bobby Eshleman <bobbyeshleman@gmail.com> wrote:
-> >
-> > Every devmem dmabuf binding hands the page_pool PAGE_SIZE niovs today.
-> > On NICs that consume one descriptor per netmem, this caps a single RX
-> > descriptor at PAGE_SIZE and burns CPU on buffer churn.
-> >
-> > In this series, we add a bind-time netlink attribute,
-> > NETDEV_A_DMABUF_RX_BUF_SIZE, that lets userspace request a larger niov size
-> > (power of two >= PAGE_SIZE).
-> 
-> FWIW we may be able to support arbitrary sizes with devmem. Because
-> the genpool supports byte-aligned allocations AFAIR. Also the
-> dma-mapping happens with the dma-buf size, so the actual niov size
-> doesn't matter. The only thing I can think off which may not be
-> flexible to arbitrary sizes is the driver itself. IDK what happens if
-> you ask the driver to dma into a buffer that is frag size 5023 or
-> something like that.
-> 
-> But that is something that can be relaxed in the future.
+LMTT allocation publishes a newly allocated child page table before
+recursing into the next level. If a lower-level allocation fails, the
+error path freed the page table directly but left the parent's software
+entry and hardware PTE pointing at it.
 
+The caller's failure cleanup then calls xe_lmtt_drop_pages(), which can
+walk the stale entry and destroy the same subtree again. The stale PTE
+also remains visible until the next invalidation.
 
-I think at least for mlx5 there would be some issues, as it splits the
-memory region into fixed-size strides (256B), so I'd expect it needs to
-at least be divisible by the stride length. The mlx5 driver seems to
-guard against this by checking for sz > PAGE_SIZE && is_power_of_2.
+Clear the parent software entry, write an invalid PTE, invalidate the
+hardware view, and then destroy the partially allocated subtree.
 
-> 
-> > Drivers must opt in via
-> > queue_mgmt_ops.QCFG_RX_PAGE_SIZE.
-> >
-> 
-> nit that probably doesn't matter: ...QCFG_RX_NETMEM_SIZE, or
-> (...NIOV_SIZE). This doesn't actually work with pages, right?
+This issue was found by a static analysis checker and confirmed by
+manual source review.
 
-I probably could have worded this in the message more clearly, but this
-name is not introduced by this series, so we probably can't get away
-with changing it.
+Fixes: b1d204058218 ("drm/xe/pf: Introduce Local Memory Translation Table")
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+ drivers/gpu/drm/xe/xe_lmtt.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-> 
-> If you decide to extend to arbrary sizes, I would add to the
-> queue_mgmt ops supports_netmem_size(size_t size) function, and let the
-> driver enforce "it has to be power of 2" if it needs to. AFAICT core
-> doesn't need to.
-> 
-> > Selftests use udmabuf, but udmabuf sgtables were previously hardcoded to
-> > PAGE_SIZE. This series modifies udmabuf to respect folio sizes in its exported
-> > sgtable. The result is that when backing udmabuf with MFD_HUGETLB 2MB pages,
-> > the sgtable is populated with 2MB entries, allowing devmem's gen_pool to carve
-> > out large (eg. 64K) niovs.
-> >
-> > Measurements
-> > ------------
-> >
-> > Setup: kperf devmem RX/TX cuda, 4 flows, 64 MB messages, 60s, dctcp,
-> > num-rx-queues=4, dmabuf-rx/tx-size-mb=2048, 10 runs per niov size,
-> > mlx5.
-> >
-> >    niov       RX dev Gbps   RX flow avg Gbps         app sys %
-> >   -----  ----------------  -----------------  ----------------
-> >      4K  300.63 +/- 53.21    75.16 +/- 13.30   54.15 +/- 10.23
-> >     16K  321.35 +/- 28.20    80.34 +/-  7.05   41.05 +/-  8.87
-> >     32K  347.63 +/-  2.20    86.91 +/-  0.55   44.54 +/-  3.51
-> >     64K  332.11 +/- 14.26    83.03 +/-  3.56   35.47 +/-  3.11
-> >
-> > RX app sys % drops ~19% from 4K to 64K.
-> >
-> 
-> Hard to read the columns for me but seems like good perf data. Did
-> performance become worse from 32K to 64K? I wonder why.
+diff --git a/drivers/gpu/drm/xe/xe_lmtt.c b/drivers/gpu/drm/xe/xe_lmtt.c
+index 0c726eda93906..9b0f8d4b26abc 100644
+--- a/drivers/gpu/drm/xe/xe_lmtt.c
++++ b/drivers/gpu/drm/xe/xe_lmtt.c
+@@ -406,8 +406,13 @@ static int __lmtt_alloc_range(struct xe_lmtt *lmtt, struct xe_lmtt_pt *pd,
+ 
+ 		if (pt->level != 0) {
+ 			err = __lmtt_alloc_range(lmtt, pt, offset, next);
+-			if (err)
++			if (err) {
++				pd->entries[idx] = NULL;
++				lmtt_write_pte(lmtt, pd, LMTT_PTE_INVALID, idx);
++				lmtt_invalidate_hw(lmtt);
++				lmtt_destroy_pt(lmtt, pt);
+ 				return err;
++			}
+ 		}
+ 
+ 		offset = next;
+@@ -453,7 +458,10 @@ static int lmtt_alloc_range(struct xe_lmtt *lmtt, unsigned int vfid, u64 start,
+ 	return 0;
+ 
+ out_free_pt:
+-	lmtt_pt_free(pt);
++	pd->entries[vfid] = NULL;
++	lmtt_write_pte(lmtt, pd, LMTT_PTE_INVALID, vfid);
++	lmtt_invalidate_hw(lmtt);
++	lmtt_destroy_pt(lmtt, pt);
+ 	return err;
+ }
+ 
+-- 
+2.51.0
 
-The drop off struck my eye too, but didn't investigate further. Given
-the wide stdev, it appears to me like the trend is positive but probably
-not huge. The cpu util deltas, on the other hand, look stronger to me.
-
-> 
-> I have some devmem performance fixes that are very critical for our
-> production that I haven't gotten around to upstreaming yet. I wonder
-> if I can send them to you for upstream submission. Are you potentially
-> interested?
-
-Definitely interested!
-
-> 
-> -- 
-> Thanks,
-> Mina
-
-
-Thanks Mina.
-
-Best,
-Bobby
