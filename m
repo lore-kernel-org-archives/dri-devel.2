@@ -4,83 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3B04C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A54C44502
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBB810ED89;
-	Tue,  7 Jul 2026 14:15:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBFFB10ED8D;
+	Tue,  7 Jul 2026 14:17:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="LyOTCEzl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KdFQjeIX";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id A9F2510ED89
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:15:35 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E00901756;
- Tue,  7 Jul 2026 07:15:30 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BEF93F7B4;
- Tue,  7 Jul 2026 07:15:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1783433735; bh=IinY0qicpix8YaJZbueQ0ZMS6TH6C9aVow2ztmvUxgU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=LyOTCEzl2lnONxDyc5YgaBVzkQQTQt8ZMCnf0rfSax4/Wh4a3/jy5UcOfHKZmIpCd
- 0JK0/K1vtUPTZHNaeJXMR1zwsZF41NYv8fSGFE5DnXecvjNTDzStlfxEvHuMh4fFmB
- 7HXVfvV6cUYysmr155+Ry6uasnPzrKLfjL2xY65Y=
-Message-ID: <f6e8b4d4-8b50-4cc7-b264-ae39929c619a@arm.com>
-Date: Tue, 7 Jul 2026 15:15:24 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12FA410E4D1;
+ Tue,  7 Jul 2026 14:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783433842; x=1814969842;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=n6IDX0ZcCgLBKVR2hEqdAQZ+aHjY/cRF0MzfnOL8oQc=;
+ b=KdFQjeIX/fkPw0DjjSusRds90MWkJw/wT0B1NjNG8uOF9jnVPGzsbvTE
+ 2FH4whIfFEi3KFl5SINv618iJUjBSQl21VQmuYkLODZmJzfHTuDRgK4Q0
+ lsr3E1vSeTvc0Wd+5ZW6UJqEAJ0Bys5KLw714XnQkLnV+Ur/UwxPizqob
+ CXZrb2ASbEuZNF5fgqtMBs5KIvX3bcz8qeVwtEePi5f76dCYalljswtZP
+ hHGRt0V1SzqxjkpCjDwnhkJBp0i2yIluT+IBdY3CwF1jO1ofuLSuenTjC
+ H+cyEw3M758loUxN8oyLMFW3202KJ67EhHd56SfgxyIFGEYuTxXUKVfol w==;
+X-CSE-ConnectionGUID: OJcX1zQwQ0K94WepV/hgew==
+X-CSE-MsgGUID: OhWFRznQS6OidqA2kB9Lfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="109623897"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="109623897"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 07:17:21 -0700
+X-CSE-ConnectionGUID: azXCJv3QRBqATUv6ZUoP7g==
+X-CSE-MsgGUID: 86IffxY4TpGK38ceQPgUYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="250653344"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.223])
+ ([10.245.244.223])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 07:17:17 -0700
+Message-ID: <d0aaa4c0-280c-4796-b8fd-d5908ff7b279@linux.intel.com>
+Date: Tue, 7 Jul 2026 16:17:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Will Deacon <will@kernel.org>, Thierry Reding
- <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Chun Ng <chunn@nvidia.com>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
- <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
- <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
- <akuvyu1Pq0ZVMZV0@orome> <akzikTrmhMsvkNVY@willie-the-truck>
- <b0a1bdd7-46ab-4025-8775-c9273892444e@arm.com> <ak0A6eLp0Pw8iKK0@kernel.org>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <ak0A6eLp0Pw8iKK0@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+To: Robert Mader <robert.mader@collabora.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Stone
+ <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260703073230.19982-1-robert.mader@collabora.com>
+ <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
+ <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
+ <d3e954dd-381f-480b-8f48-698d8aead017@collabora.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <d3e954dd-381f-480b-8f48-698d8aead017@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,25 +84,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07/07/2026 2:36 pm, Mike Rapoport wrote:
-> On Tue, Jul 07, 2026 at 02:17:29PM +0100, Robin Murphy wrote:
->>
->> Given the precedent of memblock_mark_nomap(), as long as the reusable
->> reserved-memory regions also get split into distinct memblocks, then it
->> seems like in principle we ought to be able to give them a new
->> MEMBLOCK_PTEMAP (or whatever) flag which could then be picked up in
->> map_mem() without needing to override force_pte_mapping() globally?
+Hello Robert,
+
+On 7/7/26 15:15, Robert Mader wrote:
+> Hi,
 > 
-> Please don't. _nomap() caused enough pain.
+> On 07.07.26 15:01, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
+>>>
+>>> On 7/3/2026 1:02 PM, Robert Mader wrote:
+>>>> The client cap is currently advertised unconditionally, even for drivers
+>>>> that do not support plane color pipelines. If clients supporting the later,
+>>> s/later/latter
+>>>
+>>>> like Wayland compositors or tools like drm_info, enable the client cap on
+>>>> such drivers they will be left without both color pipeline and the legacy
+>>>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+>>>> conversion support.
+>>>>
+>>>> Prevent that by only marking the cap supported if there are actually planes
+>>>> with color pipelines.
+>>>>
+>>>> Note: while the color pipeline replacement for the legacy properties is
+>>>> still under review (1), we can assume that it will work as a drop-in
+>>>> replacement.
+>>> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
+>>>
+>>> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
+>> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
+>>
+>> But thanks for all feedback, as I was about to push this patch, I noticed it still uses -EOPNOTSUPP, can it be changed to -EINVAL?
+> 
+> For existing users it shouldn't make a difference. drm_info and Weston just check for "drmSetClientCap() == 0" - and old kernels without the cap will also return -EINVAL AFAICS.
+> 
+> I personally find -EOPNOTSUPP more appropriate and more in line with other return values in that function - but no strong opinion, thus feel free to change while applying (or I can resend the patch accordingly if you prefer).
 
-Indeed I was there for pretty much the whole pfn_valid() saga :)
+Yeah no worries, I looked at the code and it seems -EOPNOTSUPP is used a lot in getcap/setcap. In particular when driver support is missing
+for features, I'll leave it as is and push it now.
 
-Bad example maybe - in this case the only actual similarity to nomap 
-would be the fact that it would also be set by the of_reserved_mem code 
-based on what it finds in DT; in all other aspects it should be 
-functionally closer to something like MEMBLOCK_RSRV_NOINIT, i.e. just 
-carrying information through the mm init phase, then ceasing to matter 
-at all once the linear mapping is done.
-
-Cheers,
-Robin.
+Kind regards,
+~Maarten
