@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23BBFC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0AC5C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2E210ECFB;
-	Tue,  7 Jul 2026 13:25:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA4F510ECF6;
+	Tue,  7 Jul 2026 13:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ian6Kg+T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ezdrps5t";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D57AA10ECF6
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:24:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5547710ECF8
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:25:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4F866618B3;
- Tue,  7 Jul 2026 13:24:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7371F00A3D;
- Tue,  7 Jul 2026 13:24:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CDA7460018;
+ Tue,  7 Jul 2026 13:25:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06B361F000E9;
+ Tue,  7 Jul 2026 13:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783430699;
- bh=9J/5kdUzNZ4A1zvWuu+ZIn5vyFjeG5mMP6m9LXXbf/I=;
+ s=k20260515; t=1783430709;
+ bh=sRTsZByg3jigN6FqrDwzd3A6GFnHFsVi5eGWHjMDrJ4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ian6Kg+T8E9rhyk0z8vcxmm3rnQUFwc35apDM5FVYpdlp8ppMxaGfYzPgIDJe9Kg7
- UZSj5hu2X7TsVh4pOOfzwXohO8A7nlwCTADd193u3lWOwRooM/t13uMEyodkm9MNO3
- /wCtJfL3U8JJwFeFhIs0mveSGyeDiw/yFVBTzUR7wyztE+xzhaej5IQpFYzGb1rxOG
- tvhUFxUAKtu4hx86lB4J+mOlS5EYaKvjCL7xrNicq3ypSjGWJLLqRyaAhk+MrUq9nS
- xJVdC1jqhHztxM9Ko81X20dTzTYKCWApoa55VgK3YSBK4IPao77GIX0gKLCEVGKnal
- gRPW3MyfpBhNw==
+ b=ezdrps5t0qJIGAcRzSumhAkuU01eJSeJuBJnO4UghsHoqNwV4KISXfbgRVxsM9ITL
+ QwOkB4lhFC+zaQWP8qUkoTYwwMMMpJ2C5uIduHqPguFElwcgWiN1M8m5GeGkjb+2Mp
+ br//pVzcdQ2bMSsdavvV1d/Z+XAte0bKrWdO7wLyM16J+DTO/fj/Qjlo8BaDVDc84u
+ aWdUizfEf5y7+UmZMx4a0/Kp4H6TX7tXMpdz8kJs4u/RzBVDGZhjS0aXp5/8GyAgEh
+ WLn/kv5QuTmlj4AiIZyiNL9qKcr+l4Y65wlGh/fo9wEEO9YZPxEQY0Z/oIejkhIp70
+ n8gB8cBHM+KJQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/20] pmdomain: imx: use platform_device_set_of_node()
+Subject: Re: [PATCH v3 20/20] driver core: platform: count references to all
+ kinds of firmware nodes
 To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Frank.Li@kernel.org, lee@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org, imx@lists.linux.dev,
- mfd@lists.linux.dev, robh@kernel.org
-In-Reply-To: <20260706-pdev-fwnode-ref-v3-11-1ff028e33779@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, lee@kernel.org,
+ Frank.Li@kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org
+In-Reply-To: <20260706-pdev-fwnode-ref-v3-20-1ff028e33779@oss.qualcomm.com>
 References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-11-1ff028e33779@oss.qualcomm.com>
+ <20260706-pdev-fwnode-ref-v3-20-1ff028e33779@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 13:24:58 +0000
-Message-Id: <20260707132458.9E7371F00A3D@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 13:25:08 +0000
+Message-Id: <20260707132509.06B361F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,79 +60,56 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Child platform devices dynamically added during probe are not unre=
-gistered on probe error paths or during driver removal.
-- [High] The i.MX GPC power domain driver initializes domains as powered on=
- but does not set GENPD_FLAG_NO_STAY_ON or provide a sync_state callback, c=
-ausing domains to stay on indefinitely.
+- [High] OF node reference leak for dynamically allocated platform devices =
+due to incomplete tree-wide conversion.
 --
 
-commit 183445e8048cfd412f98719fae14416614f14176
+commit 50bc78e1d223d4a9addf4cc0c3c1d384a104d5a6
 Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-pmdomain: imx: use platform_device_set_of_node()
+driver core: platform: count references to all kinds of firmware nodes
 
-Ahead of reworking the reference counting logic for platform devices,
-encapsulate the assignment of the OF node for dynamically allocated
-platform devices with the provided helper.
+When using platform_device_register_full(), we currently only increase
+the reference count of the OF node associated with a platform device. We
+symmetrically decrease it in platform_device_release(). With all users in
+tree now converted to using provided platform device helpers for
+assigning OF and firmware nodes, we can now switch to counting references
+of all kinds of firmware nodes.
 
-> diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
-> index 42e50c9b4fb9f..abca5f449a226 100644
-> --- a/drivers/pmdomain/imx/gpc.c
-> +++ b/drivers/pmdomain/imx/gpc.c
-> @@ -487,8 +487,7 @@ static int imx_gpc_probe(struct platform_device *pdev)
->  			domain->ipg_rate_mhz =3D ipg_rate_mhz;
+> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+> index 9357942d0c79b..a71015f1d9153 100644
+> --- a/drivers/base/platform.c
+> +++ b/drivers/base/platform.c
+> @@ -599,7 +599,7 @@ static void platform_device_release(struct device *de=
+v)
+>  	struct platform_object *pa =3D container_of(dev, struct platform_object,
+>  						  pdev.dev);
 > =20
->  			pd_pdev->dev.parent =3D &pdev->dev;
-> -			pd_pdev->dev.of_node =3D of_node_get(np);
-> -			pd_pdev->dev.fwnode =3D of_fwnode_handle(np);
-> +			platform_device_set_of_node(pd_pdev, np);
-> =20
->  			ret =3D platform_device_add(pd_pdev);
->  			if (ret) {
+> -	of_node_put(pa->pdev.dev.of_node);
+> +	fwnode_handle_put(pa->pdev.dev.fwnode);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but I noticed that child platform
-devices added in previous loop iterations are not unregistered on this error
-path.
+Does this code leak the device_node for drivers that haven't been fully
+converted to the platform device helpers?
 
-If platform_device_add() fails, or if platform_device_alloc() fails earlier
-in the loop, imx_gpc_probe() returns immediately. Any successfully added
-"imx-pgc-power-domain" devices from previous iterations are left orphaned.
+The commit message mentions that all in-tree users are converted, but there
+appear to be some unconverted drivers still using device_set_of_node_from_d=
+ev
+on dynamically allocated platform devices.
 
-Because these orphaned child devices hold references to the parent's
-devm-managed regmap, does this create a use-after-free when the parent's
-devres cleanup runs?
+For example, in drivers/usb/host/fsl-mph-dr-of.c:fsl_usb2_device_register():
+	device_set_of_node_from_dev(&pdev->dev, &ofdev->dev);
 
-The same unregistering step appears to be missing in imx_gpc_remove(), which
-skips the cleanup of these dynamically added platform devices entirely when
-pgc_node is present.
+And in drivers/usb/musb/musb_dsps.c:dsps_create_musb_pdev():
+	device_set_of_node_from_dev(&musb->dev, &parent->dev);
 
-[Severity: High]
-This is also a pre-existing issue, but I noticed a potential problem with h=
-ow
-these domains are initialized.
-
-In imx_pgc_power_domain_probe(), the domains are initialized as powered on
-via pm_genpd_init(&domain->base, NULL, false). For OF-based genpd providers,
-this sets genpd->stay_on =3D true.
-
-However, neither imx_gpc_driver nor imx_pgc_power_domain_driver registers a
-.sync_state callback, and the domains do not have GENPD_FLAG_NO_STAY_ON set.
-
-Since the stay_on flag is never cleared, will this cause the domains to
-remain powered on indefinitely? If regulator_late_cleanup() later disables
-the underlying regulators while the domains are still active, could this
-lead to hardware malfunctions?
-
->  				platform_device_put(pd_pdev);
->  				return ret;
->  			}
+Since device_set_of_node_from_dev() sets and increments dev->of_node without
+setting dev->fwnode, won't fwnode_handle_put(NULL) do nothing and permanent=
+ly
+leak the OF node reference when these devices are released?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-pdev-fwnod=
-e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D11
+e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D20
