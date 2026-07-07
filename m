@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54C9CC43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA045C43602
 	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9584110EDD9;
-	Tue,  7 Jul 2026 15:12:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D17D10EDDB;
+	Tue,  7 Jul 2026 15:12:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ooJza8oV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gXzWyIxO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCCDF10EDD9
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2508E10EDD9
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C4F514086E;
- Tue,  7 Jul 2026 15:11:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30DCB1F00A3A;
- Tue,  7 Jul 2026 15:11:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E0996138D;
+ Tue,  7 Jul 2026 15:11:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D24E51F000E9;
+ Tue,  7 Jul 2026 15:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437119;
- bh=4L/21DRtUE5kRuq6TWYVCI1t6sDjq6h4ukYZsqdondE=;
+ s=k20260515; t=1783437117;
+ bh=GAr8K4R3YERZBkR47sVUEev0xRFoyIa9HTqDKickM3w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ooJza8oVnRm96K74rmSNGtqVOefMFv6h/k33Vk4CfsYx6w0y3Y6ipRljFKDtZR1XO
- FvXbwIPjAC2u5l/n4xpQLkUsH0LoBZIFE8PWeNBti38ao3lgkd8nm+Vmyqr3o8BavR
- 2hQ3mGCYB4gMlkB3ApUEhkS13SCvodkw4o8/Tu2bAqhvEkVVR3SjzdM34BABc2kA7o
- VjNT3iuo6d0bN+1fen/yWmuNvw6ZktPQzRAGzl5v5hSmlHvWHoMW4YqfUoJx2/zLCc
- bfJNzg+oYeUGr2IMFPNEivL9JKK8OJvpyQ/99U6dCsP9wkeWWRou3QDQTjjBhXQtKp
- kj3jScgmA797w==
+ b=gXzWyIxOzLYDl0ibIYg2Bujsoi6qptf0yez3ny8Esx1g+URTD5JfWAd9TyddHuoyv
+ UOgJn7/vvJHx2SLqYNHkirAN1bFLfIPi+7wTRvm01f4KzVbHDnYtL2d1rP20Sc5zIc
+ 3zM2plFZdSoW5biSZjoJDGLE7Pq7+bEY5xamndvmpIDUKD8vN/QMI60mJp9bInED5l
+ JwpGKCBIsx2af7ht+bsGkXvBiAKDC8U6pKaL0LJ2J37xXl+21vWK0lt49L1yENOxsW
+ 7TzEH1V4Zva4fwKIn31IyqRtE/HNrQqfrfgrfaXk7bAC/uhHf6vTus9vyFXkCLnNWL
+ NvBp75upGG2Kg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:19 +0200
-Subject: [PATCH v2 12/37] drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: Add
- atomic bridge state handlers
+Date: Tue, 07 Jul 2026 17:11:18 +0200
+Subject: [PATCH v2 11/37] drm/bridge: lvds-codec: Switch to atomic bridge
+ callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-12-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-11-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,17 +48,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Ian Ray <ian.ray@gehealthcare.com>, 
- Peter Senna Tschudin <peter.senna@gmail.com>, 
- Martyn Welch <martyn.welch@collabora.co.uk>, 
- Ian Ray <ian.ray@gehealthcare.com>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3939; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Zphg0Cc+EP+6nQiIbor3Crr1rJuRrA332oZ1hvUjXyw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4qLs6mkbZ13uXHwy0XTLkd57rnrqorPa+lM8Cjnfc
- BSzqLF0TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIm838hYxWT5WTVohZDqitzj
- k7ubXR2D036GT5zwp2pbrGHM739e/9iXem0Qi+Y6p95zdhNLTs1sxvr0455rXO8KdPFG3PifYiQ
- yQbJe3eVqpbLQhNMbUx3VzI4cvpPa3Xf4PmeYziVbI73dIgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4668; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=q2lZLMus5/t3u1XbI3ZTH/DhAXF8BRlE95mWSAI2lMc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4qLznumncmYn3pqlttY++OMR01+VhX/0Xn1yDmWK4
+ Mmq/PeuYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExE2pix3nNxa80Bfvmz/nPM
+ J7xbPn1l7kuzayr3P6U/rD+uouGzKnzi9EXLryzOOtfdbLygfd4mH8aGyQ/nrl4scPFbgfKRZ46
+ bP6WsUDtVG1LdYX6IMb1AooZ51rtdKtNiq1ad/JRg437giLANAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,11 +74,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The megachips-stdpxxxx-ge-b850v3-fw bridge doesn't implement any enable
-or disable callbacks, but is still missing the atomic state handlers.
+The lvds-codec bridge uses the legacy non-atomic enable and disable
+bridge callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
-bridge core, add them.
+bridge core, switch to their atomic counterparts and add the bridge
+atomic state handlers.
 
 Generated by the following Coccinelle script:
 
@@ -114,7 +113,7 @@ identifier f;
  	...,
  };
 
-@ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
+@ update_pre_enable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -137,7 +136,7 @@ identifier b;
 	...
  }
 
-@ update_enable_struct depends on (is_bridge && !has_create_state) @
+@ update_enable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -160,7 +159,7 @@ identifier b;
 	...
  }
 
-@ update_disable_struct depends on (is_bridge && !has_create_state) @
+@ update_disable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -183,7 +182,7 @@ identifier b;
 	...
  }
 
-@ update_post_disable_struct depends on (is_bridge && !has_create_state) @
+@ update_post_disable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -206,35 +205,59 @@ identifier b;
 	...
  }
 
-Reviewed-by: Ian Ray <ian.ray@gehealthcare.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
-To: Peter Senna Tschudin <peter.senna@gmail.com>
-To: Ian Ray <ian.ray@ge.com>
-To: Martyn Welch <martyn.welch@collabora.co.uk>
----
- drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/bridge/lvds-codec.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-index 2d02cc69f237..25ff0a0acc93 100644
---- a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-+++ b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-@@ -212,10 +212,13 @@ static int ge_b850v3_lvds_attach(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+index d1135dc3b99f..a82ea0c944eb 100644
+--- a/drivers/gpu/drm/bridge/lvds-codec.c
++++ b/drivers/gpu/drm/bridge/lvds-codec.c
+@@ -41,11 +41,12 @@ static int lvds_codec_attach(struct drm_bridge *bridge,
  
- 	return ge_b850v3_lvds_create_connector(bridge);
+ 	return drm_bridge_attach(encoder, lvds_codec->panel_bridge,
+ 				 bridge, flags);
  }
  
- static const struct drm_bridge_funcs ge_b850v3_lvds_funcs = {
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = ge_b850v3_lvds_attach,
- 	.detect = ge_b850v3_lvds_bridge_detect,
- 	.edid_read = ge_b850v3_lvds_edid_read,
- };
+-static void lvds_codec_enable(struct drm_bridge *bridge)
++static void lvds_codec_enable(struct drm_bridge *bridge,
++			      struct drm_atomic_commit *commit)
+ {
+ 	struct lvds_codec *lvds_codec = to_lvds_codec(bridge);
+ 	int ret;
  
+ 	ret = regulator_enable(lvds_codec->vcc);
+@@ -57,11 +58,12 @@ static void lvds_codec_enable(struct drm_bridge *bridge)
+ 
+ 	if (lvds_codec->powerdown_gpio)
+ 		gpiod_set_value_cansleep(lvds_codec->powerdown_gpio, 0);
+ }
+ 
+-static void lvds_codec_disable(struct drm_bridge *bridge)
++static void lvds_codec_disable(struct drm_bridge *bridge,
++			       struct drm_atomic_commit *commit)
+ {
+ 	struct lvds_codec *lvds_codec = to_lvds_codec(bridge);
+ 	int ret;
+ 
+ 	if (lvds_codec->powerdown_gpio)
+@@ -98,12 +100,12 @@ lvds_codec_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+ 	return input_fmts;
+ }
+ 
+ static const struct drm_bridge_funcs funcs = {
+ 	.attach = lvds_codec_attach,
+-	.enable = lvds_codec_enable,
+-	.disable = lvds_codec_disable,
++	.atomic_enable = lvds_codec_enable,
++	.atomic_disable = lvds_codec_disable,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_get_input_bus_fmts = lvds_codec_atomic_get_input_bus_fmts,
+ };
 
 -- 
 2.54.0
