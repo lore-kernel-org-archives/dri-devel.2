@@ -4,61 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7706CC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 131E3C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B007610E503;
-	Tue,  7 Jul 2026 15:11:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 630A310EDCD;
+	Tue,  7 Jul 2026 15:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="kSpo+r2W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X2OMVpVV";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE0E810E503
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783437059; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=d+GEGtixobrI9AQMcY0LkClOUFcI3wi52SiSYU4IlIV2A53YW1AlISLWAyjlpnzTgYwtSvR8UaL9El9YSasjE/ypaW+HwWgd/vbRzrp1aujFdfWfAQO5jF8Rhb1JBLuDvuVDxFVl56DIUaGCTJG4wRfuZD86bz6dSq3OIzpZLD4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783437059;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=zbMlIGQ0sYd7uDW1jFhubeLMro2JlZCRFaoEbfN6HZY=; 
- b=gRFQnkYN0Sg4YW3ooHUt0GznWlMTfZagodfk8lakaBqVzH8XOs0Zy0idBJwgHunuvu4Ioy5Lklxy4kbKIy8GShgG3pia0htkU/3zs6f7yCUyEkkae7foTl9FHQm7hLgYgPlbE33wVIkGyyE7669cqs0zkquh10+/DrBHiNpXsXk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783437059; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=zbMlIGQ0sYd7uDW1jFhubeLMro2JlZCRFaoEbfN6HZY=;
- b=kSpo+r2Ww8xKg34qcXQL3DPWZaQEuw5QeFH3IZHqUiPs+022zr4hDkIRc4IgMw0e
- WpogWcqXymeYUL0/N85ifdy1UCI9qFTvWQrbaSZTgcKvbWHw7ZhqLBBJOSX0lcAB22k
- SbgV1WIZ3gm+tMp1OtTQjQovgoR/u2cyxpXA+yJU=
-Received: by mx.zohomail.com with SMTPS id 1783437057836994.9405528357895;
- Tue, 7 Jul 2026 08:10:57 -0700 (PDT)
-Message-ID: <8b02c456-fb23-4c17-ad20-a2bab2d588b1@collabora.com>
-Date: Tue, 7 Jul 2026 18:10:52 +0300
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2082310EDCD;
+ Tue,  7 Jul 2026 15:11:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 375DA600BB;
+ Tue,  7 Jul 2026 15:11:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AFFE1F000E9;
+ Tue,  7 Jul 2026 15:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783437090;
+ bh=JjlforA+ziaBJVLx4Cnr7pb3fjV8I7GXKYxgRHaZVMM=;
+ h=From:Subject:Date:To:Cc;
+ b=X2OMVpVVZIPZgxnKjrKjswDJh0duEmdapPSfE68qiGhWWIKiIDY0RU163wpGKIaDe
+ eGem2XLqIyxXzMI7rOMp33ad74vgjmwJNl5or2vF8DICNrz+8otdvm3vmFtBN2R30e
+ C2VA3XzVrOXeVfRfw4v8rOgzBJf7Dr2AUBLvtWrahyFfzWeFNty09CqqQPa20BbzlD
+ g8Ce8t9oGlLDKtxa1W9CFIqQtY07w04lRVRfqXm2hbvlWi8f9ZNikY5JwSut+Ba1AL
+ 6pryS3NyKnoiaqPK+HavXoR4vYMCcYwvj/6b/sNgh8zGu/JJho2AbgO392+U7EAx8s
+ 9aSuchoVMFnDA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v2 00/37] drm/bridge: Convert all bridges to atomic
+Date: Tue, 07 Jul 2026 17:11:07 +0200
+Message-Id: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
- avoid deadlock
-To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <18beb213335dd544.57cdc20d9a554be2.724d3e176f79ad9@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <18beb213335dd544.57cdc20d9a554be2.724d3e176f79ad9@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOQQ6CMBBFr0Jm7ZgWsRhX3sO4KHTAiZTqtBKM4
+ e4CunX5J3lv3hsiCVOEY/YGoYEjh34e+SaD+mr7lpDdvCFXuVFG79GJR9t1aFPwXGMl7FqKWDh
+ bNFS6Zn9oYIbvQg2Pq/h8+W6hx3P2p+8RKhsJ6+A9p2O2WD3HGnsaEy7PUJWocljYK8cU5LU2D
+ nqFfznlv5xBo8LK7MjstNHGVKcbSU/dNkgLl2maPp8VRM/5AAAA
+X-Change-ID: 20260615-drm-all-atomic-bridges-4da4fe7df58f
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>, Joshua Peisach <jpeisach@ubuntu.com>, 
+ Sasha Finkelstein <k@chaosmail.tech>, Janne Grunau <j@jannau.net>, 
+ asahi@lists.linux.dev, Benson Leung <bleung@chromium.org>, 
+ Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Francesco Dolcini <francesco@dolcini.it>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>, 
+ Peter Senna Tschudin <peter.senna@gmail.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>, 
+ Manikandan Muralidharan <manikandan.m@microchip.com>, 
+ Dharma Balasubiramani <dharma.b@microchip.com>, 
+ Russell King <linux@armlinux.org.uk>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-mediatek@lists.infradead.org, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ freedreno@lists.freedesktop.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5894; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=HI3ffE+ujzSlcnMKd2l9E+SAUa2JXxPL6wEPc8J2u9o=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4gJcoUWvVI19WyLDClrCZKtabhWXCV5aIbT3AMdVa
+ 73aZpaOqSwMwpwMsmKKLE9kwk4vb19c5WC/8gfMHFYmkCEMXJwCMBF/acaGD8+KT92Pu/z8cfKm
+ sw3hWnHKQk6bdh5i/mO39m41F/OpVzaFVr5zZ2yZuTYu1aRIn1GNsT7tUmCS/BrLj5m1V9q/FP9
+ YY9Qm9ndNyRHJ65k/NTZ6FU+UnfbF7vQ077xOc5/WY7mdvwA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,238 +107,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/3/26 08:58, Ryosuke Yasuoka wrote:
-> 
-> 
-> On 02/07/2026 14:26, Dmitry Osipenko wrote:
->> On 7/1/26 12:23, Ryosuke Yasuoka wrote:
->>>
->>>
->>> On 30/06/2026 16:46, Dmitry Osipenko wrote:
->>>> Hi,
->>>>
->>>> On 6/30/26 12:16, Ryosuke Yasuoka wrote:
->>>>> A probe-time deadlock can occur between the dequeue worker and
->>>>> drm_client_register(). During probe, drm_client_register() holds
->>>>> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
->>>>> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
->>>>> waiting for virtqueue space. The dequeue worker that would free that
->>>>> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
->>>>> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
->>>>> to acquire the same clientlist_mutex. Since wake_up() is only called
->>>>> after the resp_cb loop, the probe thread is never woken and both threads
->>>>> deadlock.
->>>>>
->>>>> Fix this by deferring the hotplug notification from
->>>>> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
->>>>> display data (outputs[i].info) is still updated synchronously in the
->>>>> callback, and the deferred work only triggers a re-probe notification to
->>>>> DRM clients.
->>>>>
->>>>> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
->>>>> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
->>>>> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
->>>>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
->>>>> ---
->>>>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
->>>>>  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
->>>>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
->>>>>  3 files changed, 16 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>>>> index 7449907754a4..27ffa4697ae9 100644
->>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
->>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
->>>>> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
->>>>>  
->>>>>  	struct work_struct config_changed_work;
->>>>>  
->>>>> +	struct work_struct hotplug_work;
->>>>> +
->>>>>  	struct work_struct obj_free_work;
->>>>>  	spinlock_t obj_free_lock;
->>>>>  	struct list_head obj_free_list;
->>>>> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
->>>>>  					uint32_t x, uint32_t y,
->>>>>  					struct virtio_gpu_object_array *objs,
->>>>>  					struct virtio_gpu_fence *fence);
->>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
->>>>>  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgdev,
->>>>>  					 uint32_t resource_id,
->>>>>  					 uint32_t x, uint32_t y,
->>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>>> index cfde9f573df6..cfb532ba43a4 100644
->>>>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
->>>>> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
->>>>>  	INIT_WORK(&vgdev->config_changed_work,
->>>>>  		  virtio_gpu_config_changed_work_func);
->>>>>  
->>>>> +	INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
->>>>> +
->>>>>  	INIT_WORK(&vgdev->obj_free_work,
->>>>>  		  virtio_gpu_array_put_free_work);
->>>>>  	INIT_LIST_HEAD(&vgdev->obj_free_list);
->>>>> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
->>>>>  	flush_work(&vgdev->obj_free_work);
->>>>>  	flush_work(&vgdev->ctrlq.dequeue_work);
->>>>>  	flush_work(&vgdev->cursorq.dequeue_work);
->>>>> +	flush_work(&vgdev->hotplug_work);
->>>>>  	flush_work(&vgdev->config_changed_work);
->>>>>  	virtio_reset_device(vgdev->vdev);
->>>>>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
->>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>>>> index 67865810a2e7..084d98f5dc7b 100644
->>>>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
->>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
->>>>> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virtio_gpu_device *vgdev,
->>>>>  	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
->>>>>  }
->>>>>  
->>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
->>>>> +{
->>>>> +	struct virtio_gpu_device *vgdev =
->>>>> +		container_of(work, struct virtio_gpu_device, hotplug_work);
->>>>> +
->>>>> +	if (!drm_helper_hpd_irq_event(vgdev->ddev))
->>>>> +		drm_kms_helper_hotplug_event(vgdev->ddev);
->>>>> +}
->>>>> +
->>>>>  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
->>>>>  					       struct virtio_gpu_vbuffer *vbuf)
->>>>>  {
->>>>> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
->>>>>  	spin_unlock(&vgdev->display_info_lock);
->>>>>  	wake_up(&vgdev->resp_wq);
->>>>>  
->>>>> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
->>>>> -		drm_kms_helper_hotplug_event(vgdev->ddev);
->>>>> +	schedule_work(&vgdev->hotplug_work);
->>>>>  }
->>>>>  
->>>>>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
->>>>
->>>
->>> Hi,
->>> Thank you for your review.
->>>
->>>> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init(), placing it after wait_event_timeout(display_info_pending)? This will avoid additional work_struct that otherwise needs to be cancelled in virtio_gpu_init() on the timeout.
->>>
->>> IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
->>> into virtio_gpu_init() after wait_event_timeout() would not prevent the
->>> issue.
->>>
->>> Looking at the syzbot call traces[1][2], the deadlock occurs during
->>> drm_client_setup(), which runs after virtio_gpu_init() has already
->>> returned. The display_info_cb that triggers the deadlock is called from
->>> the dequeue worker while drm_client_register() holds clientlist_mutex.
->>>
->>> Thread A:
->>> virtio_gpu_probe()
->>>  -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
->>
->> You mean that the timeout happens and it's again syzkaller report for a
->> broken host. A day ago I applied [1] that should fix this "bogus"
->> syzkaller report.
->>
->> [1] https://patchwork.freedesktop.org/patch/735301/
-> 
-> Thank you for [1] and the clarificaiton. I agree that [1] addresses the
-> broken host scenario where virtio_gpu_init() times out and probe
-> continues with a pending display_info response. I think there is another
-> scenario causing the same deadlock reported by syzbot and my patch
-> addresses both cases.
-> 
-> The deadlock can also occur with the following scenario:
-> after virtio_gpu_init() completes successfully (wait_event_timeout
-> returns), if a config_changed event arrives before drm_client_setup()
-> completes, config_changed_work_func() sends a new GET_DISPLAY_INFO. Its
-> display_info_cb fires in the dequeue worker and blocks on
-> clientlist_mutex held by drm_client_register(). This is the same
-> deadlock path reported by syzbot.
-> 
-> Since [1] only prevents the timeout case, I believe the schedule_work()
-> approach is still needed to prevent display_info_cb from blocking on
-> clientlist_mutex in the dequeue worker context, regardless of the
-> trigger.
+Hi,
 
-The config_changed_work_func() already invokes
-drm_helper_hpd_irq_event() by itself [1].
+Over the years, most of the bridges have been converted to atomic
+modesetting and hooks, but not all of them. This forces us to maintain
+two different code path in quite a few places, which is pretty
+bothersome. The switch to atomic modesetting for legacy bridges though
+is pretty trivial, and we don't have a lot of drivers still using the
+legacy path.
 
-[1]
-https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/virtio/virtgpu_kms.c#L52
+This series converts all bridges to atomic modesetting and drops the
+legacy codepaths where relevant.
 
-The drm_helper_hpd_irq_event() itself calls
-drm_kms_helper_hotplug_event() [2].
+Let me know what you think,
+Maxime
 
-[2]
-https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/drm_probe_helper.c#L1113
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v2:
+- Rebase on top of current drm-misc-next
+- Improve commit messages
+- Fix the references in the doc
+- Link to v1: https://lore.kernel.org/r/20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org
 
-Isn't drm_helper_hpd_irq_event() call done by
-virtio_gpu_cmd_get_display_info_cb() already partially redundant? I.e.
-only it's needed by virtio_gpu_init() and not by
-config_changed_work_func(). And then we can move
-drm_helper_hpd_irq_event() to virtio_gpu_init():
+---
+Maxime Ripard (37):
+      drm/adp: mipi: Add atomic bridge state handlers
+      drm/bridge: analogix-anx6345: Switch to atomic bridge callbacks
+      drm/bridge: analogix-anx78xx: Switch to atomic bridge callbacks
+      drm/bridge: aux-bridge: Add atomic bridge state handlers
+      drm/bridge: aux-hpd-bridge: Add atomic bridge state handlers
+      drm/bridge: chrontel-ch7033: Switch to atomic bridge callbacks
+      drm/bridge: cros-ec-anx7688: Add atomic bridge state handlers
+      drm/bridge: lontium-lt8713sx: Add atomic bridge state handlers
+      drm/bridge: lontium-lt8912b: Switch to atomic bridge callbacks
+      drm/bridge: lontium-lt9611uxc: Add atomic bridge state handlers
+      drm/bridge: lvds-codec: Switch to atomic bridge callbacks
+      drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: Add atomic bridge state handlers
+      drm/bridge: microchip-lvds: Add atomic bridge state handlers
+      drm/bridge: nxp-ptn3460: Switch to atomic bridge callbacks
+      drm/bridge: of-display-mode-bridge: Add atomic bridge state handlers
+      drm/bridge: parade-ps8622: Switch to atomic bridge callbacks
+      drm/bridge: sii9234: Add atomic bridge state handlers
+      drm/bridge: sil-sii8620: Add atomic bridge state handlers
+      drm/bridge: simple-bridge: Switch to atomic bridge callbacks
+      drm/bridge: tc358764: Switch to atomic bridge callbacks
+      drm/bridge: tda998x: Switch to atomic bridge callbacks
+      drm/bridge: ti-tfp410: Switch to atomic bridge callbacks
+      drm/bridge: ti-tpd12s015: Add atomic bridge state handlers
+      drm/bridge: thc63lvd1024: Switch to atomic bridge callbacks
+      drm/bridge: waveshare-dsi: Switch to atomic bridge callbacks
+      drm/exynos: mic: Switch to atomic bridge callbacks
+      drm/mcde: dsi: Add atomic bridge state handlers
+      drm/mediatek: dpi: Switch to atomic bridge callbacks
+      drm/msm: dsi: Switch to atomic bridge callbacks
+      drm/omap: dpi: Switch to atomic bridge callbacks
+      drm/omap: dsi: Switch to atomic bridge callbacks
+      drm/omap: sdi: Switch to atomic bridge callbacks
+      drm/omap: venc: Switch to atomic bridge callbacks
+      drm/sti: dvo: Switch to atomic bridge callbacks
+      drm/sti: hda: Switch to atomic bridge callbacks
+      drm/sti: hdmi: Switch to atomic bridge callbacks
+      drm/bridge: Remove legacy bridge callback support
 
-```
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c
-b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 922782bdc9cd..9805283683c1 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -303,6 +303,7 @@ int virtio_gpu_init(struct virtio_device *vdev,
-struct drm_device *dev)
-                virtio_gpu_notify(vgdev);
-                wait_event_timeout(vgdev->resp_wq,
-!vgdev->display_info_pending,
-                                   5 * HZ);
-+               drm_helper_hpd_irq_event(vgdev->ddev);
-        }
+ drivers/gpu/drm/adp/adp-mipi.c                     |   4 +
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  13 ++-
+ drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c |  13 ++-
+ drivers/gpu/drm/bridge/aux-bridge.c                |   4 +
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c            |   4 +
+ drivers/gpu/drm/bridge/chrontel-ch7033.c           |  13 ++-
+ drivers/gpu/drm/bridge/cros-ec-anx7688.c           |   4 +
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c          |   4 +
+ drivers/gpu/drm/bridge/lontium-lt8912b.c           |   8 +-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c         |   3 +
+ drivers/gpu/drm/bridge/lvds-codec.c                |  10 +-
+ .../drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c   |   3 +
+ drivers/gpu/drm/bridge/microchip-lvds.c            |   3 +
+ drivers/gpu/drm/bridge/nxp-ptn3460.c               |  17 ++--
+ drivers/gpu/drm/bridge/of-display-mode-bridge.c    |   4 +
+ drivers/gpu/drm/bridge/parade-ps8622.c             |  18 ++--
+ drivers/gpu/drm/bridge/sii9234.c                   |   4 +
+ drivers/gpu/drm/bridge/sil-sii8620.c               |   4 +
+ drivers/gpu/drm/bridge/simple-bridge.c             |  13 ++-
+ drivers/gpu/drm/bridge/tc358764.c                  |  13 ++-
+ drivers/gpu/drm/bridge/tda998x_drv.c               |  13 ++-
+ drivers/gpu/drm/bridge/thc63lvd1024.c              |  14 ++-
+ drivers/gpu/drm/bridge/ti-tfp410.c                 |  10 +-
+ drivers/gpu/drm/bridge/ti-tpd12s015.c              |   4 +
+ drivers/gpu/drm/bridge/waveshare-dsi.c             |  14 ++-
+ drivers/gpu/drm/drm_bridge.c                       |  61 ++++--------
+ drivers/gpu/drm/exynos/exynos_drm_mic.c            |  14 ++-
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |   3 +
+ drivers/gpu/drm/mediatek/mtk_dpi.c                 |  10 +-
+ drivers/gpu/drm/msm/dsi/dsi_manager.c              |  13 ++-
+ drivers/gpu/drm/omapdrm/dss/dpi.c                  |  14 ++-
+ drivers/gpu/drm/omapdrm/dss/dsi.c                  |  14 ++-
+ drivers/gpu/drm/omapdrm/dss/sdi.c                  |  14 ++-
+ drivers/gpu/drm/omapdrm/dss/venc.c                 |  14 ++-
+ drivers/gpu/drm/sti/sti_dvo.c                      |  20 ++--
+ drivers/gpu/drm/sti/sti_hda.c                      |  20 ++--
+ drivers/gpu/drm/sti/sti_hdmi.c                     |  20 ++--
+ drivers/gpu/drm/tests/drm_bridge_test.c            | 104 ---------------------
+ include/drm/drm_bridge.h                           | 103 --------------------
+ 39 files changed, 287 insertions(+), 351 deletions(-)
+---
+base-commit: 928e01b05e0a147db8df1152f95acbb801630308
+change-id: 20260615-drm-all-atomic-bridges-4da4fe7df58f
 
-        vgdev->pm_nb.notifier_call = virtio_gpu_pm_notifier;
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c
-b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 68d097ad9d1d..aa6440a9b81e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -880,9 +880,6 @@ static void
-virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
-        vgdev->display_info_pending = false;
-        spin_unlock(&vgdev->display_info_lock);
-        wake_up(&vgdev->resp_wq);
--
--       if (!drm_helper_hpd_irq_event(vgdev->ddev))
--               drm_kms_helper_hotplug_event(vgdev->ddev);
- }
-
- static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device
-*vgdev,
-```
-
-Isn't it a bug that config_changed_work_func() doesn't wait for
-display_info_pending event?
-
-
-```
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c
-b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 922782bdc9cd..dd2d5c896c39 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -50,6 +50,8 @@ static void virtio_gpu_config_changed_work_func(struct
-work_struct *work)
-                                virtio_gpu_cmd_get_edids(vgdev);
-                        virtio_gpu_cmd_get_display_info(vgdev);
-                        virtio_gpu_notify(vgdev);
-+                       wait_event_timeout(vgdev->resp_wq,
-!vgdev->display_info_pending,
-+                                          5 * HZ);
-                        drm_helper_hpd_irq_event(vgdev->ddev);
-                }
-                events_clear |= VIRTIO_GPU_EVENT_DISPLAY;
-
-```
-
--- 
 Best regards,
-Dmitry
+-- 
+Maxime Ripard <mripard@kernel.org>
+
