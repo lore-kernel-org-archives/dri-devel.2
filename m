@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C706DC44506
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89CB8C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA7810EBA5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 821B410EBA4;
 	Tue,  7 Jul 2026 07:33:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xk79Tjws";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KBj+Nsf6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC2CE10EB98
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2662310EB9E
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D6846436EE;
- Tue,  7 Jul 2026 07:33:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119731F000E9;
- Tue,  7 Jul 2026 07:33:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9D89F618B6;
+ Tue,  7 Jul 2026 07:33:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1EC01F00A3A;
+ Tue,  7 Jul 2026 07:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409622;
- bh=iPuerRcuivB+2DuvQ9kuX8ZsIO7TmcRGdbgEsGpDX2g=;
+ s=k20260515; t=1783409628;
+ bh=5Q67Ks3EtT/rviD16v/y5//PZ31a2ZTmmYZGkyVwukM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xk79Tjws4zk4Nm8wQ9Hlhi1CQHCea9/tYlP70BIzvghLY0WiEkWgwwax11+6ntTLw
- TDB8i4Wnpe/2Yep4Zp1aJr+WHL3/X5PC6rFUgCOxxjyKVKn6V1OEFRRLUnda9G7aZJ
- 2/yDXTvUg0ZbNChKY5VcRxGBp4jonzPjdcGrnt8YBpJxzV3L2O3T0IxqPHLVQwJ49n
- YbROZDL5qcv8FpLOC0lY9LIPV/trRl0Vgv/1bBNLAa59VckI1YIQqM4vuJ/DG3j5HF
- okEhO3e2k2yJiJ0Azm2KCYPbaw76F8EvQXPSoqg+UAuSe+XvRkBZwq1uv/F52KEi5T
- b6PdvUQOHcbEA==
+ b=KBj+Nsf6/iUkquQMKGvR/GDwyZrSB36Nlqsb4zJRVKyaHRRlYKBedR+OzYrEU7ktI
+ BXuSFymw1NnUB/bFxipAGuVZkOrHIKpVn7E1PL2pvxGMoxRJ/wkKHxXtw37R6tali+
+ cD3UDhh1+uSAKKv9Wf3SXh6NeaLNql6c7JOkVKwVppqOMEUW4MrxhX/wuMBpDUryAo
+ xLma9eT3JDAtZcBrqsIdMR3Mc4BUlS2HIxP3ZW0gcxNBQdbkRwTc4Sj6SdDK2z9WAJ
+ GvAM0HPrUC92s8BTkKOmGaImcWQ6soMHNnYzKD0X5EsexG4chvKJDBQnHCN9ARHmn6
+ ej7MznerlbndQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 24/40] locking/lockdep: prevent various lockdep
- assertions when lockdep_off()'ed
+Subject: Re: [PATCH v19 30/40] dept: make dept stop from working on
+ debug_locks_off()
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: dri-devel@lists.freedesktop.org, dlemoal@kernel.org, ojeda@kernel.org,
- tytso@mit.edu, linux-rt-devel@lists.linux.dev, "Jeff
- Layton" <jlayton@kernel.org>, linux-modules@vger.kernel.org, cassel@kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, "Chuck
- Lever" <cel@kernel.org>, "Anna Schumaker" <anna@kernel.org>
-In-Reply-To: <20260706061928.66713-25-byungchul@sk.com>
+Cc: tytso@mit.edu, linux-kernel@vger.kernel.org,
+ "Jeff Layton" <jlayton@kernel.org>, linux-rt-devel@lists.linux.dev,
+ linux-ide@vger.kernel.org, cassel@kernel.org, ojeda@kernel.org, "Anna
+ Schumaker" <anna@kernel.org>, dlemoal@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org, "Chuck
+ Lever" <cel@kernel.org>
+In-Reply-To: <20260706061928.66713-31-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-25-byungchul@sk.com>
+ <20260706061928.66713-31-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:41 +0000
-Message-Id: <20260707073342.119731F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:47 +0000
+Message-Id: <20260707073347.A1EC01F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +63,100 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The patch introduces a performance regression on fast paths when=
- CONFIG_PROVE_LOCKING is enabled by adding an out-of-line function call to =
-a macro that is unconditionally evaluated before checking if the assertion =
-actually fails.
+- [Medium] DEPT fails to stop when lock debugging is globally disabled via =
+kernel tainting.
+- [Low] dept_stop_emerg() is unnecessarily exported via EXPORT_SYMBOL_GPL d=
+espite having no module callers.
+- [Low] Implicit reliance on transitive header inclusion for dept_stop_emer=
+g().
 --
 
-commit a2a5c1f9c5f68f19a3e991808b6e812dde3fa53a
+commit 3772379470ad3a639343d641bfb17cbd105fc9a5
 Author: Byungchul Park <byungchul@sk.com>
-locking/lockdep: prevent various lockdep assertions when lockdep_off()'ed
 
-This commit adds a check for lockdep_recursing(current) to the
-__lockdep_enabled macro. To avoid header dependency issues, it introduces
-an out-of-line function lockdep_recursing_current().
+dept: make dept stop from working on debug_locks_off()
 
-> diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
-> index 60b17a2ff555f..5113b7053b621 100644
-> --- a/include/linux/lockdep.h
-> +++ b/include/linux/lockdep.h
+The commit adds a dept_stop_emerg() call inside debug_locks_off() to
+stop the DEPT feature when panic or other lock debugging suspensions occur.
+
+> diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
+> index 048348ea64d29..007e1bc7d201e 100644
+> --- a/kernel/dependency/dept.c
+> +++ b/kernel/dependency/dept.c
+
 [ ... ]
-> @@ -630,7 +631,7 @@ DECLARE_PER_CPU(int, hardirqs_enabled);
->  DECLARE_PER_CPU(int, hardirq_context);
->  DECLARE_PER_CPU(unsigned int, lockdep_recursion);
+
+> @@ -187,6 +187,12 @@ static void dept_unlock(void)
+>  	arch_spin_unlock(&dept_spin);
+>  }
 > =20
-> -#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursi=
-on))
-> +#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursi=
-on) && !lockdep_recursing_current())
-> =20
->  #define lockdep_assert_irqs_enabled()					\
->  do {									\
+> +void dept_stop_emerg(void)
+> +{
+> +	WRITE_ONCE(dept_stop, 1);
+> +}
+> +EXPORT_SYMBOL_GPL(dept_stop_emerg);
+
+[Severity: Low]
+Does this function need to be exported to loadable modules?
+
+CONFIG_DEPT is a boolean configuration, so kernel/dependency/dept.c is
+always built-in. Its only caller in lib/debug_locks.c is also always
+built-in, making this export unnecessary.
+
+> +
+>  enum bfs_ret {
+>  	BFS_CONTINUE,
+>  	BFS_DONE,
+> diff --git a/lib/debug_locks.c b/lib/debug_locks.c
+> index a75ee30b77cb8..14a965914a8fb 100644
+> --- a/lib/debug_locks.c
+> +++ b/lib/debug_locks.c
+
+[ ... ]
+
+> @@ -38,6 +38,8 @@ EXPORT_SYMBOL_GPL(debug_locks_silent);
+>   */
+>  int debug_locks_off(void)
+>  {
+> +	dept_stop_emerg();
+
+[Severity: Low]
+Is it possible to explicitly include <linux/dept.h> in lib/debug_locks.c?
+
+Relying on implicit transitive header inclusion for dept_stop_emerg()
+could break the build if inner header structures like spinlock.h or
+lockdep.h change in the future.
+
+> +
+>  	if (debug_locks && __debug_locks_off()) {
 
 [Severity: Medium]
-Will this out-of-line call introduce measurable overhead on fast paths?
+Will this miss DEPT shutdown when the system is tainted?
 
-Since debug_locks and !this_cpu_read(lockdep_recursion) are almost always
-true in healthy systems, lockdep_recursing_current() will be evaluated every
-time __lockdep_enabled is checked.
+For example, when a system fault occurs, add_taint() disables lockdep via
+__debug_locks_off():
 
-For example, in lockdep_assert_irqs_enabled():
+kernel/panic.c:add_taint() {
+    ...
+    if (lockdep_ok =3D=3D LOCKDEP_NOW_UNRELIABLE && __debug_locks_off())
+        pr_warn("Disabling lock debugging due to kernel taint\n");
+    ...
+}
 
-    WARN_ON_ONCE(__lockdep_enabled && !this_cpu_read(hardirqs_enabled));
+Because this bypasses debug_locks_off(), DEPT remains enabled when the
+system lock state is already unreliable, potentially leading to false
+positive dependency splats or further crashes.
 
-Because __lockdep_enabled is the first operand, the out-of-line call execut=
-es
-before checking if the assertion actually fails.
-
-Could we move __lockdep_enabled to the end of the && chain in these
-assertions?
-
-    WARN_ON_ONCE(!this_cpu_read(hardirqs_enabled) && __lockdep_enabled);
-
-Placing the failure condition first would ensure the out-of-line function is
-only evaluated on the slow path when the assertion is already failing, avoi=
-ding
-the function call overhead on hot paths entirely.
+>  		if (!debug_locks_silent) {
+>  			console_verbose();
+>  			return 1;
+>  		}
+>  	}
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D24
+3-1-byungchul@sk.com?part=3D30
