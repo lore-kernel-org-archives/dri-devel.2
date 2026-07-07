@@ -4,74 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81ED1C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 18:41:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8886AC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 19:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50B810E09A;
-	Tue,  7 Jul 2026 18:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E90810E4F1;
+	Tue,  7 Jul 2026 19:01:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="M9oei2BL";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="hSEMlMVf";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A6D210E09A
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 18:41:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783449658; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=cdp4bG/XEl8J+bSYrJEMFweg2cZt6HBV2/55PeAKnvuxERQYQtMBdtS/kZH9HDq3nDad8j1/vAGViubPGZWnlQOBfueZLaGr1Z0oeXU5DnE+g3r2Jrbp+lcm7zdPuJ791tuc8M2p8+0P16J+7tZ9SRZm862eWg6INjk80hLwpiw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783449658;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=EDwlnOs4YCj2t7wvoltJ8iZPFDsHdK8fCnqAW/cA7WU=; 
- b=cc8yUUsX/6Q4GKfSl6KX1RsrLQv2wthHwFoD/i65KU0YuAPSNoV+3e2Loach0y6TZUKh4OjZwyBzUHqlbsvAbzACpyBMnoktqaieJwCBL0RXYCsaZYSlUbhper3toYuJ/zsjdj4scXuaSrQRfDUBNoH9AqVnFYoHgndZGeyeyxM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783449658; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=EDwlnOs4YCj2t7wvoltJ8iZPFDsHdK8fCnqAW/cA7WU=;
- b=M9oei2BLcjSRlwwu9LV2XG59pBQwPM1FvrsBjc4V+DCYAVZh+22SCt6I4FXxVpYH
- m3jYja78NKSBtMrqu8CaIjPr0T1h1mafD5fc3kQwvY/CmXpjyAmBEgPyfG19FUSDpFA
- Y8Bzm7lW5xBIav5I4ilNBOwr863p1D2CayxmLgv4=
-Received: by mx.zohomail.com with SMTPS id 1783449656904757.8597891704945;
- Tue, 7 Jul 2026 11:40:56 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 02/20] rust: io: add missing safety requirement in
- `IoCapable` methods
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260706-io_projection-v6-2-72cd5d055d54@garyguo.net>
-Date: Tue, 7 Jul 2026 15:40:36 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C29E810E4F1
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 19:01:18 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2cab97c86bdso18735ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 12:01:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783450878; cv=none;
+ d=google.com; s=arc-20260327;
+ b=F20I97KjkCc/B8741MD2xhmODB1a2h+DTzR32108CGy2k+nDDTGOqsxNsmWYOBiwXh
+ M1B3x7eDK0A0cEvPcmIIKGUasOgql2R7XxJggSFcvm9N++8nS28H8I9/0hSgYA3G8i04
+ EWV/6FmPR2tYehUjTC6LSpDfFBiYOP2chjmc+8f7bzUZVCifSGHT0D3f4/YOLSm5AXQl
+ gXM2tbSGne5nsclmTZL+I8rlwsS5TriEg9VDANP3vaQ4ewPoHmrvq5sa0T+NG4/zDqZt
+ S46l+xLNO2D3MyBg0nOPkI3Z5jraoJ3zf//r5fY2GBr+WzYidcbXaf5psC6b03mUAwR5
+ fzoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+gEkOp0eGJJxoxP/0omZEt8WDTb/s39aaadPNgZ5krI=;
+ fh=FhHxvx/E9/UnbQGEigKYAIhGgOfaOpiKrFS7Alk7QpM=;
+ b=oVtvIUmprXIGAOiSTtktAMeFEwqCoTqJDgWvaridE/FG2g7Q79n1IQVQvu/6LUalJr
+ 6UBGs24LAYmLk+/S8qTzBj579NPLam82GLWxWFHlIapYblmo9TjpXxfY9Pz9hLpGC6N3
+ MCcCQzKP10VQjHQjrUL3KHrNY/Ya5pSi2/EdX0qnaYNXcSJGWm9DfA+DM1G61hLQAVUa
+ slScG2FDwmwyxHvNF/DbXFB2hx6hhxNPFUu3YNcR6Qbvay5nF97hBdojGcgqpT3HXtUW
+ edNoDOEECe468HmGAR3o3TEmm4gtpwVSupeNQ/kIqpLUEjJP5lwfYmC5KeNzNQE5dPSB
+ kSsw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1783450878; x=1784055678;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=+gEkOp0eGJJxoxP/0omZEt8WDTb/s39aaadPNgZ5krI=;
+ b=hSEMlMVfU5qOBT0DksyAaRS6Wt6JBOOVdkaxnkqsX2NEMhEN6IrZa+KVKdNMU3+47+
+ 2M+fXdpxR9WdtqxpACN3uO646bV2Rn46HEey/8NngTuyLzyn0w6P1SVVuHOf9/HW7fRK
+ qkhuI5/qHS44/x0p1zTfRyOPKBOGoLOgw6g0hUvxjcYA67DcHZQYdNEVU6dldQ86+2v9
+ QyvFKWVhHdsi+zsrlPALUbXN/+yPflWylZHiKT5/pCGogp17lJf8hdn6yokndfqzJ131
+ ypvlYDNsp5pbt/T/CSp8tHeJ+fLJjbVJNLvovMwzKnoGF4aiEmk4xz+sTyJtqXVI8oWf
+ TxHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783450878; x=1784055678;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=+gEkOp0eGJJxoxP/0omZEt8WDTb/s39aaadPNgZ5krI=;
+ b=guhFf9M13QrxSESlD5fzVM3KvidLUDhaMmoQ/xDJ9mmylC1GMbu8LTmpeb2bdSK/mJ
+ 6On3I62i8/LuosC6bwSqoNgAbABoWD0VXY/o9Fk+VhkZKLkLlAvTsHbiYwsNmF41ubri
+ CoVbKLFzx7NBW3yvE+37EGdo74aqNjIh1gHrvEP1YxPSlYBB2kXj5Wu6SmeCxxgDaagu
+ Hlbw7wYANdcxi6tFbaWEF9bEnCO1rhsF4EBGC3pShbxvDdV0cZHAnCkJtZJtu9IFy9Zx
+ W6uB5ivOKIu3AwdK0JzGVxNvLEnz+27KgP8OAWZcMmgLc+4D0p22kbzQkCUrc0IS1GBw
+ 1rHg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp7/6oUTa/LW0PQC6VwNGgRTHMA7nG9wOrF3ph6qnSGMCyNBaYEsifphDEApK1/gxTyuP1FqBjlNIA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQQqVGvqWUaXb4VG8bGUuAP9FjBLkdNBcjppSmf9suJON6ZNuH
+ tigvSJmN1BejryXN6ONWWKWkDYfIfClPZKF9uhI7yAXJ63q3jCJKIafGBjHCi0nKpAFk2vGxe30
+ jw9NEL44pgTsNeju3NEkxuigHClQ6UgCA6g/85kU=
+X-Gm-Gg: AfdE7cmwZv8H5g7M8ymU6TE3ilHOE+Z9rzjCg9E4QgjMXaL5c4vpKHM51HM5IvWpIvh
+ Q9cANFn4fwV3oUXlUcijsxqlLFL7Kq4u5JWBFXHbTnoNvKUucQVZd4dSDoH9PPxaIUK4NXkvQwb
+ VgcU8kUgaqVUH+ZZCT7GOfwqggAnOrPcGa9O/G5jJngSmH/SySjp2hdXkPQb/kJeBMANvhbydWT
+ 4Ze0IJMoFG2OdWH6SLm1o8iIq1V8XJJ9PruiL6ki+iK2TW/MTN1ekjBIvsjrWzlYK1xUdnM0dVg
+ u8Q5RD4i0kKKOT36h2bM8V1D4ljIwA==
+X-Received: by 2002:a17:902:f705:b0:2cc:6df5:62a1 with SMTP id
+ d9443c01a7336-2ccc9cfe5e8mr4326205ad.20.1783450877735; Tue, 07 Jul 2026
+ 12:01:17 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260625170828.3335431-1-natsu@google.com>
+ <7202d2dc-b6fe-440e-88b0-aefb26c38b86@collabora.com>
+In-Reply-To: <7202d2dc-b6fe-440e-88b0-aefb26c38b86@collabora.com>
+From: Yiwei Zhang <zzyiwei@google.com>
+Date: Tue, 7 Jul 2026 12:01:05 -0700
+X-Gm-Features: AVVi8CfqZRK8FjQuAUJC_3d57L43GEZFnnGMpVl0zr846a_sRmyOwX1vUSPqcgA
+Message-ID: <CAKT=dD=YecudFK1L9wJ22BO41qXt7V4Qm=nNQQiuwheKejoHdg@mail.gmail.com>
+Subject: Re: [PATCH] drm/virtio: Don't detach GEM from a non-created context
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Jason Macnak <natsu@google.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20770F1B-133E-42B1-A204-BF3CB70758BA@collabora.com>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-2-72cd5d055d54@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,116 +111,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Jun 29, 2026 at 2:39=E2=80=AFPM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> Hi,
+>
+> On 6/25/26 20:08, Jason Macnak wrote:
+> > Applies the same treatment as commit 7cf6dd467e87 ("drm/virtio:
+> > Don't attach GEM to a non-created context in gem_object_open()")
+> > to virtio_gpu_gem_object_close() to avoid trying to detach
+> > a resource that was never attached due to a context
+> > never being created when context_init is supported.
+> >
+> > Fixes: 086b9f27f0ab ("drm/virtio: Don't create a context with default p=
+aram if context_init is supported")
+> > Cc: <stable@vger.kernel.org> # v6.14+
+> > Signed-off-by: Jason Macnak <natsu@google.com>
+> > ---
+> >  drivers/gpu/drm/virtio/virtgpu_gem.c | 14 ++++++++------
+> >  1 file changed, 8 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/vir=
+tio/virtgpu_gem.c
+> > index 435d37d36034..66c3f6f74e9c 100644
+> > --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
+> > +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+> > @@ -139,13 +139,15 @@ void virtio_gpu_gem_object_close(struct drm_gem_o=
+bject *obj,
+> >       if (!vgdev->has_virgl_3d)
+> >               return;
+> >
+> > -     objs =3D virtio_gpu_array_alloc(1);
+> > -     if (!objs)
+> > -             return;
+> > -     virtio_gpu_array_add_obj(objs, obj);
+> > +     if (vfpriv->context_created) {
+> > +             objs =3D virtio_gpu_array_alloc(1);
+> > +             if (!objs)
+> > +                     return;
+> > +             virtio_gpu_array_add_obj(objs, obj);
+> >
+> > -     virtio_gpu_cmd_context_detach_resource(vgdev, vfpriv->ctx_id,
+> > -                                            objs);
+> > +             virtio_gpu_cmd_context_detach_resource(vgdev, vfpriv->ctx=
+_id,
+> > +                                                    objs);
+> > +     }
+> >       virtio_gpu_notify(vgdev);
+> >  }
+>
+> The following scenario still will be troubling:
+>
+> 1. vgdev->has_context_init =3D true
+> 2. virtio_gpu_gem_object_open() invoked, GEM created and not attached to =
+ctx
+> 3. virtio_gpu_context_init_ioctl() invoked, now vfpriv->context_created
+> =3D true
+> 4. virtio_gpu_gem_object_close() will detach resource that wasn't attache=
+d
+>
+> Add obj->ctx_attached member to struct virtio_gpu_object. See
+> virtio_gpu_object_attach() that uses obj->attached, do the same for
+> virtio_gpu_cmd_context_attach_resource().
+>
+> --
+> Best regards,
+> Dmitry
 
+Hi Dmitry,
 
-> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->=20
-> The current safety comment on `io_read`/`io_write` does not cover the =
-topic
-> about alignment. Add it so it can be relied on by implementor of
-> `IoCapable`.
->=20
-> Expand the check performed by `Io` by taking `self.addr()` into
-> consideration when checking if `offset` is aligned. For the =
-compile-time
-> `io_addr_assert` check, check using the known minimum alignment of
-> `Io::Target` and the accessed type.
->=20
-> While at it, fix the alignment check to use `align_of` instead of
-> `size_of`. The values match for all primitives (including u64, given =
-that
-> we do not provide u64 accessor on 32-bit platforms), but are not
-> necessarily true for custom types.
->=20
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
-> rust/kernel/io.rs | 25 ++++++++++++++++---------
-> 1 file changed, 16 insertions(+), 9 deletions(-)
->=20
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index d1c5f0121994..d821ee48ed31 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -195,13 +195,14 @@ pub fn maxsize(&self) -> usize {
-> #[repr(transparent)]
-> pub struct Mmio<const SIZE: usize =3D 0>(MmioRaw<SIZE>);
->=20
-> -/// Checks whether an access of type `U` at the given `offset`
-> +/// Checks whether an access of type `U` at the given `base` and the =
-given `offset`
-> /// is valid within this region.
-> +///
-> +/// The `base` is used for alignment checking only. This can be set =
-to 0 to skip the check.
-> #[inline]
-> -const fn offset_valid<U>(offset: usize, size: usize) -> bool {
-> -    let type_size =3D core::mem::size_of::<U>();
-> -    if let Some(end) =3D offset.checked_add(type_size) {
-> -        end <=3D size && offset % type_size =3D=3D 0
-> +const fn offset_valid<U>(base: usize, offset: usize, size: usize) -> =
-bool {
-> +    if let Some(end) =3D offset.checked_add(size_of::<U>()) {
-> +        end <=3D size && (base.wrapping_add(offset) % align_of::<U>() =
-=3D=3D 0)
->     } else {
->         false
->     }
-> @@ -220,14 +221,16 @@ pub trait IoCapable<T> {
->     ///
->     /// # Safety
->     ///
-> -    /// The range `[address..address + size_of::<T>()]` must be =
-within the bounds of `Self`.
-> +    /// - The range `[address..address + size_of::<T>()]` must be =
-within the bounds of `Self`.
-> +    /// - `address` must be aligned.
->     unsafe fn io_read(&self, address: usize) -> T;
->=20
->     /// Performs an I/O write of `value` at `address`.
->     ///
->     /// # Safety
->     ///
-> -    /// The range `[address..address + size_of::<T>()]` must be =
-within the bounds of `Self`.
-> +    /// - The range `[address..address + size_of::<T>()]` must be =
-within the bounds of `Self`.
-> +    /// - `address` must be aligned.
->     unsafe fn io_write(&self, value: T, address: usize);
-> }
->=20
-> @@ -309,7 +312,11 @@ pub trait Io {
->     // Always inline to optimize out error path of `build_assert`.
->     #[inline(always)]
->     fn io_addr_assert<U>(&self, offset: usize) -> usize {
-> -        build_assert!(offset_valid::<U>(offset, =
-Self::Target::MIN_SIZE));
-> +        // We cannot check alignment with `offset_valid` using =
-`self.addr()`. So set 0 for it and
-> +        // ensure alignment by checking that the alignment of `U` is =
-smaller or equal to the
-> +        // alignment of `Self::Target`.
-> +        const_assert!(Alignment::of::<U>().as_usize() <=3D =
-Self::Target::MIN_ALIGN.as_usize());
-> +        build_assert!(offset_valid::<U>(0, offset, =
-Self::Target::MIN_SIZE));
->=20
->         self.addr() + offset
->     }
-> @@ -318,7 +325,7 @@ fn io_addr_assert<U>(&self, offset: usize) -> =
-usize {
->     /// performing runtime bound checks.
->     #[inline]
->     fn io_addr<U>(&self, offset: usize) -> Result<usize> {
-> -        if !offset_valid::<U>(offset, self.maxsize()) {
-> +        if !offset_valid::<U>(self.addr(), offset, self.maxsize()) {
->             return Err(EINVAL);
->         }
->=20
->=20
-> --=20
-> 2.54.0
->=20
+WIth context_init, resource attach/detach is per-context based. So a
+simple obj->ctx_attached won't work. One would have to track in the
+guest context_init ctx for whether a bo has been attached or not.
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Another option is to accept this patch and live with the case you
+mentioned. We can consider that "invalid" user behavior.
 
+Best,
+Yiwei
