@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165FDC44502
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:42:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5597C44506
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3B410EE28;
-	Tue,  7 Jul 2026 15:42:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 323A810EE29;
+	Tue,  7 Jul 2026 15:42:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Jh8D3xgY";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EHHy5OTt";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D574510EE28
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:42:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 710A510EE1C
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:42:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783438971;
- bh=Fpr4J7bO1R1Pm+TZdFppZ1A0MM8X93iN5iTtvTrw/Ic=;
+ s=mail; t=1783438970;
+ bh=k6XT5BUrmi2vRyrWLuPBG3qTAMzWO1VAIKtW7zlEmrI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Jh8D3xgYIc+VGSEDYcKl3Lk3WAtanzraR8h0ySgEPIZpeebN6XEt/F6ZrgYQ2Y1R9
- hTB4xAEk2pXh+DO/knv55dj3ZShHE/1jxHTcdwX2XDszULci60HV2NNnqC/LIQGVxb
- LWIw7xNGIGCcpV00T/AKRb7wkX+ZwazeKQ+7xC1gPQGLFBh2Vjv8OAbnI5ZGAP1Y7w
- gkorTDHHL/xuJFVpEnf53Sjsi8+SRVrOlsrqUKyQdIfzlSytAJsb1sk4y9niMu+V5p
- 2RtVJi3oZhbcYOE6rYtuDu5FceozG47wNIsAHYGl4NJC0svNfF+3rZbc8wd5YLJDwC
- Cbf0Gt0YUUJwA==
+ b=EHHy5OTtHNelaqxSIaQVp6dfjeVEvxQQb7yU/7NFwAsQ3ECwbxb5p/pva35JmVxuP
+ zIN6ZhTQW6JI7zBDzcTJrDwdf5zUZ/KiMvSFAHZevgEpPKbG3wgiKa5s86XE1FO7mD
+ 4qYMiTCSTqQARcdm1VvbzK4CYsmF5H7fSSzkieX2L6r48E0wh6HPcjvZgKC38hHye+
+ aDtU8EIPtcMAxe8G04H9V3kZn9oTxrsGh3ybx8BdeDjMmPHyRAM4H4+gYNQKemzwpT
+ 8G90JvkTwGH3QKC3OUcY/LjQHCjPKYu7iJRcoy0J3hqd+rajTlg0lPfbbUJwmiKlvD
+ u8niHYRIZR0TA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F172017E0E95;
- Tue, 07 Jul 2026 17:42:50 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 52B1C17E0CDE;
+ Tue, 07 Jul 2026 17:42:49 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
 Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
@@ -42,9 +42,10 @@ Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
  linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  kernel@collabora.com
-Subject: [PATCH v3 03/12] phy: phy-mtk-dp: Allow probing with devicetree match
-Date: Tue,  7 Jul 2026 17:42:36 +0200
-Message-ID: <20260707154245.198361-4-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 01/12] dt-bindings: phy: Document MT8195 and MT8196
+ DisplayPort PHYs
+Date: Tue,  7 Jul 2026 17:42:34 +0200
+Message-ID: <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
 References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
@@ -65,162 +66,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Make it possible to decouple the registration of the DisplayPort
-PHY driver from the DisplayPort IP driver by adding a devicetree
-match to probe the PHY, registering an OF PHY provider and this
-device's own MMIO regmap - if, and only if, this PHY driver was
-registered with an OF match.
+This adds bindings for the DisplayPort and Embedded DisplayPort
+PHYs found in the MediaTek MT8195 SoC (and variants of) and for
+the Embedded DisplayPort found in the MT8196 SoC (and variants).
 
-In order to retain compatibility with older devicetrees that are
-not declaring the DisplayPort PHY as a separate node, the legacy
-code was moved in a `mtk_dp_phy_legacy_probe()` function, which
-gets called if the driver was registered by the DisplayPort one.
+This PHY supports varying impedance calibrations for the various
+signals to reach an optimal EYE signal pattern for any specific
+board(s), especially useful for very high bitrates such as HBR3
+and higher, depending on board design.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/phy/mediatek/phy-mtk-dp.c | 88 +++++++++++++++++++++++++++----
- 1 file changed, 78 insertions(+), 10 deletions(-)
+ .../bindings/phy/mediatek,mt8195-dp-phy.yaml  | 77 +++++++++++++++++++
+ 1 file changed, 77 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
 
-diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index bf7b3a95e72d..d241004e2828 100644
---- a/drivers/phy/mediatek/phy-mtk-dp.c
-+++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -12,6 +12,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- 
- #define PHY_OFFSET			0x1000
-@@ -79,6 +80,7 @@
- 				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
- 
- struct mtk_dp_phy {
-+	struct device *dev;
- 	struct regmap *regmap;
- };
- 
-@@ -160,43 +162,109 @@ static const struct phy_ops mtk_dp_phy_dev_ops = {
- 	.owner = THIS_MODULE,
- };
- 
-+static void mtk_dp_phy_legacy_remove_lookup(void *data)
-+{
-+	struct phy *phy = data;
-+	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
+diff --git a/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+new file mode 100644
+index 000000000000..1c2dc4f03cd6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/mediatek,mt8195-dp-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	phy_remove_lookup(phy, "dp", dev_name(dp_phy->dev));
-+}
++title: MediaTek SoC DisplayPort Transmitter PHY
 +
-+static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct mtk_dp_phy *dp_phy)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct phy *phy;
-+	int ret;
++maintainers:
++  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 +
-+	dp_phy->regmap = *(struct regmap **)dev->platform_data;
-+	if (!dp_phy->regmap)
-+		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
++properties:
++  compatible:
++    enum:
++      - mediatek,mt8195-dp-phy
++      - mediatek,mt8196-edp-phy
 +
-+	phy = devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
-+	if (IS_ERR(phy))
-+		return dev_err_probe(dev, PTR_ERR(phy),
-+				     "Failed to create DP PHY\n");
++  reg:
++    maxItems: 1
 +
-+	phy_set_drvdata(phy, dp_phy);
-+	ret = phy_create_lookup(phy, "dp", dev_name(dev));
-+	if (ret)
-+		return ret;
++  "#phy-cells":
++    const: 0
 +
-+	ret = devm_add_action_or_reset(dev, mtk_dp_phy_legacy_remove_lookup, phy);
-+	if (ret)
-+		return ret;
++  nvmem-cells:
++    description: PHY calibrations from eFuse for optimal EYE signal pattern
++    items:
++      - description: PHY-Global Reference Bias trim
++      - description: PHY-Global AUX Transmitter clock impedance adjustment
++      - description: Lane 0 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 0 Transmitter impedance selection (N-MOSFET)
++      - description: Lane 1 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 1 Transmitter impedance selection (N-MOSFET)
++      - description: Lane 2 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 2 Transmitter impedance selection (N-MOSFET)
++      - description: Lane 3 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 3 Transmitter impedance selection (N-MOSFET)
 +
-+	return 0;
-+}
++  nvmem-cell-names:
++    items:
++      - const: rbias-trim
++      - const: impedance-txclk
++      - const: impedance-lane0p
++      - const: impedance-lane0n
++      - const: impedance-lane1p
++      - const: impedance-lane1n
++      - const: impedance-lane2p
++      - const: impedance-lane2n
++      - const: impedance-lane3p
++      - const: impedance-lane3n
 +
-+static const struct regmap_config mtk_dp_phy_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.disable_locking = true,
-+};
++  power-domains:
++    maxItems: 1
 +
- static int mtk_dp_phy_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-+	struct phy_provider *provider;
- 	struct mtk_dp_phy *dp_phy;
-+	void __iomem *base;
- 	struct phy *phy;
--	struct regmap *regs;
--
--	regs = *(struct regmap **)dev->platform_data;
--	if (!regs)
--		return dev_err_probe(dev, -EINVAL,
--				     "No data passed, requires struct regmap**\n");
-+	int ret;
- 
- 	dp_phy = devm_kzalloc(dev, sizeof(*dp_phy), GFP_KERNEL);
- 	if (!dp_phy)
- 		return -ENOMEM;
- 
--	dp_phy->regmap = regs;
-+	dp_phy->dev = dev;
++required:
++  - compatible
++  - reg
++  - "#phy-cells"
 +
-+	/* If there's no devicetree, go for legacy pdev probe */
-+	if (!dev->of_node)
-+		return mtk_dp_phy_legacy_probe(pdev, dp_phy);
++additionalProperties: false
 +
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	dp_phy->regmap = devm_regmap_init_mmio(dev, base, &mtk_dp_phy_regmap_cfg);
-+	if (IS_ERR(dp_phy->regmap))
-+		return PTR_ERR(dp_phy->regmap);
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
- 	phy = devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
- 	if (IS_ERR(phy))
- 		return dev_err_probe(dev, PTR_ERR(phy),
- 				     "Failed to create DP PHY\n");
- 
- 	phy_set_drvdata(phy, dp_phy);
--	if (!dev->of_node)
--		phy_create_lookup(phy, "dp", dev_name(dev));
-+
-+	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(provider))
-+		return PTR_ERR(provider);
- 
- 	return 0;
- }
- 
-+static const struct of_device_id mtk_dp_phy_of_match[] = {
-+	{ .compatible = "mediatek,mt8195-dp-phy" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, mtk_dp_phy_of_match);
-+
- static struct platform_driver mtk_dp_phy_driver = {
- 	.probe = mtk_dp_phy_probe,
- 	.driver = {
- 		.name = "mediatek-dp-phy",
-+		.of_match_table = mtk_dp_phy_of_match,
- 	},
- };
- module_platform_driver(mtk_dp_phy_driver);
- 
-+MODULE_AUTHOR("AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>");
- MODULE_AUTHOR("Markus Schneider-Pargmann <msp@baylibre.com>");
--MODULE_DESCRIPTION("MediaTek DP PHY Driver");
-+MODULE_DESCRIPTION("MediaTek DisplayPort PHY Driver");
- MODULE_LICENSE("GPL");
++examples:
++  - |
++    phy@1c500000 {
++        compatible = "mediatek,mt8195-dp-phy";
++        reg = <0x1c500000 0x2000>;
++        #phy-cells = <0>;
++        nvmem-cells = <&edp_glb_bias_trim>, <&edp_clktx_impsel>,
++                      <&edp_imp_ln0_pmos>, <&edp_imp_ln0_nmos>,
++                      <&edp_imp_ln1_pmos>, <&edp_imp_ln1_nmos>,
++                      <&edp_imp_ln2_pmos>, <&edp_imp_ln2_nmos>,
++                      <&edp_imp_ln3_pmos>, <&edp_imp_ln3_nmos>;
++        nvmem-cell-names = "rbias-trim", "impedance-txclk",
++                           "impedance-lane0p", "impedance-lane0n",
++                           "impedance-lane1p", "impedance-lane1n",
++                           "impedance-lane2p", "impedance-lane2n",
++                           "impedance-lane3p", "impedance-lane3n";
++    };
 -- 
 2.54.0
 
