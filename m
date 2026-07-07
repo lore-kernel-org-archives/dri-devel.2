@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F3DC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:08:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 345CFC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:09:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82FF610EE4D;
-	Tue,  7 Jul 2026 16:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71AE110EE55;
+	Tue,  7 Jul 2026 16:09:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H3DX4lxW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ci8lSmhZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6915710EE4D
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:08:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52EEC10EE4E
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:09:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CF68160018
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:08:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D64F1F000E9;
- Tue,  7 Jul 2026 16:08:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 02335417A5
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:09:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2151F00A3A;
+ Tue,  7 Jul 2026 16:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783440511;
- bh=HF3yoTEEP+Eya1X1adqRns4/TM9m/iUcfp/m5+tV4hc=;
+ s=k20260515; t=1783440557;
+ bh=JjKrvNoDF8zLsKbVGp1+ISWOfMQUy4nnPWQ9Eku8X4I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=H3DX4lxW60RmxdmQbFQ5jmZoOuayH4Ker0eu3hH63gej8iSRWokCaRvsWPLbuWMGE
- m2p6bKuHfd/iWZWo+QkyqkChq4jaKle3qrFFxB/sybaRVPeGcE80EdIxfXKhibAfN9
- Z1zhjfA5G2clUH7LK0jPZ3cM0ELyOW95bNfMmYpC3SMmFAdy759TGZFolpzPVXuNtj
- PsNW+8FyHIDJM4X/rJO6tW2jZP8AZ4TPqs2jaCcHSBgxDtQaADuiC2viQL0fdMXMvM
- 0+5PEzBhovom0IyNvREjmL8TYdS06RpMYjRJB4z+VH2sySp7AslIp3O0KW7PgJDqAq
- /zgyl+g+bRx/w==
+ b=ci8lSmhZLAtpuuAXpSsK04dKieQiXRK1Z7IYyCSib2VyE5hdTF+DnOdT7ezN5UbIP
+ PeGj7hN05gQzYGyQVKTH3ToS9JknL0RgPvAviZznfBLO+UTXNet+Sjv5A5SijDyhKx
+ /1meYC2fUZGpB0V7rncrkWviN5Ft/8Abzl1msTMtc/ip6B2UMuKiZ7ZgpYIuHfbyBR
+ 6dRI07J77aHW++FRc5YjmufDNL57mV5XGA5OdEDMYT0vElU2R9EztM6Ij7RU6cHFb9
+ /c91XfcM5naEa+FcqjBp6dGFwnCjKvnssT7AMJfKXD3cRZWHR51qYNsrwLd3wluJCX
+ nrv7tooJiG+WQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 30/37] drm/omap: dpi: Switch to atomic bridge callbacks
+Subject: Re: [PATCH v2 34/37] drm/sti: dvo: Switch to atomic bridge callbacks
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-30-21d03cbca446@kernel.org>
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-34-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-30-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-34-21d03cbca446@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 16:08:30 +0000
-Message-Id: <20260707160831.5D64F1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 16:09:17 +0000
+Message-Id: <20260707160917.BC2151F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,72 +61,69 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Unbalanced resource teardown on bridge enable error paths leads to=
- PM runtime underflow and kernel panic.
+- [High] NULL pointer dereference when `clk_set_rate()` fails in `sti_dvo_s=
+et_mode()`.
 --
 
---- Patch [30]: [PATCH v2 30/37] drm/omap: dpi: Switch to atomic bridge cal=
-lbacks ---
-commit 6fda2bd3a893061ddf4b74080bd409f4c3cc6741
+--- Patch [34]: [PATCH v2 34/37] drm/sti: dvo: Switch to atomic bridge call=
+backs ---
+commit 377cffc6cdd80910f39bda909df8ad2af0ea4cf2
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/omap: dpi: Switch to atomic bridge callbacks
+drm/sti: dvo: Switch to atomic bridge callbacks
 
-The dpi bridge uses the legacy non-atomic enable and disable bridge
-callbacks.  In order to remove the legacy bridge callback support from the
-DRM bridge core, switch to their atomic counterparts and add the bridge
-atomic state handlers.
+This commit switches the sti dvo bridge from using legacy non-atomic bridge
+callbacks to their atomic counterparts. It also adds atomic state handlers
+as part of the effort to remove legacy support from the DRM bridge core.
 
-> diff --git a/drivers/gpu/drm/omapdrm/dss/dpi.c b/drivers/gpu/drm/omapdrm/=
-dss/dpi.c
-> index 9f86db774c395..419915e338163 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/dpi.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/dpi.c
+> diff --git a/drivers/gpu/drm/sti/sti_dvo.c b/drivers/gpu/drm/sti/sti_dvo.c
+> index 7484d3c3f4ed5..b48099468eb97 100644
+> --- a/drivers/gpu/drm/sti/sti_dvo.c
+> +++ b/drivers/gpu/drm/sti/sti_dvo.c
 
 [ ... ]
 
-> @@ -482,7 +483,8 @@ static void dpi_bridge_mode_set(struct drm_bridge *br=
-idge,
->  	dpi->pixelclock =3D adjusted_mode->clock * 1000;
+> @@ -232,7 +233,8 @@ static void sti_dvo_disable(struct drm_bridge *bridge)
+>  	dvo->enabled =3D false;
 >  }
 > =20
-> -static void dpi_bridge_enable(struct drm_bridge *bridge)
-> +static void dpi_bridge_enable(struct drm_bridge *bridge,
-> +			      struct drm_atomic_commit *commit)
+> -static void sti_dvo_pre_enable(struct drm_bridge *bridge)
+> +static void sti_dvo_pre_enable(struct drm_bridge *bridge,
+> +			       struct drm_atomic_commit *commit)
 >  {
->  	struct dpi_data *dpi =3D drm_bridge_to_dpi(bridge);
->  	int r;
+>  	struct sti_dvo *dvo =3D bridge->driver_private;
+>  	struct dvo_config *config =3D dvo->config;
 
 [Severity: High]
-This is a pre-existing issue, but does this early return on failure lead to
-unbalanced resource teardown and a potential kernel panic?
+This isn't a bug introduced by this patch, but can this lead to a NULL
+pointer dereference?
 
-Looking at dpi_bridge_enable() in drivers/gpu/drm/omapdrm/dss/dpi.c, if
-initialization fails, the function cleans up and returns early:
+If clk_set_rate() fails during the modeset in sti_dvo_set_mode(), it returns
+early and skips setting dvo->config:
 
-	if (dpi->vdds_dsi_reg) {
-		r =3D regulator_enable(dpi->vdds_dsi_reg);
-		if (r)
-			return;
+drivers/gpu/drm/sti/sti_dvo.c:sti_dvo_set_mode() {
+    ...
+	ret =3D clk_set_rate(dvo->clk_pix, rate);
+	if (ret < 0) {
+		DRM_ERROR("Cannot set rate (%dHz) for dvo_pix clk\n", rate);
+		return;
 	}
+    ...
+	dvo->config =3D &rgb_24bit_de_cfg;
+}
 
-Because the callback returns void, the DRM core considers the bridge enable=
-d.
-During pipeline teardown, dpi_bridge_disable() executes and unconditionally
-drops a PM runtime reference:
+When sti_dvo_pre_enable() is called later on the atomic commit path, config
+is assigned dvo->config (which would be NULL if it was the first modeset),
+and then it gets dereferenced unconditionally shortly after:
 
-	dispc_runtime_put(dpi->dss->dispc);
+drivers/gpu/drm/sti/sti_dvo.c:sti_dvo_pre_enable() {
+    ...
+	if (config->awg_fwgen_fct) {
+    ...
+}
 
-Since the failed dpi_bridge_enable() never acquired (or already cleaned up)
-this PM runtime reference, does this extra put operation incorrectly drop t=
-he
-reference held by the CRTC (omap_crtc_atomic_enable())?
-
-If this drops the DISPC PM runtime usage count to 0 and immediately powers
-down the dispc hardware, could the later call to drm_crtc_vblank_off() from
-omap_crtc_atomic_disable() access powered-down DISPC registers and trigger
-an L3 bus error or imprecise external abort?
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D30
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D34
