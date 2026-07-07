@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AC78C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26D45C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFF3F10EE42;
-	Tue,  7 Jul 2026 15:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74BFE10E0D8;
+	Tue,  7 Jul 2026 16:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ExGnBKRZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C0m/bi7Q";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E4D710EE3D
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:57:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A865210E0D8
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:00:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 077CE409C5
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:57:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B537F1F000E9;
- Tue,  7 Jul 2026 15:57:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0E3B0600FF
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:00:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FEB51F000E9;
+ Tue,  7 Jul 2026 16:00:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783439839;
- bh=wJNV5g6knAtOX6eQ1Ny5bubfzJM2ul/xwFvFYepnQpA=;
+ s=k20260515; t=1783440049;
+ bh=XhfIB40pHuHgnUGY0ifMoiuNqRbdEf/MKta+E7FtvGw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ExGnBKRZdxIBlKlZ9TSpSiASH2159mCN3N+5mOocSoUhRI0QNII3yaDeSJnCxV0cy
- Og+aBWPSq/9/wFk0JDUSvUyjsrr4zmHdb5VQ0+8FtzAquqIArgy+m0eGVcWcXTJ8xi
- XgRL3W9/jjbW6S3xmTTI0Y55tNY0iBz++C6gpNwjM3DsjV+lfHgHHLhpXYkxWemfmj
- wY0ECYvdkY0xyogQeTpwFX5K5rsztIaOiDpQMPas/xWI4V1aFp2ugMoGio89SoNh8+
- mkVMmU+/eEpvbNaXZFGWMR0LpMxdy54nM6YgWdiDI9cd/LAc5B+SEY5qbaoDSMBGnh
- NucEnIOm3kMOA==
+ b=C0m/bi7QiY45F3PfcnxRUJdV3Y5ZbXzG3tFElVtZEsqbgSln1KgBRuZbwNDBvwA8y
+ C2/RbSF/uM0SLpIbjUuD0l2swH3XwGDkfcexf81TMNkrdBHxTDoiLqEJa5s83ZWv0W
+ qGjWuXhf6AN841Pym9+kIqHAbUk5Pne5/hvKr6nGnHJ/qvFpw8cWkqxIBJkEgqVn5n
+ baoAm8GQaa+f01i/Dk975Iz919wMxhMcGXD1VNLzlY9ZL0y2/VS/Mzx/O5vjqh+ob7
+ wrSxcm1xWQhBOb+/7Mq+mzTZE3D/xH6lytojV/Ew3Jcop2AMVpsDrtcOlYr/YJmNuc
+ 0Zyq4KwrgFKLg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 18/37] drm/bridge: sil-sii8620: Add atomic bridge
- state handlers
+Subject: Re: [PATCH v2 26/37] drm/exynos: mic: Switch to atomic bridge
+ callbacks
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-18-21d03cbca446@kernel.org>
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-26-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-18-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-26-21d03cbca446@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 15:57:19 +0000
-Message-Id: <20260707155719.B537F1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 16:00:49 +0000
+Message-Id: <20260707160049.8FEB51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,108 +58,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The `sii8620_mode_fixup` callback mutates persistent driver state =
-(`ctx->use_packed_pixel`), violating the atomic check phase contract.
-- [High] `drm_bridge_attach` ignores the return value of `drm_atomic_privat=
-e_obj_init`, and `drm_atomic_private_obj_init` fails to roll back on error,=
- leading to a corrupted private object list and a subsequent NULL pointer d=
-ereference.
+- [High] The result of `exynos_drm_crtc_get_by_type()` is dereferenced dire=
+ctly without an error pointer check, leading to a kernel panic.
 --
 
---- Patch [18]: [PATCH v2 18/37] drm/bridge: sil-sii8620: Add atomic bridge=
- state handlers ---
-commit b25b0389a6c4219ff91245a5da61562f89c23dda
+--- Patch [26]: [PATCH v2 26/37] drm/exynos: mic: Switch to atomic bridge c=
+allbacks ---
+commit 1ac627a57ce38903ca33c5eb6829642986ddaad3
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge: sil-sii8620: Add atomic bridge state handlers
+drm/exynos: mic: Switch to atomic bridge callbacks
 
-The sil-sii8620 bridge doesn't implement any enable or disable
-callbacks, but is still missing the atomic state handlers.
-In order to remove the legacy bridge callback support from the DRM
-bridge core, add them.
+This commit switches the mic bridge driver to use atomic pre_enable and
+post_disable callbacks instead of the legacy non-atomic ones. It also adds
+the necessary atomic state handlers to support the transition in the DRM
+bridge core.
 
-> diff --git a/drivers/gpu/drm/bridge/sil-sii8620.c b/drivers/gpu/drm/bridg=
-e/sil-sii8620.c
-> index 982306eb4f0a7..22c81b38b41e8 100644
-> --- a/drivers/gpu/drm/bridge/sil-sii8620.c
-> +++ b/drivers/gpu/drm/bridge/sil-sii8620.c
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_mic.c b/drivers/gpu/drm/ex=
+ynos/exynos_drm_mic.c
+> index e68c954ec3e61..3069f958137f5 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_mic.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_mic.c
 
 [ ... ]
 
-> @@ -2280,6 +2281,9 @@ static bool sii8620_mode_fixup(struct drm_bridge *b=
-ridge,
+> @@ -295,9 +298,12 @@ static void mic_pre_enable(struct drm_bridge *bridge)
 >  }
 > =20
->  static const struct drm_bridge_funcs sii8620_bridge_funcs =3D {
+>  static const struct drm_bridge_funcs mic_bridge_funcs =3D {
+> -	.post_disable =3D mic_post_disable,
 > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
 > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
 > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
->  	.attach =3D sii8620_attach,
->  	.detach =3D sii8620_detach,
->  	.mode_fixup =3D sii8620_mode_fixup,
+> +	.atomic_post_disable =3D mic_post_disable,
+>  	.mode_set =3D mic_mode_set,
+> -	.pre_enable =3D mic_pre_enable,
+> +	.atomic_pre_enable =3D mic_pre_enable,
+>  };
+> =20
+>  static int exynos_mic_bind(struct device *dev, struct device *master,
+>  			   void *data)
 
 [Severity: High]
-This isn't a bug introduced by this patch, but doesn't sii8620_mode_fixup()
-mutate persistent driver state by assigning ctx->use_packed_pixel?
+This is a pre-existing issue, but can this function trigger a kernel
+panic on invalid or incomplete devicetree configurations?
 
-If userspace submits a DRM_MODE_ATOMIC_TEST_ONLY commit with a mode requiri=
-ng
-a different pixel packing, drm_atomic_helper_check_modeset() will call
-drm_atomic_bridge_chain_check(), invoking this callback:
+Looking at exynos_mic_bind(), exynos_drm_crtc_get_by_type() can return
+an error pointer like ERR_PTR(-ENODEV) if the LCD CRTC component is
+not found:
 
-drivers/gpu/drm/bridge/sil-sii8620.c:sii8620_mode_fixup() {
-	...
-	ctx->use_packed_pixel =3D sii8620_is_packing_required(ctx, adjusted_mode);
-	...
-}
+	struct exynos_drm_crtc *crtc =3D exynos_drm_crtc_get_by_type(drm_dev,
+						       EXYNOS_DISPLAY_TYPE_LCD);
+	struct drm_encoder *e, *encoder =3D NULL;
 
-Will this cause the driver's global state to be modified during a test-only
-commit, leading to a subsequent modeset or asynchronous interrupt programmi=
-ng
-the hardware using the test-only pixel packing value?
+	drm_for_each_encoder(e, drm_dev)
+		if (e->possible_crtcs =3D=3D drm_crtc_mask(&crtc->base))
+			encoder =3D e;
 
-[Severity: High]
-This is also a pre-existing issue, but by adding atomic bridge state handle=
-rs,
-does this bridge now expose an error handling bug in the DRM core?
-
-Looking at drm_bridge_attach() in drivers/gpu/drm/drm_bridge.c, it ignores
-the return value of drm_atomic_private_obj_init():
-
-drivers/gpu/drm/drm_bridge.c:drm_bridge_attach() {
-	...
-	if (drm_bridge_is_atomic(bridge))
-		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
-					    &drm_bridge_priv_state_funcs);
-
-	return 0;
-}
-
-If memory allocation fails in atomic_create_state,
-drm_atomic_private_obj_init() returns an error but fails to clean up:
-
-drivers/gpu/drm/drm_atomic.c:drm_atomic_private_obj_init() {
-	...
-	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
-
-	state =3D obj->funcs->atomic_create_state(obj);
-	if (IS_ERR(state))
-		return PTR_ERR(state);
-	...
-}
-
-Will this leave obj->head in dev->mode_config.privobj_list with a NULL
-obj->state?
-
-If so, could this cause a kernel oops later if drm_state_dump() (e.g. via
-debugfs) iterates privobj_list and calls
-drm_atomic_private_obj_print_state() which dereferences the NULL state
-via state->obj?
+Since the code passes &crtc->base to drm_crtc_mask() without checking
+if crtc is an error pointer first, and drm_crtc_mask() dereferences it to
+access crtc->index, won't this cause a panic during probe if the component
+is missing?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D18
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D26
