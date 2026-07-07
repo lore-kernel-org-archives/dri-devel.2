@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9167DC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:41:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B07C44502
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:42:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D465410EE04;
-	Tue,  7 Jul 2026 15:41:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1C1010EE1C;
+	Tue,  7 Jul 2026 15:42:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V360LBhO";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qEr99uQG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2A910EE04
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:41:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6977F40396
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:41:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203B01F000E9;
- Tue,  7 Jul 2026 15:41:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783438880;
- bh=gMZ8HKF4xgeHQe6IWef9vtm1IWdXfBF8rc8oh/0sxzI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V360LBhOtYnfsdBncbvGpzNk0hKbphPLTVtiTwgo25KPwss/D9TrP7wSb1EshZ3UD
- Iq2XedvQu1hj8aX3tvybAGMl8nS2LtfYQV2j5SLGbhn38X559angsaf8e1m9+8clGz
- Ey8BIotGtqrHSo9x6PmiXfFO4siVeM80oUjqxwsWqBaWfqLUq352v1nSaVmrVU5CPf
- RT+QKExx2SlgfjIRn62Wz6CYJld34+RUrRcg/Ow0r7FeV66w7IZUrsZYwFz5HD5tUb
- yUKzz+jBHerP8sUnwfFF9yvZbpViYuUqKbwTQrC4Q7oHCaQ+qbk0C7oC8ChA81Nq/M
- nSpZ914EkJREw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 14/37] drm/bridge: nxp-ptn3460: Switch to atomic
- bridge callbacks
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-14-21d03cbca446@kernel.org>
-References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-14-21d03cbca446@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 15:41:19 +0000
-Message-Id: <20260707154120.203B01F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9947B10EE27
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783438969;
+ bh=q69Efgu8X5NGbOCMTzwUNrYXN34SM6vI0sNv573sxkM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=qEr99uQGkcf3jMnENadozcdWbn/QYxn9I9gMh+n4RN2pEgM6gPMBFTSWJCTX1lPjD
+ pHbLSezVjJ9i/7HuFrKbcVitlpR3K2NtMxrl5y4AlhQGeAPSGxbw/9rcwjxU8ml4dA
+ PgqFfvz5iyIZBv/ouPOLZfcNu6MSZjrsJs3h4L6hfWItfLT4ziJhWFdrbQBNf/mhaL
+ 0FJ8Xy9gJQsHCovUT0vUD9y6R+ncnOI5YyVkVzpDn7FwYkVpvN1xfN5Ejq6QLjSIeo
+ GXtYd1RV366To/3hy52H1GAsgGrxsHJdNoKmqCYcEJy3dqPEHZjylBRb50pYWimPfd
+ 49UBEPYIi5J6w==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7BBFC17E013E;
+ Tue, 07 Jul 2026 17:42:48 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chunkuang.hu@kernel.org,
+ p.zabel@pengutronix.de, justin.yeh@mediatek.com,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com
+Subject: [PATCH v3 00/12] PHY: MediaTek DP PHY refactor and MT8196 eDP
+Date: Tue,  7 Jul 2026 17:42:33 +0200
+Message-ID: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,95 +60,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Changes in v3:
+ - Added missing bitfield.h, pm_runtime.h includes (Sashiko)
+ - Set calibration data before registering PHY (Sashiko)
+ - Enable PM Runtime before creating PHY device (Sashiko)
+ - Continue poweroff if some write fails, but still return failure
+   as that would be a partial poweroff anyway (Sashiko)
+ - Added zero driving params to fix default calibration data setting (Sashiko)
+ - Added NULL check on device_Get_match_data (Sashiko)
 
-Pre-existing issues:
-- [High] Memory leak of the dynamically allocated edid buffer in ptn3460_ed=
-id_read on the success and drm_edid_alloc failure paths.
-- [High] Lockless concurrent access to the bridge's power state (ptn_bridge=
-->enabled) causes a TOCTOU race and hardware state mismatch.
---
+Changes in v2:
+ - Fixed register offsets for ANA phy in MT8196
+ - Set/clear FORCE_VOLT_SWING_EN bit when configuring and resetting
+   the voltage swing registers
+ - Fixed endianness issue in call to nvmem_read_u16 (Sashiko)
+ - Added early exit during lanes disablement if none are enabled to
+   avoid out-of-bounds bitwise shift (Sashiko)
+ - Removed useless call to pm_runtime_get_sync() in probe(), which
+   also fixes issues pointed out by Sashiko
+ - Fixed wrong dig vs ana register array usage in power_on/off (Sashiko)
 
---- Patch [14]: [PATCH v2 14/37] drm/bridge: nxp-ptn3460: Switch to atomic =
-bridge callbacks ---
-commit 3ac8d8062ac1622a61e5a518f71eee0beb4385a3
-Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge: nxp-ptn3460: Switch to atomic bridge callbacks
+This series performs major refactoring on the MediaTek DisplayPort PHY
+driver, makes it probe with devicetree instead of getting registered
+by the mtk_dp DRM driver, adds power_on/off() callbacks, and honors
+the phy configure opts' set_lanes and set_voltages for, respectively,
+varying the number of lanes and setting the voltage pre-emphasis and
+swing on the PHY, for each lane.
 
-The nxp-ptn3460 bridge uses the legacy non-atomic pre_enable and disable
-bridge callbacks.
+This driver now also properly gets the PHY (EYE) Calibration Data from
+NVMEM (eFuse array) if provided, instead of getting it (improperly)
+injected by the mtk_dp driver.
 
-In order to remove the legacy bridge callback support from the DRM
-bridge core, switch to their atomic counterparts and add the bridge
-atomic state handlers.
+Additionally, all of the driving parameters calculations and most of
+the other register definitions were refactored to greatly enhance the
+human readability of this code.
 
-> diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridg=
-e/nxp-ptn3460.c
-> index 7acb11f16dc19..a9b4ac2defc99 100644
-> --- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
-> +++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
-[ ... ]
-> @@ -163,7 +165,7 @@ static const struct drm_edid *ptn3460_edid_read(struc=
-t drm_bridge *bridge,
->  	int ret;
-> =20
->  	power_off =3D !ptn_bridge->enabled;
-> -	ptn3460_pre_enable(&ptn_bridge->bridge);
-> +	ptn3460_pre_enable(&ptn_bridge->bridge, NULL);
+As a last step, this also transfers the register offsets for both the
+digital and analog phy registers in arrays assigned to soc specific
+data, in an effort to both introduce support for new minor revisions
+of the MediaTek DisplayPort PHY and to have a clearer view of the
+register related differences between those (for example, it is easily
+understandable that the analog part remained exactly the same between
+MT8195 and MT8196, but the digital part gets a slight update).
 
-[Severity: High]
-This is a pre-existing issue, but does lockless access to ptn_bridge->enabl=
-ed
-create a race condition with asynchronous atomic commits?
+Speaking of which, as a last step, this also adds support for the
+MT8196 SoC (and its derivatives), which uses this PHY only for its
+Embedded DisplayPort (eDP) IP (spoiler: the DP one seems to be way
+too different and requiring an entirely new PHY driver).
 
-If ptn3460_edid_read() starts while the display is off, it saves
-power_off =3D true. If an asynchronous DRM atomic commit worker simultaneou=
-sly
-invokes ptn3460_pre_enable(), it sets ptn_bridge->enabled =3D true and
-powers up the hardware.
+In this state, this driver can also easily support the MT8189 SoC
+with a few lines of code: even though I do have clean code to add
+support for this one, I was not (*yet*) able to test it on upstream
+based kernels, and for this reason I decided to leave that one out
+for now (but it's coming later for sure).
 
-> =20
->  	edid =3D kmalloc(EDID_LENGTH, GFP_KERNEL);
->  	if (!edid) {
-> @@ -182,7 +184,7 @@ static const struct drm_edid *ptn3460_edid_read(struc=
-t drm_bridge *bridge,
-> =20
->  out:
->  	if (power_off)
-> -		ptn3460_disable(&ptn_bridge->bridge);
-> +		ptn3460_disable(&ptn_bridge->bridge, NULL);
+NOTE!
+Despite all the apparently breaking changes in the refactoring, full
+compatibility with older MTK_DP driver and with old devicetrees was
+retained and carefully tested on multiple platforms!
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this leak the dynamical=
-ly
-allocated edid buffer?
+P.S.: I am aware of the BUILD_DRIVING_PARAM_0( 0, 2, 4, 7) checkpatch
+warning and I didn't fix it in bigger favor of human readability.
 
-drm_edid_alloc() duplicates the data into a new container but does not take
-ownership of the original pointer. When ptn3460_edid_read() reaches this out
-block and returns, the edid buffer allocated via kmalloc() earlier is not
-freed. Since this path can be triggered repeatedly via the
-DRM_IOCTL_MODE_GETCONNECTOR ioctl, could this eventually lead to memory
-exhaustion?
+AngeloGioacchino Del Regno (12):
+  dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
+  phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
+  phy: phy-mtk-dp: Allow probing with devicetree match
+  phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
+  phy: phy-mtk-dp: Implement power_on and power_off PHY callbacks
+  phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
+  phy: phy-mtk-dp: Support setting volt swing and preemphasis values
+  phy: phy-mtk-dp: Add support for digital and analog calibration
+  phy: phy-mtk-dp: Rewrite and document default driving param macros
+  phy: phy-mtk-dp: Add bitrate register val definitions to SoC data
+  phy: phy-mtk-dp: Add PHYD Lane EN register mask to SoC data
+  phy: phy-mtk-dp: Add support for MT8196 eDP PHY
 
-Additionally, following up on the race condition mentioned above, if power_=
-off
-was evaluated as true before a concurrent atomic commit, this path will call
-ptn3460_disable(). That function locklessly modifies ptn_bridge->enabled =
-=3D false
-and powers down the hardware, causing the display to go blank against the a=
-tomic
-commit's expectations.
+ .../bindings/phy/mediatek,mt8195-dp-phy.yaml  |  77 ++
+ drivers/phy/mediatek/phy-mtk-dp.c             | 882 ++++++++++++++++--
+ 2 files changed, 862 insertions(+), 97 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
 
-> =20
->  	return drm_edid;
->  }
+-- 
+2.54.0
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D14
