@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA25FC44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DAF6C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 264D010EDDE;
-	Tue,  7 Jul 2026 15:12:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACF1810EDE0;
+	Tue,  7 Jul 2026 15:12:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ogse4xyr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K8PTw0Nb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3319610EDD7
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85FA710EDDE
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1BE0F40829;
- Tue,  7 Jul 2026 15:12:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E271F000E9;
- Tue,  7 Jul 2026 15:12:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6E0D443F14;
+ Tue,  7 Jul 2026 15:12:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D341F00A3A;
+ Tue,  7 Jul 2026 15:12:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437129;
- bh=ZFjS6mgIsXSZImYsBp3DD3qmuZXpFebMEcnUBjftoG4=;
+ s=k20260515; t=1783437131;
+ bh=3nhMBx7zC8DfzRML0TAD4UPrDUkeXn94uBKlTfS79ww=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Ogse4xyrBNRp8qoYv74Fh05lpYA2uz9AfrKVpsqNnUL/3qaARAt7FVWDHzpjT0BND
- NhjSo4SJzPdhr5lWqFWiZtx74YXD/PJBLH32GpardooqgIMSBT+1jQI6UjHB1acJdH
- s3zkK+wHMkdu++ed160Ex18/a74D0LNKTtLLWLGKVVr/+3s8YflaLKm2ExEYpSroF7
- txqb17d1imYlt9GAamHUSg7FujsAAjRW1HUAzcTzM5tlyZfwUkSS6LdxSCdnKK0SEj
- g2a5lgAOTIzrrSaQD5XWCgSDNY9R1BTW79YOXa/0T3DZQTdjSvnoed8UXEXpt27oit
- FcUHrqdLwCdGg==
+ b=K8PTw0NbAHp5e7xzY4lGfH1gGyB93xpt5+2BWGrOgRC2JzjF4cr/bJ/xkuRIMloKW
+ XUo+3Rw3P0GGSoceJCu6lqqQjLpNs+7TJEoPNMqOWbXKsj0eYyrRAAocb6ErEZhX18
+ LQdqoKTTQibJ+cNG93kFcpJq6fLkIwPeWQz0qxmBP7cKzbYcuKn8CQHUxn7TooLylX
+ qQK+ddPDn0e0bI7h+qX+IQprO3b577ToLcKfqS2Pc5m+vAxeUJc39h9uNHs1k/Ur0N
+ 3QGZ83IcNeGqX9ITpxm3sC8tiRZ9BB6NiT3dTEEDHKeQ35Wg2y1L4juC8sYLtL7vlR
+ imzP1VGFanK5Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:23 +0200
-Subject: [PATCH v2 16/37] drm/bridge: parade-ps8622: Switch to atomic
- bridge callbacks
+Date: Tue, 07 Jul 2026 17:11:24 +0200
+Subject: [PATCH v2 17/37] drm/bridge: sii9234: Add atomic bridge state handlers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-16-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-17-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +49,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5104; i=mripard@kernel.org;
- h=from:subject:message-id; bh=9bAb0oDKEQktziI8NnUbcn4VCgmhd5PArZFPlYJZTbw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4uIpDU8mHlkUdPTxCu5rF2bwXWn4vbbnn0+nLdehv
- 6+KJRct65jKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQAT6dNmbNik1Lhhe8ehjj5B
- 0bhszV9FqizHTs24f/xixvlrb7bXFapFJl0MYLY4bOHz8NJJE+aHpxnr/V98uHG/NOL36t8zSjf
- PYa+7uM/SflXOA2veJ+XbrydXpr1O6/msa6fGyLrrs6h8UJApAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3918; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=sxLD3LNza4Knci7X95YWCQkJTKiVNbF0skj+znhK1XY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4uLSty8Lfpuk8F28dm59whb9z0f/H/q5Mygsvux9q
+ dbeszpXO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEMk4xNlzlZQv5dfZ2cHDo
+ terjRvaTmObvWpdX4Cwk2XZLsmGfAFfeV6WHD5snf3qvqzLrt+ByXcaG+Qt998tLGn+ZMcUn0Xb
+ f5vxUT62cvfoVmsovk/X/uqZGvWxZ79LrsEpF+upeT643TPEA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,12 +72,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The parade-ps8622 bridge uses the legacy non-atomic pre_enable, disable
-and post_disable bridge callbacks.
+The sii9234 bridge doesn't implement any enable or disable callbacks,
+but is still missing the atomic state handlers.
 
 In order to remove the legacy bridge callback support from the DRM
-bridge core, switch to their atomic counterparts and add the bridge
-atomic state handlers.
+bridge core, add them.
 
 Generated by the following Coccinelle script:
 
@@ -206,69 +204,39 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/parade-ps8622.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/bridge/sii9234.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
-index f879a1df077d..33844db753aa 100644
---- a/drivers/gpu/drm/bridge/parade-ps8622.c
-+++ b/drivers/gpu/drm/bridge/parade-ps8622.c
-@@ -334,11 +334,12 @@ static int ps8622_backlight_update(struct backlight_device *bl)
+diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
+index bb1bed03eb5b..a2cbbf031b4a 100644
+--- a/drivers/gpu/drm/bridge/sii9234.c
++++ b/drivers/gpu/drm/bridge/sii9234.c
+@@ -11,10 +11,11 @@
+  *    Erik Gilling <konkers@android.com>
+  *    Shankar Bandal <shankar.b@samsung.com>
+  *    Dharam Kumar <dharam.kr@samsung.com>
+  */
+ #include <drm/bridge/mhl.h>
++#include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
  
- static const struct backlight_ops ps8622_backlight_ops = {
- 	.update_status	= ps8622_backlight_update,
- };
+ #include <linux/delay.h>
+@@ -876,10 +877,13 @@ static enum drm_mode_status sii9234_mode_valid(struct drm_bridge *bridge,
  
--static void ps8622_pre_enable(struct drm_bridge *bridge)
-+static void ps8622_pre_enable(struct drm_bridge *bridge,
-+			      struct drm_atomic_commit *commit)
- {
- 	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
- 	int ret;
- 
- 	if (ps8622->enabled)
-@@ -379,17 +380,19 @@ static void ps8622_pre_enable(struct drm_bridge *bridge)
- 	}
- 
- 	ps8622->enabled = true;
+ 	return MODE_OK;
  }
  
--static void ps8622_disable(struct drm_bridge *bridge)
-+static void ps8622_disable(struct drm_bridge *bridge,
-+			   struct drm_atomic_commit *commit)
- {
- 	/* Delay after panel is disabled */
- 	msleep(PS8622_PWMO_END_T12_MS);
- }
- 
--static void ps8622_post_disable(struct drm_bridge *bridge)
-+static void ps8622_post_disable(struct drm_bridge *bridge,
-+				struct drm_atomic_commit *commit)
- {
- 	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
- 
- 	if (!ps8622->enabled)
- 		return;
-@@ -426,13 +429,16 @@ static int ps8622_attach(struct drm_bridge *bridge,
- 	return drm_bridge_attach(ps8622->bridge.encoder, ps8622->panel_bridge,
- 				 &ps8622->bridge, flags);
- }
- 
- static const struct drm_bridge_funcs ps8622_bridge_funcs = {
--	.pre_enable = ps8622_pre_enable,
--	.disable = ps8622_disable,
--	.post_disable = ps8622_post_disable,
+ static const struct drm_bridge_funcs sii9234_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_pre_enable = ps8622_pre_enable,
-+	.atomic_disable = ps8622_disable,
-+	.atomic_post_disable = ps8622_post_disable,
- 	.attach = ps8622_attach,
+ 	.mode_valid = sii9234_mode_valid,
  };
  
- static const struct of_device_id ps8622_devices[] = {
- 	{.compatible = "parade,ps8622",},
+ static int sii9234_probe(struct i2c_client *client)
+ {
 
 -- 
 2.54.0
