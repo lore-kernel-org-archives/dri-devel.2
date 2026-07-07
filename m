@@ -4,65 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76A18C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:10:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C95C44501
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:11:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2A9A88668;
-	Tue,  7 Jul 2026 16:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 722E010E24D;
+	Tue,  7 Jul 2026 16:11:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UN7Mi0Fq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dFc1G9zw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCC0988668
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:10:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE7CC10EE60
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:11:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3B06D60018;
- Tue,  7 Jul 2026 16:10:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74E151F000E9;
- Tue,  7 Jul 2026 16:10:03 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A6BE600BB
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:11:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C651F00A3A;
+ Tue,  7 Jul 2026 16:11:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783440603;
- bh=Q5u+a7D+ayzU/IukGQqNNjlldkq3od3GzB6ae/tPk4w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=UN7Mi0Fq/Yi7DzfCneASL6PehRygMQxJ3xpk3Ek2gkQW0e+Z1yBT1Gd0PLT4uoIUs
- dZ0pfYm0iiVRh+ZMsUsPHC+Yly+6VD3oeAReiQLNagVGn9p5eQbfsrNGzuW4CnayhP
- PPK5XUQCsYswCOceRR6LMy/3w3ibTYYkbWeLx6wQ+4iJP8lWMMO+GwH16xsAeunDAR
- 3R/R0w9yZ1M91gjfgTtzhHnAXsKLudJxGTi4zF8+4azFfqushczmDDWAqrgbLr/kVB
- RmlVkmJ8Gd8mXXDoCXyZRnULvOFNE4HtZMSWfvhd4vRpX4QBoWpkZby2LQHMFE9xfM
- 9ixfGG4QmrG9Q==
-Date: Tue, 7 Jul 2026 18:10:02 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
- init helper
-Message-ID: <20260707-illegal-tuna-of-force-1c06e3@houat>
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-2-d79890d00b6a@collabora.com>
- <i4tjtsf5rsckfcayo5nuhlger5wqxn3ujeaubm4g2fgrwvhzb2@hf4uhgq3ja5p>
- <ad75cf26-9437-47d0-864d-d71263401615@collabora.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="27ucv5zt2ny4lmlg"
-Content-Disposition: inline
-In-Reply-To: <ad75cf26-9437-47d0-864d-d71263401615@collabora.com>
+ s=k20260515; t=1783440660;
+ bh=0WCDPy3PFTQ7HMWRX2Mnlad6lL8GxOaeNGTbYQRcR6A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dFc1G9zwi8N2IpXhLHT7t+0yaVMAyneexl5KlgZwBM/Ztpq5cuDHkwlES5ygpTNz0
+ pOOjr/CvahbHAieZco+gFzSynUMlpNjo2XzONc3SYaCkV5JLca1nm7BptmaIifhdsi
+ FnSKYtzVa9PMO6UdxnBUtJfdEmONyNDkAUpGQMi8XVgTW/6758hZwI7jDMzcTF0nM2
+ cYgzPKNVOkqFGydyG9aUCIjFRaBfD5FTynHMm6e90SUzAvocFDCetmWD5Yr74V0m5c
+ qg+QqT9ekfiRncoOJfYGMoH2bHjvkGZ5lD7ZkPK9xqahyy4XxCuAPfM1zzhZ2nXhWS
+ FIzXVZ9mzHinA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 36/37] drm/sti: hdmi: Switch to atomic bridge callbacks
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-36-21d03cbca446@kernel.org>
+References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-36-21d03cbca446@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 16:11:00 +0000
+Message-Id: <20260707161100.C6C651F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,88 +53,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
---27ucv5zt2ny4lmlg
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v8 02/39] drm/connector: Add caps-based HDMI connector
- init helper
-MIME-Version: 1.0
+Pre-existing issues:
+- [High] Memory leak and global list corruption (dangling pointer) if compo=
+nent_add() fails in sti_hdmi_probe().
+- [High] Resource leak of the audio platform device and potential NULL poin=
+ter dereference if sti_hdmi_bind() fails.
+--
 
-On Fri, Jul 03, 2026 at 10:31:55PM +0300, Cristian Ciocaltea wrote:
-> Hi Dmitry,
->=20
-> Thanks for your quick review!
->=20
-> On 7/3/26 5:05 PM, Dmitry Baryshkov wrote:
-> > On Thu, Jul 02, 2026 at 05:46:15PM +0300, Cristian Ciocaltea wrote:
-> >> In preparation for adding HDMI 2.x source capabilities, introduce stru=
-ct
-> >> drm_connector_hdmi_caps and a new drmm_connector_hdmi_init_with_caps()
-> >> helper.
-> >>
-> >> The existing drmm_connector_hdmi_init() helper currently takes
-> >> individual capability arguments such as supported_formats and max_bpc.
-> >> Adding more HDMI-specific arguments to that function would not scale
-> >> well, so move those values into a dedicated capabilities structure and
-> >> implement the existing helper as a wrapper around the new caps-based
-> >> interface.
-> >=20
-> > I think, it was an intention of Maxime: make sure that every driver is
-> > forced to provide some values here. With the struct-based init it is
-> > easy to overlook or to ommit a value.
->=20
-> Agreed that the struct-based init loses the compile-time guarantee that e=
-very
-> argument is explicitly provided - that's a real downside. =20
->=20
-> I'd argue it's recoverable, though: the init helper validates the mandato=
-ry
-> fields, so a driver that omits a required value gets rejected at init time
-> rather than silently misconfigured.  The "you must provide sane values" p=
-roperty
-> is expected to be preserved, just enforced at runtime instead of by the
-> compiler.=20
+--- Patch [36]: [PATCH v2 36/37] drm/sti: hdmi: Switch to atomic bridge cal=
+lbacks ---
+commit fe4cd2364e238c4d447b17cda3c258ebb7c65628
+Author: Maxime Ripard <mripard@kernel.org>
 
-Yeah, I don't think we can win with C here. Rust might, but we're
-probably a long way from that.
+drm/sti: hdmi: Switch to atomic bridge callbacks
 
-> The main motivation for the struct is scalability/maintainability as we a=
-dd HDMI
-> 2.x capabilities: new fields go into the struct rather than growing the h=
-elper's
-> argument list, so existing callers don't need churny signature updates on=
- every
-> extension.
->=20
-> FWIW, in the previous revision we discussed addressing the concern with a
-> callback instead.  Sadly, I had to discard that approach, as it proved not
-> flexible enough, e.g. drm_bridge_connector_init() computes caps dynamical=
-ly, and
-> would have required either stateful callbacks, or storing redundant/tempo=
-rary
-> cap data in driver-private structures just to satisfy the callback.
+The hdmi bridge uses the legacy non-atomic pre_enable, enable, disable
+and post_disable bridge callbacks.
 
-I just realized something reviewing your patch: we don't necessarily
-need an extra argument or a callback, we can just put these fields into
-drm_hdmi_connector_funcs directly, and then validate them in init.
+In order to remove the legacy bridge callback support from the DRM
+bridge core, switch to their atomic counterparts and add the bridge
+atomic state handlers.
 
-Maxime
+> diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdm=
+i.c
+> index f8222e60b1e01..7ba9e0b7ba6c0 100644
+> --- a/drivers/gpu/drm/sti/sti_hdmi.c
+> +++ b/drivers/gpu/drm/sti/sti_hdmi.c
 
---27ucv5zt2ny4lmlg
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> @@ -964,16 +966,20 @@ static void sti_hdmi_set_mode(struct drm_bridge *br=
+idge,
+>  	}
+>  }
+> =20
+> -static void sti_hdmi_bridge_nope(struct drm_bridge *bridge)
+> +static void sti_hdmi_bridge_nope(struct drm_bridge *bridge,
+> +				 struct drm_atomic_commit *commit)
+>  {
+>  	/* do nothing */
+>  }
+> =20
+>  static const struct drm_bridge_funcs sti_hdmi_bridge_funcs =3D {
+> -	.pre_enable =3D sti_hdmi_pre_enable,
+> -	.enable =3D sti_hdmi_bridge_nope,
+> -	.disable =3D sti_hdmi_disable,
+> -	.post_disable =3D sti_hdmi_bridge_nope,
+> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+> +	.atomic_pre_enable =3D sti_hdmi_pre_enable,
+> +	.atomic_enable =3D sti_hdmi_bridge_nope,
+> +	.atomic_disable =3D sti_hdmi_disable,
+> +	.atomic_post_disable =3D sti_hdmi_bridge_nope,
+>  	.mode_set =3D sti_hdmi_set_mode,
+>  };
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCak0k1gAKCRAnX84Zoj2+
-due8AX0XXDyb8dUS4C5ZJ9bIc3vTW8oheRYR3cfa67hC4Uk3O3eEE85WAlMdVZCI
-eLU/TTkBfjc45nJFNa7QA9rRNN4TXSGeA/gFgRjwuvyZ7kaa+wjdc0ucP72zaBpk
-vOwNPyr2SQ==
-=Qd48
------END PGP SIGNATURE-----
+[Severity: High]
+This is a pre-existing issue, but does sti_hdmi_probe() leak memory and
+leave a dangling pointer if component_add() fails?
 
---27ucv5zt2ny4lmlg--
+drivers/gpu/drm/sti/sti_hdmi.c:sti_hdmi_probe() {
+	...
+	drm_bridge_add(&hdmi->bridge);
+	return component_add(&pdev->dev, &sti_hdmi_ops);
+}
+
+If component_add() fails, the function returns an error without calling
+drm_bridge_remove().
+
+Because the bridge is never removed, the reference count does not drop to
+zero during devres cleanup. Could another driver try to access the corrupted
+bridge in the global bridge_list, leading to a use-after-free panic when it
+accesses the freed devres-managed resources?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error handling in
+sti_hdmi_bind() leave the audio platform device registered while setting the
+connector to NULL?
+
+drivers/gpu/drm/sti/sti_hdmi.c:sti_hdmi_bind() {
+	...
+err_sysfs:
+	hdmi->drm_connector =3D NULL;
+	return -EINVAL;
+}
+
+If sti_hdmi_register_audio_driver() succeeds but a subsequent initialization
+step fails, we jump to the err_sysfs label, which clears hdmi->drm_connector
+without unregistering the active audio device.
+
+Since the ALSA framework may still invoke operations on the registered code=
+c,
+can this trigger a NULL pointer dereference when hdmi_audio_get_eld() is
+called?
+
+drivers/gpu/drm/sti/sti_hdmi.c:hdmi_audio_get_eld() {
+	...
+	struct drm_connector *connector =3D hdmi->drm_connector;
+
+	DRM_DEBUG_DRIVER("\n");
+	mutex_lock(&connector->eld_mutex);
+	...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D36
