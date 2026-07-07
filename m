@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE24CC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 278A2C44501
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13DE510EDC5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEC110EDD1;
 	Tue,  7 Jul 2026 15:11:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ezw6H2XX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G8WbqiiW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7063A10EDD8
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3378310EDC5
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E8AB261878;
- Tue,  7 Jul 2026 15:11:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277391F000E9;
- Tue,  7 Jul 2026 15:11:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 19B6143C34;
+ Tue,  7 Jul 2026 15:11:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7998F1F000E9;
+ Tue,  7 Jul 2026 15:11:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437105;
- bh=qsC1P/8qiUwEVz/sJ2otAGiV+KYLyDUjiFMQYd5OObU=;
+ s=k20260515; t=1783437108;
+ bh=eFQmRarClkNM/hYxWY1nrMtb12UYKkrr+Li1uKdzt/8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Ezw6H2XXuXYuHotWbvz+r7vNev7TtcHmFuqheO7hoipYVigU5sefB5CATK1UkEQOV
- /UyLodRKuq58i9i3jKQzDpNMbuYdIrfoTI2VOaAD8f9l1EUs0w7EWhQnHP/jNoyK5J
- famI2tqYigIq7HUITHEbMGpFkkKPxOm9cWWIZXJ8Y+fa//Ng3EebxxQMavsLePBiSc
- KEt+ywlTSl3mqpIX9VTllNnMT7duZBW6tuBfPfuC0mqKmn+GUuUVwKYr3mCGI6bOzT
- fFwysG+4v/omqEkaSBgjHog0ZwzRPyk42fnLRHKtajutMVqn7h/3fhpmqwkVJSHV2u
- 9gh2CTIMT1ZYQ==
+ b=G8WbqiiW4sgr6w+tV1MQwuj48+N2sMqHR466SP8k2G36ASiDYoniyuf6g1+CnX5Vx
+ tywVJrjaARiQOAEIuAn92xxkTRG/zVz0U+YtTz+1oWuP20Kz3zo/3T/iEN0tCZnjah
+ FgjH6WpEZ6x4u/vnyyVj3eYRLzkej4gzEAP/bxxwWIzlG+PL2SmiX+FK8wwsQHnDP9
+ E7loNvPcl8QXpViUu1MkFuN0ChdA26Wyw0kpsjGh+4S1CE4Uoc63fhRty+nHD5PPs9
+ DYW2DlxcHFI80RaS/N2R8f8HWMdr6LmNtYeadCO+tA1BcIeaTmGm1tzEf0aw2gD7Ny
+ Hmjp02y6zoGzQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:13 +0200
-Subject: [PATCH v2 06/37] drm/bridge: chrontel-ch7033: Switch to atomic
- bridge callbacks
+Date: Tue, 07 Jul 2026 17:11:14 +0200
+Subject: [PATCH v2 07/37] drm/bridge: cros-ec-anx7688: Add atomic bridge
+ state handlers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-6-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-7-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,14 +48,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, Benson Leung <bleung@chromium.org>, 
+ Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4908; i=mripard@kernel.org;
- h=from:subject:message-id; bh=jBgCOK6BuTEmNcLXajSxwaC4RY/C0XomVqgFmuDI+nc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4kL/0nWnCEpn7knMC502O1c8v++2YNe9RbY1R2u0/
- sw2kTjXMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbyo5OxYdkxzqZLC3eclFbt
- P/PN7A6bT1X4zH91xa2/3qzctDGC88lO+QdzMlf9NNS4p8NseUsnnbFhbmrulV2XruV95ayo5mC
- tnSjN9VK4pyz+Q8Cf+WU5Tq+XtRzpy7lvkcBTGOUpvFXEbQsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4080; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=BPDu49MWJLe0dgSMMODpK1n9EZ49AScos5sJRdO392Q=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4sJMTzt15thO3ftM0+uY8V5BYaPKUOsjDXs9dN04V
+ 0ervNPrmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABNJPcZYn3nAZXmj2vT5LN+k
+ j1x/v2sKZ32uO+uGhEiH5nJRu9YbvTK1NQ5mWatu2fw45SytOFedsYZr1cetedqbVj2OEeQJbd8
+ b82jr8ZdJbBFu3h/NFH5yXtl63YyZ46x73zWbAqPaV2803gMA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,12 +74,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The chrontel-ch7033 bridge uses the legacy non-atomic enable and disable
-bridge callbacks.
+The cros-ec-anx7688 bridge doesn't implement any enable or disable
+callbacks, but is still missing the atomic state handlers.
 
 In order to remove the legacy bridge callback support from the DRM
-bridge core, switch to their atomic counterparts and add the bridge
-atomic state handlers.
+bridge core, add them.
 
 Generated by the following Coccinelle script:
 
@@ -205,59 +205,45 @@ identifier b;
  }
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/bridge/chrontel-ch7033.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-index a237c65ebd69..92d464727e41 100644
---- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
-+++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-@@ -328,19 +328,21 @@ static enum drm_mode_status ch7033_bridge_mode_valid(struct drm_bridge *bridge,
- 	if (mode->vdisplay >= 1080)
- 		return MODE_BAD_VVALUE;
- 	return MODE_OK;
+---
+To: Benson Leung <bleung@chromium.org>
+Cc: Guenter Roeck <groeck@chromium.org>
+Cc: chrome-platform@lists.linux.dev
+---
+ drivers/gpu/drm/bridge/cros-ec-anx7688.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/cros-ec-anx7688.c b/drivers/gpu/drm/bridge/cros-ec-anx7688.c
+index a35dae9b56e2..da16c793e3ba 100644
+--- a/drivers/gpu/drm/bridge/cros-ec-anx7688.c
++++ b/drivers/gpu/drm/bridge/cros-ec-anx7688.c
+@@ -3,10 +3,11 @@
+  * CrOS EC ANX7688 HDMI->DP bridge driver
+  *
+  * Copyright 2020 Google LLC
+  */
+ 
++#include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_print.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/regmap.h>
+@@ -90,10 +91,13 @@ static bool cros_ec_anx7688_bridge_mode_fixup(struct drm_bridge *bridge,
+ 
+ 	return totalbw >= requiredbw;
  }
  
--static void ch7033_bridge_disable(struct drm_bridge *bridge)
-+static void ch7033_bridge_disable(struct drm_bridge *bridge,
-+				  struct drm_atomic_commit *commit)
- {
- 	struct ch7033_priv *priv = bridge_to_ch7033_priv(bridge);
- 
- 	regmap_write(priv->regmap, 0x03, 0x04);
- 	regmap_update_bits(priv->regmap, 0x52, RESETDB, 0x00);
- }
- 
--static void ch7033_bridge_enable(struct drm_bridge *bridge)
-+static void ch7033_bridge_enable(struct drm_bridge *bridge,
-+				 struct drm_atomic_commit *commit)
- {
- 	struct ch7033_priv *priv = bridge_to_ch7033_priv(bridge);
- 
- 	regmap_write(priv->regmap, 0x03, 0x04);
- 	regmap_update_bits(priv->regmap, 0x52, RESETDB, RESETDB);
-@@ -512,15 +514,18 @@ static void ch7033_bridge_mode_set(struct drm_bridge *bridge,
- 	regmap_write(priv->regmap, 0x11, mode->clock >> 8);
- 	regmap_write(priv->regmap, 0x12, mode->clock);
- }
- 
- static const struct drm_bridge_funcs ch7033_bridge_funcs = {
+ static const struct drm_bridge_funcs cros_ec_anx7688_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = ch7033_bridge_attach,
- 	.detach = ch7033_bridge_detach,
- 	.mode_valid = ch7033_bridge_mode_valid,
--	.disable = ch7033_bridge_disable,
--	.enable = ch7033_bridge_enable,
-+	.atomic_disable = ch7033_bridge_disable,
-+	.atomic_enable = ch7033_bridge_enable,
- 	.mode_set = ch7033_bridge_mode_set,
+ 	.mode_fixup = cros_ec_anx7688_bridge_mode_fixup,
  };
  
- static const struct regmap_config ch7033_regmap_config = {
- 	.reg_bits = 8,
+ static int cros_ec_anx7688_bridge_probe(struct i2c_client *client)
+ {
 
 -- 
 2.54.0
