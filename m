@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89CB8C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E4A3C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:34:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 821B410EBA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9F8110EBA9;
 	Tue,  7 Jul 2026 07:33:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KBj+Nsf6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QfB0uizV";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2662310EB9E
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D5010EB9E
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9D89F618B6;
- Tue,  7 Jul 2026 07:33:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1EC01F00A3A;
- Tue,  7 Jul 2026 07:33:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1D347618AE;
+ Tue,  7 Jul 2026 07:33:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD771F00A3D;
+ Tue,  7 Jul 2026 07:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409628;
- bh=5Q67Ks3EtT/rviD16v/y5//PZ31a2ZTmmYZGkyVwukM=;
+ s=k20260515; t=1783409633;
+ bh=UVO2l0eGVKNtsmAWdFLKtoZMyq4dJSOu2+5aMtn+n/g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KBj+Nsf6/iUkquQMKGvR/GDwyZrSB36Nlqsb4zJRVKyaHRRlYKBedR+OzYrEU7ktI
- BXuSFymw1NnUB/bFxipAGuVZkOrHIKpVn7E1PL2pvxGMoxRJ/wkKHxXtw37R6tali+
- cD3UDhh1+uSAKKv9Wf3SXh6NeaLNql6c7JOkVKwVppqOMEUW4MrxhX/wuMBpDUryAo
- xLma9eT3JDAtZcBrqsIdMR3Mc4BUlS2HIxP3ZW0gcxNBQdbkRwTc4Sj6SdDK2z9WAJ
- GvAM0HPrUC92s8BTkKOmGaImcWQ6soMHNnYzKD0X5EsexG4chvKJDBQnHCN9ARHmn6
- ej7MznerlbndQ==
+ b=QfB0uizVfseNfmxTewRu8FAZHlmgpfF53PJBcvKx9+BQwX18Y6AAzr1D0OCDueHjP
+ /RxHQDiI8aKj3wY/2DuS3XHvOBAP3F/wwiN+4k/LuwlS3xcQD4ADHQs0XVFl7OEhKL
+ XH5Po2IxxHTa3b9vcOT0X0OB5gi2hXMWcVwibdoQlze6ZWBe/vQuPzhLp6/cwaroAt
+ div3N9mBEYOIuv1ml/+Bs5InpLloEMuWvF9CB2qPeI6qWUFCd0DPCbfA0rOcHFqZBH
+ 9YsMfQtYR2jgwda9MNRJy2o9Th9yEVYyEbgDWfpCppPqgUTfFKFwTAOHtbapx692xt
+ EzBSH1RlJbdsQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 30/40] dept: make dept stop from working on
- debug_locks_off()
+Subject: Re: [PATCH v19 34/40] rcu/update: fix same dept key collision
+ between various types of RCU
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: tytso@mit.edu, linux-kernel@vger.kernel.org,
- "Jeff Layton" <jlayton@kernel.org>, linux-rt-devel@lists.linux.dev,
- linux-ide@vger.kernel.org, cassel@kernel.org, ojeda@kernel.org, "Anna
- Schumaker" <anna@kernel.org>, dlemoal@kernel.org,
- dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org, "Chuck
- Lever" <cel@kernel.org>
-In-Reply-To: <20260706061928.66713-31-byungchul@sk.com>
+Cc: dri-devel@lists.freedesktop.org, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dlemoal@kernel.org, cassel@kernel.org, "Anna
+ Schumaker" <anna@kernel.org>, ojeda@kernel.org, tytso@mit.edu,
+ "Chuck Lever" <cel@kernel.org>, "Jeff
+ Layton" <jlayton@kernel.org>, linux-rt-devel@lists.linux.dev,
+ linux-modules@vger.kernel.org
+In-Reply-To: <20260706061928.66713-35-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-31-byungchul@sk.com>
+ <20260706061928.66713-35-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:47 +0000
-Message-Id: <20260707073347.A1EC01F00A3A@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:52 +0000
+Message-Id: <20260707073353.1CD771F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,100 +63,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] DEPT fails to stop when lock debugging is globally disabled via =
-kernel tainting.
-- [Low] dept_stop_emerg() is unnecessarily exported via EXPORT_SYMBOL_GPL d=
-espite having no module callers.
-- [Low] Implicit reliance on transitive header inclusion for dept_stop_emer=
-g().
+- [Low] Unused struct member `dkey` inflates stack footprint
 --
 
-commit 3772379470ad3a639343d641bfb17cbd105fc9a5
-Author: Byungchul Park <byungchul@sk.com>
+commit de6aa9797881496b4a8d7d66626b1bfd19cfdd54
+Author: Yunseong Kim <ysk@kzalloc.com>
 
-dept: make dept stop from working on debug_locks_off()
+rcu/update: fix same dept key collision between various types of RCU
 
-The commit adds a dept_stop_emerg() call inside debug_locks_off() to
-stop the DEPT feature when panic or other lock debugging suspensions occur.
+This commit addresses a false positive circular dependency report in dept
+by assigning separate dept keys and maps to each struct rcu_synchronize
+execution context.
 
-> diff --git a/kernel/dependency/dept.c b/kernel/dependency/dept.c
-> index 048348ea64d29..007e1bc7d201e 100644
-> --- a/kernel/dependency/dept.c
-> +++ b/kernel/dependency/dept.c
-
-[ ... ]
-
-> @@ -187,6 +187,12 @@ static void dept_unlock(void)
->  	arch_spin_unlock(&dept_spin);
->  }
+> diff --git a/include/linux/rcupdate_wait.h b/include/linux/rcupdate_wait.h
+> --- a/include/linux/rcupdate_wait.h
+> +++ b/include/linux/rcupdate_wait.h
+> @@ -19,17 +19,20 @@ struct rcu_synchronize {
 > =20
-> +void dept_stop_emerg(void)
-> +{
-> +	WRITE_ONCE(dept_stop, 1);
-> +}
-> +EXPORT_SYMBOL_GPL(dept_stop_emerg);
+>  	/* This is for debugging. */
+>  	struct rcu_gp_oldstate oldstate;
+> +	struct dept_map dmap;
+> +	struct dept_key dkey;
 
 [Severity: Low]
-Does this function need to be exported to loadable modules?
+Does this code ever use the dkey member of struct rcu_synchronize?
 
-CONFIG_DEPT is a boolean configuration, so kernel/dependency/dept.c is
-always built-in. Its only caller in lib/debug_locks.c is also always
-built-in, making this export unnecessary.
+The _wait_rcu_gp() macro defines its own static struct dept_key __key,
+which it passes as an argument to __wait_rcu_gp(). This leaves the dkey
+member of struct rcu_synchronize completely unused and uninitialized, while
+needlessly increasing the stack footprint of the rs_array allocated in the
+macro.
 
-> +
->  enum bfs_ret {
->  	BFS_CONTINUE,
->  	BFS_DONE,
-> diff --git a/lib/debug_locks.c b/lib/debug_locks.c
-> index a75ee30b77cb8..14a965914a8fb 100644
-> --- a/lib/debug_locks.c
-> +++ b/lib/debug_locks.c
+>  };
+>  void wakeme_after_rcu(struct rcu_head *head);
+> =20
+>  void __wait_rcu_gp(bool checktiny, unsigned int state, int n, call_rcu_f=
+unc_t *crcu_array,
+> -		   struct rcu_synchronize *rs_array);
+> +		   struct rcu_synchronize *rs_array, struct dept_key *dkey);
+> =20
+>  #define _wait_rcu_gp(checktiny, state, ...) \
+> -do {												\
+> -	call_rcu_func_t __crcu_array[] =3D { __VA_ARGS__ };					\
+> -	struct rcu_synchronize __rs_array[ARRAY_SIZE(__crcu_array)];				\
+> -	__wait_rcu_gp(checktiny, state, ARRAY_SIZE(__crcu_array), __crcu_array,=
+ __rs_array);	\
+> +do {													\
+> +	call_rcu_func_t __crcu_array[] =3D { __VA_ARGS__ };						\
+> +	static struct dept_key __key;									\
+> +	struct rcu_synchronize __rs_array[ARRAY_SIZE(__crcu_array)];					\
+> +	__wait_rcu_gp(checktiny, state, ARRAY_SIZE(__crcu_array), __crcu_array,=
+ __rs_array, &__key);	\
+>  } while (0)
 
 [ ... ]
 
-> @@ -38,6 +38,8 @@ EXPORT_SYMBOL_GPL(debug_locks_silent);
->   */
->  int debug_locks_off(void)
->  {
-> +	dept_stop_emerg();
+> diff --git a/kernel/rcu/update.c b/kernel/rcu/update.c
+> --- a/kernel/rcu/update.c
+> +++ b/kernel/rcu/update.c
 
-[Severity: Low]
-Is it possible to explicitly include <linux/dept.h> in lib/debug_locks.c?
+[ ... ]
 
-Relying on implicit transitive header inclusion for dept_stop_emerg()
-could break the build if inner header structures like spinlock.h or
-lockdep.h change in the future.
-
-> +
->  	if (debug_locks && __debug_locks_off()) {
-
-[Severity: Medium]
-Will this miss DEPT shutdown when the system is tainted?
-
-For example, when a system fault occurs, add_taint() disables lockdep via
-__debug_locks_off():
-
-kernel/panic.c:add_taint() {
-    ...
-    if (lockdep_ok =3D=3D LOCKDEP_NOW_UNRELIABLE && __debug_locks_off())
-        pr_warn("Disabling lock debugging due to kernel taint\n");
-    ...
-}
-
-Because this bypasses debug_locks_off(), DEPT remains enabled when the
-system lock state is already unreliable, potentially leading to false
-positive dependency splats or further crashes.
-
->  		if (!debug_locks_silent) {
->  			console_verbose();
->  			return 1;
+> @@ -426,7 +426,8 @@ void __wait_rcu_gp(bool checktiny, unsigned int state=
+, int n, call_rcu_func_t *c
+>  				break;
+>  		if (j =3D=3D i) {
+>  			init_rcu_head_on_stack(&rs_array[i].head);
+> -			init_completion(&rs_array[i].completion);
+> +			sdt_map_init_key(&rs_array[i].dmap, dkey);
+> +			init_completion_dmap(&rs_array[i].completion, &rs_array[i].dmap);
+>  			(crcu_array[i])(&rs_array[i].head, wakeme_after_rcu);
 >  		}
 >  	}
->  	return 0;
->  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D30
+3-1-byungchul@sk.com?part=3D34
