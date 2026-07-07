@@ -4,104 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1BC1C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C353C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B6B210E507;
-	Tue,  7 Jul 2026 16:05:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E45489119;
+	Tue,  7 Jul 2026 16:06:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EUq5BMzT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZT3RP4DF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7027910E507;
- Tue,  7 Jul 2026 16:05:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783440357; x=1814976357;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=WGu1H7KZ2YHXBPQTafzG2nNs51jULw2SwYV9eRAWAxk=;
- b=EUq5BMzT0PvTN+SokRRvMdDdSauYbxHVwoH2lUda6cKtK+JTVCyKcuRJ
- 42JaoNDVMcOaPMOOHb4HFEHoB5rqQsqQVPvOfHLl8Z0E38nTAwSuzLKIx
- SvaxHitGgVQYYtw0PsVcqJcpYYTtZFatTOREmtPHJZsI29Elo8brcusK0
- I7t2Ut1G5iS8xBkxlvyah5UdyHVixHigL/8sY7GjW3F0mrkSzALEohvO0
- Gqbf08Sk1w51PlU8ImjFnYx5fe4MPm1iXCaL5aIXsu1Jiq7Yqzhg22TVg
- EToqC+/I7dhHgVygPzV8TnB4/9iq3AfuyUlnyRdb3s8d0mHoh0qe3snox g==;
-X-CSE-ConnectionGUID: NieqLSL4RE6Z+aHS5S6K0Q==
-X-CSE-MsgGUID: k77GDzQnQV2JAb6ZRykvGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="83952070"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="83952070"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 09:05:47 -0700
-X-CSE-ConnectionGUID: tBOk0B/0SG6kjtraoD2mfg==
-X-CSE-MsgGUID: bDNaWP1RQpiCsfz4/eJ9hQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="254117548"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.36])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 09:05:33 -0700
-Date: Tue, 7 Jul 2026 19:05:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>,
- Mark Brown <broonie@opensource.wolfsonmicro.com>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Peter Chen <peter.chen@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- driver-core@lists.linux.dev, devicetree@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev,
- Manuel Ebner <manuelebner@mailbox.org>
-Subject: Re: [PATCH v3 05/20] driver core: update kerneldoc for
- platform_device_alloc()
-Message-ID: <ak0jyUbNonSRiP_g@ashevche-desk.local>
-References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-5-1ff028e33779@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706-pdev-fwnode-ref-v3-5-1ff028e33779@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDED389119
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:06:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A42AD435B5
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:06:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0131F000E9;
+ Tue,  7 Jul 2026 16:06:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783440374;
+ bh=6PdIgDW7pO5OC2Ajv9Ec4uUXJ17CMAPVBT2YZnPXm0w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZT3RP4DF127mibtfrhqA/yQgJpJ0fv1tOdMVMfx88cWQKZrQBrxH8kQEo+dJnTVXe
+ zquMnhC/zSyPBJ+EGG5FU6Q7uX+Z4Tg3z+Xz3ns4F7Gg6iuxiqDDteW1H0q5piCEg7
+ o3JAzCoxO5o0dL+h4YfxY8KabDT6yrF5D5ZseMi0uhT+GQRS2SFKprkkfUReig9g2Q
+ gJSZHpEHxSzr7VhWdpQo29SfZ1BJh+EmqespCG2nOk/pMeQr1Qi+XL351qGlHrypvG
+ 6mcQWCyI8ds9jwtsn0Tx3tLlGyzvDunDk4uac2svfkNQ/HbfgBmusDE7PnXabM26pq
+ Yhe706TsrVNMg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 32/37] drm/omap: sdi: Switch to atomic bridge callbacks
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-32-21d03cbca446@kernel.org>
+References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-32-21d03cbca446@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 16:06:13 +0000
+Message-Id: <20260707160614.5D0131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,23 +53,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 02:44:17PM +0200, Bartosz Golaszewski wrote:
-> Users of platform_device_alloc() + platform_device_add() must not modify
-> certain fields of the dynamically created platform device object. Update
-> the kernel doc to say which fields are affected and which functions to
-> use.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Consider using __private checker attribute for them as well. It will make
-sparse scream.
+Pre-existing issues:
+- [High] `sdi_bridge_enable` and `sdi_bridge_disable` call sleeping functio=
+ns in atomic context.
+--
 
-> Suggested-by: Manuel Ebner <manuelebner@mailbox.org>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--- Patch [32]: [PATCH v2 32/37] drm/omap: sdi: Switch to atomic bridge cal=
+lbacks ---
+commit fe567fd05157eb0a22dd0fa9bede0ea86a947f4e
+Author: Maxime Ripard <mripard@kernel.org>
 
--- 
-With Best Regards,
-Andy Shevchenko
+drm/omap: sdi: Switch to atomic bridge callbacks
 
+This commit updates the omap sdi bridge to use atomic bridge callbacks inst=
+ead
+of legacy non-atomic ones. It modifies the enable and disable bridge callba=
+cks
+to their atomic counterparts and adds atomic state handlers.
 
+> diff --git a/drivers/gpu/drm/omapdrm/dss/sdi.c b/drivers/gpu/drm/omapdrm/=
+dss/sdi.c
+> --- a/drivers/gpu/drm/omapdrm/dss/sdi.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/sdi.c
+[ ... ]
+> -static void sdi_bridge_enable(struct drm_bridge *bridge)
+> +static void sdi_bridge_enable(struct drm_bridge *bridge,
+> +			      struct drm_atomic_commit *commit)
+>  {
+>  	struct sdi_device *sdi =3D drm_bridge_to_sdi(bridge);
+>  	struct dispc_clock_info dispc_cinfo;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could this lead to system
+deadlocks by calling sleeping functions from an atomic context?
+
+By wiring this to the atomic_enable callback, it is now executed in the
+atomic commit tail path where sleeping is forbidden. Looking at the contents
+of sdi_bridge_enable(), it calls:
+
+	r =3D regulator_enable(sdi->vdds_sdi_reg);
+	if (r)
+		return;
+
+	r =3D dispc_runtime_get(sdi->dss->dispc);
+
+Both regulator_enable() (which acquires a mutex) and dispc_runtime_get()
+(which calls pm_runtime_get_sync()) can sleep.
+
+[ ... ]
+> -static void sdi_bridge_disable(struct drm_bridge *bridge)
+> +static void sdi_bridge_disable(struct drm_bridge *bridge,
+> +			       struct drm_atomic_commit *commit)
+>  {
+>  	struct sdi_device *sdi =3D drm_bridge_to_sdi(bridge);
+
+[Severity: High]
+This is a pre-existing issue, but does switching this function to be an
+atomic callback introduce sleeping in atomic context warnings here as well?
+
+Similar to the enable path above, sdi_bridge_disable() calls:
+
+	dispc_runtime_put(sdi->dss->dispc);
+
+	regulator_disable(sdi->vdds_sdi_reg);
+
+Could these sleeping functions trigger kernel warnings when called during
+display atomic modeset operations?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D32
