@@ -4,126 +4,186 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42C36C43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 09:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D118AC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 09:13:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C476410EC0C;
-	Tue,  7 Jul 2026 09:11:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEC4210EC12;
+	Tue,  7 Jul 2026 09:13:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M37MhmFr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3kYBlUxc";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012044.outbound.protection.outlook.com
- [40.93.195.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA51F10E477;
- Tue,  7 Jul 2026 09:11:12 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011026.outbound.protection.outlook.com [40.107.208.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3774310EC12
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 09:13:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mrGxHrBwJRtGaQ3X9ksx2g/8KTYnSJpcpLxj9qDygGBQK//Yz/W2M5amSDTbYP0JOwDKl7flLuIyWnaGGLNczl1zSHeWrunfp9HuoSen3CatZbGbma+cJwg0TcGRt5+mZs+BrJvTozKKc7ZCVveFmlA8TGG8YyxELMi6X0aE2aYmlikXL8437bMkJGV75JxBdZtcto5NoO5bQWgdqR/puN9VyPbLdj1yJRe7S7Hc98o9hUf7GOT4iHjaTKniEzh5eRHHyWtd+96CZEqcs0xjivf2VAHj2QszDn6MhkFNNpwDMjWllSkLwzWigGimNo6UlR5H0jP+Rs4i7ur9lJNTDA==
+ b=XUA1NWsVoCq0XXTEyt04oXRWmmP8UArAkvGLkTutEXTGbyB2FexLZAD8oCI//bzGhz3sDcoc+C2vYeyvdANyBzlbLMvCZjK8iP1K1ltg/A6iKVwZRGqtXqbK8YsaDF/L1qEBJEThiUez4yrVEfervOmSLVxlVd9zo8RYQ0nY2ewXQ3uXZS4YjSxtTNqb1GMQyc7yugAcpQGrw4gEzrAa72U7doHxB3QzEbwjd28H5WMTeswWbOJCvwK95RO5e3U3hpp/fEp4JtX6/u8WuP7MjjlO5vDaz5YdG62ju6IIiLj57ea5PxpLLgsOz1CV8ecrEsgbBvVPjxzfXQsOsrXu/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TxFYqRvQnTm0HwfSa2fx4RisAUDyGGSuxwL4wVlb3eI=;
- b=nhRBtwlGDymnXhwtZj49IPt6L9NQjF5Fm74kn3vkSpxd6KQEkW1RMuoY2dwa/9VazlRzjQkKhD5ocmR0893+2WkTI/YPrau3cGKYXFUEqwzTLH5ng741ECWF2zH6uFFZeR6G5Q5EfuqhsVSpLX6VMCx24Sd53V/Wl2S6nZwdCwgob37/9p9lKJjL0n+C7EMlmDeA8Bs+ncO/XeA4MRJTW4NbGiEGM87MKFZBj5VW/u+y01y6knm2bMAIwQyzk2mB/XmNlh4gTM+5kM8YzS8GxE/NpRtP3d8AnfnfYvhqBPYb9IDcKFIMbjj5Ccdl4UUkd24YDy1mYcKrbUmNE6AZEg==
+ bh=YQ4e1PcEa1qkg9JeeVTO5zDN+m+oZVMgiWuEff6wB3E=;
+ b=AgTJ2rx2wEsYZVHthXiV4XrfdlAXXgqhjd0XluAtaXKeKz+tgHOgRQOCd+grBCbe8g3j93TyXxbY2Bfql/sL5h2bfaLV0G2cZY4QhQPJNus8yIU5O+hrWHf5dym/l17Zj+rs2khnpjN5yN+bC27xnTRnAcIu+Y/cNy60d3O/Qjp/yiOzmhpOX7CgLU/mR/PpcxMsAGQFm9+0eE6V9ySZ0QSe1NlFBLYsFnWzRwzYSgO05EhU3fRFwsBX1l1pl+TfmAYKYcmsMu+QfRvb/lKqdMi4DwVKfvaGQEQDToCmM8Q6XkEs9Nd3M0YF1E2NSzjOkq4tMmAGz6lkGPH0iHrKnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TxFYqRvQnTm0HwfSa2fx4RisAUDyGGSuxwL4wVlb3eI=;
- b=M37MhmFrxxxPo7WPv3WfpF9oWFTbE9aaSRkkB8C0/xdpg8C4ybRlM/e6LwsjWcxZSQ59TiTcV/L3v9FNK1Fbe5Y0I60w4L0IdDUWUuCe7zopJoYEGol9Fs+l9NuMJvH0p6D2j5NUhykL0ue8l8ZF7IYSZL4cEq003tRPQJ4ar2Q=
+ bh=YQ4e1PcEa1qkg9JeeVTO5zDN+m+oZVMgiWuEff6wB3E=;
+ b=3kYBlUxc2qslRtMHD3g8uABgEHghk1I2ZE5xF5m6Uva+X5ab/NVRhgmB65dIeuk6K6yHpp9/xbE0JxNfzIxvu1hxHyIw5cSxSyYpEJqMgUoP3GlgMNBnntOEtO6vrbO4G9TZyDR7Lbq7NOv7ZH7FM4yiXu/YNc2kPeCpVd6NnPw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4044.namprd12.prod.outlook.com (2603:10b6:5:21d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Tue, 7 Jul
- 2026 09:11:08 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
- 09:11:08 +0000
-Message-ID: <c575453f-d798-4745-b67d-4476825dfa64@amd.com>
-Date: Tue, 7 Jul 2026 11:11:00 +0200
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
+ by MW4PR12MB6949.namprd12.prod.outlook.com (2603:10b6:303:208::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Tue, 7 Jul
+ 2026 09:13:47 +0000
+Received: from CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
+ ([fe80::3a41:55a0:8203:596d%5]) with mapi id 15.21.0181.010; Tue, 7 Jul 2026
+ 09:13:47 +0000
+Message-ID: <84a98c07-372f-4636-be2e-9ef695d3f8e4@amd.com>
+Date: Tue, 7 Jul 2026 14:43:20 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/drm_exec: avoid indirect goto
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-To: mikhail.v.gavrilov@gmail.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, peterz@infradead.org, jpoimboe@kernel.org,
- llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>
-References: <20260704084133.122053-1-christian.koenig@amd.com>
+Subject: Re: [PATCH 20/42] drm: xlnx: zynqmp_dpsub: Use
+ devm_of_reserved_mem_device_init()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Alexey Brodkin
+ <abrodkin@synopsys.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Eddie James <eajames@linux.ibm.com>, Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+ Houlong Wei <houlong.wei@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ge Gordon
+ <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
+ Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+ kernel@collabora.com, linux-tegra@vger.kernel.org,
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ imx@lists.linux.dev, sound-open-firmware@alsa-project.org
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-21-mukesh.ojha@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <20260704084133.122053-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0169.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Pandey, Radhey Shyam" <radheys@amd.com>
+In-Reply-To: <20260703193855.110619-21-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0085.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ad::16) To CY1PR12MB9697.namprd12.prod.outlook.com
+ (2603:10b6:930:107::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4044:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75c5041a-40f3-4133-0fa1-08dedc07ae10
+X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|MW4PR12MB6949:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a8e7f10-34d3-4e21-2d57-08dedc080ce2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|23010399003|56012099006|18002099003|22082099003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: Gsb3wZgdK/Jdc8Ys4XKJ/CxDXFguLrLVatF9bfZyh9QNMkTfLZYJqYc37/zEBx6GSLNO1MO2oTb+VqNHNmBxlRkXDPkg7bMhmux1IS6T87R6EF9wWYahJDRP6od/8PjjJTsVQOg1K1BY3cSy5BGxXVJ7S+IXtklZS9TBqOcWsKVCkDIF+dfx6oNPubg1Z6d0v0aJldGLeilH8QcCV2PR/joDTpDTjuX0jyv3iKdd1W9P6D04guhs/7wIIB8UpZK08YPZk2w9uAGxwXNZr+7bcH3i2i1CdhgoxLs0AakrxfADiKLn31O1yvLb4dqnboILszzb+PbLP/UgzKsoi4X4gZ9NY4Yr+7NBcI064aIFFMw2Wil3ZTlb5W+aMzXAt61sa3+Dk6LDZIVxQONkZYp9kE+n9wAL+e/NCbR81DCbWg3P+Ej9TSJc/slwH35nLT2qSWi7RGS1q3bqaf15lmXDWuX2RkWCqeR94OA1VwFX+db49Y1+jnv+aYvMSx/GP32A/4BOks3L4S1uZCU6FaEhyptVmNEp3ns17YVSOxXx/NVwDQiTAm/yVhluu/lUn+OAg+3CNUNeouetWVGTUnqCtKxpkxlugjMIQldGUOo0VXK5d3bX720R0B167gLgIF8BsDyFMfg4kT/wIuQbNODus59i/KFyja3q0AfTwICd0xj3gUtwpykVBOOvZmtLaF8upw3T4smXZ1Uf6fQsatKM5g==
+ ARA:13230040|1800799024|366016|23010399003|7416014|376014|22082099003|18002099003|4143699003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: J3hQH2y7prc5ysSNH1F3Rvx1N+gkhmK7etXLLwXKc+DoEpH2vEwa1OuJEHxC3VuIdeFfNoEwRcuzmvIkJcTUHDoJfLNVLAHSft0FP9qIX3cl5UQ8/8IF6wjn+98l8V8/8lFj769qDQj/bigoXuBozfnCI7NYzmbrx2rqDq2YcTYF5cd9GDS2cqf7YKL3tsbenPWBqX4hq15GfF31eUM2SXMpYDi65pkYJIwC14YM+tBcTZHifM/dTQ+7m5B3UI30HuYrAoHB7iQHBVhJ8WMvUdWKiM4RFBWd6JY/4CzJVeHjLJ3J+IKhTcmZA9gAhrxCYK4sRP3Ke3P7J7DKz5aJIU9qnvKhaH99K6Kjv9GaNA1lx4Kpqj8B8PmqtGkGMYZk7aqfkD4VINTYOt1TUedd/M2YpIEXFSjXnjYgOL+20OpyywGGIG66knkHMNHmsok2OvkjfBgRoIun95POvRN03cbTvAi2B4RtPiJjLay8QrchnuvWHzEy+2wUaSGPXTuZ/6qm2QjKEsDVE4N10+igMGhJZF60Iodpf50gjodgOfZu4yAbsV4pM9LsgPn6LqRUytHPLLFNUXBQEeVH7kgg4vY/c6gfT/ty8PNKA5J+GdMCfKhpUn2LyQkp3Iihsgt9yC9qvVlNsibICFVzNy0xe70sL2khwn9Ey26RA+P2X7YpliheICYHMoG+YO3YGme7RXiUq1eWyavwqBrA3kRiyw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(56012099006)(18002099003)(22082099003)(11063799006)(921020);
+ IPV:NLI; SFV:NSPM; H:CY1PR12MB9697.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1NLczh3SDBIWFZiNTJ5NGRUYnVMRUFTL3UvSmJNNVFVcTdxL0hkWWsxVkR1?=
- =?utf-8?B?a21zWFBJNmNVTUJlR3l5TGtIblV6MmNxd1RmNjhqbE0yWEZBUlVGVjQ2MWhZ?=
- =?utf-8?B?RldUSjlFMmI0N0k5dGxkUFc2aDl1Tlk4N2lFMTRLMXZMRTBrbUtPWSt5Nit6?=
- =?utf-8?B?ck10MjJFWk1jWENSOXRrZmUxbXppUm1FM0VjdTRmVVJUbTV3UHRsSHNKWGVM?=
- =?utf-8?B?azkyNXRwY2lLUUw4dVVsWDRRYU54aG1qYWc5UTZ5bnQ2KzhzL0ZzWEJNV2tR?=
- =?utf-8?B?T29GVG9McFNtdzZlUXUyZzJlSi9jbFl2TWtaaGFneW5lSS9zcTEwZjlydlNm?=
- =?utf-8?B?SHlGbVZPUHdvNi9jY292TFkrSHdrQjFycGI3SkVXSzB1eEVwYW5hYW9uMkFt?=
- =?utf-8?B?VDlyT1VCMmlCd3FJQ0JBeVMwSjk3UExka3kxZ3BCckQvZ0NKM1ZaMlAvUWxC?=
- =?utf-8?B?bTRyZ2swNUJMdmdTdU8wSWZEL2dDT0JieWFsbGl3MVVkdHJsRWVtMG1TQlQ1?=
- =?utf-8?B?eDRhUTR5ci8vNnV0SXV4ZTYyZzlIN1U3QkI1MjhyZ2t5NzJXZ2NoOGV3YTdY?=
- =?utf-8?B?OTdmRUtxeHBreTJKcG9sSTlrUkVKL016dU5tclZEdEhYOVZ6ajYreDdickdB?=
- =?utf-8?B?aTFYZ2xKM1pOczkzcTd6MXliWUZwZURRSzVESDlreFloUTJpWXg2NW5ueXhk?=
- =?utf-8?B?SVltcGhHVE5ERFdBVlp4dDczQ0lsUXNzbERWaEF2NW5CckttNkF0dXN0YTRu?=
- =?utf-8?B?cXVHaHBtemZXVkRnVWJ4VTZnN1l2QlhNalRJZSttQXhwU0ZkL3laMWFnQUY5?=
- =?utf-8?B?YkNDNFFFOW1ZTGpvekZNZXZOVVh1a3J6ZTFWQnNtTlJCbmphbW5FczRVTlgz?=
- =?utf-8?B?VVpLVzNENlFmb0V2ekoxaDBlL3YyR0pwdGdXZWl0Q0ZuUXNHQmxZcHBIN1ZH?=
- =?utf-8?B?SkNpY0F6OWFTNFc0UE5DN2hpRGwrTWU2VlgzVW05dDM3c1VIRWR2cm5YNkdl?=
- =?utf-8?B?VHIwZHI3Zy9PQ1Y1OEJlcTFKenJ0YmlHTS9reVo5N29MTU1XZUN0MGxnZ1Q1?=
- =?utf-8?B?cnhML3hnUllCaEgrekRJcHN4YlQxOGk2dE5NNm9DVlJObTJFNnpYU2g4cGVl?=
- =?utf-8?B?ZmFwRTVTODBNb1Yra0pZcXdCQlI5R1NkVU5YMHJjZlRBQ21pSE1nbm5XN0Fz?=
- =?utf-8?B?ejVMM2UrY25ZalM4dkdJQXNXQVpNNDhORXNZcnpqL0Q4RFFrOTdYZEVXV29M?=
- =?utf-8?B?eTZJOFd1WEdtc2o0MUxFZW1tbGtzMjFoSTBBeVBDb0dMOE5DSnNwTnVHYlVr?=
- =?utf-8?B?eS9oTlE0bzlGWHp0Smx5bzZsNkRqR0ZLbGkwMnRvWkNvZXJWV3NocWIrNjBp?=
- =?utf-8?B?L2N1dVBPbW9LejZOQVkzOGpXRWR4RnNHYUZVSzZpNVQ3SkM0SXpRdjNJOERr?=
- =?utf-8?B?Z3gyK2owTXBrMDR2Q28rcU95SVptbTFJVEVoOWNiaDhqWWdxZkVCSllld3E3?=
- =?utf-8?B?M2R3NjZjWndhVDJ2Wkxodjg4d0YrK3dzMCtjS3dMY2NZemlrOVJ0alhvaitH?=
- =?utf-8?B?WEhzUG9KUkRvMkIxOFJadkczNHlXQVdNOUtSQUJXOGZsU09HQ1plNU0xODZp?=
- =?utf-8?B?ZmUxbmlab3Nha05SQjZYellkcGRKRzVSalFGK1BZL0VxNFFtcGhjcWRoeWlj?=
- =?utf-8?B?OHF3dWg5NG1DelA2WUdIUm5nWUxvNFlCUkh1dDRrZU13VzAxWlU5aDBFNFZz?=
- =?utf-8?B?dFBLVTBrUTc0Z2MwdjVVVmVKcG9FdW1YOFMxQlJZRzl2NFdSaC9Nazc5QWts?=
- =?utf-8?B?b0JJU21neWRheHNWV2l2TTdkUmVnUnVQK0ZMNWZjWDcyRHBSUTI2UHllNGVr?=
- =?utf-8?B?eHFJZDJoZFVDVGZKT3M2ZEVyZ0cyME0rL3ZxdWo0NmdPU3F0Q09oNjhlb2Vx?=
- =?utf-8?B?SVc0dnZnaGZOUjdFQzk0cERCYU5UckM3ZWFOZVczUjhlNmsxQnNCQ2EwZjU0?=
- =?utf-8?B?SVNJNW1GYS9hVnpIcDFqd25CSGZ6WVgyci8wcnNCaEZTS3d4NHRNN3pNMXVI?=
- =?utf-8?B?QkJXRGRnajdUV1Y4WWttdVlISmwvdWNTU1J5cnJOdjU1Zk1wMkovK3hOdEJF?=
- =?utf-8?B?U3h4YWJzNE1RRG1UengreDdUWWRKUWJjTUxQTzU3ck42ekc4ZVRFTzZFWlRp?=
- =?utf-8?B?V2NqbmorVzNCSW9Rc3hSNDdEZUlWY3VMMmFnTVd6YmgyS2QxcXJ4bE10QTJL?=
- =?utf-8?B?M0NDaVdCR241R2VlYk02aVF0c2dMWk1UaHd0cE12NlhQbnh6dktVVFQwNDd3?=
- =?utf-8?Q?2P7anBssBx2BxlqGat?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3F5TjZuVTMrMHlzZG5iU29TdzViYVA2cDQwdWdkWTVxYkxVVTBzV0tFdkdX?=
+ =?utf-8?B?TjFWdWhPMmc2UEVlMlRYZGx4NVdmbG5XdTNpMzcrVEtmV1FYNktzSHo5dEdD?=
+ =?utf-8?B?a2FEU3RSWjNrei9vUWp6K1hIcXFNZEdMcEt0dDZSWno3emovRVRqcW9IZHlk?=
+ =?utf-8?B?a21KY1YwanFWNXNYWHQya2RORmZ6K0JNVWxpb0VOUWtmTWY1S3hYZ3AvcE5O?=
+ =?utf-8?B?aE1jZEE1clB5bU9hVVh6bHhBUklKWVFpM0hJWkJZM2NBb0pwb2hPZFNpdU9K?=
+ =?utf-8?B?bzNRaTQySGJkY0hMeUVUeUhuU1lVOStweWVWd2V5T2E2MjZOV2JwYVV4Zmpj?=
+ =?utf-8?B?dlRSZ0lPUVFHUFBCdlFFYjk5M0hXM09OUVJUZjcwNkVMeXR0NlAzUW9LWVNw?=
+ =?utf-8?B?a2dIaFYxeUZXZFMxajVHQkl3am84Y2dENFlyNXRwOC9tbUl1U1UxYS9NK0RO?=
+ =?utf-8?B?VWs0dUVVeU9jMTlrZ21YUlJsUlByU0xiL1JuMzBSQzlrZW1vcG1GaTJqQWV5?=
+ =?utf-8?B?dDJWSFlpcjZzUjR4MjdGYmR0eGtHcnNrK3QzalBmbWdCQk91eUxtRE52R3JY?=
+ =?utf-8?B?NStBTmZ2YWdJNVU5UjlJUGFBUitxblRwTUYrTVZTS2tmK1JEeWFPQVA2OHJE?=
+ =?utf-8?B?cnpZazZ2YW5IYkFrdXZ5THh1STgvamJ2b3RhQXFaNVAzK2hTTm54cjNRUUZk?=
+ =?utf-8?B?Ym45V0k2dE40SkFUNUpES3ZvWE41UDYvRHJ6dzVwa1lKRGwxS3pRaHk4d21Y?=
+ =?utf-8?B?OVdoMEVhOWVFMERWTkk0bllXeThWN0dDZU9VVW9UaHhmcy8wcksrajlGcHhr?=
+ =?utf-8?B?MFZWTlZsZ1FhS0E4OWhLSS9hRWl4ekNpZmFOQWtJM2NDaTFyR1V5aTd3ZW1O?=
+ =?utf-8?B?SmtRZUhoZWE2R25LMXRJVGhvL1dyUHZQVDZkZFNLRTBqbzlRUklZUnljR1N3?=
+ =?utf-8?B?VERVVVVLWmJJRkdydU82cXZnUEZ3a2wzYUxtRTNHRmFXZGJmVHNwMVgzcEpT?=
+ =?utf-8?B?bWUxUmRqNzlzZzF4clVyWVJpYzc5SGplcFFrbUN6c1doT3R4emdGSTY5K1J4?=
+ =?utf-8?B?bHdYTGFYcHRXcDhreEhvM3F1SjJyY1p4S09sZGpXU2I0dkVnTDRaRFRxLzhu?=
+ =?utf-8?B?VlZVdnhPdXJrUU56bGg1SHpqRlhOSmZ4MU5ZUktYeUViU1cvYzg5Wkg0R20v?=
+ =?utf-8?B?UTRxSm91RnRXUmJBNFUvQ05nK0ZzTkF3cEhkWXBOV0F6MnhKRnpaTDJmWDZ6?=
+ =?utf-8?B?enlKeENxdUhESzVNQ0xUdXFNa1ArMFI0a015UC9zSGQ3R3RCd2RVNlVjalk0?=
+ =?utf-8?B?T210WEFVMkF3NG9KcUQwSFJGUlNwQ2FWb1FkS0V3WDdYTGVxcGIxTmdnWElD?=
+ =?utf-8?B?VlVrNWdBalV5Y2hLcFpsR3dPYnlqRmRrVkFzQnRnQXVQV1U5WVc3Q1plTFE5?=
+ =?utf-8?B?S2J5WU94Q2pZV3VxcFQwbTMrWktXSjQwTXVVRGNPckJBa0dzSnJNRytwWU8y?=
+ =?utf-8?B?MExMczh5TVBxaUNJeVUrVWZnSHJKbklxcTJreFYzT25MR3JNSkxCTzhwM1V2?=
+ =?utf-8?B?ZEFxSXpYekQ1OCtUZjZLU1dEbUpqTjlSRnoxckZaeC9WM2t1Zmg3UFdJY2l4?=
+ =?utf-8?B?YXRJKy9HSGw3SXk3YzhxWGJOMnV4WWdCREs2c1ZkQldaM2JQNFV5M2V0L0py?=
+ =?utf-8?B?ckVQQytrdVJVa25ReGRzU2hlS2dpcHArYWxIRlB6c2hDWW9RdFl6ZVdwTmc0?=
+ =?utf-8?B?MVFCOHlZQTY1eVpTcnQwdEFGR3ZST2RlVkFXQmRNTU9BUjE1ZHZlNDhMYWll?=
+ =?utf-8?B?NGtTZDNtWGxxUm5hN0lWWnEyR3JDWFY5N0d3UTZaWHVlQm9mOHRWTC80R1pk?=
+ =?utf-8?B?UlEwNmhxeGhMZVNpaWorTTJYVDhSekg4MkNZU0U1OW93d0xpdXdzejRYQUE0?=
+ =?utf-8?B?YUsrdHdTd2QzRkZKclJnYU41V0dLaHpkV2ttWUFGM2FhY2RncHNzcUFDK20y?=
+ =?utf-8?B?NER5bHNDZ0VyTWd3QUNUT3NyS242ZXlUWkphSm90NXg1S3RMdlhwdjdXQkdi?=
+ =?utf-8?B?QTg0NEc3cUNiVnlDRUNpem14bWhuTWZqVzArWkJNRzdDRDZaNzhodGFZM1ZI?=
+ =?utf-8?B?dklmdGxxM1NvcndRenpVbFh3a0VHM2hMZkU3K2xYeGJWeHZBUklWVisvck9x?=
+ =?utf-8?B?Uzh0RkdCVG45ak1sSGtnTVdRTEVGV1VIRCtwd3VudHpkSEFvUUl4cy80RzhH?=
+ =?utf-8?B?aXljMnZUdXpmUXpuOWhKTGw1bG1Vekc0Mktub09OVloxb0JlOFJITnR6UXpK?=
+ =?utf-8?B?aDRhbThzRzdlc3FGZzNldFA5dlpsYjNTa0I3VGJRT3ljMVE4V3NNZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75c5041a-40f3-4133-0fa1-08dedc07ae10
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a8e7f10-34d3-4e21-2d57-08dedc080ce2
+X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 09:11:07.9790 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 09:13:47.1197 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fp/z+wgZQkI9Dgtg3tvP0SOYy7RaXDTjXgnPCXPEy7qEp8lVADXYzCzlgEuabDm1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4044
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0Cm7rb2/F/z6n6IKYYudd2pnXg7LkSHWNAU/3bAcSaxW+ihOOYTZC1KLHOGlbnJP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6949
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,169 +199,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Adding a few more people to comment and review.
+> Use the devres-managed devm_of_reserved_mem_device_init() instead of
+> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
+> pair, letting the device resource manager handle cleanup automatically.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-Thanks Mike for the pointers, going to add them to the patch before pushing it to drm-misc-fixes.
+Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Thanks!
 
-@Thomas, Maxime, Simona, Dave can anybody give me an rb or comment?
-
-Thanks,
-Christian.
-
-On 7/4/26 10:41, Christian König wrote:
-> The drm_exec component uses a variable with scope limited to the for() and
-> an indirect goto to allow instantiating multiple macros in the same
-> function.
-> 
-> This unfortunately doesn't work well with certain compilers when the
-> indirect goto can't be lowered to a direct jump.
-> 
-> Switch the indirect goto to a direct goto, the drawback is that we now
-> can't use the dma_exec_until_all_locked() macro in the same function
-> multiple times.
-> 
-> The is currently only one user of this and only as a hacky workaround
-> which is about to be removed.
-> 
-> So document that the __label__ statement should be used when the macro is
-> used multiple times and fix the tests and the only use case where that is
-> necessary.
-> 
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  2 ++
->  drivers/gpu/drm/tests/drm_exec_test.c  | 24 ++++++++++++------
->  include/drm/drm_exec.h                 | 34 ++++++++++++++------------
->  3 files changed, 36 insertions(+), 24 deletions(-)
+>   drivers/gpu/drm/xlnx/zynqmp_dpsub.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index fee4c94c2585..fc28d0fdad37 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -3011,6 +3011,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->  	is_compute_context = vm->is_compute_context;
->  
->  	if (is_compute_context) {
-> +		__label__ drm_exec_retry;
-> +
->  		/* Release the root PD lock since svm_range_restore_pages
->  		 * might try to take it.
->  		 * TODO: rework svm_range_restore_pages so that this isn't
-> diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
-> index 2fc47f3b463b..7a374e462348 100644
-> --- a/drivers/gpu/drm/tests/drm_exec_test.c
-> +++ b/drivers/gpu/drm/tests/drm_exec_test.c
-> @@ -180,19 +180,27 @@ static void test_multiple_loops(struct kunit *test)
->  {
->  	struct drm_exec exec;
->  
-> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> -	drm_exec_until_all_locked(&exec)
->  	{
-> -		break;
-> +		__label__ drm_exec_retry;
-> +
-> +		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> +		drm_exec_until_all_locked(&exec)
-> +		{
-> +			break;
-> +		}
-> +		drm_exec_fini(&exec);
->  	}
-> -	drm_exec_fini(&exec);
->  
-> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> -	drm_exec_until_all_locked(&exec)
->  	{
-> -		break;
-> +		__label__ drm_exec_retry;
-> +
-> +		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-> +		drm_exec_until_all_locked(&exec)
-> +		{
-> +			break;
-> +		}
-> +		drm_exec_fini(&exec);
->  	}
-> -	drm_exec_fini(&exec);
->  	KUNIT_SUCCEED(test);
->  }
->  
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index 8725ba92ff91..cc2937185a9f 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -101,17 +101,6 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
->  #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
->  	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
->  
-> -/*
-> - * Helper to drm_exec_until_all_locked(). Don't use directly.
-> - *
-> - * Since labels can't be defined local to the loop's body we use a jump pointer
-> - * to make sure that the retry is only used from within the loop's body.
-> - */
-> -#define __drm_exec_until_all_locked(exec, _label)			 \
-> -_label:									 \
-> -	for (void *const __maybe_unused __drm_exec_retry_ptr = &&_label; \
-> -	     drm_exec_cleanup(exec);)
-> -
->  /**
->   * drm_exec_until_all_locked - loop until all GEM objects are locked
->   * @exec: drm_exec object
-> @@ -119,9 +108,18 @@ _label:									 \
->   * Core functionality of the drm_exec object. Loops until all GEM objects are
->   * locked and no more contention exists. At the beginning of the loop it is
->   * guaranteed that no GEM object is locked.
-> + *
-> + * A global label name drm_exec_retry is used, if you need to use more than one
-> + * instance of this macro in the same function the label needs to be made local
-> + * to the block with the __label__ keyword.
->   */
->  #define drm_exec_until_all_locked(exec)					\
-> -	__drm_exec_until_all_locked(exec, __UNIQUE_ID(drm_exec))
-> +	for (bool const __maybe_unused __drm_exec_loop = false;		\
-> +	     drm_exec_cleanup(exec);)					\
-> +		if (false) {						\
-> +drm_exec_retry: __maybe_unused;						\
-> +			continue;					\
-> +		} else
->  
->  /**
->   * drm_exec_retry_on_contention - restart the loop to grap all locks
-> @@ -129,12 +127,14 @@ _label:									 \
->   *
->   * Control flow helper to continue when a contention was detected and we need to
->   * clean up and re-start the loop to prepare all GEM objects.
-> + * The __drm_exec_loop check exists to prevent usage outside of an
-> + * drm_exec_until_all_locked() loop.
->   */
->  #define drm_exec_retry_on_contention(exec)			\
->  	do {							\
->  		if (unlikely(drm_exec_is_contended(exec)))	\
-> -			goto *__drm_exec_retry_ptr;		\
-> -	} while (0)
-> +			goto drm_exec_retry;			\
-> +	} while (__drm_exec_loop)
->  
->  /**
->   * drm_exec_is_contended - check for contention
-> @@ -154,12 +154,14 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
->   *
->   * Unconditionally retry the loop to lock all objects. For consistency,
->   * the exec object needs to be newly initialized.
-> + * The __drm_exec_loop check exists to prevent usage outside of an
-> + * drm_exec_until_all_locked() loop.
->   */
->  #define drm_exec_retry(_exec)					\
->  	do {							\
->  		WARN_ON((_exec)->contended != DRM_EXEC_DUMMY);	\
-> -		goto *__drm_exec_retry_ptr;			\
-> -	} while (0)
-> +		goto drm_exec_retry;				\
-> +	} while (__drm_exec_loop)
->  
->  /**
->   * drm_exec_ticket - return the ww_acquire_ctx for this exec context
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> index 53ab1a2a5aaf..e93a7a299b52 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_dpsub.c
+> @@ -203,7 +203,7 @@ static int zynqmp_dpsub_probe(struct platform_device *pdev)
+>   	dma_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+>   
+>   	/* Try the reserved memory. Proceed if there's none. */
+> -	of_reserved_mem_device_init(&pdev->dev);
+> +	devm_of_reserved_mem_device_init(&pdev->dev);
+>   
+>   	ret = zynqmp_dpsub_init_clocks(dpsub);
+>   	if (ret < 0)
+> @@ -255,7 +255,6 @@ static int zynqmp_dpsub_probe(struct platform_device *pdev)
+>   	pm_runtime_disable(&pdev->dev);
+>   	clk_disable_unprepare(dpsub->apb_clk);
+>   err_mem:
+> -	of_reserved_mem_device_release(&pdev->dev);
+>   	if (!dpsub->drm)
+>   		zynqmp_dpsub_release(dpsub);
+>   	return ret;
+> @@ -276,7 +275,6 @@ static void zynqmp_dpsub_remove(struct platform_device *pdev)
+>   
+>   	pm_runtime_disable(&pdev->dev);
+>   	clk_disable_unprepare(dpsub->apb_clk);
+> -	of_reserved_mem_device_release(&pdev->dev);
+>   
+>   	if (!dpsub->drm)
+>   		zynqmp_dpsub_release(dpsub);
 
