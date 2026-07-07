@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D82F5C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:27:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D28FC43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:28:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B15E10E4F7;
-	Tue,  7 Jul 2026 15:27:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D723710E4FC;
+	Tue,  7 Jul 2026 15:28:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z9ugK5oL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lniLoYXK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9E9510E4F7
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:27:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7583B10E4FC
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:28:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 37F6E601EB
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:27:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9551F000E9;
- Tue,  7 Jul 2026 15:27:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D76B760018
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:28:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ECC21F000E9;
+ Tue,  7 Jul 2026 15:28:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783438050;
- bh=HMC9nU5ATpqw/ydlbhwwnFnxmTH3ecoZN8bkz29WZKs=;
+ s=k20260515; t=1783438137;
+ bh=AMK3JkYGPaMyDti1/nCUzTAaREXC0uUyuHsysQuikpY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z9ugK5oL26kxWqinFwBjKcMw+eaMy4pCpYjhlOm+6prp0KN/NGI8YN9op/VZ7U29D
- EmfXJqlc8PsWbJT3uvKIosYYLCis8DnGEkAqzNTW6P87H/1yXKwH1xctHI/BTDR/YC
- FiPSK1dTF4lweCZ2VDmXTo1k3YKt5WOI1AqP2PwZZv/ddhbYaLGzd88NWWhnQJF4Bh
- ItND67BDbNBCSpZX+nrCAGvW0geKsSjBexCVpCZNP467gJG4ekobfWWHgwWd83XruF
- JQGl5nQzhzdAqPf5kg5jhEEZ5xABORWHz8Atbp7ZWAqM1x7N1azYWleuLTWlkRYZ1J
- eZhBFnFfrdEIA==
+ b=lniLoYXKH+zM9p+gSljrS8+vuclbgcC6xdXdspcaa+2Uy8COxgDpJo9WQ//SxvnwC
+ UyKieKlOAtSxVlxBBXGS+wQxebw/GgQvCg34kwR8OVnr7uFX5rRZv1ytSAn/M7VYKf
+ wTsDKZwRDBCB10Lmq3aQ5w5IF+1HD+soNRg16ndHKuNdKkRQN0STmzaIY6GVuQxoSL
+ /IQdE8pKU4+gughjD4cJvMBk8BwDNkbCK8v04K1+rmnhtWB1DRZaK/3udlmQIVrBy1
+ 1nxZh/PFXaFTAF1GtH0sWdjhVckjPeVki9Lv97LUUhDDO+0UnyYVZ/d/BSX2jQjNtU
+ IZlghf+23wHLg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/37] drm/bridge: lontium-lt8713sx: Add atomic
- bridge state handlers
+Subject: Re: [PATCH v2 02/37] drm/bridge: analogix-anx6345: Switch to atomic
+ bridge callbacks
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-8-21d03cbca446@kernel.org>
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-2-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-8-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-2-21d03cbca446@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 15:27:30 +0000
-Message-Id: <20260707152730.CE9551F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 15:28:56 +0000
+Message-Id: <20260707152857.6ECC21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,119 +58,119 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Double-free of the firmware object in the error paths of firmware =
-update.
-- [High] Missing minimum firmware size check causes massive buffer overflow=
-/underflow.
-- [High] drm_atomic_private_obj_init() leaves the object in privobj_list on=
- error, and drm_bridge_attach() ignores the error, leading to crashes.
+- [High] The panel is enabled before it is prepared (powered on) in the bri=
+dge enable sequence, violating the DRM panel API contracts and causing pote=
+ntial hardware issues.
+- [High] Bridge `atomic_enable` and `atomic_disable` callbacks invoke sleep=
+ing functions, violating atomic context constraints.
 --
 
---- Patch [8]: [PATCH v2 08/37] drm/bridge: lontium-lt8713sx: Add atomic br=
-idge state handlers ---
-commit cc389f313911703ff4573192b0ab28ddca13b386
+--- Patch [2]: [PATCH v2 02/37] drm/bridge: analogix-anx6345: Switch to ato=
+mic bridge callbacks ---
+commit c3398824f07e9152c87164f9494fed0231949fb3
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge: lontium-lt8713sx: Add atomic bridge state handlers
+drm/bridge: analogix-anx6345: Switch to atomic bridge callbacks
+   =20
+The analogix-anx6345 bridge uses the legacy non-atomic enable and
+disable bridge callbacks.
+   =20
+In order to remove the legacy bridge callback support from the DRM
+bridge core, switch to their atomic counterparts and add the bridge
+atomic state handlers.
 
-The lontium-lt8713sx bridge doesn't implement any enable or disable
-callbacks, but is still missing the atomic state handlers. In order to
-remove the legacy bridge callback support from the DRM bridge core, add the=
-m.
-
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/=
-bridge/lontium-lt8713sx.c
-> index cee485adf5e56..4a6420b876da6 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers=
+/gpu/drm/bridge/analogix/analogix-anx6345.c
+> index f3fe47b12edca..eba5c6dcb5ada 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
 [ ... ]
-
-> @@ -508,6 +509,9 @@ static const struct attribute_group *lt8713sx_attr_gr=
-oups[] =3D {
->  };
+> @@ -580,7 +581,8 @@ static void anx6345_bridge_disable(struct drm_bridge =
+*bridge)
+>  		anx6345_poweroff(anx6345);
+>  }
 > =20
->  static const struct drm_bridge_funcs lt8713sx_bridge_funcs =3D {
+> -static void anx6345_bridge_enable(struct drm_bridge *bridge)
+> +static void anx6345_bridge_enable(struct drm_bridge *bridge,
+> +				  struct drm_atomic_commit *commit)
+>  {
+>  	struct anx6345 *anx6345 =3D bridge_to_anx6345(bridge);
+>  	int err;
+> @@ -600,11 +602,14 @@ static void anx6345_bridge_enable(struct drm_bridge=
+ *bridge)
+
+[Severity: High]
+This is a pre-existing issue, but does this function enable the panel before
+it is prepared?
+
+In anx6345_bridge_enable(), we have:
+
+	if (anx6345->panel)
+		drm_panel_enable(anx6345->panel);
+
+	err =3D anx6345_start(anx6345);
+
+And anx6345_start() eventually calls anx6345_poweron() which prepares the
+panel:
+
+	if (anx6345->panel)
+		drm_panel_prepare(anx6345->panel);
+
+On a secondary modeset (after the device has been disabled),
+anx6345->powered is false. anx6345_bridge_enable() calls drm_panel_enable()
+which turns on the backlight. It then calls anx6345_start() which invokes
+anx6345_poweron() and drm_panel_prepare() to power on the LCD logic.
+
+Could this inverted enable -> prepare sequence turn on the backlight while
+the panel power is off, potentially causing latch-up and physically damaging
+the LCD logic on some displays?
+
+>  }
+> =20
+>  static const struct drm_bridge_funcs anx6345_bridge_funcs =3D {
 > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
 > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
 > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
->  	.attach =3D lt8713sx_bridge_attach,
+>  	.attach =3D anx6345_bridge_attach,
+>  	.detach =3D anx6345_bridge_detach,
+>  	.mode_valid =3D anx6345_bridge_mode_valid,
+> -	.disable =3D anx6345_bridge_disable,
+> -	.enable =3D anx6345_bridge_enable,
+> +	.atomic_disable =3D anx6345_bridge_disable,
+> +	.atomic_enable =3D anx6345_bridge_enable,
+
+[Severity: High]
+This is a pre-existing issue, but does mapping these callbacks to atomic
+contexts conflict with the sleeping functions they invoke?
+
+The bridge atomic_enable and atomic_disable callbacks execute in the context
+of atomic commits (e.g., drm_atomic_helper_commit_tail), where sleeping is
+forbidden.
+
+However, anx6345_bridge_enable() and anx6345_bridge_disable() invoke
+hardware sequencing functions like anx6345_start(), anx6345_poweron(), and
+anx6345_poweroff().
+
+For example, anx6345_start() contains:
+
+	usleep_range(10000, 15000);
+
+And anx6345_poweron() contains:
+
+	gpiod_set_value_cansleep(anx6345->gpiod_reset, 1);
+	usleep_range(1000, 2000);
+
+Could calling these sleeping functions from the atomic context cause kernel
+panics or BUG warnings (scheduling while atomic)?
+
 >  };
-
-[Severity: High]
-This isn't a bug introduced by this patch, but by adding .atomic_create_sta=
-te
-you are enabling the atomic path in drm_bridge_attach() which will now call
-drm_atomic_private_obj_init().
-
-If drm_atomic_private_obj_init() fails, it returns an error but leaves the
-object in dev->mode_config.privobj_list with a NULL obj->state:
-
-drm_atomic.c:drm_atomic_private_obj_init()
-	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
-
-	state =3D obj->funcs->atomic_create_state(obj);
-	if (IS_ERR(state))
-		return PTR_ERR(state);
-
-	obj->state =3D state;
-
-Then drm_bridge_attach() ignores this return value:
-
-drm_bridge.c:drm_bridge_attach()
-	if (drm_bridge_is_atomic(bridge))
-		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
-					    &drm_bridge_priv_state_funcs);
-
-	return 0;
-
-If a state dump is triggered later, drm_state_dump() iterates over
-privobj_list and calls drm_atomic_private_obj_print_state(p, obj->state).
-Since obj->state is NULL, this will cause a NULL pointer dereference.
-
-Should the return value of drm_atomic_private_obj_init() be checked in
-drm_bridge_attach(), and should drm_atomic_private_obj_init() remove the
-object from the list on failure?
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential double-free in the
-firmware update error paths of this driver.
-
-In lt8713sx_prepare_firmware_data():
-
-	release_firmware(lt8713sx->fw);
-	return -EINVAL;
-
-This frees the firmware object but leaves lt8713sx->fw pointing to the freed
-memory. Then the caller lt8713sx_firmware_update() handles the error:
-
-error:
-	if (lt8713sx->fw) {
-		release_firmware(lt8713sx->fw);
-		lt8713sx->fw =3D NULL;
-	}
-
-Could this result in a double-free of the firmware object?
-
-[Severity: High]
-This is a pre-existing issue, but I also noticed a potential buffer overflow
-in lt8713sx_prepare_firmware_data():
-
-	memcpy(lt8713sx->fw_buffer, lt8713sx->fw->data, SZ_64K - 1);
-	...
-	memcpy(lt8713sx->fw_buffer + SZ_64K,
-	       lt8713sx->fw->data + SZ_64K,
-	       lt8713sx->fw->size - SZ_64K);
-
-If a user provides a firmware file smaller than 64KB, would the first memcpy
-read out of bounds, and would lt8713sx->fw->size - SZ_64K underflow resulti=
-ng
-in a massive out-of-bounds copy?
+> =20
+>  static void unregister_i2c_dummy_clients(struct anx6345 *anx6345)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D8
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D2
