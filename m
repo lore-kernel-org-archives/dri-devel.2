@@ -4,75 +4,184 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71418C44507
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A0CC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3652B10F431;
-	Thu,  9 Jul 2026 07:26:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 771BF10F425;
+	Thu,  9 Jul 2026 07:26:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ebx6/rki";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="NWZ/YLks";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A04589854
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:05:36 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2cca24023edso31823275ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 08:05:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783436736; x=1784041536; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7SSWQg6HrEbpp/1xgGT38ar/90z2MxrGW6oImpnAmb0=;
- b=Ebx6/rkiBuUQSWqDUi90wst3E2BP5XWWEH9JePBd9yMN0zrCxjw9UbeBfnQVf0TLM3
- 740HreUGHq2DWENjYDwoiVw4p+KKHsF0LUoK/ChvODUVbloU4b54olc9YhmCDOjftqfB
- EGsJ56CQTlX/zaQ1w/PvIp0XJ/Y7vUr2801tmGKeYnHXgScXB7eC1j5UNR9aiHhTL5a9
- ap4+01sEn9ZwRrukSXaWw9ARluYh6nSw1UbOb9RmCxclJAgkzOSiYo/HmjYJFxqucHHf
- PmA8TP3JWdBhuGmzwgftJQnvqvcr2nRyBiWbbVN0Fz+VeJnjCISdPp0aq0XLUohTViwo
- QLsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783436736; x=1784041536;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7SSWQg6HrEbpp/1xgGT38ar/90z2MxrGW6oImpnAmb0=;
- b=I4LGoy+B2HRifBHiXR5BVlfIVnCnYX9tYfQTiJumb+HJyn+BrUkUYmmQP7BmQLX11y
- i7QFPsgEU9yNBWjBeeOk3u9ddnAdZZU5HXCPnvWmAF6EOctaRJ/MXVJRHVNVullJg4Fw
- 9beA675O0aipcDpx/LAtej00NNTT6pM9j5x18wOdUaBVVEpZbY7NamkucrTo7rqgB3gU
- QxQGvliHn5tamWks3H9mUIPlH7zUE4eaoAcG4sqx9ttp14PewNNkwtR6W7gVlmALUCRN
- OcJNrSIz9GQmgABaPBNITB2VZfN9ocSJKNeMOVvdCy4GcYSmjQdSWPF+sMAoQ/pRFaFm
- Tm4g==
-X-Gm-Message-State: AOJu0Yw8ZOBWulV0otClkTwfa0MwXZjp50Nb5KBMrMlHpZiD5hjq2Xyx
- BkQCp/dfFyN298QuPHHvxWkh4AOnWKhsSHK8pTQHT6sw1HEWCKQ+qfMI
-X-Gm-Gg: AfdE7ckggRKN43Tp3j6uhD4mKSCBIadSibw1Hzf6gSOrVdiE92zzDFMPzsQh7Fm+2zh
- IBj+ERuCUG2S34mHgqXZI7YmUbT/lxlDR/GxTXaP3kwuVtHclzCYBtb7IIjRu4hqkARDQ2qQbPN
- uau3hJwQeIGGBLRdhXnVszviiOWsTzyrLOdRCN2B0NNB0eo333dvAbV6dsz2OJyiwfnldluMrmh
- 5pzeJyxrTeHVp8IV7nl8y3tWkRKoB9r6atpRw5I+KZrhqThRMEP6NrqajXpitq+qS4pzvveEPPD
- GBat+pNlJTdk6P0E+sGWidYTsMpMn97iqhC6t/76zSuDfDKQHnCND8r7xm82Zx7BRJpa3ZTgkmK
- LZNFYzfPPaVuqgxfyp+7GaxGASBs3OFVxzabaIThFsC8KT8oA1HhFHbIF88xQwqDBi/ZM0Qy7r0
- xd+/cUUT1wwoVVGLCwab7Xqt0bbYkfeE6J
-X-Received: by 2002:a17:90b:4f48:b0:387:e0bb:57f6 with SMTP id
- 98e67ed59e1d1-387e0bb5c07mr2778290a91.39.1783436735574; 
- Tue, 07 Jul 2026 08:05:35 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net
- ([2001:da8:e000:1206:239e:a31b:1d0d:374f])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-387d229a20csm1284197a91.16.2026.07.07.08.05.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 08:05:34 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
- simona@ffwll.ch, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Ruoyu Wang <ruoyuw560@gmail.com>
-Subject: [PATCH] drm/mediatek: Check CRTC state before freeing
-Date: Tue,  7 Jul 2026 23:05:28 +0800
-Message-ID: <20260707150528.2270739-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020136.outbound.protection.outlook.com [52.101.196.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6CBB10ED9A
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:18:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BKDQeu9IlFAlo0LXNhMGclBfY4Jpvky/RMgKFotFK9FWyqhodXPxug+Lm3rfT3W0SMMd3aDPVS24CduSUWQJLe9joS3NBq7SpZAVpUL7Yt1o6aNJ4YAgfHwH+tA+22sdb79yVj4v2rwQhZk2hVXjARS53+3dNmj4J9+ftztrbAdSfSUnyV8HgKd8SMIOI/B5HmYfHczGnnhvW3FICNosje0licJeGpa9i3UhkVIwfUDE8JAZ+IiK4du7xtLi4Sjcez4DT6VLJvjh98gMR/yYupOyWC/0yCZRwVyj/x0StZmEFvVPtxVZ0a+mW3GJ1LTErJFIrHxI6s6RRpBlXXP4yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V2495W9AUH/xDqzTFv2+wN86aHY/fhXZuyw1/6uJ7Ic=;
+ b=rSjXGPPqYqet8CJZlHufoQxZ4HOh0Li/ZHUA3VIvrkmB1vxWjiQjhuNExtIInqz3nPiuXtWyu/hsa2sY1+J6wuk6aImgQl0UUFKlwuFUUejZPBrG9iwbey8a2vBc19b7b0O3Jaf8PsJ+ZDoGPPCLfEQdXPTMUUswQMrb0WrZup70/VOargLrgqutep1o//pRwDIcZFoxloo4S3s9Vdt18PxfONuNL1eWmRlnRc/i4IZC8RJYyk1uIfk4FTXPh6iuRhWxEWd4Rkq32t9v9C1X2ubqqYEgeBapzqLzJ7jC3EXlp2R4S8MY8461xWa37L4ZYOnRuw7OOWUh6NATUmIMpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V2495W9AUH/xDqzTFv2+wN86aHY/fhXZuyw1/6uJ7Ic=;
+ b=NWZ/YLksCnZHeP+4M8JWrPRWGxuojC3aVv+ukQinFMEW90zPgQP1b6RQjPdgTjxi2CLpebSakZ5TQLIdjGo+XGX3o91Wc3HUxOCQPI0ltDLuaXu1R8VRdqzc5jPFUS1drx3aJ+Shs532vWYVwlvZu5ex58RZ94ymreFyrh0psc0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LOBP265MB8415.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:46d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
+ 2026 14:18:31 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
+ 14:18:31 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Jul 2026 15:18:29 +0100
+Message-Id: <DJSEK3KA2ECQ.1512A4KGOBSCV@garyguo.net>
+Subject: Re: [PATCH v19 31/40] dept: assign unique dept_key to each distinct
+ wait_for_completion() caller
+From: "Gary Guo" <gary@garyguo.net>
+To: "Byungchul Park" <byungchul@sk.com>, <linux-kernel@vger.kernel.org>
+Cc: <max.byungchul.park@gmail.com>, <kernel_team@skhynix.com>,
+ <torvalds@linux-foundation.org>, <damien.lemoal@opensource.wdc.com>,
+ <linux-ide@vger.kernel.org>, <adilger.kernel@dilger.ca>,
+ <linux-ext4@vger.kernel.org>, <mingo@redhat.com>, <peterz@infradead.org>,
+ <will@kernel.org>, <tglx@linutronix.de>, <rostedt@goodmis.org>,
+ <joel@joelfernandes.org>, <sashal@kernel.org>, <daniel.vetter@ffwll.ch>,
+ <duyuyang@gmail.com>, <johannes.berg@intel.com>, <tj@kernel.org>,
+ <tytso@mit.edu>, <willy@infradead.org>, <david@fromorbit.com>,
+ <amir73il@gmail.com>, <gregkh@linuxfoundation.org>, <kernel-team@lge.com>,
+ <linux-mm@kvack.org>, <akpm@linux-foundation.org>, <mhocko@kernel.org>,
+ <minchan@kernel.org>, <hannes@cmpxchg.org>, <vdavydov.dev@gmail.com>,
+ <sj@kernel.org>, <jglisse@redhat.com>, <dennis@kernel.org>, <cl@linux.com>,
+ <penberg@kernel.org>, <rientjes@google.com>, <vbabka@suse.cz>,
+ <ngupta@vflare.org>, <linux-block@vger.kernel.org>, <josef@toxicpanda.com>,
+ <linux-fsdevel@vger.kernel.org>, <jack@suse.cz>, <jlayton@kernel.org>,
+ <dan.j.williams@intel.com>, <hch@infradead.org>, <djwong@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rodrigosiqueiramelo@gmail.com>,
+ <melissa.srw@gmail.com>, <hamohammed.sa@gmail.com>, <harry.yoo@oracle.com>,
+ <chris.p.wilson@intel.com>, <gwan-gyeong.mun@intel.com>,
+ <boqun.feng@gmail.com>, <longman@redhat.com>, <yunseong.kim@ericsson.com>,
+ <ysk@kzalloc.com>, <yeoreum.yun@arm.com>, <netdev@vger.kernel.org>,
+ <matthew.brost@intel.com>, <her0gyugyu@gmail.com>, <corbet@lwn.net>,
+ <catalin.marinas@arm.com>, <bp@alien8.de>, <x86@kernel.org>,
+ <hpa@zytor.com>, <luto@kernel.org>, <sumit.semwal@linaro.org>,
+ <gustavo@padovan.org>, <christian.koenig@amd.com>, <andi.shyti@kernel.org>,
+ <arnd@arndb.de>, <lorenzo.stoakes@oracle.com>, <Liam.Howlett@oracle.com>,
+ <rppt@kernel.org>, <surenb@google.com>, <mcgrof@kernel.org>,
+ <petr.pavlu@suse.com>, <da.gomez@kernel.org>, <samitolvanen@google.com>,
+ <paulmck@kernel.org>, <frederic@kernel.org>, <neeraj.upadhyay@kernel.org>,
+ <joelagnelf@nvidia.com>, <josh@joshtriplett.org>, <urezki@gmail.com>,
+ <mathieu.desnoyers@efficios.com>, <jiangshanlai@gmail.com>,
+ <qiang.zhang@linux.dev>, <juri.lelli@redhat.com>,
+ <vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
+ <bsegall@google.com>, <mgorman@suse.de>, <vschneid@redhat.com>,
+ <chuck.lever@oracle.com>, <neil@brown.name>, <okorniev@redhat.com>,
+ <Dai.Ngo@oracle.com>, <tom@talpey.com>, <trondmy@kernel.org>,
+ <anna@kernel.org>, <kees@kernel.org>, <bigeasy@linutronix.de>,
+ <clrkwllms@kernel.org>, <mark.rutland@arm.com>, <ada.coupriediaz@arm.com>,
+ <kristina.martsenko@arm.com>, <wangkefeng.wang@huawei.com>,
+ <broonie@kernel.org>, <kevin.brodsky@arm.com>, <dwmw@amazon.co.uk>,
+ <shakeel.butt@linux.dev>, <ast@kernel.org>, <ziy@nvidia.com>,
+ <yuzhao@google.com>, <baolin.wang@linux.alibaba.com>,
+ <usamaarif642@gmail.com>, <joel.granados@kernel.org>,
+ <richard.weiyang@gmail.com>, <geert+renesas@glider.be>,
+ <tim.c.chen@linux.intel.com>, <linux@treblig.org>,
+ <alexander.shishkin@linux.intel.com>, <lillian@star-ark.net>,
+ <chenhuacai@kernel.org>, <francesco@valla.it>,
+ <guoweikang.kernel@gmail.com>, <link@vivo.com>, <jpoimboe@kernel.org>,
+ <masahiroy@kernel.org>, <brauner@kernel.org>,
+ <thomas.weissschuh@linutronix.de>, <oleg@redhat.com>, <mjguzik@gmail.com>,
+ <andrii@kernel.org>, <wangfushuai@baidu.com>, <linux-doc@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-media@vger.kernel.org>,
+ <linaro-mm-sig@lists.linaro.org>, <linux-i2c@vger.kernel.org>,
+ <linux-arch@vger.kernel.org>, <linux-modules@vger.kernel.org>,
+ <rcu@vger.kernel.org>, <linux-nfs@vger.kernel.org>,
+ <linux-rt-devel@lists.linux.dev>, <2407018371@qq.com>, <dakr@kernel.org>,
+ <miguel.ojeda.sandonis@gmail.com>, <neilb@ownmail.net>,
+ <bagasdotme@gmail.com>, <wsa+renesas@sang-engineering.com>,
+ <dave.hansen@intel.com>, <geert@linux-m68k.org>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <rust-for-linux@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260706061928.66713-1-byungchul@sk.com>
+ <20260706061928.66713-32-byungchul@sk.com>
+In-Reply-To: <20260706061928.66713-32-byungchul@sk.com>
+X-ClientProxiedBy: LO4P265CA0242.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:350::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOBP265MB8415:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4652dfb6-009e-4dec-ee96-08dedc329f75
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|376014|7416014|366016|23010399003|4143699003|22082099003|56012099006|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: sPJhIVLuBxSy/+rdGbdejuVaMB89bRlTOhB9Ef3MQU7+tAoU3bnI7OuRYkS/QSmvbHfc7P0Ecr5pOYnOKPTBV34f4r80yKnKQoQBHACXB+aFKmuBxFSE8lloULqi2xdsNIGbGW4EKsPN91y60dYur8yO2uDW7tk5tqyGOnSuGRxz/vVuT6jYwYhPk78FSep9jrc1SDcffhmblJ8gF+4a5Z0xh4dNhD4j4J2RRAjcLjO7FLEXJ+WW3ehuorvujUVpwsPNr8G1JTp+KzS3It34LY0R30Fa1zGQ8YKeyYIOMMBGNPsVgyQ1OsVYuRg8YAXs1BMynhzM/pyL43hK4ujNBMcEuCCk7m2Ljn8o5bnClRKZbybYqAlwTBgLq/hLOJVGd8dAR02lu6kwcxJgfO9R43cpplkLtI4Aaj6CuubKIXrqQ3fwYldO17lPBXGCxW2Xsz2h6GWlSEZL5930QoaY09jU5OIIEslYdDvDS5G5QrDE5zfWtRnW8Ltu82fM3SN5IznedGagFNkzOQn5bIWhUaBsfDmialvKwVyAIiW/Z+hdYIYIz/S4AcG4MBKcKq9Kx5C2u+NqUwrtw70dXeY72h/yPPgAXvww0ArBRT9BprSuRXlhG+E4iVORCTnjJfNhQ+4W0FBgKphAwviCsxb+NZAZDaFwu+dWcu/+59fX1w8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(376014)(7416014)(366016)(23010399003)(4143699003)(22082099003)(56012099006)(18002099003)(6133799003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzVwaUtjNmxkZTZtVTBwS3hCSndRdW5abDd3RHUrbnVRNVIzMmUzVU0yOVhO?=
+ =?utf-8?B?V2lSODVGbkVEcmsrK3VYd08xZzg0WTh1djE3VnBFbUZ3RkpXVENZQXJzUWlO?=
+ =?utf-8?B?U3hGb0ptYUdxYjFNZ3AvaXdmZU5VZU1TR3Z2MGZHQ1ZBeEdzSkdwSENlVGxH?=
+ =?utf-8?B?RmV4T2x3VlQxY1RUMEs1dkNidXNybTlPVVlVenl0M0lLVEtKZklSZ0FQZGxD?=
+ =?utf-8?B?d3dnRmVYN1d6bXlsUGpyQ0gxUThuUjlsZVA5VEt4aThXWXYwUW5vOUNhNE5I?=
+ =?utf-8?B?a204L0l2citOSnJUNzBrY2xhbVF4VFhjWlYyZWJDVkZPT0pOeW9WRjI3dC9t?=
+ =?utf-8?B?ZW9IelZEUmtXblVYdmM3SXRjZmV2eXdtRkZaa2czRndGVkVlUU9IWmwzckFC?=
+ =?utf-8?B?S1MrM1RaV1VEc1IrRjBzeVdiM2VnaHRPN2ExZlNIKzBKTDVaallQVlRUK3p6?=
+ =?utf-8?B?NkRpdm5xYU1YTmwxRkZIejduaU1SV1VlMUQ4UzJMSll4Z0Y0NW1XWHZtYTdm?=
+ =?utf-8?B?dTRGQnp4dXU3emI0dDVlc2dNc1lnOXh5dHZQMnJUQUxhT1VPeEIvaVBFV1U3?=
+ =?utf-8?B?VzRXRWlyYUlTUGVxRWNwcXY2aitoRlY5blI0SUgvbHNuVCtJMU9uWGIxQUxE?=
+ =?utf-8?B?OUk1cWRtTUUzQlBFMnBKQzEyeFdCN1EzejJKREdRMjNrVXdGaDBKazdBUHpy?=
+ =?utf-8?B?ZGFpQWRvSk80ZTF0RFRwZFlVd3RoczlQWjg5R2d4RXg0L0s0eXBuaVBxK3dN?=
+ =?utf-8?B?NWZLV2RURUFmZVN0UldCUm52NmQwT0hTRUNrK0sreDNCZ0pORnArTk9BdnRR?=
+ =?utf-8?B?cUp6bE9NRVdib2x3Z2JOem12OHVZelhLK2lJYy9NdHZMcFFaT21USkFTQjhC?=
+ =?utf-8?B?L1FuemloSlkrM3pVY3NwMVkwbmxLVFh1RDdFbmEvd0JQUlVmeEdTSGdTWFhM?=
+ =?utf-8?B?RUFBelIyM1gyNEROaDBsRWk1dzFkNjJkd0V2bXQxRC9PeGpaeFJlc3FQbkJN?=
+ =?utf-8?B?bVd3aVVOemYwRXZ2L21wckYvS3Ywelloa0s1N01wRlZzVHJMZGJVK0lxU1NO?=
+ =?utf-8?B?eDRHRDJJcThFU3dlQy9GYWZ4akl3dmh2Q2gxbVJ0ZGZZSzBSdmhvck1takM2?=
+ =?utf-8?B?dVVqK21LY2pHU2hjQUFuRFdxQ1Y1eERUQzRrb0R6WUM2bnZUMjRzV1dsVWp1?=
+ =?utf-8?B?MXF1M1MrVU5oWTlZRkc3N0pBWWlrTWdlVGhJaFFsUm9ZNTRaOWlPQ1htUFpp?=
+ =?utf-8?B?RlN1VnFuL3RWQ2Q2d1M0MStJTStTRDI5akJXcVhIbFVrYURaV2FJS0x4Vlg5?=
+ =?utf-8?B?RWhRWW5JbGtibDhvQU1TbkRxSWltNklISXhZQzVoZ2kzTlFHK3FpdVQ3TWZQ?=
+ =?utf-8?B?VThyZ2tHWmU3T05jM1F1Z25wNVJmN3JXZ0cxWXRoVUllN3hvMFo0QlhMUW9S?=
+ =?utf-8?B?Mml4d3dKQU4rOXNGdXUzZ2c5NWVja2RlZ1dHUFVHY3JiSDV1U2xwMjcyZ2RK?=
+ =?utf-8?B?bWRHT1lGdnJsbHdxeEFxaFlxZmJEZnkzdXBkdkd4TkFBa25nbTJ4QWpEbFhq?=
+ =?utf-8?B?S3IyWkVGWHB2TWtyOENTK1UrdlExbnEyeWxlazVLNkFVWUFPejMrTTVZdXZp?=
+ =?utf-8?B?Sk9abGRXVGV1S1V1R25WTmxZUzJzNGw4ODV0WFZ5cnBTSWFCTldLcm1HYkZU?=
+ =?utf-8?B?TWsvNG9lTUZDUXM1QXFMdkVreS81ODhDRDNBYW5RbFVRcVpCK0ZQWk1LTzRy?=
+ =?utf-8?B?Y0JPRHNzSWF5WEJiU01WOWFacFdqbFUzaldiQlhTYzVPTlVxZm9lUUF0L0V0?=
+ =?utf-8?B?ZTQ1dmhyVFlLcDVWcUkwdnVyZnlFR2E0alB4c0dOYVZia2hnTmlPclQ4QmZv?=
+ =?utf-8?B?dytZN045ZVJoMFczRDdNSGEyN0VrYjhaR2VZT0thdEtROTU1N2h5MTBnTVc1?=
+ =?utf-8?B?b0ZYdFNET3U1cGRGdWpnbzdSQ3JTZ3hzZFpYdmoyZHZNR1FjM0pEUTN4NzZr?=
+ =?utf-8?B?U2V4M1VIdjEwSXAzTEtOYXJFUHVTQkRCTTZCeStTYkdRQUlUMDVVekZhdXJj?=
+ =?utf-8?B?Ry9kZFpXQzRtZkF0clplSXlNcnZDUFpGSTZ5bGF0YXozUm5mUW1KcHpRbmUv?=
+ =?utf-8?B?K0lsWU1Id3pPM1o5S2xWUmcwMGU0b2VDcitZOUp2dUlaOXE3ZE4yK2pyR2o1?=
+ =?utf-8?B?WVI3Wmg0TjhCZmJ3TW1Yc05WQ0dZRTdkTDFiQXV0UnNrL25DRXF2QTFsaFlX?=
+ =?utf-8?B?L0hpUDAyMURTL0lWaWMxQjcxNnlwcjZoOTgyc0JMVnNxcU1uYi80V3I3Myta?=
+ =?utf-8?B?Nm8rMUllZmprMmdsVEkzTUc4Wm84aXU2TC9RZDRSV2pUQXdOR3MyZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4652dfb6-009e-4dec-ee96-08dedc329f75
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 14:18:31.6428 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yLW0jF1+QNZkZCfKBjmPqfGZ3gYXiwuG7Bva2L0FDgPAnCm3tZwSNsGceq1tyP4GEVmd0iYuw3AMhJhfXuj6wQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB8415
 X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,41 +198,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-mtk_crtc_reset() destroys the current CRTC state only when crtc->state
-is non-NULL, but it always converts crtc->state to struct mtk_crtc_state
-and passes the result to kfree().
+On Mon Jul 6, 2026 at 7:19 AM BST, Byungchul Park wrote:
+> wait_for_completion() can be used at various points in the code and it's
+> very hard to distinguish wait_for_completion()s between different usages.
+> Using a single dept_key for all the wait_for_completion()s could trigger
+> false positive reports.
+>
+> Assign unique dept_key to each distinct wait_for_completion() caller to
+> avoid false positive reports.
+>
+> While at it, add a rust helper for wait_for_completion() to avoid build
+> errors.
 
-When reset is called without an existing state, container_of(NULL, ...)
-does not produce NULL. Keep the mtk state free in the same crtc->state
-guard as the helper state destruction.
+This will cause Rust code to share the same dept_key, so it will have all t=
+he
+false positives that the change is trying to avoid.
 
-This issue was found by a static analysis checker and confirmed by
-manual source review.
+In general it is easy to create Rust bindings for static inline C functions
+because it'll be just some computation, while creating bindings for C
+function-like macros that define additional statics can be challenging.
 
-Fixes: 2d267b81898e ("drm/mtk: Use __drm_atomic_helper_crtc_reset")
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
----
- drivers/gpu/drm/mediatek/mtk_crtc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Is dept_key similar to lock_class_key, where only the address matters? If s=
+o,
+the approach that I use in
+https://lore.kernel.org/rust-for-linux/DJP0CDOR98N5.29BK8PUFRWRUK@garyguo.n=
+et
+could be used for dept_key as well, then we can keep Rust `wait_for_complet=
+ion`
+still a function; otherwise we have to turn it into a macro too on the Rust=
+ side
+to create such statics, which isn't ideal.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index 8e552cdc3b53b..97e3ff412e6ee 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -154,10 +154,10 @@ static void mtk_crtc_reset(struct drm_crtc *crtc)
- {
- 	struct mtk_crtc_state *state;
- 
--	if (crtc->state)
-+	if (crtc->state) {
- 		__drm_atomic_helper_crtc_destroy_state(crtc->state);
--
--	kfree(to_mtk_crtc_state(crtc->state));
-+		kfree(to_mtk_crtc_state(crtc->state));
-+	}
- 	crtc->state = NULL;
- 
- 	state = kzalloc_obj(*state);
--- 
-2.51.0
+Best,
+Gary
 
+>
+> Signed-off-by: Byungchul Park <byungchul@sk.com>
+> ---
+>  include/linux/completion.h | 100 +++++++++++++++++++++++++++++++------
+>  kernel/sched/completion.c  |  60 +++++++++++-----------
+>  rust/helpers/completion.c  |   5 ++
+>  3 files changed, 120 insertions(+), 45 deletions(-)
