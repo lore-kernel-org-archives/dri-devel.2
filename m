@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62277C44502
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39787C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CBA710EDEC;
-	Tue,  7 Jul 2026 15:12:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 918F810EDE1;
+	Tue,  7 Jul 2026 15:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FuPPEHjE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MCHADKpD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9815B10EDE6
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0354C10EDE6
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 812464401F;
- Tue,  7 Jul 2026 15:12:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA16F1F00A3A;
- Tue,  7 Jul 2026 15:12:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DBEDC44014;
+ Tue,  7 Jul 2026 15:12:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468071F00A3D;
+ Tue,  7 Jul 2026 15:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437152;
- bh=4sRc6wcNBB4MLUuGQspnLkC0R+FL/I/qWmV9NNwvbTY=;
+ s=k20260515; t=1783437154;
+ bh=XS6dAc+XxD92/vpzFnIpf8kCNrUKF0QRNI87i8dlI+I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=FuPPEHjEGkcvr6P8vaV/5OhlSyoO8+Ep46N7f1HF5hlqygnmkZo5uFx+MyqLyzhZi
- 6DM5vezYe2iXo0qSLXxUErQlgITPMX3sTA3jzRA4KTxj/tktzFHPxkWEwzYVnjlnVG
- NAekUXga8iJ+ly/3XWHWJENNfFJZHl6SEHljpvqUQgMcs14y9mIHR6VSBDA9R3hcg/
- zq+tdrq/p8VxY1w7d6xOvgtKkvaWHmVUNXnCI41IoK3EL1d4gpZSZVsp9R6GYPRysi
- rybrL/N4YhFXf0DMU6ONnfb/W0j3HH3xnWO4u/hG02vAUVLDynsAHwwHrmO/vvwV5A
- FNLBWgEKWzhQA==
+ b=MCHADKpD4aBDqCEIAC+4n5KWIOize6CmDVIEmV02nyi8o9sqJTNe9ogjfvDVQLy0O
+ fj5JiVmHjHcA6LEfQ2fHNQazhI+djJy9NRanv0GT8qOxXBKmX0ccWQqv2Vz1Qn1Ux6
+ 0VKNNJdbJiBdrOkiiIVuL5uGx/4MswlULXtyjt2XX28LgL0UaROUiYCgoRjnZr8xHb
+ hQIRcNr/nQZWqV4cItF0S/9ACXRh62eTivOVwai0Fiwt/mp0dNPwl2zBvPxp7trNn0
+ oW2YoGcqKpUPZzo0b8pN+wHxW+ny1Oo9oKehJ9lyofjXX/gFnjIMTP2qslhxBEgCn7
+ 94pl4dmiF+aLg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:33 +0200
-Subject: [PATCH v2 26/37] drm/exynos: mic: Switch to atomic bridge
- callbacks
+Date: Tue, 07 Jul 2026 17:11:34 +0200
+Subject: [PATCH v2 27/37] drm/mcde: dsi: Add atomic bridge state handlers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-26-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-27-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,19 +47,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org
+ Maxime Ripard <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5338; i=mripard@kernel.org;
- h=from:subject:message-id; bh=j1tFob+8fC1FYhlul234L/DAWHXn94crSEpAWb++AiM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4tK+lp3nfPYLrPSd2rRNZoLJO2amWK5lX575iUx7P
- N/p3++yjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRVRGM9blVZ169rjSccFyN
- R3TvnQ8eM6X1DP843DO3/vt89Qn2OAfGdyvyZmme9jffk8Wza8blKsZ6P37BwAKRbja9R+rlny0
- uXX65+aWh2u+9687V8f/csK0g6UCR3SnxO/2yE1+IPX0jwngHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3807; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=7cwG9ApJTCCGUZBILIPBwP5Z0LuTfYgSE0GfUsL5MCE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4jIllQwTZ62Y+PT3mrfJHpbsmVff/zQN7Qx4syjsg
+ eX3wP/hHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiJvsZawV3pnzYd+SZ+/uL
+ 8w65rU203/E+wyqm33+2i1+fUXj0J22DyoZZoQ+Kp3Ku3y/3TMB2KmPDgsj+n09N2gLSLry/EiE
+ Yn1Qo/+oZ0770xZpnFdMOnQ1qa05corVEK7irvvPmk9dexScB
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -78,12 +72,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The mic bridge uses the legacy non-atomic pre_enable and post_disable
-bridge callbacks.
+The dsi bridge doesn't implement any enable or disable callbacks, but is
+still missing the atomic state handlers.
 
 In order to remove the legacy bridge callback support from the DRM
-bridge core, switch to their atomic counterparts and add the bridge
-atomic state handlers.
+bridge core, add them.
 
 Generated by the following Coccinelle script:
 
@@ -209,83 +202,32 @@ identifier b;
 	...
  }
 
+Acked-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
-To: Inki Dae <inki.dae@samsung.com>
-To: Seung-Woo Kim <sw0312.kim@samsung.com>
-To: Kyungmin Park <kyungmin.park@samsung.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-samsung-soc@vger.kernel.org
+To: Linus Walleij <linusw@kernel.org>
 ---
- drivers/gpu/drm/exynos/exynos_drm_mic.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/mcde/mcde_dsi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_mic.c b/drivers/gpu/drm/exynos/exynos_drm_mic.c
-index e68c954ec3e6..3069f958137f 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_mic.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_mic.c
-@@ -19,10 +19,11 @@
- #include <linux/regmap.h>
- 
- #include <video/of_videomode.h>
- #include <video/videomode.h>
- 
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_print.h>
- 
- #include "exynos_drm_drv.h"
-@@ -226,11 +227,12 @@ static void mic_set_reg_on(struct exynos_mic *mic, bool enable)
- 
- 	reg |= MIC_UPD_REG;
- 	writel(reg, mic->reg + MIC_OP);
+diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
+index 47d45897ed06..5cf44ccb02cf 100644
+--- a/drivers/gpu/drm/mcde/mcde_dsi.c
++++ b/drivers/gpu/drm/mcde/mcde_dsi.c
+@@ -1061,10 +1061,13 @@ static int mcde_dsi_bridge_attach(struct drm_bridge *bridge,
+ 	/* Attach the DSI bridge to the output (panel etc) bridge */
+ 	return drm_bridge_attach(encoder, d->bridge.next_bridge, bridge, flags);
  }
  
--static void mic_post_disable(struct drm_bridge *bridge)
-+static void mic_post_disable(struct drm_bridge *bridge,
-+			     struct drm_atomic_commit *commit)
- {
- 	struct exynos_mic *mic = bridge->driver_private;
- 
- 	mutex_lock(&mic_mutex);
- 	if (!mic->enabled)
-@@ -255,11 +257,12 @@ static void mic_mode_set(struct drm_bridge *bridge,
- 	drm_display_mode_to_videomode(mode, &mic->vm);
- 	mic->i80_mode = to_exynos_crtc(bridge->encoder->crtc)->i80_mode;
- 	mutex_unlock(&mic_mutex);
- }
- 
--static void mic_pre_enable(struct drm_bridge *bridge)
-+static void mic_pre_enable(struct drm_bridge *bridge,
-+			   struct drm_atomic_commit *commit)
- {
- 	struct exynos_mic *mic = bridge->driver_private;
- 	int ret;
- 
- 	mutex_lock(&mic_mutex);
-@@ -293,13 +296,16 @@ static void mic_pre_enable(struct drm_bridge *bridge)
- unlock:
- 	mutex_unlock(&mic_mutex);
- }
- 
- static const struct drm_bridge_funcs mic_bridge_funcs = {
--	.post_disable = mic_post_disable,
+ static const struct drm_bridge_funcs mcde_dsi_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_post_disable = mic_post_disable,
- 	.mode_set = mic_mode_set,
--	.pre_enable = mic_pre_enable,
-+	.atomic_pre_enable = mic_pre_enable,
+ 	.attach = mcde_dsi_bridge_attach,
+ 	.mode_set = mcde_dsi_bridge_mode_set,
  };
  
- static int exynos_mic_bind(struct device *dev, struct device *master,
- 			   void *data)
- {
+ static int mcde_dsi_bind(struct device *dev, struct device *master,
 
 -- 
 2.54.0
