@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A09C44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02263C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ABE010EE52;
-	Tue,  7 Jul 2026 16:04:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56EAA10EE3F;
+	Tue,  7 Jul 2026 16:04:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X0TUil+d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FeYIzi6M";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 462AA10EE3F
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:04:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6039010EE40
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:04:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 30B75403AA
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:04:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEF3F1F000E9;
- Tue,  7 Jul 2026 16:04:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 47BB040815
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:04:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E7B1F00A3A;
+ Tue,  7 Jul 2026 16:04:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783440243;
- bh=ADGOlt5Fw1FkLx4BzM3JQg3Ehi9SyZVWh9Me1B9E9SI=;
+ s=k20260515; t=1783440260;
+ bh=I/F+19mKv6qOKk2FX9KmDcNjVknycjg438a+rTXdyik=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X0TUil+d20V9S9g/+c1aZZ2GZfLxiTwIKBwxUwaZE8V0kUA4kOKK0RQuyaWO0eerY
- 7ofS9nICKsWMpxjzjAi7YSVZCRGtksiSEXjFTXt+eAQ7r29d49feAd7glm7zfoLsPG
- goEma27vtFdKC7xABZAbebmeXW/edKE81HvVmrQ+M89NNDTkQP3LhfTJE3bHdxO26S
- +Pd6CG66ifGs9N0dUlyRqVKsQVkXH3FMMHlDaBNxtBOWOw2TP5hx+s8sLQHLrKG9Oo
- kC9tuciv0hUK4ZZvp9Vfyydv/QGmNw9A+rcJUyfTnc/J/nyta7TURXHoceYRCNB1s4
- ODHfH7XF/k7oQ==
+ b=FeYIzi6MZjnkcGDc7K4g/hQDZxgu8SfHoI9qJwMdUOneRUn+1qwq58EqzwOtaZ9Zo
+ TjvUmY1aFW5SUqGtF48jOfP/hZaU0bLa5n3O2W5xdWh9Wus+v4hZYpG7YaeIj4mMdS
+ EUiyrom+TIVZAwE7n2Gbi6YkDUypiaJ/hdvp9Fc+Ae8gsm7hfo9OoTy7B5exSl2jHb
+ jEjnbDKWTLVbjcX2gqcXIaJR1/YUD3kbYMRmQ1GO0I2t4t1+zEMMbrIyH2au2Uxjb4
+ VvHXyrUqSQkes2XE83v9tmjPZ1mMoQzvsX68SV7ZB/F1GnOIyezYKJb7AIsAoxCo5j
+ oiEuCCFH1umVw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 33/37] drm/omap: venc: Switch to atomic bridge callbacks
+Subject: Re: [PATCH v2 31/37] drm/omap: dsi: Switch to atomic bridge callbacks
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-33-21d03cbca446@kernel.org>
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-31-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-33-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-31-21d03cbca446@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 16:04:02 +0000
-Message-Id: <20260707160402.DEF3F1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 16:04:19 +0000
+Message-Id: <20260707160420.16E7B1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,88 +61,51 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The atomic_enable and atomic_disable bridge callbacks invoke funct=
-ions that sleep, violating the DRM atomic context rules.
+- [High] The `te_timeout_work` is cancelled asynchronously during driver de=
+tach, causing a possible Use-After-Free.
 --
 
---- Patch [33]: [PATCH v2 33/37] drm/omap: venc: Switch to atomic bridge ca=
-llbacks ---
-commit d92bb384d028f7e7472ce6ad66e7c5996b3db815
+--- Patch [31]: [PATCH v2 31/37] drm/omap: dsi: Switch to atomic bridge cal=
+lbacks ---
+commit 7b874c0db789f5326cf81422dc10c73534a0a3cf
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/omap: venc: Switch to atomic bridge callbacks
+drm/omap: dsi: Switch to atomic bridge callbacks
 
-The venc bridge uses the legacy non-atomic enable and disable bridge
-callbacks.
+This commit switches the legacy non-atomic enable and disable bridge
+callbacks in the OMAP DSI driver to their atomic counterparts. It also adds
+the necessary atomic state handlers to support removing legacy bridge
+callback support from the DRM bridge core.
 
-In order to remove the legacy bridge callback support from the DRM
-bridge core, switch to their atomic counterparts and add the bridge
-atomic state handlers.
+> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/=
+dss/dsi.c
+> index 27fe7bca9e2cf..7aaee94f86e41 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
 
-> diff --git a/drivers/gpu/drm/omapdrm/dss/venc.c b/drivers/gpu/drm/omapdrm=
-/dss/venc.c
-> index 9b5d53dc361e6..5416c668a2055 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/venc.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/venc.c
 [ ... ]
-> @@ -614,14 +615,16 @@ static void venc_bridge_mode_set(struct drm_bridge =
-*bridge,
->  	dispc_set_tv_pclk(venc->dss->dispc, 13500000);
->  }
-> =20
-> -static void venc_bridge_enable(struct drm_bridge *bridge)
-> +static void venc_bridge_enable(struct drm_bridge *bridge,
-> +			       struct drm_atomic_commit *commit)
->  {
->  	struct venc_device *venc =3D drm_bridge_to_venc(bridge);
-> =20
->  	venc_power_on(venc);
->  }
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does calling venc_power_on()
-here violate DRM atomic context rules?
+This is a pre-existing issue, but can this asynchronous cancellation lead
+to a use-after-free during driver detach?
 
-The atomic_enable callback can be reached from drm_atomic_helper_commit_tai=
-l()
-during non-blocking atomic commits, which can be initiated by untrusted
-userspace via DRM/KMS operations. This path constitutes an atomic context
-where sleeping is strictly forbidden.
+Looking at driver detach paths, omap_dsi_host_detach() calls
+omap_dsi_unregister_te_irq(), which uses the asynchronous cancellation:
 
-However, venc_power_on() internally calls sleeping functions like
-regulator_enable() and pm_runtime_get_sync() (via venc_runtime_get()):
-
-drivers/gpu/drm/omapdrm/dss/venc.c:venc_power_on() {
-	...
-	r =3D venc_runtime_get(venc);
-	...
-	r =3D regulator_enable(venc->vdda_dac_reg);
-	...
+drivers/gpu/drm/omapdrm/dss/dsi.c:omap_dsi_unregister_te_irq() {
+        ...
+        cancel_delayed_work(&dsi->te_timeout_work);
+        ...
 }
 
-Calling sleeping functions in this context could cause kernel warnings like
-BUG: scheduling while atomic, system instability, or potential deadlocks.
+Because it does not wait for a currently executing work callback to finish,
+could dsi_remove() and devres cleanup complete while
+omap_dsi_te_timeout_work_callback() is still running?
 
-> =20
-> -static void venc_bridge_disable(struct drm_bridge *bridge)
-> +static void venc_bridge_disable(struct drm_bridge *bridge,
-> +				struct drm_atomic_commit *commit)
->  {
->  	struct venc_device *venc =3D drm_bridge_to_venc(bridge);
-> =20
->  	venc_power_off(venc);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but does venc_power_off() also call sleeping
-functions from an atomic context?
-
-Similar to venc_bridge_enable() above, this atomic_disable callback is exec=
-uted
-from the atomic commit path. If venc_power_off() sleeps, this could also ca=
-use
-scheduling while atomic warnings and instability.
+If the devres cleanup frees the dsi struct (allocated via
+devm_drm_bridge_alloc()), would the concurrent callback then dereference
+the freed dsi pointer?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D33
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D31
