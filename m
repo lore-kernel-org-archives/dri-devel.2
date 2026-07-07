@@ -4,45 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7B0C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 04:20:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C9CFC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 05:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6190910E1F6;
-	Tue,  7 Jul 2026 04:20:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7976D10E2B8;
+	Tue,  7 Jul 2026 05:43:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XIT3aAoE";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="sAn2YMoS";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B446A10E1F6
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 04:20:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3F03740DB5;
- Tue,  7 Jul 2026 04:20:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42141F000E9;
- Tue,  7 Jul 2026 04:20:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783398026;
- bh=5Wu4fL6JghK54swZJEkEZ06xtYGdhIdVwbBxVKsB3tA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XIT3aAoEUyjHpy2gFpUTfMcntszycai8uZcOJWDAmQ74fb/UzITr8CKxLlSIKfINn
- tj4aG6kKMzSIKSWhV7ptXdvIBud/B+WfRr+Ae0fJiizcrTQK7YMhyDbp7mx2yPisWa
- Y11eMXMRVTnfbEIs1WvSL3Z3r2UzrwMaI+vOcWvtGk1cSoT8367eGda33TG4CHLRsL
- ++0BrxY9OOg48n9ACpCnC5ozJz/kAz9hBQdT9KZOLHH1qePS9JU7+78HeNRMWmxyRE
- qOaYlfGg+YslzZTASVsIhpkk9w1avKdksTfW3vHz7i89ZGYTAqhEa7fRPhf0KFm0zn
- HeBDJAON3h6pA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/5] drm/bridge: analogix_dp: Add support for
- optional data-lanes mapping
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260707040613.1992841-6-damon.ding@rock-chips.com>
-References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
- <20260707040613.1992841-6-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011026.outbound.protection.outlook.com
+ [40.93.194.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26FB810E2B8;
+ Tue,  7 Jul 2026 05:43:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ecq9T3asVxOPETR9Ecv90aG6Id2p+fQ6ULntOQNd5cW7H/R5efCxjUPMqBW0/FuYMVvG3Xa3Ne2DQXPhifU+nvuBSeDC+OCg9VHcR1L4VLnYEJw4bBQHViHpZqI84HwuXy+wsbtsPv6eTBHxS+EtnbNYaAQYd2VRpiEZ3eSAwlcj55029SA5Ab0tcaGK/ajP598ZcpcSUJC7FrI5VXjeTcfRmsXgxBJI/AQfwqAC7LuJmPE0aD74QMDOXST2T76P+uTYeTZezTioPWPQ1MUIMXaGIGIbhpEZHg0SkeFOA9Z2MEPSSq6CE2dhoyPXvt6hMsWm/lREkg2Gi7IDlVfrTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/5uUxfY/57wPYPQJfF1PECWXZ/Pd9z+KoqpooEHW3pg=;
+ b=EiUjUk08EMXVLidipwpf1CmHS+b5G9K6/ewV9G8wybU+ISKye4LklUDecU9XR/HSIy4hzT9YflHItNrzkAqZ2gqdMfcjFTvNlXk3zpoRO1HkOuKwfxZj930eRDarDJA2NkLs161QK44whZS43JmchqFYeocKkMSjys0Qyowlx2q8Hgasmx1OPM/ZzQ9nnEX0MnFvKYDLqLcOgr1dEym0VUQD0sEwBxgDNYd0d0cjMP4ku0dG0rku/0TZEOjD5BLFiaG2MMjfpK9XvECEGwi+RUMx5So9nLoSdqMObVzT4Ofx6O8EnwjEZgQ6jWeKE+dYR+MVHjg9V1GRvZqQDfF/hQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/5uUxfY/57wPYPQJfF1PECWXZ/Pd9z+KoqpooEHW3pg=;
+ b=sAn2YMoSz3oCQ+4Z/BSbaBnB5NwL4XhRUaroqbk/miuEGzQzHaPCbkaDn4B4iYzzHLwkyNNprXoptQNYy6/i98t8D+Yzq1kyD15xuNLMSPRcoU2a4ZlYqj6lrl9pecV2zkgBP3+EkdXV6aiAu/QARTS8omchtdvOiuzf4D42YlFE/mBh/pxyh0kuZ9XT0k2qTfES8z/S7JrxlOLaK/clvlreAAoGqh5txF5ddWWPFaalFzN6XScxRIaa5zSE1u/U5IOchDwDH4hEfm3lwfivV/4xCxTOGQRM5NZn+N15nnxbgPuW8RR8t6SgFglP//FO6TkKyeJ23i8MOPj0MflKdA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DM4PR12MB6326.namprd12.prod.outlook.com (2603:10b6:8:a3::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
+ 2026 05:43:29 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Tue, 7 Jul 2026
+ 05:43:29 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 04:20:25 +0000
-Message-Id: <20260707042025.C42141F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Jul 2026 14:43:25 +0900
+Message-Id: <DJS3LQASSSI5.2CW373BX9SNXI@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v4 09/13] gpu: nova-core: introduce GspBootMethod
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260629-nova-bootcontext-v4-0-5539d8469590@nvidia.com>
+ <20260629-nova-bootcontext-v4-9-5539d8469590@nvidia.com>
+ <DJNQC1A84TF0.17HUBQBCRGFZ4@nvidia.com>
+ <DJRY1GRYSM2D.38JVTWHGNBXJ3@nvidia.com>
+In-Reply-To: <DJRY1GRYSM2D.38JVTWHGNBXJ3@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0263.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::11) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB6326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 550586f5-d792-4115-21d8-08dedbeaac0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|10070799003|1800799024|366016|4143699003|6133799003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: JxpnyY16KTEPztcAbraGCMhSXQ12v2TfgqC7YstKzMhOt+/RqVx09thGlArFDWzJMLroA3DO7OpidoAhaf8e+iIdm0tHANT2ZvD+rPjsFW0y9sNckB59sqAVVfurfqVPURiZECyCXNUyTq39GjnPhrRpuESNVkQEW8eF/oWL4yx8Q7+dFXzP3DycIojo3DsmiTW7qI1zlE03ud6Se++bnZqdDPExjQ/+apDDeBfV4lGI6EhpMoHFzg+FHKMLxyu0l8dD3xhCdqELFpfM+88eaCKWITOwduL719MM7i7QoUcT08D1/mKFz0eBklr6RNRERoiWYYKmOqWkIWFgiVRZZXkoFyNhxfEq8jLeLObqCrzfgGZ/QG5TCddMSSYS1NBWQPfJTcQCjIVw9r4eGN4pl8RgU8Cg+cj9f5Ozo/wRnqmIAHFxivI1sQ24WUwOciytwjGos2rXrJry5z5Rsjlv1R2hhXJpbJE2OimHSuZyWDEmaAaatgN3xVe9CuLpHXcUTAQqhyZ5qvE5Ly00YSrhwypkqCnk91WNb3dUvnlXDX24f0uIeA9HOr6sR43wzwI85FxdvFRS2qHFPE6t3JAcE123QGm0DecHuUjUbr1fcejcRATYOzWmzGNgdMb40m1LCJ1W5PsZu/B/TD4BpUZDd+o83W8gOwfD0nQSFTicOBc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(1800799024)(366016)(4143699003)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tk5JcWd0L1dyRUZ4SW9JcHE0a1BLWkdWcWNmMTF1b3NUMmV1R3VhUGQ5R3BY?=
+ =?utf-8?B?QkF1ajlPOGhnUmVuSGRqV3I3OFNNWS9QazhFYXhhSWN0cWlLKzFWdFJEQ1Ix?=
+ =?utf-8?B?R3JKNFJFN0RTMzNNdTl2NlhZTDhQQmdFVGNrWCtCWFBaVkZuZjU4dTF3d1Ri?=
+ =?utf-8?B?SjhDRXhEblg3Rm9GVU5VblR5MGJ3Q1V1NW5VYndCTUg3dDY0MmRNZlhoNUhj?=
+ =?utf-8?B?KzR0cUdtM05ULzBNWHFLWnpPdVlpSDJIZ1JqRng0eEt1MEROaTZMRDk3ZlpV?=
+ =?utf-8?B?MCt3ZWZOWG5ucEtZTGFxM2NjL0U3bWg0U3RYeWRsbkVxT3pvYzVRajdRRmVL?=
+ =?utf-8?B?TjBYYXNRQ0dKdmJuY2g4eFl0QmtjZGRrYTFUNEQvd0hsZjVFUTVsNkRMV1Zm?=
+ =?utf-8?B?b3FGZFUyUlAzS0pBai9uWlg5RTArYjZnVFM3TFl0UTREalY1eUIrS1d5UFpl?=
+ =?utf-8?B?Nzd3NlM3enFmWkI4RXVYRVhFL0VPNGtFeHB4RHA0RlR0Qk1ZU3QzNVdIdVNN?=
+ =?utf-8?B?QUNzZ2tGYllmYVE2QzdSSTVObGMyTHFGTTE3RUIxWGVDVzZFUEl3RnFYTjZS?=
+ =?utf-8?B?SHFXU3N2TkxHa2Rvd015VHlZSmt1UXhQVWpmS2JxVDZCOWp2YVFPWGpSZ1ln?=
+ =?utf-8?B?cUI0dURKajZFM2UzbURIa0p0cG41TXV5Q0dLMVlvREQ1S0VUcy96cWtCVkQ2?=
+ =?utf-8?B?YkhaSGJpUkZoTTRZbG1sWGlMaSsxdU5nSGp1MnlXMGxVYnRQV3JqUDlKV21l?=
+ =?utf-8?B?RjF3RzJaVVN5ZDA5Z0t4c3NzbkpSZW04b0NlVFFDSkgxWklkRlZ1S3pSanNH?=
+ =?utf-8?B?VGEzV3ZvSkk0RmlmclcwK1IxN1BsNXFqN0N3YWpTZ2d6WTdzcnM0NlljYVBE?=
+ =?utf-8?B?Q2s0RFo4VDN4WE1SdXdzc2Npb0lVNWtxbi9SWFJSaU9pN3ZjV1pKdDFLd2ZP?=
+ =?utf-8?B?U0NJZ2VTTEk0NFhsUGdURkNwaFN0M2liQzNTRlE3YXdwWWlRYlkyR2ZGQWV2?=
+ =?utf-8?B?K3R0SG5LRXhmYzlna0NCZ0p6NCtiN1ExM2NrQkFnS3JXbWdITmhZb3NucFVj?=
+ =?utf-8?B?eVcxZHlnQy9zZlg5YVc4dHFtU3pVME9UdDk3ckt5OUxLaHhETlNWTHFROFRh?=
+ =?utf-8?B?dUNJN1NXbVRCYXA5R2VyU0xYbUtVOVVZN3dHczVYMmIrMWNscHBRRjdodjgx?=
+ =?utf-8?B?RnNJQ0NNMlVuWThFWjEwR3F3N0g5ek5LcTk2cW1Jc1drcThRN2pKRWduQTR5?=
+ =?utf-8?B?UEN3cXNvR1B2ZFZjM0JTckF5cXdqSXY3bTVUMGJENHA3ZENtanNsRnh1S1B3?=
+ =?utf-8?B?b2oxVHZNNk5OVWlYNUFzTnJtZWNMUFBONHhLRWMwcHd1OG1rUmtEQk1TNjJY?=
+ =?utf-8?B?emk4a01yU1c3MXZiNVArK1RRN2VxeVFoWVpwWGw0V3VobU4rM2RmWVhnWFpS?=
+ =?utf-8?B?SnlJRElxWnF6dlM3ek1VVEJDdnhVMXhDZmN4dEdUV1Fnek12TEQxb2I3RnBo?=
+ =?utf-8?B?MnlRd1p5T2ZHZ3N5ZXFNd3J6VnRMS3hvbEFpNGVrc1pETGJQWVB3cTFwVFUw?=
+ =?utf-8?B?ZzV0UHZRZnpnbzZGS2RTWXJuenUya0VGaFBJdzhnSDVTSWVmUmR5amVtcHJX?=
+ =?utf-8?B?Uk1wMSt2bDlZU2xYWmY3SGVMWjBlYlo2aVN0cXE3NkJwcGx6MVB3RExwSG01?=
+ =?utf-8?B?OWpFTm9yUVlDWldDZjBaNXBDQ1ZrTFFyczBlb1lZbSt1ZjFMOHZZZk9FdGtI?=
+ =?utf-8?B?RSs2dlNCSWV3MlJnQVpCVllVYnIvMUpTMFpMVFI0S1ZwRW0vdkhVZno0bmQ0?=
+ =?utf-8?B?UmdkZlVKSGxvRkVwUmgzR0Jkek5sRE9UYWJtMUUxT050VVZPTThtVjJyZ1lB?=
+ =?utf-8?B?MDBWTzR3OHp1Nkd0azhoTzhUSTVjd0FCQzdCZHltb2IybXFvWnRWanpvSlVN?=
+ =?utf-8?B?OG9ab3ZZZlBrYnEycWp4VTAzdzhLdHhyZmp3VEtjcC9acGZnaFhydTE1N2I4?=
+ =?utf-8?B?Y1VSSkNOZUNGZkVMcnZwVWlPM3VzcDBLYTdudzlZRUZLS01XTDBKNVV3cnQ5?=
+ =?utf-8?B?MmtLZnhxTCtjVWM2NHFHb0xqbTkyeVZIR0p1Kzh3bHVVMFFCb3NVaWxkS2l2?=
+ =?utf-8?B?WmZ4TkVPRGFxZUZVTEk2K1NxdzVHaEx6WnJNVWJRT1Zoc1g4b2xCcUdGbFlt?=
+ =?utf-8?B?M0JFbEFNZU5KMmZacHgzUFlPSHVNbVdaRmVyZVlXbnhVSEhQL2xIUFNYbzU0?=
+ =?utf-8?B?RkZxb1EwUkdReis5TmFPM2FiSDRKemhrWE9OWmhOLy9Cb3RJd3c5ZVZaVXpt?=
+ =?utf-8?B?MnJsVHU1NndhM3ZVTzFJTUxoaldPWEZmZ0J5cUhiTGVRNW4yZWN0R21LM3Mv?=
+ =?utf-8?Q?NYwXVXze53HiWbxPv6VHo2p4vZ78zTxzn1TicgjGNZbfJ?=
+X-MS-Exchange-AntiSpam-MessageData-1: S8vc3NRuB6HGxw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 550586f5-d792-4115-21d8-08dedbeaac0d
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 05:43:29.0679 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mo6XHs8KBjhNGkhvXpYnILx2r6v0UiEabKanPCYsRQNihEDUfkNoOP1prNeBasNJQ4CdZ6LlWuWSbd/tKuaviw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6326
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,163 +143,61 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `data-lanes` array is interpreted backwards when configuring t=
-he `ANALOGIX_DP_LANE_MAP` register, applying the inverse of the intended ha=
-rdware lane mapping.
-- [High] The external PHY's analog configuration (voltage and pre-emphasis)=
- ignores the logical-to-physical lane mapping.
-- [Medium] Mismatched endpoint specifiers are used when counting data lanes=
- versus reading the `data-lanes` property, which could lead to parsing the =
-wrong endpoint.
---
+On Tue Jul 7, 2026 at 10:21 AM JST, Alexandre Courbot wrote:
+> On Thu Jul 2, 2026 at 11:28 AM JST, Eliot Courtney wrote:
+>> On Mon Jun 29, 2026 at 11:09 PM JST, Alexandre Courbot wrote:
+>>> The GSP boot method is currently determined by two ad-hoc methods of
+>>> `Chipset`: `uses_fsp` (a boolean telling whether to use the FSP boot
+>>> path or the Sec2 Booter one) and `needs_fwsec_bootloader` (another
+>>> boolean valid only for the Sec2 Booter method that tells whether the
+>>> FWSEC bootloader must be used).
+>>>
+>>> This is neither extensible nor sound: the combination `uses_fsp &&
+>>> needs_fwsec_bootloader` is invalid, but can still be expressed.
+>>>
+>>> Thus, unify these two predicates into a single `gsp_boot_method` method
+>>> that returns an enum type unambiguously describing the boot method to
+>>> use. This ensures that no invalid combination can be expressed, which
+>>> makes matching sounder.
+>>>
+>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>>> ---
+>>
+>> Ideally we would not need to expose bootloader details (needs fwsec
+>> bootloader, mapping of architecture to GspBootMethod) outside of the
+>> HAL, and also not have to duplicate the logic for determining
+>> `needs_fwsec_bootloader` in both the HAL and Chipset. One thing
+>> preventing keeping all this in the HALs is that we need to know the set
+>> of firmware files in a const context, which can't go through the &dyn
+>> for HALs. I also find it a bit odd to go Chipset->GspBootMethod->HAL
+>> which relies on the GSP HAL being entirely determined by the boot method
+>> which doesn't feel generally correct to me.
+>
+> So far it is a good mapping though - the only thing abstracted by the
+> GSP HAL is how we boot and stop the GSP, which is entirely determined by
+> the boot method used.
+>
+> While I agree that not exposing these details outside of the HAL would
+> be nice, at least for the time being we need to - the creation of the
+> `Fsp` happens at the `Gpu` level, and is now conditional on the boot
+> method. Thus the introduction of `GspBootMethod`. I would be happy to
+> remove this in the future if we can, but that doesn't look possible
+> without more refactoring, and this series is already doing quite a bit
+> of it just to move the `Fsp` instance up. I think going further should
+> be a separate effort.
 
---- Patch [5]: [PATCH v6 5/5] drm/bridge: analogix_dp: Add support for opti=
-onal data-lanes mapping ---
-commit 99a86aa8f074546e71df9c8b7f51f7d473ef6dac
-Author: Damon Ding <damon.ding@rock-chips.com>
+Need to give myself a self-rebuke here. :)
 
-drm/bridge: analogix_dp: Add support for optional data-lanes mapping
-   =20
-Parse the optional data-lanes device tree property to support custom physic=
-al
-lane mapping configuration. If no valid configuration is found, fall back to
-the default lane map automatically.
+The only thing that still required the boot method leaking out of the
+HAL was the instantiation of `Fsp`, and that can also be taken care of
+by adding a constructor that returns an `Option<Fsp>`. It integrates
+nicely with the already-existing `Fsp` HAL, and combining that with
+Eliot's idea of providing the firmware files from the GSP HAL we can
+remove the `Chipset` ad-hoc boolean method entirely, without needing to
+introduce `GspBootMethod`.
 
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
-/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index b69743837092b..5c5cb6148cf6c 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-[ ... ]
-> @@ -1234,6 +1234,59 @@ static const struct drm_bridge_funcs analogix_dp_b=
-ridge_funcs =3D {
->  static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
->  {
->  	struct video_info *video_info =3D &dp->video_info;
->  	struct device_node *endpoint;
->  	u32 tmp[LANE_COUNT4];
->  	u32 map[LANE_COUNT4] =3D {0, 1, 2, 3};
->  	bool used[LANE_COUNT4] =3D {false};
->  	int num_lanes;
->  	int ret, i;
-> =20
->  	memcpy(video_info->lane_map, map, sizeof(map));
-> =20
->  	num_lanes =3D drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
->  						   video_info->max_lane_count);
->  	if (num_lanes < 0)
->  		return -EINVAL;
-> =20
->  	endpoint =3D of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
-
-[Severity: Medium]
-Will this return the correct endpoint if there are multiple endpoints on
-port 1?
-
-When counting the data lanes, drm_of_get_data_lanes_count_ep() is called wi=
-th
-reg =3D 0. However, of_graph_get_endpoint_by_regs() uses reg =3D -1 (wildca=
-rd),
-which returns the first available endpoint.
-
-If the device tree has multiple endpoints, could this result in counting la=
-nes
-on one endpoint but reading the data-lanes property from a different one?
-
->  	if (!endpoint)
->  		return -EINVAL;
-> =20
->  	ret =3D of_property_read_u32_array(endpoint, "data-lanes", tmp, num_lan=
-es);
->  	of_node_put(endpoint);
->  	if (ret)
->  		return -EINVAL;
-> =20
->  	for (i =3D 0; i < num_lanes; i++) {
->  		if (tmp[i] >=3D LANE_COUNT4) {
->  			dev_dbg(dp->dev, "data-lanes[%d] =3D %u is out of range\n", i, tmp[i]=
-);
->  			return -EINVAL;
->  		}
-> =20
->  		if (used[tmp[i]]) {
->  			dev_dbg(dp->dev, "data-lanes[%d] =3D %u is duplicate\n", i, tmp[i]);
->  			return -EINVAL;
->  		}
-> =20
->  		used[tmp[i]] =3D true;
->  		map[i] =3D tmp[i];
-
-[Severity: High]
-Does analogix_dp_set_lane_link_training() need to be updated to use this la=
-ne
-map?
-
-This parsing logic creates a logical-to-physical mapping. However, looking =
-at
-analogix_dp_set_lane_link_training(), it appears to still use the logical l=
-ane
-index to populate the physical PHY configuration structure:
-
-	for (lane =3D 0; lane < lane_count; lane++) {
-		...
-		phy_cfg.dp.voltage[lane] =3D vs;
-		phy_cfg.dp.pre[lane] =3D pe;
-	...
-
-Will this cause the external PHY to apply the analog settings to the wrong
-physical lanes when an asymmetric mapping is used?
-
->  	}
-> =20
->  	for (i =3D 0; i < LANE_COUNT4 && num_lanes < LANE_COUNT4; i++) {
->  		if (!used[i])
->  			map[num_lanes++] =3D i;
->  	}
-[ ... ]
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/=
-gpu/drm/bridge/analogix/analogix_dp_reg.c
-> index 38fd8d5014d29..45c7652645a13 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-[ ... ]
-> @@ -48,16 +48,15 @@ void analogix_dp_stop_video(struct analogix_dp_device=
- *dp)
->  void analogix_dp_lane_mapping(struct analogix_dp_device *dp)
->  {
-> +	u32 *lane_map =3D dp->video_info.lane_map;
->  	u32 reg;
-> =20
-> -	if (enable)
-> -		reg =3D LANE3_MAP_LOGIC_LANE_0 | LANE2_MAP_LOGIC_LANE_1 |
-> -		      LANE1_MAP_LOGIC_LANE_2 | LANE0_MAP_LOGIC_LANE_3;
-> -	else
-> -		reg =3D LANE3_MAP_LOGIC_LANE_3 | LANE2_MAP_LOGIC_LANE_2 |
-> -		      LANE1_MAP_LOGIC_LANE_1 | LANE0_MAP_LOGIC_LANE_0;
-> +	reg =3D lane_map[0] << LANE0_MAP_SHIFT;
-> +	reg |=3D lane_map[1] << LANE1_MAP_SHIFT;
-> +	reg |=3D lane_map[2] << LANE2_MAP_SHIFT;
-> +	reg |=3D lane_map[3] << LANE3_MAP_SHIFT;
-
-[Severity: High]
-Does this logic configure the lane mapping backwards?
-
-The lane map parsed from the device tree establishes lane_map[logical] =3D
-physical. However, this register assignment shifts the physical lane index
-(lane_map[i]) by the shift for the physical lane's register field
-(LANEi_MAP_SHIFT).
-
-Because the hardware register expects the logical lane number to be written
-to the physical lane's bitfield, won't this write the physical lane number
-into the physical lane's field instead? This effectively applies the inverse
-permutation and could break output for any asymmetric lane mappings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707040613.1992=
-841-1-damon.ding@rock-chips.com?part=3D5
+This makes things look cleaner overall, so I'll use this approach for
+v5.
