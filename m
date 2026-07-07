@@ -4,62 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE761C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF28DC44502
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C74310E459;
-	Tue,  7 Jul 2026 07:46:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A6A10EBAF;
+	Tue,  7 Jul 2026 07:49:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a4uAEI0d";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="G+o9dhJZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9458910E459
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:46:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 512DD402EB;
- Tue,  7 Jul 2026 07:46:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B587A1F000E9;
- Tue,  7 Jul 2026 07:46:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783410414;
- bh=OnpghKNBXuM5a1+lYcxPvTs2yNmaNmSBYDdKDW5xo7w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=a4uAEI0dABLPn0hUPJJWyQNJ70Oa4414tjdc5SMVZIe2nR9Wlr9Vl00mhtpqix3ae
- l+vcafSCV6eu5bnZRGfa4Fa6gIaeiXZAdGbH7dXJdWAuWyRvfxhTfpc9rRwfm+a2cj
- tmDnEOSIwZHYxZUl6mtVa9txxPvQN06d4rCyHhikkwnWunlHLz2aEvO0YkB5M+JIOJ
- /zoi2xjyatyfxO/JhOg6H3pCh3sBfwzKcZSWyLeVBtcboLCpmvrB5J8wq0PREjvq+n
- BCW4gUg5ANzpve+xZAV5vRebff71OpPOQoIm8j9RROaeUFY3EcF/0ijDOguR2/YwiW
- 9nzRYogRcDnNg==
-Date: Tue, 7 Jul 2026 09:46:52 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
- hardcoding EDID
-Message-ID: <20260707-meaty-chocolate-lemming-fa9ead@houat>
-References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
- <20260706-capable-beaver-of-excellence-a3cf10@houat>
- <20260706094522.GA42740@killaraus.ideasonboard.com>
- <20260706-fancy-perch-of-satiation-0c220e@houat>
- <20260706160243.GB106045@killaraus.ideasonboard.com>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011070.outbound.protection.outlook.com [40.107.208.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3057510E460
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:49:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hSWLM5RapURbrDcaBE/bpCs9Yzn296C6VTWRCcSMJEDhvnjnorp7MBqXyM47V2kMebQ4agxQaak7zxZoLEaeJAuN1OMesBkQ+13QlBEuRFgUE18bqTH/P94XOeyMbX7+c5C2dEDCHIV6uaz6r6k4z5O52638X1htUKlm/z3oxvdG8+mZMwMb4mZKZ68AsKgEjYoJVOwKspXiJAFhnwzXwULr020h2KnE9+W/pdSZ+tWbm+jTp0CYT9iN4dbq34y7xjMjZYw1JySiVeEGMDganneQzVOvygnXV5NwCqhRM3mEhYHjuaecglca33gXh37BnZkPEY7mQXzjwI0gR0VMSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lNrSzlyO8Jtxxc/FWFZ5zW+mlL0cTK1k7hrhwiCdSV0=;
+ b=aX6wfaTiRvU4BF/yMZ2O0tS1cR/uEq25rineM4osGp86SDN2rg69BXI3VEXHh7H5EYPLUAPppxXW2lyLPZwIbJ3v+Qq4PoieBqVXszpjwlCUt+DzT8bDbeEuTLl29PnV/KOkWpU224YiaBByRbpTL6IFvsTAwiIXF5M++AK4BxbBh4/ncojDx5m4ZfS74S0LXoZX8aXtj0SCCs9jJ3VPk4endfa7bUASGosaoaLANBXTDGTJfwwhNF/n2uYhwcntzpLmy5QnxKg6ZpVHQKIkqJX9waKaE2oCnZXCQKgk6hwJtIwm+hWoCTXb+Aeyfw/bQwLHzU/RdwqWi+HwANTNyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lNrSzlyO8Jtxxc/FWFZ5zW+mlL0cTK1k7hrhwiCdSV0=;
+ b=G+o9dhJZp39t59cpqp2hONZNjjvB3qrvX2+y9/xdlIAQE3ZDFHiRS824cGywTbuPWakuRx0YXwXBNBEqP7pzt1rDyzaE367e+s3y5SnUrdA9K/5O+r3I6viFYp+3RELoyYJfeF3//driG9ncfHWskI7lEy8YJQ2coOACwItM1deVZNLymOTAba8rJftIZ7GTuvFqnpS23uq2KQpuChfYFRDVax8lQtMgablHOTmJ+g0vq9y6OECvykL3giJhTV5YqqQoQO+w/WebaQbyjyHrU7h/jr2WvQyoUJCY1UPt/mFEAebtjygOpyFUc/717VwuaDIQusLbde+MsExi6lYOcA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DM6PR12MB4465.namprd12.prod.outlook.com (2603:10b6:5:28f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Tue, 7 Jul
+ 2026 07:49:37 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Tue, 7 Jul 2026
+ 07:49:37 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Jul 2026 16:49:33 +0900
+Message-Id: <DJS6AAWKLBF2.1E7FH1HJ3MY2N@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+Subject: Re: [PATCH v5 09/13] gpu: nova-core: move GSP firmware files
+ decision to GSP HAL
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>
+References: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
+ <20260707-nova-bootcontext-v5-9-ecad9346387f@nvidia.com>
+In-Reply-To: <20260707-nova-bootcontext-v5-9-ecad9346387f@nvidia.com>
+X-ClientProxiedBy: OS3P286CA0022.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:1f4::15) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="uxuzu5uiypml7j3g"
-Content-Disposition: inline
-In-Reply-To: <20260706160243.GB106045@killaraus.ideasonboard.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM6PR12MB4465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 847fbdb6-93bc-4621-13d7-08dedbfc4ae0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|1800799024|23010399003|376014|921020|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: DOP+5SCwRvMMXBl4mmBGXsom4Cxq9jIz3RIVjM+QwucVN6YwPdH2ax4wlSjYyyLtrsRhM3lLAbocUVahNmssn/xAGDF8HHtnx3HJOhV65yp9otC0ZNqRx2501Ecct2fueBkMhmVniGM/MxNjGxxz2oc4KrrJVQ8yKcBTPTMKiwwlC9uQIxHT6XdwOBp4BeR7s2KWLX9EMvRPXKeggrKe7KMfUISYukKaa6BWQIPzcdEY3+k0loScT5kw8iJHw3qIrtwYyqYaizpnTRXXeQdvjWmccPKzYGaoexwupgYNpiNxW2w1CwWl8gN2H/jXn9+9/7b75RZTApog23LX7NWJN77ggtK2C9zJdHXpnudMFrZTjR+JD2LB9+yRF5WUYPRWFB6SVpWXGQJDH2YEPd+B38+E1DmQ2DzDMcgrwh42Yf9rAXCv+uNNV40gBnGDJBbMBcvERSbYIAfFMXizGdM8TJRIU/jd7jHnPzZVKP8f7RJBkWROCVydpJHGXMq+avpW89PulFvCLTiZ2gGxz1v0dWY6k8l0q96yF4zM+HuER+jSfCl56nQX0kXFO+dpGtEhe72HGJd4gajPtPKZ3Mrsx6hjQrgTXce0DyEazGuekNnvVceGOnX/KhYcPZy5Cw3Ob9AqlC6xFG4aPtQd95f0S2cxwrweXsc9SmKUee3rmhNQVtd09RrxCnH/I6+2IKiWOcb8IirybcNteh5DhLjtjw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(1800799024)(23010399003)(376014)(921020)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R0VFak1TM3YxSWNZTnJGZXM0V21JLzFIOHVHZFJhemJCUFZrT042MEc2a0xn?=
+ =?utf-8?B?MWpuaFlDcnJMMWM5YmhnY1FSWnNrVCtpSENwQ0NmQkkzSGxwdHgzQ2FaQ2dN?=
+ =?utf-8?B?cWhWQkRucnhaWE9kOExxRXZ0MU5lblNUTm14cDlGUGFFNnlqMnV1aFduSmpL?=
+ =?utf-8?B?UzdwVGNnUHNrTlMwLytnYUNtS1BJYmdiOExiS0YySnJCdGEvenlpR2RYTUhU?=
+ =?utf-8?B?QlBLN3JXTzBVTlBYWVNackFIRnc0RWFyREhBbmxsRThDblNFaXNRN0ZTODlm?=
+ =?utf-8?B?TVV3a012YUVYVmdIRVBhUTl0MHd6a0tLS1JjWVNtYmFFWjRPckhscHZJRzRO?=
+ =?utf-8?B?YnJzRHc0QUZJU0RTUnNPd0l1dmJyUnd5VWpyeTloZG9yc3QzN3g4OXYvOUFu?=
+ =?utf-8?B?R0V4QXdyVXIrZ3R6WHZRS3BrZFBKRFNuYkxWbHBxekJUcU1hWHhVVmk4anMw?=
+ =?utf-8?B?bVdHWkllemNIRE1nU1dDaHdMQkJGazkxMDF6NkVRNFY3RDdOekluZXllS2FQ?=
+ =?utf-8?B?cjZjL2tWTmRwemRMdjBMSVVjQXVuUExzVVhNRDZCNTFQdzBncjNwUUtiMklI?=
+ =?utf-8?B?a2M2OWhUdEhERitvaFZJQTlybmtTdVE2OHNDNTRmK1VZSmQ3WExidHdWYWp5?=
+ =?utf-8?B?Yjlad0NnQmllY3ZMNnA5cFF6NDlzN2RLZGpiVWM0YytidEVmQURGUUluaGov?=
+ =?utf-8?B?YXlaR01VaFltRmtIbzNzQWtGM0xReC9MVlJqdTNvREFhWkd4Q3FSejJJcFhv?=
+ =?utf-8?B?cCt2cnlaSm81cHRTNk1IanN2SHV4cFpMZklaU1FCNHp2Rm42VS93d3FQenRl?=
+ =?utf-8?B?SndXUWtFaWhqdVZsb1pTVjZHYVZMZlQySG84TjdMS0FnV3E1NEhpTUJMblJ3?=
+ =?utf-8?B?ckh6bVhSUUZPL3JQaEJMWFBRU244NDFGUlhYNnRTelhTcjhoTHlmbnR3N2dH?=
+ =?utf-8?B?cWpOME9paXBUeFp4SmlRNGhWZ01vMEprNm5EOWx4MkliRHp6YzBXak8yMVJY?=
+ =?utf-8?B?MEtVSndBL1pBa1poOGxVQlpIOUNoejRpeElVb1JUTENMTUVNaXJaVnVOYVVB?=
+ =?utf-8?B?a1VWOUYvaEQ3SFRLODdmT0pHZDZsVURacWo0b252TTlzdDlSVDhjWmNsbFk2?=
+ =?utf-8?B?cTYrL0k2ZlM1Rnd6SE8wY1o1amtWWi9lVWFPYkI4OGdhcEpzeU56Tnl3RFBH?=
+ =?utf-8?B?bmZxb2l0R3ZQZTBkZEkvanFzaGlFdHh4ZEpMcUF4b3N6YmVWdFA1L2lmNkdI?=
+ =?utf-8?B?aktkSmttNVBaTHpKT1NhNEUvNThJUUNDbncrbUFwWW9oQVdZWnhkSFgyTDlV?=
+ =?utf-8?B?d1EzNTF0Sk9IM0owUmJxNnk1L1ZIbWdKbUs4c3pmOGxNOUVWa0pmNVRjS0Rj?=
+ =?utf-8?B?MHc1RjVwdHMwUjEyekk1L1VPWFBqSERDWVZ5QjFrOTVlYVpjaVd2WjJZTFpj?=
+ =?utf-8?B?dVVPL3RFMTJEMTBQTFFnd3N5K3pzdkpTNEFRd1htUnp5RXl5aGVGcCt1VzJ5?=
+ =?utf-8?B?RGtwV1dwNHg2TEJlZWc1djhXeXg5N21CZjdjVWdVdDk4QUdNbWdxbEh4VWU4?=
+ =?utf-8?B?N2ZQLzVjN3RLQU5LNGsxeXF6eTJXNGQ5MzVXRURUTkZFNW1ZUERFMVlHZ1Nj?=
+ =?utf-8?B?bjY0Zm5aNkJiQVB4ajBxT2ZRTjJCNWZCYXVyRGppNzcreHMxVWVVTXZyZVo0?=
+ =?utf-8?B?STZjbVRQcHRRSGE0eFpVUmxoOXJPbFkxYTZZVkNwKzFyWGc5RDJVTW5vRE96?=
+ =?utf-8?B?RTR3dEhIK3l6Y1ByYit0VlVWS0hrQ0JDWUZOeVhQTVJuaDdPNExkYWIzazhp?=
+ =?utf-8?B?cVVHcEh5eGIvbDBsSTJva2o0T1VFelpURXF1WEpXODFpaFk3cHRCV2svZ3dE?=
+ =?utf-8?B?dVdBckN6YmNySTExcGcvQWdNVFduNW9IOEo5SXlZOGhtQ2JZWnhmVS9WUmg2?=
+ =?utf-8?B?MUtSZCtqNzRxWGZlWk9XL2FmTlB1N3Vka0diemwzMi9iRGttNEZod2piUXJM?=
+ =?utf-8?B?b2Y2VW94L2dFK3l6WG1WOGVaQlBlR0NZVjZHbVI3TjJzNXRPNzlLTkUyOFUw?=
+ =?utf-8?B?NG43cFFvYlpNUm5iNU1qaUJ1VmF4aXdkMm45S1V2SkhvWjQ3a1M2UTZCWW5j?=
+ =?utf-8?B?M0UwOG54d3pWUnRBODIzVkZ6YXlkT0RVQzYwMGIvR1d5YVJTZ3F3UWJ5N082?=
+ =?utf-8?B?eDFoSkcwcks0b003T01IY0NBTWZXSlNmZ0lyWkprVUU1TzRuOUlsMG96N216?=
+ =?utf-8?B?V1hKS1REdVFQZlFNeVdldEZ2am9EQk9rckVwdTRINmdOd083R3AvMjZ6TWtE?=
+ =?utf-8?B?UWtqTFJIQ2x0ZkVYRlMxOC9WU2ZkWXVTZndFYXNJQjNhdXpJK1V2YVJsT2g2?=
+ =?utf-8?Q?jxrCxGWLGB4TePrXkisIJVj6yOi2C43xQ6nEcLzb5F3mt?=
+X-MS-Exchange-AntiSpam-MessageData-1: jYY+MPiiB0DZeg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 847fbdb6-93bc-4621-13d7-08dedbfc4ae0
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 07:49:36.9377 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C/oJtibe1Qow/DDkfBV6OgniB6YbhvsOOb0ZDW9K/Xh2o0vWhgh94oLfq1XprNpUsNyKgE3SHIGrGbyMUwC1mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4465
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,112 +144,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue Jul 7, 2026 at 4:21 PM JST, Alexandre Courbot wrote:
+> From: Eliot Courtney <ecourtney@nvidia.com>
+>
+> The files to give the `ModInfoBuilder` depend on the chipset; this is
+> HAL information, so move it there. Doing so lets us remove the
+> `uses_fsp` and `needs_fwsec_bootloader` ad-hoc methods of `Chipset`.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
---uxuzu5uiypml7j3g
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
- hardcoding EDID
-MIME-Version: 1.0
+Eliot, I put you as the author of this patch since it is basically the
+diff you gave with very minor changes. If it looks ok to you, can you
+give your Signed-off-by?
 
-On Mon, Jul 06, 2026 at 07:02:43PM +0300, Laurent Pinchart wrote:
-> On Mon, Jul 06, 2026 at 05:40:30PM +0200, Maxime Ripard wrote:
-> > On Mon, Jul 06, 2026 at 12:45:22PM +0300, Laurent Pinchart wrote:
-> > > On Mon, Jul 06, 2026 at 10:52:32AM +0200, Maxime Ripard wrote:
-> > > > On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart wrote:
-> > > > > Since DDC version 2, introduced in 1996, VGA monitors have expose=
-d EDID
-> > > > > data over an I2C bus. The bus is also used to detect the presence=
- of a
-> > > > > connected monitor by trying to read the EDID data.
-> > > > >=20
-> > > > > Some devices where the VGA display is integrated in the device and
-> > > > > always connected do not connect the DDC pins. Some development bo=
-ards,
-> > > > > such as the Renesas M3N Salvator-XS, also do not connect the DDC =
-pins.
-> > > > >=20
-> > > > > To support those, add the ability to provide hardcoded EDID data =
-in the
-> > > > > device tree. This is mutually exclusive with specifying a DDC bus=
-, and
-> > > > > can only be done when the VGA display is guaranteed to be always
-> > > > > connected.
-> > > > >=20
-> > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideason=
-board.com>
-> > > >=20
-> > > > This feels redundant with the EDID firmware loading mechanism we ha=
-ve in
-> > > > KMS already. It should at least be mentioned why we would need to s=
-et it
-> > > > in the device tree at all.
-> > >=20
-> > > Very good question.
-> > >=20
-> > > I assume you're talking about CONFIG_DRM_LOAD_EDID_FIRMWARE, as the
-> > > debugfs override_edid feature isn't meant for production. If there are
-> > > other relevant mechanisms I'm not aware of, please let me know.
-> >=20
-> > No, that's indeed what I meant.
-> >=20
-> > > In the use case at hand, the VGA display is an integral part of the
-> > > device, the same way an LVDS or DSI panel would be. Using
-> > > CONFIG_DRM_LOAD_EDID_FIRMWARE, the manufacturer would need to set the
-> > > drm.edid_firmware command line parameter, and provide EDID as a file =
-in
-> > > /lib/firmware/ (possibly in an initramfs). Beside the complexity, and
-> > > the fact it won't be very friendly to people who run a different
-> > > userspace on the device, I think EDID counts in this case as system
-> > > description, the same way we support specifying panel timings in devi=
-ce
-> > > tree.
-> >=20
-> > It's *some* hardware description, but you have no idea whether it's
-> > actually the hardware you're running from. What would be in that EDID
-> > anyway?
->=20
-> It would be the EDID corresponding to the connected display :-) I see it
-> as identical to how a user of the simple panel driver is responsible for
-> listing the timings corresponding to the hardware in the device tree.
-
-What's the expected user-experience for someone with that board
-unplugging a display and plugging another then? Update the device tree,
-rebuild it, rebuild the firmware and / or resign it and reboot?
-
-That doesn't sound very practical, and even impossible in some cases.
-
-> > There's another alternative we've used several times already, in
-> > simple-bridge for example: just register any VESA mode up to a given
-> > resolution:
-> > https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/bridge/s=
-imple-bridge.c#L66
->=20
-> I don't see how that would help. The goal is to provide the kernel with
-> the data corresponding to the display integrated in the device.
-
-How is that not helping? Your problem is that you have a display you
-can't get the supported resolutions from. What I'm suggesting allows you
-to create all the possible resolutions for that display, allowing the
-user to use the display, which is what we did for multiple drivers with
-the same problem.
-
-You seem to be set on providing the EDID to the kernel, but it's a
-terrible idea to begin with, so I'd rather discuss alternatives.
-
-Maxime
-
---uxuzu5uiypml7j3g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCakyu2gAKCRAnX84Zoj2+
-dttmAYDwAyDzsHH4BdK18Zg1snhvtmCOWF5mfpdzQr5B60t05sOH4JHRHhYDO62c
-O0R+3mwBgLQ2v3BV/JvI3f56cwkgVA2l6vP/yfbZFMo+03DPC8zxTjP8fRZZmkqV
-6IPIr/VIMQ==
-=pNHu
------END PGP SIGNATURE-----
-
---uxuzu5uiypml7j3g--
