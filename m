@@ -4,140 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE73C43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 18:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E9B5C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 18:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5565110EEAE;
-	Tue,  7 Jul 2026 18:06:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC8C110EEB1;
+	Tue,  7 Jul 2026 18:07:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JcVxcm4f";
+	dkim=pass (1024-bit key; unprotected) header.d=crapouillou.net header.i=@crapouillou.net header.b="taLqIYWA";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011055.outbound.protection.outlook.com [40.107.208.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BCDA10EEAD;
- Tue,  7 Jul 2026 18:06:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rs03I55BnEeQJ/63qLbNR3+iyMUQxuF2i/39jbXld2Q0AiAINpdRvlxKMxWJxtA4UTsUaM2Ndwi7ESXxfcM3R9knRdOtFCPzC4z2Mgd7jD5pj7Lsktc8VICZKjNSdDY0W5BAXqsiha2fsniDmWyjoO9/o0OstRD1Y3D3qJSZbiyXvjn4BKsfNwYaUrnkD+0IV/Xe2spqzxRQ0C1l2Z3+XE//uoXPyxtDpz2rj/S5cKTA9iIuq6Y3d/MQmLUEvNfxA1xrkANSv8F1Axej8mACl36olEEuVVj2Ge0fZCM6ynqA53By1sp4JVqXlNp45sphoSJJuQDOF85C9IvdjbKKpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DV9QgixgGJnct6ZGQhlxnA1riKOLAEdR6ycjknjIwk=;
- b=rF95YC8QJxbpGE0qCwwVspDbfwK+O1M9RXBhx0gXIY30x5gfXM38XrsKwRT2U4uQwIpY5nCGoWKLPQBSQd2qpQiADnDYr8QwTQn27sh+2oBSnHyuZt1pan72a+vbZYyPZjgg3obePK35gzMy7vfrOvJxY1LYtKoJRxGq6v7zzyvF6y+j1iDTn8KoLvZAksr3fdLFV4eNqLCu5lmfRuXZsL4wuEsxR/JSuO6RVCJGjvdfRnwhalrnoMeYK9X9awg6l58YbZOV9qwkZSXujf1bcUVf8yiSbEBsj3WI6uZjKchJc1XFS1ZpaJ8gXfocAlXXxPSiwhzePJ8OvyHkacrMGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DV9QgixgGJnct6ZGQhlxnA1riKOLAEdR6ycjknjIwk=;
- b=JcVxcm4fDw2HcYZu4FuXPbJ9PYE8E+VC/Hp0TH/BSeUqC2pBqxyEAcdsKhr5dgjifA+edA0cOfm+cY+nOTxQv3TRWPG1bhr3jQCyKMMzdRmGq1T/oKELDyexI1xj61/o+Vg9+UwKTFzbT5KxZ3oIVCScGfyx2/F6/MVDZDiQZrg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by SJ0PR12MB6830.namprd12.prod.outlook.com (2603:10b6:a03:47c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 18:06:01 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0159.015; Tue, 7 Jul 2026
- 18:06:01 +0000
-Message-ID: <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
-Date: Tue, 7 Jul 2026 23:35:49 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Sashiko-bot <sashiko-bot@kernel.org>,
- Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
- <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
- <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0051.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:270::8) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+Received: from aposti.net (aposti.net [185.119.170.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4960810EEB1
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 18:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
+ s=mail; t=1783447618;
+ bh=jSZnB0sLqjEJbBoqe7AZJRMFNCZugWpISC+yCdraaOk=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=taLqIYWARPanxMePLjn0T7clMcda7af2pvmrr0dQzpeuwc0nctWzpeP7MFrEdwHD3
+ wFNI1Cev/uBH+lstwttbgnjYpRUlRSvuTptlXHNnBzTOSCT1/sAyy72NlnTqVPq0M/
+ E7dkR8V01XIjaryuVKTvkbf8yDy1RmuISroVos5g=
+Message-ID: <f46dfcfe04c5f8270b2ea1a947ddc0a0eeda7dbc.camel@crapouillou.net>
+Subject: Re: [PATCH 17/42] drm: ingenic: Use devm_of_reserved_mem_device_init()
+From: Paul Cercueil <paul@crapouillou.net>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Bjorn Andersson	
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau
+ <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>, Andrew
+ Jeffery <andrew@codeconstruct.com.au>,  Anitha Chrisanthus
+ <anitha.chrisanthus@intel.com>, Paul Kocialkowski <paulk@sys-base.io>,
+ Linus Walleij	 <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
+ Skrabec	 <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Tomi Valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Michal Simek <michal.simek@amd.com>,
+ Daniel Scally	 <dan.scally@ideasonboard.com>, Jacopo Mondi
+ <jacopo.mondi@ideasonboard.com>,  Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Eddie James <eajames@linux.ibm.com>, Tiffany Lin	
+ <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+ Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai
+ <minghsiu.tsai@mediatek.com>, Houlong Wei	 <houlong.wei@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>,
+ Marvin Lin <kflin@nuvoton.com>,  Dmitry Osipenko
+ <dmitry.osipenko@collabora.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Thierry Reding	 <thierry.reding@kernel.org>, Jonathan Hunter
+ <jonathanh@nvidia.com>,  Srinivas Kandagatla	 <srini@kernel.org>, Arnd
+ Bergmann <arnd@arndb.de>, Greg Kroah-Hartman	 <gregkh@linuxfoundation.org>,
+ Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter	 <adrian.hunter@intel.com>, Ulf
+ Hansson <ulfh@kernel.org>, Rob Herring	 <robh@kernel.org>, Saravana Kannan
+ <saravanak@kernel.org>, Mathieu Poirier	 <mathieu.poirier@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai	 <tiwai@suse.com>, Shengjiu
+ Wang <shengjiu.wang@gmail.com>, Xiubo Li	 <Xiubo.Lee@gmail.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown	 <broonie@kernel.org>, Frank Li
+ <Frank.Li@nxp.com>, Sascha Hauer	 <s.hauer@pengutronix.de>, Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>,  Bard Liao
+ <yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Orson Zhai	 <orsonzhai@gmail.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Peter Chen	 <peter.chen@cixtech.com>,
+ Fugang Duan <fugang.duan@cixtech.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, BST Linux Kernel Upstream
+ Group <bst-upstream@bstai.top>, Fabio Estevam <festevam@gmail.com>, Nicolin
+ Chen <nicoleotsuka@gmail.com>,  Pengutronix Kernel Team	
+ <kernel@pengutronix.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Vijendar Mukunda
+ <Vijendar.Mukunda@amd.com>, Chunyan Zhang	 <zhang.lyra@gmail.com>, CIX
+ Linux Kernel Upstream Group	 <cix-kernel-upstream@cixtech.com>,
+ linux-arm-msm@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, 	linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, 	linux-mediatek@lists.infradead.org,
+ kernel@collabora.com, 	linux-tegra@vger.kernel.org,
+ linux-mmc@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, 	linux-staging@lists.linux.dev,
+ linux-sound@vger.kernel.org, 	linuxppc-dev@lists.ozlabs.org,
+ imx@lists.linux.dev, 	sound-open-firmware@alsa-project.org
+Date: Tue, 07 Jul 2026 20:06:50 +0200
+In-Reply-To: <20260703193855.110619-18-mukesh.ojha@oss.qualcomm.com>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-18-mukesh.ojha@oss.qualcomm.com>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|SJ0PR12MB6830:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11e68940-b02a-4da3-666f-08dedc526719
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|366016|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: +3E3fQqn6lD7wdGfgeN+sD33bzFP5EtcXa72j+hENQG2cpmW8gW1DL0SvSLQvKdCIFOGu70N29Qf8IAD3oR9jj7KsJ9N2sIXALkwOuxqQdE7t7+feVUghu+h0e63TvtJYujp0I75NqSkRN0QCNun3lkvYflO4xRH+o2LEOokeH4FeuusB/SyZMGk3fRWKCdpQ5s7Os7atte+P0h78p3nGk5rVrOrVYk6pPx0/6NooCoJeWFyd2bJAvTcmEs+ixjuq0GLbya7hTJPWqSRgBoiI4sHdpOu4el3i9KfjVpb/0KztBqpX5bnbyXly5rCZerZqve2QkoTOdtCmn0kZCvh8+RIl2IjgakJVohjGDV96z4enXvD/VxiK4CzUf9ttdt+/FUf91wHrQGzYY6GmI9AqGU8FhxACrAdGh6nm1I9oVtwMI22iT15QSMPoP7Jw8E3bLUQ0l1zsOgeAwQtIAxF8uz6tpoEKE2okCKPpWLKGntsLEnUQM+Eo2N3I6ik0e17SIT/2Sx//3GGOwg0CCxhWw1s6MyR1+CaQrVRboY7AagAdD8sbn2r5i+x60Yz2dqhiV9tTrZZ6+x81l4okK31s4p8cjOlVzWZzz+ca3dCcPk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVN5OUd0aFlzQWtyMjEvWlVjQ2VUS25hdFlyNTVjdTJSK0MreTltTDgwczZp?=
- =?utf-8?B?dXdFWFIrczJ1aUNjaXd5WjN5WCtJQy9yTWlrZUg0TE4rRzBzdnBPVWRSYUVp?=
- =?utf-8?B?TC9mdFNhTS9BYXdnTFBxQUswcTlFNmZvMlhVKyt6cTNyOFd3ODdaY0ZvQS8z?=
- =?utf-8?B?UHFWLytiQjZTdURSZnc0T1BPQThnMDU4RUFIWXQyVS9EWWJnOVhJR2NpNXF1?=
- =?utf-8?B?cVlvSnRtVmQyVU9XT21HcHVFYWVkeitlSWRzdkFUNHdndk1UczJobGFnMEND?=
- =?utf-8?B?OHhUTWozOG9COTVzTHBwZ0VHZ1c5bVhaMk1Oa2RNWkVtbytpNFBlNzN4Mit6?=
- =?utf-8?B?KzBTMUJFREtXa0doTHVCZmRNcVczRHVlZ0Q2cmx6Mi9jcENxZGc3Y1FZOGJs?=
- =?utf-8?B?QWFVR1lET01yWCtFMllEVll2eW9RRnlLVUducENLdHlmWnk1VGNKWXFJN1Rj?=
- =?utf-8?B?d1hCZ3h1WjBvVTArbTYvMExYdmNBUGIyNy9CQ3h6VGo3WUtxbjdMRGM5djYy?=
- =?utf-8?B?dDU1MTI2aFhvQkxicjZYbVdvemdJOUFzZXZtdjNYZ0J0a2hnZTNISWVkY1Nv?=
- =?utf-8?B?L2xJMWF5RmU0UGNnVW5UVUp2YnBmSlFkQnNMRnIxcUlDTEVkL0FLWlJHOENm?=
- =?utf-8?B?Nk1ibmV5amdTZjhwM20zS20zUXZFTEpYT0VWam5pMDBNUDFOQ082SzdQbERy?=
- =?utf-8?B?eW5WT256MGNudWkrSE9UYU1VWE44MjNTdEdxclU5RVZENVdzL0MyUG45dHUy?=
- =?utf-8?B?Q05FUzFSOHdJUHI4dHhBdG1Iam01ZU50ekhYb0NUTkhQclJwdklPbU01eXhQ?=
- =?utf-8?B?cjZRUCtHTXdqUzd0cks5UnY2REhXZWNNMmRBK3p5YXRILzRyK2Q0RmptYkFy?=
- =?utf-8?B?L3pvdTN3c3d1amd1Y0thRUZ1YjhNVW1KaTh5RzJjSTlCWUV0N1lGbTNnQUR2?=
- =?utf-8?B?MWpaeXpsWDJhVy9BKzIvRjZqUGVMa09PM0pvRzBnUWtEdFQyUTJncTFuZnlq?=
- =?utf-8?B?c0tXN0t2ZWhWVDAvN3RUd0pWYVE3UjN2QXFQV2VsOHUrYmMzODlyTysyMDhr?=
- =?utf-8?B?dE5KcVgzeUhGakFKM1kwbTJjNjJuZHM0UVhLV1FPQkg0OXplczVlMVhSUFFq?=
- =?utf-8?B?eFpWZFo2c2hCbkhIWjNpbkJCTmNsYXVrOUIvNVFMaXBQaTg0blBqd2tJVU53?=
- =?utf-8?B?aFNCdU5XSUZtdnJ4RnJjSS9RRjdvd2YzbmNZVlFkRysxcnRiSE1Pc1g5UmNi?=
- =?utf-8?B?TTNNMjgzeS9zNGVvUURUeVNnTmdHQjRiNGMrZzdGTHJweW0zeGd0Z3VhYUl4?=
- =?utf-8?B?M1FwVkxmbVEvYkIwdjRaM0hobXpYQUY4UHNKQXF3VVZNanA5aGhHSUl6NUtS?=
- =?utf-8?B?L1RhM21heXBnMWR2aWpZSTl2WnFEYVV4WjN6QUNSVGp1Zy92dHJ2bnBIZ3lh?=
- =?utf-8?B?VGJPdHpkbzM0TnR4SDFiSEQ4Z1Z1bTd4bWJMWllWNFRlU2R6ZmFPL21KQTVG?=
- =?utf-8?B?ZmdDanZrT2ZGTnhTNUM3YjlDZHVTcXBsSk9qQmhxbjJCb1YvTG9WRExkUkdm?=
- =?utf-8?B?N3JHdkNrR3c4M1FKNHZzbUp6YXZFRXRzS0pzZzFlaTc3OXJHRE5KL3FqalBu?=
- =?utf-8?B?UFJEd2ZhMG02LytDOWxDUVlYRlUvTmZGcHBPTHoxVmV5SWExeEtSTHlXZ240?=
- =?utf-8?B?YTh3MVppTVhpeDR2Vkk3MnBWRDlnWWlVK0FUWDFmMldYY29Gb2RqemFKSStl?=
- =?utf-8?B?UlRseTBkV3NVVUd1b2JFNTNNaytFRVhadXplcEVsQnZJd3M3TS9ZQkhndXh6?=
- =?utf-8?B?RjNGeGYvUG1Ta0wyUnMwOXMyS1dDRXg3VVhtWmtCL29PQU56REhyY3BwS0FE?=
- =?utf-8?B?VWlobzRtVHk5dTJxUzRQcU02bEJjd2VyV2ZCenQ2YVh1cjN6bUZScFNSUHpB?=
- =?utf-8?B?K205bFJKdHdpVEtCd2QvdEZMaDRGY0VQb3NDMzRtdlhXeUVYS3IzRTJtVnJD?=
- =?utf-8?B?bjhjMk5TbWNwK2FSbDBidTRKZTlCeUtxTkM0M2VzVElWK0tvdzd6MGlEVkJh?=
- =?utf-8?B?NnZhR3Yxd2orcXdQZ2pVcE9jSGFvTU54S2lzZ2ZYc25iT3cwN0FjNG9SS1Ew?=
- =?utf-8?B?cmMyQUdEZ0plSnhHWEI5U1hHSXMxUXRXeTRqd01GaExrdTJtcmNTQ0p0VWwr?=
- =?utf-8?B?YjNyemZpaysrQVZEbjlhR0NnU1NrMDk3Y3NQMlliWWVIREJ1dm02MTlNR1lE?=
- =?utf-8?B?bGQvWTdQT2NIMVBCMzNxQjBjMWcxQldBRm5wVml0Ui9LT2pxMlZyV1JpMzIy?=
- =?utf-8?B?NW56TXI1b0ZwY3pmMjcvenJTemIzV1lTT2dMaFcyYklOVW5Ebm9nUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11e68940-b02a-4da3-666f-08dedc526719
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 18:06:01.1760 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0HWtbM/zxRrjWtGuprl94nTxAAPlscQjYOYT5HjTCDbiFORb0+hTCI5EL1EzSrAme5GJx0FpObtTzl/AT2UWwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6830
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,82 +115,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
+Le samedi 04 juillet 2026 =C3=A0 01:08 +0530, Mukesh Ojha a =C3=A9crit=C2=
+=A0:
+> Replace the hand-rolled devm wrapper (ingenic_drm_release_rmem +
+> devm_add_action_or_reset) with the standard
+> devm_of_reserved_mem_device_init(), letting the device resource
+> manager handle cleanup automatically.
+>=20
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-On 7/3/2026 6:38 PM, Christian König wrote:
-> Arun please take a look at this.
-Sure Christian. This fix looks correct to me.
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 
-Thanks,
-Arun.
->
-> Thanks,
-> Christian.
->
-> On 7/3/26 15:05, Thomas Hellström wrote:
->> drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
->> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
->> returns early and bypasses those initializations.
->>
->> Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
->> is called, a failure triggers amdgpu_ttm_fini(), which calls
->> amdgpu_vram_mgr_fini(), which then:
->>
->>   - Calls list_for_each_entry_safe() on reservations_pending and
->>     reserved_pages, whose list_head::next pointers are zero-initialized
->>     (NULL). The loop does not recognize them as empty and dereferences NULL.
->>
->>   - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
->>     via for_each_free_tree(). Since mm->free_trees is NULL
->>     (never allocated), this dereferences NULL.
->>
->> Both result in a kernel panic on the module load error path.
->>
->> Fix by moving drmm_cgroup_register_region() to after the list and buddy
->> allocator are fully initialized, so the teardown path is safe to run.
->>
->> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
->> Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
->> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
->> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->> Cc: Maarten Lankhorst <dev@lankhorst.se>
->> Cc: Tejun Heo <tj@kernel.org>
->> Cc: Maxime Ripard <mripard@kernel.org>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: <stable@vger.kernel.org> # v6.14+
->> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
->> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
->>   1 file changed, 4 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> index 2a241a5b12c4..ac3f71d77140 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->>   	struct ttm_resource_manager *man = &mgr->manager;
->>   	int err;
->>   
->> -	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
->> -	if (IS_ERR(man->cg))
->> -		return PTR_ERR(man->cg);
->>   	ttm_resource_manager_init(man, &adev->mman.bdev,
->>   				  adev->gmc.real_vram_size);
->>   
->> @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->>   	if (err)
->>   		return err;
->>   
->> +	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
->> +	if (IS_ERR(man->cg))
->> +		return PTR_ERR(man->cg);
->> +
->>   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->>   	ttm_resource_manager_set_used(man, true);
->>   	return 0;
+Cheers,
+-Paul
 
+> ---
+> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 13 +------------
+> =C2=A01 file changed, 1 insertion(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> index 7e569af22391..990c3b4625fa 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -1060,11 +1060,6 @@ static void ingenic_drm_unbind_all(void *d)
+> =C2=A0	component_unbind_all(priv->dev, &priv->drm);
+> =C2=A0}
+> =C2=A0
+> -static void __maybe_unused ingenic_drm_release_rmem(void *d)
+> -{
+> -	of_reserved_mem_device_release(d);
+> -}
+> -
+> =C2=A0static void ingenic_drm_configure_hwdesc(struct ingenic_drm *priv,
+> =C2=A0					 unsigned int hwdesc,
+> =C2=A0					 unsigned int next_hwdesc,
+> u32 id)
+> @@ -1127,16 +1122,10 @@ static int ingenic_drm_bind(struct device
+> *dev, bool has_components)
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	if (IS_ENABLED(CONFIG_OF_RESERVED_MEM)) {
+> -		ret =3D of_reserved_mem_device_init(dev);
+> +		ret =3D devm_of_reserved_mem_device_init(dev);
+> =C2=A0
+> =C2=A0		if (ret && ret !=3D -ENODEV)
+> =C2=A0			dev_warn(dev, "Failed to get reserved
+> memory: %d\n", ret);
+> -
+> -		if (!ret) {
+> -			ret =3D devm_add_action_or_reset(dev,
+> ingenic_drm_release_rmem, dev);
+> -			if (ret)
+> -				return ret;
+> -		}
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	priv =3D devm_drm_dev_alloc(dev, &ingenic_drm_driver_data,
