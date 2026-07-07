@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAEFCC44502
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ECB3C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5E8A10EBAB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE5C210EBAC;
 	Tue,  7 Jul 2026 07:34:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E3HXpSks";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l9AlrQ6U";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 784AB10EBA7
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E52A410EBA7
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:34:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5C85E41401;
- Tue,  7 Jul 2026 07:33:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898551F00A3E;
- Tue,  7 Jul 2026 07:33:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6308B618AA;
+ Tue,  7 Jul 2026 07:34:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626DE1F00A3D;
+ Tue,  7 Jul 2026 07:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409636;
- bh=bmFy3RTkV6oAfOtQ0nNMgDyx+nF5cTbzOJUQB1Z58go=;
+ s=k20260515; t=1783409640;
+ bh=WSjju01qITlRREihj9UnmYy2mNsYb5lkSCXyhbNH/mc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=E3HXpSksWy6w5ACTbnbwRwH4/A88iFU8tLWdJY3uKS67ez0MUDiflPfoNLaPy4qu8
- wEtQ30IT1rPCokCIZ9xrld3nFhMzdeT9FuccqiyYpAsC8qw9lVzMtEJBMtYFJzruep
- qwrzdVy/gKo8INTxnDYkhmaOTgiDxIRBKMmhaCZffL1AIfCrOejlsJyheFL1FNQk2D
- 1kXpsi4cS3fFrAfR4VBf99X5g9JygKFamAmbMIrs5pspYVoKPTj1IMxXCY+Se4OH8u
- 7tPp94jHox9Jkif7DAHBNlliPuBWCygRoLvlXLz22LHmF2y1cumV5J5EjXAP1vZvWx
- dGyL8RTxhe9kQ==
+ b=l9AlrQ6U6JSdJormMeIj/QOX5AfTtFDxiGZqyZBzQSJcBpPCxWLMqOgpwh9jcx/WC
+ LJBDJs2cX3Nw3P3CfK0Z9Gjmt/4AF+hBlf1PCJ526lNdTF0LH8Rt9bF9/K2KAXSw7I
+ 89Z0M65XLSTCJb7Yo/SAQvSspTjH5nfgRQ54ASWg/ZAMC1yItPGwVi/RszI7z2OIQi
+ rQ5b7L+4+xaEmdwqPdWEoo8hvCx/EVsgBnXIjFnC2jZfJxf/fHPcp6tq4YUeh7K850
+ IkDuQ2vXTuzm9+8nV03PxQgCb2ojVTIoPNhgd6VgeUvpJhVgADatsz99nphJq6beWW
+ LbpEsMuSPErVw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 36/40] dept: track PG_writeback with dept
+Subject: Re: [PATCH v19 40/40] dept: implement a basic unit test for dept
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: "Jeff Layton" <jlayton@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- linux-rt-devel@lists.linux.dev, cassel@kernel.org, "Chuck
- Lever" <cel@kernel.org>, ojeda@kernel.org, dlemoal@kernel.org, tytso@mit.edu,
- dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260706061928.66713-37-byungchul@sk.com>
+Cc: cassel@kernel.org, dri-devel@lists.freedesktop.org,
+ "Jeff Layton" <jlayton@kernel.org>, dlemoal@kernel.org, tytso@mit.edu,
+ ojeda@kernel.org, linux-kernel@vger.kernel.org, linux-modules@vger.kernel.org,
+ "Anna Schumaker" <anna@kernel.org>, linux-ide@vger.kernel.org,
+ "Chuck Lever" <cel@kernel.org>, linux-rt-devel@lists.linux.dev
+In-Reply-To: <20260706061928.66713-41-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-37-byungchul@sk.com>
+ <20260706061928.66713-41-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:55 +0000
-Message-Id: <20260707073355.898551F00A3E@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:58 +0000
+Message-Id: <20260707073359.626DE1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,64 +63,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] False lock acquisition registered in DEPT for SHARED waits on PG_w=
-riteback, permanently corrupting the task's dependency graph.
+- [Medium] Data race on lockless global `dept_ut_results` test counters.
 --
 
-commit 9dc48dc95eded487307805ef6bce49ac459667ad
+commit ed16879949bb8cfa840ac89b2502567868a42cfe
 Author: Byungchul Park <byungchul@sk.com>
 
-dept: track PG_writeback with dept
+dept: implement a basic unit test for dept
 
-This commit adds DEPT tracking for PG_writeback to track writeback waits
-and events. It extends the existing page bit tracking machinery to cover
-PG_writeback in addition to PG_locked.
+This commit introduces CONFIG_DEPT_UNIT_TEST and a corresponding kernel
+module that runs basic unit tests for the Dependency Tracker (DEPT).
 
-> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-> index 0b0655354b084..ec736811a2c66 100644
-> --- a/include/linux/page-flags.h
-> +++ b/include/linux/page-flags.h
+> diff --git a/include/linux/dept_unit_test.h b/include/linux/dept_unit_tes=
+t.h
+> new file mode 100644
+> index 0000000000000..753ac9ac727c6
+> --- /dev/null
+> +++ b/include/linux/dept_unit_test.h
 [ ... ]
-> @@ -292,6 +293,8 @@ static inline void dept_page_set_bit(struct page *p, =
-int bit_nr)
-> =20
->  	if (bit_nr =3D=3D PG_locked)
->  		dept_request_event(&pg_locked_map, &p->pg_locked_wgen);
-> +	else if (bit_nr =3D=3D PG_writeback)
-> +		dept_request_event(&pg_writeback_map, &p->pg_writeback_wgen);
+> +static inline void dept_ut_ecxt_stack_account(bool valid)
+> +{
+> +	dept_ut_results.ecxt_stack_total_cnt++;
 
-[Severity: High]
-Does wiring PG_writeback into this tracking logic cause false lock
-acquisitions for shared waits?
+[Severity: Medium]
+Since this global counter is incremented non-atomically, can it race with
+concurrent DEPT evaluations (e.g., from print_dep()) on other CPUs? A stand=
+ard
+data race here might lead to corrupted test counters or trigger KCSAN warni=
+ngs.
 
-In the wait queue logic, tasks can wait for writeback to complete
-without actually acquiring the bit (a SHARED wait). However, when a task
-waits on PG_writeback and the bit is already clear on the fast path,
-folio_trylock_flag() sets WQ_FLAG_DONE:
+[ ... ]
+> diff --git a/kernel/dependency/dept_unit_test.c b/kernel/dependency/dept_=
+unit_test.c
+> new file mode 100644
+> index 0000000000000..e8dada2e3dfba
+> --- /dev/null
+> +++ b/kernel/dependency/dept_unit_test.c
+[ ... ]
+> +static DEFINE_SPINLOCK(s1);
+> +static DEFINE_SPINLOCK(s2);
+> +static bool test_spin_lock_deadlock(void)
+> +{
+> +	dept_ut_results.circle_detected =3D false;
 
-mm/filemap.c:folio_trylock_flag() {
-        ...
-        } else if (test_bit(bit_nr, &folio->flags.f))
-                return false;
+[Severity: Medium]
+Is it safe to reset this flag without protection? If a genuine dependency
+issue triggers DEPT on another CPU and calls print_circle() concurrently,
+could it set circle_detected to true and interfere with this test's result?
 
-        wait->flags |=3D WQ_FLAG_WOKEN | WQ_FLAG_DONE;
-        return true;
-}
+[ ... ]
+> +static int __init dept_ut_init(void)
+> +{
+> +	int i;
+> +
+> +	lockdep_off();
+> +
+> +	dept_ut_results.ecxt_stack_valid_cnt =3D 0;
+> +	dept_ut_results.ecxt_stack_total_cnt =3D 0;
+> +	dept_ut_results.wait_stack_valid_cnt =3D 0;
+> +	dept_ut_results.wait_stack_total_cnt =3D 0;
+> +	dept_ut_results.evnt_stack_valid_cnt =3D 0;
+> +	dept_ut_results.evnt_stack_total_cnt =3D 0;
 
-Then in folio_wait_bit_common(), it unconditionally registers an acquisition
-if WQ_FLAG_DONE is set:
-
-mm/filemap.c:folio_wait_bit_common() {
-        ...
-        if (wait->flags & WQ_FLAG_DONE)
-                dept_page_set_bit(&folio->page, bit_nr);
-        ...
-}
-
-Because the task never actually acquired the bit, it will never clear it,
-leaving DEPT recording the lock as permanently held. Could this cause
-DEPT resource leaks and false positive deadlock reports?
+[Severity: Medium]
+Could resetting these global counters locklessly and without accessors like
+WRITE_ONCE cause issues? It appears this setup could race with concurrent
+DEPT reports modifying them simultaneously in print_dep().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D36
+3-1-byungchul@sk.com?part=3D40
