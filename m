@@ -4,133 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8440BC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:08:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5DEC43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E067810ECE6;
-	Tue,  7 Jul 2026 13:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D27510ECFE;
+	Tue,  7 Jul 2026 13:12:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dfVRAORo";
+	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="dWjazBt6";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011029.outbound.protection.outlook.com [52.101.52.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4280E10ECE6;
- Tue,  7 Jul 2026 13:08:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kxF5D/ThsqsiUe6UelnQW//JInPRScYh1vYBfbkC9bxDUNkN1IIFRz5Rqnn0S3geGxqutqzYgorsdxfs9Fdip4UbcGGmkAac+jMDGcoauDgBBYycBKcaLXBiT2Vs9UK8BWnCTY6zTPpzp9VWVuYz8hE+wFdxkUnGmTa9gQjMKHQ1t3jC00gch7aEd7hyq5ziKobUM3Y7xv5Nmb4Ss7dvX0P4BpYM7PA6YKtb4TLiRiOYFesgt+r1cM5u+R/9LLCVjOEIQEUyywhsWUNxYUQoloFDZ59cdFWK2jko4n0Hq7ZvwDKc0kZn0buTRbqRA6zBK0b4wwoz3YmHSCskxpXZHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X1/PdmKf9ZcySdoL0ifQkcGrrGhyghDU/6JjtG7leSE=;
- b=miVhiLV7Nql/lXUCY3D1z/663DVAgJyK8Pjzfuvuq1IkVtLTYZrowD0VkfoGYBKCA29GSqTrB+597PXUbFsUdcjq41KgE+MqXUAvYwqp0I3OLEvWugbnOXGnqw9bu32XK4vmhw7J6PLexpEUrvgjdApL5OzVjVJmkuEDeYOLOxx4jwy8KzRt0jO3HKzD2Bx3hhA5erubQ6LkVTHlEv/I5uW39NYT4wyLwly328LjjHydg8vxLpzVhdipvQAEidAwUPIYLleXBglwArPPufmW53NeLiVGfa9JB5EWsHwNY72V+/ic/EfszD1Etp/dtjh0pnaABPp+85pCjnPjXj6ROg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X1/PdmKf9ZcySdoL0ifQkcGrrGhyghDU/6JjtG7leSE=;
- b=dfVRAORot1+JYJ6vwN15lyVVWCYxRimk1ujMOXrbmH26zhmQPAwutzQT/7I/pC0a862Ue1FfQwUjSD4p/bz6ydMJyBFWIjrhmx3dz8d3B3nwba92/8BmVsu5EIPJw9XtU5TNO4lhgrAeBfH1XntdXFn/VxuXTKbaEamoS/oD22fxDdwn6dwfDXZib0gegIFUPFJG4nd0atGteBfF/HpsRe8qYYI2SORvHj+qMGZLzjclkiAF+qVLJJOByK+CVnTB6n0wY7OsXXeKcQZDsR0HjLRTvIQryfN03UEhbCPg9eVfcAlXm3ZPVI73EAmS7qsXzw+hA0P9s3HxocBDEsY74A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by DS0PR12MB8416.namprd12.prod.outlook.com (2603:10b6:8:ff::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 13:08:25 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0181.012; Tue, 7 Jul 2026
- 13:08:25 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 07 Jul 2026 22:08:20 +0900
-Message-Id: <DJSD2E482G23.1RNUK6AYNDI3J@nvidia.com>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v5 09/13] gpu: nova-core: move GSP firmware files
- decision to GSP HAL
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Gary Guo"
- <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
- <20260707-nova-bootcontext-v5-9-ecad9346387f@nvidia.com>
- <DJS6AAWKLBF2.1E7FH1HJ3MY2N@nvidia.com>
-In-Reply-To: <DJS6AAWKLBF2.1E7FH1HJ3MY2N@nvidia.com>
-X-ClientProxiedBy: TY6PR01CA0035.jpnprd01.prod.outlook.com
- (2603:1096:405:3bd::7) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from 10.mo534.mail-out.ovh.net (10.mo534.mail-out.ovh.net
+ [46.105.32.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECAF610ECFE
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:12:54 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net
+ (director2.derp.mail-out.ovh.net [79.137.60.36])
+ by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gvhVC6Qf5z6JcK;
+ Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net
+ (director2.derp.mail-out.ovh.net. [127.0.0.1])
+ by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <alexander.deucher@amd.com>; Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
+Received: from mta11.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.231.53])
+ by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4gvhVC55kjz1xyV; Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
+Received: from pixelcluster.dev (unknown [10.1.6.11])
+ (Authenticated sender: nat@pixelcluster.dev)
+ by mta11.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 6586D9A1903;
+ Tue,  7 Jul 2026 13:12:49 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-95G001ad5d9db4-2061-4297-b6e6-0f6bd507a9e5,
+ F51ABC51DEFAB5EDC130C4DD81C4A0C3FBCA9704) smtp.auth=nat@pixelcluster.dev
+X-OVh-ClientIp: 88.133.252.134
+Message-ID: <35e58b52-8b40-424e-8d27-00e0ca34acda@pixelcluster.dev>
+Date: Tue, 7 Jul 2026 15:12:48 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|DS0PR12MB8416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22c5974a-e6b6-4f2a-2eac-08dedc28d46a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|10070799003|1800799024|366016|4143699003|921020|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: /mrO6ABE+09Hj7EOXQCEewEhsJPyemkyQ6NwHVc9CzzF56hMh1zmM00M0CoYrqYztjdO+AM3rMQ6lAbXm+traL5QWGEHKRjgetMBmSq5n+QvT+7V4mzFfQtSBbJPl+SeqAV4U1oQfauhVOEb4+2HLhinqwQg3dB9+I82cDecO94fL+wmyoRfPeS1/LiZJTLOQDcWxgxbjSnFLKHPrBfXi2Cb5+3uowTR7BJIT0G7KagYxBBRzJODSamFuSC5kUUQ/Uj5FxBYg7S9I4aOSm72cnar34OX7uPOZls56T4ayCtigVogJYqwTkLl8YJkBWmJt6KRgoH3ZrX7sOBJMGWTT8JzNBwXGDQhvycZmacKgt78AW/DAPtBJQcUu1UmBkGlQFXqc/omTfhv5ifa9JuLAn5bQypcSdoIhEGRrRvqZTF2pYRLQV8E8QLo0RaqvC+1DmJguGe2mdjGp4OI2dme1Jwxe+c55fDUG1lUZ7K7mD3ldv5iDmwujIhosVckOXb00+NfpESa+HaZPlosz+BKdhKZsvBzfidE++INxn9K1Q/PhguJeiuPX4XCjMT+weWKefRFd3PRcsKTcoXyHfcGpYqVtHVOL2F3xwguz1ahH1bqau/Xrz7DFfc2D17PcgPDxlBmExyRWLG2AXAaygXYxd1eydTdni20j5VOuHWtDDFmYAmOwqowdMZ0bTSJe6imqT2Q9gGHDQ5al3+j+wg9Bw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(10070799003)(1800799024)(366016)(4143699003)(921020)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWFIYUZHcTJRWVpGemtOYXBrMG1DOFRTSlVDMDVGZjI1K1Evd0ZCNXJ6cnlq?=
- =?utf-8?B?Vm9taWVnclV0aUFhTHpZZ3JMZHJ4MTlVRm1tYXVoT1hva0c2cTJYMGtnT3RE?=
- =?utf-8?B?RmtOcVo5QnBkVGk4em0relRyN0RPZDFGd0I2eGVIVVk4MUx2elJNNHBBeUNv?=
- =?utf-8?B?Q0gzUXJiSVU3V2tsZFNxb2wzSVQ3c2w3NEVRR0E2SzdzVXRDWWFrTDJwWS9r?=
- =?utf-8?B?d293VHZrUXVTc21uNTNpRHRraUF6dnRxY1lyMGhSa2Y2cEEzbUtHMVZMTGNQ?=
- =?utf-8?B?enFzZSs3TytqQWVJRkVPNS9wQUJtQ215SXZHczBGckp6U2xDYjhkVTJIdDg1?=
- =?utf-8?B?UithRWtDS2g0ak1FL3piRXh5eC9JQ21najdXV1lhaE1EamlYWE5yWmdORkRE?=
- =?utf-8?B?N2FuUlpZSWtHRmFRTDdYUXYyTWl1N1BIUXdVYlZxZ0NDNndRaURKUEJwOS96?=
- =?utf-8?B?T0xrd2p6SFRod0hKWElNZHg2NUxheVFTMWc5aWdoSlVpdjg0bTVXOUNLYkRr?=
- =?utf-8?B?VUJOR1RZZk14Y2tlR2ZYQitObHE5Z1hpdGRtclE2cEVJTUlWKzZDdTFBalVL?=
- =?utf-8?B?MWVCVEkrWkxSbW8zYldCdXhqdHViMWNzVWhsU2lLQXo1bmtVODF1Z1lkQ0dS?=
- =?utf-8?B?RS9RMGFSVXZHZ0o4UFJyR2h6cVF1bVJNV2lEQ3k1bmdEelZFRUc3eGg3bGFr?=
- =?utf-8?B?dmVDeTJnM2oyWHg1U0lBUTBZNDFCZzNHMjArdWNPMWtzNlphOWJFQ0tXekhE?=
- =?utf-8?B?MkpmR005QWpUSmpyUkZPUUxFVHgzS1kzK05wT2Z1cDZRRk5rUENoL1lDQzY4?=
- =?utf-8?B?eEgyZFdzbmgwbGx0RWFTaHFHcWR1Y3VKdjFGR1N0eTZOaUhZcFFZWm1zMDJq?=
- =?utf-8?B?cTZqSzJud2g2aVhxM1hIaGtTcXlGeHlJbUY2RTNtaG11bUFxdlBJKzhmdlI1?=
- =?utf-8?B?Vzc2T25yMW5QTWd0MjN0UkpKSDZuM3UyRzdpVDdpUzkzaWhhMEhFLzVuM0Jw?=
- =?utf-8?B?UGZoNFozak90NXJIT1l4QjYvamk2ek10UEV2dDFMZnVYcEt5VG9hYlVvTnRZ?=
- =?utf-8?B?UkduUk1rV1VweDVXeEt6NGdkUlJ0dzFPWlNZbTVlc2xOYzI3TlBha3VJTHFr?=
- =?utf-8?B?VFpWRStLTm9NS2k3YUhFTC9BOVV2N1dTak9WMDBrYnBYNW1MUWFqTDlZUHE2?=
- =?utf-8?B?azM0MXJSMlByMlFWcGRnZXhkK0pQaGk2bCt2RFptTnl1RTdtNGVwalU0SWU3?=
- =?utf-8?B?OG12bUp2Tk85bXM5MyttWExhVXpVTUpRWWtZYkwycVFwTzdPbVNCdDd0aWpp?=
- =?utf-8?B?R0dKeTJFSkY3aXVFR1pneENJOHl6S2d1TmFDMFZ1WXJDbjRsd2t3MnhuVkto?=
- =?utf-8?B?SVYrS0VZR3ZaanpzV21rczlkVVZ5KzBsb0xYWjMvSFIyZUhXOWNVbVl3VWRP?=
- =?utf-8?B?dlRZWnA4TzRWTnlMVEMxNTFaSkRuVXlMOEJZRjNiblVMdHo4dUs5Z0hsdUFS?=
- =?utf-8?B?TFF2QXZHdS9wcnpLeW1TZWRrdVZvODVDTU9aNU9aNXBaME1Lcm1IcVFOcEU3?=
- =?utf-8?B?WmJpc2VMdi83QmNucnRCMWx5UEcvdFdMQzg2Rk02Y0hEMzRHeW9uUzVJMXUy?=
- =?utf-8?B?eWQ3NW1xYjNNQ0pVMUxYTFplUTdTZU1yZi85anhKTzdQRHp0WVRMVHNoRTk0?=
- =?utf-8?B?ZkQ2Sml0UGtXZ0dtK1Z1NEVmenNlVVVWcHBEUnMvQXdlZEVtV1BxUXB3TWxo?=
- =?utf-8?B?WTg5QVlSK0dYOUw2VlZqSy83T2J4QzB6REdMVSs0Umx2UmdLam9zUGh0Z1Yy?=
- =?utf-8?B?eXpZRnpmS3BhVC9jbkUxbTF5b1BQeE91aUlBQytzWnBKcTRGMWhwdkdid1li?=
- =?utf-8?B?N3RZNXRNOE1iM2FCUE56SDArTFdkbnhRSm9hQlJFNXRxSThBTDlwSXV1YWRy?=
- =?utf-8?B?SXo2NzFqdERhTjRrOHRNTzlaSWplTm42MEJsZDh3VlBqcGdTd3JMT0R3UlF0?=
- =?utf-8?B?V242ZURZY2lVS3ZDSExPL1FVM2tYSUFkcTBKekJXb09INmdKSllxWitPRVFu?=
- =?utf-8?B?Y1FOK0pVaDMwOE4zcGNXV28zbC9VMForNXB4R0xuUlhVa3VHVE1WaWhOdUJv?=
- =?utf-8?B?QktrT1hBRVZyVWRpekdrZDB6UlZFcVRBSjdPRDAyM25Iak5FMHE1UEl1K0Y3?=
- =?utf-8?B?aFVxejhxaXdFdVZDSXZhYjU4WlRGa1A0RTVMQStNaXoweWxxNmVUVjNZNExX?=
- =?utf-8?B?N1FxLzIzbzN0a25aNHg3aDVEeEpNei9ZZmg3UFhBb0RDTllneW5IVDU2ZnBw?=
- =?utf-8?B?UFlrempPd0d3aFNUc3JkTmYvbHZvY1ZNckNzb1hNT0xYZzBmM3hpSUJOczRw?=
- =?utf-8?Q?bV2iy7mPJ3qup6kpM2/NTJEPm8kM7yzpQlcJWs6eftU0h?=
-X-MS-Exchange-AntiSpam-MessageData-1: hmzFUrcLPFZIiw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22c5974a-e6b6-4f2a-2eac-08dedc28d46a
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 13:08:25.5172 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5iroQYpbW7HhGrxZUoqqyZXsGOclfh91/AgWmJdQiy3Y1haZsRNv8qXIsuWCqqoN24k+Lki9wKvc+QWncHAdKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8416
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
+ flag
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
+ <673ae71a1fc4dcce0e6a1655985a141d6f08c06f.camel@linux.intel.com>
+ <0f85e12e-7d34-40a8-9efc-0d1a00b7c24c@amd.com>
+ <6fac8343dc71b1dbf17e77390cc878cfaeb6d650.camel@linux.intel.com>
+ <9a55ba77-6920-427d-9325-ca0e3b8ee94a@amd.com>
+Content-Language: en-US
+From: Natalie Vock <nat@pixelcluster.dev>
+In-Reply-To: <9a55ba77-6920-427d-9325-ca0e3b8ee94a@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 18109818530335777084
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGpMHMiR+lV9BG0g8y0r2YN9yKo++eDVO5jx4tO5/nQak9qOI47eseKMoIcSZ62nsQ8OdE5PKzsBipKvfIlVx9gsfZynHGCR9kl6L+2Nb4b5DI490aLOJ701YTtbnnrQKXmE/03XMqw1I+PvFIeiCSj8m8PSMaqxqq0ns7qepNXdNHJFR7QlZZWpzV/eVdNy5XnJ+6To7eqXqAgJ+LaLhGak6FrxMlCWiaVc5Ibzr0BEQdeqmaUoCsEcyoacxj4wjWZngaHCgj5goJPa2I8+0KK5GfBxvZ0l6mJdd72hsGkSf3F0b2vQWVQe8d2sRv3iaFqVvfiOdArPni0Q97UD34yuIsL1N2s+vFsKkHGR9/o2EovG25L6inKQn+SXh4jCA+u8njsQqGqornxTSRLdMfo2CsZinW73WZHVWdPuGYcUyUGOwIFFG/QhO+uvwUf2TSVIp9DIWCedg1bydg2sRA432R/m24W0DsPeVijIARYeY7gXQlU2ZcsLA5+ygN3DZ99ziGuc4qwgkAeH5E/xlyWCmI+nGGhDwm1z1oBdr3rEZmjdFLcYXBuTPeLPJGOyxDxc4ZqBWvX+66eljpK8auN4JKwmOY3yc05oyB4QnnmAnQQ+i3jTcIIwB8bYiMP12+b4vuKB8c2Qy1IIg/LXcOPpEchjgISrc4J5oLBZEfGHg
+DKIM-Signature: a=rsa-sha256; bh=wAaSTv7CvzFDUj4WCr27u6J3GWGLHQxhDZYELXFtVPc=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1783429972; v=1;
+ b=dWjazBt6rp8LErXBxgUf0PFTFcyJ9ver2YjnnHcWM/VevIPoip/0kWFxZngk/Mf+817pNbNy
+ g6utW/bEfkfwb3uF2Zwo0KkXV4y/2j1f1rwEyymqWYB+GAwuIecgS6+B685kgZVjRwKDdgFoBtQ
+ 65ErNX+rKEmp/E3Vr2/2o6S3gv6aj6vajBW3Uw9xeww6MiDt72oqqOYa4zRoEVleFlPMsrebtKf
+ h4Hi9D4TppFL/udb8Ws6JopTTNEmT9kwJO0CxcKxf/dZnCVOdrO+rZIjjJoIzTfFRYdQAC5NCIy
+ ZlR6Q0VqCIsvQKdvxcXW2UIteFiel7atxOKzg0PnQpQBQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,21 +94,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jul 7, 2026 at 4:49 PM JST, Alexandre Courbot wrote:
-> On Tue Jul 7, 2026 at 4:21 PM JST, Alexandre Courbot wrote:
->> From: Eliot Courtney <ecourtney@nvidia.com>
+On 7/7/26 14:54, Christian König wrote:
+> On 7/7/26 14:41, Thomas Hellström wrote:
+>> On Tue, 2026-07-07 at 14:28 +0200, Christian König wrote:
+>>> On 7/7/26 14:09, Thomas Hellström wrote:
+>>>> On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
+>>>>> TTM is about to switch to drm_exec for locking objects
+>>>>> in the LRU list. When we're done processing the object, we want
+>>>>> to
+>>>>> unlock it only if the caller doesn't already hold that lock. If
+>>>>> DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which
+>>>>> callers
+>>>>> may
+>>>>> require for unrelated reasons), we have no way of knowing whether
+>>>>> the
+>>>>> lock is already held.
+>>>>>
+>>>>> To remedy this, add a separate helper that forcefully bypasses
+>>>>> the
+>>>>> IGNORE_DUPLICATES flag for only a single locking operation.
+>>>>>
+>>>>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+>>>>
+>>>> The first, more complete attempt to try to tackle the exhaustive
+>>>> eviction introduced a drm_exec snapshot ability instead.
+>>>>
+>>>> https://lists.freedesktop.org/archives/intel-xe/2024-May/035820.html
+>>>>
+>>>> The idea was that one would want to incrementally lock more buffer
+>>>> objects until the validation succeeded, rather than dropping each
+>>>> single lock after processing the eviction. That's actually what
+>>>> guarantees forward progress. Restoring the snapshot unlocked all
+>>>> locks
+>>>> that we grabbed in the process, and would work also for single
+>>>> locks.
+>>>
+>>> That's actually not what this patch here tries to solve.
+>>>
+>>> The problem is rather since we don't remove the BOs from the LRU list
+>>> that we try to evict some which are actually part of our working set.
+>>>
+>>> So when we lock for eviction we can't ignore duplicates no matter
+>>> what the global flag says.
 >>
->> The files to give the `ModInfoBuilder` depend on the chipset; this is
->> HAL information, so move it there. Doing so lets us remove the
->> `uses_fsp` and `needs_fwsec_bootloader` ad-hoc methods of `Chipset`.
+>> Ah yes, I see that now when I've gotten to patch 9. But then I think
+>> the commit message is a bit misleading. It talks about unlocking an
+>> already processed object?
+> 
+> Oh, good point! Yeah the problem isn't the unlocking but that we evict an object from the working set.
+> 
+> The commit message clearly needs to be fixed.
+
+The problem is actually both. Evicting an object from the working set 
+definitely is potentially unsafe, but I considered that a minor thing. 
+Unlocking the already processed objects is a much, much bigger problem IMO.
+
+The worst breakage is for AMDGPU's per-VM buffers whose resv is just the 
+VM's own reservation object: If we encounter another per-VM buffer from 
+our own VM on the LRU, we may or may not decide to evict it, but in any 
+case we leave the VM completely unlocked for the remainder of the 
+submission, including in pagetable updates and all that, which more or 
+less completely smashes the state of the entire VM if multiple PT update 
+operations end up racing with each other.
+
+This was the breakage I observed myself, so that's what I described in 
+the commit message. In any case, I can also change the commit message to 
+primarily point at self-eviction and/or expand my explanation on why 
+unlocking causes issues.
+
+Best,
+Natalie
+
+> 
+> Christian.
+> 
 >>
->> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->
-> Eliot, I put you as the author of this patch since it is basically the
-> diff you gave with very minor changes. If it looks ok to you, can you
-> give your Signed-off-by?
-
-Yes, lgtm. I guess I just paste this?:
-
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> Thanks,
+>> Thomas
+>>
+>>
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>> Thanks,
+>>>> Thomas
+>>>>
+>>>>
+>>>>> ---
+>>>>>   drivers/gpu/drm/drm_exec.c | 52
+>>>>> ++++++++++++++++++++++++++++++++++--
+>>>>> ----------
+>>>>>   include/drm/drm_exec.h     |  2 ++
+>>>>>   2 files changed, 41 insertions(+), 13 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/drm_exec.c
+>>>>> b/drivers/gpu/drm/drm_exec.c
+>>>>> index 7988f5e7d56a3..91de6b4d29df8 100644
+>>>>> --- a/drivers/gpu/drm/drm_exec.c
+>>>>> +++ b/drivers/gpu/drm/drm_exec.c
+>>>>> @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct
+>>>>> drm_exec *exec)
+>>>>>   	return ret;
+>>>>>   }
+>>>>>   
+>>>>> -/**
+>>>>> - * drm_exec_lock_obj - lock a GEM object for use
+>>>>> - * @exec: the drm_exec object with the state
+>>>>> - * @obj: the GEM object to lock
+>>>>> - *
+>>>>> - * Lock a GEM object for use and grab a reference to it.
+>>>>> - *
+>>>>> - * Returns: -EDEADLK if a contention is detected, -EALREADY when
+>>>>> object is
+>>>>> - * already locked (can be suppressed by setting the
+>>>>> DRM_EXEC_IGNORE_DUPLICATES
+>>>>> - * flag), -ENOMEM when memory allocation failed and zero for
+>>>>> success.
+>>>>> - */
+>>>>> -int drm_exec_lock_obj(struct drm_exec *exec, struct
+>>>>> drm_gem_object
+>>>>> *obj)
+>>>>> +static int __drm_exec_lock_obj(struct drm_exec *exec,
+>>>>> +			       struct drm_gem_object *obj,
+>>>>> +			       bool always_report_duplicates)
+>>>>>   {
+>>>>>   	int ret;
+>>>>>   
+>>>>> @@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec,
+>>>>> struct drm_gem_object *obj)
+>>>>>   		return -EDEADLK;
+>>>>>   	}
+>>>>>   
+>>>>> -	if (unlikely(ret == -EALREADY) &&
+>>>>> +	if (unlikely(ret == -EALREADY) &&
+>>>>> !always_report_duplicates
+>>>>> &&
+>>>>>   	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
+>>>>>   		return 0;
+>>>>>   
+>>>>> @@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec,
+>>>>> struct drm_gem_object *obj)
+>>>>>   	dma_resv_unlock(obj->resv);
+>>>>>   	return ret;
+>>>>>   }
+>>>>> +
+>>>>> +/**
+>>>>> + * drm_exec_lock_obj - lock a GEM object for use
+>>>>> + * @exec: the drm_exec object with the state
+>>>>> + * @obj: the GEM object to lock
+>>>>> + *
+>>>>> + * Lock a GEM object for use and grab a reference to it.
+>>>>> + *
+>>>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
+>>>>> object is
+>>>>> + * already locked (can be suppressed by setting the
+>>>>> DRM_EXEC_IGNORE_DUPLICATES
+>>>>> + * flag), -ENOMEM when memory allocation failed and zero for
+>>>>> success.
+>>>>> + */
+>>>>> +int drm_exec_lock_obj(struct drm_exec *exec, struct
+>>>>> drm_gem_object
+>>>>> *obj)
+>>>>> +{
+>>>>> +	return __drm_exec_lock_obj(exec, obj, false);
+>>>>> +}
+>>>>>   EXPORT_SYMBOL(drm_exec_lock_obj);
+>>>>>   
+>>>>> +/**
+>>>>> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but
+>>>>> always report duplicates
+>>>>> + * @exec: the drm_exec object with the state
+>>>>> + * @obj: the GEM object to lock
+>>>>> + *
+>>>>> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a
+>>>>> reference to it.
+>>>>> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is
+>>>>> ignored
+>>>>> and duplicates are
+>>>>> + * always reported.
+>>>>> + *
+>>>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
+>>>>> object is
+>>>>> + * already locked, -ENOMEM when memory allocation failed and
+>>>>> zero
+>>>>> for success.
+>>>>> + */
+>>>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
+>>>>> +				 struct drm_gem_object *obj)
+>>>>> +{
+>>>>> +	return __drm_exec_lock_obj(exec, obj, false);
+>>>>> +}
+>>>>> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
+>>>>> +
+>>>>>   /**
+>>>>>    * drm_exec_unlock_obj - unlock a GEM object in this exec
+>>>>> context
+>>>>>    * @exec: the drm_exec object with the state
+>>>>> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+>>>>> index 8725ba92ff916..ff80dd2b72240 100644
+>>>>> --- a/include/drm/drm_exec.h
+>>>>> +++ b/include/drm/drm_exec.h
+>>>>> @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32
+>>>>> flags, unsigned nr);
+>>>>>   void drm_exec_fini(struct drm_exec *exec);
+>>>>>   bool drm_exec_cleanup(struct drm_exec *exec);
+>>>>>   int drm_exec_lock_obj(struct drm_exec *exec, struct
+>>>>> drm_gem_object
+>>>>> *obj);
+>>>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
+>>>>> +				 struct drm_gem_object *obj);
+>>>>>   void drm_exec_unlock_obj(struct drm_exec *exec, struct
+>>>>> drm_gem_object *obj);
+>>>>>   int drm_exec_prepare_obj(struct drm_exec *exec, struct
+>>>>> drm_gem_object *obj,
+>>>>>   			 unsigned int num_fences);
+> 
 
