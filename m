@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 683D8C44500
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CFFC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 710BC10EB8D;
-	Tue,  7 Jul 2026 07:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE89E10EB87;
+	Tue,  7 Jul 2026 07:33:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g+zbBGTT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eRpw9U/n";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C17810EB83
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA77B10EB87
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 06A2243708;
- Tue,  7 Jul 2026 07:33:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3385C1F000E9;
- Tue,  7 Jul 2026 07:33:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D42054351C;
+ Tue,  7 Jul 2026 07:33:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5A61F000E9;
+ Tue,  7 Jul 2026 07:33:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409606;
- bh=e6Jbl1Vo8f1gX12WmdWjiWdA1RECbGg5xPTlizkg5mQ=;
+ s=k20260515; t=1783409614;
+ bh=6raXW6tTfXqLQeqQS8TRI54npNDxeghgUG26veqYNbM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g+zbBGTTjxocbtufwqBHJnSNyT2m0p6hjTyOdAVbuRQljZebs3XQIrGo4I7kj7oT0
- JlDjRnCd3RtgtfjfyqMD0CV5VwJin4EPGPxqzwqvml6+huXgi4jpGZAhB0SAG6bTog
- yqEwTnoGw0vzdBPnI2hbRr18800+jXBNec3YDMD7uu4AcAxdA6piphwQCWc9xTU9J3
- 8fpiSSdjlfBHdQVCf/gLzwjW8e9f2hao6fCVslAiKo+WRdsOZNLuGVHOhd76x/LbZS
- FN8AJ+j0KC8Yu7VsSp+L/H11hLaw6w+ueclWMEENmtYl29wE1B3GBJnmS92dcm4QHo
- JI8uLDGWyC3fg==
+ b=eRpw9U/nhJusw4HUKV66OsxwuiaoEbrC1gdaz2HQVDmAeHntR1C8/dtXwR7W00YC6
+ 8/f2CqEFY2z2Iy+B5u8Sp+A8Wm4Hx3C3nBJ3s1LzdYuCbTnF6CXveNbMzOpZyYdU6g
+ CduLSoEzfK7yvr+8vp6QsxJvySO5XPbefS+zL/URxbd6Sig5EqmELXynrxvALXedpB
+ 301qVULhA5K8ZR+KkQy3oopB/1j1L8FIZH5IX4rMHvpnjrwnVAZ/LjnUEGoE0X6fJE
+ d4YYiY1h6d248F1jsSLin0brAdCKayH/WorZ9w8nDMvAAS0BJuix9WJYfV/526wCeo
+ y7W2okuJDQF1g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 11/40] dept: apply sdt_might_sleep_{start,end}() to
- swait
+Subject: Re: [PATCH v19 07/40] dept: distinguish each work from another
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: linux-rt-devel@lists.linux.dev, dlemoal@kernel.org,
- "Chuck Lever" <cel@kernel.org>, linux-kernel@vger.kernel.org,
- linux-ide@vger.kernel.org, ojeda@kernel.org, tytso@mit.edu,
- dri-devel@lists.freedesktop.org, cassel@kernel.org,
- linux-modules@vger.kernel.org, "Jeff
- Layton" <jlayton@kernel.org>, "Anna Schumaker" <anna@kernel.org>
-In-Reply-To: <20260706061928.66713-12-byungchul@sk.com>
+Cc: linux-rt-devel@lists.linux.dev, cassel@kernel.org,
+ linux-ide@vger.kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org, "Anna
+ Schumaker" <anna@kernel.org>, linux-modules@vger.kernel.org,
+ "Chuck Lever" <cel@kernel.org>, ojeda@kernel.org, dlemoal@kernel.org,
+ dri-devel@lists.freedesktop.org, "Jeff Layton" <jlayton@kernel.org>
+In-Reply-To: <20260706061928.66713-8-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-12-byungchul@sk.com>
+ <20260706061928.66713-8-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:25 +0000
-Message-Id: <20260707073326.3385C1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:33 +0000
+Message-Id: <20260707073334.0E5A61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,61 +63,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `___swait_event`, `___wait_event`, and `___wait_var_event` mac=
-ros skip the `sdt_might_sleep_end()` cleanup call when returning early due =
-to a pending signal, leading to persistent DEPT state corruption that perma=
-nently disables dependency tracking for the affected task.
+- [Medium] `dept_update_cxt()` hardcodes the process context ID, failing to=
+ track bottom-half (BH) work items in softirq context and corrupting the co=
+ntext of preempted tasks.
 --
 
-commit 7785a2fe54ced42e856f39ece5776f11bca47be8
+commit b8dda7d95e5377770d28c6712cf8fe7fafa98ade
 Author: Byungchul Park <byungchul@sk.com>
 
-dept: apply sdt_might_sleep_{start,end}() to swait
+dept: distinguish each work from another
 
-Make dept able to track dependencies by swaits.
+This commit updates DEPT to assign a different context ID to each work item.
+Since workqueues provide their own concurrency control, wait operations in a
+work item do not prevent events in other works from executing.
 
-> diff --git a/include/linux/swait.h b/include/linux/swait.h
-> index d324419482a0f..277ac74f61c39 100644
-> --- a/include/linux/swait.h
-> +++ b/include/linux/swait.h
+> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+> index c6ea96d5b7167..4a4075d0697c7 100644
+> --- a/kernel/workqueue.c
+> +++ b/kernel/workqueue.c
 [ ... ]
-> @@ -161,6 +162,7 @@ extern void finish_swait(struct swait_queue_head *q, =
-struct swait_queue *wait);
->  	struct swait_queue __wait;					\
->  	long __ret =3D ret;						\
->  									\
-> +	sdt_might_sleep_start(NULL);					\
->  	INIT_LIST_HEAD(&__wait.task_list);				\
->  	for (;;) {							\
->  		long __int =3D prepare_to_swait_event(&wq, &__wait, state);\
-> @@ -176,6 +178,7 @@ extern void finish_swait(struct swait_queue_head *q, =
-struct swait_queue *wait);
->  		cmd;							\
->  	}								\
->  	finish_swait(&wq, &__wait);					\
-> +	sdt_might_sleep_end();						\
->  __out:	__ret;								\
->  })
+> @@ -3204,6 +3205,8 @@ __acquires(&pool->lock)
+> =20
+>  	lockdep_copy_map(&lockdep_map, &work->lockdep_map);
+>  #endif
+> +	dept_update_cxt();
+> +
 
-[Severity: High]
-Does this code bypass the sdt_might_sleep_end() cleanup when returning early
-due to a pending signal?
+[Severity: Medium]
+Will this unconditionally modify the process context ID, even when tracking
+bottom-half (BH) work items running in softirq context?
 
-Looking at ___swait_event(), if a task waiting interruptibly receives a
-signal, prepare_to_swait_event() returns a non-zero error code.=20
+When a BH workqueue executes multiple work items in a single softirq batch,
+process_one_work() executes them and calls dept_update_cxt(). However,
+dept_update_cxt() is implemented as:
 
-The wait loop evaluates ___wait_is_interruptible(state) && __int as true and
-executes a goto __out; which jumps completely over this new cleanup call.
+kernel/dependency/dept.c:dept_update_cxt() {
+    struct dept_task *dt =3D dept_task();
+    dt->cxt_id[DEPT_CXT_PROCESS] +=3D 1UL << DEPT_CXTS_NR;
+}
 
-If sdt_might_sleep_end() is skipped, does the task's dependency staging map
-remain persistently populated, effectively causing subsequent calls to
-dept_stage_wait() to silently exit early and disable DEPT tracking for that
-task?
+This hardcodes the increment to DEPT_CXT_PROCESS rather than checking
+cur_cxt() to increment DEPT_CXT_SIRQ. Does this cause DEPT to fail in
+distinguishing sequential BH work items and falsely report dependencies?
 
-It looks like this identical sequence might also occur in the generic
-waitqueue macros (___wait_event in include/linux/wait.h) and the hashed
-waitqueue macros (___wait_var_event in include/linux/wait_bit.h).
+Also, can this corrupt the continuous dependency tracking context of
+whatever task was preempted by the softirq?
+
+>  	/* ensure we're on the correct CPU */
+>  	WARN_ON_ONCE(!(pool->flags & POOL_DISASSOCIATED) &&
+>  		     raw_smp_processor_id() !=3D pool->cpu);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D11
+3-1-byungchul@sk.com?part=3D7
