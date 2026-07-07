@@ -4,49 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8600CC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 11:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D00C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 11:56:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8EE410E486;
-	Tue,  7 Jul 2026 11:54:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFBB110EC6B;
+	Tue,  7 Jul 2026 11:56:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="v3TUoo/T";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QkUazNn2";
 	dkim-atps=neutral
-X-Greylist: delayed 383 seconds by postgrey-1.36 at gabe;
- Tue, 07 Jul 2026 11:54:48 UTC
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
- [91.218.175.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACA2310E486
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 11:54:48 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1783424903;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=QJNxgS2ZMVArdUnfPnNqeviasCuf+pC7uN+iH0jQFCU=;
- b=v3TUoo/TQLW2cE6ULzb6xWGMtCKdRBby5qbMGdRVAvkB4FCTz6Xmc8LAdoW2Tdkrw3rkWU
- jLF5aYkfQSSGQv9QWDvEuxDm1NB2Bew5wgz258rSm7WzvXI+RxEKqXNDs4e5vitwJbRf3s
- wSwxmcbXdpiUUu+s6mhr5myN/S+sEJQ=
-From: Marco Pagani <marco.pagani@linux.dev>
-To: Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Marco Pagani <marco.pagani@linux.dev>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/sched/tests: Let the DRM scheduler manage job
- lifetimes
-Date: Tue,  7 Jul 2026 13:48:06 +0200
-Message-ID: <20260707114807.154572-1-marco.pagani@linux.dev>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA7610EC6B
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 11:56:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783425383;
+ bh=5La47mugR86zNwVAYVmIlynmty3b35suIyPgIrKNa6Y=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=QkUazNn2ulg5g0wRD75nGqhs3FODngy61+asFxo9b5oAqQLyrCpdMUt5imj3yszwe
+ U6G+nKWXawpzRFongj99CeFI1GHvp4VuoOhqpNAxgcp08p7RY69xOXCu4Qf3iiT369
+ HLJOAuArQy/SdwO50/+G2tJo/j5eWXT2q+P0KZracXexDmCDX9RJ71wYJ90B+4qzlH
+ 6SBIzevm+25I9yup2XMoL0LIp6Dl33BXPTnDnM3hLC5TNA8RZphTGZBWvlF0GgMNlV
+ 3DjP7I1b2EG2NXRaRPqMppMAnHUceu9JjIzboa+chN2nigEM+OX9BzkYXWR/wKdWu2
+ Z8Qsis+ohYePQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 101AA17E013E;
+ Tue, 07 Jul 2026 13:56:22 +0200 (CEST)
+Message-ID: <16980e9f-c183-41c4-8001-ac7807cc087b@collabora.com>
+Date: Tue, 7 Jul 2026 13:56:21 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/42] drm/mediatek: Use hashtable for components
+ discovery and registration
+To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+Cc: "robh@kernel.org" <robh@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+ <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
+References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
+ <20260701122057.19648-7-angelogioacchino.delregno@collabora.com>
+ <79f44c827c78fd823300509c22058f2b6f3600b6.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <79f44c827c78fd823300509c22058f2b6f3600b6.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,205 +81,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, the mock scheduler uses KUnit-managed memory for jobs. This ties
-the job's memory lifetime to the test suite rather than the DRM scheduler's
-callbacks. This does not represent real driver behavior and can lead to
-potential Use-After-Free bugs in the tests.
+On 7/6/26 09:02, CK Hu (胡俊光) wrote:
+> On Wed, 2026-07-01 at 14:20 +0200, AngeloGioacchino Del Regno wrote:
+>> As a preparation for refactoring the concept of hardware component
+>> identification, search, and final usage, remove the ddp_comp array
+>> of components and replace it with a hashtable, indexed by ID.
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   drivers/gpu/drm/mediatek/mtk_crtc.c     | 44 ++++++++++++++++-------
+>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 48 ++++++++++++++++++-------
+>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.h | 23 +++++++++++-
+>>   drivers/gpu/drm/mediatek/mtk_drm_drv.c  |  7 ++--
+>>   drivers/gpu/drm/mediatek/mtk_drm_drv.h  |  2 +-
+>>   5 files changed, 94 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
+>> index f39f197057a7..3f4d6ab1bfc2 100644
+>> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+>> @@ -725,8 +725,12 @@ static void mtk_crtc_update_output(struct drm_crtc *crtc,
+>>   		crtc_state->connectors_changed, encoder_mask, crtc_index);
+>>   
+>>   	for (i = 0; i < mtk_crtc->num_conn_routes; i++) {
+>> -		unsigned int comp_id = mtk_crtc->conn_routes[i].route_ddp;
+>> -		struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
+>> +		const struct mtk_drm_route *conn_route = &mtk_crtc->conn_routes[i];
+>> +		struct mtk_ddp_comp *comp;
+>> +
+>> +		comp = mtk_ddp_comp_find_by_id(&priv->hlist, conn_route->route_ddp);
+> 
+> I don't know why you invent conn_route? Keep comp_id use it here looks the same.
+> 
 
-Update the mock scheduler to let the lifetime of jobs be managed by the DRM
-scheduler's asynchronous callbacks instead of KUnit managed memory. Add a
-kref reference counter to track the job's lifetime between test suites and
-the scheduler.
+I'm not inventing conn_route, that's something that was already there as a dynamic
+replacement of the last component in a stack of possible outputs for a single
+full-fledged display pipeline.
 
-Finally, to avoid memory leaks in the event of an early test abortion,
-register a cleanup KUnit action that automatically puts the reference to
-the job.
+The change here is about changing the search/retrieval of a `route_ddp` from a
+number that comes from an enumeration, to a full component structure instead....
 
-Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
----
- .../gpu/drm/scheduler/tests/mock_scheduler.c  | 68 ++++++++++++++-----
- drivers/gpu/drm/scheduler/tests/sched_tests.h |  6 ++
- 2 files changed, 57 insertions(+), 17 deletions(-)
+>> +		if (!comp)
+>> +			continue;
+> 
+> In original code, it never check comp is null or not.
+> I think it base on an assumption that it would not be null.
+> If it's null here, print error message and it's not necessary to do the rest thing.
+> 
 
-diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-index 14403a762335..51f81082f37a 100644
---- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-@@ -96,6 +96,14 @@ drm_mock_sched_job_signal_timer(struct hrtimer *hrtimer)
- 	return HRTIMER_NORESTART;
- }
- 
-+static void drm_mock_sched_job_cleanup_action(void *ptr)
-+{
-+	struct drm_mock_sched_job *job = ptr;
-+
-+	job->test = NULL;
-+	drm_mock_sched_job_put(job);
-+}
-+
- /**
-  * drm_mock_sched_job_new - Create a new mock scheduler job
-  *
-@@ -111,23 +119,34 @@ drm_mock_sched_job_new(struct kunit *test,
- 	struct drm_mock_sched_job *job;
- 	int ret;
- 
--	job = kunit_kzalloc(test, sizeof(*job), GFP_KERNEL);
-+	/* Let the DRM Scheduler manage the lifetime of the job */
-+	job = kzalloc_obj(*job, GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, job);
- 
-+	kref_init(&job->refcount);
-+	job->test = test;
-+
- 	ret = drm_sched_job_init(&job->base,
- 				 &entity->base,
- 				 1,
- 				 NULL,
- 				 1);
--	KUNIT_ASSERT_EQ(test, ret, 0);
--
--	job->test = test;
-+	if (ret) {
-+		kfree(job);
-+		KUNIT_ASSERT_EQ_MSG(test, ret, 0, "drm_sched_job_init failed");
-+	}
- 
- 	init_completion(&job->done);
- 	INIT_LIST_HEAD(&job->link);
- 	hrtimer_setup(&job->timer, drm_mock_sched_job_signal_timer,
- 		      CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
- 
-+	ret = kunit_add_action(test, drm_mock_sched_job_cleanup_action, job);
-+	if (ret) {
-+		drm_mock_sched_job_put(job);
-+		KUNIT_ASSERT_EQ_MSG(test, ret, 0, "kunit_add_action failed");
-+	}
-+
- 	return job;
- }
- 
-@@ -152,7 +171,7 @@ static void drm_mock_sched_hw_fence_release(struct dma_fence *fence)
- 
- 	hrtimer_cancel(&job->timer);
- 
--	/* Containing job is freed by the kunit framework */
-+	drm_mock_sched_job_put(job);
- }
- 
- static const struct dma_fence_ops drm_mock_sched_hw_fence_ops = {
-@@ -173,6 +192,8 @@ static struct dma_fence *mock_sched_run_job(struct drm_sched_job *sched_job)
- 		       sched->hw_timeline.context,
- 		       atomic_inc_return(&sched->hw_timeline.next_seqno));
- 
-+	kref_get(&job->refcount);
-+
- 	dma_fence_get(&job->hw_fence); /* Reference for the job_list */
- 
- 	spin_lock_irq(&sched->lock);
-@@ -200,6 +221,17 @@ static struct dma_fence *mock_sched_run_job(struct drm_sched_job *sched_job)
- 	return &job->hw_fence;
- }
- 
-+static void mock_sched_free_job(struct drm_sched_job *sched_job)
-+{
-+	struct drm_mock_sched_job *job = drm_sched_job_to_mock_job(sched_job);
-+
-+	/* Only if the fence has been successfully initialized */
-+	if (job->hw_fence.ops)
-+		dma_fence_put(&job->hw_fence);
-+
-+	drm_mock_sched_job_put(job);
-+}
-+
- /*
-  * Normally, drivers would take appropriate measures in this callback, such as
-  * killing the entity the faulty job is associated with, resetting the hardware
-@@ -232,21 +264,26 @@ mock_sched_timedout_job(struct drm_sched_job *sched_job)
- 	}
- 	spin_unlock_irqrestore(&sched->lock, flags);
- 
--	dma_fence_put(&job->hw_fence);
--	drm_sched_job_cleanup(sched_job);
--	/* Mock job itself is freed by the kunit framework. */
-+	mock_sched_free_job(sched_job);
- 
- 	return DRM_GPU_SCHED_STAT_RESET;
- }
- 
--static void mock_sched_free_job(struct drm_sched_job *sched_job)
-+static void drm_mock_sched_job_release(struct kref *ref)
- {
--	struct drm_mock_sched_job *job = drm_sched_job_to_mock_job(sched_job);
-+	struct drm_mock_sched_job *job;
-+
-+	job = container_of(ref, struct drm_mock_sched_job, refcount);
- 
--	dma_fence_put(&job->hw_fence);
--	drm_sched_job_cleanup(sched_job);
-+	drm_sched_job_cleanup(&job->base);
- 
--	/* Mock job itself is freed by the kunit framework. */
-+	kfree(job);
-+}
-+
-+void drm_mock_sched_job_put(struct drm_mock_sched_job *job)
-+{
-+	if (job)
-+		kref_put(&job->refcount, drm_mock_sched_job_release);
- }
- 
- static void mock_sched_cancel_job(struct drm_sched_job *sched_job)
-@@ -265,10 +302,7 @@ static void mock_sched_cancel_job(struct drm_sched_job *sched_job)
- 	}
- 	spin_unlock_irqrestore(&sched->lock, flags);
- 
--	/*
--	 * The GPU Scheduler will call drm_sched_backend_ops.free_job(), still.
--	 * Mock job itself is freed by the kunit framework.
--	 */
-+	/* The GPU Scheduler will call drm_sched_backend_ops.free_job() */
- }
- 
- static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
-diff --git a/drivers/gpu/drm/scheduler/tests/sched_tests.h b/drivers/gpu/drm/scheduler/tests/sched_tests.h
-index 553d45abd057..e4d33f0bf935 100644
---- a/drivers/gpu/drm/scheduler/tests/sched_tests.h
-+++ b/drivers/gpu/drm/scheduler/tests/sched_tests.h
-@@ -13,6 +13,7 @@
- #include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/types.h>
-+#include <linux/kref.h>
- 
- #include <drm/gpu_scheduler.h>
- 
-@@ -90,6 +91,7 @@ struct drm_mock_sched_entity {
-  */
- struct drm_mock_sched_job {
- 	struct drm_sched_job	base;
-+	struct kref		refcount;
- 
- 	struct completion	done;
- 
-@@ -144,6 +146,8 @@ struct drm_mock_sched_job *
- drm_mock_sched_job_new(struct kunit *test,
- 		       struct drm_mock_sched_entity *entity);
- 
-+void drm_mock_sched_job_put(struct drm_mock_sched_job *job);
-+
- /**
-  * drm_mock_sched_job_submit - Arm and submit a job in one go
-  *
-@@ -151,6 +155,8 @@ drm_mock_sched_job_new(struct kunit *test,
-  */
- static inline void drm_mock_sched_job_submit(struct drm_mock_sched_job *job)
- {
-+	kref_get(&job->refcount);
-+
- 	drm_sched_job_arm(&job->base);
- 	drm_sched_entity_push_job(&job->base);
- }
--- 
-2.55.0
+.... and the component structure, with the new code, has to be *initialized*: this
+is because we cannot assume that a component that was not registered will actually
+be registered later (which was a broken behavior of mediatek-drm!).
 
+
+
+----> IMPORTANT PART: <-----
+Note that, at this point, "comp" is *not* pointing to a *statically* initialized
+array of components, but to a *dynamically* initialized one: while before this the
+comp pointer was guaranteed to be *always* a valid pointer to a comp structure, now
+it is *not guaranteed anymore*, because again - it's *dynamically* allocated, so
+we NEED to check for comp != NULL, or we're exposing ourselves to a possible NULL
+pointer kernel panic (or worse)!
+
+
+
+If the component is not initialized at this point, it simply means that it cannot
+be - in any way - used by mediatek-drm, so.. if !comp -> continue means effectively
+"if the component is not registered, we cannot use it, hence don't try to evaluate
+the possibility of using it".
+
+Is it clear now?
+
+>>   
+>>   		if (comp->encoder_index >= 0 &&
+>>   		    (encoder_mask & BIT(comp->encoder_index))) {
+>> @@ -1028,10 +1032,11 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
+>>   {
+>>   	struct mtk_drm_private *priv = drm_dev->dev_private;
+>>   	struct device *dev = drm_dev->dev;
+>> +	struct mtk_ddp_comp *dma_comp;
+>>   	struct mtk_crtc *mtk_crtc;
+>>   	unsigned int num_comp_planes = 0;
+>>   	int ret;
+>> -	int i;
+>> +	int i, j;
+>>   	bool has_ctm = false;
+>>   	uint gamma_lut_size = 0;
+>>   	struct drm_crtc *tmp;
+>> @@ -1051,7 +1056,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
+>>   		struct mtk_ddp_comp *comp;
+>>   
+>>   		node = priv->comp_node[comp_id];
+>> -		comp = &priv->ddp_comp[comp_id];
+>> +		comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
+>>   
+>>   		/* Not all drm components have a DTS device node, such as ovl_adaptor,
+>>   		 * which is the drm bring up sub driver
+>> @@ -1063,7 +1068,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
+>>   			return 0;
+>>   		}
+>>   
+>> -		if (!comp->dev) {
+>> +		if (!comp || !comp->dev) {
+>>   			dev_err(dev, "Component %pOF not initialized\n", node);
+> 
+> I think you should print other error message and return other value for !comp.
+> 
+
+In mtk_crtc_create, at this point, the component (which always has a node, pointed
+by node = priv->comp_node[comp_id]) has to be initialized by mtk_ddp_comp.
+
+Keeping in mind that the component is actually a device, if the component itself
+was not initialized at this point, this means that there is NO DEVice associated
+with it.
+
+This is why -ENODEV.
+
+Also, we're printing %pOF (like before) because this gives hints about precisely
+which one was not registered at this point.
+
+>>   			return -ENODEV;
+>>   		}
+>> @@ -1089,12 +1094,17 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
+>>   		return ret;
+>>   	}
+>>   
+>> -	for (i = 0; i < mtk_crtc->ddp_comp_nr; i++) {
+>> +	for (i = 0, j = 0; i < mtk_crtc->ddp_comp_nr; i++, j++) {
+>>   		unsigned int comp_id = path[i];
+>>   		struct mtk_ddp_comp *comp;
+>>   
+>> -		comp = &priv->ddp_comp[comp_id];
+>> -		mtk_crtc->ddp_comp[i] = comp;
+>> +		comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
+>> +		if (!comp) {
+> 
+> In original code, it never check comp is null or not.
+> I think it base on an assumption that it would not be null.
+> If it's null here, print error message and it's not necessary to do the rest thing.
+> 
+
+The iterator here tries to still setup a display pipeline in case a component is
+missing, and this actually works in a couple of corner cases, which were not
+possible before the restructuring of mediatek-drm.
+
+In later commits, this case will be handled differently: the problem here is rather
+that the code readability is not the best at this point in time (of the series),
+but this will make a lot more sense when going forward in this exact series.
+
+The main issue here is that mediatek-drm's complexity is very, very high, and the
+maintainability suffers a lot: doing each and every change as a perfectly clean
+(and perfectly readable) diff means adding another ~4k thousand lines of changes
+that are simply addition and removal of the same lines over and over again.
+
+>> +			j--;
+>> +			dev_dbg(dev, "Cannot find component %d.\n", comp_id);
+>> +			continue;
+>> +		}
+>> +		mtk_crtc->ddp_comp[j] = comp;
+>>   
+>>   		if (comp->funcs) {
+>>   			if (comp->funcs->gamma_set && comp->funcs->gamma_get_lut_size) {
+>> @@ -1131,7 +1141,14 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
+>>   	 * In the case of ovl_adaptor sub driver, it needs to use the
+>>   	 * dma_dev_get function to get representative dma dev.
+>>   	 */
+>> -	mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(&priv->ddp_comp[path[0]]);
+>> +	dma_comp = mtk_ddp_comp_find_by_id(&priv->hlist, path[0]);
+>> +	if (dma_comp == NULL) {
+> 
+> if (!dma_comp) is more simple.
+> 
+
+Yeah, I agree. If you're really worried about seeing this instead of !dma_comp I
+can change it here... but if you can ignore that, in later commits this will be
+removed and completely changed so that it becomes
+
+	ret = mtk_crtc_find_suitable_dma_dev(mtk_crtc);
+	if (ret) {
+		dev_err(dev, "Could not find appropriate DMA device!\n");
+		return -EINVAL;
+	}
+	dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
+
+Note that if I change this simple line here, I'll have to fix other patches as
+they won't apply anymore because of the changed line... so again, if we could
+ignore that it would be great...
+
+>> +		dev_err(dev, "Could not find appropriate DMA device!\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(dma_comp);
+>> +	dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
+>>   
+>>   	ret = mtk_crtc_init(drm_dev, mtk_crtc, crtc_i);
+>>   	if (ret < 0)
+>> @@ -1188,17 +1205,18 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
+>>   		for (i = 0; i < num_conn_routes; i++) {
+>>   			unsigned int comp_id = conn_routes[i].route_ddp;
+>>   			struct device_node *node = priv->comp_node[comp_id];
+>> -			struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
+>> +			struct mtk_ddp_comp *comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
+>>   
+>> -			if (!comp->dev) {
+>> +			if (!comp || !comp->dev) {
+> 
+> In original code, it never check comp is null or not.
+> I think it base on an assumption that it would not be null.
+> If it's null here, print error message and it's not necessary to do the rest thing.
+> 
+
+Already explained why we need comp to be checked for NULL.
+
+>>   				dev_dbg(dev, "comp_id:%d, Component %pOF not initialized\n",
+>>   					comp_id, node);
+>>   				/* mark encoder_index to -1, if route comp device is not enabled */
+>> -				comp->encoder_index = -1;
+>> +				if (comp)
+>> +					comp->encoder_index = -1;
+>>   				continue;
+>>   			}
+>>   
+>> -			mtk_ddp_comp_encoder_index_set(&priv->ddp_comp[comp_id]);
+>> +			mtk_ddp_comp_encoder_index_set(comp);
+>>   
+>>
+> 
+> [snip]
+> 
+>> 		}
+>>   @@ -1116,8 +1118,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+>>   							    PLATFORM_DEVID_AUTO,
+>>   							    (void *)private->mmsys_dev,
+>>   							    sizeof(*private->mmsys_dev));
+>> -		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev = &ovl_adaptor->dev;
+>> -		mtk_ddp_comp_init(dev, NULL, &private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR],
+>> +		mtk_ddp_comp_init(&ovl_adaptor->dev, NULL, &private->hlist,
+> 
+> mtk_ddp_comp_init(dev, NULL, &private->hlist,
+> 
+
+That was only done for readability purposes. This will be entirely moved out of
+here in a later commit.
+
+Same as before, if you really think that this needs to be (dev, NULL, ...) instead
+of (&ovl_adaptor->dev, NULL, ...) I can change that, but this means I'll have to
+fix 30 patches ahead (plus ones that I have in my tree that are not in this series)
+
+It's not a bug, nor anything critical, not breaking anything, and resolved with
+later commits changing everything so, for the sake of efficiency, if this could
+be ignored (as it's just a nit), I'd be happy.
+
+Cheers,
+Angelo
