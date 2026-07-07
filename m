@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB56CC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C115C44502
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 115B610EB89;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA33410EB96;
 	Tue,  7 Jul 2026 07:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G1tFwiSL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DO4gUTwR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF87810E472
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 698CE10EB89
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5609F618A8;
- Tue,  7 Jul 2026 07:33:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731D11F00A3F;
- Tue,  7 Jul 2026 07:33:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5324F4351C;
+ Tue,  7 Jul 2026 07:33:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82D2F1F000E9;
+ Tue,  7 Jul 2026 07:33:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409602;
- bh=B+/XC3pWnPrw6raRJdBi8Hg3nc0HCH4EyJEtBIzzqSk=;
+ s=k20260515; t=1783409611;
+ bh=FCWBgXZf3qnampYaWbK+IOo2I/FywmPizrCWO9/t39U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G1tFwiSLEda+byN8nnSKVdu3qVjBOOZYzY2j16VjNJigoIn3WwphRuPeCyNBpvyvw
- 99zgbLByOUlVwf0F1OOtjiW6gYWSx4dhImgxj9fFaneYt1YQ9kPB6H4IPpbhKslTUi
- oGZtz1Hf2P7k+5APd7MkLlOF4cREHrvpHC+K61mhvZMSu8uNk4+MLZPTN9mAjhzSVY
- bZd7Dec6fOUyXk1M0godpj8iRUNS77AajVsYR7Ytrt4sjMoVNRcXXb5XDrIG9SrdYF
- qSNScWun/V/ow2Qnvfj50W0uabFczVfumIusXx9ptKmCAN3YkJ3L2uY9N86XynN04s
- porkYJkw4jCGQ==
+ b=DO4gUTwRHzgGfos3HyXKRzvKkB76qfNzgvn4u+WpAxJZO5ceYbY0xIj1ZoYrJ4f1M
+ zRq+k2jNOmtEF4mFQJuwDCzbJcNtz8BXuIMoGc/9+EW5eZZ0t8vxKOQ/kf5ZVJg6Y2
+ GAbYkBxqEVESRwGJBbDtfZEUUWP7iDFAheBbf362K21nQDm8EXQORDKzRo3pyB4UBk
+ dfHVCdgkrxKIoV4VATHigAD07rim0uvTPCcLBAHKLYFxlDFL+wdHu4YjEgKmOd8ZbX
+ yZfH6yc+8xr9hBAU6FXrTD8EH7UIcmr8AkTZad/QTNkF1ZnTiqbTgskwzMka2547EL
+ l2uvu5k4VzP6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 12/40] dept: apply sdt_might_sleep_{start, end}() to
- waitqueue wait
+Subject: Re: [PATCH v19 02/40] dept: add single event dependency tracker APIs
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: dri-devel@lists.freedesktop.org, linux-rt-devel@lists.linux.dev,
- cassel@kernel.org, "Chuck
- Lever" <cel@kernel.org>, linux-kernel@vger.kernel.org, dlemoal@kernel.org,
- linux-modules@vger.kernel.org, linux-ide@vger.kernel.org, ojeda@kernel.org,
- "Jeff
- Layton" <jlayton@kernel.org>, tytso@mit.edu, "Anna Schumaker" <anna@kernel.org>
-In-Reply-To: <20260706061928.66713-13-byungchul@sk.com>
+Cc: "Chuck Lever" <cel@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
+ ojeda@kernel.org, linux-modules@vger.kernel.org, "Jeff
+ Layton" <jlayton@kernel.org>, tytso@mit.edu, cassel@kernel.org,
+ linux-rt-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ dlemoal@kernel.org, linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260706061928.66713-3-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-13-byungchul@sk.com>
+ <20260706061928.66713-3-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:21 +0000
-Message-Id: <20260707073321.731D11F00A3F@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:30 +0000
+Message-Id: <20260707073330.82D2F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +63,63 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `sdt_might_sleep_end()` cleanup macro is bypassed when wait lo=
-ops (`___wait_event`, `___swait_event`) are interrupted by a signal, perman=
-ently leaking a DEPT dependency stage.
+- [Critical] Unsafe macro conversion of functions causes double-evaluation =
+of arguments, leading to logic bugs and memory corruption.
 --
 
-commit 1300cac9c94eeb3955744b6d40ed8dce8cfc059f
+commit e5795ffb367b1b68ef8574b0a67f0bf3654baf77
 Author: Byungchul Park <byungchul@sk.com>
 
-dept: apply sdt_might_sleep_{start,end}() to waitqueue wait
-   =20
-Make dept able to track dependencies by waitqueue waits.
+dept: add single event dependency tracker APIs
 
-> diff --git a/include/linux/wait.h b/include/linux/wait.h
-> index dce055e6add39..c8f8b44060fb9 100644
-> --- a/include/linux/wait.h
-> +++ b/include/linux/wait.h
+Wrapped the base APIs for easier annotation on wait and event. Start
+with supporting waiters on each single event. More general support for
+multiple events is a future work. Do more when the need arises.
 
+> diff --git a/include/linux/dept_sdt.h b/include/linux/dept_sdt.h
+> new file mode 100644
+> index 0000000000000..0535f763b21be
+> --- /dev/null
+> +++ b/include/linux/dept_sdt.h
 [ ... ]
+> +#define sdt_map_init_key(m, k)		dept_map_init(m, k, 0, #m)
+> +
+> +#define sdt_wait(m)							\
+> +	do {								\
+> +		dept_request_event(m);					\
+> +		dept_wait(m, 1UL, _THIS_IP_, __func__, 0);		\
+> +	} while (0)
 
-> @@ -305,6 +306,7 @@ extern void init_wait_entry(struct wait_queue_entry *=
-wq_entry, int flags);
->  	struct wait_queue_entry __wq_entry;					\
->  	long __ret =3D ret;	/* explicit shadow */				\
->  										\
-> +	sdt_might_sleep_start(NULL);						\
->  	init_wait_entry(&__wq_entry, exclusive ? WQ_FLAG_EXCLUSIVE : 0);	\
->  	for (;;) {								\
->  		long __int =3D prepare_to_wait_event(&wq_head, &__wq_entry, state);\
-> @@ -323,6 +325,7 @@ extern void init_wait_entry(struct wait_queue_entry *=
-wq_entry, int flags);
->  			break;							\
->  	}									\
->  	finish_wait(&wq_head, &__wq_entry);					\
-> +	sdt_might_sleep_end();							\
->  __out:	__ret;									\
->  })
+[Severity: Critical]
+Can this macro evaluate its argument multiple times, causing a regression
+if the argument contains side effects?
 
-[Severity: High]
-Does this bypass sdt_might_sleep_end() when interrupted by a signal?
+Unlike sdt_might_sleep_start(m) later in this file which safely captures
+its argument in a local variable __m, sdt_wait(m) evaluates its argument
+twice.
 
-Looking at ___wait_event(), if ___wait_is_interruptible(state) and __int is
-set, it will take the goto __out path:
+If an expression with a post-increment is passed to a macro like this,
+the side effect will execute multiple times. This is especially risky
+if existing synchronization primitives like wait_for_completion(x) are
+converted into similar macros to integrate with the tracker.
 
-		if (___wait_is_interruptible(state) && __int) {			\
-			__ret =3D __int;						\
-			goto __out;						\
-		}								\
+For example, looking at drivers/vdpa/mlx5/core/resources.c:
 
-If that path is taken, sdt_might_sleep_end() is bypassed, which permanently
-leaks a DEPT dependency stage. A stale wait context remains in the task's
-dependency tracker state. When the task later sleeps for unrelated reasons,
-the scheduler might attribute the sleep to the leaked context, leading to
-false-positive lockup splats.
+mlx5_vdpa_add_res() {
+	...
+	while (completed < issued)
+		wait_for_completion(&cmds[completed++].cmd_done);
+	...
+}
 
-Also, does this same structural issue exist in ___swait_event() in
-include/linux/swait.h for simple waitqueues?
+If wait_for_completion() or a similar wrapper evaluates its argument twice,
+completed++ increments twice per loop iteration. This would skip completion
+entries and eventually access out-of-bounds memory past the end of the cmds
+array.
+
+Could the argument be evaluated once and captured in a local variable
+within these macros to avoid this?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D12
+3-1-byungchul@sk.com?part=3D2
