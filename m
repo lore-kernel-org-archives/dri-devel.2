@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F89AC44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:31:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44665C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2A8A10E17E;
-	Tue,  7 Jul 2026 14:31:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9ED510ED92;
+	Tue,  7 Jul 2026 14:31:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DqCm9TTS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ofSHB/xG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9207F10E17E
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:31:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 902F310ED92
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:31:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EF74660018;
- Tue,  7 Jul 2026 14:31:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED6D1F000E9;
- Tue,  7 Jul 2026 14:31:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 45A9841128;
+ Tue,  7 Jul 2026 14:31:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC76D1F000E9;
+ Tue,  7 Jul 2026 14:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783434701;
- bh=sXLtoFh+CUx/tyfknuCX6sDSL7lW5AVQhCz46fBe5Z8=;
+ s=k20260515; t=1783434708;
+ bh=UTzP3gor4dFCMU5pkveJq/KGXMait3zUs+q1bohN9bY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DqCm9TTSRnjxgTDqvZLTzlbf+jBcUzL1dbxvpHlLC55R01QgjDSm6re/6WyQYSbY8
- 7sPl7sjWOOCqHzNdvZJPl3QKzuwSu0G6dz4O3HFu9U4q0U8H2A8SLra8KN2ETroNVE
- sGKhiGuDnb9yW3K5QoDoiykk7uS2lQi5XPIMAqHzCBhPh5gHkbfZst050xznKivXIe
- /fOZSsJGtEmw/7AJpyESlVekLUhO2L9UeBdzHZgPY2jPUAd2HUj5DbdT+mgfw5gdlG
- CiICXWYkdyeW8KznU8TW4P0HI0sLp0Xh0LFrn0TwDgpKg1I1srqpOpAzRhDSMzVEZa
- rwC7hqPxbTMnQ==
+ b=ofSHB/xGOKCHFOR+9Wd78qQhTsbKDZDssxAZTBGlXnKgTzX7BhDOtaisof5ONulNX
+ /JlnkC4IGWMQD28KfhNZbU5pHmeV6w4DlA+ca4F8Thd6Y5MtCcV7nk5wYSaeMCMql3
+ a6feKMNV+X3r9L6vd55NwRN22N0IiwggUiJKnrjR/M2aZZYqg6ihkwokhwBjbZeFyM
+ eOQfMLYunt4nKJIQvmYgKBK+jEjN5eAk3CxbuWwmKsqE7W3ENhS/eIGtrgMfHnq4rR
+ NBCWTlPzecwBXEl03cK0LIPiKAR5zEQBlLDX/VZdyGMhc2ni2+XmJkYoeDezCaJa/X
+ MhAklJLg8U7Sw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/12] phy: phy-mtk-dp: Add support for digital and
- analog calibration
+Subject: Re: [PATCH v2 03/12] phy: phy-mtk-dp: Allow probing with devicetree
+ match
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org,
+Cc: olteanv@gmail.com, neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
  vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20260707141931.191172-9-angelogioacchino.delregno@collabora.com>
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260707141931.191172-4-angelogioacchino.delregno@collabora.com>
 References: <20260707141931.191172-1-angelogioacchino.delregno@collabora.com>
- <20260707141931.191172-9-angelogioacchino.delregno@collabora.com>
+ <20260707141931.191172-4-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 14:31:40 +0000
-Message-Id: <20260707143140.BED6D1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 14:31:47 +0000
+Message-Id: <20260707143147.AC76D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,29 +62,25 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [High] The DP PHY is published and exposed to concurrent consumers before=
- its calibration data is initialized in the legacy probe path.
-- [Medium] Unconditional `dev_err` logs an error for missing optional NVMEM=
- cells and probe deferrals in `mtk_dp_phy_get_one_cal_para`.
-
-Pre-existing issues:
-- [High] Dereferencing `dev->platform_data` without checking for NULL in `m=
-tk_dp_phy_legacy_probe`.
+- [High] PM Runtime on the parent device is enabled after the PHY device is=
+ created, preventing PM runtime from propagating to the parent and causing =
+unpowered hardware accesses.
+- [Medium] The DP PHY driver fails to parse and apply the `nvmem-cells` cal=
+ibration data specified in the new device tree binding.
+- [Low] The variable `ret` is used but not declared in `mtk_dp_phy_probe()`=
+, causing a build failure.
 --
 
---- Patch [8]: [PATCH v2 08/12] phy: phy-mtk-dp: Add support for digital an=
-d analog calibration ---
-commit 0db0b57c522a5f7eb7d179aeee49708015901046
+--- Patch [3]: [PATCH v2 03/12] phy: phy-mtk-dp: Allow probing with devicet=
+ree match ---
+commit e7cb0174c7cb05364cf12874f491ce4c799f2c61
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-phy: phy-mtk-dp: Add support for digital and analog calibration
+phy: phy-mtk-dp: Allow probing with devicetree match
 
-This commit adds support for reading DP PHY calibration values from eFuse
-via nvmem. If the values are present, they are applied; otherwise, the
-driver relies on default calibration data. Analog calibration writing
-support is also introduced.
+This commit adds a devicetree match to decouple the MediaTek DP PHY driver
+from the DisplayPort IP driver. It implements a standalone probe path while
+retaining a legacy probe function for backwards compatibility.
 
 > diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
 -mtk-dp.c
@@ -93,74 +89,95 @@ support is also introduced.
 
 [ ... ]
 
-> +static int mtk_dp_phy_get_one_cal_para(struct device *dev, const char *n=
-ame, u8 max_val)
-> +{
-> +	u8 buf_byte;
-> +	u16 buf;
-> +	int ret;
-> +
-> +	/*
-> +	 * All of the calibrations are always max 8 bits long, but some may
-> +	 * be split between two different 8-bits cells: handle this corner
-> +	 * case by retrying reading as u16.
-> +	 */
-> +	ret =3D nvmem_cell_read_u8(dev, name, &buf_byte);
-> +	if (ret)
-> +		ret =3D nvmem_cell_read_u16(dev, name, &buf);
-> +	else
-> +		buf =3D buf_byte;
-> +
-> +	if (ret) {
-> +		dev_err(dev, "Cannot get calibration data for %s: %d\n", name, ret);
-> +		return ret;
-> +	};
-
-[Severity: Medium]
-Will this unconditionally log a hard error if the NVMEM cells are absent
-or if the provider returns -EPROBE_DEFER?
-
-Since nvmem_cell_read_u8() returns -ENOENT when optional cells are missing
-in the device tree, could this cause spurious error messages in the kernel
-log on normal boots? It might also spam the logs during standard probe
-deferrals.
+> @@ -160,43 +161,106 @@ static const struct phy_ops mtk_dp_phy_dev_ops =3D=
+ {
 
 [ ... ]
 
-> @@ -444,6 +671,8 @@ static int mtk_dp_phy_legacy_probe(struct platform_de=
-vice *pdev, struct mtk_dp_p
->  	if (ret)
->  		return ret;
+>  static int mtk_dp_phy_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+> +	struct phy_provider *provider;
+>  	struct mtk_dp_phy *dp_phy;
+> +	void __iomem *base;
+>  	struct phy *phy;
+> -	struct regmap *regs;
+> -
+> -	regs =3D *(struct regmap **)dev->platform_data;
+> -	if (!regs)
+> -		return dev_err_probe(dev, -EINVAL,
+> -				     "No data passed, requires struct regmap**\n");
 > =20
-> +	mtk_dp_phy_get_default_cal_data(dp_phy);
+>  	dp_phy =3D devm_kzalloc(dev, sizeof(*dp_phy), GFP_KERNEL);
+>  	if (!dp_phy)
+>  		return -ENOMEM;
+> =20
+> -	dp_phy->regmap =3D regs;
+> +	dp_phy->dev =3D dev;
 > +
+> +	/* If there's no devicetree, go for legacy pdev probe */
+> +	if (!dev->of_node)
+> +		return mtk_dp_phy_legacy_probe(pdev, dp_phy);
+
+[Severity: Medium]
+Does the new devicetree probe path need to parse and apply the nvmem-cells
+calibration data?
+
+It looks like the new DT bindings specify nvmem-cells for optimal EYE signal
+pattern calibration, but the standalone probe path doesn't retrieve them,
+which might leave the hardware running with sub-optimal defaults.
+
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	dp_phy->regmap =3D devm_regmap_init_mmio(dev, base, &mtk_dp_phy_regmap_=
+cfg);
+> +	if (IS_ERR(dp_phy->regmap))
+> +		return PTR_ERR(dp_phy->regmap);
+> +
+>  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
+
+[Severity: High]
+Will creating the PHY device before enabling PM runtime on the parent
+prevent the PHY framework from propagating PM runtime to the child PHY
+device?
+
+In phy_create(), the framework checks pm_runtime_enabled(dev) on the parent
+to decide whether to enable PM runtime on the newly created PHY device. Sin=
+ce
+devm_pm_runtime_enable(dev) is called later, this check evaluates to false.
+
+Could this lead to phy_pm_runtime_get_sync() returning -ENOTSUPP and
+bypassing hardware wake-ups, resulting in unpowered register accesses?
+
+>  	if (IS_ERR(phy))
+>  		return dev_err_probe(dev, PTR_ERR(phy),
+>  				     "Failed to create DP PHY\n");
+> =20
+>  	phy_set_drvdata(phy, dp_phy);
+> -	if (!dev->of_node)
+> -		phy_create_lookup(phy, "dp", dev_name(dev));
+> +
+> +	provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+> +	if (IS_ERR(provider))
+> +		return PTR_ERR(provider);
+> +
+> +	ret =3D devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Low]
+Is the variable ret missing a declaration here?
+
+It appears int ret; is not declared in mtk_dp_phy_probe(), which will cause
+a build failure when compiling the driver.
+
+> =20
 >  	return 0;
 >  }
 
-[Severity: High]
-Is it safe to publish the PHY to consumers before the calibration defaults
-are initialized?=20
-
-Earlier in mtk_dp_phy_legacy_probe(), phy_create_lookup() exposes the PHY.
-If a consumer driver probes concurrently and acquires the PHY right after
-that lookup registration, could it call phy_init() while the analog
-parameter registers are still zero-initialized by devm_kzalloc(), rather
-than having these defaults?
-
-[Severity: High]
-This is a pre-existing issue, but can dev->platform_data be NULL earlier
-in mtk_dp_phy_legacy_probe()?
-
-Looking at the start of the function:
-
-	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
-	if (!dp_phy->regmap)
-		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
-
-If the driver is bound to a device without platform data (e.g. manually
-via sysfs bind), it looks like dereferencing dev->platform_data to read
-the regmap will cause a kernel panic before it reaches the NULL check.
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707141931.1911=
-72-1-angelogioacchino.delregno@collabora.com?part=3D8
+72-1-angelogioacchino.delregno@collabora.com?part=3D3
