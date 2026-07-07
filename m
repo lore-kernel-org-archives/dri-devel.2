@@ -4,129 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB1D2C43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:22:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29C67C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:23:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06A5710EB86;
-	Tue,  7 Jul 2026 07:22:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 837A110E48A;
+	Tue,  7 Jul 2026 07:23:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z9GPKCBl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZO9SUlUV";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012040.outbound.protection.outlook.com [52.101.48.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0091010EB86
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:22:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lihUxS6gRl7NdUeYYi/hotXsqVpN0wzvh3npF6s5psQWgj/Tpljw6YpAAz43JkpzhL1kriEyBdsKyvftoSoOPYbR66UJa++k90DPox+FWWn/ir9UsO9KxdadVNngDRILG+AEAxLrMtmaDXQe5kVn7tU3ogNjyi7iVAV4C/eWZNICEzvHgrhPvqCtrlthO9/JlCLpxyzYj0sYSpQI15BbYdaRbfgdzSXng4zmsMI13YZqwF/wSgC0x35M0xoLWRclmcPiZKZvd+rF421iGkbM8IcKESUc3y07rpSIxFIDYZQSe8IsM/S/F4eF81GbMiRY3Wn4A68bbPFHChKO+OTjYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IiyPB/P2AZ/081mG2ZmMwKAqIcDjVshulsFQMtLy2Gc=;
- b=r15jJ9jT1Dx37Bxit5P4abrlvYWp/QWk3QXKsBjzfsVMwoJBxC6S+UePJ3euEErY8yPcrdBfolbolE2U557jBw0vGYfi/rxZ5tIH08EuJlDtD1g5DOsxSzNqCDh4XwJfkAsb3Qbt1UmRhCPpRpxu4rCfw1c9D0yay2GhNNREkQZFIsgvNbF9Bqz39efTu6DhDxf8jAc3tNy3d6gypuT+6Goq7bDhDV84O+5LLsFpUCwu6alLHmHHSLUyKjlCYp7O8yPZYvhVl1ZgUKgHSsLr648C6Al+x9rnsnJYg8uyvhliF92Nlk3i+I/HrIzHn3iTbF2gPVv+swJk9wCMSQ3Nvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IiyPB/P2AZ/081mG2ZmMwKAqIcDjVshulsFQMtLy2Gc=;
- b=Z9GPKCBlS5UNa+IPFFVdHgcw6xtAzxa6VNjUeW/TbqKf9Iv52drOqT4iqcxAgWU0wWlTpuFA/JFnDxOHgf2qpmXdrrptsspFmruih+lKcBjWRPbzt/kP1656GPjXZvx9eHOg5IISfSLgSz+7pmyGW84YbmEJsImzaatIvFFb+dEzrVBCXykhkCG4OVN5EXMSGf+5HoebmUxvFBHQJXOUawjovZ6FkRX06HRlb2o3CPF3b53DE2M+5D6xQBrGUjoRL51kgq5j7gJ3xbnW3hcykou8Zyqtn6o+u5SyTb9dmJASWR7ZUeibcx5pFtc/3ITq9nIKcBszHPXi2mwet7NYGA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by IA1PR12MB6604.namprd12.prod.outlook.com (2603:10b6:208:3a0::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Tue, 7 Jul 2026
- 07:22:44 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Tue, 7 Jul 2026
- 07:22:43 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 07 Jul 2026 16:21:46 +0900
-Subject: [PATCH v5 13/13] gpu: nova-core: store Fsp instance in Gpu
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-nova-bootcontext-v5-13-ecad9346387f@nvidia.com>
-References: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
-In-Reply-To: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Gary Guo <gary@garyguo.net>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0098.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b4::19) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 697B010E48A
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:23:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7657C601DE;
+ Tue,  7 Jul 2026 07:23:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408971F00A3A;
+ Tue,  7 Jul 2026 07:23:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783409007;
+ bh=M7vIsXzvnm+ZS0aSjN5l0MsfSQvRk4hbYLWiRFeHBGs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=ZO9SUlUVsBjTStfEDnasivCovJQsJqvqG0yWim8d7uG6+PZ+vzIRQhVTJlGfTN9py
+ 8kd5QxUSpZ6nvxHgFe04c3ZyCwysx2Ed3QDzsFDOroo4DKMOsAtwsZsFsV6keHZFfM
+ V0xmEz2YZemm1+OPW9o/F1/4nI1HfHas7DgWXZe6HlNS6yAwt4sN544N14jHVooM7k
+ WsFVGHKkfvmdJ3GQL/jnTplXJ5PGL4NWla7YIzbO/eUP5QrTJz3NEpUIJCWwDfy4qm
+ d0jnNHLoOrR6ppkYHV/qNSrtGvFrp5omMC/XYvxWCgjODozGdU7MMuD2PSXm86+IIU
+ weeZLIkbZcIRQ==
+Message-ID: <6de7ec43-5757-43f0-b8d8-34a692a36d1b@kernel.org>
+Date: Tue, 7 Jul 2026 08:23:23 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA1PR12MB6604:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31d86f07-8252-4a26-5bc2-08dedbf88974
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|10070799003|18002099003|921020|22082099003|11063799006|3023799007|56012099006;
-X-Microsoft-Antispam-Message-Info: yLnsV5AYfr46THajNe9xbEgyP1V9o9uJ5u/PYyzglZHPgi3GjNd4Sr5JBs+4zOhG/DWpxA0UjfjFXXm9SIa0YRcDl/+oCUmgo8FG5VxsHdnOO5j0BZPU4TjfZvQPNSf1coSeqIgbdyOb2Wfv3tTh8OEZlY0Q8OG2IawDukZor2wIbgvLE/0t77AuK1fDdycRt02ybDKUFTU04w/SI3TYKzaaVfUnFQSWgAszADHVEhD9ba1tFFYzgW25ffjrauoIK5d/lMpE+i0/y383iKxWaO9PvlBi0lGA/jjBgSxkjygOKhh+IWGdUcyE8gHshJZSUWgyil1sF3uABDRvzE8nv9e6uV+j4m6sG1gUKWs5Yc19LpfBqIIyog7UHX+9bn3O8bwlEQqCTBh1F/vEI5bj5FiRI7Smcg4Y8Y2+QILQgyr+lMEcGpP63w3QCZkrFmG9vPtDNKYQbDxgIVpxI5uK8eFmTgbZRL3I4uXfGkvrAAYc8AS5E50rv5c+fL5IYmWJt4Gm/bHfcm26GwN+zeG0STmWxL56FcGQBcufGnHId0auDtok13+ddrGFjnvOr2xBQm0evBFlmnj6Dlpk5Eg8IpV42JXQyYcp79sgDubVgcdoZIC0MhSCTRNzBJsEKW62DE3xPZQ948T+Fcv4QZGihe4oYRS+HI+5MVRY/RSbGSdgn36BEzYKOpSChChU36Yb0+bNaBfH/oBu7uOMsQtRuA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10070799003)(18002099003)(921020)(22082099003)(11063799006)(3023799007)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1NlV1Z5S1U0M3dSOFVrWGtpam9EdmxlRGhqQUtvYkwzMWc2cW9Sa0c1clZC?=
- =?utf-8?B?ak5TWnVtdTBSN0IzdVVsdUUzRW1rbHgxY0ZuUU1wS3p4M2V2UVp6OXV1eFND?=
- =?utf-8?B?NldsWkQ2QmJqZGkrOXZBS0w1OTl0bFRTaU9vUW5iU2RaT2pLUHJoc2hxcVhT?=
- =?utf-8?B?bVB4M0xOSVFnd3BZTDU4RWJWK0hWVkJYeVNxem5HdVcwVWY5eWhoejlPcjBV?=
- =?utf-8?B?YUVROGVyaFl3K1BjVXRUVTdjQVY1RG1Gbjk0RmgyUjJvNno3b2FKV1BILzhv?=
- =?utf-8?B?LzNHVTdYTnpWNXZ0NG9WMi8vWi9qLzZpZitwNHpwT2pNK2MwNEFmYURrZTBh?=
- =?utf-8?B?b3cvV2JBa3hhN1BSUlU2eXE0K0tBMHFUaDM5MkV0NFNqTVRXa25OR00xTzdV?=
- =?utf-8?B?bGpSY01WMVl5QTludjEvNU1KYWVTV2pQNHhjYUpaSjlpbklodC9UTWhzWEp1?=
- =?utf-8?B?ZHZqT3dSeEtzMzJnVmNKT1o5WHVkczBGWDEzaE0wT1RWUmpHa0gwMVJFNEda?=
- =?utf-8?B?R2ppRHluSXFSQk5NZnFoTjJrRW1xMHJNcnlxcHJNUStiZExwb1hnMzUyUWZG?=
- =?utf-8?B?YmxJL2YzWWhDVTJLbzlDK3VvVW9mMGI2M0dWY013bmZxWVJ6WkY5cHFiMy9J?=
- =?utf-8?B?YjR4QU1vdlJiOUtvRnhGdE93SzVmOXM2SXQwWjdvYTBiMXFZaU94UDk0aUpG?=
- =?utf-8?B?NURrSkduNmxsNHZ3ZSsvUS9uQmZWQi9MQ2F2Zkd5azdWWkJDWTdzbHFoNlVX?=
- =?utf-8?B?R2JsTlFBWHZwVGZzbTBHQTVjNjlhc1pXbTc4cUN2aC9LdEtYejBkRStKSFha?=
- =?utf-8?B?d1RVUzVUUkdOdzBrWkJaZ29wNDh2V2N3SDhzclBpWnc0YlR6bHRFWW9jdlFz?=
- =?utf-8?B?RnVkTHF3UmwwTkdXV2J5dWZyeFh1OVBxaXBMY1RXQ3lGZGplVG5BRFpuaUpO?=
- =?utf-8?B?dW9pUkhtbldPVGJVVVNKTzRZdGNNejNHWGdTZ0wwbUhjaGFNOUVleWhnUzlo?=
- =?utf-8?B?VEJIUGp4TkFhYjZ5RlE4cnhSV3g3YjNRenB4Vm9URzB0eDdMeFJNcjdOdURL?=
- =?utf-8?B?MWV0Wngwc3JnS2VMNmkrbFlxL2h2VThPazZLWjM3TkY0clkrRWF2VFY1ekRq?=
- =?utf-8?B?Wm5MRjdUY0pNT3VEUUp3TmppaHA1RjViTHl2VGJxaTQ2NnhmSVVLNUI1M3hR?=
- =?utf-8?B?VDlJTTZHM0E0Yjl3UWtxUUZEeXIweklFcGZiYkUzbSsvSktxRFhnbi9BbWpQ?=
- =?utf-8?B?RktVbVhTRkEwTXB0aytJNzM1T1k2ak9EMlNhaGd1U1pyNDJDU21kODdXSFhw?=
- =?utf-8?B?c0plSWJWWkR0Z1VQZHltYzh2aTh6VStIcDgwMzFLK2pIWU1TdUtUOG5YNzg2?=
- =?utf-8?B?dHd2amYzeE1VZ1ZWYmhDMWxvcmRpc0J0eURlSnQxeUFoUjBsTzl0VitiTmI1?=
- =?utf-8?B?b2VZNi9YVGxaQ1VudFdCTjJXc1lmV1o0NHVudnNORWN1YkQyTk4wMzJab1hF?=
- =?utf-8?B?b3lBUlQvMDBTUG5DWWF6cDY0WEp6dnZUb1hKblU5RWs4SDBaVm96S3piMVk0?=
- =?utf-8?B?OEpYcXBPOGNrdkRIcldrNnBEUlpFNWpYb0YvMkR0bFhGUlhNQi9sdkgyWVk5?=
- =?utf-8?B?cjhGOUdaNjZHZ1hBSFUyUG5yWmVSSXgwOEw0Y0V6T21pTG1SalF2bTd6MmxV?=
- =?utf-8?B?QnN1dE1QcStQUGxKTzNodHlzSEJnTUx6Ty8zRkxwbVJjTnFJRERKRG1VRGVw?=
- =?utf-8?B?QzVnekd3UTNualJMSzIwODFVK29MOGdBaEsySnBWa2ZYTXdNbUJta3FPTEJ4?=
- =?utf-8?B?U3dQTk00OGI1dnNnR2JjcEZyeDRwdWhET3N1cFAzWjJPa3ZYTmVldUNHb3Ry?=
- =?utf-8?B?RmV0bkdtMWRLVTMzNHZXZUxwUDAvQm44TDFpVEJlNFpUR29KNDZEOUVSWnpW?=
- =?utf-8?B?THFUSlFYVkt2TWlLZTZsa01xN2N0MWtwNURMR1pQeWZjeVM5VzRObjRuc2w2?=
- =?utf-8?B?ZDRUVXlCWjVHaEZHQitQdGRKSDVyb2dGc2VCdXNRNEo0NnI2aThiTExWaysy?=
- =?utf-8?B?LzlrS1NnSVA1YTVCNmI4WFZqcXNGdVNNU3pKQzU1MkMvVE83ZlZRN3lWMWNo?=
- =?utf-8?B?ajcxeWwrbFRINlNxUW9lSURMazQxbkR2dTFOQmtLVEttdGRadXh2Q0pMM012?=
- =?utf-8?B?cUg0UkxhRTlxRG5ZaU4yRmtNdEJNVjZhQmV0cUttTnQ1T3JpeXh1M2RBQlQx?=
- =?utf-8?B?RXZLMDlGK0NZc2RLK0F0dDQzVmhTclFpcCs2VDNBcUpGVWl1UVdGMTFLajBX?=
- =?utf-8?B?YUtGUXhJbWxKNTVvMlByeFdBdElGYUdxTVBiMGJqTlgySlo4UFdEN0R3ZHBQ?=
- =?utf-8?Q?X062ynROnUKx7B+bWjrRrTHKK56f11pOcJyzH+fcHBbG2?=
-X-MS-Exchange-AntiSpam-MessageData-1: 5POU8BK3CmyTZQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31d86f07-8252-4a26-5bc2-08dedbf88974
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 07:22:43.8890 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EIArqsyCPBp6cEAle7KQUtbrrr+C/RDES0QoWK/LXr0ohYOt/z9W9y1fQrdmXEfPEm7zVqlNL3AbBIHAwKYy6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6604
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9] misc: fastrpc: Allocate entire reserved memory for
+ Audio PD in probe
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ quic_chennak@quicinc.com, stable@kernel.org
+References: <20260707061733.495-1-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260707061733.495-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,175 +65,244 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The `Fsp` instance was only used in the Hopper+ boot path, and
-consequently built locally (and immediately dropped) in it.
 
-This worked well as a temporary measure, but the FSP is a GPU
-sub-device, so its lifetime should match the GPU rather than a single
-boot invocation.
 
-It will also be needed in other parts of the driver, for instance vGPU.
+On 7/7/26 7:17 AM, Jianping Li wrote:
+> Allocating and freeing Audio PD memory from userspace is unsafe because
+> the kernel cannot reliably determine when the DSP has finished using the
+> memory. Userspace may free buffers while they are still in use by the DSP,
+> and remote free requests cannot be safely trusted.
+> 
+> Additionally, the current implementation allows userspace to repeatedly
+> grow the Audio PD heap, but does not support shrinking it. This can lead
+> to unbounded memory usage over time, effectively causing a memory leak.
+> 
+> Fix this by allocating the entire Audio PD reserved-memory region during
+> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+> userspace-controlled alloc/free and ensures that memory is reclaimed only
+> when the DSP process is torn down.
+> 
+> Add explicit validation for remote_heap presence and size before sending
+> the memory to DSP, and fail early if the reserved-memory region is
+> missing or incomplete.
+> 
+> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 119 +++++++++++++++++++++++------------------
+>  1 file changed, 66 insertions(+), 53 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index d86e79134c68..1ec37e6c68a2 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
+>  	struct kref refcount;
+>  	/* Flag if dsp attributes are cached */
+>  	bool valid_attributes;
+> +	/* Flag if audio PD init mem was allocated */
+> +	bool audio_init_mem;
+>  	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+>  	struct fastrpc_device *secure_fdevice;
+>  	struct fastrpc_device *fdevice;
+> @@ -1344,15 +1346,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  	struct fastrpc_init_create_static init;
+>  	struct fastrpc_invoke_args *args;
+>  	struct fastrpc_phy_page pages[1];
+> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
+>  	char *name;
+>  	int err;
+> -	bool scm_done = false;
+>  	struct {
+>  		int client_id;
+>  		u32 namelen;
+>  		u32 pageslen;
+>  	} inbuf;
+>  	u32 sc;
+> +	unsigned long flags;
+> +
+> +	if (!cctx->remote_heap || !cctx->remote_heap->dma_addr ||
+> +	    !cctx->remote_heap->size) {
+if remote heap is a mandatory for ADSP or SDSP then this should be
+enforced at binding level and even at driver probe level.
 
-Thus, create the `Fsp` instance in the `Gpu` constructor and store it
-there, passing it to the GSP boot as a mutable reference using
-`GspBootContext`. This makes the `Fsp` available even after the GSP is
-booted.
+> +		err = -ENOMEM;
+> +		dev_err(fl->sctx->dev,
+> +			"remote heap memory region is not added\n");
+> +		return err;
+> +	}
+>  
+>  	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+>  	if (!args)
+> @@ -1376,31 +1387,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  	inbuf.client_id = fl->client_id;
+>  	inbuf.namelen = init.namelen;
+>  	inbuf.pageslen = 0;
+> -	if (!fl->cctx->remote_heap) {
+> -		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+> -						&fl->cctx->remote_heap);
+> -		if (err)
+> -			goto err_name;
+> -
+> -		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
+> -		if (fl->cctx->vmcount) {
+> -			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+> -
+> -			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+> -							(u64)fl->cctx->remote_heap->size,
+> -							&src_perms,
+> -							fl->cctx->vmperms, fl->cctx->vmcount);
+> -			if (err) {
+> -				dev_err(fl->sctx->dev,
+> -					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+> -					&fl->cctx->remote_heap->dma_addr,
+> -					fl->cctx->remote_heap->size, err);
+> -				goto err_map;
+> -			}
+> -			scm_done = true;
+> -			inbuf.pageslen = 1;
+> -		}
+> -	}
+>  
+>  	fl->pd = USER_PD;
+>  
+> @@ -1412,8 +1398,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  	args[1].length = inbuf.namelen;
+>  	args[1].fd = -1;
+>  
+> -	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+> -	pages[0].size = fl->cctx->remote_heap->size;
+> +	/*
+> +	 * Audio PD is a static PD and retains the remote heap
+> +	 * information across daemon restarts. Therefore only
+> +	 * the first attach should provide heap information to
+> +	 * DSP. Subsequent attaches reuse the previously
+> +	 * initialized memory pool.
+> +	 */
+> +	spin_lock_irqsave(&cctx->lock, flags);
+> +	if (!cctx->audio_init_mem) {
+> +		pages[0].addr = cctx->remote_heap->dma_addr;
+> +		pages[0].size = cctx->remote_heap->size;
+> +		cctx->audio_init_mem = true;
+> +		inbuf.pageslen = 1;
+> +	} else {
+> +		pages[0].addr = 0;
+> +		pages[0].size = 0;
+> +	}
+> +	spin_unlock_irqrestore(&cctx->lock, flags);
+>  
+>  	args[2].ptr = (u64)(uintptr_t) pages;
+>  	args[2].length = sizeof(*pages);
+> @@ -1431,27 +1433,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>  
+>  	return 0;
+>  err_invoke:
+> -	if (fl->cctx->vmcount && scm_done) {
+> -		u64 src_perms = 0;
+> -		struct qcom_scm_vmperm dst_perms;
+> -		u32 i;
+> -
+> -		for (i = 0; i < fl->cctx->vmcount; i++)
+> -			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
+> -
+> -		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+> -		dst_perms.perm = QCOM_SCM_PERM_RWX;
+> -		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+> -						(u64)fl->cctx->remote_heap->size,
+> -						&src_perms, &dst_perms, 1);
+> -		if (err)
+> -			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
+> -				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
+> -	}
+> -err_map:
+> -	fastrpc_buf_free(fl->cctx->remote_heap);
+> -	fl->cctx->remote_heap = NULL;
+> -err_name:
+> +	cctx->audio_init_mem = false;
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
----
- drivers/gpu/nova-core/fsp.rs           | 21 +++++++++++++++++++--
- drivers/gpu/nova-core/gpu.rs           |  9 +++++++++
- drivers/gpu/nova-core/gsp.rs           |  2 ++
- drivers/gpu/nova-core/gsp/hal/gh100.rs |  8 ++------
- 4 files changed, 32 insertions(+), 8 deletions(-)
+You are ignoring my comments that I have provided in the last version.
 
-diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index f0c595175c9c..74ea20258b07 100644
---- a/drivers/gpu/nova-core/fsp.rs
-+++ b/drivers/gpu/nova-core/fsp.rs
-@@ -231,20 +231,37 @@ pub(crate) struct Fsp<'a> {
- }
- 
- impl<'a> Fsp<'a> {
-+    /// Attempts to create a `Fsp` instance.
-+    ///
-+    /// This can involve waiting for FSP secure boot completion, but should be instantaneous in
-+    /// practice.
-+    ///
-+    /// If `chipset` doesn't support FSP, `Ok(None)` is returned.
-+    pub(crate) fn try_new(
-+        dev: &'a device::Device<device::Bound>,
-+        bar: Bar0<'a>,
-+        chipset: Chipset,
-+    ) -> Result<Option<Self>> {
-+        match hal::fsp_hal(chipset) {
-+            None => Ok(None),
-+            Some(hal) => Self::wait_secure_boot(dev, bar, chipset, hal).map(Option::Some),
-+        }
-+    }
-+
-     /// Waits for FSP secure boot completion, then returns the [`Fsp`] interface.
-     ///
-     /// Polls the thermal scratch register until FSP signals boot completion or the timeout
-     /// elapses. Returning an [`Fsp`] only on success guarantees, at the API level, that the
-     /// interface is not used before secure boot has completed.
--    pub(crate) fn wait_secure_boot(
-+    fn wait_secure_boot(
-         dev: &'a device::Device<device::Bound>,
-         bar: Bar0<'a>,
-         chipset: Chipset,
-+        hal: &'static dyn hal::FspHal,
-     ) -> Result<Fsp<'a>> {
-         /// FSP secure boot completion timeout in milliseconds.
-         const FSP_SECURE_BOOT_TIMEOUT_MS: i64 = 5000;
- 
--        let hal = hal::fsp_hal(chipset).ok_or(ENOTSUPP)?;
-         let falcon = Falcon::<FspEngine>::new(dev, chipset, bar)?;
-         let fsp_fw = FspFirmware::new(dev, chipset, FIRMWARE_VERSION)?;
- 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index fc90069bc2fe..442c0979f9c6 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -22,6 +22,7 @@
-         Falcon, //
-     },
-     fb::SysmemFlush,
-+    fsp::Fsp,
-     gsp::{
-         self,
-         commands::GetGspStaticInfoReply,
-@@ -262,6 +263,10 @@ struct GspResources<'gpu> {
-     gsp_falcon: Falcon<'gpu, GspFalcon>,
-     /// SEC2 falcon instance, used for GSP boot up and cleanup.
-     sec2_falcon: Falcon<'gpu, Sec2Falcon>,
-+    /// FSP instance, if on an arch that supports it.
-+    // TODO: use different resource types for each boot method, and make the relevant Gsp methods
-+    // generic against them.
-+    fsp: Option<Fsp<'gpu>>,
-     /// GSP runtime data.
-     #[pin]
-     gsp: Gsp,
-@@ -305,6 +310,7 @@ fn drop(self: Pin<&mut Self>) {
-                     chipset: this.spec.chipset,
-                     gsp_falcon: &*this.gsp_falcon,
-                     sec2_falcon: &*this.sec2_falcon,
-+                    fsp: this.fsp.as_mut(),
-                 },
-                 bundle,
-             )
-@@ -356,6 +362,8 @@ pub(crate) fn new(
- 
-                 sec2_falcon: Falcon::new(dev, spec.chipset, bar)?,
- 
-+                fsp: Fsp::try_new(dev, bar, spec.chipset)?,
-+
-                 gsp <- Gsp::new(pdev),
- 
-                 // This member must be initialized last, so the `UnloadBundle` can never be dropped
-@@ -367,6 +375,7 @@ pub(crate) fn new(
-                     chipset: spec.chipset,
-                     gsp_falcon,
-                     sec2_falcon,
-+                    fsp: fsp.as_mut(),
-                 })?,
-             }),
- 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index 9f055a0d6cb9..d89cc3ba7c72 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -39,6 +39,7 @@
-         sec2::Sec2 as Sec2Falcon,
-         Falcon, //
-     },
-+    fsp::Fsp,
-     gpu::Chipset,
-     gsp::{
-         cmdq::Cmdq,
-@@ -65,6 +66,7 @@ pub(crate) struct GspBootContext<'ctx, 'gpu> {
-     pub(crate) chipset: Chipset,
-     pub(crate) gsp_falcon: &'ctx Falcon<'gpu, GspFalcon>,
-     pub(crate) sec2_falcon: &'ctx Falcon<'gpu, Sec2Falcon>,
-+    pub(crate) fsp: Option<&'ctx mut Fsp<'gpu>>,
- }
- 
- impl<'ctx, 'gpu> GspBootContext<'ctx, 'gpu> {
-diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-core/gsp/hal/gh100.rs
-index be531df8680b..d1c4f6104701 100644
---- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
-@@ -16,10 +16,7 @@
-         Falcon, //
-     },
-     fb::FbLayout,
--    fsp::{
--        FmcBootArgs,
--        Fsp, //
--    },
-+    fsp::FmcBootArgs,
-     gsp::{
-         hal::{
-             GspHal,
-@@ -142,7 +139,6 @@ fn boot(
-         wpr_meta: &Coherent<GspFwWprMeta>,
-     ) -> Result<Option<crate::gsp::UnloadBundle>> {
-         let dev = ctx.dev();
--        let bar = ctx.bar;
-         let chipset = ctx.chipset;
-         let gsp_falcon = ctx.gsp_falcon;
- 
-@@ -150,7 +146,7 @@ fn boot(
-             KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBundle>
-         );
- 
--        let mut fsp = Fsp::wait_secure_boot(dev, bar, chipset)?;
-+        let fsp = ctx.fsp.as_mut().ok_or(ENODEV)?;
- 
-         let args = FmcBootArgs::new(
-             dev,
-
--- 
-2.55.0
+>  	kfree(name);
+>  err:
+>  	kfree(args);
+> @@ -2418,12 +2400,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		}
+>  	}
+>  
+> -	if (domain_id == SDSP_DOMAIN_ID) {
+> +	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
+>  		struct resource res;
+>  		u64 src_perms;
+>  
+>  		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
+>  		if (!err) {
+> +			if (domain_id == ADSP_DOMAIN_ID) {
+> +				data->remote_heap =
+> +					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
+> +				if (!data->remote_heap) {
+> +					err = -ENOMEM;
+> +					goto err_free_data;
+> +				}
+> +
+> +				data->remote_heap->dma_addr = res.start;
+> +				data->remote_heap->size = resource_size(&res);
+> +			}
+>  			src_perms = BIT(QCOM_SCM_VMID_HLOS);
+>  
+>  			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
+> @@ -2431,7 +2424,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  			if (err)
+>  				goto err_free_data;
+>  		}
+> -
+>  	}
+>  
+>  	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+> @@ -2490,6 +2482,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		misc_deregister(&data->secure_fdevice->miscdev);
+>  
+>  err_free_data:
+> +	kfree(data->remote_heap);
+>  	kfree(data);
+>  	return err;
+>  }
+> @@ -2512,6 +2505,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+>  	struct fastrpc_buf *buf, *b;
+>  	struct fastrpc_user *user;
+>  	unsigned long flags;
+> +	int err;
+>  
+>  	/* No invocations past this point */
+>  	spin_lock_irqsave(&cctx->lock, flags);
+> @@ -2529,8 +2523,27 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+>  	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+>  		list_del(&buf->node);
+>  
+> -	if (cctx->remote_heap)
+> -		fastrpc_buf_free(cctx->remote_heap);
+> +	if (cctx->remote_heap && cctx->vmcount) {
+> +		u64 src_perms = 0;
+> +		struct qcom_scm_vmperm dst_perms;
+> +
+> +		for (u32 i = 0; i < cctx->vmcount; i++)
+> +			src_perms |= BIT(cctx->vmperms[i].vmid);
+> +
+> +		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+> +		dst_perms.perm = QCOM_SCM_PERM_RWX;
+> +
+> +		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
+> +					  cctx->remote_heap->size, &src_perms,
+> +					  &dst_perms, 1);
+> +		if (err)
+> +			dev_err(&rpdev->dev,
+> +				"Failed to assign memory back to HLOS: dma_addr %pad size %#llx err %d\n",
+> +				&cctx->remote_heap->dma_addr, cctx->remote_heap->size, err);
+> +	}
+> +
+> +	kfree(cctx->remote_heap);
+> +	cctx->remote_heap = NULL;
+>  
+>  	of_platform_depopulate(&rpdev->dev);
+>  
 
