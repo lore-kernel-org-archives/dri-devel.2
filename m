@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C934C44500
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C706DC44506
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD40A10EBA1;
-	Tue,  7 Jul 2026 07:33:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA7810EBA5;
+	Tue,  7 Jul 2026 07:33:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="becB94z1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xk79Tjws";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F43710EB9E
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC2CE10EB98
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 032B7618AE;
- Tue,  7 Jul 2026 07:33:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0965F1F00A3E;
- Tue,  7 Jul 2026 07:33:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D6846436EE;
+ Tue,  7 Jul 2026 07:33:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119731F000E9;
+ Tue,  7 Jul 2026 07:33:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409630;
- bh=c+VSnSjFRcFL2UYOIKKOUNT7KazPYUK7QU08PtQTxxM=;
+ s=k20260515; t=1783409622;
+ bh=iPuerRcuivB+2DuvQ9kuX8ZsIO7TmcRGdbgEsGpDX2g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=becB94z18LgfMpYXzuHELj6ZtB6sKdTUr8mZ2PW4SgPauseZ1dFRDkU8i8BDTKgYb
- exG3677WXn7VOpoQQQOwCcuCrOslNSSv7hED2xinrObDCIelvuv9M8vLq91ITxJkbe
- SmloJHXHbeO/eKpObxjD74SLSrS8p7Ky8VjyWt4AhWkNgPSnThA3xzGvD4h7UVg/GG
- HJIEZ08WmgNfS8+qwrAgDuchnG+Uo0kd/nnoQsI7SF+8l9QOchA9wFfA+6Il23iuH/
- 3HfylDskRvSVrxct5vdwBSuJg+37FyFKAToss0JvwmZPcQNtNEkrsZYuvHCxABzr9Y
- 3JqTC0VfXq52Q==
+ b=Xk79Tjws4zk4Nm8wQ9Hlhi1CQHCea9/tYlP70BIzvghLY0WiEkWgwwax11+6ntTLw
+ TDB8i4Wnpe/2Yep4Zp1aJr+WHL3/X5PC6rFUgCOxxjyKVKn6V1OEFRRLUnda9G7aZJ
+ 2/yDXTvUg0ZbNChKY5VcRxGBp4jonzPjdcGrnt8YBpJxzV3L2O3T0IxqPHLVQwJ49n
+ YbROZDL5qcv8FpLOC0lY9LIPV/trRl0Vgv/1bBNLAa59VckI1YIQqM4vuJ/DG3j5HF
+ okEhO3e2k2yJiJ0Azm2KCYPbaw76F8EvQXPSoqg+UAuSe+XvRkBZwq1uv/F52KEi5T
+ b6PdvUQOHcbEA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 32/40] completion, dept: introduce
- init_completion_dmap() API
+Subject: Re: [PATCH v19 24/40] locking/lockdep: prevent various lockdep
+ assertions when lockdep_off()'ed
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: dlemoal@kernel.org, "Jeff Layton" <jlayton@kernel.org>,
- linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-rt-devel@lists.linux.dev, cassel@kernel.org,
- linux-kernel@vger.kernel.org, tytso@mit.edu, "Chuck
- Lever" <cel@kernel.org>, linux-ide@vger.kernel.org,
- "Anna Schumaker" <anna@kernel.org>, ojeda@kernel.org
-In-Reply-To: <20260706061928.66713-33-byungchul@sk.com>
+Cc: dri-devel@lists.freedesktop.org, dlemoal@kernel.org, ojeda@kernel.org,
+ tytso@mit.edu, linux-rt-devel@lists.linux.dev, "Jeff
+ Layton" <jlayton@kernel.org>, linux-modules@vger.kernel.org, cassel@kernel.org,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, "Chuck
+ Lever" <cel@kernel.org>, "Anna Schumaker" <anna@kernel.org>
+In-Reply-To: <20260706061928.66713-25-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-33-byungchul@sk.com>
+ <20260706061928.66713-25-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:49 +0000
-Message-Id: <20260707073350.0965F1F00A3E@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:41 +0000
+Message-Id: <20260707073342.119731F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,93 +62,64 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Double evaluation of arguments in wait_for_completion macros leads=
- to skipped array indices and memory corruption.
-- [Medium] Unconditional struct growth of a widely used primitive for a deb=
-ug feature.
-- [Medium] Wait event macros skip calling sdt_might_sleep_end() on signal i=
-nterruptions, leaking DEPT tracking state and stacks.
+- [Medium] The patch introduces a performance regression on fast paths when=
+ CONFIG_PROVE_LOCKING is enabled by adding an out-of-line function call to =
+a macro that is unconditionally evaluated before checking if the assertion =
+actually fails.
 --
 
-commit 5b626a37ee940081b6d37187cde51c2f272e370c
+commit a2a5c1f9c5f68f19a3e991808b6e812dde3fa53a
 Author: Byungchul Park <byungchul@sk.com>
+locking/lockdep: prevent various lockdep assertions when lockdep_off()'ed
 
-completion, dept: introduce init_completion_dmap() API
+This commit adds a check for lockdep_recursing(current) to the
+__lockdep_enabled macro. To avoid header dependency issues, it introduces
+an out-of-line function lockdep_recursing_current().
 
-Currently, dept uses dept's map embedded in task_struct to track
-dependencies related to wait_for_completion() and its family.  So it
-doesn't need an explicit map basically.
-
-However, for those who want to set the maps with customized class or
-key, introduce a new API to use external maps.
-
-> diff --git a/include/linux/completion.h b/include/linux/completion.h
-> index 4d8fb1d95c0a6..e50f7d9b4b974 100644
-> --- a/include/linux/completion.h
-> +++ b/include/linux/completion.h
-> @@ -27,17 +27,15 @@
->  struct completion {
->  	unsigned int done;
->  	struct swait_queue_head wait;
-> +	struct dept_map *dmap;
->  };
-
-[Severity: Medium]
-Since struct completion is heavily embedded in many kernel data structures,
-does unconditionally adding the dmap pointer increase the global memory
-footprint even on production non-debug kernels? Should this new field be
-guarded by an #ifdef?
-
+> diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
+> index 60b17a2ff555f..5113b7053b621 100644
+> --- a/include/linux/lockdep.h
+> +++ b/include/linux/lockdep.h
 [ ... ]
-
-> @@ -136,13 +140,13 @@ extern void complete_all(struct completion *);
+> @@ -630,7 +631,7 @@ DECLARE_PER_CPU(int, hardirqs_enabled);
+>  DECLARE_PER_CPU(int, hardirq_context);
+>  DECLARE_PER_CPU(unsigned int, lockdep_recursion);
 > =20
->  #define wait_for_completion(x)						\
->  ({									\
-> -	sdt_might_sleep_start_timeout(NULL, -1L);			\
-> +	sdt_might_sleep_start_timeout((x)->dmap, -1L);			\
->  	__wait_for_completion(x);					\
->  	sdt_might_sleep_end();						\
->  })
-
-[Severity: High]
-Does evaluating the argument x multiple times in this macro lead to issues
-if callers pass an expression with side effects?
-
-For example, if a caller like mlx5_vdpa_exec_async_cmds() does:
-
-	while (completed < issued)
-		wait_for_completion(&cmds[completed++].cmd_done);
-
-Would completed++ be executed twice per iteration, skipping array elements
-and potentially causing out-of-bounds memory accesses?
-
-[ ... ]
+> -#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursi=
+on))
+> +#define __lockdep_enabled	(debug_locks && !this_cpu_read(lockdep_recursi=
+on) && !lockdep_recursing_current())
+> =20
+>  #define lockdep_assert_irqs_enabled()					\
+>  do {									\
 
 [Severity: Medium]
-Do wait event macros such as ___wait_event() in include/linux/wait.h skip
-calling sdt_might_sleep_end() when interrupted by a signal?
+Will this out-of-line call introduce measurable overhead on fast paths?
 
-In include/linux/wait.h:___wait_event():
+Since debug_locks and !this_cpu_read(lockdep_recursion) are almost always
+true in healthy systems, lockdep_recursing_current() will be evaluated every
+time __lockdep_enabled is checked.
 
-		if (___wait_is_interruptible(state) && __int) { \
-			__ret =3D __int; \
-			goto __out; \
-		}
-        ...
-	sdt_might_sleep_end(); \
-__out:	__ret; \
-})
+For example, in lockdep_assert_irqs_enabled():
 
-If the wait is interrupted by a signal, it escapes via goto __out. Because
-__out is placed after sdt_might_sleep_end(), it seems the cleanup is
-skipped.
+    WARN_ON_ONCE(__lockdep_enabled && !this_cpu_read(hardirqs_enabled));
 
-Does this permanently leak the tracking state and its underlying stack
-objects?
+Because __lockdep_enabled is the first operand, the out-of-line call execut=
+es
+before checking if the assertion actually fails.
+
+Could we move __lockdep_enabled to the end of the && chain in these
+assertions?
+
+    WARN_ON_ONCE(!this_cpu_read(hardirqs_enabled) && __lockdep_enabled);
+
+Placing the failure condition first would ensure the out-of-line function is
+only evaluated on the slow path when the assertion is already failing, avoi=
+ding
+the function call overhead on hot paths entirely.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D32
+3-1-byungchul@sk.com?part=3D24
