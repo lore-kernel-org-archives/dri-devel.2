@@ -4,53 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10683C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:20:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B803AC43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59E1410ED9E;
-	Tue,  7 Jul 2026 14:20:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0873D10ED9C;
+	Tue,  7 Jul 2026 14:22:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XufPc1Gx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZjsK0Iaj";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14A3D10ED99
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:19:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783433990;
- bh=TqL4eWaaA0oBsoWcRTHb3KyJlw6H0KWveV++ZhZWwEk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XufPc1GxuFTH6dTwOeh91VGAIm6UKaHUqzEFgIKksq6LCFz/si9vSw8FeMlUoDffc
- dXiwV1XnHVV07960LDcxoBdt7Q4sLTSEprKoEF42IuwX8srM5nhd+4S1vDpkxzBS2O
- Lh6fiXdB6h/d66uq5J2S/4/6NxRTspmT4Kc8NL+rhvr0IEjlrVhUzmlBFijqr+eInb
- 3xTb4tpHrLAmJ/ahJA9DHXTUsyhdZQbTZBa6iyUVUnyWmGPcP1gKrZT+riHw2NT/uz
- 1z//CZYaIzbIZxVnErNwew6FSF8vO2RdBgrZhgAS+TuHi2hq5VjqJjHJ6FgsgVVyc4
- CSTcUpK8D2Y7w==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2E41717E0FAC;
- Tue, 07 Jul 2026 16:19:50 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunfeng.yun@mediatek.com
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chunkuang.hu@kernel.org,
- p.zabel@pengutronix.de, justin.yeh@mediatek.com,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com
-Subject: [PATCH v2 11/12] phy: phy-mtk-dp: Add PHYD Lane EN register mask to
- SoC data
-Date: Tue,  7 Jul 2026 16:19:30 +0200
-Message-ID: <20260707141931.191172-12-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260707141931.191172-1-angelogioacchino.delregno@collabora.com>
-References: <20260707141931.191172-1-angelogioacchino.delregno@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9B7A89B62
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:22:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0D9806138D;
+ Tue,  7 Jul 2026 14:22:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9FE1F000E9;
+ Tue,  7 Jul 2026 14:22:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783434158;
+ bh=wgoQanoQqzfX/6FSR3qNQQlJk4tYi2+B6GQEHIEPto4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZjsK0Iaj2NFMaM+8pGtadGX8yoPjbkWj6KWaaj3OiewEyLGqCl85eO7NFJFP9LPY3
+ nUQ/iNCE+ckavNLKp0yedVUVQecTWEbCrp047gwXFVIOrSpVUycM/I9BX0fXey6ovW
+ 1Q4/N0A9QvD4LmiPKr48Cqe8Vrnu7+CH23V/7vLm5+W+1JFwTbGXTkVUAf1voresnu
+ mWGLtxo3+XhB1w/EqBnQgFkkK7ABc3T77g2hUeSeCAo64KC2Wn7qyLqJTisxcTTFtL
+ Oj4Si3m3X/ebWOwfFpwVJXgK8vbezdbBsyQBvuATAdJrRvICmmQ4volsEyLT5vREM8
+ /3kYSGYtIz7rQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 05/10] drm/amdgpu: Implement struct
+ vga_switcheroo_client_ops.pre_switch
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707135724.247562-6-tzimmermann@suse.de>
+References: <20260707135724.247562-1-tzimmermann@suse.de>
+ <20260707135724.247562-6-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 14:22:38 +0000
+Message-Id: <20260707142238.8B9FE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +54,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In preparation for adding support for the eDP PHY found in newer
-SoCs, transfer the register mask for PHYD_TX_LN_EN to SoC specific
-data.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] An AB-BA lock inversion is introduced between `vgasr_mutex` and `d=
+ev->clientlist_mutex`, leading to a potential deadlock.
+--
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/phy/mediatek/phy-mtk-dp.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+--- Patch [5]: [PATCH 05/10] drm/amdgpu: Implement struct vga_switcheroo_cl=
+ient_ops.pre_switch ---
+commit 31dd42c0f56cf03f20324c5c0e3557fa630afd13
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index 8ac086360138..64bdfda5394f 100644
---- a/drivers/phy/mediatek/phy-mtk-dp.c
-+++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -214,6 +214,7 @@ struct mtk_dp_phya_imp_sel {
-  * @regs_ana_lane:  Register (layout) offsets for ana_lan
-  * @regs_dig_glb:   Register (layout) offsets for dig_glb
-  * @regs_dig_lane:  Register (layout) offsets for dig_lan
-+ * @mask_dig_tx_ln: Register mask for PHYD_TX_LN_EN field
-  * @val_dig_bitrate:IP Version specific register values for Bit Rate setting
-  * @ana_bias_r:     Internal resistance "R" Selection Settings (global)
-  * @ana_cktx_imp:   TX Clock Impedance Selection Settings (global)
-@@ -233,6 +234,9 @@ struct mtk_dp_phy_pdata {
- 	const u8 *regs_dig_glb;
- 	const u8 *regs_dig_lane;
- 
-+	/* Register masks */
-+	u32 mask_dig_tx_ln;
-+
- 	/* IP-Version specific register value arrays */
- 	const u8 *val_dig_bitrate;
- 
-@@ -371,10 +375,10 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
- 
- 		val = 0;
- 		for (i = 0; i < opts->dp.lanes; i++)
--			val |= FIELD_PREP(PHYD_TX_LN_EN, BIT(i));
-+			val |= field_prep(pdata->mask_dig_tx_ln, BIT(i));
- 
- 		regmap_update_bits(dp_phy->regmap, pdata->off_dig_glb + reg_dig_tx_ctl,
--				   PHYD_TX_LN_EN, val);
-+				   pdata->mask_dig_tx_ln, val);
- 	}
- 
- 	if (opts->dp.set_voltages) {
-@@ -450,7 +454,7 @@ static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
- 		return ret;
- 
- 	/* Get mask of currently enabled lane */
--	val = FIELD_GET(PHYD_TX_LN_EN, val);
-+	val = field_get(pdata->mask_dig_tx_ln, val);
- 	if (val == 0)
- 		return 0;
- 
-@@ -461,7 +465,7 @@ static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
- 
- 		ret = regmap_clear_bits(dp_phy->regmap,
- 					pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0],
--					FIELD_PREP(PHYD_TX_LN_EN, BIT(lane_num)));
-+					field_prep(pdata->mask_dig_tx_ln, BIT(lane_num)));
- 		if (ret)
- 			return ret;
- 	} while (val);
-@@ -761,6 +765,7 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
- 	.regs_ana_lane = mt8195_phy_ana_lane_regs,
- 	.regs_dig_glb = mt8195_phy_dig_glb_regs,
- 	.regs_dig_lane = mt8195_phy_dig_lane_regs,
-+	.mask_dig_tx_ln = PHYD_TX_LN_EN,
- 	.val_dig_bitrate = mt8195_phy_dig_bitrate_val,
- 	.ana_bias_r = 15,
- 	.ana_cktx_imp = 8,
--- 
-2.54.0
+drm/amdgpu: Implement struct vga_switcheroo_client_ops.pre_switch
 
+This commit implements the pre_switch callback for vga_switcheroo_client_ops
+in the amdgpu driver. It calls drm_client_dev_acquire_outputs() to push fbc=
+on
+updates from vga_switcheroo into DRM's fbdev emulation.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 211d30f03d25f..6c80c6f4b07ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1698,10 +1698,18 @@ static bool amdgpu_switcheroo_can_switch(struct p=
+ci_dev *pdev)
+>  	return atomic_read(&dev->open_count) =3D=3D 0;
+>  }
+> =20
+> +static void amdgpu_switcheroo_pre_switch(struct pci_dev *pdev)
+> +{
+> +	struct drm_device *dev =3D pci_get_drvdata(pdev);
+> +
+> +	drm_client_dev_acquire_outputs(dev);
+
+[Severity: High]
+Can this introduce an AB-BA lock inversion between vgasr_mutex and
+dev->clientlist_mutex?
+
+This callback is invoked by vga_switcheroo while vgasr_mutex is held, and
+drm_client_dev_acquire_outputs() then acquires dev->clientlist_mutex.
+
+Meanwhile, the hotplug path acquires clientlist_mutex first:
+
+drm_client_dev_hotplug()
+  mutex_lock(&dev->clientlist_mutex);
+
+and then eventually takes console_lock and vgasr_mutex (via
+vga_switcheroo_client_fb_set() called from register_framebuffer()) deeper in
+the call stack.
+
+If a hotplug event and a VGA switcheroo switch execute concurrently, could =
+this
+lead to a deadlock?
+
+> +}
+> +
+>  static const struct vga_switcheroo_client_ops amdgpu_switcheroo_ops =3D {
+>  	.set_gpu_state =3D amdgpu_switcheroo_set_state,
+>  	.reprobe =3D NULL,
+>  	.can_switch =3D amdgpu_switcheroo_can_switch,
+> +	.pre_switch =3D amdgpu_switcheroo_pre_switch,
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707135724.2475=
+62-1-tzimmermann@suse.de?part=3D5
