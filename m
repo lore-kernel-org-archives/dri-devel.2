@@ -4,130 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9353AC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 06:17:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E86CAC43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 06:30:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAFF310E43B;
-	Tue,  7 Jul 2026 06:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 464CE10EB60;
+	Tue,  7 Jul 2026 06:30:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OoIDc5xK";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R54IUOw2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FzIpHvSM";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6A0110E43B
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 06:17:41 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 667495K42526330
- for <dri-devel@lists.freedesktop.org>; Tue, 7 Jul 2026 06:17:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=pl1sWeMBafq5dBYywth/L+4oTHWDQJ/jNNc
- 0mkSxTac=; b=OoIDc5xKTfO2RCmuaSgRisk3U91iIdyLsZxShpQ5Ug8oFX7kfEj
- WOQKn7ZtEVwPNQY2HEQPn9jmxfuMll+VBffdeRhbe8mOiiY9s6Zdirbfe+N+HJeJ
- 7CMwMCxXVWwxEHgJTXxWroIzrXhJZcNHmrcmOxyu2wsEzxcMHttiQeBwqhvKimt0
- 2VZTurA7U0ETULhaQmsdBmFxoR2nWPPQ9yS82dFwV+GXJM30gvaqYNyvecIU1T6V
- KHGOYwLTyMOHu28WILMuG6J8HC3ybluos7vQV8uNqpJST5BmRC0UjTD9ZWgOpTAM
- OtRtBm8qcWidh8NYd6s706nrGdjmkRhCMXQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8a98mawj-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 06:17:41 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-8478d2bea7cso388658b3a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Jul 2026 23:17:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783405060; x=1784009860;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pl1sWeMBafq5dBYywth/L+4oTHWDQJ/jNNc0mkSxTac=;
- b=R54IUOw2mETFQpyYtNoUqJHz4Msb0PoaKOwkrLXinCgHJCLzifCTqvTq1zOujCbGHW
- wjX+5lJJixwE1qNaAl/qs1xwr+vKGfZtFS69aDotwforZEuWaCHV7/VdjciISH09rEhE
- Gh+H1QfCBngrrL6gVXIr+e948PTSj9OKOSHLG3HT+z2xHyEW0tKMAjrlFoW3zmQi0zMv
- wu/gjtOwiH4DycOE5hLe4j2o8fmH4OuKMmu4v32qhGyU4NP2eI2CUJh67Njo9DISZJDG
- KAXwqHPPN54VrzUojQ9D8B+v7AuEx9izJR2HAMW+IvAgSyRMM7+8h7fa5apqOth8COqr
- LO3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783405060; x=1784009860;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pl1sWeMBafq5dBYywth/L+4oTHWDQJ/jNNc0mkSxTac=;
- b=IoNFwcCaLBJaA/jmfEv5TnAmHsCXSpwhYZx9omufy0cRmmN107OOKTnwphWjAbyrgp
- xOuI55SW/m5bWS3KqqQ15Q6lZ1EMYgEKreC9nWfFkWDmrRaDOZBNmjfiA/a1KhWs0Qmd
- C+N6WnA4+ck6uhSgy4a/JSIdysby9kLstEmHVJWQeqBqQ2MgcG/kS6n1iiBZgCxOcRQB
- 7mGnf+SFQFPYn3feLxiwHwR9ahjLbERE7RL+hjH+4WrXy2E25lVKbgENqsjEzVw2YHFF
- DdUg1Y+8HWUaMf3WRxXVhqrqEfQuqzdOdv1B0Hj7/aKFVarHJMvHJ3qZlzoT7eQ69TP9
- EX0A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpwcXfx1GiBD3Z/rQbAZwaheZ5Ad/6ecGT3S99De4YvHowDWtqyBZ/RNPswtAXy/t0ySWLc1gcuF54=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxdTgBnyp/W+MJWU9QYAuYk0HfJo3l6Cz1kWG2vzWnd0wnDCZGX
- Q3h4EUwNQTeGTUOURosTY6RxmFG5EvkH8JNm5Bzo+xbnptIdsc3ukvPxn1a3aKkUOO+FAKaJZIP
- n1yo9vogAzyEnFU8tD3E2hRnXfTJT/ai/QR2PpVWJcIcfhk6GCOuzoDSh0+xG5q9glTZboPLxGs
- iiawQ2fQ==
-X-Gm-Gg: AfdE7cmWOlvCehEZ90tDG1fCPCMn8/kiJrmTZws2jOcXVyeWFpYul2D7nWjzWg6Hnw2
- AfZ7CMfkhdrYIT1Rwtts1kaAZid9aRfUEtcWgB4mQk0p3l2SpUHTmiUFmVkvT+i9GLDQr6TRgRs
- xHWRkcmJiL0m/+fLVuQvCz9KPJomIer90GtIwd+/TeHxRJqbNm+HHngJBnpilc/MYFWKh+7R6nj
- 6okwEbUKTup06I+au+k6mWijnwm6d6K28S0Y52/va8Jck+AET4nw2WWDCTexkDxlsm0jpJjrfO3
- APyJ2/vG72pE+nwl2gEl0K4FdCcTZuxBQT90iubc306tZPPsyLIAm1e09Mp5VENSIWZ/y476ObC
- fm3frs6Qgx2xemCZpFrO0viCxXFI/coLHSzyuIAw1lMXx6GTcnUIx+Qd43XmLs+PHd9x+KaJRor
- H34ywMPOQ=
-X-Received: by 2002:a05:6a00:3e1c:b0:842:3838:cb03 with SMTP id
- d2e1a72fcca58-8482f358cd6mr1181892b3a.11.1783405060454; 
- Mon, 06 Jul 2026 23:17:40 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3e1c:b0:842:3838:cb03 with SMTP id
- d2e1a72fcca58-8482f358cd6mr1181856b3a.11.1783405059795; 
- Mon, 06 Jul 2026 23:17:39 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com
- (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847f6b96c0fsm4816238b3a.20.2026.07.06.23.17.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 23:17:39 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- quic_chennak@quicinc.com, stable@kernel.org
-Subject: [PATCH v9] misc: fastrpc: Allocate entire reserved memory for Audio
- PD in probe
-Date: Tue,  7 Jul 2026 14:17:33 +0800
-Message-Id: <20260707061733.495-1-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE6E310E440;
+ Tue,  7 Jul 2026 06:30:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783405837; x=1814941837;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=tjykPpqNThv13fVTU05MVt5WRE9yK93srf+WnySaidw=;
+ b=FzIpHvSMxtgbVfKDqPhkTafAl5fT38UJE87jr1VuXNRX8ht+/3OWOzTs
+ YBf5RjZ1WDnQ4z0yx8+uMt1hrMK8Tjzky5yMg/7ILOvfzZop5qtZRmePZ
+ U9Ii59h8Wm3FadJ8K1fWICQ0EjscCKimVzmtF8KWiqxtQx7IR0NbW0UW8
+ NcOjmcmpQcx8+Bs+JsFjAwo6vu+mFZvfY0W4TNzBO0xlpmSb5n6aQ+gL7
+ 0+88Z1d4Rj78zu0+t9PxLsNKkRhVDKMG6uo1ZgSBFpSLkpPaWObZYzAVQ
+ NaBQZj7OyvnKl2W3S8EWQcVwYukXDzYpPwwJkoeBQzERNhVbm2PnhpNth w==;
+X-CSE-ConnectionGUID: 85JrD1nATj+kItODydLf3w==
+X-CSE-MsgGUID: H7ZFfjzKTmuCf51wGVbeUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="95425555"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="95425555"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 23:30:36 -0700
+X-CSE-ConnectionGUID: udT0Egv6RbitC4FPHTr4VA==
+X-CSE-MsgGUID: eM2ZdVrbT8y+KwZFS4ziyw==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
+ ([10.245.244.199])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 23:30:32 -0700
+Message-ID: <8d654c651754e5f3ba0a2ce57639e471b883993c.camel@linux.intel.com>
+Subject: Re: [PATCH 02/10] drm/ttm: replace TTMs refcount with the DRM
+ refcount v4
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Natalie
+ Vock <natalie.vock@gmx.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen	 <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Alex Deucher
+ <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 	intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 	amd-gfx@lists.freedesktop.org
+Date: Tue, 07 Jul 2026 08:30:29 +0200
+In-Reply-To: <akvugeeF5zfAauf3@gsse-cloud1.jf.intel.com>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-2-43685ac1286b@gmx.de>
+ <b2932c85fee8e4bf89fdd80ada8883c199d823c0.camel@linux.intel.com>
+ <88614266-6ee3-4488-9e2f-030ae0266e0e@amd.com>
+ <7031c630c987940d814eaef9d1696969be12d81b.camel@linux.intel.com>
+ <akvrBLBhgbQodMNi@gsse-cloud1.jf.intel.com>
+ <230890fdfb6c3e855636ad7731f60210a078e2c6.camel@linux.intel.com>
+ <akvt1GtqVKVVtmEU@gsse-cloud1.jf.intel.com>
+ <akvugeeF5zfAauf3@gsse-cloud1.jf.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=SpigLvO0 c=1 sm=1 tr=0 ts=6a4c9a05 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=c8cBMUidy7NAwe8AhH0A:9 a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA1OCBTYWx0ZWRfX35i8mzEtQz/v
- AglsYvQU9rFgB2VY7o6qaFOSjoaqeqbX0Uf6+6g8NLsmfW4h7nBfSIwEtKUzxw5JwliBOmZ6MnX
- 6MzD/mKiGqsBvv+NTHuwD3O/9wVMMwJZ5q/a4eWpbKCMUBDfv8q2whQNOkLvOsThTjlSq6ui3h6
- 8JSPmu1UnzcBQ0KVH2B9rhWDl7hmPuL00oGGb1SbSl/+39HgieBQmmhLJyfTaLC8uirSCxMexUo
- oJkE6JnJFuZtm174xsOR75XPGZhuE4akW3IBLypK+FYdiqji1lCuRCQHbrER5/Kx3Ucg2vriPzW
- uxxkNqu0G62wAQc/f+QjjSqeAMEJJMa7aFG4TZIj2OtoSX5nI3iKdUxJUcyIsA78+A2MD1bnn3u
- 5nUS2zPpD0G+32P+JUHGb5eLTnWFMZ1MUYwh4KTqEYg4h4vLmiAN0MgUuPD5OwemicfO2EYKb6I
- 1rQ8C+RdibVlvhF/onw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA1OCBTYWx0ZWRfX8ydlEPYcydZ2
- Mr6zzJWoLk7cCpZgl08QA4BqgDY6LTR9Yycvl6kYobIzruss0FvhvC1nMsxfZtSchUpS3FcM62k
- P6Wc0zXPS2U03gyyhzQsyeH/8OaRBNU=
-X-Proofpoint-GUID: B1RPLVdrRa9QKYPfq1qDdNqUDe5otUYF
-X-Proofpoint-ORIG-GUID: B1RPLVdrRa9QKYPfq1qDdNqUDe5otUYF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_01,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,237 +88,949 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allocating and freeing Audio PD memory from userspace is unsafe because
-the kernel cannot reliably determine when the DSP has finished using the
-memory. Userspace may free buffers while they are still in use by the DSP,
-and remote free requests cannot be safely trusted.
+On Mon, 2026-07-06 at 11:05 -0700, Matthew Brost wrote:
+> On Mon, Jul 06, 2026 at 11:03:00AM -0700, Matthew Brost wrote:
+> > On Mon, Jul 06, 2026 at 07:53:12PM +0200, Thomas Hellstr=C3=B6m wrote:
+> > > On Mon, 2026-07-06 at 10:51 -0700, Matthew Brost wrote:
+> > > > On Mon, Jul 06, 2026 at 07:01:27PM +0200, Thomas Hellstr=C3=B6m
+> > > > wrote:
+> > > > > On Mon, 2026-07-06 at 16:49 +0200, Christian K=C3=B6nig wrote:
+> > > > > > On 7/6/26 15:14, Thomas Hellstr=C3=B6m wrote:
+> > > > > > > On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
+> > > > > > > > From: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > > >=20
+> > > > > > > > Instead of keeping a separate reference count for the
+> > > > > > > > TTM
+> > > > > > > > object
+> > > > > > > > also
+> > > > > > > > use
+> > > > > > > > the reference count for DRM GEM objects inside TTM.
+> > > > > > > >=20
+> > > > > > > > Apart from avoiding two reference counts for one object
+> > > > > > > > this
+> > > > > > > > approach
+> > > > > > > > has
+> > > > > > > > the clear advantage of being able to use drm_exec
+> > > > > > > > inside TTM.
+> > > > > > > >=20
+> > > > > > > > v2: adjust XE assert as well and re-enable disabled
+> > > > > > > > test
+> > > > > > > > v3: handle another case in i915
+> > > > > > > > v4: set GEM driver funcs of transfer BOs to point to
+> > > > > > > > the TTM
+> > > > > > > > free
+> > > > > > > > callback (Natalie)
+> > > > > > >=20
+> > > > > > > I think the main review issue from the last time this was
+> > > > > > > on
+> > > > > > > the
+> > > > > > > table
+> > > > > > > was that we shouldn't resurrect the gem refcount. Apart
+> > > > > > > from
+> > > > > > > the
+> > > > > > > risc
+> > > > > > > of getting barriers wrong, both xe and IIRC i915 partly
+> > > > > > > rely on
+> > > > > > > the
+> > > > > > > gem
+> > > > > > > refcount never being resurrected and that callbacks for
+> > > > > > > bos
+> > > > > > > with
+> > > > > > > zero
+> > > > > > > gem refcount means that the gem part of the object is
+> > > > > > > unusable.
+> > > > > >=20
+> > > > > > I've spend quite some time thinking about that and came to
+> > > > > > the
+> > > > > > conclusion that this is actually harmless.
+> > > > > >=20
+> > > > > > The drivers shouldn't be able to see the resurected BO,
+> > > > > > except if
+> > > > > > they go over the LRU list manually (which they shouldn't).
+> > > > >=20
+> > > > > The shrinker uses the TTM helpers for this. Basically the
+> > > > > check
+> > > > > needs
+> > > > > to be ported to use the zombie interface but the present
+> > > > > change
+> > > > > also
+> > > > > widens the window where we can't evict / shrink at all due to
+> > > > > zero
+> > > > > refcounts.
+> > > > >=20
+> > > > > While it might be made harmless, resurrecting a refcount like
+> > > > > this
+> > > > > is
+> > > > > IMO not something that should leak into the gem refcount.
+> > > > > Nobody
+> > > > > else
+> > > > > does this in the kernel tree. The bo in reality becomes a
+> > > > > zombie
+> > > > > once
+> > > > > the gem refcount reaches zero.
+> > > >=20
+> > > > When you say resurrecting a refcount - what exactly do you mean
+> > > > by
+> > > > this?
+> > > >=20
+> > > > ref -> 0 -> init ref count 1 -> 0 again?
+> > >=20
+> > > Yes, the destructor re-initializes it to 1 again. Prevously this
+> > > was
+> > > confined to the TTM refcount only and had limited visibility.
+> > >=20
+>=20
+> Opps, missed pasting in a line here:
+>=20
+> Ok, yes, this is also something in the pipeline for Xe related to CPU
+> bindings:
+>=20
+> >=20
+> > Put a PT BO on a deferred list -> reinit -> sometime later, do an
+> > async
+> > put. This is all done using the TTM refcount. Of course, we don't
+> > have
+> > to do it this way, though.
+> >=20
+> > In general, I agree that tricks like this are not the most
+> > desirable
+> > approach. If I recall correctly, I implemented this in the Xe code
+> > because it followed an existing paradigm.
 
-Additionally, the current implementation allows userspace to repeatedly
-grow the Audio PD heap, but does not support shrinking it. This can lead
-to unbounded memory usage over time, effectively causing a memory leak.
+I figure if you completely repurpose the refcount and there is a
+documented way to easily assert that the two different use-cases never
+collide then it would probably be acceptable. But note also Dave's
+comment about Rust. If we extend this practice others may use it as a
+precedent....
 
-Fix this by allocating the entire Audio PD reserved-memory region during
-rpmsg probe and tying its lifetime to the rpmsg channel. This removes
-userspace-controlled alloc/free and ensures that memory is reclaimed only
-when the DSP process is torn down.
+/Thomas
 
-Add explicit validation for remote_heap presence and size before sending
-the memory to DSP, and fail early if the reserved-memory region is
-missing or incomplete.
 
-Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-Cc: stable@kernel.org
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 119 +++++++++++++++++++++++------------------
- 1 file changed, 66 insertions(+), 53 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d86e79134c68..1ec37e6c68a2 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
- 	struct kref refcount;
- 	/* Flag if dsp attributes are cached */
- 	bool valid_attributes;
-+	/* Flag if audio PD init mem was allocated */
-+	bool audio_init_mem;
- 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
- 	struct fastrpc_device *secure_fdevice;
- 	struct fastrpc_device *fdevice;
-@@ -1344,15 +1346,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	struct fastrpc_init_create_static init;
- 	struct fastrpc_invoke_args *args;
- 	struct fastrpc_phy_page pages[1];
-+	struct fastrpc_channel_ctx *cctx = fl->cctx;
- 	char *name;
- 	int err;
--	bool scm_done = false;
- 	struct {
- 		int client_id;
- 		u32 namelen;
- 		u32 pageslen;
- 	} inbuf;
- 	u32 sc;
-+	unsigned long flags;
-+
-+	if (!cctx->remote_heap || !cctx->remote_heap->dma_addr ||
-+	    !cctx->remote_heap->size) {
-+		err = -ENOMEM;
-+		dev_err(fl->sctx->dev,
-+			"remote heap memory region is not added\n");
-+		return err;
-+	}
- 
- 	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
- 	if (!args)
-@@ -1376,31 +1387,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	inbuf.client_id = fl->client_id;
- 	inbuf.namelen = init.namelen;
- 	inbuf.pageslen = 0;
--	if (!fl->cctx->remote_heap) {
--		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
--						&fl->cctx->remote_heap);
--		if (err)
--			goto err_name;
--
--		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
--		if (fl->cctx->vmcount) {
--			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
--
--			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
--							(u64)fl->cctx->remote_heap->size,
--							&src_perms,
--							fl->cctx->vmperms, fl->cctx->vmcount);
--			if (err) {
--				dev_err(fl->sctx->dev,
--					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
--					&fl->cctx->remote_heap->dma_addr,
--					fl->cctx->remote_heap->size, err);
--				goto err_map;
--			}
--			scm_done = true;
--			inbuf.pageslen = 1;
--		}
--	}
- 
- 	fl->pd = USER_PD;
- 
-@@ -1412,8 +1398,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	args[1].length = inbuf.namelen;
- 	args[1].fd = -1;
- 
--	pages[0].addr = fl->cctx->remote_heap->dma_addr;
--	pages[0].size = fl->cctx->remote_heap->size;
-+	/*
-+	 * Audio PD is a static PD and retains the remote heap
-+	 * information across daemon restarts. Therefore only
-+	 * the first attach should provide heap information to
-+	 * DSP. Subsequent attaches reuse the previously
-+	 * initialized memory pool.
-+	 */
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	if (!cctx->audio_init_mem) {
-+		pages[0].addr = cctx->remote_heap->dma_addr;
-+		pages[0].size = cctx->remote_heap->size;
-+		cctx->audio_init_mem = true;
-+		inbuf.pageslen = 1;
-+	} else {
-+		pages[0].addr = 0;
-+		pages[0].size = 0;
-+	}
-+	spin_unlock_irqrestore(&cctx->lock, flags);
- 
- 	args[2].ptr = (u64)(uintptr_t) pages;
- 	args[2].length = sizeof(*pages);
-@@ -1431,27 +1433,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 
- 	return 0;
- err_invoke:
--	if (fl->cctx->vmcount && scm_done) {
--		u64 src_perms = 0;
--		struct qcom_scm_vmperm dst_perms;
--		u32 i;
--
--		for (i = 0; i < fl->cctx->vmcount; i++)
--			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
--
--		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
--		dst_perms.perm = QCOM_SCM_PERM_RWX;
--		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
--						(u64)fl->cctx->remote_heap->size,
--						&src_perms, &dst_perms, 1);
--		if (err)
--			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
--				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
--	}
--err_map:
--	fastrpc_buf_free(fl->cctx->remote_heap);
--	fl->cctx->remote_heap = NULL;
--err_name:
-+	cctx->audio_init_mem = false;
- 	kfree(name);
- err:
- 	kfree(args);
-@@ -2418,12 +2400,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		}
- 	}
- 
--	if (domain_id == SDSP_DOMAIN_ID) {
-+	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
- 		struct resource res;
- 		u64 src_perms;
- 
- 		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
- 		if (!err) {
-+			if (domain_id == ADSP_DOMAIN_ID) {
-+				data->remote_heap =
-+					kzalloc_obj(*data->remote_heap, GFP_KERNEL);
-+				if (!data->remote_heap) {
-+					err = -ENOMEM;
-+					goto err_free_data;
-+				}
-+
-+				data->remote_heap->dma_addr = res.start;
-+				data->remote_heap->size = resource_size(&res);
-+			}
- 			src_perms = BIT(QCOM_SCM_VMID_HLOS);
- 
- 			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
-@@ -2431,7 +2424,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 			if (err)
- 				goto err_free_data;
- 		}
--
- 	}
- 
- 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
-@@ -2490,6 +2482,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		misc_deregister(&data->secure_fdevice->miscdev);
- 
- err_free_data:
-+	kfree(data->remote_heap);
- 	kfree(data);
- 	return err;
- }
-@@ -2512,6 +2505,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	struct fastrpc_buf *buf, *b;
- 	struct fastrpc_user *user;
- 	unsigned long flags;
-+	int err;
- 
- 	/* No invocations past this point */
- 	spin_lock_irqsave(&cctx->lock, flags);
-@@ -2529,8 +2523,27 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
- 		list_del(&buf->node);
- 
--	if (cctx->remote_heap)
--		fastrpc_buf_free(cctx->remote_heap);
-+	if (cctx->remote_heap && cctx->vmcount) {
-+		u64 src_perms = 0;
-+		struct qcom_scm_vmperm dst_perms;
-+
-+		for (u32 i = 0; i < cctx->vmcount; i++)
-+			src_perms |= BIT(cctx->vmperms[i].vmid);
-+
-+		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-+		dst_perms.perm = QCOM_SCM_PERM_RWX;
-+
-+		err = qcom_scm_assign_mem(cctx->remote_heap->dma_addr,
-+					  cctx->remote_heap->size, &src_perms,
-+					  &dst_perms, 1);
-+		if (err)
-+			dev_err(&rpdev->dev,
-+				"Failed to assign memory back to HLOS: dma_addr %pad size %#llx err %d\n",
-+				&cctx->remote_heap->dma_addr, cctx->remote_heap->size, err);
-+	}
-+
-+	kfree(cctx->remote_heap);
-+	cctx->remote_heap = NULL;
- 
- 	of_platform_depopulate(&rpdev->dev);
- 
--- 
-2.43.0
-
+> >  If we want to merge the TTM
+> > and GEM refcounts, I agree that we should likely move away from
+> > this
+> > paradigm, since the GEM refcount significantly expands its scope.
+> >=20
+> > Matt
+> >=20
+> > > /Thomas
+> > >=20
+> > > >=20
+> > > > Matt
+> > > >=20
+> > > > >=20
+> > > > > >=20
+> > > > > > >=20
+> > > > > > > For example xe_bo.c:
+> > > > > > >=20
+> > > > > > > 	if (!xe_bo_is_xe_bo(bo) ||
+> > > > > > > !xe_bo_get_unless_zero(xe_bo))
+> > > > > > > 		return xe_bo_shrink_purge(ctx, bo,
+> > > > > > > scanned);
+> > > > > > >=20
+> > > > > > > So IIRC the conclusion was when removing the ttm refcount
+> > > > > > > we
+> > > > > > > shouldn't
+> > > > > > > attempt to resurrect the gem one. If the
+> > > > > > > get_unless_zero()
+> > > > > > > fails
+> > > > > > > during
+> > > > > > > evict walk, we simply find something to wait for. See
+> > > > > > > previous
+> > > > > > > discussion there.
+> > > > > >=20
+> > > > > > Yeah, I considered that as well but the problem is we often
+> > > > > > doesn't
+> > > > > > have anything to wait on.
+> > > > >=20
+> > > > > That's not the conclusion of the previous discussion?
+> > > > >=20
+> > > > > https://lore.kernel.org/dri-devel/20250716160555.20217-2-christia=
+n.koenig@amd.com/#r
+> > > > >=20
+> > > > > >=20
+> > > > > > >=20
+> > > > > > > I fully support removing the ttm refcount, but not if it
+> > > > > > > means
+> > > > > > > resurrecting the gem refcount.
+> > > > > > >=20
+> > > > > > > If we want to sidestep that problem, in favour of getting
+> > > > > > > the
+> > > > > > > proposed
+> > > > > > > locking functionality in and future proof it, I suggest
+> > > > > > > using
+> > > > > > >=20
+> > > > > > > https://lore.kernel.org/all/20260605112700.181040-1-thomas.he=
+llstrom@linux.intel.com/
+> > > > > > >=20
+> > > > > > > And rebase this series on that. This means we can use the
+> > > > > > > ttm
+> > > > > > > refcount
+> > > > > > > for the transaction refcounting, and also that if we add
+> > > > > > > a dma-
+> > > > > > > buf
+> > > > > > > map
+> > > > > > > interface with a dma_resv_txn_obj, we could use that to
+> > > > > > > also
+> > > > > > > have
+> > > > > > > exhaustive eviction that originates from a dma_buf map.
+> > > > > >=20
+> > > > > > I don't think that this is a good idea. It just adds
+> > > > > > another
+> > > > > > layer of
+> > > > > > abstraction and doesn't solve the problem in any way
+> > > > > > possible.
+> > > > >=20
+> > > > > This comment confuses me. Exactly what problem isn't solved
+> > > > > by
+> > > > > this,
+> > > > > and which of the stated benefits/use-cases in the cover-
+> > > > > letter do
+> > > > > you
+> > > > > think aren't worthwhile?
+> > > > >=20
+> > > > > Also for reference: (Section at the end and follow-up
+> > > > > messages)
+> > > > > https://lore.kernel.org/all/3716d43462188590743060755b37e3d060f76=
+00f.camel@linux.intel.com/
+> > > > >=20
+> > > > > Thanks,
+> > > > > Thomas
+> > > > >=20
+> > > > >=20
+> > > > > > Regards,
+> > > > > > Christian.
+> > > > > >=20
+> > > > > > >=20
+> > > > > > > /Thomas
+> > > > > > >=20
+> > > > > > > >=20
+> > > > > > > > Signed-off-by: tChristian K=C3=B6nig
+> > > > > > > > <christian.koenig@amd.com>
+> > > > > > > > Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+> > > > > > > > ---
+> > > > > > > > =C2=A0drivers/gpu/drm/i915/gem/i915_gem_ttm.c=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 35
+> > > > > > > > +++--
+> > > > > > > > -
+> > > > > > > > =C2=A0drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c |=C2=
+=A0=C2=A0 8
+> > > > > > > > +-
+> > > > > > > > =C2=A0drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c=C2=A0=
+=C2=A0=C2=A0 |=C2=A0=C2=A0 2
+> > > > > > > > -
+> > > > > > > > =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 135
+> > > > > > > > +++++++++++--
+> > > > > > > > ----------
+> > > > > > > > =C2=A0drivers/gpu/drm/ttm/ttm_bo_internal.h=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 17
+> > > > > > > > ++-
+> > > > > > > > =C2=A0drivers/gpu/drm/ttm/ttm_bo_util.c=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 15
+> > > > > > > > ++-
+> > > > > > > > =C2=A0drivers/gpu/drm/xe/xe_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2
+> > > > > > > > +-
+> > > > > > > > =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 9
+> > > > > > > > --
+> > > > > > > > =C2=A08 files changed, 111 insertions(+), 112 deletions(-)
+> > > > > > > >=20
+> > > > > > > > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> > > > > > > > b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> > > > > > > > index df3fcc2b1248e..642296602de69 100644
+> > > > > > > > --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> > > > > > > > +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+> > > > > > > > @@ -939,7 +939,7 @@ void i915_ttm_adjust_lru(struct
+> > > > > > > > drm_i915_gem_object *obj)
+> > > > > > > > =C2=A0	 * Don't manipulate the TTM LRUs while in TTM
+> > > > > > > > bo
+> > > > > > > > destruction.
+> > > > > > > > =C2=A0	 * We're called through
+> > > > > > > > i915_ttm_delete_mem_notify().
+> > > > > > > > =C2=A0	 */
+> > > > > > > > -	if (!kref_read(&bo->kref))
+> > > > > > > > +	if (!kref_read(&bo->base.refcount))
+> > > > > > > > =C2=A0		return;
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	/*
+> > > > > > > > @@ -957,30 +957,21 @@ void i915_ttm_adjust_lru(struct
+> > > > > > > > drm_i915_gem_object *obj)
+> > > > > > > > =C2=A0	 *
+> > > > > > > > =C2=A0	 * TODO: consider maybe also bumping the
+> > > > > > > > shrinker
+> > > > > > > > list
+> > > > > > > > here
+> > > > > > > > when we have
+> > > > > > > > =C2=A0	 * already unpinned it, which should give us
+> > > > > > > > something
+> > > > > > > > more
+> > > > > > > > like an LRU.
+> > > > > > > > -	 *
+> > > > > > > > -	 * TODO: There is a small window of
+> > > > > > > > opportunity for
+> > > > > > > > this
+> > > > > > > > function to
+> > > > > > > > -	 * get called from eviction after we've
+> > > > > > > > dropped the
+> > > > > > > > last
+> > > > > > > > GEM
+> > > > > > > > refcount,
+> > > > > > > > -	 * but before the TTM deleted flag is set on
+> > > > > > > > the
+> > > > > > > > object.
+> > > > > > > > Avoid
+> > > > > > > > -	 * adjusting the shrinker list in such cases,
+> > > > > > > > since
+> > > > > > > > the
+> > > > > > > > object is
+> > > > > > > > -	 * not available to the shrinker anyway due to
+> > > > > > > > its
+> > > > > > > > zero
+> > > > > > > > refcount.
+> > > > > > > > -	 * To fix this properly we should move to a
+> > > > > > > > TTM
+> > > > > > > > shrinker
+> > > > > > > > LRU
+> > > > > > > > list for
+> > > > > > > > -	 * these objects.
+> > > > > > > > =C2=A0	 */
+> > > > > > > > -	if (kref_get_unless_zero(&obj->base.refcount))
+> > > > > > > > {
+> > > > > > > > -		if (shrinkable !=3D obj-
+> > > > > > > > >mm.ttm_shrinkable) {
+> > > > > > > > -			if (shrinkable) {
+> > > > > > > > -				if (obj->mm.madv =3D=3D
+> > > > > > > > I915_MADV_WILLNEED)
+> > > > > > > > -
+> > > > > > > > 					__i915_gem_obj
+> > > > > > > > ect_ma
+> > > > > > > > ke_s
+> > > > > > > > hrinkable(obj);
+> > > > > > > > -				else
+> > > > > > > > -
+> > > > > > > > 					__i915_gem_obj
+> > > > > > > > ect_ma
+> > > > > > > > ke_p
+> > > > > > > > urgeable(obj);
+> > > > > > > > -			} else {
+> > > > > > > > -
+> > > > > > > > 				i915_gem_object_make_u
+> > > > > > > > nshrin
+> > > > > > > > kabl
+> > > > > > > > e(obj);
+> > > > > > > > -			}
+> > > > > > > > -
+> > > > > > > > -			obj->mm.ttm_shrinkable =3D
+> > > > > > > > shrinkable;
+> > > > > > > > +	i915_gem_object_get(obj);
+> > > > > > > > +	if (shrinkable !=3D obj->mm.ttm_shrinkable) {
+> > > > > > > > +		if (shrinkable) {
+> > > > > > > > +			if (obj->mm.madv =3D=3D
+> > > > > > > > I915_MADV_WILLNEED)
+> > > > > > > > +				__i915_gem_object_make
+> > > > > > > > _shrin
+> > > > > > > > kabl
+> > > > > > > > e(ob
+> > > > > > > > j);
+> > > > > > > > +			else
+> > > > > > > > +				__i915_gem_object_make
+> > > > > > > > _purge
+> > > > > > > > able
+> > > > > > > > (obj
+> > > > > > > > );
+> > > > > > > > +		} else {
+> > > > > > > > +			i915_gem_object_make_unshrinka
+> > > > > > > > ble(ob
+> > > > > > > > j);
+> > > > > > > > =C2=A0		}
+> > > > > > > > -		i915_gem_object_put(obj);
+> > > > > > > > +
+> > > > > > > > +		obj->mm.ttm_shrinkable =3D shrinkable;
+> > > > > > > > =C2=A0	}
+> > > > > > > > +	i915_gem_object_put(obj);
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	/*
+> > > > > > > > =C2=A0	 * Put on the correct LRU list depending on
+> > > > > > > > the MADV
+> > > > > > > > status
+> > > > > > > > diff --git
+> > > > > > > > a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> > > > > > > > b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> > > > > > > > index 56ad8ef325840..904cb4da6c9b3 100644
+> > > > > > > > --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> > > > > > > > +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> > > > > > > > @@ -127,7 +127,7 @@ static void
+> > > > > > > > ttm_bo_init_reserved_sys_man(struct
+> > > > > > > > kunit *test)
+> > > > > > > > =C2=A0	dma_resv_unlock(bo->base.resv);
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	KUNIT_EXPECT_EQ(test, err, 0);
+> > > > > > > > -	KUNIT_EXPECT_EQ(test, kref_read(&bo->kref),
+> > > > > > > > 1);
+> > > > > > > > +	KUNIT_EXPECT_EQ(test, kref_read(&bo-
+> > > > > > > > >base.refcount),
+> > > > > > > > 1);
+> > > > > > > > =C2=A0	KUNIT_EXPECT_PTR_EQ(test, bo->bdev, priv-
+> > > > > > > > >ttm_dev);
+> > > > > > > > =C2=A0	KUNIT_EXPECT_EQ(test, bo->type, bo_type);
+> > > > > > > > =C2=A0	KUNIT_EXPECT_EQ(test, bo->page_alignment,
+> > > > > > > > PAGE_SIZE);
+> > > > > > > > @@ -176,7 +176,7 @@ static void
+> > > > > > > > ttm_bo_init_reserved_mock_man(struct
+> > > > > > > > kunit *test)
+> > > > > > > > =C2=A0	dma_resv_unlock(bo->base.resv);
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	KUNIT_EXPECT_EQ(test, err, 0);
+> > > > > > > > -	KUNIT_EXPECT_EQ(test, kref_read(&bo->kref),
+> > > > > > > > 1);
+> > > > > > > > +	KUNIT_EXPECT_EQ(test, kref_read(&bo-
+> > > > > > > > >base.refcount),
+> > > > > > > > 1);
+> > > > > > > > =C2=A0	KUNIT_EXPECT_PTR_EQ(test, bo->bdev, priv-
+> > > > > > > > >ttm_dev);
+> > > > > > > > =C2=A0	KUNIT_EXPECT_EQ(test, bo->type, bo_type);
+> > > > > > > > =C2=A0	KUNIT_EXPECT_EQ(test, ctx.bytes_moved, size);
+> > > > > > > > @@ -969,6 +969,8 @@ static void
+> > > > > > > > ttm_bo_validate_allowed_only_evict(struct kunit *test)
+> > > > > > > > =C2=A0	ttm_mock_manager_fini(priv->ttm_dev,
+> > > > > > > > mem_multihop);
+> > > > > > > > =C2=A0}
+> > > > > > > > =C2=A0
+> > > > > > > > +extern const struct drm_gem_object_funcs
+> > > > > > > > ttm_deleted_object_funcs;
+> > > > > > > > +
+> > > > > > > > =C2=A0static void ttm_bo_validate_deleted_evict(struct kuni=
+t
+> > > > > > > > *test)
+> > > > > > > > =C2=A0{
+> > > > > > > > =C2=A0	struct ttm_operation_ctx ctx_init =3D { },
+> > > > > > > > ctx_val=C2=A0 =3D
+> > > > > > > > { };
+> > > > > > > > @@ -999,7 +1001,7 @@ static void
+> > > > > > > > ttm_bo_validate_deleted_evict(struct
+> > > > > > > > kunit *test)
+> > > > > > > > =C2=A0	KUNIT_EXPECT_EQ(test,
+> > > > > > > > ttm_resource_manager_usage(man),
+> > > > > > > > big);
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	dma_resv_unlock(bo_big->base.resv);
+> > > > > > > > -	bo_big->deleted =3D true;
+> > > > > > > > +	bo_big->base.funcs =3D
+> > > > > > > > &ttm_deleted_object_funcs;
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	bo_small =3D ttm_bo_kunit_init(test, test->priv,
+> > > > > > > > small,
+> > > > > > > > NULL);
+> > > > > > > > =C2=A0	bo_small->type =3D bo_type;
+> > > > > > > > diff --git
+> > > > > > > > a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+> > > > > > > > b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+> > > > > > > > index 5cfe8f3f80d75..b7ab19e0e4b2b 100644
+> > > > > > > > --- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+> > > > > > > > +++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+> > > > > > > > @@ -189,8 +189,6 @@ struct ttm_buffer_object
+> > > > > > > > *ttm_bo_kunit_init(struct kunit *test,
+> > > > > > > > =C2=A0	bo->bdev =3D devs->ttm_dev;
+> > > > > > > > =C2=A0	bo->destroy =3D dummy_ttm_bo_destroy;
+> > > > > > > > =C2=A0
+> > > > > > > > -	kref_init(&bo->kref);
+> > > > > > > > -
+> > > > > > > > =C2=A0	return bo;
+> > > > > > > > =C2=A0}
+> > > > > > > > =C2=A0EXPORT_SYMBOL_GPL(ttm_bo_kunit_init);
+> > > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > > > > b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > > > > index 3980f376e3ba4..2b470c1746f60 100644
+> > > > > > > > --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> > > > > > > > @@ -246,88 +246,84 @@ static void
+> > > > > > > > ttm_bo_delayed_delete(struct
+> > > > > > > > work_struct *work)
+> > > > > > > > =C2=A0	ttm_bo_put(bo);
+> > > > > > > > =C2=A0}
+> > > > > > > > =C2=A0
+> > > > > > > > -static void ttm_bo_release(struct kref *kref)
+> > > > > > > > +/*
+> > > > > > > > + * All other callbacks should never ever be called on
+> > > > > > > > a
+> > > > > > > > deleted
+> > > > > > > > TTM
+> > > > > > > > object.
+> > > > > > > > + */
+> > > > > > > > +const struct drm_gem_object_funcs
+> > > > > > > > ttm_deleted_object_funcs =3D
+> > > > > > > > {
+> > > > > > > > +	.free =3D ttm_bo_free
+> > > > > > > > +};
+> > > > > > > > +EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_deleted_object_funcs)
+> > > > > > > > ;
+> > > > > > > > +
+> > > > > > > > +/* Returns true if the BO is about to get deleted */
+> > > > > > > > +static bool ttm_bo_is_zombie(struct ttm_buffer_object
+> > > > > > > > *bo)
+> > > > > > > > +{
+> > > > > > > > +	return bo->base.funcs =3D=3D
+> > > > > > > > &ttm_deleted_object_funcs;
+> > > > > > > > +}
+> > > > > > > > +
+> > > > > > > > +void ttm_bo_fini(struct ttm_buffer_object *bo)
+> > > > > > > > =C2=A0{
+> > > > > > > > -	struct ttm_buffer_object *bo =3D
+> > > > > > > > -	=C2=A0=C2=A0=C2=A0 container_of(kref, struct
+> > > > > > > > ttm_buffer_object,
+> > > > > > > > kref);
+> > > > > > > > =C2=A0	struct ttm_device *bdev =3D bo->bdev;
+> > > > > > > > =C2=A0	int ret;
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	WARN_ON_ONCE(bo->pin_count);
+> > > > > > > > =C2=A0	WARN_ON_ONCE(bo->bulk_move);
+> > > > > > > > =C2=A0
+> > > > > > > > -	if (!bo->deleted) {
+> > > > > > > > -		ret =3D ttm_bo_individualize_resv(bo);
+> > > > > > > > -		if (ret) {
+> > > > > > > > -			/* Last resort, if we fail to
+> > > > > > > > allocate
+> > > > > > > > memory for the
+> > > > > > > > -			 * fences block for the BO to
+> > > > > > > > become
+> > > > > > > > idle
+> > > > > > > > -			 */
+> > > > > > > > -			dma_resv_wait_timeout(bo-
+> > > > > > > > >base.resv,
+> > > > > > > > -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > > > > > > > DMA_RESV_USAGE_BOOKKEEP, false,
+> > > > > > > > -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 30 *
+> > > > > > > > HZ);
+> > > > > > > > -		}
+> > > > > > > > +	ret =3D ttm_bo_individualize_resv(bo);
+> > > > > > > > +	if (ret) {
+> > > > > > > > +		/* Last resort, if we fail to allocate
+> > > > > > > > memory
+> > > > > > > > for
+> > > > > > > > the
+> > > > > > > > +		 * fences block for the BO to become
+> > > > > > > > idle
+> > > > > > > > +		 */
+> > > > > > > > +		dma_resv_wait_timeout(bo->base.resv,
+> > > > > > > > DMA_RESV_USAGE_BOOKKEEP,
+> > > > > > > > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 false, 30 * HZ);
+> > > > > > > > +	}
+> > > > > > > > =C2=A0
+> > > > > > > > -		if (bdev->funcs->release_notify)
+> > > > > > > > -			bdev->funcs-
+> > > > > > > > >release_notify(bo);
+> > > > > > > > +	if (bo->bdev->funcs->release_notify)
+> > > > > > > > +		bo->bdev->funcs->release_notify(bo);
+> > > > > > > > =C2=A0
+> > > > > > > > -		drm_vma_offset_remove(bdev-
+> > > > > > > > >vma_manager,
+> > > > > > > > &bo-
+> > > > > > > > > base.vma_node);
+> > > > > > > > -		ttm_mem_io_free(bdev, bo->resource);
+> > > > > > > > +	drm_vma_offset_remove(bdev->vma_manager, &bo-
+> > > > > > > > > base.vma_node);
+> > > > > > > > +	ttm_mem_io_free(bdev, bo->resource);
+> > > > > > > > =C2=A0
+> > > > > > > > -		if (!dma_resv_test_signaled(&bo-
+> > > > > > > > >base._resv,
+> > > > > > > > -					=C2=A0=C2=A0=C2=A0
+> > > > > > > > DMA_RESV_USAGE_BOOKKEEP)
+> > > > > > > > > >=20
+> > > > > > > > -		=C2=A0=C2=A0=C2=A0 (want_init_on_free() && (bo->ttm
+> > > > > > > > !=3D
+> > > > > > > > NULL))
+> > > > > > > > > >=20
+> > > > > > > > -		=C2=A0=C2=A0=C2=A0 bo->type =3D=3D ttm_bo_type_sg ||
+> > > > > > > > -		=C2=A0=C2=A0=C2=A0 !dma_resv_trylock(bo->base.resv))
+> > > > > > > > {
+> > > > > > > > -			/* The BO is not idle,
+> > > > > > > > resurrect it
+> > > > > > > > for
+> > > > > > > > delayed destroy */
+> > > > > > > > -			ttm_bo_flush_all_fences(bo);
+> > > > > > > > -			bo->deleted =3D true;
+> > > > > > > > +	if (!dma_resv_test_signaled(&bo->base._resv,
+> > > > > > > > DMA_RESV_USAGE_BOOKKEEP) ||
+> > > > > > > > +	=C2=A0=C2=A0=C2=A0 (want_init_on_free() && (bo->ttm !=3D =
+NULL))
+> > > > > > > > ||
+> > > > > > > > +	=C2=A0=C2=A0=C2=A0 bo->type =3D=3D ttm_bo_type_sg ||
+> > > > > > > > +	=C2=A0=C2=A0=C2=A0 !dma_resv_trylock(bo->base.resv)) {
+> > > > > > > > +		/* The BO is not idle, resurrect it
+> > > > > > > > for
+> > > > > > > > delayed
+> > > > > > > > destroy */
+> > > > > > > > +		ttm_bo_flush_all_fences(bo);
+> > > > > > > > =C2=A0
+> > > > > > > > -			spin_lock(&bdev->lru_lock);
+> > > > > > > > -
+> > > > > > > > -			/*
+> > > > > > > > -			 * Make pinned bos immediately
+> > > > > > > > available
+> > > > > > > > to
+> > > > > > > > -			 * shrinkers, now that they
+> > > > > > > > are
+> > > > > > > > queued
+> > > > > > > > for
+> > > > > > > > -			 * destruction.
+> > > > > > > > -			 *
+> > > > > > > > -			 * FIXME: QXL is triggering
+> > > > > > > > this.
+> > > > > > > > Can be
+> > > > > > > > removed when the
+> > > > > > > > -			 * driver is fixed.
+> > > > > > > > -			 */
+> > > > > > > > -			if (bo->pin_count) {
+> > > > > > > > -				bo->pin_count =3D 0;
+> > > > > > > > -
+> > > > > > > > 				ttm_resource_move_to_l
+> > > > > > > > ru_tai
+> > > > > > > > l(bo-
+> > > > > > > > > resource);
+> > > > > > > > -			}
+> > > > > > > > +		spin_lock(&bo->bdev->lru_lock);
+> > > > > > > > =C2=A0
+> > > > > > > > -			kref_init(&bo->kref);
+> > > > > > > > -			spin_unlock(&bdev->lru_lock);
+> > > > > > > > +		/*
+> > > > > > > > +		 * Make pinned bos immediately
+> > > > > > > > available to
+> > > > > > > > +		 * shrinkers, now that they are queued
+> > > > > > > > for
+> > > > > > > > +		 * destruction.
+> > > > > > > > +		 *
+> > > > > > > > +		 * FIXME: QXL is triggering this. Can
+> > > > > > > > be
+> > > > > > > > removed
+> > > > > > > > when the
+> > > > > > > > +		 * driver is fixed.
+> > > > > > > > +		 */
+> > > > > > > > +		if (bo->pin_count) {
+> > > > > > > > +			bo->pin_count =3D 0;
+> > > > > > > > +			ttm_resource_move_to_lru_tail(
+> > > > > > > > bo-
+> > > > > > > > > resource);
+> > > > > > > > +		}
+> > > > > > > > =C2=A0
+> > > > > > > > -			INIT_WORK(&bo->delayed_delete,
+> > > > > > > > ttm_bo_delayed_delete);
+> > > > > > > > +		kref_init(&bo->base.refcount);
+> > > > > > > > +		bo->base.funcs =3D
+> > > > > > > > &ttm_deleted_object_funcs;
+> > > > > > > > +		spin_unlock(&bo->bdev->lru_lock);
+> > > > > > > > =C2=A0
+> > > > > > > > -			/* Schedule the worker on the
+> > > > > > > > closest
+> > > > > > > > NUMA
+> > > > > > > > node. This
+> > > > > > > > -			 * improves performance since
+> > > > > > > > system
+> > > > > > > > memory
+> > > > > > > > might be
+> > > > > > > > -			 * cleared on free and that is
+> > > > > > > > best
+> > > > > > > > done
+> > > > > > > > on
+> > > > > > > > a CPU core
+> > > > > > > > -			 * close to it.
+> > > > > > > > -			 */
+> > > > > > > > -			queue_work_node(bdev-
+> > > > > > > > >pool.nid,
+> > > > > > > > bdev-
+> > > > > > > > > wq,
+> > > > > > > > &bo->delayed_delete);
+> > > > > > > > -			return;
+> > > > > > > > -		}
+> > > > > > > > +		INIT_WORK(&bo->delayed_delete,
+> > > > > > > > ttm_bo_delayed_delete);
+> > > > > > > > =C2=A0
+> > > > > > > > +		/* Schedule the worker on the closest
+> > > > > > > > NUMA
+> > > > > > > > node.
+> > > > > > > > This
+> > > > > > > > +		 * improves performance since system
+> > > > > > > > memory
+> > > > > > > > might be
+> > > > > > > > +		 * cleared on free and that is best
+> > > > > > > > done on
+> > > > > > > > a
+> > > > > > > > CPU
+> > > > > > > > core
+> > > > > > > > +		 * close to it.
+> > > > > > > > +		 */
+> > > > > > > > +		queue_work_node(bdev->pool.nid, bdev-
+> > > > > > > > >wq,
+> > > > > > > > &bo-
+> > > > > > > > > delayed_delete);
+> > > > > > > > +	} else {
+> > > > > > > > =C2=A0		ttm_bo_cleanup_memtype_use(bo);
+> > > > > > > > =C2=A0		dma_resv_unlock(bo->base.resv);
+> > > > > > > > -	}
+> > > > > > > > =C2=A0
+> > > > > > > > -	atomic_dec(&ttm_glob.bo_count);
+> > > > > > > > -	bo->destroy(bo);
+> > > > > > > > -}
+> > > > > > > > -
+> > > > > > > > -/* TODO: remove! */
+> > > > > > > > -void ttm_bo_put(struct ttm_buffer_object *bo)
+> > > > > > > > -{
+> > > > > > > > -	kref_put(&bo->kref, ttm_bo_release);
+> > > > > > > > -}
+> > > > > > > > -
+> > > > > > > > -void ttm_bo_fini(struct ttm_buffer_object *bo)
+> > > > > > > > -{
+> > > > > > > > -	ttm_bo_put(bo);
+> > > > > > > > +		atomic_dec(&ttm_glob.bo_count);
+> > > > > > > > +		bo->destroy(bo);
+> > > > > > > > +	}
+> > > > > > > > =C2=A0}
+> > > > > > > > =C2=A0EXPORT_SYMBOL(ttm_bo_fini);
+> > > > > > > > =C2=A0
+> > > > > > > > @@ -470,7 +466,7 @@ int ttm_bo_evict_first(struct
+> > > > > > > > ttm_device
+> > > > > > > > *bdev,
+> > > > > > > > struct ttm_resource_manager *man
+> > > > > > > > =C2=A0	if (!bo->resource || bo->resource->mem_type !=3D
+> > > > > > > > mem_type)
+> > > > > > > > =C2=A0		goto out_bo_moved;
+> > > > > > > > =C2=A0
+> > > > > > > > -	if (bo->deleted) {
+> > > > > > > > +	if (ttm_bo_is_zombie(bo)) {
+> > > > > > > > =C2=A0		ret =3D ttm_bo_wait_ctx(bo, ctx);
+> > > > > > > > =C2=A0		if (!ret)
+> > > > > > > > =C2=A0			ttm_bo_cleanup_memtype_use(bo)
+> > > > > > > > ;
+> > > > > > > > @@ -524,7 +520,7 @@ static s64 ttm_bo_evict_cb(struct
+> > > > > > > > ttm_lru_walk
+> > > > > > > > *walk, struct ttm_buffer_object *
+> > > > > > > > =C2=A0	if (bo->pin_count || !bo->bdev->funcs-
+> > > > > > > > > eviction_valuable(bo,
+> > > > > > > > evict_walk->place))
+> > > > > > > > =C2=A0		return 0;
+> > > > > > > > =C2=A0
+> > > > > > > > -	if (bo->deleted) {
+> > > > > > > > +	if (ttm_bo_is_zombie(bo)) {
+> > > > > > > > =C2=A0		lret =3D ttm_bo_wait_ctx(bo, walk-
+> > > > > > > > >arg.ctx);
+> > > > > > > > =C2=A0		if (!lret)
+> > > > > > > > =C2=A0			ttm_bo_cleanup_memtype_use(bo)
+> > > > > > > > ;
+> > > > > > > > @@ -624,7 +620,6 @@ static int
+> > > > > > > > ttm_bo_evict_alloc(struct
+> > > > > > > > ttm_device
+> > > > > > > > *bdev,
+> > > > > > > > =C2=A0void ttm_bo_pin(struct ttm_buffer_object *bo)
+> > > > > > > > =C2=A0{
+> > > > > > > > =C2=A0	dma_resv_assert_held(bo->base.resv);
+> > > > > > > > -	WARN_ON_ONCE(!kref_read(&bo->kref));
+> > > > > > > > =C2=A0	spin_lock(&bo->bdev->lru_lock);
+> > > > > > > > =C2=A0	if (bo->resource)
+> > > > > > > > =C2=A0		ttm_resource_del_bulk_move(bo-
+> > > > > > > > >resource,
+> > > > > > > > bo);
+> > > > > > > > @@ -643,7 +638,6 @@ EXPORT_SYMBOL(ttm_bo_pin);
+> > > > > > > > =C2=A0void ttm_bo_unpin(struct ttm_buffer_object *bo)
+> > > > > > > > =C2=A0{
+> > > > > > > > =C2=A0	dma_resv_assert_held(bo->base.resv);
+> > > > > > > > -	WARN_ON_ONCE(!kref_read(&bo->kref));
+> > > > > > > > =C2=A0	if (WARN_ON_ONCE(!bo->pin_count))
+> > > > > > > > =C2=A0		return;
+> > > > > > > > =C2=A0
+> > > > > > > > @@ -934,7 +928,6 @@ int ttm_bo_init_reserved(struct
+> > > > > > > > ttm_device
+> > > > > > > > *bdev,
+> > > > > > > > struct ttm_buffer_object *bo,
+> > > > > > > > =C2=A0{
+> > > > > > > > =C2=A0	int ret;
+> > > > > > > > =C2=A0
+> > > > > > > > -	kref_init(&bo->kref);
+> > > > > > > > =C2=A0	bo->bdev =3D bdev;
+> > > > > > > > =C2=A0	bo->type =3D type;
+> > > > > > > > =C2=A0	bo->page_alignment =3D alignment;
+> > > > > > > > @@ -1131,8 +1124,8 @@ ttm_bo_swapout_cb(struct
+> > > > > > > > ttm_lru_walk
+> > > > > > > > *walk,
+> > > > > > > > struct ttm_buffer_object *bo)
+> > > > > > > > =C2=A0		goto out;
+> > > > > > > > =C2=A0	}
+> > > > > > > > =C2=A0
+> > > > > > > > -	if (bo->deleted) {
+> > > > > > > > -		pgoff_t num_pages =3D tt->num_pages;
+> > > > > > > > +	if (ttm_bo_is_zombie(bo)) {
+> > > > > > > > +		pgoff_t num_pages =3D bo->ttm-
+> > > > > > > > >num_pages;
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0		ret =3D ttm_bo_wait_ctx(bo, ctx);
+> > > > > > > > =C2=A0		if (ret)
+> > > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo_internal.h
+> > > > > > > > b/drivers/gpu/drm/ttm/ttm_bo_internal.h
+> > > > > > > > index e0d48eac74b03..ded2a47be0bcb 100644
+> > > > > > > > --- a/drivers/gpu/drm/ttm/ttm_bo_internal.h
+> > > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_bo_internal.h
+> > > > > > > > @@ -27,6 +27,14 @@
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0#include <drm/ttm/ttm_bo.h>
+> > > > > > > > =C2=A0
+> > > > > > > > +static inline void ttm_bo_free(struct drm_gem_object
+> > > > > > > > *gobj)
+> > > > > > > > +{
+> > > > > > > > +	struct ttm_buffer_object *bo =3D
+> > > > > > > > container_of(gobj,
+> > > > > > > > typeof(*bo), base);
+> > > > > > > > +
+> > > > > > > > +	atomic_dec(&ttm_glob.bo_count);
+> > > > > > > > +	bo->destroy(bo);
+> > > > > > > > +}
+> > > > > > > > +
+> > > > > > > > =C2=A0/**
+> > > > > > > > =C2=A0 * ttm_bo_get - reference a struct ttm_buffer_object
+> > > > > > > > =C2=A0 *
+> > > > > > > > @@ -34,7 +42,7 @@
+> > > > > > > > =C2=A0 */
+> > > > > > > > =C2=A0static inline void ttm_bo_get(struct ttm_buffer_objec=
+t
+> > > > > > > > *bo)
+> > > > > > > > =C2=A0{
+> > > > > > > > -	kref_get(&bo->kref);
+> > > > > > > > +	drm_gem_object_get(&bo->base);
+> > > > > > > > =C2=A0}
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0/**
+> > > > > > > > @@ -50,11 +58,14 @@ static inline void
+> > > > > > > > ttm_bo_get(struct
+> > > > > > > > ttm_buffer_object *bo)
+> > > > > > > > =C2=A0static inline __must_check struct ttm_buffer_object *
+> > > > > > > > =C2=A0ttm_bo_get_unless_zero(struct ttm_buffer_object *bo)
+> > > > > > > > =C2=A0{
+> > > > > > > > -	if (!kref_get_unless_zero(&bo->kref))
+> > > > > > > > +	if (!kref_get_unless_zero(&bo->base.refcount))
+> > > > > > > > =C2=A0		return NULL;
+> > > > > > > > =C2=A0	return bo;
+> > > > > > > > =C2=A0}
+> > > > > > > > =C2=A0
+> > > > > > > > -void ttm_bo_put(struct ttm_buffer_object *bo);
+> > > > > > > > +static inline void ttm_bo_put(struct ttm_buffer_object
+> > > > > > > > *bo)
+> > > > > > > > +{
+> > > > > > > > +	drm_gem_object_put(&bo->base);
+> > > > > > > > +}
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0#endif
+> > > > > > > > diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > > > > > > > b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > > > > > > > index 3e3c201a02226..7ed085adf1c9b 100644
+> > > > > > > > --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > > > > > > > +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > > > > > > > @@ -41,6 +41,18 @@
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0#include "ttm_bo_internal.h"
+> > > > > > > > =C2=A0
+> > > > > > > > +static void ttm_transfer_object_free(struct
+> > > > > > > > drm_gem_object
+> > > > > > > > *obj)
+> > > > > > > > +{
+> > > > > > > > +	struct ttm_buffer_object *bo =3D
+> > > > > > > > +		container_of(obj, struct
+> > > > > > > > ttm_buffer_object,
+> > > > > > > > base);
+> > > > > > > > +
+> > > > > > > > +	ttm_bo_fini(bo);
+> > > > > > > > +}
+> > > > > > > > +
+> > > > > > > > +const struct drm_gem_object_funcs
+> > > > > > > > ttm_transfer_object_funcs
+> > > > > > > > =3D {
+> > > > > > > > +	.free =3D ttm_transfer_object_free,
+> > > > > > > > +};
+> > > > > > > > +
+> > > > > > > > =C2=A0struct ttm_transfer_obj {
+> > > > > > > > =C2=A0	struct ttm_buffer_object base;
+> > > > > > > > =C2=A0	struct ttm_buffer_object *bo;
+> > > > > > > > @@ -247,7 +259,8 @@ static int
+> > > > > > > > ttm_buffer_object_transfer(struct
+> > > > > > > > ttm_buffer_object *bo,
+> > > > > > > > =C2=A0	atomic_inc(&ttm_glob.bo_count);
+> > > > > > > > =C2=A0	drm_vma_node_reset(&fbo->base.base.vma_node);
+> > > > > > > > =C2=A0
+> > > > > > > > -	kref_init(&fbo->base.kref);
+> > > > > > > > +	kref_init(&fbo->base.base.refcount);
+> > > > > > > > +	fbo->base.base.funcs =3D
+> > > > > > > > &ttm_transfer_object_funcs;
+> > > > > > > > =C2=A0	fbo->base.destroy =3D &ttm_transfered_destroy;
+> > > > > > > > =C2=A0	fbo->base.pin_count =3D 0;
+> > > > > > > > =C2=A0	if (bo->type !=3D ttm_bo_type_sg)
+> > > > > > > > diff --git a/drivers/gpu/drm/xe/xe_bo.c
+> > > > > > > > b/drivers/gpu/drm/xe/xe_bo.c
+> > > > > > > > index 85e6d9a0f575b..5843f850339c7 100644
+> > > > > > > > --- a/drivers/gpu/drm/xe/xe_bo.c
+> > > > > > > > +++ b/drivers/gpu/drm/xe/xe_bo.c
+> > > > > > > > @@ -1651,7 +1651,7 @@ static bool
+> > > > > > > > xe_ttm_bo_lock_in_destructor(struct
+> > > > > > > > ttm_buffer_object *ttm_bo)
+> > > > > > > > =C2=A0	struct xe_device *xe =3D
+> > > > > > > > ttm_to_xe_device(ttm_bo-
+> > > > > > > > > bdev);
+> > > > > > > > =C2=A0	bool locked;
+> > > > > > > > =C2=A0
+> > > > > > > > -	xe_assert(xe, !kref_read(&ttm_bo->kref));
+> > > > > > > > +	xe_assert(xe, !kref_read(&ttm_bo-
+> > > > > > > > >base.refcount));
+> > > > > > > > =C2=A0
+> > > > > > > > =C2=A0	/*
+> > > > > > > > =C2=A0	 * We can typically only race with TTM
+> > > > > > > > trylocking
+> > > > > > > > under
+> > > > > > > > the
+> > > > > > > > diff --git a/include/drm/ttm/ttm_bo.h
+> > > > > > > > b/include/drm/ttm/ttm_bo.h
+> > > > > > > > index 8310bc3d55f90..1eae9eea5ff32 100644
+> > > > > > > > --- a/include/drm/ttm/ttm_bo.h
+> > > > > > > > +++ b/include/drm/ttm/ttm_bo.h
+> > > > > > > > @@ -78,11 +78,8 @@ enum ttm_bo_type {
+> > > > > > > > =C2=A0 * @type: The bo type.
+> > > > > > > > =C2=A0 * @page_alignment: Page alignment.
+> > > > > > > > =C2=A0 * @destroy: Destruction function. If NULL, kfree is
+> > > > > > > > used.
+> > > > > > > > - * @kref: Reference count of this buffer object. When
+> > > > > > > > this
+> > > > > > > > refcount
+> > > > > > > > reaches
+> > > > > > > > - * zero, the object is destroyed or put on the delayed
+> > > > > > > > delete
+> > > > > > > > list.
+> > > > > > > > =C2=A0 * @resource: structure describing current placement.
+> > > > > > > > =C2=A0 * @ttm: TTM structure holding system pages.
+> > > > > > > > - * @deleted: True if the object is only a zombie and
+> > > > > > > > already
+> > > > > > > > deleted.
+> > > > > > > > =C2=A0 * @bulk_move: The bulk move object.
+> > > > > > > > =C2=A0 * @priority: Priority for LRU, BOs with lower
+> > > > > > > > priority are
+> > > > > > > > evicted
+> > > > > > > > first.
+> > > > > > > > =C2=A0 * @pin_count: Pin count.
+> > > > > > > > @@ -109,17 +106,11 @@ struct ttm_buffer_object {
+> > > > > > > > =C2=A0	uint32_t page_alignment;
+> > > > > > > > =C2=A0	void (*destroy) (struct ttm_buffer_object *);
+> > > > > > > > =C2=A0
+> > > > > > > > -	/*
+> > > > > > > > -	* Members not needing protection.
+> > > > > > > > -	*/
+> > > > > > > > -	struct kref kref;
+> > > > > > > > -
+> > > > > > > > =C2=A0	/*
+> > > > > > > > =C2=A0	 * Members protected by the bo::resv::reserved
+> > > > > > > > lock.
+> > > > > > > > =C2=A0	 */
+> > > > > > > > =C2=A0	struct ttm_resource *resource;
+> > > > > > > > =C2=A0	struct ttm_tt *ttm;
+> > > > > > > > -	bool deleted;
+> > > > > > > > =C2=A0	struct ttm_lru_bulk_move *bulk_move;
+> > > > > > > > =C2=A0	unsigned priority;
+> > > > > > > > =C2=A0	unsigned pin_count;
