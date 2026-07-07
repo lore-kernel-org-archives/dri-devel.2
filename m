@@ -4,43 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B756AC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 18:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE73C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 18:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3007210EEA4;
-	Tue,  7 Jul 2026 18:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5565110EEAE;
+	Tue,  7 Jul 2026 18:06:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Aoj40qEU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JcVxcm4f";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08D7310EEA4
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 18:05:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D1E360018;
- Tue,  7 Jul 2026 18:05:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78C7F1F000E9;
- Tue,  7 Jul 2026 18:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783447553;
- bh=3M0V20MaVGXTCETTA1Mjgf02wgOqKtZKPqFMIuBDXR0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Aoj40qEU+tn/zAx1MoM6Q+tpxoW+wcllSV/Q6feq8udpmCimEfGhjkQjGjT3bJXVQ
- 8w2/aF2+brLVGZOfguohzsdFcfuJUFTZ+7Og4oQnFZ7BlTBGBIDtmrukDdtsVX38SK
- Ge/1VvkxKSMs3P8srMPHHbFHCzeZnuh4KaimlliYa+w2taKQR7W0Uj1Pp1K4ZHf67/
- nepImUdKKtEtblWavclXcbIaioLoU7MKkNNXw2DL93hw0yhl3UKSR1Ysxi4cH2Gyje
- FNV2oxTKH9OKseeCVPZ6rnMb8POG4PeiU0wxRPwHeVfSluz9dsfIxsqcgEwrdhap4X
- SUdVf7yfEFEaQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] drm/msm/dp: Disable stream clock after video-ready
- timeout
-To: "Yuho Choi" <dbgh9129@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707175212.412699-1-dbgh9129@gmail.com>
-References: <20260707175212.412699-1-dbgh9129@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 18:05:53 +0000
-Message-Id: <20260707180553.78C7F1F000E9@smtp.kernel.org>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011055.outbound.protection.outlook.com [40.107.208.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BCDA10EEAD;
+ Tue,  7 Jul 2026 18:06:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rs03I55BnEeQJ/63qLbNR3+iyMUQxuF2i/39jbXld2Q0AiAINpdRvlxKMxWJxtA4UTsUaM2Ndwi7ESXxfcM3R9knRdOtFCPzC4z2Mgd7jD5pj7Lsktc8VICZKjNSdDY0W5BAXqsiha2fsniDmWyjoO9/o0OstRD1Y3D3qJSZbiyXvjn4BKsfNwYaUrnkD+0IV/Xe2spqzxRQ0C1l2Z3+XE//uoXPyxtDpz2rj/S5cKTA9iIuq6Y3d/MQmLUEvNfxA1xrkANSv8F1Axej8mACl36olEEuVVj2Ge0fZCM6ynqA53By1sp4JVqXlNp45sphoSJJuQDOF85C9IvdjbKKpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4DV9QgixgGJnct6ZGQhlxnA1riKOLAEdR6ycjknjIwk=;
+ b=rF95YC8QJxbpGE0qCwwVspDbfwK+O1M9RXBhx0gXIY30x5gfXM38XrsKwRT2U4uQwIpY5nCGoWKLPQBSQd2qpQiADnDYr8QwTQn27sh+2oBSnHyuZt1pan72a+vbZYyPZjgg3obePK35gzMy7vfrOvJxY1LYtKoJRxGq6v7zzyvF6y+j1iDTn8KoLvZAksr3fdLFV4eNqLCu5lmfRuXZsL4wuEsxR/JSuO6RVCJGjvdfRnwhalrnoMeYK9X9awg6l58YbZOV9qwkZSXujf1bcUVf8yiSbEBsj3WI6uZjKchJc1XFS1ZpaJ8gXfocAlXXxPSiwhzePJ8OvyHkacrMGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4DV9QgixgGJnct6ZGQhlxnA1riKOLAEdR6ycjknjIwk=;
+ b=JcVxcm4fDw2HcYZu4FuXPbJ9PYE8E+VC/Hp0TH/BSeUqC2pBqxyEAcdsKhr5dgjifA+edA0cOfm+cY+nOTxQv3TRWPG1bhr3jQCyKMMzdRmGq1T/oKELDyexI1xj61/o+Vg9+UwKTFzbT5KxZ3oIVCScGfyx2/F6/MVDZDiQZrg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by SJ0PR12MB6830.namprd12.prod.outlook.com (2603:10b6:a03:47c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
+ 2026 18:06:01 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0159.015; Tue, 7 Jul 2026
+ 18:06:01 +0000
+Message-ID: <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
+Date: Tue, 7 Jul 2026 23:35:49 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>,
+ Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
+ <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4P287CA0051.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:270::8) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|SJ0PR12MB6830:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11e68940-b02a-4da3-666f-08dedc526719
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|366016|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: +3E3fQqn6lD7wdGfgeN+sD33bzFP5EtcXa72j+hENQG2cpmW8gW1DL0SvSLQvKdCIFOGu70N29Qf8IAD3oR9jj7KsJ9N2sIXALkwOuxqQdE7t7+feVUghu+h0e63TvtJYujp0I75NqSkRN0QCNun3lkvYflO4xRH+o2LEOokeH4FeuusB/SyZMGk3fRWKCdpQ5s7Os7atte+P0h78p3nGk5rVrOrVYk6pPx0/6NooCoJeWFyd2bJAvTcmEs+ixjuq0GLbya7hTJPWqSRgBoiI4sHdpOu4el3i9KfjVpb/0KztBqpX5bnbyXly5rCZerZqve2QkoTOdtCmn0kZCvh8+RIl2IjgakJVohjGDV96z4enXvD/VxiK4CzUf9ttdt+/FUf91wHrQGzYY6GmI9AqGU8FhxACrAdGh6nm1I9oVtwMI22iT15QSMPoP7Jw8E3bLUQ0l1zsOgeAwQtIAxF8uz6tpoEKE2okCKPpWLKGntsLEnUQM+Eo2N3I6ik0e17SIT/2Sx//3GGOwg0CCxhWw1s6MyR1+CaQrVRboY7AagAdD8sbn2r5i+x60Yz2dqhiV9tTrZZ6+x81l4okK31s4p8cjOlVzWZzz+ca3dCcPk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cVN5OUd0aFlzQWtyMjEvWlVjQ2VUS25hdFlyNTVjdTJSK0MreTltTDgwczZp?=
+ =?utf-8?B?dXdFWFIrczJ1aUNjaXd5WjN5WCtJQy9yTWlrZUg0TE4rRzBzdnBPVWRSYUVp?=
+ =?utf-8?B?TC9mdFNhTS9BYXdnTFBxQUswcTlFNmZvMlhVKyt6cTNyOFd3ODdaY0ZvQS8z?=
+ =?utf-8?B?UHFWLytiQjZTdURSZnc0T1BPQThnMDU4RUFIWXQyVS9EWWJnOVhJR2NpNXF1?=
+ =?utf-8?B?cVlvSnRtVmQyVU9XT21HcHVFYWVkeitlSWRzdkFUNHdndk1UczJobGFnMEND?=
+ =?utf-8?B?OHhUTWozOG9COTVzTHBwZ0VHZ1c5bVhaMk1Oa2RNWkVtbytpNFBlNzN4Mit6?=
+ =?utf-8?B?KzBTMUJFREtXa0doTHVCZmRNcVczRHVlZ0Q2cmx6Mi9jcENxZGc3Y1FZOGJs?=
+ =?utf-8?B?QWFVR1lET01yWCtFMllEVll2eW9RRnlLVUducENLdHlmWnk1VGNKWXFJN1Rj?=
+ =?utf-8?B?d1hCZ3h1WjBvVTArbTYvMExYdmNBUGIyNy9CQ3h6VGo3WUtxbjdMRGM5djYy?=
+ =?utf-8?B?dDU1MTI2aFhvQkxicjZYbVdvemdJOUFzZXZtdjNYZ0J0a2hnZTNISWVkY1Nv?=
+ =?utf-8?B?L2xJMWF5RmU0UGNnVW5UVUp2YnBmSlFkQnNMRnIxcUlDTEVkL0FLWlJHOENm?=
+ =?utf-8?B?Nk1ibmV5amdTZjhwM20zS20zUXZFTEpYT0VWam5pMDBNUDFOQ082SzdQbERy?=
+ =?utf-8?B?eW5WT256MGNudWkrSE9UYU1VWE44MjNTdEdxclU5RVZENVdzL0MyUG45dHUy?=
+ =?utf-8?B?Q05FUzFSOHdJUHI4dHhBdG1Iam01ZU50ekhYb0NUTkhQclJwdklPbU01eXhQ?=
+ =?utf-8?B?cjZRUCtHTXdqUzd0cks5UnY2REhXZWNNMmRBK3p5YXRILzRyK2Q0RmptYkFy?=
+ =?utf-8?B?L3pvdTN3c3d1amd1Y0thRUZ1YjhNVW1KaTh5RzJjSTlCWUV0N1lGbTNnQUR2?=
+ =?utf-8?B?MWpaeXpsWDJhVy9BKzIvRjZqUGVMa09PM0pvRzBnUWtEdFQyUTJncTFuZnlq?=
+ =?utf-8?B?c0tXN0t2ZWhWVDAvN3RUd0pWYVE3UjN2QXFQV2VsOHUrYmMzODlyTysyMDhr?=
+ =?utf-8?B?dE5KcVgzeUhGakFKM1kwbTJjNjJuZHM0UVhLV1FPQkg0OXplczVlMVhSUFFq?=
+ =?utf-8?B?eFpWZFo2c2hCbkhIWjNpbkJCTmNsYXVrOUIvNVFMaXBQaTg0blBqd2tJVU53?=
+ =?utf-8?B?aFNCdU5XSUZtdnJ4RnJjSS9RRjdvd2YzbmNZVlFkRysxcnRiSE1Pc1g5UmNi?=
+ =?utf-8?B?TTNNMjgzeS9zNGVvUURUeVNnTmdHQjRiNGMrZzdGTHJweW0zeGd0Z3VhYUl4?=
+ =?utf-8?B?M1FwVkxmbVEvYkIwdjRaM0hobXpYQUY4UHNKQXF3VVZNanA5aGhHSUl6NUtS?=
+ =?utf-8?B?L1RhM21heXBnMWR2aWpZSTl2WnFEYVV4WjN6QUNSVGp1Zy92dHJ2bnBIZ3lh?=
+ =?utf-8?B?VGJPdHpkbzM0TnR4SDFiSEQ4Z1Z1bTd4bWJMWllWNFRlU2R6ZmFPL21KQTVG?=
+ =?utf-8?B?ZmdDanZrT2ZGTnhTNUM3YjlDZHVTcXBsSk9qQmhxbjJCb1YvTG9WRExkUkdm?=
+ =?utf-8?B?N3JHdkNrR3c4M1FKNHZzbUp6YXZFRXRzS0pzZzFlaTc3OXJHRE5KL3FqalBu?=
+ =?utf-8?B?UFJEd2ZhMG02LytDOWxDUVlYRlUvTmZGcHBPTHoxVmV5SWExeEtSTHlXZ240?=
+ =?utf-8?B?YTh3MVppTVhpeDR2Vkk3MnBWRDlnWWlVK0FUWDFmMldYY29Gb2RqemFKSStl?=
+ =?utf-8?B?UlRseTBkV3NVVUd1b2JFNTNNaytFRVhadXplcEVsQnZJd3M3TS9ZQkhndXh6?=
+ =?utf-8?B?RjNGeGYvUG1Ta0wyUnMwOXMyS1dDRXg3VVhtWmtCL29PQU56REhyY3BwS0FE?=
+ =?utf-8?B?VWlobzRtVHk5dTJxUzRQcU02bEJjd2VyV2ZCenQ2YVh1cjN6bUZScFNSUHpB?=
+ =?utf-8?B?K205bFJKdHdpVEtCd2QvdEZMaDRGY0VQb3NDMzRtdlhXeUVYS3IzRTJtVnJD?=
+ =?utf-8?B?bjhjMk5TbWNwK2FSbDBidTRKZTlCeUtxTkM0M2VzVElWK0tvdzd6MGlEVkJh?=
+ =?utf-8?B?NnZhR3Yxd2orcXdQZ2pVcE9jSGFvTU54S2lzZ2ZYc25iT3cwN0FjNG9SS1Ew?=
+ =?utf-8?B?cmMyQUdEZ0plSnhHWEI5U1hHSXMxUXRXeTRqd01GaExrdTJtcmNTQ0p0VWwr?=
+ =?utf-8?B?YjNyemZpaysrQVZEbjlhR0NnU1NrMDk3Y3NQMlliWWVIREJ1dm02MTlNR1lE?=
+ =?utf-8?B?bGQvWTdQT2NIMVBCMzNxQjBjMWcxQldBRm5wVml0Ui9LT2pxMlZyV1JpMzIy?=
+ =?utf-8?B?NW56TXI1b0ZwY3pmMjcvenJTemIzV1lTT2dMaFcyYklOVW5Ebm9nUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11e68940-b02a-4da3-666f-08dedc526719
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 18:06:01.1760 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0HWtbM/zxRrjWtGuprl94nTxAAPlscQjYOYT5HjTCDbiFORb0+hTCI5EL1EzSrAme5GJx0FpObtTzl/AT2UWwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6830
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,76 +150,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Disabling the pixel clock while the DP controller is actively in t=
-he SEND_VIDEO state violates the teardown sequence and can lock up the hard=
-ware.
---
 
---- Patch [1]: [PATCH v1] drm/msm/dp: Disable stream clock after video-read=
-y timeout ---
-commit d51f59f75198361a5116081d3f135fd586dbcb66
-Author: Yuho Choi <dbgh9129@gmail.com>
 
-drm/msm/dp: Disable stream clock after video-ready timeout
+On 7/3/2026 6:38 PM, Christian König wrote:
+> Arun please take a look at this.
+Sure Christian. This fix looks correct to me.
+Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-This commit routes the video-ready timeout path in msm_dp_ctrl_on_stream()=
-=20
-through a cleanup path. It disables the stream pixel clock and clears the
-stream_clks_on flag if the clock was enabled during the call.
+Thanks,
+Arun.
+>
+> Thanks,
+> Christian.
+>
+> On 7/3/26 15:05, Thomas Hellström wrote:
+>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
+>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
+>> returns early and bypasses those initializations.
+>>
+>> Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
+>> is called, a failure triggers amdgpu_ttm_fini(), which calls
+>> amdgpu_vram_mgr_fini(), which then:
+>>
+>>   - Calls list_for_each_entry_safe() on reservations_pending and
+>>     reserved_pages, whose list_head::next pointers are zero-initialized
+>>     (NULL). The loop does not recognize them as empty and dereferences NULL.
+>>
+>>   - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
+>>     via for_each_free_tree(). Since mm->free_trees is NULL
+>>     (never allocated), this dereferences NULL.
+>>
+>> Both result in a kernel panic on the module load error path.
+>>
+>> Fix by moving drmm_cgroup_register_region() to after the list and buddy
+>> allocator are fully initialized, so the teardown path is safe to run.
+>>
+>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+>> Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
+>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
+>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>> Cc: Maarten Lankhorst <dev@lankhorst.se>
+>> Cc: Tejun Heo <tj@kernel.org>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: <stable@vger.kernel.org> # v6.14+
+>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+>>   1 file changed, 4 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> index 2a241a5b12c4..ac3f71d77140 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>>   	struct ttm_resource_manager *man = &mgr->manager;
+>>   	int err;
+>>   
+>> -	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+>> -	if (IS_ERR(man->cg))
+>> -		return PTR_ERR(man->cg);
+>>   	ttm_resource_manager_init(man, &adev->mman.bdev,
+>>   				  adev->gmc.real_vram_size);
+>>   
+>> @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>>   	if (err)
+>>   		return err;
+>>   
+>> +	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+>> +	if (IS_ERR(man->cg))
+>> +		return PTR_ERR(man->cg);
+>> +
+>>   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+>>   	ttm_resource_manager_set_used(man, true);
+>>   	return 0;
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-> index 86ef8c89ad443..139e9fa25d6a7 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-[ ... ]
-> @@ -2543,13 +2545,17 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm=
-_dp_ctrl, bool force_link_train
-> =20
->  	ret =3D msm_dp_ctrl_wait4video_ready(ctrl);
->  	if (ret)
-> -		return ret;
-> +		goto end;
-> =20
->  	mainlink_ready =3D msm_dp_ctrl_mainlink_ready(ctrl);
->  	drm_dbg_dp(ctrl->drm_dev,
->  		"mainlink %s\n", mainlink_ready ? "READY" : "NOT READY");
-> =20
->  end:
-> +	if (stream_clk_enabled && ret) {
-> +		clk_disable_unprepare(ctrl->pixel_clk);
-> +		ctrl->stream_clks_on =3D false;
-> +	}
-
-[Severity: High]
-Does this error path leave the DP controller in an active state without
-reverting it before disabling the pixel clock?
-
-Earlier in this function, the controller is programmed to send video:
-
-	msm_dp_write_link(ctrl, REG_DP_STATE_CTRL, DP_STATE_CTRL_SEND_VIDEO);
-
-	ret =3D msm_dp_ctrl_wait4video_ready(ctrl);
-
-If wait4video_ready times out, the code jumps to the end label and disables
-the pixel clock. However, if the caller ignores this failure and DRM later
-disables the bridge, the teardown sequence will invoke msm_dp_ctrl_push_idl=
-e().
-
-Since the controller was left in DP_STATE_CTRL_SEND_VIDEO but its pixel
-clock is now disabled, could writing DP_STATE_CTRL_PUSH_IDLE cause a
-timeout or wedge the hardware because it cannot process the state transition
-without the clock?
-
->  	return ret;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707175212.4126=
-99-1-dbgh9129@gmail.com?part=3D1
