@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061ECC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C57E7C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB4910EDF1;
-	Tue,  7 Jul 2026 15:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDFD10EDE8;
+	Tue,  7 Jul 2026 15:12:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iSWgl6Xa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bOGsK/I1";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A02C10EDF1
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0705010EDE8
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3ED7A4401C;
- Tue,  7 Jul 2026 15:12:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10EA1F000E9;
- Tue,  7 Jul 2026 15:12:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E4C2144021;
+ Tue,  7 Jul 2026 15:12:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542611F00A3D;
+ Tue,  7 Jul 2026 15:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437164;
- bh=2GvZArqAHLXM8lbvC5SqnriPfJRnfyMQdUdUPqYdsq4=;
+ s=k20260515; t=1783437168;
+ bh=BDv9UCLsV0nJMJFOj8UdSiHqyyyffxAaJaxRsgpJSms=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=iSWgl6Xa4UQanC4r2SJ1ZUXoWxK1qePkvjFXpz2W5Monk13PtteYNU/qXoty853Uy
- yN3krxbVFZm4UCGvlw5mRsr5VyDE3vSCPgZjqiOhVhYiHJ/u5o7q+ocKXIC3iiIkZk
- NRAWchz2pvZbGyng13nFqmCDMnumh/FqQoRd1bShKkKdf8wePTCLrx4d7KSxNuM8q6
- SbgjevfZOByp+H2suCHxWPzSfvSwVQOdSrWGlgTbQzFoOoC6vWX21AoQ9iUnE6q6GJ
- FDFifenxYADX0PfZALmlq5ouKiJ9ALMeEk5YpeWGT3s5xGPny0cjB4SoV5vK+eoiKj
- 8wyUPmXiCOczw==
+ b=bOGsK/I1hC3TTO0g+QJhWXpmKWXkJDA/bhx1TOxh1G6vCwMQ+pwSWY0ENo1MqjxO/
+ WCYiKHAE1Ht6/cWL2beqWURgEHR1O2mi17vNKsMeq1wBXQyElOxDZAOvxei2ubLVMK
+ IqYkl6F40Mzg9smG0MqXJfNe5YLihGnIkGsXvmatbpAcZ8/+fv0WHt5bG4vP6He4U3
+ xTbI6MVkgasdws1Eaue3dnXdq3OGprzoyr0ZjqBFMFCw0whDR325cYr2JfYhvsucVf
+ 0q/msrtmhMVICj9Z1Z+rKXTN8cjg6bCMaD+IOkFHZSauGbsLOOz8oSCFHoG2JupYTU
+ 8dMnF6WZcjmkA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:38 +0200
-Subject: [PATCH v2 31/37] drm/omap: dsi: Switch to atomic bridge callbacks
+Date: Tue, 07 Jul 2026 17:11:40 +0200
+Subject: [PATCH v2 33/37] drm/omap: venc: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-31-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-33-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Maxime Ripard <mripard@kernel.org>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5256; i=mripard@kernel.org;
- h=from:subject:message-id; bh=THDk3QOIPiiiyp6vFA90c2ziOjF/xrjQ7x0UxUOeV+s=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4rICO86I5M5St81m1VE6/yK1WjTi1paWw2+cZl8va
- LD6sFOxYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExE+jpjw7U3fMKqa7/vzrz9
- e7VRzMkfbrZPeV0cY2VMg554ufVxXlw2p/bYhEDz6EXl25RnrZDUYGxoXZZ8dtH9s+ePf/tU4PL
- h6nPuyVe3PLf8u+z3S9G/aicFVHWOnhIQsY+tOBXunVXbtagUAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4922; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=eCga5+cQCFM0th7l6U992spdbu03eNWFioAuOSgUYWA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4nLH76QKGQjMFTDfFLn+2sQlmbwm+r+dvzfwXoqT3
+ MqacuRAx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIYxPGhk+lpw5N5Tr+VrOj
+ 4/e/T9UVKW/UtnYJC5r9b56hEa2wxdXsN8/2kq/mz8U9X5WeMg2Yy1hfWyQq7vJqhveiO4/5N53
+ f/Wa39dfjMl8uTf4683xM+ppZYbs+qUr3Hnpb9EQo+XyTSfhrAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dsi bridge uses the legacy non-atomic enable and disable bridge
+The venc bridge uses the legacy non-atomic enable and disable bridge
 callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
@@ -209,74 +209,70 @@ Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
 To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/omapdrm/dss/dsi.c | 14 ++++++++++----
+ drivers/gpu/drm/omapdrm/dss/venc.c | 14 ++++++++++----
  1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
-index 27fe7bca9e2c..7aaee94f86e4 100644
---- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
-@@ -33,10 +33,11 @@
+diff --git a/drivers/gpu/drm/omapdrm/dss/venc.c b/drivers/gpu/drm/omapdrm/dss/venc.c
+index 9b5d53dc361e..5416c668a205 100644
+--- a/drivers/gpu/drm/omapdrm/dss/venc.c
++++ b/drivers/gpu/drm/omapdrm/dss/venc.c
+@@ -23,10 +23,11 @@
+ #include <linux/of.h>
  #include <linux/of_graph.h>
- #include <linux/of_platform.h>
  #include <linux/component.h>
  #include <linux/sys_soc.h>
  
 +#include <drm/drm_atomic_state_helper.h>
  #include <drm/drm_bridge.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_panel.h>
- #include <video/mipi_display.h>
  
-@@ -4652,11 +4653,12 @@ static void dsi_bridge_mode_set(struct drm_bridge *bridge,
- 	struct dsi_data *dsi = drm_bridge_to_dsi(bridge);
+ #include "omapdss.h"
+ #include "dss.h"
  
- 	dsi_set_config(&dsi->output, adjusted_mode);
+@@ -612,18 +613,20 @@ static void venc_bridge_mode_set(struct drm_bridge *bridge,
+ 	}
+ 
+ 	dispc_set_tv_pclk(venc->dss->dispc, 13500000);
  }
  
--static void dsi_bridge_enable(struct drm_bridge *bridge)
-+static void dsi_bridge_enable(struct drm_bridge *bridge,
-+			      struct drm_atomic_commit *commit)
- {
- 	struct dsi_data *dsi = drm_bridge_to_dsi(bridge);
- 	struct omap_dss_device *dssdev = &dsi->output;
- 
- 	cancel_delayed_work_sync(&dsi->dsi_disable_work);
-@@ -4671,11 +4673,12 @@ static void dsi_bridge_enable(struct drm_bridge *bridge)
- 	dsi->video_enabled = true;
- 
- 	dsi_bus_unlock(dsi);
- }
- 
--static void dsi_bridge_disable(struct drm_bridge *bridge)
-+static void dsi_bridge_disable(struct drm_bridge *bridge,
+-static void venc_bridge_enable(struct drm_bridge *bridge)
++static void venc_bridge_enable(struct drm_bridge *bridge,
 +			       struct drm_atomic_commit *commit)
  {
- 	struct dsi_data *dsi = drm_bridge_to_dsi(bridge);
- 	struct omap_dss_device *dssdev = &dsi->output;
+ 	struct venc_device *venc = drm_bridge_to_venc(bridge);
  
- 	cancel_delayed_work_sync(&dsi->dsi_disable_work);
-@@ -4690,15 +4693,18 @@ static void dsi_bridge_disable(struct drm_bridge *bridge)
- 
- 	dsi_bus_unlock(dsi);
+ 	venc_power_on(venc);
  }
  
- static const struct drm_bridge_funcs dsi_bridge_funcs = {
+-static void venc_bridge_disable(struct drm_bridge *bridge)
++static void venc_bridge_disable(struct drm_bridge *bridge,
++				struct drm_atomic_commit *commit)
+ {
+ 	struct venc_device *venc = drm_bridge_to_venc(bridge);
+ 
+ 	venc_power_off(venc);
+ }
+@@ -651,16 +654,19 @@ static int venc_bridge_get_modes(struct drm_bridge *bridge,
+ 
+ 	return ARRAY_SIZE(modes);
+ }
+ 
+ static const struct drm_bridge_funcs venc_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = dsi_bridge_attach,
- 	.mode_valid = dsi_bridge_mode_valid,
- 	.mode_set = dsi_bridge_mode_set,
--	.enable = dsi_bridge_enable,
--	.disable = dsi_bridge_disable,
-+	.atomic_enable = dsi_bridge_enable,
-+	.atomic_disable = dsi_bridge_disable,
+ 	.attach = venc_bridge_attach,
+ 	.mode_valid = venc_bridge_mode_valid,
+ 	.mode_fixup = venc_bridge_mode_fixup,
+ 	.mode_set = venc_bridge_mode_set,
+-	.enable = venc_bridge_enable,
+-	.disable = venc_bridge_disable,
++	.atomic_enable = venc_bridge_enable,
++	.atomic_disable = venc_bridge_disable,
+ 	.get_modes = venc_bridge_get_modes,
  };
  
- static void dsi_bridge_init(struct dsi_data *dsi)
+ static void venc_bridge_init(struct venc_device *venc)
  {
- 	dsi->bridge.of_node = dsi->host.dev->of_node;
 
 -- 
 2.54.0
