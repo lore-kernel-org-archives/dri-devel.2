@@ -4,48 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C79EC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 10:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5694BC43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 10:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E538210EB73;
-	Tue,  7 Jul 2026 10:23:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A56210EC22;
+	Tue,  7 Jul 2026 10:32:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="YaN80k5b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CJQD7ZPp";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D02F110EB73
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 10:23:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=obUmEjH5cNC4iY8a13DKMFpXMZHqKjdWLwToyyedgkg=; t=1783419803; x=1784629403; 
- b=YaN80k5baGq6iREZ3e9Yz8zQQt/M0fn2/eSjPuOPO01tnluynKQ/stD5xQCLLv5XWxkI9gNdh3S
- orZ5HXByyP6Pb+cCZoQ8XvbzLFUuLd2tGml3ahiPqQTBhdUhTI1tOHnLc96TLlz+VzNGlZhd95mbq
- GPzWO//8QmSpnYC/JAoG2v1K5eIkb1zoVDO0p7I76z6O1HYDoO4C9NXCDQ3NVX1fo5ysQ5I3uxYqs
- zSXd1sVfjC3miCEcqmAv28ZSGnFDioc3L9LkDDRpeIBu3GST/HhywhVDMKch95UPUtTn2uHOcl7sD
- 08yrKVjg8QyTmxKMKZVHEm5Fe28ajp2MlrbQ==;
-Date: Tue, 7 Jul 2026 12:22:03 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sebastian Reichel
- <sebastian.reichel@collabora.com>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Tony Lindgren <tony@atomide.com>,
- Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>, "H.
- Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>
-Subject: Re: [PATCH v4] drm/omap: dsi: avoid sending bta sync all the time
- in writes
-Message-ID: <20260707122203.0bbc973e@kemnade.info>
-In-Reply-To: <4cb964d9-524d-40ec-8cd2-d936fff8eb85@gmail.com>
-References: <20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info>
- <4cb964d9-524d-40ec-8cd2-d936fff8eb85@gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A19210EC55;
+ Tue,  7 Jul 2026 10:32:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 48D5C618A6;
+ Tue,  7 Jul 2026 10:32:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E76161F000E9;
+ Tue,  7 Jul 2026 10:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783420321;
+ bh=soT56A/TsitxOPYJdfdItvncnq3Epp2rkiDUFibzwAc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=CJQD7ZPpnY0LATwFP4HY6e99mGG6GCfwtV8prggnPIqZJoBT7sw1qkGBcMUymGabb
+ thMKdB37j3Mngsn9NR0xZM3ngVTkWAKFGJ1phdZyrmdRqTmT//SItbTSX5gLMuvCGh
+ h03dHdDBVKfa160LAt0yaBWio5lu77qjq0yudAYfiJObv5RjqQLRDbmptoyC6hGNHW
+ E8y81BbE7fqCE9Ns7/a0r4BVgl44yGmApnpjPyV6g+rojpwE7+I26L2qbh+RXETO8y
+ +yjDFpLtM0uRECmpnCPEvJUaccNc37yoAjGG17lTCIWiiaHTnl5i2XvNsouOomVvyo
+ X9ITIQzR+3YOQ==
+Date: Tue, 7 Jul 2026 11:31:37 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 22/30] mm/vma: move __install_special_mapping() to vma.c
+Message-ID: <akzTj7Xv8kiUU2-w@lucifer>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <b3254231831037ca3e9757e3e05c90072e04a6aa.1782735110.git.ljs@kernel.org>
+ <akZJjNic8u0pDxgD@pedro-suse.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akZJjNic8u0pDxgD@pedro-suse.lan>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,64 +104,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 30 Jun 2026 08:42:57 +0300
-Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com> wrote:
+On Thu, Jul 02, 2026 at 12:22:56PM +0100, Pedro Falcato wrote:
+> On Mon, Jun 29, 2026 at 01:23:33PM +0100, Lorenzo Stoakes wrote:
+> > This function is operating on VMAs and rightly belongs in vma.c, where it
+> > can be subject to VMA userland testing and allows us to isolate it from the
+> > rest of mm.
+> >
+> > The _install_special_mapping() function will remain in mmap.c as a wrapper,
+> > since this is used by architecture-specific code.
+> >
+> > Doing so allows us to isolate more functions in vma.c for the same reasons.
+> >
+> > This forms part of work to allow for tracking MAP_PRIVATE file-backed
+> > mappings by their anonymous virtual page offset, as doing so allows us to
+> > isolate and keep code that interacts with this together.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> > ---
+> >  mm/mmap.c | 38 --------------------------------------
+> >  mm/vma.c  | 38 ++++++++++++++++++++++++++++++++++++++
+> >  mm/vma.h  |  5 +++++
+> >  3 files changed, 43 insertions(+), 38 deletions(-)
+> >
+> > diff --git a/mm/mmap.c b/mm/mmap.c
+> > index 2d09a57e3620..46174e706bbe 100644
+> > --- a/mm/mmap.c
+> > +++ b/mm/mmap.c
+> > @@ -1447,44 +1447,6 @@ static vm_fault_t special_mapping_fault(struct vm_fault *vmf)
+> >  	return VM_FAULT_SIGBUS;
+> >  }
+> >
+> > -static struct vm_area_struct *__install_special_mapping(
+> > -	struct mm_struct *mm,
+> > -	unsigned long addr, unsigned long len,
+> > -	vm_flags_t vm_flags, void *priv,
+> > -	const struct vm_operations_struct *ops)
+> > -{
+> > -	int ret;
+> > -	struct vm_area_struct *vma;
+> > -
+> > -	vma = vm_area_alloc(mm);
+> > -	if (unlikely(vma == NULL))
+> > -		return ERR_PTR(-ENOMEM);
+> > -
+> > -	vma_set_range(vma, addr, addr + len, 0);
+> > -	vm_flags |= mm->def_flags | VM_DONTEXPAND;
+> > -	if (pgtable_supports_soft_dirty())
+> > -		vm_flags |= VM_SOFTDIRTY;
+> > -	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
+> > -	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+> > -
+> > -	vma->vm_ops = ops;
+> > -	vma->vm_private_data = priv;
+> > -
+> > -	ret = insert_vm_struct(mm, vma);
+> > -	if (ret)
+> > -		goto out;
+> > -
+> > -	vm_stat_account(mm, vma->vm_flags, len >> PAGE_SHIFT);
+> > -
+> > -	perf_event_mmap(vma);
+> > -
+> > -	return vma;
+> > -
+> > -out:
+> > -	vm_area_free(vma);
+> > -	return ERR_PTR(ret);
+> > -}
+> > -
+> >  bool vma_is_special_mapping(const struct vm_area_struct *vma,
+> >  	const struct vm_special_mapping *sm)
+> >  {
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index cb7222e20c93..f4de706a2728 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -3399,3 +3399,41 @@ __weak unsigned long vma_mmu_pagesize(struct vm_area_struct *vma)
+> >  {
+> >  	return vma_kernel_pagesize(vma);
+> >  }
+> > +
+> > +struct vm_area_struct *__install_special_mapping(
+> > +	struct mm_struct *mm,
+> > +	unsigned long addr, unsigned long len,
+> > +	vm_flags_t vm_flags, void *priv,
+> > +	const struct vm_operations_struct *ops)
+> > +{
+> > +	int ret;
+> > +	struct vm_area_struct *vma;
+> > +
+> > +	vma = vm_area_alloc(mm);
+> > +	if (unlikely(vma == NULL))
+> > +		return ERR_PTR(-ENOMEM);
+> > +
+> > +	vma_set_range(vma, addr, addr + len, 0);
+> > +	vm_flags |= mm->def_flags | VM_DONTEXPAND;
+> > +	if (pgtable_supports_soft_dirty())
+> > +		vm_flags |= VM_SOFTDIRTY;
+> > +	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
+> > +	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+> > +
+> > +	vma->vm_ops = ops;
+> > +	vma->vm_private_data = priv;
+> > +
+> > +	ret = insert_vm_struct(mm, vma);
+> > +	if (ret)
+> > +		goto out;
+> > +
+> > +	vm_stat_account(mm, vma->vm_flags, len >> PAGE_SHIFT);
+> > +
+> > +	perf_event_mmap(vma);
+> > +
+> > +	return vma;
+> > +
+> > +out:
+> > +	vm_area_free(vma);
+> > +	return ERR_PTR(ret);
+> > +}
+> > diff --git a/mm/vma.h b/mm/vma.h
+> > index 47fe35e5307e..14f026bf3be4 100644
+> > --- a/mm/vma.h
+> > +++ b/mm/vma.h
+> > @@ -775,4 +775,9 @@ static inline bool map_deny_write_exec(const vma_flags_t *old,
+> >  }
+> >  #endif
+> >
+> > +struct vm_area_struct *__install_special_mapping(struct mm_struct *mm,
+> > +		unsigned long addr, unsigned long len,
+> > +		vm_flags_t vm_flags, void *priv,
+> > +		const struct vm_operations_struct *ops);
+> > +
+> >  #endif	/* __MM_VMA_H */
+>
+> I'm really annoyed that _install_special_mapping has a leading underscore.
+> That's it.
 
-> Hi,
-> With this version of the patch I see:
-> 
-> [  102.760894] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  303.860321] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  307.071624] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  307.360626] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  307.671142] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  308.660339] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  308.961059] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  313.191314] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  313.700378] DSI: omapdss DSI error: Failed to set dsi_if_enable to 0
-> [  313.980346] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  314.791564] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  315.090362] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  322.850952] DSI: omapdss DSI error: Framedone not received for 250ms!
-> [  323.111175] DSI: omapdss DSI error: Framedone not received for 250ms!
-> 
-> while scrolling the (hildon)desktop on droid4, so I would say the change 
-> broke command mode.
-> 
-so let me summarize:
-- sending initialisation commands to video mode panel: no problem visible in
-  any case, theretical problems (not seen with the tested panels if sending too much data, fixed via v4.
-- command mode display: no picture and error messages without any bta sync (patch version 1).
-- working display with send_nop() replaced by simply sending bta_sync() and not
-  waiting for PACKET_SENT irq for short packets (v2).
-- partly working display (with v4), (always waiting for PACKET_SENT)
+Yeah it's horrible :)
 
-so there are some situations when waiting for a packet completition is harmful.
-In your case these were only siutations when short packets were sent.
-Do you have a more complete log of v4 boott?
-In the log for v1 which is not accessible anymore, there were other 
-more informative timeouts visible.
+>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 
-But maybe as a wild guess also based on Sasikhos AI reviews, maybe
-this helps:
+Thanks!
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
-index 3f22929c36e2..eb3cd0d23cae 100644
---- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
-@@ -3267,7 +3267,7 @@ static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
- 	 * updates stop working. This is probably related to DSI spec stating
- 	 * that the DSI host should transition to LP at least once per frame.
- 	 */
--	r = dsi_vc_send_bta_sync(dssdev, vc);
-+	r = dsi_vc_send_bta_sync(dssdev, VC_CMD);
- 	if (r < 0) {
- 		DSSWARN("failed to send bta sync between frames: %d\n", r);
- 		goto err;
+>
+> --
+> Pedro
 
-
-
-Then the call is equal to the original one done via send_nnop.
-
-Regards,
-Andreas
+Cheers, Lorenzo
