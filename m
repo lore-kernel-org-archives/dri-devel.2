@@ -4,106 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E0CC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:09:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7706CC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 164ED10EDAE;
-	Tue,  7 Jul 2026 15:09:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B007610E503;
+	Tue,  7 Jul 2026 15:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h+LasTBe";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="kSpo+r2W";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012050.outbound.protection.outlook.com
- [40.107.200.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F0D610EDB1
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:09:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L6jnM6gK42Cyd0tuRcVzIWTmQt0Z76gInNBgWHGKYBxixJZ8CHfzQwJm6gxOr9ttAodfvuWUtIpR2DuzjZmjkpFJd/3rWnC4zlz6hYKBErcWfbvKWkCMRZLzuMsS39Nr4hvRIO6kQAobzMRnwDgAbZKKym/NrTCBxJK8RvYsx/OM51lyRTEUR1kj7mhQw9A6Gs8vTWFN9iKSg138qAWJTlYi8OYqEjxArXPpG/n5Yp7yG6r0QRfMBF5Q0Si4OQvUYohf/rDnWzKYgHIUMH9r6dCKQxItgroIqc5wuQ2/x+Qhr0aGwFtl00ZqIlWHYxV+5Dq/EO67iQWNTqH8aHyhwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oBCc9blYqkUVV9Oxfbt4Y5xCyZTM/yNU3yJvgKt/dAU=;
- b=eK1+b4heyiW/fsHyDw2nSJtgW2taUHvggMUe5Vkm86Hp73VD3muPwvnnfICA2KKcOLtT4C9OSIQUZX5KSp//82mZk6OovMCifl46KM4W/Mn4vHyD1X+o+XEfD7KPaRBp+x6KQ00h8Rjomp6SGVrMPVXdN7PpE+/nz4cK/CJs5veQaGAW2188SnBA4cW072EFarTeioTG6XyCWeD+yebB/DY1DLySn0J25i05i7ZCDt/do8FfbXtoqfQuO74Dbzgxau3IIFh3NvfgZgkzjSoaOSP+7IBJ2HffLrGqcoOzFBknuf/ksCuKTqoPF3fcJkC3DXoUhCMjwoO2ahJPxDpJoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oBCc9blYqkUVV9Oxfbt4Y5xCyZTM/yNU3yJvgKt/dAU=;
- b=h+LasTBeStoxgZxAcn6aAE5elrsXLrpPAX1kmMNUG2/A6uguhMvLr5gscoG/aEep/PDXeImjeXWlMIJnQ0kF1br+bC+p9gv3rgu0lbqjLkMgqs38ZiqER54fVqirE8YHekzKBMf6remZMAg9RpubB3+lp49CsbzCWIIXc1LjfL4=
-Received: from BN0PR04CA0109.namprd04.prod.outlook.com (2603:10b6:408:ec::24)
- by BN7PPFED9549B84.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6e7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Tue, 7 Jul
- 2026 15:09:15 +0000
-Received: from BL6PEPF00022573.namprd02.prod.outlook.com
- (2603:10b6:408:ec:cafe::62) by BN0PR04CA0109.outlook.office365.com
- (2603:10b6:408:ec::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Tue, 7
- Jul 2026 15:09:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00022573.mail.protection.outlook.com (10.167.249.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 15:09:13 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 10:09:13 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 08:09:13 -0700
-Received: from [172.19.70.117] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 7 Jul 2026 10:09:12 -0500
-Message-ID: <79627c5e-7ae4-40a6-8181-a611da01256d@amd.com>
-Date: Tue, 7 Jul 2026 08:09:12 -0700
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0E810E503
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783437059; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=d+GEGtixobrI9AQMcY0LkClOUFcI3wi52SiSYU4IlIV2A53YW1AlISLWAyjlpnzTgYwtSvR8UaL9El9YSasjE/ypaW+HwWgd/vbRzrp1aujFdfWfAQO5jF8Rhb1JBLuDvuVDxFVl56DIUaGCTJG4wRfuZD86bz6dSq3OIzpZLD4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783437059;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=zbMlIGQ0sYd7uDW1jFhubeLMro2JlZCRFaoEbfN6HZY=; 
+ b=gRFQnkYN0Sg4YW3ooHUt0GznWlMTfZagodfk8lakaBqVzH8XOs0Zy0idBJwgHunuvu4Ioy5Lklxy4kbKIy8GShgG3pia0htkU/3zs6f7yCUyEkkae7foTl9FHQm7hLgYgPlbE33wVIkGyyE7669cqs0zkquh10+/DrBHiNpXsXk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783437059; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=zbMlIGQ0sYd7uDW1jFhubeLMro2JlZCRFaoEbfN6HZY=;
+ b=kSpo+r2Ww8xKg34qcXQL3DPWZaQEuw5QeFH3IZHqUiPs+022zr4hDkIRc4IgMw0e
+ WpogWcqXymeYUL0/N85ifdy1UCI9qFTvWQrbaSZTgcKvbWHw7ZhqLBBJOSX0lcAB22k
+ SbgV1WIZ3gm+tMp1OtTQjQovgoR/u2cyxpXA+yJU=
+Received: by mx.zohomail.com with SMTPS id 1783437057836994.9405528357895;
+ Tue, 7 Jul 2026 08:10:57 -0700 (PDT)
+Message-ID: <8b02c456-fb23-4c17-ad20-a2bab2d588b1@collabora.com>
+Date: Tue, 7 Jul 2026 18:10:52 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: fix open_ref leak and stale client
- pointer on dma map failure
-To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260707055658.479049-1-lizhi.hou@amd.com>
+Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
+ avoid deadlock
+To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <18beb213335dd544.57cdc20d9a554be2.724d3e176f79ad9@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
 Content-Language: en-US
-From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20260707055658.479049-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <18beb213335dd544.57cdc20d9a554be2.724d3e176f79ad9@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022573:EE_|BN7PPFED9549B84:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a41dd34-fad2-4bbb-0978-08dedc39b4d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: CL0lZHSTbDHGrzA44BrLIdE1+W67ax0fScR8xuL0yQI17URj9P8WPWQoyRJadIPu+TEUAdMxLzbwhbMV93UP0qGhwVsJHrl8SgSU3fa8t6Ov/2VYVHSzaRnnIx0BtO7EZpOm2oBqHOWnptzV6ezq6vpoU33vfz41c/Pj72WC8WKT43FJVUOaLqfUvNk+S+MEpaVvMxTpzrDi3iE7j/i1AbDmc2BiB0HHGkr5N3f9sDGQoTMOj683k7nuzaZPuRZzi3MbVME/1WArioWtr3adCQX9cpaJdqo8AIjcLtIlXAqnYfS/ZZZsYaj3kyuKJcngHPtE/SBCmvTBACF5xocO40Q4Vjx6O+ZxSxmlbDwOdoXJEBu6iZm0cXhXxeLt2LdLlcFJu4ibdLGcyQj3KRlxac5onnnWBe3KHebjewihtm5DJEg6Ings8CQaOJPRXP9Lc76I2myL/yefm8he1n6NtdN9TUgy6RCUM4CIrj3qANMvtOBhKodZVSLDaa24+8Gm83P6edbYcnGwySkMdwfncEkWy8wYiHJNtw4QkR5b8UZEOfzNdVWccPmVyodGD6QGF497fTOEs2KIrrlmDZ4A06casOFaNVm/PU0G/7wTLGHWHM2rxLXEjqbWjgmpB54O9lXpn8UyJuNJHOxXS3+aVrIWKOmUjkNaOZ2d5ogC6NSxZIKNPvB4dE6gMyCnZg+h1ie0tASuJe0tEZj1bwDBSw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(11063799006)(56012099006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bkZCJ9MMo5I/Cim06yF+6PkLVBBJHlrGE5F3s4mJXbv+woIb+tzqby3wXfGWCKsGmWdy2pW2p6mUNLe6CSBYeMk4goOw3oS0nvkgdn3Tzq0jexs6SvBU8NTWIrEEwkq7zxjal0Da8Co4M876naERjZhK04VfG/WCvGwdhFqpZqaUsTFCwvo9H0YG2raKTTDT7F0HbrZw02+pCPOyZHYH82y0NTq5txQ6qEUUznkLrrqxCdBOybKDNnoG6cxyGu6eggEcvHnXpVKhikn9bEYm3DL44ntm7mYYRMX7MmmFdWWJhnaetQN2Var9X2jrkF40wAyBaD9x0vkeVpFKpSrLgX81KPV/CdANTvzlLi18Wf3SA9nD9DYji1Accu4/KWzLEeF4MlKWXnLuFr+x6hpjiWAC2+nDgP4CKtnyV0mhniBfsFMqAuV6UbUidyT+P99P
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 15:09:13.7949 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a41dd34-fad2-4bbb-0978-08dedc39b4d5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022573.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFED9549B84
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,38 +74,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 7/3/26 08:58, Ryosuke Yasuoka wrote:
+> 
+> 
+> On 02/07/2026 14:26, Dmitry Osipenko wrote:
+>> On 7/1/26 12:23, Ryosuke Yasuoka wrote:
+>>>
+>>>
+>>> On 30/06/2026 16:46, Dmitry Osipenko wrote:
+>>>> Hi,
+>>>>
+>>>> On 6/30/26 12:16, Ryosuke Yasuoka wrote:
+>>>>> A probe-time deadlock can occur between the dequeue worker and
+>>>>> drm_client_register(). During probe, drm_client_register() holds
+>>>>> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
+>>>>> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
+>>>>> waiting for virtqueue space. The dequeue worker that would free that
+>>>>> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
+>>>>> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
+>>>>> to acquire the same clientlist_mutex. Since wake_up() is only called
+>>>>> after the resp_cb loop, the probe thread is never woken and both threads
+>>>>> deadlock.
+>>>>>
+>>>>> Fix this by deferring the hotplug notification from
+>>>>> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
+>>>>> display data (outputs[i].info) is still updated synchronously in the
+>>>>> callback, and the deferred work only triggers a re-probe notification to
+>>>>> DRM clients.
+>>>>>
+>>>>> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
+>>>>> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
+>>>>> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
+>>>>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+>>>>> ---
+>>>>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
+>>>>>  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
+>>>>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
+>>>>>  3 files changed, 16 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>> index 7449907754a4..27ffa4697ae9 100644
+>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
+>>>>>  
+>>>>>  	struct work_struct config_changed_work;
+>>>>>  
+>>>>> +	struct work_struct hotplug_work;
+>>>>> +
+>>>>>  	struct work_struct obj_free_work;
+>>>>>  	spinlock_t obj_free_lock;
+>>>>>  	struct list_head obj_free_list;
+>>>>> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
+>>>>>  					uint32_t x, uint32_t y,
+>>>>>  					struct virtio_gpu_object_array *objs,
+>>>>>  					struct virtio_gpu_fence *fence);
+>>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
+>>>>>  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgdev,
+>>>>>  					 uint32_t resource_id,
+>>>>>  					 uint32_t x, uint32_t y,
+>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>>> index cfde9f573df6..cfb532ba43a4 100644
+>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>>> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+>>>>>  	INIT_WORK(&vgdev->config_changed_work,
+>>>>>  		  virtio_gpu_config_changed_work_func);
+>>>>>  
+>>>>> +	INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
+>>>>> +
+>>>>>  	INIT_WORK(&vgdev->obj_free_work,
+>>>>>  		  virtio_gpu_array_put_free_work);
+>>>>>  	INIT_LIST_HEAD(&vgdev->obj_free_list);
+>>>>> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
+>>>>>  	flush_work(&vgdev->obj_free_work);
+>>>>>  	flush_work(&vgdev->ctrlq.dequeue_work);
+>>>>>  	flush_work(&vgdev->cursorq.dequeue_work);
+>>>>> +	flush_work(&vgdev->hotplug_work);
+>>>>>  	flush_work(&vgdev->config_changed_work);
+>>>>>  	virtio_reset_device(vgdev->vdev);
+>>>>>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
+>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>> index 67865810a2e7..084d98f5dc7b 100644
+>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virtio_gpu_device *vgdev,
+>>>>>  	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
+>>>>>  }
+>>>>>  
+>>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
+>>>>> +{
+>>>>> +	struct virtio_gpu_device *vgdev =
+>>>>> +		container_of(work, struct virtio_gpu_device, hotplug_work);
+>>>>> +
+>>>>> +	if (!drm_helper_hpd_irq_event(vgdev->ddev))
+>>>>> +		drm_kms_helper_hotplug_event(vgdev->ddev);
+>>>>> +}
+>>>>> +
+>>>>>  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+>>>>>  					       struct virtio_gpu_vbuffer *vbuf)
+>>>>>  {
+>>>>> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+>>>>>  	spin_unlock(&vgdev->display_info_lock);
+>>>>>  	wake_up(&vgdev->resp_wq);
+>>>>>  
+>>>>> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
+>>>>> -		drm_kms_helper_hotplug_event(vgdev->ddev);
+>>>>> +	schedule_work(&vgdev->hotplug_work);
+>>>>>  }
+>>>>>  
+>>>>>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
+>>>>
+>>>
+>>> Hi,
+>>> Thank you for your review.
+>>>
+>>>> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init(), placing it after wait_event_timeout(display_info_pending)? This will avoid additional work_struct that otherwise needs to be cancelled in virtio_gpu_init() on the timeout.
+>>>
+>>> IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
+>>> into virtio_gpu_init() after wait_event_timeout() would not prevent the
+>>> issue.
+>>>
+>>> Looking at the syzbot call traces[1][2], the deadlock occurs during
+>>> drm_client_setup(), which runs after virtio_gpu_init() has already
+>>> returned. The display_info_cb that triggers the deadlock is called from
+>>> the dequeue worker while drm_client_register() holds clientlist_mutex.
+>>>
+>>> Thread A:
+>>> virtio_gpu_probe()
+>>>  -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
+>>
+>> You mean that the timeout happens and it's again syzkaller report for a
+>> broken host. A day ago I applied [1] that should fix this "bogus"
+>> syzkaller report.
+>>
+>> [1] https://patchwork.freedesktop.org/patch/735301/
+> 
+> Thank you for [1] and the clarificaiton. I agree that [1] addresses the
+> broken host scenario where virtio_gpu_init() times out and probe
+> continues with a pending display_info response. I think there is another
+> scenario causing the same deadlock reported by syzbot and my patch
+> addresses both cases.
+> 
+> The deadlock can also occur with the following scenario:
+> after virtio_gpu_init() completes successfully (wait_event_timeout
+> returns), if a config_changed event arrives before drm_client_setup()
+> completes, config_changed_work_func() sends a new GET_DISPLAY_INFO. Its
+> display_info_cb fires in the dequeue worker and blocks on
+> clientlist_mutex held by drm_client_register(). This is the same
+> deadlock path reported by syzbot.
+> 
+> Since [1] only prevents the timeout case, I believe the schedule_work()
+> approach is still needed to prevent display_info_cb from blocking on
+> clientlist_mutex in the dequeue worker context, regardless of the
+> trigger.
+
+The config_changed_work_func() already invokes
+drm_helper_hpd_irq_event() by itself [1].
+
+[1]
+https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/virtio/virtgpu_kms.c#L52
+
+The drm_helper_hpd_irq_event() itself calls
+drm_kms_helper_hotplug_event() [2].
+
+[2]
+https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/drm_probe_helper.c#L1113
+
+Isn't drm_helper_hpd_irq_event() call done by
+virtio_gpu_cmd_get_display_info_cb() already partially redundant? I.e.
+only it's needed by virtio_gpu_init() and not by
+config_changed_work_func(). And then we can move
+drm_helper_hpd_irq_event() to virtio_gpu_init():
+
+```
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c
+b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 922782bdc9cd..9805283683c1 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -303,6 +303,7 @@ int virtio_gpu_init(struct virtio_device *vdev,
+struct drm_device *dev)
+                virtio_gpu_notify(vgdev);
+                wait_event_timeout(vgdev->resp_wq,
+!vgdev->display_info_pending,
+                                   5 * HZ);
++               drm_helper_hpd_irq_event(vgdev->ddev);
+        }
+
+        vgdev->pm_nb.notifier_call = virtio_gpu_pm_notifier;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c
+b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index 68d097ad9d1d..aa6440a9b81e 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -880,9 +880,6 @@ static void
+virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+        vgdev->display_info_pending = false;
+        spin_unlock(&vgdev->display_info_lock);
+        wake_up(&vgdev->resp_wq);
+-
+-       if (!drm_helper_hpd_irq_event(vgdev->ddev))
+-               drm_kms_helper_hotplug_event(vgdev->ddev);
+ }
+
+ static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device
+*vgdev,
+```
+
+Isn't it a bug that config_changed_work_func() doesn't wait for
+display_info_pending event?
 
 
-On 7/6/2026 Mon 22:56, Lizhi Hou wrote:
-> amdxdna_gem_obj_open() increments open_ref before attempting to set up
-> the DMA address mapping.  When amdxdna_dma_map_bo() fails, the function
-> returned immediately without rolling back either change made on the first
-> open (open_ref == 1 path).
-> 
-> Fix it by decrementing open_ref and clearing abo->client on the error path.
-> 
-> Fixes: ece3e8980907 ("accel/amdxdna: Allow forcing IOVA-based DMA via module parameter")
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Max Zhen <max.zhen@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index a4bd9e86bc8d..3f03d2db1603 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -663,8 +663,11 @@ static int amdxdna_gem_obj_open(struct drm_gem_object *gobj, struct drm_file *fi
->   	/* No need to set up dma addr mapping in PASID mode. */
->   	if (!amdxdna_pasid_on(abo->client)) {
->   		ret = amdxdna_dma_map_bo(xdna, abo);
-> -		if (ret)
-> +		if (ret) {
-> +			abo->open_ref--;
-> +			abo->client = NULL;
->   			return ret;
-> +		}
->   	}
->   
->   	amdxdna_gem_add_bo_usage(abo);
+```
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c
+b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 922782bdc9cd..dd2d5c896c39 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -50,6 +50,8 @@ static void virtio_gpu_config_changed_work_func(struct
+work_struct *work)
+                                virtio_gpu_cmd_get_edids(vgdev);
+                        virtio_gpu_cmd_get_display_info(vgdev);
+                        virtio_gpu_notify(vgdev);
++                       wait_event_timeout(vgdev->resp_wq,
+!vgdev->display_info_pending,
++                                          5 * HZ);
+                        drm_helper_hpd_irq_event(vgdev->ddev);
+                }
+                events_clear |= VIRTIO_GPU_EVENT_DISPLAY;
 
+```
+
+-- 
+Best regards,
+Dmitry
