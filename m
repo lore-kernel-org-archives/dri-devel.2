@@ -4,127 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CCCFC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 09:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42C36C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 09:11:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED09F10EC01;
-	Tue,  7 Jul 2026 09:06:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C476410EC0C;
+	Tue,  7 Jul 2026 09:11:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lgOYhPxP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M37MhmFr";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013065.outbound.protection.outlook.com
- [40.107.201.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACFE10EC01
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 09:06:51 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012044.outbound.protection.outlook.com
+ [40.93.195.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA51F10E477;
+ Tue,  7 Jul 2026 09:11:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XxZ4vg2e0RkXbUMzsQuvy0+uIMsh28AlVsTXTudXf+4E/3gvs8hOyzjhthe0kprjJ4dFOq0aFIqSWrUhiucVfphRoJVVKRSmt7KlNFI7wvn86ggibxJ6HKGQzWXEH0pml1oJeIOTV+fjgxFXkNTHea5lDa3pzWKkZN8lrIa0ROazADAo1J5ZZfKqy1j3nNBqnyBhnozcPc5BjT/16s/emKJYhQ3FF4wmxExJUbSVw/c+IuArYIehmuZhT0OwgVI8JJpieAjqOQ2M4z3Gm1xcFA/Gn+K4rnH7+rF117jODLcmJuCxceJBTvPerPpp0ixM7hEGdIefk5cplwa6z40GPQ==
+ b=mrGxHrBwJRtGaQ3X9ksx2g/8KTYnSJpcpLxj9qDygGBQK//Yz/W2M5amSDTbYP0JOwDKl7flLuIyWnaGGLNczl1zSHeWrunfp9HuoSen3CatZbGbma+cJwg0TcGRt5+mZs+BrJvTozKKc7ZCVveFmlA8TGG8YyxELMi6X0aE2aYmlikXL8437bMkJGV75JxBdZtcto5NoO5bQWgdqR/puN9VyPbLdj1yJRe7S7Hc98o9hUf7GOT4iHjaTKniEzh5eRHHyWtd+96CZEqcs0xjivf2VAHj2QszDn6MhkFNNpwDMjWllSkLwzWigGimNo6UlR5H0jP+Rs4i7ur9lJNTDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Xy6Gzryvi8zoBnUmvbtNx5jXU5V2sEi+R1eM9hZ9XM=;
- b=JGcAT+W+s/O3WYdN3pYSjZ6PsN7F9z1sMdBJnvbSc+fnL2dWPILjpSGyBjsONFG9WMw2Ei7LwHbAQfDdfGFlPViunZWEJpp577MfOO4arZ9v9KHvXQchOx90yUtUaYanTXIZ1H4g2XbBSOh94oUZJ8feTcpQi8Ueeppclq+AV67hsdj2RYeuVjpzNX/hVK8qWnUayYQMcaFc4PupgfDQ01qt1YrJILujhKLZ+pPCG+6f5kdL/VWV8EP9BYo2rHZHIw1t0CtuRTP/J5WMn83J3t3IQmW03JvD8kWHrn1CVvYpDXy6TjF5PrXhsFvAuiGqzoV2sanyxKxa8gUqNpmLEg==
+ bh=TxFYqRvQnTm0HwfSa2fx4RisAUDyGGSuxwL4wVlb3eI=;
+ b=nhRBtwlGDymnXhwtZj49IPt6L9NQjF5Fm74kn3vkSpxd6KQEkW1RMuoY2dwa/9VazlRzjQkKhD5ocmR0893+2WkTI/YPrau3cGKYXFUEqwzTLH5ng741ECWF2zH6uFFZeR6G5Q5EfuqhsVSpLX6VMCx24Sd53V/Wl2S6nZwdCwgob37/9p9lKJjL0n+C7EMlmDeA8Bs+ncO/XeA4MRJTW4NbGiEGM87MKFZBj5VW/u+y01y6knm2bMAIwQyzk2mB/XmNlh4gTM+5kM8YzS8GxE/NpRtP3d8AnfnfYvhqBPYb9IDcKFIMbjj5Ccdl4UUkd24YDy1mYcKrbUmNE6AZEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Xy6Gzryvi8zoBnUmvbtNx5jXU5V2sEi+R1eM9hZ9XM=;
- b=lgOYhPxPku40mfIS9B4wJ7qjsHEmeydJ+HHT/EcTylZ0ti6yq8byAkq7PV4l0F+RypTARh5TFtGjIScuBpJskl2pWmcZK+N5xwxvWIVuZYxeCaq66Hq6KIlaoqhvEmEkpQJGfLN9J5FvSOgPSJYodJBtuzEWkMUTld9q7I4cmio=
+ bh=TxFYqRvQnTm0HwfSa2fx4RisAUDyGGSuxwL4wVlb3eI=;
+ b=M37MhmFrxxxPo7WPv3WfpF9oWFTbE9aaSRkkB8C0/xdpg8C4ybRlM/e6LwsjWcxZSQ59TiTcV/L3v9FNK1Fbe5Y0I60w4L0IdDUWUuCe7zopJoYEGol9Fs+l9NuMJvH0p6D2j5NUhykL0ue8l8ZF7IYSZL4cEq003tRPQJ4ar2Q=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN2PR12MB4333.namprd12.prod.outlook.com (2603:10b6:208:1d3::23)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DM6PR12MB4044.namprd12.prod.outlook.com (2603:10b6:5:21d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Tue, 7 Jul
- 2026 09:06:46 +0000
+ 2026 09:11:08 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
- 09:06:46 +0000
-Message-ID: <1293fd6c-4af7-4025-9624-aa35a6b0d4a1@amd.com>
-Date: Tue, 7 Jul 2026 11:06:39 +0200
+ 09:11:08 +0000
+Message-ID: <c575453f-d798-4745-b67d-4476825dfa64@amd.com>
+Date: Tue, 7 Jul 2026 11:11:00 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: explicitely forbid exposing pages from
- get_user_pages()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- sumit.semwal@linaro.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- lizhi.hou@amd.com, Max.Zhen@amd.com, Mario.Limonciello@amd.com,
- airlied@gmail.com, karol.wachowski@linux.intel.com,
- Simona Vetter <simona@ffwll.ch>
-References: <20260630080112.1117341-1-christian.koenig@amd.com>
-Content-Language: en-US
+Subject: Re: [PATCH] drm/drm_exec: avoid indirect goto
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260630080112.1117341-1-christian.koenig@amd.com>
+To: mikhail.v.gavrilov@gmail.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, peterz@infradead.org, jpoimboe@kernel.org,
+ llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
+References: <20260704084133.122053-1-christian.koenig@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260704084133.122053-1-christian.koenig@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0169.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4333:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1273d22b-a155-4721-76f1-08dedc07123e
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4044:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75c5041a-40f3-4133-0fa1-08dedc07ae10
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|6133799003|22082099003|56012099006|18002099003|11063799006|921020;
-X-Microsoft-Antispam-Message-Info: 7A0gUtzDxaKkuSdTftZ40Eh2kq/wzSzTLo9v+8ZcgSErKLNS73tsvQE8Xrz8Mnal92bu29CgspbElJALNHTpyKTgKIkY5kiScH+cE4dkUz3YQNSa6k7d2IF8jjTGNMvabQ4nBg58TopfqPW+p0KZNSdhQJtgFHSdcyuT60yV2cooXiSaKPg3q5DX3SiN0Rcm78LFFyjqU6vQuEmHAukYJQdauTPsrZRvkNF9UmkZ0oywyUBso3qQ+cxGMjsiVqreHBzheHimWtJmHo9jytBmJIMRYDSoAUEr9N3dq7wRIFgJl7BnBSEqfRxfnBug444hQxyEw6Ub7te2DyCLTb0tS1CxNbxJtvezMHb0GsuYuHSs/oIvYU5o4nknpis8FdKBuuSw528Tkc2C1NZR663Leu8IoyB18ZUEiVkyBMS4V36wpdhnaXET6KRvPdIx6hbgV5wgk9uPXcJu4CNSOBg1Pe/hL3YL9xyiQzk3+Po5eKqVBmws7g2BuZ3bMQu/0Zfxeb6Kc+jLDafWfMlXMruHa6E5LWIXwVFjXktNil63Yk7ws0r7ihFWGF8FoRPxgzdQk4TnwnJ9qf0Xkl/11VVRjqSF9QXhSlF/ai3ACC5VdglXQ2lCXpL4r3wzTfiNz5XFOTlPRjqCwDEPh7x67dLT6HPPcPSoD6tFXiuCTfzepHj+GB+PXFsSlB/WW4n9wzn9T6PGs8kovLGHlcoyfduH6Q==
+ ARA:13230040|7416014|376014|1800799024|366016|23010399003|56012099006|18002099003|22082099003|11063799006|921020;
+X-Microsoft-Antispam-Message-Info: Gsb3wZgdK/Jdc8Ys4XKJ/CxDXFguLrLVatF9bfZyh9QNMkTfLZYJqYc37/zEBx6GSLNO1MO2oTb+VqNHNmBxlRkXDPkg7bMhmux1IS6T87R6EF9wWYahJDRP6od/8PjjJTsVQOg1K1BY3cSy5BGxXVJ7S+IXtklZS9TBqOcWsKVCkDIF+dfx6oNPubg1Z6d0v0aJldGLeilH8QcCV2PR/joDTpDTjuX0jyv3iKdd1W9P6D04guhs/7wIIB8UpZK08YPZk2w9uAGxwXNZr+7bcH3i2i1CdhgoxLs0AakrxfADiKLn31O1yvLb4dqnboILszzb+PbLP/UgzKsoi4X4gZ9NY4Yr+7NBcI064aIFFMw2Wil3ZTlb5W+aMzXAt61sa3+Dk6LDZIVxQONkZYp9kE+n9wAL+e/NCbR81DCbWg3P+Ej9TSJc/slwH35nLT2qSWi7RGS1q3bqaf15lmXDWuX2RkWCqeR94OA1VwFX+db49Y1+jnv+aYvMSx/GP32A/4BOks3L4S1uZCU6FaEhyptVmNEp3ns17YVSOxXx/NVwDQiTAm/yVhluu/lUn+OAg+3CNUNeouetWVGTUnqCtKxpkxlugjMIQldGUOo0VXK5d3bX720R0B167gLgIF8BsDyFMfg4kT/wIuQbNODus59i/KFyja3q0AfTwICd0xj3gUtwpykVBOOvZmtLaF8upw3T4smXZ1Uf6fQsatKM5g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(6133799003)(22082099003)(56012099006)(18002099003)(11063799006)(921020);
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(56012099006)(18002099003)(22082099003)(11063799006)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTBRbnFnbDNLNGZwT1BVSm5mdWxWNzhwSGx1ZUprSHBvajA4Nk1JUDF0c2xC?=
- =?utf-8?B?M3pyZTlBNUNXSElMMVM4SW1PdlJZSG8rdkJNMW1LVk9yRW1MQkVteXZNNk8x?=
- =?utf-8?B?OUZPMXBKdllXTHdxQ2pheHZhQzFISERTTWd6Y2ZQWGRtTHQ2TXpjQzhPenRT?=
- =?utf-8?B?SUFMaXlqQkhJeThZTlUrTXdaMXNXN2N6Y2VxZmlGcXlrRURQU00wMm9PbjVt?=
- =?utf-8?B?d29XK2V1T2srK2ZrcnFKV3pwR1lzME9WalJXcngzTHZyVkE0WlNJakM3b0Vo?=
- =?utf-8?B?ODUwVG41Ynh4UlI5UlJQYkJzbVRHRTRBcytodG9jRGY4a1djNk1XQmt4OGJ1?=
- =?utf-8?B?TzdWWWVZaGRhN24yYUt5OU9NMmhTZjVNd1RWYWxUd3ZFeHNKVnUzd1l2VjJq?=
- =?utf-8?B?bGM1dzNwR3hBNk5SMzVybnZ4Z21pcWpOVVJEZENKclg5ZGJOVWxlODgxWDBr?=
- =?utf-8?B?Y0RLTFlYWHYzL3lKODdqV2Q3UWZadFBjeUtxSW9GM2o0T0toQytxNExmWUVk?=
- =?utf-8?B?Wis3Z2lwYmEvNGJzK2pxRnhWaUcxU09tR1dxTHo2WkJHRC9jbXpEc25UT1ow?=
- =?utf-8?B?S0ZRbnJrTmQzaWh5QW1WZmJXVU4xdmZxMEdWTlh1cVBGd3YxUW1hQ0Y2MjJx?=
- =?utf-8?B?dUd3Yk5EU1lSMll4dVgrMStJZGNJbGhmdk45bW14a3FHY3dKUHlvTHZta1Zj?=
- =?utf-8?B?b2d0S0s0cHJZcWVuMVJrM1VHRWZVQmd4QUN0M1A3VzhNNHRqb2VETXFkeE1q?=
- =?utf-8?B?Ymw4Mk1YaTdIa1FPdTBBaERLZ2dQZTN4L0hFM0E5T0dpQWpTR2h0NnhESE1r?=
- =?utf-8?B?cSs1eUR1U29lc1FXaGIwdW1MM0VHNFNOZWV0Mzc2WTQzdGx2REswUDJDcDhG?=
- =?utf-8?B?cVh3aXBXQUQrWjVteHNoNkhnbllEeUVzZTR5T1VHRUFLUkU5R1BEdWlsdzYw?=
- =?utf-8?B?a24wUXJlMTNVL2RlU0E0RGhYQmttTkFBR0lJK2VWaXhqaGVieldWMUE1bjRa?=
- =?utf-8?B?eEpzQ0hWZmlndWloK0NXU2xJZFFhT3p4UUJ5NS9KbVFBa0FhOVArSGI0NDFR?=
- =?utf-8?B?SlgyaUljcklRT1FlWEJEcEk5OEp5UjNRbHljbUZEUWptNTZyNlJob2ZPVWRl?=
- =?utf-8?B?WGkrL1lNdHZLRlJLYVN1cmJsalVSSHNROFhoSlhsRFI1Rk9TUEUrRXJsMFhH?=
- =?utf-8?B?S3hzMVJHL3VzM0Y0NW5CWmZhQ0l2bU14cW10a3U3ZUhQRExlaXpBWFpXUlMr?=
- =?utf-8?B?dzJhaWVWbnZhemZUL1Q4dDNmT2NHK1FBcUNVRHlOVzY1MFZoaFBhOVd6c0w5?=
- =?utf-8?B?Rzl3NEliVFQwdDhCd1FramFiQ21YNUZLMCtmekhjUXF6b0RxblVHelVmaUNm?=
- =?utf-8?B?QTlEeWZMU3BiL3pqVjREczBnd0hUWTdCV3JwR0F6dStDQlgxaml1aERHTGlt?=
- =?utf-8?B?WVFKeDVzcWY1eVBxQmpzdjFhZU9zZXB0WGpncXk5UlV6enlKUlNHTTF1bnht?=
- =?utf-8?B?UmxNNGN5Nk9ETEdWNGZjNDl0d1QzQXV2U2RRTnVqbFc4Zjc2RE5ZQlpZdXFw?=
- =?utf-8?B?L1gwbE5aV0Q1M1FnSzQ4dnhwVFdSRjJjZjJ1amlYUUdFbWdSRDk2d3Q4RmZR?=
- =?utf-8?B?V3d4VXhsSFRvNDdlVVJTYWhVOTNncmxKcHd6TE1PS2xBRmFnQzBwOUdJWlFE?=
- =?utf-8?B?OW1kQS8vUlM1VXpDUWZmWmIvRi9XWWlid05Ed01BZTFjakZlOXV3TkFGaVIz?=
- =?utf-8?B?c2lhbytQcWtSRlJNVE5vZDN6RWxwazhUZk1VMjYwTndLZk9aUGNyUzA1YkNZ?=
- =?utf-8?B?dVJmNDhnaEc5bCtkcURmRjhnMytXV29oYnNJM1BYdWQyTGFqSFg4S0VIR3lm?=
- =?utf-8?B?ZkI4RTg3K3FPMENIWHhKNnZnRXBSUllwaGplZThLOTd5YW1SOFBRTlB1VHJv?=
- =?utf-8?B?eDhpZ3doMWdmWEZZbHJqTzluVVJqWmNxQVdCaHdVQ0pHUTVlbWJuOHRNbnJj?=
- =?utf-8?B?N01leDduWTA3UndoNzhQNHord3VYOU9uNlNWdzdFOUp5dVJOWmtxQUhNci9S?=
- =?utf-8?B?cnp1TjVyVmIxaEsvT1h5UHdDWG03a0ZoVithQlYzSEQvakdzSzlBY0xiZE1m?=
- =?utf-8?B?S0MyOFRWQ0pma29BMC91WUpkeDJubE91cWJCYnBhTWFCbTYwTG1xNFE5SVRV?=
- =?utf-8?B?ZHFMVnJwd1Zmd3JVOW84MkllQ2MxQ0VsWTE3NlVuTTN0cHp1djUzRGhJekpw?=
- =?utf-8?B?M0MxZ0h5NkRaN2xEM2xpUU4rMFZDNHdaT21ZZE9KczkyT3BqRXY4aVVIZmtv?=
- =?utf-8?Q?4HQhbKSTa4tbU8azRm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c1NLczh3SDBIWFZiNTJ5NGRUYnVMRUFTL3UvSmJNNVFVcTdxL0hkWWsxVkR1?=
+ =?utf-8?B?a21zWFBJNmNVTUJlR3l5TGtIblV6MmNxd1RmNjhqbE0yWEZBUlVGVjQ2MWhZ?=
+ =?utf-8?B?RldUSjlFMmI0N0k5dGxkUFc2aDl1Tlk4N2lFMTRLMXZMRTBrbUtPWSt5Nit6?=
+ =?utf-8?B?ck10MjJFWk1jWENSOXRrZmUxbXppUm1FM0VjdTRmVVJUbTV3UHRsSHNKWGVM?=
+ =?utf-8?B?azkyNXRwY2lLUUw4dVVsWDRRYU54aG1qYWc5UTZ5bnQ2KzhzL0ZzWEJNV2tR?=
+ =?utf-8?B?T29GVG9McFNtdzZlUXUyZzJlSi9jbFl2TWtaaGFneW5lSS9zcTEwZjlydlNm?=
+ =?utf-8?B?SHlGbVZPUHdvNi9jY292TFkrSHdrQjFycGI3SkVXSzB1eEVwYW5hYW9uMkFt?=
+ =?utf-8?B?VDlyT1VCMmlCd3FJQ0JBeVMwSjk3UExka3kxZ3BCckQvZ0NKM1ZaMlAvUWxC?=
+ =?utf-8?B?bTRyZ2swNUJMdmdTdU8wSWZEL2dDT0JieWFsbGl3MVVkdHJsRWVtMG1TQlQ1?=
+ =?utf-8?B?eDRhUTR5ci8vNnV0SXV4ZTYyZzlIN1U3QkI1MjhyZ2t5NzJXZ2NoOGV3YTdY?=
+ =?utf-8?B?OTdmRUtxeHBreTJKcG9sSTlrUkVKL016dU5tclZEdEhYOVZ6ajYreDdickdB?=
+ =?utf-8?B?aTFYZ2xKM1pOczkzcTd6MXliWUZwZURRSzVESDlreFloUTJpWXg2NW5ueXhk?=
+ =?utf-8?B?SVltcGhHVE5ERFdBVlp4dDczQ0lsUXNzbERWaEF2NW5CckttNkF0dXN0YTRu?=
+ =?utf-8?B?cXVHaHBtemZXVkRnVWJ4VTZnN1l2QlhNalRJZSttQXhwU0ZkL3laMWFnQUY5?=
+ =?utf-8?B?YkNDNFFFOW1ZTGpvekZNZXZOVVh1a3J6ZTFWQnNtTlJCbmphbW5FczRVTlgz?=
+ =?utf-8?B?VVpLVzNENlFmb0V2ekoxaDBlL3YyR0pwdGdXZWl0Q0ZuUXNHQmxZcHBIN1ZH?=
+ =?utf-8?B?SkNpY0F6OWFTNFc0UE5DN2hpRGwrTWU2VlgzVW05dDM3c1VIRWR2cm5YNkdl?=
+ =?utf-8?B?VHIwZHI3Zy9PQ1Y1OEJlcTFKenJ0YmlHTS9reVo5N29MTU1XZUN0MGxnZ1Q1?=
+ =?utf-8?B?cnhML3hnUllCaEgrekRJcHN4YlQxOGk2dE5NNm9DVlJObTJFNnpYU2g4cGVl?=
+ =?utf-8?B?ZmFwRTVTODBNb1Yra0pZcXdCQlI5R1NkVU5YMHJjZlRBQ21pSE1nbm5XN0Fz?=
+ =?utf-8?B?ejVMM2UrY25ZalM4dkdJQXNXQVpNNDhORXNZcnpqL0Q4RFFrOTdYZEVXV29M?=
+ =?utf-8?B?eTZJOFd1WEdtc2o0MUxFZW1tbGtzMjFoSTBBeVBDb0dMOE5DSnNwTnVHYlVr?=
+ =?utf-8?B?eS9oTlE0bzlGWHp0Smx5bzZsNkRqR0ZLbGkwMnRvWkNvZXJWV3NocWIrNjBp?=
+ =?utf-8?B?L2N1dVBPbW9LejZOQVkzOGpXRWR4RnNHYUZVSzZpNVQ3SkM0SXpRdjNJOERr?=
+ =?utf-8?B?Z3gyK2owTXBrMDR2Q28rcU95SVptbTFJVEVoOWNiaDhqWWdxZkVCSllld3E3?=
+ =?utf-8?B?M2R3NjZjWndhVDJ2Wkxodjg4d0YrK3dzMCtjS3dMY2NZemlrOVJ0alhvaitH?=
+ =?utf-8?B?WEhzUG9KUkRvMkIxOFJadkczNHlXQVdNOUtSQUJXOGZsU09HQ1plNU0xODZp?=
+ =?utf-8?B?ZmUxbmlab3Nha05SQjZYellkcGRKRzVSalFGK1BZL0VxNFFtcGhjcWRoeWlj?=
+ =?utf-8?B?OHF3dWg5NG1DelA2WUdIUm5nWUxvNFlCUkh1dDRrZU13VzAxWlU5aDBFNFZz?=
+ =?utf-8?B?dFBLVTBrUTc0Z2MwdjVVVmVKcG9FdW1YOFMxQlJZRzl2NFdSaC9Nazc5QWts?=
+ =?utf-8?B?b0JJU21neWRheHNWV2l2TTdkUmVnUnVQK0ZMNWZjWDcyRHBSUTI2UHllNGVr?=
+ =?utf-8?B?eHFJZDJoZFVDVGZKT3M2ZEVyZ0cyME0rL3ZxdWo0NmdPU3F0Q09oNjhlb2Vx?=
+ =?utf-8?B?SVc0dnZnaGZOUjdFQzk0cERCYU5UckM3ZWFOZVczUjhlNmsxQnNCQ2EwZjU0?=
+ =?utf-8?B?SVNJNW1GYS9hVnpIcDFqd25CSGZ6WVgyci8wcnNCaEZTS3d4NHRNN3pNMXVI?=
+ =?utf-8?B?QkJXRGRnajdUV1Y4WWttdVlISmwvdWNTU1J5cnJOdjU1Zk1wMkovK3hOdEJF?=
+ =?utf-8?B?U3h4YWJzNE1RRG1UengreDdUWWRKUWJjTUxQTzU3ck42ekc4ZVRFTzZFWlRp?=
+ =?utf-8?B?V2NqbmorVzNCSW9Rc3hSNDdEZUlWY3VMMmFnTVd6YmgyS2QxcXJ4bE10QTJL?=
+ =?utf-8?B?M0NDaVdCR241R2VlYk02aVF0c2dMWk1UaHd0cE12NlhQbnh6dktVVFQwNDd3?=
+ =?utf-8?Q?2P7anBssBx2BxlqGat?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1273d22b-a155-4721-76f1-08dedc07123e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75c5041a-40f3-4133-0fa1-08dedc07ae10
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 09:06:46.5639 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 09:11:07.9790 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TVy4ZoL6rkbU8qUDNKQZ7wzYFQbdlDS4lO8aPpWfJyyuv0JaWrDSPJSlvSnsTM4h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4333
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fp/z+wgZQkI9Dgtg3tvP0SOYy7RaXDTjXgnPCXPEy7qEp8lVADXYzCzlgEuabDm1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4044
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,41 +139,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Gentle ping.
+Adding a few more people to comment and review.
 
-Apart from the spelling mistakes Sashiko already pointed out, any comments on that?
+Thanks Mike for the pointers, going to add them to the patch before pushing it to drm-misc-fixes.
 
-Regards,
+@Thomas, Maxime, Simona, Dave can anybody give me an rb or comment?
+
+Thanks,
 Christian.
 
-On 6/30/26 10:01, Christian König wrote:
-> We recently had another incident where two drivers put pages they got from
-> get_user_pages() into a DMA-buf and cause quite a number of problems.
+On 7/4/26 10:41, Christian König wrote:
+> The drm_exec component uses a variable with scope limited to the for() and
+> an indirect goto to allow instantiating multiple macros in the same
+> function.
 > 
-> Explicitely document that this is not something exporters can do.
+> This unfortunately doesn't work well with certain compilers when the
+> indirect goto can't be lowered to a direct jump.
 > 
+> Switch the indirect goto to a direct goto, the drawback is that we now
+> can't use the dma_exec_until_all_locked() macro in the same function
+> multiple times.
+> 
+> The is currently only one user of this and only as a hacky workaround
+> which is about to be removed.
+> 
+> So document that the __label__ statement should be used when the macro is
+> used multiple times and fix the tests and the only use case where that is
+> necessary.
+> 
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
 > Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->  drivers/dma-buf/dma-buf.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c |  2 ++
+>  drivers/gpu/drm/tests/drm_exec_test.c  | 24 ++++++++++++------
+>  include/drm/drm_exec.h                 | 34 ++++++++++++++------------
+>  3 files changed, 36 insertions(+), 24 deletions(-)
 > 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 71f37544a5c6..aa5af4f439c2 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -685,6 +685,14 @@ static struct file *dma_buf_getfile(size_t size, int flags)
->   *
->   * For the detailed semantics exporters are expected to implement see
->   * &dma_buf_ops.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index fee4c94c2585..fc28d0fdad37 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -3011,6 +3011,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>  	is_compute_context = vm->is_compute_context;
+>  
+>  	if (is_compute_context) {
+> +		__label__ drm_exec_retry;
+> +
+>  		/* Release the root PD lock since svm_range_restore_pages
+>  		 * might try to take it.
+>  		 * TODO: rework svm_range_restore_pages so that this isn't
+> diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
+> index 2fc47f3b463b..7a374e462348 100644
+> --- a/drivers/gpu/drm/tests/drm_exec_test.c
+> +++ b/drivers/gpu/drm/tests/drm_exec_test.c
+> @@ -180,19 +180,27 @@ static void test_multiple_loops(struct kunit *test)
+>  {
+>  	struct drm_exec exec;
+>  
+> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> -	drm_exec_until_all_locked(&exec)
+>  	{
+> -		break;
+> +		__label__ drm_exec_retry;
+> +
+> +		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> +		drm_exec_until_all_locked(&exec)
+> +		{
+> +			break;
+> +		}
+> +		drm_exec_fini(&exec);
+>  	}
+> -	drm_exec_fini(&exec);
+>  
+> -	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> -	drm_exec_until_all_locked(&exec)
+>  	{
+> -		break;
+> +		__label__ drm_exec_retry;
+> +
+> +		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> +		drm_exec_until_all_locked(&exec)
+> +		{
+> +			break;
+> +		}
+> +		drm_exec_fini(&exec);
+>  	}
+> -	drm_exec_fini(&exec);
+>  	KUNIT_SUCCEED(test);
+>  }
+>  
+> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> index 8725ba92ff91..cc2937185a9f 100644
+> --- a/include/drm/drm_exec.h
+> +++ b/include/drm/drm_exec.h
+> @@ -101,17 +101,6 @@ drm_exec_obj(struct drm_exec *exec, unsigned long index)
+>  #define drm_exec_for_each_locked_object_reverse(exec, obj)		\
+>  	__drm_exec_for_each_locked_object_reverse(exec, obj, __UNIQUE_ID(drm_exec))
+>  
+> -/*
+> - * Helper to drm_exec_until_all_locked(). Don't use directly.
+> - *
+> - * Since labels can't be defined local to the loop's body we use a jump pointer
+> - * to make sure that the retry is only used from within the loop's body.
+> - */
+> -#define __drm_exec_until_all_locked(exec, _label)			 \
+> -_label:									 \
+> -	for (void *const __maybe_unused __drm_exec_retry_ptr = &&_label; \
+> -	     drm_exec_cleanup(exec);)
+> -
+>  /**
+>   * drm_exec_until_all_locked - loop until all GEM objects are locked
+>   * @exec: drm_exec object
+> @@ -119,9 +108,18 @@ _label:									 \
+>   * Core functionality of the drm_exec object. Loops until all GEM objects are
+>   * locked and no more contention exists. At the beginning of the loop it is
+>   * guaranteed that no GEM object is locked.
 > + *
-> + * It is explicitely forbidden for exporters to expose buffers they don't "own"
-> + * as DMA-buf. This includes pages acquired by get_user_pages() or other import
-> + * mechanism. Not following this rule can create numerous security problems.
-> + *
-> + * It is also strongly discouraged to expose the same backing store through
-> + * multiple DMA-bufs at the same time. This eventually creates aliasing and
-> + * cache coherency problems which are extremely hard to debug and fix.
+> + * A global label name drm_exec_retry is used, if you need to use more than one
+> + * instance of this macro in the same function the label needs to be made local
+> + * to the block with the __label__ keyword.
 >   */
+>  #define drm_exec_until_all_locked(exec)					\
+> -	__drm_exec_until_all_locked(exec, __UNIQUE_ID(drm_exec))
+> +	for (bool const __maybe_unused __drm_exec_loop = false;		\
+> +	     drm_exec_cleanup(exec);)					\
+> +		if (false) {						\
+> +drm_exec_retry: __maybe_unused;						\
+> +			continue;					\
+> +		} else
 >  
 >  /**
+>   * drm_exec_retry_on_contention - restart the loop to grap all locks
+> @@ -129,12 +127,14 @@ _label:									 \
+>   *
+>   * Control flow helper to continue when a contention was detected and we need to
+>   * clean up and re-start the loop to prepare all GEM objects.
+> + * The __drm_exec_loop check exists to prevent usage outside of an
+> + * drm_exec_until_all_locked() loop.
+>   */
+>  #define drm_exec_retry_on_contention(exec)			\
+>  	do {							\
+>  		if (unlikely(drm_exec_is_contended(exec)))	\
+> -			goto *__drm_exec_retry_ptr;		\
+> -	} while (0)
+> +			goto drm_exec_retry;			\
+> +	} while (__drm_exec_loop)
+>  
+>  /**
+>   * drm_exec_is_contended - check for contention
+> @@ -154,12 +154,14 @@ static inline bool drm_exec_is_contended(struct drm_exec *exec)
+>   *
+>   * Unconditionally retry the loop to lock all objects. For consistency,
+>   * the exec object needs to be newly initialized.
+> + * The __drm_exec_loop check exists to prevent usage outside of an
+> + * drm_exec_until_all_locked() loop.
+>   */
+>  #define drm_exec_retry(_exec)					\
+>  	do {							\
+>  		WARN_ON((_exec)->contended != DRM_EXEC_DUMMY);	\
+> -		goto *__drm_exec_retry_ptr;			\
+> -	} while (0)
+> +		goto drm_exec_retry;				\
+> +	} while (__drm_exec_loop)
+>  
+>  /**
+>   * drm_exec_ticket - return the ww_acquire_ctx for this exec context
 
