@@ -4,68 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D00C43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 11:56:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E76FC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 11:59:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFBB110EC6B;
-	Tue,  7 Jul 2026 11:56:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 026E710E4AD;
+	Tue,  7 Jul 2026 11:59:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QkUazNn2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZvRMj9bc";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA7610EC6B
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 11:56:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783425383;
- bh=5La47mugR86zNwVAYVmIlynmty3b35suIyPgIrKNa6Y=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=QkUazNn2ulg5g0wRD75nGqhs3FODngy61+asFxo9b5oAqQLyrCpdMUt5imj3yszwe
- U6G+nKWXawpzRFongj99CeFI1GHvp4VuoOhqpNAxgcp08p7RY69xOXCu4Qf3iiT369
- HLJOAuArQy/SdwO50/+G2tJo/j5eWXT2q+P0KZracXexDmCDX9RJ71wYJ90B+4qzlH
- 6SBIzevm+25I9yup2XMoL0LIp6Dl33BXPTnDnM3hLC5TNA8RZphTGZBWvlF0GgMNlV
- 3DjP7I1b2EG2NXRaRPqMppMAnHUceu9JjIzboa+chN2nigEM+OX9BzkYXWR/wKdWu2
- Z8Qsis+ohYePQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 101AA17E013E;
- Tue, 07 Jul 2026 13:56:22 +0200 (CEST)
-Message-ID: <16980e9f-c183-41c4-8001-ac7807cc087b@collabora.com>
-Date: Tue, 7 Jul 2026 13:56:21 +0200
-MIME-Version: 1.0
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010000.outbound.protection.outlook.com [52.101.85.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4D0210E499;
+ Tue,  7 Jul 2026 11:59:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QgKHxnVhVLEl+cWocFpEXObHPJEYfnERvXWMkzpqgeqPU2PUpeB6tVd0KhqEfJcTSPJ2s9yxWaFpsPK2aAz9NRmBepRt9LSMxEhNv5PKHV1UwRXmfTpdfLZ8CrgGuIogsLNxZTyb+viMWjedHXhQcMtkgFYSBstgAhbZJlUskKJgXoP1iYM7h3kXwUUGU1NIGfZ9YUi0gPwb/Ib6tbrtgKnfO/RgP2Z404te+sYaFUY15iCU/TZ2pYzHN0H0H31mqxOb8Jd+VhWBFfqVtKCKRqfPMgiEe+59xcA9ETOcyxFbF7PsMGERClpgW17fSnCbtdK5CJmDo3RP4UJdUy0Q0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7s8LtkdXWND95p7R2Kp5RintstWFqnr3jmpRnegkKZo=;
+ b=CPsda5ybbI3BCrsxgyaOs4HEGZJO/GT+2dCAzZY6X0HbylD58ebuYUc+nKa9J5mZaegFmmJjVZdyFSB/oaE5SonOP4zBUIcaY+K+9OsJgu2BidAprf8UwYnufnQheDeFvZcM7NA1spzss7kM52orWbx+SHcUN8vZjS6KLFDhRZnt1w15+GE4ShY7v/5DnGOqxgy74ktX6NDazOFJ8YTXQldVAvxngBffts47ESiuovSi/xnCLOEMxsvqI5ZsSZbwmwznPn3bDQj0rlvvhB/5cQxzkeH5oRievJkPD1Vap9RTz3yOGA9I6iophhd7Vl4rZBPHN3/Ip2z527pAfbx9/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7s8LtkdXWND95p7R2Kp5RintstWFqnr3jmpRnegkKZo=;
+ b=ZvRMj9bcohe7e3gApx1KuFfdKeQ7TJkRme2FvUGYmuipuEJEsXE6SLReNfOKzltSJjRoZG8YvphQd1eS4n6km05LEllGhIDca7dWsf6itJ5ORf4Tc7S22SgU5VkqrZwDOigflL5xUJtfkh1mWhxObX7JXqOkYKkIUEXWDiHJ/k0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW6PR12MB7085.namprd12.prod.outlook.com (2603:10b6:303:238::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 7 Jul 2026
+ 11:59:39 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
+ 11:59:38 +0000
+Message-ID: <76b6a6c3-f1c7-4e44-957a-3e9cf143aa28@amd.com>
+Date: Tue, 7 Jul 2026 13:59:33 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/42] drm/mediatek: Use hashtable for components
- discovery and registration
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
- <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "airlied@gmail.com" <airlied@gmail.com>,
- =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
- <20260701122057.19648-7-angelogioacchino.delregno@collabora.com>
- <79f44c827c78fd823300509c22058f2b6f3600b6.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH] drm/drm_exec: avoid indirect goto
+To: Dave Airlie <airlied@gmail.com>
+Cc: mikhail.v.gavrilov@gmail.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, peterz@infradead.org, jpoimboe@kernel.org,
+ llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>
+References: <20260704084133.122053-1-christian.koenig@amd.com>
+ <c575453f-d798-4745-b67d-4476825dfa64@amd.com>
+ <CAPM=9tz38o_p--FGjgkcDCV43jwmbx_zYDyc8fyHKBteiHDRrQ@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <79f44c827c78fd823300509c22058f2b6f3600b6.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CAPM=9tz38o_p--FGjgkcDCV43jwmbx_zYDyc8fyHKBteiHDRrQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0P223CA0013.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:208:52b::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW6PR12MB7085:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9691381-a6ba-4866-e56b-08dedc1f38ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|366016|1800799024|23010399003|376014|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: mAJIrJfeA76XSUSkNYLKqFDKYhFS0xtjlIuJ4+EzHGZ0B4ECnkCB3A0dzmoOQZ8L4OQnIhXlnoBu59L5wyuI2SzEMXKhl3PEjmvgjFCLfrkD6TIu4Z6tjX0CxmMVOTWqP5+AYXLcwZR9SQNxnHhhmrQsoqpuI1VDZqpHTfREFrdzKjqhIVl3Jxa0H/eZhqVqATpgHDXa8JMI7sqjNHTjAMX4PdEu4o9MFBT+R9xFtdcrsfBPs+HJQeiCWPXU10jGtWkaYW6bkwv+7hRgZsTVW8qHhWz7Qeq0+Kq78pSzLCoIn+V14CFiBmfyrymfmIVPefM/AUwSLsc5G55Vjkg8Y7XvZDeFeoQft5WK7Uf2dld2W6GDR6gFfjGbGgARoEIqJ6knmddOYwSIn+Geto6jQXfeaGsIlZFYWw2r3BwkIoc/HN95XRzP/lV3olAdEkND0mXCpnIYxAcqqhYnyRqQ3CqaXa4jpSdeKzHrQ5jC6swyN6pW013iLhToxPNjjSV4m3fnGuUJ4b8FwLvYYK0KZMUp2Yz2k5ZFVvtEuhqaeSFCAtkZ6cCVr9vOnDKUr9+DfL1yDnHpqDqV6vf2zLo5336tOIKtdU6gLmh8mhoCg8DVcCDPdy7sRXGKcfW9fBVKoZUIQkJ7pr4pJ/uw4WyGdH11GIEJ4vou8zAexNHgACY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(366016)(1800799024)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmdzKy9yWFc5R1E0eU9lajY1TldUQlgwc3YwOHlaOHVjbnZwMHBGZmlqWE1o?=
+ =?utf-8?B?SWh3SUNhZmVHVGIzaTUyN1h5VzBqWDZGNVRQME56OFRDOFpXak5FdTEwb1lO?=
+ =?utf-8?B?Ulc4aFVITGFpNUFDTHArU3ZNOXpPbk1qWFo0VXl4WXZtam9jMkNsaWxkazYz?=
+ =?utf-8?B?ejlxOHVsR2VtaklHbWFUcmVRTU12Y1UxT2hNU3lvZGdmZFBUaUoyQ2NuWWFp?=
+ =?utf-8?B?cFh1ZHc0bzlKZzlzZGxhdGtyWE55MUJkdmg2MytpS1VQY1ZTdm9LNm1lN29S?=
+ =?utf-8?B?aGNMbkdCajBQbFM4cXc5N0p6aXQxYVJSRVA2clUxZ0FRTUp0MmpMeG1MaFB2?=
+ =?utf-8?B?VUVab1hlK3J1Q3VlOW15UWR6WjZKdG1sa0VUbWtENVZhYWM3U2Y4NW14V2lh?=
+ =?utf-8?B?ZVFJdWRlRVl2UmFXdEVGZXFvenhmSlVyYmxzMndwenFXc1NnaHU5amk1VmtX?=
+ =?utf-8?B?RnFZVzEzdXhhOFk0dWdqcHd4dEhVWmQ5azBxQVlKc0pWQXFwajVCdXRNQmRO?=
+ =?utf-8?B?TG9sVEk5Y2VhVXRuaVpzK0VtdVpZUFRkdEE5ajdtb2VvRDNEWVVPS1ZxVEpq?=
+ =?utf-8?B?bCtVa1lJWjJzUDh2WDFtaE50L2tHbk1Md0RKTjJCNzlVdldHWjBiWSt1Ulo2?=
+ =?utf-8?B?NzdVcWsxUVhMQ1FOQno5S01NZUFTQ2Rpdk0xVnRETnVwU0VOK3ZkV2Qwejk4?=
+ =?utf-8?B?YUNIbGRUK1NreXMwVmJ1dXpjTkNaSU9CZ2t6SW96T29MS2F1NFprUGp3VWZy?=
+ =?utf-8?B?d1dVem1pcmYybUJtaXFDbWFaRzFxYTZUT055MzZ2dm5xV0tuVmx0Uk82dXZN?=
+ =?utf-8?B?OEF5ZDNRYnM3NGtpa1NYMEFIMktURHNQdmxJVHoybll5Q2t3ZXU0NFdiVG9j?=
+ =?utf-8?B?dEtUTTRFNUMvcElyR1E3RGExUTdVeURsM0dmTTQwdDhMZUNwYTdIc0hQTGd4?=
+ =?utf-8?B?Zm9OK3oxeFpiSEs2VTJJWEJKY2tDQTd0NlExdUNwOVJqMzZQSGJEcmtlbzVS?=
+ =?utf-8?B?bTEyOFR0U0FjaTZxUVRTZkJ6SFA3SGNsdnpEN2lCbTlBR3JaWFFFTFJnZ2l0?=
+ =?utf-8?B?MXNsR0M0azJ4SERzVFhjRFBiajUzV21xcFFEREpSV0hDaElKZU1wSGYvUzlv?=
+ =?utf-8?B?TnBvTGNSZFpOVWlIN1BmOGJIdzlDODVwanh0ckU4UkxEaENVN2c5bDJnMjRy?=
+ =?utf-8?B?eGF6T3VjTTJZNnBlaUl4MmxrMGUyK0VQWHNiRnpGTVFRdWx6WmtuYUh3UXBJ?=
+ =?utf-8?B?T3NuYVN6VEpKamdnTzVsUU5NUVdaYll5MTU2cTZlaFB1T2JxM2daWFZmaXIw?=
+ =?utf-8?B?ZVZpeUNZbUlyMmtTMkI3ak5sYjVNZnNvR01PeFZLZVNyTHBVS2pQVEdJcDlw?=
+ =?utf-8?B?Qk5LbTQ4WWJ1bzBoVHl6dFhBNEc4MjczZmpPazNDZDhxYjk4SUNmS2pPZmlm?=
+ =?utf-8?B?VG1sNEsyWDhYUDRacHd5V1dPUlJna1RIT1VQOHdGYTFVYVA1WDM4TUdVWnl4?=
+ =?utf-8?B?T21LY2VoZVQ1akRCMSt0cElMNFlFYkNaS0d2c2NKb3NveG5GRWE0SzkwakF3?=
+ =?utf-8?B?K0JEUXpEK0ZDOEZ2N2xVN3oraUEybEVqbGpReVpYRDZPakFPcXcvSm9LL0xj?=
+ =?utf-8?B?blp1RUJPUnh2WjZ5UFFFMXNzRFJJRFVlUmh1OE0vRWhTSFVQMG5lVE9BWmlY?=
+ =?utf-8?B?eFo1aWFxY0svRjdaM1UxOGgxZ0JXUTd6UEZLdlZPRjh2NlR3TnZRcXRmTFhr?=
+ =?utf-8?B?Z2FIWWVOem43aTh0VFpYR3lRYnVjTGI4L1krangzRjFva05mU3poNHRjSVJr?=
+ =?utf-8?B?MEhJOHRHN3czbEhDNVVBQ1JuSGxWbm5SaE9SWk5ZeG5wblV6VjAyQUR4V1B0?=
+ =?utf-8?B?eTVrU0ptZHpTU2VFYjFWQ3M1aExJY09XZ2ZvT2F3dmJrd2RCSi8zbFRDaWJz?=
+ =?utf-8?B?S0krWXdpem5MVExwR1RPOW5OSUJMbllYblVwYU9IT0JCcWtlWHlOOEk3elBs?=
+ =?utf-8?B?cnFKU25JQVJqMVZ2OTlzdG9oRE42bXpuQm9Hb0UxSzNrYmNVc1JXV0dCTGc1?=
+ =?utf-8?B?b1dsa0k2TEdYUHA0WFFSZExjSll2d3BEUEhacWNMUHR1K2tBRlpaUEVuRndr?=
+ =?utf-8?B?OEo4NXpkVk5xREJsTW1DbWphWk96QXg4TnFGQ3ZObVVLNk8rNDhJZTZEeHJl?=
+ =?utf-8?B?d2ZPME8ydTdpNFErVlh3L3VXeUpkNHBRdWNRN2dZa0JKd3MwTWZPYlhsQkM4?=
+ =?utf-8?B?VUJFaXdPbkNqd2xkVkhnUHNMeGxVMVpnRVE2anBtaWFYS0VIYVZZTjVONFZv?=
+ =?utf-8?Q?3o5yp+orfo73tosaSx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9691381-a6ba-4866-e56b-08dedc1f38ae
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 11:59:38.7848 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: McG4w+4ADqGQBZ//DkPtDbwgunlB2LYGxILj9G3U7V4geeruX9AFk0JA/3/ih3iM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7085
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,257 +140,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/6/26 09:02, CK Hu (胡俊光) wrote:
-> On Wed, 2026-07-01 at 14:20 +0200, AngeloGioacchino Del Regno wrote:
->> As a preparation for refactoring the concept of hardware component
->> identification, search, and final usage, remove the ddp_comp array
->> of components and replace it with a hashtable, indexed by ID.
+On 7/7/26 13:43, Dave Airlie wrote:
+> On Tue, 7 Jul 2026 at 19:11, Christian König <christian.koenig@amd.com> wrote:
 >>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->> ---
->>   drivers/gpu/drm/mediatek/mtk_crtc.c     | 44 ++++++++++++++++-------
->>   drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 48 ++++++++++++++++++-------
->>   drivers/gpu/drm/mediatek/mtk_ddp_comp.h | 23 +++++++++++-
->>   drivers/gpu/drm/mediatek/mtk_drm_drv.c  |  7 ++--
->>   drivers/gpu/drm/mediatek/mtk_drm_drv.h  |  2 +-
->>   5 files changed, 94 insertions(+), 30 deletions(-)
+>> Adding a few more people to comment and review.
 >>
->> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
->> index f39f197057a7..3f4d6ab1bfc2 100644
->> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
->> @@ -725,8 +725,12 @@ static void mtk_crtc_update_output(struct drm_crtc *crtc,
->>   		crtc_state->connectors_changed, encoder_mask, crtc_index);
->>   
->>   	for (i = 0; i < mtk_crtc->num_conn_routes; i++) {
->> -		unsigned int comp_id = mtk_crtc->conn_routes[i].route_ddp;
->> -		struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
->> +		const struct mtk_drm_route *conn_route = &mtk_crtc->conn_routes[i];
->> +		struct mtk_ddp_comp *comp;
->> +
->> +		comp = mtk_ddp_comp_find_by_id(&priv->hlist, conn_route->route_ddp);
-> 
-> I don't know why you invent conn_route? Keep comp_id use it here looks the same.
-> 
-
-I'm not inventing conn_route, that's something that was already there as a dynamic
-replacement of the last component in a stack of possible outputs for a single
-full-fledged display pipeline.
-
-The change here is about changing the search/retrieval of a `route_ddp` from a
-number that comes from an enumeration, to a full component structure instead....
-
->> +		if (!comp)
->> +			continue;
-> 
-> In original code, it never check comp is null or not.
-> I think it base on an assumption that it would not be null.
-> If it's null here, print error message and it's not necessary to do the rest thing.
-> 
-
-.... and the component structure, with the new code, has to be *initialized*: this
-is because we cannot assume that a component that was not registered will actually
-be registered later (which was a broken behavior of mediatek-drm!).
-
-
-
-----> IMPORTANT PART: <-----
-Note that, at this point, "comp" is *not* pointing to a *statically* initialized
-array of components, but to a *dynamically* initialized one: while before this the
-comp pointer was guaranteed to be *always* a valid pointer to a comp structure, now
-it is *not guaranteed anymore*, because again - it's *dynamically* allocated, so
-we NEED to check for comp != NULL, or we're exposing ourselves to a possible NULL
-pointer kernel panic (or worse)!
-
-
-
-If the component is not initialized at this point, it simply means that it cannot
-be - in any way - used by mediatek-drm, so.. if !comp -> continue means effectively
-"if the component is not registered, we cannot use it, hence don't try to evaluate
-the possibility of using it".
-
-Is it clear now?
-
->>   
->>   		if (comp->encoder_index >= 0 &&
->>   		    (encoder_mask & BIT(comp->encoder_index))) {
->> @@ -1028,10 +1032,11 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
->>   {
->>   	struct mtk_drm_private *priv = drm_dev->dev_private;
->>   	struct device *dev = drm_dev->dev;
->> +	struct mtk_ddp_comp *dma_comp;
->>   	struct mtk_crtc *mtk_crtc;
->>   	unsigned int num_comp_planes = 0;
->>   	int ret;
->> -	int i;
->> +	int i, j;
->>   	bool has_ctm = false;
->>   	uint gamma_lut_size = 0;
->>   	struct drm_crtc *tmp;
->> @@ -1051,7 +1056,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
->>   		struct mtk_ddp_comp *comp;
->>   
->>   		node = priv->comp_node[comp_id];
->> -		comp = &priv->ddp_comp[comp_id];
->> +		comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
->>   
->>   		/* Not all drm components have a DTS device node, such as ovl_adaptor,
->>   		 * which is the drm bring up sub driver
->> @@ -1063,7 +1068,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
->>   			return 0;
->>   		}
->>   
->> -		if (!comp->dev) {
->> +		if (!comp || !comp->dev) {
->>   			dev_err(dev, "Component %pOF not initialized\n", node);
-> 
-> I think you should print other error message and return other value for !comp.
-> 
-
-In mtk_crtc_create, at this point, the component (which always has a node, pointed
-by node = priv->comp_node[comp_id]) has to be initialized by mtk_ddp_comp.
-
-Keeping in mind that the component is actually a device, if the component itself
-was not initialized at this point, this means that there is NO DEVice associated
-with it.
-
-This is why -ENODEV.
-
-Also, we're printing %pOF (like before) because this gives hints about precisely
-which one was not registered at this point.
-
->>   			return -ENODEV;
->>   		}
->> @@ -1089,12 +1094,17 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
->>   		return ret;
->>   	}
->>   
->> -	for (i = 0; i < mtk_crtc->ddp_comp_nr; i++) {
->> +	for (i = 0, j = 0; i < mtk_crtc->ddp_comp_nr; i++, j++) {
->>   		unsigned int comp_id = path[i];
->>   		struct mtk_ddp_comp *comp;
->>   
->> -		comp = &priv->ddp_comp[comp_id];
->> -		mtk_crtc->ddp_comp[i] = comp;
->> +		comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
->> +		if (!comp) {
-> 
-> In original code, it never check comp is null or not.
-> I think it base on an assumption that it would not be null.
-> If it's null here, print error message and it's not necessary to do the rest thing.
-> 
-
-The iterator here tries to still setup a display pipeline in case a component is
-missing, and this actually works in a couple of corner cases, which were not
-possible before the restructuring of mediatek-drm.
-
-In later commits, this case will be handled differently: the problem here is rather
-that the code readability is not the best at this point in time (of the series),
-but this will make a lot more sense when going forward in this exact series.
-
-The main issue here is that mediatek-drm's complexity is very, very high, and the
-maintainability suffers a lot: doing each and every change as a perfectly clean
-(and perfectly readable) diff means adding another ~4k thousand lines of changes
-that are simply addition and removal of the same lines over and over again.
-
->> +			j--;
->> +			dev_dbg(dev, "Cannot find component %d.\n", comp_id);
->> +			continue;
->> +		}
->> +		mtk_crtc->ddp_comp[j] = comp;
->>   
->>   		if (comp->funcs) {
->>   			if (comp->funcs->gamma_set && comp->funcs->gamma_get_lut_size) {
->> @@ -1131,7 +1141,14 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
->>   	 * In the case of ovl_adaptor sub driver, it needs to use the
->>   	 * dma_dev_get function to get representative dma dev.
->>   	 */
->> -	mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(&priv->ddp_comp[path[0]]);
->> +	dma_comp = mtk_ddp_comp_find_by_id(&priv->hlist, path[0]);
->> +	if (dma_comp == NULL) {
-> 
-> if (!dma_comp) is more simple.
-> 
-
-Yeah, I agree. If you're really worried about seeing this instead of !dma_comp I
-can change it here... but if you can ignore that, in later commits this will be
-removed and completely changed so that it becomes
-
-	ret = mtk_crtc_find_suitable_dma_dev(mtk_crtc);
-	if (ret) {
-		dev_err(dev, "Could not find appropriate DMA device!\n");
-		return -EINVAL;
-	}
-	dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
-
-Note that if I change this simple line here, I'll have to fix other patches as
-they won't apply anymore because of the changed line... so again, if we could
-ignore that it would be great...
-
->> +		dev_err(dev, "Could not find appropriate DMA device!\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(dma_comp);
->> +	dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
->>   
->>   	ret = mtk_crtc_init(drm_dev, mtk_crtc, crtc_i);
->>   	if (ret < 0)
->> @@ -1188,17 +1205,18 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
->>   		for (i = 0; i < num_conn_routes; i++) {
->>   			unsigned int comp_id = conn_routes[i].route_ddp;
->>   			struct device_node *node = priv->comp_node[comp_id];
->> -			struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
->> +			struct mtk_ddp_comp *comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
->>   
->> -			if (!comp->dev) {
->> +			if (!comp || !comp->dev) {
-> 
-> In original code, it never check comp is null or not.
-> I think it base on an assumption that it would not be null.
-> If it's null here, print error message and it's not necessary to do the rest thing.
-> 
-
-Already explained why we need comp to be checked for NULL.
-
->>   				dev_dbg(dev, "comp_id:%d, Component %pOF not initialized\n",
->>   					comp_id, node);
->>   				/* mark encoder_index to -1, if route comp device is not enabled */
->> -				comp->encoder_index = -1;
->> +				if (comp)
->> +					comp->encoder_index = -1;
->>   				continue;
->>   			}
->>   
->> -			mtk_ddp_comp_encoder_index_set(&priv->ddp_comp[comp_id]);
->> +			mtk_ddp_comp_encoder_index_set(comp);
->>   
+>> Thanks Mike for the pointers, going to add them to the patch before pushing it to drm-misc-fixes.
 >>
+>> @Thomas, Maxime, Simona, Dave can anybody give me an rb or comment?
 > 
-> [snip]
+> I don't like it, but I also don't think the thing it replaces was
+> spectacular, so until we can figure out a nicer way let's go with it,
+
+Yeah agree. C is just lacking the functionality to cleanly do this.
+
+> Like I was wondering if putting the label in a macro would make it
+> more explainable, but I don't think it would help much.
+
+I was playing with that idea as well, but then decided against it for the simple reason that a __label__ can eventually contain multiple labels unrelated to each other.
+
 > 
->> 		}
->>   @@ -1116,8 +1118,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
->>   							    PLATFORM_DEVID_AUTO,
->>   							    (void *)private->mmsys_dev,
->>   							    sizeof(*private->mmsys_dev));
->> -		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev = &ovl_adaptor->dev;
->> -		mtk_ddp_comp_init(dev, NULL, &private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR],
->> +		mtk_ddp_comp_init(&ovl_adaptor->dev, NULL, &private->hlist,
+> Reviewed-by: Dave Airlie <airlied@redhat.com>
+
+Thanks,
+Christian.
+
 > 
-> mtk_ddp_comp_init(dev, NULL, &private->hlist,
-> 
+> Dave.
 
-That was only done for readability purposes. This will be entirely moved out of
-here in a later commit.
-
-Same as before, if you really think that this needs to be (dev, NULL, ...) instead
-of (&ovl_adaptor->dev, NULL, ...) I can change that, but this means I'll have to
-fix 30 patches ahead (plus ones that I have in my tree that are not in this series)
-
-It's not a bug, nor anything critical, not breaking anything, and resolved with
-later commits changing everything so, for the sake of efficiency, if this could
-be ignored (as it's just a nit), I'd be happy.
-
-Cheers,
-Angelo
