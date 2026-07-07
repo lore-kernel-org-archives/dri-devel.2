@@ -4,129 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DAA9C44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0095C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9BC010F42A;
-	Thu,  9 Jul 2026 07:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0618110F42D;
+	Thu,  9 Jul 2026 07:26:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="KxJvCM3y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s+6fpv0j";
 	dkim-atps=neutral
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
- [209.85.219.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B785410E514
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:26:05 +0000 (UTC)
-Received: by mail-qv1-f47.google.com with SMTP id
- 6a1803df08f44-8e9c9d63815so18124476d6.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 09:26:05 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 199A310EC10
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 09:30:29 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2cacd69a9c0so33878095ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 02:30:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783441564; x=1784046364; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Abd7yWEQE6Vuyzvr8uj66ic6dsI9yDvEtRp+r0f0v0Y=;
- b=KxJvCM3y6G1T9cbS3T0Fj1N+xif0jVQE6SHgKkS/BuxKOK8TuY3hupo7fvYI3YYWtc
- LQg0asay2rZsTWtjLFzfHyAJok37T9mMwGOrgXF5l17fP4mrP6JIYiSUKLQqiAm49Cvk
- esLi88oUrX1F5oB0vYFmvMvOA5fWfzQQBt1sm59uXfM+ARrRVECC05qphTVG2UQNPZM3
- 6LGgwEwjqFSrabi3bgu2i05MzVst9QjLSeRm/WB9OCdkJWu+FGv3KmCWkCFnqSo9thmv
- IHJrah9uI03Tgzx81/K57M1O+QDRtRzO/vbQW3H/o7VfTCQ9etRotbFFRIaWDgfsRh2H
- wn3A==
+ d=gmail.com; s=20251104; t=1783416628; x=1784021428; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=QzQpFHJ/fNpPESLWciMsNy0ig1nfmSqgUNKGC1J6yuU=;
+ b=s+6fpv0jyxKFq8HhedApX8xMxNViSMTg6de5SVtqddsHLOaAwt7cb0eYaOGta4qOfw
+ 9KOegJcDDzpMf0q59q8m40uAkSnGNrio/Abnx1Q/OWps9irFewSsAAP1FO2pLeMWiR89
+ oSuEEwqv+4w6lN70Pf1/FmFQAQ967PCcb/qphtKgm8PVeefQDEUdmZ4iXsArefCHWqyh
+ nc9CD5Lbav1csj+CpyO7vdtqrg/thUCBFgzkR+IuEo7WMTRvoB4OINCp2glXXDi+/1Gu
+ Td809LiKND21wtlwbuo42AMWWc1hwl2AWiJt/8wC3xGLUiAogdmgFriLBJE0FWDi9AGz
+ MZ4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783441564; x=1784046364;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Abd7yWEQE6Vuyzvr8uj66ic6dsI9yDvEtRp+r0f0v0Y=;
- b=L8jvKnQOOqc6GXmp9kri/pZLWl4ljc1ZDEEjyh+pw9HqjFwqKkCDs6naG2TKMNkJgX
- mOXnVQ4HN+2ZOD9DUEMtORQ+zSLpZrsbae3JAfL5ci1Kpjoc49e+b2YUfLKbMvoyYSS2
- MVrCKP+ObVPnK3KAnICi+sJ6+juQ7B0YSVWkHJMi/TjJYddDcfhL0JQPFYLCWICbpc9b
- kDt4muPe0jErm54rtIpf3k1v+ZeLrwXnym1n6PqeMp5N1DN1uYuZKlxAWeXJkpux7Agt
- eoq0sg8rE6Bhr3wkFPLY/bf4txPzZt0dqTvfjiUes1po132EQ2dzp6XASNWNAnqybSK8
- iLkQ==
+ d=1e100.net; s=20251104; t=1783416628; x=1784021428;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QzQpFHJ/fNpPESLWciMsNy0ig1nfmSqgUNKGC1J6yuU=;
+ b=OLqJUnEi7TzA4BSeASYt/zO/MspWSdcVBOVQrKzi68+5ONUeUPkYFssXO2D05DXeFz
+ h4JT43o1/vG4Y+G1YKtBqFHg9TMom6Eece7JxjxRM+pl9ERUs9CN93hEGDjUZ7VGHfDJ
+ 7Sm7sRr46zQUktmc1c/r0G/aSn7m50nM7acZn2tSsrwLc5UWwuQ18WQVVoqDIy71UzmP
+ uvmcBo4bfeqTS+v4jAl5Okzwe8TtDMg+WtDBjW2CddDMlw/GX1K65nrgmE1Um+kvBxBj
+ 3QClRhsNji2AiG2yz3owqSkVihubqwi/LLenARhbnYMSbzGbrZErU7WkjqxHqoL+UgOY
+ O2pw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpxtPqCMNI1RnkyUFTjc2LKWCk+in2hsIM7v3pYsoqNRNlhdn+ujm2InEIWi8Hm0VOlXTuj9QYua7M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykkbYXwmbTFoh5cWQEjxI0IPZ8QbcdjeHazbEOSpBNM06u0w3G
- gpB+JrsqeOlRnCS8grFeMgUMsvRaXpOtHyY1Oy6M9npxOYUJ9OEB0tJ3tMHjc2Qpfyw=
-X-Gm-Gg: AfdE7cnWNeJQv17Xt04SdlOkJ//1wx6k79IULQ5H6yKevai7Ywgb6NhilQaixg/zwuf
- 92ApmH8pv6dtRGdQGoLnq5mBOk9Ni+vBYm+eg51j379/gl6awwGJj/wUzb61hRUOkAvCRQxAk+/
- ffWe/ZOIk2B3ocwRLa7Ltsqa2sJtVSqZRTfAUYKrxDv70qONB1txkaAZIp0wRGaCbb4lSFQv3Vc
- fIqS/GNpPDMMO7z3+FVzVHRqCxIi+ftEVy/AgLG4eDrwQ20a3gDlouBRBJlGJMcUw6xIVxQ6owM
- i6jOn2NHBmcC2lhuFiu+2GPJG4fmsbPfA1YUuzX7NfIYtmEyn93kRb3YshpJnMlt2h3TztAKOEH
- TiXK3qUb3Aj+fYLY5uiNQ2+++64nsRtsspZIt3qcgpVKXY0qOXuPW8n50mBUmA8aGaVURNVgly6
- xD9zJpQJrizUOCnwnLK8usvMJ5IyG3B9iBogDxL5FTGBtKxvNEer88/L2sDjCUr06yGbaRm00op
- 0Pk414=
-X-Received: by 2002:a05:6214:6011:b0:8fd:6de3:bbaa with SMTP id
- 6a1803df08f44-8fd6de3be6emr28372996d6.64.1783441563961; 
- Tue, 07 Jul 2026 09:26:03 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+ AHgh+RqH56/x/qcVxTT8P77XXjKDXuEVH/1orjQckcuMbeUBWdezGNBMiU1ST7QxdAloMvO0WIYCb3U27Ts=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGU5JJQlhN0TM21VQDpCjAVTjNAO37tAB8wEYCNmvEkrlEOGab
+ 76HwcuOZoRei0Hsm8HLpi27Qs2lvT0c9xOvJ3armLt6wjv0yO2j5OD3L
+X-Gm-Gg: AfdE7cnekht7171svjO+vc3sIZYy5rtipABGKAz3lcI3b/teuoW7DuaSQ/DRUNBdZac
+ ltXRvVizWlTRDJRTi9YQa44+KzwIvHGUZ59v5O2J6eQgfZSFSXPRGoEwL/PW6nvx1bH38QaM9QJ
+ uIij2r3Mm86JwV+6O5T+2hoJKtj0L1uMeRyjEZJeyCMi094ZDxyPBn/w36vl3YNzDKZPp2nVIdE
+ fMWZFXxVt4rSW4O3cbOI4MtGpkZD3jKTsfGuhdUBRSGbKdMQv0tPVFNOLvP4lGj3Y7DeM5hLRS+
+ OzzokOFlW9njEz4BVI5gIh6s0SqlzaCXDGWW7+yiAparnvfNTKFosxITcKeM6qw6zBUq6JDHjEg
+ 0C3UD235PqxcwuamwNrKYyFUorNbxnpbVsvFbyXaLVesfYtTkDdYusNEmy7Ip8TJM0vmuYzOWD/
+ jVjYULOQIX2PaSC4Qs3gdVhjwxkx+zcigiAW9kWY+fB3bPBO4=
+X-Received: by 2002:a17:903:b87:b0:2c9:97a7:f543 with SMTP id
+ d9443c01a7336-2ccbf056ae4mr43993585ad.41.1783416628565; 
+ Tue, 07 Jul 2026 02:30:28 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8f46f306123sm181382626d6.20.2026.07.07.09.26.02
+ d9443c01a7336-2ccc9bdb9bbsm8569795ad.4.2026.07.07.02.30.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 09:26:03 -0700 (PDT)
-Date: Tue, 7 Jul 2026 12:25:58 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 11/30] mm/vma: introduce and use vmg_pages(), vmg_[start, 
- end]_pgoff()
-Message-ID: <ak0olp9zA6ERCXtO@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <f7b4f8a611ab4d36eb3cf2e394610a3744a93895.1782735110.git.ljs@kernel.org>
+ Tue, 07 Jul 2026 02:30:28 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v4] drm: shmobile: Fix white screen after resume when LCDC is
+ stopped
+Date: Tue,  7 Jul 2026 16:30:04 +0700
+Message-ID: <20260707093004.987846-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f7b4f8a611ab4d36eb3cf2e394610a3744a93895.1782735110.git.ljs@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,15 +92,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:22PM +0100, Lorenzo Stoakes wrote:
-> In the VMA logic we often need to determine the number of pages in the
-> specified merge range, as well as the start and end page offsets of that
-> range.
-> 
-> Introduce and use helpers for these purposes.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
+The LCDC on R8A7740 may show a completely white screen after resuming
+from suspend (s2idle or s2ram).
+
+After resume, both Set A and Set B registers are reset to 0. As the
+Frame End interrupt is not generated while the controller is stopped
+(DO=0), the hardware register switching mechanism is not triggered.
+Consequently, Set A remains at 0x00000000 even though a valid Start
+Address is written to Set B, resulting in a white screen.
+
+This is a timing-dependent race condition. In some configurations,
+debug options slow down the resume path enough for a Frame End
+interrupt to occur, which can mask the issue.
+
+Fix this by priming both register sets with the Start Address while the
+controller is stopped, ensuring a valid base address is available
+immediately after resume.
+
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+
+Note:
+It was originally posted in March and has already received both 
+Reviewed-by and Tested-by tags. I'm resending it to bring it back 
+to attention in case it was overlooked.
+
+Changes in v4:
+ - No functional changes.
+ - Resend.
+
+Changes:
+ - v3 
+   Update commit message, add Tested-by and Reviewed-by tags 
+ - v2 
+   Fix incorrect use of lcdc_write_mirror() for LDSA2R in
+   the DO=0 path; use lcdc_write() to update both register
+   sets as intended.
+
+
+ .../gpu/drm/renesas/shmobile/shmob_drm_plane.c  | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+index 148de34af785..92e7fb464cb3 100644
+--- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
++++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
+@@ -70,6 +70,7 @@ static void shmob_drm_primary_plane_setup(struct shmob_drm_plane *splane,
+ 	struct shmob_drm_plane_state *sstate = to_shmob_plane_state(state);
+ 	struct shmob_drm_device *sdev = to_shmob_device(splane->base.dev);
+ 	struct drm_framebuffer *fb = state->fb;
++	u32 ldcnt2r;
+ 
+ 	/* TODO: Handle YUV colorspaces. Hardcode REC709 for now. */
+ 	lcdc_write(sdev, LDDFR, sstate->format->lddfr | LDDFR_CF1);
+@@ -78,11 +79,19 @@ static void shmob_drm_primary_plane_setup(struct shmob_drm_plane *splane,
+ 	/* Word and long word swap. */
+ 	lcdc_write(sdev, LDDDSR, sstate->format->ldddsr);
+ 
+-	lcdc_write_mirror(sdev, LDSA1R, sstate->dma[0]);
+-	if (shmob_drm_format_is_yuv(sstate->format))
+-		lcdc_write_mirror(sdev, LDSA2R, sstate->dma[1]);
++	ldcnt2r = lcdc_read(sdev, LDCNT2R);
++
++	if (ldcnt2r & LDCNT2R_DO) {
++		lcdc_write_mirror(sdev, LDSA1R, sstate->dma[0]);
++		if (shmob_drm_format_is_yuv(sstate->format))
++			lcdc_write_mirror(sdev, LDSA2R, sstate->dma[1]);
+ 
+-	lcdc_write(sdev, LDRCNTR, lcdc_read(sdev, LDRCNTR) ^ LDRCNTR_MRS);
++		lcdc_write(sdev, LDRCNTR, lcdc_read(sdev, LDRCNTR) ^ LDRCNTR_MRS);
++	} else {
++		lcdc_write(sdev, LDSA1R, sstate->dma[0]);
++		if (shmob_drm_format_is_yuv(sstate->format))
++			lcdc_write(sdev, LDSA2R, sstate->dma[1]);
++	}
+ }
+ 
+ static void shmob_drm_overlay_plane_setup(struct shmob_drm_plane *splane,
+-- 
+2.43.0
+
