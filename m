@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FF4CC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F050C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB65F10ED0A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B33F010ED09;
 	Tue,  7 Jul 2026 13:25:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f0qNtlev";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DLs9hdDj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6D2510ECFB
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:25:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 067C710ECF6
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:25:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C15C643E7D;
- Tue,  7 Jul 2026 13:25:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CEAD1F000E9;
- Tue,  7 Jul 2026 13:24:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E1D7C43ABE;
+ Tue,  7 Jul 2026 13:25:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490C81F00A3A;
+ Tue,  7 Jul 2026 13:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783430700;
- bh=YR7OVTOka+yAGIFejWErZW21aVeNFMmNHnyc0lNA9gM=;
+ s=k20260515; t=1783430703;
+ bh=8CgFZtrANpRpt4Jd3bJXQGOf7CaxfB7C0Ruwg1W6Alc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f0qNtlevUwAYzZhgdYvX3EbEt+Hzwb42I4TktDLWhSA9egp8hdj0N/q1JMzYo8Edv
- zpvDzI4Q940ukozD7I4KJYtBCX7KIwauWZZT4b8sUtMqc0v45p/YZJvNf4p75wbMpy
- 32MVSX0i90QZgah72/D4KfTwQ+07AZ5gac94JFgjBqeqUws1/Q7cgUDwBhFDWdexpv
- lHSvZlwnuaiuKCGcjVM1xOeGWEYwOPnwT/PSeSNaZRFuIX0VxPUgK4ZNI/S5QO4wX8
- HX7Gk04ScB7ZfPGKTloWKCa4PZ9l33OTvrxzgslizbVo7rmQumiA7VLDPzZifqnfVa
- k9A8cKm8k6akA==
+ b=DLs9hdDjgaAnDehs/CKWxjwBa6kbGIevGE8N08XcnjSmETKgC4XwsFf35po4gdxG6
+ nXfsEVfwbkUInpOlc5+CI6z5PvvIgN3vdHyDPR22zWeIY33GFO+olmU0pAjhm0ufpf
+ rkQsqvgbvdTe2inIS0ZLApSKTO5A8T/3o9cP2TvHK228i96Rh0n39C0RhxxE/vUosa
+ 5D9L9dtbIeuphv8EknwE2PaPY5uIbmhwb+bQrtujlpmdrHrvH8KFc9oJz+jCuoKPXY
+ OjVOcYg27qkUmEeRFvIkVMs1aaR2wMMvEEtUMQwWs5dwYLi7tWbB6DX+pkF/aQESDy
+ NP/y/680hpDaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/20] mfd: tps6586: use platform_device_set_of_node()
+Subject: Re: [PATCH v3 15/20] drm/xe/i2c: use platform_device_set_fwnode()
 To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, imx@lists.linux.dev,
- lee@kernel.org, robh@kernel.org, mfd@lists.linux.dev, Frank.Li@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260706-pdev-fwnode-ref-v3-12-1ff028e33779@oss.qualcomm.com>
+Cc: robh@kernel.org, lee@kernel.org, imx@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, Frank.Li@kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org
+In-Reply-To: <20260706-pdev-fwnode-ref-v3-15-1ff028e33779@oss.qualcomm.com>
 References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-12-1ff028e33779@oss.qualcomm.com>
+ <20260706-pdev-fwnode-ref-v3-15-1ff028e33779@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 13:24:59 +0000
-Message-Id: <20260707132459.6CEAD1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 13:25:02 +0000
+Message-Id: <20260707132503.490C81F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +59,66 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Subdevice cleanup unconditionally unregisters all children, premat=
-urely removing MFD cell devices and bypassing `mfd_remove_devices_fn()`.
-- [Medium] Manual assignment of `pdev->dev.platform_data` leads to invalid =
-`kfree()`.
-- [Medium] Missing IRQ domain and IRQ descriptors cleanup on teardown and e=
-rror paths.
+- [High] Missing cancel_work_sync() in the xe_i2c teardown path leads to a =
+Use-After-Free of the device structure.
 --
 
-commit 0df04ec4b22ac2adb3b77bf67e6a1339f5fd4523
+commit 1fdde54b64291aceacb95c2a267bee6b6609b500
 Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-mfd: tps6586: use platform_device_set_of_node()
 
-This commit encapsulates the assignment of the OF node for dynamically
-allocated platform devices by using the platform_device_set_of_node() helpe=
-r.
-This change prepares for reworking the reference counting logic for platform
-devices.
+drm/xe/i2c: use platform_device_set_fwnode()
 
-> diff --git a/drivers/mfd/tps6586x.c b/drivers/mfd/tps6586x.c
-> index f5f8054466033..3cfd2f02b62f3 100644
-> --- a/drivers/mfd/tps6586x.c
-> +++ b/drivers/mfd/tps6586x.c
-> @@ -397,7 +397,7 @@ static int tps6586x_add_subdevs(struct tps6586x *tps6=
-586x,
+This commit encapsulates the assignment of the firmware node for dynamically
+allocated platform devices with the provided helper ahead of reworking the
+reference counting logic.
+
+> diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+> index 706783863d07d..af4ebd93ad8e6 100644
+> --- a/drivers/gpu/drm/xe/xe_i2c.c
+> +++ b/drivers/gpu/drm/xe/xe_i2c.c
+[ ... ]
+> @@ -123,7 +123,7 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+>  	}
 > =20
->  		pdev->dev.parent =3D tps6586x->dev;
->  		pdev->dev.platform_data =3D subdev->platform_data;
-
-[Severity: Medium]
-This is a pre-existing issue, but does this manual assignment of
-platform_data at line 399 in tps6586x_add_subdevs() cause problems during
-device release?
-
-When the platform device is unregistered, platform_device_release()
-unconditionally calls kfree(pdev->dev.platform_data).
-
-If subdev->platform_data was statically allocated or part of devm_kzalloc
-memory, could this corrupt the heap?
-
-> -		pdev->dev.of_node =3D of_node_get(subdev->of_node);
-> +		platform_device_set_of_node(pdev, subdev->of_node);
-> =20
->  		ret =3D platform_device_add(pdev);
->  		if (ret) {
+>  	pdev->dev.parent =3D i2c->drm_dev;
+> -	pdev->dev.fwnode =3D fwnode;
+> +	platform_device_set_fwnode(pdev, fwnode);
+>  	i2c->adapter_node =3D fwnode;
+>  	i2c->pdev =3D pdev;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the cleanup in
-tps6586x_remove_subdevs() interfere with MFD core cleanup?
+This is a pre-existing issue, but does the teardown path for this adapter
+need a cancel_work_sync() call?
 
-drivers/mfd/tps6586x.c:tps6586x_remove_subdevs() {
-    ...
-    return device_for_each_child(tps6586x->dev, NULL, __remove_subdev);
+The I2C adapter registration during xe_i2c_probe() triggers a
+BUS_NOTIFY_ADD_DEVICE notification, which schedules i2c->work. If the device
+is unbound before this background work completes, xe_i2c_remove() is called:
+
+static void xe_i2c_remove(void *data)
+{
+    struct xe_i2c *i2c =3D data;
+    unsigned int i;
+
+    for (i =3D 0; i < XE_I2C_MAX_CLIENTS; i++)
+        i2c_unregister_device(i2c->client[i]);
+
+    bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+    xe_i2c_unregister_adapter(i2c);
+    xe_i2c_remove_irq(i2c);
 }
 
-drivers/mfd/tps6586x.c:__remove_subdev() {
-    ...
-    platform_device_unregister(to_platform_device(dev));
-}
+Since xe_i2c_remove() unregisters the notifier and adapter but fails to call
+cancel_work_sync(&i2c->work), could the scheduled work execute after the
+struct xe_i2c memory is freed?=20
 
-Since MFD cells added by mfd_add_devices() are children of tps6586x->dev,
-this unconditional unregistering of all children appears to bypass
-mfd_remove_devices_fn().
-
-Could blindly casting dev to struct platform_device also be unsafe if any
-child is not a platform device?
-
-[Severity: Medium]
-This is a pre-existing issue, but does the driver leak IRQ descriptors and
-the IRQ domain during removal or on error paths?
-
-In the removal path, tps6586x_i2c_remove() in drivers/mfd/tps6586x.c cleans
-up other resources but misses IRQ cleanup:
-
-drivers/mfd/tps6586x.c:tps6586x_i2c_remove() {
-    struct tps6586x *tps6586x =3D i2c_get_clientdata(client);
-
-    tps6586x_remove_subdevs(tps6586x);
-    mfd_remove_devices(tps6586x->dev);
-}
-
-Additionally, if irq_domain_create_simple() or request_threaded_irq() fail
-in tps6586x_irq_init():
-
-drivers/mfd/tps6586x.c:tps6586x_irq_init() {
-    ...
-    if (!tps6586x->irq_domain) {
-        dev_err(tps6586x->dev, "Failed to create IRQ domain\n");
-        return -ENOMEM;
-    }
-    ...
-}
-
-The error paths exit without freeing the previously allocated descriptors or
-domain. Can this cause resource leakage on cold paths?
+This appears to leave a window for a use-after-free when unbinding the driv=
+er,
+as the delayed work might dereference the freed i2c pointer.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-pdev-fwnod=
-e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D12
+e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D15
