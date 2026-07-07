@@ -4,92 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB101C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 10:35:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 429ECC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 10:38:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 084DE10E48F;
-	Tue,  7 Jul 2026 10:35:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9124410E492;
+	Tue,  7 Jul 2026 10:38:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="muEHhNZS";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ucqm1aiM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45A0510E48F;
- Tue,  7 Jul 2026 10:35:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C8A77411A4;
- Tue,  7 Jul 2026 10:35:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF751F000E9;
- Tue,  7 Jul 2026 10:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783420551;
- bh=ZIdJ2kWnZSzaIc2VKvx3tV02RUSZsKP0aF813USpRQY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=muEHhNZSQ0LSJO5dQUblRtk+3KNiW1Sexx9P7JyID1p9Hp3xGv0J4UbRG+fY5Nk5k
- lfNOH48QJc7HVhAUIDSaP4FNnIxe1mCFgX523zuLO4ghOrfTq4nTYzyBZzGlQjIANh
- G5dVcytVLi1Y4Go7lt7Hi1xf1O/iRDFx8vFh8b1fkkLSr//7hIoyAOX0XNg3mhaHuE
- /MZdzFdyC5bAY2+EfgYmdAJYL+l14uqVN6YBlzzFherZX3IvuvVVB4464w8KwAKHFR
- Cb6iDTk1N1p2T8kQle7lANNppyIF7SnaCJrLWMjV2fVD3A9nrBk/dbzE9PoWVE/mTu
- kXgj2SJWBNUbA==
-Date: Tue, 7 Jul 2026 11:35:27 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- "Liam R . Howlett" <liam@infradead.org>, Matthew Wilcox <willy@infradead.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
- Kees Cook <kees@kernel.org>, 
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org, 
- iommu@lists.linux.dev, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 25/30] mm/vma: update vmg_adjust_set_range() to offset
- pgoff instead
-Message-ID: <akzVxx6vIeiXO-cV@lucifer>
-References: <cover.1782735110.git.ljs@kernel.org>
- <910f7b5be78232304dc7ca01cd57c6f5ca8f3d13.1782735110.git.ljs@kernel.org>
- <akZLhkjsJ_3sGdox@pedro-suse.lan>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7065E10E492
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 10:38:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783420705;
+ bh=EysvwkzHmGNKxX+6cYNAW+x0Vszx1rvcj8dTl/KXMQc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Ucqm1aiMyjsc3XqQFQ2I2SZcGeGNl8tDJGnSHdHpBwnupfIfLiBA3BR2j5VWRYGFA
+ Q4AP8yUpmAb1PP1ndKUoQsduzbMFziYOIoYk+MND0PNBnkGQfUSomNE1EWZEdEDw6d
+ rr4xDG2Brj8x8BrG6eg/P2w9vu5+7HUQow13H6gxJ+w7HolRZ4otuvv5QQXYBGbTMU
+ /A4jthgx4aiXYDKNeUyQM6GiS6JXafclLsKnZTQOj/6U5xQ2InWxBrOxJzQ/tciXlu
+ hSqDkhZpYOYSpTdvlAAFU5WJ4LKDKZPfbPTcsMTpd5E9alkHL9sxRi3AjWt42MNtjZ
+ IMOMnFFk+MiUg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5611F17E0564;
+ Tue, 07 Jul 2026 12:38:24 +0200 (CEST)
+Message-ID: <6fed12a6-0c94-477f-8a2e-466c33ea2e29@collabora.com>
+Date: Tue, 7 Jul 2026 12:38:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akZLhkjsJ_3sGdox@pedro-suse.lan>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
+ "me@adamthiede.com" <me@adamthiede.com>,
+ "bisson.gary@gmail.com" <bisson.gary@gmail.com>
+Cc: "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
+ <42607fa4-485d-4142-b31c-7bfac71118d2@adamthiede.com> <ajka2220depklK1_@owl5>
+ <bac79214-050d-448b-be63-0586d45c807d@adamthiede.com>
+ <f0d99b1a-e383-4d14-adb1-4ccab46efddb@leemhuis.info>
+ <5baeb90d2c3736df67ad075ede4ac765bfeaed2d.camel@mediatek.com>
+ <84233951-ee22-4980-9f17-2af1df51fdbf@leemhuis.info>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <84233951-ee22-4980-9f17-2af1df51fdbf@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,85 +78,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 02, 2026 at 12:29:54PM +0100, Pedro Falcato wrote:
-> On Mon, Jun 29, 2026 at 01:23:36PM +0100, Lorenzo Stoakes wrote:
-> > We are calculating the pgoff as an offset, since we have vma_add_pgoff()
-> > and vma_sub_pgoff() available, just offset this value directly and use
-> > __vma_set_range() for vma->vm_[start, end] values.
-> >
-> > We take care to update the range before offsetting the page offset, so the
-> > adjusted VMA's vm_start and vm_pgoff are mutually consistent at the point
-> > the page offset helpers operate - this matters once vma_set_pgoff() comes
-> > to assert invariants which relate the two.
-> >
-> > Doing so lays the foundation for future work which allows for use of
-> > virtual page offsets for MAP_PRIVATE-file backed mappings.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> > ---
-> >  mm/vma.c | 15 ++++-----------
-> >  1 file changed, 4 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index e3355eab11f2..0579fc8c9bd5 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -714,9 +714,6 @@ void validate_mm(struct mm_struct *mm)
-> >   */
-> >  static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
-> >  {
-> > -	struct vm_area_struct *adjust;
-> > -	pgoff_t pgoff;
-> > -
-> >  	if (vmg->__adjust_middle_start) {
-> >  		/*
-> >  		 * vmg->start    vmg->end
-> > @@ -735,8 +732,8 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
-> >  		struct vm_area_struct *middle = vmg->middle;
-> >  		const unsigned long delta = vmg->end - middle->vm_start;
-> >
-> > -		pgoff = vma_start_pgoff(middle) + (delta >> PAGE_SHIFT);
-> > -		adjust = middle;
-> > +		__vma_set_range(middle, vmg->end, middle->vm_end);
-> > +		vma_add_pgoff(middle, delta >> PAGE_SHIFT);
-> >  	} else if (vmg->__adjust_next_start) {
-> >  		/*
-> >  		 *                Originally:
-> > @@ -764,13 +761,9 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
-> >  		struct vm_area_struct *next = vmg->next;
-> >  		const unsigned long delta = next->vm_start - vmg->end;
-> >
-> > -		pgoff = vma_start_pgoff(next) - (delta >> PAGE_SHIFT);
-> > -		adjust = next;
-> > -	} else {
-> > -		return;
-> > +		__vma_set_range(next, vmg->end, next->vm_end);
-> > +		vma_sub_pgoff(next, delta >> PAGE_SHIFT);
-> >  	}
-> > -
-> > -	vma_set_range(adjust, vmg->end, adjust->vm_end, pgoff);
-> >  }
->
-> Maybe this should be squashed with That Other Patch that touches this.
+On 7/7/26 10:51, Thorsten Leemhuis wrote:
+> On 7/7/26 04:20, CK Hu (胡俊光) wrote:
+>> On Mon, 2026-07-06 at 12:16 +0200, Thorsten Leemhuis wrote:
+>>> On 6/22/26 15:23, Adam Thiede wrote:
+>>>> On 6/22/26 06:22, Gary Bisson wrote:
+>>>>> On Thu, Jun 18, 2026 at 04:06:28PM -0500, Adam Thiede wrote:
+>>>>>> On 1/20/26 05:36, Gary Bisson wrote:
+>>>>>>> Some bridges, such as the TI SN65DSI83, require the HS clock to be
+>>>>>>> running in order to lock its PLL during its own pre-enable function.
+>>>>>>>
+>>>>>>> Without this change, the bridge gives the following error:
+>>>>>>> sn65dsi83 14-002c: failed to lock PLL, ret=-110
+>>>>>>> sn65dsi83 14-002c: Unexpected link status 0x01
+>>>>>>> sn65dsi83 14-002c: reset the pipe
+>>>>>>> [...]
+>>>>>>
+>>>>>> This commit was part of 7.1 and caused a problem for me.
+>>>>>> I'm running postmarketOS (basically Alpine Linux) on a Lenovo C330
+>>>>>> chromebook with a Mediatek MT8173 processor.
+>>>>>> The problem: when the display on my laptop powers off (via suspend or
+>>>>>> idle,
+>>>>>> like xset dpms off) the picture does not come back when the display
+>>>>>> powers
+>>>>>> back on (from resume). The display backlight comes on and brightness is
+>>>>>> adjustable but there is no picture. The only fix is to reboot.
+>>>>>>
+>>>>>> Reverting this commit and applying it as a patch on top of 7.1
+>>>>>> addresses the
+>>>>>> issue for me.
+>>>>>>
+>>>>>> You can view the config I'm using here:
+>>>>>> https://urldefense.com/v3/__https://gitlab.postmarketos.org/postmarketOS/pmaports/-/__;!!CTRNKA9wMg0ARbw!jrsPDtSEUdaINzLlq92Li8gmsEBkTOxZ6WUzNHjvIN6CyOJjHiHkNSOhIRPXFTLPlaYlxU2uvryVkwjUAN9bmax5$
+>>>>>> merge_requests/8819
+>>>>>>
+>>>>>> Is there any sort of testing or other debugging info I can provide to
+>>>>>> help
+>>>>>> address this issue?
+>>>>>
+>>>>> Thanks for reporting the issue, could you share some logs? Is the driver
+>>>>> saying anything during resume? Also, what type of panel is used on that
+>>>>> chromebook?
+>>>>
+>>>> The curious thing is that there are no real logs in dmesg or /var/log/
+>>>> messages about this. This picture just fails to come back. If there are
+>>>> some kernel params I can set to get deeper logging, that would help, but
+>>>> I'm not aware of any.
+>>>>
+>>>> I think the panel is a "BOE NV116WHM-T00" - I used this command to get
+>>>> info: cat /sys/class/drm/card0-eDP-1/edid | edid-decode
+>>>>
+>>>> Output: https://urldefense.com/v3/__https://termbin.com/8nbd__;!!CTRNKA9wMg0ARbw!jrsPDtSEUdaINzLlq92Li8gmsEBkTOxZ6WUzNHjvIN6CyOJjHiHkNSOhIRPXFTLPlaYlxU2uvryVkwjUAJooSyqL$
+>>>
+>>> This looked stalled. If I'm mistaken here, please let me known; but if
+>>> no solution is in sight, should we maybe just revert the change until a
+>>> proper was found?
+>>
+>> It's welcome anyone to provide a revert patch,
+>> but I would still wait for the fixup patch until 7.2-rc4.
+>> If no fixup patch exist, then apply the revert patch.
+>  From my understanding of things the position in the devel cycle doesn't
+> matter much in a case like this. To quote Linus statements from
+> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#on-how-quickly-regressions-should-be-fixed
+> 
+> """
+>  From 2026-01-22:
+> 
+>   But a user complaining should basically result in an immediate fix -
+>   possibly a "revert and rethink".
+> 
+> With a later clarification on 2026-01-28:
+> 
+>   It's also worth noting that "immediate" obviously doesn't mean "right
+>   this *second* when the problem has been reported".
+> 
+>   But if it's a regression with a known commit that caused it, I think
+>   the rule of thumb should generally be "within a week", preferably
+>   before the next rc.
+> """
+> 
+> Adam reported the problem about three weeks ago, so we are way past the
+> "rule of thumb" timeframe Linus set.
+> 
+> Ciao, Thorsten
 
-Ah this separation makes more sense from the point of view of the virt pgoff
-stuff in the RFC (see [0]).
+This is a kind of odd situation here. The fix from Adam is actually correct, as in,
+the SN65DSI83 bridge gets broken without...
 
-And would rather keep as vaguely bitesized as possible :>)
+....but then, there's some more oddness going on: I tried to reproduce this on my
+MT8173 Elm device, but there I can resume the system just fine, and the display is
+up and running like normal?
 
->
-> Anyway,
->
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+I'm not sure what to advice here at this point - just adding some info.
 
-Thanks!
-
->
-> --
-> Pedro
-
-Cheers, Lorenzo
-
-[0]:https://lore.kernel.org/linux-mm/cover.1782745153.git.ljs@kernel.org/
+Cheers,
+Angelo
