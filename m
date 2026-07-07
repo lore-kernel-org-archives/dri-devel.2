@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DAF6C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB5B5C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF1810EDE0;
-	Tue,  7 Jul 2026 15:12:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1225210EDDC;
+	Tue,  7 Jul 2026 15:12:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K8PTw0Nb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lKZQJO8Q";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FA710EDDE
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36C4510EDE1
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6E0D443F14;
- Tue,  7 Jul 2026 15:12:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D341F00A3A;
- Tue,  7 Jul 2026 15:12:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 20A64404F1;
+ Tue,  7 Jul 2026 15:12:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813521F000E9;
+ Tue,  7 Jul 2026 15:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437131;
- bh=3nhMBx7zC8DfzRML0TAD4UPrDUkeXn94uBKlTfS79ww=;
+ s=k20260515; t=1783437136;
+ bh=FA9rqp0YXcjaSF/Ooa6NNkoVQk1c8LcnWrfXelDA6GM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=K8PTw0NbAHp5e7xzY4lGfH1gGyB93xpt5+2BWGrOgRC2JzjF4cr/bJ/xkuRIMloKW
- XUo+3Rw3P0GGSoceJCu6lqqQjLpNs+7TJEoPNMqOWbXKsj0eYyrRAAocb6ErEZhX18
- LQdqoKTTQibJ+cNG93kFcpJq6fLkIwPeWQz0qxmBP7cKzbYcuKn8CQHUxn7TooLylX
- qQK+ddPDn0e0bI7h+qX+IQprO3b577ToLcKfqS2Pc5m+vAxeUJc39h9uNHs1k/Ur0N
- 3QGZ83IcNeGqX9ITpxm3sC8tiRZ9BB6NiT3dTEEDHKeQ35Wg2y1L4juC8sYLtL7vlR
- imzP1VGFanK5Q==
+ b=lKZQJO8QTaNQZ4bR3xO4sBXCKcxAGb3jaB6+yglzzaPOkjyLvy+XergN15offgUna
+ w5PeuNlZocNkVUsJeP0BkHrfztHQLy0pBCtMhezga0g+Y2wFaQOrlZLqGoxZnf9x/6
+ 1zz34yMJ2WSNZgXx8K555TmnNXHEDdIOm1OxVTY5fGhn90chnKswSQFl7nrIW0K0An
+ U3s1TQ6adw68JB5A9Igdc2n0eJN7zhcaS25NCujy3uMZ3FqnJVmZQ7W0jpItcO3b8O
+ 2KiN+nmyQP16kK++FRCQ91WVZi2Xb22yUDEu4ikbCnwBHut8sosoOvZdNXsOpXJBSX
+ 9O0deuyeAUkcQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:24 +0200
-Subject: [PATCH v2 17/37] drm/bridge: sii9234: Add atomic bridge state handlers
+Date: Tue, 07 Jul 2026 17:11:26 +0200
+Subject: [PATCH v2 19/37] drm/bridge: simple-bridge: Switch to atomic
+ bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-17-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-19-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3918; i=mripard@kernel.org;
- h=from:subject:message-id; bh=sxLD3LNza4Knci7X95YWCQkJTKiVNbF0skj+znhK1XY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4uLSty8Lfpuk8F28dm59whb9z0f/H/q5Mygsvux9q
- dbeszpXO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEMk4xNlzlZQv5dfZ2cHDo
- terjRvaTmObvWpdX4Cwk2XZLsmGfAFfeV6WHD5snf3qvqzLrt+ByXcaG+Qt998tLGn+ZMcUn0Xb
- f5vxUT62cvfoVmsovk/X/uqZGvWxZ79LrsEpF+upeT643TPEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4702; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=VVq/ekQG6yf+6MkrwKMNdg61eywEVjFMIRHZPOQrhas=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4hI9al92axeKaL0zu76mh2PF05Pvzy3Q9dNYe/aft
+ WTp88MrOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEEs8z1juYZsjKn5gmzbf/
+ xePrP6qrv6fyS33+kLjpnQMDh+oO91TNWKPzHRqXg56+kG/Kt87ezNjQzrVpctasyMeXZ0SqOzQ
+ nTmk5uXe2UO+PNfdPp/pWuyi99OO6vSf+k+gzKcaZG/snS6YDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,11 +73,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The sii9234 bridge doesn't implement any enable or disable callbacks,
-but is still missing the atomic state handlers.
+The simple-bridge bridge uses the legacy non-atomic enable and disable
+bridge callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
-bridge core, add them.
+bridge core, switch to their atomic counterparts and add the bridge
+atomic state handlers.
 
 Generated by the following Coccinelle script:
 
@@ -204,39 +206,59 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/sii9234.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/bridge/simple-bridge.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
-index bb1bed03eb5b..a2cbbf031b4a 100644
---- a/drivers/gpu/drm/bridge/sii9234.c
-+++ b/drivers/gpu/drm/bridge/sii9234.c
-@@ -11,10 +11,11 @@
-  *    Erik Gilling <konkers@android.com>
-  *    Shankar Bandal <shankar.b@samsung.com>
-  *    Dharam Kumar <dharam.kr@samsung.com>
-  */
- #include <drm/bridge/mhl.h>
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_edid.h>
+diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+index cc13c98f9be6..3fba7002322e 100644
+--- a/drivers/gpu/drm/bridge/simple-bridge.c
++++ b/drivers/gpu/drm/bridge/simple-bridge.c
+@@ -130,11 +130,12 @@ static int simple_bridge_attach(struct drm_bridge *bridge,
+ 	drm_connector_attach_encoder(&sbridge->connector, encoder);
  
- #include <linux/delay.h>
-@@ -876,10 +877,13 @@ static enum drm_mode_status sii9234_mode_valid(struct drm_bridge *bridge,
- 
- 	return MODE_OK;
+ 	return 0;
  }
  
- static const struct drm_bridge_funcs sii9234_bridge_funcs = {
+-static void simple_bridge_enable(struct drm_bridge *bridge)
++static void simple_bridge_enable(struct drm_bridge *bridge,
++				 struct drm_atomic_commit *commit)
+ {
+ 	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
+ 	int ret;
+ 
+ 	if (sbridge->vdd) {
+@@ -144,24 +145,28 @@ static void simple_bridge_enable(struct drm_bridge *bridge)
+ 	}
+ 
+ 	gpiod_set_value_cansleep(sbridge->enable, 1);
+ }
+ 
+-static void simple_bridge_disable(struct drm_bridge *bridge)
++static void simple_bridge_disable(struct drm_bridge *bridge,
++				  struct drm_atomic_commit *commit)
+ {
+ 	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
+ 
+ 	gpiod_set_value_cansleep(sbridge->enable, 0);
+ 
+ 	if (sbridge->vdd)
+ 		regulator_disable(sbridge->vdd);
+ }
+ 
+ static const struct drm_bridge_funcs simple_bridge_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.mode_valid = sii9234_mode_valid,
+ 	.attach		= simple_bridge_attach,
+-	.enable		= simple_bridge_enable,
+-	.disable	= simple_bridge_disable,
++	.atomic_enable = simple_bridge_enable,
++	.atomic_disable = simple_bridge_disable,
  };
  
- static int sii9234_probe(struct i2c_client *client)
+ static int simple_bridge_probe(struct platform_device *pdev)
  {
+ 	struct simple_bridge *sbridge;
 
 -- 
 2.54.0
