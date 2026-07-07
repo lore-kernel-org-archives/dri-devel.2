@@ -4,70 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5706FC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 12:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E9C5C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 12:36:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA94110ECA3;
-	Tue,  7 Jul 2026 12:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74BA110E995;
+	Tue,  7 Jul 2026 12:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d15AAZex";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cOs4NwuD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9C5410E4B8;
- Tue,  7 Jul 2026 12:35:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783427721; x=1814963721;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=wqsEg8gEkIQBQiVK7zKnHpQo6YwkHFT7tdr95XGnyoI=;
- b=d15AAZextERiw5cvkKOhskoyDl+re/OACh9RULwtcOcu61bjHuGmBmqz
- PsUl1s/v6VrwtlbApcU4StWpWjNtNpv1tJcHYNvexuxFdvmFTxap2EvVD
- aUU+Hb15+9EaOhNcW5E6ebJhh6OotBOZJFHdW5vIwNPjGiwIPDu8fDzq1
- HkoelAEFP8SpJnM605KYF4g8xZS05W7IQJ8SrX5E+4cjsR/CGfjWNvz3V
- e5KKBCp8WpRjBx2JG9giFUN8+LhiswEyQ9shSguh+bUxVBQRYN+DeSVFc
- q+/K6lbMsk5umOMthPuzR8E/LI0LYuNjMs0jNXggt6jQoyoAHZc0KiSXp w==;
-X-CSE-ConnectionGUID: ACnllpsESXqF1ZHYvzEikQ==
-X-CSE-MsgGUID: ijJP2XUuRj6RaDF0ogck/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="84192327"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84192327"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 05:35:20 -0700
-X-CSE-ConnectionGUID: eI3I6jMOTdmmca73txZuFg==
-X-CSE-MsgGUID: 7uO41+3gSu+tIgufN9Tpwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="277199432"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
- ([10.245.244.199])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 05:35:16 -0700
-Message-ID: <f4506c9230e3f608b3f660ad4a7d29a0711cb914.camel@linux.intel.com>
-Subject: Re: [PATCH 07/10] drm/ttm: use ttm_bo_lru_for_each_reserved_guarded
- in evict_all
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Christian Koenig	
- <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
- <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Alex
- Deucher	 <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Date: Tue, 07 Jul 2026 14:35:14 +0200
-In-Reply-To: <20260703-ttm_2_drm_exec-v1-7-43685ac1286b@gmx.de>
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-7-43685ac1286b@gmx.de>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95F4A10E995
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 12:35:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 28493432FC;
+ Tue,  7 Jul 2026 12:35:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592D21F000E9;
+ Tue,  7 Jul 2026 12:35:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783427759;
+ bh=V93acZNdO/pHKczx5FQqkEkHs7w4J4WmlYgZEQRZF7Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=cOs4NwuDYL1vjFxR7poNFvwvOB8qZBFhU4nJFj7ZeZFsNe9JCbucZMiQKSSyoxdrr
+ zZQG7NK0GK9c/bHCzT0TeG694j0ZClTAatwuhGa9ACm3UAa91iKWkX0XH8X53pC8OZ
+ jcK/FBwAcYdFPBAo9NQq5hunm4Ep/T7H3+QtFA53VdTJsEvCY0KZ1CT1h/RWImU39H
+ X8K/wAAOESR+IuXDnAwsM/W8IvL1gib4tuc7ne5KHERu/Q+ElKnj4AJFDpXkom94aN
+ 68VPuIDWWlNuu7mThALL0l9PGJZjioFlY66GjTNokf4SKulvOY4rH5KcsPU6QlBuvC
+ nAHxKFfJARvHA==
+Date: Tue, 7 Jul 2026 14:35:50 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sunyun Yang <syyang@lontium.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Mohit Dsor <mdsor@qti.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v2] drm/bridge: lt9611c: use drm_atomic_commit in callbacks
+Message-ID: <20260707-masterful-hound-from-camelot-46ffca@penduick>
+References: <20260707-lt9611c-v7-v2-1-67d4f688b68d@oss.qualcomm.com>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="rpbzyppysba6jx6z"
+Content-Disposition: inline
+In-Reply-To: <20260707-lt9611c-v7-v2-1-67d4f688b68d@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,156 +70,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
-> From: Christian K=C3=B6nig <christian.koenig@amd.com>
->=20
-> Use the for_each loop to evict all BOs of an resource manager as
-> well.
->=20
-> Greately simplifying the handling and finally allows us to
-> remove ttm_bo_evict_first().
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 
-Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+--rpbzyppysba6jx6z
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] drm/bridge: lt9611c: use drm_atomic_commit in
+ callbacks
+MIME-Version: 1.0
 
-> ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-51 +---------------------------
-> ----------
-> =C2=A0drivers/gpu/drm/ttm/ttm_resource.c | 22 ++++++++++------
-> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A03 files changed, 17 insertions(+), 57 deletions(-)
+Hi,
+
+On Tue, Jul 07, 2026 at 01:48:35PM +0530, Mohit Dsor wrote:
+> DRM bridge atomic callbacks now pass struct drm_atomic_commit, and
+> the atomic helper functions also expect that type. The lt9611c
+> driver still declares its callbacks with struct drm_atomic_state,
+> which makes the callback assignments and helper calls fail to build
+> with incompatible pointer type errors.
 >=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-> b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 54f01611ec823..80933ba6aada9 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -351,8 +351,7 @@ static int ttm_bo_bounce_temp_buffer(struct
-> ttm_buffer_object *bo,
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -static int ttm_bo_evict(struct ttm_buffer_object *bo,
-> -			struct ttm_operation_ctx *ctx)
-> +int ttm_bo_evict(struct ttm_buffer_object *bo, struct
-> ttm_operation_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct ttm_resource *evict_mem;
-> =C2=A0	struct ttm_placement placement;
-> @@ -437,54 +436,6 @@ bool ttm_bo_eviction_valuable(struct
-> ttm_buffer_object *bo,
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL(ttm_bo_eviction_valuable);
-> =C2=A0
-> -/**
-> - * ttm_bo_evict_first() - Evict the first bo on the manager's LRU
-> list.
-> - * @bdev: The ttm device.
-> - * @man: The manager whose bo to evict.
-> - * @ctx: The TTM operation ctx governing the eviction.
-> - *
-> - * Return: 0 if successful or the resource disappeared. Negative
-> error code on error.
-> - */
-> -int ttm_bo_evict_first(struct ttm_device *bdev, struct
-> ttm_resource_manager *man,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_operation_ctx *ctx)
-> -{
-> -	struct ttm_resource_cursor cursor;
-> -	struct ttm_buffer_object *bo;
-> -	struct ttm_resource *res;
-> -	unsigned int mem_type;
-> -	int ret =3D 0;
-> -
-> -	spin_lock(&bdev->lru_lock);
-> -	ttm_resource_cursor_init(&cursor, man);
-> -	res =3D ttm_resource_manager_first(&cursor);
-> -	ttm_resource_cursor_fini(&cursor);
-> -	if (!res) {
-> -		ret =3D -ENOENT;
-> -		goto out_no_ref;
-> -	}
-> -	bo =3D res->bo;
-> -	if (!ttm_bo_get_unless_zero(bo))
-> -		goto out_no_ref;
-> -	mem_type =3D res->mem_type;
-> -	spin_unlock(&bdev->lru_lock);
-> -	ret =3D ttm_bo_reserve(bo, ctx->interruptible, ctx-
-> >no_wait_gpu, NULL);
-> -	if (ret)
-> -		goto out_no_lock;
-> -	if (!bo->resource || bo->resource->mem_type !=3D mem_type)
-> -		goto out_bo_moved;
-> -
-> -	ret =3D ttm_bo_evict(bo, ctx);
-> -out_bo_moved:
-> -	dma_resv_unlock(bo->base.resv);
-> -out_no_lock:
-> -	ttm_bo_put(bo);
-> -	return ret;
-> -
-> -out_no_ref:
-> -	spin_unlock(&bdev->lru_lock);
-> -	return ret;
-> -}
-> -
-> =C2=A0/**
-> =C2=A0 * struct ttm_bo_evict_walk - Parameters for the evict walk.
-> =C2=A0 */
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c
-> b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 154d6739256f8..cf3fc3a594388 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -561,17 +561,25 @@ EXPORT_SYMBOL(ttm_resource_manager_init);
-> =C2=A0int ttm_resource_manager_evict_all(struct ttm_device *bdev,
-> =C2=A0				=C2=A0=C2=A0 struct ttm_resource_manager *man)
-> =C2=A0{
-> -	struct ttm_operation_ctx ctx =3D { };
-> +	struct ttm_bo_lru_cursor cursor;
-> +	struct ttm_buffer_object *bo;
-> +	struct ttm_operation_ctx ctx =3D {
-> +		.interruptible =3D false,
-> +		.no_wait_gpu =3D false,
-> +	};
-> +	struct ttm_lru_walk_arg arg =3D {
-> +		.ctx =3D &ctx,
-> +		.trylock_only =3D true
-> +	};
-> =C2=A0	struct dma_fence *fence;
-> =C2=A0	int ret, i;
-> =C2=A0
-> -	do {
-> -		ret =3D ttm_bo_evict_first(bdev, man, &ctx);
-> +	ttm_bo_lru_for_each_reserved_guarded(&cursor, man, &arg, bo)
-> {
-> +		ret =3D ttm_bo_evict(bo, &ctx);
-> +		if (ret)
-> +			return ret;
-> =C2=A0		cond_resched();
-> -	} while (!ret);
-> -
-> -	if (ret && ret !=3D -ENOENT)
-> -		return ret;
-> +	}
-> =C2=A0
-> =C2=A0	ret =3D 0;
-> =C2=A0
-> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-> index bbed63064c9a9..a4060e44d23d0 100644
-> --- a/include/drm/ttm/ttm_bo.h
-> +++ b/include/drm/ttm/ttm_bo.h
-> @@ -389,6 +389,7 @@ int ttm_bo_validate(struct ttm_buffer_object *bo,
-> =C2=A0void ttm_bo_fini(struct ttm_buffer_object *bo);
-> =C2=A0void ttm_bo_set_bulk_move(struct ttm_buffer_object *bo,
-> =C2=A0			=C2=A0 struct ttm_lru_bulk_move *bulk);
-> +int ttm_bo_evict(struct ttm_buffer_object *bo, struct
-> ttm_operation_ctx *ctx);
-> =C2=A0bool ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct ttm_place *place);
-> =C2=A0int ttm_bo_init_reserved(struct ttm_device *bdev, struct
-> ttm_buffer_object *bo,
+> Update the lt9611c callback signatures to match the current DRM
+> bridge API.
+>=20
+> This will fix compilation issue in v7.2.rc1.
+>=20
+> Fixes: 96d1cfec419e ("drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to=
+ HDMI driver")
+> Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+
+This commit, or driver, doesn't exist in 7.2-rc1.
+
+Maxime
+
+--rpbzyppysba6jx6z
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCakzypQAKCRAnX84Zoj2+
+du26AYCwAziOEGNWEW6fj+2rFqWEdqxSyf666C9wGoi89AvYrZEtGQiPJ9TFU+Zn
+43g8+KgBgMsqtBS4ysmG5oFCx+ZlyKZy0MBkhCIORtUwgQO9drNr95PlH2KBq3VI
+C1M13pBWjg==
+=VqQ3
+-----END PGP SIGNATURE-----
+
+--rpbzyppysba6jx6z--
