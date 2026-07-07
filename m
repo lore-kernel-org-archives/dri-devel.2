@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95D8C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA3F5C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5281710EDD3;
-	Tue,  7 Jul 2026 15:11:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C9A110EDD5;
+	Tue,  7 Jul 2026 15:11:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="II36kwFJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oFWLvl63";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 889E810EDD5
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7267010EDD5
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6E5CC41FE8;
- Tue,  7 Jul 2026 15:11:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD9C1F000E9;
- Tue,  7 Jul 2026 15:11:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EA6926182F;
+ Tue,  7 Jul 2026 15:11:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B2C91F000E9;
+ Tue,  7 Jul 2026 15:11:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437110;
- bh=tGmYA0fdyPdUTy2TwVVX/v3MIMXt2uh4AHU7FNQcP7w=;
+ s=k20260515; t=1783437112;
+ bh=5PCmog65qljhfBGuZqKPG2X3h6hcrku+vKgZ6OLif+c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=II36kwFJdvUxjq7lxLliI1mIuq49uI8UbopictXz+ED+xzppfKGN68rKXgcsmbIDg
- 591ff+bbapTIlCqmcV5iB0F87YzeFxZ/1/Njs49Glsi6vNdRklS9YrPozugTkcQhAv
- pvsNrRh7h01gBxnZ0qAi277EKn/JhLuoaqUSyNnxDh5T7Glc0k0W8LQKKBWtoN4Jms
- 0NIgD4bz6zhuK4Q911lrMbNCS0qg28V0tODD3NSEs4hz84gzXqbkw5TjwByWV2BIut
- Ik+NdHm6reo9n+uR7ORj3ApJrZ2CQcuoshvMVpYAFJNU5OQgQ/zkGPDXCRJJssQzOU
- IxWgIuwOFXqeg==
+ b=oFWLvl639/zqYW4UTaX3PNGbzDvxmJyiqNYn7nBgUReCy+p+EQts/S2qx8x2HmfiU
+ lK7XRk8SZuHxFGZSJHq5mUVt5QEFhDOvilI2B7vmieKHREzicOsnVJO4uHT6OZbwmg
+ HoBwWLEo3PPdygTQCzKNE9mvH9ei2B65ocSjA6ucgHiyGCyjaLyVBK3mPB80yT19ny
+ uDEGFE97gl6WeUMujEoazaTBE7kkcFICke0mPLyMlnTqVWu5LO7eLm+QbaULaEk5vk
+ nYne75iMJk5fRoXv+G8wdpEUaRfgaKwycpsDlzsreANuJrfqE2AtpL78qsTcnOf37o
+ cVwW2A2kfBc9Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:15 +0200
-Subject: [PATCH v2 08/37] drm/bridge: lontium-lt8713sx: Add atomic bridge
- state handlers
+Date: Tue, 07 Jul 2026 17:11:16 +0200
+Subject: [PATCH v2 09/37] drm/bridge: lontium-lt8912b: Switch to atomic
+ bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-8-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-9-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,14 +48,16 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Francesco Dolcini <francesco@dolcini.it>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3915; i=mripard@kernel.org;
- h=from:subject:message-id; bh=4Cj9jIMNxfkVNUv0N39VMEIzaG3HmkiKaWn4SOMm/No=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4sK9ojvmLvgaskdnn8t+yfjjS4XKvGSvz5oUx7Bjm
- YRF4rL2jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRZ1cYGzofz32pXP9wwTuf
- iq++Cx9u4O0W33QpqONgfL4cf9HdutR3j1803jI2+LnbfdMdvdJUDcaGE2Kl5RdfzHJXb7sn6f7
- 79w1GJTvtEpmF7envWgI26M5sqazSl4ouq8ifXzRh13LblS8B
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4636; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=pXSSpNkRkOPZ9E+bPNgLblQCOTuTukyok2c6o4d1ZUQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4iITK5r85uY/EpFna2D8r5Wje7DF0L3I8c+nv6fzj
+ Fr/z+bsmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABNZm8FYH6968Nr3px/3nnvg
+ xBywPnXV77tGTt7JZ82+/9n2qi2mfKaG9yk5zc4rHsx6aXfnrHn3mbFOKY5Zc0F9aP3DpX+MnrZ
+ NmVI9JfbPgQh3jT0yOzeEr5/3785qo/oJGvcu1NwL0d/oz70JAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,11 +75,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The lontium-lt8713sx bridge doesn't implement any enable or disable
-callbacks, but is still missing the atomic state handlers.
+The lontium-lt8912b bridge uses the legacy non-atomic enable bridge
+callback.
 
 In order to remove the legacy bridge callback support from the DRM
-bridge core, add them.
+bridge core, switch to their atomic counterparts and add the bridge
+atomic state handlers.
 
 Generated by the following Coccinelle script:
 
@@ -203,41 +206,53 @@ identifier b;
 	...
  }
 
+Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com> # Verdin AM62
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/lontium-lt8713sx.c | 4 ++++
- 1 file changed, 4 insertions(+)
+To: Francesco Dolcini <francesco@dolcini.it>
+---
+ drivers/gpu/drm/bridge/lontium-lt8912b.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-index cee485adf5e5..4a6420b876da 100644
---- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-@@ -16,10 +16,11 @@
- #include <linux/regulator/consumer.h>
- #include <linux/sizes.h>
- #include <linux/wait.h>
- #include <linux/workqueue.h>
+diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+index 729b12b67470..df5d07e7644c 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
++++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+@@ -455,11 +455,12 @@ static void lt8912_bridge_mode_set(struct drm_bridge *bridge,
+ 	struct lt8912 *lt = bridge_to_lt8912(bridge);
  
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_of.h>
+ 	drm_display_mode_to_videomode(adj, &lt->mode);
+ }
  
- #define FW_FILE "lt8713sx_fw.bin"
+-static void lt8912_bridge_enable(struct drm_bridge *bridge)
++static void lt8912_bridge_enable(struct drm_bridge *bridge,
++				 struct drm_atomic_commit *commit)
+ {
+ 	struct lt8912 *lt = bridge_to_lt8912(bridge);
  
-@@ -506,10 +507,13 @@ static const struct attribute_group *lt8713sx_attr_groups[] = {
- 	&lt8713sx_attr_group,
- 	NULL,
- };
+ 	lt8912_video_on(lt);
+ }
+@@ -632,15 +633,18 @@ static const struct drm_edid *lt8912_bridge_edid_read(struct drm_bridge *bridge,
+ 	dev_warn(lt->dev, "The connected bridge does not supports DRM_BRIDGE_OP_EDID\n");
+ 	return NULL;
+ }
  
- static const struct drm_bridge_funcs lt8713sx_bridge_funcs = {
+ static const struct drm_bridge_funcs lt8912_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = lt8713sx_bridge_attach,
+ 	.attach = lt8912_bridge_attach,
+ 	.detach = lt8912_bridge_detach,
+ 	.mode_valid = lt8912_bridge_mode_valid,
+ 	.mode_set = lt8912_bridge_mode_set,
+-	.enable = lt8912_bridge_enable,
++	.atomic_enable = lt8912_bridge_enable,
+ 	.detect = lt8912_bridge_detect,
+ 	.edid_read = lt8912_bridge_edid_read,
  };
  
- static int lt8713sx_probe(struct i2c_client *client)
- {
+ static int lt8912_bridge_resume(struct device *dev)
 
 -- 
 2.54.0
