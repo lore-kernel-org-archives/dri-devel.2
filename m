@@ -4,107 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF5BC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 19:38:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6EA4C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 20:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA5110EEE0;
-	Tue,  7 Jul 2026 19:38:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2365810E1A6;
+	Tue,  7 Jul 2026 20:02:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0qLGSXke";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="G1lbQnNV";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012012.outbound.protection.outlook.com [40.107.209.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C27910EEE0
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 19:38:28 +0000 (UTC)
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020127.outbound.protection.outlook.com [52.101.196.127])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C65910E1A6
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 20:02:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KiDQnEBjRQ25kF7GET7u4Z1mg/VzfMQrCsIaybCTsgqNt6xTqIZavPYGxmFUZQvrh65l0a1z8MJBsPRg+cWnT1Sf4rl2oQoMAVOqmmREXG2JQndpOkVbyUePRFElQqTc8yoXnpnpXH0HQCLOSachF4hxmpnciSRMHO0+zLSf8goF23d444b6tVuZ7xbbWQ3bV/MIa70VpJOCNuVC2GTAehHkJ95l+w0M9odKiJwEDjntMQP5kXMfZD8zeMYuO84vjH+sGxsAiq2eVG9fIbWLeMmlv5oEWGhSKfe0abtHS2Jaeqc+8IlqMkSRKPDx4ornND+yUpwxOB8k5GzlcgCojQ==
+ b=M+4jPjXk6rSnBvI5sBdvGVbwHFNnXp4RQ4Fq5Imhxhv0h5qL4v3bMnCPbPbizIAz9SnpCheROIXHsGDEbjCXVe7hJ2cUsIwIxTFHphYZeDHLH1dzCOrAN/eYalOB1wwuCyxCWX+qTVxu+e7oHxjNDnZiYgTt27pp8vUvyM1GdyFwP9hhkERsIVth3+66l1pajfLfr991ymvg/5sVMEdPDRjPnr6UtQDnx0p5pDTgDwQ69YQohxihsSH06Fcn8iVN4AZy2i6ChNX8kg0fKAZza0KgMH+JVKTisrJwZl5mL+dkIKsrvln6tqiyUux4WFWs50oqsEovnVaFxptaXgP47Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BFWfG91FqJCShe9uUd1PABitbsb8xiZCU1DRjc+3P18=;
- b=ahR4npnXP3cgAdvPukB4xSiP90Ec09EozxsD71NkNirXT29FU/7nz+rKyxPibuoMlL7nbv3kyL07//3FMFKS1xhgtBOzJHJKrSZ3XBMNVKq2V4QXYyn7jGlCGNnw4PrIKgU37j6gfpEWscQMeBkf+eCVLJ6lntjsECmxyVV/AMDoahfUSNfJ/S5Daov9pW7OSg7E552KGvLn7CSZXjgc1Lym0H5BuoZPCAGufqt0U/+6dK36oUJxHD7bEKpsxatrHT31ocxJ95VgrMznOqEY70Zy3P1IG8R6Q3BsqaQQSVVSgEqhtjdq+aifTDdY/DDcqZuiBa/P2J0lyI9UXZRqDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=cCSNlYfeohOKK/6J0luGKxD3NCmfDLHfP7PolBYFyj8=;
+ b=WF1SDu1iv2Dw6fhbBe4S7SIe9RoPmxojv4y+jfZ47yqNT0pBidHH870sK32KetaUs4atubBfS6abvAcihdNRVu/QMUqSZdo9oRDCvhlnnkDl3ErQcfBNIQG5dfOQm6Q4T1qcKaT4d/jcp+qKCBRUbrI9RUSBLAXEk9idHb4aN0emM/nzIDx1vWaFnICNcgMFrPHOxQp3NqNGj9QCnSLhqzVmrYdjqryDPrd+gM8/QU1fHr3kBbKZEhMzvcy+B0erqYDAAlxIdyJ53n44WZs/hYf16CzqCjXWoaDJ0W63ANG5spWOEtGSPEyfRls3frfe/E5kz7xkW6rGc7sU0iAHgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BFWfG91FqJCShe9uUd1PABitbsb8xiZCU1DRjc+3P18=;
- b=0qLGSXke6+DI2SggKzPMLUtdHNdrCH+CkIGCPro3RbAyubKu1U49ZbJNa69MhqL15GAXeaB7+XkU8DRtsJOVwNR2Gfrf0bTlwmZy9Ly+tCA2Xl3y8sxRpvp6bEc4/b4Bsoz/OR2qU3u9CKcETe9ZlbAbODwSDUogm5YxuGL75x0=
-Received: from CH0PR04CA0055.namprd04.prod.outlook.com (2603:10b6:610:77::30)
- by LV3PR12MB9409.namprd12.prod.outlook.com (2603:10b6:408:21d::16)
+ bh=cCSNlYfeohOKK/6J0luGKxD3NCmfDLHfP7PolBYFyj8=;
+ b=G1lbQnNV+UGnPxmYhZUc8NQOYY1kTxiZFjuF5VlZI4ExJ62eTgWGdlBp46c1AjKDbHdHEM/NcKDrcLUtYzfG6gfFkffv7GOjcEfXJyCr9MivmH84SxERzytOI150sru69i0wYU1dDm4E+8G1Gm/jVM5GmDsM9YhYHtvdcWj/BSo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO8P265MB7871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a8::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 19:38:24 +0000
-Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
- (2603:10b6:610:77:cafe::8b) by CH0PR04CA0055.outlook.office365.com
- (2603:10b6:610:77::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.9 via Frontend Transport; Tue, 7
- Jul 2026 19:38:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 19:38:23 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 14:38:23 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 14:38:22 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 7 Jul 2026 14:38:22 -0500
-Message-ID: <da8a2cf1-b6ce-ec02-1105-3a72cce0e747@amd.com>
-Date: Tue, 7 Jul 2026 12:38:21 -0700
+ 2026 20:02:28 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
+ 20:02:28 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Jul 2026 21:02:27 +0100
+Message-Id: <DJSLVGBW90CT.3W3FHC3J5NPMG@garyguo.net>
+Subject: Re: [PATCH v6 01/20] rust: io: add dynamically-sized `Region` type
+From: "Gary Guo" <gary@garyguo.net>
+To: "Daniel Almeida" <daniel.almeida@collabora.com>, "Gary Guo"
+ <gary@garyguo.net>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
+ "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, "Danilo Krummrich"
+ <dakr@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-pwm@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-1-72cd5d055d54@garyguo.net>
+ <9AC77170-279D-4C0A-89F7-8D07F418AADF@collabora.com>
+In-Reply-To: <9AC77170-279D-4C0A-89F7-8D07F418AADF@collabora.com>
+X-ClientProxiedBy: LO2P265CA0494.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13a::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Fix potential NULL pointer access in
- amdxdna_gem_vmap()
-Content-Language: en-US
-To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260707172316.539699-1-lizhi.hou@amd.com>
- <1ce38058-6773-4784-95ea-0c48af4a0b4c@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <1ce38058-6773-4784-95ea-0c48af4a0b4c@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|LV3PR12MB9409:EE_
-X-MS-Office365-Filtering-Correlation-Id: e55d6da5-fd12-4e0c-10ae-08dedc5f4ef7
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7871:EE_
+X-MS-Office365-Filtering-Correlation-Id: 964527ab-e269-4429-199f-08dedc62abbb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|22082099003|18002099003|6133799003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: iLwB0VAuD3Kh+652B65L52jkLVhsVh+sI0n44W84FIV163mga8xJrAkhE1eIX8i5+oFwyHPq1uTv4Q0dA+vaG8vBBwV3mLb6ovy5rxz3cQ0LUSoXqEng2FQ4U5W64jwnnIoJTkcK/AugT2qNgFK9fqeiepTUkB721JR7+fc9t0r70EV4V5um1hzrCcglyJzGQHhN8O0wVTkAJQ26hTXv5K8mfzpmZtvbF0NsgwdqXGU5LscPgwUF3FVyL11p+xjUfjfhBAxDBidTboJ4bbHgVSJ9WvB5z7CjixwrbKTaheqI5Mib+qz80uFH/DHYFVKeItmiLUH1WYRw4ZV0rQoJMEnEAvJx5CokgwjYHfLPbyIW2T/nFA9qX3UCbUxt85BsG+4VrDWNyPycvf4NFydOcfnNDA2c74oRrlFR/iuxydw1uLVp44c+RSDFxjdLgxWV+9eyOr5N17oeRYUSgu6g9TJnsbI7vQ/aVHrQVu8xTxT2sH33s0VPHiezwAKjn2+vhzvpl9T0Abk5X4CAGyWF6ZbYgjz73dpv7z4d1BJ3idzlT/4UXNBC+kPesF0C9CXtdNULvdRHqmk35zjobyFX+lIKvTcBcyWaUs60h9JkCDvTA14CPfAymJO0pCCxKW7blAhA7asjQ/F27Y4FRsslIB4dlq0yEITkRseA+kQWpARV2M+71RlHE3TIwr0NJt8Fshc8gg2cbJeoFTvIDARTiw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(6133799003)(4143699003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
+ ARA:13230040|23010399003|7416014|10070799003|1800799024|366016|376014|4143699003|3023799007|18002099003|6133799003|56012099006|22082099003;
+X-Microsoft-Antispam-Message-Info: RRVgLtZc6wFtJRfabuGOQ7KDg8ROpkf7RDU34e5z1Ud8lEvPCbcmTijr9ELHGwFTqALPH92lBiO+N/8Tzxio6OrJrEdnT3RBM4mcSm59epTpCKBvdY+7OYk7ihpBCVUwu4D0zCQahL2x2Uk+6rf/OWMeUaLFnSfA45Tv1xAZO6uLcJjWRpfodEQJi2GlRclyu8r8YCmS8UeOFijZeNmnuhZD5M/+ugj2V2uSx9kYB8vaneNHtOWqY5rt+pWNUNCeuLPROjT3bvQV2YhFkMJIkGwYqUyA0xXdUAybvmmJ5u9r9eyt4xZZgJW/Dx1OdnoWRCHDggSbWKCdI5aHhQ/CwoPHYuWp7L6/b/qBaGRGK1AZmt1G6anVoCDqLLIo2p1nCHkItrJWC70g/cUJFWTSBzujSCu4m+oghdQXMZcgtJwHrsLmr/z2IiBmR2XtsydzATR4I+hNAq3jhZgIP/HF9r9FLSj4tHjnvJAvisOuk+/wNsZa/EgNp2XmLtpqwoxWsuAv9N6JzUGs6VaXnMwE18nGjL7R6YOptw1uXQskbUo6vczv+qNHuGrJGNf0HtXJEgEuYU9fsWXa2AGgHbEQ83u6Nh3IKD3qCdYMm65N/Z0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(10070799003)(1800799024)(366016)(376014)(4143699003)(3023799007)(18002099003)(6133799003)(56012099006)(22082099003);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: U+kCoSvjdyfxKf6zJOtLwH+n5zAJ4fb3rJPWvxLp0YIotN3WIZv5v/jY3krOQzbLwsN/iX8SaPWQSjYzTgaZ5yuQ/PWDTPJMZpFvTU80/BN/TipV1yqobVcqRhcFLBeYQdwas8aGyYA2CucMGLbuSg1Q5xKgD1gd3y8EjxXaJHRoaod7qBve4cFXZsTuRHmSRRoTCwISADjPeLEmns/8XW6+jyKSI5fVXpdetlrS+eSXk5S0MXradMm4OsgDWQKpvuQU8caigFsJT9OsYw21O4KRM7grQU2V0wAgMI+M/gDG8XrNMsiqTKgWW5Skc3nmriOT23OmObabbNu7bC/mvpeXpRZSjZtIrOmSYwrt+4VTkwP4XkVNftzGC2FlwWYUxQ49a0f1dcmd7IrV8RzwdFxRGjYenr00if+ajMQWONZOfcZYnwXau9EaTw0QSGUL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 19:38:23.7454 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e55d6da5-fd12-4e0c-10ae-08dedc5f4ef7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9409
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tm9oUjY3bStxK1F0RzBSbkZVYTUwS1I5NFQ1OU9GeEQvNmRhWFVkc25tY3RM?=
+ =?utf-8?B?ZkcxVzJQWUlKUWtJSk5jTUtrSFdVWXhHdklHL01RaHJRb1EzL0VFSCtHVEdC?=
+ =?utf-8?B?dHpFQWVQeWlkUjdvOG9aVkZ3VUpTMFR5TVF3TmVmMWZ0MkZKOGNNQjdsNWlw?=
+ =?utf-8?B?R2o3SDZqVjlFaEFzRERvWVpoNGxEdjZzR25nQWwwQ1dSYUJmVkdsOFFtd1VL?=
+ =?utf-8?B?c3Uyc1NMZkQ5cHVtV29JNmRqTGtwNFZ3bnA5WDlUcXo0NW96cXgwUHhsR01N?=
+ =?utf-8?B?WFVyNE1nVTRaS01aTnlidkpGeEg2SVRjT3RNRWdzcjVIMTArSXJUSjBQVmRy?=
+ =?utf-8?B?WE1MZHhjNkVLbXhBOWVMeFk0b1dpbzZ4Q1JGVk8vR3VFZ2ovVDgvbndnK0xF?=
+ =?utf-8?B?dVVjK3lQMmhwN1A1TzNyTGx4VE9WQUVNYVdDYmlPWFdCVkVsR3hKRkNwaVJQ?=
+ =?utf-8?B?QU1VMitoZFJaRUR4K3R5UHJTMGtSS3ArZnRWd21JSExuY3Z4cnpudTZLZk1Z?=
+ =?utf-8?B?aXdibklVcEhmalhaM0Z2dlkrTU1CTFgyaTN4TitLcUpFVzcvaWZ5VS9JeEUz?=
+ =?utf-8?B?Zm9LVzlGZGtwdURpRDBTZXJjQkVBRCtKUEhFZUxTb3ZuTTlFdjVkTHVlUjFD?=
+ =?utf-8?B?eCtCUWo4TzAvajdWQ21qZHZLTDJvMWY5Y1V1ZnZ0bldsWWladzY2UWJySDFY?=
+ =?utf-8?B?dWEweTdZdnJDY3lxTW1BODd2bFhlQ0RJWDlsMGFnYTNtcS9ESmM5dmR5ei84?=
+ =?utf-8?B?azRKVk9uTUYrUUx3MENIN2pGZHo0VWExNUpEVVRQMzFzUmw3UVNIZkt5dGw1?=
+ =?utf-8?B?cHZpRzFIeTA2TFk0SWNrTm1VTTRRMnJxeWZsWng1QVpvR2JjRVdMZlVIYUUx?=
+ =?utf-8?B?eVVyZGNncjBqOWdYTXRLTE01cHdvVVJLQy9uZHRvY1FNbEZQOHB0WmtpdzhJ?=
+ =?utf-8?B?UWIyc0lpUU16azJCckRiU2N5OGIySlNwQUlRdlFEQUdIRldaSFQxUGRxZjRx?=
+ =?utf-8?B?ZkZJeEp4VHRnZGpqTHRQWVVNOGRxU3p1Y3BKSm8zMktZbTFnNVlESThhdll4?=
+ =?utf-8?B?S1RUVW9QcGZKdDVzNnBEZ0VkaHpoVnpkRHRhaVJQRTlNRmV3Z095TVI5ZDht?=
+ =?utf-8?B?cWtSektrUXY5WGswNU1OK2pYa2M0c2Y1cUxsUVJkcEI3RkE3NmJ4TDdvOE4v?=
+ =?utf-8?B?aGl3bjRwOGhUeVBPa1k3VjFocWNNNEhidE9lYnQ1dHU5SnNnWFdkRjFYd2Fr?=
+ =?utf-8?B?S3NCbENnV3RQOEczaDZYVDhHa3gzaG9TTitkMGI1YzhHL2ErWnlUTWREQ2hP?=
+ =?utf-8?B?MlRZK0xOTFJQbDkxa2E2cVdWYTU2TUZvRGkrNDBLeUVpVmpUNXZuMWJYL3dT?=
+ =?utf-8?B?Zy9jcFQ0OWY0NlJlVDkyVkJlcXpGTTE0WWZSNkVqeWNEOG4vK1VaTWIrTFpa?=
+ =?utf-8?B?emlERHFvOTFyczJQR1pOejFMK1dnb0FLTW44b1dpYXFoUGZaTSthVnBpSDQ2?=
+ =?utf-8?B?WFU4aktCdTI1NVBCRG9xbWtCRjV0QTBicTkzYnVQdmovdG5odGd6cy91Y3Ru?=
+ =?utf-8?B?VDcyYnoyQzZpTHBxK0E0ZUk3R2VKdFVkc2dtUDFjVy95ZGl1R1hEZHpYNzRL?=
+ =?utf-8?B?Z0ZucFJmWHZleDhCQkdMVTd0SDBYbC9HUGNHdHBLemtnSzMvYlRSK2VlYi93?=
+ =?utf-8?B?VkVhKzh2S3RpbFdRK2NPbzhuVXFsaVkyTEN2OXdiZ2lOYTZZWlhvWXRBRlV0?=
+ =?utf-8?B?N3ZYTEpJSnRvbGtTWGJQcEV0MnpLVmM1UHpZc2xqWmFMSk9XbUJ1ZTJOdDlB?=
+ =?utf-8?B?R0lGNStuRlFFd0VLclBjOThlakpZb1VqODg1QVJwVnYrV1hONGFrVi90Szdi?=
+ =?utf-8?B?a1R0dHBLMjc5RExXUHZLdXA1MEtuOWtSYW9jT29PUVo3bkRaQmlzUVRUUnRV?=
+ =?utf-8?B?WVdXVjJhYUw3T1l4Q2RBc2JRMGcrNGswbGtHNmRhbStjQ25JSFh4b3V2c3hr?=
+ =?utf-8?B?dnczVTUwZTdTZEZlM3hJSzZMa3gra0puSXYyakN0YkJ4NlJRQUlUeURzRUlD?=
+ =?utf-8?B?Y1ZBa0NmSFU2T0xKb3lLNHlBQVVYazNOejVHVDhxU0NIQnlxV0kyaXpHTjJh?=
+ =?utf-8?B?VmZYNXRJeVZZK1lpQ2I1RitBM2hLWVU5Q21IRnFkdVJ0Y21COWxQR0tVZWdT?=
+ =?utf-8?B?dGRNaWxpNmFNSXpiSXF1NlBrQUg2UWo3bHkzUDVCb1JJOWZkUnREZG5scGtp?=
+ =?utf-8?B?THdXMDh3dEh5bGU3a0sxRGNRblZKWmdjemprZFN2L0ZPRlpmWS9EaGlXcjF2?=
+ =?utf-8?B?V0hSVGg4SFVMNVJwa3NiUWhQV3dBZEJ4cHViMzBhOTRDT1dOTEUvQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 964527ab-e269-4429-199f-08dedc62abbb
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 20:02:28.0060 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kJj+5zxcwk1DulXAwjxjP8DWnQYa8j3jhCXt2R6Ec/DCFNSDbafxMJKLcKVfy+AXNmPdaR4k55FPgojiNglJjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7871
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,52 +153,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 7/7/26 10:29, Max Zhen wrote:
+On Tue Jul 7, 2026 at 6:14 PM BST, Daniel Almeida wrote:
+> Hi Gary,
 >
+> A bit late to the party here, but going through this series one by one :)
 >
-> On 7/7/2026 Tue 10:23, Lizhi Hou wrote:
->> If the heap BO was never vmapped before its handle was closed and the
->> user then vmaps the dev BO (which triggers amdxdna_gem_vmap(heap_bo)),
->> and drm_gem_vmap fails — NULL pointer dereference at abo->client->xdna.
->>
->> Fix it by get xdna pointer through to_xdna_dev(to_gobj(abo)->dev).
->>
->> Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add 
->> helper APIs for address retrieval")
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> Reviewed-by: Max Zhen <max.zhen@amd.com>
-
-Thanks a lot for reviewing the patch. Sashiko bot reports other places 
-which can trigger abo->client NULL pointer dereference. I will create a 
-V2 patch which fix those places as well.
-
-Lizhi
-
->> ---
->>   drivers/accel/amdxdna/amdxdna_gem.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
->> b/drivers/accel/amdxdna/amdxdna_gem.c
->> index 64c7d82713b0..5033a0e5c6ab 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->> @@ -198,6 +198,7 @@ amdxdna_gem_destroy_obj(struct amdxdna_gem_obj *abo)
->>    */
->>   void *amdxdna_gem_vmap(struct amdxdna_gem_obj *abo)
->>   {
->> +    struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
->>       struct iosys_map map = IOSYS_MAP_INIT_VADDR(NULL);
->>       int ret;
->>   @@ -210,7 +211,7 @@ void *amdxdna_gem_vmap(struct amdxdna_gem_obj 
->> *abo)
->>       if (!abo->mem.kva) {
->>           ret = drm_gem_vmap(to_gobj(abo), &map);
->>           if (ret)
->> -            XDNA_ERR(abo->client->xdna, "Vmap bo failed, ret %d", ret);
->> +            XDNA_ERR(xdna, "Vmap bo failed, ret %d", ret);
->>           else
->>               abo->mem.kva = map.vaddr;
->>       }
+>> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>>=20
+>> Currently many I/O related structs carry a `SIZE` parameter to denote th=
+e
+>> minimum size of the I/O region, while they also carry a field indicating
+>> the actual size. Proliferation of the pattern creates a lot of duplicate=
+d
+>> code, and makes it hard to create typed views of I/O.
+>>=20
+>> Introduce a `Region` type that carries the `SIZE` parameter. It is a
+>> wrapper of `[u8]`, which makes it dynamically sized with a metadata of
+>> `usize`. This way, pointers to `Region` naturally carry size information=
+.
+>> This type is required to be 4-byte aligned.
 >
+> Why 4, specifically? i.e.: I wonder if this breaks u64 mmio accessors?
+
+It does, but if the alignment is 8 then it breaks a lot of platform devices=
+. 4
+is the most common alignment needed so it is chosen. Different base types c=
+an be
+added subsequently when needs arise.
+
+There's some additional discussions here:
+https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/G=
+eneric.20I.2FO.20backends/with/601411822
+and in earlier versions.
+
+Best,
+Gary
+
+>>=20
+>> Expose the minimum size information via `MIN_SIZE` constant of the
+>> `KnownSize` trait. Similarly, expose the minimum alignment information v=
+ia
+>> `KnownSize::MIN_ALIGN`.
+>>=20
+>> With these changes, it is possible to add an associated type to `Io` tra=
+it
+>> to represent the type of I/O region. For untyped regions, this is the ne=
+wly
+>> added `Region` type. Remove `IoKnownSize` as it is no longer necessary. =
+Use
+>> the same mechanism to indicate minimum size of PCI config spaces.
+>>=20
+>> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>
+> If MIN_ALIGN =3D 4 is actually intentional:
+>
+> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
+
