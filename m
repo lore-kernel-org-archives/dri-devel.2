@@ -4,139 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036ADC44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 12:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2521C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 12:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 500B210ECCE;
-	Tue,  7 Jul 2026 12:54:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10EFE10ECC5;
+	Tue,  7 Jul 2026 12:57:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="am9tzlAi";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="TnYxcjGW";
 	dkim-atps=neutral
 Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011014.outbound.protection.outlook.com [52.101.57.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E9EA898C4;
- Tue,  7 Jul 2026 12:54:56 +0000 (UTC)
+ (mail-eastus2azon11011015.outbound.protection.outlook.com [52.101.57.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F4A510ECC5;
+ Tue,  7 Jul 2026 12:57:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dzx4MWivBNA4I8fV1RvMTnoKsMBhkIqthtvIKvOYXTcZLaO+kQhwThlSuA38WS8qAXMzANKBdXi5EgTofCFukjRdwAjnUVmmVpTbVWqZaS4aoXTc3/c66U9h3KChaeZw/rPeAIJbm7i4moYaY311zYVqi1O17SUuxH2gGf9b4Z+bOHMhbqXGiqYDtqJ1Rqq5hwNOt3tc37tOxl/ZTGlxRNN5CX+gb7IVzzrdhvw6EfNLH9amWGFvtTMeZhpfGjj3AR9AWxJ00jNl4XbZ9Sc36YZ2WdPZFFaHAlvkO51mE3ZcCP/qNG+OtujOSh7ic7p4S9YE7+nloSZ2DZbiH2TKjw==
+ b=mewVFLXlAdYgtp29AjiQnt8ENuw1GOJ3weNrsJ2wktt3P5TH1XctRP8ZS5WmQrdbkr6L/csIvEiiogPKVlMgmTn6ACwEvIQkS4l/wCmEo7TFuc48NLfYfcGx5SrhKJIgGOug+/Cq5SUmDjHaMhKNJFqO275hz215cqHA6NxNJOdwIMFNYAzsQTeqazpHu3yOUIrsBVuEhkc79T5914MmiYuKAzKz1lukPLWGlWT30+XxfZmGaGdWJMOYStr7ul5NmvtAEm1vCqZNlTLyEXsQLw/idg1PtNMiaXD/mKk5L8rjdClc3kv8biYOwI0LYuvs7ErenyX3I5NppAFFCX5QOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W3k+oPFpaANgqaxtO9NbnYD/de9Z2dB3sKXG17trVas=;
- b=GW91rtHGop9sDkL0/+Z4dq1uF0qTByGQ2wq0AjJD0AvbQDVgXDmGIuUe8U8QmBLw3M1c82iPnZDB6KGp8g/YPrHNbsomEM6y6GPd+o/Tkzzxon8Oif+PikDH9efs+1l9ziQWCEAx3w4rBj+oSKiOl4a6Pm1qZbr+M1sqDOC8KM7B5aZEe9uA4QRx/UU0zuBY8aX7MU3/ICZrCe9sQg7DP4L4+cz2zMgPy5vIar5knaP5RmP23hs1WrMquZb74hzqbqXyzyKKtKYxIAMpCkrE/9yHDkekciueERKOtcSNAT3bGo7i5aFbYnDIMEJ9ApGwrkposotRru0aq48qwDl9iw==
+ bh=R4QWmduydawm1NLJUQm5JsiQbBeF5tHGmZD1BNFakBg=;
+ b=A+ejyzeUV/yaVlLFqvKoMKDywoClIyd/bOT7I2BILZoyyldguJDKLwojz6HjEK0WRFQ/Pfsm51znIzt/+Iog64u4pmgOQaQwBpzuZA92Xjqvg+412cBp0cJRQjYSF7FFYp3PPWB0yJkN4Qpi2yeFfCOlFe2kcMSGa2gaTlXkNynaMfg3GCO2phlWGkpm10bXMKiQj0of8CBimEJh9CuMh2e0D9kXArrLCc6eLlNT6pjv1EiCBWopb1NaZxp05nIncrNj75s+7/dty+HKydhe3KWiUUzv4if57Ycohiz8VOH7/uRsHooioNf9tiU+2mTheuIFTi35TR1w1G7VjLvg8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W3k+oPFpaANgqaxtO9NbnYD/de9Z2dB3sKXG17trVas=;
- b=am9tzlAiK5htWNKyrJOepLrLHzAiqSfWxjBoGnPsTmsz1JZCidHTJuB9jND8JewzgkjNlErjujf6oZVfy4/t1wMJ5CTG1cioZWFAdzie1M6ZfefO0Vj2r1+cqCipYODF6/HRb+J48ni4OmLWqWaK+WJWtATHQF57Z4U1aADO4FA=
+ bh=R4QWmduydawm1NLJUQm5JsiQbBeF5tHGmZD1BNFakBg=;
+ b=TnYxcjGWjUcBBCXtRc8V2PYIPIWqsEwdGdeLz/FCdAXVBNwNq6ar39xlg5R2D7x47nit34MCl8BgabcB0p+6cZxM0muBU07Ydh1FylXQ7mLsW+JrMTn2vvi1LJDykqYnuLdNQgbYWj0EuV5Xkdl+MgaopZ1z174VhG3ZxkoLMytQBXZVny/17gdDOrddOXE/8Vef4OHVyhXuAIpW70/kTbxdPrVv31Dcdofhcu2ESZUbrR3bNKvaPPNeUJpAhbHiaJ2jk42rsFnUep0ezL8bF0YB6+jhOSOScnB5j9VwTM3lPUmFC287BBGhLVcccqRfznx6SXq0VhFBUArCj+9ZEg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB6443.namprd12.prod.outlook.com (2603:10b6:510:1f9::5)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by PH8PR12MB6697.namprd12.prod.outlook.com (2603:10b6:510:1cc::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Tue, 7 Jul
- 2026 12:54:44 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Tue, 7 Jul 2026
- 12:54:43 +0000
-Message-ID: <9a55ba77-6920-427d-9325-ca0e3b8ee94a@amd.com>
-Date: Tue, 7 Jul 2026 14:54:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
- flag
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
- <673ae71a1fc4dcce0e6a1655985a141d6f08c06f.camel@linux.intel.com>
- <0f85e12e-7d34-40a8-9efc-0d1a00b7c24c@amd.com>
- <6fac8343dc71b1dbf17e77390cc878cfaeb6d650.camel@linux.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6fac8343dc71b1dbf17e77390cc878cfaeb6d650.camel@linux.intel.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
+ 2026 12:56:55 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Tue, 7 Jul 2026
+ 12:56:54 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0195.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Date: Tue, 07 Jul 2026 21:56:50 +0900
+Message-Id: <DJSCTKZ97STM.2D8YP8LIVELH2@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v5 03/13] gpu: nova-core: gsp: replace BootUnloadGuard
+ with local handlers
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
+ <20260707-nova-bootcontext-v5-3-ecad9346387f@nvidia.com>
+ <DJS6M2YBO8RS.33T3S32EFHL1Z@nvidia.com>
+In-Reply-To: <DJS6M2YBO8RS.33T3S32EFHL1Z@nvidia.com>
+X-ClientProxiedBy: TY4PR01CA0070.jpnprd01.prod.outlook.com
+ (2603:1096:405:370::18) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6443:EE_
-X-MS-Office365-Filtering-Correlation-Id: cec12f47-c02e-4d05-a6d0-08dedc26ea56
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH8PR12MB6697:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa58e7fb-57f6-48b2-a449-08dedc27386d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|7416014|22082099003|18002099003|11063799006|56012099006|4143699003|921020|3023799007;
-X-Microsoft-Antispam-Message-Info: L/SKcrsVU+LUxJOpUqLaxRtJvJ1frTuRJEuxN9uyrb0e4jlfRKYNdrlr6M1xN2qVlZ1irhDNMxfyByZwy6TkDNR51j1kjoSby0JtWz4NAtCSWfQt26l7re/l05DuyEwc7WvxvcIz9nNDvzZVXxxuPEpnHxaskBWCACxdP6uI6eRI/Mi+Ook9HnBLjVLWOyCMNo+PemvlOi0Ol+HZXLqLPC9gyI8o1SjNwleoNEWKN1XuE+sQFjOfY90nNwQYlkELv8kivYkXBpfLgVX6nt0HUKXWSRwXgTCPYUW0/PNRJIa5OJLtQV4UtATKOTWwRATI/U6qGNtLKisxUTSrO9Z/gcqD4pz1xWsCkbtSQg8t2vbYxNZjHMgNN5fZsR4DL91xAP8Cg37Q4JrdUdXdrMF5/4DbsPMw01RNAcKSkNmedLkrA3IPZGs57n2IfCQWYUBazR8Yvz73k3lB3hAvaaSVCMytNGxNBSzxKSyUaVSEKWr3JtXNmzRn6hxFAqXxYArLqSrGLMR6FP8/+AioGDeHYlwo1oYM5Wt8oqG4TrbbfAaltOEl8mVSQCCqO/xGGlCY6v0nBInmfsu72L8+qcl31DsQcuqkkRG2+kdWDHqRKRVIbml2HpiiHjU5rTUqKtm1vx6Lko2ruH2pKG50WhZpHrCJVgtQKjJUnp+4+fco9lg=
+ ARA:13230040|366016|23010399003|1800799024|376014|7416014|10070799003|4143699003|11063799006|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 1Dw8ogn34uXLjKyBaVTh7SmvpLqsx/JvRKip3eH5Nsr4JVX0ioParHxlyHAKNCMzgXYTKn88fsQvSt/fSjpcIkUFdNf+fTF+x51vHNTTBsXjACPIAQqV5d0iS4XZp8ano9TDB7NUNpFWLT+LStthAlC8uf33Q9EhuGDu5oO0kgkZ7iNmim/3ErDS+zCNYtda0XWWSMFNH4qqXMrbkZLZkAV78LWdfvIoM7EseVq1wu7E9Qn3Ond+fAR8l/kd97os90er90BW5CYHp1cduBE0GhohbdZd2FUzDaMaGXZlNREGs/+DgDYIP2Ej0qHQq6m3DBnoDY/9Vh7YVSSft9M9/B2p43Qo5HATzDJurWxpkAX4DCMkuQu13uOvI3AN/g7vj3NMjMz/vvshJqf2LAUHUAP8bms8rjMv/8a9q96yH8JAaqUdwo7wFGdRGgL3NEaXMrLZ5yXbN6M98nuNVS9eHWICD0pGWwEp9Xvldz4TqCFUhmUdGf1lqXAtYZXovlteOHW+pqXMeUT8hN7DqRdjJlVY6lTDc2a/iLNp9GkkYSlXeonKQyMP/ZyfGIVr8F73e5u4pKzTTqxiK0HbrDmPxi+sodhISS8KPSiv8ayYc9lSam67wgUcf+8XjA5DnZKpLQ6RcMpzn1SqbnXRKQ7ZXMfzYYJcVBftFjJwN51RCi4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(7416014)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(921020)(3023799007);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10070799003)(4143699003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NENPWDN2MTNGN1NsWHFrNE5IZUFDeExGdnJQaWx6cW5hZlYyOTJNUUwyd0lU?=
- =?utf-8?B?T2dwU1hEL0o0RjN3Z2NEcVNXY0o1MFI3bEtDWXFWcUZhY25nNlgrdmE2YVJj?=
- =?utf-8?B?TjhrV0xrbGxrRkl0RmhOTzNYMXFqeHpNNUN1dG1XaERqV1FLK3pqUDJYbXhP?=
- =?utf-8?B?blVXcXlqTTJnT2pFeXNXcW51WXZmaGZjcGFCSFlMTG9rajQ4NkoxQk92VTV4?=
- =?utf-8?B?QTEreHYrczZkQW96eklLNk1saXBnTzZQSTk0aDJiNUlEU1V4NzBWZWduaVN3?=
- =?utf-8?B?OS9TYUwxUTZ0NThDWHNTVFY2K2d0NkdQbjB3dUFibUswWm5peEZXZUF6K2s3?=
- =?utf-8?B?K3o1anZQTDhraUdpS0xqSmhHT0NtZEJrMUdNcHlycVlNMEZUcE9ya3RMZmV6?=
- =?utf-8?B?VHZVTmlHaC8wajluSlM4WitwTXRuN1dOeGQzNUY2eGxoaEJ4RmZmdHVPR0Fw?=
- =?utf-8?B?V2NXcHZPUXBJcmg0NEZKMUgwRjZyTXlCUUkrcENVaDgyUlNMSURmb2UwZi82?=
- =?utf-8?B?VnNKSGRISUJTdTZOK0p6cUpPZWlKSGdBaHdLcWJwVS90aGtwN1VxU3l3Tlo1?=
- =?utf-8?B?NDVhZmFZTWR5eUNkRnJpSE5uUDFLVG1TMlpmaUlCQTR5OGMxb0VFT3c1U25m?=
- =?utf-8?B?aTY2UGFOckcyZ1IxWm9uWXhNU2kzVmxUcEFReXUrQVFCbnFxMlcwcyt2U1U4?=
- =?utf-8?B?bWNIaE1jRjhrVVVqbWcyUmVxdVc3b3NLWStJVURweWlyN1pLQlZWcjR2MEpN?=
- =?utf-8?B?WkJKWlZ4QTcvNFJJZ0EvY1lsSXA3dGVkdDRIN21MM0h1enBzOU5BNzNyUmxI?=
- =?utf-8?B?MUVGMG5RWENLdUNFRlJLZi8yV0wrTzJHdTRHZlBjMGFjVmNEYjdPaUwwamRi?=
- =?utf-8?B?VUR2cllCdEU5a2VjNkhaL0RWdGxZVTNLenVkL1hCQkVVZlc0ZWdlWTl2eVl2?=
- =?utf-8?B?Z2Z0VUoxMm1jZmJhWmRXU3hXNVBNckdZN3lUbUhjRlV4ZzlJTGp3a1pQcmdr?=
- =?utf-8?B?UThHWGpSN0lwMGMwakZTamE4dDVnQmhFQ2tCeGhlTVhxL1ZLM3ZUd2UzcVdM?=
- =?utf-8?B?aWxrTjVaeFBLcHl6T3U4bGNUdjkzdUJadEhwdm1DWm9Ud1NxbnpTQklwbEFl?=
- =?utf-8?B?aUM0dTdaNURrcVUwb0thUDRnWklCVXRURENGbmkxdFVHRlkrR2txVW5UdGdT?=
- =?utf-8?B?WG9VYXlDZHY1S0NGYW5SVUZmRXBUR2c1cXdpNmkxdzhmWWgyR0IvSXEwOWV6?=
- =?utf-8?B?akd3c1VLbWYxTDRXR1NiWTFGeXZhQXZsZDc2cklGVWZ5bk1xOUdIR0VLUGpM?=
- =?utf-8?B?Q0ZBaitHNmpOSnBhZWZYL3NvZVhRc0hlVjJ6dkdyUHFsKy9ycXVaamc5aEZ5?=
- =?utf-8?B?NkV0Rnd5M2Q4MklyYkJDazYvS24zaytWbERTUHBFRnMyMFloZUlWV2JyQndR?=
- =?utf-8?B?aG5INmZ4SldBY1B0czBwZ3NIbHp0RzN4TENpaTBOQjFPYUtualQvNWpsZmR5?=
- =?utf-8?B?M0NwK01LQit6dUdNZHY2K0pqUVJmTnhhSGhNNk1LYWw3aVNCR1dCQlJRUHY5?=
- =?utf-8?B?eWFxNnFNd3k0SlJHeEE0SjV0Vm5Pb2lxNjJvZVRHbGt0MDNZLytsTWR4SURO?=
- =?utf-8?B?S1FtUnN5M0VoejluUk5kM09halI4azVOdGxEREJwNVljcFg2bFBMYVY4dDJG?=
- =?utf-8?B?eXIza2hxVjkyOGVHRTJSQXNkc3BCNkRqZUQzSjYzNFBuMDhGQW9yY1JRSEdI?=
- =?utf-8?B?NTJ3cmFOTUtENlltbi9Fd0RTeUNQRzZnT2h5WVdPdXBNYS9ZUnNVYkp0Skhy?=
- =?utf-8?B?QkNVaFJuY2lidmZ3K1h6aEdzajlsR0ZKWHBoRDRzTWZNSHlPUWZlbStMbDc5?=
- =?utf-8?B?K2wrSTh5RTVCZ29JdDhDWkthWHNMaytPaytVbTQ1emZWb1BSRHFKRGEwd3Ri?=
- =?utf-8?B?NXRVdVdHT0pLSHNOakd2WUhSa2lZNjJkNTlZa3hEa29pazl4VEJTY3VSQzJD?=
- =?utf-8?B?U29CZStQRlZsS3ZDc3k0NjNHRlNMS2cwVFhWKysrZEczeTd2RCtiTDUrSWN3?=
- =?utf-8?B?dnNZZW1FQzM2QUQ1L1R3K2ZGVjVia1V3b0NmM2s3SjJaYnh3bUlWRFBZYVpH?=
- =?utf-8?B?d01KN0dEZGF1RnFuaHFjWk9ERFVaRUhqbUZ5ZHZJVGdIVmM3ODEwUERUbDBz?=
- =?utf-8?B?STJjZHhVUkhjanRJaG1aT1M0S2wyUEFzRzk0bzNGMCtyeTd3YW83Vk1wT3RB?=
- =?utf-8?B?R0w0NGZ1cmlGWkVSOGdBTEZVR3dYbFNxRW9DVU5hTUxFbjRtczdzcXN2SFIv?=
- =?utf-8?Q?SL3MnYsZrQBJF54bvy?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cec12f47-c02e-4d05-a6d0-08dedc26ea56
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWRMTVEzK0NmZlQ3Mm9KbFhKOXM5R2twV1NlUFVaTzFTZDJ3NVJvNEk3UTVs?=
+ =?utf-8?B?YW9OS1pLQUNvaW44cXZYWDlpR04zODRtc3ZvTmpLaGZxL2thdmlWOFhNaWZa?=
+ =?utf-8?B?WFM2RlJwVlBWdHFLREhWLzBpeUhmNXdqMUJNSXUwUE80SlZYRTc3UUlldmhp?=
+ =?utf-8?B?NWtDaXhLQnpBZzcwQ1ZrK1NBSy9LWXRBbjdoNXY5TjlNRlpwMVNSSWg4RXMz?=
+ =?utf-8?B?ZjQ1anJlL2VmYUFvVXg0aEQyem5CNHhEL0hTUmJhZUtJZzJJeVBBS1ZPZE1l?=
+ =?utf-8?B?dzN5czE3b2ovNm1lNy8ra1hlMHhnaTN0TnIrRXcyK0pzMGQ3NEMyVlc4YW5y?=
+ =?utf-8?B?NXFtSlJ5RHJQcU9HckJnN0g3ZTJ6VDNBUVhpMFZXZWl0anZVOENmczZ0Qm1D?=
+ =?utf-8?B?UlZOMjFQczJtYmVYbDRLcUs4MXJMbDI1aGZ1YVpSOVpQT2cyV0lBZ2VZbDJ6?=
+ =?utf-8?B?RnpNa2E5bzJtbVpBOWVPOTM3NVZHSWxpWWxlNkpSTDZKQW9JZ3lzTGUwamRP?=
+ =?utf-8?B?QTNDVnpleStuQTF0OSs2ekJFKzZDRHNzNzNxWnZUR3lIOWI1K2J6RE5zUTNY?=
+ =?utf-8?B?cGMvVnBJbmUvS2pOVWt4TUE1ekc4c0ozbmU4U2lULyt3bzdVRW0rS05NUHcr?=
+ =?utf-8?B?eWJBOGlSeEFXaUJIcmpkOWtGT2Npc1VKdXpnT2dQQnozUWFLRHA1YzdGb1h3?=
+ =?utf-8?B?aVFGSEtBQUwxdnJZNmtNcXJrZWkrcjNGVFl6Ung2a250S0tvM3pqV1dHVjRs?=
+ =?utf-8?B?bGljb3FNYjZlbFczT243cFNkUW54SGtlcllkOHlIZllVMGtuT2U1Z25EMFdS?=
+ =?utf-8?B?Z20vY2lzY1RPckRyTXFqM1NOdHhqRVBtS3pVNXlscEFaRjF1ZjJJZ1c2clBI?=
+ =?utf-8?B?M3ZsYnpVWjY5NC9kZEhibG9jcVhCTzlFemxPL3V4NVlsaHNtUXlpU2htWFF0?=
+ =?utf-8?B?WldTQVk2U045bDNFRFFoRXRPYzB1TmFoelhKZnRHK3c4M2ZQcmZxQ0FHOHdQ?=
+ =?utf-8?B?aWF4dVBPVGpTNDllVEx4N3dvQ0JBcVJjWGFQNVhiRU9sL1ZxS283bUhWbG1y?=
+ =?utf-8?B?a1hxVDg1N01RSEo4ZFI4NVVRSHZUSW8xWUdKa05WY05kWVNlWWgxYTR5ZFdu?=
+ =?utf-8?B?SnhCcS9nWlRWaVppQ0tQUDMzaElwNXBBSThjbU1OV0Zma3Bta21iblFreDJH?=
+ =?utf-8?B?WjhBcHRTazVjMjEvZGJnMHNmbWsrUEQyUjRiQm14VS91NWZHbW9RU2pxQVAr?=
+ =?utf-8?B?aDMzR3dUc2FHcUJmaUNHb1RSUFVvZjdaRW9lTklNdTFBUXAwOEdXYjB2QWcw?=
+ =?utf-8?B?UnNZOXBuZHdJUGpucUVhd0xjRmdGeDdZLzhWOXlHSDFONDNiZlhVRUR4b3Ex?=
+ =?utf-8?B?TmNrQndkblhnUFhYb0N0WXJSZHk0UkprbkZ2ZGxTN1VtZXFkNmM2V0RLcXph?=
+ =?utf-8?B?dThMKzRaTFFDRXFlZ0tvNHZmWDhMclpmTGtrTlNuSGRvODcrMVhUOUZaNStB?=
+ =?utf-8?B?bUZkZXQ0bW1mc3dHRVF3eHFqUnViR0t4azVvb3haZmFQeTNzYStQekNXU25i?=
+ =?utf-8?B?eENCZE4rR09jd09wMWk5VDVOTWFMakErT0hjUy9WbTBZQzMxTnFSSVp3eWR3?=
+ =?utf-8?B?aStCMjZpaVNVYmVMQjVTUUU2Nnh1cEdiSytOclp3RUNaUE8xdXExdmtWK3Vy?=
+ =?utf-8?B?SUoyZExNM0dvUy81dGN1UkVacEExM2lpUDJPcVZOZU1pODdVd0phSVJLR3pQ?=
+ =?utf-8?B?dzlKWTRnQ1hDMnNRSDVLRnM2K1Eyc2lzY0xzRC9lbG1RY1RVaHU2VjZkdnpz?=
+ =?utf-8?B?VmR0alRJQzAyQS85aDZyVWhSWGg4NVorS0oxVnR6b3RPbzE4WWNDTDJ2VElT?=
+ =?utf-8?B?UnpMamYxdlgwRGZYbitoYUdTVzN0U1A4bUhOL214ZWRuYmFKcGdoSzRwejFT?=
+ =?utf-8?B?bTI1ZExzME5hOFBjS0VJWSt5UnhCeHdlbHcrNERhMXdiejY3UnpmVGNBTGdR?=
+ =?utf-8?B?eHFoM0FlZnJtYVlEak05a0grSmFjQ0RIYzVkSnVKYmVWa3RkYlRkTWIwQzFa?=
+ =?utf-8?B?d0JkRkYrNmFERWFoZ2t3dDJKYlNRdSt6M01oN2Fwc0R5K1c5VnhKY2RROWY3?=
+ =?utf-8?B?NmJxZDdXZzJZdmx6TDlkNVRqQkd2eVpJSEFUWEVJTmZzRUNVS09kVktOTFBy?=
+ =?utf-8?B?UjNwYU4xUk5TZGhoMzRwSkVzd1ExdW5kODEzdTl5bHZ4WFhYUXRkRWlNcTNH?=
+ =?utf-8?B?Y2p6V0ZjZFhjby8rU1NsZDBrNGNJWkR5ZWhSOUoyM1RHNDB0MWlwQVltRUdo?=
+ =?utf-8?B?eE4yNDRhL3ZkdXRJM3I1cDZiaHMwSjFQMmpNTk1XVlorR292dDg1eVF5S01s?=
+ =?utf-8?Q?5LCGU7bt0UlQ9vW8p8wNe8H/JoDF15ua2J+f8VrbTnF6N?=
+X-MS-Exchange-AntiSpam-MessageData-1: zzOkViJyxdxpww==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa58e7fb-57f6-48b2-a449-08dedc27386d
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 12:54:43.6082 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 12:56:54.8574 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jyvjU/OL0u5GiuFfsiT2V1wYA4ym/n4J4+gEWGSXRu3FMZu56oMiki1ooXROg7nT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6443
+X-MS-Exchange-CrossTenant-UserPrincipalName: ABBDddE+ZIpcXmasdXQGajapHRd7O18lSK2dPIAeHp1BNhOAy3eLdHptKv47b/him40mV1D1wrv4gD3mMmGfBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6697
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,198 +145,277 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/7/26 14:41, Thomas Hellström wrote:
-> On Tue, 2026-07-07 at 14:28 +0200, Christian König wrote:
->> On 7/7/26 14:09, Thomas Hellström wrote:
->>> On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
->>>> TTM is about to switch to drm_exec for locking objects
->>>> in the LRU list. When we're done processing the object, we want
->>>> to
->>>> unlock it only if the caller doesn't already hold that lock. If
->>>> DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which
->>>> callers
->>>> may
->>>> require for unrelated reasons), we have no way of knowing whether
->>>> the
->>>> lock is already held.
->>>>
->>>> To remedy this, add a separate helper that forcefully bypasses
->>>> the
->>>> IGNORE_DUPLICATES flag for only a single locking operation.
->>>>
->>>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->>>
->>> The first, more complete attempt to try to tackle the exhaustive
->>> eviction introduced a drm_exec snapshot ability instead.
->>>
->>> https://lists.freedesktop.org/archives/intel-xe/2024-May/035820.html
->>>
->>> The idea was that one would want to incrementally lock more buffer
->>> objects until the validation succeeded, rather than dropping each
->>> single lock after processing the eviction. That's actually what
->>> guarantees forward progress. Restoring the snapshot unlocked all
->>> locks
->>> that we grabbed in the process, and would work also for single
->>> locks.
+On Tue Jul 7, 2026 at 5:04 PM JST, Eliot Courtney wrote:
+> On Tue Jul 7, 2026 at 4:21 PM JST, Alexandre Courbot wrote:
+>> When adding the GSP unload capability, we introduced `BootUnloadGuard`
+>> to automatically call `Gsp::unload` whenever an error occurred during
+>> the boot process, in order to try to reset the GSP to a valid state.
 >>
->> That's actually not what this patch here tries to solve.
+>> This approach is not well-suited to the errors that may occur in HALs:
+>> by definition, an error occurring in the HAL means that the GSP is not
+>> booted; yet the first thing that `Gsp::unload` does is queue a shutdown
+>> message to the GSP, which will inevitably result in a timeout when done
+>> from a HAL.
 >>
->> The problem is rather since we don't remove the BOs from the LRU list
->> that we try to evict some which are actually part of our working set.
+>> Furthermore, `BootUnloadGuard` is problematic because it holds
+>> additional references to the boot context, notably the `Falcon`s. These
+>> extra references stand in the way of making some of the `Falcon`'s
+>> methods mutable, since those methods would require exclusive access. As
+>> this behavior is only needed in one place, introducing dedicated types
+>> for it is distracting and unnecessary.
 >>
->> So when we lock for eviction we can't ignore duplicates no matter
->> what the global flag says.
-> 
-> Ah yes, I see that now when I've gotten to patch 9. But then I think
-> the commit message is a bit misleading. It talks about unlocking an
-> already processed object?
-
-Oh, good point! Yeah the problem isn't the unlocking but that we evict an object from the working set.
-
-The commit message clearly needs to be fixed.
-
-Christian.
-
-> 
-> Thanks,
-> Thomas
-> 
-> 
+>> Thus, remove `BootUnloadGuard` and adopt a two-level error handling
+>> strategy:
 >>
->> Regards,
->> Christian.
+>> - HALs are free to handle their errors as they see fit (most likely, by
+>>   running their unload bundle if it is ready by the time of the error),
+>> - `Gsp::boot` uses a `ScopeGuard` that runs `Gsp::unload`, since the
+>>   GSP should be up and running by the time `GspHal::boot` has returned.
 >>
->>>
->>> Thanks,
->>> Thomas
->>>
->>>
->>>> ---
->>>>  drivers/gpu/drm/drm_exec.c | 52
->>>> ++++++++++++++++++++++++++++++++++--
->>>> ----------
->>>>  include/drm/drm_exec.h     |  2 ++
->>>>  2 files changed, 41 insertions(+), 13 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_exec.c
->>>> b/drivers/gpu/drm/drm_exec.c
->>>> index 7988f5e7d56a3..91de6b4d29df8 100644
->>>> --- a/drivers/gpu/drm/drm_exec.c
->>>> +++ b/drivers/gpu/drm/drm_exec.c
->>>> @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct
->>>> drm_exec *exec)
->>>>  	return ret;
->>>>  }
->>>>  
->>>> -/**
->>>> - * drm_exec_lock_obj - lock a GEM object for use
->>>> - * @exec: the drm_exec object with the state
->>>> - * @obj: the GEM object to lock
->>>> - *
->>>> - * Lock a GEM object for use and grab a reference to it.
->>>> - *
->>>> - * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>> object is
->>>> - * already locked (can be suppressed by setting the
->>>> DRM_EXEC_IGNORE_DUPLICATES
->>>> - * flag), -ENOMEM when memory allocation failed and zero for
->>>> success.
->>>> - */
->>>> -int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>> drm_gem_object
->>>> *obj)
->>>> +static int __drm_exec_lock_obj(struct drm_exec *exec,
->>>> +			       struct drm_gem_object *obj,
->>>> +			       bool always_report_duplicates)
->>>>  {
->>>>  	int ret;
->>>>  
->>>> @@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec,
->>>> struct drm_gem_object *obj)
->>>>  		return -EDEADLK;
->>>>  	}
->>>>  
->>>> -	if (unlikely(ret == -EALREADY) &&
->>>> +	if (unlikely(ret == -EALREADY) &&
->>>> !always_report_duplicates
->>>> &&
->>>>  	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
->>>>  		return 0;
->>>>  
->>>> @@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec,
->>>> struct drm_gem_object *obj)
->>>>  	dma_resv_unlock(obj->resv);
->>>>  	return ret;
->>>>  }
->>>> +
->>>> +/**
->>>> + * drm_exec_lock_obj - lock a GEM object for use
->>>> + * @exec: the drm_exec object with the state
->>>> + * @obj: the GEM object to lock
->>>> + *
->>>> + * Lock a GEM object for use and grab a reference to it.
->>>> + *
->>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>> object is
->>>> + * already locked (can be suppressed by setting the
->>>> DRM_EXEC_IGNORE_DUPLICATES
->>>> + * flag), -ENOMEM when memory allocation failed and zero for
->>>> success.
->>>> + */
->>>> +int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>> drm_gem_object
->>>> *obj)
->>>> +{
->>>> +	return __drm_exec_lock_obj(exec, obj, false);
->>>> +}
->>>>  EXPORT_SYMBOL(drm_exec_lock_obj);
->>>>  
->>>> +/**
->>>> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but
->>>> always report duplicates
->>>> + * @exec: the drm_exec object with the state
->>>> + * @obj: the GEM object to lock
->>>> + *
->>>> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a
->>>> reference to it.
->>>> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is
->>>> ignored
->>>> and duplicates are
->>>> + * always reported.
->>>> + *
->>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>> object is
->>>> + * already locked, -ENOMEM when memory allocation failed and
->>>> zero
->>>> for success.
->>>> + */
->>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
->>>> +				 struct drm_gem_object *obj)
->>>> +{
->>>> +	return __drm_exec_lock_obj(exec, obj, false);
->>>> +}
->>>> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
->>>> +
->>>>  /**
->>>>   * drm_exec_unlock_obj - unlock a GEM object in this exec
->>>> context
->>>>   * @exec: the drm_exec object with the state
->>>> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
->>>> index 8725ba92ff916..ff80dd2b72240 100644
->>>> --- a/include/drm/drm_exec.h
->>>> +++ b/include/drm/drm_exec.h
->>>> @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32
->>>> flags, unsigned nr);
->>>>  void drm_exec_fini(struct drm_exec *exec);
->>>>  bool drm_exec_cleanup(struct drm_exec *exec);
->>>>  int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>> drm_gem_object
->>>> *obj);
->>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
->>>> +				 struct drm_gem_object *obj);
->>>>  void drm_exec_unlock_obj(struct drm_exec *exec, struct
->>>> drm_gem_object *obj);
->>>>  int drm_exec_prepare_obj(struct drm_exec *exec, struct
->>>> drm_gem_object *obj,
->>>>  			 unsigned int num_fences);
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/gsp/boot.rs      | 67 +++------------------------=
+-------
+>>  drivers/gpu/nova-core/gsp/hal.rs       | 13 +++----
+>>  drivers/gpu/nova-core/gsp/hal/gh100.rs | 31 ++++++++++------
+>>  drivers/gpu/nova-core/gsp/hal/tu102.rs | 23 +++++++-----
+>>  4 files changed, 44 insertions(+), 90 deletions(-)
+>>
+>> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/g=
+sp/boot.rs
+>> index ab0491b57944..536f2e341c01 100644
+>> --- a/drivers/gpu/nova-core/gsp/boot.rs
+>> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+>> @@ -30,66 +30,6 @@
+>>      },
+>>  };
+>> =20
+>> -/// Arguments required to call [`Gsp::unload`](super::Gsp::unload).
+>> -///
+>> -/// Stored as their own type to avoid repeating a long and tedious list=
+ in [`BootUnloadGuard`].
+>> -pub(super) struct BootUnloadArgs<'a> {
+>> -    gsp: &'a super::Gsp,
+>> -    dev: &'a device::Device<device::Bound>,
+>> -    bar: Bar0<'a>,
+>> -    gsp_falcon: &'a Falcon<'a, Gsp>,
+>> -    sec2_falcon: &'a Falcon<'a, Sec2>,
+>> -    unload_bundle: Option<super::UnloadBundle>,
+>> -}
+>> -
+>> -/// Guard that calls [`Gsp::unload`](super::Gsp::unload) with a
+>> -/// [`UnloadBundle`](super::UnloadBundle) when dropped.
+>> -///
+>> -/// Used to ensure the `UnloadBundle` is run during failure paths.
+>> -pub(super) struct BootUnloadGuard<'a> {
+>> -    guard: ScopeGuard<BootUnloadArgs<'a>, fn(BootUnloadArgs<'a>)>,
+>> -}
+>> -
+>> -impl<'a> BootUnloadGuard<'a> {
+>> -    /// Wraps `unload_bundle` into a guard that executes it when droppe=
+d.
+>> -    pub(super) fn new(
+>> -        gsp: &'a super::Gsp,
+>> -        dev: &'a device::Device<device::Bound>,
+>> -        bar: Bar0<'a>,
+>> -        gsp_falcon: &'a Falcon<'a, Gsp>,
+>> -        sec2_falcon: &'a Falcon<'a, Sec2>,
+>> -        unload_bundle: Option<super::UnloadBundle>,
+>> -    ) -> Self {
+>> -        Self {
+>> -            guard: ScopeGuard::new_with_data(
+>> -                BootUnloadArgs {
+>> -                    gsp,
+>> -                    dev,
+>> -                    bar,
+>> -                    gsp_falcon,
+>> -                    sec2_falcon,
+>> -                    unload_bundle,
+>> -                },
+>> -                |args| {
+>> -                    let _ =3D super::Gsp::unload(
+>> -                        args.gsp,
+>> -                        args.dev,
+>> -                        args.bar,
+>> -                        args.gsp_falcon,
+>> -                        args.sec2_falcon,
+>> -                        args.unload_bundle,
+>> -                    );
+>> -                },
+>> -            ),
+>> -        }
+>> -    }
+>> -
+>> -    /// Disarms the guard and returns the [`UnloadBundle`](super::Unloa=
+dBundle) it contains.
+>> -    pub(super) fn dismiss(self) -> Option<super::UnloadBundle> {
+>> -        self.guard.dismiss().unload_bundle
+>> -    }
+>> -}
+>> -
+>>  impl super::Gsp {
+>>      /// Attempt to boot the GSP.
+>>      ///
+>> @@ -107,6 +47,7 @@ pub(crate) fn boot(
+>>          let bar =3D ctx.bar;
+>>          let chipset =3D ctx.chipset;
+>>          let gsp_falcon =3D ctx.gsp_falcon;
+>> +        let sec2_falcon =3D ctx.sec2_falcon;
+>>          let dev =3D pdev.as_ref();
+>>          let hal =3D super::hal::gsp_hal(chipset);
+>> =20
+>> @@ -118,7 +59,11 @@ pub(crate) fn boot(
+>>          let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::=
+new(&gsp_fw, &fb_layout))?;
+>> =20
+>>          // Perform the chipset-specific boot sequence, and retrieve the=
+ unload bundle.
+>> -        let unload_guard =3D hal.boot(&self, &ctx, &fb_layout, &wpr_met=
+a)?;
+>> +        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_me=
+ta)?;
+>> +
+>> +        let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |=
+unload_bundle| {
+>> +            let _ =3D self.unload(dev, bar, gsp_falcon, sec2_falcon, un=
+load_bundle);
+>> +        });
+>> =20
+>>          gsp_falcon.write_os_version(gsp_fw.bootloader.app_version);
+>> =20
+>> diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gs=
+p/hal.rs
+>> index d3e47ef206de..851d1f24c137 100644
+>> --- a/drivers/gpu/nova-core/gsp/hal.rs
+>> +++ b/drivers/gpu/nova-core/gsp/hal.rs
+>> @@ -24,7 +24,6 @@
+>>          Chipset, //
+>>      },
+>>      gsp::{
+>> -        boot::BootUnloadGuard,
+>>          Gsp,
+>>          GspBootContext,
+>>          GspFwWprMeta, //
+>> @@ -51,15 +50,15 @@ fn run(
+>>  pub(super) trait GspHal: Send {
+>>      /// Performs the GSP boot process, loading and running the required=
+ firmwares as needed.
+>>      ///
+>> -    /// Upon success, returns a guard that runs the GSP unload sequence=
+ if GSP boot does not
+>> -    /// complete.
+>> -    fn boot<'a>(
+>> +    /// Upon success, returns the [`crate::gsp::UnloadBundle`] to use w=
+ith [`Gsp::unload`], if one
+>> +    /// could be created.
+>> +    fn boot(
+>>          &self,
+>> -        gsp: &'a Gsp,
+>> -        ctx: &GspBootContext<'a>,
+>> +        gsp: &Gsp,
+>> +        ctx: &GspBootContext<'_>,
+>>          fb_layout: &FbLayout,
+>>          wpr_meta: &Coherent<GspFwWprMeta>,
+>> -    ) -> Result<BootUnloadGuard<'a>>;
+>> +    ) -> Result<Option<crate::gsp::UnloadBundle>>;
+>> =20
+>>      /// Performs HAL-specific post-GSP boot tasks.
+>>      ///
+>> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-c=
+ore/gsp/hal/gh100.rs
+>> index 1d06405a32f6..18c889f9f413 100644
+>> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+>> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+>> @@ -23,7 +23,6 @@
+>>          Fsp, //
+>>      },
+>>      gsp::{
+>> -        boot::BootUnloadGuard,
+>>          hal::{
+>>              GspHal,
+>>              UnloadBundle, //
+>> @@ -143,13 +142,13 @@ impl GspHal for Gh100 {
+>>      ///
+>>      /// This path uses FSP to establish a chain of trust and boot GSP-F=
+MC. FSP handles
+>>      /// the GSP boot internally - no manual GSP reset/boot is needed.
+>> -    fn boot<'a>(
+>> +    fn boot(
+>>          &self,
+>> -        gsp: &'a Gsp,
+>> -        ctx: &GspBootContext<'a>,
+>> +        gsp: &Gsp,
+>> +        ctx: &GspBootContext<'_>,
+>>          fb_layout: &FbLayout,
+>>          wpr_meta: &Coherent<GspFwWprMeta>,
+>> -    ) -> Result<BootUnloadGuard<'a>> {
+>> +    ) -> Result<Option<crate::gsp::UnloadBundle>> {
+>>          let dev =3D ctx.dev();
+>>          let bar =3D ctx.bar;
+>>          let chipset =3D ctx.chipset;
+>> @@ -160,10 +159,6 @@ fn boot<'a>(
+>>              KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadB=
+undle>
+>>          );
+>> =20
+>> -        // Wrap the unload bundle into a drop guard so it is automatica=
+lly run upon failure.
+>> -        let unload_guard =3D
+>> -            BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon=
+, Some(unload_bundle));
+>> -
+>>          let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset)?;
+>> =20
+>>          let args =3D FmcBootArgs::new(
+>> @@ -174,11 +169,23 @@ fn boot<'a>(
+>>              false,
+>>          )?;
+>> =20
+>> -        fsp.boot_fmc(dev, fb_layout, &args)?;
+>> +        // Keep the result as we want to wait for lockdown release even=
+ in case of error, to make
+>> +        // sure `args` is not accessed by the GSP anymore.
+>> +        let fsp_res =3D fsp.boot_fmc(dev, fb_layout, &args);
+>> =20
+>> -        wait_for_gsp_lockdown_release(dev, gsp_falcon, args.boot_params=
+_dma_handle())?;
+>> +        // Wait for GSP-FMC to release the GSP lockdown, indicating tha=
+t `args` is not accessed
+>> +        // anymore.
+>> +        let lockdown_res =3D
+>> +            wait_for_gsp_lockdown_release(dev, gsp_falcon, args.boot_pa=
+rams_dma_handle());
+>> =20
+>> -        Ok(unload_guard)
+>> +        match fsp_res.and(lockdown_res) {
+>> +            Ok(()) =3D> Ok(Some(unload_bundle)),
+>> +            Err(e) =3D> {
+>> +                // Wait for the GSP RISC-V core to halt in case of erro=
+r.
+>> +                let _ =3D unload_bundle.0.run(dev, bar, gsp_falcon, sec=
+2_falcon);
+>> +                Err(e)
+>> +            }
+>> +        }
+>
+> IMO we should just ScopeGuard here too (after args creation) to run the
+> unload bundle. It will avoid manual manipulation of results which is
+> error prone (since a ? added later will break things) and also halt
+> happens-after gsp lockdown, so it's a natural sequence point. Also I am
 
+ScopedGuard here is reasonable - do you mean only for running the unload
+bundle, or would you also duplicate the lockdown release there so we can
+avoid using `and`?
+
+> not 100% sure but I am not fully convinced that
+> wait_for_gsp_lockdown_release will correctly detect all errors if they
+> occur.
+
+The failure path is a best effort. I don't think we can guarantee
+anything as it doesn't appear to have been designed with recovery in mind.
+
+>
+> With ^ change,
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+
+Thanks!
