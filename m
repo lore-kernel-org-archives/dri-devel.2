@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 983AAC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 03:21:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32231C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 04:07:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC97A10EB40;
-	Tue,  7 Jul 2026 03:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89A0C10EB41;
+	Tue,  7 Jul 2026 04:07:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PlW6VQ0M";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="gtZy8sc/";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F01610E418;
- Tue,  7 Jul 2026 03:21:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 968EE600FF;
- Tue,  7 Jul 2026 03:21:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41F11F00AC4;
- Tue,  7 Jul 2026 03:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783394514;
- bh=Zo1j0X41TZWp7MtLyzXFSkH33VUbHq8e3f9IeM67dbk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=PlW6VQ0M7FupS+br9H0ybJVae1YSHbmCRGg4BEyZWHYtESvldaSiEgAbvlemt7PeX
- 5908NFLrwB3VJouDd8u4cNunOL2ViQDmEtHq7GsNjoic3b+ScSNzR60M7ph2BmEdwc
- tARa4R5dU8P2R2ZlPSeKPBVRo9+fAzS0i/YyZzoVgdVOcnGcXEBBqU5eW/Ne20rZ/H
- n6Ar8V7LNH6FjkS2MGw5YW657mtp/4jOe3kD9qOnl3UZwsYS2lRyGCJX/xiFIk8F6L
- Arz4DcZQyy1AiCNvjKzwwTd8SQAEuSa5EA/Wm694mKzKcOBBh7aG+ILpVI8vkHhqst
- cCPKEM/DWhkgg==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from mail-m6031.netease.com (mail-m6031.netease.com [210.79.60.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3883010EB41
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 04:07:21 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 452ef582f;
+ Tue, 7 Jul 2026 12:07:17 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/8] qcom: display / dts: Few corrections of
- address spaces.
-Date: Mon,  6 Jul 2026 22:21:28 -0500
-Message-ID: <178339449937.1938770.7041355905157380217.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
-References: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Damon Ding <damon.ding@rock-chips.com>,
+ Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v6 1/5] dt-bindings: display: bridge: analogix-dp: Add
+ data-lanes support for endpoint
+Date: Tue,  7 Jul 2026 12:06:09 +0800
+Message-Id: <20260707040613.1992841-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9f3ac243f903a8kunme8126cdf5bc65
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGklDVkgYTk1NTUofSR1CSlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=gtZy8sc/CcIj6t/A5SakZ1J/mTu9QtdnO6YE/WgWpip3PUEwkVJsqwBw34aYYU8JAoT0yy2J5wPH+bO2M38OnphV2dcYvQEG+/ewMXmfHxpoDQ11e3mK83orYsJEX8dIe77OQOcx+yYnOVu6BnOJvgQPPpSHxe74ODkhig+hHuA=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=b+nSKBFe+y1XdWvizakdBtzYyTbwGeDxxK3jwOpDtv0=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,22 +75,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Add data-lanes property support to the port@1 endpoint for physical
+lane mapping configuration.
 
-On Sun, 05 Apr 2026 16:33:56 +0200, Krzysztof Kozlowski wrote:
-> Changes in v2:
-> - Patch #2: Add dai-common.yaml reference (Dmitry)
-> - Correct subject
-> - Rb tags
-> - Re-order Eliza bindings patch
-> - Link to v1: https://patch.msgid.link/20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com
-> 
-> [...]
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-Applied, thanks!
+Additionally, add data-lanes setting in Rockchip eDP DT node example
+to show actual lane mapping usage.
 
-[8/8] arm64: dts: qcom: sm8750: Correct DPU VBIF address space size
-      commit: 4fd832d6aed496c7111746d2c1e36b006659f89d
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-Best regards,
+---
+
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
+- Remove redundant deprecated property 'data-lanes' for eDP node.
+- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
+
+Changes in v3:
+- Squash data-lanes adjustment of Rockchip eDP DT example into this
+  commit.
+- Add unevaluatedProperties: false to both the port@1 and endpoint
+  nodes.
+
+Changes in v5
+- Add Acked-by and Reviewed-by tags.
+---
+ .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++++++++++++-----
+ .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+ 2 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+index 62f0521b0924..ecf206871cdd 100644
+--- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+@@ -42,13 +42,22 @@ properties:
+     properties:
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description:
+-          Input node to receive pixel data.
++        description: Input node to receive pixel data.
+ 
+       port@1:
+-        $ref: /schemas/graph.yaml#/properties/port
+-        description:
+-          Port node with one endpoint connected to a dp-connector node.
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Port node with one endpoint connected to sink device node.
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++                items:
++                  enum: [ 0, 1, 2, 3 ]
+ 
+     required:
+       - port@0
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index 6548f157fd96..39dafe75a680 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -160,6 +160,7 @@ examples:
+           reg = <1>;
+ 
+           edp_out_panel: endpoint {
++            data-lanes = <0 1>;
+             remote-endpoint = <&panel_in_edp>;
+           };
+         };
 -- 
-Bjorn Andersson <andersson@kernel.org>
+2.34.1
+
