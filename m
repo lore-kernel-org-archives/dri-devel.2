@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD46BC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 867E2C44501
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30D0E10EDCA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C12D910EDC0;
 	Tue,  7 Jul 2026 15:11:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GzRgUWZy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U25FpTkJ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C718810EDD3
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29E3B10EDC0
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4BD2261389;
- Tue,  7 Jul 2026 15:11:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F87A1F000E9;
- Tue,  7 Jul 2026 15:11:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A30276138A;
+ Tue,  7 Jul 2026 15:11:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D64881F000E9;
+ Tue,  7 Jul 2026 15:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437096;
- bh=r9BV1x1uAx6AOUG/4Aq2eGQKDajV2V7F6xPbJ07JD90=;
+ s=k20260515; t=1783437098;
+ bh=wQHSDehVED/IIOawnowbpHauKOB8Xgnz1oIVatZbI0o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=GzRgUWZy1/mlxk3a+NZabBp3vQJl8pxZGaOUIjuuYM4OsloukfdopYxTYv1ycw+U5
- ATch5nSHuDglQv5klNQ3hwZwDQ0jWiZ8js7dzgztpOm0KZdMrZqOMGbfBud6MvkQqJ
- 9owQaS2I8Uw6+2akRxVLmhIu88HhuviLeu//kVcEYBFUXbHu3X90Jry0wtkM2EL1BT
- Ay+uhFQZ9RmDAtAi6ww4TM7uqF3G8JWbIghmCwPTjpfeyKK5MJ974xmSHHprXuyI66
- Gv8il/u4IU7QoRkwMAZogYRHmv9WrwiK8EOJprUAtoRSzOt8zD9F6wm+S8U/lIV3/A
- L7wvsiDtl8vTA==
+ b=U25FpTkJqYPnirSJGIQNCWNlNtWbQNS6YhUictB1DWARPsKqu0reyUPDCbrcH/OUw
+ eCoT8ohabS88kBUs2zUsukgKaKxzJam88TR0pzKcTJ1EcW9+T22Q1Z78wYbTquZ8tI
+ L2mD1vZRf9ohVX7dV+eOBTmJ6KWshsaRR8PWZyRD1tCvR0VB0AbnXsijk5ftVWlDtz
+ 4rQyiSRuQwihDevuNs2VVZ5yl4nEY0TnuNCjoGecSZWv9lZlc8MxbLXn4JGi/zwlY+
+ bmKqvZ/Z79bKfCZ0b5ZmmsrAMM25resYgFlsnqexgBgwHFD2DCjcFp1l4LHUHHnWsw
+ H01HQChUyh9rQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:09 +0200
-Subject: [PATCH v2 02/37] drm/bridge: analogix-anx6345: Switch to atomic
+Date: Tue, 07 Jul 2026 17:11:10 +0200
+Subject: [PATCH v2 03/37] drm/bridge: analogix-anx78xx: Switch to atomic
  bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-2-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-3-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4958; i=mripard@kernel.org;
- h=from:subject:message-id; bh=IYAjE6Yt8cP/ghJDwvIyqfLEBgSdQVqMB2giJZdJIYA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4oJccZJa8+bw38qYoJzcecLHlPtyztSWdI+J7Ik6m
- r3LNJ50TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIk07WCss69Y8julIPFsotm/
- //lOqTHrKyb+ldGZf2L/nM1bGz+VyyRf+vfhaOYE+Uc35s8q7N0fxtiw9dGR1sVPi1jn/EusnlP
- 4fzUfY/CBvQKc2s2TWNaH1bSsVpG6VbTW0L6g7+1fEZaUOb8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5006; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=rnBId8vq2tvU93+5Zoi67aI9zZBGbwvA8XX6sHkdm3A=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4oLFt9+eWHPU2uLRHPeZ+cwe/ZXi/KJG61z+dHxnd
+ 9r69jFXx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjI/bWM9flSa8R1zr+85B/V
+ dfaqp3TRJ62/+w4s/bW0cm9a28EfWb8+WE+cLLjNKFvDqPzeq+rbexkbJmlnXnVYlvtusUS7rVi
+ T0fyA9eUuzY84RNe7p3+tfnT83HMbkRIJ6ed8mi6l9333nxQFAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The analogix-anx6345 bridge uses the legacy non-atomic enable and
+The analogix-anx78xx bridge uses the legacy non-atomic enable and
 disable bridge callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
@@ -206,62 +206,63 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/analogix/analogix-anx6345.c | 13 +++++++++----
+ drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c | 13 +++++++++----
  1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-index f3fe47b12edc..eba5c6dcb5ad 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-@@ -564,11 +564,12 @@ anx6345_bridge_mode_valid(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c b/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c
+index ba0fc149a9e7..32186efa6f50 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c
+@@ -935,11 +935,12 @@ anx78xx_bridge_mode_valid(struct drm_bridge *bridge,
  		return MODE_CLOCK_HIGH;
  
  	return MODE_OK;
  }
  
--static void anx6345_bridge_disable(struct drm_bridge *bridge)
-+static void anx6345_bridge_disable(struct drm_bridge *bridge,
+-static void anx78xx_bridge_disable(struct drm_bridge *bridge)
++static void anx78xx_bridge_disable(struct drm_bridge *bridge,
 +				   struct drm_atomic_commit *commit)
  {
- 	struct anx6345 *anx6345 = bridge_to_anx6345(bridge);
+ 	struct anx78xx *anx78xx = bridge_to_anx78xx(bridge);
  
  	/* Power off all modules except configuration registers access */
- 	anx6345_set_bits(anx6345->map[I2C_IDX_TXCOM], SP_POWERDOWN_CTRL_REG,
-@@ -578,11 +579,12 @@ static void anx6345_bridge_disable(struct drm_bridge *bridge)
+ 	anx78xx_set_bits(anx78xx->map[I2C_IDX_TX_P2], SP_POWERDOWN_CTRL_REG,
+@@ -973,11 +974,12 @@ static void anx78xx_bridge_mode_set(struct drm_bridge *bridge,
  
- 	if (anx6345->powered)
- 		anx6345_poweroff(anx6345);
+ unlock:
+ 	mutex_unlock(&anx78xx->lock);
  }
  
--static void anx6345_bridge_enable(struct drm_bridge *bridge)
-+static void anx6345_bridge_enable(struct drm_bridge *bridge,
+-static void anx78xx_bridge_enable(struct drm_bridge *bridge)
++static void anx78xx_bridge_enable(struct drm_bridge *bridge,
 +				  struct drm_atomic_commit *commit)
  {
- 	struct anx6345 *anx6345 = bridge_to_anx6345(bridge);
+ 	struct anx78xx *anx78xx = bridge_to_anx78xx(bridge);
  	int err;
  
- 	if (anx6345->panel)
-@@ -598,15 +600,18 @@ static void anx6345_bridge_enable(struct drm_bridge *bridge)
+ 	err = anx78xx_start(anx78xx);
+@@ -990,16 +992,19 @@ static void anx78xx_bridge_enable(struct drm_bridge *bridge)
  	if (err)
- 		DRM_ERROR("Failed to enable DP output: %d\n", err);
+ 		DRM_ERROR("Failed to set HPD: %d\n", err);
  }
  
- static const struct drm_bridge_funcs anx6345_bridge_funcs = {
+ static const struct drm_bridge_funcs anx78xx_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = anx6345_bridge_attach,
- 	.detach = anx6345_bridge_detach,
- 	.mode_valid = anx6345_bridge_mode_valid,
--	.disable = anx6345_bridge_disable,
--	.enable = anx6345_bridge_enable,
-+	.atomic_disable = anx6345_bridge_disable,
-+	.atomic_enable = anx6345_bridge_enable,
+ 	.attach = anx78xx_bridge_attach,
+ 	.detach = anx78xx_bridge_detach,
+ 	.mode_valid = anx78xx_bridge_mode_valid,
+-	.disable = anx78xx_bridge_disable,
++	.atomic_disable = anx78xx_bridge_disable,
+ 	.mode_set = anx78xx_bridge_mode_set,
+-	.enable = anx78xx_bridge_enable,
++	.atomic_enable = anx78xx_bridge_enable,
  };
  
- static void unregister_i2c_dummy_clients(struct anx6345 *anx6345)
+ static irqreturn_t anx78xx_hpd_threaded_handler(int irq, void *data)
  {
- 	unsigned int i;
+ 	struct anx78xx *anx78xx = data;
 
 -- 
 2.54.0
