@@ -4,105 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714DBC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 05:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2B32C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 05:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC8A310E429;
-	Tue,  7 Jul 2026 05:47:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38EE510E42C;
+	Tue,  7 Jul 2026 05:47:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EZLjACiD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RdcjzbaG";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013010.outbound.protection.outlook.com
- [40.107.201.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE46910E429
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 05:47:06 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011015.outbound.protection.outlook.com [52.101.62.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C0FF10E42C
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 05:47:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GS8zQUfxK0yUEI/XfBC/Ci3f9bCkl5hi4PTuu9599fkyzxBQiL1vQH7nvOnvpZtCZyEkBuSH0b8yrmvNrG0pZvn8TK7ughPqx/nH/oX245U8VmRqDT5k7kiB4rWEkdzf9rHVp2grnm5RAxl709/feAMp/pbHvWsV7/gpos8wWfViDWO2SZrbnbL6lF5yQ9YU1C2C9QyPAkUtFpLbU7FEoIV1CJ2MRrzJU9IXdFWIF8bDW4c1vsXlPlS3bYQZ4rntYJh3pn6o4TiINFemeosXNVrcHVsrGBuUGrASsZYClz5V8r9zlIIKGnmLtwfpYxRas/MeOHZmwboDPgW1f4Gj2g==
+ b=orItAMxiGaY5q1iRN8tA88v8fTLe6fnYZmpvQmBmSyzNbpIY6WujZfQV6Vz6u3F7DbNI+Af7M1yvFlZtsOjXTqqIbvofWmJgYPpDhYJISb0+GrcTVXYptrIh/HCxrZlnaa7JR+NN/fXr/OxXTHvLtgBqwYL5R8uCXxuc5qGAfLef89T9+lkW//OoAXtPFXzVzT+t89Uaw7X91auQm/R84ug/jX4l6BxNAE0wNS32NE8xnd+zzBNEQpPU4S4P7pmTVd4CNSexeFMfo7gI+YDvGK1Crxpag3R2jRR4g0vN5yoAvQWK1gddwmxXa/nxLtfAC6olKt4AgQ5LFQtIfNKUBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Ot7YTJm4QOmH1e1hoG30iFnw8IzBYPDKsX9yAftA5E=;
- b=k2EwT5elHGOiPZlc1Xfa5MH8CK/FvcJmomE3An4SarrMCt1Tacm45wu0dH84+ILuFuauKsqxDIOIzT4y334ibHmmTyzoYtZa+CfyQTrtqVHZksVu+Zumia43ylx+mrFVLZvQg6pUg4SzGzDS4g8o8wrevLHruhEuqofma8oZbZtVJwS7ySMx1aHxk9P5slegnY2/RDVBp499/QZpGPFUTa0a39pRpfENDJZQKxoQ73p4uw+3kpAJpCPbmJpB0SAxDXxI3Ohx1SVmdZyXAWfHLx27Fui1P0aVVK/RGd4u/luOfpVGq+PmbJtHqYA+5DlMSIqmzRibpx7aChUEY/YtYg==
+ bh=pPvg6heO4EoKz/d6/112oxl3mAeFzhOK4DxB5/T812E=;
+ b=VTnktnmB4QGgRg29V3oXdaWzngFOtheS1AhaiEvKhbuqqYdxCFoTZ6+XyBYluJX/3kcyy6XvvsbvE7XBK0PGWwqAR+AIjUkoS8UZXWNLJ2jqHdORv8CsaJqQNx8t3/hGPSBOsLg5ezDn7HXw956v3cdIfHMfKIyOqe6w3bTILBw33HxthAcfP40EwsMqsCkXjTPGFkVmNNT/mzs/mzkEJlS44gLBiomDN96mPUfERf2oqp3YjHeQJj2dP6BlanBXamK4yPauVYoZK8Jd56io6eJ1FsyrUwrF9z8Z9q0mhSHuC3XtkELHeOee+AIg4RRQJQxrFhoGEkfrMcxvvipChg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Ot7YTJm4QOmH1e1hoG30iFnw8IzBYPDKsX9yAftA5E=;
- b=EZLjACiDZFduxklx6po9hzOnHaVnVJsG+OvyHIRZABXx+BOtyDpJ0QOGV3Q7ZjHfzzLQ4oftWLAjS7hrmJTf3nopFAH2PwnB36eO1HIXj9ia4uSu9eqsB6P/4j3RyFbqBExGYn6BzeXHmA4L2vW5k9TQ//WEXrs+wQS/CZmZpLA=
-Received: from PH0PR07CA0117.namprd07.prod.outlook.com (2603:10b6:510:4::32)
- by SN7PR12MB7252.namprd12.prod.outlook.com (2603:10b6:806:2ac::9) with
+ bh=pPvg6heO4EoKz/d6/112oxl3mAeFzhOK4DxB5/T812E=;
+ b=RdcjzbaGeh74XEqoJuHb8snEEFVWmMxj1k+kgsl/KuDe7FIMcvlQ07CHt4a0hLeVo21PNP4BoxmF/417QgJxFuTfLszcx9CpqdBcxohnXmN6Sxhm2A6XDnPkB24Cuy7PdxlmeZpZyOvHQzGnO+vp+w4C2lsT5woosBKIMB0ObRw=
+Received: from CH2PR12CA0011.namprd12.prod.outlook.com (2603:10b6:610:57::21)
+ by DM4PR12MB6493.namprd12.prod.outlook.com (2603:10b6:8:b6::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 05:47:03 +0000
-Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
- (2603:10b6:510:4:cafe::f) by PH0PR07CA0117.outlook.office365.com
- (2603:10b6:510:4::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Tue, 7
- Jul 2026 05:47:02 +0000
+ 2026 05:47:37 +0000
+Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
+ (2603:10b6:610:57:cafe::88) by CH2PR12CA0011.outlook.office365.com
+ (2603:10b6:610:57::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.12 via Frontend Transport; Tue, 7
+ Jul 2026 05:47:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 05:47:02 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 05:47:36 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 00:47:02 -0500
+ 2026 00:47:36 -0500
 Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 7 Jul 2026 00:47:01 -0500
-Message-ID: <b7a03b23-2218-4d39-f6ab-8bb0fb8b6999@amd.com>
-Date: Mon, 6 Jul 2026 22:47:01 -0700
+ Transport; Tue, 7 Jul 2026 00:47:35 -0500
+Message-ID: <205482c8-088e-7c6f-ea0a-ef33ef65b224@amd.com>
+Date: Mon, 6 Jul 2026 22:47:30 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH V3] accel/amdxdna: Prevent PM resume deadlock in
- hwctx_sync_debug_bo()
+Subject: Re: [PATCH V1 09/13] accel/amdxdna: Use unsigned long for nr_pages in
+ amdxdna_hmm_register()
 Content-Language: en-US
 To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
  <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <mario.limonciello@amd.com>, <shuvampandey1@gmail.com>,
- <karol.wachowski@linux.intel.com>
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
 CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260616212429.3620645-1-lizhi.hou@amd.com>
- <ff4847cb-90ce-48fb-bb3a-bdffe8ccdf72@amd.com>
+References: <20260616061532.3533469-1-lizhi.hou@amd.com>
+ <d4576d55-b33b-4fb6-a10a-e553637cc911@amd.com>
 From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <ff4847cb-90ce-48fb-bb3a-bdffe8ccdf72@amd.com>
+In-Reply-To: <d4576d55-b33b-4fb6-a10a-e553637cc911@amd.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|SN7PR12MB7252:EE_
-X-MS-Office365-Filtering-Correlation-Id: f83b1105-fcfb-4480-24f4-08dedbeb2b91
+X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|DM4PR12MB6493:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0c20385-0e83-405c-9df6-08dedbeb3fd8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|5023799004|4143699003|56012099006|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: lo2ZSjSwt591OzEbmR+kYRTwvDqYI5wg6vZ+QPDs6fgKDNQKXLyHcjDb5KSvvzecZRUZqUJdioEXtTvDP7jGk1P5EHrD0FqR0vwnv7RzFb7hPPY6mary7sfcNndUwpqjG7CQAO/B3Mq/ThJUFvbvWs05QCCDtd1E+/E2SnYpt2t0DS54qdfEKfPJESMt/2Z3zjD9D5bJ8vc1WmPbji99RLvPXNHOCNpxP0RDn3mTHT1SxQ0jV+AxQtFgYzbVblYFoDKpUUF7F9hO7dcaLOEIbxFuTdj2y5a+UbDJh8VGRsaq+DXM0RNFHIhktIjLjQGysibxVo17dF57PKlubdNzCdsfZQZHk3pxQBYjUO5nJKs26087POKIpICk7oeV8i90qoz86qIH4JnrZPuP7HqiBm9hEbPsjlaLvrN2bwDHLkP7bHE4FRGtIhQCpiIknCOw73/ZWftvy23xwWVGpqv/EN2oR+XggMNi9rZjXuZAl/0g0AxUlLQwR2xEPRPdLv9wNEZM10jZTmhnFQQK7uKwQLBI8Gr7eLlpB8G5aUviJcmKBpW0UopbXMU87dCFfZqRkQx7R00s7WaoL8EaxuKXYV6HOo0Qy8LyEfCasK8NWn2OSbq2ppGgRzzcZhMcbsUiArWQbHz44TOqybAoZFNnWfEwQ6QA91TMD1ji63wxp5QNdR3pgijhONSTZnKI1QuL4BatgxhmY7FH+uMXuu0wCQ==
+ ARA:13230040|376014|23010399003|82310400026|1800799024|36860700016|4143699003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: fUxNDv3lNsrxi2APAeScG70zIhfWFExbrpY1lfDJ/NBlD+igtXSCX7ziZGvKGSE0dcByebWqNzr8L8DYNLHmjjl8RWwcDjp9NKDrDeOJUMPU8b7wuSm/FQYHAU/4k4Y+9zglzzo+htd/xPZVHL1kxXXD57jwefKY8WEC3VMnKCSzaGWNk2+4QdzzCcz5jQqbxx6zJxJx/vTl0lFo9tVRFUVAf9IDMCV8w2mZ9/YRKM1NIZJTLKftu92f0HcNDjR6qiBFdtYl6P2sp4DGzlFjJC6pBk82OFxRMw/fv7pFmk3uHUdOAA/sBWrI807syOro4ojWYoji2jKb+nWVX33Ef2IXjicJcciIVk0N9i6lyzIGOS01JRAxzMqaf4UP19/K+a+L7ImqFhihAO86ClCtq9XSWFdBNtynmwJ2ddMHn7soXBT0Y+9F+npDoqIPUk57BQCaVezebasIBkgiuW2mY9W1g5rG5ludiksY1uPY700eez6Zsly+jhU7Z1ISTO9NYqab5Ibqpulb3g7aKSmzYdRzUasY3WC5N2uBHO5cJDsd9ivznPk+M/arRc0xPRuP22cNK0CUdXGgc16cggq0P9wZKVyHX5SV6nP4H9K4YKJSXVqy9rtEafK0TrC/XDdJ8ybdrVUnoWlYeSXaj1h0CxBkkL6DJfLKdhwkMjCn0yAGXdezS6e3c45CG37umNjHp2XnXT67PcxJQvqa33S33A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(5023799004)(4143699003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(82310400026)(1800799024)(36860700016)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xoU1kpj8Z+aj62PiZn9G25E14ahfX1IrZVXuDtv/beAKZt9UNZVPUj7xZkikkfEP37ZuznoKAcrLAHLwtdGfV2qVGJN+0AsySPsR+4rYJEr5i/I7HRT8cPcWvk/S+cyjut6wp2NYifLPncHceSxozACfW6T2Ld5T18qf4qfI+/A5RRBq5N/qi7WSViiYkOo8XwyFsu1pKFFqKb3TCLth1VbmVEver0jKRTekghxWX9VS1IKwBe+g6odFEhsxPL8W/Ku7SA8f/+vH8TtXlPc/4H20u6kCNbUhryjkLnuFyrtMPfzlmqPkn3C52e95yhTUsGj9oDPFkALoRd6AOn1l871mwHJWqE3IOgonS+IyHO7sK211EevnbtFIqo3ap1MxsLLhmrn1UoFW/p0pC87HMNuad+ZCxbapiyHK4kaYHNlpDwno+bdrcTDO5hsUcR3h
+X-MS-Exchange-AntiSpam-MessageData-0: LxlN5SvVfMhqzpYRYUxoyXiYn/8vN2lz8pw590W+MpdWLq9GZ2JimSvyNab9lZN5yPrFN1ZXb3YBQ0TalFh4MpUNf87wl5DXZPaC4VHoaD0nb+Ojj+nVr5wm2wd32APHhgVdxByCa8TSOZX5r48vIvQehyZQ6BHbKA3e+5bY+o9TEsHhxXSIoY6ROaK3YGuwZHLuykZd2ZKi9RdIOWvB9hxeyGAc5ifCzUjDU9gGifJKRpACTvg/jT7ftbYviUomv3wJFXT5GkgfiTkyZHlI3d1QsywZQOwuZJbd/DXvdUxuysj6h2xnsBb3xuvHUZztAnM85gPUI+Eych1JUmvYn61dVPqHFo262TvhyZQ0aqaJYdCz4PIXemQi2RFU+7HeSDvploARQ2XxV2eMO6pkRTxAKB0VZ0l+ygt1SrLJNzVVUpHcg5SwUhd5Aoe73fjJ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 05:47:02.7488 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f83b1105-fcfb-4480-24f4-08dedbeb2b91
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 05:47:36.7603 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0c20385-0e83-405c-9df6-08dedbeb3fd8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E5.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000000A0.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7252
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6493
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,94 +118,33 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Applied to drm-misc-fixes
 
-On 7/6/26 15:34, Max Zhen wrote:
+On 7/6/26 15:01, Max Zhen wrote:
 >
 >
-> On 6/16/2026 Tue 14:24, Lizhi Hou wrote:
->> amdxdna_hwctx_sync_debug_bo() invokes the hardware hwctx_sync_debug_bo()
->> callback while holding xdna->dev_lock.
+> On 6/15/2026 Mon 23:15, Lizhi Hou wrote:
+>> nr_pages is declared as u32 in amdxdna_hmm_register(), which may not be
+>> large enough to represent the number of pages for large mappings.
 >>
->> The callback may call amdxdna_cmd_submit(), which in turn calls
->> amdxdna_pm_resume_get(). If the device is suspended,
->> amdxdna_pm_resume_get() may synchronously execute amdxdna_pm_resume(),
->> which also acquires xdna->dev_lock, resulting in a deadlock.
+>> Use unsigned long for nr_pages to avoid potential overflow.
 >>
->> Avoid the deadlock by calling amdxdna_pm_resume_get() before holding
->> xdna->dev_lock in both amdxdna_hwctx_sync_debug_bo() and
->> amdxdna_drm_config_hwctx_ioctl()
->>
->> Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
+>> Fixes: ac49797c1815 ("accel/amdxdna: Add GEM buffer object management")
 >> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->
-> Reviewed-by: Max Zhen <max.zhen@amd.com>
->
->> ---
->> V2:
->>    Fix jumping forward over the guard(mutex) declaration.
->> V3:
->>    Fix the same in amdxdna_drm_config_hwctx_ioctl().
+> Reviewed-by: Max Zhen <max.zhen@amd.com>> ---
+>>   drivers/accel/amdxdna/amdxdna_gem.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
 >>
->>   drivers/accel/amdxdna/amdxdna_ctx.c | 26 ++++++++++++++++++++++----
->>   1 file changed, 22 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c 
->> b/drivers/accel/amdxdna/amdxdna_ctx.c
->> index ff6c3e8e5a15..2ab4443e7094 100644
->> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
->> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
->> @@ -356,16 +356,25 @@ int amdxdna_drm_config_hwctx_ioctl(struct 
->> drm_device *dev, void *data, struct dr
->>           return -EINVAL;
->>       }
->>   -    guard(mutex)(&xdna->dev_lock);
->> +    ret = amdxdna_pm_resume_get(xdna);
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "Resume failed, ret %d", ret);
->> +        goto free_buf;
->> +    }
->> +
->> +    mutex_lock(&xdna->dev_lock);
->>       hwctx = xa_load(&client->hwctx_xa, args->handle);
->>       if (!hwctx) {
->>           XDNA_DBG(xdna, "PID %d failed to get hwctx %d", 
->> client->pid, args->handle);
->>           ret = -EINVAL;
->> -        goto free_buf;
->> +        goto unlock;
->>       }
->>         ret = xdna->dev_info->ops->hwctx_config(hwctx, 
->> args->param_type, val, buf, buf_size);
->>   +unlock:
->> +    mutex_unlock(&xdna->dev_lock);
->> +    amdxdna_pm_suspend_put(xdna);
->>   free_buf:
->>       kfree(buf);
->>       return ret;
->> @@ -386,16 +395,25 @@ int amdxdna_hwctx_sync_debug_bo(struct 
->> amdxdna_client *client, u32 debug_bo_hdl)
->>       if (!gobj)
->>           return -EINVAL;
->>   +    ret = amdxdna_pm_resume_get(xdna);
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "Resume failed, ret %d", ret);
->> +        goto put_obj;
->> +    }
->> +
->>       abo = to_xdna_obj(gobj);
->> -    guard(mutex)(&xdna->dev_lock);
->> +    mutex_lock(&xdna->dev_lock);
->>       hwctx = xa_load(&client->hwctx_xa, abo->assigned_hwctx);
->>       if (!hwctx) {
->>           ret = -EINVAL;
->> -        goto put_obj;
->> +        goto unlock;
->>       }
->>         ret = xdna->dev_info->ops->hwctx_sync_debug_bo(hwctx, 
->> debug_bo_hdl);
->>   +unlock:
->> +    mutex_unlock(&xdna->dev_lock);
->> +    amdxdna_pm_suspend_put(xdna);
->>   put_obj:
->>       drm_gem_object_put(gobj);
->>       return ret;
+>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
+>> b/drivers/accel/amdxdna/amdxdna_gem.c
+>> index aef4c23a1a66..201536aff440 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>> @@ -351,7 +351,7 @@ static int amdxdna_hmm_register(struct 
+>> amdxdna_gem_obj *abo,
+>>       unsigned long len = vma->vm_end - vma->vm_start;
+>>       unsigned long addr = vma->vm_start;
+>>       struct amdxdna_umap *mapp;
+>> -    u32 nr_pages;
+>> +    unsigned long nr_pages;
+>>       int ret;
+>>         if (!amdxdna_pasid_on(abo->client)) {
 >
