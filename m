@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D9D7C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C11C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 610E010EDB1;
-	Tue,  7 Jul 2026 15:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E41310EDD6;
+	Tue,  7 Jul 2026 15:11:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ma9H40bE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nE32ZmhY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B441E10EDBC
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5FEA10EDBC
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 38A406138B;
- Tue,  7 Jul 2026 15:11:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C0541F000E9;
- Tue,  7 Jul 2026 15:11:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6584F41318;
+ Tue,  7 Jul 2026 15:11:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C487D1F000E9;
+ Tue,  7 Jul 2026 15:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437100;
- bh=h/SaE7f2mccL+Do1PSVGZR3uUCaUMDi3hVjR4giFNb4=;
+ s=k20260515; t=1783437103;
+ bh=K4FDS7jlFEmvD7cMCWREKbfVlq5TLbnIHMzdqTMG+3Y=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ma9H40bE1CbLK4MJFAXN5kmaVUZtznn+oRR2CoAMVcm9B3pREQQfwDPqN5U7dqPJI
- alhafd/Stu1ipo/4ugJC2a+bVSggYCxcscvHqnWjAAa9+fEJpXO62jhQKjCYd+iJSW
- a9A1oyPb55YOC8hube/e68FCXHNnzEPGGvPNLjg+G6/rnA+iXfnd6deW4srQAYDxDa
- UmhnnAh6de3LAso0S6T65uhegMTR4jrLePs375FMPbTv2wT416m45kywhKeBxVYogU
- FJXPNxMO/4g/EpTqgqIjxrJUt2Hpfl6SPNvz6H9oQlJ38cvq2hGGxLLVXsZjaCbOzi
- VU4IWAXJVsaXw==
+ b=nE32ZmhYHpwlAzrXX1OfvLjkQBIpIJhs4Et8UbCYvFEehnpcN4mGWZPH/eQ3hUXdR
+ 5vmK8ccnEGHRSzPKqZwmANSDc9DcO5gvieUg5bopE+L8+a9SihHBMgZ4nAuzcIUikl
+ oNT0xQ0AHYTAURIvhvqVzLiLIH87QYmU/HxCg+YXHrRDB4wlmZey+sMyMkmxblyhD7
+ 6BWAhajf5N2I+lKgjAGo7TUMrGSh8x5TySYep1LLI979Xes9JBdyHzaJRTpWIHgMYn
+ 2oRTgbJIq64R9DDPpQIflwYUUjsKeZfI4tUQjcP441tmHr1IWIVOKlkN1a3ru4iSrE
+ bFYrhKMSbhwTg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:11 +0200
-Subject: [PATCH v2 04/37] drm/bridge: aux-bridge: Add atomic bridge state
- handlers
+Date: Tue, 07 Jul 2026 17:11:12 +0200
+Subject: [PATCH v2 05/37] drm/bridge: aux-hpd-bridge: Add atomic bridge
+ state handlers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-4-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-5-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3993; i=mripard@kernel.org;
- h=from:subject:message-id; bh=hy7tJQBS34T9sICQCfPHbNxKzmkGsAYXr/y10/NjxlI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4oKlfyZavNh/6sS9D+I8tcvsXFQ+Xc32V9mw9uXuz
- 7HKMz/M6pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATKWVjbDiQfzfjWNSKsrmc
- 4asEBEz3xnqUpUXW3YlNMZoTtC36SXHO15W7j+alKq9ba3N7dpBTE2NDxwub7xZuIU9V5ipMrEn
- t42o89G6dh9zbvs8dF6J2cV6fbXZTNM1N5PrODLv/QZpVlxUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4005; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Vs80BSgWGbyL9/sdOyg4gADSbWV+U4WLVreR0IeGk2I=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4kIca2emqm65z3T4M0v7w69bLz29urY48nEYmzTHC
+ kEjvW0SHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiU9UY66s70rb4tV6cWiiR
+ P8Xhz6cn6l8FVt812pvroKtwvNl7moXfPeYU1iDGiqVpT/h4k1jlGBsOvDv55/xXnob6t2/N5gV
+ uKq+74n+w4Lm+9eHlDvfuXvu7dManrQJsIe+mxYj67Q9fvPQKAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,8 +73,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The aux-bridge bridge doesn't implement any enable or disable callbacks,
-but is still missing the atomic state handlers.
+The aux-hpd-bridge bridge doesn't implement any enable or disable
+callbacks, but is still missing the atomic state handlers.
 
 In order to remove the legacy bridge callback support from the DRM
 bridge core, add them.
@@ -205,13 +205,13 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/aux-bridge.c | 4 ++++
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-index 1ed21a8713bf..169939d23310 100644
---- a/drivers/gpu/drm/bridge/aux-bridge.c
-+++ b/drivers/gpu/drm/bridge/aux-bridge.c
+diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+index f02a38a2638a..a2e525aa5788 100644
+--- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
++++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
 @@ -7,10 +7,11 @@
  #include <linux/auxiliary_bus.h>
  #include <linux/export.h>
@@ -222,22 +222,22 @@ index 1ed21a8713bf..169939d23310 100644
  #include <drm/drm_bridge.h>
  #include <drm/bridge/aux-bridge.h>
  
- static DEFINE_IDA(drm_aux_bridge_ida);
+ static DEFINE_IDA(drm_aux_hpd_bridge_ida);
  
-@@ -102,10 +103,13 @@ static int drm_aux_bridge_attach(struct drm_bridge *bridge,
- 	return drm_bridge_attach(encoder, data->next_bridge, bridge,
- 				 DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+@@ -163,10 +164,13 @@ static int drm_aux_hpd_bridge_attach(struct drm_bridge *bridge,
+ {
+ 	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
  }
  
- static const struct drm_bridge_funcs drm_aux_bridge_funcs = {
+ static const struct drm_bridge_funcs drm_aux_hpd_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach	= drm_aux_bridge_attach,
+ 	.attach	= drm_aux_hpd_bridge_attach,
  };
  
- static int drm_aux_bridge_probe(struct auxiliary_device *auxdev,
- 				const struct auxiliary_device_id *id)
+ static int drm_aux_hpd_bridge_probe(struct auxiliary_device *auxdev,
+ 				    const struct auxiliary_device_id *id)
 
 -- 
 2.54.0
