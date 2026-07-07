@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D04DC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EC92C44501
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B832310ECF4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB95110ECF7;
 	Tue,  7 Jul 2026 13:24:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dWjqRYBT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m6V9pTFE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 840EF10E4D0
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:24:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6669310E4D0
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:24:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6CE5040D75;
- Tue,  7 Jul 2026 13:24:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABD591F00A3A;
- Tue,  7 Jul 2026 13:24:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EFBF40D75;
+ Tue,  7 Jul 2026 13:24:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23C41F00A3A;
+ Tue,  7 Jul 2026 13:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783430696;
- bh=Bx2JzCcYq82p16fL7dukcKAX14UMiQci0RtZsHYkJ2o=;
+ s=k20260515; t=1783430698;
+ bh=F9wf81DUrFRYlTgbDUYEac7HMXcil+UOZENGoJcInJg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dWjqRYBTOy+GwmrYWh2iEDpfJJANkCDy0s7fkqR6Dk1BUxO1wGGrx/ovWY93q7/oK
- eJ2fWUfgjRblwQy1AHjcNfpWfmqBI/Dm8GUkBQLVfCy9eqgfpFiu2LQqLy6hO1AUHe
- c0wZrV1KWUwF+qFojihGFYWCWK6wFAoxufQIQmnXoeC92gtfDCDgoSNMgkpRKcYxFw
- rqQ8hmTfPfxDhXhfCYJIFhMsYilyaYCbVWyBaZZgaD1TKiXiuHueEoCVOJKhJCZoSq
- kkuacNr9Azx7yCYluaYHcu36bIwwer2JBD7JiI51+tCmuR0g58/8F5keweqF0L3e96
- /SkO/RBzTSwXg==
+ b=m6V9pTFEiov7ozZFACq6/OJ49HW+A0rUKcqJVq8EKHjrZRuHZAufmYtBK3RiApU9T
+ yiD+ybowTG+NbFpcCcPHFN5RrtA2GTHIBcoW4C05eygAY7mK1X1woN58Vm4xzH4igY
+ q7xafcgDoJgN1p7j5OzBRKMnualElX0vhPIAn/atcJJ85NQJApDj/6Wkf7LCEJg0e/
+ umoYOcldjA8ueepLrYwouegTHhB5D2JS00ecdrTpQf6jg4HqERGjfgHv/uwaAA/uhd
+ IYXhi/hj9alA3jQpnLlsc2y8iNBApxAeVp5Nc2g7QXUFv5PrOVY0y5VFI5WgqE575R
+ q0HMMOEWvGlhQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/20] i2c: pxa-pci: use platform_device_set_of_node()
+Subject: Re: [PATCH v3 10/20] net: bcmgenet: use platform_device_set_of_node()
 To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, lee@kernel.org,
- Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260706-pdev-fwnode-ref-v3-8-1ff028e33779@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
+ conor+dt@kernel.org, dri-devel@lists.freedesktop.org, lee@kernel.org,
+ Frank.Li@kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20260706-pdev-fwnode-ref-v3-10-1ff028e33779@oss.qualcomm.com>
 References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-8-1ff028e33779@oss.qualcomm.com>
+ <20260706-pdev-fwnode-ref-v3-10-1ff028e33779@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 13:24:55 +0000
-Message-Id: <20260707132455.ABD591F00A3A@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 13:24:57 +0000
+Message-Id: <20260707132457.B23C41F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,54 +61,51 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The OF device node reference obtained from `for_each_child_of_no=
-de()` is leaked when assigning the OF node to the platform device.
+- [Medium] OF Node Reference Leak due to missing of_node_put() on the resul=
+t of bcmgenet_mii_of_find_mdio()
 --
 
-commit 0b7f7e14c13b65be057bb0d2e9e1a4b953a99635
+commit 3b29ae0c601cb855b049f7da529812b74080533b
 Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-i2c: pxa-pci: use platform_device_set_of_node()
+net: bcmgenet: use platform_device_set_of_node()
 
-This patch updates the i2c-pxa-pci driver to use the new
-platform_device_set_of_node() helper for dynamically allocated platform
-devices. It replaces the direct assignment of the OF node pointer ahead of
-upcoming reference counting reworks in the driver core.
+This commit encapsulates the assignment of the OF node for dynamically
+allocated platform devices using platform_device_set_of_node().
 
-> diff --git a/drivers/i2c/busses/i2c-pxa-pci.c b/drivers/i2c/busses/i2c-px=
-a-pci.c
-> index dbd542300f800..92a0647f08c69 100644
-> --- a/drivers/i2c/busses/i2c-pxa-pci.c
-> +++ b/drivers/i2c/busses/i2c-pxa-pci.c
-> @@ -76,7 +76,8 @@ static struct platform_device *add_i2c_device(struct pc=
-i_dev *dev, int bar)
->  		goto out;
->  	}
->  	pdev->dev.parent =3D &dev->dev;
-> -	pdev->dev.of_node =3D child;
+> diff --git a/drivers/net/ethernet/broadcom/genet/bcmmii.c b/drivers/net/e=
+thernet/broadcom/genet/bcmmii.c
+> index a4e0d5a682687..0f0dbabfaabbc 100644
+> --- a/drivers/net/ethernet/broadcom/genet/bcmmii.c
+> +++ b/drivers/net/ethernet/broadcom/genet/bcmmii.c
+[ ... ]
+> @@ -490,8 +490,9 @@ static int bcmgenet_mii_register(struct bcmgenet_priv=
+ *priv)
+>  	/* Retain this platform_device pointer for later cleanup */
+>  	priv->mii_pdev =3D ppdev;
+>  	ppdev->dev.parent =3D &pdev->dev;
 > +
-> +	platform_device_set_of_node(pdev, child);
+>  	if (dn)
+> -		ppdev->dev.of_node =3D bcmgenet_mii_of_find_mdio(priv);
+> +		platform_device_set_of_node(ppdev, bcmgenet_mii_of_find_mdio(priv));
 
 [Severity: Medium]
-Does this change introduce an OF node reference leak?
+Does this leak the OF node reference? bcmgenet_mii_of_find_mdio() internally
+calls of_get_compatible_child(), which returns a device node with an
+incremented reference count.
 
-Earlier in add_i2c_device(), the child node is acquired using a
-for_each_child_of_node() loop that exits via break. This leaves the child
-variable with an incremented reference count.
+Previously, direct assignment allowed the platform device to consume this
+reference when it was eventually released. Now that
+platform_device_set_of_node() is used, it acquires its own reference
+internally.=20
 
-Before this patch, the direct assignment implicitly transferred this
-reference to the platform device. The new platform_device_set_of_node()
-helper takes its own additional reference internally when setting the fwnod=
-e.
-Since the caller's original reference is never explicitly dropped after
-this helper is called, it seems this will leak the OF node reference on both
-the success and error paths. Should there be an of_node_put(child) after
-calling the helper?
+Should there be an explicit of_node_put() to drop the initial reference
+returned by bcmgenet_mii_of_find_mdio() so it isn't leaked?
 
-> =20
->  	ret =3D platform_device_add_resources(pdev, res, ARRAY_SIZE(res));
->  	if (ret)
+>  	else
+>  		ppd.phy_mask =3D ~0;
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-pdev-fwnod=
-e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D8
+e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D10
