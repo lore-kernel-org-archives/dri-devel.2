@@ -4,82 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 862DDC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:15:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206A3C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:17:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 357AF10EE51;
-	Tue,  7 Jul 2026 16:15:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 625B410E263;
+	Tue,  7 Jul 2026 16:17:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="laktUlVN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="PsIkaeUf";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 572F310EE51
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:15:12 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-493b7612475so41993205e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 09:15:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783440910; x=1784045710; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=MSvgov09ILFDklrc/PmKMunoi1XsfbW6pFLyZtQc8b4=;
- b=laktUlVNlvcDMR6p8P6f4ZV30vvEXUtpvse/yZMLPUp1Kaki1rfbnXURA0isf5YBcl
- vwyDKAxGUWH+AhsHZJLx8vk2Sc3oWzFjshxegfpf9RM7znSPV5mefqiz2+DaZPzy6967
- WD9OzN1TPpk75hOEZQZoK0Fb6kvLLRhE18gXy4hBfWoNf6ChplWQya8MBDM8xNTImpRe
- w7VxE4WL5hdNt4Cfp4vd/QI1Jmp75BCDfzLNoxnnR4CF/b434rza4KFRc7urhZ51adh2
- obCSFoylDchNqqDrgq78/3/o/1t0bjxpUemtJXAM/CWuWRC5tPHUxJFTzKTFSy+7WjhD
- n7fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783440910; x=1784045710;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=MSvgov09ILFDklrc/PmKMunoi1XsfbW6pFLyZtQc8b4=;
- b=PINUuCvAu4hn93TvbwY5KvJw1ytpaOjp+uIji0vOFeAWYMPMhKrkCgP+0GzP1sUckZ
- N6jkrDbJ+RGPG5KIUD4SAkmYCgvLp756etitnN6BP+Gk7qU0pV6JATdOevh6V1OMQ4XY
- 5rXOO8RjJv0c+bJ1RpM/hORH0LgpW1WnqY3Lvx2sOrgvYTrFMpnlC50oJCta98AtwoDs
- +GuDXxCjEuUvTN6AWyt48zWQ+PCuQ79Pc4g+oJuXPI+Q25gdp07FND7u8kTen0+wMKzM
- tq1/50y2J2tkISStO3SILsCtG9oHWsx0YpARbIXbFen0S4v4VmtmciI1ls5ajzytJEbC
- 5HFw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro83JJ1sJYVxpytydvVXz8QJ5Bgmzzv0Ur/88FerOn1SxVgHl97DsDvC2SyUW7SPV4Z146eIPE7vUY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6pZoFRPebu7GSWtffjcPYEpclMPYLUjLwFAfah0zRCKFLoeyB
- Ay25ZzkPP0Wotsr5sCInfxDyO3w/R6f7g4WcLz0Xk1pRBDzjNnF13D5H
-X-Gm-Gg: AfdE7clqUueg59bvX2OLsZdDUwmmMWSBEqGoZJS2nPo3xnBeDf5bynxsE/xSOLpmmtj
- 3Vi2yAngWXMfstnzEI4NhrbO4nSmJUKXRTC94aNulci9gmBd5QMmVIpGKxdAF68g45v2XlY9Sq0
- Xc8gOPR0SANSypwFpojrGT9O11TjUAZ+8OOd0QUstQDd5TN7p6GN3+PxMue2/cTl39kI0AVgGI8
- jgfGgRKetAJTRCa+f1hztXfOPe25vbb44ERajWpQX5XnnlHiqyxlvoLdqPQuPvAmDS0vYik5n6e
- RVKRRESksgkdBubFtinKxgEDQ+7mWUSUvQ/8pJeV94A9IULyYYepG+Liq+wPZZ3Xeb5dx6MNUjD
- 6OI6xy4LwJswe6LYPbYWfoWZwkC5H1LbKGgW1cVDOUgWGs+Pyjo0CZsLJS+8C3Py2JFc0RXe2pb
- mFVRpzqbpERauHIDcJOsUg
-X-Received: by 2002:a05:600c:548d:b0:492:45a0:dcef with SMTP id
- 5b1f17b1804b1-493df062168mr67021255e9.5.1783440910098; 
- Tue, 07 Jul 2026 09:15:10 -0700 (PDT)
-Received: from [127.0.0.2] ([194.35.121.133]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493e0f4e3afsm75376865e9.7.2026.07.07.09.15.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 09:15:09 -0700 (PDT)
-From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Tue, 07 Jul 2026 18:14:55 +0200
-Subject: [PATCH v2] drm/qxl: remove dependency on DRM simple helpers
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9372C10E263
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:16:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783441018;
+ bh=ndr39EnnDNyaVg4yg1bwCupKHr8Ke/XoGQGTOTChPKE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PsIkaeUfrvGxQz+sgpc04CLNz5da5Y1PslciCx8uYjStfb3i9x3w3EQ5ylIUI/dMq
+ vl6wkPIsQjRN56V+acJLJw+Ly+J/gSkEJAb8aaCJcFb650saonn5htIRydBSMoYqd+
+ 0BmrwBQqljHbajnnuY0uP/XQyjYKJ7Mi/nJ0Kgd8EmmPU/Es4gHuDqAyNEEi2SzYiL
+ JAQutMXtnkaoQbiguUkCzXYRIHqVaxjmzcNA0zK59rypR8cwdTNC2GdccBMbcu5QQj
+ JtA5a1V99CHVLiaw3VCJollvKxoz/ZqgPZPCBjv8C9kkl9RqCTEJfcMtUTWtmJydqa
+ j+WUi6cZGE6Uw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E311017E0795;
+ Tue, 07 Jul 2026 18:16:57 +0200 (CEST)
+Message-ID: <69813d90-e419-4433-bc7a-948ee8345b40@collabora.com>
+Date: Tue, 7 Jul 2026 18:16:57 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, olteanv@gmail.com,
+ vkoul@kernel.org
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-13-angelogioacchino.delregno@collabora.com>
+ <20260707160507.4759F1F000E9@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260707160507.4759F1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-qxl-simple-v2-1-08d21bc74a41@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAP4lTWoC/23MQQ6DIBCF4auYWZcGqGDSVe/RuEAcdRIQCw2xM
- dy91HWX/0ved0DCSJjg3hwQMVOisNaQlwbsYtYZGY21QXKpecc79todS+Q3h8xyYYwwyrY4QD1
- sESfaT+zZ114ovUP8nHYWv/UvkwUTTMl20jehBzWqx+wNuasNHvpSyheO1v51pAAAAA==
-X-Change-ID: 20260707-qxl-simple-c01aa1a5c4eb
-To: Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Diogo Silva <diogompaissilva@gmail.com>
-X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,71 +65,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Simple KMS helper are deprecated since they only add an intermediate
-layer between drivers and the atomic modesetting.
-This patch removes the drm_simple_encoder_init() helper usage in the
-qxl display driver by open coding it and using the encoder atomic
-helpers directly. This is a step to eventually get rid of this simple
-KMS helper, once all drivers that use it have been converted.
+On 7/7/26 18:05, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Missing NULL check for the result of `device_get_match_data(dev)` before dereferencing it.
+> --
+> 
+> --- Patch [12]: [PATCH v3 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY ---
+> commit 171cadff965a41b7aba8d81fbb60622f2a8e1a97
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+> 
+> The MT8196 SoC features an updated PHY IP compared to the older
+> ones, and there is one that is specific to Embedded DisplayPort.
+> This commit adds support for the eDP PHY found in the MediaTek MT8196 SoC
+> and all of its variants.
+> 
+>> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
+>> index f5aadc5fdc42c..5decc29c77cb3 100644
+>> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+>> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+> 
+> [ ... ]
+> 
+>> @@ -805,8 +838,39 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
+>>   	},
+>>   };
+>>   
+>> +static const struct mtk_dp_phy_pdata mt8196_edp_phy_data = {
+>> +	.off_ana_glb = 0x400,
+> 
+> [ ... ]
+> 
+>> +	.driving_params = (const u32[]) {
+>> +		[0] = 0,
+>> +		[1] = 0,
+>> +		[2] = 0,
+>> +		[3] = MT8196_DRIVING_PARAM_3_DEFAULT,
+>> +		[4] = MT8196_DRIVING_PARAM_4_DEFAULT,
+>> +		[5] = MT8196_DRIVING_PARAM_5_DEFAULT,
+>> +		[6] = MT8196_DRIVING_PARAM_6_DEFAULT,
+>> +		[7] = MT8196_DRIVING_PARAM_7_DEFAULT,
+>> +		[8] = MT8196_DRIVING_PARAM_8_DEFAULT
+>> +	},
+>> +};
+>> +
+>>   static const struct of_device_id mtk_dp_phy_of_match[] = {
+>>   	{ .compatible = "mediatek,mt8195-dp-phy", .data = &mt8195_dp_phy_data },
+>> +	{ .compatible = "mediatek,mt8196-edp-phy", .data = &mt8196_edp_phy_data },
+>>   	{ /* sentinel */ }
+>>   };
+> 
+> [Severity: High]
+> If the driver is forcefully bound to a device via the sysfs bind interface,
+> and the device has an of_node but its compatible string does not match any
+> entry in the driver's of_match_table, device_get_match_data(dev) will return
+> NULL.
+> 
+> This NULL pointer is stored in dp_phy->pdata:
+> 
+> drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
+>      ...
+> 	dp_phy->pdata = device_get_match_data(dev);
+> 
+> 	if (IS_REACHABLE(CONFIG_NVMEM)) {
+> 		ret = mtk_dp_phy_get_calibration_data(dp_phy);
+>      ...
+> }
+> 
+> And is unconditionally dereferenced here:
+> 
+> drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_get_default_cal_data() {
+>      ...
+> 	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
+> 	int i;
+> 
+> 	dp_phy->ana_bias_r = pdata->ana_bias_r;
+>      ...
+> }
+> 
+> Should device_get_match_data() be checked for NULL before continuing in
+> mtk_dp_phy_probe() to prevent a potential kernel panic?
+> 
 
-Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
----
-Changes in v2:
-- fix type error
-- Link to v1: https://lore.kernel.org/r/20260707-qxl-simple-v1-1-524f6316b5d5@gmail.com
----
- drivers/gpu/drm/qxl/qxl_display.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Oh just shut up, Sashiko! :-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index a026bd35ef485..7f4178800afd7 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -31,12 +31,12 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_edid.h>
-+#include <drm/drm_encoder.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_plane_helper.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
--#include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_vblank_helper.h>
-@@ -1095,6 +1095,10 @@ static const struct drm_connector_helper_funcs qxl_connector_helper_funcs = {
- 	.best_encoder = qxl_best_encoder,
- };
- 
-+static const struct drm_encoder_funcs qxl_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- static enum drm_connector_status qxl_conn_detect(
- 			struct drm_connector *connector,
- 			bool force)
-@@ -1169,10 +1173,10 @@ static int qdev_output_init(struct drm_device *dev, int num_output)
- 	drm_connector_init(dev, &qxl_output->base,
- 			   &qxl_connector_funcs, DRM_MODE_CONNECTOR_VIRTUAL);
- 
--	ret = drm_simple_encoder_init(dev, &qxl_output->enc,
--				      DRM_MODE_ENCODER_VIRTUAL);
-+	ret = drm_encoder_init(dev, &qxl_output->enc, &qxl_encoder_funcs,
-+			       DRM_MODE_ENCODER_VIRTUAL, NULL);
- 	if (ret) {
--		drm_err(dev, "drm_simple_encoder_init() failed, error %d\n",
-+		drm_err(dev, "drm_encoder_init() failed, error %d\n",
- 			ret);
- 		goto err_drm_connector_cleanup;
- 	}
-
----
-base-commit: ee2867b79f9bac3a6fc3221139b09598ce79099c
-change-id: 20260707-qxl-simple-c01aa1a5c4eb
-
-Best regards,
--- 
-Diogo Silva <diogompaissilva@gmail.com>
-
+Too many paranoid checks proposed, are we trying to slow down Linux by a factor
+of 1000 with all the defensive coding?
