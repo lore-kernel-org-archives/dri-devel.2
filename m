@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94AEBC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 09:22:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E5C0C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 09:23:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E53DC10EC21;
-	Tue,  7 Jul 2026 09:22:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF5EE10EC23;
+	Tue,  7 Jul 2026 09:23:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="R6aAGpId";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZQ80bHMs";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8ECE10EC21
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 09:22:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5FTi8Mcjhkp1s4ZA67gqJXo3xQL1HNlKoGId7XEzJC0=; b=R6aAGpIdsRbOWzvrYHCu5CWmtZ
- D0q24Ya9J3+WSEUhWooOEvEKpxlMVSa53pcYD5+0a8d+n+SKFoYqrChB/IIWBpb0SGA7aI/H2Nf/3
- l/Naw8SsdtDGVrz80gOTpFLS0g0YfZcMUW04iyAscahFi1CfHywfBe3NZ0dWaWdx4o/D2qlEbQI6Y
- Qfwu6sB8qqPFHvN6KlwVVtxX8jbbkw6g3Yc9a1Z4/zUXKtZcjyQljKIhcXssJ6xOKaNb4pcusXg1Z
- AxgXoQJ9n4gZg8FppVoeM0noW6+VFREVM2p4VkbFmssPc7YqteC/yQnlAiWBQiCxGrp84JybsI0mR
- uXtxlbqg==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wh204-00AWD1-1l; Tue, 07 Jul 2026 11:21:56 +0200
-Message-ID: <9e6c5123-f8b2-4a06-9fb0-be84c39ddd77@igalia.com>
-Date: Tue, 7 Jul 2026 10:21:54 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32FDD10EC10
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 09:23:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D984D439A9;
+ Tue,  7 Jul 2026 09:23:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43BBE1F000E9;
+ Tue,  7 Jul 2026 09:23:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1783416180;
+ bh=UaQwlQnyCdvbuPHBNAIA3OiyxH9sx25jbkvaRh2ZHk0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ZQ80bHMsCyg2muDZI/f5f3lWDTOQarmhBBYNYcWNWGkgQpA2MnsDVscSOO+/VxBNI
+ Kq35GnqvQI3fMN837+PxAKRnvaJefGuicPbN/ZRmDe8SNb6PwAcyRPw7Ynd1AuP8fl
+ ZL1CWcZkNR7ETjaE9sU5PROwnjXnL+SiKtuMaw+U=
+Date: Tue, 7 Jul 2026 11:22:58 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Keefe Reeves <reeveskeefe@gmail.com>
+Cc: andy@kernel.org, abdun.nihaal@gmail.com, error27@gmail.com,
+ chintanlike@gmail.com, namcao@linutronix.de,
+ niejianglei2021@163.com, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: fbtft: use %pe for backlight errors
+Message-ID: <2026070747-skype-exit-5962@gregkh>
+References: <20260614201551.20542-1-reeveskeefe@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] drm/sched: Protect entity->last_scheduled with
- spinlock
-To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Marco Pagani
- <marco.pagani@linux.dev>, Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260701085920.3253248-2-phasta@kernel.org>
- <20260701085920.3253248-3-phasta@kernel.org>
- <a4091099-1931-4ca2-a81a-9c3321b123a8@ursulin.net>
- <51fbde808bd059510d667d130afae179626303be.camel@mailbox.org>
- <ce33edbb-11dd-4722-bb87-d16155f35a75@igalia.com>
- <e9e12e30-80c1-4650-9d71-4107517bc956@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <e9e12e30-80c1-4650-9d71-4107517bc956@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260614201551.20542-1-reeveskeefe@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,88 +57,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 06/07/2026 15:37, Tvrtko Ursulin wrote:
+On Sun, Jun 14, 2026 at 05:15:51PM -0300, Keefe Reeves wrote:
+> Coccinelle found two places where backlight registration errors are
+> printed by passing PTR_ERR() to dev_err().
 > 
+> Use %pe instead so the error pointer can be printed directly. This keeps
+> the behavior the same and just makes the error printing cleaner.
 > 
-> On 06/07/2026 09:45, Tvrtko Ursulin wrote:
->>
->> On 03/07/2026 15:47, Philipp Stanner wrote:
->>> On Fri, 2026-07-03 at 12:27 +0100, Tvrtko Ursulin wrote:
-> 
-> 8><
-> 
->>>> I am also happy to give it a spin on the Steam Deck to see if I can
->>>> observe anything.
->>>
->>> Could be interesting.
->>
->> Okay I'll try to do it in reasonable time. You can either respin or 
->> wait for it, I don't mind either way.
-> 
-> On the topic of benchmarking, I gave it a quick spin against four unsync 
-> instances of vkgears. Point being seeing if something can be shown on 
-> more datacenter deployments with many cores submitting and large 
-> aggregate "fps".
-> 
-> x stock.fps
-> + phasta.fps
-> +----------------------------------------------------------------------+
-> |                              +                                       |
-> |                           +  ++                                      |
-> |                           +  ++                                      |
-> |                       +   +  ++ +  x                                 |
-> |                       + + +  ++ +  x                                 |
-> |                    +  +++ + +++ +  x                                 |
-> |                    +  +++ +++++ +x x                                 |
-> |                    +  +++ +++++++x x *                               |
-> |                   ++  +++ +++++++x *x*xx    x                        |
-> |                   ++  +++x+++++++xx*x**x    x                        |
-> |                   ++  +*+*+++*+++xx*x*** x xx                        |
-> |               x  +++  +*+*+*+**+*x******xxxxx                        |
-> |            x  xx**++  **+*+****+********xxxxx x    x                 |
-> |        x  +xx xx**++ +******************xxxxxxx x  xx                |
-> |      x xxx**x x**************************xx*xxx xxxxx                |
-> |xx    xxxxx**x*****************************x**x**x*x*x   x x x  x    x|
-> |                    ||_______A___A_M|________|                        |
-> +----------------------------------------------------------------------+
->      N           Min           Max        Median           Avg        
-> Stddev
-> x 218      5446.984      5862.578      5656.121     5642.9429     76.667613
-> + 227      5510.432      5762.926      5620.999     5620.3585     45.407235
-> Difference at 95.0% confidence
->      -22.5844 +/- 11.6534
->      -0.400224% +/- 0.206513%
->      (Student's t, pooled s = 62.6985)
-> 
-> Numbers are average FPS per vkgears instance. Total run each is around 
-> 40 seconds.
-> 
-> More locking does appear to show a small decrease in throughput and, 
-> curiously, a tighter range between min and max. Whether or not that is 
-> telling us something about the lock cycles and inter core 
-> synchronisation I am not sure. Could be just noise and that more runs 
-> are needed. I can do that tomorrow.
+> Signed-off-by: Keefe Reeves <reeveskeefe@gmail.com>
+> ---
+> Changes in v2:
+> - Use reachable Gmail address for author and Signed-off-by.
 
-I think it's noise. Repeated much longer run, with double the clients, 
-and this time round got this:
-
-     N           Min           Max        Median           Avg        Stddev
-x 900      2483.751      2796.339      2620.184     2623.3684     49.850651
-+ 900      2496.926      2773.642      2633.114     2632.9949     48.848675
-Difference at 95.0% confidence
-	9.6265 +/- 4.55991
-	0.366952% +/- 0.173819%
-	(Student's t, pooled s = 49.3522)
-
-So it flip-flopped compared to the last run with a similar relative 
-difference.
-
-Therefore, for what I am concerned, it is okay to go ahead with this 
-simplification. Apart from the improved commit message I think Christian 
-should still ack on behalf of AMD though.
-
-Regards,
-
-Tvrtko
-
+Does not apply to my tree :(
