@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B60C8C44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC46EC44506
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D11B10EDE6;
-	Tue,  7 Jul 2026 15:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5551610EDED;
+	Tue,  7 Jul 2026 15:12:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oNrE6GLH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BB5buUlg";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D73610EDED
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4508110EDE6;
+ Tue,  7 Jul 2026 15:12:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 68BFF6187C;
- Tue,  7 Jul 2026 15:12:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC1C1F00A3A;
- Tue,  7 Jul 2026 15:12:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B99A4618AC;
+ Tue,  7 Jul 2026 15:12:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36B81F00A3A;
+ Tue,  7 Jul 2026 15:12:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437157;
- bh=RjJo3Fj4Y3M7P7UUf2J8RDjcdklOkU4JBfrPJgHwwLc=;
+ s=k20260515; t=1783437159;
+ bh=WvDqVRA+JdjdKKLgAYU9gRXH8K8eKPqGxl9gGhw+nA8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=oNrE6GLHfhtGtv/ZYgV4pjobiyQ6dd9YmJn6lQ3RbhmHw2lwFIsvE16xGK9fDQGgY
- Nm35ldQswJ6l6Ls6GYfEcBwE1NXRpev0XPn6sEWk325kD4HkUMBYC4gcPT+tHh4Ivf
- Hr/RF6/no7dtTJVfKVU9JTQxoegV/Larnrsi3hNaou6N/fVbI4Uu7OnXaLDUhpfDkL
- uzkc5UHPAomj7PWjiS+0kKMkftaSx0SIvasOJT3RF3sVoPYvrvYDIMmIAWu9hIhic8
- cL8b+69YHk2V2RLsrlyIVd3HCC1BioAVOuPkfmhGmZ1xp/BfoR2WceRlbmKaB8aPSg
- f3Oqy/dtFQ5IA==
+ b=BB5buUlgpQG5tX9rvB6t4WqYC0mmOqF7VwjNDYdrMfOEdAmOKAPyGBgv3Q4MWTXDr
+ 1gDsCu+pDZIvDnlZVFLGdj1cVXMUBZuXcwnY6qELuVAX8sNkx7UndzpbF88IZRJxkh
+ sjR6CXjtwghdeX96Qhs607EimaOMPAAC5qo/Xh756d6oifr76dPMuDeqRFGr6f4ccx
+ FifeF0UfRJBjgh8blCxd6b0lH9sC+virb7Xknk8S+0MNFI1xlRoOBnFIi0v2O1B4LZ
+ 9nvDnze7QKIa3BqruAiD4CHGXwY2PZlpZPgXgj/pY3d0Gy044YcTHwU7FaaGtPUYJj
+ MDgfKE7kEUb4w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:35 +0200
-Subject: [PATCH v2 28/37] drm/mediatek: dpi: Switch to atomic bridge callbacks
+Date: Tue, 07 Jul 2026 17:11:36 +0200
+Subject: [PATCH v2 29/37] drm/msm: dsi: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-28-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-29-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -47,18 +47,20 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+ Maxime Ripard <mripard@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ freedreno@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4993; i=mripard@kernel.org;
- h=from:subject:message-id; bh=nXbzB00QYc3JnjKw7I84CN7MUu3KVoNBVXjt0wzqJ64=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4jJRgtkrGbrYgwXTZaZ/b7tkK/7F7wjT7mNXSz7n1
- aTL/OHtmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABNROMTY0HxUcuqNjlzX5ssf
- rlakB5nJhpzZt3vyZImfUmbf9bUU7OX8c5ZZCnlZsolzqWrX6mgy1ml8nrnaq7Hovlxd9M9kqd/
- fJ5rfjZPrP7/450EbqYZV/1X+W3O4eXeJ1wTFy9ibNcjpAwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5327; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=WbOa5sHVX5GhaK2AIMz8+2MocDMksFBzkhrNhMTJ9ec=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4jK9Tx1vPdrv19j4eAaj9orEaRYpn4+/XvP6FPPWj
+ sJCW0u3jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRJYcZG/ZzXjD3fxv95p7Y
+ k7epbqrCOUU5u7n/XHkV8SBGQnYhi96nrJY9X92VfyczcvOVq09jYqwzvXvl/r5Lgq/lmOt3/e4
+ 9dd1926m9d6K0Z+x77vw+O22ip2qdkrKdEeNxhRfmmhPmXDsMAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,8 +78,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dpi bridge uses the legacy non-atomic enable and disable bridge
-callbacks.
+The dsi bridge uses the legacy non-atomic pre_enable and post_disable
+bridge callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
 bridge core, switch to their atomic counterparts and add the bridge
@@ -115,7 +117,7 @@ identifier f;
  	...,
  };
 
-@ update_pre_enable_struct depends on is_bridge @
+@ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -138,7 +140,7 @@ identifier b;
 	...
  }
 
-@ update_enable_struct depends on is_bridge @
+@ update_enable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -161,7 +163,7 @@ identifier b;
 	...
  }
 
-@ update_disable_struct depends on is_bridge @
+@ update_disable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -184,7 +186,7 @@ identifier b;
 	...
  }
 
-@ update_post_disable_struct depends on is_bridge @
+@ update_post_disable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -210,61 +212,68 @@ identifier b;
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 ---
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: freedreno@lists.freedesktop.org
 ---
- drivers/gpu/drm/mediatek/mtk_dpi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
-index 959c994eef24..0e4f430de983 100644
---- a/drivers/gpu/drm/mediatek/mtk_dpi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
-@@ -848,21 +848,23 @@ static void mtk_dpi_bridge_mode_set(struct drm_bridge *bridge,
- 	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
- 
- 	drm_mode_copy(&dpi->mode, adjusted_mode);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 46faeaae9d94..959daa88b1d0 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -273,11 +273,12 @@ static void dsi_mgr_bridge_power_off(struct drm_bridge *bridge)
+ 	}
+ 	msm_dsi_host_power_off(host);
+ 	dsi_mgr_phy_disable(id);
  }
  
--static void mtk_dpi_bridge_disable(struct drm_bridge *bridge)
-+static void mtk_dpi_bridge_disable(struct drm_bridge *bridge,
-+				   struct drm_atomic_commit *commit)
+-static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
++static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge,
++				      struct drm_atomic_commit *commit)
  {
- 	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
- 
- 	mtk_dpi_power_off(dpi);
- 
- 	if (dpi->pinctrl && dpi->pins_gpio)
- 		pinctrl_select_state(dpi->pinctrl, dpi->pins_gpio);
+ 	int id = dsi_mgr_bridge_get_id(bridge);
+ 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+ 	struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
+ 	struct mipi_dsi_host *host = msm_dsi->host;
+@@ -329,11 +330,12 @@ void msm_dsi_manager_tpg_enable(void)
+ 		if (IS_BONDED_DSI() && s_dsi)
+ 			msm_dsi_host_test_pattern_en(s_dsi->host);
+ 	}
  }
  
--static void mtk_dpi_bridge_enable(struct drm_bridge *bridge)
-+static void mtk_dpi_bridge_enable(struct drm_bridge *bridge,
-+				  struct drm_atomic_commit *commit)
+-static void dsi_mgr_bridge_post_disable(struct drm_bridge *bridge)
++static void dsi_mgr_bridge_post_disable(struct drm_bridge *bridge,
++					struct drm_atomic_commit *commit)
  {
- 	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
+ 	int id = dsi_mgr_bridge_get_id(bridge);
+ 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
+ 	struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
+ 	struct mipi_dsi_host *host = msm_dsi->host;
+@@ -443,13 +445,16 @@ static int dsi_mgr_bridge_attach(struct drm_bridge *bridge,
+ 	return drm_bridge_attach(encoder, msm_dsi->next_bridge,
+ 				 bridge, flags);
+ }
  
- 	if (dpi->pinctrl && dpi->pins_dpi)
- 		pinctrl_select_state(dpi->pinctrl, dpi->pins_dpi);
-@@ -980,12 +982,12 @@ static void mtk_dpi_debugfs_init(struct drm_bridge *bridge, struct dentry *root)
+ static const struct drm_bridge_funcs dsi_mgr_bridge_funcs = {
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.attach = dsi_mgr_bridge_attach,
+-	.pre_enable = dsi_mgr_bridge_pre_enable,
+-	.post_disable = dsi_mgr_bridge_post_disable,
++	.atomic_pre_enable = dsi_mgr_bridge_pre_enable,
++	.atomic_post_disable = dsi_mgr_bridge_post_disable,
+ 	.mode_set = dsi_mgr_bridge_mode_set,
+ 	.mode_valid = dsi_mgr_bridge_mode_valid,
+ };
  
- static const struct drm_bridge_funcs mtk_dpi_bridge_funcs = {
- 	.attach = mtk_dpi_bridge_attach,
- 	.mode_set = mtk_dpi_bridge_mode_set,
- 	.mode_valid = mtk_dpi_bridge_mode_valid,
--	.disable = mtk_dpi_bridge_disable,
--	.enable = mtk_dpi_bridge_enable,
-+	.atomic_disable = mtk_dpi_bridge_disable,
-+	.atomic_enable = mtk_dpi_bridge_enable,
- 	.atomic_check = mtk_dpi_bridge_atomic_check,
- 	.atomic_get_output_bus_fmts = mtk_dpi_bridge_atomic_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = mtk_dpi_bridge_atomic_get_input_bus_fmts,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ /* initialize bridge */
 
 -- 
 2.54.0
