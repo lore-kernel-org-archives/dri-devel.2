@@ -4,140 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6258CC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 12:17:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C54C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 12:17:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF1F010E4A2;
-	Tue,  7 Jul 2026 12:17:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57F7B10EC98;
+	Tue,  7 Jul 2026 12:17:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="HKw/xQZ7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f1NtG0Pc";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 365A410E4A2
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 12:17:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yulDVWMtEHIjj1z9dK3QpiHsy+WcjUTxizE3XkHmCVrH+yGjum3HPLUUbFDvtBBmkCGVot0sVSCIc5ULXTa07Gxm0/6Q+UUMtJQr64RZgoZkaFu8fSA1V8DQom5/wOVHAiE6fO1we3ZbXwVbD8yKYqcD+y7If+yxyJ0jssUcw8x1v7cLdOjHFQkLVxfrw1D5c7FSO5cDGYTYsQ+oHAK5ZQA48eLKdlCUHCbLOQc53a5Xptou9P7mHPBOTvCLGvi8aUEQixK4IgtWJBceTjmP1z+JZ6p+YftN+R/dGHs0SwQbLq5if7GjNaJdP+yVAlyJUFWBCisMpZhtdGZWpWuGVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xBEm80D4hUWVjzgAJpeF+ZOwGVdY+Ew0vWkLmUGqk5c=;
- b=LbB7Cym+K7zbV2qQwUmr8n+uzgA+WVtLtWSgJvJem+7yfawBXdNJ2ruPpKLJLZZDcSxX0iZqWhvgKKuOr/kGJ0IpsmuFtwlD2vBll1AjSlW3e2hYahfps7SuXAneXmm3fUY7QAmbE+Yj7oEx/A6RmuG6RTSbMgVXppFs1uFMW3nzxn0PzAqUPjZdSXvy1CSBJHbBUikH3KcR2/hyHFSXIeeCfRAolaWUUwh2bpzNDd2di9IWwy03HENKC/s0dCe9Rp0W9ywIL4cLacFhMDxoA0xzJR3IIZC1WiiOOlUxBEeZmoRVYqBttchPX2yv7PZL5K97UD8KVLahWO/H+37V/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xBEm80D4hUWVjzgAJpeF+ZOwGVdY+Ew0vWkLmUGqk5c=;
- b=HKw/xQZ71EJJ5RTSe0zajIeH5hKol26girRbEzoHoabIuqh8xgHg/sHLOcL5G7nf3xnqMvEqmNzSgCC5LRszx6Po2eYgASt4qhFWF+cIPOVF+Gne+I9hP3xaPxaE1xTli6LrufeFsmmWYN/FfQH0TNDWvE57yhy+F4Bn51TMF+bpnZK0gphPd0dc2kUZ3P5m4qW2WEE/Npeamkh3+D7gBmmh0wORQJY7TblJlKgsfr1U3BpZaPmQio0hkqGG71EutkoViv/QBCRvosy67noVlVy898bx7xHCKNQsTgxXFmIA6TU+kUzG6Fi5QhAgd6CVXoXA85iiIMHlUrV0+1BDwQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN2PR12MB3997.namprd12.prod.outlook.com (2603:10b6:208:161::11)
- by DM4PR12MB7670.namprd12.prod.outlook.com (2603:10b6:8:105::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 12:17:23 +0000
-Received: from MN2PR12MB3997.namprd12.prod.outlook.com
- ([fe80::73c6:e479:9b75:b2cf]) by MN2PR12MB3997.namprd12.prod.outlook.com
- ([fe80::73c6:e479:9b75:b2cf%6]) with mapi id 15.21.0181.012; Tue, 7 Jul 2026
- 12:17:23 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 313B510EC96;
+ Tue,  7 Jul 2026 12:17:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783426664; x=1814962664;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=Du2diOCDPbrznkMPMFjrugVgoonoF5/iBi5TLHJk/cc=;
+ b=f1NtG0PcZ2CnFFU1+HgR/R5F8VzXeibKPTDLCfjGOVKU59KTCWIFgiNi
+ a7FwenRQBNc+yIQMQwtpTRCu2ZTg5ymjjBLZopYpBnDLpu2vlkTD1ziLw
+ KZ9FAUwaPF2dck809SCF/uClbT9OiiauH0doQxPcfIOffVtkpr0WrhB4S
+ 0qvdIBsjikn+O1BvezudsSzlfG1TegcuvTiAgs0XTvDFZVOt8JBRnnlpt
+ +bgIguKeWubPjPk3DsSZj6YjJPRhZEb8ExVgpRFjz6/kUV3Rz+7isO7xH
+ s7GzWZZi9c2MRMKbxKTIVtMdURdbPwxaAIuPVS6TjcASdL4rkqr3yjG4s A==;
+X-CSE-ConnectionGUID: t0gilYiITtK1xRsbzBM8Lw==
+X-CSE-MsgGUID: ci/Ja0+URO2AuxCIPEylRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="95450173"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="95450173"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:17:43 -0700
+X-CSE-ConnectionGUID: /aAFJNYvRr+DKJqCk74ZNQ==
+X-CSE-MsgGUID: 8leybw+GTTCL1M4c52cLIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="247605256"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.199])
+ ([10.245.244.199])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 05:17:39 -0700
+Message-ID: <82381da3faee2dde0319a5e9c55119f5cf206dd7.camel@linux.intel.com>
+Subject: Re: [PATCH 05/10] drm/ttm: switch to
+ ttm_bo_lru_for_each_reserved_guarded for swapout
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Natalie Vock <natalie.vock@gmx.de>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Christian Koenig	
+ <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld	
+ <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Alex
+ Deucher	 <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Date: Tue, 07 Jul 2026 14:17:37 +0200
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-5-43685ac1286b@gmx.de>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+ <20260703-ttm_2_drm_exec-v1-5-43685ac1286b@gmx.de>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 07 Jul 2026 21:17:18 +0900
-Message-Id: <DJSBZBFDAAMM.38N1H7RP6FJV1@nvidia.com>
-Subject: Re: [PATCH v6 19/20] rust: io: add copying methods
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-19-72cd5d055d54@garyguo.net>
-In-Reply-To: <20260706-io_projection-v6-19-72cd5d055d54@garyguo.net>
-X-ClientProxiedBy: TYCPR01CA0189.jpnprd01.prod.outlook.com
- (2603:1096:400:2b0::14) To MN2PR12MB3997.namprd12.prod.outlook.com
- (2603:10b6:208:161::11)
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3997:EE_|DM4PR12MB7670:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c2119cc-4608-42c3-1b8c-08dedc21b2f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|10070799003|23010399003|376014|7416014|18002099003|22082099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 5EqVAGTgrSHm0wjhoT31XD4AitAcN/HX67LdoHlinoaRIZTuNXRPPWXSqqANXixBRo4CXiz5wSb0VDVD2HBT7NUtRTQNILA7lZALPs4rvYfJw6ECovFkZYu/ANibGcPiCb7ih5Hi011vOj/qu6AN0aSfuCNwnyj9e0c4rt+AbTFVdp5JIS8bIr9UrUt0KB+GNVsWJ0JudeMtyrgBrqiKB8BUiF7sKTJukCMqdPIOVCS78LaSKf59SGqWkqOGK73Elzs/nSVPxxu1oBNn5WPI+Xkzi46Ej8JtEosW9S1hVqSbfWg+LKhoXihMkCGEYXPzwerTq6hPGjGae5ZmGI7awWnLTkCE/6Xa4+qPuYwNXmdL7P3Yuep6SQT2WcSkY7bCxHs+9hP0+eFGqWkkOBkQQGBiGM+H7xj2mgR9gmDUpGH1fAzWQ/nTc7+EB7+VlzU4mzJtAKTlNg0AoXkrr0u7b/7aoxsV0/s3KBtz6OBf64dAoakO/qFSnKkvc2TX6fl2/U3k1vMqoPr2st/DC65cLvcFGJSMn/J4er4yhFnhX3nadasr9mWtDuUwddKbYAtSNfz5fVxwsRUSfRI5en4pgjDuWawA7zTyxMs3sGxHBjEhMvPRIdmJSq5kAjR+dN+o5EBGoP2OZSJ1eNp4lsn1QI2ZnJMBNoxir5e1apLdWQg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(10070799003)(23010399003)(376014)(7416014)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QitIK2txaWxBUGtKcjJyU002MVdaUUJwRnlrcEJkQjZaYTMrbFdtL1pIK0Vz?=
- =?utf-8?B?RUdCb0JQdkpnTUFSWkxMMzl1SE5uQ2NyS2wxT0RoMFJHZkdLOStuV0FHOVE0?=
- =?utf-8?B?bXVsdXpVbFVFcnFLYytrM3JJVVp5MVBRaVhFMWp5WmhXYjM3cWw5cWVjaXBW?=
- =?utf-8?B?VnJuVWw2cVNMWTFUeEJWb0s3VitoaHhxVFNWbTUvS21pcFZKYnRpeU5EOTdK?=
- =?utf-8?B?QUhtTHdGT3Q2YldodWlDWnhzTVRucXlra3EyLzRVMFYydjNBUTRHN3Q5ZGgy?=
- =?utf-8?B?MXR4T3A1Z0loYXg0NEJITXB3QmxyRDZWSUdVYm04YXNqWlZZVDlOcjd3dzUz?=
- =?utf-8?B?TUVjWWowQjErS245Nkd4S2xkckJPSHpvK3MxUEpKWUdGOVNZWjVKMlVvRitv?=
- =?utf-8?B?NnpqMEhRZHp3M2ptNi9JOGNXTURzeFE3ZU9aOWhmMjRZejVIVXNxL0FYRjJK?=
- =?utf-8?B?azh3Z2RwQm5qMittb2hKM3MxYjY5SzJKaitXbGMzNGhKUDhEZG14U2ZTaFNJ?=
- =?utf-8?B?QVNKV2RNV09aWmREVVFIeTJqcTRySEVBb2cyazcxWkVueTNmM1BtemU5Z2RF?=
- =?utf-8?B?c0U2ZTlEVGVISDg0ZmRobXgxQkRsWWpQdzh1aFVISCtiYmY2VWgyRUdpODVr?=
- =?utf-8?B?YWhGbnltZmQ5VWNjeGQ4QU9vanlRaXhhRXhRdElqWC9jTldkeVQyRDluWDFD?=
- =?utf-8?B?VUZkNER3VWlYeWRyaFpqZjdUU2NGTTlMczhYaE1PbmFWWmJkRFZGcnRKREtH?=
- =?utf-8?B?b2ErOFpTMVU3YmxaeCtZL25NVklWUi9YaHRYVzNCei9qZFdmclYrTEtRU0oy?=
- =?utf-8?B?OFJuL1IxY05uUndEU01SV3lqS3oyeEFFQnZ1STMveEJrd1BodVVzbFZPejcr?=
- =?utf-8?B?VWdWa1BadysvRFY1YmxVZXVRVXVaLzJCZGZmS3lIQ1p5QmdYTU01RStNaTZ3?=
- =?utf-8?B?cjFHdkk2WXlmQWFKZ1YyaUFlV0NBUWEwZnNheUxaNTJXUWhXZzRRK3prUmFJ?=
- =?utf-8?B?bTZBcjB4UjVzaUVreDMzUjZYZklPU0JQUWVEdnRjZHNMUysxbnJDRVpJN2ly?=
- =?utf-8?B?eXVucE9tZmtrUlluRkU1NzBvRldIVHNjNVJOUFl1bnFCbmJGdnlsdFNZWnZP?=
- =?utf-8?B?aWhTeGJiY2I0Qkc2V1FkcmxoaUtaTFRyQkNkMTlJYTNQY2g0akJMTXhNcGRS?=
- =?utf-8?B?TmFoT29DOC9ldHExbkNuK05LT2YwZVBhRk5TcHFzQ2NweWc4SWRqazV5bWtD?=
- =?utf-8?B?Y0U4MlE0aXFCMnhJaUJ2cFNGMmViQVN6enJ1Y21ieTN4eGlsMERXTVBFc3dm?=
- =?utf-8?B?cWcwYjUvaU11MkdDUFpPaDByNWNuejFCOXlyaUl6Uk0vakxrRXU0TnlDejRQ?=
- =?utf-8?B?NXZ1UG1uUStsTTJYdnpiM1pRd040UkNHZTFTTTREOXM3OVRjcUYzZ01jclVU?=
- =?utf-8?B?Um5lbVp3S3JQbjJpM0pyUzUyNUNNOGZkcDNMamhPdWxFZklKQ0FVOVdsQ3pT?=
- =?utf-8?B?cXNOZG9udWk0SEw0bTZLZW0rMTM2RW9tQWYzUEE3K0lQZGtVLzhqQmJiMjU3?=
- =?utf-8?B?RmVlUU9odTd5c3VXdTIwRkxiYk1OSDlMRVhYN2hvN0IrUnlmb045Ylp4c0dQ?=
- =?utf-8?B?bDdqWVFqN3M1QU9Sb1lMWWFJQUx4RUhWNzI3SzBhajdSOGZVODFPcWs3UDNu?=
- =?utf-8?B?RnVzNHBNRFNDWVJaKzVsam0rZERhN0c3SWo5NnNSLy9zSmdZYUFCNlRQNGRQ?=
- =?utf-8?B?M2pKYjJZTEFhYWlKZmRQZWh1SlhUWEpzcWxJSXd5TFQ5VnNnYnBsNU84K2lK?=
- =?utf-8?B?U0pwcGNNdzZmOGc3a2pBRXM5bGpzVjlrVGZsaDY2ckkvYXphYVY0MDBTKzVB?=
- =?utf-8?B?aHJ3dG1BMFlDNTY2MDMyWGZPdXFlN2NPWXJoTHhmRmtSNUhmdDhVeVlxVXNz?=
- =?utf-8?B?NWJLRjFydXVnbnBiUEdlZ3IxYTNLb0xuaFlibFdOeThQaW4rekpBS3A0ekhk?=
- =?utf-8?B?Y1o3aGhiMXRYZ1Z2c205UGY0K1VDcit2NjRBd1RFZ0RUOGIvZFhibWhxQ2FK?=
- =?utf-8?B?NG10TDVKc1lwVXJCWlZ6cE5QMHFDMzdkTldsZ1kzc1VaSjFPQW4yR2M4dWlE?=
- =?utf-8?B?bmd0b3BBS2xxK1NFSndqaWVNU0JFVVBtWHVDcTBndXhvOXBxZllUWGJjUjlK?=
- =?utf-8?B?czA2b2JWaUtxdnNvb1ZxdFRyRWpLYkw5ekZYWVU4OWd5QWthNHIvd2QvY0dC?=
- =?utf-8?B?U0pYVDhTa0p3MDNyaS9XdEROempyenFqd3h0dGNLSWpvWHNoY3JiT0FjR1Vl?=
- =?utf-8?B?KzNvWWliUUlCRVFWZWIxR01xSUk3UlZoLzJOSFNyQlg5L0Z2K3hxNGJhb3FI?=
- =?utf-8?Q?/W2z7ghfDvBc2EhsKkd4/utH0lGc/IfpKqMRcexo9P9sX?=
-X-MS-Exchange-AntiSpam-MessageData-1: OM8MPYFnMYa9DQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c2119cc-4608-42c3-1b8c-08dedc21b2f0
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 12:17:23.0408 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TabuitDVfESlXXGbkNdoWtt5YrKweETaUhWUjv6qzpQ9MxqeVMHVnR5vsTxotW90emoHHm9JVhm5PHTOH7lbdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7670
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,32 +83,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jul 6, 2026 at 9:44 PM JST, Gary Guo wrote:
-> One feature that was lost from the old `dma_read!` and `dma_write!` when
-> moving to `io_read!` and `io_write!` was the ability to read/write a larg=
-e
-> structs. However, the semantics was unclear to begin with, as there was n=
-o
-> guarantee about their atomicity even for structs that were small enough t=
-o
-> fit in u32. Re-introduce the capability in the form of copying methods.
->
->     dma_read!(foo, bar) -> io_project!(foo, bar).copy_read()
->     dma_write!(foo, bar, baz) -> io_project!(foo, bar).copy_write(baz)
->
-> Model these semantics after memcpy so user has clear expectation of lack =
-of
-> atomicity. As an additional benefit of this change, this now works for MM=
-IO
-> as well by mapping them to `memcpy_{from,to}io`.
->
-> For slices which is DST so the `copy_read` and `copy_write` API above can=
-'t
-> work, add `copy_from_slice` and `copy_to_slice` to copy from/to normal
-> memory.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
+> From: Christian K=C3=B6nig <christian.koenig@amd.com>
+>=20
+> Instead of the walker wrapper use the underlying foreach. Saves us
+> quite
+> a bunch of complexity and loc.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 
-Thanks for addressing all the feedback so promptly!
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_bo.c=C2=A0=C2=A0=C2=A0=C2=A0 | 58 +++++++--=
+---------------------
+> ----------
+> =C2=A0drivers/gpu/drm/ttm/ttm_device.c | 19 ++++++++++---
+> =C2=A0include/drm/ttm/ttm_bo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 5 ++--
+> =C2=A03 files changed, 27 insertions(+), 55 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+> b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 1fb8c53da0362..24c52df169ac8 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -1080,25 +1080,18 @@ int ttm_bo_wait_ctx(struct ttm_buffer_object
+> *bo, struct ttm_operation_ctx *ctx)
+> =C2=A0EXPORT_SYMBOL(ttm_bo_wait_ctx);
+> =C2=A0
+> =C2=A0/**
+> - * struct ttm_bo_swapout_walk - Parameters for the swapout walk
+> + * ttm_bo_swapout() - Swap out buffer objects on the LRU list to
+> shmem.
+> + * @bo: The buffer to swap out.
+> + * @ctx: The ttm_operation_ctx governing the swapout operation.
+> + * @gfp_flags: The gfp flags used for shmem page allocations.
+> + *
+> + * Return: The number of bytes actually swapped out, or negative
+> error code
+> + * on error.
+> =C2=A0 */
+> -struct ttm_bo_swapout_walk {
+> -	/** @walk: The walk base parameters. */
+> -	struct ttm_lru_walk walk;
+> -	/** @gfp_flags: The gfp flags to use for ttm_tt_swapout() */
+> -	gfp_t gfp_flags;
+> -	/** @hit_low: Whether we should attempt to swap BO's with
+> low watermark threshold */
+> -	/** @evict_low: If we cannot swap a bo when @try_low is
+> false (first pass) */
+> -	bool hit_low, evict_low;
+> -};
+> -
+> -static s64
+> -ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct
+> ttm_buffer_object *bo)
+> +s64 ttm_bo_swapout(struct ttm_buffer_object *bo, struct
+> ttm_operation_ctx *ctx,
+> +		=C2=A0=C2=A0 gfp_t gfp_flags)
+> =C2=A0{
+> =C2=A0	struct ttm_place place =3D { .mem_type =3D bo->resource-
+> >mem_type };
+> -	struct ttm_bo_swapout_walk *swapout_walk =3D
+> -		container_of(walk, typeof(*swapout_walk), walk);
+> -	struct ttm_operation_ctx *ctx =3D walk->arg.ctx;
+> =C2=A0	struct ttm_device *bdev =3D bo->bdev;
+> =C2=A0	struct ttm_tt *tt =3D bo->ttm;
+> =C2=A0	s64 ret;
+> @@ -1166,7 +1159,7 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
+> struct ttm_buffer_object *bo)
+> =C2=A0		bdev->funcs->swap_notify(bo);
+> =C2=A0
+> =C2=A0	if (ttm_tt_is_populated(tt)) {
+> -		ret =3D ttm_tt_swapout(bdev, tt, swapout_walk-
+> >gfp_flags);
+> +		ret =3D ttm_tt_swapout(bdev, tt, gfp_flags);
+> =C2=A0		if (!ret) {
+> =C2=A0			spin_lock(&bdev->lru_lock);
+> =C2=A0			ttm_resource_del_bulk_move_unevictable(bo-
+> >resource, bo);
+> @@ -1183,37 +1176,6 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk,
+> struct ttm_buffer_object *bo)
+> =C2=A0	return ret;
+> =C2=A0}
+> =C2=A0
+> -/**
+> - * ttm_bo_swapout() - Swap out buffer objects on the LRU list to
+> shmem.
+> - * @bdev: The ttm device.
+> - * @ctx: The ttm_operation_ctx governing the swapout operation.
+> - * @man: The resource manager whose resources / buffer objects are
+> - * goint to be swapped out.
+> - * @gfp_flags: The gfp flags used for shmem page allocations.
+> - * @target: The desired number of pages to swap out.
+> - *
+> - * Return: The number of pages actually swapped out, or negative
+> error code
+> - * on error.
+> - */
+> -s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx
+> *ctx,
+> -		=C2=A0=C2=A0 struct ttm_resource_manager *man, gfp_t
+> gfp_flags,
+> -		=C2=A0=C2=A0 s64 target)
+> -{
+> -	struct ttm_bo_swapout_walk swapout_walk =3D {
+> -		.walk =3D {
+> -			.process_bo =3D ttm_bo_swapout_cb,
+> -			.arg =3D {
+> -				.ctx =3D ctx,
+> -				.trylock_only =3D true,
+> -			},
+> -		},
+> -		.gfp_flags =3D gfp_flags,
+> -	};
+> -
+> -	return ttm_lru_walk_for_evict(&swapout_walk.walk, bdev, man,
+> target);
+> -}
+> -EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_bo_swapout);
+> -
+> =C2=A0void ttm_bo_tt_destroy(struct ttm_buffer_object *bo)
+> =C2=A0{
+> =C2=A0	if (bo->ttm =3D=3D NULL)
+> diff --git a/drivers/gpu/drm/ttm/ttm_device.c
+> b/drivers/gpu/drm/ttm/ttm_device.c
+> index d3bfb9a696a74..e4188e2ee7ab1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_device.c
+> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+> @@ -171,6 +171,12 @@ int ttm_device_swapout(struct ttm_device *bdev,
+> struct ttm_operation_ctx *ctx,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gfp_t gfp_flags)
+> =C2=A0{
+> =C2=A0	struct ttm_resource_manager *man;
+> +	struct ttm_bo_lru_cursor cursor;
+> +	struct ttm_buffer_object *bo;
+> +	struct ttm_lru_walk_arg arg =3D {
+> +		.ctx =3D ctx,
+> +		.trylock_only =3D true
+> +	};
+> =C2=A0	unsigned i;
+> =C2=A0	s64 lret;
+> =C2=A0
+> @@ -179,10 +185,15 @@ int ttm_device_swapout(struct ttm_device *bdev,
+> struct ttm_operation_ctx *ctx,
+> =C2=A0		if (!man || !man->use_tt)
+> =C2=A0			continue;
+> =C2=A0
+> -		lret =3D ttm_bo_swapout(bdev, ctx, man, gfp_flags, 1);
+> -		/* Can be both positive (num_pages) and negative
+> (error) */
+> -		if (lret)
+> -			return lret;
+> +		ttm_bo_lru_for_each_reserved_guarded(&cursor, man,
+> &arg, bo) {
+> +			lret =3D ttm_bo_swapout(bo, ctx, gfp_flags);
+> +				continue;
+> +			/* Can be both positive (num_pages) and
+> negative (error) */
+> +			if (lret && lret !=3D -EBUSY && lret !=3D -
+> EALREADY)
+> +				return lret;
+> +		}
+> +		if (IS_ERR(bo))
+> +			return PTR_ERR(bo);
+> =C2=A0	}
+> =C2=A0	return 0;
+> =C2=A0}
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index 0fcd5082a7080..bbed63064c9a9 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -408,9 +408,8 @@ void *ttm_bo_kmap_try_from_panic(struct
+> ttm_buffer_object *bo, unsigned long pag
+> =C2=A0int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map
+> *map);
+> =C2=A0void ttm_bo_vunmap(struct ttm_buffer_object *bo, struct iosys_map
+> *map);
+> =C2=A0int ttm_bo_mmap_obj(struct vm_area_struct *vma, struct
+> ttm_buffer_object *bo);
+> -s64 ttm_bo_swapout(struct ttm_device *bdev, struct ttm_operation_ctx
+> *ctx,
+> -		=C2=A0=C2=A0 struct ttm_resource_manager *man, gfp_t
+> gfp_flags,
+> -		=C2=A0=C2=A0 s64 target);
+> +s64 ttm_bo_swapout(struct ttm_buffer_object *bo, struct
+> ttm_operation_ctx *ctx,
+> +		=C2=A0=C2=A0 gfp_t gfp_flags);
+> =C2=A0void ttm_bo_pin(struct ttm_buffer_object *bo);
+> =C2=A0void ttm_bo_unpin(struct ttm_buffer_object *bo);
+> =C2=A0int ttm_bo_evict_first(struct ttm_device *bdev,
