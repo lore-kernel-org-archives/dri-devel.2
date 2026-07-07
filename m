@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCD8CC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:57:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AC78C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:57:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15E3410EE3C;
-	Tue,  7 Jul 2026 15:57:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFF3F10EE42;
+	Tue,  7 Jul 2026 15:57:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DMbo/2Vf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ExGnBKRZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3B5710EE3C
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:56:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E4D710EE3D
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:57:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 11E7F60018
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:56:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9343F1F000E9;
- Tue,  7 Jul 2026 15:56:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 077CE409C5
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:57:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B537F1F000E9;
+ Tue,  7 Jul 2026 15:57:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783439817;
- bh=Zqe+VMvV96gr1j+WcFXSM9Httx96+UcBuLisDLifd5k=;
+ s=k20260515; t=1783439839;
+ bh=wJNV5g6knAtOX6eQ1Ny5bubfzJM2ul/xwFvFYepnQpA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DMbo/2VfoyPAodAO9/W8lzbcrupoqNIAQOywTaK2EwtfkjnccAbcUJy3wqXiIbQKr
- Zy0tzhjdbGUL0nULVyTtkF1uORY1+2mFeW7iBJ4muD7brDL9VirUenXfc1p643mpkk
- TBworilRhmaLyEFDXQIDiJibg/3BoFTQw51C0Fqi7D+N8Bj/HSIT1VZYlOmsnbJMoY
- MrK+z9iJpz6FS6IDdczbUoDvGA1vfjm7nOtXEvW/NUXZju4ZI/QpwjVMHU8aDbmCMj
- 3M37pW6z8MevBM1CCayxp2gQyP1iCt1eWxZH+ztcIRwgHUy+RVnYLKwFH+r24+m/CU
- QVr4mXSEEC2EQ==
+ b=ExGnBKRZdxIBlKlZ9TSpSiASH2159mCN3N+5mOocSoUhRI0QNII3yaDeSJnCxV0cy
+ Og+aBWPSq/9/wFk0JDUSvUyjsrr4zmHdb5VQ0+8FtzAquqIArgy+m0eGVcWcXTJ8xi
+ XgRL3W9/jjbW6S3xmTTI0Y55tNY0iBz++C6gpNwjM3DsjV+lfHgHHLhpXYkxWemfmj
+ wY0ECYvdkY0xyogQeTpwFX5K5rsztIaOiDpQMPas/xWI4V1aFp2ugMoGio89SoNh8+
+ mkVMmU+/eEpvbNaXZFGWMR0LpMxdy54nM6YgWdiDI9cd/LAc5B+SEY5qbaoDSMBGnh
+ NucEnIOm3kMOA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 28/37] drm/mediatek: dpi: Switch to atomic bridge
- callbacks
+Subject: Re: [PATCH v2 18/37] drm/bridge: sil-sii8620: Add atomic bridge
+ state handlers
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-28-21d03cbca446@kernel.org>
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-18-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-28-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-18-21d03cbca446@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 15:56:57 +0000
-Message-Id: <20260707155657.9343F1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 15:57:19 +0000
+Message-Id: <20260707155719.B537F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +62,104 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Modifying persistent driver state in `atomic_check` instead of ato=
-mic bridge state.
-- [High] The bridge enable callback ignores the return value of mtk_dpi_pow=
-er_on(), proceeding to access hardware registers even if clock enablement f=
-ails.
+- [High] The `sii8620_mode_fixup` callback mutates persistent driver state =
+(`ctx->use_packed_pixel`), violating the atomic check phase contract.
+- [High] `drm_bridge_attach` ignores the return value of `drm_atomic_privat=
+e_obj_init`, and `drm_atomic_private_obj_init` fails to roll back on error,=
+ leading to a corrupted private object list and a subsequent NULL pointer d=
+ereference.
 --
 
---- Patch [28]: [PATCH v2 28/37] drm/mediatek: dpi: Switch to atomic bridge=
- callbacks ---
-Note: The format of this review has been altered to use a free-form summary
-instead of inline diff quoting due to text recitation restrictions.
-
-commit 396f1ff8f70eedabf798b2a8fbc7bac8f10dfaad
+--- Patch [18]: [PATCH v2 18/37] drm/bridge: sil-sii8620: Add atomic bridge=
+ state handlers ---
+commit b25b0389a6c4219ff91245a5da61562f89c23dda
 Author: Maxime Ripard <mripard@kernel.org>
-drm/mediatek: dpi: Switch to atomic bridge callbacks
 
-This commit switches the dpi bridge to use atomic bridge callbacks instead
-of the legacy non-atomic ones, updating the function signatures and adding
-atomic state handlers via a Coccinelle script.
+drm/bridge: sil-sii8620: Add atomic bridge state handlers
+
+The sil-sii8620 bridge doesn't implement any enable or disable
+callbacks, but is still missing the atomic state handlers.
+In order to remove the legacy bridge callback support from the DRM
+bridge core, add them.
+
+> diff --git a/drivers/gpu/drm/bridge/sil-sii8620.c b/drivers/gpu/drm/bridg=
+e/sil-sii8620.c
+> index 982306eb4f0a7..22c81b38b41e8 100644
+> --- a/drivers/gpu/drm/bridge/sil-sii8620.c
+> +++ b/drivers/gpu/drm/bridge/sil-sii8620.c
+
+[ ... ]
+
+> @@ -2280,6 +2281,9 @@ static bool sii8620_mode_fixup(struct drm_bridge *b=
+ridge,
+>  }
+> =20
+>  static const struct drm_bridge_funcs sii8620_bridge_funcs =3D {
+> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+>  	.attach =3D sii8620_attach,
+>  	.detach =3D sii8620_detach,
+>  	.mode_fixup =3D sii8620_mode_fixup,
 
 [Severity: High]
-This is a pre-existing issue, but I noticed something while reviewing the
-atomic conversions in mtk_dpi_bridge_atomic_check().
+This isn't a bug introduced by this patch, but doesn't sii8620_mode_fixup()
+mutate persistent driver state by assigning ctx->use_packed_pixel?
 
-The check callback appears to mutate the global dpi structure directly:
+If userspace submits a DRM_MODE_ATOMIC_TEST_ONLY commit with a mode requiri=
+ng
+a different pixel packing, drm_atomic_helper_check_modeset() will call
+drm_atomic_bridge_chain_check(), invoking this callback:
 
-mtk_dpi_bridge_atomic_check()
-    dpi->output_fmt =3D out_bus_format;
-    dpi->bit_num =3D mtk_dpi_bus_fmt_bit_num(out_bus_format);
-    ...
+drivers/gpu/drm/bridge/sil-sii8620.c:sii8620_mode_fixup() {
+	...
+	ctx->use_packed_pixel =3D sii8620_is_packing_required(ctx, adjusted_mode);
+	...
+}
 
-Rather than modifying the local bridge_state, the persistent driver state
-is altered. Could this cause state corruption if a userspace application
-performs a test-only atomic commit (DRM_MODE_ATOMIC_TEST_ONLY)?
-
-It looks like a test-only commit might permanently alter the active
-configuration used by mtk_dpi_set_display_mode(), potentially breaking
-subsequent display operations.
+Will this cause the driver's global state to be modified during a test-only
+commit, leading to a subsequent modeset or asynchronous interrupt programmi=
+ng
+the hardware using the test-only pixel packing value?
 
 [Severity: High]
-This is also a pre-existing issue, but looking at the newly renamed
-mtk_dpi_bridge_enable() callback, it calls mtk_dpi_power_on(dpi) without
-checking its return value:
+This is also a pre-existing issue, but by adding atomic bridge state handle=
+rs,
+does this bridge now expose an error handling bug in the DRM core?
 
-mtk_dpi_bridge_enable()
-    ...
-    mtk_dpi_power_on(dpi);
-    mtk_dpi_set_display_mode(dpi, &dpi->mode);
-    mtk_dpi_enable(dpi);
+Looking at drm_bridge_attach() in drivers/gpu/drm/drm_bridge.c, it ignores
+the return value of drm_atomic_private_obj_init():
 
-If any of the required clocks (like engine_clk, tvd_clk, or pixel_clk)
-fail to enable, mtk_dpi_power_on() will return an error, but the caller
-proceeds to access hardware registers anyway.
+drivers/gpu/drm/drm_bridge.c:drm_bridge_attach() {
+	...
+	if (drm_bridge_is_atomic(bridge))
+		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
+					    &drm_bridge_priv_state_funcs);
 
-Will accessing this unclocked register space via mtk_dpi_set_display_mode()
-and mtk_dpi_enable() trigger a bus fault and result in an immediate system
-panic?
+	return 0;
+}
+
+If memory allocation fails in atomic_create_state,
+drm_atomic_private_obj_init() returns an error but fails to clean up:
+
+drivers/gpu/drm/drm_atomic.c:drm_atomic_private_obj_init() {
+	...
+	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
+
+	state =3D obj->funcs->atomic_create_state(obj);
+	if (IS_ERR(state))
+		return PTR_ERR(state);
+	...
+}
+
+Will this leave obj->head in dev->mode_config.privobj_list with a NULL
+obj->state?
+
+If so, could this cause a kernel oops later if drm_state_dump() (e.g. via
+debugfs) iterates privobj_list and calls
+drm_atomic_private_obj_print_state() which dereferences the NULL state
+via state->obj?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D28
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D18
