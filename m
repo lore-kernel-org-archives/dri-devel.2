@@ -4,68 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1458AC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 08:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5694C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 08:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A32710EBE9;
-	Tue,  7 Jul 2026 08:26:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A74510E49E;
+	Tue,  7 Jul 2026 08:30:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B85MVT2a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P3NFxCX5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67B7B10EBFC;
- Tue,  7 Jul 2026 08:26:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783412777; x=1814948777;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=EHF2oSbGSPPkpOykLgyw6jvocrRYRW4CAx4KAQFdmno=;
- b=B85MVT2a1Mq1c6O5VsXIu3WsOonjZEKfyPloUZFZuoMK2LuVoiR2tVMz
- fRJlzVNMrENhXadLq8qiCXcRTn6tCXicCETnyaZ+m9bDCjcGIIpQL2AxR
- pxAKgb/UbjiITmcgZtJXKrH1pLBwfjlLqtMtgYjO8XcaqBbHBUZhsGquH
- GI5j4kIH3tMwTvPacjgWd3CUFr/iPA3zg2D8KmrdgMQBo1LNanVAmI9a9
- 0raxL5ARuDa7nJ7QCYQIgtfPfuDJVkPECUbSWg2XnQRNAka4FXQe0z4ad
- JGZISz4H6KIYwzOKncKMoQQhu8lBhtTXJSI3GgKy+4gNP6CViqfgpSzn9 g==;
-X-CSE-ConnectionGUID: ropWseXXSd66mJwT/khr0A==
-X-CSE-MsgGUID: qAIRAPPKQ+em93EY4ph8DA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="94658483"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="94658483"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 01:26:17 -0700
-X-CSE-ConnectionGUID: 5nBjQhTMS3WwD8M1Xo+umg==
-X-CSE-MsgGUID: Bj6oZUU0R36maRYnFp6VVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="253468518"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.223])
- ([10.245.244.223])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 01:26:12 -0700
-Message-ID: <a346493c-047f-4b3b-b344-39b0266348ad@linux.intel.com>
-Date: Tue, 7 Jul 2026 10:26:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Daniel Stone
- <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260703073230.19982-1-robert.mader@collabora.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <20260703073230.19982-1-robert.mader@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 308AC10E49E
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 08:30:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D84C618A8;
+ Tue,  7 Jul 2026 08:30:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3AD1F000E9;
+ Tue,  7 Jul 2026 08:30:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783413032;
+ bh=CgjH/8X+ClHCKckwJtqZW4E1Z20nPkOTpKL31UDrbbQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=P3NFxCX5jyjuEcrFSzVz9DsIFq3rzcaHbtRvYVNry2+eALXceveh/Kn6P1UamV8Co
+ 4CqM706Ri2jHiEQsp4QYrYcDCwRT5+JvglyhnI9SrnPIyy1LhRhVckruHBIUlTJhil
+ L4M4XxTJWoSryNyRcGXC8K/4k7gzPGU5W6DKSPFc4DJKnSTyODgdZh7GKwtwKSFoYP
+ zdcjsEmWDNxhGvK2KPy04meMlyIpviCq6z+ARLMYbZq57juQZhYFZ5hs3EzMvqEj9M
+ jcXM1M7Rsm7+rhZI1higv4APBvy2yKUuqSHOesUDh9JZMFzO4ImVssBVDudp9u/5or
+ 9Pge68YPywoog==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 05/13] gpu: nova-core: gsp: centralize missing unload
+ bundle warnings
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260707-nova-bootcontext-v5-5-ecad9346387f@nvidia.com>
+References: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
+ <20260707-nova-bootcontext-v5-5-ecad9346387f@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 08:30:31 +0000
+Message-Id: <20260707083031.CC3AD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,84 +56,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Diagnostic warnings about a missing unload bundle and the need t=
+o reset the GPU are silently dropped if `hal.boot()` fails after a failed u=
+nload bundle creation.
+--
 
-This probably would be useful to backport to stable, can I add those tags and merge it?
+--- Patch [5]: [PATCH v5 05/13] gpu: nova-core: gsp: centralize missing unl=
+oad bundle warnings ---
+commit 5c2f2654dd3e426ece23d356efc67204a24f8fc0
+Author: Alexandre Courbot <acourbot@nvidia.com>
 
-Fixes: 179ab8e7d7b3 ("drm/colorop: Introduce DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE")
-Cc: <stable@vger.kernel.org> # v6.19+
+gpu: nova-core: gsp: centralize missing unload bundle warnings
 
-Kind regards,
-~Maarten Lankhorst
+This commit centralizes the warning emitted when the unload bundle cannot
+be constructed by moving it from the Tu102-specific boot sequence to the
+common Gsp::boot method.
 
-On 7/3/26 09:32, Robert Mader wrote:
-> The client cap is currently advertised unconditionally, even for drivers
-> that do not support plane color pipelines. If clients supporting the later,
-> like Wayland compositors or tools like drm_info, enable the client cap on
-> such drivers they will be left without both color pipeline and the legacy
-> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
-> conversion support.
-> 
-> Prevent that by only marking the cap supported if there are actually planes
-> with color pipelines.
-> 
-> Note: while the color pipeline replacement for the legacy properties is
-> still under review (1), we can assume that it will work as a drop-in
-> replacement. That means any plane on any hardware currently supporting
-> the legacy properties will be able to offer a functionally equal color
-> pipeline and there will be no technical reason keep using the legacy
-> properties if both the driver and the client support the new API.
-> 
-> 1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
-> 
-> Signed-off-by: Robert Mader <robert.mader@collabora.com>
-> 
-> ---
-> 
-> Changes in v3:
->  - Move the new check behind the existing EINVAL ones
->  - Rebase on latest drm-misc-next
-> 
-> Changes in v2:
->  - Replace the driver feature with a simple check (suggested by Maarten
->    Lankhorst <maarten.lankhorst@linux.intel.com>)
->  - Expand the commit message slightly and change the title
-> ---
->  drivers/gpu/drm/drm_ioctl.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index e2df4becce62..9039a39c4324 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -373,13 +373,25 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->  			return -EINVAL;
->  		file_priv->supports_virtualized_cursor_plane = req->value;
->  		break;
-> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
-> +		struct drm_plane *plane;
-> +		bool has_plane_with_color_pipeline = false;
+> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
+p/boot.rs
+> index 75054424a9516..430ffc57b1366 100644
+> --- a/drivers/gpu/nova-core/gsp/boot.rs
+> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+> @@ -56,7 +56,15 @@ pub(crate) fn boot(
+>          let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::n=
+ew(&gsp_fw, &fb_layout))?;
+> =20
+>          // Perform the chipset-specific boot sequence, and retrieve the =
+unload bundle.
+> -        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_met=
+a)?;
+> +        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_met=
+a)?.or_else(|| {
+> +            dev_warn!(dev, "The GSP won't be able to unload properly on =
+unbind.\n");
+> +            dev_warn!(
+> +                dev,
+> +                "The GPU will need to be reset before the driver can bin=
+d again.\n"
+> +            );
 > +
->  		if (!file_priv->atomic)
->  			return -EINVAL;
->  		if (req->value > 1)
->  			return -EINVAL;
-> +		drm_for_each_plane(plane, dev) {
-> +			if (plane->color_pipeline_property) {
-> +				has_plane_with_color_pipeline = true;
-> +				break;
-> +			}
-> +		}
-> +		if (!has_plane_with_color_pipeline)
-> +			return -EOPNOTSUPP;
->  		file_priv->plane_color_pipeline = req->value;
->  		break;
-> +	}
->  	default:
->  		return -EINVAL;
->  	}
+> +            None
+> +        });
 
+[Severity: Medium]
+Does the `?` operator here inadvertently skip these warnings if a subsequent
+step in `hal.boot()` fails?
+
+In the previous implementation, the warnings were printed immediately when
+`Sec2UnloadBundle::build()` failed in `Tu102::boot()`.
+
+With this change, if the unload bundle creation fails, but a subsequent
+operation inside `hal.boot()` also fails and returns an `Err`, the `?`
+operator will immediately propagate that error. This entirely bypasses the
+`.or_else()` block, dropping the diagnostic warnings about the GPU needing
+a reset.
+
+> diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-co=
+re/gsp/hal/tu102.rs
+> index c0956fb1c9cff..ef465b99af051 100644
+> --- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+[ ... ]
+> @@ -278,14 +278,7 @@ fn boot(
+>          // If the unload bundle creation fails, the GPU will need to be =
+reset before the driver can
+>          // be probed again.
+>          let unload_bundle =3D Sec2UnloadBundle::build(dev, chipset, &bio=
+s, gsp_falcon, sec2_falcon)
+> -            .inspect_err(|e| {
+> -                dev_warn!(dev, "Failed to prepare unload firmware: {:?}\=
+n", e);
+> -                dev_warn!(dev, "The GSP won't be able to unload properly=
+ on unbind.\n");
+> -                dev_warn!(
+> -                    dev,
+> -                    "The GPU will need to be reset before the driver can=
+ bind again.\n"
+> -                );
+> -            })
+> +            .inspect_err(|e| dev_warn!(dev, "Failed to prepare unload fi=
+rmware: {:?}\n", e))
+>              .ok()
+>              .map(crate::gsp::UnloadBundle);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-nova-bootc=
+ontext-v5-0-ecad9346387f@nvidia.com?part=3D5
