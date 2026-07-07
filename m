@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F6B2C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D89C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C0F10EDE4;
-	Tue,  7 Jul 2026 15:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A175810EDDF;
+	Tue,  7 Jul 2026 15:12:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="czeZDH+O";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AEqBQlkE";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7917910EDE3
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D630410EDE4
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F136A61833;
- Tue,  7 Jul 2026 15:12:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314971F000E9;
- Tue,  7 Jul 2026 15:12:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 546B261838;
+ Tue,  7 Jul 2026 15:12:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 873871F00A3A;
+ Tue,  7 Jul 2026 15:12:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437140;
- bh=UX7s47AzxbbkgkKVLw8MQiV2mC8krLVR4Yl8uNb3cGA=;
+ s=k20260515; t=1783437143;
+ bh=A/4CLK/YVone5NNmfqPakrJuJKb7o950ptdP3GQMBc0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=czeZDH+Oukm0YB/4XCv0QnED23DtuPz071OmMVklAWd6GGcS+DkIvq6TU08q31dpy
- LoW68WOyhNFsahADa8SVnf5hll8Jb2bQERkQIqMoAVKl5keDrJcm/mOdq6XnQ0RH9t
- USavZroc6Q1aNBKhCAFg5lYv0Pr06bzeMKFk2PV1snafaoWwJ41Gncj+Gihrsqjkgv
- JIaxJdHrXwjpSf11I7zjjexbl6JIZNowBuTUYnfdvqCTByptWQUcfAN2hSz+/np4vx
- b5F9ZdDFFbNGHZ8pL0GuXC6YD8uSodnNReZ5npOzYKlHUYjzMCJf/LNwrsHupY5lNy
- 1cBvWxG93aWrQ==
+ b=AEqBQlkE5AmkRMebtbyj1Q735b9Ofy0BUFT+x+WFjPphRG+i4J5cZekRUdSS0d+A2
+ qpabBP+DP1YnCE0cAhUB/5HO8lCQGlaPP5TH16llcm1jcfupWujYXM9tSWEeZEBVzF
+ jK2t+BrFGTuxCDPOaShTupKbvyEwDOGJhn//aQyozLNhnwYkHhIQAbOUWr7ZWOjkwf
+ 6U9CR2LQ25hLyjK1mGd7V9Q/yoV/kO7/XJ44wM7vuSVd2KmvNwlWoaTNQxEvhYidLn
+ kNsQwKIvqtBSIAsaC4OQUgo5x/jSVvwueQi048bpkrts9P/us1+WgPuZBM7jU5Iw56
+ 5wPu1JkG97UQw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:28 +0200
-Subject: [PATCH v2 21/37] drm/bridge: tda998x: Switch to atomic bridge
+Date: Tue, 07 Jul 2026 17:11:29 +0200
+Subject: [PATCH v2 22/37] drm/bridge: ti-tfp410: Switch to atomic bridge
  callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-21-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-22-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,14 +48,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Russell King <linux@armlinux.org.uk>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5033; i=mripard@kernel.org;
- h=from:subject:message-id; bh=l/5OXjQ/c2C8fPBpHjPBsoC5JokB5W1d7dhm8V1LFTQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4pKGy/w5ouXnxdTvc+3Yo18woSIuO1Nz+Y3qzL3bf
- rWHT1DpmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABO5Yc9Yp1y9bPbjDcdnJSv5
- K3OE8VhP/dnx7KHmowkNHLfulZZWLTPc9ezQcY2TXK13lNeG/GPvY6zPNmN9ZLzshkr8qeNL+nf
- P0dh+11BYwyC0cYV1GM8sad7DXs6+c5rvxaas8+Q3ufrd8SkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4482; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=UTFEKvwG6gZjagyRY/vj7xBm9nzDOwPcoZ0gHnrJEcE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4pJlFTPlPy69UxH4nbl70esY+/m7QkRktilGOUQ2N
+ sbKCxp3TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgImI2zPWisfetsr/tOnojb1f
+ lp9unf6q7WLmLL61N8yv86/7uIJne0qI1OY43ukL5nzYxVnHmfLBjrFOb5vKpvf3795ZJVDs1vz
+ iv0Rz+NWDvUdm5+0Oel8kEG94qjfkyBSN9Wy1zeKeuVk78m4CAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,8 +74,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tda998x bridge uses the legacy non-atomic enable and disable bridge
-callbacks.
+The ti-tfp410 bridge uses the legacy non-atomic enable and disable
+bridge callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
 bridge core, switch to their atomic counterparts and add the bridge
@@ -112,7 +113,7 @@ identifier f;
  	...,
  };
 
-@ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
+@ update_pre_enable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -135,7 +136,7 @@ identifier b;
 	...
  }
 
-@ update_enable_struct depends on (is_bridge && !has_create_state) @
+@ update_enable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -158,7 +159,7 @@ identifier b;
 	...
  }
 
-@ update_disable_struct depends on (is_bridge && !has_create_state) @
+@ update_disable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -181,7 +182,7 @@ identifier b;
 	...
  }
 
-@ update_post_disable_struct depends on (is_bridge && !has_create_state) @
+@ update_post_disable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -204,68 +205,54 @@ identifier b;
 	...
  }
 
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
-To: Russell King <linux@armlinux.org.uk>
----
- drivers/gpu/drm/bridge/tda998x_drv.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/ti-tfp410.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/tda998x_drv.c b/drivers/gpu/drm/bridge/tda998x_drv.c
-index 6c427bc75896..16c745591175 100644
---- a/drivers/gpu/drm/bridge/tda998x_drv.c
-+++ b/drivers/gpu/drm/bridge/tda998x_drv.c
-@@ -1408,11 +1408,12 @@ static enum drm_mode_status tda998x_bridge_mode_valid(struct drm_bridge *bridge,
- 	if (mode->vtotal >= BIT(11))
- 		return MODE_BAD_VVALUE;
- 	return MODE_OK;
- }
- 
--static void tda998x_bridge_enable(struct drm_bridge *bridge)
-+static void tda998x_bridge_enable(struct drm_bridge *bridge,
-+				  struct drm_atomic_commit *commit)
- {
- 	struct tda998x_priv *priv = bridge_to_tda998x_priv(bridge);
- 
- 	if (!priv->is_on) {
- 		/* enable video ports, audio will be enabled later */
-@@ -1426,11 +1427,12 @@ static void tda998x_bridge_enable(struct drm_bridge *bridge)
- 
- 		priv->is_on = true;
+diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
+index 6f06f7b4e992..f0a14f52aaac 100644
+--- a/drivers/gpu/drm/bridge/ti-tfp410.c
++++ b/drivers/gpu/drm/bridge/ti-tfp410.c
+@@ -172,18 +172,20 @@ static void tfp410_detach(struct drm_bridge *bridge)
+ 		drm_bridge_hpd_disable(dvi->bridge.next_bridge);
+ 		cancel_delayed_work_sync(&dvi->hpd_work);
  	}
  }
  
--static void tda998x_bridge_disable(struct drm_bridge *bridge)
-+static void tda998x_bridge_disable(struct drm_bridge *bridge,
-+				   struct drm_atomic_commit *commit)
+-static void tfp410_enable(struct drm_bridge *bridge)
++static void tfp410_enable(struct drm_bridge *bridge,
++			  struct drm_atomic_commit *commit)
  {
- 	struct tda998x_priv *priv = bridge_to_tda998x_priv(bridge);
+ 	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
  
- 	if (priv->is_on) {
- 		/* disable video ports */
-@@ -1743,16 +1745,19 @@ static void tda998x_bridge_hpd_disable(struct drm_bridge *bridge)
- 
- 	cec_write(priv, REG_CEC_RXSHPDINTENA, 0);
+ 	gpiod_set_value_cansleep(dvi->powerdown, 0);
  }
  
- static const struct drm_bridge_funcs tda998x_bridge_funcs = {
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = tda998x_bridge_attach,
- 	.detach = tda998x_bridge_detach,
- 	.mode_valid = tda998x_bridge_mode_valid,
--	.disable = tda998x_bridge_disable,
-+	.atomic_disable = tda998x_bridge_disable,
- 	.mode_set = tda998x_bridge_mode_set,
--	.enable = tda998x_bridge_enable,
-+	.atomic_enable = tda998x_bridge_enable,
- 	.edid_read = tda998x_bridge_edid_read,
- 	.detect = tda998x_bridge_detect,
- 	.hpd_enable = tda998x_bridge_hpd_enable,
- 	.hpd_disable = tda998x_bridge_hpd_disable,
- };
+-static void tfp410_disable(struct drm_bridge *bridge)
++static void tfp410_disable(struct drm_bridge *bridge,
++			   struct drm_atomic_commit *commit)
+ {
+ 	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
+ 
+ 	gpiod_set_value_cansleep(dvi->powerdown, 1);
+ }
+@@ -240,12 +242,12 @@ static int tfp410_atomic_check(struct drm_bridge *bridge,
+ }
+ 
+ static const struct drm_bridge_funcs tfp410_bridge_funcs = {
+ 	.attach		= tfp410_attach,
+ 	.detach		= tfp410_detach,
+-	.enable		= tfp410_enable,
+-	.disable	= tfp410_disable,
++	.atomic_enable = tfp410_enable,
++	.atomic_disable = tfp410_disable,
+ 	.mode_valid	= tfp410_mode_valid,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_get_input_bus_fmts = tfp410_get_input_bus_fmts,
 
 -- 
 2.54.0
