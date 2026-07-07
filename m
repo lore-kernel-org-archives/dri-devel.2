@@ -4,124 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3E3C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:05:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E975C44501
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04F4E10ECE4;
-	Tue,  7 Jul 2026 13:05:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8334E10ECEC;
+	Tue,  7 Jul 2026 13:06:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="CvH1pVjW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pb+ZXhxT";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2696B10ECE4
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:05:00 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-493c19bad03so39168715e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 06:05:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783429498; cv=none;
- d=google.com; s=arc-20260327;
- b=dQ2cM8vHoaqrGCChhc5GAs2gkic8GCz2yJ4XeN7/f/nbkJOWJntkBhkhyKI/n+qAWM
- K6UZuaf3LrnxS5EUsJCRDA2/mNWRKf2JVuy2SOnYoVadq5CsLhRkFtCC3rqAn2XD1Rsk
- JaL8uK35JLw83FsFSwPq7ZtwxPg+TKN2cjCntAf0e1AGtp1Jrq/qO9ycr42GvhW4KOHk
- sNUscFf40wt8pdyoSIDcVp99Rm/Nwu85lPKkcJZIgviQgybK1UfAa/R+pd6lTkPrr5il
- a+jjXGXLXhgYmQ2K0ryOLzE/yOh/GxO54VsJNHGGuK2k77BMZpY+d/uRN5ikgyrm15Q5
- 3wTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Qa3HvUOBiikHOm2hv7akwkWqjggqpxhg4jyWQbcbbM4=;
- fh=UgzNeEGuhMxVQor//12HSCjdEoC7TZoBua1CBq9OaRc=;
- b=r+e+QAh2jTrEwZS4HkIgRGps3zBUYqKq1G8oQv30bhnI+A5kzNXtiWlssEGiUjk3LX
- 2ypTUZ005KdalN/V9kwahKb7kfeyFH7l6azTlUv/mMet5AA64PrKUIWUPrv7kI3A1QP/
- TdVsDpw3OWtwGhsdz4gBukCRd8tjqsQgDKOZZLHDomzwVsBMfy+4uJPcHm6LbZMhzGYr
- RdqYm6Ucxlwb5b+sAdsldETeE2KOVbvq0xg/xPESaKT7JDipRkZAvfhS3yjGfTWmzAq0
- 4p+8xNsPRCR3Uc0O1jFv4y4AaNWnOvNep3lxatFTNp+e5tPdf24xRbI3O6s4tNTFtzVq
- DgmA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1783429498; x=1784034298;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Qa3HvUOBiikHOm2hv7akwkWqjggqpxhg4jyWQbcbbM4=;
- b=CvH1pVjWhkCp2+OB8wjhtru1By9tcsQvaPNsao5eYd7hXxCUiS0fQz06tBXVWgQ5Qr
- j45IrhMJtbx4W6B0G2K+bsCuQe7CtYfvqzbxnkRMhuRj+JNa1hrF7LNYxEfN7zqIsFFb
- TjKiNDapanuLovAx/VOvwfzvvPiacQHa3KD3FYRPuYQjnb8Zk0pLLZKgJXHEzX547jIa
- lHMtGtklRK3MQABAokZzZtC+DM1Pz0Sgq8zxc8CwD1p0cpUTxb5VVkO5kcEe6SF6uEI/
- P4dMXrtS6P4uY/0rtuO2O6OxLGb3gLrbfj2p4bvDm8HBwJLwzrUt7e42skLdtXydOCgF
- 0OJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783429498; x=1784034298;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Qa3HvUOBiikHOm2hv7akwkWqjggqpxhg4jyWQbcbbM4=;
- b=rW+dMWqb868zzUVaCybOBpSwaWU27AvKCRV1HUSFo5TywoW78X+6l5zn5pYsgTjcag
- ljxDupZ8WrRKOoeeD8ZBMFnBRMGuLr50EPIJXdLt1LWiB/X8azWga5EbFqzhRzYo5oyk
- lMiNLtrvrcWAJxc5T94JMHaFA7h33WaRCvkpvlENk9EENKM1n9elfQ6OWey5HglovPBG
- Nk+Xypek8701e3vJehBQ/kB0KgRXYFc0lp0llvQv0fjH2bWc4tvrF8sWcnkvXzTaAIU/
- IrrESTWrJPSLrQSYaw60HZpo6/PJNpTG56TIynX/DkCP8rwgxUCA4XppvUBcakkIKSGl
- j7+A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpyMXX43QZ9lA2P9/8A73wcvYSfxAzVY0LjGD8g8s8Jogin4vn12JQQ3KtCmW/NWCXuGyXI/YmcNmI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUiTaFqAeDbzjrvWGAKqlhnIpr2CjM4JBXQXIgoAPc81qX27su
- X1xvT1azCepG9FygOcEuIXEt7gXcMg9rzigj8Mgj7cy665oMd/S5z8kCQB+8WONHyrXwNmtHB3A
- y6cND/lcuhcsWr/2xtlAdvA7ol7UCLgB5cG0IIMTe
-X-Gm-Gg: AfdE7cncTA08ZCrJq0WGTB9NEWhMQV1zpUgxSFfxYmWUNyCE2jI/bCFdnGISSaeyQNR
- mK1IIwaNgwBrWKl236QAmtMZiPiBAgF9aEj0kPtdZs2PxzhArfK0JxWve8OIWMTSaK39/WUTEI4
- hqLjH08aThf5AU3y2Ok1kY90XA049Gdk1m13aqYfZWF0M5ZIEO40Sekkuav8tJJw71RTFSh9JKO
- p5muSwy7/O6qXd8K01AKKCpuOcnlw1WhNNLhFpy3YU30PDeRXIGovUFq3ZeN4B8ORvsw7ooU5VI
- sTAkel01LjYVqPctF3Gg7YLOcLU=
-X-Received: by 2002:a05:600c:8b70:b0:493:b6e4:fb2b with SMTP id
- 5b1f17b1804b1-493df06e943mr52096855e9.25.1783429497735; Tue, 07 Jul 2026
- 06:04:57 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B67F10ECEB;
+ Tue,  7 Jul 2026 13:06:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783429605; x=1814965605;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=CYW7ZWwjYiNsJoGlC7VlLxyC+Yi/oaY6orvc4E87fX4=;
+ b=Pb+ZXhxTINLFpuVPHazB4GKnJ+uCuKLdjg2qRgovpuniomvtAuQ/+LEu
+ jamzLaL0smRlapx3V28Gz/S4lDHjTIdQFS1mJ3snP8SUCF4KBa0M/kLzF
+ pnvO6BZUJ3GnjUL+WosHijayxwswSTXGH63051fQJ7ekWuRSde4iYxlUU
+ gBfetbswHY6SC39ZunNgGJ6rCnE9D0kDRDxRDhxuZvVi6/UMQytsvCojw
+ k5chCJ4taIVSvuN/R92Ifyt9gEPUHiEB+qAS9N6WR6ESWke8vItGa1kE4
+ +cvf8bHD+XnRfSMPnj+uLHVK7fOpR0pjm9Q+JTWfpjVqIRLmCc3OYRDy/ Q==;
+X-CSE-ConnectionGUID: nYY/Dc5PTbuJLxMxYD+CgQ==
+X-CSE-MsgGUID: ecdN+FKcRB6jpXGLOpPlHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84050115"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84050115"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 06:06:45 -0700
+X-CSE-ConnectionGUID: b3KwFUS8QdKJEKcPLWZ1nA==
+X-CSE-MsgGUID: u9oOnwjOTuK01ea4HMFVFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="250006192"
+Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk)
+ ([10.190.239.37])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Jul 2026 06:06:42 -0700
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH V11 02/11] drm/gpu: Add gpu_buddy_allocated_addr_to_block
+ helper
+Date: Tue,  7 Jul 2026 18:36:15 +0530
+Message-ID: <20260707130617.970638-15-tejas.upadhyay@intel.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260707130617.970638-13-tejas.upadhyay@intel.com>
+References: <20260707130617.970638-13-tejas.upadhyay@intel.com>
 MIME-Version: 1.0
-References: <20260626-unique-ref-v19-0-2607ca88dfdf@kernel.org>
- <20260626-unique-ref-v19-3-2607ca88dfdf@kernel.org>
-In-Reply-To: <20260626-unique-ref-v19-3-2607ca88dfdf@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 7 Jul 2026 15:04:45 +0200
-X-Gm-Features: AVVi8Cd8GrEsrkEwxzhRkanTcpbMUA7MU6OpTudOnt7DIfIGqhosSlF_BI7LYTM
-Message-ID: <CAH5fLggMeHUgXj7JGYSJejUrR2PdWymOOb+3E1VmHokzcox4hg@mail.gmail.com>
-Subject: Re: [PATCH v19 3/8] rust: implement `ForeignOwnable` for `Owned`
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>,
- Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
- Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>,
- Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-pwm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,18 +72,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 26, 2026 at 1:55=E2=80=AFPM Andreas Hindborg <a.hindborg@kernel=
-.org> wrote:
->
-> Implement `ForeignOwnable` for `Owned<T>`. This allows use of `Owned<T>` =
-in
-> places such as the `XArray`.
->
-> Note that `T` does not need to implement `ForeignOwnable` for `Owned<T>` =
-to
-> implement `ForeignOwnable`.
->
-> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Reviewed-by: Gary Guo <gary@garyguo.net>
+Add helper with primary purpose is to efficiently trace a specific
+physical memory address back to its corresponding TTM buffer object.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+v3:
+- use mm->chunk_size minimum allocation granularity (Arun)
+v2:
+- %s/gpu_buddy_addr_to_block/gpu_buddy_allocated_addr_to_block(MattA)
+- remove clear->avail and split nodes check(MattA)
+- Adapt lockdep(MattB)
+
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Cc: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/buddy.c       | 53 +++++++++++++++++++++++++++++++++++++++
+ include/linux/gpu_buddy.h |  2 ++
+ 2 files changed, 55 insertions(+)
+
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index eb1457376307..315f860f4346 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -594,6 +594,59 @@ void gpu_buddy_free_block(struct gpu_buddy *mm,
+ }
+ EXPORT_SYMBOL(gpu_buddy_free_block);
+ 
++/**
++ * gpu_buddy_allocated_addr_to_block - given relative address find the allocated block
++ *
++ * @mm: GPU buddy manager
++ * @addr: Relative address
++ *
++ * Returns:
++ * gpu_buddy_block on success, NULL or error code on failure
++ */
++struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr)
++{
++	struct gpu_buddy_block *block;
++	LIST_HEAD(dfs);
++	u64 end;
++	int i;
++
++	gpu_buddy_driver_lock_held(mm);
++
++	end = addr + mm->chunk_size - 1;
++	for (i = 0; i < mm->n_roots; ++i)
++		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
++
++	do {
++		u64 block_start;
++		u64 block_end;
++
++		block = list_first_entry_or_null(&dfs,
++						 struct gpu_buddy_block,
++						 tmp_link);
++		if (!block)
++			break;
++
++		list_del(&block->tmp_link);
++
++		block_start = gpu_buddy_block_offset(block);
++		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
++
++		if (!overlaps(addr, end, block_start, block_end))
++			continue;
++
++		if (gpu_buddy_block_is_allocated(block))
++			return block;
++		else if (gpu_buddy_block_is_free(block))
++			return NULL;
++
++		list_add(&block->right->tmp_link, &dfs);
++		list_add(&block->left->tmp_link, &dfs);
++	} while (1);
++
++	return ERR_PTR(-ENXIO);
++}
++EXPORT_SYMBOL(gpu_buddy_allocated_addr_to_block);
++
+ static void __gpu_buddy_free_list(struct gpu_buddy *mm,
+ 				  struct list_head *objects,
+ 				  bool mark_clear,
+diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+index 71941a039648..e7e22fa05ee2 100644
+--- a/include/linux/gpu_buddy.h
++++ b/include/linux/gpu_buddy.h
+@@ -272,6 +272,8 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear);
+ 
+ void gpu_buddy_free_block(struct gpu_buddy *mm, struct gpu_buddy_block *block);
+ 
++struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr);
++
+ void gpu_buddy_free_list(struct gpu_buddy *mm,
+ 			 struct list_head *objects,
+ 			 unsigned int flags);
+-- 
+2.52.0
+
