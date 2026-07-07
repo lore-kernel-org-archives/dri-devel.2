@@ -4,79 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF96EC43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C198C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1030A10EDFA;
-	Tue,  7 Jul 2026 15:33:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C1310EDFC;
+	Tue,  7 Jul 2026 15:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="amsx8B8m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a7rgeW9A";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3896610EDFA
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:33:46 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-493b1710405so27586695e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 08:33:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783438425; x=1784043225; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=DlDWtQ71cy4M6Iwx6C9VpFd4pqPTgh6eJknwRkh5wwk=;
- b=amsx8B8mPAa5LZSf3rXr/o27MHiugC/hRrL2SdSY2n5K08Kn3VOaUyGFL/m7hqDYwN
- hYTH/qUziNbmLVqEDjdRIm3E0NcaGTo2zL/y6uY405AsOXubrzg0MvGDd64PU39tJEEH
- rJi9UuaSlKUXo2zKUzsNcSkk1KYHx9TZ0c0xv37snB1lcBRpSvnCrLTSrVaOAuEKQILH
- RgYJJolP1GCRLGueI94EptViwEqnHAPZBkgr888Nvd3FUMeQwuFXIudIS2Qgvm9wpWVo
- au6O+Hnbg9n7V3S+AGqQ+VMlun/VaWfqrPKuF5zdKp9AlIdXhlAVSuMlaZE8IjKBAIhG
- qPLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783438425; x=1784043225;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=DlDWtQ71cy4M6Iwx6C9VpFd4pqPTgh6eJknwRkh5wwk=;
- b=SVm764ncFUbyReW2BddhS8iF0Nm166x6MmVNzmpLljuIYqPgi5jPVtcwl6gTGbu2VU
- 1x46bMQ1xoNL8uRHS0ZiVfQzJrM9V+Bks/DKlFokLbJL01+rXj7AMoIbMi6Y7tJYUSfA
- MJ6Eh7o9x0KFv4Bby6dzC0ufLb5LJ9IFOfG1TXQ4eDM6VITci7rI7AJqnai+eNfSZq1j
- l/vErlLCZ9j+eXWItVq61iVDmOCRLZmY5qJ4mVd3IseYsel/ZEpTugBg7bjhx6udnjJ4
- 7QsZIRDaMI3BM9gNVTBF/ZK/E566Bots/n+AdofPFa3fO+Hdxjkd3wET+N8RS2sT7EfL
- waWQ==
-X-Gm-Message-State: AOJu0YzfscliIX2j+2Nfe8eqG6XbrHcYd8tqcp8CL9ug1gXBshqEnzYJ
- UK7K9AmQ8L/Gq02/9f4Pz+24Ow60+xi68TKpc1Tk7qtWJdh9zAADwkoj
-X-Gm-Gg: AfdE7cnHzh4l/MieU5p1ulPpqalMpfh15rcc3wZu10iSLY0UeXiE76iNxUoNVZJOAuh
- 02kI6KQ8pvc0u4UDWcf+Lj0BEUPw1XLmlQKL7P8HC1y7js6EQ4qd08j/RuszwwP3WUXI3WxszYA
- HgqyABTczONK0qpm4fMoNEPQ+sTcxGvo1ZgYW5aT4sycLRXcbQkdKU0e223KbeCQWA7pYgvtYwP
- MEFLJqVL9rcHI1s/uKNzcIsWnxt9owG379HjQR1IsBtAji5X8TPpsDHWfYwtZiJlttI3Gm1h0w5
- 4gWm4ntcDBfFevdEFeXqrbF9sIzYSUW+4ky59/UkrALyPDS8ln3q+tEkpsrMM/chvxZZ0aPKa2P
- Zlul3wiRXdCA3pHZwx53Ccj+G+JpoGjwmLJDOzlVBU4MLZ3ZUq++IjRmaUvik8+DYtR0++RgZK3
- ppygTBixCCtuSdZt5Dnyx3
-X-Received: by 2002:a05:600c:6085:b0:493:bc97:916b with SMTP id
- 5b1f17b1804b1-493df0929f3mr4664575e9.26.1783438424204; 
- Tue, 07 Jul 2026 08:33:44 -0700 (PDT)
-Received: from [127.0.0.2] ([194.35.121.133]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493e0f5b811sm100622385e9.13.2026.07.07.08.33.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 08:33:43 -0700 (PDT)
-From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Tue, 07 Jul 2026 17:33:27 +0200
-Subject: [PATCH 2/2] drm/xlnx/zynqmp_dpsub: check return value on
- drm_encoder_init
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-xlnx-simple-v1-2-df50c6665b02@gmail.com>
-References: <20260707-xlnx-simple-v1-0-df50c6665b02@gmail.com>
-In-Reply-To: <20260707-xlnx-simple-v1-0-df50c6665b02@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Michal Simek <michal.simek@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Diogo Silva <diogompaissilva@gmail.com>
-X-Mailer: b4 0.14.3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 765C410EDFC
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:35:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 39A9142B68
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:35:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0EA1F000E9;
+ Tue,  7 Jul 2026 15:35:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783438549;
+ bh=HaMy4yJupZA9Ss0YIx3n3Ev8b72RKCQcfJltACUl2VE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=a7rgeW9Ai9ywjoWczQkWXfpIOZavxLAXXwMOuGsQ2cTHw1OEb9mgFld0V5tmrSwyV
+ 6fFWlW7RQbCBEOb/zRnv9m0lKij3AN0iojC71Dji51YQCEa0bcRQ8BeRTLsbDQPhqE
+ 7fRWckRFpFSMbawyxJIUyvKYWb4LiL5r+LWVXQ9NKULEZUy50WQyQZhUl7Ff0wIR5L
+ wFB772cdoxfK56epNNIhOywC2+deAHUa7zV5cP+Xgy/WAIlMt13lMFwmoUwmPct9Ar
+ /JXNxAi2VNa/sPFagonertYEhAV0NtOk7LTVw+b3aXD1cuv5eNqK0IlVCKjr8f6u2g
+ 05XFwUIdsHe1Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 12/37] drm/bridge: megachips-stdpxxxx-ge-b850v3-fw:
+ Add atomic bridge state handlers
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-12-21d03cbca446@kernel.org>
+References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-12-21d03cbca446@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 15:35:48 +0000
+Message-Id: <20260707153548.EF0EA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,41 +54,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A call to drm_encoder_init() can fail. If the error code is not checked
-this may lead to drm_encoder_cleanup() being called on an uninitialized
-drm_encoder.
-This patch addresses this by adding the proper return value check to the
-drm_encoder_init() function call.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
----
- drivers/gpu/drm/xlnx/zynqmp_kms.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Pre-existing issues:
+- [High] The IRQ handler dereferences a global pointer that is set to NULL =
+on partial device unbind, leading to a race condition and a guaranteed kern=
+el crash if an interrupt fires.
+- [High] Unbinding and rebinding either of the I2C drivers permanently brea=
+ks the bridge.
+--
 
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-index 698ac692abce..1d194c2824e3 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-@@ -439,8 +439,13 @@ static int zynqmp_dpsub_kms_init(struct zynqmp_dpsub *dpsub)
- 
- 	/* Create the encoder and attach the bridge. */
- 	encoder->possible_crtcs |= drm_crtc_mask(&dpsub->drm->crtc);
--	drm_encoder_init(&dpsub->drm->dev, encoder, &zynqmp_dpsub_encoder_funcs,
--			 DRM_MODE_ENCODER_NONE, NULL);
-+	ret = drm_encoder_init(&dpsub->drm->dev, encoder,
-+			       &zynqmp_dpsub_encoder_funcs,
-+			       DRM_MODE_ENCODER_NONE, NULL);
-+	if (ret) {
-+		dev_err(dpsub->dev, "failed to initialize encoder\n");
-+		return ret;
-+	}
- 
- 	ret = drm_bridge_attach(encoder, dpsub->bridge, NULL,
- 				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+--- Patch [12]: [PATCH v2 12/37] drm/bridge: megachips-stdpxxxx-ge-b850v3-f=
+w: Add atomic bridge state handlers ---
+commit a14f762105b409d757000a124c825edac22d569b
+Author: Maxime Ripard <mripard@kernel.org>
 
--- 
-2.51.2
+drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: Add atomic bridge state handle=
+rs
 
+The megachips-stdpxxxx-ge-b850v3-fw bridge doesn't implement any enable
+or disable callbacks, but is still missing the atomic state handlers.
+In order to remove the legacy bridge callback support from the DRM
+bridge core, add them.
+
+> diff --git a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c b/d=
+rivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> index 2d02cc69f2374..25ff0a0acc934 100644
+> --- a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> +++ b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+> @@ -214,6 +214,9 @@ static int ge_b850v3_lvds_attach(struct drm_bridge *b=
+ridge,
+>  }
+> =20
+>  static const struct drm_bridge_funcs ge_b850v3_lvds_funcs =3D {
+> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+>  	.attach =3D ge_b850v3_lvds_attach,
+>  	.detect =3D ge_b850v3_lvds_bridge_detect,
+>  	.edid_read =3D ge_b850v3_lvds_edid_read,
+>  };
+
+[Severity: High]
+This is a pre-existing issue, but unbinding and rebinding either of the I2C
+drivers appears to permanently break the bridge.
+
+When either device unbinds, ge_b850v3_lvds_remove() clears the global
+ge_b850v3_lvds_ptr:
+
+drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c:ge_b850v3_lvds_rem=
+ove() {
+    ...
+    ge_b850v3_lvds_ptr =3D NULL;
+    ...
+}
+
+If the unbound device is rebound, ge_b850v3_lvds_init() allocates a new str=
+uct:
+
+drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c:ge_b850v3_lvds_ini=
+t() {
+    ...
+    ge_b850v3_lvds_ptr =3D devm_drm_bridge_alloc(dev, struct ge_b850v3_lvds,
+                                               bridge, &ge_b850v3_lvds_func=
+s);
+    ...
+}
+
+Because the other device's probe function does not run again, the new struc=
+t=20
+never receives the i2c_client pointer for the other device. Does this cause=
+ the=20
+initialization check in stdp2690_ge_b850v3_fw_probe() to fail and prevent=20
+the bridge from registering?
+
+drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c:stdp2690_ge_b850v3=
+_fw_probe() {
+    ...
+    /* Only register after both bridges are probed */
+    if (!ge_b850v3_lvds_ptr->stdp4028_i2c)
+        return 0;
+    ...
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could this logic also introd=
+uce
+a race condition leading to a NULL pointer dereference?
+
+Because the IRQ is managed via devm_request_threaded_irq() on stdp4028, it=
+=20
+remains active until devres cleanup runs. If the interrupt fires after=20
+ge_b850v3_lvds_remove() sets ge_b850v3_lvds_ptr to NULL, the IRQ handler=20
+unconditionally dereferences the NULL pointer:
+
+drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c:ge_b850v3_lvds_irq=
+_handler() {
+    struct i2c_client *stdp4028_i2c =3D ge_b850v3_lvds_ptr->stdp4028_i2c;
+    ...
+}
+
+Could this lead to a kernel panic if an interrupt occurs during or after an=
+=20
+unbind?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D12
