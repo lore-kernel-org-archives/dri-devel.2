@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6255C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 195E0C44501
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3600910EE40;
-	Tue,  7 Jul 2026 16:06:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 802B210EE44;
+	Tue,  7 Jul 2026 16:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k0vPOxQU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fBDYi1zG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F91710EE40
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:06:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD0610EE44
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:06:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 090FC435B5;
- Tue,  7 Jul 2026 16:06:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05B01F000E9;
- Tue,  7 Jul 2026 16:06:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 460AF60018;
+ Tue,  7 Jul 2026 16:06:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813771F000E9;
+ Tue,  7 Jul 2026 16:06:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783440395;
- bh=EPd/+wmyOWU+FRL2COoT47FMAjQTsfQtMekKIkYXc+g=;
+ s=k20260515; t=1783440407;
+ bh=L5y+zUPinxjtVfco8HA4/kOWa/nb9LJmepf6+tT3NBY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k0vPOxQU7JKtuanSnjPMDdra9xOI1gBQPX0F3jOswGV4jSM14sFS5hJVRrxtiRyQ1
- idt83CScWLFYC9SR/w93P3YbKl2edzluR2G3GXs2UpTcdhvJfMytzSeDYugr2kY2LX
- 1mYwDcq/zhulqRV+Ccm81qGvtVeFsSiYObv2r2ld9Vlt9/nPdej/19L4ZWo582hO/9
- 7AV3IF8B2fVFRg4bFM2XoSDOb0uNZQndwcQZ7iLFT12opc8YvmG9jmq9gZGA1WtO9I
- iZZHB3N/bExu7ZAyro/hHLnMzeHFVlCrBZJ8+x0Mmto0RMtECM0lRvH/wrq58UWxqZ
- lev67sAvdOsEA==
+ b=fBDYi1zGE7lf4Blqh7AGdmstS6BNHwbUlm21DQ1dz+mK03zfb1ZPwQM0DyOwzhChE
+ uZL6yI19C0Nmz6mjClnAAzrwgzPLTo/cwyNspErpwAt+MxEBctJumAse1eQvmDohkE
+ PwP6fkEj11lvde6jy6Zr2Wz1mj8ghRhN0LAIsQH37SQbT1PYUMQNacHIFEPEyqg7jK
+ /t6EdzTj5cXvDyVsxerjN65IX6J9KExgkXXrWqkGAoNKYPKP7ACtJeaEHOvUSLBiNb
+ vMKVwNJKFaNKGz1Ra4hqYrOHnEWVI1y9os8RRb/py1Qy9/uSZbwYMhXmp2M7xvgh5d
+ Z4q5of08j19VA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/qxl: remove dependency on DRM simple helpers
-To: "Diogo Silva" <diogompaissilva@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-qxl-simple-v1-1-524f6316b5d5@gmail.com>
-References: <20260707-qxl-simple-v1-1-524f6316b5d5@gmail.com>
+Subject: Re: [PATCH v3 03/12] phy: phy-mtk-dp: Allow probing with devicetree
+ match
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com,
+ linux-phy@lists.infradead.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260707154245.198361-4-angelogioacchino.delregno@collabora.com>
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-4-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 16:06:35 +0000
-Message-Id: <20260707160635.C05B01F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 16:06:46 +0000
+Message-Id: <20260707160646.813771F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +64,113 @@ Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [Low] The patch mistakenly defines a `drm_connector_funcs` structure name=
-d `qxl_connector_funcs` instead of a `drm_encoder_funcs` structure for the =
-new encoder, causing a redefinition build error.
+- [High] Hardcoded `PHY_OFFSET` causes out-of-bounds register accesses or r=
+esource conflicts when the PHY is probed as a standalone devicetree node.
+- [High] Hardware registers are accessed in `mtk_dp_phy_configure()` while =
+the PHY device is runtime-suspended, causing a system crash or silent loss =
+of configuration.
 
 Pre-existing issues:
-- [High] Lockless reallocation of `client_monitors_config` leads to Use-Aft=
-er-Free during connector operations.
-- [High] Missing `free_irq()` and `cancel_work_sync()` during device teardo=
-wn leads to Use-After-Free on module unload.
+- [High] Dereferencing `dev->platform_data` before checking if it is NULL l=
+eads to a kernel crash.
 --
 
---- Patch [1]: [PATCH] drm/qxl: remove dependency on DRM simple helpers ---
-commit d182374fb0440bb0cb67a0c069afac8494f4bf85
-Author: Diogo Silva <diogompaissilva@gmail.com>
+--- Patch [3]: [PATCH v3 03/12] phy: phy-mtk-dp: Allow probing with devicet=
+ree match ---
+commit 710ab5488fd0b66b2ea62388b977a4308f99a0c6
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-drm/qxl: remove dependency on DRM simple helpers
+phy: phy-mtk-dp: Allow probing with devicetree match
 
-This patch removes the drm_simple_encoder_init() helper usage in the qxl
-display driver by open coding it and using the encoder atomic helpers
-directly. This is a step to eventually get rid of the simple KMS helper.
+Make it possible to decouple the registration of the DisplayPort
+PHY driver from the DisplayPort IP driver by adding a devicetree
+match to probe the PHY. In order to retain compatibility with older
+devicetrees, the legacy code was moved in a mtk_dp_phy_legacy_probe()
+function.
 
-> diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_=
-display.c
-> index a026bd35ef485..236d027fbc9fe 100644
-> --- a/drivers/gpu/drm/qxl/qxl_display.c
-> +++ b/drivers/gpu/drm/qxl/qxl_display.c
-> @@ -1095,6 +1095,10 @@ static const struct drm_connector_helper_funcs qxl=
-_connector_helper_funcs =3D {
->  	.best_encoder =3D qxl_best_encoder,
->  };
-> =20
-> +static const struct drm_connector_funcs qxl_connector_funcs =3D {
-> +	.destroy =3D drm_encoder_cleanup,
-> +};
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index bf7b3a95e72d2..d241004e28286 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+[ ... ]
+> +static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct =
+mtk_dp_phy *dp_phy)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct phy *phy;
+> +	int ret;
 > +
+> +	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
+> +	if (!dp_phy->regmap)
+> +		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
 
-[Severity: Low]
-Does this code inadvertently define struct drm_connector_funcs instead of
-struct drm_encoder_funcs?
+[Severity: High]
+This is a pre-existing issue, but does casting and dereferencing
+dev->platform_data before checking if it is NULL lead to a kernel crash?
 
-The struct name qxl_connector_funcs also conflicts with an existing definit=
-ion
-later in the file.
+If the driver is bound to a device without platform data via sysfs, this
+unvalidated pointer will be dereferenced before the check for
+!dp_phy->regmap can execute.
 
 [ ... ]
-
-> @@ -1169,10 +1173,10 @@ static int qdev_output_init(struct drm_device *de=
-v, int num_output)
->  	drm_connector_init(dev, &qxl_output->base,
->  			   &qxl_connector_funcs, DRM_MODE_CONNECTOR_VIRTUAL);
+>  static int mtk_dp_phy_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+[ ... ]
+>  	dp_phy =3D devm_kzalloc(dev, sizeof(*dp_phy), GFP_KERNEL);
+>  	if (!dp_phy)
+>  		return -ENOMEM;
 > =20
-> -	ret =3D drm_simple_encoder_init(dev, &qxl_output->enc,
-> -				      DRM_MODE_ENCODER_VIRTUAL);
-> +	ret =3D drm_encoder_init(dev, &qxl_output->enc, &qxl_connector_funcs,
-> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
-
-[Severity: Low]
-Is this passing a pointer to the newly added struct drm_connector_funcs whe=
-re
-drm_encoder_init() expects struct drm_encoder_funcs *?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a use-after-free
-risk during connector operations?
-
-In qxl_alloc_client_monitors_config() in drivers/gpu/drm/qxl/qxl_display.c,=
-=20
-the shared client monitors config can be freed locklessly:
-
-	if (qdev->client_monitors_config &&
-	    count > qdev->client_monitors_config->count) {
-		kfree(qdev->client_monitors_config);
-		qdev->client_monitors_config =3D NULL;
-	}
-
-Concurrently, DRM ioctls like qxl_conn_detect() check and dereference this
-pointer without synchronization:
-
-	if (!qdev->client_monitors_config) {
-		if (output->index =3D=3D 0)
-			connected =3D true;
-	} else
-		connected =3D qdev->client_monitors_config->count > output->index &&
-		     qxl_head_enabled(&qdev->client_monitors_config->heads[output->index]=
-);
-
-Could a concurrent reallocation free the config while it is being accessed =
-here?
-
+> -	dp_phy->regmap =3D regs;
+> +	dp_phy->dev =3D dev;
+> +
+> +	/* If there's no devicetree, go for legacy pdev probe */
+> +	if (!dev->of_node)
+> +		return mtk_dp_phy_legacy_probe(pdev, dp_phy);
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	dp_phy->regmap =3D devm_regmap_init_mmio(dev, base, &mtk_dp_phy_regmap_=
+cfg);
 
 [Severity: High]
-This is a pre-existing issue, but is there a missing teardown of the IRQ
-handler and workqueue on module unload?
+Since the driver hardcodes PHY_OFFSET (0x1000) into its register macros like
+MTK_DP_PHY_DIG_PLL_CTL_1, will this independent regmap cause out-of-bounds
+accesses if the devicetree maps the PHY node to its true physical base?
 
-In qxl_irq_init() in drivers/gpu/drm/qxl/qxl_irq.c, the IRQ is manually=20
-requested and the workqueue is initialized:
+If the devicetree instead sets the PHY node's reg to the parent DP IP base =
+to
+counteract this offset, won't this cause devm_platform_ioremap_resource() to
+fail with -EBUSY due to resource conflicts between the PHY driver and the DP
+IP driver?
 
-	INIT_WORK(&qdev->client_monitors_config_work,
-		  qxl_client_monitors_config_work_func);
-...
-	ret =3D request_irq(pdev->irq, qxl_irq_handler, IRQF_SHARED,=20
-			  ddev->driver->name, ddev);
+> +	if (IS_ERR(dp_phy->regmap))
+> +		return PTR_ERR(dp_phy->regmap);
+> +
+> +	ret =3D devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return ret;
 
-However, the teardown logic in qxl_pci_remove() in drivers/gpu/drm/qxl/qxl_=
-drv.c=20
-appears to omit free_irq() and cancel_work_sync():
+[Severity: High]
+By enabling runtime PM here, could mtk_dp_phy_configure() access hardware
+registers while the PHY device is runtime-suspended?
 
-static void
-qxl_pci_remove(struct pci_dev *pdev)
-{
-	struct drm_device *dev =3D pci_get_drvdata(pdev);
+The consumer driver calls phy_configure() without calling phy_power_on().
+The PHY framework takes a runtime PM reference during .init and .reset,
+but explicitly drops it right before returning, and does not take a referen=
+ce
+during .configure.
 
-	drm_kms_helper_poll_fini(dev);
-	drm_dev_unregister(dev);
-	drm_atomic_helper_shutdown(dev);
+When the consumer calls phy_configure(), it writes directly to hardware via
+regmap_write() and regmap_update_bits() while the device PM usage count
+is zero. Can this crash the system or cause silent loss of configuration?
 
-Does this leak the IRQ handler registration, potentially leading to a
-use-after-free if the shared IRQ fires after the device is unbound?
+> +
+>  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-qxl-simple=
--v1-1-524f6316b5d5@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707154245.1983=
+61-1-angelogioacchino.delregno@collabora.com?part=3D3
