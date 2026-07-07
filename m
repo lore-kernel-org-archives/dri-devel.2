@@ -4,81 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5DEC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A701FC43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:15:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D27510ECFE;
-	Tue,  7 Jul 2026 13:12:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE9A210ECEA;
+	Tue,  7 Jul 2026 13:15:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="dWjazBt6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kjj+907K";
 	dkim-atps=neutral
-Received: from 10.mo534.mail-out.ovh.net (10.mo534.mail-out.ovh.net
- [46.105.32.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECAF610ECFE
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:12:54 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo534.mail-out.ovh.net (Postfix) with ESMTPS id 4gvhVC6Qf5z6JcK;
- Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
-Received: from mta11.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.231.53])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4gvhVC55kjz1xyV; Tue,  7 Jul 2026 13:12:51 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.11])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta11.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 6586D9A1903;
- Tue,  7 Jul 2026 13:12:49 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-95G001ad5d9db4-2061-4297-b6e6-0f6bd507a9e5,
- F51ABC51DEFAB5EDC130C4DD81C4A0C3FBCA9704) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <35e58b52-8b40-424e-8d27-00e0ca34acda@pixelcluster.dev>
-Date: Tue, 7 Jul 2026 15:12:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
- flag
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
- <673ae71a1fc4dcce0e6a1655985a141d6f08c06f.camel@linux.intel.com>
- <0f85e12e-7d34-40a8-9efc-0d1a00b7c24c@amd.com>
- <6fac8343dc71b1dbf17e77390cc878cfaeb6d650.camel@linux.intel.com>
- <9a55ba77-6920-427d-9325-ca0e3b8ee94a@amd.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <9a55ba77-6920-427d-9325-ca0e3b8ee94a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 18109818530335777084
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGpMHMiR+lV9BG0g8y0r2YN9yKo++eDVO5jx4tO5/nQak9qOI47eseKMoIcSZ62nsQ8OdE5PKzsBipKvfIlVx9gsfZynHGCR9kl6L+2Nb4b5DI490aLOJ701YTtbnnrQKXmE/03XMqw1I+PvFIeiCSj8m8PSMaqxqq0ns7qepNXdNHJFR7QlZZWpzV/eVdNy5XnJ+6To7eqXqAgJ+LaLhGak6FrxMlCWiaVc5Ibzr0BEQdeqmaUoCsEcyoacxj4wjWZngaHCgj5goJPa2I8+0KK5GfBxvZ0l6mJdd72hsGkSf3F0b2vQWVQe8d2sRv3iaFqVvfiOdArPni0Q97UD34yuIsL1N2s+vFsKkHGR9/o2EovG25L6inKQn+SXh4jCA+u8njsQqGqornxTSRLdMfo2CsZinW73WZHVWdPuGYcUyUGOwIFFG/QhO+uvwUf2TSVIp9DIWCedg1bydg2sRA432R/m24W0DsPeVijIARYeY7gXQlU2ZcsLA5+ygN3DZ99ziGuc4qwgkAeH5E/xlyWCmI+nGGhDwm1z1oBdr3rEZmjdFLcYXBuTPeLPJGOyxDxc4ZqBWvX+66eljpK8auN4JKwmOY3yc05oyB4QnnmAnQQ+i3jTcIIwB8bYiMP12+b4vuKB8c2Qy1IIg/LXcOPpEchjgISrc4J5oLBZEfGHg
-DKIM-Signature: a=rsa-sha256; bh=wAaSTv7CvzFDUj4WCr27u6J3GWGLHQxhDZYELXFtVPc=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783429972; v=1;
- b=dWjazBt6rp8LErXBxgUf0PFTFcyJ9ver2YjnnHcWM/VevIPoip/0kWFxZngk/Mf+817pNbNy
- g6utW/bEfkfwb3uF2Zwo0KkXV4y/2j1f1rwEyymqWYB+GAwuIecgS6+B685kgZVjRwKDdgFoBtQ
- 65ErNX+rKEmp/E3Vr2/2o6S3gv6aj6vajBW3Uw9xeww6MiDt72oqqOYa4zRoEVleFlPMsrebtKf
- h4Hi9D4TppFL/udb8Ws6JopTTNEmT9kwJO0CxcKxf/dZnCVOdrO+rZIjjJoIzTfFRYdQAC5NCIy
- ZlR6Q0VqCIsvQKdvxcXW2UIteFiel7atxOKzg0PnQpQBQ==
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631E310ECEA
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:15:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5CA1E40856;
+ Tue,  7 Jul 2026 13:15:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E84C1F000E9;
+ Tue,  7 Jul 2026 13:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783430139;
+ bh=bYW7jm8kKmk4FfdiHKU0v/JQ8dCDKYPs2iSP7L/iiLI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kjj+907KwtzkZeflgANbFjgXaX3MfA+WrP0YiPKF2IMBXytpT7WY2+Ptz3hjlwLHe
+ LVuNrEXOBNz3JLU8ufZu1NXx0Ci8K8xXkXSzyzCtvFVEuukNrCznkx6MlF1oOFvkm1
+ ILfhNSqg6ATU8ytQ4yo8XscihyoqJxR9cdzHscFbVot8LDSrOIzOQAeaeQHqLBnl46
+ VmqIv+iUAZpugg31h4d2l9h4y98KD6hMSBaEAHKxRz+5O23dvy4WX2fw+ZA/UaTqo/
+ K+dDhmXwj4EXKlUOgTZ/RD5SdXuWMb0EqYjkGiQgzqR1j9fJcsD4slMyn+XkvlKEFn
+ SEB5lJ86DSHnQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V11 07/11] gpu/buddy: Add routine to dump allocated
+ buddy blocks
+To: "Tejas Upadhyay" <tejas.upadhyay@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707130617.970638-20-tejas.upadhyay@intel.com>
+References: <20260707130617.970638-13-tejas.upadhyay@intel.com>
+ <20260707130617.970638-20-tejas.upadhyay@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 13:15:38 +0000
+Message-Id: <20260707131539.1E84C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,224 +54,123 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/7/26 14:54, Christian König wrote:
-> On 7/7/26 14:41, Thomas Hellström wrote:
->> On Tue, 2026-07-07 at 14:28 +0200, Christian König wrote:
->>> On 7/7/26 14:09, Thomas Hellström wrote:
->>>> On Fri, 2026-07-03 at 18:31 +0200, Natalie Vock wrote:
->>>>> TTM is about to switch to drm_exec for locking objects
->>>>> in the LRU list. When we're done processing the object, we want
->>>>> to
->>>>> unlock it only if the caller doesn't already hold that lock. If
->>>>> DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which
->>>>> callers
->>>>> may
->>>>> require for unrelated reasons), we have no way of knowing whether
->>>>> the
->>>>> lock is already held.
->>>>>
->>>>> To remedy this, add a separate helper that forcefully bypasses
->>>>> the
->>>>> IGNORE_DUPLICATES flag for only a single locking operation.
->>>>>
->>>>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->>>>
->>>> The first, more complete attempt to try to tackle the exhaustive
->>>> eviction introduced a drm_exec snapshot ability instead.
->>>>
->>>> https://lists.freedesktop.org/archives/intel-xe/2024-May/035820.html
->>>>
->>>> The idea was that one would want to incrementally lock more buffer
->>>> objects until the validation succeeded, rather than dropping each
->>>> single lock after processing the eviction. That's actually what
->>>> guarantees forward progress. Restoring the snapshot unlocked all
->>>> locks
->>>> that we grabbed in the process, and would work also for single
->>>> locks.
->>>
->>> That's actually not what this patch here tries to solve.
->>>
->>> The problem is rather since we don't remove the BOs from the LRU list
->>> that we try to evict some which are actually part of our working set.
->>>
->>> So when we lock for eviction we can't ignore duplicates no matter
->>> what the global flag says.
->>
->> Ah yes, I see that now when I've gotten to patch 9. But then I think
->> the commit message is a bit misleading. It talks about unlocking an
->> already processed object?
-> 
-> Oh, good point! Yeah the problem isn't the unlocking but that we evict an object from the working set.
-> 
-> The commit message clearly needs to be fixed.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Iterating the entire buddy allocator tree to dump allocated blocks=
+ via `pr_info` while holding the driver lock can cause severe CPU stalls an=
+d system lockups.
+- [Medium] The patch includes an unused DRM header (`<drm/drm_print.h>`), f=
+ails to use `drm_printer`, and has a mismatch between the expected output i=
+n the commit message and the actual implementation.
+--
 
-The problem is actually both. Evicting an object from the working set 
-definitely is potentially unsafe, but I considered that a minor thing. 
-Unlocking the already processed objects is a much, much bigger problem IMO.
+--- Patch [7]: [PATCH V11 07/11] gpu/buddy: Add routine to dump allocated b=
+uddy blocks ---
+commit dd1833d79b732eba09f7b2487608ee8cabc53593
+Author: Tejas Upadhyay <tejas.upadhyay@intel.com>
 
-The worst breakage is for AMDGPU's per-VM buffers whose resv is just the 
-VM's own reservation object: If we encounter another per-VM buffer from 
-our own VM on the LRU, we may or may not decide to evict it, but in any 
-case we leave the VM completely unlocked for the remainder of the 
-submission, including in pagetable updates and all that, which more or 
-less completely smashes the state of the entire VM if multiple PT update 
-operations end up racing with each other.
+gpu/buddy: Add routine to dump allocated buddy blocks
 
-This was the breakage I observed myself, so that's what I described in 
-the commit message. In any case, I can also change the commit message to 
-primarily point at self-eviction and/or expand my explanation on why 
-unlocking causes issues.
+To implement the ability to see allocated blocks under a specific VRAM
+instance in the drm driver, new api is introduced. While existing structs
+often show the free block list, this addition provides a comprehensive view
+of all currently resident VRAM allocations.
 
-Best,
-Natalie
+> Dump will look like,
+>=20
+> [  +0.000003] xe 0000:03:00.0: [drm] 0x00000002f8000000-0x00000002f880000=
+0: 8388608
+> [  +0.000005] xe 0000:03:00.0: [drm] 0x00000002f8800000-0x00000002f884000=
+0: 262144
 
-> 
-> Christian.
-> 
->>
->> Thanks,
->> Thomas
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> Thanks,
->>>> Thomas
->>>>
->>>>
->>>>> ---
->>>>>   drivers/gpu/drm/drm_exec.c | 52
->>>>> ++++++++++++++++++++++++++++++++++--
->>>>> ----------
->>>>>   include/drm/drm_exec.h     |  2 ++
->>>>>   2 files changed, 41 insertions(+), 13 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/drm_exec.c
->>>>> b/drivers/gpu/drm/drm_exec.c
->>>>> index 7988f5e7d56a3..91de6b4d29df8 100644
->>>>> --- a/drivers/gpu/drm/drm_exec.c
->>>>> +++ b/drivers/gpu/drm/drm_exec.c
->>>>> @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct
->>>>> drm_exec *exec)
->>>>>   	return ret;
->>>>>   }
->>>>>   
->>>>> -/**
->>>>> - * drm_exec_lock_obj - lock a GEM object for use
->>>>> - * @exec: the drm_exec object with the state
->>>>> - * @obj: the GEM object to lock
->>>>> - *
->>>>> - * Lock a GEM object for use and grab a reference to it.
->>>>> - *
->>>>> - * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>>> object is
->>>>> - * already locked (can be suppressed by setting the
->>>>> DRM_EXEC_IGNORE_DUPLICATES
->>>>> - * flag), -ENOMEM when memory allocation failed and zero for
->>>>> success.
->>>>> - */
->>>>> -int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object
->>>>> *obj)
->>>>> +static int __drm_exec_lock_obj(struct drm_exec *exec,
->>>>> +			       struct drm_gem_object *obj,
->>>>> +			       bool always_report_duplicates)
->>>>>   {
->>>>>   	int ret;
->>>>>   
->>>>> @@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec,
->>>>> struct drm_gem_object *obj)
->>>>>   		return -EDEADLK;
->>>>>   	}
->>>>>   
->>>>> -	if (unlikely(ret == -EALREADY) &&
->>>>> +	if (unlikely(ret == -EALREADY) &&
->>>>> !always_report_duplicates
->>>>> &&
->>>>>   	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
->>>>>   		return 0;
->>>>>   
->>>>> @@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec,
->>>>> struct drm_gem_object *obj)
->>>>>   	dma_resv_unlock(obj->resv);
->>>>>   	return ret;
->>>>>   }
->>>>> +
->>>>> +/**
->>>>> + * drm_exec_lock_obj - lock a GEM object for use
->>>>> + * @exec: the drm_exec object with the state
->>>>> + * @obj: the GEM object to lock
->>>>> + *
->>>>> + * Lock a GEM object for use and grab a reference to it.
->>>>> + *
->>>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>>> object is
->>>>> + * already locked (can be suppressed by setting the
->>>>> DRM_EXEC_IGNORE_DUPLICATES
->>>>> + * flag), -ENOMEM when memory allocation failed and zero for
->>>>> success.
->>>>> + */
->>>>> +int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object
->>>>> *obj)
->>>>> +{
->>>>> +	return __drm_exec_lock_obj(exec, obj, false);
->>>>> +}
->>>>>   EXPORT_SYMBOL(drm_exec_lock_obj);
->>>>>   
->>>>> +/**
->>>>> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but
->>>>> always report duplicates
->>>>> + * @exec: the drm_exec object with the state
->>>>> + * @obj: the GEM object to lock
->>>>> + *
->>>>> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a
->>>>> reference to it.
->>>>> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is
->>>>> ignored
->>>>> and duplicates are
->>>>> + * always reported.
->>>>> + *
->>>>> + * Returns: -EDEADLK if a contention is detected, -EALREADY when
->>>>> object is
->>>>> + * already locked, -ENOMEM when memory allocation failed and
->>>>> zero
->>>>> for success.
->>>>> + */
->>>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
->>>>> +				 struct drm_gem_object *obj)
->>>>> +{
->>>>> +	return __drm_exec_lock_obj(exec, obj, false);
->>>>> +}
->>>>> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
->>>>> +
->>>>>   /**
->>>>>    * drm_exec_unlock_obj - unlock a GEM object in this exec
->>>>> context
->>>>>    * @exec: the drm_exec object with the state
->>>>> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
->>>>> index 8725ba92ff916..ff80dd2b72240 100644
->>>>> --- a/include/drm/drm_exec.h
->>>>> +++ b/include/drm/drm_exec.h
->>>>> @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32
->>>>> flags, unsigned nr);
->>>>>   void drm_exec_fini(struct drm_exec *exec);
->>>>>   bool drm_exec_cleanup(struct drm_exec *exec);
->>>>>   int drm_exec_lock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object
->>>>> *obj);
->>>>> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
->>>>> +				 struct drm_gem_object *obj);
->>>>>   void drm_exec_unlock_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object *obj);
->>>>>   int drm_exec_prepare_obj(struct drm_exec *exec, struct
->>>>> drm_gem_object *obj,
->>>>>   			 unsigned int num_fences);
-> 
+[Severity: Medium]
+Is this expected output accurate for this patch?
 
+The commit message implies the use of a DRM-specific printing interface like
+drm_printf to provide the "xe ... [drm]" prefix.=20
+
+However, gpu_buddy_dump_allocated_blocks() does not accept a drm_printer
+argument and relies on gpu_buddy_block_print() which unconditionally uses
+pr_info() instead.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 4d5ac375a538c..e11e9cfb8807e 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/sizes.h>
+> =20
+>  #include <linux/gpu_buddy.h>
+> +#include <drm/drm_print.h>
+
+[Severity: Medium]
+Is this include necessary?
+
+Since this code relies on pr_info() and doesn't take a drm_printer context,
+it looks like this include is unused and adds a DRM dependency to the gener=
+ic
+allocator.
+
+[ ... ]
+
+> +void gpu_buddy_dump_allocated_blocks(struct gpu_buddy *mm)
+> +{
+> +	struct gpu_buddy_block *block;
+> +	LIST_HEAD(dfs);
+> +	int i;
+> +
+> +	gpu_buddy_driver_lock_held(mm);
+> +
+> +	for (i =3D 0; i < mm->n_roots; ++i)
+> +		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+> +
+> +	do {
+> +		block =3D list_first_entry_or_null(&dfs,
+> +						 struct gpu_buddy_block,
+> +						 tmp_link);
+> +		if (!block)
+> +			break;
+> +
+> +		list_del(&block->tmp_link);
+> +
+> +		if (gpu_buddy_block_is_allocated(block))
+> +			gpu_buddy_block_print(mm, block);
+
+[Severity: High]
+Could this cause a regression with CPU stalls or trigger watchdogs on highly
+fragmented systems?
+
+When called, this loop iterates over the entire allocator tree while holding
+the driver lock. In a modern GPU with multi-gigabyte VRAM, this tree can
+contain a massive number of blocks.
+
+gpu_buddy_block_print() unconditionally calls pr_info() for every block:
+
+drivers/gpu/buddy.c:gpu_buddy_block_print() {
+    ...
+    pr_info("%#018llx-%#018llx: %llu\n", start, start + size, size);
+}
+
+Would outputting thousands or millions of lines to the kernel ring buffer a=
+nd
+serial console synchronously under a global lock block other operations for=
+ an
+extended period?
+
+> +
+> +		if (gpu_buddy_block_is_split(block)) {
+> +			list_add(&block->right->tmp_link, &dfs);
+> +			list_add(&block->left->tmp_link, &dfs);
+> +		}
+> +	} while (1);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707130617.9706=
+38-13-tejas.upadhyay@intel.com?part=3D7
