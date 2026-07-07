@@ -4,105 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA7B2C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 05:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCCA2C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 05:57:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15EE510E436;
-	Tue,  7 Jul 2026 05:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 222A610E437;
+	Tue,  7 Jul 2026 05:57:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESK3C2RP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U5n77HNA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B151410E431;
- Tue,  7 Jul 2026 05:57:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4A983409CC;
- Tue,  7 Jul 2026 05:57:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3681F000E9;
- Tue,  7 Jul 2026 05:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783403853;
- bh=qI8AJ1NqMnPNdX2e1rDoySgU2UYCwxvcKuacR3dXL+g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ESK3C2RP2MApHqSxTY6qJ6PWDEIgJsBviyZv7vZkfIKRBpGiIZZkvkwMZXTgCu49v
- XHeluazhMQgRWNBjyt0yfsr0qiA0Gh0wvjModMsHHGeoHQE9KzL1jbmLAfEHywGOuy
- Qkf1iuaZwDIeGifKaJhzOWSApC+7LJt+HdZ8XcLa9EU8dNCseRY+NZLhtVrdLC4a2F
- zTF4sVAzSZRARzKPIpTEGWzoOapE2STlHGmsjAbIZxoP6PvS9oGXaszh5z0y0/o7/h
- ip5WsIXenNeHU8GXrcH9y8utj5Ii4L4llU3KBLBlPQJfdQNGvwEzxg7sZcLKSXxYIg
- n9q/c/x3h9Vhw==
-Message-ID: <b50912e0-b7cb-4986-9e62-63a15792a167@kernel.org>
-Date: Tue, 7 Jul 2026 07:57:22 +0200
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011066.outbound.protection.outlook.com [40.107.208.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8C910E437
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 05:57:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h+DbE0vInewhvzlE3uOPfGP6Hqb2bqPGgv6rgi1qXWc20oGZrOVfHUW4haxtbZBBlMa5vf+jUrWu0ZyT41v61bVDGIaEdYzlowGlt7N1YlafS4gVxEfi+kI0mWXovNqgRmm7lActieh62xHIGVDtgBHW5MAhwh9tb95AD/DwdFgcbn1WG+fPF4LENv9b/Cw1GW/0fR4KGsiau/IPWUXGSKjWnqZxbyrfESwo8dFSHpFmy1qSvQZulrnYNvVx5RVbi5KijQXVockR28HP7Syj98+Mohu2TfI6Ofm1P+dKv2rOS9ubCUmt1vp9EqCQO851LPzaP4wgL6wOvWmkUpcvEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/uKYMEPmJaCmRlJBetDDmUqWrV3byY+uw43SbmCTYcc=;
+ b=NQLqrEXuOifMO6hQHlepbV8m/znGS8hZXZjZmE1aquAVULGPobBlx1GI2LUSL0e/8dXRalVUBA+iDc068BMYo5HIh9GsKNNU/JSxhQYCN2Vzzapx3bj2icZnSelpgJhIXKCb2o/zX98rQfihM2FeKPsEudXF+4MbUbp6NKsUKSiAzaFGbYRN4dfcNLPDqAK/Nk4pcgT+6gCZLpkBxaMc5b9zSUQJRYAGg3LYrga2NFrbFNU7G0YOBHRpQPjm5csvZIoHAGifuCWNF2yxeKaFayz9hzd63S0eHKiSR23hfCU9xcfPQeR+iJlBQnnnvbDh7Ze7lSp2DDCONJX/T6iT0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/uKYMEPmJaCmRlJBetDDmUqWrV3byY+uw43SbmCTYcc=;
+ b=U5n77HNAZsw0TS9RxOraRnneOn+rfzQhrGdk679m7XQ9w/qqlljUG3QFE8iA6I24MCP1pR/UZ26aSS62sy0pJrbrPWDgZ4x14GC1LipDQRNqE1FGbQrNxi7z9cTTTS2sVsY+xMNkLalRHF+sTmBwm1dYEe82GABISXiodNqtST0=
+Received: from SJ0PR05CA0069.namprd05.prod.outlook.com (2603:10b6:a03:332::14)
+ by PH7PR12MB5594.namprd12.prod.outlook.com (2603:10b6:510:134::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Tue, 7 Jul
+ 2026 05:57:35 +0000
+Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
+ (2603:10b6:a03:332:cafe::17) by SJ0PR05CA0069.outlook.office365.com
+ (2603:10b6:a03:332::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.3 via Frontend Transport; Tue, 7
+ Jul 2026 05:57:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 05:57:35 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
+ 2026 00:57:34 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 7 Jul 2026 00:57:34 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Fix deadlock on debug BO command timeout
+Date: Mon, 6 Jul 2026 22:57:32 -0700
+Message-ID: <20260707055732.479103-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v2 0/8] qcom: display / dts: Few corrections of
- address spaces.
-To: Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
- <178339449937.1938770.7041355905157380217.b4-ty@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <178339449937.1938770.7041355905157380217.b4-ty@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|PH7PR12MB5594:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d5778c5-8323-4a56-5ca2-08dedbeca4c1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|5023799004|18002099003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: 7SZLHBnRHraLoT3TSOEBhpkqRaPg6YbZNVfbrEFJ/DoTmQ4nMD4AhH9j53X6VANWDEII7Qra5Mm2LsoThmIPLQMJs60bzprbJTsTaqwArEBnIL2QbaXaQ5/uVMf8fM4F50+UC+Wfr4CNXFljFbEvMD0IVKHH1Xo5FW8dOC45UVFEdjOD0vMN57WVY2mzMCsTUDc4nNAzu95h31HtQHJ4iFucErmaRVl8lB08mhG1hqQQEySu+AzvG7JZjs768sDxG58+byfQI5rvI77s+h//U4v3yh+AVuDjaAQlrOvUxFGWUYDIK9ixh2Nm2Jq/VvD97/4RDRLEk4JAMLB8zxYs5QgC++drsD+DDdbmf+MWBJCAG0nteRHUzo8JV5WIvXHjkQyorR4aCKadIIBH1Nt4GIepOROUxQxpeneOmGnCvKxHktx2Oc+Z1ii68a2Uuqz5Jy5yk12++5cxPLcyBHEuoXScVhy0DOsFKZsfDpTLstFuo7gKbUekBgApDW1XjlII25UzPwDImyoe7sKbe9A0PtidvwfbG1o9FK3RCzOzHgHB53IswkiADxamZjoVtTCteNNuQ5LDSC7qzk8Gh0dOu1QSGnRg52Qxk4kT5FtTUucJimqyUwuQurDHDHBK264lRfGa2yfe86ZNd5mMpCWBzYI1HNVm6bHxrhl+5aPMKL8VIJCBnr+TyCJCvG7fYj3gJZBreXNx7RG1oyqcOw0xNQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(5023799004)(18002099003)(11063799006)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: wuPq0lCGPXTsHFGctkD41cUjCVubEhENE6Lvnp7Kab6Pn6zAQcz+E1iW/NnPCgMnZTWCNhOR92aGm1DC0ze9QoccAWaCY4G5SkI8mQUQeamxyNzR6pA+FcRaa3LNwYMYa2x6j6x6CCupR/Fpe75qDe9vXWaCHlol9JspI/J5EDEODmv4HC53SVsU7Vuei8DPLbK4n4nifgf8/RbLoJ5hTxM30okqgFFa88vWm3uaSsOGVm5iguBGNpqVC2Vu2ivj8hbqakZkY3cU6iWO2AaRj/r2Ow9qe2A7+VQA1/aOvR6EQFq0FWk5xHfOvcYizQPTaQmxSPCdrcax/U4NONwSzv4SRTKhfaFgF5h9jWII3gnWl+uOq7Y6awhoJQ2YpyO78e9OqnhDOXcEHeyN+ucOaSjATJ6qJj7x1RLjv8U4r3F2JalRJXCU7K1tCzJkXua2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 05:57:35.4809 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d5778c5-8323-4a56-5ca2-08dedbeca4c1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE18.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5594
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,26 +111,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07/07/2026 05:21, Bjorn Andersson wrote:
-> 
-> On Sun, 05 Apr 2026 16:33:56 +0200, Krzysztof Kozlowski wrote:
->> Changes in v2:
->> - Patch #2: Add dai-common.yaml reference (Dmitry)
->> - Correct subject
->> - Rb tags
->> - Re-order Eliza bindings patch
->> - Link to v1: https://patch.msgid.link/20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com
->>
->> [...]
-> 
-> Applied, thanks!
-> 
-> [8/8] arm64: dts: qcom: sm8750: Correct DPU VBIF address space size
->       commit: 4fd832d6aed496c7111746d2c1e36b006659f89d
-> 
+Both amdxdna_hwctx_sync_debug_bo() and amdxdna_drm_config_hwctx_ioctl()
+hold xdna->dev_lock while invoking backend operations. If the hardware
+hangs, aie2_cmd_wait() blocks waiting for a firmware response. When the
+DRM scheduler timeout expires, aie2_sched_job_timedout() is invoked to
+reset the hardware. However, the timeout handler also attempts to acquire
+dev_lock, resulting in a deadlock.
 
+Avoid this by releasing dev_lock before waiting for the firmware
+response and reacquiring it after the wait completes. This allows the
+timeout handler to proceed with device recovery when a debug BO command
+times out.
 
-Only this one? I guess I will rebase and resend.
+Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_ctx.c    | 5 ++++-
+ drivers/accel/amdxdna/amdxdna_ctx.c | 6 ++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index 7bf635634e64..30ccb8d5e23d 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -900,13 +900,16 @@ static int aie2_hwctx_cu_config(struct amdxdna_hwctx *hwctx, void *buf, u32 size
+ static void aie2_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq)
+ {
+ 	struct dma_fence *out_fence = aie2_cmd_get_out_fence(hwctx, seq);
++	struct amdxdna_dev *xdna = hwctx->client->xdna;
+ 
+ 	if (!out_fence) {
+-		XDNA_ERR(hwctx->client->xdna, "Failed to get fence");
++		XDNA_ERR(xdna, "Failed to get fence");
+ 		return;
+ 	}
+ 
++	mutex_unlock(&xdna->dev_lock);
+ 	dma_fence_wait_timeout(out_fence, false, MAX_SCHEDULE_TIMEOUT);
++	mutex_lock(&xdna->dev_lock);
+ 	dma_fence_put(out_fence);
+ }
+ 
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+index 67a2abcf173e..9ae19393e488 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.c
++++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+@@ -310,6 +310,7 @@ int amdxdna_drm_destroy_hwctx_ioctl(struct drm_device *dev, void *data, struct d
+ 	if (!drm_dev_enter(dev, &idx))
+ 		return -ENODEV;
+ 
++	mutex_lock(&xdna->client_lock);
+ 	mutex_lock(&xdna->dev_lock);
+ 	hwctx = xa_erase(&client->hwctx_xa, args->handle);
+ 	if (!hwctx) {
+@@ -328,6 +329,7 @@ int amdxdna_drm_destroy_hwctx_ioctl(struct drm_device *dev, void *data, struct d
+ 	XDNA_DBG(xdna, "PID %d destroyed HW context %d", client->pid, args->handle);
+ out:
+ 	mutex_unlock(&xdna->dev_lock);
++	mutex_unlock(&xdna->client_lock);
+ 	drm_dev_exit(idx);
+ 	return ret;
+ }
+@@ -388,6 +390,7 @@ int amdxdna_drm_config_hwctx_ioctl(struct drm_device *dev, void *data, struct dr
+ 		goto free_buf;
+ 	}
+ 
++	mutex_lock(&xdna->client_lock);
+ 	mutex_lock(&xdna->dev_lock);
+ 	hwctx = xa_load(&client->hwctx_xa, args->handle);
+ 	if (!hwctx) {
+@@ -400,6 +403,7 @@ int amdxdna_drm_config_hwctx_ioctl(struct drm_device *dev, void *data, struct dr
+ 
+ unlock:
+ 	mutex_unlock(&xdna->dev_lock);
++	mutex_unlock(&xdna->client_lock);
+ 	amdxdna_pm_suspend_put(xdna);
+ free_buf:
+ 	kfree(buf);
+@@ -428,6 +432,7 @@ int amdxdna_hwctx_sync_debug_bo(struct amdxdna_client *client, u32 debug_bo_hdl)
+ 	}
+ 
+ 	abo = to_xdna_obj(gobj);
++	mutex_lock(&xdna->client_lock);
+ 	mutex_lock(&xdna->dev_lock);
+ 	hwctx = xa_load(&client->hwctx_xa, abo->assigned_hwctx);
+ 	if (!hwctx) {
+@@ -439,6 +444,7 @@ int amdxdna_hwctx_sync_debug_bo(struct amdxdna_client *client, u32 debug_bo_hdl)
+ 
+ unlock:
+ 	mutex_unlock(&xdna->dev_lock);
++	mutex_unlock(&xdna->client_lock);
+ 	amdxdna_pm_suspend_put(xdna);
+ put_obj:
+ 	drm_gem_object_put(gobj);
+-- 
+2.34.1
+
