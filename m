@@ -4,71 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A54C44502
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BEAC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBFFB10ED8D;
-	Tue,  7 Jul 2026 14:17:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6344A10ED90;
+	Tue,  7 Jul 2026 14:17:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KdFQjeIX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cjj8mYKC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12FA410E4D1;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC5110ED8D
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:17:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E15DE43A89;
  Tue,  7 Jul 2026 14:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783433842; x=1814969842;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=n6IDX0ZcCgLBKVR2hEqdAQZ+aHjY/cRF0MzfnOL8oQc=;
- b=KdFQjeIX/fkPw0DjjSusRds90MWkJw/wT0B1NjNG8uOF9jnVPGzsbvTE
- 2FH4whIfFEi3KFl5SINv618iJUjBSQl21VQmuYkLODZmJzfHTuDRgK4Q0
- lsr3E1vSeTvc0Wd+5ZW6UJqEAJ0Bys5KLw714XnQkLnV+Ur/UwxPizqob
- CXZrb2ASbEuZNF5fgqtMBs5KIvX3bcz8qeVwtEePi5f76dCYalljswtZP
- hHGRt0V1SzqxjkpCjDwnhkJBp0i2yIluT+IBdY3CwF1jO1ofuLSuenTjC
- H+cyEw3M758loUxN8oyLMFW3202KJ67EhHd56SfgxyIFGEYuTxXUKVfol w==;
-X-CSE-ConnectionGUID: OJcX1zQwQ0K94WepV/hgew==
-X-CSE-MsgGUID: OhWFRznQS6OidqA2kB9Lfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="109623897"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="109623897"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 07:17:21 -0700
-X-CSE-ConnectionGUID: azXCJv3QRBqATUv6ZUoP7g==
-X-CSE-MsgGUID: 86IffxY4TpGK38ceQPgUYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="250653344"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.223])
- ([10.245.244.223])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2026 07:17:17 -0700
-Message-ID: <d0aaa4c0-280c-4796-b8fd-d5908ff7b279@linux.intel.com>
-Date: Tue, 7 Jul 2026 16:17:57 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Robert Mader <robert.mader@collabora.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Daniel Stone
- <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260703073230.19982-1-robert.mader@collabora.com>
- <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
- <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
- <d3e954dd-381f-480b-8f48-698d8aead017@collabora.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <d3e954dd-381f-480b-8f48-698d8aead017@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A0F1F00A3E;
+ Tue,  7 Jul 2026 14:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783433842;
+ bh=XooZ1j2/PeTN4Cppq3/g7WsrrzUn7Kzdk0MrCi3sqmU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Cjj8mYKCw8By17/CWrCS7a4PIwML7hzpVPtOaVsdDYj9F1PE0bXJzVjNe6vXrtCy1
+ 4JRGSzfwc3S5ta7XLmON+je0hynhSs0RN/1VSfuVU/bVzgR5K3xbrVZPXeZIGiQh1T
+ 0Sc3xlz0wIA3zATAqbHMKvXyCcyL9gYRRXTp6qIgvpdeV6l6a0bK0wysHJ20P71GJU
+ mSZnuhw1fc/i8jWCrM6YA8n1AG45iifBJKoWk0ZXylCcR/Xr5JvzZ2rzc6kzR1goP1
+ FQRWv1PsRtTgAbA60jWETAENhwJUw/OoWT6oQL/6QTJk9r+OpovrvEJ8E/E2auLPf3
+ gHsBblqRMSuWA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 06/10] drm/i915: Implement
+ vga_switcheroo_client_ops.pre_switch
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707135724.247562-7-tzimmermann@suse.de>
+References: <20260707135724.247562-1-tzimmermann@suse.de>
+ <20260707135724.247562-7-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 14:17:22 +0000
+Message-Id: <20260707141722.A6A0F1F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,48 +54,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Robert,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] AB-BA deadlock between `vgasr_mutex` and `dev->clientlist_mutex` d=
+uring VGA switcheroo and DRM client hotplug/registration.
+--
 
-On 7/7/26 15:15, Robert Mader wrote:
-> Hi,
-> 
-> On 07.07.26 15:01, Maarten Lankhorst wrote:
->> Hey,
->>
->> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
->>>
->>> On 7/3/2026 1:02 PM, Robert Mader wrote:
->>>> The client cap is currently advertised unconditionally, even for drivers
->>>> that do not support plane color pipelines. If clients supporting the later,
->>> s/later/latter
->>>
->>>> like Wayland compositors or tools like drm_info, enable the client cap on
->>>> such drivers they will be left without both color pipeline and the legacy
->>>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
->>>> conversion support.
->>>>
->>>> Prevent that by only marking the cap supported if there are actually planes
->>>> with color pipelines.
->>>>
->>>> Note: while the color pipeline replacement for the legacy properties is
->>>> still under review (1), we can assume that it will work as a drop-in
->>>> replacement.
->>> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
->>>
->>> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
->> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
->>
->> But thanks for all feedback, as I was about to push this patch, I noticed it still uses -EOPNOTSUPP, can it be changed to -EINVAL?
-> 
-> For existing users it shouldn't make a difference. drm_info and Weston just check for "drmSetClientCap() == 0" - and old kernels without the cap will also return -EINVAL AFAICS.
-> 
-> I personally find -EOPNOTSUPP more appropriate and more in line with other return values in that function - but no strong opinion, thus feel free to change while applying (or I can resend the patch accordingly if you prefer).
+--- Patch [6]: [PATCH 06/10] drm/i915: Implement vga_switcheroo_client_ops.=
+pre_switch ---
+commit ca43d8e034e1ee27918b22e1b7a19b8f6a5b4a67
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-Yeah no worries, I looked at the code and it seems -EOPNOTSUPP is used a lot in getcap/setcap. In particular when driver support is missing
-for features, I'll leave it as is and push it now.
+drm/i915: Implement vga_switcheroo_client_ops.pre_switch
 
-Kind regards,
-~Maarten
+This commit implements the pre_switch callback for vga_switcheroo in the
+i915 driver. It calls drm_client_dev_acquire_outputs() to push fbcon
+updates from vga_switcheroo into DRM's fbdev emulation.
+
+> diff --git a/drivers/gpu/drm/i915/i915_switcheroo.c b/drivers/gpu/drm/i91=
+5/i915_switcheroo.c
+> index 7e0791024282e..6b306ece0556a 100644
+> --- a/drivers/gpu/drm/i915/i915_switcheroo.c
+> +++ b/drivers/gpu/drm/i915/i915_switcheroo.c
+[ ... ]
+> @@ -58,10 +59,19 @@ static bool i915_switcheroo_can_switch(struct pci_dev=
+ *pdev)
+>  		atomic_read(&i915->drm.open_count) =3D=3D 0;
+>  }
+> =20
+> +static void i915_switcheroo_pre_switch(struct pci_dev *pdev)
+> +{
+> +	struct drm_i915_private *i915 =3D pdev_to_i915(pdev);
+> +
+> +	if (i915 && intel_display_device_present(i915->display))
+> +		drm_client_dev_acquire_outputs(&i915->drm);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Does this code introduce an AB-BA deadlock between vgasr_mutex and
+dev->clientlist_mutex?
+
+A GPU switch triggered via userspace will acquire vgasr_mutex and eventually
+call this pre_switch callback:
+
+vga_switcheroo_debugfs_write()  [acquires vgasr_mutex]
+  vga_switchto_stage2()
+    i915_switcheroo_pre_switch()
+      drm_client_dev_acquire_outputs()  [acquires dev->clientlist_mutex]
+
+However, a DRM client hotplug event can acquire these locks in the reverse
+order:
+
+drm_client_dev_hotplug()  [acquires dev->clientlist_mutex]
+  drm_fbdev_client_hotplug()
+    register_framebuffer()
+      fbcon_fb_registered()
+        do_fb_registered()
+          vga_switcheroo_client_fb_set()  [acquires vgasr_mutex]
+
+Could this lead to a system hang when a GPU switch races with a display
+hotplug event?
+
+> +}
+> +
+>  static const struct vga_switcheroo_client_ops i915_switcheroo_ops =3D {
+>  	.set_gpu_state =3D i915_switcheroo_set_state,
+>  	.reprobe =3D NULL,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707135724.2475=
+62-1-tzimmermann@suse.de?part=3D6
