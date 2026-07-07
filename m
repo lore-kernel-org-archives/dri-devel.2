@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C353C44500
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3929C43602
 	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:34:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A352510EBA2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D807910EBA6;
 	Tue,  7 Jul 2026 07:34:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ForedeT4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OHyYsmkI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F02510EB9E
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC5310EB9A
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C8A36618AB;
- Tue,  7 Jul 2026 07:33:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3FD41F000E9;
- Tue,  7 Jul 2026 07:33:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 37B19437D9;
+ Tue,  7 Jul 2026 07:33:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7392B1F000E9;
+ Tue,  7 Jul 2026 07:33:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409629;
- bh=airgbxL1sKuMal1d1K2gcZrKH108O2x+A+oa7Ozs7L4=;
+ s=k20260515; t=1783409625;
+ bh=2BFynzDzCliPcjcFgwiOh4hD0fCZGiv9eLbuu/gfUXo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ForedeT47kO0wBQhKgthZ7tn0tN4JC6GHOJxBuqdQLVSc/dBuDuWlv+7x6Zhp/i7O
- 9aFNz0503vIJ2EsZHgcsF1sxh43X6agklD4xrRMVQ3V9khWQWTGm/WZkcZxY0UetCA
- x5EukxIJLT1L1k3a2yXMvwwEtI1OVVyzRv78BIdBIUSMv033kFMkZzszGUr3yny2zy
- HiS7k/8b5iCaQ7ivf7fGHCnXQ7nHZyvT0tAWwbISbbeZn7K2XopEkiU8vdZrUGLdSH
- e+JyqiMxQumtd0kDIv3g6l2oHzVSyNkVxdgd95YL3tvTTZpLhU0s30ARC7Z7pd+INm
- hjDtyerYy/uPA==
+ b=OHyYsmkI7NYbdwoQrNWbSbms/DzBipykfBZ7lAnRkMunfbXBmHFP0gNXZ7xTS9wH/
+ De4imz4DvADDrhXdUwJFux5F6CxCRd8BiQ5Uzz7ojI/f+cGb56YfgFmPwsIQo+aW2U
+ C+bi+beXehGZw+osAjtTvzMwLaS2Aj1ndFOHQ3Mj4orGW9VXQ9ZXRkux2fvA4++aOf
+ VezXaJdK+0bzu45bxCugFycIVyuzxCnA1DAliLQx5s1FUyrfHPDkjpPfkDJLeNT29i
+ JmAPn0F2otsNkkViuxxpJmQarkcURiRon4j+eo8awH4RtbNCRY6D/ghE8EPerwHplf
+ ZdML0TtfGXGiA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 31/40] dept: assign unique dept_key to each distinct
- wait_for_completion() caller
+Subject: Re: [PATCH v19 28/40] dept: assign unique dept_key to each distinct
+ dma fence caller
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: "Anna Schumaker" <anna@kernel.org>, linux-rt-devel@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
- dlemoal@kernel.org, "Jeff
- Layton" <jlayton@kernel.org>, ojeda@kernel.org, "Chuck Lever" <cel@kernel.org>,
- cassel@kernel.org, linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
- tytso@mit.edu
-In-Reply-To: <20260706061928.66713-32-byungchul@sk.com>
+Cc: "Chuck Lever" <cel@kernel.org>, dlemoal@kernel.org,
+ "Jeff Layton" <jlayton@kernel.org>, linux-rt-devel@lists.linux.dev,
+ linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-ide@vger.kernel.org, tytso@mit.edu, cassel@kernel.org, ojeda@kernel.org,
+ "Anna Schumaker" <anna@kernel.org>, linux-kernel@vger.kernel.org
+In-Reply-To: <20260706061928.66713-29-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-32-byungchul@sk.com>
+ <20260706061928.66713-29-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:48 +0000
-Message-Id: <20260707073348.D3FD41F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:44 +0000
+Message-Id: <20260707073344.7392B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,107 +62,121 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The `wait_for_completion_*_timeout` macros evaluate their timeout =
-argument `t` multiple times, creating a side-effect vulnerability.
-- [High] The `wait_for_completion_*` wrapper macros declare local variables=
- (`__ret` and `__m`) that shadow variables in the caller's scope, leading t=
-o uninitialized memory usage.
-- [High] The `wait_for_completion` macros now implicitly depend on GPL-only=
- exported symbols, breaking non-GPL module compilation when CONFIG_DEPT is =
-enabled.
-- [Medium] The C helper function `rust_helper_wait_for_completion` defeats =
-the primary goal of the patch for the Rust subsystem by mapping all Rust ca=
-llers to a single `dept_key`.
+- [Medium] The newly introduced statement expression macros for DMA fence w=
+aiting evaluate their timeout argument (`t`) multiple times.
+- [Medium] Local variable shadowing in the statement expression macros due =
+to the unhygienic `__ret` variable declaration.
 --
 
-commit 18fd6796eb79fb0d0201e71c6791aa80955604b2
+commit 4d4caad8d173eededcba1493c060f5ddecbd6b70
 Author: Byungchul Park <byungchul@sk.com>
 
-dept: assign unique dept_key to each distinct wait_for_completion() caller
+dept: assign unique dept_key to each distinct dma fence caller
 
-This patch assigns a unique dept_key to each distinct wait_for_completion()
-caller to avoid false positive reports from DEPT. It also adds a C helper
-for the Rust subsystem to avoid build errors.
+dma fence can be used at various points in the code and it's very hard
+to distinguish dma fences between different usages.  Using a single
+dept_key for all the dma fences could trigger false positive reports.
 
-> diff --git a/include/linux/completion.h b/include/linux/completion.h
-> --- a/include/linux/completion.h
-> +++ b/include/linux/completion.h
-[ ... ]
-> +#define wait_for_completion(x)						\
-> +({									\
-> +	sdt_might_sleep_start_timeout(NULL, -1L);			\
-> +	__wait_for_completion(x);					\
-> +	sdt_might_sleep_end();						\
-> +})
-
-[Severity: High]
-Will these macros implicitly depend on GPL-only exported symbols, breaking
-non-GPL module compilation when CONFIG_DEPT is enabled?
-
-The original wait_for_completion() functions are exported via EXPORT_SYMBOL,
-making them available to non-GPL modules.
-
-The new macros wrap these primitives with calls to dept_stage_wait() and
-dept_clean_stage() via sdt_might_sleep_start_timeout().
-
-Since those tracker functions are exported via EXPORT_SYMBOL_GPL, could this
-cause linkage failures for non-GPL modules using the macro?
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index d4c92fd350924..3732849a30b7e 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
 
 [ ... ]
-> +#define wait_for_completion_timeout(x, t)				\
+
+> @@ -370,8 +370,22 @@ bool dma_fence_check_and_signal_locked(struct dma_fe=
+nce *fence);
+>  void dma_fence_signal_locked(struct dma_fence *fence);
+>  void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timesta=
+mp);
+>  void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t =
+timestamp);
+> -signed long dma_fence_default_wait(struct dma_fence *fence,
+> +signed long __dma_fence_default_wait(struct dma_fence *fence,
+>  				   bool intr, signed long timeout);
+> +
+> +/*
+> + * Associate every caller with its own dept map.
+> + */
+> +#define dma_fence_default_wait(f, intr, t)				\
 > +({									\
-> +	unsigned long __ret;						\
+> +	signed long __ret;						\
+
+[Severity: Medium]
+Could this local variable declaration lead to shadowing issues? If a caller
+passes arguments that reference a variable named __ret in their own scope,
+this uninitialized local variable will shadow the caller's variable, causing
+undefined behavior.
+
 > +									\
 > +	sdt_might_sleep_start_timeout(NULL, t);				\
-> +	__ret =3D __wait_for_completion_timeout(x, t);			\
+> +	__ret =3D __dma_fence_default_wait(f, intr, t);			\
+
+[Severity: Medium]
+Is it safe to evaluate the timeout argument t multiple times here?
+
+If a caller passes an expression with side effects, such as timeout--, it
+would be evaluated twice, which could lead to incorrect timeout logic.
+
+> +	sdt_might_sleep_end();						\
+> +	__ret;								\
+> +})
+> +
+
+[ ... ]
+
+> @@ -628,12 +642,37 @@ static inline ktime_t dma_fence_timestamp(struct dm=
+a_fence *fence)
+>  	return fence->timestamp;
+>  }
+> =20
+> -signed long dma_fence_wait_timeout(struct dma_fence *,
+> +signed long __dma_fence_wait_timeout(struct dma_fence *,
+>  				   bool intr, signed long timeout);
+> -signed long dma_fence_wait_any_timeout(struct dma_fence **fences,
+> +signed long __dma_fence_wait_any_timeout(struct dma_fence **fences,
+>  				       uint32_t count,
+>  				       bool intr, signed long timeout,
+>  				       uint32_t *idx);
+> +/*
+> + * Associate every caller with its own dept map.
+> + */
+> +#define dma_fence_wait_timeout(f, intr, t)				\
+> +({									\
+> +	signed long __ret;						\
+> +									\
+> +	sdt_might_sleep_start_timeout(NULL, t);				\
+> +	__ret =3D __dma_fence_wait_timeout(f, intr, t);			\
+
+[Severity: Medium]
+Does this code also suffer from the same macro hygiene issues with shadowing
+__ret and evaluating the t argument twice?
+
+> +	sdt_might_sleep_end();						\
+> +	__ret;								\
+> +})
+> +
+> +/*
+> + * Associate every caller with its own dept map.
+> + */
+> +#define dma_fence_wait_any_timeout(fpp, count, intr, t, idx)		\
+> +({									\
+> +	signed long __ret;						\
+> +									\
+> +	sdt_might_sleep_start_timeout(NULL, t);				\
+> +	__ret =3D __dma_fence_wait_any_timeout(fpp, count, intr, t, idx);	\
+
+[Severity: Medium]
+Would it be safer to use a more unique variable name instead of __ret, and
+evaluate t only once before passing it to sdt_might_sleep_start_timeout()
+and __dma_fence_wait_any_timeout(), similar to the other macros?
+
 > +	sdt_might_sleep_end();						\
 > +	__ret;								\
 > +})
 
-[Severity: High]
-Does this macro evaluate the timeout argument t twice?
-
-If a caller passes an expression with side effects (like a stateful
-function call or a pre/post-increment) as the timeout argument, the
-expression will be executed multiple times.
-
-Would this lead to incorrect timeouts or potential kernel crashes if the
-expression modifies sensitive state?
-
-[Severity: High]
-Could the internal __ret variable shadow a variable in the caller's scope?
-
-If a caller passes an expression for the timeout t or the completion x
-that relies on a variable named __ret in their own scope, the macro's
-inner uninitialized __ret might shadow the caller's variable.
-
-Would this result in the underlying wait functions receiving uninitialized
-stack memory instead of the intended parameter?
-
-[ ... ]
-> diff --git a/rust/helpers/completion.c b/rust/helpers/completion.c
-> --- a/rust/helpers/completion.c
-> +++ b/rust/helpers/completion.c
-[ ... ]
-> +void rust_helper_wait_for_completion(struct completion *x)
-> +{
-> +	wait_for_completion(x);
-> +}
-
-[Severity: Medium]
-Does this C helper function defeat the primary goal of the patch for the
-Rust subsystem?
-
-The patch explicitly changes wait_for_completion() to a macro so that a
-unique static dept_key is instantiated at each distinct call site, avoiding
-false positive dependency reports.
-
-However, by wrapping the macro into a single out-of-line C function,
-wouldn't all Rust callers of completions share the exact same dept_key,
-reintroducing the false positive reports?
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D31
+3-1-byungchul@sk.com?part=3D28
