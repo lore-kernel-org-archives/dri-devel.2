@@ -4,108 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55CE6C43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:56:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38E34C44500
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A820310E4C0;
-	Tue,  7 Jul 2026 13:56:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E96A10ED40;
+	Tue,  7 Jul 2026 13:57:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="UwGrPMMO";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="J6wpNNM/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="68iXdv7V";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="J6wpNNM/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="68iXdv7V";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA3F10E4C0
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:56:14 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-4799b3f7c83so2622183f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 06:56:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783432573; cv=none;
- d=google.com; s=arc-20260327;
- b=P29GquiVCSsgE9dSRK/0xC4O5IuHWvp3I1kGrSi8TZ3L7ifiLNDKj9Q9wY2S2Ppub7
- o3+8QOhYPQVF6T/1C8im479Wed2qs9QEdQkEp7wbkIYZgcXY82gYl9+dsB/SXanHsuMQ
- M7O2bDysOUdq8zw9SO23VPF+sOdo3anGpM2ZObQr8fI6CFCFxKOVh5ow7sRncG4Z4n/A
- w96yNi9Xo+2gOjcd0vQGB8vLxzTINav5NOuiolwgOACZh8QWjRPwCFu5OI0143oesjCU
- cWEkcGXHYKkp4fCL6Di9J/xpJySoj+PBQ9k0XSOtXRgQ17Yp+514I8IEBStUGpd1hiBN
- ohNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=nNxmK9/0e1DDLDiWJdtnZznbYGrC+zqRTQAuKd0PNlk=;
- fh=YehOWRU4M5zyE+3qSrihE1lapnKzUBXKDq0PSpeznHg=;
- b=W4jc9vTsYTDAyfRQa4TAzskoRttyqCc2g8QkRAiamwApZOfiAJHpW/4kBmrWGsgUez
- GGmKIQNQeTNQJTyWQD0h+5lPX8rdlgVBj5So9plZ2X4dQylAMaQQFD5Wf2EOy3cLGKRp
- kDn5GgeXLc8qfOVt0eLxyHEADIemMkJGXmV5XY83/27fLGGCu/eCh1Vhw6oRwHEJBNBU
- ObtoyGzr8Oe1+Z3CIwYYygwqR3/ouWzz5z8hghJNFXUsmnTQNHnVg//9P96dXAqcSm1z
- VoQiLliC8XiMDhuAcLJTJ2/HUBRMsVct9StgOMbIDJKADePIAv8v/pwAu8zEDSon2GTs
- L4lw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1783432573; x=1784037373;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nNxmK9/0e1DDLDiWJdtnZznbYGrC+zqRTQAuKd0PNlk=;
- b=UwGrPMMOFcFyJLVk9blkQE46JjG07xEOeJU846wBklgAc6ZV6x7sQWcJFJNIufRr39
- ZwRBvaHzZWqcq4g/0svWR3MOLoDg9q07xcfV0otc3qViaLtfWv364/ux+PHnU/Nksfr+
- ao8RIhBgzBCcZ0WCY/T0fXbUiOKxbXQJ2LiFmKUVVvwTd5DvZqcfWxk3ExAbpd7PqXcR
- 6gC342Ay0x/5rUnLqWMspQpwWnKbLOO92yIEk3dwMGA+F0iZLbokSfcYFUry40wcm4L6
- aQOw8WWNozH4DONOc3PaKjPzPcUdRmw1IDbcaH3F8gjDh/66LPa1lH0lEmV1s5WIlP2C
- jOLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783432573; x=1784037373;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=nNxmK9/0e1DDLDiWJdtnZznbYGrC+zqRTQAuKd0PNlk=;
- b=Iav2bqwOtXh6RkBU+ock9fAepjTkdbUPpzrxRc07A+QJeZx4Efrj2oR0toErey4e8p
- iMgYpeDmfetuBBgwgC8UwR4Peh2YUqieN4MH/mJfAvMCwBWnD+YtxWtEsy8yCN8lVrzK
- tOrz2NaC1H2HiPfrkMQZ84i4jMu+jpvDiUjLfI3L6XIInMbDM6tKPvLYIc20RuDD35GJ
- 9LrHRPk6SjadOXfrbQx7kSRYxdSPKiGT6bNc/meHW7Dr40zHkjdHMGeUJxL8GlWsAjDH
- khcUWke0KmLnE70a0nidy7DP6z1+I2FVJryW39gRkwRXnUMKaap3ZaUD3Ej6QWJfGmWZ
- VLPQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rri7Ibi6bLz/KQH2lqBYYaDkes8PVrZ12TQozczX+j5XzxUyFgyTX5d3nn0VtpNWrdAERdK41iyNFE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywr58KbjyFTbkAXIaGFUE2T8xaGPk+niJHL2/d5a/SNae7sA4ni
- 2EBfsALT8Edp6bOU8pYxaIFtKEc66aat5eR93BnMigCPtrW7oKNUFNnGZ7a/EUzSxDvStbjEobr
- EwU5ezd1/8vV0TjkUexZCWJV8B5RVMERTxlYrrtuF
-X-Gm-Gg: AfdE7cmxrW19mNYYJe+G3171QBdYlTrTU622XHA4JIuaR5P5oXxE+Br9esE3pMQiECA
- YrNE5Fa3GGrDrOblmFnsIGRP0ZvK+D7gyxYzUJdgsg0oJkFwsR+Xb/N8R35JuDUYECw8RMAX1ca
- RkYFT7Wos204pmJrchhY6D3lHJHXHyA6sMOMKOzCQZzox4s8vXHkCj2OyuqQixWQOP9cA3/xvlu
- RAJNwwIdGN8Ck0AOmYs4ylmSjiIh+CYIv9d1h4wSsqqqQaaui39wk1MvostwgfwFkurZozl1NU8
- Azb38kdvuM7GiZngu2mch8iMnSBpC5rQq9oNRQ==
-X-Received: by 2002:adf:f290:0:b0:477:2e75:522c with SMTP id
- ffacd0b85a97d-47de66cdccdmr4577090f8f.28.1783432572316; Tue, 07 Jul 2026
- 06:56:12 -0700 (PDT)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2F0710ED3F
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:57:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4171B759D1;
+ Tue,  7 Jul 2026 13:57:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783432650; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XctuVESh7ZeNSsRmaxqwIzT4LaneT22++w9e8ig4CGA=;
+ b=J6wpNNM/Ut2sYlZlD0xseOall5lm0rzwyt2Tn12vpUbDkQqLjaZmaIYDq8MXXCSsMzJnKl
+ T5TcfVDr5IC9ydVjHFjSksqh7RWAOQ3eqU/8mum9Rn7SfvGBf6liJ0hzimtxjrcL/48GOc
+ GGJYihbwClC0PMlyeH7rmVbF/WvP+HM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783432650;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XctuVESh7ZeNSsRmaxqwIzT4LaneT22++w9e8ig4CGA=;
+ b=68iXdv7VpVpEib/TDsAtlN5u5sb7jnb0Wjb20OErKJ3VYGCdssuNiwk68Dmo3CNZI730fc
+ +szfA+09I8JMfvCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783432650; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XctuVESh7ZeNSsRmaxqwIzT4LaneT22++w9e8ig4CGA=;
+ b=J6wpNNM/Ut2sYlZlD0xseOall5lm0rzwyt2Tn12vpUbDkQqLjaZmaIYDq8MXXCSsMzJnKl
+ T5TcfVDr5IC9ydVjHFjSksqh7RWAOQ3eqU/8mum9Rn7SfvGBf6liJ0hzimtxjrcL/48GOc
+ GGJYihbwClC0PMlyeH7rmVbF/WvP+HM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783432650;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XctuVESh7ZeNSsRmaxqwIzT4LaneT22++w9e8ig4CGA=;
+ b=68iXdv7VpVpEib/TDsAtlN5u5sb7jnb0Wjb20OErKJ3VYGCdssuNiwk68Dmo3CNZI730fc
+ +szfA+09I8JMfvCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A5A29779AF;
+ Tue,  7 Jul 2026 13:57:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GGwnJ8kFTWoFSgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 07 Jul 2026 13:57:29 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
+ dakr@kernel.org, deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 01/10] drm/edid: Include <linux/fb.h>
+Date: Tue,  7 Jul 2026 15:38:08 +0200
+Message-ID: <20260707135724.247562-2-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260707135724.247562-1-tzimmermann@suse.de>
+References: <20260707135724.247562-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <20260703-chid-v1-0-84fe8259e46e@nvidia.com>
- <20260703-chid-v1-1-84fe8259e46e@nvidia.com>
-In-Reply-To: <20260703-chid-v1-1-84fe8259e46e@nvidia.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Tue, 7 Jul 2026 15:55:59 +0200
-X-Gm-Features: AVVi8CdHfosGlUDJEhRFxdK1GHnnIUmv0dXkgaoEgKtaKne6Vk4-CO1ueEwiEf4
-Message-ID: <CAH5fLgh1Gh0ypT3R9E1NrDHXha5G-BJJdTzGxz240QJ0inZ5wg@mail.gmail.com>
-Subject: Re: [PATCH 1/4] rust: bitmap: use function-level cfg on kunit test
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Burak Emir <bqe@google.com>, Yury Norov <yury.norov@gmail.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.78 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.18)[-0.913];
+ MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[wunner.de,redhat.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,intel.com,ursulin.net,gmx.de];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_TWELVE(0.00)[22];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,12 +119,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 3, 2026 at 12:19=E2=80=AFPM Eliot Courtney <ecourtney@nvidia.co=
-m> wrote:
->
-> Since commit c652dc44192d ("rust: kunit: allow `cfg` on `test`s"),
-> we no longer need this workaround.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+We currently get <linux/fb.h> via <linux/vga_switcheroo.h>. Include it
+explicitly.
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_edid.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 07970e5b5f65..86ae2d8d4de2 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -32,6 +32,7 @@
+ #include <linux/byteorder/generic.h>
+ #include <linux/cec.h>
+ #include <linux/export.h>
++#include <linux/fb.h> /* for KHZ2PICOS() */
+ #include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/kernel.h>
+-- 
+2.54.0
+
