@@ -4,68 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC26EC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50EF5C44503
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B632B10F401;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D9E010F3F1;
 	Thu,  9 Jul 2026 07:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="L7dvL8Ta";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pT0OoEJp";
 	dkim-atps=neutral
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
- [208.88.110.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 410EE10F2DF
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:44:09 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by mail.savoirfairelinux.com (Postfix) with ESMTP id 44AD33D81902;
- Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id 498aQrijUzYB; Wed,  8 Jul 2026 17:35:01 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.savoirfairelinux.com (Postfix) with ESMTP id 3A0E23D818D6;
- Wed,  8 Jul 2026 17:35:01 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 3A0E23D818D6
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AE3A10E29A
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 19:47:32 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2cc891373e0so28359825ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 12:47:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
- t=1783546501; bh=Er0KKoFtW0S0Xh0OGKnwvigIgq5VaT6QTg+x1kMiIOU=;
- h=From:To:Date:Message-Id:MIME-Version;
- b=L7dvL8TaGIJbDI878MA4kd2J5HGydZ6T9IYOEhqt6Qsh9EuNMTnnlSfF/ZmS0ExSu
- Wk3PCK7+q0n7LJ/aSx4dKq3RJ6CJkhiumRonGcn3up11oWP5Nplu42L/vGpubN5Flh
- 6Awg9mWkXxTYvjpvSuzJIeYLy6IL37o1BjiUlCqot/7B6QAb6zE+rPkKdz/2UJ7lkL
- Wn3d7el/Et4uZHztzfNNAw2ekVqY4RNaV/kEHIOrOQ8kpeGhVe3IZ1NJbjh5+Xbl04
- Qn54+Nlh3GqsbSzgTRW+3RR/JVEBi4Iwk5xu7Z7BzUOD37P4WSKMRPAKpYIZEstiV6
- gLaeTxm3tbfIA==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id yry0LCDVC--a; Wed,  8 Jul 2026 17:35:01 -0400 (EDT)
-Received: from localhost (unknown [192.168.51.254])
- by mail.savoirfairelinux.com (Postfix) with ESMTPSA id EAFA73D8171F;
- Wed,  8 Jul 2026 17:35:00 -0400 (EDT)
-From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-To: Jagan Teki <jagan@edgeble.ai>, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-Subject: [PATCH 0/5] drm/panel: jd9365da: add support for DCLTek DT300250
-Date: Wed,  8 Jul 2026 17:34:55 -0400
-Message-Id: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
-X-Mailer: git-send-email 2.34.1
+ d=gmail.com; s=20251104; t=1783453652; x=1784058452; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:user-agent:references
+ :in-reply-to:message-id:date:cc:to:from:subject:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=MurgedTImf2dmSaSEEivYoY5j30SVqg6Is/CYFnqB6k=;
+ b=pT0OoEJpVs/vqCJllNkPFjOcESTuWYdGWFCGsdCemP9+llP9zceihiVKaMBtanLaeL
+ 57sI+CNyZYIHaDtJfh9Hc+WIYutNLbgVviIzbPAg1PIiw7xYCVnzGyCcL3qrt5YyWPq0
+ ZBznLkUISlZezrno6nGObM1tkaPl9yxsBXFQff3Gyk6G79JxmxlmLsOKYWM34o59euSS
+ c9S6sKHKotCQtW1F5n1W4dwMcD+HN4noat4aMpz302JbSE6SvLtHQ4uSB2IHOGS1qyus
+ 80OTA9HVdG3INdZeptnqQJepUz/DVb4yJZyMcQKTZIqfV+08TyLLvO74euXlX4DkvwRd
+ Zsqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783453652; x=1784058452;
+ h=content-transfer-encoding:mime-version:user-agent:references
+ :in-reply-to:message-id:date:cc:to:from:subject:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MurgedTImf2dmSaSEEivYoY5j30SVqg6Is/CYFnqB6k=;
+ b=WjOHsu7ZS71B9L2uyr7gggrbek75rkJpA1lDZKj/xhIjnPEkhmyVqP8MUUtszlwcb1
+ XrUFrxQ/B5Ffkb85zigeL5Mk28OpnAM4Irix+JDbs+XwWn0KKsSGeYZVKiUpwVS/hY2c
+ gXEWlWK+aqJtaPSgK+/O8KkSMh1/BO7ZihxUbN5/MNqvEp3BlpgiFirJt+bknJDXuVzS
+ p4vXHS3igvqBq2ke/HfvHa2b9gVCakXAXVnO9t1te6tTW/fzPK9F2CMCg10aKE1bNAT8
+ klhgS6Qea7rjKFcrJdS7c3p5lQdHwIHf0vz5jSt1RGzcGnD9BPHIcLB+ZsqftUKwDxOf
+ LpaA==
+X-Gm-Message-State: AOJu0Yx+FYkI7z1ll2PEveyWTaGegDDDcOaNiz3CfhsOJqGHT/ueqgNg
+ eYRuSdL57jVdbQDREKtA0fOvBp857uAw9Tir0DafCcXdjPFq9VGUbwY3
+X-Gm-Gg: AfdE7ckfzLHvUC+Az0tyQBunTWzPWEJkWwcTIAJexzapojicNZJ2ryqkkIN2rv4eC4R
+ Aa0AAo7KUS2CiBpOIUfSN86dIDku5RTqNeBL1T2OFVMfcJyPBdeHy/WXtFtxCW4nNFBKHcRrt9/
+ 11vGsOUF8Vyawtg9ALw1VQWWQjEhuzmA7Jv8JmxT5Nf/jJoc1mrYyoBTzfx+cg6JzJHwVbU0HXY
+ P2tBnkT8IjO88+yMW50FXejy0a8SIr95JTYEOcGLUCigf3LBDMi5FJIYHpbswuhvXRLIIrXowwl
+ jlLThX1LzmaPEjpwcQNY8ueGAM6gSCm3mfQdEdVBW2SQ2hd65+T1bIIT2NKVOtxTuuiCe/aviv6
+ m9vjbP73x2FNN/4+OuezEfwwpTFoSCb8nyu+K1ULQ4IOwex+XZOVtzhSXGRmg7AG+M6AR2lR1H7
+ 7Davf+oeiv6S+bUPakJB4aVXtFjkJ4gK9t349UiFzLwbyoY8gO6oIjUrvSdv0=
+X-Received: by 2002:a17:902:ef44:b0:2c9:cf62:6f61 with SMTP id
+ d9443c01a7336-2ccbe616252mr63274975ad.17.1783453651528; 
+ Tue, 07 Jul 2026 12:47:31 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net.
+ [98.225.44.182]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ccc9d1e0c4sm17270585ad.49.2026.07.07.12.47.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jul 2026 12:47:31 -0700 (PDT)
+Subject: [PATCH v7 6/8] RDMA/umem: Use hmm_range_fault_unlocked_timeout() for
+ ODP faults
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: airlied@gmail.com, akhilesh@ee.iitb.ac.in, akpm@linux-foundation.org,
+ corbet@lwn.net, dakr@kernel.org, david@kernel.org, decui@microsoft.com,
+ haiyangz@microsoft.com, jgg@ziepe.ca, kees@kernel.org, kys@microsoft.com,
+ leon@kernel.org, liam@infradead.org, lizhi.hou@amd.com, ljs@kernel.org,
+ longli@microsoft.com, lyude@redhat.com, maarten.lankhorst@linux.intel.com,
+ mamin506@gmail.com, mhocko@suse.com, mripard@kernel.org,
+ nouveau@lists.freedesktop.org, ogabbay@kernel.org, oleg@redhat.com,
+ rppt@kernel.org, shuah@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, skinsburskii@gmail.com, surenb@google.com,
+ tzimmermann@suse.de, vbabka@kernel.org, wei.liu@kernel.org,
+ skinsburskii@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rdma@vger.kernel.org
+Date: Tue, 07 Jul 2026 12:47:29 -0700
+Message-ID: <178345364975.660027.8790629832830633290.stgit@skinsburskii>
+In-Reply-To: <178345345668.660027.2952911919681614557.stgit@skinsburskii>
+References: <178345345668.660027.2952911919681614557.stgit@skinsburskii>
+User-Agent: StGit/0.19
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,30 +102,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for the DCLTek DT300250 9.35-inch MIPI DSI
-panel based on the Jadard JD9365DA-H3 controller.
+ib_umem_odp_map_dma_and_lock() takes mmap_read_lock() only around
+hmm_range_fault(), then retries -EBUSY until HMM_RANGE_DEFAULT_TIMEOUT
+expires.
 
-The series includes the prerequisites needed by this panel support:
-enable LPM mode for the jd9365da path and add the prepare_prev_first
-flag to drm_panel. It then adds the dcltek vendor prefix, documents
-the new compatible string in the binding, and finally adds the panel
-descriptor and initialization sequence to the driver.
+Use hmm_range_fault_unlocked_timeout() instead. The HMM helper now owns
+the mmap lock and refreshes range->notifier_seq for its internal retries.
+ODP keeps using HMM_RANGE_DEFAULT_TIMEOUT for each HMM fault attempt,
+while interval invalidation retries continue to be handled by the existing
+outer loop.
 
-Marc-Olivier Champagne (5):
-  drm: panel: jd9365da: Enable LPM mode
-  drm: panel: jd9365da: Add prepare_prev_first flag to drm_panel
-  dt-bindings: vendor-prefixes: Add DCLTEK
-  dt-bindings: display: panel: add compatible for DCLTek 300250 9.35in
-    panel
-  drm: panel: jd9365da: Add DCLTek 300250 9.35in display
+ODP still validates the interval notifier sequence while holding umem_mutex
+before DMA mapping pages.
 
- .../display/panel/jadard,jd9365da-h3.yaml     |   1 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- .../gpu/drm/panel/panel-jadard-jd9365da-h3.c  | 251 +++++++++++++++++-
- 3 files changed, 253 insertions(+), 1 deletion(-)
+Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+---
+ drivers/infiniband/core/umem_odp.c |   18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/infiniband/core/umem_odp.c b/drivers/infiniband/core/umem_odp.c
+index 404fa1cc3254..9cc21cd762d9 100644
+--- a/drivers/infiniband/core/umem_odp.c
++++ b/drivers/infiniband/core/umem_odp.c
+@@ -329,7 +329,7 @@ int ib_umem_odp_map_dma_and_lock(struct ib_umem_odp *umem_odp, u64 user_virt,
+ 	struct mm_struct *owning_mm = umem_odp->umem.owning_mm;
+ 	int pfn_index, dma_index, ret = 0, start_idx;
+ 	unsigned int page_shift, hmm_order, pfn_start_idx;
+-	unsigned long num_pfns, current_seq;
++	unsigned long num_pfns;
+ 	struct hmm_range range = {};
+ 	unsigned long timeout;
+ 
+@@ -363,26 +363,18 @@ int ib_umem_odp_map_dma_and_lock(struct ib_umem_odp *umem_odp, u64 user_virt,
+ 	}
+ 
+ 	range.hmm_pfns = &(umem_odp->map.pfn_list[pfn_start_idx]);
+-	timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
++	timeout = msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+ 
+ retry:
+-	current_seq = range.notifier_seq =
+-		mmu_interval_read_begin(&umem_odp->notifier);
+-
+-	mmap_read_lock(owning_mm);
+-	ret = hmm_range_fault(&range);
+-	mmap_read_unlock(owning_mm);
+-	if (unlikely(ret)) {
+-		if (ret == -EBUSY && !time_after(jiffies, timeout))
+-			goto retry;
++	ret = hmm_range_fault_unlocked_timeout(&range, timeout);
++	if (unlikely(ret))
+ 		goto out_put_mm;
+-	}
+ 
+ 	start_idx = (range.start - ib_umem_start(umem_odp)) >> page_shift;
+ 	dma_index = start_idx;
+ 
+ 	mutex_lock(&umem_odp->umem_mutex);
+-	if (mmu_interval_read_retry(&umem_odp->notifier, current_seq)) {
++	if (mmu_interval_read_retry(&umem_odp->notifier, range.notifier_seq)) {
+ 		mutex_unlock(&umem_odp->umem_mutex);
+ 		goto retry;
+ 	}
 
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
---=20
-2.34.1
 
