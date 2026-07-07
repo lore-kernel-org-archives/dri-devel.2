@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAFD4C44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA30C43602
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27DB410EDBC;
-	Tue,  7 Jul 2026 15:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2380710EDDD;
+	Tue,  7 Jul 2026 15:12:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VOb/GTLh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j8VTnm2+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF5210EDBC
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A99810EDE0
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3C19A600C3;
- Tue,  7 Jul 2026 15:12:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975F21F00A3A;
- Tue,  7 Jul 2026 15:12:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 919CE61831;
+ Tue,  7 Jul 2026 15:12:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59A91F000E9;
+ Tue,  7 Jul 2026 15:12:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437121;
- bh=jnprHZQr2bcaGyeZgiteD1aqrVI+AXQsRKiDlH9TKVY=;
+ s=k20260515; t=1783437124;
+ bh=c9M/D1gWdTw8vY1q/sHMfILvgK+ks4TS1GhQlhoDSmM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=VOb/GTLhj6xyFuPQ59GU7PA7mZXQhH2Q2omk/ldZ5WNOzHd7srZ+Wo4yL8jYZiKKB
- S2DkB4tQCVQ/mvVApXTkqfdgIE+LU9CVzHZo1qYZwu3fplQXD/qLKyU9Xnbo6eAJ1/
- vPME/IglU8CwI98Vby4eXTXxmYbXbXPhil0zRaYWY7Emkse4D8ejTfqkVdp8rRoPKk
- 2naDlfxfMbjmPoc+AJjOmYi1AWrZ4AsD0GINNJbuNIfKP/19rEKinvhxIZzz0FKdS5
- uwtUyry/urE9WVshjEAJpp8ql4jhZOBk3IabgawP+kLfYJR6LGirWkgpJMImbv6Ewz
- mAqjiSSMtjDBg==
+ b=j8VTnm2+aNO7cmmb83VvEI7kltOVeob2kCF1ev1mBctfeMCTCN0zS7MSQ7u9rUOgF
+ WqiAbitGbI53CcQZv9SUnRWjwSJkzTUFSXOsz1fgcrCdM/JcQILeLxHAgX/alhPRHR
+ PGQP/b83KnUW8a3TxTgBvqVIO6G8d3hhq9gqaVEQmdEyN3uW6BmlViUG7o1BmFvS1K
+ OFbQbRYrWEwsG+snUDprOAuU5yRvLrNt9QhA0R/hmWw81BbTee0qVaWA+Ip5UbUUOU
+ cuFWeeAyMO56YW8YVfR+XyafZ+KWIyetpQKZ8FkQ+wNmtBryB18e4IC5DdXavQLbIJ
+ 0zuuM+VreQRLw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:20 +0200
-Subject: [PATCH v2 13/37] drm/bridge: microchip-lvds: Add atomic bridge
- state handlers
+Date: Tue, 07 Jul 2026 17:11:21 +0200
+Subject: [PATCH v2 14/37] drm/bridge: nxp-ptn3460: Switch to atomic bridge
+ callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-13-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-14-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,16 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Dharma Balasubiramani <dharma.b@microchip.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3856; i=mripard@kernel.org;
- h=from:subject:message-id; bh=XWEiu/uI7AIQwP4HPMGA83utoaqaTY9pHKwsNr/zJHY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4qKKZ4w/XOnuUWbu/aMUOcdur6xiy4X3MW0fczX4L
- Fs/L53fMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZypJ+x4dmDFdun/dU8bmQi
- 4O/lpVP6us5TfHaM8WnZU+7rg/cp/lp/8MFjToHb1quOv+5L6RH+zFjNVr+zSXSV/pTTq/wkMte
- 8uXolekZ1sencJ994J/k8kX8efbxjvVxgOqPhoVsBv192+xwCAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5431; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Hb88qp64HSiY/qFnV1O8pzpgCUTSbwjS7O7Ani9wX9U=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4mKiyknTLCf9TN0SosBgIrvxkXvgTpXjSQKnZDpnL
+ yzJvNHWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbincFYX3Y/90/wsfh9Oz7a
+ le3P7n5mesExK7f3buTGKYk1sR9OFopPSn3eUTRB/NKNBXu2OU0oZ2xYd/HDFQmO2gsWIUcUU3z
+ +b6z+8u/kyRUrdUV2HTr99LPvp0t+qjpVf9P5Tv253umhP2kFAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,11 +73,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The microchip-lvds bridge doesn't implement any enable or disable
-callbacks, but is still missing the atomic state handlers.
+The nxp-ptn3460 bridge uses the legacy non-atomic pre_enable and disable
+bridge callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
-bridge core, add them.
+bridge core, switch to their atomic counterparts and add the bridge
+atomic state handlers.
 
 Generated by the following Coccinelle script:
 
@@ -205,33 +204,87 @@ identifier b;
 	...
  }
 
-Reviewed-by: Manikandan Muralidharan <manikandan.m@microchip.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-To: Manikandan Muralidharan <manikandan.m@microchip.com>
-To: Dharma Balasubiramani <dharma.b@microchip.com>
----
- drivers/gpu/drm/bridge/microchip-lvds.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/bridge/nxp-ptn3460.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/microchip-lvds.c b/drivers/gpu/drm/bridge/microchip-lvds.c
-index 5fb8633f43c5..dd4ffc9f4df3 100644
---- a/drivers/gpu/drm/bridge/microchip-lvds.c
-+++ b/drivers/gpu/drm/bridge/microchip-lvds.c
-@@ -165,10 +165,13 @@ static void mchp_lvds_atomic_disable(struct drm_bridge *bridge,
- 	pm_runtime_put(lvds->dev);
- 	clk_disable_unprepare(lvds->pclk);
+diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+index 7acb11f16dc1..a9b4ac2defc9 100644
+--- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
++++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+@@ -109,11 +109,12 @@ static int ptn3460_select_edid(struct ptn3460_bridge *ptn_bridge)
+ 	}
+ 
+ 	return 0;
  }
  
- static const struct drm_bridge_funcs mchp_lvds_bridge_funcs = {
+-static void ptn3460_pre_enable(struct drm_bridge *bridge)
++static void ptn3460_pre_enable(struct drm_bridge *bridge,
++			       struct drm_atomic_commit *commit)
+ {
+ 	struct ptn3460_bridge *ptn_bridge = bridge_to_ptn3460(bridge);
+ 	int ret;
+ 
+ 	if (ptn_bridge->enabled)
+@@ -137,11 +138,12 @@ static void ptn3460_pre_enable(struct drm_bridge *bridge)
+ 		DRM_ERROR("Select EDID failed ret=%d\n", ret);
+ 
+ 	ptn_bridge->enabled = true;
+ }
+ 
+-static void ptn3460_disable(struct drm_bridge *bridge)
++static void ptn3460_disable(struct drm_bridge *bridge,
++			    struct drm_atomic_commit *commit)
+ {
+ 	struct ptn3460_bridge *ptn_bridge = bridge_to_ptn3460(bridge);
+ 
+ 	if (!ptn_bridge->enabled)
+ 		return;
+@@ -161,11 +163,11 @@ static const struct drm_edid *ptn3460_edid_read(struct drm_bridge *bridge,
+ 	bool power_off;
+ 	u8 *edid;
+ 	int ret;
+ 
+ 	power_off = !ptn_bridge->enabled;
+-	ptn3460_pre_enable(&ptn_bridge->bridge);
++	ptn3460_pre_enable(&ptn_bridge->bridge, NULL);
+ 
+ 	edid = kmalloc(EDID_LENGTH, GFP_KERNEL);
+ 	if (!edid) {
+ 		DRM_ERROR("Failed to allocate EDID\n");
+ 		goto out;
+@@ -180,11 +182,11 @@ static const struct drm_edid *ptn3460_edid_read(struct drm_bridge *bridge,
+ 
+ 	drm_edid = drm_edid_alloc(edid, EDID_LENGTH);
+ 
+ out:
+ 	if (power_off)
+-		ptn3460_disable(&ptn_bridge->bridge);
++		ptn3460_disable(&ptn_bridge->bridge, NULL);
+ 
+ 	return drm_edid;
+ }
+ 
+ static int ptn3460_connector_get_modes(struct drm_connector *connector)
+@@ -246,12 +248,15 @@ static int ptn3460_bridge_attach(struct drm_bridge *bridge,
+ 
+ 	return ret;
+ }
+ 
+ static const struct drm_bridge_funcs ptn3460_bridge_funcs = {
+-	.pre_enable = ptn3460_pre_enable,
+-	.disable = ptn3460_disable,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = mchp_lvds_attach,
- 	.atomic_enable = mchp_lvds_atomic_enable,
- 	.atomic_disable = mchp_lvds_atomic_disable,
++	.atomic_pre_enable = ptn3460_pre_enable,
++	.atomic_disable = ptn3460_disable,
+ 	.attach = ptn3460_bridge_attach,
+ 	.edid_read = ptn3460_edid_read,
  };
  
+ static int ptn3460_probe(struct i2c_client *client)
 
 -- 
 2.54.0
