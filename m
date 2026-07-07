@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7897C44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F6B2C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2372910EDE3;
-	Tue,  7 Jul 2026 15:12:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7C0F10EDE4;
+	Tue,  7 Jul 2026 15:12:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZQpxs5gi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="czeZDH+O";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E89D10EDE4
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7917910EDE3
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6ECAD4401B;
- Tue,  7 Jul 2026 15:12:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D257B1F00A3A;
- Tue,  7 Jul 2026 15:12:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F136A61833;
+ Tue,  7 Jul 2026 15:12:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314971F000E9;
+ Tue,  7 Jul 2026 15:12:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437138;
- bh=MCQq2tKiTM+8iX5JNGs5Fbw3qkQicFdxfLIftxyX8v8=;
+ s=k20260515; t=1783437140;
+ bh=UX7s47AzxbbkgkKVLw8MQiV2mC8krLVR4Yl8uNb3cGA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZQpxs5giiQXnOpirq/kiCThfH9dj5eNhpLj3vXQhgw8F5Fmoia6Yk3Z/Tvoedufsv
- s5cN/2F/nLyUQL1C16Cy3OgiloFsooGxeQHpxFXX05i7oyvo6My0v1o76DiVGMMWU2
- LLffH7FuTF/dHpt2EdO0oc4KEgG6yr6sIW5YOfN5Ll/WUIUg/F4SHsInA0CpukqFrs
- W2I0MS+3uByquh+1FyZ/vSyB1jsy7+INLwtePR2dkPiNCpAlJP/5IFbs13/9UTZAid
- 2fQAIRYu4GlXPlbj3RVj2F0vRcLblVjt0a3ofkIainB6d0eSZunldQ8tdg0BWvfPUb
- P6sv7vu5ZxdBQ==
+ b=czeZDH+Oukm0YB/4XCv0QnED23DtuPz071OmMVklAWd6GGcS+DkIvq6TU08q31dpy
+ LoW68WOyhNFsahADa8SVnf5hll8Jb2bQERkQIqMoAVKl5keDrJcm/mOdq6XnQ0RH9t
+ USavZroc6Q1aNBKhCAFg5lYv0Pr06bzeMKFk2PV1snafaoWwJ41Gncj+Gihrsqjkgv
+ JIaxJdHrXwjpSf11I7zjjexbl6JIZNowBuTUYnfdvqCTByptWQUcfAN2hSz+/np4vx
+ b5F9ZdDFFbNGHZ8pL0GuXC6YD8uSodnNReZ5npOzYKlHUYjzMCJf/LNwrsHupY5lNy
+ 1cBvWxG93aWrQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:27 +0200
-Subject: [PATCH v2 20/37] drm/bridge: tc358764: Switch to atomic bridge
+Date: Tue, 07 Jul 2026 17:11:28 +0200
+Subject: [PATCH v2 21/37] drm/bridge: tda998x: Switch to atomic bridge
  callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-20-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-21-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,14 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, Russell King <linux@armlinux.org.uk>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4839; i=mripard@kernel.org;
- h=from:subject:message-id; bh=DKkqKzIHbV0hzAUqio+GJIgkVm3JQzWhw8E1X8P3Rh4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4hJydktiVz1mC6/qmt74wTxu6V3ZSqH02zu+H0zN7
- o/Ql7nQMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACayfi1jw6SohWtDzyvd2zu1
- 6qn8Pt8/X7Zlp19TS3LaUPiVW/OfU32ZubmExA2Dj8um8nhsuG6tzFhn+XHifn/OF++1Nu0+9O5
- +flwjf7Xu4qUTA87dOzg5jnHN5fdZq8y4/yfKyM1Nfnkz1VcOAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5033; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=l/5OXjQ/c2C8fPBpHjPBsoC5JokB5W1d7dhm8V1LFTQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4pKGy/w5ouXnxdTvc+3Yo18woSIuO1Nz+Y3qzL3bf
+ rWHT1DpmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABO5Yc9Yp1y9bPbjDcdnJSv5
+ K3OE8VhP/dnx7KHmowkNHLfulZZWLTPc9ezQcY2TXK13lNeG/GPvY6zPNmN9ZLzshkr8qeNL+nf
+ P0dh+11BYwyC0cYV1GM8sad7DXs6+c5rvxaas8+Q3ufrd8SkA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,8 +73,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tc358764 bridge uses the legacy non-atomic pre_enable and
-post_disable bridge callbacks.
+The tda998x bridge uses the legacy non-atomic enable and disable bridge
+callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
 bridge core, switch to their atomic counterparts and add the bridge
@@ -205,60 +205,67 @@ identifier b;
  }
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
 ---
- drivers/gpu/drm/bridge/tc358764.c | 13 +++++++++----
+To: Russell King <linux@armlinux.org.uk>
+---
+ drivers/gpu/drm/bridge/tda998x_drv.c | 13 +++++++++----
  1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358764.c b/drivers/gpu/drm/bridge/tc358764.c
-index 084e9d898e22..343f336a9911 100644
---- a/drivers/gpu/drm/bridge/tc358764.c
-+++ b/drivers/gpu/drm/bridge/tc358764.c
-@@ -265,11 +265,12 @@ static void tc358764_reset(struct tc358764 *ctx)
- 	usleep_range(1000, 2000);
- 	gpiod_set_value(ctx->gpio_reset, 0);
- 	usleep_range(1000, 2000);
+diff --git a/drivers/gpu/drm/bridge/tda998x_drv.c b/drivers/gpu/drm/bridge/tda998x_drv.c
+index 6c427bc75896..16c745591175 100644
+--- a/drivers/gpu/drm/bridge/tda998x_drv.c
++++ b/drivers/gpu/drm/bridge/tda998x_drv.c
+@@ -1408,11 +1408,12 @@ static enum drm_mode_status tda998x_bridge_mode_valid(struct drm_bridge *bridge,
+ 	if (mode->vtotal >= BIT(11))
+ 		return MODE_BAD_VVALUE;
+ 	return MODE_OK;
  }
  
--static void tc358764_post_disable(struct drm_bridge *bridge)
-+static void tc358764_post_disable(struct drm_bridge *bridge,
+-static void tda998x_bridge_enable(struct drm_bridge *bridge)
++static void tda998x_bridge_enable(struct drm_bridge *bridge,
 +				  struct drm_atomic_commit *commit)
  {
- 	struct tc358764 *ctx = bridge_to_tc358764(bridge);
- 	int ret;
+ 	struct tda998x_priv *priv = bridge_to_tda998x_priv(bridge);
  
- 	tc358764_reset(ctx);
-@@ -277,11 +278,12 @@ static void tc358764_post_disable(struct drm_bridge *bridge)
- 	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
- 	if (ret < 0)
- 		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
+ 	if (!priv->is_on) {
+ 		/* enable video ports, audio will be enabled later */
+@@ -1426,11 +1427,12 @@ static void tda998x_bridge_enable(struct drm_bridge *bridge)
+ 
+ 		priv->is_on = true;
+ 	}
  }
  
--static void tc358764_pre_enable(struct drm_bridge *bridge)
-+static void tc358764_pre_enable(struct drm_bridge *bridge,
-+				struct drm_atomic_commit *commit)
+-static void tda998x_bridge_disable(struct drm_bridge *bridge)
++static void tda998x_bridge_disable(struct drm_bridge *bridge,
++				   struct drm_atomic_commit *commit)
  {
- 	struct tc358764 *ctx = bridge_to_tc358764(bridge);
- 	int ret;
+ 	struct tda998x_priv *priv = bridge_to_tda998x_priv(bridge);
  
- 	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-@@ -302,12 +304,15 @@ static int tc358764_attach(struct drm_bridge *bridge,
+ 	if (priv->is_on) {
+ 		/* disable video ports */
+@@ -1743,16 +1745,19 @@ static void tda998x_bridge_hpd_disable(struct drm_bridge *bridge)
  
- 	return drm_bridge_attach(encoder, ctx->next_bridge, bridge, flags);
+ 	cec_write(priv, REG_CEC_RXSHPDINTENA, 0);
  }
  
- static const struct drm_bridge_funcs tc358764_bridge_funcs = {
--	.post_disable = tc358764_post_disable,
--	.pre_enable = tc358764_pre_enable,
+ static const struct drm_bridge_funcs tda998x_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_post_disable = tc358764_post_disable,
-+	.atomic_pre_enable = tc358764_pre_enable,
- 	.attach = tc358764_attach,
+ 	.attach = tda998x_bridge_attach,
+ 	.detach = tda998x_bridge_detach,
+ 	.mode_valid = tda998x_bridge_mode_valid,
+-	.disable = tda998x_bridge_disable,
++	.atomic_disable = tda998x_bridge_disable,
+ 	.mode_set = tda998x_bridge_mode_set,
+-	.enable = tda998x_bridge_enable,
++	.atomic_enable = tda998x_bridge_enable,
+ 	.edid_read = tda998x_bridge_edid_read,
+ 	.detect = tda998x_bridge_detect,
+ 	.hpd_enable = tda998x_bridge_hpd_enable,
+ 	.hpd_disable = tda998x_bridge_hpd_disable,
  };
- 
- static int tc358764_parse_dt(struct tc358764 *ctx)
- {
 
 -- 
 2.54.0
