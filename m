@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B803AC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:22:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 493AEC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 14:24:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0873D10ED9C;
-	Tue,  7 Jul 2026 14:22:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAA1310E4E2;
+	Tue,  7 Jul 2026 14:24:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZjsK0Iaj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OZswYO7U";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9B7A89B62
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:22:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E23D810E4E2
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 14:24:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D9806138D;
- Tue,  7 Jul 2026 14:22:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9FE1F000E9;
- Tue,  7 Jul 2026 14:22:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5320E61836;
+ Tue,  7 Jul 2026 14:24:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D415F1F00A3A;
+ Tue,  7 Jul 2026 14:24:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783434158;
- bh=wgoQanoQqzfX/6FSR3qNQQlJk4tYi2+B6GQEHIEPto4=;
+ s=k20260515; t=1783434269;
+ bh=YGrZdKeiKV5oD7U7d2LrItf6Qr2GRcGnHISq3Gwqq/4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZjsK0Iaj2NFMaM+8pGtadGX8yoPjbkWj6KWaaj3OiewEyLGqCl85eO7NFJFP9LPY3
- nUQ/iNCE+ckavNLKp0yedVUVQecTWEbCrp047gwXFVIOrSpVUycM/I9BX0fXey6ovW
- 1Q4/N0A9QvD4LmiPKr48Cqe8Vrnu7+CH23V/7vLm5+W+1JFwTbGXTkVUAf1voresnu
- mWGLtxo3+XhB1w/EqBnQgFkkK7ABc3T77g2hUeSeCAo64KC2Wn7qyLqJTisxcTTFtL
- Oj4Si3m3X/ebWOwfFpwVJXgK8vbezdbBsyQBvuATAdJrRvICmmQ4volsEyLT5vREM8
- /3kYSGYtIz7rQ==
+ b=OZswYO7UcerASXvgFKA28d/KtdT2plW5BU7GlRH/oRslSWbi9UVd0GnkwN4YlnGuH
+ S9fxJpkTHuhMK9fxNviapKuRcEg8DzASXPHIvARwlxdB6hqyIVYjKqi66m1k9CyX56
+ dt0RWYli8W49MxeM6kevXc4cykkNMrrD3tX/WOs/KVi3bHtXeXajSL7a3ThJvmnuTP
+ W3tMp0xeWJyJqKf3iLewUSH5ZFfFYJTIkdhkKLFcniT7hDLSN0JMb9ZygG0YpojgGK
+ 2zOG7Ydt/L+c4OkFvEcAYOnJ8WuMP2xBtyFXEVc+MInFl/HFChO9e6AJTzGFqW+kbf
+ m8918wIfgWDIw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/10] drm/amdgpu: Implement struct
- vga_switcheroo_client_ops.pre_switch
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Subject: Re: [PATCH v5 2/2] gpu/tests/buddy: add dirty tracker performance
+ KUnit test
+To: "Arunpravin Paneer Selvam" <Arunpravin.PaneerSelvam@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707135724.247562-6-tzimmermann@suse.de>
-References: <20260707135724.247562-1-tzimmermann@suse.de>
- <20260707135724.247562-6-tzimmermann@suse.de>
+In-Reply-To: <20260707141238.711499-2-Arunpravin.PaneerSelvam@amd.com>
+References: <20260707141238.711499-1-Arunpravin.PaneerSelvam@amd.com>
+ <20260707141238.711499-2-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 14:22:38 +0000
-Message-Id: <20260707142238.8B9FE1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 14:24:27 +0000
+Message-Id: <20260707142428.D415F1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +60,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] An AB-BA lock inversion is introduced between `vgasr_mutex` and `d=
-ev->clientlist_mutex`, leading to a potential deadlock.
+- [Medium] Resource exhaustion (OOM) due to massive allocation loop in KUni=
+t test
 --
 
---- Patch [5]: [PATCH 05/10] drm/amdgpu: Implement struct vga_switcheroo_cl=
-ient_ops.pre_switch ---
-commit 31dd42c0f56cf03f20324c5c0e3557fa630afd13
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+--- Patch [2]: [PATCH v5 2/2] gpu/tests/buddy: add dirty tracker performanc=
+e KUnit test ---
+commit 227b33731ff64ce8294c937aa003f6e17a7481ed
+Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-drm/amdgpu: Implement struct vga_switcheroo_client_ops.pre_switch
+gpu/tests/buddy: add dirty tracker performance KUnit test
 
-This commit implements the pre_switch callback for vga_switcheroo_client_ops
-in the amdgpu driver. It calls drm_client_dev_acquire_outputs() to push fbc=
-on
-updates from vga_switcheroo into DRM's fbdev emulation.
+This commit adds a new KUnit test to demonstrate the performance advantage =
+of the decoupled dirty-tracker design. The test runs two scenarios on a 4 G=
+iB pool with 4 KiB allocations to evaluate contiguous and repeated allocati=
+on latency.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 211d30f03d25f..6c80c6f4b07ca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1698,10 +1698,18 @@ static bool amdgpu_switcheroo_can_switch(struct p=
-ci_dev *pdev)
->  	return atomic_read(&dev->open_count) =3D=3D 0;
->  }
-> =20
-> +static void amdgpu_switcheroo_pre_switch(struct pci_dev *pdev)
+> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_b=
+uddy_test.c
+> index e31f368ada951..e37505849ecc7 100644
+> --- a/drivers/gpu/tests/gpu_buddy_test.c
+> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+[ ... ]
+> +static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
 > +{
-> +	struct drm_device *dev =3D pci_get_drvdata(pdev);
+[ ... ]
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
+> +			       "buddy_init failed\n");
 > +
-> +	drm_client_dev_acquire_outputs(dev);
+> +	for (i =3D 0; i < SZ_4G / SZ_4K; i++)
+> +		KUNIT_ASSERT_FALSE_MSG(test,
+> +				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
+> +							      &allocated, 0),
+> +				       "buddy_alloc hit an error size=3D%u\n", SZ_4K);
 
-[Severity: High]
-Can this introduce an AB-BA lock inversion between vgasr_mutex and
-dev->clientlist_mutex?
+[Severity: Medium]
+Could this loop cause an Out-Of-Memory (OOM) regression in constrained KUnit
+environments?
 
-This callback is invoked by vga_switcheroo while vgasr_mutex is held, and
-drm_client_dev_acquire_outputs() then acquires dev->clientlist_mutex.
+Since the test fragments a 4 GiB pool into 4 KiB chunks, this loop executes
+1,048,576 times. The allocator will create nearly 2 million struct
+gpu_buddy_block metadata nodes, which can consume around 192 MB of kernel s=
+lab
+memory (and significantly more with KASAN enabled).=20
 
-Meanwhile, the hotplug path acquires clientlist_mutex first:
+KUnit tests often run in restricted environments like UML with 128-256 MB of
+RAM, so this might reliably trigger an OOM panic and break the test suite.
 
-drm_client_dev_hotplug()
-  mutex_lock(&dev->clientlist_mutex);
+Could a smaller pool size be used to demonstrate the performance difference
+without consuming as much kernel memory?
 
-and then eventually takes console_lock and vgasr_mutex (via
-vga_switcheroo_client_fb_set() called from register_framebuffer()) deeper in
-the call stack.
-
-If a hotplug event and a VGA switcheroo switch execute concurrently, could =
-this
-lead to a deadlock?
-
-> +}
+[ ... ]
+> +	/*
+> +	 * Repeated alloc throughput from a maximally fragmented pool
+[ ... ]
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
+> +			       "buddy_init failed\n");
 > +
->  static const struct vga_switcheroo_client_ops amdgpu_switcheroo_ops =3D {
->  	.set_gpu_state =3D amdgpu_switcheroo_set_state,
->  	.reprobe =3D NULL,
->  	.can_switch =3D amdgpu_switcheroo_can_switch,
-> +	.pre_switch =3D amdgpu_switcheroo_pre_switch,
->  };
+> +	for (i =3D 0; i < SZ_4G / SZ_4K; i++)
+> +		KUNIT_ASSERT_FALSE_MSG(test,
+> +				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
+> +							      &allocated, 0),
+> +				       "buddy_alloc hit an error size=3D%u\n", SZ_4K);
+
+[Severity: Medium]
+The same massive allocation loop is repeated for the second scenario here.
+Does this need to be scaled down as well to avoid exhausting memory?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707135724.2475=
-62-1-tzimmermann@suse.de?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707141238.7114=
+99-1-Arunpravin.PaneerSelvam@amd.com?part=3D2
