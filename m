@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D28FC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:28:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2466C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D723710E4FC;
-	Tue,  7 Jul 2026 15:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B38689208;
+	Tue,  7 Jul 2026 15:29:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lniLoYXK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E3dc6iOa";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7583B10E4FC
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:28:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9193289208
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:29:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D76B760018
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:28:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ECC21F000E9;
- Tue,  7 Jul 2026 15:28:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 510B542A5A
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:29:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011211F000E9;
+ Tue,  7 Jul 2026 15:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783438137;
- bh=AMK3JkYGPaMyDti1/nCUzTAaREXC0uUyuHsysQuikpY=;
+ s=k20260515; t=1783438166;
+ bh=hg41nOIwMpGy7CJJ7V+fxh+vrITqorRMAThq3gik2WA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lniLoYXKH+zM9p+gSljrS8+vuclbgcC6xdXdspcaa+2Uy8COxgDpJo9WQ//SxvnwC
- UyKieKlOAtSxVlxBBXGS+wQxebw/GgQvCg34kwR8OVnr7uFX5rRZv1ytSAn/M7VYKf
- wTsDKZwRDBCB10Lmq3aQ5w5IF+1HD+soNRg16ndHKuNdKkRQN0STmzaIY6GVuQxoSL
- /IQdE8pKU4+gughjD4cJvMBk8BwDNkbCK8v04K1+rmnhtWB1DRZaK/3udlmQIVrBy1
- 1nxZh/PFXaFTAF1GtH0sWdjhVckjPeVki9Lv97LUUhDDO+0UnyYVZ/d/BSX2jQjNtU
- IZlghf+23wHLg==
+ b=E3dc6iOaOF1lyA9SpRNj+weHlwa9uRaDjqmnbs3NNtjTaT6CIQUCJo1REEZ+CkzMv
+ piYrBviAyC8hupxDNX4yOYc8Nvp7BCR2fON9vIxRdy8FUUuVbrw5PFSn77fwn9bBtb
+ Se+PWZGmyqJVIYn71CpwkBmFWS2pd6/oc13rvIRYyHEw8yLzciO16K4dfyvMXv5mLS
+ p+14l3D9RhXg6/8qzu8l0+KOYDZqjbpHmA9s5z8mC6w62OfWgrJENSK1lTFe1U/vVW
+ vG3z4gIgvvGbjFj2HTqwcHooMkTuYpVyobNAI7ybeI03FCaZaTFYkUQL4pKw4C8EB8
+ F0qoPpEh2tevQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/37] drm/bridge: analogix-anx6345: Switch to atomic
- bridge callbacks
+Subject: Re: [PATCH v2 07/37] drm/bridge: cros-ec-anx7688: Add atomic bridge
+ state handlers
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-2-21d03cbca446@kernel.org>
+In-Reply-To: <20260707-drm-all-atomic-bridges-v2-7-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-2-21d03cbca446@kernel.org>
+ <20260707-drm-all-atomic-bridges-v2-7-21d03cbca446@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 15:28:56 +0000
-Message-Id: <20260707152857.6ECC21F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 15:29:24 +0000
+Message-Id: <20260707152926.011211F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,119 +58,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The panel is enabled before it is prepared (powered on) in the bri=
-dge enable sequence, violating the DRM panel API contracts and causing pote=
-ntial hardware issues.
-- [High] Bridge `atomic_enable` and `atomic_disable` callbacks invoke sleep=
-ing functions, violating atomic context constraints.
+- [High] NULL pointer dereference in `drm_state_dump` if the initial atomic=
+ bridge state allocation fails.
 --
 
---- Patch [2]: [PATCH v2 02/37] drm/bridge: analogix-anx6345: Switch to ato=
-mic bridge callbacks ---
-commit c3398824f07e9152c87164f9494fed0231949fb3
+--- Patch [7]: [PATCH v2 07/37] drm/bridge: cros-ec-anx7688: Add atomic bri=
+dge state handlers ---
+commit 45bb4ccee956e78effd5cb908d42d26a9cefaebb
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge: analogix-anx6345: Switch to atomic bridge callbacks
-   =20
-The analogix-anx6345 bridge uses the legacy non-atomic enable and
-disable bridge callbacks.
-   =20
-In order to remove the legacy bridge callback support from the DRM
-bridge core, switch to their atomic counterparts and add the bridge
-atomic state handlers.
+drm/bridge: cros-ec-anx7688: Add atomic bridge state handlers
 
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers=
-/gpu/drm/bridge/analogix/analogix-anx6345.c
-> index f3fe47b12edca..eba5c6dcb5ada 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+This commit adds atomic state handlers to the cros-ec-anx7688 bridge. This =
+is
+done to remove the legacy bridge callback support from the DRM bridge core.
+
+> diff --git a/drivers/gpu/drm/bridge/cros-ec-anx7688.c b/drivers/gpu/drm/b=
+ridge/cros-ec-anx7688.c
+> --- a/drivers/gpu/drm/bridge/cros-ec-anx7688.c
+> +++ b/drivers/gpu/drm/bridge/cros-ec-anx7688.c
+
 [ ... ]
-> @@ -580,7 +581,8 @@ static void anx6345_bridge_disable(struct drm_bridge =
-*bridge)
->  		anx6345_poweroff(anx6345);
+
+> @@ -92,6 +93,9 @@ static bool cros_ec_anx7688_bridge_mode_fixup(struct dr=
+m_bridge *bridge,
 >  }
 > =20
-> -static void anx6345_bridge_enable(struct drm_bridge *bridge)
-> +static void anx6345_bridge_enable(struct drm_bridge *bridge,
-> +				  struct drm_atomic_commit *commit)
->  {
->  	struct anx6345 *anx6345 =3D bridge_to_anx6345(bridge);
->  	int err;
-> @@ -600,11 +602,14 @@ static void anx6345_bridge_enable(struct drm_bridge=
- *bridge)
+>  static const struct drm_bridge_funcs cros_ec_anx7688_bridge_funcs =3D {
+> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
 
 [Severity: High]
-This is a pre-existing issue, but does this function enable the panel before
-it is prepared?
+This isn't a bug introduced by this patch, but adding atomic state handlers
+causes drm_bridge_is_atomic() to return true, which exposes a pre-existing
+NULL pointer dereference in the DRM core.
 
-In anx6345_bridge_enable(), we have:
+When drm_bridge_attach() calls drm_atomic_private_obj_init(), the object
+is added to privobj_list before the state is successfully allocated:
 
-	if (anx6345->panel)
-		drm_panel_enable(anx6345->panel);
+drivers/gpu/drm/drm_atomic.c:drm_atomic_private_obj_init() {
+	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
 
-	err =3D anx6345_start(anx6345);
+	state =3D obj->funcs->atomic_create_state(obj);
+	if (IS_ERR(state))
+		return PTR_ERR(state);
 
-And anx6345_start() eventually calls anx6345_poweron() which prepares the
-panel:
+	obj->state =3D state;
+}
 
-	if (anx6345->panel)
-		drm_panel_prepare(anx6345->panel);
+If atomic_create_state() fails, drm_bridge_attach() ignores the error:
 
-On a secondary modeset (after the device has been disabled),
-anx6345->powered is false. anx6345_bridge_enable() calls drm_panel_enable()
-which turns on the backlight. It then calls anx6345_start() which invokes
-anx6345_poweron() and drm_panel_prepare() to power on the LCD logic.
+drivers/gpu/drm/drm_bridge.c:drm_bridge_attach() {
+	if (drm_bridge_is_atomic(bridge))
+		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
+					    &drm_bridge_priv_state_funcs);
 
-Could this inverted enable -> prepare sequence turn on the backlight while
-the panel power is off, potentially causing latch-up and physically damaging
-the LCD logic on some displays?
+	return 0;
+}
 
->  }
-> =20
->  static const struct drm_bridge_funcs anx6345_bridge_funcs =3D {
-> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+This leaves the object on privobj_list with a NULL obj->state.
+
+If drm_state_dump() is later triggered, it will crash when it unconditional=
+ly
+dereferences the NULL state:
+
+drivers/gpu/drm/drm_atomic.c:drm_atomic_private_obj_print_state() {
+	struct drm_private_obj *obj =3D state->obj;
+}
+
+Could drm_bridge_attach() be updated to check the return value of
+drm_atomic_private_obj_init(), or should drm_atomic_private_obj_init()
+remove the object from the list on failure?
+
 > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
 > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
->  	.attach =3D anx6345_bridge_attach,
->  	.detach =3D anx6345_bridge_detach,
->  	.mode_valid =3D anx6345_bridge_mode_valid,
-> -	.disable =3D anx6345_bridge_disable,
-> -	.enable =3D anx6345_bridge_enable,
-> +	.atomic_disable =3D anx6345_bridge_disable,
-> +	.atomic_enable =3D anx6345_bridge_enable,
-
-[Severity: High]
-This is a pre-existing issue, but does mapping these callbacks to atomic
-contexts conflict with the sleeping functions they invoke?
-
-The bridge atomic_enable and atomic_disable callbacks execute in the context
-of atomic commits (e.g., drm_atomic_helper_commit_tail), where sleeping is
-forbidden.
-
-However, anx6345_bridge_enable() and anx6345_bridge_disable() invoke
-hardware sequencing functions like anx6345_start(), anx6345_poweron(), and
-anx6345_poweroff().
-
-For example, anx6345_start() contains:
-
-	usleep_range(10000, 15000);
-
-And anx6345_poweron() contains:
-
-	gpiod_set_value_cansleep(anx6345->gpiod_reset, 1);
-	usleep_range(1000, 2000);
-
-Could calling these sleeping functions from the atomic context cause kernel
-panics or BUG warnings (scheduling while atomic)?
-
+>  	.mode_fixup =3D cros_ec_anx7688_bridge_mode_fixup,
 >  };
-> =20
->  static void unregister_i2c_dummy_clients(struct anx6345 *anx6345)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D2
+omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D7
