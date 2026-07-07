@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF5FFC44502
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4FACC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:12:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35CC710EDF0;
-	Tue,  7 Jul 2026 15:12:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F08F10EDF2;
+	Tue,  7 Jul 2026 15:12:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jOWoGQWq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m9onSUA1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7D510EDF0
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6467510EDF2
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:12:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C189B618A7;
- Tue,  7 Jul 2026 15:12:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 015BF1F000E9;
- Tue,  7 Jul 2026 15:12:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CE93409E8;
+ Tue,  7 Jul 2026 15:12:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB28F1F000E9;
+ Tue,  7 Jul 2026 15:12:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437166;
- bh=7xe6FjXFpwvqgZpFr7miOIp52MtSj5dYx+9TI8opc98=;
+ s=k20260515; t=1783437171;
+ bh=ji+mQZH5X71RTkKvCAzIbIHaWzSRs2hbG5zZCXryMIg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jOWoGQWqyNvw2wXqTHjuzDv9ayHeVQxUomvHVwdDa5Mtit5Th9RGdHIq6x9KiLoPt
- TqqikiO0zw8Nv0P9mjS8bfQpRyzwDQWWb6nA18BwHefZGNBd0AlSMoc7hzasL7jhhk
- HdyrSiVe5MZopGASJ0yAF0bbYFra3K5bCfV6gShXiGkNx1pRCvajbla28Ew1QmAQ0X
- hYak3cvJqZwilmCOq7V431cxiztjy7P5hhUqJA6UZbyId/oqWqhFc3cDfBoSPS04bR
- udRmhua0eDvn1yNTM8gMBNmade1Vw435rg5XMoaa6GSDRD1gShl7DhaSvSPTG0kfd3
- P3NI2bDYS95Fg==
+ b=m9onSUA141fg+ae43HlxDFhZbQZL+dcGLn+TBoEUImQ9WNT/oMXcJgff1SB7rgF8k
+ G3M1G/UInKwMw8MvDu/zfvpVvTz3SiqbAfpP930nt69VoiVn44YNJh3WXHnWvnjtWH
+ z9zzUYnDxFIKZ5esidg2qEW7ZT18Xphv67BOmFlrIoxiJ7vKb+K+yjnlg2FX2U1tNg
+ UdyzORnqRgyCRcsNYz7USlXBFX8XvkFy/2ooPI8+1j4UK0Qm1mdMY2prcl3X6mzlMP
+ VLgoU1majqduvjAIasjgB8SN4Yd3VnPRqZIypNU4ijFD//2VIZ0W5VvnE4fVpo6XU2
+ XlyzQjIIsBkBA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:39 +0200
-Subject: [PATCH v2 32/37] drm/omap: sdi: Switch to atomic bridge callbacks
+Date: Tue, 07 Jul 2026 17:11:41 +0200
+Subject: [PATCH v2 34/37] drm/sti: dvo: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-32-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-34-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -47,15 +47,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ Maxime Ripard <mripard@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5219; i=mripard@kernel.org;
- h=from:subject:message-id; bh=6qvpSSYP2cSqy+l8LWZgGLuISfY/sUbRG8EdBokLA0I=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4nIH/7J/SGjS9vq2Ibzo65blmifnKnzc9fzZg8pXT
- Msf7vq4s2MqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBMxP0CY8PWRS4+2fFbdkUq
- 7S/m90jx/1rX+rh6QbRfcsSHRBeTqTYvzPzLjv315mXvznV4rznzEmPD483S9nw+Bef60hJljBP
- MryYdO1VSePxfxYElkY7r7v/cFKLvw+XZcFziJFfh15hD7y8CAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5272; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=SQoJVbTHk84BWuK2yh3MQ2hSDf74tmmGveAEXE2hLhk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4vJSE9KqPY8tvHOMVexx9zWeF8/WhZkbrxU8WXS5d
+ Lotw6FPHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiCYcZq9lq7lQcu5Ny2Ckj
+ +S4Hy8yZIr7fbs4X38YXu09A0jGKf9dqhgZGz5+TnxTKTG+yz9zVwdhwzDMoz376U20TtqeHmuY
+ nfeJcxlZptVNL3FNc72swu/M1bfvwl/NOXRH7pOqe5eOntAUA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,8 +73,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The sdi bridge uses the legacy non-atomic enable and disable bridge
-callbacks.
+The dvo bridge uses the legacy non-atomic pre_enable, enable, disable
+and post_disable bridge callbacks.
 
 In order to remove the legacy bridge callback support from the DRM
 bridge core, switch to their atomic counterparts and add the bridge
@@ -207,77 +207,75 @@ identifier b;
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 ---
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+To: Alain Volmat <alain.volmat@foss.st.com>
+To: Raphael Gallais-Pou <rgallaispou@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/omapdrm/dss/sdi.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/sti/sti_dvo.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/sdi.c b/drivers/gpu/drm/omapdrm/dss/sdi.c
-index df4cbc683e2c..d4a3c0ecaaf2 100644
---- a/drivers/gpu/drm/omapdrm/dss/sdi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/sdi.c
-@@ -14,10 +14,11 @@
- #include <linux/of_graph.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/string.h>
- 
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- 
- #include "dss.h"
- #include "omapdss.h"
- 
-@@ -195,11 +196,12 @@ static void sdi_bridge_mode_set(struct drm_bridge *bridge,
- 	struct sdi_device *sdi = drm_bridge_to_sdi(bridge);
- 
- 	sdi->pixelclock = adjusted_mode->clock * 1000;
+diff --git a/drivers/gpu/drm/sti/sti_dvo.c b/drivers/gpu/drm/sti/sti_dvo.c
+index 7484d3c3f4ed..b48099468eb9 100644
+--- a/drivers/gpu/drm/sti/sti_dvo.c
++++ b/drivers/gpu/drm/sti/sti_dvo.c
+@@ -207,11 +207,12 @@ static void dvo_debugfs_init(struct sti_dvo *dvo, struct drm_minor *minor)
+ 	drm_debugfs_create_files(dvo_debugfs_files,
+ 				 ARRAY_SIZE(dvo_debugfs_files),
+ 				 minor->debugfs_root, minor);
  }
  
--static void sdi_bridge_enable(struct drm_bridge *bridge)
-+static void sdi_bridge_enable(struct drm_bridge *bridge,
-+			      struct drm_atomic_commit *commit)
+-static void sti_dvo_disable(struct drm_bridge *bridge)
++static void sti_dvo_disable(struct drm_bridge *bridge,
++			    struct drm_atomic_commit *commit)
  {
- 	struct sdi_device *sdi = drm_bridge_to_sdi(bridge);
- 	struct dispc_clock_info dispc_cinfo;
- 	unsigned long fck;
- 	int r;
-@@ -258,11 +260,12 @@ static void sdi_bridge_enable(struct drm_bridge *bridge)
- 	dispc_runtime_put(sdi->dss->dispc);
- err_get_dispc:
- 	regulator_disable(sdi->vdds_sdi_reg);
+ 	struct sti_dvo *dvo = bridge->driver_private;
+ 
+ 	if (!dvo->enabled)
+ 		return;
+@@ -230,11 +231,12 @@ static void sti_dvo_disable(struct drm_bridge *bridge)
+ 	clk_disable_unprepare(dvo->clk);
+ 
+ 	dvo->enabled = false;
  }
  
--static void sdi_bridge_disable(struct drm_bridge *bridge)
-+static void sdi_bridge_disable(struct drm_bridge *bridge,
+-static void sti_dvo_pre_enable(struct drm_bridge *bridge)
++static void sti_dvo_pre_enable(struct drm_bridge *bridge,
 +			       struct drm_atomic_commit *commit)
  {
- 	struct sdi_device *sdi = drm_bridge_to_sdi(bridge);
+ 	struct sti_dvo *dvo = bridge->driver_private;
+ 	struct dvo_config *config = dvo->config;
+ 	u32 val;
  
- 	dss_mgr_disable(&sdi->output);
+@@ -318,20 +320,24 @@ static void sti_dvo_set_mode(struct drm_bridge *bridge,
  
-@@ -272,16 +275,19 @@ static void sdi_bridge_disable(struct drm_bridge *bridge)
- 
- 	regulator_disable(sdi->vdds_sdi_reg);
+ 	/* For now, we only support 24bit data enable (DE) synchro format */
+ 	dvo->config = &rgb_24bit_de_cfg;
  }
  
- static const struct drm_bridge_funcs sdi_bridge_funcs = {
+-static void sti_dvo_bridge_nope(struct drm_bridge *bridge)
++static void sti_dvo_bridge_nope(struct drm_bridge *bridge,
++				struct drm_atomic_commit *commit)
+ {
+ 	/* do nothing */
+ }
+ 
+ static const struct drm_bridge_funcs sti_dvo_bridge_funcs = {
+-	.pre_enable = sti_dvo_pre_enable,
+-	.enable = sti_dvo_bridge_nope,
+-	.disable = sti_dvo_disable,
+-	.post_disable = sti_dvo_bridge_nope,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = sdi_bridge_attach,
- 	.mode_valid = sdi_bridge_mode_valid,
- 	.mode_fixup = sdi_bridge_mode_fixup,
- 	.mode_set = sdi_bridge_mode_set,
--	.enable = sdi_bridge_enable,
--	.disable = sdi_bridge_disable,
-+	.atomic_enable = sdi_bridge_enable,
-+	.atomic_disable = sdi_bridge_disable,
++	.atomic_pre_enable = sti_dvo_pre_enable,
++	.atomic_enable = sti_dvo_bridge_nope,
++	.atomic_disable = sti_dvo_disable,
++	.atomic_post_disable = sti_dvo_bridge_nope,
+ 	.mode_set = sti_dvo_set_mode,
  };
  
- static void sdi_bridge_init(struct sdi_device *sdi)
+ static int sti_dvo_connector_get_modes(struct drm_connector *connector)
  {
- 	sdi->bridge.of_node = sdi->pdev->dev.of_node;
 
 -- 
 2.54.0
