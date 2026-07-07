@@ -4,149 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCF7C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:57:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DDC6C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFD710EBB3;
-	Tue,  7 Jul 2026 07:57:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C1C10E3DB;
+	Tue,  7 Jul 2026 07:58:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fcckQYcR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gp3LWWo3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jt0/YaW6";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82F4B10EBB3
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:57:09 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66748qxn2675422
- for <dri-devel@lists.freedesktop.org>; Tue, 7 Jul 2026 07:57:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7YpaEdMecakz3winsJqyzZ3JM2BmdyWxm8Cl9jEyPXA=; b=fcckQYcR8YaWsCne
- 8OMkkL6BP/ynJXTTEAsp4qAeFWCCSjtyss+7TFUrogT8Wim7hJYNpi6snApgBjUS
- TKjFsDx7XkHgKeZK9JiMftH9grco5VxkAWTNiTqHxZWEj/V/oxN0dfTwapDvVIWT
- 6bePbgvZVPdMCveLWJJfaMIlrvyLikhUIiTSt/fsGYitYyYoUna2vUuaPvez1i0n
- /3jqUl9vCs2hdmUit562G2/k6yzexF1+ZLjJnm5PTbhUMXmejpIIW1bSTc/kxYf1
- EkBuvtu5Sku3r6Y8ZoITOOI0bomB3zl1EUtfCs/cVdSxe+O2z4PmKrN46N5ra0a+
- idONjw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8qj79aka-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 07:57:08 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51c19a2da0eso3507681cf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 00:57:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783411028; x=1784015828;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7YpaEdMecakz3winsJqyzZ3JM2BmdyWxm8Cl9jEyPXA=;
- b=Gp3LWWo3w0hXeQVPdVw2xpc+b12IRPRE759zcWL+woy9z08vkbZmyV7IKZIuymPUBY
- 7WfQuC3WIYdoJVeOA0W2FTYgz1jvq44w51g322vfVoSeXmuwks1Uk9a/QXzdO5KLVt6c
- 7kSl7sYtdSpFk1TAqwY/N3ZktZe5bF8haIAk9ujCbXPx1AhYPsg2X1bUJJCha1/8uxrS
- X1yT5NTXICPwayyn0mI0f2NEpIaTokpx9W6RpOr1KPWYpRi59r4G5Eed5tOjoCsGsrM7
- IbsgNQjNUkaOyLtNzKysBbM3op64BP6M6dqoBskUSHOZL+emCKTxcIjgz/8hmpjNMDmY
- wRcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783411028; x=1784015828;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7YpaEdMecakz3winsJqyzZ3JM2BmdyWxm8Cl9jEyPXA=;
- b=hUIZzm4fwoCUaH6PFLeYqEdzAU4eY98GhTvaYSga31LflAv34RlpRyxG8+ikQz97lU
- 62rfatitg3rFE/YWQCA7DFxOTJ0YU732TqebB+ZoRq7MtGqrll/MLcczlHb6LsX9tbeM
- Fa24FQJPWT5eozeKpKqdlxZRZfADGR+OepUsBe65wgUkCSRZiaAmXlQNznDzpbkINGFw
- v+WZnJsPnk35cUh6tKSZ3w6jbcIX5/b/rx3qgd+T9/FqS/GInDTE8sAOY2K5PGCX5FVX
- z7G401+OCK77Al6WV6M2HEPAzMSkwMq7h9uA3MqgOy8BpW50KOmqaKPHS5qVbCAZSZrj
- hYbQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr0BOeTWcmCeRqMsz2o24ibn7VKHQwjuYsrUpauB17yod3hnobS50/pE3WjRNtzgw7/wjpYruaingA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgDl8JfmpXfet5C8gHUL1AAI5DC8OYt+1aQ0GlChvSAUZGgYkw
- uyZ6z+Qrn4wZantK+6UV95NjGZIxjOKSFWXAvK+s/UrCsnTxSxS55WtUK+XJz0wi7sj0l7N6i76
- b507GMdFFD2vcx7boTCoSzi9fljFS7T5Ut9QyoEw3KERM5wELiiOU2KfhIGFlcvUTrH1e2e8=
-X-Gm-Gg: AfdE7cnEE/dVOClMSruwC/c5CHQuCnYwUCHksGGhUaRm842rjxaV2u94id/3Gqv1BIf
- Vgn8z5itTniiW8k3doSwsJO/hCrEJT8FZ1xiJMKX8iORhL7jp5sw3epm/UcfsudPCRokMcpGUto
- K/Yv3D8ge5vdz24pA7thtcqH06VSwCq2hB0B7XXDe+qALG8TOTQFOve2cedRaBFog4jCeTDmxKi
- 60XicRY+n7J12aQmteT7xhQGrgh4GRNRmHSHsWeLXNKZaleBEQPWrC8gKgO/hjW63JJkT5sXihY
- ul5rZki4PIPuq+QTSWLRC0kSk4xc+CyrYUmQXJzn/97elKaPGs7ceWt50Jnp2vicfjV+KrgpM6z
- LNFTZa094We/8RFrjaIdKC60Qc2LvAcE0PiM=
-X-Received: by 2002:a05:622a:9c3:10b0:51b:f40b:2fa2 with SMTP id
- d75a77b69052e-51c4bd5a87bmr80136051cf.1.1783411027784; 
- Tue, 07 Jul 2026 00:57:07 -0700 (PDT)
-X-Received: by 2002:a05:622a:9c3:10b0:51b:f40b:2fa2 with SMTP id
- d75a77b69052e-51c4bd5a87bmr80135851cf.1.1783411027315; 
- Tue, 07 Jul 2026 00:57:07 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c15ad82311fsm75880366b.8.2026.07.07.00.57.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jul 2026 00:57:06 -0700 (PDT)
-Message-ID: <c9fc2770-d436-407e-998b-b7ca49ee344b@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 09:57:03 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: Add GPU support for Kaanapali
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20260705-kaana-gpu-dt-v2-0-6ac53de56314@oss.qualcomm.com>
- <20260705-kaana-gpu-dt-v2-5-6ac53de56314@oss.qualcomm.com>
- <e2b7e03f-911b-41cd-8ac4-044492e2bdbc@oss.qualcomm.com>
- <b11cdc41-e88b-4815-9349-453f1bd5f14c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <b11cdc41-e88b-4815-9349-453f1bd5f14c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: DDgsQk8Jmezl7J_0tfuDmpKRfV5mCY4f
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA3NSBTYWx0ZWRfX16Jeyan/D/yD
- 6fcjzBWIwrzc5vH7P6elpA2yccSkLzU2v6f8otzAuUNreQT4hBPflOKZ+Hy3njUiDXBW60rjrgB
- HQMxMwWeG0rn6ycjAUzFZi7GM+Yu20ppeH6vOaWcElRPknmZfz3OGIl3ezC3L/9MCRTPZmuMD7u
- NjvDxzghTPed9ssNzD35qKjzGk3vmkd74psojE7iHetxigrUhq7HXWVXWonsHS+lHt0IkHWa/cG
- INbjkVD1rLYEXH7hfE+jYVPoXLg4v2woZVCehk0HW77oGuPhNglmflUXIMYUmjIyBBp4iQ7Eu0g
- 3ZP9QGYLKiPfTWLCJRSK9cFvGQf5prmsXIIY9KJHPl49PRNa0aqJpdXVq7Bzp8HDMxMyKmuxRBJ
- wOG0h7hfrCdwkbwRpisrwoDgSKbD+HCw+dEb98xyXwbSlE6qHNXPn0Z3SfPoDoq2f92GNNgt+Q7
- sXzExq0K4+OUVc3jcXQ==
-X-Authority-Analysis: v=2.4 cv=PIM/P/qC c=1 sm=1 tr=0 ts=6a4cb154 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=w5vk1yBYWc5d-UbTd4AA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA3NSBTYWx0ZWRfX1Sn1Bqy4sLuH
- w56oag0Ic+9Na7ZPUOl9g2eLT84KrRrC+TRN4Di3olVPWuCk3ycREi3QNZiLpktCBJm7nKuLvmW
- LT1GFtr1cX12tmlaoJxhAhyH4wEfnok=
-X-Proofpoint-GUID: DDgsQk8Jmezl7J_0tfuDmpKRfV5mCY4f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_01,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070075
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F99710E3DB
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:58:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3A3AC4123D;
+ Tue,  7 Jul 2026 07:58:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7201F000E9;
+ Tue,  7 Jul 2026 07:58:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783411103;
+ bh=ABD4sigIn7BxE3BopX343uDxRqZe3on1S8NLoRZ7Cxs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jt0/YaW6dFNyg/ajEn1epRha1uwtixXF5WqSI4jr/Wv7dE7J7aL0TtkdnjHaoHwhr
+ afL0gz7lJv1zCcKqS7ZMPrIRIixFnfJZbHj5JA8DUtijRMBbkdaxru5Z7+1uYKkFiK
+ 3H+uJ2sF8z1jmQtZpuOUmvXCfnl/HXZfHgQY0zwxDijmo/xXQZxyEubkXDUHWU5+w4
+ PACja46qX9oica21pVTet1iYVgNrOPVw/DvgDDwCvoGXGF8oEH5E9Hoak+rBG+TMh0
+ LU0DmkG7ZycuAAIKHa1/MquKUFhydA5yzw6JVICkLUoZj8mT/ZLucM0Q1Wp99BtSgm
+ /cBV14CVsFzsA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 02/13] gpu: nova-core: gsp: sequencer: do not store
+ sequence into GspSequencer
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707-nova-bootcontext-v5-2-ecad9346387f@nvidia.com>
+References: <20260707-nova-bootcontext-v5-0-ecad9346387f@nvidia.com>
+ <20260707-nova-bootcontext-v5-2-ecad9346387f@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 07:58:22 +0000
+Message-Id: <20260707075822.CE7201F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,39 +55,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/6/26 10:06 PM, Akhil P Oommen wrote:
-> On 7/6/2026 3:07 PM, Konrad Dybcio wrote:
->> On 7/5/26 10:00 AM, Akhil P Oommen wrote:
->>> Adreno 840 present in Kaanapali SoC is the second generation GPU in
->>> A8x family. It is based on the new slice architecture with 3 slices,
->>> higher GMEM/caches etc.
->>>
->>> There is some re-arrangement in the reglist to properly cover maximum
->>> register region. Other than this, the DT description is mostly similar
->>> to the existing chipsets except the OPP tables.
->>>
->>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>> ---
->>
->> [...]
->>
->>> +			qcom,gmu = <&gmu>;
->>> +			#cooling-cells = <2>;
->>> +
->>> +			nvmem-cells = <&gpu_speed_bin>;
->>> +			nvmem-cell-names = "speed_bin";
->>
->> This looks good to me, but I thought that on a8x, we're supposed to use
->> the freq limiting register in CX_MISC - is either of them preferred?
->> Or are they just hardwired to the same thing by chance
-> 
-> I believe the other register would work, but I don't have a fused hw to
-> test. OTOH, this is what is commercialized.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-This is the answer then
+Pre-existing issues:
+- [High] Command parsing errors silently terminate execution while reportin=
+g success.
+- [High] Truncated commands are executed with zeroed payloads instead of fa=
+iling.
+- [High] `seq_info.cmd_index` is improperly used as the total command count.
+--
 
-Konrad
+--- Patch [2]: [PATCH v5 02/13] gpu: nova-core: gsp: sequencer: do not stor=
+e sequence into GspSequencer ---
+commit b9f8dfb196e815ccff55e396434b9fbb45c0cc05
+Author: Alexandre Courbot <acourbot@nvidia.com>
+
+gpu: nova-core: gsp: sequencer: do not store sequence into GspSequencer
+
+Moves the sequence out of the GspSequencer struct to avoid borrow-checker
+limitations. Iterator creation is moved to GspSeqIter::new so it no longer
+borrows the entire GspSequencer.
+
+> diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-co=
+re/gsp/sequencer.rs
+> index f55205bd61f35..ddce32cc4e308 100644
+> --- a/drivers/gpu/nova-core/gsp/sequencer.rs
+> +++ b/drivers/gpu/nova-core/gsp/sequencer.rs
+
+[ ... ]
+
+> @@ -281,6 +279,18 @@ pub(crate) struct GspSeqIter<'a> {
+>      dev: &'a device::Device,
+>  }
+> =20
+> +impl<'a> GspSeqIter<'a> {
+> +    fn new(seq: &'a GspSequence, dev: &'a device::Device) -> Self {
+> +        Self {
+> +            cmd_data: &seq.cmd_data,
+> +            current_offset: 0,
+> +            total_cmds: seq.cmd_index,
+
+[Severity: High]
+This is a pre-existing issue, but does this incorrectly use the DWord size
+as the command count?
+
+If seq.cmd_index represents the buffer length in DWords, assigning it to
+total_cmds breaks the iteration bounds check.
+
+In GspSeqIter::next(), cmds_processed is incremented by 1 per command,
+which means the condition cmds_processed >=3D total_cmds won't trigger at
+the actual end of valid commands.
+
+Could this cause the iterator to parse and execute padding bytes as
+commands?
+
+> +            cmds_processed: 0,
+> +            dev,
+> +        }
+> +    }
+> +}
+
+[ ... ]
+
+> @@ -363,14 +358,14 @@ pub(crate) fn run(
+> =20
+>          dev_dbg!(sequencer.dev, "Running CPU Sequencer commands\n");
+> =20
+> -        for cmd_result in sequencer.iter() {
+> +        for cmd_result in GspSeqIter::new(&seq_info, sequencer.dev) {
+
+[Severity: High]
+This is a pre-existing issue, but is it possible for truncated commands to
+be parsed and executed with zeroed payloads?
+
+Looking at GspSeqIter::next(), if the remaining buffer is smaller than
+CMD_SIZE, it appears to zero-pad the data into a buffer of size CMD_SIZE
+before passing it to GspSeqCmd::new():
+
+    let cmd_result =3D GspSeqCmd::new(&buffer, self.dev);
+
+Inside GspSeqCmd::new(), the safety check uses data.len():
+
+    if data.len() < size {
+        dev_err!(dev, "Data is not enough for command\n");
+        return Err(EINVAL);
+    }
+
+Since the padded buffer length is always exactly CMD_SIZE, this check might
+act as dead code. Does this mean truncated commands would succeed using the
+zero padding as their payload rather than failing with an error?
+
+[Severity: High]
+This is another pre-existing issue, but does command parsing silently
+terminate on errors while reporting success to the caller?
+
+In GspSeqIter::next(), when parsing fails, the error closure logs the
+failure but returns None:
+
+    cmd_result.map_or_else(
+        |_err| {
+            dev_err!(self.dev, "Error parsing command at offset {}\n", offs=
+et);
+            None
+        },
+
+Since None signals normal iterator termination, this loop in
+GspSequencer::run() will exit cleanly and return Ok(()) without triggering
+an error.
+
+Could this leave the hardware sequence incomplete while the driver
+incorrectly assumes the boot sequence succeeded?
+
+>              match cmd_result {
+>                  Ok(cmd) =3D> cmd.run(&sequencer)?,
+>                  Err(e) =3D> {
+>                      dev_err!(
+>                          sequencer.dev,
+>                          "Error running command at index {}\n",
+> -                        sequencer.seq_info.cmd_index
+> +                        seq_info.cmd_index
+>                      );
+>                      return Err(e);
+>                  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-nova-bootc=
+ontext-v5-0-ecad9346387f@nvidia.com?part=3D2
