@@ -4,54 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE130C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 01:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D29C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 01:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B3610EB0C;
-	Tue,  7 Jul 2026 01:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D10610EB10;
+	Tue,  7 Jul 2026 01:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nd+wdKUb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZqI4oX+x";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83C6E10EB0C
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 01:27:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95EB210EB0E;
+ Tue,  7 Jul 2026 01:27:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 45CF242D71;
- Tue,  7 Jul 2026 01:27:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2071F000E9;
- Tue,  7 Jul 2026 01:27:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E45AF618A5;
+ Tue,  7 Jul 2026 01:27:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13CAB1F00A3F;
+ Tue,  7 Jul 2026 01:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783387655;
- bh=qrbkX+9fvGFaLJTswN/I4VkgkW7XZkbl1Qznf9Y2JYA=;
+ s=k20260515; t=1783387665;
+ bh=GBn2l3iCjIWokc3qkGy1EHIjMHgxLeHlSFT8FB4zHHQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Nd+wdKUbAdvVUElbXw0FTEDbiLRbuIfXNwnRMhwsQDAGqdMzlG4X+fQI82kUI+0PG
- 8++DIAE9jfMGhVjCjpG+ZYK7Xc9FTVfNwdNEDNeksfpbK9rnO4CKBYGBKfhpPXMPLg
- H39mYSteYhg9kdkyy1ZUoSuNdn6wAyxaIbXh2KXWuFI0rXqG+o9FPZhSydjFSzhl9X
- GEPGm1gWTLSS5T/KnLJnm7E3eB/hQMvfryfjVpJFofJCMNoHza3BqB0LL4I7VatNkE
- nV54wV3GNq4wpk7/s5jws7biDk6RxmCQzCU3Oprm4/x0BAVYvSEMVsk7t065/Zu0WR
- 0SOqsPU8lEVSg==
+ b=ZqI4oX+xQRRVaioGvZEkbTW2cpckGe8RBMpCsU40cZl2Lh/lM0IRhKXmx1/1wZiBx
+ oAXauGK45B3StXtIKOt3diIUWKQ4xKp8YuKmP66fNj13RaKjqfEG7DVkMwqak4+DtS
+ Czq2UvSrrmDRYszyaXkB3lv0TV25Jqi+v6JFNQJuPTK9Jx+Qg8bfGwTjHkrtBFrfs7
+ dAt8c4BqqR8xGhqcaRK8988a/BsZIGpCTMOUybrQBgVQaGm/+8Qlr6Xx7cXrD3+TY9
+ sXCazRTZKiu9Ou7WG38JkHLIevNAF676mjQfcam7qHvF0XoM8hWdPfjCLW8BGYit4Q
+ hKUos6po7YjgQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Cristian Cozzolino <cristian_ci@protonmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/6] Enable new features for flipkart-rimob
-Date: Mon,  6 Jul 2026 20:27:17 -0500
-Message-ID: <178338764566.1558388.6463068099121810198.b4-ty@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Pengyu Luo <mitltlatltl@gmail.com>,
+ Alexander Koskovich <akoskovich@pm.me>
+Subject: Re: (subset) [PATCH v2 0/6] qcom: Refactor GPU GX GDSC handling and
+ IFPC behavior on A8x GPUs
+Date: Mon,  6 Jul 2026 20:27:27 -0500
+Message-ID: <178338764560.1558388.7832610679796697421.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260331-rimob-new-features-v5-0-5fcf42a29c12@protonmail.com>
-References: <20260331-rimob-new-features-v5-0-5fcf42a29c12@protonmail.com>
+In-Reply-To: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
+References: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,26 +77,30 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Tue, 31 Mar 2026 11:47:08 +0200, Cristian Cozzolino wrote:
-> This series enables a set of miscellaneous features for Billion Capture+
-> (a handset using the MSM8953 SoC released in 2017):
-> - Panel and GPU
-> - Touchscreen
-> - WiFi + Bluetooth
-> - Hall sensor
+On Mon, 27 Apr 2026 12:08:54 +0530, Taniya Das wrote:
+> This series fixes two closely related issues around GX GDSC ownership and
+> rail control on A8x GPUs, where recent hardware changes and runtime PM
+> interactions violate GMU and IFPC(Inter Frame Power Collapse) architectural
+> expectations.
+> 
+> Problem statement 1: Incorrect GX GDSC disable by OS
+> ----------------------------------------------------
+> GX GDSC is a special GPU power domain that must be exclusively controlled
+> by GMU firmware during normal operation. The OS is expected to force‑
+> disable GX GDSC only during GPU/GMU recovery.
 > 
 > [...]
 
 Applied, thanks!
 
-[3/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable display and GPU
-      commit: a8c0bd4233a9612f200a27f535b66e71eec289a6
-[4/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable WiFi/Bluetooth
-      commit: 15c3536da9227b5850b566f48b2135a7ecc8faf2
-[5/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable touchscreen
-      commit: 74a12ff179901fcec9217ead7d2be368ddff0dd1
-[6/6] arm64: dts: qcom: msm8953-flipkart-rimob: Enable Hall sensor
-      commit: 349ba5a82f0c9f4cfd817dd961e57a545977a66d
+[1/6] clk: qcom: gdsc: Add custom disable callback for GX GDSC
+      commit: 0661ee1d650facefdf61401c7d00eb96fad40b10
+[2/6] clk: qcom: gxclkctl: Use custom disable callback for gx_gdsc
+      commit: badf361c00c802738c776fb5f4e8b08b4d0bad1c
+[3/6] clk: qcom: common: ensure runtime PM suspend completes on probe
+      commit: a5da6c5697a50a5956ae7645e52d0007ac8b3395
+[4/6] clk: qcom: gxclkctl: Remove GX/GMxC rail votes to align with IFPC
+      commit: 1c99638642c2137d7e699e7b2ab400df7ef15774
 
 Best regards,
 -- 
