@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CA0C44500
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF38C43602
 	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 07:33:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FECD10EB99;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5085710EB9B;
 	Tue,  7 Jul 2026 07:33:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QTiuyUw8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f84UEAOi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22AAB10EB98
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28DEF10EB98
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 07:33:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9DE0F618AA;
- Tue,  7 Jul 2026 07:33:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA481F000E9;
- Tue,  7 Jul 2026 07:33:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 12F314351C;
+ Tue,  7 Jul 2026 07:33:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43ECD1F00A3A;
+ Tue,  7 Jul 2026 07:33:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783409620;
- bh=hONfkVVAm3IhN+bPjXgrRib8gT9Pd2b60+x4JNu3SM0=;
+ s=k20260515; t=1783409624;
+ bh=jPs3K0/sbtyyQ4BTexD861LzKdzWfnpZmMddb3M3x+A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QTiuyUw8ntIbYajX8TWXAOBQZPymahnXl5vTFjpzg8UuBPAqNLa2P57x6yKdIovYt
- ObS1/dKhiY6XEcE43kTper+DuvFlSODIhymxWKEcpI7Akq3BhgplsIJq2vzB7n76Ie
- lUkd8ovflWlKIRn6n03F7x2I9NomoJW6P+33uSVKvvQD8L0+TZqmEFLjwwzt7FxH3d
- rz7GiPUTTGeHaqPxFos+dMnKAfDMFiYtE2iFzsNgw7nAF/4EI1fVuxU+Iw2TQWOzM9
- iqiXu+cJnwFx/Kv0s+Tt1V3JuJAMEEHFVW5jKZqXAHiBV+zW2i6zcEUpM0DVG3RVv5
- q+wOX+iOrOPug==
+ b=f84UEAOilWNtAVfMrOWu2s5LhtwnTl5QCQXoTm/Ab6OSin0aLrceaAdK01xVUYM9Y
+ nTnBOzh2cQlW6YP0IHG5xuawwovWRXtBDryMLssmYArMiomuAdQYGMIAs/ovK4vYtz
+ yOgFN1zo6BpYrfnZ9vuIhxEEn/hJBciArrAtMfMElU7YEqgouQwPGTv+DFzB4povR+
+ AQHBEzAZoPhIeuLVSXvEc3msO7mIt/M4n9xZ3FhONtq/VC5t8WzB604N0lLLDPFNVw
+ cj1/FOomrd/++p+gn6eG660XTGHT5TzIL/UbMjOmr/VYRFcBSxdTRn91unFnxGv8kQ
+ sm5JAa1z8WfrQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 22/40] dept: track PG_locked with dept
+Subject: Re: [PATCH v19 27/40] dept: assign dept map to mmu notifier
+ invalidation synchronization
 To: "Byungchul Park" <byungchul@sk.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-rt-devel@lists.linux.dev, "Anna
- Schumaker" <anna@kernel.org>, linux-ide@vger.kernel.org, dlemoal@kernel.org,
- cassel@kernel.org, "Chuck
- Lever" <cel@kernel.org>, tytso@mit.edu, ojeda@kernel.org,
- linux-modules@vger.kernel.org, "Jeff Layton" <jlayton@kernel.org>
-In-Reply-To: <20260706061928.66713-23-byungchul@sk.com>
+Cc: linux-modules@vger.kernel.org, cassel@kernel.org,
+ linux-kernel@vger.kernel.org, tytso@mit.edu, "Chuck
+ Lever" <cel@kernel.org>, linux-rt-devel@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, "Jeff
+ Layton" <jlayton@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
+ ojeda@kernel.org, linux-ide@vger.kernel.org, dlemoal@kernel.org
+In-Reply-To: <20260706061928.66713-28-byungchul@sk.com>
 References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-23-byungchul@sk.com>
+ <20260706061928.66713-28-byungchul@sk.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:33:39 +0000
-Message-Id: <20260707073339.6BA481F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 07:33:42 +0000
+Message-Id: <20260707073343.43ECD1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,102 +63,58 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] Unconditional `dept_page_set_bit` in `folio_wait_bit_common` c=
-auses Use-After-Free and lock tracking leaks for non-exclusive waits.
-- [High] Lock handoff in `wake_page_function` registers lock acquisition in=
- the waker's context instead of the sleeper's.
-- [High] A single lock acquisition incorrectly records two events in the th=
-read's DEPT tracking stack on the fast path.
-- [High] Generic page flag macros clear the lock bit before notifying the d=
-ependency tracker, creating a race condition.
-- [High] Unconditional addition of `struct dept_ext_wgen` and `struct dept_=
-page_usage` directly to `struct page` causes severe memory bloat.
-- [Medium] Mismatched DEPT tracking on compound tail pages splits lock acqu=
-isition and wait events across different tracking contexts.
+- [Medium] Unbalanced DEPT tracking context leak in mmu_notifier_invalidate=
+_range_start_nonblock()
 --
 
-Note: Due to system recitation restrictions, this review uses a free-form
-summary format instead of standard inline patch quoting.
-
-Commit: 1b85b38be891fb326526f230171e29e8fb12a627
+commit 10f75b8cdecfe9a5cbc6804a1d8ae1770fc9fe67
 Author: Byungchul Park <byungchul@sk.com>
-Subject: dept: track PG_locked with dept
-Summary: This patch makes dept able to track PG_locked waits and events.
-Link: https://lore.kernel.org/lkml/1674268856-31807-1-git-send-email-byungc=
-hul.park@lge.com/
 
-[Severity: High]
-In include/linux/mm_types.h, the struct page definition is modified to add
-the pg_locked_wgen and pg_writeback_wgen fields. Are these structures being
-added unconditionally without CONFIG_DEPT guards?
+dept: assign dept map to mmu notifier invalidation synchronization
 
-Adding per-page metadata directly to struct page increases the size of the
-structure for every physical page, which wastes memory on large systems.
-Should this tracking metadata be moved to the dynamically allocated page_ext
-framework, or at least be strictly guarded by Kconfig checks?
+This commit introduces explicit DEPT tracking contexts to resolve false
+positive deadlock reports in mmu_notifier invalidation synchronization.
+It annotates the start and end of the event contexts delimited by
+mmu_notifier_invalidate_range_start() and _end().
 
-[Severity: High]
-In include/linux/page-flags.h, macros like FOLIO_CLEAR_FLAG clear the target
-bit using clear_bit() before notifying the tracker via dept_folio_clear_bit=
-().
-Could this out-of-order execution create a race condition?
-
-If the lock bit is cleared first, another thread could immediately acquire =
-the
-lock and call dept_page_set_bit() before the original thread finishes calli=
-ng
-dept_folio_clear_bit(). This sequence would process the release after the
-subsequent acquisition, which might corrupt the tracker state.
+> diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
+> --- a/include/linux/mmu_notifier.h
+> +++ b/include/linux/mmu_notifier.h
+[ ... ]
+> @@ -460,6 +474,12 @@ mmu_notifier_invalidate_range_start_nonblock(struct =
+mmu_notifier_range *range)
+>  		ret =3D __mmu_notifier_invalidate_range_start(range);
+>  	}
+>  	lock_map_release(&__mmu_notifier_invalidate_range_start_map);
+> +
+> +	/*
+> +	 * From now on, waiters could be there by this start until
+> +	 * mmu_notifier_invalidate_range_end().
+> +	 */
+> +	mmu_notifier_invalidate_dept_ecxt_start(range);
+>  	return ret;
+>  }
 
 [Severity: Medium]
-In include/linux/pagemap.h within lock_page(), dept_page_wait_on_bit() is
-called on the raw page pointer before converting it to the head folio with
-page_folio(page).
+Does this unconditionally start the DEPT event context even if the
+non-blocking start fails?
 
-If this is called on a tail page, won't the wait event be recorded on the t=
-ail
-page's tracking metadata, while the subsequent lock acquisition correctly
-records on the head page? Splitting the wait and acquisition tracking could
-break the dependency graph for large folios.
+If mmu_notifier_invalidate_range_start_nonblock() returns an error, callers
+typically abort and skip calling mmu_notifier_invalidate_range_end(). For
+example, in mm/oom_kill.c:__oom_reap_task_mm():
 
-[Severity: Critical]
-In mm/filemap.c within folio_wait_bit_common(), the code unconditionally
-calls dept_page_set_bit() if WQ_FLAG_DONE is set in wait->flags. Does this
-create a use-after-free for DROP waits?
+    if (mmu_notifier_invalidate_range_start_nonblock(&range)) {
+        tlb_finish_mmu(&tlb);
+        ret =3D false;
+        continue;
+    }
 
-For DROP waits, folio_put() is called before the wait loop. If the folio is
-concurrently freed, dereferencing the page pointer after the loop will cause
-a use-after-free.
-
-Additionally, for SHARED non-exclusive waits, folio_trylock_flag() sets
-WQ_FLAG_DONE when the bit is clear. Does this cause the unconditional check
-in folio_wait_bit_common() to incorrectly register a lock acquisition for a
-thread that is merely waiting? This could permanently leak the lock tracking
-context.
-
-[Severity: High]
-Also in folio_wait_bit_common(), if the fast path successfully acquires the
-lock synchronously, folio_trylock_flag() sets the lock bit, calls
-dept_page_set_bit(), and sets WQ_FLAG_DONE.
-
-When folio_wait_bit_common() checks WQ_FLAG_DONE at the end of the function,
-won't it call dept_page_set_bit() a second time? This appears to push a
-duplicate lock acquisition record to the tracker stack for a single lock
-operation.
-
-[Severity: High]
-In mm/filemap.c within wake_page_function(), during an exclusive lock
-handoff, the function sets the lock bit on behalf of the sleeper and calls
-dept_page_set_bit().
-
-Since this function executes in the context of the waker thread, won't the
-tracker incorrectly record the lock acquisition in the waker's task structu=
-re
-rather than the sleeper's? This could leak the lock tracking state in the
-waker and break the dependency graph for the sleeper.
+Could this lead to an unbalanced DEPT context being leaked, as the
+corresponding mmu_notifier_invalidate_dept_ecxt_end() will never be called
+on the error path?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706061928.6671=
-3-1-byungchul@sk.com?part=3D22
+3-1-byungchul@sk.com?part=3D27
