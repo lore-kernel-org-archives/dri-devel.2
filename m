@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D1CC43602
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23BBFC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 13:25:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32B3C10ECFA;
-	Tue,  7 Jul 2026 13:25:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D2E210ECFB;
+	Tue,  7 Jul 2026 13:25:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gMIXSZ7o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ian6Kg+T";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66B4910E4D0
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:24:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D57AA10ECF6
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 13:24:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4C46E40BB4;
- Tue,  7 Jul 2026 13:24:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D7F1F000E9;
- Tue,  7 Jul 2026 13:24:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4F866618B3;
+ Tue,  7 Jul 2026 13:24:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7371F00A3D;
+ Tue,  7 Jul 2026 13:24:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783430697;
- bh=y17LUleYEX0q9MyTF0411GvfFuGvXizEjB0O8zVFy3g=;
+ s=k20260515; t=1783430699;
+ bh=9J/5kdUzNZ4A1zvWuu+ZIn5vyFjeG5mMP6m9LXXbf/I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gMIXSZ7oijkXjBZ/39Tkvqx+3XLDPUSuL5CTxoCCFL2HJBmNWqY9s7PKdsdclKkRg
- rapkueMGaBEgKKPjBXXLPeFZ15tkbtFy5CuyO8EWwGSrJBK5yrzPi88hM6NcetW1vx
- /3TbIwDvtoxj9XNs3rmqHECG0nWPJzROqOHDs6ji0TzYbBqiTtCoueFu3vaeEKqySN
- xoS5Hduos042HuQu6UarM2Qu2Lcx+VLBOP7RMWDShCGjzB1NKyoSja06FHD8NLGRmf
- qzTjf03UZbs70bSSLWacYX20b82U06O4ha67YeUKEJm2SUwbVe+Bp+fOJXHx8+UjYq
- oS2aJs6BqZgfA==
+ b=ian6Kg+T8E9rhyk0z8vcxmm3rnQUFwc35apDM5FVYpdlp8ppMxaGfYzPgIDJe9Kg7
+ UZSj5hu2X7TsVh4pOOfzwXohO8A7nlwCTADd193u3lWOwRooM/t13uMEyodkm9MNO3
+ /wCtJfL3U8JJwFeFhIs0mveSGyeDiw/yFVBTzUR7wyztE+xzhaej5IQpFYzGb1rxOG
+ tvhUFxUAKtu4hx86lB4J+mOlS5EYaKvjCL7xrNicq3ypSjGWJLLqRyaAhk+MrUq9nS
+ xJVdC1jqhHztxM9Ko81X20dTzTYKCWApoa55VgK3YSBK4IPao77GIX0gKLCEVGKnal
+ gRPW3MyfpBhNw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 09/20] iommu/fsl: use platform_device_set_of_node()
+Subject: Re: [PATCH v3 11/20] pmdomain: imx: use platform_device_set_of_node()
 To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org,
- mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20260706-pdev-fwnode-ref-v3-9-1ff028e33779@oss.qualcomm.com>
+Cc: Frank.Li@kernel.org, lee@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, conor+dt@kernel.org, imx@lists.linux.dev,
+ mfd@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260706-pdev-fwnode-ref-v3-11-1ff028e33779@oss.qualcomm.com>
 References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-9-1ff028e33779@oss.qualcomm.com>
+ <20260706-pdev-fwnode-ref-v3-11-1ff028e33779@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 13:24:56 +0000
-Message-Id: <20260707132456.C9D7F1F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 13:24:58 +0000
+Message-Id: <20260707132458.9E7371F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,86 +59,79 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Mixing `goto`-based error handling with `__free()` cleanup in th=
-e same function.
+
+Pre-existing issues:
+- [High] Child platform devices dynamically added during probe are not unre=
+gistered on probe error paths or during driver removal.
+- [High] The i.MX GPC power domain driver initializes domains as powered on=
+ but does not set GENPD_FLAG_NO_STAY_ON or provide a sync_state callback, c=
+ausing domains to stay on indefinitely.
 --
 
-commit 59e996ccb5b78974f4d3d6c2abcfbc8e49cb4d29
+commit 183445e8048cfd412f98719fae14416614f14176
 Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-iommu/fsl: use platform_device_set_of_node()
+pmdomain: imx: use platform_device_set_of_node()
 
 Ahead of reworking the reference counting logic for platform devices,
 encapsulate the assignment of the OF node for dynamically allocated
 platform devices with the provided helper.
 
-> diff --git a/drivers/iommu/fsl_pamu.c b/drivers/iommu/fsl_pamu.c
-> index 25aa477a95a95..c83bbc3faad56 100644
-> --- a/drivers/iommu/fsl_pamu.c
-> +++ b/drivers/iommu/fsl_pamu.c
-[ ... ]
-> @@ -955,7 +955,8 @@ static __init int fsl_pamu_init(void)
->  	 * PAMU node would require significant changes to a lot of code.
->  	 */
+> diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
+> index 42e50c9b4fb9f..abca5f449a226 100644
+> --- a/drivers/pmdomain/imx/gpc.c
+> +++ b/drivers/pmdomain/imx/gpc.c
+> @@ -487,8 +487,7 @@ static int imx_gpc_probe(struct platform_device *pdev)
+>  			domain->ipg_rate_mhz =3D ipg_rate_mhz;
 > =20
-> -	np =3D of_find_compatible_node(NULL, NULL, "fsl,pamu");
-> +	struct device_node *np __free(device_node) =3D
-> +			of_find_compatible_node(NULL, NULL, "fsl,pamu");
->  	if (!np) {
->  		pr_err("could not find a PAMU node\n");
->  		return -ENODEV;
-> @@ -964,7 +965,7 @@ static __init int fsl_pamu_init(void)
->  	ret =3D platform_driver_register(&fsl_of_pamu_driver);
->  	if (ret) {
->  		pr_err("could not register driver (err=3D%i)\n", ret);
-> -		goto error_driver_register;
-> +		return ret;
->  	}
+>  			pd_pdev->dev.parent =3D &pdev->dev;
+> -			pd_pdev->dev.of_node =3D of_node_get(np);
+> -			pd_pdev->dev.fwnode =3D of_fwnode_handle(np);
+> +			platform_device_set_of_node(pd_pdev, np);
 > =20
->  	pdev =3D platform_device_alloc("fsl-of-pamu", 0);
-> @@ -973,7 +974,8 @@ static __init int fsl_pamu_init(void)
->  		ret =3D -ENOMEM;
->  		goto error_device_alloc;
+>  			ret =3D platform_device_add(pd_pdev);
+>  			if (ret) {
 
-[Severity: Medium]
-Is it intentional to mix goto-based error handling with scope-based
-cleanup in fsl_pamu_init()?
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed that child platform
+devices added in previous loop iterations are not unregistered on this error
+path.
 
-The cleanup helper documentation in include/linux/cleanup.h specifies that
-goto and cleanup helpers should never be mixed in the same function to
-prevent confusing ownership semantics.
+If platform_device_add() fails, or if platform_device_alloc() fails earlier
+in the loop, imx_gpc_probe() returns immediately. Any successfully added
+"imx-pgc-power-domain" devices from previous iterations are left orphaned.
 
-Since pdev allocation and other initialization steps in this function still
-use goto labels (like error_device_alloc and error_device_add), should they
-all be converted to scope-based cleanup, or should np remain manually
-managed to keep the error handling consistent?
+Because these orphaned child devices hold references to the parent's
+devm-managed regmap, does this create a use-after-free when the parent's
+devres cleanup runs?
 
-> -	pdev->dev.of_node =3D of_node_get(np);
-> +
-> +	platform_device_set_of_node(pdev, np);
-> =20
->  	ret =3D pamu_domain_init();
->  	if (ret)
-> @@ -988,17 +990,11 @@ static __init int fsl_pamu_init(void)
->  	return 0;
-> =20
->  error_device_add:
-> -	of_node_put(pdev->dev.of_node);
-> -	pdev->dev.of_node =3D NULL;
-> -
->  	platform_device_put(pdev);
-> =20
->  error_device_alloc:
->  	platform_driver_unregister(&fsl_of_pamu_driver);
-> =20
-> -error_driver_register:
-> -	of_node_put(np);
-> -
->  	return ret;
->  }
+The same unregistering step appears to be missing in imx_gpc_remove(), which
+skips the cleanup of these dynamically added platform devices entirely when
+pgc_node is present.
+
+[Severity: High]
+This is also a pre-existing issue, but I noticed a potential problem with h=
+ow
+these domains are initialized.
+
+In imx_pgc_power_domain_probe(), the domains are initialized as powered on
+via pm_genpd_init(&domain->base, NULL, false). For OF-based genpd providers,
+this sets genpd->stay_on =3D true.
+
+However, neither imx_gpc_driver nor imx_pgc_power_domain_driver registers a
+.sync_state callback, and the domains do not have GENPD_FLAG_NO_STAY_ON set.
+
+Since the stay_on flag is never cleared, will this cause the domains to
+remain powered on indefinitely? If regulator_late_cleanup() later disables
+the underlying regulators while the domains are still active, could this
+lead to hardware malfunctions?
+
+>  				platform_device_put(pd_pdev);
+>  				return ret;
+>  			}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-pdev-fwnod=
-e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D9
+e-ref-v3-0-1ff028e33779@oss.qualcomm.com?part=3D11
