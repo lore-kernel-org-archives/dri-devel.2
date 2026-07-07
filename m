@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 278A2C44501
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95D8C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEC110EDD1;
-	Tue,  7 Jul 2026 15:11:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5281710EDD3;
+	Tue,  7 Jul 2026 15:11:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G8WbqiiW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="II36kwFJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3378310EDC5
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 889E810EDD5
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:11:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 19B6143C34;
- Tue,  7 Jul 2026 15:11:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7998F1F000E9;
- Tue,  7 Jul 2026 15:11:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6E5CC41FE8;
+ Tue,  7 Jul 2026 15:11:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD9C1F000E9;
+ Tue,  7 Jul 2026 15:11:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783437108;
- bh=eFQmRarClkNM/hYxWY1nrMtb12UYKkrr+Li1uKdzt/8=;
+ s=k20260515; t=1783437110;
+ bh=tGmYA0fdyPdUTy2TwVVX/v3MIMXt2uh4AHU7FNQcP7w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=G8WbqiiW4sgr6w+tV1MQwuj48+N2sMqHR466SP8k2G36ASiDYoniyuf6g1+CnX5Vx
- tywVJrjaARiQOAEIuAn92xxkTRG/zVz0U+YtTz+1oWuP20Kz3zo/3T/iEN0tCZnjah
- FgjH6WpEZ6x4u/vnyyVj3eYRLzkej4gzEAP/bxxwWIzlG+PL2SmiX+FK8wwsQHnDP9
- E7loNvPcl8QXpViUu1MkFuN0ChdA26Wyw0kpsjGh+4S1CE4Uoc63fhRty+nHD5PPs9
- DYW2DlxcHFI80RaS/N2R8f8HWMdr6LmNtYeadCO+tA1BcIeaTmGm1tzEf0aw2gD7Ny
- Hmjp02y6zoGzQ==
+ b=II36kwFJdvUxjq7lxLliI1mIuq49uI8UbopictXz+ED+xzppfKGN68rKXgcsmbIDg
+ 591ff+bbapTIlCqmcV5iB0F87YzeFxZ/1/Njs49Glsi6vNdRklS9YrPozugTkcQhAv
+ pvsNrRh7h01gBxnZ0qAi277EKn/JhLuoaqUSyNnxDh5T7Glc0k0W8LQKKBWtoN4Jms
+ 0NIgD4bz6zhuK4Q911lrMbNCS0qg28V0tODD3NSEs4hz84gzXqbkw5TjwByWV2BIut
+ Ik+NdHm6reo9n+uR7ORj3ApJrZ2CQcuoshvMVpYAFJNU5OQgQ/zkGPDXCRJJssQzOU
+ IxWgIuwOFXqeg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 07 Jul 2026 17:11:14 +0200
-Subject: [PATCH v2 07/37] drm/bridge: cros-ec-anx7688: Add atomic bridge
+Date: Tue, 07 Jul 2026 17:11:15 +0200
+Subject: [PATCH v2 08/37] drm/bridge: lontium-lt8713sx: Add atomic bridge
  state handlers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-drm-all-atomic-bridges-v2-7-21d03cbca446@kernel.org>
+Message-Id: <20260707-drm-all-atomic-bridges-v2-8-21d03cbca446@kernel.org>
 References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 In-Reply-To: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,15 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Benson Leung <bleung@chromium.org>, 
- Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4080; i=mripard@kernel.org;
- h=from:subject:message-id; bh=BPDu49MWJLe0dgSMMODpK1n9EZ49AScos5sJRdO392Q=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4sJMTzt15thO3ftM0+uY8V5BYaPKUOsjDXs9dN04V
- 0ervNPrmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABNJPcZYn3nAZXmj2vT5LN+k
- j1x/v2sKZ32uO+uGhEiH5nJRu9YbvTK1NQ5mWatu2fw45SytOFedsYZr1cetedqbVj2OEeQJbd8
- b82jr8ZdJbBFu3h/NFH5yXtl63YyZ46x73zWbAqPaV2803gMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3915; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=4Cj9jIMNxfkVNUv0N39VMEIzaG3HmkiKaWn4SOMm/No=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm+4sK9ojvmLvgaskdnn8t+yfjjS4XKvGSvz5oUx7Bjm
+ YRF4rL2jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRZ1cYGzofz32pXP9wwTuf
+ iq++Cx9u4O0W33QpqONgfL4cf9HdutR3j1803jI2+LnbfdMdvdJUDcaGE2Kl5RdfzHJXb7sn6f7
+ 79w1GJTvtEpmF7envWgI26M5sqazSl4ouq8ifXzRh13LblS8B
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The cros-ec-anx7688 bridge doesn't implement any enable or disable
+The lontium-lt8713sx bridge doesn't implement any enable or disable
 callbacks, but is still missing the atomic state handlers.
 
 In order to remove the legacy bridge callback support from the DRM
@@ -205,44 +204,39 @@ identifier b;
  }
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
-To: Benson Leung <bleung@chromium.org>
-Cc: Guenter Roeck <groeck@chromium.org>
-Cc: chrome-platform@lists.linux.dev
----
- drivers/gpu/drm/bridge/cros-ec-anx7688.c | 4 ++++
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/cros-ec-anx7688.c b/drivers/gpu/drm/bridge/cros-ec-anx7688.c
-index a35dae9b56e2..da16c793e3ba 100644
---- a/drivers/gpu/drm/bridge/cros-ec-anx7688.c
-+++ b/drivers/gpu/drm/bridge/cros-ec-anx7688.c
-@@ -3,10 +3,11 @@
-  * CrOS EC ANX7688 HDMI->DP bridge driver
-  *
-  * Copyright 2020 Google LLC
-  */
+diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
+index cee485adf5e5..4a6420b876da 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
++++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
+@@ -16,10 +16,11 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/sizes.h>
+ #include <linux/wait.h>
+ #include <linux/workqueue.h>
  
 +#include <drm/drm_atomic_state_helper.h>
  #include <drm/drm_bridge.h>
- #include <drm/drm_print.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
- #include <linux/regmap.h>
-@@ -90,10 +91,13 @@ static bool cros_ec_anx7688_bridge_mode_fixup(struct drm_bridge *bridge,
+ #include <drm/drm_of.h>
  
- 	return totalbw >= requiredbw;
- }
+ #define FW_FILE "lt8713sx_fw.bin"
  
- static const struct drm_bridge_funcs cros_ec_anx7688_bridge_funcs = {
+@@ -506,10 +507,13 @@ static const struct attribute_group *lt8713sx_attr_groups[] = {
+ 	&lt8713sx_attr_group,
+ 	NULL,
+ };
+ 
+ static const struct drm_bridge_funcs lt8713sx_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.mode_fixup = cros_ec_anx7688_bridge_mode_fixup,
+ 	.attach = lt8713sx_bridge_attach,
  };
  
- static int cros_ec_anx7688_bridge_probe(struct i2c_client *client)
+ static int lt8713sx_probe(struct i2c_client *client)
  {
 
 -- 
