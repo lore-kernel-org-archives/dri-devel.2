@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A84C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:55:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 111EBC44501
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 17:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 882ED10E51F;
-	Tue,  7 Jul 2026 16:55:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5660410E508;
+	Tue,  7 Jul 2026 17:12:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wEuLrrNL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wZmXzeTp";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011040.outbound.protection.outlook.com [52.101.62.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2593210E51F
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:55:04 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011009.outbound.protection.outlook.com [52.101.57.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2F010E508
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 17:12:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sp3VWBiH9T4l0Vd8g2dM0PDPTAe1ikR1zGdYMIoygBDU8iK1+UdJRuOQFMgAuYTBpC1cX7IyPPsjXGT+HSTebL609U/UURTADkN6umnGya4ofmZxPncSkdfidGP6ogQpceVwqm+0J4V1O/PFFAv85b6TfPML8qdhxdKTpyycLjzc6vaI1VNHBOjg5F3geAoUAGvnDM3OtS3/kLywT1BOk2BJvWhizz1UFMRZrAtQuk3A/EEFGNIGvsaIWQsQ1MIsPeQvlSQjYHESQSP1l2bn1wbTzvCHHBPBmt9QTVaa5eXyeyD8ZrNRr+8Zbnb0SGDLQ3KPvSDQdwl/umR4HZmqdA==
+ b=ucAJXhB44iTj7nKHobqG1ppxSO5gBDGfGx3yw/omkfJ28drvXSEelInC+WUl5zM7PR40dSay7w86cCeZJHAd+KS9Rajc3tW91fk3dPpaqTG2rKZIGwxww8ee0hM6GfqN63gfv1UR07t31pN7CKNuLuH1ML5b3Ea94udg125Ej91DoQgmufxFXtEQJMBmlaZgGcudmHLoij6//PEQyCzW6NoVKySB2qX20+m4ynSCRW8Qi0WW0I3GhT1qtrbgeIr5bWj+LLQRv++YYE5RK9722V9zRs8pVaqz/gOuaxTJBy28bP1S92MNeBKQCdkt+n0j3VzSbd77cICtajYQNArc8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zrsmoaFiWgfi3sqRcH4SzCXCQl1bYZoTRTy0NKeE9d4=;
- b=h2o0a1xg6n6hDbcSvQPPcOQjwXg0WBUhXkwyAxICXDFJ6iCDOnEy3tEFBR5NGuJiT5NTfCXba87/Le/8Ube1rPl6PubvrrCEWcuXn2wKmIisJTZUFjJ1E3nwX0tAXvcY8Hd6+pRlDCXs1c73thzuH7TBfQp1x9yKBm75ifASYOhKRv0SaJJs3F/2LqgaLbgNS6wSW6JnkXb3H2UasJ+F57IlbZ3WKrfLn/hFSAPZO8fOCR5q9PB1YWjSqrSJDmxOIIV2PzcUnNMSA+3KOncVo64ve1EkUhSescEwnHCdPjIhp4MA/zWxQy4CZ5uNZhA+tG2/huN+MIuBBLsc/xRu9g==
+ bh=GvfqtHzOw6qho6Tp1+E8m7kupdAeg6gPCxbrs+oIObE=;
+ b=ZaOQdYaHec/FS4nkqLry7Th4EJxJAjjwuHBQLh9U/ZEmKfpn/qgV2yAo3Jr1Zozkq4gQ47ZGFi/Ab8RD0jlhtxU40jyM6RERWblWCsMgwO5E0no/NyFu/cR+DEYOYdjE3HMFT8D/khGhLaPXr3sdjD2WzYgTHV0M7gMjbqMNiPVtr2TnNHqyFp+edTuT6UNTV4j1/0pJ9IuSodf1dyLzAy0vkjFOKPXLSSr6c9d7L29usFm+yrKo+ACVTrrddpmp5IdW5MBg8uSSIhJThswdexHGVwO51aq7WP3JcgHfxLOYOJUy/+eJOS/+v44X9a30hsH7p5UoT0PB+N8Xlk1CKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrsmoaFiWgfi3sqRcH4SzCXCQl1bYZoTRTy0NKeE9d4=;
- b=wEuLrrNLA5IbritNRxMNyb7k7/2a45qI0Sy7V9uDJWil0+DtvwNLJCd7xfelCZms8WqkjFDBtj15VlEFVqm6UCy9Elble/0fxrHz/5GIDXOs+/6X7/AS3I8lSMTzi4BIcV+fR36kukamkkwA3ZO0n4Cb25lvL15v2ZvJlezwYOQ=
-Received: from SJ0PR03CA0162.namprd03.prod.outlook.com (2603:10b6:a03:338::17)
- by BY5PR12MB4242.namprd12.prod.outlook.com (2603:10b6:a03:203::9)
+ bh=GvfqtHzOw6qho6Tp1+E8m7kupdAeg6gPCxbrs+oIObE=;
+ b=wZmXzeTp8SEAygcxjZ69GFTkYVHhkimoyzMOVLbp7wxhyCGUyYYkvGXyGguIwibbZzig0U9s4nLy2MCEKYsoqbBOhVXTH8p+0v9v7E0V8ErxRMa7ckhF6uOZPUuIbNHq3xiNe/WL5SB+sND3TDbToemGaQxE25oZ9Mu4SmU0vBk=
+Received: from BY1P220CA0044.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::10)
+ by MW4PR12MB6802.namprd12.prod.outlook.com (2603:10b6:303:20f::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Tue, 7 Jul
- 2026 16:54:59 +0000
-Received: from CO1PEPF00012E82.namprd03.prod.outlook.com
- (2603:10b6:a03:338:cafe::16) by SJ0PR03CA0162.outlook.office365.com
- (2603:10b6:a03:338::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Tue, 7
- Jul 2026 16:54:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 7 Jul 2026
+ 17:12:48 +0000
+Received: from SJ1PEPF0000231C.namprd03.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::56) by BY1P220CA0044.outlook.office365.com
+ (2603:10b6:a03:59e::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Tue, 7
+ Jul 2026 17:12:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,64 +48,63 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E82.mail.protection.outlook.com (10.167.249.57) with Microsoft
+ SJ1PEPF0000231C.mail.protection.outlook.com (10.167.242.233) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 16:54:58 +0000
+ 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 17:12:47 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 11:54:57 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ 2026 12:12:46 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
- 2026 09:54:57 -0700
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 7 Jul 2026 11:54:56 -0500
-Message-ID: <8dcdd7f2-dd66-d875-4551-7a35cf495520@amd.com>
-Date: Tue, 7 Jul 2026 09:54:56 -0700
+ 2026 10:12:46 -0700
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 7 Jul 2026 12:12:46 -0500
+Message-ID: <806fd875-2de0-e806-0c33-9f072d136d5a@amd.com>
+Date: Tue, 7 Jul 2026 10:12:45 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] dma-buf: explicitely forbid exposing pages from
- get_user_pages()
+Subject: Re: [PATCH V1] accel/amdxdna: fix open_ref leak and stale client
+ pointer on dma map failure
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- <sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <Max.Zhen@amd.com>, <Mario.Limonciello@amd.com>, <airlied@gmail.com>,
- <karol.wachowski@linux.intel.com>
-CC: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20260630080112.1117341-1-christian.koenig@amd.com>
+To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260707055658.479049-1-lizhi.hou@amd.com>
+ <79627c5e-7ae4-40a6-8181-a611da01256d@amd.com>
 From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260630080112.1117341-1-christian.koenig@amd.com>
+In-Reply-To: <79627c5e-7ae4-40a6-8181-a611da01256d@amd.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E82:EE_|BY5PR12MB4242:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01097a04-5a55-4109-943e-08dedc487ad1
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231C:EE_|MW4PR12MB6802:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e3aef20-daa9-47d7-297f-08dedc4af7b5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|22082099003|18002099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: iC7bqjh8HXXD44OekFX4EClZhSHY2fkivkE4/K3utqdwPSLpbdYCYnA/pD/SZcPmzhYw8b7VLvtPCv/u+YFvJt+FBu9pZEL/fuOogPPyPUGn66tNNxxGm+p9MC0ZgrDkSvUq4dm1loZCaidXJkprWBlSBXzZ30qVJ2lCoCn3WaH4ENBnhJ9j2HeNQeOkpn98gKQc/9+XIb06YPFLLVKoFhzbn7bvmqSaGhx2bEVthNeS7TSHinKinjQrxBcwcIFAGI+JJe9G+Js55GL3Bo0eujysblFKdjT/tEWveW3FHNAHeMFT3UdlQcEMioXLhzt7frvnHz2Wu7Hupj+d3Orn0Bg/tshqxWiX6K9//z65EX+Hq6tFrdwmcq055hxVCJYkyGtXN1pHdc6Fz4g8ejL1BUhhalCEyQYhvcP5WPBF1h5+vyXhNo1DO+8puTYOmaKUacAGruV/W0tHrtWrEU37b02Idb6b7hT05cIOXdB9ETi2tFs3Wz+3SG/3v8XRT4oGYuYjn6w2pzoTl5/hcT8jLWSYMFcORozDbsXtIw21LU+CAFccW7GdRwFR49aJvaDgI2+FWHxIS8C+zaRF+y0YaW1CnK8+KGQbffcMsUkyCt5NWo/ocp0/8yEPOJT3DvrQDZS/6eaF0B9x2JpfvqAkBj7oIPqkwq0l3F0E6ZnE9uWuQKkzLXytNzjnFlmazjQdBwz1RXiV7zcwE8J4sVtHdw==
+ ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: DlYpu2gr2ZO4M1wRf+I9HvL/Ll3CYYh+8H8XlctqGNh/f2K1atpxACeQz7IonXjKmA2ilAxdlC0DH8iJyj9F9r/uu+Xh8TZtsgBvWwB2XdSxhdusfpzsuWPTkiMBTz/ElUE6gYxaObS9P2feIap2+m8sVaGRrJugVJ2Bl8YnBel6ZWxiYDX1TMhaq6I81goPFENMVTf0jEulR6HKRLaXRRnsuM+TYfK9AiW0DoLgcwJaFG+lyzjk9TNQA7mnsyKCOqE/nfi8vrebDMTUDK0anIYI1EFXr7ClVCyxQpK6aYCbspWTv3ULDtt2Klad7ujKw+GppBX+voSyM9qwNavW/dlkotAV9O80kwIB8+vh9cVTVjJ4hU/NFnA4eqbnGyU20CFgPjaUmlx/LtqVO39yZMZnS/NB5C3TZZtCpbrH46fvK9KdFPYkodoC81Rb1AYhdN2d6oJftZrYIUBbSPFwu55tKL3PMNcp1jGMJGZfI0lzeGWYOlJAuKrcnarm3T9TVNsSNbaUvhRzc9aW8bx3u9RCjUX8H3lHZRr8YoVQ/Fe+D/kcr1LN5h6gVNPgN54IczFRO05U2XsY2qYXN3lB2vwfixzZf9NPzp/9Z9NlF9YKuPt98F81fAVW2rAcC9XUGzfSUOpjCB1T3+cPOC/dYgsx4bg0iD5to8spjjik5VmvetpeKFzjdazl95Iw0bKmMpzCv9Blsf+CxckOeNHuQg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XbPmcbT1vnszd+2rjN76v2vylkgF8iMGX7pCbadarYU5dnHUQVRIXjHbYYZwwlDvwh/blXw6Z3tzaLD2RuA1WrAwtj9zVhl2sIEs9DZRxQ5NqoQT3RvnIRy+zLE+Zsa5eP5HrpHmNiIbohT8OAIz541VGsF2abjp8uR3dey+MwQlwDN1poWe6rbIqVYWELQpyWKmnaKV91pbbcaJ8Ge8D7B5alsuTRF4HDC4fo3EKxrs1H7KhEpoiD2FGT2f89nUCCPpQ7t31K1Tr+bQf7ekb16tPlOv0xwQygMK7ZVXFVfMfq2K29B2gZyv2+kOvVULJ7J9b7ELTN2i8XQ17Jemtl7EHOswgYGuyrxEFyV2YVpqeS7BVKGM/aiMtsl1yZRlz2Di2bWVKUgCKdxGxnCCwRJxx5mXBRvSkCUIbjvUPuwFjwyOWR49mYpGhO3/ktIo
+X-MS-Exchange-AntiSpam-MessageData-0: axQQi7+r9gJra7GyKxrfhP2tCv1sUfNsDoHsGZa4HojTGhz+EWpN57uYHp0Bcr8QP4a/vsr8V+pnCO1UpBoNUxHFkERj/LP/6xVYoibI2wy1WB8pOUjV9in3oZzVU0Eal0IPtnRvtV2fuHAUug8V2NdTMXcWdeRTc91PVmjOKfpRlobv5MYtF97YJhlgVLr7ZffIv6pPTBN37ULULVzmZDi6QBfAXt8a9MwaX+oiavHs8CXj2wj9uoG39JwdZd6jXavqYfYlZ8Xoj6An0vjGAE836MOg/9jINDRIh1bBj+/80D5p3oyfd7iH81Q7m45V1QWpkR/qhecaX8j/KippVDksFuwyFh+nsrXBogzng2uuBvc7qpY60vVOnVLHRuxY5hBkB8QNuRMgEBp9gDHKKiTbgPz8JXSvv+kftfiQKagMwuV/VLSyvzeZskSid4SM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 16:54:58.8676 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01097a04-5a55-4109-943e-08dedc487ad1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 17:12:47.3496 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e3aef20-daa9-47d7-297f-08dedc4af7b5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E82.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231C.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4242
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6802
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,35 +120,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Applied to drm-misc-fixes
 
-On 6/30/26 01:01, Christian König wrote:
-> We recently had another incident where two drivers put pages they got from
-> get_user_pages() into a DMA-buf and cause quite a number of problems.
+On 7/7/26 08:09, Max Zhen wrote:
 >
-> Explicitely document that this is not something exporters can do.
 >
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/dma-buf/dma-buf.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
+> On 7/6/2026 Mon 22:56, Lizhi Hou wrote:
+>> amdxdna_gem_obj_open() increments open_ref before attempting to set up
+>> the DMA address mapping.  When amdxdna_dma_map_bo() fails, the function
+>> returned immediately without rolling back either change made on the 
+>> first
+>> open (open_ref == 1 path).
+>>
+>> Fix it by decrementing open_ref and clearing abo->client on the error 
+>> path.
+>>
+>> Fixes: ece3e8980907 ("accel/amdxdna: Allow forcing IOVA-based DMA via 
+>> module parameter")
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Max Zhen <max.zhen@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/amdxdna_gem.c | 5 ++++-
+>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
+>> b/drivers/accel/amdxdna/amdxdna_gem.c
+>> index a4bd9e86bc8d..3f03d2db1603 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>> @@ -663,8 +663,11 @@ static int amdxdna_gem_obj_open(struct 
+>> drm_gem_object *gobj, struct drm_file *fi
+>>       /* No need to set up dma addr mapping in PASID mode. */
+>>       if (!amdxdna_pasid_on(abo->client)) {
+>>           ret = amdxdna_dma_map_bo(xdna, abo);
+>> -        if (ret)
+>> +        if (ret) {
+>> +            abo->open_ref--;
+>> +            abo->client = NULL;
+>>               return ret;
+>> +        }
+>>       }
+>>         amdxdna_gem_add_bo_usage(abo);
 >
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 71f37544a5c6..aa5af4f439c2 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -685,6 +685,14 @@ static struct file *dma_buf_getfile(size_t size, int flags)
->    *
->    * For the detailed semantics exporters are expected to implement see
->    * &dma_buf_ops.
-> + *
-> + * It is explicitely forbidden for exporters to expose buffers they don't "own"
-> + * as DMA-buf. This includes pages acquired by get_user_pages() or other import
-> + * mechanism. Not following this rule can create numerous security problems.
-> + *
-> + * It is also strongly discouraged to expose the same backing store through
-> + * multiple DMA-bufs at the same time. This eventually creates aliasing and
-> + * cache coherency problems which are extremely hard to debug and fix.
->    */
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   
->   /**
