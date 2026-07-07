@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02263C43458
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:04:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7421BC43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 16:05:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56EAA10EE3F;
-	Tue,  7 Jul 2026 16:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCE7110E49F;
+	Tue,  7 Jul 2026 16:05:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FeYIzi6M";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N27ifRur";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6039010EE40
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:04:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26B7C10E49F
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:05:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 47BB040815
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 16:04:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E7B1F00A3A;
- Tue,  7 Jul 2026 16:04:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E514A43B63;
+ Tue,  7 Jul 2026 16:05:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4759F1F000E9;
+ Tue,  7 Jul 2026 16:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783440260;
- bh=I/F+19mKv6qOKk2FX9KmDcNjVknycjg438a+rTXdyik=;
+ s=k20260515; t=1783440307;
+ bh=Yk477um1jH80e2Sz/rztfnvHOzSQ3sa8se5sclGoQO8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FeYIzi6MZjnkcGDc7K4g/hQDZxgu8SfHoI9qJwMdUOneRUn+1qwq58EqzwOtaZ9Zo
- TjvUmY1aFW5SUqGtF48jOfP/hZaU0bLa5n3O2W5xdWh9Wus+v4hZYpG7YaeIj4mMdS
- EUiyrom+TIVZAwE7n2Gbi6YkDUypiaJ/hdvp9Fc+Ae8gsm7hfo9OoTy7B5exSl2jHb
- jEjnbDKWTLVbjcX2gqcXIaJR1/YUD3kbYMRmQ1GO0I2t4t1+zEMMbrIyH2au2Uxjb4
- VvHXyrUqSQkes2XE83v9tmjPZ1mMoQzvsX68SV7ZB/F1GnOIyezYKJb7AIsAoxCo5j
- oiEuCCFH1umVw==
+ b=N27ifRur+LVxsYEgdJukVVfAeuFJKBOIhjFEmFTn1j8Z6758ckNJPn9My/oPTfdy1
+ Fw6Jey/VmGqn953p95DNjxCnSS4GEQMdtYMI0fcvIsBF7XmlAUvh/HXfEuo2WVyQDT
+ AoJcS8d0zgFd2SBnD5vvGzm2BnoJW/qiBqk2na8zG6J4yC628cI+8MSjPrShid3f/y
+ c+dRRMb8Hx1nXfAH26jTwf5LCv3o+gOwsf2SZ6pubUSMA3eAWR9bXXFftpfAxf2yyi
+ kynIBHHpCqRgvfMJ6bNS7A0Qk9SiQFJ58OHjCsMq4V0LNQUyXs5e3oDLi+q8Prb2rE
+ zGTSYTE1J1b6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 31/37] drm/omap: dsi: Switch to atomic bridge callbacks
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-drm-all-atomic-bridges-v2-31-21d03cbca446@kernel.org>
-References: <20260707-drm-all-atomic-bridges-v2-0-21d03cbca446@kernel.org>
- <20260707-drm-all-atomic-bridges-v2-31-21d03cbca446@kernel.org>
+Subject: Re: [PATCH v3 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, olteanv@gmail.com,
+ vkoul@kernel.org
+In-Reply-To: <20260707154245.198361-13-angelogioacchino.delregno@collabora.com>
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-13-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 16:04:19 +0000
-Message-Id: <20260707160420.16E7B1F00A3A@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 16:05:06 +0000
+Message-Id: <20260707160507.4759F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,53 +62,92 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The `te_timeout_work` is cancelled asynchronously during driver de=
-tach, causing a possible Use-After-Free.
+- [High] Missing NULL check for the result of `device_get_match_data(dev)` =
+before dereferencing it.
 --
 
---- Patch [31]: [PATCH v2 31/37] drm/omap: dsi: Switch to atomic bridge cal=
-lbacks ---
-commit 7b874c0db789f5326cf81422dc10c73534a0a3cf
-Author: Maxime Ripard <mripard@kernel.org>
+--- Patch [12]: [PATCH v3 12/12] phy: phy-mtk-dp: Add support for MT8196 eD=
+P PHY ---
+commit 171cadff965a41b7aba8d81fbb60622f2a8e1a97
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-drm/omap: dsi: Switch to atomic bridge callbacks
+phy: phy-mtk-dp: Add support for MT8196 eDP PHY
 
-This commit switches the legacy non-atomic enable and disable bridge
-callbacks in the OMAP DSI driver to their atomic counterparts. It also adds
-the necessary atomic state handlers to support removing legacy bridge
-callback support from the DRM bridge core.
+The MT8196 SoC features an updated PHY IP compared to the older
+ones, and there is one that is specific to Embedded DisplayPort.
+This commit adds support for the eDP PHY found in the MediaTek MT8196 SoC
+and all of its variants.
 
-> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/=
-dss/dsi.c
-> index 27fe7bca9e2cf..7aaee94f86e41 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index f5aadc5fdc42c..5decc29c77cb3 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
 
 [ ... ]
 
+> @@ -805,8 +838,39 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_d=
+ata =3D {
+>  	},
+>  };
+> =20
+> +static const struct mtk_dp_phy_pdata mt8196_edp_phy_data =3D {
+> +	.off_ana_glb =3D 0x400,
+
+[ ... ]
+
+> +	.driving_params =3D (const u32[]) {
+> +		[0] =3D 0,
+> +		[1] =3D 0,
+> +		[2] =3D 0,
+> +		[3] =3D MT8196_DRIVING_PARAM_3_DEFAULT,
+> +		[4] =3D MT8196_DRIVING_PARAM_4_DEFAULT,
+> +		[5] =3D MT8196_DRIVING_PARAM_5_DEFAULT,
+> +		[6] =3D MT8196_DRIVING_PARAM_6_DEFAULT,
+> +		[7] =3D MT8196_DRIVING_PARAM_7_DEFAULT,
+> +		[8] =3D MT8196_DRIVING_PARAM_8_DEFAULT
+> +	},
+> +};
+> +
+>  static const struct of_device_id mtk_dp_phy_of_match[] =3D {
+>  	{ .compatible =3D "mediatek,mt8195-dp-phy", .data =3D &mt8195_dp_phy_da=
+ta },
+> +	{ .compatible =3D "mediatek,mt8196-edp-phy", .data =3D &mt8196_edp_phy_=
+data },
+>  	{ /* sentinel */ }
+>  };
+
 [Severity: High]
-This is a pre-existing issue, but can this asynchronous cancellation lead
-to a use-after-free during driver detach?
+If the driver is forcefully bound to a device via the sysfs bind interface,
+and the device has an of_node but its compatible string does not match any
+entry in the driver's of_match_table, device_get_match_data(dev) will return
+NULL.
 
-Looking at driver detach paths, omap_dsi_host_detach() calls
-omap_dsi_unregister_te_irq(), which uses the asynchronous cancellation:
+This NULL pointer is stored in dp_phy->pdata:
 
-drivers/gpu/drm/omapdrm/dss/dsi.c:omap_dsi_unregister_te_irq() {
-        ...
-        cancel_delayed_work(&dsi->te_timeout_work);
-        ...
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
+    ...
+	dp_phy->pdata =3D device_get_match_data(dev);
+
+	if (IS_REACHABLE(CONFIG_NVMEM)) {
+		ret =3D mtk_dp_phy_get_calibration_data(dp_phy);
+    ...
 }
 
-Because it does not wait for a currently executing work callback to finish,
-could dsi_remove() and devres cleanup complete while
-omap_dsi_te_timeout_work_callback() is still running?
+And is unconditionally dereferenced here:
 
-If the devres cleanup frees the dsi struct (allocated via
-devm_drm_bridge_alloc()), would the concurrent callback then dereference
-the freed dsi pointer?
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_get_default_cal_data() {
+    ...
+	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
+	int i;
+
+	dp_phy->ana_bias_r =3D pdata->ana_bias_r;
+    ...
+}
+
+Should device_get_match_data() be checked for NULL before continuing in
+mtk_dp_phy_probe() to prevent a potential kernel panic?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-drm-all-at=
-omic-bridges-v2-0-21d03cbca446@kernel.org?part=3D31
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707154245.1983=
+61-1-angelogioacchino.delregno@collabora.com?part=3D12
