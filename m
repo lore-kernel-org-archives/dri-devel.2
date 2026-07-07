@@ -4,90 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A5BC44502
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:30:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A619C43458
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Jul 2026 15:33:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE65210EDEB;
-	Tue,  7 Jul 2026 15:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49CE010EDF7;
+	Tue,  7 Jul 2026 15:33:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Tb5FOq8x";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P4tka5Sw";
 	dkim-atps=neutral
-X-Greylist: delayed 729 seconds by postgrey-1.36 at gabe;
- Tue, 07 Jul 2026 15:30:18 UTC
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1DA610EDFC
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:30:18 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 667C5b5t2824049; Tue, 7 Jul 2026 16:17:55 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=aVN2AK7OQRW2KKVrIHBmc0d
- CluThQO7bdjJzLvFF7HA=; b=Tb5FOq8xPtvzpauYwJ2jgacRVdjj0SUw6Lf39qO
- zONczydkqJcZ45NlEM33KzZCb86qDjEi29n0PeZSn7G4sc3Uz/UnJ9tr5Bxgrd7U
- ebePFlm0I38zwDo9zIq6vBJrHSNK3O6xkIdsZZd2HLgcgWQ11tL99pVI0SsvUcCB
- MkxQKlalMdJFt5Al39oWE/J8JUa9DLAHBjGrw6tmW6SPv5ZRy3PlEnHk5toVXCBs
- SGq2qcmoP7v+HAqPfi/u20dmGlD1dGi2xUwVpDdYUda6miZqWcF5VjFRKKOF7EUV
- E5ta0m4rPyu6W5kY0Tn3D0d6JH/p8ZBRG5GP7GlR0KPQ68w==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f6t8ttxqs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Jul 2026 16:17:55 +0100 (BST)
-Received: from [127.0.1.1] (172.25.4.227) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 7 Jul
- 2026 16:17:54 +0100
-From: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Date: Tue, 7 Jul 2026 16:17:16 +0100
-Subject: [PATCH] drm/imagination: fix error checking of pvr_vm_context_lookup()
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2D710EDF7
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 15:33:40 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-493b7612475so41415135e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 08:33:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783438419; x=1784043219; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ckhp/gzTMi2ZUGo+P0tgl5yB4DRhnm4KfUbhwmtfgbQ=;
+ b=P4tka5Sww+O101Q9jMbIU2VHcMuWaAMlsAKi/jE9qlQP/q3HWSIJ/N2Mp1691QhSht
+ eDHQdHHAnJo2zd0d3HMMOlGPthCler75QDcqcpvZi5Sqfc59nBu0epWhwCqQ7gQDYqtJ
+ ZZjrWGmRtl3ldjXLOzHJrRe6k5HN9KEbBkf39tEujyxBLRipnD9DILvUnQFQLu590Sgg
+ 8yvirXe68hvsulk25xzvylqdwdiRp0a32+62qFOOfs5gLWsWBJpAnB/dQCkBj1GKeoe2
+ +RvEmsJ32YZQtyVsC4Vuo0ACNUNGNXfq1th+B8qkQr5yJKOwynLyVzgAwGk3zQnYRjEO
+ xdJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783438419; x=1784043219;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ckhp/gzTMi2ZUGo+P0tgl5yB4DRhnm4KfUbhwmtfgbQ=;
+ b=MNkC/QwkUhJjrrEJCpHgTpVDzHQXe0dgdbiS/tgBETRr5efHzAGC5ajqP8r3WSNpm/
+ XqAMa5bMm02lht7dwHyJtrWCQBYo4xkD0/ddGwOE8BSgz/4VeMvkn8lVxYJkiMVFW8+O
+ 1pFVMCJw2o6/8J8WyadnwifqM+F2hyqaFLzXriCHRK1B1cO9p3fp0lSSzHvAV4RTLRHA
+ 2yFH2RNX/0aCV15w7/AK5VivlF/AEb3021lArUtPev5TDpHFR6zD58Mc1SSZRDByoPwV
+ v7TEuNuhApTLehzu2iZhG/Ha5VW5jes5tMBgpLCtBAwMjwzZy/zav0D4Gu4aMIF8cEcv
+ wxMQ==
+X-Gm-Message-State: AOJu0YwtvFx7IUfvb+lDiV8ejeAlaCO157+WK9cIpTDbxr8s2+p0vKmP
+ ebmN0RJ0NXMqJ8imzlDzOEM76osWSM/4akkWKw1tgFXNj6MvgGBQ2AIg
+X-Gm-Gg: AfdE7cmaojiI/eTo1cmmJe1BkLF5KxgNrGR7NKHJKvgnb3OfPK8ORqZxsGZxfu2Lxw1
+ jNgChPZSb7wnaBujJwUKKxcqb/WLJmLty5O8/E9/XWIjcK8bAp4f1pEWjeHpMG/0fba4xNZGwiU
+ RSNOE+GDBjUj2Sn0Tp4wD7UAEyzGFjwvPMhBkysSbcAoDV/+NEdjA2SaenCucEz8LjUxaUaERBD
+ IxsjROunkV2MJ7WsHrXeRJomA8TYYzxopbQYpKiUJbJgsjTa5NRxY3KtZWS9HibJQ9+pRWft2Yx
+ 6gXujhEpqJXyaWSQCBT6C6gvPqvAnux6BV9ctxHh5UoX9rlm8YPWlFQDqSZNIGWAybzubIBTQ2l
+ WJSNiDXNfZPdw9G+95v1yqNqF8xovg9iUhmwJ5UbYUyv/wQfQxW3n1OegoTuUOpzERJFn94vQHu
+ YXq9EOPv9qER5pB+ONXrfE
+X-Received: by 2002:a05:600c:2d53:b0:493:b811:e549 with SMTP id
+ 5b1f17b1804b1-493df093b48mr38127505e9.29.1783438418551; 
+ Tue, 07 Jul 2026 08:33:38 -0700 (PDT)
+Received: from [127.0.0.2] ([194.35.121.133]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493e0f5b811sm100622385e9.13.2026.07.07.08.33.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jul 2026 08:33:38 -0700 (PDT)
+From: Diogo Silva <diogompaissilva@gmail.com>
+Subject: [PATCH 0/2] drm/xlnx/zynqmp_dpsub: improve usage of drm encoder
+Date: Tue, 07 Jul 2026 17:33:25 +0200
+Message-Id: <20260707-xlnx-simple-v1-0-df50c6665b02@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260707-staging-ddkopsrc-2435-v1-1-24e160d44476@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAHsYTWoC/yXMQQ6CMBBA0auQWTtJaRHQqxgX0BnKaFJIBw0J4
- e5UWb7F/xsoJ2GFe7FB4q+oTDGjvBTgxy4GRqFssMbWpjEN6tIFiQGJ3tOsyaOt3BVvhiqyZet
- a10Nu58SDrP/v43laP/2L/fKbwb4ft6P6X3kAAAA=
-X-Change-ID: 20260707-staging-ddkopsrc-2435-90d4d218383b
-To: Frank Binns <frank.binns@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Brajesh Gupta <brajesh.gupta@imgtec.com>, Alexandru Dadu
- <alexandru.dadu@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>, Luigi Santivetti <luigi.santivetti@imgtec.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783437474; l=4164;
- i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
- bh=5MxayHodnSGfkii7mi6rgUk0qIUOnLt1zbmRzeLEfX4=;
- b=PIDzTxx0NBwSVyxbujiNethUYAk2dkjs158+tpiXMCHxlLV9S8k8B3JukOQ+t5fJ4JsNARkhx
- ohKCEXCNbDgAH09wiWA3ElRePktN10nsXPw3V9qpG67t2EtJuyC/HH6
-X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
- pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
-X-Originating-IP: [172.25.4.227]
-X-Authority-Analysis: v=2.4 cv=DLW/JSNb c=1 sm=1 tr=0 ts=6a4d18a3 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=eoBRZU4O7WcA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=UMI-ymEwilg7gqftIucA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: KENzqHYRAbMUL8OPgmUYeWifjvVJc0vL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDE0OSBTYWx0ZWRfXxtltwOMHTCRT
- rq7RZgKF0AM/H2/jcwWw1g8+YKLLEYXLW2vkUaVL24Sqc3A7XlHr9e3WZOtqdiFOwkM9vaUaRYg
- /q26Pazj2kZwcWAx3+QkJJXfbDAPc3s=
-X-Proofpoint-GUID: KENzqHYRAbMUL8OPgmUYeWifjvVJc0vL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDE0OSBTYWx0ZWRfX3GqAYpFzzws7
- AMecD1Su5X7u1+lttGbHnvj13Ej7fyGMvOkN2HWgXDs4DB3WRRJjIoCNfqyOe0k0dCn8MeMsdP+
- VyG26zDsVWyWM1tTbRa8aoDkKOXggadpR/wScpsC2Qf/IIQfhGeF7zA1t2hs811D+RCWL6EsxU4
- X3RXKxkzHUv5SzbAFSrf2ESOkSzHDDy5qcK5oq6s+ZRAWS9aKtEvZw+EX2JC/Sca3c2sOrUo9xM
- 5hM6GerfNNSAed7nhsHQkYuwKqBw+izRhmdflPP2ahODl9wcXYWqy2QMiOpwdMF73NN52Nh5sup
- VzbYanZ76qsyeHL8vkJCQSlIYZdzoFLOVtKsxMF1EmGovuCUGjz05tvPvgUxQxunwMxmscYQzNc
- byZFYuAQKgfcUlRAOZqqTXqhvSAkgC4BngqGgLfOjvqCIItoP5Lyx/ibcWBURlSAKOwNb/9L2JG
- SbDaUPseSYeiO9VGTlA==
+X-B4-Tracking: v=1; b=H4sIAEUcTWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcwNz3YqcvArd4szcgpxUXUOj5BQD02TDFHMTUyWgjoKi1LTMCrBp0bG
+ 1tQDtdrSIXQAAAA==
+X-Change-ID: 20260707-xlnx-simple-12cd05c1d745
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Michal Simek <michal.simek@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Diogo Silva <diogompaissilva@gmail.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,88 +93,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since pvr_vm_context_lookup() returns either NULL or a pointer, then stop
-using IS_ERR() for checking the return value.
+This series addresses two things:
+ - Remove the usage of the deprecated drm_simple_encoder_init on the
+   zynqmp_dpsub driver, substituting by drm_encoder_init
+ - Add a return value check for the drm_encoder_init, preventing a
+   potentially uninitialized encoder being cleaned up
 
-Using IS_ERR() leads to the kernel oops reported below. It can be
-reproduced by passing an invalid VM context handle from userspace to the
-DRM_IOCTL_PVR_CREATE_CONTEXT ioctl.
-
-[   92.733119] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000148
-[   92.742042] Mem abort info:
-[   92.744890]   ESR = 0x0000000096000004
-[   92.748686]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   92.754020]   SET = 0, FnV = 0
-[   92.757154]   EA = 0, S1PTW = 0
-[   92.760337]   FSC = 0x04: level 0 translation fault
-[   92.765243] Data abort info:
-[   92.768129]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-[   92.773626]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[   92.778763]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-[   92.784098] user pgtable: 4k pages, 48-bit VAs, pgdp=000000088ed23000
-[   92.790550] [0000000000000148] pgd=0000000000000000, p4d=0000000000000000
-[   92.797381] Internal error: Oops: 0000000096000004 [#1]  SMP
-[   92.803027] Modules linked in: powervr
-[   92.852533] CPU: 0 UID: 0 PID: 409 Comm: triangle Not tainted 7.1.0-rc5-g98b46e693b91 #1 PREEMPT
-[   92.861385] Hardware name: Texas Instruments AM68 SK (DT)
-[   92.866766] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[   92.873709] pc : pvr_vm_get_fw_mem_context+0x0/0xc [powervr]
-[   92.879376] lr : pvr_queue_create+0x26c/0x440 [powervr]
-[   92.884595] sp : ffff8000837fbb00
-[   92.887895] x29: ffff8000837fbb60 x28: 0000000000000000 x27: ffff8000837fbce8
-[   92.895015] x26: ffff000807f61a40 x25: ffff000807f61a00 x24: ffff000807f64400
-[   92.902135] x23: ffff00080a5ab000 x22: ffff800079b24730 x21: ffff000807f61800
-[   92.909254] x20: ffff00080999e680 x19: 0000000000000000 x18: 0000000000000000
-[   92.916373] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-[   92.923492] x14: 0000000000000000 x13: 0000000000000002 x12: ffff80008145b298
-[   92.930611] x11: ffff8000844e5000 x10: ffff80008165a130 x9 : 0000000000000100
-[   92.937730] x8 : 0000000000000001 x7 : ffff0008076b27e0 x6 : ffff00080ec43b7c
-[   92.944850] x5 : ffff00080ec43b78 x4 : 0000000000000000 x3 : ffff00080999e680
-[   92.951968] x2 : 0000000000000000 x1 : 0000000000000000 x0 : 0000000000000000
-[   92.959088] Call trace:
-[   92.961521]  pvr_vm_get_fw_mem_context+0x0/0xc [powervr] (P)
-[   92.967173]  pvr_context_create+0x190/0x410 [powervr]
-[   92.972218]  pvr_ioctl_create_context+0x44/0x8c [powervr]
-[   92.977608]  drm_ioctl_kernel+0xbc/0x124 [drm]
-[   92.982127]  drm_ioctl+0x1f8/0x4dc [drm]
-[   92.986098]  __arm64_sys_ioctl+0xac/0x104
-[   92.990102]  invoke_syscall+0x54/0x10c
-[   92.993842]  el0_svc_common.constprop.0+0x40/0xe0
-[   92.998532]  do_el0_svc+0x1c/0x28
-[   93.001835]  el0_svc+0x38/0x11c
-[   93.004969]  el0t_64_sync_handler+0xa0/0xe4
-[   93.009139]  el0t_64_sync+0x198/0x19c
-[   93.012792] Code: aa1703e0 d2800014 95cb0ba4 17ffffe8 (f940a400)
-[   93.018869] ---[ end trace 0000000000000000 ]---
-
-Fixes: d2d79d29bb98 ("drm/imagination: Implement context creation/destruction ioctls")
-Cc: stable@vger.kernel.org
-Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
+Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- drivers/gpu/drm/imagination/pvr_context.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Diogo Silva (2):
+      drm/xlnx/zynqmp_dpsub: remove dependency on DRM simple helpers
+      drm/xlnx/zynqmp_dpsub: check return value on drm_encoder_init
 
-diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/imagination/pvr_context.c
-index eba4694400b5..512f3735223e 100644
---- a/drivers/gpu/drm/imagination/pvr_context.c
-+++ b/drivers/gpu/drm/imagination/pvr_context.c
-@@ -307,8 +307,8 @@ int pvr_context_create(struct pvr_file *pvr_file, struct drm_pvr_ioctl_create_co
- 		goto err_free_ctx;
- 
- 	ctx->vm_ctx = pvr_vm_context_lookup(pvr_file, args->vm_context_handle);
--	if (IS_ERR(ctx->vm_ctx)) {
--		err = PTR_ERR(ctx->vm_ctx);
-+	if (!ctx->vm_ctx) {
-+		err = -EINVAL;
- 		goto err_free_ctx;
- 	}
- 
-
+ drivers/gpu/drm/xlnx/zynqmp_kms.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 ---
-base-commit: f7606400f19ca0291718ce4eed5770798890ea2f
-change-id: 20260707-staging-ddkopsrc-2435-90d4d218383b
+base-commit: 7a8782fa5da551a92ada0aca6f7dbadfc4c36da3
+change-id: 20260707-xlnx-simple-12cd05c1d745
 
 Best regards,
---  
-Luigi Santivetti <luigi.santivetti@imgtec.com>
+-- 
+Diogo Silva <diogompaissilva@gmail.com>
 
