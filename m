@@ -4,171 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE524C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 02:07:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A500C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 02:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F058810EF6E;
-	Wed,  8 Jul 2026 02:06:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CC2810EF6C;
+	Wed,  8 Jul 2026 02:18:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="TQB45CXy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k+x3Nwve";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012047.outbound.protection.outlook.com
- [40.107.200.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0222510EF67;
- Wed,  8 Jul 2026 02:06:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PDwLDSUw+IeP6Zq0PpjhOkFDOi0ADTY6sYbGnsZbiwyBhgUNFivWcqXcshfoKHYaXd8tIE2EIPV7G3Axrx1jMNFlOhNEJr5XeCWlILsKGRWWE7knLDUANNmbOU62x/Pp96Z7vaUs28UEUA/U/D3VAXokKhxiuXFBIIGjPeatulygyHJqswqs30+5lL+97+tpGwidvArsDuPDkLeBck0xidag2MaiOYCHHnuJPJj24f7CpBV7MvGZslv3fRHcKHzQogVfvG1xUVJHfQNE0KGa7wqAfuOIfkNmLU6bIM5Vie1fjZD58fxxNoIRIUiniuBDWAw+Dc6Q9Xka2kzD50yrIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fxkh07Qy3vfJQz6eckpUMmnibc6JICptSkx8IL0VI+4=;
- b=eynz3YDdxgirvdmsUHHCUndJtuyPKtLoXcdm0CRk4Q9rCQP9Ucm+sqf2qQYCsb83egpD6uLBFs+dZ5b7I/AP59Uk6OBUg+VqKbnK/2GIc8y0772AycBUZz/Oe2GIQNmk5KAmYJezjbq8wxOiylaWzenXKhFXEaFdplUL41SsypMf6tXYWiO3mh/WsF0KVFPQ9TCgn/E807ZvaCXyZPzrgoD3SZgQEE/WX/zvlTSokpP25sYv5ABv4eggWN9/GcVZIUq9S+7KVaE4ZaztgCNQ56Wtq1LtMm+tSj1g9C2wHECAWQNdRV2gHtDHfD3arHXqnDdNTzXYpsRFluqcL3T/NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fxkh07Qy3vfJQz6eckpUMmnibc6JICptSkx8IL0VI+4=;
- b=TQB45CXydMl+HmnMfcz5R23gRQbCpfOYoyTTpdrxZBMCaKlMuiXnz4gy7ozMvP4V/T9BLsDCio/HU5ksZcF+8E3b3dF9KR1TlEeVCBirhk6N5ZBP1vsod8PmT4fIiP0cvK+QoffU4JfL8hf/1kNuZDgGvNLDrkxl6Xx+NB3ViGtqRzkhNrU3ACAPBNkXCuOaUDXgBbvcMta1zc6eMtQa2TZD0CR9JyK0FXLnrbroI4k7a5wP+cvm51ZddI+nYhTtuiJ/o75HoGBmjQcQWOLA5lyiLu/5ZQyftgD6uQ+hI9mWJJ2w1ErIlMHK330fObXuOQzB5DzB5aGq+gaeKXgxWA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SN7PR12MB8002.namprd12.prod.outlook.com (2603:10b6:806:34b::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 02:06:40 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
- 02:06:40 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 07 Jul 2026 22:06:37 -0400
-Message-Id: <DJSTMAD98OD5.3JRZ25CI375A2@nvidia.com>
-Subject: Re: [PATCH 05/13] mm: prefer mm->def_vma_flags in mm logic
-Cc: "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, "Madhavan Srinivasan"
- <maddy@linux.ibm.com>, "Michael Ellerman" <mpe@ellerman.id.au>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Lucas
- Stach" <l.stach@pengutronix.de>, "Inki Dae" <inki.dae@samsung.com>,
- "Seung-Woo Kim" <sw0312.kim@samsung.com>, "Kyungmin Park"
- <kyungmin.park@samsung.com>, "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Peter Griffin" <peter.griffin@linaro.org>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Lyude Paul" <lyude@redhat.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Sandy Huang"
- <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- "Andy Yan" <andy.yan@rock-chips.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Gerd Hoffmann"
- <kraxel@redhat.com>, "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
- "Zack Rusin" <zack.rusin@broadcom.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Thomas Hellstrom"
- <thomas.hellstrom@linux.intel.com>, "Oleksandr Andrushchenko"
- <oleksandr_andrushchenko@epam.com>, "Helge Deller" <deller@gmx.de>,
- "Benjamin LaHaise" <bcrl@kvack.org>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Muchun Song" <muchun.song@linux.dev>, "Oscar Salvador"
- <osalvador@suse.de>, "David Hildenbrand" <david@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
- "Nico Pache" <npache@redhat.com>, "Ryan Roberts" <ryan.roberts@arm.com>,
- "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Hugh Dickins" <hughd@google.com>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jann
- Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>, "Kees Cook"
- <kees@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai"
- <tiwai@suse.com>, <linux-mips@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
- <dri-devel@lists.freedesktop.org>, <etnaviv@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-tegra@vger.kernel.org>, <virtualization@lists.linux.dev>,
- <intel-xe@lists.freedesktop.org>, <xen-devel@lists.xenproject.org>,
- <linux-fbdev@vger.kernel.org>, <linux-aio@kvack.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-sound@vger.kernel.org>
-To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.21.0
-References: <cover.1782760670.git.ljs@kernel.org>
- <3b4ccdc38819b42ddc79ee5a795831208ac7986c.1782760670.git.ljs@kernel.org>
-In-Reply-To: <3b4ccdc38819b42ddc79ee5a795831208ac7986c.1782760670.git.ljs@kernel.org>
-X-ClientProxiedBy: BL1P221CA0040.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:5b5::15) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DCFB10EF6C
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 02:18:25 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-495ee8e807aso83973b6e.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 19:18:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783477105; x=1784081905; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=NMN7ABXuRfB8gym1Nu0oTUlXvbUyY+lInnKbjPM/RBo=;
+ b=k+x3NwveMRc70Pr+rxmkYAs9vnyeBfaLw5Bf0ozU9hKpK+AGrVIXTfea/yJJTp44X2
+ /XIKOnz3wqTonuPk2VNkpXMpG59/1PtZqQMmD65HL27jnZII6Vvs/eazGN6lHKmAYNwB
+ 8DQBCrqczOM5bO3e3qruRceMh5rxkTHM+vL3/ZfKDU3pRoTsCAmk/4hd+uYr0UuL4B6f
+ 35MkdQx6wQCwW6DdSZ7ARILb6uThD6XQwqIHUF+5Ak38q+6zLfz6a2xf2VhcXSmsDQN6
+ sou2yzLT2fSWikGTbwBzj4fOXJhPlgaMeUKH/T3ST0F5uA7E3fEYDGm8aixShJPGZGAF
+ itdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783477105; x=1784081905;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=NMN7ABXuRfB8gym1Nu0oTUlXvbUyY+lInnKbjPM/RBo=;
+ b=Ux9SRuQCPgT4/yYqeCP5MsMzmJ3/EJB2T2atiZVSIhgDLW5RzN8r5hpykNhzADskhf
+ G72QuP0h7mJWXOIDphnJ1Yu3BTzU/Zs6Gh4p7DdtT2yMYs4FL3HcY0XtBlJmHJeVEoto
+ bz+GsNheBvRgr+B0Bm83hIl46QFTtmSB5yZtxn5M1hPFvYDHNDi4Sb4UtrL24CKobNA6
+ LnCPJNCtIHG0O5Y9F2/YqHQ5ohl7jDILdOzkOWp3HGJGxYDN+FTN/CQyoDH9fjuctsYL
+ 6QVyXQ6U3oS9JGrqm8aPXxk/e6oV1Td0mUhA9P7vs5877q+TFNV5/w+isdf3MXV2Z/1i
+ GuqA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ82spPv+9zpa/AEzKgi7G6xGBt631TdKFsF190ua1CcD/wrpAbvFrnrKtZnV92j9Ey2LTGmdYKh7ew=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsKcjcZQO2ntT4gfnIQXA24BYYG1bwDNEvv898/Jj9HfhVOlIw
+ e5uhRu+5AwrbVySumFffsWLZffIVt1osnPDMF2Vst/75uPZPwXrfyk3I
+X-Gm-Gg: AfdE7cmi6UqLpDsTs6ybifFY9Xd/ayqrWmZcg4XjK+rlQ3G0M6aj33iSvflAiSF9J/f
+ NOY/28rjwkJMeIDoVMChrX1UkXGg/VKo515nuWnEWGhi/FEUCrz7FA9Au9P+WRgFuRn3O5g33tX
+ rc6bZ8uBgLVGB0Uq5TG2de3nCZkMEm98eNIDljqrJ7T0FlAL1+1aKffEtD9xyZpcm61Btojn45C
+ 8/aU8KO6IM4LHhgwRPtjXoUbb7oCICpastfXEUdCf9vCSzhxrdMCf8DhObLfJ3zmeBrjRLvqrej
+ NQP2+g9fCYMYeaAnaJEQHbbebcvZdUDGIFVkABPwduO9BWi/3hO5gmJhXR29JPb/Rg6tgxIRHgI
+ sMDBzwNH6cVBrbiYnkYy3rcOQwOIHg3d9Jl3gG3WHKIKOhcYSInERSDtFIj5clMjLgd46FsU7/9
+ qGijRBCutq99qznPpTKoHX58XQU/M+O0PNqN/pZmbsOe9kAvG8kjA=
+X-Received: by 2002:a05:6808:3305:b0:492:5b42:ab02 with SMTP id
+ 5614622812f47-4a1fe930f52mr487342b6e.0.1783477104559; 
+ Tue, 07 Jul 2026 19:18:24 -0700 (PDT)
+Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
+ [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4a1aa006f74sm799975b6e.0.2026.07.07.19.18.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jul 2026 19:18:24 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v6 00/24] fix dynamic-debug classmaps API for DRM
+Date: Tue, 07 Jul 2026 20:18:00 -0600
+Message-Id: <20260707-dd-maint-2-v6-0-381f3edb0045@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SN7PR12MB8002:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac094335-3773-468a-5753-08dedc958c92
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|7416014|376014|18002099003|22082099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: iMFI8np7I/AWw64xPVM6y4lT8ZkON4Jwo2t9b13ONoVnmdxjRp8aQV0PhZ+Adop8d6jiZC8phMVWRPVhBMfC0WO2TQobowJGP5wIPf1p7WdNDGMGENRQS0OwXX6vFWO8r117+nVgBh+0e90vB78pYp9GhNwGC1Lecu51r+UKVcv8IrKLtdiNlI6if8HcL9Hmdv8saPByxgwi/qpjbtfQ8Z7LoN2/Jk0ew8+LcIxa9wrKUHtftobfOSSHfpmDR9XPJt6im/YqVMuR4DAhGZPxTQAfJJNP+XR/u8G9zAfYvJvFXAHbkIxwWKm/iHGKB8cDgKGpLeQXtzBjxhkjEXzVRwgGcmCY4TP517Ste4nk8v3alhVAPYn9r8ZZMF/+cws7rI7SuUfOuyx/d4RfekMdZdvXu4rcEPmU986X8ehuh02Qe7Kf92+UGOPv6+wvUHMaPzxqdJlg7U0lN6XgG2ytbMxRskoB6gR7Km4wQ3L8S0ayJR4EQVyj1V1i+bU4DW2nPXpTxFwquzyfH1mQdbVTG6YQMKKc2kSAqbXhYMyX10LeRSTn2b+DYDzrP5uzqgm1ptirAmbZa7EUh/jzdaf4cQznFUfUE6SIHcerOPU6bJyv3362A9/Wm/TFsZhV+sf1qEgCwif6Y548IjdizZ1kUdBASBTXmUmVubj+hPai1nE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0hPSDIyZlRCdkgyUTdVanZjOWlRY1doTjJvNzZ2Y3ZocC9NdlM3S3owVlR6?=
- =?utf-8?B?UnNUU1JQeVpiUEtMelZlWjdOYnQ2L3dSemFUSFVMalB0NC9CVHJGWXplc2Jj?=
- =?utf-8?B?U2hTUUhMRFFHSHlIdFZ6QkVmWHNwajdHWFBlcEZRT29jaTV4eU50OFc2OWRq?=
- =?utf-8?B?WUVzZGFWQjQ4Q3p6U3hzVDdFZzlzZGRvUmxlT0NIVlRWYVVXaUlDd01PdHMz?=
- =?utf-8?B?WUpxTmpyYUoxTHN4ZzJvNGZHZFBLZ2lXT1FKSGwvUnM1aHM3V1NnNktmYkpY?=
- =?utf-8?B?T2JoYXVIQzd5YVdvMVZmQ3Jud2ptVTdhZUNyYmt3ZGQxQjdSWWNPZERaVnVJ?=
- =?utf-8?B?STB2VGh4ZDVadmRUV0ZyV3I0N05ZeU5PdGlDQlpIVlB5YSt3ZzNwTFJuV0RC?=
- =?utf-8?B?QUY3bERGVGNJSjRQMjFkYVZ1cjkrUGpkcmpHZjB6ZExuMEI5TjdUZjE4V3Nt?=
- =?utf-8?B?bitPY3krZDVySmh5OTNWYjNFMVAyWmMzZlFvb0F0TEtqdkljS0k5cWVJVGF3?=
- =?utf-8?B?TVBiYU94L0RvNDZEdVN0TC85OEpKdmJncENwQTB0ZG5mcE90RVJrU3NISHVq?=
- =?utf-8?B?Q1ZqSHYwK0FhV1dJdEJCalYvSHZJMXNBTERwNU5xcjV5M3R4WFpGVlFoS1hs?=
- =?utf-8?B?OVhxaENZODFOQjlZUlRBSGhwelUrRFRrQlhMUnA2eSt1ZGkyMWJrZU1yMVVC?=
- =?utf-8?B?NUF4aHJIcjRoRXlDYStxOUpXb1o1dVdCM1BheElYREJSQUxaTlh0NnN5SUl6?=
- =?utf-8?B?ZmdMVElBZXQ4QmtFVjZBaVlqMmd5ZTVyRnZtd0lSVGJRbHNPZTdLWldwUXA1?=
- =?utf-8?B?L1hHM09QR3h4ZDBPRXY3cmU5Ykc4UGJkaVBna2h6ZzV6NVVlVVRwRllMWW9o?=
- =?utf-8?B?NUh3TjlHWFhqQmJSdjlWQUFEZ0hMQ3ZROEM3bG1QMjcyL0pBNzNxTkFHYlVo?=
- =?utf-8?B?WEZ6bDk2MDEwTWpKVHF5TTV0K3h6MUd2eGVOa1VFVmliczRGOE1wUENLRWp1?=
- =?utf-8?B?aHBCWVZGdG5mRGtCKzU2S3R2WlZBQ1Ewek4wWVN5cXM0ei85elRCemxyY2Y4?=
- =?utf-8?B?UG5ETDdPQ3I2T0xWRTdFWmc2QUluTWxvemJRbmtRUHFONTZCZVVzVmd2bTRs?=
- =?utf-8?B?clRPNnU3RHcrOE5ZQWZacWZqWnBjM0ExZHJhR3orUEM0WEFZUFQrZHk2RVNC?=
- =?utf-8?B?TmZiRlVFbDRuOXhzOVZ5YzZvNVcyaTR0WURHbUhZYjR3ZjdjN0tpdGIzVWxX?=
- =?utf-8?B?RzMzRTJaSmp5TTA4YzJGaEx4ZE5BbHBjVkM5anRYcFZHVFh4K0t3TCtVTW95?=
- =?utf-8?B?UmNPVnE5QXJydDR4bG1PWXNyQTg4SnVnWFQ5RFhQRlhxSTk4Q2ZGdWVHVGlU?=
- =?utf-8?B?aDNySS81N1E2ZG9HYUZjL3B0TVhDM1h3bjdPenBvRmFvV2NHMjVWMndjTEpi?=
- =?utf-8?B?YjBJcGgyRTBDbGhkdHVsWTRXbXRWUTNFdGJ1aHgvNXcyUHcwUW5oUkNTdTlv?=
- =?utf-8?B?WGd1azRHNEZ6dlVvRy9naEh4aVMvWDErd3ZoS2lFTmZvNWlrM0pMSFFYcDU2?=
- =?utf-8?B?dHFpODc2REVVQnNlckxyUGVWdTZaVUVJUmM5VzVGLzh6QnFyR2d0bndGY1Ix?=
- =?utf-8?B?eklkWU1XRlFPa0ttU2E5b3dXMGJmUmdUMnZDTkE5cWRHclNua3ZpK0J0OTU1?=
- =?utf-8?B?cURjMThKc04yblc4ZGp0VmRjM3NqMlpZekUxU1VvRk9ENWdiL0QvQjRQeEpy?=
- =?utf-8?B?bDNPb3FWbm5wWWdBZHlOSFRlN25IOTZOZW10ZmlWaDV3UmZLVnVUUUpzRGNS?=
- =?utf-8?B?RUU2d1dFdFZSeis3YWU1TitpcmJuOTVkY0xuV1RwaHQ5SFdMa1JueXhxQ1RP?=
- =?utf-8?B?TUFFakZQMzRyYlFoOU5LQzdXTmdFclkrbisxRXUrcVlhUW5hZzc4Nkh6TVlY?=
- =?utf-8?B?T2FTdlNLeUxNSUJwS01zVk5tLy9VUCtxM0p1eWJ2WU5lQmtRRGRxdHZ0S1g0?=
- =?utf-8?B?RVc4U1NoTDN3NlNTUWhleGRwR20zcUVQTDhydGxQdXZ6Qy9Xb3pQRXlXQlpy?=
- =?utf-8?B?a2JjaXVFb1l4LzV1RjFwcjBJK05FUEFVMnBVeHVKeS9yMXNlanBBTmZYQVRK?=
- =?utf-8?B?Q3l4cEFWRGNmbmJmbGh0TVJXZ1BQb2hXTWhxOFZKdDBKOHV4SisrcFhiMHdh?=
- =?utf-8?B?YzR1M1J2ZjUzLytZRVI3STFCZU9uRWFKWVpJOW5HL3h5ODdjaTJwOHNCYitD?=
- =?utf-8?B?WFpTRmNqaGoxelpvZUszbWRHR3dCd0xDUzhYWTlMcXlNbklmdWRRQm5ScVRL?=
- =?utf-8?Q?f6CEVTaQcxx00X3U5/?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac094335-3773-468a-5753-08dedc958c92
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 02:06:40.1798 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gu7sX/Z7mv4RuOC95YjYOLCi9nGkXpxnvm0lhGfXg4m4cYNnRv/RF7+fqebqkUqo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8002
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13QTW6DMBAF4KsgrzuVPf4DVr1HlYUNhlhKIDXUa
+ hVx906CKggbS2Prexq/O5tCimFidXFnKeQ4xXGgwbwVrDm7oQ8QW5oZcjRco4C2hauLwwwI1jR
+ aIbcVHYzALYUu/jzDPk80n+M0j+n3mZ3xcfsfI/cxGYGDr6SVAp3jpfzo6eny3oxX9ojJcqOGv
+ 2yQJVHlhPaohG9lc6RqT/GFKqKickIprUvtyiPVG7UHqomi6hA9/cV3uKfLWkQKX99U5ry2sXV
+ ZF+sykgN1Be4S+wF0WVlZGoPCiJp2Pi3LH4EByVuZAQAA
+X-Change-ID: 20260521-dd-maint-2-76c542079420
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Jason Baron <jbaron@akamai.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783477102; l=6982;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=Y6iplDL8rNgmn0X2LDL04ve9ymDJVghIuEaIPWNObfk=;
+ b=hWui+05aR2eCgLHG18GUk6iggaF9pb0RRyc9fuSQ1A3d8frVErXNCduqRoSg+LWSEuaT6EG92
+ EWCyo8dj6zEASJiOtzA9I2v/73xkxdS+1F7bjpsf+KOR3j+igWyo56D
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -184,32 +111,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 29, 2026 at 3:25 PM EDT, Lorenzo Stoakes wrote:
-> Currently mm->def_flags (of type vm_flags_t) is union'd with
-> mm->def_vma_flags (of type vma_flags_t).
->
-> As part of the effort to convert vm_flags_t usage to vma_flags_t (in orde=
-r
-> to no longer be arbitrarily limited to a system word size for VMA flags),
-> prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
->
-> No functional change intended.
->
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  mm/debug.c |  2 +-
->  mm/mlock.c | 13 +++++++------
->  mm/mmap.c  | 11 ++++++-----
->  mm/vma.c   |  4 ++--
->  4 files changed, 16 insertions(+), 14 deletions(-)
->
+This series fixes problems which broke CONFIG_DRM_USE_DYNAMIC_DEBUG=Y.
 
-LGTM.
+1st chunk fixes a section misalignement on i386, when CONFIG_DRM=y and
+CONFIG_DRM_USE_DYNAMIC_DEBUG=Y.  It also repairs a linkage failure
+where the dyndbg sections got dropped from loadable modules in some
+arches.  This chunk was reviewed by Petr Pavlu (thx).
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+2nd chunk is a set of cleanups, callchain refactors, struct refactors,
+and internal reorgs in preparation for the API change needed to fix
+the regression seen in DRM where boot-time drm.debug settings (in
+core) did not propagate to drivers.
 
+3rd is the API change itself; replacing DECLARE_DYNDBG_CLASSMAP (used
+in both core and drivers, a K&R define-once-use-thereafter violation,
+which caused the regression) with DYNAMIC_DEBUG_CLASSMAP_DEFINE in
+core, and $1_USE in drivers and helpers.
 
---=20
-Best Regards,
-Yan, Zi
+There are 2 user-visible changes:
+
+1. change an ERROR condition displayed in dynamic_debug/control,
+from "class:unknown, _id:1" to "class:_UNKNOWN_ id:1"
+
+This only happens if a classmap is incorrectly defined, so it should
+not pass review, and should be SHOUTED about.  And since classmaps are
+BROKEN for DRM (its only user), this affects no users.
+
+2. change builtin module names, displayed in dynamic_debug/control,
+from simple "[main]" to subsystem "[init/main]" etc.  This corrects an
+existing naming ambiguity, which is disallowed for loadable modules by
+the module loader.  To preserve legacy query behavior, "module main"
+will select all of "[*/main]".
+
+NB: the current ambiguity prevents cleanly adding classmaps to
+builtins named "[main]".  Such an addition is quite unlikely, so this
+change could be dropped, but it seemed proper to correct it and point
+it out.
+
+3. revert a change in classmaps-v1 (2022) which enlarged __drm_debug
+from (unsigned) int to long int.  64 categories of drm-debug is well
+past reasonable, the param is now a u32, for clarity.
+
+---
+this is based on v7.2-rc2
+Ive trimmed the cc-list to stay under gmail's 500msgs/day
+
+Changes in v6:
+
+previous versions split the 1st chunk into a separate submission, in
+an attempt to get past gmail's 500 msgs/day limit, and to ease review.
+
+This complicated application; although the 2nd chunk had the b4
+dependency on the 1st, this fact was missed by sashiko, which
+therefore couldnt apply it.
+
+A followon series adds compile-time and runtime checks to fail-fast if
+classmaps are used incorrectly.
+
+Changes in v5:
+
+move KBUILD_MODFILE ahead of array-slice, to address sashiko
+complaints which were fixed by later patches in V4.
+
+Changes in v4:
+
+Dyndbg previously used KBUILD_MODNAME to provide module-name, this
+works well for loadable modules (module loader requires unique module
+names), but for builtin modules, is effectively kbasename, and is not
+guaranteed unique.
+
+So we get 4 modules named "main": init/main, kernel/power/main,
+kernel/base/power/main.  This ambiguity is visible in user-space since
+the beginning of dyndbg.
+
+Now suppose kernel/{,base}/power/main want to define classmaps to
+categorize the various pr-debugs they have.  The current code finds a
+module's classmaps by strcmp on modname, so init/main will match
+against classmaps defined by both kernel/{,base}/power/main.
+
+The current code will also map "main" classes to kernel/*/power/main,
+so they will probably work at first, but 2 independent classmaps can
+both use class-ids 0-N, but will conflict if they're both used by a
+module.  Then we have classmap overlaps and unpredictable results.
+
+v3:
+- move #includes to top of files,
+- drop redundant ALIGN(8) in dydnbg.lds.S: DYNDBG_SECTIONS macro
+- add Reviewed-by tag (thx Petr)
+
+v2:
+- avoid BOUNDED_SECTION in modules, dont need _start & _end symbols.
+- sets 0 address to the sections, not just whatever current is.
+
+---
+Jim Cromie (24):
+      vmlinux.lds.h: refactor BOUNDED_SECTION_* macros into bounded_sections.lds.h
+      vmlinux.lds.h: drop unused HEADERED_SECTION* macros
+      vmlinux.lds.h: Fix ALIGN(8) omission causing NULL ptr on i386
+      vmlinux.lds.h: remove redundant ALIGN(8) directives
+      dyndbg.lds.S: fix lost dyndbg sections in modules
+      dyndbg: factor ddebug_match_desc out from ddebug_change
+      dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
+      dyndbg: reword "class unknown," to "class:_UNKNOWN_"
+      dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+      dyndbg: drop NUM_TYPE_ARGS
+      dyndbg: bump num-tokens in a query-cmd from 9 to 15
+      dyndbg: reduce verbose/debug clutter
+      lib/parser: add match_wildcard_hyphen() for agnostic matching
+      dyndbg: use KBUILD_MODFILE for unique builtin module names
+      dyndbg: refactor param_set_dyndbg_classes and below
+      dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+      dyndbg: replace classmap list with an array-slice
+      dyndbg: macrofy a 2-index for-loop pattern
+      dyndbg: pin class param storage to u32
+      dyndbg,module: make proper substructs in _ddebug_info
+      dyndbg: move mod_name down from struct ddebug_table to _ddebug_info
+      dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
+      dyndbg: change __dynamic_func_call_cls* macros into expressions
+      dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
+
+ Documentation/admin-guide/dynamic-debug-howto.rst |  42 +-
+ MAINTAINERS                                       |   1 +
+ drivers/gpu/drm/drm_print.c                       |   6 +-
+ include/asm-generic/bounded_sections.lds.h        |  32 ++
+ include/asm-generic/dyndbg.lds.h                  |  22 +
+ include/asm-generic/vmlinux.lds.h                 |  68 +--
+ include/drm/drm_print.h                           |   2 +-
+ include/linux/dynamic_debug.h                     | 275 +++++++---
+ include/linux/parser.h                            |   1 +
+ kernel/module/main.c                              |  15 +-
+ lib/Kconfig.debug                                 |  24 +-
+ lib/Makefile                                      |   3 +
+ lib/dynamic_debug.c                               | 608 +++++++++++++---------
+ lib/parser.c                                      |  58 ++-
+ lib/test_dynamic_debug.c                          | 145 ++++--
+ lib/test_dynamic_debug_submod.c                   |  14 +
+ scripts/module.lds.S                              |   2 +
+ 17 files changed, 846 insertions(+), 472 deletions(-)
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260521-dd-maint-2-76c542079420
+prerequisite-change-id: 20260630-fix-align-589738662161:v4
+prerequisite-patch-id: d6b2b7d254c7e8bbc0aea891d49b15dc1e71eaa4
+prerequisite-patch-id: 3dffaa165e78dc58e443469755eddb07972d0ddf
+prerequisite-patch-id: 2c4827d84b4159e71df89cca2a03938a534ecdb5
+prerequisite-patch-id: 4599f9be1eb06c0d7f2a7c657d4940411635e94b
+prerequisite-patch-id: aea9e121b30e3c7f3d76921b49f81ad421b7af51
+
+Best regards,
+-- 
+Jim Cromie <jim.cromie@gmail.com>
 
