@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9780AC44501
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 22:06:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE42C44501
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 22:07:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA71810E552;
-	Wed,  8 Jul 2026 22:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1E910F306;
+	Wed,  8 Jul 2026 22:07:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JOVleI/Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DqM1Ion3";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17E4710E552
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:06:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ECE710F306
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:07:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5BA376001A;
- Wed,  8 Jul 2026 22:06:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B323E1F000E9;
- Wed,  8 Jul 2026 22:06:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D7BFF6001A;
+ Wed,  8 Jul 2026 22:07:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF3D1F000E9;
+ Wed,  8 Jul 2026 22:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783548416;
- bh=WwwQNL4FDTzLpQnrRMiXnMvqOgpuNzzaDKuvB3TpRKE=;
+ s=k20260515; t=1783548433;
+ bh=cx7sCC72Rb5ZKhm5QhYr0VJzve760uPVVRldcv4QzG8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JOVleI/QhrbOPXzWWzQ3q8yKPPonhsIIZCaWZlBJ32UoSSFICbqpq4EEhk9e7oxNi
- 5jUf+TUJjEPUr5AlJIuu5ZY46M3PDLvv6eM0aEzXzU2xOHjNLaggN2thq3CPt3PaRB
- Z8JgBBf9qBaSuwkTZyPeFjLBsNY88KRCYoDaqIK1tZ50SdKi76Zm7E90a6Jid/lYBR
- A6hGb74qxIlp97SXKv395UXuAMj5SGMI0gqMNlGiE+BT+WhwhhW3XSPZXBk/Ob4P56
- KuiOe0oPTmGY9MFnl0yumRV8RBxw99WSPqDErB5Z4W/DNJOickm46CP/SrEP9H+HYe
- MOMeGTX3bpQRA==
+ b=DqM1Ion30QKok/H+f7ErmpqQwYmnlAntEvmRhnSWOLpIL6bdHBkWGucLXTK52Jakf
+ vOXrT96Ws0uzmCWVgOhRvQ+UAJ7oxV+LJf/RqxNCWi06EZSX+MCSb224lCeXxwkBhY
+ XJyHV81sCdy9tVW783oEOzTNXpk6WaEAV55OJGVF1OStVAyAKFwdHpLPnzuphfYUmN
+ 22KfEhEy7+cOhSnyr8AvVQp+S9kK6DW/CC9qOPiXvY7J7QU+oZXJuVMpjkC/tLOXx7
+ vMLpWPdii4N2TZ7+nkQF9ADTSeiGOg7j3pAM5AbXA7j6Fqa0Sqo97e7a+O3CQ80X2s
+ YSy7+wrIFRy6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/14] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE
- overflow on 32-bit
+Subject: Re: [PATCH v3 02/14] drm/rockchip: vop2: Fix resource leak on
+ vop2_enable() error path
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-6-a4a982a9f2e7@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-2-a4a982a9f2e7@collabora.com>
 References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
- <20260709-dw-hdmi-qp-yuv-v3-6-a4a982a9f2e7@collabora.com>
+ <20260709-dw-hdmi-qp-yuv-v3-2-a4a982a9f2e7@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 22:06:55 +0000
-Message-Id: <20260708220655.B323E1F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 22:07:12 +0000
+Message-Id: <20260708220713.3CF3D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,70 +61,96 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The driver calls multiple sleeping functions from CRTC atomic enab=
-le, disable, and flush callbacks, violating DRM atomic context rules.
+- [High] The patch modifies `vop2_enable()` to return an error code and cle=
+anly unwind resources on failure, but fails to update its caller `vop2_crtc=
+_atomic_enable()` to check this return value. This converts a resource leak=
+ into a critical double-free and system crash.
 --
 
---- Patch [6]: [PATCH v3 06/14] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE =
-overflow on 32-bit ---
-commit 4edf4257240708c6864fcd134b29f53d0456d685
+--- Patch [2]: [PATCH v3 02/14] drm/rockchip: vop2: Fix resource leak on vo=
+p2_enable() error path ---
+commit d8725e1d1e43785d7a93679c9bc6634b3ebd7fab
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
+drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
 
-VOP2_MAX_DCLK_RATE is defined as an unsigned long and is used scaled by
-the color-depth ratio. On 32-bit architectures, this can overflow when
-multiplied. This patch changes the constant to unsigned long long to ensure
-64-bit arithmetic is used.
+vop2_enable() returns void, so callers cannot tell whether powering up
+the VOP2 succeeded.
 
-Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.o=
+Additionally, if rockchip_drm_dma_attach_device() fails, vop2_enable()
+returns without disabling the core clocks or dropping the runtime PM
+reference taken earlier, leaking both.
+
+Make vop2_enable() return int and unwind all resources on every failure
+path.  As disabling the core clocks is also needed in vop2_disable(),
+factor it out into a local helper used by both.
+
+Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.o=
 rg/
 
 > diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
 rm/rockchip/rockchip_drm_vop2.c
-> index e9f5d015b6458..2cd04bedaa2c0 100644
+> index 4cce3e336f5b3..e11dc8c7f78ba 100644
 > --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 > +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -102,7 +102,7 @@ enum vop2_afbc_format {
->  	VOP2_AFBC_FMT_INVALID =3D -1,
->  };
+
+[ ... ]
+
+> @@ -871,7 +878,7 @@ static void rk3588_vop2_power_domain_enable_all(struc=
+t vop2 *vop2)
+>  	vop2_writel(vop2, RK3588_SYS_PD_CTRL, pd);
+>  }
 > =20
-> -#define VOP2_MAX_DCLK_RATE		600000000UL
-> +#define VOP2_MAX_DCLK_RATE		600000000ULL
+> -static void vop2_enable(struct vop2 *vop2)
+> +static int vop2_enable(struct vop2 *vop2)
+>  {
+>  	int ret;
+>  	u32 version;
+
+[ ... ]
+
+> @@ -932,6 +938,17 @@ static void vop2_enable(struct vop2 *vop2)
+>  		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
+>  	vop2_writel(vop2, RK3568_SYS1_INT_EN,
+>  		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
+> +
+> +	return 0;
+> +
+> +err_detach_dma:
+> +	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+> +err_disable_clks:
+> +	vop2_core_clks_disable_unprepare(vop2);
+> +err_put_pm:
+> +	pm_runtime_put_sync(vop2->dev);
+> +
+> +	return ret;
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but I noticed some potential atomic context
-violations in this file.
+Does this code leave vop2_crtc_atomic_enable() vulnerable to a crash if
+vop2_enable() fails?
 
-During non-blocking commits, the DRM core invokes CRTC callbacks like
-vop2_crtc_atomic_enable(), vop2_crtc_atomic_disable(), and
-vop2_crtc_atomic_flush(). These run in an atomic context where sleeping is
-strictly forbidden.
+The newly added error path in vop2_enable() unwinds resources (power and
+clocks), invalidating the assumption that the hardware is active.
 
-However, the driver appears to invoke sleeping functions on these paths.
-For example, in vop2_crtc_atomic_enable():
+However, the caller vop2_crtc_atomic_enable() still ignores the return
+value:
 
-    vop2_lock(vop2);
-   =20
-    ...
-   =20
-    ret =3D clk_prepare_enable(vp->dclk);
+	if (!vop2->enable_count)
+		vop2_enable(vop2);
 
-Similarly, in vop2_crtc_atomic_disable():
+	vop2->enable_count++;
 
-    vop2_lock(vop2);
+If vop2_enable() fails (e.g., due to DMA attach failure), it disables the
+core clocks and puts the PM runtime.
 
-And in the flush path via vop2_crtc_atomic_try_set_gamma_locked():
+Because vop2_crtc_atomic_enable() ignores the error, it unconditionally
+increments enable_count and proceeds to access VOP2 MMIO registers.
 
-    vop2_lock(vop2);
-
-Because vop2_lock() acquires a mutex and clk_prepare_enable() can sleep,
-does this violate the atomic context requirement and potentially cause syst=
-em
-instability or deadlocks during display state updates?
+Can this result in a system crash (Synchronous External Abort) due to MMIO
+access to unpowered/unclocked hardware, followed by a double-free of PM
+runtime and clock resources on teardown?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-dw-hdmi-qp=
--yuv-v3-0-a4a982a9f2e7@collabora.com?part=3D6
+-yuv-v3-0-a4a982a9f2e7@collabora.com?part=3D2
