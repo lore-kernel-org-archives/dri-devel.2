@@ -4,44 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E6B0C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 02:41:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1D4C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 03:29:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3C1010EFA8;
-	Wed,  8 Jul 2026 02:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81F4810E420;
+	Wed,  8 Jul 2026 03:29:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b+1vuZg5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DOWtHFiS";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A0C10EFA8
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 02:41:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BDB2E40F1B;
- Wed,  8 Jul 2026 02:41:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777E71F000E9;
- Wed,  8 Jul 2026 02:41:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783478507;
- bh=CYYcLX6j+6rkzw6OOapXwFbq6F4yyNdKuEWGnkImX58=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=b+1vuZg5oPDCKOgGqnFSQ3njuCnRK0Vda/gXu8rtSDs7N4BCrxe0xqH/7yGWMwbI8
- tWFLEw/hu1oegLdWV3qIOyHL33RQ2zVmz17/6bbJJNSjPzQ8KR/kZtmKy9WzZX9yKR
- s0yOcy3BMoJkT40xSypM/6vzFfzTd9E2Q2tlEKrX0625UydOIUVsDkrpb8IuEH2sY4
- fnxGU4Wm4sr6vRigNA/vqb2tuww2gYSGJr42aALDwnf5YvXIasTMZ1dzGDXmLFkqPn
- HBNZvUn5hESYeB2ip/BExcfXRWtRnlX2D3DHj+hZ/4gQ9/NcE4csJ7P0G9g/NxQGTS
- dy/vYJV7JBDDQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 23/24] dyndbg: change __dynamic_func_call_cls* macros
- into expressions
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
-In-Reply-To: <20260707-dd-maint-2-v6-23-381f3edb0045@gmail.com>
-References: <20260707-dd-maint-2-v6-0-381f3edb0045@gmail.com>
- <20260707-dd-maint-2-v6-23-381f3edb0045@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 02:41:47 +0000
-Message-Id: <20260708024147.777E71F000E9@smtp.kernel.org>
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE59F10E420
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 03:29:00 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2caced6038eso2599505ad.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 20:29:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783481340; x=1784086140; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=dWbuXPSLohRB/M8EIN/JzhKRKCDqHb+iOVssm+yt0m0=;
+ b=DOWtHFiS1bBw+zznuc2MsoSMmpAKy5ii0gH16Uc9DBzmqO23bUdDQ3BQhOzkOwbMc2
+ Y/VfMG0x2oAFAJuzfJZSARJLydQZxNYbuxW2JuauUiGw7FlNeWH98yTkKKv32ZZWh0xr
+ GODGGdPtXE7EmgksRrwjjUSQbIl2QqYAKnPVmOs8uXwndo+zKi1lh/qBkV77Fhse2oHO
+ K+HKYp756Ms6XDcyNpJsMXMkJLky6RCuXxs1U8lHR8EHpx0EuHAXErwqN0tc3hzlC2u6
+ 71U6w0WyvKHCSfkQL8itMjGJTMpVPBC6Eiq1DTQsFyLSJf/QPD3bvCc+VM3WNKIICbHa
+ xhEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783481340; x=1784086140;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=dWbuXPSLohRB/M8EIN/JzhKRKCDqHb+iOVssm+yt0m0=;
+ b=S4NDhaSt+Tu12k9xXeG5IdPqAMPZrxmQqZ8sgZD2Kdz6FF14oNi47ff+hFRlc0Y4bM
+ g+phPi12uQLHohQHTIKxT8vKCSqy65xvZElV09xmHaUl33ap/G4uDDTUsJ8X35lJ6iNE
+ IyDlssM+B/WvZuWtul3X4bsj6oE8zPT2tCjNKAO82QAlPwoQRKJRA6xN5rCAh7Qqxk5n
+ SBKsOILkn+Vztu7IcbAqN487Zn/5DoPBDSh8SOKvy2SKF5pWQqwrtI4AhQ2WLgw6AM67
+ Ltm7Xxmr3Kb37NiOi1QXmT5++xhrxHere7ZOeSXjp6TFmim0M/wXIi7FQFGwn2YT2S5k
+ GBSQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqoWCfeRkLofilAWauTH2269eMBcdGc3/yM8A9MXxtX8fhW4mOWfcSsKX5ULQnv/qhHDFjDhsIkrTE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3LjGjsibOzyQDT2Iigz307Re78YPKwc2vqZb4UqLL4sccQtxK
+ ZROyuhOGZJKZIoGnZJAKUR8YNQhsNpxgFQP6BVNsIeuKRtbldC9yJVEg
+X-Gm-Gg: AfdE7clKSeYxZ1Q9jvPb3gDuvcAikjkdVwcMVgJSz6pcznZD8OASIGJZ/Qgleq7lTQU
+ 1JpSz5MeiHUOnjJUWgf5qMKFyErSHgaPSS5UFtxlF4NaH6DJ6RDF5ab1pLq7GZG6UzqMKTjSRQH
+ SCuFQuwBctTeFt+4FbMHPcz5LKdsXDp4tLjBeDiQpzgPLiggjSQ/QQNBAIyViaGSWNbBs5+otOK
+ xCA4f+uNopIhpIEM0OBUizMoW1CDVcbglJ0Wvq/24XV/ncfAzAiKnguMtQkbMzz1DRAX4HqiNn2
+ GKMxxwR8UNo3mGeocCu/8h63oyZ9WexvVqtBdHOIlrlgkYA23DyNztm0KSiSclD61dQh5mJnnaU
+ xznYrOFZHiPB9RnX7wSLOZgbS2sEP6NK8PeGMSUeoCvnByGcOMhiNAxaQFY6LrjG+kNdl1uBr6o
+ StWBE+f0PGMA==
+X-Received: by 2002:a17:902:e84f:b0:2c9:d277:2cdb with SMTP id
+ d9443c01a7336-2cce9fafe09mr7101655ad.9.1783481340217; 
+ Tue, 07 Jul 2026 20:29:00 -0700 (PDT)
+Received: from lgs.. ([101.76.249.46]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ccc9c20616sm20602815ad.34.2026.07.07.20.28.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jul 2026 20:28:59 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Jeongjun Park <aha310510@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH] drm/exynos: vidi: fix EDID leak on concurrent connection ioctl
+Date: Wed,  8 Jul 2026 11:28:47 +0800
+Message-ID: <20260708032847.712897-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,77 +88,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] API Consistency / Build Breakage Trap: Dynamic debug wrappers evalu=
-ate to int when enabled but void when disabled
---
+The change referenced by the Fixes tag added ctx->lock protection around
+struct vidi_context members related to EDID allocation and freeing, but
+vidi_connection_ioctl() still checks ctx->connected separately from the
+state update.
 
---- Patch [23]: [PATCH v6 23/24] dyndbg: change __dynamic_func_call_cls* ma=
-cros into expressions ---
-commit 003daac5c2950ded79f06209b5d0ab4dfeb11a5a
-Author: Jim Cromie <jim.cromie@gmail.com>
+Two authenticated clients can therefore issue concurrent connect
+requests. Both can observe ctx->connected as disconnected before either
+one updates it, then both allocate a drm_edid and assign ctx->raw_edid.
+The second assignment overwrites the first drm_edid pointer, leaking the
+first allocation.
 
-dyndbg: change __dynamic_func_call_cls* macros into expressions
+Keep the connection-state check and the ctx->raw_edid/ctx->connected
+updates in the same critical section. If a concurrent request has already
+changed the connection state by the time a newly allocated EDID is ready,
+drop the new EDID before returning.
 
-This patch modifies the __dynamic_func_call_cls* macros to use statement
-expressions instead of do-while loops, allowing them to return 0. It also
-updates the fallback dynamic_hex_dump() macro to ensure it behaves
-consistently by returning 0, allowing debug macros to be used inside
-conditional expressions.
+Fixes: 52b330799e2d ("drm/exynos: vidi: use ctx->lock to protect struct vidi_context member variables related to memory alloc/free")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/exynos/exynos_drm_vidi.c | 33 ++++++++++++++----------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
 
-> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-> index 355f2cb117334..8822f9a3605f6 100644
-> --- a/include/linux/dynamic_debug.h
-> +++ b/include/linux/dynamic_debug.h
-> @@ -238,24 +238,26 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
->   * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
->   * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
->   */
-> -#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
-> +#define __dynamic_func_call_cls(id, cls, fmt, func, ...) ({	\
->  	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
->  	if (DYNAMIC_DEBUG_BRANCH(id)) {				\
->  		func(&id, ##__VA_ARGS__);			\
->  		__dynamic_dump_stack(id);			\
->  	}							\
-> -} while (0)
-> +	0; /* match no_printk return value */			\
-> +})
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_vidi.c b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+index 67bbf9b8bc0e..bc0af9e6bc81 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_vidi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+@@ -252,15 +252,6 @@ int vidi_connection_ioctl(struct drm_device *drm_dev, void *data,
+ 		return -EINVAL;
+ 	}
+ 
+-	mutex_lock(&ctx->lock);
+-	if (ctx->connected == vidi->connection) {
+-		mutex_unlock(&ctx->lock);
+-		DRM_DEV_DEBUG_KMS(ctx->dev,
+-				  "same connection request.\n");
+-		return -EINVAL;
+-	}
+-	mutex_unlock(&ctx->lock);
+-
+ 	if (vidi->connection) {
+ 		const struct drm_edid *drm_edid;
+ 		const void __user *edid_userptr = u64_to_user_ptr(vidi->edid);
+@@ -293,21 +284,37 @@ int vidi_connection_ioctl(struct drm_device *drm_dev, void *data,
+ 					  "edid data is invalid.\n");
+ 			return -EINVAL;
+ 		}
++
+ 		mutex_lock(&ctx->lock);
++		if (ctx->connected == vidi->connection) {
++			mutex_unlock(&ctx->lock);
++			drm_edid_free(drm_edid);
++			DRM_DEV_DEBUG_KMS(ctx->dev,
++					  "same connection request.\n");
++			return -EINVAL;
++		}
++
++		drm_edid_free(ctx->raw_edid);
++
+ 		ctx->raw_edid = drm_edid;
++		ctx->connected = vidi->connection;
+ 		mutex_unlock(&ctx->lock);
+ 	} else {
+ 		/* with connection = 0, free raw_edid */
+ 		mutex_lock(&ctx->lock);
++		if (ctx->connected == vidi->connection) {
++			mutex_unlock(&ctx->lock);
++			DRM_DEV_DEBUG_KMS(ctx->dev,
++					  "same connection request.\n");
++			return -EINVAL;
++		}
++
+ 		drm_edid_free(ctx->raw_edid);
+ 		ctx->raw_edid = NULL;
++		ctx->connected = vidi->connection;
+ 		mutex_unlock(&ctx->lock);
+ 	}
+ 
+-	mutex_lock(&ctx->lock);
+-	ctx->connected = vidi->connection;
+-	mutex_unlock(&ctx->lock);
+-
+ 	drm_helper_hpd_irq_event(ctx->drm_dev);
+ 
+ 	return 0;
+-- 
+2.43.0
 
-[Severity: Low]
-Does this introduce a build breakage trap for configurations where
-CONFIG_DYNAMIC_DEBUG is disabled?
-
-While this macro now evaluates to an int (0) when enabled, the fallback
-macros used when dynamic debug is disabled often evaluate to void.
-
-For example, dev_dbg() falls back to dev_no_printk(), which evaluates to vo=
-id:
-
-include/linux/dev_printk.h:
-#define dev_no_printk(level, dev, fmt, ...) 				\
-	({								\
-		if (0)							\
-			_dev_printk(level, dev, fmt, ##__VA_ARGS__);	\
-	})
-
-Similarly, drm_dbg() falls back to the __drm_dev_dbg() function which retur=
-ns
-void, and print_hex_dump_debug() falls back to a void inline function.
-
-If a driver developer uses these macros in a boolean expression (such as
-if (cond && dev_dbg(...))), it will compile successfully during development
-with CONFIG_DYNAMIC_DEBUG enabled, but will break the build with an invalid
-operands to binary && error when compiled without dynamic debugging.
-
-Could the fallback macros be updated to consistently return 0 as well to
-prevent this mismatch?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-dd-maint-2=
--v6-0-381f3edb0045@gmail.com?part=3D23
