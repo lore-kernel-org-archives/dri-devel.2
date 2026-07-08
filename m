@@ -4,87 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6740C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:50:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 225DBC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE6810E5D7;
-	Wed,  8 Jul 2026 12:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F39510E5C7;
+	Wed,  8 Jul 2026 12:53:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jitZrOHB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VreLbx6a";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11A5310E5D7
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:50:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 25C1560054;
- Wed,  8 Jul 2026 12:50:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2693F1F000E9;
- Wed,  8 Jul 2026 12:50:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783515007;
- bh=IbwF4pMHfyhwOslYT5YnzmrvzgTa5uH5GBgU1nK9uiI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jitZrOHBE9XNJumMdXFVv18tUngtPLdb9x2l4MXb1a4a3audPmwI5ES1+E/p39+fH
- HMBtTttJu5WKPwMZpzl5XSMW8IWWsdWOQpWuuuOHUvCzW0Upi/fHIEHKy/XatkKhbs
- YIrgECVYDaOyOlaeXFov/nDhiba0x7J/yL1Q67FUZOmQNsefjzpkn/aCjEu0dJ6ZK9
- nlap2Fjp+x+P5ahqGT40ffudUAfNKdE4tL3hjqRQjY1+Q8v+zswk6N6KyX0QPm3fqz
- Jak61XpK3z4GmnyZVFYWCCa1m5lbXTTe07OjSwKUXfEIRonD9IqEaS2TOTSr62FACC
- l7BKByWi/ic2A==
-Date: Wed, 8 Jul 2026 14:50:04 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Will Deacon <will@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, 
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Chun Ng <chunn@nvidia.com>
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-Message-ID: <ak5CXzGStC6ZmtwI@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
- <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
- <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
- <akuvyu1Pq0ZVMZV0@orome> <akzikTrmhMsvkNVY@willie-the-truck>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 727D210E5C7
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:53:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783515218;
+ bh=QxoMb4ScZ54Fq062ICFyFTE3Ebaf4OLK2xJ0v8uoiLs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VreLbx6abeA2IUFgGJUzE3r9liF5gxD1A9+U9a54GiIVuO+W7xxNICcGJ+FaQmWVJ
+ 4JQdZzt92/ZN9Qlk4PL27DIRbAEhw4Xm/PzsFxRdcA3n7Lbqrm6ZYahC9ZsUp1dvDa
+ Lda4pXK+xKX1A+XX2Y/0xM+KCKgD515W+kwAA8kJDhE8nQ4b8jgMZFepB97EAC6aSM
+ Wa/rMxR+ko+z9Rcw5ZuzPBdTITqWqy/JyUAJuryGB1IZ/cwwNg+WZnavrNX+PrVcyE
+ 1kC9ImbK8LrlxkbUOtEuNlWMGz472rdw19yjHyuvFZCtDbH6LSTgGGdgXJwBRu6xC8
+ 4xNFy6km3gjHg==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0D34B17E0713;
+ Wed, 08 Jul 2026 14:53:38 +0200 (CEST)
+Message-ID: <a5f4c939-c7f6-4119-aa48-b56d4e16772d@collabora.com>
+Date: Wed, 8 Jul 2026 15:53:37 +0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gs6kcdn3aiethnov"
-Content-Disposition: inline
-In-Reply-To: <akzikTrmhMsvkNVY@willie-the-truck>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 31/39] drm/vc4: hdmi: Convert to common SCDC scrambling
+ infrastructure
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-31-d79890d00b6a@collabora.com>
+ <20260707-jade-wapiti-of-reverence-ad31b6@houat>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260707-jade-wapiti-of-reverence-ad31b6@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,168 +77,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 7/7/26 6:36 PM, Maxime Ripard wrote:
+> Hi,
+> 
+> On Thu, Jul 02, 2026 at 05:46:44PM +0300, Cristian Ciocaltea wrote:
+>> @@ -416,10 +281,11 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
+>>  			status = connector_status_connected;
+>>  	}
+>>
+>> -	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
+>> +	ret = drm_atomic_helper_connector_hdmi_hotplug(connector, status, ctx);
+>> +
+>>  	pm_runtime_put(&vc4_hdmi->pdev->dev);
+>>
+>> -	return status;
+>> +	return ret == -EDEADLK ? ret : status;
+>>  }
+> 
+> This looks like a change that should have its own patch and explanation.
 
---gs6kcdn3aiethnov
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-MIME-Version: 1.0
+Yeah, I think .detect_ctx is supposed to return -EDEADLK to allow context
+owners, e.g. drm_helper_probe_detect_ctx(), to do the backoff and retry.
 
-On Tue, Jul 07, 2026 at 12:27:13PM +0100, Will Deacon wrote:
-> On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
-> > On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
-> > > On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
-> > > > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
-> > > > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
-> > > > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
-> > > > > > > From: Chun Ng <chunn@nvidia.com>
-> > > > > > >=20
-> > > > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protec=
-tion bits
-> > > > > > > on a kernel-linear-map range.
-> > > > > >=20
-> > > > > > That sounds like a really terrible idea. Why is this necessary =
-and how
-> > > > > > does it interact with things like load_unaligned_zeropad()?
-> > > > >=20
-> > > > > This is necessary because once the memory controller has walled o=
-ff the
-> > > > > new memory region the CPU must not access it under any circumstan=
-ces or
-> > > > > it'll cause the CPU to lock up (I think technically it'll hit an =
-SError
-> > > > > but in practice that just means it'll freeze, as far as I can tel=
-l).
-> > > > >=20
-> > > > > Probably doesn't interact well at all with load_unaligned_zeropad=
-().
-> > > > >=20
-> > > > > > I think you should unmap the memory from the linear map and mem=
-remap()
-> > > > > > it instead.
-> > > > >=20
-> > > > > Given that the memory can never be accessed by the CPU after the =
-memory
-> > > > > controller locks it down, I don't think we'll even need memremap(=
-). The
-> > > > > only thing we really need is the sg_table we hand out via the DMA=
- BUFs
-> > > > > so that they can be used by device drivers to program their DMA e=
-ngines
-> > > > > internally.
-> > > > >=20
-> > > > > Looking through some of the architecture code around this, should=
-n't we
-> > > > > simply be using set_memory_encrypted() and set_memory_decrypted()=
- for
-> > > > > this? While they might've been created for slightly other use-cas=
-es,
-> > > > > they seem to be doing exactly what we want (i.e. remove the page =
-range
-> > > > > from the linear mapping and flushing it, or restoring the valid b=
-it and
-> > > > > standard permissions, respectively).
-> > > >=20
-> > > > Ah... I guess we can't do it because we're not in a realm world and=
- so
-> > > > the early checks in __set_memory_enc_dec() would return early and t=
-urn
-> > > > it into a no-op.
-> > > >=20
-> > > > How about if I extract a common helper and provide set_memory_p() a=
-nd
-> > > > set_memory_np() in terms of those. Those are available on x86 and
-> > > > PowerPC as well, so fairly standard. I suppose at that point we're
-> > > > closer to set_memory_valid().
-> > >=20
-> > > Why not just call set_direct_map_invalid_noflush() +
-> > > flush_tlb_kernel_range() for each page? We already have APIs for this.
-> >=20
-> > Having a "standard" helper with a fixed and documented purposed seemed
-> > like a preferable approach for this particular case. We also may want to
-> > make the driver that uses this buildable as a module, in which case we'd
-> > need to export these rather low-level APIs. And then there's also the
-> > fact that we typically call this on a rather large region of memory
-> > (usually something like 512 MiB), so doing it page-by-page is rather
-> > suboptimal.
-> >=20
-> > > The big challenge I see with any linear map manipulation, however, is
-> > > that it will rely on can_set_direct_map() which likely means you need=
- to
-> > > give up some performance and/or security to make this work. Does memo=
-ry
-> > > become inaccesible dynamically at runtime? If not, the best bet would
-> > > be to describe it as a carveout in the DT and mark it as "no-map" so
-> > > we avoid mapping it in the first place.
-> >=20
-> > VPR exists in two modes: static and resizable. For static VPR we do
-> > exactly that: describe it as carveout in DT with no-map and deal with it
-> > accordingly in the driver. Resizable VPR is for device that have small
-> > amounts of RAM. Content-protected video playback will in the worst case
-> > consume around 1.8 GiB of RAM, so we want to be able to reuse for other
-> > purposes when VPR is unused on those devices. In that case, the memory
-> > is also described as a reserved-memory region in DT, but it is marked as
-> > reusable so that it can be managed by CMA.
-> >=20
-> > The resize operation is fairly slow to begin with because we need to
-> > stall the GPU and put it into reset before the operation, then take it
-> > out of reset and resume it afterwards.
-> >=20
-> > What kind of performance impact do you expect?
->=20
-> You'll need to measure it, but we've seen reports of double-digit
-> percentage regressions in performance and power. As I said, the problem
-> is that you need to split the linear map to 4k page at runtime to unmap
-> the dynamic carveout, but that isn't something that can be done on most
-> CPUs. Therefore you end up having to use page-granular mappings for the
-> entire thing, similarly to how 'rodata_full' drives can_set_direct_map()
-> and the perf/power hit affects everything.
->=20
-> It's hard to know what to suggest... I wonder if any of the memory
-> hotplug logic could help here?
+vc4_hdmi_handle_hotplug() instead runs its own retry loop, calling
+drm_modeset_backoff() on the acquire context not owned by the driver, which
+drops every lock in the context, including connection_mutex owned by the core.
 
-I've read up on memory hotplug a bit and it sounds like it could fit
-this really nicely. Given that we only use CMA (along with the extra
-patches to it) to make sure that any buffers are reclaimed for VPR use,
-we should be able to get rid of the CMA usage altogether and replace it
-with online_pages() and offline_pages() instead. Rather than using a
-fixed set of CMA areas like we currently do, each "chunk" in the VPR
-driver could represent a memory block instead (which looks like it will
-be 128 MiB for 4 KiB pages and 512 MiB for 64 KiB pages). We currently
-use 512 MiB as the chunk size, so it should be relatively similar and
-easy to adjust.
+This is now implicitly fixed by this patch, but you're right that we should
+handle this separately, before doing the conversion, i.e. drop the local retry
+logic and propagate -EDEADLK to the top level.
 
-One issue that we would absolutely need this memory to be ZONE_MOVABLE
-=66rom the start. Using no-map in DT and then online_pages() probably will
-not work because there's no struct page for the memory. So we're left
-with keeping the memory onlined by default, in which case we'd need some
-way for DT to instruct the memory to be put into ZONE_MOVABLE always.
+>> @@ -778,32 +658,14 @@ static int vc4_hdmi_write_spd_infoframe(struct drm_connector *connector,
+>>  					buffer, len);
+>>  }
+>>  
+>> -#define SCRAMBLING_POLLING_DELAY_MS	1000
+>> -
+>> -static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+>> +static int vc4_hdmi_scrambler_enable(struct drm_connector *connector)
+>>  {
+>> -	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
+>> -	struct drm_connector *connector = &vc4_hdmi->connector;
+>> -	struct drm_device *drm = connector->dev;
+> 
+> If you don't remove this line....
+> 
+>> -	const struct drm_display_mode *mode = &vc4_hdmi->saved_adjusted_mode;
+>> +	struct vc4_hdmi *vc4_hdmi = connector_to_vc4_hdmi(connector);
+>>  	unsigned long flags;
+>>  	int idx;
+>>  
+>> -	lockdep_assert_held(&vc4_hdmi->mutex);
+>> -
+>> -	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+>> -		return;
+>> -
+>> -	if (!drm_hdmi_mode_needs_scrambling(mode,
+>> -					    vc4_hdmi->output_bpc,
+>> -					    vc4_hdmi->output_format))
+>> -		return;
+>> -
+>> -	if (!drm_dev_enter(drm, &idx))
+> 
+> Then you don't need to change this one either
 
-There's a "hotpluggable" property for "memory" nodes, maybe that can be
-extended to apply to reserved-memory nodes as well?
+Ack.
 
-Thierry
-
---gs6kcdn3aiethnov
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpOR3kACgkQ3SOs138+
-s6EbFg/9G04JpY5Cu3AX1K9vtQtrw3D5Gowsl1qT7PXe9AmN9PK2oggEDnsm6JPw
-hyDVKxzpLbktBMB5vNKmr4KGYrIEeW4fs+thwrdNjf5GhX7cTQyL78oHaEVTZAn7
-cpiFfepSy6xW4ZDIpHzj6bUVg06S8VZmLOwKHuDbA4N6PZ95evD1ff3/TQs6Y1E6
-WJhgBPjZbTLh6jiIM1y2hRK3GAChy9nC2g2R1LOySIK9NBCgfKV0p2/hv+vQCLSk
-e5ON2GcP06dR1XChOMnEPkUS4BzptxIzVkM7aRiGPJqxVREXJK4MvRTyjZ+W4FuX
-R/QDhwkxdI8+4pwfVPWB10dEWH5vfIrxU5VwO4Uujp4p14P1/nKkWXTe8S69Qitj
-GU8UxLk76btqwkVS43qOyHXH+yXuQBiaWBVTyo8vQx3zp5i8gq1h1xm04ryI0hWj
-BGqXiOxzDr6lEmXUj6h3gUTP+14whWOW8lTqIL0QTKwC4HDv5KTgfgBME2KkYAwp
-1adJdmJ09vhkKAOK1mKHCJHmhOggmoDpIfH8yYSbHeTe4mZZHq9qKtFjvzA8TtMw
-82H0EfyjYM8eNPNZU1/SfsTnhKpTmnLpDCmmdz6Oe4hWGxZVO16z9VujL/EPa0fa
-mY3dWpM8cSvKCP6jm8jguy5IhhLZkS4ljig1obSEvcH0/Tu1FJk=
-=zFs3
------END PGP SIGNATURE-----
-
---gs6kcdn3aiethnov--
+Cristian
