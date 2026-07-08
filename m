@@ -4,150 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 677FEC44501
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 20:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F82C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 20:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFF110E67E;
-	Wed,  8 Jul 2026 20:14:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F58E10E1F5;
+	Wed,  8 Jul 2026 20:21:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BjstoelM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="at7u5he6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 360D310E67C;
- Wed,  8 Jul 2026 20:14:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783541660; x=1815077660;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=rUcPCc5wjWiqdPXZaJPgfJ2bv8zbaYSLeoixyJQiv0w=;
- b=BjstoelMylQV8v47P/7R0rjBTm1GEzfS6Qjn0Id/LImUbeOWQmfAQ/oI
- HQRUnfK3AgfjVWbFrBDV/oUd/HlMp12fprNwS99yGUMXjHsjxyd5VrKhZ
- f6JhIIRnJzq+u/qZL1IYiIKTb15kgroGvprHEzrVjEMWkHWFsGL5a3dws
- 1Q1NZSAC/2Hx4AZG9pz/2v3xGq3j1b9G/tgXmJ6mETUp1A6j/cO2TLE8L
- lAxT0GStbX4icUVa/BCk5/J8oNU6Fc7MSkwrpBYwj7H7wiGSLAqiLU/Fh
- 5iE2eMj86p3wi9cmPZqaAeWTy5WOM0LPJ3dfyxOlb75YI6c9XFpdSWYlM A==;
-X-CSE-ConnectionGUID: 9q1eNLyjRqq2KaPAw/rDnw==
-X-CSE-MsgGUID: dWNc6SZpQEuPqp7dsiMTCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="94864100"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="94864100"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 13:14:13 -0700
-X-CSE-ConnectionGUID: FkN849QWR56G56scW5zB5Q==
-X-CSE-MsgGUID: LOa8cV9vRZ26k3xKpHNimg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="253898089"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 13:14:13 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 13:14:12 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Wed, 8 Jul 2026 13:14:12 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.51) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 13:14:12 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=whpWBjdVCxnifbhHd/5gfkK9muTnnyZZZ9lFyZqyt+1FXiaz5c/TMmRXyA5/lxDYDKBGHvqO8az3TiYl611NRc7hmOMU4qtha+wqUlNqPL6UamStaL/9IJGVpjv3yDW/6DmXz7UL99usXbb0daxy9E3rv++ow4YYh9HKF+zZ2lwiF646dRTEn0IM6jhZ6IFQjoixSydOePJof9MS7aBPPUf45V72BSW3x6hqZ0ePFXV28F9kGVNe8lzbnkMe7JEgdCA9wkbEUDZ1xak6Pq3C7vM9kmjDaskuHIf7vqWIo4gMSH3/gAt+VhZwWD8GCJeE7Gn70scVG/o7/cX2nmu2zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UQUo8foUopyZsXbpy5Cb1wy4DGVF0lMviVScrLTOJQs=;
- b=GwpFHvRkdVMVPp/hNxAcfphumhbx+GUKm13evYXxOSTIeeKmgbO1c6ADVe8SQEsJCepMzGU2pHbwnjBm5Wh9Z1Cu5EzvG8g90766lJFL6PVuiVUzjd4CFUuPTod9xroZo8UdMATYNzO2V98R2RpXi/HqU5CfEJ7aA71ENFLF4dSlj+pJEuHUFX42cuYRWt79O6VxiRWrUKH9ecNdQTRfJCqwc0QLwg8zvQeaKX0pDAEWSP5h1wKhXkSP1N7DvftgrGbX5Y5/pYk8wg/RTZ3uDx+bAYDG6wYamD8vn5wZL84H0yG+ePuxNeq6braRx23L6iDOvXkBc0/wYAk//XOk0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
- by PH8PR11MB6973.namprd11.prod.outlook.com (2603:10b6:510:226::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 8 Jul 2026
- 20:14:09 +0000
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0181.014; Wed, 8 Jul 2026
- 20:14:09 +0000
-Date: Wed, 8 Jul 2026 16:14:03 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-CC: Matthew Brost <matthew.brost@intel.com>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "=?iso-8859-1?Q?Jos=E9?= Roberto de Souza" <jose.souza@intel.com>, Michal
- Mrozek <michal.mrozek@intel.com>, Tejas Upadhyay <tejas.upadhyay@intel.com>,
- "Matthew Auld" <matthew.auld@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe: free madvise VMA array on L2 flush failure
-Message-ID: <ak6vi07iw4nfMlEw@intel.com>
-References: <20260708073422.725186-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260708073422.725186-1-lgs201920130244@gmail.com>
-X-ClientProxiedBy: BY5PR03CA0012.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0::22) To CO1PR11MB5073.namprd11.prod.outlook.com
- (2603:10b6:303:92::23)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38FBE10E1F5
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 20:21:30 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-493c7902f47so8640535e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 13:21:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783542088; x=1784146888; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lPC/fPRplTXrPRJP9WPEDmAAHY+62t7UA57bz5CaOyI=;
+ b=at7u5he65ZBCVtDaFrnYTepSloLansYMXMAEtLi1aV+W6f8RB35gj8SR6vkOMnqZjc
+ HQLx0JqVlOVcdXnmInwIV0srumW5mj4dHOkdxULwsp5G5/GEfYE6ZkoopBmjSlLOkbzO
+ +nVWElR+H2gin5fjWwVRio0uZ+52vUBaovTgJPVLt8RFv2WuR6wk3i0aHRG5kDAh8def
+ V1ovV4jMnsN2TFN4y3yFC7pAxDCkn2u9DgON0YgtU/PVfnh9bsBa//Mz7DJDHyreRm5n
+ caiMEvCBDOi0xLJOFeqZ7s7PXANma6fEBff5lQVc3BsI7wgqZGAZSkMXz10iQa8k2EWm
+ N+6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783542088; x=1784146888;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=lPC/fPRplTXrPRJP9WPEDmAAHY+62t7UA57bz5CaOyI=;
+ b=YLUuJzCP7QD8lbIIKLTUmNvlIqZ/ect1TGjfXGXbJFKOPj6mC2xEE5Yh1h1pjUf8cR
+ qJ2+DVdT/+9AHUf2T2qgHpERq+GDNXJ9OTHmXLOWbWDDpF+bAXWurkzbr80luSlsc1/V
+ 1MoGd5zlp9yAj+bpAy5N1PkJW/PtDB8URrp4nxa5qMtSAVBlBSNMH0rsT08auwcg12J6
+ 0ClnHnQ7UkVc+xH10W/iTtGB9U7FEIk75rlY2mth1WZKmS1VQYSJSeS0MlFhnasqgsqz
+ RI5J2X8MEN0RW1TG5CUqrTeNFycl5AQAuA5sG7I2Qdt1sdQVBjmoMVWZikSRwx+At2/1
+ geVw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpgtmj32s0hrMgCrqMaZG/p085IA/AiLL4kdyC8pQWcuGLnTIKfJpiBm5TK2DcHfUfGMr5y5tg/sNM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXFGRMDU6lUYNgxs6xMR7krYgoYxkzxSm2N+yokL+B+VFis9h3
+ kQ6MqOLln+OIZ4xESyPuQAzU9aIU+x1qXCRoaCk2kUr64Bi2l9bfDgxc
+X-Gm-Gg: AfdE7clDiE2fZNq5+qQsiemOd+J+OHek1chnU+a+jYIaOxrj284faoOWMMNqiNDsBLs
+ 868osyGm6SwqXtUMvS+zyuS0fguMV/38XdEP7GOywuKhgLHNX5sh6RvO+k/WykjAzD0esrXj4TZ
+ BWvvuXjCgHE+O9ZMPhjFyC10hWb8huRPRbwmbAlbvRezSCKCRylPqYW43STOMyQGAL032r8RQbV
+ nmdIdJX4gEXfGvT9Py2qZ0P6OmoCXulOlv67mfYAXbnD4h/FYOBADTm3r8/nGJsDqo8FPwI251b
+ 3mSZ3hBZo0c1kW4ePaHxzsFRrIzjU7PndTdGPBMofFen0fEdkJTSuJRNdu4L8i53b/G7TmpCk9L
+ 78Q+t52pnNF2897rGmgEGXGG9UVXSlYpWRL4pIo2orkXukEUKw16Of59AVL6PSt7G5Fjf/JL5Dh
+ bHHR2UIOym40rRxuPRIQ/roaB9/lDAcR/N8ELfotDkEE6MqqQgIA==
+X-Received: by 2002:a05:600c:3e07:b0:493:de89:61b with SMTP id
+ 5b1f17b1804b1-493e6868766mr42351155e9.26.1783542088002; 
+ Wed, 08 Jul 2026 13:21:28 -0700 (PDT)
+Received: from osama.. ([2a02:908:1b8:2060:2b86:7192:b44e:9f03])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493e54a25cfsm97381485e9.0.2026.07.08.13.21.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 13:21:27 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/imx: Fix ipu_plane_duplicate_state() OOM handling
+Date: Wed,  8 Jul 2026 22:21:23 +0200
+Message-ID: <20260708202124.12560-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260706140246.41506-1-osama.abdelkader@gmail.com>
+References: <20260706140246.41506-1-osama.abdelkader@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|PH8PR11MB6973:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fc2b6bc-5843-46b4-1a69-08dedd2d77f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|18002099003|11063799006|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info: /hcgz0B5r6stZ8yp/kr5Vy6NEQrE8PX+KwM+aCucOl1m/MVLy+QjgA0VxiGxLd8ukk0cqdRbExWvDrKZpv6tRKoY9KBGqGABdMQfospIDT7XQpRl3yxqhgIvVvdA5vufw9dxc4sZNLLah/u9QSc5b4S27pMAuUaawDnKKvdLxROttW9pGVRdtHPFWs8Q8bsDE+U0+560OdCWcZ0+hxsI3y6Fp60BHlc5H1bhyC3z/AEOzm00lRiPnkc9F6hyq0qCUagLSAVCdEn36Yt3DLxwprAn5H3rnNcrfPZfxINf3ce41AkaSDlVAgEKDL5twNUNLzm9PHqM3nCbstsYmtdeEtCXKgUZRPK3p5l745f5haKrLD7Kj1yNhHO3kNnUWlQk78QQfpQBAkKAtE6WX1FXRfCFttzJ3ZhqdPRKVAErtXn8iuYuM4dQcXpIJyM/Qhs6DPT9VQ3RPENY34bYeK+YJtyMu11Q7zGxVlubxWX17RCnUE7rLU3Sb9Hy4x5DqG4R5Ly5CEXL76wCb9Jk3CBbcDpLylQBsMTGfYxb6BefurIRx22z8Odyinw6BnQ/SzkiRbJ8Y6/DjlT3G63TE88SPDhnaStZsuzaM6tgAsP4tiTXucVEFFLCYqmafEL+SIwEGProdw4sfR5+dGcdE5PaaTP8ZI6g6nbmguqBnVbrIQw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(11063799006)(56012099006)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FniJ2p4JsQCkuaj64gKU2h/leWawM9b44lm4oVzMdyA0/6hAmfMNXFgj6zRI?=
- =?us-ascii?Q?9HyoRZw7DOhwUQs+7i/G0UFYQZBtdlGc2IV9HXa2sYa95TRInPPOT7gJRH2/?=
- =?us-ascii?Q?c+ANUFVtcfZ8jp/a48lQNgJ6ahcgC/b334nWoK+IGKpPTuK8nrATMrvHSYxF?=
- =?us-ascii?Q?YpLG6ZVO042G4TBXeB2O0ImH4Yu6oHui/k7Xfp9JkcxqzvXGNND7P13nkCZF?=
- =?us-ascii?Q?/SBPq6GqpsTB9ytOm+SXMr/hUCJkw8Az71ps/2GQwT7tCM9TzCH8xakqjJEF?=
- =?us-ascii?Q?w0tJtuVKl2VGCeX7qrs2mNip8o6bjs32i9DnpzURbYhie42Wz7jfS6KjP6uu?=
- =?us-ascii?Q?VtQHhtfeDjaTjpHVdkCSQCFZ+whWR8cPYzXQ4pTjQSUiwWwJpOV4ddakfDhv?=
- =?us-ascii?Q?ia8WHhra5NbcTcBvk/KsY+Y0xsism1VCb4ZcI3+151i2Tqg3HGB2XyH0YDUx?=
- =?us-ascii?Q?0YGNo0Xh4nJWIXs2Ekk9fVdnvwjdwWLTcIJq8bZ7jq8u7AjB6tfqIIhTEM37?=
- =?us-ascii?Q?dghFmaxMiKZ2KgxCyF5rVd5hvK4Gou8EwVb95xFqEJayzxbPLgNCZzukwo3t?=
- =?us-ascii?Q?sF0+Ogl2yrg5HDv1yYrO1UJMekokD0mLXLID4ytih4E13XuFNpy4uKK/ixFd?=
- =?us-ascii?Q?rMO6l+QZooT52Hp/j5GIVkUHmABAK9MCrrOR0hCXLW4qSS/nZtYTcHeSTqy6?=
- =?us-ascii?Q?5L6aIU9mPHZaRroujNcteUnJCKuDsiHzTvvJe1mkhUYBBxjPXuCUJnzZREOx?=
- =?us-ascii?Q?58PyAtsMD2oK/OtEXC0ARedIRZfaOCjlsCFba8zqyOYuo+NRHcgpJB3xgnJx?=
- =?us-ascii?Q?qUqMaYQbxscciwgCeQ4HjjgqBfhClMmINgnzxUjKM50G25peUwq+WRy/XJhN?=
- =?us-ascii?Q?YQlB1flEqprTbx8fE4ZxTQy6xcsgC3RVTGwTta22818OFBq/RmqfTnGHolvs?=
- =?us-ascii?Q?kGe3Cy5jY1XlFtqKe1qZy8ZBX0JZRcJD9Uygdis5zfoj2fTYbbvM3O+MuCvl?=
- =?us-ascii?Q?cR/IrlnI8DoYUhIL/pzFNXiRjTKEeQB1WmzAVSyNdOSWnDkQ9j//SFo8HaV2?=
- =?us-ascii?Q?Qhwo2D2aUqRhDih7Wv5SVdpHtNKs2Cnnu7MdkDf+peSe7+Eicid6DARBP3Sr?=
- =?us-ascii?Q?hUv+4y6NarfvuxRrAu4h/Gvki7oJO3x670gDzhFMA5faq9BCrvnL0XmATcxM?=
- =?us-ascii?Q?mGucuxUXfrB6520h4m4LIhltDDRAb0cmqcLN3cSL1v/8vqdKWpgiXetZ9Zsg?=
- =?us-ascii?Q?O2GraaDkB8MiEMTfPn7sh1+ygo9a9wlVxgaoQkobJDDaGkLvjNvURmufOyd3?=
- =?us-ascii?Q?jrKfRUFiMnbCnUg4TegsSiWIkyy5mIKSddH93P27cc1KntmaGmWTWT+6Ma8+?=
- =?us-ascii?Q?hHmwoROyTkatbuNE74dYFlbdzRXlTWnDzq2Yevh2WEjSptJOhl3abohoLvpY?=
- =?us-ascii?Q?gyINFMc4DCses+KE1GBNHxnMsCmBlZONA0g1MgAkuVix3Ps37+qlw0lc/klE?=
- =?us-ascii?Q?18Unve1nhDBzpxV8hs95TnRWaV1qJn+36nrXV3xibrMY1rYJd4ELEkd8c16b?=
- =?us-ascii?Q?w/Y9IKB2tbcrSnDSZbWnkvWYZCuce0uN8MwLwSPaNPInk/8TOs0aBuJWMtLZ?=
- =?us-ascii?Q?1dTrkaYrx4yEVXPI/ey4Ieloa80/Jfbw33hEmn5mX7vXzIo5INsFLRKt73nw?=
- =?us-ascii?Q?Vok0yj3Qcd2L+yr5CF9Nk4OIzcaedc9LgU4Finvx8Cej9Db7w9TTcLN5m8S7?=
- =?us-ascii?Q?mkVRenHbaQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: F6uxwbzEvwQNmKEWFR4dIPDPQudQ0eDhfAOO1fnWEvHKsKomcuiLD0Bxrpsofo0bAS5xZdQvAgO5WFt3J3ROgfndD17VQc/5GsJ/jY4B0lRaCCAo0iDVzzayn+fiDyJoI1CxCJx/txteLJXPgtzPL1UgsUy1x+Pc1Y1wxzw5LHpXcFIblkr85R5FPaXCb6hUtq+IJ0oZ99WGSsLmtyrVAcc0mbfLvo5yF2gt/WD7919ePcKtiwAPTFi+wvJ7tihz+GEX5A1I31Cj1r0MjYtN1IiBIZoWz5+eVatIIPGtJ3cwko7V5NHYlII5A5en4Zl9D6KR4E3MBlH0DO56rMzQHw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fc2b6bc-5843-46b4-1a69-08dedd2d77f7
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 20:14:09.3417 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X6o8YgCGX//VaSN0spSEcXyWklct9Hf2fjzxLFEatWFm4hNWRC+DBgvRzL4zK2grIUQPaH39kLUfb/qio5bYzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6973
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,44 +98,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 08, 2026 at 03:34:22PM +0800, Guangshuo Li wrote:
-> xe_vm_madvise_ioctl() allocates madvise_range.vmas in get_vmas().
-> After get_vmas() succeeds with at least one VMA, error paths must go
-> through free_vmas so the array is released before the madvise details are
-> destroyed.
-> 
-> The L2 flush validation path added for PAT madvise rejects some
-> SVM/userptr ranges after get_vmas() has succeeded, but jumps directly to
-> madv_fini. This skips kfree(madvise_range.vmas), leaking the VMA array on
-> each failed ioctl.
-> 
-> Jump to free_vmas instead, matching the other validation failure paths
-> after get_vmas() has succeeded.
-> 
-> Fixes: 4f39a194d41e ("drm/xe/xe3p_lpg: Restrict UAPI to enable L2 flush optimization")
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+ipu_plane_duplicate_state() could dereference NULL when kmalloc() fails
+by returning &state->base unconditionally.
 
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Return NULL on allocation failure, as the CRTC duplicate helper does.
 
-and pushed to drm-xe-next
+Fixes: 00514e859335 ("drm/imx: use PRG/PRE when possible")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+v2:
+- add Fixes and Cc tags
+---
+ drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> ---
->  drivers/gpu/drm/xe/xe_vm_madvise.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_vm_madvise.c b/drivers/gpu/drm/xe/xe_vm_madvise.c
-> index c4fb29004195..246fe1843142 100644
-> --- a/drivers/gpu/drm/xe/xe_vm_madvise.c
-> +++ b/drivers/gpu/drm/xe/xe_vm_madvise.c
-> @@ -643,7 +643,7 @@ int xe_vm_madvise_ioctl(struct drm_device *dev, void *data, struct drm_file *fil
->  				 xe_device_is_l2_flush_optimized(xe) &&
->  				 (pat_index != 19 && coh_mode != XE_COH_2WAY))) {
->  			err = -EINVAL;
-> -			goto madv_fini;
-> +			goto free_vmas;
->  		}
->  	}
->  
-> -- 
-> 2.43.0
-> 
+diff --git a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+index c7ec09e557c1..67f2da7f2b65 100644
+--- a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
++++ b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+@@ -323,9 +323,10 @@ ipu_plane_duplicate_state(struct drm_plane *plane)
+ 		return NULL;
+ 
+ 	state = kmalloc_obj(*state);
+-	if (state)
+-		__drm_atomic_helper_plane_duplicate_state(plane, &state->base);
++	if (!state)
++		return NULL;
+ 
++	__drm_atomic_helper_plane_duplicate_state(plane, &state->base);
+ 	return &state->base;
+ }
+ 
+-- 
+2.43.0
+
