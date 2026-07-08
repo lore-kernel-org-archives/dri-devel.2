@@ -4,174 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F36CC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 13:23:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0225C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 13:28:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F4F10F12A;
-	Wed,  8 Jul 2026 13:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5893B10E5E3;
+	Wed,  8 Jul 2026 13:28:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="xtFcssA4";
-	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="fOt3Ie2P";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="LJa8K7tM";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15F0B10F12A
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 13:23:12 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 668Cl0KE1290777; Wed, 8 Jul 2026 14:22:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-id:content-transfer-encoding:content-type:date:from
- :in-reply-to:message-id:mime-version:references:subject:to; s=
- dk201812; bh=b3qz4kJJ9glbnAPDOoXaoQVHt7nJsC4DfHWudCypMtA=; b=xtF
- cssA4dBrXkIz861sQ+4kUoqZ/pjN2WsIih8oDMo32XZvKi8ucfD5usauf5XgtqPi
- zvCxrZVNKNW54p1kVQl47lmunmNDWyBd817jsNtFeRorbEN1D6p1FturpyBeZxsC
- 3zVFhhLkl6CKyU0LDq3nqy+tKpHwZm6mPf+lsxR63c2D+AoAdvoEsHrtYwdcf9C6
- t0qFDAd26T88vJZQ31Yf3Kmu2Hv30YIbwrZTqNxxNA3uavKAXaitaR7miHf+A70t
- gZlmujxfRwKoOPwIb07sjW4AOyy7+qSmPnU1iv4XFmU8NxzczHz/B3PMnxaaGrG/
- 6U4iIBgUpiMc4kemHsw==
-Received: from cwxp265cu010.outbound.protection.outlook.com
- (mail-ukwestazon11022120.outbound.protection.outlook.com [52.101.101.120])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4f6repkr8f-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 08 Jul 2026 14:22:47 +0100 (BST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ntkAjNjC/507EJq+Z+g3gpZlM1NMVTEtg8+EFIBVkXEM41KRMMT5P5s/6HMx75/+rDExykIp8XgOrdMg/iEGIrp87sFkGZewdScVrXRZxHWn/A5ZzAwruUt3RIpPjALXP3/808gkCPDLRvDlSUxy7MTrp2pImMWWU/bEIK+McH7oaX13AKWb7ms/KOnQDuLHfg/1LGUwJu+UKcaYCNoz5vOXvZUgxfsFt3dfAsyQ5+r5kjOtyZPZ+aHi6fc5hUCQkK77H+pF85lVwwFYnzWkf7mFeTrBejHEPBHcXxlaayefcd61YcY0sAp0qgq7sqLP63PT4cuP343tO1rg0Q29AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b3qz4kJJ9glbnAPDOoXaoQVHt7nJsC4DfHWudCypMtA=;
- b=UeppqRqjDqdGPRr+boc1dIXtOs0UuImve4KTVzBQsyWY30H78Y+8eJN7DEgnh8R9xHQYIPYU7Ng61S1tw6KWA4oY4mZvDfQSSnSnb2t5kLdUZRiPmBIcriahgEIJGUP0/ljGah6UqQCsOdiWew3GsQvKwnyTX2djzaan4+WYO8Fc0I+pPLwLbvjF1qweaF+ipGchVJ8E+zBG9TiFNfuDgOIkHo0FYM1Fuc4V9OeQAlc2m4BxZNZ80P0R0HMFbu7ew6FmuZOTGb7xJuMmpU+gzdaq4boN/972zWpwS4AJ4yZfaHbt1TunIZgbUtAhee013NO1DeAh6yNLM7l/uwMWjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
- dkim=pass header.d=imgtec.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b3qz4kJJ9glbnAPDOoXaoQVHt7nJsC4DfHWudCypMtA=;
- b=fOt3Ie2PdKSeQ55do3JoYCh73o1yWMuxukIa182//BCaEsekeRObG5DMpllXuVy72SWBc5MB8KU9NCrva3PvxUMhvBDbKkpryup0RZWYXZZcCYdvgOFm41hdQgnn1oiMTWfYjC5aXefv159xLrBtque6xiVKm0A2h4E6T3ZwD00=
-Received: from LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM (2603:10a6:600:449::15)
- by LO8P302MB1416.GBRP302.PROD.OUTLOOK.COM (2603:10a6:600:3f3::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 13:22:43 +0000
-Received: from LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
- ([fe80::3585:13b4:3133:1e3e]) by LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
- ([fe80::3585:13b4:3133:1e3e%6]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
- 13:22:43 +0000
-From: Alessio Belle <Alessio.Belle@imgtec.com>
-To: Luigi Santivetti <Luigi.Santivetti@imgtec.com>
-CC: Brajesh Gupta <Brajesh.Gupta@imgtec.com>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "airlied@gmail.com" <airlied@gmail.com>, Frank Binns
- <Frank.Binns@imgtec.com>, "boris.brezillon@collabora.com"
- <boris.brezillon@collabora.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, "mripard@kernel.org" <mripard@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Alexandru Dadu <Alexandru.Dadu@imgtec.com>
-Subject: Re: [PATCH] drm/imagination: fix error checking of
- pvr_vm_context_lookup()
-Thread-Topic: [PATCH] drm/imagination: fix error checking of
- pvr_vm_context_lookup()
-Thread-Index: AQHdDiPMcK9D1JxW102x7XQwdMuDSLZjnWsA
-Date: Wed, 8 Jul 2026 13:22:42 +0000
-Message-ID: <fbcad7c8285c255cb09b31e39303fd88e7de3bb2.camel@imgtec.com>
-References: <20260707-staging-ddkopsrc-2435-v1-1-24e160d44476@imgtec.com>
-In-Reply-To: <20260707-staging-ddkopsrc-2435-v1-1-24e160d44476@imgtec.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LO7P302MB2107:EE_|LO8P302MB1416:EE_
-x-ms-office365-filtering-correlation-id: f27f34f4-2c5c-4371-13ff-08dedcf3fe10
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|18002099003|38070700021|56012099006|5023799004|22082099003|6133799003|3023799007;
-x-microsoft-antispam-message-info: 5A2e4+YaWXByxjFC5GmSR7S8Xm9jOL1xZDnnuEy4FRiMp/cM9kRMYybwe+/W3jUSSLxheglsoRO0pJvPvqpA23gCZdlWHTF/bm09MMOF8Y/6ymjN2/Dzt6QYget77sv2cEofZ6AcdmklOhU2ZC27WK8rZ/vWAyi3hOUhf8SzN6mxaYz8UKegxw5VrY0P1jOwDVg5mWuN+gr81CF76GbjZqiGsXUgatel0Bl75jE70lrx4WJmvoKGvD/MTYkB9BaBcOzLPxnsV6Yiox0tWi4Z1IVSPWfVp0idAKboNExauMarwbM3zgDUXJiIJYbWpO+b05bCHSL6eoxwSfIDFkhuVXgY759IgZypizOwBH8nAFeKGBrqGr8kuR7Ug9PQuB7SKt4tYXZ24el3NVaKKPyfTIDsC/pNOqx4yLJ3gc7UCY1SsuQGIab/whtMe7nu2sVBxNL5fTOufs5nwjPzAP/MMMvXhdME/4Bo95q69rqMA1IaV0DXMUYqxSlcD686OmyO/hiAH5Tds+Z5UzqG3ak9UPDHMfSghCpnqQUjevr9ay//AmZ1jS+I6Gst9mWP/9lBegpgD4rBDA/aGH+o5DP9HKbvwmdgVKPP/6btbRw6SROzhKsJsh5HtpEm0ug1vJNlluNEsHlLlDZSikrGv3fXnoOYEurQxzPqhdEChAqk/hq8fZr/V/1nB1PVtYFDfPgTFbmhHmrtTDIiJ+KB7TQdgMaGLTcddp4xoLuVn68siKg=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(18002099003)(38070700021)(56012099006)(5023799004)(22082099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MnFwb09TOEhvRWJYZCt2NDgxazhRMFU1T1AvTjFMSkNSb2FDRTV0L2tEL09S?=
- =?utf-8?B?ZWllQ3VMOXo5ekg1dG9GZms2UTg5UzBGYjNyajd0UEZKanJGeHhUaHdDcmZR?=
- =?utf-8?B?UFNhd1J1T2JUWGc1T0poUXRIVVFwREVjTktkSjQ3SXh5TTdRYWZBV0UzRlBW?=
- =?utf-8?B?TVpldVloYkh4WE9Pbjc4MHZxTkxvdWNQQzhwWFdPTUpJWk8wRis2SlN2ZjN1?=
- =?utf-8?B?RVZnaDRMQ0hHeVRkeUdyb0hQYnUvU0V6NVhwY1VnNlI2SEJ6V21GWmVKVHVF?=
- =?utf-8?B?RUJGc3ZEaVhhaHJ5MWxQTVcvVTB3UGlPTkpCdWc2ZjUwRkxudEMrUC9IViti?=
- =?utf-8?B?dXlLVHdxNkJRMGkyeFhlWXhxSzZiTHk5TkpUYXBCc2JCbVhBR2pOSTYyL3R6?=
- =?utf-8?B?c2p5Vy9Idjc5aDVQOFBwd0pCcHF1SFlUalF2V0ltdXk1b2xsUUsrRzdmbEhZ?=
- =?utf-8?B?WnNqR3RZaElUTklJOXRMYU0zTTlzTTR6b0x3V0JJSEV6TmFNQUwyV2pGU3A5?=
- =?utf-8?B?NldKM3I2dUl5eTg4S25HZkRSNXRRL1UwZ3RmNGtEbW9yZ1JXY0lxcWRxRGdY?=
- =?utf-8?B?Z2wzQ1RKaXZ5OENDcEpTMW1TQzRFZlhKbjE3QUVnR1RRQVp6RksrUFJuVEhE?=
- =?utf-8?B?OVM4ajdidGVXOVJjWGZPcGZNVkN1WGtvZWZlRmVMSXE0cVl2ZnZqK0g4blpD?=
- =?utf-8?B?TkNKTmxPYXVyNERMUCt2VG1SZEFRUWZmbUZEUnFiaUN6VlZ1eHlKL1AxTDlW?=
- =?utf-8?B?WXZsMDRWQUY4R0pOV29UU1UxM2tKQWREcXVUVVNMNXoyU3o5WjI1NzdJUHZn?=
- =?utf-8?B?aFZrdGQvOVR5RW9iVEJZcWF1aEFRRjJaYWh4MGRLbDVmVXduYjU3L3hGRE5x?=
- =?utf-8?B?Q00rL3hYeC82bk92LzZhaFFLVDdsbGkwaHg1VzVnQWthVnBBYnc0RXV1ZkxL?=
- =?utf-8?B?eU1zSnMrajRWUnFycFlEZTdYMkpyQnRrcGtvbHNHUlpKN0l4VElBRmg2NHN4?=
- =?utf-8?B?WjM4QU9GNXpUc285dHlnVkxvVHlFN0IvVXA0SysxckE0N1JQVUpQckd0Z3I2?=
- =?utf-8?B?bjdPcFBHUmJkRStLSXVNNFpwZnliL0lWdEFZZ2o5MVpCZUV4VWlBK1FqL0RH?=
- =?utf-8?B?N1VaZndSeVcxaXFOREtvUG9Id3FaRHFYalJpc1YzdUlKMHpCVmhaSHpXejZp?=
- =?utf-8?B?Ui9KbHpoQ2llWHFBQ1dzQkFFTUtXMlFxSHhnaUIwZU5oUVJuN3pFQXkzYVdG?=
- =?utf-8?B?cVNtK1VMeXl1d1YwTHhjQjB4eW9zMkdualBIanB3OE1NMkY0ZEFLOGdXM3Zo?=
- =?utf-8?B?eSt3ak42c2JROXl5cjFtQVFlc2NhaXhaQzJ5M2xyM2tqc0xYd0YxY3lkU2sy?=
- =?utf-8?B?bndTdEE2Rm44RTNnbkhsbVV2Ti94bWVRUGhteGhsVTkzMUFoWm9oejlvbkYy?=
- =?utf-8?B?ZGdaUUJWbmVlV25aVzBwRDM4MkxQQlRMK3YwZWEwMkU3ZFB6b29KTHg0Mncx?=
- =?utf-8?B?T3JxRkhPOVgycUxLN2pOdzBRVWtyRkRDM3FUbUpGR0JwemFuemp3Y2o0K1NR?=
- =?utf-8?B?UkVNY1MvZVoxYyszeWxYRitLclF0YlU1bjg2cUxOOU1KVXBnTlFiVDJvUmhQ?=
- =?utf-8?B?R1FhQ2pGOW5rNkcvcUtiQlZhZEZBT2J3L0M3VGpJRTZwdURRcjU3UkhKSVNW?=
- =?utf-8?B?UU1kM2tETDFWTnJvMTlXQVhyTzVRd1o1MVFsWFlYSVhSeVZqWGxwVmhiVWxj?=
- =?utf-8?B?RFNaM3Y4SXpoVmdnRnlCOThWNzB6Zm1FdTdlanJBQ1JYZy9vMGVuTjYrV2JX?=
- =?utf-8?B?ZVpUelhpZ294ZEJBTGlQV2hqODQveExrNkZRc3lVYWNuOWJkMXpwLzZreUh6?=
- =?utf-8?B?NExEUk14b1hjUU1ZNmNxSDFZTjNaY0JCbGZ5V2F3MEtCS3NYbXlVeU1VUm5I?=
- =?utf-8?B?WU0wdVVyU216cVZGV3h1Y1M3WjVXR2lsUUsyZjFocjdQeUFaQmd3RGlPYisv?=
- =?utf-8?B?SzRaTFBwZmJTZTEwdlAvQmZYbyticnJIVmVmUmxKeURiWFVrV2FKSWJEc2ha?=
- =?utf-8?B?ZE9nMlEwa09Nbm9JcVBrVXl0Z2tHSmhQQ2JOR0JsV1RCRmdzSVNsSUt4TFB0?=
- =?utf-8?B?dzFsRTNiZ1o5TytwWDhsZTFZNldzaXhUdW56WDBDemN2Z2doY0t6WUlUS0d0?=
- =?utf-8?B?V1BTaEtaNGJGTFdOZE5GVktHcklDM2lxMkdCSmFURndPdEpCVTVDbmc5Z2tF?=
- =?utf-8?B?VTc3WDFzRUZ5U2lPL2ZkVmVFU0UxcExteFg5UVNCeFVudzFXSXlCWThVT0NN?=
- =?utf-8?B?eXBMMnc0cVRqcUtlMGRHaE5YeERnOWl2VDBiVHZINUtkSCsveTd3UU9EWXJx?=
- =?utf-8?Q?z2AytoqZ9ZTQe5P0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <12C80065817E7940B0D7679CE8D809B3@GBRP302.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: S3YLgWSBLYQH1ohu9sn2cs3fcfRjk7xXV5UfcVU02RQr+pYPB2Y9Ua3zW60x6Vg/XBMI9IK2sYywRo0aI2AGFqL3tHmXja5l8fPlDO0KOGMgQ7WgC/QZv/04B8Ek6pFhbfgDgTQ3E51O7j7ic5yszUXbS32Ddjpr6PRUPpuW07UUGTrauh2b2q6ntCOGxUZbX3WljirGvgO6S/VjSupTnyVtWbqqIDpg0LXzxMF4giGYqb3H8xugr/1HQZwK3Vcxl0v3A15ElQ66FLHskNVTpNrC3XIx7JEBk/47S6o/k0nqzJXCbhP31UqqqyjivaK98plqfFFbwCo0SECQmyj0ow==
-X-OriginatorOrg: imgtec.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: f27f34f4-2c5c-4371-13ff-08dedcf3fe10
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2026 13:22:43.0003 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LR1Fv+LFefSQoVxPmxOll02OEJlG7lZHgk2fBdIK90512zAAlNFHramGmXxmPSGfkGXOsqtskTdNlh4tVRuSdC3U0OUjY950o5MiMFDAi9I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P302MB1416
-X-Authority-Analysis: v=2.4 cv=Fos1OWrq c=1 sm=1 tr=0 ts=6a4e4f27 cx=c_pps
- a=tfanM9ScQIhv4mDjZMYfug==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=VwQbUJbxAAAA:8
- a=r_1tXGB3AAAA:8 a=YcVcPUlio9TeFS2f3GUA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: XOJCCqAG8yLDoXkLK0E-7wWKcuWMClX1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDEzMCBTYWx0ZWRfX8uD2WJUQLtCl
- BrOUXPKnI414uMNpJw6g0E0BS2SpQcWIJlBzgLzZDH1/KpTQlK0VjinV4z+rAns/3XSm3RM1gJ6
- UhpjZ0myPnEcd/nQ512oYELDr+KAk0jyWjclGZP99SoOdE9l0lDwM6hihwib1LgPqO/I0DDVIGG
- jXClG9XVpt0iQfjZ2bxMnjR2D3MwSBKuu4RMZ4DzDYtBlGY5Dv1RI2N+PTEU1tavteokU3IwLqA
- uX/Ujzlppn3d7G199+Qa8rcbW4g6VyXilqDyOL7NrMxzbzAZJjj5Z4rKPgHPNWF25UJ4S5OsNcj
- 2bSb0C+jr0TfbotMnUaoznB2d83w6feLjVa1prC8SdxyidGhhDkQs0MBeovrGlUmLZeLk/4sNlI
- coB1ODwT6+NCex0dtYHIT/2yA6f+b+9RtsBXuUkf2+TYh52KTBUVT2W7L7gBgDbkeb3QOu3aKAu
- GtNvRRoM+QbsQterVnQ==
-X-Proofpoint-GUID: XOJCCqAG8yLDoXkLK0E-7wWKcuWMClX1
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDEzMCBTYWx0ZWRfX1be53rJMrM2a
- QbTG2srTNPa+ekvA8ucJ1wL0cfGRuDf0E8yt22uVKkQU1pIXy1R5PoKimz1axzwHVGu26TqeSMw
- +SIzElLl4PqwRZDKzuja7nO+Mg2Yq/A=
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E12410E5E3
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 13:28:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783517327; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=B+Egv0Lv2asl5B+0Cz16zaqh+07u7bw/Z4PcDRUSCEp+Vg0J9eIaBCfrOLLfDFWE8vXa2bW5PqcCvTPlKLnNTQpeQf8YCfh2DuLflyV4Dj6xkS77wQJRi8voG+J1D8vqdtwkwE3arZhieL/72+4/eUB+P3QT+EPtoo4NZGDkszc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783517327;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ZHKUpaaxOG3TiKrgenFjszrnO2+S4PB/WTF9AEj1jxc=; 
+ b=iYVogWpR7vcbX78qbgwKLENddeH4eO5kNoh+cYZIf8Vem02s+hnpZU8qmcF2taAYOM1r/36v+qFP6hFHPtj1DXrhz2pWho42ppgyMLMn/hKdYAFu5o7p/hXpocaYdjqm6hquwe4NcxaKoar+uQ4LUkOWZUUnp2GuZvTmFeNWROs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783517327; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=ZHKUpaaxOG3TiKrgenFjszrnO2+S4PB/WTF9AEj1jxc=;
+ b=LJa8K7tMVVJNWGHpCGK3WFWR/3cneDzKZ6v8lQFSFL4wI9kDLA1FI7GN2sC2i0Zk
+ ZLdi1xXwKIG4LkYS9sPFvUKEoeev27ZUbx+zCoR5v0mx3cxcfM2l2GPOEZesq/9lkDL
+ RwNV2BHrJ/zIMx058CSwVWtL1nA/JH0DBB1NSufI=
+Received: by mx.zohomail.com with SMTPS id 1783517324399189.77230306485933;
+ Wed, 8 Jul 2026 06:28:44 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v6 08/20] rust: pci: io: make `ConfigSpace` a view
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260706-io_projection-v6-8-72cd5d055d54@garyguo.net>
+Date: Wed, 8 Jul 2026 10:28:23 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <043E32BB-789D-4ABA-9491-185108A19EAE@collabora.com>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-8-72cd5d055d54@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,82 +86,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMDI2LTA3LTA3IGF0IDE2OjE3ICswMTAwLCBMdWlnaSBTYW50aXZldHRpIHdyb3Rl
-Og0KPiBTaW5jZSBwdnJfdm1fY29udGV4dF9sb29rdXAoKSByZXR1cm5zIGVpdGhlciBOVUxMIG9y
-IGEgcG9pbnRlciwgdGhlbiBzdG9wDQo+IHVzaW5nIElTX0VSUigpIGZvciBjaGVja2luZyB0aGUg
-cmV0dXJuIHZhbHVlLg0KPiANCj4gVXNpbmcgSVNfRVJSKCkgbGVhZHMgdG8gdGhlIGtlcm5lbCBv
-b3BzIHJlcG9ydGVkIGJlbG93LiBJdCBjYW4gYmUNCj4gcmVwcm9kdWNlZCBieSBwYXNzaW5nIGFu
-IGludmFsaWQgVk0gY29udGV4dCBoYW5kbGUgZnJvbSB1c2Vyc3BhY2UgdG8gdGhlDQo+IERSTV9J
-T0NUTF9QVlJfQ1JFQVRFX0NPTlRFWFQgaW9jdGwuDQo+IA0KPiBbICAgOTIuNzMzMTE5XSBVbmFi
-bGUgdG8gaGFuZGxlIGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UgYXQgdmlydHVhbCBh
-ZGRyZXNzIDAwMDAwMDAwMDAwMDAxNDgNCj4gWyAgIDkyLjc0MjA0Ml0gTWVtIGFib3J0IGluZm86
-DQo+IFsgICA5Mi43NDQ4OTBdICAgRVNSID0gMHgwMDAwMDAwMDk2MDAwMDA0DQo+IFsgICA5Mi43
-NDg2ODZdICAgRUMgPSAweDI1OiBEQUJUIChjdXJyZW50IEVMKSwgSUwgPSAzMiBiaXRzDQo+IFsg
-ICA5Mi43NTQwMjBdICAgU0VUID0gMCwgRm5WID0gMA0KPiBbICAgOTIuNzU3MTU0XSAgIEVBID0g
-MCwgUzFQVFcgPSAwDQo+IFsgICA5Mi43NjAzMzddICAgRlNDID0gMHgwNDogbGV2ZWwgMCB0cmFu
-c2xhdGlvbiBmYXVsdA0KPiBbICAgOTIuNzY1MjQzXSBEYXRhIGFib3J0IGluZm86DQo+IFsgICA5
-Mi43NjgxMjldICAgSVNWID0gMCwgSVNTID0gMHgwMDAwMDAwNCwgSVNTMiA9IDB4MDAwMDAwMDAN
-Cj4gWyAgIDkyLjc3MzYyNl0gICBDTSA9IDAsIFduUiA9IDAsIFRuRCA9IDAsIFRhZ0FjY2VzcyA9
-IDANCj4gWyAgIDkyLjc3ODc2M10gICBHQ1MgPSAwLCBPdmVybGF5ID0gMCwgRGlydHlCaXQgPSAw
-LCBYcyA9IDANCj4gWyAgIDkyLjc4NDA5OF0gdXNlciBwZ3RhYmxlOiA0ayBwYWdlcywgNDgtYml0
-IFZBcywgcGdkcD0wMDAwMDAwODhlZDIzMDAwDQo+IFsgICA5Mi43OTA1NTBdIFswMDAwMDAwMDAw
-MDAwMTQ4XSBwZ2Q9MDAwMDAwMDAwMDAwMDAwMCwgcDRkPTAwMDAwMDAwMDAwMDAwMDANCj4gWyAg
-IDkyLjc5NzM4MV0gSW50ZXJuYWwgZXJyb3I6IE9vcHM6IDAwMDAwMDAwOTYwMDAwMDQgWyMxXSAg
-U01QDQo+IFsgICA5Mi44MDMwMjddIE1vZHVsZXMgbGlua2VkIGluOiBwb3dlcnZyDQo+IFsgICA5
-Mi44NTI1MzNdIENQVTogMCBVSUQ6IDAgUElEOiA0MDkgQ29tbTogdHJpYW5nbGUgTm90IHRhaW50
-ZWQgNy4xLjAtcmM1LWc5OGI0NmU2OTNiOTEgIzEgUFJFRU1QVA0KPiBbICAgOTIuODYxMzg1XSBI
-YXJkd2FyZSBuYW1lOiBUZXhhcyBJbnN0cnVtZW50cyBBTTY4IFNLIChEVCkNCj4gWyAgIDkyLjg2
-Njc2Nl0gcHN0YXRlOiA2MDAwMDAwNSAoblpDdiBkYWlmIC1QQU4gLVVBTyAtVENPIC1ESVQgLVNT
-QlMgQlRZUEU9LS0pDQo+IFsgICA5Mi44NzM3MDldIHBjIDogcHZyX3ZtX2dldF9md19tZW1fY29u
-dGV4dCsweDAvMHhjIFtwb3dlcnZyXQ0KPiBbICAgOTIuODc5Mzc2XSBsciA6IHB2cl9xdWV1ZV9j
-cmVhdGUrMHgyNmMvMHg0NDAgW3Bvd2VydnJdDQo+IFsgICA5Mi44ODQ1OTVdIHNwIDogZmZmZjgw
-MDA4MzdmYmIwMA0KPiBbICAgOTIuODg3ODk1XSB4Mjk6IGZmZmY4MDAwODM3ZmJiNjAgeDI4OiAw
-MDAwMDAwMDAwMDAwMDAwIHgyNzogZmZmZjgwMDA4MzdmYmNlOA0KPiBbICAgOTIuODk1MDE1XSB4
-MjY6IGZmZmYwMDA4MDdmNjFhNDAgeDI1OiBmZmZmMDAwODA3ZjYxYTAwIHgyNDogZmZmZjAwMDgw
-N2Y2NDQwMA0KPiBbICAgOTIuOTAyMTM1XSB4MjM6IGZmZmYwMDA4MGE1YWIwMDAgeDIyOiBmZmZm
-ODAwMDc5YjI0NzMwIHgyMTogZmZmZjAwMDgwN2Y2MTgwMA0KPiBbICAgOTIuOTA5MjU0XSB4MjA6
-IGZmZmYwMDA4MDk5OWU2ODAgeDE5OiAwMDAwMDAwMDAwMDAwMDAwIHgxODogMDAwMDAwMDAwMDAw
-MDAwMA0KPiBbICAgOTIuOTE2MzczXSB4MTc6IDAwMDAwMDAwMDAwMDAwMDAgeDE2OiAwMDAwMDAw
-MDAwMDAwMDAwIHgxNTogMDAwMDAwMDAwMDAwMDAwMQ0KPiBbICAgOTIuOTIzNDkyXSB4MTQ6IDAw
-MDAwMDAwMDAwMDAwMDAgeDEzOiAwMDAwMDAwMDAwMDAwMDAyIHgxMjogZmZmZjgwMDA4MTQ1YjI5
-OA0KPiBbICAgOTIuOTMwNjExXSB4MTE6IGZmZmY4MDAwODQ0ZTUwMDAgeDEwOiBmZmZmODAwMDgx
-NjVhMTMwIHg5IDogMDAwMDAwMDAwMDAwMDEwMA0KPiBbICAgOTIuOTM3NzMwXSB4OCA6IDAwMDAw
-MDAwMDAwMDAwMDEgeDcgOiBmZmZmMDAwODA3NmIyN2UwIHg2IDogZmZmZjAwMDgwZWM0M2I3Yw0K
-PiBbICAgOTIuOTQ0ODUwXSB4NSA6IGZmZmYwMDA4MGVjNDNiNzggeDQgOiAwMDAwMDAwMDAwMDAw
-MDAwIHgzIDogZmZmZjAwMDgwOTk5ZTY4MA0KPiBbICAgOTIuOTUxOTY4XSB4MiA6IDAwMDAwMDAw
-MDAwMDAwMDAgeDEgOiAwMDAwMDAwMDAwMDAwMDAwIHgwIDogMDAwMDAwMDAwMDAwMDAwMA0KPiBb
-ICAgOTIuOTU5MDg4XSBDYWxsIHRyYWNlOg0KPiBbICAgOTIuOTYxNTIxXSAgcHZyX3ZtX2dldF9m
-d19tZW1fY29udGV4dCsweDAvMHhjIFtwb3dlcnZyXSAoUCkNCj4gWyAgIDkyLjk2NzE3M10gIHB2
-cl9jb250ZXh0X2NyZWF0ZSsweDE5MC8weDQxMCBbcG93ZXJ2cl0NCj4gWyAgIDkyLjk3MjIxOF0g
-IHB2cl9pb2N0bF9jcmVhdGVfY29udGV4dCsweDQ0LzB4OGMgW3Bvd2VydnJdDQo+IFsgICA5Mi45
-Nzc2MDhdICBkcm1faW9jdGxfa2VybmVsKzB4YmMvMHgxMjQgW2RybV0NCj4gWyAgIDkyLjk4MjEy
-N10gIGRybV9pb2N0bCsweDFmOC8weDRkYyBbZHJtXQ0KPiBbICAgOTIuOTg2MDk4XSAgX19hcm02
-NF9zeXNfaW9jdGwrMHhhYy8weDEwNA0KPiBbICAgOTIuOTkwMTAyXSAgaW52b2tlX3N5c2NhbGwr
-MHg1NC8weDEwYw0KPiBbICAgOTIuOTkzODQyXSAgZWwwX3N2Y19jb21tb24uY29uc3Rwcm9wLjAr
-MHg0MC8weGUwDQo+IFsgICA5Mi45OTg1MzJdICBkb19lbDBfc3ZjKzB4MWMvMHgyOA0KPiBbICAg
-OTMuMDAxODM1XSAgZWwwX3N2YysweDM4LzB4MTFjDQo+IFsgICA5My4wMDQ5NjldICBlbDB0XzY0
-X3N5bmNfaGFuZGxlcisweGEwLzB4ZTQNCj4gWyAgIDkzLjAwOTEzOV0gIGVsMHRfNjRfc3luYysw
-eDE5OC8weDE5Yw0KPiBbICAgOTMuMDEyNzkyXSBDb2RlOiBhYTE3MDNlMCBkMjgwMDAxNCA5NWNi
-MGJhNCAxN2ZmZmZlOCAoZjk0MGE0MDApDQo+IFsgICA5My4wMTg4NjldIC0tLVsgZW5kIHRyYWNl
-IDAwMDAwMDAwMDAwMDAwMDAgXS0tLQ0KPiANCj4gRml4ZXM6IGQyZDc5ZDI5YmI5OCAoImRybS9p
-bWFnaW5hdGlvbjogSW1wbGVtZW50IGNvbnRleHQgY3JlYXRpb24vZGVzdHJ1Y3Rpb24gaW9jdGxz
-IikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogTHVpZ2kg
-U2FudGl2ZXR0aSA8bHVpZ2kuc2FudGl2ZXR0aUBpbWd0ZWMuY29tPg0KDQpSZXZpZXdlZC1ieTog
-QWxlc3NpbyBCZWxsZSA8YWxlc3Npby5iZWxsZUBpbWd0ZWMuY29tPg0KDQpUaGFua3MsDQpBbGVz
-c2lvDQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2NvbnRleHQu
-YyB8IDQgKystLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlv
-bnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZy
-X2NvbnRleHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJfY29udGV4dC5jDQo+
-IGluZGV4IGViYTQ2OTQ0MDBiNS4uNTEyZjM3MzUyMjNlIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2NvbnRleHQuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vaW1hZ2luYXRpb24vcHZyX2NvbnRleHQuYw0KPiBAQCAtMzA3LDggKzMwNyw4IEBAIGludCBw
-dnJfY29udGV4dF9jcmVhdGUoc3RydWN0IHB2cl9maWxlICpwdnJfZmlsZSwgc3RydWN0IGRybV9w
-dnJfaW9jdGxfY3JlYXRlX2NvDQo+ICAJCWdvdG8gZXJyX2ZyZWVfY3R4Ow0KPiAgDQo+ICAJY3R4
-LT52bV9jdHggPSBwdnJfdm1fY29udGV4dF9sb29rdXAocHZyX2ZpbGUsIGFyZ3MtPnZtX2NvbnRl
-eHRfaGFuZGxlKTsNCj4gLQlpZiAoSVNfRVJSKGN0eC0+dm1fY3R4KSkgew0KPiAtCQllcnIgPSBQ
-VFJfRVJSKGN0eC0+dm1fY3R4KTsNCj4gKwlpZiAoIWN0eC0+dm1fY3R4KSB7DQo+ICsJCWVyciA9
-IC1FSU5WQUw7DQo+ICAJCWdvdG8gZXJyX2ZyZWVfY3R4Ow0KPiAgCX0NCj4gIA0KPiANCj4gLS0t
-DQo+IGJhc2UtY29tbWl0OiBmNzYwNjQwMGYxOWNhMDI5MTcxOGNlNGVlZDU3NzA3OTg4OTBlYTJm
-DQo+IGNoYW5nZS1pZDogMjAyNjA3MDctc3RhZ2luZy1kZGtvcHNyYy0yNDM1LTkwZDRkMjE4Mzgz
-Yg0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiAtLSAgDQo+IEx1aWdpIFNhbnRpdmV0dGkgPGx1aWdp
-LnNhbnRpdmV0dGlAaW1ndGVjLmNvbT4NCj4gDQoNCg==
+
+
+> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> In order to support I/O projection, we are splitting I/O types into =
+two
+> categories: owned objects and views. Owned objects have a specific =
+type
+> that is related to setting up and tearing down, while views can have =
+their
+> type changed with I/O projection.
+>=20
+> Things like `IoMem` or `Bar` are owned objects, which requires setting =
+up
+> mapping and cleaning up on drop. On the other side, `ConfigSpace` is =
+really
+> just a view, as the resource is associated with the `pci::Device`.
+>=20
+> Remove the `ConfigSpaceKind` bound on `ConfigSpace` and make it a =
+generic
+> view. This means that `ConfigSpace` object now represents a subregion =
+and
+> therefore encodes offset (as address of pointers) and size (as =
+metadata of
+> pointers) itself. The full region case is still supported with offset =
+0 and
+> size of `cfg_size`.
+>=20
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> rust/kernel/pci/io.rs | 64 =
++++++++++++++++++++++++++++++----------------------
+> 1 file changed, 36 insertions(+), 28 deletions(-)
+>=20
+> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+> index e0acb62f58a2..89f4bb483a7f 100644
+> --- a/rust/kernel/pci/io.rs
+> +++ b/rust/kernel/pci/io.rs
+> @@ -18,7 +18,6 @@
+>     ptr::KnownSize, //
+> };
+> use core::{
+> -    marker::PhantomData,
+>     ops::Deref, //
+> };
+>=20
+> @@ -53,33 +52,42 @@ pub const fn into_raw(self) -> usize {
+> /// Alias for extended (4096-byte) PCIe configuration space.
+> pub type Extended =3D Region<4096>;
+>=20
+> -/// Trait for PCI configuration space size markers.
+> -///
+> -/// This trait is implemented by [`Normal`] and [`Extended`] to =
+provide
+> -/// compile-time knowledge of the configuration space size.
+> -pub trait ConfigSpaceKind: KnownSize {}
+> -
+> -impl ConfigSpaceKind for Normal {}
+> -
+> -impl ConfigSpaceKind for Extended {}
+> -
+> -/// The PCI configuration space of a device.
+> +/// A view of PCI configuration space of a device.
+> ///
+> /// Provides typed read and write accessors for configuration =
+registers
+> /// using the standard `pci_read_config_*` and `pci_write_config_*` =
+helpers.
+> ///
+> -/// The generic parameter `S` indicates the maximum size of the =
+configuration space.
+> -/// Use [`Normal`] for 256-byte legacy configuration space or =
+[`Extended`] for
+> -/// 4096-byte PCIe extended configuration space (default).
+> -pub struct ConfigSpace<'a, S: ?Sized + ConfigSpaceKind =3D Extended> =
+{
+> +/// The generic parameter `T` is the type of the view. The full =
+configuration space is also a
+> +/// special type of view; in such cases, `T` can be [`Normal`] for =
+256-byte legacy configuration
+> +/// space or [`Extended`] for 4096-byte PCIe extended configuration =
+space (default).
+> +///
+> +/// # Invariants
+> +///
+> +/// `ptr` is aligned and range `ptr..ptr + KnownSize::size(ptr)` is =
+within
+> +/// `0..pdev.cfg_size().into_raw()`.
+> +pub struct ConfigSpace<'a, T: ?Sized =3D Extended> {
+>     pub(crate) pdev: &'a Device<device::Bound>,
+> -    _marker: PhantomData<S>,
+> +    ptr: *mut T,
+> }
+>=20
+> +impl<T: ?Sized> Copy for ConfigSpace<'_, T> {}
+> +impl<T: ?Sized> Clone for ConfigSpace<'_, T> {
+> +    #[inline]
+> +    fn clone(&self) -> Self {
+> +        *self
+> +    }
+> +}
+> +
+> +// SAFETY: `ConfigSpace<'_, T>` is conceptually `&T` but in I/O =
+memory.
+> +unsafe impl<T: ?Sized + Sync> Send for ConfigSpace<'_, T> {}
+> +
+> +// SAFETY: `ConfigSpace<'_, T>` is conceptually `&T` but in I/O =
+memory.
+> +unsafe impl<T: ?Sized + Sync> Sync for ConfigSpace<'_, T> {}
+> +
+> /// Implements [`IoCapable`] on [`ConfigSpace`] for `$ty` using =
+`$read_fn` and `$write_fn`.
+> macro_rules! impl_config_space_io_capable {
+>     ($ty:ty, $read_fn:ident, $write_fn:ident) =3D> {
+> -        impl<'a, S: ?Sized + ConfigSpaceKind> IoCapable<$ty> for =
+&ConfigSpace<'a, S> {
+> +        impl<'a, T: ?Sized> IoCapable<$ty> for ConfigSpace<'a, T> {
+>             unsafe fn io_read(self, address: usize) -> $ty {
+>                 let mut val: $ty =3D 0;
+>=20
+> @@ -112,19 +120,17 @@ unsafe fn io_write(self, value: $ty, address: =
+usize) {
+> impl_config_space_io_capable!(u16, pci_read_config_word, =
+pci_write_config_word);
+> impl_config_space_io_capable!(u32, pci_read_config_dword, =
+pci_write_config_dword);
+>=20
+> -impl<'a, S: ?Sized + ConfigSpaceKind> Io for &ConfigSpace<'a, S> {
+> -    type Target =3D S;
+> +impl<'a, T: ?Sized + KnownSize> Io for ConfigSpace<'a, T> {
+> +    type Target =3D T;
+>=20
+> -    /// Returns the base address of the I/O region. It is always 0 =
+for configuration space.
+>     #[inline]
+>     fn addr(self) -> usize {
+> -        0
+> +        self.ptr.addr()
+>     }
+>=20
+> -    /// Returns the maximum size of the configuration space.
+>     #[inline]
+>     fn maxsize(self) -> usize {
+> -        self.pdev.cfg_size().into_raw()
+> +        KnownSize::size(self.ptr)
+>     }
+> }
+>=20
+> @@ -281,23 +287,25 @@ pub fn cfg_size(&self) -> ConfigSpaceSize {
+>         }
+>     }
+>=20
+> -    /// Return an initialized normal (256-byte) config space object.
+> +    /// Return a view of the normal (256-byte) config space.
+>     pub fn config_space<'a>(&'a self) -> ConfigSpace<'a, Normal> {
+> +        // INVARIANT: null is aligned and the range is within config =
+space.
+>         ConfigSpace {
+>             pdev: self,
+> -            _marker: PhantomData,
+> +            ptr: =
+Normal::ptr_from_raw_parts_mut(core::ptr::null_mut(), =
+self.cfg_size().into_raw()),
+>         }
+>     }
+>=20
+> -    /// Return an initialized extended (4096-byte) config space =
+object.
+> +    /// Return a view of the extended (4096-byte) config space.
+>     pub fn config_space_extended<'a>(&'a self) -> =
+Result<ConfigSpace<'a, Extended>> {
+>         if self.cfg_size() !=3D ConfigSpaceSize::Extended {
+>             return Err(EINVAL);
+>         }
+>=20
+> +        // INVARIANT: null is aligned and we just checked the =
+`cfg_size`.
+>         Ok(ConfigSpace {
+>             pdev: self,
+> -            _marker: PhantomData,
+> +            ptr: =
+Extended::ptr_from_raw_parts_mut(core::ptr::null_mut(), 4096),
+>         })
+>     }
+> }
+>=20
+> --=20
+> 2.54.0
+>=20
+
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
