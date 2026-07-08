@@ -4,96 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A80FC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A658C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDBA810F438;
-	Thu,  9 Jul 2026 07:26:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1900B10F43B;
+	Thu,  9 Jul 2026 07:26:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gGze/otC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="susctb1d";
 	dkim-atps=neutral
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
- [209.85.217.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68AB710E61F
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 15:35:12 +0000 (UTC)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-7395b602bb9so30807137.2
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 08:35:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783524911; cv=none;
- d=google.com; s=arc-20260327;
- b=PDxDYVjbMZFxxKGiRk2yg6bvoEgGKjVSBRHGhazrZa436WBM4yuwMzgEPs7dgVsd7B
- ovd7thW4O7BeyKnmg2nxAxMdypimJUIL47KzGxvzeH7LX16l4fp5Axad1kF+iWSY8Jn7
- cuc49jlb+lGOo1H5EWuwKjr+FY+9/yrXNIBuLtLR6MhG+ePxlHbbNseEKIlzvSWTdRNf
- iohQE0fHq/CPHzfBjCDwPIb0FschmWnfsqaWBRE8AzPXqp24OtfLfmG8XQKEcMIshq7G
- ZH0EC+6RH0dgfrJ72RKu87ufj/zIkZ1dbpXhloFwl/+WKINeRdUX/SaOtXw33iVd024p
- 4a/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=7zCGQMgTxRSDwHGNj95VKzrTpGhHUfrTs6Y6MG1mxDg=;
- fh=TgauEZm5jmZoEooDcZakEhcG7FgZTNQXuyaSzggNsNQ=;
- b=UwjFvn2yDevZPMo3Rf5v/pMZCX3YS6E+iD7WGS87vkagPwIu+t8WeP+Qh6wuRRmqjv
- SU3TMe44SfHzDUWjh93VKIxONL2pJfIzZW+RwOFYfL6ew3aLJhv6aG7E48SqbcUSfzdx
- nCPp1UpcNQil7HNV23ClPwPMIIh4wDQR7iAMZn8RgLh8alofoH7I4L2xqmhjglOcJWft
- WFAFHJHzhxtx31iElCaetGB50ZkBbajIC8kVhVCvuMsf6qTi7TNxDH1iDdG2jU6R0fun
- nR5tOxD6pzQHQI1T3W7dY9w0avG/hwFcCXsCUfTFa4R3gQrBCF/ICKi/zKELlQYycI0L
- lqgw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
+ [209.85.160.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA55B10E374
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:55:21 +0000 (UTC)
+Received: by mail-oa1-f48.google.com with SMTP id
+ 586e51a60fabf-448479e0eb6so834984fac.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 15:55:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783524911; x=1784129711; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=7zCGQMgTxRSDwHGNj95VKzrTpGhHUfrTs6Y6MG1mxDg=;
- b=gGze/otC61DPC7doYt7foMusPrtNdz7kE+EESGaitxgwGI+rBWAd/tS4/u6azhJLZc
- 3Hr+RhlUDe8/Mhw+vToGXaJgv7dxRdw28QTcU9eX9NmgS4UeRC5+EqUHXnWz0C8gh4E+
- nNQvFPr8pfrxxd1D8CNn8nmDLNO1RPxiyK9MOre0cAS3dNPDzvydODh8dHjEb+LhoRkt
- jr7jVIdjcZ/DN00yR7NbSnQSCMZKxSdIwfewzBHOeBTxnBPGRjILH9Mxyp4JBWPUVmZH
- FXiIfE00lieirQPzdL8zz+x02+e9lKcc411S4A1CpTU+d78laJR2gZ9ixuG+Jb+3OODp
- SyBA==
+ d=gmail.com; s=20251104; t=1783551321; x=1784156121; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lkMBuabZm+PqoEf0oxVPoqMrO25NNQwaWpSbZXohWaM=;
+ b=susctb1dmt6g8F1yfGZq6z4t65bOVBT0FZLe3QW3BrtoLqXKvdf2rchtYBe1IZvQqh
+ +70Eh4LkJtbODIt1PVj9Z9c1hes7k0zf1HaajFhI6vu85B+dstVzz1HojS0rV2OcqMIn
+ 2g/ygtXa0S6GXIjH6UF1jxPzRlsO/cv3K37cfVNtjKRCq7/x3Cz7yXuvc445AKRNwbXC
+ dqtla9FrEhgjM+49YCPJ2OmO+8LcDlLrD90Ql0Ja7BwjtdvFV6W7/z8FoxmnbA8Mi/8t
+ rRvflbCOJ/eHMKAHdlOVvY8Aja1mm9q/xyjECjVJfRmQ5Uf7DG2r5sIFPeEruT7jLqno
+ D5aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783524911; x=1784129711;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1783551321; x=1784156121;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=7zCGQMgTxRSDwHGNj95VKzrTpGhHUfrTs6Y6MG1mxDg=;
- b=NdFU20K0kmQ5oqabNt341ZKKJ4FCPYBH6fCAablznJjEqhztfz84qzT9j3yRsJEs+v
- CxbUJKtU0XAa6UY20TQnsb0y1pffHOCMfbes9YsXeCvsppo/+inGWfZ9UPJN9MsPPtZn
- J9WClTjTOM2m2n37MohLLjpyV2eIogYd3k9GtOsp7usjnnBwevQiR3RREfqKGLKt8V3D
- QzdcpyDHaorv0ARABVzz0REMTAIUtDbWlbJmmzhD0ol42GMP6sYUgtlvI8acjMpY7Iw7
- nC0ME2Bh8Dh3N1CHzfArmwuHl6VJG5R2cFob/8qzIX+kUufkPnGg2y2OZ/FcDHPt3S4E
- UnyA==
+ bh=lkMBuabZm+PqoEf0oxVPoqMrO25NNQwaWpSbZXohWaM=;
+ b=GOvw7B0V6hWKKXUiqh7Uhw06xh9jl0vJkutA6jbSukQdudfXApF/Tw6fVfLSMlofp6
+ 3jcAXx8Gk+gzEInOblhh/u1axi62z8FUmR/j1NBoGZA5wYmaayWAmWzlv8sTYOksHfuW
+ y6bPGaNMuXb9CTgFP4/Ca82F+4B/qkwmP6DCuzOK1CPBWmB1Dg7QJvCFpFsl5e4tSj2s
+ y6NP73aMfFzifPSPVvHB6LMBYetXy/6c497EiSt6UYNILSLcagJWM7V+iCWoXBfjWPmQ
+ qUrrwEDXjVmgx1GiCc7PBu57EOB0Kevmk833jxde10aO9zxas4d5eZiQlQZ65qTVghz9
+ 5QVQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqoHLo1fLl6iVnipdhbtskOetjEigr6Qg9oQT6PNTuhKWGvVd6n1sqisMvYd07w/cAXEe9fbO6c90A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+8cyv/4e3QI4XknUcUzEHGL2tG4EafNHZdlBTx9q1pep97a38
- A5lnjdEygJM2n5YddRDMx1ctxde4sKdmaq8+CjwyAZx1oVT4f94NhvmY74Z81g6DdO0JLHi0NxA
- GnIKNk/zQkboeJw2qfiVW11DIUEg5jBo=
-X-Gm-Gg: AfdE7cmGzgJcNyHu137O03EfIB3DlgFsyk4SmHom61Hh/pu75RHGqOIPZQpYMd08Qii
- BEd6vMJ8rQyyfrQGYgtb/Tci0543QFrx0DoswQn+UxH6izVTaNCw4Dt6Z6epE5YMF0rBanywwGK
- SjCPix0eIKN0lrM6Ud7JUQ46vDpKmXPB4ieiSlafFhlCoPdqp3fhDpYri6ecclLBiEcUmTe+uaB
- h0EDYD5nQ6Zd9LIAWkIQeBLR9A85+o8p8p7LXh6k21fKHEN2m5AKQCSxVdG7JH5MWrJh5hJ2xY=
-X-Received: by 2002:a05:6102:41a2:b0:738:8d0f:72a3 with SMTP id
- ada2fe7eead31-744e038ad37mr647257137.4.1783524911174; Wed, 08 Jul 2026
- 08:35:11 -0700 (PDT)
+ AHgh+RqxWtpTzRDg2kZzAvgYq8mJdEgKDcsVRuouSFUnIqwcGAzMwA8ZZY47uppWd5yDjgl+1ESTlClRRgg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyaB4+bGfjxsG4CcgLGwRlUIMK2GLxYU8dULA9bcx2dsKSzeVzF
+ G/h/OqebCTgJnFW8F2eNHW972o1BRfMXTLGVt1WiTYccZiIMeuED0hME
+X-Gm-Gg: AfdE7clMnopTfnQT7gKVJR/AtjBAgzq9xyOi/FELwpR1Vz+92bN9olmZyLCrkxpcYBv
+ vlzHF1lg+owCRweFquRuXBkCPgPIb43ytbB+e/Y99QlHX1wQdTGAdeT9ubPY/kLGbwdvTzyuLKW
+ 8q2tTaZcROBxiFkVvpnPnTnajR46URYf+qEBrstUoRPq/t9AfgeZ0qNlTrbJQnj3pLPykSbzcMJ
+ mfl6dgAwZQLksxduo5qFb2cB+4tWKNn5HcwV2hc5WRvyMK8xmjoVYpccq1wUOYPSwa84uGscj85
+ V9O0t9rU+Je8tl5yof1HGGuW2lKmb7yJiQA/2brAZRuU7w41gXMLFA8wS8Y7l1XbQUQ+hJbg5WY
+ jzdySTYi2HkvbqWH4mC6vp0X6cmWqorcVFbCNJn65Fl2GF9utFzECyCEPoE/Rp0pNhX6wbTMmBy
+ hMnlg6pIEn
+X-Received: by 2002:a05:6870:46a3:b0:43a:5cd0:db00 with SMTP id
+ 586e51a60fabf-45163c20a2emr2972665fac.23.1783551320685; 
+ Wed, 08 Jul 2026 15:55:20 -0700 (PDT)
+Received: from localhost ([2a03:2880:ff:4e::])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-45190b7d08asm354328fac.0.2026.07.08.15.55.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 15:55:19 -0700 (PDT)
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+Date: Wed, 08 Jul 2026 15:55:06 -0700
+Subject: [PATCH net-next v5 3/3] selftests/net: devmem.py: add
+ check_rx_large_niov
 MIME-Version: 1.0
-References: <20260624184444.D4A401F000E9@smtp.kernel.org>
- <20260708061835.111986-1-jhapavitra98@gmail.com>
- <CADnq5_NyPb0XDxtJR57P8XNnhbBdpBjFFdq1zRVnzZLoZi9Vgg@mail.gmail.com>
-In-Reply-To: <CADnq5_NyPb0XDxtJR57P8XNnhbBdpBjFFdq1zRVnzZLoZi9Vgg@mail.gmail.com>
-From: Pavitra Jha <jhapavitra98@gmail.com>
-Date: Wed, 8 Jul 2026 21:05:00 +0530
-X-Gm-Features: AUfX_mx9zKL5wOtfHcAD-1pDiP_E1ouKJoE4uph3rDbmrtFeOMtdbTxZmhFyQyc
-Message-ID: <CALFbBidWOJt34zTtc0TRtUCmNkxBj7iC_PFP76-gkHjr2SLG1g@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP
- discovery header cast
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260708-tcpdm-large-niovs-v5-3-34bf6fac941b@meta.com>
+References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
+In-Reply-To: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
+To: Donald Hunter <donald.hunter@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Gerd Hoffmann <kraxel@redhat.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
+ sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
+ almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com, 
+ dw@davidwei.uk, Joe Damato <joe@dama.to>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,110 +106,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
+From: Bobby Eshleman <bobbyeshleman@meta.com>
 
-Yes, absolutely! You can keep my authorship on the patch.
+Add a new devmem test case for binding the dmabuf with rx-buf-size=16K.
+The test sweeps RX payload sizes straddling the niov boundary to cover
+the sub-niov, exact-niov, and multi-niov RX paths.
 
-Thank you for fixing it up.
+Silence pylint invalid-name (`with open() as f`) and too-many-arguments
+(ncdevmem_rx grew to 6 args) at file scope.
 
-Best,
-Pavitra Jha
+Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+---
+ tools/testing/selftests/drivers/net/hw/devmem.py   | 12 ++++-
+ .../testing/selftests/drivers/net/hw/devmem_lib.py | 59 +++++++++++++++++++++-
+ .../testing/selftests/drivers/net/hw/nk_devmem.py  | 11 +++-
+ 3 files changed, 76 insertions(+), 6 deletions(-)
 
-On Wed, 8 Jul 2026 at 20:24, Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Jul 8, 2026 at 9:19=E2=80=AFAM Pavitra Jha <jhapavitra98@gmail.co=
-m> wrote:
-> >
-> > Sashiko AI review of the previous fix flagged three remaining gaps in
-> > the discovery blob parser, all stemming from the same root cause: the
-> > ip_discovery_header pointer itself is constructed from a firmware-
-> > controlled offset with no validation before the cast.
-> >
-> >   ihdr =3D (struct ip_discovery_header *)(discovery_bin +
-> >                     le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset))=
-;
-> >
-> > This offset is a firmware-controlled u16 read directly from the
-> > discovery blob's table_list, with no bounds check against
-> > adev->discovery.size before being used to construct ihdr. Every
-> > subsequent read from ihdr, including num_dies and die_info[], is
-> > downstream of this unchecked pointer.
-> >
-> > The other two items in that review (unbounded ip_offset advancement
-> > via num_base_address, and num_dies exceeding die_info[]'s capacity)
-> > were already addressed in the previous fix.
-> >
-> > Fix by validating the table offset in amdgpu_discovery_get_table_info()=
-,
-> > which is the common path used by all callers except
-> > amdgpu_discovery_read_harvest_bit_per_ip() (which reads
-> > table_list[IP_DISCOVERY].offset directly rather than going through
-> > get_table_info()). Add the equivalent check at that direct access site
-> > as well, so all paths that construct an ip_discovery_header pointer
-> > from a table offset are covered.
-> >
-> > The check validates the offset itself against adev->discovery.size,
-> > independent of any specific downstream struct size, since
-> > get_table_info() is shared across ten different table types
-> > (IP_DISCOVERY, HARVEST_INFO, GC, MALL_INFO, VCN_INFO, NPS_INFO, and
-> > others) each with differently-sized table structures.
-> >
-> > Fixes: d0c647a6aae2 ("drm/amdgpu/discovery: support new discovery binar=
-y header")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
->
-> This patch no longer applies to the current drm-next code.  I've fixed
-> it up and attached it here.  It was a relatively large change so I
-> want to make sure you are ok with it if I keep your authorship.
->
-> Thanks!
->
-> Alex
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 14 ++++++++++++++
-> >  1 file changed, 14 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_discovery.c
-> > index b4ee5fc8e..9b55c56cb 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > @@ -564,6 +564,12 @@ static int amdgpu_discovery_get_table_info(struct =
-amdgpu_device *adev,
-> >                 return -EINVAL;
-> >         }
-> >
-> > +       if (le16_to_cpu((*info)->offset) >=3D adev->discovery.size) {
-> > +               dev_err(adev->dev, "invalid table offset %u for table_i=
-d %u\n",
-> > +                       le16_to_cpu((*info)->offset), table_id);
-> > +               return -EINVAL;
-> > +       }
-> > +
-> >         return 0;
-> >  }
-> >
-> > @@ -766,6 +772,14 @@ static void amdgpu_discovery_read_harvest_bit_per_=
-ip(struct amdgpu_device *adev,
-> >         int i, j;
-> >
-> >         bhdr =3D (struct binary_header *)discovery_bin;
-> > +
-> > +       if (le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset) >=3D
-> > +           adev->discovery.size) {
-> > +               dev_err(adev->dev, "invalid IP_DISCOVERY table offset %=
-u\n",
-> > +                       le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offs=
-et));
-> > +               return;
-> > +       }
-> > +
-> >         ihdr =3D (struct ip_discovery_header
-> >                         *)(discovery_bin +
-> >                            le16_to_cpu(bhdr->table_list[IP_DISCOVERY].o=
-ffset));
-> > --
-> > 2.53.0
-> >
+diff --git a/tools/testing/selftests/drivers/net/hw/devmem.py b/tools/testing/selftests/drivers/net/hw/devmem.py
+index 031cf9905f65..47b54e18e7a6 100755
+--- a/tools/testing/selftests/drivers/net/hw/devmem.py
++++ b/tools/testing/selftests/drivers/net/hw/devmem.py
+@@ -2,7 +2,8 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+ from os import path
+-from devmem_lib import setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds
++from devmem_lib import (setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds,
++                        run_rx_large_niov)
+ from lib.py import ksft_run, ksft_exit, ksft_disruptive
+ from lib.py import NetDrvEpEnv
+ 
+@@ -30,11 +31,18 @@ def check_rx_hds(cfg) -> None:
+     run_rx_hds(cfg)
+ 
+ 
++@ksft_disruptive
++def check_rx_large_niov(cfg) -> None:
++    """Run the devmem RX test with rx-buf-size = 16 KiB."""
++    run_rx_large_niov(cfg)
++
++
+ def main() -> None:
+     """Run the devmem test cases."""
+     with NetDrvEpEnv(__file__) as cfg:
+         setup_test(cfg, path.abspath(path.dirname(__file__) + "/ncdevmem"))
+-        ksft_run([check_rx, check_tx, check_tx_chunks, check_rx_hds],
++        ksft_run([check_rx, check_tx, check_tx_chunks, check_rx_hds,
++                  check_rx_large_niov],
+                  args=(cfg,))
+     ksft_exit()
+ 
+diff --git a/tools/testing/selftests/drivers/net/hw/devmem_lib.py b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
+index 0921ff03eb81..7b8557959c40 100644
+--- a/tools/testing/selftests/drivers/net/hw/devmem_lib.py
++++ b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
++# pylint: disable=invalid-name,too-many-arguments
+ """Shared helpers for devmem TCP selftests."""
+ 
+ import re
+@@ -8,7 +9,7 @@ from lib.py import (bkg, cmd, defer, ethtool, rand_port, wait_port_listen,
+                     NetdevFamily)
+ 
+ 
+-def require_devmem(cfg):
++def require_devmem(cfg, rx_buf_size=0):
+     """Probe ncdevmem on cfg.ifname and SKIP the test if devmem isn't supported."""
+     if not hasattr(cfg, "devmem_probed"):
+         probe_command = f"{cfg.bin_local} -f {cfg.ifname}"
+@@ -18,6 +19,19 @@ def require_devmem(cfg):
+     if not cfg.devmem_supported:
+         raise KsftSkipEx("Test requires devmem support")
+ 
++    if rx_buf_size > 0:
++        if not hasattr(cfg, "devmem_rx_buf_size_probed"):
++            cfg.devmem_rx_buf_size_probed = {}
++
++        if rx_buf_size not in cfg.devmem_rx_buf_size_probed:
++            probe_command = f"{cfg.bin_local} -f {cfg.ifname} -b {rx_buf_size}"
++            cfg.devmem_rx_buf_size_probed[rx_buf_size] = \
++                cmd(probe_command, fail=False, shell=True).ret == 0
++
++        if not cfg.devmem_rx_buf_size_probed[rx_buf_size]:
++            raise KsftSkipEx(
++                f"Test requires devmem rx-buf-size={rx_buf_size} support")
++
+ 
+ def configure_nic(cfg):
+     """Channels, rings, RSS, queue lease for netkit devmem."""
+@@ -76,7 +90,8 @@ def set_flow_rule(cfg, port):
+     return int(re.search(r'ID (\d+)', output).group(1))
+ 
+ 
+-def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False):
++def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False,
++                rx_buf_size=0):
+     """Build the ncdevmem RX listener command."""
+     if hasattr(cfg, 'netns'):
+         flow_rule_id = set_flow_rule(cfg, port)
+@@ -96,6 +111,8 @@ def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False):
+         extras.append("-v 7")
+     if fail_on_linear:
+         extras.append("-L")
++    if rx_buf_size > 0:
++        extras.append(f"-b {rx_buf_size}")
+ 
+     parts = [cfg.bin_local, "-l", f"-f {ifname}", f"-s {addr}",
+              f"-p {port}", *extras]
+@@ -202,6 +219,44 @@ def run_tx_chunks(cfg):
+     ksft_eq(socat.stdout.strip(), "hello\nworld")
+ 
+ 
++def _restore_nr_hugepages(hp_file, nr_hugepages):
++    with open(hp_file, 'w', encoding='utf-8') as f:
++        f.write(str(nr_hugepages))
++
++
++def run_rx_large_niov(cfg):
++    """Run the devmem RX test with a large niov (rx-buf-size > PAGE_SIZE).
++
++    Sweep payload sizes that straddle the niov boundary: below, equal to,
++    and above rx_buf_size, to exercise sub-niov, exact-niov, and multi-niov
++    RX paths.
++    """
++    hp_file = "/proc/sys/vm/nr_hugepages"
++    with open(hp_file, 'r+', encoding='utf-8') as f:
++        nr_hugepages = int(f.read().strip())
++        if nr_hugepages < 64:
++            f.seek(0)
++            f.write("64")
++            defer(_restore_nr_hugepages, hp_file, nr_hugepages)
++    require_devmem(cfg, rx_buf_size=16384)
++    configure_nic(cfg)
++    netns = getattr(cfg, "netns", None)
++
++    for size in [1024, 4096, 8192, 16384, 32768, 65536]:
++        port = rand_port()
++        socat = socat_send(cfg, port)
++        listen_cmd = ncdevmem_rx(cfg, port,
++                                 flow_steer=not netns,
++                                 rx_buf_size=16384)
++        data_pipe = (f"yes $(echo -e \x01\x02\x03\x04\x05\x06) | "
++                     f"head -c {size} | {socat}")
++        with bkg(listen_cmd, exit_wait=True, ns=netns) as ncdevmem:
++            wait_port_listen(port, proto="tcp", ns=netns)
++            cmd(data_pipe, host=cfg.remote, shell=True)
++        ksft_eq(ncdevmem.ret, 0,
++                f"large-niov failed for payload size {size}")
++
++
+ def run_rx_hds(cfg):
+     """Run the HDS test by running devmem RX across a segment size sweep."""
+     require_devmem(cfg)
+diff --git a/tools/testing/selftests/drivers/net/hw/nk_devmem.py b/tools/testing/selftests/drivers/net/hw/nk_devmem.py
+index 300ed2a70ab4..7f1867e4ff32 100755
+--- a/tools/testing/selftests/drivers/net/hw/nk_devmem.py
++++ b/tools/testing/selftests/drivers/net/hw/nk_devmem.py
+@@ -3,7 +3,8 @@
+ """Test devmem TCP with netkit."""
+ 
+ import os
+-from devmem_lib import setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds
++from devmem_lib import (setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds,
++                        run_rx_large_niov)
+ from lib.py import ksft_run, ksft_exit, ksft_disruptive
+ from lib.py import NetDrvContEnv
+ 
+@@ -31,6 +32,12 @@ def check_nk_rx_hds(cfg) -> None:
+     run_rx_hds(cfg)
+ 
+ 
++@ksft_disruptive
++def check_nk_rx_large_niov(cfg) -> None:
++    """Run the devmem RX large-niov test through netkit."""
++    run_rx_large_niov(cfg)
++
++
+ def main() -> None:
+     """Run the netkit devmem test cases."""
+     with NetDrvContEnv(__file__, rxqueues=2, primary_rx_redirect=True) as cfg:
+@@ -38,7 +45,7 @@ def main() -> None:
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 "ncdevmem"))
+         ksft_run([check_nk_rx, check_nk_tx, check_nk_tx_chunks,
+-                  check_nk_rx_hds], args=(cfg,))
++                  check_nk_rx_hds, check_nk_rx_large_niov], args=(cfg,))
+     ksft_exit()
+ 
+ 
+
+-- 
+2.53.0-Meta
+
