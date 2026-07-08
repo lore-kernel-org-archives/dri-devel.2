@@ -4,126 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8875C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:46:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE41C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:47:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 133C210E62D;
-	Wed,  8 Jul 2026 16:46:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D0610E631;
+	Wed,  8 Jul 2026 16:47:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Kaa1jvF0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="N7XKXI86";
 	dkim-atps=neutral
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11011033.outbound.protection.outlook.com [52.101.125.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11C6610E62D
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:46:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TUpD+J6TD2nqwJb0YhbDuyxAgXomign5wZrAhibr+EYumdZySrUbGX/I5tfJtFEPezrYWAXbeZ8uYcLd8KB3zMqeqiaXOwS8AP8bmRWJAv4fW2AUR+wNrYx2zv3zMSd36RDVlp/h+gxZcLrHjiMRBb6YGgFp/M09jg9JIZ/Wx0o2hQf51xUv79h1c827qEhZ+gqPzbRSSlrPA583akB8Ocbe9VzXU6GSj/azG2+PfEeTF893twqAAZQn4rP03e0jxjhbBG+mKw7Q9q1deq3GNytBbXMBsP8KHJVBNTnzZeoP8vCmTCqPw4xudn5lYJFHRcSt4Sx39evkI2tILnWvzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KiY3IS3wny8UxwCTbz5a71itRgtuHpCMkTZtBG5c8pM=;
- b=GjU9IRyZS8nxIZgBkv9VOP88YtJyO5VCpR2J9xOWnpvf8U96q6UG8rRRCs6zImhBAa1Lfwrmyt8BFr53U4+Qsa+9pjYdG87SxR2qFf8D8AeZTn+pjGs12Srt0YJut2tIlYXdBTe93z/LdwQ80KCYVVBnzcsLPDpjwafW/51zoBt7CE/w7w6TJuAruY+jpYCkat1yMGj/Qn3KFsP0UEYXeJRlUVIBNaBOxy388tGincO5kupdnMwqThxoNE2mKMjqkkV/rXqYIkkHMlPYMsTu2C9T9czloA3wKCG2Q2hm44M/DxFHWpfZsItQ2ftiziu9WAT5pITwIdMh5dCS7U6Jog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KiY3IS3wny8UxwCTbz5a71itRgtuHpCMkTZtBG5c8pM=;
- b=Kaa1jvF03nqLSxd6Z12VdA3xrmnj82W+KZTPRt8jXUqZOHdlqAgUlTFWWIvwwDebsJavHgtoHrqswXh1wOu1hHuuaWUIsAUeJfWe1p35BJkaYH/xfMZLE5Ff8KN8arjxAXp+EH5jvSVCJmbgdfW0I4ZGaZgkneLaEFu+nc+w/Dc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OS7PR01MB14587.jpnprd01.prod.outlook.com (2603:1096:604:38d::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 16:46:04 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
- 16:45:58 +0000
-Date: Wed, 8 Jul 2026 18:45:40 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 07/16] dt-bindings: display: renesas,rzg2l-du: Document
- RZ/G3L SoC
-Message-ID: <ak5-tIYnLmHps4M4@tom-desktop>
-References: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
- <20260704093433.273672-8-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260704093433.273672-8-biju.das.jz@bp.renesas.com>
-X-ClientProxiedBy: FRYP281CA0005.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::15)
- To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DD0710E631
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=D0h2n4D+R8Mj0sCHWAIvr6Fzz49F+rXp8A6dywFm770=; b=N7XKXI86G12Cx9pdlqs3FQd7JW
+ gQlBGVPcuHJg+HxDWZQ4qVCvDJ/093c00nft732kMzspqpCHQfseCGgTNPn6tGilymswJ2nJXw6H/
+ VBMSoTCg8q0gu421cNyCYLKl1z5nYOW8a4H91F5WPG+kaa/lGnD10CRXAaxPHb78+zqUEhN/BoPvX
+ vLIXEqx8PgponpQE+xiji2m3eIMgynhIJMfIYmNYh9OlZkMiV6o3/QhuGmKeMlKAAcA2x1iP7cBCt
+ Sx5KKHSwc0bEgSOgB7EY4WjMnnz86UKqX4nm0cUAzfPKQvSCkI7nM58EIjscxxreYDOfb4pTShbbO
+ hXVmwZ0Q==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1whVQv-00Bp2W-D7; Wed, 08 Jul 2026 18:47:37 +0200
+Message-ID: <bd262d12-65d0-4c59-a314-b42b540acd99@igalia.com>
+Date: Wed, 8 Jul 2026 17:47:36 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS7PR01MB14587:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05eff522-a4ef-4b62-b756-08dedd1062c7
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|7416014|376014|52116014|18002099003|38350700014|22082099003|4143699003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: VYIyrrexNDeF2MgQpkZCcrgpRf2K1Etd2KpeXT61Aa4ceKy88C/g1eJSO4VllvdZM6Kk+KUuUq7EcHQFcpepgKk5tLFJ9He18WIXK1uZwQS7cW2IdfJ4gPzPPNPq/Gu3CdNpZu+zYWYflNJTnfkTGzAPZqkJ69lGZxJEQiQ01GVOZ2V0zkTIO9sHUZnAAioaFsv2SJiqttWVNe8wWUux8lipEjFrp8YPX9M+s36rfDSfaKUnFjlxsC7LhTNICm7Cy1s6YrmIxymbPpp07PO0eegIAx7zptsvaAA1AIP9vinXPQD0d4MtTrrzRnmuY0Vtfl7w4tshXX9CVIjyQ4PE9fGgFfbUuvlS7hLvIkFbuQ86Ya4nsox2XSSKiC9v6+FBErJHNpMQONoI6HGndE0yx0MJ3GfJ4mUkvJlVY7sjkssjrFrl9/ACV4zYrp8QaoYHV/LgHdTyMCM56u6HUX/Rjm2ozYGbJkUO12/ezZ6vnHGlE5w6ZCsY9LDVVWaV24+siLQgUgpVsASOZywPC9Kqglb9qSipPD8vZikODT1FXpWTv/9CE62VjDC8NxinVYgJwGPj9JWQyuwzKKioO01JSHE22mBBlm9VaOn0moW864fiZDvy8hWZ7g+LUe++dI9MrJxbYFXXydjhVbSCO5sCRpHrcdtx4vXrGXn2PvfMRM3NtfD4FS59GCJE9VaUrUBemrUP4ViZ773LD+DQpaRcmBTPs2kjGVlN+4Tanes8b3o=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYRPR01MB13588.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(52116014)(18002099003)(38350700014)(22082099003)(4143699003)(11063799006)(56012099006)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GdD1oMva/AjrGRudtODv6u+pjGYyi/lvsej72aTrNK1ixLlfpsckPQkCHoNN?=
- =?us-ascii?Q?nh4k7q/D4Jg/49Kao38z2HHKGEvaC53Xo49oHCtENPdaAd+OQ4ejJ8K5uawJ?=
- =?us-ascii?Q?HUlCV38TLEVnBouSNgF+W6iB25nCSL4Q7dJLf9Fe9Nn1HALgfdUpDC/26xBH?=
- =?us-ascii?Q?qfmn4ER20Sh+ZCWOyXuYkj1YuCNyWL5206ieAhhu9QFRzgCQFC5l+JF6Kd+A?=
- =?us-ascii?Q?FYDXq1JIvAKFW5mKkDQmu1/+R2xwSw+OBAfIPGinxySDZpj2RMBnPDmryqEU?=
- =?us-ascii?Q?A60WPLSPKfhp6HACYp1sMfhfu0oQQ90mr49Xb+sadNhb1uq94CIraYopT2dC?=
- =?us-ascii?Q?l2II74zevdGW66SQW5vyS4Wsa6kwoB4G476rw9dtKsheWnKa5eAmBPbfx5aT?=
- =?us-ascii?Q?suwWIB4Kr9Wq76GqmJB6WDEJCmHGhJgflY77Fwv3ZaU4eZJaHShxAE2lwt4Z?=
- =?us-ascii?Q?rBOZjZbxVY2a/ER3dbCMsFbt8brcUq7avwzV0TsCjJ11ceM55AOXl9Y1VKro?=
- =?us-ascii?Q?NNb/Vik4g/H/vfsmTKyLYrXCjZYwXAGiCe+36/Kgo0NurylosVBrsPKSMlpU?=
- =?us-ascii?Q?dugJ50ibOmIUrISxCt7A7GTfta1vQdXmShMlVrKqqCNwa2NXseo1PqQcTRJV?=
- =?us-ascii?Q?qI0hiLzlVu3jna9NWr+fNB7J+/3GyxhcYvqKpocOasSKrXy7Zo7pPoVysgFR?=
- =?us-ascii?Q?DPiz5XZj/rcPHFQ9xR0w0QkbkLrAe+cm9u9EeEwuKVF6fbhNX3SwTxzVol/l?=
- =?us-ascii?Q?rq40jAb66B20IxJP4jKRrxvPpX/SvcLgXeJ/eFaXNMRgMsjCd6v0XYyouQuO?=
- =?us-ascii?Q?66A2MOcmf7BfDiQohOFdMWM6/mwKVf7sQBNN9O18LqdZ5CoSPzBtNUTWnlK3?=
- =?us-ascii?Q?BQDSs6It5Vkne2wUsTDn58IXyVtDtU7iZeCZ269VxM3k5iSXhXNWd4L95SOY?=
- =?us-ascii?Q?9bbXhq61aUZFGY1a7m02TTYSUwZn5e8qrPPW5bEsOWCnm+cGfmm93mJqfmxP?=
- =?us-ascii?Q?+JIWyCG/ckpI4HuNYQmPPA6QlRd/BlISIflwWm4eDiMlT9e3Todxe19EQsYG?=
- =?us-ascii?Q?KHFVdXGMqjT1cSZ/aA2EkeL3cncAG0On2j0q/O4D1AfqLfiP1uFq1Exu7J8s?=
- =?us-ascii?Q?IqBYrrnCttQ8yAycVh10JKW0XRAb1cZjixLmPJPftLGtlJXoGtgG0tc1siVy?=
- =?us-ascii?Q?+QAg352RikLU7EA4msQCDwCC6l/959NJSEvX16pyAnRgI3AtnEcQW3FPuMPF?=
- =?us-ascii?Q?m74gdn/YV7qy+FHEyBygOnsDVQ7+OajfUTBmhbn4Lp0NmybHTVxQovKqwFZO?=
- =?us-ascii?Q?T17ZDm1Hr6k4loi5JfEUnnApDIoTkZFxTUsqOCiHtjiLV2lXzHcg1ekw2H/3?=
- =?us-ascii?Q?yqyyz6XTqFk4vKbEzAsxHXeghwbATk/ykfwc2b4+nDu8hErZCR/EP52KRYnE?=
- =?us-ascii?Q?nyzf6KvQSEjoPeSzc2s4b4kJZea0pzTfe6+DtB7VejBcKsNUKPA1qIXBGzQJ?=
- =?us-ascii?Q?1N1knl5vQLbpn5kzi5wE07Q/7zRTEDHZnJoZa9VwdROt0OIpjWDT8NrFcRUl?=
- =?us-ascii?Q?mRpJYZNm7i1vBjpGdKHwTDzh88vmogaLpBkF3meIgrFS/iihNRtNOzaDPGh7?=
- =?us-ascii?Q?0b0VFJuIX6UsNfO3H8FR0fPiIMo31AcHYAB3p/GWzJvnrzHN22ROUbAAKwE9?=
- =?us-ascii?Q?t0eluBayYfyv05cw6wvRsKHvD6f3BUc95MAAbAxoYslecfzZFllO9yKGOn2/?=
- =?us-ascii?Q?JuvrKGqSa4TTbzQ6vVPoH+sAJdKqvxnXXl+IuNBLOFGQRcJ+vLLb?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05eff522-a4ef-4b62-b756-08dedd1062c7
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 16:45:58.3264 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3hkSfPMfhyzzAxo7wUHfgLut1LUKM2F9Tlb5gyFtXBGRH081jpwc3kTekK2jHzpKQplEXc9MD1/q6dg5y9xunnCnHo2HulyTcE3+UjFaHoDbOqDsCCsqa50YM/gHE71B
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB14587
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 2/8] drm/panthor: Use separate workqueue for DRM scheduler
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
+ <20260702173127.3103af30@fedora-2.home>
+ <8aa9ffad-ece3-428b-b307-1d5f4136db73@igalia.com>
+ <20260706161812.07ee7500@fedora-2.home>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260706161812.07ee7500@fedora-2.home>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,108 +67,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Biju,
-Thanks for your patch.
 
-On Sat, Jul 04, 2026 at 10:34:17AM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
+On 06/07/2026 15:18, Boris Brezillon wrote:
+> On Mon, 6 Jul 2026 13:03:33 +0100
+> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
 > 
-> The DU block on the RZ/G3L SoC is identical to the one found on the RZ/G2L
-> SoC. However, it supports the DSI, DPI, and LVDS interfaces, while the
-> RZ/G2L supports only the DSI and DPI interfaces.
+>> On 02/07/2026 16:31, Boris Brezillon wrote:
+>>> On Thu,  2 Jul 2026 15:37:39 +0100
+>>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>>>    
+>>>> Currently an unordered workqueue is used for the DRM scheduler which means
+>>>> its concurrency is externally managed, and given there is one scheduler
+>>>> instance per userspace queue, that means workqueue management logic is
+>>>> within its rights to spawn many kernel threads to submit their respective
+>>>> jobs.
+>>>>
+>>>> Problem there is that all run job callbacks are serialized on the device
+>>>> global mutex,
+>>>
+>>> I think we should address that instead, and either shorten the scope of
+>>> the locked section, or make it so we don't make it a contention point
+>>> for concurrent job submission from different contexts (with a rwsem
+>>> instead of a lock, for instance).
+>>>    
+>>>> making the potential thread storm just causing lock
+>>>> contention.
+>>>>
+>>>> If we add a separate ordered workqueue for the DRM scheduler integration
+>>>> we can avoid this problem, since the ordered property directly expresses
+>>>> the nature of the submission backend implementation.
+>>>
+>>> Yep, except that's not how it was meant to work. The goal was to allow
+>>> contexts to submit their jobs concurrently to the FW. The only reason we
+>>> take the lock is to:
+>>>
+>>> 1. make sure the context is still allowed to take jobs
+>>> 2. kick the group scheduler if the context is not resident
+>>>
+>>> For #1, I believe we can come up with either a lockless solution, or a
+>>> solution where the lock protecting the state belongs to the group
+>>> instead of being externally protected by the device-wide scheduler lock.
+>>>
+>>> For #2, the rwsem approach, and narrowing down the locked section to
+>>> just this part of the code should do the trick.
+>>
+>> Out of curiosity how much CPU side parallelism you think is required to
+>> keep these GPUs fed? Both today (with the greater lock contention) and
+>> in the future (with the reduced contention) I guess would be interesting
+>> data points.
 > 
-> Due to this difference, a SoC-specific compatible string,
-> 'renesas,r9a08g046-du', is added for the RZ/G3L SoC.
-> 
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
->  .../bindings/display/renesas,rzg2l-du.yaml    | 27 +++++++++++++++++--
->  1 file changed, 25 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-> index 7c84a9ecc7a7..65368649fe77 100644
-> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-> @@ -20,6 +20,7 @@ properties:
->        - enum:
->            - renesas,r9a07g043u-du # RZ/G2UL
->            - renesas,r9a07g044-du # RZ/G2{L,LC}
-> +          - renesas,r9a08g046-du # RZ/G3L
->            - renesas,r9a09g057-du # RZ/V2H(P)
->            - renesas,r9a09g077-du # RZ/T2H
->        - items:
-> @@ -65,7 +66,7 @@ properties:
->        model-dependent. Each port shall have a single endpoint.
->  
->      patternProperties:
-> -      "^port@[0-1]$":
-> +      "^port@[0-2]$":
->          $ref: /schemas/graph.yaml#/properties/port
->          unevaluatedProperties: false
->  
-> @@ -88,7 +89,6 @@ required:
->    - clocks
->    - clock-names
->    - power-domains
-> -  - ports
->    - renesas,vsps
->  
->  additionalProperties: false
-> @@ -108,6 +108,7 @@ allOf:
->              port@0:
->                description: DPI
->              port@1: false
-> +            port@2: false
->  
->            required:
->              - port@0
-> @@ -124,10 +125,31 @@ allOf:
->                description: DSI
->              port@1:
->                description: DPI
-> +            port@2: false
->  
->            required:
->              - port@0
->              - port@1
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,r9a08g046-du
-> +    then:
-> +      properties:
-> +        port:
-> +          properties:
-> +            endpoint@0:
-> +              description: DSI
-> +            endpoint@1:
-> +              description: DPI
-> +            endpoint@2:
-> +              description: LVDS
+> The maximum is known: it's the amount of FW CSG slot we have available.
+> I think the theoretical limit is 16, but IIRC, we never had more than 8
+> exposed by the FW.
 
-I'm seeing you are using ports + port@{0,1,2} in driver and soc .dtsi
-so I think here we will need to have ports + port@{0,1,2} aswell.
+Yeah but is it _really_ required to have 8 CPU threads feed these slots? 
+GPU will still take one at a time and preemption is not that fast, no?
 
-Kind Regards,
-Tommaso
+Back in the day, on Intel hardware, one hw generation jumped from 2 to 8 
+submit ports. Funny thing is we found no benchmark where 8 was a win. 
+AMD today defaults to 2 as well, Steam Deck bumps to 4 because it was 
+measured to bring some tiny gain some time ago. And in both these cases 
+it is different in that there is one CPU thread feeding those ports. 
+It's just pipelining so GPU can move to next context without a 
+kernel/CPU round-trip. I would be surprised if Mali really needs 8 or 
+more slots to keep the GPU busy. And if it doesn't then spawning more 
+CPU threads is not optimal even with the improved locking.
 
-> +
-> +          required:
-> +            - port@0
-> +            - port@1
-> +            - port@2
->    - if:
->        properties:
->          compatible:
-> @@ -140,6 +162,7 @@ allOf:
->              port@0:
->                description: DSI
->              port@1: false
-> +            port@2: false
->  
->            required:
->              - port@0
-> -- 
-> 2.43.0
+> Also, adjusting the priority of the thread used for job submission is
+> not enough (at least not for panthor), because the processing of FW
+> events is still going through this single-prio workqueue (signaling is
+> about to be moved to the threaded IRQ handler, but we still defer the
+> processing of some events to work items, and those can block progress
+> on a queue until they are processed). If we're processing events coming
+> from low prio queues before those coming from high prio queues, we're
+> back to the same problem. Not to mention that now, high prio submission
+> threads can completely starve FW event processing.
 > 
+> This is just my 2-cts, but I think we need both side of the equation
+> addressed at the same time, which is why I believe we should convert
+> panthor_scheduler::wq to the same kthread_worker mechanism.
+
+I agree this needs to be handled together. And I am aware you are 
+working on the irq processing side of things. Hence this is just an RFC 
+to show the weak point on the submit side.
+
+I haven't looked into the tick based software state machine in panthor 
+yet TBH so I cannot comment on the possibilities of starvation and such. 
+I will have a look.
+
+>>>> And considering the other user of this workqueue, the free job callback,
+>>>> which is not globally serialized in this manner so could be thought to
+>>>> potentially regress with this change, it should not be the case since
+>>>> commit
+>>>> a58f317c1ca0 ("drm/sched: Free all finished jobs at once")
+>>>> made the DRM scheduler handle the cleanup of finished jobs more promptly.
+>>>
+>>> I don't know if this change is a hard dep for what's coming next, but
+>>> if it's not, I'd drop it. If it is, and the new kthread_work solution
+>>> relies on this serialization, I guess I need to read more to understand
+>>> why.
+>>
+>> You mean this patch, "drm/panthor: Use separate workqueue for DRM
+>> scheduler"?
+>>
+>> It is not strictly required. I could for example use the concurrent
+>> flavour of the drm_sched_worker I add later in the series. That would
+>> align with WQ_UNBOUND which is currently used, but then there is the
+>> question of how much parallelism is required and the fact dumb worker
+>> pool implementation from this RFC makes no attempt to spawn/retire
+>> threads on demand. It just picks four out of thin air kind of. Priority
+>> inheritance would still work but if picking a fix number of threads
+>> based on some criteria wouldn't be feasible I would need to work on a
+>> smarter worker pool implementation.
+> 
+> If that's easier, we can let the driver define the max number of
+> threads to spawn.
+
+Yeah I can do that if we conclude that is acceptable. Hence I am looking 
+for inputs from panthor and xe as to how many threads these drivers 
+really really need. I need to look at the other drivers too, plus, from 
+Tejun's feedback it sounds the option of RT workqueues might be an 
+option if we can agree on a bounded number of them.
+
+>> I could drop it, although the question would be when do you expect
+>> locking rework could realistically happen and,
+> 
+> If that's a blocker for this series, I can try to prioritize this
+> change.
+
+I think for now lets see how the discussion develops and decide later.
+
+>> if not quick, what is the
+>> advantage of keeping the false parallelism.
+> 
+> The advantage is that we don't start relying on the artificial
+> serialization provided by single-threaded workqueues, because the more
+> we rely on that, the harder it gets to go back to a solution where GPU
+> contexts can submit jobs concurrently.
+
+:) Fair enough. Lets see how the discussion develops.
+
+Regards,
+
+Tvrtko
+
