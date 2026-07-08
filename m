@@ -4,151 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80BF0C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 15:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98358C44503
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 15:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD9910E626;
-	Wed,  8 Jul 2026 15:24:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 020F210E612;
+	Wed,  8 Jul 2026 15:25:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KNCMzsev";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZNNeJX+Z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cqdCEcXo";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F13289BA3
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 15:24:17 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 668C478l2760271
- for <dri-devel@lists.freedesktop.org>; Wed, 8 Jul 2026 15:24:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- zMJCbXSgt5kAQ4lY2HA7hGLs+5rsBULHk8Vjj77tBIU=; b=KNCMzsevlh2tuc5/
- 1WnIHZZhAhaywF9mfturWOYGVfOtDmek/uPAQGzO8pf5SVlIUqrprfq9VMbsxYYJ
- In4RT4IQuLvwHdCHl2uDDy4uroXw2M6EurBD8eSU3xR6PTtrM8Dmh59iWn6ws4dC
- 92CbytmCMmFTb6lNx5rnJolDTaY4yGqklGGr7xsWt1VlIFJER6Uybv8uaGV5g0Ps
- rr0TV2ROBhLa1I2l3JKNmDMytA1jSAa1NTLNCifcU+9Wn7GCxMZBY2vQc0S+n/f/
- EYdNB5Cdm1Zocr9tW97T0cxeQ0WEWUd8uVX4VjqI0hpNRSjBJRCtoKTB03j6Z/Ki
- naEIwg==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f95e5w564-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 15:24:16 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-8f000e221d7so12512656d6.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 08:24:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783524255; cv=none;
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C62AF10E612
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 15:25:30 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-39c699b2400so1224241fa.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 08:25:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783524329; cv=none;
  d=google.com; s=arc-20260327;
- b=pu7Q2UH6Jpbh2u8jPY3tvk5p1ka+G1mzd7cgeDf8JmrLq4iL1Vna1GNngDJa0bMWrj
- 9uysUzYEhckcdGxzK+giIO07MmVMaHIBdBcUkhuMDUZNQrav6UTNUXwc44/ypHdj+6Ut
- GdIE4pOsopy3kiJQMVpZYJqjTCo0R7QWqnAK4iI4Jr+k4dnTPBNCRKdHPrztAcMceJY2
- UM6aSHMhCc+gHcpu3W6rmdWVZiAQIaW3ThWOFhAppfQdM7cnhcGooKcPlR+IoDJ/5MNF
- t0RHmByoQs2KJxvxSevHYd7BZlJCxaaz+03lF4lakU4P06mylfPt2mVCYqOxfuZ5ABV/
- kTYA==
+ b=fqVaCrwzj7zRu3NwF6WvH84NtYgYqWsl16tt7Lo1eBu8nyIuSlC/erwoTeAazXlVs4
+ hMNAjZfW7YiO4YJAiEUavXmfa5Ag1bxdqHwrZyOjuBwGzRYX5FRFWmOPmeglLRzFMN4Q
+ /ZnmRW7eOFlIWliDuvxR/wwOyDNmhU7CXhGGgVq34dQVH15qy4dY2W09s4oN+PO5FDNJ
+ P9f7Z/raGtLS0ypjwO5SVRQGHwix7z7geJ4fAJH78/oPwAaRZ5VquxFwpr702lGfLz/4
+ 8wqXSKcMjlzngxbWs/0AD4UrgLS8nwHtuGGoTNMAyLbmh7iaL8+TlQqhB/aSvpOFz91K
+ qSPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=zMJCbXSgt5kAQ4lY2HA7hGLs+5rsBULHk8Vjj77tBIU=;
- fh=4EtWDP7KjGgF4K41U/HvssoI0tkej9fKdy/GlW9eglw=;
- b=bXCXmK2GDjhHKOTjkS6Y9g7bZjeSTyaRKBVzXNXh/mp7JadXNbnzWJ0T8HOWPGLzUl
- zolrQveB4t8cRpy4xJ2eAdHMmSCdAcPm4mRe0UQiOHZ1NJUVFzPJp6qhV4Lg5dlRbBgJ
- eNfhFqQAqoUFUxWxTHoZuNBzLwHRK2+DOhqflts079F1zVwSJfAH5AkFrt6GuCV138bj
- dlLloBvMW8wiGDISRFb9LVo2+XX7qmqVGVkwxBoSOKEZl1QDd8jsteh1A/AedAsprzaT
- NmENxFQb1rvmjiKPx8Kk9FKf5gRKGC9fizAD3kN+s52Hq96veyu6kqvtbhJ0VJa+X2no
- Nm8w==; darn=lists.freedesktop.org
+ bh=vOZfMiEQfO6pItb9Vox/F3+dXN8hmkgAn9QnqBq/R7Q=;
+ fh=WOCIc1kPLtUT/NsuUQ2/pyiUj+Y/2/rV8Kp1WdhhLEI=;
+ b=UGI/IWebbmrT80ZBkpwo2wDJFBlbYuq/PIfNiai2jJ4T/WBFhwjSmtqgkSnC3Mu4ea
+ JNnBDh+in+U2PCd2FhmCRBMh6fP1pt1430k3PyP/W+GV29c4rt8tAWugFkCT0xNTCb7a
+ 33oe67mUZEX20QvUI7qrn8CybsKSNhvlsbj0GrcfLOEjY7m63p2NHEaOZ6G4YxSkhrm3
+ 0UGrweDTpt4JJzVdRaZZxs+Qg+UntPD2YZ07JeKdRQQIyic7lg7TIPjmN7Kkzo/t3uk7
+ JB04/SsBwHhfUZLLipNvnNsCv2+D+LgyJFiJCtLfNyrg7IwXAw9CbAdA45sRwROo/RVu
+ p5Ug==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783524255; x=1784129055;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1783524329; x=1784129129; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=zMJCbXSgt5kAQ4lY2HA7hGLs+5rsBULHk8Vjj77tBIU=;
- b=ZNNeJX+ZYw7OyfNJqE/J/zdiV83WGz2Oew6fSaZdDHglZCakeNdMBIX1bNKfYH5Coj
- 2E5xqjQiotRxZi/2quCKAvIKBFjaoUW8HlSluiB8y1qbPPRsKuDcgDR4MZHXzsxwRqdo
- 7bh8LGHslxH2hbWc0ZpmaQTW7c7HGeNsD8dM0C2utqsefm9Mp+YIWszLjNeA3VjwN143
- AYFnOXAoZi2Rka7cYHZrjT7757UVrq9KFKxP2U6pys3rtPzV7rGpBOUqw374uq3eZKxG
- 7lfDil9OVq2m3a4OY+dFDiV7y8Z3GPxYLjOxNypTPC9YEPJDrSKafQp8X7TCPehzdJKQ
- U8HQ==
+ bh=vOZfMiEQfO6pItb9Vox/F3+dXN8hmkgAn9QnqBq/R7Q=;
+ b=cqdCEcXo6wl/17kJMtBe1zfvVZAKi7FMA3tSfflTkUvoSHwnaIAJWH2LGCinj3gB+T
+ /sewK72p2AL8F6QYflGe2hBCstN/oRCh7LEH3kGQtqy8uVbKAoeOTrT+As0v3jkO7LOa
+ /6sq8YkynIpQsSuSi9KUPFNTuULN772lYA/hr7uUiVzLAbA7AJXzhNpI/1aa+7ChS0vV
+ 1RuXnbavO4/x5XZhV1CUNKFIa8QFJuMJxsGJdodCikJ5tnUDVVNulX3lOwkZDMEu4scx
+ YTmAbRTUIgyhk3RJhOSE15j90kK8GuA1V58f4seGFV+sO03KKi0SAxdvAjSdkyW8PJdv
+ nKaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783524255; x=1784129055;
+ d=1e100.net; s=20251104; t=1783524329; x=1784129129;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=zMJCbXSgt5kAQ4lY2HA7hGLs+5rsBULHk8Vjj77tBIU=;
- b=PMhDvp9FyWpm+VKudVcZqJo5JjUFzLGmiz+ek7QtSnPzu2JysrXdX1FoNsIOy8FiXs
- IYDEjcsY6/FGIwntFzLHEKtEKGBa+giLirLIgABLso1STZXvhiyzytqzMdapvcUfxJen
- RE+SzkNLebnn2GpFKk1sJxI8oo3upWyvgGBXgDuX/TPafcGHOJlNeqBVlQJxFeURebm7
- Zr2s/hSCZcG7in+vLPjNgMFKGKsiJNySjYNNopUi4qLPI3PVhydsYSANFON/0U13X4JM
- ajJWjCCRnQYGxXZlGgkN7bF5KUsNZCZ8HQv0tQppXMhQPfmpzM2vql/UyRTrh43ow2mS
- D+Wg==
+ bh=vOZfMiEQfO6pItb9Vox/F3+dXN8hmkgAn9QnqBq/R7Q=;
+ b=eAuThEQOkgSBWji3jN9dLcKLM9iAt+B/JjK0sOGlcKyzZ5VuvKJ+WMofglCO+0mkIk
+ Jfb5I6s5hNomYhfwH5jTUb1UZh1QY0FuRlWY+tIDtWbft4UR75tchdL2yc12AUeVeh2D
+ UsUpyq1XAcnfjAIUpe01lEDqv2JixTUDmpdGiISOKTx5BnNX5UzrSCVGynIjlxRLRJ96
+ NAx+ZVzPZeDqlUVma/D4qi+0IcA2G8TMV4HJhSvljGfFKSD4szgcLab+w+DkJg8tuzYe
+ fGxnv4j5vIR2st7u1OjaorCcVjQsQuG9bl1szdosSlxwzDXoPQiLw6iZSkSF+d2+wUZB
+ ArhA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpYq4ZztNAg/pGZfxI2c3616RNpy2gUb4fgGZqft0zT9wJIMSjEDEo0CusvCb+npNw916GVDYUMKTM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxTwNyS4sjHqVjOFRL73hA7QXLoZC6IG1f+FGVc7p0/nLG1WNtD
- 3ZZvRvTvJn6kshoPUo2/U2iUIJnlS2rpdxAXsL/k5vBvJmI6QHrZrgWPCr3rLPv89C1lOIm3jAp
- 6ywmApd0+RBcDb6EoTn1AtenNI18JAr/+Qp4aBJaDIkxtbvpBAQD/PDZBIxlQibA7+Z38S2PHY7
- vfyTCwE4+h/Wy6Cfsw8UvhWbP18uspqCmJfodCYRXs3rC8Dw==
-X-Gm-Gg: AfdE7clYbE3y16vaGUCBHb9H6QMj8Yga6zFkSI+lOoaDrcRmz8JfRbNPcMVJdOO3hdK
- fv5+6+JqbCSFMntB65Tq6XFesruIol9k3toGUwFdjoTcKiYlzq/3tDf8YkkeORxhN2cnmfYNhP/
- gQ9XpOOw3pax3+bNKzlALHnzQIwWQFA8H130u9hhU6NjQYt7N51pNnJbX8k+8UjW0ykrHP
-X-Received: by 2002:a05:6214:5504:b0:8fd:6df3:b377 with SMTP id
- 6a1803df08f44-8fec323e5b7mr31147516d6.59.1783524255419; 
- Wed, 08 Jul 2026 08:24:15 -0700 (PDT)
-X-Received: by 2002:a05:6214:5504:b0:8fd:6df3:b377 with SMTP id
- 6a1803df08f44-8fec323e5b7mr31146966d6.59.1783524254959; Wed, 08 Jul 2026
- 08:24:14 -0700 (PDT)
+ AHgh+RoqEbz2+rnJrN7cckJAJwVZ7p2xk9J3jtOPxd48m+gn7PL+Yu78QgrTvT6NVLKyFdQISJacIjAt87E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxeGT7dU/VrGa4UBvUvWRP09sy6Ebmi0QD21pfcZCcMVicoN4vL
+ kfOmPizJe9ZBt+aVNDzNd5nTYgBmSHagwY1Ybru0piGHG96d/tPfmw0YClG2Rx5axjH/MUXw2ev
+ f/xe0frkC3+IddJrAJBjhNTauY62FsUg=
+X-Gm-Gg: AfdE7ckMW5gXZM3YE3DZdl54HQ7WCHXymYtqu5cDWErOGqGXfbaOPOKhxY1JF2/tvfN
+ PTIW+viOCfcpHXVlspWQUXOQzkq9WAuAujvFfWXrEzwu/a+2lkBhdFVkeP/Oz97WWnVMgItCRDx
+ ADb+nPsxeqs7HN7JJ0+mRoD8UO4AFqmslm/CjiMECy0ydecFNxPQfc7YuZkOB2ZnZn3IQ+qXbnA
+ 9/nu1nqAXeNec57Xw238bvpygo4lfeYodv0Bdv2uG9fwOftLSEk/X4fxaPFic4GexwtKuM6kH8D
+ yBNDoWD+M5jMldJskhkcGDYzmHQ7TEpkBEXEwokwsv4hFg0KQyi96THSSKWvbFUAQrGmOZK8n8b
+ LY6jRPGSPwCgI
+X-Received: by 2002:a05:6512:3987:b0:5ae:b9b3:9f96 with SMTP id
+ 2adb3069b0e04-5b0115c01f7mr445459e87.6.1783524328462; Wed, 08 Jul 2026
+ 08:25:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260613070116.438906-1-midgy971@gmail.com>
- <20260613070116.438906-10-midgy971@gmail.com>
-In-Reply-To: <20260613070116.438906-10-midgy971@gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 8 Jul 2026 17:24:04 +0200
-X-Gm-Features: AVVi8Cct2pvQNJ49kCocOmZ_g-M7AfBNrJ0WxbavryIJprjGJGNLahRi4HQp2RE
-Message-ID: <CAPx+jO_2=SYo0smYzwd8T+TUtHZtgXU0dSWQgZGZ_haV3aOU_Q@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 9/9] pmdomain: rockchip: Add a regulator to the
- RK3568 NPU power domain
-To: MidG971 <midgy971@gmail.com>
-Cc: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ulf.hansson@linaro.org, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- xxm@rock-chips.com, chaoyi.chen@rock-chips.com,
- finley.xiao@rock-chips.com, diederik@cknow-tech.com, jonas@kwiboo.se
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-9-72cd5d055d54@garyguo.net>
+ <280FBE45-5653-499B-9BB0-A2C77030A826@collabora.com>
+In-Reply-To: <280FBE45-5653-499B-9BB0-A2C77030A826@collabora.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 8 Jul 2026 17:25:11 +0200
+X-Gm-Features: AUfX_my_GxC4KLJmz5i_4DX9QExeJawd6XQyKpw76D3pBDNdQQvLPjQ9qPUqEYs
+Message-ID: <CANiq72nyEK7cMphaawV73bN7VmAKG-UOE4SPDWDpAqoLs8zzKQ@mail.gmail.com>
+Subject: Re: [PATCH v6 09/20] rust: io: use view types instead of addresses
+ for `Io`
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: A9Ssh3_4UeuVXzjYW-_UKPQONZqbD9xk
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE1MSBTYWx0ZWRfX+8D2+Gkt4e4I
- Urxsu5MillsKTqMcOEdwX0PprbQ7rrpxVfPbWeP2P2bEC/mr4yRYAq2ETgHsgVit4e4RccEMqR+
- kKozghyFla1ZZtjXzl6Ym0P2G7gvsjA=
-X-Authority-Analysis: v=2.4 cv=CNoamxrD c=1 sm=1 tr=0 ts=6a4e6ba0 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=JfrnYn6hAAAA:8 a=pGLkceISAAAA:8 a=s8YR1HE3AAAA:8
- a=bcpWyJPC7eKr9KdVfhAA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
- a=1CNFftbPRP8L7MoqJWF3:22 a=jGH_LyMDp9YhSvY-UuyI:22
-X-Proofpoint-ORIG-GUID: A9Ssh3_4UeuVXzjYW-_UKPQONZqbD9xk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE1MSBTYWx0ZWRfXw0szcNpkI85z
- h4QgOJnxOloKjm9sXoN4SV2xmUsKZDweUWW7JWiz/0j+jkY94lCWneQnPALNrOuH3ac6d+smscr
- rSrDgvBSpJbfF3vQ2gocKInyP15KLD86S4iIsIm3E5Rz2mXy6RdDWdgaQXk8big9F2S+qhdlkwt
- cQBol2c67VdKFuBeJ6b2qiJ1AH/dTt0X2sLhdCZN5euQlnw+l36F5VjkReGlP3+0yZ+blF1l2cI
- d5usJH6hyPt6jVyZzxNRFe7+IkqAAJvCU4Uk8xWAnxa6IFUwqhf0UZFj5hEOWyrnC3Z5D+HmgjF
- hONJJc5n8ElLosWgYDH8hyWLTasUZjruhqxedrbG6bFuSwJQKNDRaQ2VsLW8AqGX05X7qNR7HFs
- vrTCMB1xgeHF/33CdnmcU0Ytab4j3cEhFnHprMy7bddQ9fkpFy3CjNi7IUyrOECZTX1yWUxxCNQ
- 6rvdeNVwO7Q2JcdVpQg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 adultscore=0 phishscore=0 impostorscore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080151
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,121 +128,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jun 13, 2026 at 9:01=E2=80=AFAM MidG971 <midgy971@gmail.com> wrote:
+On Wed, Jul 8, 2026 at 4:37=E2=80=AFPM Daniel Almeida
+<daniel.almeida@collabora.com> wrote:
 >
-> From: Midgy BALON <midgy971@gmail.com>
->
-> The RK3568 NPU rail (vdd_npu) needs to be enabled before the domain is
-> powered on and disabled after it is powered off. Give DOMAIN_RK3568 a
-> regulator parameter (like DOMAIN_RK3588 already has) so the NPU domain
-> can set need_regulator, letting genpd manage the rail wired up as the
-> domain's domain-supply instead of marking it always-on in DT.
->
-> Suggested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> Signed-off-by: Midgy BALON <midgy971@gmail.com>
+> You mean to avoid that cryptic =E2=80=9Crust_build_error=E2=80=9D when th=
+e assertion fails?
 
-This looks good to me. I assume this can be picked up independently of
-the other patches, whenever you decide to move forward from the RFC.
-If not, please let me know.
+My reading is that it avoids the assertion failure itself -- if the
+compiler decided not to inline, then it would fail to build when it
+should have succeeded.
 
-Kind regards
-Uffe
+i.e. it is not about improving the error message, but about avoiding
+the error to begin with (not sure which one you meant of the two,
+though).
 
-> ---
->  drivers/pmdomain/rockchip/pm-domains.c | 36 ++++++++++++++++++--------
->  1 file changed, 25 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index 490bbb1d1d8e8..19db307e3811d 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -138,6 +138,20 @@ struct rockchip_pmu {
->         .active_wakeup =3D wakeup,                        \
->  }
->
-> +#define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator=
-)      \
-> +{                                                      \
-> +       .name =3D _name,                          \
-> +       .pwr_w_mask =3D (pwr) << 16,                      \
-> +       .pwr_mask =3D (pwr),                              \
-> +       .status_mask =3D (status),                        \
-> +       .req_w_mask =3D (req) << 16,                      \
-> +       .req_mask =3D (req),                              \
-> +       .idle_mask =3D (idle),                            \
-> +       .ack_mask =3D (ack),                              \
-> +       .active_wakeup =3D wakeup,                        \
-> +       .need_regulator =3D regulator,                    \
-> +}
-> +
->  #define DOMAIN_M_G(_name, pwr, status, req, idle, ack, g_mask, wakeup, k=
-eepon) \
->  {                                                      \
->         .name =3D _name,                                  \
-> @@ -241,8 +255,8 @@ struct rockchip_pmu {
->  #define DOMAIN_RK3562(name, pwr, req, g_mask, mem, wakeup)             \
->         DOMAIN_M_G_SD(name, pwr, pwr, req, req, req, g_mask, mem, wakeup,=
- false)
->
-> -#define DOMAIN_RK3568(name, pwr, req, wakeup)          \
-> -       DOMAIN_M(name, pwr, pwr, req, req, req, wakeup)
-> +#define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)               \
-> +       DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
->
->  #define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, r=
-eq, idle, g_mask, wakeup)      \
->         DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status=
-, r_offset, req, idle, idle, g_mask, wakeup)
-> @@ -1274,15 +1288,15 @@ static const struct rockchip_domain_info rk3562_p=
-m_domains[] =3D {
->  };
->
->  static const struct rockchip_domain_info rk3568_pm_domains[] =3D {
-> -       [RK3568_PD_NPU]         =3D DOMAIN_RK3568("npu",  BIT(1), BIT(2),=
-  false),
-> -       [RK3568_PD_GPU]         =3D DOMAIN_RK3568("gpu",  BIT(0), BIT(1),=
-  false),
-> -       [RK3568_PD_VI]          =3D DOMAIN_RK3568("vi",   BIT(6), BIT(3),=
-  false),
-> -       [RK3568_PD_VO]          =3D DOMAIN_RK3568("vo",   BIT(7), BIT(4),=
-  false),
-> -       [RK3568_PD_RGA]         =3D DOMAIN_RK3568("rga",  BIT(5), BIT(5),=
-  false),
-> -       [RK3568_PD_VPU]         =3D DOMAIN_RK3568("vpu",  BIT(2), BIT(6),=
-  false),
-> -       [RK3568_PD_RKVDEC]      =3D DOMAIN_RK3568("vdec", BIT(4), BIT(8),=
-  false),
-> -       [RK3568_PD_RKVENC]      =3D DOMAIN_RK3568("venc", BIT(3), BIT(7),=
-  false),
-> -       [RK3568_PD_PIPE]        =3D DOMAIN_RK3568("pipe", BIT(8), BIT(11)=
-, false),
-> +       [RK3568_PD_NPU]         =3D DOMAIN_RK3568("npu",  BIT(1), BIT(2),=
-  false, true),
-> +       [RK3568_PD_GPU]         =3D DOMAIN_RK3568("gpu",  BIT(0), BIT(1),=
-  false, false),
-> +       [RK3568_PD_VI]          =3D DOMAIN_RK3568("vi",   BIT(6), BIT(3),=
-  false, false),
-> +       [RK3568_PD_VO]          =3D DOMAIN_RK3568("vo",   BIT(7), BIT(4),=
-  false, false),
-> +       [RK3568_PD_RGA]         =3D DOMAIN_RK3568("rga",  BIT(5), BIT(5),=
-  false, false),
-> +       [RK3568_PD_VPU]         =3D DOMAIN_RK3568("vpu",  BIT(2), BIT(6),=
-  false, false),
-> +       [RK3568_PD_RKVDEC]      =3D DOMAIN_RK3568("vdec", BIT(4), BIT(8),=
-  false, false),
-> +       [RK3568_PD_RKVENC]      =3D DOMAIN_RK3568("venc", BIT(3), BIT(7),=
-  false, false),
-> +       [RK3568_PD_PIPE]        =3D DOMAIN_RK3568("pipe", BIT(8), BIT(11)=
-, false, false),
->  };
->
->  static const struct rockchip_domain_info rk3576_pm_domains[] =3D {
-> --
-> 2.39.5
->
->
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+Cheers,
+Miguel
