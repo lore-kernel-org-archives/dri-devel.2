@@ -4,57 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85E4DC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 19:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A12CEC44503
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 19:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1DFF10F287;
-	Wed,  8 Jul 2026 19:45:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF3B710F2AB;
+	Wed,  8 Jul 2026 19:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ScNy4CMv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dtQSMFWg";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0434C10F287;
- Wed,  8 Jul 2026 19:45:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Hv3wmL7ypIqw04FS5X4dARu+I4jYPp3ZeAa9B0ydbFY=; b=ScNy4CMvMLanR04bFi4RFseNae
- prwkQy8vV3oCiJslx7DK+8SEXkCQrywurQDfDfcT+xlSBNBP79cgyf/tAbNcPCYIzrn/yLHEHm9qq
- jftFRxnOlnZqLHaBiquV1YBsmramzeCLykn2vd8XAhQqhHVHe/CaH4vmxH7/6oHgQkcJ/ebEAIgD7
- SFKIj0r6CNCYk/aTJVlObPbgmWkhoUUHADKBz3DK5YsF+0cwimvnAiOWsS7v2T6vVo4FmLcOBmwAY
- B2q1Wn8xQXCQKCnX5LmC7vouKk1Mx9DSwS78WNKl1EUQ5OpILpoXHTiOOJFnyOtaHWlw1zLiQiHh4
- Kd5gTSBg==;
-Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
- helo=killbill) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1whYCy-00BtrH-BW; Wed, 08 Jul 2026 21:45:24 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
- "Nicolas F . R . A . Prado" <nfraprado@collabora.com>,
- Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- John Harrison <John.Harrison@Igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH 15/19] drm/amd/display: add support to post-blend CTM
- colorop
-Date: Wed,  8 Jul 2026 21:37:30 +0200
-Message-ID: <20260708194343.2578387-16-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260708194343.2578387-1-mwen@igalia.com>
-References: <20260708194343.2578387-1-mwen@igalia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B06E010F296;
+ Wed,  8 Jul 2026 19:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783540397; x=1815076397;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=z5yppuynIGwHpa2ZIayyafl8bIWues+2zBrkEuxZYUs=;
+ b=dtQSMFWgQeXPdLnfb0EM1JOeJDJ468KN7tZk+W5shmgz3uhon3tFia9z
+ PuZLuTqFKveFZDI4/NXcrmqVWI8pOXn+18AhsYMWFcrXBs6S6TcM+cX6U
+ FS10htPf5rOTRCZIU86KM/w4BZHnaUgySiJjLCzO1VR1+wRGcbXQqD54P
+ 284n34oiJX0SpajpIpqr2vTVIoYmtNpeRQQp7K3IBz6fFYDO2X6QypRNZ
+ Dt0W0g4SdOJRmgryF68aO1kUeF2zbeXbYzgBqELE46pewEYpb+XEBmf17
+ iYSwltLmfC3jCqlnHkSTznjg6feQlGUYmE38HE0urx0Lxxpdoy6yLbO7X g==;
+X-CSE-ConnectionGUID: w+4jUTqfQ06ZJZT1uHy+tg==
+X-CSE-MsgGUID: wS4b5XwQS4qoifGhGI8O6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84236192"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84236192"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2026 12:53:17 -0700
+X-CSE-ConnectionGUID: a2lTeD6vTMijeglv/rIYGg==
+X-CSE-MsgGUID: jaPshmFMTWWbezPadb88nw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="255030124"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2026 12:53:16 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 8 Jul 2026 12:53:15 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Wed, 8 Jul 2026 12:53:15 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.2) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 8 Jul 2026 12:53:15 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q/lQnHU0X1lxE3swBgyC3gYmBaaDNlLYb6+F5akiZz4/ABS6GJz4Aeo1tLImD+APvbHq/GAdJTM0zsrhBVp9WzIT4JBXzOSBq9oAelT+ITzA5HElIvsMWesncvMu1VhCAO143XeVIKF5pBYUNFR3hZ2A0KhMQ9QFQugYARO+VLQFT3+JiPd8RgTmlOMdKTxuP8sDSxnhVLgoahDt62ry0UExzzNk61MunR1OhrssxOhLEnyJb//BaoduVcMfsdCjVKGM0qwc9uYIlNm383az6OeB5v5i84uodsrPaJtF/LC2zwfcxzpKifJqn5cfP7vcq3JFQ3DPs04ktayKoCrWQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GyDbr5I47pp4Y2qVW8isviXCXFq7GdTOMIwxXBnP44s=;
+ b=rZSuKmJXdLoEHkBwINAzqnN+o1ucfzP+jacC12y76aLIcSsrJX2IUEhCzQb5bPMCYZxxSsr+x5koRexBii7xP8ni8LGHwjP8Sz/oPK/uSCoMUmKhsIm9Y2YuB6Zr4fjcb4g8nlu7IkL27CCmF+kORITz5wB6RwH+SEwMJWlcOWv45EpWXn6joYxqvO9SqcATVzddXKkZ610b2w+tsusuLpnhcsAtwwkx+2ZwgJtvyg95++xbcKKqb8JA0LC2vv7lXEyeJ5Od+OfcYf2Ll5IYiZU/A2DxNMFnFAHLQk0j+vQqQApLUqlqLm5fck645CbzHX3fVeEyW/nlwsyPIc7++A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
+ by PH0PR11MB4887.namprd11.prod.outlook.com (2603:10b6:510:30::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 19:53:12 +0000
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0181.014; Wed, 8 Jul 2026
+ 19:53:12 +0000
+Date: Wed, 8 Jul 2026 15:53:08 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Alexander Usyskin <alexander.usyskin@intel.com>
+CC: Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] drm/xe/nvm: fix writable override for CRI
+Message-ID: <ak6qpHnzj7I9fLiz@intel.com>
+References: <20260708-cri_nvm_fdo_flip-v1-1-792373667334@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260708-cri_nvm_fdo_flip-v1-1-792373667334@intel.com>
+X-ClientProxiedBy: SJ0PR13CA0073.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c4::18) To CO1PR11MB5073.namprd11.prod.outlook.com
+ (2603:10b6:303:92::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|PH0PR11MB4887:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3255962-c6e3-41c4-e406-08dedd2a8b2c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|22082099003|18002099003|11063799006|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info: DqyFdoOeXSr8dZPtGgcXMjwbb74bT7cz3ytGEtaRFksTjiV2aua/sqQ0xd9XN9YzqWcKeFo6pwZEMKIW7obo5V0IIkIcDyX9lIR1YbBuKQVDfaySqlToouT+YvSGxuHtJeyak8uRPiz+mXIvb7o5CCzeS0B8KnEjyelSN8ftaPxpawOFlEE175HVOX9SP0BTyjhQVywbpM3n/4UBaedLqz9AHkBYyF0oCWDmbz9bJyFDhrC3SDgtB+rYFVxvgJglBXq42u+vmfKMYc+chrma32IhjdUhnbLAm3tIVvYmjIVVui+7cFZQiq9dzXnOay227igx5MqrnvcCeSlW1+lpnwoBrVnhHHFKSEEwXX4i/dIPM5AkE7n1raxzw4UinsuUuuZjPE1azpTNKqzm9h22NXkibHa/rk3Y2KPxVLhiAAskPxrObg+2nexaNifjKu0qMACoj74MIuGaR1iWCELaacjUU8UPsdWB6HfPyK/7DTPPOpHSrAigB14wxpeJqZbJIHtJMdNG3O/mw1t2H+p754D+GsfFmpcWbTIWC8Nk0XsqFY/jeuwCu2ySl42C3y2Vw1Z5vE2Q2Md6F6tmsd+OZix4tc+pMRI5fPuqvcU6/qaXmTKuaW0VPKfqf+jEAjo0T1gN8K4QqJVP5VkYQlZBMioWA23ZTLcqq+50ZrEzFpk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?o3c2TOvQsOLk6xxGfhT2gVXsjqwEe6XxWt26x6chrB9zIKk3HXBuzjnxJXbb?=
+ =?us-ascii?Q?0IPq9592I65yJLmgTp4uzABzob1K/cbNXoaai4gXOb/57XMNEMqGLGNCqLuR?=
+ =?us-ascii?Q?xMQv9DdVF42av2vipz4bRzDf2OJlVU3P9embeG5tCn+5ipkXMOm27uAzVWPp?=
+ =?us-ascii?Q?hxwmDk4wGvN2yi11O4eEF94xBx255uxM+yVy4IAZmNiWjjKfLpC5eAAlvgHg?=
+ =?us-ascii?Q?kpLJwi4ujPubrRyS6dE+evoNIfeZbs1CRCWvPdKlol0bqya647k3N7d1pEsE?=
+ =?us-ascii?Q?KQz+ITpc/so8OXB5vAehQ9o6SsJkbILSqKOZ/EVGeRJ2fMDO+/2gjCNViZqj?=
+ =?us-ascii?Q?tO7LwbT5S3K1BY90z7J74gpLXXWmE9MNOl5RLI2EX5H3M3Ke+l05cx5u9WXk?=
+ =?us-ascii?Q?1U78MCJNvKVHJlfR4lxvEhBjljV55fTw1/zwrQYnUTZAV7gd8jtf3/C50mR+?=
+ =?us-ascii?Q?fcxPSyww0xURBH+UxHUkYGspSznBxUQsB2/O+0YMFskn6Ht2fMLxTFJC10Co?=
+ =?us-ascii?Q?uT4rBbwsrdb5e/Ab+qi0hnH9MJUtXiFTlnpayE4VTczlnstr2PGqDdncWj7y?=
+ =?us-ascii?Q?Y/J7MF/DVXAj8b0ZcTNjMiXncwnUTZ6TcUgfbJxyqXzp+srA34j/IVXXlGrm?=
+ =?us-ascii?Q?BNFHzFO9SFs07qfF2Ro2tOUdtthH7XZJmaIw4KvYcHUXiQM48Qu7+zpLeziZ?=
+ =?us-ascii?Q?zhrNaPByOiJPF4MmATdxUNob93wbnfUrBW+X9yWUaFi/vasyQrLImLTx/MFv?=
+ =?us-ascii?Q?OQB9Sa5xm3vlGX9gPdbvR8/SeyPYp6cpvZrxcrPuW5mkf6BX9c0nuRikTDwk?=
+ =?us-ascii?Q?wcglRBXtYh5yXmpu6DdElSKgA/IWyN2BWVxNbm5MEBqRa9dCEu1Tjy0HxYuF?=
+ =?us-ascii?Q?NoqZBE8o15RWoqgl3707Bs+pV4/NO6muybdPhK+Q4cidy7U9ZfUF8TNUTcQA?=
+ =?us-ascii?Q?eaR79VvElPG43Ionr+ye3Xz+snUsvIiGqI++ZgRil33WsEz6stOtd9wvhiSe?=
+ =?us-ascii?Q?agZgfYIXGg/2JytT/BFz17csQXc9XBCDJmY3nZkbuDfd8KDIoMrZuNhbxrUm?=
+ =?us-ascii?Q?qaddysaXyEECnKcV2cCCFNk+6D6ychYa6Vyhi9yZd/ojRrFVi3RRO1Mpk3Vi?=
+ =?us-ascii?Q?dPNu2sRbov2q5eV0BTttmfQc5h0grmHJ9sY0si21DO/SGAq/Zq+nZh6sbBZB?=
+ =?us-ascii?Q?2BB0yYeDYv4nHGt5Y7G6VrJUxoWgwb5I2GEkB+eBM2abbn15J/rjAiBYIiVq?=
+ =?us-ascii?Q?DrZaHahaHVywxgAoQ4xRS2x9/CXaWCwRsr1/cGJZkHUG/SZ0kSjHpYl3CwFv?=
+ =?us-ascii?Q?z3MWnmrBRQhJ6ccRWdJXqnJSbaoRUei/al0Zqy0jtkTZKpc5x1UADzgxm4ZC?=
+ =?us-ascii?Q?C9vHfeWbwQQ1M4S+8tvFMzTH7v/y8uf2m9Rma4d2AtFrTUuhmnDaTbku9QSI?=
+ =?us-ascii?Q?kiXASjsR2H4szfZa/fYU/MYJMX33IdYjJYAk/PqLmgOndC9dKcLoZkmP9Hy4?=
+ =?us-ascii?Q?qwHephBza47PCZQ+yQtTmJlpRztVpBTzwMP431Hb70hEmVvtXow/5UFi3F5V?=
+ =?us-ascii?Q?OZflS7YS/cisIEG/QMQ+OeODGgTW1p1tHfpDWSh6lLBnKnFaabfQwNjGahBg?=
+ =?us-ascii?Q?3wRD9H2rYWW/4amMj4nN/LzFqn+JqzX/eAENtUyo8Fw4ozQJUHSBIEPsWTpQ?=
+ =?us-ascii?Q?dAKVlXOImQXlTThawaL7wkMRF0tY2KuSvLnI6k/eIyqIOox66VXHsONJQ0GO?=
+ =?us-ascii?Q?WZl3fHwHSg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: BLZdf8ZTLIsaAII5lLyFEbSXYoywPBIOAAQ/wQEQlyCcu4yRTBwyGSX1B3K9JRIbRwyvseMBTgpKzZLcTuVgQh1ANuWF7a5Lvvk99ljS/fEWhsnPtsQjMw1K2CFeHeFgTjNiAuV0XGKA5Tn1o3td7Wx2b7y9qC0q1bchP/4ZislYC5qW/DWaV4NtFKC2qWfm4kqf3RJs/SUhkrsUXwzUcgq+WFG+iz0bLhl52qAXhpvPFRx+NR6FSE11Bt9mj0cFsFuadb6LrozLXMPKjdk+0pKAJ90o/KZZYGuM5cBQ1pOeR2vqBnYpnkWVRZ1/a27Z2LcCdBvnxlPU40qS12M4Ug==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3255962-c6e3-41c4-e406-08dedd2a8b2c
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 19:53:12.8420 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lZfMohVoltuPeMhZIGjK4LEKAsDlKHKrFmAWLPsVH45zPqnlFwYl3HXhAI1dT2lU8PJwgEEY0raeQWOAC0T/Xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4887
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,240 +161,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Initialize the AMD post-blend color pipeline with CTM as the first color
-operation in the AMD post-blend color pipeline. AMD post-blend color
-pipeline for DCN3 is described in `DCN 3.0 family color caps and
-mapping` of the kernel doc.
+On Wed, Jul 08, 2026 at 06:00:17PM +0300, Alexander Usyskin wrote:
+> The witable override should be set when FDO_MODE bit is enabled.
+> Fix the comparison to distingush this case from legacy systems
+> where bit should be disabled to have override.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 9dde74fd9e65 ("drm/xe/nvm: enable cri platform")
+> Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+> ---
+>  drivers/gpu/drm/xe/xe_nvm.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_nvm.c b/drivers/gpu/drm/xe/xe_nvm.c
+> index 33487e91f366..d50ee414e83e 100644
+> --- a/drivers/gpu/drm/xe/xe_nvm.c
+> +++ b/drivers/gpu/drm/xe/xe_nvm.c
+> @@ -60,35 +60,39 @@ static bool xe_nvm_writable_override(struct xe_device *xe)
+>  	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
+>  	bool writable_override;
+>  	struct xe_reg reg;
+> -	u32 test_bit;
+> +	u32 test_bit, test_val;
+>  
+>  	switch (xe->info.platform) {
+>  	case XE_CRESCENTISLAND:
+>  		reg = PCODE_SCRATCH(0);
+> -		test_bit = FDO_MODE;
+> +		test_val = test_bit = FDO_MODE;
 
-Link: https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.html#dc-color-capabilities-between-dcn-generations
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 81 +++++++++++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 38 +++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |  2 +
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 38 +++++++++
- 5 files changed, 162 insertions(+)
+-:31: CHECK:MULTIPLE_ASSIGNMENTS: multiple assignments should be avoided
+#31: FILE: drivers/gpu/drm/xe/xe_nvm.c:68:
++		test_val = test_bit = FDO_MODE;
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 74f700fbeb6f..1c890ded8f9b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1100,6 +1100,9 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
- int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
- int amdgpu_dm_check_crtc_color_mgmt(struct dm_crtc_state *crtc,
- 				    bool check_only);
-+int amdgpu_dm_crtc_set_colorop_properties(struct drm_crtc_state *crtc_state,
-+					  struct dc_stream_state *dc_stream_state,
-+					  bool check_only);
- int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct drm_plane_state *plane_state,
- 				      struct dc_plane_state *dc_plane_state);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 54b3c163a36c..20996af68f04 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1176,6 +1176,87 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
- 	return 0;
- }
- 
-+static int
-+__set_dm_crtc_colorop_3x4_matrix(struct drm_crtc_state *crtc_state,
-+				 struct dc_stream_state *dc_stream_state,
-+				 struct drm_colorop *colorop,
-+				 bool check_only)
-+{
-+	struct drm_colorop_state *colorop_state = NULL;
-+	struct drm_atomic_commit *state = crtc_state->state;
-+	const struct drm_property_blob *blob;
-+	struct drm_color_ctm_3x4 *ctm = NULL;
-+
-+	/* If CRTC COLOR_PIPELINE property == Bypass */
-+	if (!colorop) {
-+		if (!check_only) {
-+			dc_stream_state->gamut_remap_matrix.enable_remap = false;
-+			dc_stream_state->csc_color_matrix.enable_adjustment = false;
-+		}
-+		return 0;
-+	}
-+
-+	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-+
-+	if (colorop_state && colorop->type == DRM_COLOROP_CTM_3X4) {
-+		if (colorop_state->bypass) {
-+			if (!check_only) {
-+				dc_stream_state->gamut_remap_matrix.enable_remap = false;
-+				dc_stream_state->csc_color_matrix.enable_adjustment = false;
-+			}
-+		} else {
-+			drm_dbg(state->dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
-+			blob = colorop_state->data;
-+			if (blob->length != sizeof(struct drm_color_ctm_3x4)) {
-+				drm_warn(state->dev, "blob->length (%zu) isn't equal to drm_color_ctm_3x4 (%zu)\n",
-+					 blob->length, sizeof(struct drm_color_ctm_3x4));
-+				return -EINVAL;
-+			}
-+			if (!check_only) {
-+				ctm = (struct drm_color_ctm_3x4 *) blob->data;
-+				__drm_ctm_3x4_to_dc_matrix(ctm, dc_stream_state->gamut_remap_matrix.matrix);
-+				dc_stream_state->gamut_remap_matrix.enable_remap = true;
-+				dc_stream_state->csc_color_matrix.enable_adjustment = false;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * amdgpu_dm_crtc_set_colorop_properties: Set colorop props if programmable by DC.
-+ * @crtc_state: DRM crtc state
-+ * @dc_stream_state: AMDGPU DC stream state
-+ * @check_only: only check color state without update dc stream
-+ *
-+ * This function verifies post-blend CTM and LUT sizes: if there is enough space, and for
-+ * output transfer function, if its parameters can be calculated by AMD
-+ * color module. The main difference with CRTC color mgmt properties is that
-+ * post-blend degamma is not part of the color pipeline since it's actually
-+ * supported pre-blend only.
-+ *
-+ * If it's not an atomic check, DC resources are checked and updated
-+ * accordingly.
-+ *
-+ * Returns:
-+ * 0 on success. Error code if validation fails.
-+ */
-+
-+int
-+amdgpu_dm_crtc_set_colorop_properties(struct drm_crtc_state *crtc_state,
-+				      struct dc_stream_state *dc_stream_state,
-+				      bool check_only)
-+{
-+	struct drm_colorop *colorop = crtc_state->color_pipeline;
-+	int ret;
-+
-+	/* 3x4 matrix */
-+	ret = __set_dm_crtc_colorop_3x4_matrix(crtc_state, dc_stream_state, colorop, check_only);
-+
-+	return ret;
-+}
-+
- /**
-  * amdgpu_dm_check_crtc_color_mgmt: Check if DRM color props are programmable by DC.
-  * @crtc: amdgpu_dm crtc state
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-index 1c3e7ccb9eda..0abe8ab9184b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
-@@ -252,3 +252,41 @@ int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_pr
- 
- 	return ret;
- }
-+
-+int amdgpu_dm_initialize_crtc_default_pipeline(struct drm_crtc *crtc,
-+					       struct drm_prop_enum_list *list)
-+{
-+	struct drm_colorop *ops[MAX_COLOR_PIPELINE_OPS];
-+	struct drm_device *dev = crtc->dev;
-+	int ret;
-+	int i = 0;
-+
-+	memset(ops, 0, sizeof(ops));
-+
-+	/* 3x4 matrix */
-+	ops[i] = kzalloc_obj(struct drm_colorop);
-+	if (!ops[i]) {
-+		ret = -ENOMEM;
-+		goto cleanup;
-+	}
-+
-+	ret = drm_crtc_colorop_ctm_3x4_init(dev, ops[i], crtc, NULL,
-+					    DRM_COLOROP_FLAG_ALLOW_BYPASS);
-+	if (ret)
-+		goto cleanup;
-+
-+	list->type = ops[i]->base.id;
-+
-+	i++;
-+
-+	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", ops[0]->base.id);
-+
-+	return 0;
-+cleanup:
-+	if (ret == -ENOMEM)
-+		drm_err(crtc->dev, "KMS: Failed to allocate colorop\n");
-+
-+	drm_colorop_pipeline_destroy(dev);
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-index 7b71d3144391..85c21669bf78 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.h
-@@ -34,4 +34,6 @@ extern const u64 amdgpu_dm_supported_fm;
- 
- int amdgpu_dm_initialize_default_pipeline(struct drm_plane *plane, struct drm_prop_enum_list *list);
- 
-+int amdgpu_dm_initialize_crtc_default_pipeline(struct drm_crtc *crtc, struct drm_prop_enum_list *list);
-+
- #endif /* __AMDGPU_DM_COLOROP_H__*/
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 3dcedaa67ed8..6226c9ba5fce 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -32,6 +32,7 @@
- #include "amdgpu_dm_replay.h"
- #include "amdgpu_dm_crtc.h"
- #include "amdgpu_dm_plane.h"
-+#include "amdgpu_dm_colorop.h"
- #include "amdgpu_dm_trace.h"
- #include "amdgpu_dm_debugfs.h"
- #include "modules/inc/mod_power.h"
-@@ -518,6 +519,43 @@ amdgpu_dm_atomic_crtc_get_property(struct drm_crtc *crtc,
- 
- 	return 0;
- }
-+#else
-+
-+#define MAX_CRTC_COLOR_PIPELINES 5
-+
-+static int
-+dm_crtc_init_colorops(struct drm_crtc *crtc)
-+{
-+	struct drm_prop_enum_list pipelines[MAX_CRTC_COLOR_PIPELINES] = {};
-+	struct drm_device *dev = crtc->dev;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct dc *dc = adev->dm.dc;
-+	int len = 0;
-+	int ret = 0;
-+	int i;
-+
-+	/* initialize pipeline */
-+	if (dc->ctx->dce_version >= DCN_VERSION_3_0) {
-+		ret = amdgpu_dm_initialize_crtc_default_pipeline(crtc, &pipelines[len]);
-+		if (ret) {
-+			drm_err(dev, "Failed to create color pipeline for CRTC %d: %d\n",
-+				crtc->base.id, ret);
-+			goto out;
-+		}
-+		len++;
-+
-+		/* Create COLOR_PIPELINE property and attach */
-+		ret = drm_crtc_create_color_pipeline_property(crtc, pipelines, len);
-+	}
-+
-+out:
-+	for (i = 0; i < len; i++)
-+		kfree(pipelines[i].name);
-+
-+	return ret;
-+}
-+
-+
- #endif
- 
- /* Implemented only the options currently available for the driver */
--- 
-2.53.0
+total: 0 errors, 0 warnings, 1 checks, 42 lines checked
 
+>  		break;
+>  	case XE_BATTLEMAGE:
+>  		reg = HECI_FWSTS2(DG2_GSC_HECI2_BASE);
+>  		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
+> +		test_val = 0;
+>  		break;
+>  	case XE_PVC:
+>  		reg = HECI_FWSTS2(PVC_GSC_HECI2_BASE);
+>  		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
+> +		test_val = 0;
+>  		break;
+>  	case XE_DG2:
+>  		reg = HECI_FWSTS2(DG2_GSC_HECI2_BASE);
+>  		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
+> +		test_val = 0;
+>  		break;
+>  	case XE_DG1:
+>  		reg = HECI_FWSTS2(DG1_GSC_HECI2_BASE);
+>  		test_bit = HECI_FW_STATUS_2_NVM_ACCESS_MODE;
+> +		test_val = 0;
+>  		break;
+>  	default:
+>  		drm_err(&xe->drm, "Unknown platform\n");
+>  		return true;
+>  	}
+>  
+> -	writable_override = !(xe_mmio_read32(mmio, reg) & test_bit);
+> +	writable_override = (xe_mmio_read32(mmio, reg) & test_bit) == test_val;
+>  	if (writable_override)
+>  		drm_info(&xe->drm, "NVM access overridden by jumper\n");
+>  	return writable_override;
+> 
+> ---
+> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+> change-id: 20260708-cri_nvm_fdo_flip-333b545e1dd8
+> 
+> Best regards,
+> -- 
+> Alexander Usyskin <alexander.usyskin@intel.com>
+> 
