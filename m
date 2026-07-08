@@ -4,43 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A670AC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 02:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D5B5C44501
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 02:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F226F10EFAF;
-	Wed,  8 Jul 2026 02:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC0610EFAD;
+	Wed,  8 Jul 2026 02:37:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fxJkV46j";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MFprGJWi";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA5C10EFA6
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 02:36:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2646643449;
- Wed,  8 Jul 2026 02:36:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEFE51F000E9;
- Wed,  8 Jul 2026 02:36:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783478178;
- bh=Q4nZO6LkStnu6nuAlAsPAdpKbB1V7GfqWqiS784BE7U=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fxJkV46jTxvf421g8yIpKWQPgBIJwFdx7uZ2VJB7HLo4S1mIQ8/ovV5jelMoGKtjq
- 5H68zhYjdVmpjCKptMTwJstjRtZlt9D0RBeL4ieAkFCcK6HtPJg7nn2LbQjMO6hAoz
- r5MVZrd88RtybNN2esACW/YSrg5VwrR/ewf7wvTorhGM/a392VqTSyNw15hD1H/793
- 3fLTaqMvr5zYsqIRRxzXZBDp8pEMN5bQ8cRjv/3ztRlVW1G8Vt2vUoUUIn6f6R1hlT
- KkrSz1HyyoCfJQR2fJ7WwHKp8aDHmdSOCZDvEWwATpW8XjXIRoPAHKPUw67hBl231x
- uv7MtPjOaZWpQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 24/24] dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-To: "Jim Cromie" <jim.cromie@gmail.com>
-Cc: linux-modules@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707-dd-maint-2-v6-24-381f3edb0045@gmail.com>
-References: <20260707-dd-maint-2-v6-0-381f3edb0045@gmail.com>
- <20260707-dd-maint-2-v6-24-381f3edb0045@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011033.outbound.protection.outlook.com [52.101.52.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A443710EFA6;
+ Wed,  8 Jul 2026 02:37:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VZZQ8cZA52MWgegKfOITVQAgcN0oUlLjyR474Ros5iq2rFKdnOuXb6pKZjs/pNJkxrBfi6ocQQapdwKi+8/reZbLST6nD8Jm/g6yDjDQA90L4Gu488H+gbkFtZctzwyW9ACwFMNctCUQz3rb6BJT5AIr91tV+/E+WocFTaXbFjDUKJVJS2kAj8+TrLEYoN//KBVVrYWBttNKHguWgWro/ws1CdBSiTZLeVJOr8G0buTR8DeSa++48RHv2468LoqnC7rU73jQ2BDV1CfXANhRCb4u4M9eXF+/BGOG0eLPaJ49T2NQuzNV2M4O10feAMyr/BGpcPgkafLvYBvQwZ7tbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jf+DSRZPaPiqa23Z+NsIeIObG2sHTY0/CEuDSTYjg9s=;
+ b=nQ0P4/sdSXmiO0ZHr6pihPNjCu4cIgzODYN8EZ9QDLERGTyPhtE2VCqPaqyb1VpvWEL3Ux/zAU6jewidQKTqA+lAj6npH0mvZ+0f3VtbSE/4OmVa6qfMVJcXkXe3T9nf1giwt7gyg2yd6HRm88814Tm2nEDgPO7xNZAyaVd3pBObvJecy/3AvUeWiA1tFyoh6GYy/pjI+GDRw1/a1yOMVOuv3DDRyhcUvexi0mF9HGCEYG4xDk9X8zb74EAK70QxBDptG6fuoTw0+fw3iUHE5q3jkDJVkS8kKfegJZIjT9MoOa+dlImbJT/SfY4ZQmyMYxV+XQuAxJG0cVAu8zAX6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jf+DSRZPaPiqa23Z+NsIeIObG2sHTY0/CEuDSTYjg9s=;
+ b=MFprGJWimBSpaXlX3i+O2/ZtL/fCHs1830SG75uwTc7F2hRMC3ncWb0JVlaaHVw/5hZW6q09BGuO3WhI8/sOZeQ7AO+D9CajqiB+24XtXHRarG62ZqCgB9uAFlnXlWyBTCLqWMfQlWpvz8a090qazpfvO9gxfqfSpFL99yPS5lBI5rvU/SFJdKATvfn429MzTUUbTzsxhPfQBEJcF+NzRZ4+7GGvLEVBadjnPBCkTDSl6lHNA2V6pikinctkgMQPNu3IleNkM9/978FewuMGSj90RnXTOMmMdo/rpYiR991nr9PKuGj5R6vMtBTYaohBDdVb0G3MmQ2Ou9MvIJZ0fg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by PH7PR12MB8778.namprd12.prod.outlook.com (2603:10b6:510:26b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Wed, 8 Jul
+ 2026 02:36:59 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
+ 02:36:58 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 02:36:17 +0000
-Message-Id: <20260708023617.CEFE51F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Jul 2026 22:36:51 -0400
+Message-Id: <DJSU9FF2QXT5.14Y23MIT6POO3@nvidia.com>
+Subject: Re: [PATCH 08/13] mm: introduce vma_get_page_prot() and use it
+Cc: "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, "Madhavan Srinivasan"
+ <maddy@linux.ibm.com>, "Michael Ellerman" <mpe@ellerman.id.au>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Lucas
+ Stach" <l.stach@pengutronix.de>, "Inki Dae" <inki.dae@samsung.com>,
+ "Seung-Woo Kim" <sw0312.kim@samsung.com>, "Kyungmin Park"
+ <kyungmin.park@samsung.com>, "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Peter Griffin" <peter.griffin@linaro.org>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Lyude Paul" <lyude@redhat.com>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Sandy Huang"
+ <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "Thierry Reding"
+ <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
+ "Jonathan Hunter" <jonathanh@nvidia.com>, "Gerd Hoffmann"
+ <kraxel@redhat.com>, "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
+ "Zack Rusin" <zack.rusin@broadcom.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Thomas Hellstrom"
+ <thomas.hellstrom@linux.intel.com>, "Oleksandr Andrushchenko"
+ <oleksandr_andrushchenko@epam.com>, "Helge Deller" <deller@gmx.de>,
+ "Benjamin LaHaise" <bcrl@kvack.org>, "Alexander Viro"
+ <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
+ "Muchun Song" <muchun.song@linux.dev>, "Oscar Salvador"
+ <osalvador@suse.de>, "David Hildenbrand" <david@kernel.org>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
+ "Nico Pache" <npache@redhat.com>, "Ryan Roberts" <ryan.roberts@arm.com>,
+ "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
+ Yang" <lance.yang@linux.dev>, "Hugh Dickins" <hughd@google.com>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jann
+ Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>, "Kees Cook"
+ <kees@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai"
+ <tiwai@suse.com>, <linux-mips@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
+ <dri-devel@lists.freedesktop.org>, <etnaviv@lists.freedesktop.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-samsung-soc@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
+ <linux-tegra@vger.kernel.org>, <virtualization@lists.linux.dev>,
+ <intel-xe@lists.freedesktop.org>, <xen-devel@lists.xenproject.org>,
+ <linux-fbdev@vger.kernel.org>, <linux-aio@kvack.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+ <linux-sound@vger.kernel.org>
+To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.21.0
+References: <cover.1782760670.git.ljs@kernel.org>
+ <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
+In-Reply-To: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
+X-ClientProxiedBy: DS7PR03CA0225.namprd03.prod.outlook.com
+ (2603:10b6:5:3ba::20) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB8778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d82f526-25a1-487f-f722-08dedc99c8a7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|10070799003|11063799006|4143699003|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: IJg6EdRPZd9WVhujhgKnpJbCHuanEdRyEYJF1H/xR2IHNf4l16FKVIz74HfuoPctZTTfQSnfqG6NPQ++2PeSpebhCKhQRv+JRvBHJk5mdG0k9mYrctd0PPrQksvnJL75lKRzA7lc5xX5fuvCHXP0BN42CFzdSzbq1sgz8k7zet65CVVALweguWZP1V1pHN7JOEaY95FaGbkUD42nFTISX3PKBMyu9R+EdMImtjqn/nF50ILLPajW+5NxPVUdHxVdVtQoz0twBmrQXO0y30cmwh1RR0ls3/ojVSnrh1dgaoa8X+TtrWmwFQ5jYR5L702/JkC5lvexOIHam8V1zjUVZdRpL+dUNuJbEEjz88KTAF6bVIU5RNqCYfIW46t4BvWyPopNp0MtIYE4WYGymFz69uG/bwuSNcABIyUrOSEx+H9QM03TN86PpEVh5N0sseX9Hx9Tlu+ZI8RySDwyqLCPHP6TVCjx7wF/m2acj+8sMKDafToLdnE7bq17YmQKwf83DJlYp5N9SqQ8QsR6Tpb0TUNhLsjPESr1mLSqyrPNCzyrYBTMpv+nD1XO4HWnoUrznAlFcflPdhKTWK3hWVSA6ykBoS/HMAAC//awczhM706YzLgU27Ep9YUxhatBS60GijbURnHgECNTDXPsKIIrRRldoQdyz0vWOeSy63vByYk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10070799003)(11063799006)(4143699003)(56012099006)(6133799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek5CR0JZK0h1R2ZwMjFselVxakFaTUxTVUFmb09RbTYyeVFqdnpBRFQzam84?=
+ =?utf-8?B?TEk3N3krL0R1dUlqUWFZSlcwbC9aWDVwb21EVW1vdmJlNDRiREVjN1J3WHlQ?=
+ =?utf-8?B?QnFHcFE5aVBxZkU3QkRmaGs4YnhSVDN1VkpiYlA4WTVFM05Zc2FuRW9WcTJh?=
+ =?utf-8?B?QzFVRUlqVEhWUDByeTNtd2FNQzFReGtTcW5FdGg3bGY1ZnhUMmhqQ2hMMmJp?=
+ =?utf-8?B?c1prZFRJR0FORlNhV3pJNWhQaVF5K044dWFCdFYveWdaWW5tYUFNYXR4WTNu?=
+ =?utf-8?B?UlFMdHYvc28zajh5ZTc0Um1qR29MNlZrTXpteW1JWHVkMWFoMUxuay9keG4z?=
+ =?utf-8?B?dEZSS1Z4ZFh2bVFFM0M0Zk5WbGZsc1JJamZ6c2ZILzF1bndLOVd0bkQ2WXNu?=
+ =?utf-8?B?eFdEbXJ6N0hiTnNXbVdBRlJVeUYwK0lSL0VuSU1GamU3Z3NoQWZZNkFyNUFr?=
+ =?utf-8?B?Tm5XQzA3WlVIeWkvRmdtUlduTG16QWpFRTkxOXl1Q3RsWWdpTVp5bGlrRXZD?=
+ =?utf-8?B?VDlRVkowNUxkdytMUzc1aVlLeFphUVN4ZkwzNTJQNUJrQkJqbktiZDIwYVRS?=
+ =?utf-8?B?dWx2NnIwNzhTcG94OXdsRjRFZXRiK3BFVVlQTnRSYjVzUndtN09Ca1VJY1lU?=
+ =?utf-8?B?dXpyWlBpUkVxWVZ2c2hwQUxBTTFMMmtqZFlhRWdWZ1RsYytTVWFNdUxDbWtX?=
+ =?utf-8?B?emhLRFgrZEF4enovSTVMVzgxZVk4Vm5YRjI2TmtQM003M1c2aUk2YThhVEYz?=
+ =?utf-8?B?N0hrbDJEeFQ0dDVKWkJRTTlCTTlsa1RwSmxHTTFieHRnVkpGTFhGMDVFYXRi?=
+ =?utf-8?B?ZUs4RDZZaysyRUlnaEt1NUxGVGtEdWdLZjl6ZVRZU2NDQWV6RFZXRUhoaWV3?=
+ =?utf-8?B?T2JGRjY1ZGsweDhvVjF3cmIrYzl6SXhHdWFhZllJTmNScE1tRldVNi9lMkV3?=
+ =?utf-8?B?Y3JDMkhMTVU3azNSdEo3N2hjNHB6K1NIRS9iR2U4Yy9RcXlXaTMwQTRQN3oy?=
+ =?utf-8?B?OE5ESW8vQ29HUnZINWNBUnVZMytqUWx3VzJ3Uk5LeUNhYXNJZWV6SGlBNVov?=
+ =?utf-8?B?Y1VVNXhBNlVRTFBzUWU0OG5DTlBSNS94MTdVMmRSUVdhWG9OQjIrYVgzQ1ZY?=
+ =?utf-8?B?eDZhTzNNTmhBc251NVlXTDdCMjZQbEJUNUJCQlJmb0NJMnRSNi9ndVk0aHoy?=
+ =?utf-8?B?YTYweEdlL2lYZkpWYmxESk1sd3pzeUZDOXNyMDlUT3ByUTBpY1hYM2VZb3Rk?=
+ =?utf-8?B?aUVyNnlSeHFKWHhMYm5nQThwU3VnMUE5emNoN01uUG1kM2gyS0M4WTltN3Bk?=
+ =?utf-8?B?dWhUVE56RWpzenM4ZXh0c2kyVGNiQ3JJZStOWTVPOGhjTW9MYXpBTnEydjZK?=
+ =?utf-8?B?WTlWcGphS3NLOG5oNFo4Z3lDalNxNk43R2R4d2VVWlJVd1pOTVpLRWk4TUpM?=
+ =?utf-8?B?dGpWR29CUjBrYzNNK01VdGNiSkZaKzhoVi9tb3JPWmptY1k2bU9tNUZ6U0s2?=
+ =?utf-8?B?dGM1SVRzb28vTzFoanhzTndLRnVFQWhLWVh5SWhhY1djS1Z0THRSaHh4VU1C?=
+ =?utf-8?B?MC9xeWVzRktiZklCd0dHSERod21hZmZzNmtsMUo0WklZTVM3blhVN09MUnZG?=
+ =?utf-8?B?ZFJJaS84RVdYeS9BV200dTdGWGlrS2JyZWh2WUYzR090QTBLc0FzczFJN3lO?=
+ =?utf-8?B?THpseE5BczFIYkZrRWdiQUZYb0pmQkZwTHRXVUlodXlicEE5T1ZZRVpHUXZv?=
+ =?utf-8?B?RVJXTW9tTFBmYlZZdEVqN3dxcHppY1Z2YzNOaWVmYWk4RmQvVjBFY2tObE9L?=
+ =?utf-8?B?SzZNeE1hWitXWEFyQzF1QktWVmJ3RW5oYWdEWlNuUzRrNmlJVFF4MXE4cmNW?=
+ =?utf-8?B?UU5icGxkeEd5QlhteGFwNHNibGdjakxxN3VWZHdTaDdZc1pOa3JMYWRCTmdo?=
+ =?utf-8?B?aGhLRTd5VW5McWZNYlk0SmFPMDgxVTEvZmpvNTBnQUY2UkJYMXJndWMzdjl3?=
+ =?utf-8?B?RzZRTE0yNmxwWEU4d2FQSmtKdzhPU2JnUlBOS0FlVWxJMnlCaVFXbHhRN0J0?=
+ =?utf-8?B?TzBlNWlyeHdZN2NLeTRWQ2Z5VmxuSGdqOWl5b3pKam82WFNEZFM3aXRUeVNV?=
+ =?utf-8?B?OUxPc0phYW45OFRNeDM5RFU0bVIzVFBLOE1EektZWFNqdTNIL1haVnVOQU16?=
+ =?utf-8?B?QkFyRnFnTms0USs5aHVlUXE5SnhzNWVrNndNcFV2RGhFN2pFdzk0WXR6NzFk?=
+ =?utf-8?B?M2g5QXIvTVdrbTgwTWR3OHp4MTBSMTI2QU5tMzRmNGQ0bVI2RUFIbmsyR2sz?=
+ =?utf-8?B?Sm4xaUFwbE1ES3VyaXpiYlNCWnRYTlB4aytRU0owd0o1TCtTQWk2WGVka2FS?=
+ =?utf-8?Q?LvwN1dCgX2BEQ5HTa+droSbfjCAPGhBcCpwLn?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d82f526-25a1-487f-f722-08dedc99c8a7
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 02:36:58.9074 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WjtQ2+h3pQ1C67hYZ/v+qccBEc8nzPfsA30B/zApM/vuVLU11R9L28Lb6VkAqY3Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8778
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,244 +181,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] ddebug_match_apply_kparam() applies all dyndbg kernel parameters f=
-rom the defining module indiscriminately instead of filtering for the speci=
-fic classmap being matched.
-- [High] ddebug_sync_classbits() corrupts LEVEL_NUM classmaps by unconditio=
-nally treating the numerical verbosity level as a bitmask.
-- [High] Incorrect offset math in ddebug_find_valid_class() prevents dynami=
-c debug control of offset classmaps.
-- [High] Out-of-bounds array read in ddebug_class_name() due to an incorrec=
-t range check.
-- [High] Initialization queries silently fail because the module is not yet=
- added to the global ddebug_tables list.
-- [High] Unprotected read-modify-write on a shared kernel parameter in ddeb=
-ug_sync_classbits().
-- [Medium] TOCTOU race due to lockless access of shared parameter pointer i=
-n ddebug_apply_class_bitmap().
---
+On Mon Jun 29, 2026 at 3:25 PM EDT, Lorenzo Stoakes wrote:
+> There's a large number of vm_get_page_prot(vma->vm_flags) invocations. Ma=
+ke
+> life easier by introducing vma_get_page_prot() parameterised by the VMA.
+>
+> This also makes converting vm_get_page_prot() to vma_flags_t easier.
+>
+> Also update the userland VMA tests to reflect the change.
+>
+> No functional change intended.
+>
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> ---
+>  drivers/gpu/drm/drm_gem.c                   |  2 +-
+>  drivers/gpu/drm/drm_gem_dma_helper.c        |  2 +-
+>  drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
+>  drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  2 +-
+>  drivers/gpu/drm/exynos/exynos_drm_gem.c     |  6 +++---
+>  drivers/gpu/drm/i915/gem/i915_gem_mman.c    | 12 ++++++------
+>  drivers/gpu/drm/msm/msm_gem.c               |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_gem.c       |  2 +-
+>  drivers/gpu/drm/omapdrm/omap_fbdev.c        |  2 +-
+>  drivers/gpu/drm/omapdrm/omap_gem.c          |  6 +++---
+>  drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  2 +-
+>  drivers/gpu/drm/tegra/gem.c                 |  2 +-
+>  drivers/gpu/drm/virtio/virtgpu_vram.c       |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |  2 +-
+>  drivers/gpu/drm/xe/xe_device.c              |  2 +-
+>  drivers/gpu/drm/xe/xe_mmio_gem.c            |  2 +-
+>  drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
+>  drivers/video/fbdev/core/fb_io_fops.c       |  2 +-
+>  include/linux/mm.h                          | 10 +++++++++-
+>  mm/vma.c                                    |  2 +-
+>  mm/vma_exec.c                               |  2 +-
+>  sound/core/memalloc.c                       |  2 +-
+>  tools/testing/vma/include/dup.h             |  4 ++++
+>  23 files changed, 43 insertions(+), 31 deletions(-)
+>
 
---- Patch [24]: [PATCH v6 24/24] dyndbg-API: replace DECLARE_DYNDBG_CLASSMA=
-P ---
-commit 25c55a40c5e12d9e90d3e7947e7b90b45af6e5f9
-Author: Jim Cromie <jim.cromie@gmail.com>
-Subject: dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-
-This commit deprecates DECLARE_DYNDBG_CLASSMAP and replaces it with
-DYNAMIC_DEBUG_CLASSMAP_DEFINE and DYNAMIC_DEBUG_CLASSMAP_USE. It separates
-classmap definitions from their usage across dependent modules like DRM
-drivers. This separation allows dynamic debug to initialize driver callsites
-independently after each is loaded.
-
-> --- a/lib/dynamic_debug.c
-> +++ b/lib/dynamic_debug.c
-> @@ -160,20 +163,39 @@ static void v3pr_info_dq(const struct ddebug_query =
-*query, const char *msg)
-[ ... ]
->  static struct ddebug_class_map *ddebug_find_valid_class(struct _ddebug_i=
-nfo const *di,
->  							 const char *query_class,
->  							 int *class_id)
->  {
->  	struct ddebug_class_map *map;
-> +	struct ddebug_class_user *cli;
->  	int i, idx;
-> =20
-> -	for_subvec(i, map, &dt->info, maps) {
-> -		idx =3D match_string(map->class_names, map->length, class_string);
-> +	for_subvec(i, map, di, maps) {
-> +		idx =3D match_string(map->class_names, map->length, query_class);
->  		if (idx >=3D 0) {
-> +			v2pr_di_info(di, "good-class: %s.%s ", map->mod_name, query_class);
->  			*class_id =3D idx + map->base;
->  			return map;
->  		}
->  	}
-> +	for_subvec(i, cli, di, users) {
-> +		idx =3D match_string(cli->map->class_names, cli->map->length, query_cl=
-ass);
-> +		if (idx >=3D 0) {
-> +			v2pr_di_info(di, "class-ref: %s -> %s.%s ",
-> +				    cli->mod_name, cli->map->mod_name, query_class);
-> +			*class_id =3D idx + cli->map->base - cli->offset;
-
-[Severity: High]
-Does this math prevent matching against the actual callsites in the target
-module?
-
-When a user writes to the debugfs control file, the lookup must incorporate
-the offset mathematically. Subtracting the offset instead of adding it yiel=
-ds
-a mismatched or negative class ID.
-
-This will prevent finding the callsites in the user module.
-
-> +			return cli->map;
-> +		}
-> +	}
->  	*class_id =3D -ENOENT;
->  	return NULL;
->  }
-[ ... ]
-> @@ -1089,12 +1112,17 @@ static bool ddebug_class_in_range(const int class=
-_id, const struct ddebug_class_
->  static const char *ddebug_class_name(struct _ddebug_info *di, struct _dd=
-ebug *dp)
->  {
->  	struct ddebug_class_map *map;
-> +	struct ddebug_class_user *cli;
->  	int i;
-> =20
->  	for_subvec(i, map, di, maps)
->  		if (ddebug_class_in_range(dp->class_id, map))
->  			return map->class_names[dp->class_id - map->base];
-> =20
-> +	for_subvec(i, cli, di, users)
-> +		if (ddebug_class_in_range(dp->class_id, cli->map))
-> +			return cli->map->class_names[dp->class_id - cli->map->base - cli->off=
-set];
-
-[Severity: High]
-Could this result in an out-of-bounds array read with a negative index?
-
-If a descriptor's actual class ID falls within the original map's un-offset
-range from a different use declaration, the ddebug_class_in_range() check
-might pass because it ignores the offset.
-
-The subsequent array access subtracts the offset, which can result in a
-strictly negative array index and an out-of-bounds read when reading from
-the debugfs control file.
-
-> +
->  	return NULL;
->  }
-[ ... ]
-> @@ -1175,6 +1203,87 @@ static const struct proc_ops proc_fops =3D {
->  	.proc_write =3D ddebug_proc_write
->  };
-> =20
-> +#define vpr_cm_info(cm_p, msg_fmt, ...) ({				\
-> +	struct ddebug_class_map const *_cm =3D cm_p;			\
-> +	v2pr_info(msg_fmt "%s [%d..%d] %s..%s\n", ##__VA_ARGS__,	\
-> +		  _cm->mod_name, _cm->base, _cm->base + _cm->length,	\
-> +		  _cm->class_names[0], _cm->class_names[_cm->length - 1]); \
-> +	})
-> +
-> +static void ddebug_sync_classbits(const struct kernel_param *kp, const c=
-har *modname)
-> +{
-> +	const struct ddebug_class_param *dcp =3D kp->arg;
-> +
-> +	/* clamp initial bitvec, mask off hi-bits */
-> +	if (*dcp->bits & ~CLASSMAP_BITMASK(dcp->map->length)) {
-> +		*dcp->bits &=3D CLASSMAP_BITMASK(dcp->map->length);
-
-[Severity: High]
-Does this unconditionally operate on the union as a bitmask, without checki=
-ng
-the map type?
-
-When processing a DD_CLASS_TYPE_LEVEL_NUM classmap, *dcp->bits aliases
-*dcp->lvl. Performing a bitwise AND with CLASSMAP_BITMASK incorrectly clamps
-the numerical level to a bitmask value, which breaks verbosity level
-initialization.
-
-[Severity: High]
-Is this unprotected read-modify-write on a shared kernel parameter safe
-during concurrent module loads?
-
-When multiple dependent modules load simultaneously, they can concurrently
-enter ddebug_sync_classbits() and perform an unprotected bitwise AND on the
-shared provider parameter. This can corrupt the state if the parameter is
-actively being modified.
-
-> +		v2pr_info("preset classbits: %x\n", *dcp->bits);
-> +	}
-> +	/* force class'd prdbgs (in USEr module) to match (DEFINEr module) clas=
-s-param */
-> +	ddebug_apply_class_bitmap(dcp, dcp->bits, ~0, modname);
-
-[Severity: Medium]
-Is there a race condition when dcp->bits is passed here and accessed
-locklessly?
-
-ddebug_apply_class_bitmap() iterates over the classmap length and repeatedly
-dereferences this pointer locklessly. Because the loop contains external
-function calls, the compiler must reload it. Concurrent sysfs writes could
-cause the loop to fetch different states on different iterations, leaving
-the debug state inconsistent.
-
-> +	ddebug_apply_class_bitmap(dcp, dcp->bits, 0, modname);
-> +}
-> +
-> +static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-> +				      const struct ddebug_class_map *map,
-> +				      const char *mod_name)
-> +{
-> +	struct ddebug_class_param *dcp;
-> +
-> +	if (kp->ops !=3D &param_ops_dyndbg_classes)
-> +		return;
-> +
-> +	dcp =3D (struct ddebug_class_param *)kp->arg;
-> +
-> +	if (dcp) {
-
-[Severity: High]
-Does this apply all dyndbg kernel parameters from the defining module
-indiscriminately?
-
-When a user module references a classmap, the parameters are iterated over.
-Because there is no filter checking if dcp->map matches map before applying
-the state, it applies the state of all dyndbg parameters defined by the
-provider module.
-
-If class names overlap between an unused classmap and the user module's own
-classmaps, the user module's debug state could be incorrectly altered.
-
-> +		v2pr_info(" kp:%s.%s =3D0x%x", mod_name, kp->name, *dcp->bits);
-> +		vpr_cm_info(map, " %s maps ", mod_name);
-> +		ddebug_sync_classbits(kp, mod_name);
-> +	}
-> +}
-[ ... ]
-> @@ -1240,12 +1351,19 @@ static int ddebug_add_module(struct _ddebug_info =
-*di)
->  	 */
->  	dt->info =3D *di;
->  	dd_set_module_subrange(i, cm, &dt->info, maps);
-> +	dd_set_module_subrange(i, cli, &dt->info, users);
-> +
-> +	if (dt->info.maps.len)
-> +		ddebug_apply_class_maps(&dt->info);
-> +	if (dt->info.users.len)
-> +		ddebug_apply_class_users(&dt->info);
-
-[Severity: High]
-Are initialization queries silently failing here because the module is not =
-yet
-added to the global list?
-
-ddebug_apply_class_maps() and ddebug_apply_class_users() ultimately call
-ddebug_change(), which searches the global ddebug_tables list. Because the
-new module is added to ddebug_tables after these functions return,
-ddebug_change() fails to find the newly loading module.
-
-This results in zero matches, silently dropping the initial state and leavi=
-ng
-drivers that rely on provider kernel parameters uninitialized.
-
-> =20
->  	mutex_lock(&ddebug_lock);
->  	list_add_tail(&dt->link, &ddebug_tables);
->  	mutex_unlock(&ddebug_lock);
+Acked-by: Zi Yan <ziy@nvidia.com>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-dd-maint-2=
--v6-0-381f3edb0045@gmail.com?part=3D24
+Best Regards,
+Yan, Zi
+
