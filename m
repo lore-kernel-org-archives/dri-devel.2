@@ -4,131 +4,174 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A201C44501
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 13:13:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F36CC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 13:23:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE2AD10F128;
-	Wed,  8 Jul 2026 13:13:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8F4F10F12A;
+	Wed,  8 Jul 2026 13:23:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OKE5Ou2S";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="xtFcssA4";
+	dkim=pass (1024-bit key; unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.b="fOt3Ie2P";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012007.outbound.protection.outlook.com [52.101.53.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9971A10E5E9;
- Wed,  8 Jul 2026 13:13:32 +0000 (UTC)
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15F0B10F12A
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 13:23:12 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 668Cl0KE1290777; Wed, 8 Jul 2026 14:22:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-id:content-transfer-encoding:content-type:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to; s=
+ dk201812; bh=b3qz4kJJ9glbnAPDOoXaoQVHt7nJsC4DfHWudCypMtA=; b=xtF
+ cssA4dBrXkIz861sQ+4kUoqZ/pjN2WsIih8oDMo32XZvKi8ucfD5usauf5XgtqPi
+ zvCxrZVNKNW54p1kVQl47lmunmNDWyBd817jsNtFeRorbEN1D6p1FturpyBeZxsC
+ 3zVFhhLkl6CKyU0LDq3nqy+tKpHwZm6mPf+lsxR63c2D+AoAdvoEsHrtYwdcf9C6
+ t0qFDAd26T88vJZQ31Yf3Kmu2Hv30YIbwrZTqNxxNA3uavKAXaitaR7miHf+A70t
+ gZlmujxfRwKoOPwIb07sjW4AOyy7+qSmPnU1iv4XFmU8NxzczHz/B3PMnxaaGrG/
+ 6U4iIBgUpiMc4kemHsw==
+Received: from cwxp265cu010.outbound.protection.outlook.com
+ (mail-ukwestazon11022120.outbound.protection.outlook.com [52.101.101.120])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4f6repkr8f-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 08 Jul 2026 14:22:47 +0100 (BST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yy0GiLbwsv4a5ctRlkQrGwz9LZjUTMx3ejxv6SRKHfPW7bt8pM7fUdxhKlL0FqOTYmp5MMbG2Rt3O5DhWTjU84+dFkoWvjLJlN+C5jjtIT0cjBJhYBfRCp/GG3lcAfDNvy6VPBROw7SApfXhdv0hQlBgQog+OsZMdVeRL282+3+KWVZmv3dbsyUrxPeHCdbFt09t7AGKVX25rBQtfSvZvJ6JsSGzxyiqdJE0oBz7Ia6kbdJltBKjXW7ji6cWnwtsyZqRYEDCLz1bogMEeM/Dn1pOBDiulnQm7Nbt5bWukXQdFbZFnrV+MtKNix86wm+/SBTmgswAvBYHRSf8c2Qy0Q==
+ b=ntkAjNjC/507EJq+Z+g3gpZlM1NMVTEtg8+EFIBVkXEM41KRMMT5P5s/6HMx75/+rDExykIp8XgOrdMg/iEGIrp87sFkGZewdScVrXRZxHWn/A5ZzAwruUt3RIpPjALXP3/808gkCPDLRvDlSUxy7MTrp2pImMWWU/bEIK+McH7oaX13AKWb7ms/KOnQDuLHfg/1LGUwJu+UKcaYCNoz5vOXvZUgxfsFt3dfAsyQ5+r5kjOtyZPZ+aHi6fc5hUCQkK77H+pF85lVwwFYnzWkf7mFeTrBejHEPBHcXxlaayefcd61YcY0sAp0qgq7sqLP63PT4cuP343tO1rg0Q29AQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jyk7kMeDKarlFPNymyhcRUwwyIKN37E+O/hy+1lw0ys=;
- b=mVXFmMGT+pZ24sBjUy2EHKPb8Pmp3jTJJlFtam1U4CgEOKzNwq9/LI8cxMEio6uJnbRIApTPSK7uAiYfD0GxmAlfihe/stQWq36FiKwXNbXAWj+7NuTQBV6Vjtg4R5W29DA/dJ/wrt9CV1aVjnzLGFxKCoWR+LVC+idur6RQjnCHp65ikyWuP181DrRwDr9DoqwdxfTExX3iosnEIQJlSq5bypFZf3KhYSyES4EqMSkvkfzFXryyD1UBJQuvRXCMRB+oXOH3eAguJ+aow2WP/6EftTiNisJk3oKwQtES1kWy0DWTJ656tU/H0Pzw9a15FMLQFNGm3G507ezK6xYRKA==
+ bh=b3qz4kJJ9glbnAPDOoXaoQVHt7nJsC4DfHWudCypMtA=;
+ b=UeppqRqjDqdGPRr+boc1dIXtOs0UuImve4KTVzBQsyWY30H78Y+8eJN7DEgnh8R9xHQYIPYU7Ng61S1tw6KWA4oY4mZvDfQSSnSnb2t5kLdUZRiPmBIcriahgEIJGUP0/ljGah6UqQCsOdiWew3GsQvKwnyTX2djzaan4+WYO8Fc0I+pPLwLbvjF1qweaF+ipGchVJ8E+zBG9TiFNfuDgOIkHo0FYM1Fuc4V9OeQAlc2m4BxZNZ80P0R0HMFbu7ew6FmuZOTGb7xJuMmpU+gzdaq4boN/972zWpwS4AJ4yZfaHbt1TunIZgbUtAhee013NO1DeAh6yNLM7l/uwMWjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
+ dkim=pass header.d=imgtec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jyk7kMeDKarlFPNymyhcRUwwyIKN37E+O/hy+1lw0ys=;
- b=OKE5Ou2SkA9hoiRqCjXZy6OP70t3Wl63MSl4Dki2CJk29KxFT4nt/dIoKUzfNsWHr6LS0EXzOqtZUfNCNbcx/1gOH/DWrD3Wwdt3LuFBvVSlN2iHfDKVYYc1n6yLRofxMnFHqNxRCThanCDwshGw2Z9fZPyFUG/V14yPTwtMz8E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DM6PR12MB4484.namprd12.prod.outlook.com (2603:10b6:5:28f::24) with
+ bh=b3qz4kJJ9glbnAPDOoXaoQVHt7nJsC4DfHWudCypMtA=;
+ b=fOt3Ie2PdKSeQ55do3JoYCh73o1yWMuxukIa182//BCaEsekeRObG5DMpllXuVy72SWBc5MB8KU9NCrva3PvxUMhvBDbKkpryup0RZWYXZZcCYdvgOFm41hdQgnn1oiMTWfYjC5aXefv159xLrBtque6xiVKm0A2h4E6T3ZwD00=
+Received: from LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM (2603:10a6:600:449::15)
+ by LO8P302MB1416.GBRP302.PROD.OUTLOOK.COM (2603:10a6:600:3f3::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
- 2026 13:13:29 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
- 13:13:28 +0000
-Message-ID: <0478bdcd-dc55-4eeb-b7a3-6c5e625ac5c1@amd.com>
-Date: Wed, 8 Jul 2026 08:13:26 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/amdgpu: add firmware file fallback for APU
- VBIOS discovery
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
+ 2026 13:22:43 +0000
+Received: from LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
+ ([fe80::3585:13b4:3133:1e3e]) by LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
+ ([fe80::3585:13b4:3133:1e3e%6]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
+ 13:22:43 +0000
+From: Alessio Belle <Alessio.Belle@imgtec.com>
+To: Luigi Santivetti <Luigi.Santivetti@imgtec.com>
+CC: Brajesh Gupta <Brajesh.Gupta@imgtec.com>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, Frank Binns
+ <Frank.Binns@imgtec.com>, "boris.brezillon@collabora.com"
+ <boris.brezillon@collabora.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>, "mripard@kernel.org" <mripard@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Alexandru Dadu <Alexandru.Dadu@imgtec.com>
+Subject: Re: [PATCH] drm/imagination: fix error checking of
+ pvr_vm_context_lookup()
+Thread-Topic: [PATCH] drm/imagination: fix error checking of
+ pvr_vm_context_lookup()
+Thread-Index: AQHdDiPMcK9D1JxW102x7XQwdMuDSLZjnWsA
+Date: Wed, 8 Jul 2026 13:22:42 +0000
+Message-ID: <fbcad7c8285c255cb09b31e39303fd88e7de3bb2.camel@imgtec.com>
+References: <20260707-staging-ddkopsrc-2435-v1-1-24e160d44476@imgtec.com>
+In-Reply-To: <20260707-staging-ddkopsrc-2435-v1-1-24e160d44476@imgtec.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Oz Tiram <oz@shift-computing.de>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
- <20260705100436.6877-1-oz@shift-computing.de>
- <a8339282-e3ef-4a4f-a135-968f94855e76@amd.com>
- <42e07bbb-9384-4871-a345-e0fd6c00a772@shift-computing.de>
- <bd1f1632-f53d-4bfd-9d28-5b66e466366c@amd.com>
- <80f34509-9781-421e-b60f-1b8c772a01a9@shift-computing.de>
- <8dd56d76-e46d-43b6-831d-27e66fa2879a@amd.com>
- <cc849fb3-224e-43c0-bc50-67fd025009e7@shift-computing.de>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <cc849fb3-224e-43c0-bc50-67fd025009e7@shift-computing.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS7PR03CA0008.namprd03.prod.outlook.com
- (2603:10b6:5:3b8::13) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LO7P302MB2107:EE_|LO8P302MB1416:EE_
+x-ms-office365-filtering-correlation-id: f27f34f4-2c5c-4371-13ff-08dedcf3fe10
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|23010399003|18002099003|38070700021|56012099006|5023799004|22082099003|6133799003|3023799007;
+x-microsoft-antispam-message-info: 5A2e4+YaWXByxjFC5GmSR7S8Xm9jOL1xZDnnuEy4FRiMp/cM9kRMYybwe+/W3jUSSLxheglsoRO0pJvPvqpA23gCZdlWHTF/bm09MMOF8Y/6ymjN2/Dzt6QYget77sv2cEofZ6AcdmklOhU2ZC27WK8rZ/vWAyi3hOUhf8SzN6mxaYz8UKegxw5VrY0P1jOwDVg5mWuN+gr81CF76GbjZqiGsXUgatel0Bl75jE70lrx4WJmvoKGvD/MTYkB9BaBcOzLPxnsV6Yiox0tWi4Z1IVSPWfVp0idAKboNExauMarwbM3zgDUXJiIJYbWpO+b05bCHSL6eoxwSfIDFkhuVXgY759IgZypizOwBH8nAFeKGBrqGr8kuR7Ug9PQuB7SKt4tYXZ24el3NVaKKPyfTIDsC/pNOqx4yLJ3gc7UCY1SsuQGIab/whtMe7nu2sVBxNL5fTOufs5nwjPzAP/MMMvXhdME/4Bo95q69rqMA1IaV0DXMUYqxSlcD686OmyO/hiAH5Tds+Z5UzqG3ak9UPDHMfSghCpnqQUjevr9ay//AmZ1jS+I6Gst9mWP/9lBegpgD4rBDA/aGH+o5DP9HKbvwmdgVKPP/6btbRw6SROzhKsJsh5HtpEm0ug1vJNlluNEsHlLlDZSikrGv3fXnoOYEurQxzPqhdEChAqk/hq8fZr/V/1nB1PVtYFDfPgTFbmhHmrtTDIiJ+KB7TQdgMaGLTcddp4xoLuVn68siKg=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(18002099003)(38070700021)(56012099006)(5023799004)(22082099003)(6133799003)(3023799007);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MnFwb09TOEhvRWJYZCt2NDgxazhRMFU1T1AvTjFMSkNSb2FDRTV0L2tEL09S?=
+ =?utf-8?B?ZWllQ3VMOXo5ekg1dG9GZms2UTg5UzBGYjNyajd0UEZKanJGeHhUaHdDcmZR?=
+ =?utf-8?B?UFNhd1J1T2JUWGc1T0poUXRIVVFwREVjTktkSjQ3SXh5TTdRYWZBV0UzRlBW?=
+ =?utf-8?B?TVpldVloYkh4WE9Pbjc4MHZxTkxvdWNQQzhwWFdPTUpJWk8wRis2SlN2ZjN1?=
+ =?utf-8?B?RVZnaDRMQ0hHeVRkeUdyb0hQYnUvU0V6NVhwY1VnNlI2SEJ6V21GWmVKVHVF?=
+ =?utf-8?B?RUJGc3ZEaVhhaHJ5MWxQTVcvVTB3UGlPTkpCdWc2ZjUwRkxudEMrUC9IViti?=
+ =?utf-8?B?dXlLVHdxNkJRMGkyeFhlWXhxSzZiTHk5TkpUYXBCc2JCbVhBR2pOSTYyL3R6?=
+ =?utf-8?B?c2p5Vy9Idjc5aDVQOFBwd0pCcHF1SFlUalF2V0ltdXk1b2xsUUsrRzdmbEhZ?=
+ =?utf-8?B?WnNqR3RZaElUTklJOXRMYU0zTTlzTTR6b0x3V0JJSEV6TmFNQUwyV2pGU3A5?=
+ =?utf-8?B?NldKM3I2dUl5eTg4S25HZkRSNXRRL1UwZ3RmNGtEbW9yZ1JXY0lxcWRxRGdY?=
+ =?utf-8?B?Z2wzQ1RKaXZ5OENDcEpTMW1TQzRFZlhKbjE3QUVnR1RRQVp6RksrUFJuVEhE?=
+ =?utf-8?B?OVM4ajdidGVXOVJjWGZPcGZNVkN1WGtvZWZlRmVMSXE0cVl2ZnZqK0g4blpD?=
+ =?utf-8?B?TkNKTmxPYXVyNERMUCt2VG1SZEFRUWZmbUZEUnFiaUN6VlZ1eHlKL1AxTDlW?=
+ =?utf-8?B?WXZsMDRWQUY4R0pOV29UU1UxM2tKQWREcXVUVVNMNXoyU3o5WjI1NzdJUHZn?=
+ =?utf-8?B?aFZrdGQvOVR5RW9iVEJZcWF1aEFRRjJaYWh4MGRLbDVmVXduYjU3L3hGRE5x?=
+ =?utf-8?B?Q00rL3hYeC82bk92LzZhaFFLVDdsbGkwaHg1VzVnQWthVnBBYnc0RXV1ZkxL?=
+ =?utf-8?B?eU1zSnMrajRWUnFycFlEZTdYMkpyQnRrcGtvbHNHUlpKN0l4VElBRmg2NHN4?=
+ =?utf-8?B?WjM4QU9GNXpUc285dHlnVkxvVHlFN0IvVXA0SysxckE0N1JQVUpQckd0Z3I2?=
+ =?utf-8?B?bjdPcFBHUmJkRStLSXVNNFpwZnliL0lWdEFZZ2o5MVpCZUV4VWlBK1FqL0RH?=
+ =?utf-8?B?N1VaZndSeVcxaXFOREtvUG9Id3FaRHFYalJpc1YzdUlKMHpCVmhaSHpXejZp?=
+ =?utf-8?B?Ui9KbHpoQ2llWHFBQ1dzQkFFTUtXMlFxSHhnaUIwZU5oUVJuN3pFQXkzYVdG?=
+ =?utf-8?B?cVNtK1VMeXl1d1YwTHhjQjB4eW9zMkdualBIanB3OE1NMkY0ZEFLOGdXM3Zo?=
+ =?utf-8?B?eSt3ak42c2JROXl5cjFtQVFlc2NhaXhaQzJ5M2xyM2tqc0xYd0YxY3lkU2sy?=
+ =?utf-8?B?bndTdEE2Rm44RTNnbkhsbVV2Ti94bWVRUGhteGhsVTkzMUFoWm9oejlvbkYy?=
+ =?utf-8?B?ZGdaUUJWbmVlV25aVzBwRDM4MkxQQlRMK3YwZWEwMkU3ZFB6b29KTHg0Mncx?=
+ =?utf-8?B?T3JxRkhPOVgycUxLN2pOdzBRVWtyRkRDM3FUbUpGR0JwemFuemp3Y2o0K1NR?=
+ =?utf-8?B?UkVNY1MvZVoxYyszeWxYRitLclF0YlU1bjg2cUxOOU1KVXBnTlFiVDJvUmhQ?=
+ =?utf-8?B?R1FhQ2pGOW5rNkcvcUtiQlZhZEZBT2J3L0M3VGpJRTZwdURRcjU3UkhKSVNW?=
+ =?utf-8?B?UU1kM2tETDFWTnJvMTlXQVhyTzVRd1o1MVFsWFlYSVhSeVZqWGxwVmhiVWxj?=
+ =?utf-8?B?RFNaM3Y4SXpoVmdnRnlCOThWNzB6Zm1FdTdlanJBQ1JYZy9vMGVuTjYrV2JX?=
+ =?utf-8?B?ZVpUelhpZ294ZEJBTGlQV2hqODQveExrNkZRc3lVYWNuOWJkMXpwLzZreUh6?=
+ =?utf-8?B?NExEUk14b1hjUU1ZNmNxSDFZTjNaY0JCbGZ5V2F3MEtCS3NYbXlVeU1VUm5I?=
+ =?utf-8?B?WU0wdVVyU216cVZGV3h1Y1M3WjVXR2lsUUsyZjFocjdQeUFaQmd3RGlPYisv?=
+ =?utf-8?B?SzRaTFBwZmJTZTEwdlAvQmZYbyticnJIVmVmUmxKeURiWFVrV2FKSWJEc2ha?=
+ =?utf-8?B?ZE9nMlEwa09Nbm9JcVBrVXl0Z2tHSmhQQ2JOR0JsV1RCRmdzSVNsSUt4TFB0?=
+ =?utf-8?B?dzFsRTNiZ1o5TytwWDhsZTFZNldzaXhUdW56WDBDemN2Z2doY0t6WUlUS0d0?=
+ =?utf-8?B?V1BTaEtaNGJGTFdOZE5GVktHcklDM2lxMkdCSmFURndPdEpCVTVDbmc5Z2tF?=
+ =?utf-8?B?VTc3WDFzRUZ5U2lPL2ZkVmVFU0UxcExteFg5UVNCeFVudzFXSXlCWThVT0NN?=
+ =?utf-8?B?eXBMMnc0cVRqcUtlMGRHaE5YeERnOWl2VDBiVHZINUtkSCsveTd3UU9EWXJx?=
+ =?utf-8?Q?z2AytoqZ9ZTQe5P0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <12C80065817E7940B0D7679CE8D809B3@GBRP302.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DM6PR12MB4484:EE_
-X-MS-Office365-Filtering-Correlation-Id: b87e6b0c-172f-4717-e996-08dedcf2b397
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|22082099003|18002099003|6133799003|4143699003|11063799006|56012099006|5023799004;
-X-Microsoft-Antispam-Message-Info: PUIsChanDQ+8vQZ1Nd88oBQHVJGo0KY12aqwLsy1yX2paPQ1Hwkc5q+eCVQNOnOZo7652JE8s7MtUJwZ6ymdv5FcSs+HNqkX/fbGytvOHc5KZAyrFxRRhQTwRg3/jFPoH+ICeF8XuITNHStyLojR9NOku9ztuHOxrJD8sJEsH+N2tbzQB7mB90+Q8Pynf2Mh67FVwMUSu/oMdgbxB3V/UxPhCjic9/ob6zbWBZpDAE/QyT07Kjj2MYNpBGl4DswyBe4c4mFJId7ffHUPDICOQWlzbRGIZtutqirwBaDsc3XTaAzBnER+XYYN1/zgjesOmMJ9GxCblNkVk1gjEm2tl3dgIGO0h2pJco5N4Ap0te99VYnkJSbk07JKpQyZ0KgdQH5iPRhMefguXsmiEs7DNhMStAgoPrZuKPNLMUH8zqG2GHKpClVxzywNI9f4tbuIdgxaLVKfQM9gn/kDyLHhdDjLVlGrr95oPbqITYLbPqavlG9s+uzJq+0r65PvCGgN20r7LFR4UCAcv91OkofLaDfir0KssWYy1ox6exMY8qZkSLrOEfh+Vb3GYlT1/mE43UpTBSYuAYY7vJSKL4pUfyWSJuN9KVkITgIlAIoWACS4/4tSCfrRnmiPO00+iG9qN8QT2fkWUvwLh1PGzJndSCJQKIBznhEJrCB7ExB+ZUs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(22082099003)(18002099003)(6133799003)(4143699003)(11063799006)(56012099006)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDZnKy80cDVBZTBmcXJKOWFnSU1HcllJNFhoeGgxalcvdkp6RU0vakw5UUhh?=
- =?utf-8?B?Ym1BanVZSTBCcTVheW1GNDJXOWQrSTRYNVRYVDM3ZnRTdVhMYk1hdnQwOURq?=
- =?utf-8?B?YXpZdGRIR1c3SFQvZ2RwbGJUMzlWRVMwbUJtZ0IxeDlEdno1bUwyUytwcisz?=
- =?utf-8?B?blBCMTNPUnN3cHR1VmNneVpRR05SSGJ0c1BDQ0YwNFZBVlVSR1FIV0ZxcEhE?=
- =?utf-8?B?K3JmZGUvanBOZHJ6eVUxUWttdmRSSzQwYTVKdDNYa0p2b2tNVFVYejRGQ1Iw?=
- =?utf-8?B?aWI0R1ZCZ000bU5mdjVRUVVpZjljRWpGSUFYNFpNY1U4QzdTUXY1eUNjZzVE?=
- =?utf-8?B?VDJHdFdpTHVCS1VLSmNDYzJVOTcyZVRHTDhYY1ZzMmIwcFVVdXVTZi9NUmc4?=
- =?utf-8?B?TUpCZHRVQ3VoSFFmTEE5eGxyZCsrZGZUc3pKb3kvV0tpbC9ZaXZYU3dPbjFU?=
- =?utf-8?B?OWU3Wm5oMGZaN3lxKzZkRU92MDBra2N6cUNvVGQraGcrQ2ZnaStVZnFzSEdj?=
- =?utf-8?B?SjNFMm83R1lWdkhjeThyQTFjTitPcW1ha2x1MW5IYmJEcU5SOCtCWDZSUlVj?=
- =?utf-8?B?cHBUcGowbVpWZDVYTlNMTCt5RDByVi9UOXIxQ29KdzZFT0o5ekRZT21CMnl0?=
- =?utf-8?B?OFpJOHUyOGZ2dHFiMFkxdDZIQUY3QkVaazRnU0IvOGZTTUdrSjNlZ3gwRUpt?=
- =?utf-8?B?anYxa1M1a0RSSE9BYU84RERFNEpBTGUzRXpJdEdPMkhUaSt0WU4rR3FVY1ZL?=
- =?utf-8?B?THNqb1pXM01JZUJRbjRkdGhhUUhDNnFyRXBDRk5MTFZ4UkZEZVZpVytIWmh3?=
- =?utf-8?B?RFp6Uis0Z0t6R25RYUhVRWVON05pU2NEa09ocVZ0elI3UkZucEtkekRlRmM2?=
- =?utf-8?B?Q3ZRbFlObDU5d0RjVEZoSVl5TVJqV1ZMa01JU0RRRDJURzh4YjRYMDJBVnN1?=
- =?utf-8?B?NEQxd1VGL2h2Nm9YUTd0dk93M0VoUnh4UHkvSEVXRG5vcjdyOHFXb2UwYStZ?=
- =?utf-8?B?TDMzRGJtTWk0WXQrdFNnVXZ5bnd5cDRwRUQyV1hmWXBYdXEyaDkxVDBDQTVx?=
- =?utf-8?B?M1Nla0Y4TWRGR3BDMWh3UEhuOExqdGVuRFBzSWVaZFF0dWFHMU5Iemk0WHUr?=
- =?utf-8?B?NG9oMnV3dkg4QldVbFByaDU0T1dsc3NkZkM5ZUprVGdDbUgzRlNFdW1XVWNW?=
- =?utf-8?B?RXJPVXZPYWg5bnJEYjArTzBLbE1rdE5JSEZEang2ZlZhbVEvbXhhTUNyWnNT?=
- =?utf-8?B?QVBma0Mrem9tL21VK2JVY3VySFREd2x6SitzVTFiWDZPNUM2aWJVK3RJa2xk?=
- =?utf-8?B?SUpLVkhVZThROU52S2kwMzJzVzFwNFNiNy8vdVBDZ0c4Rnp5VStURkszNUNH?=
- =?utf-8?B?dGhwUDZGclVDNWcwSzFBdENHRzM3NWc3THNNdmxuQU45dElvQ09uajdjWWo3?=
- =?utf-8?B?STFXcmlCMkZuaWJuWXZ5WFZ2azlJSWswemRmQmdnbnQremNpTlBxTVhia2Vh?=
- =?utf-8?B?bCtESEh3WExSTFhKYVdwUWI5TVl3RGJYZ0ZlbWhRRnZNV0VhWW95cVpRVm5T?=
- =?utf-8?B?WUNzZktjUXVzVmFTY2tNcy9IWEZYMFdXZi9pcEtZdGg5bDV1eW1QS2VhWlFN?=
- =?utf-8?B?QzljQzRMVzJIekZlZDlyNFc0SnEzZnlPM0RpUzNCZGE2QWFuaGJHYkw4QUZR?=
- =?utf-8?B?TkpjMThqRmxLZDhQeTNOaHJsWHJQa280K2g5OEFWRWl2VG9UWmZheCt1SjZL?=
- =?utf-8?B?MkIvdEpveFFHT3dCb01sQ09KeXpjVk9kcU1saTFUOHk3TFR2bFRwRUc5VHVQ?=
- =?utf-8?B?RmFJV002YWZrQ1dlM1FsZ201OVpFTTU5YmNuUUZhRU42MWJnQlRNN3BSaVdS?=
- =?utf-8?B?K1lFQXBTakdUeTJoMzJTK1VOSUpTVDZ0U0FkWU9RMlRLOGpYSHdEckVINk5T?=
- =?utf-8?B?aDF6TWdnMlh5SjFrZnNkbzVwUDVsdzd1UHlNcG9rMkVEV085Q1l2aDhBSndU?=
- =?utf-8?B?VmwxN1pDN3BaYmNRL2ZXQ1Fkb3g5eEIzUVRVbmJyZTZ2cFZFanlHM3I5Qnhw?=
- =?utf-8?B?eFU5TG84YnZEaXBWNHdGYWxDYTJSTzRoaXZRbXZFVDN2NGFjUHErRXhFU2Yr?=
- =?utf-8?B?eHRZdFp2enJlWlJCeXJyTGdkbXFpRFlUV0FFd2FKV0xab2toQnFZSXMwZWdS?=
- =?utf-8?B?dzEvRFVXRUEwVzNXek5lMS84T2FZbHd5dFRQVlZvS2krdnE4Y2pYOFJlUlNG?=
- =?utf-8?B?aThmQzlpMzJCV2MxUmc1dmUySEZlMkdyM0FzNDlsa1N4Y2ZOL05pRituQkI3?=
- =?utf-8?Q?7fUQ2f8eiMJeIn60yB?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b87e6b0c-172f-4717-e996-08dedcf2b397
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-Exchange-RoutingPolicyChecked: S3YLgWSBLYQH1ohu9sn2cs3fcfRjk7xXV5UfcVU02RQr+pYPB2Y9Ua3zW60x6Vg/XBMI9IK2sYywRo0aI2AGFqL3tHmXja5l8fPlDO0KOGMgQ7WgC/QZv/04B8Ek6pFhbfgDgTQ3E51O7j7ic5yszUXbS32Ddjpr6PRUPpuW07UUGTrauh2b2q6ntCOGxUZbX3WljirGvgO6S/VjSupTnyVtWbqqIDpg0LXzxMF4giGYqb3H8xugr/1HQZwK3Vcxl0v3A15ElQ66FLHskNVTpNrC3XIx7JEBk/47S6o/k0nqzJXCbhP31UqqqyjivaK98plqfFFbwCo0SECQmyj0ow==
+X-OriginatorOrg: imgtec.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 13:13:28.8419 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0q7r5DBLt4+sJgqTtmHNi+UChaeUj3Y9S2SzOrxetYEcMzw9PMmKT095aEyXdk/9XRwAhFTJ8O31kCy6qcxKyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4484
+X-MS-Exchange-CrossTenant-AuthSource: LO7P302MB2107.GBRP302.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: f27f34f4-2c5c-4371-13ff-08dedcf3fe10
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2026 13:22:43.0003 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LR1Fv+LFefSQoVxPmxOll02OEJlG7lZHgk2fBdIK90512zAAlNFHramGmXxmPSGfkGXOsqtskTdNlh4tVRuSdC3U0OUjY950o5MiMFDAi9I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P302MB1416
+X-Authority-Analysis: v=2.4 cv=Fos1OWrq c=1 sm=1 tr=0 ts=6a4e4f27 cx=c_pps
+ a=tfanM9ScQIhv4mDjZMYfug==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22 a=VwQbUJbxAAAA:8
+ a=r_1tXGB3AAAA:8 a=YcVcPUlio9TeFS2f3GUA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: XOJCCqAG8yLDoXkLK0E-7wWKcuWMClX1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDEzMCBTYWx0ZWRfX8uD2WJUQLtCl
+ BrOUXPKnI414uMNpJw6g0E0BS2SpQcWIJlBzgLzZDH1/KpTQlK0VjinV4z+rAns/3XSm3RM1gJ6
+ UhpjZ0myPnEcd/nQ512oYELDr+KAk0jyWjclGZP99SoOdE9l0lDwM6hihwib1LgPqO/I0DDVIGG
+ jXClG9XVpt0iQfjZ2bxMnjR2D3MwSBKuu4RMZ4DzDYtBlGY5Dv1RI2N+PTEU1tavteokU3IwLqA
+ uX/Ujzlppn3d7G199+Qa8rcbW4g6VyXilqDyOL7NrMxzbzAZJjj5Z4rKPgHPNWF25UJ4S5OsNcj
+ 2bSb0C+jr0TfbotMnUaoznB2d83w6feLjVa1prC8SdxyidGhhDkQs0MBeovrGlUmLZeLk/4sNlI
+ coB1ODwT6+NCex0dtYHIT/2yA6f+b+9RtsBXuUkf2+TYh52KTBUVT2W7L7gBgDbkeb3QOu3aKAu
+ GtNvRRoM+QbsQterVnQ==
+X-Proofpoint-GUID: XOJCCqAG8yLDoXkLK0E-7wWKcuWMClX1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDEzMCBTYWx0ZWRfX1be53rJMrM2a
+ QbTG2srTNPa+ekvA8ucJ1wL0cfGRuDf0E8yt22uVKkQU1pIXy1R5PoKimz1axzwHVGu26TqeSMw
+ +SIzElLl4PqwRZDKzuja7nO+Mg2Yq/A=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,251 +187,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 7/8/26 08:10, Oz Tiram wrote:
-> Hi Mario,
-> 
->  > If you drop that - does this notice still come up?
-> 
-> No, the notice does not appear without pci=realloc,assign-busses. The 
-> iGPU  stays at its POST bus (0x6A = 106), VFCT matches directly, and it 
-> fetches the VBIOS without any mismatch.
-> 
-> However, dropping the kernel argument is not an option on this machine:
-> without it the discrete GPU (0x7449) fails to probe entirely:
-> 
->    amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
->    amdgpu 0000:03:00.0: probe with driver amdgpu failed with error -12
-> 
-> The firmware BARs cannot be mapped without resource reallocation, so
-> pci=realloc,assign-busses is required for the dGPU, which in turn reassigns
-> the iGPU to bus 0x0B and triggers the mismatch your patch resolves.
-
-Got it; thanks for clarifying.  I would like to dig a little bit futher 
-into that though.  What kernel are you finding this behavior and can it 
-still reproduce with 7.2-rc2 if it's older?  There was a bunch of 
-pci/realloc changes that happened in the last cycle that might have 
-helped this.
-
-Also; is it an eGPU (external) or dGPU (internal)?
-
-If it's an dGPU IMO this is arguably a BIOS issue that not enough 
-resources were applied in the first place.
-
-Thanks,
-
-> 
-> 
-> Thank you,
-> 
-> Oz
-> 
-> 
-> On 7/8/26 14:55, Mario Limonciello wrote:
->> Hi Oz,
->>
->> On 7/8/26 07:36, Oz Tiram wrote:
->>> Hi Mario,
->>>
->>> Tested on a Morefine MNAS X1 AI Workstation (AMD Ryzen 7 Pro 8845HS / 
->>> Radeon 780M iGPU) with pci=realloc,assign-busses.
->>>
->>> The VFCT entry for the iGPU has PCIBus=106 (0x6A, recorded at POST) 
->>> while the
->>> runtime bus is 11 (0x0B). Your patch fires exactly as expected:
->>>
->>>    amdgpu 0000:0b:00.0: amdgpu: VFCT bus number mismatch: table 106 ! 
->>> = runtime 11,
->>>        matching by device identity (vendor 0x1002 device 0x1900)
->>>    amdgpu 0000:0b:00.0: amdgpu: Fetched VBIOS from VFCT
->>>
->>> The iGPU initialises fully and drives the framebuffer.
->>>
->>> One minor nit: the dev_notice format string ends with \\n (two 
->>> characters) rather
->>> than \n. The resulting kernel message has a literal "\n" at the end. 
->>> Same issue
->>> exists in the nearby "too short #2" dev_info -- not introduced by 
->>> your patch, but
->>> might be worth cleaning up.
->>>
->>> Tested-by: Oz Tiram <oz@shift-computing.de>
->>>
->>
->> Thanks for confirming.  Before I split up this patch and post it in 
->> smaller logical pieces can you confirm my proposed root cause is right 
->> that this issue happens because "pci=realloc,assign-busses" was on 
->> your kernel command line?
->>
->> If you drop that - does this notice still come up?
->>
->> Thanks,
->>
->>> On 7/6/26 02:56, Mario Limonciello wrote:
->>>>
->>>>
->>>> On 7/5/26 14:10, Oz Tiram wrote:
->>>>> Hi Mario,
->>>>>
->>>>>    To make sure I understand correctly: are you suggesting that the 
->>>>> bus
->>>>>    number in the VFCT was legitimate at BIOS POST time, and that
->>>>>    pci=realloc,assign-busses is what changes it at runtime, causing 
->>>>> the
->>>>>    mismatch?
->>>>
->>>> That's what it sounds like right now.  You can easily drop all the 
->>>> superfluous kernel command line optiosn and see.
->>>>
->>>>>
->>>>>    I'm not familiar enough with the PCI subsystem to know the right 
->>>>> way to
->>>>>    implement that — could you point me in the right direction?
->>>>
->>>> Well there's a variety of ways to do it.  But how about we start 
->>>> here - if we make that specific busnr match optional and instead 
->>>> make a VID/DID match.
->>>>
->>>> See if the attached patch helps.
->>>>
->>>>>
->>>>>    Oz
->>>>>
->>>>> On 7/5/26 20:37, Mario Limonciello wrote:
->>>>>>
->>>>>>
->>>>>> On 7/5/26 05:04, Oz Tiram wrote:
->>>>>>> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
->>>>>>> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
->>>>>>> before giving up:
->>>>>>>
->>>>>>>    1. ACPI VFCT table
->>>>>>>    2. VRAM BAR read
->>>>>>>    3. ROM BAR read
->>>>>>>    4. platform BIOS
->>>>>>>
->>>>>>> On some systems all four fail.  The specific case motivating this 
->>>>>>> patch
->>>>>>> is a hybrid graphics machine (dGPU + APU) where:
->>>>>>>
->>>>>>>    - The VFCT table contains the iGPU entry but with a stale 
->>>>>>> PCIBus value
->>>>>>>      from BIOS POST time (0x6A).  When the kernel boots with
->>>>>>>      pci=realloc,assign-busses, PCI bus numbers are reassigned 
->>>>>>> dynamically
->>>>>>>      and the iGPU lands on bus 0x0B at runtime. 
->>>>>>> amdgpu_acpi_vfct_bios()
->>>>>>>      matches entries by bus number, so the entry is never found.
->>>>>>>    - The VRAM BAR is unmapped at probe time.
->>>>>>>    - The ROM BAR is zero (PCI firmware did not assign it).
->>>>>>>    - No platform BIOS mapping exists.
->>>>>>>
->>>>>>> The UEFI GOP driver initialises the iGPU successfully for early 
->>>>>>> display,
->>>>>>> confirming the hardware is functional.  The VBIOS image data 
->>>>>>> embedded in
->>>>>>> the VFCT is also valid; only the PCIBus metadata is wrong.
->>>>>>
->>>>>> So the BIOS on this machine is actually totally fine; it's just 
->>>>>> when the kernel is booted to reassign busses there is a problem?
->>>>>>
->>>>>> In that case; why not detect the kernel was booted this way and 
->>>>>> keep track of the original bus number when reassigned to avoid the 
->>>>>> issue?
->>>>>>
->>>>>>> The firmware
->>>>>>> file can be extracted directly from the VFCT using dd:
->>>>>>>
->>>>>>>    dd if=/sys/firmware/acpi/tables/VFCT bs=1 skip=$((0x68)) 
->>>>>>> count=16896 \
->>>>>>>       of=/lib/firmware/amdgpu/1002_1900.bin
->>>>>>>
->>>>>>> (0x68 is the byte offset of the VBIOS image after the ACPI table 
->>>>>>> header
->>>>>>> and VFCT_IMAGE_HEADER; the image length 16896 comes from the 
->>>>>>> ImageLength
->>>>>>> field in VFCT_IMAGE_HEADER.)
->>>>>>>
->>>>>>> The driver then prints "Unable to locate a BIOS ROM" and refuses to
->>>>>>> bind, leaving the APU completely unusable under Linux.
->>>>>>>
->>>>>>> Add a fifth fallback: request a firmware file named
->>>>>>> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
->>>>>>> request_firmware().  This allows a VBIOS image extracted as above 
->>>>>>> to be
->>>>>>> placed in /lib/firmware/ and makes the binding succeed without 
->>>>>>> patching
->>>>>>> ACPI tables or BIOS.
->>>>>>>
->>>>>>> The fallback is only reached if all existing paths have already 
->>>>>>> failed,
->>>>>>> so there is no regression risk for boards where VFCT or ROM BAR 
->>>>>>> work.
->>>>>>
->>>>>> What happens if the VBIOS changes in another way one boot to 
->>>>>> another? You might have some other stateful information that isn't 
->>>>>> updated.
->>>>>>
->>>>>> The whole thing to me feels like a hack for a behavior we can 
->>>>>> control in the kernel when doing reassignments.
->>>>>>>
->>>>>>> Signed-off-by: Oz Tiram <oz@shift-computing.de>
->>>>>>> ---
->>>>>>> v2: Fix commit message: clarify that VFCT contains the iGPU entry 
->>>>>>> but
->>>>>>>      with a stale PCIBus from BIOS POST that mismatches the 
->>>>>>> runtime bus
->>>>>>>      number assigned by pci=realloc,assign-busses. Explain that 
->>>>>>> the VBIOS
->>>>>>>      image data is valid and document the dd extraction command 
->>>>>>> and byte
->>>>>>>      offsets.  Note that the UEFI GOP driver initialises the iGPU
->>>>>>>      successfully, confirming the hardware is functional.
->>>>>>>
->>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 +++++++++++++++++ 
->>>>>>> ++ ++++
->>>>>>>   1 file changed, 23 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/ 
->>>>>>> gpu/ drm/amd/amdgpu/amdgpu_bios.c
->>>>>>> index aa039e148a5e..86064c753b09 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
->>>>>>> @@ -26,6 +26,7 @@
->>>>>>>    *          Jerome Glisse
->>>>>>>    */
->>>>>>>   +#include <linux/firmware.h>
->>>>>>>   #include "amdgpu.h"
->>>>>>>   #include "atom.h"
->>>>>>>   @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct 
->>>>>>> amdgpu_device *adev)
->>>>>>>           goto success;
->>>>>>>       }
->>>>>>>   +    {
->>>>>>> +        const struct firmware *fw;
->>>>>>> +        char fw_name[32];
->>>>>>> +        size_t fw_size;
->>>>>>> +
->>>>>>> +        snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
->>>>>>> +             adev->pdev->vendor, adev->pdev->device);
->>>>>>> +        if (request_firmware(&fw, fw_name, adev->dev) == 0) {
->>>>>>> +            adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
->>>>>>> +            fw_size = fw->size;
->>>>>>> +            release_firmware(fw);
->>>>>>> +            if (!adev->bios || !check_atom_bios(adev, fw_size)) {
->>>>>>> +                amdgpu_bios_release(adev);
->>>>>>> +            } else {
->>>>>>> +                adev->bios_size = fw_size;
->>>>>>> +                dev_info(adev->dev, "Fetched VBIOS from firmware 
->>>>>>> file %s\n",
->>>>>>> +                     fw_name);
->>>>>>> +                goto success;
->>>>>>> +            }
->>>>>>> +        }
->>>>>>> +    }
->>>>>>> +
->>>>>>>       dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
->>>>>>>       return false;
->>>>>>
->>
-
+T24gVHVlLCAyMDI2LTA3LTA3IGF0IDE2OjE3ICswMTAwLCBMdWlnaSBTYW50aXZldHRpIHdyb3Rl
+Og0KPiBTaW5jZSBwdnJfdm1fY29udGV4dF9sb29rdXAoKSByZXR1cm5zIGVpdGhlciBOVUxMIG9y
+IGEgcG9pbnRlciwgdGhlbiBzdG9wDQo+IHVzaW5nIElTX0VSUigpIGZvciBjaGVja2luZyB0aGUg
+cmV0dXJuIHZhbHVlLg0KPiANCj4gVXNpbmcgSVNfRVJSKCkgbGVhZHMgdG8gdGhlIGtlcm5lbCBv
+b3BzIHJlcG9ydGVkIGJlbG93LiBJdCBjYW4gYmUNCj4gcmVwcm9kdWNlZCBieSBwYXNzaW5nIGFu
+IGludmFsaWQgVk0gY29udGV4dCBoYW5kbGUgZnJvbSB1c2Vyc3BhY2UgdG8gdGhlDQo+IERSTV9J
+T0NUTF9QVlJfQ1JFQVRFX0NPTlRFWFQgaW9jdGwuDQo+IA0KPiBbICAgOTIuNzMzMTE5XSBVbmFi
+bGUgdG8gaGFuZGxlIGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UgYXQgdmlydHVhbCBh
+ZGRyZXNzIDAwMDAwMDAwMDAwMDAxNDgNCj4gWyAgIDkyLjc0MjA0Ml0gTWVtIGFib3J0IGluZm86
+DQo+IFsgICA5Mi43NDQ4OTBdICAgRVNSID0gMHgwMDAwMDAwMDk2MDAwMDA0DQo+IFsgICA5Mi43
+NDg2ODZdICAgRUMgPSAweDI1OiBEQUJUIChjdXJyZW50IEVMKSwgSUwgPSAzMiBiaXRzDQo+IFsg
+ICA5Mi43NTQwMjBdICAgU0VUID0gMCwgRm5WID0gMA0KPiBbICAgOTIuNzU3MTU0XSAgIEVBID0g
+MCwgUzFQVFcgPSAwDQo+IFsgICA5Mi43NjAzMzddICAgRlNDID0gMHgwNDogbGV2ZWwgMCB0cmFu
+c2xhdGlvbiBmYXVsdA0KPiBbICAgOTIuNzY1MjQzXSBEYXRhIGFib3J0IGluZm86DQo+IFsgICA5
+Mi43NjgxMjldICAgSVNWID0gMCwgSVNTID0gMHgwMDAwMDAwNCwgSVNTMiA9IDB4MDAwMDAwMDAN
+Cj4gWyAgIDkyLjc3MzYyNl0gICBDTSA9IDAsIFduUiA9IDAsIFRuRCA9IDAsIFRhZ0FjY2VzcyA9
+IDANCj4gWyAgIDkyLjc3ODc2M10gICBHQ1MgPSAwLCBPdmVybGF5ID0gMCwgRGlydHlCaXQgPSAw
+LCBYcyA9IDANCj4gWyAgIDkyLjc4NDA5OF0gdXNlciBwZ3RhYmxlOiA0ayBwYWdlcywgNDgtYml0
+IFZBcywgcGdkcD0wMDAwMDAwODhlZDIzMDAwDQo+IFsgICA5Mi43OTA1NTBdIFswMDAwMDAwMDAw
+MDAwMTQ4XSBwZ2Q9MDAwMDAwMDAwMDAwMDAwMCwgcDRkPTAwMDAwMDAwMDAwMDAwMDANCj4gWyAg
+IDkyLjc5NzM4MV0gSW50ZXJuYWwgZXJyb3I6IE9vcHM6IDAwMDAwMDAwOTYwMDAwMDQgWyMxXSAg
+U01QDQo+IFsgICA5Mi44MDMwMjddIE1vZHVsZXMgbGlua2VkIGluOiBwb3dlcnZyDQo+IFsgICA5
+Mi44NTI1MzNdIENQVTogMCBVSUQ6IDAgUElEOiA0MDkgQ29tbTogdHJpYW5nbGUgTm90IHRhaW50
+ZWQgNy4xLjAtcmM1LWc5OGI0NmU2OTNiOTEgIzEgUFJFRU1QVA0KPiBbICAgOTIuODYxMzg1XSBI
+YXJkd2FyZSBuYW1lOiBUZXhhcyBJbnN0cnVtZW50cyBBTTY4IFNLIChEVCkNCj4gWyAgIDkyLjg2
+Njc2Nl0gcHN0YXRlOiA2MDAwMDAwNSAoblpDdiBkYWlmIC1QQU4gLVVBTyAtVENPIC1ESVQgLVNT
+QlMgQlRZUEU9LS0pDQo+IFsgICA5Mi44NzM3MDldIHBjIDogcHZyX3ZtX2dldF9md19tZW1fY29u
+dGV4dCsweDAvMHhjIFtwb3dlcnZyXQ0KPiBbICAgOTIuODc5Mzc2XSBsciA6IHB2cl9xdWV1ZV9j
+cmVhdGUrMHgyNmMvMHg0NDAgW3Bvd2VydnJdDQo+IFsgICA5Mi44ODQ1OTVdIHNwIDogZmZmZjgw
+MDA4MzdmYmIwMA0KPiBbICAgOTIuODg3ODk1XSB4Mjk6IGZmZmY4MDAwODM3ZmJiNjAgeDI4OiAw
+MDAwMDAwMDAwMDAwMDAwIHgyNzogZmZmZjgwMDA4MzdmYmNlOA0KPiBbICAgOTIuODk1MDE1XSB4
+MjY6IGZmZmYwMDA4MDdmNjFhNDAgeDI1OiBmZmZmMDAwODA3ZjYxYTAwIHgyNDogZmZmZjAwMDgw
+N2Y2NDQwMA0KPiBbICAgOTIuOTAyMTM1XSB4MjM6IGZmZmYwMDA4MGE1YWIwMDAgeDIyOiBmZmZm
+ODAwMDc5YjI0NzMwIHgyMTogZmZmZjAwMDgwN2Y2MTgwMA0KPiBbICAgOTIuOTA5MjU0XSB4MjA6
+IGZmZmYwMDA4MDk5OWU2ODAgeDE5OiAwMDAwMDAwMDAwMDAwMDAwIHgxODogMDAwMDAwMDAwMDAw
+MDAwMA0KPiBbICAgOTIuOTE2MzczXSB4MTc6IDAwMDAwMDAwMDAwMDAwMDAgeDE2OiAwMDAwMDAw
+MDAwMDAwMDAwIHgxNTogMDAwMDAwMDAwMDAwMDAwMQ0KPiBbICAgOTIuOTIzNDkyXSB4MTQ6IDAw
+MDAwMDAwMDAwMDAwMDAgeDEzOiAwMDAwMDAwMDAwMDAwMDAyIHgxMjogZmZmZjgwMDA4MTQ1YjI5
+OA0KPiBbICAgOTIuOTMwNjExXSB4MTE6IGZmZmY4MDAwODQ0ZTUwMDAgeDEwOiBmZmZmODAwMDgx
+NjVhMTMwIHg5IDogMDAwMDAwMDAwMDAwMDEwMA0KPiBbICAgOTIuOTM3NzMwXSB4OCA6IDAwMDAw
+MDAwMDAwMDAwMDEgeDcgOiBmZmZmMDAwODA3NmIyN2UwIHg2IDogZmZmZjAwMDgwZWM0M2I3Yw0K
+PiBbICAgOTIuOTQ0ODUwXSB4NSA6IGZmZmYwMDA4MGVjNDNiNzggeDQgOiAwMDAwMDAwMDAwMDAw
+MDAwIHgzIDogZmZmZjAwMDgwOTk5ZTY4MA0KPiBbICAgOTIuOTUxOTY4XSB4MiA6IDAwMDAwMDAw
+MDAwMDAwMDAgeDEgOiAwMDAwMDAwMDAwMDAwMDAwIHgwIDogMDAwMDAwMDAwMDAwMDAwMA0KPiBb
+ICAgOTIuOTU5MDg4XSBDYWxsIHRyYWNlOg0KPiBbICAgOTIuOTYxNTIxXSAgcHZyX3ZtX2dldF9m
+d19tZW1fY29udGV4dCsweDAvMHhjIFtwb3dlcnZyXSAoUCkNCj4gWyAgIDkyLjk2NzE3M10gIHB2
+cl9jb250ZXh0X2NyZWF0ZSsweDE5MC8weDQxMCBbcG93ZXJ2cl0NCj4gWyAgIDkyLjk3MjIxOF0g
+IHB2cl9pb2N0bF9jcmVhdGVfY29udGV4dCsweDQ0LzB4OGMgW3Bvd2VydnJdDQo+IFsgICA5Mi45
+Nzc2MDhdICBkcm1faW9jdGxfa2VybmVsKzB4YmMvMHgxMjQgW2RybV0NCj4gWyAgIDkyLjk4MjEy
+N10gIGRybV9pb2N0bCsweDFmOC8weDRkYyBbZHJtXQ0KPiBbICAgOTIuOTg2MDk4XSAgX19hcm02
+NF9zeXNfaW9jdGwrMHhhYy8weDEwNA0KPiBbICAgOTIuOTkwMTAyXSAgaW52b2tlX3N5c2NhbGwr
+MHg1NC8weDEwYw0KPiBbICAgOTIuOTkzODQyXSAgZWwwX3N2Y19jb21tb24uY29uc3Rwcm9wLjAr
+MHg0MC8weGUwDQo+IFsgICA5Mi45OTg1MzJdICBkb19lbDBfc3ZjKzB4MWMvMHgyOA0KPiBbICAg
+OTMuMDAxODM1XSAgZWwwX3N2YysweDM4LzB4MTFjDQo+IFsgICA5My4wMDQ5NjldICBlbDB0XzY0
+X3N5bmNfaGFuZGxlcisweGEwLzB4ZTQNCj4gWyAgIDkzLjAwOTEzOV0gIGVsMHRfNjRfc3luYysw
+eDE5OC8weDE5Yw0KPiBbICAgOTMuMDEyNzkyXSBDb2RlOiBhYTE3MDNlMCBkMjgwMDAxNCA5NWNi
+MGJhNCAxN2ZmZmZlOCAoZjk0MGE0MDApDQo+IFsgICA5My4wMTg4NjldIC0tLVsgZW5kIHRyYWNl
+IDAwMDAwMDAwMDAwMDAwMDAgXS0tLQ0KPiANCj4gRml4ZXM6IGQyZDc5ZDI5YmI5OCAoImRybS9p
+bWFnaW5hdGlvbjogSW1wbGVtZW50IGNvbnRleHQgY3JlYXRpb24vZGVzdHJ1Y3Rpb24gaW9jdGxz
+IikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogTHVpZ2kg
+U2FudGl2ZXR0aSA8bHVpZ2kuc2FudGl2ZXR0aUBpbWd0ZWMuY29tPg0KDQpSZXZpZXdlZC1ieTog
+QWxlc3NpbyBCZWxsZSA8YWxlc3Npby5iZWxsZUBpbWd0ZWMuY29tPg0KDQpUaGFua3MsDQpBbGVz
+c2lvDQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2NvbnRleHQu
+YyB8IDQgKystLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlv
+bnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZy
+X2NvbnRleHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlvbi9wdnJfY29udGV4dC5jDQo+
+IGluZGV4IGViYTQ2OTQ0MDBiNS4uNTEyZjM3MzUyMjNlIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX2NvbnRleHQuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vaW1hZ2luYXRpb24vcHZyX2NvbnRleHQuYw0KPiBAQCAtMzA3LDggKzMwNyw4IEBAIGludCBw
+dnJfY29udGV4dF9jcmVhdGUoc3RydWN0IHB2cl9maWxlICpwdnJfZmlsZSwgc3RydWN0IGRybV9w
+dnJfaW9jdGxfY3JlYXRlX2NvDQo+ICAJCWdvdG8gZXJyX2ZyZWVfY3R4Ow0KPiAgDQo+ICAJY3R4
+LT52bV9jdHggPSBwdnJfdm1fY29udGV4dF9sb29rdXAocHZyX2ZpbGUsIGFyZ3MtPnZtX2NvbnRl
+eHRfaGFuZGxlKTsNCj4gLQlpZiAoSVNfRVJSKGN0eC0+dm1fY3R4KSkgew0KPiAtCQllcnIgPSBQ
+VFJfRVJSKGN0eC0+dm1fY3R4KTsNCj4gKwlpZiAoIWN0eC0+dm1fY3R4KSB7DQo+ICsJCWVyciA9
+IC1FSU5WQUw7DQo+ICAJCWdvdG8gZXJyX2ZyZWVfY3R4Ow0KPiAgCX0NCj4gIA0KPiANCj4gLS0t
+DQo+IGJhc2UtY29tbWl0OiBmNzYwNjQwMGYxOWNhMDI5MTcxOGNlNGVlZDU3NzA3OTg4OTBlYTJm
+DQo+IGNoYW5nZS1pZDogMjAyNjA3MDctc3RhZ2luZy1kZGtvcHNyYy0yNDM1LTkwZDRkMjE4Mzgz
+Yg0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiAtLSAgDQo+IEx1aWdpIFNhbnRpdmV0dGkgPGx1aWdp
+LnNhbnRpdmV0dGlAaW1ndGVjLmNvbT4NCj4gDQoNCg==
