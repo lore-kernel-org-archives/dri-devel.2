@@ -4,153 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EBEFC44501
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 22:56:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9D2C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 23:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEC1510F327;
-	Wed,  8 Jul 2026 22:56:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9B4E10E39D;
+	Wed,  8 Jul 2026 23:18:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aBHsHdP3";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="QdNJOkbg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0619510E374;
- Wed,  8 Jul 2026 22:56:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783551390; x=1815087390;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=mHZVpk3Y8GVK9IK91kxRlbtm9PMZ8rwB529pN/PdpVg=;
- b=aBHsHdP3XpqXTGlfNZUCgQXYxQ7/WqAedYntF5VS76IbGZcyzyvvBfu0
- tlr6GxviP0qssH8CPEn5BJ/zTIqyfv+n5bZBFJVtKrjy0W1qhmN73myHO
- e4B1TQwubQDFVDkDgWEB4L/E2UGPUCGwYjAR8iaaEQYhpuOl8jln6SizL
- pq5ro6Pa4wKrgg+q/w54fz1joayd/iA/Djez/p0lg1XFNJ0IImHgEEJ8E
- PY6QJCUiWuPrF1k0iVf3ufPl3BR48bIZU4JTU6Oitxxm3wKKODT5kZQY2
- bPAsKNucn5W9mqwRFe1Z1WrM/Np7Hhn7LANiv5oUJa8qURu/MXCJguWEf g==;
-X-CSE-ConnectionGUID: QGuJMHu2RTGUROXs4YMItw==
-X-CSE-MsgGUID: 6hcsXZOnRaKFJO9cJIHVLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84009251"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="84009251"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 15:56:29 -0700
-X-CSE-ConnectionGUID: UEildSTfTT6cDO+i6w2HPw==
-X-CSE-MsgGUID: p0z9zK3VStqoHo12pD/8vw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="255066074"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 15:56:28 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 15:56:27 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Wed, 8 Jul 2026 15:56:27 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.7) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 15:56:27 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d7E5ae9VCM/7BoeWSiid/nX3wGIYT4Mul/JDI7808TOTbhG2uOtNh4fT39QDVSQuy9FEd0ePoQ2ThG/ZpVzRI570N0Pb/15vQQMZ5DCl9olVBn6CElslZK43BAhneITDXDoBftBVS6QVa4egplvDl/Iw/dEMXx8cyildN4IPsk1I8cq3I4roLhraMpvfYEnSR3CDTnB4nsJ4cBIhLsQbezJaDsjOtN8VwiluhvTcYC5x0OUDRuCUHmyJW9h5p/pVbqkLn/+enV49e/5FC8gq4FN33dASkoLNeBLadb/Eviau34xYLHgOSi6kdH1MGTjbCtrj8YcNLopA0gHiwldHiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UmHY4+eeK69nOhRxtXvR8aK75nPn5y13DdziZBgkGx4=;
- b=Rmg0cGJL6pq0PDR/uwJxTg/br/f/p8rBXNX5HIT5bHJLA2aDj8J9T4LeDK87OpMQIE96ffxz83NlPh9yWSpUWQ0NPbG4Tt9l80mV+lPSboDMZFMi1Q1XiBEa9VjvSgDQLMCI+KfprGeXRiq4NfYloncF47lfmvELErwx7F0Ufbes2CjF30yaBRa1hG1dbHLtreqWygC5fO+1N41F3ouqzRo0rdnWVZmE+2a68HfwxJ0KXqM6IgvQ+NCrVwL+W9RKXZDsDXSAqgNgSuvZ945aIetBuZc5869q4gbRPDoNf/Qju0A2YHJ0o/IFc4pgOKVdzrIOIekhlfl010t9hclDeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by IA4PR11MB9300.namprd11.prod.outlook.com (2603:10b6:208:56e::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 22:56:25 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
- 22:56:24 +0000
-Date: Wed, 8 Jul 2026 15:56:22 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: "Huang, Honglei" <honghuan@amd.com>
-CC: <sima@ffwll.ch>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
- <intel-xe@lists.freedesktop.org>, <aliceryhl@google.com>,
- <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>,
- <Junhua.Shen@amd.com>, <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v10 0/5] drm/gpusvm: split MM and device state across
- gpusvm/range/pages
-Message-ID: <ak7VlleUwy65QLtg@gsse-cloud1.jf.intel.com>
-References: <20260630102127.392396-1-honghuan@amd.com>
- <akPSENdX3vz8PvdY@gsse-cloud1.jf.intel.com>
- <4c0d3658-9480-43b9-9c33-667238697d1a@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <4c0d3658-9480-43b9-9c33-667238697d1a@amd.com>
-X-ClientProxiedBy: BY3PR05CA0007.namprd05.prod.outlook.com
- (2603:10b6:a03:254::12) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B464710E39D
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 23:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1783552706;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=m5qIRcmJXyAs4S5n6HPsnEq9NZkqNs3idRIrshW19t8=;
+ b=QdNJOkbgwLmwJ9Hn/wD116cTVasqNV77ZyqaJwdB/ocncgLa7D5pTatGDYqtzsNJbtPswI
+ ZMyJO+ErfgGXBf7HVP6pyjIIZP0blJBWP4e1MtzoFSq0zP+ruc/jBuASwSgjWCc+v2pt3z
+ YNU8cAkwuYNlPFB4sLfD0El4UMpaSv0=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-173-IT-ntXCONnWHCfVafQRbMw-1; Wed, 08 Jul 2026 19:18:25 -0400
+X-MC-Unique: IT-ntXCONnWHCfVafQRbMw-1
+X-Mimecast-MFC-AGG-ID: IT-ntXCONnWHCfVafQRbMw_1783552705
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8e86066fc53so6734586d6.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 16:18:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783552705; x=1784157505;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=m5qIRcmJXyAs4S5n6HPsnEq9NZkqNs3idRIrshW19t8=;
+ b=IG2qT3qUz7+ytiXKKKAyxSXxcztlz1r6hT35upNH4OeO63BHl7YWe0RkiX85bYLm4G
+ CZdgZs3qLWi7HGo+XZRZMS8xFjeQ3OLjKpX7gt5fzEW5d1+F6eJzSVFlpK2rBgem05Mg
+ ujh9+Y3Auf+oyYzIhOpVdcyNawYdKSmbYy5vLooCgrZHy6tOFfZUtf+GjArDvPc+yOtp
+ 8az8DcbYJk/6tlV38bmUPjV4N9amG7wi/4WVPWtxNw1C7KQqyY9Hfk3i3iEuCPFbRmH7
+ 1Almj9x/hpae9vuX1yDIxh8aWD4jeIJjRHZKyGFq12Xi2pm0ZmxaXaPrKM3PabhrQ6EX
+ Mk/Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp5OdL4KuhK7D0cogOgBdRiEHvMWXma6iKG8pVZ3VTbPOamShl+YDIs/wDv5/tM0KBO9yE93H4ooAE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwmE23057XWuE9F6z+EbEQUFruhmTfLn/g9V/HcJntfgLimxUXw
+ ndjMDdCy4X/Z0T76EA0nu4B3FdaeCJRk/b4uGRtRduLGjt3U6n+bA2YQAbCAbEIvPlAxEmyg/OT
+ DWmI9IaTGZmXWYoemP/EMWu+sJyBaFJU7mfd7kRD1k/DIqnawpW9mjEpFdbwYf8X8CKmlQg==
+X-Gm-Gg: AfdE7ck3JmCBvuMGUI64yycbcl8M1mwq5zALKn2aqyHhLCzVrbYIbakDvuiXEA1+7yx
+ ci3zwJHTNFafL2QnWhjDMO9OySbbQEqJ1N+xks+9XCqEtYRU9kB9ZfzSuAq2j3qIzKSJ0xdl05L
+ EGjn3wyPi2ai4OrT2UKhancvN+5CvR4n0/Wv4gQU2Kt4QlXOuN3c5lJSDiiVCwx7FIkv/Y/4jS0
+ wvwSGyjcpB5/phevMOL+GSrzu21ESk7p4PW9ep/1mB41x3KTAfNzaiNFWsr+JEpAZbIY164GqjB
+ A74sY1IrvkfTNJ7MQBb4Q+LS3hyFRceZfuk5GBWdKQTiq1WO5QV+Vdq2BtqoOJPGCzndlzFz18I
+ gcNob4W4=
+X-Received: by 2002:a05:6214:8087:b0:8ee:fb19:a9ac with SMTP id
+ 6a1803df08f44-8ffea44044bmr4033496d6.12.1783552704819; 
+ Wed, 08 Jul 2026 16:18:24 -0700 (PDT)
+X-Received: by 2002:a05:6214:8087:b0:8ee:fb19:a9ac with SMTP id
+ 6a1803df08f44-8ffea44044bmr4033166d6.12.1783552704270; 
+ Wed, 08 Jul 2026 16:18:24 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8ffd7c1d9f6sm3681606d6.23.2026.07.08.16.18.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 16:18:23 -0700 (PDT)
+Message-ID: <971d09c47689981c1ea44c89555f71fcc0b5db41.camel@redhat.com>
+Subject: Re: [PATCH v3 2/3] drm/nouveau/gsp/r570: Never enter Gcoff state
+From: lyude@redhat.com
+To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@redhat.com>
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Timur Tabi
+ <ttabi@nvidia.com>,  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Kees Cook
+ <kees@kernel.org>, Simona Vetter <simona@ffwll.ch>, David Airlie
+ <airlied@gmail.com>,  Thomas Zimmermann <tzimmermann@suse.de>, Maxime
+ Ripard <mripard@kernel.org>, Mel Henning <mhenning@darkrefraction.com>
+Date: Wed, 08 Jul 2026 19:18:22 -0400
+In-Reply-To: <b5d08cfe-aead-45f2-937d-6e9ef4dfea50@nvidia.com>
+References: <20260701182857.190713-1-lyude@redhat.com>
+ <20260701182857.190713-3-lyude@redhat.com>
+ <DJNNQVO96RR1.141CE7TKF6MZP@kernel.org>
+ <CAMwc25qA6GFb1Q=VHTa8BcM85B2dr22RrgdJcHTz70P5Xjj_bA@mail.gmail.com>
+ <DJNO6SIE8T88.1F0ZUILIRVDJC@kernel.org>
+ <b5d08cfe-aead-45f2-937d-6e9ef4dfea50@nvidia.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|IA4PR11MB9300:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e79841a-77d7-4276-db4c-08dedd4422d9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|22122799003|366016|7416014|1800799024|23010399003|376014|22082099003|18002099003|11063799006|4143699003|3023799007|56012099006;
-X-Microsoft-Antispam-Message-Info: w9El6Flrdk9Edv+j/7aCqQNgK1FDffprmRGz//CTeVNKyVEJenTNMyDD7SGXZePNRjx8IBxjcSayZiTtx4uxjV2wt9aYHmS6rlEc6F+XMCLCTTNXGHAAo60WVONSLtwDDrxgn74AE/kZpMExXK94+Wj9C++yfkv0gG5JkXXvjGIzZ+eoFKWLAitz5HQeonZ6vgMVsSk7hT4CmZ3pohSyuew5PIcXhQJ9PLonlEUa1keXVPrnyfHKokE+vKq7R+AlTukYRXk3z4z2ZKa3Bg9nzEcJHSnLhZSaC+A8S3t42B1d7TbLZBsMlN/wax1PLlW715r3MDB5xF4DppPnk4CwrNEg94A0k3kdlq0axbL0W2aTHoAdewCFhkjanWiuPv2QF10SsjlCH8hiNT3fGwTEzoexit0GhzumKdOmiZySu6/RU4OVkLgHGNREFsdog3H0fXOIr/HNHY6h4waFgAtaDzYWz6Ld2IxdJDd3EyrhinBDYYaK2azW0CGZ/mdsPMGEWe6daJXEwhpclXh6o+YnSF1qthmIZ5BtcrzAKA6limQSxF9prKk1iMTxHbd1PzVkkp7aYVi4/GzcX7qZNzfbTJZBZsUhahTvjfNeFuOzV6Ng2JxtNcdUahWLF6J3tprD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(22122799003)(366016)(7416014)(1800799024)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(4143699003)(3023799007)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?T0/r4qJIPPJWurwrOlZUKnEcVrDXu1rluFyxTV+ahF6nD0T6KidNYM9EyWtV?=
- =?us-ascii?Q?d0pbGisD+HKtQPTjEIdm0MjAQTM0ZvQCO0r/BUM+qvEcjpG/HOBuwSweXxE7?=
- =?us-ascii?Q?T9xmdDVfFH725rzTGyrX0AMFFDcX7aX8ab8WfeIyOAXd5L+zbML/HgRbzYlV?=
- =?us-ascii?Q?xrMSj96F6jdgfS4gl2wWRn68iA4ob/brnxc+7spF65sDe1KQ1W18pTrPEJ3h?=
- =?us-ascii?Q?5G+nzbjHC/DgsgVSr8OHFulYgsaapR4HmMSZiW2tPOzA7zr1srwUghh/aAwo?=
- =?us-ascii?Q?lykQFapFfWbMHSf9SAq+AR+z1NuuYPKkWMofnj0/snx4yMPgLmx5z+oHycWi?=
- =?us-ascii?Q?4cV/Lyo5e3v4KA0nIztRZnQDhUjilMPWChs0FV5NRgwkShuKK7pUG8jAedV1?=
- =?us-ascii?Q?xuXDEZjhaHSvX3FW7/mMgnPTC/Y3yaupbn4eIBQCksHftIUyoEmfjBFZnQn7?=
- =?us-ascii?Q?90fAlbWcaGkvaLZ1LJl8JfQDd4WXIhMOKH/Nhen43Dd/Id8cCG8bnLrWFC6j?=
- =?us-ascii?Q?ULj7bNpp6HYEIfPOxTvG4LthtbVgBHMbIWPiUqrokZzdFJnze6tEMSd8BxXN?=
- =?us-ascii?Q?FVL2NTY8CpNmJ1mYOWb/D/ULK7MY5hTecRsnQDQasLgNGg3aYPIMfLBM8AUM?=
- =?us-ascii?Q?s430Q5RZ+W4WMCLHBhdedpogTzw4wocDcF0oRtchJHLHNS+Zj9ab3sde/6fY?=
- =?us-ascii?Q?kAtIcsYyrR37j0jtnYBtaAg6eQUdJgs+HcQzDGxCgbD6ncBcyCysvOrnd79Q?=
- =?us-ascii?Q?mW8JX+flkhq1DYFEFb2qk+Pfafw/xUuaBY4eRQu8NMtMu1WNJJ3lR2IT4jKq?=
- =?us-ascii?Q?ZOAtI3z0uD44qH7mo3YD1rqyGVIm0xIJ9JBBiVlTQwb4ZB4F4RUP3kYcZauL?=
- =?us-ascii?Q?h0vQFnubcNImOBjEcf6r7o6WL3eKlrnXZHplPtB6XXHQBuN7+VjX3tdKGYIz?=
- =?us-ascii?Q?0D2iZlOEwhN+h8CPLntr7FrVZiEmraFQWYF6pgIrZAEZhPIstlVSCE0J4Uiq?=
- =?us-ascii?Q?kv9FuoVevG5uzVAPwEhyk7N7oLqxlrkACoOT/eAPfMdv/5nPqqANynFYXqST?=
- =?us-ascii?Q?LHYliVUoagMTWnfro2wdSc//ca7s7bvYWSsipJUbLa18COIxDvaTLUqUHhkc?=
- =?us-ascii?Q?Aj6GvuAvq341r4Qg2JIcgQxaqkoXi6D2pWIVeWUieqb/+q06EN5cYkucc5WH?=
- =?us-ascii?Q?N/x2PBp8pjC+pl/8o14xHMVCUwPyJZbsd1wxlAdO7/9afogorp61haG//Vou?=
- =?us-ascii?Q?1JktFD7zZbv5e5PMuQuKcGs7m+IsYAyhLWEIN/xfCdGHVKfwuoQOK+lrPtcD?=
- =?us-ascii?Q?e4v8gm9U+gOwYNwCITYnTC3ExegBBJEx+YCJRuo9UmCT561xCaA6+H3FV3Ts?=
- =?us-ascii?Q?sEQus93gZeHckG5vqPiqf+Giw2iF2z94NX/EyTBeKxy/3XaMR/DRqfmoqyQL?=
- =?us-ascii?Q?K8NtGJObzZ5+WI1e/x6I4L1G7R4NuhXzhg1has/AJsypKslcWMBSs3jzUkS4?=
- =?us-ascii?Q?KpP+MSS9/va+4Bmw8aR1AUFPDFU08bPl3fy9AlyS0pbNQc/wl0ZwsxKT2Obd?=
- =?us-ascii?Q?o3NS8Hbq0fs4mFbWWEGqNqOolIKJKcPZwLVL+I+vWF0isqRCvXmLb1zmA/4U?=
- =?us-ascii?Q?1TWjB+yYcgix3i5+wUoV9XBbw0BjEfcsgZ8z2aIiGs9RYGgcDSBSDeQgCbml?=
- =?us-ascii?Q?bJ5Sv/2Bx7aBLlFFHrIo7GeWZrsqK4oQA4zVAYeGuPhpTnSCsazDHxh5MwoS?=
- =?us-ascii?Q?3bQpfaGHzg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: dmYwxJ+BZgAPO/gVK//S4HOS0l0Mh78JvSTQUfveKhcaSfYR2ddIBYFbJ4pLILvDYKAx9vTdqYjoUIJBGQjmDk8gXBHk0wUzBhWRfUtAtYfLZkSSX6ZNgXMV+XrZnEQVybGY3lUPAyOEQYeNBYmaJNKxGMSeMWSd60GkEoRg2W4XeE8XgkHO5cZqUFh03ugKCMy7RNt7NR5IJb//tKbU5WOJT86XBsfWzCPBQdckgoUmrsjxgMA1+LTg9rK7prpz9nlHOYaDqGX5nur+87hG9hUtBsK1MbJTDB3cFNnNfRJbsxPm6l8ogxhwytFylrkjeZXhsN+HbGg0ixHnt113fg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e79841a-77d7-4276-db4c-08dedd4422d9
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 22:56:24.7440 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ly9+rSvcIU+VUnDanefdkpiUYDQ9RJwhtlyTYXxQswKBQcZYRZC09ah+nw/6JXM1Iv6XSSWkpx+HeXwMp98YXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9300
-X-OriginatorOrg: intel.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: AHz2Y_oIaZPcoSCGilWQDcRp9b4oOpHOFQcZIY2rhbk_1783552705
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,199 +111,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 01, 2026 at 11:34:57AM +0800, Huang, Honglei wrote:
-> 
-> 
-> On 6/30/2026 10:26 PM, Matthew Brost wrote:
-> > On Tue, Jun 30, 2026 at 06:21:22PM +0800, Honglei Huang wrote:
-> > > The intent of this series is to make drm_gpusvm more flexible and give
-> > > drivers more freedom over how they assemble the MM related and device
-> > > side operations. It implements the direction Matt suggested in [1]:
-> > > Mirror MR in gitlab: [4]
-> > > 
-> > >    - Move struct drm_gpusvm_pages out of struct drm_gpusvm_range.
-> > >    - Embed a struct drm_device in struct drm_gpusvm_pages and drive all
-> > >      DMA through it.
-> > >    - Drop struct drm_device from struct drm_gpusvm.
-> > >    - Have the driver's range structure embed one or more struct
-> > >      drm_gpusvm_pages in addition to struct drm_gpusvm_range.
-> > >    - Drop the range-based helpers (drm_gpusvm_range_pages_valid,
-> > >      drm_gpusvm_range_get_pages, drm_gpusvm_range_unmap_pages) and update
-> > >      drivers to use the drm_gpusvm_pages helpers instead.
-> > > 
-> > > In essence the series does only two abstractions, plus the xe
-> > > adaptation that follows from them:
-> > > 
-> > >    - range vs pages: split drm_gpusvm_range (MM / VA range state) from
-> > >      drm_gpusvm_pages (device physical related), so the two sides can
-> > >      have independent lifetimes and ownership.
-> > >    - drm_gpusvm vs drm_device: make drm_gpusvm pure MM level and push
-> > >      the device side down onto drm_gpusvm_pages, which is where DMA
-> > >      actually happens.
-> > >    - xe is updated to fit the modifications, no functional change
-> > >      intended.
-> > > 
-> > > V10:
-> > >    Fix two issues found by the AI review:
-> > >    - patch 1: fix a KCSAN data race in xe_svm_alloc_vram(): read
-> > >      range->base.flags.__flags with READ_ONCE() and assert on a local
-> > >      copy, pairing with the WRITE_ONCE() in
-> > >      drm_gpusvm_range_set_unmapped().
-> > >    - patch 3: remove the DMA unmap in xe_svm_fini(): since
-> > >      drm_gpusvm_range_remove() no longer unmaps synchronously, explicitly
-> > >      drm_gpusvm_unmap_pages() all remaining ranges before
-> > >      drm_gpusvm_fini().
-> > > 
-> > > V9:
-> > >    - patch 3: fix the build with CONFIG_DRM_XE_GPUSVM disabled: move
-> > >      pages out of the nested base struct in the stub xe_svm_range and
-> > >      route has_dma_mapping through range->pages. No functional change.
-> > > 
-> > > V8:
-> > >    - patch 4: add reviewed-by for Matt's review.
-> > > 
-> > > V7:
-> > >    - patch 1: split MM state flags: the AI review found a KCSAN / memory
-> > >      model cleanliness issue. Address it for consistency with
-> > >      drm_gpusvm_pages_flags, set the range flags with WRITE_ONCE() on
-> > >      __flags and read them with READ_ONCE().
-> > > 
-> > > V6:
-> > >    - The AI review flagged a potential DMA free issue: the DMA unmap
-> > >      step was moved into the range_free callback, but on the invalidate
-> > >      path a range can be removed from the MMU interval tree while its DMA
-> > >      mappings are still live, so a concurrent unmap event can miss it.
-> > >    - patch 3: have xe_svm_range embed one drm_gpusvm_pages: explicitly
-> > >      call drm_gpusvm_unmap_pages() before drm_gpusvm_range_remove() in the
-> > >      garbage collector, so a range is never off the tree while still DMA
-> > >      mapped, and document this caller contract in drm_gpusvm_range_remove()
-> > >      kernel-doc.
-> > >    - patch 4: move struct drm_gpusvm_pages out: document the
-> > >      unmap before remove contract in the garbage collector example and
-> > >      note that range_free()'s drm_gpusvm_free_pages() as a final fallback.
-> > >    - patch 1: split MM state flags: return -EACCES directly.
-> > >    - Fold in the pre existing IOVA/DMA unmap fixes the AI review found
-> > >      previously sent separately: the uninitialized dma_addr[0].dir on
-> > >      the get_pages() error path, the whole reservation IOVA free for
-> > >      mixed ranges, and the device mapping leak on the get_pages() error
-> > >      path. [6]
-> > > 
-> > > V5:
-> > >    - add reviewed-by in patches 1, 2, 3, 5 for Matt's review.
-> > > 
-> > > V4:
-> > >    - drm_gpusvm_init_pages(): memset() the pages to zero before recording
-> > >      the owning drm_device.
-> > >    - DOC: overview: recommend a zeroing allocator: kcalloc() for the
-> > >      N:1 pages array.
-> > >    - Rebased onto the latest drm-xe.
-> > >    - The AI review of this series flagged two preexisting issues in the
-> > >      IOVA unmap path that are not introduced by this series; they are
-> > >      fixed in a separate series [5].
-> > > 
-> > > V3:
-> > >    - Fix a kernel-doc/Sphinx warning from the kernel test robot: use
-> > >      ".. code-block:: c" for the drm_gpusvm_pages example in DOC: overview.
-> > >    - drm_gpusvm_range_set_unmapped(): use WRITE_ONCE() on the whole
-> > >      pages[i].flags.__flags word to pair with the lockless READ_ONCE()
-> > >      readers and avoid a data race.
-> > >    - xe_userptr_setup(): call drm_gpusvm_init_pages() before
-> > >      mmu_interval_notifier_insert() to avoid exposing uninitialized
-> > >      pages.drm to invalidation callbacks.
-> > >    - Fix per commit build of the set_unmapped() pages.
-> > > 
-> > > V2:
-> > >    - Followed in Matt's v0 review fixups [2]:
-> > >       - keep unmapped flag in pages structures.
-> > >       - add pages_count to drm_gpusvm_range_set_unmapped() to set the pages
-> > >         unmapped flag, so the framework can check unmapped status in
-> > >         drm_gpusvm_get_pages().
-> > >    - Add drm_gpusvm_init_pages to init the drm_device and sequence number.
-> > >    - Remove drm_device from drm_gpusvm_get_pages() parameters.
-> > >    - Reworked the DOC: overview and usage examples to describe the new
-> > >      model: struct drm_gpusvm_pages, the 1:1 / N:1 driver layouts, and
-> > >      examples that operate on a driver embedded pages object by the
-> > >      drm_gpusvm_pages helpers and etc.
-> > >    - remove WARN_ON_ONCE in __drm_gpusvm_unmap_pages.
-> > >    - Dropped RFC.
-> > > 
-> > > Follow-up (not in this series):
-> > > 
-> > >    - modify drm_gpusvm_get_pages() to support one time hmm range fault
-> > >      and multi drm device dma mapping.
-> > >    - Add no dma device support for drm_gpusvm_get_pages().
-> > > 
-> > > tests:
-> > > AMDGPU:
-> > >    based on amdgpu adaptation patch in [3], but still SVM:DRM = 1:1,
-> > >    1:n is on going needs many modifications and testings.
-> > > 
-> > >    Tested on gfx943 (MI300X) and gfx906 (MI60) with XNACK on/off:
-> > >    - KFD test: 95%+ passed.
-> > >    - ROCR test: all passed.
-> > >    - HIP catch test: gfx943 (MI300X): 99% passed.
-> > >                      gfx906 (MI60): 99% passed.
-> > > INTEL XE:
-> > >    CI tests passed in rev5 tests.[7]
-> > 
-> > 
-> > CI full is in flight, but it seems likely to pass. Once it completes, we
-> > can merge this; we just need to decide which branch to use.
-> > 
-> > The series does not apply cleanly to drm-misc-next because it depends on
-> > changes in drm-xe-next that have not yet been merged into drm-misc-next.
-> > It does apply cleanly to drm-xe-next, though.
-> > 
-> > If we merge the patches in drm-xe-next and pick them up via a rebase in
-> > the AMD trees, that works. Alternatively, we can ask the drm-misc-next
-> > maintainers to rebase and apply them there. Either option works for me.
-> > 
-> 
-> Thanks a lot, Matt, for the guidance and the reviews in this series.
-> 
-> For the merge, happy to rebase onto whatever base/tag decided, just
-> let me know.
-> 
-> And will work on the follow up works.
+On Thu, 2026-07-02 at 12:46 -1000, John Hubbard wrote:
+> On 7/1/26 2:47 PM, Danilo Krummrich wrote:
+> > On Thu Jul 2, 2026 at 2:30 AM CEST, David Airlie wrote:
+> > > On Thu, Jul 2, 2026 at 10:27=E2=80=AFAM Danilo Krummrich
+> > > <dakr@kernel.org> wrote:
+> > > >=20
+> > > > (Cc: John)
+>=20
+>=20
+> Also Cc: Aaron Plattner. I've provided answers below, but Aaron
+> has actual experience in debugging suspend-resume on our Linux
+> drivers.
+>=20
+> These answers are the result of my moderately long session with
+> our best AI tools, using Open RM, GSP-RM, and Nouveau sources
+> as a reference. I'm not actually experienced in this suspend-resume
+> area, much, but this makes sense from what anecdotal things I've
+> seen before.
 
-This now applies to drm-misc-next, so going to apply there by EOD unless
-I hear an objection.
+Would definitely be good to get human eyes on this, see down below
 
-Matt
+>=20
+> > > >=20
+> > > > On Wed Jul 1, 2026 at 8:17 PM CEST, Lyude Paul wrote:
+> > > > > It turns out that the only reason our previous fixes looked
+> > > > > like they
+> > > > > worked for this was because we would occasionally set the
+> > > > > Gcoff state to 0
+> > > > > in the normal S3 path, which fixed suspend/resume on desktops
+> > > > > - but not on
+> > > > > machines using runtime suspend.
+> > > > >=20
+> > > > > The proper fix is to just never set this flag. Our current
+> > > > > guess for the
+> > > > > reasoning behind this is that Gcoff likely coincides with
+> > > > > GC6, and not
+> > > > > literally power off.
+> > > >=20
+> > > > I don't think GcOff coincides with GC6, it should actually be a
+> > > > power off.
+>=20
+> You're right, it's the other way around from the commit message
+> guess.
+> In the RM sources GC6 and GCOFF are two distinct GCx targets. GC6
+> keeps
+> video memory alive in self-refresh. GCOFF is a full power-off where
+> video memory content is lost, so RM copies the used framebuffer out
+> to
+> sysmem before entering it, and it reports vidmem power as off while
+> in
+> GCOFF. GCOFF is the power-off case, GC6 is not.
+>=20
+> > > >=20
+> > > > =C2=A0From a quick glance in OpenRM, it seems that with
+> > > > bEnteringGcoffState =3D 1 it
+> > > > also saves off buffers flagged as
+> > > > MEMDESC_FLAGS_LOST_ON_SUSPEND.
+>=20
+> That matches what I see, and it's the key point. bEnteringGcoffState
+> is
+> not a GC6-versus-off selector at the FBSR layer. It becomes the
+> PDB_PROP_GPU_GCOFF_STATE_ENTERING property on the RM side, and that
+> property widens the set of allocations RM saves and restores across
+> suspend (memmgrAddMemNodes, through its bSaveAllRmAllocations
+> argument).
+>=20
+> With it set:
+> =C2=A0=C2=A0 * RM reserved regions get saved, unless they are LOST_ON_SUS=
+PEND.
+> =C2=A0=C2=A0 * RM channel-context and kernel-client buffers get saved eve=
+n when
+> =C2=A0=C2=A0=C2=A0=C2=A0 they are LOST_ON_SUSPEND.
+>=20
+> With it clear, the reserved regions are skipped and the channel and
+> kernel-client buffers are saved only when they are not
+> LOST_ON_SUSPEND.
+> So =3D1 is a strict superset of =3D0, and it does include the
+> LOST_ON_SUSPEND buffers you found.
+>=20
+> The part that matters for nouveau: in the full driver that property
+> is
+> never just a standalone flag. RM sets it only when it has decided to
+> do
+> a GCOFF as part of its own RTD3 policy, after it has reserved
+> correctly
+> sized sysmem for the save and turned on comptag backing-store
+> preservation for the state unload and load. Setting the flag in the
+> FBSR init RPC on its own, the way nouveau does, gives GSP the wider
+> save
+> and restore set without any of that surrounding GCOFF handling.
+>=20
+> So I would adjust the guess slightly. It is not that nouveau never
+> saved those buffers or never had them. nouveau provides the sysmem
+> and
+> GSP-RM does the copy into it. The problem is the reverse: with =3D1,
+> GSP
+> saves and then restores buffers that were meant to be reinitialized
+> on
+> resume, and it does so without the comptag and state-load handling a
+> real GCOFF pairs with them. So the accurate framing is "buffers that
+> should have been reinitialized get restored instead", not "buffers
+> nouveau never saved".
+>=20
+> > > >=20
+> > > > My guess would be that with bEnteringGcoffState =3D 1, GSP's
+> > > > resume path expects
+> > > > certain kernel-driver-allocated buffers to still be in place
+> > > > that nouveau didn't
+> > > > save off, or rather never had in the first place.
+> > > >=20
+> > > > John, do you have some details about this?
+> > > >=20
+> > >=20
+> > > In nouveau we have the INST_SR_LOST target, for buffers that
+> > > aren't
+> > > preserved, I wonder did something change between 535 and 570
+> > > around
+> > > what needs to be kept around.
+> >=20
+> > The r535 code never set bEnteringGcoffState in the first place. In
+> > r535 OpenRM
+> > seems to do the exact same thing.
+>=20
+> The set of buffers did not change. The FBSR client ABI did. In 535
+> nouveau enumerates the exact VRAM regions and sends them to RM one at
+> a
+> time, and it never sets the gcoff field, so the flag is a no-op on
+> 535.
+>=20
+> In 570 nouveau passes RM a single sysmem buffer for the whole heap
+> and
+> lets GSP build the region list itself, and the gcoff flag is the only
+> control nouveau has over which regions GSP picks. Forcing it to 0
+> makes
+> the 570 GSP-built set match what 535 effectively saved, which is why
+> 535
+> looks like it does the same thing. So 0 is the right value for how
+> nouveau drives suspend today. RM derives this per transition from its
+> RTD3 policy, and 570 setting it to 1 was the deviation, not 0.
+>=20
+> On patch 3 (the resume state flags), I looked at that as well, and
+> here
+> is what the firmware actually does with it. In the 570 GSP firmware
+> the
+> resume state load already runs with GPU_STATE_FLAGS_PRESERVING |
+> GPU_STATE_FLAGS_PM_TRANSITION. That is set unconditionally in the
+> resume
+> path, and it is gated on the bInPMTransition field of the SR init
+> arguments, which nouveau already sets on resume. The firmware does
+> not
+> derive those flags from srInitArguments.flags. That field is read in
+> only one place on the resume path, an unrelated display workaround
+> gated
+> on the PM_SUSPEND bit. Neither 0 nor PRESERVING | PM_TRANSITION sets
+> that bit. And the value the open driver itself puts in that field on
+> a
+> standby or RTD3 resume is GPU_STATE_FLAGS_PM_SUSPEND, which is a PM-
+> type
+> indicator, not the state-load flags.
+>=20
+> So from the 570 sources I do not see a path by which patch 3 changes
+> what the firmware does on resume. That points to patches 1 and 2, the
+> revert plus never entering the gcoff save path, as what actually
+> fixes
+> the push-buffer timeouts. Your 100-cycle RTD3 result is consistent
+> with
+> that: those two are what stop GSP from doing the wide GCOFF-style
+> save
+> and restore.
+>=20
+> I want to be clear about the limits of what I checked. I confirmed
+> the
+> resume-side firmware behavior against the 570 release (latest)
+> sources=20
+> rather
+> than the exact 570.144 build, so I am not claiming patch 3 is
+> provably
+> inert on 570.144, only that I do not see how it changes behavior. And
+> I
+> have the mechanism for the =3D1 breakage but not the single allocation
+> behind the timeout. I can see that =3D1 restores LOST_ON_SUSPEND RM
+> buffers that should have been reinitialized, without the matching
+> state-load handling, but I have not isolated the exact buffer that
+> produces the failure.
 
-> 
-> Regards,
-> Honglei
-> 
-> > Matt
-> > 
-> > > 
-> > > links:
-> > > [1] https://lore.kernel.org/amd-gfx/acRgr7QwdULsn6G2@gsse-cloud1/#:~:text=I%20think%20roughly,drm_gpusvm_pages%0A%20%20helpers%20instead.
-> > > [2] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
-> > > [3] https://lore.kernel.org/amd-gfx/20260603065030.2554403-1-honglei1.huang@amd.com/
-> > > [4] https://gitlab.freedesktop.org/drm/xe/kernel/-/merge_requests/360
-> > > [5] https://lore.kernel.org/all/20260627033325.3795298-1-honglei1.huang@amd.com/
-> > > [6] https://lore.kernel.org/all/20260628061757.4093701-1-honglei1.huang@amd.com/
-> > > [7] https://patchwork.freedesktop.org/series/169384/#rev5
-> > > 
-> > > Honglei Huang (5):
-> > >    drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
-> > >    drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
-> > >    drm/xe: have xe_svm_range embed one drm_gpusvm_pages
-> > >    drm/gpusvm: move struct drm_gpusvm_pages out of struct
-> > >      drm_gpusvm_range
-> > >    drm/gpusvm: let the drm_gpusvm core context purely MM level
-> > > 
-> > >   drivers/gpu/drm/drm_gpusvm.c    | 243 +++++++++++++++++++-------------
-> > >   drivers/gpu/drm/xe/xe_pt.c      |   2 +-
-> > >   drivers/gpu/drm/xe/xe_svm.c     |  66 +++++++--
-> > >   drivers/gpu/drm/xe/xe_svm.h     |  14 +-
-> > >   drivers/gpu/drm/xe/xe_userptr.c |   5 +-
-> > >   include/drm/drm_gpusvm.h        |  67 ++++++---
-> > >   6 files changed, 255 insertions(+), 142 deletions(-)
-> > > 
-> > > -- 
-> > > 2.34.1
-> > > 
-> 
+Mhm - the AI must be missing something, mainly because I went back and
+double checked - and at least with runtime PM on this ampere machine
+I'm immediately able to reproduce issues if I drop patch 3 (in
+particular - job timeouts after runtime resume). The actual
+suspend/resume process succeeds, but it leaves us with a GPU that
+doesn't seem to be able to render anything:
+
+[   93.167997] nouveau 0000:01:00.0: vkcube[11028]: job timeout, channel 4 =
+killed!
+[  100.365899] nouveau 0000:01:00.0: gsp: rc engn:00000001 chid:4 gfid:0 le=
+vel:2 type:38 scope:1 part:233 fault_addr:0000000000000000 fault_type:00000=
+000
+[  100.365907] nouveau 0000:01:00.0: fifo:c00000:0004:0004:[vkcube[11028]] =
+errored - disabling channel
+
+>=20
+> My bottom line: patch 2 (=3D0) is correct and is the right value for
+> how
+> nouveau drives suspend today, and patch 1 is needed with it. Patch 3
+> is
+> harmless, and from the sources I do not expect it to change anything
+> on
+> 570.144.
+>=20
+> Assisted-by: Cursor :)
+>=20
+> thanks,
+
