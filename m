@@ -4,70 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67125C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EAD8C44501
 	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 02:18:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B693C10E16A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B93C510EF85;
 	Wed,  8 Jul 2026 02:18:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C8AmcC2Y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dRNrclx/";
 	dkim-atps=neutral
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5463C10EF82
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 02:18:33 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-48a0ca07c38so145279b6e.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 19:18:33 -0700 (PDT)
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
+ [209.85.167.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDFF610E16A
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 02:18:34 +0000 (UTC)
+Received: by mail-oi1-f170.google.com with SMTP id
+ 5614622812f47-495c63c4141so153779b6e.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 19:18:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783477112; x=1784081912; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1783477114; x=1784081914; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=mIr7EDzYU51k5dwRJ4xyktkhZnjgQlPT6aQVBoqHtP0=;
- b=C8AmcC2YFgrZMZVkQRlBNXEIpbtNYi8WZRDNuvbCdGkQ6fqW7nos2VBvyRegm9yIeE
- tKCPOZQ7uLf2OGjgiSCGzzwFdz849Z9zbdHa9RQiXYdRcIS+gZc6gtWfxepdZHHUF10Y
- QLlTDoNR57qBCQQjVo8jR+Vhj2UCfIZHf1/RKiMzfTyvSNbyYKcSKduVu0auHhL9oeEj
- sTjUYR/p4N6ZGzsiy3cmQU4jJivWPVoXGrlQbTS8i+bH5LIeEaTyIzCCXPHhpS1Hq7cr
- nEvdeEFZRoA93NibFV8B/NSGaqjPLoPDvtGWbnG+RV4uRRP2/bpHFT2D+Y44Utao0ZR2
- U3Kw==
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IthTBY0ylXLMf8SIGUJ5qIKEdVrHHeLRSYWe1vKaXJM=;
+ b=dRNrclx/hdaPGCHOWr7GAggDs6GmaxliCtJxmfn8nLMTo8VAuIyUEidn1+iRiqIQrn
+ iPXl3PhZpXzeotHPfo6rt80dc0/gUjgprgayon5fx/PdhpN3iJS5M81YygTqfUeiQWor
+ U22F012n1S3YyUnY7FrjXSgpsRIXOitfGq7Q9p6Kq4MAe4qy/lPYqo+T972w9SSxUWAk
+ EIc7yxc/N6mf8lZEOoUEsJ3yiMLcDifpRQjVYWE3XsJI6Pg0zP40ONiaZrUrAFuxkjMV
+ bfhjZ0wknq55CT5OKCQIVEXpcutY2I6u9/C3sFU1HFcOSgKrbCkUQJuV/NtpdXxGW6Ez
+ jWuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783477112; x=1784081912;
+ d=1e100.net; s=20251104; t=1783477114; x=1784081914;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=mIr7EDzYU51k5dwRJ4xyktkhZnjgQlPT6aQVBoqHtP0=;
- b=c2Q2eBzR6pRgl+6S4ii8IeyYxEWbMecLibKDzbaWgA/Scsj85SujMrBLIKkf0/Kk33
- 48+herFk10nkyUFwJoH1rbHtDg0UJX+kkEblTxhJstwnwRLqkxTL/u5IxS24r3xJuRMI
- YT8ivrd4xGv3NUZKMM1SSTlXgP/AU5APY/7YKoUMxuAMqOP9kpni/L05jplXD/TEKAJg
- pE1v7vW8irQHmT68zrGPPbtU2kRL4xSfC2LcqQWV5+p9sE+pqPiRb/8YU6qIEJR7+6JL
- SSe6v4U9lhoOpwcQU0lqb4MMlm/kJQX73zmvVaZOHjuJfiYSt2F0FdaiNX368J4h50+S
- obZQ==
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IthTBY0ylXLMf8SIGUJ5qIKEdVrHHeLRSYWe1vKaXJM=;
+ b=Io2OJKlxqWG86eCC1YONtuZ2RDxIlLmmcp9DN3wZRF7n1FJwpRjPEJ74SLKkCbi9kE
+ YfzZCMUmAiJifuhQR+mxUAmeve/ukrOCUweWiugCQr+i1VcedENDuJhVKxCJKqkrT+Dx
+ nM4JOhEsCkKUFubGRWQds+skQOe+a/ZPDYbqTwMjSpJeG0lkIk1qaKjy/bPBl290txgC
+ y1VO6h+DJ0Ji2aJmtcQnlYZt+UeCB8xbErT402huRYETFhLAUuhdUt6Kcl5jtHbyKRrH
+ IZYi8oSmcc9bdBBtbJ2KjHUnQkE1E4MpdCF4qpVYMbPyOVEvTb2Ugv94+lAnm5w5e+En
+ Ddzg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+o8epm6WX5nBRdk45F+kWga9iq7HGB19Hhaoa+J/Wy1hbbdYbEfP5dvRVDhSO8qZUkeWaLaoCn310=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0WcB2AyGs/XmBYaARAK8WZXmZvZY3IjBEpNJPxV/0yM96TK4d
- FkXxdLW+b/HmFAFaHQhHW2LYHXb+IFGyoU/SHzY0/MDyS+TINF4rWqHD
-X-Gm-Gg: AfdE7cnVBHWcm+VQQKpRCTO3fBBdqHdfhIAobb/tN9QxktQw0kPMG/70SQCj8S+GL7t
- 2tuWDLv0Np94KoVTatZQXJXYoUMrlT2aL+KinRyxt06Cpz6EIfs0DPSPeaz6K3nSjF6yfQu3cv9
- ukicbzyKZeIzcB7aS4NIMw9mO1y7lpi5KcTAEtdJA4XFqO5afDMjJBs5ltgMiwuTMe1NZljbCvo
- 35npVeJaPaDx/K16kX6eBpMPMqdAeDprBlBB+b/hEEC8CpUdjBSmeu0/n3fYBAKRQTfMLe1cwR6
- r0qz8W5fZEClJVBLLO809uDIaDMIMmUuGJDtc2nRQjQfVMAm45vDESPQ5PFX6z59yCwtwefNu49
- G75yNZdR5h+JsSPRSvKplDu2oEBqRU36EPM1O3QlCPVnjeRijzsCJ0cHHAtFDailgPKs7Q7hzEC
- 4qG9eMB2z7yugatTSyODHrNfAtTH3yxZ+HHqXYTitziab1y6tRedU=
-X-Received: by 2002:a05:6808:120e:b0:489:352c:5153 with SMTP id
- 5614622812f47-4a203cc09c6mr359812b6e.21.1783477112483; 
- Tue, 07 Jul 2026 19:18:32 -0700 (PDT)
+ AFNElJ/rFHjMfrwCP3E0kmNbnhQflc/R/FDYtg1pnSS2Jr3aohVX0SxY/QkU+S6cPYZsDR30N00fvty3WR8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNWBS+bj4R99qDp5NSqhz+WRJ3xSsj9hR7/zOPhZFU2PELKIKi
+ aBumSqu8L5n78CsHotUIZIriXOsbtQKmKErcb4s8Dbw1U99mH9BHK1Eq
+X-Gm-Gg: AfdE7cnKcu81PVfWMYWl/z8xw86LZJ5qOBXRNIsMMLU7BIZaw6ZLlU70HivrE+1x/cJ
+ prSHfgF7AiDdacnoPzCBBusA9VlAHVpuaulMnlobsWXoM0I6/wZxV9Niw+tG/UHRKMUv64is0uP
+ BdDmGFIuqK2NypP6y98ZVqk0Nqsged7zdo79yivbHl6qGiz3bWv19BmZ7MKqUIRSTAF7MoI18Sf
+ Z0RFDQVNbCU/UekN/7/2OGiCvRB7XPr5801/vt9l6v5FW+8KCxEUKWthuPSomRCryEASX9ZyALw
+ 4q+x84AFcZd/vcNEe7cCZW/bRjfnj+zQpLoL/QNlCp/iVEHWfSraV+es6ISdPGyduIjwhxwpIQE
+ QY02WoGFBnLpsRohUB83cceiCi5qhrdHVrWmJewHPNzRNneZYBqBRTdr7y/xKCdANsigrtCKntr
+ Z+gT9R40A0npzbCBiFh9sgCkINuwWpFO5+5rbEKh44jnPZK3D8MIg=
+X-Received: by 2002:a05:6808:670b:b0:496:233:3c3a with SMTP id
+ 5614622812f47-4a20550e7aemr357266b6e.22.1783477114134; 
+ Tue, 07 Jul 2026 19:18:34 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4a1aa006f74sm799975b6e.0.2026.07.07.19.18.30
+ 5614622812f47-4a1aa006f74sm799975b6e.0.2026.07.07.19.18.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 19:18:31 -0700 (PDT)
+ Tue, 07 Jul 2026 19:18:33 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Tue, 07 Jul 2026 20:18:04 -0600
-Subject: [PATCH v6 04/24] vmlinux.lds.h: remove redundant ALIGN(8) directives
+Date: Tue, 07 Jul 2026 20:18:05 -0600
+Subject: [PATCH v6 05/24] dyndbg.lds.S: fix lost dyndbg sections in modules
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-dd-maint-2-v6-4-381f3edb0045@gmail.com>
+Message-Id: <20260707-dd-maint-2-v6-5-381f3edb0045@gmail.com>
 References: <20260707-dd-maint-2-v6-0-381f3edb0045@gmail.com>
 In-Reply-To: <20260707-dd-maint-2-v6-0-381f3edb0045@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -83,11 +85,11 @@ Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783477102; l=3579;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783477102; l=5103;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=GB3dU5ZMSM1npKfwdvenqJkQ+9VdtadPzRaTWIRvhi4=;
- b=ZtFvxz7HqE55HCnzDg0W6lx2AVLgDN3LiYJVZtPVeOyRYsPldS6CnPusTvdPeSPRFhpZoslbN
- cUk0y7dwxMrAwhJcP9d5Lqssiar/M7+1d8rtdXoSo3DdUKqMZLnM6Cs
+ bh=48IhllGZGlKVUO2aWGnTjwvlc3GYofwCmRrA9ZA4NVw=;
+ b=Dgizoa0dMPSdWw/1QoGENMuIOfcE8tq0L21huZWFCgpycKW/rvEdNeHdmYrS95ivvI/cPN5kJ
+ u5IiJbf/JjpCiBg7YzPsfmrYDeeyKHY4bBZ0VGqN9CxkGLi5wofxlym
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -105,116 +107,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The BOUNDED_SECTION_PRE_LABEL and BOUNDED_SECTION_POST_LABEL macros
-were recently updated to inherently enforce an 8-byte alignment. This
-makes the explicit '. = ALIGN(8);' statements preceding 'naked' macro
-calls in vmlinux.lds.h redundant.
+With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, several build configs had
+problems with __dyndbg* sections getting lost in drm drivers.  Fix
+this by following the model demonstrated in codetag.lds.h.
 
-Remove these redundant alignment directives to clean up the file and
-clarify that the macros handle their own alignment padding.
+Introduce include/asm-generic/dyndbg.lds.h, to bundle dynamic-debug's
+multiple sections together, into 2 macros:
 
+vmlinux.lds.h DATA_DATA: move the 2 BOUNDED_SECTION_BY(__dyndbg*)
+calls into dyndbg.lds.h DYNDBG_SECTIONS(). vmlinux.lds.h now includes
+the new file and calls the new macro.
+
+MOD_DYNDBG_SECTIONS keeps the 2 sections by name, aligns them and sets
+the output address to 0 when the sections are empty.
+
+dyndbg.lds.h includes (reuses) bounded-section.lds.h
+
+scripts/module.lds.S: now calls MOD_DYNDBG_SECTIONS right before the
+CODETAG macro (consistent with their placements in vmlinux.lds.h), and
+also includes dyndbg.lds.h
+
+This isolates vmlinux.lds.h from further __dyndbg section additions.
+
+CC: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- include/asm-generic/vmlinux.lds.h | 13 -------------
- 1 file changed, 13 deletions(-)
+v3: move #includes to top, drop extra ALIGN(8) in DYNDBG_SECTIONS, add RvBy
 
+v2: Address linker script review feedback for relocatable modules.
+
+MOD_DYNDBG_SECTIONS() used the BOUNDED_SECTION_BY() macro, which
+proved problematic for kernel modules for two reasons:
+
+1. Unwanted Empty Sections:
+   BOUNDED_SECTION_BY() automatically generates `__start` and `__stop`
+   symbols. When applied to `MOD_DYNDBG_SECTIONS()`, the linker assumes
+   the sections are populated due to the symbol definitions, forcing an
+   empty `__dyndbg` and `__dyndbg_classes` output section in every
+   compiled module, even those without dynamic debug configuration.
+   Since the module loader uses `section_objs()` to locate data via
+   ELF headers instead of relying on `__start`/`__stop` symbols, these
+   assignments are completely unnecessary.
+
+2. Non-zero Output Addresses:
+   During relocatable linking (e.g., `ld.bfd -r`), omitting an explicit
+   base address causes the section to inherit the current location
+   counter. This results in non-zero sh_addr values in `.ko` files,
+   which is confusing, degrades compressibility, and can cause issues
+   with external tools parsing the ELF.
+
+Fix both issues by dropping `BOUNDED_SECTION_BY()` in favor of a simple
+`KEEP(*(...))` constraint and explicitly defining the sections with a `0`
+base address: `__dyndbg 0 : ALIGN(8) { ... }`.
+
+fixup-inc-vml
+---
+ MAINTAINERS                       |  1 +
+ include/asm-generic/dyndbg.lds.h  | 18 ++++++++++++++++++
+ include/asm-generic/vmlinux.lds.h |  6 ++----
+ scripts/module.lds.S              |  2 ++
+ 4 files changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4a8b0fd665ce..25400fee9f32 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9178,6 +9178,7 @@ DYNAMIC DEBUG
+ M:	Jason Baron <jbaron@akamai.com>
+ M:	Jim Cromie <jim.cromie@gmail.com>
+ S:	Maintained
++F:	include/asm-generic/dyndbg.lds.h
+ F:	include/linux/dynamic_debug.h
+ F:	lib/dynamic_debug.c
+ F:	lib/test_dynamic_debug.c
+diff --git a/include/asm-generic/dyndbg.lds.h b/include/asm-generic/dyndbg.lds.h
+new file mode 100644
+index 000000000000..9d8951bef688
+--- /dev/null
++++ b/include/asm-generic/dyndbg.lds.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __ASM_GENERIC_DYNDBG_LDS_H
++#define __ASM_GENERIC_DYNDBG_LDS_H
++
++#include <asm-generic/bounded_sections.lds.h>
++#define DYNDBG_SECTIONS()					\
++	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
++	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)
++
++#define MOD_DYNDBG_SECTIONS()						\
++	__dyndbg 0 : ALIGN(8) {						\
++		KEEP(*(__dyndbg))					\
++	}								\
++	__dyndbg_classes 0 : ALIGN(8) {					\
++		KEEP(*(__dyndbg_classes))				\
++	}
++
++#endif /* __ASM_GENERIC_DYNDBG_LDS_H */
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index f29fc079e37e..3758a79d0430 100644
+index 3758a79d0430..bd60f278f762 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
-@@ -228,7 +228,6 @@
+@@ -52,6 +52,7 @@
  
- #ifdef CONFIG_KPROBES
- #define KPROBE_BLACKLIST()				\
--	. = ALIGN(8);					\
- 	BOUNDED_SECTION(_kprobe_blacklist)
- #else
- #define KPROBE_BLACKLIST()
-@@ -244,7 +243,6 @@
+ #include <asm-generic/bounded_sections.lds.h>
+ #include <asm-generic/codetag.lds.h>
++#include <asm-generic/dyndbg.lds.h>
  
- #ifdef CONFIG_EVENT_TRACING
- #define FTRACE_EVENTS()							\
+ #ifndef LOAD_OFFSET
+ #define LOAD_OFFSET 0
+@@ -344,10 +345,7 @@
+ 	*(.data..do_once)						\
+ 	STRUCT_ALIGN();							\
+ 	*(__tracepoints)						\
+-	/* implement dynamic printk debug */				\
 -	. = ALIGN(8);							\
- 	BOUNDED_SECTION(_ftrace_events)					\
- 	BOUNDED_SECTION_BY(_ftrace_eval_map, _ftrace_eval_maps)
- #else
-@@ -261,7 +259,6 @@
+-	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
+-	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
++	DYNDBG_SECTIONS()						\
+ 	CODETAG_SECTIONS()						\
+ 	LIKELY_PROFILE()		       				\
+ 	BRANCH_PROFILE()						\
+diff --git a/scripts/module.lds.S b/scripts/module.lds.S
+index b62683061d79..2e62dc5bd5d4 100644
+--- a/scripts/module.lds.S
++++ b/scripts/module.lds.S
+@@ -10,6 +10,7 @@
+ #endif
  
- #ifdef CONFIG_FTRACE_SYSCALLS
- #define TRACE_SYSCALLS()			\
--	. = ALIGN(8);				\
- 	BOUNDED_SECTION_BY(__syscalls_metadata, _syscalls_metadata)
- #else
- #define TRACE_SYSCALLS()
-@@ -276,7 +273,6 @@
+ #include <asm-generic/codetag.lds.h>
++#include <asm-generic/dyndbg.lds.h>
  
- #ifdef CONFIG_SERIAL_EARLYCON
- #define EARLYCON_TABLE()						\
--	. = ALIGN(8);							\
- 	BOUNDED_SECTION_POST_LABEL(__earlycon_table, __earlycon_table, , _end)
- #else
- #define EARLYCON_TABLE()
-@@ -284,11 +280,9 @@
+ SECTIONS {
+ 	/DISCARD/ : {
+@@ -61,6 +62,7 @@ SECTIONS {
+ 		*(.rodata..L*)
+ 	}
  
- #ifdef CONFIG_SECURITY
- #define LSM_TABLE()					\
--	. = ALIGN(8);					\
- 	BOUNDED_SECTION_PRE_LABEL(.lsm_info.init, _lsm_info, __start, __end)
- 
- #define EARLY_LSM_TABLE()						\
--	. = ALIGN(8);							\
- 	BOUNDED_SECTION_PRE_LABEL(.early_lsm_info.init, _early_lsm_info, __start, __end)
- #else
- #define LSM_TABLE()
-@@ -314,7 +308,6 @@
- 
- #ifdef CONFIG_ACPI
- #define ACPI_PROBE_TABLE(name)						\
--	. = ALIGN(8);							\
- 	BOUNDED_SECTION_POST_LABEL(__##name##_acpi_probe_table,		\
- 				   __##name##_acpi_probe_table,, _end)
- #else
-@@ -323,7 +316,6 @@
- 
- #ifdef CONFIG_THERMAL
- #define THERMAL_TABLE(name)						\
--	. = ALIGN(8);							\
- 	BOUNDED_SECTION_POST_LABEL(__##name##_thermal_table,		\
- 				   __##name##_thermal_table,, _end)
- #else
-@@ -403,12 +395,10 @@
- 	__end_init_stack = .;
- 
- #define JUMP_TABLE_DATA							\
--	. = ALIGN(8);							\
- 	BOUNDED_SECTION_BY(__jump_table, ___jump_table)
- 
- #ifdef CONFIG_HAVE_STATIC_CALL_INLINE
- #define STATIC_CALL_DATA						\
--	. = ALIGN(8);							\
- 	BOUNDED_SECTION_BY(.static_call_sites, _static_call_sites)	\
- 	BOUNDED_SECTION_BY(.static_call_tramp_key, _static_call_tramp_key)
- #else
-@@ -453,7 +443,6 @@
- 		*(.rodata) *(.rodata.*) *(.data.rel.ro*)		\
- 		SCHED_DATA						\
- 		RO_AFTER_INIT_DATA	/* Read only after init */	\
--		. = ALIGN(8);						\
- 		BOUNDED_SECTION_BY(__tracepoints_ptrs, ___tracepoints_ptrs) \
- 		*(__tracepoints_strings)/* Tracepoints: strings */	\
- 	}								\
-@@ -947,12 +936,10 @@
- 
- /* Alignment must be consistent with (kunit_suite *) in include/kunit/test.h */
- #define KUNIT_TABLE()							\
--		. = ALIGN(8);						\
- 		BOUNDED_SECTION_POST_LABEL(.kunit_test_suites, __kunit_suites, _start, _end)
- 
- /* Alignment must be consistent with (kunit_suite *) in include/kunit/test.h */
- #define KUNIT_INIT_TABLE()						\
--		. = ALIGN(8);						\
- 		BOUNDED_SECTION_POST_LABEL(.kunit_init_test_suites, \
- 				__kunit_init_suites, _start, _end)
++	MOD_DYNDBG_SECTIONS()
+ 	MOD_SEPARATE_CODETAG_SECTIONS()
+ }
  
 
 -- 
