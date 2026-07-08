@@ -4,78 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1D4C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 03:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5DE3C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 03:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81F4810E420;
-	Wed,  8 Jul 2026 03:29:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D78E10E53D;
+	Wed,  8 Jul 2026 03:35:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DOWtHFiS";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="N9tfYkyU";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE59F10E420
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 03:29:00 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2caced6038eso2599505ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 20:29:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783481340; x=1784086140; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=dWbuXPSLohRB/M8EIN/JzhKRKCDqHb+iOVssm+yt0m0=;
- b=DOWtHFiS1bBw+zznuc2MsoSMmpAKy5ii0gH16Uc9DBzmqO23bUdDQ3BQhOzkOwbMc2
- Y/VfMG0x2oAFAJuzfJZSARJLydQZxNYbuxW2JuauUiGw7FlNeWH98yTkKKv32ZZWh0xr
- GODGGdPtXE7EmgksRrwjjUSQbIl2QqYAKnPVmOs8uXwndo+zKi1lh/qBkV77Fhse2oHO
- K+HKYp756Ms6XDcyNpJsMXMkJLky6RCuXxs1U8lHR8EHpx0EuHAXErwqN0tc3hzlC2u6
- 71U6w0WyvKHCSfkQL8itMjGJTMpVPBC6Eiq1DTQsFyLSJf/QPD3bvCc+VM3WNKIICbHa
- xhEQ==
+Received: from mail-vs1-f98.google.com (mail-vs1-f98.google.com
+ [209.85.217.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7542C10E53D
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 03:35:24 +0000 (UTC)
+Received: by mail-vs1-f98.google.com with SMTP id
+ ada2fe7eead31-728f9ecd56aso86516137.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 20:35:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783481340; x=1784086140;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=dWbuXPSLohRB/M8EIN/JzhKRKCDqHb+iOVssm+yt0m0=;
- b=S4NDhaSt+Tu12k9xXeG5IdPqAMPZrxmQqZ8sgZD2Kdz6FF14oNi47ff+hFRlc0Y4bM
- g+phPi12uQLHohQHTIKxT8vKCSqy65xvZElV09xmHaUl33ap/G4uDDTUsJ8X35lJ6iNE
- IyDlssM+B/WvZuWtul3X4bsj6oE8zPT2tCjNKAO82QAlPwoQRKJRA6xN5rCAh7Qqxk5n
- SBKsOILkn+Vztu7IcbAqN487Zn/5DoPBDSh8SOKvy2SKF5pWQqwrtI4AhQ2WLgw6AM67
- Ltm7Xxmr3Kb37NiOi1QXmT5++xhrxHere7ZOeSXjp6TFmim0M/wXIi7FQFGwn2YT2S5k
- GBSQ==
+ d=1e100.net; s=20251104; t=1783481723; x=1784086523;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ih64g5cAxMYI5xEcl6UM8ItcSSlamGMiDmRVquJivxg=;
+ b=Kk1CcQ7rHzYP3+/+p0GyL5tqyFGlLtbetqK2XyTj50r11rUW0JrSh/WwZFpd/7tjVX
+ vVTphLEcpeLDioH1DyI0o5ry9/3wX0CHvOGUvcLa7qvQOjvfQn3hedLJGt7/bEQxzSQZ
+ Uc4nySPzjqgCSj0OnpOtYNe25q0hbOSLrYpwjQtZciGl6myj1B0lbgDx2hoNyBdmE9dP
+ hRST7pKDrSQ8bp2gAuQ2nmlF8vGraCgrRSGpjGwB0OIxmuXEW3JK8nSYqDuVm/SdR9H8
+ DM9WRgYBLNtt02kHssrg6gSKYbxBO+sw5yAAhMwyvCQ0mw86Xhh22lFNYy/w3rUPbzTf
+ mvbA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqoWCfeRkLofilAWauTH2269eMBcdGc3/yM8A9MXxtX8fhW4mOWfcSsKX5ULQnv/qhHDFjDhsIkrTE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw3LjGjsibOzyQDT2Iigz307Re78YPKwc2vqZb4UqLL4sccQtxK
- ZROyuhOGZJKZIoGnZJAKUR8YNQhsNpxgFQP6BVNsIeuKRtbldC9yJVEg
-X-Gm-Gg: AfdE7clKSeYxZ1Q9jvPb3gDuvcAikjkdVwcMVgJSz6pcznZD8OASIGJZ/Qgleq7lTQU
- 1JpSz5MeiHUOnjJUWgf5qMKFyErSHgaPSS5UFtxlF4NaH6DJ6RDF5ab1pLq7GZG6UzqMKTjSRQH
- SCuFQuwBctTeFt+4FbMHPcz5LKdsXDp4tLjBeDiQpzgPLiggjSQ/QQNBAIyViaGSWNbBs5+otOK
- xCA4f+uNopIhpIEM0OBUizMoW1CDVcbglJ0Wvq/24XV/ncfAzAiKnguMtQkbMzz1DRAX4HqiNn2
- GKMxxwR8UNo3mGeocCu/8h63oyZ9WexvVqtBdHOIlrlgkYA23DyNztm0KSiSclD61dQh5mJnnaU
- xznYrOFZHiPB9RnX7wSLOZgbS2sEP6NK8PeGMSUeoCvnByGcOMhiNAxaQFY6LrjG+kNdl1uBr6o
- StWBE+f0PGMA==
-X-Received: by 2002:a17:902:e84f:b0:2c9:d277:2cdb with SMTP id
- d9443c01a7336-2cce9fafe09mr7101655ad.9.1783481340217; 
- Tue, 07 Jul 2026 20:29:00 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9c20616sm20602815ad.34.2026.07.07.20.28.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 20:28:59 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Jeongjun Park <aha310510@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] drm/exynos: vidi: fix EDID leak on concurrent connection ioctl
-Date: Wed,  8 Jul 2026 11:28:47 +0800
-Message-ID: <20260708032847.712897-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ AHgh+RqU23QV0XaEf54BnvHqkzLNVA8VZqq6e9mnfADsYCiBVf9tnE7XS0ozukjsEUHuiMNr4D2mFC0zccg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy4y7zwP+K8+Ph3EjUJPskOXflUaIg5aSpkWb9lfJUYwFe8pm7+
+ Sc+vJFCcyb3glDp0mab7vGSqR2Gr7UBBa4A7vHi67BIXq3Ris+jp5NyoZn+551gc94lN8Oo7Dyf
+ TGrjx15603ubRT3kIliV5GTQiJdahX3CK0zlLhV8KXB4zAgOM+3/75zOq/G/fFzDGaIc0TDvwoJ
+ bBsN6S6RoHJHcLOxqYy+/a2GpVmhQDWosz0yr0r+L11OU7opKM7znD/AChTaEAfjkxOjMpZQ+tn
+ po+azXdIyVI2AkPwXo9
+X-Gm-Gg: AfdE7clq4px7CgXzKIb92YJpZ3iiW5q433lqQjUcCc1EgHvPOkjJin0Ji4zer/uqXtM
+ HRiEg5Mzg1w1y0GOm5Vb2TXiGOmxuTM2QqNh6oUyxpFQDysS/icijs9RnBtNDszzqkFK8yo1ZNI
+ FvlFwekewlsMnOam4ZBWVsSEAHmLnR6npSIu93aPNl965IPOX193jtHR2QxTQfdWoEmcOaEXN7b
+ EkDrrXUZ+8SYKRDzvSZknalL7xn8qC9WMOKyRxUmgb4AOL5BNEksds1+3gB1Dw2tKF+HGyvGUCf
+ MWQYAGKcciLCSoKU2kLbK+BscL19P/E8nbfMyxnsJ/H9ceG13o/t+ywHbJHAtw7+kWwdoyqJO1o
+ sVFZ/bi1GAEjow8zmFC5MHky/CN2OYTpKzsfHkWh7aXA499XyTDoE0lR+q+QJ9FXYD4Q4otYmb8
+ vHr1wC9t4bsFhhtPDTySkhugpIxE7QHf7lXz1EbkVbAb0=
+X-Received: by 2002:a05:6102:3ec2:b0:73a:322d:1bbc with SMTP id
+ ada2fe7eead31-744e03c345dmr301313137.26.1783481722846; 
+ Tue, 07 Jul 2026 20:35:22 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-11.dlp.protect.broadcom.com. [144.49.247.11])
+ by smtp-relay.gmail.com with ESMTPS id
+ ada2fe7eead31-744d6e92dddsm92740137.22.2026.07.07.20.35.22
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 07 Jul 2026 20:35:22 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lj1-f199.google.com with SMTP id
+ 38308e7fff4ca-39c650c4e86so3823831fa.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 20:35:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1783481721; x=1784086521;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ih64g5cAxMYI5xEcl6UM8ItcSSlamGMiDmRVquJivxg=;
+ b=N9tfYkyUWSLzZva2ATq4pK+IIfoLxkawdTya5pAMkbHeNMA0BiIwx7HV6j1Hlts0CL
+ HQFSiuHCg9rWHvY1+1sXWgv7bnxm93kiVqgjpyOBxax86wdWsyvYLpgFZ0rkwOSrmh4K
+ c8O00kV2omMfmjYXCqYQwPztKBa+zcrK2myro=
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpHAhMZKgPNpmXlM5LsJk7eb+6TDush7Djy/8eo/VedswsE8exwdKhDKKQBDs0o/4RdQat+SQp3oe4=@lists.freedesktop.org
+X-Received: by 2002:a2e:be0b:0:b0:39a:ffae:4e6c with SMTP id
+ 38308e7fff4ca-39c78e34a51mr1211981fa.10.1783481721115; 
+ Tue, 07 Jul 2026 20:35:21 -0700 (PDT)
+X-Received: by 2002:a2e:be0b:0:b0:39a:ffae:4e6c with SMTP id
+ 38308e7fff4ca-39c78e34a51mr1211951fa.10.1783481720689; Tue, 07 Jul 2026
+ 20:35:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260707150544.2272933-1-ruoyuw560@gmail.com>
+In-Reply-To: <20260707150544.2272933-1-ruoyuw560@gmail.com>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Tue, 7 Jul 2026 23:35:07 -0400
+X-Gm-Features: AVVi8Cdj98jD4EdPAiHK2oO4iFNeo87xNxzzUdbJl_KiJJbgJc7eHFh-bMS4xuA
+Message-ID: <CABQX2QPRk0F1A4tPg=B8-H6DOOudRdU6XiMzH3PhYtgcNYeG=Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/vmwgfx: Handle MOBs without page-table BOs
+To: Ruoyu Wang <ruoyuw560@gmail.com>
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Ian Forbes <ian.forbes@broadcom.com>,
+ Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="00000000000079419d0656113228"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,90 +109,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The change referenced by the Fixes tag added ctx->lock protection around
-struct vidi_context members related to EDID allocation and freeing, but
-vidi_connection_ioctl() still checks ctx->connected separately from the
-state update.
+--00000000000079419d0656113228
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Two authenticated clients can therefore issue concurrent connect
-requests. Both can observe ctx->connected as disconnected before either
-one updates it, then both allocate a drm_edid and assign ctx->raw_edid.
-The second assignment overwrites the first drm_edid pointer, leaking the
-first allocation.
+On Tue, Jul 7, 2026 at 11:05=E2=80=AFAM Ruoyu Wang <ruoyuw560@gmail.com> wr=
+ote:
+>
+> Single-page MOBs and small OTable bases use depth-0 page-table entries
+> and do not allocate a page-table BO. Their existing teardown paths were
+> written to tolerate that by checking a local BO pointer before reserving
+> or fencing it.
+>
+> Commit 668b206601c5 ("drm/vmwgfx: Stop using raw ttm_buffer_object's")
+> changed pt_bo from a raw TTM buffer object pointer to a vmwgfx BO pointer
+> and converted those local BO initializers to &pt_bo->tbo. That
+> dereferences pt_bo before the existing NULL checks, so depth-0 MOBs can
+> crash during OTable teardown or MOB unbind.
 
-Keep the connection-state check and the ctx->raw_edid/ctx->connected
-updates in the same critical section. If a concurrent request has already
-changed the connection state by the time a newly allocated EDID is ready,
-drop the new EDID before returning.
+That analysis is incorrect. Nothing here can crash. &pt_bo->tbo is not
+a dereference. It's address-of-member. tbo is the first member of
+struct vmw_bo (offset 0) so &((struct vmw_bo *)NULL)->tbo evaluates to
+exactly NULL. The entire patch is basically a no-op. If you have some
+decent static checker that's being tricked by this code and there's
+value in unblocking it, please describe your static checker and feel
+free to resubmit as a code cleanup, but the above analysis and fhe
+fixes tag are incorrect.
 
-Fixes: 52b330799e2d ("drm/exynos: vidi: use ctx->lock to protect struct vidi_context member variables related to memory alloc/free")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/exynos/exynos_drm_vidi.c | 33 ++++++++++++++----------
- 1 file changed, 20 insertions(+), 13 deletions(-)
+z
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_vidi.c b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-index 67bbf9b8bc0e..bc0af9e6bc81 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
-@@ -252,15 +252,6 @@ int vidi_connection_ioctl(struct drm_device *drm_dev, void *data,
- 		return -EINVAL;
- 	}
- 
--	mutex_lock(&ctx->lock);
--	if (ctx->connected == vidi->connection) {
--		mutex_unlock(&ctx->lock);
--		DRM_DEV_DEBUG_KMS(ctx->dev,
--				  "same connection request.\n");
--		return -EINVAL;
--	}
--	mutex_unlock(&ctx->lock);
--
- 	if (vidi->connection) {
- 		const struct drm_edid *drm_edid;
- 		const void __user *edid_userptr = u64_to_user_ptr(vidi->edid);
-@@ -293,21 +284,37 @@ int vidi_connection_ioctl(struct drm_device *drm_dev, void *data,
- 					  "edid data is invalid.\n");
- 			return -EINVAL;
- 		}
-+
- 		mutex_lock(&ctx->lock);
-+		if (ctx->connected == vidi->connection) {
-+			mutex_unlock(&ctx->lock);
-+			drm_edid_free(drm_edid);
-+			DRM_DEV_DEBUG_KMS(ctx->dev,
-+					  "same connection request.\n");
-+			return -EINVAL;
-+		}
-+
-+		drm_edid_free(ctx->raw_edid);
-+
- 		ctx->raw_edid = drm_edid;
-+		ctx->connected = vidi->connection;
- 		mutex_unlock(&ctx->lock);
- 	} else {
- 		/* with connection = 0, free raw_edid */
- 		mutex_lock(&ctx->lock);
-+		if (ctx->connected == vidi->connection) {
-+			mutex_unlock(&ctx->lock);
-+			DRM_DEV_DEBUG_KMS(ctx->dev,
-+					  "same connection request.\n");
-+			return -EINVAL;
-+		}
-+
- 		drm_edid_free(ctx->raw_edid);
- 		ctx->raw_edid = NULL;
-+		ctx->connected = vidi->connection;
- 		mutex_unlock(&ctx->lock);
- 	}
- 
--	mutex_lock(&ctx->lock);
--	ctx->connected = vidi->connection;
--	mutex_unlock(&ctx->lock);
--
- 	drm_helper_hpd_irq_event(ctx->drm_dev);
- 
- 	return 0;
--- 
-2.43.0
+--00000000000079419d0656113228
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
+MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
+AwIBAgIMYT8cPnonh1geNIT5MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MTEyODA2NTUwOVoXDTI2MTEyOTA2NTUwOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKWmFjayBSdXNpbjEmMCQGCSqG
+SIb3DQEJARYXemFjay5ydXNpbkBicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCwQ8KpnuEwUOX0rOrLRj3vS0VImknKwshcmcfA9VtdEQhJHGDQoNjaBEFQHqLqn4Lf
+hqEGUo+nKhz2uqGl2MtQFb8oG+yJPCFPgeSvbiRxmeOwSP0jrNADVKpYpy4UApPqS+UfVQXKbwbM
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIIqf
+QVosMEFbzch2FG9XwptQtHSeVHEd8prVjrbgQNZbMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDcwODAzMzUyMVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAHJUi/k2wiSTYO552iK/Cmy6VFblktdwJaEU2Lom
+euIFImBKfgFbrvNJzoZd1xeY8AHOBA+T23DURKx8cZHeiUXnOcbGhg1R8veJzmw97TbntcIV3yTQ
+lP5J+/JgIE2RbrpSxgkp0edXBG/4JsAqSjoLNDYKM7TmKJRGr1g5Ok78PIiooeUTOgC6pBaO5QVi
+Ek32WdGTPRbaEGSs1za1JRVtL2WepSlo5BTG/+84jV6dKCsw+TLn5qId0ymAoUgJhcAQdL8865G7
+7kDyl0Y6AETATYwg4qoKAcAxNbm9nRVbToFvgVA6ZyPIexMptPUi3hx5B2gGj6VzX5SzbIK/v/U=
+--00000000000079419d0656113228--
