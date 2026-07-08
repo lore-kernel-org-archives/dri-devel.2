@@ -4,60 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86F30C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:25:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EFFFC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:25:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C87710F3F8;
-	Thu,  9 Jul 2026 07:25:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A3A110F403;
+	Thu,  9 Jul 2026 07:25:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="Tr2dHVal";
+	dkim=pass (2048-bit key; unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="EN8ACZrD";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5930A10E4C4
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:54:38 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260706134550euoutp017e139651f5b0bd0617056583ba35c5f2~-t1Rf1oap0918609186euoutp01E
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 13:45:50 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260706134550euoutp017e139651f5b0bd0617056583ba35c5f2~-t1Rf1oap0918609186euoutp01E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1783345550;
- bh=Xd+wZaWKt4WLBoWcIW7HFB2FqoJzshvSx4JYa94r+As=;
- h=From:To:Cc:Subject:Date:References:From;
- b=Tr2dHValAT8V0QSKNTHD4PdEGzQ0vgODBeTDMgjkX27DC7Qy4IHfXiCXeDiCXGIhr
- bzGH7YU68UNHjSYjr+D1XZPjog1A7SqiD47KlhhOCkq7DZQH5N5chUjidcn3e0WHN+
- OoqmDY0BiL3YJQMgtQVGqQty2s6QPOJ7kCnLJuI0=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260706134549eucas1p20eedf2d3287d95687eaaa8a201679083~-t1RBY5dK3010230102eucas1p2q;
- Mon,  6 Jul 2026 13:45:49 +0000 (GMT)
-Received: from AMDC4670.local (unknown [106.120.77.38]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260706134549eusmtip1d8172d0993045b0df836465e6282e8ba~-t1QgKiRU0865008650eusmtip1a;
- Mon,  6 Jul 2026 13:45:49 +0000 (GMT)
-From: Jan Niedziolka <j.niedziolka@samsung.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- k.tegowski@samsung.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- a.fijalko@samsung.com, bartlomiej.k@samsung.com, Jan Niedziolka
- <j.niedziolka@samsung.com>
-Subject: [PATCH 0/3] drm: Remove unused *drm parameter
-Date: Mon,  6 Jul 2026 15:34:38 +0200
-Message-ID: <20260706134515.3369960-1-j.niedziolka@samsung.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 049B210F2D8
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:44:09 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.savoirfairelinux.com (Postfix) with ESMTP id DA2683D81926;
+ Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id PRHTeE2vnNiS; Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.savoirfairelinux.com (Postfix) with ESMTP id 13B983D818E6;
+ Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 13B983D818E6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+ t=1783546502; bh=n2HT/0Cc8bpQ6Vc5tj0jzjyw+BSNOfjpKWFBjNjy9UQ=;
+ h=From:To:Date:Message-Id:MIME-Version;
+ b=EN8ACZrDUpLbuhJiK40D+WaWTHIPO1CywDXBZ/lcL471g4GSglc1MTa/vjRsOu0cc
+ pE13EgwGxIlf1AfnlMcAANvjJiJB82LBlZdAgPk1GIZ5D1ycXXwrS1FaxzNFTJuWQU
+ qVcqt4RnIjvc71k8wSvMwXM6kzzx46/4tMPLLouirKJCprvHAS2184F64jCfIKWqoL
+ e94M2nR0hYbnh7K9ck1F4esnC0y/ldV02UuwJ6nH1YuRKEUdspA3RHO0npDOUDz0hM
+ CdrCHOslPqG8ddNqLpWr6z6YungAedrUOEpz00U38LqVrVOeJsSRNXGrsWoon8G6XY
+ v9jBfvDRNqctQ==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id nNxDuQhANAyk; Wed,  8 Jul 2026 17:35:01 -0400 (EDT)
+Received: from localhost (unknown [192.168.51.254])
+ by mail.savoirfairelinux.com (Postfix) with ESMTPSA id D30BA3D81902;
+ Wed,  8 Jul 2026 17:35:01 -0400 (EDT)
+From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+To: Jagan Teki <jagan@edgeble.ai>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
+ Felix Boucher <felix.boucher@savoirfairelinux.com>,
+ Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
+Subject: [PATCH 4/5] dt-bindings: display: panel: add compatible for DCLTek
+ 300250 9.35in panel
+Date: Wed,  8 Jul 2026 17:34:59 -0400
+Message-Id: <20260708213500.1867092-5-marc-olivier.champagne@savoirfairelinux.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
+References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260706134549eucas1p20eedf2d3287d95687eaaa8a201679083
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260706134549eucas1p20eedf2d3287d95687eaaa8a201679083
-X-EPHeader: CA
-X-CMS-RootMailID: 20260706134549eucas1p20eedf2d3287d95687eaaa8a201679083
-References: <CGME20260706134549eucas1p20eedf2d3287d95687eaaa8a201679083@eucas1p2.samsung.com>
-X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,50 +84,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 0e691bc73026 ("drm: Remove use of drm_mode_object") introduced changes
-which caused *dev parameter to be unused in function body yet left over in
-function's (drm_mode_create and drm_mode_destroy) signature.
-This patchset revolves around removing this parameter, cleaning those functions
-references and also providing minimal logging (as it's best to not introduce
-breaking changes in functions that old, only drm_notice() logging is done instead
-of proper error handling or at least error code returning).
+The DCLTek dt300250 is a panel using the jadard-jd9365da controller.
+Add a new compatible for it.
 
-Jan Niedziolka (3):
-  gpu/drm: Remove unused *dev parameter from drm_mode_destroy function
-  gpu/drm: Remove unused 'drm device *dev' parameter from
-    drm_mode_create()
-  gpu/drm: Add drm_notice logging when drm_mode_create fails
+Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
+linux.com>
+---
+ .../devicetree/bindings/display/panel/jadard,jd9365da-h3.yaml    | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
- .../drm/bridge/cadence/cdns-mhdp8546-core.c   |  2 +-
- drivers/gpu/drm/drm_client_modeset.c          |  8 ++--
- drivers/gpu/drm/drm_connector.c               |  2 +-
- drivers/gpu/drm/drm_crtc.c                    |  4 +-
- drivers/gpu/drm/drm_crtc_helper.c             |  2 +-
- drivers/gpu/drm/drm_edid.c                    | 12 ++---
- drivers/gpu/drm/drm_modes.c                   | 34 ++++++++------
- drivers/gpu/drm/exynos/exynos_dp.c            | 47 +++++++++++++++++++
- drivers/gpu/drm/exynos/exynos_drm_dpi.c       |  2 +-
- drivers/gpu/drm/gma500/psb_intel_sdvo.c       |  3 +-
- drivers/gpu/drm/gud/gud_connector.c           |  2 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |  4 +-
- drivers/gpu/drm/i915/display/intel_tv.c       |  2 +-
- drivers/gpu/drm/msm/dsi/dsi_host.c            |  2 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 +-
- drivers/gpu/drm/nouveau/nouveau_connector.c   |  2 +-
- drivers/gpu/drm/panel/panel-edp.c             |  2 +-
- .../drm/panel/panel-olimex-lcd-olinuxino.c    |  2 +-
- drivers/gpu/drm/panel/panel-samsung-ld9040.c  |  2 +-
- drivers/gpu/drm/panel/panel-samsung-s6e8aa0.c |  2 +-
- drivers/gpu/drm/panel/panel-seiko-43wvf1g.c   |  2 +-
- drivers/gpu/drm/panel/panel-simple.c          |  2 +-
- .../gpu/drm/renesas/shmobile/shmob_drm_crtc.c |  2 +-
- drivers/gpu/drm/tests/drm_kunit_helpers.c     |  2 +-
- drivers/gpu/drm/vboxvideo/vbox_mode.c         |  2 +-
- drivers/gpu/drm/xen/xen_drm_front_conn.c      |  2 +-
- include/drm/drm_modes.h                       |  4 +-
- 28 files changed, 104 insertions(+), 54 deletions(-)
-
--- 
-2.43.0
+diff --git a/Documentation/devicetree/bindings/display/panel/jadard,jd936=
+5da-h3.yaml b/Documentation/devicetree/bindings/display/panel/jadard,jd93=
+65da-h3.yaml
+index 4eae802de9fd..9e20e2faf82f 100644
+--- a/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
+yaml
++++ b/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
+yaml
+@@ -19,6 +19,7 @@ properties:
+           - anbernic,rg-ds-display-bottom
+           - anbernic,rg-ds-display-top
+           - chongzhou,cz101b4001
++          - dcltek,dt300250
+           - kingdisplay,kd101ne3-40ti
+           - melfas,lmfbx101117480
+           - radxa,display-10hd-ad001
+--=20
+2.34.1
 
