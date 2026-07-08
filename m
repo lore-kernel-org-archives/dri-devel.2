@@ -4,142 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75C30C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 14:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9125C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 14:48:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6A3C10E5FB;
-	Wed,  8 Jul 2026 14:46:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28D4F10F167;
+	Wed,  8 Jul 2026 14:48:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l9PTuMVs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HNUc5g76";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="BqgX68aZ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8D4A10E5FB
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 14:46:51 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 668D7uAV2678274
- for <dri-devel@lists.freedesktop.org>; Wed, 8 Jul 2026 14:46:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- vL4MQZJyYnOZgb+t9Slt97jlU8ZMhiBcIG4lPhLxhqk=; b=l9PTuMVsLQ/lb5E7
- FUy+YKYjhfuxGpV2yPYrT8cW990iscK3mTQzOIF8tGq/IN0UGqjuAyycToz5zcmp
- b5J5Ef65ekAr1pBRTSoIVmVaCAilH9sfGD3P2WGPIs887lWUsiNiEKklxBPgWTzc
- dEcSjBxCFMfjZgSkE9LOnrD5tnmd4F1z/y65PGB1QpI4IiFBzBbHqeO8mC3y1SyT
- VijYEMNHVsbO8/EMtiW5eEhFMLHRcUpvXEZ5J4PAOgvLKXcYGSY8gNO9U3ScfM0r
- JhbjreFoT0InUzIWIFkZZMGSEQ76sA922nbzv2otnraPB1TKtoPir2rkT9lzt6gG
- mmmXMA==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9q5s8f32-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 14:46:51 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-448d61d82e8so360852fac.2
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 07:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783522010; x=1784126810;
- darn=lists.freedesktop.org; 
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=vL4MQZJyYnOZgb+t9Slt97jlU8ZMhiBcIG4lPhLxhqk=;
- b=HNUc5g7680iZXzjodGu6WAnJiCrp9dWF6+a0HFzAQUL9hTOeBoSHnG8zljDCJBrpdF
- D3Dr814sE2dkrPYXv3M+KzoNGXPPz9MFphsuL/nq61mREMjiFCFt7H5WYlZs7WoN3+o4
- u8qP8OMY9FvmR9hZ0Vu8oszhQxQvtCFlFUffGCB+85+eX4i2OMlBixaI2zycrxo+sxku
- UZtVRKNLwKW/okFrVqUzuGUZHP/mAqqnguwhV25d+dOO7NnxCTW4ME4SiTqRLTXfECoa
- NftddJz8PkcWFCPwUbPOh3mlBOChRHXS6YnsAloc873gsPCEuPFXTc0s+4AbRoMuA2Po
- i1TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783522010; x=1784126810;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=vL4MQZJyYnOZgb+t9Slt97jlU8ZMhiBcIG4lPhLxhqk=;
- b=iSnWwIGAvPgrQ1VtAz5jv+eCWkkyapJ/LbmQgZffBPZquGvlFl12YxIPFTwXe/sF7H
- cuzeVQFJsoTX4LpBxO9/yo4fr7mFvwaJSSUFOlktwKMUTxApxd/VyWiY9HyZwU9FdcHr
- XUFbHKXH+RDa5ETZ4OqfPOwINolLrBFEHCIoQXvNj7AQvyZnt+Karf5S9k7EriUEZ3WR
- nJLRe4ym2K2YAJzdNydw9rqBuK8woDmFoY7WcckUDwyY5qLQnFGhmombzbWSGsKAY+St
- 7lLq6LkG9hrEOLWUD97cxbgJFcufqpOCNKf3ujNovP4szd4Lmv4f+AWAeZWdkEW8cB7B
- b8KQ==
-X-Gm-Message-State: AOJu0YwSKX4qV1xKcqZgKW2Qde61jSzgnc2H/QY7rxcSrT8sCnkoVRb3
- g0KXRlC7o8s4mSfaVCiRUJ3XvqSduqVQD63R5S1dxJ1W4xDEYPR2tlZlmVwlDJWjEMf0up4keWl
- b2cFUGvlauZrOarJecLjNmKjsxTFvzsejLJgdAsk4h5kQDKKCF6Zp1KpHBsvhrPlSrEPaQDU=
-X-Gm-Gg: AfdE7cl/w2aJZ+s9VLVc46KuU0h1pZJgLOevhEWFDlo/tAymSJDDTiiDUgO6lL7/sjV
- /7xPsHZAvPcTyf+m2F1guEMjI+Z/BuDcJ+ANAV80qeRVAEog56j8SJsjGdl0iW1PkIeQzZsV/X2
- 3JAYBWXAkxt+85HJXHml1OZY/xgruo7evnNWmnLRPG3wROmhRdOwpVSZZpTblA0AqHGeSyKY7+p
- 5rVHUaO448KTLRSMmpKvwoK9V33K4dHVxYEcaSzduhp81Ar8bw7HwI6VS8n5uOefFuMejF0Uvpd
- drPefFugjfNhELpppiuxWn2j7A2nrfRjWcFghVzI6Ek0FjXy3KpkHWvjKGpDXp4it/J8zBSlfIN
- 4vFwQ3nvBc+d93iM=
-X-Received: by 2002:a05:6871:2ecf:b0:447:a321:35d with SMTP id
- 586e51a60fabf-4516387345cmr1778997fac.10.1783522010279; 
- Wed, 08 Jul 2026 07:46:50 -0700 (PDT)
-X-Received: by 2002:a05:6871:2ecf:b0:447:a321:35d with SMTP id
- 586e51a60fabf-4516387345cmr1778984fac.10.1783522009770; 
- Wed, 08 Jul 2026 07:46:49 -0700 (PDT)
-Received: from localhost ([151.243.38.149]) by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-44cfb13d619sm18125627fac.2.2026.07.08.07.46.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jul 2026 07:46:49 -0700 (PDT)
-Mime-Version: 1.0
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF7310F167
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 14:48:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783522135; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=bpdfpAPoLcSj38gcmEk2W/IMuf6DLCeA1M8IV40jkNqT5xVAIxBmWxuxqB7ExufSghrKFbSVfQcs5J27DAy2Ut8z+NZbwCCnr8FUYKxZ9o1xQ2idOIp/hlNVhyywtN6G9wYvS2eVzalpAgO2OV8UYnxgPIqZIidkV+dzJd9igX8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783522135;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=4szMuqOI9JIjS8/kOAhVMC5VSKoQ9b+UCMsEA4pJKao=; 
+ b=Q9Q2usmguFIY0JgQ8ctP2lfmqHIvDkwdj5XxEO0ghHgtG1xSNAeu3lzU70jxmsPU0lL3ept8wRTIbfssk0ZyqguMLJyijIna5ZOYLyzNsEOXMc1olPEt1MfHPNuMebvHmVGrdVBL8YhjBFlrsMdAEDnlKAH7iWIeyMcaonpBc54=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783522135; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=4szMuqOI9JIjS8/kOAhVMC5VSKoQ9b+UCMsEA4pJKao=;
+ b=BqgX68aZ2rJ5M0QZeOx8Q+mChiooQJyvC8he/hgev0iHS+XBMjSR779q2FrhT3W7
+ l8lWrFxj4G9ICt6BRakEGDBlQBJitE8uoetb4bKLUc7muIoR6m/XnuWdmXU51Zlm4zp
+ IbKX1oM2tbfP+poX6TmhAwenoHQCtzdU7wMUZKks=
+Received: by mx.zohomail.com with SMTPS id 1783522133821946.0992772309626;
+ Wed, 8 Jul 2026 07:48:53 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v6 11/20] rust: io: remove `MmioOwned`
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260706-io_projection-v6-11-72cd5d055d54@garyguo.net>
+Date: Wed, 8 Jul 2026 11:48:33 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 08 Jul 2026 22:46:30 +0800
-Message-Id: <DJT9S3CQRB0P.982J925T9O4B@oss.qualcomm.com>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-aspeed@lists.ozlabs.org>,
- <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 5/9] drm/pl111: replace struct drm_simple_display_pipe
- with regular atomic helpers
-From: "Ze Huang" <ze.huang@oss.qualcomm.com>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>, "Ze Huang"
- <ze.huang@oss.qualcomm.com>, "Alexey Brodkin" <abrodkin@synopsys.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Joel Stanley" <joel@jms.id.au>, "Andrew Jeffery"
- <andrew@codeconstruct.com.au>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
- Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Linus
- Walleij" <linusw@kernel.org>, "Hans de Goede" <hansg@kernel.org>, "Alex
- Lanzano" <lanzano.alex@gmail.com>, "Oleksandr Andrushchenko"
- <oleksandr_andrushchenko@epam.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-5-b4e1ca053623@oss.qualcomm.com>
- <747ae980-9358-4e15-84e3-6e2f3e143423@suse.de>
-In-Reply-To: <747ae980-9358-4e15-84e3-6e2f3e143423@suse.de>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE0NSBTYWx0ZWRfX/kBMCYvmBk8u
- AZwLatzkMlRBinVNVszCP106YAyI3atmDBZREoJ5ISg1/cfsO38e9ZiH2ibFJW3ozA2g0VUH2NJ
- du0l+9DN86CGqgUZmEiJqNHCMBEd6/rGA3k5lP5SfveTtkf/3OoRmcGyrWc3vEX+9tiLKIk0clj
- M5JoOhEk4GPyw45oxuMiTtSdggDGRCJle1HJ1sEq/Wzp12KKsvZ558zyR5TO53/JBSsCSMHiKfg
- fKZbPLVF1Uobla5jS7chr5/a5/s6V/yiYoYEnhYVV6NavOTgO2ymQ1Q3LoFw3rGs+jC0jlB8CTl
- Rm4DzP9fBA1xax1/KGZzzzEh4ga/dFIkedBs2vkoHgOx/WHllvCdfY8O5Q0rnAy4uc1I009X3XX
- guviM3M7UWbtu6fnJFyg/Kuxx6DBEs4kpX9seII4+To3X/1abTDOEMs7gI6Uu7JgajoAIp46loD
- dc7BRyVAiUeQYckcuvg==
-X-Proofpoint-ORIG-GUID: ncDsRXNNBZbi9ldP8a6hiPsrL6gejeQe
-X-Authority-Analysis: v=2.4 cv=NfTWEWD4 c=1 sm=1 tr=0 ts=6a4e62db cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=cNux22OjBTKCC6TmznXXXA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=bxtzNzRwT3Q_vXoiTiMA:9 a=QEXdDO2ut3YA:10
- a=1zu1i0D7hVQfj8NKfPKu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE0NSBTYWx0ZWRfX0VbF14OV5r7r
- 0vg5qOX7guu/a0f563fNjPnF57qhiyobrDTk4l0pv3bYPI6z3wnrxFmhCClE/+bEEsBoMzgaPk8
- uVtLHDbokV399jR2pTlyIqS2Ki1B4gc=
-X-Proofpoint-GUID: ncDsRXNNBZbi9ldP8a6hiPsrL6gejeQe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607080145
+Message-Id: <BB56CB09-819F-48D3-8C71-B85C33E03065@collabora.com>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-11-72cd5d055d54@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,74 +86,312 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Jul 8, 2026 at 9:03 PM CST, Thomas Zimmermann wrote:
->
->
-> Am 04.07.26 um 20:31 schrieb Ze Huang:
->> Replace PL111 simple display pipe with explicit plane, CRTC and encoder
->> objects.
->>
->> Keep existing hardware programming and vblank behavior, and install GEM
->> framebuffer prepare helper explicitly.
->>
->> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/pl111/pl111_display.c | 174 ++++++++++++++++++++++++++=
---------
->>   drivers/gpu/drm/pl111/pl111_drm.h     |   5 +-
->>   drivers/gpu/drm/pl111/pl111_drv.c     |   3 +-
->>   3 files changed, 136 insertions(+), 46 deletions(-)
->>
 
-[ ... ]
 
->> -static int pl111_display_check(struct drm_simple_display_pipe *pipe,
->> -			       struct drm_plane_state *pstate,
->> -			       struct drm_crtc_state *cstate)
->> +static int pl111_plane_helper_atomic_check(struct drm_plane *plane,
->> +					   struct drm_atomic_commit *state)
->>   {
->> -	const struct drm_display_mode *mode =3D &cstate->mode;
->> -	struct drm_framebuffer *old_fb =3D pipe->plane.state->fb;
->> +	struct drm_plane_state *pstate =3D drm_atomic_get_new_plane_state(stat=
-e, plane);
->> +	struct drm_crtc *crtc =3D pstate->crtc;
->> +	struct drm_crtc_state *cstate;
->> +	const struct drm_display_mode *mode;
->> +	struct drm_framebuffer *old_fb =3D plane->state->fb;
->>   	struct drm_framebuffer *fb =3D pstate->fb;
->> +	int ret;
->> +
->> +	if (!crtc)
->> +		return 0;
->> +
->> +	cstate =3D drm_atomic_get_new_crtc_state(state, crtc);
->> +	if (!cstate)
->> +		return 0;
->> +
->> +	ret =3D drm_atomic_helper_check_plane_state(pstate, cstate,
->> +						  DRM_PLANE_NO_SCALING,
->> +						  DRM_PLANE_NO_SCALING,
->> +						  false, false);
->
-> This is another case of _check_plane_state() running conditionally.
->
+> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> `Io` trait is now very easy to implement. Thus, implement it on `Bar` =
+and
+> `IoMem` directly and remove the `MmioOwned` struct.
+>=20
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> rust/kernel/devres.rs |  12 +++---
+> rust/kernel/io.rs     | 103 =
++-------------------------------------------------
+> rust/kernel/io/mem.rs |  26 +++++++------
+> rust/kernel/pci/io.rs |  16 ++++----
+> 4 files changed, 32 insertions(+), 125 deletions(-)
+>=20
+> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+> index aed0c994fd30..3545ffc5345d 100644
+> --- a/rust/kernel/devres.rs
+> +++ b/rust/kernel/devres.rs
+> @@ -68,8 +68,9 @@ struct Inner<T> {
+> ///     devres::Devres,
+> ///     io::{
+> ///         Io,
+> -///         MmioOwned,
+> +///         Mmio,
+> ///         MmioRaw,
+> +///         MmioBackend,
+> ///         PhysAddr,
+> ///         Region, //
+> ///     },
+> @@ -104,12 +105,13 @@ struct Inner<T> {
+> ///     }
+> /// }
+> ///
+> -/// impl<const SIZE: usize> Deref for IoMem<SIZE> {
+> -///    type Target =3D MmioOwned<SIZE>;
+> +/// impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<SIZE> {
+> +///    type Backend =3D MmioBackend;
+> +///    type Target =3D Region<SIZE>;
+> ///
+> -///    fn deref(&self) -> &Self::Target {
+> +///    fn as_view(self) -> Mmio<'a, Region<SIZE>> {
+> ///         // SAFETY: The memory range stored in `self` has been =
+properly mapped in `Self::new`.
+> -///         unsafe { MmioOwned::from_raw(&self.0) }
+> +///         unsafe { Mmio::from_raw(self.0) }
+> ///    }
+> /// }
+> /// # fn no_run(dev: &Device<Bound>) -> Result<(), Error> {
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index 89039b3defd5..c7533d605678 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -98,8 +98,8 @@ fn size(p: *const Self) -> usize {
+> /// the represented MMIO region does exist or is properly mapped.
+> ///
+> /// Instead, the bus specific MMIO implementation must convert this =
+raw representation into an
+> -/// `MmioOwned` instance providing the actual memory accessors. Only =
+by the conversion into an
+> -/// `MmioOwned` structure any guarantees are given.
+> +/// `Mmio` instance providing the actual memory accessors. Only by =
+the conversion into an `Mmio`
+> +/// structure any guarantees are given.
+> pub struct MmioRaw<T: ?Sized> {
+>     /// Pointer is in I/O address space.
+>     ///
+> @@ -156,80 +156,6 @@ pub fn size(&self) -> usize {
+>     }
+> }
+>=20
+> -/// IO-mapped memory region.
+> -///
+> -/// The creator (usually a subsystem / bus such as PCI) is =
+responsible for creating the
+> -/// mapping, performing an additional region request etc.
+> -///
+> -/// # Invariant
+> -///
+> -/// `addr` is the start and `maxsize` the length of valid I/O mapped =
+memory region of size
+> -/// `maxsize`.
+> -///
+> -/// # Examples
+> -///
+> -/// ```no_run
+> -/// use kernel::{
+> -///     bindings,
+> -///     ffi::c_void,
+> -///     io::{
+> -///         Io,
+> -///         MmioOwned,
+> -///         MmioRaw,
+> -///         PhysAddr,
+> -///         Region,
+> -///     },
+> -/// };
+> -/// use core::ops::Deref;
+> -///
+> -/// // See also `pci::Bar` for a real example.
+> -/// struct IoMem<const SIZE: usize>(MmioRaw<Region<SIZE>>);
+> -///
+> -/// impl<const SIZE: usize> IoMem<SIZE> {
+> -///     /// # Safety
+> -///     ///
+> -///     /// [`paddr`, `paddr` + `SIZE`) must be a valid MMIO region =
+that is mappable into the CPUs
+> -///     /// virtual address space.
+> -///     unsafe fn new(paddr: usize) -> Result<Self>{
+> -///         // SAFETY: By the safety requirements of this function =
+[`paddr`, `paddr` + `SIZE`) is
+> -///         // valid for `ioremap`.
+> -///         let addr =3D unsafe { bindings::ioremap(paddr as =
+PhysAddr, SIZE) };
+> -///         if addr.is_null() {
+> -///             return Err(ENOMEM);
+> -///         }
+> -///
+> -///         Ok(IoMem(MmioRaw::new_region(addr as usize, SIZE)?))
+> -///     }
+> -/// }
+> -///
+> -/// impl<const SIZE: usize> Drop for IoMem<SIZE> {
+> -///     fn drop(&mut self) {
+> -///         // SAFETY: `self.0.addr()` is guaranteed to be properly =
+mapped by `Self::new`.
+> -///         unsafe { bindings::iounmap(self.0.addr() as *mut c_void); =
+};
+> -///     }
+> -/// }
+> -///
+> -/// impl<const SIZE: usize> Deref for IoMem<SIZE> {
+> -///    type Target =3D MmioOwned<SIZE>;
+> -///
+> -///    fn deref(&self) -> &Self::Target {
+> -///         // SAFETY: The memory range stored in `self` has been =
+properly mapped in `Self::new`.
+> -///         unsafe { MmioOwned::from_raw(&self.0) }
+> -///    }
+> -/// }
+> -///
+> -///# fn no_run() -> Result<(), Error> {
+> -/// // SAFETY: Invalid usage for example purposes.
+> -/// let iomem =3D unsafe { IoMem::<{ core::mem::size_of::<u32>() =
+}>::new(0xBAAAAAAD)? };
+> -/// iomem.write32(0x42, 0x0);
+> -/// assert!(iomem.try_write32(0x42, 0x0).is_ok());
+> -/// assert!(iomem.try_write32(0x42, 0x4).is_err());
+> -/// # Ok(())
+> -/// # }
+> -/// ```
+> -#[repr(transparent)]
+> -pub struct MmioOwned<const SIZE: usize =3D 0>(MmioRaw<Region<SIZE>>);
+> -
+> /// Checks whether an access of type `U` at the given `base` and the =
+given `offset`
+> /// is valid within this region.
+> ///
+> @@ -957,31 +883,6 @@ fn io_write(view: <$backend as =
+IoBackend>::View<'_, $ty>, value: $ty) {
+> #[cfg(CONFIG_64BIT)]
+> impl_mmio_io_capable!(MmioBackend, u64, readq, writeq);
+>=20
+> -impl<'a, const SIZE: usize> Io<'a> for &'a MmioOwned<SIZE> {
+> -    type Backend =3D MmioBackend;
+> -    type Target =3D Region<SIZE>;
+> -
+> -    #[inline]
+> -    fn as_view(self) -> Mmio<'a, Self::Target> {
+> -        // SAFETY: `Mmio` has same invariant as `MmioOwned`
+> -        unsafe { Mmio::from_raw(self.0) }
+> -    }
+> -}
+> -
+> -impl<const SIZE: usize> MmioOwned<SIZE> {
+> -    /// Converts an `MmioRaw` into an `MmioOwned` instance, providing =
+the accessors to the MMIO
+> -    /// mapping.
+> -    ///
+> -    /// # Safety
+> -    ///
+> -    /// Callers must ensure that `addr` is the start of a valid I/O =
+mapped memory region of size
+> -    /// `maxsize`.
+> -    pub unsafe fn from_raw(raw: &MmioRaw<Region<SIZE>>) -> &Self {
+> -        // SAFETY: `MmioOwned` is a transparent wrapper around =
+`MmioRaw`.
+> -        unsafe { &*core::ptr::from_ref(raw).cast() }
+> -    }
+> -}
+> -
+> /// [`Mmio`] but using relaxed accessors.
+> ///
+> /// This type provides an implementation of [`Io`] that uses relaxed =
+I/O MMIO operands instead of
+> diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
+> index 8f6c257c5b8e..d9b3189d09b4 100644
+> --- a/rust/kernel/io/mem.rs
+> +++ b/rust/kernel/io/mem.rs
+> @@ -2,8 +2,6 @@
+>=20
+> //! Generic memory-mapped IO.
+>=20
+> -use core::ops::Deref;
+> -
+> use crate::{
+>     device::{
+>         Bound,
+> @@ -16,7 +14,9 @@
+>             Region,
+>             Resource, //
+>         },
+> -        MmioOwned,
+> +        Io,
+> +        Mmio,
+> +        MmioBackend,
+>         MmioRaw, //
+>     },
+>     prelude::*,
+> @@ -210,11 +210,13 @@ pub fn into_devres(self) -> =
+Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
+>     }
+> }
+>=20
+> -impl<const SIZE: usize> Deref for ExclusiveIoMem<'_, SIZE> {
+> -    type Target =3D MmioOwned<SIZE>;
+> +impl<'a, const SIZE: usize> Io<'a> for &'a ExclusiveIoMem<'_, SIZE> {
+> +    type Backend =3D MmioBackend;
+> +    type Target =3D super::Region<SIZE>;
+>=20
+> -    fn deref(&self) -> &Self::Target {
+> -        &self.iomem
+> +    #[inline]
+> +    fn as_view(self) -> Mmio<'a, Self::Target> {
+> +        self.iomem.as_view()
+>     }
+> }
+>=20
+> @@ -290,11 +292,13 @@ fn drop(&mut self) {
+>     }
+> }
+>=20
+> -impl<const SIZE: usize> Deref for IoMem<'_, SIZE> {
+> -    type Target =3D MmioOwned<SIZE>;
+> +impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<'_, SIZE> {
+> +    type Backend =3D MmioBackend;
+> +    type Target =3D super::Region<SIZE>;
+>=20
+> -    fn deref(&self) -> &Self::Target {
+> +    #[inline]
+> +    fn as_view(self) -> Mmio<'a, Self::Target> {
+>         // SAFETY: Safe as by the invariant of `IoMem`.
+> -        unsafe { MmioOwned::from_raw(&self.io) }
+> +        unsafe { Mmio::from_raw(self.io) }
+>     }
+> }
+> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+> index e67c1e3694fb..4be33ecb4192 100644
+> --- a/rust/kernel/pci/io.rs
+> +++ b/rust/kernel/pci/io.rs
+> @@ -11,16 +11,14 @@
+>         Io,
+>         IoBackend,
+>         IoCapable,
+> -        MmioOwned,
+> +        Mmio,
+> +        MmioBackend,
+>         MmioRaw,
+>         Region, //
+>     },
+>     prelude::*,
+>     ptr::KnownSize, //
+> };
+> -use core::{
+> -    ops::Deref, //
+> -};
+>=20
+> /// Represents the size of a PCI configuration space.
+> ///
+> @@ -269,12 +267,14 @@ fn drop(&mut self) {
+>     }
+> }
+>=20
+> -impl<const SIZE: usize> Deref for Bar<'_, SIZE> {
+> -    type Target =3D MmioOwned<SIZE>;
+> +impl<'a, const SIZE: usize> Io<'a> for &'a Bar<'_, SIZE> {
+> +    type Backend =3D MmioBackend;
+> +    type Target =3D crate::io::Region<SIZE>;
+>=20
+> -    fn deref(&self) -> &Self::Target {
+> +    #[inline]
+> +    fn as_view(self) -> Mmio<'a, Self::Target> {
+>         // SAFETY: By the type invariant of `Self`, the MMIO range in =
+`self.io` is properly mapped.
+> -        unsafe { MmioOwned::from_raw(&self.io) }
+> +        unsafe { Mmio::from_raw(self.io) }
+>     }
+> }
+>=20
+>=20
+> --=20
+> 2.54.0
+>=20
+>=20
 
-Acknowledged
-
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (!pstate->visible)
->> +		return 0;
->> +
->> +	mode =3D &cstate->mode;
->>  =20
->>   	if (mode->hdisplay % 16)
->>   		return -EINVAL;
->> @@ -117,16 +140,14 @@ static int pl111_display_check(struct drm_simple_d=
-isplay_pipe *pipe,
->>   	return 0;
->>   }
-
-[ ... ]
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
