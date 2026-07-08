@@ -4,64 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1DE7C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 14:57:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03EA3C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 15:15:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A1F10F15D;
-	Wed,  8 Jul 2026 14:57:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67719897F0;
+	Wed,  8 Jul 2026 15:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b3BIonws";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="kEQVPxM2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBC310F159;
- Wed,  8 Jul 2026 14:57:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 519554028B;
- Wed,  8 Jul 2026 14:57:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9E41F00A3E;
- Wed,  8 Jul 2026 14:57:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783522670;
- bh=0nyjPP7mSe9HiaUk/UAjsc7FDqovQ36jWq3u/Ghh3NU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=b3BIonws6GBU1JlnYzyiZS/8iEvoaxqney15cIDK3RkmmOj4j5bZdMGC5paED25nz
- /2Ri3AWkQsGJecEMUFNXlXujo1tV7DxJ6Lf055izNHe0fPZpLBtfEdpSq3HJjk083p
- dLkrSU+Qs97qjXu5qZNTw0h7FALgy9HRdiVUxVajCLB4rbCZJaGvhJhdyxIIWnIFGm
- App7+l94x6euzXqdRhoZWPaeW6oMqG/g7lGZBrTKbYtXXr8TctkFQ6JB6awqWIltuR
- qd6SGRDYqnxZFD34DyZPLez2qqn0EruDnyEZv5D48zYudajBfv4Gr5jbr1/PtS9UMl
- sohNRmBnfPm8g==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Will Deacon <will@kernel.org>,
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5186A897F0
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 15:15:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783523745; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Igr8wTpfjpo1ZHqfHQn/lVnKM79U43R4E1eSVy71wQBDvHXW+bF2eW4ui7Wlm05zH+F72ZB1/Z8/x/j2BjCf6ilcdsUjooa7PMNX2Itz8G6jjHMaqhORMJ57RCIwSpetHbyI/YisCdVWgJJ+Jkg9KMKGe9UypP5HMpFPa+hUgoc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783523745;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=X1plbi+Oxfx02jtUPa4CfsK/IllRKlSLbG1pvpCqSpQ=; 
+ b=ktkjpgWkVW6XS4KQ16E5h2wy3zjPg33F3Disl5c7Xbo6Ak/eJHWeP+MTTNCv/kUnYxsakGAJc4kX9AIFBxOw9FF7H72JZo1sGw/y8N5mUnV7WnyroupyOdtSyfuOrKdMIplwZp2uY3xAbF+J1yhiZ/KCEPV37ZCNJg+jiZbtOe4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783523745; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=X1plbi+Oxfx02jtUPa4CfsK/IllRKlSLbG1pvpCqSpQ=;
+ b=kEQVPxM223LBIzrF2IQm1wNUlGBrh7MiW/mQZVoJUUrpCmGJaJANC3xJZOK2YDrv
+ xnEBPy87uWH2C/WN4gbtJqhZyHIrU5COGHHkBOurTwH2t2OlYhQJka3vJWns6loEqZg
+ 9HOXk3Qw8egDZvS6KrbvTfVp3KU8Ghu9DBnuGY74=
+Received: by mx.zohomail.com with SMTPS id 1783523742904701.646089296638;
+ Wed, 8 Jul 2026 08:15:42 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v6 12/20] rust: io: move `Io` methods to extension trait
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260706-io_projection-v6-12-72cd5d055d54@garyguo.net>
+Date: Wed, 8 Jul 2026 12:15:23 -0300
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
  Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 0/2] Add Shikra (QCM2390) display support
-Date: Wed,  8 Jul 2026 09:56:50 -0500
-Message-ID: <178352261601.2235436.270088747516489288.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260608-shikra-display-v4-0-88a846afdd5d@oss.qualcomm.com>
-References: <20260608-shikra-display-v4-0-88a846afdd5d@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CDAB04DF-F46F-4E78-A981-E6B171FAE606@collabora.com>
+References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
+ <20260706-io_projection-v6-12-72cd5d055d54@garyguo.net>
+To: Gary Guo <gary@garyguo.net>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,24 +87,240 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Mon, 08 Jun 2026 12:31:41 +0530, Nabige Aala wrote:
-> Shikra (QCM2390) is a Qualcomm SoC based on the QCM2290 family that
-> reuses the same MDSS/DPU 6.5 hardware as QCM2290. This series enables
-> the display subsystem for Shikra by adding DT binding updates for MDSS,
-> DSI controller and DPU and UBWC configuration mapping Shikra to
-> qcm2290_data.
-> 
-> Driver and SMMU support are covered by the existing qcom,qcm2290-mdss
-> fallback compatible string — no separate drm/msm or IOMMU patches are
-> required.
-> 
-> [...]
 
-Applied, thanks!
+> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
+>=20
+> `Io` trait now has a single required method with many more provided
+> methods. Provided methods may want to rely on their implementations to =
+not
+> be arbitrarily overridden by implementers for correctness or =
+soundness.
+> A good example is the `size` method, it may be relied by unsafe code =
+and
+> thus must be consistent with the metadata obtained from `as_ptr`.
+>=20
+> Thus, create a new trait to host `size` method, extract existing =
+provided
+> methods to the new trait, and provide a blanket implementation. This
+> pattern is used extensively in userspace Rust libraries e.g. `tokio` =
+where
+> `AsyncRead` has minimum methods and `AsyncReadExt` is what users =
+mostly
+> interact with.
+>=20
+> To avoid changing all user imports, the base trait is renamed to =
+`IoBase`
+> and the newly added trait takes the existing `Io` name.
+>=20
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+> rust/kernel/devres.rs |  3 ++-
+> rust/kernel/io.rs     | 34 ++++++++++++++++++++++++----------
+> rust/kernel/io/mem.rs |  6 +++---
+> rust/kernel/pci/io.rs |  6 +++---
+> 4 files changed, 32 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+> index 3545ffc5345d..6e0b845b229b 100644
+> --- a/rust/kernel/devres.rs
+> +++ b/rust/kernel/devres.rs
+> @@ -68,6 +68,7 @@ struct Inner<T> {
+> ///     devres::Devres,
+> ///     io::{
+> ///         Io,
+> +///         IoBase,
+> ///         Mmio,
+> ///         MmioRaw,
+> ///         MmioBackend,
+> @@ -105,7 +106,7 @@ struct Inner<T> {
+> ///     }
+> /// }
+> ///
+> -/// impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<SIZE> {
+> +/// impl<'a, const SIZE: usize> IoBase<'a> for &'a IoMem<SIZE> {
+> ///    type Backend =3D MmioBackend;
+> ///    type Target =3D Region<SIZE>;
+> ///
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index c7533d605678..ab970e8b2e78 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -223,7 +223,7 @@ fn io_view<'a, IO: Io<'a>, U>(
+> /// operation.
+> pub trait IoBackend {
+>     /// View type for this I/O backend.
+> -    type View<'a, T: ?Sized + KnownSize>: Io<'a, Backend =3D Self, =
+Target =3D T>;
+> +    type View<'a, T: ?Sized + KnownSize>: IoBase<'a, Backend =3D =
+Self, Target =3D T>;
+>=20
+>     /// Convert a `view` to a raw pointer for projection.
+>     ///
+> @@ -309,15 +309,12 @@ fn offset(self) -> usize {
+> /// Types implementing this trait (e.g. MMIO BARs or PCI config =
+regions)
+> /// can perform I/O operations on regions of memory.
+> ///
+> -/// The [`Io`] trait provides:
+> -/// - Method to convert into [`IoBackend::View`].
+> -/// - Helper methods for offset validation and address calculation
+> -/// - Fallible (runtime checked) accessors for different data widths
+> -///
+> -/// Which I/O methods are available depends on the associated =
+[`IoBackend`] implementation.
+> +/// This trait defines which backend shall be used for I/O operations =
+and provides a method to
+> +/// convert into [`IoBackend::View`]. Users should use the [`Io`] =
+trait which provides the actual
+> +/// methods to perform I/O operations.
+> ///
+> /// This should be implemented on cheaply copyable handles, such as =
+references or view types.
+> -pub trait Io<'a>: Copy {
+> +pub trait IoBase<'a>: Copy {
+>     /// Type that defines all I/O operations.
+>     type Backend: IoBackend;
+>=20
+> @@ -326,6 +323,21 @@ pub trait Io<'a>: Copy {
+>=20
+>     /// Return a view that covers the full region.
+>     fn as_view(self) -> <Self::Backend as IoBackend>::View<'a, =
+Self::Target>;
+> +}
+> +
+> +/// Extension trait to provide I/O operation methods to types that =
+implement [`IoBase`].
+> +///
+> +/// This trait provides:
+> +/// - Helper methods for offset validation and address calculation
+> +/// - Fallible (runtime checked) accessors for different data widths
+> +///
+> +/// Which I/O methods are available depends on the associated =
+[`IoBackend`] implementation.
+> +pub trait Io<'a>: IoBase<'a> {
+> +    /// Returns the size of this I/O region.
+> +    #[inline]
+> +    fn size(self) -> usize {
+> +        KnownSize::size(Self::Backend::as_ptr(self.as_view()))
+> +    }
+>=20
+>     /// Fallible 8-bit read with runtime bounds check.
+>     #[inline(always)]
+> @@ -779,6 +791,8 @@ fn update<T, L, F>(self, location: L, f: F)
+>     }
+> }
+>=20
 
-[2/2] soc: qcom: ubwc: Add Shikra UBWC config
-      commit: a45af9d6e6175473c8744c0f1cf2348f641e3029
+IIUC this is what makes the methods non-overridable?
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+If so, consider leaving a comment? i.e.:
+
+// Provided methods may want to rely on their implementations to not be
+// arbitrarily overridden by implementers for correctness or soundness, =
+thus,
+// enforce it through this blanket implementation
+
+Makes it easier to maintain later IMHO.
+
+> +impl<'a, T: IoBase<'a>> Io<'a> for T {}
+> +
+> /// A view of memory-mapped I/O region.
+> ///
+> /// # Invariant
+> @@ -819,7 +833,7 @@ unsafe impl<T: ?Sized + Sync> Send for Mmio<'_, T> =
+{}
+> // SAFETY: `Mmio<'_, T>` is conceptually `&T` but in I/O memory.
+> unsafe impl<T: ?Sized + Sync> Sync for Mmio<'_, T> {}
+>=20
+> -impl<'a, T: ?Sized + KnownSize> Io<'a> for Mmio<'a, T> {
+> +impl<'a, T: ?Sized + KnownSize> IoBase<'a> for Mmio<'a, T> {
+>     type Backend =3D MmioBackend;
+>     type Target =3D T;
+>=20
+> @@ -920,7 +934,7 @@ unsafe fn project_view<'a, T: ?Sized + KnownSize, =
+U: ?Sized + KnownSize>(
+>     }
+> }
+>=20
+> -impl<'a, T: ?Sized + KnownSize> Io<'a> for RelaxedMmio<'a, T> {
+> +impl<'a, T: ?Sized + KnownSize> IoBase<'a> for RelaxedMmio<'a, T> {
+>     type Backend =3D RelaxedMmioBackend;
+>     type Target =3D T;
+>=20
+> diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
+> index d9b3189d09b4..e95b769ebe47 100644
+> --- a/rust/kernel/io/mem.rs
+> +++ b/rust/kernel/io/mem.rs
+> @@ -14,7 +14,7 @@
+>             Region,
+>             Resource, //
+>         },
+> -        Io,
+> +        IoBase,
+>         Mmio,
+>         MmioBackend,
+>         MmioRaw, //
+> @@ -210,7 +210,7 @@ pub fn into_devres(self) -> =
+Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
+>     }
+> }
+>=20
+> -impl<'a, const SIZE: usize> Io<'a> for &'a ExclusiveIoMem<'_, SIZE> {
+> +impl<'a, const SIZE: usize> IoBase<'a> for &'a ExclusiveIoMem<'_, =
+SIZE> {
+>     type Backend =3D MmioBackend;
+>     type Target =3D super::Region<SIZE>;
+>=20
+> @@ -292,7 +292,7 @@ fn drop(&mut self) {
+>     }
+> }
+>=20
+> -impl<'a, const SIZE: usize> Io<'a> for &'a IoMem<'_, SIZE> {
+> +impl<'a, const SIZE: usize> IoBase<'a> for &'a IoMem<'_, SIZE> {
+>     type Backend =3D MmioBackend;
+>     type Target =3D super::Region<SIZE>;
+>=20
+> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
+> index 4be33ecb4192..4d1d0afdc491 100644
+> --- a/rust/kernel/pci/io.rs
+> +++ b/rust/kernel/pci/io.rs
+> @@ -8,8 +8,8 @@
+>     device,
+>     devres::Devres,
+>     io::{
+> -        Io,
+>         IoBackend,
+> +        IoBase,
+>         IoCapable,
+>         Mmio,
+>         MmioBackend,
+> @@ -144,7 +144,7 @@ fn io_write(view: ConfigSpace<'_, $ty>, value: =
+$ty) {
+> impl_config_space_io_capable!(u16, pci_read_config_word, =
+pci_write_config_word);
+> impl_config_space_io_capable!(u32, pci_read_config_dword, =
+pci_write_config_dword);
+>=20
+> -impl<'a, T: ?Sized + KnownSize> Io<'a> for ConfigSpace<'a, T> {
+> +impl<'a, T: ?Sized + KnownSize> IoBase<'a> for ConfigSpace<'a, T> {
+>     type Backend =3D ConfigSpaceBackend;
+>     type Target =3D T;
+>=20
+> @@ -267,7 +267,7 @@ fn drop(&mut self) {
+>     }
+> }
+>=20
+> -impl<'a, const SIZE: usize> Io<'a> for &'a Bar<'_, SIZE> {
+> +impl<'a, const SIZE: usize> IoBase<'a> for &'a Bar<'_, SIZE> {
+>     type Backend =3D MmioBackend;
+>     type Target =3D crate::io::Region<SIZE>;
+>=20
+>=20
+> --=20
+> 2.54.0
+>=20
+
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+
