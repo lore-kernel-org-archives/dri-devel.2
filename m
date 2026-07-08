@@ -4,64 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 503CDC43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9D9CC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A184A10F0C9;
-	Wed,  8 Jul 2026 11:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0156D10F0D0;
+	Wed,  8 Jul 2026 11:28:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="h9xrOKfA";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BAtx5+gs";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 022FB10F0C9
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:21:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783509672;
- bh=GEwFILC+0xXIT2PjFETG0vxtNdBCpa2gjlVADBYSpnU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=h9xrOKfAASK2CG1IYIOQK0cI/yaIkZ7MqAtRT/ZgVpNtfWvMYspviU8lejmf14sFV
- xZsaukwZgLzwhm/J0LcUa445eu9S8iTjwjZB+uuUbaH0GNo/dOmrGlsTphchH9xaXg
- y3AguVlLBqSmiJbpbHH0QQZRmL+qUc8WO3D30jzVzm5ibUdTEJ+eQLU3yZJ/XRkUgv
- 5bgi6DQ7yaF2ErB0Jn3TQSM0RRMLTZmx551D7Zwxy3+EUjnJTtl0rVai7fTdm9KJqA
- 5mChSL7WtADE9YIIDakoYDQEFXqluLICD0PH9U77FWQZwU8NxB/kE4pD8HGK9tAUJt
- EYoMVNms/ClpA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9E77E17E0713;
- Wed, 08 Jul 2026 13:21:11 +0200 (CEST)
-Message-ID: <05de7187-a7e9-4d69-8c65-cdbc30d21d33@collabora.com>
-Date: Wed, 8 Jul 2026 14:21:11 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 10/39] drm/display: hdmi-state-helper: Sync SCDC state
- on hotplug
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-10-d79890d00b6a@collabora.com>
- <20260707-unique-carmine-cheetah-af2cb8@penduick>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260707-unique-carmine-cheetah-af2cb8@penduick>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5527610F0D0
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:28:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cw13LpS5t+bD3KRhHKGwfM8w1QilzctKAy2VeE6Szo30LVjqynU9hLQTkda6IBwILMSMUkDsiutwUL1aWrOlafqqsoW+3hDePqE+16R4h7UPuDVqCSNo0+luCLMTpRe5IX2CfDczaghWkKbppU8jeDidi7QBPRH8U7UKZRHUVgRVmG3yjLMLSJmDHSWkYk/60ccYfZrdtSlErn42IiSaUmbIRUr+Dmw3axl2u8Np7qsj/SY58c2XuqLFiwuB7Edl8/g6PcW80gaR8L5f02lrzLrVr1WK2mNyoY6QdayorbRLULGk+RohUoEpp0Qk8+XYjCT1VKu1/W/80/9f3NS+7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JCNCaIoB+QLC6ZUuz5YMlbstPducbiG+1nAymTEsEKg=;
+ b=dxjVTYx1CrTZr/XxTJHIdSiMb2PExbJ14sre0i2DQxroXtKRU1evGkLnyMEnbgsSbR2m0uy5L+usk6DTKoWg7bz5A8QqqoLnaxcRSXK8CQBWwQe+N/iLFVZ5EDnmZXifl7W6geKLpDUenhSfDfuZVaUlDmnDj6YqLb3cze0pGSELzJKy5Na5HENQrcwOqmkSil6TlK3qXr37YRdnlsgHSrmU2BviwI55tJ+pIQZa2DkbywzcKJS1n5gc/9lkzUhyE0SXfzhZ1mqvQxE3859h/P512qdCFxLORCECZzhyLrcA779I8U568lVGjwg4e2FYtug05rDs+CprfRdKugZtiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JCNCaIoB+QLC6ZUuz5YMlbstPducbiG+1nAymTEsEKg=;
+ b=BAtx5+gsgskJY8ELxwoVgpn5gAd5ikwA4Hfvm5fhh87FDTg/zISukRqQzYcGslKYajJAHjhbJx6/W3xsw72CluLeTQNz6JJqN1hyzeyAjuFVJ/C+iX2xrgNYwB01lUx5jLFXRf4r7B/2guABETB59HV4Amp1ShZsr9SeSh7jWQhC4GP0k8Bb2TUztQuhNOiBcST6nH6vDHQEjNabuCTZ1cuRkesystS2L/YCdCzreB/piXH+EQadRuj4GkiL/XSudO4p97Zp5UewmLqv36dgv9DvoWvUzGD9OocvqPS3NPANn6+hnxbJrjzndxDc6anD0Ld1XSk9WKB5FLtNqqU7TQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SA0PR12MB4416.namprd12.prod.outlook.com (2603:10b6:806:99::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Wed, 8 Jul
+ 2026 11:28:18 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.012; Wed, 8 Jul 2026
+ 11:28:18 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Wed, 08 Jul 2026 20:28:14 +0900
+Message-Id: <DJT5KAE48ORE.28707LMPWN1FZ@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Pedro Yudi Honda" <niyudi.honda@usp.br>
+Cc: <dakr@kernel.org>, <apopple@nvidia.com>, <nico.antinori.7@gmail.com>,
+ <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <ojeda@kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>
+Subject: Re: [RESEND PATCH v2 0/5] drm/nova: replace `transmute` with
+ `zerocopy`
+References: <20260702120324.40388-1-niyudi.honda@gmail.com>
+In-Reply-To: <20260702120324.40388-1-niyudi.honda@gmail.com>
+X-ClientProxiedBy: OS3P286CA0031.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:1f4::10) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA0PR12MB4416:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b6c6749-6209-4945-766b-08dedce40237
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|10070799003|376014|7416014|23010399003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: /rbPF8lcDR4HrotYZsn3yHNLckZV9Hrsjn9wXCbVgWgAubq1NceYdz/mAsUAZrWVf9/mvjknQGkslVwc00QyoshRpKeJBamztnoMLSqYCl1s6S4F9ov5C2kYXrK3k738J5eo5SDuU7G0uUSTYmMHnU/8fRILUpP3lJlOFnp3NzyUKeb0roPHxSIc9zRQabIB6qWg+/TfwxBIiunVNRRvfbdVQKAK5v+0P/LI3gz+HFYkv7OhztIonDlwgkyBm68E7DLWX76YA+urRP8iIOm+6Y6HNFxbsF/wCljsjbMls+919ccnCVzsBwOZUqvIXDnvQmPu6lH73w/T+wp3J9aGggk+TCDkrqDTVVepJ5QeL1iEoWdP48o/HdpiWdYn6AmoHAQdhhCZ4bkQXRvqITEdYxshych5cnKenrF/sVH25gSdGprfWNn+S+ih6KpWGII8d2vVNJqlBeviQEygzgq6psI0DHpJwXPKcqexIRhYo0iKoXpF/gUEL6a+KMT/jYg81y1cbCecb0TCPzuZMBoEGlgWFONIL7ygyQGFjmmww8V7K6Y7IKTjnccdC5IftqHnogCdhm6ZiaqeQZ2/N1FynnejdwkNzvWFESK5HIJW2N4Hc8nI+I5qCiuTMxQ4S9MNrLOR8lwGdwerZbl7pRsJUwTOYZQd3P3gwINUvlhuqqc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(7416014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlpaRUlWR1hWRk9leWg3WUppOW8rUHBSRG9SMTJxelNwYld3dFpJSTlLTjNl?=
+ =?utf-8?B?TkYweFNwRWd1RDdyWHdHd2ZaVzB6WitKK3AyRERvSnBaRnY0SEJJejR6Y1Vn?=
+ =?utf-8?B?aGZFdzNiS0I5eUQ1dHJEYmdHNElHQ0RlaUtySHEzZG9MMHNIQytnSENqNkFD?=
+ =?utf-8?B?dU1GWmRBdVE4OVcvejI3c2Q5bVFWUFlRYUd0VHJFTXE1OVZ0ZjNmWll6Rnkw?=
+ =?utf-8?B?ODVIQS9zVktKZ0FiK2JpRTdjaUtRWXppeWFiTWdSV2Q5amdER2hPeG5LVzBi?=
+ =?utf-8?B?aFh5UkdtMFZoMjdpcEpWUjZ3WjlldlR3WE14ekNub0NmZk1pOENqYVpsM1E5?=
+ =?utf-8?B?ME1EaytxVDhZb3FzZ1FKWCtUcktoYUF2NmhJL3JNRmI2bDAzMHc5Y0FKaHpK?=
+ =?utf-8?B?c1pKNVNNTVRobGN2Vk1QSlR0N0JtWlZvY3pSRGdZTFVZZnQreWh0dGlvSllZ?=
+ =?utf-8?B?MUtFNnZBWGx5MkNzV0RkWkYzTzl0ZjRuYnExSzR6M1FaZEhEd24wdHRuN3Mv?=
+ =?utf-8?B?RlEyQ2dmUnlhVC9RWEcweHZkeS9wQWZ1VHVOS09sUWdydGpBaHdtcDRKZHA4?=
+ =?utf-8?B?cXZwWVNpbU5ad1Z4bE10VEtEZFVRdk10Zk9qMmp5QXZ1czhRZGVLOEhjRTMz?=
+ =?utf-8?B?THFRenBLd25vOHN4N21KT3VNV2hEOUJsK3RVaGdDQTUyWVpSVlhDdDNzVndw?=
+ =?utf-8?B?dFZGRzFZZkxHNWd0aERoTlAvRWxIZFczN2syajRCbUFnN2ovaWx0OEpXbm5v?=
+ =?utf-8?B?RmEvNW0xbHY3MGNsQjNmRHlVQkZXTzk1bWVVVmNadVZRSFB2aXBhVXppQjJi?=
+ =?utf-8?B?Q2lNL2wybkgyS3YzSCswcktNc3NwQ2t0dytDZ3JIRXVjR3pUMGRGVWM2dk83?=
+ =?utf-8?B?ZGdPSWtwSDFGd0tSdmVBRzlyVTZaWXF4N0dQN1dsWW1BejkzQllMTnZqb0Nx?=
+ =?utf-8?B?RVVuYW5Yb1RGLzFlck5XemxIZzh6b1BqVDk0RGhkY01FSktScW9mNGg5Zk8x?=
+ =?utf-8?B?L3p1RHpWWVlzM1ZWQ2E5MjVqUUJzSjUvenROSy9XSy9TbHBUclZXcXhQUmtC?=
+ =?utf-8?B?bW1IZTFyUW9jamVOTlU5N1laRnI5WmxNRUkxRUZPZVlYTzBrR3ZGV1F4L2cy?=
+ =?utf-8?B?bEpqdzROaHNmSXB5UnYwWU00NCtSYVBrcUpxMFc1eE1DUmNoNEtsTUVWWGNV?=
+ =?utf-8?B?TVRlSitoSXNWUzNTRS9pejJwN3BoTmY4K0tiNHBlTzZIcHp5ZHNGUzNQMUJK?=
+ =?utf-8?B?NzdCVTMvZHJpUnNhOU5ZNjJ2OG5zYUVEczh4R0JiaTdmTG05TDZKUzd1akJr?=
+ =?utf-8?B?dnIraU1mZklOUkludHBRQmJxdzRQQXR1cHdESEIrTFR1QmhkYWc0ZmpTMFJB?=
+ =?utf-8?B?Vy9GNWFHeUJEaWg1ZjN2ZlBSUnJ5M3FLR25oWnVMUkhVU1hqWGVFeTRYQXJu?=
+ =?utf-8?B?aFpZcUN2cHNvdFdWaVF0aWJ4TlhMUjZsS2wxSW4rVHNXcHhCK29KeU9lQVpY?=
+ =?utf-8?B?dlRUZ1VKckpYUEI2ZVMrUkphQWVQK3NGY2VYdnJnUkdSTlprR0pNRTdjYkIy?=
+ =?utf-8?B?YlN3MXdwNmlkcXh5c21VQkczd0dVa2N4aHJZem03SE5qL1lBWVpwcWlZREdH?=
+ =?utf-8?B?WTRsWElLYTBjWTN6cDV1b1ZPMHIyVUIvdUxtQmhZYTV3VEVpSk1SVjEzUmZv?=
+ =?utf-8?B?Ylh2UUJlVkloWVdqOFppaFZTT3RuZWhkK1NXVU5pMGJnK3lFZkVwOFY3U1JZ?=
+ =?utf-8?B?S1VSUmxXNE1PMUVkeUw4TUx1cDB2RTA3Y0VOR0pjVExlSjlKOUN6WGRZK3o1?=
+ =?utf-8?B?aVNyajQzb3Urcng0Q20rUzlleHhmM1ZSTzNlYUFXcTkydzFDakFoS3ZkeWdK?=
+ =?utf-8?B?T0tjclA5Z3VJb2dZQTdjN2l3MWZlS0VsTXdvakY4aTlhMWhFTVlHaDdVUkhN?=
+ =?utf-8?B?YTUrc015T1FMNVptWHNaUVZFV2dKWTNxRlRGTVVJemxYamx4b3ovQWNqOHdS?=
+ =?utf-8?B?TGNmRnJXc3hpTFhCYmRRWmEzUnhSUWU2b3RLSFBHS29vR2Ryam01aloyZlp4?=
+ =?utf-8?B?SFdvcGF4ZUV0UkVobVZOTGZoanRyOEdkWFlmQnBXYXRBMTVib05zT21XUnNO?=
+ =?utf-8?B?dVZzdHc2Vy9aU3UwdVFWQ2pXVG40QU9JQWJrL1p6dElYOUd3cGFjUzA0cHdU?=
+ =?utf-8?B?OE5KR3lQNmtnQjQxc1p4OUdaMU1NQ29TblJmTElOaCtHTDFGRWgwQ3ZmVHhC?=
+ =?utf-8?B?bzgvOVJ0Qkh0OFV2MTY0d1MzbjBmMm5McHFMa1ZaeFBlMjl2M2ZpYU1lcTNp?=
+ =?utf-8?B?Q3dsWnV2M1hTT3pHU210ZllXblVwaG92dEZ2ak5pMndYQ3R6aWJXNlNQRnRF?=
+ =?utf-8?Q?uLtp1iHFHIBMf1j1YFJFe3caUiSDYEukTknIXV65NeT1W?=
+X-MS-Exchange-AntiSpam-MessageData-1: GeuLBMfllpsPWA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b6c6749-6209-4945-766b-08dedce40237
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 11:28:18.2801 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wU1Ast3r31RDHNW5RFAOSu+CpXJFQE68sjv0aDeh1ci9T7Ps4FqqSd6GxNZh5HRUp6KAis9APmyiZ8a+UoGETg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4416
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,170 +139,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+On Thu Jul 2, 2026 at 9:03 PM JST, Pedro Yudi Honda wrote:
+> From: Pedro Yudi Honda <niyudi.honda@usp.br>
+>
+>
+> This series follows the introduction of `zerocopy` to rust-next and
+> replaces `transmute` traits with `zerocopy` traits. These changes are
+> mechanical and don't alter functionality.
+>
+> This series is built upon Nicol=C3=A1s' recent patch, and does not touch
+> gsp bindings.
+>
+> Specifically, the trait `transmute::FromBytes` is replaced by
+> `zerocopy::FromBytes` and the trait `transmute::AsBytes` is replaced
+> by `zerocopy::IntoBytes`. Additional traits such as
+> `zerocopy::Immutable` and `zerocopy::KnownLayout` are implemented as
+> necessary.
+>
+> Resent because of wrong target list and wrong email in "From:".
 
-On 7/7/26 2:31 PM, Maxime Ripard wrote:
-> Hi,
-> 
-> On Thu, Jul 02, 2026 at 05:46:23PM +0300, Cristian Ciocaltea wrote:
->> drm_atomic_helper_connector_hdmi_hotplug() does not currently
->> synchronize SCDC status on hotplug events, leaving the scrambler state
->> potentially inconsistent after (re)connect.
->>
->> Hook drm_connector_hdmi_sync_scdc() into both the connect and disconnect
->> paths, replacing the existing TODOs around missing scrambler handling.
->>
->> SCDC synchronization may require a CRTC reset, which in turn needs a
->> modeset acquire context for correct locking.  Therefore, extend
->> drm_atomic_helper_connector_hdmi_hotplug() and
->> drm_atomic_helper_connector_hdmi_update() to take a
->> drm_modeset_acquire_ctx argument.  Additionally, change their return
->> type from void to int, allowing propagation of errors, such as -EDEADLK
->> from lock contention.
->>
->> Update existing callers to pass NULL for the acquire context, preserving
->> current behavior.
-> 
-> You should have two patches here: one to change the prototype of the
-> helpers, and one to add the call to drm_connector_hdmi_sync_scdc
+A couple of things for v3 so I can apply the patches as-is:
 
-Ack.
+- The subject prefix for nova-core is `gpu: nova-core:`. In particular
+  there is no `drm` in the path.
+- Make sure to collect the `Reviewed-by`s you received.
+- Optional, but see if you can make the commit logs less mechanical,
+  notably the single-item lists - that feels very AI-generated.
 
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/display/drm_bridge_connector.c  |  3 ++-
->>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 28 +++++++++++++++++--------
->>  drivers/gpu/drm/vc4/vc4_hdmi.c                  |  2 +-
->>  include/drm/display/drm_hdmi_state_helper.h     |  6 ++++--
->>  4 files changed, 26 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
->> index 796069dbf1a1..46104506fe32 100644
->> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
->> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
->> @@ -221,7 +221,8 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
->>  		status = detect->funcs->detect(detect, connector);
->>  
->>  		if (hdmi)
->> -			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
->> +			drm_atomic_helper_connector_hdmi_hotplug(connector, status,
->> +								 NULL);
->>  
->>  		drm_bridge_connector_hpd_notify(connector, status);
->>  	} else {
-> 
-> We should move this one to detect_ctx to get the ctx passed and avoid
-> passing NULL here.
-
-We do this in patch 15.  Should I try to reorder?
-
->> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->> index db76699093e8..69ccfbf123fe 100644
->> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->> @@ -1198,18 +1198,20 @@ drm_atomic_helper_connector_hdmi_clear_audio_infoframe(struct drm_connector *con
->>  }
->>  EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_clear_audio_infoframe);
->>  
->> -static void
->> +static int
->>  drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
->> -					enum drm_connector_status status)
->> +					enum drm_connector_status status,
->> +					struct drm_modeset_acquire_ctx *ctx)
-> 
-> detect_ctx has the context first, I think we should use that convention
-> here too.
-
-Ack.
-
->>  {
->>  	const struct drm_edid *drm_edid;
->> +	int ret = 0;
->>  
->>  	if (status == connector_status_disconnected) {
->> -		// TODO: also handle scramber, HDMI sink disconnected.
->> +		ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
->>  		drm_connector_hdmi_audio_plugged_notify(connector, false);
->>  		drm_edid_connector_update(connector, NULL);
->>  		drm_connector_cec_phys_addr_invalidate(connector);
->> -		return;
->> +		return ret;
->>  	}
->>  
->>  	if (connector->hdmi.funcs->read_edid)
->> @@ -1222,24 +1224,32 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
->>  	drm_edid_free(drm_edid);
->>  
->>  	if (status == connector_status_connected) {
->> -		// TODO: also handle scramber, HDMI sink is now connected.
->> +		ret = drm_connector_hdmi_sync_scdc(connector, true, ctx);
->>  		drm_connector_hdmi_audio_plugged_notify(connector, true);
->>  		drm_connector_cec_phys_addr_set(connector);
->>  	}
->> +
->> +	return ret;
->>  }
->>  
->>  /**
->>   * drm_atomic_helper_connector_hdmi_hotplug - Handle the hotplug event for the HDMI connector
->>   * @connector: A pointer to the HDMI connector
->>   * @status: Connection status
->> + * @ctx: Lock acquisition context to be used for resetting CRTC
->>   *
->>   * This function should be called as a part of the .detect() / .detect_ctx()
->>   * callbacks for all status changes.
->> + *
->> + * Returns:
->> + * Zero on success, error code on failure.
->> + * If @ctx is set, it might also return -EDEADLK.
->>   */
->> -void drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
->> -					      enum drm_connector_status status)
->> +int drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
->> +					     enum drm_connector_status status,
->> +					     struct drm_modeset_acquire_ctx *ctx)
->>  {
->> -	drm_atomic_helper_connector_hdmi_update(connector, status);
->> +	return drm_atomic_helper_connector_hdmi_update(connector, status, ctx);
->>  }
->>  EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
->>  
->> @@ -1254,6 +1264,6 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
->>   */
->>  void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector)
->>  {
->> -	drm_atomic_helper_connector_hdmi_update(connector, connector->status);
->> +	drm_atomic_helper_connector_hdmi_update(connector, connector->status, NULL);
->>  }
-> 
-> We should create a new context here.
-
-Ack.
-
-> 
->>  EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_force);
->> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
->> index 74dce4be0c00..e165f604939b 100644
->> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
->> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
->> @@ -375,7 +375,7 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
->>  	 * the lock for now.
->>  	 */
->>  
->> -	drm_atomic_helper_connector_hdmi_hotplug(connector, status);
->> +	drm_atomic_helper_connector_hdmi_hotplug(connector, status, NULL);
-> 
-> vc4_hdmi_handle_hotplug has the context passed as an argument, we should reuse it.
-
-The vc4 conversion (patch 31) removes vc4_hdmi_handle_hotplug() and calls
-drm_atomic_helper_connector_hdmi_hotplug() directly in
-vc4_hdmi_connector_detect_ctx().  
-
-I used NULL here to ensure there wouldn't be any race between the two separate
-SCDC state management implementations, but that can't happen at this point
-anyway (hdmi->scrambler_enabled isn't set by the driver).  So we can pass the
-context if you prefer.
-
-Thanks,
-Cristian
+With these I think the series should be ready to apply. Thanks!
