@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83A52C44501
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CEBBC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:09:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B51D110F1C0;
-	Wed,  8 Jul 2026 16:09:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB77810F1C1;
+	Wed,  8 Jul 2026 16:09:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IHtSYZeb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GlRdjukd";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF9C10F1B7
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:09:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D268A10F1C1
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:09:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 70A2840F24;
- Wed,  8 Jul 2026 16:09:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B3E1F000E9;
- Wed,  8 Jul 2026 16:09:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 53D2360008;
+ Wed,  8 Jul 2026 16:09:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B981F000E9;
+ Wed,  8 Jul 2026 16:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783526945;
- bh=XBNlzrm2VUnzVBrb3FW1lerts2iFVkqleFLxdiQpBp4=;
+ s=k20260515; t=1783526950;
+ bh=d0gFAqHdkcz/DkcLNQqPxrqVc3f8gzllG+y1ErzsxJo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=IHtSYZebmnZw11RU2iJ+M8pdzcQvKUU1dDyDEX/Qox+08aS6llFDeufE5JBj0PKQm
- wIldvovdnAr8U5TBzIPDCBhGhhC/U2OJzKFStsDTLp8VJtQ74VSy8nOAKUXpCvt3hw
- zWbhFgma0d63TQBikyzYl+BNo8QiWNTavYnhh18edBZy3cw9+mA+sgzBmdHolVU6Y7
- 2cjLS1RUSdeK+UIXsPNjxFpk6UPAZhno2YIPXnBd94omfEreWiTgSSjuQbWDJ2A5Mq
- WSDG0QOGJoLUChRLfMEQNuliKhnZeOYOz65Hg2oWZAClItEVz2nW120NKRP41Dcfju
- csuX8exd1xGTw==
+ b=GlRdjukdQ4XGf4kYnYdoNKqabIvrA1bfQCmNtAR66fnVnSeXdQbXKeKLjHqZIMGus
+ /xOs994uP6PUP7sLXWdyMz24dzzFRt499WQEIWLmKhgW4yn0G/14qWoBixSXoIhvCQ
+ A5SOKNUHddf+qFYX223g0mmOnWI8SnL+r66udcda1W2ABsuseinbJ9WgwmI/AmlKxu
+ 8FmEEFHqzJAdg+oMNkkfsep3bZj7B4p5gxW4f2/sa9RDhVTgzIwEmslhMwqBh8LuA2
+ qOb9y0xp6x55iFWSxUfivtJmWyoKQLSYL6nFq45ePVZVeJKp93bR842gaIFvM3ObTt
+ OtsJzh0dj340w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 08 Jul 2026 18:08:43 +0200
-Subject: [PATCH RFC 6/8] drm/atomic: Create function to insert connector
- state into a commit
+Date: Wed, 08 Jul 2026 18:08:45 +0200
+Subject: [PATCH RFC 8/8] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-drm-reset-state-flag-v1-6-c37dc985485d@kernel.org>
+Message-Id: <20260708-drm-reset-state-flag-v1-8-c37dc985485d@kernel.org>
 References: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
 In-Reply-To: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -53,12 +52,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4467; i=mripard@kernel.org;
- h=from:subject:message-id; bh=G+HVYHInY7UyUBvxRjBWcTIdkFXetkDN+/ALC9mefto=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl+ZfzJYs0i7LdZRNZEnXlUMIFptYXgJ+d+6zwevsVWO
- 7fOnHu5YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEyEYxtjfcDy5A/92RYiy+Uv
- bxNS+nPxCZforas/1ndPtnBzb4n0/eg1xTZu6y1xn9Z3P4qqa2/9Y2xYc3nNxr4ly/Y4ercw8qw
- Pn39XJpzhOf+3pRt9ipQMvqh5VO0xEHwUrurAdN07MrdxaRIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3811; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=qNsLZcKnpU5JSggILRFdVhUYrRG/Qw8F+WUmBgIv5aw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl+ZQK5T993uk5pexydIzWbW+Dz4TcKFg+nlCop967/E
+ 3gpufBdx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjI3HTG+kTRWzedHq60X3V/
+ ej/HwrQE8/m7F+ka3T50MHTKraC+KpEoEd4L678b1YVbpf7ZoaBeydjwwbGd88fif9c8gzkY319
+ 8sP3f+waeu0xWv1OYX9dUt8+4pc79Idv5/fwN20oLH0ZoBLkDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,135 +75,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_atomic_get_connector_state() allocates a new connector state by
-duplicating the current one and inserts it into the atomic commit as
-a single operation.
+From: Sebastian Wick <sebastian.wick@redhat.com>
 
-However, a later change will need to insert a connector state into a
-commit without going through the full allocation and duplication path
-in drm_atomic_get_connector_state().
+Userspace currently has no atomic way to reset all KMS object states
+to their defaults. To bring a display pipeline to a known state, a
+compositor must explicitly set every property on every object, which
+requires tracking which properties exist and what their defaults are.
 
-Extract the state insertion logic, including the dynamic array
-reallocation, into a new static
-drm_atomic_commit_set_connector_state() helper, and convert
-drm_atomic_get_connector_state() to use it.
+Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
+atomic ioctl, fills the commit with default states for all KMS
+objects before applying the properties supplied in the request.
+Properties not explicitly included in the commit remain at their
+defaults (CRTCs inactive, planes disabled, connectors unbound, and
+so on).
 
+The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
+full state reset is incompatible with an async flip.
+
+Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
+Co-developed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 67 +++++++++++++++++++++++++++-----------------
- 1 file changed, 42 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c | 13 +++++++++++++
+ include/uapi/drm/drm_mode.h       | 14 +++++++++++++-
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index d4dcab2d851c..79971d4b56a4 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1408,10 +1408,46 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 1050dddadb17..cdcc6efb9a00 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1658,10 +1658,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 		drm_dbg_atomic(dev,
+ 			       "commit failed: page-flip event requested with test-only commit\n");
+ 		return -EINVAL;
+ 	}
  
- 	return conn_state->crtc;
- }
- EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
- 
-+static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
-+						 struct drm_connector *connector,
-+						 struct drm_connector_state *connector_state)
-+{
-+	struct drm_mode_config *config = &connector->dev->mode_config;
-+	int index;
-+
-+	drm_modeset_lock_assert_held(&config->connection_mutex);
-+
-+	index = drm_connector_index(connector);
-+	if (index >= commit->num_connector) {
-+		struct __drm_connnectors_state *c;
-+		int alloc = max(index + 1, config->num_connector);
-+
-+		c = krealloc_array(commit->connectors, alloc,
-+				   sizeof(*commit->connectors), GFP_KERNEL);
-+		if (!c)
-+			return -ENOMEM;
-+
-+		commit->connectors = c;
-+		memset(&commit->connectors[commit->num_connector], 0,
-+		       sizeof(*commit->connectors) * (alloc - commit->num_connector));
-+
-+		commit->num_connector = alloc;
++	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
++			(arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
++		drm_dbg_atomic(dev,
++			       "commit failed: reset cannot be combined with async flip\n");
++		return -EINVAL;
 +	}
 +
-+	drm_connector_get(connector);
-+	commit->connectors[index].state_to_destroy = connector_state;
-+	commit->connectors[index].old_state = connector->state;
-+	commit->connectors[index].new_state = connector_state;
-+	commit->connectors[index].ptr = connector;
-+	connector_state->state = commit;
+ 	state = drm_atomic_commit_alloc(dev);
+ 	if (!state)
+ 		return -ENOMEM;
+ 
+ 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
+@@ -1673,10 +1680,16 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	copied_objs = 0;
+ 	copied_props = 0;
+ 	fence_state = NULL;
+ 	num_fences = 0;
+ 
++	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
++		ret = drm_atomic_commit_fill_with_defaults(state);
++		if (ret)
++			goto out;
++	}
 +
-+	return 0;
-+}
-+
- /**
-  * drm_atomic_get_connector_state - get connector state
-  * @state: global atomic state object
-  * @connector: connector to get state object for
-  *
-@@ -1426,53 +1462,34 @@ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+ 	for (i = 0; i < arg->count_objs; i++) {
+ 		uint32_t obj_id, count_props;
+ 		struct drm_mode_object *obj;
+ 
+ 		if (get_user(obj_id, objs_ptr + copied_objs)) {
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index bd435effdcee..43024028f695 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -1314,10 +1314,21 @@ struct drm_mode_destroy_dumb {
+  * To the best of the driver's knowledge, visual artifacts are guaranteed to
+  * not appear when this flag is not set. Some sinks might display visual
+  * artifacts outside of the driver's control.
   */
- struct drm_connector_state *
- drm_atomic_get_connector_state(struct drm_atomic_commit *state,
- 			  struct drm_connector *connector)
- {
--	int ret, index;
-+	int ret;
- 	struct drm_mode_config *config = &connector->dev->mode_config;
- 	struct drm_connector_state *connector_state;
+ #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
++/**
++ * DRM_MODE_ATOMIC_RESET
++ *
++ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
++ * to their default values before applying the properties in this commit.
++ * Properties not explicitly included in the commit will remain at their
++ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
++ *
++ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
++ */
++#define DRM_MODE_ATOMIC_RESET 0x0800
  
- 	WARN_ON(!state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
+ /**
+  * DRM_MODE_ATOMIC_FLAGS
+  *
+  * Bitfield of flags accepted by the &DRM_IOCTL_MODE_ATOMIC IOCTL in
+@@ -1326,11 +1337,12 @@ struct drm_mode_destroy_dumb {
+ #define DRM_MODE_ATOMIC_FLAGS (\
+ 		DRM_MODE_PAGE_FLIP_EVENT |\
+ 		DRM_MODE_PAGE_FLIP_ASYNC |\
+ 		DRM_MODE_ATOMIC_TEST_ONLY |\
+ 		DRM_MODE_ATOMIC_NONBLOCK |\
+-		DRM_MODE_ATOMIC_ALLOW_MODESET)
++		DRM_MODE_ATOMIC_ALLOW_MODESET |\
++		DRM_MODE_ATOMIC_RESET)
  
- 	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	index = drm_connector_index(connector);
--
--	if (index >= state->num_connector) {
--		struct __drm_connnectors_state *c;
--		int alloc = max(index + 1, config->num_connector);
--
--		c = krealloc_array(state->connectors, alloc,
--				   sizeof(*state->connectors), GFP_KERNEL);
--		if (!c)
--			return ERR_PTR(-ENOMEM);
--
--		state->connectors = c;
--		memset(&state->connectors[state->num_connector], 0,
--		       sizeof(*state->connectors) * (alloc - state->num_connector));
--
--		state->num_connector = alloc;
--	}
--
- 	connector_state = drm_atomic_get_new_connector_state(state, connector);
- 	if (connector_state)
- 		return connector_state;
- 
- 	connector_state = connector->funcs->atomic_duplicate_state(connector);
- 	if (!connector_state)
- 		return ERR_PTR(-ENOMEM);
- 
--	drm_connector_get(connector);
--	state->connectors[index].state_to_destroy = connector_state;
--	state->connectors[index].old_state = connector->state;
--	state->connectors[index].new_state = connector_state;
--	state->connectors[index].ptr = connector;
--	connector_state->state = state;
-+	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
-+	if (ret) {
-+		connector->funcs->atomic_destroy_state(connector, connector_state);
-+		return ERR_PTR(ret);
-+	}
- 
- 	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
- 			 connector->base.id, connector->name,
- 			 connector_state, state);
- 
+ struct drm_mode_atomic {
+ 	__u32 flags;
+ 	__u32 count_objs;
+ 	__u64 objs_ptr;
 
 -- 
 2.54.0
