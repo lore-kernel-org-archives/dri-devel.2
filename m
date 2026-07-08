@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3062C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:44:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51E81C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37E1C10F0E7;
-	Wed,  8 Jul 2026 11:44:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9455210F0EA;
+	Wed,  8 Jul 2026 11:44:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="OQ/WLnaf";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="LNkoyTwG";
 	dkim-atps=neutral
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
- [79.135.106.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA8D510F0E7
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:44:14 +0000 (UTC)
+Received: from mail-244104.protonmail.ch (mail-244104.protonmail.ch
+ [109.224.244.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3992110F0EA
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:44:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1783511052; x=1783770252;
- bh=R+XBGiRLdiwS1RFO/ssalJP6t5IuZTdVRDxBQJhq9Ng=;
+ s=protonmail; t=1783511050; x=1783770250;
+ bh=o0KSKorGUygUV91TUOM/j3mZ88JSJ4I1wM0EFRoJHvU=;
  h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=OQ/WLnafXU0S4SLYNkN2pnx0PVum1PJMpeG7BiQX7tpbznArmqNoD5HwktcATFSXm
- j1JCUC597XVoED6w02JGmWmHWXhylz0u/WNUGgvqL+uMqhiR1ub6E9S88zLob3Ddej
- ekvMasv/DS8gAewMTuw0rqQy22zvDpKzM9IUrGFIIs7flJWxgNRhRpYeriKTKKD1sa
- sYGMfGXNL/o3XuUNhXWVaUe/AweWGRx7WW0nHyF4Z/jx9bKLzsiUZ3PZ6hv9ULJugk
- iad1fjIZ2vUW8LDwfs9PGVHJn4iEvxAy48H+nJwwsEXkSFUNrguaOMN2cL6md0L3U9
- zlVswULYFTWdg==
-X-Pm-Submission-Id: 4gwGTP5ZZvz1DDLF
+ b=LNkoyTwGQQq0sLfQ5OUUl4M5q/eQdmaWTEZ3JVDOXPwrB1Us8EfJqwKxZLBmw5pEF
+ 5iWr/yaltbHEEk86VxYcjZZuS9BB02iawhDP1kjTmXYDunl5U8bzJP56Z+tI3YvcH4
+ eR5XGvQUoTtAKxNjSbkj+46E3BPzCp3ACvfLpoYa/0Hf4IkJqE3zuMEvIUKiSgYO12
+ hRwj8NQOvPejEbzsJh4HOBxyPvp9jBLr4DkElBCqhPsJoz3FOftsBymPZwQn+Lqf+i
+ zdGik6ZRImA6Tf8gwADE2Hg1SO1YBRwYQLQCeHiJ3iU+v6BuGRTdk3FWWaTzZbbJd2
+ +G29obmcGXYiw==
+X-Pm-Submission-Id: 4gwGTK2wmTz1DDLD
 From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
 To: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org
@@ -36,9 +36,9 @@ Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
  a.hindborg@kernel.org, tmgross@umich.edu,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: [PATCH v3 2/3] drm/tyr: clear stale IRQ state before soft reset
-Date: Wed,  8 Jul 2026 14:43:17 +0300
-Message-ID: <20260708114358.957305-3-work@onurozkan.dev>
+Subject: [PATCH v3 1/3] rust: workqueue: impl Send and Sync for OwnedQueue
+Date: Wed,  8 Jul 2026 14:43:16 +0300
+Message-ID: <20260708114358.957305-2-work@onurozkan.dev>
 X-Mailer: git-send-email 2.51.2
 In-Reply-To: <20260708114358.957305-1-work@onurozkan.dev>
 References: <20260708114358.957305-1-work@onurozkan.dev>
@@ -60,31 +60,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Previous reset may leave the reset completed IRQ set which can make the
-poll return too early.
-
-Clear the IRQ first so the driver waits for the current reset to
-complete.
+Allows OwnedQueue to be used across thread boundaries which is needed
+from the tyr reset implementation.
 
 Signed-off-by: Onur Özkan <work@onurozkan.dev>
 ---
- drivers/gpu/drm/tyr/driver.rs | 3 +++
- 1 file changed, 3 insertions(+)
+ rust/kernel/workqueue/mod.rs | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index c5063b2be94d..90d6cd988cd2 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -86,6 +86,9 @@ pub(crate) struct TyrDrmRegistrationData<'bound> {
+diff --git a/rust/kernel/workqueue/mod.rs b/rust/kernel/workqueue/mod.rs
+index 933032fc4a85..d766cd9b9175 100644
+--- a/rust/kernel/workqueue/mod.rs
++++ b/rust/kernel/workqueue/mod.rs
+@@ -383,6 +383,14 @@ pub struct OwnedQueue {
+     queue: NonNull<Queue>,
  }
  
- fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
-+    // Clear any stale reset IRQ state before issuing a new soft reset.
-+    iomem.write_reg(GPU_IRQ_CLEAR::zeroed().with_reset_completed(true));
++// SAFETY: `OwnedQueue` has exclusive ownership of the workqueue and accesses to workqueues
++// are thread safe as documented by the `Send` implementation for `Queue`.
++unsafe impl Send for OwnedQueue {}
 +
-     iomem.write_reg(GPU_COMMAND::reset(ResetMode::SoftReset));
- 
-     poll::read_poll_timeout(
++// SAFETY: Shared access to an `OwnedQueue` only provides shared access to its `Queue` which
++// is thread safe as documented by the `Sync` implementation for `Queue`.
++unsafe impl Sync for OwnedQueue {}
++
+ impl Deref for OwnedQueue {
+     type Target = Queue;
+     fn deref(&self) -> &Queue {
 -- 
 2.51.2
 
