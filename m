@@ -4,73 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83575C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:35:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E453C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:36:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB9CD10E5FC;
-	Wed,  8 Jul 2026 12:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8787410F0F6;
+	Wed,  8 Jul 2026 12:36:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="P2BamEQP";
+	dkim=pass (2048-bit key; unprotected) header.d=shift-computing.de header.i=@shift-computing.de header.b="wBDtzHAC";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2ECD10E5FC
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:35:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783514132; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=IgwsLR4YXBgeg9hdXqWl3cRAQoCUFHeID18vfCW14pLGEsBs2lTGBH0XWXt4+DsG8gkfddyt8lct1gzG8rPkohvfBp0xUXc8UyiD0SjHLoL1o/OfUNp2DcaBZuoXVUOtkM+tuP24oCrkRrd1vtsSRWcVRet7OxiLMFU4+OVficI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783514132;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=iVSkh2VwHSzz7wWJRMIJkqotFEcn/VKW9uhYBLa2OGc=; 
- b=lC4muKZKKPm0kaluZqEAn0zONJITLYX5/jK9Q+XVJGg12BIVqNcv8ZaLIpuzMaa7xXz3ZymEDNHjfNSYjUCQr+ShwlBwMkKAmYv2QgVw1j5zYN5xMBcs580ujnMW06riHAXVjJmgUDxEVJA9t3Nepv+2Q7Mywz1LwfQDnJksiO4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783514132; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=iVSkh2VwHSzz7wWJRMIJkqotFEcn/VKW9uhYBLa2OGc=;
- b=P2BamEQP4hm1JT6pEhN1zEc9jKWFUKzPpewzYeYr4Y3RaTGV58Wi7FWb3yGQMlOF
- Mjme7sx7/yU+7mR5by6jGul74PhS3s/Xbi0KKhMkohDU8ebCyJnUZSxQo/ozJAiu7gR
- ECWXYuo4EP2YOMryQdUBFpETza0KZRa+4XvDebzc=
-Received: by mx.zohomail.com with SMTPS id 1783514129301929.26979926663;
- Wed, 8 Jul 2026 05:35:29 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 06/20] rust: io: rename `Mmio` to `MmioOwned`
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260706-io_projection-v6-6-72cd5d055d54@garyguo.net>
-Date: Wed, 8 Jul 2026 09:35:09 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6A9DE6F3-F8EC-4C85-B92C-619839DD4985@collabora.com>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-6-72cd5d055d54@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from mail.teamster.cloud (mail.teamster.cloud [213.136.73.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2392410F115;
+ Wed,  8 Jul 2026 12:36:51 +0000 (UTC)
+Message-ID: <80f34509-9781-421e-b60f-1b8c772a01a9@shift-computing.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shift-computing.de;
+ s=dkim; t=1783514208;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6HWlykTPm2CjKRIMM9if7IOVCGspnjA0WX9p397X0xE=;
+ b=wBDtzHACM8WPkUu+O8ycHjtPmON8rHW+1XWvnH2/tk5dvCt73jAqVvNQm6rTymdoNrtYHu
+ qIWvsOeNK64Dk2LHmGfC79RiXohn6jgwVG+TUjUk01XYdlWAPp3WzvhdqkEu44KjAGqdjs
+ hLq9MBXX0C+m6kU4eEmGsXY8/YMJDOq0++kIDOcOIbyWaChN2x4pa27P/Gk5HP40X7J6A0
+ h9bit2EBMObtlgkEiYk/F4du9uDvBXrSvT1KJaG05JcSRfTbLXCCTENi6XybWSBU4eAwgA
+ H5Uv5KcCwgAKbTi+n9KavWJygSy9lXwUualbqUQkRh581EtJNrXSZozv8Mi90A==
+Authentication-Results: mail.teamster.cloud;
+ auth=pass smtp.mailfrom=oz@shift-computing.de
+Date: Wed, 8 Jul 2026 14:36:26 +0200
+MIME-Version: 1.0
+Subject: Re: [PATCH v2] drm/amd/amdgpu: add firmware file fallback for APU
+ VBIOS discovery
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
+ <20260705100436.6877-1-oz@shift-computing.de>
+ <a8339282-e3ef-4a4f-a135-968f94855e76@amd.com>
+ <42e07bbb-9384-4871-a345-e0fd6c00a772@shift-computing.de>
+ <bd1f1632-f53d-4bfd-9d28-5b66e466366c@amd.com>
+From: Oz Tiram <oz@shift-computing.de>
+In-Reply-To: <bd1f1632-f53d-4bfd-9d28-5b66e466366c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Bar: ---
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,27 +65,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Mario,
 
+Tested on a Morefine MNAS X1 AI Workstation (AMD Ryzen 7 Pro 8845HS / 
+Radeon 780M iGPU) with pci=realloc,assign-busses.
 
-> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->=20
-> Most users would more commonly reach out to a view of `Mmio` rather =
-than an
-> owned instance of `Mmio`. Only implementor of `Io` like `Bar` or =
-`IoMem`
-> would need the owned version. Thus, rename `Mmio` to `MmioOwned` so =
-that
-> the name `Mmio` can be used for the view type instead.
->=20
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
->=20
+The VFCT entry for the iGPU has PCIBus=106 (0x6A, recorded at POST) 
+while the
+runtime bus is 11 (0x0B). Your patch fires exactly as expected:
 
-Hmm.. thinking a bit more about this, shouldn=E2=80=99t the adjective =
-precede the
-noun? OwnedMmio would mimic the English language and there is already
-precedence in RelaxedMmio.
+   amdgpu 0000:0b:00.0: amdgpu: VFCT bus number mismatch: table 106 != 
+runtime 11,
+       matching by device identity (vendor 0x1002 device 0x1900)
+   amdgpu 0000:0b:00.0: amdgpu: Fetched VBIOS from VFCT
 
-=E2=80=94 Daniel
+The iGPU initialises fully and drives the framebuffer.
 
+One minor nit: the dev_notice format string ends with \\n (two 
+characters) rather
+than \n. The resulting kernel message has a literal "\n" at the end. 
+Same issue
+exists in the nearby "too short #2" dev_info -- not introduced by your 
+patch, but
+might be worth cleaning up.
 
+Tested-by: Oz Tiram <oz@shift-computing.de>
+
+On 7/6/26 02:56, Mario Limonciello wrote:
+>
+>
+> On 7/5/26 14:10, Oz Tiram wrote:
+>> Hi Mario,
+>>
+>>    To make sure I understand correctly: are you suggesting that the bus
+>>    number in the VFCT was legitimate at BIOS POST time, and that
+>>    pci=realloc,assign-busses is what changes it at runtime, causing the
+>>    mismatch?
+>
+> That's what it sounds like right now.  You can easily drop all the 
+> superfluous kernel command line optiosn and see.
+>
+>>
+>>    I'm not familiar enough with the PCI subsystem to know the right 
+>> way to
+>>    implement that — could you point me in the right direction?
+>
+> Well there's a variety of ways to do it.  But how about we start here 
+> - if we make that specific busnr match optional and instead make a 
+> VID/DID match.
+>
+> See if the attached patch helps.
+>
+>>
+>>    Oz
+>>
+>> On 7/5/26 20:37, Mario Limonciello wrote:
+>>>
+>>>
+>>> On 7/5/26 05:04, Oz Tiram wrote:
+>>>> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
+>>>> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
+>>>> before giving up:
+>>>>
+>>>>    1. ACPI VFCT table
+>>>>    2. VRAM BAR read
+>>>>    3. ROM BAR read
+>>>>    4. platform BIOS
+>>>>
+>>>> On some systems all four fail.  The specific case motivating this 
+>>>> patch
+>>>> is a hybrid graphics machine (dGPU + APU) where:
+>>>>
+>>>>    - The VFCT table contains the iGPU entry but with a stale PCIBus 
+>>>> value
+>>>>      from BIOS POST time (0x6A).  When the kernel boots with
+>>>>      pci=realloc,assign-busses, PCI bus numbers are reassigned 
+>>>> dynamically
+>>>>      and the iGPU lands on bus 0x0B at runtime. 
+>>>> amdgpu_acpi_vfct_bios()
+>>>>      matches entries by bus number, so the entry is never found.
+>>>>    - The VRAM BAR is unmapped at probe time.
+>>>>    - The ROM BAR is zero (PCI firmware did not assign it).
+>>>>    - No platform BIOS mapping exists.
+>>>>
+>>>> The UEFI GOP driver initialises the iGPU successfully for early 
+>>>> display,
+>>>> confirming the hardware is functional.  The VBIOS image data 
+>>>> embedded in
+>>>> the VFCT is also valid; only the PCIBus metadata is wrong.
+>>>
+>>> So the BIOS on this machine is actually totally fine; it's just when 
+>>> the kernel is booted to reassign busses there is a problem?
+>>>
+>>> In that case; why not detect the kernel was booted this way and keep 
+>>> track of the original bus number when reassigned to avoid the issue?
+>>>
+>>>> The firmware
+>>>> file can be extracted directly from the VFCT using dd:
+>>>>
+>>>>    dd if=/sys/firmware/acpi/tables/VFCT bs=1 skip=$((0x68)) 
+>>>> count=16896 \
+>>>>       of=/lib/firmware/amdgpu/1002_1900.bin
+>>>>
+>>>> (0x68 is the byte offset of the VBIOS image after the ACPI table 
+>>>> header
+>>>> and VFCT_IMAGE_HEADER; the image length 16896 comes from the 
+>>>> ImageLength
+>>>> field in VFCT_IMAGE_HEADER.)
+>>>>
+>>>> The driver then prints "Unable to locate a BIOS ROM" and refuses to
+>>>> bind, leaving the APU completely unusable under Linux.
+>>>>
+>>>> Add a fifth fallback: request a firmware file named
+>>>> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
+>>>> request_firmware().  This allows a VBIOS image extracted as above 
+>>>> to be
+>>>> placed in /lib/firmware/ and makes the binding succeed without 
+>>>> patching
+>>>> ACPI tables or BIOS.
+>>>>
+>>>> The fallback is only reached if all existing paths have already 
+>>>> failed,
+>>>> so there is no regression risk for boards where VFCT or ROM BAR work.
+>>>
+>>> What happens if the VBIOS changes in another way one boot to 
+>>> another? You might have some other stateful information that isn't 
+>>> updated.
+>>>
+>>> The whole thing to me feels like a hack for a behavior we can 
+>>> control in the kernel when doing reassignments.
+>>>>
+>>>> Signed-off-by: Oz Tiram <oz@shift-computing.de>
+>>>> ---
+>>>> v2: Fix commit message: clarify that VFCT contains the iGPU entry but
+>>>>      with a stale PCIBus from BIOS POST that mismatches the runtime 
+>>>> bus
+>>>>      number assigned by pci=realloc,assign-busses.  Explain that 
+>>>> the VBIOS
+>>>>      image data is valid and document the dd extraction command and 
+>>>> byte
+>>>>      offsets.  Note that the UEFI GOP driver initialises the iGPU
+>>>>      successfully, confirming the hardware is functional.
+>>>>
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 
+>>>> +++++++++++++++++++++++
+>>>>   1 file changed, 23 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c 
+>>>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_bios.c
+>>>> index aa039e148a5e..86064c753b09 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>>>> @@ -26,6 +26,7 @@
+>>>>    *          Jerome Glisse
+>>>>    */
+>>>>   +#include <linux/firmware.h>
+>>>>   #include "amdgpu.h"
+>>>>   #include "atom.h"
+>>>>   @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct 
+>>>> amdgpu_device *adev)
+>>>>           goto success;
+>>>>       }
+>>>>   +    {
+>>>> +        const struct firmware *fw;
+>>>> +        char fw_name[32];
+>>>> +        size_t fw_size;
+>>>> +
+>>>> +        snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
+>>>> +             adev->pdev->vendor, adev->pdev->device);
+>>>> +        if (request_firmware(&fw, fw_name, adev->dev) == 0) {
+>>>> +            adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
+>>>> +            fw_size = fw->size;
+>>>> +            release_firmware(fw);
+>>>> +            if (!adev->bios || !check_atom_bios(adev, fw_size)) {
+>>>> +                amdgpu_bios_release(adev);
+>>>> +            } else {
+>>>> +                adev->bios_size = fw_size;
+>>>> +                dev_info(adev->dev, "Fetched VBIOS from firmware 
+>>>> file %s\n",
+>>>> +                     fw_name);
+>>>> +                goto success;
+>>>> +            }
+>>>> +        }
+>>>> +    }
+>>>> +
+>>>>       dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
+>>>>       return false;
+>>>
