@@ -4,42 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45E1C44501
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 08:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB86C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 09:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16B610E59B;
-	Wed,  8 Jul 2026 08:55:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E945F10E599;
+	Wed,  8 Jul 2026 09:00:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kUqnHjfR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iHtmHf+W";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C995B10E59B
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 08:55:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E9810E599
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 09:00:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E9CE06001D;
- Wed,  8 Jul 2026 08:55:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755541F00A3A;
- Wed,  8 Jul 2026 08:55:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7E47040498;
+ Wed,  8 Jul 2026 09:00:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88291F000E9;
+ Wed,  8 Jul 2026 08:59:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783500932;
- bh=e2i4aHi0EtFm6bhML7oS9gAcd42r7bvpWZq+5UNqtp8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kUqnHjfRpUzFkMSztz2Oh8G+qRYJ7cAM944UvCUTntCIoZvaniIPsxDK1HQPQX4iv
- Nw1cqSCLTfeDD+upO0GMGZbGjmaDq3wx3WwXFxlKBYfb/jB3MedqikPJamN518Px8u
- t/3rxAAVF1vMLfl0/3hlG35wZR1YCyngxUFhRsWsWgqwUhFT021Uw17E9JPLTmjNSZ
- sQIsBxyaxcFeMLMsTEIRF0XHm8wp9ifqR1i384YUVMvK+QnKrrrnUZknzIWK6HXhdl
- vLvbQBtsXuunVIfw/uSCHSBp92Aegr9ByvkJE25+FHJxUJ1HUF/CZfxPuVYkZ3zk4+
- c5/yl3co7mtPQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/v3d: release indirect CSD GEM on pre-init failures
-To: "Guangshuo Li" <lgs201920130244@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260708083728.737168-1-lgs201920130244@gmail.com>
-References: <20260708083728.737168-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 08:55:31 +0000
-Message-Id: <20260708085532.755541F00A3A@smtp.kernel.org>
+ s=k20260515; t=1783501204;
+ bh=42ENaxlVxio2+AeXpLQCCBY5AaY42vaHQtw8IyJI7n4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=iHtmHf+W92OnzbuIGI/2kRlZExBywlAzkyUDXMC6Rjv+NJD7rS2O7NEduy2egn4G7
+ TKjsBbmYtkGtNyvRhzZnNvUK2kcWhL+oPKetwYOGs8n79NmwgfBymXAI2yeQLHqR3z
+ MrJjwMra9aWFMHaLJZBFIIPGAJYZBb6FFWpTBlDNOhJIAme4maDHpuOMLuMr8jQH/W
+ Dzp/KsdaILh+27RGjHZK71B/vovDbAdEX05hoarii4XhLvaBDQxMxOMKE7jTeRYltK
+ ldw1+1HAHXHEh8oSVliTo7a8sMzMXQj1l0+oQMVe2k7shpGJ+BJsGcdValVGj/F2lU
+ Sqnt2Ad8FzbxA==
+Message-ID: <b1c1693d-02b4-4c5c-bb0a-1c2d87258d30@kernel.org>
+Date: Wed, 8 Jul 2026 10:59:46 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,195 +132,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On 7/1/26 18:08, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> There is no technical reason why there should be a limited number of CMA
+> regions, so extract some code into helpers and use them to create extra
+> functions (cma_create() and cma_free()) that allow creating and freeing,
+> respectively, CMA regions dynamically at runtime.
 
-Pre-existing issues:
-- [Critical] Calling `v3d_job_cleanup()` on an uninitialized CPU job crashe=
-s the kernel in early error paths.
-- [High] Nested CPU job allocations and query arrays are leaked on error pa=
-ths.
-- [High] Missing NULL check for the `info->indirect` GEM object allows a de=
-layed NULL pointer dereference during job execution.
-- [High] Memory allocated for `se.out_syncs` is leaked in multiple ioctls i=
-f `v3d_get_extensions()` fails midway.
-- [Medium] An uninitialized `ww_acquire_ctx` is passed to `ww_acquire_fini(=
-)`, leading to undefined behavior and lockdep crashes.
---
+I'm confused. We still allow cma_create() only during __init, right?
 
---- Patch [1]: [PATCH] drm/v3d: release indirect CSD GEM on pre-init failur=
-es ---
-commit f91c6cff2fb0a592f891c8261f38ae45087334d1
-Author: Guangshuo Li <lgs201920130244@gmail.com>
+Would we expect callers of cma_free() after __init? Or at which point?
 
-drm/v3d: release indirect CSD GEM on pre-init failures
-   =20
-The commit drops the indirect CSD GEM reference on pre-init error paths in
-the CPU job submit ioctl to avoid leaking the object when v3d_job_init() or
-extensions fail.
+> 
+> The static array of CMA areas cannot be replaced by dynamically created
+> areas because for many of them, allocation must not fail and some cases
+> may need to initialize them before the slab allocator is even available.
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index 1db43c6a078d5..8ed95a2038102 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -476,6 +476,7 @@ v3d_get_cpu_indirect_csd_params(struct drm_file *file=
-_priv,
->  	struct v3d_dev *v3d =3D v3d_priv->v3d;
->  	struct drm_v3d_indirect_csd indirect_csd;
->  	struct v3d_indirect_csd_info *info =3D &job->indirect_csd;
-> +	int ret;
-> =20
->  	if (!v3d_validate_cpu_job(file_priv, job))
->  		return -EINVAL;
-> @@ -496,9 +497,15 @@ v3d_get_cpu_indirect_csd_params(struct drm_file *fil=
-e_priv,
-> =20
->  	info->indirect =3D drm_gem_object_lookup(file_priv, indirect_csd.indire=
-ct);
+We can start with a memblock array of an initial size (like we do today).
 
-[Severity: High]
-This is a pre-existing issue, but what happens if the user passes an invalid
-GEM handle?
+Then, when you need more space, we can double the size (copying content and
+exchanging the pointer). Either allocate from memblock or from slab, if
+available (slab_is_available).
 
-If drm_gem_object_lookup() returns NULL in v3d_get_cpu_indirect_csd_params(=
-),
-the code proceeds to submit the job. During execution,
-v3d_rewrite_csd_job_wg_counts_from_indirect() will attempt to use it:
+memblock does something similar, see memblock_double_array().
 
-v3d_rewrite_csd_job_wg_counts_from_indirect()
-    v3d_get_bo_vaddr(to_v3d_bo(indirect_csd->indirect))
-       =20
-Can this lead to a NULL pointer dereference later in the pipeline?
 
-> -	return v3d_setup_csd_jobs_and_bos(file_priv, v3d, &indirect_csd.submit,
-> -					  &info->job, &info->clean_job,
-> -					  NULL, &info->acquire_ctx);
-> +	ret =3D v3d_setup_csd_jobs_and_bos(file_priv, v3d, &indirect_csd.submit,
-> +					 &info->job, &info->clean_job,
-> +					 NULL, &info->acquire_ctx);
-> +	if (ret && info->indirect) {
-> +		drm_gem_object_put(info->indirect);
-> +		info->indirect =3D NULL;
-> +	}
-> +
-> +	return ret;
->  }
+-- 
+Cheers,
 
-[ ... ]
-
-> @@ -1311,6 +1318,10 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void =
-*data,
->  	struct v3d_submit_ext *out_se =3D NULL;
->  	struct v3d_cpu_job *cpu_job =3D NULL;
->  	struct v3d_csd_job *csd_job =3D NULL;
->  	struct v3d_job *clean_job =3D NULL;
->  	struct ww_acquire_ctx acquire_ctx;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but is acquire_ctx guaranteed to=
- be
-initialized when jobs don't require BOs?
-
-If the ioctl args have bo_handle_count =3D=3D 0, v3d_lock_bo_reservations()=
- is
-skipped, leaving acquire_ctx uninitialized on the stack.
-
-The function later calls v3d_attach_fences_and_unlock_reservation(), which
-unconditionally passes it to drm_gem_unlock_reservations() and
-ww_acquire_fini().=20
-   =20
-Could this pass an uninitialized lock context to the ww_mutex subsystem?
-
->  	int ret;
-
-[ ... ]
-
->  	if (args->flags & DRM_V3D_SUBMIT_EXTENSION) {
->  		ret =3D v3d_get_extensions(file_priv, args->extensions, &se, cpu_job);
->  		if (ret) {
->  			drm_dbg(dev, "Failed to get extensions.\n");
-> +			if (cpu_job->indirect_csd.indirect) {
-> +				drm_gem_object_put(cpu_job->indirect_csd.indirect);
-> +				cpu_job->indirect_csd.indirect =3D NULL;
-> +			}
->  			goto fail;
-
-[Severity: High]
-This is a pre-existing issue, but does v3d_get_extensions() handle cleanup
-consistently across ioctls?
-
-When v3d_get_extensions() parses a DRM_V3D_EXT_ID_MULTI_SYNC extension, it
-allocates se.out_syncs. If a subsequent extension fails, the function
-returns an error.=20
-
-While this function correctly jumps to the fail block to clean up, other
-callers like v3d_submit_cl_ioctl() and v3d_submit_csd_ioctl() appear to
-return directly:
-
-v3d_submit_cl_ioctl()
-    ret =3D v3d_get_extensions(...)
-    if (ret)
-        return ret;
-
-Does this leave the out_syncs memory leaked by bypassing the cleanup at
-v3d_put_multisync_post_deps(&se)?
-
->  		}
->  	}
-
-[ ... ]
-
->  	ret =3D v3d_job_init(v3d, file_priv, &cpu_job->base,
->  			   v3d_cpu_job_free, 0, &se, V3D_CPU);
->  	if (ret) {
-> +		if (cpu_job->indirect_csd.indirect) {
-> +			drm_gem_object_put(cpu_job->indirect_csd.indirect);
-> +			cpu_job->indirect_csd.indirect =3D NULL;
-> +		}
->  		v3d_job_deallocate((void *)&cpu_job);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does shallowly deallocating =
-the
-job here leak the nested structures?
-
-Earlier, v3d_setup_csd_jobs_and_bos() may allocate inner jobs:
-
-v3d_setup_csd_jobs_and_bos()
-    v3d_job_allocate(v3d, (void *)job, ...)
-    v3d_job_allocate(v3d, (void *)clean_job, ...)
-
-When v3d_job_deallocate() frees cpu_job, it zeroes the pointer. Since the
-pointer is now NULL, the cleanup at the fail label will skip it,
-leaving those nested job structs without a way to be freed.
-
->  		goto fail;
-
-[Severity: Critical]
-This is a pre-existing issue, but is it safe to pass the uninitialized
-job to the cleanup path?
-
-If execution jumps to the fail label before v3d_job_init() succeeds,
-cpu_job will still be zero-initialized.
-
-The cleanup path does:
-
-fail:
-    v3d_job_cleanup((void *)cpu_job);
-        drm_sched_job_cleanup(&job->base);
-
-Since base.s_fence is NULL, would drm_sched_job_cleanup() trigger a NULL
-pointer dereference when it attempts to read the refcount:
-
-if (kref_read(&job->s_fence->finished.refcount))
-
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708083728.7371=
-68-1-lgs201920130244@gmail.com?part=3D1
+David
