@@ -4,74 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73229C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54893C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:01:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D027810E5C0;
-	Wed,  8 Jul 2026 11:58:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A838D10E5BC;
+	Wed,  8 Jul 2026 12:01:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="TjtfzDXG";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Q5D9mVHU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="OqsWgIzR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MHVYe74O";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3kIGPJOs";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F2C10E5C0
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:58:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783511924; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Isr+7iqECTIhjqzfdavdO/aJjDjBPAO+eTyd8DfG3ik/JQZB/NzmHoo9k89YiBRFL4QzpsXly0u4gGKZymw8J2u9b1ovLOc5pzf1HLs1B8QMionsTrbaG9H0SRk5PgW8w+IVX9Cli5eBmOoly5Jb+qhXSwdFD7HyywAXIuGXQWg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783511924;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=DbGKIVPfPPT8Aj7brJgocrtAF1bRFi+RRGEvVzM985w=; 
- b=WgmcHK8rHcLx3+3tCBkB6GFDEXhg1QgkOXg7uk86iPUHGdHQQ2gSqyTU1wv1tMYiqcx8/0r+09wkBte8neH3b7bfDfQjzIJiIUEqlXrhOnSUOk+/XkTVpk4Wxt0fTN8OqrQ3evpFgytH5bBoDF2NCXnh63Vf/946Ltlac6PGtgA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783511924; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=DbGKIVPfPPT8Aj7brJgocrtAF1bRFi+RRGEvVzM985w=;
- b=TjtfzDXGkAZ8rnD30aWcRl1VmjIjLSt7ZPnYYt5UXknecAmwEvKz4EReH37EtdYg
- NK4HduiWxXm9YE2sMeBtPplGuQvDAOxOTRlxg1XcyfnBuwVOFdJMBrCWediYssYyKQ3
- kNsFnAheXoAvZVALv40DbuboOXx1myicmTuxLUVU=
-Received: by mx.zohomail.com with SMTPS id 1783511922397500.97047209613584;
- Wed, 8 Jul 2026 04:58:42 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 04/20] rust: io: implement `Io` on reference types
- instead
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260706-io_projection-v6-4-72cd5d055d54@garyguo.net>
-Date: Wed, 8 Jul 2026 08:58:23 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <88183651-927C-4A64-A3C9-BC5C4FE6C831@collabora.com>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-4-72cd5d055d54@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 596E010E5BC
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:01:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 91D5475D25;
+ Wed,  8 Jul 2026 12:01:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783512102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=T9HPZH/sFZBprfRI2Wkxp5t+drj5WDOxKZsX+YGwpA0=;
+ b=Q5D9mVHUsIVHYm6Wae8J+TWKr1rgA4ferRPy8uKOHpVwhbqhR8BAtIoJBevTVRBWDrBFIK
+ fqv0h9EUSBeQyHGZaE9Dn9tx7dIWLW0ndvjCEjSrP/yqpOXHEvuPNwvL1p2gxZ+Y2YOk+x
+ lzswJWfJ9VSG1SqA76zp8zu5l2iMeBs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783512102;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=T9HPZH/sFZBprfRI2Wkxp5t+drj5WDOxKZsX+YGwpA0=;
+ b=OqsWgIzR08V0WJPVfyemMFPRE1VR7o2531XTg3UXzDjXyuNGQR6VzXXcrUjHhu95eMlRzc
+ +pbuEhIUEVouqRAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783512101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=T9HPZH/sFZBprfRI2Wkxp5t+drj5WDOxKZsX+YGwpA0=;
+ b=MHVYe74O9BMGXIIqWIEOaCW2pRvN/so26ftcHCXDkPSANoTe+nph2QlUbOIRpkfKJvhWNw
+ S1oH0UOKUKtGGQHQyBK0m04T0vYRr64PIFef26kqrm44enOaa0T+091I4xrIRMEIiEv2QC
+ BLrhl9rpLmwcU/z9lTy/MKINz3E5ROs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783512101;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=T9HPZH/sFZBprfRI2Wkxp5t+drj5WDOxKZsX+YGwpA0=;
+ b=3kIGPJOsxuoTStjCJR921kjLCDgUqXzaJvSLtNRnQM9DLeuZd9gQ5OoTY9c1SpJHiL+R7v
+ vtwO6TX+miKh2RDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 07F40779AE;
+ Wed,  8 Jul 2026 12:01:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iOV/ACU8Tmo6bQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 08 Jul 2026 12:01:41 +0000
+Message-ID: <54bc305f-4ebb-42b3-b3aa-63b84af5165d@suse.de>
+Date: Wed, 8 Jul 2026 14:01:40 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] drm/panel,of,sysfb: Use OF panel-orientation
+ helper in simpledrm
+To: treding@nvidia.com, javierm@redhat.com, neil.armstrong@linaro.org,
+ jesszhan0024@gmail.com, dianders@chromium.org, megi@xff.cz,
+ igor@reznichenko.net, mwalle@kernel.org,
+ dario.binacchi@amarulasolutions.com, jagan@edgeble.ai,
+ laurent.pinchart@ideasonboard.com, lujianhua000@gmail.com, agx@sigxcpu.org,
+ kernel@puri.sm, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
+References: <20260701121055.192475-1-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260701121055.192475-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[nvidia.com,redhat.com,linaro.org,gmail.com,chromium.org,xff.cz,reznichenko.net,kernel.org,amarulasolutions.com,edgeble.ai,ideasonboard.com,sigxcpu.org,puri.sm,linux.intel.com,ffwll.ch];
+ MID_RHS_MATCH_FROM(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[20];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_NONE(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,459 +145,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Merged into drm-misc-next now.
+
+Due to bit rot, I had to adapt panel-renesas-r63419.c to the new 
+interface. No functional changes there.
+
+Am 01.07.26 um 14:03 schrieb Thomas Zimmermann:
+> Improve support for panel orientation in simpledrm. There's a rotation
+> property in the DT panel node. Read the value and set the connector's
+> orientation property accordingly.
+>
+> Patch 1 moves the existing code for parsing the rotation to drm_of.c.
+> This makes it available to simpledrm without introducing a dependency on
+> DRM_PANEL.
+>
+> Patch 2 updates simpledrm and patch 3 updates all DRM panel drivers to
+> use the new helper function.
+>
+> These patches have previously been part of another series that improved
+> simpledrm in general. So we start with v4 instead of v1. Keep existing
+> R-b tags.
+>
+> v4:
+> - integrate Thierry's panel-update patch
+> - update anbernic, chipone, ili9488 panels that were merged recently
+> v3:
+> - see https://lore.kernel.org/dri-devel/20260625094509.157581-1-tzimmermann@suse.de/
+>
+> Thierry Reding (1):
+>    drm/panel: Use drm_of_get_panel_orientation()
+>
+> Thomas Zimmermann (2):
+>    drm/of: Implement drm_of_get_panel_orientation()
+>    drm/sysfb: simpledrm: Read panel orientation from DT node
+>
+>   drivers/gpu/drm/drm_of.c                      | 44 +++++++++++++++++++
+>   drivers/gpu/drm/drm_panel.c                   | 44 +------------------
+>   drivers/gpu/drm/panel/panel-anbernic-td4310.c |  3 +-
+>   .../drm/panel/panel-boe-th101mb31ig002-28a.c  |  3 +-
+>   .../gpu/drm/panel/panel-boe-tv101wum-nl6.c    |  3 +-
+>   .../gpu/drm/panel/panel-chipone-icna35xx.c    |  3 +-
+>   .../gpu/drm/panel/panel-chipwealth-ch13726a.c |  3 +-
+>   drivers/gpu/drm/panel/panel-edp.c             |  3 +-
+>   drivers/gpu/drm/panel/panel-elida-kd35t133.c  |  3 +-
+>   .../gpu/drm/panel/panel-focaltech-ota7290b.c  |  3 +-
+>   drivers/gpu/drm/panel/panel-himax-hx83102.c   |  3 +-
+>   drivers/gpu/drm/panel/panel-himax-hx8394.c    |  3 +-
+>   drivers/gpu/drm/panel/panel-ilitek-ili9488.c  |  3 +-
+>   .../gpu/drm/panel/panel-ilitek-ili9806e-dsi.c |  3 +-
+>   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c |  3 +-
+>   drivers/gpu/drm/panel/panel-ilitek-ili9882t.c |  3 +-
+>   .../gpu/drm/panel/panel-jadard-jd9365da-h3.c  |  2 +-
+>   drivers/gpu/drm/panel/panel-lvds.c            |  2 +-
+>   drivers/gpu/drm/panel/panel-novatek-nt36523.c |  3 +-
+>   drivers/gpu/drm/panel/panel-simple.c          |  2 +-
+>   drivers/gpu/drm/panel/panel-sitronix-st7701.c |  3 +-
+>   drivers/gpu/drm/panel/panel-sitronix-st7703.c |  3 +-
+>   .../gpu/drm/panel/panel-sitronix-st7789v.c    |  3 +-
+>   drivers/gpu/drm/sysfb/simpledrm.c             | 11 ++++-
+>   include/drm/drm_of.h                          | 11 +++++
+>   include/drm/drm_panel.h                       |  8 ----
+>   26 files changed, 104 insertions(+), 74 deletions(-)
+>
+>
+> base-commit: a2d82f27ac35c691c1c65b40c72b13d8b2a7f91f
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
 
-> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->=20
-> Currently, `Io` is implemented on owned I/O objects (e.g. `Bar`). This =
-is
-> going to change with I/O projections, as then `Io` needs to work both =
-for
-> owned objects and views of them. Views are themselves reference-like
-> (however they obviously cannot be references, because they belong to a
-> different address space).
->=20
-> To facilitate the change, change `Io` to be implemented on reference =
-types
-> for the owned I/O objects, and make methods take `self` instead of =
-`&self`.
-> When I/O views are implemented, we can then naturally implement `Io` =
-for
-> these objects.
->=20
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
-> rust/kernel/io.rs     | 82 =
-++++++++++++++++++++++++++-------------------------
-> rust/kernel/pci/io.rs | 12 ++++----
-> 2 files changed, 48 insertions(+), 46 deletions(-)
->=20
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index 87141eb07056..9f060dd29182 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -223,7 +223,7 @@ pub trait IoCapable<T> {
->     ///
->     /// - The range `[address..address + size_of::<T>()]` must be =
-within the bounds of `Self`.
->     /// - `address` must be aligned.
-> -    unsafe fn io_read(&self, address: usize) -> T;
-> +    unsafe fn io_read(self, address: usize) -> T;
->=20
->     /// Performs an I/O write of `value` at `address`.
->     ///
-> @@ -231,7 +231,7 @@ pub trait IoCapable<T> {
->     ///
->     /// - The range `[address..address + size_of::<T>()]` must be =
-within the bounds of `Self`.
->     /// - `address` must be aligned.
-> -    unsafe fn io_write(&self, value: T, address: usize);
-> +    unsafe fn io_write(self, value: T, address: usize);
-> }
->=20
-> /// Describes a given I/O location: its offset, width, and type to =
-convert the raw value from and
-> @@ -294,25 +294,27 @@ fn offset(self) -> usize {
-> /// Which I/O methods are available depends on which [`IoCapable<T>`] =
-traits
-> /// are implemented for the type.
-> ///
-> +/// This should be implemented on cheaply copyable handles, such as =
-references or view types.
-> +///
-> /// # Examples
-> ///
-> /// For MMIO regions, all widths (u8, u16, u32, and u64 on 64-bit =
-systems) are typically
-> /// supported. For PCI configuration space, u8, u16, and u32 are =
-supported but u64 is not.
-> -pub trait Io {
-> +pub trait Io: Copy {
->     /// Type of this I/O region. For untyped regions, [`Region`] can =
-be used.
->     type Target: ?Sized + KnownSize;
->=20
->     /// Returns the base address of this mapping.
-> -    fn addr(&self) -> usize;
-> +    fn addr(self) -> usize;
->=20
->     /// Returns the maximum size of this mapping.
-> -    fn maxsize(&self) -> usize;
-> +    fn maxsize(self) -> usize;
->=20
->     /// Returns the absolute I/O address for a given `offset`,
->     /// performing compile-time bound checks.
->     // Always inline to optimize out error path of `build_assert`.
->     #[inline(always)]
-> -    fn io_addr_assert<U>(&self, offset: usize) -> usize {
-> +    fn io_addr_assert<U>(self, offset: usize) -> usize {
->         // We cannot check alignment with `offset_valid` using =
-`self.addr()`. So set 0 for it and
->         // ensure alignment by checking that the alignment of `U` is =
-smaller or equal to the
->         // alignment of `Self::Target`.
-> @@ -325,7 +327,7 @@ fn io_addr_assert<U>(&self, offset: usize) -> =
-usize {
->     /// Returns the absolute I/O address for a given `offset`,
->     /// performing runtime bound checks.
->     #[inline]
-> -    fn io_addr<U>(&self, offset: usize) -> Result<usize> {
-> +    fn io_addr<U>(self, offset: usize) -> Result<usize> {
->         if !offset_valid::<U>(self.addr(), offset, self.maxsize()) {
->             return Err(EINVAL);
->         }
-> @@ -337,7 +339,7 @@ fn io_addr<U>(&self, offset: usize) -> =
-Result<usize> {
->=20
->     /// Fallible 8-bit read with runtime bounds check.
->     #[inline(always)]
-> -    fn try_read8(&self, offset: usize) -> Result<u8>
-> +    fn try_read8(self, offset: usize) -> Result<u8>
->     where
->         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
->         Self: IoCapable<u8>,
-> @@ -347,7 +349,7 @@ fn try_read8(&self, offset: usize) -> Result<u8>
->=20
->     /// Fallible 16-bit read with runtime bounds check.
->     #[inline(always)]
-> -    fn try_read16(&self, offset: usize) -> Result<u16>
-> +    fn try_read16(self, offset: usize) -> Result<u16>
->     where
->         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
->         Self: IoCapable<u16>,
-> @@ -357,7 +359,7 @@ fn try_read16(&self, offset: usize) -> Result<u16>
->=20
->     /// Fallible 32-bit read with runtime bounds check.
->     #[inline(always)]
-> -    fn try_read32(&self, offset: usize) -> Result<u32>
-> +    fn try_read32(self, offset: usize) -> Result<u32>
->     where
->         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
->         Self: IoCapable<u32>,
-> @@ -367,7 +369,7 @@ fn try_read32(&self, offset: usize) -> Result<u32>
->=20
->     /// Fallible 64-bit read with runtime bounds check.
->     #[inline(always)]
-> -    fn try_read64(&self, offset: usize) -> Result<u64>
-> +    fn try_read64(self, offset: usize) -> Result<u64>
->     where
->         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
->         Self: IoCapable<u64>,
-> @@ -377,7 +379,7 @@ fn try_read64(&self, offset: usize) -> Result<u64>
->=20
->     /// Fallible 8-bit write with runtime bounds check.
->     #[inline(always)]
-> -    fn try_write8(&self, value: u8, offset: usize) -> Result
-> +    fn try_write8(self, value: u8, offset: usize) -> Result
->     where
->         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
->         Self: IoCapable<u8>,
-> @@ -387,7 +389,7 @@ fn try_write8(&self, value: u8, offset: usize) -> =
-Result
->=20
->     /// Fallible 16-bit write with runtime bounds check.
->     #[inline(always)]
-> -    fn try_write16(&self, value: u16, offset: usize) -> Result
-> +    fn try_write16(self, value: u16, offset: usize) -> Result
->     where
->         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
->         Self: IoCapable<u16>,
-> @@ -397,7 +399,7 @@ fn try_write16(&self, value: u16, offset: usize) =
--> Result
->=20
->     /// Fallible 32-bit write with runtime bounds check.
->     #[inline(always)]
-> -    fn try_write32(&self, value: u32, offset: usize) -> Result
-> +    fn try_write32(self, value: u32, offset: usize) -> Result
->     where
->         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
->         Self: IoCapable<u32>,
-> @@ -407,7 +409,7 @@ fn try_write32(&self, value: u32, offset: usize) =
--> Result
->=20
->     /// Fallible 64-bit write with runtime bounds check.
->     #[inline(always)]
-> -    fn try_write64(&self, value: u64, offset: usize) -> Result
-> +    fn try_write64(self, value: u64, offset: usize) -> Result
->     where
->         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
->         Self: IoCapable<u64>,
-> @@ -417,7 +419,7 @@ fn try_write64(&self, value: u64, offset: usize) =
--> Result
->=20
->     /// Infallible 8-bit read with compile-time bounds check.
->     #[inline(always)]
-> -    fn read8(&self, offset: usize) -> u8
-> +    fn read8(self, offset: usize) -> u8
->     where
->         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
->         Self: IoCapable<u8>,
-> @@ -427,7 +429,7 @@ fn read8(&self, offset: usize) -> u8
->=20
->     /// Infallible 16-bit read with compile-time bounds check.
->     #[inline(always)]
-> -    fn read16(&self, offset: usize) -> u16
-> +    fn read16(self, offset: usize) -> u16
->     where
->         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
->         Self: IoCapable<u16>,
-> @@ -437,7 +439,7 @@ fn read16(&self, offset: usize) -> u16
->=20
->     /// Infallible 32-bit read with compile-time bounds check.
->     #[inline(always)]
-> -    fn read32(&self, offset: usize) -> u32
-> +    fn read32(self, offset: usize) -> u32
->     where
->         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
->         Self: IoCapable<u32>,
-> @@ -447,7 +449,7 @@ fn read32(&self, offset: usize) -> u32
->=20
->     /// Infallible 64-bit read with compile-time bounds check.
->     #[inline(always)]
-> -    fn read64(&self, offset: usize) -> u64
-> +    fn read64(self, offset: usize) -> u64
->     where
->         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
->         Self: IoCapable<u64>,
-> @@ -457,7 +459,7 @@ fn read64(&self, offset: usize) -> u64
->=20
->     /// Infallible 8-bit write with compile-time bounds check.
->     #[inline(always)]
-> -    fn write8(&self, value: u8, offset: usize)
-> +    fn write8(self, value: u8, offset: usize)
->     where
->         usize: IoLoc<Self::Target, u8, IoType =3D u8>,
->         Self: IoCapable<u8>,
-> @@ -467,7 +469,7 @@ fn write8(&self, value: u8, offset: usize)
->=20
->     /// Infallible 16-bit write with compile-time bounds check.
->     #[inline(always)]
-> -    fn write16(&self, value: u16, offset: usize)
-> +    fn write16(self, value: u16, offset: usize)
->     where
->         usize: IoLoc<Self::Target, u16, IoType =3D u16>,
->         Self: IoCapable<u16>,
-> @@ -477,7 +479,7 @@ fn write16(&self, value: u16, offset: usize)
->=20
->     /// Infallible 32-bit write with compile-time bounds check.
->     #[inline(always)]
-> -    fn write32(&self, value: u32, offset: usize)
-> +    fn write32(self, value: u32, offset: usize)
->     where
->         usize: IoLoc<Self::Target, u32, IoType =3D u32>,
->         Self: IoCapable<u32>,
-> @@ -487,7 +489,7 @@ fn write32(&self, value: u32, offset: usize)
->=20
->     /// Infallible 64-bit write with compile-time bounds check.
->     #[inline(always)]
-> -    fn write64(&self, value: u64, offset: usize)
-> +    fn write64(self, value: u64, offset: usize)
->     where
->         usize: IoLoc<Self::Target, u64, IoType =3D u64>,
->         Self: IoCapable<u64>,
-> @@ -518,7 +520,7 @@ fn write64(&self, value: u64, offset: usize)
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn try_read<T, L>(&self, location: L) -> Result<T>
-> +    fn try_read<T, L>(self, location: L) -> Result<T>
->     where
->         L: IoLoc<Self::Target, T>,
->         Self: IoCapable<L::IoType>,
-> @@ -552,7 +554,7 @@ fn try_read<T, L>(&self, location: L) -> Result<T>
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn try_write<T, L>(&self, location: L, value: T) -> Result
-> +    fn try_write<T, L>(self, location: L, value: T) -> Result
->     where
->         L: IoLoc<Self::Target, T>,
->         Self: IoCapable<L::IoType>,
-> @@ -598,7 +600,7 @@ fn try_write<T, L>(&self, location: L, value: T) =
--> Result
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn try_write_reg<T, L, V>(&self, value: V) -> Result
-> +    fn try_write_reg<T, L, V>(self, value: V) -> Result
->     where
->         L: IoLoc<Self::Target, T>,
->         V: LocatedRegister<Self::Target, Location =3D L, Value =3D T>,
-> @@ -631,7 +633,7 @@ fn try_write_reg<T, L, V>(&self, value: V) -> =
-Result
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn try_update<T, L, F>(&self, location: L, f: F) -> Result
-> +    fn try_update<T, L, F>(self, location: L, f: F) -> Result
->     where
->         L: IoLoc<Self::Target, T>,
->         Self: IoCapable<L::IoType>,
-> @@ -670,7 +672,7 @@ fn try_update<T, L, F>(&self, location: L, f: F) =
--> Result
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn read<T, L>(&self, location: L) -> T
-> +    fn read<T, L>(self, location: L) -> T
->     where
->         L: IoLoc<Self::Target, T>,
->         Self: IoCapable<L::IoType>,
-> @@ -702,7 +704,7 @@ fn read<T, L>(&self, location: L) -> T
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn write<T, L>(&self, location: L, value: T)
-> +    fn write<T, L>(self, location: L, value: T)
->     where
->         L: IoLoc<Self::Target, T>,
->         Self: IoCapable<L::IoType>,
-> @@ -745,7 +747,7 @@ fn write<T, L>(&self, location: L, value: T)
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn write_reg<T, L, V>(&self, value: V)
-> +    fn write_reg<T, L, V>(self, value: V)
->     where
->         L: IoLoc<Self::Target, T>,
->         V: LocatedRegister<Self::Target, Location =3D L, Value =3D T>,
-> @@ -778,7 +780,7 @@ fn write_reg<T, L, V>(&self, value: V)
->     /// }
->     /// ```
->     #[inline(always)]
-> -    fn update<T, L, F>(&self, location: L, f: F)
-> +    fn update<T, L, F>(self, location: L, f: F)
->     where
->         L: IoLoc<Self::Target, T>,
->         Self: IoCapable<L::IoType>,
-> @@ -799,13 +801,13 @@ fn update<T, L, F>(&self, location: L, f: F)
-> macro_rules! impl_mmio_io_capable {
->     ($mmio:ident, $(#[$attr:meta])* $ty:ty, $read_fn:ident, =
-$write_fn:ident) =3D> {
->         $(#[$attr])*
-> -        impl<const SIZE: usize> IoCapable<$ty> for $mmio<SIZE> {
-> -            unsafe fn io_read(&self, address: usize) -> $ty {
-> +        impl<const SIZE: usize> IoCapable<$ty> for &$mmio<SIZE> {
-> +            unsafe fn io_read(self, address: usize) -> $ty {
->                 // SAFETY: By the trait invariant `address` is a valid =
-address for MMIO operations.
->                 unsafe { bindings::$read_fn(address as *const c_void) =
-}
->             }
->=20
-> -            unsafe fn io_write(&self, value: $ty, address: usize) {
-> +            unsafe fn io_write(self, value: $ty, address: usize) {
->                 // SAFETY: By the trait invariant `address` is a valid =
-address for MMIO operations.
->                 unsafe { bindings::$write_fn(value, address as *mut =
-c_void) }
->             }
-> @@ -826,18 +828,18 @@ unsafe fn io_write(&self, value: $ty, address: =
-usize) {
->     writeq
-> );
->=20
-> -impl<const SIZE: usize> Io for Mmio<SIZE> {
-> +impl<'a, const SIZE: usize> Io for &'a Mmio<SIZE> {
->     type Target =3D Region<SIZE>;
->=20
->     /// Returns the base address of this mapping.
->     #[inline]
-> -    fn addr(&self) -> usize {
-> +    fn addr(self) -> usize {
->         self.0.addr()
->     }
->=20
->     /// Returns the maximum size of this mapping.
->     #[inline]
-> -    fn maxsize(&self) -> usize {
-> +    fn maxsize(self) -> usize {
->         self.0.maxsize()
->     }
-> }
-> @@ -864,16 +866,16 @@ pub unsafe fn from_raw(raw: &MmioRaw<SIZE>) -> =
-&Self {
-> #[repr(transparent)]
-> pub struct RelaxedMmio<const SIZE: usize =3D 0>(Mmio<SIZE>);
->=20
-> -impl<const SIZE: usize> Io for RelaxedMmio<SIZE> {
-> +impl<'a, const SIZE: usize> Io for &'a RelaxedMmio<SIZE> {
->     type Target =3D Region<SIZE>;
->=20
->     #[inline]
-> -    fn addr(&self) -> usize {
-> +    fn addr(self) -> usize {
->         self.0.addr()
->     }
->=20
->     #[inline]
-> -    fn maxsize(&self) -> usize {
-> +    fn maxsize(self) -> usize {
->         self.0.maxsize()
->     }
-> }
-> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
-> index b4996aa059d8..505305cd9b86 100644
-> --- a/rust/kernel/pci/io.rs
-> +++ b/rust/kernel/pci/io.rs
-> @@ -79,8 +79,8 @@ pub struct ConfigSpace<'a, S: ?Sized + =
-ConfigSpaceKind =3D Extended> {
-> /// Implements [`IoCapable`] on [`ConfigSpace`] for `$ty` using =
-`$read_fn` and `$write_fn`.
-> macro_rules! impl_config_space_io_capable {
->     ($ty:ty, $read_fn:ident, $write_fn:ident) =3D> {
-> -        impl<'a, S: ?Sized + ConfigSpaceKind> IoCapable<$ty> for =
-ConfigSpace<'a, S> {
-> -            unsafe fn io_read(&self, address: usize) -> $ty {
-> +        impl<'a, S: ?Sized + ConfigSpaceKind> IoCapable<$ty> for =
-&ConfigSpace<'a, S> {
-> +            unsafe fn io_read(self, address: usize) -> $ty {
->                 let mut val: $ty =3D 0;
->=20
->                 // Return value from C function is ignored in =
-infallible accessors.
-> @@ -94,7 +94,7 @@ unsafe fn io_read(&self, address: usize) -> $ty {
->                 val
->             }
->=20
-> -            unsafe fn io_write(&self, value: $ty, address: usize) {
-> +            unsafe fn io_write(self, value: $ty, address: usize) {
->                 // Return value from C function is ignored in =
-infallible accessors.
->                 let _ret =3D
->                     // SAFETY: By the type invariant `self.pdev` is a =
-valid address.
-> @@ -112,18 +112,18 @@ unsafe fn io_write(&self, value: $ty, address: =
-usize) {
-> impl_config_space_io_capable!(u16, pci_read_config_word, =
-pci_write_config_word);
-> impl_config_space_io_capable!(u32, pci_read_config_dword, =
-pci_write_config_dword);
->=20
-> -impl<'a, S: ?Sized + ConfigSpaceKind> Io for ConfigSpace<'a, S> {
-> +impl<'a, S: ?Sized + ConfigSpaceKind> Io for &ConfigSpace<'a, S> {
->     type Target =3D S;
->=20
->     /// Returns the base address of the I/O region. It is always 0 for =
-configuration space.
->     #[inline]
-> -    fn addr(&self) -> usize {
-> +    fn addr(self) -> usize {
->         0
->     }
->=20
->     /// Returns the maximum size of the configuration space.
->     #[inline]
-> -    fn maxsize(&self) -> usize {
-> +    fn maxsize(self) -> usize {
->         self.pdev.cfg_size().into_raw()
->     }
-> }
->=20
-> --=20
-> 2.54.0
->=20
->=20
-
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
