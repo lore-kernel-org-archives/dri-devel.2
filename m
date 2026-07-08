@@ -4,64 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A996C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 10:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83CA8C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 10:50:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A670E10F0B6;
-	Wed,  8 Jul 2026 10:39:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD28210E5AF;
+	Wed,  8 Jul 2026 10:50:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="c7219e4r";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="M3akJEj8";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B131810F0C2
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 10:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783507148;
- bh=iwFN7k1l7x6sZkU0ZQcIM16C6PmtP6fEROcDVf8SnW8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=c7219e4rWLH+NttiNekbwSuQ/urAUx9f7qHZWqWQ7lsm7kC/ZXj54eakGLwu6gPbB
- VIUX2fhwzzbK3xtqcH+hlfX4q+HYzLwZGYsFSQA6J+tcvYAedUDIzPr4q6N3O5OTTk
- ZEyuHF2rg7PKwJ/PLY2m1gvjg3vruEOHX7lpta7MIqqn9XIa58zeob2rv+6lh7dSgr
- SnZQQqyo9iHjNupsSDLsZfQGgIry09xpJ79KehJI9WoaaWGJqQQP+/k4HkYU2Bzb6r
- 3ySGC0lMVr5rX0iZnZAy1TxVbbOmzsmZIsxItdx147A+51rDaG7SkGMFujqsHxUtzw
- sRhpSAH+k7hJw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9200417E00F6;
- Wed, 08 Jul 2026 12:39:07 +0200 (CEST)
-Message-ID: <31117c25-5410-429a-887b-87c767387c58@collabora.com>
-Date: Wed, 8 Jul 2026 13:39:07 +0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 834FA10E5AF
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 10:50:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1783507815;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7RthwfiaiuQwFULsU9rLR+4p2hP6BkmVyKgFOz4tjmA=;
+ b=M3akJEj8BXkizpmrP+oShItOKayzlTdO0Ra42jiCdnwGLP5IsgxwsssBoivvCY5qYRNdjW
+ hOrBHfzMTyQu0Ry/eGhWV6P11mObrzrZY7uq/jvkIrt+WxK/HEKeEA6YLFiYhDZcqiIl3g
+ eryO5sM3ldLHLPAcDbZGimAs7qkmY9A=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-369-aNdjsvB3P5SeqtdaeRoqvw-1; Wed, 08 Jul 2026 06:50:12 -0400
+X-MC-Unique: aNdjsvB3P5SeqtdaeRoqvw-1
+X-Mimecast-MFC-AGG-ID: aNdjsvB3P5SeqtdaeRoqvw_1783507811
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-493c20d0468so7259825e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 03:50:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783507811; x=1784112611;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7RthwfiaiuQwFULsU9rLR+4p2hP6BkmVyKgFOz4tjmA=;
+ b=b8+8HQ3wQQjlJ60UBhPUWEbzVEQWuVlrj5hr0vtmFNhmy0ky5dZNTV8HJ8vBn1cEOM
+ tSVLe/03VKTaGj7jJmMp9/sYnnrQy27UpxpUgl2ZmP1kCjzwRP7EpP2CdpcJFReuXBUE
+ Db3DuTSgzfZhZtJ/uozcyCCZnRm9MMmRpY1fHTH44OSbPiJ9C0yJf3hvHtHpppN8d+8Z
+ emd6FS0TOHj4bXtI4+c/09rztjSrVMAPi3hYsu/8/wC/f3MX9XcAquha5w9C42+S5ro0
+ JQzRFKFV2E4Fp3jeUx05kA+nzz6b5R7fseK/EtlxPqNY0UOSl1Oo62r2kJcwd/GTR5f7
+ eJKA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrI8L7n8l3qgvBe5vAtmPGZgbzRNF3LM0fYSK4bQa+3+lhwmWM6HDg4uX3LoiyFll289eZNNkD0gEU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxXQW9uNSxxEVLK2YClix2YYVIRcPyYmI0PnASDLy56sIsXGhDl
+ CsxU0NO7F1s38QtP0B3s2LCrd+vfiJ8ShCNbIyb+dAy0LMt+ldWgdWzh+3BbXfdf3vt8nt6GRrH
+ NHC4nD6nM0RxLdcUR9wIB+gpS7JqdDI4LSfM4jdQqrmxTDilOQme1X7S0Q4DkJ2watwu0Bw==
+X-Gm-Gg: AfdE7cl9i6HPgVn58nuDy/yJXTKLwkx4d77oOK7L0W0wqMWMkD3tCofU7n1vluYPdYC
+ lZYGjC3PQLMeMU63CWen1f8/qmlklR7JKG9nlGn6LvWWxF1HLG7XY0xFM9Gk2TAJq3qQ2blB1nV
+ 6UMf1BSw3+dyvrOqyPejPUNSMhqLFlsnla9KTkP1YbX5Fr+uyPcrQIRZkXZX/PQ/NImTuuyTqLD
+ N/2qVf5rAf4dWwstj4lO2N94Uz+Lyzyd1slkAHpdSby8mXbkCC9qFRJAJgUWFr871a1UfTXKeCI
+ eq2yyCYiWRrX3F1czo0w54/tCN6ssq6vMCpNFLQTIo642mygjsHad+H7zVqiVqpU19uLhT+ztz+
+ UdXak9MLByUJVudR/XlDRpD+h5c2b7l+o3XNqwOzSYOeIUnPRDZUTj5qCoobyGzsUb6+oa6ATm4
+ j9HjEdZgJBqK04
+X-Received: by 2002:a05:600c:3b92:b0:493:e892:f03c with SMTP id
+ 5b1f17b1804b1-493e892f05amr3891685e9.10.1783507811115; 
+ Wed, 08 Jul 2026 03:50:11 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b92:b0:493:e892:f03c with SMTP id
+ 5b1f17b1804b1-493e892f05amr3891245e9.10.1783507810639; 
+ Wed, 08 Jul 2026 03:50:10 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d?
+ ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493e0f40912sm123922735e9.4.2026.07.08.03.50.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Jul 2026 03:50:10 -0700 (PDT)
+Message-ID: <15e72c82-ca99-481b-bd53-744fabd503b0@redhat.com>
+Date: Wed, 8 Jul 2026 12:50:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 09/39] drm/display: hdmi-state-helper: Add fallback
- TMDS rate validation
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-9-d79890d00b6a@collabora.com>
- <20260707-venomous-helpful-magpie-b2962b@penduick>
+Subject: Re: [PATCH net-next v4 1/3] net: devmem: allow rx-buf-size >
+ PAGE_SIZE per dmabuf binding
+To: Mina Almasry <almasrymina@google.com>,
+ Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski
+ <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kselftest@vger.kernel.org, sdf@fomichev.me, razor@blackwall.org,
+ daniel@iogearbox.net, matttbe@kernel.org, skhawaja@google.com,
+ dw@davidwei.uk, Joe Damato <joe@dama.to>,
+ Bobby Eshleman <bobbyeshleman@meta.com>
+References: <20260701-tcpdm-large-niovs-v4-0-ca4654f37570@meta.com>
+ <20260701-tcpdm-large-niovs-v4-1-ca4654f37570@meta.com>
+ <CAHS8izNdJ1LTOr_pLjXef6Yv-=JOFPe1GcZtcbStD93Tkpy1XQ@mail.gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <CAHS8izNdJ1LTOr_pLjXef6Yv-=JOFPe1GcZtcbStD93Tkpy1XQ@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Se7yq_rdbEGGyBiiGGxgxcNCUYz9Njby8hOQf3icJB8_1783507811
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260707-venomous-helpful-magpie-b2962b@penduick>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,43 +120,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/7/26 2:23 PM, Maxime Ripard wrote:
-> Hi,
-> 
-> On Thu, Jul 02, 2026 at 05:46:22PM +0300, Cristian Ciocaltea wrote:
->> Validate the computed TMDS character rate against
->> connector->hdmi.max_tmds_char_rate when no driver-specific
->> tmds_char_rate_valid() hook is provided.
+On 7/7/26 10:36 PM, Mina Almasry wrote:
+> On Wed, Jul 1, 2026 at 12:22 PM Bobby Eshleman <bobbyeshleman@gmail.com> wrote:
 >>
->> This gives HDMI connectors a common fallback for rejecting modes whose
->> TMDS character rate exceeds the connector limit, while still allowing
->> drivers with custom validation requirements to implement their own
->> tmds_char_rate_valid() callback.
+>> From: Bobby Eshleman <bobbyeshleman@meta.com>
 >>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 3 +++
->>  1 file changed, 3 insertions(+)
+>> Every devmem dmabuf binding today hands the page_pool PAGE_SIZE niovs.
+>> This caps a single RX descriptor at PAGE_SIZE, burning CPU on buffer
+>> churn for large flows.
 >>
->> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->> index ce17eeefc2da..db76699093e8 100644
->> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
->> @@ -566,6 +566,9 @@ hdmi_clock_valid(const struct drm_connector *connector,
->>  		status = funcs->tmds_char_rate_valid(connector, mode, clock);
->>  		if (status != MODE_OK)
->>  			return status;
->> +	} else if (connector->hdmi.max_tmds_char_rate) {
->> +		if (clock > connector->hdmi.max_tmds_char_rate)
->> +			return MODE_CLOCK_HIGH;
-> 
-> I think we should handle this the same way we do for
-> info->max_tmds_clock: if it's set, we always check that before calling
-> the driver.
-> 
-> It reduces the boilerplate in drivers, and it's always a relevant check
-> anyway.
-Ack.
+>> Add a bind-time netlink attribute, NETDEV_A_DMABUF_RX_BUF_SIZE, that
+>> lets userspace request a larger niov size. The value must be a power of
+>> two >= PAGE_SIZE.
+>>
+>> Measurements
+>> ------------
 
-Thanks,
-Cristian
+Checkpatch complains about this separator usage:
+
+ERROR: Invalid commit separator - some tools may have problems applying this
+#15:
+------------
+
+Please replace or remove it in the next revision
+
+>> @@ -90,16 +90,17 @@ net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>>         struct dmabuf_genpool_chunk_owner *owner;
+>>         unsigned long dma_addr;
+>>         struct net_iov *niov;
+>> -       ssize_t offset;
+>> -       ssize_t index;
+>> +       size_t offset;
+>> +       size_t index;
+>>
+> 
+> nit: I would keep this signed. Some of the most frustrating issues I
+> ran into is some of the underflowing and then passing a > check or
+> something. Although if the LLM is not complaining about this
+> particular case, there is probably no issue with it. I also notice a
+> lot of existing code that deals with indexes and offsets goes for
+> signed.
+
+At very least the above change should go in a separate patch, as is
+quite unrelated from the rest.
+
+/P
+
