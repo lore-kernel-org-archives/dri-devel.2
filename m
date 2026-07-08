@@ -4,58 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73601C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:07:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC8EC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:08:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B5BC10E63A;
-	Wed,  8 Jul 2026 16:07:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC5E10F1A6;
+	Wed,  8 Jul 2026 16:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="SOlau34c";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N7Mvdw6g";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA59610E63A
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:07:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783526871;
- bh=LLe4ZfwptTpf0NWitnBIO04oMxVgHdZxrrmVHykXx0o=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=SOlau34c6QE620EznPcJ0xr0xPA24/oz7+z5o3T+l8V2P9wCG5jkHP5XJUWuJvICD
- LEJceHjcaIr3ka+gQPqfMml43CkkQrTOcUmwLEmZxLvunbJ3M2KVCCRlY7ghzu/kcC
- 1laSSsXCU6SjRocHxoGFmPCxaaNy7GUF1lcTkmpsFMRi/KoFrwHr8lB2Hd7uZEXQui
- vXECFWFoQe4TKHXyoxbQ+MfVV/UV2QqH+bVFB3jBUlKisKVLbG5f9bVUIkxKupZJHB
- pR9Fxmg4405I+WSZtjfnQHWbhtHQhXTNDHLtUsGL2YDLlzMlfurmRs5Y8PNM3vYaTX
- qh6j45v0wwilw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1D84D17E05D3;
- Wed, 08 Jul 2026 18:07:50 +0200 (CEST)
-Message-ID: <eb16fada-f33f-47cc-98c9-2c2bfa91b4c5@collabora.com>
-Date: Wed, 8 Jul 2026 19:07:49 +0300
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3FA010F193
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:08:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 505B5416A9;
+ Wed,  8 Jul 2026 16:08:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CB61F000E9;
+ Wed,  8 Jul 2026 16:08:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783526931;
+ bh=wYzwmisw/Q5fR/mjLKqW56qnQbU9GhAXUBG5hR3GgmI=;
+ h=From:Subject:Date:To:Cc;
+ b=N7Mvdw6gskr47HHvjZ+/TobcVgtxx/oFQFNyNPBLIpKxKbLeKJoLCh1nBUdVcSeiE
+ 1ebXpnT/v6VqbtW45ncrcY/dxs7EAUMwQGuSUKV0G2FkrMkJm/cKE1StITjLv2qKcA
+ /fLRQdM/CSNPkojEP0vUtI56Ktci+b7dpDrpcR/UNI46VZ3jjvBkIoV/wcP8iSvAIk
+ +/QAmZA8oaXDggtYiKwN1iQiOSR66ChRyEWyGaVeWSP1qIs4biJVM/sJ9gG8ZAHAf2
+ Dd8u/x0PvbmUmZLNBZ6DBivk0dNeu71InxPeWFWppvVCgP7CXYslGR4QG8Ui6HMbZH
+ e74HvhPoBFv/Q==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH RFC 0/8] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Wed, 08 Jul 2026 18:08:37 +0200
+Message-Id: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 00/39] Add HDMI 2.0 support to DW HDMI QP TX
-To: Maud Spierings <maud_spierings@hotmail.com>
-Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com,
- andrzej.hajda@intel.com, andy.yan@rock-chips.com, daniels@collabora.com,
- dave.stevenson@raspberrypi.com, diederik@cknow-tech.com,
- dmitry.baryshkov@oss.qualcomm.com, dri-devel@lists.freedesktop.org,
- heiko@sntech.de, hjc@rock-chips.com, jernej.skrabec@gmail.com,
- jonas@kwiboo.se, kernel-list@raspberrypi.com, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com,
- maarten.lankhorst@linux.intel.com, mcanal@igalia.com, mripard@kernel.org,
- neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <VI0P189MB368755F862D5D09583250AA3E3F12@VI0P189MB3687.EURP189.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <VI0P189MB368755F862D5D09583250AA3E3F12@VI0P189MB3687.EURP189.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcwML3ZSiXN2i1OLUEt3iksSSVN20nMR0XaO0JKMkU3NDwzRLcyWg1oK
+ i1LTMCrCx0UpBbs5KsbW1ALKyE41rAAAA
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3329; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=G7jtjkyOUqq4ChRdp6WKDjFN5sbC9dtXYKtRCsiJDs4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl+ZTzrdrl5/Nghcc5PzOeo/hbfonXHzm32be2e6mW3m
+ TfThGlax1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIpT5jnWnufjHTZqkKmydr
+ kzW6PFTLtn2sFBObm3byjra0c5v8aovwT8/d2YTrnwT09U3i9/3OWO976Vs6S/zfDzviXipcU/e
+ LiYnev8H9XZ17zs/482z6xpf6ytnTb9uf3PZ8gYin8ebDRwE=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,60 +77,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/6/26 11:33 AM, Maud Spierings wrote:
->> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
->> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
->> management for high TMDS clock ratio and scrambling.
->>
->> Since SCDC state is lost on sink disconnects, the bridge driver needs to
->> trigger a CRTC reset during connector detection.  To support this, the
->> series introduces the connector and bridge scrambling infrastructure
->> (patches 1-8), wires it up through the bridge connector layer with an
->> atomic-aware detect_ctx hook (patches 9-11), then implements the SCDC
->> scrambling feature in the DW HDMI QP bridge driver (patches 12-15).
->>
->> Patches 16-18 are minor cleanups in the Rockchip platform driver.
->> Patches 19-23 improve HPD handling by deferring IRQ registration until
->> the connector is fully initialized, adding .enable_hpd()/.disable_hpd()
->> PHY ops, and restricting HPD events to the affected connector.
->>
->> Patches 24-25 convert vc4 HDMI to the common SCDC scrambling helpers as
->> a proof of reuse, replacing the driver-local scrambling implementation.
->>
->> Patches 26-30 add KUnit tests: connector scrambler validation, a new
->> 4K@60Hz 600MHz EDID, hdmi_state_helper scrambling tests, and EDID
->> conformity fixes for some of the existing test blobs.
->>
->> This has been tested on the following boards:
->>
->> * Radxa ROCK 5B (RK3588)
->> * Radxa ROCK 4D (RK3576)
->> * Raspberry Pi 5 Model B Rev 1.1 (BCM2712 D0)
->>
->> Note that commit d87773de9efe1 ("clocksource/drivers/arm_arch_timer:
->> Default to EL2 virtual timer when running VHE"), introduced in v7.2-rc1,
->> causes Raspberry Pi 5 to hang during boot.  Reverting the commit
->> restores normal boot.  This issue has already been reported in [1];
->> alternatively, the workaround proposed in [2] can be applied.
->>
->> Regards,
->> Cristian
->>
->> [1] https://lore.kernel.org/all/ea15cce1-b393-43f6-8d58-3d6f90f0c0cd@samsung.com/
->> [2] https://lore.kernel.org/all/20260619204832.586079-1-dan@reactivated.net/
->>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> 
-> Tested on an Orangepi 5+ board (rk3588), with a 4k60 tv and a 1440p100 monitor.
-> 
-> To all applicable patches:
-> 
-> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Hi,
 
-Thanks for checking this out!
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-b4 will apply the tag to all patches, but I'll manually drop it from the VC4 and
-KUnit related patches, and probably some others that aren't really testable
-as-is.
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults (CRTCs inactive, planes disabled, connectors unbound, and so
+on). This allows userspace to describe the desired end state
+declaratively, without having to care about the current state or the
+full set of properties.
 
-Cristian
+The first patch is a small cleanup aligning __drm_colorops_state with
+the naming convention used by the other atomic state tracking
+structures.
+
+Patches 2 through 6 extract the state insertion logic from each
+drm_atomic_get_*_state() function into standalone helpers. This is
+needed because the new fill_with_defaults path creates states through
+atomic_create_state() rather than atomic_duplicate_state(), so it
+cannot go through the existing drm_atomic_get_*_state() functions.
+
+Patch 7 adds drm_atomic_commit_fill_with_defaults(), which uses those
+helpers to populate a commit with pristine states for every object in
+the device.
+
+Patch 8 wires it all up by adding DRM_MODE_ATOMIC_RESET to the atomic
+ioctl.
+
+Open question: should DRM_MODE_ATOMIC_RESET require
+DRM_MODE_ATOMIC_ALLOW_MODESET? A full state reset will change CRTC
+active states, which is effectively a modeset. Without requiring it,
+a reset could pass flag validation but fail later at atomic_check in
+a confusing way.
+
+This series is untested and relies on all drivers implementing the
+atomic_create_state hook, which is not yet the case. The conversion
+is actively in progress but not complete, so this will not work as-is
+today. Sending it now to get early feedback on the approach.
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Maxime Ripard (7):
+      drm/atomic: colorop: Rename state to state_to_destroy
+      drm/atomic: Create function to insert CRTC state into a commit
+      drm/atomic: Create function to insert plane state into a commit
+      drm/atomic: Create function to insert colorop state into a commit
+      drm/atomic: Create function to insert private obj state into a commit
+      drm/atomic: Create function to insert connector state into a commit
+      drm/atomic: Allow filling a commit with pristine object states
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/drm_atomic.c        | 327 +++++++++++++++++++++++++++++-------
+ drivers/gpu/drm/drm_atomic_helper.c |   2 +-
+ drivers/gpu/drm/drm_atomic_uapi.c   |  13 ++
+ include/drm/drm_atomic.h            |  19 ++-
+ include/uapi/drm/drm_mode.h         |  14 +-
+ 5 files changed, 307 insertions(+), 68 deletions(-)
+---
+base-commit: cff96362794a5c1f3adb013b4a46c7233149a629
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
