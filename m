@@ -4,153 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6482FC44503
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 19:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3539C44501
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 19:30:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B34EF10F249;
-	Wed,  8 Jul 2026 19:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36C8110E658;
+	Wed,  8 Jul 2026 19:30:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EDoj0CvH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I+cxDI5m";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3084F10E658;
- Wed,  8 Jul 2026 19:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783538615; x=1815074615;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=jrXCuPF+WDXEjzQG6dVlP6nvAK3vRaaKvXOgwVHKepA=;
- b=EDoj0CvHoe6z+HpqarveCXM3H5R7LbqYh4sd8RDVu6MxJRHTYzxFD75c
- rJY4Q/eMGfIEak1gDc1p34YuucDXHKa/YSn1KvqjzDVEv9XhYwRDWAVwj
- avFfXvR7UPACIC+Xc5IIciS0CF/fAs74nPeVDJ0uwjW3j7DF4bfFm2k4D
- 4QAEGfZdyjfNWFWdLGOS2mL1bUouJoN8jI0vB2iZcAFFUG2RfWy9X/k5i
- 25Nvb0q1f5dYFXD2NZKai3/iAHHSjKgytkME1JrSTCjhusawopFSe4UO4
- nYUwud3fNxcUGyAWkbK2A9st119B+DA4dZbzUQvDWB2/WP4tLtxwYCjGD g==;
-X-CSE-ConnectionGUID: LvnRX7CUSkCytqPVbkQU8g==
-X-CSE-MsgGUID: omVccVTMQwWyVBeeyV6xpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84091413"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84091413"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 12:23:33 -0700
-X-CSE-ConnectionGUID: oyDXdWKARDuVEntf9hhyIQ==
-X-CSE-MsgGUID: RJR+F8KBTOSrhiBKAwVCBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="250376501"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 12:23:34 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 12:23:34 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Wed, 8 Jul 2026 12:23:34 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.40)
- by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 12:23:33 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XSjpPmawPonXnnlwc6ulTGk+P3G0Un2sp57nwXKr9r4BwkI/+w08EFc293TLwt4bOvkJ8eti15+Ti6X/9gFDPQSRziGBPHpI2+t0RHlsVndzCyW08birsaAi3f2FIW3jcMDv3nhOOd87jxqa+dJ3b6ei85bmY/SlruoMfc0YnvKmLfPbwuNCA6b3NqAM42QQ+FJj53QkKnX0kNzHSS83EBQ0i4KbakLEI881E++6R8LQkoaPBeX1tHngxnQ6OtlnLU/XMQj/0nOWNyp6YuAq++XIUsdaZ0n0Gpi6o8lxv7f0NOAewKrzDo+tax43+sIxGa5a2w+Gr0ob/iVoKcJMIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F8VjOjFJFpolQI36OUn5IOc2z92v4gtchiD1NCLDSXA=;
- b=kO/bAEDtfCf3u2ridqtTyzQ88wFoxRNoKsZpMmn5amoseHGNp49gChwhEFP+mm+SVCGPWguvW/bLJdB9j9NyYgisNeamYZ4vrwv0/K3oRG6fst9oZrKwHrox4QBboBp/OeJCm17nmO8HXfl+UcqTRa+2mchX9b9QWkxQ/q0IiuXo3spYS76Mok7F1AHuBqRosnLhCcyqI8d4dRBMUfo/busF9kcjAmasVTHGp2n3lsIDuyD3x7gDLmUtp+r1L31q1OeTBLJcNwknuyGOkigUpUO2IXdp+14xHXtrC5+olGsSLSStRDDdw2qpW/zSeBR9n12sg5IkhWgB2/IhdGURkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
- CH3PR11MB8212.namprd11.prod.outlook.com (2603:10b6:610:164::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 19:23:29 +0000
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680]) by DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680%5]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
- 19:23:29 +0000
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Subject: RE: [v3 14/14] drm/i915/color: Add color pipeline support for SDR
- planes
-Thread-Topic: [v3 14/14] drm/i915/color: Add color pipeline support for SDR
- planes
-Thread-Index: AQHc/j0vRfaczEi+IE+4OP0OqLkvb7ZkIe+Q
-Date: Wed, 8 Jul 2026 19:23:28 +0000
-Message-ID: <DM4PR11MB6360F64712ADD108D756CE7BF4FF2@DM4PR11MB6360.namprd11.prod.outlook.com>
-References: <20260617090819.1735153-1-chaitanya.kumar.borah@intel.com>
- <20260617090819.1735153-15-chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260617090819.1735153-15-chaitanya.kumar.borah@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|CH3PR11MB8212:EE_
-x-ms-office365-filtering-correlation-id: 897d9110-589b-44f3-398f-08dedd2663ed
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|38070700021|4143699003|22082099003|11063799006|6133799003|18002099003|56012099006;
-x-microsoft-antispam-message-info: R05gcHzAK1QielRyD1FwQzpJwglhKe2fGpFVeo6TEQUvhFJSSY1lKX9abq0yvkr4j2O1q7qCi5YN+whH0kPzWf15c1KzcTK5deBEcV9uJbMEZcSRoMZL1ZsWe+UHUqMcxin7fHZ7gJMCqUa9yYXdlK7ooFXpEC7mop3w+TL4RgQKLwo0wvre9ZjfNpMBmtuTo3DimN96OLNGgFABH5M5RQuKNnZFZRtqDBsjIAC0Vrp8Enf3bjZWZOvWkizQ3VPgXzRMPrmjKb53AUJ9kIrBMaf70sfDT3fFDvylAVelWRv0pnuxry0tO34wpmkuCzDKVA2r+5TgAUFz8dKh/mHZmf10TpKvKspmJHunaH5UoU53JOEocxKlaYqzKQsqeZvRV/tMlyqXycO3cDg6cWW2YLGTIp8Dz+IdUiSUNC0ZMElB3l2TnmKzau9Ko7g9PjYgpyrj2UXPmGRBD9xkr6X1i+T1yD4+hN1ZdUlPPX+mSacjZ9p2PRlkyVdm9M5RPiLr4kWp3FC3VkCFOuoIrdWPYU3rd2wzDKr1K9X9XyAC9TWZr+pRQksBe4szo6DygUs7nnwxLyibQ/nsIgPzGDYIlo9jgSm6rLUAeLS5tK8psox0TQppcittHI85MsBEh9/EPgGLET4kUfh5+Mblpfq478gH3iHX4GiBRJwsT6IXgaXoxuOWUskiZ+N4oOxBcQ4zhOpPu4SU/CoUm5RfpGzxcaDDf5xxEVhlLP5wN3nBS/w=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(4143699003)(22082099003)(11063799006)(6133799003)(18002099003)(56012099006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/qg85wDZLheUoJbFqwawm00/YMLq6bsr+OdNH4wlAsL0xAzHgeM8j3rugnad?=
- =?us-ascii?Q?8pL1TxUEPIDElRznez/zTOkfuqwGbSwaUFSp6koNLoYLDYUi5ALcp2MCvqm3?=
- =?us-ascii?Q?zg7F2vu+3Ectc7PO6mXQRC5C2fCkMXsnFoOpa0nOxv+gqR1J5DzdFGMHat0e?=
- =?us-ascii?Q?XPvmOPW6laZNQplZhgXIDCZkkI1uGu0tNxkSpjmR9MFMapxtgjCHEPVa6bqj?=
- =?us-ascii?Q?S6AHWa2bV8fVUl+xc6W7mpugpVw38uzxnnVvl3uncwTSSa1lit4zchWgqVkT?=
- =?us-ascii?Q?lnvXPMAXXxu4U83FU4MNGIr0RiBUgfX8mE9+uifWmo0EaIAkOQMzvWo+ZNTK?=
- =?us-ascii?Q?KxwlaoG5/ibxp/vExWXH/lL9lGgwFWU4gSdL175/CYtGbVDsJMjEULWgXUCt?=
- =?us-ascii?Q?k2Li9lWCG57kjBilgsQPqgxJu/h6vjs4HKgAJHc3MGwrjTCussrwWSrXkCvE?=
- =?us-ascii?Q?0XaBHM1CiHBGQvO0YyvDqL0P3HXH9ZndOL+18zQaoKkr94kfIciTp/85G5ts?=
- =?us-ascii?Q?Vvk6oaOKVRxwCjfVEGae7V2JEkwDa5BWLr1BKcOTcXx1JkFiyRk1uTTCIhuN?=
- =?us-ascii?Q?ig1k/ESwTBRHwcBly2w2MWGCMIvpVVOKuzIyCu01bvDkyZydzlHe+C5SzdHv?=
- =?us-ascii?Q?kvN0Iy50vjXeLFVEwjKg/EK08n+v9fdiKu/anJ0NKj9IsEqaXn733us2sKpm?=
- =?us-ascii?Q?PGl+sDayc54cZhk6cJfmFuCNCOLORd7dKejAQLp+BcCwW93cy+YLeQpStaqP?=
- =?us-ascii?Q?s3zkxrk/RRmJZk5b7HWgvsn0bTsoe2Hi+dTFO3Izr88fZZWn8u3dvlMiVMxp?=
- =?us-ascii?Q?13Bwu2OsF1PUSY0wAO3jXqUGn2dbAgEpb1eGGZRU2n8pm6v35Wh/50kuZNQ1?=
- =?us-ascii?Q?HdnRuyudom7OwlP30OYmVE8rt902yvWi73zeajDIW7+EkwRkDRWZXaJ6alZm?=
- =?us-ascii?Q?hsqJUUokRcrr4NN/CiUwX1nB26AucIKIRBYVLzz5vnU6KUsbG2N5qanXdICa?=
- =?us-ascii?Q?/MNA+w2R8oZd2SFkDtpSTQ6cfw+m74Eb7JR1+Ic1cMNM2q17Hi1SY23KWxBu?=
- =?us-ascii?Q?Se0nmUvCtEqbHKwuT5H9u2Gtgz6DhG0Jt0uve+jQDlJaRmCT8VHiBshs5+Ge?=
- =?us-ascii?Q?DvWX5OlteohFDJt20lQ2NFnqgK/LMsOmir7bXJNTBYk5ThXRj9a0cHJwm2eE?=
- =?us-ascii?Q?GlKr7Pj0fj422fM3piNdvWQ+g9hJvJ/EbtZtqPX/Jp+HLODbRV8z4p4mNnaS?=
- =?us-ascii?Q?5q8IgLtvsOGb/wqrh9K1q1eR1ppeDQJEa0n6et8IiiD6Sq9S0Z8otMMNysh0?=
- =?us-ascii?Q?T/XRlKfj1nkr1eax7+Wt8qhoo0oyctKSvUKZSiG336qVUHngCmnfAm9IckiM?=
- =?us-ascii?Q?r3cWsc+akKRyd3Eu4BCAsPBZ5Z/f+vf7fjfdHC+5ZPnDM3bWsisDVxZWMbeD?=
- =?us-ascii?Q?ENinN3PBwsB5zdvgvrkPpVvZwpR11VFE/M4dUa+kSbTYG3uJF6II2KbMamca?=
- =?us-ascii?Q?qUuZTKfop60lZ9DsJgA0WNd1hB+C6+i3lXaIdTQy5LgJ+PjkP5RRMBgmOvtJ?=
- =?us-ascii?Q?ZCjJHgxyZUtb7K5/fU2GO0Y13Rpo/9UqaqAkzWNwHde/fBOTd3w9w4BLCgM1?=
- =?us-ascii?Q?n95Ir5B2SjXcZMBS7DCZWW5y0KcxyFwIA775uWjTc8zGG20xr60AzLYWMgFT?=
- =?us-ascii?Q?XTCAjPk416w/euG7qL151d/ay0kVSwkr1PercuAsvGvAbncBz/7PhHj7ZDVu?=
- =?us-ascii?Q?RVo5Dtd/GQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
+ [74.125.224.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A63310E658
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 19:30:46 +0000 (UTC)
+Received: by mail-yx1-f43.google.com with SMTP id
+ 956f58d0204a3-6647bc8f900so227611d50.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 12:30:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783539045; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Et/JeR33frZIuU5Tb5DpKy7PobDJGbMcbgXufg1uR2E6LonoheDn0/xWtYwNI9xD0a
+ BgU7Ky7TuFmKRXv92WSoqiHE7wBnYVaZV6sYviEan2/J/eZhpuuTXijIFB/KKH4fx3EA
+ hiKMHAFXLUKXLlBen9Sogy20LYZoWi8SwW5Ur6M+Wsvy4eTDh51MeYT1BiZUIHDYkFQ6
+ qHsXtZHvLPYYAfuChfPEEN58LRoqB1Ol8YVKcGxx7PfgFcDB0j73h8EKZT/8pP1X+obC
+ 7qV+JNJ5Hdrwth5JZbZxH8CRVHDs54hKyflj3kUEwrcsKvjZFOjJsID8oHxDpfIzK1fy
+ iipQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=gK/BZ0CSIGck6yi9THWfQV8deFFMWvYWLYGtOVRdINE=;
+ fh=kAGRFKDN7aRGd6VO33HQbsOy3CoTfL4nr4GTMsDqfhg=;
+ b=NWcQUEOHiFjeVMnFMTxmqDUbtGh2lzhMraEXpmpnPWGaVt50qOgCF4N2vrrFgxd4tr
+ ccxdumxDe+rquqsl9eEd+q71E1udPzyJii428SGsRj9/kYxKZ3RggZjlEgX2LYjsf0Pr
+ kSS5A0XJqJoehHIIBSE3maYwjodb7y10l7AoRbzMfZy/Qfil9f2MGC1LJiTvyv+IuQdZ
+ 7ttn7N4vqoBc6SusgtksV3RB57mcFFz8EPq8I/WO6UFO+XRvI53i1bkhejrMBB/roYDf
+ YlluA3Bgk5eb/cYs/YUG5D85gbWFbN4eOGZEM9JFYOTj5RMUMn+OF03isSRe2BWqY3ux
+ ai+A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783539045; x=1784143845; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=gK/BZ0CSIGck6yi9THWfQV8deFFMWvYWLYGtOVRdINE=;
+ b=I+cxDI5mOVS8NjqqmHPgAbzrx2D58sEEZgCKcWUyplDJzdMD7ihWwbcPmx3hy9NfdV
+ kyY+S52r5j7ltUiHkjCQUpIkbL5ArSaFY/yKcq1Dwvyy31U0RhzmFyrV9ea5Oy+kp/zA
+ cr/rfXX61C36Eq0Fi036/l/BOwWIIvTqLyr4coqgH11IHcVwksrwTqxpWT+NUyHF2iKQ
+ 4zqndWb7wvsc+oBBGONq04Ni8Ipo+gajlO6SJGVWJ5+kuQuSzu0urv8rLEYJH2K9ZY6S
+ Tk/W9N2/Qxoj6EnCiRv2hQkvpkxmaJbr2Dnnm9K6P7G25Kc4YsuchPDjieZ4wHLjGs+E
+ QaHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783539045; x=1784143845;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=gK/BZ0CSIGck6yi9THWfQV8deFFMWvYWLYGtOVRdINE=;
+ b=MPVDe2ANrvLEJc1b78BSOgv4W82BOhwG2CxpYVR5YKNEu9Swfdt1dy7TY7+7e8wyQH
+ R+kbfJ2IZ0X6E0Jr685T5rGZRaLAdjZGe/O87Hzu78oJlY5N8/lQxXRaxWRpmq5QxYsg
+ 89I2ox/h9ZyGVTZs1McirK/Cjvn5lxt69AE6lsLsgdLGT7iATL4RrolETsYD7w/EK9+e
+ IrkQwEiX0AmEbd4lyvLjQVnOUPAjTdPW4k/fi6bJATHu5cCQU+jz3xXB+yV/6J0NiT8s
+ 9P/QCXdgMHikMj6RmwFz03SizUlfg0dVMVoiVMGDHnH8yzYebeICby28pLVJXlfLuPU8
+ dpug==
+X-Gm-Message-State: AOJu0YxQvv2lqj2IAKsNKk2HhmnhoIbPmjTfgDQFY+8XRA099Ryo1n8i
+ zUMxUlbnevRTLz+X7uKwjbn/zagnJj5/XdSqVUaVKaKXCZ08q+ekDoXKcchrKAZBSerPdAnzNS6
+ 89/y8PxyBtYb2sH2vfwPHdDgbBtPkHAo=
+X-Gm-Gg: AfdE7cnj1IVIB7oKWV+GhN0BtPu8m8LFJMEd3MbLlHUZgtCSk8PR6hSPXAL19/GnvYJ
+ ynobTfjpkedb0j4/ZDAiRwkXQcx6tF+U+IKa6Sc1YpW4FHXwBN4vT/licZ6MS5N7JOYHWp81clG
+ e9IenSKA6GIFJRYtetlCTXRfAwaa1SK38Omh9D69f+9j6SdQm5sm1sbM0pyw1J24/Dq8saXA38c
+ HoeGFm7WwjxNNQISNcpqOkmDzeMr/Iw60Tz8EMZ8sJwUyI7ZmCWbIakvTSekpnPjfhETg==
+X-Received: by 2002:a53:ac8b:0:b0:660:54e4:5db5 with SMTP id
+ 956f58d0204a3-6679f1d5e06mr2904765d50.56.1783539045228; Wed, 08 Jul 2026
+ 12:30:45 -0700 (PDT)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: kRA4TfwlahAJJEptQnu++sxJQHZKd78oTIp+xGQVksjgxU9aM2S5IYFz54rwpkW8UsTxFMCWrXrqdB02xQJ0X0NAMG7EgHO2rG9kNsQE8t1ZGuD4zxnCFivP/n02am1nVa9yGB9DctsRupNr+I92EeVCzIsKeu7VPimf8lsOSiXKksL3YSEtq7oGt2zVSaYNnS8SDEV8L6DmbjaCbPMcWnYZqY+m9iXLPchURaEijf6nhNFwj3/2bfjgu3P3LO+28Cum7nmAgpQyqgxRVSKvNgBvzDE197I9WJV8uKZX5unFq0jBwG1g/FT25+SjHKSh0ctAcKKDq9ukkHoHzzp7RA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 897d9110-589b-44f3-398f-08dedd2663ed
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2026 19:23:28.6865 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VxbGdR30rUeOYPF5K2w9lBwrG9GlEkUela4yjc2gPv3hs1ynN4aAloGSK0VRIpOIoeu/Nk/Rtexx8oJYRqer7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8212
-X-OriginatorOrg: intel.com
+References: <20260707-dd-maint-2-v6-0-381f3edb0045@gmail.com>
+ <20260707-dd-maint-2-v6-10-381f3edb0045@gmail.com>
+ <20260708022424.AC02F1F000E9@smtp.kernel.org>
+In-Reply-To: <20260708022424.AC02F1F000E9@smtp.kernel.org>
+From: jim.cromie@gmail.com
+Date: Wed, 8 Jul 2026 13:30:18 -0600
+X-Gm-Features: AVVi8Cds7DLaQyUd_VIEnr4Erq4jsgRR4iB7pa01JTKxLMrPiWW5nBrfdkHRCNo
+Message-ID: <CAJfuBxxi8k25iU-6VKTTMQmMrFCmjhUq8oV5upkvj=yXdJi-zQ@mail.gmail.com>
+Subject: Re: [PATCH v6 10/24] dyndbg: drop NUM_TYPE_ARGS
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,57 +104,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-> -----Original Message-----
-> From: Intel-xe <intel-xe-bounces@lists.freedesktop.org> On Behalf Of Chai=
-tanya
-> Kumar Borah
-> Sent: Wednesday, June 17, 2026 2:38 PM
-> To: dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; int=
-el-
-> xe@lists.freedesktop.org
-> Cc: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
-> Subject: [v3 14/14] drm/i915/color: Add color pipeline support for SDR pl=
-anes
->=20
-> Now that everything is in place expose the SDR plane color pipeline to us=
-er-
-> space.
-
-Changes Look Good to me.
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-
-> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_color_pipeline.c | 6 ------
->  1 file changed, 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> index 136b9378ca48..a99b6eb20448 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> @@ -188,17 +188,11 @@ int _intel_color_pipeline_plane_init(struct drm_pla=
-ne
-> *plane, struct drm_prop_en
->=20
->  int intel_color_pipeline_plane_init(struct drm_plane *plane, enum pipe p=
-ipe)  {
-> -	struct drm_device *dev =3D plane->dev;
-> -	struct intel_display *display =3D to_intel_display(dev);
->  	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES] =3D {};
->  	int len =3D 0;
->  	int ret =3D 0;
->  	int i;
->=20
-> -	/* Currently expose pipeline only for HDR planes */
-> -	if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
-> -		return 0;
-> -
->  	/* Add pipeline consisting of transfer functions */
->  	ret =3D _intel_color_pipeline_plane_init(plane, &pipelines[len], pipe);
->  	if (ret)
+On Tue, Jul 7, 2026 at 8:24=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Low] The newly defined macro __DDEBUG_ARRAY_SIZE is unused because the=
+ array size calculation is manually open-coded.
 > --
-> 2.25.1
+>
+> --- Patch [10]: [PATCH v6 10/24] dyndbg: drop NUM_TYPE_ARGS ---
+> commit 0ca0f4a344ab62c4d4df9c27a60daf65fecad136
+> Author: Jim Cromie <jim.cromie@gmail.com>
+>
+> dyndbg: drop NUM_TYPE_ARGS
+>
+> This commit removes the NUM_TYPE_ARGS macro and replaces it with an array
+> size calculation. The commit message mentions adding a new local macro na=
+med
+> __DDEBUG_ARRAY_SIZE to handle this without causing include conflicts.
+>
+> > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debu=
+g.h
+> > index 9607121c3072e..9ae1accb9bf63 100644
+> > --- a/include/linux/dynamic_debug.h
+> > +++ b/include/linux/dynamic_debug.h
+> > @@ -8,6 +8,8 @@
+> >
+> >  #include <linux/build_bug.h>
+> >
+> > +#define __DDEBUG_ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
+> > +
+>
+> [ ... ]
+>
+> > @@ -122,11 +124,9 @@ struct ddebug_class_param {
+> >               .mod_name =3D KBUILD_MODNAME,                            =
+ \
+> >               .base =3D _base,                                         =
+ \
+> >               .map_type =3D _maptype,                                  =
+ \
+> > -             .length =3D NUM_TYPE_ARGS(char*, __VA_ARGS__),           =
+ \
+> > +             .length =3D (sizeof(_var##_classnames) / sizeof(_var##_cl=
+assnames[0])), \
+>
+> [Severity: Low]
+> This isn't a bug, but should this line use the new __DDEBUG_ARRAY_SIZE ma=
+cro
+> introduced above? The calculation appears to be manually open-coded here,
+> leaving the newly defined macro unused.
+>
 
+Ack. Fixed locally. Will resend shortly.
+
+
+> >               .class_names =3D _var##_classnames,                      =
+ \
+> >       }
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-dd-maint=
+-2-v6-0-381f3edb0045@gmail.com?part=3D10
