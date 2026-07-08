@@ -4,129 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8593EC43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 05:39:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 193F7C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 06:09:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDD210E55C;
-	Wed,  8 Jul 2026 05:39:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C2810E569;
+	Wed,  8 Jul 2026 06:08:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="NnYwkClG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YYX6AO3h";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013051.outbound.protection.outlook.com
- [40.93.201.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3362610E55C
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 05:39:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QpmIm1pdhuWfPfk1FXacwqDoVKrbRWiXr55itIhqpdLheQ1i3n2QbbbNPyOBlud98DPocjzVXfmw0Nx8PhFwdunnEbbHZsAcYQNSnV9KuSXWUTIWuuoYl13qKTpJmzV0efBJkw7EoxE4by/8hnPgawPMGXanBJvy6NvJ5Y8EoXCuIdiI0cpFaz2wasS0tt2Q/KOZWUQjGHW4kH97vUQb4vi9J1ZJ/36Of96zeAbzYPFdfRmWzOPzwcUEcM3qVVAc816ug+T0mjq5w/WPDzFh9HOvojOvwJy1fj2W+jRWK6fnrJrpb0l/h656Sl0HmQiejFhjXh6+9En13Wsk9Lld9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7kqgfgXA8gwbHn19yZbMkfeUg2trU5Cv1TCjxs4k+FY=;
- b=MfR3I7/pFIlkAWH26DCZesAntYgbmxyOnNOK8Q4vzuETPj9AIUBDlk2E5FDIjzVZU2mSKQcvRmBiWWOAMaNO1dKKHUE418hRl4acrMvtl6L1Hndko8oXCH+SXUzwB3v7TYRtyYzejuvOTvBQv1uoB5l11gY2FeT0Q+x30Z5T4D7W5EIrP1RHg9Jk13XbLiFdVyXr50eQ25fNESDuLdXGTl4ippJ28Nur1Ydm+trbKmnRjjTslZVH4+FWpBOWxLkBxmiVnrKKTYlDnnpKx8CKZbQcOyI8eGVxh0YCE5bCITpKtybzpqjQlXVZVwD4M/OrIEw8mQ3UhZ6b/R+eM6tztA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7kqgfgXA8gwbHn19yZbMkfeUg2trU5Cv1TCjxs4k+FY=;
- b=NnYwkClGNiMWk0D32f0AmKNGhPxrWCXa91LGCIHEFVys22TFwW4nilHpH/sFDsWDgFScF7rRdD+ApZHJKCOz5Js793POEUrmFKLWUJlhlKaOdSz8V6/Z10sJmAHCdq/3bEPmFaZ2y11o/MtXsfuycG+G8/Bs9w8PeQz8RtHaBCX5EBVakrMu+uFDc2CgEPCQ5j/Gu/VOoHkwyFfHUw9udKmpMuc4a07YgAKa70N2a64shA89liQfulLMxvQIlylLb3gWVFm7C4jvmm5wwylSFP7miUGxVollOgSAVMyEgxXKh7n6PcFC0EXzFjy4OiUUo2DoqD5+ZulieAaqotSfuA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9715.namprd12.prod.outlook.com (2603:10b6:408:2a0::7)
- by DS0PR12MB8217.namprd12.prod.outlook.com (2603:10b6:8:f1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 05:39:11 +0000
-Received: from LV8PR12MB9715.namprd12.prod.outlook.com
- ([fe80::e74f:2cf8:cf2c:142]) by LV8PR12MB9715.namprd12.prod.outlook.com
- ([fe80::e74f:2cf8:cf2c:142%6]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
- 05:39:11 +0000
-Message-ID: <a97ff986-d625-44e1-90cf-027b079cb1d0@nvidia.com>
-Date: Wed, 8 Jul 2026 08:39:06 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 4/4] RDMA/mlx5: get tph for p2p access when
- registering dma-buf mr
-To: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: kvm@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260702181025.2694961-1-zhipingz@meta.com>
- <20260702181025.2694961-5-zhipingz@meta.com>
-Content-Language: en-US
-From: Michael Gur <michaelgur@nvidia.com>
-In-Reply-To: <20260702181025.2694961-5-zhipingz@meta.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TL2P290CA0027.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::11) To LV8PR12MB9715.namprd12.prod.outlook.com
- (2603:10b6:408:2a0::7)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC5610E569
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 06:08:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 55B016001D;
+ Wed,  8 Jul 2026 06:08:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF84F1F000E9;
+ Wed,  8 Jul 2026 06:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783490937;
+ bh=QXYsrdEbQvlPjl1uht/h4kWy1QyDvVCqKoZYxI/q3SI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=YYX6AO3hdEi9m/q1XH47iSD+UNkPfg4oPc3zq2g2N5gushnNghyd8YHYTWiWtfJ5F
+ NoRiADuOJYEKz/EofPKj7GCMxv8t+7/V7/l4olpJLPqG3KF+vwjoADJRLlxdXzvrrL
+ /XxE/W1SxQ/S8ydJoa9OHQuZEg2q8mDOrGUmdB3ZrlagsAbqt4yC6M3oYA+b66VBFH
+ ZIZtDOzvoUfnAnqXVCOow0sCjT1HUi+Rl74qFn5J/LjTqbRwPbt+cCd4F9rdRA9bnf
+ NF/UHneHvyejQcc3ffXfS5eLTcqAbn8QciekgMmyeq3ElnjruRKuhcPAwY5DtsVNCa
+ TvEisjAEmtmcw==
+Date: Wed, 8 Jul 2026 09:08:36 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-mm@kvack.org,
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+ linux-trace-kernel@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>, Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <ak3pZG3GFLT1SSBh@kernel.org>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
+ <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
+ <akuvyu1Pq0ZVMZV0@orome>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9715:EE_|DS0PR12MB8217:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fb79d3e-bff6-4f19-ca37-08dedcb33c9e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|23010399003|376014|1800799024|366016|4143699003|6133799003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: UdMh3vt9V+C3DaELPRZwMy/L+g3d2+NH6XkZbcmfBnzBAbFIvVL+dPZRQ5E2Wm47XO+74EuvpOgEsxSu5jfBvAD2ctsoOIPhXThNnoXlB4JgjZTEEMrRlXRDevpmaJLvewiTEcKrt81sTiv/xdqlUNl+U8SChRzfaRZQ/vbmbB1qFY1bR436dVEVWeGHzZH7ptdnW2pzghQuyLUh+sHB5KeP4RvsX9NhPIM5wJoPCVvV9AKmBsw5ensmXCITtmC28b+oeMfpzxhq8BpGWx8lcrBnmioNpzH9mmLcy1Ag/bJnS958vppxGvc0+ncYdkMyrchTL39uR5qfzStCARqZ+D6GskeXODKpZZIuYubIS5VvLx5gaJW/BTA6Wcl+cGw6ySuTGuGHX871Lyj4KdTHniFBftziJ0fZuef+4D5PvZPe4gh4oT7Si7DKM4SyxFu7LeCAxvRULCXnNUMOm2rKGzA0nj6Sb5tss2/QdxldHGk3P4uoTFSMDBCshqj6KmYxQvHOKSBy+jSvT4s0DSof56WwbnbsnlAuk7qD+ssM90rk+xHDbDOBJOL/NJMaR7Es535ND/QJvoBfgTY9YyI+LbnQdXVKIXKdUvF6+FqLq5O0yhGKkgY0mJ0WK/ijvIayDdzAWxN5rGG3OafTY7pWA7Seb4U+QTrEElqdJL+xq5M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9715.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(4143699003)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHpuQkVtTFBMcnlRbXBMWkt1and1VU9Lb3UremZZOW1QV2ZaVmp6N0RXRUE0?=
- =?utf-8?B?QzI5U0Q2MkM1ZVZUNWNsbW01TnlRK2drWndNYWhHcVN6T2N1WkRoQitVODRr?=
- =?utf-8?B?SHEvWDkrWkRvL20rMzNWK2NteUg3OTljazl5L1hDVnUzTzFLN3N3clJ3QlJB?=
- =?utf-8?B?dm4vU2lmR1Z2Q2s1a3NQbndRaE1UazRWYUxjTy9zWVBmMWM0M1U4Q3A4Y1lC?=
- =?utf-8?B?Tk5zNlVYNWIyYnpLSjRGcHZyL1JXVnZDckpUQ1BLWkRiT0YrTUpmaGZFTnB4?=
- =?utf-8?B?OENPZExKV0s3WDZWeVhmQk1lekdxZ3ZKY2wwZ05QdUhSZHZPbmprb0ppSyt4?=
- =?utf-8?B?SWVURDk0QlVIbmZsUWg4c3gyK2JDZlR2aDdUcWF6UUFnL2hOMm9wcTRDTXBW?=
- =?utf-8?B?NXY5aS80R3BMUXI2YmFBMGZvSlM3RmdFUkVZNEVtUVF2WEllQkp2eEpSOTNV?=
- =?utf-8?B?RE1iVFVLMS93OCtBUnBtS20vNGFxVUovUUdKQi82djFIMGgxdzAwSUhzSkZs?=
- =?utf-8?B?YmlmZXpCdkN3UGMvd09CQVNqWktKS0pBV0pCS0VGcWw5V0ROeFpEend0czJl?=
- =?utf-8?B?Y3l5dER2cnArWGowL0pDQlNwMzQwRHNUL3ZOTzJIV3lwQ3hZd3lydGN0anNR?=
- =?utf-8?B?b3pKcXVTWG54eFJYK2xBdEgzWE50RTlwYUs5ZFJXZXc0ckhYT2g5bjM0OWpQ?=
- =?utf-8?B?by9xTzFBNGUxWmMzcmcwa3dvN1RLNDBjRHk2c3BJcHp1UVN3bkxQalZMYWVy?=
- =?utf-8?B?UzFiRkFhRmM0ZlpCREdwdEswbUk0ZG0xbjYvdXhWZDVIRGVDSWQveW9JM1dL?=
- =?utf-8?B?VFN1UjZxQ1MwNTlSa0RWV1JQbTJFNkVNQzZyZDlYWUR4RHc1ZGIrRW02QkI0?=
- =?utf-8?B?U2p3T2dRV0h1cVovMG42NHk0dlNwbXIzWGtQcDdDcDJXaUdkN1puQms0bFdE?=
- =?utf-8?B?UVk1eE5La3NoSkh5c0p3ZVJLdmg2cmJNOXRHUW1mV0xmZUFCTDVWMXJ0ZVVj?=
- =?utf-8?B?V1loYnBXYnJYNXVNU1JZTW9OOElqeThlU3FRWlVNNTdESzNvL01vRlE1cTVq?=
- =?utf-8?B?MjR1ZzB5N3ZhdGZoQml5ajJhY1F2YXpXK3FTZi81TzlLY2c4eGg1dkVzdEwx?=
- =?utf-8?B?MjhkMjdObTJvdk5mdUpCQ2pHSVc0bTEwTWhsWWVZZnkrQWtxTFB2Q0w0Q1VC?=
- =?utf-8?B?dGNaejYxMlVRMXVpMTB2bkdqMys2ZEd5L0REd2xXNEhZbDJXeldjdkxPWHo4?=
- =?utf-8?B?dldHLzRXOFo1ZTQ2Z3Exd0NYK05PSlpkQVBVVkRuUDZPVWxtQUFCd3pZak1l?=
- =?utf-8?B?R1lsUWFYWFQvOTNTaTJhMzlBYmRzd2pPb1ZXUDV2a21NWGllOXVPWVpTZWZV?=
- =?utf-8?B?aXFuREI0ZWRydmRRWGVnUENFNnExR1lJNUlBK2VNVmRTcmNKdTc4dUphcTJy?=
- =?utf-8?B?QTR5WGpMMiszWXhhR3JSaWl3U2ZYN3k5QmQrbTg0Q1VNM3NKNDZXNGI3enZQ?=
- =?utf-8?B?SFdYanBZOHlNcnhVUGdhdW9CMW9sTkFDZXBkeVFGQnpIOUp4b0lMZWZxMEtv?=
- =?utf-8?B?YkpycDJQQ0hYOEUrd2I5OUZyRzhRSkk2b25GdVprSjl0SGxnY0o4U3R4QmVN?=
- =?utf-8?B?VFRZWUtjQlR0d2JOZklGajdmZnhZYmhiK1FFZ1FSbjVTZW9pT1ZONzZUZm5p?=
- =?utf-8?B?alcwQkkya3lIU05qaktpaTU2T2JOUTU5R3pkbW1CNW95WkZVSExNVU90NDJi?=
- =?utf-8?B?MnBUamNVYUxSeWlzSkFTTUV2SE1yVUZjTGYrYzYweUdxYWpuWkJPZkxldnVm?=
- =?utf-8?B?eWxmWUJOOFB0M1RGWmY4M3hqZVZvd3BKUnh4cEdKVDMrZDNROEpUbEp0WnF6?=
- =?utf-8?B?N1lJcG9zaTNSYS9vcDIxbjVTdEVkMWRsUXE4SWNFanVrZjZxaXRFL2FQanVR?=
- =?utf-8?B?Um4vVVNSZFJ5dzlNRU5qVjdiQ05LLzlPS0tuT0xkbW5EQy9kWng4ZDdETWhP?=
- =?utf-8?B?MldZSlNCTHhhenc4cDFKcngvRU8yNmpmQlJxL1FaSk93b01PcWl0ODEvdUF4?=
- =?utf-8?B?Z2JqbmVvcjg1eWREdldob0k1VnRaZjhoVCtaVWNPVE9nTks2UjQ3bk1Bb1J2?=
- =?utf-8?B?clI1MUk5SDliVWZsaHdVK3ZxZWdoY0h5QlZxdnhEa0ZIclFqS2JEYS82VFdx?=
- =?utf-8?B?ekdZRGUyWEFqaHhZdDhpRitMQkJKbE16dmFpY1gzQ081c2xoZzhyajFqeWRt?=
- =?utf-8?B?aktibVFSYkE3MWplLzJCaU9EUDkvOFMzV2VNeUJXWUkrMyt0SStyUXNoOUtp?=
- =?utf-8?B?SXBmaytSVktmWjQ4a0lKZ3llbzRIUUVvNjBmS0xmaXR1OVNIOXFkZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fb79d3e-bff6-4f19-ca37-08dedcb33c9e
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9715.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 05:39:11.0334 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9y1pWe9NQzoX2g2zxYu6bdW84Thp00Yme5nj7VBgiG4hlEJqqaoGxegSnxHZku2ES2ihfRPS7DhTu7uuuAE6JA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8217
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akuvyu1Pq0ZVMZV0@orome>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,50 +101,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
+> On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
+> > >
+> > > How about if I extract a common helper and provide set_memory_p() and
+> > > set_memory_np() in terms of those. Those are available on x86 and
+> > > PowerPC as well, so fairly standard. I suppose at that point we're
+> > > closer to set_memory_valid().
+> > 
+> > Why not just call set_direct_map_invalid_noflush() +
+> > flush_tlb_kernel_range() for each page? We already have APIs for this.
+> 
+> Having a "standard" helper with a fixed and documented purposed seemed
+> like a preferable approach for this particular case. We also may want to
+> make the driver that uses this buildable as a module, in which case we'd
+> need to export these rather low-level APIs. And then there's also the
+> fact that we typically call this on a rather large region of memory
+> (usually something like 512 MiB), so doing it page-by-page is rather
+> suboptimal.
 
-On 7/2/2026 9:10 PM, Zhiping Zhang wrote:
-> External email: Use caution opening links or attachments
->
->
-> Peer-to-peer DMA between a mlx5 NIC and a foreign PCIe endpoint
-> (typically a GPU or a vfio-pci passthrough device) traverses the host
-> PCIe fabric. The endpoint exporting the dma-buf knows which PCIe TLP
-> Processing Hint (TPH) Steering Tag yields the best placement for the
-> traffic it will sink: per-endpoint hint selection lets the root complex
-> or switch direct DMA to a specific cache slice / NUMA node, cutting
-> cross-socket snoop traffic and DRAM pressure under sustained p2p
-> workloads.
->
-> Until now the mlx5 importer had no way to learn the exporter's chosen
-> ST tag, so dma-buf MRs were registered without TPH and ran with the
-> default (no-hint) routing. With dma_buf_get_pci_tph() in place this
-> patch wires up mlx5_ib to query that metadata at MR registration time
-> for p2p access and use it to program requester-side TPH on the outbound
-> mkey. If the exporter has no metadata, fall back to the existing
-> no-TPH path so behavior for non-TPH-aware exporters is unchanged.
->
-> Use mlx5_st_alloc_index_by_tag() to translate exporter-provided
-> steering tags into local ST entries when table mode is active, and add
-> mlx5_st_get_index() for DMAH-backed flows that already carry an ST
-> index.
->
-> For TPH-backed FRMRs, keep the extra ST-table reference tied to MR
-> lifetime rather than pooled mkey lifetime. Acquire the ref before MR
-> creation and release it again when the MR is returned to the pool or
-> the backing mkey is destroyed, while leaving the generic FRMR pool
-> core unchanged.
->
-> Import the DMA_BUF namespace for the new dma_buf_get_pci_tph() call so
-> modular mlx5_ib builds link cleanly.
->
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->   drivers/infiniband/hw/mlx5/main.c             |   1 +
->   drivers/infiniband/hw/mlx5/mr.c               | 116 +++++++++++++++++-
->   .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 ++++++--
->   include/linux/mlx5/driver.h                   |  15 +++
->   4 files changed, 167 insertions(+), 14 deletions(-)
-Reviewed-by: Michael Gur <michaelgur@nvidia.com>
+There are discussions about adding numpages to set_direct_map, e.g.
 
-Thanks.
-
+https://lore.kernel.org/linux-mm/20260410151746.61150-2-kalyazin@amazon.com/
+ 
+-- 
+Sincerely yours,
+Mike.
