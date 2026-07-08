@@ -4,51 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A88CC43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 04:46:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5CA3C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 05:05:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF18E10E32D;
-	Wed,  8 Jul 2026 04:46:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5EB810E549;
+	Wed,  8 Jul 2026 05:05:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="vKc5Tjb1";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="rUy27V8D";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D3B110E32D
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 04:46:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=adWoLdqqX8285InOHHUleyt6hKDQ7O9XUGMsAwczw3U=; b=vKc5Tjb1mGE3FAiO6cHvyHHrpL
- WBg7vEIQL2vHQE6sQ+8FChCGGDNEfyjMTYKy5d5bwMVkoCKc+acGk4iK8N81+5mAjwbcGao2+BVBv
- NobgshllXiCRdDAzqw4REuhLIyN3oiP05FJeV31zxsHzrLoU+yfWFk5e62srSNfI8ZXbeP3YawqbE
- JNgANX7zVUAF/Qy871JHpP1zi1qKfigdEtjDXMwaRk6ttYEnGPtu6UkZ9vqBEHuMAbGwnObP2ld9O
- INgJ/CAQqea6A0ELRrN69tBM/KMud6ZM+XTqD0chBXsXNleQcqo8SdyXPOmZZjMJNWaQGJPozAY5f
- vyY7n9OQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1whKAl-0000000GKrD-1oZS; Wed, 08 Jul 2026 04:46:12 +0000
-Message-ID: <699644e7-2fc2-41b5-9e02-7f4dbc2aa3a7@infradead.org>
-Date: Tue, 7 Jul 2026 21:46:10 -0700
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71ABD10E549;
+ Wed,  8 Jul 2026 05:05:24 +0000 (UTC)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 667Mn2SQ1238976; Wed, 8 Jul 2026 05:05:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=pp1; bh=MhldLM9QD9GuE5p3/DJ9u6OdZWb/
+ 6XIIA3VNSVKn6sU=; b=rUy27V8DZ6AzXiG0CnEiKb1CPLWgpxXQhAx0Q/zTKn3F
+ G6R0liofXi9do9o6LXs2gZ0t/+2YvoDiu2u5uwxSQawsYrzMVTkX2zL+mtZXg3hN
+ wqlGgv+q3AuCs25KD/qa1Bo2DJbG9cj2p4DM70xruoJ68K0oqbrz/TZUq+QIOJp4
+ 6FK/Lgkoib+h0YOgP5xOUpfUEmB4NgjTDo+SITUKqF3hzYS2zM7pV5hGUfyBFuaJ
+ yUQ0ijPSdkRHrtOAaI92a7f/8biMqUjyxtAm8PqeT8gl/2BRdlABQS+avQDW0YHm
+ 75/r3qRW5uRbilEQ5SqmFYDe+Dru/+V+nx3b6OWarw==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4f6suqtde4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jul 2026 05:05:21 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66854exs023111;
+ Wed, 8 Jul 2026 05:05:20 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4f7dgk61ny-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Jul 2026 05:05:20 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com
+ [10.39.53.229])
+ by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 66855KL921693032
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 8 Jul 2026 05:05:20 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 299E058058;
+ Wed,  8 Jul 2026 05:05:20 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EC33758059;
+ Wed,  8 Jul 2026 05:05:15 +0000 (GMT)
+Received: from [9.123.5.126] (unknown [9.123.5.126])
+ by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  8 Jul 2026 05:05:15 +0000 (GMT)
+Message-ID: <fde3656e-9e22-4e4c-937f-7e8cb918da6b@linux.ibm.com>
+Date: Wed, 8 Jul 2026 10:35:14 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/7] Add documentation for Sahara protocol
-To: Kishore Batta <kishore.batta@oss.qualcomm.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mhi@lists.linux.dev
-References: <20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com>
- <20260701-sahara_protocol_new_v2-v6-1-3a78362c4741@oss.qualcomm.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260701-sahara_protocol_new_v2-v6-1-3a78362c4741@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Language: en-GB
+From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: [REGRESSION] drm/amd/display: amdgpu_dm_plane_test.ko fails to build
+ due to modpost "too long symbol"
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ george.zhang@amd.com, bhawanpreet.lakha@amd.com,
+ LKML <linux-kernel@vger.kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, christian.koenig@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, broonie@kernel.org,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA0MyBTYWx0ZWRfXx0A8A3/+wMdh
+ IGdNB9frgkFd3+ogfITlwXCSCg8smE9KU0aP9Mcz8FYKF5xPV4lXqZZyMP7IXCNQYONZ/FABaxf
+ 1nxq3j13A8aSGRweRtRFj5gIoTdkFcU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA0MyBTYWx0ZWRfXyCO6cjikT03N
+ dlETvzl2Esw47FNH6CR8c8CBUNjhM9SvQWqcjy4+e41kug+OFrfYRooP4PnhQwGtFKYoIeMygcK
+ bOi3mk3wmrRoKgwKHJGrG2BoQLOf5L5NdKU8Oiy7XNvaCCZtTuUXbYqC6ETvD0XpdtgjtEgKXnE
+ DHakvO+emWk6lIpJqwN6zqcxISltPUCuxnDPe9O3uqAOtqzKKTzaf820kGIxAp8qIbuhDdI1E9a
+ HpIkqPA4ddiMSvh4peKwzlpJXAJmA7ypMX4pOsZBPkfONaBDjqwn2vXHq4X9MdE19vkGLVmLBYx
+ hr5gj6/wHb9Zdl0izx40S5dslC+WRNlPbcbf/+I+tTUACJCuh4nQmCVgGsBdRuLqcmNSQNsIa0T
+ YWxRmKo1Mr8s/ISkQ1Ym5kK+rb6rdDkQbfE9mfzwzcxbYe3rsLTck/ESuO2twrwCcqsL4g/cc2y
+ EpQ6MlJA6/rlXcFD2iw==
+X-Proofpoint-GUID: ECAVD29mq7Ou5idDAiIdvd5zYB28nI21
+X-Authority-Analysis: v=2.4 cv=Oot/DS/t c=1 sm=1 tr=0 ts=6a4dda91 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=vszvPysokf05iRVejT4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: ECAVD29mq7Ou5idDAiIdvd5zYB28nI21
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0 phishscore=0
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080043
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,147 +115,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Greetings!!!
 
-On 7/1/26 3:37 AM, Kishore Batta wrote:
-> +The packet flow sequence is as follows :
-> +
-> +1. The target sends the hello packet to the host to initiate the protocol
-> +   with the mode set to image transfer pending.
-> +
-> +2. The host sends a hello response packet with a success status and sets the
-> +   mode to image transfer pending after it receives the hello packet and
-> +   validates the protocol version running on the target.
-> +
-> +3. After the target receives the hello response, it initiates the data
-> +   transfer by requesting the size of DDR training/calibration data.
-> +
-> +4. The host sends back the DDR training/calibration data to the target.
-> +
-> +5. The target decodes the training data and does not find valid DDR
-> +   calibration data, target sends END_IMAGE_TX to interrupt the transfer.
-> +
-> +6. The host sends DONE after receives END_IMAGE_TX.
-> +
-> +7. The target sends DONE_RESP with mode = IMAGE_TX_PENDING because it has
-> +   not received all images.
-> +
-> +8. The target executes DDR training process to generate valid DDR calibration
-> +   data and prepares to push back to host.
-> +
-> +9. The target initiates protocol by sending a hello packet with COMMAND_MODE
-> +   to the host.
-> +
-> +10. The host sends a hello response packet with a success status and sets the
-> +    mode to COMMAND_MODE.
-> +
-> +11. The target sends CMD_READY to the host.
-> +
-> +12. The host receives CMD_READY and starts to get command IDs to be executed.
-> +
-> +13. The target sends CMD_ID = 9 to push DDR calibration data to host.
-> +
-> +14. The host executes CMD_ID = 9 to get DDR calibration data from the target.
-> +
-> +15. The target sends RAW_DATA with the payload which contains DDR calibration
-> +    data to host.
-> +
-> +16. The host saves training data in the kernel buffer and exposes to userspace
-> +    via the sysfs entry. The host sends CMD_SWITCH_MODE with the mode set to
-> +    IMAGE_TX_PENDING to continue booting.
-> +
-> +17. After the target receives the CMD_SWITCH_MODE command, it sends HELLO to
-> +    the host with the mode set to IMAGE_TX_PENDING. The target and the host
-> +    repeat the packet flow for image transfer to get all booting-required
-> +    images.
-> +
-> +18. Upon successful transfer of all images, the target sends an END_IMAGE_TX
-> +    packet with a success status to the host.
-> +
-> +19. The host sends DONE after it receives END_IMAGE_TX.
-> +
-> +20. The target sends DONE_RESP with the mode set to IMAGE_TX_COMPLETE because
-> +    it has received all images. The process has been completed after the host
-> +    receives DONE_RESP with the mode set to IMAGE_TX_COMPLETE.
-> +
-> +Subsequent boot scenario with valid DDR calibration data
-> +--------------------------------------------------------
-> +
-> +The below firgure shows the subsequent boot scenario with valid DDR calibration
-> +data process being loaded from host to target.
-> +
-> +.. code-block:: text
-> +
-> +                        Host                       Target
-> +                          |          HELLO            |
-> +                          |   (mode = image transfer) |
-> +                          |<--------------------------|
-> +                          |                           |
-> +                          |         HELLO RESP        |
-> +                          |   (mode = image transfer) |
-> +                          |-------------------------->|
-> +                          |                           |
-> +                          |         READ_DATA         |
-> +                          |   (img ID:34, 0, offset,  |
-> +                          | size of DDR training data)|
-> +                          |<--------------------------|
-> +                          |                           |
-> +                          |         RAW_DATA          |
-> +                          |(size of DDR training data)|
-> +                          |-------------------------->|
-> +                          |                           |
-> +                          |                           |
-> +                          |       END_IMAGE_TX        |
-> +                          |<--------------------------|
-> +                          |                           |
-> +                          |                           |
-> +                          |          DONE             |
-> +                          |-------------------------->|
-> +                          |                           |
-> +                          |                           |
-> +                          |         DONE_RESP         |
-> +                          | (mode = IMAGE_TX_PENDING) |
-> +                          |<--------------------------|
-> +                          |                           |
-> +                          | Subsequent boot scenario  |
-> +                          | (valid calibration data)  |
-> +                          | DDR driver configures DDR |
-> +                          | using valid calibration   |
-> +                          | data                      |
-> +                          |                           |
-> +                          |                           |
-> +                          |          HELLO            |
-> +                          | (mode = IMAGE_TX_PENDING) |
-> +                          |<--------------------------|
-> +                          |                           |
-> +                          |         HELLO RESP        |
-> +                          | (mode = IMAGE_TX_PENDING) |
-> +                          |-------------------------->|
-> +                          |                           |
-> +                          | Boot/Load rest of the     |
-> +                          |    images....             |
-> +                          |                           |
-> +                          |       END_IMAGE_TX        |
-> +                          |<--------------------------|
-> +                          |                           |
-> +                          |                           |
-> +                          |          DONE             |
-> +                          |-------------------------->|
-> +                          |                           |
-> +                          |                           |
-> +                          |         DONE_RESP         |
-> +                          |(mode = IMAGE_TX_COMPLETE) |
-> +                          |<--------------------------|
-> +                          |                           |
-> +
-> +The packet flow is as follows :
-> +
+linux-next is failing to build for me with:
 
-s/as follows :/as follows:/
-in 2 places.
+ERROR: modpost: too long symbol
+"amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers"
+[drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amdgpu_dm_plane_test.ko]
 
-> +1. The target sends the hello packet to the host to initiate the protocol
-> +   with the mode set to image transfer pending.
+make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
+make[1]: *** [Makefile:2165: modpost] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
--- 
-~Randy
+The failure occurs during modpost while building:
+
+drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.ko
+
+This appears to be a regression in the AMD display KUnit test code.
+
+Could someone please take a look?
+
+
+If you happen to fix this, please add below tag.
+
+Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+
+
+Regards,
+
+Venkat.
+
 
