@@ -4,42 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC213C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 06:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A1A3C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 06:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F00910EFD6;
-	Wed,  8 Jul 2026 06:45:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E514710E577;
+	Wed,  8 Jul 2026 06:46:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GJk3eK6i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gdRHtWwm";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3405810EFD6
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 06:45:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D09410E577
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 06:46:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DEB02404AB;
- Wed,  8 Jul 2026 06:45:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B2F1F000E9;
- Wed,  8 Jul 2026 06:45:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AF873404AB;
+ Wed,  8 Jul 2026 06:46:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 208C21F00A3A;
+ Wed,  8 Jul 2026 06:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783493144;
- bh=sobHpVSNTVQS9X37r5ybfXkW590MKYC+5PvGGdTF/+E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GJk3eK6iti0GC9AN3LKk5qkj2PJWB3K2OdFd1FqsdBaOqWKNn1k1lpjD4ESKbIB+l
- 3ChqpqoL74qLQ0RLrZJJpJ/3RiyjlxnwQFGL5jktAA8iNUMeoS8netVAq4dpWwviiz
- DWb0EBU5TGtv6zDiDabvuh9W07a7Nyd/J1vSypryL1xQllmNvzngGD2tueGV2x9t5S
- CsNkETDMJQ+M9QsKmwtTwgHi1VEA3CA94XLZMpwbJES2K/wOH0YeAB9osPYTYUP6Cx
- RrOcdtMnx51lvzBuIjKnH/PYKbVDrm8DUyWrmEwse4yyiiEMkr9KaERwFDJFaKjtQy
- r4ONySnIAv7eg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/rocket: clear rdev on device init failure
-To: "Guangshuo Li" <lgs201920130244@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260708062845.716487-1-lgs201920130244@gmail.com>
-References: <20260708062845.716487-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 06:45:43 +0000
-Message-Id: <20260708064543.C8B2F1F000E9@smtp.kernel.org>
+ s=k20260515; t=1783493212;
+ bh=dda6EKnJcaA11GKqrW+DCxDvbZY1WLkxUaV4elPeMqA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=gdRHtWwmBpljYkDnbi+s0Po0ALJbs0er1Z1e6nbWh32zNXoqSX/HClNx2FsEaXrx+
+ PuL5GBym3trY+YYLRk3eDYc+vZnLg56n5WEWDMlPKGUTAf9jJLWGifLnFm3c9+f8dR
+ RZqoGE4M4NJwdfI9dMmoq0uEcc3tHE1I8cJuNY/0cPMfu/x8pYs4ICDM6yshTSYDMA
+ qhsPFFTPDzt5rxdggP2efSRCVfhM2kh3IJhPJCs2yEGFhgGcfF5l+6ENt/ib4jjNmE
+ +5652/kWuWR+D4WGiMZss3KtyB9jT3eryMUMdhyOCit025OIwjnNjH11k3xrmqyq2c
+ rnyNBnZWG4PgQ==
+Date: Wed, 8 Jul 2026 08:46:50 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v8 03/39] drm/display: bridge_connector: Pass HDMI
+ capabilities through caps struct
+Message-ID: <20260708-bold-ruby-potoo-c6c949@houat>
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-3-d79890d00b6a@collabora.com>
+ <eqnr2hfclbdkry2jqe2kuufss5kus6qpjblewq35upnjwlhxhl@4awqxpwrnxk2>
+ <f74ffd53-5776-4fae-a6fe-eeace5c3fc5f@collabora.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="u7g35xr4vgpqkhon"
+Content-Disposition: inline
+In-Reply-To: <f74ffd53-5776-4fae-a6fe-eeace5c3fc5f@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,207 +75,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [Critical] NULL pointer dereference when opening the DRM device before co=
-re initialization completes.
-- [Critical] Use-After-Free due to deferred DRM device unregistration durin=
-g individual core teardown.
-- [High] Massive memory and resource leak due to devres allocations on a pe=
-rmanent platform device.
-- [High] Out-of-bounds access and data corruption due to missing array comp=
-action on core removal.
-- [High] Race condition and data races on global state during concurrent co=
-re probes.
-- [High] Memory leak of IOMMU domain reference in `rocket_ioctl_create_bo` =
-error path.
-- [High] Use-After-Free and NULL pointer dereference in concurrent timeout =
-handler during teardown.
-- [High] Missing clock IDs in `clk_bulk_data` causes failure to properly re=
-quest and enable hardware clocks.
---
+--u7g35xr4vgpqkhon
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v8 03/39] drm/display: bridge_connector: Pass HDMI
+ capabilities through caps struct
+MIME-Version: 1.0
 
---- Patch [1]: [PATCH] accel/rocket: clear rdev on device init failure ---
-commit 17e3337636f75d45b7220a5f2dd42ebed6a265c7
-Author: Guangshuo Li <lgs201920130244@gmail.com>
+On Fri, Jul 03, 2026 at 10:55:09PM +0300, Cristian Ciocaltea wrote:
+> On 7/3/26 5:19 PM, Dmitry Baryshkov wrote:
+> > On Thu, Jul 02, 2026 at 05:46:16PM +0300, Cristian Ciocaltea wrote:
+> >> Switch drm_bridge_connector_init() to
+> >> drmm_connector_hdmi_init_with_caps(), collecting the bridge's HDMI
+> >> properties into a stack drm_connector_hdmi_caps so future HDMI 2.x
+> >> capabilities can be plumbed without growing the argument list.
+> >>
+> >> Introduce struct drm_bridge::supported_hdmi_ver to let bridges declare
+> >> the HDMI specification version they are conformant with, and forward it
+> >> to the connector layer through the new caps struct so HDMI 2.x features
+> >> can be gated on real source capability rather than guesswork.
+> >=20
+> > And it's left uninitialized by the bridges, which doesn't mean anything.
+> > If you don't want to touch all bridge drivers in one commit, please
+> > provide some migration path and hopefully get rid of it by the end of
+> > the series.=20
+>=20
+> Sure, one question though: at the end of the migration, would it be fine =
+to
+> stick with drmm_connector_hdmi_init_with_caps() and just drop
+> drmm_connector_hdmi_init()?  Otherwise I'll rename it back.
 
-accel/rocket: clear rdev on device init failure
+Absolutely, it doesn't make any sense to keep both variants.
 
-This patch updates rocket_probe() to clear the file-scoped rdev pointer and
-return the saved error code if rocket_device_init() fails. This prevents a
-later probe from seeing a non-NULL rdev and dereferencing an error pointer.
+Maxime
 
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 8bbbce594883e..67e7f543fe4c7 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -165,8 +165,11 @@ static int rocket_probe(struct platform_device *pdev)
->  		/* First core probing, initialize DRM device. */
->  		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
->  		if (IS_ERR(rdev)) {
-> +			int err =3D PTR_ERR(rdev);
-> +
->  			dev_err(&pdev->dev, "failed to initialize rocket device\n");
-> -			return PTR_ERR(rdev);
-> +			rdev =3D NULL;
+--u7g35xr4vgpqkhon
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: High]
-This is a pre-existing issue, but does this error path permanently leak
-memory?
+-----BEGIN PGP SIGNATURE-----
 
-In drivers/accel/rocket/rocket_device.c:rocket_device_init(), allocations
-are made using devres bound to the persistent drm_dev:
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCak3yUgAKCRAnX84Zoj2+
+dgA6AYCyDFgGTxFn0SBcOkPBApbes4BuK+X5JHvKvEk7xiWbO93Vqka++5/XzGyT
+Zz7K1j4BfipIdXYUQH8XNvCOMpkrfjeMlnCiCXrYlN9EsZpBqVIbnIalrv/UncdJ
+krF4ykO6LA==
+=4OYk
+-----END PGP SIGNATURE-----
 
-    rdev =3D devm_drm_dev_alloc(dev, rocket_drm_driver, struct rocket_devic=
-e,
-                              ddev);
-
-Since drm_dev is a static platform device that persists until module unload,
-these devres allocations are never freed. If rocket_probe() fails here,
-abandoning the devm-managed allocations without freeing them, will successi=
-ve
-probe failures or unbind/bind cycles continuously stack unbounded memory le=
-aks?
-
-> +			return err;
->  		}
->  	}
-> =20
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but could this cause a NULL
-pointer dereference when opening the DRM device?
-
-In drivers/accel/rocket/rocket_device.c:rocket_device_init(), the device is
-registered and exposed to userspace prematurely:
-
-    err =3D drm_dev_register(ddev, 0);
-
-If an unprivileged user opens the DRM device right after registration, befo=
-re
-rocket_probe() finishes initializing the hardware cores, rocket_open() is
-called:
-
-    rocket_priv->domain =3D rocket_iommu_domain_create(rdev->cores[0].dev);
-
-Since cores[0].dev is still NULL, this passes a NULL device pointer to
-iommu_paging_domain_alloc(), which would cause a kernel panic when it
-dereferences dev->iommu.
-
-[Severity: Critical]
-This is a pre-existing issue, but does deferred DRM device unregistration
-lead to a use-after-free during individual core teardown?
-
-When an individual core is unbound,
-drivers/accel/rocket/rocket_drv.c:rocket_remove() destroys that core's
-drm_gpu_scheduler:
-
-    rocket_core_fini(&rdev->cores[core]);
-
-However, drm_dev_unregister() is deferred until the very last core is
-removed. Open file descriptors can still access the device, and
-drivers/accel/rocket/rocket_job.c:rocket_job_open() will initialize a
-drm_sched_entity pointing to the destroyed scheduler:
-
-    scheds[core] =3D &rdev->cores[core].sched;
-
-Could subsequent user ioctls to submit jobs push them to a destroyed
-scheduler, causing a use-after-free crash?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there an out-of-bounds
-access due to missing array compaction on core removal?
-
-Removing a core decrements the count without compacting the array:
-
-    rdev->num_cores--;
-
-As a result, find_core_for_dev() iterations will truncate and fail to locate
-active cores at higher indices. Furthermore, if a new core is probed,
-drivers/accel/rocket/rocket_drv.c:rocket_probe() uses the artificially
-lowered num_cores as the index:
-
-    rdev->cores[core].rdev =3D rdev;
-
-Would this overwrite an existing active core slot, destroying its state and
-corrupting the array mapping?
-
-[Severity: High]
-This is a pre-existing issue, but is there a data race on global state
-during concurrent core probes?
-
-The global rdev pointer and rdev->num_cores counter are accessed and
-modified without synchronization. Concurrent probes for different device
-tree nodes could race here in
-drivers/accel/rocket/rocket_drv.c:rocket_probe():
-
-    if (rdev =3D=3D NULL) {
-
-and later increment without synchronization:
-
-    rdev->num_cores++;
-
-Could multiple threads simultaneously pass the NULL check, leading to
-duplicate memory allocations, corrupting the rdev->cores array, and losing
-core registrations?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the error path in
-rocket_ioctl_create_bo leak the IOMMU domain reference?
-
-If BO creation fails, the error path directly calls:
-
-    drm_gem_shmem_object_free(gem_obj);
-
-This frees the GEM object but completely bypasses the driver's custom
-rocket_gem_bo_free() callback. As a result, the IOMMU domain reference
-acquired earlier is never released:
-
-    rkt_obj->domain =3D rocket_iommu_domain_get(rocket_priv);
-
-Could a malicious userspace program exploit this to cause an out of memory
-condition by repeatedly triggering mapping failures?
-
-[Severity: High]
-This is a pre-existing issue, but could this lead to a use-after-free and
-NULL pointer dereference in a concurrent timeout handler?
-
-During unbind, drivers/accel/rocket/rocket_core.c:rocket_core_fini() drops
-the IOMMU group reference and clears the pointer before tearing down the
-scheduler:
-
-    core->iommu_group =3D NULL;
-
-If a job timeout triggers concurrently,
-drivers/accel/rocket/rocket_job.c:rocket_reset() is scheduled and calls:
-
-    iommu_detach_group(NULL, core->iommu_group);
-
-Does this dereference the now-NULL core->iommu_group pointer inside
-iommu_detach_group?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the lack of clock IDs
-cause a failure to properly request and enable hardware clocks?
-
-In drivers/accel/rocket/rocket_core.c:rocket_core_init(), clocks are fetched
-using an uninitialized array where the .id fields are NULL:
-
-    err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
-
-When .id is NULL, the clock subsystem falls back to fetching the very first
-clock listed in the device tree for the device. Does this result in the
-driver obtaining four references to the exact same clock instead of the four
-distinct required clocks, causing hardware functional failure during power
-management?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708062845.7164=
-87-1-lgs201920130244@gmail.com?part=3D1
+--u7g35xr4vgpqkhon--
