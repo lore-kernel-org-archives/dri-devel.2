@@ -4,56 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E927C43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 17:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD1A2C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 17:02:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 194A010E076;
-	Wed,  8 Jul 2026 17:02:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E7910E62C;
+	Wed,  8 Jul 2026 17:02:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LQ0lz/in";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="IBrQOFh/";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 770AB10E076
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 17:01:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JW3itlGTRWdnPbwdwRVVwYSQH14JCOOGi080VIahTXo=; b=LQ0lz/in+hMv78JMayuZpkHduO
- DDYy2/rFlN78ZlBnBE+X+Cb3hrOyEQev+wWBrN9/eNq0SlxZynm3Wt3vPhLmYDHm7/z5fs0mqS/Ab
- uaYR4WzeSxjrJzYMRcFZjMTwRy4KtOCYNz65w/ro3A7ecN9YHseCVvPBj/9AfxWC38H3iNprAOM2Q
- Jqk4Pz30N/+PDC8137va/+lmrW7z88PHmiDI5gTcEmDXbecPonOcTyWZmNHaRoYAaDAhCRWG59pc3
- PInBZXwEA/NLjtlcrkgrQBY71kZii919mqKFhDA/zwDk5LSqywb/TzaG6nKDXbWUPff4ZHWcsVVxC
- 4XqWMibg==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1whVem-00BpQc-Ej; Wed, 08 Jul 2026 19:01:56 +0200
-Message-ID: <992e86a0-990c-46ab-8816-cf3c030d274a@igalia.com>
-Date: Wed, 8 Jul 2026 18:01:55 +0100
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011032.outbound.protection.outlook.com [52.101.125.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F32510E076
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 17:01:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ghUrQB4MQDSUcNMQR06bzB9wLIWZP3IoKadwyGbBlfpI8+FAjv/Ww9ZrQrJCT0FUivqnvEu+ZPwv8Xy2suRGhd/AW6JRCpYurrpbBk1d8YLGltXSX3KoWEBVecKFiXMQx+kmes/wFcf2AEKmOA/y5THFgrGCHJzRxOofAW00OJnJ/gzStk3kdtreYsUsQkW6QHiG+EscOmFQfuuEoDPsFsJzyoP8kranR2wrVzu81ZbbuH25jTI5wPzkUpIogvg7w61JW3c0HaZ07FdYIuUmNu7yfIUU0yIC27a2qXF2PiJ834dz4nuaZi+Vyx38JNrPgw7KzaJG7XTnU0OTnKrD1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kFtuvJ53NSAMXJ6Ig5fQAf39VnLtjSPP8Uf9rbMCfhM=;
+ b=HBgDWNvaftwLTOVfloLMUCKJPgqYYwognku2HWGQHS1DFNm52tA4Kry3HAQOCoK6h4QLjoE1L34elyJhflRQ8LUm9hfbk/+Ago/WIlNC1YIfMQScQc45DjqqyZqsl75aB1/NJkJX4Lrg8trD4EPlRBHJ20rOcGkkGiJfIPNr1HOdmGvrxYAZZ9uycmnnnjRrqrFR5LrVA3VvH1fe+oiYiPGYdEp9EfqASYx58refwzCxay9myglYuVOdPCFb8wPrNOyOf4GLDcxRXN7qvpCBQx8y+vjgUMIwNDkmH/cqgHftBLLCl1jV5MGaFqo6UjqmhVzRa2BHAa/vpcLYZDIk/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kFtuvJ53NSAMXJ6Ig5fQAf39VnLtjSPP8Uf9rbMCfhM=;
+ b=IBrQOFh/yFsk+bzKQ6GqHk5AKfxdS+VEMivSYLto3Xh3RcYUUU9iWZc4eqoZIb66f5OpB3+Sqhhi8s5nboTQ+V3K92pZvBB6bciAxrIPOu4mhKkp5kuzxhnPJfrYsO5kjFofHyZjW/J5DEBeWM5EZ+mQiz2Pv/mQo4i16D+7p6Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYRPR01MB12875.jpnprd01.prod.outlook.com (2603:1096:405:1b7::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 17:01:31 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
+ 17:01:31 +0000
+Date: Wed, 8 Jul 2026 19:01:19 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 08/16] drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU
+ support
+Message-ID: <ak6CXxb3Rs3PB4Yl@tom-desktop>
+References: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
+ <20260704093433.273672-9-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260704093433.273672-9-biju.das.jz@bp.renesas.com>
+X-ClientProxiedBy: FR3P281CA0208.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::18) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
- improvements
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
- Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <akd/ae5VGQrsWqsf@gsse-cloud1.jf.intel.com>
- <5963b079-cb44-4cd4-be56-f47bf3f15e0e@igalia.com>
- <akwyNSXO+QspyoBx@gsse-cloud1.jf.intel.com>
- <akym7rllMDFFcz8q@gsse-cloud1.jf.intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <akym7rllMDFFcz8q@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYRPR01MB12875:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe6121f8-656c-467c-c757-08dedd128f0b
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|52116014|7416014|22082099003|18002099003|56012099006|5023799004|11063799006|4143699003|3023799007|38350700014;
+X-Microsoft-Antispam-Message-Info: 0dKl9lbSytsUTb3wvg2axrOpyl+L31FFAGbXJlGTihdfo2K/ZpECIplTWKBjr7HK7V0H8bZQtPMOJcJFOd+MseiUBFOCRTGDt218HmtlB8sVw/OSX1PUjC/E3ZNgA2a3fnHI2fPVfD09t418Nl8H9B/RqHLPsnnOVGwG2UmzmM/Q5j/6cU2hxjk+aCMG4B5k6a3g8qRGSHIqpJXtOtnljyAMew1RwHZ5Vj7hl8p2fARjghhyMwPh9lrdwfoIrRsJO+a/NlCUW29SgbqHMu7B/v43DDv+qtc1e7IZXjZSiAPsnVcqTAlksO/vG/uNkWEH7algM7fpBxs7j4F6PSCDOpKRxXQvLilqcdTW/QMTsjltAX0FtahcW9RXDaMMhdgQwLuUiQ9RASrv+QQJYC2yxxrp7WXQuywn/SzkdXjV5Ac7dj4Yg9GrzsZB/vvxUnMxtOXJI5pD4z+cMnd9SF+MUp4cawc4IVQv5BElJPyXrhp4xxryp5zahSm3Gv0Z9bIByq/Vet/Z2zrJp7HBR0tUMwBpa720F8/wodBYPnmPxc7eZCv1yZHsvUC3RbI3B691HlO3PARzU9Li2Wy8w+qEAHUe0lWW6hBREUBGw8knkInTH30+Z+nH61K8YHn/aPSqW7QgbvmXh1fwweji+bXjANJUYLxHlAyYn6UG/OK9gKqW1cBEKMSOpHPawNxRTFJSl9Uae7Koaz92klZP7KmRGA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYRPR01MB13588.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(52116014)(7416014)(22082099003)(18002099003)(56012099006)(5023799004)(11063799006)(4143699003)(3023799007)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?r36D5KK4kpsR4PNkgIgspcZ7vvEgvXUCh205mrmulHZhXtmMd/Zl9maPy4CL?=
+ =?us-ascii?Q?tGDt6wtRmcZmZqvpsF9eTx4URL0MO8cL6eft0r3QhCIv5t+tE0grpDCY32JL?=
+ =?us-ascii?Q?P+xFpUkMAKfPkckzeGyc2uq6lA+wXgKx02Btybl2sQQmwEV97f7lXC5GnPuN?=
+ =?us-ascii?Q?17gBNwXW+N8m4GDAkedUvACqqrubTy+1VwhvlyQFW16Rt48PtQLMUTq9BgPA?=
+ =?us-ascii?Q?btqb15zgQ3kUdLw6k0C9CkrwzsuJ6PJCL4j+wCf6c+GuaV2bLJCaOa9GRDEL?=
+ =?us-ascii?Q?YLMmsmX6HG7rI7KOI2gEn9X5IoKr7UToG1LOgETMXIDbtmclqy030yIyYhSH?=
+ =?us-ascii?Q?IdJRSUUT9VP64X/F3ucgXLLgZH4d1ActVw3ygv+aeq5fmJAfWlD8Ni5tTRI+?=
+ =?us-ascii?Q?PRHJj0wD/wk1YofQ0dAqUpLbhPiLKZLXEb9pSP93UZve2MJGVLWOPX4OJiYW?=
+ =?us-ascii?Q?HZ/vL0laH/x7kr2Zfenvk1PiY7O1bR6BuelHX7JYSdSyeOQodg4Pol5GOR65?=
+ =?us-ascii?Q?1wlMgoXoid140luhXlUjt1urCxfoMjMQPxlN/ZfxGEG/vsRX9ZG/0rmpzv5V?=
+ =?us-ascii?Q?+w/u8Guk0bPQW57PSag/bNcCQ0zF8v8S7RrDjK86ZcAp224IudpggwAk7efl?=
+ =?us-ascii?Q?VyCnZ6MdPXsYLwaZV/k4BfH3gEBUQWuyzQ99fSUIJ9iI7QZw6uWRRQjxaGWU?=
+ =?us-ascii?Q?Zp/gQK5X/P6NkESz5/CpePHThRZyZ0rPq/b2x/npdY2BTK+CWb63QgG3WDzr?=
+ =?us-ascii?Q?LjpgPNNBGFBUk9Wilggk6Wx9raIZlEhN756zyswbekoj2WJLpZq8bZSI9tzO?=
+ =?us-ascii?Q?fLZVmg4VEPuaueEGHynT7Xg5/VL340ypL9ZLG8A6OHD5AWNkOPovAjiYmZ/7?=
+ =?us-ascii?Q?LIluAWSkDgHGZj88MIv5EDcXrMmLIJCrp/lDBgDZ6NDT2dadT/bBBy9AASkB?=
+ =?us-ascii?Q?QC16aRl4J23gJz9ChKcWv4eZFrUNAOhEefel5OQMXi0Rtu10bc/C8HgZMnvt?=
+ =?us-ascii?Q?e624JPh7h0Q5v9XfDA0/XkdaBLcgTbZUTssSzLqWeF/LOHeH5XRxjyGxLxmB?=
+ =?us-ascii?Q?/NgeJ8d/+F5lICsdjrARBm8ZfZHyaVzgTK3otb88ht9zWdaL6tQfPju78NxL?=
+ =?us-ascii?Q?61ca40ysNkcjHKZEHe6CuF2pR37y+EW+NY+CQKS6ICE1mXo5SY74LJE+YJ3P?=
+ =?us-ascii?Q?Bzye9onWly+GyaGlfl3NL1wGwAKUNG7YQeJbwPpOkKqdnY2ByEP60n8z37pt?=
+ =?us-ascii?Q?bXSg0lQxNpt1vuWs66T0Op2VvillPaP8A3QA6phVVCktgcRf/zIsOhaSvGvl?=
+ =?us-ascii?Q?eEsCPoh751Prs+btfMGVBw0gZrgsenOpSDdmqTmPEfPpHN4CnD/E68EnYTkC?=
+ =?us-ascii?Q?ziYomMoJaW9Pru2RWOfPife3oWbwH8qWkAFqP/qlIoovDOPdOf2/LyritQMA?=
+ =?us-ascii?Q?Kn9FSe4v3UH3ZUoUt76Ne32+KxkKCcqg0HhXDXN7jYqYOIGcnyCfMnZfQnlt?=
+ =?us-ascii?Q?GKVNXF8w3rpa1NmBF0v7jNq5b7fmVFb1YeoBVOGYweSosgThdkVeloX4TyC8?=
+ =?us-ascii?Q?5uy9b+iCSXEEPzZF/MsJaVO4LuKK9bMTnz5DVAS4XPE9H3qnfdL4wxnrzHv/?=
+ =?us-ascii?Q?zdkhvzYU2v7MSpj/gl9Um6h7ZVlHqvvzmd090qMIpoy26uL0XB7Y0TsX3uVr?=
+ =?us-ascii?Q?pyIXt1RoqgosCOdCcaH4Dh7rHEgabPQ0kHopkt2JYe0+9dggoOf2tuUJMEje?=
+ =?us-ascii?Q?lrzZFoi6vdJW31O6BOWao5SuNkZoCZ3FJH8HHDEoBYUydKidBxQ/?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe6121f8-656c-467c-c757-08dedd128f0b
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 17:01:31.5691 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YnrNN0IAlXmDU6vDy3VavTHUaSKY/PDLelsyRqvEISig5HMXiz0YiF4kKRX6wwfXZX9a3Q9opPTjtJ6hQTK+z9CuMoF9S1wl5ZGihKmth4CZ+QRZc6GKczzP/kRqEQAH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB12875
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,283 +136,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Biju,
+Thanks for your patch.
 
-On 07/07/2026 08:12, Matthew Brost wrote:
-> On Mon, Jul 06, 2026 at 03:54:45PM -0700, Matthew Brost wrote:
->> On Mon, Jul 06, 2026 at 01:41:01PM +0100, Tvrtko Ursulin wrote:
->>>
->>> On 03/07/2026 10:22, Matthew Brost wrote:
->>>> On Thu, Jul 02, 2026 at 03:37:37PM +0100, Tvrtko Ursulin wrote:
->>>>> The problem statement is explained quite well and succinctly at:
->>>>> https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49
->>>>>
->>>>> Essentially, on a system (over)loaded with a lot of runnable CPU processes, a
->>>>> high-priority DRM client gets latency injected into the GPU submission path due
->>>>> to the DRM scheduler use of workqueues.
->>>>>
->>>>> This patch series proposes to replace the workqueues with kthread_work and
->>>>> priority inheritance to solve this problem.
->>>>>
->>>>> In the above linked issue Chia-I benchmarked the submit latencies which
->>>>> show a striking improvement:
->>>>>
->>>>> 		median	95%	99%
->>>>>     before	41us	1.5ms	2.6ms
->>>>>      after	15us	19us	24us
->>>>
->>>> Can you give more information on these numbers? e.g., What you ran / how
->>>> you measured these. It is hard to argue with numbers.
->>>
->>> I believe Chia-I observed latency on some production hw/sw and then wrote a
->>> synthetic benchmark to test it more easily. Details are in the above linked
->>> issue.
->>>
->>
->> Thanks, I see this now. Part of the problem, as far as I can tell, is
->> that fences are signaled from work items rather than directly from IRQ
->> context.
->>
->> For example:
->>
->> "There is another 2.5 ms of scheduling latency from
->> panthor_sched_report_fw_events() (running on irq/105-panthor, PID 257)
->> to process_fw_events_work() (running on kworker/u32:1, PID 62)."
->>
->> I assume this is only addressing the scheduling portion of the latency,
->> but you also mentioned a 9.5 ms delay for vkQueueWaitIdle(), where part
->> of the latency appears to be on the signaling side due to the worker
->> thread.
->>
->>>>> This is obviously really good for preventing compositors from missing frames and
->>>>
->>>> Modern compositors do not pass render-job fences to draw jobs as input
->>>> dependencies. On Wayland, this functionality is provided by
->>>> linux-drm-syncobj-v1 and is enabled by default on Ubuntu 24.10 and
->>>> later. SurfaceFlinger has also operated this way for quite some time.
->>>>
->>>> The obvious solution for compositors is to submit work directly through
->>>> the ioctl (i.e., bypass path in sched) when there are no input
->>>> dependencies, which should be the common case. The main exception is
->>>> when one of the BOs mapped into the compositor is migrating or otherwise
->>>> busy (i.e., a BO has a fence in a kernel dma-resv slot).
->>>
->>> You mean the direct submit RFC you floated some time ago? What was the
->>> verdict on that one, wasn't it rejected?
->>>
->>
->> I had some patches for DRM sched that I never posted. It turned out to
->> be a little tricky because of some other quirks in DRM sched, but it was
->> still roughly 100 LoC plus an additional lock.
->>
+On Sat, Jul 04, 2026 at 10:34:18AM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 > 
-> Side note: I quickly rebased DRM DEP here [1] and prototyped some RT
-> solutions.
+> Add Display Unit support for the Renesas RZ/G3L SoC (R9A08G046). It is
+> similar to the one found on RZ/G2L, but has LVDS support.
 > 
-> I added a DRM_DEP_QUEUE_FLAGS_RT flag to internally choose between a
-> workqueue and kthread_work, and to enable FIFO scheduling in [2]. Most
-> of the details are hidden internally, but I had to make a few small
-> changes in Xe to support this on the driver side [3].
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 22 ++++++++++++++++++-
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |  4 ++++
+>  .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  4 ++++
+>  .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.h  |  1 +
+>  4 files changed, 30 insertions(+), 1 deletion(-)
 > 
-> Putting aside whether or when DRM DEP will land, if DRM sched really
-> wants FIFO scheduling instead of bypass (the IMO this is somewhat
-> questionable), I think the approach I took in DRM DEP makes a lot more
-> sense. I haven't looked into what changes would be required in DRM
-> sched, though; hopefully it wouldn't be too messy.
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> index 3d13f61d3c97..a8d841421a0b 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
+> @@ -55,6 +55,24 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info = {
+>  	.mode_clock_max = 83500,
+>  };
+>  
+> +static const struct rzg2l_du_device_info rzg2l_du_r9a08g046_info = {
+> +	.channels_mask = BIT(0),
+> +	.routes = {
+> +		[RZG2L_DU_OUTPUT_DSI0] = {
+> +			.possible_outputs = BIT(0),
+> +			.port = 0,
+> +		},
+> +		[RZG2L_DU_OUTPUT_DPAD0] = {
+> +			.possible_outputs = BIT(0),
+> +			.port = 1,
+> +		},
+> +		[RZG2L_DU_OUTPUT_LVDS0] = {
+> +			.possible_outputs = BIT(0),
+> +			.port = 2,
+> +		},
+> +	},
+> +};
+> +
+>  static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
+>  	.channels_mask = BIT(0),
+>  	.routes = {
+> @@ -81,6 +99,7 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
+>  static const struct of_device_id rzg2l_du_of_table[] = {
+>  	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
+>  	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
+> +	{ .compatible = "renesas,r9a08g046-du", .data = &rzg2l_du_r9a08g046_info },
+>  	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
+>  	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
+>  	{ /* sentinel */ }
+> @@ -92,7 +111,8 @@ const char *rzg2l_du_output_name(enum rzg2l_du_output output)
+>  {
+>  	static const char * const names[] = {
+>  		[RZG2L_DU_OUTPUT_DSI0] = "DSI0",
+> -		[RZG2L_DU_OUTPUT_DPAD0] = "DPAD0"
+> +		[RZG2L_DU_OUTPUT_DPAD0] = "DPAD0",
+> +		[RZG2L_DU_OUTPUT_LVDS0] = "LVDS0"
+>  	};
+>  
+>  	if (output >= ARRAY_SIZE(names))
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> index baf076d69cda..0b86c5a01210 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> @@ -21,10 +21,12 @@ struct device;
+>  struct drm_property;
+>  
+>  #define RZG2L_DU_FEATURE_DPIO_OE	BIT(0)	/* Has DPIO output enable control */
+> +#define RZG2L_DU_FEATURE_SMUX2_DSI_CLK	BIT(1)	/* Per output mux */
+
+This is not needed, we decide to move setting clock duty cycle handling into
+encoder driver.
+
+>  
+>  enum rzg2l_du_output {
+>  	RZG2L_DU_OUTPUT_DSI0,
+>  	RZG2L_DU_OUTPUT_DPAD0,
+> +	RZG2L_DU_OUTPUT_LVDS0,
+>  	RZG2L_DU_OUTPUT_MAX,
+>  };
+>  
+> @@ -61,6 +63,7 @@ struct rzg2l_du_device_info {
+>  #define RZG2L_DU_MAX_CRTCS		1
+>  #define RZG2L_DU_MAX_VSPS		1
+>  #define RZG2L_DU_MAX_DSI		1
+> +#define RZG2L_DU_MAX_LVDS		1
+
+This is not used, please remove.
+
+>  
+>  struct rzg2l_du_device {
+>  	struct device *dev;
+> @@ -74,6 +77,7 @@ struct rzg2l_du_device {
+>  	unsigned int num_crtcs;
+>  
+>  	struct rzg2l_du_vsp vsps[RZG2L_DU_MAX_VSPS];
+> +	struct drm_bridge *lvds[RZG2L_DU_MAX_LVDS];
+
+Same here.
+
+>  };
+>  
+>  static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_device *dev)
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> index f50d166b764f..7315d437c2ea 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
+> @@ -105,6 +105,9 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
+>  			return -EPROBE_DEFER;
+>  	}
+>  
+> +	if (output == RZG2L_DU_OUTPUT_LVDS0)
+> +		rcdu->lvds[output - RZG2L_DU_OUTPUT_LVDS0] = bridge;
+> +
+
+Same here.
+
+>  	dev_dbg(rcdu->dev, "initializing encoder %pOF for output %s\n",
+>  		enc_node, rzg2l_du_output_name(output));
+>  
+> @@ -115,6 +118,7 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
+>  		return PTR_ERR(renc);
+>  
+>  	renc->output = output;
+> +	renc->rcdu = rcdu;
+
+Same.
+
+>  	drm_encoder_helper_add(&renc->base, &rzg2l_du_encoder_helper_funcs);
+>  
+>  	/* Attach the bridge to the encoder. */
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
+> index 3e430c1f6132..8b048ca508be 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
+> @@ -17,6 +17,7 @@ struct rzg2l_du_device;
+>  
+>  struct rzg2l_du_encoder {
+>  	struct drm_encoder base;
+> +	struct rzg2l_du_device *rcdu;
+
+Same.
+
+Thanks.
+
+Kind Regards,
+Tommaso
+
+>  	enum rzg2l_du_output output;
+>  };
+>  
+> -- 
+> 2.43.0
 > 
-> Of course, kthreads are now directly exposed to userspace, but this
-> would be limited to privileged userspace with FIFO scheduling
-> capabilities, which seems reasonable. Additionally, this approach does
-> not require the kind of large paradigm shifts proposed by this series.
-
-This sounds plausible and TBH I also considered worker duality. If you 
-look at my series I wrap everything to drm_sched_work and 
-drm_sched_worker so drivers do not even have to know what is the 
-underlying implementation.
-
-It is definitely true this solution would simplify the implementation, 
-as you say, problem of thread explosion is limited to RT tasks so 
-basically a non-issue. And the need to create own worker pool 
-implementation also goes away.
-
-Why I was unsure about deciding at drm_sched_init time is a) runtime 
-priority changes, but perhaps that is not such a big deal and we could 
-live with a static setup, and b) the priority inversion problems 
-relating to other workqueues used by various drivers (like the panthor 
-issue Boris raised).
-
-Or we can cap the number of workqueues to some reasonable number and 
-then Tejun maybe can give us RT workers. There are many options on the 
-table so lets see how to discussion develops.
-
-Regards,
-
-Tvrtko
-
-> [1] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/drm-dep-rebase-7-6
-> [2] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/fdc38e4acefc9327637fd818b5b91fd6b2a6198f?file_path=include%2Fdrm%2Fdrm_dep.h#line_99bf000ae_A178
-> [3] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/f1483af15747a2d5d73262d2cdfc9b616230c5d9
-> 
->> DRM dep has this built in without any of that complexity. I'm hoping to
->> get around to rebasing it soon, but of course there's always something
->> else to work on. Sooner or later, it will get rebased, and Xe will move
->> over to it given the latency and power-saving benefits I observed. Given
->> power savings, I'd think drivers for ARM based phones would be pretty
->> keen on moving over too.
->>
->>  From an architecture point of view, bypass is the ultimate win because
->> the context switch is completely avoided. Again, this is primarily for
->> compositor use cases, since they do not wait on fences.
->>
->> Also, in general, if Panthor selects PANTHOR_GROUP_PRIORITY_REALTIME, it
->> would be very odd to pass in fences. The RT priority then depends on
->> other work completing before the RT job can be scheduled, which
->> seemingly defeats the purpose of having RT priority in the first place.
->>
->>>>> similar. Another good quote for the above issue, explaining the consequence of
->>>>> CPU starvation of the submit path, is this:
->>>>>
->>>>> """
->>>>> As a result, vkQueueWaitIdle blocks for 9.5ms for a gpu job that takes 4.5ms
->>>>> gpu time.
->>>>> """
->>>>
->>>> More details here?
->>>
->>> This just illustrates how long can the workqueue wait for it's slice on the
->>> CPU if the cores are loaded with other tasks. In other words, how long since
->>> job is runnable to it actually being passed to the GPU.
->>>
->>
->> Yes. I do wonder if this is an Android quirk, though. While working on
->> some MM-related Android issues, I noticed it has quite a few quirks.
->>
->> I've done a lot of profiling around workqueues in Xe (submission, page
->> faults, resuming after preempt fences, etc.), and I've seen latency
->> spikes of perhaps 10–20 µs, but never anything on the millisecond scale
->> on Linux.
->>
->> I also recently fixed a workqueue bug [1] that showed up fairly often on
->> Android. In that case, workqueues could stop scheduling under the right
->> conditions. If I recall correctly, a flush_work() could get the work
->> item unstuck. It might be worth looking into whether that helps here.
->>
->> [1] https://patchwork.freedesktop.org/series/164199/
->>
->>>>> DRM scheduler was originally using kthreads but was converted workqueues due
->>>>> desire by xe to create thousands of schedulers. This series also questions
->>>>> whether that was needed, given how the submission is serialized by a device
->>>>> global lock (per GT, so almost device global). Panthor has a similar situation;
->>>>> hence the series contains two patches to move those two to a setup which matches
->>>>> the design of those drivers.
->>>>>
->>>>> Other drivers, like for example amdgpu, v3d, etnaviv etc, which use the
->>>>> scheduler as a hardware scheduler, where number of instances follow the number
->>>>> of hardware blocks instead the number of userspace contexts, are completely
->>>>> fine.
->>>>>
->>>>> There are use cases however which do currently track the number of userspace
->>>>> contexts and which do allow for more parallelism. For those a straight
->>>>> kthread_work conversion would be a problem due an explosion in number of
->>>>> threads.
->>>>>
->>>>> The most direct example is panthor VM bind queue which creates a scheduler per
->>>>> userspace context and relies on work queue concurrency management to keep the
->>>>> number of threads in check.
->>>>>
->>>>> This creates a challenge for the kthread_work conversion. To solve which I for
->>>>> now opted to create a trivial round-robin thread pool. For the RFC this is
->>>>> limited to four CPU threads and is something which will need to be discussed.
->>>>
->>>> 4 CPU threads per device, per drm sched module?
->>>
->>> 4 CPU threads per drm_sched_create_concurrent_worker(). So depends on the
->>
->> Ugh, that is a pretty ugly API.
->>
->> Matt
->>
->>> driver how it wants to use it. For xe there are no usages of that, albeit
->>> you say single thread is not workable, we can discuss that in the other
->>> sub-thread. For panthor this RFC uses that flavour of the worker for the VM
->>> bind queues and in that case it is 4 CPU threads per device which handle VM
->>> bind requests from all userspace clients.
->>>
->>> Regards,
->>>
->>> Tvrtko
->>>
->>>>
->>>> I have more questions but let's get some clarification first.
->>>>
->>>> Matt
->>>>
->>>>> Ie. how much parallelsim those really need. The true answer is somewhere between
->>>>> "at most the number of active userspace contexts and the number of CPU cores".
->>>>> Or it could be less than that, since after all, VM BIND parallelism is
->>>>> eventually going to choke on a narrower gate of actual GPU execution. We could
->>>>> also allow drivers to pick their number.
->>>>>
->>>>> In terms of how I implemented priority inheritance, the most important
->>>>> characteristic is that it is temporary. As many userspace clients may be
->>>>> submitting to a single DRM scheduler instance, a generic solution is to only
->>>>> elevate the submission worker priority while there are active high priority
->>>>> submitters. The mechanism is light weight and has a hysteresis built in to avoid
->>>>> frequent scheduler operations.
->>>>>
->>>>> That's pretty much it for now apart for an important detail that this RFC will
->>>>> not build for all drivers! Out of those which directly use the DRM scheduler
->>>>> APIs changed, I converted only panthor and xe. Amdgpu will also work by the way.
->>>>> Others I have not tried to build.
->>>>>
->>>>> Cc: Boris Brezillon <boris.brezillon@collabora.com>
->>>>> Cc: Steven Price <steven.price@arm.com>
->>>>> Cc: Liviu Dudau <liviu.dudau@arm.com>
->>>>> Cc: Chia-I Wu <olvaffe@gmail.com>
->>>>> Cc: Danilo Krummrich <dakr@kernel.org>
->>>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>>> Cc: Philipp Stanner <phasta@kernel.org>
->>>>>
->>>>> Tvrtko Ursulin (8):
->>>>>     drm/panthor: Remove redundant drm_sched_job_cleanup() from the
->>>>>       .free_job callback
->>>>>     drm/panthor: Use separate workqueue for DRM scheduler
->>>>>     drm/sched: Use generic naming for workqueue helpers
->>>>>     drm/xe: Convert to per gt scheduler workers
->>>>>     drm: Wrap DRM scheduler worker in own abstraction
->>>>>     drm/sched: Convert the scheduler job submission to kthread_worker
->>>>>     drm/sched: Add ability to change drm_sched_worker priority
->>>>>     drm/sched: Notify worker of the entity submission priority
->>>>>
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   8 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |   4 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |   4 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |   2 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    |   8 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     |   8 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c     |   2 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c     |   4 +-
->>>>>    drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c     |   4 +-
->>>>>    drivers/gpu/drm/msm/adreno/adreno_device.c  |   4 +-
->>>>>    drivers/gpu/drm/panthor/panthor_mmu.c       |  20 +-
->>>>>    drivers/gpu/drm/panthor/panthor_sched.c     |  23 ++-
->>>>>    drivers/gpu/drm/scheduler/sched_entity.c    |   3 +
->>>>>    drivers/gpu/drm/scheduler/sched_main.c      | 168 +++++++++++-----
->>>>>    drivers/gpu/drm/scheduler/sched_rq.c        | 202 ++++++++++++++++++++
->>>>>    drivers/gpu/drm/xe/xe_dep_scheduler.c       |   6 +-
->>>>>    drivers/gpu/drm/xe/xe_dep_scheduler.h       |   6 +-
->>>>>    drivers/gpu/drm/xe/xe_exec_queue.c          |   6 +-
->>>>>    drivers/gpu/drm/xe/xe_gpu_scheduler.c       |  21 +-
->>>>>    drivers/gpu/drm/xe/xe_gpu_scheduler.h       |   2 +-
->>>>>    drivers/gpu/drm/xe/xe_gpu_scheduler_types.h |   2 +-
->>>>>    drivers/gpu/drm/xe/xe_gt.c                  |   7 +
->>>>>    drivers/gpu/drm/xe/xe_gt_types.h            |   3 +
->>>>>    drivers/gpu/drm/xe/xe_guc_submit.c          |  18 +-
->>>>>    drivers/gpu/drm/xe/xe_tlb_inval.c           |  14 +-
->>>>>    drivers/gpu/drm/xe/xe_tlb_inval_types.h     |   5 +-
->>>>>    include/drm/gpu_scheduler.h                 | 131 ++++++++++++-
->>>>>    27 files changed, 551 insertions(+), 134 deletions(-)
->>>>>
->>>>> -- 
->>>>> 2.54.0
->>>
-
