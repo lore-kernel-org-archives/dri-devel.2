@@ -4,139 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4EF8C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 19:40:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1512EC44501
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 19:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3E2210F257;
-	Wed,  8 Jul 2026 19:40:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFD910F260;
+	Wed,  8 Jul 2026 19:44:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="afMhst9R";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WRT2Bnpc";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013038.outbound.protection.outlook.com [40.107.159.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04CF010F257
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 19:40:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SUD3GWvB7YTCZKq0uBshT9fYYh/5+Hx4qrXuRVgmb0czdNAFXQPKhPOScssxngrcVjRif2ZIfD0uFcrdEyq+F5725A3F2l9P8CcGejcfCLFufX4FTCVLUbDNGsnCCRDKIXGswtTJ23XfFTYtTlaa4Uy/jRVX1e5Dsa0KRNB/B7U9fxPmSfDWpc2c9dSX+7SHMwOAKLwDQT61/DveLEgWutsbAzuHfJoNX0B/YY1PM3wLmCWW//m95HcHdbTFhtC2GkJ98U2kdDsNsaLqzutPFqJcwzzNkkBJTqS2dFGodPtumAnx/J8gsHuuYIodr1E00Ijva9xf0273SnqU/EKmRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2b9WfmhokkM2Ox6I+BLF+kHKEb+Mw0dUlnPTgkMPa4Y=;
- b=fb17lC2X8XfJMiKI4B8MWU8sLMJWAvonac+8ewmQXdHvjVBK8zW4epGgaSUb4sN4fRIR7Tod9TaoyJWy91I/RpOXNLb4K42hcGehnCzBafDBjx5W3p5XEx1ZRQB8ZFLMkNBIjFvMnBb01Ui4Jj1Df54H7c3FJfxCHfKwL+mMcKr07VVYLOuD6+aYl5TS5O81xcgAV166KTZX+RD+U0iY6q4QJ7Y8SnSsQwpG1jPZofAATPAY+N0zD1nXa33bT7cM0I7dPUmAY20aDkrMj3wjkala1KLPze8VLL3cooSP2ebssSazLT95OOlCVEYt4IRGpFSIZgqR78WSYEM4v8vBXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2b9WfmhokkM2Ox6I+BLF+kHKEb+Mw0dUlnPTgkMPa4Y=;
- b=afMhst9RLzgZJcb1xfQmlBWLMu5soiS4jAYjWQZd0DvzUKW+MTT5BMSozc1dhcX8hjRJTmtJ2RyhASiYvnHPRrixbd9W1cCDvzMePb3tAdhVrc4Z7EAqav4MOtD7lUKe1RHORzY0tH3kQ+8zdyFhQD4BfxAhqYUPReEGSaMHM+KEk3bTE7VinewdzdhG5nm8OBZgmtbACJ6K/0NniBBbJ9baTet56xNAfJpGLyTtjj9rsnGE39JIjT3FIdgT3WNVUhEEs5p4+nq1qu2KWXQfy/wEDgPpdFB4t9OOf/w7+SoKiP6tbkUKltr072TP5UIBHC4YOMC0/TFr0XuxjJC4Uw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS5PR04MB11465.eurprd04.prod.outlook.com (2603:10a6:20b:6c2::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 19:40:08 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 8 Jul 2026
- 19:40:08 +0000
-From: Frank.Li@oss.nxp.com
-Date: Wed, 08 Jul 2026 15:39:52 -0400
-Subject: [PATCH 2/2] ARM: dts: ls1021a-iot: rename display@0 to display0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-ls-dts-display-v1-2-1986b2611895@nxp.com>
-References: <20260708-ls-dts-display-v1-0-1986b2611895@nxp.com>
-In-Reply-To: <20260708-ls-dts-display-v1-0-1986b2611895@nxp.com>
-To: Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- imx@lists.linux.dev, vladimir.oltean@nxp.com, ioana.ciornei@nxp.com, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783539593; l=1327;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=j/dMvugCgLP24DzGvgUdGJE3YrQeulJ0DqsTIpeKndo=;
- b=3scRRSWD6oJZYdT47u22So9JvkJUR7CNmfJUkx0asIczV5RcJ/8WtFgsMKR/GCVE57H+ulvMo
- qUjhn8jHCcuB1gRuy/O7jJUQ/MEMVeTNRFLPxj+RdOuf8QuxscSlQiW
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: SA0PR11CA0185.namprd11.prod.outlook.com
- (2603:10b6:806:1bc::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7430910F265;
+ Wed,  8 Jul 2026 19:44:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=rZRUp0WSbipr+dsFrfFGkqzwHeopNNaJ9Iamc/7LTJs=; b=WRT2BnpcVPJYIopXU+VbXc+QbE
+ bag4E3CNtiuqaZh2tIT371t3VuWrAG2IUyspp7J6Q+t+a54Xhag2gA4SLGhMOagBRoZ7RTmj+BnLk
+ N3khmrHeYIOtAJBFm66puhnG6Thyo6nOLvAmn2NTe68c4eVuWi8UpRo1GLi9YLMg5PhZBKeohup2v
+ PWSJijU02JWHmAc2CbQh9DjSwpd/I8CjSB/tWpSs7F76aclCfXLP+qEwpRp1v/eN26IdGDDCD1N/y
+ Ji32qfL6Pdt3EsODYSQWYJxcQJGtHCBtoZd/V4yPNWY43I2Sgd391aeZX0mjNrkkI7qlTBsqpMel1
+ dYuLbESg==;
+Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
+ helo=killbill) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1whYBP-00BtrH-BB; Wed, 08 Jul 2026 21:43:47 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
+ "Nicolas F . R . A . Prado" <nfraprado@collabora.com>,
+ Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Robert Mader <robert.mader@collabora.com>, Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ John Harrison <John.Harrison@Igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Subject: [RFC PATCH 00/19] drm/drm_colorop: add post-blend colorop support to
+ AMD display driver
+Date: Wed,  8 Jul 2026 21:37:15 +0200
+Message-ID: <20260708194343.2578387-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS5PR04MB11465:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95d6e21a-2a22-4f22-5966-08dedd28b74b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|19092799006|23010399003|1800799024|366016|921020|18002099003|22082099003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: 9yZcDNb7g720zu6EAPVgGOHalJKhF5Slu8GqoAn3o8Ecvq5pijGsMohQ8YKr/emdEEaKe+zoqb0Lx/S+rrZ7ET4vZ3tmIDGEUlCcuVhWjPlea94l0V3RezEcj5bWLGOVXIn31a3SgEi7RliuGNOB/+na76vnqjJ/7XUDY84D7YJ+ZzZYfFsbWFz5kcUrXTUCxPkv70hwurxi1oAx8OhS9jjH7FSTm4pobFZyYOHRIIlt9+1RyN8ujpP2QUgf4rZGMmfLp0QrN/EPNjBGDBDXH2OVy8Rp0/14YZl+DJVD86g27gW35pQaxv5fQM67aSPPVT4tDe2yWWL6SGeRM++0yGEyk5RtoBGVCkplRveeaoEoXIbY0PqEiats9m7V+C6VR4c9rQQsdgOi7QMnrtptPeMN2p9TRq2DTBPXt0NyC3N2LusZqJp5ahwB6UMzskac+lAUnOI4JxGX8LGJ+htNHKdcf7XExX2RL7HQmDiH/5VoS+0CN/0/TdAwSF6xjCmUw3mlyNFceLxkjAnJgRXyM4rF4qaUxizvTWi+eQkwONoj1F6BCZnOvPP2TTuGNKx6BwMP48f1f5uwuDcLUR1kkWKC9W2RSUMzNIjuUkqepLl1NfKhvy5l97TPPKGAsrCu7mhyoBsnZLSEaHZFbGIx/iT1t9IE2cUsPJ+knrutCvwknMGYfffX7VLZwiPNoxrzN0PzrJsQfWZ+Fr5Jd2fVpw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(19092799006)(23010399003)(1800799024)(366016)(921020)(18002099003)(22082099003)(11063799006)(56012099006)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEhrVmZONUJLTlBFdmh4NnQ3VVd4cFg4M1JWUFJNM3FVMGVQMGZyWjlra3ZC?=
- =?utf-8?B?dDE2eDRJV3NNYXpJZ1hxQ3k2Rm9wSUFFeVNHNlUwcWpZRVk2NjdzOGN4VG12?=
- =?utf-8?B?c1dvbXd6Mm9pdmVqTkZXZXVJODJKK3F3aFVQTFNuUmZRZ2NyaWNDUFRIWXN5?=
- =?utf-8?B?aWtUOVVrQUNzSGU3dHp4dFhpZEZUa2pOQUVJSHliSWRoSG5HL2hsYkFZMkQr?=
- =?utf-8?B?MERmWWJmZ0c0em00bE9YSk5uQ3J4aFdSQ20rOGtCbGNtZG9IZTkwWHJjQVhJ?=
- =?utf-8?B?ekdjWWVZeWFoQ3E0TGtyUlhOLzBxMDNrenJqZnU1eGFyYUZ0ZEdYME8yUDRw?=
- =?utf-8?B?YTFEc3I1Vno4NmhNcEYwaHR5MTdkR2VMelBQd2FSSlBSMDZWTWZvcjU2N3hO?=
- =?utf-8?B?NHFWK3JacjZTczR0WVpRSitLMW1wbkhtUXZLaDJEWGhoTkRsb1BPL2VmR3RM?=
- =?utf-8?B?emtKWm5WbWFjaHFOYzZQVWF2bHVMemZtU1NLOS9mTlJuM2VMc2wwQ3NWenJo?=
- =?utf-8?B?cVQ2VndZQnpBcmQxZGE1dVRUamcyY0JMbEVlVVRaTnYrQzEvZjZyMzJnWXN4?=
- =?utf-8?B?a01FRXpSdGt2OFJSWjR3ejZ4cUdxUzFVTkNObi9KR0tQOWxSV0lDL2h5SDNR?=
- =?utf-8?B?UjROVXoxYVQ4Qk5uOFREVTlhRHR2c1JuNzlleGtNNEw4V200dytKQ3lzUE1Q?=
- =?utf-8?B?cGFGUnh1V1lDTlJUNkhYVGRvZXdOZzNjbURtVVdweFp0bGE1VlZ5bVczM043?=
- =?utf-8?B?bWR6OHdvMk4zbmRURWdPbWtRTWRKUHZROG9ZZXFjQitRdk1PekNMbThTTzY3?=
- =?utf-8?B?dW5RTnhhSDkxR2IzM0xUZGlhVGNGRUhDTk9rTjFzMW04bVlyRE1IV3RzZWd0?=
- =?utf-8?B?MXlUM3lVOTd4bGUwdy9IUnNYRUUrMmI3UmF5cytZd3lFTStQRUdqeFEyQnZR?=
- =?utf-8?B?TDdGcldpUHhQY29qRmxjbE1XcmpXb2tRQ2hpTWxWeGNONC9kU3Z6bFBMTk0r?=
- =?utf-8?B?cHRtZUxQTlZkUUFabk4rN0IwOXJvakFTeG8wN3p4K2ZISmZDVzdWcFhoMFY5?=
- =?utf-8?B?WWRlWUFzMGtwYzFJUWFWcG5TR3ErMmhJWmgwZml1L210Tm5BVm9wVjFTWm04?=
- =?utf-8?B?UHBFaXgxcHgyT3J6akI1ekJRTXZra0NLeXR5dXMxRi8xVWVLMXBvUk5uMnY2?=
- =?utf-8?B?Zko3YTZKOWlVMkd4VjFIbWJ1a2c4MTdzY0NpVkVqUmFGQlk4OUFxek16ekhI?=
- =?utf-8?B?Wm1xbHpRMTMrVCttb0ticld5ajJPQVJZZzdSNnpLVGxFem9aMXllWnZBbjhh?=
- =?utf-8?B?R3E2Ry82SklzWHpqbVo4Mld3NzQ3NjZxVUl4ZHZZTjhhcXpOK2JNbzJRVEYw?=
- =?utf-8?B?QWRkVFZxYTQ0T1dlaVFuTWZ4TDJuZHNmWG1TRGZySzhCQkRHclo0akF0UHRZ?=
- =?utf-8?B?NTZBMXpEdVA2NW8zdnBxaFIxUzVqRjI0cXRMNDB1WDNYaTQ2bTdnTnlMcHlr?=
- =?utf-8?B?aTBLQkJIMHFoUXA3ellIN0t5cU9VTWFWR1pncFF0U1o4dUxzZDZ6MlluTVhX?=
- =?utf-8?B?VTNMVUk1UlpEdUt3M3Y4YkdtMmNTYUdSejRPVmYwQ0g4bC9ZbFRQdllQNENs?=
- =?utf-8?B?cTNkU3NCNWxKZDNVaHYwRTRBRkxjQVhHODVYUjRURkFvVDlSZ05mQ20rU3Jj?=
- =?utf-8?B?cEZaZzROcE9RODhobDBaMnVzYS9FOVdKVWx4ODBGcmlHSFRUOFJzK0I5Y3Ey?=
- =?utf-8?B?Q2JyTld0azMwM1orcXVFelEvVWlJT2wrSzdJRm5Xb0cvcGlLT2ZGRm94WDIw?=
- =?utf-8?B?TUQrWHp6d08rS0RrUGxNWVI3emRuMDJSS0RzLzV1ZngzUU9GZkZhUUhFbzdU?=
- =?utf-8?B?ZnV0QXY2RnNyQ3VPTGJ1cGJDaEFiNnAvckltTGgzd0JiVitJVE9sOGg5RHI2?=
- =?utf-8?B?S0h0U3dvcmxoRzc4TVlpUUt1VTFGMXVpL3pYWGJFN1pmaFZKanZIblpKanBH?=
- =?utf-8?B?cWszd0tadlRQT3pISkwza2VsMnp0eVc3MmpjeWlYajNnaktST3g5cUNhNUhF?=
- =?utf-8?B?bHRmQjhEVEZocjdISU1JL25FdktQQ1psQlpHR2lwNWhocHFKaHd0OGt4VzhE?=
- =?utf-8?B?NTJ6a2Q5N0JDVFM4NWl2bVFYRXFUbWxuQlBxdk1UdkR4NGo0WGtKOGxJQVFW?=
- =?utf-8?B?WHU0Sm1hMGJBTUpMVThKVlNHQkx5Y29SZlpWY2NIbXhIOFdNV1hqQTYzWVF3?=
- =?utf-8?B?RGMwRG1YR28zaXBBYUM4Z001dWpaU00zTEJnZWhoVkVGelhpMVdJN0IyRXJt?=
- =?utf-8?B?QllYbVZwQ3ByTHd4aDZuM2dqOTBDS2tzZWZ6UVdTejBwSCtHTFUzVGczY2xP?=
- =?utf-8?Q?RITJpZSlLCgGcST18tZPW1Lt6BLHyu1x9DtaU?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95d6e21a-2a22-4f22-5966-08dedd28b74b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 19:40:07.9838 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RvGqfSAjha6P33VeAWv82NtPOLyIwB7VyxTHI8KDWxqo9N0RIsqJwLuLo+CU+RMHFAkntltkqXaeM5kTQd4++4rzoWlR92/MZMH6RyXCa6fZTFaqRfnM9i9XKBDM8BZ8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB11465
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,44 +69,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Frank Li <Frank.Li@nxp.com>
+Hey,
 
-Rename node name display@0 to display0 since no reg under it. Rename mode0
-to timing0.
+I have been working on gamescope migration from AMD driver-specific
+color props to KMS colorop API [1] and, with the fixed-matrix
+replacement for COLOR_ENCODING and COLOR_RANGE[2], the only missing
+color prop was the CRTC AMD REGAMMA TF (the 1D Curve). I worked on top
+of Ariel&Nícolas proposal for post-blend colorop API [3], discarding
+patches for DRM_CAP_CRTC_COLOR_PIPELINE driver cap flag, as commented in
+this year Linux Display Hackfest, and exposed AMD post-blend colorop
+pipeline with CTM -> 1D Curve -> 1D LUT, since post-blend Degamma is not
+actually supported by AMD (even though there is a workaround for enable
+it in CRTC color mgmt properties).
 
-Fix below CHECK_DTBS warnings:
+I've not worked on the gamescope part yet, but decided to share it
+upstream to check if it makes sense and I'm in the right path. This
+series doesn't take into account the inactive color pipeline work I've
+been doing for plane color pipeline. The plan is to apply a similar
+approach post-blend when we agree that the plane series is correct.
 
-arch/arm/boot/dts/nxp/ls/ls1021a-iot.dtb: dcu@2ce0000 (fsl,ls1021a-dcu): 'display', 'display@0' do not match any of the regexes: '^pinctrl-[0-9]+$'
-        from schema $id: http://devicetree.org/schemas/display/fsl,ls1021a-dcu.yaml
-arch/arm/boot/dts/nxp/ls/ls1021a-iot.dtb: display-timings: 'mode0' does not match any of the regexes: '^pinctrl-[0-9]+$', '^timing'
-        from schema $id: http://devicetree.org/schemas/display/panel/display-timings.yaml
+- Patch 1-12 are Ariel&Nicolas work for DRM post-blend colorop support
+- Patch 13 completes deprecation of CRTC color mgmt properties if
+  post-blend color pipeline is enabled by hiding them;
+- Patch 14 applies the same bug fix logic as Robert did to guard plane
+  client cap[4];
+- Patch 15-19 add support to post-blend colorop API on AMD driver based
+  on plane colorop work.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm/boot/dts/nxp/ls/ls1021a-iot.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Just adding `DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE` to `drm_info`, I got
+this CRTC color pipeline structure on Steam Deck with this series:
 
-diff --git a/arch/arm/boot/dts/nxp/ls/ls1021a-iot.dts b/arch/arm/boot/dts/nxp/ls/ls1021a-iot.dts
-index e13ccae629a71..07b01434fc047 100644
---- a/arch/arm/boot/dts/nxp/ls/ls1021a-iot.dts
-+++ b/arch/arm/boot/dts/nxp/ls/ls1021a-iot.dts
-@@ -82,13 +82,13 @@ &dcu {
- 	display = <&display>;
- 	status = "okay";
+├───CRTC 0
+│   ├───Object ID: 399
+│   ├───Legacy info
+│   │   ├───Mode: 800×1280@90.00 preferred driver phsync pvsync 
+│   │   └───Gamma size: 256
+│   └───Properties
+│       ├───"ACTIVE" (atomic): range [0, 1] = 1
+│       ├───"MODE_ID" (atomic): blob = 512
+│       │   └───800×1280@90.00 preferred driver phsync pvsync 
+│       ├───"OUT_FENCE_PTR" (atomic): range [0, UINT64_MAX] = 0
+│       ├───"VRR_ENABLED": range [0, 1] = 0
+│       └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 400} = Bypass
+│           ├───Bypass
+│           └───Color Pipeline 400
+│               ├───Color Operation 400
+│               │   └───Properties
+│               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 3x4 Matrix
+│               │       ├───"BYPASS" (atomic): range [0, 1] = 1
+│               │       ├───"NEXT" (atomic, immutable): object colorop = 405
+│               │       └───"DATA" (atomic): blob = 0
+│               ├───Color Operation 405
+│               │   └───Properties
+│               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
+│               │       ├───"BYPASS" (atomic): range [0, 1] = 1
+│               │       ├───"NEXT" (atomic, immutable): object colorop = 410
+│               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB Inverse EOTF, PQ 125 Inverse EOTF, BT.2020 OETF, Gamma 2.2 Inverse, Gamma 2.4 Inverse, Gamma 2.6 Inverse} = sRGB Inverse EOTF
+│               └───Color Operation 410
+│                   └───Properties
+│                       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D LUT
+│                       ├───"BYPASS" (atomic): range [0, 1] = 1
+│                       ├───"NEXT" (atomic, immutable): object colorop = 0
+│                       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 4096
+│                       ├───"LUT1D_INTERPOLATION": enum {Linear} = Linear
+│                       └───"DATA" (atomic): blob = 0
+
+Testing still pending.
+
+FWIW, here is the `drm_info` diff:
+
+diff --git a/drm_info.h b/drm_info.h
+index e61fda7..f7f2017 100644
+--- a/drm_info.h
++++ b/drm_info.h
+@@ -21,5 +21,6 @@ enum {
+ /* Remove after updating libdrm */
+ #define DRM_MODE_OBJECT_COLOROP 0xfafafafa
+ #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE    7
++#define DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE     8
  
--	display: display@0 {
-+	display: display0 {
- 		bits-per-pixel = <24>;
- 
- 		display-timings {
- 			native-mode = <&timing0>;
- 
--			timing0: mode0 {
-+			timing0: timing0 {
- 				clock-frequency = <25000000>;
- 				hactive = <640>;
- 				vactive = <480>;
+ #endif
+diff --git a/json.c b/json.c
+index c9f8c72..b2c306b 100644
+--- a/json.c
++++ b/json.c
+@@ -29,6 +29,7 @@ static const struct {
+        { "WRITEBACK_CONNECTORS", DRM_CLIENT_CAP_WRITEBACK_CONNECTORS },
+        { "CURSOR_PLANE_HOTSPOT", DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT },
+        { "PLANE_COLOR_PIPELINE", DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE },
++       { "CRTC_COLOR_PIPELINE", DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE },
+ };
+
+
+[1] https://github.com/ValveSoftware/gamescope/pull/2113
+[2] https://lore.kernel.org/dri-devel/20260623164812.81110-2-harry.wentland@amd.com/
+[3] https://lore.kernel.org/dri-devel/20251223-mtk-post-blend-color-pipeline-v3-0-7d969f9a37a0@collabora.com/
+[4] https://lore.kernel.org/dri-devel/20260703073230.19982-1-robert.mader@collabora.com/
+
+Let me know your thoughts!
+
+Melissa
+
+Ariel D'Alessandro (2):
+  drm: Add helper to extract a 3x4 matrix from any CTM matrix dimensions
+  drm: Add helper to extract a LUT entry from either 16-bit or 32-bit
+    LUT
+
+Melissa Wen (7):
+  drm/drm_mode_object: hide deprecated CRTC color mgmt props if colorop
+    is set
+  drm/drm_ioctl: guard DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
+  drm/amd/display: add support to post-blend CTM colorop
+  drm/amd/display: add support to post-blend 1D-Curve colorop
+  drm/amd/display: add support to post-blend 1D-LUT colorop
+  drm/amd/display: move CRTC CTM color mgmt prop to check helper
+  drm/amd/display: enable post-blend colorop properties
+
+Nícolas F. R. A. Prado (10):
+  drm/crtc: Add color pipeline to CRTC state
+  drm/colorop: Allow parenting colorop to CRTC
+  drm: Factor out common color_pipeline property initialization code
+  drm/crtc: Add COLOR_PIPELINE property
+  drm: Introduce DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
+  drm/atomic: Pass crtc_color_pipeline client cap to atomic check
+  drm/atomic: Print the color pipeline as part of the CRTC state print
+  drm/colorop: Factor out common paths from colorops helpers
+  drm/colorop: Introduce colorop helpers for crtc
+  drm/crtc: Track crtc color pipeline client cap in drm_crtc_state
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 250 +++++++++++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  76 +++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   2 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  42 +++
+ drivers/gpu/drm/drm_atomic.c                  |   9 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |  72 ++++-
+ drivers/gpu/drm/drm_colorop.c                 | 282 ++++++++++++++----
+ drivers/gpu/drm/drm_connector.c               |   1 +
+ drivers/gpu/drm/drm_crtc.c                    |  31 ++
+ drivers/gpu/drm/drm_crtc_internal.h           |   1 +
+ drivers/gpu/drm/drm_ioctl.c                   |  20 ++
+ drivers/gpu/drm/drm_mode_object.c             |  18 ++
+ drivers/gpu/drm/drm_plane.c                   |  34 +--
+ drivers/gpu/drm/drm_property.c                |  44 +++
+ include/drm/drm_atomic.h                      |  20 ++
+ include/drm/drm_atomic_uapi.h                 |   2 +
+ include/drm/drm_color_mgmt.h                  |  61 ++++
+ include/drm/drm_colorop.h                     |  32 +-
+ include/drm/drm_crtc.h                        |  27 ++
+ include/drm/drm_file.h                        |   7 +
+ include/drm/drm_property.h                    |   5 +
+ include/uapi/drm/drm.h                        |  19 ++
+ 23 files changed, 920 insertions(+), 138 deletions(-)
 
 -- 
-2.43.0
+2.53.0
 
