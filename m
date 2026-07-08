@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8E3CC44503
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 22:13:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67419C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 22:15:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44BFD10F30C;
-	Wed,  8 Jul 2026 22:13:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D57A410F30E;
+	Wed,  8 Jul 2026 22:15:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QYRiQVVR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lJ5N/A7d";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDB010F30C
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:13:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2066F10F30E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:15:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C19E3601D9;
- Wed,  8 Jul 2026 22:13:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266FB1F000E9;
- Wed,  8 Jul 2026 22:13:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A3346001A;
+ Wed,  8 Jul 2026 22:15:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39551F000E9;
+ Wed,  8 Jul 2026 22:15:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783548782;
- bh=P/gg+CaCjmsXVBsMQxP0pFI2Lsw/Kd3DlGYTL4UIgv4=;
+ s=k20260515; t=1783548943;
+ bh=7DTJJU6TlX9Bg2RWnPOawNG7pfIEmDlVMYVPRfNZoVg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QYRiQVVRDyUfvVIOgc3053mNa3V4PN/KNZvNZrkeU+mDEmlv49d6SWMeOkhrLwYet
- s+pVLMHnBhdXAQFrQc/+0kSRX1Qo9cN/LkdHloJFFVKvjWfTeLPQ+hLIT2hIaCCkUU
- Hl3Wp2ti7zEm9LmPC70EW3o+h6ltFMwJlhV+Kd19bvMsxnIKynN5pf3W/IiNzifjby
- 5muTouUnDjsHFjLGZj5XMIAN+QaetXSzARHDwE4L1ZtLedbIdCn9GcKaH2QLKaf5UV
- nGzOhiGxrRs7Z6T353n5TJc1OXsRA/N5Mh/Am5iWpcDXNxdmqSGIsBIC03UHuE0wCk
- 4p06ESpYIHFqg==
+ b=lJ5N/A7d1GPYbKaAlGkZ+p5EzTNQN1W/0ZsotGYkRcNqJznxV9b868O51u5N/zsYM
+ Yr2oe4qhmUIcQ0L4y4LtxVDcx3Ri6/4qpn2W7xGISzJHoqx9rbjdQT22pYsxfVa708
+ tOdEB5x2Ja6J6QF5RAufbMDpb5FPsIONKGg/xxXr/GbQkVA8yN5en4KjO5tNrDs7eP
+ Og6oZ0KFkcOTXIB28HsYiJQng2V+L8BZAZsVlvk4RC4QTXL8IdWPdNQHOsXPyQl++4
+ IECXZ4lUMl1P/A5YTttJd581x2api0T2xTE8c6ApMpGcjE674C5j9JPMKxnlz5lobF
+ O8J3c6JkbrIIw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/14] drm/rockchip: dw_hdmi_qp: Support 10-bit
- YUV422 output format
+Subject: Re: [PATCH v3 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 output
+ format
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-12-a4a982a9f2e7@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-13-a4a982a9f2e7@collabora.com>
 References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
- <20260709-dw-hdmi-qp-yuv-v3-12-a4a982a9f2e7@collabora.com>
+ <20260709-dw-hdmi-qp-yuv-v3-13-a4a982a9f2e7@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 22:13:01 +0000
-Message-Id: <20260708221302.266FB1F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 22:15:41 +0000
+Message-Id: <20260708221542.C39551F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,64 +63,61 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The `atomic_check` callback unconditionally mutates global driver =
-state and configures hardware PHY, breaking DRM atomic design principles an=
-d corrupting state during `TEST_ONLY` commits.
+- [High] Modifying hardware or global driver state within atomic_check call=
+back.
 --
 
---- Patch [12]: [PATCH v3 12/14] drm/rockchip: dw_hdmi_qp: Support 10-bit Y=
-UV422 output format ---
-commit 4acf186e6f48344c73efb358bbf5b17c6a065aa5
+--- Patch [13]: [PATCH v3 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 ou=
+tput format ---
+commit 886f3880152ce2fc09e568484e921ca99dad89d4
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
+drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
 
-This commit adds support for 10-bit YUV422 output via the
-MEDIA_BUS_FMT_UYVY10_1X20 format. It also forces 8 bpc for the HDMI PHY
-configuration when YUV 4:2:2 is in use to keep the PHY PLL output aligned
-with the TMDS character rate.
+Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
+color format, and the required bus-format handling and VOP2 support are
+already in place.  Advertise it via the platform supported formats so
+the HDMI core can select it.
+
+YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
+high-resolution modes such as 4K@60Hz on links that cannot otherwise
+carry the full-bandwidth signal.
 
 > diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
 /drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 78473f9a0fce3..1af29066a0a31 100644
 > --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 > +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+
 [ ... ]
-> @@ -226,7 +227,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_=
-encoder *encoder,
->  	}
-> =20
->  	phy_cfg.hdmi.tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
-> -	phy_cfg.hdmi.bpc =3D conn_state->hdmi.output_bpc;
-> +	/*
-> +	 * YUV422 always transmits two 12-bit components per clock cycle,
-> +	 * regardless of the color depth, which from a rate perspective is
-> +	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
-> +	 * keep the PHY PLL output aligned with the TMDS character rate.
-> +	 */
-> +	phy_cfg.hdmi.bpc =3D (s->output_mode =3D=3D ROCKCHIP_OUT_MODE_YUV422 ?
-> +				8 : conn_state->hdmi.output_bpc);
-> =20
->  	ret =3D phy_configure(hdmi->phy, &phy_cfg);
->  	if (!ret) {
->  		hdmi->tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
 
 [Severity: High]
-This is a pre-existing issue, but does dw_hdmi_qp_rockchip_encoder_atomic_c=
-heck
-mutate active hardware state and global driver state during TEST_ONLY commi=
-ts?
+This isn't a bug introduced by this patch, but I noticed something concerni=
+ng
+in dw_hdmi_qp_rockchip_encoder_atomic_check() in this same file:
 
-Because atomic_check callbacks are executed when userspace issues a
-DRM_MODE_ATOMIC_TEST_ONLY ioctl to probe display configurations, calling
-phy_configure() here could actively alter the PHY hardware under an active
-display.
+drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c:dw_hdmi_qp_rockchip_encoder_=
+atomic_check() {
+    ...
+	ret =3D phy_configure(hdmi->phy, &phy_cfg);
+	if (!ret) {
+		hdmi->tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
+		s->output_type =3D DRM_MODE_CONNECTOR_HDMIA;
+		s->output_bpc =3D conn_state->hdmi.output_bpc;
+		s->bus_format =3D ingest_fmt;
+	} else {
+    ...
+}
 
-Additionally, modifying hdmi->tmds_char_rate mutates global driver state
-even if the test commit is subsequently discarded by the kernel, potentially
-corrupting the active configuration. Should these side effects be deferred =
-to
-an atomic_enable or atomic_update callback instead?
+Does this code accidentally configure the hardware PHY and modify global
+driver state (hdmi->tmds_char_rate) during the atomic_check phase?
+
+When userspace performs an atomic modeset with the DRM_MODE_ATOMIC_TEST_ONLY
+flag, dw_hdmi_qp_rockchip_encoder_atomic_check() is invoked to validate the
+state. Modifying hardware or global state here breaks the guarantee that
+atomic test-only commits are free of side effects. This could cause the
+hardware state to desynchronize from the DRM core's expectations.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-dw-hdmi-qp=
--yuv-v3-0-a4a982a9f2e7@collabora.com?part=3D12
+-yuv-v3-0-a4a982a9f2e7@collabora.com?part=3D13
