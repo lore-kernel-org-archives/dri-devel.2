@@ -4,55 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE80C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C73C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 16:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D192910E619;
-	Wed,  8 Jul 2026 16:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB4B10E636;
+	Wed,  8 Jul 2026 16:26:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MKLaZ66b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dXU0AKz8";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A83D710E636
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yhxuCIdZZBgy5GcAdlQfOUzgWUhuLo/6GzlP6447TvI=; b=MKLaZ66be899V54XZKN109m5yF
- 0IH9Xg9lLzl5/POKtP78F6sGP8ymFQ6HmBxvPIG3RtVy8u08l54wg2xRT+Gq4+VQhA7t4n/JzHsM5
- aU6ouIRYFxL9vVNIE4AStHpV0UeE97okwnTcva1MRGLxUp6YCZwVew715oqqlvwad0WM/8fbt8uSv
- NnmTjkTLa9tDEJo2fttRMoDFW5wWxdBZN5MIKLyDuL/s4Z4noHWx3dTlSch9XXE9J9Wv3EU5kUQwB
- 5JEkstj7y2HFx+X7nHHDFMnmU9ovSLXAYrF6qGdYg+rQDcUUJNTBYG3GZM/1uZ1mvPzy0JjQN1cZo
- iqFTPq/w==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1whV4G-00BoKi-1Q; Wed, 08 Jul 2026 18:24:12 +0200
-Message-ID: <fe9c5564-9a56-429d-a991-9b77f8a97d5b@igalia.com>
-Date: Wed, 8 Jul 2026 17:24:11 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
- improvements
-To: Tejun Heo <tj@kernel.org>
-Cc: phasta@kernel.org, dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chia-I Wu <olvaffe@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, kernel-dev@igalia.com
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <4eb23476ff56bee108578adfe131be38e8fc1476.camel@mailbox.org>
- <b76ea01c-ead3-4eaf-86a7-5bf91bfdb9cb@igalia.com>
- <akwD28ihbzn1FB-P@slm.duckdns.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <akwD28ihbzn1FB-P@slm.duckdns.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24BEA10E629
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:26:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4E2F760008
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 16:26:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B6B1F000E9;
+ Wed,  8 Jul 2026 16:26:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783527989;
+ bh=eUbA959xLQgveK8KFtTzA5q5M3cKPxNtL+lnSPsXlec=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dXU0AKz8MYYiOAXQ1n6b2QGAI1K6tyVBP+RCumFSBN3hzx+O2cz8QaM5TUDK+5Hbb
+ /W0GKiJLVLfNZEGI1D54Vm/ntES++91SIgMgk+dpPyGXm6NMi63L0w2/383IGGhhde
+ rOZOOalbPp1f/XbDqIWCnPOGYHDm4R5KiOi8GC+wjQup7MS+40OA7tPpPXJ8O6y2kw
+ ZiTtwLgm2OpcFfKVZVdVGyuJa3S0eYX/GQL5Kx30T3ywiAVub9EXRt/CGxGcM+6nDX
+ 0T8wss6ungKx1fralh+po/D55S7dXIAbECzfDclyVMHl33Syy+ybzURDaweWzGPYhO
+ PYXBP19h6+KqQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 8/8] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260708-drm-reset-state-flag-v1-8-c37dc985485d@kernel.org>
+References: <20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org>
+ <20260708-drm-reset-state-flag-v1-8-c37dc985485d@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 16:26:28 +0000
+Message-Id: <20260708162628.C3B6B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +53,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] The newly added DRM_MODE_ATOMIC_RESET flag allows userspace to=
+ crash the kernel by unconditionally dereferencing an unimplemented `atomic=
+_create_state` hook on CRTCs, planes, and connectors.
+- [High] The DRM_MODE_ATOMIC_RESET flag bypasses DRM lease boundaries, allo=
+wing a restricted client to reset all displays on the device.
+--
 
-On 06/07/2026 20:36, Tejun Heo wrote:
-> Hello,
-> 
-> On Mon, Jul 06, 2026 at 01:20:49PM +0100, Tvrtko Ursulin wrote:
-> ...
->>> So the first question I would like to see considered is whether
->>> workqueue could be improved in any way to address said latency issues.
->>>
->>> Have you already considered that, Tvrtko?
->>
->> Yes, priority inheritance was justifiably rejected for generic workqueues.
->> There is WQ_HIGHPRI, but the idea here is to go one step further and allow
->> tracking realtime scheduling policies.
-> 
-> If deciding at work item boundaries is granular enough, it's not
-> unconscionable to support RT worker pools. The main reason for resisting
-> that is because it can be too easy to abuse. A couple RT threads may solve
-> immediate problems but with a bunch of them you just don't have a working
-> scheduler in the system. In general, it's pretty suspicious if there's
-> intersection of "I need a bunch of worker threads in a flexible way" and "I
-> want RT".
+--- Patch [8]: [PATCH RFC 8/8] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET f=
+lag ---
+commit f7802a930a44f2b2c525a72c03344afc1a5cba57
+Author: Sebastian Wick <sebastian.wick@redhat.com>
+Subject: drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 
-In this case I think the key will be fleshing out with individual driver 
-owners how many workers their hardware actually needs. Setting the upper 
-bound to the number of userspace contexts, capped by the cmwq system 
-limit, sounds over the top for many GPUs as there isn't really any point 
-to feed a single GPU with that many CPU threads.
+Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
+atomic ioctl, fills the commit with default states for all KMS objects
+before applying the properties supplied in the request. The flag cannot
+be combined with DRM_MODE_PAGE_FLIP_ASYNC.
 
-So far the feedback is I went too aggressive by reducing panthor to one 
-submission worker per device and xe to between one to two. Lets see if 
-there is a middle ground, and assuming there is, and that it is some 
-relatively small-ish number relative to the number of CPU cores, maybe 
-then we talk about can we have a RT worker pool of a limited size.
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 1050dddadb17e..cdcc6efb9a00f 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+[ ... ]
+> @@ -1675,6 +1682,12 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>  	fence_state =3D NULL;
+>  	num_fences =3D 0;
+> =20
+> +	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
+> +		ret =3D drm_atomic_commit_fill_with_defaults(state);
 
-Or if drivers will insist they need cmwq managed bound for the number of 
-threads then we may need to go to plan B and either split the scheduler 
-for the two use cases, or write a new one for firmware drivers.
+[Severity: Critical]
+Can this cause a NULL pointer dereference for drivers that don't implement =
+the
+atomic_create_state hook?
 
-> How big a hit is WQ_HIGHPRI vs. RT?
+When userspace passes DRM_MODE_ATOMIC_RESET, this calls
+drm_atomic_commit_fill_with_defaults(), which unconditionally calls the
+atomic_create_state hook for CRTCs, planes, and connectors:
 
-I can measure that tomorrow or so. But so far I am not very optimistic 
-about MIN_NICE ability to make a difference.
+drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults() {
+	...
+	drm_for_each_crtc(crtc, dev) {
+		...
+		crtc_state =3D crtc->funcs->atomic_create_state(crtc);
+		...
+	}
+	...
+}
 
-Today I repeated the benchmarking Chia-I did originally, with the tweak 
-of background load threads always being of normal priority and only 
-varying the userspace Vulkan submit thread between normal, nice -1 and 
-FIFO. Those three against three kernels - stock, this RFC capped to 
-never go above MIN_NICE for the kthread_worker, and this RFC as is (so 
-kthread_worker temporarily follows userspace FIFO).
+If a driver doesn't implement this optional hook, will this dereference a N=
+ULL
+pointer?
 
-The results are that only following to FIFO brings interesting gains.
 
-	    STOCK           --RFC         Full RFC
-	 .    N   RT    .     N    RT    .     N  RT
-    M    28   32	  35   36    26    23   19    19  17	
-  95%   211  537	  69  276   186   426  151   284  30
-  98%   843  993	 804  942  1277  1842  982  1028  34
+[Severity: High]
+Does this bypass DRM lease boundaries?
 
-      STOCK = 7.1.0
-      --RFC = This RFC, but kthread_worker capped and MIN_NICE
-   Full RFC = RFC as is, kthread_worker goes up to FIFO
+When called here, drm_atomic_commit_fill_with_defaults() iterates globally =
+over
+all CRTCs, planes, and connectors on the device without checking file_priv =
+or
+enforcing lease boundaries.
 
-  M = Median
+Could a restricted client use this flag to break lease isolation and forcib=
+ly
+reset or turn off all displays on the system?
 
-   . = Userspace submit thread SCHED_OTHER
-   N = -||= nice -1
-  RT = -||- FIFO 1
+> +		if (ret)
+> +			goto out;
+> +	}
+> +
+>  	for (i =3D 0; i < arg->count_objs; i++) {
+>  		uint32_t obj_id, count_props;
+>  		struct drm_mode_object *obj;
 
-All numbers are latencies between job passed to DRM scheduler to DRM 
-scheduler passing it to the GPU. In micro seconds.
-
-I'll report back with WQ_HIGHPRI results as soon as possible.
-
-Regards,
-
-Tvrtko
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-drm-reset-=
+state-flag-v1-0-c37dc985485d@kernel.org?part=3D8
