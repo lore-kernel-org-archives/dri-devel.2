@@ -4,92 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7600BC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 21:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4911AC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 21:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C540B10E676;
-	Wed,  8 Jul 2026 21:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4430810E672;
+	Wed,  8 Jul 2026 21:53:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PJGfOVml";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SYpCZtiL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB9E10E676
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:18:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 028D06001A
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:18:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2C71F00A3F
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:18:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783545502;
- bh=XHlK26iT5OTlGmvdsQr6aTlcJ71q9tfgFUQl/PoXZWA=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=PJGfOVmlbverv4ZMgHaYP/tLAJYKYzNMgXX6nBNzjMaexj9wEiFTIJ4o1l1sA2nlP
- LL5Tkg3/gihJKhh5hM5fww+Rg3IZwNeXoQ05aYqL++fCeUD1LxnbWtDzI+Ff3m/9wL
- 7aoITsZChrUt6i7YWHK0fzT1iF6F91ecDxZYq2HCO6gvdwKpx3EWb/zKSmXLLsKpTI
- CFeMIuacmaNrOz7B0CRm+uSOqxfnBuSaYxB2EgqzeZ43CB3+arWjDtgfMwMAnXCLi2
- 2BqBZr3KJNNinzlUJLwkElWzigcAq/C0CwKlnD74SVMdZMHTCWSk/KaTDiqVp4dPso
- IuzO9AfarR6cg==
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-c15d111ca99so112650066b.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 14:18:22 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 630FE10E672
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:53:56 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-47de008b020so149220f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 14:53:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783547634; x=1784152434; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IIMECz0v1f4LVIdLn0HTlLUSx/SJvMxrwrh19eAWfPY=;
+ b=SYpCZtiLY832ZhG3xcsCPkgDkqz+WBjlahuoup1cykRkCLTQcGPzpDalmijWP9p10b
+ ZEvWlQlRWlNr6WNFU1P9g8bqErh8VuqRnMY4nwt8nfhm1fD4Y+XPNwCpnQG7CYHRlJhF
+ mP44WqmIrPR3IbMwy88Lp1i2PoJzcUYldQRwpmG/+HCyWbe0lIzCG4BZOo9COBdcKc8T
+ Muzg9kSHwVR0vC6Hp/jIGvH9jnBlqtpmRVMOnxb0jwD1Aw2mi3vMcXiqASbHw5UkTfWY
+ U7uqonHsgTcgnQvFzQsRfaZ0MSPupR1QuU950z5sgMJJ6vFiNWWS2InjYzj1IvOD3shv
+ 5VnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783547634; x=1784152434;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IIMECz0v1f4LVIdLn0HTlLUSx/SJvMxrwrh19eAWfPY=;
+ b=T8OcWTtGDVMOj/jknYdHLrUGeN1Rm2r1MysMcJ0Gwn2gXkGQTCwwCKlhCW6p6QLo50
+ xteq99nAZsJhfeUimdwyWqm3qeSnPONR5zX4we0dVHjL8Jc1eSf/PbO+ngDwnLR5K4uv
+ cjPOpnThV9RNoPdmKCK93Dy6uXsPBUMJc43YT8H3s9wHni/mBd9q7qFeunPtvgaFlwFw
+ 5xOgVJIS4X4NGyD2AzXCgUy7q9jntVWj3X9yTtAxQ0e2tw86KG4Fr/DShu+MOm5XAPww
+ 6lXKlIFfu6jmyI6RSw5yr35h7jykR3uMv4t+RY9M6NgieA3GYKSoYHfHR3fLc5KQ8CZW
+ APaw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp6ziA05ZqcEZLTT7nnb0eBxg2QyXpPz7oGVStXmM1k1+afLLKVkAUpqVOk1fjyU/GeHw8DBjGJYfg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywmme8wmHW/fH32v8BqRvORcjxdx14U6FxVeHv4pQQMvIVdNHa7
- 2nV4dXcKqnTUdtlIduuFPVAHf2EuTJkWTFjmosEVzpVELhWxWob4zv24yxHOREgeIJwWeyS8J1H
- r74m1G41+Q6Od9+XpaqQ4CtoiZJukqA==
-X-Received: by 2002:a17:907:a286:b0:c15:b6bd:cbb8 with SMTP id
- a640c23a62f3a-c15ce121a12mr190425566b.50.1783545501322; Wed, 08 Jul 2026
- 14:18:21 -0700 (PDT)
+ AHgh+RrJkTC0RHoC+cXR96jUCSlU6HBhDbh/Eh+jOEFz05IkfFM3E1GNQGgsezuSQWzq7KEe654228Da0fU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEiGmjzLg0Sa8ql0Zgn6nZe65p5IpOVEzmmqDpB1UyL9Zwc/4m
+ fA/AaBLoi1Zz6nXmXduSglOHOAzO3hdfDeXcb2FXe/VVpdgfqGKM1Cpc
+X-Gm-Gg: AfdE7clo5tmYQ9N7G3w+8aAfisEQXR+ha7I8UthG6uwNxUoNTCFyyWSdedo2n3fwKQ2
+ xo2lT9/+LmhpXkcvHLeNj/8A9n+43JuxnU916K1rXbzbd610MxZkjcXiAIHYjOhNkrUenQDMYVS
+ TR3i718AOdFm46MiOb2oJto6H9zvYvfFu1pqtGs7Li0VyUEK72avnbJX0uZ1pmBoiDupsFQR0I3
+ y7g5XRGX284zslD3USTmY1HJZTTG540NFuleYEybdS+YlAZEHqQkkUTQ9R1yUkRGNSLD6G37Rqv
+ bhR+6OLqHi9L9vodxmrQW/gIRhQwd3cFnJK+yKYwTDCP/UmphIMUno4ImrrC7R7BTngM6v5SbEr
+ 5hDvKjO8q3wXogABE282xbbBseD/dk/pRxM08KMsAXoHcOcgmsZovAdQuCfVu4SRmJ+i0hNZ3c6
+ 89HBmLPo6dvlJIp6huarPVyCU/Wjeiol7D8FdFur53sTeepxxJbg==
+X-Received: by 2002:a05:6000:4602:b0:47d:f6a5:1fd6 with SMTP id
+ ffacd0b85a97d-47df7561c98mr84937f8f.26.1783547634411; 
+ Wed, 08 Jul 2026 14:53:54 -0700 (PDT)
+Received: from osama.. ([2a02:908:1b8:2060:7550:b182:7bdf:fbd0])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47a9e4d8410sm46622289f8f.15.2026.07.08.14.53.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 14:53:53 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/imx: ipuv3: account for active PREs in atomic check
+Date: Wed,  8 Jul 2026 23:53:38 +0200
+Message-ID: <20260708215338.147145-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-1-d80f7b871bb4@nvidia.com>
- <178293558945.1610040.13281502080616690110.robh@kernel.org>
- <akZde-8lFvf8rPji@orome>
-In-Reply-To: <akZde-8lFvf8rPji@orome>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 8 Jul 2026 16:18:10 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJCMm-oL35COx=agY+mwRUMMnRvbUgzPr5Hy9uvcPk0Dg@mail.gmail.com>
-X-Gm-Features: AUfX_mz5rhGcrunDpACqiF1Zhx-HBPPyHD0sxMJJ0YCYlPmg5dj7i6HAGao9icM
-Message-ID: <CAL_JsqJCMm-oL35COx=agY+mwRUMMnRvbUgzPr5Hy9uvcPk0Dg@mail.gmail.com>
-Subject: Re: [PATCH v3 01/11] dt-bindings: reserved-memory: Document Tegra VPR
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- dri-devel@lists.freedesktop.org, David Hildenbrand <david@kernel.org>, 
- Yury Norov <yury.norov@gmail.com>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-trace-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- linux-mm@kvack.org, Russell King <linux@armlinux.org.uk>,
- Will Deacon <will@kernel.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, David Airlie <airlied@gmail.com>, 
- Vasily Gorbik <gor@linux.ibm.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- linaro-mm-sig@lists.linaro.org, Heiko Carstens <hca@linux.ibm.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Thierry Reding <treding@nvidia.com>, 
- Maxime Ripard <mripard@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
- John Stultz <jstultz@google.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Brian Starkey <Brian.Starkey@arm.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Michal Hocko <mhocko@suse.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Suren Baghdasaryan <surenb@google.com>, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
- devicetree@vger.kernel.org, "Liam R. Howlett" <liam@infradead.org>, 
- linux-tegra@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Conor Dooley <conor+dt@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, "T.J. Mercier" <tjmercier@google.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, iommu@lists.linux.dev, 
- Mike Rapoport <rppt@kernel.org>, Sven Schnelle <svens@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,62 +95,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 2, 2026 at 7:58=E2=80=AFAM Thierry Reding <thierry.reding@kerne=
-l.org> wrote:
->
-> On Wed, Jul 01, 2026 at 02:53:10PM -0500, Rob Herring (Arm) wrote:
-> >
-> > On Wed, 01 Jul 2026 18:08:12 +0200, Thierry Reding wrote:
-> > > From: Thierry Reding <treding@nvidia.com>
-> > >
-> > > The Video Protection Region (VPR) found on NVIDIA Tegra chips is a
-> > > region of memory that is protected from CPU accesses. It is used to
-> > > decode and play back DRM protected content.
-> > >
-> > > It is a standard reserved memory region that can exist in two forms:
-> > > static VPR where the base address and size are fixed (uses the "reg"
-> > > property to describe the memory) and a resizable VPR where only the
-> > > size is known upfront and the OS can allocate it wherever it can be
-> > > accomodated.
-> > >
-> > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > > ---
-> > > Changes in v2:
-> > > - add examples for fixed and resizable VPR
-> > > ---
-> > >  .../nvidia,tegra-video-protection-region.yaml      | 76 ++++++++++++=
-++++++++++
-> > >  1 file changed, 76 insertions(+)
-> > >
-> >
-> > My bot found errors running 'make dt_binding_check' on your patch:
-> >
-> > yamllint warnings/errors:
-> >
-> > dtschema/dtc warnings/errors:
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings=
-/reserved-memory/nvidia,tegra-video-protection-region.example.dtb: protecte=
-d@2a8000000 (nvidia,tegra-video-protection-region): reg: [[2, 2818572288], =
-[0, 1879048192]] is too long
-> >       from schema $id: http://devicetree.org/schemas/reserved-memory/nv=
-idia,tegra-video-protection-region.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings=
-/reserved-memory/nvidia,tegra-video-protection-region.example.dtb: protecte=
-d@2a8000000 (nvidia,tegra-video-protection-region): Unevaluated properties =
-are not allowed ('no-map', 'reg' were unexpected)
-> >       from schema $id: http://devicetree.org/schemas/reserved-memory/nv=
-idia,tegra-video-protection-region.yaml
->
-> Any ideas why that second error shows up? It turns out that it goes away
-> when the first one is fixed (which admittedly is a stupid mistake), but
-> I spent quite a bit of time looking for a fix before realizing that it's
-> only a side-effect of the first.
+ipu_planes_assign_pre() starts each atomic check with the number of
+registered PRE blocks, but that value does not account for PREs that are
+already used by planes outside the current atomic state.
 
-If a property fails validation in a referenced schema, then everything
-in that referenced schema is considered not evaluated. So then
-unevaluatedProperties is applied to the properties only in the
-referenced schema. That's why 'no-map' is also unevaluated. Just a
-quirk of how json-schema works...
+This can happen when CRTCs are updated independently: the current commit
+only adds planes from the affected CRTCs, while PREs used by other active
+CRTCs are ignored. As a result, atomic check can approve more PRE users
+than the hardware can provide.
 
-Rob
+Subtract already-active PRE users that are not part of the current atomic
+state before assigning PREs to the planes in the commit.
+
+Fixes: 00514e859335 ("drm/imx: use PRG/PRE when possible")
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+index 67f2da7f2b65..d6806d1ae6e1 100644
+--- a/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
++++ b/drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c
+@@ -822,6 +822,19 @@ int ipu_planes_assign_pre(struct drm_device *dev,
+ 			return ret;
+ 	}
+ 
++	list_for_each_entry(plane, &dev->mode_config.plane_list, head) {
++		if (drm_atomic_get_new_plane_state(state, plane))
++			continue;
++
++		plane_state = plane->state;
++		if (!plane_state || !plane_state->crtc || !plane_state->fb)
++			continue;
++
++		ipu_state = to_ipu_plane_state(plane_state);
++		if (ipu_state->use_pre)
++			available_pres--;
++	}
++
+ 	/*
+ 	 * We are going over the planes in 2 passes: first we assign PREs to
+ 	 * planes with a tiling modifier, which need the PREs to resolve into
+@@ -843,7 +856,7 @@ int ipu_planes_assign_pre(struct drm_device *dev,
+ 		    plane_state->fb->modifier == DRM_FORMAT_MOD_LINEAR)
+ 			continue;
+ 
+-		if (!ipu_prg_present(ipu_plane->ipu) || !available_pres)
++		if (!ipu_prg_present(ipu_plane->ipu) || available_pres <= 0)
+ 			return -EINVAL;
+ 
+ 		if (!ipu_prg_format_supported(ipu_plane->ipu,
+@@ -871,7 +884,7 @@ int ipu_planes_assign_pre(struct drm_device *dev,
+ 		/* make sure that modifier is initialized */
+ 		plane_state->fb->modifier = DRM_FORMAT_MOD_LINEAR;
+ 
+-		if (ipu_prg_present(ipu_plane->ipu) && available_pres &&
++		if (ipu_prg_present(ipu_plane->ipu) && available_pres > 0 &&
+ 		    ipu_prg_format_supported(ipu_plane->ipu,
+ 					     plane_state->fb->format->format,
+ 					     plane_state->fb->modifier)) {
+-- 
+2.43.0
+
