@@ -4,47 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAC6C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37FD0C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:44:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2346810F0D9;
-	Wed,  8 Jul 2026 11:41:13 +0000 (UTC)
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Wed, 08 Jul 2026 11:41:12 UTC
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com
- [118.143.206.90])
- by gabe.freedesktop.org (Postfix) with ESMTP id 156E910F0D9
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:41:11 +0000 (UTC)
-X-CSE-ConnectionGUID: 3smA+s49THWhOoqiE2G80Q==
-X-CSE-MsgGUID: SubvFubhRouzXpcwt8ywzQ==
-X-IronPort-AV: E=Sophos;i="6.25,153,1779120000"; 
- d="scan'208,217";a="155379444"
-From: =?utf-8?B?6auY57+U?= <gaoxiang17@xiaomi.com>
-To: Xiang Gao <gxxa03070307@gmail.com>, "sumit.semwal@linaro.org"
- <sumit.semwal@linaro.org>, "christian.koenig@amd.com"
- <christian.koenig@amd.com>
-CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?utf-8?B?562U5aSNOiBbRXh0ZXJuYWwgTWFpbF1bUEFUQ0hdIGRtYS1idWY6IGZpeCBz?=
- =?utf-8?B?dGFsZSBAbG9jayByZWZlcmVuY2VzIGluIHN0cnVjdCBkbWFfYnVmIGRvY3Vt?=
- =?utf-8?Q?entation?=
-Thread-Topic: [External Mail][PATCH] dma-buf: fix stale @lock references in
- struct dma_buf documentation
-Thread-Index: AQHczJp2tSSUxq7VmEiwYkA74XXh1bZkAegw
-Date: Wed, 8 Jul 2026 11:34:02 +0000
-Message-ID: <de9e6586642a4ab19ec9a9b36fed3886@xiaomi.com>
-References: <20260415054101.535520-1-gxxa03070307@gmail.com>
-In-Reply-To: <20260415054101.535520-1-gxxa03070307@gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.149.45.230]
-Content-Type: multipart/alternative;
- boundary="_000_de9e6586642a4ab19ec9a9b36fed3886xiaomicom_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F0310F0DC;
+	Wed,  8 Jul 2026 11:44:04 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ByJ4o4xo";
+	dkim-atps=neutral
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A221C10F0DC
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:44:03 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2c6b67d5fa1so6352465ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 04:44:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783511043; x=1784115843; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4suNiv2yUkpcu0FQfwaTGnjQpQAO2D0FA1sYqxvGsjw=;
+ b=ByJ4o4xo6IpxSw8ZL+suSZjX5e99lotpMACwWwjy2LTnFuERJIJHawc5VWvlM1bm2/
+ 5Py9nNX5tYFW3hUo+es0qFJjKOwquxEyIavWhBn67fkaADzO+w1MLYvUGKsUlZzgk2WW
+ PV4IlOAufKNeaKHIAtXoVd1yjSs/DAGlaq92r/vntJInSzamx9jZ4CbfcC+vsdpLuoGs
+ +vr6ZyQqGq2VS0SlW1ySusuxkobqNU4UCXAa601Tb1vlGVwBezjctmC+BtsPWFPgx5K/
+ 9uD20+uDWwInqEdd+NuYwvdvhlxK/MP0UPmxXc3AIc79jvMa4axT8ch+h8Eud287FXjB
+ kv4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783511043; x=1784115843;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4suNiv2yUkpcu0FQfwaTGnjQpQAO2D0FA1sYqxvGsjw=;
+ b=AOGvQZzQPDVMlGfX6xFOoQ9kXOUjIG3Z9aAbGvxWxrTMgV/xIvbF8U9fWyPkSJvg2t
+ qYbdgCdhHQakuO+yLzk0jMEG+qNkF9Nb2xlGbwABLOeVxTwQf9irry/wrKl9cMNfBC/P
+ Oietko5Lcma6pznZYaY46vuX9T3Y55JMoyYnSa3/Winb2RNvrx2beBXLNGhCQS5M3LOY
+ 5dIe8ULPUdbNo5hSAMnY9wbxpvHdQfhJ5lFYG3DfcFhUtW790tRGosaZTt96Aob+NGdd
+ F9F3Q7tGPshmsW5DeAE3hWhIwnofdUnhqbKf6o+dh+5BXuB0MY5Vz2XJ8AHtDHxNPDfA
+ iApg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpXUiyDFjItZw67Ap+8G0Uza77ZaLzATuRtRrJUkvwr+Cg7lcYfZmLcH4WsAbsM6d/kItlyIEHJe3E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzS47gJ79CxgGP97BsV53XvySXYKUDhk7Hx5qIpY3UX+U3RNWOf
+ qlzay6lD7GfzDT1qAIMXZbt5ZXvkTES/tkTzaNhfRk4YrFwCao8CWKHl
+X-Gm-Gg: AfdE7cnwDi9plvnyxW18hl2B3NJj4i+0cSccsngiRhR2uI4JqGTowqXM0rJ/ft7uMrW
+ fEcuVeWJqTH/dq6AVInBLTKJWWmnA4xCHluimVvGfpwjsCDEwxtGmyMvzd90F+yL0bpj6I7dcGe
+ 4S0U+gj40+5OnhREHorfYI6ajtoAKrbbLO6cMwii+bb29cindTMIwlPhN68WH8flD7lM9tUhdbx
+ zgQlreETRI35KtK2zCy98PX1za9OO4zTKcjss8+zvksqkeLZGSI7YOTpxHUMIwXT/ieH22Om7UU
+ 8UmgMoi3bRQ/OjVDGF4tkBYlbzxF3seT0QsPzbrZKtgZV/G7CCLk67WQsguqdyLu6zRYVwL3PFX
+ 408GGTjnPzMGju1YkMg4YuJzPYQcsi9iwhcz77MZbzPGE3QnoGufhU+EgirHxavE2Gu1LcqEl3e
+ ZvLw==
+X-Received: by 2002:a17:903:1b2c:b0:2ca:c01e:8837 with SMTP id
+ d9443c01a7336-2ccea444eb7mr22149085ad.24.1783511043079; 
+ Wed, 08 Jul 2026 04:44:03 -0700 (PDT)
+Received: from lgs.. ([36.255.223.70]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ccc9bdb86bsm26859875ad.11.2026.07.08.04.44.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 04:44:02 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH] accel/rocket: put IOMMU domain on BO creation failure
+Date: Wed,  8 Jul 2026 19:43:54 +0800
+Message-ID: <20260708114354.753817-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,112 +86,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---_000_de9e6586642a4ab19ec9a9b36fed3886xiaomicom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+rocket_ioctl_create_bo() takes an IOMMU domain reference for each newly
+created BO.
 
-SGkgQ2hyaXN0aWFuIEvDtm5pZy4NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
-CuWPkeS7tuS6ujogWGlhbmcgR2FvIDxneHhhMDMwNzAzMDdAZ21haWwuY29tPg0K5Y+R6YCB5pe2
-6Ze0OiAyMDI25bm0NOaciDE15pelIDEzOjQxOjAxDQrmlLbku7bkuro6IHN1bWl0LnNlbXdhbEBs
-aW5hcm8ub3JnOyBjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20NCuaKhOmAgTogbGludXgtbWVkaWFA
-dmdlci5rZXJuZWwub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBsaW5hcm8t
-bW0tc2lnQGxpc3RzLmxpbmFyby5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IOmr
-mOe/lA0K5Li76aKYOiBbRXh0ZXJuYWwgTWFpbF1bUEFUQ0hdIGRtYS1idWY6IGZpeCBzdGFsZSBA
-bG9jayByZWZlcmVuY2VzIGluIHN0cnVjdCBkbWFfYnVmIGRvY3VtZW50YXRpb24NCg0KW+WklumD
-qOmCruS7tl0g5q2k6YKu5Lu25p2l5rqQ5LqO5bCP57Gz5YWs5Y+45aSW6YOo77yM6K+36LCo5oWO
-5aSE55CG44CC6Iul5a+56YKu5Lu25a6J5YWo5oCn5a2Y55aR77yM6K+35bCG6YKu5Lu26L2s5Y+R
-57uZbWlzZWNAeGlhb21pLmNvbei/m+ihjOWPjemmiA0KDQpGcm9tOiBYaWFuZyBHYW8gPGdhb3hp
-YW5nMTdAeGlhb21pLmNvbT4NCg0KVGhlIGtlcm5lbC1kb2MgY29tbWVudHMgZm9yIHZtYXBwaW5n
-X2NvdW50ZXIgYW5kIHZtYXBfcHRyIGluIHN0cnVjdA0KZG1hX2J1ZiByZWZlcmVuY2UgIkBsb2Nr
-IiBhcyB0aGUgcHJvdGVjdGluZyBsb2NrLCBidXQgc3RydWN0IGRtYV9idWYNCm5vIGxvbmdlciBo
-YXMgYSAibG9jayIgbWVtYmVyLiBUaGUgbXV0ZXggd2FzIHJlbW92ZWQgaW4gZmF2b3Igb2YgdXNp
-bmcNCnRoZSBkbWFfcmVzdiBsb2NrIGV4Y2x1c2l2ZWx5LiBUaGUgaW1wbGVtZW50YXRpb24gY29y
-cmVjdGx5IHVzZXMNCmRtYV9yZXN2X2Fzc2VydF9oZWxkKGRtYWJ1Zi0+cmVzdikgaW4gZG1hX2J1
-Zl92bWFwKCkgYW5kDQpkbWFfYnVmX3Z1bm1hcCgpLCBzbyB1cGRhdGUgdGhlIGRvY3VtZW50YXRp
-b24gdG8gcmVmZXJlbmNlIEByZXN2DQppbnN0ZWFkLg0KDQpTaWduZWQtb2ZmLWJ5OiBnYW94aWFu
-ZzE3IDxnYW94aWFuZzE3QHhpYW9taS5jb20+DQotLS0NCiBpbmNsdWRlL2xpbnV4L2RtYS1idWYu
-aCB8IDQgKystLQ0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
-KC0pDQoNCmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaCBiL2luY2x1ZGUvbGlu
-dXgvZG1hLWJ1Zi5oDQppbmRleCAxMzNiOWU2MzdiNTUuLmVmNmQ5M2ZkN2EyYyAxMDA2NDQNCi0t
-LSBhL2luY2x1ZGUvbGludXgvZG1hLWJ1Zi5oDQorKysgYi9pbmNsdWRlL2xpbnV4L2RtYS1idWYu
-aA0KQEAgLTMyMiwxMyArMzIyLDEzIEBAIHN0cnVjdCBkbWFfYnVmIHsNCiAgICAgICAgICogQHZt
-YXBwaW5nX2NvdW50ZXI6DQogICAgICAgICAqDQogICAgICAgICAqIFVzZWQgaW50ZXJuYWxseSB0
-byByZWZjbnQgdGhlIHZtYXBzIHJldHVybmVkIGJ5IGRtYV9idWZfdm1hcCgpLg0KLSAgICAgICAg
-KiBQcm90ZWN0ZWQgYnkgQGxvY2suDQorICAgICAgICAqIFByb3RlY3RlZCBieSBAcmVzdi4NCiAg
-ICAgICAgICovDQogICAgICAgIHVuc2lnbmVkIHZtYXBwaW5nX2NvdW50ZXI7DQoNCiAgICAgICAg
-LyoqDQogICAgICAgICAqIEB2bWFwX3B0cjoNCi0gICAgICAgICogVGhlIGN1cnJlbnQgdm1hcCBw
-dHIgaWYgQHZtYXBwaW5nX2NvdW50ZXIgPiAwLiBQcm90ZWN0ZWQgYnkgQGxvY2suDQorICAgICAg
-ICAqIFRoZSBjdXJyZW50IHZtYXAgcHRyIGlmIEB2bWFwcGluZ19jb3VudGVyID4gMC4gUHJvdGVj
-dGVkIGJ5IEByZXN2Lg0KICAgICAgICAgKi8NCiAgICAgICAgc3RydWN0IGlvc3lzX21hcCB2bWFw
-X3B0cjsNCg0KLS0NCjIuMzQuMQ0KDQo=
+The normal GEM object release path drops that reference from
+rocket_gem_bo_free(). However, the BO creation error paths free the
+object with drm_gem_shmem_object_free(), which bypasses the driver's GEM
+.free callback. Those paths therefore release the shmem object without
+dropping the IOMMU domain reference.
 
---_000_de9e6586642a4ab19ec9a9b36fed3886xiaomicom_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Drop the domain reference explicitly on the BO creation error path before
+freeing the shmem object.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
-dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
-LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
-ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
-L2hlYWQ+DQo8Ym9keT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+
-DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiIHN0eWxlPSIiPg0KPCEtLQ0KcA0KCXttYXJnaW4tdG9w
-OjA7DQoJbWFyZ2luLWJvdHRvbTowfQ0KLS0+DQo8L3N0eWxlPg0KPGRpdiBkaXI9Imx0ciI+DQo8
-ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtc2l6
-ZToxMnB0OyBjb2xvcjojMDAwMDAwOyBmb250LWZhbWlseTpDYWxpYnJpLEhlbHZldGljYSxzYW5z
-LXNlcmlmIj4NCjxwPkhpJm5ic3A7PHNwYW4+PHNwYW4+Q2hyaXN0aWFuIEvDtm5pZy48L3NwYW4+
-PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGhyIHRhYmluZGV4PSItMSIgc3R5bGU9ImRpc3BsYXk6aW5s
-aW5lLWJsb2NrOyB3aWR0aDo5OCUiPg0KPGRpdiBpZD0ieF9kaXZScGx5RndkTXNnIiBkaXI9Imx0
-ciI+PGZvbnQgZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9IiMwMDAwMDAiIHN0eWxl
-PSJmb250LXNpemU6MTFwdCI+PGI+5Y+R5Lu25Lq6OjwvYj4gWGlhbmcgR2FvICZsdDtneHhhMDMw
-NzAzMDdAZ21haWwuY29tJmd0Ozxicj4NCjxiPuWPkemAgeaXtumXtDo8L2I+IDIwMjblubQ05pyI
-MTXml6UgMTM6NDE6MDE8YnI+DQo8Yj7mlLbku7bkuro6PC9iPiBzdW1pdC5zZW13YWxAbGluYXJv
-Lm9yZzsgY2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPGJyPg0KPGI+5oqE6YCBOjwvYj4gbGludXgt
-bWVkaWFAdmdlci5rZXJuZWwub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBs
-aW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5v
-cmc7IOmrmOe/lDxicj4NCjxiPuS4u+mimDo8L2I+IFtFeHRlcm5hbCBNYWlsXVtQQVRDSF0gZG1h
-LWJ1ZjogZml4IHN0YWxlIEBsb2NrIHJlZmVyZW5jZXMgaW4gc3RydWN0IGRtYV9idWYgZG9jdW1l
-bnRhdGlvbjwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPGZvbnQg
-c2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMHB0OyI+DQo8ZGl2IGNsYXNzPSJQbGFp
-blRleHQiPlvlpJbpg6jpgq7ku7ZdIOatpOmCruS7tuadpea6kOS6juWwj+exs+WFrOWPuOWklumD
-qO+8jOivt+iwqOaFjuWkhOeQhuOAguiLpeWvuemCruS7tuWuieWFqOaAp+WtmOeWke+8jOivt+Ww
-humCruS7tui9rOWPkee7mW1pc2VjQHhpYW9taS5jb23ov5vooYzlj43ppog8YnI+DQo8YnI+DQpG
-cm9tOiBYaWFuZyBHYW8gJmx0O2dhb3hpYW5nMTdAeGlhb21pLmNvbSZndDs8YnI+DQo8YnI+DQpU
-aGUga2VybmVsLWRvYyBjb21tZW50cyBmb3Igdm1hcHBpbmdfY291bnRlciBhbmQgdm1hcF9wdHIg
-aW4gc3RydWN0PGJyPg0KZG1hX2J1ZiByZWZlcmVuY2UgJnF1b3Q7QGxvY2smcXVvdDsgYXMgdGhl
-IHByb3RlY3RpbmcgbG9jaywgYnV0IHN0cnVjdCBkbWFfYnVmPGJyPg0Kbm8gbG9uZ2VyIGhhcyBh
-ICZxdW90O2xvY2smcXVvdDsgbWVtYmVyLiBUaGUgbXV0ZXggd2FzIHJlbW92ZWQgaW4gZmF2b3Ig
-b2YgdXNpbmc8YnI+DQp0aGUgZG1hX3Jlc3YgbG9jayBleGNsdXNpdmVseS4gVGhlIGltcGxlbWVu
-dGF0aW9uIGNvcnJlY3RseSB1c2VzPGJyPg0KZG1hX3Jlc3ZfYXNzZXJ0X2hlbGQoZG1hYnVmLSZn
-dDtyZXN2KSBpbiBkbWFfYnVmX3ZtYXAoKSBhbmQ8YnI+DQpkbWFfYnVmX3Z1bm1hcCgpLCBzbyB1
-cGRhdGUgdGhlIGRvY3VtZW50YXRpb24gdG8gcmVmZXJlbmNlIEByZXN2PGJyPg0KaW5zdGVhZC48
-YnI+DQo8YnI+DQpTaWduZWQtb2ZmLWJ5OiBnYW94aWFuZzE3ICZsdDtnYW94aWFuZzE3QHhpYW9t
-aS5jb20mZ3Q7PGJyPg0KLS0tPGJyPg0KJm5ic3A7aW5jbHVkZS9saW51eC9kbWEtYnVmLmggfCA0
-ICYjNDM7JiM0MzstLTxicj4NCiZuYnNwOzEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoJiM0
-MzspLCAyIGRlbGV0aW9ucygtKTxicj4NCjxicj4NCmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4
-L2RtYS1idWYuaCBiL2luY2x1ZGUvbGludXgvZG1hLWJ1Zi5oPGJyPg0KaW5kZXggMTMzYjllNjM3
-YjU1Li5lZjZkOTNmZDdhMmMgMTAwNjQ0PGJyPg0KLS0tIGEvaW5jbHVkZS9saW51eC9kbWEtYnVm
-Lmg8YnI+DQomIzQzOyYjNDM7JiM0MzsgYi9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaDxicj4NCkBA
-IC0zMjIsMTMgJiM0MzszMjIsMTMgQEAgc3RydWN0IGRtYV9idWYgezxicj4NCiZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAqIEB2bWFwcGluZ19jb3VudGVy
-Ojxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAq
-PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICog
-VXNlZCBpbnRlcm5hbGx5IHRvIHJlZmNudCB0aGUgdm1hcHMgcmV0dXJuZWQgYnkgZG1hX2J1Zl92
-bWFwKCkuPGJyPg0KLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAq
-IFByb3RlY3RlZCBieSBAbG9jay48YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyAqIFByb3RlY3RlZCBieSBAcmVzdi48YnI+DQombmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgKi88YnI+DQombmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgdW5zaWduZWQgdm1hcHBpbmdfY291bnRlcjs8
-YnI+DQo8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgLyoq
-PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICog
-QHZtYXBfcHRyOjxicj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsgKiBUaGUgY3VycmVudCB2bWFwIHB0ciBpZiBAdm1hcHBpbmdfY291bnRlciAmZ3Q7IDAuIFBy
-b3RlY3RlZCBieSBAbG9jay48YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyAqIFRoZSBjdXJyZW50IHZtYXAgcHRyIGlmIEB2bWFwcGluZ19jb3VudGVy
-ICZndDsgMC4gUHJvdGVjdGVkIGJ5IEByZXN2Ljxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAqLzxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgaW9zeXNfbWFwIHZtYXBfcHRyOzxicj4NCjxicj4N
-Ci0tPGJyPg0KMi4zNC4xPGJyPg0KPGJyPg0KPC9kaXY+DQo8L3NwYW4+PC9mb250Pg0KPC9ib2R5
-Pg0KPC9odG1sPg0K
+Fixes: 658ebeac3351 ("accel/rocket: Add IOCTL for BO creation")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/accel/rocket/rocket_gem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---_000_de9e6586642a4ab19ec9a9b36fed3886xiaomicom_--
+diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
+index a5fffa51ff35..438694ba567b 100644
+--- a/drivers/accel/rocket/rocket_gem.c
++++ b/drivers/accel/rocket/rocket_gem.c
+@@ -127,6 +127,8 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
+ 	mutex_unlock(&rocket_priv->mm_lock);
+ 
+ err:
++	rocket_iommu_domain_put(rkt_obj->domain);
++	rkt_obj->domain = NULL;
+ 	drm_gem_shmem_object_free(gem_obj);
+ 
+ 	return ret;
+-- 
+2.43.0
+
