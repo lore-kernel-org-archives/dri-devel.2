@@ -4,106 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 167E0C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 06:23:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76A12C43602
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 06:30:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E05310EFF4;
-	Wed,  8 Jul 2026 06:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BE010E56E;
+	Wed,  8 Jul 2026 06:30:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="HqaPy0z3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dmnooxcb";
 	dkim-atps=neutral
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D4A710F010
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 06:23:27 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5b00ca000ceso372855e87.0
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 23:23:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783491805; cv=none;
- d=google.com; s=arc-20260327;
- b=jxlzXMMaC/Vs7Momnrl43PEbi4Wd5/Y5H8DQLS5BtcLVIo+vPh6wHniR4PqM7tLFyt
- hrPfHcClWdNMUcNxkbo4eB2jUmXyf3JgrowI9wHALTRjVjUZtqcznk1mnY7J0+IZU0GG
- SjEmFO2/8ysKGHMh7yFHk2GQz8s0XBevE20Wtaj2VVQtibhUXAHRYp0UPlajF7lZiQwQ
- U+q2DM5rdFVkU6fBPNZ0lW0T6WZAMoVptoKf1yNf6m5ksSwGiRGrFrLB9O+7FPRQi1sf
- vEVZNwDz4GV53v/jT7ni8hTCsu3kycZr73+fg6fI9MRIkSfoCqcOEsCfSQU/lOxxmJQV
- 8xHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=2mrsdnvD8wyDjJzaLu44gItX8Fn98lAu0yzczJuLApQ=;
- fh=gBtUm0FmLpJYAZnXRubrhe6u0MvU485gfHnley1wU7A=;
- b=QhTBrJXIY/DJvpGfrvuGWVihV/DCnytZAvh3/TcD1/f/HEhOv+EfOlMdEJqlSJNHOC
- cBCt688D1iafGIdn2PGCU14d/O7NVOq7JxW9jpNdr9yARwYonEEe7AAg9vjzR4uIhg3z
- 4tpHDojBbmzLYyC3Kg/3Q1/l1fi7YB1W+s7o778DlM95h1Zh9xiiGqawYg0Coapb43KR
- m2qFKBGFFJg0aXk1ww7PBPrtd8860xMfOIUZX6fM7iAivxk7W9k1W4xKDsTWktBcr+rD
- MF87mY6M/tQeFmDR/dvgNfbAzem19daoH0BMKCz0dsB1cKRS//PehlHdGdHOUbKNIpAD
- 4CYg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1783491805; x=1784096605; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2mrsdnvD8wyDjJzaLu44gItX8Fn98lAu0yzczJuLApQ=;
- b=HqaPy0z3L41MHnGdaeMOCyAioRN31Y4eIKGJlLAG22r1ZqcUCjIVHumFd8jp7ddT+/
- kGIn/IHUTj+99bipqc6I9CiPDUcRdlI8NWcrBqMoESbALqQU2n0Pa5OL3XN0JRNUAimD
- Q+qyFjqKcZ1aA8f/oWluNzFZ6CQ+JnwPMYn5o9BEFgi5lOkQwlZr7zeTCOrkWZ6rXZ+w
- c2Rv+Uv7EW6n4TLffM7HsCke5FBAJaEtP0KJRaWIjJMUcSDm91gCQxHN5CX+ITJ+Nh1q
- kwSJLX5y3tcyQbajB/rtz09IcN+Kc9jrotKdYAjm+azjf3G8Z/o3O8ZB2t2FL0krZ6D6
- Zxuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783491805; x=1784096605;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=2mrsdnvD8wyDjJzaLu44gItX8Fn98lAu0yzczJuLApQ=;
- b=JxTsDCUgpy+LgF66RoJcrczYIUUoacFOC6F5wis6lICTmG03qzlT+MuED6/zVW/kaj
- ZnLhoYPtMvBxkd+aLjhKU7BwjCkGZYbW9kRCNLHEzmXDIYul5dB9OZeceeScuzNqXL+5
- +4hLxm6kWQFwzQMf9us4zVDSMm2ljV04873zbCy67YG2MYmndcqgvbt67sUmXsO9+FN5
- EMelhWQM28qvenfoXNvQ/1xx+9svhidzWON9YmYx2SJmpDqK2SHoRW5RnYRqqW4SDXyS
- fpM8l8TyHjb7O08lLMUhg/iL+EnfXaVjjLV8o1VlcVxRiCoHvNyO8tU00lIPFYJ80enw
- kbqA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoXj7r7Zi4rBNvHL0eLtmotxwALV9BV7PTs4n2KaKdvA43oRTitB1BKTTQZXhRErUm5gZOc+Qx60YY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYoTMWZ3fhAbB9zCqizzTucoFiAwg7S1T9QSF6hj2sYQdEcM1r
- KjQp2PwZ1r0GEPsvOeLhCZeV9e1CVRBpoedCQgKs4ToRLZPP8xmpqzPZ+xGQmxbEwMOz9govQ32
- ZUdhQr6aNjQ+9fuhsDL/aIipkJrgtPXElO6GXp1Bh+A==
-X-Gm-Gg: AfdE7ck2YG2Fun4j9dGa8KhrCVg3gjarniTPu4twA9/1vCT4kVeyUi/FLGtMKaw+tU5
- 9E635oEwkxRaaEFRJ0VNUCWByEU3q2+lLOH9EUZGUAF+/7l1P/NyGRlWYr3wt7NwSu6QKwh1iJ5
- Wzi2ZP19D4nfH2BxstEg7k5qWC0AhmPmcnT5dAXWFiQZ+nOoE+EAYZHGuStGMoFUo2jGVaXbfex
- 545S9kovSHzUs5hhD+hOK8ix0E9ssUL5nrnp1jERu6OJQ1Y03lAfmY48ETrp8VRxrVg1nfux+wm
- /iIvkctEouW4AqoxEM64mWCHlMLLWLhmLYhQNF4e
-X-Received: by 2002:a05:6512:838b:b0:5b0:d0d:1f41 with SMTP id
- 2adb3069b0e04-5b01145dc07mr247846e87.32.1783491805462; Tue, 07 Jul 2026
- 23:23:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260707093812.109176-1-marco.crivellari@suse.com>
- <12766042.8bMQJbFj6T@timur-max>
- <CADnq5_MHa8L9gWutwRKBQQ5QuM=5qd8eJgC8ZYKyBQQ1J9NUZQ@mail.gmail.com>
-In-Reply-To: <CADnq5_MHa8L9gWutwRKBQQ5QuM=5qd8eJgC8ZYKyBQQ1J9NUZQ@mail.gmail.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Wed, 8 Jul 2026 08:23:14 +0200
-X-Gm-Features: AVVi8CeJhDw9N0PwmBetZLqNcsqmdLEyWTsa6Ck_ToyKT89sOJoqix71D3z0JWk
-Message-ID: <CAAofZF6186ZO2j-pphxxW=Gg1asF03-ZhcW3Z0-kUB=q3_xm3A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Change system_unbound_wq with system_dfl_wq
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kees Cook <kees@kernel.org>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Ce Sun <cesun102@amd.com>, 
- Tao Zhou <tao.zhou1@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21ED810E56E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 06:30:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9D755439F8;
+ Wed,  8 Jul 2026 06:30:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607CD1F000E9;
+ Wed,  8 Jul 2026 06:30:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783492201;
+ bh=tzYhtSLmEPwRP9qUvDSutK+XXAvMPy/QIsKwJ6Rx5Ac=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DmnooxcbrD0/CvptO+IC0wEyggVC7FSIYfoAfGOOvgUT2z7JpegFVTr4ElK5yQ66m
+ iY+YhCMHlX66Jd6+/j2+Q/EBas6VGIjr4bbOhiGEcxZPAnYw1A1W8ItJ1EmI8Dbm3R
+ HEsWWWnR0IeuHgx9DXTFBSe5TK6Qc4lgGbBaicE8hLT2SkfrdIXNHFwFTcqZwrweyo
+ 5htAxZpyxN0Np613ViteuYuuiVun/vqrNkEJPn8GN7qbNWBGDrc/QX+ZHz4f4aTGK4
+ hADaa0vUPLRNcHiyKr9CQHgsfxDp/2DLSJ+2a1LElP7rxjouq58EF0CaNvSXoRmeIc
+ 2EhtTNkZHtpSQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu/discovery: validate table offset before
+ IP discovery header cast
+To: "Pavitra Jha" <jhapavitra98@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260708061835.111986-1-jhapavitra98@gmail.com>
+References: <20260624184444.D4A401F000E9@smtp.kernel.org>
+ <20260708061835.111986-1-jhapavitra98@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 06:30:00 +0000
+Message-Id: <20260708063001.607CD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,18 +54,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 7, 2026 at 8:13=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com>=
- wrote:
->
-> Applied.  Thanks!
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Many thanks!
+New issues:
+- [Low] Misapplied patch hunk causes compilation errors.
+
+Pre-existing issues:
+- [High] The intended security fix is completely missing from `amdgpu_disco=
+very_get_table_info`, leaving out-of-bounds reads unpatched.
+- [High] The newly added offset validation only checks the start offset, fa=
+iling to verify that the structure fits within the buffer.
+- [High] Missing validation for downstream table sizes and internal offsets=
+ causes out-of-bounds reads during parsing and checksum verification.
+- [High] Direct array access for IP_DISCOVERY table offsets breaks for vers=
+ion 2 binaries.
+--
+
+--- Patch [1]: [PATCH v2] drm/amdgpu/discovery: validate table offset befor=
+e IP discovery header cast ---
+commit 9aac939f5a3fe8366dddb94f326456646c35f228
+Author: Pavitra Jha <jhapavitra98@gmail.com>
+
+drm/amdgpu/discovery: validate table offset before IP discovery header cast
+
+The commit intends to validate the firmware-controlled table offset before
+casting it to the IP discovery header to prevent out-of-bounds reads. It
+aims to add offset checks in both the common parsing path and direct access
+sites.
+
+> Fix by validating the table offset in amdgpu_discovery_get_table_info(),
+> which is the common path used by all callers except
+> amdgpu_discovery_read_harvest_bit_per_ip() (which reads
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the commit message states the
+fix is added to amdgpu_discovery_get_table_info(), while the diff actually
+applies the validation hunk to amdgpu_discovery_verify_npsinfo() instead.=20
+
+Since amdgpu_discovery_get_table_info() remains unpatched, doesn't this lea=
+ve
+the shared table parsing paths vulnerable to out-of-bounds reads when parsi=
+ng
+firmware data?
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_discovery.c
+> index a015d55aa158e..07544bcfaf2ef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -531,6 +531,12 @@ static int amdgpu_discovery_verify_npsinfo(struct am=
+dgpu_device *adev,
+>  		return -EINVAL;
+>  	}
+> =20
+> +	if (le16_to_cpu((*info)->offset) >=3D adev->discovery.size) {
+> +		dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
+> +			le16_to_cpu((*info)->offset), table_id);
+> +		return -EINVAL;
+> +	}
+> +
+
+[Severity: Low]
+Does this compile?=20
+
+In amdgpu_discovery_verify_npsinfo(), info is a single pointer of type stru=
+ct
+table_info *info, making (*info)->offset invalid C syntax. Additionally,
+table_id is undeclared in this function. It appears this hunk was intended
+for amdgpu_discovery_get_table_info() but was misapplied here.
+
+[ ... ]
+> @@ -803,6 +809,14 @@ static void amdgpu_discovery_read_harvest_bit_per_ip=
+(struct amdgpu_device *adev,
+>  	int i, j;
+> =20
+>  	bhdr =3D (struct binary_header *)discovery_bin;
+
+[Severity: High]
+This is a pre-existing issue, but does unconditionally casting to
+struct binary_header * work for version 2 binaries?=20
+
+Since version 2 binaries (struct binary_header_v2) insert num_tables and
+padding before the table_list array, wouldn't accessing
+bhdr->table_list[IP_DISCOVERY].offset read from those fields instead,
+leading to incorrect offset calculations and out-of-bounds accesses?
+
+> +
+> +	if (le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset) >=3D
+> +	    adev->discovery.size) {
+
+[Severity: High]
+This is a pre-existing issue, but does this check adequately prevent
+out-of-bounds reads?=20
+
+The check only verifies that the start offset is within the buffer bounds. =
+If
+an offset is placed at the very end of the buffer, wouldn't the subsequent
+read of ihdr->num_dies access memory beyond the buffer since the structure
+size is not validated?
+
+> +		dev_err(adev->dev, "invalid IP_DISCOVERY table offset %u\n",
+> +			le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
+> +		return;
+> +	}
+> +
+>  	ihdr =3D (struct ip_discovery_header
+>  			*)(discovery_bin +
+>  			   le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
+
+[Severity: High]
+This is a pre-existing issue, but are downstream table sizes and internal
+offsets validated to prevent out-of-bounds reads?
+
+For example, in amdgpu_discovery_read_harvest_bit_per_ip(), ip_offset is
+declared as a uint16_t:
+
+	ip_offset +=3D struct_size(ip, base_address,
+				 ip->num_base_address);
+
+Could a struct_size() overflow result in SIZE_MAX being truncated to a
+smaller value by uint16_t, thereby defeating built-in overflow protections?
+
+Additionally, in amdgpu_discovery_init(), is it possible for the size
+calculation to underflow?
+
+	size =3D le16_to_cpu(bhdr->binary_size) - offset;
+
+If binary_size is less than offset, this underflow could lead to a large
+out-of-bounds read in the checksum verification loop.=20
+
+Similarly, in amdgpu_discovery_table_check(), table_size is read from heade=
+rs
+and passed directly to amdgpu_discovery_verify_checksum(). Is there a check
+to ensure it fits within the buffer?
 
 --=20
-
-Marco Crivellari
-
-SUSE Labs
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708061835.1119=
+86-1-jhapavitra98@gmail.com?part=3D1
