@@ -4,45 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67419C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 22:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 436DAC44501
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 22:21:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D57A410F30E;
-	Wed,  8 Jul 2026 22:15:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF0510F30F;
+	Wed,  8 Jul 2026 22:21:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lJ5N/A7d";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AJzTImP8";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2066F10F30E
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:15:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6A3346001A;
- Wed,  8 Jul 2026 22:15:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39551F000E9;
- Wed,  8 Jul 2026 22:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783548943;
- bh=7DTJJU6TlX9Bg2RWnPOawNG7pfIEmDlVMYVPRfNZoVg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lJ5N/A7d1GPYbKaAlGkZ+p5EzTNQN1W/0ZsotGYkRcNqJznxV9b868O51u5N/zsYM
- Yr2oe4qhmUIcQ0L4y4LtxVDcx3Ri6/4qpn2W7xGISzJHoqx9rbjdQT22pYsxfVa708
- tOdEB5x2Ja6J6QF5RAufbMDpb5FPsIONKGg/xxXr/GbQkVA8yN5en4KjO5tNrDs7eP
- Og6oZ0KFkcOTXIB28HsYiJQng2V+L8BZAZsVlvk4RC4QTXL8IdWPdNQHOsXPyQl++4
- IECXZ4lUMl1P/A5YTttJd581x2api0T2xTE8c6ApMpGcjE674C5j9JPMKxnlz5lobF
- O8J3c6JkbrIIw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 output
- format
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC27010F30F
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 22:21:11 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-80d33d13a23so15746457b3.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 15:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783549270; x=1784154070; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=6ryEBOu0tdMaJYn0ZWk82G78CEwzIufJFF6xesijT5I=;
+ b=AJzTImP8z5+C4a/AqLFGI6+CP72moPwCjMvpTtdV/+h90bZOV8onysxCNm5hHJFXNm
+ Z+FxTzr0paLCu87JzIsgDyycwXTM7AGVWo0PEwLw+qauztUNtrYgBwRZQJDF/klANGvm
+ ZypKVkTpjYs+I5tGqtPaASodUISamBIs6YaLnz+f9y/3TbAJD3gC012l1SmhkoIN5oDK
+ VwW4y+tZzaLcr1JDYARkgYt2U6ljXZOpwWByJLR2CKYIIqKjJVEvjL6+K89S1qdLHnt9
+ jXezdKZR0pItPyULoZ0JC7m8wYxGZOVImTPZMArDQaIE1KblsTAQIH8PGToZPHIStEms
+ YUHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783549270; x=1784154070;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6ryEBOu0tdMaJYn0ZWk82G78CEwzIufJFF6xesijT5I=;
+ b=CfRzZIYo70rxj5CEyUl+7M42at3n56K1iWroG0UsdfMLYpHCZ1U71HIWA1s/C8YZBL
+ bO4gv1rgIXSfEKI4PwH7roajjyZjRj2GnT4SnTB7PKu7Dom+DFT+YJHZ24BGD4Lpto8h
+ DYF0uCfg1fFpenEuU+nnEcyRDFnLAowtD8wHAWv/wpgs3tqokzpcsBwZgsZQvdUfuyRr
+ SZ23iXl6mLJr06lI/bSglN/H3/iolsqs7jXSJbf5Ec1HkYQ7ScvcwyEGCnls9X7KHIeI
+ h0uw6Ve7Y3NuevFDCdxnUCr1xQkfSaUyQBxCO7d1K1gsNA5bapnsu6ewwOaOsGkpasGt
+ yPBA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rrn6js3+Fj4Mv8bBhP/dOALLJxYR3WAPtB5DShqwHEMislh1ex8i2+QMHHST1WZmAQrmHSOcENb8ks=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGIelWA6WHqBiK9ZDc4vPRPNFtur1LY5/OXLAb2VmqlR83dZjH
+ JuD3Xut/4og5valG8RJwIA340PAVxmoviJQ1obPGIL/jE/XfP/pnEQo=
+X-Gm-Gg: AfdE7cmAgSCOF8MV0rBzcU0pASyJQ0+NmZJCzhjaTKB0DKZyzqGSNJydLqgnaOal1eE
+ YEmKh085Eh/UHQW2p0sDyPLX+oVALcFlHIYxhBni/ieit/SNGygxmrUY4yZYoSoyXYw8de12Iqj
+ Q5ZEGbjhRG60vPy7iNXbCx1Yw5F1VdQHGVLjMvlJA5QvTWxNQGeGAbgZg62fNTt1eRoGkBFecxb
+ ZCmP8SgbZin6SYSeUgUBsyqaJRtPukMymWkQpv+DeAd7mF8l+gOyl0MCAt5IyUNRooBYebW0ssa
+ 7/Hx6C/d5A0HHENJg6PMCdgXCZxCn4FfEFh+RaTXTn4rysL6XF/n95VeY73gOyhmLSH1A9o0VZ4
+ JXEyO5Geqfg53mvunQyhPG2ZreAnxjTKPvZMtK4UBvj3DzWSCmVSIO9mEhsYfQYojAVPhflgMNB
+ R33q4Q6uMeF+YzRwqUegqz8NPbfsTDoDRj1JeTkekCNEssY45wU+gwlK5iPKNzKOjKMA==
+X-Received: by 2002:a05:690c:4b90:b0:80d:a249:486c with SMTP id
+ 00721157ae682-81dbbe3b5b4mr36173027b3.3.1783549270397; 
+ Wed, 08 Jul 2026 15:21:10 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-81e6bf653desm3151417b3.17.2026.07.08.15.21.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 15:21:09 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Brigham Campbell <me@brighamcampbell.com>,
+ David Airlie <airlied@gmail.com>, Shuah Khan <skhan@linuxfoundation.org>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-13-a4a982a9f2e7@collabora.com>
-References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
- <20260709-dw-hdmi-qp-yuv-v3-13-a4a982a9f2e7@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 22:15:41 +0000
-Message-Id: <20260708221542.C39551F000E9@smtp.kernel.org>
+Subject: [PATCH] drm/amdgpu: Inline drm_simple_encoder_init()
+Date: Wed,  8 Jul 2026 19:20:21 -0300
+Message-ID: <20260708222035.7324-1-nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,69 +90,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Simple KMS helpers are deprecated because they introduce an unnecessary
+intermediate layer between atomic modesetting and the DRM driver.
 
-Pre-existing issues:
-- [High] Modifying hardware or global driver state within atomic_check call=
-back.
+Inline the functionality of drm_simple_encoder_init() to remove
+dependencies on these deprecated helpers.
+
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 170adaf7e76a..d5b0692fe860 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -2,7 +2,7 @@
+
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_edid.h>
+-#include <drm/drm_simple_kms_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_vblank_helper.h>
+@@ -316,6 +316,10 @@ static struct drm_plane *amdgpu_vkms_plane_init(struct drm_device *dev,
+ 	return plane;
+ }
+
++static const struct drm_encoder_funcs drm_encoder_funcs_cleanup = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+ 				   amdgpu_vkms_output *output, int index)
+ {
+@@ -342,7 +346,9 @@ static int amdgpu_vkms_output_init(struct drm_device *dev, struct
+
+ 	drm_connector_helper_add(connector, &amdgpu_vkms_conn_helper_funcs);
+
+-	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
++	ret = drm_encoder_init(dev, encoder,
++			       &drm_encoder_funcs_cleanup,
++			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to init encoder\n");
+ 		goto err_encoder;
 --
+2.47.3
 
---- Patch [13]: [PATCH v3 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 ou=
-tput format ---
-commit 886f3880152ce2fc09e568484e921ca99dad89d4
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
-drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
-
-Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
-color format, and the required bus-format handling and VOP2 support are
-already in place.  Advertise it via the platform supported formats so
-the HDMI core can select it.
-
-YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
-high-resolution modes such as 4K@60Hz on links that cannot otherwise
-carry the full-bandwidth signal.
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 78473f9a0fce3..1af29066a0a31 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed something concerni=
-ng
-in dw_hdmi_qp_rockchip_encoder_atomic_check() in this same file:
-
-drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c:dw_hdmi_qp_rockchip_encoder_=
-atomic_check() {
-    ...
-	ret =3D phy_configure(hdmi->phy, &phy_cfg);
-	if (!ret) {
-		hdmi->tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
-		s->output_type =3D DRM_MODE_CONNECTOR_HDMIA;
-		s->output_bpc =3D conn_state->hdmi.output_bpc;
-		s->bus_format =3D ingest_fmt;
-	} else {
-    ...
-}
-
-Does this code accidentally configure the hardware PHY and modify global
-driver state (hdmi->tmds_char_rate) during the atomic_check phase?
-
-When userspace performs an atomic modeset with the DRM_MODE_ATOMIC_TEST_ONLY
-flag, dw_hdmi_qp_rockchip_encoder_atomic_check() is invoked to validate the
-state. Modifying hardware or global state here breaks the guarantee that
-atomic test-only commits are free of side effects. This could cause the
-hardware state to desynchronize from the DRM core's expectations.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-dw-hdmi-qp=
--yuv-v3-0-a4a982a9f2e7@collabora.com?part=3D13
