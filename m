@@ -4,107 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C12EC43602
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:12:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 503CDC43602
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 11:21:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A009810F0BD;
-	Wed,  8 Jul 2026 11:12:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A184A10F0C9;
+	Wed,  8 Jul 2026 11:21:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NKaLLLgY";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="h9xrOKfA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BD5410F0BC;
- Wed,  8 Jul 2026 11:12:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783509135; x=1815045135;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=dXbZA1E6z2cbPpn5lXVwUbC3y8RJZe9PuV/6K4qA1zI=;
- b=NKaLLLgYSGwRbFEUPZ4WXfWAkQLZfXhRPviQaSCCWKxzP1Hwd/RZVyI5
- qhXuK+dXM700naBdhd5VjHzf3fB68yRX1rwFVdBb5K4tRooC+h47nZN0b
- HqlzRyvi3i/kegVxXwlN1Q9bFbd81z5OdScYJJbrEMHBh9n2zirrfivj3
- BLmv97jfpG4CZUhQ06zO8jXEDpEWV04IHrUTpZ4Y4IibitKa+7JaNke2V
- eeZ2GZkWMVMW7okGFl4bSqx3udTAk2pzQVKxjuOZ7hAoPkOtFqIPD9PMt
- rUuZBYfnUwPvVhb5PmwwjRrhP3ahd79YDWKu/qN+x7cMdQsrVi6vnYScE A==;
-X-CSE-ConnectionGUID: zPFvwxOaRWa3AIeDOcARmw==
-X-CSE-MsgGUID: YkTzvrgqQ7evq5LOpFHqYQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84025158"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="84025158"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 04:12:14 -0700
-X-CSE-ConnectionGUID: xnTXU7N2RFKFpJyFUzPznA==
-X-CSE-MsgGUID: WXa6o+4tR/u+kKLX2b+3mA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="252523743"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.100])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 04:12:00 -0700
-Date: Wed, 8 Jul 2026 14:11:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Lee Jones <lee@kernel.org>,
- Mark Brown <broonie@opensource.wolfsonmicro.com>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Peter Chen <peter.chen@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- driver-core@lists.linux.dev, devicetree@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, mfd@lists.linux.dev,
- Manuel Ebner <manuelebner@mailbox.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 05/20] driver core: update kerneldoc for
- platform_device_alloc()
-Message-ID: <ak4wfuYxO2serrQt@ashevche-desk.local>
-References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-5-1ff028e33779@oss.qualcomm.com>
- <ak0jyUbNonSRiP_g@ashevche-desk.local>
- <CAMRc=Md7-XMBKpdPuZ4=epfTn6F-PXKJBZNPGuz5xbVy58BHsg@mail.gmail.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 022FB10F0C9
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 11:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783509672;
+ bh=GEwFILC+0xXIT2PjFETG0vxtNdBCpa2gjlVADBYSpnU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=h9xrOKfAASK2CG1IYIOQK0cI/yaIkZ7MqAtRT/ZgVpNtfWvMYspviU8lejmf14sFV
+ xZsaukwZgLzwhm/J0LcUa445eu9S8iTjwjZB+uuUbaH0GNo/dOmrGlsTphchH9xaXg
+ y3AguVlLBqSmiJbpbHH0QQZRmL+qUc8WO3D30jzVzm5ibUdTEJ+eQLU3yZJ/XRkUgv
+ 5bgi6DQ7yaF2ErB0Jn3TQSM0RRMLTZmx551D7Zwxy3+EUjnJTtl0rVai7fTdm9KJqA
+ 5mChSL7WtADE9YIIDakoYDQEFXqluLICD0PH9U77FWQZwU8NxB/kE4pD8HGK9tAUJt
+ EYoMVNms/ClpA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9E77E17E0713;
+ Wed, 08 Jul 2026 13:21:11 +0200 (CEST)
+Message-ID: <05de7187-a7e9-4d69-8c65-cdbc30d21d33@collabora.com>
+Date: Wed, 8 Jul 2026 14:21:11 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMRc=Md7-XMBKpdPuZ4=epfTn6F-PXKJBZNPGuz5xbVy58BHsg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 10/39] drm/display: hdmi-state-helper: Sync SCDC state
+ on hotplug
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
+ <20260702-dw-hdmi-qp-scramb-v8-10-d79890d00b6a@collabora.com>
+ <20260707-unique-carmine-cheetah-af2cb8@penduick>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260707-unique-carmine-cheetah-af2cb8@penduick>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,25 +77,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 08, 2026 at 12:42:58AM -0700, Bartosz Golaszewski wrote:
-> On Tue, 7 Jul 2026 18:05:29 +0200, Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> said:
-> > On Mon, Jul 06, 2026 at 02:44:17PM +0200, Bartosz Golaszewski wrote:
-> >> Users of platform_device_alloc() + platform_device_add() must not modify
-> >> certain fields of the dynamically created platform device object. Update
-> >> the kernel doc to say which fields are affected and which functions to
-> >> use.
-> >
-> > Consider using __private checker attribute for them as well. It will make
-> > sparse scream.
+Hi Maxime,
+
+On 7/7/26 2:31 PM, Maxime Ripard wrote:
+> Hi,
 > 
-> Sure but let's leave it for another series.
+> On Thu, Jul 02, 2026 at 05:46:23PM +0300, Cristian Ciocaltea wrote:
+>> drm_atomic_helper_connector_hdmi_hotplug() does not currently
+>> synchronize SCDC status on hotplug events, leaving the scrambler state
+>> potentially inconsistent after (re)connect.
+>>
+>> Hook drm_connector_hdmi_sync_scdc() into both the connect and disconnect
+>> paths, replacing the existing TODOs around missing scrambler handling.
+>>
+>> SCDC synchronization may require a CRTC reset, which in turn needs a
+>> modeset acquire context for correct locking.  Therefore, extend
+>> drm_atomic_helper_connector_hdmi_hotplug() and
+>> drm_atomic_helper_connector_hdmi_update() to take a
+>> drm_modeset_acquire_ctx argument.  Additionally, change their return
+>> type from void to int, allowing propagation of errors, such as -EDEADLK
+>> from lock contention.
+>>
+>> Update existing callers to pass NULL for the acquire context, preserving
+>> current behavior.
+> 
+> You should have two patches here: one to change the prototype of the
+> helpers, and one to add the call to drm_connector_hdmi_sync_scdc
 
-Sure, just a side note comment that you know that we have some facilities for
-that type of problems.
+Ack.
 
--- 
-With Best Regards,
-Andy Shevchenko
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  drivers/gpu/drm/display/drm_bridge_connector.c  |  3 ++-
+>>  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 28 +++++++++++++++++--------
+>>  drivers/gpu/drm/vc4/vc4_hdmi.c                  |  2 +-
+>>  include/drm/display/drm_hdmi_state_helper.h     |  6 ++++--
+>>  4 files changed, 26 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+>> index 796069dbf1a1..46104506fe32 100644
+>> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+>> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+>> @@ -221,7 +221,8 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
+>>  		status = detect->funcs->detect(detect, connector);
+>>  
+>>  		if (hdmi)
+>> -			drm_atomic_helper_connector_hdmi_hotplug(connector, status);
+>> +			drm_atomic_helper_connector_hdmi_hotplug(connector, status,
+>> +								 NULL);
+>>  
+>>  		drm_bridge_connector_hpd_notify(connector, status);
+>>  	} else {
+> 
+> We should move this one to detect_ctx to get the ctx passed and avoid
+> passing NULL here.
 
+We do this in patch 15.  Should I try to reorder?
 
+>> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+>> index db76699093e8..69ccfbf123fe 100644
+>> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+>> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+>> @@ -1198,18 +1198,20 @@ drm_atomic_helper_connector_hdmi_clear_audio_infoframe(struct drm_connector *con
+>>  }
+>>  EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_clear_audio_infoframe);
+>>  
+>> -static void
+>> +static int
+>>  drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+>> -					enum drm_connector_status status)
+>> +					enum drm_connector_status status,
+>> +					struct drm_modeset_acquire_ctx *ctx)
+> 
+> detect_ctx has the context first, I think we should use that convention
+> here too.
+
+Ack.
+
+>>  {
+>>  	const struct drm_edid *drm_edid;
+>> +	int ret = 0;
+>>  
+>>  	if (status == connector_status_disconnected) {
+>> -		// TODO: also handle scramber, HDMI sink disconnected.
+>> +		ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
+>>  		drm_connector_hdmi_audio_plugged_notify(connector, false);
+>>  		drm_edid_connector_update(connector, NULL);
+>>  		drm_connector_cec_phys_addr_invalidate(connector);
+>> -		return;
+>> +		return ret;
+>>  	}
+>>  
+>>  	if (connector->hdmi.funcs->read_edid)
+>> @@ -1222,24 +1224,32 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+>>  	drm_edid_free(drm_edid);
+>>  
+>>  	if (status == connector_status_connected) {
+>> -		// TODO: also handle scramber, HDMI sink is now connected.
+>> +		ret = drm_connector_hdmi_sync_scdc(connector, true, ctx);
+>>  		drm_connector_hdmi_audio_plugged_notify(connector, true);
+>>  		drm_connector_cec_phys_addr_set(connector);
+>>  	}
+>> +
+>> +	return ret;
+>>  }
+>>  
+>>  /**
+>>   * drm_atomic_helper_connector_hdmi_hotplug - Handle the hotplug event for the HDMI connector
+>>   * @connector: A pointer to the HDMI connector
+>>   * @status: Connection status
+>> + * @ctx: Lock acquisition context to be used for resetting CRTC
+>>   *
+>>   * This function should be called as a part of the .detect() / .detect_ctx()
+>>   * callbacks for all status changes.
+>> + *
+>> + * Returns:
+>> + * Zero on success, error code on failure.
+>> + * If @ctx is set, it might also return -EDEADLK.
+>>   */
+>> -void drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
+>> -					      enum drm_connector_status status)
+>> +int drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
+>> +					     enum drm_connector_status status,
+>> +					     struct drm_modeset_acquire_ctx *ctx)
+>>  {
+>> -	drm_atomic_helper_connector_hdmi_update(connector, status);
+>> +	return drm_atomic_helper_connector_hdmi_update(connector, status, ctx);
+>>  }
+>>  EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
+>>  
+>> @@ -1254,6 +1264,6 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
+>>   */
+>>  void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector)
+>>  {
+>> -	drm_atomic_helper_connector_hdmi_update(connector, connector->status);
+>> +	drm_atomic_helper_connector_hdmi_update(connector, connector->status, NULL);
+>>  }
+> 
+> We should create a new context here.
+
+Ack.
+
+> 
+>>  EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_force);
+>> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+>> index 74dce4be0c00..e165f604939b 100644
+>> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+>> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+>> @@ -375,7 +375,7 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+>>  	 * the lock for now.
+>>  	 */
+>>  
+>> -	drm_atomic_helper_connector_hdmi_hotplug(connector, status);
+>> +	drm_atomic_helper_connector_hdmi_hotplug(connector, status, NULL);
+> 
+> vc4_hdmi_handle_hotplug has the context passed as an argument, we should reuse it.
+
+The vc4 conversion (patch 31) removes vc4_hdmi_handle_hotplug() and calls
+drm_atomic_helper_connector_hdmi_hotplug() directly in
+vc4_hdmi_connector_detect_ctx().  
+
+I used NULL here to ensure there wouldn't be any race between the two separate
+SCDC state management implementations, but that can't happen at this point
+anyway (hdmi->scrambler_enabled isn't set by the driver).  So we can pass the
+context if you prefer.
+
+Thanks,
+Cristian
