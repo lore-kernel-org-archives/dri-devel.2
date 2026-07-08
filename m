@@ -4,87 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10D4C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:27:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29D3EC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1598C10F45A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B7B910F458;
 	Thu,  9 Jul 2026 07:26:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="OIh2q5No";
+	dkim=pass (1024-bit key; unprotected) header.d=prodrive-technologies.com header.i=@prodrive-technologies.com header.b="k+HeT2YN";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F19D710E3A1;
- Mon,  6 Jul 2026 14:40:00 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gv6TB3Q84zKv2g;
- Mon, 06 Jul 2026 16:39:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1783348798;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PTWGfLdwlWAV/LMkx8q6n+16+BLtwX+Uw6eFuSY1pwE=;
- b=OIh2q5NoOb8/zfHzXHh6+EFxzLMaDkzPcbVgv5xkovZYR/4JA9SFzE0VU9VAm1rNRZLR0S
- AX9n6t6Qdg/BHwG8GIE0XsFgInmrRdJCk1rI7C64cKOlIyq4TCeFWdyPovr+dbaBZvE7Xw
- 3Gt8jIfDUCNo/K6k+YRQVDybeevZzGh0XtuQ2zVUtN5hCMOWCq8qaO0uMb1bLR1G0foLqN
- KuGMynijGMoLzFJiCQ/pxQVYlrrpwux9nHY20wk2i5B2W/3iVCLsdvpCsubihHUwhDMw1G
- ARSB7sTYnBnOH85aXuiUq7w/RlmGL22TeStMe6dbMo/bP0D6ZZw0KkWwo9maXg==
-Message-ID: <fbc50f89e0c3bb148656a3b8d96974f591576dec.camel@mailbox.org>
-Subject: Re: [PATCH v3 02/20] driver core: platform: provide
- platform_device_set_of_node()
-From: Manuel Ebner <manuelebner@mailbox.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Lee Jones	
- <lee@kernel.org>, Thierry Reding <thierry.reding@avionic-design.de>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller"	 <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski	 <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Srinivas Kandagatla	 <srini@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Vinod Koul	 <vkoul@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich	
- <dakr@kernel.org>, Rob Herring <robh@kernel.org>, Saravana Kannan	
- <saravanak@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
- Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)"	 <chleroy@kernel.org>, Andi Shyti
- <andi.shyti@kernel.org>, Andy Shevchenko	
- <andriy.shevchenko@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Doug Berger
- <opendmb@gmail.com>,  Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team	 <kernel@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, Matthew Brost	 <matthew.brost@intel.com>, Thomas
- =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>, Rodrigo
- Vivi <rodrigo.vivi@intel.com>,  David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>,  Paul
- Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, Philipp Zabel
- <p.zabel@pengutronix.de>,  Maximilian Luz <luzmaximilian@gmail.com>, Hans
- de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, 	linux-pm@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
- linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- mfd@lists.linux.dev
-Date: Mon, 06 Jul 2026 16:39:00 +0200
-In-Reply-To: <20260706-pdev-fwnode-ref-v3-2-1ff028e33779@oss.qualcomm.com>
-References: <20260706-pdev-fwnode-ref-v3-0-1ff028e33779@oss.qualcomm.com>
- <20260706-pdev-fwnode-ref-v3-2-1ff028e33779@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11022072.outbound.protection.outlook.com [52.101.66.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E38010E57C
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 08:05:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MA5w7puYR/PRi9tdBLFFFiSlT4rRF6ExFs00SG1rqT5noZq4809LlCVcS90TCo8uqLcon+B0p6sGo9Jtzg0LOPWV2uPy+JlQb0Bvs8ajq+wwmw4UnqPXL8hQhpkTTF1tWOfYQw1D6vKbcsFwdgYY2slcLw+hyBJcwvo5IWoDjF8rOI+7KvdBleYYWIyRGKcoxqY4puDVeqTCM3F+l8PZeNr6VuZeDmz7Xxrx4I49ahU/2faMMQ0VvXPOSU+tAKbDDN4K9C4NcI/Vo+QgYtWKp/7LI6BrcFhqwCNlWV1uhyucoYULVzGyT7WZMoNuSM3oykijdhwCNHqIFzHTLcPUXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zx2weQRp0GxB/O3RUCClEbQ0YljvrkRs8Xafl9OKNhk=;
+ b=PtOiKThn/lu3ijdEjDZUX0uo4liuXqg2oNyWesLTnjaDFd+33vT2AOkuKmeIxN0Al/80osRoAUDSe6JnsyzVa1WlZUTkwpRiX/RPjlrfEhwI58WGW8SmZkttH4nSnCJsUmtor0lEXCrXbXcNAmUS4em8MKwP4+pvEzC9hcyRr1uO1rNEmHA+GL5HY5QJT5lD+Ni31ocBlJgsHSnul0Py5BjFQRMSAxCgLb08hnpp2B58CPH+iH/6EVYR5Lk86QJELw43LIssKPKVCioo/4zpwt9hmRHNmhZJyjDIthvn+DSB9rqOFDResQvsnap9JrSeIBeqL4k9TgHmV2GtA2Wv8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 109.94.150.189) smtp.rcpttodomain=ideasonboard.com
+ smtp.mailfrom=prodrive-technologies.com; dmarc=pass (p=reject sp=reject
+ pct=100) action=none header.from=prodrive-technologies.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=prodrive-technologies.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zx2weQRp0GxB/O3RUCClEbQ0YljvrkRs8Xafl9OKNhk=;
+ b=k+HeT2YNg6csv+mN5kBwxxOIzrPqv5HcvCkUJOTGl0TN82ZhvYPl9Ubt6OyjBOtolS2xbkBlaC13Z5O/6xkvX9hiLLa09We9B/4qShMbbPpHhTcgmkfwoBW9LgNG7O6QU/jFquQn4CcYe4rh1bpuK2b+GsmMrKLUiT+Cda4oAq4=
+Received: from AS9PR06CA0139.eurprd06.prod.outlook.com (2603:10a6:20b:467::30)
+ by AM0PR02MB5841.eurprd02.prod.outlook.com (2603:10a6:208:181::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Wed, 8 Jul
+ 2026 08:05:20 +0000
+Received: from AMS1EPF00000094.eurprd05.prod.outlook.com
+ (2603:10a6:20b:467:cafe::3d) by AS9PR06CA0139.outlook.office365.com
+ (2603:10a6:20b:467::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.10 via Frontend Transport; Wed, 8
+ Jul 2026 08:05:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 109.94.150.189)
+ smtp.mailfrom=prodrive-technologies.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=prodrive-technologies.com;
+Received-SPF: Pass (protection.outlook.com: domain of
+ prodrive-technologies.com designates 109.94.150.189 as permitted sender)
+ receiver=protection.outlook.com; client-ip=109.94.150.189;
+ helo=webmail.prodrive.nl; pr=C
+Received: from webmail.prodrive.nl (109.94.150.189) by
+ AMS1EPF00000094.mail.protection.outlook.com (10.167.242.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Wed, 8 Jul 2026 08:05:20 +0000
+Received: from EXCOP02.bk.prodrive.nl (10.1.0.91) by EXCOP01.bk.prodrive.nl
+ (10.1.0.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 8 Jul
+ 2026 10:05:19 +0200
+Received: from lnxdevrm02.bk.prodrive.nl (10.1.1.121) by
+ EXCOP02.bk.prodrive.nl (10.1.0.91) with Microsoft SMTP Server id 15.2.2562.43
+ via Frontend Transport; Wed, 8 Jul 2026 10:05:19 +0200
+Received: from paugeu by lnxdevrm02.bk.prodrive.nl with local (Exim 4.96)
+ (envelope-from <paul.geurts@prodrive-technologies.com>)
+ id 1whNHT-00G4Pd-0p; Wed, 08 Jul 2026 10:05:19 +0200
+From: Paul Geurts <paul.geurts@prodrive-technologies.com>
+To: <mripard@kernel.org>
+CC: <Laurent.pinchart@ideasonboard.com>, <airlied@gmail.com>,
+ <andrzej.hajda@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <jernej.skrabec@gmail.com>, <jonas@kwiboo.se>,
+ <linux-kernel@vger.kernel.org>, <luca.ceresoli@bootlin.com>,
+ <maarten.lankhorst@linux.intel.com>, <neil.armstrong@linaro.org>,
+ <paul.geurts@prodrive-technologies.com>, <rfoss@kernel.org>,
+ <simona@ffwll.ch>, <tzimmermann@suse.de>
+Subject: Re: [PATCH] drm/bridge: sn65dsi83: perform host_attach on attach
+ instead of probe
+Date: Wed, 8 Jul 2026 10:05:19 +0200
+Message-ID: <20260708080519.3830195-1-paul.geurts@prodrive-technologies.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20260708-fresh-malamute-of-resistance-eeded4@houat>
+References: <20260708-fresh-malamute-of-resistance-eeded4@houat>
 MIME-Version: 1.0
-X-MBO-RS-ID: dd8ce0f1dac3e9f612a
-X-MBO-RS-META: 1q71yutefcf1nyjzwoom4gu47fi8rss3
-X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000094:EE_|AM0PR02MB5841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ee0b494-df64-44fd-0bec-08dedcc7a7ea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|23010399003|376014|82310400026|1800799024|36860700016|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: EcpEcAfWDu3V0vycNVYEUMu9DWN/WuYZBfUVenQmz3xRZ53sHGeSGAYEwa0aoVEDJstvjcQLShafTERfd28wkAUaZIqFoOd7mtgZgeNEemIGoKIjN2ONdc0o+rL5nbih2XWQ+I10GKd5jFifyxrRla9m6wdwqEdQTgYASjNvH8Ov1Fw2b3BFKQ4uRskldUkAZV/bVavnfPSFwtUnB3BjQ0t5RQJ0S8Ng7w0zkZB4PcbGvKKPve5W8Ljd18mLGid8pq7xqBqMjiAGdqP2BGEs35kBOqTOWMDNJycKrq946zwLYzw/v2Aw8KDhDCUQjIrCXtmlRSUzcgdBQtC1SpEzDCWBcEQ8ikiAWRbRIIfpcAgoiANSyjn9qeCEn3QCX62OhYwXPoLix1YFX9uDp7GFT9H5KwkpJTihe3+z6ZPT3S2e7kF4B20RkooojZbH47JyGw7/QewaT/RhOdDn+7jQRDmwMDc26pfhuwzCyIKMg1iS+bT8LJ/re9dPLGJAZkxS2J57MaF46//iTE+6P/kDpqs6UPAX8JfRH68x214BAkd+4TMcNrteoRHgiIjdAr+1w1+wqtCQ0c1eqn6ShotvI6PGZLjigY/CdYHWwLUJGnnTs8RMPUothrij7pmgzmdO5RwKgKjAHRoorEyRbhqD8haeQUUGr3ibSKrzzytAAk11LRwOTnIb1b1JHLoNqgPOZOOpHRP9HDLQWj1pmH/Yag==
+X-Forefront-Antispam-Report: CIP:109.94.150.189; CTRY:NL; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:webmail.prodrive.nl; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(23010399003)(376014)(82310400026)(1800799024)(36860700016)(18002099003)(22082099003)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 2kkNEZg2Z7aAQpnrmNDTmjHagcKMIdcbSgP5IDuu6BIOfzlW13FfpueqSrD1dK5veQGLvxIQvy4HCoHjkDtI/b4nTsKjxfhOibvHrLOZsdGr91PRtlRzMk+oliaWeMdoe2ki9ls6V0vVrcvKxm58c0qDVmu5OOK0thvPxlYM2jBKlQL0TU5FaojsUkUXrMGfOGWxf1FCjKidwCqtwQFT7Sp5HNcNBmkgQa+TtACV2IonLsCZ8g+KMz0z+N+NRDhKh/uZSBTIxt24fTlbYojjasGI83jgv2u9qkJMvqfE+Rt+w0WLr8TEGApr31x96E4MUGbRduzei6nEUVSmB6ovaTKfO9/hBun2KZgkC/zoL34JepC1QOJar6wLkHNmvELYAJmYzmgt3WpLb+ZkCX5HkUk8jDyqRrEwBDM7QPjitJ5LlW8n5tGmOb8BC321yRn0
+X-OriginatorOrg: prodrive-technologies.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 08:05:20.6706 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ee0b494-df64-44fd-0bec-08dedcc7a7ea
+X-MS-Exchange-CrossTenant-Id: 612607c9-5af7-4e7f-8976-faf1ae77be60
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=612607c9-5af7-4e7f-8976-faf1ae77be60; Ip=[109.94.150.189];
+ Helo=[webmail.prodrive.nl]
+X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000094.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR02MB5841
+X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,106 +124,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Bartosz,
+> Hi,x
+>
+> On Tue, Jul 07, 2026 at 10:46:55AM +0200, Paul Geurts wrote:
+>> When connecting the sn65dsi83 device to the Samsung MIPI DSI host
+>> controller found in i.MX8M Mini, probing the host and device
+>> infinitely defers, waiting for each other to appear. on probe of the
+>> host, it tries to attach to the device, which has not been probed yet.
+>> It therefore does not register the host, and defers. When the sn65dsi83
+>> probes, it tries to attach to the host, which is not registered as it is
+>> deferred, and thereofore it defers as well, without registering. This
+>> means the two drivers are infinetely waiting for each other to appear.
+>> This is the case on the Samsung MIPI DSI host controller, but might be
+>> the case with other host controllers as well.
+>> 
+>> Only register the sn65dsi83 on probe, and attach to the host later. This
+>> means the host has a bridge to attache to in probe. When the host
+>> attaches to the bridge, the bridge can attach to the host, breaking the
+>> infinite defer.
+>> 
+>> Signed-off-by: Paul Geurts <paul.geurts@prodrive-technologies.com>
+>> Fixes: 6ef7ee48765f ("drm/bridge: sn65dsi83: Register and attach our DSI device at probe")
+>
+> I think the problem is actually that DSIM doesn't attach the bridge in
+> its MIPI-DSI host attach hook, as documented here:
+>
+> https://www.kernel.org/doc/html/latest/gpu/drm-kms-helpers.html#special-care-with-mipi-dsi-bridges
 
-On Mon, 2026-07-06 at 14:44 +0200, Bartosz Golaszewski wrote:
-> Encapsulate the reference counting logic for OF nodes assigned to
-> platform devices created with platform_device_alloc() in a helper
-> function. Make the kerneldoc state that this is the proper interface for
-> assigning OF nodes to dynamically allocated platform devices. This will
-> allow us to switch to counting the references of the device's firmware
-> nodes, not only the OF nodes.
->=20
-> Reviewed-by: Manuel Ebner <manuelebner@mailbox.org>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
-> =C2=A0drivers/base/platform.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 18 ++++++++++++++++++
-> =C2=A0include/linux/platform_device.h |=C2=A0 4 ++++
-> =C2=A02 files changed, 22 insertions(+)
->=20
-> diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-> index fb9120b0bcfe0e7dd9dfc0d29b91e0ad40a01440..3188d5aba5f90622f821c6950=
-49cacda030204fb
-> 100644
-> --- a/drivers/base/platform.c
-> +++ b/drivers/base/platform.c
-> @@ -693,6 +693,24 @@ int platform_device_add_data(struct platform_device =
-*pdev, const
-> void *data,
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL_GPL(platform_device_add_data);
-> =C2=A0
-> +/**
-> + * platform_device_set_of_node - assign an OF node to device
-> + * @pdev: platform device to add the node for
-> + * @np: new device node
-> + *
-> + * Assign an OF node to this platform device. Internally keep track of t=
-he
-> + * reference count. Devices created with platform_device_alloc() must us=
-e this
-> + * function instead of assigning the node manually.
+You are correct. I just wasn't aware of this piece of documentation, and
+changed it in the place I thought was the easiest. It should indeed
+be fixed in the host driver. I'll do that.
 
-I did some more pondering about this patch and concluded the right place
-for a warning would be the lines been read right before or after assigning
-a node manually.=20
-I think this would be in platform_device_alloc() (as I suggested in v2).
+>
+> If it doesn't fix the issue either, we should revise the doc further.
+>
+> Maxime
 
-BUT my knowledge in C isn't sound. So if it's good as is keep it. If it isn=
-'t
-add or move the remark.
-
-Either way Thanks and
- Reviewed-by Manuel Ebner.
-
----
-Note:
-I removed Mark Brown <broonie@opensource.wolfsonmicro.com> from recipients =
-because:
-=E2=80=9CRCPT TO <broonie@opensource.wolfsonmicro.com> failed:
-<broonie@opensource.wolfsonmicro.com>: Recipient address rejected: Domain n=
-ot found=E2=80=9D.
-
-
-> + */
-> +void platform_device_set_of_node(struct platform_device *pdev,
-> +				 struct device_node *np)
-> +{
-> +	of_node_put(pdev->dev.of_node);
-> +	pdev->dev.of_node =3D of_node_get(np);
-> +	pdev->dev.fwnode =3D of_fwnode_handle(np);
-> +}
-> +EXPORT_SYMBOL_GPL(platform_device_set_of_node);
-> +
-> =C2=A0/**
-> =C2=A0 * platform_device_add - add a platform device to device hierarchy
-> =C2=A0 * @pdev: platform device we're adding
-> diff --git a/include/linux/platform_device.h b/include/linux/platform_dev=
-ice.h
-> index 8c566f09d04efe420d85ffa046f92c44c6d08526..e9f7baceeb4c8269dbc0143c4=
-d8fc9d73ba024ca
-> 100644
-> --- a/include/linux/platform_device.h
-> +++ b/include/linux/platform_device.h
-> @@ -19,6 +19,8 @@
-> =C2=A0struct irq_affinity;
-> =C2=A0struct mfd_cell;
-> =C2=A0struct property_entry;
-> +struct platform_device_id;
-> +struct device_node;
-> =C2=A0
-> =C2=A0struct platform_device {
-> =C2=A0	const char	*name;
-> @@ -262,6 +264,8 @@ extern int platform_device_add_resources(struct platf=
-orm_device
-> *pdev,
-> =C2=A0					 unsigned int num);
-> =C2=A0extern int platform_device_add_data(struct platform_device *pdev,
-> =C2=A0				=C2=A0=C2=A0=C2=A0 const void *data, size_t size);
-> +void platform_device_set_of_node(struct platform_device *pdev,
-> +				 struct device_node *np);
-> =C2=A0extern int platform_device_add(struct platform_device *pdev);
-> =C2=A0extern void platform_device_del(struct platform_device *pdev);
-> =C2=A0extern void platform_device_put(struct platform_device *pdev);
+Thanks!
+Paul
