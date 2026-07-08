@@ -4,73 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F436C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 13:10:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A201C44501
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 13:13:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C710B10E5E4;
-	Wed,  8 Jul 2026 13:10:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE2AD10F128;
+	Wed,  8 Jul 2026 13:13:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="FuKr9Dvo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OKE5Ou2S";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54EA510E5DF
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 13:10:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783516233; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=VxX87XaouBpnkXiVPtN4DYtw84IPZKmh6CVC2DtX3diBxlXmZHje2ZVDWjxuSFvAAhmN5+MwGwhvMHtpqpcLbIraZqRFN6VxTlTpmu0/NB6njVEdRT48cYgJbe75Te1zKeG9biYPsExKDYBeyQ8HGDzfYIyWIEmujqhHsEjS6KY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783516233;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=UTlHlLqqFS+y76nWC5IWjsnNvvO8MsWQtswtgtQQ5Lo=; 
- b=B1sE7d12IxQ4VSn4c5YuIkDmg9atx1HFinoLE3UbWbA1o3JYltHkV5rdohlHQRaDFaOhvFOXqcGmCt+lWextVpWZE1EiP7GHeMUpEmkWQHUvapSlutFz0mBpPQ7+D5NQ6Dt9lNT9JdN667y268G9rbNGieHKqZKfKRGNRUCJ8lM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783516233; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=UTlHlLqqFS+y76nWC5IWjsnNvvO8MsWQtswtgtQQ5Lo=;
- b=FuKr9DvoZJOO5I/8wQz+d6ZM/Yd5LVyRU22wvKkBq0BpX2kLPn8wh9ZFYdsWTU1M
- zaWAvy5RmBiNhsk82fqYDZGOO3FUhMHFJT+2IOegrY26trlNSoZ11BVjiAQ3o74AZEP
- 8nXTEzktJwPgim7ErlhNqIQ1DJl9vWS1wmXn7Cvw=
-Received: by mx.zohomail.com with SMTPS id 1783516231275340.7934923442349;
- Wed, 8 Jul 2026 06:10:31 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v6 07/20] rust: io: implement `Mmio` as view type
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260706-io_projection-v6-7-72cd5d055d54@garyguo.net>
-Date: Wed, 8 Jul 2026 10:10:10 -0300
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <7CE0D9BF-E945-44A3-AAC6-C230B67EA335@collabora.com>
-References: <20260706-io_projection-v6-0-72cd5d055d54@garyguo.net>
- <20260706-io_projection-v6-7-72cd5d055d54@garyguo.net>
-To: Gary Guo <gary@garyguo.net>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012007.outbound.protection.outlook.com [52.101.53.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9971A10E5E9;
+ Wed,  8 Jul 2026 13:13:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yy0GiLbwsv4a5ctRlkQrGwz9LZjUTMx3ejxv6SRKHfPW7bt8pM7fUdxhKlL0FqOTYmp5MMbG2Rt3O5DhWTjU84+dFkoWvjLJlN+C5jjtIT0cjBJhYBfRCp/GG3lcAfDNvy6VPBROw7SApfXhdv0hQlBgQog+OsZMdVeRL282+3+KWVZmv3dbsyUrxPeHCdbFt09t7AGKVX25rBQtfSvZvJ6JsSGzxyiqdJE0oBz7Ia6kbdJltBKjXW7ji6cWnwtsyZqRYEDCLz1bogMEeM/Dn1pOBDiulnQm7Nbt5bWukXQdFbZFnrV+MtKNix86wm+/SBTmgswAvBYHRSf8c2Qy0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jyk7kMeDKarlFPNymyhcRUwwyIKN37E+O/hy+1lw0ys=;
+ b=mVXFmMGT+pZ24sBjUy2EHKPb8Pmp3jTJJlFtam1U4CgEOKzNwq9/LI8cxMEio6uJnbRIApTPSK7uAiYfD0GxmAlfihe/stQWq36FiKwXNbXAWj+7NuTQBV6Vjtg4R5W29DA/dJ/wrt9CV1aVjnzLGFxKCoWR+LVC+idur6RQjnCHp65ikyWuP181DrRwDr9DoqwdxfTExX3iosnEIQJlSq5bypFZf3KhYSyES4EqMSkvkfzFXryyD1UBJQuvRXCMRB+oXOH3eAguJ+aow2WP/6EftTiNisJk3oKwQtES1kWy0DWTJ656tU/H0Pzw9a15FMLQFNGm3G507ezK6xYRKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jyk7kMeDKarlFPNymyhcRUwwyIKN37E+O/hy+1lw0ys=;
+ b=OKE5Ou2SkA9hoiRqCjXZy6OP70t3Wl63MSl4Dki2CJk29KxFT4nt/dIoKUzfNsWHr6LS0EXzOqtZUfNCNbcx/1gOH/DWrD3Wwdt3LuFBvVSlN2iHfDKVYYc1n6yLRofxMnFHqNxRCThanCDwshGw2Z9fZPyFUG/V14yPTwtMz8E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by DM6PR12MB4484.namprd12.prod.outlook.com (2603:10b6:5:28f::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 13:13:29 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
+ 13:13:28 +0000
+Message-ID: <0478bdcd-dc55-4eeb-b7a3-6c5e625ac5c1@amd.com>
+Date: Wed, 8 Jul 2026 08:13:26 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd/amdgpu: add firmware file fallback for APU
+ VBIOS discovery
+Content-Language: en-US
+To: Oz Tiram <oz@shift-computing.de>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
+ <20260705100436.6877-1-oz@shift-computing.de>
+ <a8339282-e3ef-4a4f-a135-968f94855e76@amd.com>
+ <42e07bbb-9384-4871-a345-e0fd6c00a772@shift-computing.de>
+ <bd1f1632-f53d-4bfd-9d28-5b66e466366c@amd.com>
+ <80f34509-9781-421e-b60f-1b8c772a01a9@shift-computing.de>
+ <8dd56d76-e46d-43b6-831d-27e66fa2879a@amd.com>
+ <cc849fb3-224e-43c0-bc50-67fd025009e7@shift-computing.de>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <cc849fb3-224e-43c0-bc50-67fd025009e7@shift-computing.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS7PR03CA0008.namprd03.prod.outlook.com
+ (2603:10b6:5:3b8::13) To PH8PR12MB6914.namprd12.prod.outlook.com
+ (2603:10b6:510:1cb::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DM6PR12MB4484:EE_
+X-MS-Office365-Filtering-Correlation-Id: b87e6b0c-172f-4717-e996-08dedcf2b397
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|22082099003|18002099003|6133799003|4143699003|11063799006|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info: PUIsChanDQ+8vQZ1Nd88oBQHVJGo0KY12aqwLsy1yX2paPQ1Hwkc5q+eCVQNOnOZo7652JE8s7MtUJwZ6ymdv5FcSs+HNqkX/fbGytvOHc5KZAyrFxRRhQTwRg3/jFPoH+ICeF8XuITNHStyLojR9NOku9ztuHOxrJD8sJEsH+N2tbzQB7mB90+Q8Pynf2Mh67FVwMUSu/oMdgbxB3V/UxPhCjic9/ob6zbWBZpDAE/QyT07Kjj2MYNpBGl4DswyBe4c4mFJId7ffHUPDICOQWlzbRGIZtutqirwBaDsc3XTaAzBnER+XYYN1/zgjesOmMJ9GxCblNkVk1gjEm2tl3dgIGO0h2pJco5N4Ap0te99VYnkJSbk07JKpQyZ0KgdQH5iPRhMefguXsmiEs7DNhMStAgoPrZuKPNLMUH8zqG2GHKpClVxzywNI9f4tbuIdgxaLVKfQM9gn/kDyLHhdDjLVlGrr95oPbqITYLbPqavlG9s+uzJq+0r65PvCGgN20r7LFR4UCAcv91OkofLaDfir0KssWYy1ox6exMY8qZkSLrOEfh+Vb3GYlT1/mE43UpTBSYuAYY7vJSKL4pUfyWSJuN9KVkITgIlAIoWACS4/4tSCfrRnmiPO00+iG9qN8QT2fkWUvwLh1PGzJndSCJQKIBznhEJrCB7ExB+ZUs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(22082099003)(18002099003)(6133799003)(4143699003)(11063799006)(56012099006)(5023799004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDZnKy80cDVBZTBmcXJKOWFnSU1HcllJNFhoeGgxalcvdkp6RU0vakw5UUhh?=
+ =?utf-8?B?Ym1BanVZSTBCcTVheW1GNDJXOWQrSTRYNVRYVDM3ZnRTdVhMYk1hdnQwOURq?=
+ =?utf-8?B?YXpZdGRIR1c3SFQvZ2RwbGJUMzlWRVMwbUJtZ0IxeDlEdno1bUwyUytwcisz?=
+ =?utf-8?B?blBCMTNPUnN3cHR1VmNneVpRR05SSGJ0c1BDQ0YwNFZBVlVSR1FIV0ZxcEhE?=
+ =?utf-8?B?K3JmZGUvanBOZHJ6eVUxUWttdmRSSzQwYTVKdDNYa0p2b2tNVFVYejRGQ1Iw?=
+ =?utf-8?B?aWI0R1ZCZ000bU5mdjVRUVVpZjljRWpGSUFYNFpNY1U4QzdTUXY1eUNjZzVE?=
+ =?utf-8?B?VDJHdFdpTHVCS1VLSmNDYzJVOTcyZVRHTDhYY1ZzMmIwcFVVdXVTZi9NUmc4?=
+ =?utf-8?B?TUpCZHRVQ3VoSFFmTEE5eGxyZCsrZGZUc3pKb3kvV0tpbC9ZaXZYU3dPbjFU?=
+ =?utf-8?B?OWU3Wm5oMGZaN3lxKzZkRU92MDBra2N6cUNvVGQraGcrQ2ZnaStVZnFzSEdj?=
+ =?utf-8?B?SjNFMm83R1lWdkhjeThyQTFjTitPcW1ha2x1MW5IYmJEcU5SOCtCWDZSUlVj?=
+ =?utf-8?B?cHBUcGowbVpWZDVYTlNMTCt5RDByVi9UOXIxQ29KdzZFT0o5ekRZT21CMnl0?=
+ =?utf-8?B?OFpJOHUyOGZ2dHFiMFkxdDZIQUY3QkVaazRnU0IvOGZTTUdrSjNlZ3gwRUpt?=
+ =?utf-8?B?anYxa1M1a0RSSE9BYU84RERFNEpBTGUzRXpJdEdPMkhUaSt0WU4rR3FVY1ZL?=
+ =?utf-8?B?THNqb1pXM01JZUJRbjRkdGhhUUhDNnFyRXBDRk5MTFZ4UkZEZVZpVytIWmh3?=
+ =?utf-8?B?RFp6Uis0Z0t6R25RYUhVRWVON05pU2NEa09ocVZ0elI3UkZucEtkekRlRmM2?=
+ =?utf-8?B?Q3ZRbFlObDU5d0RjVEZoSVl5TVJqV1ZMa01JU0RRRDJURzh4YjRYMDJBVnN1?=
+ =?utf-8?B?NEQxd1VGL2h2Nm9YUTd0dk93M0VoUnh4UHkvSEVXRG5vcjdyOHFXb2UwYStZ?=
+ =?utf-8?B?TDMzRGJtTWk0WXQrdFNnVXZ5bnd5cDRwRUQyV1hmWXBYdXEyaDkxVDBDQTVx?=
+ =?utf-8?B?M1Nla0Y4TWRGR3BDMWh3UEhuOExqdGVuRFBzSWVaZFF0dWFHMU5Iemk0WHUr?=
+ =?utf-8?B?NG9oMnV3dkg4QldVbFByaDU0T1dsc3NkZkM5ZUprVGdDbUgzRlNFdW1XVWNW?=
+ =?utf-8?B?RXJPVXZPYWg5bnJEYjArTzBLbE1rdE5JSEZEang2ZlZhbVEvbXhhTUNyWnNT?=
+ =?utf-8?B?QVBma0Mrem9tL21VK2JVY3VySFREd2x6SitzVTFiWDZPNUM2aWJVK3RJa2xk?=
+ =?utf-8?B?SUpLVkhVZThROU52S2kwMzJzVzFwNFNiNy8vdVBDZ0c4Rnp5VStURkszNUNH?=
+ =?utf-8?B?dGhwUDZGclVDNWcwSzFBdENHRzM3NWc3THNNdmxuQU45dElvQ09uajdjWWo3?=
+ =?utf-8?B?STFXcmlCMkZuaWJuWXZ5WFZ2azlJSWswemRmQmdnbnQremNpTlBxTVhia2Vh?=
+ =?utf-8?B?bCtESEh3WExSTFhKYVdwUWI5TVl3RGJYZ0ZlbWhRRnZNV0VhWW95cVpRVm5T?=
+ =?utf-8?B?WUNzZktjUXVzVmFTY2tNcy9IWEZYMFdXZi9pcEtZdGg5bDV1eW1QS2VhWlFN?=
+ =?utf-8?B?QzljQzRMVzJIekZlZDlyNFc0SnEzZnlPM0RpUzNCZGE2QWFuaGJHYkw4QUZR?=
+ =?utf-8?B?TkpjMThqRmxLZDhQeTNOaHJsWHJQa280K2g5OEFWRWl2VG9UWmZheCt1SjZL?=
+ =?utf-8?B?MkIvdEpveFFHT3dCb01sQ09KeXpjVk9kcU1saTFUOHk3TFR2bFRwRUc5VHVQ?=
+ =?utf-8?B?RmFJV002YWZrQ1dlM1FsZ201OVpFTTU5YmNuUUZhRU42MWJnQlRNN3BSaVdS?=
+ =?utf-8?B?K1lFQXBTakdUeTJoMzJTK1VOSUpTVDZ0U0FkWU9RMlRLOGpYSHdEckVINk5T?=
+ =?utf-8?B?aDF6TWdnMlh5SjFrZnNkbzVwUDVsdzd1UHlNcG9rMkVEV085Q1l2aDhBSndU?=
+ =?utf-8?B?VmwxN1pDN3BaYmNRL2ZXQ1Fkb3g5eEIzUVRVbmJyZTZ2cFZFanlHM3I5Qnhw?=
+ =?utf-8?B?eFU5TG84YnZEaXBWNHdGYWxDYTJSTzRoaXZRbXZFVDN2NGFjUHErRXhFU2Yr?=
+ =?utf-8?B?eHRZdFp2enJlWlJCeXJyTGdkbXFpRFlUV0FFd2FKV0xab2toQnFZSXMwZWdS?=
+ =?utf-8?B?dzEvRFVXRUEwVzNXek5lMS84T2FZbHd5dFRQVlZvS2krdnE4Y2pYOFJlUlNG?=
+ =?utf-8?B?aThmQzlpMzJCV2MxUmc1dmUySEZlMkdyM0FzNDlsa1N4Y2ZOL05pRituQkI3?=
+ =?utf-8?Q?7fUQ2f8eiMJeIn60yB?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b87e6b0c-172f-4717-e996-08dedcf2b397
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 13:13:28.8419 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0q7r5DBLt4+sJgqTtmHNi+UChaeUj3Y9S2SzOrxetYEcMzw9PMmKT095aEyXdk/9XRwAhFTJ8O31kCy6qcxKyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4484
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,554 +145,250 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
+On 7/8/26 08:10, Oz Tiram wrote:
+> Hi Mario,
+> 
+>  > If you drop that - does this notice still come up?
+> 
+> No, the notice does not appear without pci=realloc,assign-busses. The 
+> iGPU  stays at its POST bus (0x6A = 106), VFCT matches directly, and it 
+> fetches the VBIOS without any mismatch.
+> 
+> However, dropping the kernel argument is not an option on this machine:
+> without it the discrete GPU (0x7449) fails to probe entirely:
+> 
+>    amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
+>    amdgpu 0000:03:00.0: probe with driver amdgpu failed with error -12
+> 
+> The firmware BARs cannot be mapped without resource reallocation, so
+> pci=realloc,assign-busses is required for the dGPU, which in turn reassigns
+> the iGPU to bus 0x0B and triggers the mismatch your patch resolves.
 
-> On 6 Jul 2026, at 09:44, Gary Guo <gary@garyguo.net> wrote:
->=20
-> Implement `Mmio` as view type and convert `RelaxedMmio` to view type =
-as
-> well. I/O implementations of `MmioOwned` are changed to delegate to =
-the
-> `Mmio` view type.
->=20
-> All existing users of `MmioOwned` in the documentation which do not
-> actually reflect the owning semantics is converted.
->=20
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
-> rust/kernel/io.rs          | 176 =
-++++++++++++++++++++++++++++++++++-----------
-> rust/kernel/io/poll.rs     |  10 +--
-> rust/kernel/io/register.rs |  24 +++----
-> 3 files changed, 153 insertions(+), 57 deletions(-)
->=20
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index f93be7f78069..8110b49aa430 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -4,6 +4,10 @@
-> //!
-> //! C header: =
-[`include/asm-generic/io.h`](srctree/include/asm-generic/io.h)
->=20
-> +use core::{
-> +    marker::PhantomData, //
-> +};
-> +
-> use crate::{
->     bindings,
->     prelude::*,
-> @@ -537,10 +541,11 @@ fn write64(self, value: u64, offset: usize)
->     /// ```no_run
->     /// use kernel::io::{
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
-> -    /// fn do_reads(io: &MmioOwned) -> Result {
-> +    /// fn do_reads(io: Mmio<'_, Region>) -> Result {
->     ///     // 32-bit read from address `0x10`.
->     ///     let v: u32 =3D io.try_read(0x10)?;
->     ///
-> @@ -571,10 +576,11 @@ fn try_read<T, L>(self, location: L) -> =
-Result<T>
->     /// ```no_run
->     /// use kernel::io::{
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
-> -    /// fn do_writes(io: &MmioOwned) -> Result {
-> +    /// fn do_writes(io: Mmio<'_, Region>) -> Result {
->     ///     // 32-bit write of value `1` at address `0x10`.
->     ///     io.try_write(0x10, 1u32)?;
->     ///
-> @@ -609,7 +615,8 @@ fn try_write<T, L>(self, location: L, value: T) -> =
-Result
->     /// use kernel::io::{
->     ///     register,
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
->     /// register! {
-> @@ -625,7 +632,7 @@ fn try_write<T, L>(self, location: L, value: T) -> =
-Result
->     ///     }
->     /// }
->     ///
-> -    /// fn do_write_reg(io: &MmioOwned) -> Result {
-> +    /// fn do_write_reg(io: Mmio<'_, Region>) -> Result {
->     ///
->     ///     io.try_write_reg(VERSION::new(1, 0))
->     /// }
-> @@ -654,10 +661,11 @@ fn try_write_reg<T, L, V>(self, value: V) -> =
-Result
->     /// ```no_run
->     /// use kernel::io::{
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
-> -    /// fn do_update(io: &MmioOwned<0x1000>) -> Result {
-> +    /// fn do_update(io: Mmio<'_, Region<0x1000>>) -> Result {
->     ///     io.try_update(0x10, |v: u32| {
->     ///         v + 1
->     ///     })
-> @@ -691,10 +699,11 @@ fn try_update<T, L, F>(self, location: L, f: F) =
--> Result
->     /// ```no_run
->     /// use kernel::io::{
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
-> -    /// fn do_reads(io: &MmioOwned<0x1000>) {
-> +    /// fn do_reads(io: Mmio<'_, Region<0x1000>>) {
->     ///     // 32-bit read from address `0x10`.
->     ///     let v: u32 =3D io.read(0x10);
->     ///
-> @@ -723,10 +732,11 @@ fn read<T, L>(self, location: L) -> T
->     /// ```no_run
->     /// use kernel::io::{
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
-> -    /// fn do_writes(io: &MmioOwned<0x1000>) {
-> +    /// fn do_writes(io: Mmio<'_, Region<0x1000>>) {
->     ///     // 32-bit write of value `1` at address `0x10`.
->     ///     io.write(0x10, 1u32);
->     ///
-> @@ -757,7 +767,8 @@ fn write<T, L>(self, location: L, value: T)
->     /// use kernel::io::{
->     ///     register,
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
->     /// register! {
-> @@ -773,7 +784,7 @@ fn write<T, L>(self, location: L, value: T)
->     ///     }
->     /// }
->     ///
-> -    /// fn do_write_reg(io: &MmioOwned<0x1000>) {
-> +    /// fn do_write_reg(io: Mmio<'_, Region<0x1000>>) {
->     ///     io.write_reg(VERSION::new(1, 0));
->     /// }
->     /// ```
-> @@ -801,10 +812,11 @@ fn write_reg<T, L, V>(self, value: V)
->     /// ```no_run
->     /// use kernel::io::{
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     /// };
->     ///
-> -    /// fn do_update(io: &MmioOwned<0x1000>) {
-> +    /// fn do_update(io: Mmio<'_, Region<0x1000>>) {
->     ///     io.update(0x10, |v: u32| {
->     ///         v + 1
->     ///     })
-> @@ -828,16 +840,72 @@ fn update<T, L, F>(self, location: L, f: F)
->     }
-> }
->=20
-> +/// A view of memory-mapped I/O region.
-> +///
-> +/// # Invariant
-> +///
-> +/// `ptr` points to a valid and aligned memory-mapped I/O region for =
-the duration lifetime `'a`.
-> +pub struct Mmio<'a, T: ?Sized> {
-> +    ptr: *mut T,
-> +    phantom: PhantomData<&'a ()>,
-> +}
-> +
-> +impl<T: ?Sized> Copy for Mmio<'_, T> {}
-> +impl<T: ?Sized> Clone for Mmio<'_, T> {
-> +    #[inline]
-> +    fn clone(&self) -> Self {
-> +        *self
-> +    }
-> +}
-> +
-> +impl<'a, T: ?Sized> Mmio<'a, T> {
-> +    /// Create a `Mmio`, providing the accessors to the MMIO mapping.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// `raw` represents a valid and aligned memory-mapped I/O region =
-while `'a` is alive.
-> +    #[inline]
-> +    pub unsafe fn from_raw(raw: MmioRaw<T>) -> Self {
-> +        // INVARIANT: Per safety requirement.
-> +        Self {
-> +            ptr: raw.ptr,
-> +            phantom: PhantomData,
-> +        }
-> +    }
-> +}
-> +
-> +// SAFETY: `Mmio<'_, T>` is conceptually `&T` but in I/O memory.
-> +unsafe impl<T: ?Sized + Sync> Send for Mmio<'_, T> {}
-> +
-> +// SAFETY: `Mmio<'_, T>` is conceptually `&T` but in I/O memory.
-> +unsafe impl<T: ?Sized + Sync> Sync for Mmio<'_, T> {}
-> +
-> +impl<T: ?Sized + KnownSize> Io for Mmio<'_, T> {
-> +    type Target =3D T;
-> +
-> +    #[inline]
-> +    fn addr(self) -> usize {
-> +        self.ptr.addr()
-> +    }
-> +
-> +    #[inline]
-> +    fn maxsize(self) -> usize {
-> +        KnownSize::size(self.ptr)
-> +    }
-> +}
-> +
-> /// Implements [`IoCapable`] on `$mmio` for `$ty` using `$read_fn` and =
-`$write_fn`.
-> macro_rules! impl_mmio_io_capable {
->     ($mmio:ident, $(#[$attr:meta])* $ty:ty, $read_fn:ident, =
-$write_fn:ident) =3D> {
->         $(#[$attr])*
-> -        impl<const SIZE: usize> IoCapable<$ty> for &$mmio<SIZE> {
-> +        impl<T: ?Sized> IoCapable<$ty> for $mmio<'_, T> {
-> +            #[inline]
->             unsafe fn io_read(self, address: usize) -> $ty {
->                 // SAFETY: By the trait invariant `address` is a valid =
-address for MMIO operations.
->                 unsafe { bindings::$read_fn(address as *const c_void) =
-}
->             }
->=20
-> +            #[inline]
->             unsafe fn io_write(self, value: $ty, address: usize) {
->                 // SAFETY: By the trait invariant `address` is a valid =
-address for MMIO operations.
->                 unsafe { bindings::$write_fn(value, address as *mut =
-c_void) }
-> @@ -847,17 +915,12 @@ unsafe fn io_write(self, value: $ty, address: =
-usize) {
-> }
->=20
-> // MMIO regions support 8, 16, and 32-bit accesses.
-> -impl_mmio_io_capable!(MmioOwned, u8, readb, writeb);
-> -impl_mmio_io_capable!(MmioOwned, u16, readw, writew);
-> -impl_mmio_io_capable!(MmioOwned, u32, readl, writel);
-> +impl_mmio_io_capable!(Mmio, u8, readb, writeb);
-> +impl_mmio_io_capable!(Mmio, u16, readw, writew);
-> +impl_mmio_io_capable!(Mmio, u32, readl, writel);
-> // MMIO regions on 64-bit systems also support 64-bit accesses.
-> -impl_mmio_io_capable!(
-> -    MmioOwned,
-> -    #[cfg(CONFIG_64BIT)]
-> -    u64,
-> -    readq,
-> -    writeq
-> -);
-> +#[cfg(CONFIG_64BIT)]
-> +impl_mmio_io_capable!(Mmio, u64, readq, writeq);
->=20
-> impl<'a, const SIZE: usize> Io for &'a MmioOwned<SIZE> {
->     type Target =3D Region<SIZE>;
-> @@ -875,6 +938,23 @@ fn maxsize(self) -> usize {
->     }
-> }
->=20
-> +impl<'a, const SIZE: usize, T> IoCapable<T> for &'a MmioOwned<SIZE>
-> +where
-> +    Mmio<'a, Region<SIZE>>: IoCapable<T>,
-> +{
-> +    #[inline]
-> +    unsafe fn io_read(self, address: usize) -> T {
-> +        // SAFETY: Per safety requirement.
-> +        unsafe { self.as_view().io_read(address) }
-> +    }
-> +
-> +    #[inline]
-> +    unsafe fn io_write(self, value: T, address: usize) {
-> +        // SAFETY: Per safety requirement.
-> +        unsafe { self.as_view().io_write(value, address) }
-> +    }
-> +}
-> +
-> impl<const SIZE: usize> MmioOwned<SIZE> {
->     /// Converts an `MmioRaw` into an `MmioOwned` instance, providing =
-the accessors to the MMIO
->     /// mapping.
-> @@ -887,19 +967,33 @@ pub unsafe fn from_raw(raw: =
-&MmioRaw<Region<SIZE>>) -> &Self {
->         // SAFETY: `MmioOwned` is a transparent wrapper around =
-`MmioRaw`.
->         unsafe { &*core::ptr::from_ref(raw).cast() }
->     }
-> +
-> +    /// Return a view that covers the full region.
-> +    #[inline]
-> +    pub fn as_view(&self) -> Mmio<'_, Region<SIZE>> {
-> +        // SAFETY: `Mmio` has same invariant as `MmioOwned`.
-> +        unsafe { Mmio::from_raw(self.0) }
-> +    }
-> }
->=20
-> -/// [`MmioOwned`] wrapper using relaxed accessors.
-> +/// [`Mmio`] but using relaxed accessors.
-> ///
-> /// This type provides an implementation of [`Io`] that uses relaxed =
-I/O MMIO operands instead of
-> /// the regular ones.
-> ///
-> -/// See [`MmioOwned::relaxed`] for a usage example.
-> -#[repr(transparent)]
-> -pub struct RelaxedMmio<const SIZE: usize =3D 0>(MmioOwned<SIZE>);
-> +/// See [`Mmio::relaxed`] for a usage example.
-> +pub struct RelaxedMmio<'a, T: ?Sized>(Mmio<'a, T>);
->=20
-> -impl<'a, const SIZE: usize> Io for &'a RelaxedMmio<SIZE> {
-> -    type Target =3D Region<SIZE>;
-> +impl<T: ?Sized> Copy for RelaxedMmio<'_, T> {}
-> +impl<T: ?Sized> Clone for RelaxedMmio<'_, T> {
-> +    #[inline]
-> +    fn clone(&self) -> Self {
-> +        *self
-> +    }
-> +}
-> +
-> +impl<T: ?Sized + KnownSize> Io for RelaxedMmio<'_, T> {
-> +    type Target =3D T;
->=20
->     #[inline]
->     fn addr(self) -> usize {
-> @@ -912,8 +1006,8 @@ fn maxsize(self) -> usize {
->     }
-> }
->=20
-> -impl<const SIZE: usize> MmioOwned<SIZE> {
-> -    /// Returns a [`RelaxedMmio`] reference that performs relaxed I/O =
-operations.
-> +impl<'a, T: ?Sized> Mmio<'a, T> {
-> +    /// Returns a [`RelaxedMmio`] that performs relaxed I/O =
-operations.
->     ///
->     /// Relaxed accessors do not provide ordering guarantees with =
-respect to DMA or memory accesses
->     /// and can be used when such ordering is not required.
-> @@ -923,20 +1017,20 @@ impl<const SIZE: usize> MmioOwned<SIZE> {
->     /// ```no_run
->     /// use kernel::io::{
->     ///     Io,
-> -    ///     MmioOwned,
-> +    ///     Mmio,
-> +    ///     Region,
->     ///     RelaxedMmio,
->     /// };
->     ///
-> -    /// fn do_io(io: &MmioOwned<0x100>) {
-> +    /// fn do_io(io: Mmio<'_, Region<0x100>>) {
->     ///     // The access is performed using `readl_relaxed` instead =
-of `readl`.
->     ///     let v =3D io.relaxed().read32(0x10);
->     /// }
->     ///
->     /// ```
-> -    pub fn relaxed(&self) -> &RelaxedMmio<SIZE> {
-> -        // SAFETY: `RelaxedMmio` is `#[repr(transparent)]` over =
-`MmioOwned`, so `MmioOwned<SIZE>`
-> -        // and `RelaxedMmio<SIZE>` have identical layout.
-> -        unsafe { core::mem::transmute(self) }
-> +    #[inline]
-> +    pub fn relaxed(self) -> RelaxedMmio<'a, T> {
-> +        RelaxedMmio(self)
->     }
-> }
->=20
-> diff --git a/rust/kernel/io/poll.rs b/rust/kernel/io/poll.rs
-> index 79828a8006b5..d75f2fcf46f2 100644
-> --- a/rust/kernel/io/poll.rs
-> +++ b/rust/kernel/io/poll.rs
-> @@ -47,14 +47,15 @@
-> /// ```no_run
-> /// use kernel::io::{
-> ///     Io,
-> -///     MmioOwned,
-> +///     Mmio,
-> +///     Region,
-> ///     poll::read_poll_timeout, //
-> /// };
-> /// use kernel::time::Delta;
-> ///
-> /// const HW_READY: u16 =3D 0x01;
-> ///
-> -/// fn wait_for_hardware<const SIZE: usize>(io: &MmioOwned<SIZE>) -> =
-Result {
-> +/// fn wait_for_hardware<const SIZE: usize>(io: Mmio<'_, =
-Region<SIZE>>) -> Result {
-> ///     read_poll_timeout(
-> ///         // The `op` closure reads the value of a specific status =
-register.
-> ///         || io.try_read16(0x1000),
-> @@ -134,14 +135,15 @@ pub fn read_poll_timeout<Op, Cond, T>(
-> /// ```no_run
-> /// use kernel::io::{
-> ///     Io,
-> -///     MmioOwned,
-> +///     Mmio,
-> +///     Region,
-> ///     poll::read_poll_timeout_atomic, //
-> /// };
-> /// use kernel::time::Delta;
-> ///
-> /// const HW_READY: u16 =3D 0x01;
-> ///
-> -/// fn wait_for_hardware<const SIZE: usize>(io: &MmioOwned<SIZE>) -> =
-Result {
-> +/// fn wait_for_hardware<const SIZE: usize>(io: Mmio<'_, =
-Region<SIZE>>) -> Result {
-> ///     read_poll_timeout_atomic(
-> ///         // The `op` closure reads the value of a specific status =
-register.
-> ///         || io.try_read16(0x1000),
-> diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-> index fd3bf6220f95..6cb07fc92cc3 100644
-> --- a/rust/kernel/io/register.rs
-> +++ b/rust/kernel/io/register.rs
-> @@ -58,7 +58,7 @@
-> //!     },
-> //!     num::Bounded,
-> //! };
-> -//! # use kernel::io::MmioOwned;
-> +//! # use kernel::io::{Mmio, Region};
-> //! # register! {
-> //! #     pub BOOT_0(u32) @ 0x00000100 {
-> //! #         15:8 vendor_id;
-> @@ -66,7 +66,7 @@
-> //! #         3:0 minor_revision;
-> //! #     }
-> //! # }
-> -//! # fn test(io: &MmioOwned<0x1000>) {
-> +//! # fn test(io: Mmio<'_, Region<0x1000>>) {
-> //! # fn obtain_vendor_id() -> u8 { 0xff }
-> //!
-> //! // Read from the register's defined offset (0x100).
-> @@ -446,7 +446,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///         Io,
-> ///     },
-> /// };
-> -/// # use kernel::io::MmioOwned;
-> +/// # use kernel::io::{Mmio, Region};
-> ///
-> /// register! {
-> ///     FIXED_REG(u32) @ 0x100 {
-> @@ -455,7 +455,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///     }
-> /// }
-> ///
-> -/// # fn test(io: &MmioOwned<0x1000>) {
-> +/// # fn test(io: Mmio<'_, Region<0x1000>>) {
-> /// let val =3D io.read(FIXED_REG);
-> ///
-> /// // Write from an already-existing value.
-> @@ -559,7 +559,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///         Io,
-> ///     },
-> /// };
-> -/// # use kernel::io::MmioOwned;
-> +/// # use kernel::io::{Mmio, Region};
-> ///
-> /// // Type used to identify the base.
-> /// pub struct CpuCtlBase;
-> @@ -584,7 +584,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///     }
-> /// }
-> ///
-> -/// # fn test(io: MmioOwned<0x1000>) {
-> +/// # fn test(io: Mmio<'_, Region<0x1000>>) {
-> /// // Read the status of `Cpu0`.
-> /// let cpu0_started =3D io.read(CPU_CTL::of::<Cpu0>());
-> ///
-> @@ -601,7 +601,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///     }
-> /// }
-> ///
-> -/// # fn test2(io: MmioOwned<0x1000>) {
-> +/// # fn test2(io: Mmio<'_, Region<0x1000>>) {
-> /// // Start the aliased `CPU0`, leaving its other fields untouched.
-> /// io.update(CPU_CTL_ALIAS::of::<Cpu0>(), |r| =
-r.with_alias_start(true));
-> /// # }
-> @@ -638,7 +638,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///         Io,
-> ///     },
-> /// };
-> -/// # use kernel::io::MmioOwned;
-> +/// # use kernel::io::{Mmio, Region};
-> /// # fn get_scratch_idx() -> usize {
-> /// #   0x15
-> /// # }
-> @@ -651,7 +651,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///     }
-> /// }
-> ///
-> -/// # fn test(io: &MmioOwned<0x1000>)
-> +/// # fn test(io: Mmio<'_, Region<0x1000>>)
-> /// #     -> Result<(), Error>{
-> /// // Read scratch register 0, i.e. I/O address `0x80`.
-> /// let scratch_0 =3D io.read(SCRATCH::at(0)).value();
-> @@ -724,7 +724,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///         Io,
-> ///     },
-> /// };
-> -/// # use kernel::io::MmioOwned;
-> +/// # use kernel::io::{Mmio, Region};
-> /// # fn get_scratch_idx() -> usize {
-> /// #   0x15
-> /// # }
-> @@ -752,7 +752,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///     }
-> /// }
-> ///
-> -/// # fn test(io: &MmioOwned<0x1000>) -> Result<(), Error> {
-> +/// # fn test(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
-> /// // Read scratch register 0 of CPU0.
-> /// let scratch =3D io.read(CPU_SCRATCH::of::<Cpu0>().at(0));
-> ///
-> @@ -794,7 +794,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
-> ///     }
-> /// }
-> ///
-> -/// # fn test2(io: &MmioOwned<0x1000>) -> Result<(), Error> {
-> +/// # fn test2(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
-> /// let cpu0_status =3D =
-io.read(CPU_FIRMWARE_STATUS::of::<Cpu0>()).status();
-> /// # Ok(())
-> /// # }
->=20
-> --=20
-> 2.54.0
->=20
+Got it; thanks for clarifying.  I would like to dig a little bit futher 
+into that though.  What kernel are you finding this behavior and can it 
+still reproduce with 7.2-rc2 if it's older?  There was a bunch of 
+pci/realloc changes that happened in the last cycle that might have 
+helped this.
 
+Also; is it an eGPU (external) or dGPU (internal)?
 
-Ran the tests again, they=E2=80=99re passing.
+If it's an dGPU IMO this is arguably a BIOS issue that not enough 
+resources were applied in the first place.
 
-Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
+Thanks,
+
+> 
+> 
+> Thank you,
+> 
+> Oz
+> 
+> 
+> On 7/8/26 14:55, Mario Limonciello wrote:
+>> Hi Oz,
+>>
+>> On 7/8/26 07:36, Oz Tiram wrote:
+>>> Hi Mario,
+>>>
+>>> Tested on a Morefine MNAS X1 AI Workstation (AMD Ryzen 7 Pro 8845HS / 
+>>> Radeon 780M iGPU) with pci=realloc,assign-busses.
+>>>
+>>> The VFCT entry for the iGPU has PCIBus=106 (0x6A, recorded at POST) 
+>>> while the
+>>> runtime bus is 11 (0x0B). Your patch fires exactly as expected:
+>>>
+>>>    amdgpu 0000:0b:00.0: amdgpu: VFCT bus number mismatch: table 106 ! 
+>>> = runtime 11,
+>>>        matching by device identity (vendor 0x1002 device 0x1900)
+>>>    amdgpu 0000:0b:00.0: amdgpu: Fetched VBIOS from VFCT
+>>>
+>>> The iGPU initialises fully and drives the framebuffer.
+>>>
+>>> One minor nit: the dev_notice format string ends with \\n (two 
+>>> characters) rather
+>>> than \n. The resulting kernel message has a literal "\n" at the end. 
+>>> Same issue
+>>> exists in the nearby "too short #2" dev_info -- not introduced by 
+>>> your patch, but
+>>> might be worth cleaning up.
+>>>
+>>> Tested-by: Oz Tiram <oz@shift-computing.de>
+>>>
+>>
+>> Thanks for confirming.  Before I split up this patch and post it in 
+>> smaller logical pieces can you confirm my proposed root cause is right 
+>> that this issue happens because "pci=realloc,assign-busses" was on 
+>> your kernel command line?
+>>
+>> If you drop that - does this notice still come up?
+>>
+>> Thanks,
+>>
+>>> On 7/6/26 02:56, Mario Limonciello wrote:
+>>>>
+>>>>
+>>>> On 7/5/26 14:10, Oz Tiram wrote:
+>>>>> Hi Mario,
+>>>>>
+>>>>>    To make sure I understand correctly: are you suggesting that the 
+>>>>> bus
+>>>>>    number in the VFCT was legitimate at BIOS POST time, and that
+>>>>>    pci=realloc,assign-busses is what changes it at runtime, causing 
+>>>>> the
+>>>>>    mismatch?
+>>>>
+>>>> That's what it sounds like right now.  You can easily drop all the 
+>>>> superfluous kernel command line optiosn and see.
+>>>>
+>>>>>
+>>>>>    I'm not familiar enough with the PCI subsystem to know the right 
+>>>>> way to
+>>>>>    implement that — could you point me in the right direction?
+>>>>
+>>>> Well there's a variety of ways to do it.  But how about we start 
+>>>> here - if we make that specific busnr match optional and instead 
+>>>> make a VID/DID match.
+>>>>
+>>>> See if the attached patch helps.
+>>>>
+>>>>>
+>>>>>    Oz
+>>>>>
+>>>>> On 7/5/26 20:37, Mario Limonciello wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 7/5/26 05:04, Oz Tiram wrote:
+>>>>>>> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
+>>>>>>> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
+>>>>>>> before giving up:
+>>>>>>>
+>>>>>>>    1. ACPI VFCT table
+>>>>>>>    2. VRAM BAR read
+>>>>>>>    3. ROM BAR read
+>>>>>>>    4. platform BIOS
+>>>>>>>
+>>>>>>> On some systems all four fail.  The specific case motivating this 
+>>>>>>> patch
+>>>>>>> is a hybrid graphics machine (dGPU + APU) where:
+>>>>>>>
+>>>>>>>    - The VFCT table contains the iGPU entry but with a stale 
+>>>>>>> PCIBus value
+>>>>>>>      from BIOS POST time (0x6A).  When the kernel boots with
+>>>>>>>      pci=realloc,assign-busses, PCI bus numbers are reassigned 
+>>>>>>> dynamically
+>>>>>>>      and the iGPU lands on bus 0x0B at runtime. 
+>>>>>>> amdgpu_acpi_vfct_bios()
+>>>>>>>      matches entries by bus number, so the entry is never found.
+>>>>>>>    - The VRAM BAR is unmapped at probe time.
+>>>>>>>    - The ROM BAR is zero (PCI firmware did not assign it).
+>>>>>>>    - No platform BIOS mapping exists.
+>>>>>>>
+>>>>>>> The UEFI GOP driver initialises the iGPU successfully for early 
+>>>>>>> display,
+>>>>>>> confirming the hardware is functional.  The VBIOS image data 
+>>>>>>> embedded in
+>>>>>>> the VFCT is also valid; only the PCIBus metadata is wrong.
+>>>>>>
+>>>>>> So the BIOS on this machine is actually totally fine; it's just 
+>>>>>> when the kernel is booted to reassign busses there is a problem?
+>>>>>>
+>>>>>> In that case; why not detect the kernel was booted this way and 
+>>>>>> keep track of the original bus number when reassigned to avoid the 
+>>>>>> issue?
+>>>>>>
+>>>>>>> The firmware
+>>>>>>> file can be extracted directly from the VFCT using dd:
+>>>>>>>
+>>>>>>>    dd if=/sys/firmware/acpi/tables/VFCT bs=1 skip=$((0x68)) 
+>>>>>>> count=16896 \
+>>>>>>>       of=/lib/firmware/amdgpu/1002_1900.bin
+>>>>>>>
+>>>>>>> (0x68 is the byte offset of the VBIOS image after the ACPI table 
+>>>>>>> header
+>>>>>>> and VFCT_IMAGE_HEADER; the image length 16896 comes from the 
+>>>>>>> ImageLength
+>>>>>>> field in VFCT_IMAGE_HEADER.)
+>>>>>>>
+>>>>>>> The driver then prints "Unable to locate a BIOS ROM" and refuses to
+>>>>>>> bind, leaving the APU completely unusable under Linux.
+>>>>>>>
+>>>>>>> Add a fifth fallback: request a firmware file named
+>>>>>>> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
+>>>>>>> request_firmware().  This allows a VBIOS image extracted as above 
+>>>>>>> to be
+>>>>>>> placed in /lib/firmware/ and makes the binding succeed without 
+>>>>>>> patching
+>>>>>>> ACPI tables or BIOS.
+>>>>>>>
+>>>>>>> The fallback is only reached if all existing paths have already 
+>>>>>>> failed,
+>>>>>>> so there is no regression risk for boards where VFCT or ROM BAR 
+>>>>>>> work.
+>>>>>>
+>>>>>> What happens if the VBIOS changes in another way one boot to 
+>>>>>> another? You might have some other stateful information that isn't 
+>>>>>> updated.
+>>>>>>
+>>>>>> The whole thing to me feels like a hack for a behavior we can 
+>>>>>> control in the kernel when doing reassignments.
+>>>>>>>
+>>>>>>> Signed-off-by: Oz Tiram <oz@shift-computing.de>
+>>>>>>> ---
+>>>>>>> v2: Fix commit message: clarify that VFCT contains the iGPU entry 
+>>>>>>> but
+>>>>>>>      with a stale PCIBus from BIOS POST that mismatches the 
+>>>>>>> runtime bus
+>>>>>>>      number assigned by pci=realloc,assign-busses. Explain that 
+>>>>>>> the VBIOS
+>>>>>>>      image data is valid and document the dd extraction command 
+>>>>>>> and byte
+>>>>>>>      offsets.  Note that the UEFI GOP driver initialises the iGPU
+>>>>>>>      successfully, confirming the hardware is functional.
+>>>>>>>
+>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 +++++++++++++++++ 
+>>>>>>> ++ ++++
+>>>>>>>   1 file changed, 23 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/ 
+>>>>>>> gpu/ drm/amd/amdgpu/amdgpu_bios.c
+>>>>>>> index aa039e148a5e..86064c753b09 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+>>>>>>> @@ -26,6 +26,7 @@
+>>>>>>>    *          Jerome Glisse
+>>>>>>>    */
+>>>>>>>   +#include <linux/firmware.h>
+>>>>>>>   #include "amdgpu.h"
+>>>>>>>   #include "atom.h"
+>>>>>>>   @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct 
+>>>>>>> amdgpu_device *adev)
+>>>>>>>           goto success;
+>>>>>>>       }
+>>>>>>>   +    {
+>>>>>>> +        const struct firmware *fw;
+>>>>>>> +        char fw_name[32];
+>>>>>>> +        size_t fw_size;
+>>>>>>> +
+>>>>>>> +        snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
+>>>>>>> +             adev->pdev->vendor, adev->pdev->device);
+>>>>>>> +        if (request_firmware(&fw, fw_name, adev->dev) == 0) {
+>>>>>>> +            adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
+>>>>>>> +            fw_size = fw->size;
+>>>>>>> +            release_firmware(fw);
+>>>>>>> +            if (!adev->bios || !check_atom_bios(adev, fw_size)) {
+>>>>>>> +                amdgpu_bios_release(adev);
+>>>>>>> +            } else {
+>>>>>>> +                adev->bios_size = fw_size;
+>>>>>>> +                dev_info(adev->dev, "Fetched VBIOS from firmware 
+>>>>>>> file %s\n",
+>>>>>>> +                     fw_name);
+>>>>>>> +                goto success;
+>>>>>>> +            }
+>>>>>>> +        }
+>>>>>>> +    }
+>>>>>>> +
+>>>>>>>       dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
+>>>>>>>       return false;
+>>>>>>
+>>
+
