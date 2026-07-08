@@ -4,158 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E93CC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59641C44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F3F010F430;
-	Thu,  9 Jul 2026 07:26:05 +0000 (UTC)
-Received: from SEYPR02CU001.outbound.protection.outlook.com
- (mail-koreacentralazon11023119.outbound.protection.outlook.com
- [40.107.44.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 988E010E0E6
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Jul 2026 01:36:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=enilA8zYZzVL1Y1E8qXyS7/jZFIXtdnJgPiYOmK83r9gOPTKJqwAyI7CyKQs+aKJ1M+HROiyeuGbdPHmRVnJhy8f9qATTUWW/dR+MGYmZboIEBamyfvWeCtG4iGsKDHMY2kTdJvNX5nHkKeH7TKowAy9NEs1b0yc3CF/5K1y/QsnJDJ3tJKH2NOWanUBrhBBdaKZhZN/Ldv5hNETIzEw1qS3ZklECAswkfAwdyvZsZb6Z0hIrUVzYZFStGf3lUW33Dk6c2R8Dsy3z4d2cRMJHVFhIL64JDowVSpYTgqbLqB1q7KSMChujI+tLRZo//qeztXYZaGviP1AgewKeZG6ZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zVAt++BBwa9Lp7CQU3w81aHy4kuxWu8xS5VkSssx/8s=;
- b=SfMp+HnA/nq59x5AwpIC0k7qpcQi7ldLr+1t2moMNCA4VpXIRK3jyw4SzceIhwaMHBE62OTqFCusu/qV9Hq8mUU68M1RknexNMQwMUDWX/+KLaLBBZyVNSNGSGqQm3zZgCj9USN3uKolqS4FnPJiwobgFokr8JLFK3TBIPxfdipT4A8d5ADV0EfacqXDymSeClaJP+h3oiNPCUqGtmh3/j8fLFwEOVTATcnMN4cKKHaV2K0LTEk6qNqFqsL9MlYAmlqdDk0UAPnSHh+/XIkw/3D+bp8Tt4mg8bzdqVe0S5tO/Hr939ErpSqiU5v4MfF4esSzg4pG1LLn6dbXRZrL2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PUVP216CA0003.KORP216.PROD.OUTLOOK.COM (2603:1096:301:16f::7)
- by SEZPR06MB5992.apcprd06.prod.outlook.com (2603:1096:101:f2::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 01:36:42 +0000
-Received: from TY2PEPF0000AB85.apcprd03.prod.outlook.com
- (2603:1096:301:16f:cafe::97) by PUVP216CA0003.outlook.office365.com
- (2603:1096:301:16f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Tue, 7
- Jul 2026 01:36:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB85.mail.protection.outlook.com (10.167.253.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 01:36:41 +0000
-Received: from gary-System-Product-Name (unknown [172.16.64.196])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 15ED34351F23;
- Tue,  7 Jul 2026 09:36:40 +0800 (CST)
-Date: Tue, 7 Jul 2026 09:34:46 +0800
-From: Gary Yang <gary.yang@cixtech.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Paul Cercueil <paul@crapouillou.net>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Eddie James <eajames@linux.ibm.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>,
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>,
- Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
- Houlong Wei <houlong.wei@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
- Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
- kernel@collabora.com, linux-tegra@vger.kernel.org,
- linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH 31/42] ASoC: cix-ipbloq: Use
- devm_of_reserved_mem_device_init()
-Message-ID: <akxXtlUYtT3T-huE@gary-System-Product-Name>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5738110F41F;
+	Thu,  9 Jul 2026 07:26:03 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gCUFlvrM";
+	dkim-atps=neutral
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6BE910E601
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:33:23 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-474303f3c72so422065f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 05:33:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783514002; x=1784118802; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0nZ45JHYuzQLGUmd70CLEeCtwiQyXvCK/RVBBWky/xc=;
+ b=gCUFlvrMOk/RbMt3r9bPXPvyuQ+6apT5ZEJJhAkEAvPRzhER+K74uuqD+kWQ3OM6p5
+ 6hELa/FgkrUj2JlDePTDtjG6x6u0Y32++apWaYdC9Fh9gBeXXaTC6WV5+4DLlqYRoDR4
+ +v/z7bmQJeftPlI5Ho6s++O5UTCGnfS2oC1/JLCEVvT1bvSyU9kR7HwQgWl7o8NLrD7f
+ rPacbVgj6p6aTgiRUZsm7AF9dIsqm2ShbmkEGU3nYFkldjdLr1r7CkddZnI0PDJXzZ5X
+ jW67jsKjt2R/7C66dBKIBx5C/zd1H+dYxRS3Wdlgw6fsRmR7BuzAFtUJTBtfoaoYmuGn
+ kVPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783514002; x=1784118802;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0nZ45JHYuzQLGUmd70CLEeCtwiQyXvCK/RVBBWky/xc=;
+ b=HmH2Js1unK2j9Y4+DkDxf9fe+SixHSfBqi1TC89rp9SbJ6Mk5hGCu08/3xxaj/lqfK
+ +dPgN1MPZsX8V8ho7diMoGbaxo5fJ2BcNWP7pJdU4DeK7Ftu3T5LchzICTLvc7uVfHJd
+ lSvdToU8CKrp5EumA1g4ObtGoFPlAfa4mC5Y4/m0rakEeoJ7OxR5+2VxIzMqfZGEwSUg
+ 8eo87/yj4trIbUCM5nIxLZwmM3jGsGIVcCRfcukaOozeUuxvzmNv4yPdNC3PTXT8AwpO
+ tlq9Qavd3liQT/mEjgSoCwXlN+mzbjQ2raXc8lmA8heFlKR2+GksfbeOtAYAJ8zBemMx
+ 7tYQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpLRceLIj9ypeU1VbYMnIBwuxgv1Ao3Y2fDcwf2yaNpJgI6lz/DA2x9d/CU9f/kNeMimKt3rpDlnDE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxdN63Lju7VcT7QP42DlPmT9NPLcuoqmo7kJ0ZygX60X914uLLH
+ DvF/UAFWeRWU/cpzS+H8UZyTVJYeGSJBP7/HbiNbS4nTPOS4dO5xBdI2
+X-Gm-Gg: AfdE7cmKWWReh8hGDf4MUruMVsa6Cm6U3Gqft2JKe3804Zfqdkza0xy+II0UBOh9msv
+ YqQtyBufuARtYZH5k08ddVafAiA/MVeDkZ15bzBn23Sgb3+gXjRg6/O6c5VprpMnNSv0hUS/UGA
+ camTUrA7xnYphiJuz5sn2rjYI+OCL1HP2WLB38bA9my5YOw5dcvCzI5FqN+AI2gF8/rbfV4lIIy
+ e1iD4XAoTe+q3qBvlfeR2wO3aW/Xhs1SoO3DTyV6JeD2DvsYTDVMnJFI13DtPIJKcx9Q4EdHZqK
+ qtdRSLUipI6yZHfML849Mlj2aa335+6bEOccsU/zbe3Ks99X7wp1DZFdGP3y7JaFJhISobrCjga
+ jpyBWvtnMhTGF+Yxj1aNYB3LEOQg1cI6RbcfBNeM1QnCg1Y6ayHdL6yGq6E//QgIjETKBIPIW1l
+ IglCIR66CbE0uGBsfrSA/xDmHCCmocVUS3dsZYZ4lJ6cy6Q0Dv1GgXzPU=
+X-Received: by 2002:a05:6000:41d0:b0:475:5454:49f2 with SMTP id
+ ffacd0b85a97d-47df07c1f26mr2231695f8f.24.1783514002112; 
+ Wed, 08 Jul 2026 05:33:22 -0700 (PDT)
+Received: from localhost.localdomain ([188.26.50.173])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-47ad69519c2sm45760242f8f.37.2026.07.08.05.33.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 05:33:21 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Eduard Bostina <egbostina@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
+ m-chawdhry@ti.com
+Subject: [PATCH] dt-bindings: leds: backlight: Convert TPS65217 to DT schema
+Date: Wed,  8 Jul 2026 12:33:17 +0000
+Message-ID: <20260708123317.1768641-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB85:EE_|SEZPR06MB5992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58b0bcd8-fc53-439a-90a3-08dedbc83256
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|23010399003|82310400026|1800799024|36860700016|376014|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info: PbsmJJUC3r+PSMHFYv1/5KAHLPksanDfP7Pr+9GjfsZBINxm7MQ/6oaciRBlKjgm8PiiDmCKpLrQa3R0g79rj/OxhD1HdasUwlMwOHrf0JU8wHBBXuG3hdrKLpnv3P2vBaYKWkRyc7YH5GxFLqRfvvRthoAbKoabp1FOx4VB5JAj7OOr80zr2tzMjzlR47UUAXdphACxz6nv6LEjFZjw5nkP/Lfsoqsy57C1SI/3g+k5VsMhfKjzOnAQN3EyPypuAs7HBnj/AgliW+5HrJP1s74vhFuGt9CA1adcAJymarP4P5Nu6rX/AGOmLp1FnrjZvD2gczG1qUGKllxinGTkHAq4cqKLnqUQi8kaQUtaGx1KVfb86Qb1Z9CU5EFISIvQPEeR4m6sVRd3OljqlwtBXwmq8NH0FKD6SzKRqX4kD7GACn0dK6g6lsKQaR0sduqxWfqLbbg995xOWjawLEAXZ5XeivDMAZdOzhoR1hZr9DyJLv97YF00hvFCX5vTY7XkkngNF6u6oJDxRFbKaxRldx2PRzrbyC1rKEQxL5IX49C9fw7ENvTpNXgi0JPL/z+qTwPIgc77MJq1fRsrgmnB0IzA4DF+dUOpoKdg8bFdE74+HkbQgvupu+ng7tbGCb//sb+zUbDWK84eo+dJfWy2FVgLDQ3OEd3TdRSJu+GPRJAWAcu149u8rXkMyUlF6D54k0cbFWV3qZoNda129jn/Gg==
-X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(7416014)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(4143699003)(22082099003)(18002099003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: YQP9tmTZsZsst2XVhSMEt6ze26TOYYsaRySCTBU4b2JeGgsxxgjlxfxR5rqo9srtq52gxFXeRrAQpizWmq4rnR131aJL0yADN5UOJK5lOhRoyD34mXpqnTYllYtoO8lT3DKhABUr/r2VCTrknBLHcdjkvQxRqySLGfkJL2ujdOo/T6nQjmBRjqZerpuQXpvNUbQjY+9vRg32YosHnAcL16AMcUeJKjcxDswM9WRodsARyKalf+gPqZeGfVvQ8KBlfqwwBXHZU+z4FORlOWYRleGy1UUtXHCYuF2zFO2AEVXiVpYxVmrrfudDWbEcZaDDnNgniI5tZ2x+7qCWJ2wsDNzhdk4pdS+t1rXnoA677qfpLmy+0wLuODVSDADMZKXY1btJl1j4/a4CCslM/GsYj2UZ3ZJuQONRDXT5z0louJEFMWXX8aZh++Us93/xLCDu
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 01:36:41.4300 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58b0bcd8-fc53-439a-90a3-08dedbc83256
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
- Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB85.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5992
-X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,37 +92,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-07-04 01:08, Mukesh Ojha wrote:
+Convert the Texas Instruments TPS65217 PMIC bindings to DT schema.
 
-> [Some people who received this message don't often get email from mukesh.ojha@oss.qualcomm.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> EXTERNAL EMAIL
-> 
-> Use the devres-managed devm_of_reserved_mem_device_init() to ensure
-> the reserved memory region is released on device removal, fixing a
-> missing cleanup in the original code.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  sound/hda/controllers/cix-ipbloq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/hda/controllers/cix-ipbloq.c b/sound/hda/controllers/cix-ipbloq.c
-> index c1084a915c13..815932e5c58b 100644
-> --- a/sound/hda/controllers/cix-ipbloq.c
-> +++ b/sound/hda/controllers/cix-ipbloq.c
-> @@ -257,7 +257,7 @@ static int cix_ipbloq_hda_probe(struct platform_device *pdev)
-> 
->         dma_set_mask_and_coherent(hda->dev, DMA_BIT_MASK(32));
-> 
-> -       err = of_reserved_mem_device_init(hda->dev);
-> +       err = devm_of_reserved_mem_device_init(hda->dev);
->         if (err < 0 && err != -ENODEV) {
->                 dev_err(hda->dev,
->                         "failed to init reserved mem for DMA, err = %d\n", err);
+During the conversion, the following updates were made:
+- Make the 'backlight' node optional to resolve dtbs_check warnings.
+  Some boards declare a bare TPS65217 node without implementing the
+  backlight configuration.
+- Document the 'isink-en' property in the backlight subnode to resolve
+  dtbs_check warnings. This property is used (am335x-guardian.dts)
+  to manage the backlight current sinks. It was missing from the old
+  txt binding.
+- 'additionalProperties: true' is at the top level because the
+  TPS65217 node is documented across multiple independent schemas
+  matching the same compatible string.
 
-Reviewed-by: Gary Yang <gary.yang@cixtech.com>
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+ .../bindings/leds/backlight/ti,tps65217.yaml  | 82 +++++++++++++++++++
+ .../leds/backlight/tps65217-backlight.txt     | 27 ------
+ 2 files changed, 82 insertions(+), 27 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
 
-> --
-> 2.53.0
-> 
+diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
+new file mode 100644
+index 000000000000..07b15cab4b63
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/backlight/ti,tps65217.yaml
+@@ -0,0 +1,82 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/backlight/ti,tps65217.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TPS65217 family of regulators
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++description: |
++  The TPS65217 chip contains a boost converter and current sinks which can be
++  used to drive LEDs for use as backlights.
++
++properties:
++  compatible:
++    const: ti,tps65217
++
++  reg:
++    maxItems: 1
++    description: I2C slave address
++
++  backlight:
++    type: object
++    additionalProperties: false
++    description:
++      Node for specifying WLED1 and WLED2 lines in TPS65217.
++
++    properties:
++      isel:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [1, 2]
++        description: |
++          Selection bit. Valid values:
++            1 - ISEL1 (low-level)
++            2 - ISEL2 (high-level)
++
++      fdim:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [100, 200, 500, 1000]
++        description:
++          PWM dimming frequency in Hz.
++
++      default-brightness:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 100
++
++      isink-en:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          Enable backlight current sinks.
++
++    required:
++      - isel
++      - fdim
++      - default-brightness
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: true
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        tps@24 {
++            reg = <0x24>;
++            compatible = "ti,tps65217";
++
++            backlight {
++                isel = <1>;   /* 1 - ISET1, 2 ISET2 */
++                fdim = <100>; /* TPS65217_BL_FDIM_100HZ */
++                default-brightness = <50>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt b/Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
+deleted file mode 100644
+index 5fb9279ac287..000000000000
+--- a/Documentation/devicetree/bindings/leds/backlight/tps65217-backlight.txt
++++ /dev/null
+@@ -1,27 +0,0 @@
+-TPS65217 family of regulators
+-
+-The TPS65217 chip contains a boost converter and current sinks which can be
+-used to drive LEDs for use as backlights.
+-
+-Required properties:
+-- compatible: "ti,tps65217"
+-- reg: I2C slave address
+-- backlight: node for specifying WLED1 and WLED2 lines in TPS65217
+-- isel: selection bit, valid values: 1 for ISEL1 (low-level) and 2 for ISEL2 (high-level)
+-- fdim: PWM dimming frequency, valid values: 100, 200, 500, 1000
+-- default-brightness: valid values: 0-100
+-
+-Each regulator is defined using the standard binding for regulators.
+-
+-Example:
+-
+-	tps: tps@24 {
+-		reg = <0x24>;
+-		compatible = "ti,tps65217";
+-		backlight {
+-			isel = <1>;  /* 1 - ISET1, 2 ISET2 */
+-			fdim = <100>; /* TPS65217_BL_FDIM_100HZ */
+-			default-brightness = <50>;
+-		};
+-	};
+-
+-- 
+2.43.0
+
