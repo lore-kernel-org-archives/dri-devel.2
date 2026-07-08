@@ -4,133 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 259BDC44501
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 17:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D890C44501
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 17:12:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A22710E32A;
-	Wed,  8 Jul 2026 17:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB9510E64E;
+	Wed,  8 Jul 2026 17:12:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qze5nDFV";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="IIqV7SjG";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012025.outbound.protection.outlook.com [40.107.209.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBF810E32A;
- Wed,  8 Jul 2026 17:11:34 +0000 (UTC)
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011026.outbound.protection.outlook.com [52.101.125.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78C2310E64E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 17:12:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o1coAfxs07zmRW5DCN+qqpY/FiNo1dGTHbv6QhS9lRZFlmG5Q1zUhIfYKzdMEho7G/CoeeOUhphiddf/kYDJsd8zvJgLjDz3oVq5EHzLvazilkpJPLW5NcRCL0rEozEVzvaZD7m9qN/nDRCIC6chTg9Jzc2BKxoG9r68lxuEA1P1+Hm5d5QRtKG6aKN7uA2duTsFPKuxNCWYnpqzzBXVh9ZxYZ2SlZG2JToGCC/ALUvB/ALIgdNdQfxrmKVrEmvAOKPQ+2V4LnYz3emTvCS2kc0tHUFgMwCsxCstu0QSSrAUHOuMNSWZTR1lVjDl3TYYDmNRS3ojBt6tGbgTlmIiDA==
+ b=iooXtNtJOosotWK+Qos5gA5GIZJ13xScGmVQsXGtu9QBsCn4dwiVwz+camg2qJ8ohn9ZpIFvV2S+oIi4gKEgbJXrdEAmmiC/ivBL933J/AlxM3oKY39Cb7UujPLKe1FcU8xEAebKwbkta6O57obBZEyxE6kaGY3Y+qd0RNEyQh0VpKnYXhfSIab99Cs9nxWZSAsgbg6F5MrIsXeAElMs7akOUWRuHeSEUBFYWRjfFZutz+7odecOBc1RCF/Nz3ojY5GEVORNOPT3z44szCyt8guNa1GqiLMRyNo+y6nBNoBYQrwtDLEyKym97ETPsDOJtpDKdJKhtaBR5gyxEW13sw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y7EQBJLVb1seC8GL0j8OJI4ufUlHaTav9nJAqG1dTSs=;
- b=LWApcZPIaUD9e5P4fQGCUTjZs/bsiqYfoDSLEJjzv69IkTtZuHnyNd612hDxJ1tqKtr9UWQBpz9N7JZ0NrxuO2nNH8raaPIG6hMlofDbGpDjeBv7OK7RbeMym08r1kT9ye9ldty166z3gS124a6yzsKAlDBTzR6LqqbGU8RBX9ymQZ8R6FxCaPclJubxO6mGwQFr7i9x3iC3O64FF77qqRlsh3nXpqKt6qzY5uHRBX8332UK/uDAfHwiRKneyNdfoPXCuNz6QVyTdpmExpBTIp++4+4K3C+VixDT5o6llnj9jgsoljq0qL/0GefwXiJDVaKo+j652YyttdMVZuLIjA==
+ bh=X8Qr6kAty4ZZ66Q3iSz8klv43NA0xxpPjPml3r08EXw=;
+ b=gt57h44QjWpdffMf/EKUtfj0KduwvPHNoo0VhnAgKTfwe3fPvttozSsxmaUcJfGUP75Du590vHvQ43ZPq1+NcbqRj5TU2tR09X2/5YnO9ej2j7cTy+de5BYWiU8pnmlDTeZj9VJl6f64XVzYDtQA31KD9AU0AK98IkcO5S1gJs8GcnP3nE+pD54E6fYfdfcl1ZNZLxdorYrMk1WLuyK7ijvyohO7RmGoUQ9dvUtE3TyaznXIFEKMpbJWfmyGv1BmPwkDH4Nwc1D5St5IcCvF6yUF6Yx7Fncvr83i3hPYhOe0/DT4RHBRYiEfVA7Z9W9BMPQ2dFxHldCgj+/puIx6mQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y7EQBJLVb1seC8GL0j8OJI4ufUlHaTav9nJAqG1dTSs=;
- b=Qze5nDFVxclXfbgSFc59fB9tdL1ReFrKZbbAu1W4+rboKp9e3c2HecyBZqFmtei6nVXL36wn+OE1rTIlH3vW3fxwFgxenc42QCdQyXHLYtgctynUDsfQ/jWzeVKc+egIq7XZSUp6735MTlSnDIheZdk5VLrdraQ/W4iSnHUmxQw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by LV8PR12MB9643.namprd12.prod.outlook.com (2603:10b6:408:297::11)
+ bh=X8Qr6kAty4ZZ66Q3iSz8klv43NA0xxpPjPml3r08EXw=;
+ b=IIqV7SjGIETqfdQ9DrYdsdv6oOR+nUpBfYtbx6rh/WHQ5ssHvAW1jJVU957YcRD7vp63rJu7Z+zYJpr2rcc8NWp+1DGhrK6TZ0fXQiKAK8xNdAxgfuWZ5M6CRQhm5uZgGOGzUR/jid+x5Uh/EMvKz4WJdytl3cMsL67SfrKOyZY=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYWPR01MB8411.jpnprd01.prod.outlook.com (2603:1096:400:176::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 8 Jul 2026
- 17:11:29 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
- 17:11:29 +0000
-Message-ID: <2171fd97-275b-4e2e-836e-00c811984719@amd.com>
-Date: Wed, 8 Jul 2026 12:11:24 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: move connector state dereference after
- NULL check
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 17:12:43 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
+ 17:12:43 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, biju.das.au
+ <biju.das.au@gmail.com>
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ magnus.damm <magnus.damm@gmail.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
+ Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 07/16] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3L SoC
+Thread-Topic: [PATCH 07/16] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3L SoC
+Thread-Index: AQHdC5hYbvmOFVdH5ke7RqO86JVq3rZj2zoAgAAHPvA=
+Date: Wed, 8 Jul 2026 17:12:43 +0000
+Message-ID: <TY3PR01MB113463076F1F6FF83135C7F3986FF2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260704093433.273672-1-biju.das.jz@bp.renesas.com>
+ <20260704093433.273672-8-biju.das.jz@bp.renesas.com>
+ <ak5-tIYnLmHps4M4@tom-desktop>
+In-Reply-To: <ak5-tIYnLmHps4M4@tom-desktop>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Hung <alex.hung@amd.com>, "Mario Limonciello (AMD)"
- <superm1@kernel.org>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Ray Wu <ray.wu@amd.com>,
- Chenyu Chen <chen-yu.chen@amd.com>, Maxime Ripard <mripard@kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260708072751.724400-1-lgs201920130244@gmail.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260708072751.724400-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0389.namprd03.prod.outlook.com
- (2603:10b6:610:119::28) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|LV8PR12MB9643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e62a949-9ec0-48b2-c888-08dedd13f31a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|7416014|366016|921020|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: ObPY3RA0vCKpD+fkroLsJYHjnpT8adQtP+JPb99dV4q5MsnVRf8JzH7D4JumrtId4vSYvtZ2P2yxRLYQ2Rg0dBqxZqzIkdBVWrvcxWoOYQFFjNajUL7hGNy8zZNGkyPgJSVIeWC+GqroiYUybNRvAQe2IMMa4pvw3+9ygD/cUlErIEyBbv9mAEPI9/Wqr/im10vS3628wk1KTZJEDau1C4J+QipgUVV5UfLqq6wfEpxk0S9yMYvzsspfEj8WaP5yz3e3sVA1gik5UQPEGcwX+utuORTciiI7CK0QiaWBV6iKZXOuPMoj84msLUzDfxh7DMUZUiK5YtyKCCKOVd2hptXCYC63n2l1hlPt/dUMHcHhfdrx8G0PnMqhHWuyWMbSw1HLlnYtCGEPuO8uWHh2Tg0BqGueabPh5m96rs6Ps9jR8oMEacA9Ezea02oLMHYF2r8DrrUVt1fAGThEGbskjdnPRv9fYVe1a+IAQb3TnDKbxVSotv3pIoZTSDFdp5l4Li7PdiUhujRmX6rFlKlcv/cgnthVy6K3eZAr63eSFrG75GVoNYFgrdJQG77FfFrR+FJ8xjEcvt2KnfDEINycswZfL0IDEw5t8dsxjfpX86aAP4YZLccUJEB3tgAdaYX4F1sNSmziBCBfEsS57x2FwAHaoFsR+Q02qv5Mi6TpBlYkDpSPz602gzdbuq///QSO+/ha8Qer+H+iI/uU0GHBOg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(7416014)(366016)(921020)(18002099003)(22082099003)(11063799006)(56012099006);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYWPR01MB8411:EE_
+x-ms-office365-filtering-correlation-id: 0ff9131d-f6a7-4038-896e-08dedd141f9b
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|23010399003|366016|56012099006|18002099003|22082099003|4143699003|11063799006|3023799007|38070700021;
+x-microsoft-antispam-message-info: Mc95yRIMW957C+CnoXI+2euWlo3pv7vCSmOTvqzT7nxBjOR6Y+idLcgQLo7YsAWR9DdHDI+EP92XSfU5vFJJuaWWeh1qpBMJ/OXDqAFOGzl1e2GLaqXHBIL93Ga1UZ4JouaPcH6/e+qOxwrta3Qd1YPYm3O763L2oa+EEDdA/yudU4x/AIYf7E2FLPlu3s6gbZaOTUpu2eSsvDY4YRhk8KZKkIYrYN3zMJnGYR6DBYz1Ja3aTTTNfnFPI0zW1f2jHX0aLkVp8vssowLwlU7tYPe/zgRREKJrbLuctAcLJxrDQ5Sylcl65HBXICjyEXpXSXlraMkKtqRSBN/k+qpbFMb3L/UNqNSxzVk5poAJvN9XxNu55hHVDSECD69JDS35j/Ey3XQ++U3p0hLi+5Fsb9L+7DKrriqdq+y5vya8lrlaxFoSZ5I5SZjichOM48jAHYezvD63d60zpXwhskkMhLlpnpU+ERC8fKfMnWBXrrmRuChPL75YiZFjSFZN5+p4JN/YnpYVA6bytYxiy6o27uMzTwoTWKR7EV3mFhKP1bNsFv5/YnkmhtRLbmu7ZAPVoYN47SjZbXkQue1ngXc9jQ1aalYO66gZUhX9Ks0LOj6dgSI8U1wxVl2Sllj56+mZu9KRIG3xjosE3cyntnLe3eMbR1zwgAOrEj/K03wJl7VV1abd+jI1w7T8XVMyeROub5VO0kecxLwSXYrQSQJXuZGxk70qWcUgEK8Cq7745vE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006)(3023799007)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFV0eng3OVAwRU05RksxNFdrZjFaczBJb0dkTGFNZDllRkdQVEtwWGxjTExG?=
- =?utf-8?B?dEJMU0NDR1paUDNuSmZtY1RucS9yQllIYjFQQnhSZHMvNHJYYng3Ni9JdVpa?=
- =?utf-8?B?R0dpR3VCcGZYMUZWRkw5WVRrcDg5WVh6aGxlSk5JQkt1OE5jTzZic0FoY3BE?=
- =?utf-8?B?YXVyL0FsUWVCTkt6ZXRIc1BqNU54ZnlWWWlibGk0QmxnbWZGekhFYnpNb1cv?=
- =?utf-8?B?OWZ0L0FnWDU5VW1QR0RTaWtFZUxidmpnZ0tmdFVxY1BmSmNPb0pSeUpVTEVu?=
- =?utf-8?B?UTZrUkd1Z0dRUzhLMndFVnNFRmhKU1B5NW5CeVJEL0oxeVZ3amhVeG5STmRu?=
- =?utf-8?B?ZzR3WGF4S01JOW0wL2Y1ajNJMnpVeHJ5Y3Bjc3VrVm5sQWNxYkQzbTFlZFJW?=
- =?utf-8?B?WjFXRmlxNVQ0S3JKSHJhOE92ZWplaUxtTnZuKytUbWJvcDdheTltWGdSRWZt?=
- =?utf-8?B?TmhKejUySDdTSkNzWWFSbUxrRWl1QUVKZUtHNmR5bEFkQzF6QlUwWmhwbHpq?=
- =?utf-8?B?eCtOZEFlcGE4UGNOSzBZNVdoWVN0QXlqSHlnSk5LbzFGNFo3VDQ1VnVxcDFK?=
- =?utf-8?B?WXFOaW5WeG0ycm5LdmwyeHJNdDJ3ODVWb2VPejFDQUJMenZZenR3bHltdktP?=
- =?utf-8?B?SmtaU1hSREVsZ2M2ZlRZQ1I3NC81YU9DK2tIdEMraXN1RUxEcU5MM1M5b1FI?=
- =?utf-8?B?VHQxZ1IxTGQyazBjakJLT09yQlFSQ2FxZVc0ckc4Z2JKaXVNaEdFWGRWVCt0?=
- =?utf-8?B?RVJpQXdleG9HTHhHcGFBWE5tWkczZW5POSswM2d4WDI4T2k4SnMvMFM2dnlh?=
- =?utf-8?B?ZUxaOXc0cFZkTnhHVU5DYWVFaW9XMERSb08yZWVZQVBaRUNWQ1l5aVloOGkx?=
- =?utf-8?B?T0tmbU5YcmJWc1RySWszL01Fb0tVS0czWDlRbnRhclNXUm41ZzU1UmtESUJF?=
- =?utf-8?B?amlsTWV0c0U1OU9SL1V5S3FvekVqaGhVeC9LVlBodVp1dzhyK0IvdGd6NENQ?=
- =?utf-8?B?UVQ3eURTSTRDZlE1YlcyT21DMTArSHp4cTZDbE5FVFdyZENObWhMSkpRc1Nm?=
- =?utf-8?B?WllyVFdmZDY4UG1sQ0hVbEFZWGRlRm5lUmdURTdHWE5MNHliRlNvMnVMam54?=
- =?utf-8?B?WWtPaWxwelJiYTM4VnJXYktCWWkySEdRMFVpcVlFWlhTeENVblpUODlsT2Vr?=
- =?utf-8?B?ZnpJVmhoMm1FVkhOQlYwV0ZxZElVT0lhU3RJaXAvZFIvU0VqaElXRjlYS042?=
- =?utf-8?B?YjE5YzJ0ZExYTER3M0dWZUF5Z3FKOW92MStnOWw1TGRBbHdCMjlncCtrTXh0?=
- =?utf-8?B?Vk1zRVBNZ2VYZ3EzVFJJR28raXRkdTlIdGhiQjZESlEzd3FOL1FqTmtBaXVr?=
- =?utf-8?B?clBlTE0wa1VGaGhBTWlieEFSalJ2RjBidkZHdGROY2xBRENwSjNROTdLbGxq?=
- =?utf-8?B?MERHaGFqbjhpS3ZqN3V4NXgzTFo4cGNyc1B0ZVorY3phYjBtQ0dnbTM5UUYx?=
- =?utf-8?B?NDFDTTJ3TXJmTWpmSlc1TVYwaGVhRkVPOWhHS0xpOVJlZWlzWXo1eUNoQlFj?=
- =?utf-8?B?cWNUV2FLa1VrdnYyVU5id1ZEWGVETWpCWk9hbWFXeHpGRXNFcWZCSXBQcWt2?=
- =?utf-8?B?YyswbTlMSDNCSXpoUWlOZzZMTG9GSGU5Q08wK1hhYzMyWmdlODkzSTVUeEdq?=
- =?utf-8?B?dW5ZOFp0QUh5SlloakxpL1gwTGwxbHZRYzcyaG9sV0hxclRqdlRUUjVKQ3pk?=
- =?utf-8?B?V1JrcU53dFUrT1V0TEc3d2k2ZzZ4SFF3MFpQWk9nUWdmUStEekZyTVJoTzQ3?=
- =?utf-8?B?ejdiTXVjVk5ybVp6KzJmMTduS1hVb0lFaXlMRXA5dS96b25yU2VzalRWNnFP?=
- =?utf-8?B?V1lpdG1VWURTaVNmTnNiSEVhSnBRN0ZSekpTTUpQSkRWSExodFhEVDh6dk9a?=
- =?utf-8?B?ci80QjFDb3VTdjJJSlJHZ0Q1YnJULzNneWE1dk9ZSGlLS25uOUx2QjRSUWtm?=
- =?utf-8?B?cUFNK2Q4b0R2RmR1WWsxV1RPWnIzZzdSREZNL2tPYzFrQXl5dWpRZStsUXlT?=
- =?utf-8?B?emtGSUg1aXlkdEkrSmo2YmRid05tOTNHSjljL2djRHdKUU14eXZRZk8wT1NY?=
- =?utf-8?B?dHZnTlMxY3poSlJ3NjhBdkVCWlB5L29GMUVjaWUxNTNFUmRqZDBxN0VqRWF0?=
- =?utf-8?B?eHdtVjIvNTdEUDlaZmZubjAxUE9NcFhzNkpleUNKT3J3TDRUa2FNNzlPSWhp?=
- =?utf-8?B?dWRXK01aRzU2UEtEamEya2hKRkxWOU1VQ3hlL0YxM1lWQUUycHZDZEU4U3gr?=
- =?utf-8?Q?bfTF/XuyCpLg5odAuC?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e62a949-9ec0-48b2-c888-08dedd13f31a
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1612dTEQd1yryXza9dckTopdZM5G2n8yVJJhIFIdK6Tzpe9Rkg32AT8FOXwY?=
+ =?us-ascii?Q?yzsSThUkkYfLPvX+4kEEY+B0ORGioSiprWt4bQ96CVpHBfxnlLOsFFMcJRw0?=
+ =?us-ascii?Q?exPp3ea5y4Uu3i7PLu5zhOSMUMM0zaMs9xIvr3Kd0BdBTgGEwKlBQOPiqaXh?=
+ =?us-ascii?Q?CzOtuoS1kS5B2hnFgrA5sdd46Y3XxL+WYBB20J57iPSUt5YH0VhTu7RdOFYm?=
+ =?us-ascii?Q?jYQqFDGTZeaoOa3fuESGDkp0hjJSYwhEhp8zDLDJS9+EnSTdQ1mob5GFRJVq?=
+ =?us-ascii?Q?6Q84kWdvoWyEw26FyCX+tBgDxf61S5mvfS08T+qq1n//upDcWGQhud4+7/F0?=
+ =?us-ascii?Q?ktrG2rJ+XHg48cYEhaf3gi46ynr7tV0+yZt8WU1M69PcKjoi2XY8bd1PMeYg?=
+ =?us-ascii?Q?FnDKJ9nWGAwYnReNrZ5uk3chwlq0ILmkTlm313c7tjT1dc/ul9kioDO/O0h3?=
+ =?us-ascii?Q?QPdOWweotLRSXUSyF60LeaGLXRt7S5j5qvNdfLNfe9snNbte+BQT1LRkwjab?=
+ =?us-ascii?Q?lDwMkn5O+CBpFpImTAdKi4WebWCjpJcJz5B53sGDiLhllxSYv+Xzc9MEkOuZ?=
+ =?us-ascii?Q?fyzG5gvfdE4YTvuoxO8x+4D5ZcQho0CszuoJ8yXC4p94roClTOBdE2k7fYdV?=
+ =?us-ascii?Q?8oCok6NcQcl/gSmuqqtt1oSv+B+yCB5FLXSGtOCVIbbkeiMgPAbDl7/ZKTd0?=
+ =?us-ascii?Q?PgzRaSxj7GLtGsNR2DJ6RkcHPvFWfhHZ7Ntiq6eksItvtox9HRjFHyMHi1ss?=
+ =?us-ascii?Q?1xK/KpAPGG4FicIL970Gr99ZQqE0MX2a/g+iWO7EmfHo9TJu/nlSUGU85Zab?=
+ =?us-ascii?Q?tAJvwFNcjVeHyYM7oL3hjkt0oSaz7u+o8Eka9iG0TvI43nZrXlo5+Mk+99D3?=
+ =?us-ascii?Q?sLIhujmqIzLwVSUMXiImSdZq7QcCH0t4pLCc3EZu0nN1DDoR1n650ymNadrC?=
+ =?us-ascii?Q?1ckwZaRFolED2PRVHgHuaUnQfcmIJl+Jqk65kpranLpuWTHEA5zDCemx0bB5?=
+ =?us-ascii?Q?PQJgf2ncXN2xu91CJ2awV5gB9MsXndF16AHr5IA8EJNLbyD6K7bA9kNLXAlw?=
+ =?us-ascii?Q?c+CfO9phRRCsUfOQje7ePWjmbNEKNeiwQvOur+QnRS8HXtI3NRO0jqjhnVbS?=
+ =?us-ascii?Q?Zv0ZrsmQk9Ef2BD64YVAZCnB8E736HGKrdcJ3bodqwhO8I0Odhl0CyVwt6OY?=
+ =?us-ascii?Q?BB6O/4jiooimi4U6KNEOghJgmaz7JVAgESmH28DSNgKBWPQA1kNos3vJ9tI5?=
+ =?us-ascii?Q?NPd6OKdFW0gR9/qNdwbDMY1MpeWqKqrugMXQQ5/gUfO9tWegOAc/tB7doCf1?=
+ =?us-ascii?Q?/kJJbXtkdQwnb2TCOiQw7g2bA4RkurmFYIe8Gqp4YuQBXdRR0OZycIboIod/?=
+ =?us-ascii?Q?ApnXHxWsc6O1TEWYrVv6ZXQZf2ESnpKHku26ZPFxmnyWuNtCbscLeMhACtM9?=
+ =?us-ascii?Q?s7AbG4AMeyZQtp4hujNcdSfMeakq9RZd/c4mqtFcNJuWlQf48+HbqGdyNraX?=
+ =?us-ascii?Q?u30wcYQWBUywa3PU647ASm53MdwS/Hgf5JUYGRWSR7otJbk14Mcb83vYlI02?=
+ =?us-ascii?Q?hTzcwsbGauihr3ncHUb0YBl+Yp9zozYk+omosKYf5E4EhhCVJnEo6MY+TEot?=
+ =?us-ascii?Q?n32AAK1wqzQWlBQFq9CPH2LFepJ75M9gwHvmX8Neqjorrnf00Mo7QlTBgxCz?=
+ =?us-ascii?Q?dLeMdgjt3omHLLn1k/t3B10i4PtC3RochfcODVk6OOEN8d5m7E9BXn2CKN5J?=
+ =?us-ascii?Q?gQ0Uhaxv5A=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 17:11:28.8656 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jf/JatiEvThmxxizpNypxcWMqLeLF5bDBN0SQdJvUKlvueXbCyWlohw/PFte6rPcJ5LkR8wjAud9VQ0Ed5ym3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9643
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ff9131d-f6a7-4038-896e-08dedd141f9b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2026 17:12:43.1299 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7/5ApjMAz7KtarVqvL1X6kXCz8kk7WVPAaOPxGtNgtaS3yamd+R8Jee7iUZC/kjsetwzV2Ph3LFNsg8hfLwo5n2TtQ+EZKXY+ILiwE6FOnI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB8411
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,50 +144,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Tommaso,
 
+> -----Original Message-----
+> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Sent: 08 July 2026 17:46
+> Subject: Re: [PATCH 07/16] dt-bindings: display: renesas,rzg2l-du: Docume=
+nt RZ/G3L SoC
+>=20
+> Hi Biju,
+> Thanks for your patch.
+>=20
+> On Sat, Jul 04, 2026 at 10:34:17AM +0100, Biju wrote:
+> > From: Biju Das <biju.das.jz@bp.renesas.com>
+> >
+> > The DU block on the RZ/G3L SoC is identical to the one found on the
+> > RZ/G2L SoC. However, it supports the DSI, DPI, and LVDS interfaces,
+> > while the RZ/G2L supports only the DSI and DPI interfaces.
+> >
+> > Due to this difference, a SoC-specific compatible string,
+> > 'renesas,r9a08g046-du', is added for the RZ/G3L SoC.
+> >
+> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> > ---
+> >  .../bindings/display/renesas,rzg2l-du.yaml    | 27 +++++++++++++++++--
+> >  1 file changed, 25 insertions(+), 2 deletions(-)
+> >
+> > diff --git
+> > a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > index 7c84a9ecc7a7..65368649fe77 100644
+> > --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > @@ -20,6 +20,7 @@ properties:
+> >        - enum:
+> >            - renesas,r9a07g043u-du # RZ/G2UL
+> >            - renesas,r9a07g044-du # RZ/G2{L,LC}
+> > +          - renesas,r9a08g046-du # RZ/G3L
+> >            - renesas,r9a09g057-du # RZ/V2H(P)
+> >            - renesas,r9a09g077-du # RZ/T2H
+> >        - items:
+> > @@ -65,7 +66,7 @@ properties:
+> >        model-dependent. Each port shall have a single endpoint.
+> >
+> >      patternProperties:
+> > -      "^port@[0-1]$":
+> > +      "^port@[0-2]$":
+> >          $ref: /schemas/graph.yaml#/properties/port
+> >          unevaluatedProperties: false
+> >
+> > @@ -88,7 +89,6 @@ required:
+> >    - clocks
+> >    - clock-names
+> >    - power-domains
+> > -  - ports
+> >    - renesas,vsps
+> >
+> >  additionalProperties: false
+> > @@ -108,6 +108,7 @@ allOf:
+> >              port@0:
+> >                description: DPI
+> >              port@1: false
+> > +            port@2: false
+> >
+> >            required:
+> >              - port@0
+> > @@ -124,10 +125,31 @@ allOf:
+> >                description: DSI
+> >              port@1:
+> >                description: DPI
+> > +            port@2: false
+> >
+> >            required:
+> >              - port@0
+> >              - port@1
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: renesas,r9a08g046-du
+> > +    then:
+> > +      properties:
+> > +        port:
+> > +          properties:
+> > +            endpoint@0:
+> > +              description: DSI
+> > +            endpoint@1:
+> > +              description: DPI
+> > +            endpoint@2:
+> > +              description: LVDS
+>=20
+> I'm seeing you are using ports + port@{0,1,2} in driver and soc .dtsi so =
+I think here we will need to
+> have ports + port@{0,1,2} aswell.
 
-On 7/8/26 02:27, Guangshuo Li wrote:
-> amdgpu_dm_connector_atomic_check() checks whether the old or new
-> connector state returned by the atomic helpers is NULL before using
-> those pointers.
-> 
-> However, new_con_state is already dereferenced while initializing crtc,
-> before the NULL check is reached. If
-> drm_atomic_get_new_connector_state() returns NULL, the function can
-> dereference the NULL pointer before the WARN_ON() check can handle it.
-> 
-> Declare crtc first and initialize it only after the NULL check has
-> succeeded.
-> 
-> Fixes: 1e5e8d672fec ("drm/amd/display: Avoid a NULL pointer dereference")
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
+Good catch. My binding test did not catch this.
 
-Good finding.  I'll get this applied.
+I will fix it in next version.
 
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d3a8d681227a..7b040fd7e3fb 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8640,13 +8640,14 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
->   		drm_atomic_get_new_connector_state(state, conn);
->   	struct drm_connector_state *old_con_state =
->   		drm_atomic_get_old_connector_state(state, conn);
-> -	struct drm_crtc *crtc = new_con_state->crtc;
-> +	struct drm_crtc *crtc;
->   	struct drm_crtc_state *new_crtc_state;
->   	struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(conn);
->   	int ret;
->   
->   	if (WARN_ON(unlikely(!old_con_state || !new_con_state)))
->   		return -EINVAL;
-> +	crtc = new_con_state->crtc;
->   
->   	trace_amdgpu_dm_connector_atomic_check(new_con_state);
->   
-
+Cheers,
+Biju
