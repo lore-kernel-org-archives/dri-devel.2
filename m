@@ -4,138 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5481CC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:44:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6740C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:50:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2B9E10E5D2;
-	Wed,  8 Jul 2026 12:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE6810E5D7;
+	Wed,  8 Jul 2026 12:50:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ODioz/aM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="K2zuVha/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="h6exN740";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HUeeAx+W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jitZrOHB";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9ED110E5D2
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:44:15 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 895847587E;
- Wed,  8 Jul 2026 12:44:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783514654; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hDF+/OTRPKVzsa0KeAPg8wf1kzxM6JSavTh2UwnGYsY=;
- b=ODioz/aM0QFgAXmqpD/oUA9HB3yB9M/Bl1c9MNyVxw/fvF14YGY/IleiHweFd/cgga9Frk
- ImfYsUYa3sSKBL1E/XjdTmdhUp82jHXWxcUjIAXbj691vjSApUzs/lRkJI7yGKcK2K3pcO
- MVCF1f6L9qz0daiwE40hW4gTHxUYCDk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783514654;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hDF+/OTRPKVzsa0KeAPg8wf1kzxM6JSavTh2UwnGYsY=;
- b=K2zuVha/qKYTnseDH6XD1GPQmAWxSfn1sZNQSDTMShoOZRQ8cku5+qVTc0Cb9/+bFz2hRb
- /l/AsPPGrN9YGtAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783514652; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hDF+/OTRPKVzsa0KeAPg8wf1kzxM6JSavTh2UwnGYsY=;
- b=h6exN740bbdw6hpDzzBYDkmQzHiitjpwb0W2hCr3rvLIdOBfFhDJ6dPgqvwSYe/+tXLLuc
- 6EB3may42kikv5x1Tsi3iZkYrqYme9PxOMrRFn5Qtezmer1oci88vBUhkrVKSPRF0UN+Vr
- ueZBatEhC8Cp/v8hNzPiVBoyFiLR6k0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783514652;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hDF+/OTRPKVzsa0KeAPg8wf1kzxM6JSavTh2UwnGYsY=;
- b=HUeeAx+WjTStqntL0Yt2VJ6IqQBhpd7QXppSm9VZ2Wt/Y+bIwkmbfJAZj2reBWX366tT5a
- bQDisnohF0X7K1Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E49F2779AE;
- Wed,  8 Jul 2026 12:44:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id a8ljNhtGTmq8GAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 08 Jul 2026 12:44:11 +0000
-Message-ID: <1c84099b-6f0d-4655-9aea-015a821b50db@suse.de>
-Date: Wed, 8 Jul 2026 14:44:11 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11A5310E5D7
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:50:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 25C1560054;
+ Wed,  8 Jul 2026 12:50:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2693F1F000E9;
+ Wed,  8 Jul 2026 12:50:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783515007;
+ bh=IbwF4pMHfyhwOslYT5YnzmrvzgTa5uH5GBgU1nK9uiI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jitZrOHBE9XNJumMdXFVv18tUngtPLdb9x2l4MXb1a4a3audPmwI5ES1+E/p39+fH
+ HMBtTttJu5WKPwMZpzl5XSMW8IWWsdWOQpWuuuOHUvCzW0Upi/fHIEHKy/XatkKhbs
+ YIrgECVYDaOyOlaeXFov/nDhiba0x7J/yL1Q67FUZOmQNsefjzpkn/aCjEu0dJ6ZK9
+ nlap2Fjp+x+P5ahqGT40ffudUAfNKdE4tL3hjqRQjY1+Q8v+zswk6N6KyX0QPm3fqz
+ Jak61XpK3z4GmnyZVFYWCCa1m5lbXTTe07OjSwKUXfEIRonD9IqEaS2TOTSr62FACC
+ l7BKByWi/ic2A==
+Date: Wed, 8 Jul 2026 14:50:04 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <ak5CXzGStC6ZmtwI@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
+ <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
+ <akuvyu1Pq0ZVMZV0@orome> <akzikTrmhMsvkNVY@willie-the-truck>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] drm/imx: replace struct drm_simple_display_pipe with
- regular atomic helpers
-To: Ze Huang <ze.huang@oss.qualcomm.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, xen-devel@lists.xenproject.org
-References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-3-b4e1ca053623@oss.qualcomm.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260705-drm-simple-kms-removal-v1-3-b4e1ca053623@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[22];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- qualcomm.com:email, i.mx:url, suse.com:url]
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gs6kcdn3aiethnov"
+Content-Disposition: inline
+In-Reply-To: <akzikTrmhMsvkNVY@willie-the-truck>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,351 +100,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-the imx driver is well maintained IIRC. I'd advise you to split off this 
-patch from the series and send it out separately. That is more likely to 
-catch the attention of the driver's maintainers.
+--gs6kcdn3aiethnov
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+MIME-Version: 1.0
 
-Best regards
-Thomas
+On Tue, Jul 07, 2026 at 12:27:13PM +0100, Will Deacon wrote:
+> On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
+> > On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
+> > > On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
+> > > > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
+> > > > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
+> > > > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
+> > > > > > > From: Chun Ng <chunn@nvidia.com>
+> > > > > > >=20
+> > > > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protec=
+tion bits
+> > > > > > > on a kernel-linear-map range.
+> > > > > >=20
+> > > > > > That sounds like a really terrible idea. Why is this necessary =
+and how
+> > > > > > does it interact with things like load_unaligned_zeropad()?
+> > > > >=20
+> > > > > This is necessary because once the memory controller has walled o=
+ff the
+> > > > > new memory region the CPU must not access it under any circumstan=
+ces or
+> > > > > it'll cause the CPU to lock up (I think technically it'll hit an =
+SError
+> > > > > but in practice that just means it'll freeze, as far as I can tel=
+l).
+> > > > >=20
+> > > > > Probably doesn't interact well at all with load_unaligned_zeropad=
+().
+> > > > >=20
+> > > > > > I think you should unmap the memory from the linear map and mem=
+remap()
+> > > > > > it instead.
+> > > > >=20
+> > > > > Given that the memory can never be accessed by the CPU after the =
+memory
+> > > > > controller locks it down, I don't think we'll even need memremap(=
+). The
+> > > > > only thing we really need is the sg_table we hand out via the DMA=
+ BUFs
+> > > > > so that they can be used by device drivers to program their DMA e=
+ngines
+> > > > > internally.
+> > > > >=20
+> > > > > Looking through some of the architecture code around this, should=
+n't we
+> > > > > simply be using set_memory_encrypted() and set_memory_decrypted()=
+ for
+> > > > > this? While they might've been created for slightly other use-cas=
+es,
+> > > > > they seem to be doing exactly what we want (i.e. remove the page =
+range
+> > > > > from the linear mapping and flushing it, or restoring the valid b=
+it and
+> > > > > standard permissions, respectively).
+> > > >=20
+> > > > Ah... I guess we can't do it because we're not in a realm world and=
+ so
+> > > > the early checks in __set_memory_enc_dec() would return early and t=
+urn
+> > > > it into a no-op.
+> > > >=20
+> > > > How about if I extract a common helper and provide set_memory_p() a=
+nd
+> > > > set_memory_np() in terms of those. Those are available on x86 and
+> > > > PowerPC as well, so fairly standard. I suppose at that point we're
+> > > > closer to set_memory_valid().
+> > >=20
+> > > Why not just call set_direct_map_invalid_noflush() +
+> > > flush_tlb_kernel_range() for each page? We already have APIs for this.
+> >=20
+> > Having a "standard" helper with a fixed and documented purposed seemed
+> > like a preferable approach for this particular case. We also may want to
+> > make the driver that uses this buildable as a module, in which case we'd
+> > need to export these rather low-level APIs. And then there's also the
+> > fact that we typically call this on a rather large region of memory
+> > (usually something like 512 MiB), so doing it page-by-page is rather
+> > suboptimal.
+> >=20
+> > > The big challenge I see with any linear map manipulation, however, is
+> > > that it will rely on can_set_direct_map() which likely means you need=
+ to
+> > > give up some performance and/or security to make this work. Does memo=
+ry
+> > > become inaccesible dynamically at runtime? If not, the best bet would
+> > > be to describe it as a carveout in the DT and mark it as "no-map" so
+> > > we avoid mapping it in the first place.
+> >=20
+> > VPR exists in two modes: static and resizable. For static VPR we do
+> > exactly that: describe it as carveout in DT with no-map and deal with it
+> > accordingly in the driver. Resizable VPR is for device that have small
+> > amounts of RAM. Content-protected video playback will in the worst case
+> > consume around 1.8 GiB of RAM, so we want to be able to reuse for other
+> > purposes when VPR is unused on those devices. In that case, the memory
+> > is also described as a reserved-memory region in DT, but it is marked as
+> > reusable so that it can be managed by CMA.
+> >=20
+> > The resize operation is fairly slow to begin with because we need to
+> > stall the GPU and put it into reset before the operation, then take it
+> > out of reset and resume it afterwards.
+> >=20
+> > What kind of performance impact do you expect?
+>=20
+> You'll need to measure it, but we've seen reports of double-digit
+> percentage regressions in performance and power. As I said, the problem
+> is that you need to split the linear map to 4k page at runtime to unmap
+> the dynamic carveout, but that isn't something that can be done on most
+> CPUs. Therefore you end up having to use page-granular mappings for the
+> entire thing, similarly to how 'rodata_full' drives can_set_direct_map()
+> and the perf/power hit affects everything.
+>=20
+> It's hard to know what to suggest... I wonder if any of the memory
+> hotplug logic could help here?
 
-Am 04.07.26 um 20:31 schrieb Ze Huang:
-> Convert i.MX LCDC to explicit primary plane, CRTC and encoder objects.
->
-> Keep no-scaling plane check and GEM framebuffer prepare callback from
-> simple-KMS path. Only touch hardware state when framebuffer exists,
-> since atomic plane updates can run on disabling transitions.
->
-> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 178 ++++++++++++++++++++++++++----------
->   1 file changed, 130 insertions(+), 48 deletions(-)
->
-> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> index f52832b43aca..d091dc562098 100644
-> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
-> @@ -14,9 +14,9 @@
->   #include <drm/drm_gem_dma_helper.h>
->   #include <drm/drm_gem_framebuffer_helper.h>
->   #include <drm/drm_of.h>
-> +#include <drm/drm_plane_helper.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
-> -#include <drm/drm_simple_kms_helper.h>
->   #include <drm/drm_vblank.h>
->   #include <linux/bitfield.h>
->   #include <linux/clk.h>
-> @@ -102,7 +102,9 @@
->   
->   struct imx_lcdc {
->   	struct drm_device drm;
-> -	struct drm_simple_display_pipe pipe;
-> +	struct drm_plane plane;
-> +	struct drm_crtc crtc;
-> +	struct drm_encoder encoder;
->   	struct drm_connector *connector;
->   	void __iomem *base;
->   
-> @@ -135,14 +137,13 @@ static unsigned int imx_lcdc_get_format(unsigned int drm_format)
->   	}
->   }
->   
-> -static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
-> +static void imx_lcdc_update_hw_registers(struct drm_crtc *crtc,
->   					 struct drm_plane_state *old_state,
->   					 bool mode_set)
->   {
-> -	struct drm_crtc *crtc = &pipe->crtc;
-> -	struct drm_plane_state *new_state = pipe->plane.state;
-> +	struct drm_plane_state *new_state = crtc->primary->state;
->   	struct drm_framebuffer *fb = new_state->fb;
-> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
-> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
->   	u32 lpcr, lvcr, lhcr;
->   	u32 framesize;
->   	dma_addr_t addr;
-> @@ -188,16 +189,16 @@ static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
->   		clk_prepare_enable(lcdc->clk_per);
->   }
->   
-> -static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
-> -				 struct drm_crtc_state *crtc_state,
-> -				 struct drm_plane_state *plane_state)
-> +static void imx_lcdc_crtc_helper_atomic_enable(struct drm_crtc *crtc,
-> +					       struct drm_atomic_commit *state)
->   {
->   	int ret;
->   	int clk_div;
->   	int bpp;
-> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
-> -	struct drm_display_mode *mode = &pipe->crtc.mode;
-> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
-> +	struct drm_display_mode *mode = &crtc->mode;
->   	struct drm_display_info *disp_info = &lcdc->connector->display_info;
-> +	struct drm_plane_state *plane_state = crtc->primary->state;
->   	const int hsync_pol = (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 0 : 1;
->   	const int vsync_pol = (mode->flags & DRM_MODE_FLAG_PVSYNC) ? 0 : 1;
->   	const int data_enable_pol =
-> @@ -231,34 +232,34 @@ static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
->   
->   	ret = clk_prepare_enable(lcdc->clk_ipg);
->   	if (ret) {
-> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
-> +		dev_err(crtc->dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
->   		return;
->   	}
->   	ret = clk_prepare_enable(lcdc->clk_ahb);
->   	if (ret) {
-> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
-> +		dev_err(crtc->dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
->   
->   		clk_disable_unprepare(lcdc->clk_ipg);
->   
->   		return;
->   	}
->   
-> -	imx_lcdc_update_hw_registers(pipe, NULL, true);
-> +	imx_lcdc_update_hw_registers(crtc, NULL, true);
->   
->   	/* Enable VBLANK Interrupt */
->   	writel(INTR_EOF, lcdc->base + IMX21LCDC_LIER);
->   }
->   
-> -static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
-> +static void imx_lcdc_crtc_helper_atomic_disable(struct drm_crtc *crtc,
-> +						struct drm_atomic_commit *state)
->   {
-> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
-> -	struct drm_crtc *crtc = &lcdc->pipe.crtc;
-> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
->   	struct drm_pending_vblank_event *event;
->   
->   	clk_disable_unprepare(lcdc->clk_ahb);
->   	clk_disable_unprepare(lcdc->clk_ipg);
->   
-> -	if (pipe->crtc.enabled)
-> +	if (crtc->enabled)
->   		clk_disable_unprepare(lcdc->clk_per);
->   
->   	spin_lock_irq(&lcdc->drm.event_lock);
-> @@ -273,17 +274,18 @@ static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
->   	writel(0, lcdc->base + IMX21LCDC_LIER);
->   }
->   
-> -static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
-> -			       struct drm_plane_state *plane_state,
-> -			       struct drm_crtc_state *crtc_state)
-> +static int imx_lcdc_crtc_helper_atomic_check(struct drm_crtc *crtc,
-> +					     struct drm_atomic_commit *state)
->   {
-> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
->   	const struct drm_display_mode *mode = &crtc_state->mode;
-> -	const struct drm_display_mode *old_mode = &pipe->crtc.state->mode;
-> +	const struct drm_display_mode *old_mode = &crtc->state->mode;
-> +	int ret;
->   
->   	if (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES ||
->   	    mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES ||
->   	    mode->hdisplay % 0x10) { /* must be multiple of 16 */
-> -		drm_err(pipe->crtc.dev, "unsupported display mode (%u x %u)\n",
-> +		drm_err(crtc->dev, "unsupported display mode (%u x %u)\n",
->   			mode->hdisplay, mode->vdisplay);
->   		return -EINVAL;
->   	}
-> @@ -292,27 +294,42 @@ static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
->   		old_mode->hdisplay != mode->hdisplay ||
->   		old_mode->vdisplay != mode->vdisplay;
->   
-> -	return 0;
-> +	if (!crtc_state->enable)
-> +		goto out;
-> +
-> +	ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
-> +	if (ret)
-> +		return ret;
-> +
-> +out:
-> +	return drm_atomic_add_affected_planes(state, crtc);
->   }
->   
-> -static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
-> -				 struct drm_plane_state *old_state)
-> +static void imx_lcdc_plane_helper_atomic_update(struct drm_plane *plane,
-> +						struct drm_atomic_commit *state)
->   {
-> -	struct drm_crtc *crtc = &pipe->crtc;
-> -	struct drm_pending_vblank_event *event = crtc->state->event;
-> -	struct drm_plane_state *new_state = pipe->plane.state;
-> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
-> +	struct drm_plane_state *new_state = plane->state;
-> +	struct drm_crtc *crtc = new_state->crtc ?: old_state->crtc;
-> +	struct drm_pending_vblank_event *event;
->   	struct drm_framebuffer *fb = new_state->fb;
->   	struct drm_framebuffer *old_fb = old_state->fb;
->   	struct drm_crtc *old_crtc = old_state->crtc;
->   	bool mode_changed = false;
->   
-> -	if (old_fb && old_fb->format != fb->format)
-> -		mode_changed = true;
-> -	else if (old_crtc != crtc)
-> -		mode_changed = true;
-> +	if (!crtc)
-> +		return;
->   
-> -	imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
-> +	if (fb) {
-> +		if (old_fb && old_fb->format != fb->format)
-> +			mode_changed = true;
-> +		else if (old_crtc != crtc)
-> +			mode_changed = true;
->   
-> +		imx_lcdc_update_hw_registers(crtc, old_state, mode_changed);
-> +	}
-> +
-> +	event = crtc->state->event;
->   	if (event) {
->   		crtc->state->event = NULL;
->   
-> @@ -327,11 +344,56 @@ static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
->   	}
->   }
->   
-> -static const struct drm_simple_display_pipe_funcs imx_lcdc_pipe_funcs = {
-> -	.enable = imx_lcdc_pipe_enable,
-> -	.disable = imx_lcdc_pipe_disable,
-> -	.check = imx_lcdc_pipe_check,
-> -	.update = imx_lcdc_pipe_update,
-> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
-> +					      struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc *crtc = plane_state->crtc;
-> +	struct drm_crtc_state *crtc_state = NULL;
-> +	int ret;
-> +
-> +	if (crtc)
-> +		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +
-> +	ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  false, false);
-> +	return ret;
-> +}
-> +
-> +static const struct drm_plane_helper_funcs imx_lcdc_plane_helper_funcs = {
-> +	.prepare_fb	= drm_gem_plane_helper_prepare_fb,
-> +	.atomic_check	= imx_lcdc_plane_helper_atomic_check,
-> +	.atomic_update	= imx_lcdc_plane_helper_atomic_update,
-> +};
-> +
-> +static const struct drm_plane_funcs imx_lcdc_plane_funcs = {
-> +	.update_plane		= drm_atomic_helper_update_plane,
-> +	.disable_plane		= drm_atomic_helper_disable_plane,
-> +	.destroy		= drm_plane_cleanup,
-> +	.reset			= drm_atomic_helper_plane_reset,
-> +	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
-> +	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
-> +};
-> +
-> +static const struct drm_crtc_helper_funcs imx_lcdc_crtc_helper_funcs = {
-> +	.atomic_check	= imx_lcdc_crtc_helper_atomic_check,
-> +	.atomic_enable	= imx_lcdc_crtc_helper_atomic_enable,
-> +	.atomic_disable	= imx_lcdc_crtc_helper_atomic_disable,
-> +};
-> +
-> +static const struct drm_crtc_funcs imx_lcdc_crtc_funcs = {
-> +	.reset			= drm_atomic_helper_crtc_reset,
-> +	.destroy		= drm_crtc_cleanup,
-> +	.set_config		= drm_atomic_helper_set_config,
-> +	.page_flip		= drm_atomic_helper_page_flip,
-> +	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
-> +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
-> +};
-> +
-> +static const struct drm_encoder_funcs imx_lcdc_encoder_funcs = {
-> +	.destroy = drm_encoder_cleanup,
->   };
->   
->   static const struct drm_mode_config_funcs imx_lcdc_mode_config_funcs = {
-> @@ -369,7 +431,7 @@ MODULE_DEVICE_TABLE(of, imx_lcdc_of_dev_id);
->   static irqreturn_t imx_lcdc_irq_handler(int irq, void *arg)
->   {
->   	struct imx_lcdc *lcdc = arg;
-> -	struct drm_crtc *crtc = &lcdc->pipe.crtc;
-> +	struct drm_crtc *crtc = &lcdc->crtc;
->   	unsigned int status;
->   
->   	status = readl(lcdc->base + IMX21LCDC_LISR);
-> @@ -387,6 +449,9 @@ static int imx_lcdc_probe(struct platform_device *pdev)
->   	struct imx_lcdc *lcdc;
->   	struct drm_device *drm;
->   	struct drm_bridge *bridge;
-> +	struct drm_plane *plane;
-> +	struct drm_crtc *crtc;
-> +	struct drm_encoder *encoder;
->   	int irq;
->   	int ret;
->   	struct device *dev = &pdev->dev;
-> @@ -428,23 +493,40 @@ static int imx_lcdc_probe(struct platform_device *pdev)
->   	if (ret)
->   		return dev_err_probe(dev, ret, "Cannot initialize mode configuration structure\n");
->   
-> -	/* CRTC, Plane, Encoder */
-> -	ret = drm_simple_display_pipe_init(drm, &lcdc->pipe,
-> -					   &imx_lcdc_pipe_funcs,
-> -					   imx_lcdc_formats,
-> -					   ARRAY_SIZE(imx_lcdc_formats), NULL, NULL);
-> +	plane = &lcdc->plane;
-> +	ret = drm_universal_plane_init(drm, plane, 0,
-> +				       &imx_lcdc_plane_funcs,
-> +				       imx_lcdc_formats,
-> +				       ARRAY_SIZE(imx_lcdc_formats),
-> +				       NULL,
-> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
-> +	if (ret < 0)
-> +		return dev_err_probe(drm->dev, ret, "Cannot initialize primary plane\n");
-> +	drm_plane_helper_add(plane, &imx_lcdc_plane_helper_funcs);
-> +
-> +	crtc = &lcdc->crtc;
-> +	ret = drm_crtc_init_with_planes(drm, crtc, plane, NULL,
-> +					&imx_lcdc_crtc_funcs, NULL);
-> +	if (ret < 0)
-> +		return dev_err_probe(drm->dev, ret, "Cannot initialize CRTC\n");
-> +	drm_crtc_helper_add(crtc, &imx_lcdc_crtc_helper_funcs);
-> +
-> +	encoder = &lcdc->encoder;
-> +	ret = drm_encoder_init(drm, encoder, &imx_lcdc_encoder_funcs,
-> +			       DRM_MODE_ENCODER_NONE, NULL);
->   	if (ret < 0)
-> -		return dev_err_probe(drm->dev, ret, "Cannot setup simple display pipe\n");
-> +		return dev_err_probe(drm->dev, ret, "Cannot initialize encoder\n");
-> +	encoder->possible_crtcs = drm_crtc_mask(crtc);
->   
->   	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
->   	if (ret < 0)
->   		return dev_err_probe(drm->dev, ret, "Failed to initialize vblank\n");
->   
-> -	ret = drm_bridge_attach(&lcdc->pipe.encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> +	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->   	if (ret)
->   		return dev_err_probe(drm->dev, ret, "Cannot attach bridge\n");
->   
-> -	lcdc->connector = drm_bridge_connector_init(drm, &lcdc->pipe.encoder);
-> +	lcdc->connector = drm_bridge_connector_init(drm, encoder);
->   	if (IS_ERR(lcdc->connector))
->   		return dev_err_probe(drm->dev, PTR_ERR(lcdc->connector), "Cannot init bridge connector\n");
->   
->
+I've read up on memory hotplug a bit and it sounds like it could fit
+this really nicely. Given that we only use CMA (along with the extra
+patches to it) to make sure that any buffers are reclaimed for VPR use,
+we should be able to get rid of the CMA usage altogether and replace it
+with online_pages() and offline_pages() instead. Rather than using a
+fixed set of CMA areas like we currently do, each "chunk" in the VPR
+driver could represent a memory block instead (which looks like it will
+be 128 MiB for 4 KiB pages and 512 MiB for 64 KiB pages). We currently
+use 512 MiB as the chunk size, so it should be relatively similar and
+easy to adjust.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+One issue that we would absolutely need this memory to be ZONE_MOVABLE
+=66rom the start. Using no-map in DT and then online_pages() probably will
+not work because there's no struct page for the memory. So we're left
+with keeping the memory onlined by default, in which case we'd need some
+way for DT to instruct the memory to be put into ZONE_MOVABLE always.
 
+There's a "hotpluggable" property for "memory" nodes, maybe that can be
+extended to apply to reserved-memory nodes as well?
 
+Thierry
+
+--gs6kcdn3aiethnov
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpOR3kACgkQ3SOs138+
+s6EbFg/9G04JpY5Cu3AX1K9vtQtrw3D5Gowsl1qT7PXe9AmN9PK2oggEDnsm6JPw
+hyDVKxzpLbktBMB5vNKmr4KGYrIEeW4fs+thwrdNjf5GhX7cTQyL78oHaEVTZAn7
+cpiFfepSy6xW4ZDIpHzj6bUVg06S8VZmLOwKHuDbA4N6PZ95evD1ff3/TQs6Y1E6
+WJhgBPjZbTLh6jiIM1y2hRK3GAChy9nC2g2R1LOySIK9NBCgfKV0p2/hv+vQCLSk
+e5ON2GcP06dR1XChOMnEPkUS4BzptxIzVkM7aRiGPJqxVREXJK4MvRTyjZ+W4FuX
+R/QDhwkxdI8+4pwfVPWB10dEWH5vfIrxU5VwO4Uujp4p14P1/nKkWXTe8S69Qitj
+GU8UxLk76btqwkVS43qOyHXH+yXuQBiaWBVTyo8vQx3zp5i8gq1h1xm04ryI0hWj
+BGqXiOxzDr6lEmXUj6h3gUTP+14whWOW8lTqIL0QTKwC4HDv5KTgfgBME2KkYAwp
+1adJdmJ09vhkKAOK1mKHCJHmhOggmoDpIfH8yYSbHeTe4mZZHq9qKtFjvzA8TtMw
+82H0EfyjYM8eNPNZU1/SfsTnhKpTmnLpDCmmdz6Oe4hWGxZVO16z9VujL/EPa0fa
+mY3dWpM8cSvKCP6jm8jguy5IhhLZkS4ljig1obSEvcH0/Tu1FJk=
+=zFs3
+-----END PGP SIGNATURE-----
+
+--gs6kcdn3aiethnov--
