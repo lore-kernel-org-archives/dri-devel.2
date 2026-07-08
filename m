@@ -4,97 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F0DDC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:13:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E457C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 12:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ABAE10E0C2;
-	Wed,  8 Jul 2026 12:13:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 767AE10E5B9;
+	Wed,  8 Jul 2026 12:16:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m0sFEtCN";
+	dkim=pass (2048-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="gC/UTGyG";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="P6sYAUf8";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AD2C10E5C5
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:13:09 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-493d92b7db3so6382565e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 05:13:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783512788; x=1784117588; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=eKW5gFGH/771IARNO8a+Mk4z1dF2QiKqn10sOpp4x8M=;
- b=m0sFEtCN7QZBu/0SRJHa5HJjWtUL69Mtm6jJjM4QKMAh2ZxjwttlrBdVyeot+jIAEl
- Ma1Bp4/bbbf/hqE+OM3vS6ru3CUQ1OtTiFFeUA52c1x2FAp6/Mu9q+DHq6FmUaSsKQIH
- fvFhjSrBMJRE8yWlx5Yfwu5byBvVf6LX6MZmaUSM2xOzHBeqe42KUnsigKUz3Ip/7sXN
- Jq6SHEtaobGew+4WHmPuq9oslCDoBhLLwbiMgt1DS/bw89wRCuHdsW99/OTvcWwcl+XN
- KEk+k7VWrAEfksLEaW51/ChNXNHl9mRaNspECVo332o/DnlF7ZyM2NaPtUDz0MBZELxV
- 1bGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783512788; x=1784117588;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=eKW5gFGH/771IARNO8a+Mk4z1dF2QiKqn10sOpp4x8M=;
- b=jpW/Hz6w1SlAhV2sOAbtMBpsok8tCsCWEBgSR2tL0GsJ2XsmNKvtTRCQ/xDcjzZ3nH
- lrYhgm8BHvmtD0jbt7bfeQXDDFOm2sQF8wId5QOl5sB0XiAwyA9AgywDJRi94ARApLnn
- Cg36nqL6/GtjnOhe9nSnTvS0E3amgNH44kYnuPLifEVCYxMXydzbP/wpzLSpVePp7CHv
- y6KLKV01oqPbjOH9KyASB5/Ejbw6Os/kOiu0NAE2O0Q+LB6cZAUtcu9yol4Z0NqJHBb2
- klVNSaFSoTO7JAiPYYwf53gBmQRF4D5IISLPWjGIjoJPwTVjLASFMyhUhX8YmdqSA9gJ
- wcjg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrpdi2JxOZuorumk8UkQGcscww5V3O1t0Lvc5SKWxnriB6G/JLBEH7mpxFZ275gFbO9Ers99w1RaJI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjUcde8F+dhlBF1/cJ0L2M/npviJSM8lVUgXCHrP9JivLX09cv
- bsBkD0hf04nBvH+zlXuMc905CxZzVgikLIsTg8UWNMm0Q65LuNwUQziw
-X-Gm-Gg: AfdE7ckJk+6dWxDNOyWEM7m12tvjpxYjgm+yhzCFZANKMe5zkOdbz3jl04V2GtdZloP
- pqzQ8INPekqyXAjVeJS9kzVex9FLyZreFH9iVPLuWeNJotT6GboSUdbEviK+4Rel0ihQ7QDcEBK
- Qp82lEuRvYTpHwfFJlRs1EkAbHfpixawmvt/B4pEQpBXZ08/1EiYjE6BzTgr4Nnlm0GCzM50eoH
- kZezXa/VDTe2ErlWQ4xQm3LzSscCFByZsUqBSiTtuu6V64wRCTr3rpfCo6IQ5G2p3I6IM7aL+an
- RuUCzCgJ0e6z4vVChd9adbDVLodQ9UmI9LhZYrVgxMCUphdYfY0/EojiAU4j7NPQpbAutWV1CzI
- ZfTV3n/4CIOfhxSGtbIEl4QPwstEFOqdj/bSblzd9r9ds/bQ1pR5M12VU9YVIksE+ZTsYyAYova
- 5k7Q+W1cDZ
-X-Received: by 2002:a05:600d:8498:20b0:493:d115:d835 with SMTP id
- 5b1f17b1804b1-493e68b8094mr18294835e9.8.1783512787657; 
- Wed, 08 Jul 2026 05:13:07 -0700 (PDT)
-Received: from owl5 ([2001:861:3201:3d10:d412:a0e9:ab11:7221])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493e5a572c3sm64268235e9.1.2026.07.08.05.13.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 05:13:07 -0700 (PDT)
-Date: Wed, 8 Jul 2026 14:13:05 +0200
-From: Gary Bisson <bisson.gary@gmail.com>
-To: Adam Thiede <me@adamthiede.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- CK Hu =?utf-8?B?KOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>
-Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
-Message-ID: <ak4-0SkPaeU3N2lh@owl5>
-References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
- <42607fa4-485d-4142-b31c-7bfac71118d2@adamthiede.com>
- <ajka2220depklK1_@owl5>
- <bac79214-050d-448b-be63-0586d45c807d@adamthiede.com>
- <f0d99b1a-e383-4d14-adb1-4ccab46efddb@leemhuis.info>
- <5baeb90d2c3736df67ad075ede4ac765bfeaed2d.camel@mediatek.com>
- <84233951-ee22-4980-9f17-2af1df51fdbf@leemhuis.info>
- <6fed12a6-0c94-477f-8a2e-466c33ea2e29@collabora.com>
- <dbc251f2-0c67-4970-a101-c19129055082@adamthiede.com>
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com
+ [148.163.154.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C3110E5B9
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 12:16:19 +0000 (UTC)
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+ by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 668C4Z0O2255269; Wed, 8 Jul 2026 07:15:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ proofpoint-05-2026; bh=IlRB0Bb5scN8qJiFO8r/F7BsFMGfmxNxuIMkXg4lV
+ u0=; b=gC/UTGyG4yKJsX5aEYXX5uWnpKJUhlW48+2g6SYiVGKYMob7Gp7+o76b5
+ tfJVQu5UMREshbsLFxiZCSju0pgVW9xwcC39v8r4EjZ5FQWDIMG9c34Lhs0fRmKf
+ TO5/AxPUo40V41amzk/7//eJOiepryeidkfG3i2EJONWFpwPBs3PcWhlxQbDwBn4
+ oec7CgWJeynq9lUgE1QpLne/p7m7TuwpRTO4JCNJ3uP9U/XSF8w0qB1OsLZ+x/+d
+ LvlatRZFOnLCc/wiQ2URwGJZqhG4GDAAwuGYCKzzxbDRJgkTlP5tKY/PMmjatg8T
+ XkrQwJMm/XgSR+xKmOXRrY6cMQljg==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011045.outbound.protection.outlook.com
+ [40.93.194.45])
+ by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4f9kxk8qys-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 08 Jul 2026 07:15:41 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SluhlH9256nV9PKH9yGyOfmQVCKD9tnkr7zBvzybnCcSBLOJgCSgJ2/s6JMIUyDO+5/HxHJYFYHHSg7Cm2oBz1TeiFlj3KJD3FmCQLJIwGtlb7VVxhSZov91vdMHHcnO9VwGTMIwXsMdGRHYOfYIRizq0WmzjkryrcSipZUxT8pUdXctH3NicSGXlZAEf5IXGuZJsSN4SgOcziwoEZ2nHUF8I5x2p8jz2w2w8IkDIxG/fsLYK+EqJSWiSze/29JweZZZg12FsIHZsiYx543CIMuKgkmAYs5+klVkK1F6afelBJEp0pB9T9QujB3wBeYbFM8Qu718lOi8CZrpmk/uLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IlRB0Bb5scN8qJiFO8r/F7BsFMGfmxNxuIMkXg4lVu0=;
+ b=Njt+I+i4nFQR6cx8rwYT1TCZK6rkfUPxR5viyeySPboDxcBQmTAn9s4aL3qgxkc50tfzoJJNR/XF6qfx0fTqC5M6kGovOchwqj9VByU+cxurpynBUnDnR5pY7yLqHQSLMMX93NRb+Jduoy+qt+ds8oj1G7JlTkxNSrKq6NYE+IfG7IXR+8Uelluf6Ma6KIuOwBY8O4O8+HwvA4Fg+pcSJPisOOT4Z6rm00LQwmOb2OoM9MVEjVJmGY14uhHu8e4eLVIH2BOokPQnqXGxqXB5Scc2YQAuJnynTB7iVERGxtYJpXkP8pv1UEwP1aJJa0sqYDJF+yrJ2TkVkstln4pzlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=toradex.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IlRB0Bb5scN8qJiFO8r/F7BsFMGfmxNxuIMkXg4lVu0=;
+ b=P6sYAUf8lKjBJhUGn/Wj33ExwNBi91DbOFoLwFwlcfVCz4eNHYm/A+rhB76379zuHBZZTF6mFwk8DwbgSWOJfdGU0eqAQ20GOMGTE+7wD082gheZ28EB+Kto4eIxMvirRtHXymlK1SqCdy9tpA7x5u2BlS8kwEP3AjFD9Z13Nbg=
+Received: from DS7PR03CA0100.namprd03.prod.outlook.com (2603:10b6:5:3b7::15)
+ by CH0PR10MB5162.namprd10.prod.outlook.com (2603:10b6:610:de::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 12:15:39 +0000
+Received: from CY4PEPF0000E9D4.namprd03.prod.outlook.com
+ (2603:10b6:5:3b7:cafe::2c) by DS7PR03CA0100.outlook.office365.com
+ (2603:10b6:5:3b7::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.10 via Frontend Transport; Wed, 8
+ Jul 2026 12:15:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CY4PEPF0000E9D4.mail.protection.outlook.com (10.167.241.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Wed, 8 Jul 2026 12:15:38 +0000
+Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 8 Jul
+ 2026 07:15:33 -0500
+Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE201.ent.ti.com
+ (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 8 Jul
+ 2026 07:15:33 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE208.ent.ti.com
+ (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 8 Jul 2026 07:15:33 -0500
+Received: from [10.24.52.205] (a0512632.dhcp.ti.com [10.24.52.205])
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 668CFJJj2721368;
+ Wed, 8 Jul 2026 07:15:20 -0500
+Message-ID: <a8e245b5-e9d5-4b5b-b53f-6aa69f2daed0@ti.com>
+Date: Wed, 8 Jul 2026 17:45:18 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dbc251f2-0c67-4970-a101-c19129055082@adamthiede.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND PATCH v2 5/5] drm/tidss: Fix sampling edge configuration
+To: Leonardo Costa <leoreis.costa@gmail.com>
+CC: <airlied@gmail.com>, <aradhya.bhatia@linux.dev>, <conor+dt@kernel.org>,
+ <devarsht@ti.com>, <devicetree@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <h-shenoy@ti.com>,
+ <jyri.sarha@iki.fi>, <kristo@kernel.org>, <krzk+dt@kernel.org>,
+ <lee@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <louis.chauvet@bootlin.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, <nm@ti.com>,
+ <praneeth@ti.com>, <robh@kernel.org>, <simona@ffwll.ch>,
+ <tomi.valkeinen@ideasonboard.com>, <tzimmermann@suse.de>,
+ <vigneshr@ti.com>, <leonardo.costa@toradex.com>
+References: <20251106141227.899054-6-s-jain1@ti.com>
+ <20260702130010.1238089-1-leoreis.costa@gmail.com>
+Content-Language: en-US
+From: Swamil Jain <s-jain1@ti.com>
+In-Reply-To: <20260702130010.1238089-1-leoreis.costa@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D4:EE_|CH0PR10MB5162:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5b20705-61a0-4f29-39be-08dedcea9f6e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|7416014|36860700016|23010399003|5023799004|4143699003|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: kNN/WQaXdD418qIylKHEt5zl1K3nGU/3kSNkde34wLvUdcn1BkhCNoCkscjQQ9NnuMVX1X3HqK8+4/LiN5BIhEvcCyCjVBCdyrEYTjY2R4I3O8GM91MgtnUa+GOMJLuFnX/fNeLTJHc74uSkP0dO2pLAyINxSsrC7sTyD54jP/DjTo73PXH74pcurf3SwYeg8R1n/8h5F9HVJ46kU6MW/pGdVI904yQgLCLYQ0m+7AtFzZ50kUi4mUfDvfQohRVpukd7BT7WcEcSIycaFZkPTUkkyYTzVrdZo2kwcJ5jrR1DGf+j9iBcNkOWD83y9wzItNFB/PxpNYBJvwNDWV/1mZgvu4UtxwIeeiqT7Bq8zfdbO/AfwheNqMpdzuX7SQY7FEkBuLQpZ1a5fljvNnMucK5g23kwOOM3sMIXd5HxscEbN1wlgWlMNsAnycoMmGQqSFVEXalfPKlGtu6Yol4dCxIvwAfBS+xiJ9ahKZYYMoPCLoV8XvIZTI0kDq1RGtOIis7IAF/6aEJwoFmOmkGQKDHknK3wRPQtaO/o5iwpM9EXDdxva9qArE6eojq2l6AbR3uVoiAwspxZitNqc7CnRaq8FqdFkqdzauyVsyhqL9LqgMaQ8OL1HNZ9eL5klm2X2+dXcOAhLqjnbZFIqT4Bng==
+X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(36860700016)(23010399003)(5023799004)(4143699003)(56012099006)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: vP8o4zI2fSyGXOyFifTVC+tpQXuSCRl0K87fUKzRUDUpiobgV0CVYiLS6Z1OEUfD+AjJUw2tNMdtb5J+132ipGUEwJV/QURn1r8VlTZwEuJUVilctlp2FPnH0QxpvymgDtMk5n5Mqv2+Z9WeP6muB9T+BJp1WON0xdhXGt88K0cnWB2gzc3YWdvQUfDCV8xVNBgmU8rS/YIHyp5tkxqMCortxVHyGMYljjykV9w+Kt5Sm/egWSV1vY3a3PkFh5CSiAXryNNPO29NmhGVeMOTm3O4AVVQrlpr7VOMaUrpm4+TX73K+65YEzjLkwEob6VGLidR5VC9zUJqbA+3cSfY9dHcHZTulhMeHj9MN5luHb+QL/RT8rs3KcViDeIYneDzVH0XNTNqLOvV7NpennmlWLgj/jV7I3N8IXetRi80PsOpDnMFBy1eoL9s8R+2HZrk
+X-Exchange-RoutingPolicyChecked: ODQ1QOojSUgAxdRR69fyBkGmaMqyLrqUwP0Jps7ZqupHnfoyVgaZB9hNea3XNwFeGADu4R72xhFDWH1SzXQROyr7z92h5XvmZlaKiMkERYBtl/Nmw9VRf3hWLCnfv1ppCMDJZ0aN90TJQ+xDfbCTbrmkBktGz1FnwYmrnmHNuF5SiO5K0bC5Qydg4EB1EkamdMRl371FKmPC/vhIQF6aMPcqbqiP7PFHQ3gbhAU23k7tCQ3Y4ZXDKfjLcSZtbqBSb50hTFwYib82QFJfKmRu9TYFeVyeCioDY05OrX90wwfO3Wx4xTpNfAWm+qOmh/DL4CoUoiikvgTEZp+sk76upQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 12:15:38.7630 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5b20705-61a0-4f29-39be-08dedcea9f6e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
+ Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB5162
+X-Proofpoint-ORIG-GUID: xXbIojYK7EZXrttbzYSRAevBeEFqaTXN
+X-Authority-Analysis: v=2.4 cv=aYxRWxot c=1 sm=1 tr=0 ts=6a4e3f6e cx=c_pps
+ a=z/rjtr9/JqYX5j7IdmSYkQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8
+ a=VwQbUJbxAAAA:8 a=P1BnusSwAAAA:8 a=pGLkceISAAAA:8 a=vWJXAa7WGB6vcjIfOGsA:9
+ a=QEXdDO2ut3YA:10 a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDExOSBTYWx0ZWRfXw0BAkybcyi10
+ lAD1znU/SujgZDCfB/foCVHekjODASpdusfrc3X/BnxTu3renGhYl/yP8rTknuagZHJ/2fZzAWU
+ GJ0P7rlm1npECyPWG1yU8VOdYVaPMffl0OfSOalbIMCgBeyWDutv38QPpano2TBHwhz+wLTUbtW
+ TRqWjVMu5qFJ+krV9FHbGMY/NYzQFYPzGiQynsEaSDHIFf76aK97eJZ9VkUGGpaisAmUmL8PTMo
+ cfrLEQIEoOlJWdoonGOTDiawbCyH/h1y4TtH9T/W+tahm2bVTnpDebmrlJKfw+/QxCJ3YTLXS8a
+ SwdbTlAYvb+ElLH0WNfl75vxrPg/H+V1LgXYkonPVQpF67/3dy6OyUg+lf3wKv0nM2ZmCJVSV2J
+ 9g71nYWI2i7MZdJFCuNxd1zBaRrZjp31D2GFrhWAbqQNaphkx608zOeQd27Pwy2PVIXIjaHX6L0
+ qr9Pb2bW2t66UBweCdQ==
+X-Proofpoint-GUID: xXbIojYK7EZXrttbzYSRAevBeEFqaTXN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDExOSBTYWx0ZWRfX7u5UYX8IpZ7c
+ PgAQ38HrUGL0Sai5Gubj7WRgNlYwjF0PPOnqS2ntLmUIMQWte1hmlW/tacM7TxrICcUOfhDqLEY
+ HaoMMnkmOuxgydRFdgfXusPgBa/7D6g=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 malwarescore=0 bulkscore=0 suspectscore=0 spamscore=0
+ adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607080119
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,135 +181,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Adam,
+Hi Leonardo,
 
-On Tue, Jul 07, 2026 at 08:25:41PM -0500, Adam Thiede wrote:
-> On 7/7/26 05:38, AngeloGioacchino Del Regno wrote:
-> > On 7/7/26 10:51, Thorsten Leemhuis wrote:
-> > > On 7/7/26 04:20, CK Hu (胡俊光) wrote:
-> > > > On Mon, 2026-07-06 at 12:16 +0200, Thorsten Leemhuis wrote:
-> > > > > On 6/22/26 15:23, Adam Thiede wrote:
-> > > > > > On 6/22/26 06:22, Gary Bisson wrote:
-> > > > > > > On Thu, Jun 18, 2026 at 04:06:28PM -0500, Adam Thiede wrote:
-> > > > > > > > On 1/20/26 05:36, Gary Bisson wrote:
-> > > > > > > > > Some bridges, such as the TI SN65DSI83, require the HS clock to be
-> > > > > > > > > running in order to lock its PLL during its
-> > > > > > > > > own pre-enable function.
-> > > > > > > > > 
-> > > > > > > > > Without this change, the bridge gives the following error:
-> > > > > > > > > sn65dsi83 14-002c: failed to lock PLL, ret=-110
-> > > > > > > > > sn65dsi83 14-002c: Unexpected link status 0x01
-> > > > > > > > > sn65dsi83 14-002c: reset the pipe
-> > > > > > > > > [...]
-> > > > > > > > 
-> > > > > > > > This commit was part of 7.1 and caused a problem for me.
-> > > > > > > > I'm running postmarketOS (basically Alpine Linux) on a Lenovo C330
-> > > > > > > > chromebook with a Mediatek MT8173 processor.
-> > > > > > > > The problem: when the display on my laptop
-> > > > > > > > powers off (via suspend or
-> > > > > > > > idle,
-> > > > > > > > like xset dpms off) the picture does not come back when the display
-> > > > > > > > powers
-> > > > > > > > back on (from resume). The display backlight
-> > > > > > > > comes on and brightness is
-> > > > > > > > adjustable but there is no picture. The only fix is to reboot.
-> > > > > > > > 
-> > > > > > > > Reverting this commit and applying it as a patch on top of 7.1
-> > > > > > > > addresses the
-> > > > > > > > issue for me.
-> > > > > > > > 
-> > > > > > > > You can view the config I'm using here:
-> > > > > > > > https://urldefense.com/v3/__https://gitlab.postmarketos.org/
-> > > > > > > > postmarketOS/pmaports/-/__;!!CTRNKA9wMg0ARbw! jrsPDtSEUdaINzLlq92Li8gmsEBkTOxZ6WUzNHjvIN6CyOJjHiHkNSOhIRPXFTLPlaYlxU2uvryVkwjUAN9bmax5$
-> > > > > > > > merge_requests/8819
-> > > > > > > > 
-> > > > > > > > Is there any sort of testing or other debugging
-> > > > > > > > info I can provide to
-> > > > > > > > help
-> > > > > > > > address this issue?
-> > > > > > > 
-> > > > > > > Thanks for reporting the issue, could you share some
-> > > > > > > logs? Is the driver
-> > > > > > > saying anything during resume? Also, what type of
-> > > > > > > panel is used on that
-> > > > > > > chromebook?
-> > > > > > 
-> > > > > > The curious thing is that there are no real logs in dmesg or /var/log/
-> > > > > > messages about this. This picture just fails to come
-> > > > > > back. If there are
-> > > > > > some kernel params I can set to get deeper logging, that
-> > > > > > would help, but
-> > > > > > I'm not aware of any.
-> > > > > > 
-> > > > > > I think the panel is a "BOE NV116WHM-T00" - I used this command to get
-> > > > > > info: cat /sys/class/drm/card0-eDP-1/edid | edid-decode
-> > > > > > 
-> > > > > > Output:
-> > > > > > https://urldefense.com/v3/__https://termbin.com/8nbd__;!!
-> > > > > > CTRNKA9wMg0ARbw! jrsPDtSEUdaINzLlq92Li8gmsEBkTOxZ6WUzNHjvIN6CyOJjHiHkNSOhIRPXFTLPlaYlxU2uvryVkwjUAJooSyqL$
-> > > > > 
-> > > > > This looked stalled. If I'm mistaken here, please let me known; but if
-> > > > > no solution is in sight, should we maybe just revert the change until a
-> > > > > proper was found?
-> > > > 
-> > > > It's welcome anyone to provide a revert patch,
-> > > > but I would still wait for the fixup patch until 7.2-rc4.
-> > > > If no fixup patch exist, then apply the revert patch.
-> > >  From my understanding of things the position in the devel cycle doesn't
-> > > matter much in a case like this. To quote Linus statements from
-> > > https://www.kernel.org/doc/html/latest/process/handling-
-> > > regressions.html#on-how-quickly-regressions-should-be-fixed
-> > > 
-> > > """
-> > >  From 2026-01-22:
-> > > 
-> > >   But a user complaining should basically result in an immediate fix -
-> > >   possibly a "revert and rethink".
-> > > 
-> > > With a later clarification on 2026-01-28:
-> > > 
-> > >   It's also worth noting that "immediate" obviously doesn't mean "right
-> > >   this *second* when the problem has been reported".
-> > > 
-> > >   But if it's a regression with a known commit that caused it, I think
-> > >   the rule of thumb should generally be "within a week", preferably
-> > >   before the next rc.
-> > > """
-> > > 
-> > > Adam reported the problem about three weeks ago, so we are way past the
-> > > "rule of thumb" timeframe Linus set.
-> > > 
-> > > Ciao, Thorsten
-> > 
-> > This is a kind of odd situation here. The fix from Adam is actually
-> > correct, as in,
-> > the SN65DSI83 bridge gets broken without...
-> > 
-> > ....but then, there's some more oddness going on: I tried to reproduce
-> > this on my
-> > MT8173 Elm device, but there I can resume the system just fine, and the
-> > display is
-> > up and running like normal?
-> > 
-> > I'm not sure what to advice here at this point - just adding some info.
-> > 
-> > Cheers,
-> > Angelo
-> Angelo, would you mind sharing your config, and the details of what you're
-> running? It might be a configuration difference.
+On 7/2/26 18:29, Leonardo Costa wrote:
+> Hello,
+> 
+> We tested this patch and it introduces a regression on our panel.
+> 
+> On our board, a Toshiba TC358768 DPI-to-DSI bridge is connected to the parallel
+> RGB output. The bridge requires data to be driven on the negative edge, and
+> this is also reflected by the `ipc` variable in `dispc_vp_enable()`, which is
+> set to `1`.
+> 
+> With this patch applied, however, data is driven on the positive edge instead.
+> 
+> According to SPRUIV7C, both `MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8]` and
+> `DSS_VP1_POL_FREQ[14] IPC` should be programmed consistently. However, if we
+> follow the actual bit descriptions, and ignore the sentence saying that the two
+> programmed values should be the same, the data is driven on the requested edge.
+> 
+>>From SPRUIV7C (https://www.ti.com/lit/ug/spruiv7b/spruiv7c.pdf):
+> 
+> MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL[8] (DPI0_CLK_CTRL_DATA_CLK_INVDIS):
+> 
+>          Clock edge select for DPI0 data outputs
+> 
+>          Note that this value should be the same as the programmed value of
+>          DSS_POL_FREQ[14] IPC.
+> 
+>          Reset Source: mod_por_rst_n
+> 
+>          0 DATA and DE are driven on the falling edge of clk
+>          1 DATA and DE are driven on the rising edge of clk
+> 
+> 
+>      DSS_VP1_POL_FREQ[14] (IPC)
+> 
+>          Invert pixel clock
+> 
+>          To set data to pixel clock relationship, CTRL_MMR_DPI0_CLK_CTRL[8]
+>          DPI0_CLK_CTRL_DATA_CLK_INVDIS setting should be the same as the [14]
+>          IPC setting.
+> 
+>          0 Data is driven on the LCD data lines on the rising-edge of the pixel clock
+>          1 Data is driven on the LCD data lines on the falling-edge of the pixel clock
+> 
+> So, the proposed fix to this patch is:
+> 
+> ```diff
+> - regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x100 : 0x000);
+> + regmap_update_bits(dispc->clk_ctrl, 0, 0x100, ipc ? 0x000 : 0x100);
+> ```
+> 
 
-As a FYI here is the latest branch I tested that patch on:
-https://github.com/gibsson/linux-next/commits/master-mtk/
-
-As far as I remember suspend/resume was ok. It was tested with a
-Tungsten510 SMARC SOM (MT8370) + sn65dsi83 + tm070jdhg30 display.
-Both the bridge and the display are mainline, you can see that the main
-change is in the defconfig where a bunch of options are changed to be
-built-in (for NFS booting).
-
-I'll try to repro against latest kernel this week and report back.
-
-In your case, is the panel upstream as well?
+Thanks for the suggestion, Tomi is trying to fix this issue, please have
+a look: 
+https://lore.kernel.org/all/20260529-beagley-ai-display-v3-9-7fefdc5d1adf@ideasonboard.com/
 
 Regards,
-Gary
+Swamil.
+
+> Reverting the patch also makes the Toshiba bridge work correctly again.
+> However, we can confirm that the patch is needed, otherwise only the
+> positive-edge case (our case) works correctly.
+> 
+> In other words, the two registers need to match semantically, not numerically.
+> 
+> Please ignore the previous email I sent:
+> https://lore.kernel.org/all/20260702104817.1219078-1-leoreis.costa@gmail.com/
+> I hadn't seen this more recent thread at the time.
+> 
+
