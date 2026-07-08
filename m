@@ -4,92 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 365E9C44503
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 21:56:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E610C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 21:57:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74FAD10F2DF;
-	Wed,  8 Jul 2026 21:56:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7408E10F2E8;
+	Wed,  8 Jul 2026 21:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eGEILwFo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VZQ4OvD6";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD9610F2D4
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783547791;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=btjBlfn1gEh32xkLC16toOwaofpK3E2AbdoJxAP/F/4=;
- b=eGEILwFoWYCPFa/Gw9EO8tQY83GeNqnBzgct8hcjY2SpsEArM4pvoF1iS6ikE+/xMYDjI5
- PbHJcfi0Q7jtvsZVHwGpObMBt81kSXVaaTaWuo0AuyJG7Djkgfqx9AA6PeB2VC1EMV+DHU
- ot7VKQ4DYIHBuXfjVuxCLjC5K+rbnow=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-266-2fLgc4PSPYiWkkYQbWBcqw-1; Wed, 08 Jul 2026 17:56:28 -0400
-X-MC-Unique: 2fLgc4PSPYiWkkYQbWBcqw-1
-X-Mimecast-MFC-AGG-ID: 2fLgc4PSPYiWkkYQbWBcqw_1783547788
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-92e695a3b28so38225885a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 14:56:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783547788; x=1784152588;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=btjBlfn1gEh32xkLC16toOwaofpK3E2AbdoJxAP/F/4=;
- b=ABq+OobCIprVE5VEYocHBHsogM/uXDsmN8ldkPyadlzbxJf6h/FCxrx9/I9Cv05IXO
- 98Qs60rffi9NnvRNGN5EwKayOJEH51T83bFZUdf2RaiBlAJpvZe2BT7P2VZTnwt7UNll
- L0PBmQ94jsc6lQgHthnGhaNkgViqOFmbCePyDYQ+0Ii3YtyXw8FYa8dmzQWLWo34FgCj
- 4fY0O8rKHS33gWxsQfdZozBdkiLu81JSLZNtD5S3b9NzsHk5NK0Qlobb3yfJ5cZH9Wtm
- fRneBVQIGXdmC3Jmjob3hslVrb4yZRtHOepHVDD0N526FDRywNGq2iZO+KKzZhkqRLkc
- Apqg==
-X-Gm-Message-State: AOJu0YySRz9igay/Nv6Lmdjdxlt9nznk0bMtFaKMzMk0XjXhRz+JnKB6
- GhtDWEe9HifFxMYc0dPllFa0n7CPc47nx8d9+AGqrA1aOkA7diVpBmKOTYoW1RyW9QFJnrPqYVd
- rJb8QiKUvSzEhdq8vo0W+/LyFeL4PueWHVKlXBjwG2Lm0y79eqxxn4K5fFJxPVaNXciwWuA==
-X-Gm-Gg: AfdE7ck5Q7CGXYKPzos8VulSImjOCWaJPtLctdKmNttYJRhDKlO3c5K/PGKw2ZR+xhc
- 5Fnfpu6Vrxrvw51dESX0hVAWIW8AmuElyfqLkpftZdQ5NjEJ2hsSXrC24e1IzRlKmyN8u/CUWd2
- ee3kyevVRYtY50EfLx6YLB2uJcIeG7G9palySJIVldxvMAm4+rFmLhNGDYkBRfnSYBBcbjppUw5
- IqSfjqxkKmlRZfZ6ETvlGMr2lpdawOMZt7/2Qjw6YThzjpw9V4Yj9m/CihXfU0hoTRmw6Lt2JL4
- hKKrsz6EeA9I3zA5y7jFnEvnVccDynt+Km/QiLCB9a/mqqvDcLebB3zwMJ/IL/6KgvJxw8fuMvq
- hgV24Cyw=
-X-Received: by 2002:a05:620a:444a:b0:911:e11e:dc0d with SMTP id
- af79cd13be357-92edac0d694mr13099485a.24.1783547788055; 
- Wed, 08 Jul 2026 14:56:28 -0700 (PDT)
-X-Received: by 2002:a05:620a:444a:b0:911:e11e:dc0d with SMTP id
- af79cd13be357-92edac0d694mr13096985a.24.1783547787628; 
- Wed, 08 Jul 2026 14:56:27 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-92e90ca90a5sm1483479985a.32.2026.07.08.14.56.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 14:56:26 -0700 (PDT)
-Message-ID: <b6b58477af57eb25e28eefb1a979a65aa250dc45.camel@redhat.com>
-Subject: Re: [PATCH 00/10] vga_switcheroo, drm: Push fbcon handling into DRM
- clients
-From: lyude@redhat.com
-To: Thomas Zimmermann <tzimmermann@suse.de>, lukas@wunner.de, 
- jfalempe@redhat.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, 	rodrigo.vivi@intel.com,
- tursulin@ursulin.net, dakr@kernel.org, deller@gmx.de
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev
-Date: Wed, 08 Jul 2026 17:56:25 -0400
-In-Reply-To: <20260707135724.247562-1-tzimmermann@suse.de>
-References: <20260707135724.247562-1-tzimmermann@suse.de>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16A9310F2E8
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 21:57:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783547871;
+ bh=k8K2SHz6AQFatWz++NWmyPhT7s4wTOLAwEAvCEwc65U=;
+ h=From:Subject:Date:To:Cc:From;
+ b=VZQ4OvD6RY9DscEBO5xZc1rPkHQONTlq4V9q9uhhCH945NEuB+zSxWRhkwwLi94JR
+ 9txR43Pg2UiUDOk8W6OvBKGnqe3wN9jBdHH9Kd1s1SBa3cg7Fg8NjxjGhEC4AGRzX1
+ tBVeqZ8JXAXHtvFREhItMHQXBe28yqStOqcBZ3Wz3imdOh59/CtypcnZxc60eJ48ij
+ LFZR07Z6pYXJVntUYRXbdp5TKoSUS2DWRqmCsmT5EVMewx+lNsxwbD9d7NRnNV+g/3
+ 1ldTmjtdHCQoPuBBBOd1HQCMEsoptqyw3y4zIjz7iuL1ig4YuN0KdYQmX80fVmwcho
+ Gm4lnEpdn7LGA==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id EF19E17E013E;
+ Wed, 08 Jul 2026 23:57:50 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH v3 00/14] Support 10-bit YUV422 and 8/10-bit YUV420 color
+ format on DW HDMI QP
+Date: Thu, 09 Jul 2026 00:57:22 +0300
+Message-Id: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: O6gW6OE5zx6egdh8DNhLMqnn_dPqkAx9gwY7DHoV2w8_1783547788
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQ7CIBQE0Ks0rMUATUFdeQ/jgg/UYlqp0KJN0
+ 7sLdWGicTnJzJsZBeOtCehQzMibaIN1txTKTYFUI28Xg61OGTHCOOFUYP3Aje4svvd4GiNmQGo
+ BUIHcUZRGvTe1fa7g6fzOYYSrUUNWcqOxYXB+Wh8jzb2/eKSYYMl5pWpNuBb6qFzbSnBebpXrU
+ D6I7EMIwn8IlgjYUzBQltro+ptYluUFBIO5JQUBAAA=
+X-Change-ID: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,75 +81,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For both nouveau patches:
+This series extends the output color format support of the Rockchip DW
+HDMI QP controller to cover 10-bit YUV 4:2:2 and 8/10-bit YUV 4:2:0.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Please note this has a runtime dependency on the Rockchip Samsung HDPTX
+PHY driver bug fixes posted separately as [1].  While there is no build
+dependency, those fixes are required to address clock rate calculation
+and synchronization issues that arise when changing the color depth
+(bpc) while keeping the modeline constant.
 
-On Tue, 2026-07-07 at 15:38 +0200, Thomas Zimmermann wrote:
-> Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
-> about switching of the physical outputs among framebuffer devices.
-> But
-> new DRM clients to not use fbdev/fbcon and might require their own
-> vga_switcheroo support. Let's strictly separate them from each other.
->=20
-> Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch
-> callback
-> for vga_switcheroo clients to do the fbcon update. Allows for
-> removing
-> all direct interactions between vga_switcheroo and fbdev/fbcon.
->=20
-> Also replace the existing reprobe hook with post_switch for symetry.
->=20
-> At the same time, push the fbcon update into DRM's client for fbdev
-> emulation. Do this with the new DRM client callback acquire_outputs,
-> so that other clients can have their own handling of vga_switcheroo.
->=20
-> There are only four drivers that support vga_switcheroo: amdgpu,
-> radeon, i915 and nouveau. Update each of them with the new callbacks.
-> When vga_switcheroo now invokes pre_switch, each DRM driver forwards
-> to aquire_outputs and lets the DRM clients handle the new outputs.
->=20
-> Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
->=20
-> Thomas Zimmermann (10):
-> =C2=A0 drm/edid: Include <linux/fb.h>
-> =C2=A0 drm/client: Add acquire_outputs callback; implement for fbdev
-> =C2=A0=C2=A0=C2=A0 emulation
-> =C2=A0 vga_switcheroo: Add pre_switch callback to client ops
-> =C2=A0 vga_switcheroo: Add post_switch callback to client ops
-> =C2=A0 drm/amdgpu: Implement struct vga_switcheroo_client_ops.pre_switch
-> =C2=A0 drm/i915: Implement vga_switcheroo_client_ops.pre_switch
-> =C2=A0 drm/nouveau: Implement vga_switcheroo_client_ops.pre_switch
-> =C2=A0 drm/nouveau: Implement vga_switcheroo_client_ops.post_switch
-> =C2=A0 drm/radeon: Implement struct vga_switcheroo_client_ops.pre_switch
-> =C2=A0 vga-switcheroo: Remove unused interfaces
->=20
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |=C2=A0 9 ++++-
-> =C2=A0drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
-> =C2=A0drivers/gpu/drm/drm_client_event.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 18 ++++++++++
-> =C2=A0drivers/gpu/drm/drm_edid.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/i915/i915_switcheroo.c=C2=A0=C2=A0=C2=A0=C2=A0 | 11=
- +++++-
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_vga.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- | 28 +++++++++------
-> =C2=A0drivers/gpu/drm/radeon/radeon_device.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 9 ++++-
-> =C2=A0drivers/gpu/vga/vga_switcheroo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 41 +++++---------------
-> --
-> =C2=A0drivers/video/fbdev/core/fbcon.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 -----
-> =C2=A0include/drm/drm_client.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 14 +++=
-+++++
-> =C2=A0include/drm/drm_client_event.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++
-> =C2=A0include/linux/vga_switcheroo.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 30 +++++++++-------
-> =C2=A012 files changed, 122 insertions(+), 73 deletions(-)
->=20
->=20
-> base-commit: cd8abe2554ec7eba16c1d48ab508732bf93534eb
+Patches 1, 7 & 14 improve VOP2 robustness on RK3588, helping recover from
+exceptions and preventing random display output glitches observed when
+switching modes that also change the color format, e.g. from RGB to YUV
+4:2:0 and vice versa.
+
+Patch 8 avoids an incorrect DCLK source switch for 10-bit YUV 4:2:2 by
+forcing 8 bpc in the bandwidth check.
+
+Patches 2-6 address a few vop2 related issues reported by Sashiko, while
+9-11 are additional cleanups/improvements.
+
+Patch 12 adds MEDIA_BUS_FMT_UYVY10_1X20 for 10-bit YUV 4:2:2 output,
+configuring the PHY with 8 bpc.  YUV 4:2:2 always transmits two 12-bit
+components per pixel regardless of color depth, so from a clock-rate
+perspective it is equivalent to three 8-bit RGB components.
+
+Patch 13 advertises YUV 4:2:0 output, now that the bus-format and VOP2
+support are in place.
+
+Tested on Radxa ROCK 5B (RK3588) and Radxa ROCK 4D (RK3576), up to
+4K@60Hz YUV 4:2:0 and 4K@30Hz RGB.
+
+[1] https://lore.kernel.org/all/20260612-hdptx-clk-fixes-v4-0-ce5e1d456cda@collabora.com/
+
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Changes in v3:
+- Updated patch 3 to skip any hardware programming in the callbacks
+  gated by drm_atomic_helper_commit_planes() after powering down VOP2 on
+  an atomic_enable() error (Sashiko)
+- Ensured VBLANK events are sent immediately when atomic_enable() fails,
+  hence preventing userspace processes waiting for the page flip
+  completion to hang indefinitely (new patch 4, Sashiko)
+- Rebased onto latest drm-misc-next
+- Link to v2: https://patch.msgid.link/20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com
+
+Changes in v2:
+- Collected R-b from Krzysztof on the binding patch, while also fixed
+  the property ordering in the example
+- Renamed vop2_clk_reset() to vop2_reset_assert_deassert() and used to
+  devm_reset_control_get_optional_exclusive() in patch 6 (Philipp Zabel)
+- Addressed several issues reported by Sashiko
+  * Reset AXI before detaching the IOMMU domain, to close a theoretical
+    window where stale or in-flight DMA transactions could fault or
+    access memory untranslated after the domain is detached (patch 6)
+  * Fixed resource leak on vop2_enable() error path (new patch 2)
+  * Balance state on atomic_enable error paths (new patch 3)
+  * Avoided division by zero when computing max_dclk (new path 4)
+  * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
+- Rebased onto latest drm-misc-next
+- Link to v1: https://patch.msgid.link/20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com
+
+---
+Cristian Ciocaltea (14):
+      dt-bindings: display: vop2: Add missing reset properties
+      drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
+      drm/rockchip: vop2: Balance state on atomic_enable() error paths
+      drm/rockchip: vop2: Send pending event when atomic_enable() fails
+      drm/rockchip: vop2: Avoid division by zero when computing max_dclk
+      drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
+      drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
+      drm/rockchip: vop2: Avoid DCLK source switch for 10-bit YUV422 output
+      drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
+      drm/rockchip: vop2: Switch to enum vop_csc_format
+      drm/bridge: dw-hdmi-qp: Log resolution and refresh rate in atomic_enable()
+      drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
+      drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
+      arm64: dts: rockchip: Add RK3588 VOP2 resets
+
+ .../bindings/display/rockchip/rockchip-vop2.yaml   |  46 ++++-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |  12 ++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  10 +-
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     |  13 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       | 215 +++++++++++++++------
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h       |  10 +
+ 6 files changed, 244 insertions(+), 62 deletions(-)
+---
+base-commit: 671b7825dbfe9ea6e3ad3001003aeee0df48d1b5
+change-id: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
 
