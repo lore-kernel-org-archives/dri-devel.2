@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88FA9C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 17:50:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC885C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 17:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC1EF10F1E5;
-	Wed,  8 Jul 2026 17:50:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 054AE10F1E8;
+	Wed,  8 Jul 2026 17:52:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HVUAT+Tx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="deeFjpYc";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3070410F1E5
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 17:50:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D60510F1E8
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 17:52:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8F4BE6001A;
- Wed,  8 Jul 2026 17:50:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232911F000E9;
- Wed,  8 Jul 2026 17:50:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 488DF6001A;
+ Wed,  8 Jul 2026 17:52:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1B6D1F000E9;
+ Wed,  8 Jul 2026 17:52:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783533044;
- bh=YEtkgga5w2k4ikW9U/e8bTjhHLODV9x0BJKcTa6ZxXg=;
+ s=k20260515; t=1783533147;
+ bh=ZuUoL06KDhXEq1Dl/HHqTOqT06SdEnzixrcLNyATEfA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HVUAT+TxlUyHjmQgx78bybvldNdxkJqbGnAMOzC7e6ZFsTb4dH/uTjqkX3GlbHeCB
- 0c3bwyvcu0KO5Nm+3rxwyGYHbyf8xC3M4o+MfP2ovvPNX6RWnhbasT2lKzHySraeEM
- 2Dc42kYhkGrX+sR4fGJnTMWYyM0IPm0OIWRrM7Kpym1U/HXysIi+MrnzzZ9Aah5hIy
- /vH3GCTOpTF2nIqrW8YIgznKyA6hxbsv8X/7AdKnPB5oG3gkyoRdVsCVljYbdOm/LI
- F3tgQlrBoAv3H1n0nNEEz86VoIT4EYXM43WCf8g+DCFpoyftg4E9rn+EOsX8lmerKC
- j6aiU18ZjJPeA==
+ b=deeFjpYccOBxaE6E6jXFZelEtchY8Oxl/n+hJwCwA23b5BE0D7IBJiYJzTisiQv36
+ 5IszH8Zl40umdWAGVufbTSznouV5WF9eHXl3Flm+84q4jitvhHrllLXKs6BZlr8kjI
+ 3SKuE1Mx/nw/0IfWN4UfuFyZtZVuGadZbdCJlipDLM/+10OossmrbMHq0U27jiaPCB
+ W6XEF6vFY7IxBRh7JPAwme8coBjnwHqsO6bsAlRuwqyLLMnWzCDNgBglU3TM6lto5M
+ +t6MeNqZ3QoWvVA7otV3Q/1utgOlAjLt3zLPxDOwMygMatqPggE/Vg/cqyn+MXUAXh
+ IVdOq9kCCgSig==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/6] drm/msm: Block VM_BIND for shared VMs
+Subject: Re: [PATCH v4 1/6] drm/msm: Fix barriers accessing ctx vm
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260708173356.578713-3-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260708173356.578713-2-robin.clark@oss.qualcomm.com>
 References: <20260708173356.578713-1-robin.clark@oss.qualcomm.com>
- <20260708173356.578713-3-robin.clark@oss.qualcomm.com>
+ <20260708173356.578713-2-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 17:50:43 +0000
-Message-Id: <20260708175044.232911F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 17:52:26 +0000
+Message-Id: <20260708175226.D1B6D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,119 +57,134 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Incomplete fix: Falling back to the shared VM on private VM al=
-location failure allows EXECBUF isolation bypass, arbitrary kernel memory a=
-ccess, and information leaks.
-- [High] Direct access to `ctx->vm` in `msm_ioctl_gem_submit()` before the =
-VM is guaranteed to be initialized causes a NULL pointer dereference.
+- [Critical] Silent fallback to the global GPU VM when private VM allocatio=
+n fails breaks memory isolation.
+- [High] Direct access to ctx->vm before initialization causes a NULL point=
+er dereference in IOCTL handlers.
+- [High] Missing smp_load_acquire() when reading ctx->vm in msm_gem_close()=
+ can lead to accessing partially initialized memory.
 --
 
---- Patch [2]: [PATCH v4 2/6] drm/msm: Block VM_BIND for shared VMs ---
-commit 14b0c06028a80fcfb812d65ea727ff988063c94e
+--- Patch [1]: [PATCH v4 1/6] drm/msm: Fix barriers accessing ctx vm ---
+commit 5827c45dcfd83b1ca9d1ff0ea3f3c026fba67fb3
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Block VM_BIND for shared VMs
+drm/msm: Fix barriers accessing ctx vm
 
-We already block MSM_PARAM_EN_VM_BIND where per-process VMs are not
-supported.  But in error paths when we actually try to create the VM
-(allocation failures, etc) we could still end up with a shared-VM.
+This commit fixes memory barrier issues when accessing the context VM
+by introducing smp_load_acquire and smp_store_release in msm_context_vm.
+It prevents callers from seeing a partially initialized virtual machine.
 
-Since we need to create the VM lazily, for backwards compat, there
-isn't really a better place to return an error.  But this isn't to
-happen in practice.  Just block VM_BIND ioctls in this case so we
-aren't giving userspace a way to manage the shared VM.
-
-> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_=
-gem_vma.c
-> index 1a952b171ed7f..c88b4352ad751 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-[ ... ]
-> @@ -1449,7 +1450,7 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *dat=
-a, struct drm_file *file)
->  	 * Maybe we could allow just UNMAP ops?  OTOH userspace should just
->  	 * immediately close the device file and all will be torn down.
->  	 */
-> -	if (to_msm_vm(msm_context_vm(dev, ctx))->unusable)
-> +	if (to_msm_vm(vm)->unusable)
->  		return UERR(EPIPE, dev, "context is unusable");
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index 79f78e7e16e9d..3c8b5083a1fbe 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -225,18 +225,19 @@ struct drm_gpuvm *msm_context_vm(struct drm_device =
+*dev, struct msm_context *ctx
+>  {
+>  	static DEFINE_MUTEX(init_lock);
+>  	struct msm_drm_private *priv =3D dev->dev_private;
+> +	struct drm_gpuvm *vm =3D smp_load_acquire(&ctx->vm);
 > =20
->  	/*
-> @@ -1457,7 +1458,7 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *dat=
-a, struct drm_file *file)
->  	 * place, if you haven't opted in to VM_BIND context.  But it is
->  	 * cleaner / less confusing, to check this case directly.
->  	 */
-> -	if (!msm_context_is_vmbind(ctx))
-> +	if (to_msm_vm(vm)->managed)
+>  	/* Once ctx->vm is created it is valid for the lifetime of the context:=
+ */
+> -	if (ctx->vm)
+> -		return ctx->vm;
+> +	if (vm)
+> +		return vm;
+> +
+> +	guard(mutex)(&init_lock);
+> =20
+> -	mutex_lock(&init_lock);
+>  	if (!ctx->vm) {
+> -		ctx->vm =3D msm_gpu_create_private_vm(
+> +		vm =3D msm_gpu_create_private_vm(
+>  			priv->gpu, current, !ctx->userspace_managed_vm);
 
 [Severity: Critical]
-This is a pre-existing issue, but does falling back to the shared VM on pri=
-vate
-VM allocation failure allow an execbuf isolation bypass?
-
-While this patch blocks vm_bind ioctls for shared VMs, an attacker could st=
-ill
-opt into vm_bind (setting ctx->userspace_managed_vm =3D true) and intention=
-ally
-cause private VM allocation to fail. In this case, msm_gpu_create_private_v=
-m()
-falls back to the global kernel VM:
+This isn't a bug introduced by this patch, but looking at the VM creation
+logic in msm_gpu_create_private_vm() called above, does it safely handle
+memory allocation failures?
 
 drivers/gpu/drm/msm/msm_gpu.c:msm_gpu_create_private_vm() {
-	...
-	vm =3D drm_gpuvm_get(gpu->vm);
-	...
+    ...
+    if (gpu->funcs->create_private_vm) {
+        vm =3D gpu->funcs->create_private_vm(gpu, kernel_managed);
+        ...
+    }
+
+    if (IS_ERR_OR_NULL(vm))
+        vm =3D drm_gpuvm_get(gpu->vm);
+   =20
+    return vm;
 }
 
-If the attacker then creates a normal submitqueue and calls
-msm_ioctl_gem_submit(), command validation is skipped because
-msm_context_is_vmbind(ctx) still returns true based on user intent rather
-than actual VM state:
+If the private VM allocation fails (returning ERR_PTR(-ENOMEM) due to
+system memory exhaustion), this fallback grants the userspace context access
+to the shared global GPU VM.
 
-drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
-	...
-	cmds_to_parse =3D msm_context_is_vmbind(ctx) ? 0 : args->nr_cmds;
-	...
-}
+Could an attacker intentionally exhaust memory to force this fallback,
+thereby bypassing private VM isolation and gaining unauthorized access to
+structures stored in the global VM?
 
-This allows the unvalidated user-provided IOVA to be mapped and executed
-within the global kernel VM:
-
-drivers/gpu/drm/msm/msm_gem_submit.c:submit_lookup_cmds() {
-	...
-	submit->cmd[i].iova =3D submit_cmd.iova;
-	...
-}
-
-Could this lead to arbitrary kernel memory access, or leak other processes'
-data into the devcoredump if a job hangs?
+> -
+> +		smp_store_release(&ctx->vm, vm);
+>  	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does direct access to ctx->vm
-in msm_ioctl_gem_submit() cause a null pointer dereference?
+This isn't a bug introduced by this patch, but since we are fixing the
+barriers for ctx->vm initialization here, does msm_gem_close() also need an
+smp_load_acquire() barrier?
 
-If a user directly calls msm_ioctl_gem_submit() on a fresh context without
-performing any prior operation (like msm_ioctl_vm_bind) that initializes the
-VM, ctx->vm remains null due to lazy initialization.
+Looking at msm_gem_close() in drivers/gpu/drm/msm/msm_gem.c, it reads
+ctx->vm using a plain load:
 
-Does this check in msm_ioctl_gem_submit() cause an immediate crash when
-dereferencing the offset to unusable?
-
-drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
-	...
-	if (to_msm_vm(ctx->vm)->unusable)
-	...
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_close() {
+    ...
+    if (!ctx->vm)
+        return;
+    ...
 }
 
->  		return UERR(EINVAL, dev, "context does not support vmbind");
+If msm_gem_close() executes concurrently with VM creation, could it see a
+non-NULL pointer without an acquire barrier and access partially
+initialized memory?
+
+[Severity: High]
+This is a pre-existing issue, but I noticed there are paths that directly
+access ctx->vm without calling msm_context_vm() first to ensure it is
+created.
+
+For example, in msm_ioctl_gem_submit():
+
+drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
+    ...
+    if (to_msm_vm(ctx->vm)->unusable)
+        return -EPIPE;
+    ...
+}
+
+And in msm_gem_new_handle():
+
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_new_handle() {
+    ...
+    struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
+    ...
+}
+
+If userspace calls either of these IOCTLs on a fresh context before the
+VM is initialized, could ctx->vm be NULL here, leading to a NULL pointer
+dereference when computing the struct offset or dereferencing it?
+
+> -	mutex_unlock(&init_lock);
 > =20
->  	if (args->flags & ~MSM_VM_BIND_FLAGS)
+>  	return ctx->vm;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708173356.5787=
-13-1-robin.clark@oss.qualcomm.com?part=3D2
+13-1-robin.clark@oss.qualcomm.com?part=3D1
