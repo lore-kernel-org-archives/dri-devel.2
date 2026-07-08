@@ -4,105 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79058C44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF6DC44503
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 07:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C1A10F3FD;
-	Thu,  9 Jul 2026 07:25:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EC4110F3E9;
+	Thu,  9 Jul 2026 07:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="CNyUy7kr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BTYTXZmR";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1332D10EA41
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Jul 2026 18:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=7OW/CenuU9P13pzjhjZutuMsDUz3ebL4YDkxxEUpTq8=; b=CNyUy7krT2KWgEwmWVKxtIQ+mF
- Vb+1q+gyB5yQGtWUUUTFfkVXSRepuw7fyFqIY66jb6ov+a2TSQuU6Oeko21f10IdvUo87ND796N2s
- r4dJq4T0v6JLzeGf9VmqXcqhhRS0zxb+AYnr/OkLGsRdGJ59LoP8x6HtyxyIaDGX/UNF4eV4mx/6j
- 9DFL/3RA2rxLGItPLNRlN3OyyNrc4LrBZnn6Z3pAqvn4XXv6D9Sm5JmxAl/Nx6Vi/43ITWBd3Tatn
- UF0bFlXL9IwSqecAJqVY3MLm3w3NDEriZxsXwEytou0y28YZK6qZ/ZV3pvVIppH/oIVxHPm218vXX
- ibjZRXUw==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red
- Hat Linux)) id 1wgnhQ-0000000GLqy-1n2W;
- Mon, 06 Jul 2026 18:05:44 +0000
-Date: Mon, 6 Jul 2026 19:05:44 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Byungchul Park <byungchul@sk.com>
-Cc: linux-kernel@vger.kernel.org, max.byungchul.park@gmail.com,
- kernel_team@skhynix.com, torvalds@linux-foundation.org,
- damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
- adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
- mingo@redhat.com, peterz@infradead.org, will@kernel.org,
- tglx@linutronix.de, rostedt@goodmis.org, joel@joelfernandes.org,
- sashal@kernel.org, daniel.vetter@ffwll.ch, duyuyang@gmail.com,
- johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
- david@fromorbit.com, amir73il@gmail.com, gregkh@linuxfoundation.org,
- kernel-team@lge.com, linux-mm@kvack.org, akpm@linux-foundation.org,
- mhocko@kernel.org, minchan@kernel.org, hannes@cmpxchg.org,
- vdavydov.dev@gmail.com, sj@kernel.org, jglisse@redhat.com,
- dennis@kernel.org, cl@linux.com, penberg@kernel.org,
- rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
- linux-block@vger.kernel.org, josef@toxicpanda.com,
- linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
- dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com,
- harry.yoo@oracle.com, chris.p.wilson@intel.com,
- gwan-gyeong.mun@intel.com, boqun.feng@gmail.com, longman@redhat.com,
- yunseong.kim@ericsson.com, ysk@kzalloc.com, yeoreum.yun@arm.com,
- netdev@vger.kernel.org, matthew.brost@intel.com,
- her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
- bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
- sumit.semwal@linaro.org, gustavo@padovan.org,
- christian.koenig@amd.com, andi.shyti@kernel.org, arnd@arndb.de,
- lorenzo.stoakes@oracle.com, Liam.Howlett@oracle.com,
- rppt@kernel.org, surenb@google.com, mcgrof@kernel.org,
- petr.pavlu@suse.com, da.gomez@kernel.org, samitolvanen@google.com,
- paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
- joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com,
- mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
- qiang.zhang@linux.dev, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- chuck.lever@oracle.com, neil@brown.name, okorniev@redhat.com,
- Dai.Ngo@oracle.com, tom@talpey.com, trondmy@kernel.org,
- anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
- clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
- kristina.martsenko@arm.com, wangkefeng.wang@huawei.com,
- broonie@kernel.org, kevin.brodsky@arm.com, dwmw@amazon.co.uk,
- shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
- yuzhao@google.com, baolin.wang@linux.alibaba.com,
- usamaarif642@gmail.com, joel.granados@kernel.org,
- richard.weiyang@gmail.com, geert+renesas@glider.be,
- tim.c.chen@linux.intel.com, linux@treblig.org,
- alexander.shishkin@linux.intel.com, lillian@star-ark.net,
- chenhuacai@kernel.org, francesco@valla.it,
- guoweikang.kernel@gmail.com, link@vivo.com, jpoimboe@kernel.org,
- masahiroy@kernel.org, brauner@kernel.org,
- thomas.weissschuh@linutronix.de, oleg@redhat.com, mjguzik@gmail.com,
- andrii@kernel.org, wangfushuai@baidu.com, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
- rcu@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, 2407018371@qq.com, dakr@kernel.org,
- miguel.ojeda.sandonis@gmail.com, neilb@ownmail.net,
- bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
- dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
- alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v19 22/40] dept: track PG_locked with dept
-Message-ID: <akvueAxPl8aoLvMR@casper.infradead.org>
-References: <20260706061928.66713-1-byungchul@sk.com>
- <20260706061928.66713-23-byungchul@sk.com>
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEE3A10E56E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 06:18:54 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-3860f32307bso25193a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783491534; x=1784096334; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
+ b=BTYTXZmRXEGLSW08x0qkRr3samnRGgPeroXCqZi9voM8dc9/npppgcuRhrpaneqGRR
+ 7vLcoc3aKfcapsWLsY/z/LVB3YJrxT+IvCOSke+ht17tlUxqSKJ5SCZVus0ZgHE0yyBY
+ Ti4SHjX+SgUJwpZqusEpFq/RErbR2DxFzOIAXAYBpZqi5xl00nqIKM2oJYsNbCKibKwE
+ Jn7nLt3ynYiiCcFZXtl5E6IpH7+/poEQVIyKPbc7Lr4DHPpGf8R9C/FBkye0O2etAdAt
+ RI80u58FakzoMwL+MwyR4KpuLc0ID8fNomd95PhyTzPP4gx47yRf5I+9982aaF1QZalw
+ H/Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783491534; x=1784096334;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=IeKjljjW0rbzKqDo5+JHTj1l65dd8fRajYjS5rdVpUg=;
+ b=OoyzaG2MHHlkNZTtWh8LXaoO/J/q0+r9PnvubTYYNF4IPVBByXqb/JzhOaWwKmLocw
+ cdHP9aoxw8+esvmCe7k6c0D6As3IFrO9Cxk5hNMaej/Hb44P2YiSzZK/suCG9XSU+PIV
+ Jt/77d/3PKN3gPhktCFgD9mhC69jNXuq4HHccwcOooDT/CfzyaVjBrQRfbylEKpzj1pI
+ M0Iia7WJIb/yvjlna4U+re3iE6fR7uJHaw9rUiyEoRUR8HiHwM1dV9ZBYNNsOU50LJRU
+ PIN6vRsA9Cud0AcvD+VtvjR1LVA16OH7bKusqg/M7nlhEGC4xSQ4jb5rY3v8z51sb0AM
+ Bkww==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoKQimkDMqhDVrbu9jfEoqPGBWd5KXuP+J7u2uirSOkLtVzYh1L4F8mse5bCm6yFLd3WexIKaUdPBg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyuq1zC63Rf4NUq6cuSXOIrMXigUUJXyIVjH1ioXELu/uUkQxA+
+ jMWs4J6cvipyxjSznOc60Jg7vFNUX6ycwDar3Y8mZ+A9oBjb1nVzi5aU
+X-Gm-Gg: AfdE7ckjx+EpGs54/MVk6XZee83r8vexN3lf2doJ8baIRAC0nSpk2mDU25XsaMaOpvo
+ F8Tvz3LqOMVjsZPyUFkx4ViiF7BcvnK9Q5UafjNdFX/IzUVZvjYK07qld8rVv/LB6uyUs3GLNNf
+ oS3a4nQ/gO51OzRigiqaQ9GtCR9pakSPt7lG21AFGzIIXEJggSQ45NSg7HSmO9ATz1tm3ngMeMW
+ HAvMIkCW3NHLwOeLpl+BXPbB8bIx+hLs6OdNVbS5Ch5TJnZ0euxUFuZzDlxCQ23NBOQLytqNmOj
+ dWQC38InsXlHmYcAiTxkZXXjoYclOJ2ey0jvNk76Zw0xi8ApVPzY70+0BKIB1HqtGmxWGrC6+oo
+ LC8v9SLBJogGXPQxYY5eXvvmZ0YReZ0UjLg9e3y+tpxjp+Qp/j1zkZPnpDQy8zg3apb40cSJrLI
+ /9DFZUR1LLLgc9Rikp/w==
+X-Received: by 2002:a17:90b:57cd:b0:381:77cd:38ca with SMTP id
+ 98e67ed59e1d1-389417e432fmr977538a91.4.1783491534182; 
+ Tue, 07 Jul 2026 23:18:54 -0700 (PDT)
+Received: from kali ([122.162.146.188]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3117d847e17sm12888463eec.18.2026.07.07.23.18.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jul 2026 23:18:53 -0700 (PDT)
+From: Pavitra Jha <jhapavitra98@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Pavitra Jha <jhapavitra98@gmail.com>
+Subject: [PATCH v2] drm/amdgpu/discovery: validate table offset before IP
+ discovery header cast
+Date: Wed,  8 Jul 2026 02:18:34 -0400
+Message-ID: <20260708061835.111986-1-jhapavitra98@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260624184444.D4A401F000E9@smtp.kernel.org>
+References: <20260624184444.D4A401F000E9@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260706061928.66713-23-byungchul@sk.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 09 Jul 2026 07:25:19 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,52 +92,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 06, 2026 at 03:19:10PM +0900, Byungchul Park wrote:
-> Makes dept able to track PG_locked waits and events, which will be
-> useful in practice.  See the following link that shows dept worked with
-> PG_locked and detected real issues in practice:
-> 
->    https://lore.kernel.org/lkml/1674268856-31807-1-git-send-email-byungchul.park@lge.com/
+Sashiko AI review of the previous fix flagged three remaining gaps in
+the discovery blob parser, all stemming from the same root cause: the
+ip_discovery_header pointer itself is constructed from a firmware-
+controlled offset with no validation before the cast.
 
-> @@ -219,6 +220,7 @@ struct page {
->  	struct page *kmsan_shadow;
->  	struct page *kmsan_origin;
->  #endif
-> +	struct dept_ext_wgen pg_locked_wgen;
->  } _struct_page_alignment;
+  ihdr = (struct ip_discovery_header *)(discovery_bin +
+                    le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
 
-I may not understand this quite correctly, but I think that tracking
-PG_locked dependencies in the struct page has both false positive and
-false negative problems.
+This offset is a firmware-controlled u16 read directly from the
+discovery blob's table_list, with no bounds check against
+adev->discovery.size before being used to construct ihdr. Every
+subsequent read from ihdr, including num_dies and die_info[], is
+downstream of this unchecked pointer.
 
-Imagine we have a file mapping M1 containing folio F1 at index 0 and F2
-at index 1.  It is correct locking order to lock F1 before locking F2
-(for example when doing writeback).  Later, M1 has its folios reclaimed
-and returned to the free pool.  Then each is added to mapping M2, this
-time with folio F2 at index 8 and F1 at index 9.  Now the correct order
-to lock these folios in the order F2 followed by F1.
+The other two items in that review (unbounded ip_offset advancement
+via num_base_address, and num_dies exceeding die_info[]'s capacity)
+were already addressed in the previous fix.
 
-I don't see a part of this patch where we clear pg_locked_wgen when the
-page is returned to the page allocator.  Maybe I missed that.
+Fix by validating the table offset in amdgpu_discovery_get_table_info(),
+which is the common path used by all callers except
+amdgpu_discovery_read_harvest_bit_per_ip() (which reads
+table_list[IP_DISCOVERY].offset directly rather than going through
+get_table_info()). Add the equivalent check at that direct access site
+as well, so all paths that construct an ip_discovery_header pointer
+from a table offset are covered.
 
-I think we should be tracking PG_locked dependencies in the owner
-of the folio.  For files, that would be in the struct address_space.
-For anon memory, I think that's in the anon_vma, but if somebody told
-me it was in some other structure, I wouldn't argue with them.
+The check validates the offset itself against adev->discovery.size,
+independent of any specific downstream struct size, since
+get_table_info() is shared across ten different table types
+(IP_DISCOVERY, HARVEST_INFO, GC, MALL_INFO, VCN_INFO, NPS_INFO, and
+others) each with differently-sized table structures.
 
-This requires slightly more complexity than lockdep currently has.
-We don't want to use a lockdep class for each folio, obviously.  So we
-need something to say "I already have folio F1 locked, is it OK to lock
-folio F2?".  Essentially figuring out how we can track all folios in a
-given mapping the same way, and making sure that we don't deadlock on
-folios in the same mapping.
+Fixes: d0c647a6aae2 ("drm/amdgpu/discovery: support new discovery binary header")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-If F1 and F2 are in different mappings, it's not a deadlock if F1 is in a
-filesystem mapping and F2 is in its backing dev.  It's also not a deadlock
-if F1 and F2 are both filesystem folios and the inodes are both locked.
-See vfs_lock_two_folios() in fs/remap_range.c.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index b4ee5fc8e..9b55c56cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -564,6 +564,12 @@ static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
+ 		return -EINVAL;
+ 	}
+ 
++	if (le16_to_cpu((*info)->offset) >= adev->discovery.size) {
++		dev_err(adev->dev, "invalid table offset %u for table_id %u\n",
++			le16_to_cpu((*info)->offset), table_id);
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -766,6 +772,14 @@ static void amdgpu_discovery_read_harvest_bit_per_ip(struct amdgpu_device *adev,
+ 	int i, j;
+ 
+ 	bhdr = (struct binary_header *)discovery_bin;
++
++	if (le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset) >=
++	    adev->discovery.size) {
++		dev_err(adev->dev, "invalid IP_DISCOVERY table offset %u\n",
++			le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
++		return;
++	}
++
+ 	ihdr = (struct ip_discovery_header
+ 			*)(discovery_bin +
+ 			   le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset));
+-- 
+2.53.0
 
-I have much less knowledge about anonymous memory locking order.
-Maybe it doesn't happen.  Or about locking one anon and one file folio.
-For slab memory, we don't sleep on PG_locked (it's used as a spinlock bit).
-For other kinds of memory ... I don't know.  Page migration is fun.
