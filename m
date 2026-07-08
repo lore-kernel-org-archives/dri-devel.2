@@ -4,78 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA626C43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 09:03:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C095AC43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 09:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9AA10F077;
-	Wed,  8 Jul 2026 09:03:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DFCB10E59E;
+	Wed,  8 Jul 2026 09:21:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="smiijCzU";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="HU6E8f5R";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1960710F062
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 09:03:46 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-847a69ba83dso367633b3a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 02:03:46 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5587410E59E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 09:20:59 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-698bf053053so801042a12.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 02:20:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783501425; x=1784106225; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=OrLAGUFeKbr7ox+LI/0Wbz5q2HAYtvEZJ0vD+5N29cs=;
- b=smiijCzU15zaAYAdg7nCSwhXSl1IgMwVcuSkBq0J0XiE22IBZ4c22r1IRHatdkQSPH
- KohM2zPKohd+PxntyGKQSDroTOPWs51lr2sGNl1mtGyJlMCgX7G+CDaiMpt9qZVp1srh
- xyZ7nSrvnK34IsPjoVe0qkV24L9R0IS4IdEkpeismZ7vWNZ1ZN3XuyLBIXGyvAq1VipJ
- U5d6eepedADJ9Vfjto3Xhvl/Bxavhsp3UWFp5pjr/iDFYNYH7mlzkIlLjHYGXgtIoWT1
- YpzYn6X9yDiAGQJ9m3+VHfVpn3ULlwAJd5+p8oakDIEBiESyWNkyc4DMwkmnPNSh/BGy
- Cfqg==
+ d=ursulin.net; s=google; t=1783502458; x=1784107258; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=W7NiDQJoKDQdV8YX3g9oeMoz6qFJFZ46J3+eMQIsCQw=;
+ b=HU6E8f5RxgSe9eEhcEaViOJPBjzR1a2QVPc3InvU8GizuHyCm/s7Iv8HJwPB5/QlHf
+ yvnhi013t/OzkrYFf7gNKA+JLcYjnjwi1oI9oZVUUYSFWFInJnI5TYMLFJTm+3E1awsA
+ s0wecKZKUnuni2qjh0cWK9hnzHcNJRXebBhmuSdFDfhDak4ZZAV/jyP7sGeTbZ1fx0T+
+ X+qicrmv4qBGDD3X9rZmOWg/aKTH8QfcCTYSi0IWvqG8HX3nPbWH80JhNkBlTlezMvAy
+ +6CrrMDCzm+1ijZWthrZEwVGHwM8mGlH085EsDKh/TN4/BkGFKUUfHqJQgUc7ahCDeqC
+ jroQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783501425; x=1784106225;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1783502458; x=1784107258;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=OrLAGUFeKbr7ox+LI/0Wbz5q2HAYtvEZJ0vD+5N29cs=;
- b=F5PFmi0em1kZWhXutCVB0sqVcQcRqR/4stfnNZytZa4u5d0sydVAJKTan4HOSp+w86
- XaaJvK7NjoLwrU+HTgf/QvQb0F2Sd+dycvonlEGcgFGe6ugVNog51InmlJkZJUbRwpi+
- m+0MTharyutZlpF/I4BSYCX8ptGfe9bIo3h2FFxlzbUFptg/dXF/dwm3MfsX75EI6bzG
- D2ZpqGcCUlTrQe4RBCkfp7yq5TZwaSYQbLIEMDiljObbyzqQiCQAzj2TFXo1bsAihoiE
- FcLkcTQJ4AK7GhswlIK8FcIpjoJ7T/FjMRVMVfQ947YxZQPP/STQ9YRmXsmFq1yaJCMe
- MrRw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoSdrbgxUEu3TOSicxWJBwC26Wn+nxnejyA3UaKLXIxLaAzBMbIVEWQwauMkOR+zWSuh1NyDWUcytA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlYKWT46XTBsXMnzDUuxBtybh0lOfsIxdFeeX8jzZsKhO3awVZ
- byxSx4YAQKjWe2+HEeFgVYgClhCazUMUEnZatCjloxN914Bh9onAp0AP
-X-Gm-Gg: AfdE7cnKqffdQX74LfN5BEXxCMyPmLUGZ36tCgls9lbVLYVT+/r+ncOeVkV7TKpWLF0
- S33hZwMEACA+DkYE2AZES9Q1VW2r4CyLMo5MMXqe9pUQnm2gbBiglpGSmBPe7Vdrt4fLrJGGjTy
- G4WSgDgHxrE21rJnpLUMSL1dBZtyTOoYhs+GcBWWf6p0XgyW0xQSIupWlheUXUYTmtqcQIuXM+G
- z2C4X1HU/Js4VL8c9rst8AJAjtHAFXr3ijCZWGy+ugTSYsjrXKcDP9VdQ08m+srP8Zo2m2+m/S9
- bhF9wOXVsf9OarIbkmE3nQFjF6t4w3TyFwNKR1iOLC7eJY6rfQxJ0FUNR8QIpnpRnqo4g5n/tov
- d7pmbjHLT3d7aeTpgmOd1WbGGiq9vZUNan3Pz1ppOdSoUIXthskNtcqY6xCocJ5N0/8qAQcQq8R
- w2KCY/Ag==
-X-Received: by 2002:a05:6a21:4591:b0:3bf:b931:b3ec with SMTP id
- adf61e73a8af0-3c0bd16cd2cmr1851514637.57.1783501425589; 
- Wed, 08 Jul 2026 02:03:45 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
+ bh=W7NiDQJoKDQdV8YX3g9oeMoz6qFJFZ46J3+eMQIsCQw=;
+ b=g2shvnROrb/mJy+Ef1K6n0N8AYo+YwjYR+MxBtE/J/U0x4VrIrmuQg2QNddQ63tFBy
+ pfo9B5BPb13n7ihF3WI5Cqd2ECYpGZ0nKZGn1nBr0fjLsr2QfluNRGs7POWjFJt7obbs
+ HeZPbNPvLWQNeL8szNDQfKU6hh2nZT5orVq0h2FKqpPgbq4QN/SuDpgrFxfmljTLo7f6
+ C2tb5g/T74sePTelPb3LvP09wdpHs6ymqBjiGRTEjA/Owkt07bKQKnz/16nedgEN8KsO
+ Kv2cTwdN+uw95wGBVe9xxt3LsIx92QmjL2l6HFM1XBMf6CLmr2kxgoxJWHZpDYWr0rNe
+ YEkA==
+X-Gm-Message-State: AOJu0Yw9EM90bwr22Kqfd0q1fM0xV6Jlg+wui99Nyd2e7TXtYQVjpAkD
+ ayl2y5c7WZ6CPZlJZGpYmat/dG8UnkjCfbzvSsFDQEnE0Ml4KCGEZOEguLepdRQEQGvLgzJkEHr
+ Zc5lPmx4=
+X-Gm-Gg: AfdE7cljEIGJfe95FLyaemzYZi1SP07TF/NKDLiHf61cvnrOkR7H3ZFYcLXNdGly5FD
+ enahdRpDyB5D9rsenOgg4NDSr704RhyygdplmYDA1K6jWUCs9wwgZkUsJbjgxeYVJudihhznniP
+ P0vGwW6vnZNmBlcV6oO1ut39iYAQmMPRAOLDnrzrgUQodn8+T4JLhHVOsqytvNN1yGl0xdJ8J/y
+ AGqtpCj7kORiQb7XoZDu2I6J0cwHQhVCds41e1aaM0dyZd+jpaCfZq+MXCTp39s1ocIcCP3sQgp
+ s2sRonnOjwnUlr8bbbe14Q6yiiJd0rR+OeTn8ddYC3r6w/WJ9nAMqxpNHmbVk3OJNfCrX+rCskg
+ ivgCex8FVrEOoDhDznYvQeNDOVG15kNFqCP7UXkY59y0Np/u6TFnK+zKyOGTB19xrMAk7CCOglX
+ 4TkWCr5pGMKOCdDPBwOVP0pOn5OvV4BaGgCA==
+X-Received: by 2002:a05:6402:388b:b0:68f:cc95:8c10 with SMTP id
+ 4fb4d7f45d1cf-69ab44a07efmr572815a12.27.1783502457112; 
+ Wed, 08 Jul 2026 02:20:57 -0700 (PDT)
+Received: from [192.168.0.116] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-ca5b3643beesm2029602a12.25.2026.07.08.02.03.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 02:03:45 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Iago Toral Quiroga <itoral@igalia.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] drm/v3d: release CPU job resources on pre-init failures
-Date: Wed,  8 Jul 2026 17:01:32 +0800
-Message-ID: <20260708090132.738819-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ 4fb4d7f45d1cf-69aa613d4e2sm1678874a12.24.2026.07.08.02.20.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Jul 2026 02:20:56 -0700 (PDT)
+Message-ID: <46ffa75c-83e2-4f4b-9d5b-e43fdfa12176@ursulin.net>
+Date: Wed, 8 Jul 2026 10:20:55 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] drm/sched/tests: Let the DRM scheduler manage job
+ lifetimes
+To: Marco Pagani <marco.pagani@linux.dev>,
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260707114807.154572-1-marco.pagani@linux.dev>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260707114807.154572-1-marco.pagani@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,106 +97,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The changes referenced by the Fixes tags moved CPU job resource cleanup
-to v3d_cpu_job_free(), the CPU job kref destructor.
 
-However, CPU job extensions are parsed before v3d_job_init() has
-successfully installed that destructor. Timestamp and performance query
-arrays, their syncobj references, and the indirect CSD GEM reference can
-therefore be acquired before the CPU job is managed by the kref cleanup
-path.
+On 07/07/2026 12:48, Marco Pagani wrote:
+> Currently, the mock scheduler uses KUnit-managed memory for jobs. This ties
+> the job's memory lifetime to the test suite rather than the DRM scheduler's
+> callbacks. This does not represent real driver behavior and can lead to
+> potential Use-After-Free bugs in the tests.
 
-If a later pre-init validation fails, or if v3d_job_init() itself fails,
-the CPU job can be cleaned up or deallocated without running
-v3d_cpu_job_free(). Those extension resources are then leaked.
+Since you say use-after-free, that means something belonging to a test 
+wasn't properly cleaned up, right? Could you help me out review by 
+describing one example?
 
-Move the CPU-job owned resource release into a helper and call it both
-from the normal CPU job destructor and from the pre-init error paths.
+Idea was that tests are self contained, ie. when a tests exits it is 
+guaranteed all resources belonging to it are gone. Everything else 
+should be a test bug which IMO means it is fine to crash if a new tests 
+gets that wrong. Just idle at the end of the test and everything should 
+work.
 
-Fixes: b0fe80c0b925 ("drm/v3d: Fix use-after-free of CPU job query arrays on error path")
-Fixes: 6eb6e5acafa4 ("drm/v3d: Release indirect CSD GEM reference on CPU job free")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/v3d/v3d_submit.c | 30 +++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+> Update the mock scheduler to let the lifetime of jobs be managed by the DRM
+> scheduler's asynchronous callbacks instead of KUnit managed memory. Add a
+> kref reference counter to track the job's lifetime between test suites and
+> the scheduler.
+> 
+> Finally, to avoid memory leaks in the event of an early test abortion,
+> register a cleanup KUnit action that automatically puts the reference to
+> the job.
 
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 8ed95a203810..2cca9c49f30c 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -127,20 +127,28 @@ v3d_render_job_free(struct kref *ref)
- }
- 
- static void
--v3d_cpu_job_free(struct kref *ref)
-+v3d_cpu_job_free_resources(struct v3d_cpu_job *job)
- {
--	struct v3d_cpu_job *job = container_of(ref, struct v3d_cpu_job,
--					       base.refcount);
--
- 	v3d_timestamp_query_info_free(&job->timestamp_query,
- 				      job->timestamp_query.count);
-+	job->timestamp_query.queries = NULL;
-+	job->timestamp_query.count = 0;
- 
- 	v3d_performance_query_info_free(&job->performance_query,
- 					job->performance_query.count);
-+	job->performance_query.queries = NULL;
-+	job->performance_query.count = 0;
- 
--	if (job->indirect_csd.indirect)
-+	if (job->indirect_csd.indirect) {
- 		drm_gem_object_put(job->indirect_csd.indirect);
-+		job->indirect_csd.indirect = NULL;
-+	}
-+}
- 
-+static void
-+v3d_cpu_job_free(struct kref *ref)
-+{
-+	v3d_cpu_job_free_resources(job);
- 	v3d_job_free(ref);
- }
- 
-@@ -1318,10 +1326,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 		ret = v3d_get_extensions(file_priv, args->extensions, &se, cpu_job);
- 		if (ret) {
- 			drm_dbg(dev, "Failed to get extensions.\n");
--			if (cpu_job->indirect_csd.indirect) {
--				drm_gem_object_put(cpu_job->indirect_csd.indirect);
--				cpu_job->indirect_csd.indirect = NULL;
--			}
-+			v3d_cpu_job_free_resources(cpu_job);
- 			goto fail;
- 		}
- 	}
-@@ -1329,12 +1334,14 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	/* Every CPU job must have a CPU job user extension */
- 	if (!cpu_job->job_type) {
- 		drm_dbg(dev, "CPU job must have a CPU job user extension.\n");
-+		v3d_cpu_job_free_resources(cpu_job);
- 		ret = -EINVAL;
- 		goto fail;
- 	}
- 
- 	if (args->bo_handle_count != cpu_job_bo_handle_count[cpu_job->job_type]) {
- 		drm_dbg(dev, "This CPU job was not submitted with the proper number of BOs.\n");
-+		v3d_cpu_job_free_resources(cpu_job);
- 		ret = -EINVAL;
- 		goto fail;
- 	}
-@@ -1344,10 +1351,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	ret = v3d_job_init(v3d, file_priv, &cpu_job->base,
- 			   v3d_cpu_job_free, 0, &se, V3D_CPU);
- 	if (ret) {
--		if (cpu_job->indirect_csd.indirect) {
--			drm_gem_object_put(cpu_job->indirect_csd.indirect);
--			cpu_job->indirect_csd.indirect = NULL;
--		}
-+		v3d_cpu_job_free_resources(cpu_job);
- 		v3d_job_deallocate((void *)&cpu_job);
- 		goto fail;
- 	}
--- 
-2.43.0
+So kunit managed memory, freed on test exit, is replaced by kunit 
+managed actions, which also free on test exit?
+
+Some random thoughts below while I wait to understand the motivation and 
+problem statement better:
+
+> Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
+> ---
+>   .../gpu/drm/scheduler/tests/mock_scheduler.c  | 68 ++++++++++++++-----
+>   drivers/gpu/drm/scheduler/tests/sched_tests.h |  6 ++
+>   2 files changed, 57 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+> index 14403a762335..51f81082f37a 100644
+> --- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+> +++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+> @@ -96,6 +96,14 @@ drm_mock_sched_job_signal_timer(struct hrtimer *hrtimer)
+>   	return HRTIMER_NORESTART;
+>   }
+>   
+> +static void drm_mock_sched_job_cleanup_action(void *ptr)
+> +{
+> +	struct drm_mock_sched_job *job = ptr;
+> +
+> +	job->test = NULL;
+> +	drm_mock_sched_job_put(job);
+> +}
+> +
+>   /**
+>    * drm_mock_sched_job_new - Create a new mock scheduler job
+>    *
+> @@ -111,23 +119,34 @@ drm_mock_sched_job_new(struct kunit *test,
+>   	struct drm_mock_sched_job *job;
+>   	int ret;
+>   
+> -	job = kunit_kzalloc(test, sizeof(*job), GFP_KERNEL);
+> +	/* Let the DRM Scheduler manage the lifetime of the job */
+
+However that does not match real driver behaviour either (circling back 
+to the justification from the commit message). It is the drivers which 
+own this memory, not the DRM scheduler. So in this case mock scheduler, 
+which is a kunit test client, etc.
+
+> +	job = kzalloc_obj(*job, GFP_KERNEL);
+>   	KUNIT_ASSERT_NOT_NULL(test, job);
+>   
+> +	kref_init(&job->refcount);
+> +	job->test = test;
+> +
+>   	ret = drm_sched_job_init(&job->base,
+>   				 &entity->base,
+>   				 1,
+>   				 NULL,
+>   				 1);
+> -	KUNIT_ASSERT_EQ(test, ret, 0);
+> -
+> -	job->test = test;
+> +	if (ret) {
+> +		kfree(job);
+> +		KUNIT_ASSERT_EQ_MSG(test, ret, 0, "drm_sched_job_init failed");
+> +	}
+>   
+>   	init_completion(&job->done);
+>   	INIT_LIST_HEAD(&job->link);
+>   	hrtimer_setup(&job->timer, drm_mock_sched_job_signal_timer,
+>   		      CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
+>   
+> +	ret = kunit_add_action(test, drm_mock_sched_job_cleanup_action, job);
+> +	if (ret) {
+> +		drm_mock_sched_job_put(job);
+> +		KUNIT_ASSERT_EQ_MSG(test, ret, 0, "kunit_add_action failed");
+> +	}
+> +
+>   	return job;
+>   }
+>   
+> @@ -152,7 +171,7 @@ static void drm_mock_sched_hw_fence_release(struct dma_fence *fence)
+>   
+>   	hrtimer_cancel(&job->timer);
+>   
+> -	/* Containing job is freed by the kunit framework */
+> +	drm_mock_sched_job_put(job);
+>   }
+>   
+>   static const struct dma_fence_ops drm_mock_sched_hw_fence_ops = {
+> @@ -173,6 +192,8 @@ static struct dma_fence *mock_sched_run_job(struct drm_sched_job *sched_job)
+>   		       sched->hw_timeline.context,
+>   		       atomic_inc_return(&sched->hw_timeline.next_seqno));
+>   
+> +	kref_get(&job->refcount);
+> +
+>   	dma_fence_get(&job->hw_fence); /* Reference for the job_list */
+>   
+>   	spin_lock_irq(&sched->lock);
+> @@ -200,6 +221,17 @@ static struct dma_fence *mock_sched_run_job(struct drm_sched_job *sched_job)
+>   	return &job->hw_fence;
+>   }
+>   
+> +static void mock_sched_free_job(struct drm_sched_job *sched_job)
+> +{
+
+Free which is actually a reference put is non-obvious API.
+
+> +	struct drm_mock_sched_job *job = drm_sched_job_to_mock_job(sched_job);
+> +
+> +	/* Only if the fence has been successfully initialized */
+> +	if (job->hw_fence.ops)
+> +		dma_fence_put(&job->hw_fence);
+> +
+> +	drm_mock_sched_job_put(job);
+> +}
+> +
+>   /*
+>    * Normally, drivers would take appropriate measures in this callback, such as
+>    * killing the entity the faulty job is associated with, resetting the hardware
+> @@ -232,21 +264,26 @@ mock_sched_timedout_job(struct drm_sched_job *sched_job)
+>   	}
+>   	spin_unlock_irqrestore(&sched->lock, flags);
+>   
+> -	dma_fence_put(&job->hw_fence);
+> -	drm_sched_job_cleanup(sched_job);
+> -	/* Mock job itself is freed by the kunit framework. */
+> +	mock_sched_free_job(sched_job);
+>   
+>   	return DRM_GPU_SCHED_STAT_RESET;
+>   }
+>   
+> -static void mock_sched_free_job(struct drm_sched_job *sched_job)
+> +static void drm_mock_sched_job_release(struct kref *ref)
+>   {
+> -	struct drm_mock_sched_job *job = drm_sched_job_to_mock_job(sched_job);
+> +	struct drm_mock_sched_job *job;
+> +
+> +	job = container_of(ref, struct drm_mock_sched_job, refcount);
+>   
+> -	dma_fence_put(&job->hw_fence);
+> -	drm_sched_job_cleanup(sched_job);
+> +	drm_sched_job_cleanup(&job->base);
+>   
+> -	/* Mock job itself is freed by the kunit framework. */
+> +	kfree(job);
+> +}
+> +
+> +void drm_mock_sched_job_put(struct drm_mock_sched_job *job)
+> +{
+> +	if (job)
+> +		kref_put(&job->refcount, drm_mock_sched_job_release);
+>   }
+>   
+>   static void mock_sched_cancel_job(struct drm_sched_job *sched_job)
+> @@ -265,10 +302,7 @@ static void mock_sched_cancel_job(struct drm_sched_job *sched_job)
+>   	}
+>   	spin_unlock_irqrestore(&sched->lock, flags);
+>   
+> -	/*
+> -	 * The GPU Scheduler will call drm_sched_backend_ops.free_job(), still.
+> -	 * Mock job itself is freed by the kunit framework.
+> -	 */
+> +	/* The GPU Scheduler will call drm_sched_backend_ops.free_job() */
+>   }
+>   
+>   static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
+> diff --git a/drivers/gpu/drm/scheduler/tests/sched_tests.h b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+> index 553d45abd057..e4d33f0bf935 100644
+> --- a/drivers/gpu/drm/scheduler/tests/sched_tests.h
+> +++ b/drivers/gpu/drm/scheduler/tests/sched_tests.h
+> @@ -13,6 +13,7 @@
+>   #include <linux/list.h>
+>   #include <linux/mutex.h>
+>   #include <linux/types.h>
+> +#include <linux/kref.h>
+>   
+>   #include <drm/gpu_scheduler.h>
+>   
+> @@ -90,6 +91,7 @@ struct drm_mock_sched_entity {
+>    */
+>   struct drm_mock_sched_job {
+>   	struct drm_sched_job	base;
+> +	struct kref		refcount;
+>   
+>   	struct completion	done;
+>   
+> @@ -144,6 +146,8 @@ struct drm_mock_sched_job *
+>   drm_mock_sched_job_new(struct kunit *test,
+>   		       struct drm_mock_sched_entity *entity);
+>   
+> +void drm_mock_sched_job_put(struct drm_mock_sched_job *job);
+> +
+>   /**
+>    * drm_mock_sched_job_submit - Arm and submit a job in one go
+>    *
+> @@ -151,6 +155,8 @@ drm_mock_sched_job_new(struct kunit *test,
+>    */
+>   static inline void drm_mock_sched_job_submit(struct drm_mock_sched_job *job)
+>   {
+> +	kref_get(&job->refcount);
+> +
+
+This feels fragile because if someone writes a test which uses arm+push 
+directly bad things will happen. What is this extra reference for versus 
+the one obtained by creating a job?
+
+Regards,
+
+Tvrtko
+
+>   	drm_sched_job_arm(&job->base);
+>   	drm_sched_entity_push_job(&job->base);
+>   }
 
