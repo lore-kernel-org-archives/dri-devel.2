@@ -4,144 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4F8BC43458
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 03:59:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E52C43458
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Jul 2026 04:13:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 181B810EFC3;
-	Wed,  8 Jul 2026 03:59:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3E0010EFC4;
+	Wed,  8 Jul 2026 04:13:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kU50F+pV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YegNmjSg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O5sL1WJR";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA9D610EFC3
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 03:59:01 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 667Md3p7964512
- for <dri-devel@lists.freedesktop.org>; Wed, 8 Jul 2026 03:59:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FaiG/eJTya26hN8ZkkimAahZgkkyWSyTo5eeeXV0qN8=; b=kU50F+pVW7duPG1j
- nguPI7KgKlvCv8FZO/yiiROpFLdzH7MlwlqUXra65hFEtHxzizT4k2NbBEeqdecc
- ZEgnUcD/9JiIDo1n7rX7pBjTThjbNWCdA8SMJ0SsCeXP0AR+mqNgdJdTCzb7SXV5
- bWV2Q2n64zKJzT4QvnFRxjfnEM1my56AwtcJ7aaFOJLZLua6cf8hQOtm1FkeSOyf
- qYqjn7SVAlF2Cgfe9H8uLS7Jqu0zk92ADQi3zRslEpdJeRbhOMS2nPyTE2MhaWQV
- P0dgQQ6fLYsEbw5A+ioY4CqN78Kd0dNfMbdDsBdp7ldtWqG9cy5bi0CqlydMkkDy
- TKwCvg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8wep4jps-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 03:59:01 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c9667280edeso302628a12.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Jul 2026 20:59:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783483141; x=1784087941;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=FaiG/eJTya26hN8ZkkimAahZgkkyWSyTo5eeeXV0qN8=;
- b=YegNmjSg0rz77TAFTWfXKJJftSde2V73cZdXyYGsUcHcVKgcwdNDevhLtk2RYvqRQq
- XmpbLWwvIgB3DqdZZ5yYMoAvR7MHALKHz0nZu8Xivzk9i0WwTC364NRellqpMU7QJcoD
- uAI5+vnaWE4Hu9ypxmvV1cFtn40eDscpCZ6Px0Fcan8/fhAFnIreniDAg8rbeXnLZJ2o
- U5UVwY32TVPxQQriHy6jAXATWsnKtDs/wNAdUxZyldkGHZ/VFdqit2ZYe5C7w1zI61q8
- 0mMfuGtfNv7OgDb7bevX9vlMoV2s1GagQKp6d2wg90NY5BGPEU8ZQ0x8Qwtoa1CFgzSo
- tYCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783483141; x=1784087941;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=FaiG/eJTya26hN8ZkkimAahZgkkyWSyTo5eeeXV0qN8=;
- b=BKATB+iMkCacb/+cDedRWJz3p+MtcuWxCxTkZikn7v9ScH3xN4ps+Dwe2HvxWlfKBi
- S9OVR33Rk0Yv0c9FiIRiy/VLz3mPHNQwYnowkbvb89b0ydF/2p/voj/ZUhm7TiudeIUG
- S/DLnZ3po95FXUyfzuv51AOzKL3zta2yLf/Y7usQ3fZUU/vXClZnku+z20dbyRWiZOKi
- /QE6AuW2Fss4TQaZXY7xhUynbP5tQ4kwahbkqYuGri/dWqAieAsBNvxPpKa5BrSmvH9+
- WFVph4j1XUvBNrd9fiiQZF4QLV3qNIY8thfreBknWjYBmm2FpUQ8ehiApPgUG4rBCG5G
- Qnnw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqkuyJ04JfJOicNVGEiCzHWYbdKGqO4IWXIqgtxaKSp1R3QK99B0XEZX0KyXGbeAbH2UB6jQ21c/c4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKMSGM4MdX10fcIpol9tpKYSzbo1MA86OCTXdwmtjLvrYXuSa6
- vBlnRP0Aet0JYYyMRfgZAHUlOAerG5VB4AuZMweq0YG9zps7tAESUGdKs1Q1WsWUwgdSAILILVh
- jFZKzHMSnka4poldZQInaZd/r2Rbzx/sLXTkqtRgXfbjgKpDJ3llz2kLnhKpqkkuKJNyC+KI=
-X-Gm-Gg: AfdE7cmiddiFNj23QQp5LN3LKpz9kzROgizpDVG0NFrE3yAv2GgZsC3q646n1wJcwEK
- AcQf+A6q20zg1JyMsJN+qradqj3YwhBazBirE0SuXhih1epaCJ6Rk4ST4SuniOsYOIyl2WSrhdg
- yETQ+lHSFeDVdGLc1pCYOZy2ingwlX1N07jGOp7GiQ2UrHIbCLEokAjZGrNrxwNGop5l+/MO3v7
- aNsmuI1hF7ySt+coEgq/6nX2VGZ+tQjMyjkZtdjvMHaAz2qhqa5aAoEpvtJnG2eiaLPc1HXccjV
- AqqHWE/4vaB7LzKMEdXaeNYhzOIvTbyTNP6jmx8bQG7xoGp31aUae+tF3wiVOwr+mLDkMWB0qjO
- Sa4pRG6oH8wJUTj1dBcyxgoxyK0tJYKqK2PJKGlaMIBUt
-X-Received: by 2002:a05:6a21:62c8:b0:3bf:aa1a:d2ef with SMTP id
- adf61e73a8af0-3c0bd164cd0mr666224637.56.1783483140621; 
- Tue, 07 Jul 2026 20:59:00 -0700 (PDT)
-X-Received: by 2002:a05:6a21:62c8:b0:3bf:aa1a:d2ef with SMTP id
- adf61e73a8af0-3c0bd164cd0mr666186637.56.1783483140117; 
- Tue, 07 Jul 2026 20:59:00 -0700 (PDT)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f7293sm14487136eec.3.2026.07.07.20.58.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 20:58:59 -0700 (PDT)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Wed, 08 Jul 2026 09:28:33 +0530
-Subject: [PATCH v2 2/2] misc: fastrpc: create duplicate sessions after all
- CB probing
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-dup-sessions-v2-2-da40f9c98a2b@oss.qualcomm.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38ECC10EFC4
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Jul 2026 04:13:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4EB3D60008;
+ Wed,  8 Jul 2026 04:13:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACF681F000E9;
+ Wed,  8 Jul 2026 04:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783483993;
+ bh=SyyZkIPQhYS+aKTZk/Su+hotvAEGiru0HGu+EAyfvvw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=O5sL1WJRVJKhaGO54+M19R2HwiYbMsv3OxA89bvCTRGXMXFCKoepIDqcW4kl0UOnE
+ m8zQyMK+5GqQJfIZ0AmuVIP3tFqfj69gaQTfjQKe+K4iiurBI6H3McDxqC3t25GI59
+ hMe2YwyKLe032qk7j0enjFwQV7SqG8r5bAY244h+JXJsXUVymd2waefbrk94t996DB
+ tuyH71Kbdcn36q/h6xcb2xnmdIcU6Zb5yxVXtuQmLEAhmDtV0DQmWbJxW3YeyxFhgi
+ PEmppCPZ3aHaYi70HhQ0pQjEMXPSqNM5MJ/KAQB94Au4Ip5i7KsAob9wsgDspmo9yo
+ aNON8CE9VTZ/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] misc: fastrpc: create duplicate sessions after
+ all CB probing
+To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260708-dup-sessions-v2-2-da40f9c98a2b@oss.qualcomm.com>
 References: <20260708-dup-sessions-v2-0-da40f9c98a2b@oss.qualcomm.com>
-In-Reply-To: <20260708-dup-sessions-v2-0-da40f9c98a2b@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, devicetree@vger.kernel.org,
- Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783483125; l=3803;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=E1UlleUpatfwJfXD7CvEFNe2U0LGFAfWDhnzotj82/o=;
- b=vzZxLNd7liU/JhRSS81E494juiP4krazhNrpl1MhaEYQUKdt7OFLSrYc9HzaqlKyJUsaTdVEH
- eYM4q03WfjQAGUl8BUukX599/aTRK0Z40NuRBc4TAVEgbqe/Pw8XdGZ
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-GUID: yFx0qpsz8g6dBrNlfOzniwFhBeOBMhKy
-X-Proofpoint-ORIG-GUID: yFx0qpsz8g6dBrNlfOzniwFhBeOBMhKy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDAzNSBTYWx0ZWRfX9Y8XcsE27Xal
- Upw+aKSQB5mZy4n32BVDHKnKlOFdLWECVX5xP/3K9f8E46bqH/7NAqv+JqV9sRZ5yYweKCnCVCH
- mGMV3vXhbLgxiwYvCMFWHfnvbyBKSkrBcog8Iy8gYCJxM7xXjfULCUU7sckXPXrlhqU5DIPuDaR
- R/YR9kGvqdj7TiTwKsPP1O9ICMKTCGdto8/whTQXGomHuqedwZAF4TPoRLP6fcWBbHY/miD4G1K
- LmutfKScOLtpkNWQf23Ya4XrVTor7ZFLPrHBKr46Va6hQ/qTnBlHbnQejOVjofaStKLgjhBryLe
- atoGVgX1aL0Hbx04OhJEaFUIY3y9+GjDMEoBx/v7NEMpRuu+KGtr7Fzfqp5VBRXlSCgj0FkscBS
- X3CXMpZbe+u8HunTtn/M9W6+iVOl4TJg60PpIzf9yKjorB3hIpZdHbcoi0OGXAJCHx9aWFoDcMg
- ipR4Gw2nUXNV2xsd9Lg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDAzNSBTYWx0ZWRfX4vENsWhQfKeZ
- MXqTGqHF4IcXvKhx7Z4HYxKi7+pzudTExdZs7bS5iPSZ7iILMlrxmLe3qseN1uz8TUvRbX8F2TV
- MIhJmnWxGl38F8Ai2f0kAulSZO6iIzk=
-X-Authority-Analysis: v=2.4 cv=atSCzyZV c=1 sm=1 tr=0 ts=6a4dcb05 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=_Cnv2d4ds2Bg63dH_xgA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 priorityscore=1501 spamscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080035
+ <20260708-dup-sessions-v2-2-da40f9c98a2b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 04:13:12 +0000
+Message-Id: <20260708041312.ACF681F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,21 +55,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For ADSP, only a limited number of FastRPC context banks (CBs) are
-available. Each CB supports a single session, which means only a few
-processes can run on ADSP simultaneously. If all sessions are consumed
-by fastrpc daemons, no session remains available when a user application
-starts, causing the application to fail.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-To address this limitation, a Device Tree change was used till now:
-  qcom,nsessions = <5>;
+New issues:
+- [High] Concurrent `open()` calls during the unprotected gap after child p=
+robing permanently leak duplicated sessions.
 
-However, feedback from the upstream community indicated that this change
-should not be made in the Device Tree. Instead, it was recommended to
-handle this as a driver-level change.
+Pre-existing issues:
+- [Critical] The misc device is exposed to userspace before crucial synchro=
+nization primitives and lists are initialized, leading to uninitialized spi=
+nlock usage and NULL pointer dereferences.
+- [High] Missing `of_platform_depopulate()` on the `of_platform_populate()`=
+ error path causes dangling child devices with freed drvdata.
+- [High] On the error path of `fastrpc_rpmsg_probe()`, `kfree(data)` uncond=
+itionally frees memory while a userspace file descriptor may hold a referen=
+ce.
+--
+
+--- Patch [2]: [PATCH v2 2/2] misc: fastrpc: create duplicate sessions afte=
+r all CB probing ---
+commit 56303754fdfc0beae4b68e60fa9dc54ca7e73396
+Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
+misc: fastrpc: create duplicate sessions after all CB probing
 
 Instead of duplicating sessions inline during fastrpc_cb_probe() using
 the qcom,nsessions DT property, defer duplication until after
@@ -176,89 +90,102 @@ of_platform_populate() returns in fastrpc_rpmsg_probe(), at which point
 all compute-CB child nodes have been probed and the session array is
 fully populated.
 
-For the ADSP domain, append FASTRPC_DUP_SESSIONS (4) copies of the
-last probed session once of_platform_populate() succeeds. This keeps
-the per-CB probe path simple and ensures duplicates are always derived
-from a stable, fully-initialised session state.
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+[ ... ]
+> @@ -2352,6 +2352,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+[ ... ]
+>  	switch (domain_id) {
+>  	case ADSP_DOMAIN_ID:
+>  	case MDSP_DOMAIN_ID:
+>  	case SDSP_DOMAIN_ID:
+>  		/* Unsigned PD offloading is only supported on CDSP and GDSP */
+>  		data->unsigned_support =3D false;
+>  		err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
 
-The qcom,nsessions DT property is no longer consumed by the driver; the
-binding and DT sources are left unchanged.
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does registering the misc
+device here expose it to userspace before crucial synchronization primitives
+are initialized?
 
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 30 +++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+A concurrent userspace process could immediately call open(), which would
+attempt to use data->refcount and data->lock before they are initialized
+further down in this function.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 1080f9acf70a..8a3944f6c036 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -30,6 +30,7 @@
- #define CDSP_DOMAIN_ID (3)
- #define GDSP_DOMAIN_ID (4)
- #define FASTRPC_MAX_SESSIONS	14
-+#define FASTRPC_DUP_SESSIONS	4
- #define FASTRPC_MAX_VMIDS	16
- #define FASTRPC_ALIGN		128
- #define FASTRPC_MAX_FDLIST	16
-@@ -2195,7 +2196,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	struct fastrpc_channel_ctx *cctx;
- 	struct fastrpc_session_ctx *sess;
- 	struct device *dev = &pdev->dev;
--	int i, sessions = 0;
- 	unsigned long flags;
- 	int rc;
- 	u32 dma_bits;
-@@ -2204,8 +2204,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	if (!cctx)
- 		return -EINVAL;
- 
--	of_property_read_u32(dev->of_node, "qcom,nsessions", &sessions);
--
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
- 		dev_err(&pdev->dev, "too many sessions\n");
-@@ -2225,16 +2223,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	if (of_property_read_u32(dev->of_node, "reg", &sess->sid))
- 		dev_info(dev, "FastRPC Session ID not specified in DT\n");
- 
--	if (sessions > 0) {
--		struct fastrpc_session_ctx *dup_sess;
--
--		for (i = 1; i < sessions; i++) {
--			if (cctx->sesscount >= FASTRPC_MAX_SESSIONS)
--				break;
--			dup_sess = &cctx->session[cctx->sesscount++];
--			memcpy(dup_sess, sess, sizeof(*dup_sess));
--		}
--	}
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 	rc = dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
- 	if (rc) {
-@@ -2445,6 +2433,22 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	if (err)
- 		goto err_deregister_fdev;
- 
-+	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
-+		struct fastrpc_session_ctx *last_sess;
-+		struct fastrpc_session_ctx *dup_sess;
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&data->lock, flags);
-+		last_sess = &data->session[data->sesscount - 1];
-+		for (i = 0; i < FASTRPC_DUP_SESSIONS; i++) {
-+			if (data->sesscount >= FASTRPC_MAX_SESSIONS)
-+				break;
-+			dup_sess = &data->session[data->sesscount++];
-+			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
-+		}
-+		spin_unlock_irqrestore(&data->lock, flags);
-+	}
-+
- 	return 0;
- 
- err_deregister_fdev:
+>  		if (err)
+>  			goto err_free_data;
+>  		break;
+[ ... ]
+>  	spin_lock_init(&data->lock);
+>  	idr_init(&data->ctx_idr);
+>  	data->domain_id =3D domain_id;
+>  	data->rpdev =3D rpdev;
+>  	dev_set_drvdata(&rpdev->dev, data);
+> =20
+>  	err =3D of_platform_populate(rdev->of_node, NULL, NULL, rdev);
+>  	if (err)
+>  		goto err_deregister_fdev;
 
--- 
-2.34.1
+[Severity: High]
+This is a pre-existing issue, but if of_platform_populate() fails halfway
+through, does the error path miss a call to of_platform_depopulate()?
 
+Since the channel context data is freed on the error path, this could leave
+dangling child devices that might dereference freed drvdata when they are
+later unbound.
+
+> +	if (data->domain_id =3D=3D ADSP_DOMAIN_ID && data->sesscount > 0) {
+> +		struct fastrpc_session_ctx *last_sess;
+> +		struct fastrpc_session_ctx *dup_sess;
+> +		unsigned long flags;
+> +
+> +		spin_lock_irqsave(&data->lock, flags);
+> +		last_sess =3D &data->session[data->sesscount - 1];
+> +		for (i =3D 0; i < FASTRPC_DUP_SESSIONS; i++) {
+> +			if (data->sesscount >=3D FASTRPC_MAX_SESSIONS)
+> +				break;
+> +			dup_sess =3D &data->session[data->sesscount++];
+> +			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
+
+[Severity: High]
+Can this loop permanently leak session capacity if userspace calls open()
+concurrently?
+
+Since the lock is dropped in fastrpc_cb_probe() long before we get here,
+could a concurrent open() claim last_sess and set its used flag to true?
+If so, this memcpy() would blindly duplicate the used=3Dtrue state into all
+new sessions, making them permanently unavailable to subsequent users.
+
+> +		}
+> +		spin_unlock_irqrestore(&data->lock, flags);
+> +	}
+> +
+>  	return 0;
+> =20
+>  err_deregister_fdev:
+>  	if (data->fdevice)
+>  		misc_deregister(&data->fdevice->miscdev);
+>  	if (data->secure_fdevice)
+>  		misc_deregister(&data->secure_fdevice->miscdev);
+> =20
+>  err_free_data:
+>  	kfree(data);
+
+[Severity: High]
+This is a pre-existing issue, but does calling kfree(data) here
+unconditionally cause a use-after-free if userspace has already opened
+the misc device?
+
+Because the misc device is registered earlier in this function, a userspace
+process might already hold an open file descriptor. If we free the channel
+context here upon a probe failure, any subsequent ioctls or close
+operations by that process will access freed memory.
+
+>  	return err;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dup-sessio=
+ns-v2-0-da40f9c98a2b@oss.qualcomm.com?part=3D2
