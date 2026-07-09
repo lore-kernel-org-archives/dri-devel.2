@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2320C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 737FFC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 099D310F54C;
-	Thu,  9 Jul 2026 11:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF13110F554;
+	Thu,  9 Jul 2026 11:52:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g118AscO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZmkRxsZj";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38EB610F54C
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E89CC10F54C
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AE7F2601D9;
- Thu,  9 Jul 2026 11:52:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22D61F000E9;
- Thu,  9 Jul 2026 11:52:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6CA17600C3;
+ Thu,  9 Jul 2026 11:52:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD901F000E9;
+ Thu,  9 Jul 2026 11:52:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597946;
- bh=WpkwU8a74aTUukqz6srcOCveOWs+eiD2qKlmdxlrwq8=;
+ s=k20260515; t=1783597958;
+ bh=r10ZUumU55Nla7C3KIOsaT2ugq4TdX7QgQwx8EkQ80w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=g118AscOv4Bh6UdZB+ZS4UX9+yMjxFGazv6U1l6Pe6NIK15syxcqIOnPI8yrdMdqf
- rT4awVirdykZzI+MJEf5QUSLPHgFfxO2QxUPB6FMzWZ4Es3Es7ZdHA2r5Uu6G14mZM
- xFxL/CtpXXDneqiY+Xtvb2G33aUX7i5+7RUKuCUChTyWLukWG1lGSLwkGQUCBAUm2d
- MVKo/5J0w2egrvCiUvqKuPj8fiEDrpVMqxIug0LJqMhNOYbJxPnvwsZCPChlPzgywK
- Hlcw1UTYatPRcgzB9bG1Jndh89b9xSH4WJMGlbSoGb7hs3JuTztpFECPwEmTOUbIKm
- daXZTt1ote5IQ==
+ b=ZmkRxsZjbnPofM8CUzLgUBlh9ynFxwkEwN+2AlxOQPE2exxKribhBV2/QwoK+Bsq/
+ mrxnL859fXidaieBgnE9I1XJ+1TtAY9YgQ2iIzZlkHNQguK3ZzwiOvp0IQStQqjOiw
+ zCXaLoQ3ZJ7NiQeaulJboRY08PN9EaKXAhOmJ9tYrdTY1rpKHU3wtiUvxOvsaeQddS
+ mg0y+hIAYKyk5HEt/+EQG0EfDCD5cYECfnzB9PGK0S8ac9Qk2D6dnQX4WR3Fbe1Qac
+ vwOSuyQHhTuNcXKTxjxHjSwO5XVQilJeZDeazljgHj/gjGZ6bHJdpTFnCUC/MC8PSC
+ /3k9+KM2O3k4Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:01 +0200
-Subject: [PATCH 35/60] drm/vboxvideo: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:06 +0200
+Subject: [PATCH 40/60] drm/komeda: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-35-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-40-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- hansg@kernel.org
+ liviu.dudau@arm.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5972; i=mripard@kernel.org;
- h=from:subject:message-id; bh=THIqqSeTANCBRBtCZbdylQompUBbDIUFBWO+9gY2EB4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3RLdbjPPHOWwCn8W+CW3Yr7TI7uldSyfVmbkdqmmH
- o7cx9LbMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbis4OxViyJtaGIdUrYWZVP
- lv6eisd+G3d+ePE29mbwycNJs7Secq4KkH7c+fqt1Frnsi/yvw73MTY0lSmopf3eyvUq4DXnEub
- MnROFhd14VZY0Pv87773/PcPjPREp2dq/jvcppPI0m2y7MBkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6844; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=AWgTOvKPUQeeP9gwyOjlxJOraMxJymjnruchdB3j/5Q=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3VK2SzbnxF1ZzOoWvUyL7Rb7CdX6+V4cX1Tc/hbbz
+ 5t1dytfx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIPXfGWtnp67tfyyq1RrWp
+ nvzy/clJu/tv93T9s8pmDuX+tuObzDGNgGOtnvOMdlleNVm/emv0Jcb6DHv2LdOCnmsre+wujLO
+ R9fk3MWG5lvrEJJ/HhnNn5qpaTY/RqE98s2niAeYMo0eft/gBAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,9 +68,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The plane only initializes a pristine state in its reset hook
-using drm_atomic_helper_plane_reset(), which is equivalent to what
-atomic_create_state expects. Convert to it.
+The plane reset implementation creates a custom state
+subclass, but only initializes a pristine state without resetting any
+hardware. This is equivalent to what atomic_create_state expects.
+Convert to it.
 
 The conversion was done using the following Coccinelle semantic patch:
 
@@ -334,28 +335,59 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: hansg@kernel.org
+Cc: liviu.dudau@arm.com
 ---
- drivers/gpu/drm/vboxvideo/vbox_mode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/arm/display/komeda/komeda_plane.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-index 8e4e5fc9d3c5..a30e9265ecb1 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
-@@ -496,11 +496,11 @@ static const struct drm_plane_helper_funcs vbox_primary_helper_funcs = {
+diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
+index 57a4a0c7d404..955dbef5d34d 100644
+--- a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
++++ b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
+@@ -130,23 +130,21 @@ static void komeda_plane_destroy(struct drm_plane *plane)
+ 	drm_plane_cleanup(plane);
  
- static const struct drm_plane_funcs vbox_primary_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset		= drm_atomic_helper_plane_reset,
-+	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	kfree(to_kplane(plane));
+ }
+ 
+-static void komeda_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *komeda_plane_create_state(struct drm_plane *plane)
+ {
+ 	struct komeda_plane_state *state;
+ 
+-	if (plane->state)
+-		__drm_atomic_helper_plane_destroy_state(plane->state);
+-
+-	kfree(plane->state);
+-	plane->state = NULL;
+-
+ 	state = kzalloc_obj(*state);
+-	if (state)
+-		__drm_atomic_helper_plane_reset(plane, &state->base);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_plane_state_init(&state->base, plane);
++
++	return &state->base;
+ }
+ 
+ static struct drm_plane_state *
+ komeda_plane_atomic_duplicate_state(struct drm_plane *plane)
+ {
+@@ -186,11 +184,11 @@ komeda_plane_format_mod_supported(struct drm_plane *plane,
+ 
+ static const struct drm_plane_funcs komeda_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+ 	.destroy		= komeda_plane_destroy,
+-	.reset			= komeda_plane_reset,
++	.atomic_create_state = komeda_plane_create_state,
+ 	.atomic_duplicate_state	= komeda_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state	= komeda_plane_atomic_destroy_state,
+ 	.format_mod_supported	= komeda_plane_format_mod_supported,
  };
  
- static struct drm_plane *vbox_create_plane(struct vbox_private *vbox,
 
 -- 
 2.54.0
