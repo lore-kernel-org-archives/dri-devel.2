@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 737FFC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42686C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF13110F554;
-	Thu,  9 Jul 2026 11:52:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 895F010F550;
+	Thu,  9 Jul 2026 11:52:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZmkRxsZj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="afmXWQs3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E89CC10F54C
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4693410F550
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6CA17600C3;
- Thu,  9 Jul 2026 11:52:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD901F000E9;
- Thu,  9 Jul 2026 11:52:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2FBC24162A;
+ Thu,  9 Jul 2026 11:52:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88691F000E9;
+ Thu,  9 Jul 2026 11:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597958;
- bh=r10ZUumU55Nla7C3KIOsaT2ugq4TdX7QgQwx8EkQ80w=;
+ s=k20260515; t=1783597965;
+ bh=QdU/5b1IZWK9+GODzUGSbRRyw6LPERg+IxIJRU/YYDs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZmkRxsZjbnPofM8CUzLgUBlh9ynFxwkEwN+2AlxOQPE2exxKribhBV2/QwoK+Bsq/
- mrxnL859fXidaieBgnE9I1XJ+1TtAY9YgQ2iIzZlkHNQguK3ZzwiOvp0IQStQqjOiw
- zCXaLoQ3ZJ7NiQeaulJboRY08PN9EaKXAhOmJ9tYrdTY1rpKHU3wtiUvxOvsaeQddS
- mg0y+hIAYKyk5HEt/+EQG0EfDCD5cYECfnzB9PGK0S8ac9Qk2D6dnQX4WR3Fbe1Qac
- vwOSuyQHhTuNcXKTxjxHjSwO5XVQilJeZDeazljgHj/gjGZ6bHJdpTFnCUC/MC8PSC
- /3k9+KM2O3k4Q==
+ b=afmXWQs3Ee+gLMOKCKVp/TOAi7n8/jGEH32I+MySEwiY+i+gSTPnopHPmyqA1zIeM
+ 5G3qN88PDizn19//11XoQnMcyzPSJiPgkWOLYks7o8W2t+vSQB+Icv/SV/b7zT1Cu9
+ YSgH4wuWIVig0mNpFescIS85DguAP16J6ZYo9qAy1DILljjqUG4KA64G+quZ4XAuAJ
+ Os+fXTCj2FR2fcdTUs9EdluR8c92/GIrPUQgQ20ptrjVI7KpLSgAl1E2NbKeDQ9TJo
+ /dzcmrUHpWOFQ0p0e5frDJLVcR4vLokUlDDI0Vc45XchNeP/p5luMFo4CKOiK9IDfg
+ lq2S49HO6sDpA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:06 +0200
-Subject: [PATCH 40/60] drm/komeda: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:09 +0200
+Subject: [PATCH 43/60] drm/atmel-hlcdc: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-40-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-43-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- liviu.dudau@arm.com
+ alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, 
+ dharma.b@microchip.com, manikandan.m@microchip.com, 
+ nicolas.ferre@microchip.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6844; i=mripard@kernel.org;
- h=from:subject:message-id; bh=AWgTOvKPUQeeP9gwyOjlxJOraMxJymjnruchdB3j/5Q=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3VK2SzbnxF1ZzOoWvUyL7Rb7CdX6+V4cX1Tc/hbbz
- 5t1dytfx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIPXfGWtnp67tfyyq1RrWp
- nvzy/clJu/tv93T9s8pmDuX+tuObzDGNgGOtnvOMdlleNVm/emv0Jcb6DHv2LdOCnmsre+wujLO
- R9fk3MWG5lvrEJJ/HhnNn5qpaTY/RqE98s2niAeYMo0eft/gBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7315; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=0NKTQuyRg+0cqZTmNhz7bI5bc2e8QznE2MEocWAeGcU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3TL7mdMnZd51Kzj34w+zssUiC/6/Xx5HWmSdEz39k
+ 3Nt8qrbHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAibzcwNnTK2tdql7wVfyTy
+ fcWNna+M3p1hi1l6SfqZcNn9/o/p2jYX+2Z1bbFf0HVU7dSJ18+b8hnrPS9s3HyDaes5i5z984p
+ mlgVtPRPkuyZi3ulWKb9ZZXfF79l5cDbldeu9NS8/zv+n5LotAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,59 +337,72 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: liviu.dudau@arm.com
+Cc: alexandre.belloni@bootlin.com
+Cc: claudiu.beznea@tuxon.dev
+Cc: dharma.b@microchip.com
+Cc: manikandan.m@microchip.com
+Cc: nicolas.ferre@microchip.com
 ---
- drivers/gpu/drm/arm/display/komeda/komeda_plane.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c | 27 +++++++++++--------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-index 57a4a0c7d404..955dbef5d34d 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-@@ -130,23 +130,21 @@ static void komeda_plane_destroy(struct drm_plane *plane)
- 	drm_plane_cleanup(plane);
+diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
+index f17a832351e9..ff35251a0184 100644
+--- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
++++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
+@@ -1181,40 +1181,37 @@ static void atmel_hlcdc_plane_atomic_destroy_state(struct drm_plane *p,
+ 	__drm_atomic_helper_plane_destroy_state(s);
  
- 	kfree(to_kplane(plane));
+ 	kfree(state);
  }
  
--static void komeda_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *komeda_plane_create_state(struct drm_plane *plane)
+-static void atmel_hlcdc_plane_reset(struct drm_plane *p)
++static struct drm_plane_state *atmel_hlcdc_plane_create_state(struct drm_plane *p)
  {
- 	struct komeda_plane_state *state;
+ 	struct atmel_hlcdc_plane_state *state;
+ 	struct atmel_hlcdc_dc *dc = p->dev->dev_private;
+ 	struct atmel_hlcdc_plane *plane = drm_plane_to_atmel_hlcdc_plane(p);
  
--	if (plane->state)
--		__drm_atomic_helper_plane_destroy_state(plane->state);
--
--	kfree(plane->state);
--	plane->state = NULL;
+-	if (p->state) {
+-		atmel_hlcdc_plane_atomic_destroy_state(p, p->state);
+-		p->state = NULL;
+-	}
 -
  	state = kzalloc_obj(*state);
--	if (state)
--		__drm_atomic_helper_plane_reset(plane, &state->base);
+-	if (state) {
+-		if (atmel_hlcdc_plane_alloc_dscrs(p, state)) {
+-			kfree(state);
+-			drm_err(p->dev,
+-				"Failed to allocate initial plane state\n");
+-			return;
+-		}
+-		__drm_atomic_helper_plane_reset(p, &state->base);
 +	if (!state)
 +		return ERR_PTR(-ENOMEM);
 +
-+	__drm_atomic_helper_plane_state_init(&state->base, plane);
++	if (atmel_hlcdc_plane_alloc_dscrs(p, state)) {
++		kfree(state);
++		drm_err(p->dev, "Failed to allocate initial plane state\n");
++		return ERR_PTR(-EINVAL);
+ 	}
++	__drm_atomic_helper_plane_state_init(&state->base, p);
+ 
+ 	if (plane->layer.desc->layout.csc)
+ 		dc->desc->ops->lcdc_csc_init(plane, plane->layer.desc);
 +
 +	return &state->base;
  }
  
- static struct drm_plane_state *
- komeda_plane_atomic_duplicate_state(struct drm_plane *plane)
- {
-@@ -186,11 +184,11 @@ komeda_plane_format_mod_supported(struct drm_plane *plane,
- 
- static const struct drm_plane_funcs komeda_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.destroy		= komeda_plane_destroy,
--	.reset			= komeda_plane_reset,
-+	.atomic_create_state = komeda_plane_create_state,
- 	.atomic_duplicate_state	= komeda_plane_atomic_duplicate_state,
- 	.atomic_destroy_state	= komeda_plane_atomic_destroy_state,
- 	.format_mod_supported	= komeda_plane_format_mod_supported,
+ static const struct drm_plane_funcs layer_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.reset = atmel_hlcdc_plane_reset,
++	.atomic_create_state = atmel_hlcdc_plane_create_state,
+ 	.atomic_duplicate_state = atmel_hlcdc_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state = atmel_hlcdc_plane_atomic_destroy_state,
  };
  
+ static int atmel_hlcdc_plane_create(struct drm_device *dev,
 
 -- 
 2.54.0
