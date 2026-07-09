@@ -4,46 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA6BC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 16:05:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AFE6C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 16:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 864F210E466;
-	Thu,  9 Jul 2026 16:05:14 +0000 (UTC)
-X-Greylist: delayed 1007 seconds by postgrey-1.36 at gabe;
- Thu, 09 Jul 2026 16:05:13 UTC
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB35010E089
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 16:05:13 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[IPv6:::1])
- by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <l.stach@pengutronix.de>)
- id 1whqyy-00006H-Fd; Thu, 09 Jul 2026 17:48:12 +0200
-Message-ID: <bb5b8c8ff15f8d8b9ad9a61e4887c14b9f77f3d6.camel@pengutronix.de>
-Subject: Re: [PATCH 2/2] drm/etnaviv: Add GPU reset counters
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Christian Gmeiner <christian.gmeiner@gmail.com>, Russell King	
- <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, Christian Gmeiner
- <cgmeiner@igalia.com>
-Date: Thu, 09 Jul 2026 17:48:10 +0200
-In-Reply-To: <20260709-etnaviv-reset-notification-v1-2-64c617496958@igalia.com>
-References: <20260709-etnaviv-reset-notification-v1-0-64c617496958@igalia.com>
- <20260709-etnaviv-reset-notification-v1-2-64c617496958@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id B160A10E6C4;
+	Thu,  9 Jul 2026 16:13:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e8tKeN5i";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7892E10E6CD
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 16:13:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F1A3A4089D;
+ Thu,  9 Jul 2026 16:13:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2C31F00A3A;
+ Thu,  9 Jul 2026 16:13:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783613608;
+ bh=RAelIY3SGJPFiX9W78brt71IyKj6nxt4Jj1gg/NENhM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=e8tKeN5i4m4ACoOIBmSex0OeWH2XVw83XZ/aBvIwAmA4coEeCRkZa20zr/3Llj4QL
+ 6vzg0h1m+yrIbw5jfQXfNEWCibeZaeL4FHjTTGZiP9eAP/lTt3VOP3zXoetxmU0q0/
+ 79FOEwYtkhE9Xmg6wgzbgQmtchuGg/eeL1OjeSNT/5CTp5HwVi9+sU+rSGiOhb85nm
+ CjX2Wsyt7C4fzG2CQU2FPvrchrTG/FgiPV99mGrgxgNQfmP/+MqQIKgRdf6MPKsoOS
+ zICm/nvJRVVETdHHU8Emsy3FV9eKl4gAhMMhlVaCEy4/b8Hsbqv4Wy0XMBByorPdci
+ ErIM9s1QwJm+Q==
+Date: Thu, 9 Jul 2026 18:13:26 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <ak_F9o4KMMqZAsq3@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
+ <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
+ <akuvyu1Pq0ZVMZV0@orome> <akzikTrmhMsvkNVY@willie-the-truck>
+ <ak5CXzGStC6ZmtwI@orome>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: l.stach@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="u2l7n4igggpssyeo"
+Content-Disposition: inline
+In-Reply-To: <ak5CXzGStC6ZmtwI@orome>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,189 +101,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
 
-Am Donnerstag, dem 09.07.2026 um 16:57 +0200 schrieb Christian Gmeiner:
-> From: Christian Gmeiner <cgmeiner@igalia.com>
+--u2l7n4igggpssyeo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+MIME-Version: 1.0
+
+On Wed, Jul 08, 2026 at 02:50:04PM +0200, Thierry Reding wrote:
+> On Tue, Jul 07, 2026 at 12:27:13PM +0100, Will Deacon wrote:
+> > On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
+> > > On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
+> > > > On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
+> > > > > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
+> > > > > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
+> > > > > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrot=
+e:
+> > > > > > > > From: Chun Ng <chunn@nvidia.com>
+> > > > > > > >=20
+> > > > > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE prot=
+ection bits
+> > > > > > > > on a kernel-linear-map range.
+> > > > > > >=20
+> > > > > > > That sounds like a really terrible idea. Why is this necessar=
+y and how
+> > > > > > > does it interact with things like load_unaligned_zeropad()?
+> > > > > >=20
+> > > > > > This is necessary because once the memory controller has walled=
+ off the
+> > > > > > new memory region the CPU must not access it under any circumst=
+ances or
+> > > > > > it'll cause the CPU to lock up (I think technically it'll hit a=
+n SError
+> > > > > > but in practice that just means it'll freeze, as far as I can t=
+ell).
+> > > > > >=20
+> > > > > > Probably doesn't interact well at all with load_unaligned_zerop=
+ad().
+> > > > > >=20
+> > > > > > > I think you should unmap the memory from the linear map and m=
+emremap()
+> > > > > > > it instead.
+> > > > > >=20
+> > > > > > Given that the memory can never be accessed by the CPU after th=
+e memory
+> > > > > > controller locks it down, I don't think we'll even need memrema=
+p(). The
+> > > > > > only thing we really need is the sg_table we hand out via the D=
+MA BUFs
+> > > > > > so that they can be used by device drivers to program their DMA=
+ engines
+> > > > > > internally.
+> > > > > >=20
+> > > > > > Looking through some of the architecture code around this, shou=
+ldn't we
+> > > > > > simply be using set_memory_encrypted() and set_memory_decrypted=
+() for
+> > > > > > this? While they might've been created for slightly other use-c=
+ases,
+> > > > > > they seem to be doing exactly what we want (i.e. remove the pag=
+e range
+> > > > > > from the linear mapping and flushing it, or restoring the valid=
+ bit and
+> > > > > > standard permissions, respectively).
+> > > > >=20
+> > > > > Ah... I guess we can't do it because we're not in a realm world a=
+nd so
+> > > > > the early checks in __set_memory_enc_dec() would return early and=
+ turn
+> > > > > it into a no-op.
+> > > > >=20
+> > > > > How about if I extract a common helper and provide set_memory_p()=
+ and
+> > > > > set_memory_np() in terms of those. Those are available on x86 and
+> > > > > PowerPC as well, so fairly standard. I suppose at that point we're
+> > > > > closer to set_memory_valid().
+> > > >=20
+> > > > Why not just call set_direct_map_invalid_noflush() +
+> > > > flush_tlb_kernel_range() for each page? We already have APIs for th=
+is.
+> > >=20
+> > > Having a "standard" helper with a fixed and documented purposed seemed
+> > > like a preferable approach for this particular case. We also may want=
+ to
+> > > make the driver that uses this buildable as a module, in which case w=
+e'd
+> > > need to export these rather low-level APIs. And then there's also the
+> > > fact that we typically call this on a rather large region of memory
+> > > (usually something like 512 MiB), so doing it page-by-page is rather
+> > > suboptimal.
+> > >=20
+> > > > The big challenge I see with any linear map manipulation, however, =
+is
+> > > > that it will rely on can_set_direct_map() which likely means you ne=
+ed to
+> > > > give up some performance and/or security to make this work. Does me=
+mory
+> > > > become inaccesible dynamically at runtime? If not, the best bet wou=
+ld
+> > > > be to describe it as a carveout in the DT and mark it as "no-map" so
+> > > > we avoid mapping it in the first place.
+> > >=20
+> > > VPR exists in two modes: static and resizable. For static VPR we do
+> > > exactly that: describe it as carveout in DT with no-map and deal with=
+ it
+> > > accordingly in the driver. Resizable VPR is for device that have small
+> > > amounts of RAM. Content-protected video playback will in the worst ca=
+se
+> > > consume around 1.8 GiB of RAM, so we want to be able to reuse for oth=
+er
+> > > purposes when VPR is unused on those devices. In that case, the memory
+> > > is also described as a reserved-memory region in DT, but it is marked=
+ as
+> > > reusable so that it can be managed by CMA.
+> > >=20
+> > > The resize operation is fairly slow to begin with because we need to
+> > > stall the GPU and put it into reset before the operation, then take it
+> > > out of reset and resume it afterwards.
+> > >=20
+> > > What kind of performance impact do you expect?
+> >=20
+> > You'll need to measure it, but we've seen reports of double-digit
+> > percentage regressions in performance and power. As I said, the problem
+> > is that you need to split the linear map to 4k page at runtime to unmap
+> > the dynamic carveout, but that isn't something that can be done on most
+> > CPUs. Therefore you end up having to use page-granular mappings for the
+> > entire thing, similarly to how 'rodata_full' drives can_set_direct_map()
+> > and the perf/power hit affects everything.
+> >=20
+> > It's hard to know what to suggest... I wonder if any of the memory
+> > hotplug logic could help here?
 >=20
-> The OpenGL and Vulkan robustness extensions let an application detect a
-> GPU reset and check if its own context caused it, so the application can
-> drop the broken context and build a new one. The kernel knows both
-> facts, but etnaviv has no way to report them to userspace.
+> I've read up on memory hotplug a bit and it sounds like it could fit
+> this really nicely. Given that we only use CMA (along with the extra
+> patches to it) to make sure that any buffers are reclaimed for VPR use,
+> we should be able to get rid of the CMA usage altogether and replace it
+> with online_pages() and offline_pages() instead. Rather than using a
+> fixed set of CMA areas like we currently do, each "chunk" in the VPR
+> driver could represent a memory block instead (which looks like it will
+> be 128 MiB for 4 KiB pages and 512 MiB for 64 KiB pages). We currently
+> use 512 MiB as the chunk size, so it should be relatively similar and
+> easy to adjust.
 >=20
-> Add two counters and expose them through GET_PARAM: a per-GPU counter
-> that counts every reset of that GPU, and a per-context counter that only
-> counts the resets this context was guilty of. Userspace compares the
-> counters with saved values: if the context counter moved the context was
-> guilty, if only the GPU counter moved the context was an innocent
-> victim.
-
-I don't really agree with the design of exposing this through
-GET_PARAM.
-
-First it assumes that each etnaviv_file_private can only have a single
-context, something that is true today but which I would very much like
-to change to rid of false dependencies when the application uses
-multiple GL contexts through the same screen. I have a rework to do
-this in the pipe, which I didn't get around to finish, yet. While I
-don't want to block any of your work on this rework, I also wouldn't
-like to see UAPI land which bakes in the single context per file
-private assumption.
-
-Second, with this design each userspace query incurs two roundtrips
-into the kernel, as userspace needs to know both counter values to tell
-innocent vs guilty resets apart.
-
-My vote would be on adding a new ioctl to query both reset counters at
-the same time, with a flags argument baked in, so it can be extended
-once I manage to finish the multi context rework.
-
-Regards,
-Lucas
-
+> One issue that we would absolutely need this memory to be ZONE_MOVABLE
+> from the start. Using no-map in DT and then online_pages() probably will
+> not work because there's no struct page for the memory. So we're left
+> with keeping the memory onlined by default, in which case we'd need some
+> way for DT to instruct the memory to be put into ZONE_MOVABLE always.
 >=20
-> The GPU counter is per GPU core and not per device, so a hang on one
-> pipe does not look like an innocent reset to contexts that only use
-> another pipe.
->=20
-> Bump the driver minor version so userspace can detect the feature.
->=20
-> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
-> ---
->  drivers/gpu/drm/etnaviv/etnaviv_drv.c   |  5 +++--
->  drivers/gpu/drm/etnaviv/etnaviv_drv.h   |  1 +
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.c   | 12 +++++++++++-
->  drivers/gpu/drm/etnaviv/etnaviv_gpu.h   |  6 +++++-
->  drivers/gpu/drm/etnaviv/etnaviv_sched.c |  3 +++
->  include/uapi/drm/etnaviv_drm.h          |  2 ++
->  6 files changed, 25 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etna=
-viv/etnaviv_drv.c
-> index a27ed014fb4e..14f2fe5fb98c 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> @@ -293,7 +293,8 @@ static int etnaviv_ioctl_get_param(struct drm_device =
-*dev, void *data,
->  	if (!gpu)
->  		return -ENXIO;
-> =20
-> -	return etnaviv_gpu_get_param(gpu, args->param, &args->value);
-> +	return etnaviv_gpu_get_param(gpu, file->driver_priv, args->param,
-> +				     &args->value);
->  }
-> =20
->  static int etnaviv_ioctl_gem_new(struct drm_device *dev, void *data,
-> @@ -530,7 +531,7 @@ static const struct drm_driver etnaviv_drm_driver =3D=
- {
->  	.name               =3D "etnaviv",
->  	.desc               =3D "etnaviv DRM",
->  	.major              =3D 1,
-> -	.minor              =3D 4,
-> +	.minor              =3D 5,
->  };
-> =20
->  /*
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etna=
-viv/etnaviv_drv.h
-> index cba4323ae589..fbbb0544130c 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-> @@ -34,6 +34,7 @@ struct etnaviv_file_private {
->  	int id;
->  	struct etnaviv_iommu_context	*mmu;
->  	struct drm_sched_entity		sched_entity[ETNA_MAX_PIPES];
-> +	atomic_t reset_counter;
->  };
-> =20
->  struct etnaviv_drm_private {
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etna=
-viv/etnaviv_gpu.c
-> index c314b3cb5e70..4253560caa14 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-> @@ -39,7 +39,9 @@ static const struct platform_device_id gpu_ids[] =3D {
->   * Driver functions:
->   */
-> =20
-> -int etnaviv_gpu_get_param(struct etnaviv_gpu *gpu, u32 param, u64 *value=
-)
-> +int etnaviv_gpu_get_param(struct etnaviv_gpu *gpu,
-> +			  struct etnaviv_file_private *ctx,
-> +			  u32 param, u64 *value)
->  {
->  	struct etnaviv_drm_private *priv =3D gpu->drm->dev_private;
-> =20
-> @@ -167,6 +169,14 @@ int etnaviv_gpu_get_param(struct etnaviv_gpu *gpu, u=
-32 param, u64 *value)
->  		*value =3D gpu->identity.eco_id;
->  		break;
-> =20
-> +	case ETNAVIV_PARAM_GLOBAL_RESET_COUNTER:
-> +		*value =3D atomic_read(&gpu->reset_counter);
-> +		break;
-> +
-> +	case ETNAVIV_PARAM_CONTEXT_RESET_COUNTER:
-> +		*value =3D atomic_read(&ctx->reset_counter);
-> +		break;
-> +
->  	default:
->  		DBG("%s: invalid param: %u", dev_name(gpu->dev), param);
->  		return -EINVAL;
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h b/drivers/gpu/drm/etna=
-viv/etnaviv_gpu.h
-> index 5cb46c84e03a..a5d7c2158eb5 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-> @@ -148,6 +148,8 @@ struct etnaviv_gpu {
->  	u32 hangcheck_primid;
->  	u32 hangcheck_fence;
-> =20
-> +	atomic_t reset_counter;
-> +
->  	void __iomem *mmio;
->  	int irq;
-> =20
-> @@ -204,7 +206,9 @@ static inline u32 gpu_read_power(struct etnaviv_gpu *=
-gpu, u32 reg)
->  	return readl(gpu->mmio + gpu_fix_power_address(gpu, reg));
->  }
-> =20
-> -int etnaviv_gpu_get_param(struct etnaviv_gpu *gpu, u32 param, u64 *value=
-);
-> +int etnaviv_gpu_get_param(struct etnaviv_gpu *gpu,
-> +			  struct etnaviv_file_private *ctx,
-> +			  u32 param, u64 *value);
-> =20
->  int etnaviv_gpu_init(struct etnaviv_gpu *gpu);
->  bool etnaviv_fill_identity_from_hwdb(struct etnaviv_gpu *gpu);
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/et=
-naviv/etnaviv_sched.c
-> index 139e6e38784b..398608009924 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-> @@ -79,6 +79,9 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_j=
-ob(struct drm_sched_job
->  	if(sched_job)
->  		drm_sched_increase_karma(sched_job);
-> =20
-> +	atomic_inc(&gpu->reset_counter);
-> +	atomic_inc(&submit->ctx->reset_counter);
-> +
->  	/* get the GPU back into the init state */
->  	etnaviv_core_dump(submit);
->  	etnaviv_gpu_recover_hang(submit);
-> diff --git a/include/uapi/drm/etnaviv_drm.h b/include/uapi/drm/etnaviv_dr=
-m.h
-> index af024d90453d..977f6ae82fae 100644
-> --- a/include/uapi/drm/etnaviv_drm.h
-> +++ b/include/uapi/drm/etnaviv_drm.h
-> @@ -77,6 +77,8 @@ struct drm_etnaviv_timespec {
->  #define ETNAVIV_PARAM_GPU_PRODUCT_ID                0x1c
->  #define ETNAVIV_PARAM_GPU_CUSTOMER_ID               0x1d
->  #define ETNAVIV_PARAM_GPU_ECO_ID                    0x1e
-> +#define ETNAVIV_PARAM_GLOBAL_RESET_COUNTER          0x1f
-> +#define ETNAVIV_PARAM_CONTEXT_RESET_COUNTER         0x20
-> =20
->  #define ETNA_MAX_PIPES 4
-> =20
+> There's a "hotpluggable" property for "memory" nodes, maybe that can be
+> extended to apply to reserved-memory nodes as well?
+
+I haven't been having much success with this. memblock_mark_hotplug()
+doesn't have much of an effect because the kernel clears this flag
+automatically at some point, so by the time the movable zone is created
+there's no memory left that's marked hotpluggable. I don't know if it's
+a good idea to modify the code to keep the flag.
+
+Another thing I briefly tried was to use add_memory_driver_managed()
+together with the no-map flag in an attempt to get the memory explicitly
+added as movable, but that fails because __request_resource() notices
+that the reserved memory is actually part of the system RAM that was
+registered earlier.
+
+I think in order for this to work the bindings would probably need to
+change, such that reserved-memory nodes aren't used but it's described
+using the memory nodes instead. That way a piece of system RAM could be
+carved out and added by the VPR driver. I don't know if the kernel would
+like this kind of splicing of the system RAM, though.
+
+It's all very close to what I need for this, but doesn't quite fit. Any
+ideas which of the options is best? Right now it sounds like finding a
+way to make this region explicitly ZONE_MOVABLE would be the best. That
+should allow offline_pages() and online_pages() to be used, which seems
+like the cleanest approach.
+
+Thierry
+
+--u2l7n4igggpssyeo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpPyKMACgkQ3SOs138+
+s6HMyg//VTBl5irgppGTb3EjEccykd6c0o9JZQ0UMSSSA+GHq89TLA0mP06UMEIo
+rhLr7OakIAbbZ1QlsTywvsU9Fm33hcO4AddUn1OAcl4HTvP19JfwNN3Y/AwZtsKw
+CO5/J9sJOO2Ofb3O20BC7RHHfLxHhhwjdcp8+aQ739tG7fKlyA6r/R3ebAOVsQqJ
+VTSFF8Bdej2X/EWVBZRWprUdSgDACyFlhNIRBOt57nRObqO7iqnXEjm84gMXJWxk
+/4OStnkVJL4fVk1ZaDzYjFJzi1MTT20KOEldRWAL3CwxSLYBcP8rYG0YoGLaZIfC
+Hgvo0XBO+RHwufv77wN4Z7vDLAktcNu6PTS1ovemW24iW3DelUv89/7Fh32l31CV
+dTnvNK6sukz82QXd62VFzskpbfxW9ONO5awGKcpxDEoSeUGd/4Cg+nfvXIbhfZgN
+kdjAJXxD5VvDeIpvOVMSQVINE9T/OkGqV8CkCMQfDu3+hSq7iU8OW8TH2eybWcqt
+POCKNDd0dm21w1miNqpi5qvUrUa8zzYfjmQt1dxwPUf36EcoodZaOSNjkKi0amdm
+S5yLHnW6KuFY26nTGPQ54Noup4ZPuKBoqZjg/m6sPx34fr8HKIMSLM6Kp2oYq2K6
+oga7buaPA7sRTHJ9tMFv/G9ACDJo71dmTuDyMAnNFqpv46c1+4c=
+=+7m0
+-----END PGP SIGNATURE-----
+
+--u2l7n4igggpssyeo--
