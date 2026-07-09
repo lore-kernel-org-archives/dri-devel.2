@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56EFEC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DACDC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:10:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC6210F56D;
-	Thu,  9 Jul 2026 12:10:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3ABE10F57A;
+	Thu,  9 Jul 2026 12:10:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bdb92Yde";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X57Ji+t5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E39F10F56D
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:10:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7137A10F57A
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:10:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A12E942E8D;
- Thu,  9 Jul 2026 12:10:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8AE1F000E9;
- Thu,  9 Jul 2026 12:10:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AA979600C3
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:10:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3624C1F000E9;
+ Thu,  9 Jul 2026 12:10:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783599018;
- bh=Vqzl+lQD180UA90kFJISJn6a3OIGK6qpKyWgFtkYgjo=;
+ s=k20260515; t=1783599034;
+ bh=JgqqnoaQ/uJLEhV6k1DjxxMWWTFyz5sok+2KR/viM0g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Bdb92YdeUxPGOZrtyDskLwJyMSTUD8ytjbrn2otE5E6o1/ZqM4gXmyirzBtpT4tRw
- +J/8rY3EEgjthdn4fX2fPbK19vIvYy9XEPRqDWc3q57O1hP9joE6kJ+F8pxu9DjUw9
- Sf8FSDlMb83JoRHRGjfD7nAiSHADhykd4XaCU7c1TxI8IRAHFzULX8SBNE0xCQ5NL4
- QvVNzid57Ar5cYeK5nHEaG77sr8OMg13YWEj1iUe+DKkPI40vgNk+sZkQSZPvqkPFf
- 7FQF+YT/0AS4Rbi5Wd0HtADkDlWn24g0uiyWZDbGt4syRVM/cuyJTJKAqgClqrFgEz
- O1/JNlx1ZFlgQ==
+ b=X57Ji+t5gpu/L8Xy9BnytNPUafAoK4WyL2af9aoCY80zqPG5Kac3iCx6XU+Oy03f5
+ ZC+7/MsWEucoBjquQb4vhRCwkSjeFTPeEM1q6BAYT83BWEyJEDGszcYQoj/L8i+1Yn
+ RnG3YUs3JgxiX0i2W/f4DwWFh5JEuBMv29WF6SCwaxGK62nVR3vaLx+tu0U0VGHRHn
+ Q1xEIPShUY0t2haH8QGBDRorJgzzlP6Zd3bFPLR+KSS00eUuWM2qE1YMMA/FjY69N0
+ QFgVualPRiNF4LVbtdifwDkX8CilrZe0TlXzdFSo8UyQP6pNdw37ztx1nCCXEGmXcm
+ 088GF5mpbuvIA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6.6] drm/amdgpu: Use scnprintf() in amdgpu_mes_add_ring()
-To: "Evgenii Burenchev" <evg28bur@yandex.ru>
+Subject: Re: [PATCH 20/60] drm/kmb: Convert to atomic_create_state
+To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709120049.42048-1-evg28bur@yandex.ru>
-References: <20260709120049.42048-1-evg28bur@yandex.ru>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-20-302d986fe5f0@kernel.org>
+References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-20-302d986fe5f0@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 12:10:17 +0000
-Message-Id: <20260709121018.5A8AE1F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 12:10:33 +0000
+Message-Id: <20260709121034.3624C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,77 +61,79 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but there is a doubl=
-e unlock of `adev->mes` in the error handling path of `amdgpu_mes_add_ring(=
-)`.
+- [High] This problem wasn't introduced by this patch, but `kmb_plane_destr=
+oy()` explicitly calls `kfree()` on a pointer allocated with `drmm_kzalloc(=
+)`. The devres-managed `drmm_kzalloc()` allocates a block with a header and=
+ returns an interior pointer to the data section. Calling `kfree()` directl=
+y on this interior pointer causes an immediate bad slab kernel panic. Furth=
+ermore, because the memory is registered with the DRM managed resources sub=
+system, it would also lead to a double-free when the DRM device is torn dow=
+n.
 --
 
---- Patch [1]: [PATCH 6.6] drm/amdgpu: Use scnprintf() in amdgpu_mes_add_ri=
-ng() ---
-commit 44ecf76b72a68dfa86323d985780462c9ca485b7
-Author: Evgenii Burenchev <evg28bur@yandex.ru>
+--- Patch [20]: [PATCH 20/60] drm/kmb: Convert to atomic_create_state ---
+commit a20682a33b057586ca5c0d0ad2bf47bc5c88d302
+Author: Maxime Ripard <mripard@kernel.org>
 
-drm/amdgpu: Use scnprintf() in amdgpu_mes_add_ring()
+    drm/kmb: Convert to atomic_create_state
+   =20
+    The plane only initializes a pristine state in its reset hook
+    using drm_atomic_helper_plane_reset(), which is equivalent to what
+    atomic_create_state expects. Convert to it.
 
-This commit replaces sprintf() with scnprintf() to prevent a potential buff=
-er
-overflow when writing to ring->name.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index b6015157763af..d2128bcf9844f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
 [ ... ]
-> @@ -1023,13 +1023,14 @@ int amdgpu_mes_add_ring(struct amdgpu_device *ade=
-v, int gang_id,
->  	ring->doorbell_index =3D qprops.doorbell_off;
-> =20
->  	if (queue_type =3D=3D AMDGPU_RING_TYPE_GFX)
-> -		sprintf(ring->name, "gfx_%d.%d.%d", pasid, gang_id, queue_id);
-> +		scnprintf(ring->name, sizeof(ring->name), "gfx_%d.%d.%d",
-> +			pasid, gang_id, queue_id);
->  	else if (queue_type =3D=3D AMDGPU_RING_TYPE_COMPUTE)
-> -		sprintf(ring->name, "compute_%d.%d.%d", pasid, gang_id,
-> -			queue_id);
-> +		scnprintf(ring->name, sizeof(ring->name), "compute_%d.%d.%d",
-> +			pasid, gang_id, queue_id);
->  	else if (queue_type =3D=3D AMDGPU_RING_TYPE_SDMA)
-> -		sprintf(ring->name, "sdma_%d.%d.%d", pasid, gang_id,
-> -			queue_id);
-> +		scnprintf(ring->name, sizeof(ring->name), "sdma_%d.%d.%d",
-> +			pasid, gang_id, queue_id);
->  	else
->  		BUG();
-> =20
+
+> diff --git a/drivers/gpu/drm/kmb/kmb_plane.c b/drivers/gpu/drm/kmb/kmb_pl=
+ane.c
+> index a0001edb1e21a..1742c2c6dfd89 100644
+> --- a/drivers/gpu/drm/kmb/kmb_plane.c
+> +++ b/drivers/gpu/drm/kmb/kmb_plane.c
+> @@ -561,7 +561,7 @@ static const struct drm_plane_funcs kmb_plane_funcs =
+=3D {
+>  	.update_plane =3D drm_atomic_helper_update_plane,
+>  	.disable_plane =3D drm_atomic_helper_disable_plane,
+>  	.destroy =3D kmb_plane_destroy,
 
 [Severity: High]
-This isn't a bug introduced by this patch, but there appears to be a double
-unlock of adev->mes in the error handling path of amdgpu_mes_add_ring().
+This isn't a bug introduced by this patch, but kmb_plane_destroy() explicit=
+ly
+calls kfree() on a pointer allocated with drmm_kzalloc().
 
-Earlier in amdgpu_mes_add_ring(), the lock is explicitly released before ca=
-lling
-amdgpu_mes_add_hw_queue():
+The devres-managed drmm_kzalloc() allocates a block with a header and retur=
+ns
+an interior pointer to the data section:
 
-	amdgpu_mes_unlock(&adev->mes);
+drivers/gpu/drm/kmb/kmb_plane.c:kmb_plane_init() {
+    ...
+    for (i =3D 0; i < KMB_MAX_PLANES; i++) {
+        plane =3D drmm_kzalloc(drm, sizeof(*plane), GFP_KERNEL);
+    ...
+}
 
-	r =3D amdgpu_mes_add_hw_queue(adev, gang_id, &qprops, &queue_id);
-	if (r)
-		goto clean_up_ring;
+Calling kfree() directly on this interior pointer in kmb_plane_destroy() wi=
+ll
+cause an immediate bad slab kernel panic:
 
-If amdgpu_mes_add_hw_queue() fails, it jumps to clean_up_ring, which falls
-through to clean_up_memory where it unconditionally unlocks again:
+drivers/gpu/drm/kmb/kmb_plane.c:kmb_plane_destroy() {
+    ...
+    struct kmb_plane *kmb_plane =3D to_kmb_plane(plane);
 
-clean_up_ring:
-	amdgpu_ring_fini(ring);
-clean_up_memory:
-	kfree(ring);
-	amdgpu_mes_unlock(&adev->mes);
-	return r;
+    drm_plane_cleanup(plane);
+    kfree(kmb_plane);
+}
 
-Could this result in a double unlock when the hardware queue allocation fai=
-ls?
+Additionally, because the memory is registered with the DRM managed resourc=
+es
+subsystem, this will lead to a double-free when the DRM device is torn down.
+
+Should this manual kfree() be removed to avoid the panic and double-free?
+
+> -	.reset =3D drm_atomic_helper_plane_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_plane_create_state,
+>  	.atomic_duplicate_state =3D drm_atomic_helper_plane_duplicate_state,
+>  	.atomic_destroy_state =3D drm_atomic_helper_plane_destroy_state,
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709120049.4204=
-8-1-evg28bur@yandex.ru?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-drm-no-mor=
+e-plane-reset-v1-0-302d986fe5f0@kernel.org?part=3D20
