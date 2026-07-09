@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1294C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D0D4C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:58:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5359810F4D0;
-	Thu,  9 Jul 2026 10:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFA5A10F4D7;
+	Thu,  9 Jul 2026 10:58:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b9y96QwG";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="IHq9u1iL";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qu64wuzF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14DC310F4D0
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:57:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D6B8D419D9;
- Thu,  9 Jul 2026 10:57:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2381F000E9;
- Thu,  9 Jul 2026 10:57:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783594650;
- bh=l8jwpRzuklUNqFt2VCLS4GmwDHQPef/tVTCpOjZJlFM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date;
- b=b9y96QwGQyjcii+BfXrVlm4/GEmkMGeHyMF6vvO7ly7mbiCQGTNeBaJL0Ky4yW5Lr
- VpzCIVyJsR/dv4i+c8YriAyD5bCAA5yaVpKCPqgH7fDNReyFS4PD7G343VLd1h2Z/j
- PvVqDcYQZbJycF9pK5k3/fU7GBIrTrnGyBEH2mudjQgknhhR/dMrSN7ojOErYg7Euh
- O4yUNMepPv2lNGdMVpmeFaS89dz1qUud5WZK1fQEga1fGDfa4+wowo+6JmDxYiTPG/
- wfRtEuP2Onbx1oRYkYc3Y9zZx8hEYSnJ9ehVlcHT0O506MXzsrU5z8CuU2MR+hmsTo
- U0AG77pz9bVug==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com, 
- pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- Junjie Cao <junjie.cao@linux.dev>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- krzysztof.kozlowski@oss.qualcomm.com
-In-Reply-To: <20260706073307.1038430-1-junjie.cao@linux.dev>
-References: <20260706073307.1038430-1-junjie.cao@linux.dev>
-Subject: Re: (subset) [PATCH v2] MAINTAINERS: update my email address for
- the AW99706 backlight driver
-Message-Id: <178359464819.2111333.7818516262621173390.b4-ty@b4>
-Date: Thu, 09 Jul 2026 11:57:28 +0100
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E74410F4D5;
+ Thu,  9 Jul 2026 10:58:01 +0000 (UTC)
+Date: Thu, 9 Jul 2026 12:57:54 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1783594675;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=26FJV7cjx48XgvbFrZjYdsbkT1r51opYw8MIa0Bm5Eg=;
+ b=IHq9u1iLo6dtgZTwgJxWAJ50UGIh+m9ngRAPue+UJLkI6eVFKClgs15hjdPnr8CcZY9ypy
+ SlzvRaQ1nMFfQwvs6gKAyFyQW0aIBu1hLsYgXW7uwdKSviC1blhbdpvQrJr1yLftxI4wLW
+ C4HHd5nYzaFsLaSo6t/vXkhLK9NLDEB2ORKdLwvo1b0jCpvOun69FjgCR0dADa613dPPj0
+ PO2vAcOlOSA8RtB49pSV2dbYLLRBfLD8y/PrSKl7+8X1pFL1oFE33QE5gAKWLPZBRwPwWR
+ UixeSs4qHh6FaP+1Cy2s1YW3J6EzWgfLAEBy24lzog8VEvG10Uz3sd7rS8Ibrg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1783594675;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=26FJV7cjx48XgvbFrZjYdsbkT1r51opYw8MIa0Bm5Eg=;
+ b=qu64wuzFzehc8lPi+dzEe7pETqZ/xP4P7maHHBZIsBbTRtPH6m+/Ui6wa2yHKevb8mvhww
+ Rwvbqd3buZ1t3FAQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 7/7] drm/i915/gt: Use signalers_lock to prevent
+ starvation of irq_work.
+Message-ID: <20260709105754.WJvT6s22@linutronix.de>
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706114823.752313-8-dev@lankhorst.se>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260706114823.752313-8-dev@lankhorst.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,17 +63,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 06 Jul 2026 15:33:07 +0800, Junjie Cao wrote:
-> Switch my maintainer entry for the Awinic AW99706 WLED backlight
-> driver from my personal Gmail address to junjie.cao@linux.dev.
+On 2026-07-06 13:48:23 [+0200], Maarten Lankhorst wrote:
+> From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 > 
-> Update both MAINTAINERS and the device-tree binding maintainers field.
+> IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
+> and the interrupt will poll on signaler_active while the irq-work can't
+> make progress.
+> 
+> Solve this by adding a global spinlock to prevent starvation and force
+> completion.
+> 
+> The existing RCU handling gets in the way on PREEMPT_RT, and would likely
+> require conversion to raw spinlock to take them inside a
+> rcu_read_lock(), so remove RCU as well.
 
-Applied, thanks!
+You require both locks and a try-lock since the ordering is wrong. And
+you replace the RCU-section with a lock. Understood.
 
-[1/1] MAINTAINERS: update my email address for the AW99706 backlight driver
-      commit: 4b3f5baf67dea91452b5b114dcb19139feba71dd
+You probably want to make yourself as the author and make me
+Co-developed-by or something or nothing. This would fix the Sob order
+below.
 
---
-Lee Jones [李琼斯]
+> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 
+Sebastian
