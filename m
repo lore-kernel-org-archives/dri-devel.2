@@ -4,58 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F9C5C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 13:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71922C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:14:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB85310F5E5;
-	Thu,  9 Jul 2026 13:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86DA310F613;
+	Thu,  9 Jul 2026 14:14:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Uk9k61Ti";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="om4PRwHi";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3609F10F5E5
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 13:58:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783605505;
- bh=DjWIojAzSpqrury6RVuc3AKXDQ21nXDPRrnz5nALTGA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Uk9k61TiU5kLuxeWd3yKSlAqlof2xEMCyZ91YUH3EfsxlKkfbd0J9XbYPF2Ozvnx2
- znsCEGFc0wsenIpMQNl9u8fUGgAEXMNXikFccXqUNWwyipJ6b4k7hwQdB+28KHNYgV
- DhGM+/SdJbKXOTVW8bKfuCRp6qIndc4Bicdywmrx8J4xx3lLAWIOOTO1Uui4dEFIlM
- njnJBYlIgqMZkMzTUVIyiAa4RtLla1XMF/0vUPccM7sSh2aOyGfsAHSchAmSGL9UJx
- GMq1i7dDU2zbAh61mKNXgcrr/LfUmlxvBwforDJ3gRoQAAgG63SBV3U7NlObDn0Baf
- +WVSbE+qB6gzg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 08BAF17E071A;
- Thu, 09 Jul 2026 15:58:23 +0200 (CEST)
-Message-ID: <fba4f7d6-d480-4f1a-8d80-3dd0a797b61e@collabora.com>
-Date: Thu, 9 Jul 2026 15:58:23 +0200
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5553D10F610
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 14:14:05 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 669DtODF3995896; Thu, 9 Jul 2026 15:13:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=3
+ CEQ2DQeqqKos2jw8cWv33P8/KuznAwZ19LOYRdwrdg=; b=om4PRwHiYjYb5fH2o
+ NkWPq6MepmKqU2b+dl9SNwYfhhkHZpvPUawB7mClyKgu18v587fn60a1YOCt3TnY
+ dO9moiqodzHpA3SmBRCKnIpsOS6WEO6YotPluxPjNFuF8TuGlP3DOuhxGZDCvYkh
+ LxFw3Xn1fy5/fkX/aLBTZrbwfuvwU53mWOpjNO2crcZsKxObNJwq2KS6ZzqXT+Kv
+ ykcZkwwYYvlXsuaAAaXwvDAjyT+/6ue/+XU9D7Dq9wg6LQWa7+eVnvN6nD6uiKFk
+ p7wLD7WHt/rLoHn8OMwzegf6MtAwti8qD/uvZA+mHQ0D1Vi+CDks5TxAHaQY+unj
+ lltqw==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fa1dw0jmk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 09 Jul 2026 15:13:44 +0100 (BST)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 9 Jul
+ 2026 15:13:43 +0100
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ Ben Dooks <ben.dooks@codethink.co.uk>
+CC: Alessio Belle <Alessio.Belle@imgtec.com>
+In-Reply-To: <20260703162338.2848039-1-ben.dooks@codethink.co.uk>
+References: <20260703162338.2848039-1-ben.dooks@codethink.co.uk>
+Subject: Re: [PATCH v2] drm/imagination: make pvr_fw_trace_init_mask_ops static
+Message-ID: <178360642364.200091.9987233516205332240.b4-ty@imgtec.com>
+Date: Thu, 9 Jul 2026 15:13:43 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] dt-bindings: soc: mediatek: mutex: Allow
- #trigger-source-cells
-To: krzk+dt@kernel.org
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, matthias.bgg@gmail.com, andi.shyti@kernel.org,
- djakov@kernel.org, broonie@kernel.org, jitao.shi@mediatek.com,
- ck.hu@mediatek.com, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com,
- jason-jh.lin@mediatek.com, kernel@collabora.com, chunkuang.hu@kernel.org
-References: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
- <20260701122043.19612-3-angelogioacchino.delregno@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260701122043.19612-3-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Originating-IP: [172.25.4.9]
+X-Proofpoint-GUID: HYEaQc5QmQveTS49OJRPtgrmAtcESmzh
+X-Authority-Analysis: v=2.4 cv=IM8yzAvG c=1 sm=1 tr=0 ts=6a4fac98 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=lPKyr3o1S3o_Cxp3NwYA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: HYEaQc5QmQveTS49OJRPtgrmAtcESmzh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDEzOSBTYWx0ZWRfX+1+Nwe9L0spi
+ p+V1Y041h8MbWuPrExBRKR6D847n0ZUFlPMpLoXgsp97jZ7Lg2h2KcIqymFvok+XeMeW34kcHQ9
+ 8Qs+MMySGXljU8VjYEjdn3ZapPHGVjI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDEzOSBTYWx0ZWRfX7gJZSYk2sHnu
+ dBBxZ8fOMMTelOa6V+y8oiy11LbFHLehH/mbQN+/Ns3tMCl+2MxLR8p1sRtLF7fv3vMjR29nHv8
+ McMDrBvZCJWvr4FxrKWz+UkADicss+rJTBsrSHOJzs1fUGB/VCRu81vvHEmGcTlsgqgn5Hz0jP7
+ c86JmPV4H0XH7udHRVvPCWBGj54MKJuKwWRhFrixDiuNSlld1RohBI9A+z4gsvUbo5Z0hDItLSQ
+ 64msD2vtsEsbvFL6sldrn0KY+XI+bYIP7TZm0rJ/puf8m5C0QW/sq2QrJcBXomeMkr2v+3itV9W
+ hrDTqHV1qtH5CWTCNTgQNc5sIzxZsmtvu9KkMgvsXqhYfNHE3nhY6yeyZIGm4M1a91QmlW5BtEM
+ f6U2oWj7A+efN58f2HET/XuE3KbMIKO+BwjagqvK7CgKFo9CAPXwCYXXGvjt06NnLoVnDR2VxfW
+ iRnMkESiGbyVys8DdWQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,47 +91,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/1/26 14:20, AngeloGioacchino Del Regno wrote:
-> This hardware controls trigger sources, and there's even a generic
-> binding just for that: allow #trigger-source-cells in MuteX, so
-> that this is allowed to provide triggers to external HW.
+
+On Fri, 03 Jul 2026 17:23:38 +0100, Ben Dooks wrote:
+> The pvr_fw_trace_init_mask_ops is not used outside pvr_fw_trace.c
+> so make it static to avoid the following sparse warning:
 > 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-Hey Krzysztof, I noticed you gave your A-b/R-b on the other two bindings commits
-but you skipped this.
-
-Did you have any doubts on this one that I may clarify for you, or was it just
-that this one slipped through while reviewing?
-
-Cheers,
-Angelo
-
-> ---
->   .../devicetree/bindings/soc/mediatek/mediatek,mutex.yaml      | 4 ++++
->   1 file changed, 4 insertions(+)
+> drivers/gpu/drm/imagination/pvr_fw_trace.c:74:31: warning: symbol 'pvr_fw_trace_init_mask_ops' was not declared. Should it be static?
 > 
-> diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-> index 1ba086ad749d..429ea149068e 100644
-> --- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-> +++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-> @@ -57,6 +57,9 @@ properties:
->       items:
->         - description: MUTEX Clock
->   
-> +  '#trigger-source-cells':
-> +    const: 1
-> +
->     mediatek,gce-events:
->       description:
->         The event id which is mapping to the specific hardware event signal
-> @@ -119,6 +122,7 @@ examples:
->               interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
->               power-domains = <&spm MT8173_POWER_DOMAIN_MM>;
->               clocks = <&mmsys CLK_MM_MUTEX_32K>;
-> +            #trigger-source-cells = <1>;
->               mediatek,gce-events = <CMDQ_EVENT_MUTEX0_STREAM_EOF>,
->                                     <CMDQ_EVENT_MUTEX1_STREAM_EOF>;
->           };
+> 
 
+Applied, thanks!
+
+[1/1] drm/imagination: make pvr_fw_trace_init_mask_ops static
+      commit: c804aadc4ce3dcb34d6f2ecc9a159c148210805a
+
+Best regards,
+-- 
+Alessio Belle <alessio.belle@imgtec.com>
 
