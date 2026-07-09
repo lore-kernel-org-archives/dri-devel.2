@@ -4,43 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B8E3C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 21:08:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 402B0C44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 21:23:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68C2010F710;
-	Thu,  9 Jul 2026 21:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF6810E0F9;
+	Thu,  9 Jul 2026 21:23:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BtgllV59";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CTCcxcok";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70E2510F710
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 21:08:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0F2FF40676;
- Thu,  9 Jul 2026 21:08:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72F31F000E9;
- Thu,  9 Jul 2026 21:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783631314;
- bh=r+xZpvMgaCfFyrAKqvHAw5Gzt11rUilGyxt/GV4BNsQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BtgllV59JmLw/nsGxCnoiMDlcl2oRPiQqhXa3LUn0sJALAI/iYveLC/TkvY9Q7elt
- Wp01iWyovnKGdmwEeUvdqCZEebTcsVOXfldbboUU3XC4CiKdsO7kdpHe/dZHEzybqf
- MKZqHJ8inkkqjzRXzLYYEIy8XbqrDiOCuNiIvSk+5jtGOQacE41k1/7ONfdkIWbmq+
- buN+yZRlDFlKF4iaFQ9z8e872+HxyQht61oEF69uXIVx/R/rkeiI/SqnG+kWDcE3B6
- pAAL0RFgoWtY3vOpK/nJuAqbIEMPzMhX50+BWoq2IL/U9fEkH5lEniAFL7iNfPylRc
- iOwW86Vnav4oQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] GPU: drm: meson: inline call to drm_simple_encoder_init()
-To: "Liam Zuiderhoek" <zuiderhoekl@gmail.com>
-Cc: linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709205538.73157-1-zuiderhoekl@gmail.com>
-References: <20260709205538.73157-1-zuiderhoekl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 21:08:31 +0000
-Message-Id: <20260709210834.A72F31F000E9@smtp.kernel.org>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013048.outbound.protection.outlook.com
+ [40.93.196.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9134310E0D9;
+ Thu,  9 Jul 2026 21:23:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KsFw/x2sE3Qgfr4e9Jp1iU/jvHKxZ5wVlQZdS9uGbiuEjMIo4sYT1U+LKl3YxOJ729PFTpQ5mwxOXNc4e7ga6Uq9462y7EkKhYv2fPWNYxiUR8Dh4NK8Lzz96joUxUxycWEA1Cuvhdof93G7VA9u94FjDtHlULZEQtV4HnjnBn0dkOwR7KfCC8Fxqy+dAx8/+iNXk1BUcScIDRkbVklCkr3IR1Kg1YDnI2Q3+RvOYgCwpNBVnypjaR0q/2IvUQnWEbwf/6GxMkP+TbgfT0dJwUeubUsWPdW/HOoDn+rFAyglGNdbEAGpn1Ud9KgqV9qmPWr3hgzv598V2KbGLpCeAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HbEuhZ4l6D+XHtmfmdnCsnXXBJH61z7aa2C+l7rqMzg=;
+ b=EQ3DUXBW7A2UOIbuTENnRZiraQQVZPOWKTe8Lir6WBZaNXMmklwNJwRGQVHMxCeOaQaO8kHjL2aDRACTwdm6Geps886KhNNwfKtLBFwPytj9Q8Mg4T1pY/AGEunS2a5Z5l+IU/LxCV/0k7+iPkYiNR3JzeBEjJYrfHRsYVLtXWYO9iMLHP3YByF367/bwPD9ifqioDG+7vAsNGgRE7F36bcMaQiKz260n/vn3ZDJnELrtMX+/bCBmbHJFN6G70728eS3WTofeiA2/SNa4z3BiIWY0GR99j27lNyYZXYykqphoMmZDCPbPGnMNQpGaAcruEGchkAK+W2QUtS6gqq+vA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HbEuhZ4l6D+XHtmfmdnCsnXXBJH61z7aa2C+l7rqMzg=;
+ b=CTCcxcoktg1eEPcaWHe1hXyCJypgBUjX4ed4eATY3z59sY0yitNKKPI3MowNvA1sAnPOYInNcmR8++e0YvgQTzL6xDc+REhV0uTAjrNPH99w+wo6SK/c+YgyY8wJi6U16XADBrIgHhWjinixtJ9DREtzXhfQsGXJ6Gxu+8BbaF4=
+Received: from DS1PR03CA0002.namprd03.prod.outlook.com (2603:10b6:8:450::9) by
+ MW4PR12MB6849.namprd12.prod.outlook.com (2603:10b6:303:20d::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.15; Thu, 9 Jul 2026 21:23:15 +0000
+Received: from DS2PEPF00003441.namprd04.prod.outlook.com
+ (2603:10b6:8:450:cafe::77) by DS1PR03CA0002.outlook.office365.com
+ (2603:10b6:8:450::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
+ Jul 2026 21:23:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:23:15 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
+ 2026 16:23:14 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 9 Jul 2026 16:23:14 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.2
+Date: Thu, 9 Jul 2026 17:23:03 -0400
+Message-ID: <20260709212303.15913-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|MW4PR12MB6849:EE_
+X-MS-Office365-Filtering-Correlation-Id: 706651d0-1af0-4816-fb4d-08dede0049b3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|18002099003|6133799003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: Ehs6Xh5mQ2qbXlUcQsX4xCHPChI5FeQU1WsQpt33eTDS7kCcwwctj9S5NUkCtUt+R1ErIkPN99EW8UuO5+Tu0WEM7/0FayogCN7ZjzmxQIJ1H8s+oq3UHcOJvfUEqs7QEMAg2vWlggzeOst0c4ehBZ3bbrRYExmHj8yXzTVlJbZA+TywNcNYgnb1RBMHx+XaqBMv5U19Wsvrm6K+88IZh/k/Z1C6XpiEiUvAN2RTyXgPxN5L8NrXCOKGSaFcs1cDhXyU9soAQUnW047s8EN36nKnSAQFI5dJkN8GXoe4vrzMmqEk9iS/eKvlZ6SVWyn96FkWUg060Tue2054IB2SW20K8CaRLXj7hRXjcGz++3eag27RqLtvG0fhzSwWT6/QZrIvJSnQnbnEXl1Gn8OHWrTRM9O3FnoKieJ9PlREoHckUrZ0+F6SaVDtXIcbvPT7ivhI+7b3u7Ny7RQBCI1s12Ktnob3M/lLqL4hMOlErnRXGrMloja69y/kIgo8G+Rpv/WIhu7w3RLzRrtlDXG1xqjaULPhc/W2rdtLKMg3a589XGKsiMGRpY6AROfgyTqqWMAqLW4G1cFGoTNvfqMwYuctjc3TM52gj92LZni2WFFv0X26f16qoUSTofv8ZaKW9KQDJbU/c45Fywm7b1UsNA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(18002099003)(6133799003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 34cEVaaChiFy+ABYqNJZ1lIsMSODUc/n0LgzsY6yqXCVMv4NSHY9l2xqAgvQ5MnBIHmc6KwAvhRLArfLgVYsJY37IU6f8uoklbpSs97mzgA/pyU/HnbqKpS6g9Xx96S6B3vkQikSlttZpvIXi72QwS+CjSOhWi0WZ+7gAizBBb+fQhhG2mMuc5bqvxIWuxoX6VkBowwXMdl0/5q6oTVoM/GWg9KYlGYXuoTgIIFz78UMYQ7mxGtLlq/z5gZvHF8bwuWTenGNKbzqV+HJ8s+yqo/Fm6SRW10iCSot5EF25qiWJDVH4oIFuqzRedtvaVtzwaGAjXXXFxzQk5ubq2LSkuBM7ifMuidrACsqAZyJ+JHuZhBXGgOx10/5ymCLuMvLvElvAR+5aTv7bGsUpeNDEWmfD2pPFuXt0O0uLjbgQKCiMrmtViiXf35Qyy5ku1ga
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:23:15.0254 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 706651d0-1af0-4816-fb4d-08dede0049b3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6849
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,97 +107,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Dave, Simona,
 
-New issues:
-- [Low] The commit message claims to inline `drm_simple_encoder_init()` for=
- the meson driver, but it only modifies the HDMI encoder, leaving the depre=
-cated helper in use by other encoders in the same driver.
+Fixes for 7.2.
 
-Pre-existing issues:
-- [High] The `meson_encoder_hdmi` structure (which embeds `struct drm_encod=
-er`) is allocated with `devm_drm_bridge_alloc()`, but the encoder is initia=
-lized with `drm_encoder_init()`. This creates a mismatch in lifecycles that=
- leads to a use-after-free when the platform device is unbound but userspac=
-e still holds a reference to the DRM device.
---
+The following changes since commit 8cdeaa50eae8dad34885515f62559ee83e7e8dda:
 
---- Patch [1]: [PATCH] GPU: drm: meson: inline call to drm_simple_encoder_i=
-nit() ---
-commit bb202202974455054588168b82acfc49ff85b23f
-Author: Liam Zuiderhoek <zuiderhoekl@gmail.com>
+  Linux 7.2-rc2 (2026-07-05 14:44:06 -1000)
 
-GPU: drm: meson: inline call to drm_simple_encoder_init()
+are available in the Git repository at:
 
-This commit inlines the function drm_simple_encoder_init for the meson
-driver. It replaces the simple encoder init call with drm_encoder_init
-and a custom cleanup struct.
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-07-09
 
-> This commit inlines the function drm_simple_encoder_init for the meson
-> driver. It replaces the simple encoder init call with drm_encoder_init
-> and a custom cleanup struct.
+for you to fetch changes up to 47ea05f246bebc81c7796f56265cffd812cf0601:
 
-[Severity: Low]
-Does this commit miss updating other encoders in the meson driver?
+  drm/amdkfd: Check bounds on CRIU restore queue type and mqd size (2026-07-08 16:46:53 -0400)
 
-The commit message implies it inlines the function for the meson driver as a
-whole, but meson_encoder_cvbs_probe() in meson_encoder_cvbs.c and
-meson_encoder_dsi_probe() in meson_encoder_dsi.c still use
-drm_simple_encoder_init().
+----------------------------------------------------------------
+amd-drm-fixes-7.2-2026-07-09:
 
-Additionally, is the include for <drm/drm_simple_kms_helper.h> still needed
-in meson_encoder_hdmi.c now that the helper has been open-coded?
+amdgpu:
+- PSP 15.0.9 update
+- SMU 15.0.9 update
+- VCN 5.3 fix
+- VI ASPM fix
+- Userq fix
+- lifetime fix for amdgpu_vm_get_task_info_pasid()
+- Gfx10 fix
+- SMU 14 fix
 
-> diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm=
-/meson/meson_encoder_hdmi.c
-> index 0c7a72cb514ae..70a543358041f 100644
-> --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+amdkfd:
+- CRIU bounds checking fixes
+- secondary context id fix
+- Event bounds checking fix
 
-[ ... ]
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/gfx10: Program DB_RING_CONTROL
 
-> @@ -407,8 +411,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
->  	meson_encoder_hdmi->priv =3D priv;
-> =20
->  	/* Encoder */
-> -	ret =3D drm_simple_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
-> -				      DRM_MODE_ENCODER_TMDS);
-> +	ret =3D drm_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
-> +			       &drm_simple_encoder_funcs_cleanup,
-> +			       DRM_MODE_ENCODER_TMDS, NULL);
+David Francis (4):
+      drm/amdkfd: Check bounds on CRIU restore event id
+      drm/amdkfd: Don't acquire buffers during CRIU queue restore.
+      drm/amdkfd: Check bounds in allocate_event_notification_slot
+      drm/amdkfd: Check bounds on CRIU restore queue type and mqd size
 
-[Severity: High]
-This is a pre-existing issue, but does this allocation lifecycle mismatch
-lead to a use-after-free?
+Jesse Zhang (1):
+      drm/amdgpu: trigger GPU recovery when userq destroy fails to unmap a hung queue
 
-Looking at meson_encoder_hdmi_probe(), the structure embedding the encoder =
-is
-allocated with devm_drm_bridge_alloc(), tying its lifetime to the platform
-device:
+Kanala Ramalingeswara Reddy (2):
+      drm/amdgpu: add support for PSP version 15.0.9
+      drm/amdgpu: add support for SMU version 15.0.9
 
-meson_encoder_hdmi_probe() {
-    ...
-    meson_encoder_hdmi =3D devm_drm_bridge_alloc(priv->dev, ...);
-    ...
-}
+Kenneth Feng (1):
+      drm/amd/amdgpu: disable ASPM on VI if pcie dpm is disabled
 
-However, the encoder is initialized here with drm_encoder_init(), tying its
-cleanup to the DRM device's release.
+Shahyan Soltani (1):
+      drm/amdgpu: fix lifetime issue of amdgpu_vm_get_task_info_pasid()
 
-If the platform device is unbound, devres automatically frees
-meson_encoder_hdmi. If a userspace process holds an open file descriptor to
-the DRM device during unbind, the DRM device outlives the platform device.
+Suresh Guttula (1):
+      drm/amdgpu: Disable JDPG on VCN5_3
 
-When the userspace process eventually closes the fd, drm_dev_release()
-calls drm_mode_config_cleanup(), which iterates over the mode config list
-and accesses the freed meson_encoder_hdmi->encoder to call its destroy
-callback.
+Yang Wang (1):
+      drm/amd/pm: fix smu14 power limit range calculation
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709205538.7315=
-7-1-zuiderhoekl@gmail.com?part=3D1
+Zhu Lingshan (1):
+      amdkfd: properly free secondary context id
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  9 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             | 25 ++++++---------
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  9 ++++++
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |  3 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  6 ++++
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  |  2 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c            |  5 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 37 +++++++++++++---------
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 28 +++++++++-------
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c     |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c   |  3 +-
+ 17 files changed, 94 insertions(+), 50 deletions(-)
