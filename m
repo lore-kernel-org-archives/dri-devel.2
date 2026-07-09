@@ -4,136 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A04A0C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:28:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F59C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF06410E698;
-	Thu,  9 Jul 2026 06:28:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B14D310F396;
+	Thu,  9 Jul 2026 06:31:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="iuGkr4Jb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SOdkybMB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EO5g8AKB";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFF2010E698
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:28:35 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66960M9t916691
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Jul 2026 06:28:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- P6rkqMfXLK638vUXHiaFMs9sT739rEtUIMeGGDeaRaw=; b=iuGkr4JbT9ADw3uA
- mXUmcOFWX7uDjojELZtVMUO/2WVsuu82pzhw3sTMP59spjvrcKITavLMQ/+vFzUx
- iMKsNPhdUREk3Hi9w8tbS22d9T2NTteWo3xXTRQBLn7pnHVTlffOnWnBmKm7rQ37
- HU5Binf8tdkKyTdEqzUed+9e+h2kyeTK7fWrevbIp0BCKulC1EDXIi63e7UuwzsB
- 2UIx7wJ1DButXX6eTtfmaPbO+YvTjS3eHYE9UZbwO+y06mIHjPRE0QZq2ze5CSkq
- sgY8ZOLVKRj6lUUNKJ51RDQM5+k+DLPCY2YJ0V/fNAIOJ0k5wi5ZoloNMyqae+zV
- CTgzaw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9hnv5810-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 06:28:34 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-847a00bcbd0so2045617b3a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 23:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783578514; x=1784183314;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=P6rkqMfXLK638vUXHiaFMs9sT739rEtUIMeGGDeaRaw=;
- b=SOdkybMBcPEVutERbLvILEbczg5W//DQo6E7eYV18kVtdPHheSBvXnGtzynI8y8GMN
- K5ZRAQBBIOnI19C8Rinc5akUPHcneb5CfgmQHBrDwk+VLV2CZaMxblhbemo1owKYaPTf
- gW17emgja31gRGFgIoW3BvTmyrICH74v2HcimLSoAyEQKALV8JN1e7mV0jsAzdf+EwkD
- 0R0kZihK5Jf4EhgoxwPng77Fr6laPKNGH9zyTDjkO/hPwY5vc/xUohmVJgTnDRYhQefX
- h+Yn5dnJ1WLvyBixMjtCjn2zRDv9+H/nRgNHXe+hZHdOG8k2LdvQbCT5Ga+c2htcjUP4
- N3qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783578514; x=1784183314;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=P6rkqMfXLK638vUXHiaFMs9sT739rEtUIMeGGDeaRaw=;
- b=UfG6FtCmzHXV+oLX6ahmcGCnWzP6h7DcvDV4u3yrDtK4VQISPVNuYGvB0P/vZcANu/
- KUXnViFpSKqPoYhFPYra5owDpbvUehZVLZZEcb+sjX+fq0ZGETXH3nMeNp1YEO5Nza8f
- SBZ4gEiZ5kA11mp/WK9/HJ3wBq6qdyvt1mMEJY6cfI8Ike2PqsLYb67Dlil/AGL9L7jo
- L/LK10MLV6uqwXuwTHvGJwbXu1l8Jjf82v8HNaT8a6s1ribS7n+Jk9XkjvFRPR8PKBLP
- gsCm7GMy6sojFFwprMkNJAVWLhTYmcAps2Tv2lPSEjhHgVJRiRZPFJ2AnBdtx2dZeA6s
- /GyA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpOYy5IZnfe5rhBZsDxw5UnAlgFWazAbVO1CqknTYNupF48MvSJ/TkkzmaaQs+wMkbROiQ6PRGrJy4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyXjv+8+4SLrn3xCHMtWSMVA5OqZo2e482fRNq0hgGCWAnJNiY
- CAC5ztPSYlVWlWe17UmNDvS26mLfOv2KgICIdyAj1jaM0aRoZaHs80wuSsPl4SyBDBuCuSIdgP+
- WL3ec+2u4Stb5br7wtcow38sdnZrA4KLkD6SG60EVOs87YHulZ5sTg7AodtxSTXLMgeyWJ12m/m
- IgoKs=
-X-Gm-Gg: AfdE7ck652DR1O8paYSnoKb/o2bOC1/KlskzvxNuHTBRl6ZDKOdddllPvkOJJHnmv9u
- JAWGgCVq4f525vP2ZaQVGkKFZT7gNfdaRDjuDFiFOdTLaX4GNt4pvw1uOdf0TiaiPvag+JTCuwE
- 8TjnFShgWd3ho4G4VK4VbQGxHHZY+/bVbhroZ4ApHCWUogm2LbI1cBf4J3iWTDs/zS8n0xFJTmu
- lT/J0vKoK5pnVodnYGxX4K1M9Xg8vGgoomsYxD/TZe8BW7oh0S7kmZe9cltRRHrbM4YR3du2t+X
- evY3PwTR8HXRK4Y0S5V8tHfBlZ7Q+dA6ixPN1fJIgqLfiw4f59XTUG5Y2vmWaYgdQ195tvvLp9r
- K32mER4GbnFyAj5L4sFy85/n4/P+JKW296+ldYi08pCGqYtDgQQ==
-X-Received: by 2002:a05:6a00:cd6:b0:848:30c3:45d6 with SMTP id
- d2e1a72fcca58-84842ef886amr5946294b3a.14.1783578514271; 
- Wed, 08 Jul 2026 23:28:34 -0700 (PDT)
-X-Received: by 2002:a05:6a00:cd6:b0:848:30c3:45d6 with SMTP id
- d2e1a72fcca58-84842ef886amr5946271b3a.14.1783578513823; 
- Wed, 08 Jul 2026 23:28:33 -0700 (PDT)
-Received: from [192.168.31.103] ([152.58.31.181])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847f6b9a832sm8089294b3a.18.2026.07.08.23.28.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jul 2026 23:28:33 -0700 (PDT)
-Message-ID: <6b53fa97-0fae-4ba2-a774-ae8df2c2ad4e@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 11:58:27 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] i2c: qcom-geni: Add dynamic transfer timeout based on
- transfer length and frequency
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
- andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- naresh.maramaina@oss.qualcomm.com
-References: <20260705135739.4038826-1-aniket.randive@oss.qualcomm.com>
- <4f865aaf-a400-4dc6-acaa-80dc22a36af7@oss.qualcomm.com>
-Content-Language: en-US
-From: Aniket RANDIVE <aniket.randive@oss.qualcomm.com>
-In-Reply-To: <4f865aaf-a400-4dc6-acaa-80dc22a36af7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KNNqylFo c=1 sm=1 tr=0 ts=6a4f3f92 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=9AXozQ6IwN0d4JI31gUtBA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=5GfgTEDUgWdp11RPFvgA:9 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA1OSBTYWx0ZWRfXxs/VVJhMR1CW
- E09LyZHBw2P5kw27i1vIPYhRkagDia65WUPur+xHTt0NwkbSuWupo+cggNKWeNZFx/b5ueqC8td
- yTlMXX7J9B7QuWyZu+k5pWGYijqiKeY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA1OSBTYWx0ZWRfX9EdLK1M2vCUQ
- aWKLZj7RHzbqfnqMdaguIzaZhBaf9tjtcmborOCPZBRuWwsoJm1b/NsskRr1pz3No8OVTYHlrTM
- XggMDEGvnN6mH5RpeCL3KSR5uMCuFoLwEclLRuW9JgZEybRe1Hbwat/aYNX3dgSoVlDpyeZbJHN
- EAtgJnqADXQ6jXusRct1ODpTL328PakrEXa1EpfFfNgZswVvNEL2gWiPs4tnzEEntu9PbHbUkbj
- qrfUNae3SzHSXzITKqIUDRnblUIRH9tZO1IsbucONp/vxTQ/OMFi1CZWe66pL/6Eqe1mJwk1sv3
- l2d5J7dj/kZJaT+Saey0YXU6dZnBM3ntbLB+j7yNCw4wNjfwhANzcbYbHl5kUWh6/wVMKbs7jv0
- ryvzBj/MH9z68e6DdW+ExhNrb5JZn88LAj+rNUimoXobQFe+RSjzfcQTdsZalv1mM6/qL88Z3Hg
- yIVoTPV3bRnFRw3FLbA==
-X-Proofpoint-ORIG-GUID: iVvqxw0k7feVlpFfm_6ZHcIl_Hl19s_X
-X-Proofpoint-GUID: iVvqxw0k7feVlpFfm_6ZHcIl_Hl19s_X
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 suspectscore=0 spamscore=0
- malwarescore=0 phishscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090059
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ECD910F396
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:31:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3A66A434FA;
+ Thu,  9 Jul 2026 06:31:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DD31F00A3A;
+ Thu,  9 Jul 2026 06:31:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783578685;
+ bh=KpEclguQWd1QwamegFVBpksH13+qP10KbAWjAfAHmyk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EO5g8AKBjzXg6sThnrTxn8ircOULPR9YrA7sSjsqVm9tvIJOjYyYP6yL2F8IIq2sn
+ XtQ99pWD5NzAVihEsnOsUahzm0HYiGtMIS+BMNbvZnMHt7vzD4JM8mVZEyvGQf2EnT
+ ANS6j3U2jhkfpnDRoyf5L4Cu+J3/Xnm3cJqUPthskLx9/DwI59ez2kiAlC6wbY1gmQ
+ eXM1d/wb4NQzt9PNq9+sAXuIhXOlOI9gWwYvvvvg/+gguO4aDrW4qKqZIVDYEcMBph
+ ef9SIa5z0Jppbow6oLCnsyAgIZdeiMAg/RRp1vxV6Bt57gmfEK2DV33N33ETfgcc0K
+ Lx41hjWWst/GA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/msm: Only fini scheduler after successful init
+To: "Ruoyu Wang" <ruoyuw560@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260709062309.4168362-1-ruoyuw560@gmail.com>
+References: <20260709062309.4168362-1-ruoyuw560@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 06:31:24 +0000
+Message-Id: <20260709063124.E6DD31F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,63 +52,105 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks Konrad for the review.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Sorry, I missed your comments on the v2 patch and ended up posting v3. 
-I'm happy to post a v4 incorporating your feedback once the discussion 
-concludes.
+Pre-existing issues:
+- [High] Missing error check for msm_fence_context_alloc() return value lea=
+ds to invalid pointer dereference.
+- [High] Direct access to ctx->vm without lazy initialization causes NULL p=
+ointer dereference.
+--
 
-On 7/6/2026 5:11 PM, Konrad Dybcio wrote:
-> On 7/5/26 3:57 PM, Aniket Randive wrote:
->> The driver uses a static XFER_TIMEOUT of HZ (1 second) for all transfers
->> regardless of message length or bus frequency, causing unnecessary
->> delays on error paths.
->>
->> Compute the timeout dynamically from message length and bus frequency
->> with a 10x safety margin over the theoretical wire time and a 300ms
->> floor. For GPI multi-descriptor transfers, use the maximum message
->> length across all queued messages as the per-completion timeout.
-> 
-> What's the reason for a 0.3 s floor?
+--- Patch [1]: [PATCH] drm/msm: Only fini scheduler after successful init -=
+--
+commit b85d84ece3c22f19d85b416480e8fa8cc2d6160b
+Author: Ruoyu Wang <ruoyuw560@gmail.com>
 
-The floor accounts for I2C clock stretching. The spec allows slaves to 
-hold SCL low indefinitely during internal processing. A dynamically 
-computed xfer time alone gives no time for that.
-300ms value covers worst-case stretching while still detecting real 
-hangs 3x faster than the old 1s static timeout.
+drm/msm: Only fini scheduler after successful init
 
-Thanks,
-Aniket
+msm_ringbuffer_new() destroys a partially initialized ring through
+msm_ringbuffer_destroy() when an allocation or scheduler setup step
+fails. If drm_sched_init() fails before it finishes initializing the
+scheduler, the failure path still calls drm_sched_fini() which assumes
+the state was fully initialized. This patch tracks successful scheduler
+initialization and calls drm_sched_fini() only after drm_sched_init()
+returned 0.
 
-> 
-> Why a 10x safety margin specifically?
-> 
-> [...]
+[ ... ]
 
-The multiplier covers the gap between theoretical xfer time and actual 
-completion time (DMA descriptor setup, interrupt latency, and scheduling 
-jitter on a loaded system)
-Without it, short transfers would have almost no extra time before a 
-spurious timeout.
+> diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/m=
+sm_ringbuffer.c
+> index 0d14c31bd4e47..af2b0edc4d586 100644
+> --- a/drivers/gpu/drm/msm/msm_ringbuffer.c
+> +++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+[ ... ]
+> @@ -132,7 +132,8 @@ void msm_ringbuffer_destroy(struct msm_ringbuffer *ri=
+ng)
+>  	if (IS_ERR_OR_NULL(ring))
+>  		return;
+> =20
+> -	drm_sched_fini(&ring->sched);
+> +	if (ring->sched_initialized)
+> +		drm_sched_fini(&ring->sched);
+> =20
+>  	msm_fence_context_free(ring->fctx);
 
-Thanks,
-Aniket
+[Severity: High]
+This isn't a regression introduced by this patch, but there is a missing er=
+ror
+check for the msm_fence_context_alloc() return value.
 
-> 
->> +static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, size_t len)
->> +{
->> +	size_t bit_cnt = len * 9;
->> +	size_t bit_usec = (bit_cnt * USEC_PER_SEC) / gi2c->clk_freq_out;
-> 
-> mult_frac()
-> 
-> Konrad
+drivers/gpu/drm/msm/msm_ringbuffer.c:msm_ringbuffer_new() {
+    ...
+	snprintf(name, sizeof(name), "gpu-ring-%d", ring->id);
 
-Good catch. I'll switch the calculation to mult_frac() as suggested in 
-the next v4 patch.
+	ring->fctx =3D msm_fence_context_alloc(gpu->dev, &ring->memptrs->fence, na=
+me);
 
-Thanks,
-Aniket
+	return ring;
+}
+
+msm_fence_context_alloc() can return ERR_PTR(-ENOMEM) on memory allocation
+failure. The error pointer is assigned to ring->fctx without an IS_ERR()
+validation, and the new ring object is returned as if successful.
+
+When the ring is later destroyed here, msm_ringbuffer_destroy() passes the
+error pointer to msm_fence_context_free(), which calls kfree() on it.
+
+Does this need an IS_ERR() check to prevent an invalid memory access?
+
+[ ... ]
+
+[Severity: High]
+This is also a pre-existing regression, but could this lead to a NULL point=
+er
+dereference?
+
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_new_handle() {
+    ...
+	if (flags & MSM_BO_NO_SHARE) {
+		struct msm_context *ctx =3D file->driver_priv;
+		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
+    ...
+}
+
+The MSM driver lazily initializes virtual memory address spaces. If userspa=
+ce
+calls an ioctl that triggers msm_gem_new_handle() with the MSM_BO_NO_SHARE =
+flag
+before the VM is initialized, ctx->vm will be NULL.
+
+Passing this NULL pointer to drm_gpuvm_resv_obj(ctx->vm) results in
+dereferencing NULL to access the r_obj field.=20
+
+Should this use the msm_context_vm() accessor instead to ensure the VM is
+initialized before access?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709062309.4168=
+362-1-ruoyuw560@gmail.com?part=3D1
