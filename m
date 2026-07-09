@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6B09C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FCECC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF2E310EA3C;
-	Thu,  9 Jul 2026 10:42:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4DE610E070;
+	Thu,  9 Jul 2026 10:46:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dsM4Ej0Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KtYb4snC";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCEBF10EA3C
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:42:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0E6C10E070
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:46:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 226A3601D9;
- Thu,  9 Jul 2026 10:42:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F2C1F000E9;
- Thu,  9 Jul 2026 10:42:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3778841632;
+ Thu,  9 Jul 2026 10:46:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBE51F000E9;
+ Thu,  9 Jul 2026 10:46:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783593750;
- bh=+dgR4rJQSnbnutQZ8qvfq9w6PhvECejCMiZqrfMb6no=;
+ s=k20260515; t=1783594011;
+ bh=q7ScW9hJpjng45n+X/4/5Xe8MZhmqsiLLYoixjG84RQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dsM4Ej0Q8ceY+XID9zup4NKbc4ENvAZpuIvMaNpAnSC6dOdUwWtpa+af46t7H/sM1
- bhcxF3LkE4BlVxgIabXnnX7Er7VKwSdsJfVs7oARIrGXcYzaN6k4EbTYK3xbZGvs/4
- Wy/hwVdt1LVsWiVn4yQruHzKV9nf8aaFmoCXhOl+WYAww+E/ZIYMhbMBk8DfIE3FVk
- on6+afPbzOf+X3Dy7YpuXzBjBjccP3xm0N79StWB25xgZg8LWh9UWo9RPxuQQzvznP
- HjvkOej99/T7wljpSR63OmeY1GKUY2wPri4ZXuwBp/x3/9dRfYvMPyrxLqB16Fe1wr
- V29ORFbGe1Hzw==
+ b=KtYb4snCcoipava9zr2sU5riBZE5uo3l+Mk3D3Rs3/cVNfL014gOgtuPX147vNfwW
+ VD740rriun0D23eoz5UE1sBlkBfnSxabqVk5Rn6VxMJX3bT1q/8CoSBBFQWyHmjs7G
+ xpabMU5zhmk/XI8yFgfh5b57j2ycYRfSqQmCWsUzg/VbFx2XNWPJ5edCqZi4CKT0EO
+ vGpb3/bT7ZxMb5KmU7PI2lSlpWjfPb5U+0lmOCNwFqBL7gtgVRs085QdXfah4p8te4
+ L6Y80bEkCIx9dvbJDeaykCQVghEPTAKJqiLk0ebXPAnq4FYWTs5ZG7M9o27JcvKaLT
+ ae6fkFdFOgVBA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/11] drm/mediatek: mtk_dp: Clarify XTAL freq and
- Debounce registers
+Subject: Re: [PATCH v3 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and phy
+ driver unregistration
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
 Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
  devicetree@vger.kernel.org
-In-Reply-To: <20260709103431.46616-12-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260709103431.46616-4-angelogioacchino.delregno@collabora.com>
 References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
- <20260709103431.46616-12-angelogioacchino.delregno@collabora.com>
+ <20260709103431.46616-4-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 10:42:29 +0000
-Message-Id: <20260709104230.81F2C1F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 10:46:50 +0000
+Message-Id: <20260709104650.BFBE51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,111 +61,94 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The patch silently fixes a register programming bug, changing th=
-e programmed HPD interrupt debounce thresholds, despite the commit message =
-claiming 'the only purpose of increasing human readability'.
-- [Low] Unused legacy macros were left in the header file after their usage=
- was removed.
+
+New issues:
+- [Critical] Double free / use-after-free of mtk_dp->phy_dev on devm_phy_ge=
+t error path.
+
+Pre-existing issues:
+- [High] Asynchronous pm_runtime_put() used immediately before pm_runtime_d=
+isable() leaves hardware in incorrect power state.
 --
 
---- Patch [11]: [PATCH v3 11/11] drm/mediatek: mtk_dp: Clarify XTAL freq an=
-d Debounce registers ---
-commit a0d0ec4a08e7bb60a4d55891bd6e55ba3b2ab740
+--- Patch [3]: [PATCH v3 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and ph=
+y driver unregistration ---
+commit ee2a644d342bfbaa916286b22d4e54ddc62e5878
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-drm/mediatek: mtk_dp: Clarify XTAL freq and Debounce registers
+drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
 
-This patch refactors the initialization of the crystal frequency and
-transmitter interrupt debounce registers in the MediaTek DP driver to
-use FIELD_PREP_CONST for better readability.
+This commit adds devm actions to unregister the HDMI Codec and DisplayPort
+PHY platform devices during probe. This prevents multiple instances of these
+devices from being registered if the driver probe is deferred.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
 /mtk_dp.c
-> index 868d918a0b161..4403a25784d4e 100644
+> index eefbc7e0f9c8d..fefd1fae44c90 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dp.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-
 [ ... ]
-
-> @@ -1260,28 +1266,29 @@ static void mtk_dp_initialize_aux_hpd_detect_sett=
-ings(struct mtk_dp *mtk_dp)
+> @@ -2701,6 +2718,11 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_=
+dp)
+>  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy_dev),
+>  				     "Failed to create device mediatek-dp-phy\n");
 > =20
->  static void mtk_dp_initialize_hpd_detect_settings(struct mtk_dp *mtk_dp)
->  {
-> -	u32 val;
-> -
->  	/* Mask AUX TOP interrupt, as this uses transmitter for HPD */
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
->  			   AUX_TOP_IRQ_MSK, AUX_TOP_IRQ_MSK);
-> =20
-> -	/* Debounce threshold */
-> +	/* Set Hotplug debounce threshold time: xtal_period * deb_thd */
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
->  			   8, HPD_DEB_THD_DP_TRANS_P0_MASK);
-> =20
-> -	val =3D (HPD_INT_THD_DP_TRANS_P0_LOWER_500US |
-> -	       HPD_INT_THD_DP_TRANS_P0_UPPER_1100US) << 4;
-> -	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
-> -			   val, HPD_INT_THD_DP_TRANS_P0_MASK);
-> -
->  	/*
-> -	 * Connect threshold 1.5ms + 5 x 0.1ms =3D 2ms
-> -	 * Disconnect threshold 1.5ms + 5 x 0.1ms =3D 2ms
-> +	 * Set interrupt debounce threshold time
-> +	 * VAL  |  0     1     2     3  INT_THD
-> +	 * Low  | 100   300   500   700 uS
-> +	 * High | 700   900  1100  1300 uS
->  	 */
-> -	val =3D (5 << 8) | (5 << 12);
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
-> -			   val,
-> +			   FIELD_PREP_CONST(HPD_INT_LOW_THD_DP_TRANS_P0_MASK, 2) |
-> +			   FIELD_PREP_CONST(HPD_INT_HIGH_THD_DP_TRANS_P0_MASK, 2),
-> +			   HPD_INT_THD_DP_TRANS_P0_MASK);
-
-[Severity: Medium]
-The commit message states the patch has "the only purpose of increasing hum=
-an
-readability", but does this actually fix a bug in the old code?
-
-The original code calculated the values with an extra shift:
-
-val =3D (HPD_INT_THD_DP_TRANS_P0_LOWER_500US |
-       HPD_INT_THD_DP_TRANS_P0_UPPER_1100US) << 4;
-
-Since those macros were already shifted by 4 and 6, the extra shift by 4
-resulted in val =3D 0xA00. When updated with the 0xF0 mask, this effectively
-wrote 0 to the register. The new code correctly programs 0xA0.
-
-Could the commit message be updated to mention this functional change?
-
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add phy unregister devm action");
 > +
-> +	/* Connection and Disconnection thresholds: 1.5ms + (5 x 0.1) ms =3D 2m=
-s */
-> +	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
+>  	mtk_dp_get_calibration_data(mtk_dp);
+> =20
+>  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+>  	if (IS_ERR(mtk_dp->phy)) {
+>  		platform_device_unregister(mtk_dp->phy_dev);
+
+[Severity: Critical]
+Does this create a double-free on the error path?
+
+Looking at mtk_dp_register_phy() in drivers/gpu/drm/mediatek/mtk_dp.c, if
+devm_phy_get() fails (returning e.g. -EPROBE_DEFER), we manually call
+platform_device_unregister() here.=20
+
+However, since we successfully added the devm action earlier in the functio=
+n,
+returning the error from probe will cause the devres unwind mechanism to
+execute mtk_dp_unregister_pdevs().
+
+Won't that call platform_device_unregister() a second time on the already-f=
+reed
+mtk_dp->phy_dev pointer, resulting in memory corruption?
 
 [ ... ]
+> @@ -2870,9 +2892,6 @@ static void mtk_dp_remove(struct platform_device *p=
+dev)
+>  	struct mtk_dp *mtk_dp =3D platform_get_drvdata(pdev);
+> =20
+>  	pm_runtime_put(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/medi=
-atek/mtk_dp_reg.h
-> index 9caf743f4fe61..ce47b99dddc43 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-> @@ -253,6 +253,8 @@
->  #define MTK_DP_TRANS_P0_3410				0x1410
->  #define HPD_DEB_THD_DP_TRANS_P0_MASK				GENMASK(3, 0)
->  #define HPD_INT_THD_DP_TRANS_P0_MASK				GENMASK(7, 4)
-> +#define HPD_INT_HIGH_THD_DP_TRANS_P0_MASK			GENMASK(7, 6)
-> +#define HPD_INT_LOW_THD_DP_TRANS_P0_MASK			GENMASK(5, 4)
->  #define HPD_INT_THD_DP_TRANS_P0_LOWER_500US			(2 << 4)
->  #define HPD_INT_THD_DP_TRANS_P0_UPPER_1100US			(2 << 6)
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to call
+pm_runtime_put() immediately before pm_runtime_disable() here in
+mtk_dp_remove()?
 
-[Severity: Low]
-This isn't a bug, but are these legacy macros still needed?
+Since pm_runtime_put() queues an asynchronous suspend, calling
+pm_runtime_disable() right after it cancels the pending suspend work.
 
-The code no longer uses HPD_INT_THD_DP_TRANS_P0_LOWER_500US or
-HPD_INT_THD_DP_TRANS_P0_UPPER_1100US after this patch.
+Doesn't this leave the hardware in an active power state after the driver is
+removed? Should this be changed to pm_runtime_put_sync() to ensure the susp=
+end
+completes before module unload?
+
+>  	if (mtk_dp->data->bridge_type !=3D DRM_MODE_CONNECTOR_eDP)
+>  		timer_delete_sync(&mtk_dp->debounce_timer);
+> -	platform_device_unregister(mtk_dp->phy_dev);
+> -	if (mtk_dp->audio_pdev)
+> -		platform_device_unregister(mtk_dp->audio_pdev);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
-6-1-angelogioacchino.delregno@collabora.com?part=3D11
+6-1-angelogioacchino.delregno@collabora.com?part=3D3
