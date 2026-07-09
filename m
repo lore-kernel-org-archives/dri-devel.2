@@ -4,68 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42368C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 21:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0FDAC44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 21:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A117110F724;
-	Thu,  9 Jul 2026 21:37:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5013D10E03E;
+	Thu,  9 Jul 2026 21:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="Ne2Kav1l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BrB6JypK";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27B4C10F707
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 21:37:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783633018; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=IBmwHg5Yv0/aitUWqVx3FKi8xjRLKt0EaTg48/yTE7alwLUPQeYdia25EZ252vn2JPmFpKOp69iT1fmP4dnmlG/bEbSOkf3yYIb/2i0ig5t5/xu7DgoXr7zxAGnpiT8RNUmmu7Der8yDSw5/XePT4YBhOi7gxH39/zJr2k10OS4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783633018;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=/q26eLG7FAvNn02qV8K6lHPKS7qZgBsUkhWNinU299o=; 
- b=T1OSrGovRd+8Oh5uEuDk9xXYeJclgJFEpwQhfnEuu1KbzFFiINbQ38MQujBGPigXmD9PsXeKLqSItv15rEtcJFNGiH2lES6fqeHIKFKdyFIYog7a4QBzGhw/aLGs2guunplB2R8DwStQAJAPWC6dNGr5y8lqe2Q8389bCiDah1w=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783633018; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=/q26eLG7FAvNn02qV8K6lHPKS7qZgBsUkhWNinU299o=;
- b=Ne2Kav1lTAPztCd/NqsNUdBC+RLXEvdiAlgTEtaBq+ji5OC/dXk2mjvYATgvEC2W
- VscSGbS8ivsu+dbrOs5o0r/vR7QkikJ4ZuReeVCTb1JR1yuJkHfu7HC7KUGmxFqAPL0
- YBcQqUbhbcKs4OEZ/DZiXuEXgax0IFXbGRuSv/Y0=
-Received: by mx.zohomail.com with SMTPS id 1783633017238358.57906502860374;
- Thu, 9 Jul 2026 14:36:57 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Thu, 09 Jul 2026 14:36:44 -0700
-Subject: [PATCH v6 4/7] drm/tyr: add GPU virtual memory (VM) support
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010057.outbound.protection.outlook.com [52.101.61.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2421F10E03E;
+ Thu,  9 Jul 2026 21:40:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R+4IoMXvhctbYeFz+FEwCuaquii3UHaBkCCLUYv6ZN0+8t0Xq194wU1o/EC8dCQBFmVvKssKeiXY8QRcssjm4LTk440mJ6oPilZBrx3iVGsn5c1XuajUj5GICD/+1CElONNlTkNLWnoQRx68yfFpI2QgDVCUGq3sQHfAmNfjVDSbIV6HNJzeLiVawZAKm59sGl9e7Ei1cFWGTBXIusJDvteKiZcA/jUo9dkFUQEggBR6D+jlnBxU9lCoJtbT+PS7ec9ks1UXARK8vp8Lm0bA9+G6VQYg+J+HorLyp6i1v8eVLX4O/SCtJ50KTzW7rJgppYAko8o8W1pckP9dAOn+fA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aA0wIC/dYbWb7fRKgHvUwwo55VJa9xUTF+3R/OlciHQ=;
+ b=vj/ZUp3SSj4wlFQwaS30NaM0tpsilETEd0E0oHLKfXC28+j9Jky91+HY4IJsUSItL9CPhEQdtbh/GfpzGrW1sf5d4uav8upoISh+KATre3SNh5JKFyL0HOCJ1gI+eY6LKMIoRaGw8d6UZvrnb5y+ZtI1SuzumQVtXNwniwp2Z3ID3g/MR2IJMTbm54i6PIi+HmSXZIk7uY70rC0P/8S9PGd9apkUD+Syy6qcqXBBd9b656JbeNyOm/q7knjAHfEi0mfCriTtdZUiMKT/lGSSrxg7SSdIU01b7ZQvuEY1sh4E4+ddTuJGhFVB5q2l8mP+KguJaida0qI3YnYvw3ASKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aA0wIC/dYbWb7fRKgHvUwwo55VJa9xUTF+3R/OlciHQ=;
+ b=BrB6JypK0psCQk7ljKivvutKxkIfuBhI3VRRujgRSgtvD0QJrSTKJI34nRhzMZ0yANFxjyw2Xv/dokjNinSLuRgpl4R52Sn+XhWYt6LbQjR1o2B+O9dmXxRW7+4kUHNM1eoSsUHKqM/b24R4NBY26RBpYZGvqtppPAxNzQ9xoSM=
+Received: from DS1PR04CA0001.namprd04.prod.outlook.com (2603:10b6:8:44f::8) by
+ SA1PR12MB6918.namprd12.prod.outlook.com (2603:10b6:806:24d::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.8; Thu, 9 Jul 2026 21:40:09 +0000
+Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
+ (2603:10b6:8:44f:cafe::5d) by DS1PR04CA0001.outlook.office365.com
+ (2603:10b6:8:44f::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.12 via Frontend Transport; Thu, 9
+ Jul 2026 21:40:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 21:40:08 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
+ 2026 16:40:00 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 9 Jul 2026 16:39:59 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-next-7.3
+Date: Thu, 9 Jul 2026 17:39:53 -0400
+Message-ID: <20260709213953.16494-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-fw-boot-b4-v6-4-ca391e1a4108@collabora.com>
-References: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
-In-Reply-To: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, 
- Deborah Brouwer <deborah.brouwer@collabora.com>, 
- boris.brezillon@collabora.com, samitolvanen@google.com, acourbot@nvidia.com, 
- alvin.sun@linux.dev, laura.nao@collabora.com, work@onurozkan.dev, 
- beata.michalska@arm.com, steven.price@arm.com, lyude@redhat.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=31588;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=OS9TWoZbWbc+248cTNQ2z3E7X8fAnPj8Z/MsgJ5gUxE=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkBIiWvWi/O3+Rgtup22Md9DJl3Nj2ckcqWdbp4kqviW
- TGDGV0rOkpZGMS4GGTFFFnO2hv1iFe9N9Kd/78ZZg4rE8gQBi5OAZhIzkJGhrNb6pZJ/BTmUn/t
- ofhE8KxMnkWKcufqf2q9eQIeCumd0xkZnn/nEWEOOpLW/Tm6reCKvCLrOteftd/ZJ950fvXK6st
- vRgA=
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|SA1PR12MB6918:EE_
+X-MS-Office365-Filtering-Correlation-Id: a278acf6-aa2e-48eb-cb79-08dede02a5c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|11063799006|6133799003|18002099003|56012099006|13003099007;
+X-Microsoft-Antispam-Message-Info: 52L0fFzFHchcdZr2EIQ69LQCbTwbijXhrCq8e03UMGyWWXdq2WazpHlZylkX6xq9z7vsJZsW4yH9oGAUaF5742nlvUefUbj0ax1IVLSxGLTHJfkOlK3SBrFl2YxRM6nkLGhbO6jxdo1LgIs5+mr+P+KwZtdjAtqSpiGb7QeFffRSiGs2xd8KxlEgMNrwWYhdlQNjIPOvKA4Puu8fEA4T4k0NFlGCdrCi9zvgMN2x97HzPV7+eBbysfApku9kXt9aFE3bWKnOMIZreP9W4HlMzo1LPCsrnX8NOMUgjKXcbIA/r49GlcSfE98BBQTzRyI3Ofst+YBDFrDUgE9JIq3s2p+8AZqsXLapULEBBBtuGRFP2/u2OLgkYzFHPGUtSJ3ZeXSwVjGdQm1ogN0VFZO/+iluFrY4/aL/BOHKTyVdas1QGt18TpYQDLp/5dZ90nnDJaIlHdsXaJB4i/4unvE6aaLQzC69AGEYxAsJudJskJU7pTin/CDLsqKxqNNHKkNch48nSnkW4l4lpLBY3h2/1aBbp4H9uDOkYB60Eh1mZnlnJCaj87BrNhi52kINEpjcV1/pOYnGOexg0y6XEj0ZwGjxTqubOGNfnw9IjLfYhw60xdIqlPe2dqSheMCVxTD1vJN72mTJ1lEUH8/TfFRV4Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(11063799006)(6133799003)(18002099003)(56012099006)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: h/aFP30O/EBoih1shaJK9sEFkMbjWjSOJ2CElvtYh11XxLw6xlBjcHDo3vuPfRnC/63UNuhCDsV/Z09mFPFG6HN6E8rIen6ttxYqdiHWD9jR/Eh46wZb6vuhz0jAAVxqmzGB+7I6e4dmNnG6SsirLsXl5sXkI+iXKQrA7kXTePS5SOSoYucGyDMFmfDII6UroLz2/PaoXiCACwfVgw+lL95ABxOZo5A6gG4M902KeHJfRwfGlfd9bpY4ERvZ/NGRoCmnr2EgYxW/UqHCszQaXw0fzjWXfVxU96ocAsaQSgLtNID02Bm/tnQ192nX+oxQl9vrtDpzi9C8G9cSjutdczvfvPLRJGJyQLc07sMfYpYzy1jEBAB2uZn0KG+u2I0kLiW+Zv/r8YlH8MX0zDmdHkHEqnjC4ZWA6ki9zlCRtLCxcprZXmISFy+hb+4yENwQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 21:40:08.5542 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a278acf6-aa2e-48eb-cb79-08dede02a5c9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA50.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6918
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,935 +109,228 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Boris Brezillon <boris.brezillon@collabora.com>
+Hi Dave, Simona,
 
-Add GPU virtual address space management using the DRM GPUVM framework.
-Each virtual memory (VM) space is backed by ARM64 LPAE Stage 1 page tables
-and can be mapped into hardware address space (AS) slots for GPU execution.
+New stuff for 7.3.
 
-The implementation provides memory isolation and virtual address
-allocation. VMs support mapping GEM buffer objects with configurable
-protection flags (readonly, noexec, uncached) and handle both 4KB and 2MB
-page sizes. A new_dummy_object() helper is provided to create a dummy GEM
-object for use as a GPUVM root.
+The following changes since commit 0461ba9a7994a9bfa2ceefe730e2c87759edc267:
 
-The vm module integrates with the MMU for address space activation and
-provides map/unmap/remap operations with page table synchronization.
+  Merge tag 'amd-drm-next-7.3-2026-07-02' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2026-07-07 16:48:23 +1000)
 
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
- drivers/gpu/drm/tyr/Kconfig   |   1 +
- drivers/gpu/drm/tyr/driver.rs |   4 +-
- drivers/gpu/drm/tyr/gem.rs    |  26 +-
- drivers/gpu/drm/tyr/tyr.rs    |   1 +
- drivers/gpu/drm/tyr/vm.rs     | 807 ++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 835 insertions(+), 4 deletions(-)
+are available in the Git repository at:
 
-diff --git a/drivers/gpu/drm/tyr/Kconfig b/drivers/gpu/drm/tyr/Kconfig
-index 61a2fd6f961a..79ea4bb214de 100644
---- a/drivers/gpu/drm/tyr/Kconfig
-+++ b/drivers/gpu/drm/tyr/Kconfig
-@@ -12,6 +12,7 @@ config DRM_TYR
- 	default n
- 	select IOMMU_IO_PGTABLE_LPAE
- 	select RUST_DRM_GEM_SHMEM_HELPER
-+	select RUST_DRM_GPUVM
- 	help
- 	  Rust DRM driver for ARM Mali CSF-based GPUs.
- 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 74b55a389754..9195c8be5203 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -37,7 +37,7 @@
- 
- use crate::{
-     file::TyrDrmFileData,
--    gem::BoData,
-+    gem::Bo,
-     gpu,
-     gpu::GpuInfo,
-     mmu::Mmu,
-@@ -194,7 +194,7 @@ impl drm::Driver for TyrDrmDriver {
-     type Data = ();
-     type RegistrationData<'bound> = TyrDrmRegistrationData<'bound>;
-     type File = TyrDrmFileData;
--    type Object = drm::gem::shmem::Object<BoData>;
-+    type Object = Bo;
-     type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
- 
-     const INFO: drm::DriverInfo = INFO;
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 1640a161754b..c28be61a01bb 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -5,8 +5,12 @@
- //! DRM's GEM subsystem with shmem backing.
- 
- use kernel::{
--    drm::gem,
--    prelude::*, //
-+    drm::gem::{
-+        self,
-+        shmem, //
-+    },
-+    prelude::*,
-+    sync::aref::ARef, //
- };
- 
- use crate::driver::{
-@@ -34,3 +38,21 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
-         try_pin_init!(Self { flags: args.flags })
-     }
- }
-+
-+/// Type alias for Tyr GEM buffer objects.
-+pub(crate) type Bo = gem::shmem::Object<BoData>;
-+
-+/// Creates a dummy GEM object to serve as the root of a GPUVM.
-+pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
-+    let bo = Bo::new(
-+        ddev,
-+        4096,
-+        shmem::ObjectConfig {
-+            map_wc: true,
-+            parent_resv_obj: None,
-+        },
-+        BoCreateArgs { flags: 0 },
-+    )?;
-+
-+    Ok(bo)
-+}
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index 79045d0135a8..92f6885cdaae 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -14,6 +14,7 @@
- mod mmu;
- mod regs;
- mod slot;
-+mod vm;
- 
- kernel::module_platform_driver! {
-     type: TyrPlatformDriver,
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-new file mode 100644
-index 000000000000..57929c2d3e94
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -0,0 +1,807 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! GPU virtual memory management using the DRM GPUVM framework.
-+//!
-+//! This module manages GPU virtual address spaces, providing memory isolation and
-+//! the illusion of owning the entire virtual address (VA) range, similar to CPU virtual memory.
-+//! Each virtual memory (VM) area is backed by ARM64 LPAE Stage 1 page tables and can be
-+//! mapped into hardware address space (AS) slots for GPU execution.
-+#![allow(dead_code)]
-+
-+use core::marker::PhantomData;
-+use core::ops::Range;
-+
-+use kernel::{
-+    c_str,
-+    device::{
-+        Bound,
-+        Device, //
-+    },
-+    drm::{
-+        gpuvm::{
-+            DriverGpuVm,
-+            GpuVaAlloc,
-+            GpuVm,
-+            GpuVmBo,
-+            OpMap,
-+            OpMapRequest,
-+            OpMapped,
-+            OpRemap,
-+            OpRemapped,
-+            OpUnmap,
-+            OpUnmapped,
-+            UniqueRefGpuVm, //
-+        }, //
-+    },
-+    impl_flags,
-+    iommu::pgtable::{
-+        prot,
-+        IoPageTable,
-+        ARM64LPAES1, //
-+    },
-+    new_mutex,
-+    prelude::*,
-+    sizes::{
-+        SZ_1G,
-+        SZ_2M,
-+        SZ_4K, //
-+    },
-+    sync::{
-+        aref::ARef,
-+        Arc,
-+        ArcBorrow,
-+        Mutex, //
-+    },
-+    uapi, //
-+};
-+
-+use crate::{
-+    driver::{
-+        TyrDrmDevice,
-+        TyrDrmDriver, //
-+    },
-+    gem,
-+    gem::Bo,
-+    gpu::GpuInfo,
-+    mmu::{
-+        address_space::VmAsData,
-+        Mmu, //
-+    },
-+    regs::gpu_control::MMU_FEATURES,
-+};
-+
-+impl_flags!(
-+    /// Flags controlling virtual memory mapping behavior.
-+    ///
-+    /// These flags control access permissions and caching behavior for GPU virtual
-+    /// memory mappings.
-+    #[derive(Debug, Clone, Default, Copy, PartialEq, Eq)]
-+    pub(crate) struct VmMapFlags(u32);
-+
-+    /// Individual flags that can be combined in [`VmMapFlags`].
-+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-+    pub(crate) enum VmFlag {
-+        /// Map as read-only.
-+        Readonly = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_READONLY as u32,
-+        /// Map as non-executable.
-+        Noexec = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC as u32,
-+        /// Map as uncached.
-+        Uncached = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED as u32,
-+    }
-+);
-+
-+impl VmMapFlags {
-+    /// Convert the flags to `pgtable::prot`.
-+    fn to_prot(self) -> u32 {
-+        let mut prot = 0;
-+
-+        if self.contains(VmFlag::Readonly) {
-+            prot |= prot::READ;
-+        } else {
-+            prot |= prot::READ | prot::WRITE;
-+        }
-+
-+        if self.contains(VmFlag::Noexec) {
-+            prot |= prot::NOEXEC;
-+        }
-+
-+        if !self.contains(VmFlag::Uncached) {
-+            prot |= prot::CACHE;
-+        }
-+
-+        prot
-+    }
-+}
-+
-+impl core::fmt::Display for VmMapFlags {
-+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-+        let mut first = true;
-+
-+        if self.contains(VmFlag::Readonly) {
-+            write!(f, "READONLY")?;
-+            first = false;
-+        }
-+        if self.contains(VmFlag::Noexec) {
-+            if !first {
-+                write!(f, " | ")?;
-+            }
-+            write!(f, "NOEXEC")?;
-+            first = false;
-+        }
-+
-+        if self.contains(VmFlag::Uncached) {
-+            if !first {
-+                write!(f, " | ")?;
-+            }
-+            write!(f, "UNCACHED")?;
-+        }
-+
-+        Ok(())
-+    }
-+}
-+
-+impl TryFrom<u32> for VmMapFlags {
-+    type Error = Error;
-+
-+    fn try_from(value: u32) -> core::result::Result<Self, Self::Error> {
-+        let valid = (kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_READONLY
-+            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC
-+            | kernel::uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
-+            as u32;
-+
-+        if value & !valid != 0 {
-+            pr_err!("Invalid VM map flags: {:#x}\n", value);
-+            return Err(EINVAL);
-+        }
-+        Ok(Self(value))
-+    }
-+}
-+
-+/// Arguments for a virtual memory map operation.
-+struct VmMapArgs<'bound> {
-+    /// Access permissions and caching behavior for the mapping.
-+    flags: VmMapFlags,
-+    /// GEM buffer object registered with the GPUVM framework.
-+    vm_bo: ARef<GpuVmBo<GpuVmData<'bound>>>,
-+    /// Offset in bytes from the start of the buffer object.
-+    bo_offset: u64,
-+}
-+
-+/// Type of virtual memory operation.
-+enum VmOpType<'bound> {
-+    /// Map a GEM buffer object into the virtual address space.
-+    Map(VmMapArgs<'bound>),
-+    /// Unmap a region from the virtual address space.
-+    Unmap,
-+}
-+
-+/// Preallocated resources needed to execute a VM operation.
-+///
-+/// VM operations may require allocating new GPUVA objects to track mappings.
-+/// To avoid allocation failures during the operation, preallocate the
-+/// maximum number of GPUVAs that might be needed.
-+struct VmOpResources<'bound> {
-+    /// Preallocated GPUVA objects for remap operations.
-+    ///
-+    /// Partial unmap requests or map requests overlapping existing mappings
-+    /// will trigger a remap call, which needs to register up to three VA
-+    /// objects (one for the new mapping, and two for the previous and next
-+    /// mappings).
-+    preallocated_gpuvas: [Option<GpuVaAlloc<GpuVmData<'bound>>>; 3],
-+}
-+
-+/// Request to execute a virtual memory operation.
-+struct VmOpRequest<'bound> {
-+    /// Request type.
-+    op_type: VmOpType<'bound>,
-+
-+    /// Region of the virtual address space covered by this request.
-+    region: Range<u64>,
-+}
-+
-+/// Arguments for a page table map operation.
-+struct PtMapArgs {
-+    /// Memory protection flags describing allowed accesses for this mapping.
-+    ///
-+    /// This is directly derived from [`VmMapFlags`] via [`VmMapFlags::to_prot`].
-+    prot: u32,
-+}
-+
-+/// Type of page table operation.
-+enum PtOpType {
-+    /// Map pages into the page table.
-+    Map(PtMapArgs),
-+    /// Unmap pages from the page table.
-+    Unmap,
-+}
-+
-+/// Context for updating the GPU page table.
-+///
-+/// This context is created when beginning a page table update operation and
-+/// automatically flushes changes when dropped. It ensures that the
-+/// Memory Management Unit (MMU) state is properly managed and Translation
-+/// Lookaside Buffer (TLB) entries are flushed.
-+pub(crate) struct PtUpdateContext<'ctx, 'bound> {
-+    /// Device used for DMA-mapping GEM shmem SG tables.
-+    dev: &'ctx Device<Bound>,
-+
-+    /// Page table.
-+    pt: &'ctx IoPageTable<'bound, ARM64LPAES1>,
-+
-+    /// MMU manager.
-+    mmu: &'ctx Mmu<'bound>,
-+
-+    /// Reference to the address space data to pass to the MMU functions.
-+    as_data: &'ctx VmAsData<'bound>,
-+
-+    /// Region of the virtual address space covered by this request.
-+    region: Range<u64>,
-+
-+    /// Operation type.
-+    op_type: PtOpType,
-+
-+    /// Preallocated resources that can be used when executing the request.
-+    resources: &'ctx mut VmOpResources<'bound>,
-+}
-+
-+impl<'ctx, 'bound> PtUpdateContext<'ctx, 'bound> {
-+    /// Creates a new page table update context.
-+    ///
-+    /// This prepares the MMU for a page table update.
-+    /// The context will automatically flush the TLB and
-+    /// complete the update when dropped.
-+    fn new(
-+        dev: &'ctx Device<Bound>,
-+        pt: &'ctx IoPageTable<'bound, ARM64LPAES1>,
-+        mmu: &'ctx Mmu<'bound>,
-+        as_data: &'ctx VmAsData<'bound>,
-+        region: Range<u64>,
-+        op_type: PtOpType,
-+        resources: &'ctx mut VmOpResources<'bound>,
-+    ) -> Result<PtUpdateContext<'ctx, 'bound>> {
-+        mmu.start_vm_update(as_data, &region)?;
-+
-+        Ok(Self {
-+            dev,
-+            pt,
-+            mmu,
-+            as_data,
-+            region,
-+            op_type,
-+            resources,
-+        })
-+    }
-+
-+    /// Finds one of our pre-allocated VAs.
-+    ///
-+    /// It is a logic error to call this more than three times for a given
-+    /// PtUpdateContext.
-+    fn preallocated_gpuva(&mut self) -> Result<GpuVaAlloc<GpuVmData<'bound>>> {
-+        self.resources
-+            .preallocated_gpuvas
-+            .iter_mut()
-+            .find_map(|f| f.take())
-+            .ok_or(EINVAL)
-+    }
-+}
-+
-+impl Drop for PtUpdateContext<'_, '_> {
-+    fn drop(&mut self) {
-+        if let Err(e) = self.mmu.end_vm_update(self.as_data) {
-+            pr_err!("Failed to end VM update {:?}\n", e);
-+        }
-+
-+        if let Err(e) = self.mmu.flush_vm(self.as_data) {
-+            pr_err!("Failed to flush VM {:?}\n", e);
-+        }
-+    }
-+}
-+
-+/// Driver implementation for the GPUVM framework.
-+///
-+/// Implements [`DriverGpuVm`] to provide VM operation callbacks (map, unmap, remap)
-+/// and associated types for buffer objects, virtual addresses, and contexts.
-+pub(crate) struct GpuVmData<'bound> {
-+    _phantom: PhantomData<&'bound ()>,
-+}
-+
-+/// GPU virtual address space.
-+///
-+/// Each VM can be mapped into a hardware address space slot.
-+#[pin_data]
-+pub(crate) struct Vm<'bound> {
-+    /// Data referenced by an AS when the VM is active
-+    as_data: Arc<VmAsData<'bound>>,
-+    /// MMU manager.
-+    mmu: Arc<Mmu<'bound>>,
-+    /// Parent device used for DMA mapping and page-table operations.
-+    dev: &'bound Device<Bound>,
-+    /// DRM GPUVM core for managing virtual address space.
-+    #[pin]
-+    gpuvm_unique: Mutex<UniqueRefGpuVm<GpuVmData<'bound>>>,
-+    /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
-+    /// internal mapping tree, like GpuVm::obtain()
-+    gpuvm: ARef<GpuVm<GpuVmData<'bound>>>,
-+    /// VA range for this VM.
-+    va_range: Range<u64>,
-+}
-+
-+impl<'bound> Vm<'bound> {
-+    /// Creates a new GPU virtual address space.
-+    ///
-+    /// The VM is initialized with a page table configured according to the GPU's
-+    /// address translation capabilities and registered with the GPUVM framework.
-+    pub(crate) fn new(
-+        dev: &'bound Device<Bound>,
-+        ddev: &TyrDrmDevice,
-+        mmu: ArcBorrow<'_, Mmu<'bound>>,
-+        gpu_info: &GpuInfo,
-+    ) -> Result<Arc<Vm<'bound>>> {
-+        let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-+        let va_bits = mmu_features.va_bits().get();
-+        let pa_bits = mmu_features.pa_bits().get();
-+
-+        let range = 0..(1u64 << va_bits);
-+        let reserve_range = 0..0u64;
-+
-+        // dummy_obj is used to initialize the GPUVM tree.
-+        let dummy_obj = gem::new_dummy_object(ddev).inspect_err(|e| {
-+            pr_err!("Failed to create dummy GEM object: {:?}\n", e);
-+        })?;
-+
-+        let gpuvm_unique = kernel::drm::gpuvm::GpuVm::new::<Error, _>(
-+            c_str!("Tyr::GpuVm"),
-+            ddev,
-+            &*dummy_obj,
-+            range.clone(),
-+            reserve_range,
-+            GpuVmData::<'bound> {
-+                _phantom: PhantomData::<&()>,
-+            },
-+        )
-+        .inspect_err(|e| {
-+            pr_err!("Failed to create GpuVm: {:?}\n", e);
-+        })?;
-+        let gpuvm = ARef::from(&*gpuvm_unique);
-+
-+        let as_data = Arc::pin_init(VmAsData::new(&mmu, dev, va_bits, pa_bits), GFP_KERNEL)?;
-+
-+        let vm = Arc::pin_init(
-+            pin_init!(Self{
-+                as_data,
-+                dev,
-+                mmu: mmu.into(),
-+                gpuvm,
-+                gpuvm_unique <- new_mutex!(gpuvm_unique),
-+                va_range: range,
-+            }),
-+            GFP_KERNEL,
-+        )?;
-+
-+        Ok(vm)
-+    }
-+
-+    /// Activate the VM in a hardware address space slot.
-+    pub(crate) fn activate(&self) -> Result {
-+        self.mmu
-+            .activate_vm(self.as_data.as_arc_borrow())
-+            .inspect_err(|e| {
-+                pr_err!("Failed to activate VM: {:?}\n", e);
-+            })
-+    }
-+
-+    /// Deactivate the VM by evicting it from its address space slot.
-+    fn deactivate(&self) -> Result {
-+        self.mmu.deactivate_vm(&self.as_data).inspect_err(|e| {
-+            pr_err!("Failed to deactivate VM: {:?}\n", e);
-+        })
-+    }
-+
-+    /// Kills the VM by deactivating it and unmapping all regions.
-+    pub(crate) fn kill(&self) {
-+        // TODO: Turn the VM into a state where it can't be used.
-+        let _ = self.deactivate().inspect_err(|e| {
-+            pr_err!("Failed to deactivate VM: {:?}\n", e);
-+        });
-+        let _ = self
-+            .unmap_range(self.va_range.start, self.va_range.end - self.va_range.start)
-+            .inspect_err(|e| {
-+                pr_err!("Failed to unmap range during deactivate: {:?}\n", e);
-+            });
-+    }
-+
-+    /// Executes a virtual memory operation.
-+    ///
-+    /// This handles both map and unmap operations by coordinating between the
-+    /// GPUVM framework and the hardware page table.
-+    fn exec_op<'a>(
-+        &self,
-+        gpuvm_unique: &mut UniqueRefGpuVm<GpuVmData<'bound>>,
-+        req: VmOpRequest<'bound>,
-+        resources: &'a mut VmOpResources<'bound>,
-+    ) -> Result {
-+        let pt = &self.as_data.page_table;
-+
-+        match req.op_type {
-+            VmOpType::Map(args) => {
-+                let mut pt_upd = PtUpdateContext::new(
-+                    self.dev,
-+                    pt,
-+                    &self.mmu,
-+                    &self.as_data,
-+                    req.region,
-+                    PtOpType::Map(PtMapArgs {
-+                        prot: args.flags.to_prot(),
-+                    }),
-+                    resources,
-+                )?;
-+
-+                gpuvm_unique.sm_map(OpMapRequest {
-+                    addr: pt_upd.region.start,
-+                    range: pt_upd.region.end - pt_upd.region.start,
-+                    gem_offset: args.bo_offset,
-+                    vm_bo: &args.vm_bo,
-+                    context: &mut pt_upd,
-+                })
-+                //PtUpdateContext drops here flushing the page table
-+            }
-+            VmOpType::Unmap => {
-+                let mut pt_upd = PtUpdateContext::new(
-+                    self.dev,
-+                    pt,
-+                    &self.mmu,
-+                    &self.as_data,
-+                    req.region,
-+                    PtOpType::Unmap,
-+                    resources,
-+                )?;
-+
-+                gpuvm_unique.sm_unmap(
-+                    pt_upd.region.start,
-+                    pt_upd.region.end - pt_upd.region.start,
-+                    &mut pt_upd,
-+                )
-+                //PtUpdateContext drops here flushing the page table
-+            }
-+        }
-+    }
-+
-+    /// Maps a GEM buffer object range into the VM at the specified virtual address.
-+    ///
-+    /// This creates a mapping from GPU virtual address `va` to the physical pages
-+    /// backing the GEM object, starting at `bo_offset` bytes into the object and
-+    /// spanning `size` bytes. The mapping respects the access permissions and
-+    /// caching behavior specified in `flags`.
-+    pub(crate) fn map_bo_range(
-+        &self,
-+        bo: &Bo,
-+        bo_offset: u64,
-+        size: u64,
-+        va: u64,
-+        flags: VmMapFlags,
-+    ) -> Result {
-+        let req = VmOpRequest {
-+            op_type: VmOpType::Map(VmMapArgs {
-+                vm_bo: self.gpuvm.obtain(bo, ())?,
-+                flags,
-+                bo_offset,
-+            }),
-+            region: va..(va + size),
-+        };
-+        let mut resources = VmOpResources {
-+            preallocated_gpuvas: [
-+                Some(GpuVaAlloc::<GpuVmData<'bound>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'bound>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'bound>>::new(GFP_KERNEL)?),
-+            ],
-+        };
-+        let mut gpuvm_unique = self.gpuvm_unique.lock();
-+
-+        self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)?;
-+
-+        // We flush the defer cleanup list now. Things will be different in
-+        // the asynchronous VM_BIND path, where we want the cleanup to
-+        // happen outside the DMA signalling path.
-+        self.gpuvm.deferred_cleanup();
-+        Ok(())
-+    }
-+
-+    /// Unmaps a virtual address range from the VM.
-+    ///
-+    /// This removes any existing mappings in the specified range, freeing the
-+    /// virtual address space for reuse.
-+    pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
-+        let req = VmOpRequest {
-+            op_type: VmOpType::Unmap,
-+            region: va..(va + size),
-+        };
-+        let mut resources = VmOpResources {
-+            preallocated_gpuvas: [
-+                Some(GpuVaAlloc::<GpuVmData<'bound>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'bound>>::new(GFP_KERNEL)?),
-+                None,
-+            ],
-+        };
-+        let mut gpuvm_unique = self.gpuvm_unique.lock();
-+
-+        self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)?;
-+
-+        // We flush the defer cleanup list now. Things will be different in
-+        // the asynchronous VM_BIND path, where we want the cleanup to
-+        // happen outside the DMA signalling path.
-+        self.gpuvm.deferred_cleanup();
-+        Ok(())
-+    }
-+}
-+
-+impl<'bound> DriverGpuVm for GpuVmData<'bound> {
-+    type Driver = TyrDrmDriver;
-+    type Object = Bo;
-+    type VmBoData = ();
-+    type VaData = ();
-+    type SmContext<'ctx>
-+        = PtUpdateContext<'ctx, 'bound>
-+    where
-+        Self: 'ctx;
-+
-+    /// Indicates that a new mapping should be created.
-+    fn sm_step_map<'op>(
-+        &mut self,
-+        op: OpMap<'op, Self>,
-+        context: &mut Self::SmContext<'_>,
-+    ) -> Result<OpMapped<'op, Self>, Error> {
-+        let start_iova = op.addr();
-+        let mut iova = start_iova;
-+        let mut bytes_left_to_map = op.length();
-+        let mut gem_offset = op.gem_offset();
-+        let sgt = op.obj().sg_table(context.dev).inspect_err(|e| {
-+            pr_err!("Failed to get sg_table: {:?}\n", e);
-+        })?;
-+        let prot = match &context.op_type {
-+            PtOpType::Map(args) => args.prot,
-+            _ => {
-+                return Err(EINVAL);
-+            }
-+        };
-+
-+        for sgt_entry in sgt.iter() {
-+            let mut paddr = sgt_entry.dma_address();
-+            let mut sgt_entry_length: u64 = sgt_entry.dma_len();
-+
-+            if bytes_left_to_map == 0 {
-+                break;
-+            }
-+
-+            if gem_offset > 0 {
-+                // Skip the entire SGT entry if the gem_offset exceeds its length
-+                let skip = sgt_entry_length.min(gem_offset);
-+                paddr += skip;
-+                sgt_entry_length -= skip;
-+                gem_offset -= skip;
-+            }
-+
-+            if sgt_entry_length == 0 {
-+                continue;
-+            }
-+
-+            if gem_offset != 0 {
-+                pr_err!("Invalid gem_offset {} in page table mapping.\n", gem_offset);
-+                return Err(EINVAL);
-+            }
-+            let len = sgt_entry_length.min(bytes_left_to_map);
-+
-+            let segment_mapped = match pt_map(context.pt, iova, paddr, len, prot) {
-+                Ok(segment_mapped) => segment_mapped,
-+                Err(e) => {
-+                    // clean up any successful mappings from previous SGT entries.
-+                    let total_mapped = iova - start_iova;
-+                    if total_mapped > 0 {
-+                        pt_unmap(context.pt, start_iova..(start_iova + total_mapped)).ok();
-+                    }
-+                    return Err(e);
-+                }
-+            };
-+
-+            // Since there could be a partial mapping, only advance by the actual amount mapped
-+            bytes_left_to_map -= segment_mapped;
-+            iova += segment_mapped;
-+        }
-+
-+        let gpuva = context.preallocated_gpuva()?;
-+        let op = op.insert(gpuva, pin_init::init_zeroed());
-+
-+        Ok(op)
-+    }
-+
-+    /// Indicates that an existing mapping should be removed.
-+    fn sm_step_unmap<'op>(
-+        &mut self,
-+        op: OpUnmap<'op, Self>,
-+        context: &mut Self::SmContext<'_>,
-+    ) -> Result<OpUnmapped<'op, Self>, Error> {
-+        let start_iova = op.va().addr();
-+        let length = op.va().length();
-+
-+        let region = start_iova..(start_iova + length);
-+        pt_unmap(context.pt, region.clone()).inspect_err(|e| {
-+            pr_err!(
-+                "Failed to unmap region {:#x}..{:#x}: {:?}\n",
-+                region.start,
-+                region.end,
-+                e
-+            );
-+        })?;
-+
-+        let (op_unmapped, _va_removed) = op.remove();
-+
-+        Ok(op_unmapped)
-+    }
-+
-+    /// Indicates that an existing mapping should be split up.
-+    fn sm_step_remap<'op>(
-+        &mut self,
-+        op: OpRemap<'op, Self>,
-+        context: &mut Self::SmContext<'_>,
-+    ) -> Result<OpRemapped<'op, Self>, Error> {
-+        let unmap_start = if let Some(prev) = op.prev() {
-+            prev.addr() + prev.length()
-+        } else {
-+            op.va_to_unmap().addr()
-+        };
-+
-+        let unmap_end = if let Some(next) = op.next() {
-+            next.addr()
-+        } else {
-+            op.va_to_unmap().addr() + op.va_to_unmap().length()
-+        };
-+
-+        let unmap_length = unmap_end - unmap_start;
-+
-+        if unmap_length > 0 {
-+            let region = unmap_start..(unmap_start + unmap_length);
-+            pt_unmap(context.pt, region.clone()).inspect_err(|e| {
-+                pr_err!(
-+                    "Failed to unmap remap region {:#x}..{:#x}: {:?}\n",
-+                    region.start,
-+                    region.end,
-+                    e
-+                );
-+            })?;
-+        }
-+
-+        let prev_va = context.preallocated_gpuva()?;
-+        let next_va = context.preallocated_gpuva()?;
-+
-+        let (op_remapped, _remap_ret) = op.remap(
-+            [prev_va, next_va],
-+            pin_init::init_zeroed(),
-+            pin_init::init_zeroed(),
-+        );
-+
-+        Ok(op_remapped)
-+    }
-+}
-+
-+/// This function selects the largest supported block size (currently 4KB or 2MB)
-+/// that can be used for a mapping at the given address and size, respecting alignment constraints.
-+///
-+/// We can map multiple pages at once but we can't exceed the size of the
-+// table entry itself. So, if mapping 4KB pages, figure out how many pages
-+// can be mapped before we hit the 2MB boundary. Or, if mapping 2MB pages,
-+// figure out how many pages can be mapped before hitting the 1GB boundary
-+// Returns the page size (4KB or 2MB) and the number of pages that can be mapped at that size.
-+fn get_pgsize(addr: u64, size: u64) -> (u64, u64) {
-+    // Get the distance to the next boundary of 2MB block
-+    let blk_offset_2m = addr.wrapping_neg() % (SZ_2M as u64);
-+
-+    // Use 4K blocks if the address is not 2MB aligned, or we have less than 2MB to map
-+    if blk_offset_2m != 0 || size < SZ_2M as u64 {
-+        let pgcount = if blk_offset_2m == 0 {
-+            size / SZ_4K as u64
-+        } else {
-+            blk_offset_2m.min(size) / SZ_4K as u64
-+        };
-+        return (SZ_4K as u64, pgcount);
-+    }
-+
-+    let blk_offset_1g = addr.wrapping_neg() % (SZ_1G as u64);
-+    let blk_offset = if blk_offset_1g == 0 {
-+        SZ_1G as u64
-+    } else {
-+        blk_offset_1g
-+    };
-+    let pgcount = blk_offset.min(size) / SZ_2M as u64;
-+
-+    (SZ_2M as u64, pgcount)
-+}
-+
-+/// Maps a physical address range into the page table at the specified virtual address.
-+///
-+/// This function maps `len` bytes of physical memory starting at `paddr` to the
-+/// virtual address `iova`, using the protection flags specified in `prot`. It
-+/// automatically selects optimal page sizes to minimize page table overhead.
-+///
-+/// If the mapping fails partway through, all successfully mapped pages are
-+/// unmapped before returning an error.
-+///
-+/// Returns the number of bytes successfully mapped.
-+fn pt_map(
-+    pt: &IoPageTable<'_, ARM64LPAES1>,
-+    iova: u64,
-+    paddr: u64,
-+    len: u64,
-+    prot: u32,
-+) -> Result<u64> {
-+    let mut segment_mapped = 0u64;
-+    while segment_mapped < len {
-+        let remaining = len - segment_mapped;
-+        let curr_iova = iova + segment_mapped;
-+        let curr_paddr = paddr + segment_mapped;
-+
-+        let (pgsize, pgcount) = get_pgsize(curr_iova | curr_paddr, remaining);
-+
-+        // SAFETY: Exclusive access to the page table is ensured because
-+        // the pt reference comes from PtUpdateContext, which is created
-+        // during a VM update operation, ensuring the driver does not concurrently
-+        // modify the page table.
-+        let (mapped, result) = unsafe {
-+            pt.map_pages(
-+                curr_iova as usize,
-+                (curr_paddr as usize).try_into().unwrap(),
-+                pgsize as usize,
-+                pgcount as usize,
-+                prot,
-+                GFP_KERNEL,
-+            )
-+        };
-+
-+        if let Err(e) = result {
-+            pr_err!("pt.map_pages failed at iova {:#x}: {:?}\n", curr_iova, e);
-+            if segment_mapped > 0 {
-+                pt_unmap(pt, iova..(iova + segment_mapped)).ok();
-+            }
-+            return Err(e);
-+        }
-+
-+        if mapped == 0 {
-+            pr_err!("Failed to map any pages at iova {:#x}\n", curr_iova);
-+            if segment_mapped > 0 {
-+                pt_unmap(pt, iova..(iova + segment_mapped)).ok();
-+            }
-+            return Err(ENOMEM);
-+        }
-+
-+        segment_mapped += mapped as u64;
-+    }
-+
-+    Ok(segment_mapped)
-+}
-+
-+/// Unmaps a virtual address range from the page table.
-+///
-+/// This function removes all page table entries in the specified range,
-+/// automatically handling different page sizes that may be present.
-+fn pt_unmap(pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>) -> Result {
-+    let mut iova = range.start;
-+    let mut bytes_left_to_unmap = range.end - range.start;
-+
-+    while bytes_left_to_unmap > 0 {
-+        let (pgsize, pgcount) = get_pgsize(iova, bytes_left_to_unmap);
-+
-+        // SAFETY: Exclusive access to the page table is ensured because
-+        // the pt reference comes from PtUpdateContext, which was
-+        // created while holding &mut Vm, preventing any other access to the
-+        // page table for the duration of this operation.
-+        let unmapped = unsafe { pt.unmap_pages(iova as usize, pgsize as usize, pgcount as usize) };
-+
-+        if unmapped == 0 {
-+            pr_err!("Failed to unmap any bytes at iova {:#x}\n", iova);
-+            return Err(EINVAL);
-+        }
-+
-+        bytes_left_to_unmap -= unmapped as u64;
-+        iova += unmapped as u64;
-+    }
-+
-+    Ok(())
-+}
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.3-2026-07-09
 
--- 
-2.54.0
+for you to fetch changes up to 5c6c247992d4d9200e073b83f4ec6c703c096845:
 
+  drm/amdkfd: Check bounds on CRIU restore event id (2026-07-08 14:27:26 -0400)
+
+----------------------------------------------------------------
+amd-drm-next-7.3-2026-07-09:
+
+amdgpu:
+- RAS updates
+- PSP 15.0.9 update
+- SMU 15.0.9 update
+- VCN 5.3 fix
+- VI ASPM fix
+- Userq fix
+- lifetime fix for amdgpu_vm_get_task_info_pasid()
+- Gfx10 fix
+- SMU 14 fix
+- JPEG cleanups
+- MES fixes and cleanups
+- Header cleanups
+- Misc gfx fixes
+- Gfx pipe1 support on gfx11 APUs
+- BUG() and BUG_ON() removals
+
+amdkfd:
+- Merge fix
+- CRIU bounds checking fixes
+- secondary context id fix
+- Event bounds checking fix
+- Fix CWSR buffer mapping when in VRAM
+- Secondary context fixes
+
+----------------------------------------------------------------
+Alex Deucher (17):
+      drm/amdkfd: drop duplicate kfd_queue_acquire_buffers()
+      drm/gfx10: Program DB_RING_CONTROL
+      drm/gfx11: Program DB_RING_CONTROL
+      drm/gfx12: Program DB_RING_CONTROL
+      drm/amdgpu/gfx11: enable gfx pipe1 hardware support
+      drm/amdgpu: return an error instead of BUG() for CSA bo_va
+      drm/amdgpu/gfx11: WARN() rather than BUG() for invalid SDMA engine
+      drm/amdgpu/gfx12: WARN() rather than BUG() for invalid SDMA engine
+      drm/amdgpu/gfx12.1: WARN() rather than BUG() for invalid SDMA engine
+      drm/amdgpu/atomfirmware: WARN() rather than BUG()
+      drm/amdgpu/cgs: WARN() rather than BUG()
+      drm/amdgpu/ucode: WARN() rather than BUG()
+      drm/amdgpu/cik_sdma: replace BUG() with an error
+      drm/amdgpu/sdma2.4: replace BUG() with an error
+      drm/amdgpu/sdma3.0: replace BUG() with an error
+      drm/amdgpu/si: drop BUG()s
+      drm/amdgpu/gmc6: replace BUG() with an error
+
+Ce Sun (8):
+      drm/amdgpu: retire legacy pmfw eeprom interface wrapper
+      drm/amdgpu: retire legacy pmfw eeprom support check
+      drm/amd/pm: retire legacy smu ras driver framework
+      drm/amd/pm: retire legacy ras_smu_drv interface for smu v13.0.12
+      drm/amdgpu: retire legacy mca umc status check interface
+      drm/amdgpu: retire legacy get_retire_flip_bits for UMC
+      drm/amdgpu: retire legacy get_retire_flip_bits interface for UMC
+      drm/amdgpu: retire legacy deferred error separate logging
+
+David Francis (4):
+      drm/amdkfd: Check bounds on CRIU restore queue type and mqd size
+      drm/amdkfd: Don't acquire buffers during CRIU queue restore.
+      drm/amdkfd: Check bounds in allocate_event_notification_slot
+      drm/amdkfd: Check bounds on CRIU restore event id
+
+Geoffrey McRae (2):
+      drm/amdgpu/mes: Add NULL check for mes_hung_db_array allocation
+      drm/amdgpu/mes: Fix hung_queue_db_array loop limit for multi-XCC
+
+George Zhang (1):
+      drm/amd/display: Fix sign mismatch warning
+
+James Zhu (1):
+      drm/amdkfd: use iosys_map for CWSR buffer access
+
+Jesse Zhang (1):
+      drm/amdgpu: trigger GPU recovery when userq destroy fails to unmap a hung queue
+
+Kanala Ramalingeswara Reddy (2):
+      drm/amdgpu: add support for PSP version 15.0.9
+      drm/amdgpu: add support for SMU version 15.0.9
+
+Kenneth Feng (1):
+      drm/amd/amdgpu: disable ASPM on VI if pcie dpm is disabled
+
+Shahyan Soltani (7):
+      drm/amdgpu: move struct amdgpu_wb and helpers into separate files
+      drm/amdgpu: move struct amdgpu_video_codecs and helpers into header file
+      drm/amdgpu: move struct amdgpu_mqd and helpers into header file
+      drm/amdgpu: move amdgpu_acpi helpers into new header
+      drm/amdgpu: move amdgpu_allowed_register_entry into amdgpu_reg_access.h
+      drm/amdgpu: include amdgpu_video_codecs.h only where needed
+      drm/amdgpu: fix lifetime issue of amdgpu_vm_get_task_info_pasid()
+
+Srinivasan Shanmugam (1):
+      drm/amdgpu/mes12: Remove MES self test
+
+Suresh Guttula (1):
+      drm/amdgpu: Disable JDPG on VCN5_3
+
+Tiago Dourado (2):
+      drm/amdgpu/jpeg: deduplicate jpeg_v3_0 process_interrupt
+      drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0 process_interrupt
+
+Yang Wang (1):
+      drm/amd/pm: fix smu14 power limit range calculation
+
+Zhu Lingshan (2):
+      amdkfd: properly free secondary context id
+      drm/amdkfd: expose pasid of secondary contexts by debugfs
+
+ drivers/gpu/drm/amd/amdgpu/Makefile                |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                | 267 +---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.h           | 151 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c |   3 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c   |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c   |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c            |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 113 +------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c             |  14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.h            |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |  31 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |  46 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 127 ++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h            |  30 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     | 146 +--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h     |  23 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h     |   8 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  18 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c          |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h            |  18 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c       |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |   9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h   |  47 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  25 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c            |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c             | 129 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h             | 102 +++++++
+ drivers/gpu/drm/amd/amdgpu/cik.c                   |   1 +
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c              |  11 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  13 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  35 ++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  13 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             |   4 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c              |   4 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  10 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c              |   2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h             |   4 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c             |  21 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c           |   2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h           |   4 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c           |  22 +-
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   4 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c             | 340 +--------------------
+ drivers/gpu/drm/amd/amdgpu/nv.c                    |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c             |  11 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |   8 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c           |   8 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/si.c                    |   5 +-
+ drivers/gpu/drm/amd/amdgpu/si_dma.c                |   8 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |   1 +
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |   4 +-
+ drivers/gpu/drm/amd/amdgpu/soc24.c                 |   1 +
+ drivers/gpu/drm/amd/amdgpu/soc_v1_0.c              |   1 +
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c             | 151 ---------
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.h             |   3 -
+ drivers/gpu/drm/amd/amdgpu/vi.c                    |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   5 +
+ drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c           | 113 +++++--
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   6 +
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c            |   5 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  10 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  73 +++--
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  43 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |   6 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |   7 -
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |   1 -
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  12 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   8 -
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  | 130 --------
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  21 --
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h   |   1 -
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  28 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c     |   1 +
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c   |   3 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h        |   1 -
+ 94 files changed, 969 insertions(+), 1643 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_video_codecs.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wb.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_wb.h
