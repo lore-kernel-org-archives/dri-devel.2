@@ -4,70 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F276C44509
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F2AC43458
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 09:22:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83F4D10F478;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D883110F4AF;
 	Thu,  9 Jul 2026 09:22:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EOFWGblf";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bt1nM3Vk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ru+n/XaS";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FtcF++5l";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vyEO1pTz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2637210F49B;
- Thu,  9 Jul 2026 09:22:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783588971; x=1815124971;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=9EdaGAvYJ5tbCvOjl8CHeOoyPtBqGPgNsT9qMmRu+Es=;
- b=EOFWGblftCXfNbrmxDmle7XjP41HUteard0EEe7e9Lth5MV41zWRl8EH
- cduy1InMVOWhk3xD5keLy83r/Y+HTCZaII7k2klxwnUQHHZcLDqTrWf+O
- L5tSvmot/PEKOvbtTArvyW6TkTZdgSkrL63uyn1G9JLjuMc5r5JbhPlnc
- zCPSiY9HQMFBW+T6nZnT8hv2k2EIVawLEWqZ9gyK4NAlQNAAeRheYdgFf
- asdsCCuKg6bx/CfRnA0rKIC9uZdkqoLzuOOC2Is3tuhLhJbbLK1VuUkl3
- O8U7q2OsGGU35DZ4HT+kaDap77WsoWPajxXuoZ19GLoPia1NrDGTVHXVu w==;
-X-CSE-ConnectionGUID: LVQ6BNVMSjeAdW2NvDnHKA==
-X-CSE-MsgGUID: 2D7hpTO7ThuOuEYNiRyppQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="101693416"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="101693416"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2026 02:22:34 -0700
-X-CSE-ConnectionGUID: ReNFUb8JR7iKxKlmK8LGyQ==
-X-CSE-MsgGUID: /O5vCSJFTeWSIIutLaS32Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251884450"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2026 02:22:29 -0700
-Date: Thu, 9 Jul 2026 11:22:26 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Tauro, Riana" <riana.tauro@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, kuba@kernel.org,
- aravind.iddamsetty@linux.intel.com, intel-xe@lists.freedesktop.org,
- anshuman.gupta@intel.com, joonas.lahtinen@linux.intel.com,
- simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
- joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
- shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
- maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
- soham.purkait@intel.com, Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- "David S. Miller" <davem@davemloft.net>,
- Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] drm/drm_ras: Add drm_ras netlink error event
-Message-ID: <ak9oUmZ8sS3aF6jB@black.igk.intel.com>
-References: <20260701094409.129131-5-riana.tauro@intel.com>
- <20260701094409.129131-6-riana.tauro@intel.com>
- <202f6d3a-c29b-491b-979f-1d8223f59108@intel.com>
- <ak6xThf9qeB0wqgK@intel.com>
- <d96a4c3f-e0e7-42d7-bb8a-994b2f408dea@intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54EBF10F4A0
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 09:22:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E55E675DDF;
+ Thu,  9 Jul 2026 09:22:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783588945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=bt1nM3VkmfDThiDAbaF4BJ6mO9hxtNq8gUobBwLZRD1OvV5yqwK7JPH/oVJ+Rrz9cyBes9
+ 3qewIhNbeKN3Hr6wcydT9nNgrR6VFKivIYls3H8B2V8KZlvyGq8j1YUPtigGpZ8vo/Oc88
+ S3Gtsxawobb00piq/epRxEZ5X4+PI+s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783588945;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=Ru+n/XaSRnvME2VyrAxHuanA5vqeVXsr80d7F3thORp0G+zVqtJ17pvF1sZ16rTNSjBCNQ
+ 08ZRJ1O3Up/0zZCA==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FtcF++5l;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vyEO1pTz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783588944; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=FtcF++5lmc5X4hvZIQn1X0sy54vGMJ1Nd+7QsOlilsTBw42j4SFUS50NSxg0PImGk/g/oQ
+ XkxV6ODdzZcThLN4Gs3ITdeByaklTdnzy9PNR77XOxbMFplYtmkh2Ld9Aj5SIMioSaaa0c
+ 8jKpwejj9k7E74eOBjQ0/sUZzwpWRKg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783588944;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
+ b=vyEO1pTz2UFwzodW3Lvv89Nebi05DKbH326C6DtDpSQ4YSOhipdj7fNnHk5hyCwIZkZE6M
+ ItiTVx8Q9QzdYaCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D579779AA;
+ Thu,  9 Jul 2026 09:22:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0MdcFVBoT2q6OQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Jul 2026 09:22:24 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
+ dakr@kernel.org, deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 6/7] drm: Implement vga_switcheroo_client_ops.post_switch
+Date: Thu,  9 Jul 2026 11:16:02 +0200
+Message-ID: <20260709092215.168172-7-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260709092215.168172-1-tzimmermann@suse.de>
+References: <20260709092215.168172-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d96a4c3f-e0e7-42d7-bb8a-994b2f408dea@intel.com>
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_TO(0.00)[wunner.de,redhat.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,intel.com,ursulin.net,gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_TWELVE(0.00)[22]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLgosu6qu4h11rje89ht7rjgg5)];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E55E675DDF
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,37 +131,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 10:45:27AM +0530, Tauro, Riana wrote:
-> On 09-07-2026 01:51, Rodrigo Vivi wrote:
-> > On Tue, Jul 07, 2026 at 12:02:11PM +0530, Tauro, Riana wrote:
-> > > Hi Rodrigo/Jakub/Aravind
-> > > 
-> > > Please let me know if you have any feedback for this patch or can you please
-> > > ack this if it looks good to you.
-> > I looks good to me, but could you please double check the sashiko's comments?
-> 
-> Sashiko has a comment regarding namespaces
-> 
-> [Severity: Medium]Since the generic netlink family explicitly supports
-> multiple networknamespaces by setting .netnsok = true,
->  will hardcoding init_net hereprevent listeners in non-init namespaces from
-> receiving error events
-> 
-> .netnsok = true is auto generated not explicitly added in code.
+An output's attached display might have changed while a DRM client's
+device did not have the output switched to it.
 
-Because that's what ynl_gen_c.py does without it being parsed from
-anywhere.
+The nouveau_switcheroo_reprobe() callback sends a hotplug notice to
+DRM's internal clients, so that they can reconfigure their display
+output if necessary.
 
-> But from what i see, drm device is present in the host and not replicated
-> across namespaces
-> and most of the non-network implementations use inet.  (ex: Binder)
-> If this really needs a fix, we can drop the has_listeners suggested by raag 
-> in previous patch.
-> I don't think in an error path, allocating a new buffer would be a big
-> overhead if listeners are not present.
+As post_switch callback replaces reprobe in vga_switcheroo, update
+nouveau accordingly. In the other drivers, remove the NULL-assignment
+to reprobe. No functional changes.
 
-I don't know enough about namespaces to comment on this. I'll rely on
-Jakub's disposition if netnsok is relevant here, or needed at all for
-our usecase.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Lyude Paul <lyude@redhat.com> # nouveau
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 -
+ drivers/gpu/drm/i915/i915_switcheroo.c     |  1 -
+ drivers/gpu/drm/nouveau/nouveau_vga.c      | 19 +++++++++----------
+ drivers/gpu/drm/radeon/radeon_device.c     |  1 -
+ 4 files changed, 9 insertions(+), 13 deletions(-)
 
-Raag
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 87a59a79a019..5bb1567d512d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1708,7 +1708,6 @@ static void amdgpu_switcheroo_pre_switch(struct pci_dev *pdev)
+ 
+ static const struct vga_switcheroo_client_ops amdgpu_switcheroo_ops = {
+ 	.set_gpu_state = amdgpu_switcheroo_set_state,
+-	.reprobe = NULL,
+ 	.can_switch = amdgpu_switcheroo_can_switch,
+ 	.pre_switch = amdgpu_switcheroo_pre_switch,
+ };
+diff --git a/drivers/gpu/drm/i915/i915_switcheroo.c b/drivers/gpu/drm/i915/i915_switcheroo.c
+index 6b306ece0556..d97057722fde 100644
+--- a/drivers/gpu/drm/i915/i915_switcheroo.c
++++ b/drivers/gpu/drm/i915/i915_switcheroo.c
+@@ -69,7 +69,6 @@ static void i915_switcheroo_pre_switch(struct pci_dev *pdev)
+ 
+ static const struct vga_switcheroo_client_ops i915_switcheroo_ops = {
+ 	.set_gpu_state = i915_switcheroo_set_state,
+-	.reprobe = NULL,
+ 	.can_switch = i915_switcheroo_can_switch,
+ 	.pre_switch = i915_switcheroo_pre_switch,
+ };
+diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
+index 2d2d08be8fbe..29a801124e56 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_vga.c
++++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
+@@ -54,15 +54,6 @@ nouveau_switcheroo_set_state(struct pci_dev *pdev,
+ 	}
+ }
+ 
+-static void
+-nouveau_switcheroo_reprobe(struct pci_dev *pdev)
+-{
+-	struct nouveau_drm *drm = pci_get_drvdata(pdev);
+-	struct drm_device *dev = drm->dev;
+-
+-	drm_client_dev_hotplug(dev);
+-}
+-
+ static bool
+ nouveau_switcheroo_can_switch(struct pci_dev *pdev)
+ {
+@@ -84,12 +75,20 @@ nouveau_switcheroo_pre_switch(struct pci_dev *pdev)
+ 	drm_client_dev_acquire_outputs(drm->dev);
+ }
+ 
++static void
++nouveau_switcheroo_post_switch(struct pci_dev *pdev)
++{
++	struct nouveau_drm *drm = pci_get_drvdata(pdev);
++
++	drm_client_dev_hotplug(drm->dev);
++}
++
+ static const struct vga_switcheroo_client_ops
+ nouveau_switcheroo_ops = {
+ 	.set_gpu_state = nouveau_switcheroo_set_state,
+-	.reprobe = nouveau_switcheroo_reprobe,
+ 	.can_switch = nouveau_switcheroo_can_switch,
+ 	.pre_switch = nouveau_switcheroo_pre_switch,
++	.post_switch = nouveau_switcheroo_post_switch,
+ };
+ 
+ void
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 8697a9eb5d13..9523240110a6 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1267,7 +1267,6 @@ static void radeon_switcheroo_pre_switch(struct pci_dev *pdev)
+ 
+ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
+ 	.set_gpu_state = radeon_switcheroo_set_state,
+-	.reprobe = NULL,
+ 	.can_switch = radeon_switcheroo_can_switch,
+ 	.pre_switch = radeon_switcheroo_pre_switch,
+ };
+-- 
+2.54.0
+
