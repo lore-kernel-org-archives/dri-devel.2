@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34686C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B12C44507
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:51:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFB810F53B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F1A510F52F;
 	Thu,  9 Jul 2026 11:51:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SSfB4BEW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L95FyzEJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5B7110F538
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C35A10F52F
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8BD43400EA;
- Thu,  9 Jul 2026 11:51:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89BB91F000E9;
- Thu,  9 Jul 2026 11:51:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C43FB600C3;
+ Thu,  9 Jul 2026 11:51:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035821F000E9;
+ Thu,  9 Jul 2026 11:51:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597906;
- bh=F9a6z3mKeSIqQHwMdQJsowI3MI9fnVUO5zF+roXVWN8=;
+ s=k20260515; t=1783597913;
+ bh=1c0tQnNLwrg5lp41NfqjNpbvIb+V+6RmuhkDoS/Kr5o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SSfB4BEWI3HgsZzcRzu4vCyB2LqN8nyZ3XsX2lW82+oEYrA+Z5VFQ9oN5zoiWBuVa
- rdjy2KlYPFJv3PP18SAA32MhGDWF0bEJPQf9K8HTlc+lM+uzPPIE7JgzafyUnpurLD
- Xpw0qUZBNej4QE1WBeS4bfasPIsPtj3hmLCVaCladX8BP9wNNwc7Zn/24WhBGyOZap
- lYCGRYKMR51MztruuxO8leZHYoJT9fLK0mddoDHEfK8wFIfPVdvzrky/eGJmuPyzTu
- VkPQgR120QHvIFk++fpp6XsipJJHPHmHU2AxTPOiAURt4I1VW7D5nE/RofIQrMr08l
- 9hU4TBDT18Keg==
+ b=L95FyzEJc8WXfRKlg6WQFapvgayLWcXJqYHMGDEaHeASSf5Oq0q6wBDy0Q5TLagA8
+ EMOc932lxRCk3ZR7pWirUpAUG8gGsGz6yX4oGwry+pH6MwW/HuKnybuwHw5VldebNs
+ EKnzmdzfmu59xKHy4mgIH4o0cnV3E+HCSAhtfqU5x7zQK+rjkoCZgDrXDG+gXyrOur
+ RdS4RPjkM5epAHRmklrwBL5k78xbaRqT2WYC7oGIvAcBdGRRLrndp6bKIc13I6T7tc
+ D+uiQGh+I40bVMNVfCVNaBmfP+RKImd3FjwE4HZQN3sT7b6U3eic1KIxMeCXuolRZu
+ DkbWjHzIIrpRA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:50:44 +0200
-Subject: [PATCH 18/60] drm/imx/dcss: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:50:47 +0200
+Subject: [PATCH 21/60] drm/logicvc: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-18-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-21-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Frank.Li@nxp.com, Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, 
- imx@lists.linux.dev, kernel@pengutronix.de, l.stach@pengutronix.de, 
- laurentiu.palcu@oss.nxp.com
+ paulk@sys-base.io
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6124; i=mripard@kernel.org;
- h=from:subject:message-id; bh=hDmSNEE/W/m/mNuZMkobwPjTFt7UVzAmSYtSH5FEgdw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3YLVOqHaprOSBYIn/HwYaiTA9bD+Q4aDl+fKpEt7u
- L2+R+Z2TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIk88WasZr/l6NocutvQvb7T
- 9/RvS92itQGizzayRIb0THsnszb39ZclBhN/aclX8z3yUlS7YZjMWMO/dDfTkQ1vCv0vxu/Zw2u
- dZfByhVeVWvq9HZyCxsaHPr2p1N7ldcZmq/62TYWx3FdeiwMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5965; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=RnAXqpFDt73+jxkv25UI95Ojvf6nR+SAZeIJJcQp0cE=;
+ b=kA0DAAkTJ1/OGaI9vnYByyZiAGpPixKj8n4Fl1x9tr1kmVEZH1kII5orqzI8fqphKzhcv0Zni
+ 4iVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmpPixIACgkQJ1/OGaI9vnY+/wF/Uxbx
+ 2XJL8q+fTFizdeFwKz6iSNu3r3BcOIy8m9/PhphagqgDeDjdsWd7Cfd2XY2RAX9DbbDR1njW1ih
+ UVs86UjcfqqsqIcYCFdNpA08ll1ViZXf20+Wea/z3Ja21E1nHDaM=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -336,34 +334,28 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Frank.Li@nxp.com
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: festevam@gmail.com
-Cc: imx@lists.linux.dev
-Cc: kernel@pengutronix.de
-Cc: l.stach@pengutronix.de
-Cc: laurentiu.palcu@oss.nxp.com
+Cc: paulk@sys-base.io
 ---
- drivers/gpu/drm/imx/dcss/dcss-plane.c | 2 +-
+ drivers/gpu/drm/logicvc/logicvc_layer.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/imx/dcss/dcss-plane.c b/drivers/gpu/drm/imx/dcss/dcss-plane.c
-index 1746dc5d4b64..303e93fd036c 100644
---- a/drivers/gpu/drm/imx/dcss/dcss-plane.c
-+++ b/drivers/gpu/drm/imx/dcss/dcss-plane.c
-@@ -94,11 +94,11 @@ static bool dcss_plane_format_mod_supported(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
+index 7f5ba000188a..04678f049448 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_layer.c
++++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
+@@ -249,11 +249,11 @@ static struct drm_plane_helper_funcs logicvc_plane_helper_funcs = {
  
- static const struct drm_plane_funcs dcss_plane_funcs = {
+ static const struct drm_plane_funcs logicvc_plane_funcs = {
  	.update_plane		= drm_atomic_helper_update_plane,
  	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.destroy		= dcss_plane_destroy,
+ 	.destroy		= drm_plane_cleanup,
 -	.reset			= drm_atomic_helper_plane_reset,
 +	.atomic_create_state = drm_atomic_helper_plane_create_state,
  	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
  	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
- 	.format_mod_supported	= dcss_plane_format_mod_supported,
  };
  
+ int logicvc_layer_buffer_find_setup(struct logicvc_drm *logicvc,
 
 -- 
 2.54.0
