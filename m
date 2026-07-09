@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5C7C44501
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E96C44506
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6147210F536;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C6CB10F530;
 	Thu,  9 Jul 2026 11:51:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XgO8vVkA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jSY/juKx";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 138F810F534
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B861C10F534
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 86701601D9;
- Thu,  9 Jul 2026 11:51:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB5A61F000E9;
- Thu,  9 Jul 2026 11:51:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A546601D9;
+ Thu,  9 Jul 2026 11:51:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7E21F00A3A;
+ Thu,  9 Jul 2026 11:51:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597896;
- bh=JxUIWeFyzg/vcdJHtKje3K7FZE0Cv+GRdb0n6CfZiI4=;
+ s=k20260515; t=1783597900;
+ bh=mLTioxU2KZzCoxjARjEXslffmT5V+q4S9eGDHLQo1EU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=XgO8vVkAvAMBEhsTwdljvYZtwV0HeAkgShCVsPkKoa9VPJPaaPG/zlkCZ99+tTNGM
- uL193C5aRJ8urU9avMWlL2rfzaq4o4/lPDsARyoarUUlTrwmp3/OoOuoEWBa0HqpRN
- BRirWRs81treWbtCR8wopEBjeZqgpPZVZpD0z2+TAHfI0yAFFHL1xpeWNF94SLlpNq
- IqsOb85gQYqPIuNFfPrn4hc7+E6EYXfKPC8ukIYtYSBIdmbAJ9IxjytHOb0K6ZIPVO
- qQBx+SnxjKaZKUdAPpm1jyjaNoakkNSbIboLcKkIDYB+nwJLIuxwd7+Dgxml330KUz
- lIF8XOHmdzybQ==
+ b=jSY/juKxhxqAp8AuAGik92A+KoE6BUN5M48UWt4epLQEd7L+8HZAfF+KTu9lcB1Q+
+ RFjd/wgpGmJhN3423K6axyhTWod5WrdvRmcbFvuzdIPFt+yDgBG2drIyY2pAV5vzQP
+ CZ2q2nNFSA+H6M2F5MCbBsebLHQQK4on9Bp628Az3pQjwXxHWvGw7RYdyRjsX47sja
+ f1tdtNKMk3V3t8eZCE3gnI6E7ywhWEQYCJz8G2QhDDB+vECmKLXIPertx0Umn5zCeC
+ LXkuybpxSn3tRLOc/tp3OL5fRjHhnrwaFXKWxBmZpNpBF/VZCFYUm1Z9Unbg08EVbj
+ u2vVuSAeORJSQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:50:40 +0200
-Subject: [PATCH 14/60] drm/hdlcd: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:50:42 +0200
+Subject: [PATCH 16/60] drm/hisilicon/kirin: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-14-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-16-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- liviu.dudau@arm.com
+ jstultz@google.com, sumit.semwal@linaro.org, xinliang.liu@linaro.org, 
+ yongqin.liu@linaro.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5906; i=mripard@kernel.org;
- h=from:subject:message-id; bh=5npnmttqUwlBJJpjOj0iVsAgU1U/O/EJSTsywBuHi6w=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3fx/D3wRK7QVen1C0qR12mfnbx++bZ4bf0fCs/DUN
- tOXvLL3OqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEZpgwNjx976zZO+WveWzD
- xIM2Cmvb3fWD5+bsVp+1qPeGknyz/uyeFLXdRQKWhhcPpr8UUNevYKyVub99ZsyufXkRZvPZYk/
- sOXI4Qrf1m6aY/Psjwp4Lbt7ZnSu1e+KCzwfkj5x4Lj2h71ElAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6074; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=AskHAfC2NY7drQ4DuDGcIk2KbXewkfqA4/wlIwMtZsA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3QLFL6/uO7iiX//wyzwfweWPMzQehGh3vH+s9eH6x
+ NnH269Ld0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJaKkwNvxZEiq4eMPhm/e6
+ N2jeN5/WsCT//vFiVffFko5vbsz26e/sbYzfyiqUe1fXp1Hf5pnTbMaGt2t9UlzmbU79P83ph0d
+ TteTDuzdN5RovJco3G4SuVz1+MdSq8p/WK/XZu/XXP7nx46gWAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -334,28 +335,31 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: liviu.dudau@arm.com
+Cc: jstultz@google.com
+Cc: sumit.semwal@linaro.org
+Cc: xinliang.liu@linaro.org
+Cc: yongqin.liu@linaro.org
 ---
- drivers/gpu/drm/arm/hdlcd_crtc.c | 2 +-
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/arm/hdlcd_crtc.c b/drivers/gpu/drm/arm/hdlcd_crtc.c
-index 8565749a3e48..e026b9834547 100644
---- a/drivers/gpu/drm/arm/hdlcd_crtc.c
-+++ b/drivers/gpu/drm/arm/hdlcd_crtc.c
-@@ -295,11 +295,11 @@ static const struct drm_plane_helper_funcs hdlcd_plane_helper_funcs = {
- };
+diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
+index 902c5dace4ff..5d1a150cfd75 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
++++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c
+@@ -835,11 +835,11 @@ static const struct drm_plane_helper_funcs ade_plane_helper_funcs = {
  
- static const struct drm_plane_funcs hdlcd_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.reset			= drm_atomic_helper_plane_reset,
+ static struct drm_plane_funcs ade_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy = drm_plane_cleanup,
+-	.reset = drm_atomic_helper_plane_reset,
 +	.atomic_create_state = drm_atomic_helper_plane_create_state,
  	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
  };
  
- static struct drm_plane *hdlcd_plane_init(struct drm_device *drm)
+ static void *ade_hw_ctx_alloc(struct platform_device *pdev,
 
 -- 
 2.54.0
