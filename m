@@ -4,42 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A49C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:46:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE891C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 742F910F3A1;
-	Thu,  9 Jul 2026 06:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C08110F3B2;
+	Thu,  9 Jul 2026 06:52:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="muROlo0s";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WEmaChua";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB31D10F3A1
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:46:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E684D601D9;
- Thu,  9 Jul 2026 06:45:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0FB1F000E9;
- Thu,  9 Jul 2026 06:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783579559;
- bh=6Uaawh6W4DFhoAsKRfgfHGRtGoY2Gl3ExGc1z30dL2I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=muROlo0sojBd2AmyaQjxab+4f2CKU9yYFbxcdrCYISYbUSjKTPOXIg+DCq3ezvuP/
- mWVjQGiOJ675fIFKaMHnpFJWolZFLj+1m7SKuMAAkR3foMXfaBnk/EIEi8r9YmCR77
- Ymbp5pWunEl8DSGqu0nc++eCCwP0vqoruQbvTlnlIa72RXDl62JdWWh2E8ivKXcfmo
- 8hB6KwS/2PM9xR5EiWcokI3EdLCiylnjlrPr+043zlhOmU/kKAQPWXCH06DdH7ze3k
- boVK7fKDe5lESG7s0sjOvwPWqgc8A+lxeTZIcct2kA+yS8R0Mz20RSyXP2Qb6hqfKf
- XY2lO9Ezr12NA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/amdxdna: Clear mailbox channel after create failure
-To: "Ruoyu Wang" <ruoyuw560@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709062256.4166833-1-ruoyuw560@gmail.com>
-References: <20260709062256.4166833-1-ruoyuw560@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 06:45:59 +0000
-Message-Id: <20260709064559.7D0FB1F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36AA110F3B2
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:52:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783579934;
+ bh=HRZoaw1+NvQ7wGW2Hw834tArYyN0nAPw9Nql/EjCXzc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=WEmaChuaKyx3875SvspDLRecjjfFr2N+Q4e8CgP9ACV89KSCn8D6qYX+q7aHBGVER
+ sHbG/vbyRud+2FCDOlwDGIyU52/1ioP1P/R1DSXWFuuidEJXH3XEoqqd4W3AgYoCwh
+ 8+rsOrc48NoGmJ26VKXGquisYS1Gy9KM6m0eCal1DVtZQW3RmnsaDraVCXM73rV2pr
+ TPFi+GauvLaivmlSJXIFSqPVkfUOVHwUq1t8yvZ6Z1cLdo6AcPp5RZw5fZsyMf0FAX
+ F1MhvkCXXLqZj978hykp3xfa6jal0T4yN5mM43d170VgF/bPfzcKc2Hjwq4ajW6bLM
+ xSOX0MSEOTPng==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id ACD0F17E0564;
+ Thu, 09 Jul 2026 08:52:13 +0200 (CEST)
+Date: Thu, 9 Jul 2026 08:52:07 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ <dri-devel@lists.freedesktop.org>, Steven Price <steven.price@arm.com>,
+ "Liviu Dudau" <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Danilo
+ Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ <kernel-dev@igalia.com>
+Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
+ improvements
+Message-ID: <20260709085207.6741c71c@fedora-2.home>
+In-Reply-To: <ak63Qzqxn1k9ezEd@gsse-cloud1.jf.intel.com>
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <akd/ae5VGQrsWqsf@gsse-cloud1.jf.intel.com>
+ <5963b079-cb44-4cd4-be56-f47bf3f15e0e@igalia.com>
+ <akwyNSXO+QspyoBx@gsse-cloud1.jf.intel.com>
+ <akym7rllMDFFcz8q@gsse-cloud1.jf.intel.com>
+ <992e86a0-990c-46ab-8816-cf3c030d274a@igalia.com>
+ <ak63Qzqxn1k9ezEd@gsse-cloud1.jf.intel.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,118 +69,18 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Wed, 8 Jul 2026 13:46:59 -0700
+Matthew Brost <matthew.brost@intel.com> wrote:
 
-Pre-existing issues:
-- [High] Stale fw_ctx_id is left intact on aie2_create_context error paths,=
- leaking context state.
-- [High] Missing mmput() on retry and success paths in aie2_populate_range(=
-) causes mm_struct reference leak.
-- [High] Concurrent access to mailbox ringbuffer from ioctl and DRM schedul=
-er thread.
---
+> > 
+> > Why I was unsure about deciding at drm_sched_init time is a) runtime
+> > priority changes, but perhaps that is not such a big deal and we could live  
+> 
+> Xe only allow static priorities on queues, unsure about other drivers.
 
---- Patch [1]: [PATCH] accel/amdxdna: Clear mailbox channel after create fa=
-ilure ---
-commit c7aab37bf2d56874aaf94d232e6a55a7ab8e19c2
-Author: Ruoyu Wang <ruoyuw560@gmail.com>
-
-accel/amdxdna: Clear mailbox channel after create failure
-
-This commit clears the mailbox channel pointer in the error path of
-aie2_create_context() after freeing it. This prevents later context
-cleanup routines from operating on stale memory if the creation fails.
-
-> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna=
-/aie2_message.c
-> index c4b364801cc04..a22d025794598 100644
-> --- a/drivers/accel/amdxdna/aie2_message.c
-> +++ b/drivers/accel/amdxdna/aie2_message.c
-> @@ -277,6 +277,7 @@ int aie2_create_context(struct amdxdna_dev_hdl *ndev,=
- struct amdxdna_hwctx *hwct
-> =20
->  free_channel:
->  	xdna_mailbox_free_channel(hwctx->priv->mbox_chann);
-> +	hwctx->priv->mbox_chann =3D NULL;
->  del_ctx_req:
->  	aie2_destroy_context_req(ndev, hwctx->fw_ctx_id);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but should we also invalidate=20
-hwctx->fw_ctx_id here?
-
-If a job timeout triggers a context restart via aie2_hwctx_restart() and
-aie2_create_context() fails during mailbox start, the allocated context ID
-is freed in firmware but left in hwctx->fw_ctx_id. Could a user then query
-DRM_AMDXDNA_HW_CONTEXT_ALL and leak the health report (PC, exception info)
-of another process if the firmware reassigned this ID?
-
->  	return ret;
->  }
-
-[Severity: High]
-This is a pre-existing issue outside the immediate diff, but I noticed a
-potential resource leak in drivers/accel/amdxdna/aie2_ctx.c.
-
-When populating a range, mmget_not_zero(mm) takes a reference. If the=20
-retry path is taken:
-
-drivers/accel/amdxdna/aie2_ctx.c:aie2_populate_range() {
-        ...
-        if (ret =3D=3D -EBUSY) {
-                amdxdna_umap_put(mapp);
-                goto again;
-        }
-        ...
-}
-
-Or if the success path is taken:
-
-drivers/accel/amdxdna/aie2_ctx.c:aie2_populate_range() {
-        ...
-        mapp->invalid =3D false;
-        up_write(&xdna->notifier_lock);
-        amdxdna_umap_put(mapp);
-        goto again;
-        ...
-}
-
-Does jumping to again bypass mmput(mm) and leak the mm_struct reference?
-
-[Severity: High]
-This is another pre-existing issue, but I have a question about concurrent
-mailbox access.
-
-If a user submits a job starting the DRM scheduler thread (aie2_sched_job_r=
-un
-calling aie2_execbuf), and concurrently calls the DRM_AMDXDNA_CONFIG_HWCTX
-ioctl:
-
-drivers/accel/amdxdna/aie2_ctx.c:aie2_hwctx_cu_config() {
-        ...
-        ret =3D aie2_config_cu(hwctx, aie2_config_cu_resp_handler);
-        ...
-}
-
-Could both threads invoke xdna_mailbox_send_msg() on the same mbox_chann
-simultaneously?
-
-drivers/accel/amdxdna/amdxdna_mailbox.c:mailbox_send_msg() {
-        ...
-        head =3D mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
-        tail =3D mb_chann->x2i_tail;
-        ...
-}
-
-Since mailbox_send_msg() performs an unlocked read-modify-write on the=20
-ringbuffer tail pointer and memory, can this race corrupt the hardware=20
-mailbox ring buffer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709062256.4166=
-833-1-ruoyuw560@gmail.com?part=3D1
+There are plans to add dynamic GPU context prio adjustment to panthor,
+so, even if it's not needed at the moment, I'd rather have the option to
+do it further down the line, if it's not too much to ask.
