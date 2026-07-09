@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18F1EC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17364C44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8604510E6EA;
-	Thu,  9 Jul 2026 11:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D83410F517;
+	Thu,  9 Jul 2026 11:51:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dwa2otTX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XaDuO+4m";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEC7310F529
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D02B510F517
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C88FF439E5;
- Thu,  9 Jul 2026 11:51:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3636F1F00A3A;
- Thu,  9 Jul 2026 11:51:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 53598600C3;
+ Thu,  9 Jul 2026 11:51:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87DE61F000E9;
+ Thu,  9 Jul 2026 11:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597881;
- bh=NV9c+UmmXzzczh4rxrfdiEx/3vzr0Vudq09SWEHN0Gg=;
+ s=k20260515; t=1783597884;
+ bh=VanhT2x66p30qdMHisgfZu9LluPZJ1hS8NlHXjCffBs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=dwa2otTXuFNCSYFfaTVtF3izVzLw3NMXbt96FYffHDWljxJaZN2THhMcyBdffSPml
- 5G6gKaKuFZBewJqaxohZ4a3BDD0qT4V/7R3NtaJKzzlyh0FTFK69uIKXHDR0yBhh7L
- D7LHzHYUpMZDJNe48Lnd/LC+evLWxuNZlJj1mZTmps+GqnqIVAO4L+puqw6tg1exAz
- M8RISxnxJoDzQS4i8i5HnS408HikLgOqYacRbP1GcDQcEhtidkNjUEn8Im+OElc+NG
- ettOlfVNkP06vzbbYJE9xz5kghJ4vlmEOTIUhHAnFl3AgTb7NGAkIw88SIR3Sh+Hvs
- rHs7kdrmGRWCw==
+ b=XaDuO+4m8ojHyumu/xHZdrwDpN9Ji7FOkrpyHAGpbnV9pX5/jnuqi5o2I+t/G8up2
+ tFpjyq4EA0bAdWWFcaBxwqZnVJNUAYRU3MlEcuJOoHZ+LclvRHqtfCS4f3sMrz1aST
+ 2BJPPSgsTFWjuBaewQXzF6cbn1RTGoTtD39ECbNZJfNoiYzrwnZ2vefSDVKEMwGd8Z
+ xnFWdFtDbs5QpOLGcoe4VRxcMN+ADUzEvspsQiSyy5zOk1FIdt1VlFaGlr51snqsm2
+ t5yky/XAPH9ND/iFgHeFAb4oqbKCBOBnuPVNxsnEGf6Z9jADxG10WU1ZfuuTS3vk+1
+ 8lwnaQ6PfgpNA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:50:34 +0200
-Subject: [PATCH 08/60] drm/ssd130x: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:50:35 +0200
+Subject: [PATCH 09/60] drm/st7920: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-8-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-9-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- javierm@redhat.com
+ ikerpedrosam@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6840; i=mripard@kernel.org;
- h=from:subject:message-id; bh=LqIg96UZLRVZe3dudpwsdRsZlnFfKediNDpHaxAj4S8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3TyrlWuemyxPDGC3l2eNm+D8/5dWs4qHvv2Vl7Ixv
- lfWxb/vmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABPZM5mx4Wx0jpRgr+RkJ9bF
- 07hmzlxnX+Vyv8dMb3HKuy4H5mKrM0+3rI8U/xTe7cGYLSYjOvUTY8O/a+5ntbI5+v9mi7Y+6jh
- leXHC8k8xl3rMXoZ3VBbezfjBdCnqj7Hc+uhbPhd3Vl1P3wkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6824; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=qsP/qSVowMcObsFd4qLHU5QRuy0Sj+aJi9zfslizUeY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3byVx1avkTgkZntQt2nBzfyNhQ1GC040Kv1Xqln77
+ 0h0evLtjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRp52MDSt8nstI6RYdC5+Z
+ 3iOR9/D5i7WPD5SultpZz1LxMkpppozDrf3LrfnML+Se3M/cmyXQwdhw0/Xn94MGd7RPT5mzzc0
+ hg6NgpfHbo9tfNaqqaZ5pPae8POKY3EqV6LT3GSqr5Xc4+mkBAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -334,52 +334,52 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: javierm@redhat.com
+Cc: ikerpedrosam@gmail.com
 ---
- drivers/gpu/drm/solomon/ssd130x.c | 12 ++++++------
+ drivers/gpu/drm/sitronix/st7920.c | 12 ++++++------
  1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 4907be694aec..08f78035ba67 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -1276,21 +1276,21 @@ static void ssd133x_primary_plane_atomic_disable(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix/st7920.c
+index d320391801f3..0a75e9319080 100644
+--- a/drivers/gpu/drm/sitronix/st7920.c
++++ b/drivers/gpu/drm/sitronix/st7920.c
+@@ -451,21 +451,21 @@ static void st7920_primary_plane_atomic_disable(struct drm_plane *plane,
  
  	drm_dev_exit(idx);
  }
  
  /* Called during init to allocate the plane's atomic state. */
--static void ssd130x_primary_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *ssd130x_primary_plane_create_state(struct drm_plane *plane)
+-static void st7920_primary_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *st7920_primary_plane_create_state(struct drm_plane *plane)
  {
- 	struct ssd130x_plane_state *ssd130x_state;
+ 	struct st7920_plane_state *st7920_state;
  
 -	drm_WARN_ON_ONCE(plane->dev, plane->state);
 -
- 	ssd130x_state = kzalloc_obj(*ssd130x_state);
- 	if (!ssd130x_state)
+ 	st7920_state = kzalloc_obj(*st7920_state);
+ 	if (!st7920_state)
 -		return;
 +		return ERR_PTR(-ENOMEM);
  
--	__drm_gem_reset_shadow_plane(plane, &ssd130x_state->base);
-+	__drm_gem_shadow_plane_state_init(plane, &ssd130x_state->base);
+-	__drm_gem_reset_shadow_plane(plane, &st7920_state->base);
++	__drm_gem_shadow_plane_state_init(plane, &st7920_state->base);
 +
-+	return &(&ssd130x_state->base)->base;
++	return &(&st7920_state->base)->base;
  }
  
- static struct drm_plane_state *ssd130x_primary_plane_duplicate_state(struct drm_plane *plane)
+ static struct drm_plane_state *st7920_primary_plane_duplicate_state(struct drm_plane *plane)
  {
  	struct drm_shadow_plane_state *new_shadow_plane_state;
-@@ -1349,11 +1349,11 @@ static const struct drm_plane_helper_funcs ssd130x_primary_plane_helper_funcs[]
+@@ -505,11 +505,11 @@ static const struct drm_plane_helper_funcs st7920_primary_plane_helper_funcs = {
  };
  
- static const struct drm_plane_funcs ssd130x_primary_plane_funcs = {
+ static const struct drm_plane_funcs st7920_primary_plane_funcs = {
  	.update_plane = drm_atomic_helper_update_plane,
  	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = ssd130x_primary_plane_reset,
-+	.atomic_create_state = ssd130x_primary_plane_create_state,
- 	.atomic_duplicate_state = ssd130x_primary_plane_duplicate_state,
- 	.atomic_destroy_state = ssd130x_primary_plane_destroy_state,
+-	.reset = st7920_primary_plane_reset,
++	.atomic_create_state = st7920_primary_plane_create_state,
+ 	.atomic_duplicate_state = st7920_primary_plane_duplicate_state,
+ 	.atomic_destroy_state = st7920_primary_plane_destroy_state,
  	.destroy = drm_plane_cleanup,
  };
  
