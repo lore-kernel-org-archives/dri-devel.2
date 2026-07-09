@@ -4,88 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DBF7C44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 19:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CB92C44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 19:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8934F10E0F0;
-	Thu,  9 Jul 2026 19:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B0510F66B;
+	Thu,  9 Jul 2026 19:32:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="fxrIC1xq";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="fo0u8uwX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="auzMKv1K";
 	dkim-atps=neutral
-Received: from fhigh-a7-smtp.messagingengine.com
- (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCDF10E0F0
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 19:26:06 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 4E7D214001BD;
- Thu,  9 Jul 2026 15:26:05 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Thu, 09 Jul 2026 15:26:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1783625165;
- x=1783711565; bh=I9rPXmDJECuT3ucAFK0IBkM4yWwM7Zo/Km35xBzf+0U=; b=
- fxrIC1xqtyoqjQZDTd9Tvy7V9IjaUA3Xj3LBIx4hkYVL2ZHeh4xhyHIqYiczRFuJ
- j4xcsYH+Q8Lx6Stb67/TmdChuNrQ/OWcsQkExF0cZBdmgJOcu7oMEj6tC9tBy8E7
- qpt3nQ3vTJCSRm913JjRVQmxz4ifR5WzwL1uytC6lbWLcB/WYtR9D32djqZw4JiS
- T3tp8bft46I4H12B3J25wziEoQNj9ooESOe0bfWwqLQR5/wCBEmOytaRXIg3xk/m
- 4BwrYzMNHEixkfz8U7vZFMZGucq3OrcEMjDcikjFqmUJ1x+xLaHjUvgMJaW9Jo12
- 5sd/Hq1Uep7eEaLbqeEQOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1783625165; x=
- 1783711565; bh=I9rPXmDJECuT3ucAFK0IBkM4yWwM7Zo/Km35xBzf+0U=; b=f
- o0u8uwXilBzSH8cZeu1sQST+IBGKX/jiQYeEjHSyub1h1VvjTk5y2pruyB3ddQd/
- axac1nCW71UuDKAGIssjDAmqVqbea/SMEksnII3za5aNBu89nlLjjy6AZD15kMzu
- rzaCCbhfzT2GOVz32/LWR9JQv1cj4HX2zVlZmm+dCt/xuHdSjv11T+pWqo0Qf+Hx
- ydRsaYCZpYvRx8eu0BYQnncTye8shfqZJXOAe8wckIRgUTO0MAAwspefOhV/OnuY
- 9WcGUgYPLEs2Y1AZh6Wn5IBW/aSoI/1nFvjhFKh6JoBFnba1KLbhpP7m7BmAXxkl
- Vyx/Z60MyoIkPkOTXCytw==
-X-ME-Sender: <xms:zPVPajHsvUEJWbQcU7Px2gDFeA8qoiNVrSC--6MWMiLavEWnKheo6w>
- <xme:zPVPamsVqC3Yaj7KjCST76hUp6LhY2sy-4MeeDK_qV97q3L16IMdHwMbvaQiqn7hq
- clRs_zlBgBTpSvL2VeGiYLSnhxK2s8o9uyg9ssWy2y0Dfv7fFJoEQ>
-X-ME-Received: <xmr:zPVPahZiY3mVU-PO-Zhn6L5tWelN7ciU5txUULlAABCnC8WsYNZVDWJwa78>
-X-ME-Proxy-Cause: dmFkZTE3N/VYUlCu+B/e+pNSYGOlK/ujHCY3wsoqBKl+7XqYvD9oq198P9rrmOx5R7DDOd
- MgfX89m2DFOBXWuKmWTBm51sfp+Y+PFQ/mgKGd1L0i00oT86alC24ZEaKhq2LthuUBqatM
- uV+xJpjA1vnjr1qImP77lzYxbXx7DZG1Iyv5GuLD/D3NC507byJOFzvPzhwIi7zKeiho6P
- MHpelfRZi7iUgve4883YfxghCAzl8ZPE4tix0xLYOUAavbvS5sB/MMt3lPaD//cakO5/j0
- eOm92iJ5bfCbrOsCHmBT9CYbBKXn6lXeTmDElUr4zSqsapmcIY+Se3wEGScsRix437e/F4
- ZlLwDvpNpriuCsFQCmhPdxWxG1RHqRbC59VtrZL3RqsHPCPT+o0MGOlyA/oNlzovMIfgX/
- IcpJHDhynCMsY+Nu4TaUd4Fza3x8fU3aCom3SvzPVfd7RjK+T2Ktn7BU5RNK9FaXSrV6Fj
- k3cBjHU+fplJRuigW6sZukwT1NLNQuAdK4fFKvePDdv2AREMK5ATyuvpI2+oNftfcLkO+9
- Os9pXgslQAE3aQIhX4YVsmigzqFA9ZVIAjGyjddJdefixSm5+MHhqKHKwwhbL+71w6Zooe
- TjQMLezuDg3shi71YmxzF/ghMtiQ3C64q9viTnZPAvtgwf4ZSTzK/R1tAqwA
-X-ME-Proxy: <xmx:zPVPau4mJt-jTh9C8PZz0cuiBF3cfqfgnrxfGwcZ4sXuLLPnh9-Ilw>
- <xmx:zPVPah9yiipmrsKK4l1ISLPwbdEx62F5SQKifJ48k2n9cQt5Yu4AHw>
- <xmx:zPVPaia9uKMSkJLB8VGKOEAv0vPqxY5qYB_VQZ5PIK7CAGpu93hYrg>
- <xmx:zPVPai6QjnzqZ5vs4UWhz3qcs3gUUIHSYQa-AGL0C6pC2Qjo0RYpHQ>
- <xmx:zfVPanhbtxmh4S49JyjeFa_9ks2Wiq7dwwHJ5fpmmQEhY3vSOf_6s0bk>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Jul 2026 15:26:03 -0400 (EDT)
-Date: Thu, 9 Jul 2026 13:26:02 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Michael Guralnik <michaelgur@nvidia.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, alex@shazbot.org
-Subject: Re: [PATCH v11 0/4] vfio/dma-buf: add TPH support for peer-to-peer
- access
-Message-ID: <20260709132602.6a3fb084@shazbot.org>
-In-Reply-To: <20260702181025.2694961-1-zhipingz@meta.com>
-References: <20260702181025.2694961-1-zhipingz@meta.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CEB610E2DD;
+ Thu,  9 Jul 2026 19:32:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 640C4600C3;
+ Thu,  9 Jul 2026 19:32:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244A21F000E9;
+ Thu,  9 Jul 2026 19:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783625568;
+ bh=kAnk8wurZx5c5OpGGojggK9/9lXOvy6JHQHST6N14hk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=auzMKv1KlscxwXNmEZXTOFba3AzC1zvV5+KdLqK0W5IDP55KMnvUDomWlmIqurbJq
+ KvnBdQZTeHn6OnilAVzhRDXElp2+lyOAqSt8AzaPojSa6/oownhsZAeRZ66qSpL/oZ
+ QPffV5w4Rg1Ou9qpCF7MsXqreDvfczmOByHdhc/WAsKhMv9fb0+4/LyVRMjvolSXnM
+ gyP9Q5qvjQcq8TuiOCwfjhGGvo1RbIJw+Ef2lv9z7fc6OWQJoR7zsX7App24WvM+x2
+ 0Sx8wwnFRJlrbavFkDmXz0Sm0yUuWQncw1ncAwrPth0JOYmqq7jEyRTmUKtvOrGDpc
+ uBdy+bMWI8DJw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: konradybcio@kernel.org,
+	Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
+ jenswi@kernel.org, op-tee@lists.trustedfirmware.org,
+ apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service
+ support
+Date: Thu,  9 Jul 2026 14:32:39 -0500
+Message-ID: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260702115835.167602-1-sumit.garg@kernel.org>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,40 +77,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2 Jul 2026 11:10:13 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
-=20
-> Changes since v10:
->   Patch 2 (dma-buf): Per Christian K=C3=B6nig, document that the ST/PH
->   returned by dma_buf_get_pci_tph() is only valid until the exporter
->   invalidates the current mapping and must be re-queried afterwards;
->   note added to the wrapper kernel-doc and referenced from the callback
->   kernel-doc. Also add dma_buf_get_pci_tph() and dma_buf_ops.get_pci_tph()
->   to the central dma-buf locking convention.
->=20
->   Patch 3 (vfio/pci): Per Alex Williamson, update the vfio_pci_dma_buf
->   comment to note that @revoked is additionally protected by memory_lock,
->   and describe the READ_ONCE() rationale in the commit log. No behavior
->   change.
 
-Sashiko has valid comments[1] across most of the series.
+On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> [...]
 
- - Passing through 0b10 seems mis-categorized as High in patch 1, but
-   is valid hardening if tph_req_type can ever hold an invalid value.
+Applied, thanks!
 
- - The documentation error in patch 2 is real.
+[01/14] firmware: qcom: Add a generic PAS service
+        commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
+[02/14] firmware: qcom_scm: Migrate to generic PAS service
+        commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
+[03/14] firmware: qcom: Add a PAS TEE service
+        commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
+[14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+        commit: 6701259025d49139131a0eb2257659a066dcca22
 
- - Patch 4 ironically fails to re-validate according to the lifecycle
-   requirements that patch 2 specifies.  This is a significant gap in
-   the implementation proof for a real requester.
+This is available as an immutable branch, for other subsystems to pull at:
+  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
 
- - The broadened scope of the existing memory leak in patch 4 is
-   already addressed in [2], ok.  Maybe should be folded into this
-   series if mlx5 isn't going to pick it up separately.
 
-Thanks,
-Alex
+[04/14] remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+        commit: 254030af0d81b12b7624d9ce85c6bdd3171629c6
+[05/14] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+        commit: f3b1357673ddb37ae8b9a8fe44df73cbd2a519c5
+[06/14] remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+        commit: ea3b5245f5deba916320b32a8e6510a74c034c17
+[07/14] remoteproc: qcom: Select QCOM_PAS generic service
+        commit: c4383254ac7a529736577e304176a10371c2ee0b
 
-[1]https://sashiko.dev/#/patchset/20260702181025.2694961-1-zhipingz@meta.com
-[2]https://lore.kernel.org/linux-rdma/20260612170406.3339093-1-zhipingz@met=
-a.com
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
