@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2125C44507
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB97C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A84410F55D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B84EF10F560;
 	Thu,  9 Jul 2026 11:53:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pvo19fyM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KoDom/b1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE91810F559;
- Thu,  9 Jul 2026 11:52:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5DF210F55C
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:53:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 71AAB600C3;
- Thu,  9 Jul 2026 11:52:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A521A1F00A3D;
- Thu,  9 Jul 2026 11:52:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9888840426;
+ Thu,  9 Jul 2026 11:53:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CD91F00A3A;
+ Thu,  9 Jul 2026 11:53:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597979;
- bh=gJLFkGsEJr1N8duiO8ziIEjMdF6eDAFUTpokkoGJ+mY=;
+ s=k20260515; t=1783597981;
+ bh=+Iw/3hvExwbCN1gC4Km2qf/hD6qSRHt23GFNpOMjOsU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Pvo19fyMpI7qrYkhE6beeVHo/p/uE3DZ9XoKirV9WIZqJCfxH62hvc3H09Mh36Sj9
- Bt0jnqF0x4b2rjxGxKe5iYJ0HyCpuqc+cy8pnRPypOOIIGH9AgKmkQvS8PNCoyYQMM
- rxsMQ46/+6RcyYr3mIK+p7GIDsKz4nR0RtyFhCcoLEJXtlJz0hmXfAvspEiKHVkHfj
- bALvHLfzHqPM1qH11a2cdMhOUp+yZtiiSl15m0xObXo5Sp8EcvIDqk9Z7u1iQqjR26
- CSrdL4V8mHrRiZUVlKX0JdNyPjWVzc+e0B4krpC3CuHc1Tq9vy4o92AF99dYXoxl8y
- rxvWkrw5UDw8g==
+ b=KoDom/b1OS+SVUlmX/4K2lRKZYeMUxrRndbDZmftOumSJqFUI+fpQnOGv3/dAsMTk
+ ZTA4J2uPbNvk7Y/ZUUaatn/xitEcI+buf8LCzqfkeMDuIRKn24x4TIDv9QE0W7UQFD
+ HokA+QFHvSSvg9VGZK14G6l4vbiEDBvN2pIe9Ax6dQEIJ+WP/6c8pN+d/AtVvWJcsh
+ N7EJbjtmWovZCAuYluv+oEypC9YEHAykSe8dsFGG7FHNFmIUkXooM5IIlRJ7cqC6Tz
+ BRS7/8Tpdr2s9+Nj0l9VdUza2ehy9ToiPYnSXg9shOrZQKFuWOCeLg2RnnzhE+ClVo
+ iBGE2vnvobwog==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:15 +0200
-Subject: [PATCH 49/60] drm/nouveau: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:16 +0200
+Subject: [PATCH 50/60] drm/omap: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-49-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-50-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- dakr@kernel.org, lyude@redhat.com, nouveau@lists.freedesktop.org
+ tomi.valkeinen@ideasonboard.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6815; i=mripard@kernel.org;
- h=from:subject:message-id; bh=aeOJ4DHzvkhlr0B9bPepCE2LjvpC7j9QKkSRG5WC71M=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3XKHLXdf3Rw7aUG9GMOPZZuX5KZ/YX0pzKP0/WuNy
- /Otuff+dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJyF5hbLgmzurz5ovg0phz
- zBu86xpK9HZrar1pP25+aBFjU5SV2Sz7AywCL1caxLZvdF9pI3n7C2MNXze3/snr4l3Tr3zKS1k
- tZNl7YEbxLYvCPzZc/l/qW8odwiasPr7ygNPtS8xf0823vZECAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6818; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=tNeKKMeisEWl4rIj1s2W6eQbc/Udg5/UR2XmcNY/9EU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3fIdgj/UnCa3PfC9q/zOwamd+X2q+caEe8UdP5fLF
+ T6cErShYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzETIqxoY3P+eqs8jsJ2rGi
+ XUcPX1axnnPjybdYWSaz+a8ePjY/eX/S46ypFwSe1bH/nRSjfJjBk7FhjUV45ZxpPnfaf639rPk
+ t4WfqE5O6ZUfqdXViZkw98mHphk1ValM9exh/3ajaXvxOJzkOAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,59 +335,56 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: dakr@kernel.org
-Cc: lyude@redhat.com
-Cc: nouveau@lists.freedesktop.org
+Cc: tomi.valkeinen@ideasonboard.com
 ---
- drivers/gpu/drm/nouveau/dispnv50/wndw.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_plane.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-index 2635458d52ac..41b0ece1db3f 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
-@@ -750,22 +750,21 @@ nv50_wndw_zpos_default(struct drm_plane *plane)
- {
- 	return (plane->type == DRM_PLANE_TYPE_PRIMARY) ? 0 :
- 	       (plane->type == DRM_PLANE_TYPE_OVERLAY) ? 1 : 255;
+diff --git a/drivers/gpu/drm/omapdrm/omap_plane.c b/drivers/gpu/drm/omapdrm/omap_plane.c
+index c024cdbbd87a..e3f60046afcc 100644
+--- a/drivers/gpu/drm/omapdrm/omap_plane.c
++++ b/drivers/gpu/drm/omapdrm/omap_plane.c
+@@ -401,22 +401,21 @@ void omap_plane_install_properties(struct drm_plane *plane,
+ 	}
+ 
+ 	drm_object_attach_property(obj, priv->zorder_prop, 0);
  }
  
--static void
--nv50_wndw_reset(struct drm_plane *plane)
-+static struct drm_plane_state *nv50_wndw_create_state(struct drm_plane *plane)
+-static void omap_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *omap_plane_create_state(struct drm_plane *plane)
  {
- 	struct nv50_wndw_atom *asyw;
- 
--	if (WARN_ON(!(asyw = kzalloc_obj(*asyw))))
--		return;
-+	asyw = kzalloc_obj(*asyw);
-+	if (WARN_ON(!asyw))
-+		return ERR_PTR(-ENOMEM);
+ 	struct omap_plane_state *omap_state;
  
 -	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
-+	__drm_atomic_helper_plane_state_init(&asyw->state, plane);
+-		drm_atomic_helper_plane_destroy_state(plane, plane->state);
+-
+ 	omap_state = kzalloc_obj(*omap_state);
+ 	if (!omap_state)
+-		return;
++		return ERR_PTR(-ENOMEM);
  
--	__drm_atomic_helper_plane_reset(plane, &asyw->state);
-+	return &asyw->state;
+-	__drm_atomic_helper_plane_reset(plane, &omap_state->base);
++	__drm_atomic_helper_plane_state_init(&omap_state->base, plane);
++
++	return &omap_state->base;
  }
  
- static void
- nv50_wndw_destroy(struct drm_plane *plane)
+ static struct drm_plane_state *
+ omap_plane_atomic_duplicate_state(struct drm_plane *plane)
  {
-@@ -835,11 +834,11 @@ static bool nv50_plane_format_mod_supported(struct drm_plane *plane,
- const struct drm_plane_funcs
- nv50_wndw = {
+@@ -489,11 +488,11 @@ static int omap_plane_atomic_get_property(struct drm_plane *plane,
+ }
+ 
+ static const struct drm_plane_funcs omap_plane_funcs = {
  	.update_plane = drm_atomic_helper_update_plane,
  	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = nv50_wndw_destroy,
--	.reset = nv50_wndw_reset,
-+	.atomic_create_state = nv50_wndw_create_state,
- 	.atomic_duplicate_state = nv50_wndw_atomic_duplicate_state,
- 	.atomic_destroy_state = nv50_wndw_atomic_destroy_state,
- 	.format_mod_supported = nv50_plane_format_mod_supported,
- };
- 
+-	.reset = omap_plane_reset,
++	.atomic_create_state = omap_plane_create_state,
+ 	.destroy = omap_plane_destroy,
+ 	.atomic_duplicate_state = omap_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.atomic_set_property = omap_plane_atomic_set_property,
+ 	.atomic_get_property = omap_plane_atomic_get_property,
 
 -- 
 2.54.0
