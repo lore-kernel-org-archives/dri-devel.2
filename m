@@ -4,44 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3790C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 04:10:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91634C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 04:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2C0E10E681;
-	Thu,  9 Jul 2026 04:10:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3A2A10E00A;
+	Thu,  9 Jul 2026 04:31:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dZxKussW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DoCJXLos";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DBEA10E681
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 04:10:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BA18241AD0;
- Thu,  9 Jul 2026 04:10:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B6D1F000E9;
- Thu,  9 Jul 2026 04:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783570221;
- bh=K3w7yAns0gEU4dWp+5k4UYzJjMxTahJl6A8blChFjKI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dZxKussWiZ5+3hqdeynTw+DCWDch9m5VhhxiiCRA5ooQV20kezLhUKOBpRSKWGMjP
- 0RbiRmAfKGGNpVFc6uyfyG+qhrRsBlRrMCiu4fX2YCW9CBUcGQt5awHv82Sw+mmRk1
- WzL2yMf4n4NfjqHJdrdF0CRyJKScIUmpQ+Rp5rdDt17M/gLPrniElbuLLHnZuJyCS8
- hPnyP4vamf5/Fesl9BiKAWDtGXNUv3ER5WMxoKlE0siNEx96/OQWWr7iEUYDlQMb9W
- GFJ1aVuR2dUwWrhXmKO1WdHpcJjOTyCpv37SauvgD+V7K2+2sFxuL6H6ceHH7nx5em
- ErTJ4bcJy36aA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7] cgroup/dmem: implement dmem.high soft limit with
- proactive reclaim
-To: "Qiliang Yuan" <realwujing@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, hannes@cmpxchg.org, mkoutny@suse.com,
- tj@kernel.org
-In-Reply-To: <20260709-feature-dmem-high-v7-1-de559e7e7768@gmail.com>
-References: <20260709-feature-dmem-high-v7-1-de559e7e7768@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 04:10:20 +0000
-Message-Id: <20260709041021.59B6D1F000E9@smtp.kernel.org>
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD68C10E00A
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 04:31:48 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-80a1fb0c683so18547367b3.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 21:31:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783571507; cv=none;
+ d=google.com; s=arc-20260327;
+ b=a0g+zPEWQKa5Ugxb6tkHBN8m2ucQqoCqKBZk5Qbf7Umy7wn3OdAGUud2Aasr1ZYNgy
+ Vhe3XD8ykw11B24ixVJJToQEgkIqyWN4UHYkVsVuEmM6QQgTUVdFUdKRVBTqYLqZRPEG
+ zLjoC5WNeF5fbwdw+NuiFmRssyydypt6zcb5Isyab2imY0JbMDU1Rk3/iMHuDhVVWTZn
+ xs87aEQBcTLYHmDudrWzdO3Mjm6NrDVc97LMiVNVOkhDMKDnXpdD9c8tTKyBaOtxuSAc
+ DRCRYlC/pnB7zkhnDDT3hPdmdwctXF8FicYzKq04VHdnXF3R/BRAGTD/tBDp31sbVP92
+ V5MA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=auIZfaOXEtlH8qbaTdplRzk6SYfXJKBB6E9yX6kDwoU=;
+ fh=zSte5Vl8NwBEE6BZQlEnD+vo2ipzyUtaVjgjaa9K4wc=;
+ b=CE0AcYLvesfqQoyBBf84ZvFdkLUZj0JeTD8TbezVRFHy+pXyoWgzveeScESvkod8W/
+ gxy05JnMYSz3H7IPt9HTp7eMsWaGHvveFnTcbQQinDrzIiwB3I7V3jss+BILholBSY2v
+ 2hMDbBtTBdiTE5I98wtdhxOfTdE+gYcUrVwlnaVJbhPabTv+8U1rVieO3uBwySeoWvFB
+ lru5YOvCIq3MN07O+QvAGrD1CYxz/Rf+40NHrPFJd09Z0isdt7DVW/t+5KFp4n+QXJRA
+ pLgC3HeGTfJ7UFb0Xgzx7uADlkCaqF8lUeesYon8n+wtV09fMoXXiIUljbrm9dWupZwD
+ jTFw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783571507; x=1784176307; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=auIZfaOXEtlH8qbaTdplRzk6SYfXJKBB6E9yX6kDwoU=;
+ b=DoCJXLosfbPjFRRdwwD+g5C9nrav7cbdAK0YE+/mZcfcjbCZ8rFRojj7b6au3BwlPP
+ a4Lsd6LPP+nYJEfqG0+QWXjSBr9CEGmvcizklphntEcUG8X+iMZpBLphy4dbBT18hVB/
+ O6ZaRWWFJN50zK+RxB22LuxIJIdiZ4+L4Bm0YZKxIR4cLlFsqDn/pSNCo8GAyqt0x/S2
+ y+4duqjCH8jH6cXG6YwXSjaQ7D9Iv/xHbI8IIUp9LX6NX3N5fOn4GTiLFIgNq24DMkSW
+ vOXqjt2TLUxL+QMrHUEJyztz42KLQevImDEcUj8h+P2zHnZ6OkvSwS5T0AYmsc8F6Qiz
+ 3UJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783571507; x=1784176307;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=auIZfaOXEtlH8qbaTdplRzk6SYfXJKBB6E9yX6kDwoU=;
+ b=qZ4VaiZiz+crNfVuYp6wiIPUjBvDV++7iSpcxRJJsXDt7zRP9zmuIebWubSAOiuqSi
+ MMCCyjx3JNtk6SGspuK/LV3yFdtI7e3HeCaDfEAZqRWN9ypoSa8zFgve5j4K5OWWJ5kg
+ gWSm6NFo1WSExOneArDM3X4AksjUCIfcei/Ius/hHbK7dmRJPc5QGRfJ3e6CmNgL5Bvs
+ /FBvpR4m7Z52On7Pp6yJpgtRu4IzS61xAvV7qNRxpPSuRFJQ++Gp6Ooiw1ByMNQjBylq
+ iBfmURjrXK6pO5FvXf3fsfIqLKQ0xRMI6bq0tLTSBwHK3IZZUbelnnjlLfAOkDZHGLvB
+ 88Dw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RouBTU9cyOb4W8sBaN1m+D2RMLqJz9Qp/bWk9N8J8HkjZsa4+9pQJ1AZ2qJ4tIA3rOHby3t7pYAkCQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIU88hpJzq0/ujfgaHPYH6VJJTwPvO1sUPldSr16eF5BequnLc
+ f1WAjc7vdvaelcOoRBfI/7wDPOYxwQQ+7fzTY93zEkVKGPrkzPnG66gumDB8fOj838oDOhVS30w
+ XLN/qzYGTLMnYiPVMRnJsxH7bVHeEQnA=
+X-Gm-Gg: AfdE7ckA38mh5Y2Gj9n0s0gsr4Rys5yD+RwXjuP2V1cc5hhuAbCdW/OojNohBAl2vHx
+ sX0lIk4T0/pao2GfhJLZf82eBjIvzHTvfdKsh7mhfEtiowTk1wR1utfhE4twXmWVI7b/2+P1VZA
+ FF6ZcRAViUA9anx8FbFJO34GxATjrx68/DJB9GhT1i96F2eXv97riVTQ1VA+9LiQ4BZAhvWqC9Y
+ GgcJ7oxb//Vhd61nRWR40oyAzH7c84SoTFBk00NADdAK9bwWJ1pjQECE92R3cxBbVvFkrMbR/za
+ A1jHBlqZQS18SUILwCAepKRt16tIz3cwTa+eqgaoEwd5+3jQgpAf7L6SZg==
+X-Received: by 2002:a05:690c:3747:b0:806:b6ab:a410 with SMTP id
+ 00721157ae682-81dbbbc3e84mr46430647b3.0.1783571507606; Wed, 08 Jul 2026
+ 21:31:47 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260706053413.154135-1-apopple@nvidia.com>
+ <20260706053413.154135-4-apopple@nvidia.com>
+ <59948bff927bd4ad3af5fbe68d5d5e7565c5f729.camel@nvidia.com>
+ <DJRP5QO5JKVT.Y7LCZARVCWJ8@kernel.org> <ak7lU9X4pTwx5NDB@nvdebian.thelocal>
+ <6fe208cc-f095-4d92-b34c-ad227d2710a4@nvidia.com>
+In-Reply-To: <6fe208cc-f095-4d92-b34c-ad227d2710a4@nvidia.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 9 Jul 2026 14:31:35 +1000
+X-Gm-Features: AVVi8Ce52HUzDIAE6RQvUKGgLY8vfZ1_RiXa4OKoXWiwiGWM8AqznZHsuXPRA0w
+Message-ID: <CAPM=9tzdBWOhPpO_JffaWvkuz7SejfZL=XAbwxrt0gt3xaDKGA@mail.gmail.com>
+Subject: Re: [PATCH 3/4] drm: nova: Add GETPARAM parameter to read the GPU
+ chipset
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>, Danilo Krummrich <dakr@kernel.org>,
+ Timur Tabi <ttabi@nvidia.com>, 
+ "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
+ "gary@garyguo.net" <gary@garyguo.net>, 
+ Eliot Courtney <ecourtney@nvidia.com>, "lossin@kernel.org" <lossin@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>, 
+ "aliceryhl@google.com" <aliceryhl@google.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,196 +113,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Double put of `over_high_pool` reference on the `ttm_resource_allo=
-c` error path leading to Use-After-Free.
-- [High] Swallowed `-EDEADLK` error in `ttm_bo_proactive_evict_high()` brea=
-ks the WW mutex backoff protocol.
-- [Medium] Proactive reclaim bypasses parent `dmem.high` limits because the=
- ancestor chain is not evaluated.
---
+On Thu, 9 Jul 2026 at 10:49, John Hubbard <jhubbard@nvidia.com> wrote:
+>
+> On 7/8/26 5:16 PM, Alistair Popple wrote:
+> > On 2026-07-07 at 04:24 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> >> On Mon Jul 6, 2026 at 7:35 PM CEST, Timur Tabi wrote:
+> >>> On Mon, 2026-07-06 at 15:34 +1000, Alistair Popple wrote:
+> >>>> @@ -38,6 +38,7 @@ pub(crate) fn get_param(
+> >>>>
+> >>>>          let value = match getparam.param as u32 {
+> >>>>              uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => pdev.resource_len(1)?,
+> >>>> +            uapi::NOVA_GETPARAM_GPU_CHIPSET => reg_data.api.chipset() as u64,
+> >>>
+> >>> Can we assign these IOCtl values to match Nouveau as much as possible?  I think it would make
+> >>> everyone's life easier if we could use the same user-space tools/libraries for Nova that we do for
+> >>> Nouveau.
+> >
+> > I debated this, for the same reasons. However I came to the conclusion that it
+> > wouldn't make a big difference - Nouveau only has a handful of GETPARAMs and
+> > we already know we're going to need a lot more for Nova given the increased
+> > scope of features it needs to support. The rest of the API also needs to be
+> > sufficiently different so I didn't see any real practical advantage to keeping a
+> > couple of parameters the same as tools will need updating anyway.
+>
+> Unless all, or nearly all of the ioctl values would be the same,
+> there is absolutely no value in trying to make a small subset
+> match.
+>
+> Let's not get distracted by this. Nouveau is sunsetted and we need
+> to focus on building out Nova--without artificial constraints that
+> don't add real value.
+>
 
---- Patch [1]: [PATCH v7] cgroup/dmem: implement dmem.high soft limit with =
-proactive reclaim ---
-commit cf68cf477adb57880cd824c91aad57538df44a76
-Author: Qiliang Yuan <realwujing@gmail.com>
+Yes it won't be possible to keep much aligned with nouveau's api, so
+let's no bother, nvk already has an abstraction in place that we can
+fill in at least.
 
-cgroup/dmem: implement dmem.high soft limit with proactive reclaim
-
-This commit implements dmem.high as a proper soft limit following the
-memory.high semantics. The limit is checked in the charge path on every
-successful allocation, and proactive reclaim is triggered when usage
-crosses the threshold.
-
-Link: https://lore.kernel.org/r/20260531-feature-dmem-high-v6-1-20563ecd6dc=
-7@gmail.com
-Link: https://lore.kernel.org/r/20260531-feature-dmem-high-v5-1-1c6c532b26a=
-9@gmail.com
-Link: https://lore.kernel.org/r/20260530-feature-dmem-high-v4-1-ee7c6ec1c8d=
-a@gmail.com
-Link: https://lore.kernel.org/r/20260528-feature-dmem-high-v3-1-c642b34bcb2=
-f@gmail.com
-Link: https://lore.kernel.org/r/20260522-feature-dmem-high-v2-1-1d7d4a0fa5d=
-a@gmail.com
-Link: https://lore.kernel.org/all/20260520-feature-dmem-high-v1-1-97ca0cb7f=
-95a@gmail.com
-
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index bcd76f6bb7f02..bdfcfe5c7d1e2 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-
-[ ... ]
-
-> @@ -553,6 +556,38 @@ static const struct ttm_lru_walk_ops ttm_evict_walk_=
-ops =3D {
->  	.process_bo =3D ttm_bo_evict_cb,
->  };
-> =20
-> +/*
-> + * Proactive reclaim: evict one BO from a cgroup that exceeds its dmem.h=
-igh
-> + * soft limit.  Called after a successful charge that pushed usage over =
-the
-> + * high threshold.  Best-effort; allocation already succeeded (soft limi=
-t).
-> + */
-> +static void ttm_bo_proactive_evict_high(struct ttm_device *bdev,
-> +					struct ttm_resource_manager *man,
-> +					const struct ttm_place *place,
-> +					struct ttm_buffer_object *evictor,
-> +					struct ttm_operation_ctx *ctx,
-> +					struct ww_acquire_ctx *ticket,
-> +					struct dmem_cgroup_pool_state *over_high_pool)
-> +{
-> +	struct ttm_bo_evict_walk evict_walk =3D {
-> +		.walk =3D {
-> +			.ops =3D &ttm_evict_walk_ops,
-> +			.arg =3D {
-> +				.ctx =3D ctx,
-> +				.ticket =3D ticket,
-> +				.trylock_only =3D !ticket,
-> +			}
-> +		},
-> +		.place =3D place,
-> +		.evictor =3D evictor,
-> +		.res =3D NULL,
-> +		.limit_pool =3D over_high_pool,
-> +		.try_high =3D true,
-> +	};
-> +
-> +	ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, 1);
-> +}
-
-[Severity: High]
-Does this code silently swallow WW mutex backoff requests?
-
-When ttm_lru_walk_for_evict() is called with a ticket, it can return
--EDEADLK if a cyclic dependency is detected. Because
-ttm_bo_proactive_evict_high() has a void return type and ignores the
-return value of ttm_lru_walk_for_evict(), the top-level caller
-(ttm_bo_alloc_resource) is not notified of the deadlock and will fail
-to execute the required backoff sequence.
-
-Could this regression lead to a hard deadlock?
-
-[ ... ]
-
-> @@ -737,7 +767,17 @@ static int ttm_bo_alloc_resource(struct ttm_buffer_o=
-bject *bo,
->  			continue;
-> =20
->  		may_evict =3D (force_space && place->mem_type !=3D TTM_PL_SYSTEM);
-> -		ret =3D ttm_resource_alloc(bo, place, res, force_space ? &limit_pool :=
- NULL);
-> +		{
-> +			struct dmem_cgroup_pool_state *over_high_pool =3D NULL;
-> +
-> +			ret =3D ttm_resource_alloc(bo, place, res,
-> +						 force_space ? &limit_pool : NULL,
-> +						 &over_high_pool);
-> +			if (!ret && over_high_pool)
-> +				ttm_bo_proactive_evict_high(bdev, man, place, bo,
-> +							    ctx, ticket, over_high_pool);
-> +			dmem_cgroup_pool_state_put(over_high_pool);
-
-[Severity: High]
-Is there a use-after-free risk for over_high_pool on the error path?
-
-If ttm_resource_alloc() encounters an error after successfully charging the
-cgroup, it calls dmem_cgroup_pool_state_put(*ret_over_high_pool), but it
-leaves the pointer value intact:
-
-drivers/gpu/drm/ttm/ttm_resource.c:ttm_resource_alloc() {
-    ...
-    if (ret) {
-        if (pool)
-            dmem_cgroup_uncharge(pool, bo->base.size);
-        if (ret_over_high_pool)
-            dmem_cgroup_pool_state_put(*ret_over_high_pool);
-        return ret;
-    }
-    ...
-}
-
-When it returns the error code, the caller (ttm_bo_alloc_resource) will
-proceed to unconditionally call dmem_cgroup_pool_state_put(over_high_pool)
-on the exact same pointer, causing a double-free regression.
-
-Should ttm_resource_alloc() clear *ret_over_high_pool after putting the
-reference on its error path?
-
-> +		}
->  		if (ret) {
->  			if (ret !=3D -ENOSPC) {
-
-[ ... ]
-
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 4753a67d0f0f2..b322c8a7e2a67 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
-
-[ ... ]
-
-> @@ -685,6 +748,18 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region=
- *region, u64 size,
->  		goto err;
->  	}
-> =20
-> +	/*
-> +	 * Charge succeeded. Check if usage now exceeds the soft high limit so
-> +	 * the caller can trigger proactive reclaim to bring the cgroup back
-> +	 * under its dmem.high threshold.
-> +	 */
-> +	if (ret_over_high_pool &&
-> +	    page_counter_read(&pool->cnt) > READ_ONCE(pool->cnt.high)) {
-> +		*ret_over_high_pool =3D pool;
-
-[Severity: Medium]
-Will this bypass proactive reclaim for parent cgroups?
-
-The check here only evaluates whether the leaf pool (pool->cnt) exceeds
-its own dmem.high limit. If the leaf is under its limit but a parent cgroup
-is over its dmem.high soft limit, ret_over_high_pool remains NULL.
-
-Should this walk the ancestor chain to enforce the hierarchical dmem.high
-limits, similar to what is done in dmem_cgroup_state_evict_valuable()?
-
-> +		css_get(&pool->cs->css);
-> +		dmemcg_pool_get(*ret_over_high_pool);
-> +	}
-> +
->  	/* On success, reference from get_current_dmemcs is transferred to *ret=
-_pool */
->  	*ret_pool =3D pool;
->  	return 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-feature-dm=
-em-high-v7-1-de559e7e7768@gmail.com?part=3D1
+Dave.
