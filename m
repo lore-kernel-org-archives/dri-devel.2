@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8D2DC44506
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B5F4C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3157710E20F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 315FA10E692;
 	Thu,  9 Jul 2026 10:34:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jX+sE0ft";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NAOsadfR";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2788F10E20F
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:34:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2D0210E066
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783593284;
- bh=SpH6ZM4ABg1a5n+c9PFwTijwxdPwpAGt4eWJ7AeT+pk=;
+ s=mail; t=1783593276;
+ bh=kHVv2nCdsp0f/QR38D6tcCGOazDnOTOs2KSvBo2SWnI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jX+sE0ft1VLIZkvv8J45WVtHh4J//fX1XyM7AaHUEoMtxu2lvroPtgoGSS0q4KdtN
- 1ivoW8R/WeZG/bhwvlTjKLKwN1IyyCbaYRzOlWo2XyOjAv4WAnbRNXIFzj7cqxTQiv
- 399nWt83we+cx2JG70DJQ8X8YMwlE5+NZ3HN6dDF5PGjUkmCJrXcX9vDweXe96Uhix
- /Pc1/JvmjXxz+AErG3n1ucVvIqzUn44OLJienV8hCQsOKFzGXn+iloBR6lvaq9+2sA
- WIxcnUK9wDFs6HCT0D537qsDcZKVJ9Cek6NDX0OwWHov2Ta5hs8vIHUxIunufcKltt
- Ae5b3VsurlxLQ==
+ b=NAOsadfR5/GhS5a6Blg4iy/kPKN7ErRwXBYIo5WUe3EZeG71lK2RGnJJmVjjZBJ2c
+ i7P2rvaq2581vvojbBUmuM6gHoztnJVuZ31rnEomZAZdN0EnCW5Jk/V6leXU45Xt7P
+ NGuCpQFo8Q5HT3k24XZXa8G8ohADojDZCabd7EgyIqyTI8YBuPynSFjrvu2PliwaeH
+ s+0zm8IWvrNo5q6LSgL494UHJr5E9lmIclcCSQZ64yODy28BySZYIELR34CUPq5rHL
+ vyPjH9reCFExcfIXvbPuxiBEhkQj9LVxRetVFc5K9eLvGq4pcYqd3N6ZFdpbyveJqn
+ 4uVyEK6r3yaTw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5DDBB17E0EF3;
- Thu, 09 Jul 2026 12:34:43 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id F419417E0D53;
+ Thu, 09 Jul 2026 12:34:35 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -44,10 +44,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, kernel@collabora.com
-Subject: [PATCH v3 08/11] drm/mediatek: mtk_dp: Move max link rate to SoC
- specific data
-Date: Thu,  9 Jul 2026 12:34:28 +0200
-Message-ID: <20260709103431.46616-9-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 02/11] dt-bindings: display: mediatek: dp: Add compatible
+ for MT8196 eDP
+Date: Thu,  9 Jul 2026 12:34:22 +0200
+Message-ID: <20260709103431.46616-3-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
 References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
@@ -68,61 +68,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In preparation for adding support for the eDP IP found in the
-MT8196 SoC, having a higher supported maximum link rate, move
-this parameter to SoC data instead of statically assigning it
-to the training info during initialization.
+Add a new compatible for the Embedded DisplayPort IP found in the
+MT8196 SoC.
+
+This IP is compatible with the previous ones, but not fully.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dp.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/display/mediatek/mediatek,dp.yaml        | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index 34a72e0a5f1e..5184159018f3 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -167,6 +167,7 @@ struct mtk_dp_data {
- 	bool audio_supported;
- 	bool audio_pkt_in_hblank_area;
- 	u16 audio_m_div2_bit;
-+	u8 hw_max_link_rate;
- };
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
+index 980f76667ada..3a752a99949a 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
+@@ -25,6 +25,7 @@ properties:
+       - mediatek,mt8188-edp-tx
+       - mediatek,mt8195-dp-tx
+       - mediatek,mt8195-edp-tx
++      - mediatek,mt8196-edp-tx
  
- static const struct mtk_dp_efuse_fmt mt8188_dp_efuse_fmt[MTK_DP_CAL_MAX] = {
-@@ -1469,7 +1470,7 @@ static void mtk_dp_initialize_priv_data(struct mtk_dp *mtk_dp)
- {
- 	bool plugged_in = (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP);
- 
--	mtk_dp->train_info.link_rate = DP_LINK_BW_5_4;
-+	mtk_dp->train_info.link_rate = mtk_dp->data->hw_max_link_rate;
- 	mtk_dp->train_info.lane_count = mtk_dp->max_lanes;
- 	mtk_dp->train_info.cable_plugged_in = plugged_in;
- 
-@@ -2998,6 +2999,7 @@ static const struct mtk_dp_data mt8188_dp_data = {
- 	.audio_supported = true,
- 	.audio_pkt_in_hblank_area = true,
- 	.audio_m_div2_bit = MT8188_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
-+	.hw_max_link_rate = DP_LINK_BW_5_4,
- };
- 
- static const struct mtk_dp_data mt8195_edp_data = {
-@@ -3006,6 +3008,7 @@ static const struct mtk_dp_data mt8195_edp_data = {
- 	.efuse_fmt = mt8195_edp_efuse_fmt,
- 	.audio_supported = false,
- 	.audio_m_div2_bit = MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
-+	.hw_max_link_rate = DP_LINK_BW_5_4,
- };
- 
- static const struct mtk_dp_data mt8195_dp_data = {
-@@ -3014,6 +3017,7 @@ static const struct mtk_dp_data mt8195_dp_data = {
- 	.efuse_fmt = mt8195_dp_efuse_fmt,
- 	.audio_supported = true,
- 	.audio_m_div2_bit = MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
-+	.hw_max_link_rate = DP_LINK_BW_5_4,
- };
- 
- static const struct of_device_id mtk_dp_of_match[] = {
+   reg:
+     maxItems: 1
 -- 
 2.54.0
 
