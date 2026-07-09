@@ -4,127 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F264C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D32F6C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFDF10F383;
-	Thu,  9 Jul 2026 06:00:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AB0810F385;
+	Thu,  9 Jul 2026 06:00:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="W18p0KLO";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Audynxvc";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="wyXWcfqG";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C57C10F37C
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:00:09 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 668N8xHT001269
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Jul 2026 06:00:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=KVejRE01iSJ9Cu8Vv9/R1+qSCrCIqHbYQPC
- pZLTjswY=; b=W18p0KLOMqGgiuhbsBZ44PvbjZxW6wgKHH4ebgV7ChQ5lzGfKw4
- jKV9zTj/d3hG+ns1/8t6yRA9n1rNkjzW4Xmeb+mKP8WU7IMj1z6nSiQ0qV8cSg6d
- 75ZsBmvDJfqz/zoSbxbH/SV+arwQcmJfIY8GRqcbkbFuQk4zGkMluvFFbCRpOkcj
- 9oAUklE8k3iJbJKkkvJpxUFMfm8sB8cCXVdHbOmrvj80LV/XmMNFAQ4yxJ31IiNH
- U+YcFj/r6Q/1otLfYS1CoNYbx66HWYu6M4u9qvHPJSBp+HjPluJ+M9DTp8xPAcmt
- 19aIauhynvKLn79unjY0DeyJB55v5YA6+bA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9urvt1ax-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 06:00:08 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2c7f385887bso29258735ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 23:00:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783576808; x=1784181608;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=KVejRE01iSJ9Cu8Vv9/R1+qSCrCIqHbYQPCpZLTjswY=;
- b=AudynxvcaiyjzbwLuVs/WCVJclCPKzdJgTDyA9e7EuR/UX5ZH3gsjewBnjKKY6slj0
- sElCWheFvdza1FVin+w2Q10gj4W5U5NmKX22qjvmC/ijVj0jjgVRY9FAt8laBrG1uXzb
- K8eQhO2c/8I786Yh8WN81ATAfXV8W4crQOvtfv2jM43ea9oXKgsWJZB8/wQ0ZAHqhQLa
- A/CYhlnZamjruKlttQLUA+rcooKr+mdO0Sw3mNx8yeb+O445mGaECUs6Q3mYaCRFdbke
- Vh99vLxbNwFQQVfp+iVCgcuM8KbQ9/a7q7q0/yVc4KUeqn6qAtdT7v1vNAgAbBpGKSbZ
- w/8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783576808; x=1784181608;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=KVejRE01iSJ9Cu8Vv9/R1+qSCrCIqHbYQPCpZLTjswY=;
- b=B3i3fY9dHpFQWXtnUXLMwkNwVkodlsjJNlSUWXQ6+5ENvK1XKFG85twQl6JPbxZbCd
- yV0dtOOAKIaylua9Y7kLlk7AE7WcuZutO9ugyqODQQ/SaYjz/5cQN9T8MRpae0NiCIhW
- bqaTMilZEZgU7HVglaeTRPEdJyXg5cKIwbk3AsRYTMSnzHJSWKrVwdQsgo58zzcqjhFS
- OiwaZmQSuA6j9hWu9jcQiR++xoKdzd3sGkWWJCzXYy6haRxZ9TgTc4sMBlM9KjquN+18
- +n4tcoaXwVwU/MkQsmqr/On7blJ4HU5OrQwSeVLVCnAMWKsWFWVO2RPCp2p6vuJ/Kz4o
- Om5w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrMWT7QWDyOJyUU/xAO/DlpyZriGqaoH/j5a37gsi5q6rQEs0iDiH5CX8j5nbus19fhzftm8EvkdbY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1wjMjLH+/4wXC8EN8uafGq0MW57Q+4S5k79Vras0fQWASlhNh
- a+F2vsFHECcuV+r8AbUufR4ywe1UJNoGKjaQlAYCBRz0yaK0saYKT9rUGCqCiSVJA8of96z66ir
- 6kKZwwlp50yB2fj0NZY6+u1+T5M8JFt3EqY1pvPxqNVxOzWfec9+eQN77VnYi0iDaOneuHVk=
-X-Gm-Gg: AfdE7clvT0/TGSYJpf8uSvfTQi8mtuL6wrX2GnpUU1xSI6MGTigPIdsr6haIqXI2KW0
- Oo4P6qV8pG4X9IIyhk/aU9yruL4YPjGc7HDkzrpBsQPHR9atenFYKxXQKkUzno/58IVT1mKCz6j
- +L3WKy+djKPAYDcuGkicK7ZduQXYVaPic988sHao5ivxIv7P5+kCHsRrc+zU8ZaBGnRc2EhfFDE
- 60GSIC7KvZjFZVCJ+AWVzYQ0FV8zTF98z9wBRjGDlUuwhJ5WzSMjddpg1VHz3OBzywVPsVYbAjN
- 1aJXavPSL9L/qLv89gkP813RNpWN7sIljhUrJeKjG0PtzNsTY6HYOkXEm+bpjTiXWHQnOBw7c54
- IvbAC4PH0H38iHMbUqblJ26nwPvhopZiE0rA8a1kE1pKKJQ==
-X-Received: by 2002:a17:903:22ca:b0:2cc:777f:d67d with SMTP id
- d9443c01a7336-2ccea42ca48mr61321465ad.30.1783576807286; 
- Wed, 08 Jul 2026 23:00:07 -0700 (PDT)
-X-Received: by 2002:a17:903:22ca:b0:2cc:777f:d67d with SMTP id
- d9443c01a7336-2ccea42ca48mr61320405ad.30.1783576806265; 
- Wed, 08 Jul 2026 23:00:06 -0700 (PDT)
-Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9d5c361sm37864555ad.80.2026.07.08.23.00.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 23:00:05 -0700 (PDT)
-From: Aniket Randive <aniket.randive@oss.qualcomm.com>
-To: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
- andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- naresh.maramaina@oss.qualcomm.com, aniket.randive@oss.qualcomm.com
-Subject: [PATCH v2] i2c: qcom-geni: Add dynamic transfer timeout based on
- transfer length and frequency
-Date: Thu,  9 Jul 2026 11:29:58 +0530
-Message-Id: <20260709055958.4089039-1-aniket.randive@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+Received: from OS0P286CU010.outbound.protection.outlook.com
+ (mail-japanwestazon11011054.outbound.protection.outlook.com [40.107.74.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0061C10F385
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:00:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mm5atUejgl3Jgm2eHNCd7U2kZFkv4J7qZIjP9JssZDb9KWNpTeVoaX9AIb8hD6O7AbF3vN5dNbJT3PbbqINJJboifa92U/Pl2XMsEdueYB+iXXRby12aacUnl0hZ9xmfB2aHBezjHIojC2ke2LNRBmcK/b7bcb/KN+6lxIfeNRGvQto5uRiVEy+c506eaecjSEgdOGjr+R8SoZjZWtDKbK7ZexSz/8x59T67tYjHta6JqUg9sc5RXQxs7Z5PVF+zN2mvu/OC4PamYj3gNEhyn1S3HJRBWM/E2wCHCGKQtVnncwlk6ZiSK6yWo0B08U9qMqzSXKGKBu5zoeNB0fQlhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GGkeILTMDFOV37HFlgWBzgZhaBLC7d0835fKbwFSEHs=;
+ b=cOECpFii2wjDPYPor/+jVMbmhV0di3JrDLzi7bnz6KaILk4iaC3ZCaP+2MIN3cEzLZhuXM0789ZWUw5qi2t/+vnSrovE6uRdsb799Y74NH+qmPN7T4MMNIX5aeH3X2wVn6bNpwAVZ4zuOwtpgT2EnnDcyFsV+HBElIAtwKRWgxcxl/9kDJh63FVaqm6C5Mjb3xTOSfxcWel8VPtbMfZDTGll9MaS7uDwj2W9+DLcPEY9wL7E/7IuumjGfK7ds7eEMv0Csxt6JmOKx/j4QgWdsFiiSWRoeY+194qGcsZMPUTNj9O1tZb1QuoRsGb33jIfCUZySBLRvagwqGBV6S7QiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GGkeILTMDFOV37HFlgWBzgZhaBLC7d0835fKbwFSEHs=;
+ b=wyXWcfqGd62J0piblpg/4ay3SCUbzEEpOBe+CnFMTkyyGQFKp8AsgbiO9ginoFQBx2bY9k9SyyMVKFe1nAgacp9jvImG9QfPURigIEtbXApBDwGqxDOXWLqlxTljSa6OvmOT54mJIt5QEpLy1y/0/ilXFSAV5jeq9wZT80y1odE=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYYPR01MB12434.jpnprd01.prod.outlook.com (2603:1096:405:f8::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 06:00:45 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0181.009; Thu, 9 Jul 2026
+ 06:00:45 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Rob Herring
+ <robh@kernel.org>
+CC: Tommaso Merciai <tomm.merciai@gmail.com>, geert <geert@linux-m68k.org>,
+ laurent.pinchart <laurent.pinchart@ideasonboard.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+ magnus.damm <magnus.damm@gmail.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v7 02/13] dt-bindings: display: renesas,rzg2l-du: Add
+ support for RZ/G3E SoC
+Thread-Topic: [PATCH v7 02/13] dt-bindings: display: renesas,rzg2l-du: Add
+ support for RZ/G3E SoC
+Thread-Index: AQHc3gMIeY2WJ7+Cdk6/LqmJCyov0rYMk1KAgCzwRoCAK474sA==
+Date: Thu, 9 Jul 2026 06:00:45 +0000
+Message-ID: <TY3PR01MB11346733171878A6D2E38076286FE2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <cover.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
+ <ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
+ <20260513222725.GA2069022-robh@kernel.org> <aiqtSWTTa4ZIThrp@tom-desktop>
+In-Reply-To: <aiqtSWTTa4ZIThrp@tom-desktop>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB12434:EE_
+x-ms-office365-filtering-correlation-id: 4047388d-8b31-45f3-7066-08dedd7f6ad4
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|23010399003|1800799024|13003099007|38070700021|22082099003|18002099003|3023799007|6133799003|56012099006|5023799004|11063799006|4143699003;
+x-microsoft-antispam-message-info: tFte69RRv0CkSgv0dLLZAzGhMn2/8WujD1K4K9KU51cvUndFYSPuiFti/0iQ2+hGvYmDusR1oPH3n4IRbLYGJispDgaCF0Zhz+Kdp5a1KTneSxBu7eNhYnDGxGTR+zClgAyo5h0bkKgKGJbDWJaCrsypb1kN2u2yw8vV+gYr6eWdnJbFN0OMEZQYaUB7Xy41QWP3PB9s3Bh33XGTnJvUtDEyyFG6PAIndNuhnZjGpCfUUMcp7HBPiQsqtQVYBTb4ro11EPOvz1goZvIuBEKTQpHscmDPCVmLQXzMvv/XLcJuCqtYIOw/wD14X7gdSrZL3C+vU23sYNfsynZ94kvN7tmauqAF67R1QM8AEwRnf+fWXA6gWxjrETGM43WGc8hRlzAzmWqSZXpG7dQqY4m5N1ryPYGoL3xcwanZyMDnglj3kw+Gej3XC5UJhm1Nr/k9kXICSdropvwZ8AjHFdFRjHk/RfNQxQz+n1s0+Gc4V+lx7lDxKxOtH+NwXeSuOuCPoWWRXc87bAPOFj/R67OthhxBS8zS/hWPGJtjUbFswgxmr6ACo/RRneWDiYyyUxd/ZDjrqLUhNlpAhbqIrthsHc1BC0XMZAa0WkTHoT33agNGO7Ti6e0cdPhR6Ywyan6jGw/VMSVQa4+YOlBInc2HODlmFwZXsti2qlZCjunTbkaeC5hwCpFcqZgojd0s9DKDi77uQrbOP068W4NHMltOJGtEcYdIR5sCcv9oN4zzePo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(13003099007)(38070700021)(22082099003)(18002099003)(3023799007)(6133799003)(56012099006)(5023799004)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BI/AQ3ToXdEe3BAbR3IwgUCGsPr8yL+ur3CCPqDfADZ8CiheOueHowG2qm5d?=
+ =?us-ascii?Q?XJi3jbJOVZ2ZICsZca6xcZAbL4NPYMjE5eDHBagDKEcSN7UP4nOemjs2hvXS?=
+ =?us-ascii?Q?Pr2z8K8E7W+StcUXCvdQQT4o3HiMDBCTLTD/r5k4NbFinwxWqxyKC3F+/0/N?=
+ =?us-ascii?Q?lh3H0H/GYUxRYjF6YrZrD2Q+CCvcdlgFvn8tCDBYA8yMxUxyea3qOrb3nedy?=
+ =?us-ascii?Q?rqG/QwBMrqvR1/pRk2d3GYZjXYJVK24DZoTjNRJQOt95X4/hpsGvCxqgLahV?=
+ =?us-ascii?Q?YGOjFrwoPoNtzzJ20qXHAPn0uHi53WpcRfV9QBlLMsoNmvj9aLCWugWcjRg8?=
+ =?us-ascii?Q?O3GCcAsisaLfUsNd6clhoBMqLUH7Nff6euIj5QvFKNg2Ml133/oiQhJg26fZ?=
+ =?us-ascii?Q?0AS4StaBMUfVnlDliJHrSd2ltfVCfkp8851bndp+z4LuS6UWJzl5UNc+bRpr?=
+ =?us-ascii?Q?mmj9aaxIcbNFcUvrjDNj/BYLPmdiqD1UdjFHUOsvGq6II/X6NKjGMmwqP1z7?=
+ =?us-ascii?Q?ISE0TF6xHJCGtq5MnWsA1aSWVGYqbXzPmxhzzBThzPzBGyFFCjnbNS2PHwlp?=
+ =?us-ascii?Q?4/4PTkAhAoaijSThj78dypf4ASzD/Q+8tUk9wNpWj6zKaRiVaiqUYHVt1Dfy?=
+ =?us-ascii?Q?/ZknzaopE6thIdDHzQC9cgrkQjR4kw/fVLMp9ZiyawB01TUgr7LsXUHS3ouI?=
+ =?us-ascii?Q?1Nv3vD1z8iYDCoGnw8fJjUZE9NBezrM+3XzehxS7PmYgNjyegpTB8ouawBc9?=
+ =?us-ascii?Q?DFDUn1CCFHe0I3EtceUROZvQImolxjYOGH/LfrBUFweFbV20iRvlNj/pCVqB?=
+ =?us-ascii?Q?JIz0leWUHDNRbxPd8F4rj7PHRabU10oUazl1HaItiC8FWZAdOIR3QLoKBSj/?=
+ =?us-ascii?Q?u6X+FxbPXdkSfFfWWBxkZyM9UajX98X3ZAio13weC0NXfcC/kPAei1VrcuHh?=
+ =?us-ascii?Q?lB2yDkwJ7LcOnovcNsc8K38eSW6MkkUZoL8kAK0OY5LKr99jnOoAlRrVVh7y?=
+ =?us-ascii?Q?riHDxqfmycfagqT1agKq2JlDvwpdZ/m1pq54aLnATUkX9jLGWj14IzTn4vO5?=
+ =?us-ascii?Q?VKTA/c7T/FKOTcZEbOTY3coi8dFZ2YO4zLKz6+d9lsb+ZSf3zUzqcylcarc/?=
+ =?us-ascii?Q?JxB2ZMFDPRYk8MAclW447tOExyKEJayT8s6Ed83xymuNckO/a2y1wuWAPy30?=
+ =?us-ascii?Q?KJWXSRXFEEj5DejkX+u+3SfV+McLNHkQCfLo/XfFldUaJMqmagoSqrsnQzOW?=
+ =?us-ascii?Q?4XpqEo1bzpe/fUZOmt6GCapuD5kev5+nPRRGOHQCGTdM+Upv99XTvKYc0Wzg?=
+ =?us-ascii?Q?hoouHtrVIW7pERgqQI0+O6cn0Y0DX7YXpxzq55yLWWTu/WiIBH4FzZenLlNt?=
+ =?us-ascii?Q?0KE9C8FP1Ddt3QXFNmY3EJHB8RJvvqpaN8mFrhNgZ7RRfSD38ylUbrXZWX6p?=
+ =?us-ascii?Q?NpN/bzpxOwXQvBAKDbfw5MvkA7KAR04FS3Kja2oe8MKlsAjtQ/2W3+9NcJMc?=
+ =?us-ascii?Q?lnvM2bzIUDWecNAq5jv5tGZLNRuDmd9La8ofwxqoH0JxV7VUZKadGUP25XFV?=
+ =?us-ascii?Q?18KYF5ey0zVAmV1TMeHkVTMDGHROa9HbusHfMMgJPRieDJWXvqVECMMZ2Cg/?=
+ =?us-ascii?Q?HDYM4vYSp7CYC26tC+RNBe8jI67inHpsv/D1EAlWChmziqBUT5GLmRtxy6dw?=
+ =?us-ascii?Q?xrxan3DC2psaVGt2Rms0jcR7mp/Oa+Bn+HYxPVltvlKnfOIe1P0S36eaDo5i?=
+ =?us-ascii?Q?q1lOiNMfPg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA1NCBTYWx0ZWRfX7q9whDHGfckM
- KMIVlHqCYtm8VE5Skt31Le1C13wMuJxDDpWxjXiU/8HhWKy7OjMOIgxJF/xvqKCcER1cXPf47Nz
- fId/9NtyPf0GK6a2XSxZTYxtX3Dtupo=
-X-Proofpoint-GUID: Pn1l46a-INDRNWTWcQ0OS2ancQxmvahN
-X-Proofpoint-ORIG-GUID: Pn1l46a-INDRNWTWcQ0OS2ancQxmvahN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA1NCBTYWx0ZWRfX/EOrdF8dYeoW
- XUAVcOB5Jjr3JvUkypS5o45c6YxLAT0c9G33jiYip11oXalfdxJtuxM0wKs7K2T/FJi5NqH2BLq
- CrMn+gRxSso8lSXd+RFBxIpbRRbzG5YDXGCrod9nvgpt4uSiqfwUZnoefGlSK8bG6zPbnxUfliu
- CjGA6DvYBB9hkU2SYXc3c5AQK6B2o/vRbEomhm5N+cYu2lrXMOd1FspHYOlHUyprJv5SL+IA5fG
- mQhA+GEUcP2tQhWtc14DrInoYZon+MNmEhYW9vms9zRGT4NAeAIzceS8ufkiOxwulR0BhhH4u3x
- t6qrvQ4L5iEJZpB7JBgOleqxxLge2kN/HvDPjzVSzR7oTne0SqBvjgFn+tatBeFzZuAoQ53dIaT
- NtZkqSS0BQJpKKqX6mY6theXbyTStkZQCz36tlAL7Q/2mLEB0u76V5UQ8GFR2ImY3TczJoo7/Vv
- oXAjsjma7ILzEWS+N4Q==
-X-Authority-Analysis: v=2.4 cv=H43rBeYi c=1 sm=1 tr=0 ts=6a4f38e8 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=ThEsosvJOpkTSRB3RXoA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_05,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 phishscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607090054
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4047388d-8b31-45f3-7066-08dedd7f6ad4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 06:00:45.5430 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: WTE4G7RgqDfWRgzIbgJyNhzTHit1TkFilSHOUbUQrQ6yO0ToUlz6+wCQpxZ6OUw1tioEDDR0DPrtQnRBqp557ALwhEao1OYjuv95rm/c+Is=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12434
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,152 +145,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The driver uses a static XFER_TIMEOUT of HZ (1 second) for all transfers
-regardless of message length or bus frequency, causing unnecessary
-delays on error paths.
+Hi Tommaso,
 
-Compute the timeout dynamically from message length and bus frequency
-with a 10x safety margin over the theoretical wire time and a 300ms
-floor. For GPI multi-descriptor transfers, use the maximum message
-length across all queued messages as the per-completion timeout.
+> -----Original Message-----
+> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Sent: 11 June 2026 13:43
+> Subject: Re: [PATCH v7 02/13] dt-bindings: display: renesas,rzg2l-du: Add=
+ support for RZ/G3E SoC
+>=20
+> Hi Rob,
+> Thanks for your review.
+>=20
+> On Wed, May 13, 2026 at 05:27:25PM -0500, Rob Herring wrote:
+> > On Thu, May 07, 2026 at 11:21:30AM +0200, Tommaso Merciai wrote:
+> > > The RZ/G3E SoC integrates two LCD controllers (LCDC0 and LCDC1),
+> > > each containing a FCPVD, VSPD, and Display Unit (DU).
+> > >
+> > >  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> > >  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> > >
+> > > Add compatible string 'renesas,r9a09g047-du' and extend the binding
+> > > to support two DU instances: add reg-names ('du0'/'du1'), extend
+> > > reg, interrupts, and resets to maxItems: 2, and extend
+> > > clocks/clock-names to six entries (aclk/pclk/vclk per instance, minIt=
+ems: 3).
+> >
+> > Don't write what the diff has. I can read the diff for that.
+>=20
+> Ouch, thanks.
+>=20
+> >
+> > >
+> > > Drop the "Each port shall have a single endpoint." constraint since
+> > > RZ/G3E ports expose multiple endpoints.
+> > >
+> > > Add a RZ/G3E-specific allOf rule mapping two DU instances to two port=
+s:
+> > >
+> > >  - port@0 (DU0): endpoint@0 DSI, endpoint@2 LVDS ch0, endpoint@3
+> > > LVDS ch1
+> > >  - port@1 (DU1): endpoint@0 DSI, endpoint@1 RGB (DPAD), endpoint@3
+> > > LVDS ch1
+> > >
+> > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > > ---
+> > > v6->v7:
+> > >  - Rebased on top of [1]
+> > >    [1]
+> > > https://lore.kernel.org/all/20260429170012.366537-1-prabhakar.mahade
+> > > v-lad.rj@bp.renesas.com/
+> > >  - Use single DRM device aggregating both DU instances (1 DU dt node)=
+,
+> > >    modelling single port for each DU0, DU1 and multiple endpoints for
+> > >    outputs.
+> >
+> > That seems like the completely wrong thing to do and you've given no
+> > reason why you think it is the right choice.
+>=20
+>=20
+> We had a discussion with Laurent at [1] about this topic.
+> In particular:
+>=20
+> DSI ip can select at runtime input data path or DU0 or DU1 via DSI_LINK_G=
+PO0R VICH register. This can be
+> done by managing the
+> 2 DUs as single DRM device aggregating both DU instances that will spawn
+> 2 crtcs. In this way at runtime we can select the output for DSI ip via t=
+he following commands:
+>=20
+> modetest -M rzg2l-du -s 58@55:800x600-56.25@XR24 (DU0 -> DSI) modetest -M=
+ rzg2l-du -s 58@56:800x600-
+> 56.25@XR24 (DU1 -> DSI)
+>=20
+> This can be done using option [B] (single drm device that spawn 2 crtc).
+>=20
+> Using option [A] we will have 2 drm devices 1 for DU0 and 1 for DU1 that =
+each will spawn a single CRTC
+> and the above feature will be not achievable.
+>=20
+> In the end we need a way to have single DRM device that spawn 2 CRTCs.
+>=20
+> A) Two device tree nodes rapresenting DU0 and DU1 design [v6]:
+>=20
+> du0: display@16460000 {
+> 	compatible =3D "renesas,r9a09g047-du";
+> 	reg =3D <0 0x16460000 0 0x10000>;
+> 	interrupts =3D <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
+> 	clocks =3D <&cpg CPG_MOD 0xed>,
+> 			<&cpg CPG_MOD 0xee>,
+> 			<&cpg CPG_MOD 0xef>;
+> 	clock-names =3D "aclk", "pclk", "vclk";
+> 	power-domains =3D <&cpg>;
+> 	resets =3D <&cpg 0xdc>;
+> 	renesas,vsps =3D <&vspd0 0>;
+> 	status =3D "disabled";
+>=20
+> 	ports {
+> 		#address-cells =3D <1>;
+> 		#size-cells =3D <0>;
+>=20
+> 		port@0 {
+> 			reg =3D <0>;
+> 			du0_out_dsi: endpoint {
+> 			};
+> 		};
+>=20
+> 		port@2 {
+> 			reg =3D <2>;
+> 			du0_out_lvds0: endpoint {
+> 			};
+> 		};
+>=20
+> 		port@3 {
+> 			reg =3D <3>;
+> 			du0_out_lvds1: endpoint {
+> 			};
+> 		};
+> 	};
+> };
+>=20
+> du1: display@16490000 {
+> 	compatible =3D "renesas,r9a09g047-du";
+> 	reg =3D <0 0x16490000 0 0x10000>;
+> 	interrupts =3D <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
+> 	clocks =3D <&cpg CPG_MOD 0x1a8>,
+> 			<&cpg CPG_MOD 0x1a9>,
+> 			<&cpg CPG_MOD 0x1aa>;
+> 	clock-names =3D "aclk", "pclk", "vclk";
+> 	power-domains =3D <&cpg>;
+> 	resets =3D <&cpg 0x11e>;
+> 	renesas,vsps =3D <&vspd1 0>;
+> 	status =3D "disabled";
+>=20
+> 	ports {
+> 		#address-cells =3D <1>;
+> 		#size-cells =3D <0>;
+>=20
+> 		port@0 {
+> 			reg =3D <0>;
+> 			du1_out_dsi: endpoint {
+> 			};
+> 		};
+>=20
+> 		port@1 {
+> 			reg =3D <1>;
+> 			du1_out_rgb: endpoint {
+> 			};
+> 		};
+>=20
+> 		port@3 {
+> 			reg =3D <3>;
+> 			du1_out_lvds1: endpoint {
+> 			};
+> 		};
+> 	};
+> };
+>=20
+> ---
+>=20
+> B) Single device tree node design aggregating both DU instances [v7]:
+>=20
+> du: display@16460000 {
+> 	compatible =3D "renesas,r9a09g047-du";
+> 	reg =3D <0 0x16460000 0 0x10000>,
+> 		<0 0x16490000 0 0x10000>;
+> 	reg-names =3D "du0", "du1";
+> 	interrupts =3D <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>,
+> 			<GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
+> 	clocks =3D <&cpg CPG_MOD 0xed>,
+> 			<&cpg CPG_MOD 0xee>,
+> 			<&cpg CPG_MOD 0xef>,
+> 			<&cpg CPG_MOD 0x1a8>,
+> 			<&cpg CPG_MOD 0x1a9>,
+> 			<&cpg CPG_MOD 0x1aa>;
+> 	clock-names =3D "aclk", "pclk", "vclk",
+> 			"aclk1", "pclk1", "vclk1";
+> 	power-domains =3D <&cpg>;
+> 	resets =3D <&cpg 0xdc>, <&cpg 0x11e>;
+> 	reset-names =3D "resetn", "resetn1";
+> 	renesas,vsps =3D <&vspd0 0>, <&vspd1 0>;
+> 	status =3D "disabled";
+>=20
+> 	ports {
+> 		#address-cells =3D <1>;
+> 		#size-cells =3D <0>;
+>=20
+> 		port@0 {
+> 			#address-cells =3D <1>;
+> 			#size-cells =3D <0>;
+>=20
+> 			reg =3D <0>;
+>=20
+> 			du0_out_dsi: endpoint@0 {
+> 				reg =3D <0>;
+> 			};
+>=20
+> 			du0_out_lvds0: endpoint@2 {
+> 				reg =3D <2>;
+> 			};
+>=20
+> 			du0_out_lvds1: endpoint@3 {
+> 				reg =3D <3>;
+> 			};
+> 		};
+>=20
+> 		port@1 {
+> 			#address-cells =3D <1>;
+> 			#size-cells =3D <0>;
+>=20
+> 			reg =3D <1>;
+>=20
+> 			du1_out_dsi: endpoint@0 {
+> 				reg =3D <0>;
+> 			};
+>=20
+> 			du1_out_rgb: endpoint@1 {
+> 				reg =3D <1>;
+> 			};
+>=20
+> 			du1_out_lvds1: endpoint@3 {
+> 				reg =3D <3>;
+> 			};
+> 		};
+> 	};
+> };
+>=20
+> ---
+>=20
+> Please Biju, Laurent correct me if I'm missing something.
+>=20
+> [1] https://patchwork.kernel.org/project/linux-renesas-
+> soc/patch/8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso=
+.merciai.xr@bp.renesas.com/
+> [v6] https://patchwork.kernel.org/project/linux-renesas-
+> soc/patch/8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso=
+.merciai.xr@bp.renesas.com/
+> [v7] https://patchwork.kernel.org/project/linux-renesas-
+> soc/patch/ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso=
+.merciai.xr@bp.renesas.com/
+>=20
 
-Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
----
- drivers/i2c/busses/i2c-qcom-geni.c | 45 +++++++++++++++++++++++-------
- 1 file changed, 35 insertions(+), 10 deletions(-)
+RZ/G3E LVDS support single link (2ch): extended display and single link (mu=
+lti) mirror display
+I believe to support this feature you need single node solution.
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 96dbf04138be..d43db77b3678 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -74,9 +74,12 @@ enum geni_i2c_err_code {
- #define PACKING_BYTES_PW	4
- 
- #define ABORT_TIMEOUT		HZ
--#define XFER_TIMEOUT		HZ
- #define RST_TIMEOUT		HZ
- 
-+/* 9 bits per byte (8 data + 1 ACK), 10x safety margin, 300ms floor */
-+#define I2C_TIMEOUT_SAFETY_COEFFICIENT	10
-+#define I2C_TIMEOUT_MIN_USEC		300000
-+
- struct geni_i2c_desc {
- 	bool no_dma_support;
- 	unsigned int tx_fifo_depth;
-@@ -204,6 +207,16 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
- 	return -EINVAL;
- }
- 
-+static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, size_t len)
-+{
-+	size_t bit_cnt = len * 9;
-+	size_t bit_usec = (bit_cnt * USEC_PER_SEC) / gi2c->clk_freq_out;
-+	size_t xfer_max_usec = (bit_usec * I2C_TIMEOUT_SAFETY_COEFFICIENT) +
-+			       I2C_TIMEOUT_MIN_USEC;
-+
-+	return usecs_to_jiffies(xfer_max_usec);
-+}
-+
- static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
- {
- 	struct geni_i2c_dev *gi2c = dev_get_drvdata(se->dev);
-@@ -445,7 +458,7 @@ static int geni_i2c_rx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 				u32 m_param)
- {
- 	dma_addr_t rx_dma = 0;
--	unsigned long time_left;
-+	unsigned long time_left, timeout;
- 	void *dma_buf;
- 	struct geni_se *se = &gi2c->se;
- 	size_t len = msg->len;
-@@ -470,8 +483,9 @@ static int geni_i2c_rx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 		gi2c->dma_buf = dma_buf;
- 	}
- 
-+	timeout = geni_i2c_xfer_timeout(gi2c, len);
- 	cur = gi2c->cur;
--	time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
-+	time_left = wait_for_completion_timeout(&gi2c->done, timeout);
- 	if (!time_left)
- 		geni_i2c_abort_xfer(gi2c);
- 
-@@ -484,7 +498,7 @@ static int geni_i2c_tx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 				u32 m_param)
- {
- 	dma_addr_t tx_dma = 0;
--	unsigned long time_left;
-+	unsigned long time_left, timeout;
- 	void *dma_buf;
- 	struct geni_se *se = &gi2c->se;
- 	size_t len = msg->len;
-@@ -512,8 +526,9 @@ static int geni_i2c_tx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 	if (!dma_buf) /* Get FIFO IRQ */
- 		writel_relaxed(1, se->base + SE_GENI_TX_WATERMARK_REG);
- 
-+	timeout = geni_i2c_xfer_timeout(gi2c, len);
- 	cur = gi2c->cur;
--	time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
-+	time_left = wait_for_completion_timeout(&gi2c->done, timeout);
- 	if (!time_left)
- 		geni_i2c_abort_xfer(gi2c);
- 
-@@ -591,7 +606,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni_i2c_dev *gi2c, struct i2c_
-  * geni_i2c_gpi_multi_xfer_timeout_handler() - Handles multi message transfer timeout
-  * @dev: Pointer to the corresponding dev node
-  * @multi_xfer: Pointer to the geni_i2c_gpi_multi_desc_xfer
-- * @transfer_timeout_msecs: Timeout value in milliseconds
-+ * @transfer_timeout_msecs: Per-message completion timeout in jiffies
-  * @transfer_comp: Completion object of the transfer
-  *
-  * This function waits for the completion of each processed transfer messages
-@@ -601,7 +616,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni_i2c_dev *gi2c, struct i2c_
-  */
- static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
- 						   struct geni_i2c_gpi_multi_desc_xfer *multi_xfer,
--						   u32 transfer_timeout_msecs,
-+						   unsigned long timeout_jiffies,
- 						   struct completion *transfer_comp)
- {
- 	int i;
-@@ -612,7 +627,7 @@ static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
- 
- 		if (multi_xfer->msg_idx_cnt != multi_xfer->irq_cnt) {
- 			time_left = wait_for_completion_timeout(transfer_comp,
--								transfer_timeout_msecs);
-+								timeout_jiffies);
- 			if (!time_left) {
- 				dev_err(dev, "%s: Transfer timeout\n", __func__);
- 				return -ETIMEDOUT;
-@@ -736,8 +751,16 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 		dma_async_issue_pending(gi2c->tx_c);
- 
- 		if ((msg_idx == (gi2c->num_msgs - 1)) || flags & DMA_PREP_INTERRUPT) {
-+			unsigned long timeout;
-+			size_t max_len = 0;
-+			int j;
-+
-+			for (j = 0; j < gi2c->num_msgs; j++)
-+				max_len = max_t(size_t, max_len, msgs[j].len);
-+
-+			timeout = geni_i2c_xfer_timeout(gi2c, max_len);
- 			ret = geni_i2c_gpi_multi_xfer_timeout_handler(gi2c->se.dev, gi2c_gpi_xfer,
--								      XFER_TIMEOUT, &gi2c->done);
-+								      timeout, &gi2c->done);
- 			if (ret) {
- 				dev_err(gi2c->se.dev,
- 					"I2C multi write msg transfer timeout: %d\n",
-@@ -851,8 +874,10 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
- 		}
- 
- 		if (!gi2c->is_tx_multi_desc_xfer) {
-+			unsigned long timeout = geni_i2c_xfer_timeout(gi2c, msgs[i].len);
-+
- 			dma_async_issue_pending(gi2c->tx_c);
--			time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
-+			time_left = wait_for_completion_timeout(&gi2c->done, timeout);
- 			if (!time_left) {
- 				dev_err(gi2c->se.dev, "%s:I2C timeout\n", __func__);
- 				gi2c->err = -ETIMEDOUT;
--- 
-2.34.1
+Not sure, you just need to extend like R-Car with 1 ports containing all th=
+e 4 ports
+Maybe You could try this as well??
 
+Or
+
+1 Ports containing 2 port that contains 3 endpoints each (Current patch)
+
+Cheers,
+Biju=20
