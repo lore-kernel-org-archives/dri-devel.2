@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91E98C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 21:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F069C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 21:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80B5010F6E1;
-	Thu,  9 Jul 2026 21:37:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC3D10F70C;
+	Thu,  9 Jul 2026 21:37:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="ZjENd4vT";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="BPAXKRZu";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 009AE10E08F
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 21:36:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783633014; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E55C110F707
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 21:37:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783633016; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=k1wASANCLjJB23NZUsyl0KmV+5Fzi3cEp3eqODvop7Q0FgG6fARu0nMPsNFm/ZJzjsOArBeUGHBDf+xzQY4pSffvP4gRXFxESRRujBhaFKaqRwxuS6fqYyx+Tmg1QgWcxgCxmhAwrqSDfa4xrxBqCT36P85K6d2Ft+7Ch1O5DEY=
+ b=VEzASF4JL/FZrGknBCbDj5fYOc8u+hc4Lj0s5UArZE0drUCNDekeh23iLr/C9jIEOK4qmFOQMlJU6jedWyPYaUJ3jCFRIwgEpVx60mC8Pa805zG6SEUREMdExZf+HjXH9BW5/5XZVfpSi9f7+9X+fwtNhUHR9U5tC+cDQCjUcrk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783633014;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=sHvHouAGLn/9Y/0IurKnwHIZ9LyKJNVK4ACHo8Zhsxs=; 
- b=MZbEeMdhwKImcu2b3/E1TKgEGCuOJRbmeqJcwnPxBF4IQvH5v+rcuM9WHX/nCbgH6jp4lwF9LwLg9BthKIZPXGADeJ5ND+duKc2qVRQ3iRD2HO8KOPSYmAuSRX27pTgIXkTTJA89Og/Fk+m+zXxF/YnNkdPxMZEcT4BtWXViOcM=
+ s=zohoarc; t=1783633016;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=CqZt6uwrnjXjiwcScBt70Pe/agqwavvDJ7ZlS5w0LwU=; 
+ b=JdufYJRiMbq0YsrPVCF8fb2AqIGOF6PqYKLAZjKzmx5toG5CcUzBeDDPv540CWQGYxpaH61Dz2ceHc7BBs8ni8oHuyJwf+Zz2A7VCruWc97bn0l+Wg9Erop9IjMcG64GzhFnCxsv5sIu4Jf3s2XOnRf9SVAU5peC5tI/5MhBEBI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783633014; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783633016; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=sHvHouAGLn/9Y/0IurKnwHIZ9LyKJNVK4ACHo8Zhsxs=;
- b=ZjENd4vThEJysfxD/NkKvp1S9xhy0lFWu3A0jfX8dBHRybCWl9nblDlcRo45H4lx
- pAlifuP0uykmjPo7Jxl5tfeLWP/8DX1Fraoa/aybyUK/Sx9h3bfjXeopgyUbljZkTP5
- ISN9+LTK+gmZRa+zwLGIViRcNxwCv9JQfLF4JNdI=
-Received: by mx.zohomail.com with SMTPS id 1783633013296925.4889652460865;
- Thu, 9 Jul 2026 14:36:53 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=CqZt6uwrnjXjiwcScBt70Pe/agqwavvDJ7ZlS5w0LwU=;
+ b=BPAXKRZurqfBBTYbuCq6/BSk3Kckre3GDqRptX670HHpEU8sKVmB7nTir4dms3pl
+ V+lqYCHtI7reinbDzy8YcaPfzID5KEj5I+BogLIZ5gWIcGRIQFMeKmhbSfB9yGujTCs
+ FbFYRDjWBkEeblb5+BGB/gWU2q4YC7HR84TO1ue8=
+Received: by mx.zohomail.com with SMTPS id 1783633014339282.08160232853425;
+ Thu, 9 Jul 2026 14:36:54 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Subject: [PATCH v6 0/7] drm/tyr: firmware loading and MCU boot support
-Date: Thu, 09 Jul 2026 14:36:40 -0700
-Message-Id: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
+Date: Thu, 09 Jul 2026 14:36:41 -0700
+Subject: [PATCH v6 1/7] drm/tyr: add resources to RegistrationData
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12OzQrCMBAGX0VyNrKN+Wk8+R7iIUlTG6hdSUpUS
- t/dtApCYS/zwQw7keRj8ImcdhOJPocUcCgg9zviOjPcPA1NYcKASVBQ0/ZJLeJILactKAXSMCm
- cIkV4RN+G1xq7XAt3IY0Y32s7V8v6zXDGV/1Xynw5oEY0ugIBqtbN2WHfG4vRHBzeyVLL4l/YP
- JJF0ZXSzFhZ+6PQW32e5w/B46Hx6gAAAA==
-X-Change-ID: 20260708-fw-boot-b4-f07706a265c7
+Message-Id: <20260709-fw-boot-b4-v6-1-ca391e1a4108@collabora.com>
+References: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
+In-Reply-To: <20260709-fw-boot-b4-v6-0-ca391e1a4108@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -60,13 +57,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  alvin.sun@linux.dev, laura.nao@collabora.com, work@onurozkan.dev, 
  beata.michalska@arm.com, steven.price@arm.com, lyude@redhat.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5274;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5729;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=JwvqbVDfZNz8scchJ0qh8Ic2LQQr6faTmazCaZ4EsV0=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkBIiW/OlYw5awvirG++0c+OStMeYKOToCLxeVFPf6sh
- /dsLtjUUcrCIMbFICumyHLW3qhHvOq9ke78/80wc1iZQIYwcHEKwETYrBn+Z0nqrTRdrnyk48aS
- r3u1TpadfsW6zG9Lt+CTCVlxz37v6GBkaK22XhN4fgn7gyr5vYXTozUk33jsTxPT4W5d+3HyLek
- SBgA=
+ bh=/sD3Dwni/MdYye4RpZVxgxUSX49sFfnkmHpx+hyNdSY=;
+ b=kA0DAAoWeagp5wxefesByyZiAGpQFHTI8wZcZKwThY5o1arCLl1Q8RM9+0QfnbsjvHGWeTlfl
+ Yh1BAAWCgAdFiEEzT8yjBd67zItn/+Deagp5wxefesFAmpQFHQACgkQeagp5wxefevoogEAhQMD
+ XZDeiJftg9h8V2++1wQnl5qTMa+zaZ3j9FVyWVUA/0LWxderEUkvY42H1x23Cx1QApxR9YuLhlB
+ jGuwyaWYK
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,125 +81,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds firmware loading and MCU boot support to the Tyr DRM
-driver. It includes:
- - A parser for the Mali CSF firmware binary format
- - A kernel-managed BO type (KernelBo) for internal driver allocations
- - GPU virtual memory (VM) integration using drm_gpuvm
- - An MMU module and a generic slot manager
- - Loading firmware, VM activation, and MCU boot at probe()
+Currently Tyr is not storing any resources in its drm::Driver
+RegistrationData.
 
-It is based on drm-rust-next but also depends on:
-1. [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
-   https://lore.kernel.org/rust-for-linux/20260628145406.2107056-1-dakr@kernel.org
-
-2. [PATCH v3] rust: iommu: add device lifetime to IoPageTable
-   https://lore.kernel.org/rust-for-linux/20260703-pgtable_lt_b4-v3-1-e738e1f513a4@collabora.com
-
-A branch with all dependencies is available here:
-https://gitlab.freedesktop.org/dbrouwer/linux/-/commits/fw-boot-b4
+Move Tyr's device-private resources and gpu information from
+drm::Driver::Data to drm::Driver::RegistrationData. This allows Tyr to
+access this data safely within the lifetime of its binding to its parent
+platform device and while registered with userspace.
 
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
-Changes in v6:
-- Move gpu_info from drm::Driver::Data to RegistrationData
-  and remove drm::Driver::Data entirely.
-- Remove the extra drm::Device ARef in TyrPlatformDriverData
-  since drm::Registration already owns an ARef to the drm::Device.
-- Stop storing platform::Device ARef in firmware since it is unused.
-- Pass a generic kernel::Device instead of the platform::Device through
-  firmware to Vm and pagetables since this is all that they need.
-- Link to v5: https://lore.kernel.org/r/20260708-fw-boot-b4-v5-0-7792ab68e359@collabora.com
+ drivers/gpu/drm/tyr/driver.rs | 42 +++++++++++++++++++++---------------------
+ drivers/gpu/drm/tyr/file.rs   | 11 ++++++-----
+ 2 files changed, 27 insertions(+), 26 deletions(-)
 
-Changes in v5:
-- Reduce the scope of this series back to just MCU booting.
-- Drop the CSF global interface, job IRQ, wait, and arch timer patches
-  since they will be sent as subsequent series.
-- Add lifetimes to resources and store them in TyrRegistrationData.
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 8348c6cd3929..46ce5c41e310 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -6,6 +6,7 @@
+         OptionalClk, //
+     },
+     device::{
++        Bound,
+         Core,
+         Device,
+         DeviceContext, //
+@@ -27,10 +28,7 @@
+     regulator,
+     regulator::Regulator,
+     sizes::SZ_2M,
+-    sync::{
+-        aref::ARef,
+-        Mutex, //
+-    },
++    sync::Mutex,
+     time, //
+ };
+ 
+@@ -53,13 +51,17 @@
+ 
+ #[pin_data(PinnedDrop)]
+ pub(crate) struct TyrPlatformDriverData<'bound> {
+-    _device: ARef<TyrDrmDevice>,
+     _reg: drm::Registration<'bound, TyrDrmDriver>,
+ }
+ 
++/// Data owned by the DRM [`Registration`].
++///
++/// This data can have references tied to the parent platform device binding scope
++/// and is accessible only while the DRM device is registered with userspace.
+ #[pin_data]
+-pub(crate) struct TyrDrmDeviceData {
+-    pub(crate) pdev: ARef<platform::Device>,
++pub(crate) struct TyrDrmRegistrationData<'bound> {
++    /// Parent platform device.
++    pub(crate) pdev: &'bound platform::Device<Bound>,
+ 
+     #[pin]
+     clks: Mutex<Clocks>,
+@@ -67,9 +69,10 @@ pub(crate) struct TyrDrmDeviceData {
+     #[pin]
+     regulators: Mutex<Regulators>,
+ 
+-    /// Some information on the GPU.
+-    ///
+-    /// This is mainly queried by userspace, i.e.: Mesa.
++    /// GPU MMIO register mapping.
++    pub(crate) iomem: IoMem<'bound>,
++
++    /// GPU information read from hardware during probe.
+     pub(crate) gpu_info: GpuInfo,
+ }
+ 
+@@ -134,10 +137,10 @@ fn probe<'bound>(
+         // other threads of execution.
+         unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
+ 
+-        let platform: ARef<platform::Device> = pdev.into();
++        let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
+ 
+-        let data = try_pin_init!(TyrDrmDeviceData {
+-                pdev: platform.clone(),
++        let reg_data = try_pin_init!(TyrDrmRegistrationData {
++                pdev,
+                 clks <- new_mutex!(Clocks {
+                     core: core_clk,
+                     stacks: stacks_clk,
+@@ -147,18 +150,15 @@ fn probe<'bound>(
+                     _mali: mali_regulator,
+                     _sram: sram_regulator,
+                 }),
++                iomem,
+                 gpu_info,
+         });
+ 
+-        let tdev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, data)?;
+         // SAFETY: `reg` is stored in `TyrPlatformDriverData` and dropped when the driver is
+         // unbound; it is never forgotten.
+-        let reg = unsafe { drm::Registration::new(pdev.as_ref(), tdev, (), 0)? };
++        let reg = unsafe { drm::Registration::new(pdev.as_ref(), unreg_dev, reg_data, 0)? };
+ 
+-        let driver = TyrPlatformDriverData {
+-            _device: reg.device().into(),
+-            _reg: reg,
+-        };
++        let driver = TyrPlatformDriverData { _reg: reg };
+ 
+         // We need this to be dev_info!() because dev_dbg!() does not work at
+         // all in Rust for now, and we need to see whether probe succeeded.
+@@ -184,8 +184,8 @@ fn drop(self: Pin<&mut Self>) {}
+ 
+ #[vtable]
+ impl drm::Driver for TyrDrmDriver {
+-    type Data = TyrDrmDeviceData;
+-    type RegistrationData<'a> = ();
++    type Data = ();
++    type RegistrationData<'bound> = TyrDrmRegistrationData<'bound>;
+     type File = TyrDrmFileData;
+     type Object = drm::gem::shmem::Object<BoData>;
+     type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
+diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+index b686041d5d6b..9f60a90d4948 100644
+--- a/drivers/gpu/drm/tyr/file.rs
++++ b/drivers/gpu/drm/tyr/file.rs
+@@ -12,7 +12,8 @@
+ 
+ use crate::driver::{
+     TyrDrmDevice,
+-    TyrDrmDriver, //
++    TyrDrmDriver,
++    TyrDrmRegistrationData, //
+ };
+ 
+ #[pin_data]
+@@ -31,15 +32,15 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
+ 
+ impl TyrDrmFileData {
+     pub(crate) fn dev_query(
+-        ddev: &TyrDrmDevice<Registered>,
+-        _reg_data: &(),
++        _ddev: &TyrDrmDevice<Registered>,
++        reg_data: &TyrDrmRegistrationData<'_>,
+         devquery: &mut uapi::drm_panthor_dev_query,
+         _file: &TyrDrmFile,
+     ) -> Result<u32> {
+         if devquery.pointer == 0 {
+             match devquery.type_ {
+                 uapi::drm_panthor_dev_query_type_DRM_PANTHOR_DEV_QUERY_GPU_INFO => {
+-                    devquery.size = core::mem::size_of_val(&ddev.gpu_info) as u32;
++                    devquery.size = core::mem::size_of_val(&reg_data.gpu_info) as u32;
+                     Ok(0)
+                 }
+                 _ => Err(EINVAL),
+@@ -53,7 +54,7 @@ pub(crate) fn dev_query(
+                     )
+                     .writer();
+ 
+-                    writer.write(&ddev.gpu_info)?;
++                    writer.write(&reg_data.gpu_info)?;
+ 
+                     Ok(0)
+                 }
 
-- Link to v4: https://lore.kernel.org/r/20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com
-
-Changes in v4:
- New commits:
-  - drm/tyr: program CSF global interface
-  - rust: time: add arch_timer_get_rate wrapper
-  - drm/tyr: add CSF firmware interface support
-  - drm/tyr: validate presence of CSF shared section
-  - drm/tyr: wait for global interface readiness
-  - drm/tyr: add Job IRQ handling
-  - drm/tyr: add Wait type for GPU events
-
- The existing commits from v3 remain unchanged.
- - Link to v3: https://lore.kernel.org/r/20260413-b4-fw-boot-v3-v3-0-b422f3c03885@collabora.com
-    
-Changes in v3:
- New commits:
-  - drm/tyr: remove unused device from platform data
-  - drm/tyr: use shmem GEM object type in TyrDrmDriver
-    
- drm/tyr: select required dependencies in Kconfig
-  - Rename commit since the dependencies are not limited to DRM.
-  - Select new RUST_DRM_GEM_SHMEM_HELPER instead of DRM_GEM_SHMEM_HELPER.
-    
- drm/tyr: set DMA mask using GPU physical address
-  - Use register macro to read pa_bits instead of separate helper function.
-    
- drm/tyr: add MMU module
-  - Switch MMU code to typed register APIs (TRANSCFG, MEMATTR, STATUS, LOCKADDR, etc.).
-  - Use MmuCommand enum for MMU commands instead of raw constants.
-  - Minor cleanups and renaming (MAX_AS, AS_PRESENT handling).
-    
- drm/tyr: add GPU virtual memory module
-  - Extract VA/PA bits via typed MMU_FEATURES register.
-  - Update the VM code to match the new GPUVM v6 and shmem GEM v10 APIs.
-    
- drm/tyr: add a kernel buffer object
-  - Reject zero-sized KernelBo allocations up front.
-    
- drm/tyr: add firmware loading and MCU boot support
-  - Use typed GPU control registers.
-  - Pass iomem by Arc into Firmware::new() since we store it eventually.
-    
-  - Link to v2: https://lore.kernel.org/rust-for-linux/20260302232500.244489-1-deborah.brouwer@collabora.com/
-    
-Changes in v2:
- - The whole series is rebased on drm-rust-next including v7.0-rc1.
- - Each patch has its own changelog.
-    
- Link to v1: https://lore.kernel.org/rust-for-linux/20260212013713.304343-1-deborah.brouwer@collabora.com/
-
----
-Boris Brezillon (3):
-      drm/tyr: add a generic slot manager
-      drm/tyr: add Memory Management Unit (MMU) support
-      drm/tyr: add GPU virtual memory (VM) support
-
-Daniel Almeida (1):
-      drm/tyr: add parser for firmware binary
-
-Deborah Brouwer (3):
-      drm/tyr: add resources to RegistrationData
-      drm/tyr: add a kernel buffer object
-      drm/tyr: add Microcontroller Unit (MCU) booting
-
- drivers/gpu/drm/tyr/Kconfig              |   5 +
- drivers/gpu/drm/tyr/driver.rs            |  64 ++-
- drivers/gpu/drm/tyr/file.rs              |  11 +-
- drivers/gpu/drm/tyr/fw.rs                | 263 ++++++++++
- drivers/gpu/drm/tyr/fw/parser.rs         | 521 ++++++++++++++++++++
- drivers/gpu/drm/tyr/gem.rs               | 122 ++++-
- drivers/gpu/drm/tyr/mmu.rs               | 102 ++++
- drivers/gpu/drm/tyr/mmu/address_space.rs | 484 +++++++++++++++++++
- drivers/gpu/drm/tyr/regs.rs              | 121 +++++
- drivers/gpu/drm/tyr/slot.rs              | 384 +++++++++++++++
- drivers/gpu/drm/tyr/tyr.rs               |   4 +
- drivers/gpu/drm/tyr/vm.rs                | 806 +++++++++++++++++++++++++++++++
- 12 files changed, 2856 insertions(+), 31 deletions(-)
----
-base-commit: 3dc952c70e44991277f531ff6a2b8c14bcc52112
-change-id: 20260708-fw-boot-b4-f07706a265c7
-
-Best regards,
 -- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
+2.54.0
 
