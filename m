@@ -4,44 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D63C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 09:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FC76C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 09:47:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A628110F48F;
-	Thu,  9 Jul 2026 09:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9DC10E048;
+	Thu,  9 Jul 2026 09:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UiE+EKvm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KDEJhqQB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0C6110F48F
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 09:36:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 978824089A;
- Thu,  9 Jul 2026 09:36:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF0E1F000E9;
- Thu,  9 Jul 2026 09:36:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783589789;
- bh=odpLDiqG04bDji2wc4wOcuCCqh12s7tBQ6HRm+/2K70=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UiE+EKvmU6bkDHeddxUqIdLolLOPo1fa40r0ZY9C9ILzNpkmmqQztlhkBR86rWp9m
- lbPoANWURVlhoMP9Y8R/aPsAGqFzeEWkD7GxC0NAB1EbE5jlvsGCqkmX/nQ7jFwogl
- uLHWYKODsD6Pc/+XlESauhCSDS7H4FcnWh38qHs09UNRbwqq1XUCOlZcRJkDWFfrBz
- nXFn/e7VhBjWrEDQuBxXVlXSV1t97OPrkVYJQ+uCIXWpDE7M62yk56zwftFDqTsMyD
- HHJspIcw8/l8sJyjtFBRBUHxueI3+CXdC9QUjnvK64ovfa0anHVVIQ177wHBEoQOii
- vuHyv+f2YOOQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/7] drm: Implement struct
- vga_switcheroo_client_ops.pre_switch
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709092215.168172-6-tzimmermann@suse.de>
-References: <20260709092215.168172-1-tzimmermann@suse.de>
- <20260709092215.168172-6-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E495910E048;
+ Thu,  9 Jul 2026 09:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783590469; x=1815126469;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=SSuJLx9SE57A7qIxtS+wkjg1DUj+y6sjOCSXMaWQQak=;
+ b=KDEJhqQBHnzg+W1DRvUp7QtkgN85iaQZt5INbNrre8pcbKIRt8PaEJeU
+ gbbELqnC3US+8pegF3PlrYLrVOsb7tBwiNHiiFf2eXS4EVwPT+SxhQOFm
+ FbhcpKsSZ8dcaF5BkBJmHm3nmQntq7rbntS2Y1ooYz+QVQtKQDAjRFvtm
+ Nw3E3Br/rVasHzTmsXHe4JvEpaXvUHErnheEIm/jnn6XJP/+dIHcrCGGd
+ V1rioierX0Iv562aMRy/r/9euIeMShToDhYjPvnQdqWVTZXsPf2x1No7p
+ ipAPWeKY5OA3JaSgp+2T9FcRZw9m4y7qlzMVAcCeuZ2MjC6JtIhkshTUn g==;
+X-CSE-ConnectionGUID: A3Jrmow9S66XtN0ECenGtw==
+X-CSE-MsgGUID: 6fIC7AdSRNusHGmjonn8Qw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84380023"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="84380023"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2026 02:47:48 -0700
+X-CSE-ConnectionGUID: 4ygGpAhyTYeln8kGMGST4g==
+X-CSE-MsgGUID: th6FiBwhSfakI1Bu3JJT6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="258142936"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.44])
+ ([10.245.244.44])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2026 02:47:41 -0700
+Message-ID: <265737ad21d42a7509a8c43619975f0ef150f275.camel@linux.intel.com>
+Subject: Re: [PATCH v7] cgroup/dmem: implement dmem.high soft limit with
+ proactive reclaim
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Jing Wu <realwujing@gmail.com>, matthew.brost@intel.com
+Cc: christian.koenig@amd.com, ray.huang@amd.com, matthew.auld@intel.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, tj@kernel.org, hannes@cmpxchg.org, 
+ mkoutny@suse.com, natalie.vock@gmx.de, mhocko@kernel.org,
+ roman.gushchin@linux.dev, 	shakeel.butt@linux.dev, muchun.song@linux.dev,
+ intel-xe@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 	cgroups@vger.kernel.org, linux-mm@kvack.org
+Date: Thu, 09 Jul 2026 11:47:38 +0200
+In-Reply-To: <20260709061114.1623774-1-realwujing@gmail.com>
+References: <ak81RUK6vRZaMN2D@gsse-cloud1.jf.intel.com>
+ <20260709061114.1623774-1-realwujing@gmail.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 09:36:28 +0000
-Message-Id: <20260709093629.4FF0E1F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,81 +75,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] `vga_switcheroo_client_fb_set()` and the `fb_info` field in `struct=
- vga_switcheroo_client` are orphaned and remain as dead code.
---
+On Thu, 2026-07-09 at 14:11 +0800, Jing Wu wrote:
+> On Wed, Jul 09, 2026 at 12:44:37AM -0700, Matthew Brost wrote:
+> > This looks quite similar to work Thomas is doing here [1].
+>=20
+> Thank you for the pointer, Matt.=C2=A0 We were not aware of Thomas's
+> series
+> before your mail.=C2=A0 After reviewing Thomas's v7 [1], the two series
+> turn
+> out to address different =E2=80=94 and complementary =E2=80=94 problems:
+>=20
+> =C2=A0 - Thomas's series hooks a reclaim callback into the dmem.max write
+> =C2=A0=C2=A0=C2=A0 path: when an administrator lowers dmem.max below curr=
+ent usage,
+> the
+> =C2=A0=C2=A0=C2=A0 kernel calls the driver's reclaim callback to bring de=
+vice memory
+> =C2=A0=C2=A0=C2=A0 usage down to the new limit.=C2=A0 This is analogous t=
+o what happens
+> in
+> =C2=A0=C2=A0=C2=A0 memcg when memory.max is written below current usage.
+>=20
+> =C2=A0 - Our series adds dmem.high as a soft limit enforced in the charge
+> =C2=A0=C2=A0=C2=A0 path: when a successful allocation pushes a cgroup's u=
+sage above
+> =C2=A0=C2=A0=C2=A0 dmem.high, TTM proactively evicts one BO from that cgr=
+oup before
+> =C2=A0=C2=A0=C2=A0 returning.=C2=A0 This mirrors memory.high semantics in=
+ memcg, where
+> =C2=A0=C2=A0=C2=A0 reclaim is triggered per-allocation to keep usage belo=
+w the soft
+> =C2=A0=C2=A0=C2=A0 threshold.
+>=20
+> Both mechanisms coexist independently in memcg and serve distinct
+> purposes: the max write path handles capacity reconfiguration by
+> operators, while the high-limit path provides automatic backpressure
+> for workloads approaching their quota.=C2=A0 Having both in the dmem
+> cgroup
+> controller seems correct.
+>=20
+> > Are either of you two aware of this seemly overlapping work?
+>=20
+> We were not, until your mail.=C2=A0 Now that we are, we would like to
+> coordinate with Thomas on a few interaction points:
+>=20
+> =C2=A0 1. API intersection: Thomas's v5+ replaces the bare u64 size
+> argument
+> =C2=A0=C2=A0=C2=A0=C2=A0 in dmem_cgroup_register_region() with struct dme=
+m_cgroup_init
+> (which
+> =C2=A0=C2=A0=C2=A0=C2=A0 bundles the region size, reclaim ops, and driver=
+ private data).=C2=A0
+> If
+> =C2=A0=C2=A0=C2=A0=C2=A0 Thomas's series lands first, we will adapt our p=
+atches to the
+> new
+> =C2=A0=C2=A0=C2=A0=C2=A0 registration interface.
+>=20
+> =C2=A0 2. File-level conflicts: both series modify ttm_resource.c and
+> =C2=A0=C2=A0=C2=A0=C2=A0 ttm_bo.c.=C2=A0 The changes are semantically ind=
+ependent and should
+> =C2=A0=C2=A0=C2=A0=C2=A0 compose cleanly after a rebase, whichever lands =
+second.
+>=20
+> Thomas, would you be open to coordinating on merge ordering?=C2=A0 We are
+> happy to rebase our dmem.high series on top of yours once it lands,
+> or
+> to split out any shared infrastructure as a common prerequisite if
+> that
+> helps.
 
---- Patch [5]: [PATCH v2 5/7] drm: Implement struct vga_switcheroo_client_o=
-ps.pre_switch ---
-commit d5ba75db20f40c6dde86b90da7c25acad6f23b57
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+Sure. Let's notify eachother of imminent merge plans. I will rebase my
+series on yours if yours go in first. If needed let's look at a topic
+branch that we can merge into drm or vice versa.
 
-drm: Implement struct vga_switcheroo_client_ops.pre_switch
+My work is stalled on lack of reviews ATM.
 
-This commit implements the pre_switch callback for vga_switcheroo in amdgpu,
-i915, nouveau, and radeon drivers. It pushes fbcon updates from vga_switche=
-roo
-into DRM's fbdev emulation and removes calls to vga_switcheroo_client_fb_se=
-t()
-from fbcon to prevent deadlocks.
+Thanks,
+Thomas
 
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
-fbcon.c
-> index 9f5c4c101581d..974c7dcf52514 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-[ ... ]
-> @@ -2987,10 +2983,6 @@ static int do_fb_registered(struct fb_info *info)
->  		}
->  	}
-> =20
-> -	/* Set the fb info for vga_switcheroo clients. Does nothing otherwise. =
-*/
-> -	if (info->device && dev_is_pci(info->device))
-> -		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
-> -
-
-[Severity: Low]
-With the removal of these calls from fbcon, are there any remaining users of
-vga_switcheroo_client_fb_set()?
-
-It looks like the exported function in drivers/gpu/vga/vga_switcheroo.c is
-now completely unused:
-
-void vga_switcheroo_client_fb_set(struct pci_dev *pdev,
-				 struct fb_info *info)
-{
-	struct vga_switcheroo_client *client;
-
-	mutex_lock(&vgasr_mutex);
-	client =3D find_client_from_pci(&vgasr_priv.clients, pdev);
-	if (client)
-		client->fb_info =3D info;
-	mutex_unlock(&vgasr_mutex);
-}
-EXPORT_SYMBOL(vga_switcheroo_client_fb_set);
-
-Because client->fb_info is never populated, does this also leave dead code
-in vga_switchto_stage2() where it checks for the fallback?
-
-#if defined(CONFIG_FB)
-	else if (new_client->fb_info)
-		fb_switch_outputs(new_client->fb_info);
-#endif
-
-Would it make sense to remove the orphaned vga_switcheroo_client_fb_set()
-function, the fb_info field in struct vga_switcheroo_client, and the
-unreachable fallback block to complete the cleanup?
-
->  	return ret;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709092215.1681=
-72-1-tzimmermann@suse.de?part=3D5
+>=20
+> Thanks,
+> Jing Wu
