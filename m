@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D66EC44506
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC3FEC44507
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A8D10F553;
-	Thu,  9 Jul 2026 11:52:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9CF710F556;
+	Thu,  9 Jul 2026 11:52:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cRERYEzo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EKVU71cz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD20810F54C
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 999EF10F553
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9644A4162A;
- Thu,  9 Jul 2026 11:52:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022601F000E9;
- Thu,  9 Jul 2026 11:52:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1E4C86136C;
+ Thu,  9 Jul 2026 11:52:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530C91F000E9;
+ Thu,  9 Jul 2026 11:52:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597960;
- bh=BqokO71zPjIr/AEtatfNG0synRzvya2g4Hgl09W3nAM=;
+ s=k20260515; t=1783597962;
+ bh=GE1y/BqPLtko2+wUH0tTwxTtDvmO+3AtqH5KfW54Eek=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=cRERYEzo4IIMAGqToncSycV8hjU2svrHtcZ3W4OCq97qmpWqYmkGJy+5RORpq4M2T
- GVdONiVhjNDu+/eNnlEicPni9T8MDxEJUt+Jjgkgu1XeyjdDclFUCEaGuD//io/RtU
- jjBIKVZFnp5XVQt6rWFuf/eoCJBCn9X/aEhv2cgRgBulm6DjEQgkpIZAxkw44+Tfp/
- BXDyNI8oSVc/bKqdxyxxP9Rzx0J41QMumuR6PzxW5/shh7Dm6FX9uS1N7epMTlwdXO
- 1ckZmCXg6SX7MwgEuNSiP/fyQjar93YcL7rutVU0LvmwXexa71lR5NcNoSc9e2+ezR
- G6aTu1QyG7ddA==
+ b=EKVU71czLGCiFn0bNTL35GLfq+jbsgIglH4WVoN7DFR4e2WIdY4/rOieNbfjrk1UL
+ xTGH+vRgoIsNm7gHxeiuUmAvduw4FDrpLQqpH/HuJcieosEZe/CrZm5R0hVUghi+4M
+ chvJRR2WRcp8M8u29pgwLzUPY246PEbRQV5R+IZ2qBhvsY6PrMhGGr0sk0fTTokNA2
+ XjVx1Ch+X21p4Iz8wLbGlFp7z3LqOBGLL0Ww/ne+yzaYahb9GJYx8DJCwfMomzuGIW
+ jJqqwNyuf5aNqwY/cDyzslR2yo8pHd8Wzz+pdiMtXd9BfCglmrmmZyw0eQittuzNs3
+ XmsDrBzgm8gIQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:07 +0200
-Subject: [PATCH 41/60] drm/malidp: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:08 +0200
+Subject: [PATCH 42/60] drm/armada: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-41-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-42-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- liviu.dudau@arm.com
+ linux@armlinux.org.uk
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6891; i=mripard@kernel.org;
- h=from:subject:message-id; bh=/2d9iBkp8h63gUU1psJWu8yWpZ3aWHpvWYYhL7fT0BE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3dLbPJ/+yTG09ev6dOdj/ZOYSiHtT8qqFTl/ZogdX
- vPZ68nBjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRb9WMDRMzd0+oEqg1OXHl
- 47ugTb9vKr3Y4rRAvPfSrZR1ziXvT8TPPshnb7DgzhJG1l98M0+YGTM2fN0o5FobJKp29kps2rq
- PTCbKJQfSRZfysy/KL0gwV9gd3qa4sHT69Q8qOh/5Alh080QB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9662; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=WEYjkme5fMSuABuMAcdrWh/2iHicxLCdsNIEltMUMH0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3dJ/l8gdl2sJiRe2Cz6/OeDGbkbFENceM3etJpYbJ
+ YuMPCs6prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwESOFzPWR4pZb38nnMmgUxD3
+ 8v6Se3tC7sfLdqnzzEjX8jyc33fFbnecavzihVH72xPCqqZfMlVibPi8NKDGd8/9P81rJya3Gub
+ 7bOZrvdcSNlH2cslyldqLRxLjPt++3L5GOcLXtarr3/R57gA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,57 +335,125 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: liviu.dudau@arm.com
+Cc: linux@armlinux.org.uk
 ---
- drivers/gpu/drm/arm/malidp_planes.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/armada/armada_overlay.c | 39 +++++++++++++++------------------
+ drivers/gpu/drm/armada/armada_plane.c   | 15 +++++++------
+ 2 files changed, 26 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_planes.c b/drivers/gpu/drm/arm/malidp_planes.c
-index 60b3f2bb153b..82a75591a459 100644
---- a/drivers/gpu/drm/arm/malidp_planes.c
-+++ b/drivers/gpu/drm/arm/malidp_planes.c
-@@ -71,21 +71,25 @@
- /*
-  * Replicate what the default ->reset hook does: free the state pointer and
-  * allocate a new empty object. We just need enough space to store
-  * a malidp_plane_state instead of a drm_plane_state.
-  */
--static void malidp_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *malidp_plane_create_state(struct drm_plane *plane)
- {
- 	struct malidp_plane_state *state = to_malidp_plane_state(plane->state);
+diff --git a/drivers/gpu/drm/armada/armada_overlay.c b/drivers/gpu/drm/armada/armada_overlay.c
+index 3da0b857ef95..e75706b85dd1 100644
+--- a/drivers/gpu/drm/armada/armada_overlay.c
++++ b/drivers/gpu/drm/armada/armada_overlay.c
+@@ -299,34 +299,31 @@ armada_overlay_plane_update(struct drm_plane *plane, struct drm_crtc *crtc,
+ fail:
+ 	drm_atomic_commit_put(state);
+ 	return ret;
+ }
  
- 	if (state)
- 		__drm_atomic_helper_plane_destroy_state(&state->base);
- 	kfree(state);
- 	plane->state = NULL;
+-static void armada_overlay_reset(struct drm_plane *plane)
++static struct drm_plane_state *armada_overlay_create_state(struct drm_plane *plane)
+ {
+ 	struct armada_overlay_state *state;
+ 
+-	if (plane->state)
+-		__drm_atomic_helper_plane_destroy_state(plane->state);
+-	kfree(plane->state);
+-	plane->state = NULL;
+-
  	state = kzalloc_obj(*state);
--	if (state)
--		__drm_atomic_helper_plane_reset(plane, &state->base);
+-	if (state) {
+-		state->colorkey_yr = 0xfefefe00;
+-		state->colorkey_ug = 0x01010100;
+-		state->colorkey_vb = 0x01010100;
+-		state->colorkey_mode = CFG_CKMODE(CKMODE_RGB) |
+-				       CFG_ALPHAM_GRA | CFG_ALPHA(0);
+-		state->colorkey_enable = ADV_GRACOLORKEY;
+-		state->brightness = DEFAULT_BRIGHTNESS;
+-		state->contrast = DEFAULT_CONTRAST;
+-		state->saturation = DEFAULT_SATURATION;
+-		__drm_atomic_helper_plane_reset(plane, &state->base.base);
+-		state->base.base.color_encoding = DEFAULT_ENCODING;
+-		state->base.base.color_range = DRM_COLOR_YCBCR_LIMITED_RANGE;
+-	}
 +	if (!state)
 +		return ERR_PTR(-ENOMEM);
 +
-+	__drm_atomic_helper_plane_state_init(&state->base, plane);
++	state->colorkey_yr = 0xfefefe00;
++	state->colorkey_ug = 0x01010100;
++	state->colorkey_vb = 0x01010100;
++	state->colorkey_mode = CFG_CKMODE(CKMODE_RGB) | CFG_ALPHAM_GRA | CFG_ALPHA(0);
++	state->colorkey_enable = ADV_GRACOLORKEY;
++	state->brightness = DEFAULT_BRIGHTNESS;
++	state->contrast = DEFAULT_CONTRAST;
++	state->saturation = DEFAULT_SATURATION;
++	__drm_atomic_helper_plane_state_init(&state->base.base, plane);
++	state->base.base.color_encoding = DEFAULT_ENCODING;
++	state->base.base.color_range = DRM_COLOR_YCBCR_LIMITED_RANGE;
 +
-+	return &state->base;
++	return &state->base.base;
  }
  
- static struct
- drm_plane_state *malidp_duplicate_plane_state(struct drm_plane *plane)
+ static struct drm_plane_state *
+ armada_overlay_duplicate_state(struct drm_plane *plane)
  {
-@@ -250,11 +254,11 @@ static bool malidp_format_mod_supported_per_plane(struct drm_plane *plane,
+@@ -464,11 +461,11 @@ static int armada_overlay_get_property(struct drm_plane *plane,
+ 
+ static const struct drm_plane_funcs armada_ovl_plane_funcs = {
+ 	.update_plane	= armada_overlay_plane_update,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy	= drm_plane_helper_destroy,
+-	.reset		= armada_overlay_reset,
++	.atomic_create_state = armada_overlay_create_state,
+ 	.atomic_duplicate_state = armada_overlay_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.atomic_set_property = armada_overlay_set_property,
+ 	.atomic_get_property = armada_overlay_get_property,
+ };
+diff --git a/drivers/gpu/drm/armada/armada_plane.c b/drivers/gpu/drm/armada/armada_plane.c
+index fe46a8e4508a..1f5172d6816b 100644
+--- a/drivers/gpu/drm/armada/armada_plane.c
++++ b/drivers/gpu/drm/armada/armada_plane.c
+@@ -254,19 +254,20 @@ static const struct drm_plane_helper_funcs armada_primary_plane_helper_funcs = {
+ 	.atomic_check	= armada_drm_plane_atomic_check,
+ 	.atomic_update	= armada_drm_primary_plane_atomic_update,
+ 	.atomic_disable	= armada_drm_primary_plane_atomic_disable,
+ };
+ 
+-void armada_plane_reset(struct drm_plane *plane)
++struct drm_plane_state *armada_plane_create_state(struct drm_plane *plane)
+ {
+ 	struct armada_plane_state *st;
+-	if (plane->state)
+-		__drm_atomic_helper_plane_destroy_state(plane->state);
+-	kfree(plane->state);
+ 	st = kzalloc_obj(*st);
+-	if (st)
+-		__drm_atomic_helper_plane_reset(plane, &st->base);
++	if (!st)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_plane_state_init(&st->base, plane);
++
++	return &st->base;
  }
  
- static const struct drm_plane_funcs malidp_de_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = malidp_plane_reset,
-+	.atomic_create_state = malidp_plane_create_state,
- 	.atomic_duplicate_state = malidp_duplicate_plane_state,
- 	.atomic_destroy_state = malidp_destroy_plane_state,
- 	.atomic_print_state = malidp_plane_atomic_print_state,
- 	.format_mod_supported = malidp_format_mod_supported_per_plane,
+ struct drm_plane_state *armada_plane_duplicate_state(struct drm_plane *plane)
+ {
+ 	struct armada_plane_state *st;
+@@ -283,11 +284,11 @@ struct drm_plane_state *armada_plane_duplicate_state(struct drm_plane *plane)
+ 
+ static const struct drm_plane_funcs armada_primary_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy	= drm_plane_helper_destroy,
+-	.reset		= armada_plane_reset,
++	.atomic_create_state = armada_plane_create_state,
+ 	.atomic_duplicate_state = armada_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
  };
+ 
+ int armada_drm_primary_plane_init(struct drm_device *drm,
 
 -- 
 2.54.0
