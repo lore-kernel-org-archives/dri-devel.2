@@ -4,121 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23F0BC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FDB7C44508
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C9D010F4C6;
-	Thu,  9 Jul 2026 10:08:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF4DE10F4BD;
+	Thu,  9 Jul 2026 10:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K+GYSTvF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dS6pQIXj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 651FA10F4C6
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:08:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 13A8640E57;
- Thu,  9 Jul 2026 10:08:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9DF1F000E9;
- Thu,  9 Jul 2026 10:08:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783591697;
- bh=SYouMMQpWMiml2AJuY6UOTgwCQtVn2gEVXaPeH/hu2g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=K+GYSTvF7N+skn4aOIfjLLuinA3pgecdrF05+utMxRx94f/7q2i8pUEYBv+ChEGFl
- UTi3kDKesDpRwvDPVZ5X2Y+24KWOe5S4/NI+U2Xz7+s/WYr1UUmmj14Ajn4PyN7PWq
- aoh6jfu05I5K0f7qQ8iA9nH3MovM3+8mzSR54X3pnwQe0UgwvplRM15w7Kw8OqzAus
- p0kFy1mNdLYeMSFFVTqQSyyH+3iLBpReM68u3vSAb3Bs/cIqUb0Ov1w1KV9aeM3Kvl
- l7whj5nWxjpu10JHNTW+60esKdwv0DbPKeTvXZCpWRqkBVMTJrn1o1Pa+RGWEo5N0+
- KG2pLb2qpAEig==
-Message-ID: <b1d85022-a43a-4354-8568-be5efc97d007@kernel.org>
-Date: Thu, 9 Jul 2026 12:08:03 +0200
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0602E10F4BF
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:08:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783591701;
+ bh=PT0Lwt2J8Kwx7GXpwDEVhaGkNF96i6rocr2DnxgpRVE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=dS6pQIXjNHZE/6Sf6LK+XFNq2f3/Dx/M7LGYF7A40e3/H7OplRKmQlfAjARxYA/OT
+ Rfd2BJHZWLX17Iz2O1OlqsLbAkM73kKnug1LthL1fbBn9oj5gC8EK4IRyFum/KqiwN
+ aQooyVhC6LjULnYtL0aqi+lXFlwQqV0rXSRZbSb6ywklSa4E3stbH/g/SPr9EedR44
+ hU+dKFhgj1n+pSBTzGWppqMc+p0ngzLKWVxJjwtmv4YqIDzRux+Ghuwd+9f4gslYQN
+ tTdRZERslj2N/WzQ9lmstVk139BXRIcVD6njA5kHaM/aAkoepH/14QD0SLVqGUYpaC
+ 97wD7fYn8/fOg==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C737617E05E8;
+ Thu, 09 Jul 2026 12:08:20 +0200 (CEST)
+Date: Thu, 9 Jul 2026 12:08:15 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ <dri-devel@lists.freedesktop.org>, Steven Price <steven.price@arm.com>,
+ "Liviu Dudau" <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Danilo
+ Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ <kernel-dev@igalia.com>
+Subject: Re: [RFC 0/8] DRM scheduler kthread_worker for submission latency
+ improvements
+Message-ID: <20260709120815.57185e05@fedora-2.home>
+In-Reply-To: <ak9T5V6BQE2bojZs@gsse-cloud1.jf.intel.com>
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <akd/ae5VGQrsWqsf@gsse-cloud1.jf.intel.com>
+ <5963b079-cb44-4cd4-be56-f47bf3f15e0e@igalia.com>
+ <akwyNSXO+QspyoBx@gsse-cloud1.jf.intel.com>
+ <akym7rllMDFFcz8q@gsse-cloud1.jf.intel.com>
+ <992e86a0-990c-46ab-8816-cf3c030d274a@igalia.com>
+ <ak63Qzqxn1k9ezEd@gsse-cloud1.jf.intel.com>
+ <20260709092552.256e2b3f@fedora-2.home>
+ <ak9T5V6BQE2bojZs@gsse-cloud1.jf.intel.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- Thierry Reding <thierry.reding@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
- <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
- <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
- <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,40 +74,311 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/9/26 07:56, Marek Szyprowski wrote:
-> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
->> On 7/7/26 12:02, Marek Szyprowski wrote:
->>>
->>> Well, the technical reason for not creating cma regions dynamically at
->>> runtime is that on some architectures (like 32bit ARM) the early fixup
->>> for the region is needed to make it functional for DMA.
->> Can you point me at the code that does that? Thanks!
-> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in 
-> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings for
-> the CMA reserved region in linear map are remapped with 4k pages instead
-> of the 1M sections, so later, it will be possible to alter the mappings and
-> change them to coherent when needed (altering 1M sections is not possible,
-> because each process has it's own level-1 array even for the kernel linear
-> mapping).
-> 
+On Thu, 9 Jul 2026 00:55:17 -0700
+Matthew Brost <matthew.brost@intel.com> wrote:
 
-Thanks!
+> On Thu, Jul 09, 2026 at 09:25:52AM +0200, Boris Brezillon wrote:
+> > On Wed, 8 Jul 2026 13:46:59 -0700
+> > Matthew Brost <matthew.brost@intel.com> wrote:
+> >  =20
+> > > On Wed, Jul 08, 2026 at 06:01:55PM +0100, Tvrtko Ursulin wrote: =20
+> > > >=20
+> > > > On 07/07/2026 08:12, Matthew Brost wrote:   =20
+> > > > > On Mon, Jul 06, 2026 at 03:54:45PM -0700, Matthew Brost wrote:   =
+=20
+> > > > > > On Mon, Jul 06, 2026 at 01:41:01PM +0100, Tvrtko Ursulin wrote:=
+   =20
+> > > > > > >=20
+> > > > > > > On 03/07/2026 10:22, Matthew Brost wrote:   =20
+> > > > > > > > On Thu, Jul 02, 2026 at 03:37:37PM +0100, Tvrtko Ursulin wr=
+ote:   =20
+> > > > > > > > > The problem statement is explained quite well and succinc=
+tly at:
+> > > > > > > > > https://gitlab.freedesktop.org/panfrost/linux/-/work_item=
+s/49
+> > > > > > > > >=20
+> > > > > > > > > Essentially, on a system (over)loaded with a lot of runna=
+ble CPU processes, a
+> > > > > > > > > high-priority DRM client gets latency injected into the G=
+PU submission path due
+> > > > > > > > > to the DRM scheduler use of workqueues.
+> > > > > > > > >=20
+> > > > > > > > > This patch series proposes to replace the workqueues with=
+ kthread_work and
+> > > > > > > > > priority inheritance to solve this problem.
+> > > > > > > > >=20
+> > > > > > > > > In the above linked issue Chia-I benchmarked the submit l=
+atencies which
+> > > > > > > > > show a striking improvement:
+> > > > > > > > >=20
+> > > > > > > > > 		median	95%	99%
+> > > > > > > > >     before	41us	1.5ms	2.6ms
+> > > > > > > > >      after	15us	19us	24us   =20
+> > > > > > > >=20
+> > > > > > > > Can you give more information on these numbers? e.g., What =
+you ran / how
+> > > > > > > > you measured these. It is hard to argue with numbers.   =20
+> > > > > > >=20
+> > > > > > > I believe Chia-I observed latency on some production hw/sw an=
+d then wrote a
+> > > > > > > synthetic benchmark to test it more easily. Details are in th=
+e above linked
+> > > > > > > issue.
+> > > > > > >    =20
+> > > > > >=20
+> > > > > > Thanks, I see this now. Part of the problem, as far as I can te=
+ll, is
+> > > > > > that fences are signaled from work items rather than directly f=
+rom IRQ
+> > > > > > context.
+> > > > > >=20
+> > > > > > For example:
+> > > > > >=20
+> > > > > > "There is another 2.5 ms of scheduling latency from
+> > > > > > panthor_sched_report_fw_events() (running on irq/105-panthor, P=
+ID 257)
+> > > > > > to process_fw_events_work() (running on kworker/u32:1, PID 62)."
+> > > > > >=20
+> > > > > > I assume this is only addressing the scheduling portion of the =
+latency,
+> > > > > > but you also mentioned a 9.5 ms delay for vkQueueWaitIdle(), wh=
+ere part
+> > > > > > of the latency appears to be on the signaling side due to the w=
+orker
+> > > > > > thread.
+> > > > > >    =20
+> > > > > > > > > This is obviously really good for preventing compositors =
+from missing frames and   =20
+> > > > > > > >=20
+> > > > > > > > Modern compositors do not pass render-job fences to draw jo=
+bs as input
+> > > > > > > > dependencies. On Wayland, this functionality is provided by
+> > > > > > > > linux-drm-syncobj-v1 and is enabled by default on Ubuntu 24=
+.10 and
+> > > > > > > > later. SurfaceFlinger has also operated this way for quite =
+some time.
+> > > > > > > >=20
+> > > > > > > > The obvious solution for compositors is to submit work dire=
+ctly through
+> > > > > > > > the ioctl (i.e., bypass path in sched) when there are no in=
+put
+> > > > > > > > dependencies, which should be the common case. The main exc=
+eption is
+> > > > > > > > when one of the BOs mapped into the compositor is migrating=
+ or otherwise
+> > > > > > > > busy (i.e., a BO has a fence in a kernel dma-resv slot).   =
+=20
+> > > > > > >=20
+> > > > > > > You mean the direct submit RFC you floated some time ago? Wha=
+t was the
+> > > > > > > verdict on that one, wasn't it rejected?
+> > > > > > >    =20
+> > > > > >=20
+> > > > > > I had some patches for DRM sched that I never posted. It turned=
+ out to
+> > > > > > be a little tricky because of some other quirks in DRM sched, b=
+ut it was
+> > > > > > still roughly 100 LoC plus an additional lock.
+> > > > > >    =20
+> > > > >=20
+> > > > > Side note: I quickly rebased DRM DEP here [1] and prototyped some=
+ RT
+> > > > > solutions.
+> > > > >=20
+> > > > > I added a DRM_DEP_QUEUE_FLAGS_RT flag to internally choose betwee=
+n a
+> > > > > workqueue and kthread_work, and to enable FIFO scheduling in [2].=
+ Most
+> > > > > of the details are hidden internally, but I had to make a few sma=
+ll
+> > > > > changes in Xe to support this on the driver side [3].
+> > > > >=20
+> > > > > Putting aside whether or when DRM DEP will land, if DRM sched rea=
+lly
+> > > > > wants FIFO scheduling instead of bypass (the IMO this is somewhat
+> > > > > questionable), I think the approach I took in DRM DEP makes a lot=
+ more
+> > > > > sense. I haven't looked into what changes would be required in DRM
+> > > > > sched, though; hopefully it wouldn't be too messy.
+> > > > >=20
+> > > > > Of course, kthreads are now directly exposed to userspace, but th=
+is
+> > > > > would be limited to privileged userspace with FIFO scheduling
+> > > > > capabilities, which seems reasonable. Additionally, this approach=
+ does
+> > > > > not require the kind of large paradigm shifts proposed by this se=
+ries.   =20
+> > > >=20
+> > > > This sounds plausible and TBH I also considered worker duality. If =
+you look
+> > > > at my series I wrap everything to drm_sched_work and drm_sched_work=
+er so
+> > > > drivers do not even have to know what is the underlying implementat=
+ion.
+> > > >    =20
+> > >=20
+> > > You could probably abstract this to some extent, but any driver-side
+> > > functions that process work on scheduler workers would still require
+> > > dedicated function signatures. Perhaps some creative macros could do
+> > > something like:
+> > >=20
+> > > DRM_SCHED_DECL_DRIVER_WORK_FUNC(driver_sched, work_func);
+> > > DRM_SCHED_INIT_DRIVER_WORK_FUNC(driver_sched, work_func);
+> > >=20
+> > > However, this would only eliminate functions that perform a
+> > > `container_of()` conversion or use an `if` statement to select between
+> > > workqueues and `kthread_work`. =20
+> >=20
+> > Honestly, I'm questioning the viability of such an hybrid design. Not
+> > only this makes the code base even harder to reason about (and thus,
+> > harder to maintain), but if you think about it, the only reason we got =
+=20
+>=20
+> If this is hard to maintain or reason about, then the scheduler is
+> broken. It took me roughly 10 minutes to modify a branch with DRM dep
+> and Xe to support a hybrid design, and another 20 minutes or so to
+> figure out how to run an Xe test with FIFO scheduling :). It shouldn't
+> be difficult to do the same in DRM sched either. If it is, that only
+> highlights why I think DRM dep is a good idea.
+>=20
+> > here is because we pretended the full/monolithic drm_sched stack was a
+> > good fit for this FW-scheduler use case, and the reality is that it's
+> > not.
+> >=20
+> > What we need for this FW-scheduler case is a simple per-context FIFO
+> > with dep tracking. The KMD can then decide when to pull jobs from
+> > this FIFO with its own deferred work model (workqueues, kthread or
+> > whatever). All it needs to have is:
+> >=20
+> > - a way to initialize the job and its deps (so basically the
+> >   drm_sched_job_xxx() helpers)
+> > - a way to queue a job to this FIFO (something like
+> >   drm_sched_entity_push_job(), but maybe simpler)
+> > - a way to evaluate if the first job in the queue is ready for
+> >   execution
+> > - a way to register a callback for asynchronous queue/job readiness
+> >   re-evaluation. That would basically be called on a dep fence callback
+> >   call, and defers the responsibility of how the re-evaluation is done
+> >   to the driver. If you're using kthreads, you'll just be issuing a
+> >   kthread_queue_work() from this callback. If you want workqueues, you'd
+> >   be using queue_work_on(), etc.
+> >=20
+> > The key here, is that the framework no longer decides the deferred work
+> > model the driver has to use. This push/pull model makes it so the driver
+> > is in control at all times, which also simplifies things like teardown,
+> > or rather, make it so drm_sched is not in the way of driver specific
+> > teardown sequences. =20
+>=20
+> drm_sched teardowns are in fact awful.
+>=20
+> >=20
+> > I know some of these concepts have been discussed with Philipp and
+> > Danilo for the JobQueue implementation they intend to have on the
+> > rust-side. I also know that they are not particularly thrilled by this
+> > push/pull model, I think they're more going for a solution where jobs
+> > are pushed to the driver when they are ready for execution, which
+> > requires having their own worker/work to defer the run_job() call, so
+> > back to the problem that the framework enforces the execution model.
+> >  =20
+>=20
+> This all sounds nice, but my initial reaction is that you're asking the
+> driver to do a lot of things that it will likely get wrong=E2=80=94for ex=
+ample,
+> stopping and starting queues, DMA-fence rules,
 
-> 
-> 
-> However, in the use case in this patchset the reserved region is only shared
-> with buddy allocator by using the CMA infrastructure, not registered to the
-> regular DMA-mapping API, so it would work fine. 
+drm_sched is not doing much for that actually. You can get things wrong
+and still not notice, or notice it, but too late. All it does is provide
+a set of helpers to stop/start the main scheduler, and people have
+copied the pattern that exist in other drivers to get things somewhat
+correct.
 
-Yes, exactly.
+Sure, the stop/start of your HW queues is something you'll have to do,
+but it won't be as complicated as it is today, because the driver is
+the one pulling jobs out of the job queue, so if it knows it's stopping
+the HW queue, it can stop pulling jobs from there.
 
-> I'm not convinced that this
-> is the right API to use for this though.
+As for the fence rules, I'm not too sure what the risk is compared to
+what we have today. Ultimately, what guarantees that you do the right
+thing is lockdep not complaining where you're in a dma_fence_signalling
+section, or drivers signaling the fences at teardown (which can be
+automated through helpers too).
 
-If it's supposed to be special DMA memory, then indeed, it would be bypassing
-the DMA layer.
+> tracking jobs to
+> completion,
 
--- 
-Cheers,
+None of the drm_sched infra helped with that in Panthor: we still have
+to track in-flight jobs anyway and do the right thing on a reset when
+the context has in-flight jobs. Sure, drm_sched has extra checks, plus
+a way to push jobs back to the pending list on resumption, but in case
+of Panthor, it didn't solve much, and most of the time, it's actually
+in the way. Now, I'm not saying Panthor is the alpha & omega when it
+comes to these things, but I'd much rather have a component-base
+approach, where drivers can pick the things then need and glue it
+together, instead of having this monolithic design that's really meant
+to be used for pure HW queues with SW queues on top, and not FW queues.
 
-David
+> handling timeouts, managing object lifetimes,
+
+Yet again, lifetime would benefit from this split I think: as soon as
+the job leaves the job queue (FIFO), ownership is transferred to the
+driver, which makes things a lot easier to reason about than the
+current "job is passed to the driver, but it's still owned by the
+scheduler" and you to do shenanigans on a pre/post reset. All of a
+sudden, this decision to re-issue jobs or not is left to the driver,
+which, when it does, passes ownership back to the job queue.
+
+Same for timeouts, it's up to the driver to decide at which level it's
+placed, which would prevent the spurious timeouts issue we had in
+Panthor, because GPU contexts are not always resident when jobs are
+passed to the driver (second layer of scheduling there).
+
+> and
+> implementing teardown flows.
+
+Teardown flow is probably where this new model would be the most
+beneficial, because the job queue is just a passive component, so, as
+soon as the driver decides that it wants to stop pulling jobs from it,
+it happens, period. Now, there's of course other components you have to
+stop to guarantee that in-flight jobs are either fully killed, or land
+before the rest of the teardown happens. It's another case where I
+didn't find drm_sched particularly useful, because you can get things
+wrong still, and all it adds is extra churn because things can still be
+pushed while you're in the process of declaring the HW queue dead.
+
+> Consequently, DRM sched has historically
+> gotten many of these things wrong as well, although the concepts you
+> want a scheduler to provide are there=E2=80=94they're just implemented po=
+orly.
+
+There might be a bit of that, but there's also a lot of FW-scheduling
+is not the same as global-HW-queue-scheduling. There's basically a whole
+layer that's gone, because the queue is no longer global, but instead
+per GPU-context. So basically, all the heavy-lifted logic in
+drm_sched_main, and the teardown/pause/resume complexity is gone,
+because when you're touching a queue, it has no impact on other queues.
+
+>=20
+> Another major problem with what you're suggesting is that you
+> essentially have to accept that a ready job may be pushed to the driver
+> from IRQ context, since fences can signal from IRQ context.
+
+That's a case for proper documentation, I think. Something along the
+lines of "Don't ever do anything from the ::evaluate() callback other
+than queuing a re-evaluation through some deferral mechanism, like
+workqueue or kthread_worker". Lockdep should do the rest. Providing
+default helpers for kthread_work/work_struct would certainly point
+users in the right direction.
+
+> That's a
+> massive can of worms, and I know firsthand what a terrible idea it can
+> be because i915 did exactly that.
+
+I'd argue that, as it is today, drm_sched is already a massive can of
+worms for these FW-scheduler use cases, otherwise we wouldn't be having
+this discussion :P. I'm not sure getting rid of it in favor of
+something simpler/modular would be significantly worse, especially not
+if we can provide semi-generic components that can be pulled by drivers
+to leverage some of the tricky aspects you mentioned (per-HW/FW-queue
+timeout, semi-automatic dma_fence_signalling annotation in
+work_item/kthread_work implems, ...). That's basically the things we've
+been discussing for months with Philipp and Danilo.
