@@ -4,43 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416E8C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3DC2C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 728EE10E027;
-	Thu,  9 Jul 2026 06:18:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14CB610F373;
+	Thu,  9 Jul 2026 06:19:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TtB08VwX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xj2nAPqj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A07210E027
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:18:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7240310E698
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:19:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3BF7443625;
- Thu,  9 Jul 2026 06:18:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E262A1F000E9;
- Thu,  9 Jul 2026 06:18:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 591F343B97;
+ Thu,  9 Jul 2026 06:19:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C823F1F000E9;
+ Thu,  9 Jul 2026 06:19:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783577913;
- bh=2Z+/xW1K97dhwPD6e8oAPPMReBcz8lfz6ijMBK3xyQg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TtB08VwXhZHCAT9k/gR7oqbhdRCOkMEyXYYJGU4PweTM+Uk80SRjcRyvvnjaVcs9d
- /78wRjsDTlIPOFtFQXTT62BEvbQyWmW3FQLm+Z+FPjDjT9kBLUfWv6A+jsi9/jYK2K
- F7TPSMXQtSqW38pe4Xs5KJhC4fST18lqd73+Me6QMBui7sNSlCKcX4S7x7BeErazxW
- FKVCdCq+8TIUEZmahQhtsO11f7kJxspG1txTMAHGgBahuhZ484cXsWR+SlNZcJgy4R
- Sr9/OEdLVMXhongDWhq7bkimfMMSkfw69xl90aLNDUK2gvOucgzhhPxGiZycea1TJT
- cWOFm1GJFRJSQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] i2c: qcom-geni: Add dynamic transfer timeout based
- on transfer length and frequency
-To: "Aniket Randive" <aniket.randive@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709060521.4091523-1-aniket.randive@oss.qualcomm.com>
-References: <20260709060521.4091523-1-aniket.randive@oss.qualcomm.com>
+ s=k20260515; t=1783577965;
+ bh=P55A+JYorEZ78pydXyA8ExRBLDhH3TJQ6tb/oYsGNtg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Xj2nAPqjf+pUbZQOtAN+IvYgivepLAvWoa0qOp5yzZ2BOdLrkS8UuIF6FpCsQcBe+
+ 1eC8M6baKLuKkCqZZ2MPvzR3f4QXW/r8Krr/NtxTe4nKXibLvPFpQcDvJxl682TeqR
+ t6uDDbIqIeAQWFDgaSv97CkmZsBhR0tQ1fMWIafYQgSxr++hJMAbo7je9qcaur9ooF
+ QXj5EuzsAg9oToGULd0Cpe0CWyIdjp+pRaUv8Te2gvg/d8neANGebNE7FBQO20jULs
+ V98Jb3xo1VQg01sq/Wx58lXhppSV6UKAgFekmWIDM0lUq3akc32rRjKmxsrzwg/IXd
+ 3Bt+KUwkVqAVQ==
+Date: Thu, 9 Jul 2026 08:19:17 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
+Subject: Re: [PATCH v6 4/7] bus: mhi: Add QDU100 Sahara variant and firmware
+ fallback
+Message-ID: <n45ii7ekxeefuxw2ydwzsx7lqlfczbgg6obrzmzpytl2fin7j5@vbhmrptcjvcb>
+References: <20260701-sahara_protocol_new_v2-v6-0-3a78362c4741@oss.qualcomm.com>
+ <20260701-sahara_protocol_new_v2-v6-4-3a78362c4741@oss.qualcomm.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 06:18:32 +0000
-Message-Id: <20260709061832.E262A1F000E9@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260701-sahara_protocol_new_v2-v6-4-3a78362c4741@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,145 +61,152 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Dynamic timeout calculation causes an integer overflow on 32-bit a=
-rchitectures for large transfers, leading to premature timeouts.
-- [High] Multi-descriptor transfer timeout calculation uses `max_len` inste=
-ad of total transfer length, causing premature timeouts for batches.
-- [Low] Mismatch between kernel-doc comment and function signature for `gen=
-i_i2c_gpi_multi_xfer_timeout_handler`.
-
-Pre-existing issues:
-- [High] Data race and missed wakeup in `geni_i2c_gpi_multi_xfer_timeout_ha=
-ndler` due to lockless `reinit_completion` without memory barriers.
---
-
---- Patch [1]: [PATCH v3] i2c: qcom-geni: Add dynamic transfer timeout base=
-d on transfer length and frequency ---
-commit d129d3fb4c6f62c77ad085c820aa98f9027086bf
-Author: Aniket Randive <aniket.randive@oss.qualcomm.com>
-i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and f=
-requency
-
-This commit replaces the static 1-second transfer timeout with a dynamically
-computed timeout based on message length and bus frequency. It aims to redu=
-ce
-unnecessary delays on error paths while adding a safety margin and a 300ms
-floor. For multi-descriptor transfers, it computes the per-completion
-timeout using the maximum message length in the batch.
-
-> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-=
-qcom-geni.c
-> index 96dbf04138bee..d43db77b36781 100644
-> --- a/drivers/i2c/busses/i2c-qcom-geni.c
-> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
-[ ... ]
-> @@ -204,6 +207,16 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev =
-*gi2c)
->  	return -EINVAL;
->  }
-> =20
-> +static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, si=
-ze_t len)
-> +{
-> +	size_t bit_cnt =3D len * 9;
-> +	size_t bit_usec =3D (bit_cnt * USEC_PER_SEC) / gi2c->clk_freq_out;
-
-[Severity: High]
-Can this calculation overflow on 32-bit architectures? Since size_t and
-USEC_PER_SEC are 32-bit values on these platforms, does a transfer length o=
-f=20
-478 bytes or more silently wrap around and result in a prematurely small
-timeout?
-
-> +	size_t xfer_max_usec =3D (bit_usec * I2C_TIMEOUT_SAFETY_COEFFICIENT) +
-> +			       I2C_TIMEOUT_MIN_USEC;
-> +
-> +	return usecs_to_jiffies(xfer_max_usec);
-> +}
-> +
-[ ... ]
-> @@ -591,7 +606,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni=
-_i2c_dev *gi2c, struct i2c_
->   * geni_i2c_gpi_multi_xfer_timeout_handler() - Handles multi message tra=
-nsfer timeout
->   * @dev: Pointer to the corresponding dev node
->   * @multi_xfer: Pointer to the geni_i2c_gpi_multi_desc_xfer
-> - * @transfer_timeout_msecs: Timeout value in milliseconds
-> + * @transfer_timeout_msecs: Per-message completion timeout in jiffies
-
-[Severity: Low]
-Is the kernel-doc parameter name mismatched here? The function signature
-below updates the parameter name to timeout_jiffies.
-
->   * @transfer_comp: Completion object of the transfer
->   *
->   * This function waits for the completion of each processed transfer mes=
-sages
-> @@ -601,7 +616,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni=
-_i2c_dev *gi2c, struct i2c_
->   */
->  static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
->  						   struct geni_i2c_gpi_multi_desc_xfer *multi_xfer,
-> -						   u32 transfer_timeout_msecs,
-> +						   unsigned long timeout_jiffies,
->  						   struct completion *transfer_comp)
+On Wed, Jul 01, 2026 at 04:07:38PM +0530, Kishore Batta wrote:
+> The Sahara driver currently selects a firmware image table based on the
+> attached device, but it does not recognize QDU100 devices that expose the
+> protocol on the SAHARA MHI channel. As a result, the host cannot associate
+> QDU100 devices with the correct firmware namespace during image transfer.
+> 
+> Extend the probe time variant selection to match the SAHARA MHI channel and
+> associate it with the QDU100 firmware folder. Add a firmware lookup
+> fallback for cases where an image does not have an explicit entry in the
+> device's firmware table. This allows required images to be provisioned by
+> the platform.
+> 
+> This change only affects devices matched on the SAHARA MHI channel and
+> does not change behavior for existing AIC100 and AIC200 devices.
+> 
+> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+> ---
+>  drivers/bus/mhi/host/clients/sahara/sahara.c | 27 +++++++++++++++--
+>  drivers/bus/mhi/host/pci_generic.c           | 45 ++++++++++++++++++++++++++++
+>  2 files changed, 70 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> index e339c67e236af271645ca81cc517efd9eead87e4..9adbd84859073d8024ba2a5fcfa33897439d6759 100644
+> --- a/drivers/bus/mhi/host/clients/sahara/sahara.c
+> +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> @@ -189,6 +189,7 @@ static bool is_streaming(struct sahara_context *context)
+>  
+>  static int sahara_find_image(struct sahara_context *context, u32 image_id)
 >  {
->  	int i;
-> @@ -612,7 +627,7 @@ static int geni_i2c_gpi_multi_xfer_timeout_handler(st=
-ruct device *dev,
-> =20
->  		if (multi_xfer->msg_idx_cnt !=3D multi_xfer->irq_cnt) {
-
-[Severity: High]
-This is a pre-existing issue, but does this sequence lack memory barriers?=
-=20
-Could the lockless read of multi_xfer->irq_cnt be reordered before the store
-to done in the preceding reinit_completion(transfer_comp) call, potentially
-causing a missed wakeup and subsequent hang?
-
->  			time_left =3D wait_for_completion_timeout(transfer_comp,
-> -								transfer_timeout_msecs);
-> +								timeout_jiffies);
->  			if (!time_left) {
->  				dev_err(dev, "%s: Transfer timeout\n", __func__);
->  				return -ETIMEDOUT;
-> @@ -736,8 +751,16 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, s=
-truct i2c_msg msgs[],
->  		dma_async_issue_pending(gi2c->tx_c);
-> =20
->  		if ((msg_idx =3D=3D (gi2c->num_msgs - 1)) || flags & DMA_PREP_INTERRUP=
-T) {
-> +			unsigned long timeout;
-> +			size_t max_len =3D 0;
-> +			int j;
+> +	char *fw_path;
+>  	int ret;
+>  
+>  	if (image_id == context->active_image_id)
+> @@ -201,8 +202,28 @@ static int sahara_find_image(struct sahara_context *context, u32 image_id)
+>  	}
+>  
+>  	if (image_id >= context->table_size || !context->image_table[image_id]) {
+> -		dev_err(&context->mhi_dev->dev, "request for unknown image: %d\n", image_id);
+> -		return -EINVAL;
+> +		if (!context->fw_folder) {
+> +			dev_err(&context->mhi_dev->dev,
+> +				"Request for unknown image: %u (no fw folder)\n", image_id);
+> +			return -EINVAL;
+> +		}
 > +
-> +			for (j =3D 0; j < gi2c->num_msgs; j++)
-> +				max_len =3D max_t(size_t, max_len, msgs[j].len);
+> +		fw_path = kasprintf(GFP_KERNEL, "qcom/%s/%u",
+> +				    context->fw_folder, image_id);
+> +		if (!fw_path)
+> +			return -ENOMEM;
 > +
-> +			timeout =3D geni_i2c_xfer_timeout(gi2c, max_len);
+> +		ret = firmware_request_nowarn(&context->firmware,
+> +					      fw_path,
+> +					      &context->mhi_dev->dev);
+> +		kfree(fw_path);
+> +		if (ret) {
+> +			dev_err(&context->mhi_dev->dev,
+> +				"request for unknown image: %d\n", image_id);
+> +			return -EINVAL;
+> +		}
+> +		context->active_image_id = image_id;
+> +		return 0;
+>  	}
+>  
+>  	/*
+> @@ -870,8 +891,10 @@ static void sahara_mhi_dl_xfer_cb(struct mhi_device *mhi_dev, struct mhi_result
+>  
+>  static const struct mhi_device_id sahara_mhi_match_table[] = {
+>  	{ .chan = "QAIC_SAHARA", },
+> +	{ .chan = "SAHARA"},
+>  	{},
+>  };
+> +MODULE_DEVICE_TABLE(mhi, sahara_mhi_match_table);
+>  
 
-[Severity: High]
-Since the hardware takes time proportional to the sum of all message length=
-s,
-does calculating the timeout based only on max_len cause premature timeouts
-for batches containing many messages?
+This change should belong to a separate patch.
 
->  			ret =3D geni_i2c_gpi_multi_xfer_timeout_handler(gi2c->se.dev, gi2c_gp=
-i_xfer,
-> -								      XFER_TIMEOUT, &gi2c->done);
-> +								      timeout, &gi2c->done);
->  			if (ret) {
->  				dev_err(gi2c->se.dev,
->  					"I2C multi write msg transfer timeout: %d\n",
+>  static struct mhi_driver sahara_mhi_driver = {
+>  	.id_table = sahara_mhi_match_table,
+> diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+> index 391ab146f501c6ce1c81f6138f7c491a49c2f264..82e41632afc555a53dec3d8395558ae039b33bbd 100644
+> --- a/drivers/bus/mhi/host/pci_generic.c
+> +++ b/drivers/bus/mhi/host/pci_generic.c
+> @@ -300,6 +300,43 @@ static const struct mhi_pci_dev_info mhi_qcom_qdu100_info = {
+>  	.reset_on_remove = true,
+>  };
+>  
+> +static const char * const qdu100_image_table[] = {
+> +	[5] = "qcom/qdu100/uefi.elf",
+> +	[8] = "qcom/qdu100/qdsp6sw.mbn",
+> +	[16] = "qcom/qdu100/efs1.bin",
+> +	[17] = "qcom/qdu100/efs2.bin",
+> +	[20] = "qcom/qdu100/efs3.bin",
+> +	[23] = "qcom/qdu100/aop.mbn",
+> +	[25] = "qcom/qdu100/tz.mbn",
+> +	[29] = "qcom/qdu100/zeros_1sector.bin",
+> +	[33] = "qcom/qdu100/hypvm.mbn",
+> +	[34] = "qcom/qdu100/mdmddr.mbn",
+> +	[36] = "qcom/qdu100/multi_image_qti.mbn",
+> +	[37] = "qcom/qdu100/multi_image.mbn",
+> +	[38] = "qcom/qdu100/xbl_config.elf",
+> +	[39] = "qcom/qdu100/abl_userdebug.elf",
+> +	[40] = "qcom/qdu100/zeros_1sector.bin",
+> +	[41] = "qcom/qdu100/devcfg.mbn",
+> +	[42] = "qcom/qdu100/zeros_1sector.bin",
+> +	[45] = "qcom/qdu100/tools_l.elf",
+> +	[46] = "qcom/qdu100/Quantum.elf",
+> +	[47] = "qcom/qdu100/quest.elf",
+> +	[48] = "qcom/qdu100/xbl_ramdump.elf",
+> +	[49] = "qcom/qdu100/shrm.elf",
+> +	[50] = "qcom/qdu100/cpucp.elf",
+> +	[51] = "qcom/qdu100/aop_devcfg.mbn",
+> +	[52] = "qcom/qdu100/fw_csm_gsi_3.0.elf",
+> +	[53] = "qcom/qdu100/qdsp6sw_dtbs.elf",
+> +	[54] = "qcom/qdu100/qupv3fw.elf",
+> +};
+> +
+> +static const struct mhi_sahara_fw_table qdu100_sahara_fw = {
+> +	.image_table = qdu100_image_table,
+> +	.table_size = ARRAY_SIZE(qdu100_image_table),
+> +	.fw_folder = "qdu100",
+> +	.non_streaming = false,
+> +};
+> +
+>  static const struct mhi_channel_config mhi_qcom_sa8775p_channels[] = {
+>  	MHI_CHANNEL_CONFIG_UL(46, "IP_SW0", 2048, 1),
+>  	MHI_CHANNEL_CONFIG_DL(47, "IP_SW0", 2048, 2),
+> @@ -1399,6 +1436,14 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  
+>  	pci_set_drvdata(pdev, mhi_pdev);
+>  
+> +	/*
+> +	 * Provide Sahara firmware mapping. Sahara consumes it via
+> +	 * mhi_dev->mhi_cntrl->sahara_fw at probe time.
+> +	 */
+> +	if (info == &mhi_qcom_qdu100_info ||
+> +	    (info->name && !strcmp(info->name, "qcom-qdu100")))
+> +		mhi_cntrl->sahara_fw = &qdu100_sahara_fw;
+> +
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709060521.4091=
-523-1-aniket.randive@oss.qualcomm.com?part=3D1
+Why are you adding QAIC MHI controller config in pci_generic driver? This driver
+only handles Modem devices.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
