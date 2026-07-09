@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 731BBC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44521C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9CA910F565;
-	Thu,  9 Jul 2026 11:53:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B222B10F566;
+	Thu,  9 Jul 2026 11:53:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k5mpHISL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q+90C+qX";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD7F110F55F
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:53:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 455A210F55A
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:53:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A5D3243AFE;
- Thu,  9 Jul 2026 11:53:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11CEB1F000E9;
- Thu,  9 Jul 2026 11:53:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2DC68402DE;
+ Thu,  9 Jul 2026 11:53:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3C71F000E9;
+ Thu,  9 Jul 2026 11:53:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597994;
- bh=/WwOgNE3NndcYZ7uKe23R3f39/vwBG/+k4xLCzl+JqQ=;
+ s=k20260515; t=1783598002;
+ bh=ff8zbwtLb21wzAK4S2RyRGn5tnRxFC6FQtW/06W3WgE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=k5mpHISLT7ozcJmLlq/Umdq1EDnZau0BKjoNokq2HhWN/l6PIV/FEI4ZHpa3CXByi
- m2uM7kXmk7nXvsdGfqqtNaH9aR+HT6akSykVT5hBKYLwMxA3cbohmJVr5cekiO1kdB
- qT7L1r9Ujd5rDQTJFhQqAqzPhJUQl41uMoe2EQJEJ0Rf4UonbZYuOHuvo4L4mxvqT8
- zlRGV65Q+DGdt5ThG+ETPvhCRugAOzMV3YhKrGNw4d3Tbuh06l8UtSyJkCDr8n9iL1
- grgXatjcvEsw/vSsYC+if+rIG11s3MS0usPJdcLmQJcsRlEOGsvKoFpY9CYvOL/4hy
- UOWdjYFi2vDSg==
+ b=Q+90C+qX+uQnVSh9yLjwsMNDHlnB8iANxB/6B66zeUna7Muw+Tg49LrVcS7sNi+0c
+ PV/UKH05QJpAKHRY6ist9AV7W01mf2ed1+s7QBwe9VTs9lbUTwioAMYI44V57xg4RG
+ 2zKXHHjSlk1M1Zc57s/76Zo7a2Nm0qP+X5NM3HkKsco67BMtxSDVYmc+znV2HwNh1K
+ rbLj4dT2BJYmtGq4J2PPIHa8dqbXaUSZpaBf4HdlrZLGmeCMvQSECAinMA8ejeQ3Sp
+ hGD2zZnUaCtuKF1ivlj9fxyMI7bFywiIPLMs5feAWDl2atFhokZaQzszFSs5hQPpC3
+ fuB9vgv3XFpxw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:21 +0200
-Subject: [PATCH 55/60] drm/vc4: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:24 +0200
+Subject: [PATCH 58/60] drm/atomic-state-helper: Remove
+ __drm_atomic_helper_plane_reset()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-55-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-58-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- dave.stevenson@raspberrypi.com, kernel-list@raspberrypi.com, 
- mcanal@igalia.com
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6864; i=mripard@kernel.org;
- h=from:subject:message-id; bh=dO6Zc9270WbuxT7GNp5wR3jWBVi2YNV8lLs5oo1TPhA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3Yov+XmfumpOOLf2ppz2i027tRa02slozln6YsHs6
- u+lN5z+dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJhOxnrPfornhRy/DS63fV
- gs/5j9fNymxv0N8jPGObNL9qyJp2c//6Cax/Ghe8PK8414Dv8JxjQYx1JhNvLt6/Qolx9dpVKrq
- igkXFW2/fU1Te/+2tq0xN9gSVVTtdZ5Q2PJTeqDZfwXi12QF9AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2648; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=hu4No3BtP5sU5fdRu4co4Y/YmKYd8PekQeVslIXOz44=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3UrV/1WkVPoPz8qcle3HPNOb+6X94xLdLd2vOqJP9
+ U4xcjLpmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABM53cVYw8Vw8vW/5Eq+by7X
+ 13y+duGvvN6cr3mif5Y7nPyef2X7F8fLTN2VPOnbCm0fm4muWbK6kbHeq2PWhDu3HZeuWXlrtZN
+ TqfgTNbebq1cvnuh5aLHsGi+OxexK3zt/ff9id3fdgTUPDc+tBQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,327 +68,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The plane reset implementation creates a custom state
-subclass, but only initializes a pristine state without resetting any
-hardware. This is equivalent to what atomic_create_state expects.
-Convert to it.
-
-The conversion was done using the following Coccinelle semantic patch:
-
-@@
-identifier funcs;
-symbol drm_atomic_helper_plane_reset;
-symbol drm_atomic_helper_plane_create_state;
-@@
-
-struct drm_plane_funcs funcs = {
-  ...,
-- .reset = drm_atomic_helper_plane_reset,
-+ .atomic_create_state = drm_atomic_helper_plane_create_state,
-  ...,
-};
-
-@match_struct_reset@
-identifier funcs, reset_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .reset = reset_func,
-    ...,
-};
-
-@reset_uses_helpers depends on match_struct_reset@
-identifier match_struct_reset.reset_func;
-@@
-
- void reset_func(...)
- {
- 	<+...
-(
- 	__drm_atomic_helper_plane_reset(...);
-|
-	__drm_gem_reset_shadow_plane(...);
-)
- 	...+>
- }
-
-@match_struct_destroy@
-identifier funcs, destroy_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .atomic_destroy_state = destroy_func,
-    ...,
-};
-
-@script:python renamed_func@
-old_name << match_struct_reset.reset_func;
-new_name;
-@@
-if old_name.endswith("_reset"):
-    coccinelle.new_name = old_name.replace("_reset", "_create_state")
-else:
-    coccinelle.new_name = old_name
-
-@update_struct depends on match_struct_reset && reset_uses_helpers@
-identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
--   .reset = reset_func,
-+   .atomic_create_state = new_name,
-    ...,
-};
-
-@drop_destroy depends on update_struct && match_struct_destroy@
-identifier match_struct_reset.reset_func;
-identifier match_struct_destroy.destroy_func;
-identifier container_func;
-identifier P;
-symbol drm_atomic_helper_plane_destroy_state;
-symbol __drm_atomic_helper_plane_destroy_state;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	...
-(
--	if (P->state) {
-- 		<+...
-(
--		drm_atomic_helper_plane_destroy_state(P, P->state);
-|
--		__drm_atomic_helper_plane_destroy_state(P->state);
-|
--		P->funcs->atomic_destroy_state(P, P->state);
-|
--		destroy_func(P, P->state);
-)
-- 		...+>
-- 	}
-|
--	drm_WARN_ON_ONCE(P->dev, P->state);
-|
--	WARN_ON(P->state);
-)
- 	...
-(
--	kfree(P->state);
-|
--	kfree(container_func(P->state));
-|
- 	// kfree is optional
-)
-(
--	P->state = NULL;
-|
- 	// plane->state clearing is optional
-)
- 	...
- }
-
-@drop_destroy_mtk depends on update_struct@
-identifier P;
-symbol __drm_atomic_helper_plane_destroy_state;
-symbol to_mtk_plane_state;
-@@
-
- void mtk_plane_reset(struct drm_plane *P)
- {
- 	...
--	if (P->state) {
--		__drm_atomic_helper_plane_destroy_state(P->state);
--		...
--	} else {
- 		...
--	}
- 	...
- }
-
-@transform_nv50_wndw depends on update_struct@
-identifier S;
-@@
-
- void nv50_wndw_reset(...)
- {
- 	...
--	if (WARN_ON(!(S = kzalloc_obj(*S))))
-+	S = kzalloc_obj(*S);
-+	if (WARN_ON(!S))
- 		return;
- 	...
- }
-
-@transform_kzalloc depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier P, S;
-statement ST;
-statement list STL;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	<...
- 	S = kzalloc_obj(*S);
-(
--	if (S)
--	{
--		STL
--	}
-+	if (!S) return;
-+
-+	STL
-|
--	if (S) ST
-+	if (!S) return;
-+
-+	ST
-)
-	...>
- }
-
-@transform_body depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier S, P;
-expression PS;
-@@
-- void reset_func(struct drm_plane *P)
-+ struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	S = kzalloc_obj(*S);
-	...
-(
- 	if (!S) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (WARN_ON(!S)) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (S == NULL) {
- 		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-)
-	...
-(
--	__drm_atomic_helper_plane_reset(P, PS);
-+	__drm_atomic_helper_plane_state_init(PS, P);
-|
--	__drm_gem_reset_shadow_plane(P, PS);
-+	__drm_gem_shadow_plane_state_init(P, PS);
-)
-	...
-}
-
-@update_early_return depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	<+...
--	return;
-+	return ERR_PTR(-EINVAL);
-	...+>
-}
-
-@update_return_plane depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_atomic_helper_plane_state_init(PS, P);
-	...
-+
-+	return PS;
-}
-
-@update_return_shadow depends on update_struct@
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_gem_shadow_plane_state_init(P, PS);
-	...
-+
-+	return &PS->base;
-}
+__drm_atomic_helper_plane_reset() is no longer used: all callers now go
+through __drm_atomic_helper_plane_state_init(). Remove it.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: dave.stevenson@raspberrypi.com
-Cc: kernel-list@raspberrypi.com
-Cc: mcanal@igalia.com
----
- drivers/gpu/drm/vc4/vc4_plane.c | 15 ++++++---------
- 1 file changed, 6 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/drm_atomic_state_helper.c | 22 ----------------------
+ include/drm/drm_atomic_state_helper.h     |  2 --
+ 2 files changed, 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
-index 6c433270214d..20c9fc9283a8 100644
---- a/drivers/gpu/drm/vc4/vc4_plane.c
-+++ b/drivers/gpu/drm/vc4/vc4_plane.c
-@@ -361,24 +361,21 @@ static void vc4_plane_destroy_state(struct drm_plane *plane,
- 	__drm_atomic_helper_plane_destroy_state(&vc4_state->base);
- 	kfree(state);
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index f184ce76e090..afd65f0c8f90 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -322,32 +322,10 @@ void __drm_atomic_helper_plane_state_init(struct drm_plane_state *plane_state,
+ 			plane_state->hotspot_y = val;
+ 	}
  }
+ EXPORT_SYMBOL(__drm_atomic_helper_plane_state_init);
  
- /* Called during init to allocate the plane's atomic state. */
--static void vc4_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *vc4_plane_create_state(struct drm_plane *plane)
- {
- 	struct vc4_plane_state *vc4_state;
- 
--	if (plane->state)
--		__drm_atomic_helper_plane_destroy_state(plane->state);
+-/**
+- * __drm_atomic_helper_plane_reset - reset state on plane
+- * @plane: drm plane
+- * @plane_state: plane state to assign
+- *
+- * Initializes the newly allocated @plane_state and assigns it to
+- * the &drm_plane->state pointer of @plane, usually required when
+- * initializing the drivers or when called from the &drm_plane_funcs.reset
+- * hook.
+- *
+- * This is useful for drivers that subclass the plane state.
+- */
+-void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
+-				     struct drm_plane_state *plane_state)
+-{
+-	if (plane_state)
+-		__drm_atomic_helper_plane_state_init(plane_state, plane);
 -
--	kfree(plane->state);
+-	plane->state = plane_state;
+-}
+-EXPORT_SYMBOL(__drm_atomic_helper_plane_reset);
 -
- 	vc4_state = kzalloc_obj(*vc4_state);
- 	if (!vc4_state)
--		return;
-+		return ERR_PTR(-ENOMEM);
+ /**
+  * drm_atomic_helper_plane_create_state - default &drm_plane_funcs.atomic_create_state hook for planes
+  * @plane: plane object
+  *
+  * Allocates and initializes pristine @drm_plane_state.
+diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+index 60635eb34758..9051217833e3 100644
+--- a/include/drm/drm_atomic_state_helper.h
++++ b/include/drm/drm_atomic_state_helper.h
+@@ -57,12 +57,10 @@ void drm_atomic_helper_crtc_destroy_state(struct drm_crtc *crtc,
  
--	__drm_atomic_helper_plane_reset(plane, &vc4_state->base);
-+	__drm_atomic_helper_plane_state_init(&vc4_state->base, plane);
-+
-+	return &vc4_state->base;
- }
- 
- static void vc4_dlist_counter_increment(struct vc4_plane_state *vc4_state)
- {
- 	if (vc4_state->dlist_count == vc4_state->dlist_size) {
-@@ -2493,11 +2490,11 @@ static bool vc4_format_mod_supported(struct drm_plane *plane,
- }
- 
- static const struct drm_plane_funcs vc4_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = vc4_plane_reset,
-+	.atomic_create_state = vc4_plane_create_state,
- 	.atomic_duplicate_state = vc4_plane_duplicate_state,
- 	.atomic_destroy_state = vc4_plane_destroy_state,
- 	.format_mod_supported = vc4_format_mod_supported,
- };
- 
+ void __drm_atomic_helper_plane_state_init(struct drm_plane_state *state,
+ 					   struct drm_plane *plane);
+ struct drm_plane_state *
+ drm_atomic_helper_plane_create_state(struct drm_plane *plane);
+-void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
+-				     struct drm_plane_state *state);
+ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
+ 					       struct drm_plane_state *state);
+ struct drm_plane_state *
+ drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane);
+ void __drm_atomic_helper_plane_destroy_state(struct drm_plane_state *state);
 
 -- 
 2.54.0
