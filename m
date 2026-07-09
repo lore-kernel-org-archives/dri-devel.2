@@ -4,55 +4,215 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53362C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:06:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97888C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:07:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A30B410F4BC;
-	Thu,  9 Jul 2026 10:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E994D10F4BE;
+	Thu,  9 Jul 2026 10:07:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="O7HNOXcM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C0GMFym1";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE2D510F4BC
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:06:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783591594;
- bh=7q8EnhGmsoAFCp+4VfVWqcCDqlLoHMP8+Dfcul2M+MI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=O7HNOXcMUGjmmMeVzFb32+Z3aZvbtaJh7xGMR2bQsKaDyCRaDRXSYK17Yfo1XDZvQ
- Zr4/MpzhlT9spJZkSdxu3ABfKA0muZGTNHhGtbPCJegM7MVgNsThbURTxfyc6VUImG
- KLTy0aHbP3RIe52hvbnmjE2yW08y8Mo5r0cbmNF0pzRvnPyxcjo3fMgaYxAoitkidI
- 02Krowvn7i5o6tOfz4wtN3935cAn9Vx7ZsU3WQpwugf8MWOLNlbIGi99U64X2jVX/K
- hyDbBib4jgHst7pzYXYd+zUJAOq3AOz0KnXfCt6nCqCjXQxzlOQewcq0rHBRikx8Lx
- oJ5Ek/XeLnbWg==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0B0B517E0D53;
- Thu, 09 Jul 2026 12:06:33 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- jitao.shi@mediatek.com, granquet@baylibre.com, rex-bc.chen@mediatek.com,
- dmitry.osipenko@collabora.com, ck.hu@mediatek.com, amergnat@baylibre.com,
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com
-Subject: [PATCH v2 10/11] drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and
- MT8196 SoC
-Date: Thu,  9 Jul 2026 12:06:16 +0200
-Message-ID: <20260709100617.42583-11-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
-References: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBC310F4BE;
+ Thu,  9 Jul 2026 10:07:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783591643; x=1815127643;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=OvzECc3O2+5LVR9tbR9zbwzJOdhq+iOFPBp2Vc4oDKo=;
+ b=C0GMFym1vJJPlHY9OmLUtQepwheHbpplN2VVco4jtefECQ+drJdLjqV8
+ NBb3tf9JNzOj3+OxmdwOsDTtmgBygs5/C9Y3agQpVqUcrbgnRH7vznIW/
+ FMNLZQdIFYmZ4k+Ph0HjqNXuGA2AW+YCIag7q7Bcb7bDAIqRqyG656IQa
+ y4x9mPt3AsW/dgGYOFKNm4oq5kb1N5d5vm67R08/Mmus+B2KEVuguce/M
+ k7J0DBm1tuOsuAr4atiJ8I9Ei2W6yc8jcu4VpGwgjW8yAU6HBeZB2jODt
+ T7vpxtqacVA+gg9fPOhKhojThCGaQDKvE7a4fl0/X1lf4BngFDIUm0Q8Q A==;
+X-CSE-ConnectionGUID: LiqeAw1qQROviQ79yl27gw==
+X-CSE-MsgGUID: 6J2dfGsGRtSJu9JuEeRXpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88095946"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="88095946"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2026 03:07:22 -0700
+X-CSE-ConnectionGUID: r5xq7L0wQUiBRUg+BLgz/w==
+X-CSE-MsgGUID: qz7lZ3I7S0a/BLrUn6N68g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="259443436"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2026 03:07:20 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 9 Jul 2026 03:07:20 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 9 Jul 2026 03:07:20 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.33) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 9 Jul 2026 03:07:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YygGbf5+focSttgmF84GzqJEWyrVIJbI45I8UBITpNcx/qgCrCVOx1pNlva/CruvQdmVDJpaFonlM5htwHOJiCRiY8oHWhoHo0JmZsRyjnPhHwv1UaZaE8dUZJEt1PLPbQFCFhAkzGMpNgvpQV3R5moOyd7HtokdqpDYzNFQXW3T4QoB0bcb2WHh571Q70p4mPyDib5aKLvdZ86AtPA85504wDzKD/c0NTWkmscNv05tQV4dGvkRyIZaW+2S5WyU/rkt/ZpeA28qax4xtXfN+/sEO7SJC4kHHNgf/aDNivJSMfiXJdDZmxW87+baaTZXHjHXtsAw9vJPr+/EevcCjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OvzECc3O2+5LVR9tbR9zbwzJOdhq+iOFPBp2Vc4oDKo=;
+ b=OPouZnDQ0GEmTXkZorYPL53efD6g8szToPsN52p0jqbs1QR/ErgtV2eP/OVHeGju/+uyeL7QBhVN+tmfWu++WaZU3iuAg12edzCGak4wen+Fu9kCcD91yfXM2nLOFTINMFX2/xwHDm/hkWfXZt6FtaRVCFLlYQzT/dmjWyVY46t9OBCDgfrN5xCHMcVTTRJEUadOEQjfy0x/3lGXvnELwXTdMMahKtQw5QlOUkHJ19w5iN++uG1hxqAzYLqYO1qnlgl+rbsRwbwovjIi1JjMdAbaHTgmnogP1mgl6dY/k1+ini/DYKPWxVzxYVAPHAWVTKZHH86z/UBmgw/qAzt36A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM6PR11MB4691.namprd11.prod.outlook.com (2603:10b6:5:2a6::21)
+ by PH7PR11MB6379.namprd11.prod.outlook.com (2603:10b6:510:1f9::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 9 Jul 2026
+ 10:07:15 +0000
+Received: from DM6PR11MB4691.namprd11.prod.outlook.com
+ ([fe80::5d52:baaf:8c72:ba5d]) by DM6PR11MB4691.namprd11.prod.outlook.com
+ ([fe80::5d52:baaf:8c72:ba5d%6]) with mapi id 15.21.0181.016; Thu, 9 Jul 2026
+ 10:07:15 +0000
+From: "Huang, Kai" <kai.huang@intel.com>
+To: "ljs@kernel.org" <ljs@kernel.org>, "akpm@linux-foundation.org"
+ <akpm@linux-foundation.org>
+CC: "david@kernel.org" <david@kernel.org>, "kvm@vger.kernel.org"
+ <kvm@vger.kernel.org>, "tomi.valkeinen@ideasonboard.com"
+ <tomi.valkeinen@ideasonboard.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "surenb@google.com" <surenb@google.com>,
+ "riel@surriel.com" <riel@surriel.com>, "linux-perf-users@vger.kernel.org"
+ <linux-perf-users@vger.kernel.org>, "pfalcato@suse.de" <pfalcato@suse.de>,
+ "x86@kernel.org" <x86@kernel.org>, "rppt@kernel.org" <rppt@kernel.org>,
+ "jannh@google.com" <jannh@google.com>, "mperttunen@nvidia.com"
+ <mperttunen@nvidia.com>, "dave.hansen@linux.intel.com"
+ <dave.hansen@linux.intel.com>, "kasan-dev@googlegroups.com"
+ <kasan-dev@googlegroups.com>, "linux-trace-kernel@vger.kernel.org"
+ <linux-trace-kernel@vger.kernel.org>, "hughd@google.com" <hughd@google.com>,
+ "dinguyen@kernel.org" <dinguyen@kernel.org>, "ray.huang@amd.com"
+ <ray.huang@amd.com>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "lumag@kernel.org" <lumag@kernel.org>, "tglx@kernel.org" <tglx@kernel.org>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "robin.clark@oss.qualcomm.com"
+ <robin.clark@oss.qualcomm.com>, "nvdimm@lists.linux.dev"
+ <nvdimm@lists.linux.dev>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "willy@infradead.org" <willy@infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "patrik.r.jakobsson@gmail.com"
+ <patrik.r.jakobsson@gmail.com>, "linux-parisc@vger.kernel.org"
+ <linux-parisc@vger.kernel.org>, "etnaviv@lists.freedesktop.org"
+ <etnaviv@lists.freedesktop.org>, "m.szyprowski@samsung.com"
+ <m.szyprowski@samsung.com>, "muchun.song@linux.dev" <muchun.song@linux.dev>,
+ "abbotti@mev.co.uk" <abbotti@mev.co.uk>, "l.stach@pengutronix.de"
+ <l.stach@pengutronix.de>, "James.Bottomley@HansenPartnership.com"
+ <James.Bottomley@HansenPartnership.com>, "peterz@infradead.org"
+ <peterz@infradead.org>, "christian.koenig@amd.com"
+ <christian.koenig@amd.com>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
+ "hsweeten@visionengravers.com" <hsweeten@visionengravers.com>,
+ "djbw@kernel.org" <djbw@kernel.org>, "iommu@lists.linux.dev"
+ <iommu@lists.linux.dev>, "jarkko@kernel.org" <jarkko@kernel.org>,
+ "osalvador@suse.de" <osalvador@suse.de>, "acme@kernel.org" <acme@kernel.org>, 
+ "deller@gmx.de" <deller@gmx.de>, "thierry.reding@kernel.org"
+ <thierry.reding@kernel.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>, "sj@kernel.org" <sj@kernel.org>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>, "viro@zeniv.linux.org.uk"
+ <viro@zeniv.linux.org.uk>, "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>, "mingo@redhat.com"
+ <mingo@redhat.com>, "linmiaohe@huawei.com" <linmiaohe@huawei.com>,
+ "ankita@nvidia.com" <ankita@nvidia.com>, "damon@lists.linux.dev"
+ <damon@lists.linux.dev>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "brauner@kernel.org" <brauner@kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "bp@alien8.de" <bp@alien8.de>,
+ "airlied@gmail.com" <airlied@gmail.com>, "alex@shazbot.org"
+ <alex@shazbot.org>, "liam@infradead.org" <liam@infradead.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "kees@kernel.org" <kees@kernel.org>, "mripard@kernel.org"
+ <mripard@kernel.org>, "namhyung@kernel.org" <namhyung@kernel.org>,
+ "linux-sgx@vger.kernel.org" <linux-sgx@vger.kernel.org>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "oleg@redhat.com" <oleg@redhat.com>, "harry@kernel.org" <harry@kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>
+Subject: Re: [PATCH 19/30] mm: use linear_page_[index, delta]() consistently
+Thread-Topic: [PATCH 19/30] mm: use linear_page_[index, delta]() consistently
+Thread-Index: AQHdB8JhhqDR4OKgF0aV2NSSaE+WJLZlBeeA
+Date: Thu, 9 Jul 2026 10:07:15 +0000
+Message-ID: <93cea857dd426563cc9b29c49a52d520517e1585.camel@intel.com>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <bf56e2e98b512962a2fb88900d535a0e9e6769d8.1782735110.git.ljs@kernel.org>
+In-Reply-To: <bf56e2e98b512962a2fb88900d535a0e9e6769d8.1782735110.git.ljs@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR11MB4691:EE_|PH7PR11MB6379:EE_
+x-ms-office365-filtering-correlation-id: 351afb90-6aeb-471c-61bf-08dedda1da3c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|7416014|376014|22082099003|18002099003|38070700021|11063799006|56012099006|4143699003;
+x-microsoft-antispam-message-info: yb7ZWXTjzW3rF5SIIsQj8BVo9AOcXDMxWiRNPGsrQp5vxFDirNi5S1k2Ubg77hU4C/z/F1WvZkJySG1TzG0xnDC3pI8yNv73KqXXFCqA/A8Vqyx/h6dg466UyGCxF5meVe1rOhALDLVOihx5KLFIOjUgoxko2idSfJEcpFkQSYO2mxtWqsj7o5PQd9WiKr+ZYskoF+TGVRDhCX1zgASS5ktpEAnjRsvj/9IANUTgBNxTaElubsMKq7GZCLa8LLGTaA6WptO527ynPAy8q4l121Jg577qU+YIowUojREhEhbqk72nOlm9Z3Yr1DmLx7PnYs5zWxfr6qr/rkh3Sxd9O0DTBBoBWRqeT7istbHJCsFJB75f/OQLw0r5WUIkWAZn9q3tlZEk7y0Wq3covcjep+XqOibS50GCGheqPx95T8qeqV/1iMc9qpmzQmY7PfdyUqi6xkr4Xn2iR4S5/VJOXM+kx7+y6jJ09i5sXYiKHqlJvGjGi5fUOXqs6URclaPJ6zrwKeXZzI+4MR1qf+tFT5C0FawKikMNW4fIzBOXkM5kRJd0bD9NY0IpZo9vdV6sP7JHKV57s8Xhu0DBLfuqIDf+q3DwVBaPwVK4W/eSFJ1ytmRHbV464HI6nvjpL981ahY7L4WDnL5b+26quqwxVkkek5JHvJje3jKaHeheCvo47kie/BCAyx3hxhkgPMxCLaaBm/dGVTt0e5StCyyAgCbZp0lhGcKR6zFXt7q+bKQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB4691.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(22082099003)(18002099003)(38070700021)(11063799006)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VFFYOVZ2TFdNcFJlb0l5TGgyMWI2dkJ6THFWY1BLalFDSEpPZm80dnVFYVAy?=
+ =?utf-8?B?V1hwVGVXTytaNUdZaUE3UmdxajFUR1lFOUxIQ1VadzBOUkd5eGZ2ZDVZUjBi?=
+ =?utf-8?B?ZDZWbUFvU3RQNjBwa0ZZU0pHNTlJTWxxNFlWdnhVWTJ2eDFqb0NmU3YyMG9S?=
+ =?utf-8?B?QmpOQkpQMlRKNHJpbXQ1UE1IdG1JUzZoeE5tMDR6SG5JMVRLWlI5VmFaUVlk?=
+ =?utf-8?B?aFpGdzJwSUNLaGNqejh0ZnROOGR2cHMxL1pkUWJSN04xVlk1ZFFPM0dBU2xn?=
+ =?utf-8?B?NjZpZkQ3QzNxaW5LQnp3MlBoT0EwL3RnbUI5ajJiOE9Bc3JPaVFHNFRtdVN0?=
+ =?utf-8?B?V2FIbWQwT2VMMVBrWWRIdFBmd09OUVlqbEtsMmZlYXBBNE10bm8xb3hJd2I5?=
+ =?utf-8?B?cVBWc3FGbXBNOGQ0T2pZQzhHaTJQd2hnTTFRU09hOGNkaEpYZW9iQ2lPUEYw?=
+ =?utf-8?B?djhuRnVValpPZ01hbWhYbXdaL3JQQlZpZUtpZllwbDlrNnRDenRBVmljNGxG?=
+ =?utf-8?B?NFgvV05aSWgvc3VsSXB5ZVRsRjBXVEVCc0FUcDlKNnY1VWhJd0lscTJHdEtH?=
+ =?utf-8?B?MzVudDhHcDNJQ1NPTDU4ZW1xWmZQY3pldkNJb2hXMEJsbkVCKzVYb1RnRU9x?=
+ =?utf-8?B?U2swUjMvandIVUk2TGVDc2NLczhvTjRrL0hxYnRzSC9KM2NrYmhhaW13Zmt6?=
+ =?utf-8?B?TnUvT3o1Vk5yd0hYM1JOU0YxVGZseWZ4YXZyNTFieWpiMjkrOHF4M29EU0N0?=
+ =?utf-8?B?dzFDdTNzK3RmMk5zb1NsSlB4NkdjMXkyT2hmc0JYN3U3QmdCb0sybUE0RnJq?=
+ =?utf-8?B?aE1yNzVMekxLMGhrRGxnY2I5YnBMMzhsMytMMmQybjJKRFNsRzZsMUI2YzB4?=
+ =?utf-8?B?R2pSMWMxNFlQcGlBQ0pSTExNSHBJVndZRkNjZTk2ZDhTc1E2NWVkVk1OVmxT?=
+ =?utf-8?B?eGpIazZEK2dUM3prTHZCMXhGN1pkV25sdHNEbjUwengveFFRVjZGOFppODBC?=
+ =?utf-8?B?UTU4ZHBmRnlPSVhMcDlvMjhkdDY2TCtUazQ3cSs0NzFKa3RPb1FTeWlrS214?=
+ =?utf-8?B?ZW9wOWtORXFja3NVNXpZQ3k4QmNaZjdNcllTTTA3UDVIVTRhRVI3L1BRaUVl?=
+ =?utf-8?B?T2wzUnk1NU13SWU2V09WZm9zNWpleVRJM0JoanBiNlBubmUyT1Z1YlZ2Y3FH?=
+ =?utf-8?B?TGZ1V0RoZ01meTJWbkpFc1dJU2lOdHJORjgwMmVMMUlQQ3JoaUtBWjVtWGto?=
+ =?utf-8?B?ZmVicE8vUGpXNzRKckQvOGdJdStsOTM3Tm5GOW54dW5GU2lHdXdlS29hbGhU?=
+ =?utf-8?B?VmY3SUsybFJDUEk0d1FCN1ZTcWlKQlZPbGpJNk1xS21TaksweU5Fbkx6NWtv?=
+ =?utf-8?B?WUhoNEJuSFJ3SVpsV1hEcGVaeEVMK0lyY3NETFBjV2pUQzZBYUEzNmQzWkE4?=
+ =?utf-8?B?blFiTE0reGlvUWdabGNSN0VON2hOWUQ0N3FoMDZIUTJCU2hvQjNpeTJxRzQ1?=
+ =?utf-8?B?dlZPR1NZcGxjTjErNDhjSERlSm1McEgzeHZaQXR4Y29nemNmcWplQjN5bnp4?=
+ =?utf-8?B?cFFUUC96RjkrUzI2alZpSlhLTGhXcGNiSHdSK3BOcXdwbXc5YWQ1a1o2UG1V?=
+ =?utf-8?B?V3BodDMxNlFRR2REVzZLRzhKWGtTNnJJS2hzdlFuNm1tY1E1Rnl4Z2JjekVV?=
+ =?utf-8?B?TXJuWVU3dmlOSnFZV1VKZXExZ1d3Ly9wMVZ4cXVycHFlcWpJdk1ZY3k4NmtM?=
+ =?utf-8?B?REFhNHNZY0RmRkM4WUt0Rmg3NzNnUTBjVTRaZEpZQ3JrZVpjcEtybDUvdlN2?=
+ =?utf-8?B?V01EK3NCbUdjWCtrRDZONXBiVlg4NDZoTjBYT3NqUWlvYmFlUGtzc0Z2cEVL?=
+ =?utf-8?B?anhaM01YN1JVL0hiWUFhNVg0b3VOTFlXOFkrNnhUU25uWUwwOWxSVTBCQVlw?=
+ =?utf-8?B?cGMxZTN5VGhXVmxkT0ZOZmZub2hVVFdQV2F4VGlGTWFXeVZQTWMwU09vU2VX?=
+ =?utf-8?B?MDRrb3IvMnJ0ejlNV0RKTFozZnBIY3Nwa2JmZnYvcGxMbk9HTlBCMFIzS0E3?=
+ =?utf-8?B?RE9QMENqWEJscHlDVHk4UTA2UkRDWURTYm5vNmw4MXhuVzIwMUgrYTU5bk13?=
+ =?utf-8?B?OXJVQkgvZklOTCtxcWVNYjVrWXZFUDJrd3hVcS9JVVhBajJXTDhyLy9Ca041?=
+ =?utf-8?B?em5RKzl5RHZ6bHlqUkRGQjhENUhqUFlrb1A3NEk1YitObmZxTFU1V05STVFi?=
+ =?utf-8?B?V2JOeXE4S2szRDZZMm1OZ21aSERPUEszbDEwbFh1SWtEVmU4RTBGRWp0Ykh3?=
+ =?utf-8?B?WXZ0Uysrek0xS29DVXJqLy91VzlNaVJJRGFaZEw1KytzM25RVUVGUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <0C3E54796533DE498A7E11F4E014A6CB@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: k2MjFvWgQrv9y6266FexqV5zB6sWr7dV8EJepRtddA37uBKcgDknFbR2gLYYZ7BeBNWqf7gHjbqQkUZLBZfSV9T3mwGvFnzrUErJNG3Mg5SqnEAePpDcxiEHlUCtvFv7s6yNBvqg7AeYVTRnEJG0UDAZPgJ1dPCeMwgTk2VIJA7N+TIpCjLHquh/43eHAIytYzlrdLE3t9hgnZs5B9LwiAOnVpGHRFrUaI1YEr4mSfTKWXyqiM86mdWyRTJl83OsDK12G8KbXPs2qskeLG4V5w/c5yEcDkqGzrkftWBPrK67JhawWvYmi5ePBdMOq5lJjU+eNx+zzq47ngMaLTwxHw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4691.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 351afb90-6aeb-471c-61bf-08dedda1da3c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 10:07:15.3883 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: E69Ig70+4pjSiByM6TbH29ru9rnB5VGa0infWjxDqRU5Hnp3HIid+4LGmWgXuNJsVgZ1KFXzMv8damlNgddN5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6379
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,624 +228,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for MediaTek's Embedded DisplayPort (eDP) v1.5 IP as
-found in the MT8196 SoC and other variants, and enclose some of
-the new register writes in specific platform data booleans, as:
- - SDP on Encoder1 can be supported by both old and new IPs
-   but it was chosen to use Encoder0 for SDP in the new ones
-   in order to decrease the load on the secondary encoder;
- - PSR can be supported by older IPs as well, but was not tested
-   on those yet (requires a display with PSR support connected
-   to a device with older SoC, and I don't have it right now);
- - Power State forcing may not be needed on newer revisions of
-   the eDP/DP IP (in SoCs newer than MT8196/MT6991).
-
-As a note, even if this effectively adds some partial support for
-the DisplayPort 1.4 IP from the same SoC (because the DP1.4 and
-eDP1.5 IPs in this SoC have some little common parts in common),
-there is still a long road ahead to actually enable support for
-the DP1.4 IP itself.
-
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/gpu/drm/mediatek/mtk_dp.c     | 288 +++++++++++++++++++++++---
- drivers/gpu/drm/mediatek/mtk_dp_reg.h |  61 +++++-
- 2 files changed, 314 insertions(+), 35 deletions(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index a8bf12f8d264..7151421984ca 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -2,6 +2,8 @@
- /*
-  * Copyright (c) 2019-2022 MediaTek Inc.
-  * Copyright (c) 2022 BayLibre
-+ * Copyright (c) 2026 Collabora Ltd
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-  */
- 
- #include <drm/display/drm_dp_aux_bus.h>
-@@ -57,6 +59,8 @@
- #define MTK_DP_TOP_OFFSET_LEGACY	0x2000
- 
- #define MTK_DP_SIP_CONTROL_AARCH32	MTK_SIP_SMC_CMD(0x523)
-+#define MTK_DP_SIP_ATF_EDP_SET_VID_MUTE	34
-+#  define MTK_DP_SIP_REQ_VIDEO_UNMUTE	0xfefd
- #define MTK_DP_SIP_ATF_EDP_VIDEO_UNMUTE	33
- #define MTK_DP_SIP_ATF_VIDEO_UNMUTE	32
- 
-@@ -168,7 +172,11 @@ struct mtk_dp_data {
- 	bool audio_pkt_in_hblank_area;
- 	u16 audio_m_div2_bit;
- 	u8 hw_max_link_rate;
-+	bool hwip_v1p4;
- 	bool aux_hpd_supported;
-+	bool sdp_encoder1_enable;
-+	bool force_pwr_states;
-+	bool psr_supported;
- };
- 
- static const struct mtk_dp_efuse_fmt mt8188_dp_efuse_fmt[MTK_DP_CAL_MAX] = {
-@@ -507,6 +515,7 @@ static void mtk_dp_msa_bypass_enable(struct mtk_dp *mtk_dp, bool enable)
- 
- static void mtk_dp_set_msa(struct mtk_dp *mtk_dp)
- {
-+	u32 fde_start_val;
- 	struct drm_display_mode mode;
- 	struct videomode *vm = &mtk_dp->info.vm;
- 
-@@ -549,9 +558,14 @@ static void mtk_dp_set_msa(struct mtk_dp *mtk_dp)
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_315C,
- 			   vm->hsync_len,
- 			   PGEN_HSYNC_PULSE_WIDTH_DP_ENC0_P0_MASK);
-+
-+	fde_start_val = vm->hback_porch + vm->hsync_len;
-+	if (mtk_dp->data->psr_supported)
-+		fde_start_val += vm->hfront_porch;
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3160,
--			   vm->hback_porch + vm->hsync_len,
--			   PGEN_HFDE_START_DP_ENC0_P0_MASK);
-+			   fde_start_val, PGEN_HFDE_START_DP_ENC0_P0_MASK);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3164,
- 			   vm->hactive,
- 			   PGEN_HFDE_ACTIVE_WIDTH_DP_ENC0_P0_MASK);
-@@ -566,9 +580,14 @@ static void mtk_dp_set_msa(struct mtk_dp *mtk_dp)
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3170,
- 			   vm->vsync_len,
- 			   PGEN_VSYNC_PULSE_WIDTH_DP_ENC0_P0_MASK);
-+
-+	fde_start_val = vm->vback_porch + vm->vsync_len;
-+	if (mtk_dp->data->psr_supported)
-+		fde_start_val += vm->vfront_porch;
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3174,
--			   vm->vback_porch + vm->vsync_len,
--			   PGEN_VFDE_START_DP_ENC0_P0_MASK);
-+			   fde_start_val, PGEN_VFDE_START_DP_ENC0_P0_MASK);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3178,
- 			   vm->vactive,
- 			   PGEN_VFDE_ACTIVE_WIDTH_DP_ENC0_P0_MASK);
-@@ -633,6 +652,8 @@ static void mtk_dp_set_sram_read_start(struct mtk_dp *mtk_dp, u32 val)
- 
- static void mtk_dp_setup_encoder(struct mtk_dp *mtk_dp)
- {
-+	u32 val, mask;
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_303C,
- 			   VIDEO_MN_GEN_EN_DP_ENC0_P0,
- 			   VIDEO_MN_GEN_EN_DP_ENC0_P0);
-@@ -648,7 +669,18 @@ static void mtk_dp_setup_encoder(struct mtk_dp *mtk_dp)
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3364,
- 			   FIFO_READ_START_POINT_DP_ENC1_P0_VAL << 12,
- 			   FIFO_READ_START_POINT_DP_ENC1_P0_MASK);
--	mtk_dp_write(mtk_dp, MTK_DP_ENC1_P0_3368, DP_ENC1_P0_3368_VAL);
-+
-+	mask = VIDEO_SRAM_FIFO_CNT_RESET_SEL_DP_ENC1_P0 | VIDEO_STABLE_CNT_THRD_DP_ENC1_P0;
-+	mask |= BS2BS_MODE_DP_ENC1_P0;
-+
-+	val = mask;
-+
-+	mask |= SDP_DP13_EN_DP_ENC1_P0;
-+
-+	if (mtk_dp->data->sdp_encoder1_enable)
-+		val |= SDP_DP13_EN_DP_ENC1_P0;
-+
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3368, val, mask);
- }
- 
- static void mtk_dp_pg_enable(struct mtk_dp *mtk_dp, bool enable)
-@@ -1116,6 +1148,72 @@ static void mtk_dp_hwirq_enable(struct mtk_dp *mtk_dp, bool enable)
- 			   IRQ_MASK_DP_TRANS_P0_MASK);
- }
- 
-+static void mtk_dp_encoder_force_bias_power_on(struct mtk_dp *mtk_dp)
-+{
-+	/* Force MCU to enable BIAS */
-+	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-+			   ENC_PHY_PWR_OVERWRITE_EN, ENC_PHY_PWR_OVERWRITE_EN);
-+	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-+			   FIELD_PREP_CONST(ENC_PHY_PWR_STATE_OVERWRITE_MASK,
-+					    ENC_PHY_BIAS_PWR_ON),
-+			   ENC_PHY_PWR_STATE_OVERWRITE_MASK);
-+
-+	/* Wait for the MCU to get LDO ready in PHYD */
-+	msleep(50);
-+
-+	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-+			   0, ENC_PHY_PWR_OVERWRITE_EN);
-+}
-+
-+static void mtk_dp_encoder_force_bias_power_off(struct mtk_dp *mtk_dp)
-+{
-+	/* Force MCU to disable power */
-+	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-+			   ENC_PHY_PWR_OVERWRITE_EN, ENC_PHY_PWR_OVERWRITE_EN);
-+	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-+			   FIELD_PREP_CONST(ENC_PHY_PWR_STATE_OVERWRITE_MASK,
-+					    ENC_PHY_ALL_PWR_OFF),
-+			   ENC_PHY_PWR_STATE_OVERWRITE_MASK);
-+	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-+			   0, ENC_PHY_PWR_OVERWRITE_EN);
-+}
-+
-+static void mtk_dp_initialize_psr_settings(struct mtk_dp *mtk_dp)
-+{
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_PSR_FRAME_START_MARKER_0, 0,
-+			   DP_ENC_P0_3_FRAME_MARKER_MASK);
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_PSR_FRAME_END_MARKER_0, 1,
-+			   DP_ENC_P0_3_FRAME_MARKER_MASK);
-+
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_PSR_FRAME_START_MARKER_1, 8,
-+			   DP_ENC_P0_3_FRAME_MARKER_MASK);
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_PSR_FRAME_END_MARKER_1, 9,
-+			   DP_ENC_P0_3_FRAME_MARKER_MASK);
-+
-+	mtk_dp_update_bits(mtk_dp, REG_33C0_DP_ENCODER1_P0, 0,
-+			   SDP_TESTBUS_SEL_DP_ENC_MASK);
-+	mtk_dp_update_bits(mtk_dp, REG_33C4_DP_ENCODER1_P0,
-+			   DP_TX_ENCODER_TESTBUS_SEL_DP_ENC,
-+			   DP_TX_ENCODER_TESTBUS_SEL_DP_ENC_MASK);
-+	mtk_dp_update_bits(mtk_dp, REG_3F28_DP_ENC_P0_3,
-+			   DP_TX_SDP_PSR_AS_TESTBUS << 2,
-+			   DP_TX_SDP_PSR_AS_TESTBUS_MASK);
-+}
-+
-+static void mtk_dp_initialize_settings_v2p1(struct mtk_dp *mtk_dp)
-+{
-+	/* For DP2.1 and eDP1.5 IPs, reset all and enable probing */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_RESET_AND_PROBE,
-+			   RG_SW_RST_ALL, RG_SW_RST_ALL);
-+
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_RESET_AND_PROBE,
-+			   FIELD_PREP_CONST(RG_PROBE_LOW_SEL_MASK, RG_PROBE_ENCODER0),
-+			   RG_PROBE_LOW_SEL_MASK);
-+
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_RESET_AND_PROBE,
-+			   RG_PROBE_LOW_HIGH_SWAP, RG_PROBE_LOW_HIGH_SWAP);
-+}
-+
- static void mtk_dp_initialize_settings(struct mtk_dp *mtk_dp)
- {
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_342C,
-@@ -1129,12 +1227,15 @@ static void mtk_dp_initialize_settings(struct mtk_dp *mtk_dp)
- 			   AUDIO_CH_SRC_SEL_DP_ENC0_P0);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_304C,
- 			   0, SDP_VSYNC_RISING_MASK_DP_ENC0_P0_MASK);
--	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
--			   IRQ_MASK_AUX_TOP_IRQ, IRQ_MASK_AUX_TOP_IRQ);
- }
- 
- static void mtk_dp_initialize_aux_hpd_detect_settings(struct mtk_dp *mtk_dp)
- {
-+	/* Mask Encoder and Transmitter interrupts, unmask AUX TOP */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
-+			   ENCODER0_IRQ_MSK | TRANS_IRQ_MSK,
-+			   ENCODER0_IRQ_MSK | TRANS_IRQ_MSK | AUX_TOP_IRQ_MSK);
-+
- 	/* Set interrupt debounce threshold time */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_P0_364C,
- 			   FIELD_PREP_CONST(HPD_INT_LOW_TIME_THD, 2) |
-@@ -1161,6 +1262,10 @@ static void mtk_dp_initialize_hpd_detect_settings(struct mtk_dp *mtk_dp)
- {
- 	u32 val;
- 
-+	/* Mask AUX TOP interrupt, as this uses transmitter for HPD */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
-+			   AUX_TOP_IRQ_MSK, AUX_TOP_IRQ_MSK);
-+
- 	/* Debounce threshold */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
- 			   8, HPD_DEB_THD_DP_TRANS_P0_MASK);
-@@ -1210,24 +1315,87 @@ static void mtk_dp_initialize_aux_settings(struct mtk_dp *mtk_dp)
- 			   RX_REPLY_COMPLETE_MODE_AUX_TX_P0);
- }
- 
--static void mtk_dp_initialize_digital_settings(struct mtk_dp *mtk_dp)
-+static void mtk_dp_initialize_common_digital_settings(struct mtk_dp *mtk_dp)
- {
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_304C,
- 			   0, VBID_VIDEO_MUTE_DP_ENC0_P0_MASK);
- 
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3368,
--			   BS2BS_MODE_DP_ENC1_P0_VAL << 12,
--			   BS2BS_MODE_DP_ENC1_P0_MASK);
-+			   BS2BS_MODE_DP_ENC1_P0, BS2BS_MODE_DP_ENC1_P0_MASK);
-+}
-+
-+static void mtk_dp_initialize_digital_settings_v2p1(struct mtk_dp *mtk_dp)
-+{
-+	/* Set XTAL frequency for Panel Self Refresh (PSR) */
-+	if (mtk_dp->data->psr_supported)
-+		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-+				   FIELD_PREP(DP_ENCODER_PSR_XTAL_FREQ_MHZ_MASK, 25),
-+				   DP_ENCODER_PSR_XTAL_FREQ_MHZ_MASK);
- 
-+	/* Enable I-Mode */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3000,
-+			   DP_I_MODE_ENABLE, DP_I_MODE_ENABLE);
-+
-+	/* Reset Video SRAM and Symbol count */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3000,
-+			   REG_BS_SYMBOL_CNT_RESET, REG_BS_SYMBOL_CNT_RESET);
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3368,
-+			   VIDEO_SRAM_FIFO_CNT_RESET_SEL_DP_ENC1_P0,
-+			   VIDEO_SRAM_FIFO_CNT_RESET_SEL_MASK);
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3368,
-+			   BS_FOLLOW_SEL_DP_ENC0_P0, BS_FOLLOW_SEL_DP_ENC0_P0);
-+
-+	/* [5:0] Video SRAM start address */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_303C,
-+			   0x8, SRAM_START_READ_THRD_DP_ENC0_P0_MASK);
-+
-+	/* Disable Pattern Generator in Panel Self Refresh mode */
-+	if (mtk_dp->data->psr_supported)
-+		mtk_dp_update_bits(mtk_dp, REG_3F80_DP_ENC_P0_3,
-+				   0, PSR_PATGEN_AVT_EN_FLDMASK);
-+
-+	/* Force MCU to enable BIAS and PLL */
-+	mtk_dp_encoder_force_bias_power_on(mtk_dp);
-+
-+	mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-+			   PHY_STATE_W_1_DP_ENC_P0_3, PHY_STATE_W_1_DP_ENC_P0_3);
-+
-+	/* Force enable Digital Video Output */
-+	mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-+			   DP_ENCODER_DVO_ON_W_1, DP_ENCODER_DVO_ON_W_1);
-+}
-+
-+static void mtk_dp_encoder_reset(struct mtk_dp *mtk_dp)
-+{
- 	/* dp tx encoder reset all sw */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
- 			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0,
- 			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
- 
-+	if (mtk_dp->data->hwip_v1p4) {
-+		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004, 0,
-+				   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-+		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-+				   ENC_PHY_STATE_RESET_ALL_MASK,
-+				   ENC_PHY_STATE_RESET_ALL_MASK);
-+	}
-+
- 	/* Wait for sw reset to complete */
- 	usleep_range(1000, 5000);
--	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
--			   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-+
-+	if (!mtk_dp->data->hwip_v1p4)
-+		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
-+				   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-+}
-+
-+static void mtk_dp_initialize_digital_settings(struct mtk_dp *mtk_dp)
-+{
-+	mtk_dp_initialize_common_digital_settings(mtk_dp);
-+
-+	if (mtk_dp->data->hwip_v1p4)
-+		mtk_dp_initialize_digital_settings_v2p1(mtk_dp);
-+
-+	mtk_dp_encoder_reset(mtk_dp);
- }
- 
- static void mtk_dp_digital_sw_reset(struct mtk_dp *mtk_dp)
-@@ -1240,6 +1408,26 @@ static void mtk_dp_digital_sw_reset(struct mtk_dp *mtk_dp)
- 	usleep_range(1000, 5000);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_340C,
- 			   0, DP_TX_TRANSMITTER_4P_RESET_SW_DP_TRANS_P0);
-+
-+	/* Only for the new eDP 1.5 IP, set the internal clock generators */
-+	if (mtk_dp->data->hwip_v1p4 &&
-+	    mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
-+		u32 val;
-+
-+		/* Enable internal clock outputs for AUX TOP, DATA and MUX */
-+		val = EDP_TX_TOP_CLKGEN_AUX_P0_EN | EDP_TX_TOP_CLKGEN_AUX_MUX_DATA_EN |
-+		      EDP_TX_TOP_CLKGEN_AUX_MUX_VALID_EN;
-+
-+		/* Enable XTAL output */
-+		val |= EDP_TX_TOP_CLKGEN_XTAL_P0_EN;
-+
-+		/* VSC and Encoders */
-+		val |= EDP_TX_TOP_CLKGEN_LS_VSC_W_0_EN;
-+		val |= EDP_TX_TOP_CLKGEN_LS_ENCODER_L0_EN | EDP_TX_TOP_CLKGEN_LS_ENCODER_L1_EN;
-+		val |= EDP_TX_TOP_CLKGEN_LS_ENCODER_L2_EN | EDP_TX_TOP_CLKGEN_LS_ENCODER_L3_EN;
-+
-+		mtk_dp_update_bits(mtk_dp, EDP_TX_TOP_CLKGEN_0, val, val);
-+	}
- }
- 
- static void mtk_dp_sdp_path_reset(struct mtk_dp *mtk_dp)
-@@ -1256,6 +1444,9 @@ static void mtk_dp_sdp_path_reset(struct mtk_dp *mtk_dp)
- 
- static void mtk_dp_set_lanes(struct mtk_dp *mtk_dp, int lanes)
- {
-+	if (mtk_dp->data->force_pwr_states)
-+		mtk_dp_encoder_force_bias_power_on(mtk_dp);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_35F0,
- 			   lanes == 0 ? 0 : DP_TRANS_DUMMY_RW_0,
- 			   DP_TRANS_DUMMY_RW_0_MASK);
-@@ -1359,8 +1550,10 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk_dp,
- 		}
- 	};
- 
--	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE, DP_PWR_STATE_BANDGAP,
--			   DP_PWR_STATE_MASK);
-+	/* Set power state requests only if power states are not forced */
-+	if (!mtk_dp->data->force_pwr_states)
-+		mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE, DP_PWR_STATE_BANDGAP,
-+				   DP_PWR_STATE_MASK);
- 
- 	ret = phy_configure(mtk_dp->phy, &phy_opts);
- 	if (ret)
-@@ -1373,6 +1566,11 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk_dp,
- 	if (mtk_dp->phy_dev)
- 		mtk_dp_set_calibration_data(mtk_dp);
- 
-+	if (mtk_dp->data->force_pwr_states)
-+		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-+				   PHY_STATE_W_1_DP_ENC_P0_3,
-+				   PHY_STATE_W_1_DP_ENC_P0_3);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
- 			   DP_PWR_STATE_BANDGAP_TPLL_LANE, DP_PWR_STATE_MASK);
- 
-@@ -1422,17 +1620,24 @@ static void mtk_dp_training_set_scramble(struct mtk_dp *mtk_dp, bool enable)
- static void mtk_dp_video_mute(struct mtk_dp *mtk_dp, bool enable)
- {
- 	struct arm_smccc_res res;
--	u32 val = VIDEO_MUTE_SEL_DP_ENC0_P0 |
--		  (enable ? VIDEO_MUTE_SW_DP_ENC0_P0 : 0);
-+	const u32 mask = VIDEO_MUTE_SEL_DP_ENC0_P0 | VIDEO_MUTE_SW_DP_ENC0_P0;
-+	u32 val = VIDEO_MUTE_SEL_DP_ENC0_P0 | (enable ? VIDEO_MUTE_SW_DP_ENC0_P0 : 0);
-+	u32 smc_para, smc_val;
- 
--	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3000,
--			   val,
--			   VIDEO_MUTE_SEL_DP_ENC0_P0 |
--			   VIDEO_MUTE_SW_DP_ENC0_P0);
-+	/* Set VIDEO_MUTE in unsecured world... */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3000, val, mask);
-+
-+	/* ...and do the same in ATF as well */
-+	if (mtk_dp->data->hwip_v1p4) {
-+		smc_para = (mtk_dp->data->smc_cmd << 16) | enable;
-+		smc_val = MTK_DP_SIP_REQ_VIDEO_UNMUTE;
-+	} else {
-+		smc_para = 0;
-+		smc_val = 0;
-+	}
- 
--	arm_smccc_smc(MTK_DP_SIP_CONTROL_AARCH32,
--		      mtk_dp->data->smc_cmd, enable,
--		      0, 0, 0, 0, 0, &res);
-+	arm_smccc_smc(MTK_DP_SIP_CONTROL_AARCH32, mtk_dp->data->smc_cmd, enable,
-+		      smc_para, smc_val, 0, 0, 0, &res);
- 
- 	dev_dbg(mtk_dp->dev, "smc cmd: 0x%x, p1: %s, ret: 0x%lx-0x%lx\n",
- 		mtk_dp->data->smc_cmd, enable ? "enable" : "disable", res.a0, res.a1);
-@@ -1520,6 +1725,9 @@ static void mtk_dp_power_disable(struct mtk_dp *mtk_dp)
- 
- 	mtk_dp_write(mtk_dp, MTK_DP_TOP_PWR_STATE, 0);
- 
-+	if (mtk_dp->data->force_pwr_states)
-+		mtk_dp_encoder_force_bias_power_off(mtk_dp);
-+
- 	if (unlikely(mtk_dp->phy_dev)) {
- 		regmap_set_bits(mtk_dp->regs, MTK_DP_0034, DA_CKM_CKTX0_EN_FORCE_EN);
- 
-@@ -2078,7 +2286,14 @@ static void mtk_dp_init_port(struct mtk_dp *mtk_dp)
- 	mtk_dp_set_idle_pattern(mtk_dp, true);
- 	mtk_dp_initialize_priv_data(mtk_dp);
- 
--	mtk_dp_initialize_settings(mtk_dp);
-+	if (mtk_dp->data->psr_supported)
-+		mtk_dp_initialize_psr_settings(mtk_dp);
-+
-+	if (mtk_dp->data->hwip_v1p4)
-+		mtk_dp_initialize_settings_v2p1(mtk_dp);
-+	else
-+		mtk_dp_initialize_settings(mtk_dp);
-+
- 	mtk_dp_initialize_aux_settings(mtk_dp);
- 	mtk_dp_initialize_digital_settings(mtk_dp);
- 
-@@ -2580,6 +2795,9 @@ static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 	/* SDP path reset sw*/
- 	mtk_dp_sdp_path_reset(mtk_dp);
- 
-+	if (mtk_dp->data->force_pwr_states)
-+		mtk_dp_encoder_force_bias_power_on(mtk_dp);
-+
- 	/* Ensure the sink is muted */
- 	msleep(20);
- }
-@@ -2860,7 +3078,8 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_dp)
- 				     "Failed to add phy unregister devm action");
- 
- 	/* PHY calibration data is in mtk_dp only for legacy devicetree */
--	mtk_dp_get_calibration_data(mtk_dp);
-+	if (mtk_dp->data->efuse_fmt)
-+		mtk_dp_get_calibration_data(mtk_dp);
- 
- 	mtk_dp->phy = devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
- 	if (IS_ERR(mtk_dp->phy)) {
-@@ -3083,6 +3302,7 @@ static const struct mtk_dp_data mt8188_dp_data = {
- 	.audio_pkt_in_hblank_area = true,
- 	.audio_m_div2_bit = MT8188_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
- 	.hw_max_link_rate = DP_LINK_BW_5_4,
-+	.sdp_encoder1_enable = true,
- };
- 
- static const struct mtk_dp_data mt8195_edp_data = {
-@@ -3092,6 +3312,7 @@ static const struct mtk_dp_data mt8195_edp_data = {
- 	.audio_supported = false,
- 	.audio_m_div2_bit = MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
- 	.hw_max_link_rate = DP_LINK_BW_5_4,
-+	.sdp_encoder1_enable = true,
- };
- 
- static const struct mtk_dp_data mt8195_dp_data = {
-@@ -3101,6 +3322,19 @@ static const struct mtk_dp_data mt8195_dp_data = {
- 	.audio_supported = true,
- 	.audio_m_div2_bit = MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
- 	.hw_max_link_rate = DP_LINK_BW_5_4,
-+	.sdp_encoder1_enable = true,
-+};
-+
-+static const struct mtk_dp_data mt8196_edp_data = {
-+	.bridge_type = DRM_MODE_CONNECTOR_eDP,
-+	.smc_cmd = MTK_DP_SIP_ATF_EDP_SET_VID_MUTE,
-+	.audio_supported = false,
-+	.audio_m_div2_bit = MT8195_AUDIO_M_CODE_MULT_DIV_SEL_DP_ENC0_P0_DIV_2,
-+	.hw_max_link_rate = DP_LINK_BW_8_1,
-+	.hwip_v1p4 = true,
-+	.aux_hpd_supported = true,
-+	.force_pwr_states = true,
-+	.psr_supported = true,
- };
- 
- static const struct of_device_id mtk_dp_of_match[] = {
-@@ -3120,6 +3354,10 @@ static const struct of_device_id mtk_dp_of_match[] = {
- 		.compatible = "mediatek,mt8195-dp-tx",
- 		.data = &mt8195_dp_data,
- 	},
-+	{
-+		.compatible = "mediatek,mt8196-edp-tx",
-+		.data = &mt8196_edp_data,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_dp_of_match);
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-index 5a3b3e2b4f49..9caf743f4fe6 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-+++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-@@ -31,25 +31,38 @@
- #define DP_TX3_PRE_EMPH_MASK			GENMASK(27, 26)
- #define MTK_DP_TOP_RESET_AND_PROBE	0x20
- #define SW_RST_B_PHYD				BIT(4)
--#define RG_SW_RST_MASK				GENMASK(7, 0)
--#define RG_SW_RST				0xff
-+#define RG_SW_RST_ALL				GENMASK(7, 0)
- #define RG_PROBE_LOW_SEL_MASK			GENMASK(18, 16)
-+#  define RG_PROBE_SW				0
-+#  define RG_PROBE_ENCODER0			1
-+#  define RG_PROBE_TRANSMITTER			2
-+#  define RG_PROBE_AUX_TOP			3
-+#  define RG_PROBE_PHY				4
-+#  define RG_PROBE_MST14			5
-+#  define RG_PROBE_ENCODER1			6
- #define RG_PROBE_LOW_SEL			BIT(16)
--#define RG_PROBE_LOW_HIGH_SWAP_MASK		BIT(23)
- #define RG_PROBE_LOW_HIGH_SWAP			BIT(23)
- 
- #define MTK_DP_TOP_IRQ_MASK		0x2c
--#define ENCODER_IRQ_MSK				BIT(0)
-+#define ENCODER0_IRQ_MSK			BIT(0)
- #define TRANS_IRQ_MSK				BIT(1)
--#define IRQ_MASK_AUX_TOP_IRQ			BIT(2)
-+#define AUX_TOP_IRQ_MSK				BIT(2)
-+#define ENCODER1_IRQ_MSK			BIT(3)
- 
- #define MTK_DP_TOP_MEM_PD		0x38
- #define MEM_ISO_EN				BIT(0)
- #define FUSE_SEL				BIT(2)
- 
- #define EDP_TX_TOP_CLKGEN_0		0x74
--#define EDP_TX_TOP_CLKGEN_REST_MASK		0xf
--#define EDP_TX_TOP_CLKGEN_REST_VALUE		0xf
-+#define EDP_TX_TOP_CLKGEN_AUX_P0_EN		BIT(0)
-+#define EDP_TX_TOP_CLKGEN_AUX_MUX_DATA_EN	BIT(1)
-+#define EDP_TX_TOP_CLKGEN_AUX_MUX_VALID_EN	BIT(2)
-+#define EDP_TX_TOP_CLKGEN_XTAL_P0_EN		BIT(3)
-+#define EDP_TX_TOP_CLKGEN_LS_VSC_W_0_EN		BIT(4)
-+#define EDP_TX_TOP_CLKGEN_LS_ENCODER_L0_EN	BIT(5)
-+#define EDP_TX_TOP_CLKGEN_LS_ENCODER_L1_EN	BIT(6)
-+#define EDP_TX_TOP_CLKGEN_LS_ENCODER_L2_EN	BIT(7)
-+#define EDP_TX_TOP_CLKGEN_LS_ENCODER_L3_EN	BIT(8)
- 
- /* offset: ENC0_OFFSET (0x1000) */
- #define MTK_DP_ENC0_P0_3000			0x1000
-@@ -210,16 +223,19 @@
- #define BS2BS_MODE_DP_ENC1_P0				BIT(12)
- #define BS_FOLLOW_SEL_DP_ENC0_P0			BIT(15)
- #define BS2BS_MODE_DP_ENC1_P0_MASK			GENMASK(13, 12)
--#define BS2BS_MODE_DP_ENC1_P0_VAL			1
- #define DP_ENC1_P0_3368_VAL				(VIDEO_SRAM_FIFO_CNT_RESET_SEL_DP_ENC1_P0 | \
- 							 VIDEO_STABLE_CNT_THRD_DP_ENC1_P0 | \
- 							 SDP_DP13_EN_DP_ENC1_P0 | \
- 							 BS2BS_MODE_DP_ENC1_P0)
--
- #define MTK_DP_ENC1_P0_3374			0x1374
- #define SDP_ASP_INSERT_IN_HBLANK_DP_ENC1_P0_MASK	BIT(12)
- #define SDP_DOWN_ASP_CNT_INIT_DP_ENC1_P0_MASK		GENMASK(11, 0)
--
-+#define REG_33C0_DP_ENCODER1_P0			0x13c0
-+#define SDP_TESTBUS_SEL_DP_ENC_MASK			GENMASK(15, 12)
-+#define SDP_TESTBUS_SEL_BIT_DP_ENC			BIT(7)
-+#define REG_33C4_DP_ENCODER1_P0			0x13c4
-+#define DP_TX_ENCODER_TESTBUS_SEL_DP_ENC_MASK		GENMASK(6, 5)
-+#define DP_TX_ENCODER_TESTBUS_SEL_DP_ENC		BIT(5)
- #define MTK_DP_ENC1_P0_33F4			0x13f4
- #define DP_ENC_DUMMY_RW_1_AUDIO_RST_EN			BIT(0)
- #define DP_ENC_DUMMY_RW_1				BIT(9)
-@@ -361,6 +377,31 @@
- #define MTK_DP_AUX_P0_37C8			0x17c8
- #define MTK_ATOP_EN_AUX_TX_P0				BIT(0)
- 
-+/* offset info queue */
-+#define MTK_DP_PSR_FRAME_START_MARKER_0			0x1f04
-+#define MTK_DP_PSR_FRAME_START_MARKER_1			0x1f08
-+#define MTK_DP_PSR_FRAME_END_MARKER_0			0x1f0c
-+#define MTK_DP_PSR_FRAME_END_MARKER_1			0x1f10
-+#define DP_ENC_P0_3_FRAME_MARKER_MASK			GENMASK(15, 0)
-+#define REG_3F28_DP_ENC_P0_3			0x1f28
-+#define DP_TX_SDP_PSR_AS_TESTBUS_MASK			GENMASK(5, 2)
-+#define DP_TX_SDP_PSR_AS_TESTBUS			10
-+#define REG_3F40_DP_ENC_P0_3			0x1f40
-+#define REG_3F44_DP_ENC_P0_3			0x1f44
-+#define ENC_PHY_PWR_STATE_OVERWRITE_MASK		GENMASK(4, 3)
-+#define ENC_PHY_ALL_PWR_OFF				0
-+#define ENC_PHY_BIAS_PWR_ON				1
-+#define ENC_PHY_BIAS_PLL_PWR_ON				2
-+#define ENC_PHY_ALL_PWR_ON				3
-+#define ENC_PHY_PWR_OVERWRITE_EN			BIT(2)
-+#define REG_3F80_DP_ENC_P0_3			0x1f80
-+#define PSR_PATGEN_AVT_EN_FLDMASK			0x20
-+#define REG_3FF8_DP_ENC_P0_3			0x1ff8
-+#define ENC_PHY_STATE_RESET_ALL_MASK			GENMASK(7, 0)
-+#define PHY_STATE_W_1_DP_ENC_P0_3			BIT(6)
-+#define DP_ENCODER_DVO_ON_W_1				BIT(5)
-+#define DP_ENCODER_PSR_XTAL_FREQ_MHZ_MASK		GENMASK(13, 9)
-+
- /* offset: SEC_OFFSET (0x2000) */
- #define SEC_OFFSET	0x2000
- 
--- 
-2.54.0
-
+T24gTW9uLCAyMDI2LTA2LTI5IGF0IDEzOjIzICswMTAwLCBMb3JlbnpvIFN0b2FrZXMgd3JvdGU6
+DQo+IGRpZmYgLS1naXQgYS9hcmNoL3g4Ni9rZXJuZWwvY3B1L3NneC92aXJ0LmMgYi9hcmNoL3g4
+Ni9rZXJuZWwvY3B1L3NneC92aXJ0LmMNCj4gaW5kZXggZGI2ODA2YzQwNDgzLi42YTE5MzNkZGM2
+ZmMgMTAwNjQ0DQo+IC0tLSBhL2FyY2gveDg2L2tlcm5lbC9jcHUvc2d4L3ZpcnQuYw0KPiArKysg
+Yi9hcmNoL3g4Ni9rZXJuZWwvY3B1L3NneC92aXJ0LmMNCj4gQEAgLTksNiArOSw3IEBADQo+IMKg
+I2luY2x1ZGUgPGxpbnV4L21pc2NkZXZpY2UuaD4NCj4gwqAjaW5jbHVkZSA8bGludXgvbW0uaD4N
+Cj4gwqAjaW5jbHVkZSA8bGludXgvbW1hbi5oPg0KPiArI2luY2x1ZGUgPGxpbnV4L3BhZ2VtYXAu
+aD4NCj4gwqAjaW5jbHVkZSA8bGludXgvc2NoZWQvbW0uaD4NCj4gwqAjaW5jbHVkZSA8bGludXgv
+c2NoZWQvc2lnbmFsLmg+DQo+IMKgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4NCj4gQEAgLTQxLDcg
+KzQyLDcgQEAgc3RhdGljIGludCBfX3NneF92ZXBjX2ZhdWx0KHN0cnVjdCBzZ3hfdmVwYyAqdmVw
+YywNCj4gwqAJV0FSTl9PTighbXV0ZXhfaXNfbG9ja2VkKCZ2ZXBjLT5sb2NrKSk7DQo+IMKgDQo+
+IMKgCS8qIENhbGN1bGF0ZSBpbmRleCBvZiBFUEMgcGFnZSBpbiB2aXJ0dWFsIEVQQydzIHBhZ2Vf
+YXJyYXkgKi8NCj4gLQlpbmRleCA9IHZtYS0+dm1fcGdvZmYgKyBQRk5fRE9XTihhZGRyIC0gdm1h
+LT52bV9zdGFydCk7DQo+ICsJaW5kZXggPSBsaW5lYXJfcGFnZV9pbmRleCh2bWEsIGFkZHIpOw0K
+DQpGb3IgU0dYOg0KDQpBY2tlZC1ieTogS2FpIEh1YW5nIDxrYWkuaHVhbmdAaW50ZWwuY29tPiAj
+IHNneA0K
