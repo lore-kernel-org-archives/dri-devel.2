@@ -4,44 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C902C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A6CC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE42F10E06A;
-	Thu,  9 Jul 2026 14:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D35B010E6D2;
+	Thu,  9 Jul 2026 14:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ckv/kRy1";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fgFK1CrJ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PygS+96o";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D824810E06A
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 14:48:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8CA4D4024E;
- Thu,  9 Jul 2026 14:48:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EE11F000E9;
- Thu,  9 Jul 2026 14:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783608509;
- bh=bbrylS/rmFKoAiTtEzOfQbjDTjYppF/9nkD34M2HetQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ckv/kRy1K4y+eG+f9tA5TARzGolpVpTlFG1r2RNBoK+dDE1NHN4G3wWk8xE5okEIN
- +g2G1FQgIRjJHK6drqk5wVIZMyjAv4dYzLs5wk+p8572HEy8RxW8r7mjlz4MjuDIRn
- l5GT/IAnmuU2kY2eNGzaLYyqBUhTw0SbqpCmLemfM+Se1xsrwPM6v2GTXzXTHV0XHv
- J2GrN43m1mrFwRRoavyayPnSd/wh8lrPmMMkiawjYCiCbWi4kAiwpDWSI+QpN6jn/k
- GmOVHX69xZNetcX9S2IKpCKtOAvggHyigpWhymWQP8ilOjEewJc1fVluup0drVkUbq
- hzjaMho89a03A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] drm/panel: Add Novatek NT36536 panel driver
-To: "Pengyu Luo" <mitltlatltl@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260709142846.12463-3-mitltlatltl@gmail.com>
-References: <20260709142846.12463-1-mitltlatltl@gmail.com>
- <20260709142846.12463-3-mitltlatltl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 14:48:28 +0000
-Message-Id: <20260709144829.15EE11F000E9@smtp.kernel.org>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D3610E6D2
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 14:54:28 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 669DwCsh1833823
+ for <dri-devel@lists.freedesktop.org>; Thu, 9 Jul 2026 14:54:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ZMd5SzYa2JtJsuef3gXqhLim
+ tjjWD7XXATJ3fVJWKFY=; b=fgFK1CrJsVkn9+lyI6grWkzihN4jSETSO5v1zhyx
+ yJs1ZTq+7KHtpwkUTbuaxhcF3PrJU2srnVT/38qhJ9mzZM1mQ4QjpOepB4feKAhb
+ qUCPsOaFsIoCJtlfRnch1AnGKK1yM4fPZZ7L0NHLzFKXA8C32Mq4xZlovyMONOpy
+ As1q+d7o8m7GZ4QhEASjtxVGnbHUjp59LzbgeSQo4ZsQoFzzQ+geRApF82v6PJQj
+ J5c9kaLgTPyqOhu17GRIOLVfHTARtljnj0obrgas9663NRdQSoTqMvFGSqpoDCT6
+ DLVVepZvtOFYWaPqh6A4NGKOmJiJpHkHoVfPC2GrQjWg2Q==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9wwfutx3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 14:54:27 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-744e7c828adso377357137.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 07:54:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783608867; x=1784213667;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
+ b=PygS+96oWafg7AHho8PN820eOHSEEsaVHWnF4qj8pUUoKj/lkHV2y2R85Jgqb7Z+bG
+ eQQXTM9wHlCbwzE15/kqXx2w9MMZolEt4NfcTCYkiFosUE42xdE7sYYUdU9sLLThYphQ
+ 59OhYzsICmbDvseUTH4B3r4SXZEFPqEeDV2fNT8NzlmmbPsBgyFUBpPd+to6DMD982Dg
+ fR+O8Z9TDJfnl1ct/TQz9OhPojOf92QL5mZVJAr1jB11RWKX9zSH/lR4SLAXCqPU1tVq
+ WGzD1Kpcnn8SWLAin/2qqHDsu5NuluuvZiIR9rxLaL06aume4iKTB3w+2x8mnWGfzcj/
+ RncA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783608867; x=1784213667;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
+ b=RgaMS0BwwxmodtfrvY+dQYBUAD3zYO1LbAUYId61xbvHTdr9Wb+rPHFSP6wFVnieE/
+ UynAerApxVD0qQ+mUwj6qCSzDPHISBr/j6M+HpQv9AZxhpv9xAVQFCCgMp4QyY3LBVYH
+ tWw8+irKjbOwXg5DY6yTAVIv6fpz0enDjLvE6xiCxtCkLA6U49WNH2YHjg9L8xF9K3Xv
+ rZawD3IOlJFr3iO0tQxV08UclZjhxDVfFuPSH3On1RuxiQTaj6vTNkFYaTkCUpSQzAw2
+ ioiKn+5uUgoiCTOglJBaHkjnFFLgfitCnwPovOaxKtRYjyIKsfOuci6FmbD7JWpReWAW
+ Rrsg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoWC4TAkDJCNHNUPtVIbBkJkftNykwGjVs8N1+dhYQW2xtIWBTW3rxtAdkI66TpyFmLtBiMIaxZZGg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxE9GmN/AHc+LTN0v7qWCpLv62wROHfV633Zmo2SwMqfaBqDv2Y
+ nLul2yFaDkCwYI/O6DFXcXBlhrPU9eO4Jsah+YrifbDGNrJJem98uLkl4F466qqRpDj7PG4rZyL
+ T6Nt4XWL05LZtaiokbxWYUm0pgRUbRAp5MMnhG2+C32ZqQ5Se/t5qOLrw0ZIE7/xdvr/NKAU=
+X-Gm-Gg: AfdE7cnaziVC5xplumo4i026evwa8AvRPc1E6HHfXjVd788ZvvX/kRWWNUfHqoY19L7
+ nNa3zV3REsS41HTN2+11x9EQniRcFSMxmysyrQUjXczHTJFBpmKusbfqb+w9/ix3A5JE2X9CIkM
+ EoQghRb9Apk8/WwF4TBqWZuKNsDK6auRuLuDLDN4K6/f7eZS5Ps8hR6h7NFP6h0bv9vx5CAL6Cr
+ wBoGm2OxpVe+PuSAak/A83CEp35qr8wvT8X0kayf4b+2VyiyyGqjeX+BIEK12PW5+x3/5jTa5YF
+ D93t+/orsl68pYiaksdnctFhNt8BM8Cu++KRulk7UIdkG/ulNlgpaeqHQldoVX/Wwiag/N9Ziu5
+ sT3/ArtDGRrrZriehIpRduatWckgKTSctWFHCuXEsYJtiS+aJbJmbZOwhwPJFrnWfdRePX0LRCJ
+ U5qCSSDfMCy17+flPRvpxDxpyD
+X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id
+ ada2fe7eead31-744e03d0408mr4194083137.22.1783608866705; 
+ Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
+X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id
+ ada2fe7eead31-744e03d0408mr4194057137.22.1783608866193; 
+ Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b017c29961sm500429e87.29.2026.07.09.07.54.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jul 2026 07:54:25 -0700 (PDT)
+Date: Thu, 9 Jul 2026 17:54:23 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+Message-ID: <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+ <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+ <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
+ <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
+ <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX3c6qSjjLGdUc
+ BO9yxkRu9Cbd+qe8I10CbsBJ0uPMO17jpbUjlH+QlfgHTwy9hyoAgSzTk/CE24DevSGAB0iQ0Ir
+ JvRBahagvaCH7j+QeaAaClpX3KgTGl4YFmBvwoHbUMIBDKxtXSfcMysQ5V0sZdC6a+ChIz7fCA2
+ Xo4xf/Esgi99BzVk2+X1uUqgmBn5SrtXi6bHyMpIAYdf+aNfrKdY4jn32k1svnUNPUiGQgHag5q
+ Gv6mpZjh1+ICTNNYm7nRPt9iwhb3wW94CTqYynvJDKCv61QpkgZOZDhdd4VNFJTI+krMxU+XlWs
+ uzVvBXhB2q2rtGNDyrodl+Mx51h3qhPJxXg/N/CCJeDr8wDzyXwWQTX24I5NbJ+3fsTnGfZ5on0
+ Yv+9gel/JDxAO2+WChoknfGKWkZD1dkvvNNIlIOJua+egSjxQ5IjYACotiDBNZnavimDcz04F/K
+ wM0eYgGs6dykEvHw6rA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX6ocAXEC7hnku
+ AfTtWwOSznlLYa710X8IQHAxQK+u36jwc3z6hMU/wCyujWggSak760CDrhVnrmx8+AVpV7RHsCE
+ vmLzyeGhmmtvszcfSbRqo3WF8wp8Ol0=
+X-Proofpoint-ORIG-GUID: R3B4fG53lVpIM0GxMEacxY9hV4_R9Oo-
+X-Proofpoint-GUID: R3B4fG53lVpIM0GxMEacxY9hV4_R9Oo-
+X-Authority-Analysis: v=2.4 cv=Krh9H2WN c=1 sm=1 tr=0 ts=6a4fb623 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=9jRdOu3wAAAA:8 a=pGLkceISAAAA:8 a=gTY0VpHTFMgWGwS8g40A:9 a=CjuIK1q_8ugA:10
+ a=-aSRE8QhW-JAV6biHavz:22 a=ZE6KLimJVUuLrTuGpvhn:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_03,2026-07-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607090147
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,175 +163,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Unrolled resource leak and ignored DSI errors in `novatek_prepare(=
-)`.
-- [Medium] DCS commands are sent unconditionally in backlight update handle=
-r.
-- [Low] Missing Kconfig dependency for DSC helpers causes build failures.
-- [Low] Manual call to `drm_panel_remove()` circumvents devres cleanup cont=
-ract.
---
+On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
+> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
+> > On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
+> >> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
+> >>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+> >>>> In order to associate the SID used by LPAC to it's own domain and
+> >>>> context bank we need a separate node on the DTS.
+> >>> Can we use iommu-map instead of adding a new device using the same
+> >>> addresses? You provide zero explanations, but it seems like you are
+> >>> trying to separate a part of the GPU into a separate device, but it's
+> >>> unnecessary.
+> >>
+> >> What I was trying to say is that we need to map sid0 and sid1 to different
+> >> context banks.
+> >>
+> >> From what I recall, so long as we use the same dt node, the iommu drivert
+> >> provides no way of doing this.
+> >>
+> >> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
+> >> and secure.
+> >>
+> >> The address on the lpac device doesn't really matter. I have very limted
+> >> knowledge of DTSs but I think we could just leave it out altogether?
+> > 
+> > I think, you were poined to the Glymur Iris patches. Another option is
+> > the QDA driver being submitted too. Both ot them use iommu-map to
+> > describe the same usecase - a set of SIDs which are used by the device
+> > but which should not be a part of the defaut set. With it in place you
+> > don't need to have separate qcom,lpac devices, no additional properties,
+> > etc. 
+> > 
+> > I'd recommend following the same approach.
+> 
+> iiuc, the conclusion in this recent thread is to use child nodes for a
+> similar case:
+> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
 
---- Patch [2]: [PATCH v3 2/2] drm/panel: Add Novatek NT36536 panel driver -=
---
-commit c0321dc5c18b4a1a33b6415a4883e16993cea388
-Author: Pengyu Luo <mitltlatltl@gmail.com>
-drm/panel: Add Novatek NT36536 panel driver
+Let me check internally.
 
-This commit adds support for Novatek NT36536-based display panels,
-specifically enabling the CSOT PP8807HB1-1 dual-link 10-bit panel found
-in the LENOVO Legion Y700 Gen4.
+> 
+> -Akhil
+> 
+> > 
+> >>
+> >>>
+> >>>> Add the code to look up that node on initialization.
+> >>>>
+> >>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> >>>> ---
+> >>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++++++++++-
+> >>>>   drivers/gpu/drm/msm/msm_gpu.h           |  1 +
+> >>>>   2 files changed, 21 insertions(+), 1 deletion(-)
+> >>>>
+> >>
+> >> Best regards,
+> >> -- 
+> >> Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> >>
+> > 
+> 
 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index c0cc2bb4a3eb7..37b0938615673 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -650,6 +650,17 @@ config DRM_PANEL_NOVATEK_NT36523
->  	  around the Novatek NT36523 display controller, such as some
->  	  Boe panels used in Xiaomi Mi Pad 5 and 5 Pro tablets.
-> =20
-> +config DRM_PANEL_NOVATEK_NT36536
-> +	tristate "Novatek NT36536 panel driver"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_KMS_HELPER
-
-[Severity: Low]
-Does this Kconfig entry need to select DRM_DISPLAY_DSC_HELPER?
-
-Because the driver unconditionally uses drm_dsc_pps_payload_pack(), compili=
-ng
-the driver without DSC helpers enabled globally will result in undefined
-reference linker errors. It seems this should also select DRM_DISPLAY_HELPE=
-R.
-
-> +	help
-> +	  Say Y here if you want to enable support for Novatek NT36536-based
-> +	  display panels, such as the one found in the LENOVO Legion Y700
-> +	  Gen4.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36536.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt36536.c
-> new file mode 100644
-> index 0000000000000..2a82b54880c30
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36536.c
-
-[ ... ]
-
-> +static int novatek_prepare(struct drm_panel *panel)
-> +{
-> +	struct novatek *ctx =3D to_novatek(panel);
-> +	struct mipi_dsi_device *dsi =3D to_primary_dsi(ctx);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
-> +	struct drm_dsc_picture_parameter_set pps;
-> +	struct device *dev =3D &dsi->dev;
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(novatek_supplies),
-> +				    ctx->supplies);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	novatek_reset(ctx);
-> +
-> +	ret =3D ctx->desc->init_sequence(&dsi_ctx);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		regulator_bulk_disable(ARRAY_SIZE(novatek_supplies),
-> +				       ctx->supplies);
-> +		return ret;
-> +	}
-> +
-> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-> +	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
-> +	mipi_dsi_msleep(&dsi_ctx, 28);
-> +
-> +	return backlight_enable(ctx->backlight);
-
-[Severity: High]
-Does this error path leak resources and ignore DSI errors?
-
-If backlight_enable() fails, it returns an error code directly. At this poi=
-nt,
-the panel regulators are still enabled and the reset GPIO is asserted.
-Returning an error causes the DRM core to consider the prepare phase failed,
-meaning novatek_unprepare() will never be called. This results in a permane=
-nt
-power leak.
-
-Additionally, dsi_ctx.accum_err is completely ignored after sending DSC
-configuration commands, silently masking DSI transmission failures.
-
-> +}
-
-[ ... ]
-
-> +static int novatek_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct novatek *ctx =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +
-> +	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
-> +							 brightness);
-
-[Severity: Medium]
-Can this send DCS commands unconditionally while the panel is unpowered?
-
-Because the backlight brightness can be modified via sysfs at any time, this
-can execute when the panel is suspended, unpowered, and regulators are
-disabled. Sending DSI commands in this state typically results in DSI host
-controller timeouts and kernel error logs. Should the driver verify the pan=
-el
-is prepared before sending DCS commands?
-
-> +}
-
-[ ... ]
-
-> +static int novatek_probe(struct mipi_dsi_device *dsi)
-> +{
-
-[ ... ]
-
-> +	ret =3D devm_drm_panel_add(dev, &ctx->panel);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to add panel\n");
-> +
-> +	for (i =3D 0; i < num_dsi; i++) {
-> +		ctx->dsi[i]->lanes =3D desc->lanes;
-> +		ctx->dsi[i]->format =3D desc->format;
-> +		ctx->dsi[i]->mode_flags =3D desc->mode_flags;
-> +		ctx->dsi[i]->dsc =3D &ctx->dsc;
-> +		ret =3D devm_mipi_dsi_attach(dev, ctx->dsi[i]);
-> +		if (ret < 0) {
-> +			drm_panel_remove(&ctx->panel);
-
-[Severity: Low]
-Is this manual call to drm_panel_remove() redundant?
-
-The panel is registered via devm_drm_panel_add(), which schedules
-drm_panel_remove() to run automatically via devres on failure. Manually
-calling drm_panel_remove() in the devm_mipi_dsi_attach() error path
-circumvents the devres cleanup contract and leads to duplicate removal
-attempts by the driver core.
-
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to attach to DSI host\n");
-> +		}
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709142846.1246=
-3-1-mitltlatltl@gmail.com?part=3D2
+-- 
+With best wishes
+Dmitry
