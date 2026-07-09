@@ -4,167 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5605DC44503
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:44:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A156C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:45:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C9D489864;
-	Thu,  9 Jul 2026 06:44:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907CB10F3B6;
+	Thu,  9 Jul 2026 06:45:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QoMRQETu";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="itCXBBRu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BC8589864;
- Thu,  9 Jul 2026 06:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783579478; x=1815115478;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=s3cz/5S+OdqV1cFBY3ZjApKQNitEX2ZoAIFkdo01izM=;
- b=QoMRQETuVBHS4sFPXOt68C6AJdKz6TC3ZbH1be48tUZZFbxmNHnFiu+G
- CQovn4KKxjQeVGUSm86NfykN7ORZ3fZm9vqpzjNI0GNmYAk3nEIojpDKv
- fWonIJb/fFnWvKeetAx+u4kSilluifT4N1Ym4iFy82DZJ1ZGPNpr8UNDF
- IhfXClfZmT6ywqhB9EcjCWmlDDbiJxV6PY87VaWzt5ns1yLhsSU0kkn+g
- NQ2lOa6SR3oVH0O9A4QMDSU8qQTXuNi7ufGeS1+QRYfHBe/iYJZswiASy
- Tid2c2IKND4pkWitmoMoPNhU1ofXmqYRCuEAnfA1J2A/+84diqdxpE64n g==;
-X-CSE-ConnectionGUID: su4xEsvcQQKTlXM814PadQ==
-X-CSE-MsgGUID: jqLRhPCBR02t30I7xeRfkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84304690"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="84304690"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 23:44:38 -0700
-X-CSE-ConnectionGUID: BSHFSC2lQPOizSGW+QwYcQ==
-X-CSE-MsgGUID: hqtpQrQtS/yt3SF/wPwzzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="258362211"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 23:44:38 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 23:44:36 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Wed, 8 Jul 2026 23:44:36 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.22) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 8 Jul 2026 23:44:36 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ikbmlfzxLEj2ARmnNujx50C+4HhjJEcKa7WWJEQWLbG0UJDL1X2LKh2xnJckzivbWLgUUCvkuzA5sM1myHPrf1BncigJeBu6EQ7+UnvjZrqacHatoms999G/1Uh1WHoPpGPlzGka7iSD0aZlXj8Rvxq1+TB7Ujs/WSN+UsN6F/+U5HOW0vu4JEWs9IWLpvtrxnvHioCircyOK8cVBGuWYxhTPM5kRgrsOd94PUtYfVfzdBHi7F+jbS+tNkTaZVQ/GzxvpU1yD7qw0jtpMZtZyCaH88NWNOdfAldz6UiNHhGS/O+c0PZ+L2ZxcJHiEQUmCb96FRkS/PU6YMAtf8o/Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wWPR4/b7e9536FLIAYokbuIM3W5nBMwoP6rjJ9pPqyQ=;
- b=oLRINpT16BLBIshqdc1Alt/PJ0dwhNkFXRdzK4kf/C5+NkngWdPxTNTg2Z0+hwPehqv0awn+N8UmrFMwm7D/TFNciqg3H/vzuJPNsOS8oz2B5oaSyBryu6I8u2UdFiE2E6x1aTfTp0SigFyUhVSFNzbkOVOjyJME8OnZfx+JnPnHBJnfvdf2THNPjAW4VGnKrNeQpp7jEyuBkXSZPSqqK0hhJ9e31ouwsh0YVYSL9zmipgpg5BDMvqAj95P7nOP00SXfBjpbaveNtiKd1v5vvR9rRH65MqQHYO67RSLq0df2SOt7EBgvim9+vuibkQQJmiWQ2JjpSe1k+G7coFhBjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
- by SN7PR11MB7017.namprd11.prod.outlook.com (2603:10b6:806:2ac::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 9 Jul 2026
- 06:44:31 +0000
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0181.008; Thu, 9 Jul 2026
- 06:44:31 +0000
-Message-ID: <7d58b289-eabe-4d68-9080-c7202b0f60a0@intel.com>
-Date: Thu, 9 Jul 2026 12:14:21 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Robert Mader
- <robert.mader@collabora.com>, <dri-devel@lists.freedesktop.org>
-CC: Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>, "Harry
- Wentland" <harry.wentland@amd.com>, Daniel Stone <daniels@collabora.com>,
- "Uma Shankar" <uma.shankar@intel.com>, Louis Chauvet
- <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>, Simon Ser
- <contact@emersion.fr>, "Pekka Paalanen" <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260703073230.19982-1-robert.mader@collabora.com>
- <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
- <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0333.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:222::18) To PH0PR11MB7636.namprd11.prod.outlook.com
- (2603:10b6:510:26f::13)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E1410F3B1
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1783579524;
+ bh=aEAVLwvqpcFWZllt0VPknQQgKnqC6FNzOkP8RKh3aCQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=itCXBBRuUzTCxQd3CrUD80wGe7Ph7YWLmyOHC6lUqepU3QC8DGLlMykdajI8V024R
+ FxENoXBieMIwnip3LVzhfE/nhmg00P+prMLyImka4gpotsy7ftSNNrw7vFRBdvZR19
+ yr/wUMO0bztlM8zZtc7AdqcxdTj57GpTccfUou7bPdMjf6jIebmtg09JuDr/ikJTgW
+ F3Z8mOWntWgx5OINw8UmWdEZN9vzK/DouWqwbr6RIBt/nOX4u3nDufN9G4S1UKXFb7
+ 5VUDiJgOlxH87bUFif6eokPTVtimQHx5cs00CBg3UP73+fJMrwLi1aKIPywwnfnIK9
+ TPfiizIIRSccQ==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 15E7B17E019E;
+ Thu, 09 Jul 2026 08:45:24 +0200 (CEST)
+Date: Thu, 9 Jul 2026 08:45:20 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Danilo
+ Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
+Subject: Re: [RFC 2/8] drm/panthor: Use separate workqueue for DRM scheduler
+Message-ID: <20260709084520.16d32cb7@fedora-2.home>
+In-Reply-To: <bd262d12-65d0-4c59-a314-b42b540acd99@igalia.com>
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
+ <20260702173127.3103af30@fedora-2.home>
+ <8aa9ffad-ece3-428b-b307-1d5f4136db73@igalia.com>
+ <20260706161812.07ee7500@fedora-2.home>
+ <bd262d12-65d0-4c59-a314-b42b540acd99@igalia.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|SN7PR11MB7017:EE_
-X-MS-Office365-Filtering-Correlation-Id: c40791ed-7487-4407-f2be-08dedd8587b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|1800799024|376014|23010399003|11063799006|4143699003|6133799003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: EHeGkcDFna1yD+D0FCB/ANGsRT9icNmMVUhl5S6fhAH8GzfoZ8mqxiC7P/YoIGyuB8WR+GbUI2HJhojBa4IBTVukxMCsUB8c5lLDOifotwDq8RLW+khB6a4tblXP/FNyYqjTgdm0OBWUrQ/Icev/aR60I7T1SCpfYb7NkT/zsBc44H9FYNoZtOtQOZjhnY3zVSfxVSAYfnvZyxxTX+w7BViPxOvRmgiBM18K/A+dvvsW/sD3HqxLKoWqteaGgHKf2Iw55y4dgMDYvMDJBMTywzLqZNNOem3A+G/PmEUjQ7S05VAaluGVovrbymnn6sUbmZeDGf4mq7tjAWINm03UcIOWgACVZkX82HEe2DBgyRzaOeB9NyqghAit6dQzZ+QVv7hjyvppeHvqfp1VArYhhhRJOeNMWXY3yiq4zaoOwopObM3bmznv/CTCoL8AYwJsElV9kQCtvqxqn4+yA9t0zX6PXaEicPtF8ZQozYXjquxCpG8VtX9sm0CeWDdqLJML28qYndwYNnPfSSBzMyzQKUEzDcKjVtF1k9CJ4AsScW37auk57+7ff8csSLgT1hJQ8/KgKK2YIaiNmJnuqM3Y3lCtw5NmkDPcVkpn8btjyc7hHyR5IG9n1A+BiiDxsn250EIqQ0o4fat5nE95E4x9LrzcXse9FsZBBlAWTxZzLY8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7636.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(11063799006)(4143699003)(6133799003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXVrcFlocmNCS09ydkJKU2dwM0JHdzNRRVZ4aHhRV3FUT0dKWUN2NUs3aUkx?=
- =?utf-8?B?NHBkWVZqc1NraW9VZnliT3gxNzRSR3BlWWRvcURHejNqRFpCaVhGTjluNzcx?=
- =?utf-8?B?c2pjbzBuQUQvT1lkdXhOMGVNVXlDeGVZNnFyRDJIa01iOUFjVTMzdXlJcGEy?=
- =?utf-8?B?Y044VisrYmN2L2I4L1V2NW9OSDdVMG9aa0tLS3A5WUhPN1pQeitCUFVwNGpZ?=
- =?utf-8?B?a2hvdGNZQnhCV3hZZHlZTlVzUlBjL0VLZlVmY2wwd2V4dEluMmRQVWhhK3pj?=
- =?utf-8?B?cmxOazZNRTlNaW1LNEFkUlBKMU9ESVNqOEUvZ2o1UXFRU3lxK3hLZk9BcmJy?=
- =?utf-8?B?ZDJjaWRVbnI5N0FQK3E0UzJORTI2VkFvellzZzhPcE0wQ25ucVF3SWhDN0lH?=
- =?utf-8?B?R2lmb1JVRVFrUytNMy8vOWlaazRMSmxHRVFEVExMK1dzM1pzNmhqd3RLQmJh?=
- =?utf-8?B?elg5a1YzbHIzb0lMRnhPU3dydVVyVFdpbEZNdldvWkFUdmZuYjNwS0dFRlpX?=
- =?utf-8?B?ajFBb0RSUlgwV2lpOVh3dGdQaDNkSy9EM1JBVzlBYW5aNC9jemNXZEgyKzZL?=
- =?utf-8?B?SXI3T2t0UCtIWGx6UHZPTkVncTBnZEszQzRaVWNNSzlJY05iWmx2WGRrY0hr?=
- =?utf-8?B?R0l2SlNZeVRJZmM4cXYvWC9zREc2S0ZIOGJFTWtCRHFGcnZKZVpLQllrTjY3?=
- =?utf-8?B?YnRxaUowZkFRUUZGZHR4V29sZERyTFBIS1VmdElUQWNnL0hjMTJ4M2RkUHdS?=
- =?utf-8?B?S3ZjNk9GZmRWaXljdzhaQVl5dncyd0Y4dFRqaGxDUkU4SUd0UXpqNlZka3dX?=
- =?utf-8?B?OUpJd0RYb281NUVkQ1VoeUdpT2pnSytmYm5RV294MUx1Slh0ZmJaTE84U0li?=
- =?utf-8?B?c2lFb3lHOHE4Q0VYRGhHaVFRaFprQjA2ZlNyV1hoMXJ3NlNJSHV1VWxFMnYy?=
- =?utf-8?B?OUtTQmk0UnlSSzYvUDk5a1NrL2E1K0FJWkNKUWwrUGdURWk4K2hVdE9DK20x?=
- =?utf-8?B?WUpCWmxxNk5JWWRibGtmSFF0MjRGbUlYV3lTOVVNMWJ6VERqc3AxanhBeCtK?=
- =?utf-8?B?eGFtQnF1Vm5OWjlkc3pNaGI2VE56dEE3b3JpTVFhN0JBSTJqWVVqcTZMMXlt?=
- =?utf-8?B?TjJnRU9zeDlIckQrUVBPU0VQZVdERllkYmZJNnFWV1RqeHcwZEN6Rzg3VTNw?=
- =?utf-8?B?YXZCZkZ6U3cwTzVMQkFKeDA1TC9McDFIVTVmbEZSS3lrQVY3Y2twMGpUVVkw?=
- =?utf-8?B?SkszRTVPSVYyTEp3bnQwcFdLcHJkS1VsekVkL1NPUVVuVUtobm1JR2ZYS1R3?=
- =?utf-8?B?SW12MlFZc0tpcjJyTlUzUlRQQlhCbGIzem5WRmlEQVRJdWNrM29DNkRhck84?=
- =?utf-8?B?NjNidVA2bXdoZm0zOVFKRVBObGIrRFRjYXJKNmRhZFlza0t3WGQvL2V2WkZX?=
- =?utf-8?B?T1pCT2ZiTHc4dzkyNmkxbW1yRWVXV2hHNGV5QU1XejlBUE9DYTViNUtkVGp1?=
- =?utf-8?B?a08ycldiQkgrbjgwbzZOTFdvOVptWnVSMWswcGNsZjdtWktFRUhIcmR5S1l6?=
- =?utf-8?B?cENMQmEyZHJ5eDJZOWN0VVFtdXNoNDB6dTZIcElia0UxVGUwMjlVTnhWWWpu?=
- =?utf-8?B?ZUhzR3YxYnB2Wm1vVUhWOTZBOHljNGZ1aFlwZEozVGdaWndtMXVJbm9HbTMw?=
- =?utf-8?B?L25oelRhcXpFa0hja05kTU9CeVEzVzZrWWtBRENGb1ZmSmljcGkwTUhOaDNY?=
- =?utf-8?B?VnhML3BTTDB1ekxFZlZJOUZSTFprSFZtN0lsdkZPT1dFL1B3OTFWOHN4Q3ht?=
- =?utf-8?B?T08ya2xvSUw3R1dOOWxpVlU3Z0I4K05WcTF2ZWFpZVVNZHhDSmRvd3lXM3lC?=
- =?utf-8?B?cVlPbzltUWs1a0xMa0Z3NHAvT1B2S3FEdEpHRUx4L3FwR0IrS3ZscTIrM0hJ?=
- =?utf-8?B?K1B5dzNFM1BiaEIxbnJCM3JjVDd4RWFhSEJwazdKQUxIS25lendqL2FwYzI1?=
- =?utf-8?B?WW0rYVJkQmo0SnN4WXFrR1pYYkdDaW5neVg1VzhadEtBRzh3dTkzUnpXYWdp?=
- =?utf-8?B?QWlCUXA2aVhLWjRya0xuK3NhbExZb3BkT0U3akZ5ZHljSTJPQ1BFSVY1REpw?=
- =?utf-8?B?QmVNT01jeEZQVWNFYWJRNTN2aUgwZlhESlZvakxzNGRFcHFzZnhyYnhUU3BI?=
- =?utf-8?B?emNCUE5seGxNM3Nram9VQklJM1huQXdmQXpnVFc0S2tIUkcyRUFNUEFBdjFk?=
- =?utf-8?B?WC90Rncra1dGUnd4b3hORU96eFN6TW9LT0krNzdFQVRhaE1NdUFMcUI5aWFO?=
- =?utf-8?B?VzlNVGZOajR2a1Y1aEFDMVpJTTJlV3dIVXJVUlRsd1pUVGg3emVFWk9rbi94?=
- =?utf-8?Q?wr1gMjWsin7kQaxg=3D?=
-X-Exchange-RoutingPolicyChecked: kO0OuravmbjdkM97TAD8x2sIwyM9GuYaFg8Aewcm2gAGgWXsSeySN8rruhqzM6vPhYXYOdMVBcuMCexWZjXF7Y+5JrEue/htlJ+I1EqeR8UW8fwwZMGlbTUqZJgFbJdlMdo7LCw0GNQb6wRQDcN+aPXc6VGd0KwAvQl+rpsvDmBpNDh4qyD5QQXZjThKfGPABQLboSCDlfPDFmBTzg/nPzjDGdRHdavbwYeUXTroDyAOAzYJk/rnmtOhND/+P6lscKnieu0hy7OqfLmn1/tLmg4pR9YmhTnxj3wUZC0E89IdNWDW/1JSBd5tX46JSvIf5nshVvcHxoVpOElZRWcyfw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c40791ed-7487-4407-f2be-08dedd8587b3
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 06:44:31.4632 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iMzoVxkuBy2u8WMAxiimwsyehGYL0K3pV980lijkmAhda11ereD/I3mU+DVgFtaLTPiQChCsBEGEbV6PfpufLUkHTKrX2E/XvXM4lvIYEmw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7017
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,42 +69,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, 8 Jul 2026 17:47:36 +0100
+Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
 
-
-On 7/7/2026 6:31 PM, Maarten Lankhorst wrote:
-> Hey,
+> On 06/07/2026 15:18, Boris Brezillon wrote:
+> > On Mon, 6 Jul 2026 13:03:33 +0100
+> > Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+> >   
+> >> On 02/07/2026 16:31, Boris Brezillon wrote:  
+> >>> On Thu,  2 Jul 2026 15:37:39 +0100
+> >>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+> >>>      
+> >>>> Currently an unordered workqueue is used for the DRM scheduler which means
+> >>>> its concurrency is externally managed, and given there is one scheduler
+> >>>> instance per userspace queue, that means workqueue management logic is
+> >>>> within its rights to spawn many kernel threads to submit their respective
+> >>>> jobs.
+> >>>>
+> >>>> Problem there is that all run job callbacks are serialized on the device
+> >>>> global mutex,  
+> >>>
+> >>> I think we should address that instead, and either shorten the scope of
+> >>> the locked section, or make it so we don't make it a contention point
+> >>> for concurrent job submission from different contexts (with a rwsem
+> >>> instead of a lock, for instance).
+> >>>      
+> >>>> making the potential thread storm just causing lock
+> >>>> contention.
+> >>>>
+> >>>> If we add a separate ordered workqueue for the DRM scheduler integration
+> >>>> we can avoid this problem, since the ordered property directly expresses
+> >>>> the nature of the submission backend implementation.  
+> >>>
+> >>> Yep, except that's not how it was meant to work. The goal was to allow
+> >>> contexts to submit their jobs concurrently to the FW. The only reason we
+> >>> take the lock is to:
+> >>>
+> >>> 1. make sure the context is still allowed to take jobs
+> >>> 2. kick the group scheduler if the context is not resident
+> >>>
+> >>> For #1, I believe we can come up with either a lockless solution, or a
+> >>> solution where the lock protecting the state belongs to the group
+> >>> instead of being externally protected by the device-wide scheduler lock.
+> >>>
+> >>> For #2, the rwsem approach, and narrowing down the locked section to
+> >>> just this part of the code should do the trick.  
+> >>
+> >> Out of curiosity how much CPU side parallelism you think is required to
+> >> keep these GPUs fed? Both today (with the greater lock contention) and
+> >> in the future (with the reduced contention) I guess would be interesting
+> >> data points.  
+> > 
+> > The maximum is known: it's the amount of FW CSG slot we have available.
+> > I think the theoretical limit is 16, but IIRC, we never had more than 8
+> > exposed by the FW.  
 > 
-> On 7/7/26 10:03, Borah, Chaitanya Kumar wrote:
->>
->> On 7/3/2026 1:02 PM, Robert Mader wrote:
->>> The client cap is currently advertised unconditionally, even for drivers
->>> that do not support plane color pipelines. If clients supporting the later,
->> s/later/latter
->>
->>> like Wayland compositors or tools like drm_info, enable the client cap on
->>> such drivers they will be left without both color pipeline and the legacy
->>> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
->>> conversion support.
->>>
->>> Prevent that by only marking the cap supported if there are actually planes
->>> with color pipelines.
->>>
->>> Note: while the color pipeline replacement for the legacy properties is
->>> still under review (1), we can assume that it will work as a drop-in
->>> replacement.
->> This change will but a driver can also choose to export colorops like programmable CTM_3x4 to achieve the same.
->>
->> We should also perhaps document this somewhere that if a driver supports LEGACY properties, it is imperative to implement some version of it with the color pipeline line property.
-> Would this be doable inside drm core? Implement the color pipeline properties, get the fixed pipeline for free?
+> Yeah but is it _really_ required to have 8 CPU threads feed these slots? 
 
-Right now, the Bypass(default) pipeline is automatically created when we 
-call drm_plane_create_color_pipeline_property(), we could come up with a 
-similar helper that could also create a pipeline that replaces the 
-legacy properties.
+8 is indeed the number of SW slots, but there are multiple HW queues
+under the hood (and multiple cores to dispatch jobs to), making it so
+multiple GPU context can effectively be scheduled in parallel. This
+number is lower than the number of FW slots though (I need to check if
+it's exposed through some RO regs).
 
-But this can't replace the existing helper entirely because some HW 
-(though unlikely) might not support YUV buffers.
+> GPU will still take one at a time and preemption is not that fast, no?
 
-==
-Chaitanya
+Preemption on the FW side is pretty simple: each slot gets a unique
+prio, and lower prio slots only get HW queues and GPU resources if
+higher prio ones are idle and accept to give up their resources for a
+bit. We then have a 10ms tick in panthor to rotate the FW slot
+priorities. So yes, preemption is not very granular, but that's not
+really the problem I'm worried about. What I'm worried about is having
+just one thread for everything, with the first-queued/first-served
+model that the kthread_worker infrastructure provides. If we're talking
+about one thread per-priority level, that's already better, and then I
+agree that the contention on GPU contexts with the same priority is less
+of an issue, especially since the run_job work has to run before being
+rescheduled, which gives you this natural FIFO behavior, thus leaving
+other contexts a chance to queue their run_job in the meantime.
+
+But this WQ_UNBOUND -> WQ_SINGLE_THREAD transition, where the wq is
+shared among the entire device is not that. It's actually serializing
+work submission for all GPU contexts regardless of their priority.
+
+TLDR; I'd be happy if we start with just one kthread per-prio + the
+narrowing of the locked section in the run_job() implementation, so
+that context submission actually happens concurrently, and low prio
+context don't starve high-prio/RT ones in the submission path. 
 
