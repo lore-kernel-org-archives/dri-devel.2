@@ -4,126 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE1AFC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF19C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6032089369;
-	Thu,  9 Jul 2026 06:05:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2C4110E690;
+	Thu,  9 Jul 2026 06:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lzUTMwVw";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RQrAnYJD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mMVeRXBW";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96B0289369
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:05:31 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66960BbP930910
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Jul 2026 06:05:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=vm7lobBZrOzogeeSZu3t/lsBp/vgw265Z0F
- DOOPQOsk=; b=lzUTMwVwpM86ZbjFJ9yCK7tGFt6FK7njTFZy06AIu0A6AYI9hGR
- lhNajr4rP78OuO3SpD55+gFBUvS2408/pmhljHLiC7sqjaytBTA74ROSLUhNqDyB
- Jf5S5pBTLECW8ENBlct1qxjygssWjgmheodnUWZZb3fucUBFh5d46QROQlObPcwS
- HfXTENoPHBrh3PCY7iW8UEBPD0jRk41WkrgDEdntpaBiLcTmhJk3YxjiHp++AE1E
- J/gCjsspFQAOTPXYRxPMHfbrUB9Bjt88/YpBlJOFKE+TM6wUiFLBqEDcC9wV9Ugp
- mcR2GRT5NLlpKbTeygY+d3BiAMsJVAGwrdQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa418geh4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 06:05:31 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2cca3673560so9726135ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 23:05:30 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAF7510E69E
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:11:24 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2cc61541f8cso8326835ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 23:11:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783577130; x=1784181930;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=vm7lobBZrOzogeeSZu3t/lsBp/vgw265Z0FDOOPQOsk=;
- b=RQrAnYJD4oAFiveO3CguAv4a5MQnL685ehjkm0zaguOyPqhqvALqy6tDaEtgOOauCz
- Jf4UnOMqi6Zzc3zQ2aQ+5XU9dDPkFI8QFSQISv2U+Vi2QXbB1VI4rNiOkh3DAfEntb47
- zDwDqf/ZX/fKeo+5AqYnfRIlHn4LmMuUt0k2Zk9kbfPXhpe9wxo7CWsEJZ4Ct5Q4hbXf
- 1TV42LZVdYZ85IQ2vfWcFL9zbJljTk7NLe5zKPTN3Ew6mtgwh2EctLkQ8S+Oe92V+TZ9
- vV1HjobIL+7lZMWQqIKydN2hfdXi5CSC3se10pBRQHSHpwOd3Kpegzl6Hd75bTfQqM46
- iMdw==
+ d=gmail.com; s=20251104; t=1783577484; x=1784182284; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Hd6GoWd0nNSvkzn4bZsOD9QjS5q1cvBf4vz24CQIaxI=;
+ b=mMVeRXBWtYpMPyMO0gpl7iURVGh2fKK10LVwDCYrMpoUo9X4r0o7IgS1SXh4/4Bdx3
+ scKHykIzU1+WP5mW5J+blJKDqHhm/VD0WAnnB/y5v7bpW9/tHIRO/80IUfY3VjTWbbcg
+ vLd+cEe8PMdvLDIx1UbNRLiUebDrbbYGbHzHlpv3jEVVVreg2EPelDEMkvcwiqBfsf1t
+ SWLHtOJLprNNczBJtQwnPCeJ2f1JxW+XQDJFlWoMcGiVe6jwnGy6KXj7lf3Yx1yf8E8d
+ K+BQbdtwBgAFwR4wx2QsC/VMTUSc/6L5EI1ItK6YKefdjrSX65HdHC1fK5JREYw7YTuC
+ /smA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783577130; x=1784181930;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vm7lobBZrOzogeeSZu3t/lsBp/vgw265Z0FDOOPQOsk=;
- b=ru02xTX1FF5tFF/MxJovLvMIoZ6pNBZA5Mb37KA20jcAXCgsuR6Vj7in+WJvJKy0TI
- cdMb+R72e6oDqbhIdXPxQt0V+JneoDdWZVQIdJvBVrxNOXp3ZC5UH/+bc6qDRhpx637W
- WazeG+kIcJwvND5Grfcjp6GDhHJB+sl1qYddYzI0oi3LHuF6SHgnoCwhfRWoSt8UPV0/
- AZw24O3R7WP9MWXXrGvgeQExrRAaIwEHDdrBFMNunV4BK7pfqmctUWGAIcgxEzcu14z9
- CsFHRqczCKpiK0ru+zTLZqjjob5fGzgU/ItVzjYpVQD4BGiqWgYjXKAPD298NqFxJz7V
- XBLw==
+ d=1e100.net; s=20251104; t=1783577484; x=1784182284;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Hd6GoWd0nNSvkzn4bZsOD9QjS5q1cvBf4vz24CQIaxI=;
+ b=a/OKPOZ3WNJMGlPLkq/0y0vQJPwaOVFF6IKKKs1B7iDGZf+51L4GY7HdbNHl7c8xRg
+ L+3JCeC7Qb8ctgW+Hp592IaqINFJWpFR3VaTCwVLuvMuyZTf1hVaDYpS/u1mLp2Xc1IM
+ VurKak9FuoGljmfV8M+A7SLKu1gZ/cZ85W36Cy6/2bcyp+InzjfE9UN7cu0nV5qr2DAL
+ Q96fo4a+nB8Sdd3UbMTykIT+xjqD74436XYPXohCv0Aq6iF034YLoh0dUbYyrsH7dCwD
+ Uu3RgyZHZXJZ25O6qS3pD37T3MyDoY88wq2fbFuBrCg/9F/v6wSG6W/YFQ6GOz9AYMhq
+ QU/g==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpGTWouYv0EHxoH3cxB93J4fENM7wlSfZrWXVc3+0mBtdJ0WoBMEsoATD9BEYcxan3ANPUV9LOtn/k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOFtGki1VK6x7+KR0h1wQkXRGHrf8tOs2y87/HiM3M8iAdxBtI
- TJb3wrlSb2nn4LFllYy3vBVE98MKmNan5XU3cujaKskL1Tk6dgBql6Epu3j0S161CkKCFKDZmfQ
- wJWQCrQwOeHoE+rtfbZK1ZAUFTLsHeOBIMYpc+PAqIVb1IOhrqDZXajhaEwV7jJsGtCBnaW4=
-X-Gm-Gg: AfdE7clHQxGOnUxPJdgDSeMcy4dAo2KJhfDHrap+tgGpRDs0uDCsg27H2LidixKwuQp
- 8+27PwClX7M4L+nBYbzMon9rYsPwu8xF7/gVjrrrRUVjm0V5B+T4yJMQbYCakwiniApCA8S3Ycy
- sCnf6rBwrbyUA7YzkgIOfblns4oO8XYuhuCy8mGk8xVYRTOqhAOjDHOBv9e9fIkP01tglhdfdVF
- nkDx9ouODObm9LPi34nqADu4zL87jOphDNmqHgROkZ6YkaQMzCmMyBp3RV4PH6RAUH1keu6uJ/O
- zBsYKBA18VQ05Ny5jo8K/mFFji0mo3RjWrPJTFsCOJCFB+6dUekf8oU68VjkZhbbg9oCWnSfUU1
- XFDwKqpShzyc5zCojHTAjV2kMAl/TVMs1vbmIXXGUPCWL0A==
-X-Received: by 2002:a17:902:d2cb:b0:2c2:bd7f:ccd4 with SMTP id
- d9443c01a7336-2ccea3e1fdfmr65120605ad.21.1783577130374; 
- Wed, 08 Jul 2026 23:05:30 -0700 (PDT)
-X-Received: by 2002:a17:902:d2cb:b0:2c2:bd7f:ccd4 with SMTP id
- d9443c01a7336-2ccea3e1fdfmr65120005ad.21.1783577129651; 
- Wed, 08 Jul 2026 23:05:29 -0700 (PDT)
-Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9d1f030sm38128135ad.51.2026.07.08.23.05.25
+ AHgh+Rq5ykF2wkQDSgrwxjSZTqvD753J+8WeVzf7kT6hUBfBEjrQrna/ayZpN58k2OFcKm+wIHf+EEM4nP0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyd/Cm1DfoJZYAbuWHDYXUxTnBZYi0qy6Gh0zCJaotGfO678RDF
+ Ev6/dWn75P3qZroa9mhY6TbUyGDuHcofjEpD/drFhj8pmJ6kchPxg//s
+X-Gm-Gg: AfdE7cm3Mahb1gYG7S0MdOXJJGlJg7Lsmntdo1yzKI3ffZvVM+/4Nfj20zz+OXc1kK+
+ QWMUYNF3KhK2JaQOaAQZNUkT1tek6nhcZL7Nh6pfebBm/ImWtg5pdeEsPGkeP9zo+P5MX/E/rsj
+ eSbR1z1RjvjvJJAHgGCZrVma60cWUiOv+6QK2eNhOINvPwGESE0SVjA6vhHQT/CVrScnXHT2CvJ
+ 2cFvD/X3yyQURG89CmuY8bCsxlmXzkgQERklYzEQkPER1aNWUT1ssAypSkNUdbhMzgsdM2SZUvQ
+ /DdVHWVXtDnnurqti92VKyfFj8j5GKfYZp/VNzviRrVXZyPBQY2AOAmusmZp8Zw0yJZTdzL3/Q5
+ AUA/Rapgz5sRUG4h1E8Hs3/0yD7ahZJKvKqopC6ap4HSCDfI+0yeKzy5RaXn+MFBlcpc7WiEVij
+ qDC/LGHBE=
+X-Received: by 2002:a17:902:ce0d:b0:2c9:d27b:af11 with SMTP id
+ d9443c01a7336-2cdd8a84479mr14704525ad.11.1783577484149; 
+ Wed, 08 Jul 2026 23:11:24 -0700 (PDT)
+Received: from ubuntu.. ([138.199.21.246]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ccc9d602fdsm37778845ad.81.2026.07.08.23.11.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 23:05:29 -0700 (PDT)
-From: Aniket Randive <aniket.randive@oss.qualcomm.com>
-To: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
- andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- naresh.maramaina@oss.qualcomm.com, aniket.randive@oss.qualcomm.com
-Subject: [PATCH v3] i2c: qcom-geni: Add dynamic transfer timeout based on
- transfer length and frequency
-Date: Thu,  9 Jul 2026 11:35:21 +0530
-Message-Id: <20260709060521.4091523-1-aniket.randive@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+ Wed, 08 Jul 2026 23:11:23 -0700 (PDT)
+From: Jing Wu <realwujing@gmail.com>
+To: matthew.brost@intel.com
+Cc: thomas.hellstrom@linux.intel.com, christian.koenig@amd.com,
+ ray.huang@amd.com, matthew.auld@intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, natalie.vock@gmx.de, mhocko@kernel.org,
+ roman.gushchin@linux.dev, shakeel.butt@linux.dev, muchun.song@linux.dev,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ Jing Wu <realwujing@gmail.com>
+Subject: Re: [PATCH v7] cgroup/dmem: implement dmem.high soft limit with
+ proactive reclaim
+Date: Thu,  9 Jul 2026 14:11:13 +0800
+Message-ID: <20260709061114.1623774-1-realwujing@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ak81RUK6vRZaMN2D@gsse-cloud1.jf.intel.com>
+References: <ak81RUK6vRZaMN2D@gsse-cloud1.jf.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=UI3t2ify c=1 sm=1 tr=0 ts=6a4f3a2b cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=ThEsosvJOpkTSRB3RXoA:9 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA1NCBTYWx0ZWRfX51VfLInSZ7R5
- GtXDUP0KaMEOGAQ4+E400fjzdhLdSq2QaBucz9frkJlWkZ9Tu+dVq6cYqjZRKnhslxCS37xLWwa
- TuQSqhSCKJyFL5kXV+tDJUz4HvqSWCFMjGzPAv/WaR2EPlUpC+YCdqKCuNekrnf4kgP0W07HpCP
- pq/8O9BzK48CUuTH00GmC8jHcfz+UMdGlvAt6Dyh0R8YRFtlJfQYCJh3hNM03EJ/KGqPORVzGYc
- 9TMGXr0b/tLf1Exj4+cYfTA2jRKZJrRD8F9anSWYc2tJ+JPZ+EsdLGchz7bDlwJotQLVlV7R6yv
- 8UyYmaf8JIPTToB93PEIb2M1oLS1p2e3KpEuAiKCino/+T/2uOMEAw3B+gB5Mj++4ju+UIZsOW4
- GDItyFhEjZ3F+SdKs+74mZFPQ2dVXm4xYbu1uv2g+eTl4Qcb/TYO1Bya1xDgxAMdmhpMDLAE/cd
- 4kILQOxXFd7zO60ygzA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA1NCBTYWx0ZWRfXzF0JNp2p4r+/
- EY33d9HgqJmBop4SQummwwqr3D8FETqNMN7EgvqevH9+FGNWUUcAixipGL7iEjXcC7RYStjiDXZ
- kXavPUg/pmQWR3we5RkBfsuf6SzO3WA=
-X-Proofpoint-GUID: yOGsYb8gij8akgmXL9OylEIL2vSOvG0v
-X-Proofpoint-ORIG-GUID: yOGsYb8gij8akgmXL9OylEIL2vSOvG0v
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- adultscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090054
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,156 +98,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The driver uses a static XFER_TIMEOUT of HZ (1 second) for all transfers
-regardless of message length or bus frequency, causing unnecessary
-delays on error paths.
+On Wed, Jul 09, 2026 at 12:44:37AM -0700, Matthew Brost wrote:
+> This looks quite similar to work Thomas is doing here [1].
 
-Compute the timeout dynamically from message length and bus frequency
-with a 10x safety margin over the theoretical wire time and a 300ms
-floor. For GPI multi-descriptor transfers, use the maximum message
-length across all queued messages as the per-completion timeout.
+Thank you for the pointer, Matt.  We were not aware of Thomas's series
+before your mail.  After reviewing Thomas's v7 [1], the two series turn
+out to address different — and complementary — problems:
 
-Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
----
+  - Thomas's series hooks a reclaim callback into the dmem.max write
+    path: when an administrator lowers dmem.max below current usage, the
+    kernel calls the driver's reclaim callback to bring device memory
+    usage down to the new limit.  This is analogous to what happens in
+    memcg when memory.max is written below current usage.
 
-Changes in v3:
- - Added the extra variable to handle timeout value.
+  - Our series adds dmem.high as a soft limit enforced in the charge
+    path: when a successful allocation pushes a cgroup's usage above
+    dmem.high, TTM proactively evicts one BO from that cgroup before
+    returning.  This mirrors memory.high semantics in memcg, where
+    reclaim is triggered per-allocation to keep usage below the soft
+    threshold.
 
- drivers/i2c/busses/i2c-qcom-geni.c | 45 +++++++++++++++++++++++-------
- 1 file changed, 35 insertions(+), 10 deletions(-)
+Both mechanisms coexist independently in memcg and serve distinct
+purposes: the max write path handles capacity reconfiguration by
+operators, while the high-limit path provides automatic backpressure
+for workloads approaching their quota.  Having both in the dmem cgroup
+controller seems correct.
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 96dbf04138be..d43db77b3678 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -74,9 +74,12 @@ enum geni_i2c_err_code {
- #define PACKING_BYTES_PW	4
- 
- #define ABORT_TIMEOUT		HZ
--#define XFER_TIMEOUT		HZ
- #define RST_TIMEOUT		HZ
- 
-+/* 9 bits per byte (8 data + 1 ACK), 10x safety margin, 300ms floor */
-+#define I2C_TIMEOUT_SAFETY_COEFFICIENT	10
-+#define I2C_TIMEOUT_MIN_USEC		300000
-+
- struct geni_i2c_desc {
- 	bool no_dma_support;
- 	unsigned int tx_fifo_depth;
-@@ -204,6 +207,16 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
- 	return -EINVAL;
- }
- 
-+static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, size_t len)
-+{
-+	size_t bit_cnt = len * 9;
-+	size_t bit_usec = (bit_cnt * USEC_PER_SEC) / gi2c->clk_freq_out;
-+	size_t xfer_max_usec = (bit_usec * I2C_TIMEOUT_SAFETY_COEFFICIENT) +
-+			       I2C_TIMEOUT_MIN_USEC;
-+
-+	return usecs_to_jiffies(xfer_max_usec);
-+}
-+
- static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
- {
- 	struct geni_i2c_dev *gi2c = dev_get_drvdata(se->dev);
-@@ -445,7 +458,7 @@ static int geni_i2c_rx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 				u32 m_param)
- {
- 	dma_addr_t rx_dma = 0;
--	unsigned long time_left;
-+	unsigned long time_left, timeout;
- 	void *dma_buf;
- 	struct geni_se *se = &gi2c->se;
- 	size_t len = msg->len;
-@@ -470,8 +483,9 @@ static int geni_i2c_rx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 		gi2c->dma_buf = dma_buf;
- 	}
- 
-+	timeout = geni_i2c_xfer_timeout(gi2c, len);
- 	cur = gi2c->cur;
--	time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
-+	time_left = wait_for_completion_timeout(&gi2c->done, timeout);
- 	if (!time_left)
- 		geni_i2c_abort_xfer(gi2c);
- 
-@@ -484,7 +498,7 @@ static int geni_i2c_tx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 				u32 m_param)
- {
- 	dma_addr_t tx_dma = 0;
--	unsigned long time_left;
-+	unsigned long time_left, timeout;
- 	void *dma_buf;
- 	struct geni_se *se = &gi2c->se;
- 	size_t len = msg->len;
-@@ -512,8 +526,9 @@ static int geni_i2c_tx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 	if (!dma_buf) /* Get FIFO IRQ */
- 		writel_relaxed(1, se->base + SE_GENI_TX_WATERMARK_REG);
- 
-+	timeout = geni_i2c_xfer_timeout(gi2c, len);
- 	cur = gi2c->cur;
--	time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
-+	time_left = wait_for_completion_timeout(&gi2c->done, timeout);
- 	if (!time_left)
- 		geni_i2c_abort_xfer(gi2c);
- 
-@@ -591,7 +606,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni_i2c_dev *gi2c, struct i2c_
-  * geni_i2c_gpi_multi_xfer_timeout_handler() - Handles multi message transfer timeout
-  * @dev: Pointer to the corresponding dev node
-  * @multi_xfer: Pointer to the geni_i2c_gpi_multi_desc_xfer
-- * @transfer_timeout_msecs: Timeout value in milliseconds
-+ * @transfer_timeout_msecs: Per-message completion timeout in jiffies
-  * @transfer_comp: Completion object of the transfer
-  *
-  * This function waits for the completion of each processed transfer messages
-@@ -601,7 +616,7 @@ static void geni_i2c_gpi_multi_desc_unmap(struct geni_i2c_dev *gi2c, struct i2c_
-  */
- static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
- 						   struct geni_i2c_gpi_multi_desc_xfer *multi_xfer,
--						   u32 transfer_timeout_msecs,
-+						   unsigned long timeout_jiffies,
- 						   struct completion *transfer_comp)
- {
- 	int i;
-@@ -612,7 +627,7 @@ static int geni_i2c_gpi_multi_xfer_timeout_handler(struct device *dev,
- 
- 		if (multi_xfer->msg_idx_cnt != multi_xfer->irq_cnt) {
- 			time_left = wait_for_completion_timeout(transfer_comp,
--								transfer_timeout_msecs);
-+								timeout_jiffies);
- 			if (!time_left) {
- 				dev_err(dev, "%s: Transfer timeout\n", __func__);
- 				return -ETIMEDOUT;
-@@ -736,8 +751,16 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 		dma_async_issue_pending(gi2c->tx_c);
- 
- 		if ((msg_idx == (gi2c->num_msgs - 1)) || flags & DMA_PREP_INTERRUPT) {
-+			unsigned long timeout;
-+			size_t max_len = 0;
-+			int j;
-+
-+			for (j = 0; j < gi2c->num_msgs; j++)
-+				max_len = max_t(size_t, max_len, msgs[j].len);
-+
-+			timeout = geni_i2c_xfer_timeout(gi2c, max_len);
- 			ret = geni_i2c_gpi_multi_xfer_timeout_handler(gi2c->se.dev, gi2c_gpi_xfer,
--								      XFER_TIMEOUT, &gi2c->done);
-+								      timeout, &gi2c->done);
- 			if (ret) {
- 				dev_err(gi2c->se.dev,
- 					"I2C multi write msg transfer timeout: %d\n",
-@@ -851,8 +874,10 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
- 		}
- 
- 		if (!gi2c->is_tx_multi_desc_xfer) {
-+			unsigned long timeout = geni_i2c_xfer_timeout(gi2c, msgs[i].len);
-+
- 			dma_async_issue_pending(gi2c->tx_c);
--			time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
-+			time_left = wait_for_completion_timeout(&gi2c->done, timeout);
- 			if (!time_left) {
- 				dev_err(gi2c->se.dev, "%s:I2C timeout\n", __func__);
- 				gi2c->err = -ETIMEDOUT;
--- 
-2.34.1
+> Are either of you two aware of this seemly overlapping work?
 
+We were not, until your mail.  Now that we are, we would like to
+coordinate with Thomas on a few interaction points:
+
+  1. API intersection: Thomas's v5+ replaces the bare u64 size argument
+     in dmem_cgroup_register_region() with struct dmem_cgroup_init (which
+     bundles the region size, reclaim ops, and driver private data).  If
+     Thomas's series lands first, we will adapt our patches to the new
+     registration interface.
+
+  2. File-level conflicts: both series modify ttm_resource.c and
+     ttm_bo.c.  The changes are semantically independent and should
+     compose cleanly after a rebase, whichever lands second.
+
+Thomas, would you be open to coordinating on merge ordering?  We are
+happy to rebase our dmem.high series on top of yours once it lands, or
+to split out any shared infrastructure as a common prerequisite if that
+helps.
+
+Thanks,
+Jing Wu
