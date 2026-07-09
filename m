@@ -4,45 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39AEAC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:51:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB24C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:53:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD6310E6A2;
-	Thu,  9 Jul 2026 10:51:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11F6210F4DB;
+	Thu,  9 Jul 2026 10:53:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IC+rvB6p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F/D+BISY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB0010E6A2
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:51:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6DCD2407DB;
- Thu,  9 Jul 2026 10:51:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140E81F00A3A;
- Thu,  9 Jul 2026 10:51:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783594291;
- bh=6AV/Bv9CWVyZqKThlG/GXC41B3XIuc7Yvx0wx4dEtok=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IC+rvB6pfNQknxBlYcsASU3fzinOarBApXf9KLccSSyIzR8JdUZkYZKnx/drcdh08
- qrIubAFnIMuk14AeNERlDryW+YhDUSUXmqE7BD+1DjwXkju1WUrfmVhw9Z3FI2xVAC
- 6VclaFwGVOkgGDvbN3AKIwaGjv/+ySg9MvfG2ilEIU+iea5Xa9w2QkPypIUELyNBwO
- Etni97gCjAyHFFVxNJ1MIZvi2LvAK5z5RnnaKhMDPm/vOJbykrlmsRg91IW/j7R6Kp
- Dyf+Ya9yHOyOFnYMLmS2YNzYZM2jTbrk2fQP+PmkaLPR6GiqjWZhyIigD+2ZLRdg/5
- 3F7I5UYV5kaew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/11] drm/mediatek: mtk_dp: Add support for eDP1.5
- IPs and MT8196 SoC
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709103431.46616-11-angelogioacchino.delregno@collabora.com>
-References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
- <20260709103431.46616-11-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 10:51:30 +0000
-Message-Id: <20260709105131.140E81F00A3A@smtp.kernel.org>
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE2210F4D0
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:53:47 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-47c6e9a694bso917705f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 03:53:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783594425; x=1784199225; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=YPjUMqEmR24+93sJKKscz/hlX989oAE7Njr6XMslinI=;
+ b=F/D+BISYC0opOdwOrn0VsyBC+htEKevYBlYNrhcw2RhXYtzdDUj8Y0bvFZkqyo9qpN
+ FGDN6fDMsvTgcTDcWI5UFKGMmlYHLdkkPvQDqNM/cL/9iUljGX60xn/5js/Z8QmItvjH
+ XII5WVcSsKlCiUxjYiNZOM4ODKzJ43aiTIPTtaDO7twfqDunLhnxLK2ZcV9m/Jd/n4C+
+ XxDcBY+gPYxtj2NuBAiTOB4PUJOJqUDmL09ATl9W5CaQZG4Zp6NEKtMae1qRnXmWv/0e
+ vWtT+YIRhZbpgcFy//adO+L0rDZSld5O5rxWPzZzDY0uJWqOyf/DTsuRnvBLGgn2voyd
+ ds0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783594425; x=1784199225;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=YPjUMqEmR24+93sJKKscz/hlX989oAE7Njr6XMslinI=;
+ b=S4FrclUusWXAVpMQPP0CivEMX05C22S2gLXL0L/S6iXcRsK4g78a4F9oMdU6A9Dma+
+ ctpSEltLs2bUHaYpJGjl/xhjS+INTCsjLgyyJ0yeQZ3lGFmperqWoHJhA5fTjHfCci7N
+ Y06G1ZKbdf7ECJj68XPdyG3g3sqaXcEsVIFrU85CgKnF721d8XkeyuD1NuBL8Rr/mWOO
+ Vkqn4Q4pAHnSFmNFFTfFSi2gKtsPI0zkp0G2dkKx9af0XbdYKPydQh96MEZudjNFCf4D
+ 8wj7fjNl+biaVR8e/7U0r4uSAtYuP/Q4l3eRQYncEih02zeLLZQ7KnuKyrtYOrY4PKSn
+ J9vw==
+X-Gm-Message-State: AOJu0Ywhsv+WnbP8sTYbuFg4BNh+HhbijO+l2CL1Pi9Mo54LIXEct18h
+ XwH3S+8CoaC+0+zaNR6gird0Rx0ciDm6vDcnencTfm7d5pB99AU7UzcbuoioQQ==
+X-Gm-Gg: AfdE7ck+FR5HUaXsIzoq3zc2F3dDZaXxleDLZRh6zCLTqpDRUsp9uUn8pgihTKpJSV4
+ vwI4sgZjAYyPBXeJtT1zc3qbTI2JoorA7RJwHfT9OwYQz3ARFyFGAgG6g0UXhWZTyWt3+7rtJdu
+ 7IJUjbNbVlDUkryIiymAy7uctP7iNn4gXJ1Djd43rX+mV5HdSc9Vp9Kyv6d4qX0N6BMOcupf2ld
+ Lj4Stkudg5Q1H/gp/orp42hqo7LXCHFj7VJC4H9oQqe5xZsmnEbE2MbSWDIW35lkMcYRT4z12vU
+ iw1NTzBYvcNB/SXvfvI/id10YJocqKvVfWCBYNUvAhIxANXGf7BBYmlEJjGCxC/HJKcqNGHar0S
+ CyiIlOmXL/IMj7LOs1AdvZHS2kKWAzMCRtLSMNgjlLakAakLKLX/dERY82C+mb8GMWTFBkFTXQp
+ tM2If9kc3MEUiY6mgU9o/tKwk/4AxUCjHbo73PjoV9Nd+1oyRzFiB7
+X-Received: by 2002:a5d:5f51:0:b0:474:57f0:49f8 with SMTP id
+ ffacd0b85a97d-47df07a988fmr6552629f8f.4.1783594425382; 
+ Thu, 09 Jul 2026 03:53:45 -0700 (PDT)
+Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.233.1])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47a9de1d91bsm55275558f8f.4.2026.07.09.03.53.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jul 2026 03:53:45 -0700 (PDT)
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Date: Thu, 09 Jul 2026 12:53:24 +0200
+Subject: [PATCH] drm/solomon: remove unneeded variables in blit functions
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260709-fix-ssd130x-v1-1-1272cb3dc85e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAMAzAviI9W+h0OPQr4kHWqr2orCCC+HeLx
+ xCSB0yKisFQPVDkUtNjdwh1BXmb91VQ2RkaajpK1OOiN5pxaOlGTpxjH+aFUgQvziKu/9s4ve8
+ H95WCKF0AAAA=
+X-Change-ID: 20260709-fix-ssd130x-d7dc491af074
+To: Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Iker Pedrosa <ikerpedrosam@gmail.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,203 +90,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+Remove unneeded 'ret' variables in ssd130x_fb_blit_rect(),
+ssd132x_fb_blit_rect(), and ssd133x_fb_blit_rect() functions.
+These functions initialize ret to 0 and return it unchanged,
+so return 0 directly instead.
 
-New issues:
-- [High] PHY bias power is incorrectly forced ON instead of OFF during the =
-bridge atomic disable sequence.
-- [High] Zero-width reset pulse and failure to clear PHY reset state for th=
-e eDP 1.5 IP.
-- [Medium] Uninitialized calibration data is unconditionally flushed to PHY=
- registers when MT8196 uses the legacy PHY configuration.
+Fixes: 2258f03989af ("drm/solomon: Move calls to drm_gem_fb_end_cpu*()")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202606301409.I0ctsf41-lkp@intel.com/
+Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+---
+Fix unneeded variable warnings reported by kernel test robot in the Solomon
+SSD130x driver. Three blit functions were initializing 'ret' variables to 0,
+never modifying them, and then returning the unchanged value.
 
-Pre-existing issues:
-- [High] Double free / use-after-free of the PHY platform device on probe e=
-rror path.
-- [High] Use-after-free in debounce timer teardown due to failure to disabl=
-e threaded IRQ.
---
+The fix simplifies the code by returning 0 directly, addressing the static
+analysis warnings while maintaining the same functionality.
+---
+ drivers/gpu/drm/solomon/ssd130x.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
---- Patch [10]: [PATCH v3 10/11] drm/mediatek: mtk_dp: Add support for eDP1=
-.5 IPs and MT8196 SoC ---
-commit f310ca07bbff89c8e8b27b5c8d3a9c8cfc72e839
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC
+diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
+index 4907be694aec..0940eae7a2e4 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.c
++++ b/drivers/gpu/drm/solomon/ssd130x.c
+@@ -897,7 +897,6 @@ static int ssd130x_fb_blit_rect(struct drm_framebuffer *fb,
+ 	struct ssd130x_device *ssd130x = drm_to_ssd130x(fb->dev);
+ 	struct iosys_map dst;
+ 	unsigned int dst_pitch;
+-	int ret = 0;
+ 
+ 	/* Align y to display page boundaries */
+ 	rect->y1 = round_down(rect->y1, SSD130X_PAGE_HEIGHT);
+@@ -910,7 +909,7 @@ static int ssd130x_fb_blit_rect(struct drm_framebuffer *fb,
+ 
+ 	ssd130x_update_rect(ssd130x, rect, buf, data_array);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int ssd132x_fb_blit_rect(struct drm_framebuffer *fb,
+@@ -922,7 +921,6 @@ static int ssd132x_fb_blit_rect(struct drm_framebuffer *fb,
+ 	struct ssd130x_device *ssd130x = drm_to_ssd130x(fb->dev);
+ 	unsigned int dst_pitch;
+ 	struct iosys_map dst;
+-	int ret = 0;
+ 
+ 	/* Align x to display segment boundaries */
+ 	rect->x1 = round_down(rect->x1, SSD132X_SEGMENT_WIDTH);
+@@ -936,7 +934,7 @@ static int ssd132x_fb_blit_rect(struct drm_framebuffer *fb,
+ 
+ 	ssd132x_update_rect(ssd130x, rect, buf, data_array);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
+@@ -948,7 +946,6 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
+ 	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
+ 	unsigned int dst_pitch;
+ 	struct iosys_map dst;
+-	int ret = 0;
+ 
+ 	if (!fi)
+ 		return -EINVAL;
+@@ -960,7 +957,7 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
+ 
+ 	ssd133x_update_rect(ssd130x, rect, data_array, dst_pitch);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int ssd130x_primary_plane_atomic_check(struct drm_plane *plane,
 
-This commit adds support for MediaTek's Embedded DisplayPort (eDP) v1.5 IP,=
-=20
-found in the MT8196 SoC. It introduces conditional register writes based on=
-=20
-platform data booleans to handle SDP encoders, PSR support, and power state=
-=20
-forcing differences between IP revisions. It also partially prepares for DP=
-=20
-1.4 IP support on the same SoC.
+---
+base-commit: 671b7825dbfe9ea6e3ad3001003aeee0df48d1b5
+change-id: 20260709-fix-ssd130x-d7dc491af074
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index fb216811c80c7..868d918a0b161 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-[ ... ]
-> @@ -1210,24 +1315,87 @@ static void mtk_dp_initialize_aux_settings(struct=
- mtk_dp *mtk_dp)
-[ ... ]
-> +static void mtk_dp_encoder_reset(struct mtk_dp *mtk_dp)
-> +{
->  	/* dp tx encoder reset all sw */
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
->  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0,
->  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> =20
-> +	if (mtk_dp->data->hwip_v1p4) {
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004, 0,
-> +				   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> +		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-> +				   ENC_PHY_STATE_RESET_ALL_MASK,
-> +				   ENC_PHY_STATE_RESET_ALL_MASK);
-> +	}
-> +
->  	/* Wait for sw reset to complete */
->  	usleep_range(1000, 5000);
-> -	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
-> -			   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> +
-> +	if (!mtk_dp->data->hwip_v1p4)
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
-> +				   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> +}
+Best regards,
+-- 
+Iker Pedrosa <ikerpedrosam@gmail.com>
 
-[Severity: High]
-For the eDP 1.5 IP (hwip_v1p4), does asserting
-DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0 to 1 and immediately deasserting it to=
- 0
-create a zero-width pulse that the hardware might ignore?
-
-Furthermore, ENC_PHY_STATE_RESET_ALL_MASK is asserted but never explicitly
-cleared after the delay. Will this leave the PHY permanently in reset unless
-the register is self-clearing?
-
-[ ... ]
-> @@ -1359,8 +1550,10 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk=
-_dp,
->  		}
->  	};
-> =20
-> -	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE, DP_PWR_STATE_BANDGAP,
-> -			   DP_PWR_STATE_MASK);
-> +	/* Set power state requests only if power states are not forced */
-> +	if (!mtk_dp->data->force_pwr_states)
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE, DP_PWR_STATE_BANDGAP,
-> +				   DP_PWR_STATE_MASK);
-> =20
->  	ret =3D phy_configure(mtk_dp->phy, &phy_opts);
->  	if (ret)
-> @@ -1373,6 +1566,11 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk=
-_dp,
->  	if (mtk_dp->phy_dev)
->  		mtk_dp_set_calibration_data(mtk_dp);
-
-[Severity: Medium]
-If MT8196 is used with a device tree lacking the separate phys node, it will
-fall back to the legacy architecture and create mtk_dp->phy_dev.
-
-Since mt8196_edp_data does not provide an efuse_fmt,
-mtk_dp_get_calibration_data() is skipped, leaving the cal_data array zeroed.
-
-Later in mtk_dp_phy_configure(), the code unconditionally calls
-mtk_dp_set_calibration_data() if mtk_dp->phy_dev exists.
-
-Will this flush uninitialized or zeroed cal_data directly into the PHY
-registers and misconfigure the hardware?
-
-[ ... ]
-> @@ -2580,6 +2795,9 @@ static void mtk_dp_bridge_atomic_disable(struct drm=
-_bridge *bridge,
->  	/* SDP path reset sw*/
->  	mtk_dp_sdp_path_reset(mtk_dp);
-> =20
-> +	if (mtk_dp->data->force_pwr_states)
-> +		mtk_dp_encoder_force_bias_power_on(mtk_dp);
-> +
-
-[Severity: High]
-Is it intentional to force the PHY bias power ON during the bridge disable
-sequence?
-
-The disable path usually turns hardware off to save power (as done in
-mtk_dp_power_disable() which calls mtk_dp_encoder_force_bias_power_off()).
-
-Does this cause a power leak or keep the PHY in an incorrect state during
-teardown?
-
->  	/* Ensure the sink is muted */
->  	msleep(20);
->  }
-> @@ -2860,7 +3078,8 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_d=
-p)
->  				     "Failed to add phy unregister devm action");
-> =20
->  	/* PHY calibration data is in mtk_dp only for legacy devicetree */
-> -	mtk_dp_get_calibration_data(mtk_dp);
-> +	if (mtk_dp->data->efuse_fmt)
-> +		mtk_dp_get_calibration_data(mtk_dp);
-> =20
->  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
->  	if (IS_ERR(mtk_dp->phy)) {
->  		platform_device_unregister(mtk_dp->phy_dev);
->  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy), "Failed to get phy\n");
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but if devm_phy_get() fails here, the explicit
-error handling path calls platform_device_unregister(mtk_dp->phy_dev) before
-returning.
-
-Since mtk_dp_unregister_pdevs was registered as a devm action just prior to
-this, returning an error will trigger the devres core to unwind the stack a=
-nd
-call platform_device_unregister() a second time on the same device pointer.
-
-Can this cause a double-free or use-after-free crash?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there is a pre-existing issu=
-e in
-mtk_dp_remove() regarding the debounce timer teardown.
-
-The HPD interrupt is registered during probe using devm_request_threaded_ir=
-q(),
-meaning its lifetime spans until after mtk_dp_remove() returns.
-
-Inside mtk_dp_remove(), the code calls timer_delete_sync(&mtk_dp->debounce_=
-timer)
-but does not disable the IRQ:
-
-static void mtk_dp_remove(struct platform_device *pdev)
-{
-    ...
-    if (mtk_dp->data->bridge_type !=3D DRM_MODE_CONNECTOR_eDP)
-        timer_delete_sync(&mtk_dp->debounce_timer);
-    ...
-}
-
-Because the IRQ is still active, an incoming hardware interrupt can immedia=
-tely
-fire the mtk_dp_hpd_event_thread() handler, which can re-arm the timer using
-mod_timer(). Once the mtk_dp object is subsequently freed by devres, the ti=
-mer
-expires and accesses freed memory.
-
-Could this lead to a use-after-free on driver unbind?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
-6-1-angelogioacchino.delregno@collabora.com?part=3D10
