@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64182C44506
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D1C4C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:51:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDDA910F539;
-	Thu,  9 Jul 2026 11:51:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ABA610F534;
+	Thu,  9 Jul 2026 11:51:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VY3Dj1Kv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a3sK2KwZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6892510F528
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C364410F538
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:51:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 516284198E;
- Thu,  9 Jul 2026 11:51:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B166E1F000E9;
- Thu,  9 Jul 2026 11:51:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AD3E840BCD;
+ Thu,  9 Jul 2026 11:51:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1925A1F000E9;
+ Thu,  9 Jul 2026 11:51:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597889;
- bh=HVOISFIHKcSxCLkKXr+XypxP9WY75s9BRu9GrKPdkxU=;
+ s=k20260515; t=1783597898;
+ bh=OJwMvOUGtwgovdwomCwQ30/TL4TyzFF1n1WdaWBRUGM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=VY3Dj1Kv1e1GooN4R6QcJ7nRpVf8P5CzxMCZRa9VvJD1t85gGVrLsjxmhHgvmTqRa
- VMDsz+NK1fO9BEtwteNVVmwMhLKiBX2vmLtFknlvvrrM28Uy/GKNTWe/HMJABLHyow
- /6qkML6Ym1cjPKJL8wPxIMOtJBQiWZNv29JTp6Rc3DKuHH3fDtAgfVgqWAU5iaWA7i
- BwRUGDcSSy6uXtxPQIbrzhPerLom/gv6lz4AtIu+t7AKxT4ojHX9i1Cqy+Pd7jr8ru
- 6YouNxIbAgzzVs+UCIBYgAmCNCPxmkP3Rdfx4bIO8zuoe8QkPm7lJlF5XGq5jySAce
- Jcb6anckfAolg==
+ b=a3sK2KwZvdxQRB5g+BHQf+hVwex031uQt+NyQs8y0M8MN0pzjARZsqF0Jja5Uat0h
+ d7HuUyDW9L098Rs/joedlG7Xi6i791/Jc+mzUo4chWj7w2Mrm4HvOmlo6ca7SC6DmK
+ k4wbniqKWc4N1jWRIvTtiU+5S8vwdtBp12W1+orF7ZsBbpxZuftvOVKspX4xNtpika
+ V/E1B6KRkyrUEGyV7wZ2T56XWiKNbbO6MwVy5P6D4ctLM8GX0cY+pHnlAsH8B2tWw9
+ FWtvlSQxwdiWKB66KxHV0udLWqrYQ/5wBovkTbdgQ+S5LcG38k7Lcc4JHAEe4nOsRV
+ YMMGSNV63TIAg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:50:37 +0200
-Subject: [PATCH 11/60] drm/vkms: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:50:41 +0200
+Subject: [PATCH 15/60] drm/fsl-dcu: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-11-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-15-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- hamohammed.sa@gmail.com, louis.chauvet@bootlin.com, melissa.srw@gmail.com
+ alison.wang@nxp.com, stefan@agner.ch
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6696; i=mripard@kernel.org;
- h=from:subject:message-id; bh=xrmnmuy72P577Zk/u+84Hpt0TkLNnQoCizQKDfRq/Cc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3Xxmezripmyf4F+s9OWayYr1btzTWTZMsz2gFK3cu
- vLFjR1vO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEAm4z1ufL77/Z45fEPe1X
- t12x3yGbGsfSZjnj3OP17cek5WqzIxtk9WqTWSayLXsrZ1wXEtbI2PDb6HezbMy0M4GXbaODZ74
- W9PnU7/l7y/uspLf7MxWCm0/ZSp7RkvgZdGZRmvTvSNczKwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6027; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=o8BXx/TditdxDZ11aYa9dFY6zFQ0sCDu8XXzvfo/8Yg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3fzG3R2ain/O7i3cm2hiusRCKyL4/s+f/WvO3y137
+ V0t9TuyYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEykVpmxYY3kBoG6GfM66y9d
+ trT494U5j9O26ezZZvu727oFjy7adun/9gvCrKfyLd3lDnzT+H1nAWPDCqW8fGtdTw5fSfmaCpv
+ UueveX9A+8+4My7Lt2vX7FNeHxiQqb/v2+9uULetf3tj+s7wbAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,9 +68,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The plane reset implementation creates a custom state subclass, but
-only initializes a pristine state without resetting any hardware. This
-is equivalent to what atomic_create_state expects. Convert to it.
+The plane only initializes a pristine state in its reset hook
+using drm_atomic_helper_plane_reset(), which is equivalent to what
+atomic_create_state expects. Convert to it.
 
 The conversion was done using the following Coccinelle semantic patch:
 
@@ -334,56 +334,29 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: hamohammed.sa@gmail.com
-Cc: louis.chauvet@bootlin.com
-Cc: melissa.srw@gmail.com
+Cc: alison.wang@nxp.com
+Cc: stefan@agner.ch
 ---
- drivers/gpu/drm/vkms/vkms_plane.c | 15 ++++++---------
- 1 file changed, 6 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index 68cb2a3335e6..62e0e340c3ab 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -93,32 +93,29 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- 
- 	__drm_gem_destroy_shadow_plane_state(&vkms_state->base);
- 	kfree(vkms_state);
- }
- 
--static void vkms_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
- 	struct vkms_plane_state *vkms_state;
- 
--	if (plane->state) {
--		vkms_plane_destroy_state(plane, plane->state);
--		plane->state = NULL; /* must be set to NULL here */
--	}
--
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state) {
- 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
- 
--	__drm_gem_reset_shadow_plane(plane, &vkms_state->base);
-+	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
-+
-+	return &(&vkms_state->base)->base;
- }
- 
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.reset			= vkms_plane_reset,
-+	.atomic_create_state = vkms_plane_create_state,
- 	.atomic_duplicate_state = vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
+diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c
+index b34f880c1e09..92794b337512 100644
+--- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c
++++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c
+@@ -175,11 +175,11 @@ static const struct drm_plane_helper_funcs fsl_dcu_drm_plane_helper_funcs = {
+ static const struct drm_plane_funcs fsl_dcu_drm_plane_funcs = {
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.destroy = drm_plane_helper_destroy,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.reset = drm_atomic_helper_plane_reset,
++	.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 	.update_plane = drm_atomic_helper_update_plane,
  };
  
- static void vkms_plane_atomic_update(struct drm_plane *plane,
+ static const u32 fsl_dcu_drm_plane_formats[] = {
+ 	DRM_FORMAT_RGB565,
 
 -- 
 2.54.0
