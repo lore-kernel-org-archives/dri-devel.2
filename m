@@ -4,66 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A292C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 19:25:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DBF7C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 19:26:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70A9710E0CF;
-	Thu,  9 Jul 2026 19:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8934F10E0F0;
+	Thu,  9 Jul 2026 19:26:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NDtsAi6S";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="fxrIC1xq";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="fo0u8uwX";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 368A210E0CF
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 19:25:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783625155;
- bh=379VPeZ7FJzRIPM44QI1fIbrI6BdI/1sSIoGX7SU7uo=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=NDtsAi6SFCzsfusBVFEaLQNXauQq2QA860cF7SdgYg6CQFvJCjh3Pb61sHTlHGAk+
- iUQ9COCxg0dEhW22QH8SfKyNEMq297wq2UoqbXgOB4ZO0TY8adghP2LEzM3xBunKzr
- Z7QWy1FosslOf5ZOClGxaNhftc4hnlP8unMaT3uy7/+BC68Ro6ES8YnEkPuPogyRX8
- bFqq0uByFNvoOdISf2mmFTEKDnCMXU7NT4lKXHN/bEUQy2CcTqeeHiz3NzxXw2T2/l
- nXUOYUlnvj3IpQYUemYOeE3vdu+QLHC2VEK2hRE6juQMwMFc3NfQmy94jsV04f2cZK
- xi6Yb5JjA4qVQ==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id ADB5F17E0177;
- Thu, 09 Jul 2026 21:25:54 +0200 (CEST)
-Message-ID: <534b921c-638c-4fc3-b89e-5dfc1f269f96@collabora.com>
-Date: Thu, 9 Jul 2026 22:25:54 +0300
+Received: from fhigh-a7-smtp.messagingengine.com
+ (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCDF10E0F0
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 19:26:06 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 4E7D214001BD;
+ Thu,  9 Jul 2026 15:26:05 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Thu, 09 Jul 2026 15:26:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1783625165;
+ x=1783711565; bh=I9rPXmDJECuT3ucAFK0IBkM4yWwM7Zo/Km35xBzf+0U=; b=
+ fxrIC1xqtyoqjQZDTd9Tvy7V9IjaUA3Xj3LBIx4hkYVL2ZHeh4xhyHIqYiczRFuJ
+ j4xcsYH+Q8Lx6Stb67/TmdChuNrQ/OWcsQkExF0cZBdmgJOcu7oMEj6tC9tBy8E7
+ qpt3nQ3vTJCSRm913JjRVQmxz4ifR5WzwL1uytC6lbWLcB/WYtR9D32djqZw4JiS
+ T3tp8bft46I4H12B3J25wziEoQNj9ooESOe0bfWwqLQR5/wCBEmOytaRXIg3xk/m
+ 4BwrYzMNHEixkfz8U7vZFMZGucq3OrcEMjDcikjFqmUJ1x+xLaHjUvgMJaW9Jo12
+ 5sd/Hq1Uep7eEaLbqeEQOg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1783625165; x=
+ 1783711565; bh=I9rPXmDJECuT3ucAFK0IBkM4yWwM7Zo/Km35xBzf+0U=; b=f
+ o0u8uwXilBzSH8cZeu1sQST+IBGKX/jiQYeEjHSyub1h1VvjTk5y2pruyB3ddQd/
+ axac1nCW71UuDKAGIssjDAmqVqbea/SMEksnII3za5aNBu89nlLjjy6AZD15kMzu
+ rzaCCbhfzT2GOVz32/LWR9JQv1cj4HX2zVlZmm+dCt/xuHdSjv11T+pWqo0Qf+Hx
+ ydRsaYCZpYvRx8eu0BYQnncTye8shfqZJXOAe8wckIRgUTO0MAAwspefOhV/OnuY
+ 9WcGUgYPLEs2Y1AZh6Wn5IBW/aSoI/1nFvjhFKh6JoBFnba1KLbhpP7m7BmAXxkl
+ Vyx/Z60MyoIkPkOTXCytw==
+X-ME-Sender: <xms:zPVPajHsvUEJWbQcU7Px2gDFeA8qoiNVrSC--6MWMiLavEWnKheo6w>
+ <xme:zPVPamsVqC3Yaj7KjCST76hUp6LhY2sy-4MeeDK_qV97q3L16IMdHwMbvaQiqn7hq
+ clRs_zlBgBTpSvL2VeGiYLSnhxK2s8o9uyg9ssWy2y0Dfv7fFJoEQ>
+X-ME-Received: <xmr:zPVPahZiY3mVU-PO-Zhn6L5tWelN7ciU5txUULlAABCnC8WsYNZVDWJwa78>
+X-ME-Proxy-Cause: dmFkZTE3N/VYUlCu+B/e+pNSYGOlK/ujHCY3wsoqBKl+7XqYvD9oq198P9rrmOx5R7DDOd
+ MgfX89m2DFOBXWuKmWTBm51sfp+Y+PFQ/mgKGd1L0i00oT86alC24ZEaKhq2LthuUBqatM
+ uV+xJpjA1vnjr1qImP77lzYxbXx7DZG1Iyv5GuLD/D3NC507byJOFzvPzhwIi7zKeiho6P
+ MHpelfRZi7iUgve4883YfxghCAzl8ZPE4tix0xLYOUAavbvS5sB/MMt3lPaD//cakO5/j0
+ eOm92iJ5bfCbrOsCHmBT9CYbBKXn6lXeTmDElUr4zSqsapmcIY+Se3wEGScsRix437e/F4
+ ZlLwDvpNpriuCsFQCmhPdxWxG1RHqRbC59VtrZL3RqsHPCPT+o0MGOlyA/oNlzovMIfgX/
+ IcpJHDhynCMsY+Nu4TaUd4Fza3x8fU3aCom3SvzPVfd7RjK+T2Ktn7BU5RNK9FaXSrV6Fj
+ k3cBjHU+fplJRuigW6sZukwT1NLNQuAdK4fFKvePDdv2AREMK5ATyuvpI2+oNftfcLkO+9
+ Os9pXgslQAE3aQIhX4YVsmigzqFA9ZVIAjGyjddJdefixSm5+MHhqKHKwwhbL+71w6Zooe
+ TjQMLezuDg3shi71YmxzF/ghMtiQ3C64q9viTnZPAvtgwf4ZSTzK/R1tAqwA
+X-ME-Proxy: <xmx:zPVPau4mJt-jTh9C8PZz0cuiBF3cfqfgnrxfGwcZ4sXuLLPnh9-Ilw>
+ <xmx:zPVPah9yiipmrsKK4l1ISLPwbdEx62F5SQKifJ48k2n9cQt5Yu4AHw>
+ <xmx:zPVPaia9uKMSkJLB8VGKOEAv0vPqxY5qYB_VQZ5PIK7CAGpu93hYrg>
+ <xmx:zPVPai6QjnzqZ5vs4UWhz3qcs3gUUIHSYQa-AGL0C6pC2Qjo0RYpHQ>
+ <xmx:zfVPanhbtxmh4S49JyjeFa_9ks2Wiq7dwwHJ5fpmmQEhY3vSOf_6s0bk>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 9 Jul 2026 15:26:03 -0400 (EDT)
+Date: Thu, 9 Jul 2026 13:26:02 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Michael Guralnik <michaelgur@nvidia.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, <kvm@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, alex@shazbot.org
+Subject: Re: [PATCH v11 0/4] vfio/dma-buf: add TPH support for peer-to-peer
+ access
+Message-ID: <20260709132602.6a3fb084@shazbot.org>
+In-Reply-To: <20260702181025.2694961-1-zhipingz@meta.com>
+References: <20260702181025.2694961-1-zhipingz@meta.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/39] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260702-dw-hdmi-qp-scramb-v8-0-d79890d00b6a@collabora.com>
- <20260702-dw-hdmi-qp-scramb-v8-4-d79890d00b6a@collabora.com>
- <tjsidlnvswo2rdhqa6jybxrnb47lxgmxdlfrfbasuh67wjbqoy@3a45n3zawvnf>
- <17753a1c-824a-4835-ac2d-8b2796bba1eb@collabora.com>
-Content-Language: en-US
-In-Reply-To: <17753a1c-824a-4835-ac2d-8b2796bba1eb@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,38 +101,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/3/26 11:54 PM, Cristian Ciocaltea wrote:
-> On 7/3/26 5:34 PM, Dmitry Baryshkov wrote:
->> On Thu, Jul 02, 2026 at 05:46:17PM +0300, Cristian Ciocaltea wrote:
->>> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
->>>
->>> - A scrambler_supported flag to indicate whether the source supports the
->>>   scrambling capability, in which case the newly introduced
->>>   .scrambler_{enable|disable}() callbacks in drm_connector_hdmi_funcs
->>>   are mandatory
->>
->> Do we need a flag? What would it mean if the flag is set, but the
->> callbacks are not? Can we drop the flag and use the presence of the
->> callbacks as a way to identify that scrambler is enabled?
-> 
-> The flag is intended to be set only within drmm_connector_hdmi_init_with_caps()
-> when drivers advertise HDMI 2.x capability, in which case it also ensures the
-> callbacks are provided.  
-> 
-> We could drop the flag and instead have the init helper clear the callbacks if
-> they were provided for HDMI 1.x.  This might slightly reduce code readability,
-> as it relies on checking the presence of individual callbacks - especially since
-> we plan to extend this further with HDMI 2.1 support, providing four or five
-> additional FRL-specific callbacks.
+On Thu, 2 Jul 2026 11:10:13 -0700
+Zhiping Zhang <zhipingz@meta.com> wrote:
+=20
+> Changes since v10:
+>   Patch 2 (dma-buf): Per Christian K=C3=B6nig, document that the ST/PH
+>   returned by dma_buf_get_pci_tph() is only valid until the exporter
+>   invalidates the current mapping and must be re-queried afterwards;
+>   note added to the wrapper kernel-doc and referenced from the callback
+>   kernel-doc. Also add dma_buf_get_pci_tph() and dma_buf_ops.get_pci_tph()
+>   to the central dma-buf locking convention.
+>=20
+>   Patch 3 (vfio/pci): Per Alex Williamson, update the vfio_pci_dma_buf
+>   comment to note that @revoked is additionally protected by memory_lock,
+>   and describe the READ_ONCE() rationale in the commit log. No behavior
+>   change.
 
-I tried to replace the flag with a helper that checks the presence of (one of)
-the callbacks, but it's not straightforward to unset those for non-HDMI 2.x
-cases since the hdmi_funcs argument is immutable.
+Sashiko has valid comments[1] across most of the series.
 
-Also, rejecting that use case is less than ideal, since we would restrict
-reusing the struct instance, e.g. to support HW revisions with varying
-scrambling capabilities.
+ - Passing through 0b10 seems mis-categorized as High in patch 1, but
+   is valid hardening if tph_req_type can ever hold an invalid value.
 
-Therefore, I'd keep the flag for now.
+ - The documentation error in patch 2 is real.
 
-Cristian
+ - Patch 4 ironically fails to re-validate according to the lifecycle
+   requirements that patch 2 specifies.  This is a significant gap in
+   the implementation proof for a real requester.
+
+ - The broadened scope of the existing memory leak in patch 4 is
+   already addressed in [2], ok.  Maybe should be folded into this
+   series if mlx5 isn't going to pick it up separately.
+
+Thanks,
+Alex
+
+[1]https://sashiko.dev/#/patchset/20260702181025.2694961-1-zhipingz@meta.com
+[2]https://lore.kernel.org/linux-rdma/20260612170406.3339093-1-zhipingz@met=
+a.com
