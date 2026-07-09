@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3B6FC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:32:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02714C44507
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:32:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54A2A10F4EE;
-	Thu,  9 Jul 2026 11:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D56310E6D5;
+	Thu,  9 Jul 2026 11:32:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Kge+cX3K";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YzwRWpwx";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A20F10E6D5
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:31:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8A310E6D5
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783596715;
- bh=kHVv2nCdsp0f/QR38D6tcCGOazDnOTOs2KSvBo2SWnI=;
+ s=mail; t=1783596719;
+ bh=+4IxEI1iwggfoTrsvZ7tlp4NbQe+d8nHT1G1ctZjbs8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Kge+cX3K0fTqaizyZ10tzOTGOX2YxImO0ZSJIx68xqEqh/2SG+1stjsJa3vEQpARR
- PLT6NUWfZsO8N6hLABBrNySbtNidt+hNpr+sFS8mT+IAaOGGBG466qcQPm5PBBNPKE
- 1SSJn0Jq/muV1Y9G2XLC7DGeSAwk2CaWAf/AR0r6mcpKja0mgzd8Z94RkS2r14aXES
- /v5ZmmoCsNmVycc8Il1CLrSmm/0T2XEJOA3GJuBD9LNgqi1X5UO2Nh7de43UqaAm1r
- 4iU6eki0VgeVR/jrnLb35PMug9/hUJfXDt4Kr5UKlM9dhpAP+tOVH+qdRG5RPajh21
- nG2+SOhrVMykg==
+ b=YzwRWpwxiLgAsdqpQa6L5OnLYFvCpGYwUGvUJ8bwbMfXlmVVjE0QVknqu3ecceOYE
+ 6v0JVleXa2OJrWjfVXFvY8bIDkNcOiJ3haTneB6pC8xF3LkdOm0RUI3KAGzDl+j6ll
+ g+F6+G8uvt9oLWp3R/h/0J6gSZALFclvWyzTFEZG4qu9jxtdqJz3EmyH0yHdLA1GOu
+ DzLGr+55xxu13VVMwMx6cVUwZf7PcUuYB2PJv8012uZbDZHeIMLrpE6iorFzUM5G6/
+ uie20jdQAt/5IMB/cnfAjPJUqVNcsjYC7QkiZRL0kLfsF5VXpityCxYT4yL8Xpyoc5
+ r0UXKLGM1Dy7Q==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 08DD317E0D33;
- Thu, 09 Jul 2026 13:31:55 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4174417E0DFB;
+ Thu, 09 Jul 2026 13:31:58 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -44,10 +44,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, kernel@collabora.com
-Subject: [PATCH v4 02/12] dt-bindings: display: mediatek: dp: Add compatible
- for MT8196 eDP
-Date: Thu,  9 Jul 2026 13:31:38 +0200
-Message-ID: <20260709113148.49090-3-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v4 05/12] drm/mediatek: mtk_dp: Clarify SMC eDP/DP video
+ unmute commands
+Date: Thu,  9 Jul 2026 13:31:41 +0200
+Message-ID: <20260709113148.49090-6-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
 References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
@@ -68,28 +68,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new compatible for the Embedded DisplayPort IP found in the
-MT8196 SoC.
+The eDP/DP video unmute commands are not expressed as bits:
+instead, in the firmware, those are defined as incremental
+unsigned integer numbers: use the correct representation of
+those to improve readability.
 
-This IP is compatible with the previous ones, but not fully.
+This commit brings no functional changes.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dp.yaml        | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/mediatek/mtk_dp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-index 980f76667ada..3a752a99949a 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-@@ -25,6 +25,7 @@ properties:
-       - mediatek,mt8188-edp-tx
-       - mediatek,mt8195-dp-tx
-       - mediatek,mt8195-edp-tx
-+      - mediatek,mt8196-edp-tx
+diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+index 8399a6b41168..b50264ca1f31 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dp.c
++++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+@@ -36,8 +36,8 @@
+ #include "mtk_dp_reg.h"
  
-   reg:
-     maxItems: 1
+ #define MTK_DP_SIP_CONTROL_AARCH32	MTK_SIP_SMC_CMD(0x523)
+-#define MTK_DP_SIP_ATF_EDP_VIDEO_UNMUTE	(BIT(0) | BIT(5))
+-#define MTK_DP_SIP_ATF_VIDEO_UNMUTE	BIT(5)
++#define MTK_DP_SIP_ATF_EDP_VIDEO_UNMUTE	33
++#define MTK_DP_SIP_ATF_VIDEO_UNMUTE	32
+ 
+ #define MTK_DP_THREAD_CABLE_STATE_CHG	BIT(0)
+ #define MTK_DP_THREAD_HPD_EVENT		BIT(1)
 -- 
 2.54.0
 
