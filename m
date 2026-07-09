@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4BDAC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BB74C44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B551810F543;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBAE910F544;
 	Thu,  9 Jul 2026 11:52:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jCVEqU5I";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SuR7BH4C";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC6510F53E
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 491A910F53D
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 87192600C3;
- Thu,  9 Jul 2026 11:52:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5F61F000E9;
- Thu,  9 Jul 2026 11:52:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 11E66400EA;
+ Thu,  9 Jul 2026 11:52:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7189E1F000E9;
+ Thu,  9 Jul 2026 11:52:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597925;
- bh=2Bac6YP/Tn2l1RqpMGKer/Pd7u0To7oOXNa+A6+PUH4=;
+ s=k20260515; t=1783597930;
+ bh=wgkE/l6ArYBMpWq5kzdXo+5VscaF4mVB+tpyWH39xsQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jCVEqU5IEHZ8KqLaB/dYdXYVIwjZ9gbTw7f2VpzMk6bu/Tz0pPBPwqhiH+IbJOgSP
- eNJuYqx0YC0Ut+U9LTAhlqNMgfd0XDe2wrZuwXtf/TjbTPoI9uqmF0lAK9D6P8NrCh
- 7caRcZAZLNkq/urehcfDszPst/C9t92jmcgZpRII+vqW4wGA9exQiT0kV7sWVc1rDm
- vZL28JMeKAOyGD9BhacxgisJpCiGqjel0ro8ljCmQxd2C+ryFYxDFdJ3ACA8dpikTk
- D244mk2NXDm+IOx9vG63yPJ725wzy31tgPKLPs3Jq4nK4TAHgQcE1Ihm1sNvi9RkO0
- R3jDHCmZJnpTg==
+ b=SuR7BH4CG0o05Qg6Cst8MCbxBCbrBZMIz5vDBwRPPZX0hAsR5NXRH0a+8R2dKz4FC
+ yIzRlmxbLuexkoRKgmkYLBIKUtok1A7v9r9mM6wjDh0uSNWh0bG6J+qGV5vUbp+rU4
+ FHN9mc/Q7dPmZrI83qXukPpHO3NsMn97HgzE8t7s1GPeZeWrbmk18AgpnKeBNzQ3Cf
+ s1uFXbyCH9qc2H8v8QtCAKs93l/Q++OZXblZIEVd4VD0HGtPL58T4hrON6PDU2nIGH
+ XBU9SZdkh4CnLxDqHG7fIPRAlcGNHHu8P5T44l8nMoYE8M+/DdVJ3Gz1AHq5FQQavI
+ u4MnV1jKXJMdA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:50:52 +0200
-Subject: [PATCH 26/60] drm/mxsfb: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:50:54 +0200
+Subject: [PATCH 28/60] drm/rockchip: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-26-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-28-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Frank.Li@nxp.com, Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, 
- imx@lists.linux.dev, kernel@pengutronix.de, marex@denx.de, stefan@agner.ch
+ andy.yan@rock-chips.com, heiko@sntech.de, hjc@rock-chips.com, 
+ linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6146; i=mripard@kernel.org;
- h=from:subject:message-id; bh=IzvcJHqz1q+E+HZDPM3YeISgOIXKaHemBkNkw83NkGs=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3SKvCo5LTdzz4FX4Gu0NMQcWd8z5zLCjgY0lKNeYu
- /k6e/P2jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjAR88mMDVP+eEm/nG2x82zX
- KTtdV7cj804+fGjjI5UeURH8jaHcmvPoHbUJtfl2+zNm+9jlruTTYWzY+u1a+TKjOeF7GDYy5d7
- Oupz+5sV/02DVXfJ2zUI2c9iPV3wwD3I66SzLI1fe7RjaYAwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6962; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=1EhBaT9So9TzKoDzZmW88kIbE0VF/wzLpFZnZ+WjxPs=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3aIb/9Y9WZfcJPrEZhdTXY5abMY0jRXRboW53nXFc
+ Z9CA/53TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIksdGass9juv3zzvw6HmdNZ
+ Jun0FsU4caqdbHdiO9x+41qR3oUjx/ieLxUu/SV9oTSN49nk9wxvGevdhbJ15obe9VjqpeYeEHt
+ 674lZ1c0LNpz6eFLm/2NeXUc3J0PRT2cPyQWv/a29sPDPRlYA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -335,34 +335,49 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Frank.Li@nxp.com
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: festevam@gmail.com
-Cc: imx@lists.linux.dev
-Cc: kernel@pengutronix.de
-Cc: marex@denx.de
-Cc: stefan@agner.ch
+Cc: andy.yan@rock-chips.com
+Cc: heiko@sntech.de
+Cc: hjc@rock-chips.com
+Cc: linux-rockchip@lists.infradead.org
 ---
- drivers/gpu/drm/mxsfb/mxsfb_kms.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c  | 2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-index d8ebebc5314b..a2e86b82ab11 100644
---- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-+++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-@@ -641,11 +641,11 @@ static const struct drm_plane_helper_funcs mxsfb_plane_overlay_helper_funcs = {
- static const struct drm_plane_funcs mxsfb_plane_funcs = {
- 	.format_mod_supported	= mxsfb_format_mod_supported,
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
- 	.destroy		= drm_plane_cleanup,
--	.reset			= drm_atomic_helper_plane_reset,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+index 0090d8ff0c79..79fd875f6953 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+@@ -1155,11 +1155,11 @@ static const struct drm_plane_helper_funcs plane_helper_funcs = {
+ 
+ static const struct drm_plane_funcs vop_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy = drm_plane_cleanup,
+-	.reset = drm_atomic_helper_plane_reset,
 +	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.format_mod_supported = rockchip_mod_supported,
  };
  
- static const uint32_t mxsfb_primary_plane_formats[] = {
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 4cce3e336f5b..42853689d6e7 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1495,11 +1495,11 @@ static const struct drm_plane_helper_funcs vop2_plane_helper_funcs = {
+ 
+ static const struct drm_plane_funcs vop2_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+ 	.destroy = drm_plane_cleanup,
+-	.reset = drm_atomic_helper_plane_reset,
++	.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+ 	.format_mod_supported = rockchip_vop2_mod_supported,
+ };
+ 
 
 -- 
 2.54.0
