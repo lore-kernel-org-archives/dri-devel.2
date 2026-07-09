@@ -4,60 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28C85C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 15:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0085C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 15:59:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 966B510E691;
-	Thu,  9 Jul 2026 15:24:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B34F10F0B2;
+	Thu,  9 Jul 2026 15:59:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JAzIDcth";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RC+SN67W";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C22E10E691
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 15:24:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783610696;
- bh=YXXylOnILki7PqXjIitCY3O7UdJ30nKkpCj3vSTRIZw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=JAzIDcth73AXGzKTQcQ4VGyQXi5EIt/w19pNtV+kfFLrQltpfjTMj+iq0z5Zh0uvw
- jSpDuwAGSLRFPGJbu6yiDgY/XDP9Vh21Tfa1FT+asjeklzX4DYMCILUEEwckOS1BrT
- GnMPWeODfOn1EAhSiS7jWjQV1U3vFaRHu7W4r6hfusUvd4dGcryP7C++5r02SJzQK2
- eSW2BtrA8ZI3h+RztN2tqvqwSQMLDb1YkoLGF8QKbzZOEyufITFzZr3WqedwxEFLpe
- Cb13i6fpwNfhuplbTt0JttGio+yF1iTc2ONOzrXBpVKMHY1A1LCySa5TAeUpoL//bb
- au+fLYho9Nwcg==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4012517E0886;
- Thu, 09 Jul 2026 17:24:56 +0200 (CEST)
-Date: Thu, 9 Jul 2026 17:24:52 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Danilo
- Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
-Subject: Re: [RFC 2/8] drm/panthor: Use separate workqueue for DRM scheduler
-Message-ID: <20260709172452.486e845f@fedora-2.home>
-In-Reply-To: <ffc05a67-66ff-4e0a-98f3-a9e4e87af6b0@igalia.com>
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
- <20260702173127.3103af30@fedora-2.home>
- <8aa9ffad-ece3-428b-b307-1d5f4136db73@igalia.com>
- <20260706161812.07ee7500@fedora-2.home>
- <bd262d12-65d0-4c59-a314-b42b540acd99@igalia.com>
- <20260709084520.16d32cb7@fedora-2.home>
- <8e079d0b-427f-42cd-8013-7b8af005cd6d@igalia.com>
- <20260709141957.7f7664d0@fedora-2.home>
- <ffc05a67-66ff-4e0a-98f3-a9e4e87af6b0@igalia.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C54F110F0B2
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 15:59:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 53ED943220;
+ Thu,  9 Jul 2026 15:59:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7221E1F000E9;
+ Thu,  9 Jul 2026 15:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783612756;
+ bh=aJbh9LElbrEI7E/P7mvmoKpzdOlw1yDQ59JtSNULaUQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=RC+SN67Wo1bRPHmk2A3aRNqpRIZs1vt054/wDbMqrDQX+h2TC1c2qOU/P+vZpdlhO
+ AGbczQTeBS/xYxBRav4immcCdk9NfNEvFoxtcbuJpR+9S08i4HqzmmxUf2mXM8hMj7
+ lXpkqf096CaOPzHCghkHjTNtD6G/fOZ8q4jHCFjUFlLP5HaCXiv4HJYAS5IZqtiACw
+ SFUrZULwFBv+H+0ToU32sDdtnyqRsHAorRSMSNXr8y2FRWFng0qncigrrOJt/3zqzq
+ 3H/Ma20+f66D8Hr1nfijRAegJrkTFT+SYpIfq6Gx4gdnn9Z3ulZD77FcSZxNF6fYJs
+ u62hwfrMdO64Q==
+Date: Thu, 9 Jul 2026 17:59:13 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+Message-ID: <ak_E4UxfnFJywJa7@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+ <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
+ <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
+ <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="j2boipej3wyu4mib"
+Content-Disposition: inline
+In-Reply-To: <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,42 +92,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 9 Jul 2026 15:33:01 +0100
-Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
 
-> >> But in principle I am fine with going with N workers. It's just a matter
-> >> of what is N derived from and how big it is. It could be even be passed
-> >> to alloc_workqueue in the today's code base but I accept there is not
-> >> much value to that since I don't think there are SoC's with a Mali GPU
-> >> and server level number of CPU cores.  
-> > 
-> > I think we can start with one ordered-wq per prio level. So basically
-> > what you intended to do in this patch, but instead of having a single
-> > ordered-wq, we have four of them (one per prio). It doesn't address the
-> > fact run_job() on non-resident groups might hit their ringbuf before
-> > resident ones, but that's probably good enough as a first step, and as
-> > you pointed out, the current locking forces this serialization with no
-> > more guarantee regarding who's going to be served first anyway, so it
-> > can't be worse than it already is.  
-> 
-> Lets for a moment assume the kthread_worker idea will not fly due to xe, 
-> or any other reason really. Also since the option for RT workqueues is 
-> unexpectedly on the table. In that case, and assuming RT workqueues will 
-> happen, could a feasible plan for panthor be to create three workqueues:
-> 
->   1. One unbound with max_active = 2 for low and medium group priority.
->   2. Another unbound + WQ_HIGHPRI, also with max_active = 2 for high.
->   3. And one unbound + WQ_REALTIME, again max_active = 2 for realtime.
-> 
-> For high and realtime max_active either 2 or 1 on dual core, if there 
-> are such SoCs. Two threads ensure same priority clients are able to keep 
-> the GPU fed.
-> 
-> One issue is that you mentioned you would like dynamic priority changes 
-> and with this it may be tricky. But ignoring that for the moment, and 
-> the discussion on how to handle other panthor workers which take part in 
-> the execution flow post submit, this should pretty much address the 
-> submit latency from userspace to ->run_job(). What do you think, is it 
-> worth entertaining this alternative?
+--j2boipej3wyu4mib
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+MIME-Version: 1.0
 
-I think that would do, yes.
+On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
+> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
+> > On 7/7/26 12:02, Marek Szyprowski wrote:
+> >> On 01.07.2026 18:08, Thierry Reding wrote:
+> >>> From: Thierry Reding <treding@nvidia.com>
+> >>>
+> >>> There is no technical reason why there should be a limited number of =
+CMA
+> >>> regions, so extract some code into helpers and use them to create ext=
+ra
+> >>> functions (cma_create() and cma_free()) that allow creating and freei=
+ng,
+> >>> respectively, CMA regions dynamically at runtime.
+> >>
+> >> Well, the technical reason for not creating cma regions dynamically at
+> >> runtime is that on some architectures (like 32bit ARM) the early fixup
+> >> for the region is needed to make it functional for DMA.
+> > Can you point me at the code that does that? Thanks!
+> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in=C2=A0
+> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings =
+for
+> the CMA reserved region in linear map are remapped with 4k pages instead
+> of the 1M sections, so later, it will be=C2=A0possible to alter the mappi=
+ngs and
+> change them to coherent when needed (altering 1M sections is not possible,
+> because each process has it's own level-1 array even for the kernel linear
+> mapping).
+>=20
+>=20
+>=20
+> However, in the use case in this patchset the reserved region is only sha=
+red
+> with buddy allocator by using the CMA infrastructure, not registered to t=
+he
+> regular DMA-mapping API, so it would work fine. I'm not convinced that th=
+is
+> is the right API to use for this though.
+
+Are you saying you're not convinced that CMA is the right API to use for
+this? Or something else?
+
+I certainly don't think we want to get the DMA-mapping API involved for
+this because that always implies that we perform cache operations, which
+we specifically don't want for this memory.
+
+Thierry
+
+--j2boipej3wyu4mib
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpPxVEACgkQ3SOs138+
+s6Eb0Q/+LDCagsX5c/5bbiHk3kITlOkkdqUCHLmicqkfr4LZXyuHnPZlygaoxrFM
+pWQKdyKOOfpM0U1Z1cuOHjLwTv5iB98Ne5qANisu+FqK6xFJ4ccA5Y2pXRG+2cEG
+YJS9S13i37EoR6iOHndhRxeZyxcx080fd7aAJdY9yKXL4+bAmW9W5/zS5XbLyBbt
+9MEA8Ah3pUnnLdjfeEq0SH2diKgT9OHXRpP4MEEFJbBufctOLZKoBOBBYPuURxCJ
+UxjR6KKyMObW2G6HP7fdgDzj5XYdbMEyHN+Cvom68auUKijpkjfOt5NUTQvxuuni
+YbwzbmHnbB76VYY6E/4i8uUPDxlBxha2COauHTiiJvdhBoJtPWSKLEYRU7BFrqBr
+SJY+OpLNROUP+oZLTyr7jmAoaJI0wLnBLxId6GjF0iID6w1BybeRRDX34o5+mkpE
+TOQ703x0/ZpECHboXKqJgo9CX0XIWtiD+yEbn7/HnR/wvHjksGNrCGxYaR5mrIAv
+N75RHCupJjA918YwITUGC0EtKUWOcwlVvLwS2G8gAUZd6goYWyEd/fV7G4VEj/4+
++GA2L/CzSK0TbN+Ktayav2Ec5EQy4mKHa47hkWmWGe+Lh22DNNiP2CS3LjnPGs2i
+II6qTao1jGC6L0sqjSQAw8VxP4TpU/XHRW8zs9HCzUaNg0ZSnGs=
+=xmpu
+-----END PGP SIGNATURE-----
+
+--j2boipej3wyu4mib--
