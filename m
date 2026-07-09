@@ -4,103 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC5C3C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 00:12:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C87ADC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 00:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 143B610F091;
-	Thu,  9 Jul 2026 00:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E39A410E434;
+	Thu,  9 Jul 2026 00:16:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ub2zTjgy";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="tCSD4wRg";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0459810F091
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 00:12:16 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-698a9f11776so2090782a12.1
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 17:12:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783555934; cv=none;
- d=google.com; s=arc-20260327;
- b=NmOnDcoVsqfEqK0udhzjc4gyv/m5yX0Q5usdnywLgarBucgNENy5IdcEcMui62MOvT
- i0SAUf0ZH+cmRcEe4uL27YhoOi/4h289+NPNHcciUOxoJr06Qg5ORUFQmcJlsRTMkyVW
- i0hERbQOZnqjyQ9XvZnfWSEaBJTwyDBLsYmjaB9NTg4WwX8u+TVfufVkEzQJAVlRN3a+
- iUaGafYdpFlQRd8monUzEeN7V5xNP+SoeqAXiexL5H7oIrnE1Z3kHRD3aYhMPQt5l/y9
- 07Pu1cwZPS4JQrMwrAFsdBZQsDgRLriJn5tVmMTkWnj/oJmlH/6s6WGTmufqKEnWu+ra
- x+8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
- fh=yaoCG2vAZBfDE5p52xN20FFxB2aqL08R40xmIGQKUmQ=;
- b=VUTyrsZCV67V/A2v+XkjRU03w5Rl7waGOXJbzxfGNIxNlyxiroitTj1wcemvN0qwaJ
- quPp8uTY8WxWuUow+ZNjeZb0Bkn+fKCMOxKG5pD60KjC8ht48Hzy1pFFiASc4luCs0ZZ
- u6w8Efm6iG5buoPc2HXVuUZOA6z/m+QHkkCBd+UbLyOEZ1pHmjVBvC3h1FvFWjrkZpxo
- UZJw684B06edUiT1pJZTtRJt1ykKmdYzCGM6DogurmvYxrlLYVJAuWE1zmtY1xkKaKkX
- 76Qiqt1Ib3PWWRF5vHyUlpmUMN5LvHNMhJPQ1JvRGpUSRkrf7eThz0s3Kqg/MsiL6yOF
- jVow==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783555934; x=1784160734; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
- b=Ub2zTjgy1RTmuEJLfnkdSaWLNTNFkeVNmXqLPzbx+gW6qIQwcVYz/ysm/gfeyf56zW
- QbWb+qXhsgEvCRXQ18zTtMl708b3dn1fuK1EjRUIKgE+UyZrhnu8mbGGrK6WPTVxFMvl
- QvvwsRwNBzNuJFWvb1qSoVdjlItMUh5fwYXEA1CCWLOdwyk9VYO/wDvqW5erM4aI/B5h
- 3NRpCatM3vRVxKkamtEk4IPfT6YacrQ6HHotv34WZnV4J0Pn5G/4IJ1Zkjtx37cT1zyb
- p9CVYW0YBSK6GFvBmZNdLng5cVf+0E7Vt398l/KukHHV7dXgQmrhpimdSPMx5RJ/3CKO
- n90g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783555934; x=1784160734;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
- b=fxmvWJkB5KpiP3asdbduAVDOHcCwtiaD/zh9xsQs8RoVaJOBItr3iFVt9KdQIoqgRv
- rpDEstLweM07zXMJhDtju3JerKQRzA8xlVHfA+F3lo3Jb73ZfWmeLzgUbmm7B8+2Nl1Q
- JebXptWP79SWUJGGsBzAFyO1CNIuCGjpE/BRfaxbg35oY3lCmpS6LiCS4+Due8lNlsZq
- cWgGypBDK4LkAysbZo/+GUjm18gbebGKvJFZ/End2gBIVBn8NJq/yZwLi/1qxQCjrG6q
- vsa9dWFPdGYz1fa+UfsB/3htcLhc7FHbvOtoLueRwKA9il7CRWWls6mug4BcJAjj7it3
- Qq0w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpxFSQ3kuYEDpG0UWB6ptPyUxwiXDgip6Kpseoji2NQz359zLd+vhPFh/4Js+T3N52xUgavLdjBF44=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcW06QxLwVOGb6alb5tNIYLnePI3ITHYQvJs/JKveh5aVdNwRN
- jI88gr1i9bvpjmzIKP7bc/BXzJzKyci239MvqYICbDbMQwzoApB1ycJD82BoIitKGRAkdLcWqAv
- 0VFhUb0Fr5asP7YV2zP1affRJYRhZjf0=
-X-Gm-Gg: AfdE7ckE1ReRkYvknOo+NEZoEZePJII0R2o8Sp2YocrqHmpTjc/8ZLlm9PY4yUCMNcS
- V1AjLzVRKkjdsmYFw/mHBGlPwVU0DIH43ov7DY0AXVGK7QdC7uhCvxjquthQWe3d14wihE1MTqX
- t6nGmIdrioLxtvcby6IEi49NlcDY2O9QRt0CSTyzaUccEYlvA2fFr4u01rZB9rmh73q+YmKKNOJ
- l7WRO4VCCetnCfklmv7IwKdL1BfxUK1pX1VQFao0/XhEYfnV+mT10aXFGQSXF/xfFOFsSWOIv+e
- +skOh2AgxXkAyxazRoYaGH/necQ8uL6SZcW4yfsQ
-X-Received: by 2002:a05:6402:4283:b0:69a:b3ab:dbea with SMTP id
- 4fb4d7f45d1cf-69ab4460cf7mr1758244a12.13.1783555934141; Wed, 08 Jul 2026
- 17:12:14 -0700 (PDT)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012005.outbound.protection.outlook.com [52.101.43.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A99110E434
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 00:16:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ghXgMG3zJClzP/EgxSnAIRpWkgu8EXKEyYlaTT1k7eUC/Lf2eXosNfOwEUWjGExVvwYIMQwzsxdCa6DZ3y+SZsFQXI+MkRyg1DwsGedIVHARH5vHv6ym2TZEMraIP8NPBlyB09BIQ7Sh/Zlsayo05R9hXm6yqqEJFeHXfZyT1mdhvlGQXQz8QFOJRciAJQQAUNH0RkoE7QOF3uSDeNOp6kOBanZn5/sXTV0XPCs9QSwrHUHofvXGyRm+wnZSL4WHes3CVbd8FHqjH8Pkw0Esv8C1SX2DMfb088nTg4e7dVR39MkG60dfts68BWlecuWFak664ifJsdgxJ3O1QodIAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ao3stp7e71xM13+XbxkeSyVBkskpeBpKFGxTK03P+0=;
+ b=glpVWwmHGSJ05xtSoM4XFI2ra/zigbS6JLNUBsQK7DF82QBwUzyo8aKL2BCQFO7mLzEnIHx5m1fVV1NzAXunKfS5NWuaFbaH9nKxxkSTP/OOMK5jezWxfAKx8+KtGFjwK/pnB1LHs46xrW5JIp6zvqnPc+cVPGPmoRYn9d7/UBrt9lKuMqnx8EJT3G1Ai4TY9DXgfLlgObWd1+uJclgkhQKgnaB0OO7yvHyr+7rLdyH6+u5yIORi4oelAIohBWy3da2eqDy2bHrOK6aU3C6ijdZ7aw65g/GGSGuBrgn4T0kF1vedi232QPtu5x/jVEoIXPorROqqRPjz9+qBS/Ynqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0ao3stp7e71xM13+XbxkeSyVBkskpeBpKFGxTK03P+0=;
+ b=tCSD4wRgzImhraiAx4qNl9CBqKPtSegoTaDoUvxg+kagaKOSPpaiYX895z3dENFPYYHLU4RyqCz1aH4dVTRH7ZpRY+9Z+p8E9JX+C2Jb9lMpZqKTYtzUIUeycdzWTeU8SEqcgAgExaat8pn9YzpdQvIGJ8SN69N0EEc+12pjvGWfw38uv+m3zbZG7JeEUjX4GZ7Gb4lZwB2JShFggBVudzueufaTkWgS9yRzsfGXDzX9UaRHuHNYHwILtdS47DVaQe/BsTabLVFuZyVB2LBvKk19NPLSzsz6HfpDijHc41NxgGWMd4Uv5WUqmPAUVHd4Da0kOo6OKRWUCA11P/nTZA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ SA1PR12MB8143.namprd12.prod.outlook.com (2603:10b6:806:333::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 00:16:14 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0181.008; Thu, 9 Jul 2026
+ 00:16:14 +0000
+Date: Thu, 9 Jul 2026 10:16:08 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Timur Tabi <ttabi@nvidia.com>, 
+ "nova-gpu@lists.linux.dev" <nova-gpu@lists.linux.dev>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ "gary@garyguo.net" <gary@garyguo.net>, Eliot Courtney <ecourtney@nvidia.com>, 
+ "lossin@kernel.org" <lossin@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>,
+ "aliceryhl@google.com" <aliceryhl@google.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 3/4] drm: nova: Add GETPARAM parameter to read the GPU
+ chipset
+Message-ID: <ak7lU9X4pTwx5NDB@nvdebian.thelocal>
+References: <20260706053413.154135-1-apopple@nvidia.com>
+ <20260706053413.154135-4-apopple@nvidia.com>
+ <59948bff927bd4ad3af5fbe68d5d5e7565c5f729.camel@nvidia.com>
+ <DJRP5QO5JKVT.Y7LCZARVCWJ8@kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DJRP5QO5JKVT.Y7LCZARVCWJ8@kernel.org>
+X-ClientProxiedBy: SY5P300CA0025.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:1ff::18) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 MIME-Version: 1.0
-References: <20260604135255.62682-1-midgy971@gmail.com>
- <20260604135255.62682-7-midgy971@gmail.com>
- <e44b506e-e9d2-48e3-acea-ab28b7be9b37@rock-chips.com>
- <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
- <0919ffcc-81c3-483a-a3ba-404b455c2040@rock-chips.com>
- <42f1f39f-ab2b-4473-a82a-7ccefad41fcf@rock-chips.com>
-In-Reply-To: <42f1f39f-ab2b-4473-a82a-7ccefad41fcf@rock-chips.com>
-From: Midgy Balon <midgy971@gmail.com>
-Date: Thu, 9 Jul 2026 02:15:34 +0200
-X-Gm-Features: AVVi8CcApkElNM_3Z1d6_PvamEAEJfcZGBI9cxUob9-qJkpZOuLDZsOO_EVsZe8
-Message-ID: <CA+GS1Y1i87vkv+9NAdqRGNCNsxjQwat2yqEFxjgDZRAPsQjaQA@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 6/9] iommu/rockchip: Clear AUTO_GATING bit 1 on the
- RK356x v1 IOMMU
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Simon Xue <xxm@rock-chips.com>, tomeu@tomeuvizoso.net, ogabbay@kernel.org, 
- heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|SA1PR12MB8143:EE_
+X-MS-Office365-Filtering-Correlation-Id: d09d33ff-0384-4d2d-4d7a-08dedd4f4968
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|6133799003|4143699003|18002099003|22082099003|11063799006|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info: rAPgf+MgOpZM35GwwGSw8Dpn34x/Nnvkm2X0b/kUj6PqdjnV/6M2ecXxt0zfEA8LJfmKfDwkFHqFTnX3bPYsTKlbcTeYTHX6Y80BtfVFxnNfeTz+1nm0ga1BFJ1nOFVVxPohJZnpTzdciFqnPjGJCYQMrQup8772Yv2eC7m29XnKGqIcwYwQcqxOoGQcPY+AhJlFfbPJdaMLT2p3c+JFjVnerH6CW/UJq0Q76AD8cgL5OcITfj9smR+VIvEqNp8S5FrI/Lb6UpOR7YGUVnKTkAj2RmTfL02BR303klnip1Pif5v6Wf0AuitYborYfX/uwDF525BCiTXDGIfUm9J8cubO+LQqmF5e8WydrbZg25FCLkJljom46G8hBszCgi1CheaJKCDbgXyGquwSitRdiVZrr+Dw/9sVrDMAEQl0DzVZXxtFRaYPrXKoF6FVU7b5LfDmRxPDg/owRacJc6dMnx/W1jjG6DkaNxKgOubLz/UmUDxH53NtqDswl0PEIBqJzWFYGs93afjaPPsORkXnetiOgBUNeMd8A4DsZB4cakgM7p9juRry2MK8jCzZeEbp1jTjJ+GXLWpjOw58qGBy7Cr4ZBdh9CDU5iGtDymVEey+hnMVLsKVvKhMoAmgnMLVY5Xy2+ERZt+0LnBMF99Pab4M85flnrhw/H/5n9WK7nM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(4143699003)(18002099003)(22082099003)(11063799006)(3023799007)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?fXnYfGp5fAaZLw50g7DC0Rkl7mfAjP2mbyR5Y4YW30CyAA9PEXJ2zYQCbc?=
+ =?iso-8859-1?Q?A3twn5RPN0XW3gkuiS9HmBmo+YkMFFcmpyXqp1/B2rvncctmFiamjqw4wb?=
+ =?iso-8859-1?Q?Z87bT2AvEjp/g5halx/zKyI+/CIgyhMYMOtPht/SohH+/W0LDQ5zm4Ycfd?=
+ =?iso-8859-1?Q?14naUejTOr16nPOR2c4CdJafDNOdYM+yInTJLyJ3gNvhN2FgZmEBMxwwf+?=
+ =?iso-8859-1?Q?1WLs7TrmOgKFdLiKnNQeijwmMVvM+NkYjeoby4w2g7d5ClnSrio6+5d+eC?=
+ =?iso-8859-1?Q?5wyUGYIZRN0wUwzW34cN/aF0pNuMF91weHqVRtdkaFSHL9TmLtHq8ADDJl?=
+ =?iso-8859-1?Q?MBmEKOieKS15GzQJIEwTjwb+Wm2xVTKAK7LK8NRDnls0ew3gQbLGqVzHED?=
+ =?iso-8859-1?Q?7oRFv+TVdhJQBq+YMw1DT6Fs4DZ5mvOeFm3sFFvQ5F4ch3VXj+vVqamXJU?=
+ =?iso-8859-1?Q?f5u1siPkn31Me6lsqwRwt0vWsQC7etjdKAmfVMHy8WntW7IP2XaEhDIlkF?=
+ =?iso-8859-1?Q?B/onMaXdmLJGp1rz61irPdY5xocfMrqWbJ1f+AKd4p0GD6Q5H3cvuuDfin?=
+ =?iso-8859-1?Q?oT6jPioljOpKnSF84YYbYGftGCLi4sPxDFHjTjL0IDWWOdrVFOXCnUFykn?=
+ =?iso-8859-1?Q?BR7sGNNUNJ4I04M19is5UewTcSUNug2EvyRrJoOGjVSf1nCcViu07k86Ri?=
+ =?iso-8859-1?Q?K6L6lMUAFVRE/NFBgmMYUL2W7YVQ3lPszNGKQlSXLzOq/q4/mi5IW2qQ4U?=
+ =?iso-8859-1?Q?4bBh7WViDLSwjbHAcSAU3VfcRbuOGsaH6UlLykR8VKni6gqaEIDqUlmDNi?=
+ =?iso-8859-1?Q?U8MJ7wdSwXmh2W1djpiqhWA/WyFyeND0JnwcqVg18Y3AgKNiaUFod5Ykgd?=
+ =?iso-8859-1?Q?ZIw7M0Z4yKbsqRqTWEoKEZi5uSMx/Gdpd0jnfG2gCvaeLIg+lCoY/338Eh?=
+ =?iso-8859-1?Q?M1ObmMpIR6WDwwpDb73qU5i9iDNUdpPHSi5SXaE8h8psvx9NRm1OxJbP36?=
+ =?iso-8859-1?Q?GUshvXghQRPsqq9B3s+lXl6CSwl1XTwT7qMbmHcCaG4MDmb2OBYkPCrEhk?=
+ =?iso-8859-1?Q?BJu40rp6XQiCJW5ukTO1Mf0r5L32e38BVhDf00b6mEaJevWUFAQqjldHzz?=
+ =?iso-8859-1?Q?vlXlJYOnMFNP1n1n3pR+KfwK89iT9/kgSGnuSUnUG7K9hYZy545ikjyyby?=
+ =?iso-8859-1?Q?xB5wF4wq73OHwKBK4qKrC2eFFegtZuAIfxLyjSwqELYUfx/nhX6P9I9MJl?=
+ =?iso-8859-1?Q?XFaINuDItLnz04NAIAoRCqG3U/1PTufjDrwhnu8GJ0ThDQP/bWbWoi2ZfR?=
+ =?iso-8859-1?Q?3oXQPohxnIJlGvm+tkoPPIeUsX4bQKaCdVfSzEfNFzVn6Xj+PiitEk5S0t?=
+ =?iso-8859-1?Q?6t14K15Ay+6dpFh67IHaoVpOnNMnhWjJoXRJxEwNlDbHFlU0MDalqD2ECI?=
+ =?iso-8859-1?Q?HlRf+qgM5DXwGObQKiybzJHFcshuXGNFGpf3GhkU4g7bBmLYTuCUrYzOnf?=
+ =?iso-8859-1?Q?6/48nYp5S31RV8rYhXGIu7msQM2eN/zV62ooxmpL7YUSyk+RG0z2jXbQFw?=
+ =?iso-8859-1?Q?iJMyJPt0P9d7uW1qCXq6SkcvPr/hl810QEPPp97fi6TVPcu3V0lbSY5vCZ?=
+ =?iso-8859-1?Q?IDBiU1GU2K9WKlH9V7s9VLM1JppO/ziAuDMtMh3R+jm63ixB+UvMCw/rui?=
+ =?iso-8859-1?Q?+/gc+I/jeN1bJFXWmZfJL2K3p0Wz1CvygXNBJr4vHjWULBOZSocTtzmN6I?=
+ =?iso-8859-1?Q?qV06OytizKas/5aJoGUrh5zQ9VIxnl3fijhPBm20xAFsPYZOGqGA//5T7X?=
+ =?iso-8859-1?Q?hRFgaqBdIw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d09d33ff-0384-4d2d-4d7a-08dedd4f4968
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 00:16:13.9110 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0bUfuXtHnq53MEd+aIabnAjskZt74lAdnIqaGSsGMWOred6OGPpXKRTsJpn0oc93Jn1cDkVtGRbBipf85owXUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8143
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,117 +140,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chaoyi,
-
-Sorry for the slow follow-up =E2=80=94 and thanks again for the pointers, t=
-hat closes
-this out cleanly.
-
-I read the two rockchip-linux commits (7f8158fb, 6a355e5f) and the merged
-patch you mentioned: "iommu/rockchip: disable fetch dte time limit"
-(Sven P=C3=BCschel, From: Simon Xue,
-20260428-spu-iommudtefix-v2-1-f592f579e508@pengutronix.de), which Joerg
-applied on 2026-06-02. It adds DISABLE_FETCH_DTE_TIME_LIMIT (BIT(31)) and
-does exactly the auto_gate |=3D BIT(31) read-modify-write you suggested, in
-rk_iommu_enable() before paging is enabled, for every Rockchip IOMMU. So bi=
-t
-31 disables the DTE-fetch time limit (without it the newer revision blocks
-after four consecutive master DTE fetches racing the CPU's IOTLB zaps); the
-RK3568/RK3588 erratum is the same one as RV1126/RV1109. That's the accurate
-description I was missing =E2=80=94 thank you.
-
-Since that fix is already upstream, I'll drop the AUTO_GATING change
-from my series entirely rather than carry a
-duplicate: v4 will rebase on top of it and the NPU MMU picks up BIT(31) for
-free. For the record, on the ROCK 3B the NPU IOMMU services the NPU's reads
-with zero faults both with BIT(31) and on the reset value (0x3), so this is=
- a
-no-op on my hardware/workload =E2=80=94 but rebasing past the merged patch =
-is the
-right thing regardless.
-
-So my v4 IOMMU dependency list becomes: your per-device-ops series, plus th=
-e
-merged "disable fetch dte time limit" patch. My series no longer touches th=
-e
-IOMMU driver itself.
-
-(The convolution output is still uniform zero-point / the job times out =E2=
-=80=94
-that's the separate NPU compute-completion issue, unrelated to this.)
-
-Thanks again, and kinds regards
-Midgy
-
-
-Le lun. 8 juin 2026 =C3=A0 05:40, Chaoyi Chen <chaoyi.chen@rock-chips.com> =
-a =C3=A9crit :
->
-> On 6/8/2026 9:45 AM, Chaoyi Chen wrote:
-> > Hi Midgy,
+On 2026-07-07 at 04:24 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Mon Jul 6, 2026 at 7:35 PM CEST, Timur Tabi wrote:
+> > On Mon, 2026-07-06 at 15:34 +1000, Alistair Popple wrote:
+> >> @@ -38,6 +38,7 @@ pub(crate) fn get_param(
+> >>  
+> >>          let value = match getparam.param as u32 {
+> >>              uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => pdev.resource_len(1)?,
+> >> +            uapi::NOVA_GETPARAM_GPU_CHIPSET => reg_data.api.chipset() as u64,
 > >
-> > On 6/8/2026 5:05 AM, Midgy Balon wrote:
-> >> Hi Chaoyi,
-> >>
-> >>> As I said, it is v2. Could you please try using the code below instea=
-d and
-> >>> see if it works?
-> >>> [ auto_gate =3D read(RK_MMU_AUTO_GATING); auto_gate |=3D BIT(31); wri=
-te(...) ]
-> >>
-> >> Thanks -- that's clearly the right shape (read-modify-write, before pa=
-ging is
-> >> enabled, keeping the reset value instead of my clobbering 0x2).
-> >>
-> >> I rebuilt v7.1-rc6 (with the rocket RK3568 series + your per-device-op=
-s work)
-> >> using your bit-31 version and tested it on a ROCK 3B: the NPU IOMMU co=
-mes up and
-> >> services the NPU's DMA cleanly -- the NPU probes, attaches its domain,=
- and runs
-> >> repeated conv submissions with no DMA_READ_ERROR and no page-walk stal=
-l. No
-> >> regression from the write.
-> >>
-> >> To be precise about what I can and can't show: I tested both ways on v=
-7.1-rc6 --
-> >> with your bit-31 write, and on the reset value (0x3) -- and the NPU
-> >> IOMMU services
-> >> the NPU's reads with zero faults in both cases (no DMA_READ_ERROR, no =
-page-walk
-> >> stall). So I don't have a failing baseline here that bit-31 visibly
-> >> fixes. Is the
-> >> AUTO_GATING write needed on current mainline, or only under conditions=
- I'm not
-> >> reproducing (a particular traffic pattern / silicon rev)? I'll keep th=
-e patch in
-> >> your form unless you'd prefer to drop it.
-> >>
-> >> One question so I document it correctly: what does bit 31 of RK_MMU_AU=
-TO_GATING
-> >> control on the v2 block -- is it a master "disable internal auto clock=
--gating"
-> >> for the page-table walker (i.e. so a TLB-miss walk's AXI master keeps =
-its clock
-> >> to completion)? The RK3568 TRM I have doesn't cover the IOMMU register=
-s, so a
-> >> one-line description would let me write an accurate comment.
-> >>
-> >
-> > Glad to hear this works. Please refer to the commit below.
-> >
-> > [0]: https://github.com/rockchip-linux/kernel/commit/7f8158fb41b5cc8e73=
-8aaeebc3637c50ebd74cae
-> > [1]: https://github.com/rockchip-linux/kernel/commit/6a355e5f9a2069a230=
-9e240791bc3aad63b7324e
-> >
->
-> It looks like RGA needs this patch too, and it has already been merged :)=
-.
->
-> https://lore.kernel.org/all/20260428-spu-iommudtefix-v2-1-f592f579e508@pe=
-ngutronix.de/
->
-> --
-> Best,
-> Chaoyi
+> > Can we assign these IOCtl values to match Nouveau as much as possible?  I think it would make
+> > everyone's life easier if we could use the same user-space tools/libraries for Nova that we do for
+> > Nouveau.
+
+I debated this, for the same reasons. However I came to the conclusion that it
+wouldn't make a big difference - Nouveau only has a handful of GETPARAMs and
+we already know we're going to need a lot more for Nova given the increased
+scope of features it needs to support. The rest of the API also needs to be
+sufficiently different so I didn't see any real practical advantage to keeping a
+couple of parameters the same as tools will need updating anyway.
+
+That said I don't know these tools well - did you have any particular examples
+in mind?
+
+ - Alistair
+
+> I don't mind using the same numbers where it doesn't matter too much, but for
+> this to work, it would also require us to retain layout compatibility with
+> structures, semantics, etc., which I think we should not bother with at all.
+> 
+> Let's build a clean new uAPI, it will get messy over time by itself. :)
