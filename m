@@ -4,153 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A6CC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1A6EC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D35B010E6D2;
-	Thu,  9 Jul 2026 14:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19C6110E6D6;
+	Thu,  9 Jul 2026 14:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fgFK1CrJ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PygS+96o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YEhMmHg0";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82D3610E6D2
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 14:54:28 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 669DwCsh1833823
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Jul 2026 14:54:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ZMd5SzYa2JtJsuef3gXqhLim
- tjjWD7XXATJ3fVJWKFY=; b=fgFK1CrJsVkn9+lyI6grWkzihN4jSETSO5v1zhyx
- yJs1ZTq+7KHtpwkUTbuaxhcF3PrJU2srnVT/38qhJ9mzZM1mQ4QjpOepB4feKAhb
- qUCPsOaFsIoCJtlfRnch1AnGKK1yM4fPZZ7L0NHLzFKXA8C32Mq4xZlovyMONOpy
- As1q+d7o8m7GZ4QhEASjtxVGnbHUjp59LzbgeSQo4ZsQoFzzQ+geRApF82v6PJQj
- J5c9kaLgTPyqOhu17GRIOLVfHTARtljnj0obrgas9663NRdQSoTqMvFGSqpoDCT6
- DLVVepZvtOFYWaPqh6A4NGKOmJiJpHkHoVfPC2GrQjWg2Q==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9wwfutx3-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 14:54:27 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-744e7c828adso377357137.0
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 07:54:27 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B28C10E6D6
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 14:57:57 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-493e4ccccc2so8109715e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 07:57:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783608867; x=1784213667;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
- b=PygS+96oWafg7AHho8PN820eOHSEEsaVHWnF4qj8pUUoKj/lkHV2y2R85Jgqb7Z+bG
- eQQXTM9wHlCbwzE15/kqXx2w9MMZolEt4NfcTCYkiFosUE42xdE7sYYUdU9sLLThYphQ
- 59OhYzsICmbDvseUTH4B3r4SXZEFPqEeDV2fNT8NzlmmbPsBgyFUBpPd+to6DMD982Dg
- fR+O8Z9TDJfnl1ct/TQz9OhPojOf92QL5mZVJAr1jB11RWKX9zSH/lR4SLAXCqPU1tVq
- WGzD1Kpcnn8SWLAin/2qqHDsu5NuluuvZiIR9rxLaL06aume4iKTB3w+2x8mnWGfzcj/
- RncA==
+ d=gmail.com; s=20251104; t=1783609076; x=1784213876; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=2uYvJ99V7OcwcA873bLOHoWJoXNW9jnVzYVBsOqs+A8=;
+ b=YEhMmHg0FXh3JhLNRafGQqXZaahx6HhpOgWWUUq4y1KJQwDu/oV0S0kRBV2/8ri9Ws
+ N5J2dIzRenKvkyOJbIva9Cpoc24txB5F6Snylrff20Sgh8z8ecO5/d2HdnCAzpJ6PBsW
+ Cf21xnNBQJG6TOXAwq3I62aH0SdAmvFpEVSC4mhOvt6d1OyySAw5o7heZrB1MPHGJI8V
+ JUV6gEErOCQc1R4ZV/AGZgXg18h8qfnKEGSn7SLw+g8DZpxExeVtJelGyXumnq4tHxPD
+ LRGVSrPCWTS0EtgnqeNE5q9tffd+S9JGyYGnKH7VM3ElyBCmDigTtcBv0z/h4JeZzNj1
+ Yh3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783608867; x=1784213667;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
- b=RgaMS0BwwxmodtfrvY+dQYBUAD3zYO1LbAUYId61xbvHTdr9Wb+rPHFSP6wFVnieE/
- UynAerApxVD0qQ+mUwj6qCSzDPHISBr/j6M+HpQv9AZxhpv9xAVQFCCgMp4QyY3LBVYH
- tWw8+irKjbOwXg5DY6yTAVIv6fpz0enDjLvE6xiCxtCkLA6U49WNH2YHjg9L8xF9K3Xv
- rZawD3IOlJFr3iO0tQxV08UclZjhxDVfFuPSH3On1RuxiQTaj6vTNkFYaTkCUpSQzAw2
- ioiKn+5uUgoiCTOglJBaHkjnFFLgfitCnwPovOaxKtRYjyIKsfOuci6FmbD7JWpReWAW
- Rrsg==
+ d=1e100.net; s=20251104; t=1783609076; x=1784213876;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=2uYvJ99V7OcwcA873bLOHoWJoXNW9jnVzYVBsOqs+A8=;
+ b=g3VfMUwBbQq7wkTkcp7u0uZ7rdjfTK419qY5uBypvpSpWvmKItz9/4F8Buq0i2UuDc
+ uNNWzCUBh+fMtlPL9ZMQULjGRhCCafeAn8dA4DOFwNXN6BsdtS+M8xpWa9T3a1ak+Uyl
+ 8XuNQuBuHWuNRayAgteuf7H95WkvcA0U2KI3+TPkOpUY4S1/BakQUx86i39ptWJVy3lj
+ 3yaJfR6KpSn/AhQ+BVH4x9RmvlMmGio/2xAZFHuTpGowyzN2Ru2mJnpPksSbQkAK6ClB
+ Vx6nqkUOYpDDxtsuykSJarOxRoinFNX3nGNavFyAMZidKnAEDCMQ8wpAbq60Wrmg6lq6
+ HL/g==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoWC4TAkDJCNHNUPtVIbBkJkftNykwGjVs8N1+dhYQW2xtIWBTW3rxtAdkI66TpyFmLtBiMIaxZZGg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxE9GmN/AHc+LTN0v7qWCpLv62wROHfV633Zmo2SwMqfaBqDv2Y
- nLul2yFaDkCwYI/O6DFXcXBlhrPU9eO4Jsah+YrifbDGNrJJem98uLkl4F466qqRpDj7PG4rZyL
- T6Nt4XWL05LZtaiokbxWYUm0pgRUbRAp5MMnhG2+C32ZqQ5Se/t5qOLrw0ZIE7/xdvr/NKAU=
-X-Gm-Gg: AfdE7cnaziVC5xplumo4i026evwa8AvRPc1E6HHfXjVd788ZvvX/kRWWNUfHqoY19L7
- nNa3zV3REsS41HTN2+11x9EQniRcFSMxmysyrQUjXczHTJFBpmKusbfqb+w9/ix3A5JE2X9CIkM
- EoQghRb9Apk8/WwF4TBqWZuKNsDK6auRuLuDLDN4K6/f7eZS5Ps8hR6h7NFP6h0bv9vx5CAL6Cr
- wBoGm2OxpVe+PuSAak/A83CEp35qr8wvT8X0kayf4b+2VyiyyGqjeX+BIEK12PW5+x3/5jTa5YF
- D93t+/orsl68pYiaksdnctFhNt8BM8Cu++KRulk7UIdkG/ulNlgpaeqHQldoVX/Wwiag/N9Ziu5
- sT3/ArtDGRrrZriehIpRduatWckgKTSctWFHCuXEsYJtiS+aJbJmbZOwhwPJFrnWfdRePX0LRCJ
- U5qCSSDfMCy17+flPRvpxDxpyD
-X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id
- ada2fe7eead31-744e03d0408mr4194083137.22.1783608866705; 
- Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
-X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id
- ada2fe7eead31-744e03d0408mr4194057137.22.1783608866193; 
- Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b017c29961sm500429e87.29.2026.07.09.07.54.24
+ AHgh+RqPk7rX1ey+uNbqt8IdEQKaOQd2np1cCUM1IPlWBEcyPRt4Olh9CNzy92SH3ukH2IcGkwEIlhKVRRQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzpstpCFkxAPHYNKLAPDoSCW5iygov9pkFGGXNEgh0Fmy0XXIjl
+ qiDccr5ayoXObLt8Kx+6Xf92fTY0FKxZVrAU8W4CMy+jzRcKtcm5FHvL
+X-Gm-Gg: AfdE7ck0CuyWff8d8AqIxJADk5FoOuCsyrwP/fDUJxQ3RZ1lsVktIofadtDxhGLsvjd
+ mFsyCtlOosO4fnv5t7fLmJrS0+TyEvyUw17rr+VOswmu0b3cRsXsRXXWNGO1RuOZZTdUIpZiq4R
+ 0DdqL9nTn6tvZ4ssgu4hhxvd/ya3pkV+9DNwc6KSnTWMRPcogHZ6sSNeMl3beTURWEKkk8Z6kZv
+ GPiYQrDF670fnXXkHf7bmBmeYjbOzwrCFi8qckJAMUB+kOUIzloLFEamZXij9n5ESis8m79YBSh
+ D+0f1V3aMFK0hJVcEQifQyCoNDnT5afknpbs05nF9VQoel77pKm8JjEpJ/M1nKIeRWrrFnGpQoJ
+ H+Ab2Jk+izSYBHuaeTtzLrrZ//vPNGP+iBjO0kKJ/Bu/P6Mr5FJhAzoHdQrdeKCoJW1XKnbkIvP
+ Aq1gg0ysCmqGtEvj06zeEPaYgrMeQxQjUw8cfsmSiJ/VTPXsXgs1FEM1FCjvckCkhwbCO7CjsTe
+ Iugn/uUF4tPmt5MHUvfGtJMO27Vj1dzUw==
+X-Received: by 2002:a05:600c:8709:b0:493:e4ce:acd0 with SMTP id
+ 5b1f17b1804b1-493ec667544mr34169015e9.1.1783609075884; 
+ Thu, 09 Jul 2026 07:57:55 -0700 (PDT)
+Received: from localhost.localdomain (62-178-82-42.cable.dynamic.surfer.at.
+ [62.178.82.42]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493e5a572c3sm162226435e9.1.2026.07.09.07.57.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jul 2026 07:54:25 -0700 (PDT)
-Date: Thu, 9 Jul 2026 17:54:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
-Message-ID: <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
- <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
- <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
- <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
- <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+ Thu, 09 Jul 2026 07:57:55 -0700 (PDT)
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Subject: [PATCH 0/2] drm/etnaviv: Add GPU reset counters for robustness
+Date: Thu, 09 Jul 2026 16:57:44 +0200
+Message-Id: <20260709-etnaviv-reset-notification-v1-0-64c617496958@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX3c6qSjjLGdUc
- BO9yxkRu9Cbd+qe8I10CbsBJ0uPMO17jpbUjlH+QlfgHTwy9hyoAgSzTk/CE24DevSGAB0iQ0Ir
- JvRBahagvaCH7j+QeaAaClpX3KgTGl4YFmBvwoHbUMIBDKxtXSfcMysQ5V0sZdC6a+ChIz7fCA2
- Xo4xf/Esgi99BzVk2+X1uUqgmBn5SrtXi6bHyMpIAYdf+aNfrKdY4jn32k1svnUNPUiGQgHag5q
- Gv6mpZjh1+ICTNNYm7nRPt9iwhb3wW94CTqYynvJDKCv61QpkgZOZDhdd4VNFJTI+krMxU+XlWs
- uzVvBXhB2q2rtGNDyrodl+Mx51h3qhPJxXg/N/CCJeDr8wDzyXwWQTX24I5NbJ+3fsTnGfZ5on0
- Yv+9gel/JDxAO2+WChoknfGKWkZD1dkvvNNIlIOJua+egSjxQ5IjYACotiDBNZnavimDcz04F/K
- wM0eYgGs6dykEvHw6rA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX6ocAXEC7hnku
- AfTtWwOSznlLYa710X8IQHAxQK+u36jwc3z6hMU/wCyujWggSak760CDrhVnrmx8+AVpV7RHsCE
- vmLzyeGhmmtvszcfSbRqo3WF8wp8Ol0=
-X-Proofpoint-ORIG-GUID: R3B4fG53lVpIM0GxMEacxY9hV4_R9Oo-
-X-Proofpoint-GUID: R3B4fG53lVpIM0GxMEacxY9hV4_R9Oo-
-X-Authority-Analysis: v=2.4 cv=Krh9H2WN c=1 sm=1 tr=0 ts=6a4fb623 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=9jRdOu3wAAAA:8 a=pGLkceISAAAA:8 a=gTY0VpHTFMgWGwS8g40A:9 a=CjuIK1q_8ugA:10
- a=-aSRE8QhW-JAV6biHavz:22 a=ZE6KLimJVUuLrTuGpvhn:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_03,2026-07-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607090147
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBvQpB+6SrQYbarZWKhIIN09a
+ fkt3isQOQhHmJsCgbNEuXyFbhtwJ/mDUbZq6FQ3qFFNyMlTloyBIyf0V5JdHKWaoVVm1L0hTWS
+ hDu7Auzz/fFnf9wMshI8ebAAAAA==
+X-Change-ID: 20260708-etnaviv-reset-notification-b037153a1aab
+To: Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
+ Christian Gmeiner <cgmeiner@igalia.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,67 +99,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
-> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
-> > On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
-> >> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
-> >>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
-> >>>> In order to associate the SID used by LPAC to it's own domain and
-> >>>> context bank we need a separate node on the DTS.
-> >>> Can we use iommu-map instead of adding a new device using the same
-> >>> addresses? You provide zero explanations, but it seems like you are
-> >>> trying to separate a part of the GPU into a separate device, but it's
-> >>> unnecessary.
-> >>
-> >> What I was trying to say is that we need to map sid0 and sid1 to different
-> >> context banks.
-> >>
-> >> From what I recall, so long as we use the same dt node, the iommu drivert
-> >> provides no way of doing this.
-> >>
-> >> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
-> >> and secure.
-> >>
-> >> The address on the lpac device doesn't really matter. I have very limted
-> >> knowledge of DTSs but I think we could just leave it out altogether?
-> > 
-> > I think, you were poined to the Glymur Iris patches. Another option is
-> > the QDA driver being submitted too. Both ot them use iommu-map to
-> > describe the same usecase - a set of SIDs which are used by the device
-> > but which should not be a part of the defaut set. With it in place you
-> > don't need to have separate qcom,lpac devices, no additional properties,
-> > etc. 
-> > 
-> > I'd recommend following the same approach.
-> 
-> iiuc, the conclusion in this recent thread is to use child nodes for a
-> similar case:
-> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+The OpenGL robustness extensions (GL_KHR_robustness) and Vulkan
+(VK_ERROR_DEVICE_LOST) let an application detect a GPU reset and check
+whether its own context caused it, so it can throw away the broken
+context and build a new one. etnaviv already resets the GPU after a
+hang, but userspace has no way to learn about it.
 
-Let me check internally.
+This series adds two counters, exposed through GET_PARAM, following the
+model already used by msm and v3d:
 
-> 
-> -Akhil
-> 
-> > 
-> >>
-> >>>
-> >>>> Add the code to look up that node on initialization.
-> >>>>
-> >>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> >>>> ---
-> >>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++++++++++-
-> >>>>   drivers/gpu/drm/msm/msm_gpu.h           |  1 +
-> >>>>   2 files changed, 21 insertions(+), 1 deletion(-)
-> >>>>
-> >>
-> >> Best regards,
-> >> -- 
-> >> Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> >>
-> > 
-> 
+- ETNAVIV_PARAM_GLOBAL_RESET_COUNTER counts every reset of a GPU core.
+- ETNAVIV_PARAM_CONTEXT_RESET_COUNTER counts only the resets the
+  calling context was guilty of.
 
+Userspace samples both values and compares them later: if the context
+counter moved the context was guilty, if only the global counter moved
+the context was an innocent victim. That is all that is needed to
+implement glGetGraphicsResetStatus() and Vulkan device loss.
+
+The global counter is kept per GPU core and not per device, so a hang
+on one pipe does not look like an innocent reset to contexts that only
+use another pipe.
+
+The first patch is preparation: the counters are updated from the
+scheduler timeout worker, which can race with the DRM file being
+closed, so struct etnaviv_file_private becomes reference counted and
+every submit holds a reference.
+
+Link to the Mesa MR implementing the userspace side:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/42826
+
+Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+---
+Christian Gmeiner (2):
+      drm/etnaviv: Reference count struct etnaviv_file_private
+      drm/etnaviv: Add GPU reset counters
+
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c        | 22 +++++++++++++++++++---
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h        | 12 ++++++++++++
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c |  5 ++++-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c        | 12 +++++++++++-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.h        |  6 +++++-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c      |  3 +++
+ include/uapi/drm/etnaviv_drm.h               |  2 ++
+ 7 files changed, 56 insertions(+), 6 deletions(-)
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260708-etnaviv-reset-notification-b037153a1aab
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Christian Gmeiner <cgmeiner@igalia.com>
+
