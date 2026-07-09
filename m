@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B5F4C44501
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D55C44507
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 10:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 315FA10E692;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55E9E10E7DE;
 	Thu,  9 Jul 2026 10:34:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NAOsadfR";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KcgsLdVh";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2D0210E066
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:34:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E056E10E068
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 10:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783593276;
- bh=kHVv2nCdsp0f/QR38D6tcCGOazDnOTOs2KSvBo2SWnI=;
+ s=mail; t=1783593282;
+ bh=ylJnj8JxP7dDeLvzLuWYhCIaRzWt5rzL7nt4h6dNaeM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NAOsadfR5/GhS5a6Blg4iy/kPKN7ErRwXBYIo5WUe3EZeG71lK2RGnJJmVjjZBJ2c
- i7P2rvaq2581vvojbBUmuM6gHoztnJVuZ31rnEomZAZdN0EnCW5Jk/V6leXU45Xt7P
- NGuCpQFo8Q5HT3k24XZXa8G8ohADojDZCabd7EgyIqyTI8YBuPynSFjrvu2PliwaeH
- s+0zm8IWvrNo5q6LSgL494UHJr5E9lmIclcCSQZ64yODy28BySZYIELR34CUPq5rHL
- vyPjH9reCFExcfIXvbPuxiBEhkQj9LVxRetVFc5K9eLvGq4pcYqd3N6ZFdpbyveJqn
- 4uVyEK6r3yaTw==
+ b=KcgsLdVh3QzPPsE4CAcaB4/zgv9MzNr+GpXXDAoiqutqsKvOHa5Y0HRPSu25dIoMq
+ eB8SeaZA6PoO5VLCAs977TwsnUb72IJKaCC4WUVL+4vK9DSyrt7MMkzElPz2UGm/6t
+ LzRAdp+fGcLK8rknHEIEY0zAc9A7MPwHk+Fz8tmpUL+B3sBQW2W+fpEnnkZpG/5QOn
+ FI735/mo4mSPjN1wvZ85mfSx/uNAfRfLXSv28CZhDpNyba69GA2esz+8Usrjyeq0pv
+ hTzwNue41vQ7pxiUYcbL9SvNWP9N5IZdZEsWIjAA3sjmqlFieMeoudVDjogJrSTOWM
+ AKKFLUrTfkp5Q==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F419417E0D53;
- Thu, 09 Jul 2026 12:34:35 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 245C317E0EE1;
+ Thu, 09 Jul 2026 12:34:41 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
@@ -44,10 +44,10 @@ Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, kernel@collabora.com
-Subject: [PATCH v3 02/11] dt-bindings: display: mediatek: dp: Add compatible
- for MT8196 eDP
-Date: Thu,  9 Jul 2026 12:34:22 +0200
-Message-ID: <20260709103431.46616-3-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 06/11] drm/mediatek: mtk_dp: Use PHY API for PHY power
+ sequences
+Date: Thu,  9 Jul 2026 12:34:26 +0200
+Message-ID: <20260709103431.46616-7-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
 References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
@@ -68,28 +68,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new compatible for the Embedded DisplayPort IP found in the
-MT8196 SoC.
-
-This IP is compatible with the previous ones, but not fully.
+The PHY driver has gained support for .power_on() and .power_off()
+callbacks: use the API provided phy_power_on(), phy_power_off()
+functions instead of writing into PHY registers from this driver.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dp.yaml        | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/mediatek/mtk_dp.c | 31 ++++++++++++++++++++++++-------
+ 1 file changed, 24 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-index 980f76667ada..3a752a99949a 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-@@ -25,6 +25,7 @@ properties:
-       - mediatek,mt8188-edp-tx
-       - mediatek,mt8195-dp-tx
-       - mediatek,mt8195-edp-tx
-+      - mediatek,mt8196-edp-tx
+diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+index ed56b342dfb8..9c28616c6ada 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dp.c
++++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+@@ -1404,6 +1404,8 @@ static void mtk_dp_aux_panel_poweron(struct mtk_dp *mtk_dp, bool pwron)
  
-   reg:
-     maxItems: 1
+ static void mtk_dp_power_enable(struct mtk_dp *mtk_dp)
+ {
++	int ret;
++
+ 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_RESET_AND_PROBE,
+ 			   0, SW_RST_B_PHYD);
+ 
+@@ -1414,20 +1416,35 @@ static void mtk_dp_power_enable(struct mtk_dp *mtk_dp)
+ 			   SW_RST_B_PHYD, SW_RST_B_PHYD);
+ 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
+ 			   DP_PWR_STATE_BANDGAP_TPLL, DP_PWR_STATE_MASK);
+-	regmap_write(mtk_dp->regs, DP_PHY_AUX_RX_CTL,
+-		     RG_DPAUX_RX_VALID_DEGLITCH_EN | RG_XTP_GLB_CKDET_EN |
+-		     RG_DPAUX_RX_EN);
+-	regmap_clear_bits(mtk_dp->regs, MTK_DP_0034, DA_CKM_CKTX0_EN_FORCE_EN);
++
++	if (mtk_dp->phy_dev) {
++		regmap_write(mtk_dp->regs, DP_PHY_AUX_RX_CTL,
++			     RG_DPAUX_RX_VALID_DEGLITCH_EN | RG_XTP_GLB_CKDET_EN |
++			     RG_DPAUX_RX_EN);
++		regmap_clear_bits(mtk_dp->regs, MTK_DP_0034, DA_CKM_CKTX0_EN_FORCE_EN);
++	} else {
++		ret = phy_power_on(mtk_dp->phy);
++		if (ret)
++			dev_warn(mtk_dp->dev, "Could not power on PHY!\n");
++	}
+ }
+ 
+ static void mtk_dp_power_disable(struct mtk_dp *mtk_dp)
+ {
++	int ret;
++
+ 	mtk_dp_write(mtk_dp, MTK_DP_TOP_PWR_STATE, 0);
+ 
+-	regmap_set_bits(mtk_dp->regs, MTK_DP_0034, DA_CKM_CKTX0_EN_FORCE_EN);
++	if (unlikely(mtk_dp->phy_dev)) {
++		regmap_set_bits(mtk_dp->regs, MTK_DP_0034, DA_CKM_CKTX0_EN_FORCE_EN);
+ 
+-	/* Disable RX */
+-	regmap_write(mtk_dp->regs, DP_PHY_AUX_RX_CTL, 0);
++		/* Disable RX */
++		regmap_write(mtk_dp->regs, DP_PHY_AUX_RX_CTL, 0);
++	} else {
++		ret = phy_power_off(mtk_dp->phy);
++		if (ret)
++			dev_warn(mtk_dp->dev, "Could not power off PHY!\n");
++	}
+ 
+ 	mtk_dp_write(mtk_dp, MTK_DP_TOP_MEM_PD,
+ 		     0x550 | FUSE_SEL | MEM_ISO_EN);
 -- 
 2.54.0
 
