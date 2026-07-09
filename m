@@ -4,85 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF19C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EC72C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 06:12:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2C4110E690;
-	Thu,  9 Jul 2026 06:11:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C241810E69E;
+	Thu,  9 Jul 2026 06:12:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mMVeRXBW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JsPSxu3S";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF7510E69E
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:11:24 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2cc61541f8cso8326835ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Jul 2026 23:11:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783577484; x=1784182284; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Hd6GoWd0nNSvkzn4bZsOD9QjS5q1cvBf4vz24CQIaxI=;
- b=mMVeRXBWtYpMPyMO0gpl7iURVGh2fKK10LVwDCYrMpoUo9X4r0o7IgS1SXh4/4Bdx3
- scKHykIzU1+WP5mW5J+blJKDqHhm/VD0WAnnB/y5v7bpW9/tHIRO/80IUfY3VjTWbbcg
- vLd+cEe8PMdvLDIx1UbNRLiUebDrbbYGbHzHlpv3jEVVVreg2EPelDEMkvcwiqBfsf1t
- SWLHtOJLprNNczBJtQwnPCeJ2f1JxW+XQDJFlWoMcGiVe6jwnGy6KXj7lf3Yx1yf8E8d
- K+BQbdtwBgAFwR4wx2QsC/VMTUSc/6L5EI1ItK6YKefdjrSX65HdHC1fK5JREYw7YTuC
- /smA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783577484; x=1784182284;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Hd6GoWd0nNSvkzn4bZsOD9QjS5q1cvBf4vz24CQIaxI=;
- b=a/OKPOZ3WNJMGlPLkq/0y0vQJPwaOVFF6IKKKs1B7iDGZf+51L4GY7HdbNHl7c8xRg
- L+3JCeC7Qb8ctgW+Hp592IaqINFJWpFR3VaTCwVLuvMuyZTf1hVaDYpS/u1mLp2Xc1IM
- VurKak9FuoGljmfV8M+A7SLKu1gZ/cZ85W36Cy6/2bcyp+InzjfE9UN7cu0nV5qr2DAL
- Q96fo4a+nB8Sdd3UbMTykIT+xjqD74436XYPXohCv0Aq6iF034YLoh0dUbYyrsH7dCwD
- Uu3RgyZHZXJZ25O6qS3pD37T3MyDoY88wq2fbFuBrCg/9F/v6wSG6W/YFQ6GOz9AYMhq
- QU/g==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq5ykF2wkQDSgrwxjSZTqvD753J+8WeVzf7kT6hUBfBEjrQrna/ayZpN58k2OFcKm+wIHf+EEM4nP0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyd/Cm1DfoJZYAbuWHDYXUxTnBZYi0qy6Gh0zCJaotGfO678RDF
- Ev6/dWn75P3qZroa9mhY6TbUyGDuHcofjEpD/drFhj8pmJ6kchPxg//s
-X-Gm-Gg: AfdE7cm3Mahb1gYG7S0MdOXJJGlJg7Lsmntdo1yzKI3ffZvVM+/4Nfj20zz+OXc1kK+
- QWMUYNF3KhK2JaQOaAQZNUkT1tek6nhcZL7Nh6pfebBm/ImWtg5pdeEsPGkeP9zo+P5MX/E/rsj
- eSbR1z1RjvjvJJAHgGCZrVma60cWUiOv+6QK2eNhOINvPwGESE0SVjA6vhHQT/CVrScnXHT2CvJ
- 2cFvD/X3yyQURG89CmuY8bCsxlmXzkgQERklYzEQkPER1aNWUT1ssAypSkNUdbhMzgsdM2SZUvQ
- /DdVHWVXtDnnurqti92VKyfFj8j5GKfYZp/VNzviRrVXZyPBQY2AOAmusmZp8Zw0yJZTdzL3/Q5
- AUA/Rapgz5sRUG4h1E8Hs3/0yD7ahZJKvKqopC6ap4HSCDfI+0yeKzy5RaXn+MFBlcpc7WiEVij
- qDC/LGHBE=
-X-Received: by 2002:a17:902:ce0d:b0:2c9:d27b:af11 with SMTP id
- d9443c01a7336-2cdd8a84479mr14704525ad.11.1783577484149; 
- Wed, 08 Jul 2026 23:11:24 -0700 (PDT)
-Received: from ubuntu.. ([138.199.21.246]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9d602fdsm37778845ad.81.2026.07.08.23.11.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 23:11:23 -0700 (PDT)
-From: Jing Wu <realwujing@gmail.com>
-To: matthew.brost@intel.com
-Cc: thomas.hellstrom@linux.intel.com, christian.koenig@amd.com,
- ray.huang@amd.com, matthew.auld@intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, natalie.vock@gmx.de, mhocko@kernel.org,
- roman.gushchin@linux.dev, shakeel.butt@linux.dev, muchun.song@linux.dev,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, linux-mm@kvack.org,
- Jing Wu <realwujing@gmail.com>
-Subject: Re: [PATCH v7] cgroup/dmem: implement dmem.high soft limit with
- proactive reclaim
-Date: Thu,  9 Jul 2026 14:11:13 +0800
-Message-ID: <20260709061114.1623774-1-realwujing@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <ak81RUK6vRZaMN2D@gsse-cloud1.jf.intel.com>
-References: <ak81RUK6vRZaMN2D@gsse-cloud1.jf.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4EE10E69E
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 06:12:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C6A8600C3;
+ Thu,  9 Jul 2026 06:12:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 332421F00A3D;
+ Thu,  9 Jul 2026 06:12:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783577568;
+ bh=iZ/NhgphlnpmqtQPc55pU7KxcS+OQu2BvFqDSJ2X6UA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JsPSxu3SvKVuXsKfIlv1cBmJO+h27vYXw5D1jQOEw6nvXaxOU2mVjCXcsGuQZ2ZMk
+ K6/g0izPjYyTPJzI44P/0LQm2v3lTrTl9UaUVTivYlT6cJsU4EIT2pVXLQcY7n5Eev
+ A2NH2FaCTM4sRIWMHpqiUUqMiVwMoSqqVicd4fv8apv/qEkmttKEihh1BzdLVqvHYk
+ tR9n+bb5y+T87r/Pkj2wOSQulDJhn7pQ2ddqKU8/Dogf0+3xt9sNT+5wDyhSXExopg
+ 37tFr5xBbGcVCO0iLyYsWttzq5VZlM9Or4pINT0sv2F5oyN9QkeAMYFExwvw/R0tSj
+ CW3c1l00C4aZw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] i2c: qcom-geni: Add dynamic transfer timeout based
+ on transfer length and frequency
+To: "Aniket Randive" <aniket.randive@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260709055958.4089039-1-aniket.randive@oss.qualcomm.com>
+References: <20260709055958.4089039-1-aniket.randive@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 06:12:47 +0000
+Message-Id: <20260709061248.332421F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,54 +53,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 09, 2026 at 12:44:37AM -0700, Matthew Brost wrote:
-> This looks quite similar to work Thomas is doing here [1].
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The calculation of `bit_usec` can overflow `size_t` on 32-bit arch=
+itectures for large I2C transfers, leading to drastically reduced timeouts.
+- [High] GPI multi-descriptor timeout relies on the maximum single message =
+length rather than the total transfer length, causing premature timeouts fo=
+r batched transfers.
+--
 
-Thank you for the pointer, Matt.  We were not aware of Thomas's series
-before your mail.  After reviewing Thomas's v7 [1], the two series turn
-out to address different — and complementary — problems:
+--- Patch [1]: [PATCH v2] i2c: qcom-geni: Add dynamic transfer timeout base=
+d on transfer length and frequency ---
+commit 347c92514f9af6dc3f13bb2e23106b1dc0aa2e87
+Author: Aniket Randive <aniket.randive@oss.qualcomm.com>
 
-  - Thomas's series hooks a reclaim callback into the dmem.max write
-    path: when an administrator lowers dmem.max below current usage, the
-    kernel calls the driver's reclaim callback to bring device memory
-    usage down to the new limit.  This is analogous to what happens in
-    memcg when memory.max is written below current usage.
+i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and f=
+requency
 
-  - Our series adds dmem.high as a soft limit enforced in the charge
-    path: when a successful allocation pushes a cgroup's usage above
-    dmem.high, TTM proactively evicts one BO from that cgroup before
-    returning.  This mirrors memory.high semantics in memcg, where
-    reclaim is triggered per-allocation to keep usage below the soft
-    threshold.
+This commit replaces the static 1-second timeout for I2C transfers with a
+dynamic calculation based on message length and bus frequency. It uses a 10x
+safety margin with a 300ms floor, and applies the maximum message length for
+batched multi-descriptor transfers.
 
-Both mechanisms coexist independently in memcg and serve distinct
-purposes: the max write path handles capacity reconfiguration by
-operators, while the high-limit path provides automatic backpressure
-for workloads approaching their quota.  Having both in the dmem cgroup
-controller seems correct.
+> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-=
+qcom-geni.c
+> index 96dbf04138bee..d43db77b36781 100644
+> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+> @@ -204,6 +207,16 @@ static int geni_i2c_clk_map_idx(struct geni_i2c_dev =
+*gi2c)
+>  	return -EINVAL;
+>  }
+> =20
+> +static unsigned long geni_i2c_xfer_timeout(struct geni_i2c_dev *gi2c, si=
+ze_t len)
+> +{
+> +	size_t bit_cnt =3D len * 9;
+> +	size_t bit_usec =3D (bit_cnt * USEC_PER_SEC) / gi2c->clk_freq_out;
 
-> Are either of you two aware of this seemly overlapping work?
+[Severity: High]
+Can this calculation overflow size_t on 32-bit architectures?
 
-We were not, until your mail.  Now that we are, we would like to
-coordinate with Thomas on a few interaction points:
+Since size_t is 32 bits on 32-bit platforms, the intermediate result of
+bit_cnt * USEC_PER_SEC can exceed the 32-bit maximum before the division
+takes place.
 
-  1. API intersection: Thomas's v5+ replaces the bare u64 size argument
-     in dmem_cgroup_register_region() with struct dmem_cgroup_init (which
-     bundles the region size, reclaim ops, and driver private data).  If
-     Thomas's series lands first, we will adapt our patches to the new
-     registration interface.
+If a message is larger than 477 bytes, bit_cnt becomes greater than 4293.
+Multiplying that by 1,000,000 overflows the 32-bit value, which truncates
+the result.
 
-  2. File-level conflicts: both series modify ttm_resource.c and
-     ttm_bo.c.  The changes are semantically independent and should
-     compose cleanly after a rebase, whichever lands second.
+This could lead to drastically reduced timeouts and premature -ETIMEDOUT
+failures for large I2C transfers.
 
-Thomas, would you be open to coordinating on merge ordering?  We are
-happy to rebase our dmem.high series on top of yours once it lands, or
-to split out any shared infrastructure as a common prerequisite if that
-helps.
+> +	size_t xfer_max_usec =3D (bit_usec * I2C_TIMEOUT_SAFETY_COEFFICIENT) +
+> +			       I2C_TIMEOUT_MIN_USEC;
+> +
+> +	return usecs_to_jiffies(xfer_max_usec);
+> +}
+> +
 
-Thanks,
-Jing Wu
+[ ... ]
+
+> @@ -736,8 +751,16 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, s=
+truct i2c_msg msgs[],
+>  		dma_async_issue_pending(gi2c->tx_c);
+> =20
+>  		if ((msg_idx =3D=3D (gi2c->num_msgs - 1)) || flags & DMA_PREP_INTERRUP=
+T) {
+> +			unsigned long timeout;
+> +			size_t max_len =3D 0;
+> +			int j;
+> +
+> +			for (j =3D 0; j < gi2c->num_msgs; j++)
+> +				max_len =3D max_t(size_t, max_len, msgs[j].len);
+> +
+> +			timeout =3D geni_i2c_xfer_timeout(gi2c, max_len);
+>  			ret =3D geni_i2c_gpi_multi_xfer_timeout_handler(gi2c->se.dev, gi2c_gp=
+i_xfer,
+> -								      XFER_TIMEOUT, &gi2c->done);
+> +								      timeout, &gi2c->done);
+
+[Severity: High]
+Does this timeout calculation correctly account for the time required to
+transmit all messages in a batched multi-descriptor transfer?
+
+The loop calculates max_len based on the longest single message in the
+chain. However, the hardware processes the entire batch of messages
+sequentially.
+
+Because DMA_PREP_INTERRUPT is typically only set on the final message
+in geni_i2c_gpi(), the completion handler blocks in
+wait_for_completion_timeout() while waiting for the entire batch to finish
+transmitting.
+
+If a batch contains many messages, the cumulative transmission time might
+exceed the 10x safety margin of the single largest message, resulting in a
+spurious transfer timeout.
+
+>  			if (ret) {
+>  				dev_err(gi2c->se.dev,
+>  					"I2C multi write msg transfer timeout: %d\n",
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709055958.4089=
+039-1-aniket.randive@oss.qualcomm.com?part=3D1
