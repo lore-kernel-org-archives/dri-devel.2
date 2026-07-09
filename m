@@ -4,58 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5615BC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:20:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F84EC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:20:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1DE710F581;
-	Thu,  9 Jul 2026 12:20:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67DBD10F582;
+	Thu,  9 Jul 2026 12:20:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bxqUbkt9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QMKAahv+";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB0210F581
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:20:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783599601;
- bh=RT/HRgfoNKQPARe5qEWOxDMSRRCc8Vcn40gr9dTYBWQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bxqUbkt99KGiyi0TBy2vPZHzOjUVyfK3pVMmrG8XEThvKeVBqcS9wRx70lSUQd+e4
- M86Wa5nykKTlErGYWQQXpbxzK1uRhk5UVn6QrP7ukIiBaOLa1g7dI5Sk4VTcPkRgbC
- 3H0YetvwRUt1usIfDjCTUl03QDjZLjWqe07AfqlMuhShenuCE+ibriEQ5M1HcrCI60
- V6TB2VPsta2LVyDLnEW4G1Ap5xbYygp5YhgqFExxIzTEOHOrSy5nhD0fsiH1YURuC6
- Dl015apo6oNgVqhjsCRpKCBZuRUB5jK5AP0r/fXalZSf3FDKrGQnMS2Zv8uD0/5uGP
- zrcoomLZfbRMg==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D37B917E0720;
- Thu, 09 Jul 2026 14:20:00 +0200 (CEST)
-Date: Thu, 9 Jul 2026 14:19:57 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Danilo
- Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
-Subject: Re: [RFC 2/8] drm/panthor: Use separate workqueue for DRM scheduler
-Message-ID: <20260709141957.7f7664d0@fedora-2.home>
-In-Reply-To: <8e079d0b-427f-42cd-8013-7b8af005cd6d@igalia.com>
-References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
- <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
- <20260702173127.3103af30@fedora-2.home>
- <8aa9ffad-ece3-428b-b307-1d5f4136db73@igalia.com>
- <20260706161812.07ee7500@fedora-2.home>
- <bd262d12-65d0-4c59-a314-b42b540acd99@igalia.com>
- <20260709084520.16d32cb7@fedora-2.home>
- <8e079d0b-427f-42cd-8013-7b8af005cd6d@igalia.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF9710F582
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:20:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7FB446001A
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:20:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE1E1F000E9;
+ Thu,  9 Jul 2026 12:20:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783599640;
+ bh=tf9tQZXrhVdFgqHxMfq35fRrEDgIb3v69p1+Hhdpqco=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QMKAahv+DuHllXeHvgSblwjLgV8o6Uu1YwH5LjP6cMLwQIOaTuNr6BRzv89KY98BL
+ q5WJc8YFRi2q+SLGmELzbhy1ZeSLidjxdVF3eVbpW0/V3aufxge2zx6mwzDAiivhjs
+ 2J903SnQW45owJYhfUTNRerqP2r37zbdSeKiuoI8mi+P7fGtJXMtehgoSF43vx9fzm
+ gUc0MiuIe+2tlp2QzNV8T89bMyVwCTfdllz/IYtGcoA8UxpUzOqEuMPTdRae526jGU
+ J1Ij/vwQ3WTzeDbW8lfFgPZCHWh+FCoyUZ4/9zkh6vCU+BXBKX17GScGtLJHBBlyJ3
+ phTttAG8rWMAA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 38/60] drm/atomic-state-helper: Remove
+ drm_atomic_helper_plane_reset()
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-38-302d986fe5f0@kernel.org>
+References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-38-302d986fe5f0@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 12:20:39 +0000
+Message-Id: <20260709122040.0AE1E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,190 +54,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 9 Jul 2026 11:56:48 +0100
-Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Removing `drm_atomic_helper_plane_reset()` breaks the build for the=
+ VeriSilicon DRM driver due to a missed caller.
+- [Low] The kernel-doc for `drm_plane_funcs.reset` still instructs drivers =
+to use the removed `drm_atomic_helper_plane_reset()` function.
+--
 
-> On 09/07/2026 07:45, Boris Brezillon wrote:
-> > On Wed, 8 Jul 2026 17:47:36 +0100
-> > Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
-> >   
-> >> On 06/07/2026 15:18, Boris Brezillon wrote:  
-> >>> On Mon, 6 Jul 2026 13:03:33 +0100
-> >>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
-> >>>      
-> >>>> On 02/07/2026 16:31, Boris Brezillon wrote:  
-> >>>>> On Thu,  2 Jul 2026 15:37:39 +0100
-> >>>>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
-> >>>>>         
-> >>>>>> Currently an unordered workqueue is used for the DRM scheduler which means
-> >>>>>> its concurrency is externally managed, and given there is one scheduler
-> >>>>>> instance per userspace queue, that means workqueue management logic is
-> >>>>>> within its rights to spawn many kernel threads to submit their respective
-> >>>>>> jobs.
-> >>>>>>
-> >>>>>> Problem there is that all run job callbacks are serialized on the device
-> >>>>>> global mutex,  
-> >>>>>
-> >>>>> I think we should address that instead, and either shorten the scope of
-> >>>>> the locked section, or make it so we don't make it a contention point
-> >>>>> for concurrent job submission from different contexts (with a rwsem
-> >>>>> instead of a lock, for instance).
-> >>>>>         
-> >>>>>> making the potential thread storm just causing lock
-> >>>>>> contention.
-> >>>>>>
-> >>>>>> If we add a separate ordered workqueue for the DRM scheduler integration
-> >>>>>> we can avoid this problem, since the ordered property directly expresses
-> >>>>>> the nature of the submission backend implementation.  
-> >>>>>
-> >>>>> Yep, except that's not how it was meant to work. The goal was to allow
-> >>>>> contexts to submit their jobs concurrently to the FW. The only reason we
-> >>>>> take the lock is to:
-> >>>>>
-> >>>>> 1. make sure the context is still allowed to take jobs
-> >>>>> 2. kick the group scheduler if the context is not resident
-> >>>>>
-> >>>>> For #1, I believe we can come up with either a lockless solution, or a
-> >>>>> solution where the lock protecting the state belongs to the group
-> >>>>> instead of being externally protected by the device-wide scheduler lock.
-> >>>>>
-> >>>>> For #2, the rwsem approach, and narrowing down the locked section to
-> >>>>> just this part of the code should do the trick.  
-> >>>>
-> >>>> Out of curiosity how much CPU side parallelism you think is required to
-> >>>> keep these GPUs fed? Both today (with the greater lock contention) and
-> >>>> in the future (with the reduced contention) I guess would be interesting
-> >>>> data points.  
-> >>>
-> >>> The maximum is known: it's the amount of FW CSG slot we have available.
-> >>> I think the theoretical limit is 16, but IIRC, we never had more than 8
-> >>> exposed by the FW.  
-> >>
-> >> Yeah but is it _really_ required to have 8 CPU threads feed these slots?  
-> > 
-> > 8 is indeed the number of SW slots, but there are multiple HW queues
-> > under the hood (and multiple cores to dispatch jobs to), making it so
-> > multiple GPU context can effectively be scheduled in parallel. This
-> > number is lower than the number of FW slots though (I need to check if
-> > it's exposed through some RO regs).  
-> 
-> Got it, thanks!
-> 
-> So it is desirable to keep the FW slots filled with up to N jobs of each 
-> queue type, where N is the HW parallelism of that queue type.
+--- Patch [38]: [PATCH 38/60] drm/atomic-state-helper: Remove drm_atomic_he=
+lper_plane_reset() ---
+commit 28fd99488064ec3128455fb576e0e475cfe40a1f
+Author: Maxime Ripard <mripard@kernel.org>
 
-Jobs are one level below that. Each FW slot is attached a group
-(that's Arm's naming), which is basically backing a VkQueue. The group
-contains 1 to 8 queues (1 for fragment processing, 1 for geometry
-processing, 1 for compute, 1 for transfers, ...) which can run
-concurrently, and each of these queues has a ring buffer to push jobs
-to. The ring buffer size is customizable and determines the maximum
-number of jobs you can have queued before you have to wait for a ringbuf
-slot to become available again. I know I use the term "slot" a lot and
-it gets confusing, but FW slot (a way to make a group/VkQueue resident)
-must not be confused with a ringbuf slot (a slot where you store you job
-targeting a specific queue under this group). You can fill up your
-ringbuf slots while the group is not resident (when that happens, we
-kick the second-stage scheduler to make sure the group is going to
-become resident at some point). And equally, you can have a group that's
-resident, but has all its queue ringbufs empty (in that case, it should
-sooner or later be evicted and replaced by another group that wants to
-execute things).
+drm/atomic-state-helper: Remove drm_atomic_helper_plane_reset()
 
-So, back to your initial statement, it is desirable to keep the queues
-under a resident group (one that's attached to a FW slot) filled with
-jobs to maximize utilization. And ideally, we want the group with the
-highest priority to be refilled faster than the other resident groups.
+This commit removes drm_atomic_helper_plane_reset() from the atomic state
+helper. The commit message states that all callers now go through
+drm_atomic_helper_plane_create_state().
 
-> 
-> At least assuming that the MCU is not significantly slower than the main 
-> CPU in dequeing the FW slots into HW queues.
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/=
+drm_atomic_state_helper.c
+> index d90d1d7c9cf9f..f184ce76e090d 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -346,25 +346,6 @@ void __drm_atomic_helper_plane_reset(struct drm_plan=
+e *plane,
+>  }
+>  EXPORT_SYMBOL(__drm_atomic_helper_plane_reset);
+> =20
+> -/**
+> - * drm_atomic_helper_plane_reset - default &drm_plane_funcs.reset hook f=
+or planes
+> - * @plane: drm plane
+> - *
+> - * Resets the atomic state for @plane by freeing the state pointer (whic=
+h might
+> - * be NULL, e.g. at driver load time) and allocating a new empty state o=
+bject.
+> - */
+> -void drm_atomic_helper_plane_reset(struct drm_plane *plane)
 
-So, FW is scheduling queues under the resident groups, but the ring
-buffers are consumed by a HW component (CSHWIF in Arm's naming), which I
-expect to run faster than the MCU itself, even though, the MCU being
-dedicated to just that scheduling task with very little to no OS
-overhead, I'd expect the turnaround time to be quite fast compared to
-the APU, even if the MCU is clocked at a way lower freq.
+[Severity: Low]
+Are there still remaining callers of this function? It appears
+vs_cursor_plane_funcs in drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+still references it for the .reset hook, which could break the build
+when the VeriSilicon DRM driver is enabled:
 
-> 
-> What would that number be in practice? I am going back to what Tejun 
-> mentioned, that if we can provide some bound number of how many RT 
-> workers we may need, then he may be able to provide the RT facility.
+drivers/gpu/drm/verisilicon/vs_cursor_plane.c:vs_cursor_plane_funcs:
+	.reset		=3D drm_atomic_helper_plane_reset,
 
-As I say below, I think we can start with just a single-worker
-wq per priority, and take it from there if we see the resident queues
-are not filled fast enough compared to the non-resident ones. What's
-really important for us is for jobs targeting high-prio queues to hit
-their ringbuf before those targeting lower prio queues.
+[Severity: Low]
+Should the documentation in include/drm/drm_plane.h be updated as well?
+The kernel-doc for struct drm_plane_funcs still instructs drivers to use
+this removed function:
 
-> 
-> >> GPU will still take one at a time and preemption is not that fast, no?  
-> > 
-> > Preemption on the FW side is pretty simple: each slot gets a unique
-> > prio, and lower prio slots only get HW queues and GPU resources if
-> > higher prio ones are idle and accept to give up their resources for a
-> > bit. We then have a 10ms tick in panthor to rotate the FW slot
-> > priorities. So yes, preemption is not very granular, but that's not
-> > really the problem I'm worried about. What I'm worried about is having
-> > just one thread for everything, with the first-queued/first-served
-> > model that the kthread_worker infrastructure provides. If we're talking
-> > about one thread per-priority level, that's already better, and then I
-> > agree that the contention on GPU contexts with the same priority is less
-> > of an issue, especially since the run_job work has to run before being
-> > rescheduled, which gives you this natural FIFO behavior, thus leaving
-> > other contexts a chance to queue their run_job in the meantime.
-> > 
-> > But this WQ_UNBOUND -> WQ_SINGLE_THREAD transition, where the wq is
-> > shared among the entire device is not that. It's actually serializing
-> > work submission for all GPU contexts regardless of their priority.
-> > 
-> > TLDR; I'd be happy if we start with just one kthread per-prio + the
-> > narrowing of the locked section in the run_job() implementation, so
-> > that context submission actually happens concurrently, and low prio
-> > context don't starve high-prio/RT ones in the submission path.  
-> 
-> I don't think this is actually priority starvation but plain FIFO 
-> starvation.
+include/drm/drm_plane.h:
+	 * Atomic drivers can use drm_atomic_helper_plane_reset() to reset
+	 * atomic state using this hook.
 
-The FIFO is per group-queue, not global to the device though (we have
-one sched_entity and one scheduler per group-queue, not one for the
-entire system). The starvation, if any, would come from the
-serialization in the run_job() implementation, as we try to acquire the
-device-wide panthor_scheduler::lock. And that's not by design, but
-rather a flaw in the original implementation.
+> -{
+> -	if (plane->state)
+> -		__drm_atomic_helper_plane_destroy_state(plane->state);
+> -
+> -	kfree(plane->state);
+> -	plane->state =3D kzalloc_obj(*plane->state);
+> -	if (plane->state)
+> -		__drm_atomic_helper_plane_reset(plane, plane->state);
+> -}
+> -EXPORT_SYMBOL(drm_atomic_helper_plane_reset);
+> -
 
-> It can happen even today with WQ_UNBOUND, which does nothing 
-> about breaking the FIFO order based on priorities, just that some 
-> parallelism alleviates it.
-
-Well, it's indeed not providing a guarantee that things will be
-pushed in the proper prio order, but the fact threads can be
-spawned makes it less likely for low-prio queues to block high-prio
-ones, at least.
-
-> 
-> But in principle I am fine with going with N workers. It's just a matter 
-> of what is N derived from and how big it is. It could be even be passed 
-> to alloc_workqueue in the today's code base but I accept there is not 
-> much value to that since I don't think there are SoC's with a Mali GPU 
-> and server level number of CPU cores.
-
-I think we can start with one ordered-wq per prio level. So basically
-what you intended to do in this patch, but instead of having a single
-ordered-wq, we have four of them (one per prio). It doesn't address the
-fact run_job() on non-resident groups might hit their ringbuf before
-resident ones, but that's probably good enough as a first step, and as
-you pointed out, the current locking forces this serialization with no
-more guarantee regarding who's going to be served first anyway, so it
-can't be worse than it already is.
-
-Note that this is probably not enough to make a difference, we also
-need panthor-specific work items to go to the per-prio wqs based on
-where the event comes from (we have per-FW-slot interrupts), and the
-priority of the group attached to the FW slot. Or we just consider any
-event from the FW as high-prio regardless of the slot its pointing to,
-dunno.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-drm-no-mor=
+e-plane-reset-v1-0-302d986fe5f0@kernel.org?part=3D38
