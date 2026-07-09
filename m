@@ -4,59 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E67C44506
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 16:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03DF9C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 16:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7816210E08C;
-	Thu,  9 Jul 2026 16:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 530CD10E088;
+	Thu,  9 Jul 2026 16:26:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="h+la/lxc";
+	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="Nh8jbmKX";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B60010E08C
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 16:23:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783614229; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=niRRZPQrz7T9Zk4CpSbMjy+G5SmXE5ukVbQBZlG3yh0LAInb4W6FvVV42AP0kic6et8FZXRpxFsVRWv8uszXkotC9VwF4Uwvo+G+wuXw1iBou49xRF82hIx6RPxtfZUnH4QkBR2qiX6UNUveDb1SY8TngvyUcazqs/uPWovAwJ8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783614229;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=epF0rxB7lKg2IRD6abbcyUE44UYIuJo/f9yIkc845WQ=; 
- b=bbSCRqrpBlFFMjDXzJ8WiCam4UjId+wp6Ynyl1nQa5/6f2QCzXbvEyA/ecwKPbpzFu9C9iXR07XVkGU6yjPer7s+fTJe4u+LyFynh+iARgjFi9QHLJib+uPypXvEtlPBd32KWAxoYbcJX8VSVpH8Je7RAKKkYAvgX/uwOuphRr8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783614229; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=epF0rxB7lKg2IRD6abbcyUE44UYIuJo/f9yIkc845WQ=;
- b=h+la/lxcm6pcWpmugBmcJ7E9CK/fnTfWZKbbKZqHNRAfjau2jof0kwhT5lwbd+YZ
- v3n4GiIXt/y5atyn/5ZGDSfO8DaJCoaajTc8qqNnJ/1AXOKYBZltWOu5ehS2FHKwZqD
- n7c7djpnQqpcP1GivxvtIchSyLO1/GT7/IMD3uJQ=
-Received: by mx.zohomail.com with SMTPS id 1783614227917726.9600571528584;
- Thu, 9 Jul 2026 09:23:47 -0700 (PDT)
-Message-ID: <e9d5c9ee-88b1-4e9c-9999-74edbb2c59f3@collabora.com>
-Date: Thu, 9 Jul 2026 19:23:43 +0300
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F63D10E086
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 16:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=cy1QN1NzhHYQz51ULp2Gqf50+XQ1ns+77hhEPNga8rY=; b=Nh8jbmKX6frPNXdTwrWeSUk2K/
+ wwAvA+IcRPsu33aWOOpLuL0vijI5DgOV90JCS0vpLno0kjWUzlQOKyS4YwO6k8R8nO7RDwrSMV+dL
+ eUNoj0A1PKV5vNYV3esTbqfTeiVKHGkk7+XHxoh+bcruLUDYUxzX5Wd7yRHZ1xiCoknTcW04nSocm
+ TcKxahaxu8DLA8ypbE2ArShDLuHPM0Wr6ec/033XdX1AaSEAa6bEKV6ZfKT1F5zkrnnd4htX8lYM5
+ 87Ax4T2lzLv1AEZrAaLw51M1m/4UwdZNo1vEMAQmEbhUh++xiDpV7Q6oEbp3ERRx1sczH4nnFpYrt
+ QnN4V9Dw==;
+Received: from s0106ac1f6bb1ecac.cg.shawcable.net ([96.51.150.74]
+ helo=[10.0.33.8]) by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1whraJ-00000002TP7-04hO;
+ Thu, 09 Jul 2026 10:26:47 -0600
+Message-ID: <9b664c05-8e85-4ccb-afc4-91ba807438b7@deltatee.com>
+Date: Thu, 9 Jul 2026 10:25:45 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: Don't detach GEM from a non-created context
-To: Yiwei Zhang <zzyiwei@google.com>
-Cc: Jason Macnak <natsu@google.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260625170828.3335431-1-natsu@google.com>
- <7202d2dc-b6fe-440e-88b0-aefb26c38b86@collabora.com>
- <CAKT=dD=YecudFK1L9wJ22BO41qXt7V4Qm=nNQQiuwheKejoHdg@mail.gmail.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAKT=dD=YecudFK1L9wJ22BO41qXt7V4Qm=nNQQiuwheKejoHdg@mail.gmail.com>
+To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260701171245.90111-1-matt@ozlabs.org>
+ <20260701171245.90111-3-matt@ozlabs.org>
+ <26f74cf0-8892-4672-b0e1-1f1a385c42bb@deltatee.com>
+ <aecbbc66-c154-4439-a6ae-84dc012b0f8d@ozlabs.org>
+ <1cd1b832-082c-4f9c-ab68-706110ddcb25@deltatee.com>
+ <e0ccdfd7-2379-44ae-b579-a0da045d7f1b@ozlabs.org>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <e0ccdfd7-2379-44ae-b579-a0da045d7f1b@ozlabs.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 96.51.150.74
+X-SA-Exim-Rcpt-To: matt@ozlabs.org, alex@shazbot.org, leon@kernel.org,
+ jgg@nvidia.com, amastro@fb.com, christian.koenig@amd.com, bhelgaas@google.com,
+ kevin.tian@intel.com, praan@google.com, mngyadam@amazon.de,
+ dmatlack@google.com, bjorn@kernel.org, sumit.semwal@linaro.org,
+ ankita@nvidia.com, apopple@nvidia.com, vivek.kasireddy@intel.com,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH v4 02/10] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,81 +85,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/7/26 22:01, Yiwei Zhang wrote:
-> On Mon, Jun 29, 2026 at 2:39 PM Dmitry Osipenko
-> <dmitry.osipenko@collabora.com> wrote:
->>
->> Hi,
->>
->> On 6/25/26 20:08, Jason Macnak wrote:
->>> Applies the same treatment as commit 7cf6dd467e87 ("drm/virtio:
->>> Don't attach GEM to a non-created context in gem_object_open()")
->>> to virtio_gpu_gem_object_close() to avoid trying to detach
->>> a resource that was never attached due to a context
->>> never being created when context_init is supported.
->>>
->>> Fixes: 086b9f27f0ab ("drm/virtio: Don't create a context with default param if context_init is supported")
->>> Cc: <stable@vger.kernel.org> # v6.14+
->>> Signed-off-by: Jason Macnak <natsu@google.com>
->>> ---
->>>  drivers/gpu/drm/virtio/virtgpu_gem.c | 14 ++++++++------
->>>  1 file changed, 8 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
->>> index 435d37d36034..66c3f6f74e9c 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
->>> @@ -139,13 +139,15 @@ void virtio_gpu_gem_object_close(struct drm_gem_object *obj,
->>>       if (!vgdev->has_virgl_3d)
->>>               return;
->>>
->>> -     objs = virtio_gpu_array_alloc(1);
->>> -     if (!objs)
->>> -             return;
->>> -     virtio_gpu_array_add_obj(objs, obj);
->>> +     if (vfpriv->context_created) {
->>> +             objs = virtio_gpu_array_alloc(1);
->>> +             if (!objs)
->>> +                     return;
->>> +             virtio_gpu_array_add_obj(objs, obj);
->>>
->>> -     virtio_gpu_cmd_context_detach_resource(vgdev, vfpriv->ctx_id,
->>> -                                            objs);
->>> +             virtio_gpu_cmd_context_detach_resource(vgdev, vfpriv->ctx_id,
->>> +                                                    objs);
->>> +     }
->>>       virtio_gpu_notify(vgdev);
->>>  }
->>
->> The following scenario still will be troubling:
->>
->> 1. vgdev->has_context_init = true
->> 2. virtio_gpu_gem_object_open() invoked, GEM created and not attached to ctx
->> 3. virtio_gpu_context_init_ioctl() invoked, now vfpriv->context_created
->> = true
->> 4. virtio_gpu_gem_object_close() will detach resource that wasn't attached
->>
->> Add obj->ctx_attached member to struct virtio_gpu_object. See
->> virtio_gpu_object_attach() that uses obj->attached, do the same for
->> virtio_gpu_cmd_context_attach_resource().
->>
->> --
->> Best regards,
->> Dmitry
-> 
-> Hi Dmitry,
-> 
-> WIth context_init, resource attach/detach is per-context based. So a
-> simple obj->ctx_attached won't work. One would have to track in the
-> guest context_init ctx for whether a bo has been attached or not.
-> 
-> Another option is to accept this patch and live with the case you
-> mentioned. We can consider that "invalid" user behavior.
 
-Indeed, obj->ctx_attached shouldn't work for a shared/exported BO. Will
-think on it for a couple days more and then merge this version if no
-better ideas will appear.
 
--- 
-Best regards,
-Dmitry
+On 2026-07-09 10:17 a.m., Matt Evans wrote:
+> I'm intending to repost _retaining_ the 64BIT dependency (i.e. revert
+> its removal) for simplicity's sake.  Then we can follow up separatey
+> (outside this series) with a cleanup patch to remove 64BIT, explain,
+> examine other dependencies etc. as you suggest.  Works for you?
+
+Yup, that's fine by me. Thanks!
+
+Logan
