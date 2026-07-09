@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F84EC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B57C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:20:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67DBD10F582;
-	Thu,  9 Jul 2026 12:20:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4823810F585;
+	Thu,  9 Jul 2026 12:20:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QMKAahv+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EfXWCBea";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF9710F582
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:20:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 295B010F585
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:20:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7FB446001A
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:20:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE1E1F000E9;
- Thu,  9 Jul 2026 12:20:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A13C16001A
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:20:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0F31F000E9;
+ Thu,  9 Jul 2026 12:20:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783599640;
- bh=tf9tQZXrhVdFgqHxMfq35fRrEDgIb3v69p1+Hhdpqco=;
+ s=k20260515; t=1783599651;
+ bh=vZTsp41HjC805G9v/zmz46Rq9P3TG2L3iteOrHH/7uU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QMKAahv+DuHllXeHvgSblwjLgV8o6Uu1YwH5LjP6cMLwQIOaTuNr6BRzv89KY98BL
- q5WJc8YFRi2q+SLGmELzbhy1ZeSLidjxdVF3eVbpW0/V3aufxge2zx6mwzDAiivhjs
- 2J903SnQW45owJYhfUTNRerqP2r37zbdSeKiuoI8mi+P7fGtJXMtehgoSF43vx9fzm
- gUc0MiuIe+2tlp2QzNV8T89bMyVwCTfdllz/IYtGcoA8UxpUzOqEuMPTdRae526jGU
- J1Ij/vwQ3WTzeDbW8lfFgPZCHWh+FCoyUZ4/9zkh6vCU+BXBKX17GScGtLJHBBlyJ3
- phTttAG8rWMAA==
+ b=EfXWCBea1DUpxFQQNNeSQ+54qOm1oAQWS8Gagrl97WWoUSwKNuDzWMhLeYHQf+qQF
+ tPmqlkgMgSKgLLsCsRM33gkJU6rSG458kjMK5LANvzk5DgZ8tPqhiTkmq364peY/M6
+ d005avQfM8skZtEyKMGioBxEFHbmvAoCgmf1Tkp+Zay65/FlyZ6ypNuLI1F2f3Xq4s
+ FVk6Az/lq0JaiusjSDkKM9cIeVtYbnus9ekjWeYCYT38qY8Ahrj6hzUUy0VjoQTZjk
+ ERRPovviNP8gAAacmqAUSJDvsqEEttULDiwAClz/DvE2jS5zhQxp5DKCKa0I6sOSca
+ UKsc/OhGVDkdw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 38/60] drm/atomic-state-helper: Remove
- drm_atomic_helper_plane_reset()
+Subject: Re: [PATCH 35/60] drm/vboxvideo: Convert to atomic_create_state
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-38-302d986fe5f0@kernel.org>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-35-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-38-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-35-302d986fe5f0@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 12:20:39 +0000
-Message-Id: <20260709122040.0AE1E1F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 12:20:50 +0000
+Message-Id: <20260709122051.2E0F31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,77 +57,64 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Removing `drm_atomic_helper_plane_reset()` breaks the build for the=
- VeriSilicon DRM driver due to a missed caller.
-- [Low] The kernel-doc for `drm_plane_funcs.reset` still instructs drivers =
-to use the removed `drm_atomic_helper_plane_reset()` function.
+
+Pre-existing issues:
+- [High] The driver acquires a mutex in plane atomic update and disable cal=
+lbacks, which execute in atomic context where sleeping is forbidden.
 --
 
---- Patch [38]: [PATCH 38/60] drm/atomic-state-helper: Remove drm_atomic_he=
-lper_plane_reset() ---
-commit 28fd99488064ec3128455fb576e0e475cfe40a1f
+--- Patch [35]: [PATCH 35/60] drm/vboxvideo: Convert to atomic_create_state=
+ ---
+commit b805e15405279473a42dd26a1b3da549e8eee553
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/atomic-state-helper: Remove drm_atomic_helper_plane_reset()
+drm/vboxvideo: Convert to atomic_create_state
 
-This commit removes drm_atomic_helper_plane_reset() from the atomic state
-helper. The commit message states that all callers now go through
-drm_atomic_helper_plane_create_state().
+The plane only initializes a pristine state in its reset hook
+using drm_atomic_helper_plane_reset(), which is equivalent to what
+atomic_create_state expects. Convert to it.
 
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/=
-drm_atomic_state_helper.c
-> index d90d1d7c9cf9f..f184ce76e090d 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -346,25 +346,6 @@ void __drm_atomic_helper_plane_reset(struct drm_plan=
-e *plane,
->  }
->  EXPORT_SYMBOL(__drm_atomic_helper_plane_reset);
-> =20
-> -/**
-> - * drm_atomic_helper_plane_reset - default &drm_plane_funcs.reset hook f=
-or planes
-> - * @plane: drm plane
-> - *
-> - * Resets the atomic state for @plane by freeing the state pointer (whic=
-h might
-> - * be NULL, e.g. at driver load time) and allocating a new empty state o=
-bject.
-> - */
-> -void drm_atomic_helper_plane_reset(struct drm_plane *plane)
+> diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vbox=
+video/vbox_mode.c
+> index 8e4e5fc9d3c5a..a30e9265ecb17 100644
+> --- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> +++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
+> @@ -498,7 +498,7 @@ static const struct drm_plane_funcs vbox_primary_plan=
+e_funcs =3D {
+>  	.update_plane	=3D drm_atomic_helper_update_plane,
+>  	.disable_plane	=3D drm_atomic_helper_disable_plane,
+>  	.destroy	=3D drm_plane_helper_destroy,
+> -	.reset		=3D drm_atomic_helper_plane_reset,
+> +	.atomic_create_state =3D drm_atomic_helper_plane_create_state,
 
-[Severity: Low]
-Are there still remaining callers of this function? It appears
-vs_cursor_plane_funcs in drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-still references it for the .reset hook, which could break the build
-when the VeriSilicon DRM driver is enabled:
+[Severity: High]
+This isn't a bug introduced by this patch, but does this driver sleep in
+atomic context during plane updates?
 
-drivers/gpu/drm/verisilicon/vs_cursor_plane.c:vs_cursor_plane_funcs:
-	.reset		=3D drm_atomic_helper_plane_reset,
+Looking at other functions in this file, the atomic update and disable
+callbacks appear to acquire a mutex:
 
-[Severity: Low]
-Should the documentation in include/drm/drm_plane.h be updated as well?
-The kernel-doc for struct drm_plane_funcs still instructs drivers to use
-this removed function:
+drivers/gpu/drm/vboxvideo/vbox_mode.c:vbox_primary_atomic_update() {
+    ...
+    mutex_lock(&vbox->hw_mutex);
+    ...
+}
 
-include/drm/drm_plane.h:
-	 * Atomic drivers can use drm_atomic_helper_plane_reset() to reset
-	 * atomic state using this hook.
+Similarly, vbox_cursor_atomic_update() and vbox_cursor_atomic_disable()
+also call mutex_lock(&vbox->hw_mutex), and vbox_primary_atomic_disable()
+calls vbox_crtc_set_base_and_mode() which acquires the same mutex.
 
-> -{
-> -	if (plane->state)
-> -		__drm_atomic_helper_plane_destroy_state(plane->state);
-> -
-> -	kfree(plane->state);
-> -	plane->state =3D kzalloc_obj(*plane->state);
-> -	if (plane->state)
-> -		__drm_atomic_helper_plane_reset(plane, plane->state);
-> -}
-> -EXPORT_SYMBOL(drm_atomic_helper_plane_reset);
-> -
+Since the DRM core executes plane atomic update and disable callbacks in an
+atomic context where sleeping functions are forbidden, could this cause
+kernel warnings about sleeping in an invalid context, or potential deadlocks
+during non-blocking commits?
+
+>  	.atomic_duplicate_state =3D drm_atomic_helper_plane_duplicate_state,
+>  	.atomic_destroy_state =3D drm_atomic_helper_plane_destroy_state,
+>  };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-drm-no-mor=
-e-plane-reset-v1-0-302d986fe5f0@kernel.org?part=3D38
+e-plane-reset-v1-0-302d986fe5f0@kernel.org?part=3D35
