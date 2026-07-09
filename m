@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 706A1C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64F14C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:01:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2EEE10F577;
-	Thu,  9 Jul 2026 12:00:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0E4D10F55B;
+	Thu,  9 Jul 2026 12:01:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jGC4IruU";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="L0VCLLRO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D43910F572
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:00:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 360F2400D8
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:00:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26791F00A3A;
- Thu,  9 Jul 2026 12:00:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783598434;
- bh=asV61tk7nVmL3qfpUliw9qRaqdQwomg7AculEsHM7Xo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jGC4IruUTBnAZ6jn2YzRMJfy3Z5ATNiFCiimEGm1i8nOifQZPDaC7Tf+q2bvTsdv8
- IwaS8oHAATfOmxqlpHv/sR5kpgkdz16UnTGKuDfZvqWXJw39II66GmhXtcafqqxIG9
- So+sSvfQ0RCSja05oIBteBtzu28+DCM6BHJI3113dK38fWgLCKns/VJ1mTbGzXxBtj
- wPXIdZcWdUWOLJmEhpl/i1rIW3K960WGk2+ceS3lsf6xfoSRaS/S3wd92RGGyfGAe9
- eqJvnNU7A56NROsxPNGdWSbiYuVS1uT11n2/+qC6VJUb2+o4MefqpJFcz5szpVEIpP
- 94QAH0wU+mNQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/60] drm/simple-kms: Add create_plane_state hook
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-1-302d986fe5f0@kernel.org>
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-1-302d986fe5f0@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 12:00:33 +0000
-Message-Id: <20260709120033.E26791F00A3A@smtp.kernel.org>
+Received: from forward101b.mail.yandex.net (forward101b.mail.yandex.net
+ [178.154.239.148])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9631C10F55B;
+ Thu,  9 Jul 2026 12:01:35 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net
+ [IPv6:2a02:6b8:c11:2281:0:640:870e:0])
+ by forward101b.mail.yandex.net (postfix) with ESMTPS id 586B3C1CA3;
+ Thu, 09 Jul 2026 15:01:31 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net (smtp)
+ with ESMTPSA id Q1JKHN8fGeA0-E1hKzfgN; 
+ Thu, 09 Jul 2026 15:01:30 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1783598490; bh=Q2IgRKlmontnVqFHpJDdJWiJuotI3IXzRQ02ZlLmDjI=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=L0VCLLROIzZFaC5zfeth9mIK/TI1XS7pKiEvUY64D2lmaM5am/z++wB14/L0Uh9Gb
+ MJtYbRXUndoJ2Hmoz4f8QoV3nSSOsOqdjuuPHnvt6TB+eMx2oSZuIzxqlhLXzYQLAH
+ iv/N+BfIvBkTBO4cpIt7FSZZQbyLwy+KzBKF1Xpc=
+Authentication-Results: mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Jack.Xiao@amd.com, Hawking.Zhang@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: [PATCH 6.6] drm/amdgpu: Use scnprintf() in amdgpu_mes_add_ring()
+Date: Thu,  9 Jul 2026 15:00:48 +0300
+Message-ID: <20260709120049.42048-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,78 +59,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Unconditional call to the optional `destroy_plane_state` callback =
-causes a NULL pointer dereference if the driver does not implement it.
-- [Medium] The fallback priority between `create_plane_state` and `reset_pl=
-ane` contradicts the intended design, prioritizing the legacy hook.
---
+Replace sprintf() with scnprintf() to prevent a potential buffer overflow
+when writing to ring->name. The buffer size is 16 bytes. For compute rings,
+the string format "compute_%d.%d.%d" can exceed this limit when the total
+number of digits in the three numbers is greater than 5 (e.g., pasid=1234,
+gang_id=0, queue_id=0). This can lead to memory corruption.
 
---- Patch [1]: [PATCH 01/60] drm/simple-kms: Add create_plane_state hook ---
-commit 2eb693cbd25d991d0fc7bf28e45683c97579b97a
-Author: Maxime Ripard <mripard@kernel.org>
+Using scnprintf() guarantees that the buffer is not overflowed, even if the
+string is truncated. This is a minimal fix for the issue; the BUG() for
+unknown queue types is left unchanged to avoid additional risk.
 
-drm/simple-kms: Add create_plane_state hook
+This code is only present in LTS kernels v6.12, v6.6, and v6.1, as it was
+completely refactored in upstream. Therefore, this patch is specifically
+intended for stable trees.
 
-This commit introduces a create_plane_state hook to the simple-kms helper to
-allow drivers to allocate and initialize pristine state without side effect=
-s.
-It updates drm_simple_kms_plane_reset() to use this new hook while falling
-back to the legacy reset_plane hook if it is not provided.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-> diff --git a/drivers/gpu/drm/drm_simple_kms_helper.c b/drivers/gpu/drm/dr=
-m_simple_kms_helper.c
-> index 8e1d07b9f1e30..efb643ab64487 100644
-> --- a/drivers/gpu/drm/drm_simple_kms_helper.c
-> +++ b/drivers/gpu/drm/drm_simple_kms_helper.c
-[ ... ]
-> @@ -286,10 +286,29 @@ static void drm_simple_kms_plane_reset(struct drm_p=
-lane *plane)
->  	struct drm_simple_display_pipe *pipe;
-> =20
->  	pipe =3D container_of(plane, struct drm_simple_display_pipe, plane);
-> -	if (!pipe->funcs || !pipe->funcs->reset_plane)
-> +	if (!pipe->funcs)
->  		return drm_atomic_helper_plane_reset(plane);
-> =20
-> -	return pipe->funcs->reset_plane(pipe);
-> +	if (pipe->funcs->reset_plane)
-> +		return pipe->funcs->reset_plane(pipe);
-> +
-> +	if (pipe->funcs->create_plane_state) {
+Fixes: d0c423b64765 ("drm/amdgpu/mes: use ring for kernel queue submission")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-[Severity: Medium]
-Does this evaluation order match the intended design? The commit message=20
-states the code will use create_plane_state to allocate a fresh state,=20
-falling back to reset_plane. But here, if a driver provides both during a=20
-migration, it returns early and create_plane_state will not be executed.
-Should create_plane_state be prioritized before checking reset_plane?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 5e3abdd0805b..076d9069aa30 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -1072,13 +1072,14 @@ int amdgpu_mes_add_ring(struct amdgpu_device *adev, int gang_id,
+ 	ring->doorbell_index = qprops.doorbell_off;
+ 
+ 	if (queue_type == AMDGPU_RING_TYPE_GFX)
+-		sprintf(ring->name, "gfx_%d.%d.%d", pasid, gang_id, queue_id);
++		scnprintf(ring->name, sizeof(ring->name), "gfx_%d.%d.%d",
++			pasid, gang_id, queue_id);
+ 	else if (queue_type == AMDGPU_RING_TYPE_COMPUTE)
+-		sprintf(ring->name, "compute_%d.%d.%d", pasid, gang_id,
+-			queue_id);
++		scnprintf(ring->name, sizeof(ring->name), "compute_%d.%d.%d",
++			pasid, gang_id, queue_id);
+ 	else if (queue_type == AMDGPU_RING_TYPE_SDMA)
+-		sprintf(ring->name, "sdma_%d.%d.%d", pasid, gang_id,
+-			queue_id);
++		scnprintf(ring->name, sizeof(ring->name), "sdma_%d.%d.%d",
++			pasid, gang_id, queue_id);
+ 	else
+ 		BUG();
+ 
+-- 
+2.43.0
 
-> +		struct drm_plane_state *state;
-> +
-> +		if (plane->state) {
-> +			pipe->funcs->destroy_plane_state(pipe, plane->state);
-
-[Severity: High]
-Can this cause a NULL pointer dereference? If a driver implements=20
-create_plane_state but relies on the default destruction logic (meaning=20
-pipe->funcs->destroy_plane_state is NULL), this unconditional call will=20
-panic when plane->state is already set, such as during suspend/resume or=20
-consecutive resets. Other functions in this file check for NULL and safely=
-=20
-fall back to drm_atomic_helper_plane_destroy_state().
-
-> +			plane->state =3D NULL;
-> +		}
-> +
-> +		state =3D pipe->funcs->create_plane_state(pipe);
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-drm-no-mor=
-e-plane-reset-v1-0-302d986fe5f0@kernel.org?part=3D1
