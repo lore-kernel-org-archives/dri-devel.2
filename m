@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF12DC44507
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4959BC44501
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C06A210F54B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C67810F54A;
 	Thu,  9 Jul 2026 11:52:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KVu5Q/sF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CjwdFRN6";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E06410F549
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFC3C10F549
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 73D524341A;
- Thu,  9 Jul 2026 11:52:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34D41F000E9;
- Thu,  9 Jul 2026 11:52:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C7CE54341A;
+ Thu,  9 Jul 2026 11:52:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3657E1F00A3A;
+ Thu,  9 Jul 2026 11:52:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597939;
- bh=aEbSIfFKsD1Cgd05PWvkeFUye2F1wOImysR1waaVNjU=;
+ s=k20260515; t=1783597941;
+ bh=dM9Dz8BOGnt3f7Bhf1kyDVl//lCLP82PjKzLT7Rw4Ec=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=KVu5Q/sFMXtTibyDR4BW/o3TzU86aoEXA242FXTAF30FsPz/9FKn1loBAfZWhHCJk
- wlyNSA/hjuWimG1uoQ6KOcbJMP9glfzdptPCSVsz3IhvXERFIj4przy7PRbdGdvdO4
- fTkpqudEkvRXQhDjfKZeUFjzlNgnymLvIRWDrBnADp2NG8VCUlAnI1FQCDYuHpnrbI
- yVriYUw9Y2WuXHzSRo8XQP2NfXwx/jlxuQzg0uUWvWpWtHcXsOAOuH7b5+ib9EqrEj
- 19K/+ysXF4kDNtvaSinKJ+RqDPxAaD7T8HCtr9rMOBNBPgQ0uJgsk4VkC9K8zhNoXG
- BAGF4ZdoSs6Pg==
+ b=CjwdFRN6Ccmivp+mAUB1IhA49kb5Mjh+AcQEU5nLp+eeuUiDS/8AFV4PzOuWLbEtc
+ fxUX3mS2Sagul6d5RXpY11tByMSeujFnhgEdMoACFx0uflokJrThN/SvuFddiEJ3UX
+ xkKJ5Br5P0RYEnEr1Jt0FaMHpQ9lnEG7Ey1I9wtH6IO3HJue/kicXZ/ojT88jEMhCc
+ yKnoMY1vJMJHGntmUsvix6EdPqbP1/hTfyn3Q29QYsX4hSpOrzsy81edaOK+xFi2H+
+ rwlm03lPvcDQHDvtf1zxgdcX+J4OUtAWtblkYmWbSkFJ9axoIUVYfjy0tn/pBrPRW2
+ 0Vx6904PbtCnw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:50:58 +0200
-Subject: [PATCH 32/60] drm/sun4i: sun8i: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:50:59 +0200
+Subject: [PATCH 33/60] drm/tests: kunit: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-32-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-33-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- linux-sunxi@lists.linux.dev, samuel@sholland.org, wens@kernel.org
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6932; i=mripard@kernel.org;
- h=from:subject:message-id; bh=8Id7dM/2KnZ6Tfk/Ny9+M2SKzl5T6pPOX7SJOSKKVk0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3eI1Gft2n/2U4Z3wqXePwEaF35F2M2Z/CRN4x7xrb
- 2+tc6BWx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIuzZjfWCk3RT29WvZ5tTy
- 7mLeMcvXTXLxMmGXOR76kx/F6vkscvjwwbDrSN9njTlTjVxaM0SOMzb0za78w2+y8MW/nd/KDXe
- XRUpc9r344YtlL0v39LPndr2xWP+OU1T6cPphs7uJe89mFDoDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5884; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=z8K4Or1oST5GV3xa02J9M0cG+Avl7C5DqCZt7SS0c58=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3eIzrM83neDon5mWvuwrW/8zNdYntx9onVD8tP6Ab
+ PqWFf2bO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBE9Kcw1mdEW3vHr6rRk1D7
+ 0nG8289/9Q3HXzqZdlYLhKX5ovImeXnvvn7Z7tiD7RMbNKZ8yNdjYawzkLurFWuzLaJ41ZsfytE
+ /V5yOWLTv3en8ksV/HkT9FIzIreiY81anIWJhVO3Clr+K1yoB
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -334,48 +333,26 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: linux-sunxi@lists.linux.dev
-Cc: samuel@sholland.org
-Cc: wens@kernel.org
----
- drivers/gpu/drm/sun4i/sun8i_ui_layer.c | 2 +-
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tests/drm_kunit_helpers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-index 00756ab78b4e..bad102134726 100644
---- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
-@@ -211,11 +211,11 @@ static const struct drm_plane_helper_funcs sun8i_ui_layer_helper_funcs = {
- static const struct drm_plane_funcs sun8i_ui_layer_funcs = {
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
- 	.destroy		= drm_plane_cleanup,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.reset			= drm_atomic_helper_plane_reset,
-+	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.update_plane		= drm_atomic_helper_update_plane,
+diff --git a/drivers/gpu/drm/tests/drm_kunit_helpers.c b/drivers/gpu/drm/tests/drm_kunit_helpers.c
+index 727766444d63..289552d3b9aa 100644
+--- a/drivers/gpu/drm/tests/drm_kunit_helpers.c
++++ b/drivers/gpu/drm/tests/drm_kunit_helpers.c
+@@ -140,11 +140,11 @@ static const struct drm_plane_helper_funcs default_plane_helper_funcs = {
  };
  
- static const u32 sun8i_ui_layer_formats[] = {
- 	DRM_FORMAT_ABGR1555,
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index 09f668c8af24..2e9cda45c04e 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -291,11 +291,11 @@ static const struct drm_plane_helper_funcs sun8i_vi_layer_helper_funcs = {
- static const struct drm_plane_funcs sun8i_vi_layer_funcs = {
+ static const struct drm_plane_funcs default_plane_funcs = {
  	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
  	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
- 	.destroy		= drm_plane_cleanup,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
 -	.reset			= drm_atomic_helper_plane_reset,
 +	.atomic_create_state = drm_atomic_helper_plane_create_state,
- 	.update_plane		= drm_atomic_helper_update_plane,
  };
  
- /*
-  * While DE2 VI layer supports same RGB formats as UI layer, alpha
+ /**
+  * drm_kunit_helper_create_primary_plane - Creates a mock primary plane for a KUnit test
+  * @test: The test context object
 
 -- 
 2.54.0
