@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CF61C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C5CBC44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E472C10F538;
-	Thu,  9 Jul 2026 11:59:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9567E10F574;
+	Thu,  9 Jul 2026 12:00:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="L3h9bteP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UZju8aeX";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E146710F538
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:59:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783598358; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DIcbuPLOUYOkxREn9/zoLZkeAnDAsONc7AxOppJkocR6gp49k5S+jxM/+kHmUvjNb7QYa6x//zAKFJgtEctvFw+iZxUmNjcNjqbYdN7UE3ez+f1XWZCU3NCIxftFvrr9Y4V4N2R0fNm9f15jquSIKRftdsDHcimkMQv6NfqN0VU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783598358;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=qP910scTvuI9bqM8CnMasb2NwIXit9WQiNkQTP8J+hE=; 
- b=oLkpTnWvxwBjENVw2DzlkwyTIHf08knl1fyaWrCMHT4ffYwr0DVoskk/dWKKhr4hWTiVvk4K5deG0EdS2wVV6ZHZzRXzgQXAy6s4qWCi3IJwyMzguXGxbkePnz0KjCAcWQHsl6Jv7VqIusckv2gu2v/UZ9PoV6bI88aIicKefRY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783598358; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=qP910scTvuI9bqM8CnMasb2NwIXit9WQiNkQTP8J+hE=;
- b=L3h9btePLFTVWKpGEPjudc6vjEeM78VtCXbJZ4dBsZAi4SJLFDA1mfVadqzSBXuc
- orR4/B+dxfWE5YTBkBmlKbtbA79kGqngyPz0ua77tYAjIqxeDusbBgB4CidWbK2tFER
- CYN+D/YxxNLklWhNXbSCBsNHvcDnK0/lbC2GUJVQ=
-Received: by mx.zohomail.com with SMTPS id 1783598357143147.79055774166602;
- Thu, 9 Jul 2026 04:59:17 -0700 (PDT)
-From: Robert Mader <robert.mader@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>, Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>,
- Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>,
- Xaver Hugl <xaver.hugl@kde.org>, Robert Mader <robert.mader@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: [PATCH v1] drm/atomic: Clear plane pipeline for legacy clients
-Date: Thu,  9 Jul 2026 13:58:55 +0200
-Message-ID: <20260709115855.53725-1-robert.mader@collabora.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1FE510F56B
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:00:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7E29F419AB;
+ Thu,  9 Jul 2026 12:00:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123891F000E9;
+ Thu,  9 Jul 2026 12:00:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783598433;
+ bh=Xdy7Q718IMHWx41sRqXBrnpU0ZeFsc7LYSQLsD6AR+w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UZju8aeXiNqvDHI3RabYydI1QOudm/GikyhLndVjWIRgRYG3hxSByIYyr8qvlD99N
+ ooplmveyp3L28nvOC7hgEeSRmoDz+njCwvWG0pdRz6lMyFc80fZtd7vTKPrEyYYwp7
+ YUr9UpGWl1kx/GePO5pdOwZYW5JDbcfJumzeu9UQIktL1tpiNDxfnS7LtGyc7iu9c9
+ X9v3535V8JialKRt9mx0ZZDNIhtA05n/Eas+wKCzptoy1zlCQz4agRVDgc2nVvCeaD
+ eolhNxDonoQxEFcbnqNtGIZTlEnu4q6kt3KYXSuP9tMiVW//sUVgEJ2cPRDMaGBngz
+ tj3PSvlVi1ggA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotPlug
+ Detection in DP AUX
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
+References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
+ <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 12:00:32 +0000
+Message-Id: <20260709120033.123891F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,59 +55,151 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Clients that do not enable DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE and try to
-apply a new plane state currently have no way to unset/reset an existing
-non-bypass color pipeline, resulting in unexpected behavior.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Unhandled interrupt storm due to unconditional unmasking of AUX HP=
+D interrupts on older SoCs.
+- [High] Unsafe read-modify-write on the interrupt clear register `MTK_DP_A=
+UX_TX_P0_INT_CLR` causes lost interrupts.
+- [Medium] Missing `legacy_regoff` addition when polling the AUX HPD status=
+ register `MTK_DP_AUX_P0_364C`.
+--
 
-As we can be sure that such clients do not expect plane pipelines to be
-set, let's reset the later for them, ensuring clean bypass-only pipeline
-states.
+--- Patch [10]: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotP=
+lug Detection in DP AUX ---
+commit d87425adb9b3f30b1f231894a984a344e048ae99
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-This is a less comprehensive but more backward compatible approach compared
-to a DRM_MODE_ATOMIC_RESET flag (link) that is currently being discussed.
-Considering the simplicity and clearly defined behavior of this case,
-this change could serve as an additional stop-gap solution to smoothen the
-transition to the new APIs, resulting in less breakage on systems with
-existing clients.
+drm/mediatek: mtk_dp: Add support for HotPlug Detection in DP AUX
 
-Link: https://lore.kernel.org/all/CAFZQkGzw2MZGivy=oyYgZE3_dmxu-z-NbDgzh9uyqSsj=MG=2w@mail.gmail.com/
+This patch adds support for hotplug detection via DP AUX in MediaTek DP IP,
+avoiding the need to power up the entire eDP/DP IP. It introduces a new
+flag to select the HPD strategy.
 
-Signed-off-by: Robert Mader <robert.mader@collabora.com>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index ea970a9bfe936..772ba311a34a7 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+> @@ -1047,7 +1048,30 @@ static u32 mtk_dp_swirq_get_clear(struct mtk_dp *m=
+tk_dp)
+>  	return irq_status;
+>  }
+> =20
+> -static u32 mtk_dp_hwirq_get_clear(struct mtk_dp *mtk_dp)
+> +static u32 mtk_dp_aux_hwirq_get_clear(struct mtk_dp *mtk_dp)
+> +{
+> +	u32 irq_status =3D mtk_dp_read(mtk_dp, MTK_DP_AUX_TX_P0_INT_STA);
+> +	u32 ret =3D 0;
+> +
+> +	if (irq_status) {
+> +		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_TX_P0_INT_CLR,
+> +				   irq_status, irq_status);
 
----
+[Severity: High]
+Can this read-modify-write operation drop newly arrived interrupts?
 
-If an approach like this was previously rejected or clearly goes against
-API rules (or is unacceptable for other reason), please excuse me (and
-just let me know).
+mtk_dp_update_bits() uses regmap_update_bits() which performs a
+read-modify-write. By using irq_status as the mask, if the clear register
+reads back with new interrupt bits set (that arrived after the INT_STA read=
+),
+the read-modify-write will preserve those new bits and write them back as 1=
+s,
+unintentionally clearing them before they are handled.
 
-The main motivation for the patch came up during testing the Weston
-implementation (link) for the fixed-matrix color-ops. The test there checks
-both the color pipeline and legacy property ways of offloading YCbCr
-buffers and the current reset-less situation results in the legacy one
-failing once the color pipeline test ran before.
+Should a full mask (like DP_TX_AUX_INT_MASK) be used here instead to ensure
+non-target bits are zeroed out?
 
-Link: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
----
- drivers/gpu/drm/drm_atomic.c | 3 +++
- 1 file changed, 3 insertions(+)
+> +		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_TX_P0_INT_CLR,
+> +				   0, irq_status);
+> +	}
+> +
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 735ab7badc2e..581fde90dbd8 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -656,6 +656,9 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 	state->planes[index].new_state = plane_state;
- 	plane_state->state = state;
- 
-+	if (!state->plane_color_pipeline)
-+		plane_state->color_pipeline = NULL;
-+
- 	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
- 		       plane->base.id, plane->name, plane_state, state);
- 
--- 
-2.55.0
+[ ... ]
 
+> @@ -1062,8 +1086,28 @@ static u32 mtk_dp_hwirq_get_clear(struct mtk_dp *m=
+tk_dp)
+>  	return irq_status;
+>  }
+> =20
+> +static inline u32 mtk_dp_hwirq_get_clear(struct mtk_dp *mtk_dp)
+> +{
+> +	if (mtk_dp->data->aux_hpd_supported)
+> +		return mtk_dp_aux_hwirq_get_clear(mtk_dp);
+> +
+> +	return mtk_dp_trans_hwirq_get_clear(mtk_dp);
+> +}
+> +
+>  static void mtk_dp_hwirq_enable(struct mtk_dp *mtk_dp, bool enable)
+>  {
+> +	u32 mask, val;
+> +
+> +	/* On SoCs with working AUX HPD, the transmitter HPD register is ignore=
+d by HW */
+> +	if (enable) {
+> +		mask =3D HPD_CONNECT_EVENT | HPD_INTERRUPT_EVENT | HPD_DISCONNECT_EVEN=
+T;
+> +		val =3D 0;
+> +	} else {
+> +		mask =3D DP_TX_AUX_INT_MASK;
+> +		val =3D DP_TX_AUX_INT_MASK;
+> +	}
+> +	mtk_dp_update_bits(mtk_dp, MTK_DP_TX_AUX_INT_MASKING, val, mask);
+> +
+
+[Severity: High]
+Does this code risk causing an unhandled interrupt storm on older SoCs?
+
+Since MTK_DP_TX_AUX_INT_MASKING is updated unconditionally, the AUX HPD
+interrupts are unmasked even if aux_hpd_supported is false.
+
+If an older SoC triggers an AUX HPD interrupt, mtk_dp_hwirq_get_clear()
+will branch to mtk_dp_trans_hwirq_get_clear() and ignore the AUX interrupt,
+causing it to remain asserted and repeatedly trigger.
+
+Should this unmasking be guarded by the aux_hpd_supported flag?
+
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3418,
+>  			   enable ? 0 :
+>  			   IRQ_MASK_DP_TRANS_P0_DISC_IRQ |
+
+[ ... ]
+
+> @@ -2113,10 +2191,15 @@ static int mtk_dp_wait_hpd_asserted(struct drm_dp=
+_aux *mtk_aux, unsigned long wa
+>  	u32 val;
+>  	int ret;
+> =20
+> -	ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> -				       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> -				       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> -				       wait_us / 100, wait_us);
+> +	if (mtk_dp->data->aux_hpd_supported)
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs, MTK_DP_AUX_P0_364C,
+> +					       val, !!(val & HPD_STATUS_DP_AUX_TX_P0_MASK),
+> +					       wait_us / 100, wait_us);
+
+[Severity: Medium]
+Is the register address missing the legacy_regoff addition here?
+
+Unlike mtk_dp_read() which automatically adds mtk_dp->legacy_regoff,
+regmap_read_poll_timeout() operates directly on the regmap.
+
+If a platform with aux_hpd_supported also uses a non-zero legacy_regoff, th=
+is
+will poll the wrong physical register address. The fallback path for older
+SoCs correctly applies the offset manually.
+
+> +	else
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> +					       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> +					       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> +					       wait_us / 100, wait_us);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709113148.4909=
+0-1-angelogioacchino.delregno@collabora.com?part=3D10
