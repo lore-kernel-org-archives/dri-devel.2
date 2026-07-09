@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42686C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D66EC44506
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:52:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 895F010F550;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93A8D10F553;
 	Thu,  9 Jul 2026 11:52:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="afmXWQs3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cRERYEzo";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4693410F550
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD20810F54C
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:52:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2FBC24162A;
- Thu,  9 Jul 2026 11:52:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88691F000E9;
- Thu,  9 Jul 2026 11:52:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9644A4162A;
+ Thu,  9 Jul 2026 11:52:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022601F000E9;
+ Thu,  9 Jul 2026 11:52:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597965;
- bh=QdU/5b1IZWK9+GODzUGSbRRyw6LPERg+IxIJRU/YYDs=;
+ s=k20260515; t=1783597960;
+ bh=BqokO71zPjIr/AEtatfNG0synRzvya2g4Hgl09W3nAM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=afmXWQs3Ee+gLMOKCKVp/TOAi7n8/jGEH32I+MySEwiY+i+gSTPnopHPmyqA1zIeM
- 5G3qN88PDizn19//11XoQnMcyzPSJiPgkWOLYks7o8W2t+vSQB+Icv/SV/b7zT1Cu9
- YSgH4wuWIVig0mNpFescIS85DguAP16J6ZYo9qAy1DILljjqUG4KA64G+quZ4XAuAJ
- Os+fXTCj2FR2fcdTUs9EdluR8c92/GIrPUQgQ20ptrjVI7KpLSgAl1E2NbKeDQ9TJo
- /dzcmrUHpWOFQ0p0e5frDJLVcR4vLokUlDDI0Vc45XchNeP/p5luMFo4CKOiK9IDfg
- lq2S49HO6sDpA==
+ b=cRERYEzo4IIMAGqToncSycV8hjU2svrHtcZ3W4OCq97qmpWqYmkGJy+5RORpq4M2T
+ GVdONiVhjNDu+/eNnlEicPni9T8MDxEJUt+Jjgkgu1XeyjdDclFUCEaGuD//io/RtU
+ jjBIKVZFnp5XVQt6rWFuf/eoCJBCn9X/aEhv2cgRgBulm6DjEQgkpIZAxkw44+Tfp/
+ BXDyNI8oSVc/bKqdxyxxP9Rzx0J41QMumuR6PzxW5/shh7Dm6FX9uS1N7epMTlwdXO
+ 1ckZmCXg6SX7MwgEuNSiP/fyQjar93YcL7rutVU0LvmwXexa71lR5NcNoSc9e2+ezR
+ G6aTu1QyG7ddA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:09 +0200
-Subject: [PATCH 43/60] drm/atmel-hlcdc: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:07 +0200
+Subject: [PATCH 41/60] drm/malidp: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-43-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-41-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, 
- dharma.b@microchip.com, manikandan.m@microchip.com, 
- nicolas.ferre@microchip.com
+ liviu.dudau@arm.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7315; i=mripard@kernel.org;
- h=from:subject:message-id; bh=0NKTQuyRg+0cqZTmNhz7bI5bc2e8QznE2MEocWAeGcU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3TL7mdMnZd51Kzj34w+zssUiC/6/Xx5HWmSdEz39k
- 3Nt8qrbHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAibzcwNnTK2tdql7wVfyTy
- fcWNna+M3p1hi1l6SfqZcNn9/o/p2jYX+2Z1bbFf0HVU7dSJ18+b8hnrPS9s3HyDaes5i5z984p
- mlgVtPRPkuyZi3ulWKb9ZZXfF79l5cDbldeu9NS8/zv+n5LotAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6891; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=/2d9iBkp8h63gUU1psJWu8yWpZ3aWHpvWYYhL7fT0BE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3dLbPJ/+yTG09ev6dOdj/ZOYSiHtT8qqFTl/ZogdX
+ vPZ68nBjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRb9WMDRMzd0+oEqg1OXHl
+ 47ugTb9vKr3Y4rRAvPfSrZR1ziXvT8TPPshnb7DgzhJG1l98M0+YGTM2fN0o5FobJKp29kps2rq
+ PTCbKJQfSRZfysy/KL0gwV9gd3qa4sHT69Q8qOh/5Alh080QB
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -337,72 +335,57 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: alexandre.belloni@bootlin.com
-Cc: claudiu.beznea@tuxon.dev
-Cc: dharma.b@microchip.com
-Cc: manikandan.m@microchip.com
-Cc: nicolas.ferre@microchip.com
+Cc: liviu.dudau@arm.com
 ---
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c | 27 +++++++++++--------------
- 1 file changed, 12 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/arm/malidp_planes.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-index f17a832351e9..ff35251a0184 100644
---- a/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-+++ b/drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c
-@@ -1181,40 +1181,37 @@ static void atmel_hlcdc_plane_atomic_destroy_state(struct drm_plane *p,
- 	__drm_atomic_helper_plane_destroy_state(s);
- 
- 	kfree(state);
- }
- 
--static void atmel_hlcdc_plane_reset(struct drm_plane *p)
-+static struct drm_plane_state *atmel_hlcdc_plane_create_state(struct drm_plane *p)
+diff --git a/drivers/gpu/drm/arm/malidp_planes.c b/drivers/gpu/drm/arm/malidp_planes.c
+index 60b3f2bb153b..82a75591a459 100644
+--- a/drivers/gpu/drm/arm/malidp_planes.c
++++ b/drivers/gpu/drm/arm/malidp_planes.c
+@@ -71,21 +71,25 @@
+ /*
+  * Replicate what the default ->reset hook does: free the state pointer and
+  * allocate a new empty object. We just need enough space to store
+  * a malidp_plane_state instead of a drm_plane_state.
+  */
+-static void malidp_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *malidp_plane_create_state(struct drm_plane *plane)
  {
- 	struct atmel_hlcdc_plane_state *state;
- 	struct atmel_hlcdc_dc *dc = p->dev->dev_private;
- 	struct atmel_hlcdc_plane *plane = drm_plane_to_atmel_hlcdc_plane(p);
+ 	struct malidp_plane_state *state = to_malidp_plane_state(plane->state);
  
--	if (p->state) {
--		atmel_hlcdc_plane_atomic_destroy_state(p, p->state);
--		p->state = NULL;
--	}
--
+ 	if (state)
+ 		__drm_atomic_helper_plane_destroy_state(&state->base);
+ 	kfree(state);
+ 	plane->state = NULL;
  	state = kzalloc_obj(*state);
--	if (state) {
--		if (atmel_hlcdc_plane_alloc_dscrs(p, state)) {
--			kfree(state);
--			drm_err(p->dev,
--				"Failed to allocate initial plane state\n");
--			return;
--		}
--		__drm_atomic_helper_plane_reset(p, &state->base);
+-	if (state)
+-		__drm_atomic_helper_plane_reset(plane, &state->base);
 +	if (!state)
 +		return ERR_PTR(-ENOMEM);
 +
-+	if (atmel_hlcdc_plane_alloc_dscrs(p, state)) {
-+		kfree(state);
-+		drm_err(p->dev, "Failed to allocate initial plane state\n");
-+		return ERR_PTR(-EINVAL);
- 	}
-+	__drm_atomic_helper_plane_state_init(&state->base, p);
- 
- 	if (plane->layer.desc->layout.csc)
- 		dc->desc->ops->lcdc_csc_init(plane, plane->layer.desc);
++	__drm_atomic_helper_plane_state_init(&state->base, plane);
 +
 +	return &state->base;
  }
  
- static const struct drm_plane_funcs layer_plane_funcs = {
+ static struct
+ drm_plane_state *malidp_duplicate_plane_state(struct drm_plane *plane)
+ {
+@@ -250,11 +254,11 @@ static bool malidp_format_mod_supported_per_plane(struct drm_plane *plane,
+ }
+ 
+ static const struct drm_plane_funcs malidp_de_plane_funcs = {
  	.update_plane = drm_atomic_helper_update_plane,
  	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = atmel_hlcdc_plane_reset,
-+	.atomic_create_state = atmel_hlcdc_plane_create_state,
- 	.atomic_duplicate_state = atmel_hlcdc_plane_atomic_duplicate_state,
- 	.atomic_destroy_state = atmel_hlcdc_plane_atomic_destroy_state,
+-	.reset = malidp_plane_reset,
++	.atomic_create_state = malidp_plane_create_state,
+ 	.atomic_duplicate_state = malidp_duplicate_plane_state,
+ 	.atomic_destroy_state = malidp_destroy_plane_state,
+ 	.atomic_print_state = malidp_plane_atomic_print_state,
+ 	.format_mod_supported = malidp_format_mod_supported_per_plane,
  };
- 
- static int atmel_hlcdc_plane_create(struct drm_device *dev,
 
 -- 
 2.54.0
