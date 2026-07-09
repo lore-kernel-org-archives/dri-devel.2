@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1FDC43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4780C44506
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A423510F558;
-	Thu,  9 Jul 2026 11:53:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9E710F547;
+	Thu,  9 Jul 2026 11:53:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wa8CpAfR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="id2qMRlt";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E43010F547
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:53:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11F0A10F55F
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:53:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0730941FA0;
- Thu,  9 Jul 2026 11:53:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D531F00A3A;
- Thu,  9 Jul 2026 11:53:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ED80740426;
+ Thu,  9 Jul 2026 11:53:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E5B1F000E9;
+ Thu,  9 Jul 2026 11:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597988;
- bh=ZAcf5fFJNUAS9WLSwrWVG0nrz1VBfsG5ebKeEZxVLTA=;
+ s=k20260515; t=1783597983;
+ bh=BbyFtQhSQE43baWkNi3gHafLxZFnWrsZEQY0V3Ej04c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Wa8CpAfREAIkATdDGTMLRHWUxjY9/farRSaExpedl6E/hA+CE8bYl8tuMx2BxER5G
- 0JhAqqAhw9ycMAZfg2wiRLc3AeSDqoE3F38uWk8Tn3+urCSIybpMY9NQaQ3Vs9C40r
- VqwEbwtoxCtCe/bjzSJRZtBsgfbDXHNUjMUg5zJxY2JjVBTqciuOkKEeIyJ898rvkn
- O/qPik14uJi6NHaowg70a5A7vxAtETbxqNafVSlXCsZn3j4A42HoaNcL+XKfMOCB//
- cKhmoERFUorNaDz1QUNI5obg29J3BK/wlHIgnZa7dAl9CnqA0FhbabXDcHIhdKVqkH
- iVy/nZq6TSg2g==
+ b=id2qMRltpRWpCHSawjhmiAE9fH0OwIlFwlx/0WHPDX6vrbW0L1W4XIfd7U4Cl9u1A
+ +OJenIbfuPWnGvENmzgopa4780lTdp28Y6l1exMxDfqScAzA+0uxqWhzK5WrIsVSby
+ g3G0iu3pysP68Cnkch9nRFFuSugUzEU8vc6V6Sn/NjQC4AycXQ3inYnRb+hjYt2iE3
+ nqR4qNns653wPOoVA/oSBXkW86J9TIaFEZLZT5GKS4FoG7DFjkuQF4MCmHo+MKiyAi
+ 6J/pGijKE8OazOxK/HkGSP3BnBNlCY2eYwz8UJi1bxvuUNWGGlHx8ujJ3x4xVR9AkV
+ VlEJyC03H2MKQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:19 +0200
-Subject: [PATCH 53/60] drm/shmobile: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:17 +0200
+Subject: [PATCH 51/60] drm/rcar-du: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-53-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-51-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- geert+renesas@glider.be, linux-renesas-soc@vger.kernel.org
+ geert+renesas@glider.be, kieran.bingham+renesas@ideasonboard.com, 
+ laurent.pinchart+renesas@ideasonboard.com, 
+ linux-renesas-soc@vger.kernel.org, magnus.damm@gmail.com, 
+ tomi.valkeinen+renesas@ideasonboard.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6989; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Y9MEL4slJ1q5Lt/L1sFBGrC/8TnLvIxagJYwHvx5dIA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3Qq2Kh8SdXa/Z+N51cwUvdqR9Z/SXP70J7zvvkcdj
- zu1TdmjYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExkgi5jQ7dXSsy614YhCkof
- St790F78IDYjYVMS+y01mcV/njhphX9Jm3ez0oPF4fQdvb/cbDUSjA077uTKNFpumyPdf4i96g5
- LPZ/fhGeadRft60KMmVhXrHrR/Y6V/53BATO3hQbvUur5jgIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8862; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=H7YqCwQusozXR7uaxAuHqSEm5nx74wemaLXfiCVfJX0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3fLbAhYXh3Wc4NvfUOErphXUf2nDC6ZU4TT1qpcrv
+ ItMX53rmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABMJ1GZs6DtndWXrTj6rCwdr
+ 1y//UvzrwkkRKfX43Wukni5ecj7p4Qr3E01XrzimLGtQLbX3OJ9+gbFhdnyL3Kx8X6vH7ftfhL0
+ oytjJmGVq4vQhOtUo7pDbQp/djKs7rdKnP9l42kvn9/wZdcEA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -336,28 +339,33 @@ expression PS;
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
 Cc: geert+renesas@glider.be
+Cc: kieran.bingham+renesas@ideasonboard.com
+Cc: laurent.pinchart+renesas@ideasonboard.com
 Cc: linux-renesas-soc@vger.kernel.org
+Cc: magnus.damm@gmail.com
+Cc: tomi.valkeinen+renesas@ideasonboard.com
 ---
- drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c | 15 ++++++---------
- 1 file changed, 6 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_plane.c | 15 ++++++---------
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c   | 15 ++++++---------
+ 2 files changed, 12 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-index 148de34af785..4dec4d2c941e 100644
---- a/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-+++ b/drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c
-@@ -249,24 +249,21 @@ static void shmob_drm_plane_atomic_destroy_state(struct drm_plane *plane,
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_plane.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_plane.c
+index 8870766b9e54..da2dff9bb317 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_plane.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_plane.c
+@@ -710,28 +710,25 @@ static void rcar_du_plane_atomic_destroy_state(struct drm_plane *plane,
  {
  	__drm_atomic_helper_plane_destroy_state(state);
- 	kfree(to_shmob_plane_state(state));
+ 	kfree(to_rcar_plane_state(state));
  }
  
--static void shmob_drm_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *shmob_drm_plane_create_state(struct drm_plane *plane)
+-static void rcar_du_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *rcar_du_plane_create_state(struct drm_plane *plane)
  {
- 	struct shmob_drm_plane_state *state;
+ 	struct rcar_du_plane_state *state;
  
 -	if (plane->state) {
--		shmob_drm_plane_atomic_destroy_state(plane, plane->state);
+-		rcar_du_plane_atomic_destroy_state(plane, plane->state);
 -		plane->state = NULL;
 -	}
 -
@@ -366,28 +374,73 @@ index 148de34af785..4dec4d2c941e 100644
 -		return;
 +		return ERR_PTR(-ENOMEM);
  
--	__drm_atomic_helper_plane_reset(plane, &state->base);
-+	__drm_atomic_helper_plane_state_init(&state->base, plane);
+-	__drm_atomic_helper_plane_reset(plane, &state->state);
++	__drm_atomic_helper_plane_state_init(&state->state, plane);
+ 
+ 	state->hwindex = -1;
+ 	state->source = RCAR_DU_PLANE_MEMORY;
+ 	state->colorkey = RCAR_DU_COLORKEY_NONE;
 +
-+	return &state->base;
++	return &state->state;
  }
  
- static const struct drm_plane_helper_funcs shmob_drm_plane_helper_funcs = {
- 	.atomic_check = shmob_drm_plane_atomic_check,
- 	.atomic_update = shmob_drm_plane_atomic_update,
-@@ -281,11 +278,11 @@ static const struct drm_plane_helper_funcs shmob_drm_primary_plane_helper_funcs
- };
+ static int rcar_du_plane_atomic_set_property(struct drm_plane *plane,
+ 					     struct drm_plane_state *state,
+ 					     struct drm_property *property,
+@@ -765,11 +762,11 @@ static int rcar_du_plane_atomic_get_property(struct drm_plane *plane,
+ }
  
- static const struct drm_plane_funcs shmob_drm_plane_funcs = {
+ static const struct drm_plane_funcs rcar_du_plane_funcs = {
  	.update_plane = drm_atomic_helper_update_plane,
  	.disable_plane = drm_atomic_helper_disable_plane,
--	.reset = shmob_drm_plane_reset,
-+	.atomic_create_state = shmob_drm_plane_create_state,
- 	.atomic_duplicate_state = shmob_drm_plane_atomic_duplicate_state,
- 	.atomic_destroy_state = shmob_drm_plane_atomic_destroy_state,
+-	.reset = rcar_du_plane_reset,
++	.atomic_create_state = rcar_du_plane_create_state,
+ 	.destroy = drm_plane_cleanup,
+ 	.atomic_duplicate_state = rcar_du_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state = rcar_du_plane_atomic_destroy_state,
+ 	.atomic_set_property = rcar_du_plane_atomic_set_property,
+ 	.atomic_get_property = rcar_du_plane_atomic_get_property,
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
+index ae9f381b03c8..4293e792afdb 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c
+@@ -419,30 +419,27 @@ static void rcar_du_vsp_plane_atomic_destroy_state(struct drm_plane *plane,
+ {
+ 	__drm_atomic_helper_plane_destroy_state(state);
+ 	kfree(to_rcar_vsp_plane_state(state));
+ }
+ 
+-static void rcar_du_vsp_plane_reset(struct drm_plane *plane)
++static struct drm_plane_state *rcar_du_vsp_plane_create_state(struct drm_plane *plane)
+ {
+ 	struct rcar_du_vsp_plane_state *state;
+ 
+-	if (plane->state) {
+-		rcar_du_vsp_plane_atomic_destroy_state(plane, plane->state);
+-		plane->state = NULL;
+-	}
+-
+ 	state = kzalloc_obj(*state);
+ 	if (state == NULL)
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 
+-	__drm_atomic_helper_plane_reset(plane, &state->state);
++	__drm_atomic_helper_plane_state_init(&state->state, plane);
++
++	return &state->state;
+ }
+ 
+ static const struct drm_plane_funcs rcar_du_vsp_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.reset = rcar_du_vsp_plane_reset,
++	.atomic_create_state = rcar_du_vsp_plane_create_state,
+ 	.destroy = drm_plane_cleanup,
+ 	.atomic_duplicate_state = rcar_du_vsp_plane_atomic_duplicate_state,
+ 	.atomic_destroy_state = rcar_du_vsp_plane_atomic_destroy_state,
  };
  
- static const uint32_t formats[] = {
 
 -- 
 2.54.0
