@@ -4,57 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A42EC44506
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:33:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26605C44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B37C10E684;
-	Thu,  9 Jul 2026 14:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B74810F60C;
+	Thu,  9 Jul 2026 14:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="QuIowKFl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jAUqIOc2";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A42210E684;
- Thu,  9 Jul 2026 14:33:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1783607587; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=R81IqUKFPqrIBZMO2/z9lXid4HHRTQn+2fEAPU8L6Iw4LKy01WCQMzyH3QfDI91rytiGiQuEXc9zLoMKKWmyZdc6RZCdPNiSpL1xqrO3DvPMzCBEIagmQl4jlZan5IJixAX+dcIXENqkT2j3Zh1cRiRVAfUnGKHAncJwz/HJnJc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1783607587;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=PDEhNohzJHelgz9LBFaxC5+YxUb/saf0XN+vBxQh76k=; 
- b=Cn1UPQrl7nKhAxUIi4us+CkOe7a4CyuHZf0Jase5fK+M/o+f8klNLLTmQWMz4F3HtXSlMqE+wqdEHysmW+lwvDgSk6+lTvmYp9gmMiztlE3uNgyqB61UoTFvgfhFw39nQDxryN7JuOg33xQsZC4ZjfQI/r1tFngezNLPe7ABwK8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783607587; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=PDEhNohzJHelgz9LBFaxC5+YxUb/saf0XN+vBxQh76k=;
- b=QuIowKFljR/gw76clT83ikVdKCxaVA5On+JGnGF9kk1DGYYM95bsM0o7MFLAwamK
- BxCY916Qv9DT5ynJnGkLLczqZkr+JNXUkVrsvQZb5FTyxomJV4100GYaTPJZJaa4Jc9
- bPTeK0zAeVzgEfoudiLVKm7OvEOlIklwyXUbtwVY=
-Received: by mx.zohomail.com with SMTPS id 1783607586450305.483764375728;
- Thu, 9 Jul 2026 07:33:06 -0700 (PDT)
-Message-ID: <f5cbdbef-d76f-4ffb-983c-5bb22d40a3b2@collabora.com>
-Date: Thu, 9 Jul 2026 16:33:02 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2CDD10F5EB;
+ Thu,  9 Jul 2026 14:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783607669; x=1815143669;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=xNs+KtUW3uyVhzznigwy+x1WPm31CyA6C2BpGyuV7mU=;
+ b=jAUqIOc2cmgbcRfn2K5ZhwjI3pQfK8RNByEsvbtKpjgtvi1HFfPfZfVo
+ 20VBl3usY/o/E9p3I3onL1/TKHzR4cpHc725ZxmINCrwlzjZ0I+SU4QW3
+ WgiUcVGR7wUYFPtcZ9K19nDw7em+iGpmsWbHYSIpJ7lOuOsy9MQVbGmgZ
+ qkQ+2u3fPbvgelO7xIT1Uv1I+Co8tCE3ZR7hjgRxTpSNF3mHIeiNrJx53
+ P5nFQnNPV2WnLUbwJ1cTL+JMY3cqumyjAvd36Oe7ljFjCguqlInwlSpF3
+ QA8JxxpMv3+thcldzOfbWzhh3d9hap4D0dewjgKPFwnFPxUirFJ5oXMZC A==;
+X-CSE-ConnectionGUID: up9ulMjMSrWgLGweI7lW2w==
+X-CSE-MsgGUID: f03kfYWcTKioW9cjnd+hkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="86834527"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="86834527"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2026 07:34:28 -0700
+X-CSE-ConnectionGUID: FIgGsc8DQiqdGKCzyFckEA==
+X-CSE-MsgGUID: rSkdk/ICQyyX4fU8+GxUBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="277828102"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2026 07:34:28 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 9 Jul 2026 07:34:27 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 9 Jul 2026 07:34:27 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.32) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 9 Jul 2026 07:34:26 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZWnmSMtaLbShwPHfpqYlmSSQbepGTjgytteQX2blfZwaszrx5Ymu5EzGlM9km3Yno+TZ647vnF+2hpH4qFHH+6FCmhfc7nbz9+EWe3W9dWgoXHX7lPRqr40XUA8pdjOausVU5I6b8aKHsA6p8QlVGJQUcr3FAeWoFM+jmMlg95DPxub2fH8Pu1d9NE+WzVeOPloPikbgTewH1vNIWQnPiaZpQlfZgdJKOpH7uGmVTNcPwrIwCJb6UYZABoA8AGTuXza1Ssdk5M0AmrVjm6KQf3RjvZ12NgeZW0E2gqbRHUxvwdQ7PfRxbUyuzAsvfiWNsSr+jU6MPpDwkRHG2LMzJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Lvr8vog6J5U+M3rbW+Y8P/YjHnc4ou6vZCXQh+zJsI=;
+ b=mvkCzYkR49evzUBa6UtDvZIBHaC8YfSeUA2f4wXaaPYkx/mn0esUYyRCSbx/OVWtKi62wJqLmGvRdYk19WZzac5VjkH14ZbvYXzQPxY56l6s2moWVc8MYRh7MRgbraoXPgBoExlZ9dKnjTvsGmoIE+RAm9Zx5W/VMvBVzsVyBLacstQJVKZISjetyd/p/A+w+0cn4gvZPlOM0cXrGpzI/0kU7mwsnY1BfjpfAzBGT8nsacXOM/ne9SDQilQNH3YFHGFBFnhwIXyDg8KpkmiigiPUIrOJ43JkgfkrIfsGN+Iwtk1+d03O5bQWQQrPq8l3UVh5RnfBTjof9xYo5Xmtig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
+ by PH7PR11MB7596.namprd11.prod.outlook.com (2603:10b6:510:27e::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 14:34:23 +0000
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0181.016; Thu, 9 Jul 2026
+ 14:34:23 +0000
+Date: Thu, 9 Jul 2026 10:34:12 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-intel-fixes
+Message-ID: <ak-xZPqluaXVJGtP@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+X-ClientProxiedBy: BY3PR04CA0007.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::12) To CO1PR11MB5073.namprd11.prod.outlook.com
+ (2603:10b6:303:92::23)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/11] YUV conversion colorop with amdgpu and VKMS
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-References: <20260623164812.81110-1-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260623164812.81110-1-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|PH7PR11MB7596:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d71e3c2-88f8-4ab8-0c4d-08deddc727a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|7416014|376014|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: zmf5gnjqurn8pzh8RSes1VtIafBx4kthEOrw9Tbt8+woNO5GzJDZJO6+oG8QE3PJBpS9goDBnt9NxkHI86Hezxn35rqseJt8TppKTNbd/WzMoaukI73mYfLhcCKAlY0MtT2i0Wn8FzERwIBijLP8+ptHPSWPTbkYpsdbMNAUpJgEc+C66E1JMZxu0coT3wn7PximW6+dh9XY56Tr3f2jrS0MNgb4XmW7FuITrZ7H7Sem6DGIDDMasD4yRTRdBN5o6e61hTbyBJSFrgcjCsFIXqGx590mIxVyQr6ULYWuuHh90AbpYBBbq2NpnQwMXvFE4rdJXiNhb9vm5MRT0YOe0BLzFlgtEGWwmjCcfN7Evy3UpWckcRz3wYv58NIMmVcbDk5iVPrkPPpdWe+ljm5YzqaxvMVyyoixUl1LBoKi11dyhruPivkWwjEmSOsYKQCPuCig4I1zPy+mUXrXBbyAlnaDXG9pOBPM/IS445zbJXpp1cX8mr0NghZfVQhgQSiYPHUEiG44hnQkBa3WxvEjnYnsmEwowuN4ZjWBQ4HljmzjQqKFxIKbOXdrFlVqLvzkSpAqnlR4O+qKambK5p3bAqprP2eOY3Q0jCLoI05Flj9owirKXYUkfcqcYZf48Tob
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6xNQ7NSJpUny5TSkxNFs7qWYDB6qVS382zzTblQHZpagkkRlK28xu33SSOec?=
+ =?us-ascii?Q?IeJmTSEDSf+BkgyB87FNkE4h8e91Jkq7jL/FjNAApmXApo1SbNle/waY9de/?=
+ =?us-ascii?Q?S+YhwqaS0l5ZWF1Uck/MXs/ZCSOVi/8mFJfYZp/Zhe25k8/u8sSg1nXrbwce?=
+ =?us-ascii?Q?DCXzZIAZpSBhUiOk1RkfViRNgm1l/V2a96bWPbMktpjZ/m+1yusIrTFpSLPe?=
+ =?us-ascii?Q?YQLGfx9TDMr9FkWTvT6T3Ns0PhKEu8AV5SMogBJ64JYM4nrpgaBtj5rqsUtm?=
+ =?us-ascii?Q?eZ+rkNHIVGXgK+GOSqbirQ5IiD3JDZUJ6Fdr2UqXprGbnQFMOMfSo4ul4syW?=
+ =?us-ascii?Q?pP2dNYe6rfLSrIWC3oFNBKXeMFDedkZIE/RTePtni19uhP46KPxC3mxOgtrO?=
+ =?us-ascii?Q?BLlEs/9VLqf0n+jsZHGDUM/RtkT0XeGX2tbLhyJ+/d7uL5+aMhV7DHVDc05K?=
+ =?us-ascii?Q?7ZyVTWqpBKy1OBAihpGJMeJyYvtSffiO8DEck5on8mFPrUBeh78oIUY853cO?=
+ =?us-ascii?Q?TmfD/e88XIcy3C7zpHOrLuwtd5yzK2SDrB5YgyK4ktRXuEQ6lj39H1BWgT9V?=
+ =?us-ascii?Q?iR0Zakt+tyqhQ1vbWO2O1ETiQs/JWaJ6wMIXksjABZms0BRzGTQWA3zBWh04?=
+ =?us-ascii?Q?GsU5Yoj6ZyhwZ1CKDpiWaTSZ7DGyBiqQPV4bNKyd48SGN5P7WZSfw379FeDK?=
+ =?us-ascii?Q?17Wh/x1s+dTi1neoGoCGydXMhrT+QRKaHjXflTh6GsCDQY9K5CfdvoO560CX?=
+ =?us-ascii?Q?9Xe8GY8nDJNS+mohZTY1l8zFkasPYQ1HmAALNblX/ikePbtexUVrNMBQVDNg?=
+ =?us-ascii?Q?OVG3Fl0puxojEpK9+Vfjrp8qvU+eJ3E5VSg/41Rep1IUO/FH7hkJN71zDdKI?=
+ =?us-ascii?Q?UEA1yUyRH0opC4HfjccRncFOn0NVaKweU2M+n7B6LNPz4QEWE9fCce+RXgNM?=
+ =?us-ascii?Q?99ni0VhO9shuVeR1qa7OT+O6hc7NOPT1EOe8r4I5Y6mv6tTRHCHePDtss/F8?=
+ =?us-ascii?Q?kI7rWQkVt2SGi/nF5pvGF9NGCB2g+EuyAVwaoGCo5EnFJkQnHp/u4X2Z/Rqb?=
+ =?us-ascii?Q?KRXrRzdy+eVwjC1YDzO4x3k87OC8YvN4yIR5ussHdce3+ba819lOhwAmxWGl?=
+ =?us-ascii?Q?pSnP6mHZHNrJOpZPMZl8/kfj2W3/Ot5Gwzdtb/OZQcjVxbuFZ6lRxN0DowOP?=
+ =?us-ascii?Q?vyp33aRebqkJPUSVZ+UBopTzQmFpAeOE8GD75iL7A27BGTMxNAKPdoAE3cME?=
+ =?us-ascii?Q?WeMLACCXq8JHsBdLcdD7knZyCP4ZL9O1+WpWDGzfbHl4rza/1jWz069wKclK?=
+ =?us-ascii?Q?7JjuNKl8cZ9fPrf8YpnGs3W/F3SiFh4X3ldBTJPXI01T7szrmzRvYBbcWFGE?=
+ =?us-ascii?Q?Xc3n6IWrAKJ1mk8Fjn0KBEOjEQ6oW/i1685pOY5PjevHWhEMSkH3On9NeZt5?=
+ =?us-ascii?Q?TQpPHwmubq5AqC9In6+kxlcLuvDcrG0JC1wU7iADfdPzg8B+PmJxgA+X7cMs?=
+ =?us-ascii?Q?94cnW5uy6YK8lNssu+ztsfr+SsGtUR08qN8kdeXTuXwhKIWQT++LsDnFKCrF?=
+ =?us-ascii?Q?QnuO5ApH1/1P8z+PaDOIZ+5lYM8wfbaNbiTuWseF4tMJfby/RDTmfE1H2kEW?=
+ =?us-ascii?Q?AJwyeQDW+NrLghs1pyw63OCpvUuejuL/lcCR5xS3VFIYXuWSLLcfhbCrzoy0?=
+ =?us-ascii?Q?+0EwpekZVoz/IRbHij45kInpCG1GY0kvRqknTFuFWZ8KmRSHjON6Bp19vC8A?=
+ =?us-ascii?Q?fSVz38eoqg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: Tq1jkUMUBFrTNF/SdGA43bdIMOiTMCZD0zTA8xFskng6yuq1LgkuuJS1Hfd1qCRnbIjwPz/LZdl831OPMx+eYerg2M7Vg0iIFjRPc3JR/DtecSyhNhw5p+WL53edVQTOTMuHMk6XASzfsnxiGBUr37gCHuThy5Y2uS5Vnqqh6nIxP49oXssLV6NboCqlmily8tpFZ72UTSdLf+hm4Wc/H4d4eVGlqSGYW7CdrItqC8oFnLUwKHQQxnrjIJ58JQPGj5pAMGp0LyKaasdjtkSQrvQTyfOG/TOUWugB9aMeUUcVcpOGW1Woa05/h4MSkJLtfXxQLqEgaaarD9kZsXfJeQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d71e3c2-88f8-4ab8-0c4d-08deddc727a3
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 14:34:23.5342 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8DFFUlumJu/Qpgu4qEMVqGZIGMnkiy4aAf/UQbr4Vnsdn4aywG2qGOzDYLNlDO0G/rvA39SL9Z9MsDr86E3Hdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7596
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,108 +162,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave and Sima,
 
-in a related discussion in 
-https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/ 
-Maarten suggested that - given that the new Fixed Matrix colorop 
-effectively provides a drop-in replacement for the legacy properties - 
-it would be nice to have a helper that automatically provides support 
-for the legacy properties for drivers implementing the new color op. 
-That'd allow drivers a cleaner switch to the new API, keeping legacy 
-support for free.
+Here goes our i915 fixes for this round.
 
-Harry, WDYT, would that be an option for the two implementations here?
+Thanks,
+Rodrigo.
 
-Best regards
+drm-intel-fixes-2026-07-09:
+Fix underrun regressions on Panther Lake by reverting the recent
+SCL=0 enablement for always-on VRR timing. It also includes a fix
+display LT PHY SSC programming and a small set of i915 fixes
+addressing NULL pointer dereferences, memory leaks and bound checks.
+The following changes since commit 8cdeaa50eae8dad34885515f62559ee83e7e8dda:
 
-On 23.06.26 18:48, Harry Wentland wrote:
-> When we merged the drm_plane color pipeline API the major gap
-> that existed was the lack of a YUV to RGB conversion colorop.
-> We deprecated any legacy drm_plane color properties, which
-> means that the COLOR_RANGE and COLOR_ENCODING properties can't
-> be used with the COLOR_PIPELINE property on a drm_plane. In
-> practice this means that we can't use a COLOR_PIPELINE on
-> YCbCr encoded framebuffers.
->
-> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
-> and adds limited range variants of the YCbCr to RGB conversions.
->
-> His full patchset can be found at
-> https://patchwork.freedesktop.org/patch/709860
->
-> This code has been tested with IGT and an experimental KWin branch.
->
-> IGT branch:
-> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
->
-> KWin branch used for testing:
-> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
->
-> The kernel branch containing these changes, based on drm-misc-next
-> can be found at:
-> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
->
-> Further background on this work can be found at:
-> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
->
-> v3:
-> - base on Chaitanya's updated patch and rename code accordingly
->    to Fixed_Matrix instead of CSC Fixed-Function
->
-> v2:
-> - use Chaitanya's CSC_FF block for named matrices
->
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Daniel Stone <daniels@collabora.com>
-> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Simon Ser <contact@emersion.fr>
-> Cc: Robert Mader <robert.mader@collabora.com>
->
-> Chaitanya Kumar Borah (1):
->    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
->
-> Harry Wentland (10):
->    drm/colorop: Add limited-range YUV-to-RGB fixed matrix enum values
->    drm/vkms: Add fixed matrix colorop to color pipeline
->    drm/vkms: Add atomic check and matrix handling for fixed matrix
->      colorop
->    drm/amd/display: Add fixed matrix colorop to color pipeline
->    drm/amd/display: Implement fixed matrix colorop color space mapping
->    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
->    drm/amd/display: Check actual state during commit_tail
->    drm/amd/display: Set color_space to plane_infos
->    drm/amd/display: Set COLOR_SPACE_SRGB when fixed matrix colorop is
->      bypassed
->    drm/amd/display: Force GAMCOR for subsampled surfaces with
->      PQ/Gamma22/HLG
->
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 ++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  91 +++++++++++++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 ++++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
->   .../amd/display/modules/color/color_gamma.c   |   3 +-
->   drivers/gpu/drm/drm_atomic.c                  |   4 +
->   drivers/gpu/drm/drm_atomic_uapi.c             |   4 +
->   drivers/gpu/drm/drm_colorop.c                 | 109 +++++++++++++++++
->   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 +++++++---
->   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
->   drivers/gpu/drm/vkms/vkms_plane.c             |  68 ++++++++++-
->   include/drm/drm_colorop.h                     | 114 ++++++++++++++++++
->   include/uapi/drm/drm_mode.h                   |  12 ++
->   13 files changed, 487 insertions(+), 32 deletions(-)
->
-> --
-> 2.54.0
->
--- 
-Robert Mader
-Consultant Software Developer
+  Linux 7.2-rc2 (2026-07-05 14:44:06 -1000)
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-fixes-2026-07-09
+
+for you to fetch changes up to 3d04d9f390eeaab4d9e1ed4e9737e3d83581e18b:
+
+  Revert "drm/i915/psr: Allow SCL=0 on platforms with always-on VRR TG" (2026-07-06 10:52:42 -0400)
+
+----------------------------------------------------------------
+Fix underrun regressions on Panther Lake by reverting the recent
+SCL=0 enablement for always-on VRR timing. It also includes a fix
+display LT PHY SSC programming and a small set of i915 fixes
+addressing NULL pointer dereferences, memory leaks and bound checks.
+
+----------------------------------------------------------------
+Ankit Nautiyal (1):
+      Revert "drm/i915/psr: Allow SCL=0 on platforms with always-on VRR TG"
+
+Jani Nikula (1):
+      drm/i915/mst: limit DP MST ESI service loop
+
+Joonas Lahtinen (3):
+      drm/i915/gem: Fix NULL deref in I915_CONTEXT_PARAM_SSEU
+      drm/i915/gt: Fix NULL deref on sched_engine alloc failure
+      drm/i915/gem: Do not leak siblings[] on proto context error
+
+Suraj Kandpal (1):
+      drm/i915/ltphy: Fix SSC Enablement bit in PORT_CLOCK_CTL
+
+ drivers/gpu/drm/i915/display/intel_dp.c            |  8 +++++++-
+ drivers/gpu/drm/i915/display/intel_lt_phy.c        |  6 +-----
+ drivers/gpu/drm/i915/display/intel_psr.c           |  3 ---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c        | 24 ++++++++++++++--------
+ .../gpu/drm/i915/gt/intel_execlists_submission.c   | 19 +++++++++--------
+ 5 files changed, 33 insertions(+), 27 deletions(-)
