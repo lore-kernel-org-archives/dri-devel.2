@@ -4,56 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03205C44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E400FC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE2710F569;
-	Thu,  9 Jul 2026 11:53:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55B4E10F56C;
+	Thu,  9 Jul 2026 11:53:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h9U+TWXu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QB+2oykV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A03010F55A
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:53:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F55F10F56B
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:53:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8398A402DE;
- Thu,  9 Jul 2026 11:53:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36E41F00A3A;
- Thu,  9 Jul 2026 11:53:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9CA5F600C3;
+ Thu,  9 Jul 2026 11:53:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024BE1F00A3D;
+ Thu,  9 Jul 2026 11:53:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783598004;
- bh=c4pplHTTxKkVaXeXR6WCSCm+3aDL6BSlUt8/Z98zILo=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=h9U+TWXumpUF+E6f6j0xGQWfJzdgl9U4KJq28+0RzHxPhwsQwrZ9pbSSgVacGklZP
- O2yQ5yFxHg11Qo206refqIWjwNEmnt/61qmBsXYiGVPC5jdWVBVS5sS/Ita5QIBr+P
- N2oJsttXVmh8aShpZBYIwUrdlc2efqn6jpY0i+tSjw2WNEQmK2s8r8z5J5j/0AcT80
- a+wA5Amc7KuXcm9BeEb5XSaXgk2XE64aEa4zjtIazSI7WTeZqn0rOcTCGF+tWc2/m6
- DU4CnIks98BGPXZz5ZagZpXWZ4Cn2jSfwRDI8y0UfdPh9LuGz6xmB6HVYGBGlubqpd
- 1kNuKyWfv4DvA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:25 +0200
-Subject: [PATCH 59/60] drm/tegra: Convert to atomic_create_state
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-59-302d986fe5f0@kernel.org>
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- jonathanh@nvidia.com, linux-tegra@vger.kernel.org, mperttunen@nvidia.com, 
- thierry.reding@kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2435; i=mripard@kernel.org;
- h=from:subject:message-id; bh=dkl/iYd/vFdrO/oCnCnOdrgX+JZCc4FOke/Hae9XIJk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3co/G98sPKJbxKHKf+rt1LWJ7Iw3Ao50BPA99dhoG
- BS0eIdDx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhI0lTGepdlhvavhVd8v3ZS
- lHf9mU+XxKTee+/M7lzZfOqoYdMOjQuHcg5650p+3ct0reB/1BeGSYzVLBqtdYZXNDSTnnhzPJs
- 51WjF33Mij90KKu5LVFrb6P/VC5Bq2pe3etmEhLPrAmuzHm8GAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+ s=k20260515; t=1783598008;
+ bh=jGsQI0+o9gXc0IEdU270aPtgUVaILoqtrwT5UP1xmd4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QB+2oykVPGiYN5sfBX2hZZHjyU6yIS/xXDzvNMM03HYXDNp6i7+dQgdN4PPlZtLs9
+ qejLGEzICsxBwjDFMIeCScl4+vz+NLKwFhmZfrrfa4h884/wUT1YrTG78pkQmEEYlC
+ BG+DM52MhhX6fCFnNn846ou1fkz+bBVi4Q63XsuzZifIbFYmJV9TMshdLQ0SEHdhVc
+ gnXAMje1GM+lCjrA2iCVLuPpwkVA4Mc/p4gZ7H3Vn74W47AAdre+RG5gvMBL/cE23e
+ YPleKLrlsC2TuI4jCM4e4FJhdQ16vIJW0voe67GwJ0X8hOQt+6YJBv/P6tg7OAj9mW
+ DFjczvSSPDPjA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 09/12] drm/mediatek: mtk_dp: Move max link rate to
+ SoC specific data
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260709113148.49090-10-angelogioacchino.delregno@collabora.com>
+References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
+ <20260709113148.49090-10-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 11:53:27 +0000
+Message-Id: <20260709115328.024BE1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,85 +55,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The plane reset implementation creates a custom state subclass, but
-only initializes a pristine state without resetting any hardware. This
-is equivalent to what atomic_create_state expects. Convert to it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-Cc: jonathanh@nvidia.com
-Cc: linux-tegra@vger.kernel.org
-Cc: mperttunen@nvidia.com
-Cc: thierry.reding@kernel.org
----
- drivers/gpu/drm/tegra/plane.c | 28 ++++++++++++----------------
- 1 file changed, 12 insertions(+), 16 deletions(-)
+Pre-existing issues:
+- [High] For eDP, mode validation and bus format negotiation incorrectly us=
+e the SoC's hardware maximum link rate rather than considering the board's =
+device tree limit and the sink's DPCD capabilities.
+--
 
-diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.c
-index 0cb30910773f..2148b0c59815 100644
---- a/drivers/gpu/drm/tegra/plane.c
-+++ b/drivers/gpu/drm/tegra/plane.c
-@@ -22,32 +22,28 @@ static void tegra_plane_destroy(struct drm_plane *plane)
- 
- 	drm_plane_cleanup(plane);
- 	kfree(p);
- }
- 
--static void tegra_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *tegra_plane_atomic_create_state(struct drm_plane *plane)
- {
- 	struct tegra_plane *p = to_tegra_plane(plane);
- 	struct tegra_plane_state *state;
- 	unsigned int i;
- 
--	if (plane->state)
--		__drm_atomic_helper_plane_destroy_state(plane->state);
--
--	kfree(plane->state);
--	plane->state = NULL;
--
- 	state = kzalloc_obj(*state);
--	if (state) {
--		plane->state = &state->base;
--		plane->state->plane = plane;
--		plane->state->zpos = p->index;
--		plane->state->normalized_zpos = p->index;
-+	if (!state)
-+		return ERR_PTR(-ENOMEM);
- 
--		for (i = 0; i < 3; i++)
--			state->iova[i] = DMA_MAPPING_ERROR;
--	}
-+	state->base.plane = plane;
-+	state->base.zpos = p->index;
-+	state->base.normalized_zpos = p->index;
-+
-+	for (i = 0; i < 3; i++)
-+		state->iova[i] = DMA_MAPPING_ERROR;
-+
-+	return &state->base;
- }
- 
- static struct drm_plane_state *
- tegra_plane_atomic_duplicate_state(struct drm_plane *plane)
- {
-@@ -129,11 +125,11 @@ static bool tegra_plane_format_mod_supported(struct drm_plane *plane,
- 
- const struct drm_plane_funcs tegra_plane_funcs = {
- 	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = tegra_plane_destroy,
--	.reset = tegra_plane_reset,
-+	.atomic_create_state = tegra_plane_atomic_create_state,
- 	.atomic_duplicate_state = tegra_plane_atomic_duplicate_state,
- 	.atomic_destroy_state = tegra_plane_atomic_destroy_state,
- 	.format_mod_supported = tegra_plane_format_mod_supported,
- };
- 
+--- Patch [9]: [PATCH v4 09/12] drm/mediatek: mtk_dp: Move max link rate to=
+ SoC specific data ---
+commit 77698e671819e17e65d99b3fb9908f2be60bc613
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+drm/mediatek: mtk_dp: Move max link rate to SoC specific data
 
--- 
-2.54.0
+This commit moves the hardware maximum link rate from static initialization
+to SoC-specific data to prepare for supporting MT8196 eDP IP which has a
+higher maximum link rate.
 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index e2a6001fc0ccc..ea970a9bfe936 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+[ ... ]
+> @@ -1469,7 +1470,7 @@ static void mtk_dp_initialize_priv_data(struct mtk_=
+dp *mtk_dp)
+>  {
+>  	bool plugged_in =3D (mtk_dp->bridge.type =3D=3D DRM_MODE_CONNECTOR_eDP);
+> =20
+> -	mtk_dp->train_info.link_rate =3D DP_LINK_BW_5_4;
+> +	mtk_dp->train_info.link_rate =3D mtk_dp->data->hw_max_link_rate;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this blind initializati=
+on
+cause mode validation to falsely accept unsupported high-bandwidth modes?
+
+Because mtk_dp_bridge_mode_valid() and=20
+mtk_dp_bridge_atomic_get_input_bus_fmts() are called before atomic_enable()=
+=20
+during mode enumeration, they evaluate available bandwidth using this=20
+un-negotiated train_info.link_rate:
+
+mtk_dp_bridge_mode_valid() {
+        ...
+        u32 rate =3D drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_ra=
+te) *
+                   lane_count_min;
+        ...
+}
+
+For eDP connections, actual link training is deferred until=20
+mtk_dp_bridge_atomic_enable(). Using the un-negotiated rate here ignores th=
+e=20
+board's device tree limit (max-linkrate-mhz) and the sink's DPCD capabiliti=
+es.
+
+Can this result in configuring a display mode that exceeds the actual link
+bandwidth, leading to link training failures or black screens, and failing
+to fall back to bandwidth-saving formats like YUV422?
+
+>  	mtk_dp->train_info.lane_count =3D mtk_dp->max_lanes;
+>  	mtk_dp->train_info.cable_plugged_in =3D plugged_in;
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709113148.4909=
+0-1-angelogioacchino.delregno@collabora.com?part=3D9
