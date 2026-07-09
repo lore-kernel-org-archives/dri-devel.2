@@ -4,97 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C024C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 19:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E170DC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 19:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD7E010F688;
-	Thu,  9 Jul 2026 19:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2740B10E0C6;
+	Thu,  9 Jul 2026 19:58:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ATfLuWkD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HUZ0FPy6";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D84010E2DD
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 19:41:31 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-37fc02e660bso419110a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 12:41:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783626091; cv=none;
- d=google.com; s=arc-20260327;
- b=EHfbl4uRJBpJU8rvS8LVCsxTWuOamviApxySTwCemfUUG1PrhRb3LgCOVXqPBXhxEM
- thmKAsLvNOQXc499ErBvfQ/omsh7bemIaLgU2WvrwnUkQOYXffdDSnbjzJa1grNKjvBA
- D45R8Qvd3Xer34oe9HYRQiK61a5+ek1C82vrPKfEBRbQnJFT06pt9AFNqRQuW6ya2vP7
- 0Ew/On9n2uRbn3UGdPDn3CmyXqtSmGMl4tHcfH7XSNwEidLBdK5L/q2eNjm8Vlhgp08T
- SAGqyeiKBW3OCueqLaDUg30RjKf3mpE40v48Ey1MJsvRiGFlLDh+qg/l2Exfq0yHosE9
- S18w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=zHfbWvceYtNCdDOquHNIwQRMo++yUsptvvWFceb+UlQ=;
- fh=FmdG5kTC07Bml8gu62jON/Q1T0Oq7JzQYnb84ZKTqSU=;
- b=mjYHjnYeKgpxE1gyMfJ150DqBM/rdktcrmXG5K/QzDxUyVOmyv9o5kwPp443ckAQWU
- CMSqOprMaUaH+ckOEufSbKW00diIGNk5jyd1NwGtvPsbTRnhShkU5VB92pTHAZb9oRe8
- 2+uS+WVQEMS7WNCcASjXAPmQcVKuAAvATt15UvFVRZlCE+Yt0Z0NNou1JPGO3j49h+Ef
- VxS86qqv6m4EfPuK8vQJu4Vv+54gp9MZsB/gFhU1/HC6/9J4Jzv4m8rYmOMon7k2wb+X
- q0zR0Bcuotb8Iwl9xwgV4O1/+/qdC/OlTvUprr24EohN45wj97Ow6sp6OiSBnyXduvGC
- Pjmw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783626091; x=1784230891; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=zHfbWvceYtNCdDOquHNIwQRMo++yUsptvvWFceb+UlQ=;
- b=ATfLuWkDjZ8BB//UAVVK3hLXTyBt+TsVOoT5UQUAkq1QxcFzmdRH9k4t7rbzXXjCHb
- BprEOH2lnTtyERxW0p9bXwbO9BlFcSvWf8Hi/Z7QNuRVRU9KyL0EUlXHKsI7P+Hxdqag
- +ergJcYK2N+aJOB1p8wZMRVt6Gwy4KUob24RqXx5i8wPEW4QHmiA8Yhbqo0q67bVGTAm
- +bLGYIzd7B1L6cpLV/HWESvH3/z9zuewCBiV+XJinBdxxY+daaDZna1OO1Nlq3FeAOTb
- s5+8pyptXHxCCjGg8sHGM3nKxmaGJ15Os+zEheWeyh92Ikp/1wxIb9HLlfV6ldC7CoPo
- ieQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783626091; x=1784230891;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=zHfbWvceYtNCdDOquHNIwQRMo++yUsptvvWFceb+UlQ=;
- b=ZuZ/A/yC86UFPPWK9kiV67mXvwBZFkLgSRvw3C2uHzdzJvTLrrn/MShWS563ateXGp
- lHG0glqy+AOocTUtAZoOkhJxOerQomS60PC5Whl6c+PW04bzkNRJMmYBrPqU211KN+lS
- +FwoKkjP5JJquA8ai0V8tg+l7Xs963cAnXaxBe/eZw2yOoWCo03y2RF2iI+tp9hQXyTc
- YOgf9lkGgPYt+jxi1a0KTh/URJ7G0m8ZiBVfJX+uM1u5OQW32mNnEX9hnDj72nd/Id+8
- 2CWZrTKLnk/R8kKl90tuEcHqRZOpy2dOBdX/u6KCcKexUe+y4qVEQTPk8ChYek0eXA08
- 5U6w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpG+E9aAcROU+H9F5cLzt+qdJcRQzwyZ4HLn+8B0dG4sf+38n4mJOUbage8DjJwtoj3YfkzB6cWFkw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbBiTFwJVLDLXvjdTDc2jeyp2V4lyxkPLpXVed54tf1lvfY9Z/
- GfZKkGE0wTXk7a64t8OdrPzZeYIzhixMvRdabPZ+R6tPKW7YPsrJtXpGTUVqSpa20KsdNJ7WnWt
- SpO+q5sykkXSxZ0sSF5OHJ0HsZj4dRu1NHiSap9w=
-X-Gm-Gg: AfdE7ckotoFnYMwMylTB6XayOsnON8nOaaKin4PXQc/my1Uck71Ku/Sxgqcg0QaRrSf
- V1BjdzYh2ufJcJhSVF8srKWDo9ONFr5QWPHqmLoCbeL98lIqHXvnWrd/zy+DsixbwX4WxNo+f3V
- Qspmm733OSA5wBzItjSt8IK9U6d78XM2ybVT8BdgtcNcWLy5o1l0YvLp3aXc/WAHOodz0DUQlEl
- /h+VJx5pCH7MN0Ro/vWeuHkbcj4RC2QN6h1trrAMEGOYouVAXkxKhoOZU56ewwwpI6/LfRLbTW/
- aq+mg3l5P9Z8qVImBCgvlsfhd2o=
-X-Received: by 2002:a17:90b:1cc6:b0:381:a766:efcb with SMTP id
- 98e67ed59e1d1-3893f694da8mr9270487a91.4.1783626090656; Thu, 09 Jul 2026
- 12:41:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260709-etnaviv-reset-notification-v1-0-64c617496958@igalia.com>
- <20260709-etnaviv-reset-notification-v1-2-64c617496958@igalia.com>
- <bb5b8c8ff15f8d8b9ad9a61e4887c14b9f77f3d6.camel@pengutronix.de>
-In-Reply-To: <bb5b8c8ff15f8d8b9ad9a61e4887c14b9f77f3d6.camel@pengutronix.de>
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Thu, 9 Jul 2026 21:41:18 +0200
-X-Gm-Features: AVVi8CeFeKNUemL2fppBxdxfNYVr5yohb1CGwVI71F0h_5DHOML4Od8oL69mxy0
-Message-ID: <CAH9NwWe9gDjg-6_e1KHdUQ8_Pi2sjhfDizZGzWavQAnnuymQ2g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/etnaviv: Add GPU reset counters
-To: Lucas Stach <l.stach@pengutronix.de>
-Cc: Russell King <linux+etnaviv@armlinux.org.uk>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 413E410E0C6
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 19:58:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 78EA143440;
+ Thu,  9 Jul 2026 19:58:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69C51F000E9;
+ Thu,  9 Jul 2026 19:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783627084;
+ bh=nASUEopdTVpbiOlaqA3bl70JASaPDBXc6RrPfU8TUhM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HUZ0FPy6tJ5k2FpZZk4TmtW8oNPYG0UCTaswg34FnSsVTMZ+nc6abBzQoGLAe7QpZ
+ 4839oR2E7eU5H+0VQhcuYDxXFXmLbqe785v0OtfK8pZM64xT/vjBbY8gU6OQqxdQko
+ 2bj2K0aisc+j7i5kyFSxJBzHYPyWTVbTuJKmXAkqp+WJvRZsZfqnl91bOFM7185CBN
+ pNNt3ie4Xo7ripQOTTqoaN5lwefEhmBf7ncJ41sgP4urIb+UmKalmTY+FHBAjFjAbH
+ sZHtyFtM9TSgQQsGPMBhSwsdDCYRoGd5HD7SutnqDROuHsn6T0qtpDhVLf9Zj3BAl/
+ ejFRs0GNI3+Yw==
+Date: Thu, 9 Jul 2026 21:58:01 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- etnaviv@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel-dev@igalia.com, Christian Gmeiner <cgmeiner@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Chun Ng <chunn@nvidia.com>
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+Message-ID: <ak_8Po3NxgAU7k0T@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
+ <akYs91INHMXMTI-t@willie-the-truck> <akZkuwktaXFTrASP@orome>
+ <akaSJ5D98w2cHqb6@orome> <akftuw9NyRy36fXA@willie-the-truck>
+ <akuvyu1Pq0ZVMZV0@orome> <akzikTrmhMsvkNVY@willie-the-truck>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="rvxsrpqt5djhs2ak"
+Content-Disposition: inline
+In-Reply-To: <akzikTrmhMsvkNVY@willie-the-truck>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,70 +100,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Lucas,
 
-> > The OpenGL and Vulkan robustness extensions let an application detect a
-> > GPU reset and check if its own context caused it, so the application can
-> > drop the broken context and build a new one. The kernel knows both
-> > facts, but etnaviv has no way to report them to userspace.
-> >
-> > Add two counters and expose them through GET_PARAM: a per-GPU counter
-> > that counts every reset of that GPU, and a per-context counter that only
-> > counts the resets this context was guilty of. Userspace compares the
-> > counters with saved values: if the context counter moved the context was
-> > guilty, if only the GPU counter moved the context was an innocent
-> > victim.
->
-> I don't really agree with the design of exposing this through
-> GET_PARAM.
->
->
-> First it assumes that each etnaviv_file_private can only have a single
-> context, something that is true today but which I would very much like
-> to change to rid of false dependencies when the application uses
-> multiple GL contexts through the same screen. I have a rework to do
-> this in the pipe, which I didn't get around to finish, yet. While I
-> don't want to block any of your work on this rework, I also wouldn't
-> like to see UAPI land which bakes in the single context per file
-> private assumption.
->
+--rvxsrpqt5djhs2ak
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
+ set_memory_normal()
+MIME-Version: 1.0
 
-Makes sense. I only picked it because msm and v3d expose their fault
-counters that way.
+On Tue, Jul 07, 2026 at 12:27:13PM +0100, Will Deacon wrote:
+> On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
+> > On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
+> > > On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
+> > > > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
+> > > > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
+> > > > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
+> > > > > > > From: Chun Ng <chunn@nvidia.com>
+> > > > > > >=20
+> > > > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protec=
+tion bits
+> > > > > > > on a kernel-linear-map range.
+> > > > > >=20
+> > > > > > That sounds like a really terrible idea. Why is this necessary =
+and how
+> > > > > > does it interact with things like load_unaligned_zeropad()?
+> > > > >=20
+> > > > > This is necessary because once the memory controller has walled o=
+ff the
+> > > > > new memory region the CPU must not access it under any circumstan=
+ces or
+> > > > > it'll cause the CPU to lock up (I think technically it'll hit an =
+SError
+> > > > > but in practice that just means it'll freeze, as far as I can tel=
+l).
+> > > > >=20
+> > > > > Probably doesn't interact well at all with load_unaligned_zeropad=
+().
+> > > > >=20
+> > > > > > I think you should unmap the memory from the linear map and mem=
+remap()
+> > > > > > it instead.
+> > > > >=20
+> > > > > Given that the memory can never be accessed by the CPU after the =
+memory
+> > > > > controller locks it down, I don't think we'll even need memremap(=
+). The
+> > > > > only thing we really need is the sg_table we hand out via the DMA=
+ BUFs
+> > > > > so that they can be used by device drivers to program their DMA e=
+ngines
+> > > > > internally.
+> > > > >=20
+> > > > > Looking through some of the architecture code around this, should=
+n't we
+> > > > > simply be using set_memory_encrypted() and set_memory_decrypted()=
+ for
+> > > > > this? While they might've been created for slightly other use-cas=
+es,
+> > > > > they seem to be doing exactly what we want (i.e. remove the page =
+range
+> > > > > from the linear mapping and flushing it, or restoring the valid b=
+it and
+> > > > > standard permissions, respectively).
+> > > >=20
+> > > > Ah... I guess we can't do it because we're not in a realm world and=
+ so
+> > > > the early checks in __set_memory_enc_dec() would return early and t=
+urn
+> > > > it into a no-op.
+> > > >=20
+> > > > How about if I extract a common helper and provide set_memory_p() a=
+nd
+> > > > set_memory_np() in terms of those. Those are available on x86 and
+> > > > PowerPC as well, so fairly standard. I suppose at that point we're
+> > > > closer to set_memory_valid().
+> > >=20
+> > > Why not just call set_direct_map_invalid_noflush() +
+> > > flush_tlb_kernel_range() for each page? We already have APIs for this.
+> >=20
+> > Having a "standard" helper with a fixed and documented purposed seemed
+> > like a preferable approach for this particular case. We also may want to
+> > make the driver that uses this buildable as a module, in which case we'd
+> > need to export these rather low-level APIs. And then there's also the
+> > fact that we typically call this on a rather large region of memory
+> > (usually something like 512 MiB), so doing it page-by-page is rather
+> > suboptimal.
+> >=20
+> > > The big challenge I see with any linear map manipulation, however, is
+> > > that it will rely on can_set_direct_map() which likely means you need=
+ to
+> > > give up some performance and/or security to make this work. Does memo=
+ry
+> > > become inaccesible dynamically at runtime? If not, the best bet would
+> > > be to describe it as a carveout in the DT and mark it as "no-map" so
+> > > we avoid mapping it in the first place.
+> >=20
+> > VPR exists in two modes: static and resizable. For static VPR we do
+> > exactly that: describe it as carveout in DT with no-map and deal with it
+> > accordingly in the driver. Resizable VPR is for device that have small
+> > amounts of RAM. Content-protected video playback will in the worst case
+> > consume around 1.8 GiB of RAM, so we want to be able to reuse for other
+> > purposes when VPR is unused on those devices. In that case, the memory
+> > is also described as a reserved-memory region in DT, but it is marked as
+> > reusable so that it can be managed by CMA.
+> >=20
+> > The resize operation is fairly slow to begin with because we need to
+> > stall the GPU and put it into reset before the operation, then take it
+> > out of reset and resume it afterwards.
+> >=20
+> > What kind of performance impact do you expect?
+>=20
+> You'll need to measure it, but we've seen reports of double-digit
+> percentage regressions in performance and power. As I said, the problem
+> is that you need to split the linear map to 4k page at runtime to unmap
+> the dynamic carveout, but that isn't something that can be done on most
+> CPUs. Therefore you end up having to use page-granular mappings for the
+> entire thing, similarly to how 'rodata_full' drives can_set_direct_map()
+> and the perf/power hit affects everything.
 
-For v2 I have replaced the two params with a dedicated ioctl:
+The VPR has fairly large alignment restrictions (1 MiB) and we do unmap
+in fairly large chunks (512 MiB currently, but we can change that if it
+is helpful) because we really want to avoid resizing operations, so the
+tradeoff is between frequency of resize vs. potential memory wasted.
 
-struct drm_etnaviv_reset_query {
-    __u32 pipe;            /* in */
-    __u32 flags;            /* in, must be 0 */
-    __u64 global_reset_counter;    /* out */
-    __u64 context_reset_counter;    /* out */
-};
+Does that change anything with regards to performance?
 
-flags must be zero for now and is rejected with EINVAL otherwise, so
-your multi context rework can later add a flag plus a context field to
-query a specific context.
+Thierry
 
->
-> Second, with this design each userspace query incurs two roundtrips
-> into the kernel, as userspace needs to know both counter values to tell
-> innocent vs guilty resets apart.
->
-> My vote would be on adding a new ioctl to query both reset counters at
-> the same time, with a flags argument baked in, so it can be extended
-> once I manage to finish the multi context rework.
->
+--rvxsrpqt5djhs2ak
+Content-Type: application/pgp-signature; name="signature.asc"
 
-One thing to note: the global counter is per GPU core, so a context
-that uses more than one pipe still needs one query per pipe. I think
-that is fine for the robustness use case, but tell me if you would
-rather have a variant that returns all pipes at once.
+-----BEGIN PGP SIGNATURE-----
 
-Will send v2 shortly.
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpP/UkACgkQ3SOs138+
+s6GFqBAAsfNpGtxzDc/1UKAc4Vjp9eilQE6L3ZzhQhn1d3Crc+ym9vGZzyfe4lTR
+di2aYaWn+6XslOczfKwW58jo+D8/fP64sFF9UY3mR7U+MzuIGEF61RVgF0fFH4Vb
+wo6H5bLYvA2J1VhXyIv08l/Oxb+GGHMa2gRVdTbFux+csAi4ahPJVT0oS9S0sJht
+cmPEaDkjN8StPrx4IN3oTcj7g3LW3aDuShMtgqRrceSaIw2xvtb+rvWLvGJac/HH
+kNrn5Vc+pAJJigN3NZqMgpjeD3gHZDZYaKUToPXJuIOlZILR0VzdDAHxD9U+lmyD
+YVPGNnPi13QmxTk9KHR+Tm2aL7AxXx8TK0jIOUFuaySrgD16Oo9CTxOvsxewNGpg
+lGDhuvag7BCxZqQzlxbhAuGtHZS+s6OWCXleWAsKpVs4Ga/FDaAvZYCHugxIur84
+mexc1/5CBcjohTAfvTLpAZGUxDXslKopeYaBZGgRJXz+iwulrGeeDpEvDH1VNo1r
+SkCIXoLOlq4bEKwejuGzuVzc47hLYGL+c09cCOwa73rhvVARke2v05fRowwN29Iv
+1OVDKNQTsHbBZ8PNTsoaEApLvif8crc38kborIPtiuaGz4WDg7q90ogJoIhqEK2L
+z8Lt64Ul985C2ht8PNWLbWeUKGNX54YFmnBCCP+lgBzDRu2sc4g=
+=Axxn
+-----END PGP SIGNATURE-----
 
--- 
-greets
---
-Christian Gmeiner, MSc
-
-https://christian-gmeiner.info/privacypolicy
+--rvxsrpqt5djhs2ak--
