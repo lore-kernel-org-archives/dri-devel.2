@@ -4,119 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7251C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 00:41:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27457C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 00:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2EE10F0A1;
-	Thu,  9 Jul 2026 00:41:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6462B10E4F3;
+	Thu,  9 Jul 2026 00:47:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="n+YDMA97";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="CqenvVqU";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013071.outbound.protection.outlook.com
- [40.93.196.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A94C410F0A1
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 00:41:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ia/VPtKi5ywurWLJNpuK1F+jFqbgkqKLiiGmDAupawUzgYqvpEryidasm+YKoQmwh++YFM1m0zVSZWfkR54aGMsgZan6XuYacqQ1AVJIPb/KVpT9jZOfhyGXMK1t1RdjcwdLyEv6Zt3Q0ZXo8xMtmKAjOkWfzgCt/UKC0acJUCOQSqKKUiWKC0onPTcJqRjXpcnJpVxnIT2r15L0LY1HzDKXwpTwzU/qigKuWBEmcpIm8VR9bn/O8pA+Md4A1wHvwCT9grzSiXLFWXADQZbAzxerhKo+kJUTM/kAHIRdfmEdFeV1FeVYBSs3e+HK/8fLpZtBh9LNa1EYwTvQ6WTkUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=viec5/jsv1xyzoZXC3qsODtekLgyymjvY0Ty1ekMLgk=;
- b=zULsN/gEayy0A6G/pph/kk4q6GbLmlKlF3S02hbObYaW5kOu0Tf8N2ZX/NXlIoSfKbvbHMToZZZpDPQjikSfpqPwzX1N0RQIcqwh/p4L1tG6GG+LD63cGa0/XaXTz8cVIkEzUH67/tlMnsnUJZie1DJo8r757Zs/TfL+RcWDVvQ85rQcIppDHhw9Xs9WgdQXZDoEBh7t72MouJEi7FLNjMP6dEf7QZ2E4zsjU2DWv6Vc0W1/H2WUbaYn8x3vaNrwg42WL26k8ojzXnXKWkwDtIFxrWuGXJ0Hgx7SN85vgHd8zMwBiZMlNCV2744TVGLU2eoptIkZXuDtJplN1xwVAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=viec5/jsv1xyzoZXC3qsODtekLgyymjvY0Ty1ekMLgk=;
- b=n+YDMA97G+EQC8Ki55ZzKMnYGKxy+BbRc+xEHwp52PvqaJq3IAScy0NwUmXoNpeYkzuF6Lm30GcaR0y+nablw8iwBj+3DurvgbLGqUJ1bHrPgNucm2suv8ww2hpJWm51hPPwjGgp+pyBSgZezc3+EL2rVGA/lFeuRFQgRSf1wwXCSMYmUSeRzPCl6IlCuBCSnVSk1FIu4R7imZxEW19bOLZl1nPIj0bqWGGKuCG4mOqBpXtzQ96myoneK6/xs3JvmpW5XcnmYbUKYI4HfrMokaQTLMhzSIu39/iFBYFtmzkQzYbv8sPc8IsaK6OVJNE5FUrLpLwhuyOuKeksX0sNGg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- DS5PPFB8FBD73EA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65e)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Thu, 9 Jul
- 2026 00:41:03 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0181.008; Thu, 9 Jul 2026
- 00:41:03 +0000
-Date: Thu, 9 Jul 2026 10:40:58 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: nova-gpu@lists.linux.dev, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 2/4] gpu: nova: Add DRM registration data
-Message-ID: <ak7tcGfBxAYQXyf4@nvdebian.thelocal>
-References: <20260706053413.154135-1-apopple@nvidia.com>
- <20260706053413.154135-3-apopple@nvidia.com>
- <DJROO2091YJ9.2O9BMST1L8HQX@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DJROO2091YJ9.2O9BMST1L8HQX@kernel.org>
-X-ClientProxiedBy: SY5P282CA0196.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:249::7) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6B5610E4F3
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 00:47:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783558049; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=XAeRz8RgN2BSFEW+fMDdPJlz3hu5NTJhAd6Y1LTWflxWUlS+D3f/pFg3xwDrjUs2YE3KgvkP6b0vfNTZMcAI5rQcl1H8J3eNfVkWmFIUApSMT+gZKKwm74gLDpJWuoA1Jxa7qaofFf17MFwtB2WSozajZj7Ap5o8GY04EYw2Pkk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783558049;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=ykSv/MCDw0AUCDHIQSLalIer3TYZIzn/9drxaUvJIfI=; 
+ b=b9NbIVgPHS6/5IaF0Xrn3zqDryEX8AYAyvUgqdtiHsBVoUQ0dq4yrxvgR9MMK9xmZElsu6InTp5NGwSgslhlsLDA+Qfwi6ebMYXgPybcWyhlcttKgiy0X/muxN1woHl/lm8pObvBqGVa7eFk4I8JeLwA54oMADCq17tex0tYHko=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783558049; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=ykSv/MCDw0AUCDHIQSLalIer3TYZIzn/9drxaUvJIfI=;
+ b=CqenvVqUBs59LVj8M8uFVF6NoZdNJOIO4MoXTuO/NKTRD9GrZ+SLNAGlJTjwqTmu
+ jnBCX/PAvO6hQ+lK41xCzSHiP6/jOj3x9PpIHy/w/geao7WThgPujUMskuZeV25HpuH
+ 1PrgN9CeeHG/i5VScApJd5WL6NpczVyRAHZrCcew=
+Received: by mx.zohomail.com with SMTPS id 1783558048282301.9802146137505;
+ Wed, 8 Jul 2026 17:47:28 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Subject: [PATCH v5 0/7] drm/tyr: firmware loading and MCU boot support
+Date: Wed, 08 Jul 2026 17:47:06 -0700
+Message-Id: <20260708-fw-boot-b4-v5-0-7792ab68e359@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|DS5PPFB8FBD73EA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07ee7745-743f-49f4-ec93-08dedd52c0ea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|3023799007|56012099006|11063799006|5023799004|4143699003;
-X-Microsoft-Antispam-Message-Info: qSBzRVj/PInxt+MeDLxhPD05Soo+QwoQrC2QErAvW91PYCdc9o++kDc+/MEQQvdYWU9gEX0DpAJuAGIEYUmpc3oaF2nGu8YXI3hfzf+YTl3hb7hZwx+Uc3elbgXl8HjaVuoCKOsZ5nPzz6bJEyFlbcUo0MqJlzHJbXjY4wOvSByCdPk7zjw+vO2P6xzxO2y+auYiL4seAzG0jd8fZKyiKJtVv9ZXF9l/yGfsduXKs1aFFxGW5nTBWmIB/zwik54FZw1Icgfj+L7R/lDn3KplrOLlkK8JdwSMiYnmoXEnGStBsZyOvEj6rMz/97pubI9oHxvQEdxXVFC4pcnSkmDrg196Mfc7wPQL93Yh/hnH0d8UJKFQ9RZehWpgAlNaKRLCWvXEbKnIqIAEXtOUJxZhGC5hEE8QJZZrCCvu5oHJqJqtav8elqRaFhVLNmCcfUOt5uKZ7lhHWbQMbHeVtXqZlPB0n6GrISzO3l0QDaMR2KKWwC68RE/tBaDcKsh3vHrO91NH1EqZw4iKPIRjw8Dik9sBYJaF1NEa9Z+yCnzDT9NiU+566cWKTnywjg+JyUviKToLuLkjzTMAF5ACpYhtFJsLcve1bDKgt/EHFYeNbH3ZFBAeVPx5vp7eXHB9rFxGIbdYwKDy8LMYpidJ6LuBml6KnjZj+NpNqjah23IjIoE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(5023799004)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mWLUMsfA/K/V5cNDNbPSRQ54HxX0ECb58diG6npG9DFgFIDhFiLRtUqU63x5?=
- =?us-ascii?Q?8Y6z79s7RR9qZO5Y5mLzAG5Sb4p7pkEBFWsUhBkxqgXNYm2lolR+O9kSJ7SN?=
- =?us-ascii?Q?khJ80QVDiESeNL9fkNj7/En2zLqGlgEJ9QBBkPaB9bbL+cTfD3s+7M/jS9zr?=
- =?us-ascii?Q?IguXgbh7COtU5Ua/9EvGogxcRCYvrkynypl6X7NJjotc9fyP6JJ4NlEHEwN4?=
- =?us-ascii?Q?PXOBW7JOEt5uF9Af3QkYs/CNXwwiZJ1D+YIwfOUK1uwrTk/soGraCvUSeDHK?=
- =?us-ascii?Q?6nXechjNoeJz5V/jb07ZWYifemh2prIMBR0Ge7mMlj39Ks3x6KwC+KNeecss?=
- =?us-ascii?Q?AsOXcV8Yk89pix9R7d6FJRaiDUFtkT7ULN3xeCROT2QVDAubBQCX3BY8W7Ib?=
- =?us-ascii?Q?vkBcwYihFUhSaDExkwL37T4lpWN9gSmmPh2D1wiRleroUJwTKgioulECMDcj?=
- =?us-ascii?Q?EShNGM0btKuSrvzHVxFAUYkiCp7APmkjxRgWHYTZCsGWJZq/G/uR/qmMfM8T?=
- =?us-ascii?Q?pq3+9Bn3KUnQHnJ6oCdhBgdOFwLmg9OrIAg8NfyYq9qZbnPfnRrhKIabPTxg?=
- =?us-ascii?Q?G53xJlSTAqFd/Jw7yXkAKObbixy/hHtx1U3gnDDaoPh/TtQZNLwD2g9rvonv?=
- =?us-ascii?Q?F8dq9CgxQukiBQ6ACaIjMoscLzW/PGJzry2vcsg9K5GmQMzau62+Y2Y4a9aI?=
- =?us-ascii?Q?ly9XIkgFUxJzfWWBuJyBv1it6J1Lu5JGwohYqFMyq5lVsNa2IHpXcbprkhbY?=
- =?us-ascii?Q?SwnlnF0jSkTvBhPAJIp4OZxfDJhZp8C+On/xyzKazdeMpNtHfi+rCJyJ8/3r?=
- =?us-ascii?Q?g3KVwrfyYBeCJplvgbo+2m+1O8FP3GdAJ8Z/wOyDodSmsZ3QXjJyKrBFHHje?=
- =?us-ascii?Q?BPA2jBatxGHr+N9eEb2ELQIgFYxV/9Ve8U2Yu2XvaBP63gp412kAHO87Sl+W?=
- =?us-ascii?Q?ljvM8Maa4T2j/M247aZIxiOC5IbgrpeSGZZLpKg7Z1NpMu055tuDUXDl9VGP?=
- =?us-ascii?Q?MF93bYMsheYvwk8lMTnOde3oqDdQK+oUryl6LYIvJfzxf/C/hUvE6BmtWdUt?=
- =?us-ascii?Q?AYuRAV5I70chNTY3YnTzzkDrGh4k80OHopawIKdjbf5hrSXmtrfXAfWUQ25U?=
- =?us-ascii?Q?YdtAis+6GiKQCENpra+XhFsYocHBhfaszZJ4bqMm5KQ62UepjHqlqgvMeqFp?=
- =?us-ascii?Q?NSfEg3ReXtZUAdWZBCHCSDnGKV9YJW6/DNLpYzOwxyRHSeOiF18ndo+Et7Vq?=
- =?us-ascii?Q?ZET1cNTT+FqJUdCmq5p8J+7wwc8wIcSKd0uPmfLAqL5KO64Qh2oSuVSXKkqs?=
- =?us-ascii?Q?RXOrj8C9mwhi5kxWRYp+f2zVmDX0Ieyb31UOL0H3g4kRZvj15Gtl7m0VFM7W?=
- =?us-ascii?Q?HHP92MzeP6EHJIP9wlHtBIe74C0AI7eI6NTxybxLHx9vy8zLfK6DeD5I82gS?=
- =?us-ascii?Q?hfTDN6mCoyzxhRPRtZZu3F3wRcDBdRp2cqUebuK6GcetM34uAviALs8hCkQM?=
- =?us-ascii?Q?xG8s0Aqmdyq/UDq4T3P+PPU0g9xzxTEesV6aPE3ePylDjl2ATbtosS/hpRfP?=
- =?us-ascii?Q?e0Hyur/nxcStFDq3vlBKE254uUurW/xq4uwcJkLLzyOdi8x8nFYw1e9DywQX?=
- =?us-ascii?Q?L6n39o74YrS1emZCTZK0eOfXq2WdCzrskWtTQqeHRD+sPj+/urYZ+dZh/Bjh?=
- =?us-ascii?Q?v/+KjKvvK6d1afUhmymoWP9wZSKmU0oqbY4GOhd2PpgnWfIzP4lyfHeWbt2o?=
- =?us-ascii?Q?94EqnWtESg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07ee7745-743f-49f4-ec93-08dedd52c0ea
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 00:41:02.9733 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zJ/yisO9tj8wKukfz4kw2B8jARzv69N+cyreslcpLn+JPdmZNmfjiSD/QHOtb4LHQXzrihfys5xYkAJeYkUnJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFB8FBD73EA
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2MwQ6DIBAFf8XsuTQrAdGe+h+NB0SsJNZtwNA2h
+ n8v0ibvMi+Z2SFY72yAS7WDt9EFR2sGearAzHq9W+bGzMCRN6iwZdOLDUQbGwSbUClsNG+kUZC
+ Fp7eTe5fYrc88u7CR/5R2rI/3lxFcFP1fiuIYMi3HrkaJqu3Gq6Fl0QN5fTb0gD6l9AW/W8MFq
+ wAAAA==
+X-Change-ID: 20260708-fw-boot-b4-f07706a265c7
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>, 
+ boris.brezillon@collabora.com, work@onurozkan.dev, samitolvanen@google.com, 
+ steven.price@arm.com, laura.nao@collabora.com, alvin.sun@linux.dev, 
+ beata.michalska@arm.com, acourbot@nvidia.com, lyude@redhat.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4720;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=Aqq/nVdS1+z65UwFi5aBwT7YEt1OXhuTGxItG4KcO/c=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFl+7+f/rYq7bpEV/+AMy+yW2Su5WBX80iL7Jt6NUz/tv
+ KQ2Y5pnRykLgxgXg6yYIstZe6Me8ar3Rrrz/zfDzGFlAhnCwMUpABOJLWP475Bq/+zfBcVpaiLC
+ K5LrSy17o9ocle9W3nR9F38nWyhkFcM/y16JOdabOT8djAy9WaPIc3V5qcz3DVxMihtPVnb9Dvd
+ hAQA=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,54 +84,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-07-07 at 04:01 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> On Mon Jul 6, 2026 at 7:34 AM CEST, Alistair Popple wrote:
-> > diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-> > index 298c02bacb4b..855b6ffe696f 100644
-> > --- a/drivers/gpu/drm/nova/file.rs
-> > +++ b/drivers/gpu/drm/nova/file.rs
-> > @@ -1,11 +1,10 @@
-> >  // SPDX-License-Identifier: GPL-2.0
-> >  
-> > -use crate::driver::{NovaDevice, NovaDriver};
-> > +use crate::driver::{DrmRegData, NovaDevice, NovaDriver};
-> 
-> Please switch to vertical import style.
+This series adds firmware loading and MCU boot support to the Tyr DRM
+driver. It includes:
+ - A parser for the Mali CSF firmware binary format
+ - A kernel-managed BO type (KernelBo) for internal driver allocations
+ - GPU virtual memory (VM) integration using drm_gpuvm
+ - An MMU module and a generic slot manager
+ - Loading firmware, VM activation, and MCU boot at probe()
 
-Will do.
+It is based on drm-rust-next but also depends on:
+1. [PATCH v5 00/19] rust: drm: Higher-Ranked Lifetime private data
+   https://lore.kernel.org/rust-for-linux/20260628145406.2107056-1-dakr@kernel.org
 
-> >  use crate::gem::NovaObject;
-> >  use kernel::{
-> >      alloc::flags::*,
-> >      auxiliary,
-> > -    device::Bound,
-> >      drm::{
-> >          self,
-> >          gem::BaseObject,
-> > @@ -30,12 +29,12 @@ impl File {
-> >      /// IOCTL: get_param: Query GPU / driver metadata.
-> >      pub(crate) fn get_param(
-> >          dev: &NovaDevice<Registered>,
-> > -        _reg_data: &(),
-> > +        _reg_data: &DrmRegData<'_>,
-> >          getparam: &mut uapi::drm_nova_getparam,
-> >          _file: &drm::File<File>,
-> >      ) -> Result<u32> {
-> > -        let adev: &auxiliary::Device<Bound> = dev.as_ref();
-> > -        let pdev: &pci::Device<Bound> = adev.parent().try_into()?;
-> > +        let adev: &auxiliary::Device<_> = dev.as_ref();
-> > +        let pdev: &pci::Device<_> = adev.parent().try_into()?;
+2. [PATCH v3] rust: iommu: add device lifetime to IoPageTable
+   https://lore.kernel.org/rust-for-linux/20260703-pgtable_lt_b4-v3-1-e738e1f513a4@collabora.com
 
-Actually I'd meant to drop this change as it's unrelated and was just me quizzing
-my Rust undertanding :-)
- 
-> Nothing for this patch, but now that we can call into nova-core we can obtain
-> the information from the pci::Device via NovaCoreApi.
-> 
-> The advantage is that NovaCoreApi can store the pci::Device<Bound> from
-> nova-core directly, i.e. we get rid of the try_into() dance to obtain the
-> correct parent device type.
-> 
-> Subsequently, we can remove this TryInto impl entirely. :)
+A branch with all dependencies is available here:
+https://gitlab.freedesktop.org/dbrouwer/linux/-/commits/fw-boot-b4
 
-That would be nice. I might add that as patch to this series.
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+Changes in v5:
+- Reduce the scope of this series back to just MCU booting.
+- Drop the CSF global interface, job IRQ, wait, and arch timer patches
+  since they will be sent as subsequent series.
+- Add lifetimes to resources and store them in TyrRegistrationData.
+
+- Link to v4: https://lore.kernel.org/r/20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com
+
+Changes in v4:
+ New commits:
+  - drm/tyr: program CSF global interface
+  - rust: time: add arch_timer_get_rate wrapper
+  - drm/tyr: add CSF firmware interface support
+  - drm/tyr: validate presence of CSF shared section
+  - drm/tyr: wait for global interface readiness
+  - drm/tyr: add Job IRQ handling
+  - drm/tyr: add Wait type for GPU events
+
+ The existing commits from v3 remain unchanged.
+ - Link to v3: https://lore.kernel.org/r/20260413-b4-fw-boot-v3-v3-0-b422f3c03885@collabora.com
+    
+Changes in v3:
+ New commits:
+  - drm/tyr: remove unused device from platform data
+  - drm/tyr: use shmem GEM object type in TyrDrmDriver
+    
+ drm/tyr: select required dependencies in Kconfig
+  - Rename commit since the dependencies are not limited to DRM.
+  - Select new RUST_DRM_GEM_SHMEM_HELPER instead of DRM_GEM_SHMEM_HELPER.
+    
+ drm/tyr: set DMA mask using GPU physical address
+  - Use register macro to read pa_bits instead of separate helper function.
+    
+ drm/tyr: add MMU module
+  - Switch MMU code to typed register APIs (TRANSCFG, MEMATTR, STATUS, LOCKADDR, etc.).
+  - Use MmuCommand enum for MMU commands instead of raw constants.
+  - Minor cleanups and renaming (MAX_AS, AS_PRESENT handling).
+    
+ drm/tyr: add GPU virtual memory module
+  - Extract VA/PA bits via typed MMU_FEATURES register.
+  - Update the VM code to match the new GPUVM v6 and shmem GEM v10 APIs.
+    
+ drm/tyr: add a kernel buffer object
+  - Reject zero-sized KernelBo allocations up front.
+    
+ drm/tyr: add firmware loading and MCU boot support
+  - Use typed GPU control registers.
+  - Pass iomem by Arc into Firmware::new() since we store it eventually.
+    
+  - Link to v2: https://lore.kernel.org/rust-for-linux/20260302232500.244489-1-deborah.brouwer@collabora.com/
+    
+Changes in v2:
+ - The whole series is rebased on drm-rust-next including v7.0-rc1.
+ - Each patch has its own changelog.
+    
+ Link to v1: https://lore.kernel.org/rust-for-linux/20260212013713.304343-1-deborah.brouwer@collabora.com/
+
+---
+Boris Brezillon (3):
+      drm/tyr: add a generic slot manager
+      drm/tyr: add Memory Management Unit (MMU) support
+      drm/tyr: add GPU virtual memory (VM) support
+
+Daniel Almeida (1):
+      drm/tyr: add parser for firmware binary
+
+Deborah Brouwer (3):
+      drm/tyr: add resources to RegistrationData
+      drm/tyr: add a kernel buffer object
+      drm/tyr: add Microcontroller Unit (MCU) booting
+
+ drivers/gpu/drm/tyr/Kconfig              |   5 +
+ drivers/gpu/drm/tyr/driver.rs            |  64 ++-
+ drivers/gpu/drm/tyr/file.rs              |   5 +-
+ drivers/gpu/drm/tyr/fw.rs                | 266 ++++++++++
+ drivers/gpu/drm/tyr/fw/parser.rs         | 521 ++++++++++++++++++++
+ drivers/gpu/drm/tyr/gem.rs               | 122 ++++-
+ drivers/gpu/drm/tyr/mmu.rs               | 102 ++++
+ drivers/gpu/drm/tyr/mmu/address_space.rs | 482 ++++++++++++++++++
+ drivers/gpu/drm/tyr/regs.rs              | 121 +++++
+ drivers/gpu/drm/tyr/slot.rs              | 384 +++++++++++++++
+ drivers/gpu/drm/tyr/tyr.rs               |   4 +
+ drivers/gpu/drm/tyr/vm.rs                | 810 +++++++++++++++++++++++++++++++
+ 12 files changed, 2864 insertions(+), 22 deletions(-)
+---
+base-commit: 3dc952c70e44991277f531ff6a2b8c14bcc52112
+change-id: 20260708-fw-boot-b4-f07706a265c7
+
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
+
