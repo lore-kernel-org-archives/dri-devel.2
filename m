@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDA95C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:33:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6194BC44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:34:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4150810F5A1;
-	Thu,  9 Jul 2026 12:33:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B944410F59F;
+	Thu,  9 Jul 2026 12:34:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wyb6fr+0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bseccNL5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A40B10F5C1;
- Thu,  9 Jul 2026 12:33:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E8D210F59C;
+ Thu,  9 Jul 2026 12:34:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C9F454170B;
- Thu,  9 Jul 2026 12:33:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852A81F000E9;
- Thu,  9 Jul 2026 12:33:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A7059600C3;
+ Thu,  9 Jul 2026 12:34:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416DC1F000E9;
+ Thu,  9 Jul 2026 12:34:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783600429;
- bh=VxCyzKYt+2p3S+jwZw/Xoev9w+MftLxRp12EmyoN6qg=;
+ s=k20260515; t=1783600452;
+ bh=PLcyfyRLh9N274iEIAU0fg4hnH+FVhFMtjqvfI8OHEc=;
  h=Date:From:To:Cc:Subject;
- b=Wyb6fr+0pCxMUPXahLueym4g6s3cML7pvQLcuhdpnJKxBrORwnE2Vp1Z7fL4swA3V
- ASEoocmKX2BCUatvHAGHq1begAG8KDEY1lXuiFCChp07RPuN9qqSAjK4PNi6GfnC8+
- z67n2bevu+XyqfUdfIhTgRjHZhadPGSKDl/hH37hHRlQQHOgqlaIC9fHnyEG+UMK+B
- vJT+kceqvc7xToyrUGhBkdGic7Ce32BrsNvJKJxoY4f7DqJy2v3z/XSfzoNbZlHPZL
- mOsMhnNQIz5ICWTO8xYziHTYykdhBFqtM+kGWpwbQ4+/i6IRXjsCk8k6Xb1+jiihEf
- M9mf7ILVhKgdw==
-Date: Thu, 9 Jul 2026 13:33:46 +0100
+ b=bseccNL5IajMpaKml0Cf6JglRnD3jC+Q1AWQzLot0EA7gD7jKDk4l0haAHXGRfCIN
+ BPPzP1WU4g7bjFNFd848ZgxKYl5C0c5zlvr++A6DIgcZCy+vBIaHBLHISEmr66opq6
+ S8HfDiTkqzBXDer+bZWSySMNoSqFHy3lO1p4lmZ6f/yq+8OBqENDk4DvkCqQguS/zw
+ EYNbQmr4+PCSEbcZl1/QKnNWnJDMrNDLQMrf7FYp3pVCu2+36cHodmVg0Ss9w9mDIJ
+ O/XdRwlPHKSOQ8Xun6gbsx8Ot9dNBYtMWOy99Dj1J2xaADQoKhsnfmbc5DD40p84pU
+ nrmmctDpz6aAA==
+Date: Thu, 9 Jul 2026 13:34:08 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Simona Vetter <simona.vetter@ffwll.ch>,
  Intel Graphics <intel-gfx@lists.freedesktop.org>,
  DRI <dri-devel@lists.freedesktop.org>
 Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
 Subject: Fixes tags need work in the drm-misc tree
-Message-ID: <ak-VKufd0zg0F8AD@sirena.org.uk>
+Message-ID: <ak-VQChNqm9ymtS6@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bH6rGYeBd6bmCszn"
+ protocol="application/pgp-signature"; boundary="ySfZFTdHsc5H/OLM"
 Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,13 +58,13 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---bH6rGYeBd6bmCszn
+--ySfZFTdHsc5H/OLM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 In commit
 
-  3b1f4d5e47b36 ("drm/amd/display: Fix dangling pointer in connector reset function")
+  0aeed866cb938 ("drm/amd/display: Fix dangling pointer in CRTC reset function")
 
 Fixes tag
 
@@ -76,19 +76,19 @@ has these problem(s):
     Just use
 	git log -1 --format='Fixes: %h ("%s")'
 
---bH6rGYeBd6bmCszn
+--ySfZFTdHsc5H/OLM
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpPlSkACgkQJNaLcl1U
-h9AKgwf/RNYiEzszQGfZYdb3GELo4yuwD1Al49eAnwIfZAipRVTgJ/1jqVvHJ+WL
-IGvU7NFMNysq4atFQBJLm0O/CIb0uIOXwYpm0Xxe9t3C0/jTgCYPsvZm8Xdd3+Bl
-2YzytulHikVL1rZzufMIALPRSpjWBQor7w07hPRGvFC99kZ3LB0USzcw6BWNfYjU
-p5sFxU7osiPF8YESyt2W6sl6zfh+FcHx61PeuQZ4AlKu41Lu2+eBjFToVIXHAVoQ
-+zN6+3hWXnnoaQAoc/1sLNrfoTyXwpoFdjuHsJt3lczZNbRfN5ZJMl3WlSzhoA5T
-dRiuFf1W05o9v/LJRhoLBOd0IAr/Lw==
-=wWw7
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpPlUAACgkQJNaLcl1U
+h9DuLwf/S7lHF1Sp6r6EGwnAz5Xpnr4wcgRT3e76kWqVLOglVplCjZsJPkBhbb4R
+dEbXZM6pYa1ygK6Yefqr3W0sbTppN6l9e5q/a4fA+6PJoN5mFDHdXjyKCbBeZSsR
+cyLjnZCT160raWAVLiSZpG6ETvdusRJehu0e4PEQ/qgORPLMRdZTUr2fkaGOz7xJ
+WxxL7JX9El47q/uz88bvXzAD3iXJTbca+IpZ9COCyhe0cN2V6ojo90jyL/4xuwET
+BEhlsCgKe4316jOWXAfaOjIFgXU9ns53YDdwPtrU/3vqmZghMT4M2LcbWJGeTPVS
+KnADsQX5IgmW1NIINRqWZDuCIFN3og==
+=glOm
 -----END PGP SIGNATURE-----
 
---bH6rGYeBd6bmCszn--
+--ySfZFTdHsc5H/OLM--
