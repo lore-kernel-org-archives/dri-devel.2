@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B12C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:40:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96C94C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F319D10E6C7;
-	Thu,  9 Jul 2026 12:40:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF16D10F599;
+	Thu,  9 Jul 2026 12:43:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E0eK326t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xn2h8bl9";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD8D210E6C7
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:40:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C45B10F599
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:43:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 25C03600C3;
- Thu,  9 Jul 2026 12:40:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06C91F000E9;
- Thu,  9 Jul 2026 12:40:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 619A2600C3
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:43:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41ED1F000E9;
+ Thu,  9 Jul 2026 12:43:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783600810;
- bh=Sbq6NQ7HoERldwSCK3d/tSh9Zxhji/rMrejDh0VyCGY=;
+ s=k20260515; t=1783600984;
+ bh=MJIMstA8rIC+wJPKe7DR+TlPz6UbaYn1VK53yxwmz5Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=E0eK326tSVZ10zRTrpk/RZ4vH60EnHT473CfgT31Y0ijneC3TgeHZUikXxLX0SRWl
- 6N8bQ/4vDItyUZhJeRZTG4zAdL95zE1NRwCIkePC5z1Lh7ShByGSI/5z0ZUASghB/9
- SDP0EaMBXvCDbImyjXC+oULmbQozU7r5JFSx52Ea3xC1OBGPaXPZE61aC/t8WTmMDH
- Q5fC63FGSaiG345sdzhZZosVC8yqTHc8UgrBQFCQl2afYJ+3S9TJjAbtY+g2vBSget
- c4zDVWZD4vtP1TC6rEDkS++mCzt2Bq2f/GjupMko1U+Efm2LUPYToAeub9IsFWQXhm
- TyN6qllF5ur9w==
+ b=Xn2h8bl9hvjwAuwg4GzY7XH3yEK3ZfTvim+gngFjce0HsERvobiSXk5OA3x0OAg59
+ JrdHuL0cbSohGvEfx1LtuI7Kg5Ut00K3WkbFraYjf3PGuIUabC6z4p625B8E5Sgwzb
+ AVc7RwNQLTvhh47waRzGICw/LAeFhRgjUtrJZu7tzHaLnBaO7Jc05TMO28IJB6miS8
+ IVvh1w5VPbRGtLo6H/fUaBigrhKnAMx8NEFT5Og0CH5BVKOwoLTSsGamH9zd1WyIaA
+ 0RlH4RQeGZoOCPTUjPPLSQ0DlnJ1iw196wBsdrXux3AzXIoiPbeD2S7ym6wFvtjNse
+ QHWprg7UBelvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/xe: Fix reference count leak in xe_pci_barrier_mmap()
-To: yaolu@kylinos.cn
+Subject: Re: [PATCH 60/60] drm/plane: Remove reset
+To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709123252.302944-1-yaolu@kylinos.cn>
-References: <20260709123252.302944-1-yaolu@kylinos.cn>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-60-302d986fe5f0@kernel.org>
+References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-60-302d986fe5f0@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 12:40:10 +0000
-Message-Id: <20260709124010.B06C91F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 12:43:03 +0000
+Message-Id: <20260709124303.D41ED1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,56 +59,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Removing `drm_dev_get()` from `xe_pci_barrier_mmap()` causes a dev=
-ice reference count underflow, leading to a potential use-after-free of the=
- `xe_device`.
+- [High] Discarded return value of atomic_create_state() leads to leaked me=
+mory and NULL pointer dereference.
 --
 
---- Patch [1]: [PATCH] drm/xe: Fix reference count leak in xe_pci_barrier_m=
-map() ---
-commit fb6604d312d887a8133909c7e0434e96c90e6a7d
-Author: Lu Yao <yaolu@kylinos.cn>
+--- Patch [60]: [PATCH 60/60] drm/plane: Remove reset ---
+commit 272441f81f14a41d0a23a7e99bf3963a3955d652
+Author: Maxime Ripard <mripard@kernel.org>
 
-drm/xe: Fix reference count leak in xe_pci_barrier_mmap()
+    drm/plane: Remove reset
+   =20
+    All plane drivers now implement the atomic_create_state hook instead of
+    the reset hook for initial state creation. The reset hook conflated
+    initial state allocation at probe time with hardware and software reset
+    during suspend/resume, making error handling difficult since it is not
+    fallible.
+   =20
+    Remove the reset hook from struct drm_plane_funcs and the associated
+    call in drm_mode_config_reset().
 
-This commit removes a drm_dev_get() call in xe_pci_barrier_mmap(), with the
-stated assumption that the vm_ops .open and .close callbacks already handle
-the reference counting.
-
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
-e.c
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -341,7 +341,6 @@ static int xe_pci_barrier_mmap(struct file *filp,
->  	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP | VM_IO);
->  	vma->vm_ops =3D &vm_ops_barrier;
->  	vma->vm_private_data =3D dev;
-> -	drm_dev_get(vma->vm_private_data);
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode=
+_config.c
+> index f432f485a914c..4b07189e3be5e 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -289,9 +289,7 @@ void drm_mode_config_reset(struct drm_device *dev)
+>  		drm_colorop_reset(colorop);
+> =20
+>  	drm_for_each_plane(plane, dev) {
+> -		if (plane->funcs->reset)
+> -			plane->funcs->reset(plane);
+> -		else if (plane->funcs->atomic_create_state)
+> +		if (plane->funcs->atomic_create_state)
+>  			drm_mode_config_plane_reset_with_create_state(plane);
+>  	}
 
 [Severity: High]
-Will this removal lead to a device reference count underflow when the VMA
-is eventually closed?
+With the transition to atomic_create_state, is there a missing assignment f=
+or
+AMDGPU displays during initialization?
 
-The memory management subsystem does not call a VMA's .open callback upon
-initial creation via mmap(), it is only invoked during VMA duplication
-like fork() or mremap(). Because the explicit drm_dev_get() is removed
-in xe_pci_barrier_mmap(), the initial VMA is created without incrementing
-the device reference count.
+In drm_mode_config_reset() above, the core handles the new hook by calling
+drm_mode_config_plane_reset_with_create_state(), which properly assigns the
+allocated state to plane->state.
 
-When the VMA is unmapped, barrier_close() unconditionally drops a reference:
+However, AMDGPU does not call drm_mode_config_reset(). In
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c,
+amdgpu_dm_plane_init() calls the new hook manually but discards the result:
 
-static void barrier_close(struct vm_area_struct *vma)
-{
-        drm_dev_put(vma->vm_private_data);
-}
+	/* Create (reset) the plane state */
+	if (plane->funcs->atomic_create_state)
+		plane->funcs->atomic_create_state(plane);
 
-Does this unmatched put cause a reference count underflow and potential
-use-after-free of the drm_device?
+Unlike the old reset hook which assigned plane->state internally (via
+__drm_atomic_helper_plane_reset()), atomic_create_state() just returns
+the new state pointer. Discarding this return value leaves plane->state as
+NULL and leaks the allocated state.
 
-> =20
->  	return 0;
->  }
+Will this cause a NULL pointer dereference on AMD platforms later in the bo=
+ot
+process, such as during drm_client_modeset_probe(), when
+atomic_duplicate_state() attempts to access plane->state?
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709123252.3029=
-44-1-yaolu@kylinos.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-drm-no-mor=
+e-plane-reset-v1-0-302d986fe5f0@kernel.org?part=3D60
