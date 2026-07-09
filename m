@@ -4,55 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68E0AC44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:32:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55CF8C44507
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:33:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80EB710F50A;
-	Thu,  9 Jul 2026 11:32:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA0A10F505;
+	Thu,  9 Jul 2026 11:32:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OsmtxpXp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n4vw+tM/";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F205910F500
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:32:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783596729;
- bh=4XLYv7T2L+SM8kKgMEtFGRjdw2nSDoUWLK4WhKL1BXo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OsmtxpXpwWRyeFWalmJClaUR3KNubPVaS1ZvKJjXOTxMLOzb7/xLqp1DqxSoc0QdK
- QXZO1jRV71kald2hjDaG0V6XE15M5KjpLQwMINisE0orJ8YxYTfNWHa32/00Zr7biP
- K1vLCDPNYI3d79UKFeDNeuxzucgtgl944J+HP3KNfoH+Y4tlXtDP/3N6HSO7ZMgopU
- NX01NmEEUh9giOouY8YyaWdo6Z7uCg/TNdO4LXihZLDXpQ9tmvBkDzvT6Lc3SJnrbg
- mkwUt4OylOEA0aauPi3iujM+H+5GZ+LGVLxw1KR9KvqdRpgQMoHRGvWNEoiovhXD82
- kVyvqbJxvLbCQ==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CD07617E019E;
- Thu, 09 Jul 2026 13:32:07 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- jitao.shi@mediatek.com, granquet@baylibre.com, rex-bc.chen@mediatek.com,
- dmitry.osipenko@collabora.com, ck.hu@mediatek.com, amergnat@baylibre.com,
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com
-Subject: [PATCH v4 12/12] drm/mediatek: mtk_dp: Clarify XTAL freq and Debounce
- registers
-Date: Thu,  9 Jul 2026 13:31:48 +0200
-Message-ID: <20260709113148.49090-13-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37F4810F4F3
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 11:32:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E6FB54059D;
+ Thu,  9 Jul 2026 11:32:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869D01F00A3D;
+ Thu,  9 Jul 2026 11:32:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783596777;
+ bh=37OD9pu/+XxsJMPggOES3ndkeWsyrJRSDvNPYC/8Fuc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=n4vw+tM/2xK/Z13/paCR/n15kc8ieBy24AFQ8GQ9f6eTTzV95/SKA8WYUI3fZRRLc
+ baStSEkeLY/M6+sbOxctwj71C5MCc1rmsjr0rGQBVeqVwOPoaWJjkLBDKa3zUVIEI4
+ SQ5JcjMGelEvew2O3yj1Wdla6i+jsm31SfJanDlKilnwSpgFbnHn1xfkaZK7obbJdC
+ koa+JZeojW1EBK83tyrBvLdCAZ5JaDTZ+ejMan5Ai1TvNaIx85ryW7xY+7j1bw3Nmz
+ /ptdXyiAx7XrXpACAzGgmJC5HjE7z5clLdSsapWr7Tte8lBX0qSz+h7c65kuskoyCO
+ 3Td1UR18ie1tA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 09/11] drm/mediatek: mtk_dp: Add support for HotPlug
+ Detection in DP AUX
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260709100617.42583-10-angelogioacchino.delregno@collabora.com>
+References: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
+ <20260709100617.42583-10-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 11:32:57 +0000
+Message-Id: <20260709113257.869D01F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,107 +55,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Clarify the meaning of the sub-fields in the crystal frequency and
-transmitter interrupt debounce registers, with the only purpose of
-increasing human readability.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unconditionally unmasking legacy DP_TRANS HPD interrupts while fai=
+ling to clear them when `aux_hpd_supported` is true causes an unhandled IRQ=
+ storm.
+- [Medium] Missing `mtk_dp->legacy_regoff` offset when polling the `MTK_DP_=
+AUX_P0_364C` register via `regmap_read_poll_timeout()`.
+--
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/gpu/drm/mediatek/mtk_dp.c     | 35 ++++++++++++++++-----------
- drivers/gpu/drm/mediatek/mtk_dp_reg.h |  6 +++--
- 2 files changed, 25 insertions(+), 16 deletions(-)
+--- Patch [9]: [PATCH v2 09/11] drm/mediatek: mtk_dp: Add support for HotPl=
+ug Detection in DP AUX ---
+commit 804af7d08e6512ddf93b2634e3ded89904e4b43b
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: drm/mediatek: mtk_dp: Add support for HotPlug Detection in DP AUX
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index fe7e05e27f6f..1183738ab903 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -1216,9 +1216,15 @@ static void mtk_dp_initialize_settings_v2p1(struct mtk_dp *mtk_dp)
- 
- static void mtk_dp_initialize_settings(struct mtk_dp *mtk_dp)
- {
-+	/*
-+	 * Set DP XTAL freq to 26MHz and accumulator to 1.
-+	 * Valid values for XTAL freq are 12 and 26.
-+	 */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_342C,
--			   XTAL_FREQ_DP_TRANS_P0_DEFAULT,
--			   XTAL_FREQ_DP_TRANS_P0_MASK);
-+			   FIELD_PREP_CONST(XTAL_FREQ_DP_ACCUM_NUM_MASK, 1) |
-+			   FIELD_PREP_CONST(XTAL_FREQ_DP_CLOCK_MHZ_MASK, 26),
-+			   XTAL_FREQ_DP_ACCUM_NUM_MASK | XTAL_FREQ_DP_CLOCK_MHZ_MASK);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3540,
- 			   FEC_CLOCK_EN_MODE_DP_TRANS_P0,
- 			   FEC_CLOCK_EN_MODE_DP_TRANS_P0);
-@@ -1260,28 +1266,29 @@ static void mtk_dp_initialize_aux_hpd_detect_settings(struct mtk_dp *mtk_dp)
- 
- static void mtk_dp_initialize_hpd_detect_settings(struct mtk_dp *mtk_dp)
- {
--	u32 val;
--
- 	/* Mask AUX TOP interrupt, as this uses transmitter for HPD */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
- 			   AUX_TOP_IRQ_MSK, AUX_TOP_IRQ_MSK);
- 
--	/* Debounce threshold */
-+	/* Set Hotplug debounce threshold time: xtal_period * deb_thd */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
- 			   8, HPD_DEB_THD_DP_TRANS_P0_MASK);
- 
--	val = (HPD_INT_THD_DP_TRANS_P0_LOWER_500US |
--	       HPD_INT_THD_DP_TRANS_P0_UPPER_1100US) << 4;
--	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
--			   val, HPD_INT_THD_DP_TRANS_P0_MASK);
--
- 	/*
--	 * Connect threshold 1.5ms + 5 x 0.1ms = 2ms
--	 * Disconnect threshold 1.5ms + 5 x 0.1ms = 2ms
-+	 * Set interrupt debounce threshold time
-+	 * VAL  |  0     1     2     3  INT_THD
-+	 * Low  | 100   300   500   700 uS
-+	 * High | 700   900  1100  1300 uS
- 	 */
--	val = (5 << 8) | (5 << 12);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
--			   val,
-+			   FIELD_PREP_CONST(HPD_INT_LOW_THD_DP_TRANS_P0_MASK, 2) |
-+			   FIELD_PREP_CONST(HPD_INT_HIGH_THD_DP_TRANS_P0_MASK, 2),
-+			   HPD_INT_THD_DP_TRANS_P0_MASK);
-+
-+	/* Connection and Disconnection thresholds: 1.5ms + (5 x 0.1) ms = 2ms */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
-+			   FIELD_PREP_CONST(HPD_DISC_THD_DP_TRANS_P0_MASK, 5) |
-+			   FIELD_PREP_CONST(HPD_CONN_THD_DP_TRANS_P0_MASK, 5),
- 			   HPD_DISC_THD_DP_TRANS_P0_MASK |
- 			   HPD_CONN_THD_DP_TRANS_P0_MASK);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3430,
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-index 9caf743f4fe6..ce47b99dddc4 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-+++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-@@ -253,6 +253,8 @@
- #define MTK_DP_TRANS_P0_3410				0x1410
- #define HPD_DEB_THD_DP_TRANS_P0_MASK				GENMASK(3, 0)
- #define HPD_INT_THD_DP_TRANS_P0_MASK				GENMASK(7, 4)
-+#define HPD_INT_HIGH_THD_DP_TRANS_P0_MASK			GENMASK(7, 6)
-+#define HPD_INT_LOW_THD_DP_TRANS_P0_MASK			GENMASK(5, 4)
- #define HPD_INT_THD_DP_TRANS_P0_LOWER_500US			(2 << 4)
- #define HPD_INT_THD_DP_TRANS_P0_UPPER_1100US			(2 << 6)
- #define HPD_DISC_THD_DP_TRANS_P0_MASK				GENMASK(11, 8)
-@@ -267,8 +269,8 @@
- #define IRQ_MASK_DP_TRANS_P0_INT_IRQ				(BIT(3) << 4)
- #define IRQ_STATUS_DP_TRANS_P0_MASK				GENMASK(15, 12)
- #define MTK_DP_TRANS_P0_342C				0x142c
--#define XTAL_FREQ_DP_TRANS_P0_DEFAULT				(BIT(0) | BIT(3) | BIT(5) | BIT(6))
--#define XTAL_FREQ_DP_TRANS_P0_MASK				GENMASK(7, 0)
-+#define XTAL_FREQ_DP_ACCUM_NUM_MASK				GENMASK(1, 0)
-+#define XTAL_FREQ_DP_CLOCK_MHZ_MASK				GENMASK(7, 2)
- #define MTK_DP_TRANS_P0_3430				0x1430
- #define HPD_INT_THD_ECO_DP_TRANS_P0_MASK			GENMASK(1, 0)
- #define HPD_INT_THD_ECO_DP_TRANS_P0_HIGH_BOUND_EXT		BIT(1)
--- 
-2.54.0
+Newer MediaTek DisplayPort IPs can finally use the AUX to perform hotplug
+detection without having to power up the entire eDP or DP IP. This commit
+enables support for configuring and performing HPD in AUX, checking the
+correct HPD strategy with a new platform data variable.
 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+
+[ ... ]
+
+> @@ -1086,8 +1086,28 @@ static u32 mtk_dp_hwirq_get_clear(struct mtk_dp *m=
+tk_dp)
+>  	return irq_status;
+>  }
+> =20
+> +static inline u32 mtk_dp_hwirq_get_clear(struct mtk_dp *mtk_dp)
+> +{
+> +	if (mtk_dp->data->aux_hpd_supported)
+> +		return mtk_dp_aux_hwirq_get_clear(mtk_dp);
+> +
+> +	return mtk_dp_trans_hwirq_get_clear(mtk_dp);
+> +}
+
+[Severity: High]
+If aux_hpd_supported is true, this function only clears the AUX interrupts.
+Could the unmasked DP_TRANS interrupts trigger an interrupt storm since they
+are never cleared here?
+
+>  static void mtk_dp_hwirq_enable(struct mtk_dp *mtk_dp, bool enable)
+>  {
+> +	u32 mask, val;
+> +
+> +	/* Valid only for SoCs with working AUX HPD, this register is ignored o=
+n the others */
+> +	if (enable) {
+> +		mask =3D HPD_CONNECT_EVENT | HPD_INTERRUPT_EVENT | HPD_DISCONNECT_EVEN=
+T;
+> +		val =3D 0;
+> +	} else {
+> +		mask =3D DP_TX_AUX_INT_MASK;
+> +		val =3D DP_TX_AUX_INT_MASK;
+> +	}
+> +	mtk_dp_update_bits(mtk_dp, MTK_DP_TX_AUX_INT_MASKING, val, mask);
+> +
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3418,
+>  			   enable ? 0 :
+>  			   IRQ_MASK_DP_TRANS_P0_DISC_IRQ |
+>  			   IRQ_MASK_DP_TRANS_P0_CONN_IRQ |
+>  			   IRQ_MASK_DP_TRANS_P0_INT_IRQ,
+>  			   IRQ_MASK_DP_TRANS_P0_MASK);
+>  }
+
+[Severity: High]
+Is it intended to unconditionally unmask the legacy DP_TRANS HPD interrupts
+here, even when aux_hpd_supported is true?
+
+If a DP_TRANS interrupt fires when aux_hpd_supported is true,
+mtk_dp_hwirq_get_clear() will skip clearing it, which might lead to an
+unhandled irq loop.
+
+[ ... ]
+
+> @@ -2113,10 +2191,15 @@ static int mtk_dp_wait_hpd_asserted(struct drm_dp=
+_aux *mtk_aux, unsigned long wa
+>  	u32 val;
+>  	int ret;
+> =20
+> -	ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> -				       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> -				       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> -				       wait_us / 100, wait_us);
+> +	if (mtk_dp->data->aux_hpd_supported)
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs, MTK_DP_AUX_P0_364C,
+> +					       val, !!(val & HPD_STATUS_DP_AUX_TX_P0_MASK),
+> +					       wait_us / 100, wait_us);
+
+[Severity: Medium]
+Does this regmap_read_poll_timeout() call need to include the
+mtk_dp->legacy_regoff offset for the MTK_DP_AUX_P0_364C register?
+
+Other register accesses seem to consistently add this offset. Missing it
+here might lead to polling the wrong physical memory address and timing out
+if legacy_regoff happens to be non-zero on the hardware.
+
+> +	else
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> +					       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> +					       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> +					       wait_us / 100, wait_us);
+>  	if (ret) {
+>  		mtk_dp->train_info.cable_plugged_in =3D false;
+>  		return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709100617.4258=
+3-1-angelogioacchino.delregno@collabora.com?part=3D9
