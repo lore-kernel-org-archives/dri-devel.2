@@ -4,66 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63F09C43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 08:29:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB7C7C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 08:34:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCD5A10E68C;
-	Thu,  9 Jul 2026 08:29:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CDE110E046;
+	Thu,  9 Jul 2026 08:34:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cx50iv8X";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="JlYSuHAa";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C31F710F450
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 08:29:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DB54A60EEF
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 08:29:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E511F00ACA
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 08:29:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783585759;
- bh=YAtIHqm2ZMjAhBbacLCHQR++DR43xD3ram9aYjsmlhY=;
- h=From:In-Reply-To:References:Date:Subject:To:Cc;
- b=Cx50iv8X0cQmJSVUnfFpWfSZ5KfOX7K+K63BaXt8a6PedSRTewifFWyiyS8wo6IsV
- 4zCChQ+17C8Auvsr2sBx2f6bonbX3nxBEIPndgt7ZNHeYwYDaqahn6jRHrDdGn0Yxj
- TzsiOD7HZ+uO21u0paGCSs4fXOtYdm+awwY8emRhgFMXvkGhu7I+BPpwCfdvMrGb/t
- UBBWIRbPepf+qieGlaR5sV4z+F3ojGNBCeBm9PDvqJ6v34r4bDdrr1Mpw3VxtZXhbd
- GdatVEZ3XO+1X8T5EyL2fi8t0UwLy5J8RSOUFEJHyPH3DWmDGxQH9rRSx6vW+gvmii
- HDy4kGUVgVaeA==
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-39669bcaadfso14474831fa.0
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 01:29:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RrBO05XpP2qQYSn7EVkPfoTNtab0ee4ZqbVgM89nbUOhwlUzqEdS9mDdv66gmdodaXhaJSjQIHqzyU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywx04pr4Z9EpNaC/Hzpp68L9+Yu3xXfgyWtHAez0GLvD+QtzFho
- Usm1uUDdihNNs5dduHVvATfVdF7zeuNVnevoU7al/d/DeL9yJgjoCoxzZnZh904nMO8CHRiIv9C
- moZCSCj0hbWinW+/Mc0T1xk24I5leksy14UHSXFBxsA==
-X-Received: by 2002:a05:651c:199e:b0:399:90ae:a406 with SMTP id
- 38308e7fff4ca-39c799c9fa9mr12982771fa.27.1783585758335; Thu, 09 Jul 2026
- 01:29:18 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 01:29:16 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 01:29:16 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260709082040.4070711-1-shengchao.guo@oss.qualcomm.com>
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBD6410F487
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 08:34:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=NTniXkvlvMi9BmvhIr2c95Vz9qQLlsDpcx7w+MELcKI=; b=JlYSuHAaiZb9PcQRuRLewM7GY3
+ IgiEpxzEoXnUljrHJXRGmqanXmRJ/MtjO0UwT4ly57ie51ZnEB8VXaHzICwsj07eXNm3hzMDfEHtz
+ umCjwp7LexbcfYrliN0GtF1Kl5+D+ydLxeZXteEZvQ9or4HKqKEHPWc5Inc3qSEiynpRp3g4rGyBq
+ 0V+CypXkKBgHJwMd7F2dd+TGQxC95xVnPv0S01J2c5GcNOuCOOHkaSE3j50ta24iq4J0g38th+HaB
+ uH5j+7IGAoKWAZaFV67sC+f5LcveUuwweJxsOi943Zuufb4VMfS9Xu2IXIxAsis22xp0ufK2IZX1R
+ acxbcjLg==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+ by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1whkCQ-000GtM-0D; Thu, 09 Jul 2026 10:33:38 +0200
+Received: from localhost ([127.0.0.1])
+ by sslproxy06.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1whkCP-0003g8-0b; Thu, 09 Jul 2026 10:33:37 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Wojciech Dubowik <wojciech.dubowik@mt.com>
+Subject: Re: [PATCH 1/2] dt-bindings: display: sn65dsi83: Add reverse lanes
+ property
+Date: Thu, 09 Jul 2026 10:33:36 +0200
+Message-ID: <8332433.DvuYhMxLoT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260707070244.230546-2-wojciech.dubowik@mt.com>
+References: <20260707070244.230546-1-wojciech.dubowik@mt.com>
+ <20260707070244.230546-2-wojciech.dubowik@mt.com>
 MIME-Version: 1.0
-References: <20260709082040.4070711-1-shengchao.guo@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 01:29:16 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mdt+39pbnE3XOwRm6yWJAENU1UeQhw9xaFu2vDqgcXU1Q@mail.gmail.com>
-X-Gm-Features: AVVi8CevtjxRrM5Jiux4yHD5WK_K0ewuBLgZ4WNdELr7GiHQbbHlJ0bNIUyMMn4
-Message-ID: <CAMRc=Mdt+39pbnE3XOwRm6yWJAENU1UeQhw9xaFu2vDqgcXU1Q@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Document Nord FastRPC
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28055/Thu Jul  9 08:25:20 2026)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,31 +76,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 9 Jul 2026 10:20:40 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> Add compatible for Qualcomm Nord FastRPC which is compatible with
-> Kaanapali FastRPC.
->
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-> index 2876fdd7c6e6..24fc0752c11a 100644
-> --- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-> +++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-> @@ -26,6 +26,7 @@ properties:
->            - enum:
->                - qcom,glymur-fastrpc
->                - qcom,hawi-fastrpc
-> +              - qcom,nord-fastrpc
->            - const: qcom,kaanapali-fastrpc
->
->    label:
-> --
-> 2.43.0
->
->
+Hi,
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Am Dienstag, 7. Juli 2026, 09:02:42 CEST schrieb Wojciech Dubowik:
+> From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+>=20
+> Add reverse lvds lanes property for endpoints. It reverses
+> the data-lanes order i.e. <4 3 2 1> instead of default
+> <1 2 3 4>.
+
+Wouldn't it be more reasonable to parse the data-lanes property and check
+for the order instead of introducing a new property?
+
+Best regards
+Alexander
+
+>=20
+> Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+> ---
+>  .../devicetree/bindings/display/bridge/ti,sn65dsi83.yaml      | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi8=
+3.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+> index e69b6343a8eb..44483e808af9 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+> @@ -115,6 +115,10 @@ $defs:
+>              enum: [100, 200]
+>              default: 200
+> =20
+> +          ti,lvds-reverse-lanes:
+> +            description: Reverse the order of LVDS lanes.
+> +            type: boolean
+> +
+>            ti,lvds-vod-swing-clock-microvolt:
+>              description: LVDS diferential output voltage <min max> for c=
+lock
+>                lanes in microvolts.
+>=20
+
+
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
+
