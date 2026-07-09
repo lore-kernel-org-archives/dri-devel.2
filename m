@@ -4,130 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5B48C44501
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9FE2C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:36:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB5A10E6C2;
-	Thu,  9 Jul 2026 12:35:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 554DE10F59E;
+	Thu,  9 Jul 2026 12:36:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="FuFepVnm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O6rS3nmz";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CJa+ZOv3";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010055.outbound.protection.outlook.com
- [52.101.193.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BCF10E6C2
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:35:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x6VnQFQMJboEutpruA02G8MRu+iYXcYsRVlAlE1pTmUKTbryHlq1nPqxFCCYn5M5hU/ISBqE2+gc9Uzli8bddUCTVXqtoiDpjCUkDh7vuG5+l2j99S9/3G4OBqspX3sKOWE/wVbVlTjXrGqM74MJ7cLMD+GEO857HU2S9xnW5nez2gWeehk864sRtjF1LhuIWMzabKqlR2RBxMPkTj6Z/tRzClVVjiPn+y61lxwKmwJd8funsLV97xt4j5GW98JetbenhgElIl0BQihiTqGBhmIlGGnia3ltSAzV9UPtlrXjqu2PkCU07ICdGbrGqFN7GcG+M8rddbfuNInAebNrcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KITAKGZpS1mQehdAFnpuQfU/MlWZzM86d+l8EkGUnl4=;
- b=rUC8xRH1dvDchfli+e2gUKaEppTitBWwhVwUSrQpioc3sFi67bpsVindEZ9QJcFZiMWnF/Om2aJkDkv2HonnSSaKHY8bRZemAyDssO4VvT4ZhPMnj+xK1+mJAHAWf7OchO4NsKOWfZjpm2syZdiSH1fP2FN/KoSiNzbPtu9AeCGl518ZjmaqJ35F5ocy0+OjG75YfbXwdwyLHxA0dlbps0oKGXY5wF/XCDPzsIZ9b0E3CXzlIOEhE6s6Ev9IvHxLbHMX148ZlshlwwzoFliqGk7VNkKe0HnyhvpHyzxy/mIx/wXZjvS/cFyJeacaL5Q8FiETZmyaXMViyCal/Lam/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KITAKGZpS1mQehdAFnpuQfU/MlWZzM86d+l8EkGUnl4=;
- b=FuFepVnmMNHNkXcO9A+UeA2UOpqf18DzwFALNJfTjHWkOSTkSiky+b/i+qwguQeRWU+QK95EXbQkorzDj0FpHL8wdAg6JadZYosfNCaYVGl8RkXRZAfOnCRGu2in6SO3CN5unldsKWyx/m18PJgEG0BdiM2Ut+YU4eP4SjqZc/EztwD/61IC3p+l3c1RqDe/lzgQTbLMNjCeuQKVsQrgHEMFDyZZP+1AMiRl4t585+a7luOx8UHzRu5cB1uodPMiTQBPXcCzHT9vG3HYDJC83D236ip6dhufBC5VyafvIb0EzuryIZB0ZGc9etWyLFNUOaC5qQji/UpyJzRMZn+HbA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by IA1PR12MB7517.namprd12.prod.outlook.com (2603:10b6:208:41a::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
- 2026 12:35:06 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 12:35:06 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 09 Jul 2026 21:35:03 +0900
-Message-Id: <DJU1LZQLJ38P.2OHWQWKDYJ86J@nvidia.com>
-Cc: <nova-gpu@lists.linux.dev>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Benno
- Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
- Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 3/5] drm: nova: Add GETPARAM parameter to read the
- GPU chipset
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Alistair Popple" <apopple@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260709085204.565159-1-apopple@nvidia.com>
- <20260709085204.565159-4-apopple@nvidia.com>
-In-Reply-To: <20260709085204.565159-4-apopple@nvidia.com>
-X-ClientProxiedBy: TY4PR01CA0013.jpnprd01.prod.outlook.com
- (2603:1096:405:26e::15) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E24110F59E
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:36:35 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 669BNJwC1667669
+ for <dri-devel@lists.freedesktop.org>; Thu, 9 Jul 2026 12:36:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=xdIlinKU5FAEo1uLB0/ZFmCi
+ ZXJJuqBJRmfImIhYZg4=; b=O6rS3nmzmgD8yWcpWDYlUrD+K3ETcv5guS4jJMxv
+ IH51cSRFJzGGlIVGmmobEk5oxOwMaTw9tO/SisKZGqLb14ywsBupLEUt30A+3Txt
+ GywaJJvLn6jjQ4qrJggqIUcfaUJIPAIeeDg2dsRRtqMWgxZempBAUfO7WxynHPSV
+ xyyqhp8bJ/pVytzXP7aUwdGVx3o0CMFTaqs5CNFU4Nqc1ovDgGLn5kTwycyz3G0m
+ cVJlQocrPSmRQThVhhH4X4dFEAElebCCvJT/G/R3mwt9wDIt3pYTDa6eNVoYIZnO
+ w6pJkt7Ul3XRSIzsoFKgyBXdC0Kyd+jouI/A+sJJUU9qZw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
+ [209.85.222.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9ug6kr9t-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 12:36:34 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id
+ a1e0cc1a2514c-9693b69c4f4so794920241.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 05:36:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783600593; x=1784205393;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=xdIlinKU5FAEo1uLB0/ZFmCiZXJJuqBJRmfImIhYZg4=;
+ b=CJa+ZOv3snhc+LVLVKheMNXBIBbaaVcUVnReVrL6X2fckPxVVu48IB9IjII1LD8NPJ
+ By7ldhHoR/M7yYf6du2YtNWNAK2+hv+3GJcuMDGREx/xaYaShNpuF4RXUjt6tiDLUL++
+ vv/TZx0YIhgp91sJSpXZYPq/jhfLUEVDAXr9DDIb8xjGE8BRIVx/A+bFC5iybBK/TupE
+ IR4vfckrGbH5HhhmNEoPBPzD7pIYph+sOLhLKRQqsC/n4fJVbyEGEE/DWnmYel9QtGlV
+ ao/SsctN2P1lUl/P8HVGWE7HO/PmNzZHODqFTH4P16TVjCN2TMCetS71iTENvC4+9ar4
+ 17aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783600593; x=1784205393;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=xdIlinKU5FAEo1uLB0/ZFmCiZXJJuqBJRmfImIhYZg4=;
+ b=Ryr0Eb3PgH5c0J0/GlTvF4XkVskzoVHT+1Dd5Wq+b+thR9kXIbecV9kX3Xak1Newba
+ K4DY1lUNtzLfzQ0eXh7rn0pPxM3ZZZ6G3TNKhjQxUteh4yYYPR03ykYPrvcgfhmZdq3o
+ YrLtkAjSkb3LByFkAj5i4FRtjSIGa6wTsNEsnmYxSQYfasYi3TVBjtZmZ9ACorhRCUW2
+ aqgoDfZYznbeW1YyAMS4fdJXU5ZN6yyMvRTb6qFg7GbSqKLTo+OSE60Y6aflEfiqcMdU
+ GMx7GWro+mHARnQnYn7ADFP3lF6yLgT5uAunLhF8CoNAePPoK6MqtgWy6YqIQfHVs6fs
+ /VJA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro/qX7vCuF8YCjv6xo75p1QZIVeFbw/ZQVA9p26dT43iHMqQveIYAiLDDoDEGaMqia2+6ZGK3siB9c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJocEVSP0kIKounqk8Q4Ek2LvBNYP8AOgFUI3MsfY+uKs31ojn
+ iyc91LTNPe3NHR7oF6PCzgm4iwpuDCA8pEYwQWKcCwVja+Sa/JQjMctdGZSIIdhcUKlTSJm6EGa
+ pkbevTHj55U6NC/Yyc3NZLEyLdSqh+LUXq5a+4IQmWgpSRSHuRz+rRszR/vr1mtiYWiikiwU=
+X-Gm-Gg: AfdE7clalO89DabpaclUGA2X/YC1PTC0OnavSHhsEVKhSJHhJlBpsVZkO7ZSiweDnwl
+ PZG5kgOS5L+j9/JkHZYGR9vRY2FaPzrCsSWDL4VfTIzjKH1ScOQhSnGC5VQ222FFYZdpm+6cfjp
+ ykqK3AwPzLE6RPwWDhg/GurpGjZUI6diplN5+zSEojijQ0pS+1JWdE+qoVDxrknzHnLUdnlG9fU
+ PIlCLmqwBGnWVqF+vvJJqSvCtMqcdxfLYeKXrxg9S2P56azNF0tIsD7GOUVhfmpJRsaENMTLRHD
+ 1ZvI1zfWayxmOiS4Yup1WXshjEivwaWhCf8KAqWHDUYwWrSbrmWjel0LSVsHLmZYMsMjKiUQFgD
+ 1+IUi40mEORmIprH87TJDnxYKorxGkYja1zw0pghdFwUpGY1i1auO8msS3u/halpPL1MzOuucLP
+ 0eeQ9pSgSj0K8/A1cfFr2snW8M
+X-Received: by 2002:a05:6102:370e:b0:73e:9fae:584c with SMTP id
+ ada2fe7eead31-744e005ea3amr4369256137.19.1783600593415; 
+ Thu, 09 Jul 2026 05:36:33 -0700 (PDT)
+X-Received: by 2002:a05:6102:370e:b0:73e:9fae:584c with SMTP id
+ ada2fe7eead31-744e005ea3amr4369241137.19.1783600593007; 
+ Thu, 09 Jul 2026 05:36:33 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-39c84b13542sm3154271fa.11.2026.07.09.05.36.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Jul 2026 05:36:31 -0700 (PDT)
+Date: Thu, 9 Jul 2026 15:36:30 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, abhinav.kumar@linux.dev,
+ freedreno@lists.freedesktop.org, jesszhan0024@gmail.com,
+ linux-arm-msm@vger.kernel.org, lumag@kernel.org,
+ marijn.suijten@somainline.org, robin.clark@oss.qualcomm.com,
+ sean@poorly.run
+Subject: Re: [PATCH 47/60] drm/msm/dpu1: Convert to atomic_create_state
+Message-ID: <vvzexupy7ptk6hqq5vkh5mhqh5iv7doplnhsjsf2x6xuimlav4@457x6ummsmcn>
+References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-47-302d986fe5f0@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA1PR12MB7517:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04a8f3e9-c0a3-48eb-bc50-08deddb681c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|10070799003|23010399003|1800799024|366016|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: qF3EWl7T1Qi4j4+JG7OwKvkuhPHbK03/6eLeoqd7ex0zPVDOaF5zpOWEBpxyNiNZsTu0OEeAsB+lmmHbgvr4yRLIHMuMxEFzHY9oxVRhXE4BMACas/9lP7PrrZpRgARKx2iP6inpSJMS4rYTlHJV2ZKKgkKJ+0wPzdwLDHhOOmayP+gASBWfbM9Vfpj7VR+FvJK1lMzbAWuVZVKrVGre8SXMPZLpStnx/oKHY2v71rV5fL9MvX+wqYS7HkLQEpsfEUL5qA9ommOww99ACLsd4h5y5oqJ5bMSsXl+ugTsxqwYpyR5fPE4yGqfdJubmlzs7RGBPCaYL4LJBhfHeHcyoHo5u/F0dokCkZhgoZHW3yI4GnetmAZNkmKTo/OnpfxJV90Un+6xRHfWB5NYm8egRiNSUv3jEcS/Abg4OJO+NrSKuOAHNGDjZYI7w7qcz2/QeBsPBmUOk24hztcahzkEngtWjoUiwdf57stdQfrlhEGSheikTCxLH1KxS3CmQWfp/RUdBMGuhd/Hhg66Tk5mAmBm7KtONMtEwDv+1W6lnaHzvJUrnrkAPBh2g1xLXYRJBGXgYPMs6mXuFgfEimK8pgyWmJTZA6A/yYGO+Rp8h1+N30bOWPZX+1hzry9VMBhrMEzai4XZQ6oQazosMlgqsCsBo9GkBS0zfjpGeas0muM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(10070799003)(23010399003)(1800799024)(366016)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHJwNE9VSTRCd0NXLzdaZ2VmQUMzSldUTGhIUCt6T21IMnFBam03WE1IL2hZ?=
- =?utf-8?B?djFVNldPcUpJekVUUkk1TnFNZ2JYQUFETTI4eGZhbnVtMTR2ejR1SW12T1p2?=
- =?utf-8?B?RSt6V0I0OVNTc3dOOUc1SWxSVGx4ejdtakxMMEViYjl2ZThIY3E1dHR4RUdK?=
- =?utf-8?B?WWtrc2kxOGlnK0VMUjl2UTJJOWxCU0F0OXQxQmpRRDlrSWtFTGF0MzFuZzNw?=
- =?utf-8?B?T3BaalhuL2Ryci9VYWNtQXo3OTJRa1VQcmV0MWdEcGdPOUpodGp5czBzSnlP?=
- =?utf-8?B?bGx2RGVMRHZYaWwwVElyNnlZbzlJcFlFUmNySU9tMzhQbjM3OU1EOGZGTmhN?=
- =?utf-8?B?eUhzT2dYSEM1M3MyeHVlZWJ5aWtoVWdCdStrM1BMRTVSRWpkSG5VSXgxMzhO?=
- =?utf-8?B?L3lBclVoY2c0czFhVmplbU5IajYreWQvcVZrMzRsckcvRlJmaEtsaE11bVV5?=
- =?utf-8?B?ckVGNVA1Q0VPYnhRaWlXMHhDNFhXVjB1RHlwaVJualFPOGZmOEFJdE9UM2JW?=
- =?utf-8?B?NEdqb2dSY2VoL3Y3VWtGOStJNE9WbjJGK3o4a1VmSjRtaG4vcS9CN1BrU1Ro?=
- =?utf-8?B?ajJzMDcrSTFjUkRWam9uK2hadUs2YUdNT0ttSjhIejlxMU9HZWcrYjNvTzJJ?=
- =?utf-8?B?RGJ2VlFlRlhUaS8wQi9FdGdESktJSzlyQmNMbW9sNmJpVWdrdlE2RkRTYnZ6?=
- =?utf-8?B?SW5BUVl6VlhVUExlY1NyRHpIWXBHclJFd0ZEeW9TSGxOaGU0OWhlMnFScEdZ?=
- =?utf-8?B?b1RydGl5RVVUdDFXRVZtcFFrajlwYVlXeGp3QURkWUZxNXF5MzlnTmZrUkVz?=
- =?utf-8?B?bUNsSTBsSUlUeTU2WnZwdE9BcWdqaXdKZU1JUWRwY28wR0grejl4YjFoWEYy?=
- =?utf-8?B?VEUyMFU1RTdqSWx1b3BSenFMcXUrS0NqTjlwdjRYRnhmQlBOZUVrV28wcHNV?=
- =?utf-8?B?cCtGQkZQd2FCSTMyVHltUW8wNytabml2UCt6RmtxQkdHMEZQbGdtSVBhUHMz?=
- =?utf-8?B?S2ZZNGpnM01VMUVDRERLOE5xSnVTNDZ1YXpFZ25RZXhyL2Ixb1ZkNUcva2x2?=
- =?utf-8?B?TG9aS09lL0N1clR6aW91NEo3bncyYWtoaGo3QzFkRFpCeXdzL3lvN0ZrL2pr?=
- =?utf-8?B?OW1Ia2FGM21UL0hBUFlyNjdUNnF5RzlqbEQ2YytncDhOMFM5RzFRc2JaUExj?=
- =?utf-8?B?eDZVOXZPblFGcUlhaUd0ck5kSlVSZXlwZjhUakF3MHIybFZGR1JIcXVqSHZk?=
- =?utf-8?B?N1F1SmN0NW5iT2xXZjIyNDhOOTJtN2VodWQrN1NENjBvUGttdTBLTmlxV3E2?=
- =?utf-8?B?L1czNXR5dDRicGFEcGZ0TERLWUV0c2N3d1BjdEttQnhhTkR3ZnNVL2d2UHBi?=
- =?utf-8?B?TnlvZWNaSExmckJsSHpjcnh6ZXIvdS9JSlNFenE1eHVrd2hLdzhPYTduaXpJ?=
- =?utf-8?B?ZTZPdm0rMDdjeEl6UUVmeUk2ZE1FU0tndHFVcFhZYndXNTRMTmZUaFlPR0Vs?=
- =?utf-8?B?MzBESUZCamsvS1l3YXZ6TFpGM201bExlTldKYmhORWt2YlNCMVdiZnJ0WTNx?=
- =?utf-8?B?SnVySjlESitzaDJsdWVOMnJHdzVBbHlZV0ZsdER1a2dyc3ZYNHp3bDJhaGox?=
- =?utf-8?B?Nm0rSDBQaDZEbDM4bnUzdWdwdk1rc0NVa2FvSFJkdmpGUjZ1Q0dNTHpaaWxa?=
- =?utf-8?B?M3VrSGdiejVlQ3U1WUNZZzZlUk5IMnpHUm9VSmU5UzNvK1pPTGh5U0ViVnFi?=
- =?utf-8?B?czZjNVNKQWV4N1BqOXpYRHN2dmdBTndqb0I4V0k3RDgzMFVFb2E2QTZvZUxB?=
- =?utf-8?B?a1h0TURDUTFwaGJPeUVnT3pMdm1Pb0t2bXl6cW1aOUlhVjhXQ2IxTG1aSk4r?=
- =?utf-8?B?L2VBTGxMZDFDelZTcEVUclQzMkdYL1FHZVhXdFhtT0VsWmNoV0RtNk1xbkRv?=
- =?utf-8?B?cGFjVFNuNGV1T3MzTGg2cEx2Y3BkTWxoU0FsRzlEdXNOQTlLT2RpRlpJWEda?=
- =?utf-8?B?R2w3RlFpUDZLOG9tYWJhdzZHVUl6QjdPMXlYZk1VUGFGV2FiV1RBWE9NZndh?=
- =?utf-8?B?NGlDTFRWa3dLc0FhV1FVTlZTUEpsNGJ5cHA0TjBoWjJvdzlFNDhRcmlsSG5E?=
- =?utf-8?B?aXdHOFA5T3VoUWFLQlhSOGZydUFEbU1kNG9HUXI0Q05YaTdiaE5NZkh3bTZm?=
- =?utf-8?B?UmpneFVZQjNLbStIKzlDdDgzS3czZ05qQVJkQ0dtSENzMnJHS3FqQlpxQUdm?=
- =?utf-8?B?N1RZWDlDZ0dxejk2OTRTMHlHeWlFWmE2UU80N01rdEVXa1V0M1l2WWRscG4v?=
- =?utf-8?B?bXpvd2NGbFdqeHd6cHFWcS9MVVBTSFpxTDVxMW1zWlozTDhMeFlnVjFlVzNV?=
- =?utf-8?Q?3CdFSoMcI4CPctZjCvelf8dXye5SS4SsVOQ+JVtt/S9xP?=
-X-MS-Exchange-AntiSpam-MessageData-1: 63w+S43jMVuGEw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04a8f3e9-c0a3-48eb-bc50-08deddb681c7
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 12:35:06.5810 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qlWL48o4O3AAf4iplGDHBESdJhfyrIg8g/HdEFMmrhio8X9GoNRHKOPeutxQNXzLK8Q4xuhwvKBsMLGzLRVKjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7517
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-47-302d986fe5f0@kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDEyMiBTYWx0ZWRfX5fXmUZYifseB
+ Fpfdl9mX5ENrf5bs8xV07fDu3JRfgTL+ft3sIJimUwiICj0gn9MSK8pCQkEN/ETxBh0WqdGsrGb
+ YapVuvNZVMXK8O/d4Bh+EJOWSYUFro8=
+X-Proofpoint-GUID: f2rF1K_-exnWTXoz1kQLcE2zdtYSXxMQ
+X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a4f95d2 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=mVv-3nkEeNymqhpJ9RMA:9 a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-ORIG-GUID: f2rF1K_-exnWTXoz1kQLcE2zdtYSXxMQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDEyMiBTYWx0ZWRfX7Ani9Gh/3yoy
+ dZgiNe8dGnXNuCzN+IemDmcH5h0mkE/27HmBdezAwL8sWu5Pa9d9qOk4+8BrO3TpecNKT4fuYAy
+ cqp1iFfsO+z7Nl2lUQV1Ag98nUJeVMr3CCznjbqf/irrb8Inp4+2YwBRSrZNmWLTQloWbzA1cQM
+ JqRel7DSpDNXPGcAl9H+74wIA7qHoqU85ANOZyigiMC1dOlvTgIVkOL9ZxDcIUs+pOnxKhVDA7g
+ tXfH++nPzwmDRdxVqyYoEA6e3pJjjBRf1zBf4Ycwj2UMFPqruxU5oatfTxOeaQAFgb0M8z9wZSn
+ gznTCzYkAG6+4gpiTMySRXT5Isr0M+MyJKrLW5Gn1LWHFUXzIBf04dxr45s9NPwhwf9gjo5IEpa
+ OGqCdNpt1t37fhXkC48/OCKu8u5f/Gk/7q+df6hnQ37SpI0RnNhBjtk/9xyP41QCEco3nm0VmBF
+ bxAE9jlM+YAFA9Jp7zQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090122
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,125 +149,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jul 9, 2026 at 5:52 PM JST, Alistair Popple wrote:
-> One of the first things a user needs to know about a GPU is its chipset,
-> so add an ioctl to return that.
+On Thu, Jul 09, 2026 at 01:51:13PM +0200, Maxime Ripard wrote:
+> The plane reset implementation creates a custom state
+> subclass, but only initializes a pristine state without resetting any
+> hardware. This is equivalent to what atomic_create_state expects.
+> Convert to it.
+> 
+> The conversion was done using the following Coccinelle semantic patch:
+> 
 
-We are not adding an ioctl though, just a GETPARAM parameter.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-<...>
-> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index 43c3f4f8df71..1f4c5f3aa8ea 100644
-> --- a/drivers/gpu/nova-core/gpu.rs
-> +++ b/drivers/gpu/nova-core/gpu.rs
-> @@ -10,7 +10,8 @@
->      num::Bounded,
->      pci,
->      prelude::*,
-> -    sizes::SizeConstants, //
-> +    sizes::SizeConstants,
-> +    uapi, //
->  };
-> =20
->  use crate::{
-> @@ -34,12 +35,12 @@
->  mod hal;
-> =20
->  macro_rules! define_chipset {
-> -    ({ $($variant:ident =3D $value:expr),* $(,)* }) =3D>
-> +    ({ $($variant:ident =3D $value:path),* $(,)* }) =3D>
->      {
->          /// Enum representation of the GPU chipset.
->          #[derive(fmt::Debug, Copy, Clone, PartialOrd, Ord, PartialEq, Eq=
-)]
-> -        pub(crate) enum Chipset {
-> -            $($variant =3D $value),*,
-> +        pub enum Chipset {
-> +            $($variant =3D $value as isize),*,
->          }
-> =20
->          impl Chipset {
-> @@ -82,39 +83,39 @@ fn try_from(value: u32) -> Result<Self, Self::Error> =
-{
-> =20
->  define_chipset!({
->      // Turing
-> -    TU102 =3D 0x162,
-> -    TU104 =3D 0x164,
-> -    TU106 =3D 0x166,
-> -    TU117 =3D 0x167,
-> -    TU116 =3D 0x168,
-> +    TU102 =3D uapi::drm_nova_chipset_NOVA_DRM_CHIPSET_TU102,
-> +    TU104 =3D uapi::drm_nova_chipset_NOVA_DRM_CHIPSET_TU104,
-> +    TU106 =3D uapi::drm_nova_chipset_NOVA_DRM_CHIPSET_TU106,
-> +    TU117 =3D uapi::drm_nova_chipset_NOVA_DRM_CHIPSET_TU117,
-> +    TU116 =3D uapi::drm_nova_chipset_NOVA_DRM_CHIPSET_TU116,
 
-If we are going to remove the actual values, let's at least generate the
-right-hand side in the macro as it is just verbose without bringing any
-new information. The following diff lets you remove the `=3D uapi::...`
-for each chipset declaration.
+Ack to merge it through drm-misc
 
-The UAPI definitions come technically from nova-drm (and are defined as
-such), which introduces a dependency of sorts from nova-core to
-nova-drm. I'm not saying this is a problem, but mentioning it as we want
-to make that decision consciously.
-
-I also think the introduction of UAPI variants and modification of
-`define_chipset` should be its own patch, as these are pretty
-mechanical.
-
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 202adfbfa176..5b67f25399de 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -35,12 +35,13 @@
- mod hal;
-
- macro_rules! define_chipset {
--    ({ $($variant:ident =3D $value:path),* $(,)* }) =3D>
-+    ({ $($variant:ident),* $(,)* }) =3D>
-     {
-+        ::kernel::macros::paste!(
-         /// Enum representation of the GPU chipset.
-         #[derive(fmt::Debug, Copy, Clone, PartialOrd, Ord, PartialEq, Eq)]
-         pub enum Chipset {
--            $($variant =3D $value as isize),*,
-+            $($variant =3D uapi::[<drm_nova_chipset_NOVA_DRM_CHIPSET_ $var=
-iant:upper>] as isize),*,
-         }
-
-         impl Chipset {
-@@ -48,7 +49,6 @@ impl Chipset {
-                 $( Chipset::$variant, )*
-             ];
-
--            ::kernel::macros::paste!(
-             /// Returns the name of this chipset, in lowercase.
-             ///
-             /// # Examples
-@@ -64,7 +64,6 @@ pub(crate) const fn name(&self) -> &'static str {
-                 )*
-                 }
-             }
--            );
-         }
-
-         // TODO[FPRI]: replace with something like derive(FromPrimitive)
-@@ -73,45 +72,49 @@ impl TryFrom<u32> for Chipset {
-
-             fn try_from(value: u32) -> Result<Self, Self::Error> {
-                 match value {
--                    $( $value =3D> Ok(Chipset::$variant), )*
-+                    $(
-+                        uapi::[<drm_nova_chipset_NOVA_DRM_CHIPSET_ $varian=
-t:upper>]
-+                            =3D> Ok(Chipset::$variant),
-+                    )*
-                     _ =3D> Err(ENODEV),
-                 }
-             }
-         }
-+        );
-     }
- }
+-- 
+With best wishes
+Dmitry
