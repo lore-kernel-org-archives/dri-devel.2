@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51D2EC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 07:06:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C96A0C44506
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 07:06:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13F5A10F795;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF64D10F7B1;
 	Fri, 10 Jul 2026 07:06:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="GO+tXiDN";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="CZibdNbK";
 	dkim-atps=neutral
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
- [209.85.219.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F81010F629
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 15:57:16 +0000 (UTC)
-Received: by mail-qv1-f48.google.com with SMTP id
- 6a1803df08f44-8ee88fce572so568026d6.1
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 08:57:16 -0700 (PDT)
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D836110F629
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 15:56:00 +0000 (UTC)
+Received: by mail-qt1-f182.google.com with SMTP id
+ d75a77b69052e-51c1805b8a7so20092991cf.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 08:56:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1783612635; x=1784217435; darn=lists.freedesktop.org;
+ d=gourry.net; s=google; t=1783612560; x=1784217360; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=T5BtG8ZZnILhla7gs7f63UlRSUpFIkMkPS04TXxov0k=;
- b=GO+tXiDN98jRhLEmXK48a6HhkyY9s8BHm7z8g1N4M9zbnr4LKK6daVEVLB8feIqLN2
- q3r3TNh3Fe5XMqOUB/FGVvAwIQ1Rl1lpI6kCphDCH7eG1owzDzgtgcetwtgo/OUBS7tG
- d88MIIY0OMyAWmEU2JBJN8iynGiXgbKPskVS9bG7QEdkgHKppN802X0x6xc3Ec9RJN8N
- nObv2gz0aet16ndRDtsa0/icC0GYuizpXkgeyoUxhwF9SKmaQFtZ2cIYO8umNZ16xfvq
- tStq3HJgrt7IqTpz+tSnLYYXXFQcGqtG5IiJc6rlx1LOyCOLfNWfS45dddLUCNtcAsyy
- 4L4A==
+ bh=QupnWz0oLATZw6wM2bylQaqDWCRhZF5lJVU8oFwJF/g=;
+ b=CZibdNbKVl+B0N1tXFXJv4MIeg/eUW9EAI9YxLKLB4nJgaIixS0P/cxPjEOB6aZSWY
+ v7Ixj2I798Z01ASD8LPnyFks/2H1PqlWJrorSOebE2zTFiK5oLVY3PY7aoouptBXX7zR
+ dnjrtjFEGanUbiyTBsYa4BxbKxGNVO1egrrKIvLhSCwRKKO5chVs42sMOAkH06zDVRrk
+ MTUDbmlgxorTFE5l7qMY+IdPQ29mSjgb2+SEiQby0FGWY4Ln7/mx0rXwYHyzNC8aYF6T
+ UE/T41hffTA+59uQs56AzV6mioS5+0MeTywY/WP4tcvzD78lXYe0P0MI0zq6Qdme82+u
+ 9R/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783612635; x=1784217435;
+ d=1e100.net; s=20251104; t=1783612560; x=1784217360;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=T5BtG8ZZnILhla7gs7f63UlRSUpFIkMkPS04TXxov0k=;
- b=HHVq8sozfDMr+YC50PHXpc4gkntpeq1L9mBi+MF2/I+xfxLVbyQlDVLzyaFX8DWtDT
- ZNftbeKLOwiZJLqmuj8G9/rnW+4Q0L5GDwSCVzyFHXv26eSjT/42vDc5Zx6xqOgfa0Bm
- eEoufLOKpABjoqE2ffUa7LoqrUOwThVrCknhdXMCjqvSAtRM2nkX5Z1ZDbGcB0fkqSCW
- /nuUKc27T9uj/lCcJh84Omqh3o/Hk3NNnecZizD3LoztfxGMiE1l+yKG36e348F+wYKU
- +vZJRYXqMSXesqJOnfGm3gkVos5CnJRmzo1q4yXIEYTzXED/9KvZxwrTfuHsb/wB/VZu
- HgvA==
+ bh=QupnWz0oLATZw6wM2bylQaqDWCRhZF5lJVU8oFwJF/g=;
+ b=B+nEcYTDHUM6fxQNkIMl+02hIMOSx+XS//BYwc8ZZcaSdamDk6MiF10607640SSqju
+ Ca7wQYa9wPviGr3XCbt+Y6se6TXlm/BE+JAkwCSQkPqEdncvXbTZOyUAgljmzaKaxIxG
+ 8t4LmkoBD/wMKkTFneoVfu/qjJhmPQCIO9TdqVSqJaC1jEu8w3wku5iPckWiVIAx2ch9
+ 9z2CVv73b/ZO/sDA1R7rkhT1WIpA7SREmjVF0ipL1yl4Zduja/BzIlnH8Y3CXENh04pE
+ iGXC3OGbdIaKlH8JSZBXfZClYICfToTkC4NK0rBmMJw6jSZ8CAMT4LKssoDtxaR0tEx9
+ GSkA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro2zPjepJ9y2OU2DcpoCgtVHEe4g8WXfaWJBc7KWc4ZUCswwJJlr0U4/GkaxrEXHw81UsHQFRXmoA0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz/3pXLRyN4L8Ne4Mz7HfK9dglB0YjieMt98b9bBh0MAkNb+aIq
- 0GQcD8BFDtOcuzRQjN1RFxO0CwA63Y/q91c4Q3Ftq8emZTlF+L9wDQ2fm7J1Jw8AIUQ=
-X-Gm-Gg: AfdE7cmeCFjBCIcwXS2JaEoHnyl3JNMYkh5SDAbsEX+4K5jiyTwsgrlYGgBxYXwrWq4
- QW5jfF2cc5N04BxRUI2B7QlwjgI9Fry8nWi7rUOxHcP0sp1pPMaw41jTi2NjnKx2tbWuBSEuouM
- Wno3CBy37PO7um3uLEI1fd7kp4d44mH9NMqTD2FGtGsFGTX2tDsao0Mq8mcDHdSoXrDEfkep/8x
- QpCXOcc+oICBS/dkjQL8iIX/z5eEdEPsruTsWiCWu15bR2PISkgjMXSLC3vG7C2GGCCCnpoLqGS
- elLbG7TnlwqxfyR4ANxDFczyaBz/gyRhtL1VZM1jBVzKYwNvC4KL0Z7Jaz0Y0h+BzrxSbuB9aY6
- 2Ef1yuSrrFhESNvjZZL16UzQnesXhFlYLtrKWW7VD2KneaSWOsIBBAAMSK/D/UITXi1wpP+443+
- rDNz0bwRMq5RMQ+5la+F2v6/Qfif48OsmxMTT7BNpnVPD2QELa6K1R5UkKsUNb96ErOGivfRytl
- fQGrjE=
-X-Received: by 2002:a05:6214:2aa6:b0:8f3:e0ce:6119 with SMTP id
- 6a1803df08f44-8fec0ead52amr91789316d6.21.1783612635560; 
- Thu, 09 Jul 2026 08:57:15 -0700 (PDT)
+ AHgh+RpRz4ap8Q+m2WRt0Hp5PrhKzMXGBr/m/cpPnob2uWhjpLU1esDGTd9+IWFkWAQSdwzqP7yrLTyrcBI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxo+Bqjh7oSjcpZka5HRFcAS7cYGz3QRom+EmhzHnNz930TJ65k
+ U1dT63IBEWsQV4+cYanveiMuxofR0vzKc5165mkWe8lITrjfSwxkPPHHOgZTrPTL+rY=
+X-Gm-Gg: AfdE7cmx7mSXT6037n+SU6JQ8RIeHCfI5PBTwIHxD7tvRCq5QyFPTu9M8Fj20buvPSn
+ E/D+TZKFGDxXiLJWUDTfVM1MiU2A+qJFCIM44lxPw8rY4ugm5zHAQwFNnHxZ6yz9Odc5P/CPWKw
+ 7FUUH/uTgMe7TSdzbC40EcecX34ft5U6HqDqsovA9ULVJ//oup5q28CMbPBWrpIM2mwyadlOPtO
+ DEMOR3o5kZPDyRg2v+Touy2uBOl1hbWr6CXTj1C2hrQj/wKd0ZfS9QepF9sg19m2B+gtSxXPimN
+ nD/UGRxWonE2BAYxNUyOv7z5FPUu3QCVIx9r+ZyY7NCa/PDM8Q9UyNrMbBmlw0D1unokWF1PmgL
+ glvBvRjM8t1aw1s6h/YS9dAZhpK9B15cdmr9RoHJWvJjJi5P+8mm4oJgdJ9w+fJ/hhY3wW0M5xN
+ 5hY3MouDr4p6E6B1wmVwCMvVoMu5YP7Fneqo0arBFH9bZqMeqXVGyAqLdoKElbA/SZPSwR
+X-Received: by 2002:a05:622a:311:b0:51c:185b:29e0 with SMTP id
+ d75a77b69052e-51c8b2ae67bmr82998651cf.10.1783612559586; 
+ Thu, 09 Jul 2026 08:55:59 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F
  (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ffd86d43e2sm20317526d6.43.2026.07.09.08.57.13
+ d75a77b69052e-51c41d2d688sm169684691cf.17.2026.07.09.08.55.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jul 2026 08:57:15 -0700 (PDT)
-Date: Thu, 9 Jul 2026 11:57:09 -0400
+ Thu, 09 Jul 2026 08:55:59 -0700 (PDT)
+Date: Thu, 9 Jul 2026 11:55:54 -0400
 From: Gregory Price <gourry@gourry.net>
 To: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -121,14 +120,13 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
 Subject: Re: [PATCH 19/30] mm: use linear_page_[index, delta]() consistently
-Message-ID: <ak_E1Y-D2Twykusr@gourry-fedora-PF4VCD3F>
+Message-ID: <ak_EivwcDDdn1Xvp@gourry-fedora-PF4VCD3F>
 References: <cover.1782735110.git.ljs@kernel.org>
  <bf56e2e98b512962a2fb88900d535a0e9e6769d8.1782735110.git.ljs@kernel.org>
- <ak_EivwcDDdn1Xvp@gourry-fedora-PF4VCD3F>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ak_EivwcDDdn1Xvp@gourry-fedora-PF4VCD3F>
+In-Reply-To: <bf56e2e98b512962a2fb88900d535a0e9e6769d8.1782735110.git.ljs@kernel.org>
 X-Mailman-Approved-At: Fri, 10 Jul 2026 07:06:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -145,17 +143,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 11:55:54AM -0400, Gregory Price wrote:
-> > @@ -2462,7 +2463,7 @@ static int comedi_vm_access(struct vm_area_struct *vma, unsigned long addr,
-> >  {
-> >  	struct comedi_buf_map *bm = vma->vm_private_data;
-> >  	unsigned long offset =
-> > -	    addr - vma->vm_start + (vma->vm_pgoff << PAGE_SHIFT);
-> > +	    addr - vma->vm_start + (vma_start_pgoff(vma) << PAGE_SHIFT);
-> >  
+On Mon, Jun 29, 2026 at 01:23:30PM +0100, Lorenzo Stoakes wrote:
+> There are a number of places where we open code what linear_page_index()
+> and linear_page_delta() calculate.
 > 
-> Obviously correct, but was this intended for a different patch?
+> Replace this code with the appropriate functions for consistency.
 > 
-> ~Gregory
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-bleh already caught, sorry for the noise :]
+one nit
+
+Reviewed-by: Gregory Price <gourry@gourry.net>
+
+...
+> diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
+> index c09bbe04be6c..536c25d8dcee 100644
+> --- a/drivers/comedi/comedi_fops.c
+> +++ b/drivers/comedi/comedi_fops.c
+> @@ -25,6 +25,7 @@
+>  #include <linux/fs.h>
+>  #include <linux/comedi/comedidev.h>
+>  #include <linux/cdev.h>
+> +#include <linux/pagemap.h>
+>  
+>  #include <linux/io.h>
+>  #include <linux/uaccess.h>
+> @@ -2462,7 +2463,7 @@ static int comedi_vm_access(struct vm_area_struct *vma, unsigned long addr,
+>  {
+>  	struct comedi_buf_map *bm = vma->vm_private_data;
+>  	unsigned long offset =
+> -	    addr - vma->vm_start + (vma->vm_pgoff << PAGE_SHIFT);
+> +	    addr - vma->vm_start + (vma_start_pgoff(vma) << PAGE_SHIFT);
+>  
+
+Obviously correct, but was this intended for a different patch?
+
+~Gregory
