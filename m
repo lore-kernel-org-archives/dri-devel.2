@@ -4,62 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE8FCC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:48:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3748C43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47CAD10F5A7;
-	Thu,  9 Jul 2026 12:48:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0132810F5CC;
+	Thu,  9 Jul 2026 12:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="SyP27AtA";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Vmh4IyON";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8C2810F5AC
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:48:30 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gwvs71btnzKvyK;
- Thu, 09 Jul 2026 14:48:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1783601307; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Q8F7Ydf4iiYgUnPjio2guFDq/pTESz0XaND2UttaFp0=;
- b=SyP27AtACus3s2PPrUtLG6txMXppuoTZdFw7ziYA5Z1RzHigp+Y6NhJ2WYnUZvZXlz7TH/
- DDdLeRWvbc6x0wbFZ9sKXfa1COdqMC8lmBOjxqiubcgXH/rR4zi7XVn0Q+HwxhjYlcd0wr
- xzfOXM8U6phtPwGqmule4jWsbOl4PTLa2D2NxcwO/NFarWppn2RL69SbaBY5GxVEApwLtV
- ct4wATrPU7fEoRj9WIpq3WtmnokJBJqK0J3mFthb+dTebJnUw+GsisYe7NndtxdeuAIEtX
- fKh1zDYS7qY2bMiguw3bMMfr5clHK5L+xs/n/XAhRmpwGLcNpqqnKtLggXGURA==
-Message-ID: <00bb53bf021920b2387f8f7930975b8e01d25aca.camel@mailbox.org>
-Subject: Re: [PATCH v2 2/2] drm/drm_crtc: fix race with dma_fence_signal()
- in ::get_driver_name()
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com
-Date: Thu, 09 Jul 2026 14:48:19 +0200
-In-Reply-To: <20260708-linux-drm_crtc_fix2-v2-2-cf72be75d75a@linaro.org>
-References: <20260708-linux-drm_crtc_fix2-v2-0-cf72be75d75a@linaro.org>
- <20260708-linux-drm_crtc_fix2-v2-2-cf72be75d75a@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 565C510F5C5
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:56:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783601752; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=PSjq8dBfdlqoSrC5t8FLZGnKWUqKMy/cwAmiKNBOdwmVHt84RSZiFg9Yg/BkEuEg9BNWfaxCpRlttNNqOIpzOmr2Z168c6EA3NYTpG32T6T7cAJ+tbnTr13ZmHYLBghWXrsEc50G1snnqHb85FGzYblIpGcVfsOx5n+nWpGksdA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783601752;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Gg432xLHSJwfM2gAE1PQ5eBSyU5aKxtKb+QOrdHTEiw=; 
+ b=D477xXfq7A9DAvihVwvurpexP7M0Qrz4QPoZ5sRcU/IUG3U3klq9LeJWLWpJUAMNZHvnYB23qXsOXr93B8hgwy+7mCDpJwzMgmP2iIhOuM2zokrmNdgI+Qg67uRdCFWvxrzoED66WIML9kra839ps9cnQE6s5Y4ddNx3n6nQNFE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783601752; 
+ s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=Gg432xLHSJwfM2gAE1PQ5eBSyU5aKxtKb+QOrdHTEiw=;
+ b=Vmh4IyONgmJeCv4YvhHnRX5yi074yS73cfaCqx3EPvVNLOnuoNYn/uaE87CvDI7G
+ j3WlNC1VZsXj8wBgRWYDdSTdri12uCLELEsdiUC4zLMWIwMChJym0AmLtaw9hqIur0I
+ Aq7yUqa6uP93OMh4DoPc7jJJeNg2BxTQf7JkbdPQ=
+Received: by mx.zohomail.com with SMTPS id 1783601749102300.8475740459671;
+ Thu, 9 Jul 2026 05:55:49 -0700 (PDT)
+Message-ID: <bbe0e93f-57a8-4cd8-8355-11969a286bc0@collabora.com>
+Date: Thu, 9 Jul 2026 15:55:43 +0300
 MIME-Version: 1.0
-X-MBO-RS-ID: 6d60292ef67eb0da134
-X-MBO-RS-META: 78sfwghyroxtiaygf859n8nu1dog9z6u
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: defer hotplug event from dequeue worker to
+ avoid deadlock
+To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <18c09efbacafbff3.b25d31827bed23c9.829612c1dfc3d1e4@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <18c09efbacafbff3.b25d31827bed23c9.829612c1dfc3d1e4@ryasuoka-thinkpadx1carbongen9.tokyo.csb>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,100 +71,254 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAyMDI2LTA3LTA4IGF0IDE2OjIyICswMTAwLCBBbmRyw6kgRHJhc3ppayB3cm90ZToK
-PiBTaW5jZSBjb21taXQgNTQxYzhmMjQ2OGI5ICgiZG1hLWJ1ZjogZGV0YWNoIGZlbmNlIG9wcyBv
-biBzaWduYWwgdjMiKSwKPiBJJ20gc2VlaW5nIHRoZSBCVUdfT04oKSB0cmlnZ2VyaW5nIGluIGRy
-bV9jcnRjJ3MgZmVuY2VfdG9fY3J0YygpIHZpYQo+IGRybV9jcnRjX2ZlbmNlX2dldF9kcml2ZXJf
-bmFtZSgpIHJlZ3VsYXJseToKPiAKPiDCoMKgwqAgQ2FsbCB0cmFjZToKPiDCoMKgwqDCoCBwYW5p
-YysweDU4LzB4NWMKPiDCoMKgwqDCoCBkaWUrMHgxNjAvMHgxNzgKPiDCoMKgwqDCoCBidWdfYnJr
-X2hhbmRsZXIrMHg3MC8weGE0Cj4gwqDCoMKgwqAgY2FsbF9lbDFfYnJlYWtfaG9vaysweDNjLzB4
-MWEwCj4gwqDCoMKgwqAgZG9fZWwxX2JyazY0KzB4MjQvMHg3NAo+IMKgwqDCoMKgIGVsMV9icms2
-NCsweDM0LzB4NTQKPiDCoMKgwqDCoCBlbDFoXzY0X3N5bmNfaGFuZGxlcisweDgwLzB4ZmMKPiDC
-oMKgwqDCoCBlbDFoXzY0X3N5bmMrMHg4NC8weDg4Cj4gwqDCoMKgwqAgZHJtX2NydGNfZmVuY2Vf
-Z2V0X2RyaXZlcl9uYW1lKzB4NjAvMHg2OCAoUCkKPiDCoMKgwqDCoCBzeW5jX2ZpbGVfZ2V0X25h
-bWUrMHgxODQvMHg0NWMKPiDCoMKgwqDCoCBzeW5jX2ZpbGVfaW9jdGwrMHg0MDQvMHhmNzAKPiDC
-oMKgwqDCoCBfX2FybTY0X3N5c19pb2N0bCsweDEyNC8weDFkYwo+IAo+IFRoaXMgbG9va3MgdG8g
-YmUgY2F1c2VkIGJ5IGEgY29kZSBmbG93IHNpbWlsYXIgdG8gdGhlIGZvbGxvd2luZzoKPiAKPiAr
-Kysgc25pcCArKysKPiB0aHJlYWQgQcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRocmVhZCBCCj4gCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlvY3Rs
-KFNZTkNfSU9DX0ZJTEVfSU5GTykKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3luY19maWxlX2lvY3RsKCkK
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgc3luY19maWxlX2dldF9uYW1lKCkKPiBkbWFfZmVuY2Vfc2lnbmFs
-X3RpbWVzdGFtcF9sb2NrZWQoKcKgIGRtYV9mZW5jZV9kcml2ZXJfbmFtZSgpCj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBvcHMgPSByY3VfZGVyZWZlcmVuY2UoZmVuY2UtPm9wcykKPiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGlmICghZG1hX2ZlbmNlX3Rlc3Rfc2lnbmFsZWRfZmxhZygpKQo+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIG9wcy0+Z2V0X2RyaXZlcl9uYW1lKGZlbmNlKSBpLmUuCj4gwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZHJtX2NydGNfZmVuY2VfZ2V0X2RyaXZlcl9uYW1lKCkKPiB0ZXN0
-X2FuZF9zZXRfYml0KFNJR05BTEVEKQo+IFJDVV9JTklUX1BPSU5URVIoZmVuY2UtPm9wcywgTlVM
-TCkKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJtX2NydGNfZmVuY2VfZ2V0X2RyaXZlcl9uYW1lKCkKPiDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIEJVR19PTihyY3VfYWNjZXNzX3BvaW50ZXIoZmVuY2UtPm9wcykK
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIT0gJmRybV9jcnRjX2ZlbmNlX29w
-cykKPiArKysgc25hcCArKysKPiAKPiBJIHNlZSB0d28gd2F5cyB0byByZXNvbHZlIHRoaXM6Cj4g
-YSkgc2ltcGx5IGRyb3AgdGhlIEJVR19PTigpLiBJdCBjYW4gbm90IHdvcmsgYW55bW9yZSBzaW5j
-ZSBhYm92ZQo+IMKgwqAgY29tbWl0LCBhcyBpdCBpcyByYWN5IG5vdy4KPiBiKSBwYXNzIHRoZSBv
-cmlnaW5hbCAnb3BzJyBwb2ludGVyIG9idGFpbmVkIGluIGRtYV9mZW5jZV9kcml2ZXJfbmFtZSgp
-Cj4gwqDCoCB0byBhbGwgY2FsbGVlcy4KPiAKPiBUaGlzIHBhdGNoIGltcGxlbWVudHMgb3B0aW9u
-IGEpLCBhcyBiZWNhdXNlOgo+ICogSSBkb24ndCBzZWUgbXVjaCBiZW5lZml0IGluIHBhc3Npbmcg
-dGhlIGV4dHJhIHBvaW50ZXIganVzdCBmb3IgdGhpcwo+IMKgIEJVR19PTigpIHRvIHdvcmsuCj4g
-KiBSZXF1aXJpbmcgdGhlIGRtYV9mZW5jZV9vcHMgaW4gdGhvc2UgY2FsbGJhY2tzIGlzIGFuIGlt
-cGxlbWVudGF0aW9uCj4gwqAgZGV0YWlsIG9mIHRoZSBkcm1fY3J0YyBkcml2ZXIsIGFuZCB0aGVy
-ZWZvcmUgdXBwZXIgbGF5ZXJzIHNob3VsZG4ndAo+IMKgIGhhdmUgdG8gY2FyZSBhYm91dCB0aGF0
-Lgo+ICogVGhlIGV4aXN0ZW5jZSBvZiB0aGUgQlVHX09OKCkgZG9lc24ndCBhcHBlYXIgdG8gYmUg
-Y29uc2lzdGVudCB3aXRoCj4gwqAgaW1wbGVtZW50YXRpb25zIG9mIDo6Z2V0X2RyaXZlcl9uYW1l
-KCkgb3IgOjpnZXRfdGltZWxpbmVfbmFtZSgpIGluCj4gwqAgdGhlIG1ham9yaXR5IG9mIG90aGVy
-IERSTSBkcml2ZXJzIGluIHRoZSBmaXJzdCBwbGFjZS4gVGhvc2UgdGhhdCBkbwo+IMKgIGhhdmUg
-YSBzaW1pbGFyIEJVR19PTigpIChpOTE1LCB4ZSkgcHJvYmFibHkgYWxzbyBuZWVkIGFuIHVwZGF0
-ZQo+IMKgIHNpbWlsYXIgdG8gdGhpcyBwYXRjaCBoZXJlIGJ1dCBJJ20gbm90IGluIGEgcG9zaXRp
-b24gdG8gdGVzdCB0aG9zZS4KPiAqIFVzaW5nIEJVRygpIGFuZCBmcmllbmRzIHRvIHRha2UgZG93
-biB0aGUgc3lzdGVtIGlzIGFuIHVuYWNjZXB0YWJsZQo+IMKgIHdheSB0byBoYW5kbGUgYSBmYWls
-dXJlIGFzIGV2aWRlbmNlZCBieSBtYW55IHRocmVhZHMgb24gTEtNTCBhbmQgYWxzbwo+IMKgIGlu
-IHRoZSBrZXJuZWwgY29kaW5nIHN0eWxlLiBIZXJlLCB0aGUgY2hlY2sgd2FzIHByZXN1bWFibHkg
-YWRkZWQgZm9yCj4gwqAgZGV0ZWN0aW5nIHdoZW4gc29tZXRoaW5nIHBhc3NlcyBhbiBpbnZhbGlk
-IHBvaW50ZXIsIGJ1dCB0aGF0IGRvZXMgbm90Cj4gwqAgaGFwcGVuIC0gYW5kIGlmIGl0IGNvdWxk
-LCBncmFjZWZ1bGx5IGhhbmRsaW5nIHRoYXQgc2l0dWF0aW9uIHdvdWxkIGJlCj4gwqAgbW9yZSBh
-cHByb3ByaWF0ZS4KCkkgdGhpbmsgaXQgd2FzIHRoZXJlIHRvIGRldGVjdCB3cm9uZyBmZW5jZXMu
-CgpJIHRoaW5rIHRoYXQgZW50aXJlIHVzYWdlIGlzIGVmZmVjdGl2ZWx5IGludmFsaWQgc2luY2Ug
-Q2hyaXN0aWFuJ3MKcmV3b3JrLgoKPiAKPiBOb3RlIHRoYXQgdGhlIGFkamFjZW50IGRybV9jcnRj
-X2ZlbmNlX2dldF90aW1lbGluZV9uYW1lKCkgaGFzIHRoZSBzYW1lCj4gcHJvYmxlbSBhbmQgaXMg
-Zml4ZWQgYnkgdGhpcyBwYXRjaCBhcyB3ZWxsLgoKbml0OiBJdCdzIGNvb2wgdG8gc2VlIGZvbGtz
-IHdyaXRlIGRldGFpbGVkIGNvbW1pdCBtZXNzYWdlcywgYnV0IEkgdGhpbmsKaW4gdGhpcyBjYXNl
-IGl0IGlzIHZlcnkgdmVyYm9zZS4gVGhlIHByZXNlbnRhdGlvbiBvZiB0aGUgc29sdXRpb24tCm9w
-dGlvbnMgSU1PIGlzIG1vcmUgc29tZXRoaW5nIGZvciBhIGNvbW1lbnQgaW4gdGhlIG1haWxpbmcg
-bGlzdCA7KQoKVGhlIGlzc3VlIGF0IGhhbmQgaXMgcmF0aGVyIHNpbXBsZSwgQUZBSUNTLiBGZW5j
-ZXMgbm93IHNldCB0aGUgb3BzCnBvaW50ZXIgdG8gTlVMTCBvbiBzaWduYWwsIHdoaWNoIHdhc24n
-dCB0aGUgY2FzZSBpbiB0aGUgcGFzdCwgd2hpY2gKdHJpZ2dlcnMgdGhlIEJVR19PTiwgd2hpY2gg
-c2hvdWxkbid0IGJlIHVzZWQgYW55bW9yZSBhbnl3YXlzLiBUaGF0J3MKdGhlIGNvcmUgb2YgdGhl
-IGlzc3VlLgoKVGhlIG9wcyBwb2ludGVyIG5ldmVyIGNoYW5nZWQgaW4gdGhlIHBhc3QuIEkgc3Vw
-cG9zZSBpdCB3YXMgdGhlcmUgdG8KY2hlY2sgd2hldGhlciBhIHdyb25nIGZlbmNlIHdhcyBwYXNz
-ZWQgdG8gdGhlIGNvbnRhaW5lcl9vZigpLgoKPiAKCitDYyBzdGFibGU/Cgo+IEZpeGVzOiA1NDFj
-OGYyNDY4YjkgKCJkbWEtYnVmOiBkZXRhY2ggZmVuY2Ugb3BzIG9uIHNpZ25hbCB2MyIpCj4gU2ln
-bmVkLW9mZi1ieTogQW5kcsOpIERyYXN6aWsgPGFuZHJlLmRyYXN6aWtAbGluYXJvLm9yZz4KClJl
-dmlld2VkLWJ5OiBQaGlsaXBwIFN0YW5uZXIgPHBoYXN0YUBrZXJuZWwub3JnPgoKPiAKPiAtLS0K
-PiB2MjoKPiAtIGRvbid0IHR1cm4gZmVuY2VfdG9fY3J0YygpIGludG8gbWFjcm8KPiAtIHVwZGF0
-ZSBjb21taXQgbWVzc2FnZSB0byBpbmNsdWRlIHJlZmVyZW5jZSB0byB1bmFjY2VwdGFibGUgdXNl
-IG9mIEJVRwo+IC0tLQo+IMKgZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjLmMgfCAzIC0tLQo+IMKg
-MSBmaWxlIGNoYW5nZWQsIDMgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9kcm1fY3J0Yy5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjLmMKPiBpbmRleCBk
-NTVmMTM3N2VjMzYuLjM2YWU1MGRkZjUyNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-ZHJtX2NydGMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Yy5jCj4gQEAgLTE1NCwx
-MSArMTU0LDggQEAgc3RhdGljIHZvaWQgZHJtX2NydGNfY3JjX2Zpbmkoc3RydWN0IGRybV9jcnRj
-ICpjcnRjKQo+IMKgI2VuZGlmCj4gwqB9Cj4gwqAKPiAtc3RhdGljIGNvbnN0IHN0cnVjdCBkbWFf
-ZmVuY2Vfb3BzIGRybV9jcnRjX2ZlbmNlX29wczsKPiAtCj4gwqBzdGF0aWMgc3RydWN0IGRybV9j
-cnRjICpmZW5jZV90b19jcnRjKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKQo+IMKgewo+IC0JQlVH
-X09OKHJjdV9hY2Nlc3NfcG9pbnRlcihmZW5jZS0+b3BzKSAhPSAmZHJtX2NydGNfZmVuY2Vfb3Bz
-KTsKPiDCoAlyZXR1cm4gY29udGFpbmVyX29mKGZlbmNlLT5leHRlcm5fbG9jaywgc3RydWN0IGRy
-bV9jcnRjLCBmZW5jZV9sb2NrKTsKPiDCoH0KPiDCoAo=
+On 7/9/26 15:30, Ryosuke Yasuoka wrote:
+> 
+> 
+> On 07/07/2026 18:10, Dmitry Osipenko wrote:
+>> On 7/3/26 08:58, Ryosuke Yasuoka wrote:
+>>>
+>>>
+>>> On 02/07/2026 14:26, Dmitry Osipenko wrote:
+>>>> On 7/1/26 12:23, Ryosuke Yasuoka wrote:
+>>>>>
+>>>>>
+>>>>> On 30/06/2026 16:46, Dmitry Osipenko wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> On 6/30/26 12:16, Ryosuke Yasuoka wrote:
+>>>>>>> A probe-time deadlock can occur between the dequeue worker and
+>>>>>>> drm_client_register(). During probe, drm_client_register() holds
+>>>>>>> clientlist_mutex and calls the fbdev hotplug callback, which triggers an
+>>>>>>> atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
+>>>>>>> waiting for virtqueue space. The dequeue worker that would free that
+>>>>>>> space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
+>>>>>>> drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
+>>>>>>> to acquire the same clientlist_mutex. Since wake_up() is only called
+>>>>>>> after the resp_cb loop, the probe thread is never woken and both threads
+>>>>>>> deadlock.
+>>>>>>>
+>>>>>>> Fix this by deferring the hotplug notification from
+>>>>>>> virtio_gpu_cmd_get_display_info_cb() to a separate work item. The
+>>>>>>> display data (outputs[i].info) is still updated synchronously in the
+>>>>>>> callback, and the deferred work only triggers a re-probe notification to
+>>>>>>> DRM clients.
+>>>>>>>
+>>>>>>> Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
+>>>>>>> Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
+>>>>>>> Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
+>>>>>>> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+>>>>>>> ---
+>>>>>>>  drivers/gpu/drm/virtio/virtgpu_drv.h |  3 +++
+>>>>>>>  drivers/gpu/drm/virtio/virtgpu_kms.c |  3 +++
+>>>>>>>  drivers/gpu/drm/virtio/virtgpu_vq.c  | 12 ++++++++++--
+>>>>>>>  3 files changed, 16 insertions(+), 2 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>>>> index 7449907754a4..27ffa4697ae9 100644
+>>>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+>>>>>>> @@ -264,6 +264,8 @@ struct virtio_gpu_device {
+>>>>>>>  
+>>>>>>>  	struct work_struct config_changed_work;
+>>>>>>>  
+>>>>>>> +	struct work_struct hotplug_work;
+>>>>>>> +
+>>>>>>>  	struct work_struct obj_free_work;
+>>>>>>>  	spinlock_t obj_free_lock;
+>>>>>>>  	struct list_head obj_free_list;
+>>>>>>> @@ -350,6 +352,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
+>>>>>>>  					uint32_t x, uint32_t y,
+>>>>>>>  					struct virtio_gpu_object_array *objs,
+>>>>>>>  					struct virtio_gpu_fence *fence);
+>>>>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work);
+>>>>>>>  void virtio_gpu_panic_cmd_resource_flush(struct virtio_gpu_device *vgdev,
+>>>>>>>  					 uint32_t resource_id,
+>>>>>>>  					 uint32_t x, uint32_t y,
+>>>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>>>>> index cfde9f573df6..cfb532ba43a4 100644
+>>>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>>>>>>> @@ -154,6 +154,8 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+>>>>>>>  	INIT_WORK(&vgdev->config_changed_work,
+>>>>>>>  		  virtio_gpu_config_changed_work_func);
+>>>>>>>  
+>>>>>>> +	INIT_WORK(&vgdev->hotplug_work, virtio_gpu_hotplug_work_func);
+>>>>>>> +
+>>>>>>>  	INIT_WORK(&vgdev->obj_free_work,
+>>>>>>>  		  virtio_gpu_array_put_free_work);
+>>>>>>>  	INIT_LIST_HEAD(&vgdev->obj_free_list);
+>>>>>>> @@ -293,6 +295,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
+>>>>>>>  	flush_work(&vgdev->obj_free_work);
+>>>>>>>  	flush_work(&vgdev->ctrlq.dequeue_work);
+>>>>>>>  	flush_work(&vgdev->cursorq.dequeue_work);
+>>>>>>> +	flush_work(&vgdev->hotplug_work);
+>>>>>>>  	flush_work(&vgdev->config_changed_work);
+>>>>>>>  	virtio_reset_device(vgdev->vdev);
+>>>>>>>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
+>>>>>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>>>> index 67865810a2e7..084d98f5dc7b 100644
+>>>>>>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>>>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>>>>>>> @@ -816,6 +816,15 @@ virtio_gpu_cmd_resource_detach_backing(struct virtio_gpu_device *vgdev,
+>>>>>>>  	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
+>>>>>>>  }
+>>>>>>>  
+>>>>>>> +void virtio_gpu_hotplug_work_func(struct work_struct *work)
+>>>>>>> +{
+>>>>>>> +	struct virtio_gpu_device *vgdev =
+>>>>>>> +		container_of(work, struct virtio_gpu_device, hotplug_work);
+>>>>>>> +
+>>>>>>> +	if (!drm_helper_hpd_irq_event(vgdev->ddev))
+>>>>>>> +		drm_kms_helper_hotplug_event(vgdev->ddev);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>>  static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+>>>>>>>  					       struct virtio_gpu_vbuffer *vbuf)
+>>>>>>>  {
+>>>>>>> @@ -841,8 +850,7 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+>>>>>>>  	spin_unlock(&vgdev->display_info_lock);
+>>>>>>>  	wake_up(&vgdev->resp_wq);
+>>>>>>>  
+>>>>>>> -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
+>>>>>>> -		drm_kms_helper_hotplug_event(vgdev->ddev);
+>>>>>>> +	schedule_work(&vgdev->hotplug_work);
+>>>>>>>  }
+>>>>>>>  
+>>>>>>>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
+>>>>>>
+>>>>>
+>>>>> Hi,
+>>>>> Thank you for your review.
+>>>>>
+>>>>>> Could you please move drm_kms_helper_hotplug_event() to virtio_gpu_init(), placing it after wait_event_timeout(display_info_pending)? This will avoid additional work_struct that otherwise needs to be cancelled in virtio_gpu_init() on the timeout.
+>>>>>
+>>>>> IIUC, moving the drm_kms_helper_hotplug_event() and _hpd_irq_event()
+>>>>> into virtio_gpu_init() after wait_event_timeout() would not prevent the
+>>>>> issue.
+>>>>>
+>>>>> Looking at the syzbot call traces[1][2], the deadlock occurs during
+>>>>> drm_client_setup(), which runs after virtio_gpu_init() has already
+>>>>> returned. The display_info_cb that triggers the deadlock is called from
+>>>>> the dequeue worker while drm_client_register() holds clientlist_mutex.
+>>>>>
+>>>>> Thread A:
+>>>>> virtio_gpu_probe()
+>>>>>  -> virtio_gpu_init()   // sends GET_DISPLAY_INFO and waits up to 5s
+>>>>
+>>>> You mean that the timeout happens and it's again syzkaller report for a
+>>>> broken host. A day ago I applied [1] that should fix this "bogus"
+>>>> syzkaller report.
+>>>>
+>>>> [1] https://patchwork.freedesktop.org/patch/735301/
+>>>
+>>> Thank you for [1] and the clarificaiton. I agree that [1] addresses the
+>>> broken host scenario where virtio_gpu_init() times out and probe
+>>> continues with a pending display_info response. I think there is another
+>>> scenario causing the same deadlock reported by syzbot and my patch
+>>> addresses both cases.
+>>>
+>>> The deadlock can also occur with the following scenario:
+>>> after virtio_gpu_init() completes successfully (wait_event_timeout
+>>> returns), if a config_changed event arrives before drm_client_setup()
+>>> completes, config_changed_work_func() sends a new GET_DISPLAY_INFO. Its
+>>> display_info_cb fires in the dequeue worker and blocks on
+>>> clientlist_mutex held by drm_client_register(). This is the same
+>>> deadlock path reported by syzbot.
+>>>
+>>> Since [1] only prevents the timeout case, I believe the schedule_work()
+>>> approach is still needed to prevent display_info_cb from blocking on
+>>> clientlist_mutex in the dequeue worker context, regardless of the
+>>> trigger.
+>>
+>> The config_changed_work_func() already invokes
+>> drm_helper_hpd_irq_event() by itself [1].
+>>
+>> [1]
+>> https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/virtio/virtgpu_kms.c#L52
+>>
+>> The drm_helper_hpd_irq_event() itself calls
+>> drm_kms_helper_hotplug_event() [2].
+>>
+>> [2]
+>> https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/drm_probe_helper.c#L1113
+>>
+>> Isn't drm_helper_hpd_irq_event() call done by
+>> virtio_gpu_cmd_get_display_info_cb() already partially redundant? I.e.
+>> only it's needed by virtio_gpu_init() and not by
+>> config_changed_work_func(). And then we can move
+>> drm_helper_hpd_irq_event() to virtio_gpu_init():
+>>
+>> ```
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> index 922782bdc9cd..9805283683c1 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> @@ -303,6 +303,7 @@ int virtio_gpu_init(struct virtio_device *vdev,
+>> struct drm_device *dev)
+>>                 virtio_gpu_notify(vgdev);
+>>                 wait_event_timeout(vgdev->resp_wq,
+>> !vgdev->display_info_pending,
+>>                                    5 * HZ);
+>> +               drm_helper_hpd_irq_event(vgdev->ddev);
+>>         }
+>>
+>>         vgdev->pm_nb.notifier_call = virtio_gpu_pm_notifier;
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c
+>> b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>> index 68d097ad9d1d..aa6440a9b81e 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+>> @@ -880,9 +880,6 @@ static void
+>> virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
+>>         vgdev->display_info_pending = false;
+>>         spin_unlock(&vgdev->display_info_lock);
+>>         wake_up(&vgdev->resp_wq);
+>> -
+>> -       if (!drm_helper_hpd_irq_event(vgdev->ddev))
+>> -               drm_kms_helper_hotplug_event(vgdev->ddev);
+>>  }
+>>
+>>  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device
+>> *vgdev,
+>> ```
+>>
+>> Isn't it a bug that config_changed_work_func() doesn't wait for
+>> display_info_pending event?
+>>
+>>
+>> ```
+>> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> index 922782bdc9cd..dd2d5c896c39 100644
+>> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+>> @@ -50,6 +50,8 @@ static void virtio_gpu_config_changed_work_func(struct
+>> work_struct *work)
+>>                                 virtio_gpu_cmd_get_edids(vgdev);
+>>                         virtio_gpu_cmd_get_display_info(vgdev);
+>>                         virtio_gpu_notify(vgdev);
+>> +                       wait_event_timeout(vgdev->resp_wq,
+>> !vgdev->display_info_pending,
+>> +                                          5 * HZ);
+>>                         drm_helper_hpd_irq_event(vgdev->ddev);
+>>                 }
+>>                 events_clear |= VIRTIO_GPU_EVENT_DISPLAY;
+>>
+>> ```
+> 
+> Thank you for your suggestion. I agree that removing the hotplug calls
+> from display_info_cb and waiting for the response in
+> config_changed_work_func() and virtio_gpu_init() is a cleaner approach.
+> I'll send a v2 based on this.
 
+Thanks, please also check whether drm_helper_hpd_irq_event() needed at
+all in in virtio_gpu_init(). Suppose the hotplug event does nothing
+before DRM device/client has been registered.
+
+-- 
+Best regards,
+Dmitry
