@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85EADC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 09:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6408BC43458
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 09:32:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4E6C10E03A;
-	Thu,  9 Jul 2026 09:31:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D179610F454;
+	Thu,  9 Jul 2026 09:32:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XIvH2ZZU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PpKKdwHT";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2200410E03A
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 09:31:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D727110F454
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 09:32:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CCEA343AB4;
- Thu,  9 Jul 2026 09:31:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867441F000E9;
- Thu,  9 Jul 2026 09:31:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8E7C941A61;
+ Thu,  9 Jul 2026 09:32:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540B11F000E9;
+ Thu,  9 Jul 2026 09:32:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783589481;
- bh=9KHmrYZezRu4RAs4+k8HZFiVAVrgezoo/srtoOSDxsI=;
+ s=k20260515; t=1783589576;
+ bh=U9peSXbQvR6qvGty5Ue4KPqPVYkWTvSy7EkJmXroXkc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XIvH2ZZUJGKvMiJoeXTH4jXdmExelr89UMEnbVMwUsn9ejpNv1txQ42f5+yhX54Lh
- b/V8YYd4FPzwQbQ8B+5LCezhZdeKQo2CrbU8dLF1uZDzr7U16ipzHU9IIT9nIqWoGP
- 1PyBE+SjA4S+fNgMnIZ+wuCKDC1Ic4k9F28Ood+6Vzdp/j5mF53J/y8uHuFUDJ7zB+
- nwLopZgFXodEANThHAG8sZjhcS7NcxR5QVQlucOlX60hGcLVIvhH5+wR2e0bcYQAB8
- YaGPdQxsio7z11fPK/LlP5hv02+Of6b3LTBS7hqTgQcAyq+1gsczZZklOv8mDXU+FG
- T3c1dRL+XsrAQ==
+ b=PpKKdwHTEllus/JypscZ6N75Mk00PUgjM4SOyuV05FbkD40VNMdmMf1S8tTR9nxZ+
+ t3L4gQroiAuRHBPH8CI7H4AVdxTCcbiMSWkjrb1vpmmKN78AQroKxoM0eFw8eTdd/T
+ sbWUJoXogxw+xqWvyyEJBB9MGJ1VohSfJxbVFUQdYWzw7G+lTaM+FJO6rHx4tVSMA6
+ F8y0IlD0wOe8ctBqkOVjjTly0jTi0UJTGOFe9UYVduETVt79vCE4xj+R5EhoCWi+26
+ wUUr6KE9Z+1GIAzylqKUdv2jG56tEk0PP4jVwuxZcVDzC2wgCZCyPNUDjJiEbtc+E0
+ L4KX1TgStArkQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/7] vga_switcheroo: Add post_switch callback to
- client ops
+Subject: Re: [PATCH v2 7/7] vga-switcheroo: Remove unused interfaces
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709092215.168172-5-tzimmermann@suse.de>
+In-Reply-To: <20260709092215.168172-8-tzimmermann@suse.de>
 References: <20260709092215.168172-1-tzimmermann@suse.de>
- <20260709092215.168172-5-tzimmermann@suse.de>
+ <20260709092215.168172-8-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 09:31:21 +0000
-Message-Id: <20260709093121.867441F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 09:32:56 +0000
+Message-Id: <20260709093256.540B11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +61,40 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Hardware failure during mux switch leaves vga_switcheroo in an unr=
-ecoverable state with no active client.
+- [High] This problem wasn't introduced by this patch, but `vga_switchto_st=
+age2()` leaves the switcheroo system permanently disabled if the hardware s=
+witch handler fails. The active client's state is not restored, permanently=
+ corrupting the subsystem's state machine.
 --
 
---- Patch [4]: [PATCH v2 4/7] vga_switcheroo: Add post_switch callback to c=
-lient ops ---
-commit e87434614b85f1234ff64f6a0aeb8bd282739a69
+--- Patch [7]: [PATCH v2 7/7] vga-switcheroo: Remove unused interfaces ---
+commit ef7b188cece6d285e2c3384cc1c77c0b8424b231
 Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-vga_switcheroo: Add post_switch callback to client ops
+vga-switcheroo: Remove unused interfaces
 
-This patch adds a new post_switch callback to struct
-vga_switcheroo_client_ops to notify clients about a completed output switch.
-This callback is intended to replace the deprecated reprobe client operatio=
-n.
+This commit removes unused interfaces that implemented pre_switch and
+post_switch functionality. It specifically removes
+vga_switcheroo_client_fb_set() and the reprobe callback from client ops,
+cleaning up obsolete code referencing fbdev.
 
 > diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/vga_switc=
 heroo.c
-> index bdf1e56ae8910..7b0af4a8aa7d0 100644
 > --- a/drivers/gpu/vga/vga_switcheroo.c
 > +++ b/drivers/gpu/vga/vga_switcheroo.c
-> @@ -746,7 +746,9 @@ static int vga_switchto_stage2(struct vga_switcheroo_=
-client *new_client)
 
 [ ... ]
 
+> @@ -735,10 +712,6 @@ static int vga_switchto_stage2(struct vga_switcheroo=
+_client *new_client)
+> =20
+>  	if (new_client->ops->pre_switch)
+>  		new_client->ops->pre_switch(new_client->pdev);
+> -#if defined(CONFIG_FB)
+> -	else if (new_client->fb_info)
+> -		fb_switch_outputs(new_client->fb_info);
+> -#endif
+> =20
 >  	mutex_lock(&vgasr_priv.mux_hw_lock);
 >  	ret =3D vgasr_priv.handler->switchto(new_client->id);
 >  	mutex_unlock(&vgasr_priv.mux_hw_lock);
@@ -95,37 +102,19 @@ client *new_client)
 >  		return ret;
 
 [Severity: High]
-This is a pre-existing issue, but if the hardware switch fails and returns =
-an
-error code here, does this leave the state machine unrecoverable?
+This is a pre-existing issue, but does this error path leave the switcheroo
+system permanently disabled if the hardware switch handler fails?
 
-Earlier in vga_switchto_stage2(), the active client is found and its active
-flag is cleared:
+Earlier in vga_switchto_stage2(), the active client is marked inactive
+(active->active =3D false) and the audio state might be set to OFF. If
+vgasr_priv.handler->switchto() fails, the code returns early without restor=
+ing
+active->active.
 
-drivers/gpu/vga/vga_switcheroo.c:vga_switchto_stage2() {
-	active =3D find_active_client(&vgasr_priv.clients);
-	if (!active)
-		return 0;
-
-	active->active =3D false;
-	...
-
-If vgasr_priv.handler->switchto() returns an error, the early return happens
-without restoring active->active to true. This appears to leave the subsyst=
-em
-with no active client, causing subsequent calls to find_active_client() to
-fail and preventing any future GPU switches until a module reload or reboot.
-Should the active flag be restored on this error path?
-
-> =20
-> -	if (new_client->ops->reprobe)
-> +	if (new_client->ops->post_switch)
-> +		new_client->ops->post_switch(new_client->pdev);
-> +	else if (new_client->ops->reprobe)
->  		new_client->ops->reprobe(new_client->pdev);
-> =20
->  	if (vga_switcheroo_pwr_state(active) =3D=3D VGA_SWITCHEROO_ON)
+Because the active state is not restored, will find_active_client()
+subsequently return NULL, causing future switch requests to silently abort
+and leaving the subsystem in a corrupted state?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709092215.1681=
-72-1-tzimmermann@suse.de?part=3D4
+72-1-tzimmermann@suse.de?part=3D7
