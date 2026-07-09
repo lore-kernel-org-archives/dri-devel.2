@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56922C44506
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2125C44507
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 11:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 403CD10F55C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A84410F55D;
 	Thu,  9 Jul 2026 11:53:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cZ3QOuf5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pvo19fyM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8EC010F558;
- Thu,  9 Jul 2026 11:52:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE91810F559;
+ Thu,  9 Jul 2026 11:52:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8C14B435FE;
- Thu,  9 Jul 2026 11:52:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA5A1F00A3D;
- Thu,  9 Jul 2026 11:52:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 71AAB600C3;
+ Thu,  9 Jul 2026 11:52:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A521A1F00A3D;
+ Thu,  9 Jul 2026 11:52:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783597974;
- bh=UC3o81qxOOCQEyPwPoT2MULwgUN4vFYhaKVuFT3u4N4=;
+ s=k20260515; t=1783597979;
+ bh=gJLFkGsEJr1N8duiO8ziIEjMdF6eDAFUTpokkoGJ+mY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=cZ3QOuf5tjHaG3QCtfw3uZUlG8KXj+DhHirN6yL5q571npPD8Mo3QRwAEn1oWe5+R
- RfB4h7LKR2C21snXyuzPwMWgsnp4evHwwAUsN3AlpralajuMvQV6qxOdztrSB8MQOU
- jaL33nbXWEuqZbstxn2PkFpMyd0KtwgeN9tRYpH3zEDAenxN3V7brXbMS2V1A5f9NN
- dwJhRdBKVqlL3I5hzS2XtS2J/eOmMadp6j+W0gO7J1CtG+cVRwgF+JjqLB/5ztY18s
- sfnKoY3RkLhcY/GX6dPS+93pxntCXKdS8XFMCNjumVaDbqVrRuYrc9s2V0aRSS9LxO
- 9qfgCCvZ+E38g==
+ b=Pvo19fyMpI7qrYkhE6beeVHo/p/uE3DZ9XoKirV9WIZqJCfxH62hvc3H09Mh36Sj9
+ Bt0jnqF0x4b2rjxGxKe5iYJ0HyCpuqc+cy8pnRPypOOIIGH9AgKmkQvS8PNCoyYQMM
+ rxsMQ46/+6RcyYr3mIK+p7GIDsKz4nR0RtyFhCcoLEJXtlJz0hmXfAvspEiKHVkHfj
+ bALvHLfzHqPM1qH11a2cdMhOUp+yZtiiSl15m0xObXo5Sp8EcvIDqk9Z7u1iQqjR26
+ CSrdL4V8mHrRiZUVlKX0JdNyPjWVzc+e0B4krpC3CuHc1Tq9vy4o92AF99dYXoxl8y
+ rxvWkrw5UDw8g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 09 Jul 2026 13:51:13 +0200
-Subject: [PATCH 47/60] drm/msm/dpu1: Convert to atomic_create_state
+Date: Thu, 09 Jul 2026 13:51:15 +0200
+Subject: [PATCH 49/60] drm/nouveau: Convert to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-drm-no-more-plane-reset-v1-47-302d986fe5f0@kernel.org>
+Message-Id: <20260709-drm-no-more-plane-reset-v1-49-302d986fe5f0@kernel.org>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 In-Reply-To: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- abhinav.kumar@linux.dev, freedreno@lists.freedesktop.org, 
- jesszhan0024@gmail.com, linux-arm-msm@vger.kernel.org, lumag@kernel.org, 
- marijn.suijten@somainline.org, robin.clark@oss.qualcomm.com, 
- sean@poorly.run
+ dakr@kernel.org, lyude@redhat.com, nouveau@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7341; i=mripard@kernel.org;
- h=from:subject:message-id; bh=v3Td+lBvK17/ewydQKC8jnaj1OxCKD33h7VPkR/Cf1Y=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3XJ9Dy4pHP3WaCHedbkiSkJN4vne3NMLXjxZk6I80
- di1PMWiYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkvxBjrcDRRCEJL+5vbvz1
- DjYeB9yy5uYrsu74pBV5Uuj4M9Vdj45JLAj5HB6gesKC4+cNvrB1jA0npZ/7qxQIWFncUBfQ+8l
- izRcVonJpyndLj7x+4Zkcxvr/7C/77Xzq8KHeJrNa/v2nTQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6815; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=aeOJ4DHzvkhlr0B9bPepCE2LjvpC7j9QKkSRG5WC71M=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn+3XKHLXdf3Rw7aUG9GMOPZZuX5KZ/YX0pzKP0/WuNy
+ /Otuff+dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJyF5hbLgmzurz5ovg0phz
+ zBu86xpK9HZrar1pP25+aBFjU5SV2Sz7AywCL1caxLZvdF9pI3n7C2MNXze3/snr4l3Tr3zKS1k
+ tZNl7YEbxLYvCPzZc/l/qW8odwiasPr7ygNPtS8xf0823vZECAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -338,78 +335,59 @@ expression PS;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: abhinav.kumar@linux.dev
-Cc: freedreno@lists.freedesktop.org
-Cc: jesszhan0024@gmail.com
-Cc: linux-arm-msm@vger.kernel.org
-Cc: lumag@kernel.org
-Cc: marijn.suijten@somainline.org
-Cc: robin.clark@oss.qualcomm.com
-Cc: sean@poorly.run
+Cc: dakr@kernel.org
+Cc: lyude@redhat.com
+Cc: nouveau@lists.freedesktop.org
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-index 7b92082d35a6..1a471cdf767b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -1726,36 +1726,32 @@ static void dpu_plane_atomic_print_state(struct drm_printer *p,
- 		drm_printf(p, "\tdst[%d]=" DRM_RECT_FMT "\n", i,
- 			   DRM_RECT_ARG(&pipe_cfg->dst_rect));
- 	}
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/wndw.c b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+index 2635458d52ac..41b0ece1db3f 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/wndw.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/wndw.c
+@@ -750,22 +750,21 @@ nv50_wndw_zpos_default(struct drm_plane *plane)
+ {
+ 	return (plane->type == DRM_PLANE_TYPE_PRIMARY) ? 0 :
+ 	       (plane->type == DRM_PLANE_TYPE_OVERLAY) ? 1 : 255;
  }
  
--static void dpu_plane_reset(struct drm_plane *plane)
-+static struct drm_plane_state *dpu_plane_create_state(struct drm_plane *plane)
+-static void
+-nv50_wndw_reset(struct drm_plane *plane)
++static struct drm_plane_state *nv50_wndw_create_state(struct drm_plane *plane)
  {
- 	struct dpu_plane *pdpu;
- 	struct dpu_plane_state *pstate;
+ 	struct nv50_wndw_atom *asyw;
  
- 	if (!plane) {
- 		DPU_ERROR("invalid plane\n");
+-	if (WARN_ON(!(asyw = kzalloc_obj(*asyw))))
 -		return;
-+		return ERR_PTR(-EINVAL);
- 	}
- 
- 	pdpu = to_dpu_plane(plane);
- 	DPU_DEBUG_PLANE(pdpu, "\n");
- 
--	/* remove previous state, if present */
--	if (plane->state) {
--		dpu_plane_destroy_state(plane, plane->state);
--		plane->state = NULL;
--	}
--
- 	pstate = kzalloc_obj(*pstate);
- 	if (!pstate) {
- 		DPU_ERROR_PLANE(pdpu, "failed to allocate state\n");
--		return;
++	asyw = kzalloc_obj(*asyw);
++	if (WARN_ON(!asyw))
 +		return ERR_PTR(-ENOMEM);
- 	}
  
--	__drm_atomic_helper_plane_reset(plane, &pstate->base);
-+	__drm_atomic_helper_plane_state_init(&pstate->base, plane);
-+
-+	return &pstate->base;
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
++	__drm_atomic_helper_plane_state_init(&asyw->state, plane);
+ 
+-	__drm_atomic_helper_plane_reset(plane, &asyw->state);
++	return &asyw->state;
  }
  
- #ifdef CONFIG_DEBUG_FS
- void dpu_plane_danger_signal_ctrl(struct drm_plane *plane, bool enable)
+ static void
+ nv50_wndw_destroy(struct drm_plane *plane)
  {
-@@ -1794,11 +1790,11 @@ static bool dpu_plane_format_mod_supported(struct drm_plane *plane,
- }
- 
- static const struct drm_plane_funcs dpu_plane_funcs = {
- 		.update_plane = drm_atomic_helper_update_plane,
- 		.disable_plane = drm_atomic_helper_disable_plane,
--		.reset = dpu_plane_reset,
-+		.atomic_create_state = dpu_plane_create_state,
- 		.atomic_duplicate_state = dpu_plane_duplicate_state,
- 		.atomic_destroy_state = dpu_plane_destroy_state,
- 		.atomic_print_state = dpu_plane_atomic_print_state,
- 		.format_mod_supported = dpu_plane_format_mod_supported,
+@@ -835,11 +834,11 @@ static bool nv50_plane_format_mod_supported(struct drm_plane *plane,
+ const struct drm_plane_funcs
+ nv50_wndw = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+ 	.destroy = nv50_wndw_destroy,
+-	.reset = nv50_wndw_reset,
++	.atomic_create_state = nv50_wndw_create_state,
+ 	.atomic_duplicate_state = nv50_wndw_atomic_duplicate_state,
+ 	.atomic_destroy_state = nv50_wndw_atomic_destroy_state,
+ 	.format_mod_supported = nv50_plane_format_mod_supported,
  };
+ 
 
 -- 
 2.54.0
