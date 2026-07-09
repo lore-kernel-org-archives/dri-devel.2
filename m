@@ -4,62 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DCBBC43458
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 477AAC44506
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 12:33:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07CC310F597;
-	Thu,  9 Jul 2026 12:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A453D10F59B;
+	Thu,  9 Jul 2026 12:33:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="gdFh8VX7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c4byk8YJ";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D060210F597
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 12:32:59 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gwvWB6yxNzKmyt;
- Thu, 09 Jul 2026 14:32:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1783600375; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YVYt+UStdsp6KSy/K/PPDXZMCGokRgp9VCy0kpFdPoM=;
- b=gdFh8VX7SzGhmQ7SHfO274rZcpjmyjzdoawdIUQozbFTeA/8X5xbhrVIaYJJ8cSaM4stqb
- XXltG7AAq4u7ii/krmysiaGXk/jKpVXZ14B8G4yKr5rG3NlUnjSDv6t93ZFAW5bBpbcqap
- 1cvI6v1qQ7nOGzmY5CO4b7QWPjRNra93fN1BOiIJkF1dembWqIK40jLqlqYifGZPmISkaC
- 8707rqIwuJmEZ4+5Cffxpi78avEFeb7fE5DiAXiFzijozmpnvLznDzFl7wDS3CUrxpwPyD
- 6WCnIYOHKRP211+5ZGTWVNwTC9GsVR3sd6SsQYTTrUCEUNm7oO6iruk/6BhlLg==
-Message-ID: <1ccfc0b5d1696a8dec4756b675294e7fb41ab5ff.camel@mailbox.org>
-Subject: Re: [PATCH v2 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
- <phasta@kernel.org>, Danilo Krummrich	 <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com
-Date: Thu, 09 Jul 2026 14:32:48 +0200
-In-Reply-To: <20260708-linux-drm_crtc_fix2-v2-1-cf72be75d75a@linaro.org>
-References: <20260708-linux-drm_crtc_fix2-v2-0-cf72be75d75a@linaro.org>
- <20260708-linux-drm_crtc_fix2-v2-1-cf72be75d75a@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B01B510F59B;
+ Thu,  9 Jul 2026 12:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783600387; x=1815136387;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=tiVr5NlYsZcsHpK6BRTFvxIB5tl3yk+S0wEBZSkRx7g=;
+ b=c4byk8YJ5t0h+JCHD6w1RyJBPtFCYmrUdJOGYn2aKf5p44aMPmR/d08T
+ IvtOe6ZCItSoV5Xww8ua+ndLqb8aBOlm9tgEt6oS7vgblSZuw/MVSxdvU
+ 7tmOeM/2IYDKUEg/293JMY2uhppM4xnG53D/zfIrdYSI6Cc6AhdLIdfM3
+ rsLs10jcdC+iMzTZlw95gKAi2qPfwdwY7Zo06ALun06zRzTULy1rkYslM
+ 9K0KfL1Q+H8BlAAgb8O4Thi5fkd5PdyF97t+o7B6FrNQEexPTnhxsOGrS
+ tibKXC5ij0qeu4egPKvzky6sF4TSvEaBKFKyNttNJUt1RfxLNoezFKTnq g==;
+X-CSE-ConnectionGUID: Ry/Iup3wRSWyAW+AuMXJVQ==
+X-CSE-MsgGUID: tmsUxoVZQWyktoGNWcHAYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="86821469"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="86821469"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2026 05:33:06 -0700
+X-CSE-ConnectionGUID: RtmrszJ8QyG/9rEsPua9rA==
+X-CSE-MsgGUID: LrgbutjvQsWTPI4YAp3ZCw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="251920890"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa008.fm.intel.com with ESMTP; 09 Jul 2026 05:33:03 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+ id 7587495; Thu, 09 Jul 2026 14:33:02 +0200 (CEST)
+Date: Thu, 9 Jul 2026 15:33:00 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andi Shyti <andi.shyti@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] drm/xe/i2c: Handler for SMBus Alerts
+Message-ID: <ak-U_HXXukQ22xLm@kuha>
+References: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
+ <20260625125939.429078-3-heikki.krogerus@linux.intel.com>
+ <akOAy1AhbMkSxdjA@black.igk.intel.com> <akOS0bAhabVXVtqM@kuha>
 MIME-Version: 1.0
-X-MBO-RS-META: 9kkhdaab74g8d318nt6ektw8founsbd7
-X-MBO-RS-ID: f11a675c1421234383b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akOS0bAhabVXVtqM@kuha>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,49 +76,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-+Cc Danilo (who is currently concerned with drm_device life times)
+Hi Raag,
 
-On Wed, 2026-07-08 at 16:22 +0100, Andr=C3=A9 Draszik wrote:
->=20
+On Tue, Jun 30, 2026 at 12:56:34PM +0300, Heikki Krogerus wrote:
+> On Tue, Jun 30, 2026 at 10:39:39AM +0200, Raag Jadav wrote:
+> > On Thu, Jun 25, 2026 at 02:59:38PM +0200, Heikki Krogerus wrote:
+> > > Some devices that are attached to the I2C controller use the
+> > > SMBus Alert signal for example to inform the host about
+> > > thermal events, so registering the default SMBus Alert
+> > > device for them. The alert device makes sure that the alert
+> > > is processed and passed to the correct I2C client driver.
+> > 
+> > ...
+> > 
+> > > +static int xe_i2c_register_smbus_alert(struct xe_i2c *i2c)
+> > > +{
+> > > +	struct xe_device *xe = kdev_to_xe_device(i2c->drm_dev);
+> > > +	struct i2c_client *alert;
+> > > +
+> > > +	if (xe->info.platform != XE_CRESCENTISLAND)
+> > 
+> > Rather, introduce a has_i2c_smbus flag in xe_device_types.h and keep
+> > things platform agnostic. I think you'll also need it to early return
+> > from xe_i2c_create_irq().
+> 
+> OK. Feature flags are nice.
 
-[=E2=80=A6]
+There is an issue with the interrupts. Right now with mainline the
+i2c-designware enables the interrupt because it is supplied with the
+adapter_irq, even though the interupt can only be used for these
+alerts. So that really has to be fixed.
 
-> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c0=
-3e77b36f34@linaro.org?part=3D1
-> Signed-off-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+I'm going to drop this alert handler, and instead propose that we
+process the alerts from AMC directly here in Xe, and at the same time
+remove the problematic adapter_irq completely like you proposed
+earlier.
 
-I am tempted to think that this also needs a Fixes and needs to be
-backported into stable kernels, doesn't it? Especially if the BUG_ON
-disappears in stable kernels.
+Thanks,
 
-> ---
-> =C2=A0drivers/gpu/drm/drm_crtc.c | 6 ++++++
-> =C2=A01 file changed, 6 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> index 63ead8ba6756..d55f1377ec36 100644
-> --- a/drivers/gpu/drm/drm_crtc.c
-> +++ b/drivers/gpu/drm/drm_crtc.c
-> @@ -501,6 +501,12 @@ void drm_crtc_cleanup(struct drm_crtc *crtc)
-> =C2=A0{
-> =C2=A0	struct drm_device *dev =3D crtc->dev;
-> =C2=A0
-> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
-> +	 * the fence is signaled. This is necessary because our dma_fence_ops
-> +	 * dereference crtc->dev.
-> +	 */
-> +	synchronize_rcu();
-
-nit:
-I guess this is the only place where one can reasonably put the
-synchronize_rcu(). But I would hint at the RCU delay in the function's
-docu.
-
-> +
-> =C2=A0	/* Note that the crtc_list is considered to be static; should we
-> =C2=A0	 * remove the drm_crtc at runtime we would have to decrement all
-> =C2=A0	 * the indices on the drm_crtc after us in the crtc_list.
+-- 
+heikki
