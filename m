@@ -4,80 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0817CC44506
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:30:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02CA2C44501
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Jul 2026 14:33:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39A3410E099;
-	Thu,  9 Jul 2026 14:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0CD10E608;
+	Thu,  9 Jul 2026 14:33:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CeJgfdAc";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FjjLL5Ec";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C27210E099
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 14:30:54 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-848593533cbso758971b3a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Jul 2026 07:30:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783607453; x=1784212253; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=iEEZ0/5K5qAQ+cj7COiX8QPDrLBCgWIMBAhQUBFdT/s=;
- b=CeJgfdAc5rTNdkZIp0Efi1ha2vTwxVtIseoqT6zt25P3c0MoJ7XHZLGHx+JexsC/eE
- 70EvMe22vCy10KjJsGQnuyU0BK84txiE96W7s44n22QI804srn3pZw5MihKTFctpcNEW
- evVO5m9AhuPPFr5BjyJiCkxdcFy1eVvsQHFLJtbbhsUZfqRMltr2rTjNgPDDEGXb5The
- vbm6DbTVh+UNilkM1Kt9IxcWxGXzQ+PJSuV/mkuIG0/eK+qpnUu7yoAvrT2YD9eOsKNU
- D8j0cPUPryclHqCFrytzQLmHArDUJp35lOVkfjYV1CvykOiWh7YVaFPKQFMiMZrWBsoe
- SQmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783607453; x=1784212253;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=iEEZ0/5K5qAQ+cj7COiX8QPDrLBCgWIMBAhQUBFdT/s=;
- b=CrsGDRS6HguIWqEJV/G3LTpZmmvW1H0zUBRGOMew/nzPl2V3cALUm19SPSlPorNNuL
- W8M5zAobOygWhen9UXE8KAPlGA2jdAuW8WWemaF1E3efO2/6ynFQawqNqdsRsQV4rMm2
- v1Oe2f1ve3ef8k1/G5aLphUrzKTeNIy6O81TksZ5I6EBNZ55e0JlUkdB7++58Hns3sO/
- Qn1HC8yKkJOKSTy5O049GKsQysrWZT52Kk+LiXlUnj1avNnrGIwqS6A3UkKvv7e0+TNX
- SqUSkJ4AV3k45L3AepDjvWhUuLm2EHilnfKP6BJtoXjQPWBwNqepZYjrHDygeSk1DIow
- kUXw==
-X-Gm-Message-State: AOJu0YzXdwZhVdQMIe81mxvTKTgcw7F1OhoLKIuxCR2t/v7EyS2YuJLB
- syIzSTjQyAoFGXV4fuRZPzt3mnMPkMcxpGZQMDuWm2kvM5Z0VHVp61Lc
-X-Gm-Gg: AfdE7cm7318pFghNc3gIuJWT3JeJbU/X9vjfCXM5TQTzK1aLGuxYGhc3ixlD9/kaqvq
- h7Zy0judQHGmgic41UXAsyWjEnJMvupTUqJqFihOIWe3enuRKw51iPcRJocdJydFhmQEuKUpq19
- UQDw538wTjcZ5kmrnq7U/0SwFvmLiEVC+5VY+cNw7cDuMoVT2HQ3rfVpwOtJCQkuqIN+9MP797T
- G+csSXaGSHYtLRoxRuOA+AjO2znaOn6Pkg8dScKeuQlq+9889xF7cs4ms7W2NsHKe9rlij/mXdQ
- /a56PfeAMrvCO2iXUNGoQPLxMtIGrAAH8pT7LoRflYVdP73OEBGoQ8FPYDjKRNoqEmkDtVKpYw1
- E58aQKqRaGnUidUs474pVsX5ChVr4wzFq6PgyqFSRVMspPpgBXSjovkA+Mmo9w5pNNZre8lDQDq
- X34Uegiv2GWTAawegGHiLU4Elr4CbC90VTTPhXqTQ=
-X-Received: by 2002:a05:6a20:3d0c:b0:3a3:17f8:bedd with SMTP id
- adf61e73a8af0-3c0bcec1a02mr8901278637.17.1783607453213; 
- Thu, 09 Jul 2026 07:30:53 -0700 (PDT)
-Received: from nuvole ([144.202.86.13]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-ca79aff904dsm2009666a12.6.2026.07.09.07.30.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jul 2026 07:30:52 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v3 2/2] drm/panel: Add Novatek NT36536 panel driver
-Date: Thu,  9 Jul 2026 22:28:46 +0800
-Message-ID: <20260709142846.12463-3-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260709142846.12463-1-mitltlatltl@gmail.com>
-References: <20260709142846.12463-1-mitltlatltl@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F35A210E608
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Jul 2026 14:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3KBUt6eVJ/1GD2XEUireFvhOgN/1+EzOI/JpLDJQpFY=; b=FjjLL5Ec78bBL6qobVKTVJieiJ
+ xeEX/b86ne8pPa7YA6NYenV/9OeCO928uqtwEd9yiALY2e9xld5PXWWXanpatAhBrC1jLRwhxGq1B
+ Cw7QGArBhGaCnT76uHdC5u31Pv6nG0qmAiQpB31ojPwk7ob9Krr9v5iDd1UmGNUKfNvCYwVOCAUGe
+ Lildt/yHtZVf6ITxg3iPzLFLpPhgWabd4R7DV+JOzZhK8oRAhQVoguezQjsUgkiuVXLargXJdhSY3
+ Ja0xq2ELSH99FaMGXjgW3XDSnIqofHmYKhrJDwPdaPD5vKtj2z2Q5KsAo5CVrCqmIl06tt/k4zgwK
+ SJc5qQdg==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1whpoE-00CGii-59; Thu, 09 Jul 2026 16:33:02 +0200
+Message-ID: <ffc05a67-66ff-4e0a-98f3-a9e4e87af6b0@igalia.com>
+Date: Thu, 9 Jul 2026 15:33:01 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 2/8] drm/panthor: Use separate workqueue for DRM scheduler
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, kernel-dev@igalia.com
+References: <20260702143745.79293-1-tvrtko.ursulin@igalia.com>
+ <20260702143745.79293-3-tvrtko.ursulin@igalia.com>
+ <20260702173127.3103af30@fedora-2.home>
+ <8aa9ffad-ece3-428b-b307-1d5f4136db73@igalia.com>
+ <20260706161812.07ee7500@fedora-2.home>
+ <bd262d12-65d0-4c59-a314-b42b540acd99@igalia.com>
+ <20260709084520.16d32cb7@fedora-2.home>
+ <8e079d0b-427f-42cd-8013-7b8af005cd6d@igalia.com>
+ <20260709141957.7f7664d0@fedora-2.home>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260709141957.7f7664d0@fedora-2.home>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,553 +71,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a driver for panels using the Novatek NT36536 Display Driver IC,
-including support for the CSOT PP8807HB1-1, a dual-link 10-bit panel
-found in LENOVO Legion Y700 Gen4.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
-v3:
-- Only include needed device-id headers (Uwe)
-v2:
-- Collect tags
-- Use devm_drm_panel_add() (Neil)
----
- drivers/gpu/drm/panel/Kconfig                 |  11 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36536.c | 488 ++++++++++++++++++
- 3 files changed, 500 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36536.c
+On 09/07/2026 13:19, Boris Brezillon wrote:
+> On Thu, 9 Jul 2026 11:56:48 +0100
+> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+> 
+>> On 09/07/2026 07:45, Boris Brezillon wrote:
+>>> On Wed, 8 Jul 2026 17:47:36 +0100
+>>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>>>    
+>>>> On 06/07/2026 15:18, Boris Brezillon wrote:
+>>>>> On Mon, 6 Jul 2026 13:03:33 +0100
+>>>>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>>>>>       
+>>>>>> On 02/07/2026 16:31, Boris Brezillon wrote:
+>>>>>>> On Thu,  2 Jul 2026 15:37:39 +0100
+>>>>>>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>>>>>>>          
+>>>>>>>> Currently an unordered workqueue is used for the DRM scheduler which means
+>>>>>>>> its concurrency is externally managed, and given there is one scheduler
+>>>>>>>> instance per userspace queue, that means workqueue management logic is
+>>>>>>>> within its rights to spawn many kernel threads to submit their respective
+>>>>>>>> jobs.
+>>>>>>>>
+>>>>>>>> Problem there is that all run job callbacks are serialized on the device
+>>>>>>>> global mutex,
+>>>>>>>
+>>>>>>> I think we should address that instead, and either shorten the scope of
+>>>>>>> the locked section, or make it so we don't make it a contention point
+>>>>>>> for concurrent job submission from different contexts (with a rwsem
+>>>>>>> instead of a lock, for instance).
+>>>>>>>          
+>>>>>>>> making the potential thread storm just causing lock
+>>>>>>>> contention.
+>>>>>>>>
+>>>>>>>> If we add a separate ordered workqueue for the DRM scheduler integration
+>>>>>>>> we can avoid this problem, since the ordered property directly expresses
+>>>>>>>> the nature of the submission backend implementation.
+>>>>>>>
+>>>>>>> Yep, except that's not how it was meant to work. The goal was to allow
+>>>>>>> contexts to submit their jobs concurrently to the FW. The only reason we
+>>>>>>> take the lock is to:
+>>>>>>>
+>>>>>>> 1. make sure the context is still allowed to take jobs
+>>>>>>> 2. kick the group scheduler if the context is not resident
+>>>>>>>
+>>>>>>> For #1, I believe we can come up with either a lockless solution, or a
+>>>>>>> solution where the lock protecting the state belongs to the group
+>>>>>>> instead of being externally protected by the device-wide scheduler lock.
+>>>>>>>
+>>>>>>> For #2, the rwsem approach, and narrowing down the locked section to
+>>>>>>> just this part of the code should do the trick.
+>>>>>>
+>>>>>> Out of curiosity how much CPU side parallelism you think is required to
+>>>>>> keep these GPUs fed? Both today (with the greater lock contention) and
+>>>>>> in the future (with the reduced contention) I guess would be interesting
+>>>>>> data points.
+>>>>>
+>>>>> The maximum is known: it's the amount of FW CSG slot we have available.
+>>>>> I think the theoretical limit is 16, but IIRC, we never had more than 8
+>>>>> exposed by the FW.
+>>>>
+>>>> Yeah but is it _really_ required to have 8 CPU threads feed these slots?
+>>>
+>>> 8 is indeed the number of SW slots, but there are multiple HW queues
+>>> under the hood (and multiple cores to dispatch jobs to), making it so
+>>> multiple GPU context can effectively be scheduled in parallel. This
+>>> number is lower than the number of FW slots though (I need to check if
+>>> it's exposed through some RO regs).
+>>
+>> Got it, thanks!
+>>
+>> So it is desirable to keep the FW slots filled with up to N jobs of each
+>> queue type, where N is the HW parallelism of that queue type.
+> 
+> Jobs are one level below that. Each FW slot is attached a group
+> (that's Arm's naming), which is basically backing a VkQueue. The group
+> contains 1 to 8 queues (1 for fragment processing, 1 for geometry
+> processing, 1 for compute, 1 for transfers, ...) which can run
+> concurrently, and each of these queues has a ring buffer to push jobs
+> to. The ring buffer size is customizable and determines the maximum
+> number of jobs you can have queued before you have to wait for a ringbuf
+> slot to become available again. I know I use the term "slot" a lot and
+> it gets confusing, but FW slot (a way to make a group/VkQueue resident)
+> must not be confused with a ringbuf slot (a slot where you store you job
+> targeting a specific queue under this group). You can fill up your
+> ringbuf slots while the group is not resident (when that happens, we
+> kick the second-stage scheduler to make sure the group is going to
+> become resident at some point). And equally, you can have a group that's
+> resident, but has all its queue ringbufs empty (in that case, it should
+> sooner or later be evicted and replaced by another group that wants to
+> execute things).
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index cfbfb371bc67..53c0b95c26ca 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -662,6 +662,17 @@ config DRM_PANEL_NOVATEK_NT36523
- 	  around the Novatek NT36523 display controller, such as some
- 	  Boe panels used in Xiaomi Mi Pad 5 and 5 Pro tablets.
- 
-+config DRM_PANEL_NOVATEK_NT36536
-+	tristate "Novatek NT36536 panel driver"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_KMS_HELPER
-+	help
-+	  Say Y here if you want to enable support for Novatek NT36536-based
-+	  display panels, such as the one found in the LENOVO Legion Y700
-+	  Gen4.
-+
- config DRM_PANEL_NOVATEK_NT36672A
- 	tristate "Novatek NT36672A DSI panel"
- 	depends on GPIOLIB
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 0f29f22f589e..3b523cf37833 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -64,6 +64,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35532) += panel-novatek-nt35532.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35560) += panel-novatek-nt35560.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35950) += panel-novatek-nt35950.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) += panel-novatek-nt36523.o
-+obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36536) += panel-novatek-nt36536.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36536.c b/drivers/gpu/drm/panel/panel-novatek-nt36536.c
-new file mode 100644
-index 000000000000..961bfc605b1a
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36536.c
-@@ -0,0 +1,488 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Novatek NT36536 DriverIC panels driver
-+ * Copyright (c) 2026 Pengyu Luo <mitltlatltl@gmail.com>
-+ *
-+ * Based on the sample code which is generated with
-+ * linux-mdss-dsi-panel-driver-generator
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/device-id/of.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#include <video/mipi_display.h>
-+
-+struct novatek {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi[2];
-+	const struct panel_desc *desc;
-+	struct drm_dsc_config dsc;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *supplies;
-+	struct backlight_device *backlight;
-+};
-+
-+struct panel_desc {
-+	unsigned int width_mm;
-+	unsigned int height_mm;
-+	unsigned int bpc;
-+	unsigned int lanes;
-+	enum mipi_dsi_pixel_format format;
-+	unsigned long mode_flags;
-+	const struct drm_dsc_config *dsc_cfg;
-+	const struct drm_display_mode *modes;
-+	unsigned int num_modes;
-+
-+	int (*init_sequence)(struct mipi_dsi_multi_context *dsi_ctx);
-+
-+	bool is_dual_dsi;
-+	bool has_dcs_backlight;
-+};
-+
-+static const struct regulator_bulk_data novatek_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vsp" },
-+	{ .supply = "vsn" },
-+};
-+
-+static inline struct novatek *to_novatek(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct novatek, panel);
-+}
-+
-+static inline struct mipi_dsi_device *to_primary_dsi(struct novatek *ctx)
-+{
-+	/* Sync on DSI1 for dual dsi */
-+	return ctx->desc->is_dual_dsi ? ctx->dsi[1] : ctx->dsi[0];
-+}
-+
-+static void novatek_reset(struct novatek *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(11000, 12000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(1000, 2000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(3000, 4000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+}
-+
-+static int novatek_prepare(struct drm_panel *panel)
-+{
-+	struct novatek *ctx = to_novatek(panel);
-+	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
-+	struct drm_dsc_picture_parameter_set pps;
-+	struct device *dev = &dsi->dev;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(novatek_supplies),
-+				    ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	novatek_reset(ctx);
-+
-+	ret = ctx->desc->init_sequence(&dsi_ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_bulk_disable(ARRAY_SIZE(novatek_supplies),
-+				       ctx->supplies);
-+		return ret;
-+	}
-+
-+	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-+	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-+	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
-+	mipi_dsi_msleep(&dsi_ctx, 28);
-+
-+	return backlight_enable(ctx->backlight);
-+}
-+
-+static int novatek_off(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-+
-+	return dsi_ctx->accum_err;
-+}
-+
-+static int novatek_unprepare(struct drm_panel *panel)
-+{
-+	struct novatek *ctx = to_novatek(panel);
-+	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
-+	struct device *dev = &dsi->dev;
-+	int ret;
-+
-+	backlight_disable(ctx->backlight);
-+
-+	ret = novatek_off(&dsi_ctx);
-+	if (ret < 0)
-+		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(novatek_supplies), ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static int novatek_get_modes(struct drm_panel *panel,
-+			     struct drm_connector *connector)
-+{
-+	struct novatek *ctx = to_novatek(panel);
-+	const struct panel_desc *desc = ctx->desc;
-+	int i;
-+
-+	for (i = 0; i < desc->num_modes; i++) {
-+		const struct drm_display_mode *m = &desc->modes[i];
-+		struct drm_display_mode *mode;
-+
-+		mode = drm_mode_duplicate(connector->dev, m);
-+		if (!mode) {
-+			dev_err(panel->dev, "failed to add mode %ux%u@%u\n",
-+				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
-+			return -ENOMEM;
-+		}
-+
-+		mode->type = DRM_MODE_TYPE_DRIVER;
-+		if (i == 0)
-+			mode->type |= DRM_MODE_TYPE_PREFERRED;
-+
-+		drm_mode_set_name(mode);
-+		drm_mode_probed_add(connector, mode);
-+	}
-+
-+	connector->display_info.width_mm = desc->width_mm;
-+	connector->display_info.height_mm = desc->height_mm;
-+	connector->display_info.bpc = desc->bpc;
-+
-+	return desc->num_modes;
-+}
-+
-+static const struct drm_panel_funcs novatek_panel_funcs = {
-+	.prepare = novatek_prepare,
-+	.unprepare = novatek_unprepare,
-+	.get_modes = novatek_get_modes,
-+};
-+
-+static int novatek_bl_update_status(struct backlight_device *bl)
-+{
-+	struct novatek *ctx = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+
-+	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
-+							 brightness);
-+}
-+
-+static const struct backlight_ops novatek_bl_ops = {
-+	.update_status = novatek_bl_update_status,
-+};
-+
-+static struct backlight_device *novatek_create_backlight(struct novatek *ctx)
-+{
-+	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 512,
-+		.max_brightness = 4095,
-+		.scale = BACKLIGHT_SCALE_NON_LINEAR,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, ctx,
-+					      &novatek_bl_ops, &props);
-+}
-+
-+static int csot_pp8807hb1_1_init_seq(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_ROWS, 0x50);
-+
-+	/* cabc */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0xa4);
-+
-+	/* pen code */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x8f, 0xa9, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x8c, 0xa9, 0x00);
-+
-+	/* esd init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x27);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x79, 0x22);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd0, 0x31);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd1, 0x08, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd2, 0x08);
-+
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0xd0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x00, 0x31);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x09, 0xee);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0x77);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1d, 0x07);
-+
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0xe0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbb, 0x00);
-+
-+	/* IC transfer */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0xf0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x02);
-+
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3b,
-+				     0x03, 0x4e, 0x1a, 0x04, 0x04, 0x01, 0x80,
-+				     0x36, 0x36);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x00);
-+	/* enable DSC */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x03, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x91,
-+				     0xab, 0xa8, 0x00, 0x14, 0xd2, 0x00, 0x00,
-+				     0x00, 0x01, 0xb9, 0x00, 0x06, 0x05, 0x7a,
-+				     0x05, 0xb8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x92, 0x10, 0xe0);
-+	/* frame ctl */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb2, 0x91, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb3, 0x40);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 105);
-+	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 40);
-+
-+	return dsi_ctx->accum_err;
-+}
-+
-+static struct drm_dsc_config csot_pp8807hb1_1_dsc_cfg = {
-+	.dsc_version_major = 1,
-+	.dsc_version_minor = 2,
-+	.slice_height = 20,
-+	.slice_width = 476,
-+	.slice_count = 2,
-+	.bits_per_component = 10,
-+	.bits_per_pixel = 8 << 4,
-+	.block_pred_enable = true,
-+};
-+
-+static const struct drm_display_mode csot_pp8807hb1_1_modes[] = {
-+	/* 915552 KHz */
-+	{
-+		.clock = (952 + 138 + 16 + 16) * 2 * (3040 + 26 + 4 + 330) * 120 / 1000,
-+		.hdisplay = 952 * 2,
-+		.hsync_start = (952 + 138) * 2,
-+		.hsync_end = (952 + 138 + 16) * 2,
-+		.htotal = (952 + 138 + 16 + 16) * 2,
-+		.vdisplay = 3040,
-+		.vsync_start = 3040 + 26,
-+		.vsync_end = 3040 + 26 + 4,
-+		.vtotal = 3040 + 26 + 4 + 330,
-+	},
-+	{
-+		.clock = (952 + 138 + 16 + 16) * 2 * (3040 + 3426 + 4 + 330) * 60 / 1000,
-+		.hdisplay = 952 * 2,
-+		.hsync_start = (952 + 138) * 2,
-+		.hsync_end = (952 + 138 + 16) * 2,
-+		.htotal = (952 + 138 + 16 + 16) * 2,
-+		.vdisplay = 3040,
-+		.vsync_start = 3040 + 3426,
-+		.vsync_end = 3040 + 3426 + 4,
-+		.vtotal = 3040 + 3426 + 4 + 330,
-+	},
-+	{
-+		.clock = (952 + 138 + 16 + 16) * 2 * (3040 + 10226 + 4 + 330) * 30 / 1000,
-+		.hdisplay = 952 * 2,
-+		.hsync_start = (952 + 138) * 2,
-+		.hsync_end = (952 + 138 + 16) * 2,
-+		.htotal = (952 + 138 + 16 + 16) * 2,
-+		.vdisplay = 3040,
-+		.vsync_start = 3040 + 10226,
-+		.vsync_end = 3040 + 10226 + 4,
-+		.vtotal = 3040 + 10226 + 4 + 330,
-+	},
-+	/* 1064606.4 KHz */
-+	{
-+		.clock = (952 + 50 + 16 + 16) * 2 * (3040 + 26 + 4 + 50) * 165 / 1000,
-+		.hdisplay = 952 * 2,
-+		.hsync_start = (952 + 50) * 2,
-+		.hsync_end = (952 + 50 + 16) * 2,
-+		.htotal = (952 + 50 + 16 + 16) * 2,
-+		.vdisplay = 3040,
-+		.vsync_start = 3040 + 26,
-+		.vsync_end = 3040 + 26 + 4,
-+		.vtotal = 3040 + 26 + 4 + 50,
-+	},
-+	{
-+		.clock = (952 + 50 + 16 + 16) * 2 * (3040 + 481 + 4 + 50) * 144 / 1000,
-+		.hdisplay = 952 * 2,
-+		.hsync_start = (952 + 50) * 2,
-+		.hsync_end = (952 + 50 + 16) * 2,
-+		.htotal = (952 + 50 + 16 + 16) * 2,
-+		.vdisplay = 3040,
-+		.vsync_start = 3040 + 481,
-+		.vsync_end = 3040 + 481 + 4,
-+		.vtotal = 3040 + 481 + 4 + 50,
-+	},
-+	/* 737942.4 KHz */
-+	{
-+		.clock = (952 + 330 + 16 + 16) * 2 * (3040 + 26 + 4 + 50) * 90 / 1000,
-+		.hdisplay = 952 * 2,
-+		.hsync_start = (952 + 330) * 2,
-+		.hsync_end = (952 + 330 + 16) * 2,
-+		.htotal = (952 + 330 + 16 + 16) * 2,
-+		.vdisplay = 3040,
-+		.vsync_start = 3040 + 26,
-+		.vsync_end = 3040 + 26 + 4,
-+		.vtotal = 3040 + 26 + 4 + 50,
-+	},
-+};
-+
-+static int novatek_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct mipi_dsi_device_info dsi_info = {"dsi-secondary", 0, NULL};
-+	struct mipi_dsi_host *dsi1_host;
-+	struct device *dev = &dsi->dev;
-+	const struct panel_desc *desc;
-+	struct device_node *dsi1;
-+	struct novatek *ctx;
-+	int num_dsi = 1;
-+	int ret, i;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct novatek, panel,
-+				   &novatek_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(novatek_supplies),
-+					    novatek_supplies, &ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	desc = of_device_get_match_data(dev);
-+	if (!desc)
-+		return -ENODEV;
-+	ctx->desc = desc;
-+	ctx->dsc = *desc->dsc_cfg;
-+
-+	if (desc->is_dual_dsi) {
-+		num_dsi = 2;
-+		dsi1 = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-+		if (!dsi1) {
-+			dev_err(dev, "cannot get secondary DSI node.\n");
-+			return -ENODEV;
-+		}
-+
-+		dsi1_host = of_find_mipi_dsi_host_by_node(dsi1);
-+		of_node_put(dsi1);
-+		if (!dsi1_host)
-+			return dev_err_probe(dev, -EPROBE_DEFER,
-+					     "cannot get secondary DSI host\n");
-+
-+		ctx->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host,
-+								 &dsi_info);
-+		if (IS_ERR(ctx->dsi[1])) {
-+			dev_err(dev, "cannot get secondary DSI device\n");
-+			return PTR_ERR(ctx->dsi[1]);
-+		}
-+
-+		mipi_dsi_set_drvdata(ctx->dsi[1], ctx);
-+	}
-+
-+	ctx->dsi[0] = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to add panel\n");
-+
-+	for (i = 0; i < num_dsi; i++) {
-+		ctx->dsi[i]->lanes = desc->lanes;
-+		ctx->dsi[i]->format = desc->format;
-+		ctx->dsi[i]->mode_flags = desc->mode_flags;
-+		ctx->dsi[i]->dsc = &ctx->dsc;
-+		ret = devm_mipi_dsi_attach(dev, ctx->dsi[i]);
-+		if (ret < 0) {
-+			drm_panel_remove(&ctx->panel);
-+			return dev_err_probe(dev, ret,
-+					     "Failed to attach to DSI host\n");
-+		}
-+	}
-+
-+	if (desc->has_dcs_backlight) {
-+		ctx->backlight = novatek_create_backlight(ctx);
-+		if (IS_ERR(ctx->backlight))
-+			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
-+					     "Failed to create backlight\n");
-+	} else {
-+		ret = drm_panel_of_backlight(&ctx->panel);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+	}
-+
-+	return 0;
-+}
-+
-+/* Model name: CSOT PP8807HB1-1 */
-+static const struct panel_desc csot_pp8807hb1_1_desc = {
-+	.width_mm = 118,
-+	.height_mm = 190,
-+	.bpc = 10, /* set this to 8 with RGB888 format to support 8-bit mode */
-+	.lanes = 3,
-+	.format = MIPI_DSI_FMT_RGB101010,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS |
-+		      MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT,
-+	.dsc_cfg = &csot_pp8807hb1_1_dsc_cfg,
-+	.modes = csot_pp8807hb1_1_modes,
-+	.num_modes = ARRAY_SIZE(csot_pp8807hb1_1_modes),
-+	.init_sequence = csot_pp8807hb1_1_init_seq,
-+	.is_dual_dsi = true,
-+	.has_dcs_backlight = false,
-+};
-+
-+static const struct of_device_id novatek_of_match[] = {
-+	{ .compatible = "csot,pp8807hb1-1", .data = &csot_pp8807hb1_1_desc },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, novatek_of_match);
-+
-+static struct mipi_dsi_driver novatek_driver = {
-+	.probe = novatek_probe,
-+	.driver = {
-+		.name = "panel-novatek-nt36536",
-+		.of_match_table = novatek_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(novatek_driver);
-+
-+MODULE_AUTHOR("Pengyu Luo <mitltlatltl@gmail.com>");
-+MODULE_DESCRIPTION("Novatek NT36536 DriverIC panels driver");
-+MODULE_LICENSE("GPL");
--- 
-2.54.0
+Thank you for this explanation - I am marking it with my "reference 
+material" tag.
+
+> So, back to your initial statement, it is desirable to keep the queues
+> under a resident group (one that's attached to a FW slot) filled with
+> jobs to maximize utilization. And ideally, we want the group with the
+> highest priority to be refilled faster than the other resident groups.
+> 
+>>
+>> At least assuming that the MCU is not significantly slower than the main
+>> CPU in dequeing the FW slots into HW queues.
+> 
+> So, FW is scheduling queues under the resident groups, but the ring
+> buffers are consumed by a HW component (CSHWIF in Arm's naming), which I
+> expect to run faster than the MCU itself, even though, the MCU being
+> dedicated to just that scheduling task with very little to no OS
+> overhead, I'd expect the turnaround time to be quite fast compared to
+> the APU, even if the MCU is clocked at a way lower freq.
+
+Makes sense.
+
+>> What would that number be in practice? I am going back to what Tejun
+>> mentioned, that if we can provide some bound number of how many RT
+>> workers we may need, then he may be able to provide the RT facility.
+> 
+> As I say below, I think we can start with just a single-worker
+> wq per priority, and take it from there if we see the resident queues
+> are not filled fast enough compared to the non-resident ones. What's
+> really important for us is for jobs targeting high-prio queues to hit
+> their ringbuf before those targeting lower prio queues.
+> 
+>>
+>>>> GPU will still take one at a time and preemption is not that fast, no?
+>>>
+>>> Preemption on the FW side is pretty simple: each slot gets a unique
+>>> prio, and lower prio slots only get HW queues and GPU resources if
+>>> higher prio ones are idle and accept to give up their resources for a
+>>> bit. We then have a 10ms tick in panthor to rotate the FW slot
+>>> priorities. So yes, preemption is not very granular, but that's not
+>>> really the problem I'm worried about. What I'm worried about is having
+>>> just one thread for everything, with the first-queued/first-served
+>>> model that the kthread_worker infrastructure provides. If we're talking
+>>> about one thread per-priority level, that's already better, and then I
+>>> agree that the contention on GPU contexts with the same priority is less
+>>> of an issue, especially since the run_job work has to run before being
+>>> rescheduled, which gives you this natural FIFO behavior, thus leaving
+>>> other contexts a chance to queue their run_job in the meantime.
+>>>
+>>> But this WQ_UNBOUND -> WQ_SINGLE_THREAD transition, where the wq is
+>>> shared among the entire device is not that. It's actually serializing
+>>> work submission for all GPU contexts regardless of their priority.
+>>>
+>>> TLDR; I'd be happy if we start with just one kthread per-prio + the
+>>> narrowing of the locked section in the run_job() implementation, so
+>>> that context submission actually happens concurrently, and low prio
+>>> context don't starve high-prio/RT ones in the submission path.
+>>
+>> I don't think this is actually priority starvation but plain FIFO
+>> starvation.
+> 
+> The FIFO is per group-queue, not global to the device though (we have
+> one sched_entity and one scheduler per group-queue, not one for the
+> entire system). The starvation, if any, would come from the
+> serialization in the run_job() implementation, as we try to acquire the
+> device-wide panthor_scheduler::lock. And that's not by design, but
+> rather a flaw in the original implementation.
+> 
+>> It can happen even today with WQ_UNBOUND, which does nothing
+>> about breaking the FIFO order based on priorities, just that some
+>> parallelism alleviates it.
+> 
+> Well, it's indeed not providing a guarantee that things will be
+> pushed in the proper prio order, but the fact threads can be
+> spawned makes it less likely for low-prio queues to block high-prio
+> ones, at least.
+> 
+>>
+>> But in principle I am fine with going with N workers. It's just a matter
+>> of what is N derived from and how big it is. It could be even be passed
+>> to alloc_workqueue in the today's code base but I accept there is not
+>> much value to that since I don't think there are SoC's with a Mali GPU
+>> and server level number of CPU cores.
+> 
+> I think we can start with one ordered-wq per prio level. So basically
+> what you intended to do in this patch, but instead of having a single
+> ordered-wq, we have four of them (one per prio). It doesn't address the
+> fact run_job() on non-resident groups might hit their ringbuf before
+> resident ones, but that's probably good enough as a first step, and as
+> you pointed out, the current locking forces this serialization with no
+> more guarantee regarding who's going to be served first anyway, so it
+> can't be worse than it already is.
+
+Lets for a moment assume the kthread_worker idea will not fly due to xe, 
+or any other reason really. Also since the option for RT workqueues is 
+unexpectedly on the table. In that case, and assuming RT workqueues will 
+happen, could a feasible plan for panthor be to create three workqueues:
+
+  1. One unbound with max_active = 2 for low and medium group priority.
+  2. Another unbound + WQ_HIGHPRI, also with max_active = 2 for high.
+  3. And one unbound + WQ_REALTIME, again max_active = 2 for realtime.
+
+For high and realtime max_active either 2 or 1 on dual core, if there 
+are such SoCs. Two threads ensure same priority clients are able to keep 
+the GPU fed.
+
+One issue is that you mentioned you would like dynamic priority changes 
+and with this it may be tricky. But ignoring that for the moment, and 
+the discussion on how to handle other panthor workers which take part in 
+the execution flow post submit, this should pretty much address the 
+submit latency from userspace to ->run_job(). What do you think, is it 
+worth entertaining this alternative?
+
+Regards,
+
+Tvrtko
+
+> Note that this is probably not enough to make a difference, we also
+> need panthor-specific work items to go to the per-prio wqs based on
+> where the event comes from (we have per-FW-slot interrupts), and the
+> priority of the group attached to the FW slot. Or we just consider any
+> event from the FW as high-prio regardless of the slot its pointing to,
+> dunno.
 
