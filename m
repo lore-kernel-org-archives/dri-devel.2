@@ -4,114 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F07BBC44501
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:10:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D946C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9360610E7A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9349D10E783;
 	Mon, 13 Jul 2026 07:10:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="krhCOQTU";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="A4eInKcj";
 	dkim-atps=neutral
-Received: from SEYPR02CU001.outbound.protection.outlook.com
- (mail-koreacentralazon11013038.outbound.protection.outlook.com
- [40.107.44.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65E8410E186
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 10:59:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yuOQhQr6Hb2OZJyWX3saJ4M50/36OgleC96OMEtvKa3jOhu/EUNFRLDAZluPPuJvppeWuJg+QNy7NLUmI96t2AaFX2M2CN7t990SH3/DvhiBL6pw/8Kq8B0djt9hcv28yvxKnPJHyg/q+yNg31dBFcQVUdJVEaFEJP09DHfEgJvb7ZG5u0jaj3S+LiSwcsBQQ3BaYLy70WQr19ctY6LXYgT0tSPfhQ2TAhKOKsnZnjxMj8M3oq+Zh29OEQjWS8RjUhnIkONnjtsG9Slr3Zu4oaAJEzcVZ+iIhkgi94I9PhGxCZYbutyA9bvL0nOdmgbgNvSVUkbK0bhS3xo4KV9xAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8aH6aLiVrtxBEhNTxxLxNCygc7TOj29VFxzbpE1mRaw=;
- b=YlTDAX4qUEQN8xxNlpBXqjxWXvMMToHkSALL5Nm4uuQ6EIAlEuVTMHUoPjFCXPDpmpixOE7dwItZso7pwYYluNvGFG/3kwJHi1R4KAul8jL1SxT2tHnmCrqqwOU7ze3pc7zgHbMFeTqtmvGOe0hlK4r31rUGR16IMqD+tzRc3szfRaMRxpDIvo7n2HCKajkjs8Aj4B/RM+UGAo5ozfwD4dz5LcRT/5OqsqyADvUBKVWuEZ9YFVsoCm7NeIiZalwh0/NiQC5CF3KZQnHnqNQDkC4wyXC9q/9N4VSBBxel0+4UhgHUAMMwcyQ/FoBweUYajIRpgMQO5/zT71LXOtPZRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8aH6aLiVrtxBEhNTxxLxNCygc7TOj29VFxzbpE1mRaw=;
- b=krhCOQTUw1R/Efq8vzFljRWIJdiDBjMELDTkW+iOVdbBQdDS7st3RtfzEgEgzCfYJw4v7UTuFhQHzFCsrHh7FQAovrYhCstJIcCntxd+eXiBgOnrDhH7jF/u7dKdqFeJ/86Sxhs0EulZ+ThI9DB/gGSBuORznT3vTRhwtXXyGHIHGOLFTty+royhT0Ti0LquO2A4TMHOpb2S0BmXHZ4YqKDREZnt0elOuHpG6CZcPUjLQ+z5HldLwPgD2twdpAIad5BvauTXHRyVa8fKl8K4XJaUjeUip3+U+4/FFBFBp/qyieei6EF+4Wsr8WG/j2TrTV2aCxpOnGYcDjTxXnYrOw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
- by KU4PR06MB8388.apcprd06.prod.outlook.com (2603:1096:d10:7b::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Fri, 10 Jul
- 2026 10:59:50 +0000
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
- 10:59:50 +0000
-From: Pan Chuang <panchuang@vivo.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org (open list:ARM ETHOS-U NPU DRIVER),
- linux-kernel@vger.kernel.org (open list)
-Cc: Pan Chuang <panchuang@vivo.com>
-Subject: [PATCH 0/2] accel: Remove redundant error messages on IRQ request
- failure
-Date: Fri, 10 Jul 2026 18:59:34 +0800
-Message-Id: <20260710105937.409992-1-panchuang@vivo.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TPYP295CA0030.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::16) To SEZPR06MB5832.apcprd06.prod.outlook.com
- (2603:1096:101:c8::12)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02AB310E605
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 15:09:09 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-92e99ef0902so51647385a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 08:09:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gourry.net; s=google; t=1783696148; x=1784300948; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=kfeOD7p/qxHHEIV6dN3ojdA17bZ6I64Gd2Z+QpoWxkg=;
+ b=A4eInKcjRnxSTipkdrL/JiK4jLm2hKeYSSmffhcve02wbT4NWF/e8QZ4KWGO9powvg
+ B9kQKQSNogsZt1N4mMrdo5llnRiTaez1H7stOIr0ecD0tR2cScEiChyJLssswpsyXaVK
+ Ebzk45jG+MrzqGE6dScvAYV/G82rUdiZMUXMvcFES8WlrkdhLjOWq2dPLW0VfE51EFBx
+ fCISVfOs4p6qCar3itvJ0gl5xoYd8p74q+a9O0lYWlr+LflVhhV0IIZid5xtHJJpajbE
+ t8Znj9CseP1X4gk+P5rFjqye43TbDaEjpgu0dd98u/ym9hQf671E5R1aw3Z/AFyCj5Qu
+ 8IlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783696148; x=1784300948;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=kfeOD7p/qxHHEIV6dN3ojdA17bZ6I64Gd2Z+QpoWxkg=;
+ b=pODdOu/a8Pen1Tha0UXjEYY3X8mU28kGSOpkQ2QlDgfpbB1OfUxvs5rTAQwoO3sj5d
+ EVazd2TuIUDFK4d9c5H1PrhoAUCf8crPrHsi/GsK/DnVcwWMvwjDqdHnt39DK+fkPQuN
+ w98KgtvbRrI/cko6Q1cxwiAQ2Xireb4mBt6yma2b///Bq805BAmbEfhNZzn3NcfRYtgk
+ kQUC3lbFYzw9Jrm0FPbmYHp7ex/FJfN7qVokJ1tnMaSABsw/MxzRydP3VqyU4v3TJEhZ
+ f3Ez+fiqL8KJrgC2CEcCDXXppE1UHKFEr4mZNBp+p2xNh0VAb6agnXiKkxm1fYw+rcg6
+ 0FxQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr4SWYlZmx6v2FdtRX/KAWccBItHbkK9uYMHrR7EKtS83kcyG9TUobcePQIUcKyJDGZpnGOMlzQbKM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxFH4KzbnuLGY08Ej9+5f8eX5XkEI0Z7CPCBdBcAmhjue0CDYzh
+ szcjzaGJbgo5Qd8bAwZtxNd+O2JSriQulOWllUEIS4PhSRThbXFmVFKPsMF2+YcB0r8=
+X-Gm-Gg: AfdE7clySr5+rP6/hKdBCxUvgltiZsXsaY4en+JsQZQVbAd3UtkH1T2LDp9sd10KBjO
+ /NzaVqxMRFVuwPUJPFwAiU/9S5XJ2U13tRd5WQbumZ+99tJ4n6Ctz0CpjCI3QN34LQiWoabCmXF
+ YHjKPoxQ6v0UMe/UZHl5aCjGv6C8mQnZ6iJB5tI365GHkPsgltUrJRAMEupXCa2DpagT+Otaw3j
+ EXYHden4NWGIRxmtUWxZGyPyWoIIpLF3MGnpxzLLYucAITdSXrernBbhUEQm3IECnhnTnpW3w6T
+ gGzw9EZMJ5fgaSGFjQQxlzR1YC1ExP/JTcatmRTqe9mX4mCBmR6y2IOuF5lxWJDdyv+DM5ZRguX
+ fIFYXiMmsYjxq9phHMac1Ojy1tgv25Y0xkkrkEBshDRpjZkFRlPI0UszLP6iL31c9JHD+LW+tW5
+ mv4LDdyy7WWs0CTifs9ubPMchDnm0hPX4aFfa3qLsPo5XMJpaJpY7rPIryFFWaRlUBbDtZ
+X-Received: by 2002:a05:620a:4414:b0:92e:7d53:8e8d with SMTP id
+ af79cd13be357-92ecf55964cmr1359477885a.27.1783696148308; 
+ Fri, 10 Jul 2026 08:09:08 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F
+ (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-92ee5d34f76sm213283985a.35.2026.07.10.08.09.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Jul 2026 08:09:07 -0700 (PDT)
+Date: Fri, 10 Jul 2026 11:09:02 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Pedro Falcato <pfalcato@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>,
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
+ Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
+ linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 17/30] mm: prefer vma_[start,end]_pgoff() to
+ vma->vm_pgoff in kernel/
+Message-ID: <alELDgm258nhjk3b@gourry-fedora-PF4VCD3F>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <ea87349d63205bf4c26ea79854f179a9bf8cfb0b.1782735110.git.ljs@kernel.org>
+ <akZCg73F-oGzDp1a@pedro-suse.lan> <akZGqclqQ6gS12Vv@lucifer>
+ <ak_C_o2ehS17Q5HV@gourry-fedora-PF4VCD3F>
+ <alEHy1raICek7imv@lucifer>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|KU4PR06MB8388:EE_
-X-MS-Office365-Filtering-Correlation-Id: b098f38f-195c-4f65-556e-08dede725c7d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|52116014|1800799024|366016|38350700014|11063799006|56012099006|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info: APCYQAFvSqhKkK4a9YPCr1SPQgbmszYrE3xPioVx53lNZw9jeh1N3h0jdrgiv7ge4GiJrcHDBjTcB5GjgGXAiBECmQWYv9VxdR/mwAEqoBJ/ob2K4ptd3WJKeAPYw72tcUH70B7ti8wcmlC5z9yy7frqbB+zv2Wy1RKWk+82O0NNpEja7HkxlvFt5PXsooMPCwssnN+nO3Nb+QineW9a7xJyLgIs53e6XyJKUSYtE3EGHbBp6FgptBICU6y34k9TI7S61NL5NFI62mc+2bJTyWXXn6jnCciW8VLGoJ2qr3CDcBYN6EQLMflhXNnbpXc788mb3gkstRnwf8QzfMZvMwlrk5Gv8ZysbPEP4DoMj4rGkQ91UfkJOLgFUrzaJ/WNXMFPZiiquY/zFrRnVi17JGjmabh7ofGR2psRynIoQfw4MD2nP7Zh0cMTdFBHGRq9F0VHHLs58cD9NDqz8AJusDWfxv2BbmuGlZPHnOmAIPQd29WEZ3KrzUtP+VtjgIxQPoC0GFo+dEySj9Yz8gvcdLP0U5/zdCK0FGi/njXV3wXADOrq4W/RhYsvERswBH6bAdiogdWxRfDammI3ghNr4NtWvm1pPsxPuTeiVi5nHx7AZTrvSJ2GlG+mzkbXOCeKsxIzbR2/IE+EktMwK5AWu2uZmXEhn80ss3AIdwrxWNZbCbV55RwV5PcdFYBinbYTsIWHgIx1EWZHpTF7H2I3SB/l7IUTodFLg0rN/UVsDx8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(52116014)(1800799024)(366016)(38350700014)(11063799006)(56012099006)(6133799003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?NEAHi5Pys3W2SnCu8a44Xk+7x13F2Rf+EzbOC5GPqwSzQ9HX9QBFO2dXIsfC?=
- =?us-ascii?Q?v20aA8fSVdyY23vbBub08hk4SGzh6+3gbwslHWgOVJesIvJyCZ9W1w7QH7RV?=
- =?us-ascii?Q?SA4s/9M4jZbaAMbGrGPiNeW4wJ9m2Pm5ILyFs0guB/uCoN86bwQWtB08nnR1?=
- =?us-ascii?Q?9etAKpgYBnEU7xQtuTwY+koBayC8VQCY9RjVmW0taLUhBwoAajjheEBu+Okq?=
- =?us-ascii?Q?3de1YcLUJ+hutHLzMLYKzSS+Dpx9kqzNs2uzbzCLR/GzMy50SuRM4ZoFDnJC?=
- =?us-ascii?Q?+lkStrO3drR9yedRnpGzZkMWQZI761n/8YdHcALyBW/PdIaf+OBiNMSj7sEu?=
- =?us-ascii?Q?w48RSEzRFIJbhwzSrHIHwHhg3wQW/AuyT5MCJjjg/YTD6NTQrdzpdZ8HNl4w?=
- =?us-ascii?Q?hUlMeSrOcYEaLGXT0daRHnxZI+gxecciVcvpFhQmVMhH1EyGa6sOm0TB8jRy?=
- =?us-ascii?Q?4cmLvnBWCkJ0klQVjhcDDknn+9cahcJBBqvAcYi0U/p2SXjvMZGBbgFlpHK/?=
- =?us-ascii?Q?4DJBKUHOkPPoRzfYu6ZE5OoqBMUS9cxnf4clbb0OL8HDOVeh01ObSYR5dxzr?=
- =?us-ascii?Q?4rGD42U09A+hCrQZf+ZANDPxu5JCzvmFykeYz5P3orx7Ixbxfb86JizHxp9q?=
- =?us-ascii?Q?/81du1DbLezbhQbv6S6fv7/Q2/sxgMWtsJHZjpQjGbWiVGNd8PgJAtwTix5H?=
- =?us-ascii?Q?k8GI1RU71aDdTlSWpuZV8GwJVXqAW1yvO3/zLcgXQqFMD0aZQjxtU4li1Z8n?=
- =?us-ascii?Q?aKoPR3icQtoiZu0XOmFOoyBdlk0wYy2uhd8WuoEd2Yy2qvaa1RGD8ojP5Yxw?=
- =?us-ascii?Q?EwJtnxlF2eK8oQ5vtHFTQTuLfcdF5JszIBO0fWO1xb6p+Fgz1SO+GnxnDhx2?=
- =?us-ascii?Q?G0bZb820twr4hAGJa8Bx3CY8nEPBIxjavNB/49SqMKmkIZelNGzSUEBoyduT?=
- =?us-ascii?Q?LzQ85m0aYuY6u3yOOQ+3wWunApsrI1nRh2xIj7ZHfvU3feldy+kKXDnhFHIK?=
- =?us-ascii?Q?Z6M94NU9Tq68epdhmZ1YNUmlnGNjV6DRTHzwtbF55ebi6fTuyMRCQLudvvuB?=
- =?us-ascii?Q?n7E3FmwLGBKB6HMCIDlMigx0XClcAGRaejaJq8B15F4OMcLBLzJkipkFif4a?=
- =?us-ascii?Q?WiMcAx0Jd6L+T0PtApJswz8hIZ26Ai16XjOXXjXdnFs5akojhncUFCK9cZ4M?=
- =?us-ascii?Q?bufW9KMZJNwEHlLqzkqzS6Vvd/RRw7rjXLKOnLdNxrkdjIypckmCO1Pa2cuj?=
- =?us-ascii?Q?W/HTOXzGrQhk9WttbyNcxI1K0OaF/Qcu4v0auUb7XfElULeS87G5ak0pYYSW?=
- =?us-ascii?Q?z5L3rxnITAaOLLhnwlRvc01+2ok5Vn6jEgwfyavYPNNyhRQ29PXhxDr84QSh?=
- =?us-ascii?Q?QSgYSTsYJPb7Uv0w4ZsUi6ST1BvDTCnnwGrDk7xg7kuxZfO9sdYs19hLu3rU?=
- =?us-ascii?Q?ttgQTdmU30TjHMkF5inBRvy0JRBNKLmMTodb84X4cKKGMAjY+s9DGtSOeUY3?=
- =?us-ascii?Q?9Z72YzWvd36EArBg58hTEYt7jFLkmkphKPbNdQw7WXt0ODKOg8HN5YgxG4Q5?=
- =?us-ascii?Q?WMucBgPcCli6g/ElGllnhZIJyaxtpUM3HQl7W6CMcKHW93UwVTw2niDKVdbT?=
- =?us-ascii?Q?+32R1zQcMuFDhnSRU+USb7kyB5h4SyzxeXTkuFJNtdYSZnbkheRL99gvcpT/?=
- =?us-ascii?Q?ZUJaqAE7nxiKBvslHnRiQk+RxKR8Ufe/ZfyTt5bQkKLcm2YlToZx3DWQemLv?=
- =?us-ascii?Q?4qEFIzb2yw=3D=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b098f38f-195c-4f65-556e-08dede725c7d
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 10:59:49.5461 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ACMyxvu6s0GhDH+AjdkSetCuNztD6ZOcwa7vGyMTk/+BO7fdw6tNqsY9tJ0dAYy1NFh5lSpWuXBUHDIz1FiZDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KU4PR06MB8388
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alEHy1raICek7imv@lucifer>
 X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,29 +147,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-devm_request_*_irq()") added automatic error logging to
-devm_request_threaded_irq() and devm_request_any_context_irq()
-via the new devm_request_result() helper, which prints device
-name, IRQ number, handler functions, and error code on failure.
+On Fri, Jul 10, 2026 at 03:56:33PM +0100, Lorenzo Stoakes wrote:
+> On Thu, Jul 09, 2026 at 11:49:18AM -0400, Gregory Price wrote:
+> >
+> > Silly question:
+> 
+> There's no such thing :)
+>
 
-Since devm_request_irq() is a static inline wrapper around
-devm_request_threaded_irq(), it also benefits from this
-automatic logging.
+All my questions are silly.  That's my secret :]
 
-Remove the now-redundant dev_err() and dev_err_probe() calls
-in accel drivers that follow these devm_request_*_irq()
-functions, as the core now provides more detailed diagnostic
-information on failure.
+> >
+> >    What's the purpose of retaining tags in a non-address value?
+> 
+> Well if you want to reconstitute an address from it later then that'd be the
+> intent, but I'm being hand wavey here for sure.
+> 
+> Main thing is to retain stuff under the page mask
+> 
 
-Pan Chuang (2):
-  accel: ethosu: Remove redundant dev_err()
-  accel: rocket: Remove redundant dev_err()
+Right, which ... 
 
- drivers/accel/ethosu/ethosu_job.c | 4 +---
- drivers/accel/rocket/rocket_job.c | 4 +---
- 2 files changed, 2 insertions(+), 6 deletions(-)
+vvvvvv
+> > That sounds like there's fragility just waiting to be broken.
 
--- 
-2.34.1
+If that's an actual issue, then our relationship with tags is painful :[
 
+~Gregory
