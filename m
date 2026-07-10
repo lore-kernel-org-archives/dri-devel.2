@@ -4,119 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2194C44506
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C443EC44501
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Jul 2026 07:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2942D10E821;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCB110E823;
 	Mon, 13 Jul 2026 07:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YgX1w/cj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YA5DDqaf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01B0A10E181;
- Sat, 11 Jul 2026 18:49:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8589610E21D;
+ Fri, 10 Jul 2026 20:21:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D85FE418D3;
- Sat, 11 Jul 2026 18:49:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABD01F00A3A;
- Sat, 11 Jul 2026 18:49:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CA97460051;
+ Fri, 10 Jul 2026 20:21:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21581F000E9;
+ Fri, 10 Jul 2026 20:21:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783795772;
- bh=F7JbYfoR0cBo3rK9+sjl2GjH5zAlrFeYJDLZN+6KwQc=;
+ s=k20260515; t=1783714883;
+ bh=gVQmK7W6QoKtw/kGvaitEcUKY+xFpiYNr8Q5ruqmHhg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YgX1w/cjR8WW7yAZK54+rQ0d90kWJBtvSsotwFoOsbT1jEjUv+GBeJk+emgMy+T1b
- 4NmtgJa3KAaWfNdlVas+DLRld0NYlKD608QgNo3ayghduF02ZaZspWu7cFAVIEwmQT
- i/QMae1t1yCToyOSygT8AGwDD8ih5WV9TxgWALUrWKoKSlJDM32b/4wZb56F/MNqwa
- ibM6KyzyLmz+I9eMGK75CzcO/6KXshFhD90r8Nyp0a3VNBMw8MLH6TTnhDIiICXDCE
- qX519KpT+qQjZgiMubdoDozDvMvaNHUGSTjH3oTfJO/3AqH3CmZEAioli+P7/Fd/Gr
- Zw3fCwHDxMEWQ==
+ b=YA5DDqafLIqNPLP9XGD/K2+Z42mVK146zNneUnUQphi9T6ZT5dS9mtuvVEfhJDTSi
+ s//g62lEPa/5fM6Rj+MfHLeFXY4lmP8YRRNVv/IBUuJF+3suQJzo279O+JLZ3oR0g8
+ 17RPG3oi0R+HZ04oSDHcjxfiOvDAfUyl/59WBZGvYlcTsOfv5QtyYXwRI0mROoCNg6
+ bDmWqupn7Bivg41Bjy1cY8FcRJcw1cPUnFVaTBUJXi8e+rHys2oigCKJ0ZN7zH42Qh
+ xqfydxdwf+sygnAcS/tTpUOLud5oxgOgbKSoUNdV2wDLWFryUxryD6cA7pwzceYtQs
+ toirvlGHi640Q==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:08 +0100
-Subject: [PATCH v2 11/13] mm/mlock: convert mlock code to use vma_flags_t
+Date: Fri, 10 Jul 2026 21:16:51 +0100
+Subject: [PATCH v2 10/33] mm/rmap: rename anon_vma_interval_tree_*() params
+ and use pgoff_t
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-11-0fa2357d5431@kernel.org>
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+Message-Id: <20260710-b4-pre-scalable-cow-v2-10-2a5aa403d977@kernel.org>
+References: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
+In-Reply-To: <20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  David Hildenbrand <david@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
+ Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, 
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, SJ Park <sj@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Hugh Dickins <hughd@google.com>, 
+ Peter Xu <peterx@redhat.com>, Kees Cook <kees@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, 
+ Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
  Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
  Marijn Suijten <marijn.suijten@somainline.org>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
  Thierry Reding <thierry.reding@kernel.org>, 
  Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Yishai Hadas <yishaih@nvidia.com>, 
+ Shameer Kolothum <skolothumtho@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
+ Alex Williamson <alex@shazbot.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Usama Arif <usama.arif@linux.dev>
 Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-parisc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, damon@lists.linux.dev, 
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ kvm@vger.kernel.org, Russell King <linux+etnaviv@armlinux.org.uk>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10659; i=ljs@kernel.org;
- h=from:subject:message-id; bh=12NkDtkZsgv4tumIZ1Li1kdvxPQKo0e0f0d/e5C85HE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+q2U/t/Zc52rw7NtrciSmor9vhun7bDe9HnRAg7Ja
- cyqWbnrOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRpRwM/52KL+dGd2U+vcZ6
- 5VvA0uleV8Mu5Ck9uXaQ8eBm7fZnmj2MDN2eM1TPyd28I+kbcNei+mhv94Tzv59s1gvJ8+BYoHC
- ZkR0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5211; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=BHX0baiEr9bg7gCqCCxbadqLVVJLcigeq+b/x/sekB0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLICg62/nLvR48oWtTJvwtcdDA9nW79gPecs6J5qwZB8n
+ +XZu7VdHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZgIkw4jQxvjWqM9y/w8s1l1
+ C5JkljBK2jl9eq/WKbJLfeZ/rp9NCxn+GTsztZksXHtZye1dF8fVwCnL321Zn9aseENRcKXNgt5
+ 7/AA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Mon, 13 Jul 2026 07:11:31 +0000
+X-Mailman-Approved-At: Mon, 13 Jul 2026 07:10:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,288 +142,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace use of the legacy vm_flags_t flags with vma_flags_t values
-throughout the mlock logic.
+Rename parameters used by anon_vma_interval_tree_*() functions: 'node' to
+'avc', 'start/first' to 'pgoff_start', and 'last' to 'pgoff_last' to make
+clear what is being passed.
 
-Additionally update comments to reflect the changes to be consistent.
+Also, express page offsets in terms of pgoff_t to be consistent.
 
 No functional change intended.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/mlock.c | 88 +++++++++++++++++++++++++++++++++-----------------------------
- 1 file changed, 47 insertions(+), 41 deletions(-)
+ include/linux/mm.h | 19 +++++++++++--------
+ mm/interval_tree.c | 34 +++++++++++++++++-----------------
+ 2 files changed, 28 insertions(+), 25 deletions(-)
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 34ffa954006f..efa6716e4dfb 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -329,7 +329,7 @@ static inline bool allow_mlock_munlock(struct folio *folio,
- 	 * be split. And the pages are not in VM_LOCKed VMA
- 	 * can be reclaimed.
- 	 */
--	if (!(vma->vm_flags & VM_LOCKED))
-+	if (!vma_test(vma, VMA_LOCKED_BIT))
- 		return true;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 5d825824f7e4..ae7c976b516a 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4110,23 +4110,26 @@ mapping_rmap_tree_iter_next(struct vm_area_struct *vma,
+ 	     vma; vma = mapping_rmap_tree_iter_next(vma, pgoff_start,	 \
+ 						    pgoff_last))
  
- 	/* folio_within_range() cannot take KSM, but any small folio is OK */
-@@ -368,7 +368,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		folio = pmd_folio(*pmd);
- 		if (folio_is_zone_device(folio))
- 			goto out;
--		if (vma->vm_flags & VM_LOCKED)
-+		if (vma_test(vma, VMA_LOCKED_BIT))
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -393,7 +393,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		if (!allow_mlock_munlock(folio, vma, start, end, step))
- 			goto next_entry;
- 
--		if (vma->vm_flags & VM_LOCKED)
-+		if (vma_test(vma, VMA_LOCKED_BIT))
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -417,8 +417,8 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
-  * @end - end of range in @vma
-  * @new_vma_flags - the new set of flags for @vma.
-  *
-- * Called for mlock(), mlock2() and mlockall(), to set @vma VM_LOCKED;
-- * called for munlock() and munlockall(), to clear VM_LOCKED from @vma.
-+ * Called for mlock(), mlock2() and mlockall(), to set @vma VMA_LOCKED_BIT;
-+ * called for munlock() and munlockall(), to clear VMA_LOCKED_BIT from @vma.
-  */
- static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 	unsigned long start, unsigned long end,
-@@ -431,14 +431,14 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 
- 	/*
- 	 * There is a slight chance that concurrent page migration,
--	 * or page reclaim finding a page of this now-VM_LOCKED vma,
-+	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
- 	 * will call mlock_vma_folio() and raise page's mlock_count:
- 	 * double counting, leaving the page unevictable indefinitely.
--	 * Communicate this danger to mlock_vma_folio() with VM_IO,
--	 * which is a VM_SPECIAL flag not allowed on VM_LOCKED vmas.
-+	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
-+	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
- 	 * mmap_lock is held in write mode here, so this weird
- 	 * combination should not be visible to other mmap_lock users;
--	 * but WRITE_ONCE so rmap walkers must see VM_IO if VM_LOCKED.
-+	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
- 	 */
- 	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
- 		vma_flags_set(new_vma_flags, VMA_IO_BIT);
-@@ -458,7 +458,7 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- /*
-  * mlock_fixup  - handle mlock[all]/munlock[all] requests.
-  *
-- * Filters out "special" vmas -- VM_LOCKED never gets set for these, and
-+ * Filters out "special" vmas -- VMA_LOCKED_BIT never gets set for these, and
-  * munlock is a no-op.  However, for some special vmas, we go ahead and
-  * populate the ptes.
-  *
-@@ -466,24 +466,23 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
-  */
- static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	       struct vm_area_struct **prev, unsigned long start,
--	       unsigned long end, vm_flags_t newflags)
-+	       unsigned long end, vma_flags_t *new_vma_flags)
- {
--	vma_flags_t new_vma_flags = legacy_to_vma_flags(newflags);
- 	const vma_flags_t old_vma_flags = vma->flags;
- 	struct mm_struct *mm = vma->vm_mm;
- 	int nr_pages;
- 	int ret = 0;
- 
--	if (vma_flags_same_pair(&old_vma_flags, &new_vma_flags) ||
-+	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
- 	    vma_is_secretmem(vma) || !vma_supports_mlock(vma)) {
- 		/*
--		 * Don't set VM_LOCKED or VM_LOCKONFAULT and don't count.
--		 * For secretmem, don't allow the memory to be unlocked.
-+		 * Don't set VMA_LOCKED_BIT or VMA_LOCKONFAULT_BIT and don't
-+		 * count.  For secretmem, don't allow the memory to be unlocked.
- 		 */
- 		goto out;
- 	}
- 
--	vma = vma_modify_flags(vmi, *prev, vma, start, end, &new_vma_flags);
-+	vma = vma_modify_flags(vmi, *prev, vma, start, end, new_vma_flags);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
- 		goto out;
-@@ -493,7 +492,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	 * Keep track of amount of locked VM.
- 	 */
- 	nr_pages = (end - start) >> PAGE_SHIFT;
--	if (!vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT))
-+	if (!vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
- 		nr_pages = -nr_pages;
- 	else if (vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT))
- 		nr_pages = 0;
-@@ -502,15 +501,15 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	/*
- 	 * vm_flags is protected by the mmap_lock held in write mode.
- 	 * It's okay if try_to_unmap_one unmaps a page just after we
--	 * set VM_LOCKED, populate_vma_page_range will bring it back.
-+	 * set VMA_LOCKED_BIT, populate_vma_page_range will bring it back.
- 	 */
--	if (vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT) &&
-+	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT) &&
- 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT)) {
- 		/* No work to do, and mlocking twice would be wrong */
- 		vma_start_write(vma);
--		vma->flags = new_vma_flags;
-+		vma->flags = *new_vma_flags;
- 	} else {
--		mlock_vma_pages_range(vma, start, end, &new_vma_flags);
-+		mlock_vma_pages_range(vma, start, end, new_vma_flags);
- 	}
- out:
- 	*prev = vma;
-@@ -518,7 +517,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- }
- 
- static int apply_vma_lock_flags(unsigned long start, size_t len,
--				vm_flags_t flags)
-+				const vma_flags_t *flags)
- {
- 	unsigned long nstart, end, tmp;
- 	struct vm_area_struct *vma, *prev;
-@@ -543,18 +542,20 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
- 	tmp = vma->vm_start;
- 	for_each_vma_range(vmi, vma, end) {
- 		int error;
--		vm_flags_t newflags;
-+		vma_flags_t newflags;
- 
- 		if (vma->vm_start != tmp)
- 			return -ENOMEM;
- 
--		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
--		newflags |= flags;
-+		newflags = vma->flags;
-+		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
-+		vma_flags_set_mask(&newflags, *flags);
+-void anon_vma_interval_tree_insert(struct anon_vma_chain *node,
++void anon_vma_interval_tree_insert(struct anon_vma_chain *avc,
+ 				   struct anon_vma *anon_vma);
+-void anon_vma_interval_tree_remove(struct anon_vma_chain *node,
++void anon_vma_interval_tree_remove(struct anon_vma_chain *avc,
+ 				   struct anon_vma *anon_vma);
 +
- 		/* Here we know that  vma->vm_start <= nstart < vma->vm_end. */
- 		tmp = vma->vm_end;
- 		if (tmp > end)
- 			tmp = end;
--		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, newflags);
-+		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, &newflags);
- 		if (error)
- 			return error;
- 		tmp = vma_iter_end(&vmi);
-@@ -589,7 +590,7 @@ static unsigned long count_mm_mlocked_page_nr(struct mm_struct *mm,
- 		end = start + len;
+ struct anon_vma_chain *
+ anon_vma_interval_tree_iter_first(struct anon_vma *anon_vma,
+-				  unsigned long start, unsigned long last);
++				  pgoff_t pgoff_start, pgoff_t pgoff_last);
+ struct anon_vma_chain *
+ anon_vma_interval_tree_iter_next(struct anon_vma_chain *avc,
+-				 unsigned long start, unsigned long last);
++				 pgoff_t pgoff_start, pgoff_t pgoff_last);
+ #ifdef CONFIG_DEBUG_VM_RB
+-void anon_vma_interval_tree_verify(struct anon_vma_chain *node);
++void anon_vma_interval_tree_verify(struct anon_vma_chain *avc);
+ #endif
  
- 	for_each_vma_range(vmi, vma, end) {
--		if (vma->vm_flags & VM_LOCKED) {
-+		if (vma_test(vma, VMA_LOCKED_BIT)) {
- 			if (start > vma->vm_start)
- 				count -= (start - vma->vm_start);
- 			if (end < vma->vm_end) {
-@@ -615,7 +616,8 @@ static int __mlock_posix_error_return(long retval)
- 	return retval;
+-#define anon_vma_interval_tree_foreach(avc, root, start, last)		 \
+-	for (avc = anon_vma_interval_tree_iter_first(root, start, last); \
+-	     avc; avc = anon_vma_interval_tree_iter_next(avc, start, last))
++#define anon_vma_interval_tree_foreach(avc, anon_vma, pgoff_start, pgoff_last) \
++	for (avc = anon_vma_interval_tree_iter_first(anon_vma, pgoff_start,    \
++						     pgoff_last);	       \
++	     avc; avc = anon_vma_interval_tree_iter_next(avc, pgoff_start,     \
++							 pgoff_last))
+ 
+ /* mmap.c */
+ extern int __vm_enough_memory(const struct mm_struct *mm, long pages, int cap_sys_admin);
+diff --git a/mm/interval_tree.c b/mm/interval_tree.c
+index b82d2a0d9c4e..5bfe95b5cd28 100644
+--- a/mm/interval_tree.c
++++ b/mm/interval_tree.c
+@@ -81,55 +81,55 @@ mapping_rmap_tree_iter_next(struct vm_area_struct *vma,
+ 
+ /* Anonymous interval tree (anon_vma->rb_root) */
+ 
+-static unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
++static pgoff_t avc_start_pgoff(struct anon_vma_chain *avc)
+ {
+ 	return vma_start_pgoff(avc->vma);
  }
  
--static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t flags)
-+static __must_check int do_mlock(unsigned long start, size_t len,
-+				 vma_flags_t *flags)
+-static unsigned long avc_last_pgoff(struct anon_vma_chain *avc)
++static pgoff_t avc_last_pgoff(struct anon_vma_chain *avc)
  {
- 	unsigned long locked;
- 	unsigned long lock_limit;
-@@ -664,24 +666,27 @@ static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t fla
- 
- SYSCALL_DEFINE2(mlock, unsigned long, start, size_t, len)
- {
--	return do_mlock(start, len, VM_LOCKED);
-+	vma_flags_t flags = mk_vma_flags(VMA_LOCKED_BIT);
-+
-+	return do_mlock(start, len, &flags);
+ 	return vma_last_pgoff(avc->vma);
  }
  
- SYSCALL_DEFINE3(mlock2, unsigned long, start, size_t, len, int, flags)
+-INTERVAL_TREE_DEFINE(struct anon_vma_chain, rb, unsigned long, rb_subtree_last,
++INTERVAL_TREE_DEFINE(struct anon_vma_chain, rb, pgoff_t, rb_subtree_last,
+ 		     avc_start_pgoff, avc_last_pgoff,
+ 		     static, __anon_vma_interval_tree)
+ 
+-void anon_vma_interval_tree_insert(struct anon_vma_chain *node,
++void anon_vma_interval_tree_insert(struct anon_vma_chain *avc,
+ 				   struct anon_vma *anon_vma)
  {
--	vm_flags_t vm_flags = VM_LOCKED;
-+	vma_flags_t vma_flags = mk_vma_flags(VMA_LOCKED_BIT);
- 
- 	if (flags & ~MLOCK_ONFAULT)
- 		return -EINVAL;
- 
- 	if (flags & MLOCK_ONFAULT)
--		vm_flags |= VM_LOCKONFAULT;
-+		vma_flags_set(&vma_flags, VMA_LOCKONFAULT_BIT);
- 
--	return do_mlock(start, len, vm_flags);
-+	return do_mlock(start, len, &vma_flags);
+ #ifdef CONFIG_DEBUG_VM_RB
+-	node->cached_vma_start = avc_start_pgoff(node);
+-	node->cached_vma_last = avc_last_pgoff(node);
++	avc->cached_vma_start = avc_start_pgoff(avc);
++	avc->cached_vma_last = avc_last_pgoff(avc);
+ #endif
+-	__anon_vma_interval_tree_insert(node, &anon_vma->rb_root);
++	__anon_vma_interval_tree_insert(avc, &anon_vma->rb_root);
  }
  
- SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+-void anon_vma_interval_tree_remove(struct anon_vma_chain *node,
++void anon_vma_interval_tree_remove(struct anon_vma_chain *avc,
+ 				   struct anon_vma *anon_vma)
  {
-+	vma_flags_t flags = EMPTY_VMA_FLAGS;
- 	int ret;
+-	__anon_vma_interval_tree_remove(node, &anon_vma->rb_root);
++	__anon_vma_interval_tree_remove(avc, &anon_vma->rb_root);
+ }
  
- 	start = untagged_addr(start);
-@@ -691,7 +696,7 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
- 
- 	if (mmap_write_lock_killable(current->mm))
- 		return -EINTR;
--	ret = apply_vma_lock_flags(start, len, 0);
-+	ret = apply_vma_lock_flags(start, len, &flags);
- 	mmap_write_unlock(current->mm);
- 
- 	return ret;
-@@ -705,14 +710,15 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
-  * There are a couple of subtleties with this.  If mlockall() is called multiple
-  * times with different flags, the values do not necessarily stack.  If mlockall
-  * is called once including the MCL_FUTURE flag and then a second time without
-- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
-+ * it, VMA_LOCKED_BIT and VMA_LOCKONFAULT_BIT will be cleared from
-+ * mm->def_vma_flags.
-  */
- static int apply_mlockall_flags(int flags)
+ struct anon_vma_chain *
+ anon_vma_interval_tree_iter_first(struct anon_vma *anon_vma,
+-				  unsigned long first, unsigned long last)
++				  pgoff_t pgoff_start, pgoff_t pgoff_last)
  {
- 	VMA_ITERATOR(vmi, current->mm, 0);
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma, *prev = NULL;
--	vm_flags_t to_add = 0;
-+	vma_flags_t to_add = EMPTY_VMA_FLAGS;
+ 	return __anon_vma_interval_tree_iter_first(&anon_vma->rb_root,
+-						   first, last);
++						   pgoff_start, pgoff_last);
+ }
  
- 	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
- 	if (flags & MCL_FUTURE) {
-@@ -726,20 +732,20 @@ static int apply_mlockall_flags(int flags)
- 	}
+ struct anon_vma_chain *
+-anon_vma_interval_tree_iter_next(struct anon_vma_chain *node,
+-				 unsigned long first, unsigned long last)
++anon_vma_interval_tree_iter_next(struct anon_vma_chain *avc,
++				  pgoff_t pgoff_start, pgoff_t pgoff_last)
+ {
+-	return __anon_vma_interval_tree_iter_next(node, first, last);
++	return __anon_vma_interval_tree_iter_next(avc, pgoff_start, pgoff_last);
+ }
  
- 	if (flags & MCL_CURRENT) {
--		to_add |= VM_LOCKED;
-+		vma_flags_set(&to_add, VMA_LOCKED_BIT);
- 		if (flags & MCL_ONFAULT)
--			to_add |= VM_LOCKONFAULT;
-+			vma_flags_set(&to_add, VMA_LOCKONFAULT_BIT);
- 	}
- 
- 	for_each_vma(vmi, vma) {
- 		int error;
--		vm_flags_t newflags;
-+		vma_flags_t newflags = vma->flags;
- 
--		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
--		newflags |= to_add;
-+		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
-+		vma_flags_set_mask(&newflags, to_add);
- 
- 		error = mlock_fixup(&vmi, vma, &prev, vma->vm_start, vma->vm_end,
--				    newflags);
-+				    &newflags);
- 		/* Ignore errors, but prev needs fixing up. */
- 		if (error)
- 			prev = vma;
+ #ifdef CONFIG_DEBUG_VM_RB
+-void anon_vma_interval_tree_verify(struct anon_vma_chain *node)
++void anon_vma_interval_tree_verify(struct anon_vma_chain *avc)
+ {
+-	WARN_ON_ONCE(node->cached_vma_start != avc_start_pgoff(node));
+-	WARN_ON_ONCE(node->cached_vma_last != avc_last_pgoff(node));
++	WARN_ON_ONCE(avc->cached_vma_start != avc_start_pgoff(avc));
++	WARN_ON_ONCE(avc->cached_vma_last != avc_last_pgoff(avc));
+ }
+ #endif
 
 -- 
 2.55.0
