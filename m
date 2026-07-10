@@ -4,45 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0510C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56B05C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:12:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18CFC10E1A0;
-	Fri, 10 Jul 2026 12:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3E0410F89B;
+	Fri, 10 Jul 2026 12:12:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iBXrAoJO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YsHYXBoU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442E710E1A0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:11:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D68310F897;
+ Fri, 10 Jul 2026 12:12:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D223E41693;
- Fri, 10 Jul 2026 12:11:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E881F000E9;
- Fri, 10 Jul 2026 12:11:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4DF9460051;
+ Fri, 10 Jul 2026 12:12:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2EC1F000E9;
+ Fri, 10 Jul 2026 12:12:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783685500;
- bh=kn7H4g2tNaZPLX6ioKkOx4AtSf9ua3uqUStd5IiHdqI=;
- h=Date:From:To:Cc:Subject;
- b=iBXrAoJOOyVOOkNI7RJizrdbvlQ4ciEDv+ozGhKCwnYd6eBB2T7vTZDu3K5nabJzi
- mpK7XHwJnWq5w0EiCnsGwvWm9tGZCCGJoIFwnlC3K8e68FJXmdC2jvgPfqWtce7ZRz
- cH5W7C+3IO2neTfRpWH8T8PMi1GgIPrbHApnBmYR0UR8IMI5RU8pdWdoUpPKw+TKss
- SqbyY3vSpwqsgdQnzsbLhf8yUuQF0c9Md2V0Zz8TSb7LX731pXW2u1xofKElSA1Cc6
- 6IKkVZiCKNsQyYd+oCitlkD4iLvbmSCNR1Bk6pXJargsQVQ0CCS5KVIsvxwPz9QDFa
- /0mMunMOeEfZg==
-Date: Fri, 10 Jul 2026 13:11:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- David Francis <David.Francis@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the drm tree with the drm-fixes tree
-Message-ID: <alDheI4V_zDaAUL-@sirena.org.uk>
+ s=k20260515; t=1783685538;
+ bh=2mX5s+LgF61GsTT2jOOQtbwBRT5YocgNpg7DpK7Idac=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=YsHYXBoUwEO/JD7uEwImzg3mv7r4evHYn6bmm/BpwFz7s+/PEwFuAjQwpC9NLZTD1
+ uJiaFsewk7OWDBXeUTrZRYi3CisEgF1I2aAOEqad225cY6f/P7our9/zVZA9xwWjUf
+ gWh99RMEJrfxKFrTpFsWA2bi+SyaLc9Cd6P8qCO0megJ5ZRuh7ZlTI3YW53k+vUyvV
+ 8QEaTaE63VVnw+8W2DmuU+gHjLUFXUvjCp4nuKuqEckoC1l5cvi2RdnxTeafSuYftb
+ uui7ecoebrEKYvZpeR5W9/axJDkt1zUqKM0o3phcWbkxcx2zEVQaPpW16AabvYVH6k
+ mcLVwF5Hg+7vA==
+Date: Fri, 10 Jul 2026 17:42:00 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+ mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+ mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service
+ support
+Message-ID: <alDhkHVnzReCgU6H@sumit-xelite>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
+ <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sEC/SRmYGkpXiaIW"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,83 +78,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Bjorn,
 
---sEC/SRmYGkpXiaIW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, Jul 09, 2026 at 02:32:39PM -0500, Bjorn Andersson wrote:
+> 
+> On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > [...]
+> 
+> Applied, thanks!
+> 
+> [01/14] firmware: qcom: Add a generic PAS service
+>         commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
+> [02/14] firmware: qcom_scm: Migrate to generic PAS service
+>         commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
+> [03/14] firmware: qcom: Add a PAS TEE service
+>         commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
+> [14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+>         commit: 6701259025d49139131a0eb2257659a066dcca22
+> 
+> This is available as an immutable branch, for other subsystems to pull at:
+>   https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
+> 
+> 
+> [04/14] remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+>         commit: 254030af0d81b12b7624d9ce85c6bdd3171629c6
+> [05/14] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+>         commit: f3b1357673ddb37ae8b9a8fe44df73cbd2a519c5
+> [06/14] remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+>         commit: ea3b5245f5deba916320b32a8e6510a74c034c17
+> [07/14] remoteproc: qcom: Select QCOM_PAS generic service
+>         commit: c4383254ac7a529736577e304176a10371c2ee0b
+> 
 
-Hi all,
+Thanks for picking the partial set although I expected for you to pick
+the entire set given acks from all the other subsystem maintainers. Let
+me know how we should proceed further.
 
-Today's linux-next merge of the drm tree got conflicts in:
-
-  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-
-between commits:
-
-  8a93f77aec655 ("drm/amdkfd: Don't acquire buffers during CRIU queue resto=
-re.")
-  47ea05f246beb ("drm/amdkfd: Check bounds on CRIU restore queue type and m=
-qd size")
-
-=66rom the drm-fixes tree and commits:
-
-  f19d8086f6644 ("drm/amdkfd: Check bounds on CRIU restore queue type and m=
-qd size")
-  1cafa8b29e029 ("drm/amdkfd: Don't acquire buffers during CRIU queue resto=
-re.")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 641b8ada82a03,c9f9f7a871117..0000000000000
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@@ -333,6 -333,8 +333,8 @@@ int debug_refresh_runlist(struct device
-  bool kfd_dqm_is_queue_in_process(struct device_queue_manager *dqm,
-  				 struct qcm_process_device *qpd,
-  				 int doorbell_off, u32 *queue_format);
-+ int kfd_reset_queue_mes(struct device_queue_manager *dqm, int queue_type,
-+ 			int pipe, int queue, unsigned int db);
-  size_t mqd_size_from_queue_type(struct device_queue_manager *dqm,
-  				enum kfd_queue_type type);
- =20
-diff --combined drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 9ccbc6e5b27b3,97e77a5a35e51..0000000000000
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@@ -1055,7 -1055,7 +1055,7 @@@ int kfd_criu_restore_queue(struct kfd_p
-  	ctl_stack =3D mqd + q_data->mqd_size;
- =20
-  	memset(&qp, 0, sizeof(qp));
-- 	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->adev->gfx.=
-xcc_mask));
-+ 	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->xcc_mask));
- =20
-  	print_queue_properties(&qp);
- =20
-
---sEC/SRmYGkpXiaIW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpQ4XgACgkQJNaLcl1U
-h9B+egf9F4F3DwZeCRXjIMuhEIldDjN2qYdWEWL3Ho7h4ChbYKg1/KCfcyLMYAvB
-G5Q5IxVESdIUjMQS9xKNmAo/Jaq9k2cfWdT4ohz7tyanTtfmU7vehJ/qluy95pjG
-Ws9p7FCrY1sbtowqVBtiOMEOdwvF/dC0pr6vDcWl5QndXPpIsekGKRCkAu38Zu02
-b6Dy88abhTEXY4+i5Q6n4guRSUUATlb0ZQJ/HhcQ8Qn1RZ4VdlpYUSOD3twboLJy
-QLOAX28CDhGWH11qtCA40/dgCXzAIESW4PQTMUxXxYMgIKdp4m+rDtThG7TQbC8H
-keTti2P9Yuw/O3vu6kqbT1VwQYFqlg==
-=qNJp
------END PGP SIGNATURE-----
-
---sEC/SRmYGkpXiaIW--
+-Sumit
