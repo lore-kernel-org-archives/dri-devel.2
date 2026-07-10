@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E67FC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:17:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0CFAC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 22:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECDFC10E6EC;
-	Fri, 10 Jul 2026 22:17:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 216C910F93B;
+	Fri, 10 Jul 2026 22:17:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k36rB2Db";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ncjBBwnp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD3510E6EC
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:17:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5674010F93B
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 22:17:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ED550402FB;
- Fri, 10 Jul 2026 22:17:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E061F000E9;
- Fri, 10 Jul 2026 22:17:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A8B6760052;
+ Fri, 10 Jul 2026 22:17:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB981F000E9;
+ Fri, 10 Jul 2026 22:17:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783721851;
- bh=C+Q5QOn9Dwcws6m8nPE5TQOSs61/gDQQXqS3QOgwwio=;
+ s=k20260515; t=1783721863;
+ bh=9mIhqJTL8UOWVtZmXBw/USVV5YYL9K4Jbzdv/hW9BFQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k36rB2DbUHy2UGe1geQ8EtWfT7oIEv1An6KzDsaSB4VMzqxk2E06VbHnJP0aJuKCx
- 0UvGrMD2Zswmdj+sk/Mz+qrsKfc4f9LnKGQAycQ6155j1QCI90jaeSw2WYdU4X7edg
- DzmxSMHaKNbrfSWmDLOAsL7uC6eFeBg55FTW4hbJGUd3xiY/7Ys8fLcB5OXU35Ep/O
- M0esPXP1Mq9H0kP6e2CAnwnSW5KzuNKvvAU6nALqkxyIwKjYbdDJAff6M/z9zHuUuy
- Y5jeMls+voC0ZLqKlWkqUIdJrLUFqb4tvQ595d5lIhKNjtd2flfkRtRg5JlWyugKL6
- Vty8Xbl2fkEIg==
+ b=ncjBBwnpZlWC12Wky9GuYUUYuqfMprcP3ybPDo2uzEgiaypxhArNQbAO8H9ntYpdy
+ zClb4C/S8LyRIvv0Al6cBrJdJ4B9VR00fo9qDZO+PbVNm/AcvnNn1a9k2X1zTexlIe
+ vEJUCZb+I2FpU8sgHNkoUYcjA48a/wbs5AShffuzy0DvBkolKy7o4+dot+ZF7T8BfB
+ tjS+QuuiJXmorvypva6RjuvsSLqhplesbbX+jRff4C8zdOQsDYEVhHsp+8c28V50u2
+ fn1XOS6XZ97Zdr6wcw9gUAQIbS8q5+IbJcf349MSYP0PpHKPNfFrEBaildeshqOkAB
+ qMMPsrRy2AE4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 17/33] drm/xe: Add xe_migrate_copy_defrag() for
- on-GPU defrag copies
+Subject: Re: [PATCH v2 08/33] drm/ttm: Bound page (re)allocation per
+ defragmentation move
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260710215442.2444235-18-matthew.brost@intel.com>
+In-Reply-To: <20260710215442.2444235-9-matthew.brost@intel.com>
 References: <20260710215442.2444235-1-matthew.brost@intel.com>
- <20260710215442.2444235-18-matthew.brost@intel.com>
+ <20260710215442.2444235-9-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 22:17:31 +0000
-Message-Id: <20260710221731.B0E061F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 22:17:42 +0000
+Message-Id: <20260710221743.3FB981F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,122 +58,114 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Uninitialized variable `ccs_ofs` and kernel assertion failure =
-in `xe_migrate_ccs_copy()` during `defrag_ccs` pass for TT memory on DGFX.
-- [High] Defragmentation bypasses mandatory CCS metadata clearing for BOs w=
-ithout CCS, causing a security/information leak.
+- [Critical] `ttm_pool_harvest_remaining()` fetches uninitialized `page->pr=
+ivate` on tail pages when the defragmentation budget is exhausted, causing =
+a NULL pointer dereference or buddy allocator corruption.
+- [Critical] Double-free and Undefined Behavior in `ttm_tt_defrag_disown_bo=
+rrowed()` when defragmenting pools that use `dma_alloc`.
+- [Medium] Negative `defrag_bytes_remaining` disables the defragmentation b=
+udget instead of treating it as exhausted, breaking batch budget tracking.
 --
 
---- Patch [17]: [PATCH v2 17/33] drm/xe: Add xe_migrate_copy_defrag() for o=
-n-GPU defrag copies ---
-commit b14779b7d60fb7520bb68944732a8ae6ceb089e7
+--- Patch [8]: [PATCH v2 08/33] drm/ttm: Bound page (re)allocation per defr=
+agmentation move ---
+commit 9447c53b431957799260b5fae41a105a050c3394
 Author: Matthew Brost <matthew.brost@intel.com>
+Subject: drm/ttm: Bound page (re)allocation per defragmentation move
 
-drm/xe: Add xe_migrate_copy_defrag() for on-GPU defrag copies
+This commit bounds page reallocations per defragmentation move to avoid
+stalling concurrent work for unbounded stretches when dealing with very lar=
+ge
+objects. It introduces an optional per-move byte budget to allow a large
+object to be upgraded in slices across successive moves.
 
-Add xe_migrate_copy_defrag(), a copy helper for the upcoming page
-defragmentation path where a single BO has its backing reallocated at a
-more beneficial page order. The contents are relocated in up to two
-passes (data and CCS) because they require opposite compression PAT
-settings.
-
-> diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migr=
-ate.c
-> index 9428dd5e7760c..956fd75454fa0 100644
-> --- a/drivers/gpu/drm/xe/xe_migrate.c
-> +++ b/drivers/gpu/drm/xe/xe_migrate.c
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
+l.c
+> index 5d2bbcce4eb89..a6847a16c47f1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
 [ ... ]
-> @@ -905,20 +931,29 @@ static struct dma_fence *__xe_migrate_copy(struct x=
-e_migrate *m,
->  	bool src_is_vram =3D mem_type_is_vram(src->mem_type);
->  	bool dst_is_vram =3D mem_type_is_vram(dst->mem_type);
->  	bool type_device =3D src_bo->ttm.type =3D=3D ttm_bo_type_device;
-> -	bool needs_ccs_emit =3D type_device && xe_migrate_needs_ccs_emit(xe);
-> +	bool needs_ccs_emit =3D type_device && xe_migrate_needs_ccs_emit(xe) &&
-> +		!flags.defrag_copy;
-> +	bool copy_ccs =3D xe_device_has_flat_ccs(xe) &&
-> -		xe_bo_needs_ccs_pages(src_bo) && xe_bo_needs_ccs_pages(dst_bo);
-> -	bool copy_system_ccs =3D copy_ccs && (!src_is_vram || !dst_is_vram);
-> +		xe_bo_needs_ccs_pages(src_bo) && xe_bo_needs_ccs_pages(dst_bo) &&
-> +		!flags.defrag_copy;
-> +	bool copy_system_ccs =3D copy_ccs && (!src_is_vram || !dst_is_vram) &&
-> +		!flags.defrag_ccs && !flags.defrag_copy;
-
-[Severity: High]
-If a BO does not use CCS, does forcing needs_ccs_emit to false during the
-data pass bypass the mandatory security clearing of its CCS metadata?
-
-In xe_migrate_copy_defrag(), if need_ccs is false, it performs the data pass
-and returns early:
-
-    struct dma_fence *fence =3D
-        __xe_migrate_copy(..., (struct xe_migrate_copy_flags) {
-            .defrag_copy =3D true,
-        });
-
-    if (IS_ERR(fence) || !need_ccs)
-        return fence;
-
-Since needs_ccs_emit is false when flags.defrag_copy is true,
-xe_migrate_ccs_copy() is never called to clear the CCS metadata. Could this
-leave stale cross-process data in the newly allocated destination pages?
-
-[ ... ]
-> @@ -1014,7 +1053,7 @@ static struct dma_fence *__xe_migrate_copy(struct x=
-e_migrate *m,
->  		bb->cs[bb->len++] =3D MI_BATCH_BUFFER_END;
->  		update_idx =3D bb->len;
+> @@ -885,14 +892,33 @@ static int ttm_pool_harvest_page(struct ttm_tt *old=
+_tt, unsigned int order,
 > =20
-> -		if (!copy_only_ccs)
-> +		if (!flags.copy_only_ccs && !flags.defrag_ccs)
->  			emit_copy(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0, XE_PAGE_SIZE);
-> =20
->  		if (needs_ccs_emit)
+>  static int ttm_pool_harvest_remaining(struct ttm_pool *pool,
+>  				      struct ttm_tt *old_tt, pgoff_t off,
+> -				      struct ttm_pool_alloc_state *alloc)
+> +				      struct ttm_pool_alloc_state *alloc,
+> +				      bool *suboptimal)
+>  {
+> +	unsigned int beneficial =3D ttm_pool_beneficial_order(pool);
+> +	pgoff_t bnr =3D 1UL << beneficial;
+> +
+>  	while (alloc->remaining_pages) {
+>  		struct page *p =3D old_tt->pages[off];
+>  		unsigned int order =3D ttm_pool_page_order(pool, p);
 
 [Severity: Critical]
-Can this pass an uninitialized ccs_ofs to xe_migrate_ccs_copy() and trigger
-a kernel assertion failure on DGFX?
+Does this code safely handle the case where off falls inside a multi-page
+chunk rather than exactly on a chunk head?
 
-During a defrag_ccs pass for a TT memory BO, flags.defrag_ccs is true, which
-forces copy_system_ccs to false:
+During defragmentation, new_tt allocates chunks independently of old_tt's
+chunk boundaries. When the budget is exhausted, ttm_pool_harvest_remaining()
+is called with an off that may land on a tail page.
 
-    bool copy_system_ccs =3D copy_ccs && (!src_is_vram || !dst_is_vram) &&
-        !flags.defrag_ccs && !flags.defrag_copy;
+If this fetches a tail page, ttm_pool_page_order() will read its uninitiali=
+zed
+private field. For DMA pools, this uninitialized private field is cast to a
+struct ttm_pool_dma pointer and dereferenced, causing a kernel panic. For
+non-DMA pools, it evaluates to order 0, corrupting the chunk boundaries and
+potentially leading to a double-free.
 
-Because copy_system_ccs is false, the loop skips the initialization of ccs_=
-ofs:
+>  		pgoff_t nr =3D 1UL << order;
+[ ... ]
+> @@ -1106,10 +1172,23 @@ static int __ttm_pool_alloc(struct ttm_pool *pool=
+, struct ttm_tt *tt,
+>  		gfp_flags |=3D GFP_HIGHUSER;
+> =20
+>  	it.gfp_flags =3D gfp_flags;
+> +	it.defrag_capped =3D it.defrag_old_tt && alloc->defrag_bytes_remaining =
+> 0;
 
-    if (copy_system_ccs) {
-        ...
-        batch_size +=3D pte_update_size(..., &ccs_ofs, ...);
-    }
+[Severity: Medium]
+Will this properly cap the allocation if the budget is overdrawn and becomes
+negative?
 
-However, needs_ccs_emit remains true (since flags.defrag_copy is false). Th=
-is
-causes xe_migrate_ccs_copy() to be called with the uninitialized ccs_ofs.
+When the allocator decrements defrag_bytes_remaining by the size of the new=
+ly
+allocated chunks, a chunk can exceed the exact remaining budget, causing the
+value to drop below zero.
 
-Furthermore, for TT memory on DGFX, both src_is_vram and dst_is_vram are fa=
-lse.
-These are passed as the indirect flags to xe_migrate_ccs_copy():
+If this overdrawn negative budget is passed to the next BO in the batch,
+alloc->defrag_bytes_remaining > 0 will evaluate to false. The allocator will
+then treat the negative budget as unlimited rather than exhausted, bypassing
+the cap entirely and stalling concurrent work.
 
-    flush_flags =3D xe_migrate_ccs_copy(m, bb, src_L0_ofs,
-                      IS_DGFX(xe) ? src_is_vram : src_is_pltt,
-                      dst_L0_ofs,
-                      IS_DGFX(xe) ? dst_is_vram : dst_is_pltt,
-                      src_L0, ccs_ofs, copy_ccs);
+> =20
+>  	for (it.order =3D ttm_pool_alloc_find_order(MAX_PAGE_ORDER, alloc);
+[ ... ]
 
-Inside xe_migrate_ccs_copy(), this will trigger the assertion because both
-indirect flags are false:
+Additionally, looking at ttm_tt_defrag_disown_borrowed() in
+drivers/gpu/drm/ttm/ttm_tt.c:
 
-    xe_gt_assert(gt, src_is_indirect || dst_is_indirect);
-    if (!src_is_indirect)
-        src_ofs =3D ccs_ofs;
+drivers/gpu/drm/ttm/ttm_tt.c:ttm_tt_defrag_disown_borrowed() {
+    ...
+    unsigned int order =3D sp ? ttm_pool_page_order_nodma(sp) : 0;
+    pgoff_t nr =3D 1UL << order;
+    ...
+}
 
-And then it programs the GPU copy engine with the uninitialized ccs_ofs,
-which could lead to arbitrary GPU memory access or data corruption.
+[Severity: Critical]
+Is it safe to hardcode ttm_pool_page_order_nodma() here when defragmenting
+pools that use dma_alloc?
+
+Drivers that use dma_alloc pools (e.g., amdgpu, vmwgfx) store a pointer to a
+struct ttm_pool_dma in the page->private field. Casting this pointer to an
+integer order results in a huge bit shift, which destroys the array stride.
+This silently fails to disown the shared pages, leading to an exploitable
+use-after-free or double-free when the old tt is destroyed.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710215442.2444=
-235-1-matthew.brost@intel.com?part=3D17
+235-1-matthew.brost@intel.com?part=3D8
