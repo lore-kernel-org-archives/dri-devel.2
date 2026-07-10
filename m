@@ -4,85 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6244C44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0510C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 12:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FDC010F89A;
-	Fri, 10 Jul 2026 12:03:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18CFC10E1A0;
+	Fri, 10 Jul 2026 12:11:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dcndVAD4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iBXrAoJO";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEC9B10F88F
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:03:49 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-476a130c138so1110499f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 05:03:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783685028; x=1784289828; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=CDXfk8heR8E8obrxXeseruKu7LCdsmZqgLzu+ejBn3M=;
- b=dcndVAD4dUnUhbjib1Il2NhmxXSnKINdi+GyusKyvwsJ/vRBOkSHqSJT6lm3ULNtWW
- hsrHePWshT7Y/pFLJ/IRF0i8+ydNwhLu/6UJy2uzF1OyO2N7UgGUIeukSrgH4Ea9vtOX
- w6IyEmAkafsJ6KSR+lnnus82areVydwkBBPC1EKbIpLX+MJzGoCpyaTbFc5f/aSm7W6w
- SDkDpglcrNBTQCWSWcYZUYPTfMRMr4qCkP+IBi1MgM0SdHszvDWrFs+BWit6wXcasGtE
- QyN+S9vFrCEeEeQVCpnqVQLY4v8txrRdqT9j+mAt6crGbnNP9Z2T1i/f0BBxdk/GQQip
- gcEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783685028; x=1784289828;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=CDXfk8heR8E8obrxXeseruKu7LCdsmZqgLzu+ejBn3M=;
- b=XgzAwNxZyDFkXyFoGk9mMfzJykNgs4lrrca2FiSSImiNA/VKtfLXDRfZ7plQwBtbue
- bUZBwhjMeQvD0ZawteAEXAScYbkMpcw3eNjUG1hQEogUoysOd/8hJxd9qJ1Z8sRjFttS
- ziUJn93J+VnWytrW5uL7F49lWrccOuOFqtcDajFD8HRjhumISurE80y2dyyfa0S9suln
- G+881bbG0qRb8KWPdggMRFA815rsn5rFeWg4nDZsPHwbdvD66fDWS6owyvOy3gEWw45P
- 6z+yqPOrPyifD0uLdt+5wqz2lRwvNeDhilNG1anm450QLs9cOpQxfwNlhSSuigrAsViT
- tU6g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqTOesxDf8ex8H7Y6sKysLlmD9PSwB7rQBFYEUcpQjK2ADvIVSZcmSJPOPyU6ANBvSak3aTL23owxg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw8eP58Kt0IWzWMqSvA3iOjgAVYb5JZD4+2SrdauFmu5q2Pwpg1
- wHjqxIMppGgbP1mGzl4/vSvgRMzj1t779h5KZfJ9hNVhOyEXD/nBj+2x
-X-Gm-Gg: AfdE7cm3jRr9n9mqp7EhOqSClLGavOp33sAAPSjyu/33YElxeMFqHKXJG9JzXm6j+qE
- bG/DMwirkE8nJ6RywTjctd3YA791vi2Z7jP91IOsK6TOvCpNlFi/ISWxh2FWT6P3zrI+de9LDhi
- nlq+QNvZsz1GaWasTAxuODFZ82IXjGVKXpebCyZ8RO5DKk0SjaJgV7Nr3mEb2xWyZJdJqgEHCTw
- nM4w0nKCag0MJZBJ4geC4ULtiYWzakhiTHQy5Gd7OqN57onbf4CNV/HPPE0vUJNXxTTUFcHNnKe
- X62k3+Fgezk0Z5b1KJWaNcfVVis05sf3JPwlvDRyoAFL98I9nACuwh0g5CuPguyPwt0UDRPq4H5
- Z/0bGx4gwXvV4itnG47ORSNmK4EJe+pBjVa1U6gp+7wgAu8ln2qea0u4GikbCPrTJ8TrPvJCSdI
- UwV3uHiYw4B4tcRAimGZxVMmxOZ8aNP6PN7pmLZFOWgZeg+dTVHPMvBA9H3xw8nNwobZkplcKOZ
- Z/74vDVT5MWgtL1L6qt3MXDYa/LDwTCJQ==
-X-Received: by 2002:a05:6000:400f:b0:460:6a13:9131 with SMTP id
- ffacd0b85a97d-47df07238f9mr12877850f8f.19.1783685028028; 
- Fri, 10 Jul 2026 05:03:48 -0700 (PDT)
-Received: from localhost.localdomain (62-178-82-42.cable.dynamic.surfer.at.
- [62.178.82.42]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47a9e4d83bdsm59637487f8f.13.2026.07.10.05.03.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 05:03:47 -0700 (PDT)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Fri, 10 Jul 2026 14:03:43 +0200
-Subject: [PATCH v3 2/2] drm/etnaviv: Add GPU reset counters
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 442E710E1A0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 12:11:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D223E41693;
+ Fri, 10 Jul 2026 12:11:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E881F000E9;
+ Fri, 10 Jul 2026 12:11:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783685500;
+ bh=kn7H4g2tNaZPLX6ioKkOx4AtSf9ua3uqUStd5IiHdqI=;
+ h=Date:From:To:Cc:Subject;
+ b=iBXrAoJOOyVOOkNI7RJizrdbvlQ4ciEDv+ozGhKCwnYd6eBB2T7vTZDu3K5nabJzi
+ mpK7XHwJnWq5w0EiCnsGwvWm9tGZCCGJoIFwnlC3K8e68FJXmdC2jvgPfqWtce7ZRz
+ cH5W7C+3IO2neTfRpWH8T8PMi1GgIPrbHApnBmYR0UR8IMI5RU8pdWdoUpPKw+TKss
+ SqbyY3vSpwqsgdQnzsbLhf8yUuQF0c9Md2V0Zz8TSb7LX731pXW2u1xofKElSA1Cc6
+ 6IKkVZiCKNsQyYd+oCitlkD4iLvbmSCNR1Bk6pXJargsQVQ0CCS5KVIsvxwPz9QDFa
+ /0mMunMOeEfZg==
+Date: Fri, 10 Jul 2026 13:11:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ David Francis <David.Francis@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the drm tree with the drm-fixes tree
+Message-ID: <alDheI4V_zDaAUL-@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-etnaviv-reset-notification-v3-2-7a145c8a1d01@igalia.com>
-References: <20260710-etnaviv-reset-notification-v3-0-7a145c8a1d01@igalia.com>
-In-Reply-To: <20260710-etnaviv-reset-notification-v3-0-7a145c8a1d01@igalia.com>
-To: Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
- Christian Gmeiner <cgmeiner@igalia.com>
-X-Mailer: b4 0.14.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sEC/SRmYGkpXiaIW"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,180 +58,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
 
-The OpenGL and Vulkan robustness extensions let an application detect a
-GPU reset and check if its own context caused it, so the application can
-drop the broken context and build a new one. The kernel knows both
-facts, but etnaviv has no way to report them to userspace.
+--sEC/SRmYGkpXiaIW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add two counters and a RESET_QUERY ioctl that returns both in one call:
-a per-GPU counter that counts every reset of that GPU, and a per-context
-counter that only counts the resets this context was guilty of.
-Userspace compares the counters with saved values: if the context
-counter moved the context was guilty, if only the GPU counter moved the
-context was an innocent victim.
+Hi all,
 
-The GPU counter is per GPU core and not per device, so a hang on one
-pipe does not look like an innocent reset to contexts that only use
-another pipe.
+Today's linux-next merge of the drm tree got conflicts in:
 
-The timeout handler updates both counters and the ioctl reads both
-under the GPU lock. Without the lock the query could run between the
-two updates, see only the GPU counter move and report an innocent
-reset to the guilty context.
+  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
 
-Bump the driver minor version so userspace can detect the feature.
+between commits:
 
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_drv.c   | 29 ++++++++++++++++++++++++++++-
- drivers/gpu/drm/etnaviv/etnaviv_drv.h   |  1 +
- drivers/gpu/drm/etnaviv/etnaviv_gpu.h   |  2 ++
- drivers/gpu/drm/etnaviv/etnaviv_sched.c |  5 +++++
- include/uapi/drm/etnaviv_drm.h          | 19 ++++++++++++++++++-
- 5 files changed, 54 insertions(+), 2 deletions(-)
+  8a93f77aec655 ("drm/amdkfd: Don't acquire buffers during CRIU queue resto=
+re.")
+  47ea05f246beb ("drm/amdkfd: Check bounds on CRIU restore queue type and m=
+qd size")
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index a27ed014fb4e..5c50e5a24408 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -296,6 +296,32 @@ static int etnaviv_ioctl_get_param(struct drm_device *dev, void *data,
- 	return etnaviv_gpu_get_param(gpu, args->param, &args->value);
- }
- 
-+static int etnaviv_ioctl_reset_query(struct drm_device *dev, void *data,
-+		struct drm_file *file)
-+{
-+	struct etnaviv_drm_private *priv = dev->dev_private;
-+	struct etnaviv_file_private *ctx = file->driver_priv;
-+	struct drm_etnaviv_reset_query *args = data;
-+	struct etnaviv_gpu *gpu;
-+
-+	if (args->flags)
-+		return -EINVAL;
-+
-+	if (args->pipe >= ETNA_MAX_PIPES)
-+		return -EINVAL;
-+
-+	gpu = priv->gpu[args->pipe];
-+	if (!gpu)
-+		return -ENXIO;
-+
-+	mutex_lock(&gpu->lock);
-+	args->global_reset_counter = gpu->reset_counter;
-+	args->context_reset_counter = ctx->reset_counter;
-+	mutex_unlock(&gpu->lock);
-+
-+	return 0;
-+}
-+
- static int etnaviv_ioctl_gem_new(struct drm_device *dev, void *data,
- 		struct drm_file *file)
- {
-@@ -502,6 +528,7 @@ static const struct drm_ioctl_desc etnaviv_ioctls[] = {
- 	ETNA_IOCTL(GEM_WAIT,     gem_wait,     DRM_RENDER_ALLOW),
- 	ETNA_IOCTL(PM_QUERY_DOM, pm_query_dom, DRM_RENDER_ALLOW),
- 	ETNA_IOCTL(PM_QUERY_SIG, pm_query_sig, DRM_RENDER_ALLOW),
-+	ETNA_IOCTL(RESET_QUERY,  reset_query,  DRM_RENDER_ALLOW),
- };
- 
- static void etnaviv_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-@@ -530,7 +557,7 @@ static const struct drm_driver etnaviv_drm_driver = {
- 	.name               = "etnaviv",
- 	.desc               = "etnaviv DRM",
- 	.major              = 1,
--	.minor              = 4,
-+	.minor              = 5,
- };
- 
- /*
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-index cba4323ae589..9c348aa7f8d3 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-@@ -34,6 +34,7 @@ struct etnaviv_file_private {
- 	int id;
- 	struct etnaviv_iommu_context	*mmu;
- 	struct drm_sched_entity		sched_entity[ETNA_MAX_PIPES];
-+	u32 reset_counter;
- };
- 
- struct etnaviv_drm_private {
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-index 5cb46c84e03a..a97780131426 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-@@ -148,6 +148,8 @@ struct etnaviv_gpu {
- 	u32 hangcheck_primid;
- 	u32 hangcheck_fence;
- 
-+	u32 reset_counter;
-+
- 	void __iomem *mmio;
- 	int irq;
- 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-index 139e6e38784b..6e9b677122e3 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-@@ -79,6 +79,11 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
- 	if(sched_job)
- 		drm_sched_increase_karma(sched_job);
- 
-+	mutex_lock(&gpu->lock);
-+	gpu->reset_counter++;
-+	submit->ctx->reset_counter++;
-+	mutex_unlock(&gpu->lock);
-+
- 	/* get the GPU back into the init state */
- 	etnaviv_core_dump(submit);
- 	etnaviv_gpu_recover_hang(submit);
-diff --git a/include/uapi/drm/etnaviv_drm.h b/include/uapi/drm/etnaviv_drm.h
-index af024d90453d..b50a3a0799e6 100644
---- a/include/uapi/drm/etnaviv_drm.h
-+++ b/include/uapi/drm/etnaviv_drm.h
-@@ -265,6 +265,21 @@ struct drm_etnaviv_pm_signal {
- 	char  name[64];   /* out, name of domain */
- };
- 
-+/*
-+ * Reset status query:
-+ *
-+ * Both counters start at zero and only ever increase. Userspace saves
-+ * both values and compares them on a later query: if the context
-+ * counter moved this context caused a reset, if only the global
-+ * counter moved the GPU was reset on behalf of another context.
-+ */
-+struct drm_etnaviv_reset_query {
-+	__u32 pipe;			/* in */
-+	__u32 flags;			/* in, must be 0 */
-+	__u32 global_reset_counter;	/* out, all resets of this GPU core */
-+	__u32 context_reset_counter;	/* out, resets caused by this context */
-+};
-+
- #define DRM_ETNAVIV_GET_PARAM          0x00
- /* placeholder:
- #define DRM_ETNAVIV_SET_PARAM          0x01
-@@ -279,7 +294,8 @@ struct drm_etnaviv_pm_signal {
- #define DRM_ETNAVIV_GEM_WAIT           0x09
- #define DRM_ETNAVIV_PM_QUERY_DOM       0x0a
- #define DRM_ETNAVIV_PM_QUERY_SIG       0x0b
--#define DRM_ETNAVIV_NUM_IOCTLS         0x0c
-+#define DRM_ETNAVIV_RESET_QUERY        0x0c
-+#define DRM_ETNAVIV_NUM_IOCTLS         0x0d
- 
- #define DRM_IOCTL_ETNAVIV_GET_PARAM    DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_GET_PARAM, struct drm_etnaviv_param)
- #define DRM_IOCTL_ETNAVIV_GEM_NEW      DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_GEM_NEW, struct drm_etnaviv_gem_new)
-@@ -292,6 +308,7 @@ struct drm_etnaviv_pm_signal {
- #define DRM_IOCTL_ETNAVIV_GEM_WAIT     DRM_IOW(DRM_COMMAND_BASE + DRM_ETNAVIV_GEM_WAIT, struct drm_etnaviv_gem_wait)
- #define DRM_IOCTL_ETNAVIV_PM_QUERY_DOM DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_PM_QUERY_DOM, struct drm_etnaviv_pm_domain)
- #define DRM_IOCTL_ETNAVIV_PM_QUERY_SIG DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_PM_QUERY_SIG, struct drm_etnaviv_pm_signal)
-+#define DRM_IOCTL_ETNAVIV_RESET_QUERY  DRM_IOWR(DRM_COMMAND_BASE + DRM_ETNAVIV_RESET_QUERY, struct drm_etnaviv_reset_query)
- 
- #if defined(__cplusplus)
- }
+=66rom the drm-fixes tree and commits:
 
--- 
-2.54.0
+  f19d8086f6644 ("drm/amdkfd: Check bounds on CRIU restore queue type and m=
+qd size")
+  1cafa8b29e029 ("drm/amdkfd: Don't acquire buffers during CRIU queue resto=
+re.")
 
+=66rom the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+index 641b8ada82a03,c9f9f7a871117..0000000000000
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@@ -333,6 -333,8 +333,8 @@@ int debug_refresh_runlist(struct device
+  bool kfd_dqm_is_queue_in_process(struct device_queue_manager *dqm,
+  				 struct qcm_process_device *qpd,
+  				 int doorbell_off, u32 *queue_format);
++ int kfd_reset_queue_mes(struct device_queue_manager *dqm, int queue_type,
++ 			int pipe, int queue, unsigned int db);
+  size_t mqd_size_from_queue_type(struct device_queue_manager *dqm,
+  				enum kfd_queue_type type);
+ =20
+diff --combined drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 9ccbc6e5b27b3,97e77a5a35e51..0000000000000
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@@ -1055,7 -1055,7 +1055,7 @@@ int kfd_criu_restore_queue(struct kfd_p
+  	ctl_stack =3D mqd + q_data->mqd_size;
+ =20
+  	memset(&qp, 0, sizeof(qp));
+- 	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->adev->gfx.=
+xcc_mask));
++ 	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->xcc_mask));
+ =20
+  	print_queue_properties(&qp);
+ =20
+
+--sEC/SRmYGkpXiaIW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpQ4XgACgkQJNaLcl1U
+h9B+egf9F4F3DwZeCRXjIMuhEIldDjN2qYdWEWL3Ho7h4ChbYKg1/KCfcyLMYAvB
+G5Q5IxVESdIUjMQS9xKNmAo/Jaq9k2cfWdT4ohz7tyanTtfmU7vehJ/qluy95pjG
+Ws9p7FCrY1sbtowqVBtiOMEOdwvF/dC0pr6vDcWl5QndXPpIsekGKRCkAu38Zu02
+b6Dy88abhTEXY4+i5Q6n4guRSUUATlb0ZQJ/HhcQ8Qn1RZ4VdlpYUSOD3twboLJy
+QLOAX28CDhGWH11qtCA40/dgCXzAIESW4PQTMUxXxYMgIKdp4m+rDtThG7TQbC8H
+keTti2P9Yuw/O3vu6kqbT1VwQYFqlg==
+=qNJp
+-----END PGP SIGNATURE-----
+
+--sEC/SRmYGkpXiaIW--
