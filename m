@@ -4,86 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C0BFC44506
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2EA3C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Jul 2026 09:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9582710F832;
-	Fri, 10 Jul 2026 09:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9BF10E159;
+	Fri, 10 Jul 2026 09:09:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="euW0X0f4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="k+QJoD0u";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/4ehUeG0";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tdA8pSdz";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wxAgPYyM";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC20910E15E
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:00:53 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-47122683cf3so410794f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 02:00:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783674052; x=1784278852; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yd1dFdW3DE1YeT+fprMXo0jAXkdXd9jG5OHl8Qzt964=;
- b=euW0X0f4DkbNgU3s1LW5aKQPQf0QUeZLaoZA/n110rUIwBdy75OOiMu8urr01k2lUb
- AUdsraCYvldU1RQvu15hX9GSAEdP1tZT3T1qPuXrHuFgdCdGXhR9A9AtDkPPB0MG1V9r
- F48eolvoVpUFXsIduAFnPdMOnDk56O9A+R4H9pmrwt2rvaaoc6URaa6SivMVd78KJXJE
- gyWTOUQb/P8QEttlEZvmkZQf6Pr65cZlsPfTRMbG3OvjiG4zknLv333ewvieCvMDxh/m
- GQSWmPpdDurUAefsWsS1dXxnXBBiDk00Rs9CWgU8r7bcwgUA256t7oAGdjPlvAL7cNKH
- oIsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783674052; x=1784278852;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=yd1dFdW3DE1YeT+fprMXo0jAXkdXd9jG5OHl8Qzt964=;
- b=C2IR5wyoCb83TZUSzJ/50lYT3gRgehnmC8ffCglft1VjFgXjyM+sig9iW3YdgMGCiH
- fCPe3BQbixzED0yoyrjD8HPnlOG6NalAxfjKEwd4T5RUzNrPI0eUvlOuA8fR5srnn+xO
- sc+AV/1mz8llBgkUQZFxRMEZdI5qaAnIOiLxQqhBh6qHD83L7UkVojtpNUcjSKwStyNh
- TSfzm9ouC+IV6wwAsO9W4H8PMXn8hpnlhfMqLYUH15/Q6l+f7U+WwuZrjikoRpTIIhtj
- E98xSP59oRQtKQyx/oxL2PJo8SW4bJiaZZBh4fD694VtOMxMd3rFi6gOWSQ2n2IC+eLV
- 8mDg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqCj8Wty7HNlVAMG3C9cvF/5345HqxVKDm+Z5xVuHs9hzmDXbcbGUCH/hWgEKC3KT6VoXoMrPVR1l0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlgWhPFgDjRtrGoKaLL5mBxczRc3gytRmrP7GlWXN1Snpe796x
- uvaHi9EGNFmAjHDRUWi0U96cuA9aeOoi610ZawHG03A4REuIkE/t/QMycZhUvuo/
-X-Gm-Gg: AfdE7ckKdALz+SCNvbgwGB7zmKG2ELGUM6tBm+Y/J1n3plkgfyHkjNqDQxlC8mLFLNm
- ceYrOAaS1nLSUhbvyS+hBtSvme7q/1/RWjhqbioQWdXSTP78pI68dZRyifWU7vqkV1DZEOvZj00
- uC7sYfJnk0bU1eW/YKEUTQaQuZreJgIxaYUr2J6bM0rliFut+Kxu9+bAB0moY1qqZeiRxRlMD1u
- ZM4uZQ1IqD1eLbTS43S5wRF3Pb/7mXCjMsNLXE+FkpqwGb9MG9GOkoA7zl8crhydo0oPky7+naE
- fs6nNHxqXLwPRGbYa5vqYP14BayIIbNwmNW2VsAsxxwBaocljQXGS19AIOr9mDVTCnvLS60dpB3
- gPJCHR5ABdj6h9uruKD1UWX+e7bFomB0EVmRAuYfargPvaNa8nL9DJMvMQ3ew6+lobbW1Uufc6A
- tO8yuA3UzFVd+3Qq0i6RGhNf7kwip3xqrrkmPB/KVfAHCkHJwmOtrhXuhwCzlxhkyQIWye8KpnA
- qL5mikh1SRosH+7LSBS8HarL/z1sn6ZQw==
-X-Received: by 2002:a05:6000:41fe:b0:47d:efd0:c026 with SMTP id
- ffacd0b85a97d-47df071e085mr11361324f8f.11.1783674051647; 
- Fri, 10 Jul 2026 02:00:51 -0700 (PDT)
-Received: from localhost.localdomain (62-178-82-42.cable.dynamic.surfer.at.
- [62.178.82.42]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa039b0cesm59386076f8f.22.2026.07.10.02.00.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Jul 2026 02:00:50 -0700 (PDT)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Fri, 10 Jul 2026 11:00:46 +0200
-Subject: [PATCH v2 1/2] drm/etnaviv: Reference count struct
- etnaviv_file_private
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4523A10E159
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Jul 2026 09:09:41 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ACC1076709;
+ Fri, 10 Jul 2026 09:09:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783674579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+ b=k+QJoD0uzbelEsf++/2y4ND5oJjvieTzrZpGMXWCRRfUXGx2fLqKKwtRnDBmVJ/jGW1osR
+ hlgubkxEHUEPqz+AfK1Qps9dCT7D/75iaZrYsmT8tjZ6ATt16FDXVrrEttTRpwgfF5xCNL
+ vAnAqzrZYfeHfE/UYALEsYGi0PI529c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783674579;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+ b=/4ehUeG0YJTYcU44d+BOlXTzRC2uecfBMBB/SaVQ3viFmonS6/GNVlZbppLbE1TnpwpB5V
+ lXW5gABB7Mz1QDAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1783674578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+ b=tdA8pSdzfeXEKy7XND4BnIXo5St5lY0gIhoL7qSpcO/bthuvk33yRYAZNpOPn+HJc0pFxI
+ w1NHHP93n7QrQX2tdckcRPtoBEWzOCEA9ARHCYPYnjkajPYa51UGoj6lZF06ViKqQ3YRmb
+ vk7PbAICwF/5jD0ws6FZZzNwKLY79x4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1783674578;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+ b=wxAgPYyMx2NxMJ213r8fL6XLneJbj6RlnBSqsYKUeEYgpkR5SmTFVVlqMiX17q112i7/nF
+ 3kPPnn6rnKVefFAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28604779BD;
+ Fri, 10 Jul 2026 09:09:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id LQdoCNK2UGouCgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 09:09:38 +0000
+Message-ID: <e69b3cf5-9a9f-46ca-abc8-68c1375ef6ca@suse.de>
+Date: Fri, 10 Jul 2026 11:09:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-etnaviv-reset-notification-v2-1-90cfebcf22a2@igalia.com>
-References: <20260710-etnaviv-reset-notification-v2-0-90cfebcf22a2@igalia.com>
-In-Reply-To: <20260710-etnaviv-reset-notification-v2-0-90cfebcf22a2@igalia.com>
-To: Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
- Christian Gmeiner <cgmeiner@igalia.com>
-X-Mailer: b4 0.14.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/9] drm/gm12u320: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+To: Ze Huang <ze.huang@oss.qualcomm.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, xen-devel@lists.xenproject.org
+References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
+ <20260705-drm-simple-kms-removal-v1-6-b4e1ca053623@oss.qualcomm.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260705-drm-simple-kms-removal-v1-6-b4e1ca053623@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.997]; MIME_GOOD(-0.10)[text/plain];
+ TAGGED_RCPT(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[22];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, qualcomm.com:email, suse.de:email,
+ suse.de:mid, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,127 +151,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+Hi
 
-The next commit updates per-context data from the GPU reset path, which
-runs in the scheduler timeout worker. This can race with closing the DRM
-file: drm_sched_entity_flush() only waits until the entity queue is
-empty, it does not wait for jobs still running on the hardware. So the
-context can already be freed while the reset path still needs it.
+Am 04.07.26 um 20:31 schrieb Ze Huang:
+> Convert gm12u320 to direct primary plane, CRTC and encoder setup.
+>
+> Keep shadow-plane helper state, framebuffer access helpers and
+> no-scaling plane-state check from simple-KMS path.
+>
+> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
 
-Reference count the context and let every submit hold a reference, the
-same way a submit already keeps its mmu context and pid alive. No
-functional change.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_drv.c        | 17 ++++++++++++++++-
- drivers/gpu/drm/etnaviv/etnaviv_drv.h        | 11 +++++++++++
- drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c |  5 ++++-
- 3 files changed, 31 insertions(+), 2 deletions(-)
+And I also have this device. Works nicely with the patch
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index 08aca9035fc1..a27ed014fb4e 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -60,6 +60,19 @@ static void load_gpu(struct drm_device *dev)
- 	}
- }
- 
-+static void etnaviv_file_private_release(struct kref *kref)
-+{
-+	struct etnaviv_file_private *ctx =
-+		container_of(kref, struct etnaviv_file_private, refcount);
-+
-+	kfree(ctx);
-+}
-+
-+void etnaviv_file_private_put(struct etnaviv_file_private *ctx)
-+{
-+	kref_put(&ctx->refcount, etnaviv_file_private_release);
-+}
-+
- static int etnaviv_open(struct drm_device *dev, struct drm_file *file)
- {
- 	struct etnaviv_drm_private *priv = dev->dev_private;
-@@ -70,6 +83,8 @@ static int etnaviv_open(struct drm_device *dev, struct drm_file *file)
- 	if (!ctx)
- 		return -ENOMEM;
- 
-+	kref_init(&ctx->refcount);
-+
- 	ret = xa_alloc_cyclic(&priv->active_contexts, &ctx->id, ctx,
- 			      xa_limit_32b, &priv->next_context_id, GFP_KERNEL);
- 	if (ret < 0)
-@@ -120,7 +135,7 @@ static void etnaviv_postclose(struct drm_device *dev, struct drm_file *file)
- 
- 	xa_erase(&priv->active_contexts, ctx->id);
- 
--	kfree(ctx);
-+	etnaviv_file_private_put(ctx);
- }
- 
- /*
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.h b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-index 55a9e745604d..cba4323ae589 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.h
-@@ -7,6 +7,7 @@
- #define __ETNAVIV_DRV_H__
- 
- #include <linux/io.h>
-+#include <linux/kref.h>
- #include <linux/list.h>
- #include <linux/mm_types.h>
- #include <linux/sizes.h>
-@@ -29,6 +30,7 @@ struct etnaviv_iommu_global;
- #define ETNAVIV_SOFTPIN_START_ADDRESS	SZ_4M /* must be >= SUBALLOC_SIZE */
- 
- struct etnaviv_file_private {
-+	struct kref refcount;
- 	int id;
- 	struct etnaviv_iommu_context	*mmu;
- 	struct drm_sched_entity		sched_entity[ETNA_MAX_PIPES];
-@@ -53,6 +55,15 @@ struct etnaviv_drm_private {
- 	struct etnaviv_cmdbuf *flop_reset_data_ppu;
- };
- 
-+void etnaviv_file_private_put(struct etnaviv_file_private *ctx);
-+
-+static inline struct etnaviv_file_private *
-+etnaviv_file_private_get(struct etnaviv_file_private *ctx)
-+{
-+	kref_get(&ctx->refcount);
-+	return ctx;
-+}
-+
- int etnaviv_ioctl_gem_submit(struct drm_device *dev, void *data,
- 		struct drm_file *file);
- 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-index 1a77a09b3377..98f1f59a8b05 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-@@ -398,6 +398,9 @@ static void submit_cleanup(struct kref *kref)
- 
- 	put_pid(submit->pid);
- 
-+	if (submit->ctx)
-+		etnaviv_file_private_put(submit->ctx);
-+
- 	kfree(submit->pmrs);
- 	kfree(submit);
- }
-@@ -526,7 +529,7 @@ int etnaviv_ioctl_gem_submit(struct drm_device *dev, void *data,
- 	if (ret)
- 		goto err_submit_put;
- 
--	submit->ctx = file->driver_priv;
-+	submit->ctx = etnaviv_file_private_get(file->driver_priv);
- 	submit->mmu_context = etnaviv_iommu_context_get(submit->ctx->mmu);
- 	submit->exec_state = args->exec_state;
- 	submit->flags = args->flags;
+Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/gpu/drm/tiny/gm12u320.c | 128 ++++++++++++++++++++++++++++++++--------
+>   1 file changed, 104 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u320.c
+> index d73dfebb4353..992160ea794d 100644
+> --- a/drivers/gpu/drm/tiny/gm12u320.c
+> +++ b/drivers/gpu/drm/tiny/gm12u320.c
+> @@ -8,6 +8,7 @@
+>   #include <linux/usb.h>
+>   
+>   #include <drm/clients/drm_client_setup.h>
+> +#include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_atomic_state_helper.h>
+>   #include <drm/drm_connector.h>
+> @@ -27,7 +28,6 @@
+>   #include <drm/drm_modeset_helper_vtables.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+> -#include <drm/drm_simple_kms_helper.h>
+>   
+>   static bool eco_mode;
+>   module_param(eco_mode, bool, 0644);
+> @@ -87,7 +87,9 @@ MODULE_PARM_DESC(eco_mode, "Turn on Eco mode (less bright, more silent)");
+>   
+>   struct gm12u320_device {
+>   	struct drm_device	         dev;
+> -	struct drm_simple_display_pipe   pipe;
+> +	struct drm_plane	         plane;
+> +	struct drm_crtc		         crtc;
+> +	struct drm_encoder	         encoder;
+>   	struct drm_connector	         conn;
+>   	unsigned char                   *cmd_buf;
+>   	unsigned char                   *data_buf[GM12U320_BLOCK_COUNT];
+> @@ -554,31 +556,33 @@ static int gm12u320_conn_init(struct gm12u320_device *gm12u320)
+>   }
+>   
+>   /* ------------------------------------------------------------------ */
+> -/* gm12u320 (simple) display pipe				      */
+> +/* gm12u320 display pipe						      */
+>   
+> -static void gm12u320_pipe_enable(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_crtc_state *crtc_state,
+> -				 struct drm_plane_state *plane_state)
+> +static void gm12u320_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+> +					       struct drm_atomic_commit *commit)
+>   {
+>   	struct drm_rect rect = { 0, 0, GM12U320_USER_WIDTH, GM12U320_HEIGHT };
+> -	struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
+> +	struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
+> +	struct drm_plane_state *plane_state = crtc->primary->state;
+>   	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
+>   
+>   	gm12u320->fb_update.draw_status_timeout = FIRST_FRAME_TIMEOUT;
+>   	gm12u320_fb_mark_dirty(plane_state->fb, &shadow_plane_state->data[0], &rect);
+>   }
+>   
+> -static void gm12u320_pipe_disable(struct drm_simple_display_pipe *pipe)
+> +static void gm12u320_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
+> +	struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
+>   
+>   	gm12u320_stop_fb_update(gm12u320);
+>   }
+>   
+> -static void gm12u320_pipe_update(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_plane_state *old_state)
+> +static void gm12u320_plane_helper_atomic_update(struct drm_plane *plane,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct drm_plane_state *state = pipe->plane.state;
+> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(commit, plane);
+> +	struct drm_plane_state *state = plane->state;
+>   	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
+>   	struct drm_rect rect;
+>   
+> @@ -586,11 +590,71 @@ static void gm12u320_pipe_update(struct drm_simple_display_pipe *pipe,
+>   		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
+>   }
+>   
+> -static const struct drm_simple_display_pipe_funcs gm12u320_pipe_funcs = {
+> -	.enable	    = gm12u320_pipe_enable,
+> -	.disable    = gm12u320_pipe_disable,
+> -	.update	    = gm12u320_pipe_update,
+> -	DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
+> +static const struct drm_plane_funcs gm12u320_plane_funcs = {
+> +	.update_plane	= drm_atomic_helper_update_plane,
+> +	.disable_plane	= drm_atomic_helper_disable_plane,
+> +	.destroy	= drm_plane_cleanup,
+> +	DRM_GEM_SHADOW_PLANE_FUNCS,
+> +};
+> +
+> +static int gm12u320_plane_helper_atomic_check(struct drm_plane *plane,
+> +					      struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_crtc *crtc = plane_state->crtc;
+> +	struct drm_crtc_state *crtc_state = NULL;
+> +	int ret;
+> +
+> +	if (crtc)
+> +		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> +
+> +	ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+> +						  DRM_PLANE_NO_SCALING,
+> +						  DRM_PLANE_NO_SCALING,
+> +						  false, false);
+> +	return ret;
+
+Interestingly, this patch handled _check_plane_state() correctly.
+
+Best regards
+Thomas
+
+> +}
+> +
+> +static const struct drm_plane_helper_funcs gm12u320_plane_helper_funcs = {
+> +	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+> +	.atomic_check	= gm12u320_plane_helper_atomic_check,
+> +	.atomic_update	= gm12u320_plane_helper_atomic_update,
+> +};
+> +
+> +static int gm12u320_crtc_helper_atomic_check(struct drm_crtc *crtc,
+> +					     struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> +	int ret;
+> +
+> +	if (!crtc_state->enable)
+> +		goto out;
+> +
+> +	ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
+> +	if (ret)
+> +		return ret;
+> +
+> +out:
+> +	return drm_atomic_add_affected_planes(state, crtc);
+> +}
+> +
+> +static const struct drm_crtc_helper_funcs gm12u320_crtc_helper_funcs = {
+> +	.atomic_check	= gm12u320_crtc_helper_atomic_check,
+> +	.atomic_enable	= gm12u320_crtc_helper_atomic_enable,
+> +	.atomic_disable	= gm12u320_crtc_helper_atomic_disable,
+> +};
+> +
+> +static const struct drm_crtc_funcs gm12u320_crtc_funcs = {
+> +	.set_config		= drm_atomic_helper_set_config,
+> +	.page_flip		= drm_atomic_helper_page_flip,
+> +	.reset			= drm_atomic_helper_crtc_reset,
+> +	.destroy		= drm_crtc_cleanup,
+> +	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
+> +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
+> +};
+> +
+> +static const struct drm_encoder_funcs gm12u320_encoder_funcs = {
+> +	.destroy = drm_encoder_cleanup,
+>   };
+>   
+>   static const uint32_t gm12u320_pipe_formats[] = {
+> @@ -677,13 +741,29 @@ static int gm12u320_usb_probe(struct usb_interface *interface,
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = drm_simple_display_pipe_init(&gm12u320->dev,
+> -					   &gm12u320->pipe,
+> -					   &gm12u320_pipe_funcs,
+> -					   gm12u320_pipe_formats,
+> -					   ARRAY_SIZE(gm12u320_pipe_formats),
+> -					   gm12u320_pipe_modifiers,
+> -					   &gm12u320->conn);
+> +	ret = drm_universal_plane_init(dev, &gm12u320->plane, 0,
+> +				       &gm12u320_plane_funcs,
+> +				       gm12u320_pipe_formats,
+> +				       ARRAY_SIZE(gm12u320_pipe_formats),
+> +				       gm12u320_pipe_modifiers,
+> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_plane_helper_add(&gm12u320->plane, &gm12u320_plane_helper_funcs);
+> +
+> +	ret = drm_crtc_init_with_planes(dev, &gm12u320->crtc, &gm12u320->plane, NULL,
+> +					&gm12u320_crtc_funcs, NULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_crtc_helper_add(&gm12u320->crtc, &gm12u320_crtc_helper_funcs);
+> +
+> +	ret = drm_encoder_init(dev, &gm12u320->encoder, &gm12u320_encoder_funcs,
+> +			       DRM_MODE_ENCODER_NONE, NULL);
+> +	if (ret)
+> +		return ret;
+> +	gm12u320->encoder.possible_crtcs = drm_crtc_mask(&gm12u320->crtc);
+> +
+> +	ret = drm_connector_attach_encoder(&gm12u320->conn, &gm12u320->encoder);
+>   	if (ret)
+>   		return ret;
+>   
+>
 
 -- 
-2.54.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
